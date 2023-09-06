@@ -2,6 +2,9 @@ package process;
 
 import task.TaskList;
 
+/**
+ * A class for the process of creating a todo task
+ */
 public class ToDo implements ComplexProcess {
     private TaskList tasks = TaskList.init();
     private boolean isComplete = false;

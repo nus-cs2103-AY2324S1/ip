@@ -6,6 +6,9 @@ import parser.Time;
 import task.Deadlines;
 import task.TaskList;
 
+/**
+ * A class for the process of creating a deadline task
+ */
 public class Deadline implements ComplexProcess {
     private TaskList tasks = TaskList.init();
     private String name = null;

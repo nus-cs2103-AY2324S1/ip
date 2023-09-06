@@ -5,6 +5,9 @@ import exception.MissingArgumentException;
 import parser.CommandParser;
 import task.TaskList;
 
+/**
+ * A class for the process of creating a delete task
+ */
 public class Delete implements SimpleProcess {
     private TaskList tasks = TaskList.init();
     @Override
@@ -14,7 +17,7 @@ public class Delete implements SimpleProcess {
             return tasks.deleteTask(Integer.parseInt(number));
         } catch (MissingArgumentException e) {
             return e.toString();
-        } catch (InvalidCommandException e){
+        } catch (InvalidCommandException e) {
             return e.toString();
         } catch (NumberFormatException e) {
             return " Strictly type 1 number only";

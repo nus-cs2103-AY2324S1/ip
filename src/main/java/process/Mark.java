@@ -5,6 +5,9 @@ import exception.MissingArgumentException;
 import parser.CommandParser;
 import task.TaskList;
 
+/**
+ * A class for the process of creating a mark task
+ */
 public class Mark implements SimpleProcess {
     private TaskList tasks = TaskList.init();
 

@@ -8,7 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import ui.DialogBox;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -52,6 +51,10 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Function that can be called when the MainWindow ui is rendered to display chatbot's introductory
+     * message
+     */
     public void onStart() {
         String message = evan.getIntro();
         dialogContainer.getChildren().addAll(

@@ -6,6 +6,9 @@ import exception.MissingArgumentException;
 import parser.CommandParser;
 import task.TaskList;
 
+/**
+ * A class for the process of creating a find task
+ */
 public class Find implements SimpleProcess {
     private TaskList tasks = TaskList.init();
 

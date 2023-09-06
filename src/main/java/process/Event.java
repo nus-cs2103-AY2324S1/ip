@@ -6,6 +6,9 @@ import parser.Time;
 import task.Events;
 import task.TaskList;
 
+/**
+ * A class for the process of creating an event task
+ */
 public class Event implements ComplexProcess {
     private TaskList tasks = TaskList.init();
     private String name = null;
