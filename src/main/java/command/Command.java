@@ -1,7 +1,7 @@
 package command;
 
-import duke.Ui;
 import duke.TaskList;
+import duke.Ui;
 
 /**
  * Command is an abstract class that performs the command the user types into

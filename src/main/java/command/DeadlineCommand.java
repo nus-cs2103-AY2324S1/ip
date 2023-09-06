@@ -1,17 +1,15 @@
 package command;
 
-import duke.Ui;
-import duke.TaskList;
-
-import exception.EmptyDateTimeException;
-import exception.EmptyInputException;
-import exception.InvalidDateTimeException;
-import exception.InvalidFormatException;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
+import duke.TaskList;
+import duke.Ui;
+import exception.EmptyDateTimeException;
+import exception.EmptyInputException;
+import exception.InvalidDateTimeException;
+import exception.InvalidFormatException;
 import task.Deadline;
 
 /**
@@ -43,7 +41,7 @@ public class DeadlineCommand extends Command {
         } else {
             String tempDescription = input.split(" ", 2)[1];
             System.out.println(tempDescription);
-            String description = tempDescription.split(" /by " )[0];
+            String description = tempDescription.split(" /by ")[0];
             String by = tempDescription.split(" /by ")[1];
             try {
                 String[] dateTimeArr = by.split(" ");

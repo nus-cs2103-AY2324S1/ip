@@ -5,7 +5,7 @@ package exception;
  * into the input command.
  */
 public class InvalidDateTimeException extends DukeException {
-    String message;
+    protected String message;
 
     /**
      * The constructor of InvalidDateTimeException.

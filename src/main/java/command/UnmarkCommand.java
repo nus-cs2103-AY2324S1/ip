@@ -1,7 +1,7 @@
 package command;
 
-import duke.Ui;
 import duke.TaskList;
+import duke.Ui;
 
 /**
  * The Command which indicates the user wishes to mark a specific task in the

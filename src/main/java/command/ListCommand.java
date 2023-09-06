@@ -1,7 +1,7 @@
 package command;
 
-import duke.Ui;
 import duke.TaskList;
+import duke.Ui;
 
 /**
  * The Command to indicate that the user wants the chatbot to list out the current

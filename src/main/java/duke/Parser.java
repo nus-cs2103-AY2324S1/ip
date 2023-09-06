@@ -1,6 +1,16 @@
 package duke;
 
-import command.*;
+import command.ByeCommand;
+import command.Command;
+import command.DeadlineCommand;
+import command.DeleteCommand;
+import command.EventCommand;
+import command.FindCommand;
+import command.InvalidCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.TodoCommand;
+import command.UnmarkCommand;
 
 /**
  * Parser reads the primary user input and deals with making sense of the input.

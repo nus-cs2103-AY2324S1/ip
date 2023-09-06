@@ -1,7 +1,7 @@
 package command;
 
-import duke.Ui;
 import duke.TaskList;
+import duke.Ui;
 
 /**
  * The Command that indicates the user wishes to mark a specific task as done.

@@ -1,7 +1,5 @@
 package task;
 
-import task.Task;
-
 /**
  * Todo is a Task that has only the description.
  */

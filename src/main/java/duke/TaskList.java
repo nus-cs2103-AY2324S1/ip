@@ -1,8 +1,8 @@
 package duke;
 
-import task.Task;
-
 import java.util.ArrayList;
+
+import task.Task;
 
 /**
  * TaskList represent the list of tasks of the user.
@@ -89,6 +89,11 @@ public class TaskList {
                 + Ui.SEPARATOR);
     }
 
+    /**
+     * Finds the task in the list of tasks with the given keyword.
+     *
+     * @param keyword The keyword the user wants to search for in the tasks.
+     */
     public void findTask(String keyword) {
         if (taskList.isEmpty()) {
             System.out.println("You have no tasks in your list yet :O");

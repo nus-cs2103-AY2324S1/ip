@@ -1,7 +1,7 @@
 package command;
 
-import duke.Ui;
 import duke.TaskList;
+import duke.Ui;
 
 /**
  * The Command to indicate that the user wishes to exit the chatbot.

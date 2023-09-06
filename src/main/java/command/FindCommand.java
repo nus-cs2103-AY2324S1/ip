@@ -2,9 +2,11 @@ package command;
 
 import duke.TaskList;
 import duke.Ui;
-
 import exception.EmptyInputException;
 
+/**
+ * FindCommand finds the task in the task list with the keyword the user inputs.
+ */
 public class FindCommand extends Command {
     private TaskList taskList;
     private Ui ui;

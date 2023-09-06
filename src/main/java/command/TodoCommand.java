@@ -1,10 +1,8 @@
 package command;
 
-import duke.Ui;
 import duke.TaskList;
-
+import duke.Ui;
 import exception.EmptyInputException;
-
 import task.Todo;
 
 /**
