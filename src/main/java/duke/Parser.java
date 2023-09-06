@@ -142,8 +142,8 @@ public class Parser {
         } catch (java.time.format.DateTimeParseException e) {
             //detect inputs that don't follow the yyyy-MM-dd HHmm format
             ui.printException();
-        } catch (InvalidInputException | EventCommandUseException |
-                 DeadlineCommandUseException | ToDoCommandUseException e) {
+        } catch (InvalidInputException | EventCommandUseException
+                | DeadlineCommandUseException | ToDoCommandUseException e) {
             ui.printException(e.getMessage());
         }
     }
