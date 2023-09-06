@@ -11,13 +11,13 @@ import java.util.regex.Pattern;
 import cheese.Task.Task;
 
 public class Parser {
-  final static String byPatternString = "\\(by: (.*?)\\)";
-  final static String fromPatternString = "from: (.*?) to:";
-  final static String toPatternString = "to: (.*)\\)$";
+  final static String BY_PATTERN_STRING = "\\(by: (.*?)\\)";
+  final static String FROM_PATTERN_STRING = "from: (.*?) to:";
+  final static String TO_PATTERN_STRING = "to: (.*)\\)$";
 
-  final static Pattern byPattern = Pattern.compile(byPatternString);
-  final static Pattern fromPattern = Pattern.compile(fromPatternString);
-  final static Pattern toPattern = Pattern.compile(toPatternString);
+  final static Pattern byPattern = Pattern.compile(BY_PATTERN_STRING);
+  final static Pattern fromPattern = Pattern.compile(FROM_PATTERN_STRING);
+  final static Pattern toPattern = Pattern.compile(TO_PATTERN_STRING);
 
   public boolean isBy(String input) {
     Matcher byMatcher = byPattern.matcher(input);
@@ -55,7 +55,7 @@ public class Parser {
     return toMatcher;
   }
 
-  public LocalDate dateTimeConverted(String dateInput) {
+  public LocalDate convertDateTime(String dateInput) {
     DateTimeFormatter inputformat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     DateTimeFormatter outputformat = DateTimeFormatter.ofPattern("MMM dd yyyy");
     Optional<LocalDate> localDate = parseDate(dateInput, inputformat);
@@ -132,7 +132,7 @@ public class Parser {
         break;
         case "deadline":
         String[] deadlineSplit = taskDescription.split(" /by ", 2);
-        LocalDate deadlineDate = dateTimeConverted(deadlineSplit[1].trim());
+        LocalDate deadlineDate = convertDateTime(deadlineSplit[1].trim());
         if (deadlineDate != null) {
           System.out.println("Its proper LocalDate");
           newTask = new Task('D',deadlineSplit[0].trim(), deadlineDate);
@@ -143,8 +143,8 @@ public class Parser {
 
         case "event":
         String[] eventInfo = taskDescription.split(" /from ", 2);
-        String[] eventInfo2 = eventInfo[1].split(" /to ", 2);
-        newTask = new Task('E',eventInfo[0].trim(), eventInfo2[0].trim(), eventInfo2[1].trim());
+        String[] eventInfoTwo = eventInfo[1].split(" /to ", 2);
+        newTask = new Task('E',eventInfo[0].trim(), eventInfoTwo[0].trim(), eventInfoTwo[1].trim());
         break;
         
 

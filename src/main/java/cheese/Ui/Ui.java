@@ -39,7 +39,7 @@ public class Ui {
   }
 
   /**
-   * show error message
+   * show Bye message
    *
    */
   public void showBye() {

@@ -43,12 +43,12 @@ public class Storage {
       while (sc.hasNextLine()) {
         String line = sc.nextLine();
         String[] splitLine = line.split("\\|");
-        char type = splitLine[0].charAt(1);
+        char taskType = splitLine[0].charAt(1);
         boolean isDone = (splitLine[0].charAt(4) == 'X');
         String description = splitLine[1].trim();
-        switch (type) {
+        switch (taskType) {
           case 'T':
-          Task todo = new Task(type, description);
+          Task todo = new Task(taskType, description);
           if (isDone) {
             todo.markAsDone();
           }
@@ -58,17 +58,17 @@ public class Storage {
           if (parser.isBy(description)) {
             String deadlineInfo = parser.matchBy(description).group(1);
             String desc = description.split(" \\(")[0];
-            LocalDate deadlineDate = parser.dateTimeConverted(deadlineInfo);
+            LocalDate deadlineDate = parser.convertDateTime(deadlineInfo);
             // Can be formatted as a LocalDate obj
             if (deadlineDate != null) {
 
-              Task deadline = new Task(type, desc, deadlineDate);
+              Task deadline = new Task(taskType, desc, deadlineDate);
               if (isDone) {
                 deadline.markAsDone();
               }
               this.taskList.addTask(deadline);
             } else { // Cannot be formatted as a LocalDate obj
-              Task deadline = new Task(type, desc, deadlineInfo);
+              Task deadline = new Task(taskType, desc, deadlineInfo);
               if (isDone) {
                 deadline.markAsDone();
               }
@@ -82,7 +82,7 @@ public class Storage {
             String eventFrom = parser.matchFrom(splitLine[1]).group(1);
             String eventTo = parser.matchTo(splitLine[1]).group(1);
             String desc = splitLine[1].split(" ")[0];
-            Task event = new Task(type, desc, eventFrom, eventTo);
+            Task event = new Task(taskType, desc, eventFrom, eventTo);
 
             if (isDone) {
               event.markAsDone();
@@ -100,7 +100,7 @@ public class Storage {
     
   }
 
-  public void saveTask(List cheeseList) {
+  public void saveTask(List<Task> cheeseList) {
     try {
       FileWriter fw = new FileWriter(this.file);
       for (int i = 0; i < this.taskList.getSize(); i++) {
