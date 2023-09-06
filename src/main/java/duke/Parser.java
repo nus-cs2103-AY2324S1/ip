@@ -92,19 +92,22 @@ public class Parser {
         if (words.length == 2) {
             if (isMarkCommand(words[0])) {
                 int taskIndex = Integer.parseInt(words[1]) - 1;
-                ui.showMessage(tasks.markTaskAsDone(taskIndex));
+                String output = tasks.markTaskAsDone(taskIndex);
+                ui.showMessage(output);
                 return true;
             }
 
             if (isUnmarkCommand(words[0])) {
                 int taskIndex = Integer.parseInt(words[1]) - 1;
-                ui.showMessage(tasks.unmarkTaskAsDone(taskIndex));
+                String output = tasks.unmarkTaskAsDone(taskIndex);
+                ui.showMessage(output);
                 return true;
             }
 
             if (isDeleteCommand(words[0])) {
                 int taskIndex = Integer.parseInt(words[1]) - 1;
-                ui.showMessage(tasks.deleteTask(taskIndex));
+                String output = tasks.deleteTask(taskIndex);
+                ui.showMessage(output);
                 return true;
             }
         }
@@ -126,5 +129,50 @@ public class Parser {
             throw new InvalidInputException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         return true;
+    }
+
+    /**
+     * Parses the user's input and performs the corresponding operations.
+     *
+     * @param userInput The user's input.
+     * @param tasks     The current duke.TaskList with all the tasks.
+     * @param ui        The current duke.Ui for user interaction.
+     * @return String the String response of the GUI chat box.
+     * @throws DukeException If there's an issue with the user input or task operations.
+     */
+    public static String parseInput(String userInput, TaskList tasks, Ui ui) throws DukeException {
+        String[] words = userInput.split(" ");
+        if (words.length == 2) {
+            if (isMarkCommand(words[0])) {
+                int taskIndex = Integer.parseInt(words[1]) - 1;
+                return tasks.markTaskAsDone(taskIndex);
+            }
+
+            if (isUnmarkCommand(words[0])) {
+                int taskIndex = Integer.parseInt(words[1]) - 1;
+                return tasks.unmarkTaskAsDone(taskIndex);
+            }
+
+            if (isDeleteCommand(words[0])) {
+                int taskIndex = Integer.parseInt(words[1]) - 1;
+                return tasks.deleteTask(taskIndex);
+            }
+        }
+
+        if (isListCommand(userInput)) {
+            return ui.showList(tasks);
+        } else if (isExitCommand(userInput)) {
+            return ui.showBye();
+        } else if (isFindCommand(userInput)) {
+            String keyword = userInput.replaceFirst("find", "").trim();
+            if (keyword.isEmpty()) {
+                throw new InvalidInputException("OOPS!!! I'm sorry, please provide a keyword to search.");
+            }
+            return tasks.findTasks(keyword);
+        } else if (isValidCommand(userInput)) {
+            return tasks.addTask(userInput);
+        } else {
+            throw new InvalidInputException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
     }
 }

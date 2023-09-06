@@ -7,9 +7,18 @@ import duke.exception.DukeException;
  * It allows users to add, delete, mark, unmark, specify, and list tasks.
  */
 public class Duke {
+
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
+    /**
+     * Constructor for duke.Duke class with no parameters
+     */
+    public Duke() {
+        ui = new Ui();
+        tasks = new TaskList();
+    }
 
     /**
      * Constructor for duke.Duke class
@@ -44,6 +53,20 @@ public class Duke {
     }
 
     /**
+     * Run for GUI Duke application
+     *
+     * @param userInput The user's input
+     * @return The String response for the given user's input
+     */
+    public String runInput(String userInput) {
+        try {
+            return Parser.parseInput(userInput, this.tasks, this.ui);
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
+    }
+
+    /**
      * The main function of the duke.Duke application.
      *
      * @param args Command line arguments
@@ -52,4 +75,5 @@ public class Duke {
     public static void main(String[] args) {
         new Duke("C:/repos/ip/src/main/java/data/duke.txt").run();
     }
+
 }

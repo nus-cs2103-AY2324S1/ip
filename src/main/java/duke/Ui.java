@@ -44,25 +44,33 @@ public class Ui {
 
     /**
      * Displays an error message indicating that loading a file has failed.
+     *
+     * @return The output as a String.
      */
-    public void showLoadingError() {
+    public String showLoadingError() {
         System.out.println("File not found");
+        return "File not found";
     }
 
     /**
      * Displays the list of tasks.
      *
      * @param tasks The current duke.TaskList containing tasks to display.
+     * @return The output as a String.
      */
-    public void showList(TaskList tasks) {
+    public String showList(TaskList tasks) {
         System.out.println(tasks.toString());
+        return tasks.toString();
     }
 
     /**
      * Displays a goodbye message to the user.
+     *
+     * @return The output as a String.
      */
-    public void showBye() {
+    public String showBye() {
         this.scanner.close();
         System.out.println("Bye. Hope to see you again soon!");
+        return "Bye. Hope to see you again soon!";
     }
 }
