@@ -1,11 +1,13 @@
 package parser;
 
-import exceptions.*;
-import tasks.TaskList;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import exceptions.EkudException;
+import exceptions.EkudIllegalArgException;
+import exceptions.EkudInvalidCommandException;
+import tasks.TaskList;
 
 /**
  * The Parser class serves as an interface between the user and the chatbot by
@@ -67,9 +69,9 @@ public class Parser {
                 taskList.addDeadline(description, dateTime);
                 break;
             } catch (IndexOutOfBoundsException | DateTimeParseException e) {
-                throw new EkudIllegalArgException("Deadline formatted wrongly\n" +
-                        "-> Ensure 'deadline <description> /by <dd-mm-yyyy> OR <dd-MM-yyyy hhmm>' " +
-                        "is followed\n"
+                throw new EkudIllegalArgException("Deadline formatted wrongly\n"
+                        + "-> Ensure 'deadline <description> /by <dd-mm-yyyy> OR <dd-MM-yyyy hhmm>' "
+                        + "is followed\n"
                         + "-> For example: deadline finish quiz /by 03-10-2023 1830");
             }
         case ADDEVENT:
@@ -85,11 +87,11 @@ public class Parser {
                 taskList.addEvent(description, fromDateTime, toDateTime);
                 break;
             } catch (IndexOutOfBoundsException | DateTimeParseException e) {
-                throw new EkudIllegalArgException("Event formatted wrongly\n" +
-                        "-> Ensure 'event <description> /from <dd-MM-yyyy hhmm> /to <dd-MM-yyyy hhmm>' " +
-                        "is followed\n"
-                        + "-> For example: event company dinner /from 03-10-2023 1730 /to " +
-                        "03-10-2023 2215");
+                throw new EkudIllegalArgException("Event formatted wrongly\n"
+                        + "-> Ensure 'event <description> /from <dd-MM-yyyy hhmm> /to <dd-MM-yyyy hhmm>' "
+                        + "is followed\n"
+                        + "-> For example: event company dinner /from 03-10-2023 1730 /to "
+                        + "03-10-2023 2215");
             }
         case DELETETASK:
             try {
@@ -105,8 +107,8 @@ public class Parser {
                 throw new EkudIllegalArgException("Keyword shouldn't be empty :(");
             }
             if (keyword.length > 1) {
-                throw new EkudIllegalArgException("Please input a valid keyword (multiple words " +
-                        "are not accepted) :(");
+                throw new EkudIllegalArgException("Please input a valid keyword (multiple words "
+                        + "are not accepted) :(");
             }
             taskList.findTasks(keyword[0]);
             break;

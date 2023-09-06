@@ -1,10 +1,11 @@
-import exceptions.*;
+import java.util.Scanner;
+
+import exceptions.EkudException;
+import exceptions.EkudIOException;
 import parser.Parser;
 import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
-
-import java.util.Scanner;
 
 /**
  * The Ekud chatbot where the main functionality of this program runs in.
@@ -71,4 +72,5 @@ public class Ekud {
             System.out.println(e);
         }
     }
+
 }

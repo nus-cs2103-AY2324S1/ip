@@ -1,17 +1,17 @@
 package storage;
 
-import exceptions.*;
-import parser.Parser;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.TaskList;
-import tasks.ToDo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
+
+import exceptions.EkudIOException;
+import parser.Parser;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.TaskList;
+import tasks.ToDo;
 
 /**
  * The Storage class deals with handling the saved tasks file on the hard disk, by loading its contents
@@ -74,7 +74,9 @@ public class Storage {
                     LocalDateTime toDateTime = parser.parseSavedDateTime(taskDetails[4]);
                     taskList.addTask(new Event(taskDetails[2], fromDateTime, toDateTime));
                 }
-                if (isDone) taskList.markDoneOnStart(curTask);
+                if (isDone) {
+                    taskList.markDoneOnStart(curTask);
+                }
                 curTask++;
             }
             if (curTask == 0) {
