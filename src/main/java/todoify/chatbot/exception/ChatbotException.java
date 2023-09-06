@@ -1,12 +1,12 @@
 package todoify.chatbot.exception;
 
 /**
- * A checked exception caused by chatbot processing.
+ * A checked exception caused by chatbot activities.
  */
 public class ChatbotException extends Exception {
 
     /**
-     * Constructs a new checked exception caused by chatbot processing.
+     * Constructs a new checked exception caused by chatbot activities.
      *
      * @param message The associated message.
      */

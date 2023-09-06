@@ -1,12 +1,12 @@
 package todoify.chatbot.exception;
 
 /**
- * A runtime exception caused by chatbot processing.
+ * A runtime exception caused by chatbot activities.
  */
 public class ChatbotRuntimeException extends RuntimeException {
 
     /**
-     * Constructs a new runtime exception caused by chatbot processing.
+     * Constructs a new runtime exception caused by chatbot activities.
      *
      * @param message The associated message.
      */
