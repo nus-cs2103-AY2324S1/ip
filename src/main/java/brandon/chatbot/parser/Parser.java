@@ -9,6 +9,7 @@ import brandon.chatbot.commands.ExitCommand;
 import brandon.chatbot.commands.ListCommand;
 import brandon.chatbot.commands.MarkCommand;
 import brandon.chatbot.commands.UnmarkCommand;
+import brandon.chatbot.commands.UnknownCommand;
 import brandon.chatbot.common.DukeException;
 import brandon.chatbot.common.DukeUnknownCommandException;
 
@@ -22,10 +23,10 @@ public class Parser {
             + "/from(?<from>[^/]+)"
             + "/to(?<to>[^/]+)");
 
-    public Command parseCommand(String userInput) throws DukeException {
+    public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new DukeUnknownCommandException();
+            return new UnknownCommand();
         }
 
         final String commandWord = matcher.group("commandWord").toLowerCase();
@@ -54,37 +55,35 @@ public class Parser {
         return null;
     }
 
-    private Command prepareTodo(String args) throws DukeException {
+    private Command prepareTodo(String args) {
         final Matcher matcher = TODO_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
-            throw new DukeUnknownCommandException();
+            return new UnknownCommand();
         }
         try {
             return new AddTodoCommand(matcher.group("name"));
         } catch (DukeException e) {
-            throw e;
+            return new UnknownCommand();
         }
     }
-    private Command prepareDeadline(String args) throws DukeException {
+    private Command prepareDeadline(String args) {
         final Matcher matcher = DEADLINE_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
-            throw new DukeUnknownCommandException();
+            return new UnknownCommand();
         }
         try {
             return new AddDeadlineCommand(matcher.group("name"), matcher.group("deadline").strip());
         } catch (DukeException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            return new UnknownCommand();
         }
     }
-    private Command prepareEvent(String args) throws DukeException {
+    private Command prepareEvent(String args) {
         final Matcher matcher = EVENT_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
-            throw new DukeUnknownCommandException();
+            return new UnknownCommand();
         }
         try {
             System.out.println("to match: " + matcher.group("to").strip());
@@ -94,9 +93,7 @@ public class Parser {
                     matcher.group("to").strip()
             );
         } catch (DukeException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            return new UnknownCommand();
         }
     }
     private Command prepareDelete(String args) {
@@ -114,5 +111,9 @@ public class Parser {
         return new UnmarkCommand(index);
     }
 
-
+    public static class ParseException extends Exception {
+        ParseException(String message) {
+            super(message);
+        }
+    }
 }

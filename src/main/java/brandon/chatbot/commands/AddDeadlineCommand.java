@@ -8,7 +8,7 @@ public class AddDeadlineCommand extends Command {
     private Deadline toAdd;
     public static final String ADD_SUCCESS = "ok... I'm adding..";
 
-    public AddDeadlineCommand(String taskName, String deadline) throws Exception {
+    public AddDeadlineCommand(String taskName, String deadline) throws DukeException {
         this.toAdd = new Deadline(taskName, deadline);
     }
 

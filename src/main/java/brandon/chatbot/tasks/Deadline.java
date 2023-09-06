@@ -10,7 +10,7 @@ public class Deadline extends Task {
 
     private String deadline;
 
-    public Deadline(String title, String deadline) throws Exception {
+    public Deadline(String title, String deadline) throws DukeException {
         super(title);
         if (deadline.isBlank()) {
             throw new DukeException("    Deadline cannot be blank...\n--------------------------------");
@@ -20,7 +20,7 @@ public class Deadline extends Task {
             LocalDate d1 = LocalDate.parse(deadline, DateTimeFormatter.ofPattern(dateFormat));
             this.deadline = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         } catch (DateTimeParseException e) {
-            throw new Exception("Could you try your date in yyyy-mm-dd format instead...?");
+            throw new DukeException("Could you try your date in yyyy-mm-dd format instead...?");
         }
     }
 
