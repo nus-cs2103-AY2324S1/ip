@@ -1,7 +1,6 @@
 package bruno;
 
 import java.time.DateTimeException;
-import java.util.Scanner;
 
 import bruno.exceptions.BrunoException;
 
@@ -34,35 +33,20 @@ public class Bruno {
     /**
      * Runs the Bruno application, allowing the user to interact with the task management system
      */
-    public void runBruno() {
+    public String runBruno(String s) throws bruno.exceptions.BrunoException {
         Parser parser = new Parser(tasks);
-        Scanner sc = new Scanner(System.in);
-        ui.displayLines();
-        ui.displayGreeting();
-        ui.displayLines();
-        do {
-            try {
-                String s = sc.nextLine();
-                ui.displayLines();
-                boolean flag = parser.parseInput(s);
-                if (!flag) {
-                    ui.displayBye();
-                    ui.displayLines();
-                    System.exit(0);
-                }
-                ui.displayLines();
-            } catch (BrunoException e) {
-                System.out.println(e.getMessage());
-                ui.displayLines();
-            } catch (DateTimeException e) {
-                System.out.println("\tDate and Time is not in correct format.");
-                ui.displayLines();
-            }
-        } while (true);
+        String flag = parser.parseInput(s);
+        if (flag.equals("bye")) {
+            return ui.displayBye();
+        }
+        return flag;
     }
 
-    public static void main(String[] args) {
-        Bruno bruno = new Bruno("data/", "bruno.txt");
-        bruno.runBruno();
+    public String getResponse(String s) {
+        try {
+            return runBruno(s);
+        } catch (BrunoException | DateTimeException e) {
+            return e.getMessage();
+        }
     }
 }

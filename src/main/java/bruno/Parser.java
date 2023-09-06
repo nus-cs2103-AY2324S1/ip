@@ -23,43 +23,30 @@ public class Parser {
      * @return Flag value for termination.
      * @throws BrunoException Thrown if any error occurs in any of the tasks.
      */
-    public boolean parseInput(String input) throws BrunoException {
+    public String parseInput(String input) throws BrunoException {
         try {
             TaskType type = TaskType.valueOf(input.split(" ")[0].toUpperCase());
             switch (type) {
             case BYE:
-                return false;
+                return "bye";
             case LIST:
-                taskList.displayList();
-                return true;
+                return taskList.displayList();
             case MARK:
-                taskList.markTask(input);
-                return true;
+                return taskList.markTask(input);
             case UNMARK:
-                taskList.unmarkTask(input);
-                return true;
+                return taskList.unmarkTask(input);
             case DELETE:
-                taskList.deleteTask(input);
-                taskList.displayListSum();
-                return true;
+                return taskList.deleteTask(input) + "\n" + taskList.displayListSum();
             case TODO:
-                taskList.addToDo(input);
-                taskList.displayListSum();
-                return true;
+                return taskList.addToDo(input) + "\n" + taskList.displayListSum();
             case DEADLINE:
-                taskList.addDeadline(input);
-                taskList.displayListSum();
-                return true;
+                return taskList.addDeadline(input) + "\n" + taskList.displayListSum();
             case EVENT:
-                taskList.addEvent(input);
-                taskList.displayListSum();
-                return true;
+                return taskList.addEvent(input) + "\n" + taskList.displayListSum();
             case SCHEDULE:
-                taskList.showSchedule(input);
-                return true;
+                return taskList.showSchedule(input);
             case FIND:
-                taskList.findTasks(input);
-                return true;
+                return taskList.findTasks(input);
             default:
                 throw new BrunoUnknownTaskException();
             }
