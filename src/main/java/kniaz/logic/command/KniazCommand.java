@@ -1,15 +1,15 @@
-package main.logic.command;
+package kniaz.logic.command;
 
 import java.util.List;
 import java.util.Map;
 
-import main.KniazSession;
-import main.logic.handler.CommandHandler;
+import kniaz.KniazSession;
+import kniaz.logic.handler.CommandHandler;
 import ui.inputparser.InstructionType;
 
 
 /**
- * Represents a command to be executed within the Kniaz application.
+ * Represents a command to be executed within the kniaz.Kniaz application.
  * A KniazCommand encapsulates the necessary information to execute a command,
  * including its instruction type, command handler, and arguments.
  */

@@ -1,11 +1,11 @@
-package main.logic.handler;
+package kniaz.logic.handler;
 
 
 
 import java.util.List;
 import java.util.Map;
 
-import main.KniazSession;
+import kniaz.KniazSession;
 
 
 /**

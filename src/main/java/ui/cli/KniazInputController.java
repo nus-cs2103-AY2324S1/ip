@@ -1,8 +1,8 @@
-package ui;
+package ui.cli;
 
 import java.util.Scanner;
 
-import main.logic.command.KniazCommand;
+import kniaz.logic.command.KniazCommand;
 import ui.inputparser.KniazLineParser;
 
 

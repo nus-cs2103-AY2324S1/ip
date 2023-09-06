@@ -1,6 +1,7 @@
-package ui;
+package ui.cli;
 
-import main.logic.command.KniazCommand;
+import kniaz.logic.command.KniazCommand;
+import ui.KniazOutputFlavourer;
 
 
 /**

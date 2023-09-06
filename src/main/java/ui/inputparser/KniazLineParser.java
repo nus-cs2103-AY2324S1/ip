@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 import exceptions.syntax.MissingUnnamedArgsException;
-import main.logic.command.CommandFactory;
-import main.logic.command.KniazCommand;
+import kniaz.logic.command.CommandFactory;
+import kniaz.logic.command.KniazCommand;
 
 
 
 
 /**
- * Class encapsulating logic of parsing & tokenizing commands given to Kniaz
+ * Class encapsulating logic of parsing & tokenizing commands given to kniaz.Kniaz
  */
 public class KniazLineParser {
 

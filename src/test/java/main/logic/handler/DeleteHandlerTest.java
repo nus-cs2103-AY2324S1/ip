@@ -10,7 +10,8 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import exceptions.syntax.ArgFormatException;
-import main.KniazSession;
+import kniaz.KniazSession;
+import kniaz.logic.handler.DeleteHandler;
 import storage.TaskList;
 import task.Task;
 

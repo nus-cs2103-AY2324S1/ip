@@ -1,8 +1,8 @@
 package ui.inputparser;
 
 /**
- * The types of instructions that Kniaz can accept
- * Each member of this enum has an alias, that represents the command typed into Kniaz
+ * The types of instructions that kniaz.Kniaz can accept
+ * Each member of this enum has an alias, that represents the command typed into kniaz.Kniaz
  * E.g. the DEADLINE InstructionType is related to the command "deadline".
  */
 public enum InstructionType {

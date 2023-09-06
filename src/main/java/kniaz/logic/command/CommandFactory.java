@@ -1,25 +1,26 @@
-package main.logic.command;
+package kniaz.logic.command;
 
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-import main.logic.handler.CommandHandler;
-import main.logic.handler.DeadlineHandler;
-import main.logic.handler.DeleteHandler;
-import main.logic.handler.EventHandler;
-import main.logic.handler.FindHandler;
-import main.logic.handler.InvalidHandler;
-import main.logic.handler.ListHandler;
-import main.logic.handler.MarkHandler;
-import main.logic.handler.QuitHandler;
-import main.logic.handler.ToDoHandler;
-import main.logic.handler.UnmarkHandler;
+import kniaz.logic.handler.CommandHandler;
+import kniaz.logic.handler.DeadlineHandler;
+import kniaz.logic.handler.DeleteHandler;
+import kniaz.logic.handler.EventHandler;
+import kniaz.logic.handler.FindHandler;
+import kniaz.logic.handler.InvalidHandler;
+import kniaz.logic.handler.ListHandler;
+import kniaz.logic.handler.MarkHandler;
+import kniaz.logic.handler.QuitHandler;
+import kniaz.logic.handler.ToDoHandler;
+import kniaz.logic.handler.UnmarkHandler;
 import ui.inputparser.InstructionType;
 
 
 /**
- * Class encapsulating a command given to Kniaz, should only be instantiated via KniazParser when it parses a command
+ * Class encapsulating a command given to kniaz.Kniaz,
+ * should only be instantiated via KniazParser when it parses a command
  */
 public abstract class CommandFactory {
     private static final EnumMap<InstructionType, CommandHandler> INSTRUCT_TO_HANDLER =

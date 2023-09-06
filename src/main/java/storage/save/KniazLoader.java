@@ -10,7 +10,7 @@ import storage.TaskList;
 
 
 /**
- *  Encapsulates a class to help load Kniaz tasklist data from disk.
+ *  Encapsulates a class to help load kniaz.Kniaz tasklist data from disk.
  */
 public class KniazLoader {
 

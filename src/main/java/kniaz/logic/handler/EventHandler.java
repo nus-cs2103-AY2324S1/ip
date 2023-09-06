@@ -1,4 +1,4 @@
-package main.logic.handler;
+package kniaz.logic.handler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import exceptions.syntax.MissingNamedArgsException;
 import exceptions.syntax.MissingUnnamedArgsException;
-import main.KniazSession;
+import kniaz.KniazSession;
 import task.Event;
 import task.Task;
 
