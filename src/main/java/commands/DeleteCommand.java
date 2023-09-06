@@ -6,7 +6,7 @@ import functional.Ui;
 import tasks.Task;
 
 
-public class DeleteCommand extends commands.Command {
+public class DeleteCommand extends Command {
 
     public DeleteCommand() {
         super();
@@ -19,9 +19,9 @@ public class DeleteCommand extends commands.Command {
         }
         Task job = (Task) tasks.get(index);
         tasks.remove(index);
-        System.out.println("____________________________________________________________\n" +
+        System.out.println(ui.showLine() + "\n" +
                 "Noted, I've removed this task:\n" + job.toString() + "\n" +
-                String.format("Now you have %d tasks in the list\n", tasks.size()) +
-                "____________________________________________________________");
+                String.format("Now you have %d tasks in the list\n", tasks.size())
+                + ui.showLine());
     }
 }

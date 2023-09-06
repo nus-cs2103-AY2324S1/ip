@@ -7,16 +7,16 @@ import tasks.Task;
 
 
 public class Command {
-    boolean isExit;
+    boolean hasExit;
 
     public Command() {
-        this.isExit = false;
+        this.hasExit = false;
     }
 
     public void execute(TaskList<Task> tasks, Ui ui, boolean marked, boolean load) throws DukeException {
     }
 
-    public boolean isExit() {
-        return this.isExit;
+    public boolean hasExit() {
+        return this.hasExit;
     }
 }

@@ -1,36 +1,36 @@
 import commands.Command;
-import functional.Storage;
+import functional.*;
 import tasks.Task;
 
 public class Duke {
     private Storage storage;
-    private functional.TaskList<Task> tasks;
-    private functional.Ui ui;
+    private TaskList<Task> tasks;
+    private Ui ui;
     private String filePath;
 
     public Duke(String filePath) {
-        ui = new functional.Ui();
+        ui = new Ui();
         storage = new Storage(filePath);
         this.filePath = filePath;
         try {
-            tasks = new functional.TaskList<Task>(storage.load());
-        } catch (functional.DukeException e) {
+            tasks = new TaskList<Task>(storage.load());
+        } catch (DukeException e) {
             ui.showLoadingError();
-            tasks = new functional.TaskList<Task>();
+            tasks = new TaskList<Task>();
         }
     }
 
     public void run() {
         ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
+        boolean hasExit = false;
+        while (!hasExit) {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
-                Command c = functional.Parser.parse(fullCommand);
+                Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, false, false);
-                isExit = c.isExit();
-            } catch (functional.DukeException e) {
+                hasExit = c.hasExit();
+            } catch (DukeException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();

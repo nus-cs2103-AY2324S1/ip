@@ -23,7 +23,7 @@ public class Ui {
                 "____________________________________________________________");
     }
 
-    public String readCommand() throws functional.DukeException {
+    public String readCommand() throws DukeException {
         Scanner io = new Scanner(System.in);
         try {
             String s = io.nextLine();
@@ -31,7 +31,7 @@ public class Ui {
             this.input = s;
             return s;
         } catch (NoSuchElementException e) {
-            throw new functional.DukeException();
+            throw new DukeException();
         }
     }
 
@@ -57,9 +57,5 @@ public class Ui {
 
     public void showLoadingError() {
         System.out.println("No preexisting file\n" + "creating new file");
-    }
-
-    public static void main(String[] args) {
-
     }
 }

@@ -11,12 +11,12 @@ public class ListCommand extends Command {
     }
 
     public void execute(TaskList tasks, Ui ui, boolean marked, boolean load) {
-        System.out.println("____________________________________________________________\n" +
+        System.out.println(ui.showLine() + "\n" +
                 "Here are the tasks in your list");
         for (int i = 0; i < tasks.size(); i++) {
             Task job = (Task) tasks.get(i);
             System.out.println(String.format("%d. %s", i + 1, job.toString()));
         }
-        System.out.println("____________________________________________________________");
+        System.out.println(ui.showLine());
     }
 }

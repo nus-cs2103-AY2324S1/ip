@@ -17,29 +17,26 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public List<Task> load() throws functional.DukeException {
+    public List<Task> load() throws DukeException {
         File f = new File(filePath);
-        functional.TaskList<Task> tl = new functional.TaskList<>();
+        TaskList<Task> tl = new TaskList<>();
         try {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String line = s.nextLine();
                 String[] input = line.split(" ", 2);
-                Command c = functional.Parser.parse(input[1]);
+                Command c = Parser.parse(input[1]);
                 Ui ui = new Ui(input[1]);
                 c.execute(tl, ui, Boolean.parseBoolean(input[0]), true);
-                // tl.add(new Task(s.nextLine()));
-                // System.out.println(s.nextLine());
             }
         } catch (FileNotFoundException e) {
-            throw new functional.DukeException();
-            // System.out.println("File not found");
+            throw new DukeException();
         }
         System.out.println("Opening Saved File");
         return tl;
     }
 
-    public void save(functional.TaskList<Task> tl) {
+    public void save(TaskList<Task> tl) {
         File f = new File(filePath);
         if (!f.exists()) {
             f.getParentFile().mkdirs();
