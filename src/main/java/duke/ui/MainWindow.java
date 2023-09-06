@@ -1,6 +1,13 @@
 package duke.ui;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import duke.Duke;
+import duke.commands.Command;
+import duke.commands.CommandType;
+import duke.exceptions.DukeException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -37,45 +44,30 @@ public class MainWindow extends AnchorPane {
         duke = d;
     }
 
-    public static String combineStrings(String[] array) {
-        if (array == null || array.length == 0) {
-            return "";
-        }
-
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String str : array) {
-            stringBuilder.append(str).append("\n");
-        }
-
-        // Remove the trailing newline character, if any
-        int length = stringBuilder.length();
-        if (length > 0 && stringBuilder.charAt(length - 1) == '\n') {
-            stringBuilder.deleteCharAt(length - 1);
-        }
-
-        return stringBuilder.toString();
-    }
-
     public void greet() {
         this.showDukeDialog(duke.greet());
     }
 
-    public void showDukeDialog(String[] input) {
-        this.showDukeDialog(combineStrings(input));
+    /**
+     * Shows dialog box for Duke messages.
+     *
+     * @param response Response message from Duke.
+     */
+    public void showDukeDialog(String response) {
+        DialogBox dukeDialog = DialogBox.getDukeDialog(response, dukeImage);
+        dukeDialog.setMinHeight(Region.USE_PREF_SIZE);
+        this.dialogContainer.getChildren().addAll(dukeDialog);
     }
 
-    public void showDukeDialog(String input) {
-        dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(input, dukeImage));
-    }
-
-    public void showUserDialog(String[] input) {
-        this.showUserDialog(combineStrings(input));
-    }
-
+    /**
+     * Shows dialog box for user messages.
+     *
+     * @param input Message inputted by user.
+     */
     public void showUserDialog(String input) {
-        dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(input, userImage));
+        DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
+        userDialog.setMinHeight(Region.USE_PREF_SIZE);
+        this.dialogContainer.getChildren().addAll(userDialog);
     }
 
     /**
@@ -86,15 +78,24 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response;
+        Command command = null;
 
-        DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
-        DialogBox dukeDialog = DialogBox.getDukeDialog(response, dukeImage);
-        userDialog.setMinHeight(Region.USE_PREF_SIZE);
-        dukeDialog.setMinHeight(Region.USE_PREF_SIZE);
-        dialogContainer.getChildren().addAll(
-                userDialog,
-                dukeDialog);
+        try {
+            command = this.duke.parseInput(input);
+            response = command.execute();
+        } catch (DukeException e) {
+            response = e.getMessage();
+        }
+
+        this.showUserDialog(input);
+        this.showDukeDialog(response);
         userInput.clear();
+
+        if (command != null && command.getCommandType() == CommandType.EXIT) {
+            this.duke.exit();
+            ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+            executor.schedule(() -> System.exit(0), 1, TimeUnit.SECONDS);
+        }
     }
 }

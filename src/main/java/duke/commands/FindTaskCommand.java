@@ -3,7 +3,7 @@ package duke.commands;
 import java.util.ArrayList;
 
 import duke.tasks.TaskList;
-import duke.ui.Ui;
+import duke.ui.CliUi;
 
 /**
  * Represents a command to find tasks containing a user query in their
@@ -25,10 +25,11 @@ public class FindTaskCommand extends Command {
      * Finds tasks containing a user query in their description.
      */
     @Override
-    public void execute() {
+    public String execute() {
         ArrayList<Integer> found = this.taskList.findTasks(this.args);
         if (found.size() == 0) {
-            Ui.println("No tasks found containing your query.");
+            CliUi.println("No tasks found containing your query.");
+            return "No tasks found containing your query.";
         } else {
             int[] indexes = found.stream().mapToInt(i -> i).toArray();
             ArrayList<String> lines = new ArrayList<>();
@@ -36,7 +37,8 @@ public class FindTaskCommand extends Command {
             for (int i : indexes) {
                 lines.add((i + 1) + ". " + this.taskList.getTask(i).toString());
             }
-            Ui.printlns(lines.toArray(new String[lines.size()]));
+            CliUi.printlns(lines.toArray(new String[lines.size()]));
+            return String.join("\n", lines);
         }
     }
 }

@@ -20,8 +20,8 @@ public abstract class Command {
      * Constructs a new Command object.
      *
      * @param commandType The type of Command.
-     * @param taskList The current list of tasks.
-     * @param args The arguments supplied by the user.
+     * @param taskList    The current list of tasks.
+     * @param args        The arguments supplied by the user.
      */
     public Command(CommandType commandType, TaskList taskList, String args) {
         this.commandType = commandType;
@@ -32,7 +32,7 @@ public abstract class Command {
     /**
      * Executes the command.
      */
-    public abstract void execute();
+    public abstract String execute();
 
     /**
      * Returns the type of Command.

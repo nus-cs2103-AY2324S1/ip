@@ -22,9 +22,9 @@ public class DeleteTaskCommand extends Command {
      * Deletes a task from the list of tasks.
      */
     @Override
-    public void execute() {
+    public String execute() {
         try {
-            this.taskList.deleteTask(Integer.parseInt(args));
+            return this.taskList.deleteTask(Integer.parseInt(args));
         } catch (NumberFormatException e) {
             throw new DukeInvalidArgumentException("Stop trolling me bro. Please enter a numeric index.");
         }
