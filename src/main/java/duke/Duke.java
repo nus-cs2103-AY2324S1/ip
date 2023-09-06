@@ -1,6 +1,7 @@
 package duke;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -19,9 +20,13 @@ public class Duke extends Application {
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
+    @FXML
     private ScrollPane scrollPane;
+    @FXML
     private VBox dialogContainer;
+    @FXML
     private TextField userInput;
+    @FXML
     private Button sendButton;
     private Scene scene;
 
@@ -65,6 +70,7 @@ public class Duke extends Application {
         return "Duke heard: " + input;
     }
 
+    @FXML
     /**
      * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
