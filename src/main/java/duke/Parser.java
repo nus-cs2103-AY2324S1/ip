@@ -4,10 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import duke.task.Deadline;
 import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
 
 /**
  * Represents a utility class to parse and interpret user input and task data.
@@ -55,39 +52,6 @@ public class Parser {
             return CommandType.FIND;
         }
         return CommandType.UNKNOWN;
-    }
-
-    /**
-     * Parses a task represented as a string from the storage file.
-     *
-     * @param taskData The task data as a string.
-     * @return A {@link Task} object based on the provided task data.
-     * @throws DukeException If the task type is unknown or there's an error in parsing.
-     */
-    private static Task parseFileTask(String taskData) throws DukeException {
-        String[] parts = taskData.split(" \\| ");
-        switch (parts[0]) {
-        case "T":
-            ToDo todo = new ToDo(parts[2]);
-            if (parts[1].equals("1")) {
-                todo.markAsDone();
-            }
-            return todo;
-        case "D":
-            Deadline deadline = new Deadline(parts[2], parts[3]);
-            if (parts[1].equals("1")) {
-                deadline.markAsDone();
-            }
-            return deadline;
-        case "E":
-            Event event = new Event(parts[2], parts[3], parts[4]);
-            if (parts[1].equals("1")) {
-                event.markAsDone();
-            }
-            return event;
-        default:
-            throw new DukeException("Unknown task type: " + parts[0]);
-        }
     }
 
     /**
