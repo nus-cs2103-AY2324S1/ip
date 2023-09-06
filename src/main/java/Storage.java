@@ -1,4 +1,8 @@
 import java.io.File;
+<<<<<<< HEAD
+=======
+import java.io.FileNotFoundException;
+>>>>>>> 667cac354c5e48fb2e525cddd1a0324068a81297
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +18,11 @@ public class Storage {
     public void saveTask(ArrayList<Task> tasks) throws IOException {
         FileWriter writer = new FileWriter(path);
         for (Task t : tasks) {
+<<<<<<< HEAD
             writer.write(t.toSave() + "\n");
+=======
+            writer.write(t.toString() + "\n");
+>>>>>>> 667cac354c5e48fb2e525cddd1a0324068a81297
         }
         writer.close();
     }
@@ -27,6 +35,10 @@ public class Storage {
             try {
                 Scanner scanner = new Scanner(file);
                 while (scanner.hasNextLine()) {
+<<<<<<< HEAD
+=======
+                    // System.out.println(scanner.nextLine());
+>>>>>>> 667cac354c5e48fb2e525cddd1a0324068a81297
                     tasks.add(Task.savedParse(scanner.nextLine()));
                 }
                 scanner.close();
@@ -38,4 +50,7 @@ public class Storage {
         return tasks;
     }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 667cac354c5e48fb2e525cddd1a0324068a81297

@@ -10,7 +10,11 @@ public class Task {
 
     public static Task parse(String input) {
         if (input.startsWith("todo ")) {
+<<<<<<< HEAD
             return Todo.todoParse(input.substring(5), "0");
+=======
+            return Todo.todoParse(input.substring(5));
+>>>>>>> 667cac354c5e48fb2e525cddd1a0324068a81297
 
         } else if (input.startsWith("deadline ")) {
             // empty deadline
@@ -28,6 +32,7 @@ public class Task {
     }
 
     public static Task savedParse(String input) {
+<<<<<<< HEAD
         String[] parts = input.split(" \\| ");
         System.out.println(parts[0]);
         System.out.println(parts[1]);
@@ -51,6 +56,26 @@ public class Task {
         }
     }
 
+=======
+        if (input.startsWith("[T]")) {
+            // split using | and read everything including mark
+            return Todo.todoParse(input.substring(7));
+
+        } else if (input.startsWith("[D]")) {
+            // empty deadline
+            // no by
+            return Deadline.deadlineSavedParse(input.substring(7));
+
+        } else if (input.startsWith("[E]")) {
+            // empty event
+            // no from
+            // no to
+            return Event.eventSavedParse(input.substring(7));
+        } else {
+            return null;
+        }
+    }
+>>>>>>> 667cac354c5e48fb2e525cddd1a0324068a81297
     public String getStatus() {
         return (isDone ? "X" : " ");
     }
