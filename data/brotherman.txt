@@ -1,3 +1,0 @@
-D|true|read book/by03/03/1234
-E|false|eat ass/from01/01/1234/to12/12/9999
-D|false|eat/by01/01/1221
