@@ -22,6 +22,8 @@ public class Ui {
 
     /**
      * Prints the introduction message when the bot is first launched.
+     *
+     * @return A String message.
      */
     public String introMessage() {
         return "Hello! I'm BaekBot.\nIf you're unsure of the commands available, type /help. "
@@ -42,6 +44,7 @@ public class Ui {
      *
      * @param task Task that was added to the list.
      * @param count Total count of tasks in the list after addition.
+     * @return A String message.
      */
     public String addTaskMessage(Task task, int count) {
         return "Got it. I've added this task:\n" + task
@@ -53,6 +56,7 @@ public class Ui {
      *
      * @param task Task that was deleted from the list.
      * @param count Total count of tasks in the list after deletion.
+     * @return A String message.
      */
     public String deleteTaskMessage(Task task, int count) {
         return "Noted. I've removed this task:\n"
@@ -61,6 +65,8 @@ public class Ui {
 
     /**
      * Prints message that notifies user does not have any tasks in the list.
+     *
+     * @return A String message.
      */
     public String emptyTaskMessage() {
         return "You don't have any tasks right now.";
@@ -68,6 +74,8 @@ public class Ui {
 
     /**
      * Prints farewell message when user exits the bot.
+     *
+     * @return A String message.
      */
     public String byeMessage() {
         return "Bye. Hope to see you again soon!";
@@ -77,6 +85,7 @@ public class Ui {
      * Prints message containing task when user marks a task as done.
      *
      * @param task Task that was marked done.
+     * @return A String message.
      */
     public String markDoneMessage(Task task) {
         return "Nice! I've marked this task as done:\n" + task;
@@ -86,6 +95,7 @@ public class Ui {
      * Prints message containing task when user marks a task as not done.
      *
      * @param task Task that was marked not done.
+     * @return A String message.
      */
     public String unmarkDoneMessage(Task task) {
         return "OK, I've marked this task as not done yet: \n" + task;
@@ -93,6 +103,8 @@ public class Ui {
 
     /**
      * Prints message when there is an error loading data from the savefile.
+     *
+     * @return A String message.
      */
     public String loadingErrorMessage() {
         return "There was an issue loading your savefile!";
@@ -100,6 +112,8 @@ public class Ui {
 
     /**
      * Prints message when user inputs a command that the bot does not understand.
+     *
+     * @return A String message.
      */
     public String noCommandMessage() {
         return "Sorry, I don't understand what it means :(";
@@ -107,6 +121,8 @@ public class Ui {
 
     /**
      * Prints message when user inputs an empty command.
+     *
+     * @return A String message.
      */
     public String emptyCommandMessage() {
         return "Don't give me an empty command!";
@@ -115,6 +131,8 @@ public class Ui {
     /**
      * Prints message to inform users about matching tasks
      * that will be displayed after.
+     *
+     * @return A String message.
      */
     public String displayMatchMessage() {
         return "Here are the matching tasks!";
@@ -125,6 +143,7 @@ public class Ui {
      *
      * @param count Integer representing the number of task in ordered list.
      * @param task Task to be printed.
+     * @return A String message.
      */
     public String displayTaskMessage(int count, Task task) {
         return count + ". " + task;
@@ -132,6 +151,8 @@ public class Ui {
 
     /**
      * Prints message when user has no matching task to find based on input.
+     *
+     * @return A String message.
      */
     public String noMatchMessage() {
         return "There are no matching tasks!";
@@ -139,6 +160,8 @@ public class Ui {
 
     /**
      * Prints message containing all commands that bot recognizes.
+     *
+     * @return A String message.
      */
     public String helpMessage() {
         return "To view the list of tasks, type list. \nTo add a todo, type todo."

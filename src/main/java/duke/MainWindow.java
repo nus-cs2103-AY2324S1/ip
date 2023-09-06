@@ -27,15 +27,26 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+
+    /**
+     * Initializes the GUI based on properties.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets input to be the variable duke.
+     * @param d to be set to the variable duke.
+     */
     public void setDuke(Duke d) {
         duke = d;
     }
 
+    /**
+     * Creates a greeting message from the bot.
+     */
     @FXML
     public void greetUser() {
         String string = ui.introMessage();
