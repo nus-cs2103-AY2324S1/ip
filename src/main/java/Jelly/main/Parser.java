@@ -5,8 +5,18 @@ import Jelly.exceptions.JellyBlankMessageException;
 import Jelly.exceptions.JellyException;
 import Jelly.exceptions.JellyUnknownCommandException;
 
+/**
+ * Responsible for parsing commands from the user, creates a Command object.
+ */
 public class Parser {
 
+    /**
+     * Parses the command inputted.
+     *
+     * @param command The user's input etc. list, bye.
+     * @return An instance of Command that matches the user's input.
+     * @throws JellyException If the input is invalid.
+     */
     public static Command parse(String command) throws JellyException  {
         try {
             String[] stringArray = command.split(" ");
