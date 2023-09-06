@@ -3,6 +3,7 @@ package rayshawn.chatbot.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import rayshawn.chatbot.exceptions.ChatBotException;
 import rayshawn.chatbot.tasks.Task;
 
 /**
@@ -24,7 +25,7 @@ public class FindCommand extends Command {
      *
      * @param keyword to be searched for
      */
-    public FindCommand(String keyword) {
+    public FindCommand(String keyword) throws ChatBotException {
         this.keyword = keyword;
     }
 

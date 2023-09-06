@@ -61,6 +61,7 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+        System.out.println(arguments);
 
         switch (commandWord) {
 
@@ -77,7 +78,7 @@ public class Parser {
             return prepareEvent(arguments);
 
         case FindCommand.COMMAND_WORD:
-            return new FindCommand(arguments.trim());
+            return prepareFind(arguments);
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
@@ -93,6 +94,7 @@ public class Parser {
 
         case UnmarkCommand.COMMAND_WORD:
             return prepareUnmark(arguments);
+
         default:
             return new NoSuchCommand();
         }
@@ -174,6 +176,20 @@ public class Parser {
             return new IncorrectCommand(String.format(INVALID_COMMAND_FORMAT_MESSAGE, UnmarkCommand.MESSAGE_USAGE));
         } catch (NumberFormatException nfe) {
             return new IncorrectCommand(INVALID_TASK_NUMBER_MESSAGE);
+        }
+    }
+
+    private Command prepareFind(String args) {
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(INVALID_COMMAND_FORMAT_MESSAGE, FindCommand.MESSAGE_USAGE));
+        }
+
+        try {
+            return new FindCommand(matcher.group("description"));
+        } catch (ChatBotException e) {
+            return new IncorrectCommand(e.getMessage());
         }
     }
 
