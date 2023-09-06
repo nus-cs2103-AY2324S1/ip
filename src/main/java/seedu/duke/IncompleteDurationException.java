@@ -5,10 +5,8 @@ package seedu.duke;
  */
  class IncompleteDurationException extends DukeException {
     public IncompleteDurationException() {
-        super("____________________________________________________________\n" +
-                " ☹ OOPS!!! Duration is not specified correctly.\n" +
+        super("\u2639 OOPS!!! Duration is not specified correctly.\n" +
                 "Please input the duration in the following format:\n" +
-                "/from DD-MM-YYYY TTTT /to DD-MM-YYYY TTTT\n" +
-                "____________________________________________________________");
+                "/from DD-MM-YYYY TTTT /to DD-MM-YYYY TTTT");
     }
 }

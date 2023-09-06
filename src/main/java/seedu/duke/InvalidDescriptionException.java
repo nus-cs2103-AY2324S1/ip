@@ -10,8 +10,6 @@ public class InvalidDescriptionException extends DukeException {
      * @param taskType The type of task given by the user.
      */
     public InvalidDescriptionException(String taskType) {
-        super("____________________________________________________________\n" +
-                " ☹ OOPS!!! The description of a " + taskType + " cannot be empty.\n" +
-                "____________________________________________________________");
+        super("\u2639 OOPS!!! The description of a " + taskType + " cannot be empty.");
     }
 }

@@ -25,26 +25,30 @@ public class Ui {
      *
      * @param taskList The tasks accumulated.
      */
-    public void printListItems(TaskList taskList) {
+    public String printListItems(TaskList taskList) {
         ArrayList<Task> tasks = taskList.getTasks();
+        String message = "";
 
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.println(i+1 + "." + task.getTaskType() + task.getStatusIcon() + " " + task.name
-                                    + " " + task.getTimeInfo());
+            message += (i+1) + "." + task.getTaskType() + task.getStatusIcon() + " " + task.name
+                                    + " " + task.getTimeInfo() + "\n";
         }
+        System.out.println(message);
+        return message;
     }
 
     /**
      * Prints the introduction message at the start of the program.
      */
-    public void printIntro() {
+    public String printIntro() {
         String intro = "____________________________________________________________\n" +
                 " Hello! I'm Dookie\n" +
                 " What can I do for you?\n" +
                 "____________________________________________________________";
 
         System.out.println(intro);
+        return intro;
     }
 
     /**
@@ -53,7 +57,7 @@ public class Ui {
      * @param task The newly added task.
      * @param tasks The current accumulated tasks.
      */
-    public void printAddTaskMessage(Task task, TaskList tasks) {
+    public String printAddTaskMessage(Task task, TaskList tasks) {
         int listSize = tasks.getTasks().size();
 
         String message = "____________________________________________________________\n" +
@@ -63,6 +67,7 @@ public class Ui {
                 "____________________________________________________________";
 
         System.out.println(message);
+        return message;
     }
 
     /**
@@ -71,7 +76,7 @@ public class Ui {
      * @param task The newly deleted task.
      * @param tasks The current accumulated tasks.
      */
-    public void printDeleteTaskMessage(Task task, TaskList tasks){
+    public String printDeleteTaskMessage(Task task, TaskList tasks){
         int listSize = tasks.getTasks().size();
 
         String message = "____________________________________________________________\n" +
@@ -81,17 +86,19 @@ public class Ui {
                 "____________________________________________________________";
 
         System.out.println(message);
+        return message;
     }
 
     /**
      * Prints the message at the end of the program.
      */
-    public void printExit() {
+    public String printExit() {
         String exitMessage = "____________________________________________________________\n" +
                 " Bye. Hope to see you again soon!\n" +
                 "____________________________________________________________";
 
         System.out.println(exitMessage);
+        return exitMessage;
     }
 
     /**
@@ -99,13 +106,14 @@ public class Ui {
      *
      * @param task The task which has been marked.
      */
-    public void printMarkedTaskMessage(Task task) {
+    public String printMarkedTaskMessage(Task task) {
         String message = "____________________________________________________________\n" +
                 " Nice! I've marked this task as done:\n" +
                 "   " + task.getStatusIcon() + " " + task.name + task.getTimeInfo() + "\n" +
                 "____________________________________________________________";
 
         System.out.println(message);
+        return message;
     }
 
     /**
@@ -113,13 +121,14 @@ public class Ui {
      *
      * @param task The task which has been marked.
      */
-    public void printUnmarkedTaskMessage(Task task) {
+    public String printUnmarkedTaskMessage(Task task) {
         String message = "____________________________________________________________\n" +
                 " OK. I've marked this task as not done yet:\n" +
                 "   " + task.getStatusIcon() + " " + task.name + task.getTimeInfo() + "\n" +
                 "____________________________________________________________";
 
         System.out.println(message);
+        return message;
     }
 
     /**
@@ -127,7 +136,7 @@ public class Ui {
      *
      * @param results The ArrayList<Task> containing Tasks that match the keyword given.
      */
-    public void printFindResults(ArrayList<Task> results) {
+    public String printFindResults(ArrayList<Task> results) {
         String message = "    ____________________________________________________________\n" +
                 "     Here are the matching tasks in your list:\n";
 
@@ -140,5 +149,6 @@ public class Ui {
         message += "    ____________________________________________________________";
 
         System.out.println(message);
+        return message;
     }
 }

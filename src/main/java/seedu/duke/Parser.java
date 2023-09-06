@@ -30,139 +30,145 @@ public class Parser {
      *
      * @param cmd The command inputted by the user.
      */
-    public void parse(String cmd) {
-        try {
-            String type = cmd.split(" ", 2)[0];
+    public String parse(String cmd) {
+        while (!cmd.equals("bye")) {
+            try {
+                String type = cmd.split(" ", 2)[0];
 
-            // If cmd is "list", list items and wait for next command
-            if (cmd.equals("list")) {
-                ui.printListItems(tasks);
-            } else if (type.equals("todo")) {
-                // Check if description is empty
-                if (descriptionIsEmpty(cmd)) {
-                    throw new InvalidDescriptionException("todo");
-                }
+                // If cmd is "list", list items and wait for next command
+                if (cmd.equals("list")) {
+                    return ui.printListItems(tasks);
+                } else if (type.equals("todo")) {
+                    // Check if description is empty
+                    if (descriptionIsEmpty(cmd)) {
+                        throw new InvalidDescriptionException("todo");
+                    }
 
-                String taskName = cmd.split(" ", 2)[1];
-                Task todo = new ToDo(taskName);
-                tasks.addTask(todo);
-                ui.printAddTaskMessage(todo, tasks);
-            } else if (type.equals("deadline")) {
-                if (descriptionIsEmpty(cmd)) {
-                    throw new InvalidDescriptionException("deadline");
-                }
+                    String taskName = cmd.split(" ", 2)[1];
+                    Task todo = new ToDo(taskName);
+                    tasks.addTask(todo);
+                    return ui.printAddTaskMessage(todo, tasks);
+                } else if (type.equals("deadline")) {
+                    System.out.println("I am in the deadline conditional");
+                    if (descriptionIsEmpty(cmd)) {
+                        throw new InvalidDescriptionException("deadline");
+                    }
 
-                String taskWithDeadline = cmd.split(" ", 2)[1];
+                    String taskWithDeadline = cmd.split(" ", 2)[1];
 
-                if (hasNoDeadline(taskWithDeadline)) {
-                    throw new NoDeadlineException();
-                }
+                    if (hasNoDeadline(taskWithDeadline)) {
+                        throw new NoDeadlineException();
+                    }
 
-                String taskName = taskWithDeadline.split("/", 2)[0];
-                String deadlineDescription = taskWithDeadline.split("/", 2)[1];
+                    String taskName = taskWithDeadline.split("/", 2)[0];
+                    String deadlineDescription = taskWithDeadline.split("/", 2)[1];
 
-                try {
-                    Task deadline = new Deadline(taskName, checkDeadline(deadlineDescription));
+                    System.out.println("I am about to check the deadline");
+                    LocalDateTime dateTime = checkDeadline(deadlineDescription);
+                    System.out.println("I have obtained a deadline");
+                    if (dateTime == null) {
+                        throw new InvalidDeadlineException(deadlineDescription);
+                    }
+                    Task deadline = new Deadline(taskName, dateTime);
                     tasks.addTask(deadline);
-                    ui.printAddTaskMessage(deadline, tasks);
-                } catch(Exception e) {
-                    System.out.println(e.getMessage());
+                    return ui.printAddTaskMessage(deadline, tasks);
+                } else if (type.equals("event")) {
+                    if (descriptionIsEmpty(cmd)) {
+                        throw new InvalidDescriptionException("event");
+                    }
+
+                    String taskWithDuration = cmd.split(" ", 2)[1];
+                    String[] time = taskWithDuration.split("/");
+
+                    // Check if there is a valid duration
+                    if (time.length != 3) {
+                        throw new IncompleteDurationException();
+                    }
+
+                    String taskName = time[0];
+                    String starting = time[1];
+                    String ending = time[2];
+
+                    // Assumes that starting and ending both start with "from" and "to" respectively
+                    Task event = new Event(taskName, checkStarting(starting), checkEnding(ending));
+                    tasks.addTask(event);
+                    return ui.printAddTaskMessage(event, tasks);
+                } else if (type.equals("delete")) {
+                    if (descriptionIsEmpty(cmd)) {
+                        throw new InvalidDescriptionException("delete");
+                    }
+
+                    int taskNumber = -1;
+                    String integer = cmd.split(" ", 2)[1];
+
+                    try {
+                        taskNumber = Integer.parseInt(integer);
+                    } catch (Exception e) {
+                        throw new InvalidIntegerException();
+                    }
+
+                    if (!isValidTaskNumber(taskNumber)) {
+                        throw new InvalidTaskNumberException(taskNumber);
+                    }
+
+                    Task task = tasks.markOrDeleteTask(taskNumber - 1, "delete");
+                    return ui.printDeleteTaskMessage(task, new TaskList(storage.load()));
+                } else if (type.equals("mark")) {
+                    if (descriptionIsEmpty(cmd)) {
+                        throw new InvalidDescriptionException("mark");
+                    }
+
+                    int taskNumber = -1;
+                    String integer = cmd.split(" ", 2)[1];
+
+                    try {
+                        taskNumber = Integer.parseInt(integer);
+                    } catch (Exception e) {
+                        throw new InvalidIntegerException();
+                    }
+
+                    if (!isValidTaskNumber(taskNumber)) {
+                        throw new InvalidTaskNumberException(taskNumber);
+                    }
+
+                    Task task = tasks.markOrDeleteTask(taskNumber - 1, "mark");
+                    return ui.printMarkedTaskMessage(task);
+                } else if (type.equals("unmark")) {
+                    if (descriptionIsEmpty(cmd)) {
+                        throw new InvalidDescriptionException("unmark");
+                    }
+
+                    int taskNumber = -1;
+                    String integer = cmd.split(" ", 2)[1];
+
+                    try {
+                        taskNumber = Integer.parseInt(integer);
+                    } catch (Exception e) {
+                        throw new InvalidIntegerException();
+                    }
+
+                    if (!isValidTaskNumber(taskNumber)) {
+                        throw new InvalidTaskNumberException(taskNumber);
+                    }
+
+                    Task task = tasks.markOrDeleteTask(taskNumber - 1, "unmark");
+                    return ui.printUnmarkedTaskMessage(task);
+                } else if (type.equals("find")) {
+                    if (descriptionIsEmpty(cmd)) {
+                        throw new InvalidDescriptionException("find");
+                    }
+
+                    String keyword = cmd.split(" ", 2)[1];
+                    ArrayList<Task> results = tasks.find(keyword);
+                    return ui.printFindResults(results);
+                } else {  // If the inputted command is not valid, throw TaskTypeException
+                    throw new TaskTypeException();
                 }
-            } else if (type.equals("event")) {
-                if (descriptionIsEmpty(cmd)) {
-                    throw new InvalidDescriptionException("event");
-                }
-
-                String taskWithDuration = cmd.split(" ", 2)[1];
-                String[] time = taskWithDuration.split("/");
-
-                // Check if there is a valid duration
-                if (time.length != 3) {
-                    throw new IncompleteDurationException();
-                }
-
-                String taskName = time[0];
-                String starting = time[1];
-                String ending = time[2];
-
-                // Assumes that starting and ending both start with "from" and "to" respectively
-                Task event = new Event(taskName, checkStarting(starting), checkEnding(ending));
-                tasks.addTask(event);
-                ui.printAddTaskMessage(event, tasks);
-            } else if (type.equals("delete")) {
-                if (descriptionIsEmpty(cmd)) {
-                    throw new InvalidDescriptionException("delete");
-                }
-
-                int taskNumber = -1;
-                String integer = cmd.split(" ", 2)[1];
-
-                try {
-                    taskNumber = Integer.parseInt(integer);
-                } catch (Exception e) {
-                    throw new InvalidIntegerException();
-                }
-
-                if (!isValidTaskNumber(taskNumber)) {
-                    throw new InvalidTaskNumberException(taskNumber);
-                }
-
-                Task task = tasks.markOrDeleteTask(taskNumber - 1, "delete");
-                ui.printDeleteTaskMessage(task, new TaskList(storage.load()));
-            } else if (type.equals("mark")) {
-                if (descriptionIsEmpty(cmd)) {
-                    throw new InvalidDescriptionException("mark");
-                }
-
-                int taskNumber = -1;
-                String integer = cmd.split(" ", 2)[1];
-
-                try {
-                    taskNumber = Integer.parseInt(integer);
-                } catch (Exception e) {
-                    throw new InvalidIntegerException();
-                }
-
-                if (!isValidTaskNumber(taskNumber)) {
-                    throw new InvalidTaskNumberException(taskNumber);
-                }
-
-                Task task = tasks.markOrDeleteTask(taskNumber - 1, "mark");
-                ui.printMarkedTaskMessage(task);
-            } else if (type.equals("unmark")) {
-                if (descriptionIsEmpty(cmd)) {
-                    throw new InvalidDescriptionException("unmark");
-                }
-
-                int taskNumber = -1;
-                String integer = cmd.split(" ", 2)[1];
-
-                try {
-                    taskNumber = Integer.parseInt(integer);
-                } catch (Exception e) {
-                    throw new InvalidIntegerException();
-                }
-
-                if (!isValidTaskNumber(taskNumber)) {
-                    throw new InvalidTaskNumberException(taskNumber);
-                }
-
-                Task task = tasks.markOrDeleteTask(taskNumber - 1, "unmark");
-                ui.printUnmarkedTaskMessage(task);
-            } else if (type.equals("find")) {
-                if (descriptionIsEmpty(cmd)) {
-                    throw new InvalidDescriptionException("find");
-                }
-
-                String keyword = cmd.split(" ", 2)[1];
-                ArrayList<Task> results = tasks.find(keyword);
-                ui.printFindResults(results);
-            } else {  // If the inputted command is not valid, throw TaskTypeException
-                throw new TaskTypeException();
+            } catch (DukeException e) {
+                return e.getMessage();
             }
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
         }
+        return ui.printExit();
     }
 
     /**
@@ -229,7 +235,6 @@ public class Parser {
 
             return LocalDateTime.of(year, month, day, hour, min);
         } catch (InvalidDeadlineException e) {
-            System.out.println(e.getMessage());
             return null;
         }
     }

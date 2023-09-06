@@ -8,8 +8,6 @@ public class InvalidDataFormatException extends DukeException{
      * Creates an InvalidDataFormatException.
      */
     public InvalidDataFormatException() {
-        super("____________________________________________________________\n" +
-                " ☹ OOPS!!! The saved data format is invalid!\n" +
-                "____________________________________________________________");
+        super("\u2639 OOPS!!! The saved data format is invalid!");
     }
 }
