@@ -1,6 +1,4 @@
 package duke;
-
-import java.util.*;
 import java.time.*;
 import java.time.format.*;
 public class Event extends Task {
