@@ -33,7 +33,6 @@ public class Parser {
 
     /**
      * updates the internal input string function
-     *
      */
     public void update(String input) {
         inputString = input;
