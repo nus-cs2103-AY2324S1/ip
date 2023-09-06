@@ -6,8 +6,8 @@ package zean;
  * @author Zhong Han
  */
 public class Ui {
-    private static final String DIVIDER = "\t__________________________________";
-    private static final String ERROR_DIVIDER = "\t**********************************";
+    private static final String DIVIDER = "__________________________________";
+    private static final String ERROR_DIVIDER = "**********************************";
 
     public Ui() {
 
@@ -21,8 +21,8 @@ public class Ui {
     public void greet(String name) {
         printDivider();
         printLogo();
-        System.out.println("\tHi there! I'm " + name);
-        System.out.println("\tHow can I help you today?");
+        System.out.println("Hi there! I'm " + name);
+        System.out.println("How can I help you today?");
         printDivider();
     }
 
@@ -31,7 +31,7 @@ public class Ui {
      */
     public void exit() {
         printDivider();
-        System.out.println("\tBye. Have a nice day!");
+        System.out.println("Bye. Have a nice day!");
         printDivider();
     }
 
@@ -43,12 +43,12 @@ public class Ui {
     }
 
     private void printLogo() {
-        String logo = "\t++      ++      ++\n"
-                + "\t||      ||      ||\n"
-                + "\t| +----+ |      ||\n"
-                + "\t| +----+ |      ||\n"
-                + "\t||      ||      ||\n"
-                + "\t++      ++      ++\n";
+        String logo = "++      ++      ++\n"
+                + "||      ||      ||\n"
+                + "| +----+ |      ||\n"
+                + "| +----+ |      ||\n"
+                + "||      ||      ||\n"
+                + "++      ++      ++\n";
         System.out.println(logo);
     }
 

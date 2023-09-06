@@ -28,10 +28,10 @@ public class Event extends Task {
             this.from = LocalDate.parse(from.strip());
             this.to = LocalDate.parse(to.strip());
             if (this.to.isBefore(this.from)) {
-                throw new DukeException("\tThe end date is before the start date!");
+                throw new DukeException("The end date is before the start date!");
             }
         } catch (DateTimeParseException e) {
-            throw new DukeException("\tThe date is invalid!");
+            throw new DukeException("The date is invalid!");
         }
     }
 

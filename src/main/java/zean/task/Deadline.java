@@ -25,7 +25,7 @@ public class Deadline extends Task {
         try {
             this.by = LocalDate.parse(by.strip());
         } catch (DateTimeParseException e) {
-            throw new DukeException("\tThe date is invalid!");
+            throw new DukeException("The date is invalid!");
         }
     }
 

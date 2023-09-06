@@ -17,6 +17,15 @@ public class Zean {
     private TaskList tasks;
     private Storage storage;
 
+    private String initErrorMsg = "";
+
+    /**
+     * Empty constructor.
+     */
+    public Zean() {
+
+    }
+
     /**
      * Constructor for the chatbot zean.
      *
@@ -28,16 +37,20 @@ public class Zean {
             this.storage = new Storage(filePath);
             this.tasks = new TaskList(this.storage);
         } catch (FileNotFoundException e) {
-            this.ui.showError("\tOOPS! Something went wrong with the file."
-                    + "\n\tShutting down now...");
+            this.initErrorMsg = "OOPS! Something went wrong with the file."
+                    + "\nShutting down now...";
         } catch (IOException e) {
-            this.ui.showError("\tOOPS! The file cannot be created.\n\tShutting down now...");
+            this.initErrorMsg = "OOPS! The file cannot be created.\nShutting down now...";
         } catch (SecurityException e) {
-            this.ui.showError("\tOOPS! The file cannot be written due to invalid access."
-                    + "\n\tShutting down now...");
+            this.initErrorMsg = "OOPS! The file cannot be written due to invalid access."
+                    + "\nShutting down now...";
         } catch (DukeException e) {
-            this.ui.showError(e.getMessage());
+            this.initErrorMsg = e.getMessage();
         }
+    }
+
+    public String getInitErrorMsg() {
+        return this.initErrorMsg;
     }
 
     /**
@@ -61,6 +74,25 @@ public class Zean {
         sc.close();
         this.ui.exit();
 
+    }
+
+    /**
+     * Returns a response to user input.
+     *
+     * @param input The user input.
+     * @return The response to the input.
+     */
+    public String getResponse(String input) {
+        String output = "";
+        if (input.strip().equals("bye")) {
+            return "Bye! Have a nice day!";
+        }
+        try {
+            output = Parser.parse(input, this.tasks);
+        } catch (DukeException e) {
+            output = e.getMessage();
+        }
+        return output;
     }
 
     public static void main(String[] args) {

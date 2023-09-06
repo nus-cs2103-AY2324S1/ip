@@ -35,7 +35,7 @@ public class Task {
      */
     public String markTaskDone() {
         this.isDone = true;
-        return "\t  " + this;
+        return "  " + this;
     }
 
     /**
@@ -45,7 +45,7 @@ public class Task {
      */
     public String markTaskNotDone() {
         this.isDone = false;
-        return "\t  " + this;
+        return "  " + this;
     }
 
     /**

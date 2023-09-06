@@ -13,7 +13,7 @@ public class TaskListTest {
     public void invalidTaskIndexTest1() {
         Exception exception = assertThrows(DukeException.class, () ->
                 new TaskList(new StorageStub()).markTaskDone(1));
-        assertEquals("\tHmm, this task does not exist :|",
+        assertEquals("Hmm, this task does not exist :|",
                 exception.getMessage());
     }
 
@@ -21,7 +21,7 @@ public class TaskListTest {
     public void invalidTaskIndexTest2() {
         Exception exception = assertThrows(DukeException.class, () ->
                 new TaskList(new StorageStub()).markTaskDone(-1));
-        assertEquals("\tHmm, this task does not exist :|",
+        assertEquals("Hmm, this task does not exist :|",
                 exception.getMessage());
     }
 
@@ -29,7 +29,7 @@ public class TaskListTest {
     public void invalidTaskIndexTest3() {
         Exception exception = assertThrows(DukeException.class, () ->
                 new TaskList(new StorageStub()).markTaskDone(0));
-        assertEquals("\tHmm, this task does not exist :|",
+        assertEquals("Hmm, this task does not exist :|",
                 exception.getMessage());
     }
 
@@ -37,7 +37,7 @@ public class TaskListTest {
     public void invalidTaskIndexTest4() {
         Exception exception = assertThrows(DukeException.class, () ->
                 new TaskList(new StorageStub()).markTaskNotDone(1));
-        assertEquals("\tHmm, this task does not exist :|",
+        assertEquals("Hmm, this task does not exist :|",
                 exception.getMessage());
     }
 
@@ -45,7 +45,7 @@ public class TaskListTest {
     public void invalidTaskIndexTest5() {
         Exception exception = assertThrows(DukeException.class, () ->
                 new TaskList(new StorageStub()).markTaskNotDone(-1));
-        assertEquals("\tHmm, this task does not exist :|",
+        assertEquals("Hmm, this task does not exist :|",
                 exception.getMessage());
     }
 
@@ -53,7 +53,7 @@ public class TaskListTest {
     public void invalidTaskIndexTest6() {
         Exception exception = assertThrows(DukeException.class, () ->
                 new TaskList(new StorageStub()).markTaskNotDone(0));
-        assertEquals("\tHmm, this task does not exist :|",
+        assertEquals("Hmm, this task does not exist :|",
                 exception.getMessage());
     }
 
@@ -61,7 +61,7 @@ public class TaskListTest {
     public void invalidTaskIndexTest7() {
         Exception exception = assertThrows(DukeException.class, () ->
                 new TaskList(new StorageStub()).deleteTask(1));
-        assertEquals("\tHmm, this task does not exist :|",
+        assertEquals("Hmm, this task does not exist :|",
                 exception.getMessage());
     }
 
@@ -69,7 +69,7 @@ public class TaskListTest {
     public void invalidTaskIndexTest8() {
         Exception exception = assertThrows(DukeException.class, () ->
                 new TaskList(new StorageStub()).deleteTask(-1));
-        assertEquals("\tHmm, this task does not exist :|",
+        assertEquals("Hmm, this task does not exist :|",
                 exception.getMessage());
     }
 
@@ -77,31 +77,31 @@ public class TaskListTest {
     public void invalidTaskIndexTest9() {
         Exception exception = assertThrows(DukeException.class, () ->
                 new TaskList(new StorageStub()).deleteTask(0));
-        assertEquals("\tHmm, this task does not exist :|",
+        assertEquals("Hmm, this task does not exist :|",
                 exception.getMessage());
     }
 
     @Test
     public void printAddTaskTest1() {
-        assertEquals("\tGot it. I've added this task:\n\t  "
+        assertEquals("Got it. I've added this task:\n  "
                         + "[T][ ] read book\n"
-                        + "\tNow you have 1 task in the list.",
+                        + "Now you have 1 task in the list.",
                 new TaskList(new StorageStub()).add("read book"));
     }
 
     @Test
     public void printAddTaskTest2() {
-        assertEquals("\tGot it. I've added this task:\n\t  "
+        assertEquals("Got it. I've added this task:\n  "
                         + "[D][ ] some deadline task (by: Aug 31 2023)\n"
-                        + "\tNow you have 1 task in the list.",
+                        + "Now you have 1 task in the list.",
                 new TaskList(new StorageStub()).add("some deadline task", "2023-08-31"));
     }
 
     @Test
     public void printAddTaskTest3() {
-        assertEquals("\tGot it. I've added this task:\n\t  "
+        assertEquals("Got it. I've added this task:\n  "
                         + "[E][ ] some event task (from: Aug 31 2023 to: Sep 01 2023)\n"
-                        + "\tNow you have 1 task in the list.",
+                        + "Now you have 1 task in the list.",
                 new TaskList(new StorageStub()).add("some event task", "2023-08-31", "2023-09-01"));
     }
 
@@ -109,8 +109,8 @@ public class TaskListTest {
     public void printDeleteTaskTest1() {
         TaskList tasks = new TaskList(new StorageStub());
         String add = tasks.add("read book");
-        assertEquals("\tNoted. I've removed this task.\n"
-                        + "\tNow you have 0 task in the list.",
+        assertEquals("Noted. I've removed this task.\n"
+                        + "Now you have 0 task in the list.",
                 tasks.deleteTask(1));
     }
 
@@ -118,8 +118,8 @@ public class TaskListTest {
     public void printDeleteTaskTest2() {
         TaskList tasks = new TaskList(new StorageStub());
         String add = tasks.add("some deadline task", "2023-08-31");
-        assertEquals("\tNoted. I've removed this task.\n"
-                        + "\tNow you have 0 task in the list.",
+        assertEquals("Noted. I've removed this task.\n"
+                        + "Now you have 0 task in the list.",
                 tasks.deleteTask(1));
     }
 
@@ -127,8 +127,8 @@ public class TaskListTest {
     public void printDeleteTaskTest3() {
         TaskList tasks = new TaskList(new StorageStub());
         String add = tasks.add("some event task", "2023-08-31", "2023-09-01");
-        assertEquals("\tNoted. I've removed this task.\n"
-                        + "\tNow you have 0 task in the list.",
+        assertEquals("Noted. I've removed this task.\n"
+                        + "Now you have 0 task in the list.",
                 tasks.deleteTask(1));
     }
 }

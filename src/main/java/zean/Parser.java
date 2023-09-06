@@ -28,7 +28,7 @@ public class Parser {
      */
     public static String parse(String input, TaskList tasks) throws DukeException {
         if (input.isBlank()) {
-            return "";
+            throw new DukeException("OOPS!!! You forgot to type in anything!");
         }
         String[] inputArr = input.split(" ");
         String description;
@@ -36,32 +36,32 @@ public class Parser {
         switch(inputArr[0]) {
         case "mark":
             if (inputArr.length < 2) {
-                throw new DukeException("\tPlease provide the task number.");
+                throw new DukeException("Please provide the task number.");
             }
             try {
                 output = tasks.markTaskDone(Integer.parseInt(inputArr[1]));
             } catch (NumberFormatException e) {
-                throw new DukeException("\tPlease provide a valid task number.");
+                throw new DukeException("Please provide a valid task number.");
             }
             break;
         case "unmark":
             if (inputArr.length < 2) {
-                throw new DukeException("\tPlease provide the task number.");
+                throw new DukeException("Please provide the task number.");
             }
             try {
                 output = tasks.markTaskNotDone(Integer.parseInt(inputArr[1]));
             } catch (NumberFormatException e) {
-                throw new DukeException("\tPlease provide a valid task number.");
+                throw new DukeException("Please provide a valid task number.");
             }
             break;
         case "delete":
             if (inputArr.length < 2) {
-                throw new DukeException("\tPlease provide the task number.");
+                throw new DukeException("Please provide the task number.");
             }
             try {
                 output = tasks.deleteTask(Integer.parseInt(inputArr[1]));
             } catch (NumberFormatException e) {
-                throw new DukeException("\tPlease provide a valid task number.");
+                throw new DukeException("Please provide a valid task number.");
             }
             break;
         case "list":
@@ -70,7 +70,7 @@ public class Parser {
         case "todo":
             description = input.substring(4);
             if (description.isBlank()) {
-                throw new DukeException("\tHmm, the description of a todo cannot be empty :(");
+                throw new DukeException("Hmm, the description of a todo cannot be empty :(");
             }
             output = tasks.add(description);
             break;
@@ -78,21 +78,21 @@ public class Parser {
             int indexOfBy = input.indexOf("/by");
 
             if (indexOfBy == -1) {
-                throw new DukeException("\tOOPS!!! You forgot to specify the deadline."
-                        + "\n\tUse \"/by\" to do so.");
+                throw new DukeException("OOPS!!! You forgot to specify the deadline."
+                        + "\nUse \"/by\" to do so.");
             }
 
             description = input.substring(8, indexOfBy);
             if (description.isBlank()) {
-                throw new DukeException("\tHmm, the description of a deadline cannot be empty :(");
+                throw new DukeException("Hmm, the description of a deadline cannot be empty :(");
             }
 
             String deadline = input.substring(indexOfBy + 3).strip();
             if (deadline.isBlank()) {
-                throw new DukeException("\tOOPS!!! You forgot to specify the deadline.");
+                throw new DukeException("OOPS!!! You forgot to specify the deadline.");
             }
             if (!DATE_PATTERN.matcher(deadline).matches()) {
-                throw new DukeException("\tHmm, I don't understand the date. "
+                throw new DukeException("Hmm, I don't understand the date. "
                         + "Use this format: YYYY-MM-DD");
             }
 
@@ -102,31 +102,31 @@ public class Parser {
             int indexOfFrom = input.indexOf("/from");
             int indexOfTo = input.indexOf("/to");
             if (indexOfFrom == -1) {
-                throw new DukeException("\tOOPS!!! You forgot to specify the starting date."
-                        + "\n\tUse \"/from\" to do so.");
+                throw new DukeException("OOPS!!! You forgot to specify the starting date."
+                        + "\nUse \"/from\" to do so.");
             }
             if (indexOfTo == -1) {
-                throw new DukeException("\tOOPS!!! You forgot to specify the ending date."
-                        + "\n\tUse \"/to\" to do so.");
+                throw new DukeException("OOPS!!! You forgot to specify the ending date."
+                        + "\nUse \"/to\" to do so.");
             }
 
             description = input.substring(5, indexOfFrom);
             if (description.isBlank()) {
-                throw new DukeException("\tHmm, the description of an event cannot be empty :(");
+                throw new DukeException("Hmm, the description of an event cannot be empty :(");
             }
             String from = input.substring(indexOfFrom + 5, indexOfTo).strip();
 
             if (from.isBlank()) {
-                throw new DukeException("\tOOPS!!! You forgot to specify the starting date.");
+                throw new DukeException("OOPS!!! You forgot to specify the starting date.");
             }
 
             String to = input.substring(indexOfTo + 3).strip();
             if (to.isBlank()) {
-                throw new DukeException("\tOOPS!!! You forgot to specify the ending date.");
+                throw new DukeException("OOPS!!! You forgot to specify the ending date.");
             }
 
             if (!DATE_PATTERN.matcher(from).matches() || !DATE_PATTERN.matcher(to).matches()) {
-                throw new DukeException("\tHmm, I don't understand the date. "
+                throw new DukeException("Hmm, I don't understand the date. "
                         + "Use this format: YYYY-MM-DD");
             }
             output = tasks.add(description, from, to);
@@ -135,12 +135,12 @@ public class Parser {
             description = input.substring(4);
             System.out.println(description);
             if (description.isBlank()) {
-                throw new DukeException("\tPlease provide the keyword for me to search.");
+                throw new DukeException("Please provide the keyword for me to search.");
             }
             output = tasks.find(description);
             break;
         default:
-            throw new DukeException("\tOOPS!!! I'm sorry, but I don't understand what that means :-(");
+            throw new DukeException("OOPS!!! I'm sorry, but I don't understand what that means :-(");
         }
         return output;
     }
