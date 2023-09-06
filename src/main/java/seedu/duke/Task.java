@@ -53,19 +53,17 @@ public abstract class Task {
     /**
      * Marks the status of this task as completed.
      */
-    public void mark() {
+    public String mark() {
         this.setDone();
-        System.out.println(Ui.I5 + "Nice! I've marked this task as done:");
-        System.out.println(Ui.I7 + this);
+        return "Nice! I've marked this task as done:\n" + this;
     }
 
     /**
      * Marks the status of this task as not completed.
      */
-    public void unmark() {
+    public String unmark() {
         this.setUndone();
-        System.out.println(Ui.I5 + "OK, I've marked this task as not done yet:");
-        System.out.println(Ui.I7 + this);
+         return "OK, I've marked this task as not done yet:\n" + this;
     }
 
     /**

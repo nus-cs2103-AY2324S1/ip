@@ -17,8 +17,6 @@ public class Ui {
     public static final String LINE = Ui.I4 + "——————————————————————————————————————————————————————————————————";
 
     private String name;
-    private Scanner scanner;
-    private String input;
     private Parser parser;
 
     /**
@@ -28,7 +26,6 @@ public class Ui {
      */
     public Ui(String name) {
         this.name = name;
-        this.scanner = new Scanner(System.in);
         this.parser = new Parser();
     }
 
@@ -42,37 +39,20 @@ public class Ui {
     /**
      * Greets the user.
      */
-    public void greet() {
-        Ui.line();
-        System.out.println(Ui.I5 + "Hello! I'm " + this.name);
-        System.out.println(Ui.I5 + "What can I do for you?");
-        Ui.line();
+    public static String greet() {
+        return "Hello! I'm " + "DUKE_MASTER" + "\n"
+                + "What can I do for you?";
     }
 
     /**
      * Says bye to the user.
      */
-    public void exit() {
-        System.out.println(Ui.I5 + "Bye. Hope to see you again soon!");
+    public String bye() {
+        return "Bye. Hope to see you again soon!";
     }
 
-    /**
-     * Terminates this chatbot.
-     */
-    public void bye() {
-        this.scanner.close();
-        this.exit();
-        Ui.line();
-    }
-
-    /**
-     * Gets the next user input.
-     *
-     * @return A Commands enum after parsing the user input string.
-     */
-    public Commands getNextUserInput() {
-        this.input = this.scanner.nextLine();
-        return this.parser.parse(this.input);
+    public Commands parseUserInput(String input) {
+        return this.parser.parse(input);
     }
 
     /**
@@ -81,8 +61,8 @@ public class Ui {
      * @return The index of the task to be marked.
      * @throws DukeException If there are any user input errors.
      */
-    public int mark() throws DukeException {
-        return this.parser.mark(this.input);
+    public int mark(String input) throws DukeException {
+        return this.parser.mark(input);
     }
 
     /**
@@ -91,8 +71,8 @@ public class Ui {
      * @return The index of the task to be unmarked.
      * @throws DukeException If there are any user input errors.
      */
-    public int unmark() throws DukeException {
-        return this.parser.unmark(this.input);
+    public int unmark(String input) throws DukeException {
+        return this.parser.unmark(input);
     }
 
     /**
@@ -101,8 +81,8 @@ public class Ui {
      * @return The index of the task to be deleted.
      * @throws DukeException If there are any user input errors.
      */
-    public int delete() throws DukeException {
-        return this.parser.delete(this.input);
+    public int delete(String input) throws DukeException {
+        return this.parser.delete(input);
     }
 
     /**
@@ -111,8 +91,8 @@ public class Ui {
      * @return A Todo task.
      * @throws DukeException If there are user input errors.
      */
-    public Task todo() throws DukeException {
-        return this.parser.todo(this.input);
+    public Task todo(String input) throws DukeException {
+        return this.parser.todo(input);
     }
 
     /**
@@ -121,8 +101,8 @@ public class Ui {
      * @return A Deadline task.
      * @throws DukeException If there are user input errors.
      */
-    public Task deadline() throws DukeException {
-        return this.parser.deadline(this.input);
+    public Task deadline(String input) throws DukeException {
+        return this.parser.deadline(input);
     }
 
     /**
@@ -131,8 +111,8 @@ public class Ui {
      * @return An Event task.
      * @throws DukeException If there are user input errors.
      */
-    public Task event() throws DukeException {
-        return this.parser.event(this.input);
+    public Task event(String input) throws DukeException {
+        return this.parser.event(input);
     }
 
     /**
@@ -145,7 +125,7 @@ public class Ui {
      *      to find.
      * @throws DukeException If there are user input errors.
      */
-    public String find() throws DukeException {
-        return this.parser.find(this.input);
+    public String find(String input) throws DukeException {
+        return this.parser.find(input);
     }
 }

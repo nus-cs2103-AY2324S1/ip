@@ -9,18 +9,20 @@ package seedu.duke;
  * @since 2023-08-29
  */
 public class Duke {
-
     private TaskList taskList;
     private Ui ui;
 
     /**
      * The main constructor for this chatbot.
-     *
-     * @param name Name of this chatbot.
      */
-    public Duke(String name) {
+    public Duke() {
         this.taskList = new TaskList();
-        this.ui = new Ui(name);
+        this.ui = new Ui("Kam_BOT");
+        this.startUp("./data/duke.txt");
+    }
+
+    public static String greet() {
+        return Ui.greet();
     }
 
     /**
@@ -29,92 +31,78 @@ public class Duke {
      * @param filePath Path of the storage file.
      */
     public void startUp(String filePath) {
-        this.ui.greet();
         this.taskList.setHardDiskFilePath(filePath);
         this.taskList.loadData();
     }
 
     /**
-     * Starts the service of interacting with the user.
-     *
-     * @throws DukeException If there are user input errors.
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    public void startService() throws DukeException {
+    public String getResponse(String input) {
+
         boolean exceptionOccurs = false;
 
-        Commands cmd = this.ui.getNextUserInput();
+        String response = "";
 
-        Ui.line();
+        Commands cmd = this.ui.parseUserInput(input);
 
         Task task = null;
 
         try {
             switch (cmd) {
             case BYE:
-                this.ui.bye();
-                return;
+                response = this.ui.bye();
+                break;
             case LIST:
-                this.taskList.listOutEverything();
+                response = this.taskList.listOutEverything();
                 break;
             case MARK:
-                int markIndex = this.ui.mark();
+                int markIndex = this.ui.mark(input);
                 if (this.taskList.isOutOfRange(markIndex)) {
                     throw new DukeException(Ui.I5 + "☹ OOPS!!! Please specify a valid task number to be marked.");
                 }
-                this.taskList.mark(markIndex);
+                response = this.taskList.mark(markIndex);
                 break;
             case UNMARK:
-                int unmarkIndex = this.ui.unmark();
+                int unmarkIndex = this.ui.unmark(input);
                 if (taskList.isOutOfRange(unmarkIndex)) {
                     throw new DukeException(Ui.I5 + "☹ OOPS!!! Please specify a valid task number to be unmarked.");
                 }
-                this.taskList.unmark(unmarkIndex);
+                response = this.taskList.unmark(unmarkIndex);
                 break;
             case DELETE:
-                int deleteIndex = this.ui.delete();
+                int deleteIndex = this.ui.delete(input);
                 if (taskList.isOutOfRange(deleteIndex)) {
                     throw new DukeException(Ui.I5 + "☹ OOPS!!! Please specify a valid task number to be deleted.");
                 }
-                this.taskList.remove(deleteIndex);
+                response = this.taskList.remove(deleteIndex);
                 break;
             case TODO:
-                task = this.ui.todo();
+                task = this.ui.todo(input);
                 break;
             case DEADLINE:
-                task = this.ui.deadline();
+                task = this.ui.deadline(input);
                 break;
             case EVENT:
-                task = this.ui.event();
+                task = this.ui.event(input);
                 break;
             case FIND:
-                String toFind = this.ui.find();
-                this.taskList.find(toFind);
+                String toFind = this.ui.find(input);
+                response = this.taskList.find(toFind);
                 break;
             default:
                 throw new DukeException(Ui.I5 + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (DukeException e) {
             exceptionOccurs = true;
-            System.out.println(e.getMessage());
+            response = (e.getMessage());
         }
 
         if (!exceptionOccurs && task != null) {
-            this.taskList.add(task);
+            response = this.taskList.add(task);
         }
 
-        Ui.line();
-        startService();
-    }
-
-    /**
-     * This the main method which uses this chatbot.
-     *
-     * @param args Unused.
-     * @throws DukeException If there are any errors occured.
-     */
-    public static void main(String[] args) throws DukeException {
-        Duke bot = new Duke("Kam_BOT");
-        bot.startUp("./data/duke.txt");
-        bot.startService();
+        return response;
     }
 }
