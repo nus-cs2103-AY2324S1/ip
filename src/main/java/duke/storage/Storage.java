@@ -29,7 +29,7 @@ public class Storage {
     }
 
     /**
-     * Returns the saved list of tasks when programme starts.
+     * Returns the saved list of tasks when program starts.
      * Creates file where list is saved and returns blank list if nothing has been saved before.
      * @return Saved list of tasks.
      * @throws ChatException Errors locating file or if file is corrupted.

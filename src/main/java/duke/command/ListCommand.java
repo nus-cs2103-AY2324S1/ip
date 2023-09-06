@@ -5,12 +5,12 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * Prompts the programme to list all the tasks saved.
+ * Prompts the program to list all the tasks saved.
  */
 public class ListCommand extends Command {
     /**
      * List all the tasks saved.
-     * @param tasks List of task stored by the programme.
+     * @param tasks List of task stored by the program.
      * @param ui Responses to be shown to user.
      * @param storage Saves the list of task to be accessed in the future.
      */
@@ -18,7 +18,7 @@ public class ListCommand extends Command {
         ui.listTaskResponse(tasks);
     };
     /**
-     * Checks if command will end programme.
+     * Checks if command will end program.
      * @return False.
      */
     public boolean isExit() {

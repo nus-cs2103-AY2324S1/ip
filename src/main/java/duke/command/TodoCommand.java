@@ -7,7 +7,7 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * Prompts the programme to create a new task.
+ * Prompts the program to create a new task.
  */
 public class TodoCommand extends Command {
     private String description;
@@ -22,7 +22,7 @@ public class TodoCommand extends Command {
     /**
      * Creates a new task and stores it in tasks,
      * shows appropriate response to user and saves task to storage.
-     * @param tasks List of task stored by the programme.
+     * @param tasks List of task stored by the program.
      * @param ui Responses to be shown to user.
      * @param storage Saves the list of task to be accessed in the future.
      */
@@ -37,7 +37,7 @@ public class TodoCommand extends Command {
         }
     };
     /**
-     * Checks if command will end programme.
+     * Checks if command will end program.
      * @return False.
      */
     public boolean isExit() {

@@ -6,7 +6,7 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * Prompts programme to mark a task as not done.
+ * Prompts program to mark a task as not done.
  */
 public class UnmarkCommand extends Command {
     int taskNumber;
@@ -20,7 +20,7 @@ public class UnmarkCommand extends Command {
     /**
      * Marks the specified task as not done in tasks,
      * shows appropriate response to user and updates tasks in storage.
-     * @param tasks List of task stored by the programme.
+     * @param tasks List of task stored by the program.
      * @param ui Responses to be shown to user.
      * @param storage Saves the list of task to be accessed in the future.
      */
@@ -34,7 +34,7 @@ public class UnmarkCommand extends Command {
         }
     };
     /**
-     * Checks if command will end programme.
+     * Checks if command will end program.
      * @return False.
      */
     public boolean isExit() {

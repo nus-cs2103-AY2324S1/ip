@@ -6,7 +6,7 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * Prompts the programme to delete a task that has been saved.
+ * Prompts the program to delete a task that has been saved.
  */
 public class DeleteCommand extends Command{
     private int taskNumber;
@@ -21,7 +21,7 @@ public class DeleteCommand extends Command{
     /**
      * Deletes the specified task from tasks,
      * shows appropriate response to user and updates tasks in storage.
-     * @param tasks List of task stored by the programme.
+     * @param tasks List of task stored by the program.
      * @param ui Responses to be shown to user.
      * @param storage Saves the list of task to be accessed in the future.
      */
@@ -35,7 +35,7 @@ public class DeleteCommand extends Command{
         }
     }
     /**
-     * Checks if command will end programme.
+     * Checks if command will end program.
      * @return False.
      */
     public boolean isExit() {

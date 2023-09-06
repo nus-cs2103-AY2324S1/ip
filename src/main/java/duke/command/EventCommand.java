@@ -8,7 +8,7 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * Prompts the programme to create a new task with starting and ending time.
+ * Prompts the program to create a new task with starting and ending time.
  */
 public class EventCommand extends Command {
     private String description;
@@ -29,7 +29,7 @@ public class EventCommand extends Command {
     /**
      * Creates a new task with a starting and ending time and stores it in tasks,
      * shows appropriate response to user and saves task to storage.
-     * @param tasks List of task stored by the programme.
+     * @param tasks List of task stored by the program.
      * @param ui Responses to be shown to user.
      * @param storage Saves the list of task to be accessed in the future.
      */
@@ -44,7 +44,7 @@ public class EventCommand extends Command {
         }
     };
     /**
-     * Checks if command will end programme.
+     * Checks if command will end program.
      * @return False.
      */
     public boolean isExit() {
