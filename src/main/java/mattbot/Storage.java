@@ -1,36 +1,24 @@
 package mattbot;
 
-import mattbot.task.Task;
-import mattbot.task.Todo;
-import mattbot.task.Deadline;
-import mattbot.task.Event;
-import mattbot.Parser;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.BufferedReader;
-
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
-import java.io.File;  // Import the File class
-import java.io.IOException;  // Import the IOException class to handle errors
-import java.io.FileNotFoundException;  // Import this class to handle errors
-import java.io.FileWriter;   // Import the FileWriter class
+import mattbot.task.Task;
 
 /**
  * Handles Storage I/O for MattBot.
  */
 public class Storage {
-
+    private static final String SAVE_NAME = "mattbot.txt";
+    private static final String SAVE_FOLDER = "data/";
     protected TaskList data;
     private BufferedReader myReader;
     private Path dataPath;
-    private static final String SAVE_NAME = "mattbot.txt";
-    private static final String SAVE_FOLDER = "data/";
+
 
     /**
      * Constructor for Storage, attempts to read save file.

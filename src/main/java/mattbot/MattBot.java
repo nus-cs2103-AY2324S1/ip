@@ -1,25 +1,15 @@
 package mattbot;
 
-import mattbot.task.Task;
-import mattbot.task.Todo;
-import mattbot.task.Deadline;
-import mattbot.task.Event;
-import mattbot.Parser;
-import mattbot.Storage;
-import mattbot.TaskList;
-
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
-import java.util.List;
-import java.util.ArrayList;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
+import java.util.Scanner;
+
+import mattbot.task.Deadline;
+import mattbot.task.Event;
+import mattbot.task.Task;
+import mattbot.task.Todo;
 
 /**
  * Implements a Task management tool.
@@ -28,7 +18,7 @@ public class MattBot {
     private static final String NAME = "MattBot";
     private static Storage mattmory;
     private static TaskList tasks;
-    private static final DateTimeFormatter PRINT_DTF  = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
+    private static final DateTimeFormatter PRINT_DTF = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
 
     /**
      * Starts the Task management tool.
@@ -61,7 +51,7 @@ public class MattBot {
         while (true) {
             // Take user input in, and process user input
             userInput = sc.nextLine();
-            String command = userInput.split(" ",2)[0];
+            String command = userInput.split(" ", 2)[0];
             switch (command) {
                 case "bye":
                     printTop();
@@ -125,7 +115,8 @@ public class MattBot {
                             System.out.println("I've added this to your tasks: ");
                             System.out.println(t);
                         } catch (DateTimeParseException e) {
-                            System.out.println("Your date is invalid. It should be in the form YYYYMMDDTHHMM. An example is 20231231T2359.");
+                            System.out.println("Your date is invalid. It should be in the form YYYYMMDDTHHMM."
+                                    + " An example is 20231231T2359.");
                         }
                     } else if (command.equals("event")) {
                         String name = arguments.split(" /from ", 2)[0];
@@ -141,7 +132,8 @@ public class MattBot {
                             System.out.println("I've added this to your tasks: ");
                             System.out.println(t);
                         } catch (DateTimeParseException e) {
-                            System.out.println("Your date is invalid. It should be in the form YYYYMMDDTHHMM. An example is 20231231T2359.");
+                            System.out.println("Your date is invalid. It should be in the form YYYYMMDDTHHMM."
+                                    + "An example is 20231231T2359.");
                         }
                     } else if (command.equals("delete")) {
                         if (tasks.size() == 0 || tasks.size() < Integer.parseInt(arguments)) {

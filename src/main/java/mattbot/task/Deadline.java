@@ -38,7 +38,7 @@ public class Deadline extends Task {
     /**
      * Returns a friendly version of the date.
      *
-     * @returns Date in form of May 12 2023 20:00
+     * @return Date in form of May 12 2023 20:00
      */
     public String dateToString() {
         return this.date.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH':'mm"));
@@ -47,7 +47,7 @@ public class Deadline extends Task {
     /**
      * Identifies itself as a Deadline.
      *
-     * @returns Character to identify the type of Task.
+     * @return Character to identify the type of Task.
      */
     public String identifier() {
         return "D";
@@ -56,7 +56,7 @@ public class Deadline extends Task {
     /**
      * Returns String form for storage.
      *
-     * @returns String for storage format.
+     * @return String for storage format.
      */
     public String toFile() {
         return identifier() + " | " + showStatusAsFile() + " | " + showName() + " | " + getDate().format(DTFORMAT);

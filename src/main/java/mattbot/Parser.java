@@ -1,14 +1,13 @@
 package mattbot;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import mattbot.task.Deadline;
 import mattbot.task.Event;
 import mattbot.task.Task;
 import mattbot.task.Todo;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
 
 /**
  * Parses input from user/file.
@@ -43,6 +42,7 @@ public class Parser {
         String[] details = saveString.split(" \\| ");
         Task newTask;
         try {
+            //noinspection EnhancedSwitchMigration
             switch (details[0]) {
             case "T":
                 newTask = new Todo(details[2], getBoolean(details[1]));
@@ -53,7 +53,7 @@ public class Parser {
                 break;
             case "E":
                 newTask = new Event(details[2], getBoolean(details[1]),
-                        LocalDateTime.parse(details[3],DTFORMAT) , LocalDateTime.parse(details[4],DTFORMAT));
+                        LocalDateTime.parse(details[3], DTFORMAT) , LocalDateTime.parse(details[4], DTFORMAT));
                 break;
             default:
                 // Should throw an error here, maybe a can't read error?
@@ -70,11 +70,10 @@ public class Parser {
     /**
      * Gets a boolean value from a String-represented 1 or 0.
      *
-     * @params String Done state as represented by 1 or 0
+     * @param value Done state as represented by 1 or 0
      * @return True or False
      */
-    public static boolean getBoolean(String value)
-    {
+    public static boolean getBoolean(String value) {
         return (value.equals("1"));
     }
 }

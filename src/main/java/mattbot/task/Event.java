@@ -2,16 +2,14 @@ package mattbot.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
 
 /**
  * Implements an Event style task.
  */
 public class Event extends Task {
+    private static final DateTimeFormatter DTFORMAT = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
     protected LocalDateTime startDate;
     protected LocalDateTime endDate;
-    private static final DateTimeFormatter DTFORMAT  = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
     /**
      * Constructor for the Event class, defaults to an incomplete event.
      */
@@ -48,7 +46,7 @@ public class Event extends Task {
     /**
      * Identifies itself as an Event.
      *
-     * @returns Character to identify the type of Task.
+     * @return Character to identify the type of Task.
      */
     public String identifier() {
         return "E";
@@ -57,7 +55,7 @@ public class Event extends Task {
     /**
      * Returns a friendly version of the start date.
      *
-     * @returns Start Date in form of May 12 2023 20:00
+     * @return Start Date in form of May 12 2023 20:00
      */
     public String startDateToString() {
         return this.startDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH':'mm"));

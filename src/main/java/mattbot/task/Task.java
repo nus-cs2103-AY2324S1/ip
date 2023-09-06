@@ -49,7 +49,7 @@ public abstract class Task {
     /**
      * Identifies itself as an Event.
      *
-     * @returns Character to identify the type of Task.
+     * @return Character to identify the type of Task.
      */
     public abstract String identifier();
 
@@ -59,12 +59,16 @@ public abstract class Task {
      * @return String for storage format.
      */
     public abstract String toFile();
+
     /**
      * Returns a String describing the doneness of a Task as a String.
      *
      * @return String "1" if task is complete, "0" otherwise.
      */
-    public String showStatusAsFile() { return (isDone ? "1" : "0"); }
+    public String showStatusAsFile() {
+        return (isDone ? "1" : "0");
+    }
+    @Override
     public String toString() {
         return String.format("[%s] [%s] %s", this.identifier(), this.showStatus(), this.showName());
     }

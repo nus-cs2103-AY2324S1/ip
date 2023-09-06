@@ -1,11 +1,9 @@
 package mattbot;
 
-import mattbot.task.Task;
-import mattbot.task.Todo;
-import mattbot.task.Deadline;
-import mattbot.task.Event;
-
 import java.util.ArrayList;
+
+import mattbot.task.Task;
+
 /**
  * Handles a list of Tasks.
  */
@@ -21,7 +19,7 @@ public class TaskList {
     /**
      * Adds new task to list.
      *
-     * @params t Task to be added.
+     * @param t Task to be added.
      */
     public void addTask(Task t) {
         tasks.add(t);
@@ -29,7 +27,7 @@ public class TaskList {
     /**
      * Removes task specified by index from list.
      *
-     * @params idx 1-based index of task to be removed.
+     * @param idx 1-based index of task to be removed.
      */
     public void removeTask(int idx) {
         tasks.remove(idx - 1);
@@ -38,7 +36,7 @@ public class TaskList {
     /**
      * Marks task as done.
      *
-     * @params idx 1-based index of task to be marked as complete.
+     * @param idx 1-based index of task to be marked as complete.
      */
     public void markTask(int idx) {
         Task t = tasks.get(idx - 1);
@@ -47,7 +45,7 @@ public class TaskList {
     /**
      * Marks task as not done.
      *
-     * @params idx 1-based index of task to be marked as incomplete.
+     * @param idx 1-based index of task to be marked as incomplete.
      */
     public void unmarkTask(int idx) {
         Task t = tasks.get(idx - 1);
