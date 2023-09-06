@@ -9,6 +9,6 @@ public class InvalidNumberException extends Exception {
      * Constructor with an error message.
      */
     public InvalidNumberException() {
-        super("☹ OOPS!!! You have indicated an invalid number.");
+        super("Oops! You have indicated an invalid number.");
     }
 }

@@ -10,7 +10,7 @@ public class InvalidDescriptionException extends Exception {
      * Constructor with an error message.
      */
     public InvalidDescriptionException(String task) {
-        super("☹ OOPS!!! "
+        super("Oops! "
                 + (task.equals("find")
                 ? "You didn't indicate the keyword."
                 : "The description of a " + task + " cannot be empty."));

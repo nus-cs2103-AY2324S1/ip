@@ -9,6 +9,6 @@ public class InvalidCommandException extends Exception {
      * Constructor with an error message.
      */
     public InvalidCommandException() {
-        super("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        super("Oops! I'm sorry, but I don't know what that means :-(");
     }
 }
