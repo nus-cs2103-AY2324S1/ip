@@ -16,6 +16,11 @@ public class DeleteCommand extends Command {
         taskNumToDelete = taskNum;
     }
 
+    /**
+     * Deletes the task with the given task number and returns the response for the user.
+     *
+     * @return the response to the user.
+     */
     public String[] execute() {
         String[] response = new String[3];
 

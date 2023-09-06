@@ -12,6 +12,9 @@ import java.util.List;
  * Handles saving and loading of tasks from and to a data text file.
  */
 public class Storage {
+    /**
+     * The default file name for storing tasks on disk.
+     */
     public static final String DEFAULT_STORAGE_PATH = ".duke-storage.txt";
     private final Path path;
 
@@ -38,6 +41,7 @@ public class Storage {
      * Loads the task list from Duke's data text file.
      *
      * @return the loaded task list from the data text file
+     * @throws IOException if an I/O error occurs when reading from the file
      */
     public TaskList load() throws IOException {
         if (!Files.exists(path) || !Files.isRegularFile(path)) {

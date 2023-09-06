@@ -9,6 +9,11 @@ public class ListCommand extends Command {
     public ListCommand() {
     }
 
+    /**
+     * Lists all current tasks in the list and sends it as a response to the user.
+     *
+     * @return the response for the user.
+     */
     public String[] execute() {
         String[] response;
         int numTasks = this.tasks.size();

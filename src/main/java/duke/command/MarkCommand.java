@@ -16,6 +16,11 @@ public class MarkCommand extends Command {
         taskNumToMark = taskNum;
     }
 
+    /**
+     * Marks the task with the given task number.
+     *
+     * @return the response to the user.
+     */
     public String[] execute() {
         try {
             String[] response = new String[2];
