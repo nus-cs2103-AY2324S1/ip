@@ -3,10 +3,9 @@ package duke.command;
 import duke.storage.Storage;
 import duke.task.TaskList;
 
-public class ListCommand extends Command {
+public class InvalidCommand extends Command {
     private String commandMessage = "";
-
-    public ListCommand() {
+    public InvalidCommand() {
     }
 
     @Override
@@ -16,10 +15,7 @@ public class ListCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Storage storage) {
-        if (taskList.getLength() == 0) {
-            commandMessage = "Wow! You have no tasks!";
-        } else {
-            commandMessage = "Here are your tasks: " + "\n" + taskList.toString();
-        }
+
+        commandMessage = "I do not understand";
     }
 }

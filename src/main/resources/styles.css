@@ -1,0 +1,21 @@
+/* styles.css */
+
+/* Style for the user input field */
+#userInput {
+    -fx-prompt-text-fill: gray; /* Placeholder text color */
+    -fx-font-size: 14px;
+}
+
+/* Style for the send button */
+#sendButton {
+    -fx-background-color: #4CAF50; /* Button background color */
+    -fx-text-fill: white; /* Button text color */
+    -fx-font-size: 14px;
+}
+
+/* Style for the dialog container (chat messages) */
+#dialogContainer {
+    -fx-background-color: #f2f2f2; /* Background color for messages */
+    -fx-padding: 10px; /* Add padding around the messages */
+}
+}

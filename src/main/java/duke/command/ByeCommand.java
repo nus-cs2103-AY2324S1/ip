@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.storage.Storage;
 import duke.task.TaskList;
 
 public class ByeCommand extends Command {
@@ -12,7 +13,7 @@ public class ByeCommand extends Command {
         return commandMessage;
     }
     @Override
-    public void execute(TaskList taskList) {
+    public void execute(TaskList taskList, Storage storage) {
 
         commandMessage = "Byebye. See you again!";
     }

@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.exception.KoraException;
+import duke.storage.Storage;
 import duke.task.Deadline;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -25,9 +26,10 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList) throws KoraException {
+    public void execute(TaskList taskList, Storage storage) throws KoraException {
         Task currentTask = new Deadline(taskDetails, timeDetails);
         taskList.addTask(currentTask);
+        storage.saveTask(taskList);
         commandMessage = "Okay! I have added this task" + "\n"
                 + currentTask.toString() + "\n"
                 + String.format("Now you have %d tasks!", taskList.getLength());

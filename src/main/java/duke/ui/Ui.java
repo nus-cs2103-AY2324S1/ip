@@ -46,4 +46,13 @@ public class Ui {
         System.out.println(logo + "Hello, I am your chatbot Kora!\nHow can I help you today?");
         System.out.println("------------------------------");
     }
+
+    public String getGreetMessage() {
+        String logo = "  _   _   _\n"
+                + " / \\ / \\ / \\\n"
+                + "( 안 | 녕 )\n"
+                + " \\_/ \\_/ \\_/\n";
+        String message = "Hello, I am your chatbot Kora!\nHow can I help you today?";
+        return logo + message;
+    }
 }

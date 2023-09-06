@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.exception.KoraException;
+import duke.storage.Storage;
 import duke.task.TaskList;
 
 /**
@@ -34,7 +35,7 @@ public abstract class Command {
      * @param taskList List with tasks.
      * @throws KoraException From its child class.
      */
-    public abstract void execute(TaskList taskList) throws KoraException;
+    public abstract void execute(TaskList taskList, Storage storage) throws KoraException;
 
     /**
      * Returns false for all the commands except ByeCommand.
