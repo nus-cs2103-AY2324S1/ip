@@ -2,17 +2,17 @@ package duke.ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import duke.task.Task;
 
 /**
- * The Ui class handles the user interface interactions of the Duke application.
+ * The Ui class handles user interface interactions in the Duke application.
  */
 public class Ui {
     private static final String DIVIDER = "___________________________________\n";
     private Scanner scanner;
+
     /**
-     * Constructs an Ui object and initializes the scanner for user input.
+     * Constructs a Ui object and initializes the scanner for user input.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);
@@ -20,9 +20,11 @@ public class Ui {
 
     /**
      * Displays a farewell message to the user upon exiting the application.
+     *
+     * @return The farewell message.
      */
-    public void showExit() {
-        System.out.println("Bye Bye. Hope to see you again soon!\n");
+    public String showExit() {
+        return "Bye";
     }
 
     /**
@@ -35,7 +37,7 @@ public class Ui {
         if (list.isEmpty()) {
             msg = "Looks like your list is empty!\nTime to add some new Tasks!\n";
         }
-        String welcome = String.format("Hi I'm Duke but BETTTERRRR!!!\n%s", msg);
+        String welcome = String.format("Hi, I'm Duke but BETTTERRRR!!!\n%s", msg);
         System.out.println(welcome + DIVIDER);
         if (!list.isEmpty()) {
             showList(list);
@@ -45,18 +47,21 @@ public class Ui {
 
     /**
      * Displays the standard divider line.
+     *
+     * @return The divider message.
      */
-    public void showDivider() {
-        System.out.println(DIVIDER);
+    public String showDivider() {
+        return DIVIDER;
     }
 
     /**
      * Displays an error message to the user.
      *
      * @param error The error message to be displayed.
+     * @return The error message.
      */
-    public void showError(String error) {
-        System.out.println(error);
+    public String showError(String error) {
+        return "Uh oh! Duke has run into a problem:\n" + error;
     }
 
     /**
@@ -64,11 +69,12 @@ public class Ui {
      *
      * @param task The task that was deleted.
      * @param list The updated list of tasks.
+     * @return The confirmation message.
      */
-    public void showDelete(Task task, ArrayList<Task> list) {
-        String msg = String.format("Okay I have deleted this task from the list\n\t %s\n"
+    public String showDelete(Task task, ArrayList<Task> list) {
+        String msg = String.format("Okay, I have deleted this task from the list:\n\t %s\n"
                 + "Now you have %d items in your list\n", task.toString(), list.size());
-        System.out.println(msg);
+        return msg;
     }
 
     /**
@@ -76,40 +82,44 @@ public class Ui {
      *
      * @param task The task that was added.
      * @param list The updated list of tasks.
+     * @return The confirmation message.
      */
-    public void showTaskAdded(Task task, ArrayList<Task> list) {
-        String msg = String.format("Okay!! I have added a new %s\n\t %s\n"
+    public String showTaskAdded(Task task, ArrayList<Task> list) {
+        String msg = String.format("Okay, I have added a new %s:\n\t %s\n"
                 + "You now have %d items in your list!", task.getType(), task.toString(), list.size());
-        System.out.println(msg);
+        return msg;
     }
 
     /**
-     * Displays a message confirming the marking or unMarking of a task as done.
+     * Displays a message confirming the marking or unmarking of a task as done.
      *
-     * @param type The type of action ("mark" or "unMark").
+     * @param type The type of action ("mark" or "unmark").
      * @param task The task that was marked or unmarked.
+     * @return The confirmation message.
      */
-    public void showMark(String type, Task task) {
-        String msg = String.format("Okay I have unmarked this task:\n%s\n", task.toString());
+    public String showMark(String type, Task task) {
+        String msg = String.format("Okay, I have unmarked this task:\n%s\n", task.toString());
         if (type.equals("mark")) {
             msg = String.format("Nice!! I have marked this task as done:\n%s\n", task.toString());
         }
-        System.out.println(msg);
+        return msg;
     }
 
     /**
      * Displays the list of tasks with their respective indices.
      *
      * @param list The list of tasks to be displayed.
+     * @return The list of tasks message.
      */
-    public void showList(ArrayList<Task> list) {
+    public String showList(ArrayList<Task> list) {
         Task[] temp = list.toArray(new Task[0]);
-        System.out.println("Here are the tasks in your list:");
+        String msg = "Here are the tasks in your list:\n";
         for (int i = 0; i < temp.length; i++) {
-            System.out.println(i + 1 + ". " + temp[i].toString());
+            String nextLine = String.format("%d. %s\n", i + 1, temp[i].toString());
+            msg = msg.concat(nextLine);
         }
+        return msg;
     }
-
 
     /**
      * Displays a list of tasks that match the specified search criteria.
@@ -118,15 +128,17 @@ public class Ui {
      * It displays the matching tasks along with their indices in the list.
      *
      * @param list The list of tasks to search within.
+     * @return The list of matching tasks message.
      */
-    public void showListMatching(ArrayList<Task> list) {
+    public String showListMatching(ArrayList<Task> list) {
         Task[] temp = list.toArray(new Task[0]);
-        System.out.println("Here are the matching tasks in your list:");
+        String msg = "Here are the matching tasks in your list:\n";
         for (int i = 0; i < temp.length; i++) {
-            System.out.println(i + 1 + ". " + temp[i].toString());
+            String nextLine = String.format("%d. %s\n", i + 1, temp[i].toString());
+            msg = msg.concat(nextLine);
         }
+        return msg;
     }
-
 
     /**
      * Reads and retrieves a user command from the console input.
@@ -139,8 +151,24 @@ public class Ui {
 
     /**
      * Displays an "invalid command" message to the user.
+     *
+     * @return The invalid command message.
      */
-    public void invalidCommand() {
-        System.out.println(DIVIDER + "Oops! That does not seem to be a valid action!\n" + DIVIDER);
+    public String invalidCommand() {
+        return "Oops! That does not seem to be a valid action!\n";
+    }
+
+    /**
+     * Displays a help message to the user, listing supported commands.
+     *
+     * @return The help message.
+     */
+    public String showHelp() {
+        String msg = "These are the commands that Duke supports:\n"
+                + "1. todo (DESCRIPTION)\n"
+                + "2. deadline (DESCRIPTION) /by DATE\n"
+                + "3. event (DESCRIPTION) /from DATE /to DATE\n"
+                + "4. mark/unmark/delete (POSITION)";
+        return msg;
     }
 }

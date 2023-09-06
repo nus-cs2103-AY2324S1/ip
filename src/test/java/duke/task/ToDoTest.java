@@ -16,30 +16,5 @@ public class ToDoTest {
                 new ToDo("Test TODO").toString());
     }
 
-    @Test
-    public void addToDo_success() throws DukeException {
-        String description = "New TODO";
-        ArrayList<Task> expectedList = new ArrayList<>();
-        ToDo testToDo = new ToDo(description);
-        expectedList.add(testToDo);
-        ArrayList<Task> testList = new ArrayList<>();
 
-        assertEquals(testToDo, ToDo.addTodo(description, testList));
-        assertEquals(expectedList, testList);
-    }
-
-    @Test
-    public void addTodo_descriptionEmpty_exceptionThrown() {
-        String description = "";
-        ArrayList<Task> testList = new ArrayList<>();
-
-        try {
-            assertEquals(new ToDo(description), ToDo.addTodo(description, testList));
-            fail();
-        } catch (DukeException e) {
-            assertEquals("☹ OOPS!!! The description of a todo cannot be empty.",
-                    e.getMessage());
-        }
-
-    }
 }

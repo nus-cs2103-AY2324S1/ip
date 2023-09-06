@@ -49,7 +49,7 @@ public class Parser {
             return new FindCommand(arr[1]);
 
         } else {
-            throw new DukeException("Oops!! That does not seem to be a valid command!");
+            throw new DukeException(ui.showHelp());
         }
     }
 }

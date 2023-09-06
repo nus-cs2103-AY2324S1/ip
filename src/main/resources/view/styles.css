@@ -1,0 +1,12 @@
+.dialog-box {
+    -fx-background-color: LIGHTGRAY; /* Default background color */
+}
+
+.dialog-box-user {
+    -fx-background-color: LIGHTBLUE; /* User's dialog background color */
+}
+
+.label {
+    -fx-wrap-text: true;
+}
+

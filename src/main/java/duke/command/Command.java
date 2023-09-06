@@ -19,7 +19,7 @@ public abstract class Command {
      * @param storage The Storage object to manage data storage.
      * @throws DukeException If there is an issue executing the command.
      */
-    public abstract void execute(TaskList list, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList list, Ui ui, Storage storage) throws DukeException;
 
     /**
      * Indicates whether this command is an exit command.

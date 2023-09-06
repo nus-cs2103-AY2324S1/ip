@@ -34,9 +34,9 @@ public class AddCommand extends Command {
      * @throws DukeException If there is an issue executing the command.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         Task newTask = list.addTask(this.type, this.description);
-        ui.showTaskAdded(newTask, list.getList());
+        return ui.showTaskAdded(newTask, list.getList());
     }
 
     /**

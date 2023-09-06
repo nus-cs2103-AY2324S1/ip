@@ -18,9 +18,9 @@ public class ExitCommand extends Command {
      * @throws DukeException If there is an issue executing the command.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         storage.saveDataToFile(list.getList());
-        ui.showExit();
+        return ui.showExit();
     }
 
     /**
