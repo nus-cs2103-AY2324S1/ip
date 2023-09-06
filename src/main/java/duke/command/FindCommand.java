@@ -28,8 +28,8 @@ public class FindCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public void execute(TaskList items, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList items, Ui ui, Storage storage) throws DukeException {
         ArrayList<Task> result = items.searchFor(keyword);
-        ui.listSearch(result);
+        return ui.listSearch(result);
     }
 }

@@ -26,9 +26,9 @@ public class ToDoCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public void execute(TaskList items, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList items, Ui ui, Storage storage) throws DukeException {
         Task item = items.addToDo(name);
-        ui.addItem(item.toString(), items.getCount());
         storage.writeData(items.getItems());
+        return ui.addItem(item.toString(), items.getCount());
     }
 }

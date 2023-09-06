@@ -10,7 +10,10 @@ public class Ui {
 
     private static final String GREETING = "Hello! I'm JED, your personal chat-bot!\nWhat can I do for you?";
     private static final String GOODBYE = "Bye. Hope to see you again soon!";
-
+    private static final String EMPTY_LIST = "Your list is currently empty.";
+    private static final String ERROR_CANNOT_LOAD_DATA =
+            "I am unable to read your duke.txt data file. Starting with a blank task list...";
+    private static final String NO_MATCHING_TASKS = "Your keyword search returned no matching tasks.";
     private Scanner sc;
 
     /**
@@ -33,35 +36,37 @@ public class Ui {
      * Prints out the specified String, wrapped in a horizontal line break.
      *
      * @param str The string to be printed out.
+     * @return The string to be printed out.
      */
-    public void talk(String str) {
+    public String talk(String str) {
         String line = "_".repeat(50);
         System.out.println(line);
         System.out.println(str);
         System.out.println(line);
+        return str;
     }
 
     /**
      * Prints out the greeting message.
      */
-    public void greet() {
-        talk(GREETING);
+    public String greet() {
+        return talk(GREETING);
     }
 
     /**
      * Prints out the goodbye message.
      */
-    public void bye() {
-        talk(GOODBYE);
-        sc.close();
+    public String bye() {
+        return talk(GOODBYE);
+        // sc.close();
     }
 
     /**
      * Prints out the loading error message, used when Duke is unable to read the
      * input data file.
      */
-    public void showLoadingError() {
-        talk("I am unable to read your duke.txt data file. Starting with a blank task list...");
+    public String showLoadingError() {
+        return talk(ERROR_CANNOT_LOAD_DATA);
     }
 
     /**
@@ -70,17 +75,18 @@ public class Ui {
      *
      * @param items The ArrayList of items to be printed.
      */
-    public void list(ArrayList<?> items) {
+    public String list(ArrayList<?> items) {
         int count = items.size();
         if (count == 0) {
-            talk("Your list is currently empty.");
+            return talk(EMPTY_LIST);
         } else {
             String list = "";
             for (int i = 0; i < count; i++) {
                 list += "  " + (i + 1) + ". " + items.get(i) + "\n";
             }
-            talk(list);
+            return talk(list);
         }
+
     }
 
     /**
@@ -89,16 +95,16 @@ public class Ui {
      *
      * @param items The ArrayList of searched items to be printed.
      */
-    public void listSearch(ArrayList<?> items) {
+    public String listSearch(ArrayList<?> items) {
         int count = items.size();
         if (count == 0) {
-            talk("Your keyword search returned no matching tasks.");
+            return talk(NO_MATCHING_TASKS);
         } else {
             String list = "";
             for (int i = 0; i < count; i++) {
                 list += "  " + (i + 1) + ". " + items.get(i) + "\n";
             }
-            talk(list);
+            return talk(list);
         }
     }
 
@@ -107,8 +113,8 @@ public class Ui {
      *
      * @param item The item that has been marked.
      */
-    public void markItem(String item) {
-        talk("Nice! I've marked this task as done:\n  " + item);
+    public String markItem(String item) {
+        return talk("Nice! I've marked this task as done:\n  " + item);
     }
 
     /**
@@ -116,8 +122,8 @@ public class Ui {
      *
      * @param item The item that has been un-marked.
      */
-    public void unmarkItem(String item) {
-        talk("OK, I've marked this task as not done yet:\n  " + item);
+    public String unmarkItem(String item) {
+        return talk("OK, I've marked this task as not done yet:\n  " + item);
     }
 
     /**
@@ -125,8 +131,8 @@ public class Ui {
      *
      * @param item The item that has been deleted.
      */
-    public void deleteItem(String item, int count) {
-        talk("Noted. I've removed this task:\n " + item + "\n Now you have " + count + " tasks in your list");
+    public String deleteItem(String item, int count) {
+        return talk("Noted. I've removed this task:\n " + item + "\n Now you have " + count + " tasks in your list");
     }
 
     /**
@@ -134,8 +140,8 @@ public class Ui {
      *
      * @param item The item that has been added.
      */
-    public void addItem(String item, int count) {
-        talk("Got it. I've added this task:\n  " + item + "\n Now you have "
+    public String addItem(String item, int count) {
+        return talk("Got it. I've added this task:\n  " + item + "\n Now you have "
                 + count + " tasks in your list.");
     }
 }
