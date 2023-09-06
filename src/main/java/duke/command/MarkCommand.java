@@ -31,9 +31,9 @@ public class MarkCommand extends Command {
      * @param storage The storage file to store the list of tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.getTask(index);
         task.markDone();
-        ui.markDonePrint(task);
+        return ui.markDonePrint(task);
     }
 }

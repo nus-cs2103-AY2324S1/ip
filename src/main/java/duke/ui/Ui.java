@@ -19,8 +19,9 @@ public class Ui {
     /**
      * Greets the user at the start
      */
-    public void greet() {
-        System.out.println(MESSAGE);
+    public String greet() {
+
+        return MESSAGE;
     }
 
     /**
@@ -29,11 +30,10 @@ public class Ui {
      * @param input the task added to the list of tasks
      * @param count the number of tasks in the list
      */
-    public void taskPrint(Task input, int count) {
-        System.out.println(LINE + "\n"
-                + "Got it. I've added this task" + "\n"
+    public String taskPrint(Task input, int count) {
+        return LINE + "\n" + "Got it. I've added this task" + "\n"
                 + input + "\n" + "Now you have " + count
-                + " tasks in this list." + "\n" + LINE);
+                + " tasks in this list." + "\n" + LINE;
     }
 
     /**
@@ -42,11 +42,10 @@ public class Ui {
      * @param input the task deleted from the list of tasks
      * @param count the number of tasks in the list
      */
-    public void deletePrint(Task input, int count) {
-        System.out.println(LINE + "\n"
-                + "Noted. I've removed this task: " + "\n"
+    public String deletePrint(Task input, int count) {
+        return LINE + "\n" + "Noted. I've removed this task: " + "\n"
                 + input + "\n" + "Now you have " + count
-                + " tasks in this list." + "\n" + LINE);
+                + " tasks in this list." + "\n" + LINE;
     }
 
     /**
@@ -54,10 +53,8 @@ public class Ui {
      *
      * @param task the task to be marked as done
      */
-    public void markDonePrint(Task task) {
-        System.out.println(LINE);
-        System.out.println("Nice! I've marked this task as done: " + "\n" + task);
-        System.out.println(LINE);
+    public String markDonePrint(Task task) {
+        return LINE + "\n" + "Nice! I've marked this task as done: " + "\n" + task + "\n" + LINE;
     }
 
     /**
@@ -65,19 +62,15 @@ public class Ui {
      *
      * @param task the task to be unmarked as done
      */
-    public void unmarkDonePrint(Task task) {
-        System.out.println(LINE);
-        System.out.println("OK, I've marked this task as not done yet: " + "\n" + task);
-        System.out.println(LINE);
+    public String unmarkDonePrint(Task task) {
+        return LINE + "\n" + "OK, I've marked this task as not done yet: " + "\n" + task + "\n" + LINE;
     }
 
     /**
      * Prints a message if a task is marked as done.
      */
-    public void bye() {
-        System.out.println(LINE);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(LINE);
+    public String bye() {
+        return LINE + "\n" + "Bye. Hope to see you again soon!" + "\n" + LINE;
     }
 
     /**
@@ -86,12 +79,13 @@ public class Ui {
      * @param tasksList the list of tasks
      * @param count the amount of tasks in the tasks list
      */
-    public void listOfTasks(TaskList tasksList, int count) {
-        System.out.println(LINE);
+    public String listOfTasks(TaskList tasksList, int count) {
+        String output = LINE + "\n";
         for (int i = 0; i < count; i++) {
-            System.out.println((i + 1) + "." + tasksList.getTask(i));
+            output += (i + 1) + "." + tasksList.getTask(i) + "\n";
         }
-        System.out.println(LINE);
+        output += LINE + "\n";
+        return output;
     }
 
     /**
@@ -99,10 +93,8 @@ public class Ui {
      *
      * @param e The DukeException error to be printed
      */
-    public void errorPrint(DukeException e) {
-        System.out.println(LINE);
-        System.out.println(e.getMessage());
-        System.out.println(LINE);
+    public String errorPrint(DukeException e) {
+        return LINE + "\n" + e.getMessage() + "\n" + LINE;
     }
 
     /**
@@ -110,13 +102,14 @@ public class Ui {
      *
      * @param findTasks
      */
-    public void printFoundTasks(TaskList findTasks) {
-        System.out.println(LINE);
-        System.out.println("Here are the matching tasks in your list:");
+    public String printFoundTasks(TaskList findTasks) {
+        String output = LINE + "\n";
+        output += "Here are the matching tasks in your list:\n";
         for (int i = 0; i < findTasks.getTaskCount(); i++) {
-            System.out.println((i + 1) + ". " + findTasks.getTask(i));
+            output += (i + 1) + ". " + findTasks.getTask(i) + "\n";
         }
-        System.out.println(LINE);
+        output += LINE + "\n";
+        return output;
     }
 
 }

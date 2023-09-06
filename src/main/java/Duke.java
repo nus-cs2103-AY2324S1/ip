@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.Scanner;
 
 import duke.command.Command;
@@ -14,7 +16,7 @@ import duke.ui.Ui;
  */
 public class Duke {
     private Storage storage;
-    private TaskList tasks;
+    private TaskList tasks = new TaskList();
     private Ui ui;
     private Scanner scanner;
 
@@ -49,6 +51,19 @@ public class Duke {
             } catch (DukeException e) {
                 this.ui.errorPrint(e);
             }
+        }
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            throw new RuntimeException(e);
         }
     }
 

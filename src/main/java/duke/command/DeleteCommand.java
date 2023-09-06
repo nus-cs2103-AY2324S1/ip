@@ -25,15 +25,16 @@ public class DeleteCommand extends Command {
     /**
      * Executes the DeleteCommand.
      *
-     * @param tasks The TaskList where the command is to be executed.
-     * @param ui The UI which functions as the user interface of the Chat bot.
+     * @param tasks   The TaskList where the command is to be executed.
+     * @param ui      The UI which functions as the user interface of the Chat bot.
      * @param storage The storage file to store the list of tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (index >= 0 && index < tasks.getTaskCount()) {
-            ui.deletePrint(tasks.getTask(index), tasks.getTaskCount() - 1);
             tasks.remove(index);
         }
+        return ui.deletePrint(tasks.getTask(index), tasks.getTaskCount() - 1);
     }
 }
+

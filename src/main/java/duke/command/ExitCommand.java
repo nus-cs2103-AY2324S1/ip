@@ -21,9 +21,10 @@ public class ExitCommand extends Command {
      * @throws DukeException If the command execution fails.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        ui.bye();
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         storage.writeToFile(tasks);
+        return ui.bye();
+
     }
 
 }
