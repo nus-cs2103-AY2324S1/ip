@@ -62,7 +62,7 @@ public class Parser {
      * @throws EmptyDescriptionException If a description is required but not provided.
      * @throws InvalidCommandException If an invalid command is entered.
      */
-    public void parseInput(String userInput)
+    public String parseInput(String userInput)
             throws IOException, EmptyDescriptionException, InvalidCommandException {
         try {
             String firstWord = getCommand(userInput);
@@ -77,53 +77,46 @@ public class Parser {
             //A-Enum: Use switch-case instead of if-else for neater code
             switch (command) {
             case BYE:
-                ui.farewell();
                 Duke.isFinished = true;
-                break;
+                return ui.farewell();
             case LIST:
-                taskList.listAllTasks();
-                break;
+                return taskList.listAllTasks();
             case MARK:
                 int taskIndex = Integer.parseInt(words[1]) - 1;
-                taskList.markTask(taskIndex);
-                break;
+                return taskList.markTask(taskIndex);
             case UNMARK:
                 taskIndex = Integer.parseInt(words[1]) - 1; //Same variable name taskIndex as above
-                taskList.unmarkTask(taskIndex);
-                break;
+                return taskList.unmarkTask(taskIndex);
             case DELETE:
-                taskList.deleteTask(userInput);
-                break;
+                return taskList.deleteTask(userInput);
             case FIND:
                 String keyword = userInput.trim().replaceFirst("find", "").trim();
-                taskList.findTask(keyword);
-                break;
+                return taskList.findTask(keyword);
             case DEADLINE:
-                Deadline.handleDeadlineTask(userInput);
-                break;
+                return Deadline.handleDeadlineTask(userInput);
             case TODO:
-                Todo.handleTodoTask(userInput);
-                break;
+                return Todo.handleTodoTask(userInput);
             case EVENT:
-                Event.handleEventTask(userInput);
-                break;
+                return Event.handleEventTask(userInput);
             case UNKNOWN:
                 throw new InvalidCommandException("I'm sorry, but I don't know what that means :-(");
             }
         } catch (IOException e) {
-            System.err.println(HORIZONTAL_LINE + "\n" + e.toString() + HORIZONTAL_LINE);
+//            System.err.println(HORIZONTAL_LINE + "\n" + e.toString() + HORIZONTAL_LINE);
+            return e.toString();
         } catch (EmptyDescriptionException e) {
-            e.printExceptionMessage();
+            return e.printExceptionMessage();
         } catch (InvalidCommandException e) {
-            e.printExceptionMessage();
+            return e.printExceptionMessage();
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("     Please enter valid Integer index!");
-            System.out.printf("     You currently have %d tasks", taskList.listOfTasks.size());
+            return "Please enter valid Integer index!\n" +
+                    String.format("You currently have %d task(s)", taskList.listOfTasks.size());
+//            System.out.println("     Please enter valid Integer index!");
+//            System.out.printf("     You currently have %d tasks", taskList.listOfTasks.size());
         } catch (Exception e) {
-            System.out.println(HORIZONTAL_LINE);
-            System.out.println("     Very Invalid command! Please enter valid commands");
-            System.out.println(HORIZONTAL_LINE);
+            return "Very Invalid command! Please enter valid commands";
         }
+        return "The parser has encountered errors. This message should not be printed.";
     }
 
 }

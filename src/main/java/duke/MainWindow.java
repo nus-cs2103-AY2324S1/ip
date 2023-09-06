@@ -1,5 +1,7 @@
 package duke;
 
+import duke.exception.EmptyDescriptionException;
+import duke.exception.InvalidCommandException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -42,12 +45,12 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws InvalidCommandException, EmptyDescriptionException, IOException {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getSeeWhyAreDialog(response, dukeImage)
         );
         userInput.clear();
     }

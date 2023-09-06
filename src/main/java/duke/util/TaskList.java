@@ -40,27 +40,31 @@ public class TaskList {
     /**
      * List out all tasks available for the user.
      */
-    protected void listAllTasks() {
+    protected String listAllTasks() {
         if (listOfTasks.isEmpty()) {
-            printHorizontalLine();
-            System.out.println("    No tasks for now!");
-            printHorizontalLine();
+            return "No tasks for now!";
+//            System.out.println("    No tasks for now!");
         } else {
-            printHorizontalLine();
-            System.out.println("    Your current task list:");
+            StringBuilder message = new StringBuilder();
+            message.append(String.format("You have %d tasks now. Here is your task list:\n", listOfTasks.size()));
+
+            //System.out.println("    Your current task list:");
             for (int i = 0; i < listOfTasks.size(); i++) {
-                System.out.printf("     %d.%s\n", i + 1, listOfTasks.get(i).toString());
+                //System.out.printf("     %d.%s\n", i + 1, listOfTasks.get(i).toString());
+                message.append("\t").append(i + 1).append(".").append(listOfTasks.get(i)).append("\n");
             }
-            printHorizontalLine();
+            return message.toString();
         }
     }
 
     /**
      * Delete a Task when given valid task index.
      */
-    public void deleteTask(String deleteInput)
+    public String deleteTask(String deleteInput)
             throws EmptyDescriptionException, IOException {
         String[] words = deleteInput.split("\\s+"); // Split input by space, put into array
+        StringBuilder message = new StringBuilder();
+
         //Check for valid length
         if (words.length <= 1) {
             throw new EmptyDescriptionException("Please provide the ask index to be deleted.");
@@ -69,28 +73,29 @@ public class TaskList {
         //Try parsing into integer to get deleteIndex
         try {
             int deleteIndex = Integer.parseInt(words[1]) - 1; // Potential Error cannot parse to integer
-            printHorizontalLine();
 
             if (deleteIndex >= 0 && deleteIndex < listOfTasks.size()) {
                 Task removedTask = listOfTasks.remove(deleteIndex); //Actual ask can be todo, deadline, or event
-                System.out.println("     Noted. I've removed this Task:");
-                System.out.printf("       %s\n", removedTask.toString());
-                System.out.printf("     Now you have %d task(s) in the list.\n", listOfTasks.size());
+                message.append("Noted. I've removed this task:\n");
+                message.append(String.format("%s\n", removedTask.toString()));
+                message.append(String.format("Now you have %d task(s) in the list.\n", listOfTasks.size()));
+                storage.clearAllData();
+                storage.updateData();
+//                System.out.println("     Noted. I've removed this Task:");
+//                System.out.printf("       %s\n", removedTask.toString());
+//                System.out.printf("     Now you have %d task(s) in the list.\n", listOfTasks.size());
             } else {
-                System.out.println("     OOPS!!! The task index is invalid.");
-                System.out.printf("     You currently have %d task(s).\n", listOfTasks.size());
+                message.append("OOPS!!! The task index is invalid.\n");
+                message.append(String.format("You currently have %d task(s).\n", listOfTasks.size()));
+//                System.out.printf("     You currently have %d task(s).\n", listOfTasks.size());
             }
-            printHorizontalLine();
-
+            return message.toString();
         } catch (NumberFormatException e) {
-            printHorizontalLine();
-            System.out.println("     OOPS!!! Please enter the index after 'delete' command.");
-            System.out.println("     For example: delete 5");
-            System.out.println("     This will remove Task 5 from your Task List, assuming you have at least 5 tasks.");
-            printHorizontalLine();
+            message.append("OOPS!!! Please enter the index after 'delete' command.");
+            message.append("For example: delete 5");
+            message.append("This will remove Task 5 from your Task List, assuming you have at least 5 tasks.");
+            return message.toString();
         }
-        storage.clearAllData();
-        storage.updateData();
     }
 
     /**
@@ -101,19 +106,21 @@ public class TaskList {
      * @param taskIndex the index of the Task to be marked as done.
      * @throws IOException if there is an issue with updating the data in the storage file.
      */
-    protected void markTask(int taskIndex) throws IOException {
-        printHorizontalLine();
+    protected String markTask(int taskIndex) throws IOException {
+        StringBuilder message = new StringBuilder();
         if (taskIndex < 0 || taskIndex >= listOfTasks.size()) {
-            System.out.printf("     Invalid Index of Task. You currently have %d Task(s)\n", listOfTasks.size());
+            message.append(String.format("Invalid Index of Task. You currently have %d Task(s)\n", listOfTasks.size()));
         } else {
             Task task = listOfTasks.get(taskIndex);
             task.markAsDone();
-            System.out.println("     Nice! I've marked this Task as done:");
-            System.out.printf("       [%s] %s\n", task.getStatusIcon(), task.description);
+            storage.clearAllData();
+            storage.updateData();
+            message.append("Nice! I've marked this Task as done:\n");
+            message.append(String.format("\t[%s] %s\n", task.getStatusIcon(), task.getDescription()));
+//            System.out.println("     Nice! I've marked this Task as done:");
+//            System.out.printf("       [%s] %s\n", task.getStatusIcon(), task.description);
         }
-        printHorizontalLine();
-        storage.clearAllData();
-        storage.updateData();
+        return message.toString();
     }
 
     /**
@@ -124,19 +131,21 @@ public class TaskList {
      * @param taskIndex the index of the Task to be marked as not done yet.
      * @throws IOException if there is an issue with updating the data in the storage file.
      */
-    protected void unmarkTask(int taskIndex) throws IOException {
-        printHorizontalLine();
+    protected String unmarkTask(int taskIndex) throws IOException {
+        StringBuilder message = new StringBuilder();
         if (taskIndex < 0 || taskIndex >= listOfTasks.size()) {
-            System.out.printf("    Invalid Index of task. You currently have %d Task(s)\n", listOfTasks.size());
+            message.append(String.format("Invalid Index of Task. You currently have %d Task(s)\n", listOfTasks.size()));
         } else {
             Task task = listOfTasks.get(taskIndex);
             task.markAsNotDone();
-            System.out.println("     OK, I've marked this Task as not done yet:");
-            System.out.printf("       [%s] %s\n", task.getStatusIcon(), task.description);
+            storage.clearAllData();
+            storage.updateData();
+            message.append("Ok. I've marked this Task as NOT done yet:\n");
+            message.append(String.format("\t[%s] %s\n", task.getStatusIcon(), task.getDescription()));
+//            System.out.println("     Nice! I've marked this Task as done:");
+//            System.out.printf("       [%s] %s\n", task.getStatusIcon(), task.description);
         }
-        printHorizontalLine();
-        storage.clearAllData();
-        storage.updateData();
+        return message.toString();
     }
 
     /**
@@ -186,32 +195,29 @@ public class TaskList {
      * 
      * @param matchingKeyword The keyword given by the user to find all tasks containing it.
      */
-    protected void findTask(String matchingKeyword) {
+    protected String findTask(String matchingKeyword) {
         try {
-            printHorizontalLine();
             if (listOfTasks.isEmpty()) {
                 System.out.println("\t You currently have no tasks so I can't find any matching tasks :/.");
-                return;
+                return "\t You currently have no tasks so I can't find any matching tasks :/.";
             }
 
             int taskCount = 0;
             StringBuilder matchingTasks = new StringBuilder(String.format(
                     "\t Here are your tasks that contains '%s':", matchingKeyword));
-            for (int i = 0; i < listOfTasks.size(); i++) {
-                if (listOfTasks.get(i).getDescription().contains(matchingKeyword)) {
-                    matchingTasks.append("\n\t ").append(listOfTasks.get(i));
+            for (Task listOfTask : listOfTasks) {
+                if (listOfTask.getDescription().contains(matchingKeyword)) {
+                    matchingTasks.append("\n\t ").append(listOfTask);
                     taskCount++;
                 }
             }
 
             //Output matching tasks
             if (taskCount > 0) {
-                String output = matchingTasks.toString();
-                System.out.println(output);
+                return matchingTasks.toString();
             } else {
-                String output = String.format("\t Hm there are no matching tasks with '%s'. " +
+                return String.format("\t Hm there are no matching tasks with '%s'. " +
                         "Try with another keyword.", matchingKeyword);
-                System.out.println(output);
             }
         } finally {
             printHorizontalLine();

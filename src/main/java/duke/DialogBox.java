@@ -30,8 +30,12 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+        //Need standardised photos to make better circle clips
         dialog.setText(text);
+        //dialog.setMinHeight(Region.USE_PREF_SIZE);
+        //Circle circleClip = new Circle(30,60,50);
         displayPicture.setImage(img);
+        //displayPicture.setClip(circleClip);
     }
 
     /**
@@ -48,7 +52,13 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    /**
+     * Gets the dialog box for SeeWhyAre's response to user input.
+     * @param text SeeWhyAre's response
+     * @param img SeeWhyAre's image
+     * @return SeeWhyAre's dialog box.
+     */
+    public static DialogBox getSeeWhyAreDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

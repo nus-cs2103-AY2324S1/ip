@@ -40,8 +40,9 @@ public class Todo extends Task {
      * @throws EmptyDescriptionException If the description of the todo task is empty.
      * @throws IOException If there is an issue with saving the task.
      */
-    public static void handleTodoTask(String userInput) throws EmptyDescriptionException, IOException {
+    public static String handleTodoTask(String userInput) throws EmptyDescriptionException, IOException {
         // use \u2639 or U+2639 to insert the sad face icon
+        StringBuilder message = new StringBuilder();
 
         String taskDescription = userInput.trim().replaceFirst("todo", "").trim();
         if (taskDescription.isEmpty()) {
@@ -51,12 +52,14 @@ public class Todo extends Task {
             Storage.saveTask(todoTask, true);
             Storage.listOfTasks.add(todoTask); //duke.task.Todo <: duke.task.Task
 
-            //Print details in the console
-            System.out.println(Duke.HORIZONTAL_LINE);
-            System.out.println("     Got it. I've added this task:");
-            System.out.printf("       %s\n", todoTask.toString());
-            System.out.printf("     Now you have %d task(s) in the list.\n", Storage.listOfTasks.size());
-            System.out.println(Duke.HORIZONTAL_LINE);
+            //Print details for users
+            message.append("Got it. I've added this task:\n");
+            message.append(String.format(" %s\n", todoTask));
+            message.append(String.format("Now you have %d task(s) in the list.\n", Storage.listOfTasks.size()));
+//            System.out.println("     Got it. I've added this task:");
+//            System.out.printf("       %s\n", todoTask.toString());
+//            System.out.printf("     Now you have %d task(s) in the list.\n", Storage.listOfTasks.size());
         }
+        return message.toString();
     }
 }
