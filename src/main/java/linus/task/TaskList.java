@@ -2,9 +2,9 @@ package linus.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import linus.exception.LinusException;
-import linus.util.Ui;
 
 /**
  * Represents a list of tasks.
@@ -72,7 +72,6 @@ public class TaskList {
      * @throws LinusException
      */
     public void delete(int index) throws LinusException {
-        index -= 1;
         if (index < 0 || index >= tasks.size()) {
             throw new LinusException("Cannot delete task. Please provide a valid index.");
         }
@@ -87,7 +86,6 @@ public class TaskList {
      * @throws LinusException
      */
     public void mark(int index) throws LinusException {
-        index -= 1;
         if (index < 0 || index >= tasks.size()) {
             throw new LinusException("Cannot mark task. Please provide a valid index.");
         }
@@ -101,7 +99,6 @@ public class TaskList {
      * @throws LinusException
      */
     public void unmark(int index) throws LinusException {
-        index -= 1;
         if (index < 0 || index >= tasks.size()) {
             throw new LinusException("Cannot unmark task. Please provide a valid index.");
         }
@@ -113,21 +110,9 @@ public class TaskList {
      *
      * @param keyword The keyword to be searched for.
      */
-    public void find(String keyword, Ui ui) {
-        String listOfMatchingTasks = "";
-        int numOfMatchingTasks = 0;
-
-        for (int i = 0; i < tasks.size(); i++) {
-            Task curTask = tasks.get(i);
-            if (curTask.description.contains(keyword)) {
-                listOfMatchingTasks += (++numOfMatchingTasks) + "."
-                        + tasks.get(i).toString() + "\n";
-            }
-        }
-        if (numOfMatchingTasks == 0) {
-            ui.print("There are no matching tasks in your list.");
-        } else {
-            ui.print(listOfMatchingTasks);
-        }
+    public List<Task> find(String keyword) {
+        return tasks.stream()
+                .filter(task -> task.description.contains(keyword))
+                .collect(Collectors.toList());
     }
 }

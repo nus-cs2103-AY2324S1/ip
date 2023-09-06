@@ -76,22 +76,22 @@ public class Linus {
                 ui.printList(tasks.getList(), "Here are the tasks in your list:\n");
                 break;
             case MARK:
-                index = Integer.parseInt(data);
+                index = Integer.parseInt(data) - 1;
                 tasks.mark(index);
                 ui.printMarkSuccessMessage(tasks.get(index), tasks.getList().size());
                 break;
             case UNMARK:
-                index = Integer.parseInt(data);
+                index = Integer.parseInt(data) - 1;
                 tasks.unmark(index);
                 ui.printUnmarkSuccessMessage(tasks.get(index), tasks.getList().size());
                 break;
             case DELETE:
-                index = Integer.parseInt(data);
+                index = Integer.parseInt(data) - 1;
                 tasks.delete(index);
                 ui.printDeleteSuccessMessage(tasks.get(index), tasks.getList().size());
                 break;
             case FIND:
-                tasks.find(data, ui);
+                ui.printFindSuccessMessage(tasks.find(data));
                 break;
             case TODO:
                 if (data == "") {
