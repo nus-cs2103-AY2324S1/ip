@@ -21,14 +21,18 @@ public class Duke {
     /** The storage that is used to save and load the user's tasks. */
     private final Storage storage;
 
+    /** The parser that is used to parse the user's input. */
     private final Parser parser = new Parser(this.taskList);
 
+    /**
+     * Constructs a new Duke object with default path to save file.
+     */
     public Duke() {
         this("data/tasks.txt");
     }
 
     /**
-     * Constructs a new Duke object.
+     * Constructs a new Duke object with specified path to save file.
      *
      * @param path The path to the save file.
      */
@@ -53,6 +57,11 @@ public class Duke {
         Launcher.main(args);
     }
 
+    /**
+     * Greets the user.
+     *
+     * @return The greeting message.
+     */
     public String greet() {
         return "Hello! I'm LilBro!\nWhat can I do for you?";
     }
@@ -65,6 +74,12 @@ public class Duke {
         storage.save(this.taskList);
     }
 
+    /**
+     * Parses the user's input and returns the corresponding command.
+     *
+     * @param input The user's input.
+     * @return The command corresponding to the user's input.
+     */
     public Command parseInput(String input) {
         return this.parser.parse(input);
     }

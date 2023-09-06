@@ -35,6 +35,7 @@ public class TaskList {
      *
      * @param type       The type of task to be added.
      * @param taskString Information about the task to be added.
+     * @return Duke's response to the user.
      * @throws DukeInvalidArgumentException If the given taskString is invalid.
      */
     public String addTask(TaskType type, String taskString) throws DukeInvalidArgumentException {
@@ -89,6 +90,7 @@ public class TaskList {
      * Marks specified task as done.
      *
      * @param index The index of the task to be marked as done.
+     * @return Duke's response to the user.
      * @throws DukeInvalidArgumentException If the index is invalid.
      */
     public String markTaskDone(int index) throws DukeInvalidArgumentException {
@@ -106,6 +108,7 @@ public class TaskList {
      * Unmarks specified task as not done.
      *
      * @param index The index of the task to be unmarked as not done.
+     * @return Duke's response to the user.
      * @throws DukeInvalidArgumentException If the index is invalid.
      */
     public String unmarkTaskDone(int index) throws DukeInvalidArgumentException {
@@ -124,6 +127,7 @@ public class TaskList {
      * Deletes specified task.
      *
      * @param index The index of the task to be deleted.
+     * @return Duke's response to the user.
      * @throws DukeInvalidArgumentException If the index is invalid.
      */
     public String deleteTask(int index) throws DukeInvalidArgumentException {
@@ -140,6 +144,8 @@ public class TaskList {
 
     /**
      * Lists all tasks.
+     *
+     * @return Duke's response to the user.
      */
     public String listTasks() {
         if (this.list.isEmpty()) {

@@ -20,6 +20,8 @@ public class AddDeadlineCommand extends Command {
 
     /**
      * Adds a deadline task to the list of tasks.
+     *
+     * @return The response to the user.
      */
     @Override
     public String execute() {

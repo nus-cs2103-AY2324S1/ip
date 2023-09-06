@@ -81,7 +81,7 @@ public class Storage {
      * @param tasklist The task list to be used.
      * @throws DukeException If there is an error saving tasks to the save file.
      */
-    public void save(TaskList tasklist) {
+    public void save(TaskList tasklist) throws DukeException {
         try {
             String content = "";
             FileWriter fileWriter = new FileWriter(path, false);

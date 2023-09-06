@@ -31,6 +31,8 @@ public abstract class Command {
 
     /**
      * Executes the command.
+     *
+     * @return The response to the user.
      */
     public abstract String execute();
 

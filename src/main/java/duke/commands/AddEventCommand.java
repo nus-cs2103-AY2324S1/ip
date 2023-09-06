@@ -20,6 +20,8 @@ public class AddEventCommand extends Command {
 
     /**
      * Adds an event task to the list of tasks.
+     *
+     * @return The response to the user.
      */
     @Override
     public String execute() {

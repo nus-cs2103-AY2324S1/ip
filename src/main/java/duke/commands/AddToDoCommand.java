@@ -20,6 +20,8 @@ public class AddToDoCommand extends Command {
 
     /**
      * Adds a todo task to the list of tasks.
+     *
+     * @return The response to the user.
      */
     @Override
     public String execute() {

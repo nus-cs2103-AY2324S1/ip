@@ -19,7 +19,9 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * No-op for Exit Command.
+     * Bids goodbye to the user.
+     *
+     * @return The response to the user.
      */
     @Override
     public String execute() {

@@ -23,6 +23,8 @@ public class FindTaskCommand extends Command {
 
     /**
      * Finds tasks containing a user query in their description.
+     *
+     * @return The response to the user.
      */
     @Override
     public String execute() {

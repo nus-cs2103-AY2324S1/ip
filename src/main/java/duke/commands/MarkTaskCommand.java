@@ -20,6 +20,8 @@ public class MarkTaskCommand extends Command {
 
     /**
      * Marks a task as done in the list of tasks.
+     *
+     * @return The response to the user.
      */
     @Override
     public String execute() {

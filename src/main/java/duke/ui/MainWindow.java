@@ -44,6 +44,9 @@ public class MainWindow extends AnchorPane {
         duke = d;
     }
 
+    /**
+     * Greets the user.
+     */
     public void greet() {
         this.showDukeDialog(duke.greet());
     }

@@ -20,6 +20,8 @@ public class DeleteTaskCommand extends Command {
 
     /**
      * Deletes a task from the list of tasks.
+     *
+     * @return The response to the user.
      */
     @Override
     public String execute() {
