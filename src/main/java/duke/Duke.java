@@ -5,7 +5,6 @@ import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
-import duke.ui.Ui;
 
 import java.util.ArrayList;
 
@@ -21,69 +20,59 @@ public class Duke {
     /** The task list that is used to store the user's tasks. */
     private TaskList tasks;
 
-    /** The UI to interact with the User. */
-    private Ui ui;
 
     /** The file path to store the User's Task Data. */
     private static final String FILEPATH = "./data/duke.txt";
 
+    /** Boolean value to check if the chat has ended. */
+    private boolean isChatEnd = false;
+
     /**
-     * Handles the Chatbot functionality.
+     * Handles the Chatbot Response.
      */
-    private void handleCommand() {
-        String commandString;
-        Command command;
+    public String getResponse(String input) {
 
-        while (true) {
-            commandString = ui.getInput();
-            Parser parseLine = new Parser(commandString);
-            command = parseLine.getCommand();
-
-            if (command == null) {
-                ui.printInvalidCommandError();
-                continue;
-            }
-
-            try {
-                switch (command) {
-                    case BYE:
-                        ui.printBye();
-                        return;
-                    case LIST:
-                        ui.printOutput(tasks.formatList());
-                        break;
-                    case MARK:
-                    case UNMARK:
-                        ui.printOutput(tasks.handleMarking(parseLine.getArguments(), command.getCommandName()));
-                        break;
-                    case DELETE:
-                        ui.printOutput(tasks.handleDelete(parseLine.getArguments()));
-                        break;
-                    case TODO:
-                        String todoData = parseLine.parseToDoArguments();
-                        ui.printOutput(tasks.handleToDo(todoData));
-                        break;
-                    case DEADLINE:
-                        String[] deadlineData = parseLine.parseDeadlineArguments();
-                        ui.printOutput(tasks.handleDeadline(deadlineData[0], deadlineData[1]));
-                        break;
-                    case EVENT:
-                        String[] eventData = parseLine.parseEventArguments();
-                        ui.printOutput(tasks.handleEvent(eventData[0], eventData[1], eventData[2]));
-                        break;
-                    case FIND:
-                        String findQuery = parseLine.parseFindQuery();
-                        ui.printOutput(tasks.findTasks(findQuery).formatList());
-                        break;
-                    default:
-                        ui.printOutput("I don't understand what you're saying.");
-                        break;
-                }
-            } catch (DukeException e) {
-                ui.printOutput(e.getMessage());
-            }
+        if (isChatEnd) {
+            return "Chat has ended! Please Exit.";
         }
 
+        Parser parseLine = new Parser(input);
+        Command command = parseLine.getCommand();
+
+        if (command == null) {
+            return "I don't understand what you're saying.";
+        }
+
+        try {
+            switch (command) {
+                case BYE:
+                    isChatEnd = true;
+                    return "Chat has ended! Please Exit.";
+                case LIST:
+                    return tasks.formatList();
+                case MARK:
+                case UNMARK:
+                    return tasks.handleMarking(parseLine.getArguments(), command.getCommandName());
+                case DELETE:
+                    return tasks.handleDelete(parseLine.getArguments());
+                case TODO:
+                    String todoData = parseLine.parseToDoArguments();
+                    return tasks.handleToDo(todoData);
+                case DEADLINE:
+                    String[] deadlineData = parseLine.parseDeadlineArguments();
+                    return tasks.handleDeadline(deadlineData[0], deadlineData[1]);
+                case EVENT:
+                    String[] eventData = parseLine.parseEventArguments();
+                    return tasks.handleEvent(eventData[0], eventData[1], eventData[2]);
+                case FIND:
+                    String findQuery = parseLine.parseFindQuery();
+                    return tasks.findTasks(findQuery).formatList();
+                default:
+                    return "I don't understand what you're saying.";
+            }
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
     }
 
     /**
@@ -91,8 +80,6 @@ public class Duke {
      */
     public void run() {
         storage = new Storage(FILEPATH);
-        ui = new Ui();
-        ui.printGreeting();
 
         try {
             tasks = new TaskList(storage.load(), storage);
@@ -100,9 +87,8 @@ public class Duke {
             System.out.println("--- No Data Stored ---");
             tasks = new TaskList(new ArrayList<>(), storage);
         }
-
-        handleCommand();
     }
+
 
     /**
      * The main method is used to run the program.
