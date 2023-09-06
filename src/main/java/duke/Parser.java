@@ -128,6 +128,7 @@ public class Parser {
                 //throw new duke.DukeException("☹ OOPS!!! The description of an event cannot be empty.");
             }
             Ui.printMatchingTasks(tasks, inValue);
+            break;
 
         default:
             inValue += myScanner.nextLine();
