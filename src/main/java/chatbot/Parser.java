@@ -32,52 +32,45 @@ public class Parser {
      * @param input The user input to be interpreted.
      * @return The value to determine if the program ends. 
      */
-    public int runInput(String input) {
+    public String runInput(String input) {
         if (input.equals("bye")) {
-            ui.endProgram();
-            return 1;
+            return ui.endProgram();
 
         } else if (input.equals("list")) {
-            ui.printStorageList(taskHandler.getTaskList());
             storage.write(taskHandler.getTaskList());
-            return 0;
+            return ui.printStorageList(taskHandler.getTaskList());
 
         } else if (input.startsWith("unmark")) {
             try {
                 validateInput(input, 7);
             } catch (UserInputException e) {
-                ui.incompleteCommand(e.getMessage());
-                return 0;
+                return ui.printIncompleteCommand(e.getMessage());
             }
 
             int stringLength = input.length();
             int index = Integer.parseInt(input.substring(stringLength - 1)) - 1;
                 
             Task task = taskHandler.unmark(index);
-            ui.printUnmarked(task);
-            return 0;
+            return ui.printUnmarked(task);
 
         } else if (input.startsWith("mark")) {
             try {
                 validateInput(input, 5);
             } catch (UserInputException e) {
-                ui.incompleteCommand(e.getMessage());
-                return 0;
+                return ui.printIncompleteCommand(e.getMessage());
             }
 
             int stringLength = input.length();
             int index = Integer.parseInt(input.substring(stringLength - 1)) - 1;
                 
             Task task = taskHandler.mark(index);
-            ui.printMarked(task);
-            return 0;
+            return ui.printMarked(task);
 
         } else if (input.startsWith("delete")) {
             try {
                 validateInput(input, 7);
             } catch (UserInputException e) {
-                ui.incompleteCommand(e.getMessage());
-                return 0;
+                return ui.printIncompleteCommand(e.getMessage());
             }
 
             int stringLength = input.length();
@@ -88,34 +81,30 @@ public class Parser {
 
             int size = taskHandler.getSize();
 
-            ui.deleteTask(task, size);
-            return 0;
+            return ui.deleteTask(task, size);
 
         } else if (input.startsWith("find")) {
             try {
                 validateInput(input, 5);
             } catch (UserInputException e) {
-                ui.incompleteCommand(e.getMessage());
-                return 0;
+                return ui.printIncompleteCommand(e.getMessage());
             }
 
             String[] keywords = input.split(" ");
             List<Task> filteredList = taskHandler.filterByWord(keywords[1]);
 
-            ui.printStorageList(filteredList);
+            return ui.printStorageList(filteredList);
 
-            return 0;
-      
         } else {
             if (!(input.startsWith("todo") || input.startsWith("event") 
                     || input.startsWith("deadline"))) {
-                ui.invalidInput();
+                return ui.invalidInput();
             } else if (input.startsWith("todo")) {
                 try {
                     validateInput(input, 5);
                 } catch (UserInputException e) {
-                    ui.incompleteCommand(e.getMessage());
-                    return 0;
+                    return ui.printIncompleteCommand(e.getMessage());
+
                 }
 
                 String[] moreStrings = input.split(" ", 2);
@@ -124,13 +113,13 @@ public class Parser {
                 taskHandler.add(todo);
                 int index = taskHandler.getSize();
 
-                ui.addTask(todo, index);
+                return ui.addTask(todo, index);
             } else if (input.startsWith("deadline")) {
                 try {
                     validateInput(input, 9);
                 } catch (UserInputException e) {
-                    ui.incompleteCommand(e.getMessage());
-                    return 0;
+                    return ui.printIncompleteCommand(e.getMessage());
+
                 }
 
                 String[] moreStrings = input.split("/", 2);
@@ -142,13 +131,13 @@ public class Parser {
                 taskHandler.add(deadline);
                 int index = taskHandler.getSize();
                 
-                ui.addTask(deadline, index);
+                return ui.addTask(deadline, index);
             } else if (input.startsWith("event")) {
                 try {
                     validateInput(input, 6);
                 } catch (UserInputException e) {
-                    ui.incompleteCommand(e.getMessage());
-                    return 0;
+                    return ui.printIncompleteCommand(e.getMessage());
+
                 }
 
                 String[] moreStrings = input.split("/");
@@ -161,10 +150,10 @@ public class Parser {
                 taskHandler.add(event);
                 int index = taskHandler.getSize();
 
-                ui.addTask(event, index);
-            } 
-            return 0;
+                return ui.addTask(event, index);
+            }
         }
+        return "";
     }
 
     /** 

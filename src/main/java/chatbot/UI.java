@@ -27,16 +27,17 @@ public class UI {
     /**
      * Prints the greeting message and loads a previous text file if any.
      */
-    public void startProgram() {
-        System.out.println(MESSAGE_WELCOME);
-        storage.load();
+    public String startProgram() {
+        // System.out.println(MESSAGE_WELCOME);
+        String output = storage.load() + "\n" + MESSAGE_WELCOME;
+        return MESSAGE_WELCOME;
     }
 
     /**
      * Prints the program end message.
      */
-    public void endProgram() {
-        System.out.println(MESSAGE_GOODBYE);
+    public String endProgram() {
+        return MESSAGE_GOODBYE;
     }
     
     /**
@@ -44,9 +45,11 @@ public class UI {
      * 
      * @param task The task to be printed
      */
-    public void printMarked(Task task) {
-        System.out.println(MESSAGE_MARK);
-        System.out.println(task);
+    public String printMarked(Task task) {
+        // System.out.println(MESSAGE_MARK);
+        // System.out.println(task);
+        String toBePrinted = MESSAGE_MARK + "\n" + task;
+        return toBePrinted;
     }
 
     /**
@@ -54,9 +57,11 @@ public class UI {
      * 
      * @param task The task to be printed
      */
-    public void printUnmarked(Task task) {
-        System.out.println(MESSAGE_UNMARK);
-        System.out.println(task);
+    public String printUnmarked(Task task) {
+        // System.out.println(MESSAGE_UNMARK);
+        // System.out.println(task);
+        String toBePrinted = MESSAGE_UNMARK + "\n" + task;
+        return toBePrinted;
     }
 
     /**
@@ -66,10 +71,13 @@ public class UI {
      * @param task The task to be printed
      * @param size The size of the modified list.
      */
-    public void addTask(Task task, int size) {
-        System.out.println(MESSAGE_ADD);
-        System.out.println(task);
-        System.out.println("Now you have " + size + " tasks in the list.");
+    public String addTask(Task task, int size) {
+        // System.out.println(MESSAGE_ADD);
+        // System.out.println(task);
+        // System.out.println("Now you have " + size + " tasks in the list.");
+        String toBePrinted = MESSAGE_ADD + "\n" + task + "\n"
+                                + "Now you have " + size + " tasks in the list.";
+        return toBePrinted;
     }
 
     /**
@@ -79,10 +87,13 @@ public class UI {
      *  @param task The task to be printed.
      *  @param size The size of the modified list.
      */
-    public void deleteTask(Task task, int size) {
-        System.out.println(MESSAGE_DELETE);
-        System.out.println(task);
-        System.out.println("Now you have " + size + " tasks in the list.");
+    public String deleteTask(Task task, int size) {
+        // System.out.println(MESSAGE_DELETE);
+        // System.out.println(task);
+        // System.out.println("Now you have " + size + " tasks in the list.");
+        String toBePrinted = MESSAGE_DELETE + "\n" + task + "\n"
+                + "Now you have " + size + " tasks in the list.";
+        return toBePrinted;
     }
 
     /**
@@ -90,11 +101,14 @@ public class UI {
      * 
      * @param tasks The list of tasks.
      */
-    public void printStorageList(List<Task> tasks) {
+    public String printStorageList(List<Task> tasks) {
+        String toBePrinted = "";
         for (Task task : tasks) {
             int index = tasks.indexOf(task) + 1;
-            System.out.println(index + ":" + task);
+            // System.out.println(index + ":" + task);
+            toBePrinted += index + ":" + task + "\n";
         }
+        return toBePrinted;
     }
 
     /**
@@ -102,14 +116,16 @@ public class UI {
      * 
      *  @param str The string to be printed.
      */
-    public void incompleteCommand(String str) {
-        System.out.println(str);
+    public String printIncompleteCommand(String str) {
+        // System.out.println(str);
+        return str;
     }
 
      /**
      * Prints the error message for invalid inputs.
      */
-    public void invalidInput() {
-        System.out.println(MESSAGE_INVALID);
+    public String invalidInput() {
+        // System.out.println(MESSAGE_INVALID);
+        return MESSAGE_INVALID;
     }
 }

@@ -28,12 +28,14 @@ public class Storage {
      * 
      * @throws FileNotFoundException If file path is invalid.
      */
-    public void load() {
+    public String load() {
         File file = new File(filePath);
+        String outputStr = "";
 
         try {
             Scanner printSC = new Scanner(file);
             while (printSC.hasNextLine()) {
+                outputStr += printSC.nextLine() + "\n";
                 System.out.println(printSC.nextLine());
             }
             printSC.close();
@@ -41,6 +43,7 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println("No file found!");
         }
+        return outputStr;
     }
 
     /** 
