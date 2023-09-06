@@ -1,14 +1,15 @@
 package duke;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Class that contains the task list e.g., it has operations to add/delete tasks in the list.
@@ -152,7 +153,7 @@ public class TaskList {
         if (matcher.matches()) {
             String description = matcher.group(1); // Extract event name
             LocalDate startDate = Parser.stringToDate(matcher.group(2)); // Extract start date
-            LocalDate endDate = Parser.stringToDate(matcher.group(3));   // Extract end date
+            LocalDate endDate = Parser.stringToDate(matcher.group(3)); // Extract end date
             Task task = new Event(startDate, endDate, description);
             addTask(task);
         } else {
@@ -178,7 +179,7 @@ public class TaskList {
         // Check if the input string matches the pattern
         if (matcher.matches()) {
             String description = matcher.group(1); // Extract task description
-            LocalDate dueDate = Parser.stringToDate(matcher.group(2));  // Extract due date
+            LocalDate dueDate = Parser.stringToDate(matcher.group(2)); // Extract due date
             Task task = new Deadline(dueDate, description);
             addTask(task);
         } else {
@@ -208,9 +209,11 @@ public class TaskList {
     public void printMatchingTasks(String target) {
         System.out.println("-----------------------------------------------");
         System.out.println("Here are the matching tasks in your list:");
+        int counter = 1;
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).contains(target)) {
-                System.out.println("" + (i + 1) + "." + list.get(i));
+                System.out.println("" + counter + "." + list.get(i));
+                counter++;
             }
         }
         System.out.println("-----------------------------------------------");

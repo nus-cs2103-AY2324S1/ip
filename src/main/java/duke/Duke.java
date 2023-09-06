@@ -11,6 +11,11 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor for an instance of Duke chatbot.
+     *
+     * @param filePath the filePath to save the tasks to and load tasks from.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
