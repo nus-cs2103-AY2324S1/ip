@@ -132,7 +132,7 @@ public class TaskList {
                 System.out.println("____________________________________________________________");
                 System.out.println("Here are the matching tasks in your list: ");
                 for (int i = 0; i < things.size(); i++) {
-                    if (things.get(i).description.contains(taskDescription)) {
+                    if (things.get(i).getDescription().contains(taskDescription)) {
                         count++;
                         System.out.println(count + ". " + things.get(i).toString(""));
                     }
