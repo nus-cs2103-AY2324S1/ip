@@ -15,7 +15,6 @@ public class Duke {
     private TaskList tasks;
     private Storage storage = new Storage(PATH);
 
-
     public void run() {
         ui.greet();
         tasks = new TaskList(this.ui, storage.loadData(), storage);
