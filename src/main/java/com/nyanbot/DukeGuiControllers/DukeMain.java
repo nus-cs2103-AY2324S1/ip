@@ -1,4 +1,4 @@
-package DukeGuiControllers;
+package com.nyanbot.DukeGuiControllers;
 
 import java.io.IOException;
 
@@ -11,9 +11,14 @@ import javafx.stage.Stage;
 public class DukeMain extends Application {
     private Duke duke = new Duke();
 
-    public DukeMain() throws IOException {
-    }
-
+    /**
+     * Creates the stage for the application to be displayed.
+     *
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -24,7 +29,7 @@ public class DukeMain extends Application {
             fxmlLoader.<DukeMainWindow>getController().setDuke(duke);
             stage.show();
         } catch (IOException e) {
-            System.out.println("There was an issue accessing my nyanory :c");
+            e.printStackTrace();
         }
     }
 }

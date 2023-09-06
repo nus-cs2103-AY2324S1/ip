@@ -1,4 +1,4 @@
-package DukeTasks;
+package com.nyanbot.DukeTasks;
 
 /**
  * Encapsulates a class which represents a task to be done.

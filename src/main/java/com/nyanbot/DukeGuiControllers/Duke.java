@@ -1,9 +1,9 @@
-package DukeGuiControllers;
+package com.nyanbot.DukeGuiControllers;
 
-import DukeParsers.DukeParser;
-import DukeStorage.DukeStorageDatabase;
-import DukeTaskList.DukeTaskList;
-import DukeUIClasses.DukeUi;
+import com.nyanbot.DukeParsers.DukeParser;
+import com.nyanbot.DukeStorage.DukeStorageDatabase;
+import com.nyanbot.DukeTaskList.DukeTaskList;
+import com.nyanbot.DukeUIClasses.DukeUi;
 
 import java.io.IOException;
 
@@ -22,22 +22,23 @@ public class Duke {
     private final DukeTaskList taskList;
     // parser class to parse input
     private final DukeParser parser;
-    // duke instance
-    private final Duke duke = new Duke();
 
     /**
      * Constructs an instance of a chatbot class.
      *
      * @author Tan Kerway
-     * @throws IOException if the database is unable to be loaded
      */
-    public Duke() throws IOException {
+    public Duke() {
         this.ui = new DukeUi();
         this.taskList = new DukeTaskList();
         this.databaseController = new DukeStorageDatabase(taskList);
         this.parser = new DukeParser(this.taskList);
 
-        this.taskList.setDatabaseController(this.databaseController);
+        try {
+            this.taskList.setDatabaseController(this.databaseController);
+        } catch (IOException e) {
+            System.out.println("There was an issue accessing my nyanory :c");
+        }
         this.taskList.setParser(this.parser);
     }
 
@@ -46,22 +47,34 @@ public class Duke {
      *
      * @author Kerway
      */
-    private void initiateChat() throws IOException {
-        this.ui.greet(this.taskList.getTasks());           // warmly welcome the user
-        this.parser.handleUserInput(); // take in the user input
-        this.ui.sayGoodBye();      // say goodbye to the user
-        this.databaseController.saveTaskList();    // save the user's task to the database
+    private void initiateChat() {
+        try {
+            this.databaseController.saveTaskList();    // save the user's task to the database
+        } catch (IOException e) {
+            System.out.println("There was an issue accessing my nyanory :c");
+        }
     }
 
     /**
-     * Gets the response from the user.
+     * Returns the greeting string that is parsed by the internal
+     * DukeUi instance of this class.
      *
      * @author Tan Kerway
-     * @see <a href="https://se-education.org/guides/tutorials/javaFxPart2.html">credits</a>
-     *
+     * @return the greeting string returned by the Ui instance
      */
-    String getResponse(String input) {
-        return "Duke heard: " + input;
+    String getGreeting() {
+        return this.ui.getGreeting(this.taskList.getTasks());
+    }
+
+    /**
+     * Returns the chatbot response to the user input.
+     *
+     * @author Tan Kerway
+     * @param input the input provided by the user
+     * @return the response of the chatbot to the given input
+     */
+    String getUserResponse(String input) {
+        return this.parser.processUserCommand(input);
     }
 
     /**
@@ -72,11 +85,7 @@ public class Duke {
      * @param args pointer to some array of command-line arguments
      */
     public static void main(String[] args) {
-        try {
-            Duke dukeInstance = new Duke();
-            dukeInstance.initiateChat();
-        } catch (IOException e) {
-            System.out.println("There was an issue accessing my nyanory :c");
-        }
+        Duke dukeInstance = new Duke();
+        dukeInstance.initiateChat();
     }
 }

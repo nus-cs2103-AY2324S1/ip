@@ -1,4 +1,4 @@
-package DukeExceptions;
+package com.nyanbot.DukeExceptions;
 
 /**
  * Encapsulates a general Exception class for DukeLauncher.Duke.

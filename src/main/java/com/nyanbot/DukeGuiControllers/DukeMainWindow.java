@@ -1,12 +1,14 @@
-package DukeGuiControllers;
+package com.nyanbot.DukeGuiControllers;
 
-import DukeGuiElements.DukeDialogBox;
+import com.nyanbot.DukeGuiElements.DukeDialogBox;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 import java.util.Objects;
@@ -25,11 +27,11 @@ public class DukeMainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
     private Duke duke;
 
-    private Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/golfing.png")));
-    private Image dukeImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/nyan.png")));
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/golfing.png")));
+    private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/nyan.png")));
+
 
     @FXML
     public void initialize() {
@@ -38,6 +40,10 @@ public class DukeMainWindow extends AnchorPane {
 
     public void setDuke(Duke d) {
         duke = d;
+        dialogContainer.getChildren().addAll(
+                DukeDialogBox.getDukeDialog(duke.getGreeting(), dukeImage)
+        );
+        VBox.setVgrow(scrollPane, Priority.ALWAYS);
     }
 
     /**
@@ -47,10 +53,20 @@ public class DukeMainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = duke.getUserResponse(input);
+        if (input.equals("bye")) {
+            dialogContainer.getChildren().addAll(
+                    DukeDialogBox.getUserDialog(response, dukeImage)
+            );
+            Platform.exit();
+            userInput.clear();
+            return;
+        }
+        DukeDialogBox userDialog = DukeDialogBox.getUserDialog(input, userImage);
+        DukeDialogBox dukeDialog = DukeDialogBox.getDukeDialog(response, dukeImage);
         dialogContainer.getChildren().addAll(
-                DukeDialogBox.getUserDialog(input, userImage),
-                DukeDialogBox.getDukeDialog(response, dukeImage)
+                userDialog,
+                dukeDialog
         );
         userInput.clear();
     }

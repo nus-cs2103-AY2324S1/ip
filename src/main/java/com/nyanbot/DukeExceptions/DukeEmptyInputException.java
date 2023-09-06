@@ -1,4 +1,4 @@
-package DukeExceptions;
+package com.nyanbot.DukeExceptions;
 
 /**
  * Encapsulates a DukeExceptions.DukeEmptyInputException class. Raised when the user provides a command

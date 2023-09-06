@@ -1,6 +1,6 @@
-package DukeTasks;
+package com.nyanbot.DukeTasks;
 
-import DukeExceptionHandlers.DukeExceptionHandlers;
+import com.nyanbot.DukeExceptionHandlers.DukeExceptionHandlers;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -86,12 +86,27 @@ public class Task {
      * Constructor for the DukeTasks.Task class.
      *
      * @param description the description of the task to be instantiated
+     * @param isDone whether the task is done
      */
     public Task(String description, boolean isDone) {
         // create a new task instance
         this.description = description;
         this.isDone = isDone;
         this.isValid = true;
+    }
+
+    /**
+     * Constructor for the DukeTasks.Task class.
+     *
+     * @param description the description of the task to be instantiated
+     * @param isDone whether the task is done
+     * @param isValid whether the task is valid
+     */
+    public Task(String description, boolean isDone, boolean isValid) {
+        // create a new task instance
+        this.description = description;
+        this.isDone = isDone;
+        this.isValid = isValid;
     }
 
     /**
@@ -183,7 +198,7 @@ public class Task {
      */
     private LocalDateTime addYear(LocalDateTime time) {
         LocalDateTime now = LocalDateTime.now();
-        int yearsElapsed = now.getYear() - Deadline.DEFAULT_DATE.getYear();
+        int yearsElapsed = now.getYear() - DEFAULT_DATE.getYear();
         // update the year
         return time.plusYears(yearsElapsed);
     }

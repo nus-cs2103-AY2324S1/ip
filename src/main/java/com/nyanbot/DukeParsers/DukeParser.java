@@ -1,10 +1,9 @@
-package DukeParsers;
+package com.nyanbot.DukeParsers;
 
-import DukeTaskList.DukeTaskList;
-import DukeTasks.Task;
-import DukeUIClasses.DukeUi;
-
-import java.util.Scanner;
+import com.nyanbot.DukeTaskList.DukeTaskList;
+import com.nyanbot.DukeTasks.InvalidTask;
+import com.nyanbot.DukeTasks.Task;
+import com.nyanbot.DukeUIClasses.DukeUi;
 
 /**
  * Encapsulates a class that parses input.
@@ -32,43 +31,39 @@ public class DukeParser {
      *
      * @author Tan Kerway
      * @param input the input to be processed
-     * @return true if the command is not "bye", false otherwise
+     * @return empty String if the command is not "bye", non-empty String otherwise
      */
-    private boolean processUserCommand(String input) {
+     public String processUserCommand(String input) {
         // case where the chatbot has been first initialised
-        if (input == null) { return true; }
+        if (input == null) { return ""; }
         // case where the input is "list" => enumerate all tasks
         if (input.equals("list")) {
-            this.ui.listAllTasks(this.taskListUtility.getTasks());
-            return true;
+            return this.ui.listAllTasks(this.taskListUtility.getTasks());
         }
         // case where the input is "bye" => terminate early
-        if (input.equals("bye")) { return false; }
+        if (input.equals("bye")) { return "bye!"; }
         // case where the input is the mark command => mark the task as done
         if (input.startsWith("mark")) {
-            this.taskListUtility.handleMark(input);
-            return true;
+            return this.taskListUtility.handleMark(input);
         }
         // case where the input is unmark
         if (input.startsWith("unmark")) {
-            this.taskListUtility.handleUnmark(input);
-            return true;
+            return this.taskListUtility.handleUnmark(input);
         }
         // case where the input is deleted
         if (input.startsWith("delete")) {
-            this.taskListUtility.handleDelete(input);
-            return true;
+            return this.taskListUtility.handleDelete(input);
         }
         Task createdTask = this.taskListUtility.addTask(input);
         // case where the input is to find matching tasks
         if (input.startsWith("find")) {
-            this.taskListUtility.handleFind(input);
-            return true;
+            return this.taskListUtility.handleFind(input);
         }
-        if (createdTask != null) {
-            this.ui.echoTaskAdded(createdTask, this.taskListUtility.getTasks().size());
+        if (createdTask instanceof InvalidTask) {
+            return createdTask.getDescription();
+        } else {
+            return this.ui.echoTaskAdded(createdTask, this.taskListUtility.getTasks().size());
         }
-        return true;
     }
 
     /**
@@ -104,25 +99,5 @@ public class DukeParser {
             res = res * 10 + (currentChar - '0');
         }
         return res - 1 < 0 || res - 1 >= this.taskListUtility.getTasks().size() ? null : res;
-    }
-
-    /**
-     * When called, awaits user input. If the input is "list", the tasks
-     * that the user has added to the list so far is printed to the console.
-     * If the input is "bye" the program will terminate. For other inputs,
-     * the input will be added and saved as a task.
-     *
-     * @author Tan Kerway
-     */
-    public void handleUserInput() {
-        Scanner sc = new Scanner(System.in);
-        String input;
-        boolean isNotDone;
-        while (sc.hasNextLine()) {
-            input = sc.nextLine(); // get the input from the user
-            isNotDone = processUserCommand(input); // process the input
-            if (!isNotDone) { break; }
-        }
-        sc.close();
     }
 }

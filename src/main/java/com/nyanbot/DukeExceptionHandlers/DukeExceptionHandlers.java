@@ -1,7 +1,7 @@
-package DukeExceptionHandlers;
+package com.nyanbot.DukeExceptionHandlers;
 
-import DukeExceptions.DukeException;
-import DukeExceptions.DukeInvalidTimeException;
+import com.nyanbot.DukeExceptions.DukeException;
+import com.nyanbot.DukeExceptions.DukeInvalidTimeException;
 
 /**
  * Encapsulates a class which is designed to handle exceptions.

@@ -1,4 +1,4 @@
-package DukeExceptions;
+package com.nyanbot.DukeExceptions;
 
 /**
  * Encapsulates a DukeExceptions.DukeInvalidTimeException. Raised when the user provides an invalid date.

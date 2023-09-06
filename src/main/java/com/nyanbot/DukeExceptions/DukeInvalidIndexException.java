@@ -1,4 +1,4 @@
-package DukeExceptions;
+package com.nyanbot.DukeExceptions;
 
 /**
  * Encapsulates a DukeExceptions.DukeInvalidIndexException class. Raised when invalid index is provided.

@@ -1,9 +1,9 @@
-package DukeGuiElements;
+package com.nyanbot.DukeGuiElements;
 
 import java.io.IOException;
 import java.util.Collections;
 
-import DukeGuiControllers.DukeMainWindow;
+import com.nyanbot.DukeGuiControllers.DukeMainWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,11 +14,14 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * An example of a custom control using FXML.
  * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
  * containing text from the speaker.
+ *
+ * @author Tan Kerway
  */
 public class DukeDialogBox extends HBox {
     @FXML
@@ -36,7 +39,11 @@ public class DukeDialogBox extends HBox {
             e.printStackTrace();
         }
 
+        Circle clip = new Circle(Math.min(img.getHeight(), img.getWidth()));
+        displayPicture.setClip(clip);
+
         dialog.setText(text);
+        dialog.setMaxHeight(Double.MAX_VALUE);
         displayPicture.setImage(img);
     }
 

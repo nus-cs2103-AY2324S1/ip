@@ -1,4 +1,4 @@
-package DukeExceptions;
+package com.nyanbot.DukeExceptions;
 
 /**
  * Encapsulates a DukeExceptions.DukeInvalidCommandException class. Raised when the user

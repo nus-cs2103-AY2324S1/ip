@@ -1,10 +1,10 @@
-package DukeStorage;
+package com.nyanbot.DukeStorage;
 
-import DukeTaskList.DukeTaskList;
-import DukeTasks.Deadline;
-import DukeTasks.Event;
-import DukeTasks.Task;
-import DukeTasks.Todo;
+import com.nyanbot.DukeTaskList.DukeTaskList;
+import com.nyanbot.DukeTasks.Deadline;
+import com.nyanbot.DukeTasks.Event;
+import com.nyanbot.DukeTasks.Task;
+import com.nyanbot.DukeTasks.Todo;
 
 import java.io.File;
 import java.io.FileWriter;

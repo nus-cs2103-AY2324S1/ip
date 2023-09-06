@@ -1,3 +1,6 @@
+package DukeGuiControllers;
+
+import com.nyanbot.DukeGuiControllers.Duke;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -64,11 +67,7 @@ public class DukeTest {
 
     @Test
     public void testInit() {
-        try {
-            Duke testInstance = new Duke();
-        } catch (IOException ignored) {
-            fail("This should not happen");
-        }
+        Duke testInstance = new Duke();
     }
 
     /**

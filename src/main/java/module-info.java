@@ -4,6 +4,7 @@ module com.nyanbot {
     requires javafx.graphics;
 
     opens com.nyanbot.DukeGuiControllers to javafx.fxml;
+    opens com.nyanbot.DukeGuiElements to javafx.fxml;
 
     exports com.nyanbot.DukeGuiControllers;
 }

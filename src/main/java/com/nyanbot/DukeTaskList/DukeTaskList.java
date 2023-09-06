@@ -1,14 +1,14 @@
-package DukeTaskList;
+package com.nyanbot.DukeTaskList;
 
-import DukeExceptions.DukeException;
-import DukeParsers.DukeParser;
-import DukeStorage.DukeStorageDatabase;
-import DukeTasks.Deadline;
-import DukeTasks.Event;
-import DukeTasks.Task;
-import DukeTasks.Todo;
-import DukeUIClasses.DukeErrorUi;
-import DukeUIClasses.DukeUi;
+import com.nyanbot.DukeExceptions.DukeException;
+import com.nyanbot.DukeParsers.DukeParser;
+import com.nyanbot.DukeStorage.DukeStorageDatabase;
+import com.nyanbot.DukeTasks.Deadline;
+import com.nyanbot.DukeTasks.Event;
+import com.nyanbot.DukeTasks.Task;
+import com.nyanbot.DukeTasks.Todo;
+import com.nyanbot.DukeUIClasses.DukeErrorUi;
+import com.nyanbot.DukeUIClasses.DukeUi;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -180,34 +180,40 @@ public class DukeTaskList {
             int taskDescriptionLength = task.length();
             // handle the 3 different types of class
             if (task.startsWith("todo")) {
-                // handle errors
-                this.errorUI.handleTodoErrors(task, taskDescriptionLength);
-                description = task.substring(5);
-                createdTask = new Todo(description);
+                // handle errors, capture the error message in an InvalidClass instance
+                createdTask = this.errorUI.handleTodoErrors(task, taskDescriptionLength);
+                if (createdTask == null) {
+                    description = task.substring(5);
+                    createdTask = new Todo(description);
+                }
             } else if (task.startsWith("deadline")) {
                 // cache the start index of the "/by" substring
                 int indexOfBy = task.indexOf("/by");
-                this.errorUI.handleDeadlineErrors(task, taskDescriptionLength, indexOfBy);
-                // get the task description
-                description = task.substring(9, indexOfBy - 1);
-                // get the deadline
-                String by = task.substring(indexOfBy + 4);
-                createdTask = new Deadline(description, by);
+                createdTask = this.errorUI.handleDeadlineErrors(task, taskDescriptionLength, indexOfBy);
+                if (createdTask == null) {
+                    // get the task description
+                    description = task.substring(9, indexOfBy - 1);
+                    // get the deadline
+                    String by = task.substring(indexOfBy + 4);
+                    createdTask = new Deadline(description, by);
+                }
             } else {
                 int fromStart = task.lastIndexOf("/from");
                 int toStart = task.lastIndexOf("/to");
-                this.errorUI.handleEverythingElseError(task, fromStart, toStart, taskDescriptionLength);
-                // get the task description
-                description = task.substring(6, fromStart - 1);
-                // get the string that holds the start and the end
-                String period = task.substring(fromStart);
-                createdTask = new Event(description, period);
+                createdTask = this.errorUI.handleEverythingElseError(task, fromStart, toStart, taskDescriptionLength);
+                if (createdTask == null) {
+                    // get the task description
+                    description = task.substring(6, fromStart - 1);
+                    // get the string that holds the start and the end
+                    String period = task.substring(fromStart);
+                    createdTask = new Event(description, period);
+                }
             }
             if (createdTask.isValid()) {
                 this.tasks.add(createdTask);
                 this.databaseController.saveTaskList();
-                return createdTask;
             }
+            return createdTask;
         } catch (DukeException | IOException ignored) {}
         return null;
     }
@@ -217,6 +223,7 @@ public class DukeTaskList {
      *
      * @author Tan Kerway
      * @param currentTask the task to be marked as done
+     *
      */
     public void handleMarkTask(Task currentTask){
         currentTask.markDone();
@@ -237,25 +244,25 @@ public class DukeTaskList {
      *
      * @author Tan Kerway
      * @param input the input string that the user entered
+     * @return the String that represents the user's response
      */
-    public void handleDelete(String input) {
+    public String handleDelete(String input) {
         try {
             // gc: no items to delete
             if (this.tasks.isEmpty()) {
-                this.errorUI.handleEmptyTasksList();
-                return;
+                return this.errorUI.handleEmptyTasksList();
             }
             // get the string containing the index
             Integer numberString = this.parser.parseString(input.substring(6));
             // gc: string not parsable
             if (numberString == null) {
                 // handle the error
-                this.errorUI.handleInvalidIndex();
-                return;
+                return this.errorUI.handleInvalidIndex();
             }
             // delete the task and announce that the task has been deleted
-            this.ui.echoTaskDeleted(deleteTask(numberString), this.tasks.size());
-        } catch (DukeException | IOException ignored) {}
+            return this.ui.echoTaskDeleted(deleteTask(numberString), this.tasks.size());
+        } catch (IOException ignored) {}
+        return "";
     }
 
     /**
@@ -263,26 +270,24 @@ public class DukeTaskList {
      *
      * @author Tan Kerway
      * @param input the input string that the user entered
+     * @return the response String to a task unmarked
      */
-    public void handleUnmark(String input) {
-        try {
-            // gc: no items to delete
-            if (this.tasks.isEmpty()) {
-                this.errorUI.handleEmptyTasksList();
-                return;
-            }
-            // get the string containing the index
-            Integer numberString = this.parser.parseString(input.substring(7));
-            // gc: string not parsable
-            if (numberString == null) {
-                // handle the error
-                this.errorUI.handleInvalidIndex();
-                return;
-            }
-            Task currentTask = this.tasks.get(Integer.parseInt(input.substring(7, 8)) - 1);
-            this.handleUnmarkTask(currentTask);
-            this.ui.echoTaskUnmarked(currentTask);
-        } catch (DukeException ignored) {}
+    // todo: make this return string
+    public String handleUnmark(String input) {
+        // gc: no items to delete
+        if (this.tasks.isEmpty()) {
+            return this.errorUI.handleEmptyTasksList();
+        }
+        // get the string containing the index
+        Integer numberString = this.parser.parseString(input.substring(7));
+        // gc: string not parsable
+        if (numberString == null) {
+            // handle the error
+            return this.errorUI.handleInvalidIndex();
+        }
+        Task currentTask = this.tasks.get(Integer.parseInt(input.substring(7, 8)) - 1);
+        this.handleUnmarkTask(currentTask);
+        return this.ui.echoTaskUnmarked(currentTask);
     }
 
     /**
@@ -290,26 +295,23 @@ public class DukeTaskList {
      *
      * @author Tan Kerway
      * @param input the input string that the user entered
+     * @return the response String of the chatbot
      */
-    public void handleMark(String input) {
-        try {
-            // gc: no items to delete
-            if (this.tasks.isEmpty()) {
-                this.errorUI.handleEmptyTasksList();
-                return;
-            }
-            // get the string containing the index
-            Integer numberString = this.parser.parseString(input.substring(5));
-            // gc: string not parsable
-            if (numberString == null) {
-                // handle the error
-                this.errorUI.handleInvalidIndex();
-                return;
-            }
-            Task currentTask = this.tasks.get(numberString - 1);
-            this.handleMarkTask(currentTask);
-            this.ui.echoTaskMarked(currentTask);
-        } catch (DukeException ignored) {}
+    public String handleMark(String input) {
+        // gc: no items to delete
+        if (this.tasks.isEmpty()) {
+            return this.errorUI.handleEmptyTasksList();
+        }
+        // get the string containing the index
+        Integer numberString = this.parser.parseString(input.substring(5));
+        // gc: string not parsable
+        if (numberString == null) {
+            // handle the error
+            return this.errorUI.handleInvalidIndex();
+        }
+        Task currentTask = this.tasks.get(numberString - 1);
+        this.handleMarkTask(currentTask);
+        return this.ui.echoTaskMarked(currentTask);
     }
 
     /**
@@ -320,22 +322,19 @@ public class DukeTaskList {
      * @author Tan Kerway
      * @param input the input String the user has typed in,
      *              including the "find" command
+     * @return the String that represents the chatbot response
      */
-    public void handleFind(String input) {
+    public String handleFind(String input) {
         // case where the input is empty
         if (this.tasks.isEmpty()) {
-            try {
-                this.errorUI.handleEmptyTasksList();
-            } catch (DukeException ignored) {
-            }
-            return;
+            return this.errorUI.handleEmptyTasksList();
         }
         // get the substring that is the search query
         String query = input.substring(4).trim();
         // get the list of tasks that contain the query String
         ArrayList<Task> matchingTasks = getMatchingTasks(query);
         // print the matching tasks
-        printMatchingTasks(matchingTasks);
+        return printMatchingTasks(matchingTasks);
     }
 
     /**
@@ -360,17 +359,21 @@ public class DukeTaskList {
      *
      * @author Tan Kerway
      * @param matchingTasks the list of tasks that match the query
+     * @return a String telling the user that there are no matching tasks
+     *         if there are 0 matching tasks, else the list of tasks if there
+     *         are a non-zero number of matches
      */
-    private void printMatchingTasks(ArrayList<Task> matchingTasks) {
-        System.out.println("------------------------------------------------------------------------");
+    private String printMatchingTasks(ArrayList<Task> matchingTasks) {
         // gc: task list is empty
         if (matchingTasks.isEmpty()) {
-            System.out.println("No nyatching tasks found!");
+            return "No nyatching tasks found!";
         } else {
-            System.out.println("Here are the nyatching tasks in your list:");
+            StringBuilder response = new StringBuilder();
+            response.append("Here are the nyatching tasks in your list:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println((i + 1) + "." + matchingTasks.get(i));
+                response.append((i + 1)).append(".").append(matchingTasks.get(i)).append("\n");
             }
+            return response.toString();
         }
     }
 

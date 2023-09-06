@@ -1,4 +1,4 @@
-package DukeTasks;
+package com.nyanbot.DukeTasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
