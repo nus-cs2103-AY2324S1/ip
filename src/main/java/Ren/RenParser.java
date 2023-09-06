@@ -18,36 +18,41 @@ public class RenParser {
      * @param inputStr the input string
      * @param tasks    the list of tasks
      */
-    public static void parseInputString(String inputStr, TaskList tasks) {
+    public static String parseInputString(String inputStr, TaskList tasks) {
+        if (inputStr.equals(Commands.EXIT_COMMAND.getValue())) {
+            return "Bye. Hope to see you again soon!";
+        }
         String[] commandArr = inputStr.split(" ");
         if (commandArr[0].equals(Commands.LS_COMMAND.getValue())) {
-            RenUi.listTasks(tasks);
+            return tasks.toString();
         } else if (commandArr[0].equals(Commands.FIND_COMMAND.getValue())) {
-            RenUi.displayFoundTasks(tasks, commandArr[1]);
+            return tasks.filterToListOfMatchingTasks(commandArr[1]).toString();
         } else if (commandArr[0].equals(Commands.DELETE_COMMAND.getValue())) {
             try {
                 Task task = tasks.deleteTask(commandArr);
-                RenUi.declareTaskDeleted(task, tasks);
-            } catch (InsufficientArguments e) {
+                return task + " deleted";
+            } catch (InsufficientArgumentsException e) {
                 RenUi.printException(e);
             }
         } else if (commandArr[0].equals(Commands.MARK_COMMAND.getValue())
                 || commandArr[0].equals(Commands.UNMARK_COMMAND.getValue())) {
             Task task = tasks.toggleTask(commandArr);
             if (commandArr[0].equals(Commands.MARK_COMMAND.getValue())) {
-                RenUi.declareTaskUpdated(task, tasks, true);
+                return task + " marked as done";
             } else {
-                RenUi.declareTaskUpdated(task, tasks, false);
+                return task + " marked as undone";
             }
         } else if (TASK_TYPES.contains(commandArr[0])) {
             try {
                 Task task = tasks.addTask(commandArr);
-                RenUi.declareTaskAdded(task, tasks);
-            } catch (InsufficientArguments e) {
+                return task + " added";
+            } catch (InsufficientArgumentsException e) {
                 RenUi.printException(e);
             }
         } else {
-            RenUi.requestProperCommand();
+            return "Please enter a proper command";
         }
+        return "";
     }
+
 }

@@ -1,6 +1,5 @@
 package ren.task;
 
-import ren.InsufficientArguments;
 import ren.RenObjectMapper;
 
 import java.time.LocalDate;
@@ -28,9 +27,9 @@ public class TaskList {
      * @param commandArr array of the command split by whitespace
      * @return the added task
      */
-    public Task addTask(String[] commandArr) throws InsufficientArguments {
+    public Task addTask(String[] commandArr) throws ren.InsufficientArgumentsException {
         if (commandArr.length <= 1) {
-            throw new InsufficientArguments();
+            throw new ren.InsufficientArgumentsException();
         }
 
 
@@ -114,9 +113,9 @@ public class TaskList {
      * @param commandArr array of the command split by whitespace
      * @return the added task
      */
-    public Task deleteTask(String[] commandArr) throws InsufficientArguments {
+    public Task deleteTask(String[] commandArr) throws ren.InsufficientArgumentsException {
         if (commandArr.length <= 1) {
-            throw new InsufficientArguments();
+            throw new ren.InsufficientArgumentsException();
         }
 
         int indexToBeDeleted = Integer.parseInt(commandArr[1]) - 1;
@@ -137,6 +136,21 @@ public class TaskList {
         this.tasks.stream()
                 .filter(task -> task.queryInDescription(query))
                 .forEach(task -> System.out.printf("%d %s\n%n", this.tasks.indexOf(task) + 1, task));
+    }
+
+    public List filterToListOfMatchingTasks(String query) {
+        return this.tasks.stream()
+                .filter(task -> task.queryInDescription(query))
+                .collect(java.util.stream.Collectors.toCollection(ArrayList::new));
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (Task task : this.tasks) {
+            builder.append(task).append("\n");
+        }
+        return builder.toString();
     }
 
 
