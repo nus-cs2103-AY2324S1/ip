@@ -35,8 +35,7 @@ public class TextRenderer {
      * Display the introductory message.
      */
     public String showIntro() {
-        return this.showLogo() + "Woof! I'm Corgi!\n" 
-                + "So, what's your wish this time, hooman?\n";
+        return "Woof! I'm Corgi!\n" + "So, what's your wish this time, hooman?\n";
     }
 
     /**
