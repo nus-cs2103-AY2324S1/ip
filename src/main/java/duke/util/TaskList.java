@@ -14,13 +14,13 @@ import duke.task.ToDo;
  * Tasklist containing the tasks added by the user.
  */
 public class TaskList {
-    private final ArrayList<Task> tasklst;
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructor for an instance of an empty tasklist.
      */
     public TaskList() {
-        this.tasklst = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -30,7 +30,7 @@ public class TaskList {
      */
     public TaskList(ArrayList<String> fileData) throws DukeException {
         String[] fields;
-        this.tasklst = new ArrayList<>();
+        this.tasks = new ArrayList<>();
         for (String info : fileData) {
             fields = info.split(" \\| ");
             Task tempT;
@@ -43,14 +43,14 @@ public class TaskList {
                 if (fields[1].equals("1")) {
                     tempT.markAsDone();
                 }
-                tasklst.add(tempT);
+                tasks.add(tempT);
                 break;
             case "D":
                 tempT = new Deadline(fields[2].trim(), fields[3]);
                 if (fields[1].equals("1")) {
                     tempT.markAsDone();
                 }
-                tasklst.add(tempT);
+                tasks.add(tempT);
                 break;
             case "E":
                 String[] time;
@@ -59,7 +59,7 @@ public class TaskList {
                 if (fields[1].equals("1")) {
                     tempT.markAsDone();
                 }
-                tasklst.add(tempT);
+                tasks.add(tempT);
                 break;
             default:
             }
@@ -73,12 +73,12 @@ public class TaskList {
      * @throws InvalidTaskNumberException Error when given task number exceeds the number of tasks in the list
      */
     public void markTask(int taskNumber, Ui ui) throws InvalidTaskNumberException {
-        if (taskNumber > tasklst.size()) {
+        if (taskNumber > tasks.size()) {
             throw new InvalidTaskNumberException("Error! Task Number given is outside range of current list size of "
-                    + tasklst.size());
+                    + tasks.size());
         }
-        tasklst.get(taskNumber - 1).markAsDone();
-        ui.showMarked(tasklst.get(taskNumber - 1));
+        tasks.get(taskNumber - 1).markAsDone();
+        ui.showMarked(tasks.get(taskNumber - 1));
     }
 
     /**
@@ -88,12 +88,12 @@ public class TaskList {
      * @throws InvalidTaskNumberException exception when the task number given is outside the count of tasklist
      */
     public void unmarkTask(int taskNumber, Ui ui) throws InvalidTaskNumberException {
-        if (taskNumber > tasklst.size()) {
+        if (taskNumber > tasks.size()) {
             throw new InvalidTaskNumberException("Error! Task Number given is outside range of current list size of "
-                    + tasklst.size());
+                    + tasks.size());
         } else {
-            tasklst.get(taskNumber - 1).unmarkAsDone();
-            ui.showUnmarked(tasklst.get(taskNumber - 1));
+            tasks.get(taskNumber - 1).unmarkAsDone();
+            ui.showUnmarked(tasks.get(taskNumber - 1));
         }
     }
 
@@ -103,8 +103,8 @@ public class TaskList {
      * @param ui instance of user interface
      */
     public void addTask(Task task, Ui ui) {
-        tasklst.add(task);
-        ui.showTaskAdded(task, tasklst.size());
+        tasks.add(task);
+        ui.showTaskAdded(task, tasks.size());
     }
 
     /**
@@ -114,14 +114,14 @@ public class TaskList {
      * @throws InvalidTaskNumberException Exception when given task number is outside range of tasks in the list
      */
     public void deleteTask(int taskNumber, Ui ui) throws InvalidTaskNumberException {
-        if (taskNumber > tasklst.size()) {
+        if (taskNumber > tasks.size()) {
             throw new InvalidTaskNumberException("Error! Task Number given is outside range of current list size of "
-                    + tasklst.size());
+                    + tasks.size());
         } else {
-            Task temp = tasklst.remove(taskNumber - 1);
+            Task temp = tasks.remove(taskNumber - 1);
             ui.showComplete("Noted. I've removed this task:"
                     + temp
-                    + "Now you have " + this.tasklst.size() + " task(s) in the list");
+                    + "Now you have " + this.tasks.size() + " task(s) in the list");
         }
     }
 
@@ -130,11 +130,11 @@ public class TaskList {
      * @return ArrayList of formatted strings to be written
      */
     public ArrayList<String> toWriteFormat() {
-        ArrayList<String> tasks = new ArrayList<>();
-        for (Task task : tasklst) {
-            tasks.add(task.toSaveFormat());
+        ArrayList<String> taskStrings = new ArrayList<>();
+        for (Task task : tasks) {
+            taskStrings.add(task.toSaveFormat());
         }
-        return tasks;
+        return taskStrings;
     }
 
     /**
@@ -143,7 +143,7 @@ public class TaskList {
      */
     public ArrayList<String> getTaskStrings() {
         ArrayList<String> listOfStrings = new ArrayList<>();
-        for (Task task : tasklst) {
+        for (Task task : tasks) {
             listOfStrings.add(task.toString());
         }
         return listOfStrings;
@@ -156,7 +156,7 @@ public class TaskList {
      */
     public ArrayList<String> filterToList(String keyword) {
         ArrayList<String> filteredList = new ArrayList<>();
-        for (Task task : tasklst) {
+        for (Task task : tasks) {
             if (task.contains(keyword)) {
                 filteredList.add(task.toString());
             }

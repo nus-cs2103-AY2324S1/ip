@@ -15,7 +15,7 @@ public class Storage {
     private final String filePath;
 
     /**
-     * Constructs a event with a given description. Completion of the task
+     * Constructs an event with a given description. Completion of the task
      * is false by default.
      * @param filePath The location of the file to be read.
      */
@@ -46,12 +46,12 @@ public class Storage {
 
     /**
      * Writes the current tasklist back into a file.
-     * @param tasklst ArrayList of strings to be written into the file
+     * @param taskList ArrayList of strings to be written into the file
      * @throws NoFileException Exception when file to be written in cannot be found
      */
-    public void rewriteFile(TaskList tasklst) throws NoFileException {
+    public void rewriteFile(TaskList taskList) throws NoFileException {
         try {
-            ArrayList<String> tasks = tasklst.toWriteFormat();
+            ArrayList<String> tasks = taskList.toWriteFormat();
             FileWriter fw = new FileWriter(this.filePath);
             for (String task : tasks) {
                 fw.append(task);
