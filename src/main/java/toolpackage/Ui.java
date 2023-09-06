@@ -55,12 +55,14 @@ public class Ui {
      * Prints list of tasks.
      *
      * @param listOfTasks List of tasks to print.
+     * @return String Representation of tasks.
      */
-    public void printList(ArrayList<Task> listOfTasks) {
-        System.out.println("Here are the tasks in your list:");
+    public String printList(ArrayList<Task> listOfTasks) {
+        String listToPrint = "Here are the tasks in your list:\n";
         for (int i = 0; i < listOfTasks.size(); i++) {
-            System.out.printf("%d.%s%n", i + 1, listOfTasks.get(i).printTask());
+            listToPrint+= String.format("%d.%s%n", i + 1, listOfTasks.get(i).printTask());
         }
+        return listToPrint;
     }
 
     /**
@@ -68,12 +70,13 @@ public class Ui {
      *
      * @param task Task that was marked or unmarked.
      * @param keyword Word to indicate whether the task was marked as complete or incomplete.
+     * @return String Reply to user that task has been marked as complete or incomplete.
      */
-    public void toggleDone(Task task, String keyword) {
+    public String toggleDone(Task task, String keyword) {
         if (keyword.equals("mark")) {
-            System.out.printf("Nice! I've marked this task as done:%n %s%n", task.printTask());
+            return String.format("Nice! I've marked this task as done:%n %s%n", task.printTask());
         } else {
-            System.out.printf("OK, I've marked this task as not done yet:%n %s%n", task.printTask());
+            return String.format("OK, I've marked this task as not done yet:%n %s%n", task.printTask());
         }
     }
 
@@ -82,9 +85,10 @@ public class Ui {
      *
      * @param task Task that was deleted.
      * @param size Updated number of tasks in the list.
+     * @return String Reply to user that task has been deleted.
      */
-    public void removeItem(Task task, int size) {
-        System.out.printf("Noted. I've removed this task:%n %s%nNow you have %d tasks in the list.%n",
+    public String removeItem(Task task, int size) {
+        return String.format("Noted. I've removed this task:%n %s%nNow you have %d tasks in the list.%n",
                 task.printTask(), size);
     }
 
@@ -93,9 +97,10 @@ public class Ui {
      *
      * @param task Task that was added.
      * @param size Updated number of tasks in the list.
+     * @return String Reply to user on task that was added.
      */
-    public void addItem(Task task, int size) {
-        System.out.printf("Got it. I've added this task:%n %s%nNow you have %d tasks in the list.%n",
+    public String addItem(Task task, int size) {
+        return String.format("Got it. I've added this task:%n %s%nNow you have %d tasks in the list.%n",
                 task.printTask(), size);
     }
 
@@ -103,11 +108,13 @@ public class Ui {
      * Prints out the list of tasks that contain the given keyword.
      *
      * @param listOfTasks List of tasks to print.
+     * @return String Representation of list of tasks to print.
      */
-    public void printMatchingTasks(ArrayList<Task> listOfTasks) {
-        System.out.println("Here are the matching tasks in your list:");
+    public String printMatchingTasks(ArrayList<Task> listOfTasks) {
+        String matchingTasks = "Here are the matching tasks in your list:\n";
         for (int i = 0; i < listOfTasks.size(); i++) {
-            System.out.printf("%d.%s%n", i + 1, listOfTasks.get(i).printTask());
+            matchingTasks += String.format("%d.%s%n", i + 1, listOfTasks.get(i).printTask());
         }
+        return matchingTasks;
     }
 }

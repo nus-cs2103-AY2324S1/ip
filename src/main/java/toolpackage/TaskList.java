@@ -6,7 +6,7 @@ import taskpackage.Task;
 
 import java.io.FileWriter;
 import java.io.IOException;
-
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 /**
@@ -56,9 +56,10 @@ public class TaskList {
      * Instructs UI to print the list of tasks.
      *
      * @param ui UI to print the list of tasks.
+     * @return String Representation of list.
      */
-    public void printList(Ui ui) {
-        ui.printList(listOfTasks);
+    public String printList(Ui ui) {
+        return ui.printList(listOfTasks);
     }
 
     /**
@@ -68,22 +69,25 @@ public class TaskList {
      * @param id Task ID to toggle between complete and incomplete.
      * @param keyword Word to indicate whether the task was marked as complete or incomplete.
      * @param ui UI to print toggle status.
-     * @return boolean Indicate whether toggling was successful.
+     * @return String Indicate whether toggling was successful.
      */
-    public boolean toggleDone(String id, String keyword, Ui ui) {
+    public String toggleDone(String id, String keyword, Ui ui) {
         try {
-            this.listOfTasks.get(Integer.parseInt(id) - 1).toggleDone(keyword, ui);
-            return true;
+            return this.listOfTasks.get(Integer.parseInt(id) - 1).toggleDone(keyword, ui);
         } catch (NumberFormatException e) {
             if (keyword.equals("mark")) {
-                System.out.println("☹ OOPS!!! Please indicate the task to mark in numbers.");
+                byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
+                String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
+                return emoji + " OOPS!!! Please indicate the task to mark in numbers.";
             } else {
-                System.out.println("☹ OOPS!!! Please indicate the task to unmark in numbers.");
+                byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
+                String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
+                return emoji + " OOPS!!! Please indicate the task to unmark in numbers.";
             }
-            return false;
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("☹ OOPS!!! Please indicate an appropriate index within the list range.");
-            return false;
+            byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
+            String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
+            return emoji + " OOPS!!! Please indicate an appropriate index within the list range.";
         }
     }
 
@@ -92,19 +96,20 @@ public class TaskList {
      *
      * @param id Task ID to delete.
      * @param ui UI to print deletion status.
-     * @return boolean Indicate whether deletion was successful.
+     * @return String Indicate whether deletion was successful.
      */
-    public boolean removeItem(String id, Ui ui) {
+    public String removeItem(String id, Ui ui) {
         try {
             Task task = this.listOfTasks.remove(Integer.parseInt(id) - 1);
-            ui.removeItem(task, this.listOfTasks.size());
-            return true;
+            return ui.removeItem(task, this.listOfTasks.size());
         } catch (NumberFormatException e) {
-            System.out.println("☹ OOPS!!! Please indicate the task to delete in numbers.");
-            return false;
+            byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
+            String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
+            return emoji + " OOPS!!! Please indicate the task to delete in numbers.";
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("☹ OOPS!!! Please indicate an appropriate index within the list range.");
-            return false;
+            byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
+            String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
+            return emoji + " OOPS!!! Please indicate an appropriate index within the list range.";
         }
     }
 
@@ -113,10 +118,11 @@ public class TaskList {
      *
      * @param task Task to be added to the task list.
      * @param ui UI to print addition status.
+     * @return String Representation of task just added.
      */
-    public void addItem(Task task, Ui ui) {
+    public String addItem(Task task, Ui ui) {
         this.listOfTasks.add(task);
-        ui.addItem(task, this.listOfTasks.size());
+        return ui.addItem(task, this.listOfTasks.size());
     }
 
     /**
@@ -124,14 +130,15 @@ public class TaskList {
      *
      * @param word Keyword to find in the task.
      * @param ui UI to print tasks that contains the word.
+     * @return String Reply to user with list of tasks found.
      */
-    public void findTasks(String word, Ui ui) {
+    public String findTasks(String word, Ui ui) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : listOfTasks) {
             if (task.matchKeyword(word)) {
                 matchingTasks.add(task);
             }
         }
-        ui.printMatchingTasks(matchingTasks);
+        return ui.printMatchingTasks(matchingTasks);
     }
 }

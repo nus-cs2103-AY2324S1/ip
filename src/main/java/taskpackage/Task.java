@@ -1,5 +1,7 @@
 package taskpackage;
 
+import java.nio.charset.Charset;
+
 import dukepackage.DukeException;
 
 import toolpackage.Ui;
@@ -26,7 +28,9 @@ public class Task {
 
         // Throws error if there is no task description.
         if (task.isEmpty()) {
-            throw new DukeException("☹ OOPS!!! Task description should not be empty.");
+            byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
+            String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
+            throw new DukeException(emoji + " OOPS!!! Task description should not be empty.");
         }
 
         this.task = task;
@@ -36,7 +40,7 @@ public class Task {
     /**
      * Prints tasks for user to see.
      *
-     * @return String
+     * @return String Representation of task.
      */
     public String printTask() {
         if (this.isDone) {
@@ -51,10 +55,11 @@ public class Task {
      *
      * @param keyword Word to indicate whether to mark the task as complete or incomplete.
      * @param ui UI of the bot.
+     * @return String Indicate whether task has been marked as complete or incomplete.
      */
-    public void toggleDone(String keyword, Ui ui) {
+    public String toggleDone(String keyword, Ui ui) {
         this.isDone = keyword.equals("mark");
-        ui.toggleDone(this, keyword);
+        return ui.toggleDone(this, keyword);
     }
 
     /**
