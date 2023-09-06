@@ -1,7 +1,7 @@
 package tasks;
 
 public class ToDos extends Task {
-    public ToDos (String description, boolean isDone) {
+    public ToDos(String description, boolean isDone) {
         super(description, isDone);
     }
 

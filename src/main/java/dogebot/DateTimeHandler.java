@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 public class DateTimeHandler {
     private LocalDateTime date;
-    public DateTimeHandler (String s) {
+    public DateTimeHandler(String s) {
         if (!s.contains("/")) { // reading from 'tasklist.txt', change format
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy K:mma");
             this.date = LocalDateTime.parse(s, formatter);
