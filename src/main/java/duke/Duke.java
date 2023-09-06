@@ -10,6 +10,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.Region;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+
 
 
 
@@ -17,7 +22,7 @@ import javafx.scene.layout.Region;
  * Duke is a chatbot that helps the user to keep track of Tasks. Users
  * can add, delete, mark tasks as done.
  */
-public class Duke extends Application {
+public class Duke {
 
     private Storage storage;
     private Ui ui;
@@ -69,6 +74,19 @@ public class Duke extends Application {
         }
     }
 
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        String response = "Invalid";
+        try {
+            response = parser.parse(input);
+        } catch (DukeException e) {
+            response = e.toString();
+        }
+        return response;
+    }
 
     /**
      * Acts as the main entry Point for the Duke Application.

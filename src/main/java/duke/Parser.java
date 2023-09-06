@@ -27,7 +27,7 @@ public class Parser {
      *
      * @param command User's input in a String Format.
      */
-    public String parse(String command) {
+    public String parse(String command) throws DukeException{
         String[] spacedCommand = command.split(" ");
         String mainCommand = spacedCommand[0];
         Task task;
