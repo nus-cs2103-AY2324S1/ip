@@ -88,6 +88,14 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
+        } catch (Exception e) {
+            System.out.println(e);
+            return "Duke heard unknown command: " + input;
+        }
+
+
     }
 }

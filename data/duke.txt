@@ -1,5 +1,5 @@
-T | 0 | borrow book
 D | 0 | return book | 2019-01-01T00:00
 T | 0 | borrow book
 D | 0 | go to event | 2023-01-01T18:00
 D | 1 | return book | 2019-01-01T00:00
+T | 0 | leave the library

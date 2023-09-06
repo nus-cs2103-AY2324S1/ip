@@ -79,6 +79,9 @@ public class Ui {
      * @param size The number of tasks after adding.
      */
     public void showAddMessage(Task task, int size) {
+
+        StringBuilder str = new StringBuilder();
+
         System.out.println("Got it!. I've added this task:");
         System.out.println(INDENTATION + task);
         System.out.printf("Now you have %d tasks in the list%n", size);
@@ -125,13 +128,16 @@ public class Ui {
      *
      * @param tasks The list of tasks to be displayed.
      */
-    public void printTasks(TaskList tasks) {
+    public String printTasks(TaskList tasks) {
         System.out.println("Here are your list of tasks:");
+        StringBuilder str = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.printf(INDENTATION + "%d. %s%n", i + 1, task);
+            str.append(INDENTATION).append(i + 1).append(" ").append(task).append("\n");
         }
+        System.out.println(str);
         System.out.println(LINE);
+        return str.toString();
     }
 
     /**
@@ -140,16 +146,19 @@ public class Ui {
      * @param tasks    The list of tasks to be displayed.
      * @param datetime The specified date and time for filtering tasks.
      */
-    public void printScheduledTasks(TaskList tasks, LocalDateTime datetime) {
+    public String printScheduledTasks(TaskList tasks, LocalDateTime datetime) {
         System.out.println("Here are your list of tasks:");
+        StringBuilder str = new StringBuilder();
         int index = 1;
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             if (task.isWithinDateRange(datetime)) {
-                System.out.printf(INDENTATION + "%d. %s%n", index++, task);
+                str.append(INDENTATION).append(index++).append(" ").append(task).append("\n");
             }
         }
+        System.out.println(str);
         System.out.println(LINE);
+        return str.toString();
     }
 
     /**
@@ -158,16 +167,19 @@ public class Ui {
      * @param tasks    The list of tasks to be displayed.
      * @param keyword  The word used to filter tasks.
      */
-    public void printRelatedTasks(TaskList tasks, String keyword) {
+    public String printRelatedTasks(TaskList tasks, String keyword) {
         System.out.println("Here are your list of tasks:");
+        StringBuilder str = new StringBuilder();
         int index = 1;
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             if (task.isRelatedContent(keyword)) {
-                System.out.printf(INDENTATION + "%d. %s%n", index++, task);
+                str.append(INDENTATION).append(index++).append(" ").append(task).append("\n");
             }
         }
+        System.out.println(str);
         System.out.println(LINE);
+        return str.toString();
     }
 
     /**
