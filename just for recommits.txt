@@ -1,1 +1,3 @@
 Woops, accidentally uncommitted A-JUnit on sourcetree, 1st time using it :P big oopsies
+
+A-CheckStyle: Already implemented before in week 3 to check style
