@@ -62,13 +62,15 @@ public class TaskList {
 
     /**
      * Adds a task to the task list.
-     * Sends a message confirming the added task.
+     * Returns a message confirming the added task.
      *
      * @param newTask The new task to be added.
+     * @return Response message to be sent by the bot.
      */
-    public void addTask(Task newTask) {
+    public String addTask(Task newTask) {
         tasks.add(newTask);
-        Ui.printLines("Got it. I've added this task:",
+
+        return Ui.getResponse("Got it. I've added this task:",
                 "\t " + newTask,
                 "Now you have " + getSize() + " tasks in your list. Good luck!");
 
@@ -76,16 +78,17 @@ public class TaskList {
 
     /**
      * Deletes a task from the task list.
-     * Sends a message confirming the deleted task.
+     * Returns a message confirming the deleted task.
      *
      * @param taskIndex Task to be deleted.
+     * @return Response message to be sent by the bot.
      */
-    public void deleteTask(int taskIndex) {
+    public String deleteTask(int taskIndex) {
         Task deletedTask = tasks.get(taskIndex - 1);
 
         tasks.remove(taskIndex - 1);
 
-        Ui.printLines("Noted. I've removed this task:",
+        return Ui.getResponse("Noted. I've removed this task:",
                 deletedTask.toString(),
                 "Now you have " + this.tasks.size() + " tasks in your list. Good luck!");
     }
@@ -94,12 +97,13 @@ public class TaskList {
      * Marks a task as completed.
      *
      * @param taskIndex Index of the task to be marked.
+     * @return Response message to be sent by the bot.
      */
-    public void markTask(int taskIndex) {
+    public String markTask(int taskIndex) {
         Task task = this.tasks.get(taskIndex - 1);
         task.markAsDone();
 
-        Ui.printLines("Nice job! I've marked this task as done:",
+        return Ui.getResponse("Nice job! I've marked this task as done:",
                 "\t " + task);
     }
 
@@ -107,12 +111,13 @@ public class TaskList {
      * Unmarks a task.
      *
      * @param taskIndex Index of the task to be unmarked.
+     * @return Response message to be sent by the bot.
      */
-    public void unmarkTask(int taskIndex) {
+    public String unmarkTask(int taskIndex) {
         Task task = this.tasks.get(taskIndex - 1);
         task.markAsNotDone();
 
-        Ui.printLines("What happened? I've marked this task as not done yet:",
+        return Ui.getResponse("What happened? I've marked this task as not done yet:",
                 "\t " + task);
     }
 
@@ -120,8 +125,9 @@ public class TaskList {
      * Prints all tasks that has a certain keyword.
      *
      * @param keyword Keyword the task needs to have
+     * @return Response message to be sent by the bot.
      */
-    public void printTasksByKeyword(String keyword) {
+    public String printTasksByKeyword(String keyword) {
         int index = 1;
         List<String> linesToPrint = new ArrayList<>();
         linesToPrint.add("Here are the matching tasks in your list:");
@@ -144,6 +150,7 @@ public class TaskList {
         }
 
         Ui.printLines(lines);
+        return Ui.getResponse(lines);
     }
 
     @Override
