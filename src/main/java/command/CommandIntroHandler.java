@@ -1,12 +1,12 @@
 package command;
 import main.Main;
+import main.Ui;
 
 public class CommandIntroHandler implements ICommandHandler{
 
     @Override
     public void execute(String command, String[] parameters) {
         String name = Main.getInstance().getName();
-        Main.getInstance().getUi().say("Hello! I'm " + name, true, false);
-        Main.getInstance().getUi().say("What can I do for you?", false, true);
+        Ui.getInstance().say("Hello! I'm " + name + "\nWhat can I do for you?");
     }
 }

@@ -1,6 +1,7 @@
 package command;
 
 import main.Main;
+import main.Ui;
 import task.Task;
 
 public class CommandDeleteHandler implements ICommandHandler{
@@ -18,8 +19,9 @@ public class CommandDeleteHandler implements ICommandHandler{
             throw new CommandException("Input number out of range.");
         }
         Task removedTask = Main.getInstance().getTaskList().removeTask(number - 1);
-        Main.getInstance().getUi().say("Noted. I've removed this task:", true, false);
-        Main.getInstance().getUi().say("  " + removedTask.toString(), false, false);
-        Main.getInstance().getUi().say("Now you have " + Main.getInstance().getTaskList().getCount() +" tasks in the list.", false, true);
+        String reply = "Noted. I've removed this task:\n";
+        reply += "  " + removedTask.toString() + "\n";
+        reply += "Now you have " + Main.getInstance().getTaskList().getCount() +" tasks in the list.";
+        Ui.getInstance().say(reply);
     }
 }

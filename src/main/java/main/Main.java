@@ -11,6 +11,7 @@ import command.CommandEventHandler;
 import command.CommandDeleteHandler;
 import command.CommandFindHandler;
 import command.Parser;
+import javafx.application.Application;
 import task.TaskList;
 import util.Storage;
 
@@ -18,9 +19,8 @@ import util.Storage;
 
 public class Main {
     private static Main INSTANCE;
-    private String name = "your girlfriend";
+    private String name = "Duke";
     private Parser parser;
-    private Ui ui;
     private boolean isRunning;
 
     private TaskList taskList;
@@ -30,7 +30,6 @@ public class Main {
      */
     public Main() {
         this.parser = new Parser();
-        this.ui = new Ui();
         this.taskList = Storage.createTaskListFromFile();
         this.parser.registerCommand("intro", new CommandIntroHandler());
         this.parser.registerCommand("list", new CommandListHandler());
@@ -53,16 +52,11 @@ public class Main {
      */
     public static void main(String[] args) {
         initialize();
-        INSTANCE.run();
+        INSTANCE.run(args);
     }
 
-    private void run() {
-        this.parser.executeCommand("intro");
-        this.isRunning = true;
-        while(this.isRunning){
-            this.ui.update();
-        }
-        this.ui.dispose();
+    private void run(String[] args) {
+        Application.launch(Ui.class, args);
         return;
     }
 
@@ -92,7 +86,7 @@ public class Main {
      * Exit the program
      */
     public void exit() {
-        this.isRunning = false;
+        System.exit(0);
     }
 
 
@@ -112,14 +106,5 @@ public class Main {
      */
     public Parser getParser() {
         return this.parser;
-    }
-
-    /**
-     * Returns the Ui instance
-     *
-     * @return the instance
-     */
-    public Ui getUi(){
-        return this.ui;
     }
 }

@@ -1,6 +1,7 @@
 package command;
 
 import main.Main;
+import main.Ui;
 
 import java.util.HashMap;
 
@@ -18,7 +19,7 @@ public class Parser {
 
     public void executeCommand(String command){
         if(command.length() == 0){
-            Main.getInstance().getUi().say("You didn't say anything.");
+            Ui.getInstance().say("You didn't say anything.");
             return;
         }
         String[] splitedCommand = command.split(" ");
@@ -34,7 +35,7 @@ public class Parser {
             }
         }
         catch (CommandException e){
-            Main.getInstance().getUi().say("An exception happened when executing this command: " + e.getMessage());
+            Ui.getInstance().sayError("An exception happened when executing this command: " + e.getMessage());
         }
 
     }

@@ -1,5 +1,6 @@
 package command;
 import main.Main;
+import main.Ui;
 import task.Task;
 
 public class CommandMarkUnmarkHandler implements ICommandHandler {
@@ -16,8 +17,9 @@ public class CommandMarkUnmarkHandler implements ICommandHandler {
             throw new CommandException("Error: Can not find any task with name '" +taskName + "'.");
         }
         task.setIsDone(mark);
-        Main.getInstance().getUi().say("Nice! I've marked this task as " + (mark ? "done" : "not done yet") + ":", true, false);
-        Main.getInstance().getUi().say("  " + Main.getInstance().getTaskList().findTaskByName(taskName).toString(),false, true);
+        String reply = "Nice! I've marked this task as " + (mark ? "done" : "not done yet") + ":";
+        reply += "  " + Main.getInstance().getTaskList().findTaskByName(taskName).toString();
+        Ui.getInstance().say(reply);
     }
 
 

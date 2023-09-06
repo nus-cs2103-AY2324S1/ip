@@ -1,6 +1,7 @@
 package util;
 
 import main.Main;
+import main.Ui;
 import task.Task;
 import task.TaskList;
 
@@ -33,7 +34,7 @@ public class Storage {
             fos.close();
         }
         catch(Exception e){
-            Main.getInstance().getUi().say("Unable to save tasks to file: " + e.getMessage());
+            Ui.getInstance().sayError("Unable to save tasks to file: " + e.getMessage());
         }
     }
 
