@@ -1,8 +1,8 @@
 package duke.task;
+import java.time.LocalDateTime;
 
 import duke.InvalidTaskCreationException;
 
-import java.time.LocalDateTime;
 
 /**
  * The `ToDo` class represents a simple task without a specific deadline or event time range in the Duke application.
@@ -26,7 +26,7 @@ public class ToDo extends Task {
      * @return A `ToDo` task instance.
      * @throws InvalidTaskCreationException if the description is empty.
      */
-    public static ToDo ToDoCon(String description) throws InvalidTaskCreationException {
+    public static ToDo toDoCon(String description) throws InvalidTaskCreationException {
         if (description.equalsIgnoreCase("")) {
             throw new InvalidTaskCreationException("OOPS!!! The description of a todo cannot be empty.");
         }
