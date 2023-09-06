@@ -18,9 +18,10 @@ public class ListCommand extends Command {
      * @param ui The user interface.
      * @param storage The storage to read data from.
      * @param tasks The list of tasks.
+     * @return response given by Monke.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) {
-        ui.displayList(tasks);
+    public String execute(Ui ui, Storage storage, TaskList tasks) {
+        return ui.getListString(tasks);
     }
 }

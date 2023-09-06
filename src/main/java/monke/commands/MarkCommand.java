@@ -32,15 +32,15 @@ public class MarkCommand extends Command {
      * @param ui      The user interface.
      * @param storage The storage to read and write data.
      * @param tasks   The list of tasks.
+     * @return response given by Monke.
      * @throws MonkeException If data cannot be saved in the storage.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws MonkeException {
+    public String execute(Ui ui, Storage storage, TaskList tasks) throws MonkeException {
         Task task = tasks.getTask(this.taskNumber);
         task.mark();
         storage.saveData(tasks);
 
-        ui.print("Ooga booga! I've marked this task as done:");
-        ui.print("\t" + task);
+        return "Ooga booga! I've marked this task as done:\n" + task + "\n";
     }
 }

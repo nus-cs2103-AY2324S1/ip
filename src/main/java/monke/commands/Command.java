@@ -13,12 +13,13 @@ public abstract class Command {
     /**
      * Executes the command.
      *
-     * @param ui The user interface.
+     * @param ui      The user interface.
      * @param storage The storage to read and write data.
-     * @param tasks The list of tasks.
+     * @param tasks   The list of tasks.
+     * @return response given by Monke.
      * @throws MonkeException If there issues executing the command.
      */
-    public abstract void execute(Ui ui, Storage storage, TaskList tasks) throws MonkeException;
+    public abstract String execute(Ui ui, Storage storage, TaskList tasks) throws MonkeException;
 
     /**
      * Indicates whether the command is an exit command.

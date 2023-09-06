@@ -28,18 +28,19 @@ public class DeleteCommand extends Command {
     /**
      * Executes the DeleteCommand to delete a task from the task list.
      *
-     * @param ui The user interface.
+     * @param ui      The user interface.
      * @param storage The storage to read and write data.
-     * @param tasks The list of tasks.
+     * @param tasks   The list of tasks.
+     * @return response given by Monke.
      * @throws MonkeException If data cannot be saved in the storage.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws MonkeException {
+    public String execute(Ui ui, Storage storage, TaskList tasks) throws MonkeException {
         tasks.delete(this.taskNumber);
         storage.saveData(tasks);
 
-        ui.print("Noted. I've removed this task:");
-        ui.print("\t" + tasks.getTask(this.taskNumber));
-        ui.print("Now you have " + tasks.size() + " tasks in the list.");
+        return "Ooga booga!. I've removed this task\n" +
+                tasks.getTask(this.taskNumber) +
+                "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 }

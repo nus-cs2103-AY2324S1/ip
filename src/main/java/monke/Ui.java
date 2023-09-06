@@ -3,7 +3,6 @@ package monke;
 import monke.tasks.Task;
 
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * The Ui class is responsible for handling user interface interactions.
@@ -11,76 +10,42 @@ import java.util.Scanner;
  */
 public class Ui {
     /**
-     * Prints a message to the console with indentation to show the bot is speaking.
+     * Returns the welcome message to the user.
      *
-     * @param msg The message to be printed.
+     * @return Welcome message as a string.
      */
-    public void print(String msg) {
-        System.out.println("\t" + msg);
+    public String getWelcomeMessage() {
+        return "Hello, I'm Monke. OOGA BOOGA!\nWhat can I do for you?";
     }
 
     /**
-     * Displays the welcome message to the user.
-     */
-    public void showWelcome() {
-        this.print("Hello, I'm Monke. OOGA BOOGA!");
-        this.print("What can I do for you?");
-        this.printHorizontalLine();
-    }
-
-    /**
-     * Reads a user command from the console.
+     * Returns list of tasks to the user as a string.
      *
-     * @return The user's input command as a string.
+     * @param taskList The list of tasks as a string.
+     * @return list of tasks as a string.
      */
-    public String readCommand() {
-        Scanner sc = new Scanner(System.in);
-        if (sc.hasNextLine()) {
-            String fullCommand = sc.nextLine();
-            return fullCommand;
-        }
-        sc.close();
-        return "";
-    }
-
-    /**
-     * Prints a horizontal line to the console for visual separation.
-     */
-    public void printHorizontalLine() {
-        for (int i = 0; i < 100; i++) {
-            System.out.print("_");
-        }
-        System.out.println();
-    }
-
-    /**
-     * Displays list of tasks to the user.
-     *
-     * @param taskList The list of tasks to be displayed.
-     */
-    public void displayList(TaskList taskList) {
+    public String getListString(TaskList taskList) {
         List<Task> tasks = taskList.toList();
+        StringBuilder listString = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            this.print((i + 1) + ". " + tasks.get(i));
+            listString.append(i + 1);
+            listString.append(". ");
+            listString.append(tasks.get(i));
+            listString.append("\n");
         }
+        return listString.toString();
     }
 
     /**
      * Shows a message confirming the addition of a task to task list.
      *
-     * @param task The task that was added.
+     * @param task      The task that was added.
      * @param tasksSize The total number of tasks in the list after the addition.
+     * @return
      */
-    public void showAddTask(Task task, int tasksSize) {
-        this.print("Got it. I've added this task:");
-        this.print("\t" + task);
-        this.print("Now you have " + tasksSize + " tasks in the list.");
-    }
-
-    /**
-     * Prints exit message to the user.
-     */
-    public void printExit() {
-        this.print("Bye. Hope to see you again soon! OOGA BOOGA!");
+    public String showAddTask(Task task, int tasksSize) {
+        return "Got it. I've added this task:\n" +
+                task +
+                "\nNow you have " + tasksSize + " tasks in the list.\n";
     }
 }
