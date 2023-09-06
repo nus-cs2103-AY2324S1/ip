@@ -36,6 +36,11 @@ application {
     mainClass.set("roo.Roo")
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
 shadowJar {
     archiveBaseName = "roo"
     archiveClassifier = null

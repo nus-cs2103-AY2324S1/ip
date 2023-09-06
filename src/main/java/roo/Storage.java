@@ -92,14 +92,17 @@ public class Storage {
      * Adds a task to the file.
      * @param task The task to be added to the file.
      */
-    public void add(Task task) {
+    public void add(Task ... task) {
         try {
             FileWriter writer = new FileWriter(filePath, true);
-            writer.write(task.toString() + "\n");
+            for (Task t : task) {
+                writer.write(task.toString() + "\n");
+            }
             writer.close();
         } catch (IOException e) {
             System.err.println("I/O error add " + e.getMessage());
         }
-
     }
+
+
 }
