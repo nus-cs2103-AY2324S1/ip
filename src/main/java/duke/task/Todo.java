@@ -10,7 +10,12 @@ public class Todo extends Task {
     public Todo(String task) throws EmptyTaskDescException {
         super(task);
     }
-    public static Todo unpackSaveFormat(String savedTask) throws EmptyTaskDescException {
+    /**
+     * Returns a To-do object parsed from the save format.
+     * @param savedTask The string representing the task in the save format.
+     * @return A new To-do object.
+     */
+    public static Todo parseSaveFormat(String savedTask) throws EmptyTaskDescException {
         String[] components = savedTask.split("\\|", 2);
         Todo task = new Todo(components[0]);
         if (components[1].equals("true")) {

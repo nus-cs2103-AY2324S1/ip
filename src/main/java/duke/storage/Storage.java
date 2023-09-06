@@ -1,18 +1,27 @@
 package duke.storage;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import duke.exception.FileNotFoundException;
 
+/**
+ * Represents a text-file based storage.
+ */
 public class Storage {
-    private final String filePath;
-    private File file;
-    private BufferedWriter bufferedWriter;
+    private final File file;
+    private final BufferedWriter bufferedWriter;
 
+    /**
+     * Constructor for a Storage instance.
+     * @param filePath The file path to the text file.
+     * @throws FileNotFoundException If no file exists at the filePath.
+     */
     public Storage(String filePath) throws FileNotFoundException {
-        this.filePath = filePath;
         file = new File(filePath);
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(file, true));
@@ -21,6 +30,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Write a line into the text file.
+     * @param line The line to add.
+     */
     public void addLine(String line) {
         try {
             bufferedWriter.write(line);
@@ -31,6 +44,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Get a line from the text file.
+     * @param index The index of the line.
+     * @return The line at the given index.
+     */
     public String getLine(int index) {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
@@ -48,35 +66,9 @@ public class Storage {
         return "";
     }
 
-
-    public void removeLine(int lineIndex) {
-        try {
-            List<String> lines = new ArrayList<>();
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-            String line;
-            int currentLine = 1;
-            while ((line = bufferedReader.readLine()) != null) {
-                if (currentLine != lineIndex) {
-                    lines.add(line);
-                }
-                currentLine++;
-            }
-            bufferedWriter.close();
-            bufferedReader.close();
-
-            file = new File(filePath);
-
-            bufferedWriter = new BufferedWriter(new FileWriter(file));
-            for (String lineToAdd : lines) {
-                bufferedWriter.write(lineToAdd);
-                bufferedWriter.newLine();
-            }
-            bufferedWriter.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+    /**
+     * Clear the file of all text.
+     */
     public void clear() {
         // Create a FileWriter with the given file path
         try {

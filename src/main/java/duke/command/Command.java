@@ -1,7 +1,10 @@
 package duke.command;
 
 import duke.application.Application;
-import duke.exception.*;
+import duke.exception.DukeException;
+import duke.exception.InvalidTaskIndexException;
+import duke.exception.NoCommandFoundException;
+import duke.exception.TaskIndexOutOfRangeException;
 import duke.message.Message;
 import duke.task.Task;
 

@@ -3,6 +3,9 @@ package duke.task;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a list of Tasks.
+ */
 public class TaskList {
     private final List<Task> taskList = new ArrayList<>();
 
@@ -17,11 +20,6 @@ public class TaskList {
     public void removeTask(Task task) {
         taskList.remove(task);
     }
-
-    public int findTaskIndex(Task task) {
-        return taskList.indexOf(task);
-    }
-
     public int getTaskCount() {
         return taskList.size();
     }
