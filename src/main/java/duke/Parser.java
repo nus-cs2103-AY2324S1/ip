@@ -12,6 +12,7 @@ import java.util.Objects;
  * The Parser class handles the parsing of user input and corresponding actions.
  */
 public class Parser {
+    private static String response;
 
     /**
      * Parses the user input and performs corresponding actions on the task list.
@@ -19,9 +20,8 @@ public class Parser {
      * @param userInput The input provided by the user.
      * @param taskList  The TaskList instance used to manage tasks.
      */
-    public static void parseInput(String userInput, TaskList taskList) {
+    public static String parseInput(String userInput, TaskList taskList) {
         try {
-
             if (Objects.equals(userInput, "bye")) {
                 taskList.updateTaskFile();
                 Ui.printExitMessage();
@@ -32,8 +32,10 @@ public class Parser {
                 if (listTasks != "") {
                     System.out.println("Here are the tasks in your list:");
                     System.out.println(listTasks);
+                    return "Here are the tasks in your list:\n" + listTasks;
                 } else {
                     System.out.println("There are no tasks in your list at the moment. Add some!");
+                    return "There are no tasks in your list at the moment. Add some!";
                 }
 
             } else if (userInput.startsWith("find")) {
@@ -41,23 +43,25 @@ public class Parser {
                 if (foundTasks != "") {
                     System.out.println("Here are the matching tasks in your list:");
                     System.out.println(foundTasks);
+                    return "Here are the matching tasks in your list:\n" + foundTasks;
                 } else {
                     System.out.println("There are no matching tasks in your list.");
+                    return "There are no matching tasks in your list.";
                 }
 
             } else if (userInput.startsWith("mark")) {
-                taskList.markTask(userInput);
+                response = taskList.markTask(userInput);
                 taskList.updateTaskFile();
 
             } else if (userInput.startsWith("unmark")) {
-                taskList.unmarkTask(userInput);
+                response = taskList.unmarkTask(userInput);
                 taskList.updateTaskFile();
 
             } else if (userInput.startsWith("todo")) {
                 if (userInput.equals("todo")) {
                     throw new EmptyTaskException("todo");
                 }
-                taskList.makeToDo(userInput);
+                response = taskList.makeToDo(userInput);
                 taskList.updateTaskFile();
 
             } else if (userInput.startsWith("deadline")) {
@@ -66,18 +70,18 @@ public class Parser {
                 } else if (userInput.endsWith("/by")) {
                     throw new EmptyDateException("deadline");
                 }
-                taskList.makeDeadline(userInput);
+                response = taskList.makeDeadline(userInput);
                 taskList.updateTaskFile();
 
             } else if (userInput.startsWith("event")) {
                 if (userInput.equals("event")) {
                     throw new EmptyTaskException("event");
                 }
-                taskList.makeEvent(userInput);
+                response = taskList.makeEvent(userInput);
                 taskList.updateTaskFile();
 
             } else if (userInput.startsWith("delete")) {
-                taskList.deleteTask(userInput);
+                response = taskList.deleteTask(userInput);
                 taskList.updateTaskFile();
             }
             else {
@@ -86,6 +90,8 @@ public class Parser {
         } catch (InvalidInputException | EmptyTaskException | EmptyDateException | OutOfRangeException |
                  IOException | DateTimeParseException e) {
             System.out.println(e);
+            response = e.toString();
         }
+        return response;
     }
 }

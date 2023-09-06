@@ -49,6 +49,11 @@ public class Duke extends Application {
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/girl.jpg"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/duke.jpg"));
+    private static String dukeResponse;
+
+    public static void setResponse(String response) {
+        dukeResponse = response;
+    }
 
     /**
      * Constructs a Duke instance with the specified file path for task storage.
@@ -71,21 +76,28 @@ public class Duke extends Application {
      */
     public void run() {
         Ui.printWelcomeMessage();
-
+        String dukeText;
         try {
             taskList = new TaskList(Storage.load());
             String listMessage = taskList.listTasks();
             if (listMessage.isEmpty()) {
                 System.out.println("There are no tasks in your list at the moment. Add some!");
+                dukeText = "There are no tasks in your list at the moment. Add some!";
             } else {
                 System.out.println("Here are the tasks in your list:");
                 System.out.println(listMessage);
+                dukeText = "Here are the tasks in your list:\n" + listMessage;
             }
         } catch (FileNotFoundException e) {
             System.out.println("There are no tasks in your list at the moment. Add some!");
+            dukeText = "There are no tasks in your list at the moment. Add some!";
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
+            dukeText = "Error: " + e.getMessage();
         }
+
+        Label dukeLabel = new Label(dukeText);
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(dukeLabel, new ImageView(duke)));
 
         Scanner scanner = new Scanner(System.in);
         String userInput;
@@ -259,6 +271,6 @@ public class Duke extends Application {
      */
     @FXML
     String getResponse(String input) {
-        return input;
+        return Parser.parseInput(input, tasks);
     }
 }
