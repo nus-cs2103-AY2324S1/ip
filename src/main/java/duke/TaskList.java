@@ -125,6 +125,12 @@ public class TaskList {
         return sb.toString();
     }
 
+    /**
+     * Finds the list of task according to description.
+     *
+     * @param description The input used to search for tasks.
+     * @return A string containing lines of tasks.
+     */
     public String find(String description) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < this.tasks.size(); i++) {
