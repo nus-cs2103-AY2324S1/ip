@@ -59,7 +59,6 @@ public abstract class Command {
             action();
         } catch (DukeException e) {
             out.print(e);
-            out.flush();
             return;
         } catch (DukeSideEffectException e) {
             out.print(e);
@@ -75,7 +74,6 @@ public abstract class Command {
             }
         }
 
-        out.flush();
     }
 
     /**

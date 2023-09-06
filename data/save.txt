@@ -1,4 +1,5 @@
-todo that 
-todo this 
-todo this 
-deadline this  /by 2023-09-15 1900
+todo read book /mark
+deadline return book /by 2023-06-06 1200
+todo join sports club /mark
+todo borrow book
+deadline return book /by 2023-09-15 1200

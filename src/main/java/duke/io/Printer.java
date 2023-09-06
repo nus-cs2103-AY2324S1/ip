@@ -78,4 +78,15 @@ public class Printer {
         messages.clear();
         error = Optional.empty();
     }
+
+    public String getOutput() {
+        if (error.isPresent()) {
+            String s = error.orElseGet(() -> "");
+            reset();
+            return s;
+        }
+        String s = String.join("\n", messages.toArray(new String[0]));
+        reset();
+        return s;
+    }
 }

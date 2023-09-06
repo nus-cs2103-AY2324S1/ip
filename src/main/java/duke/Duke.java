@@ -26,31 +26,35 @@ public class Duke {
     private final Printer out = new Printer();
     private final FileIO savefile = new FileIO(FILEPATH, SAVEFILE_NAME);
 
-    /**
-     * Creates a Duke object and runs the chatbot.
-     *
-     * @param args Does not consume any arguments from cmd.
-     */
-    public static void main(String[] args) {
-        Duke bot = new Duke();
-        bot.run();
-    }
+
+    // /**
+    //  * Creates a Duke object and runs the chatbot.
+    //  *
+    //  * @param args Does not consume any arguments from cmd.
+    //  */
+    // public static void main(String[] args) {
+    //     Duke bot = new Duke();
+    //     bot.run();
+    // }
 
     /** Starts the chatbot. */
     public void run() {
         initialize();
+        out.flush();
         while (true) {
             String input = in.nextLine().trim();
             if (input.equals("bye")) {
                 break;
             }
             CommandBuilder.parse(input).toCommand(out, taskList, savefile).execute();
+            out.flush();
         }
         sayBye();
+        out.flush();
     }
 
     /** Initializes the chatbot. First prints hello then load from savefile. */
-    void initialize() {
+    public void initialize() {
         String logo =
             "        ______    ___        _    _________ \n"
             + "      .' ___  | .'   `.     / \\  |  _   _  |\n"
@@ -66,7 +70,20 @@ public class Duke {
         } catch (DukeSideEffectException e) {
             out.print(e);
         }
-        out.flush();
+    }
+
+    public String getOutput() {
+        return out.getOutput();
+    }
+
+    public String getResponse(String input) {
+        input = input.trim();
+        if (input.equals("bye")) {
+            sayBye();
+            return out.getOutput();
+        }
+        CommandBuilder.parse(input).toCommand(out, taskList, savefile).execute();
+        return out.getOutput();
     }
 
     /**
@@ -103,6 +120,5 @@ public class Duke {
     /** Prints bye. */
     void sayBye() {
         out.print("Bye. Hope to see you again soon!");
-        out.flush();
     }
 }
