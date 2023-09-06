@@ -27,6 +27,10 @@ public abstract class TaskAbstract {
         }
     }
 
+    public void completeNewTask() {
+        this.isDone = true;
+    }
+
     /**
      * Undo a task which was marked as complete
      */

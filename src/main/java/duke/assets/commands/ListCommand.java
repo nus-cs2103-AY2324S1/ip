@@ -1,6 +1,8 @@
 package duke.assets.commands;
 
 import duke.data.TaskList;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class ListCommand extends CommandAbstract {
     public ListCommand(String input) {
@@ -8,8 +10,14 @@ public class ListCommand extends CommandAbstract {
     }
 
     @Override
-    protected boolean isValid() {
-        return true;
+    protected boolean isValid(TaskList tasklist) {
+        return this.isValid();
+    }
+
+    private boolean isValid() {
+        Pattern commandRegex = Pattern.compile("^list$", Pattern.CASE_INSENSITIVE);
+        Matcher inputMatcher = commandRegex.matcher(this.input);
+        return inputMatcher.find();
     }
 
     @Override

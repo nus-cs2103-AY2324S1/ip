@@ -1,35 +1,55 @@
 package duke.assets.commands;
 
 import duke.assets.tasks.Deadline;
+import duke.assets.tasks.TaskAbstract;
 import duke.data.TaskList;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class CreateDeadlineCommand extends CommandAbstract {
-    public CreateDeadlineCommand(String input) {
+    private final boolean isDone;
+    public CreateDeadlineCommand(String input, boolean isDone) {
         super(input);
+        this.isDone = isDone;
     }
 
     @Override
-    protected boolean isValid() {
-        String[] delimitedBySlash = this.input.split("/");
+    protected boolean isValid(TaskList tasklist) {
+        return this.isValid();
+    }
 
+    private boolean isValid() {
+        String dateFormatRegex = SLASHDATEFORMAT + "|" + DASHDATEFORMAT;
+        String commandRegexString = String.format("^deadline\\s.+\\s(%s)\\s(\\d{4}$|$)", dateFormatRegex);
+        Pattern inputRegex = Pattern.compile(commandRegexString, Pattern.CASE_INSENSITIVE);
+        Matcher inputMatcher = inputRegex.matcher(this.input);
+        if (!inputMatcher.find()) {
+            findException();
+            return false;
+        }
+        return true;
+    }
+
+    private void findException() {
+        String[] delimitedBySlash = this.input.split("/");
         try {   //Checks if user input included description about the task
             String information = delimitedBySlash[0].split(" ")[1];
         } catch (IndexOutOfBoundsException indexExcept) {
             System.out.println("ChadGPT: Please include description about the task you would like to add.");
-            return false;
+            return;
         }
 
         try {   //Checks if user input included date details according to format specified
             String endDate = delimitedBySlash[1].substring(3);
         } catch (StringIndexOutOfBoundsException stringExcept) {
             System.out.println("ChadGPT: Please ensure your deadline date is included.");
-            return false;
+            return;
         } catch (IndexOutOfBoundsException indexExcept) {
             System.out.println("ChadGPT: Please include the deadline date of your task after \"/by\" command.");
-            return false;
+            return;
         }
 
         try {   //Checks if it is possible to parse the user specified date into date time objects.
@@ -45,18 +65,19 @@ public class CreateDeadlineCommand extends CommandAbstract {
             }
         } catch (NumberFormatException numberExcept) {
             System.out.println("ChadGPT: Please ensure the time of your deadline is in numerical format.");
-            return false;
         } catch (IndexOutOfBoundsException | IllegalArgumentException formatExcept) {
             System.out.println("ChadGPT: Ensure that deadline date follows the following format: yyyy-mm-dd.");
-            return false;
         }
-        return true;
     }
 
     @Override
     protected void completeOperation(TaskList tasklist) {
-        String[] delimitedBySlash = this.input.split("/");
-        tasklist.addTask(new Deadline(delimitedBySlash[0].substring(9, delimitedBySlash[0]
-                .length() - 1), delimitedBySlash[1].substring(3)));
+        String information = this.input.split(" /by ")[0].split("^(?i)(deadline)\\s")[0];
+        String dateAndTime = this.input.split(" /by ")[1];
+        TaskAbstract newTask = new Deadline(information, dateAndTime);
+        if (this.isDone) {
+            newTask.completeNewTask();
+        }
+        tasklist.addTask(newTask);
     }
 }

@@ -2,23 +2,45 @@ package duke.assets.commands;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
+import duke.assets.tasks.TaskAbstract;
 import duke.data.TaskList;
 import duke.assets.tasks.Event;
 
 public class CreateEventCommand extends CommandAbstract {
-    public CreateEventCommand(String input) {
+    private final boolean isDone;
+    public CreateEventCommand(String input, boolean isDone) {
         super(input);
+        this.isDone = isDone;
     }
 
     @Override
-    protected boolean isValid() {
+    protected boolean isValid(TaskList tasklist) {
+        return this.isValid();
+    }
+
+    private boolean isValid() {
+        String dateFormatRegex = SLASHDATEFORMAT + "|" + DASHDATEFORMAT;
+        String commandRegexString = String.format("^event\\s.+\\s/from\\s(%s)\\s(" +
+                "\\d{4}\\s/to|/to)\\s(%s)(\\s\\d{4}$|$)/", dateFormatRegex, dateFormatRegex);
+        Pattern commandRegex = Pattern.compile(commandRegexString, Pattern.CASE_INSENSITIVE);
+        Matcher inputMatcher = commandRegex.matcher(this.input);
+        if (!inputMatcher.find()) {
+            findException();
+            return false;
+        }
+        return true;
+    }
+
+    private void findException() {
         String[] delimitedBySlash = this.input.split("/");
         try {
             String information = delimitedBySlash[0].split(" ")[1];
         } catch (IndexOutOfBoundsException indexExcept) {
             System.out.println("ChadGPT: Please include information about the task you would like to add.");
-            return false;
+            return;
         }
 
         try {
@@ -26,11 +48,11 @@ public class CreateEventCommand extends CommandAbstract {
             String endDate = delimitedBySlash[2].substring(3);
         } catch (StringIndexOutOfBoundsException stringExcept) {
             System.out.println("ChadGPT: Please ensure that you have included the start and end dates.");
-            return false;
+            return;
         } catch (IndexOutOfBoundsException indexExcept) {
             System.out.println("ChadGPT: Please verify you have included the start date after /from and " +
                     "end date after /to commands");
-            return false;
+            return;
         }
 
         try {
@@ -61,19 +83,45 @@ public class CreateEventCommand extends CommandAbstract {
             }
         } catch (NumberFormatException numberExcept) {
             System.out.println("ChadGPT: Please ensure the time of your deadline is in numerical format.");
-            return false;
         } catch (IndexOutOfBoundsException | IllegalArgumentException indexExcept) {
-            System.out.println("ChadGPT: Ensure that deadline date follows the following format: yyyy-mm-dd.");
-            return false;
+            System.out.println("ChadGPT: Ensure that deadline date follows the following format: yyyy-mm-dd or yyyy/mm/dd.");
         }
-        return true;
+    }
+
+    private String findInformation() {
+        String stringWithoutCommand =  this.input.split("event")[1];
+        return stringWithoutCommand.split(" /to ")[0];
+    }
+
+    private String findDate(String startOrEnd) {
+        Pattern dateRegex = Pattern.compile(String.format("\\s(%s|%s)\\s", SLASHDATEFORMAT, DASHDATEFORMAT));
+        Matcher inputDateMatcher = dateRegex.matcher(this.input);
+        inputDateMatcher.find();
+        if (startOrEnd.equals("end")) {
+            inputDateMatcher.find();
+        }
+        return inputDateMatcher.group();
+    }
+
+    private String findTime(String startOrEnd) {
+        Pattern startTimeRegex = Pattern.compile("\\s\\d{4}\\s");
+        Pattern endTimeRegex = Pattern.compile("\\s\\d{4}$");
+        Matcher inputTimeMatcher = startOrEnd.equals("start") ? startTimeRegex.matcher(this.input) :
+                endTimeRegex.matcher(this.input);
+        inputTimeMatcher.find();
+        return inputTimeMatcher.group();
     }
 
     @Override
     protected void completeOperation(TaskList tasklist) {
-        String[] delimitedBySlash = this.input.split("/");
-        tasklist.addTask(new Event(delimitedBySlash[0].substring(6, delimitedBySlash[0].length() - 1),
-                delimitedBySlash[1].substring(5, delimitedBySlash[1].length() - 1),
-                delimitedBySlash[2].substring(3)));
+        String information = this.input.split(" /from ")[0].split("^(?i)(event)\\s")[0];
+        String allDateAndTime = this.input.split(" /from ")[1];
+        String startDateAndTime = allDateAndTime.split(" /to ")[0];
+        String endDateAndTime = allDateAndTime.split(" /to ")[1];
+        TaskAbstract newTask = new Event(information, startDateAndTime, endDateAndTime);
+        if (this.isDone) {
+            newTask.completeNewTask();
+        }
+        tasklist.addTask(newTask);
     }
 }

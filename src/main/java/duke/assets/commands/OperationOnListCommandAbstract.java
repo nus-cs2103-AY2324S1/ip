@@ -1,27 +1,26 @@
 package duke.assets.commands;
 
 import duke.data.TaskList;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public abstract class OperationOnListCommandAbstract extends CommandAbstract {
     public OperationOnListCommandAbstract(String input) {
         super(input);
     }
 
-    protected boolean isValid() {
-        String[] delimited = this.input.split(" ");
-        try {
-            if (Integer.parseInt(delimited[1]) >= 1) {
-                return true;
-            } else {
-                System.out.println("ChadGPT: Please input a valid positive index.");
-            };
-        } catch (NumberFormatException formatExcept) {
-            System.out.println("ChadGPT: Please ensure you input a numerical value for " +
-                    "the index of the task to be edited");
-        } catch (IndexOutOfBoundsException indexExcept) {
-            System.out.println("ChadGPT: Please input index of the task you would like to alter.");
+    protected boolean isValid(TaskList tasklist) {
+        Pattern commandRegex = Pattern.compile("^(mark|unmark|delete)\\s\\d+$", Pattern.CASE_INSENSITIVE);
+        Matcher inputMatcher = commandRegex.matcher(this.input);
+        if (!inputMatcher.find()) {
+            Pattern inputStartRegex = Pattern.compile("^(mark|unmark|delete)\\s", Pattern.CASE_INSENSITIVE);
+            if (inputMatcher.usePattern(inputStartRegex).find()) {
+                System.out.println("Ensure that you have included the index value of the task you would like to" +
+                        "alter");
+            }
+            return false;
         }
-        return false;
+        return true;
     }
 
     protected void completeOperation(TaskList taskList) {
