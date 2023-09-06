@@ -158,8 +158,8 @@ public class Parser {
 
             return new Deadline(input.substring(9, slashIndex - 1), by);
         } catch (Exception e) {
-            throw new DukeException("☹ OOPS!!! The format of a deadline should be " +
-                    "'deadline YOUR_TASK /by DD/MM/YYYY HHmm'.");
+            throw new DukeException("☹ OOPS!!! The format of a deadline should be "
+                    + "'deadline YOUR_TASK /by DD/MM/YYYY HHmm'.");
         }
     }
 
