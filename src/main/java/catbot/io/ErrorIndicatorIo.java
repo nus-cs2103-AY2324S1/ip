@@ -10,7 +10,7 @@ public interface ErrorIndicatorIo {
     void indicateInvalidIndex(int attemptedIndex, TaskList.Bounds bounds);
 
     enum InvalidState {
-        PARAMETER_EMPTY, PARAMETER_MISSING
+        PARAMETER_EMPTY, PARAMETER_MISSING, NOT_A_DATE
     }
     void indicateArgumentInvalid(InvalidState invalidState, NamedParameterMap namedParameterMap);
 

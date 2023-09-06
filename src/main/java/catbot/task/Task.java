@@ -4,6 +4,10 @@ import catbot.internal.NamedParameterMap;
 import catbot.io.ErrorIndicatorIo.InvalidState;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.Year;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 
@@ -50,12 +54,6 @@ public abstract class Task implements Serializable {
 
     //region Handling NamedParameterMaps
 
-    private static void mapParameterName(NamedParameterMap namedParameterMap, String oldKey, String newKey) {
-        if (!namedParameterMap.containsKey(newKey) && namedParameterMap.containsKey(oldKey)) {
-            namedParameterMap.addNamedParameter(newKey, namedParameterMap.get(oldKey));
-            namedParameterMap.remove(oldKey);
-        }
-    }
     private static Optional<NamedParameterMap> mapIfDescriptionEmpty(NamedParameterMap map) {
         String desc = map.get("");
         if (desc == null || desc.isEmpty() || desc.isBlank()) {
@@ -83,6 +81,18 @@ public abstract class Task implements Serializable {
         } else {
             return Optional.empty();
         }
+    }
+
+    private static Optional<NamedParameterMap> cloneIfPresent(NamedParameterMap map, String... arguments) {
+        NamedParameterMap newMap = new NamedParameterMap();
+        for (String arg : arguments) {
+            if (!map.containsKey(arg)) {
+                return Optional.empty();
+            } else {
+                newMap.addNamedParameter(arg, map.get(arg));
+            }
+        }
+        return Optional.of(newMap);
     }
 
     private static class InvalidParameterState {
@@ -114,6 +124,16 @@ public abstract class Task implements Serializable {
         return Optional.empty();
     }
 
+    private static Optional<LocalDate> optionalDateElseMap(NamedParameterMap cmdargs, NamedParameterMap elseMap, String arg) {
+        String val = cmdargs.get(arg);
+        try {
+            return Optional.of(LocalDate.parse(val));
+        } catch (DateTimeParseException ignored) {
+            elseMap.addNamedParameter(arg, val);
+            return Optional.empty();
+        }
+    }
+
     //endregion
 
     //region Subclasses
@@ -140,7 +160,7 @@ public abstract class Task implements Serializable {
                 ));
             } else {
                 InvalidParameterState invalidParameterState = optionalInvalidParameterState.get();
-                Task.mapParameterName(invalidParameterState.parameters, "", "description");
+                invalidParameterState.parameters.moveToNewKey("", "description");
                 invalidStateHandler.accept(invalidParameterState.state, invalidParameterState.parameters);
                 return Optional.empty();
             }
@@ -149,14 +169,14 @@ public abstract class Task implements Serializable {
 
     public static class Deadline extends Task {
 
-        private String dueDate;
+        private LocalDate dueDate;
 
-        public Deadline(String desc, String date) {
+        public Deadline(String desc, LocalDate dateTime) {
             setDescription(desc);
-            setDueDate(date);
+            setDueDate(dateTime);
         }
 
-        public void setDueDate(String dueDate) {
+        public void setDueDate(LocalDate dueDate) {
             this.dueDate = dueDate;
         }
 
@@ -172,14 +192,21 @@ public abstract class Task implements Serializable {
                     );
 
             if (optionalInvalidParameterState.isEmpty()) {
-                return Optional.of(new Deadline(
-                        namedParameterMap.get(""),
-                        namedParameterMap.get("by")
-                ));
+                String description = namedParameterMap.get("");
+                LocalDate date;
+                try {
+                    date = LocalDate.parse(namedParameterMap.get("by"));
+                    return Optional.of(new Deadline(description, date));
+                } catch (DateTimeParseException ignored) {
+                    NamedParameterMap invalidArgs = Task.cloneIfPresent(namedParameterMap, "by").orElseGet(() -> namedParameterMap);
+                    invalidArgs.moveToNewKey("by", "due date");
+                    invalidStateHandler.accept(InvalidState.NOT_A_DATE, invalidArgs);
+                    return Optional.empty();
+                }
             } else {
                 InvalidParameterState invalidParameterState = optionalInvalidParameterState.get();
-                Task.mapParameterName(invalidParameterState.parameters, "", "description");
-                Task.mapParameterName(invalidParameterState.parameters, "by", "due date");
+                invalidParameterState.parameters.moveToNewKey("", "description");
+                invalidParameterState.parameters.moveToNewKey("by", "due date");
                 invalidStateHandler.accept(invalidParameterState.state, invalidParameterState.parameters);
                 return Optional.empty();
             }
@@ -187,26 +214,26 @@ public abstract class Task implements Serializable {
 
         @Override
         public String toString() {
-            return super.toString() + " [due: " + this.dueDate + "]";
+            return super.toString() + " [due: " + formatDate(this.dueDate) + "]";
         }
     }
 
     public static class Event extends Task {
 
-        private String eventStart;
-        private String eventEnd;
+        private LocalDate eventStart;
+        private LocalDate eventEnd;
 
-        public Event(String desc, String start, String end) {
+        public Event(String desc, LocalDate start, LocalDate end) {
             setDescription(desc);
             setEventStart(start);
             setEventEnd(end);
         }
 
-        public void setEventEnd(String eventEnd) {
+        public void setEventEnd(LocalDate eventEnd) {
             this.eventEnd = eventEnd;
         }
 
-        public void setEventStart(String eventStart) {
+        public void setEventStart(LocalDate eventStart) {
             this.eventStart = eventStart;
         }
 
@@ -222,15 +249,24 @@ public abstract class Task implements Serializable {
                     );
 
             if (optionalInvalidParameterState.isEmpty()) {
-                return Optional.of(new Event(
-                        namedParameterMap.get(""),
-                        namedParameterMap.get("from"),
-                        namedParameterMap.get("to")
-                ));
+                String description = namedParameterMap.get("");
+                NamedParameterMap invalidArgs = new NamedParameterMap();
+                Optional<LocalDate> start = Task.optionalDateElseMap(namedParameterMap, invalidArgs, "from");
+                Optional<LocalDate> end = Task.optionalDateElseMap(namedParameterMap, invalidArgs, "to");
+                if (start.isEmpty() || end.isEmpty()) {
+                    invalidArgs.moveToNewKey("", "description");
+                    invalidArgs.moveToNewKey("from", "start date");
+                    invalidArgs.moveToNewKey("to", "end date");
+                    invalidStateHandler.accept(InvalidState.NOT_A_DATE, invalidArgs);
+                    return Optional.empty();
+                } else {
+                    return Optional.of(new Event(description, start.get(), end.get()));
+                }
             } else {
                 InvalidParameterState invalidParameterState = optionalInvalidParameterState.get();
-                Task.mapParameterName(invalidParameterState.parameters, "", "description");
-                Task.mapParameterName(invalidParameterState.parameters, "due", "due date");
+                invalidParameterState.parameters.moveToNewKey("", "description");
+                invalidParameterState.parameters.moveToNewKey("from", "start date");
+                invalidParameterState.parameters.moveToNewKey("to", "end date");
                 invalidStateHandler.accept(invalidParameterState.state, invalidParameterState.parameters);
                 return Optional.empty();
             }
@@ -238,10 +274,18 @@ public abstract class Task implements Serializable {
 
         @Override
         public String toString() {
-            return super.toString() + " [from: " + this.eventStart + " | to: " + this.eventEnd + "]";
+            return super.toString() + " [from: " + formatDate(this.eventStart) + " | to: " +
+                    formatDate(this.eventEnd) + "]";
         }
     }
 
     //endregion
+
+    public String formatDate(LocalDate date) {
+        return date.format(DateTimeFormatter.ofPattern(
+                date.getYear() == Year.now().getValue()?
+                "MMM d": "MMM d yyyy")
+        );
+    }
 
 }

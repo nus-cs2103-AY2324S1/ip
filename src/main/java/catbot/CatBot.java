@@ -3,6 +3,7 @@ package catbot;
 import catbot.internal.CommandMap;
 import catbot.internal.CommandPattern;
 import catbot.internal.NamedParameterMap;
+import catbot.io.CatbotConsoleIO;
 import catbot.io.ErrorIndicatorIo;
 import catbot.io.UserIo;
 import catbot.task.Task;
@@ -41,6 +42,7 @@ public class CatBot {
                                 invalidIndex -> io.indicateInvalidIndex(invalidIndex, taskList.getIndexBounds())
                         ));
 
+                //noinspection SpellCheckingInspection
         commands.addCommand("mark",
                         string -> runIfValidIndexElseIndicateError.accept(string,
                                 validIndex -> {
@@ -66,17 +68,15 @@ public class CatBot {
         // User creating new tasks (with SlashPattern)
 
         BiConsumer<String, BiFunction<NamedParameterMap, BiConsumer<ErrorIndicatorIo.InvalidState, NamedParameterMap>, Optional<Task>>>
-                createTaskIfValidElseWarn = (args, bifunction) -> {
-            slashPattern.ifParsableElseDefault(args,
-                    namedParameterMap -> bifunction.apply(
-                            namedParameterMap,
-                            io::indicateArgumentInvalid
-                    ).ifPresent(task -> {
-                        taskList.addTask(task);
-                        io.printTaskAdded(taskList);
-                    })
-            );
-        };
+                createTaskIfValidElseWarn = (args, bifunction) -> slashPattern.ifParsableElseDefault(args,
+                        namedParameterMap -> bifunction.apply(
+                                namedParameterMap,
+                                io::indicateArgumentInvalid
+                        ).ifPresent(task -> {
+                            taskList.addTask(task);
+                            io.printTaskAdded(taskList);
+                        })
+                );
 
         commands.addCommand("todo",
                         args -> createTaskIfValidElseWarn.accept(args, Task.Todo::createIfValidElse)
