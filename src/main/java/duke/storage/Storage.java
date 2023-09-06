@@ -38,6 +38,7 @@ public class Storage {
      * Loads the task list from Duke's data text file.
      *
      * @return the loaded task list from the data text file
+     * @throws IOException if an I/O error occurs when reading from the file
      */
     public TaskList load() throws IOException {
         if (!Files.exists(path) || !Files.isRegularFile(path)) {
