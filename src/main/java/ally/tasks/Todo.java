@@ -1,5 +1,8 @@
-package Ally.Tasks;
+package ally.tasks;
 
+/**
+ * Todo class inherits from Task.
+ */
 public class Todo extends Task {
 
     /**

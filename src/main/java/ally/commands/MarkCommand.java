@@ -1,25 +1,30 @@
-package Ally.Commands;
+package ally.commands;
 
-import Ally.*;
-import Ally.Exceptions.AllyException;
-import Ally.Tasks.AllyList;
-import Ally.Tasks.Task;
+import ally.Storage;
+import ally.Ui;
+import ally.exceptions.AllyException;
+import ally.tasks.AllyList;
+import ally.tasks.Task;
 
-public class UnmarkCommand extends Commands {
+/**
+ * MarkCommand inherits from Commands.
+ */
+public class MarkCommand extends Commands {
+
     private final int index;
 
     /**
-     * Constructor for UnmarkCommand.
+     * Constructor for MarkCommand.
      *
      * @param index
      */
-    public UnmarkCommand(int index) {
+    public MarkCommand(int index) {
         this.index = index;
     }
 
     /**
-     * Marks the task as not done and saved the task to the saved file.
-     * 
+     * Marks the task as done and save the marked task to the saved file.
+     *
      * @param allyList
      * @param ui
      * @param storage
@@ -28,8 +33,7 @@ public class UnmarkCommand extends Commands {
     public void run(AllyList allyList, Ui ui, Storage storage) {
         try {
             Task task = allyList.getTask(index);
-            allyList.unMarkDone(index);
-            ui.showNotMarked(task);
+            ui.showMarked(task);
             storage.appendToFile(task);
         } catch (AllyException e) {
             System.out.println(e.getMessage());
@@ -40,4 +44,5 @@ public class UnmarkCommand extends Commands {
     public boolean isExit() {
         return false;
     }
+
 }

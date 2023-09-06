@@ -1,11 +1,14 @@
-package Ally.Tasks;
+package ally.tasks;
 
 import java.util.ArrayList;
 
-import Ally.Exceptions.AllyException;
+import ally.exceptions.AllyException;
 
+/**
+ * AllyList class to store the tasks in an ArrayList.
+ */
 public class AllyList {
-    ArrayList<Task> arr;
+    private ArrayList<Task> arr;
     public AllyList(ArrayList<Task> tasks) throws AllyException {
         arr = new ArrayList<>(100);
     }

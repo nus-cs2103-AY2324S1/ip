@@ -1,10 +1,14 @@
-package Ally.Commands;
+package ally.commands;
 
-import Ally.*;
-import Ally.Exceptions.AllyException;
-import Ally.Tasks.AllyList;
-import Ally.Tasks.Deadline;
+import ally.Storage;
+import ally.Ui;
+import ally.exceptions.AllyException;
+import ally.tasks.AllyList;
+import ally.tasks.Deadline;
 
+/**
+ * AddDeadlineCommand inherits from Commands.
+ */
 public class AddDeadlineCommand extends Commands {
     private final String description;
     private final String by;

@@ -1,9 +1,13 @@
-package Ally.Commands;
+package ally.commands;
 
-import Ally.*;
-import Ally.Exceptions.AllyException;
-import Ally.Tasks.AllyList;
+import ally.Storage;
+import ally.Ui;
+import ally.exceptions.AllyException;
+import ally.tasks.AllyList;
 
+/**
+ * DeleteCommand inherits from Commands.
+ */
 public class DeleteCommand extends Commands {
 
     private final int index;

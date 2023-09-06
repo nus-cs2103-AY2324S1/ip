@@ -1,5 +1,8 @@
-package Ally.Tasks;
+package ally.tasks;
 
+/**
+ * Event Class that inherits from Task.
+ */
 public class Event extends Task {
     protected String from;
     protected String to;

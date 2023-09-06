@@ -1,12 +1,15 @@
-package Ally.Tasks;
+package ally.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Deadline Class inherits from Task.
+ */
 public class Deadline extends Task {
     protected LocalDateTime byDateTime;
     /**
-     * Constructor for Ally.Tasks.Deadline.
+     * Constructor for Deadline.
      * @param description
      * @param by
      */
@@ -26,9 +29,8 @@ public class Deadline extends Task {
         return "D" + " | " + (isDone ? "1" : "0") + " | " + description + " "
                 + byDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
 
-
-
     }
+
     /**
      * Overrides the toString() method in Ally.Tasks.Task.
      * @return the string

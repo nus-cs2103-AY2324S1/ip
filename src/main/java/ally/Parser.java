@@ -1,17 +1,29 @@
-package Ally;
+package ally;
 
-import Ally.Commands.*;
-import Ally.Exceptions.AllyException;
+import ally.commands.AddDeadlineCommand;
+import ally.commands.AddEventCommand;
+import ally.commands.AddTodoCommand;
+import ally.commands.Commands;
+import ally.commands.DeleteCommand;
+import ally.commands.ExitCommand;
+import ally.commands.FindCommand;
+import ally.commands.ListCommand;
+import ally.commands.MarkCommand;
+import ally.commands.UnmarkCommand;
+import ally.exceptions.AllyException;
 
+/**
+ * Parser Class for the different user inputs.
+ */
 public class Parser {
 
     /**
      * Returns the different Commands according to the user input.
      * If there is no input matching the conditions, AllyException will be thrown.
      *
-     * @param ipt
-     * @return
-     * @throws AllyException
+     * @param ipt String
+     * @return commands
+     * @throws AllyException Error Message
      */
     public static Commands parse(String ipt) throws AllyException {
         String[] split = ipt.split(" ", 2);

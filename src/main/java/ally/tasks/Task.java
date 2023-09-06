@@ -1,5 +1,8 @@
-package Ally.Tasks;
+package ally.tasks;
 
+/**
+ * Task Class includes methods needed for each Task.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

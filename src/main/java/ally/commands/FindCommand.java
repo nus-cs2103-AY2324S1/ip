@@ -1,12 +1,17 @@
-package Ally.Commands;
-
-import Ally.Storage;
-import Ally.Tasks.AllyList;
-import Ally.Tasks.Task;
-import Ally.Ui;
+package ally.commands;
 
 import java.util.ArrayList;
 
+import ally.Storage;
+import ally.Ui;
+import ally.tasks.AllyList;
+import ally.tasks.Task;
+
+
+
+/**
+ * FindCommand inherits from Commands.
+ */
 public class FindCommand extends Commands {
     private final String description;
 

@@ -1,10 +1,4 @@
-package Ally;
-
-import Ally.Exceptions.AllyException;
-import Ally.Tasks.Deadline;
-import Ally.Tasks.Event;
-import Ally.Tasks.Task;
-import Ally.Tasks.Todo;
+package ally;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,6 +7,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import ally.exceptions.AllyException;
+import ally.tasks.Deadline;
+import ally.tasks.Event;
+import ally.tasks.Task;
+import ally.tasks.Todo;
+
+/**
+ * Storage class for the storing of data in the file.
+ *
+ */
 public class Storage {
     /** filePath to the saved file */
     private final String filePath;
@@ -35,7 +39,7 @@ public class Storage {
     /**
      * Returns an ArrayList of Tasks from the saved file.
      *
-     * @return ArrayList<Task>
+     * @return ArrayList
      * @throws AllyException and catch FileNotFoundException
      */
     public ArrayList<Task> load() throws AllyException {
@@ -44,7 +48,7 @@ public class Storage {
         File f = new File(filePath);
         try {
             Scanner s = new Scanner(f);
-            while(s.hasNext()) {
+            while (s.hasNext()) {
                 String line = s.nextLine();
                 loadTasks.add(readData(line));
             }

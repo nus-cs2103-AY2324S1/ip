@@ -1,18 +1,21 @@
-package Ally;
-
-import Ally.Exceptions.AllyException;
-import Ally.Tasks.AllyList;
-import Ally.Tasks.Task;
+package ally;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import ally.exceptions.AllyException;
+import ally.tasks.AllyList;
+import ally.tasks.Task;
+
+/**
+ * Ui Class for the design of the chatbot.
+ */
 public class Ui {
     private static final String LINE = "____________________________________________________________";
     private static final String GREETING = "Hello! I'm ALLY\nWhat can I do for you?\n";
     private static final String BYE = "Bye. Hope to see you again soon!";
 
-    Scanner ipt = new Scanner(System.in);
+    private Scanner ipt = new Scanner(System.in);
 
     /**
      * Reads the next line of the input.
@@ -57,7 +60,7 @@ public class Ui {
     public void showList(AllyList allyList) {
         System.out.println("Here are the tasks in your list:\n");
         for (int i = 0, len = allyList.getSize(); i < len; i++) {
-            System.out.println((i + 1) +". " + allyList.getTask(i).toString());
+            System.out.println((i + 1) + ". " + allyList.getTask(i).toString());
         }
     }
 
@@ -113,6 +116,11 @@ public class Ui {
         System.out.println(message);
     }
 
+    /**
+     * Shows the matching tasks.
+     *
+     * @param tasks ArrayList
+     */
     public void showMatchingTask(ArrayList<Task> tasks) {
         System.out.println("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {

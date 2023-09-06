@@ -1,10 +1,14 @@
-package Ally.Commands;
+package ally.commands;
 
-import Ally.*;
-import Ally.Exceptions.AllyException;
-import Ally.Tasks.AllyList;
-import Ally.Tasks.Event;
+import ally.Storage;
+import ally.Ui;
+import ally.exceptions.AllyException;
+import ally.tasks.AllyList;
+import ally.tasks.Event;
 
+/**
+ * AddEventCommand class inherits from Commands.
+ */
 public class AddEventCommand extends Commands {
     private final String description;
     private final String from;

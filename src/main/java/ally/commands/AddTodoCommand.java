@@ -1,9 +1,13 @@
-package Ally.Commands;
-import Ally.*;
-import Ally.Exceptions.AllyException;
-import Ally.Tasks.AllyList;
-import Ally.Tasks.Todo;
+package ally.commands;
+import ally.Storage;
+import ally.Ui;
+import ally.exceptions.AllyException;
+import ally.tasks.AllyList;
+import ally.tasks.Todo;
 
+/**
+ * AddTodoCommand inherits from Commands.
+ */
 public class AddTodoCommand extends Commands {
     private final String description;
 
@@ -29,7 +33,7 @@ public class AddTodoCommand extends Commands {
      */
     @Override
     public void run(AllyList allyList, Ui ui, Storage storage) throws AllyException {
-        try{
+        try {
             Todo todo = new Todo(description);
             allyList.addElements(todo);
             storage.appendToFile(todo);

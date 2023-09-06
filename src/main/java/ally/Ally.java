@@ -1,9 +1,12 @@
-package Ally;
+package ally;
 
-import Ally.Commands.Commands;
-import Ally.Exceptions.AllyException;
-import Ally.Tasks.AllyList;
+import ally.commands.Commands;
+import ally.exceptions.AllyException;
+import ally.tasks.AllyList;
 
+/**
+ * Ally Class contains the Main method.
+ */
 public class Ally {
 
     private final Storage storage;

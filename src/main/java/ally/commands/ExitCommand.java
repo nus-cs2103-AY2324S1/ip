@@ -1,10 +1,13 @@
-package Ally.Commands;
+package ally.commands;
 
-import Ally.Exceptions.AllyException;
-import Ally.Tasks.AllyList;
-import Ally.Storage;
-import Ally.Ui;
+import ally.Storage;
+import ally.Ui;
+import ally.exceptions.AllyException;
+import ally.tasks.AllyList;
 
+/**
+ * ExitCommand inherits from Commands.
+ */
 public class ExitCommand extends Commands {
 
     /**
