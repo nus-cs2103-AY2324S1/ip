@@ -10,12 +10,16 @@ import javafx.stage.Stage;
 //Reused from https://se-education.org/guides/tutorials/javaFxPart4.html
 // with minor modifications
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Kniaz using FXML.
  */
 public class Main extends Application {
 
     private Kniaz duke = new Kniaz();
 
+    /**
+     * The method to start this application.
+     * @param stage the primary stage for this application, onto which the application scene can be set.
+     */
     @Override
     public void start(Stage stage) {
         try {

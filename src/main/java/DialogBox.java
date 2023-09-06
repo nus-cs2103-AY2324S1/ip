@@ -17,8 +17,7 @@ import javafx.scene.layout.HBox;
 //Reused from https://se-education.org/guides/tutorials/javaFxPart4.html
 // with minor modifications
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
+ * Encapsulates a dialog box consisting of an ImageView to represent the speaker's face and a label
  * containing text from the speaker.
  */
 public class DialogBox extends HBox {
@@ -51,11 +50,23 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Wraps the given text in the javafx structure needed to display in the UI for user's side
+     * @param text the text to wrap
+     * @param img the image to use
+     * @return the dialogbox that contains the text and image
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    /**
+     * Wraps the given text in the javafx structure needed to display in the UI for Kniaz's side
+     * @param text the text to wrap
+     * @param img the image to use
+     * @return the dialogbox that contains the text and image
+     */
+    public static DialogBox getKniazDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

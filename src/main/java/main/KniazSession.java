@@ -1,15 +1,17 @@
 package main;
 
+import java.io.IOException;
+
 import exceptions.KniazRuntimeException;
 import main.logic.command.KniazCommand;
 import storage.TaskList;
 import storage.save.KniazLoader;
 import storage.save.KniazSaver;
-import ui.UiCommand;
 import ui.KniazOutputController;
+import ui.UiCommand;
 import ui.inputparser.KniazLineParser;
 
-import java.io.IOException;
+
 
 /**
  * Encapsulates a session of Kniaz.
@@ -40,7 +42,7 @@ public class KniazSession {
      * @param taskList          The TaskList to use.
      * @param loader            The KniazLoader to use.
      * @param saver             The KniazSaver to use.
-     * @param inputController   The KniazInputController to use.
+     * @param lineParser   The lineparser to use.
      * @param outputController  The KniazOutputController to use.
      */
     private KniazSession(TaskList taskList,
@@ -101,6 +103,11 @@ public class KniazSession {
     }
 
 
+    /**
+     * Runs one set of logic for the given input
+     * @param input the user input
+     * @return the command to execute in the user interface
+     */
     public UiCommand runOneIter(String input) {
 
         if (!isRunning) {
@@ -126,7 +133,8 @@ public class KniazSession {
         }
         UiCommand.UiInstructType uiInstructType = (this.isRunning ? UiCommand.UiInstructType.PRINT
                : UiCommand.UiInstructType.QUIT);
-
+        // If KniazCommand above was to quit, this.isRunning will be set to false
+        //TODO : figure out a nicer way to do this.
         return new UiCommand(uiInstructType, printString);
 
 

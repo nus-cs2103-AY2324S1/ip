@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(todo.getArg(), dukeImage)
+                DialogBox.getKniazDialog(todo.getArg(), dukeImage)
         );
 
         userInput.clear();
