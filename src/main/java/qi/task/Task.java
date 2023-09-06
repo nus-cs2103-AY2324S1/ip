@@ -12,4 +12,8 @@ public class Task {
     public void mark(boolean status) {
         this.done = status;
     }
+
+    public boolean isMatching(String keyWord) {
+        return this.task.contains(keyWord);
+    }
 }

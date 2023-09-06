@@ -68,6 +68,19 @@ public class TaskList {
         return this.taskList.size();
     }
 
+    public String matchingKeyWord(String keyWord) {
+        StringBuilder ans = new StringBuilder();
+        for (int i = 0; i < this.size(); i++) {
+            if (this.taskList.get(i).isMatching(keyWord)) {
+                int id = i + 1;
+                ans.append("     " + id + " " + this.showTask(id));
+                ans.append('\n');
+            }
+        }
+
+        return ans.toString();
+    }
+
     /**
      * Returns list of tasks in the form of string.
      *
@@ -80,9 +93,7 @@ public class TaskList {
             int id = i + 1;
             String temp = "     " + id + ". " + showTask(id);
             ans.append(temp);
-            if (i < this.taskList.size() - 1) {
-                ans.append('\n');
-            }
+            ans.append('\n');
         }
         return ans.toString();
     }

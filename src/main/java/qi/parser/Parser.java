@@ -4,6 +4,7 @@ import qi.command.AddCommand;
 import qi.command.Command;
 import qi.command.DeleteCommand;
 import qi.command.ExitCommand;
+import qi.command.FindCommand;
 import qi.command.InvalidCommand;
 import qi.command.ListCommand;
 import qi.command.MarkCommand;
@@ -105,6 +106,15 @@ public class Parser {
                 return new DeleteCommand(taskId);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new QiException("☹ OOPS!!! Please specify which task you want to delete.");
+            }
+        }
+
+        if (command.startsWith("find")) {
+            try {
+                String keyWord = command.substring(5);
+                return new FindCommand(keyWord);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new QiException("☹ OOPS!!! Please specify the keyword you want to find.");
             }
         }
 
