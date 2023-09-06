@@ -33,14 +33,15 @@ public class MarkCommand extends Command {
      * @param storage chatter.Storage class to read and store tasks by the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (isDone) {
             tasks.markTaskAsDone(taskNumber);
-            ui.showMarkedTask(tasks.getTask(taskNumber - 1));
+            storage.saveFile(tasks.toStorageString());
+            return ui.showMarkedTask(tasks.getTask(taskNumber - 1));
         } else {
             tasks.markTaskAsNotDone(taskNumber);
-            ui.showUnmarkedTask(tasks.getTask(taskNumber - 1));
+            storage.saveFile(tasks.toStorageString());
+            return ui.showUnmarkedTask(tasks.getTask(taskNumber - 1));
         }
-        storage.saveFile(tasks.toStorageString());
     }
 }

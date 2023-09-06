@@ -47,5 +47,5 @@ public abstract class Command {
      * @param storage chatter.Storage class to read and store tasks by the user.
      * @throws ChatterException Any error that occurs due to the command.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws ChatterException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws ChatterException;
 }

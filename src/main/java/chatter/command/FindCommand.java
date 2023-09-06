@@ -31,7 +31,7 @@ public class FindCommand extends Command {
      * @param storage chatter.Storage class to read and store tasks by the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showFoundTasks(tasks, tasks.getNumOfTasks(), this.keyword);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showFoundTasks(tasks, tasks.getNumOfTasks(), this.keyword);
     }
 }

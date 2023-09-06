@@ -26,7 +26,7 @@ public class ListCommand extends Command {
      * @param storage chatter.Storage class to read and store tasks by the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showListTasks(tasks, tasks.getNumOfTasks());
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showListTasks(tasks, tasks.getNumOfTasks());
     }
 }

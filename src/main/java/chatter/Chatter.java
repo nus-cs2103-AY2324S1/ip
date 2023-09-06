@@ -35,16 +35,15 @@ public class Chatter {
      * to the commands.
      */
     private void run() {
-        this.ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             String fullCommand = ui.readCommand();
-            try {
-                if (fullCommand.isBlank()) {
-                    continue;
-                }
 
-                this.ui.showDivider();
+            if (fullCommand.isBlank()) {
+                continue;
+            }
+
+            try {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
@@ -56,11 +55,30 @@ public class Chatter {
                 } else {
                     System.out.println("Please enter a valid description and start / end time.");
                 }
-
-            } finally {
-                this.ui.showDivider();
             }
         }
+    }
+
+    /**
+     * Returns response from Chatter upon user response.
+     *
+     * @param input User response in the form of a string.
+     * @return String response from Chatter.
+     */
+    public String getResponse(String input) {
+        String response;
+        try {
+            response = Parser.parse(input).execute(tasks, ui, storage);
+        } catch(ChatterException e) {
+            response = e.getMessage();
+        } catch(Exception e) {
+            if (input.startsWith("deadline")) {
+                response = "Please enter a valid description or deadline.";
+            } else {
+                response = "Please enter a valid format for your commands.";
+            }
+        }
+        return response;
     }
 
     public static void main(String[] args) {
