@@ -10,9 +10,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/**
+ * Represents the I/O process with a specific file.
+ */
 public class Storage {
     private File file;
 
+    /**
+     * Takes in the path to file which needs to be read from and written to.
+     *
+     * @param filePath String representation of the file path.
+     */
     public Storage(String filePath) {
         this.file = new File(filePath);
         File directory = file.getParentFile();
@@ -31,6 +39,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Takes in a task list to update it with the data on the hard disk.
+     *
+     * @param list TaskList where data on the hard disk are be loaded to.
+     * @throws QiException If the file cannot be accessed.
+     */
     public void load(TaskList list) throws QiException {
         try {
             Scanner sc = new Scanner(this.file);
@@ -75,10 +89,16 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            throw new QiException("hahah");
+            throw new QiException("Cannot read file!");
         }
     }
 
+    /**
+     * Replaces the data on the hard disk with the data from the current task list.
+     *
+     * @param list TaskList whose data are used to replace the data on the hard disk.
+     * @throws IOException If the file could not be written.
+     */
     public void update(TaskList list) throws IOException {
         FileWriter fw = new FileWriter(this.file.getAbsolutePath());
         StringBuilder content = new StringBuilder();

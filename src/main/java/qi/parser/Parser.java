@@ -5,7 +5,19 @@ import qi.qiexception.QiException;
 
 import java.time.LocalDate;
 
+/**
+ * Processes string input from users
+ */
 public class Parser {
+
+    /**
+     * Returns a suitable command to execute the input of users in
+     * the form of string.
+     *
+     * @param command String representation of the user command.
+     * @return Command to be executed
+     * @throws QiException If the user input does not match the required format.
+     */
     public static Command parse(String command) throws QiException {
         if (command.equals("bye")) {
             return new ExitCommand();
