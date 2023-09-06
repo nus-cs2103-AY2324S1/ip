@@ -15,6 +15,11 @@ public class DeadlineCommand extends Command {
         taskToAdd = task;
     }
 
+    /**
+     * Inserts the deadline task into the task list and returns the response for the user.
+     *
+     * @return the response to the user
+     */
     public String[] execute() {
         String[] response = new String[3];
         this.tasks.add(taskToAdd);

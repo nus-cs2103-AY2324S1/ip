@@ -15,6 +15,11 @@ public class EventCommand extends Command {
         taskToAdd = task;
     }
 
+    /**
+     * Inserts an event task into the task list and returns a response for the user.
+     *
+     * @return the response to the user.
+     */
     public String[] execute() {
         String[] response = new String[3];
         this.tasks.add(taskToAdd);

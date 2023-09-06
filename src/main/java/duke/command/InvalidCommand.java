@@ -10,6 +10,11 @@ public class InvalidCommand extends Command {
         this.message = message;
     }
 
+    /**
+     * Returns the invalid command message as the user response.
+     *
+     * @return the response to the user
+     */
     public String[] execute() {
         return message;
     }

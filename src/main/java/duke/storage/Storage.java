@@ -12,6 +12,9 @@ import java.util.List;
  * Handles saving and loading of tasks from and to a data text file.
  */
 public class Storage {
+    /**
+     * The default file name for storing tasks on disk.
+     */
     public static final String DEFAULT_STORAGE_PATH = ".duke-storage.txt";
     private final Path path;
 

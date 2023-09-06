@@ -16,6 +16,11 @@ public class UnmarkCommand extends Command {
         taskNumToMark = taskNum;
     }
 
+    /**
+     * Unmarks a task with the given task number.
+     *
+     * @return the response to the user
+     */
     public String[] execute() {
         String[] response = new String[2];
 
