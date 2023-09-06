@@ -21,12 +21,18 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * Implements a Task management tool.
+ */
 public class MattBot {
     private static final String NAME = "MattBot";
     private static Storage mattmory;
     private static TaskList tasks;
     private static final DateTimeFormatter PRINT_DTF  = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
 
+    /**
+     * Starts the Task management tool.
+     */
     public static void main(String[] args) {
         // Load save file
         // List<Task> taskList = new ArrayList<Task>();
@@ -157,9 +163,15 @@ public class MattBot {
             }
         }
     }
+    /**
+     * Prints the top decorative areas.
+     */
     public static void printTop() {
         System.out.println("____________________________________________________________");
     }
+    /**
+     * Prints the bottom decorative areas.
+     */
     public static void printBottom() {
         System.out.println("____________________________________________________________");
     }

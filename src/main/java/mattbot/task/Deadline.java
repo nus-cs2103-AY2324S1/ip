@@ -1,28 +1,41 @@
 package mattbot.task;
 
-import mattbot.task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
-public class Deadline extends Task {
-    protected LocalDateTime date;
-    public static final DateTimeFormatter DTFORMAT  = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
 
+/**
+ * Implements a Deadline style task.
+ */
+public class Deadline extends Task {
+    private static final DateTimeFormatter DTFORMAT = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
+    protected LocalDateTime date;
+
+    /**
+     * Constructs a new Deadline Instance that is not done by default.
+     */
     public Deadline(String name, LocalDateTime date) {
         super(name, false);
         this.date = date;
     }
-    public Deadline(String name, boolean isDone, LocalDateTime date ) {
+
+    /**
+     * Constructs a new Deadline Instance that has no default done status.
+     */
+    public Deadline(String name, boolean isDone, LocalDateTime date) {
         super(name, isDone);
         this.date = date;
     }
+
+    /**
+     * Returns the LocalDateTime for this Deadline.
+     *
+     * @return LocalDateTime for the Deadline.
+     */
     public LocalDateTime getDate() {
         return this.date;
     }
 
-    /*
+    /**
      * Returns a friendly version of the date.
      *
      * @returns Date in form of May 12 2023 20:00
@@ -31,7 +44,7 @@ public class Deadline extends Task {
         return this.date.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH':'mm"));
     }
 
-    /*
+    /**
      * Identifies itself as a Deadline.
      *
      * @returns Character to identify the type of Task.
@@ -40,17 +53,17 @@ public class Deadline extends Task {
         return "D";
     }
 
-    /*
+    /**
      * Returns String form for storage.
      *
      * @returns String for storage format.
      */
-
     public String toFile() {
         return identifier() + " | " + showStatusAsFile() + " | " + showName() + " | " + getDate().format(DTFORMAT);
     }
     @Override
     public String toString() {
-        return String.format("[%s] [%s] %s (by: %s)", this.identifier(), this.showStatus(), this.showName(), dateToString());
+        return String.format("[%s] [%s] %s (by: %s)",
+                this.identifier(), this.showStatus(), this.showName(), dateToString());
     }
 }

@@ -21,6 +21,9 @@ import java.io.IOException;  // Import the IOException class to handle errors
 import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.io.FileWriter;   // Import the FileWriter class
 
+/**
+ * Handles Storage I/O for MattBot.
+ */
 public class Storage {
 
     protected TaskList data;
@@ -29,6 +32,10 @@ public class Storage {
     private static final String SAVE_NAME = "mattbot.txt";
     private static final String SAVE_FOLDER = "data/";
 
+    /**
+     * Constructor for Storage, attempts to read save file.
+     * Creates empty save file if none is found.
+     */
     public Storage() throws IOException {
         dataPath = Paths.get(SAVE_FOLDER + SAVE_NAME);
         if (!Files.exists(dataPath)) {
@@ -39,7 +46,7 @@ public class Storage {
         // myReader.close();
     }
 
-    /*
+    /**
      * Loads list of tasks from the earlier specified filepath.
      *
      * @return List of tasks
@@ -56,10 +63,18 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Returns all current Tasks as a TaskList.
+     *
+     * @return TaskList containing all Tasks.
+     */
     public TaskList getTaskList() {
         return data;
     }
 
+    /**
+     * Writes TaskList to the storage file.
+     */
     public void writeBack(TaskList tL) {
         // Format should be in
         // [Type] | [isDone] | Name | startDate | endDate
@@ -77,8 +92,5 @@ public class Storage {
             System.out.println("Oh no, I've failed to write the save file.");
             System.out.println(e);
         }
-
-
     }
-
 }

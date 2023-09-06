@@ -1,18 +1,20 @@
 package mattbot;
 
-import mattbot.task.Task;
-import mattbot.task.Todo;
 import mattbot.task.Deadline;
 import mattbot.task.Event;
-import mattbot.Storage;
+import mattbot.task.Task;
+import mattbot.task.Todo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * Parses input from user/file.
+ */
 public class Parser {
-    public final static DateTimeFormatter DTFORMAT  = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
+    private static final DateTimeFormatter DTFORMAT = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
     public Parser() {}
 
     /*public static void parseInput(String input) {
@@ -30,6 +32,13 @@ public class Parser {
                 }
         }
     }*/
+
+    /**
+     * Parses a line inside a MattBot task save file.
+     *
+     * @param saveString  A string containing a single MattBot task.
+     * @return Task as specified by the line in the saveString.
+     */
     public static Task parseFile(String saveString) {
         String[] details = saveString.split(" \\| ");
         Task newTask;
@@ -58,7 +67,7 @@ public class Parser {
         return newTask;
     }
 
-    /*
+    /**
      * Gets a boolean value from a String-represented 1 or 0.
      *
      * @params String Done state as represented by 1 or 0
