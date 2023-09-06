@@ -46,51 +46,68 @@ public class Duke {
     public void run() {
         ui.greet();
         try {
+            infinite: // label for the loop
             while (true) {
                 taskList = storage.readFromFile();
                 String userInput = ui.getUserInput();
+                Action action = Action.valueOf(userInput.toUpperCase());
 
-                if (userInput.equals("bye")) {
-                    break;
-                } else if (userInput.equals("list")) {
+                switch (action) {
+                case BYE:
+                    break infinite;
+
+                case LIST:
                     ui.display("Here are the tasks in your list:\n" + taskList.toString());
-                } else if (userInput.startsWith("mark")) {
-                    // get index by splitting user input and get task at that index from list
-                    int index = Integer.parseInt(userInput.split(" ")[1]);
+                    break;
 
-                    if (index < 1 || index > taskList.getNumberOfTasks()) {
+                case MARK:
+                    // get index by splitting user input and get task at that index from list
+                    int markIndex = Integer.parseInt(userInput.split(" ")[1]);
+
+                    if (markIndex < 1 || markIndex > taskList.getNumberOfTasks()) {
                         throw new DukeIndexOutOfBoundsException("marked");
                     }
 
-                    Task toBeMarked = taskList.getTaskAt(index - 1);
+                    Task toBeMarked = taskList.getTaskAt(markIndex - 1);
                     toBeMarked.mark();
                     ui.display("Nice! I've marked this task as done:\n" + toBeMarked.toString());
-                } else if (userInput.startsWith("unmark")) {
-                    // get index by splitting user input and get task at that index from list
-                    int index = Integer.parseInt(userInput.split(" ")[1]);
+                    break;
 
-                    if (index < 1 || index > taskList.getNumberOfTasks()) {
+                case UNMARK:
+                    // get index by splitting user input and get task at that index from list
+                    int unmarkIndex = Integer.parseInt(userInput.split(" ")[1]);
+
+                    if (unmarkIndex < 1 || unmarkIndex > taskList.getNumberOfTasks()) {
                         throw new DukeIndexOutOfBoundsException("unmarked");
                     }
 
-                    Task toBeUnmarked = taskList.getTaskAt(index - 1);
+                    Task toBeUnmarked = taskList.getTaskAt(unmarkIndex - 1);
                     toBeUnmarked.unmark();
                     ui.display("OK, I've marked this task as not done yet:\n" + toBeUnmarked.toString());
-                } else if (userInput.startsWith("delete")) {
-                    int index = Integer.parseInt(userInput.split(" ")[1]);
+                    break;
 
-                    if (index < 1 || index > taskList.getNumberOfTasks()) {
+                case DELETE:
+                    int deleteIndex = Integer.parseInt(userInput.split(" ")[1]);
+
+                    if (deleteIndex < 1 || deleteIndex > taskList.getNumberOfTasks()) {
                         throw new DukeIndexOutOfBoundsException("deleted");
                     }
 
-                    Task toBeDeleted = taskList.getTaskAt(index - 1);
-                    taskList.deleteTaskAt(index - 1);
+                    Task toBeDeleted = taskList.getTaskAt(deleteIndex - 1);
+                    taskList.deleteTaskAt(deleteIndex - 1);
                     ui.display("Noted. I've removed this task:\n" + toBeDeleted.toString()
                             + "\nNow you have " + taskList.getNumberOfTasks() + " tasks in the list.");
-                } else if (userInput.startsWith("find")) {
+                    break;
+
+                case FIND:
                     TaskList filtered = parser.getTaskList(userInput, taskList);
                     ui.display("Here are the matching tasks in your list:\n" + filtered.toString());
-                } else {
+                    break;
+
+                case TODO:
+                case DEADLINE:
+                case EVENT:
+                default:
                     Task add = parser.getTask(userInput);
                     try {
                         taskList.addToList(add);
@@ -99,6 +116,7 @@ public class Duke {
                     } catch (NullPointerException e) {
                         throw new DukeException("OOPS!!! Could not add task to the list");
                     }
+                    break;
                 }
 
                 storage.writeToFile(taskList);

@@ -87,16 +87,15 @@ public class TaskList {
             return false;
         } else {
             TaskList taskList = (TaskList) o;
-            if (taskList.getNumberOfTasks() == this.getNumberOfTasks()) {
-                for (int i = 0; i < this.getNumberOfTasks(); i++) {
-                    if (!(taskList.getTaskAt(i).equals(this.getTaskAt(i)))) {
-                        return false;
-                    }
-                }
-                return true;
-            } else {
+            if (taskList.getNumberOfTasks() != this.getNumberOfTasks()) {
                 return false;
             }
+            for (int i = 0; i < this.getNumberOfTasks(); i++) {
+                if (!(taskList.getTaskAt(i).equals(this.getTaskAt(i)))) {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

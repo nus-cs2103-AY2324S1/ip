@@ -38,7 +38,7 @@ public class Task {
     }
 
     /**
-     * Return status of task as Integer.
+     * Returns status of task as Integer.
      *
      * @return Status of the Task.
      */
