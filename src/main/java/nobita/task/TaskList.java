@@ -113,5 +113,24 @@ public class TaskList implements Iterable<Task> {
     public Iterator<Task> iterator() {
         return tasks.iterator();
     }
+
+    /**
+     * Return a String representation of the entire list.
+     *
+     * @return A String representation of the entire list.
+     */
+    @Override
+    public String toString() {
+        if (this.getTotalTask() < 1) {
+            return "There are no tasks to be shown.";
+        }
+        int listInd = 1;
+        StringBuilder tasksStringBuilder = new StringBuilder();
+        for (Task task : tasks) {
+            tasksStringBuilder.append(String.format("%d. %s\n", listInd, task));
+            listInd++;
+        }
+        return tasksStringBuilder.toString();
+    }
 }
 

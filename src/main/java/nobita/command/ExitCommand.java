@@ -19,12 +19,13 @@ public class ExitCommand extends Command {
      * @param tasks Contains all current tasks.
      * @param ui Ui for interacting with user.
      * @param storage Storage that the data file is stored in.
+     * @return A String representing the output message.
      * @throws NobitaException If error occurs when writing to local files.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NobitaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NobitaException {
         storage.writeFile(tasks);
-        ui.exitMessage();
+        return "Bye. Hope to see you again soon!";
     };
 
     /**

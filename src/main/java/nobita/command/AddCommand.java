@@ -56,12 +56,13 @@ public class AddCommand extends Command {
      * @param tasks Contains all current tasks.
      * @param ui Ui for interacting with user.
      * @param storage Storage that the data file is stored in.
+     * @return A String representing the output message.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(this.task);
-        ui.showMessage("Got it. I've added this task:\n" + task + "\nNow you have "
-                + tasks.getTotalTask() +" tasks in the list.");
+        return "Got it. I've added this task:\n" + task + "\nNow you have "
+                + tasks.getTotalTask() +" tasks in the list.";
     };
 
     /**

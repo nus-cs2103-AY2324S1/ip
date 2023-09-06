@@ -33,12 +33,20 @@ public class Nobita {
     }
 
     /**
-     * Starts Nobita robot.
+     * Return the output message of Nobita given a specific input message.
      *
-     * @param args an array of command-line arguments for the application.
+     * @param text The input message.
+     * @return A String representing the output message.
      */
-    public static void main(String[] args) {
-        new Nobita().run();
+    public String getResponse(String text) {
+        String outputMessage;
+        try {
+            Command c = Parser.parse(text);
+            outputMessage = c.execute(tasks, ui, storage);
+        } catch (NobitaException e) {
+            outputMessage = e.toString();
+        }
+        return outputMessage;
     }
 
     /**
@@ -50,7 +58,6 @@ public class Nobita {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                System.out.println(fullCommand);
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
@@ -61,5 +68,14 @@ public class Nobita {
                 ui.showLine();
             }
         }
+    }
+
+    /**
+     * Starts Nobita robot.
+     *
+     * @param args an array of command-line arguments for the application.
+     */
+    public static void main(String[] args) {
+        new Nobita().run();
     }
 }

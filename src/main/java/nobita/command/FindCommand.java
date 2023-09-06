@@ -30,10 +30,11 @@ public class FindCommand extends Command {
      * @param tasks Contains all current tasks.
      * @param ui Ui for interacting with user.
      * @param storage Storage that the data file is stored in.
+     * @return A String representing the output message.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showList(tasks.findTask(this.query));
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return tasks.findTask(this.query).toString();
     };
 
     /**

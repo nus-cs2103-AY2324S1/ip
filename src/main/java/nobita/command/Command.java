@@ -19,9 +19,10 @@ public abstract class Command {
      * @param tasks Contains all current tasks.
      * @param ui Ui for interacting with user.
      * @param storage Storage that the data file is stored in.
+     * @return A String representing the output message.
      * @throws NobitaException Allow subclasses to override the function with the throw property.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws NobitaException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws NobitaException;
 
     /**
      * Retrieves a boolean on whether the Command is an Exit Command.

@@ -19,10 +19,13 @@ public class ListCommand extends Command {
      * @param tasks Contains all current tasks.
      * @param ui Ui for interacting with user.
      * @param storage Storage that the data file is stored in.
+     * @return A String representing the output message.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showList(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        String outputMessage = tasks.toString();
+        ui.showMessage(outputMessage);
+        return outputMessage;
     };
 
     /**

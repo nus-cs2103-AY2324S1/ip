@@ -59,7 +59,7 @@ public class Parser {
         case "find":
             return new FindCommand(commands[1]);
         default:
-            throw new NobitaException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new NobitaException("I'm sorry, but I don't know what that means :-(");
         }
     }
 

@@ -32,15 +32,17 @@ public class DeleteCommand extends Command{
      * @param tasks Contains all current tasks.
      * @param ui Ui for interacting with user.
      * @param storage Storage that the data file is stored in.
+     * @return A String representing the output message.
      * @throws NobitaException If the task is not inside tasklist.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NobitaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NobitaException {
         if (tasks.checkIndexWithinRange(index)) {
             throw new NobitaException("Selected task number not in list");
         }
         Task task = tasks.deleteTask(index);
-        ui.showMessage("Noted. I've removed this task:\n" + task + "\nNow you have " + tasks.getTotalTask() +" tasks in the list.");
+        return "Noted. I've removed this task:\n" + task + "\nNow you have " +
+                tasks.getTotalTask() +" tasks in the list.";
     };
 
     /**

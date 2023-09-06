@@ -32,15 +32,18 @@ public class UnmarkCommand extends Command{
      * @param tasks Contains all current tasks.
      * @param ui Ui for interacting with user.
      * @param storage Storage that the data file is stored in.
+     * @return A String representing the output message.
      * @throws NobitaException If the task is not inside tasklist.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NobitaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NobitaException {
         if (tasks.checkIndexWithinRange(index)) {
             throw new NobitaException("Selected task number not in list");
         }
         Task task = tasks.markIncomplete(index);
-        ui.showMessage("OK, I've marked this task as not done yet:\n" + task);
+        String outputMessage = "OK, I've marked this task as not done yet:\n" + task;
+        ui.showMessage(outputMessage);
+        return outputMessage;
     };
 
     /**
