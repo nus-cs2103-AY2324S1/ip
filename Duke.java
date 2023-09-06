@@ -148,25 +148,7 @@ public class Duke {
     }
 
 
-//    private void saveTasksToFile() {
-////        try (FileOutputStream fos = new FileOutputStream(filePath);
-////             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-////            // Write the taskArrayList to the file
-////            oos.writeObject(taskArrayList);
-////        } catch (IOException e) {
-////            e.printStackTrace();
-////        }
-//        try {
-//            FileWriter writer = new FileWriter(filePath);
-//            for(Task task: taskArrayList) {
-//                writer.write(task.toString() + System.lineSeparator());
-//            }
-//            writer.close();
-//        } catch (IOException e) {
-//            System.out.println("Error opening file, try again!");
-//            e.printStackTrace();
-//        }
-//    }
+
 
     private void saveTasksToFile() {
         File file = new File(filePath);
