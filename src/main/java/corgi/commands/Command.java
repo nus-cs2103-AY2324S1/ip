@@ -32,14 +32,15 @@ public abstract class Command {
 
     /**
      * Executes the command, performing its intended action on the provided task list,
-     * user interface, and storage.
+     * text renderer, and storage.
      *
      * @param list The task list to perform the command action on.
-     * @param ui The user interface for displaying feedback to the user.
+     * @param renderer The text renderer to return formatted message.
      * @param storage The storage for saving and loading tasks (if applicable).
      * @throws CommandExecutionException If an error occurs during command execution.
      */
-    public abstract String execute(TaskList list, TextRenderer renderer, Storage<Task> storage) throws CommandExecutionException;
+    public abstract String execute(TaskList list, TextRenderer renderer, Storage<Task> storage)
+            throws CommandExecutionException;
 
     /**
      * Checks whether this command should exit the application.

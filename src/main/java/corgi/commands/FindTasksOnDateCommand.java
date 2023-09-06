@@ -48,10 +48,10 @@ public class FindTasksOnDateCommand extends Command {
 
     /**
      * Executes the command by filtering the task list based on the given predicate to find tasks on the specified date.
-     * It then displays the filtered tasks to the user or a message indicating that no tasks were found on the date.
+     * It then returns the filtered tasks to the user or a message indicating that no tasks were found on the date.
      *
      * @param list The task list to filter.
-     * @param ui The user interface for displaying filtered tasks or messages.
+     * @param renderer The text renderer to return formatted message.
      * @param storage The storage for saving and loading tasks (not used in this command).
      */
     @Override

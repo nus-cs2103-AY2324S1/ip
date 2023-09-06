@@ -37,15 +37,16 @@ public class MarkTaskCommand extends Command {
 
     /**
      * Executes the command by marking the task at the specified index with the new status,
-     * saving the updated list to storage, and displaying a message to the user indicating the task's status change.
+     * saving the updated list to storage, and return a message indicating the task's status change.
      *
      * @param list The task list to be updated.
-     * @param ui The user interface for displaying feedback to the user.
+     * @param renderer The text renderer to return formatted message.
      * @param storage The storage for saving and loading tasks (if applicable).
      * @throws CommandExecutionException If an error occurs during command execution.
      */
     @Override
-    public String execute(TaskList list, TextRenderer renderer, Storage<Task> storage) throws CommandExecutionException {
+    public String execute(TaskList list, TextRenderer renderer, Storage<Task> storage)
+            throws CommandExecutionException {
         try {
             list.mark(this.index, this.status);
             storage.save(list);

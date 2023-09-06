@@ -19,10 +19,10 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Executes the command by displaying an exit message to the user, indicating that the application is terminating.
+     * Executes the command by return an exit message to the user, indicating that the application is terminating.
      *
      * @param list The task list (not used in this command).
-     * @param ui The user interface for displaying the exit message.
+     * @param renderer The text renderer to return formatted message.
      * @param storage The storage for saving and loading tasks (not used in this command).
      */
     @Override

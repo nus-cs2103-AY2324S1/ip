@@ -41,10 +41,10 @@ public class AddTaskCommand extends Command {
 
     /**
      * Executes the command by adding the specified task to the task list, saving the updated list to storage,
-     * and displaying a message to the user indicating that the task has been added.
+     * and return formatted message indicating that the task has been added.
      *
      * @param list The task list to which the task should be added.
-     * @param ui The user interface for displaying feedback to the user.
+     * @param renderer The text renderer to return formatted message.
      * @param storage The storage for saving and loading tasks (if applicable).
      */
     @Override

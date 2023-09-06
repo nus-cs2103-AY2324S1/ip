@@ -40,7 +40,7 @@ public class TextRenderer {
      */
     public String showIntro() {
         return returnMessage(
-                "Woof! I'm Corgi!", 
+                "Woof! I'm Corgi!",
                 "So, what's your wish this time, hooman?");
     }
 
@@ -68,7 +68,7 @@ public class TextRenderer {
      */
     public String showError(String exception, String extraMsg) {
         return returnMessage(
-            this.showError(exception), 
+            this.showError(exception),
             "Error: " + extraMsg);
     }
 
@@ -90,8 +90,8 @@ public class TextRenderer {
      */
     public String showTaskAdded(String type, String taskInfo, int currentListSize) {
         return returnMessage(
-                "Woof, whatever. I've added this " + type + ":\n", 
-                taskInfo, 
+                "Woof, whatever. I've added this " + type + ":\n",
+                taskInfo,
                 "\nNow you have " + currentListSize + " " + (currentListSize > 1 ? "tasks" : "task") + " in the list.");
     }
 
@@ -145,7 +145,7 @@ public class TextRenderer {
      */
     public String showTasksContainKeyword(String keyword, String tasksContainKeyword) {
         return returnMessage(
-                "Here are the tasks containing keyword \"" + keyword + "\":", 
+                "Here are the tasks containing keyword \"" + keyword + "\":",
                 tasksContainKeyword);
     }
 
@@ -156,8 +156,8 @@ public class TextRenderer {
      */
     public String showTaskDone(String taskInfo) {
         return returnMessage(
-                "Congratulations, I guess! You finally managed to do something right:", 
-                "", 
+                "Congratulations, I guess! You finally managed to do something right:",
+                "",
                 taskInfo);
     }
 
@@ -168,8 +168,8 @@ public class TextRenderer {
      */
     public String showTaskUndone(String taskInfo) {
         return returnMessage(
-                "Oh great, you've undone something. Just like always:", 
-                "", 
+                "Oh great, you've undone something. Just like always:",
+                "",
                 taskInfo);
     }
 
@@ -181,10 +181,10 @@ public class TextRenderer {
      */
     public String showTaskDeleted(String taskInfo, int currentListSize) {
         return returnMessage(
-                "Finally got rid of that task. Took you long enough... uninterested woof ~", 
-                "", 
-                taskInfo, 
-                "", 
+                "Finally got rid of that task. Took you long enough... uninterested woof ~",
+                "",
+                taskInfo,
+                "",
                 "Now you have " + currentListSize + " " + (currentListSize > 1 ? "tasks" : "task") + " in the list.");
     }
 
