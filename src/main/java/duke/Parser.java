@@ -1,5 +1,7 @@
 package duke;
 
+import Tasks.Task;
+
 import java.util.ArrayList;
 
 /**
@@ -8,29 +10,25 @@ import java.util.ArrayList;
  */
 public class Parser {
 
-    public static void parse(String input, ArrayList<duke.Task> taskList) {
+    public String parse(String input, ArrayList<Task> taskList, TaskExecutor executor) {
         String[] inputParts = input.split(" ", 2);
         String command = inputParts[0];
 
         switch (command) {
         case "list":
-            TaskList.listTasks(taskList);
-            break;
+            return executor.listTasks(taskList);
         case "mark":
-            TaskList.markTask(inputParts, taskList, true);
-            break;
+            return executor.markTask(inputParts, taskList, true);
         case "unmark":
-            TaskList.markTask(inputParts, taskList, false);
-            break;
+            return executor.markTask(inputParts, taskList, false);
         case "delete":
-            TaskList.deleteTask(inputParts, taskList);
-            break;
+            return executor.deleteTask(inputParts, taskList);
         case "find":
-            TaskList.findTasks(inputParts, taskList);
-            break;
+            return executor.findTasks(inputParts, taskList);
+        case "bye":
+            return "Bye. Hope to see you again soon!\n";
         default:
-            TaskList.addTask(inputParts, taskList);
-            break;
+            return executor.addTask(inputParts, taskList);
         }
     }
 

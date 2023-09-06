@@ -1,4 +1,4 @@
-package duke;
+package Tasks;
 
 /**
  * This class represents a task that only has a description.

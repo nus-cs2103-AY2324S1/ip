@@ -1,5 +1,10 @@
 package duke;
 
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.Todo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,9 +20,9 @@ public class Storage {
     /**
      * This method loads pre-existing tasks from the file by converting text to Task objects,
      * or creates the file if it does not yet exist.
-     * @param taskList
      */
-    public static void loadTasksFromFile(ArrayList<Task> taskList) {
+    public ArrayList<Task> loadTasksFromFile() {
+        ArrayList<Task> taskList = new ArrayList<>();
         try {
             File file = new File("duke.txt");
             if (!file.exists()) {
@@ -25,41 +30,51 @@ public class Storage {
             }
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
+                Task task;
                 String line = scanner.nextLine();
                 String[] parts = line.split(" \\| ");
-                boolean isDone = parts[1].equals("1");
-                String description = parts[2];
-                Task task = new Task(description);
-                if (isDone) {
+
+                if (parts[0].equals("T")) {
+                    task = new Todo(parts[2]);
+                } else if (parts[0].equals("D")) {
+                    task = new Deadline(parts[2], parts[3]);
+                } else {
+                    task = new Event(parts[2], parts[3], parts[4]);
+                }
+
+                boolean done = parts[1].equals("1");
+                if (done) {
                     task.markDone();
                 }
+
                 taskList.add(task);
             }
             scanner.close();
         } catch (IOException e) {
             System.out.println("Loading went wrong: " + e.getMessage());
         }
+        return taskList;
     }
 
     /**
      * This method updates the file by converting the Tasks into text.
      * @param taskList
      */
-    public static void updateTasksFile(ArrayList<Task> taskList) {
+    public void updateTasksFile(ArrayList<Task> taskList) {
         try {
             FileWriter writer = new FileWriter("duke.txt");
             for (Task task : taskList) {
-                String isDone = task.isDone ? "1" : "0";
+                String done = task.isDone() ? "1" : "0";
                 if (task instanceof Todo) {
                     writer.write(task.getClass().getSimpleName().charAt(0)
-                            + " | " + isDone + " | " + task.getDescription() + "\n");
+                            + " | " + done + " | " + task.getDescription() + "\n");
                 } else if (task instanceof Deadline) {
                     writer.write(task.getClass().getSimpleName().charAt(0)
-                            + " | " + isDone + " | " + task.getDescription() + "|"
+                            + " | " + done + " | " + task.getDescription() + "|"
                             + ((Deadline) task).getBy() + "\n");
                 } else {
                     writer.write(task.getClass().getSimpleName().charAt(0)
-                            + " | " + isDone + " | " + task.getDescription() + "|"
+                            + " | " + done + " | " + task.getDescription() + "|"
                             + ((Event) task).getFromTo() + "\n");
                 }
             }
