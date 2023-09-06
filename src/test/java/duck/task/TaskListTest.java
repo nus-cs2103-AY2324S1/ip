@@ -10,21 +10,21 @@ import duck.exceptions.DuckException;
 public class TaskListTest {
 
     @Test
-    public void testSetToDo() throws DuckException {
+    public void testSetToDo_TaskDescription_TodoTaskDescription() throws DuckException {
         String input = "Do ip";
         TaskList test = new TaskList();
         ToDo todo = test.setToDo(input);
         assertEquals("Do ip", todo.getDescription());
     }
     @Test
-    public void testEmptySpaces() {
+    public void testSetToDo_TestSpacesAsTaskDesc_ThrowException() {
         String input = "   ";
         TaskList test = new TaskList();
         assertThrows(DuckException.class, ()->test.setToDo(input));
     }
 
     @Test
-    public void testSpacesAndWords() throws DuckException {
+    public void testSetToDo_TestWithSpacesAndWords_TaskDescription() throws DuckException {
         String input = " project ";
         TaskList test = new TaskList();
         ToDo todo = test.setToDo(input);
