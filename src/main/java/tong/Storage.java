@@ -13,8 +13,8 @@ import java.util.*;
  * Deals with loading tasks from the file and saving tasks in the file
  */
 public class Storage {
-    public static final String FILE = "../data";
-    public static final String FILEPATH = "../data/tong.txt";
+    public static final String FILE = "./data";
+    public static final String FILEPATH = "./data/tong.txt";
 
     public Storage() {
         initializeStorage();
