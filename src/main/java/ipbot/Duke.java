@@ -102,7 +102,7 @@ public class Duke {
                                 }
                                 break;
                             case TODO:
-                                if (commandArgs.isEmpty()) {
+                                if (commandArgs.get("").isEmpty()) {
                                     throw new CommandArgumentException("Task description cannot be empty!");
                                 }
                                 ToDo toDo = taskList.addToDoWithArgs(commandArgs);
@@ -124,6 +124,11 @@ public class Duke {
                                 Task task = taskList.deleteTask(deleteIndex);
                                 ui.printDeletedItem(task);
                                 break;
+                            case FIND:
+                                if (commandArgs.get("").isEmpty()) {
+                                    throw new CommandArgumentException("Find string cannot be empty!");
+                                }
+                                taskList.listTasks(ui, commandArgs.get(""));
                         }
                     }
                 }
