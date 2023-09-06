@@ -4,13 +4,12 @@ import duke.components.DukeException;
 import duke.components.Storage;
 import duke.components.TaskList;
 import duke.components.Ui;
-
 import duke.tasks.Task;
 
 /**
  * Class of commands that modifies the existing list.
  */
-public class ModifyCommand extends Command{
+public class ModifyCommand extends Command {
     /**
      * type contains the type of command.
      *

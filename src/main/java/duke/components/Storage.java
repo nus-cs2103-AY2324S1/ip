@@ -1,20 +1,18 @@
 package duke.components;
 
-import duke.tasks.Task;
-import duke.tasks.Todo;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-
-import java.io.BufferedWriter;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import java.time.LocalDateTime;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 /**
  * Class that manages the storing and loading of the list of task.

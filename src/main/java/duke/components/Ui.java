@@ -1,6 +1,7 @@
 package duke.components;
 
 import java.util.Scanner;
+
 import duke.tasks.Task;
 
 /**
@@ -23,8 +24,8 @@ public class Ui {
      * Prints the greeting message on initialisation of the bot.
      */
     public void greet() { // Greets user on initialisation
-        System.out.println("Good day to you, I'm ButlerBot.\n" +
-                "How may I be of service to you?\n");
+        System.out.println("Good day to you, I'm ButlerBot.\n"
+                + "How may I be of service to you?\n");
     }
 
     /**

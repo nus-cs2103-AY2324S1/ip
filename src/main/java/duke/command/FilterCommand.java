@@ -14,8 +14,8 @@ public class FilterCommand extends Command {
      *
      * keyword contains the keyword to filter.
      */
-    String type;
-    String keyword;
+    private String type;
+    private String keyword;
 
     /**
      * Constructor for the FilterCommand class.

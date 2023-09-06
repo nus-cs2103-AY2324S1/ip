@@ -1,14 +1,14 @@
-import duke.command.Command;
+import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
+import duke.command.Command;
 import duke.components.DukeException;
 import duke.components.Parser;
 import duke.components.Storage;
 import duke.components.TaskList;
 import duke.components.Ui;
 
-import java.io.IOException;
 
-import java.time.format.DateTimeParseException;
 
 /**
  * Contains the main method to be executed.
@@ -57,6 +57,6 @@ public class Duke {
     }
 
     public static void main(String[] args) throws DukeException {
-            new Duke("data/tasks.txt").run();
+        new Duke("data/tasks.txt").run();
     }
 }

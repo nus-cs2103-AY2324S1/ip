@@ -7,7 +7,7 @@ import duke.components.Ui;
 /**
  * Class of the command that terminates the bot.
  */
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
     /**
      * isExit contains whether to terminate the bot.
      */

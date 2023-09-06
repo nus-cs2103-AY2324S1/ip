@@ -1,16 +1,15 @@
 package duke.components;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.ExitCommand;
 import duke.command.FilterCommand;
 import duke.command.ModifyCommand;
-
-import java.io.IOException;
-
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.LocalDateTime;
 
 /**
  * Class that parses the user input.
@@ -98,13 +97,13 @@ public class Parser {
      * @return LocalDateTime object to be used to construct the Task.
      * @throws DukeException Invalid format or input for dateTimeStr.
      */
-    public static LocalDateTime parseDateTime(String dateTimeStr) throws DukeException{
+    public static LocalDateTime parseDateTime(String dateTimeStr) throws DukeException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             return LocalDateTime.parse(dateTimeStr, formatter);
         } catch (DateTimeParseException ex) {
-            throw new DukeException("I'm afraid I do not quite understand. Please input the date and time" +
-                    "as follows:\nd/M/yyyy HHmm");
+            throw new DukeException("I'm afraid I do not quite understand. Please input the date and time"
+                    + "as follows:\nd/M/yyyy HHmm");
         }
     }
 }

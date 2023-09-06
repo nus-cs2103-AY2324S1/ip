@@ -1,20 +1,19 @@
 package duke.components;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
+
 import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.ExitCommand;
 import duke.command.FilterCommand;
 import duke.command.ModifyCommand;
-
-import java.io.IOException;
-
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.Test;
 
 public class ParserTest {
     @Test
@@ -45,10 +44,10 @@ public class ParserTest {
         assertTrue(command instanceof AddCommand);
         assertEquals("E", ((AddCommand) command).getType());
         assertEquals("cook dinner", ((AddCommand) command).getTask());
-        assertEquals(LocalDateTime.of(2023, 9, 1, 14, 30),
-                ((AddCommand) command).getFrom());
-        assertEquals(LocalDateTime.of(2023, 9, 1, 16, 30),
-                ((AddCommand) command).getTo());
+        assertEquals(LocalDateTime.of(2023, 9, 1, 14, 30), (
+                (AddCommand) command).getFrom());
+        assertEquals(LocalDateTime.of(2023, 9, 1, 16, 30), (
+                (AddCommand) command).getTo());
     }
 
     @Test

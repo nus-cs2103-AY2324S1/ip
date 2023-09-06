@@ -1,17 +1,17 @@
 package duke.components;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 import duke.tasks.Task;
 import duke.tasks.Todo;
 
-import org.junit.jupiter.api.Test;
-
 public class TaskListTest {
-    Task test = new Todo("test");
-    ArrayList<Task> list = new ArrayList<>();
+    private Task test = new Todo("test");
+    private ArrayList<Task> list = new ArrayList<>();
     @Test
     public void testAddTask() {
         TaskList tasks = new TaskList(list);
@@ -54,8 +54,8 @@ public class TaskListTest {
         tasks.addTask(new Todo("fake"));
         assertEquals("Here are the tasks in your list containing test:\n1. [T][ ] test\n",
                 tasks.filter("test"));
-        assertEquals("There is nothing on your list currently that matches the keyword \"keyword\". " +
-                        "Perhaps you might want to add a new task or try a different keyword?",
+        assertEquals("There is nothing on your list currently that matches the keyword \"keyword\". "
+                        + "Perhaps you might want to add a new task or try a different keyword?",
                 tasks.filter("keyword"));
     }
 

@@ -1,8 +1,8 @@
 package duke.components;
 
-import duke.tasks.Task;
-
 import java.util.ArrayList;
+
+import duke.tasks.Task;
 
 /**
  * Class for the list of tasks.
@@ -41,8 +41,8 @@ public class TaskList {
         if (isValidIndex(index)) {
             tasks.get(index).setDone();
         } else { // Index error
-            throw new DukeException("I'm afraid the task does not exist. " +
-                    "Perhaps you might want to see your list again?");
+            throw new DukeException("I'm afraid the task does not exist. "
+                    + "Perhaps you might want to see your list again?");
         }
     }
 
@@ -52,12 +52,12 @@ public class TaskList {
      * @param index Index of task to unmark.
      * @throws DukeException Indexing error.
      */
-    public static void unmark(int index) throws DukeException{
+    public static void unmark(int index) throws DukeException {
         if (isValidIndex(index)) {
             tasks.get(index).setNotDone();
         } else { // Index error
-            throw new DukeException("I'm afraid the task does not exist. " +
-                    "Perhaps you might want to see your list again?");
+            throw new DukeException("I'm afraid the task does not exist. "
+                    + "Perhaps you might want to see your list again?");
         }
     }
 
@@ -71,8 +71,8 @@ public class TaskList {
         if (isValidIndex(index)) {
             tasks.remove(index);
         } else { // Index error
-        throw new DukeException("I'm afraid the task does not exist. " +
-                "Perhaps you might want to see your list again?");
+            throw new DukeException("I'm afraid the task does not exist. "
+                + "Perhaps you might want to see your list again?");
         }
     }
 
@@ -101,8 +101,8 @@ public class TaskList {
         if (result != "Here are the tasks in your list:\n") {
             return result;
         } else { // Empty list
-            return "There is nothing on your list currently. " +
-                    "Perhaps you might want to add a new task?";
+            return "There is nothing on your list currently. "
+                    + "Perhaps you might want to add a new task?";
         }
     }
 
@@ -134,8 +134,8 @@ public class TaskList {
         if (counter > 0) {
             return result;
         } else { // Empty list
-            return "There is nothing on your list currently that matches the keyword \"" + keyword + "\". " +
-                    "Perhaps you might want to add a new task or try a different keyword?";
+            return "There is nothing on your list currently that matches the keyword \"" + keyword + "\". "
+                    + "Perhaps you might want to add a new task or try a different keyword?";
         }
     }
 

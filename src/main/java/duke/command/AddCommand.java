@@ -1,16 +1,15 @@
 package duke.command;
 
+import java.time.LocalDateTime;
+
 import duke.components.DukeException;
 import duke.components.Storage;
 import duke.components.TaskList;
 import duke.components.Ui;
-
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
-
-import java.time.LocalDateTime;
 
 /**
  * Class of commands that adds to the existing list.
@@ -90,7 +89,7 @@ public class AddCommand extends Command {
             tasks.addTask(tasking);
             ui.showTaskAdded(tasking, tasks.getSize());
         } else if (type.equals("D")) {
-            Task tasking = new Deadline(task,deadline);
+            Task tasking = new Deadline(task, deadline);
             tasks.addTask(tasking);
             ui.showTaskAdded(tasking, tasks.getSize());
         } else if (type.equals("E")) {
