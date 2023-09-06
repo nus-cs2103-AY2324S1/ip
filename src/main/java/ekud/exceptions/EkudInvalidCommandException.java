@@ -1,4 +1,4 @@
-package exceptions;
+package ekud.exceptions;
 
 /**
  * Represents invalid commands by the user to the chatbot.

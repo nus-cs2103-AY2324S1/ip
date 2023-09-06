@@ -1,5 +1,6 @@
 package parser;
 
+import ekud.parser.Parser;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -25,7 +26,7 @@ public class ParserTest {
     public void parseUserDateTime_correctFormat_success() {
         Parser parser = new Parser();
         LocalDateTime expectedOutput = LocalDateTime.of(2023, 8, 10, 17, 30);
-        LocalDateTime actualOutput = parser.parseDateTime("10-08-2023 1730");
+        LocalDateTime actualOutput = parser.parseDateTime("10 Aug 1730");
         assertEquals(true, expectedOutput.isEqual(actualOutput));
     }
     @Test
