@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
@@ -39,10 +42,17 @@ public class Duke {
                     System.out.println("Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1));
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 } else if (command.startsWith("deadline")) {
-                    String description = command.substring(9, command.indexOf("/by")).trim();
-                    String by = command.substring(command.indexOf("/by") + 4).trim();
-                    tasks.add(new Deadline(description, by));
+                    // Parse the date and time in the format d/M/yyyy HHmm
+                    String[] parts = command.split(" /by ");
+                    if (parts.length < 2) {
+                        throw new DukeException("Deadline command must include a date.");
+                    }
+                    String description = parts[0].substring(9).trim();
+                    LocalDateTime dateTime = LocalDateTime.parse(parts[1], DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+
+                    tasks.add(new Deadline(description, dateTime));
                     System.out.println("Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 } else if (command.startsWith("event")) {
                     String description = command.substring(6, command.indexOf("/from")).trim();
                     String from = command.substring(command.indexOf("/from") + 6, command.indexOf("/to")).trim();
@@ -90,6 +100,9 @@ public class Duke {
 
         scanner.close();
     }
+    private static String formatDate(LocalDate date) {
+        return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+    }
     private static void loadTasksFromFile(ArrayList<Task> tasks) {
         try {
             File file = new File(FILE_PATH);
@@ -128,7 +141,7 @@ public class Duke {
             case "D":
                 if (parts.length >= 4) {
                     String by = parts[3];
-                    task = new Deadline(description, by);
+                    task = new Deadline(description, LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
                 }
                 break;
             case "E":
@@ -151,6 +164,7 @@ public class Duke {
         return task;
     }
 
+
     private static void saveTasksToFile(ArrayList<Task> tasks) {
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
@@ -169,12 +183,18 @@ class Task {
     protected String description;
     protected boolean isDone;
 
+    protected LocalDateTime date;
+
     public String toFileString() {
         return "";
     }
-    public Task(String description) {
+    public String formatDate() {
+        return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+    }
+    public Task(String description, LocalDateTime date) {
         this.description = description;
         this.isDone = false;
+        this.date = date;
     }
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); // Return a tick or cross symbol cuz im lazy like that, or its easier. idk
@@ -196,7 +216,7 @@ class Task {
 
 class Todo extends Task {
     public Todo(String description) {
-        super(description);
+        super(description,null);
     }
     @Override
     public String toFileString() {
@@ -212,17 +232,16 @@ class Todo extends Task {
 class Deadline extends Task {
     protected String by;
 
-    public Deadline(String description, String by) {
-        super(description);
-        this.by = by;
+    public Deadline(String description, LocalDateTime date) {
+        super(description, date);
     }
     @Override
     public String toFileString() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + date;
     }
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + date + ")";
     }
 }
 
@@ -232,7 +251,7 @@ class Event extends Task {
     protected String to;
 
     public Event(String description, String from, String to) {
-        super(description);
+        super(description,null);
         this.from = from;
         this.to = to;
     }
