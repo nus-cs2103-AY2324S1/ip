@@ -1,9 +1,8 @@
 package gui;
 
-import duke.Duke;
-
 import java.io.IOException;
 
+import duke.Duke;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -27,8 +26,8 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();
 
-            // Preload chatbot with data from storage file.
-            duke.loadData();
+            // Preload chatbot with data from storage file and print status to console.
+            System.out.println(duke.loadData());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -16,7 +16,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 
 /**
- * An example of a custom control using FXML.
  * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
  * containing text from the speaker.
  */
@@ -42,7 +41,7 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Adds circular border to ImageView object.
+     * Adds circular border to ImageView object for profile picture.
      *
      * @param img ImageView object to be modified.
      */

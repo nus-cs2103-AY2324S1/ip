@@ -4,7 +4,7 @@ import storage.Storage;
 import taskutil.TaskList;
 
 /**
- * Class to initialise and run the chatbot.
+ * Class to initialise and run the chatbot with GUI.
  */
 public class Duke {
 
@@ -22,8 +22,8 @@ public class Duke {
     /**
      * Loads data for current instance of chatbot from data file.
      */
-    public void loadData() {
-        storage.loadFromFile(taskList);
+    public String loadData() {
+        return storage.loadFromFile(taskList);
     }
 
     /**

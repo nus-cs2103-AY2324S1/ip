@@ -29,14 +29,17 @@ public class Ui {
     }
 
     /**
-     * Formats chatbot output with borders, first line indentation and new line character at the end.
+     * Updates chatbot output.
      *
-     * @param message Message to be displayed to user.
+     * @param message Updated message to be displayed to user.
      */
     public static void setOutMessage(String message) {
         outMessage = message;
     }
 
+    /**
+     * Enum to denote whether task was added or removed from tasklist.
+     */
     public enum Action {
         ADD,
         REMOVE

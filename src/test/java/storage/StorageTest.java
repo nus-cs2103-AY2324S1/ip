@@ -10,6 +10,6 @@ public class StorageTest {
 
     @Test
     public void loadData_openFile_success() {
-        Assertions.assertTrue(storage.loadFromFile(new TaskList()));
+        Assertions.assertEquals("File loaded successfully :D", storage.loadFromFile(new TaskList()));
     }
 }

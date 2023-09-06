@@ -53,28 +53,31 @@ public class Parser {
             try {
                 int index = Integer.parseInt(splitInput[1]) - 1;
                 taskList.changeStatusByIndex(index, true);
-            } catch (NumberFormatException e) { // If argument of "mark" is not a number.
-                Ui.setOutMessage("You need to provide a valid number");
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                // If argument of "mark" is not a number.
+                Ui.setOutMessage("You need to provide a valid number:\n" + "       eg. mark 1");
             }
             break;
         case "unmark":
             try {
                 int index = Integer.parseInt(splitInput[1]) - 1;
                 taskList.changeStatusByIndex(index, false);
-            } catch (NumberFormatException e) { // If argument of "unmark" is not a number.
-                Ui.setOutMessage("You need to provide a valid number");
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                // If argument of "unmark" is not a number.
+                Ui.setOutMessage("You need to provide a valid number:\n" + "       eg. unmark 2");
             }
             break;
         case "delete":
             try {
                 int index = Integer.parseInt(splitInput[1]) - 1;
                 taskList.deleteTask(index);
-            } catch (NumberFormatException e) { // If argument of "delete" is not a number.
-                Ui.setOutMessage("You need to provide a valid number:\n" + "       eg. delete 1");
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                // If argument of "delete" is not a number.
+                Ui.setOutMessage("You need to provide a valid number:\n" + "       eg. delete 3");
             }
             break;
         case "todo":
-            if (splitInput.length != 2) { // Checks for description before creating task.
+            if (splitInput.length != 2) { // Checks for presence of description before creating task.
                 Ui.setOutMessage("Wrong format, make sure your command is in the format:\n"
                         + "       todo [DESCRIPTION]");
             } else {
