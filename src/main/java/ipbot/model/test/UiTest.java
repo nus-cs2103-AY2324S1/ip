@@ -1,5 +1,6 @@
-package ipbot.model;
+package ipbot.model.test;
 
+import ipbot.model.TaskStub;
 import ipbot.util.Ui;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
