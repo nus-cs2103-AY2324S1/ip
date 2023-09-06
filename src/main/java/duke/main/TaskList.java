@@ -62,7 +62,7 @@ public class TaskList {
      * @param searchString String to search with.
      */
     public void print(String searchString) {
-        boolean found = false;
+        boolean isFound = false;
         if (tasks.isEmpty()) {
             System.out.println("     You have no tasks added yet :(");
         } else {
