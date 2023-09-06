@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TaskListTest {
     @Test
-    public void nullArrayTest() {
+    public void emptyArrayTest() {
         TaskList t = new TaskList();
-         assertEquals(null, t.retrieveArray());
+         assertEquals(true, t.retrieveArray().isEmpty());
     }
     @Test
     public void arrayCorrectManipulation() {

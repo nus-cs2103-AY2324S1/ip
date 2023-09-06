@@ -28,7 +28,7 @@ class TaskList {
         System.out.println("-------------------------------\n"
                 + "Got it. I've added this task:\n"
                 + curr.toString()
-                + totalTasks()
+                + countTotalTasks()
                 + "\n-------------------------------\n");
 
         return curr;
@@ -45,7 +45,7 @@ class TaskList {
         System.out.println("-------------------------------\n"
                 + "Got it. I've added this task:\n"
                 + curr.toString()
-                + totalTasks()
+                + countTotalTasks()
                 + "\n-------------------------------\n");
 
         return curr;
@@ -62,7 +62,7 @@ class TaskList {
         System.out.println("-------------------------------\n"
                 + "Got it. I've added this task:\n"
                 + curr.toString()
-                + totalTasks()
+                + countTotalTasks()
                 + "\n-------------------------------\n");
 
         return curr;
@@ -124,7 +124,7 @@ class TaskList {
                 System.out.println("-------------------------------\n"
                         + "Noted, I've removed this task:\n"
                         + toRemove.toString()
-                        + totalTasks()
+                        + countTotalTasks()
                         + "\n-------------------------------\n");
             }
         } catch (NumberFormatException e) {
