@@ -22,7 +22,9 @@ public class TaskList {
      * Constructor for TaskList
      * @param taskList List of tasks
      */
-    public TaskList(ArrayList taskList) {this.taskList = taskList;}
+    public TaskList(ArrayList taskList) {
+        this.taskList = taskList;
+    }
 
     /**
      * Adds a task to the task list
@@ -59,18 +61,16 @@ public class TaskList {
     }
 
     /**
-     * Returns the task at the specified index
-     * @param index Index of the task
-     * @return Task at the specified index
+     * Returns the size of the task list
+     * @return size of the task list
      */
     public int size() {
         return this.taskList.size();
     }
 
     /**
-     * Returns the task at the specified index
-     * @param index Index of the task
-     * @return Task at the specified index
+     * Marks the task at the specified index as done
+     * @param num Index of the task
      */
     public void markDone(int num) {
         if (num < 0 || num >= taskList.size()) {
@@ -85,9 +85,8 @@ public class TaskList {
     }
 
     /**
-     * Returns the task at the specified index
-     * @param index Index of the task
-     * @return Task at the specified index
+     * Marks the task at the specified index as not done
+     * @param num Index of the task
      */
     public void markUndone(int num) {
         if (num < 0 || num >= taskList.size()) {
@@ -99,5 +98,21 @@ public class TaskList {
                     + taskList.get(num).toString()
             );
         }
+    }
+
+    /**
+     * Returns the tasks that have the specified keyword
+     * @param keyword Keyword of the task
+     * @return Tasks that have the specified keyword
+     */
+    public ArrayList<Task> getTasksByKeyword(String keyword) {
+        ArrayList<Task> list = new ArrayList<>();
+        for (Task listItems : taskList) {
+            if (listItems.description.contains(keyword)) {
+                list.add(listItems);
+            }
+        }
+
+        return list;
     }
 }

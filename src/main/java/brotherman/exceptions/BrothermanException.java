@@ -3,7 +3,7 @@ package brotherman.exceptions;
 /**
  * Represents an exception that occurs in Brotherman
  */
-public class BrothermanException extends Exception{
+public class BrothermanException extends Exception {
 
     /**
      * Constructor for BrothermanException
