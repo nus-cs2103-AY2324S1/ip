@@ -10,7 +10,7 @@ public class FileCorruptedException extends LocalFileException {
 
     @Override
     public String toString() {
-        return "\tOOPS, the file " + this.filePath + " seems to be corrupted.\n"
-                + "\tInitiated with empty task list.";
+        return "OOPS, the file " + this.filePath + " seems to be corrupted.\n"
+                + "Initiated with empty task list.";
     }
 }
