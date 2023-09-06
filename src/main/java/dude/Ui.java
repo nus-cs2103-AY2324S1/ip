@@ -1,3 +1,5 @@
+package dude;
+
 import java.util.Scanner;
 
 /**
@@ -18,7 +20,7 @@ public class Ui {
   private final Scanner sc;
 
   /**
-   * Constructor for Ui class.
+   * Constructor for dude.Ui class.
    */
   public Ui() {
     sc = new Scanner(System.in);

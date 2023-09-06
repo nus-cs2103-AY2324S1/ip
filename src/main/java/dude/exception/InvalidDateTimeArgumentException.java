@@ -1,3 +1,5 @@
+package dude.exception;
+
 public class InvalidDateTimeArgumentException extends DudeException {
   public InvalidDateTimeArgumentException() {
     super(

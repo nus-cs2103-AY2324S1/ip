@@ -1,3 +1,27 @@
+package dude;
+
+import dude.command.AddTaskCommand;
+import dude.command.DeleteTaskCommand;
+import dude.command.DudeCommand;
+import dude.command.DudeCommandId;
+import dude.command.ExitCommand;
+import dude.command.ListTasksCommand;
+import dude.command.MarkTaskCommand;
+import dude.command.UnmarkTaskCommand;
+import dude.exception.DudeException;
+import dude.exception.EventEndMissingException;
+import dude.exception.EventStartMissingException;
+import dude.exception.InvalidCommandException;
+import dude.exception.InvalidDateTimeArgumentException;
+import dude.exception.InvalidTaskIndexException;
+import dude.exception.TaskDeadlineMissingException;
+import dude.exception.TaskDescriptionMissingException;
+import dude.exception.TaskIndexMissingException;
+import dude.task.DeadlineTask;
+import dude.task.EventTask;
+import dude.task.Task;
+import dude.task.ToDoTask;
+
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
@@ -35,8 +59,8 @@ public class Parser {
    *
    * @param input Input command.
    * @return Index of task specified in command.
-   * @throws InvalidTaskIndexException if index is invalid
-   * @throws TaskIndexMissingException if index is not specified
+   * @throws InvalidTaskIndexException If index is invalid.
+   * @throws TaskIndexMissingException If index is not specified.
    */
   public static int parseTaskIndex(String input) throws InvalidTaskIndexException, TaskIndexMissingException {
     String[] splitInput = input.split(" ", 3);
@@ -141,10 +165,10 @@ public class Parser {
   }
 
   /**
-   * Parses text input and returns DudeCommand instance.
+   * Parses text input and returns dude.command.DudeCommand instance.
    *
    * @param input Input to parse.
-   * @return DudeCommand instance parsed from input.
+   * @return dude.command.DudeCommand instance parsed from input.
    * @throws DudeException If command cannot be parsed.
    */
   public static DudeCommand parse(String input) throws DudeException {
@@ -152,7 +176,7 @@ public class Parser {
     String[] splitInput = input.split(" ", 2);
     String cmdString = splitInput[0].toLowerCase();
     try {
-      InputCommand cmd = InputCommand.valueOf(cmdString);
+      DudeCommandId cmd = DudeCommandId.valueOf(cmdString);
       switch (cmd) {
         case bye:
           return new ExitCommand();

@@ -1,3 +1,11 @@
+package dude.command;
+
+import dude.Storage;
+import dude.Ui;
+import dude.exception.DudeException;
+import dude.task.Task;
+import dude.task.TaskList;
+
 /**
  * Command to add task to Dude.
  */

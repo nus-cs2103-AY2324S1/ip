@@ -1,3 +1,5 @@
+package dude.exception;
+
 public class InvalidTaskIndexException extends DudeException {
   public InvalidTaskIndexException(String index) {
     super(
