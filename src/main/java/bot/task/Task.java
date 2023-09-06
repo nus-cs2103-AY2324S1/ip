@@ -44,6 +44,16 @@ public abstract class Task {
     }
 
     /**
+     * Returns true if pattern is present in task name (description), false otherwise
+     *
+     * @param pattern String pattern to find
+     * @return boolean based on presence of pattern in task name
+     */
+    public boolean hasPattern(String pattern) {
+        return this.name.contains(pattern);
+    }
+
+    /**
      * Returns a string of the task formatted to be stored in data/task.txt
      *
      * @return a String of the task
@@ -54,7 +64,7 @@ public abstract class Task {
         } else {
             return "false" + Task.UNIQUE_FILE_SEPARATOR + this.name;
         }
-    };
+    }
 
     /**
      * Converts the Task object into a String representation
