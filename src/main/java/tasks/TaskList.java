@@ -7,13 +7,13 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-    ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     /**
      * TaskList constructor that takes in an ArrayList<Task>.
      * @param tasks Arraylist of tasks object.
      */
-    public TaskList(ArrayList<Task> tasks){
+    public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
@@ -35,7 +35,7 @@ public class TaskList {
     }
 
     /**
-     *Checks if the list is empty.
+     * Checks if the list is empty.
      * @return True if the list is empty.
      */
     public boolean isTaskListEmpty() {

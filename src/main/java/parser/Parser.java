@@ -1,9 +1,19 @@
 package parser;
 
-import commands.*;
+import java.util.ArrayList;
+
+import commands.ByeCommand;
+import commands.Command;
+import commands.DeadlineCommand;
+import commands.DeleteCommand;
+import commands.EventCommand;
+import commands.FindCommand;
+import commands.ListCommand;
+import commands.MarkCommand;
+import commands.TodoCommand;
+import commands.UnmarkComment;
 import duke.DukeException;
 
-import java.util.ArrayList;
 
 /**
  * This class handles all string manipulation needed
@@ -39,7 +49,7 @@ public class Parser {
     /**
      * Parser empty constructor.
      */
-    public Parser(){
+    public Parser() {
     }
 
     /**
@@ -179,7 +189,7 @@ public class Parser {
             break;
         }
         }
-       return texts;
+        return texts;
     }
 
     /**

@@ -1,12 +1,13 @@
 package commands;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import storage.DataFile;
 import tasks.Task;
 import tasks.TaskList;
 import tasks.Todo;
 
-import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Represents a type of command that can be read by the chatbot.
@@ -51,6 +52,6 @@ public class TodoCommand extends Command {
     @Override
     public String toString() {
         return "Got it. I've added this task:\n" + task
-                + "\nNow you have " + size  + " tasks in the list.";
+                + "\nNow you have " + size + " tasks in the list.";
     }
 }

@@ -1,16 +1,18 @@
-package Storage;
+package storage;
 
-import org.junit.jupiter.api.Test;
-import storage.DataFile;
-import tasks.Deadline;
-import tasks.Task;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import tasks.Deadline;
+import tasks.Task;
 
 public class DataFileTest {
     @Test
@@ -21,7 +23,7 @@ public class DataFileTest {
             dF.writeToFile(task);
             BufferedReader br = new BufferedReader(new FileReader("src/test/data/existing.txt"));
             String line = br.readLine();
-            assertEquals("D*|,Study*|,2019-04-04T03:00*|,0",line);
+            assertEquals("D*|,Study*|,2019-04-04T03:00*|,0", line);
         } catch (IOException e) {
             System.out.println(e.getMessage());
             fail();

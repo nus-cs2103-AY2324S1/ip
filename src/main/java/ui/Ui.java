@@ -1,6 +1,5 @@
 package ui;
 
-import java.util.Scanner;
 
 /**
  * The programme that interacts with the user.
@@ -12,15 +11,18 @@ public class Ui {
      * @return User input.
      */
     public String readCommand() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
+        MainWindow mW = new MainWindow();
+        //Scanner scanner = new Scanner(System.in);
+        return mW.getUserInput();
     }
 
     /**
      * Displays welcome message to the user.
      */
     public void welcomeMsg() {
-        System.out.println("Hello! I'm Red\nWhat can I do for you?");
+        MainWindow mW = new MainWindow();
+        String str = mW.getResponse("Hello! I'm Red\nWhat can I do for you?");
+        //System.out.println("Hello! I'm Red\nWhat can I do for you?");
     }
 
 }

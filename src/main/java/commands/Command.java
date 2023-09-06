@@ -6,14 +6,14 @@ import tasks.TaskList;
 /**
  * Represents a command that can be read by the chatbot.
  */
-abstract public class Command {
+public abstract class Command {
 
     /**
      * Abstract method to implemented.
      * @param tasks List of tasks.
      * @param dF The file to be edited on.
      */
-    abstract public void execute(TaskList tasks , DataFile dF);
+    public abstract void execute(TaskList tasks , DataFile dF);
 
     /**
      * Returns a boolean depending the command.

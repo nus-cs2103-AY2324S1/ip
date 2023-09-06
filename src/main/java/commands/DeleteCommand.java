@@ -1,11 +1,12 @@
 package commands;
 
+import java.io.IOException;
+
 import duke.DukeException;
 import storage.DataFile;
 import tasks.Task;
 import tasks.TaskList;
 
-import java.io.IOException;
 
 /**
  * Represents a type of command that can be read by the chatbot.
@@ -38,7 +39,7 @@ public class DeleteCommand extends Command {
         size = tasks.getSize();
         this.task = task;
         System.out.println("Noted. I've removed this task:\n" + task
-                + "\nNow you have " + tasks.getSize()  + " tasks in the list.");
+                + "\nNow you have " + tasks.getSize() + " tasks in the list.");
         try {
             dF.deleteTaskFromFile(index);
         } catch (IOException e) {
@@ -54,6 +55,6 @@ public class DeleteCommand extends Command {
     @Override
     public String toString() {
         return "Noted. I've removed this task:\n" + task
-                + "\nNow you have " + size  + " tasks in the list.";
+                + "\nNow you have " + size + " tasks in the list.";
     }
 }

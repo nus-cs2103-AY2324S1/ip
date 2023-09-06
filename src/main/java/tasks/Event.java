@@ -20,7 +20,7 @@ public class Event extends Task {
      */
     public Event(String desc, LocalDateTime from, LocalDateTime to) {
         super(desc);
-        this.from =  from;
+        this.from = from;
         this.to = to;
     }
 

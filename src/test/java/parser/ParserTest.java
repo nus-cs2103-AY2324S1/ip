@@ -1,12 +1,13 @@
 package parser;
 
-import duke.DukeException;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+
+import duke.DukeException;
 
 public class ParserTest {
     @Test
@@ -75,9 +76,9 @@ public class ParserTest {
         }
     }
 
-/*
-Helper methods
- */
+    /*
+    Helper methods
+     */
     // deadline eat /by 2/2/2019 2222
     public void assertEqualsConvertTaskInput(String input) throws DukeException {
         ArrayList<String> texts = new Parser("D").convertTaskInput(input);

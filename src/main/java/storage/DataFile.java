@@ -1,12 +1,17 @@
 package storage;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import tasks.Task;
-import tasks.Todo;
+
 import tasks.Deadline;
 import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 
 /**
  * Handles all the manipulation of the file that is stored
@@ -28,7 +33,7 @@ public class DataFile {
         this.filePath = filePath;
         File directory = new File(filePath);
         File localFile = new File(filePath + "/" + fileName);
-        if (!directory.exists() ) {
+        if (!directory.exists()) {
             directory.mkdir();
             try {
                 new FileWriter(filePath + "/" + fileName);
@@ -104,7 +109,6 @@ public class DataFile {
         fW.write(oldContent.toString());
         fW.close();
     }
-    
     /**
      * Deletes a task from the file at line n.
      * @param n The line to be deleted.
@@ -126,7 +130,6 @@ public class DataFile {
         fW.write(oldContent.toString());
         fW.close();
     }
-
     /**
      * Read the data from the file and convert it to list of Tasks object.
      * @return List of Tasks in ArrayList.

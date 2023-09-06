@@ -1,9 +1,9 @@
 package duke;
 
-import parser.Parser;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import parser.Parser;
 
 /**
  * Converts the string input of date into date and time objects.
