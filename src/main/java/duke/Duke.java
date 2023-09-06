@@ -82,4 +82,8 @@ public class Duke {
             return e.getMessage();
         }
     }
+
+    String getWelcomeMessage() {
+        return ui.getWelcomeMessage();
+    }
 }

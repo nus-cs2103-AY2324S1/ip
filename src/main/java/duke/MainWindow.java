@@ -36,6 +36,11 @@ public class MainWindow {
         duke = d;
     }
 
+    public void addWelcomeMessage() {
+        Label welcomeLabel = new Label(duke.getWelcomeMessage());
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(welcomeLabel, new ImageView(dukeImage)));
+    }
+
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
