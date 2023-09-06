@@ -1,11 +1,19 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task{
-    String from;
-    String to;
+
+    private String fromStr;
+    private String toStr;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     public Event(String task, Boolean isNotSaved, String from, String to) {
         super(task, isNotSaved);
-        this.from = from;
-        this.to = to;
+        this.fromStr = from;
+        this.toStr = to;
+        this.from = parseDateTime(from);
+        this.to = parseDateTime(to);
         if (isNotSaved) {
             saveToFile();
         }
@@ -13,8 +21,15 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from:" + from + "to:" + to + ")";
+        String formattedFromDate = from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        String formattedFromTime = from.format(DateTimeFormatter.ofPattern("hh:mma"));
+        String formattedToDate = to.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        String formattedToTime = to.format(DateTimeFormatter.ofPattern("hh:mma"));
+
+        return "[E]" + super.toString() + " (from: " + formattedFromDate + " " + formattedFromTime
+                + " to: " + formattedToDate + " " + formattedToTime + ")";
     }
+
 
     public void print() {
         System.out.println(Duke.horizontalLine + "Got it. I've added this task:\n " + this.toString()+ "\n"
@@ -23,7 +38,7 @@ public class Event extends Task{
 
     public String generateStr() {
         return "E | " + (this.getStatus() == TaskStatus.DONE ? 1 : 0)
-                + " | " + this.getTask() + " | " + from + " | "+to;
+                + " | " + this.getTask() + " | " + fromStr + " | " + toStr;
     }
 
     @Override

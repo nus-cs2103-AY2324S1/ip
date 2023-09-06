@@ -1,4 +1,10 @@
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 public class Task {
     private String task;
@@ -52,15 +58,41 @@ public class Task {
         return this.task;
     }
 
+    public LocalDateTime parseDateTime(String dateTimeString) {
+        // Split the input string into date and time parts
+        String[] parts = dateTimeString.split(" ", 2);
+
+        // Check if there are exactly two parts (date and time)
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("Invalid date/time format: " + dateTimeString);
+        }
+
+        String datePart = parts[0];
+        String timePart = parts[1];
+
+        // Define a formatter for the date part, e.g., "dd/MM/yyyy"
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        // Parse the date part into a LocalDate object
+        LocalDate date = LocalDate.parse(datePart, dateFormatter);
+
+        // Define a formatter for the time part, e.g., "HHmm"
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
+        // Parse the time part into a LocalTime object
+        LocalTime time = LocalTime.parse(timePart, timeFormatter);
+
+        // Combine the date and time into a LocalDateTime object
+        return LocalDateTime.of(date, time);
+    }
+
     public void printList() {
-        int count = 0;
         System.out.println(Duke.horizontalLine + "Here are the tasks in your list:");
-        for (Task task : Duke.allTasks) {
-            count++;
-            System.out.println( count+". " + task.toString());
+        for (int i = 0; i < Duke.allTasks.size(); i++) {
+            Task task = Duke.allTasks.get(i);
+            System.out.println((i + 1) + ". " + task.toString());
         }
         System.out.println(Duke.horizontalLine);
     }
+
 
     public String getTaskType() {
         // Your logic to determine the task type based on the instance's actual class
@@ -126,6 +158,8 @@ public class Task {
         System.out.println(Duke.horizontalLine + "Noted. I've removed this task:\n" + deleteTask.toString()
         + "\n" + String.format("Now you have %d tasks in the list\n", counter) + Duke.horizontalLine );
     }
+
+
 
     public String generateStr() {
         return task;
