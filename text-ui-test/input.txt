@@ -1,9 +1,0 @@
-todo Eat
-Deadline shit /by Monday
-list
-mark 1
-event sleep /from monday /to tuesday
-mark 3
-list
-unmark 3
-list

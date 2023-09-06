@@ -31,17 +31,17 @@ public abstract class Task {
     /**
      * Marks the task as done.
      */
-    public void markTask() {
+    public String markTask() {
         this.isDone = true;
-        System.out.println("Heyyo! I've marked this task as done!\n" + this);
+        return "Heyyo! I've marked this task as done!\n" + this;
     }
 
     /**
      * Unmarks the task as done.
      */
-    public void unmarkTask() {
+    public String unmarkTask() {
         this.isDone = false;
-        System.out.println("Aww snap! I've unmarked this task!\n" + this);
+        return "Aww snap! I've unmarked this task!\n" + this;
     }
 
     /**

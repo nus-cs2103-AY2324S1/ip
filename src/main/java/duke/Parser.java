@@ -6,6 +6,8 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.ToDoTask;
 
+import java.lang.reflect.InvocationTargetException;
+
 /**
  * The Parser class is responsible for parsing user input and executing
  * the corresponding commands on the task list.
@@ -21,54 +23,48 @@ public class Parser {
      * @param input The user's input command.
      * @param tasks The TaskList instance to perform operations on.
      * @param ui    The Ui instance for user interaction.
+     * @return The result of executing the command as a String.
      * @throws DukeException If an error occurs during parsing or execution.
      */
-    public static void parse(String input, TaskList tasks, Ui ui) throws DukeException {
+    public static String parse(String input, TaskList tasks, Ui ui) throws DukeException {
         Parser.ui = ui;
         String[] parts = input.split(" ", 2);
         String command = parts[0];
-
-        switch (command) {
-        case "list":
-            tasks.listTask();
-            break;
-        case "delete":
-            int task = parseDeleteCommand(parts);
-            tasks.deleteTask(task, ui);
-            break;
-        case "todo":
-            ToDoTask toDoTask = parseTodoCommand(parts, false);
-            tasks.addTask(toDoTask, ui);
-            break;
-        case "deadline":
-            DeadlineTask deadlineTask = parseDeadline(parts[1], false);
-            tasks.addTask(deadlineTask, ui);
-            break;
-        case "event":
-            EventTask eventTask = parseEvent(parts[1], false);
-            tasks.addTask(eventTask, ui);
-            break;
-        case "mark":
-            int markTask = parseMarkCommand(parts) - 1;
-            if (markTask < 0 || markTask >= tasks.getTotalTasks()) {
-                System.out.println("There is no task for this number!");
-                break;
+        try {
+            switch (command) {
+            case "list":
+                return tasks.listTask();
+            case "delete":
+                int task = parseDeleteCommand(parts);
+                return tasks.deleteTask(task, ui);
+            case "todo":
+                ToDoTask toDoTask = parseTodoCommand(parts, false);
+                return tasks.addTask(toDoTask, ui);
+            case "deadline":
+                DeadlineTask deadlineTask = parseDeadline(parts[1], false);
+                return tasks.addTask(deadlineTask, ui);
+            case "event":
+                EventTask eventTask = parseEvent(parts[1], false);
+                return tasks.addTask(eventTask, ui);
+            case "mark":
+                int markTask = parseMarkCommand(parts) - 1;
+                if (markTask < 0 || markTask >= tasks.getTotalTasks()) {
+                    return ui.showNoTaskFound();
+                }
+                return tasks.getTask(markTask).markTask();
+            case "unmark":
+                int unmarkTask = parseUnmarkCommand(parts) - 1;
+                if (unmarkTask < 0 || unmarkTask >= tasks.getTotalTasks()) {
+                    return ui.showNoTaskFound();
+                }
+                return tasks.getTask(unmarkTask).unmarkTask();
+            case "find":
+                return tasks.findTasks(parseFindCommand(parts), ui);
+            default:
+                return ui.showInvalidCommand();
             }
-            tasks.getTask(markTask).markTask();
-            break;
-        case "unmark":
-            int unmarkTask = parseUnmarkCommand(parts) - 1;
-            if (unmarkTask < 0 || unmarkTask >= tasks.getTotalTasks()) {
-                System.out.println("There is no task for this number!");
-                break;
-            }
-            tasks.getTask(unmarkTask).unmarkTask();
-            break;
-        case "find":
-            tasks.findTasks(parseFindCommand(parts), ui);
-            break;
-        default:
-            System.out.println("You inputted an invalid command! Please try deadline, todo, or event :)");
+        } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException("The description of a deadline/event cannot be empty.");
         }
     }
 
@@ -82,7 +78,7 @@ public class Parser {
      * @return A Task object created from the provided information.
      * @throws DukeException If an error occurs during parsing.
      */
-    public static Task parse(String taskType, String taskDetails, boolean isDone) throws DukeException {
+    public static Task parseLoad(String taskType, String taskDetails, boolean isDone) throws DukeException {
         if (taskType.equalsIgnoreCase("[T")) {
             taskDetails = taskDetails.trim();
             return new ToDoTask(taskDetails, isDone);
@@ -100,7 +96,7 @@ public class Parser {
             throw new DukeException("The description of a find cannot be empty.");
         }
         String keyword = parts[1];
-        return parts[1];
+        return keyword;
     }
 
     /**

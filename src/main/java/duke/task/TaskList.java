@@ -33,10 +33,11 @@ public class TaskList {
      *
      * @param task The task to be added.
      * @param ui   The user interface for displaying messages.
+     * @return A confirmation message as a string.
      */
-    public void addTask(Task task, Ui ui) {
+    public String addTask(Task task, Ui ui) {
         tasks.add(task);
-        ui.showTaskAddedMessage(task, tasks.size());
+        return ui.showTaskAddedMessage(task, tasks.size());
     }
 
     /**
@@ -44,10 +45,11 @@ public class TaskList {
      *
      * @param index The index of the task to be deleted (1-based).
      * @param ui    The user interface for displaying messages.
+     * @return A confirmation message as a string.
      */
-    public void deleteTask(int index, Ui ui) {
+    public String deleteTask(int index, Ui ui) {
         Task removedTask = tasks.remove(index - 1);
-        ui.showTaskRemoveMessage(removedTask, tasks.size());
+        return ui.showTaskRemoveMessage(removedTask, tasks.size());
     }
 
     /**
@@ -69,8 +71,9 @@ public class TaskList {
      *
      * @param keyword The keyword to search for.
      * @param ui      The Ui instance to display the results.
+     * @return A message containing matching tasks as a string.
      */
-    public void findTasks(String keyword, Ui ui) {
+    public String findTasks(String keyword, Ui ui) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
 
         for (Task task : tasks) {
@@ -81,13 +84,14 @@ public class TaskList {
 
         if (matchingTasks.isEmpty()) {
             // No matching tasks found
-            ui.showNoMatchingTasksMessage();
+            return ui.showNoMatchingTasksMessage();
         } else {
             // Matching tasks found, display them to the user
-            ui.showFindTaskMessage();
+            String response = ui.showFindTaskMessage();
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println(i + 1 + ". " + matchingTasks.get(i));
+                response += i + 1 + ". " + matchingTasks.get(i) + "\n";
             }
+            return response;
         }
     }
     /**
@@ -111,16 +115,18 @@ public class TaskList {
     /**
      * Lists all tasks in the task list, displaying them in a numbered format.
      *
+     * @return A message containing all tasks as a string.
      * @throws DukeException If the task list is empty.
      */
-    public void listTask() throws DukeException {
+    public String listTask() throws DukeException {
         if (this.getTotalTasks() == 0) {
-            System.out.println("List is empty!");
+            return "List is empty!";
         } else {
-            System.out.println("Here are the tasks in your list:");
+            String response = "Here are the tasks in your list:\n";
             for (int item = 0; item < this.getTotalTasks(); item++) {
-                System.out.println(item + 1 + ". " + this.tasks.get(item));
+                response += item + 1 + ". " + this.tasks.get(item) + "\n";
             }
+            return response;
         }
     }
 }
