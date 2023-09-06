@@ -1,7 +1,7 @@
 package duke.task;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task with a description, completion status, and an event duration.
@@ -25,13 +25,15 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the event task, including its completion status icon, description, start date, and end date.
+     * Returns a string representation of the event task,
+     * including its completion status icon, description, start date, and end date.
      *
      * @return A formatted string representing the event task.
      */
     @Override
     public String toString() {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        return "[E]" + super.toString() + " (from: " + from.format(outputFormatter) + " to: " + to.format(outputFormatter) + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(outputFormatter)
+                + " to: " + to.format(outputFormatter) + ")";
     }
 }

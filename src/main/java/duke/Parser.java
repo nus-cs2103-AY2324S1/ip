@@ -6,6 +6,9 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
 
+/**
+ * Reads the users command.
+ */
 public class Parser {
 
     /**
@@ -23,39 +26,36 @@ public class Parser {
         } else if (command.startsWith("find")) {
             tasklist.findTasks(commandSplit[1]);
         } else {
-                if (command.startsWith("todo") ||
-                        command.startsWith("deadline") ||
-                        command.startsWith("event")) {
-                    addTask(command, tasklist);
-                } else if (command.startsWith("mark") ||
-                        command.startsWith("unmark") ||
-                        command.startsWith("delete")) {
-                    try {
-                        if (commandSplit.length > 2 || Integer.parseInt(commandSplit[1]) > tasklist.taskCount()) {
-                            throw new DukeException("Please enter a valid number");
-                        }
-                        int index = Integer.parseInt(commandSplit[1]) - 1;
-                        if (command.startsWith("mark")) {
-                            Ui.markTask(tasklist.getTask(index));
-                            tasklist.markTask(index);
-                        } else if (command.startsWith("unmark")) {
-                            Ui.unMarkTask(tasklist.getTask(index));
-                            tasklist.unMarkTask(index);
-                        } else {
-                            Ui.deleteTask(tasklist.getTask(index), tasklist.taskCount());
-                            tasklist.deleteTask(index);
-                            return;
-                        }
-                    } catch (NumberFormatException e) {
-                        throw new DukeException("Please enter a valid number");
-                    } catch (ArrayIndexOutOfBoundsException e) {
+            if (command.startsWith("todo") || command.startsWith("deadline")
+                    || command.startsWith("event")) {
+                addTask(command, tasklist);
+            } else if (command.startsWith("mark") || command.startsWith("unmark")
+                    || command.startsWith("delete")) {
+                try {
+                    if (commandSplit.length > 2 || Integer.parseInt(commandSplit[1]) > tasklist.taskCount()) {
                         throw new DukeException("Please enter a valid number");
                     }
-                } else {
-                    throw new DukeException("I'm sorry, but I don't know what that means :-(");
+                    int index = Integer.parseInt(commandSplit[1]) - 1;
+                    if (command.startsWith("mark")) {
+                        Ui.markTask(tasklist.getTask(index));
+                        tasklist.markTask(index);
+                    } else if (command.startsWith("unmark")) {
+                        Ui.unMarkTask(tasklist.getTask(index));
+                        tasklist.unMarkTask(index);
+                    } else {
+                        Ui.deleteTask(tasklist.getTask(index), tasklist.taskCount());
+                        tasklist.deleteTask(index);
+                    }
+                } catch (NumberFormatException e) {
+                    throw new DukeException("Please enter a valid number");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException("Please enter a valid number");
                 }
+            } else {
+                throw new DukeException("I'm sorry, but I don't know what that means :-(");
             }
         }
+    }
 
     /**
      * Add task to the task list based on the command.
