@@ -10,12 +10,26 @@ import tasks.ToDo;
 
 import java.util.Arrays;
 
+/**
+ * Command to add a task
+ */
 public class AddCommand extends Command {
 
+    /**
+     * Constructs the AddCommand object
+     */
     public AddCommand() {
         super();
     }
 
+    /**
+     * Constructs an `AddCommand` object with the given taskList, specified user input,
+     * marked status and boolean indicating whether it is loading from drive memory
+     * @param tasks  The given taskList
+     * @param ui the UI object containing the user input
+     * @param marked whether the task is marked
+     * @param load whether the task is loading from drive memory
+     */
     public void execute(TaskList<Task> tasks, Ui ui, boolean marked, boolean load) throws DukeException {
         if ((Arrays.asList("todo", "deadline", "event").contains(ui.get(0)))
                 && ui.length() == 1) {

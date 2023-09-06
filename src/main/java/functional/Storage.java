@@ -10,13 +10,25 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The storage task encapsulates loading and saving of stored TaskList
+ */
 public class Storage {
     String filePath;
 
+    /**
+     * Constructs a Storage object with the specified filePath
+     * @param filePath
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Load the task stored in the local drive
+     * @return TaskList retrieved from the drive
+     * @throws functional.DukeException
+     */
     public List<Task> load() throws functional.DukeException {
         File f = new File(filePath);
         functional.TaskList<Task> tl = new functional.TaskList<>();
@@ -39,6 +51,10 @@ public class Storage {
         return tl;
     }
 
+    /**
+     * Saves the current TaskList to the drive
+     * @param tl TaskList to be saved
+     */
     public void save(functional.TaskList<Task> tl) {
         File f = new File(filePath);
         if (!f.exists()) {
