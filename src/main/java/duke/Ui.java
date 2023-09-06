@@ -21,12 +21,10 @@ public class Ui {
     /**
      * Displays the welcome message to the user.
      */
-    public void showWelcome() {
-        showLine();
-        System.out.println("Hello! I'm Ken");
-        System.out.println("What can I do for you?");
-        showLine();
+    public String showWelcome() {
+        return "Hello! I'm Ken\n"+"What can I do for you?";
     }
+
 
     /**
      * Prints a line divider for differentiating user and the bot.
@@ -48,18 +46,28 @@ public class Ui {
     }
 
     /**
+     * Receives user input and adds it to the chat history.
+     * User for GUI.
+     *
+     * @return The user input as a string.
+     */
+    public void readInput(String input) {
+        history.add(input); // Update History
+    }
+
+    /**
      * Sends a response to the user and adds it to the chat history.
      *
      * @param response The response to be displayed to the user.
      */
     public void respond(String response) {
         history.add(response); // Update History
-        System.out.println("[Ken]\n" + response);
+        //System.out.println("[Ken]\n" + response);
     }
 
     public void showError(String error) {
-        System.out.println("OOPS! " + error);
         history.add(error); // Update History
+        //System.out.println("OOPS! " + error);
     }
 
     /**
