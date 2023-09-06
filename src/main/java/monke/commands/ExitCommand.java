@@ -15,13 +15,14 @@ public class ExitCommand extends Command {
     /**
      * Executes the ExitCommand to exit the application.
      *
-     * @param ui The user interface.
+     * @param ui      The user interface.
      * @param storage The storage to read and write data.
-     * @param tasks The list of tasks.
+     * @param tasks   The list of tasks.
+     * @return response given by Monke.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) {
-        ui.printExit();
+    public String execute(Ui ui, Storage storage, TaskList tasks) {
+        return "Bye. Hope to see you again soon! OOGA BOOGA!\n";
     }
 
     /**

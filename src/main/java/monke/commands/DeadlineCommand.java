@@ -39,14 +39,15 @@ public class DeadlineCommand extends Command {
      * @param ui      The user interface.
      * @param storage The storage to read and write data.
      * @param tasks   The list of tasks.
+     * @return response given by Monke.
      * @throws MonkeException If data cannot be saved in the storage.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws MonkeException {
+    public String execute(Ui ui, Storage storage, TaskList tasks) throws MonkeException {
         Deadline deadline = new Deadline(this.description, this.date);
         tasks.add(deadline);
         storage.saveData(tasks);
 
-        ui.showAddTask(deadline, tasks.size());
+        return ui.showAddTask(deadline, tasks.size());
     }
 }
