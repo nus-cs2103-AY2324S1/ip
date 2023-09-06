@@ -71,6 +71,7 @@ public class Event extends Task {
 
     /**
      * Determine if the date is between the event date.
+     *
      * @param date to compare.
      * @return true if the date is between the event date.
      */

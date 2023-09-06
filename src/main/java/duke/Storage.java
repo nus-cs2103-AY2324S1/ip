@@ -15,7 +15,7 @@ import java.util.Scanner;
 /**
  * FileManager that takes care of reading and writing takes to a file.
  */
-public  class Storage {
+public class Storage {
     private static String filePath = "./data/duke.txt";
 
     /**

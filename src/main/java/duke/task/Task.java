@@ -69,14 +69,8 @@ public abstract class Task {
     }
 
     /**
-     * Three different task types
-     */
-    protected enum TaskType {
-        TODO, DEADLINE, EVENT
-    }
-
-    /**
      * Determine if the task is on a specific date.
+     *
      * @param date to compare.
      * @return true if the task is at a date.
      */
@@ -86,5 +80,12 @@ public abstract class Task {
 
     public boolean contains(String keyword) {
         return this.description.contains(keyword);
+    }
+
+    /**
+     * Three different task types
+     */
+    protected enum TaskType {
+        TODO, DEADLINE, EVENT
     }
 }

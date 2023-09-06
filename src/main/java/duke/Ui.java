@@ -58,7 +58,7 @@ public class Ui {
     }
 
     public void showError(String error) {
-        System.out.println("OOPS! "+ error);
+        System.out.println("OOPS! " + error);
         history.add(error); // Update History
     }
 
@@ -68,6 +68,6 @@ public class Ui {
      * @return The last message.
      */
     public String getLastMsg() {
-        return history.get(history.size()-1);
+        return history.get(history.size() - 1);
     }
 }

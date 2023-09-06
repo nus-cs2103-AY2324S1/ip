@@ -3,9 +3,10 @@ package duke;
 import duke.command.*;
 import duke.exception.DukeException;
 
+
 /**
  * Class responsible for parsing user input and returning
- * a duke.command.Command object for execution.
+ * a command object for execution.
  */
 public class Parser {
     /**
