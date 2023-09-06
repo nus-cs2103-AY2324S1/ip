@@ -1,3 +1,10 @@
+package duke;
+
+import duke.command.DukeException;
+import duke.command.Parser;
+import duke.task.Task;
+import duke.task.TaskList;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -59,6 +66,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("./src/main/java/duke.txt").run();
+        new Duke("./src/main/java/duke/duke.txt").run();
     }
 }

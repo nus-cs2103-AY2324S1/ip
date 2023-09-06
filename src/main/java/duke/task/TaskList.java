@@ -1,9 +1,15 @@
+package duke.task;
+
+import duke.TaskType;
+import duke.command.DukeException;
+
+
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-class TaskList {
+public class TaskList {
     private ArrayList<Task> tasks;
     private String filePath = "./src/main/java/duke.txt";
 

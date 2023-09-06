@@ -1,7 +1,9 @@
+package duke.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-class DeadlineTask extends Task {
+public class DeadlineTask extends Task {
     private LocalDate byDate;
 
     public DeadlineTask(String description, LocalDate byDate, boolean isDone) {
