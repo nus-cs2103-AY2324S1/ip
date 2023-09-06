@@ -43,4 +43,21 @@ public class TaskList {
     public void markAsUndone(int index) {
         taskList.get(index).markAsUndone();
     }
+
+    /**
+     * Filters the list of tasks to correspond to tasks that match the keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return The arraylist of tasks that contains the keyword specified.
+     */
+    public ArrayList<Task> find(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getDescription().contains(keyword)) {
+                matchingTasks.add(taskList.get(i));
+            }
+        }
+        return matchingTasks;
+    }
 }

@@ -40,7 +40,6 @@ public class Ui {
         System.out.println("Now you have " + noOfTasks + " in the list.");
     }
 
-
     public void byeMessage() {
         System.out.println("Bye mate! Have a nice day :]");
     }

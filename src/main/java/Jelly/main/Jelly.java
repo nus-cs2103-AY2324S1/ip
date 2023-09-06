@@ -4,7 +4,6 @@ import java.util.Scanner;
 import Jelly.commands.Command;
 import Jelly.exceptions.JellyException;
 
-
 public class Jelly {
     private static final String FILE_PATH = "./taskData/jelly.txt";
     private final Scanner scanner = new Scanner(System.in);
