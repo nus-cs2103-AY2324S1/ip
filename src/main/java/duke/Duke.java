@@ -1,7 +1,5 @@
 package duke;
 
-import java.time.format.DateTimeFormatter;
-
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.parser.Parser;
@@ -18,14 +16,12 @@ import duke.ui.Ui;
  */
 public class Duke {
 
-    /**
-     * The date and time input format used for parsing date and time strings.
-     */
-    public static final DateTimeFormatter DATETIME_INPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+    private static final String DEFAULT_FILE_PATH = "src/data/duke.txt";
 
     private Storage storage;
     private TaskList items;
     private Ui ui;
+
 
     /**
      * Constructs a Duke instance.
@@ -41,6 +37,10 @@ public class Duke {
             ui.showLoadingError();
             items = new TaskList();
         }
+    }
+
+    public Duke() {
+        this(DEFAULT_FILE_PATH);
     }
 
     /**
@@ -62,6 +62,15 @@ public class Duke {
             } catch (DukeException e) {
                 ui.talk(e.getMessage());
             }
+        }
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(items, ui, storage);
+        } catch (DukeException e) {
+            return e.getMessage();
         }
     }
 

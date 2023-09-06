@@ -26,9 +26,9 @@ public class UnmarkCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public void execute(TaskList items, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList items, Ui ui, Storage storage) throws DukeException {
         Task item = items.unmark(unmarkIndex);
-        ui.unmarkItem(item.toString());
         storage.writeData(items.getItems());
+        return ui.unmarkItem(item.toString());
     }
 }
