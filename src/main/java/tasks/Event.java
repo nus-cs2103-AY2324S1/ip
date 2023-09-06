@@ -11,6 +11,11 @@ public class Event extends Task {
     String[] splitEnd;
     String startDate;
 
+    /**
+     * Constructs a new Event task with the specified user input.
+     * @param content The user input to create an event
+     * @param status  marked or unmarked
+     */
     public Event(String content, boolean status) {
         super(content, status);
         split1 = content.split("/", 2);
@@ -34,14 +39,24 @@ public class Event extends Task {
 
     }
 
+    /**
+     * @return the event as marked [X]
+     */
     public Event mark() {
         return new Event(super.getContent(), true);
     }
 
+    /**
+     * @return the event as unmarked [ ]
+     */
     public Event unmark() {
         return new Event(super.getContent(), false);
     }
 
+    /**
+     * @param listSize size of the current TaskList
+     * @return a String consisting of a message displayed when adding an event to TaskList
+     */
     public String addTask(int listSize) {
         return "____________________________________________________________\n" +
                 "Got it. I've added this task:\n" +
@@ -50,6 +65,9 @@ public class Event extends Task {
                 "____________________________________________________________";
     }
 
+    /**
+     * @return a String message describing the event
+     */
     public String toString() {
         String[] result = split1[0].split(" ", 2);
         if (!super.isMarked()) {

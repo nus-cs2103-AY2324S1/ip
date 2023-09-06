@@ -10,6 +10,11 @@ public class Deadline extends Task {
     String[] split2;
     String dueDate;
 
+    /**
+     * Constructs a new Deadline task with the user command and 'mark' status
+     * @param content  input given by the user
+     * @param status marked or unmarked
+     */
     public Deadline(String content, boolean status) {
         super(content, status);
         split1 = content.split("/", 2);
@@ -26,14 +31,25 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * @return The deadline object but marked [X]
+     */
     public Deadline mark() {
         return new Deadline(super.getContent(), true);
     }
 
+    /**
+     * @return The Deadline object but unmarked [ ]
+     */
     public Deadline unmark() {
         return new Deadline(super.getContent(), false);
     }
 
+    /**
+     *
+     * @param listSize
+     * @return a string that contains the message printed when a task is added to TaskList
+     */
     public String addTask(int listSize) {
         return "____________________________________________________________\n" +
                 "Got it. I've added this task:\n" +
@@ -42,6 +58,9 @@ public class Deadline extends Task {
                 "____________________________________________________________";
     }
 
+    /**
+     * @return The status of this task through a string
+     */
     public String toString() {
         String[] result = split1[0].split(" ", 2);
         if (!super.isMarked()) {
