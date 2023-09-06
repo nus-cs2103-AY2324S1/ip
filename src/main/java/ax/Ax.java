@@ -30,7 +30,7 @@ public class Ax extends Application {
     private Button sendButton;
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image ax = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image ax = new Image(this.getClass().getResourceAsStream("/images/DaAx.png"));
     /**
      * the main command for Ax chatbot
      *
@@ -166,6 +166,6 @@ public class Ax extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        return "Ax heard: " + input;
+        return Parser.getInputString(input);
     }
 }

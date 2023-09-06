@@ -83,4 +83,31 @@ public class Ui {
         }
         hoLine();
     }
+
+    /**
+     * Displays the current to-do list.
+     */
+    public static String listTheListString() {
+        String res = "";
+        for (int i = 1; i < TaskList.getListItems().size() + 1; i++) {
+            System.out.printf("%d. %s%n", i, TaskList.getListItems().get(i - 1));
+            res += String.format("%d. %s%n", i, TaskList.getListItems().get(i - 1)) + "\n";
+        }
+        return res;
+    }
+
+    /**
+     * Displays the current to-do list, but FILTERED based on the search string entered
+     * @param str the string that you want to search by
+     */
+    public static String listTheListString(String str) {
+        String res = "";
+        for (int i = 1; i < TaskList.getListItems().size() + 1; i++) {
+            if (TaskList.getListItems().get(i - 1).toString().contains(str)) {
+                System.out.printf("%d. %s%n", i, TaskList.getListItems().get(i - 1));
+                res += String.format("%d. %s%n", i, TaskList.getListItems().get(i - 1)) + "\n";
+            }
+        }
+        return res;
+    }
 }

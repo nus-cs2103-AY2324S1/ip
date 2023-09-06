@@ -1,4 +1,4 @@
-package ax.display;
+package ax;
 
 import ax.Ax;
 import javafx.application.Application;
