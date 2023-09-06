@@ -8,6 +8,13 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    public Event(String description, String startTime, String endTime, boolean isDone) {
+        super(description);
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.isDone = isDone;
+    }
+
     public static Event createNewEventTask(String description) {
         String[] splitMessage1 = description.split(" /from ");
         String[] splitMessage2 = splitMessage1[1].split(" /to ");

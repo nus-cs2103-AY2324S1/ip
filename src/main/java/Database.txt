@@ -1,0 +1,4 @@
+[T][X] borrow book
+[E][ ] project meeting (from: Mon 2pm to: 4pm))
+[T][X] burn book
+[T][ ] Collect clothes
