@@ -28,14 +28,16 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the task list and updates storage.
+     * Adds a task to the task list.
      *
      * @param task The task to be added.
+     * @return A message confirming the addition of the task.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         this.tasks.add(task);
         this.taskNum += 1;
         store.saveTasks(this.tasks);
+        return Ui.addTask(task, taskNum);
     }
 
     /**
@@ -58,48 +60,56 @@ public class TaskList {
     }
 
     /**
-     * Marks a task as done at the specified index and updates storage.
+     * Marks a task as done in the task list.
      *
      * @param index The index of the task to mark as done.
+     * @return A message confirming the task has been marked as done.
      */
-    public void markTask(int index) {
+    public String markTask(int index) {
         store.saveTasks(this.tasks);
         this.tasks.get(index).markAsDone();
+        return Ui.markTask(this.tasks.get(index));
     }
 
     /**
-     * Marks a task as not done at the specified index and updates storage.
+     * Marks a task as not done in the task list.
      *
      * @param index The index of the task to mark as not done.
+     * @return A message confirming the task has been marked as not done.
      */
-    public void unMarkTask(int index) {
+    public String unMarkTask(int index) {
         store.saveTasks(this.tasks);
         this.tasks.get(index).markAsNotDone();
+        return Ui.unMarkTask(this.tasks.get(index));
     }
 
     /**
-     * Deletes a task at the specified index, updates task count, and updates storage.
+     * Deletes a task from the task list.
      *
      * @param index The index of the task to delete.
+     * @return A message confirming the deletion of the task.
      */
-    public void deleteTask(int index) {
+    public String deleteTask(int index) {
+        String desc = this.tasks.get(index).toString();
         this.tasks.remove(index);
         this.taskNum -= 1;
         store.saveTasks(this.tasks);
+        return Ui.deleteTask(desc, taskNum);
     }
 
     /**
-     * Searches for tasks containing the specified keyword and displays the found tasks.
+     * Finds tasks containing a specific keyword.
      *
-     * @param keyword The keyword to search for.
+     * @param keyword The keyword to search for in task descriptions.
+     * @return A message listing tasks that match the keyword.
      */
-    public void findTasks(String keyword) {
+    public String findTasks(String keyword) {
         ArrayList<Task> foundTasks = new ArrayList<Task>();
         for (Task tsk : this.tasks) {
             if (tsk.getDesc().contains(keyword)) {
                 foundTasks.add(tsk);
             }
         }
-        Ui.findTasks(foundTasks);
+        return Ui.findTasks(foundTasks);
     }
 }

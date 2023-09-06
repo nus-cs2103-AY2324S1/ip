@@ -17,22 +17,20 @@ public class Duke {
      * Greets the user, handles user interactions, and displays farewell message upon exit.
      */
     public void greetAndFarewell() {
-        Ui.greetings();
+        Ui.greet();
         Scanner scanner = new Scanner(System.in);
         String command = scanner.nextLine();
         while (!command.equals("bye")) {
-            Ui.showLine();
-            try {
-                Parser.readTask(command, taskList);
-            } catch (DukeException e) {
-                Ui.showError(e);
-            }
-            Ui.showLine();
+            Parser.readTask(command, taskList);
             command = scanner.nextLine();
         }
 
         scanner.close();
         Ui.exit();
+    }
+
+    public String reply(String command) {
+        return Parser.readTask(command, taskList);
     }
 
     /**

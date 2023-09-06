@@ -12,114 +12,113 @@ import duke.task.TaskList;
 public class Ui {
 
     /**
-     * Displays a greeting message.
-     */
-    public static void greetings() {
-        showLine();
-        System.out.println(" Hello! I'm Paimon");
-        System.out.println(" What can I do for you?");
-        showLine();
-    }
-
-    /**
-     * Displays an exit message.
-     */
-    public static void exit() {
-        showLine();
-        System.out.println(" Bye. Hope to see you again soon!");
-        showLine();
-    }
-
-    /**
-     * Displays a message indicating that a task has been added.
+     * Generates a welcome message.
      *
-     * @param task The added task.
-     * @param taskCount The current number of tasks in the list.
+     * @return A welcome message.
      */
-    public static void addTask(Task task, int taskCount) {
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + task.toString());
-        System.out.println(" Now you have " + taskCount + " tasks in the list.");
+    public static String greet() {
+        return "Hello! I'm Paimon\nWhat can I do for you?";
     }
 
     /**
-     * Displays a message indicating that a task has been marked as done.
+     * Generates a goodbye message.
      *
-     * @param task The marked task.
+     * @return A goodbye message.
      */
-    public static void markTask(Task task) {
-        System.out.println(" Nice! I've marked this task as done:");
-        System.out.println("   " + task.toString());
+    public static String exit() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
-     * Displays a message indicating that a task has been marked as not done.
+     * Generates a message confirming the addition of a task.
      *
-     * @param task The marked task.
+     * @param task      The task that was added.
+     * @param taskCount The total number of tasks after addition.
+     * @return A message confirming the addition of the task.
      */
-    public static void unMarkTask(Task task) {
-        System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.println("   " + task.toString());
+    public static String addTask(Task task, int taskCount) {
+        String a = "Got it. I've added this task:\n";
+        String c = "\nNow you have " + taskCount + " tasks in the list.";
+        return a + task.toString() + c;
     }
 
     /**
-     * Displays a message indicating that a task has been deleted.
+     * Generates a message confirming the marking of a task as done.
      *
-     * @param task The deleted task.
-     * @param count The updated number of tasks in the list.
+     * @param task The task that was marked as done.
+     * @return A message confirming the marking of the task as done.
      */
-    public static void deleteTask(Task task, int count) {
-        System.out.println(" Noted. I've removed this task:");
-        System.out.println("   " + task.toString());
-        System.out.println(" Now you have " + (count - 1) + " tasks in the list.");
+    public static String markTask(Task task) {
+        return "Nice! I've marked this task as done:\n" + task.toString();
     }
 
     /**
-     * Displays a message indicating that no existing tasks were found.
+     * Generates a message confirming the marking of a task as not done.
+     *
+     * @param task The task that was marked as not done.
+     * @return A message confirming the marking of the task as not done.
      */
-    public static void noTaskList() {
-        showLine();
-        System.out.println("No existing tasks, creating new task list...");
-        showLine();
+    public static String unMarkTask(Task task) {
+        return "Ok, I've marked this task as not done yet:\n" + task.toString();
     }
 
     /**
-     * Displays matching tasks based on a keyword search.
+     * Generates a message confirming the removal of a task.
+     *
+     * @param desc  The task description.
+     * @param count The total number of tasks after removal.
+     * @return A message confirming the removal of the task.
+     */
+    public static String deleteTask(String desc, int count) {
+        String a = "Noted. I've removed this task:\n";
+        String c = "\nNow you have " + count + " tasks in the list.";
+        return a + desc + c;
+    }
+
+    /**
+     * Generates a message indicating the creation of a new task list.
+     *
+     * @return A message indicating the creation of a new task list.
+     */
+    public static String noTaskList() {
+        return "No existing tasks, creating new task list...";
+    }
+
+    /**
+     * Generates a message listing matching tasks.
      *
      * @param tasks The list of matching tasks.
+     * @return A message listing the matching tasks.
      */
-    public static void findTasks(ArrayList<Task> tasks) {
-        System.out.println(" Here are the matching tasks in your list:");
+    public static String findTasks(ArrayList<Task> tasks) {
+        String ans = "Here are the matching tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(" " + (i + 1) + "." + tasks.get(i).toString());
+            ans += (i + 1) + "." + tasks.get(i).toString() + "\n";
         }
+        return ans;
     }
 
     /**
-     * Displays the list of tasks in the task list.
+     * Generates a message listing all tasks in a task list.
      *
-     * @param taskList The task list to display.
+     * @param taskList The task list containing the tasks.
+     * @return A message listing all tasks in the task list.
      */
-    public static void listTasks(TaskList taskList) {
-        System.out.println(" Here are the tasks in your list:");
+    public static String listTasks(TaskList taskList) {
+        String ans = "Here are the tasks in your list:\n";
         for (int i = 0; i < taskList.taskCount(); i++) {
-            System.out.println(" " + (i + 1) + "." + taskList.getTask(i).toString());
+            ans += (i + 1) + "." + taskList.getTask(i).toString() + "\n";
         }
+        return ans;
     }
 
     /**
-     * Displays a separator line.
-     */
-    public static void showLine() {
-        System.out.println("---------------------------------------------------------------");
-    }
-
-    /**
-     * Displays an error message for a DukeException.
+     * Generates an error message for a Duke exception.
      *
-     * @param e The DukeException to display.
+     * @param e The Duke exception.
+     * @return An error message for the Duke exception.
      */
-    public static void showError(DukeException e) {
-        System.out.println(e.toString());
+    public static String showError(DukeException e) {
+        return e.toString();
     }
 }
