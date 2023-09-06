@@ -1,6 +1,10 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,7 +17,7 @@ public class Duke {
 
     public static void main(String[] args) {
         String name = "Johnnythesnake";
-        System.out.println("Hello I'm " + name + "\n" + "What can I do for you?");
+        System.out.println("Hello I'm " + name + "\n" + "What can I do for you? Aside from completing your CS2103 project for you");
         Scanner scanner = new Scanner(System.in);
         String filename = "tasks.txt";
         // Create a File object with the filename
@@ -25,7 +29,7 @@ public class Duke {
             System.out.println(tasksList);
         }
         while (true) {
-            System.out.print("Enter a command: ");
+            System.out.println("Enter a command: ");
             String command = scanner.nextLine();
             if (command.equalsIgnoreCase("bye")) { // bye exits the code
                 Exit exit = new Exit();
@@ -76,6 +80,7 @@ public class Duke {
             } else if (command.startsWith("deadline")) {
                 // Split the input
                 String descriptionDeadline = command.substring(8).trim(); // Remove "deadline" and leading spaces
+
                 if (descriptionDeadline.isEmpty()) {
                     try {
                         throw new EmptyDeadlineException();
@@ -88,18 +93,25 @@ public class Duke {
 
                     if (separatorIndex != -1) { // Ensure the separator exists in the input
                         // Extract the task description and deadline
+
                         String description = descriptionDeadline.substring(0, separatorIndex).trim();
                         String deadline = descriptionDeadline.substring(separatorIndex + 4).trim();
-
-                        // Create a new Deadline object
-                        Deadline deadlineTask = new Deadline(description, false, deadline);
-                        tasksList.add(deadlineTask);
-
-                        System.out.println("Got it. I've added this deadline:");
-                        System.out.println("  " + deadlineTask);
-                        System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
+                        String pattern = "\\d{4}/\\d{2}/\\d{2}";
+                        Pattern datePattern = Pattern.compile(pattern);
+                        Matcher matcher = datePattern.matcher(deadline);
+                        if (matcher.find()) {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                            LocalDate localDateDeadline = LocalDate.parse(deadline, formatter);
+                            Deadline deadlineTask = new Deadline(description,false, localDateDeadline);
+                            tasksList.add(deadlineTask);
+                            System.out.println("Got it. I've added this deadline:");
+                            System.out.println("  " + deadlineTask);
+                            System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
+                        } else {
+                            System.out.println("Please input your deadline in YYYY/MM/DD format");
+                        }
                     } else {
-                        System.out.println("Invalid input format for deadline command.");
+                        System.out.println("Invalid input format for deadline. Please input in the following format: <deadline> <description> /by <YYYY/MM/DD> ");
                     }
                 }
             } else if (command.startsWith("event")) {
