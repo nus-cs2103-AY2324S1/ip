@@ -20,6 +20,7 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
+import javafx.beans.InvalidationListener;
 
 /**
  * Represents an archive of tasks in the Duke application.
@@ -40,27 +41,27 @@ public class TaskList {
     /**
      * Prints the list of tasks in the archive along with their indices.
      */
-    public void print() {
+    public String getAll() {
+        String res = "";
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(i + ". " + list.get(i));
+            res += i + ". " + list.get(i) + "\n";
         }
+        return res;
     }
 
+    public int getSize() {
+        return list.size();
+    }
     /**
      * Marks a task as completed based on user input.
      *
      * @param input The input string containing the task index to mark.
      * @throws OutOfIndexException If the provided index is out of the valid range.
      */
-    public void markTask(String input) throws OutOfIndexException {
-        int item = input.charAt(5) - '0';
-        if (item < 0 || item > list.size() - 1) {
-            throw new OutOfIndexException();
-        }
-        Task curr = list.get(item);
+    public String markTask(int index) {
+        Task curr = list.get(index);
         curr.setMark(true);
-        System.out.println("I HAVE MARKED THIS TASK:");
-        System.out.println(curr);
+        return "I HAVE MARKED THIS TASK:" + curr;
     }
 
     /**
@@ -69,15 +70,10 @@ public class TaskList {
      * @param input The input string containing the task index to unmark.
      * @throws OutOfIndexException If the provided index is out of the valid range.
      */
-    public void unmarkTask(String input) throws OutOfIndexException {
-        int item = input.charAt(5) - '0';
-        if (item < 0 || item > list.size() - 1) {
-            throw new OutOfIndexException();
-        }
-        Task curr = list.get(item);
+    public String unmarkTask(int index) {
+        Task curr = list.get(index);
         curr.setMark(false);
-        System.out.println("I HAVE UNMARKED THIS TASK:");
-        System.out.println(curr);
+        return "I HAVE UNMARKED THIS TASK:" + curr;
     }
 
     /**
@@ -86,15 +82,10 @@ public class TaskList {
      * @param input The input string containing the task index to delete.
      * @throws OutOfIndexException If the provided index is out of the valid range.
      */
-    public void deleteTask(String input) throws OutOfIndexException {
-        int item = input.charAt(7) - '0';
-        if (item < 0 || item > list.size() - 1) {
-            throw new OutOfIndexException();
-        }
-        Task curr = list.remove(item);
-        System.out.println("I HAVE DELETED THE FOLLOWING TASK:");
-        System.out.println(curr);
-        System.out.println("NOW YOU HAVE " + list.size() + " TASKS LEFT");
+    public String deleteTask(int index) {
+        Task curr = list.remove(index);
+        return "I HAVE DELETED THE FOLLOWING TASK:" + curr + "\nNOW YOU HAVE "
+                + list.size() + " TASKS LEFT";
     }
 
     /**
@@ -110,55 +101,18 @@ public class TaskList {
      * @throws MissingTitleException  If a task is missing its title.
      * @throws InvalidInputException  If the input doesn't match any valid task format.
      */
-    public void addTask(String input) throws InvalidDateFormatException, EmptyDeadlineException,
-            EmptyTodoException, EmptyEventException, MissingByException, MissingFromException,
-            MissingToException, MissingTitleException, InvalidInputException {
+    public String addTask(String[] input) throws InvalidInputException, InvalidDateFormatException {
         Task added = null;
-        if (input.startsWith("todo")) {
-            if (input.length() < 6) {
-                throw new EmptyTodoException();
-            }
-            String title = input.substring(5);
-            added = new Todo(title, false);
-        } else if (input.startsWith("deadline")) {
-            if (input.length() < 10) {
-                throw new EmptyDeadlineException();
-            }
-            int index = input.indexOf("/by");
-            if (index == -1) {
-                throw new MissingByException();
-            }
-            if (index < 10) {
-                throw new MissingTitleException();
-            }
-            String title = input.substring(9, index - 1);
-            String dueDate = input.substring(index + 4);
-            added = new Deadline(title, parseDate(dueDate), false);
-        } else if (input.startsWith("event")) {
-            if (input.length() < 7) {
-                throw new EmptyEventException();
-            }
-            int fromIndex = input.indexOf("/from");
-            if (fromIndex == -1) {
-                throw new MissingFromException();
-            }
-            if (fromIndex < 7) {
-                throw new MissingTitleException();
-            }
-            String title = input.substring(6, fromIndex - 1);
-            int toIndex = input.indexOf("/to");
-            if (toIndex == -1) {
-                throw new MissingToException();
-            }
-            String from = input.substring(fromIndex + 6, toIndex - 1);
-            String to = input.substring(toIndex + 4);
-            added = new Event(title, parseDate(from), parseDate(to), false);
+        if (input[0].equals("todo")) {
+            added = new Todo(input[1], false);
+        } else if (input[0].equals("deadline")) {
+            added = new Deadline(input[1], parseDate(input[2]), false);
+        } else if (input[0].equals("event")) {
+            added = new Event(input[0], parseDate(input[1]), parseDate(input[2]), false);
         }
         if (added != null) {
             list.add(added);
-            System.out.println("I'VE ADDED THIS TASK:");
-            System.out.println(added);
-            System.out.println("YOU HAVE " + list.size() + " TASKS IN THE LIST");
+            return ("I'VE ADDED THIS TASK: " + added + "\nYOU HAVE " + list.size() + " TASKS IN THE LIST");
         } else {
             throw new InvalidInputException();
         }
@@ -173,6 +127,9 @@ public class TaskList {
      */
     public LocalDateTime parseDate(String input) throws InvalidDateFormatException {
         try {
+            if (input.length() == 10) {
+                input += " 12:00";
+            }
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
             LocalDateTime dateTime = LocalDateTime.parse(input, formatter);
             return dateTime;
@@ -188,21 +145,17 @@ public class TaskList {
      * @return A list of tasks that match the search criteria.
      * @throws InvalidFindException If the provided search input is too short to be valid.
      */
-    public List<Task> find(String input) throws InvalidFindException {
-        if (input.length() < 5) {
-            throw new InvalidFindException();
-        }
-        String keywords = input.substring(5);
+    public String find(String keywords) throws InvalidFindException {
         List<Task> filteredTasks = new ArrayList<>();
         for (Task curr : list) {
             if (curr.getTitle().indexOf(keywords) != -1) {
                 filteredTasks.add(curr);
             }
         }
-        System.out.println("TASKS FOUND:");
+        String res = "TASKS FOUND:\n";
         for (int i = 0; i < filteredTasks.size(); i++) {
-            System.out.println(i + ". " + filteredTasks.get(i));
+            res += i + ". " + filteredTasks.get(i) + "\n";
         }
-        return filteredTasks;
+        return res;
     }
 }
