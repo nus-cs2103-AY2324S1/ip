@@ -1,3 +1,8 @@
 T |   | Homework
 T |   | lunch
 D |   | lunch | 2023-08-30
+T |   | random
+E |   | birthday | 2023-09-05 | 9PM | 10PM
+T |   | test
+T |   | home work
+D |   | a b c | 2023-09-06

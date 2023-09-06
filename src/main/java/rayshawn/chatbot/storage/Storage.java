@@ -67,7 +67,7 @@ public class Storage {
      * @return task list from storage file
      * @throws StorageOperationException if there were errors reading and/or converting data from file.
      */
-    public TaskList load() throws StorageOperationException {
+    public TaskList loadTasks() throws StorageOperationException {
         if (!Files.exists(path) || !Files.isRegularFile(path)) {
             return new TaskList();
         }
@@ -81,10 +81,6 @@ public class Storage {
         } catch (ChatBotException e) {
             throw new StorageOperationException("File contains illegal data values; data type constraints not met");
         }
-    }
-
-    public String getPath() {
-        return path.toString();
     }
 
     /**

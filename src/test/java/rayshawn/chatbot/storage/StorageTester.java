@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import rayshawn.chatbot.exceptions.ChatBotException;
 
+/**
+ * Used to test Storage.
+ */
 public class StorageTester {
 
     private static final String TEST_DATA_FOLDER = "src/test/data/StorageTest.txt";
@@ -15,6 +18,11 @@ public class StorageTester {
         assertThrows(NullPointerException.class, () -> new Storage(null));
     }
 
+    /**
+     * Used to test Constructor if there is no Txt file extension.
+     *
+     * @throws Exception
+     */
     @Test
     public void constructor_noTxtExtension_exceptionThrown() throws Exception {
         assertThrows(ChatBotException.class, () ->

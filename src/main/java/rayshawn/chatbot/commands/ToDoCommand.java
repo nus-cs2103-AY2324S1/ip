@@ -28,7 +28,9 @@ public class ToDoCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        System.out.println(toAdd.toString());
         taskList.addTask(toAdd);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS + getTaskListCount(taskList.getAllTasks()),
                 toAdd, taskList.getAllTasks()));
     }
