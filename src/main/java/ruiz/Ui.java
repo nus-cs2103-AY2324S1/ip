@@ -1,8 +1,8 @@
 package ruiz;
 
-import ruiz.task.Task;
-
 import java.util.ArrayList;
+
+import ruiz.task.Task;
 
 /**
  * Deals with the interactions with the user.
@@ -12,10 +12,10 @@ public class Ui {
      * This method prints the greeting message of the bot.
      */
     public void printGreet() {
-        String greet = "____________________________________________________________\n" +
-                " Hello! I'm Ruiz\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________";
+        String greet = "____________________________________________________________\n"
+                + " Hello! I'm Ruiz\n"
+                + " What can I do for you?\n"
+                + "____________________________________________________________";
         System.out.println(greet);
     }
 
@@ -23,9 +23,9 @@ public class Ui {
      * This method prints the goodbye message of the bot.
      */
     public void printBye() {
-        String bye = "____________________________________________________________\n" +
-                "Bye! Comeback soon!\n" +
-                "____________________________________________________________";
+        String bye = "____________________________________________________________\n"
+                + "Bye! Comeback soon!\n"
+                + "____________________________________________________________";
         System.out.println(bye);
     }
 
@@ -40,26 +40,39 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * This method prints out the message when the bot is unable to save the task
+     */
     public void unableToSaveTask() {
-        System.out.println("____________________________________________________________\n" +
-                "Unable to save task" +
-                "____________________________________________________________");
+        System.out.println("____________________________________________________________\n"
+                + "Unable to save task"
+                + "____________________________________________________________");
     }
 
+    /**
+     * This method prints out the message when the input is in the wrong format.
+     */
     public void wrongFormat() {
-        System.out.println("____________________________________________________________\n" +
-                "Please input your date and time in the correct format: yyyy-MM-dd HHmm\n" +
-                "____________________________________________________________");
+        System.out.println("____________________________________________________________\n"
+                + "Please input your date and time in the correct format: yyyy-MM-dd HHmm\n"
+                + "____________________________________________________________");
     }
 
+    /**
+     * This method returns the message that the bot prints when the input cannot be understood.
+     * @return error message
+     */
     public String botErrorMsg() {
         return "OOPS!!! I'm sorry, but I don't know what that means :-(";
     }
 
+    /**
+     * This method prints a message that it is unable to read the input file.
+     */
     public void unableToLoadFile() {
-        System.out.println("____________________________________________________________\n" +
-                "There is no pre-existing list\n" +
-                "____________________________________________________________");
+        System.out.println("____________________________________________________________\n"
+                + "There is no pre-existing list\n"
+                + "____________________________________________________________");
     }
 
     /**
@@ -68,11 +81,11 @@ public class Ui {
      * @param taskListSize size of the task list after this task is added.
      */
     public void addedNewTaskMsg(Task task, int taskListSize) {
-        System.out.println("____________________________________________________________\n" +
-                "Got it. I've added this task:\n" +
-                task +
-                "\nNow you have " + taskListSize + " in the list.\n" +
-                "____________________________________________________________"
+        System.out.println("____________________________________________________________\n"
+                + "Got it. I've added this task:\n"
+                + task
+                + "\nNow you have " + taskListSize + " in the list.\n"
+                + "____________________________________________________________"
         );
     }
 
@@ -82,10 +95,10 @@ public class Ui {
      * @param taskListSize size of the task list after the task is deleted.
      */
     public void deletedTask(Task task, int taskListSize) {
-        System.out.println("____________________________________________________________\n" +
-                "Noted. I've removed this task:\n" + task);
-        System.out.println("Now you have " + taskListSize + " in the list.\n" +
-                "____________________________________________________________");
+        System.out.println("____________________________________________________________\n"
+                + "Noted. I've removed this task:\n" + task);
+        System.out.println("Now you have " + taskListSize + " in the list.\n"
+                + "____________________________________________________________");
     }
 
     /**
@@ -93,11 +106,11 @@ public class Ui {
      * @param task task that is marked.
      */
     public void unmarkTask(Task task) {
-        System.out.println("____________________________________________________________\n" +
-                "OK, I've marked this task as not done yet\n" +
-                task +
-                "\n" +
-                "____________________________________________________________\n");
+        System.out.println("____________________________________________________________\n"
+                + "OK, I've marked this task as not done yet\n"
+                + task
+                + "\n"
+                + "____________________________________________________________\n");
     }
 
     /**
@@ -105,10 +118,10 @@ public class Ui {
      * @param task
      */
     public void markTask(Task task) {
-        System.out.println("____________________________________________________________\n" +
-                "Nice! I've marked this task as done\n" +
-                task +
-                "\n" +
-                "____________________________________________________________");
+        System.out.println("____________________________________________________________\n"
+                + "Nice! I've marked this task as done\n"
+                + task
+                + "\n"
+                + "____________________________________________________________");
     }
 }

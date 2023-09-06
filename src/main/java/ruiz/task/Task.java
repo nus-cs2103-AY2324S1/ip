@@ -4,8 +4,8 @@ package ruiz.task;
  * Represents a task that has a description and completion check.
  */
 public class Task {
-    private boolean completed;
-    private String description, type;
+    private boolean isCompleted;
+    private String description;
 
     /**
      * A constructor for the public Task class.
@@ -13,7 +13,7 @@ public class Task {
      * @param description contains the description of the task.
      */
     public Task(String description) {
-        this.completed = false;
+        this.isCompleted = false;
         this.description = description;
     }
 
@@ -21,14 +21,14 @@ public class Task {
      * Marks the current task.
      */
     public void mark() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     /**
      * Unmarks the current task.
      */
     public void unmark() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -37,7 +37,7 @@ public class Task {
      * @return String representation of the task in its storage format.
      */
     public String saveTaskString() {
-        return completed ? " | 1 | " + description : " | 0 | " + description;
+        return isCompleted ? " | 1 | " + description : " | 0 | " + description;
     }
 
     /**
@@ -58,7 +58,7 @@ public class Task {
     @Override
     public String toString() {
         String mark = "[ ]";
-        if (this.completed) {
+        if (this.isCompleted) {
             mark = "[X]";
         }
         return mark + " " + description;

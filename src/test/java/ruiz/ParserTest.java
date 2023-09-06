@@ -1,11 +1,12 @@
 package ruiz;
 
-import org.junit.jupiter.api.Test;
-import ruiz.command.Command;
-import ruiz.exception.BotException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import ruiz.command.Command;
+import ruiz.exception.BotException;
 
 public class ParserTest {
     @Test
@@ -37,8 +38,8 @@ public class ParserTest {
                             "event project meeting /from 2019-11-11 1200 "));
             fail();
         } catch (BotException e) {
-            assertEquals("OOPS!!! The description the event is incomplete." +
-                    "it should be in the format 'event *** /from *** /to ***'", e.getMessage());
+            assertEquals("OOPS!!! The description the event is incomplete."
+                    + "it should be in the format 'event *** /from *** /to ***'", e.getMessage());
         }
     }
 

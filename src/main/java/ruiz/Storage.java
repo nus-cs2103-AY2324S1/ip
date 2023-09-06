@@ -1,10 +1,5 @@
 package ruiz;
 
-import ruiz.task.Deadlines;
-import ruiz.task.Events;
-import ruiz.task.Task;
-import ruiz.task.ToDos;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -12,13 +7,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import ruiz.task.Deadlines;
+import ruiz.task.Events;
+import ruiz.task.Task;
+import ruiz.task.ToDos;
+
 /**
  * Class manages all things that due with the storing of tasks on the hard disk.
  */
 public class Storage {
-    Parser parser;
-    String filePath;
-    File textFile;
+    private Parser parser;
+    private String filePath;
+    private File textFile;
 
     /**
      * A constructor for the Storage class.
@@ -83,6 +83,7 @@ public class Storage {
                     event.mark();
                 }
                 break;
+            default:
             }
         }
         return taskList;

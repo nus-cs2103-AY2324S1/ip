@@ -36,7 +36,7 @@ public class Events extends Task {
      * This method converts the value of an Event into a String type.
      *
      * @return the String representation of the event with its type, completion status,
-     * beginning time and ending time.
+     *     beginning time and ending time.
      */
     @Override
     public String toString() {

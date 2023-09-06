@@ -1,11 +1,11 @@
 package ruiz.task;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import ruiz.Parser;
 import ruiz.Ui;
 import ruiz.exception.BotException;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Represents a list of tasks.
@@ -154,7 +154,7 @@ public class TaskList {
     /**
      * This method creates an event and adds it to the list of tasks.
      *
-     * @param input contains the keyWord "event" and the description of the event
+     * @param input contains the command "event" and the description of the event
      *              with the time it takes place from and ends by.
      * @throws BotException if the input is not in the form a valid event.
      */
@@ -167,6 +167,12 @@ public class TaskList {
         ui.addedNewTaskMsg(temp, this.getTaskListSize());
     }
 
+    /**
+     * This method finds tasks that contain the keyword passed in.
+     *
+     * @param input contains the command "find" and the "keyword"
+     * @throws BotException if the input is not in the form a valid "find".
+     */
     public void findTasksWithKeyword(String input) throws BotException {
         ArrayList<Task> tasksWithKeyword = new ArrayList<>();
         String keyword = parser.getKeyword(input);

@@ -76,8 +76,8 @@ public class Parser {
      */
     public String getDeadlineDescription(String input) throws BotException {
         if (input.split("/by", 2).length <= 1) {
-            throw new BotException("OOPS!!! The description the deadline is incomplete," +
-                    " it should be in the format 'deadline *** /by ***'");
+            throw new BotException("OOPS!!! The description the deadline is incomplete,"
+                    + " it should be in the format 'deadline *** /by ***'");
         }
         return input.split(" ", 2)[1].split(" /by ")[0];
     }
@@ -91,9 +91,9 @@ public class Parser {
      */
     public String getBy(String input) throws BotException {
         if (input.split("/by", 2).length <= 1) {
-            throw new BotException("OOPS!!! The description the deadline is incomplete," +
-                    " it should be in the 'format deadline *** /by ***'" +
-                    "");
+            throw new BotException("OOPS!!! The description the deadline is incomplete,"
+                    + " it should be in the 'format deadline *** /by ***'"
+                    + "");
         }
         return input.split(" ", 2)[1].split(" /by ")[1];
     }
@@ -107,8 +107,8 @@ public class Parser {
      */
     public String getEventDescription(String input) throws BotException {
         if (input.split("/").length <= 2) {
-            throw new BotException("OOPS!!! The description the event is incomplete." +
-                    "it should be in the format 'event *** /from *** /to ***'");
+            throw new BotException("OOPS!!! The description the event is incomplete."
+                    + "it should be in the format 'event *** /from *** /to ***'");
         }
         return input.split(" ", 2)[1].split(" /from")[0];
     }
@@ -122,8 +122,8 @@ public class Parser {
      */
     public String getFrom(String input) throws BotException {
         if (input.split("/").length <= 2) {
-            throw new BotException("OOPS!!! The description the event is incomplete." +
-                    "it should be in the format 'event *** /from *** /to ***'");
+            throw new BotException("OOPS!!! The description the event is incomplete."
+                    + "it should be in the format 'event *** /from *** /to ***'");
         }
         return input.split(" ", 2)[1].split(" /from ")[1].split(" /")[0];
     }

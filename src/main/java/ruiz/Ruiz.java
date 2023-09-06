@@ -1,18 +1,19 @@
 package ruiz;
 
-import ruiz.command.Command;
-import ruiz.exception.BotException;
-import ruiz.task.TaskList;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+import ruiz.command.Command;
+import ruiz.exception.BotException;
+import ruiz.task.TaskList;
+
 /**
  * Ruiz is a task management chatbot.
  */
 public class Ruiz {
+    private static String filePath = "tasks.txt";
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
@@ -75,6 +76,7 @@ public class Ruiz {
                     break;
                 case UNKNOWN:
                     throw new BotException(ui.botErrorMsg());
+                default:
                 }
                 this.storage.saveTasks(this.tasks.getTaskList());
             } catch (BotException e) {
@@ -88,6 +90,6 @@ public class Ruiz {
     }
 
     public static void main(String[] args) {
-        new Ruiz("tasks.txt").run();
+        new Ruiz(filePath).run();
     }
 }
