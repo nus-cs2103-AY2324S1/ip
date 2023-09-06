@@ -17,6 +17,7 @@ public class TaskList extends ArrayList<Task> {
     /**
      * TaskList when the user is not using the bot for the first time
      * Used to start the bot back with the saved data
+     * 
      * @param sc is used to read the contents in the saved file
      *           so that the user is able to continue changing
      *           the taskList such as adding, removing and editing task details
@@ -32,6 +33,7 @@ public class TaskList extends ArrayList<Task> {
 
     /**
      * Add a task into the taskList
+     * 
      * @param task is the task to be added
      */
     public void addTask(Task task) {
@@ -40,6 +42,7 @@ public class TaskList extends ArrayList<Task> {
 
     /**
      * Removes a task from a taskList
+     * 
      * @param taskNumber is the order of the task that is in the
      *                   taskList
      * @return the task to be deleted
@@ -51,20 +54,25 @@ public class TaskList extends ArrayList<Task> {
     /**
      * Prints out the current taskList
      */
-    public void printList() {
+    public String printList() {
+        String output = "Here are the tasks in your list:\n";
         System.out.println("Here are the tasks in your list:");
         for (int length = 1; length < this.size() + 1; length += 1) {
+            output += length + "." + this.get(length - 1) + "\n";
             System.out.println(length + "." + this.get(length - 1));
         }
+        return output;
     }
 
-    public void findTaskFromTaskList(String keyword) {
+    public String findTaskFromTaskList(String keyword) {
         int count = 1;
+        String output = "";
         for (Task task : this) {
             if (task.toString().contains(keyword)) {
-                System.out.println(count + ": " + task);
+                output += count + ": " + task + "\n";
                 count += 1;
             }
         }
+        return output;
     }
 }

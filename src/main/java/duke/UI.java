@@ -17,21 +17,23 @@ public class UI {
     /**
      * Describes what the bot say when you start it
      */
-    public void welcome() {
+    public String welcome() {
         String name = "DukeKing";
         String welcome = "Hello! I'm " + name + "\nWhat can I do for you?";
         printLine();
         System.out.println(welcome);
         printLine();
+        return welcome;
     }
 
     /**
      * Describes what the bot say when you end the program
      */
-    public void bye() {
+    public String bye() {
         printLine();
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -46,11 +48,12 @@ public class UI {
      * 
      * @param task Take in the task to be marked
      */
-    public void markTask(Task task) {
+    public String markTask(Task task) {
         String markingTask = "Nice! I've marked this task as done:";
         String output = String.format("%s\n%s", markingTask, task);
         printLine();
         System.out.println(output);
+        return output;
     }
 
     /**
@@ -58,11 +61,12 @@ public class UI {
      * 
      * @param task Take in the task to be unmarked
      */
-    public void unMarkTask(Task task) {
+    public String unMarkTask(Task task) {
         String markingTask = "Nice! I have unmarked the task :";
         String output = String.format("%s\n%s", markingTask, task);
         printLine();
         System.out.println(output);
+        return output;
     }
 
     /**
@@ -71,7 +75,7 @@ public class UI {
      * @param list       Take in the taskList to delete the task from it
      * @param taskNumber Take in the task to be deleted from the taskList
      */
-    public void deleteTask(TaskList tasks, int taskNumber) {
+    public String deleteTask(TaskList tasks, int taskNumber) {
         String deletingTask = "Noted. I've removed this task:";
         int taskInArray = tasks.size() - 1;
         Task removedTask = tasks.deleteTask(taskNumber);
@@ -79,6 +83,7 @@ public class UI {
         String output = String.format("%s\n  %s\n%s", deletingTask, removedTask, numberOfTask);
         printLine();
         System.out.println(output);
+        return output;
     }
 
     /**
@@ -87,24 +92,29 @@ public class UI {
      * @param task Take in the task to be added
      * @param list Takes in the TaskList that the task is added to
      */
-    public void addTask(Task task, TaskList tasks) {
+    public String addTask(Task task, TaskList tasks) {
         String addingTask = "Got it. I've added this task:";
         String numberOfTask = "Now you have " + tasks.size() + " tasks in the list.";
         String output = String.format("%s\n  %s\n%s", addingTask, task, numberOfTask);
         printLine();
         System.out.println(output);
+        return output;
     }
 
     /**
      * Describes the case without a file the required to save the tasks
      */
-    public void noFile() {
+    public String noFile() {
         printLine();
         System.out.println("OOPS!!! There is no file to load.");
+        return "OOPS!!! There is no file to load.";
     }
 
-    public void findTask() {
+    public String findTask(String keyword, TaskList tasks) {
         printLine();
-        System.out.println("Here are the matching tasks in your list:");
+        String output = "Here are the matching tasks in your list: \n";
+        output += tasks.findTaskFromTaskList(keyword);
+        System.out.println(output);
+        return output;
     }
 }
