@@ -72,6 +72,10 @@ public class Duke {
         ui.closeScanner();
     }
 
+    public String getGreeting() {
+        return ui.getGreetMessage();
+    }
+
 
     /**
      * Runs the main programme.

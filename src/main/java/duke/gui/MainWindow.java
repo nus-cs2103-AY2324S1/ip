@@ -40,6 +40,9 @@ public class MainWindow {
 
     public void setDuke(Duke d) {
         duke = d;
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(d.getGreeting(), dukeImage)
+        );
     }
 
     /**
