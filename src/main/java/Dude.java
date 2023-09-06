@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Dude {
 
@@ -17,7 +19,7 @@ public class Dude {
         nTasks += 1;
         System.out.printf("Now you have %d tasks in the list. \n", nTasks);
     }
-    public static void addDeadline(String task, String by) {
+    public static void addDeadline(String task, LocalDateTime by) {
         Deadline newTask = new Deadline(task, by);
 //        taskList[nTasks] = newTask;
         taskList.add(newTask);
@@ -116,6 +118,7 @@ public class Dude {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
+                //System.out.println(line);
                 String[] taskInfo = line.split("\\s+\\|\\s+");
 
                 Task task;
@@ -126,7 +129,11 @@ public class Dude {
                     taskList.add(task);
                     nTasks += 1;
                 } else if (taskInfo[0].equals("D")) {
-                    task = new Deadline(taskInfo[2], taskInfo[3]);
+                    String byInput = taskInfo[3]; // ISO-8601 e.g. 2023-09-06T14:30
+                    LocalDateTime by = LocalDateTime.parse(byInput);
+                    // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                    // LocalDateTime by = LocalDateTime.parse(byInput, formatter);
+                    task = new Deadline(taskInfo[2], by);
                     task.setDone(taskInfo[1] == "1");
                     taskList.add(task);
                     nTasks += 1;
@@ -177,8 +184,11 @@ public class Dude {
                 if (words.length == 1) {
                     System.out.println("OOPS!!! The description of a deadline cannot be empty.");
                 }
-                String[] taskWords = input.substring(9).split(" /");
-                String by = taskWords[1].substring(3);
+
+                String[] taskWords = input.substring(9).split(" /by ");
+                String byInput = taskWords[1]; //dd/mm/yyyy hh:mm format
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+                LocalDateTime by = LocalDateTime.parse(byInput, formatter);
                 addDeadline(taskWords[0], by);
                 saveTasksToDisk();
             } else if (words[0].equals("event")) {
