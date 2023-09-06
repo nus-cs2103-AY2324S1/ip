@@ -16,9 +16,14 @@ public class Ui {
     /**
      * Shows welcome message.
      */
-    public static String showWelcome() {
+    public static String showWelcomeMessage() {
         return ("Hello I'm iP");
     }
+
+    /**
+     * Shows goodbye message.
+     */
+    public static String showGoodbyeMessage() { return ("Bye!"); }
 
     /**
      * Shows a list of tasks.

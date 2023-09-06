@@ -31,7 +31,9 @@ public class Duke {
         try {
             String commandType = Parser.parseCommandType(input);
             switch (Objects.requireNonNull(commandType)) {
-            case "bye" -> System.out.println("not done yet");
+            case "bye" -> {
+                return Ui.showGoodbyeMessage();
+            }
             case "list" -> {
                 return Ui.listTasks(tasks.getTasks());
             }
@@ -62,6 +64,9 @@ public class Duke {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+    public String showWelcomeMessage() {
+        return Ui.showWelcomeMessage();
     }
 
     public static void main(String[] args) {
