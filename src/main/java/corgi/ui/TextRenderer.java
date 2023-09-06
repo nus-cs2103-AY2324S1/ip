@@ -16,12 +16,16 @@ public class TextRenderer {
     private static final Map<String, String> errorMessage = ErrorMessage.MAPPER;
 
     /**
-     * Display a message to the console.
+     * Return lines of messages.
      *
-     * @param s The message to display.
+     * @param messages All message to display in different line.
      */
-    private void println(String s) {
-        System.out.println(s);
+    private String returnMessage(String ... messages) {
+        String msg = "";
+        for (String message : messages) {
+            msg += message + "\n";
+        }
+        return msg;
     }
 
     /**
@@ -35,7 +39,9 @@ public class TextRenderer {
      * Display the introductory message.
      */
     public String showIntro() {
-        return "Woof! I'm Corgi!\n" + "So, what's your wish this time, hooman?\n";
+        return returnMessage(
+                "Woof! I'm Corgi!", 
+                "So, what's your wish this time, hooman?");
     }
 
     /**
@@ -47,7 +53,10 @@ public class TextRenderer {
         String defaultErrorMessage = "Oh wonderful, you've broken something. And guess what? "
                 + "I have \nabsolutely no idea what happened either."
                 + "\n\nError: " + exception + " occurred!";
-        return "Woof?!\n" + errorMessage.getOrDefault(exception, defaultErrorMessage);
+        return returnMessage(
+                "Woof?!",
+                "",
+                errorMessage.getOrDefault(exception, defaultErrorMessage));
     }
 
     /**
@@ -58,7 +67,9 @@ public class TextRenderer {
      * @param extraMsg  The extra message.
      */
     public String showError(String exception, String extraMsg) {
-        return this.showError(exception) + "\nError: " + extraMsg;
+        return returnMessage(
+            this.showError(exception), 
+            "Error: " + extraMsg);
     }
 
     /**
@@ -67,7 +78,7 @@ public class TextRenderer {
      * @param c The specific command type.
      */
     public String showCommandFormat(CommandType c) {
-        return "Format: " + c.getCommandFormat();
+        return returnMessage("Format: " + c.getCommandFormat());
     }
 
     /**
@@ -78,22 +89,24 @@ public class TextRenderer {
      * @param currentListSize The current size of the task list.
      */
     public String showTaskAdded(String type, String taskInfo, int currentListSize) {
-        return "Woof, whatever. I've added this " + type + ":\n\n " 
-                + taskInfo + "\n\nNow you have " + currentListSize + " tasks in the list.";
+        return returnMessage(
+                "Woof, whatever. I've added this " + type + ":\n", 
+                taskInfo, 
+                "\nNow you have " + currentListSize + " " + (currentListSize > 1 ? "tasks" : "task") + " in the list.");
     }
 
     /**
      * Display a message indicating tasks have been loaded from data file.
      */
     public String showTasksLoaded(int size) {
-        return "Successfully loaded " + size + " tasks!";
+        return returnMessage("Successfully loaded " + size + " tasks!");
     }
 
     /**
      * Display a exit message.
      */
     public String showExitMsg() {
-        return "Fine! Whatever! Just go away then! See if I care! huffs";
+        return returnMessage("Fine! Whatever! Just go away then! See if I care! huffs");
     }
 
     /**
@@ -102,7 +115,7 @@ public class TextRenderer {
      * @param date The target date.
      */
     public String showNoTaskOnDate(String date) {
-        return "No tasks or events are scheduled for " + date + ".";
+        return returnMessage("No tasks or events are scheduled for " + date + ".");
     }
 
     /**
@@ -112,7 +125,7 @@ public class TextRenderer {
      * @param tasksOnDate The tasks occurred on the target date.
      */
     public String showTasksOnDate(String date, String tasksOnDate) {
-        return "Here are the tasks and events happening on " + date + ":\n" + tasksOnDate;
+        return returnMessage("Here are the tasks and events happening on " + date + ":", tasksOnDate);
     }
 
     /**
@@ -121,7 +134,7 @@ public class TextRenderer {
      * @param keyword The target keyword.
      */
     public String showNoTaskContainsKeyword(String keyword) {
-        return "No tasks containing keyword \"" + keyword + "\".";
+        return returnMessage("No task containing keyword \"" + keyword + "\".");
     }
 
     /**
@@ -131,7 +144,9 @@ public class TextRenderer {
      * @param tasksContainKeyword The tasks containing the target keyword.
      */
     public String showTasksContainKeyword(String keyword, String tasksContainKeyword) {
-        return "Here are the tasks containing keyword \"" + keyword + "\":\n" + tasksContainKeyword;
+        return returnMessage(
+                "Here are the tasks containing keyword \"" + keyword + "\":", 
+                tasksContainKeyword);
     }
 
     /**
@@ -140,8 +155,10 @@ public class TextRenderer {
      * @param taskInfo Information about the added task.
      */
     public String showTaskDone(String taskInfo) {
-        return "Congratulations, I guess! You finally managed to do something right:\n"
-                + "\n " + taskInfo + "\n";
+        return returnMessage(
+                "Congratulations, I guess! You finally managed to do something right:", 
+                "", 
+                taskInfo);
     }
 
     /**
@@ -150,8 +167,10 @@ public class TextRenderer {
      * @param taskInfo Information about the added task.
      */
     public String showTaskUndone(String taskInfo) {
-        return "Oh great, you've undone something. Just like always:\n"
-                + "\n " + taskInfo + "\n";
+        return returnMessage(
+                "Oh great, you've undone something. Just like always:", 
+                "", 
+                taskInfo);
     }
 
     /**
@@ -161,15 +180,19 @@ public class TextRenderer {
      * @param currentListSize Current size of the list.
      */
     public String showTaskDeleted(String taskInfo, int currentListSize) {
-        return "Finally got rid of that task. Took you long enough... uninterested woof\n"
-                + "\n " + taskInfo + "\n\nNow you have " + currentListSize + " tasks in the list.";
+        return returnMessage(
+                "Finally got rid of that task. Took you long enough... uninterested woof ~", 
+                "", 
+                taskInfo, 
+                "", 
+                "Now you have " + currentListSize + " " + (currentListSize > 1 ? "tasks" : "task") + " in the list.");
     }
 
     /**
      * Display a mesage indicating there is no task in the list.
      */
     public String showNoTaskInList() {
-        return "If you haven't noticed, there's nothing here! No tasks to be found.";
+        return returnMessage("If you haven't noticed, there's nothing here! No task to be found.");
     }
 
     /**
