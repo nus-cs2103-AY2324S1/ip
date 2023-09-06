@@ -11,7 +11,7 @@ public class EmptyTaskException extends DukeException {
      *
      * @param msg The type of task for which the description is left empty.
      */
-    public EmptyTaskException (String msg) {
+    public EmptyTaskException(String msg) {
         super("☹ OOPS!!! The description of a " + msg + " cannot be empty.");
     }
 }

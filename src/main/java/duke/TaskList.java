@@ -1,16 +1,16 @@
 package duke;
 
-import duke.exception.DukeException;
-import duke.exception.EmptyTaskException;
-import duke.exception.EmptyDateException;
-import duke.exception.NoEndDateException;
-import duke.exception.InvalidRangeException;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
+import duke.exception.DukeException;
+import duke.exception.EmptyDateException;
+import duke.exception.EmptyTaskException;
+import duke.exception.InvalidRangeException;
+import duke.exception.NoEndDateException;
 
 /**
  * Tasklist is a class in-charge of task list.
@@ -42,7 +42,7 @@ public class TaskList {
      * @return String message to be printed
      * @throws DukeException If userInput does not meet task requirements.
      */
-    public String addTask(String userInput) throws DukeException{
+    public String addTask(String userInput) throws DukeException {
         Task newTask = createNewTask(userInput);
         this.tasks.add(newTask);
         return ("Got it. I've added this task:\n " + newTask

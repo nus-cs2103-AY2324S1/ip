@@ -1,13 +1,15 @@
 package duke;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
 import duke.exception.DukeException;
 import duke.exception.EmptyDateException;
 import duke.exception.EmptyTaskException;
 import duke.exception.NoEndDateException;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * The {@code TaskListTest} class contains JUnit tests for the {@link TaskList} class.

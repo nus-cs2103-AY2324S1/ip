@@ -1,15 +1,14 @@
 package duke;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import duke.exception.DukeException;
 import duke.exception.EmptyDateException;
 import duke.exception.EmptyTaskException;
 import duke.exception.NoEndDateException;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * The duke.Storage class is responsible for loading tasks from the file and saving tasks in the file.
@@ -23,7 +22,7 @@ public class Storage {
      *
      * @param filepath The file path where the tasks are stored.
      */
-    public Storage (String filepath) {
+    public Storage(String filepath) {
         this.filepath = filepath;
     }
 
@@ -84,7 +83,7 @@ public class Storage {
             if (arr.length < 3 || arr[2].isEmpty()) {
                 throw new EmptyTaskException("deadline");
             }
-            if (arr.length != 4|| arr[3].isEmpty()) {
+            if (arr.length != 4 || arr[3].isEmpty()) {
                 throw new EmptyDateException("deadline");
             }
 

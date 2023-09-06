@@ -4,7 +4,7 @@ package duke;
  * The duke.ToDo class represents a task that has to be done.
  * It extends the duke.Task class.
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
     /**
      * Constructor for duke.ToDo class.
      *

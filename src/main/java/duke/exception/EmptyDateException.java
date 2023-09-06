@@ -5,7 +5,7 @@ package duke.exception;
  * It extends the duke.exception.DukeException class.
  * It is thrown when the date of a deadline or event task is empty.
  */
-public class EmptyDateException extends DukeException{
+public class EmptyDateException extends DukeException {
     /**
      * Constructor for duke.exception.EmptyDateException class.
      *
