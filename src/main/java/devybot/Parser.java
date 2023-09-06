@@ -7,7 +7,7 @@ import devybot.exceptions.UnknownCommandException;
 public class Parser {
     private static boolean isRun = true;
     private static enum CommandType {
-        TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, LIST, BYE, UNKNOWN
+        TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, LIST, BYE, UNKNOWN, FIND
     }
 
     public static CommandType getCommandType(String command) {
@@ -49,6 +49,9 @@ public class Parser {
                 break;
             case LIST:
                 taskList.listTasks();
+                break;
+            case FIND:
+                taskList.findTasks(userInput);
                 break;
             default:
                 throw new UnknownCommandException();

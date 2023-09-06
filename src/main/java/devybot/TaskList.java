@@ -161,4 +161,22 @@ public class TaskList {
         String outpString = "OK, I've marked this task as not done yet:\n  " + currentTask;
         Ui.showMessage(outpString);
     }
+
+    public void findTasks(String userInput) throws EmptyDescriptionException {
+        String description = userInput.substring(4).trim();
+        if (description.isEmpty()) {
+            throw new EmptyDescriptionException("todo");
+        }
+
+        String outpString = "Here are the matching tasks in your list:\n";
+
+        for (int i = 0; i < taskList.size(); i++) {
+            Task currentTask = taskList.get(i);
+            if (currentTask.isMatching(description)) {
+                outpString += currentTask.toString();
+            }
+        }
+        Ui.showMessage(outpString);
+
+    }
 }
