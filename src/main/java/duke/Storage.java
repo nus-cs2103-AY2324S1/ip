@@ -64,7 +64,7 @@ public class Storage {
                 String description = parts[2];
                 description = description.replace("(", "");
                 description = description.replace(")", "");
-                Task task = Parser.parse(taskType, description, isDone);
+                Task task = Parser.parseLoad(taskType, description, isDone);
                 loadedTasks.add(task);
             }
             scanner.close();

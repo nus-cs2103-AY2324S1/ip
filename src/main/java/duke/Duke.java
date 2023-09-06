@@ -30,38 +30,31 @@ public class Duke {
     }
 
     /**
-     * Starts the Duke application. It displays a welcome message and
-     * enters a loop to read user commands until the "bye" command is
-     * received, at which point it saves tasks to storage and exits.
+     * Retrieves the welcome message from the user interface.
      *
-     * @throws DukeException If there is an issue with Duke's execution.
+     * @return A welcome message as a string.
      */
-    public void start() throws DukeException {
-        ui.showWelcomeMessage();
-        while (true) {
-            String command = ui.getUserInput();
-            if (command.equalsIgnoreCase("bye")) {
-                ui.showGoodbyeMessage();
-                ui.closeScanner();
-                break;
-            } else {
-                try {
-                    Parser.parse(command, tasks, ui);
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-        }
-        storage.saveTasks(tasks.getTasks());
+    public String welcomeMessage() {
+        return ui.showWelcomeMessage();
     }
 
     /**
-     * The main entry point for the Duke application.
+     * Processes user input and returns a response.
      *
-     * @param args Command-line arguments (not used in this application).
-     * @throws DukeException If there is an issue with Duke's execution.
+     * @param input The user's input command.
+     * @return The response message as a string.
      */
-    public static void main(String[] args) throws DukeException {
-        new Duke().start();
+    public String getResponse(String input) {
+        try {
+            if (input.equalsIgnoreCase("save")) {
+                storage.saveTasks(tasks.getTasks());
+                return "List saved!";
+            } else {
+                String response = Parser.parse(input, tasks, ui);
+                return response;
+            }
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
     }
 }
