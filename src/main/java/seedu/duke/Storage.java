@@ -3,6 +3,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+/**
+ * use to intereact with duke.txt a txt file that stores the TaskList.
+ *
+ * @param directory The file path to where your list.
+ */
 class Storage {
     private String directory;
 
