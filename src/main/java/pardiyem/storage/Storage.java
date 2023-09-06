@@ -19,12 +19,22 @@ public class Storage {
     static final String DEFAULT_PATH = "./data/storagefile.txt";
     File f;
 
+    /**
+     * A constructor for the Storage class. Initialises the default data directory and file.
+     */
     public Storage() throws IOException{
         f = new File(DEFAULT_PATH);
         f.getParentFile().mkdirs();
         f.createNewFile();
     }
 
+    /**
+     * Saves the given TaskList object into a data file by calling toString() on each member
+     * of the list and writing it to the file, each separated by a newline.
+     *
+     * @param tl the TaskList object to be saved into the data file
+     * @throws IOException if the writing process fails
+     */
     public void save(TaskList tl) throws IOException {
         ArrayList<Task> curr = tl.getList();
         FileWriter fw = new FileWriter(f);
@@ -39,7 +49,14 @@ public class Storage {
         fw.close();
     }
 
-    public TaskList load() throws FileNotFoundException, IOException{
+    /**
+     * Loads a TaskList object by reading a data file,
+     * calling the parseLine method on each line and
+     * adding the outputted Task object to the list
+     *
+     * @throws IOException if the reading process fails
+     */
+    public TaskList load() throws IOException{
         ArrayList<Task> out = new ArrayList<Task>();
         BufferedReader br = new BufferedReader(new FileReader(f));
         String line = br.readLine();
