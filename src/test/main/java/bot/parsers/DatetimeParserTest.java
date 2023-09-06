@@ -11,6 +11,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class DatetimeParserTest {
 
+    /**
+     * Test to see if DateTimeParseBotException will be thrown if the format of string for
+     * instantiating a LocalDateTime object is wrong
+     */
     @Test
     public void parseTimeInput_wrongFormat_exceptionThrown() {
         try {

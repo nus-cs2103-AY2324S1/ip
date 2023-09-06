@@ -13,12 +13,27 @@ public class EventCommand extends Command {
     private final TaskList taskList;
     private final Event event;
 
+    /**
+     * Creates an instance of EventCommand object
+     *
+     * @param taskList the list of tasks
+     * @param taskDetail task description
+     * @param timeFrom start time of task formatted 'd/MM/yyyy HH:mm'
+     * @param timeTo end time of task formatted 'd/MM/yyyy HH:mm'
+     * @throws DateTimeParseBotException if timeFrom and timeTo argument is not formatted correctly
+     */
     public EventCommand(TaskList taskList, String taskDetail, String timeFrom,
                         String timeTo) throws DateTimeParseBotException {
         this.taskList = taskList;
         this.event = new Event(taskDetail, timeFrom, timeTo);
     }
 
+    /**
+     * Execute a series of instructions specific to creating adding an Event object
+     *
+     * @throws FileErrorBotException if the file or directory is missing or corrupted
+     * @throws IOException if an I/O error occurred
+     */
     @Override
     public void execute() throws FileErrorBotException, IOException {
         this.taskList.add(this.event);
@@ -26,6 +41,11 @@ public class EventCommand extends Command {
         System.out.println(this);
     }
 
+    /**
+     * Returns a String representation of EventCommand object
+     *
+     * @return String representation of EventCommand object
+     */
     @Override
     public String toString() {
         if (this.taskList.length() <= 1) {

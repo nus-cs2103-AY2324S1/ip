@@ -22,6 +22,14 @@ public class Storage {
     private static final String ABSOLUTE_FILE_PATH = Storage.WORKING_DIRECTORY + File.separator +
             Storage.FILE_RELATIVE_PATH;
 
+    /**
+     * Creates a data/task.txt if the file is not yet generated. The contents in the file
+     * is then overwritten with the tasks in the taskList argument.
+     *
+     * @param taskList a list of tasks in their most updated state
+     * @throws FileErrorBotException if the file or directory is missing or corrupted
+     * @throws IOException if an I/O error occurred
+     */
     public static void save(TaskList taskList) throws FileErrorBotException, IOException {
         File file = new File(Storage.ABSOLUTE_FILE_PATH +
                 File.separator + Storage.FILE_NAME);
@@ -40,6 +48,16 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns a TaskList object containing the tasks found in the data/task.txt file. If the
+     * file has yet to be generated, it will be generated before an empty TaskList object is
+     * returned
+     *
+     * @return a list of tasks saved in the data/task.txt file
+     * @throws FileErrorBotException if file or directory is corrupted and unreadable
+     * @throws DateTimeParseBotException if DataTime is formatted incorrectly in the data/task.txt
+     * @throws IOException if an I/O error occurred
+     */
     public static TaskList read() throws FileErrorBotException,
             DateTimeParseBotException, IOException {
         File file = new File(Storage.ABSOLUTE_FILE_PATH +
