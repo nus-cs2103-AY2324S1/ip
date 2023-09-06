@@ -24,11 +24,12 @@ public class Command {
      * @param ui the ui of the program
      * @param tasks the list of tasks
      * @param storage the storage of the program
-     * @throws InvalidCommandException
+     * @return the message of the list task command
+     * @throws InvalidCommandException when the list command is invalid
      */
-    public static void list(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
+    public static String list(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
         if (message.equals("list")) {
-            ui.printTasks(tasks);
+            return ui.printTasks(tasks);
         } else {
             throw new InvalidCommandException();
         }
@@ -41,9 +42,10 @@ public class Command {
      * @param ui the ui of the program
      * @param tasks the list of tasks
      * @param storage the storage of the program
+     * @return the message of the mark task command
      * @throws InvalidCommandException when the mark command is invalid
      */
-    public static void mark(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
+    public static String mark(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
         try {
             String[] messageWords = message.split(" ");
             int numOfWords = messageWords.length;
@@ -52,7 +54,7 @@ public class Command {
                 Task markTask = tasks.getTask(index);
                 markTask.mark();
                 storage.updateTask(tasks);
-                ui.printMarkTask(markTask);
+                return ui.printMarkTask(markTask);
             } else {
                 throw new InvalidCommandException();
             }
@@ -70,9 +72,10 @@ public class Command {
      * @param ui the ui of the program
      * @param tasks the list of tasks
      * @param storage the storage of the program
+     * @return the message of the unmark task command
      * @throws InvalidCommandException when the unmark command is invalid
      */
-    public static void unmark(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
+    public static String unmark(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
         try {
 
             String[] messageWords = message.split(" ");
@@ -82,7 +85,7 @@ public class Command {
                 Task unmarkTask = tasks.getTask(index);
                 unmarkTask.unmark();
                 storage.updateTask(tasks);
-                ui.printUnmarkTask(unmarkTask);
+                return ui.printUnmarkTask(unmarkTask);
             } else {
                 throw new InvalidCommandException();
             }
@@ -100,13 +103,14 @@ public class Command {
      * @param ui the ui of the program
      * @param tasks the list of tasks
      * @param storage the storage of the program
+     * @return the message of the add todo command
      * @throws InvalidToDoException when the todo command is invalid
      */
-    public static void addToDo(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidToDoException {
+    public static String addToDo(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidToDoException {
         Task newTask = ToDo.create(message);
         tasks.addTask(newTask);
         storage.addTask(newTask);
-        ui.printAddTask(newTask, tasks.getSize());
+        return ui.printAddTask(newTask, tasks.getSize());
     }
 
     /**
@@ -116,14 +120,15 @@ public class Command {
      * @param ui the ui of the program
      * @param tasks the list of tasks
      * @param storage the storage of the program
+     * @return the message of the add deadline command
      * @throws InvalidDeadlineException when the deadline command is invalid
      */
-    public static void addDeadline(String message, Ui ui, TaskList tasks, Storage storage)
+    public static String addDeadline(String message, Ui ui, TaskList tasks, Storage storage)
             throws InvalidDeadlineException {
         Task newTask = Deadline.create(message);
         tasks.addTask(newTask);
         storage.addTask(newTask);
-        ui.printAddTask(newTask, tasks.getSize());
+        return ui.printAddTask(newTask, tasks.getSize());
     }
 
     /**
@@ -133,13 +138,14 @@ public class Command {
      * @param ui the ui of the program
      * @param tasks the list of tasks
      * @param storage the storage of the program
+     * @return the message of the add event command
      * @throws InvalidEventException when the event command is invalid
      */
-    public static void addEvent(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidEventException {
+    public static String addEvent(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidEventException {
         Task newTask = Event.create(message);
         tasks.addTask(newTask);
         storage.addTask(newTask);
-        ui.printAddTask(newTask, tasks.getSize());
+        return ui.printAddTask(newTask, tasks.getSize());
     }
 
     /**
@@ -149,9 +155,10 @@ public class Command {
      * @param ui the ui of the program
      * @param tasks the list of tasks
      * @param storage the storage of the program
+     * @return the message of the delete task command
      * @throws InvalidCommandException when the delete command is invalid
      */
-    public static void delete(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
+    public static String delete(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
         try {
             String[] messageWords = message.split(" ");
             int numOfWords = messageWords.length;
@@ -160,7 +167,7 @@ public class Command {
                 Task removedTask = tasks.getTask(index);
                 tasks.removeTask(index);
                 storage.updateTask(tasks);
-                ui.printRemoveTask(removedTask, tasks.getSize());
+                return ui.printRemoveTask(removedTask, tasks.getSize());
             } else {
                 throw new InvalidCommandException();
             }
@@ -178,15 +185,16 @@ public class Command {
      * @param ui the ui
      * @param tasks the list of tasks
      * @param storage the storage to store
+     * @return the message of the find task command
      * @throws InvalidCommandException if the command is invalid
      */
-    public static void find(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
+    public static String find(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
         try {
             String[] messageWords = message.split(" ");
             int numOfWords = messageWords.length;
             if (numOfWords == 2) {
                 String keyWord = messageWords[1];
-                ui.printFindTask(tasks.find(keyWord));
+                return ui.printFindTask(tasks.find(keyWord));
             } else {
                 throw new InvalidCommandException();
             }

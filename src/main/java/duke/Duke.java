@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -18,7 +20,7 @@ public class Duke {
     private TaskList tasks;
 
     /**
-     * Constructs the Duke
+     * Constructs the duke.Duke
      *
      * @param directoryName the name of the directory
      * @param fileName the name of the file
@@ -54,7 +56,17 @@ public class Duke {
             Parser.parse(message, ui, tasks, storage);
             message = scanner.nextLine();
         }
-        ui.printEnd();
+        Parser.parse(message, ui, tasks, storage);
         scanner.close();
+    }
+
+    /**
+     * Gets the response based on the input
+     *
+     * @param input the input of the program
+     * @return the response based on the input
+     */
+    public String getResponse(String input) {
+        return Parser.parse(input, ui, tasks, storage);
     }
 }

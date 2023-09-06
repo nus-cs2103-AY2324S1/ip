@@ -19,70 +19,86 @@ public class Ui {
 
     /**
      * Prints the intro to user
+     * @return the intro message
      */
-    public void printIntro() {
-        String intro = SPACE + DASH + "\n"
-                        + SPACE + "Hello! I'm Not A ChatBot\n"
-                        + SPACE + "What can I do for you?\n"
-                        + SPACE + DASH;
+    public String printIntro() {
+        String intro = SPACE + "Hello! I'm Not A ChatBot\n"
+                        + SPACE + "What can I do for you?";
+        System.out.println(SPACE + DASH);
         System.out.println(intro);
+        System.out.println(SPACE + DASH);
+        return intro;
     }
 
     /**
-     * Prints the good bye message to user
+     * Prints the bye message to user
+     * @return the bye message
      */
-    public void printEnd() {
-        String end = SPACE + DASH + "\n"
-                    + SPACE + "Bye. Hope to see you again soon!\n"
-                    + SPACE + DASH;
+    public String printEnd() {
+        String end = SPACE + "Bye. Hope to see you again soon!";
+        System.out.println(SPACE + DASH);
         System.out.println(end);
+        System.out.println(SPACE + DASH);
+        return end;
     }
 
     /**
      * Prints if exception occur
      *
      * @param e the exception
+     * @return the message of the exception
      */
-    public void printException(Exception e) {
+    public String printException(Exception e) {
+        String exceptionMessage = SPACE + e.getMessage();
         System.out.println(SPACE + DASH);
-        System.out.println(SPACE + e.getMessage());
+        System.out.println(exceptionMessage);
         System.out.println(SPACE + DASH);
+        return exceptionMessage;
     }
 
     /**
      * Prints the list of tasks
      *
      * @param tasks the list of tasks
+     * @return the message of the list task command
      */
-    public void printTasks(TaskList tasks) {
+    public String printTasks(TaskList tasks) {
+        String tasksMessage = SPACE + "Here are the tasks in your list:\n"
+                            + tasks;
         System.out.println(SPACE + DASH);
-        System.out.println("    Here are the tasks in your list:");
-        System.out.print(tasks);
+        System.out.println(tasksMessage);
         System.out.println(SPACE + DASH);
+        return tasksMessage;
     }
 
     /**
      * Prints the output of marking task
      *
      * @param task the task marked
+     * @return the message of the mark task command
      */
-    public void printMarkTask(Task task) {
+    public String printMarkTask(Task task) {
+        String markTaskMessage = SPACE + "Nice! I've marked this task as done:\n"
+                                + SPACE + task;
         System.out.println(SPACE + DASH);
-        System.out.println(SPACE + "Nice! I've marked this task as done:");
-        System.out.println(SPACE + task);
+        System.out.println(markTaskMessage);
         System.out.println(SPACE + DASH);
+        return markTaskMessage;
     }
 
     /**
      * Prints the output of unmarking task
      *
      * @param task the task unmarked
+     * @return the message of the unmark task command
      */
-    public void printUnmarkTask(Task task) {
+    public String printUnmarkTask(Task task) {
+        String unmarkTaskMessage = SPACE + "OK, I've unmarked this task as not done yet:\n"
+                                + SPACE + task;
         System.out.println(SPACE + DASH);
-        System.out.println(SPACE + "OK, I've unmarked this task as not done yet:");
-        System.out.println(SPACE + task);
+        System.out.println(unmarkTaskMessage);
         System.out.println(SPACE + DASH);
+        return unmarkTaskMessage;
     }
 
     /**
@@ -90,13 +106,16 @@ public class Ui {
      *
      * @param task the new task
      * @param size the number of tasks
+     * @return the message of the add task command
      */
-    public void printAddTask(Task task, int size) {
+    public String printAddTask(Task task, int size) {
+        String addTaskMessage = SPACE + "Got it. I've added this task:\n"
+                                + SPACE + task + "\n"
+                                + SPACE + "Now you have " + size + " tasks in the list.";
         System.out.println(SPACE + DASH);
-        System.out.println(SPACE + "Got it. I've added this task:");
-        System.out.println(SPACE + task);
-        System.out.println(SPACE + "Now you have " + size + " tasks in the list.");
+        System.out.println(addTaskMessage);
         System.out.println(SPACE + DASH);
+        return addTaskMessage;
     }
 
     /**
@@ -104,27 +123,34 @@ public class Ui {
      *
      * @param task the task removed
      * @param size the number of tasks
+     * @return the message of the remove task command
      */
-    public void printRemoveTask(Task task, int size) {
+    public String printRemoveTask(Task task, int size) {
+        String removeTaskMessage = SPACE + "Noted. I've removed this task:\n"
+                                    + SPACE + task + "\n"
+                                    + SPACE + "Now you have " + size + " tasks in the list.";
         System.out.println(SPACE + DASH);
-        System.out.println("    Noted. I've removed this task:");
-        System.out.println("    " + task);
-        System.out.println("    Now you have " + size + " tasks in the list.");
+        System.out.println(removeTaskMessage);
         System.out.println(SPACE + DASH);
+        return removeTaskMessage;
     }
 
     /**
      * Prints the output of find task
      *
      * @param tasks the list of tasks
+     * @return the message of the find task command
      */
-    public void printFindTask(TaskList tasks) {
-        System.out.println(SPACE + DASH);
+    public String printFindTask(TaskList tasks) {
+        String findTaskMessage;
         if (tasks.isEmpty()) {
-            System.out.println("Cannot find any tasks with this keyword");
+            findTaskMessage = "Cannot find any tasks with this keyword";
         } else {
-            System.out.println(tasks);
+            findTaskMessage = tasks + "\n";
         }
         System.out.println(SPACE + DASH);
+        System.out.println(findTaskMessage);
+        System.out.println(SPACE + DASH);
+        return findTaskMessage;
     }
 }
