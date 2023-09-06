@@ -61,4 +61,19 @@ public class Duke {
         }
         ui.close();
     }
+
+    /**
+     * Gets the response of the application to the user input.
+     *
+     * @param input The user input.
+     * @return The response of the application to the user input.
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
+    }
 }
