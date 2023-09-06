@@ -1,8 +1,8 @@
 package duke;
 
-import duke.task.Task;
-
 import java.util.List;
+
+import duke.task.Task;
 
 /**
  * The Ui class handles user interface interactions and displays messages to the user.
@@ -13,16 +13,16 @@ public class Ui {
      * Displays a greeting message when the chatbot starts.
      */
     public static void greet() {
-        System.out.println("---------------------------------------------\n Hello! I'm zy\n" +
-                " What can I do for you?\n---------------------------------------------");
+        System.out.println("---------------------------------------------\n Hello! I'm zy\n"
+                + " What can I do for you?\n---------------------------------------------");
     }
 
     /**
      * Displays a goodbye message when the chatbot exits.
      */
     public static void goodbye() {
-        System.out.println("---------------------------------------------\n Bye. Hope to see you again soon!" +
-                "\n---------------------------------------------");
+        System.out.println("---------------------------------------------\n Bye. Hope to see you again soon!"
+                + "\n---------------------------------------------");
     }
 
     /**
