@@ -1,6 +1,6 @@
-package dukey;
+package seedu.duke;
 import java.time.LocalDate;
-import dukey.Task;
+import seedu.duke.Task;
 
 class Todo extends Task {
     public Todo(String description) {

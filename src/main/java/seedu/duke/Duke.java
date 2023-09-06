@@ -1,12 +1,12 @@
-package dukey;
+package seedu.duke;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
-import dukey.TaskList;
-import dukey.Storage;
-import dukey.Todo;
-import dukey.Deadline;
-import dukey.Event;
+import seedu.duke.TaskList;
+import seedu.duke.Storage;
+import seedu.duke.Todo;
+import seedu.duke.Deadline;
+import seedu.duke.Event;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -16,7 +16,7 @@ class Duke {
         Scanner scanner = new Scanner(System.in);
         String botName = "Aaaronbot";
         String savedString = "";
-        Storage storage = new Storage("data/duke.txt");
+        Storage storage = new Storage("src/main/java/seedu/duke/data/duke.txt");
         savedString = storage.load();
         TaskList tasks = new TaskList(savedString);
         System.out.println("Hello! I'm " + botName);

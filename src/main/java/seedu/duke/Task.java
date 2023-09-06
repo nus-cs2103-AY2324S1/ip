@@ -1,5 +1,5 @@
 
-package dukey;
+package seedu.duke;
 
 class Task {
     protected String description;

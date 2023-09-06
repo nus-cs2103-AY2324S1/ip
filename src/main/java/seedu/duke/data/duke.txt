@@ -1,0 +1,3 @@
+[T][X] homework
+[D][X] do this (by: 2012-12-20)
+[D][ ] fish (by: 2000-12-20)

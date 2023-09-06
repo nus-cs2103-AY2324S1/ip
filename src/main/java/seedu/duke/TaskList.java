@@ -1,5 +1,5 @@
-package dukey;
-import dukey.Task;
+package seedu.duke;
+import seedu.duke.Task;
 import java.util.ArrayList;
 
 class TaskList {

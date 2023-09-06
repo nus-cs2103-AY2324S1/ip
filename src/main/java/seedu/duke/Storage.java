@@ -1,4 +1,4 @@
-package dukey;
+package seedu.duke;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -13,10 +13,11 @@ class Storage {
     public String load() {
         String fileContent = "";
         try {
+            System.out.println("Working Directory: " + System.getProperty("user.dir"));
             byte[] encodedBytes = Files.readAllBytes(Paths.get(directory));
             fileContent = new String(encodedBytes);
         } catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
+            System.out.println("Error reading file: " + e);
         }
         return fileContent;
     }
