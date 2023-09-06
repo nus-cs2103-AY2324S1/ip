@@ -26,6 +26,7 @@ public class Duke {
         this.parser = new Parser();
         this.ui = new Ui();
         this.storage = new Storage(this.taskList);
+        storage.loadTasks();
     }
 
 
@@ -134,7 +135,6 @@ public class Duke {
     public void run() {
 
         ui.displayGreetings();
-        storage.loadTasks();
 
         label:
         while (true) {
@@ -189,16 +189,31 @@ public class Duke {
             }
         }
 
-        ui.displayGoodbye();
-        storage.saveTasks();
+//        ui.displayGoodbye();
+//        storage.saveTasks();
+
+    }
+
+    public void updateLogic(){
+
+
+
 
 
     }
+
+    public String getResponse(String input) {
+
+        return "hello: " + input;
+
+    }
+
 
     public static void main(String[] args) {
 
         Duke duke = new Duke();
         duke.run();
+
 
     }
 }
