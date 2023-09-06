@@ -8,4 +8,5 @@ unmark me
 deadline buy food /by 7pm
 delete 1
 list
+find book
 bye

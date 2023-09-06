@@ -3,6 +3,8 @@ package duke;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Represents the list of tasks.
@@ -72,6 +74,16 @@ public class TaskList {
      */
     public void delete(int taskNum) throws IndexOutOfBoundsException {
         tasks.remove(taskNum - 1);
+    }
+
+    /**
+     * Filters the task list by the given predicate and returns a new TaskList containing the filtered tasks.
+     *
+     * @param pred the predicate used to filter for tasks
+     * @return a new task list containing filtered tasks
+     */
+    public TaskList filter(Predicate<? super Task> pred) {
+        return new TaskList(tasks.stream().filter(pred).collect(Collectors.toList()));
     }
 
     /**

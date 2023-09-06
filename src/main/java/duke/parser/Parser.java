@@ -8,6 +8,7 @@ import duke.command.Command;
 import duke.command.DeadlineCommand;
 import duke.command.DeleteCommand;
 import duke.command.EventCommand;
+import duke.command.FindCommand;
 import duke.command.InvalidCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
@@ -111,6 +112,8 @@ public class Parser {
                 return parseDeleteCommand(args);
             case ByeCommand.COMMAND_WORD:
                 return parseByeCommand(args);
+            case FindCommand.COMMAND_WORD:
+                return parseFindCommand(args);
             default:
                 return new InvalidCommand(MESSAGE_INVALID_COMMAND);
         }
@@ -213,6 +216,19 @@ public class Parser {
         } catch (NumberFormatException e) {
             return new InvalidCommand(DeleteCommand.MESSAGE_INVALID_TASK_NUMBER, DeleteCommand.MESSAGE_USAGE);
         }
+    }
+
+    /**
+     * Parses a given argument string for the Find command.
+     *
+     * @param args argument string for the Find command
+     * @return the parsed FindCommand object
+     */
+    private Command parseFindCommand(String args) {
+        if (args.isEmpty()) {
+            return new InvalidCommand(FindCommand.MESSAGE_EMPTY_KEYWORD, FindCommand.MESSAGE_USAGE);
+        }
+        return new FindCommand(args);
     }
 
     /**
