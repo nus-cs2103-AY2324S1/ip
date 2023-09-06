@@ -51,6 +51,11 @@ public class BouncyBob extends Application {
         stage.show();
     }
 
+    /**
+     * Initializes the task list view.
+     *
+     * @return The task list view.
+     */
     private ListView<Task> initializeTaskListView() {
         ListView<Task> taskListView = new ListView<>();
         TaskFileHandler.loadTasksFromDisk(taskList);
@@ -59,6 +64,12 @@ public class BouncyBob extends Application {
         return taskListView;
     }
 
+    /**
+     * Creates the task input box.
+     *
+     * @param taskListView The task list view.
+     * @return The task input box.
+     */
     private HBox createTaskInputBox(ListView<Task> taskListView) {
         ComboBox<TaskType> taskTypeComboBox = new ComboBox<>();
         taskTypeComboBox.getItems().addAll(TaskType.TODO, TaskType.DEADLINE, TaskType.EVENT);
@@ -98,6 +109,13 @@ public class BouncyBob extends Application {
         return new HBox(10, taskTypeComboBox, taskInputField, addButton, deleteButton);
     }
 
+    /**
+     * Shows an error dialog.
+     *
+     * @param title   The title of the dialog.
+     * @param header  The header of the dialog.
+     * @param content The content of the dialog.
+     */
     private void showErrorDialog(String title, String header, String content) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle(title);
