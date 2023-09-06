@@ -22,10 +22,6 @@ public class AddCommand extends Command {
 
     private final Task toAdd;
 
-    /**
-     * Constructor using the tong.task.Task to be added.
-     *
-     */
     public AddCommand(Task toAdd) {
         this.toAdd = toAdd;
     }

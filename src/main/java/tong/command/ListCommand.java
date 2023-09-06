@@ -4,7 +4,7 @@ import tong.command.Command;
 import tong.command.CommandResult;
 
 /**
- * Lists all Tasks in the tong.TaskList to the user.
+ * Lists all tong.task.Task in the tong.TaskList to the user.
  */
 public class ListCommand extends Command {
 

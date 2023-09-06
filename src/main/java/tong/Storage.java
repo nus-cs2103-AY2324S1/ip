@@ -38,6 +38,8 @@ public class Storage {
 
     /**
      * Saves the tong.TaskList to the storage file.
+     *
+     * @param tasklist The TaskList to be saved.
      */
     public void save(TaskList tasklist) {
         List<String> encodedTaskList = encode(tasklist);
@@ -66,6 +68,9 @@ public class Storage {
 
     /**
      * Encodes each tong.task.Task in the tong.TaskList into a String representation.
+     *
+     * @param tasklist The TaskList which contains the Tasks to be turned to String representation
+     *                 so that it can be saved into the data file.
      */
     private static List<String> encode(TaskList tasklist) {
         List<String> encodedTaskList = new ArrayList<>();
@@ -78,6 +83,14 @@ public class Storage {
         return encodedTaskList;
     }
 
+    /**
+     * Encodes each tong.task.Task in the tong.TaskList into a String representation.
+     *
+     * @param encodedTaskList The List of String contained in the data file to be decoded into
+     *                        a list of Tasks saved in a TaskList.
+     * @return TaskList A TaskList containing tasks recorded in the data file.
+     * @throws DecodingException If error occurs during the decoding process.
+     */
     private static TaskList decode(List<String> encodedTaskList) throws DecodingException {
         ArrayList<Task> decodedTasks = new ArrayList<>();
 

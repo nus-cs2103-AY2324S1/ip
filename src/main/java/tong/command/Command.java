@@ -15,6 +15,8 @@ public abstract class Command {
 
     /**
      * Supplies the data the command will operate on.
+     *
+     * @param taskList The TaskList which the command will operate on.
      */
     public void setData(TaskList taskList) {
         this.taskList = taskList;
