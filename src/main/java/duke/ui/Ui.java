@@ -7,7 +7,7 @@ import duke.task.TaskList;
 import java.util.Scanner;
 
 public class Ui {
-    private Scanner sc;
+    private final Scanner sc;
     public Ui() {
         this.sc = new Scanner(System.in);
     }
@@ -19,7 +19,7 @@ public class Ui {
     }
     public void formatTaskResponse(Task task, TaskList tasks) {
         System.out.println("Got it. I've added this task:\n  " + task
-                + "\nNow you have " + tasks.getSize() + " tasks in the list."); ;
+                + "\nNow you have " + tasks.getSize() + " tasks in the list.");
     }
     public void listTaskResponse(TaskList tasks) {
         System.out.println("Here are the tasks in your list:");
@@ -29,7 +29,7 @@ public class Ui {
     }
     public void deleteTaskResponse(Task task, TaskList tasks) {
         System.out.println("Noted. I've removed this task:\n" + task
-                + "\nNow you have " + tasks.getSize() + " tasks in the list.");
+                + "\nNow you have " + (tasks.getSize() - 1) + " tasks in the list.");
     }
     public void markDoneResponse(Task task) {
         System.out.println("Nice! I've marked this task as done:\n" + task);
@@ -41,18 +41,18 @@ public class Ui {
         System.out.println("Bye. Hope to see you again soon!");
     }
     public void showLoadingError(ChatException e) {
-        System.out.println(e);
+        System.out.println(e.getMessage());
     }
     public void prompt() {
-        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-( \n" +
-                "I can understand the following commands: \n" +
-                "1. todo description \n" +
-                "2. deadline description /by date (yyyy-mm-dd)\n" +
-                "3. event description /from time /to time\n" +
-                "4. list\n" +
-                "5. mark task number\n" +
-                "6. unmark task number\n" +
-                "7. delete task number\n" +
-                "8. bye");
+        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-( \n"
+                + "I can understand the following commands: \n"
+                + "1. todo description \n"
+                + "2. deadline description /by date (yyyy-mm-dd)\n"
+                + "3. event description /from time /to time\n"
+                + "4. list\n"
+                + "5. mark task number\n"
+                + "6. unmark task number\n"
+                + "7. delete task number\n"
+                + "8. bye");
     }
 }

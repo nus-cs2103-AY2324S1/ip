@@ -5,7 +5,7 @@ import duke.exception.ChatException;
 import java.util.ArrayList;
 
 public class TaskList {
-    private static ArrayList<Task> taskList = new ArrayList<>();
+    private static final ArrayList<Task> taskList = new ArrayList<>();
 
     public int getSize() {
         return taskList.size();
@@ -21,7 +21,6 @@ public class TaskList {
 
     public void deleteTask(int taskNumber) throws ChatException {
         try {
-            Task task = this.getTask(taskNumber);
             taskList.remove(taskNumber - 1);
         } catch (IndexOutOfBoundsException e) {
             throw new ChatException("☹ OOPS!!! Please specify the correct task number.");

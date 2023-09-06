@@ -7,8 +7,6 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-import java.time.LocalDate;
-import java.util.Scanner;
 
 public class Duke {
     private static Storage storage;
@@ -26,7 +24,7 @@ public class Duke {
         }
     }
 
-    public void run() throws ChatException {
+    public void run() {
         ui.greetResponse();
         boolean isExit = false;
         while (!isExit) {
@@ -41,7 +39,7 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) throws ChatException {
+    public static void main(String[] args) {
         new Duke("data/duke.txt").run();
     }
 }

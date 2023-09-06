@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class Storage {
     private final String pathName;
-    private TaskList tasks = new TaskList();
+    private final TaskList tasks = new TaskList();
 
     public Storage(String pathName) {
         this.pathName = pathName;
