@@ -6,11 +6,15 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 /**
  * Initialises Duke and starts the interaction with the user.
  */
-public class Duke {
+public class Duke extends Application {
 
     private Storage storage;
 
@@ -25,6 +29,8 @@ public class Duke {
      */
     public Duke() {
         ui = new Ui();
+
+
         storage = new Storage(ui);
         parser = new Parser(ui);
         try {
@@ -63,5 +69,9 @@ public class Duke {
      */
     public static void main(String[] args) {
         new Duke().run();
+    }
+
+    @Override
+    public void start(Stage stage) {
     }
 }
