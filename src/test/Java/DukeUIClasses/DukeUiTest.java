@@ -1,6 +1,7 @@
 package DukeUIClasses;
 
-import DukeTasks.Task;
+import com.nyanbot.DukeTasks.Task;
+import com.nyanbot.DukeUIClasses.DukeUi;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

@@ -1,14 +1,13 @@
 package DukeParsers;
 
-import DukeStorage.DukeStorageDatabase;
-import DukeTaskList.DukeTaskList;
-import DukeTasks.Task;
+import com.nyanbot.DukeStorage.DukeStorageDatabase;
+import com.nyanbot.DukeTaskList.DukeTaskList;
+import com.nyanbot.DukeParsers.DukeParser;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
