@@ -11,6 +11,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Command
+ */
 public class Parser {
     public static Command parse(String fullCommand) throws DialogixException {
         if (isExitCommand(fullCommand)) {

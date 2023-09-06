@@ -1,7 +1,7 @@
 package dialogix.main;
 
-import dialogix.exception.DialogixException;
-import dialogix.task.Task;
+import exception.DialogixException;
+import task.Task;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class StorageTest {
+public class StorageTest {
 
     @Test
     void testLoadTasks() throws DialogixException {

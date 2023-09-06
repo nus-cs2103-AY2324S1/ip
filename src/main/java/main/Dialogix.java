@@ -15,7 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Dialogix {
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
+public class Dialogix extends Application {
     private static final String FILE_PATH = "./data/dialogix.txt"; // Update the relative file path
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -136,5 +141,14 @@ public class Dialogix {
         } catch (IOException e) {
             System.out.println("Bot: Error loading tasks from file.");
         }
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 }
