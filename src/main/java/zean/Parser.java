@@ -28,7 +28,7 @@ public class Parser {
      */
     public static String parse(String input, TaskList tasks) throws DukeException {
         if (input.isBlank()) {
-            return "";
+            throw new DukeException("OOPS!!! You forgot to type in anything!");
         }
         String[] inputArr = input.split(" ");
         String description;
