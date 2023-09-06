@@ -14,27 +14,25 @@ public class Ui {
         scanner = new Scanner(System.in);
     }
 
-    public void showLine() {
-        System.out.println("____________________________________________________________\n");
+    public String showLine() {
+        return ("____________________________________________________________\n");
     }
 
     /**
      * Generates and prints the welcome message upon the start of the application.
      */
-    public void showWelcome() {
-        System.out.println(
-                "____________________________________________________________\n"
-                        + "Hello! I'm ET\n"
-                        + "What can I do for you?\n"
-                        + "____________________________________________________________\n"
-        );
+    public String showWelcome() {
+        return ("____________________________________________________________\n"
+                + "Hello! I'm ET\n"
+                + "What can I do for you?\n"
+                + "____________________________________________________________\n");
     }
 
     /**
      * Generates and prints the exit message upon the termination of the application.
      */
-    public void showExit() {
-        System.out.println("____________________________________________________________\n"
+    public String showExit() {
+        return ("____________________________________________________________\n"
                 + "Bye. Hope to see you again soon!\n"
                 + "____________________________________________________________\n"
         );
@@ -52,20 +50,19 @@ public class Ui {
      * Shows the marked task.
      * @param task task that was marked.
      */
-    public void showMarked(Task task) {
-        System.out.println("____________________________________________________________\n"
+    public String showMarked(Task task) {
+        return ("____________________________________________________________\n"
                 + "Nice! I've marked this task as done:\n"
                 + task + "\n"
-                + "____________________________________________________________\n"
-        );
+                + "____________________________________________________________\n");
     }
 
     /**
      * Shows the unmarked task
      * @param task task that was marked.
      */
-    public void showUnmarked(Task task) {
-        System.out.println("____________________________________________________________\n"
+    public String showUnmarked(Task task) {
+        return ("____________________________________________________________\n"
                 + "OK, I've marked this task as not done yet:\n"
                 + task + "\n"
                 + "____________________________________________________________\n"
@@ -77,8 +74,8 @@ public class Ui {
      * @param task task added to task list
      * @param num number of task in task list.
      */
-    public void showTaskAdded(Task task, int num) {
-        System.out.println("____________________________________________________________\n"
+    public String showTaskAdded(Task task, int num) {
+        return ("____________________________________________________________\n"
                 + "Got it. I've added this task:\n"
                 + task + "\n"
                 + "Now you have " + num + " tasks in the list.\n"
@@ -91,46 +88,50 @@ public class Ui {
      * @param task task deleted from task list
      * @param num number of task in task list
      */
-    public void showDeleted(Task task, int num) {
-        System.out.println("____________________________________________________________\n"
+    public String showDeleted(Task task, int num) {
+        return ("____________________________________________________________\n"
                 + "Noted. I've removed this task:\n"
                 + task + "\n"
                 + "Now you have " + num + " tasks in the list.\n"
-                + "____________________________________________________________\n"
-        );
+                + "____________________________________________________________\n");
     }
 
     /**
      * Shows the list of tasks
      * @param tasks list of tasks
      */
-    public void showTaskList(TaskList tasks) {
-        System.out.println("Here are the tasks in your list:");
+    public String showTaskList(TaskList tasks) {
+        String response = "Here are the tasks in your list:\n";
 
         for (int i = 1; i <= tasks.total(); i++) {
             Task t = tasks.get(i - 1);
-            System.out.println(i + ". " + t.toString());
+            String des = i + ". " + t.toString() + "\n";
+            response = response.concat(des);
         }
+
+        return response;
     }
 
     /**
      * Shows the list of tasks that match the keyword.
      * @param tasks tasks that match the keyword.
      */
-    public void showMatchingTasks(TaskList tasks) {
-        System.out.println("____________________________________________________________\n"
+    public String showMatchingTasks(TaskList tasks) {
+        String response = ("____________________________________________________________\n"
                 + "Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.total(); i++) {
-            System.out.println(tasks.get(i).toString());
+            response = response.concat(tasks.get(i).toString() + "\n");
         }
+
+        return response;
     }
 
     /**
      * Shows the error message of an exception thrown.
      * @param errorMsg error message of the exception thrown.
      */
-    public void showError(String errorMsg) {
-        System.out.println("____________________________________________________________\n"
+    public String showError(String errorMsg) {
+        return ("____________________________________________________________\n"
                 + errorMsg + "\n"
                 + "____________________________________________________________\n"
         );
