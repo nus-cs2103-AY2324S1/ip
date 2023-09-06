@@ -3,33 +3,60 @@ package duke;
 public class Ui {
     public Ui() {};
 
-    public void textGenerator(String answer) {
-        System.out.println(answer);
+    public String textGenerator(String answer) {
+        return answer;
     }
 
-    public void addTaskText(Task newT, int len) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(newT.toString());
-        System.out.println("Now you have " + len + " tasks in the list.");
+    /**
+     * Returns a default response when user attempts to add a new Task.
+     *
+     * @param newT Task Object.
+     * @param len Integer Object representing how many existing tasks the user has (including the newly added task)
+     * @return String Object.
+     */
+    public String addTaskText(Task newT, int len) {
+        return "Got it. I've added this task:\n" + newT.toString() + "\n"  + "Now you have " + len + " tasks in the list.";
     }
 
-    public void displayTaskInList(int digit, Task newT) {
-        System.out.println((digit + 1) + "." + newT.toString());
+    /**
+     * Returns a default response when user wants to see all the existing tasks.
+     *
+     * @param digit Integer Object. Index of the task in the ArrayList
+     * @param newT Task Object.
+     * @return String Object.
+     */
+    public String displayTaskInList(int digit, Task newT) {
+        return digit + 1 + "." + newT.toString();
     }
 
-    public void markTaskText(Task newT) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(newT.toString());
+    /**
+     * Returns a default response when user wants to mark a particular task.
+     *
+     * @param newT Task Object. A task that user wants to mark.
+     * @return String Object.
+     */
+    public String markTaskText(Task newT) {
+        return "Nice! I've marked this task as done:\n" + newT.toString();
     }
 
-    public void unmarkTaskText(Task newT) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(newT.toString());
+    /**
+     * Returns a default response when user wants to unmark a particular task.
+     *
+     * @param newT Task Object. A task that user wants to unmark.
+     * @return String Object.
+     */
+    public String unmarkTaskText(Task newT) {
+        return "OK, I've marked this task as not done yet:\n" + newT.toString();
     }
 
-    public void deleteTaskText(Task newT, int digit) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(newT.toString());
-        System.out.println(String.format("Now you have %d tasks in the list.", digit));
+    /**
+     * Returns a default response when user wants to delete a particular task.
+     *
+     * @param newT Task Object. A task that user wants to unmark.
+     * @param digit Integer Object. Represents the number of user's existing tasks.
+     * @return String Object.
+     */
+    public String deleteTaskText(Task newT, int digit) {
+        return "Noted. I've removed this task:\n" + newT.toString() + "\n" + "Now you have " + digit + " tasks in the list.";
     }
 }
