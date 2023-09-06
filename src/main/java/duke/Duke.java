@@ -53,7 +53,7 @@ public class Duke {
             while (true) {
                 taskList = storage.readFromFile();
                 String userInput = ui.getUserInput();
-                Action action = Action.valueOf(userInput.toUpperCase());
+                Action action = Action.valueOf(userInput.split(" ")[0].toUpperCase());
 
                 switch (action) {
                 case BYE:
