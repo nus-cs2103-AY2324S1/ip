@@ -5,10 +5,14 @@ package duke.tasks;
  */
 public class Task {
 
-    /** The description of the Task. */
+    /**
+     * The description of the Task.
+     */
     protected String description;
 
-    /** The boolean to represent if the Task is Done. */
+    /**
+     * The boolean to represent if the Task is Done.
+     */
     protected boolean isDone;
 
     /**
@@ -30,12 +34,16 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    /** Marks the Task as Done. */
+    /**
+     * Marks the Task as Done.
+     */
     public void markTask() {
         this.isDone = true;
     }
 
-    /** Marks the Task as Not Done. */
+    /**
+     * Marks the Task as Not Done.
+     */
     public void unmarkTask() {
         this.isDone = false;
     }
