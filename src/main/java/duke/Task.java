@@ -49,6 +49,14 @@ public abstract class Task {
         return task;
     }
 
+    public boolean isMarked() {
+        return marked;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
     public void mark() {
         marked = true;
     }
