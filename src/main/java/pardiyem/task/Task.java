@@ -16,6 +16,10 @@ public class Task {
         this(description, false);
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     /**
      * Utility function to convert the "done-ness" of a task to a string
      *
