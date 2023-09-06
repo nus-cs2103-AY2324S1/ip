@@ -18,6 +18,12 @@ class Todo extends Task {
     }
 }
 
+/**
+ * Deadline models the deadline Tasks by inheriting from the parent Task class.
+ *
+ * @param description is the name of the todo tasks that needs to be done.
+ * @param by is the date that the deadline needs to be done.
+ */
 class Deadline extends Task {
     public LocalDate by;
 
