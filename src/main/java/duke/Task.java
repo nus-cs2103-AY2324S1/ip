@@ -10,7 +10,8 @@ public abstract class Task {
 
     private Ui ui = new Ui();
 
-    /** Creates a new Task object.
+    /**
+     * Creates a new Task object.
      *
      * @param description What the task is about.
      * @param isDone Whether the task is done.
@@ -20,7 +21,8 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
-    /** Marks the task if state of task is completed.
+    /**
+     * Marks the task if state of task is completed.
      *
      * @return "X" if completed empty string if otherwise.
      * */
@@ -40,7 +42,8 @@ public abstract class Task {
         this.ui.showTaskUnmarked(this);
     }
 
-    /** Gets the string representation of the task for storage in hard drive.
+    /**
+     * Gets the string representation of the task for storage in hard drive.
      *
      * @return The string representation for storage purposes.
      */

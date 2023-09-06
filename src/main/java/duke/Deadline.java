@@ -18,14 +18,14 @@ public class Deadline extends Task {
      */
     public Deadline(String description, boolean isDone, LocalDate deadline) {
         super(description, isDone);
-        this.deadline= deadline;
+        this.deadline = deadline;
     }
 
     @Override
     public String getStorageDescription() {
         String isCompleted = this.isDone ? "1" : "0";
-        return "D " + isCompleted + " " + this.description +
-                "/by" + this.deadline;
+        return "D " + isCompleted + " " + this.description
+                + "/by" + this.deadline;
     }
 
     /**
@@ -35,7 +35,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " +
-                deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + super.toString() + "(by: "
+                + deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

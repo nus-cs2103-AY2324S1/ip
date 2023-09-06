@@ -10,15 +10,17 @@ public class TaskList {
     /** List to store tasks */
     private List<Task> list;
 
-    /** Creates a new TaskList.
+    /**
+     * Creates a new TaskList.
      *
      * @param taskList List containing the task to store.
      */
-    public TaskList (List<Task> taskList) {
+    public TaskList(List<Task> taskList) {
         this.list = taskList;
     }
 
-    /** Marks the task input by users.
+    /**
+     * Marks the task input by users.
      *
      * @param index Index of task to be marked.
      * */
@@ -43,7 +45,8 @@ public class TaskList {
         }
     }
 
-    /** Stores the task into the task list.
+    /**
+     * Stores the task into the task list.
      *
      * @param task Task to be added to list.
      */
@@ -51,7 +54,8 @@ public class TaskList {
         this.list.add(task);
     }
 
-    /** Removes the task specified by the index inputed.
+    /**
+     * Removes the task specified by the index inputed.
      *
      * @param index Position of the task that is to be removed.
      */
@@ -59,7 +63,8 @@ public class TaskList {
         this.list.remove(index);
     }
 
-    /** Get the task at the specific index of the list.
+    /**
+     * Get the task at the specific index of the list.
      *
      * @param index Position of the task in the list.
      * @return The task at the index position.
@@ -68,7 +73,8 @@ public class TaskList {
         return this.list.get(index);
     }
 
-    /** Returns length of the list.
+    /**
+     * Returns length of the list.
      *
      * @return Length of list.
      */
@@ -85,7 +91,8 @@ public class TaskList {
         }
     }
 
-    /** Goes through all task stored in list and updates the hard drive.
+    /**
+     * Goes through all task stored in list and updates the hard drive.
      *
      * @param filePath Path to the file data.txt.
      */
@@ -102,7 +109,8 @@ public class TaskList {
         }
     }
 
-    /** Finds all task with word that similar to user input and prints it out to them.
+    /**
+     * Finds all task with word that similar to user input and prints it out to them.
      *
      * @param filterWord Word to be matched with task description.
      */

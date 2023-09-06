@@ -25,7 +25,8 @@ public class Ui {
         System.out.println(errorMsg);
     }
 
-    /** Informs the user that task is successfully added to list.
+    /**
+     * Informs the user that task is successfully added to list.
      *
      * @param task Task to be added to list.
      * @param listSize Size of the list after task is added.
@@ -36,7 +37,8 @@ public class Ui {
         System.out.println("Now you have " + listSize + " tasks in the list.");
     }
 
-    /** Informs the user that task is successfully deleted from the list.
+    /**
+     * Informs the user that task is successfully deleted from the list.
      *
      * @param task Task to be deleted from the list.
      * @param listSize Size of list after deleting task.
@@ -47,7 +49,8 @@ public class Ui {
         System.out.println("Now you have " + listSize + " tasks in the list.");
     }
 
-    /** Informs user that the desired task has been marked as completed.
+    /**
+     * Informs user that the desired task has been marked as completed.
      *
      * @param task Task to be marked.
      */
@@ -56,7 +59,8 @@ public class Ui {
         System.out.println(task);
     }
 
-    /** Informs the user that the desired task has been unmarked.
+    /**
+     * Informs the user that the desired task has been unmarked.
      *
      * @param task Task to be unmarked.
      */

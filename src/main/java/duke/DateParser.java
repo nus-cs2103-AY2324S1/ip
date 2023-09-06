@@ -7,7 +7,8 @@ import java.time.format.DateTimeParseException;
 /** Abstraction to parse dates */
 public class DateParser {
 
-    /** Parses dates and ensure is in the right format.
+    /**
+     * Parses dates and ensure is in the right format.
      *
      * @param dateInput Date to be parsed.
      * @return LocalDate object if input is in correct format.

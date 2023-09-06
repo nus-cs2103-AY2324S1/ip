@@ -2,12 +2,14 @@ package duke;
 
 import java.time.LocalDate;
 
+/** Abstraction to understand user input */
 public class Parser {
 
     private Ui ui = new Ui();
     private TaskList list;
 
-    /** Creates a parser to parse commands inputed by user.
+    /**
+     * Creates a parser to parse commands inputed by user.
      *
      * @param list List to be updated by each command.
      */
@@ -15,7 +17,8 @@ public class Parser {
         this.list = list;
     }
 
-    /** Parses the input of the user.
+    /**
+     * Parses the input of the user.
      *
      * @param msg Inputed string by user.
      * @return Whether the bot should wait for next command or stop.

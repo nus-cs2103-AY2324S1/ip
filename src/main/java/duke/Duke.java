@@ -10,15 +10,16 @@ public class Duke {
     private TaskList list;
     private Ui ui;
     private boolean isActive = true;
-    private final String FILE_PATH;
+    private final String filePath;
 
-    /** Creates a new Duke chat bot
+    /**
+     * Creates a new Duke chat bot
      *
      * @param filePath Path to file to read stored tasklist.
      */
     public Duke(String filePath) {
         this.ui = new Ui();
-        this.FILE_PATH = filePath;
+        this.filePath = filePath;
         this.storage = new Storage(filePath);
         this.list = new TaskList(storage.load());
     }
@@ -42,7 +43,7 @@ public class Duke {
     /** Stops the Duke chat bot */
     public void exit() {
         this.isActive = false;
-        this.list.updateStorage(FILE_PATH);
+        this.list.updateStorage(filePath);
         this.ui.farewell();
     }
 

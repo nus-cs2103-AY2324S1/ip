@@ -11,21 +11,22 @@ import java.util.Scanner;
 /** Stores the task list on to the hard drive */
 public class Storage {
 
-    private final String FILE_PATH;
+    private final String filePath;
 
     public Storage(String filePath) {
-        this.FILE_PATH = filePath;
+        this.filePath = filePath;
     }
 
-    /** Reads data.txt file and stores the task into a list.
-     *  If data.txt file does not exist, it will attempt to create a data.txt file
+    /**
+     * Reads data.txt file and stores the task into a list.
+     * If data.txt file does not exist, it will attempt to create a data.txt file
      *
      * @return The list retrieve from the file data.txt.
      */
     public List<Task> load() {
         List<Task> list = new ArrayList<>();
         try {
-            File file = new File(FILE_PATH);
+            File file = new File(filePath);
             Scanner fileReader = new Scanner(file);
             while (fileReader.hasNextLine()) {
                 String task = fileReader.nextLine();
@@ -54,17 +55,20 @@ public class Storage {
                     Task eventTask = new Event(eventTaskDescription, isDone, start, end);
                     list.add(eventTask);
                     break;
+                default:
+                    throw new IllegalArgumentException("OOPS! Something went wrong");
                 }
             }
             fileReader.close();
             return list;
         } catch (FileNotFoundException error) {
-            createFile(FILE_PATH);
+            createFile(filePath);
         }
         return null;
     }
 
-    /** Creates a file named data.txt.
+    /**
+     * Creates a file named data.txt.
      *
      * @param filePath Path to the file data.txt.
      */
@@ -75,7 +79,7 @@ public class Storage {
                 load();
             }
         } catch (IOException error) {
-           throw new IllegalArgumentException("Oops! Something went wrong!");
+            throw new IllegalArgumentException("Oops! Something went wrong!");
         }
     }
 }
