@@ -1,5 +1,8 @@
 package duke;
 
+import java.io.IOException;
+import java.util.Collections;
+
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -11,6 +14,10 @@ import javafx.scene.Node;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.collections.FXCollections;
+
 
 
 public class DialogBox extends HBox {
@@ -38,7 +45,16 @@ public class DialogBox extends HBox {
     }
 
     public DialogBox(Label l, ImageView iv, boolean isUserDialog) {
-        text = l;
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Duke.class.getResource("/view/DialogBox.fxml"));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+            text = l;
         displayPicture = iv;
 
         text.setWrapText(true);
