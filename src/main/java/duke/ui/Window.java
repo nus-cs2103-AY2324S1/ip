@@ -38,6 +38,10 @@ public class Window extends AnchorPane {
         );
     }
 
+    /**
+     * Sets the duke object.
+     * @param d The duke object.
+     */
     public void setDuke(Duke d) {
         duke = d;
     }

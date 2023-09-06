@@ -19,6 +19,7 @@ public class Ui {
 
     /**
      * Exits the program.
+     * @return The exit message.
      */
     public static String exit() {
         return "Bye. Hope to see you again soon!";
@@ -27,6 +28,7 @@ public class Ui {
     /**
      * Prints the error message.
      * @param err The error message.
+     * @return The error message.
      */
     public static String returnErrorString(DukeException err) {
         return err.toString();
@@ -36,6 +38,7 @@ public class Ui {
      * Adds a Task object to the specified list of tasks.
      * @param tsk
      * @param taskNumber
+     * @return The message that the task has been added.
      */
     public static String addTask(Task tsk, int taskNumber) {
         return "Got it. I've added this task:\n" + tsk.toString() + "\nNow you have "
@@ -46,6 +49,7 @@ public class Ui {
      * Deletes a Task object from the specified list of tasks.
      * @param tsk The task to be deleted.
      * @param taskNumber The number of tasks in the list.
+     * @return The message that the task has been deleted.
      */
     public static String deleteTask(Task tsk, int taskNumber) {
         return "Noted. I've removed this task:\n" + tsk.toString() + "\nNow you have "
@@ -55,6 +59,7 @@ public class Ui {
     /**
      * Lists all the tasks in the specified list of tasks.
      * @param tasks The list of tasks.
+     * @return The message that lists all the tasks.
      */
     public static String listAllTasks(ArrayList<Task> tasks) {
         String res = "Here are the tasks in your list:";
@@ -67,6 +72,7 @@ public class Ui {
     /**
      * Marks a Task object in the specified list of tasks as done.
      * @param tsk The task to be marked as done.
+     * @return The message that the task has been marked as done.
      */
     public static String markAsDone(Task tsk) {
         return "Nice! I've marked this task as done:\n" + tsk.toString();
@@ -75,6 +81,7 @@ public class Ui {
     /**
      * Marks a Task object in the specified list of tasks as not done.
      * @param tsk The task to be marked as not done.
+     * @return The message that the task has been marked as not done.
      */
     public static String markAsUndone(Task tsk) {
         return "OK, I've marked this task as not done yet:\n" + tsk.toString();
@@ -83,6 +90,7 @@ public class Ui {
     /**
      * Finds the tasks that contain the specified keyword.
      * @param tsk The list of tasks that contain the specified keyword.
+     * @return The message that lists all the tasks that contain the specified keyword.
      */
     public static String findTasks(ArrayList<Task> tsk) {
         String res = "Here are the matching tasks in your list:";

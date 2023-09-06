@@ -23,6 +23,11 @@ public class Duke {
         sc.close();
     }
 
+    /**
+     * Returns the response of the chat bot.
+     * @param input The user input.
+     * @return The response of the chat bot.
+     */
     public String getResponse(String input) {
         return Parser.parseCommands(input);
     }

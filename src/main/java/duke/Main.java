@@ -14,7 +14,14 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
+    /**
+     * Produces the duke object.
+     */
     private Duke duke = new Duke();
+    /**
+     * Starts the GUI.
+     * @param stage The stage to be displayed.
+     */
     @Override
     public void start(Stage stage) {
         try {

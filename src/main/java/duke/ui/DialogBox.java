@@ -48,10 +48,22 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns a DialogBox object with the specified text and image.
+     * @param text The text to be displayed.
+     * @param img The image to be displayed.
+     * @return The method is returning a DialogBox object with the specified text and image.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns a DialogBox object with the specified text and image.
+     * @param text The text to be displayed.
+     * @param img The image to be displayed.
+     * @return The method is returning a DialogBox object with the specified text and image.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
