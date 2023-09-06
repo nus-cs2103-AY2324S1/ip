@@ -2,6 +2,11 @@ package seedu.duke;
 import seedu.duke.Task;
 import java.util.ArrayList;
 
+/**
+ * TaskList models the list of Tasks by sotring Task objects in an ArrayList
+ *
+ * @param input takes in a string of tasks to be parsed into Task in the list
+ */
 class TaskList {
     private ArrayList<Task> tasks;
 
