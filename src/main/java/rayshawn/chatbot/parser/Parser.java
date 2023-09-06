@@ -64,37 +64,26 @@ public class Parser {
         System.out.println(arguments);
 
         switch (commandWord) {
-
         case ByeCommand.COMMAND_WORD:
             return new ByeCommand();
-
         case DeadlineCommand.COMMAND_WORD:
             return prepareDeadline(arguments);
-
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
-
         case EventCommand.COMMAND_WORD:
             return prepareEvent(arguments);
-
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
-
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
-
         case MarkCommand.COMMAND_WORD:
             return prepareMark(arguments);
-
         case ToDoCommand.COMMAND_WORD:
             return prepareToDo(arguments);
-
         case UnmarkCommand.COMMAND_WORD:
             return prepareUnmark(arguments);
-
         default:
             return new NoSuchCommand();
         }
