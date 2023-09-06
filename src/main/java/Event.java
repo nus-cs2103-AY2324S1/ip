@@ -31,8 +31,6 @@ public class Event extends Task{
             this.from = parseDateTime(from);
             this.to = parseDateTime(to);
         } catch (Exception e) {
-            // Display the error message here
-           // System.err.println(Duke.horizontalLine + "Invalid date format :< Please use dd/MM/yyyy\n" + Duke.horizontalLine);
             throw new DukeException(Duke.horizontalLine + "Invalid date format :< Please use dd/MM/yyyy\n" + Duke.horizontalLine);
         }
 
