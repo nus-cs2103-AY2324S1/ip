@@ -5,17 +5,7 @@ package duke.message;
  * Extends the {@link Message} class.
  */
 public class ErrorMessage extends Message {
-
-    private final String errorLine = "!-!-!-!-!-!-!-!-!-!-!-!-!-!-!-!";
     public ErrorMessage(String content) {
         super(content);
     }
-
-    @Override
-    public void print() {
-        System.out.println(errorLine);
-        System.out.println(this);
-        System.out.println(errorLine);
-    }
-
 }

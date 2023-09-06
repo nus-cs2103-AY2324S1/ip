@@ -1,40 +1,37 @@
 package duke.application;
 
-import duke.duke.Duke;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import duke.command.Command;
 import duke.exception.DukeException;
+import duke.message.Message;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
+import duke.ui.Ui;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 
 /**
  * The application that manages UI and the taskList.
  */
-public class Application {
+public class Application extends javafx.application.Application {
+    private static final String name = "Iris";
+    private static final String filePath = "C:\\Users\\ortt2\\Documents\\ip\\src\\data\\tasks.txt";
     private TaskList taskList = new TaskList();
-
-    private final Duke duke;
-
-    private final Storage storage;
-
-    /**
-     * Constructs an Application object.
-     *
-     * @param duke The main Duke instance associated with this application.
-     * @param storage The storage object responsible for data persistence.
-     * @throws DukeException If there's an issue with initializing the application or loading tasks.
-     */
-    public Application(Duke duke, Storage storage) throws DukeException {
-        this.duke = duke;
-        this.storage = storage;
-        loadTaskList();
-    }
+    private Ui ui;
+    private Storage storage = null;
 
     /**
      * Shuts down application.
      */
     public void kill() {
         saveTaskList();
-        duke.kill();
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        executor.schedule(() -> Platform.runLater(ui::closeGui), 1, TimeUnit.SECONDS);
     }
 
     /**
@@ -52,9 +49,9 @@ public class Application {
      * @param task The task to be removed.
      */
     public void removeTask(Task task) {
-        storage.removeLine(taskList.findTaskIndex(task) + 1);
         taskList.removeTask(task);
     }
+
     /**
      * Loads the task list from storage into the application.
      *
@@ -69,6 +66,7 @@ public class Application {
             currentLine++;
         }
     }
+
     /**
      * Saves the task list into storage.
      */
@@ -105,6 +103,7 @@ public class Application {
 
     /**
      * Retrieves a TaskList containing all the tasks that contain a substring.
+     *
      * @param content The substring to search for.
      * @return A TaskList containing matching Tasks.
      */
@@ -116,5 +115,35 @@ public class Application {
             }
         }
         return matchingTasks;
+    }
+
+    /**
+     * Initialize the components of the application.
+     *
+     * @param primaryStage the primary stage for this application, onto which
+     *                     the application scene can be set.
+     *                     Applications may create other stages, if needed, but they will not be
+     *                     primary stages.
+     */
+    @Override
+    public void start(Stage primaryStage) {
+        this.ui = new Ui(this);
+        ui.renderGui(primaryStage);
+        try {
+            this.storage = new Storage(filePath);
+            loadTaskList();
+        } catch (DukeException de) {
+            ui.showError(de);
+        }
+        ui.showMessage(Message.onGreeting(name).fromDuke());
+    }
+
+    /**
+     * Handle a command.
+     *
+     * @param command The command to execute.
+     */
+    public void executeCommand(Command command) throws DukeException {
+        ui.showMessage(command.execute(this).fromDuke());
     }
 }

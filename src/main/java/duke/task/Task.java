@@ -10,6 +10,12 @@ import duke.exception.NoCommandFoundException;
 public abstract class Task {
     private final String name;
     private boolean completed = false;
+
+    /**
+     * Constructor for a Task instance.
+     * @param name The name/description of the task.
+     * @throws EmptyTaskDescException If the name is empty.
+     */
     public Task(String name) throws EmptyTaskDescException {
         if (name.isBlank()) {
             throw new EmptyTaskDescException("Name cannot be blank.");
@@ -33,7 +39,7 @@ public abstract class Task {
         String content = components[1];
         switch (taskType) {
         case TODO:
-            return Todo.unpackSaveFormat(content);
+            return Todo.parseSaveFormat(content);
         case DEADLINE:
             return Deadline.parseSaveFormat(content);
         case EVENT:
@@ -47,6 +53,9 @@ public abstract class Task {
         return name.contains(content);
     }
 
+    /**
+     * The different types of tasks.
+     */
     public enum TaskType {
         TODO,
         DEADLINE,
