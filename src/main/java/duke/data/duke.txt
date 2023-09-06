@@ -1,19 +1,11 @@
 todo dance
-todo eat
-todo sleep
-todo sleeping
-mark 4
-todo abc
-mark 5
-delete 5
-delete 3
-todo dance
 todo cry
-todo hey
-mark 5
-
-todo fly
-todo eat
-todo play
-todo run
-todo say hi
+delete 2
+delete 1
+todo 1
+todo 2
+mark 1
+mark 2
+unmark 1
+unmark 2
+delete 1

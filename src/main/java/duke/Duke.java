@@ -51,7 +51,7 @@ public class Duke {
             String response = parser.parse(input, ui, tasks, storage);
             return response;
         } catch (DukeException e) {
-            return e.toString();
+            return e.getMessage();
         }
     }
 

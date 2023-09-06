@@ -36,11 +36,10 @@ public class UI {
      * This is the first message the user will receive upon
      * using the program.
      */
-    public void welcomeMessage() {
-        printline();
-        System.out.println(String.format("Hello I'm %s, your personal assistant.", UI.name));
-        System.out.println("What can I do for you today, sir?");
-        printline();
+    public String welcomeMessage() {
+        stringBuilder.append((String.format("Hello I'm %s, your personal assistant. \n", UI.name)));
+        stringBuilder.append("What can I do for you today, sir?");
+        return stringBuilder.toString();
     }
 
     /**
