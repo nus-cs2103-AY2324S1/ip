@@ -7,11 +7,11 @@ import qi.ui.Ui;
 
 import java.io.IOException;
 
-public class UnmarkedCommand extends Command {
+public class UnmarkCommand extends Command {
 
     private int taskId;
 
-    public UnmarkedCommand(int taskId) {
+    public UnmarkCommand(int taskId) {
         super(false);
         this.taskId = taskId;
     }

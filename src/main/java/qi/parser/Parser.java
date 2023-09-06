@@ -27,7 +27,7 @@ public class Parser {
         if (command.startsWith("unmark")) {
             try {
                 int taskId = Integer.parseInt(command.substring(7));
-                return new UnmarkedCommand(taskId);
+                return new UnmarkCommand(taskId);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new QiException("☹ OOPS!!! Please specify which task you want to unmark.");
             }
