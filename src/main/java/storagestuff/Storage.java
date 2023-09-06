@@ -1,7 +1,6 @@
 package storagestuff;
 
-import duke.DukeException;
-import duke.Parser;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,6 +8,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import duke.DukeException;
+import duke.Parser;
 import taskstuff.Task;
 
 
@@ -23,7 +25,7 @@ public class Storage {
     /**
      * String representing the filepath of storage file.
      */
-    private final String FILEPATH;
+    private final String filepath;
 
     /**
      * Initialises the filePath and makes the file and directory if they don't exist.
@@ -32,7 +34,7 @@ public class Storage {
      * @throws DukeException If error occurred during accessing or making file.
      */
     public Storage(String filePath) throws DukeException {
-        this.FILEPATH = filePath;
+        this.filepath = filePath;
         try {
 
             File file = new File(filePath);
@@ -51,11 +53,11 @@ public class Storage {
      * @return An array consisting of tasks loaded from the data file.
      * @throws DukeException If error occurred during loading.
      */
-    public ArrayList<Task> load() throws DukeException{
+    public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         BufferedReader bufferedReader = null;
         try {
-            FileReader fileReader = new FileReader(this.FILEPATH);
+            FileReader fileReader = new FileReader(this.filepath);
             bufferedReader = new BufferedReader(fileReader);
             String dataInput;
 
@@ -89,17 +91,17 @@ public class Storage {
      * @throws DukeException If error occurred during storing.
      */
     public void store(String[] s) throws DukeException {
-        File file = new File(this.FILEPATH);
+        File file = new File(this.filepath);
         file.delete();
-        file = new File(this.FILEPATH);
+        file = new File(this.filepath);
         try {
             file.createNewFile();
         } catch (IOException e) {
             throw new DukeException("Error in saving data. Data lost.");
         }
-        BufferedWriter bufferedWriter  = null;
+        BufferedWriter bufferedWriter = null;
         try {
-            FileWriter fileWriter = new FileWriter(this.FILEPATH);
+            FileWriter fileWriter = new FileWriter(this.filepath);
             bufferedWriter = new BufferedWriter(fileWriter);
             for (int i = 0; i < s.length; i++) {
                 bufferedWriter.write(s[i]);

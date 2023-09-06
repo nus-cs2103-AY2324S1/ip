@@ -1,16 +1,21 @@
 package duke;
 
-import instructionstuff.Instruction;
-import instructionstuff.InstructionEnum;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.LocalDateTime;
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import instructionstuff.Instruction;
+import instructionstuff.InstructionEnum;
+import taskstuff.Deadline;
 import taskstuff.Event;
 import taskstuff.Task;
 import taskstuff.Todo;
-import taskstuff.Deadline;
+
+
+
+
 
 
 
@@ -146,7 +151,8 @@ public class Parser {
                         || matcher.group(5).isBlank() || matcher.group(6).isBlank()) {
                     throw new DukeException("Insufficient number of arguments for an event. Try again.");
                 } else {
-                    LocalDateTime startDateTime, endDateTime;
+                    LocalDateTime startDateTime;
+                    LocalDateTime endDateTime;
                     try {
                         startDateTime = LocalDateTime.parse(matcher.group(5).trim(), Parser.INPUT_FORMAT);
                         endDateTime = LocalDateTime.parse(matcher.group(6).trim(), Parser.INPUT_FORMAT);
@@ -184,7 +190,7 @@ public class Parser {
         }
         switch (instruction) {
         case TODO:
-            if(matcher.group(11) == null || matcher.group(11).isBlank()){
+            if (matcher.group(11) == null || matcher.group(11).isBlank()) {
                 throw new DukeException("");
             } else {
                 task = new Todo(matcher.group(11).trim());
