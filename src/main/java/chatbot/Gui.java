@@ -36,6 +36,8 @@ public class Gui {
         this.scene = new Scene(this.mainLayout);
 
         initStyle();
+
+        initActions();
     }
 
     private void initStyle() {
@@ -48,6 +50,9 @@ public class Gui {
         this.chatHistoryScrollPane.setFitToWidth(true);
 
         this.chatContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        this.chatContainer.heightProperty().addListener((observable) -> {
+          this.chatHistoryScrollPane.setVvalue(1.0);
+        });
 
         this.userInput.setPrefWidth(USERINPUT_WIDTH);
 
@@ -60,6 +65,25 @@ public class Gui {
 
         AnchorPane.setBottomAnchor(this.sendButton, 1.0);
         AnchorPane.setRightAnchor(this.sendButton, 1.0);
+    }
+
+    private Label getChatLabel(String text) {
+        Label chatLabel = new Label(text);
+        chatLabel.setWrapText(true);
+
+        return chatLabel;
+    }
+
+    private void initActions() {
+        this.sendButton.setOnMouseClicked(event -> {
+            this.chatContainer.getChildren().add(getChatLabel(this.userInput.getText()));
+            this.userInput.clear();
+        });
+
+        this.userInput.setOnAction(event -> {
+            this.chatContainer.getChildren().add(getChatLabel(this.userInput.getText()));
+            this.userInput.clear();
+        });
     }
 
     public Scene getScene() {
