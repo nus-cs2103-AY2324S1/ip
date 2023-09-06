@@ -9,10 +9,12 @@ import duke.task.TaskList;
 public class ListCommand extends Command {
 
     /**
-     * Executes the given ListCommand using the specified TaskList, Ui and Storage.
+     * Executes the given ListCommand using the specified TaskList and Storage.
      *
      * @param tasks The task list to be printed.
      * @param storage The storage to save and update tasks (if needed).
+     * @return The String that contains a formatted version of all tasks in the TaskList, and will be passed to the GUI
+     *         when the ListCommand has finished executing.
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {

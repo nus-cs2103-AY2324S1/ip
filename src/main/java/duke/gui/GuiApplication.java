@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * Represents the main GUI application for the chatbot.
+ * Main GUI application for the chatbot.
  */
 public class GuiApplication extends Application {
 

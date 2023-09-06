@@ -71,10 +71,11 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Executes the given AddCommand using the specified TaskList, Ui and Storage.
+     * Executes the given AddCommand using the specified TaskList and Storage.
      *
      * @param tasks The task list to run the command on.
      * @param storage The storage to save tasks to.
+     * @return The String that will be passed to the GUI when the AddCommand has finished executing.
      * @throws DukeException If task type is invalid; or date Strings cannot be parsed (for deadlines and events).
      */
     @Override

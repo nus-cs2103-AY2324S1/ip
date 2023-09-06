@@ -24,6 +24,7 @@ public class UnmarkCommand extends Command {
      *
      * @param tasks The task list to unmark a task in.
      * @param storage The storage to save and update tasks.
+     * @return The String that will be passed to the GUI when the UnmarkCommand has finished executing.
      * @throws DukeException If index is out of range for the task list.
      */
     @Override

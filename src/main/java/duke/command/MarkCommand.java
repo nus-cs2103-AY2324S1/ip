@@ -21,10 +21,11 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Executes the given MarkCommand using the specified TaskList, Ui and Storage.
+     * Executes the given MarkCommand using the specified TaskList and Storage.
      *
      * @param tasks The task list to mark a task in.
      * @param storage The storage to save and update tasks.
+     * @return The String that will be passed to the GUI when the MarkCommand has finished executing.
      * @throws DukeException If index is out of range for the task list.
      */
     @Override

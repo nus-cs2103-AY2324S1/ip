@@ -9,10 +9,11 @@ import duke.task.TaskList;
 public class ExitCommand extends Command {
 
     /**
-     * Executes the given ExitCommand using the specified TaskList, Ui and Storage.
+     * Executes the given ExitCommand using the specified TaskList and Storage.
      *
      * @param tasks The task list to run the command on (if needed).
      * @param storage The storage to save and update tasks (if needed).
+     * @return Null. Exit logic is handled by the GUI itself.
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {

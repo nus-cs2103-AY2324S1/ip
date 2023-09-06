@@ -42,7 +42,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Initialises Duke in the GUI and displays a welcome message.
+     * Initialises Duke in the GUI and displays a welcome message in a dialog box.
      * @param d The Duke instance for the GUI to use.
      */
     public void setDuke(Duke d) {
@@ -55,6 +55,24 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
+     * Creates a new dialog box with the exit message, waits 500ms, then closes the GUI program.
+     * @param input The input message that triggers this exit handler.
+     */
+    private void handleExit(String input) {
+        // print an exit message, waits 500ms, then exits the program.
+        CompletableFuture.completedFuture(dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDukeDialog(duke.getExitMessage(), dukeImage)
+        )).thenRunAsync(() -> {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                Platform.exit();
+            }
+        }).thenRunAsync(() -> Platform.exit());
+    }
+
+    /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
@@ -63,23 +81,15 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         userInput.clear();
+
+        // there is a response; do not exit the GUI program
         if (response != null) {
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
                     DialogBox.getDukeDialog(response, dukeImage)
             );
         } else {
-            // print an exit message, waits 500ms, then exits the program.
-            CompletableFuture.completedFuture(dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(duke.getExitMessage(), dukeImage)
-            )).thenRunAsync(() -> {
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    Platform.exit();
-                }
-            }).thenRunAsync(() -> Platform.exit());
+            handleExit(input);
         }
     }
 }

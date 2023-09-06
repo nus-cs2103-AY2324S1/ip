@@ -24,8 +24,10 @@ public class FindCommand extends Command {
      * Finds tasks in the TaskList with the given search string, and prints the matching tasks. Prints a message if no
      * matching tasks are found.
      *
-     * @param tasks The task list to search using the search keyword.=
+     * @param tasks The task list to search using the search keyword.
      * @param storage The storage to save and update tasks (if needed).
+     * @return The String that contains a formatted version of the tasks found, and will be passed to the GUI when the
+     *         FindCommand has finished executing.
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
