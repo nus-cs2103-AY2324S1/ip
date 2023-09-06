@@ -67,11 +67,10 @@ public class TaskList {
      * Lists tasks matching the given date.
      * @param date The date for which tasks are to be listed.
      */
-    public String  listDateEvents(LocalDate date) {
+    public String listDateEvents(LocalDate date) {
         StringBuilder str = new StringBuilder();
         for (Task dt : data) {
             if (dt.getDate() != null && dt.getDate().getDayOfMonth() == date.getDayOfMonth()) {
-//                System.out.println("- " + dt.toString());
                 str.append("- ").append(dt.toString()).append("\n");
             }
         }
@@ -138,7 +137,6 @@ public class TaskList {
      */
     public String list() {
         if (data.isEmpty()) {
-//            System.out.println("Congrats!!! Nothing to do now!!!\n");
             return "Congrats!!! Nothing to do now!!!\n";
         } else {
             StringBuilder str = new StringBuilder();

@@ -1,7 +1,6 @@
 package roo;
 
 import java.time.LocalDate;
-import java.util.Scanner;
 
 import roo.task.Task;
 
@@ -9,7 +8,6 @@ import roo.task.Task;
  * Deals with interactions with the user.
  */
 public class Ui {
-//    private Scanner scanner;
     private final TaskList tasks;
 
     /**
@@ -31,30 +29,19 @@ public class Ui {
                 + "|_| \\_\\|_____||_____|\n";
         String hello = "Hello! I am Roo!!\n" + "What can I do for you ah?\n";
         return logo + hello;
-//        scanner = new Scanner(System.in);
     }
-
-//    /**
-//     * Reads a line of input from the user.
-//     * @return The user's input as a String.
-//     */
-//    public String read() {
-//        return scanner.nextLine();
-//    }
 
     /**
      * Closes the scanner and displays an exit message.
      */
     public String close() {
-//        scanner.close();
-        return  "Ciao! Hope to see you soon yorr!!";
+        return "Ciao! Hope to see you soon yorr!!";
     }
 
     /**
      * Displays the list of tasks.
      */
     public String list() {
-//        System.out.println("Although I dunwan to list... But here is your list:");
         return "Although I dunwan to list... But here is your list:\n" + tasks.list();
     }
 
@@ -63,7 +50,6 @@ public class Ui {
      */
     public String clear() {
         tasks.clear();
-//        System.out.println("All tasks cleared\n");
         return "All tasks cleared\n";
     }
 
@@ -72,8 +58,6 @@ public class Ui {
      * @param date The date for which tasks are to be listed.
      */
     public String listDateEvents(LocalDate date) {
-//        System.out.println("Your task on " + date.toString() + "...");
-//        tasks.listDateEvents(date);
         return "Your task on " + date.toString() + "...\n" + tasks.listDateEvents(date);
     }
 
@@ -82,8 +66,6 @@ public class Ui {
      * @param keyword The keyword to search for in tasks.
      */
     public String find(String keyword) {
-//        System.out.println("Nah, your matching tasks:");
-//        tasks.find(keyword);
         return "Nah, your matching tasks:\n" + tasks.find(keyword);
     }
 
@@ -110,7 +92,7 @@ public class Ui {
      * @param index The index of the task to delete.
      */
     public String delete(int index) {
-        return  "Okay!! Task \"" + tasks.delete(index) + "\" removed :) "
+        return "Okay!! Task \"" + tasks.delete(index) + "\" removed :) "
                 + "You still have " + (tasks.size() - 1) + " tasks in the list\n";
     }
 

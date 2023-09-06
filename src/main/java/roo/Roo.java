@@ -2,6 +2,7 @@ package roo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import roo.task.Deadline;
 import roo.task.Event;
 import roo.task.Todo;
@@ -39,7 +40,6 @@ public class Roo {
         this.storage.initialise(tasks);
         Commands c;
         while (true) {
-//            input = this.ui.read();
             c = Parse.parse(input);
             try {
                 switch (c) {
