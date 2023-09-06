@@ -1,11 +1,11 @@
 package commands;
 
+import java.io.IOException;
+
 import duke.DukeException;
 import storage.DataFile;
 import tasks.Task;
 import tasks.TaskList;
-
-import java.io.IOException;
 
 /**
  * Represents a type of command that can be read by the chatbot.
@@ -29,7 +29,7 @@ public class MarkCommand extends Command {
      * @param dF The file to be edited on.
      */
     @Override
-    public void execute(TaskList tasks, DataFile dF) throws DukeException{
+    public void execute(TaskList tasks, DataFile dF) throws DukeException {
         if (tasks.isTaskListEmpty()) {
             throw new DukeException("List is empty, nothing to mark");
         }

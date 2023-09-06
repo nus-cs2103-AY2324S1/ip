@@ -1,11 +1,12 @@
 package commands;
 
+import java.io.IOException;
+
 import duke.DukeException;
 import storage.DataFile;
 import tasks.Task;
 import tasks.TaskList;
 
-import java.io.IOException;
 
 /**
  * Represents a type of command that can be read by the chatbot.
