@@ -3,13 +3,18 @@ package duke;
 import Exceptions.DukeArgumentException;
 import Exceptions.DukeException;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.util.Scanner;
 
 /**
  * This class represents the main program.
  */
-public class Duke {
+public class Duke extends Application{
     private static Storage storage;
     private static Ui ui;
     private static Parser parser;
@@ -87,6 +92,11 @@ public class Duke {
             throw new DukeException("     OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
+    public Duke() {
+        ui = new Ui();
+        parser = new Parser();
+    }
+
     /**
      * Constructor method for Duke.
      * @param directoryPath Directory to be created, where the save file resides.
@@ -116,6 +126,14 @@ public class Duke {
                 System.out.println("     Oh no, seems like something is not working.. We can't save your data.");
             }
         }
+    }
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
     public static void main(String[] args) {
         new Duke("./data", "./data/duke.txt").run();
