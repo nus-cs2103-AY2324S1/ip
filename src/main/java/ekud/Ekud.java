@@ -17,6 +17,7 @@ public class Ekud {
     // Storage object to handle loading / saving of tasks between the tasks
     // in TaskList and the tasks stored on the hard disk
     private final Storage storage;
+    // Whether the chatbot is currently active or not (to handle main commands)
     private boolean isActive;
 
     /**
@@ -40,18 +41,13 @@ public class Ekud {
         String userArgs = inputParts[1];
         // Handle start and end commands
         if (userCommand.equals("start")) {
-            if (isActive) {
-                return "Ekud is already running :>";
-            }
-            isActive = true;
-            return this.loadData() + "\n" + this.getGreeting();
+            return this.start();
         }
         if (!isActive) {
             return "Ekud is currently sleeping... (Type 'start' to run again)";
         }
         if (userCommand.equals("end")) {
-            this.isActive = false;
-            return this.saveData() + "\nGoodbye, have a nice day! :p";
+            return this.end();
         }
         // Handle main commands
         try {
@@ -62,6 +58,20 @@ public class Ekud {
         }
 
     }
+
+    public String start() {
+        if (isActive) {
+            return "Ekud is already running :>";
+        }
+        isActive = true;
+        return this.loadData() + "\n" + this.getGreeting();
+    }
+
+    public String end() {
+        this.isActive = false;
+        return this.saveData() + "\nGoodbye, have a nice day! :p";
+    }
+
     public String loadData() {
         try {
             return this.storage.loadData(this.taskList);
@@ -83,7 +93,7 @@ public class Ekud {
                 + "What can I do for you? :O";
     }
 
-    // Loads tasklist then launches the GUI for the chatbot
+    // Launches the GUI for the chatbot
     public static void main(String[] args) {
         Launcher.main(args);
     }
