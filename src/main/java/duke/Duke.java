@@ -8,12 +8,6 @@ import duke.tasks.TaskList;
 import duke.ui.Main;
 import duke.ui.Ui;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
 
 public class Duke {
     /**
@@ -28,13 +22,6 @@ public class Duke {
      * The storage object
      */
     private final Storage storage;
-    private final Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
 
     /**
      * Constructor for Duke
