@@ -14,43 +14,40 @@ public class Parser {
      * @return process code, where 0 means the program should end and 1 otherwise
      * @throws DukeException if there are malformed inputs
      */
-    public static int parseInput(String input, TaskList taskList) throws DukeException {
+    public static String parseInput(String input, TaskList taskList) throws DukeException {
         if (input.equals("bye")) {
-            System.out.println("Bye. Hope to see you again soon!");
-            return 0;
+            return "Bye. Hope to see you again soon!";
         } else if (input.equals("list")) {
-            taskList.printTasks();
+            return taskList.printTasks();
         } else if (input.startsWith("mark")) {
-            parseMark(input, taskList);
+            return parseMark(input, taskList);
         } else if (input.startsWith("unmark")) {
-            parseUnmark(input, taskList);
+            return parseUnmark(input, taskList);
         } else if (input.startsWith("todo")) {
-            parseToDo(input, taskList);
+            return parseToDo(input, taskList);
         } else if (input.startsWith("deadline")) {
-            parseDeadline(input, taskList);
+            return parseDeadline(input, taskList);
         } else if (input.startsWith("event")) {
-            parseEvent(input, taskList);
+            return parseEvent(input, taskList);
         } else if (input.startsWith("delete")) {
-            parseDelete(input, taskList);
+            return parseDelete(input, taskList);
         } else if (input.startsWith("find")) {
-            parseFind(input, taskList);
+            return parseFind(input, taskList);
         } else {
             throw new DukeException("I do not understand :(((");
         }
-
-        return 1;
     }
 
-    private static void parseToDo(String s, TaskList taskList) throws DukeException {
+    private static String parseToDo(String s, TaskList taskList) throws DukeException {
         String name = s.substring(4).trim();
         if (name.length() == 0) {
             throw new DukeException("Description of todo cannot be empty!");
         }
 
-        taskList.addTask(new ToDo(name), true);
+        return taskList.addTask(new ToDo(name), true);
     }
 
-    private static void parseDeadline(String s, TaskList taskList) throws DukeException {
+    private static String parseDeadline(String s, TaskList taskList) throws DukeException {
         // Extract name and by
         int byIndex = s.indexOf("/by");
         if (byIndex == -1) {
@@ -67,10 +64,10 @@ public class Parser {
                     + "(`deadline name /by date (in yyyy-mm-dd)`)");
         }
 
-        taskList.addTask(new Deadline(name, parseDate(by)), true);
+        return taskList.addTask(new Deadline(name, parseDate(by)), true);
     }
 
-    private static void parseEvent(String s, TaskList taskList) throws DukeException {
+    private static String parseEvent(String s, TaskList taskList) throws DukeException {
         // Extract name, from and to
         int fromIndex = s.indexOf("/from");
         int toIndex = s.indexOf("/to");
@@ -89,14 +86,14 @@ public class Parser {
                     + " and when the event is from and to! (`event name /from date /to date`)");
         }
 
-        taskList.addTask(new Event(name, from, to), true);
+        return taskList.addTask(new Event(name, from, to), true);
     }
 
-    private static void parseMark(String s, TaskList taskList) throws DukeException {
+    private static String parseMark(String s, TaskList taskList) throws DukeException {
         try {
             int index = Integer.parseInt(s.substring(4).trim()) - 1;
 
-            taskList.markTask(index, true);
+            return taskList.markTask(index, true);
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a valid number!");
         } catch (IndexOutOfBoundsException e) {
@@ -104,11 +101,11 @@ public class Parser {
         }
     }
 
-    private static void parseUnmark(String s, TaskList taskList) throws DukeException {
+    private static String parseUnmark(String s, TaskList taskList) throws DukeException {
         try {
             int index = Integer.parseInt(s.substring(6).trim()) - 1;
 
-            taskList.markTask(index, false);
+            return taskList.markTask(index, false);
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a valid number!");
         } catch (IndexOutOfBoundsException e) {
@@ -116,11 +113,11 @@ public class Parser {
         }
     }
 
-    private static void parseDelete(String s, TaskList taskList) throws DukeException {
+    private static String parseDelete(String s, TaskList taskList) throws DukeException {
         try {
             int index = Integer.parseInt(s.substring(6).trim()) - 1;
 
-            taskList.deleteTask(index);
+            return taskList.deleteTask(index);
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a valid number!");
         } catch (IndexOutOfBoundsException e) {
@@ -134,13 +131,13 @@ public class Parser {
      * @param taskList task list to find tasks from
      * @throws DukeException if input is missing the string to be found
      */
-    private static void parseFind(String s, TaskList taskList) throws DukeException {
+    private static String parseFind(String s, TaskList taskList) throws DukeException {
         String toFind = s.substring(4).trim();
         if (toFind.length() == 0) {
             throw new DukeException("Please enter a string to find!");
         }
 
-        taskList.findTasks(toFind);
+        return taskList.findTasks(toFind);
     }
     /**
      * Parses text from the pre-existing task list file to the corresponding Task object.

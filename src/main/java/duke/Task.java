@@ -27,16 +27,18 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
-    public void markAsDone() {
+    public String markAsDone() {
         this.isDone = true;
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this);
+        StringBuilder output = new StringBuilder("Nice! I've marked this task as done:\n");
+        output.append(this.toString() + "\n");
+        return output.toString();
     }
 
-    public void markAsUndone() {
+    public String markAsUndone() {
         this.isDone = false;
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(this);
+        StringBuilder output = new StringBuilder("OK, I've marked this task as not done yet:\n");
+        output.append(this.toString() + "\n");
+        return output.toString();
     }
 
     @Override
