@@ -25,7 +25,7 @@ public class UnmarkCommand extends Command {
      *
      * @param tasks   ArrayList of tasks.
      * @param storage File loading and saving handler.
-     * @return
+     * @return String output of unmark command.
      * @throws OscarException Failure to validate task number.
      */
     @Override

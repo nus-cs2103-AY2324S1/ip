@@ -27,7 +27,7 @@ public class TodoCommand extends Command {
      *
      * @param tasks   ArrayList of tasks.
      * @param storage File loading and saving handler.
-     * @return
+     * @return String output of todo task.
      * @throws OscarException Incorrect format of todo command.
      */
     @Override

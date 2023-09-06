@@ -25,7 +25,7 @@ public class FindCommand extends Command {
      *
      * @param tasks   ArrayList of tasks.
      * @param storage File loading and saving handler.
-     * @return
+     * @return String output of find command.
      * @throws OscarException Failure to execute command.
      */
     @Override

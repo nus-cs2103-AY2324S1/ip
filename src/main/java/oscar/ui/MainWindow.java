@@ -1,5 +1,7 @@
 package oscar.ui;
 
+import java.util.Objects;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -14,18 +16,20 @@ import oscar.Oscar;
  */
 public class MainWindow extends AnchorPane {
     @FXML
+    private Button sendButton;
+    @FXML
     private ScrollPane scrollPane;
     @FXML
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Oscar oscar;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image oscarImage = new Image(this.getClass().getResourceAsStream("/images/oscar.png"));
+    private final Image userImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/user.png")));
+    private final Image oscarImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/oscar.png")));
 
     @FXML
     public void initialize() {
@@ -34,10 +38,13 @@ public class MainWindow extends AnchorPane {
 
     public void setOscar(Oscar o) {
         oscar = o;
+        dialogContainer.getChildren().addAll(
+                DialogBox.getOscarDialog(oscar.greet(), oscarImage)
+        );
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Oscar's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML

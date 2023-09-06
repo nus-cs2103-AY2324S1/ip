@@ -78,6 +78,8 @@ public class TaskList {
 
     /**
      * Lists stored tasks in chronological order of addition.
+     *
+     * @return Tasks in task list.
      */
     public String list() {
         StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
@@ -90,6 +92,8 @@ public class TaskList {
 
     /**
      * Displays the number of tasks stored in the task list.
+     *
+     * @return Message that informs users of number of tasks in task list.
      */
     public String listCount() {
         int listSize = getSize();
@@ -150,6 +154,7 @@ public class TaskList {
      * Lists all tasks in the task list containing the keyword.
      *
      * @param keyword String to match.
+     * @return List of tasks containing keyword.
      */
     public String find(String keyword) {
         StringBuilder result = new StringBuilder("Here are the matching tasks in your list:");

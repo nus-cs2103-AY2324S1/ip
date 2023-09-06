@@ -30,7 +30,7 @@ public class EventCommand extends Command {
      *
      * @param tasks   ArrayList of tasks.
      * @param storage File loading and saving handler.
-     * @return
+     * @return String output of event task.
      * @throws OscarException Incorrect format of event command.
      */
     @Override

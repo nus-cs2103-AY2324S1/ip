@@ -30,7 +30,7 @@ public class DeadlineCommand extends Command {
      *
      * @param tasks   ArrayList of tasks.
      * @param storage File loading and saving handler.
-     * @return
+     * @return String output of deadline task.
      * @throws OscarException Incorrect format of deadline command.
      */
     @Override

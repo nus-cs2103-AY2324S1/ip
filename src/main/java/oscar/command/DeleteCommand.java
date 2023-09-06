@@ -25,7 +25,7 @@ public class DeleteCommand extends Command {
      *
      * @param tasks   ArrayList of tasks.
      * @param storage File loading and saving handler.
-     * @return
+     * @return String output of deletion command.
      * @throws OscarException Failure to validate task number.
      */
     @Override

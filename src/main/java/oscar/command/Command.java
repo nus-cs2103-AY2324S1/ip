@@ -53,7 +53,7 @@ public abstract class Command {
      *
      * @param tasks   ArrayList of tasks.
      * @param storage File loading and saving handler.
-     * @return
+     * @return String output of command.
      * @throws OscarException Failure to execute command.
      */
     public abstract String execute(TaskList tasks, Storage storage) throws OscarException;

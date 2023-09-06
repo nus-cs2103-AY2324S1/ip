@@ -14,7 +14,7 @@ import oscar.ui.MainWindow;
  */
 public class Main extends Application {
 
-    private Oscar oscar = new Oscar(Oscar.FILE_PATH);
+    private final Oscar oscar = new Oscar(Oscar.FILE_PATH);
 
     @Override
     public void start(Stage stage) {
@@ -22,6 +22,8 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            ap.heightProperty().add(scene.getHeight());
+            ap.widthProperty().add(scene.getHeight());
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setOscar(oscar);
             stage.show();
