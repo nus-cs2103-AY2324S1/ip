@@ -63,7 +63,7 @@ public class Storage {
 
     public void saveAndExit(TaskList taskList) {
         try {
-            FileWriter fileWriter = new FileWriter(FILE_PATH);
+            FileWriter fileWriter = new FileWriter(filePath);
 
             for (int i = 0; i < taskList.size(); i++) {
                 fileWriter.write(taskList.get(i).writeToFile() + "\n");
