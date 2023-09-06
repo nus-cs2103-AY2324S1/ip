@@ -6,7 +6,7 @@ import javafx.application.Application;
 // with minor modifications
 public class Launcher {
     public static void main(String[] args) {
-        Application.launch(Kniaz.class, args);
+        Application.launch(Main.class, args);
     }
 }
 //@@author
