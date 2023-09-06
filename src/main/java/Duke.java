@@ -1,4 +1,3 @@
-import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +5,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import HelperClass.Task;
-
+import HelperClass.Storage;
 public class Duke {
     private static void printOneLine() {
         System.out.println("---------------------------");
@@ -38,152 +38,12 @@ public class Duke {
         }
 
     }
-
-    private static void BackgroundSetUp() {
-        String directoryName = "data";
-        String fileName = "list.txt";
-
-        File dir = new File(directoryName);
-        if (!(dir.exists())) {
-            if (dir.mkdir()) {
-                System.out.println("Directory '" + directoryName + "' created.");
-            } else {
-                System.err.println("Failed to create directory '" + directoryName + "'.");
-                return;
-            }
-        }
-
-
-        File file = new File(dir, fileName);
-
-        if (!(file.exists())) {
-            try {
-                if (file.createNewFile()) {
-                    System.out.println("File '" + fileName + "' created in directory '" + directoryName + "'.");
-                } else {
-                    System.err.println("Failed to create file '" + fileName + "' in directory '" + directoryName + "'.");
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-
-    private static List<String> ReadLine(String line) {
-        List<String> formattedLine = new ArrayList<>();
-        Scanner lineScanner = new Scanner(line);
-        while (lineScanner.hasNext()) {
-
-            String token = lineScanner.next();
-            formattedLine.add(token);
-
-        }
-        lineScanner.close();
-
-        return formattedLine;
-    }
-
-
-
-    private static Task[] LoadList() {
-        Task[] userList = new Task[100];
-        int positionPointer = 0;
-
-        String fileName = "data/list.txt";
-        Path path = Paths.get(fileName);
-        try {
-            Scanner fileScanner = new Scanner(path);
-            while(fileScanner.hasNextLine()){
-
-                // Record format: "Type | Status | Name | StartTime(optional) | EndTime(optional)"
-                // example: "D | 0 | return book | 2023-09-04"
-                // "0" for not done and "1" for done
-
-                String line = fileScanner.nextLine();
-
-                List<String> formattedLine = ReadLine(line);
-
-
-
-                List<String> attributes = new ArrayList<>();
-                StringBuilder attributeName = new StringBuilder();
-
-                for (Object element : formattedLine) {
-                    if (element.equals("|")) {
-                        attributes.add(attributeName.toString());
-                        attributeName = new StringBuilder();
-                    } else {
-                        if (attributeName.length() == 0) {
-                            attributeName.append(element);
-                        } else {
-                            attributeName.append(" ").append(element);
-                        }
-
-
-                    }
-                }
-
-                attributes.add(attributeName.toString());
-                boolean isDone = attributes.get(1).equals("1");
-
-                switch (attributes.get(0)) {
-                    case "T": {
-                        Task task = new Task(attributes.get(2), 1, "Null", "Null", isDone);
-                        userList[positionPointer] = task;
-
-                        break;
-                    }
-                    case "D": {
-                        Task task = new Task(attributes.get(2), 2, "Null", attributes.get(3), isDone);
-                        userList[positionPointer] = task;
-
-                        break;
-                    }
-                    case "E": {
-                        Task task = new Task(attributes.get(2), 3, attributes.get(3), attributes.get(4), isDone);
-                        userList[positionPointer] = task;
-
-                        break;
-
-
-                    }
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + attributes.get(0));
-                }
-
-                positionPointer++;
-
-
-            }
-            fileScanner.close();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
-        return userList;
-    }
-
-    private static void SaveList(Task[] userList, int numberOfElements) {
-        String fileName = "data/list.txt";
-        try (FileWriter writer = new FileWriter(fileName)) {
-            for (int i = 0; i < numberOfElements; i++) {
-                writer.write(userList[i].ForRecordingInTextFile());
-                writer.write("\n");
-            }
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
-
-    }
+    private Storage storage = new Storage("list.txt", "data");
 
 
     public static void main(String[] args) {
+
+
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -191,7 +51,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
 
-        BackgroundSetUp();
+
 
 
         Greet();
@@ -199,7 +59,7 @@ public class Duke {
         boolean wantToExit = false;
         Scanner getUserInput = new Scanner(System.in);
         Scanner getUserIndex = new Scanner(System.in);
-        Task[] userList = LoadList();
+        Task[] userList = this.storage.getUserList();
 
         int listPointer = 0;
 
