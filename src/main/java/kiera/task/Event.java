@@ -28,6 +28,7 @@ public class Event extends Task {
                     + "write when your event starts and ends in the form: /from yyyy-mm-dd 0000 /to 2359)");
         } catch (DateTimeException e) {
             throw new KieraException("     "
+                    + "invalid input! "
                     + "fill in the date in the format: /from yyyy-mm-dd 0000 /to 2359!");
         }
     }

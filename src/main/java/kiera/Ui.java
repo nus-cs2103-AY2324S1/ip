@@ -10,7 +10,7 @@ import kiera.tasktype.TaskType;
  * Displays messages and reads user input.
  */
 public class Ui {
-    private final String line = "   ---------------------------------------------";
+    private final String line = "   --------------------------------------------------------------";
 
     public Ui() {
     }
