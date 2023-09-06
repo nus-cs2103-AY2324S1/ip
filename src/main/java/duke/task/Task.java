@@ -2,19 +2,19 @@ package duke.task;
 
 public class Task {
     private String description;
-    private boolean isDone;
+    private boolean done;
 
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        this.done = false;
     }
 
     public String taskDescription() {
-        return (isDone ? "[X] " + this.description : "[ ] " + this.description); // mark done task with X
+        return (this.done ? "[X] " + this.description : "[ ] " + this.description); // mark done task with X
     }
 
     public String fileDescription() {
-        return (isDone ? "1" + " | " + this.description : "0" + " | " + this.description);
+        return (this.done ? "1" + " | " + this.description : "0" + " | " + this.description);
     }
 
     public String fileString() {
@@ -26,8 +26,9 @@ public class Task {
         return "[T]" + taskDescription();
     }
 
-    public void setTaskState(boolean isDone) {
-        this.isDone = isDone;
+    public void setDone(boolean done) {
+        this.done = done;
     }
 
+    public boolean isDone() {return this.done;}
 }

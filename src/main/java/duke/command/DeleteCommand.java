@@ -18,8 +18,8 @@ public class DeleteCommand extends Command{
         } catch (ChatException e) {
             ui.showLoadingError(e);
         }
-    };
+    }
     public boolean isExit() {
         return false;
-    };
+    }
 }

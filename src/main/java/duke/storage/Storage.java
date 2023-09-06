@@ -37,21 +37,21 @@ public class Storage {
                         pastTask = new Task(pastTaskDetails[2]);
                         tasks.addTask(pastTask);
                         if (pastTaskDetails[1].equals("1")) {
-                            pastTask.setTaskState(true);
+                            pastTask.setDone(true);
                         }
                         break;
                     case "D":
                         pastTask = new Deadline(pastTaskDetails[2], LocalDate.parse(pastTaskDetails[3]));
                         tasks.addTask(pastTask);
                         if (pastTaskDetails[1].equals("1")) {
-                            pastTask.setTaskState(true);
+                            pastTask.setDone(true);
                         }
                         break;
                     case "E":
                         pastTask = new Event(pastTaskDetails[2], pastTaskDetails[3], pastTaskDetails[4]);
                         tasks.addTask(pastTask);
                         if (pastTaskDetails[1].equals("1")) {
-                            pastTask.setTaskState(true);
+                            pastTask.setDone(true);
                         }
                         break;
                     default:

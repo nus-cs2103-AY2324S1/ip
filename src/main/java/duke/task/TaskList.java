@@ -31,7 +31,7 @@ public class TaskList {
     public void markDone(int taskNumber) throws ChatException {
         try {
             Task task = taskList.get(taskNumber - 1);
-            task.setTaskState(true);
+            task.setDone(true);
         } catch (IndexOutOfBoundsException e) {
             throw new ChatException("☹ OOPS!!! Please specify the correct task number.");
         }
@@ -40,7 +40,7 @@ public class TaskList {
     public void markUndone(int taskNumber) throws ChatException {
         try {
             Task task = taskList.get(taskNumber - 1);
-            task.setTaskState(false);
+            task.setDone(false);
         } catch (IndexOutOfBoundsException e) {
             throw new ChatException("☹ OOPS!!! Please specify the correct task number.");
         }
