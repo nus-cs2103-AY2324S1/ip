@@ -1,6 +1,5 @@
 package qi.command;
 
-import qi.qiexception.QiException;
 import qi.storage.Storage;
 import qi.tasklist.TaskList;
 import qi.ui.Ui;
@@ -10,7 +9,7 @@ public class ExitCommand extends Command {
         super(true);
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws QiException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showGoodbye();
     }
 }

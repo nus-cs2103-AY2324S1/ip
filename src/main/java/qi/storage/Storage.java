@@ -1,8 +1,10 @@
 package qi.storage;
 
 import qi.qiexception.QiException;
+import qi.task.Deadline;
+import qi.task.Event;
+import qi.task.Todo;
 import qi.tasklist.TaskList;
-import qi.task.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -75,7 +77,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            throw new QiException("hahah");
+            throw new QiException("Cannot read file!");
         }
     }
 
