@@ -32,16 +32,6 @@ public class Duke {
     }
 
     /**
-     * The main method that initializes and runs the Duke application.
-     *
-     * @param args Command-line arguments (not used in this context).
-     */
-    public static void main(String[] args) {
-        Duke duke = new Duke("Duke", "src/main/java/resource/duke.txt");
-        duke.run();
-    }
-
-    /**
      * Runs the Duke application, handling user input and commands.
      */
     public void run() {
@@ -55,5 +45,15 @@ public class Duke {
             input = ui.readCommand();
         }
         ui.exit();
+    }
+
+    /**
+     * The main method that initializes and runs the Duke application.
+     *
+     * @param args Command-line arguments (not used in this context).
+     */
+    public static void main(String[] args) {
+        Duke duke = new Duke("Duke", "data/duke.txt");
+        duke.run();
     }
 }

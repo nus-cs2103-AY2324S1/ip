@@ -1,8 +1,8 @@
 package duke.task;
 
-import duke.utility.DateParser;
-
 import java.time.LocalDateTime;
+
+import duke.utility.DateParser;
 
 /**
  * Represents an event task with a specified start and end time.

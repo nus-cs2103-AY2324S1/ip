@@ -1,9 +1,9 @@
 package duke.task;
 
+import java.util.ArrayList;
+
 import duke.utility.Storage;
 import duke.utility.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Represents a list of tasks and provides methods to manage tasks within the list.
@@ -69,7 +69,8 @@ public class TaskList {
         Task task = this.tasks.get(taskNumber - 1);
         this.tasks.remove(task);
         storage.deleteTask(taskNumber);
-        ui.formatPrintMessage("Noted. I've removed this task:\n  " + task + "\nNow you have " + this.tasks.size() + " task(s) in the list.");
+        ui.formatPrintMessage("Noted. I've removed this task:\n  " + task + "\nNow you have " + this.tasks.size()
+                + " task(s) in the list.");
     }
 
     /**
@@ -128,6 +129,12 @@ public class TaskList {
         storage.modifyTask(taskNumber, task);
     }
 
+    /**
+     * Finds tasks that match a given keyword and displays them.
+     *
+     * @param keyword The keyword to search for in tasks.
+     * @param ui      The user interface for displaying messages.
+     */
     public void findTasks(String keyword, Ui ui) {
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : this.tasks) {
