@@ -2,6 +2,11 @@ package seedu.duke;
 import java.time.LocalDate;
 import seedu.duke.Task;
 
+/**
+ * Todo models the todo Tasks by inheriting from the parent Task class.
+ *
+ * @param description is the name of the todo tasks that needs to be done.
+ */
 class Todo extends Task {
     public Todo(String description) {
         super(description);
