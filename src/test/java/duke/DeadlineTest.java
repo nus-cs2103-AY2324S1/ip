@@ -1,11 +1,11 @@
 package duke;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {
 
@@ -13,7 +13,8 @@ public class DeadlineTest {
     public void testStringConversion() {
         LocalDateTime dateTime = LocalDateTime.parse("2023-09-23 1800", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
 
-        assertEquals("[D][ ] Apply for internships (by: Sep 23 2023 1800)", new Deadline("Apply for internships", dateTime).toString());
+        assertEquals("[D][ ] Apply for internships (by: Sep 23 2023 1800)",
+            new Deadline("Apply for internships", dateTime).toString());
 
         Task task = new Deadline("Make my resume", dateTime);
         task.setMark(true);
@@ -25,7 +26,8 @@ public class DeadlineTest {
     public void testWriteToFile() {
         LocalDateTime dateTime = LocalDateTime.parse("2023-09-23 1800", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
 
-        assertEquals("D | 0 | Apply for internships | Sep 23 2023 1800", new Deadline("Apply for internships", dateTime).writeToFile());
+        assertEquals("D | 0 | Apply for internships | Sep 23 2023 1800",
+            new Deadline("Apply for internships", dateTime).writeToFile());
 
         Task task = new Deadline("Make my resume", dateTime);
         task.setMark(true);

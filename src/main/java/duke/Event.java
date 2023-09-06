@@ -27,8 +27,9 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.startDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"))
-                + " to: " + this.endDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + ")";
+        return "[E]" + super.toString() + " (from: "
+            + this.startDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + " to: "
+                + this.endDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + ")";
     }
 
     @Override
@@ -39,7 +40,8 @@ public class Event extends Task {
         } else {
             mark = 0;
         }
-        return "E | " + mark + " | " + super.writeToFile() + " | " + this.startDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"))
+        return "E | " + mark + " | " + super.writeToFile() + " | "
+            + this.startDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"))
                 + " -> " + this.endDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
     }
 }

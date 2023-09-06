@@ -150,6 +150,11 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Prints list of tasks that matches the search input.
+     *
+     * @param selectedTasks List of tasks.
+     */
     public static void searchTasks(String selectedTasks) {
         System.out.println(line);
         System.out.println("     Here are the matching tasks in your list:");

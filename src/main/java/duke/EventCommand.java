@@ -25,8 +25,9 @@ public class EventCommand {
             if (details.length != 3 || !input.contains(" /from ") || !input.contains(" /to ")) {
                 throw new DurationUnclearException();
             }
-            LocalDateTime fromDateTime = LocalDateTime.parse(details[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-            LocalDateTime toDateTime = LocalDateTime.parse(details[2], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            LocalDateTime fromDateTime = LocalDateTime.parse(details[1], inputFormat);
+            LocalDateTime toDateTime = LocalDateTime.parse(details[2], inputFormat);
             Task task = new Event(details[0], fromDateTime, toDateTime);
             tasks.add(task);
             storage.rewrite(tasks.fileList());
