@@ -23,6 +23,12 @@ public class Duke {
     /** The storage that is used to save and load the user's tasks. */
     private final Storage storage;
 
+    private final Parser parser = new Parser(this.taskList);
+
+    public Duke() {
+        this("data/tasks.txt");
+    }
+
     /**
      * Constructs a new Duke object.
      *
@@ -48,7 +54,18 @@ public class Duke {
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+        Launcher.main(args);
+    }
+    public String greet() {
+        return "Hello! I'm LilBro!\nWhat can I do for you?";
+    }
+    public String getResponse(String input) {
+        try {
+            Command command = parser.parse(input);
+            return command.execute();
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
     }
 
     /**
