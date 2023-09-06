@@ -1,13 +1,11 @@
 package pardiyem.test;
 
-import org.junit.jupiter.api.Test;
-import pardiyem.task.Deadline;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import pardiyem.task.Deadline;
 
 public class DeadlineTest {
     @Test
@@ -26,7 +24,8 @@ public class DeadlineTest {
             new Deadline("Joni", "20353-01-23", true);
             fail();
         } catch (Exception e) {
-            assertEquals(e.getMessage(), "Please input your time in the format of either \"YYYY-MM-DD\" or \"YYYY-MM-DD HH:MM:SS\"");
+            assertEquals(e.getMessage(),
+                    "Please input your time in the format of either \"YYYY-MM-DD\" or \"YYYY-MM-DD HH:MM:SS\"");
         }
     }
     @Test
