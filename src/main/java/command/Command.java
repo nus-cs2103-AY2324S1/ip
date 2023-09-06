@@ -21,7 +21,6 @@ public abstract class Command {
      *
      * @param taskManager The task manager that modifies the task list.
      * @param diskManager The disk manager that handles updating data in local disk.
-     * @param ui The ui that handles writing output.
      * @throws DukeException When something went wrong during execution.
      */
     public abstract String execute(TaskManager taskManager, DiskManager diskManager) throws DukeException;

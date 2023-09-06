@@ -21,6 +21,8 @@ public class Deadline extends Task {
     public Deadline(@JsonProperty("taskName") String taskName, @JsonProperty("deadline") LocalDate deadline) {
         super(taskName);
         this.deadline = deadline;
+
+        assert this.deadline != null : "deadline should not be null";
     }
 
 
@@ -30,6 +32,8 @@ public class Deadline extends Task {
 
     public void setDeadline(LocalDate deadline) {
         this.deadline = deadline;
+
+        assert this.deadline != null : "deadline should not be null";
     }
 
     private String getFormattedDeadline() {

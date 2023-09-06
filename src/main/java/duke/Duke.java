@@ -29,6 +29,10 @@ public class Duke {
             System.out.println(e.getMessage());
             this.taskManager = new TaskManager();
         }
+
+        assert this.stage != null : "stage of Duke instance should not be null";
+        assert this.taskManager != null : "taskManager of Duke instance should not be null";
+        assert this.diskManager != null : "diskManager of Duke instance should not be null";
     }
 
     public String execute(String input) {
