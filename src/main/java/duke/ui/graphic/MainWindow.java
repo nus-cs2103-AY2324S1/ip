@@ -1,5 +1,13 @@
 package duke.ui.graphic;
 
+import duke.storage.Storage;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+
 import duke.Duke;
 import duke.parse.DateTimeManager;
 import duke.parse.Parser;
@@ -7,12 +15,6 @@ import duke.parse.command.Command;
 import duke.task.Task;
 import duke.ui.Ui;
 import duke.ui.graphic.components.DialogBox;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
 
 import java.time.LocalDate;
 
@@ -29,6 +31,10 @@ public class MainWindow extends VBox implements Ui {
     private Duke duke;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duck.png"));
+    private String errorPrepend;
+    private String errorAppend;
+    private boolean isHandlingFileCorrupted = false;
+    private String botName;
 
     /**
      * Initialises the UI.
@@ -37,9 +43,20 @@ public class MainWindow extends VBox implements Ui {
      */
     @Override
     public void initialise(String name, String[] args) {
-        String data = "Hello from " + name + "\n"
-                + "What can I do for you?";
-        this.displayData(data);
+        this.botName = name;
+        try {
+            this.duke.readFromDisk();
+            this.greet();
+        } catch (Storage.FileCorruptedException e) {
+            this.displayData("Quack, memory was found to be corrupted!\n"
+                    + "What do you wish to do?\n"
+                    + "1. Quit, let me restore the data manually\n"
+                    + "2. Continue with an empty task list\n"
+                    + "Please indicate your option (1/2)."
+            );
+            this.isHandlingFileCorrupted = true;
+        }
+
         this.dialogContainer.heightProperty().addListener((observable) -> {
             this.scrollPane.setVvalue(1.0);
         });
@@ -52,8 +69,18 @@ public class MainWindow extends VBox implements Ui {
         });
     }
 
+    private void greet() {
+        this.displayData("Hello from " + this.botName + "\n"
+                + "What can I do for you?");
+    }
+
     public void setDuke(Duke duke) {
         this.duke = duke;
+    }
+
+    public void setErrorPrependAndAppend(String errorPrepend, String errorAppend) {
+        this.errorPrepend = errorPrepend;
+        this.errorAppend = errorAppend;
     }
 
     /**
@@ -62,6 +89,11 @@ public class MainWindow extends VBox implements Ui {
      */
     @FXML
     private void handleUserInput() {
+        if (this.isHandlingFileCorrupted) {
+            this.handleFileCorrupted();
+            this.userInput.clear();
+            return;
+        }
         String input = this.userInput.getText();
         this.dialogContainer.getChildren().add(
                 DialogBox.getUserDialog(input, userImage)
@@ -78,22 +110,45 @@ public class MainWindow extends VBox implements Ui {
     /**
      * Notifies the user that data is being loaded.
      */
-    public void notifyDataLoading() {}
+    public void notifyDataLoading() {
+        this.displayData("Loading data from hard disk ...");
+    }
 
     /**
      * Notifies the user that data has been loaded.
      */
-    public void notifyDataLoaded() {}
+    public void notifyDataLoaded() {
+        this.displayData("Done loading.");
+    }
 
     /**
      * Notifies the user that data could not be loaded due to IO error.
      */
-    public void notifyLoadingIoError() {}
+    public void notifyLoadingIoError() {
+        this.displayData("Quack, an error has occurred while trying to save data to hard disk.\n"
+                + "Starting with an empty task list.");
+    }
 
     /**
      * Notifies the user that data is corrupted and allow user to take action.
+     * @return whether the user has decided to exit the programme.
      */
-    public boolean handleFileCorrupted() { return true; }
+    public boolean handleFileCorrupted() {
+        String input = this.userInput.getText();
+        switch (input) {
+        case "1":
+            this.isHandlingFileCorrupted = false;
+            this.exit();
+            return true;
+        case "2":
+            this.isHandlingFileCorrupted = false;
+            this.greet();
+            return false;
+        default:
+            this.displayData("Quack, I do not understand your option, please indicate again (1/2)!");
+            return false;
+        }
+    }
 
     /**
      * Takes input from the user.
@@ -102,36 +157,42 @@ public class MainWindow extends VBox implements Ui {
     public String takeInput(String prompt) { return "test"; }
 
     /**
-     * Leave an exit message.
+     * Exit the programme
      */
-    public void exit() {}
+    public void exit() {
+        Platform.exit();
+    }
 
     /**
      * Notifies user-input error.
      */
     public void notifyError(String message) {
-        this.dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(message, this.dukeImage)
-        );
+        this.displayData(this.errorPrepend + message + this.errorAppend);
     }
 
     /**
      * Notifies user that a task has been marked done.
      * @param task the task to notify
      */
-    public void notifyMarkDone(Task task) {}
+    public void notifyMarkDone(Task task) {
+        this.displayData("Nice! I've marked this task as done:\n" + task);
+    }
 
     /**
      * Notifies user that a task has been marked as not done.
      * @param task the task to notify
      */
-    public void notifyMarkNotDone(Task task) {}
+    public void notifyMarkNotDone(Task task) {
+        this.displayData("OK, I've marked this task as not done yet:\n" + task);
+    }
 
     /**
      * Notifies that a task has been removed.
      * @param task the task removed
      */
-    public void notifyRemoved(Task task) {}
+    public void notifyRemoved(Task task) {
+        this.displayData("Noted, I've removed this task:\n" + task);
+    }
 
     /**
      * Notifies that a list of task is going to be displayed.
@@ -177,29 +238,39 @@ public class MainWindow extends VBox implements Ui {
      * Notifies that a task has been added.
      * @param task the task added
      */
-    public void notifyAdded(Task task) {}
+    public void notifyAdded(Task task) {
+        this.displayData("Got it, I've added this task to the list:\n" + task);
+    }
 
     /**
      * Notifies that data is being saved to disk.
      */
-    public void notifyDataSaving() {}
+    public void notifyDataSaving() {
+        this.displayData("Saving data ...");
+    }
 
     /**
      * Notifies the user that data has been saved to disk.
      */
-    public void notifyDataSaved() {}
+    public void notifyDataSaved() {
+        this.displayData("Done saving.");
+    }
 
     /**
      * Show task count.
      * @param count the number of task in the list
      */
-    public void showTaskCount(int count) {}
+    public void showTaskCount(int count) {
+        this.displayData("Now you have " + count + " in the list.");
+    }
 
     /**
      * Notify the user of the search results.
      * @param input the search parameter
      */
-    public void notifyFind(String input) {}
+    public void notifyFind(String input) {
+        this.displayData("Here are the tasks that match \"" + input + "\"");
+    }
 
     /**
      * Display custom data

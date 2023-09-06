@@ -18,7 +18,6 @@ public class DukeApplication extends Application {
             Scene scene = new Scene(ap);
             MainWindow graphicInterface = fxmlLoader.getController();
             Duke duke = new Duke(false, graphicInterface);
-            graphicInterface.setDuke(duke);
             stage.setScene(scene);
             stage.setResizable(false);
             stage.show();

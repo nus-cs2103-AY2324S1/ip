@@ -39,6 +39,8 @@ public class Duke {
         if (isCli) {
             this.interact();
         } else {
+            ((MainWindow) this.userInterface).setErrorPrependAndAppend("Quack, ", "!");
+            ((MainWindow) this.userInterface).setDuke(this);
             this.userInterface.initialise(this.myName, new String[] {});
         }
     }
@@ -50,7 +52,7 @@ public class Duke {
      * If there is IO error, handle the exception gracefully,
      * and continue with an empty task list.
      */
-    private void readFromDisk() throws Storage.FileCorruptedException {
+    public void readFromDisk() throws Storage.FileCorruptedException {
         this.userInterface.notifyDataLoading();
         try {
             ArrayList<Task> taskList = this.storage.readFromDisk();

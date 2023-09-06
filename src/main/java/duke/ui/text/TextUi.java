@@ -218,7 +218,7 @@ public class TextUi implements Ui {
      */
     @Override
     public void notifyDataSaved() {
-        System.out.println("Done saving");
+        System.out.println("Done saving.");
     }
 
     /**
