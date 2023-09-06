@@ -1,12 +1,14 @@
 package instructionstuff;
 
+import java.util.ArrayList;
+
 import duke.DukeException;
 import storagestuff.Storage;
 import taskstuff.Task;
 import taskstuff.TaskList;
 import userstuff.Ui;
 
-import java.util.ArrayList;
+
 
 /**
  * An abstract class for all instructions.

@@ -2,8 +2,10 @@ package duke;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-import instructionstuff.Instruction;
+
 import org.junit.jupiter.api.Test;
+
+import instructionstuff.Instruction;
 
 
 class ParserTest {
@@ -53,7 +55,7 @@ class ParserTest {
         try {
             Instruction instruction = Parser.parse("deadline /to 02-02-2002 1800");
             fail();
-        } catch(DukeException e) {
+        } catch (DukeException e) {
             assertEquals("Invalid format for deadline. Try again.", e.getMessage());
         }
     }
