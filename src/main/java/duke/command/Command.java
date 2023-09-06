@@ -13,7 +13,7 @@ public class Command {
 
     /**
      * Executes the command for the given list of tasks, user interface and storage.
-     * 
+     *
      * @param tasks   The list of tasks.
      * @param ui      The user interface.
      * @param storage The storage.
@@ -25,7 +25,7 @@ public class Command {
 
     /**
      * Returns whether the command is an exit command.
-     * 
+     *
      * @return True if the command is an exit command, false otherwise.
      */
     public boolean isExit() {

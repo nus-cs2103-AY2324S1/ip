@@ -1,8 +1,8 @@
 package duke.task;
 
-import duke.exception.DukeException;
-
 import java.time.LocalDateTime;
+
+import duke.exception.DukeException;
 
 /**
  * Represents a task with a deadline.
@@ -10,11 +10,25 @@ import java.time.LocalDateTime;
 public class Deadline extends Task {
     protected LocalDateTime by; // The deadline of the task in LocalDateTime format.
 
+    /**
+     * Constructs a deadline with the given description and deadline.
+     *
+     * @param description The description of the deadline.
+     * @param by          The deadline of the deadline.
+     * @throws DukeException If there are problems constructing the deadline.
+     */
     public Deadline(String description, String by) throws DukeException {
-        super(description);
-        this.by = LocalDateTime.parse(by);
+        this(description, by, false);
     }
 
+    /**
+     * Constructs a deadline with the given description, deadline and status.
+     *
+     * @param description The description of the deadline.
+     * @param by          The deadline of the deadline.
+     * @param isDone      The status of the deadline.
+     * @throws DukeException If there are problems constructing the deadline.
+     */
     public Deadline(String description, String by, boolean isDone) throws DukeException {
         super(description, isDone);
         this.by = LocalDateTime.parse(by);

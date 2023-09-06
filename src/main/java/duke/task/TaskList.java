@@ -1,9 +1,9 @@
 package duke.task;
 
-import duke.exception.DukeException;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import duke.exception.DukeException;
 
 /**
  * Represents a list of tasks.
@@ -15,15 +15,22 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a task list from the given list of strings.
+     * The strings are in the format to be saved in the storage file.
+     *
+     * @param lines The list of strings representing the tasks in the list.
+     * @throws DukeException If there are problems constructing the task list.
+     */
     public TaskList(List<String> lines) throws DukeException {
         this.tasks = new ArrayList<>();
         for (String line : lines) {
             String[] inputs = line.split(" \\| ");
 
             String taskType = inputs[0];
-            Boolean isDone = inputs[1].equals("1");
+            boolean isDone = inputs[1].equals("1");
             String description = inputs[2];
-            
+
             switch (taskType) {
             case "T":
                 this.add(new Todo(description, isDone));
@@ -59,7 +66,7 @@ public class TaskList {
 
     /**
      * Returns the list of tasks.
-     * 
+     *
      * @return The list of tasks.
      */
     public List<Task> getTasks() {
@@ -68,7 +75,7 @@ public class TaskList {
 
     /**
      * Adds the given task to the list.
-     * 
+     *
      * @param task The task to be added.
      */
     public void add(Task task) {
@@ -77,7 +84,7 @@ public class TaskList {
 
     /**
      * Deletes the task at the given index from the list.
-     * 
+     *
      * @param index The index of the task to be deleted.
      */
     public void delete(int index) {
@@ -86,7 +93,7 @@ public class TaskList {
 
     /**
      * Marks the task at the given index as done.
-     * 
+     *
      * @param index The index of the task to be marked as done.
      */
     public void markAsDone(int index) {
@@ -95,7 +102,7 @@ public class TaskList {
 
     /**
      * Marks the task at the given index as not done.
-     * 
+     *
      * @param index The index of the task to be marked as not done.
      */
     public void unmarkAsDone(int index) {
@@ -104,7 +111,7 @@ public class TaskList {
 
     /**
      * Returns the number of tasks in the list.
-     * 
+     *
      * @return The number of tasks in the list.
      */
     public int size() {
@@ -113,7 +120,7 @@ public class TaskList {
 
     /**
      * Returns the task at the given index.
-     * 
+     *
      * @param index The index of the task to be returned.
      * @return The task at the given index.
      */
