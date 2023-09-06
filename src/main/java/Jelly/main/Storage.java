@@ -12,15 +12,29 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Stores and loads tasked based on the specified file path.
+ */
 public class Storage {
     private static final String FILE_PATH = "./taskData/jelly.txt";
 
     private String filePath;
 
+    /**
+     * Constructor for Storage, based on the specified file path.
+     *
+     * @param filePath The file path used when saving or starting up the bot. Contains a list of tasks(if any).
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Starts up the Jelly Bot by loading the tasks from the specified file path.
+     *
+     * @return An ArrayList with all the tasks from the file.
+     * @throws JellyException If there is an error while loading up the file.
+     */
     public ArrayList<Task> startUp() throws JellyException {
         ArrayList<Task> storage = new ArrayList<>();
         try {
@@ -61,6 +75,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves all task data into the file.
+     *
+     * @param taskList
+     */
     public void saveAndExit(TaskList taskList) {
         try {
             FileWriter fileWriter = new FileWriter(filePath);

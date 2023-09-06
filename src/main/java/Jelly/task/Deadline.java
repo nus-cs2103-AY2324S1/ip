@@ -7,6 +7,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Corresponds to a task with a deadline(date or date and time).
+ */
 public class Deadline extends Task {
 
     protected String by;
@@ -15,6 +18,12 @@ public class Deadline extends Task {
 
     protected LocalDateTime deadLineDateAndTime;
 
+    /**
+     * Constructor for a deadline task.
+     *
+     * @param description The description of the task.
+     * @param by When the task is due by.
+     */
     public Deadline(String description, String by) {
         super(description);
         this.deadlineDate = parseDate(by);
@@ -40,6 +49,12 @@ public class Deadline extends Task {
             return printedStuff + this.by;
     }
 
+    /**
+     * Parses the date inputted that corresponds to the formats accepted.
+     *
+     * @param date The due date of the task.
+     * @return The parsed date, or null if the date is in a format that isn't accepted.
+     */
     protected LocalDate parseDate(String date) {
         List<DateTimeFormatter> formats = new ArrayList<>();
         formats.add(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -56,7 +71,13 @@ public class Deadline extends Task {
         return null;
     }
 
-    protected LocalDateTime parseDateTime(String date) {
+    /**
+     * Parses the date and time inputted that corresponds to the formats accepted.
+     *
+     * @param dateTime The due date and time of the task.
+     * @return The parsed date and time, or null if incorrect format.
+     */
+    protected LocalDateTime parseDateTime(String dateTime) {
         List<DateTimeFormatter> formats = new ArrayList<>();
         formats.add(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         formats.add(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
@@ -65,7 +86,7 @@ public class Deadline extends Task {
 
             for (int i = 0; i < formats.size(); i++) {
                 try {
-                    return LocalDateTime.parse(date, formats.get(i));
+                    return LocalDateTime.parse(dateTime, formats.get(i));
                 } catch (DateTimeParseException e) {
 
             }
