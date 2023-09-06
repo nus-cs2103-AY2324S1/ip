@@ -1,17 +1,20 @@
 package duke.gui;
 
-import javafx.scene.control.Button;
+import javafx.application.Platform;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+
 
 /**
  * The class for the user input panel
  */
 public class UserInputPane extends Pane {
+    private Image sendIcon = new Image(this.getClass().getResourceAsStream("/images/SendIcon.png"));
     private Main mainPanel;
     private TextField userInput;
-    private Button sendButton;
 
     /**
      * Instantiates the UserInputPane
@@ -21,22 +24,23 @@ public class UserInputPane extends Pane {
     public UserInputPane(Main mainPanel) {
         this.mainPanel = mainPanel;
         userInput = new TextField();
-        sendButton = new Button("Send");
+        ImageView sendImage = new ImageView(sendIcon);
 
-        userInput.setPrefWidth(325.0);
-        sendButton.setPrefWidth(55.0);
+        sendImage.setFitWidth(30.0);
+        sendImage.setFitHeight(25);
+        userInput.setPrefWidth(345.0);
 
         AnchorPane inputContainer = new AnchorPane();
-        inputContainer.getChildren().addAll(userInput, sendButton);
+        inputContainer.getChildren().addAll(userInput, sendImage);
 
 
         // Position userInput in the bottom left corner
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        // Position sendButton in the bottom right corner
-        AnchorPane.setRightAnchor(sendButton, -55.0);
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        // Position sendImage in the bottom right corner
+        AnchorPane.setRightAnchor(sendImage, -35.0);
+        AnchorPane.setBottomAnchor(sendImage, 1.0);
 
 
         // Set the preferred height for inputContainer to accommodate both elements
@@ -44,7 +48,11 @@ public class UserInputPane extends Pane {
 
         getChildren().add(inputContainer);
 
-        sendButton.setOnMouseClicked((event) -> {
+        sendImage.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+
+        userInput.setOnAction((event) -> {
             handleUserInput();
         });
     }
@@ -52,21 +60,10 @@ public class UserInputPane extends Pane {
     private void handleUserInput() {
         String userText = userInput.getText();
         mainPanel.addDialog(userText);
-        /*
-        Label dukeText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
-        )
-         */
         userInput.clear();
+        if (userText.equals("bye")) {
+            Platform.exit();
+        }
     }
 
-    public TextField getUserInput() {
-        return userInput;
-    }
-
-    public Button getSendButton() {
-        return sendButton;
-    }
 }
