@@ -28,6 +28,10 @@ public class Duke {
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(input);
+            if (command.isExit()) {
+                storage.saveData(tasks);
+                System.exit(0);
+            }
             return command.execute(tasks, storage);
         } catch (DukeException e) {
             return e.getMessage();
