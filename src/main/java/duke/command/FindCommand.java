@@ -23,13 +23,13 @@ public class FindCommand extends Command {
 
     /**
      * Executes the instance of FindCommand
-     * @param tasklist list of tasks
+     * @param tasklst list of tasks
      * @param ui instance of ui class
      * @param storage instance of storage class
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) {
-        ui.showTasks(tasklist.filterToList(this.keyword));
+    public void execute(TaskList tasklst, Ui ui, Storage storage) {
+        ui.showTasks(tasklst.filterToList(this.keyword));
     }
 
     /**

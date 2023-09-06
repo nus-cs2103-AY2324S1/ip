@@ -16,12 +16,12 @@ public class ExitCommand extends Command {
 
     /**
      * Executes the exit command.
-     * @param tasklist list of tasks
+     * @param tasklst list of tasks
      * @param ui ui component of the program
      * @param storage storage componenet of the program
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) {
+    public void execute(TaskList tasklst, Ui ui, Storage storage) {
         ui.showGoodbye();
     }
 

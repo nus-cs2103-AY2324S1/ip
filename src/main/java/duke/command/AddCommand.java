@@ -22,14 +22,14 @@ public class AddCommand extends Command {
 
     /**
      * Executes the current add command.
-     * @param tasklist current list of tasks
+     * @param tasklst current list of tasks
      * @param ui instance of user interface
      * @param storage instance of storage to read and write files
      * @throws NoFileException Exception thrown if there is no file found when rewriting
      */
-    public void execute(TaskList tasklist, Ui ui, Storage storage) throws NoFileException {
-        tasklist.addTask(this.task, ui);
-        storage.rewriteFile(tasklist);
+    public void execute(TaskList tasklst, Ui ui, Storage storage) throws NoFileException {
+        tasklst.addTask(this.task, ui);
+        storage.rewriteFile(tasklst);
     }
 
     /**

@@ -46,12 +46,12 @@ public class Storage {
 
     /**
      * Writes the current tasklist back into a file.
-     * @param tasklist ArrayList of strings to be written into the file
+     * @param tasklst ArrayList of strings to be written into the file
      * @throws NoFileException Exception when file to be written in cannot be found
      */
-    public void rewriteFile(TaskList tasklist) throws NoFileException {
+    public void rewriteFile(TaskList tasklst) throws NoFileException {
         try {
-            ArrayList<String> tasks = tasklist.toWriteFormat();
+            ArrayList<String> tasks = tasklst.toWriteFormat();
             FileWriter fw = new FileWriter(this.filePath);
             for (String task : tasks) {
                 fw.append(task);

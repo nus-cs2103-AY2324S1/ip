@@ -20,14 +20,14 @@ public class MarkCommand extends Command {
 
     /**
      * Executes the mark command.
-     * @param tasklist list of tasks
+     * @param tasklst list of tasks
      * @param ui ui component of the program
      * @param storage storage componenet of the program
      * @throws DukeException Error if the task number is outside the task list
      */
-    public void execute(TaskList tasklist, Ui ui, Storage storage) throws DukeException {
-        tasklist.markTask(taskNumber, ui);
-        storage.rewriteFile(tasklist);
+    public void execute(TaskList tasklst, Ui ui, Storage storage) throws DukeException {
+        tasklst.markTask(taskNumber, ui);
+        storage.rewriteFile(tasklst);
     }
 
     /**

@@ -10,6 +10,6 @@ import duke.util.Ui;
  * Abstract command class for commands to be executed after parsing
  */
 public abstract class Command {
-    public abstract void execute(TaskList tasklist, Ui ui, Storage storage) throws DukeException, IOException;
+    public abstract void execute(TaskList tasklst, Ui ui, Storage storage) throws DukeException, IOException;
     public abstract boolean isExit();
 }
