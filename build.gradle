@@ -7,7 +7,7 @@ plugins {
 
 javafx {
     version = "20"
-    modules = [ 'javafx.controls' ]
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 repositories {
@@ -45,8 +45,8 @@ shadowJar {
     dependsOn("distZip", "distTar")
 }
 
-run{
-    standardInput = System.in
-}
+//run{
+//    standardInput = System.in
+//}
 
-mainClassName = 'Duke'
+mainClassName = 'Main'
