@@ -18,7 +18,7 @@ public class Todo extends Task {
     /**
      * Identifies itself as an Todo.
      *
-     * @returns Character to identify the type of Task.
+     * @return Character to identify the type of Task.
      */
     public String identifier() {
         return "T";
@@ -27,7 +27,7 @@ public class Todo extends Task {
     /**
      * Returns String form for storage.
      *
-     * @returns String for storage format.
+     * @return String for storage format.
      */
     public String toFile() {
         return identifier() + " | " + showStatusAsFile() + " | " + showName();
