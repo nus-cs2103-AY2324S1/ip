@@ -31,12 +31,13 @@ public class Parser {
      * @throws UnknownCommandException if asked commands that the bot do not
      *                                 understand
      */
-    public static boolean isExitOrContinue(String command,
+    public static String isExitOrContinue(String command,
             TaskList tasks,
             UI helper,
             Storage storage)
             throws WrongMarkException,
             UnknownCommandException {
+        String output = "";
         String[] splittedCommand = command.split(" ");
         String commandType = splittedCommand[0];
         switch (commandType) {
@@ -44,17 +45,17 @@ public class Parser {
                 try {
                     storage.save(tasks);
                 } catch (IOException e) {
+                    output = "OOPS!!! There is no file to save.";
                     System.out.println("OOPS!!! There is no file to save.");
                 }
                 break;
             case "find":
-                helper.findTask();
                 String keyword = splittedCommand[1];
-                tasks.findTaskFromTaskList(keyword);
+                output = helper.findTask(keyword, tasks);
                 break;
             case "list":
                 helper.printLine();
-                tasks.printList();
+                output = tasks.printList();
                 break;
             case "mark":
                 try {
@@ -62,16 +63,18 @@ public class Parser {
                     Task task = tasks.get(taskNumber - 1);
                     if (!task.isItDone()) {
                         task.setAsDone();
-                        helper.markTask(task);
+                        output = helper.markTask(task);
                     } else if (task.isItDone()) {
                         helper.printLine();
                         throw new WrongMarkException("This task is already done.");
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     helper.printLine();
+                    output = "OOPS!!! Must choose something to mark.";
                     System.out.println("OOPS!!! Must choose something to unmark.");
                 } catch (NullPointerException e) {
                     helper.printLine();
+                    output = "OOPS!!! You chose air.";
                     System.out.println("OOPS!!! You chose air.");
                 }
                 break;
@@ -81,41 +84,41 @@ public class Parser {
                     Task task = tasks.get(taskNumber - 1);
                     if (task.isItDone()) {
                         task.setAsUndone();
-                        helper.unMarkTask(task);
+                        output = helper.unMarkTask(task);
                     } else {
                         helper.printLine();
                         throw new WrongMarkException("This task is not done yet.");
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     helper.printLine();
+                    output = "OOPS!!! Must choose something to unmark.";
                     System.out.println("OOPS!!! Must choose something to unmark.");
                 } catch (NullPointerException e) {
                     helper.printLine();
+                    output = "OOPS!!! You chose air.";
                     System.out.println("OOPS!!! You chose air.");
                 }
                 break;
             case "delete":
                 String[] splittedInput = command.split(" ");
                 int taskNumber = Integer.parseInt(splittedInput[1]);
-                helper.deleteTask(tasks, taskNumber);
+                output = helper.deleteTask(tasks, taskNumber);
                 break;
             default:
                 try {
                     Task currentTask = Task.createTask(command);
                     tasks.add(currentTask);
-                    helper.addTask(currentTask, tasks);
+                    output = helper.addTask(currentTask, tasks);
                 } catch (EmptyDetailsOfTaskError e) {
                     helper.printLine();
+                    output = e.getMessage();
                     System.out.println(e.getMessage());
                 } catch (UnknownCommandException e) {
                     helper.printLine();
+                    output = e.getMessage();
                     System.out.println(e.getMessage());
                 }
         }
-        if (commandType.equals("bye")) {
-            return true;
-        } else {
-            return false;
-        }
+        return output;
     }
 }

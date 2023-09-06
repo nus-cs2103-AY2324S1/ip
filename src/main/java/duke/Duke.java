@@ -53,18 +53,18 @@ public class Duke {
         // setting up
         Scanner sc = new Scanner(System.in);
         String string = sc.nextLine();
-        boolean isDone = false;
         String commandType = "";
+        String parserOutput = "";
 
         // looping in the program
         while (true) {
             // end the program
             try {
-                isDone = Parser.isExitOrContinue(string, tasks, helper, storage);
+                parserOutput = Parser.isExitOrContinue(string, tasks, helper, storage);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             } finally {
-                if (isDone) {
+                if (parserOutput.equals("")) {
                     commandType = "bye";
                 }
                 if (commandType.equals("bye")) {
@@ -79,5 +79,22 @@ public class Duke {
         if (commandType.equals("bye")) {
             helper.bye();
         }
+    }
+
+    public String getResponse(String input) {
+        String output = "";
+        if (tasks == null) {
+            this.tasks = new TaskList();
+        } else {
+            try {
+                output = Parser.isExitOrContinue(input, tasks, helper, storage);
+                if (output.equals("")) {
+                    return "Bye. Hope to see you again soon!";
+                }
+            } catch (DukeException e) {
+                return e.getMessage();
+            }
+        }
+        return output;
     }
 }
