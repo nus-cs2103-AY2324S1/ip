@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import duke.Storage;
-import duke.Ui;
+import duke.ui.Ui;
 
 /**
  * Represents a list of tasks and provides methods to manage tasks.

@@ -1,7 +1,8 @@
-package duke;
+package duke.ui;
 
 import java.util.ArrayList;
 
+import duke.DukeException;
 import duke.task.Task;
 import duke.task.TaskList;
 

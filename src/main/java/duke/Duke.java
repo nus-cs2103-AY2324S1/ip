@@ -3,6 +3,7 @@ package duke;
 import java.util.Scanner;
 
 import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * Represents the main class for the Duke chatbot application.
