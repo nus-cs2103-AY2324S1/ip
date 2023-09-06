@@ -51,13 +51,15 @@ public class Storage {
      *
      * @param id The index of the task to be deleted.
      */
-    public void deleteTask(int id) {
-        System.out.println("     Noted. I've removed this task:");
+    public String deleteTask(int id) {
+        String result = "";
+        result += ("     Noted. I've removed this task:");
         Task t = this.taskList.get(id);
-        t.printMarking(false);
+        result += t.printMarking(false);
         this.taskList.remove(id);
         int size = this.taskList.size();
-        System.out.printf("\n     Now you have %d tasks in the list.\n", size);
+        result += String.format("\n     Now you have %d tasks in the list.\n", size);
+        return result;
     }
 
     /**
@@ -146,19 +148,21 @@ public class Storage {
     /**
      * Prints the task list.
      */
-    public void printTaskList() {
+    public String printTaskList() {
+        String result = "";
         for (int i = 0; i < this.taskList.size(); i++) {
             int index = i + 1;
             Task t = this.taskList.get(i);
-            System.out.printf("     %d.[%s][%s] %s", index, t.getTypeIcon(), t.getStatusIcon(), t.description);
+            result += String.format("     %d.[%s][%s] %s", index, t.getTypeIcon(), t.getStatusIcon(), t.description);
             if (!Objects.isNull(t.startTime) && !Objects.isNull(t.endTime)) {
-                System.out.printf(" (from: %s to: %s)%n", t.startTime.toString().replace("T", " "), t.endTime.toString().replace("T", " "));
+                result += String.format(" (from: %s to: %s)%n", t.startTime.toString().replace("T", " "), t.endTime.toString().replace("T", " "));
             } else if (!Objects.isNull(t.startTime)) {
-                System.out.printf(" (by: %s)%n", t.startTime.toString().replace("T", " "));
+                result += String.format(" (by: %s)%n", t.startTime.toString().replace("T", " "));
             } else {
-                System.out.print("\n");
+                result += String.format("\n");
             }
         }
+        return result;
     }
 
     /**
@@ -167,14 +171,16 @@ public class Storage {
      * @param i The index of the task.
      * @throws DukeException If the task index is invalid.
      */
-    public void printTaskMarking(int i) throws DukeException {
+    public String printTaskMarking(int i) throws DukeException {
+        String result = "";
         try {
             Task t = this.taskList.get(i);
-            t.printMarking(true);
+            result += t.printMarking(true);
             System.out.println();
         } catch (Exception e) {
-            throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            result += ("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+        return result;
     }
 
     /**
@@ -198,27 +204,31 @@ public class Storage {
      *
      * @param t The task.
      */
-    public void printTaskEntry(Task t) {
-        t.printDescription();
+    public String  printTaskEntry(Task t) {
+        String result = "";
+        result += t.printDescription();
         int size = this.taskList.size();
-        System.out.printf("\n     Now you have %d tasks in the list.\n", size);
+        result += String.format("\n     Now you have %d tasks in the list.\n", size);
+        return result;
     }
 
-    public void printMatchingList(String toFindString) {
-        System.out.println(MATCHING_STRING);
+    public String printMatchingList(String toFindString) {
+        String result = "";
+        result += MATCHING_STRING;
         for (int i = 0; i < this.taskList.size(); i++) {
             int index = i + 1;
             Task t = this.taskList.get(i);
             if (t.getDescription().contains(toFindString)) {
-                System.out.printf("     %d.[%s][%s] %s", index, t.getTypeIcon(), t.getStatusIcon(), t.description);
+                result += String.format("     %d.[%s][%s] %s", index, t.getTypeIcon(), t.getStatusIcon(), t.description);
                 if (!Objects.isNull(t.startTime) && !Objects.isNull(t.endTime)) {
-                    System.out.printf(" (from: %s to: %s)%n", t.startTime.toString().replace("T", " "), t.endTime.toString().replace("T", " "));
+                    result += String.format(" (from: %s to: %s)%n", t.startTime.toString().replace("T", " "), t.endTime.toString().replace("T", " "));
                 } else if (!Objects.isNull(t.startTime)) {
-                    System.out.printf(" (by: %s)%n", t.startTime.toString().replace("T", " "));
+                    result += String.format(" (by: %s)%n", t.startTime.toString().replace("T", " "));
                 } else {
-                    System.out.print("\n");
+                    result += "";
                 }
             }
         }
+        return result;
     }
 }

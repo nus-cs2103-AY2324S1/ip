@@ -37,12 +37,12 @@ public class Task {
     /**
      * The string displayed when the task is marked as done.
      */
-    protected final String MARKED_STRING = "    Nice! I've marked this task as done:";
+    protected final String MARKED_STRING = "    Nice! I've marked this task as done:\n";
 
     /**
      * The string displayed when the task is marked as not done yet.
      */
-    protected final String UNMARKED_STRING = "     OK, I've marked this task as not done yet:";
+    protected final String UNMARKED_STRING = "     OK, I've marked this task as not done yet:\n";
 
     /**
      * Constructs a Task object with the given description, type, start time, and end time.
@@ -113,10 +113,10 @@ public class Task {
     /**
      * Prints the description of the task.
      */
-    public void printDescription() {
-        String initStatement = "     Got it. I've added this task:";
-        System.out.println(initStatement);
-        this.printMarking(false);
+    public String printDescription() {
+        String initStatement = "     Got it. I've added this task:\n";
+//        System.out.println(initStatement);
+        return initStatement + this.printMarking(false);
     }
 
     /**
@@ -124,21 +124,23 @@ public class Task {
      *
      * @param mark Indicates whether to display the marking or not.
      */
-    public void printMarking(boolean mark) {
+    public String printMarking(boolean mark) {
+        String result = "";
         if (mark) {
             if (this.isDone) {
-                System.out.println(MARKED_STRING);
+                result += MARKED_STRING;
             } else {
-                System.out.println(UNMARKED_STRING);
+                result += UNMARKED_STRING;
             }
         }
-        System.out.printf("       [%s][%s] %s", this.getTypeIcon(), this.getStatusIcon(), this.description);
+        result += String.format("       [%s][%s] %s", this.getTypeIcon(), this.getStatusIcon(), this.description);
         if (!Objects.isNull(this.startTime) && !Objects.isNull(this.endTime)) {
-            System.out.printf(" (from: %s to: %s)", this.startTime.toString().replace("T", " "), this.endTime.toString().replace("T", " "));
+            result += String.format(" (from: %s to: %s)", this.startTime.toString().replace("T", " "), this.endTime.toString().replace("T", " "));
         } else if (!Objects.isNull(this.startTime)) {
-            System.out.printf(" (by: %s)", this.startTime.toString().replace("T", " "));
+            result += String.format(" (by: %s)", this.startTime.toString().replace("T", " "));
         } else {
-            return;
+            result += "";
         }
+        return result;
     }
 }
