@@ -1,6 +1,8 @@
 package duke;
 
 import exceptions.ParserException;
+
+import javafx.application.Platform;
 import io.Parser;
 import io.Ui;
 import java.util.List;
@@ -141,6 +143,8 @@ public class Duke {
             case "bye":
                 ui.displayGoodbye();
                 storage.saveTasks();
+                Platform.exit();
+                System.exit(0);
                 break;
             case "list":
                 listTasks();
