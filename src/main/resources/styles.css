@@ -8,14 +8,28 @@
 
 /* Style for the send button */
 #sendButton {
-    -fx-background-color: #4CAF50; /* Button background color */
-    -fx-text-fill: white; /* Button text color */
+    -fx-background-color: #008b8b; /* Button background color */
+    -fx-text-fill: black; /* Button text color */
     -fx-font-size: 14px;
+    -fx-padding: 5px;
+    -fx-border-radius: 10px;
 }
 
 /* Style for the dialog container (chat messages) */
 #dialogContainer {
-    -fx-background-color: #f2f2f2; /* Background color for messages */
+    -fx-background-color: #ffe4e1; /* Background color for messages */
     -fx-padding: 10px; /* Add padding around the messages */
 }
+
+.text-bubble {
+    -fx-background-color: #b0c4de; /* Background color of the bubble */
+    -fx-padding: 10px; /* Padding inside the bubble */
+    -fx-border-radius: 10px; /* Rounded corners of the bubble */
+    -fx-background-radius: 10px; /* Rounded corners of the background */
+    -fx-text-fill: black; /* Text color inside the bubble */
+}
+
+.image-view-style {
+    -fx-border-color: black;
+    -fx-border-width: 1px;
 }
