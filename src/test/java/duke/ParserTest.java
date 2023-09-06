@@ -1,15 +1,16 @@
 package duke;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
+
 import duke.exceptions.DukeParseException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Todo;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
     private static final Parser PARSER = new Parser();

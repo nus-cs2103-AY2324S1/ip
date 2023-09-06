@@ -1,5 +1,8 @@
 package duke.tasks;
 
+/**
+ * Encapsulation for Task properties.
+ */
 public class Task {
 
     /** Description of task */

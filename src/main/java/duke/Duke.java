@@ -1,11 +1,14 @@
 package duke;
 
+import java.time.format.DateTimeFormatter;
+
 import duke.exceptions.DukeException;
 import duke.exceptions.DukeIndexOutOfBoundsException;
 import duke.tasks.Task;
 
-import java.time.format.DateTimeFormatter;
-
+/**
+ * The Max bot.
+ */
 public class Duke {
 
     /** Time format for the Max bot */

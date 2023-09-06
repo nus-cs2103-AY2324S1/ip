@@ -1,13 +1,14 @@
 package duke;
 
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Todo;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Todo;
 
 public class TaskListTest {
     private static final Todo TODO = new Todo("read book");

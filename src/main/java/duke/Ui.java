@@ -1,11 +1,12 @@
 package duke;
 
-import duke.exceptions.DukeException;
-import duke.exceptions.DukeIndexOutOfBoundsException;
-import duke.tasks.Task;
-
 import java.util.Scanner;
 
+import duke.exceptions.DukeException;
+
+/**
+ * Implementation for User Interface.
+ */
 public class Ui {
 
     /**

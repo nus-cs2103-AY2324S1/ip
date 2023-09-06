@@ -1,9 +1,12 @@
 package duke;
 
-import duke.tasks.Task;
-
 import java.util.ArrayList;
 
+import duke.tasks.Task;
+
+/**
+ * Implementation for the task list
+ */
 public class TaskList {
 
     /** List of tasks */

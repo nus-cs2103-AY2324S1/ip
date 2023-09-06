@@ -1,5 +1,8 @@
 package duke.tasks;
 
+/**
+ * Encapsulation for Todo properties.
+ */
 public class Todo extends Task {
 
     /**

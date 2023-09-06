@@ -1,11 +1,5 @@
 package duke;
 
-import duke.exceptions.DukeFileNotFoundException;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,6 +7,15 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+import duke.exceptions.DukeFileNotFoundException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
+
+/**
+ * Implementation for the storage.
+ */
 public class Storage {
 
     /** File path of data file */
