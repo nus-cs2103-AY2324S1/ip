@@ -48,31 +48,6 @@ public class Duke {
         }
     }
 
-    /**
-     * Runs the chatbot.
-     */
-    public void run() {
-        ui.getWelcomeMessage();
-        String input;
-
-        while (true) {
-            input = ui.readCommand();
-            try {
-                Command command = Parser.parseUserInput(input);
-                command.execute(tasks, ui, storage);
-                if (command.isExit()) {
-                    break;
-                }
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        new Duke("./data/state.txt").run();
-    }
-
     String getResponse(String input) {
         try {
             Command command = Parser.parseUserInput(input);

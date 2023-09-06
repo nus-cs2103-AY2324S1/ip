@@ -1,14 +1,12 @@
 package duke;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * A class to handle interactions with the user.
  */
 public class UI {
     private String name;
-    private Scanner scanner;
 
     /**
      * Constructor for the UI class.
@@ -17,17 +15,6 @@ public class UI {
      */
     public UI(String name) {
         this.name = name;
-        this.scanner = new Scanner(System.in);
-    }
-
-    /**
-     * Reads and returns user input.
-     *
-     * @return User input.
-     */
-    public String readCommand() {
-        String line = scanner.nextLine();
-        return line;
     }
 
     /**
@@ -143,13 +130,6 @@ public class UI {
      */
     public String getLoadingErrorMessage() {
         return "Stored data could not be loaded";
-    }
-
-    /**
-     * Closes scanner object used to read input
-     */
-    public void closeUi() {
-        this.scanner.close();
     }
 
     /**
