@@ -13,7 +13,13 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private final Duke duke = new Duke();
+    private final Duke duke;
+    private final TextUi textUi;
+
+    public Main() throws DukeException {
+        this.textUi = new TextUi("Pong");
+        this.duke = new Duke(this.textUi);
+    }
 
     @Override
     public void start(Stage stage) {
@@ -23,6 +29,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setTextUi(textUi);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

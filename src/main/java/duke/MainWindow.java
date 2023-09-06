@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.application.Platform;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -22,6 +23,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Duke duke;
+    private TextUi textUi;
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -35,18 +37,37 @@ public class MainWindow extends AnchorPane {
         duke = d;
     }
 
+    public void setTextUi(TextUi textUi) {
+        this.textUi = textUi;
+    }
+
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
+        boolean isRunning;
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+
+        try {
+            isRunning = duke.handleInput(input);
+            if (!isRunning) {
+                exit();
+            }
+        } catch (DukeException e) {
+            duke.handleException(e);
+        }
+
+        String response = textUi.getTextOutput();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+    }
+
+    private void exit() {
+        Platform.exit();
     }
 }

@@ -8,12 +8,12 @@ import java.util.Scanner;
  * user input and outputting to the user.
  */
 public class Ui {
-    private final String name;
+    protected final String name;
 
     private final Scanner scanner;
 
     /**
-     * Initialise duke.Ui handler.
+     * Initialise Ui handler.
      * @param name Name of chatbot.
      */
     public Ui(String name) {
@@ -32,14 +32,13 @@ public class Ui {
     }
 
     /**
-     * Prompts user and parses user input.
-     * @return duke.Parser instance for user input.
-     * @throws DukeException If error in parsing user input.
+     * Prompts user and gets user input.
+     * @return String user input.
      */
-    public Parser getParsedInput() throws DukeException {
+    public String getInput() {
         System.out.print("You:  ");
         String userInput = scanner.nextLine();
-        return Parser.from(userInput);
+        return userInput;
     }
 
     /**

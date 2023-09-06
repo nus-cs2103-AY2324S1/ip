@@ -8,43 +8,53 @@ import java.util.List;
  * Chatbot that manages a task list.
  */
 public class Duke {
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
+    private final TaskList taskList;
+    private final Ui ui;
+
+    public Duke(Ui ui) throws DukeException {
+        this.taskList = new TaskList(new TaskStorage());
+        this.ui = ui;
     }
 
+    /**
+     * CLI Duke.
+     * @param args Arguments from CLI (ignored).
+     */
     public static void main(String[] args) {
-        boolean isRunning = true;
-        TaskStorage taskStorage = new TaskStorage();
-        TaskList taskList;
+        Duke duke;
+        Ui ui = new Ui("Pong");
 
-        // Load tasks from duke.TaskStorage
         try {
-            taskList = new TaskList(taskStorage);
+            duke = new Duke(ui);
         } catch (DukeException e) {
-            System.out.printf("[!] %s\n", e.getMessage());
+            ui.printException(e);
             return;
         }
 
-        Ui ui = new Ui("Pong");
         ui.init();
 
+        boolean isRunning = true;
         while (isRunning) {
             try {
-                Parser parser = ui.getParsedInput();
-                isRunning = Duke.handleInput(parser, taskList, ui);
+                String input = ui.getInput();
+                isRunning = duke.handleInput(input);
             } catch (DukeException e) {
-                ui.printException(e);
+                duke.handleException(e);
             }
         }
 
         ui.exit();
     }
 
-    private static boolean handleInput(Parser parser, TaskList taskList, Ui ui) throws DukeException {
+    /**
+     * Passes input to duke to handle.
+     * @param input String input to handle.
+     * @return isRunning boolean to decide if Duke should continue.
+     * @throws DukeException If error encountered while handling input.
+     */
+    public boolean handleInput(String input) throws DukeException {
+        Parser parser = Parser.from(input);
+
         Task task;
         switch (parser.getCommand()) {
         case "bye":
@@ -120,5 +130,13 @@ public class Duke {
         }
 
         return true;
+    }
+
+    /**
+     * Gracefully handle exception thrown by Duke.
+     * @param e Exception thrown by Duke.
+     */
+    public void handleException(DukeException e) {
+        this.ui.printException(e);
     }
 }

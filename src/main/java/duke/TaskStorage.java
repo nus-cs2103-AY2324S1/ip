@@ -19,7 +19,7 @@ public class TaskStorage {
     private final File file;
 
     /**
-     * duke.TaskStorage constructor, uses default path.
+     * TaskStorage constructor, uses default path.
      */
     public TaskStorage() {
         this.file = new File(DEFAULT_PATH);
