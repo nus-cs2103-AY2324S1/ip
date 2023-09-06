@@ -1,7 +1,9 @@
 package joi;
 
+import java.io.IOException;
 import java.util.Scanner;
 
+import joi.loader.TaskLoader;
 import joi.utils.InvalidInputException;
 import joi.utils.InvalidCommandException;
 import joi.utils.Task;
@@ -14,20 +16,21 @@ public class Joi {
     private final TaskList taskList;
 
     // constructor for Duke
-    public Joi() {
+    public Joi() throws IOException {
         this.isRunning = true;
         this.sc = new Scanner(System.in);
-        this.taskList = new TaskList();
+//        this.taskList = new TaskList();
+        this.taskList = TaskLoader.loadTasks();
     }
 
     // the event loop
-    public void run() throws InvalidInputException, InvalidCommandException {
+    public void run() throws InvalidInputException, InvalidCommandException, IOException{
         this.greeting();
 
         while (this.isRunning) {
             String input = this.getUserInput();
 
-            if (input.equals("bye")) {
+            if (input.equals("bye") || input.equals("exit")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 this.isRunning = false;
 
@@ -36,17 +39,17 @@ public class Joi {
 
             } else if (input.startsWith("mark")){
                 int taskIdx = Integer.parseInt(input.substring(5)) - 1;
-                this.taskList.markAsDone(taskIdx);
+                this.taskList.markAsDoneVerbose(taskIdx);
 
             } else if (input.startsWith("unmark")) {
                 int taskIdx = Integer.parseInt(input.substring(7)) - 1;
-                this.taskList.unmarkAsDone(taskIdx);
+                this.taskList.unmarkAsDoneVerbose(taskIdx);
 
             } else if (input.startsWith("event") || input.startsWith("todo") || input.startsWith("deadline")){
                 Task newTask;
                 try {
                     newTask = Task.parseInputAsTask(input);
-                    this.taskList.addTask(newTask);
+                    this.taskList.addTaskVerbose(newTask);
 
                 } catch (InvalidCommandException e) {
                     System.err.println("Cannot create a valid task.");
@@ -55,11 +58,14 @@ public class Joi {
 
             } else if (input.startsWith("delete")) {
                 int taskIdx = Integer.parseInt(input.substring(7)) - 1;
-                this.taskList.deleteTask(taskIdx);
+                this.taskList.deleteTaskVerbose(taskIdx);
 
             } else {
                 throw new InvalidInputException(input);
             }
+
+            // store the taskList
+            TaskLoader.storeTasks(this.taskList);
         }
     }
 

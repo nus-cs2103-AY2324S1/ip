@@ -2,8 +2,10 @@ import joi.Joi;
 import joi.utils.InvalidCommandException;
 import joi.utils.InvalidInputException;
 
+import java.io.IOException;
+
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Joi joi = new Joi();
         try {
             joi.run();

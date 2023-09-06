@@ -2,6 +2,7 @@ package joi.utils;
 
 public class Deadline extends Task {
     private final String end;
+
     public Deadline (String description) throws InvalidCommandException {
         super();
 
@@ -18,8 +19,25 @@ public class Deadline extends Task {
         this.end = tokens[1];
     }
 
+    public Deadline(String description, String end, boolean status) {
+        super();
+
+        this.description = description;
+        this.end = end;
+        this.isDone = status;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.end + ")";
+    }
+
+    public String getEventType() {
+        return "deadline";
+    }
+
+    @Override
+    public String getDescription() {
+        return this.description + "@" + this.end;
     }
 }

@@ -1,6 +1,7 @@
 package joi.utils;
 
 public class ToDo extends Task {
+    private final static String TASKTYPE = "ToDo";
     public ToDo (String description) throws InvalidCommandException {
         super();
         if (description.length() <= 5) {
@@ -11,8 +12,20 @@ public class ToDo extends Task {
         this.description = description;
     }
 
+    public ToDo(String description, boolean status) {
+        super();
+
+        this.description = description;
+        this.isDone = status;
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+
+    @Override
+    public String getEventType() {
+        return "toDo";
     }
 }

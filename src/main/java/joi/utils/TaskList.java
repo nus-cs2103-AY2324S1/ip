@@ -21,6 +21,9 @@ public class TaskList {
         if (taskIdx < taskList.size()) {
             this.taskList.get(taskIdx).setDone();
         }
+    }
+    public void markAsDoneVerbose(int taskIdx) {
+        markAsDone(taskIdx);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(this.taskList.get(taskIdx) + "\n");
     }
@@ -29,20 +32,27 @@ public class TaskList {
         if (taskIdx < this.taskList.size()) {
             this.taskList.get(taskIdx).setNotDone();
         }
+    }
+    public void unmarkAsDoneVerbose(int taskIdx) {
+        unmarkAsDone(taskIdx);
 
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(this.taskList.get(taskIdx) + "\n");
     }
 
     public void addTask(Task newTask) {
-        this.taskList.add((newTask));
+        this.taskList.add(newTask);
+    }
+
+    public void addTaskVerbose(Task newTask) {
+        addTask(newTask);
 
         System.out.println("Got it. I've added this task:");
         System.out.println(newTask);
         System.out.println("Now you have " + this.taskList.size() + " tasks in the list.\n");
     }
 
-    public void deleteTask(int taskIdx) throws InvalidCommandException {
+    public void deleteTaskVerbose(int taskIdx) throws InvalidCommandException {
         if (taskIdx >= this.taskList.size()) {
             throw new InvalidCommandException("Delete index is out of range.");
         }
@@ -53,5 +63,13 @@ public class TaskList {
         System.out.println("Now you have " + this.taskList.size() + " tasks in the list.\n");
 
         this.taskList.remove(taskIdx);
+    }
+
+    public int size() {
+        return this.taskList.size();
+    }
+
+    public Task get(int idx) {
+        return this.taskList.get(idx);
     }
 }

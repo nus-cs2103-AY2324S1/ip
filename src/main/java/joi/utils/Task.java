@@ -44,4 +44,16 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
+    public String getEventType() {
+        return "task";
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public String getSaveString() {
+        return getEventType() + "#" + getDescription() + "#" + (isDone ? "X" : "N");
+    }
 }
