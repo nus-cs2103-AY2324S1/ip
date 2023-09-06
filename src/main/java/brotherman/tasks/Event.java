@@ -3,15 +3,18 @@ package brotherman.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a Event task
+ */
 public class Event extends Task {
 
     /**
-     * Time of the deadline
+     * Start time of the Event
      */
     private LocalDateTime startInDateTime;
 
     /**
-     * Time of the deadline
+     * End time of the event
      */
     private LocalDateTime endInDateTime;
 
@@ -19,9 +22,10 @@ public class Event extends Task {
     /**
      * Constructor for Deadline
      * @param description Description of the deadline
-     * @param time Time of the deadline
+     * @param startTime start time of the deadline
+     * @param endTime end time of the deadline
      */
-    public Event (String description, LocalDateTime startTime, LocalDateTime endTime) {
+    public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description);
         this.startInDateTime = startTime;
         this.endInDateTime = endTime;
@@ -66,7 +70,12 @@ public class Event extends Task {
      */
     @Override
     public String storeText() {
-        return String.format("%s|%s|%s/from%s/to%s", this.type(), this.isDone, this.description, getStartTime(), getEndDateTime());
+        return String.format("%s|%s|%s/from%s/to%s",
+                this.type(),
+                this.isDone,
+                this.description,
+                getStartTime(),
+                getEndDateTime());
     }
 
     /**
@@ -76,6 +85,6 @@ public class Event extends Task {
     @Override
     public String toString() {
         String type = this.type();
-        return String.format("[%s]%s(from:%s to:%s)", type, super.toString(), getStartTime(), getEndDateTime() );
+        return String.format("[%s]%s(from:%s to:%s)", type, super.toString(), getStartTime(), getEndDateTime());
     }
 }

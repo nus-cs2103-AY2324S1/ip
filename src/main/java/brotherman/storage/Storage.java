@@ -1,16 +1,15 @@
 package brotherman.storage;
-
-import brotherman.tasks.Task;
-import brotherman.tasks.TaskList;
-
-
-import brotherman.parser.Parser;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import brotherman.parser.Parser;
+import brotherman.tasks.Task;
+import brotherman.tasks.TaskList;
+
+
 
 /**
  * Represents a storage to save and load the task list
@@ -28,7 +27,9 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.folder = new File(filePath);
-        if(!folder.exists()) folder.mkdirs();
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
     }
 
 
@@ -75,11 +76,11 @@ public class Storage {
      */
     public void saveToFile(ArrayList<Task> list) {
 
-        try (PrintWriter output = new PrintWriter("./data/brotherman.txt")){
+        try (PrintWriter output = new PrintWriter("./data/brotherman.txt")) {
             for (Task listItems : list) {
                 output.println(listItems.storeText());
             }
-        } catch(Exception e){
+        } catch (Exception e) {
             e.getStackTrace();
         }
 

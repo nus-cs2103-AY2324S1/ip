@@ -2,7 +2,9 @@ package brotherman.ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import brotherman.tasks.*;
+
+import brotherman.tasks.Task;
+import brotherman.tasks.TaskList;
 
 
 /**
@@ -47,16 +49,14 @@ public class Ui {
     }
 
     /**
-     * Shows the error message to the user
-     * @param message Error message to be shown to the user
+     * Shows a line to the user
      */
     public void showLine() {
         System.out.println(line);
     }
 
     /**
-     * Shows the error message to the user
-     * @param message Error message to be shown to the user
+     * Read command
      */
     public String readCommand() {
         String userCommand = sc.nextLine();
@@ -65,15 +65,13 @@ public class Ui {
 
     /**
      * Shows the error message to the user
-     * @param message Error message to be shown to the user
      */
     public void readWrongValue() {
         System.out.println("Brotherman the value you put in wrong.  Try again.");
     }
 
     /**
-     * Shows the error message to the user
-     * @param message Error message to be shown to the user
+     * Shows the task added to the user
      */
     public void showTaskAdded(TaskList taskList) {
         System.out.println("The task has been added Brotherman \n");
@@ -84,8 +82,7 @@ public class Ui {
 
 
     /**
-     * Shows the error message to the user
-     * @param message Error message to be shown to the user
+     * Shows the task list to the user
      */
     public void showTaskList(TaskList taskList) {
         System.out.println("Hey Brotherman, these are the tasks on your list!");
@@ -94,6 +91,24 @@ public class Ui {
         for (Task listItems : list) {
             System.out.println(start + ". " + listItems.toString());
             start++;
+        }
+    }
+
+    /**
+     * Shows the tasks with the specified keyword to the user
+     * @param taskList Task list to be searched
+     * @param keyword Keyword of the task
+     */
+    public void showFind(TaskList taskList, String keyword) {
+        System.out.println("Here are the matching tasks in your list:");
+        ArrayList<Task> list = taskList.getTasksByKeyword(keyword);
+
+        if (list.size() == 0) {
+            System.out.println("Brotherman, there are no tasks with that keyword");
+        }
+
+        for (Task listItems : list) {
+            System.out.println(listItems.toString());
         }
     }
 }

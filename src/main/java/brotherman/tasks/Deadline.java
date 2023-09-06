@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a deadline task
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     /**
      * Time of the deadline
@@ -23,7 +23,7 @@ public class Deadline extends Task{
     /**
      * Constructor for Deadline
      * @param description Description of the deadline
-     * @param time Time of the deadline
+     * @param timeInDateTime Time of the deadline
      */
     public Deadline(String description, LocalDateTime timeInDateTime) {
 
@@ -52,8 +52,8 @@ public class Deadline extends Task{
 
 
     /**
-     * Returns the time of the deadline
-     * @return Time of the deadline
+     * Returns the storage configuration text of the deadline
+     * @return how the text is stored in the storage file
      */
     @Override
     public String storeText() {
@@ -68,7 +68,7 @@ public class Deadline extends Task{
     @Override
     public String toString() {
         String type = this.type();
-        return String.format("[%s]%s(by:%s)", type, super.toString(), getTime() );
+        return String.format("[%s]%s(by:%s)", type, super.toString(), getTime());
     }
 
 }

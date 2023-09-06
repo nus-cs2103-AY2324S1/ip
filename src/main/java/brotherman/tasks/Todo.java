@@ -3,13 +3,13 @@ package brotherman.tasks;
 /**
  * Represents a task in the task list
  */
-public class Todo extends Task{
+public class Todo extends Task {
 
     /**
      * Constructor for Task
      * @param description Description of the task
      */
-    public Todo (String description) {
+    public Todo(String description) {
         super(description);
     }
 
@@ -39,6 +39,6 @@ public class Todo extends Task{
     @Override
     public String toString() {
         String type = this.type();
-        return String.format("[%s]%s", type, super.toString() );
+        return String.format("[%s]%s", type, super.toString());
     }
 }

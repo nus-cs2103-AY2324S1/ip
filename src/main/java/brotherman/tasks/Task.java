@@ -32,32 +32,29 @@ public class Task {
     }
 
     /**
-     * Returns the description of the task
-     * @return Description of the task
+     * Marks the task as done
      */
     public void markAsDone() {
         isDone = true;
     }
 
     /**
-     * Returns the description of the task
-     * @return Description of the task
+     * Unmarks the task as done
      */
     public void unmarkAsDone() {
         isDone = false;
     }
 
     /**
-     * Returns the description of the task
-     * @return Description of the task
+     * Returns the storage configuration text of the deadline
+     * @return how the text is stored in the storage file
      */
     public String storeText() {
         return " ";
     }
 
     /**
-     * Returns the description of the task
-     * @return Description of the task
+     * Checks if the task is marked as done
      */
     public void markedChecker(String string) {
         if (string.equals("false")) {
