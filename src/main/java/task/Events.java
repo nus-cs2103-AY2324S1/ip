@@ -47,10 +47,10 @@ public class Events extends Task {
      */
     @Override
     public String dataFormat() {
-        return "event/" +
-                super.isDone.toString() + "/" +
-                super.description + "/" +
-                this.from + "/" +
-                this.to;
+        return "event/"
+                + super.isDone.toString()
+                + "/" + super.description + "/"
+                + this.from + "/"
+                + this.to;
     }
 }

@@ -1,11 +1,9 @@
 package task;
 
-import ui.Reply;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import storage.Database;
-
-import java.util.ArrayList;
-import java.util.function.Consumer;
 
 /**
  * Class for manipulating the list of tasks
@@ -13,13 +11,19 @@ import java.util.function.Consumer;
 public class TaskList {
     private static TaskList obj;
     private ArrayList<Task> list;
-    private final Reply reply = Reply.init();
 
     /**
      * private constructor
      */
     private TaskList() {
-        list = Database.loadData();
+        try {
+            list = Database.loadData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -37,9 +41,15 @@ public class TaskList {
      * Takes in a task, adds it into the list and saves it into the database
      * @param task task to be added
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         list.add(task);
-        Database.save(this.list);
+
+        try {
+            Database.save(list);
+        } catch (IOException e) {
+            return "Oops! Sorry! There is an issue with the file database. "
+                    + "You are required to delete the file and recreate one with the same name.";
+        }
 
         StringBuilder dialog = new StringBuilder("Got it. I've added this task:\n       ")
                 .append(task)
@@ -47,13 +57,13 @@ public class TaskList {
                 .append("Now you have ")
                 .append(list.size())
                 .append(" tasks in the list.");
-        reply.printDialog(dialog.toString());
+        return dialog.toString();
     }
 
     /**
      * Prints all the tasks in the list
      */
-    public void printTasks() {
+    public String printTasks() {
         Task[] tasks = list.toArray(new Task[0]);
         StringBuilder dialog = new StringBuilder("Here are the tasks in your list:\n     ");
 
@@ -71,53 +81,68 @@ public class TaskList {
             }
         }
 
-        reply.printDialog(dialog.toString());
+        return dialog.toString();
     }
 
     /**
      * Takes in an integer index and marks the task associated with the index as done
      * @param index index of the task
      */
-    public void markDone(int index) {
+    public String markDone(int index) {
         Task element = list.get(index - 1);
         element.markAsDone();
 
-        Database.save(list);
+        try {
+            Database.save(list);
+        } catch (IOException e) {
+            return "Oops! Sorry! There is an issue with the file database. "
+                    + "You are required to delete the file and recreate one with the same name.";
+        }
 
         StringBuilder dialog = new StringBuilder();
         dialog.append("Nice! I've marked this task as done:\n")
                 .append("       ")
                 .append(element);
-        reply.printDialog(dialog.toString());
+        return dialog.toString();
     }
 
     /**
      * Takes in an integer index and marks the task associated with the index as not done
      * @param index index of the task
      */
-    public void unmarkDone(int index) {
+    public String unmarkDone(int index) {
         Task element = list.get(index - 1);
         element.markAsNotDone();
 
-        Database.save(list);
+        try {
+            Database.save(list);
+        } catch (IOException e) {
+            return "Oops! Sorry! There is an issue with the file database. "
+                    + "You are required to delete the file and recreate one with the same name.";
+        }
 
         StringBuilder dialog = new StringBuilder();
         dialog.append("OK! I've marked this task as not done yet:\n")
                 .append("       ")
                 .append(element);
-        reply.printDialog(dialog.toString());
+        return dialog.toString();
     }
 
     /**
      * Takes in an integer index and deletes the task associated with the index
      * @param index index of the task
      */
-    public void deleteTask(int index) {
+    public String deleteTask(int index) {
 
         Task element = list.get(index - 1);
         list.remove(index - 1);
 
-        Database.save(list);
+        try {
+            Database.save(list);
+        } catch (IOException e) {
+            return "Oops! Sorry! There is an issue with the file database. "
+                    + "You are required to delete the file and recreate one with the same name.";
+        }
 
         StringBuilder dialog = new StringBuilder();
         dialog.append("Noted. I've removed this task:\n")
@@ -127,16 +152,16 @@ public class TaskList {
                 .append("     Now you have ")
                 .append(list.size())
                 .append(" tasks in the list.");
-        reply.printDialog(dialog.toString());
+        return dialog.toString();
     }
 
     /**
      * Finds all tasks which contains the keyword and prints it
      * @param keyword
      */
-    public void findTask(String keyword) {
-        StringBuilder dialog = new StringBuilder("Here are the matching tasks in your list with its correct " +
-                "corresponding index numbers: \n     ");
+    public String findTask(String keyword) {
+        StringBuilder dialog = new StringBuilder("Here are the matching tasks in your list with its correct "
+                + "corresponding index numbers: \n     ");
 
         Task[] tasks = list.toArray(new Task[0]);
 
@@ -151,6 +176,6 @@ public class TaskList {
                         .append("\n     ");
             }
         }
-        reply.printDialog(dialog.toString());
+        return dialog.toString();
     }
 }

@@ -42,9 +42,9 @@ public class Deadlines extends Task {
      */
     @Override
     public String dataFormat() {
-        return "deadline/" +
-                super.isDone.toString() + "/" +
-                super.description + "/" +
-                this.by;
+        return "deadline/"
+                + super.isDone.toString() + "/"
+                + super.description + "/"
+                + this.by;
     }
 }

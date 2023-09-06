@@ -37,8 +37,8 @@ public class ToDo extends Task {
      */
     @Override
     public String dataFormat() {
-        return "todo/" +
-                isDone.toString() + "/" +
-                description;
+        return "todo/"
+                + isDone.toString() + "/"
+                + description;
     }
 }
