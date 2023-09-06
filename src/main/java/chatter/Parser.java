@@ -67,7 +67,7 @@ public class Parser {
         case("find"):
             return new FindCommand(fullCommand.substring(5));
         default:
-            throw new ChatterException("☹ OOPS!!! I'm sorry, but I don't know what that means :-("
+            throw new ChatterException("OOPS!!! I'm sorry, but I don't know what that means :-("
                     + "\nPlease enter a valid command!");
         }
     }
