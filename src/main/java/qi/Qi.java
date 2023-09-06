@@ -1,3 +1,12 @@
+package qi;
+
+import qi.command.Command;
+import qi.parser.Parser;
+import qi.qiexception.QiException;
+import qi.storage.Storage;
+import qi.tasklist.TaskList;
+import qi.ui.Ui;
+
 public class Qi {
 
     private Storage storage;

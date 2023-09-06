@@ -1,3 +1,8 @@
+package qi.ui;
+
+import qi.task.Task;
+import qi.tasklist.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {

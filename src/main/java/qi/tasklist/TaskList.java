@@ -1,3 +1,7 @@
+package qi.tasklist;
+
+import qi.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
