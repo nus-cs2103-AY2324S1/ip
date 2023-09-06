@@ -1,10 +1,9 @@
 package ipbot.model;
 
-import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Task implements Serializable {
+public class Task {
     public static final DateTimeFormatter INPUT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(
             "uuuu-MM-dd HHmm");
     public static final DateTimeFormatter DISPLAY_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(
