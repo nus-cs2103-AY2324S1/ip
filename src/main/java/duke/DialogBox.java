@@ -34,17 +34,17 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
-    public static DialogBox getUserDialog(Label l, ImageView iv) {
-        return new DialogBox(l, iv, true);
+    public static DialogBox getUserDialog(Label l, ImageView iv, String content) {
+        return new DialogBox(l, iv, true, content);
     }
 
-    public static DialogBox getDukeDialog(Label l, ImageView iv) {
-        var db = new DialogBox(l, iv, false);
+    public static DialogBox getDukeDialog(Label l, ImageView iv, String content) {
+        var db = new DialogBox(l, iv, false, content);
         db.flip();
         return db;
     }
 
-    public DialogBox(Label l, ImageView iv, boolean isUserDialog) {
+    public DialogBox(Label l, ImageView iv, boolean isUserDialog, String content) {
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Duke.class.getResource("/view/DialogBox.fxml"));

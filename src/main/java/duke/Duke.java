@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
+import javafx.application.Platform;
 
 public class Duke extends Application {
     private Ui ui;
@@ -36,22 +37,25 @@ public class Duke extends Application {
      * @param filePath The file path of the txt document to read and write from.
      */
     public Duke (String filePath) {
+//        tasks = new TaskList();
+//        storage = new Storage(filePath, tasks);
+//        storage.startStorage();
+//        ui = new Ui(tasks);
+//        ui.startUi();
+//        storage.writeToStorage();
+    }
+
+    public Duke () {
+        String filePath = "../ip/src/main/data/duke.txt";
         tasks = new TaskList();
         storage = new Storage(filePath, tasks);
         storage.startStorage();
         ui = new Ui(tasks);
-        ui.startUi();
-        storage.writeToStorage();
-    }
-
-    public Duke () {
-        //blabla
     }
     public static void main(String[] args) throws EmptyDescriptionException, InvalidCommandException,
             NotANumberException {
-        Duke duke = new Duke("../ip/src/main/data/duke.txt");
+        //Duke duke = new Duke("../ip/src/main/data/duke.txt");
     }
-
 
     /**
      * Iteration 1:
@@ -67,7 +71,7 @@ public class Duke extends Application {
         return textToAdd;
     }
     private String getResponse(String input) {
-        return "Duke heard: " + input;
+        return input;
     }
 
     @FXML
@@ -78,7 +82,17 @@ public class Duke extends Application {
      */
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        String userInputText = userInput.getText();
+        if (userInputText.equalsIgnoreCase("Bye")) {
+            Platform.exit();
+            storage.writeToStorage();
+        }
+        System.out.println(userText.getText());
+        String responseText = this.ui.startUi(userInputText);
+        //Label dukeText = new Label(getResponse(userInput.getText()));
+        Label dukeText = new Label(getResponse(responseText));
+
+        //String responseText = getResponse(userInputText);
 
         ImageView userImageView = new ImageView(user);
         ImageView dukeImageView = new ImageView(duke);
@@ -96,11 +110,11 @@ public class Duke extends Application {
         userImageView.setClip(clip);
         dukeImageView.setClip(clip2);
 
+        DialogBox userDialog = DialogBox.getUserDialog(userText, userImageView, userInputText);
+        DialogBox dukeDialog = DialogBox.getDukeDialog(dukeText, dukeImageView, responseText);
+
         dialogContainer.getChildren().addAll(
-//                DialogBox.getUserDialog(userText, new ImageView(user)),
-//                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
-                DialogBox.getUserDialog(userText, userImageView),
-                DialogBox.getDukeDialog(dukeText, dukeImageView)
+            userDialog, dukeDialog
         );
         userInput.clear();
     }
@@ -175,6 +189,16 @@ public class Duke extends Application {
 
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
+        Circle clip = new Circle();
+        clip.setCenterX(40); // Adjust the center coordinates as needed
+        clip.setCenterY(40);
+        clip.setRadius(40); // Adjust the radius to control the size of the circle
+        ImageView dukeImageView = new ImageView(duke);
+        dukeImageView.setClip(clip);
+        String welMessage = "Hello! I'm DukeBot\n" + "What can I do for you?\n";
+        Label welcomeMessage = new Label(welMessage);
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, dukeImageView, welMessage));
     }
 
 }

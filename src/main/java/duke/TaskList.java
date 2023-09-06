@@ -11,11 +11,16 @@ public class TaskList {
      * Prints a tasks to the console when a task is added
      * @param t The task being printed
      */
-    private void printAddTask(Task t) {
-        System.out.println(line + "\tGot it. I've added this task: ");
+    private String printAddTask(Task t) {
+        String message = "Got it. I've added this task: " + "\n";
+        System.out.println(line + "\t" + message);
+        message = message + t.toString() + "\n";
         System.out.println("\t\t" + t.toString());
-        System.out.println("\tNow you have " + strList.size() + " tasks in the list.");
+        String now = "Now you have " + strList.size() + " tasks in the list.";
+        System.out.println("\t" + now);
+        message = message + now;
         System.out.println(line);
+        return message;
     }
 
 
@@ -26,15 +31,16 @@ public class TaskList {
      * @param readingFile boolean to check if readingFile or not
      * @throws EmptyDescriptionException
      */
-    public void toDoHandler(String description, boolean isDone, boolean readingFile) throws EmptyDescriptionException {
+    public String toDoHandler(String description, boolean isDone, boolean readingFile) throws EmptyDescriptionException {
         if (description.equals("")) {
             throw new EmptyDescriptionException("todo");
         } else {
             Task newToDo = new ToDos(description, isDone);
             strList.add(newToDo);
             if (!readingFile) {
-                printAddTask(newToDo);
+                return printAddTask(newToDo);
             }
+            return null;
         }
     }
 
@@ -45,7 +51,7 @@ public class TaskList {
      * @param readingFile boolean to check if readingFile or not
      * @throws EmptyDescriptionException
      */
-    public void deadlineHandler(String description, boolean isDone, boolean readingFile) throws
+    public String deadlineHandler(String description, boolean isDone, boolean readingFile) throws
             EmptyDescriptionException {
         if (description.equals("")) {
             throw new EmptyDescriptionException("deadline");
@@ -56,8 +62,9 @@ public class TaskList {
             Task newDeadline = new Deadline(before, after, isDone);
             strList.add(newDeadline);
             if (!readingFile) {
-                printAddTask(newDeadline);
+                return printAddTask(newDeadline);
             }
+            return null;
         }
     }
 
@@ -68,7 +75,7 @@ public class TaskList {
      * @param readingFile boolean to check if readingFile or not
      * @throws EmptyDescriptionException
      */
-    public void eventHandler(String description, boolean isDone, boolean readingFile) throws EmptyDescriptionException {
+    public String eventHandler(String description, boolean isDone, boolean readingFile) throws EmptyDescriptionException {
         if (description.equals("")) {
             throw new EmptyDescriptionException("event");
         } else {
@@ -80,8 +87,9 @@ public class TaskList {
             Task newEvent = new Event(eventDescription, from, to, isDone);
             strList.add(newEvent);
             if (!readingFile) {
-                printAddTask(newEvent);
+                return printAddTask(newEvent);
             }
+            return null;
         }
     }
     public void printTaskList() {
@@ -93,16 +101,21 @@ public class TaskList {
     /**
      * Prints put the list contents
      */
-    public void printListContent() {
+    public String printListContent() {
+        String result = "";
         int arrLength = this.strList.size();
         System.out.println(line);
+        result = result + "Here are the tasks in your list:\n";
         System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < arrLength; i++) {
             int number = i + 1;
             Task t = strList.get(i);
             System.out.println("\t" + number + "." + t.toString());
+            String taskToString = number + "." + t.toString();
+            result = result + taskToString + "\n";
         }
         System.out.println(line);
+        return result;
     }
 
     /**
@@ -111,7 +124,7 @@ public class TaskList {
      * @throws NotANumberException
      */
 
-    public void markTaskAsDone(char number) throws NotANumberException {
+    public String markTaskAsDone(char number) throws NotANumberException {
         if (!Character.isDigit(number)) {
             throw new NotANumberException();
         } else {
@@ -119,9 +132,12 @@ public class TaskList {
             Task t = strList.get(index);
             t.markTask();
             System.out.println(line);
-            System.out.println("\tNice! I've marked this task as done:");
+            String message = "Nice! I've marked this task as done:" + "\n";
+            System.out.println("\t" + message);
             System.out.println("\t" + "\t" + t.toString());
             System.out.println(line);
+            message = message + t.toString();
+            return message;
         }
     }
 
@@ -130,7 +146,7 @@ public class TaskList {
      * @param number The number of the task in the list
      * @throws NotANumberException
      */
-    public void unmarkTask(char number) throws NotANumberException {
+    public String unmarkTask(char number) throws NotANumberException {
         if (!Character.isDigit(number)) {
             throw new NotANumberException();
         } else {
@@ -138,9 +154,12 @@ public class TaskList {
             Task t = strList.get(index);
             t.unmarkTask();
             System.out.println(line);
-            System.out.println("\tOK, I've marked this task as not done yet:");
+            String message = "OK, I've marked this task as not done yet:" + "\n";
+            System.out.println("\t" + message);
             System.out.println("\t" + "\t" + t.toString());
             System.out.println(line);
+            message = message + t.toString();
+            return message;
         }
     }
 
@@ -149,17 +168,22 @@ public class TaskList {
      * @param number The number of the task inside the list.
      * @throws NotANumberException
      */
-    public void deleteTask(char number) throws NotANumberException {
+    public String deleteTask(char number) throws NotANumberException {
         if (!Character.isDigit(number)) {
             throw new NotANumberException();
         } else {
             int index = Character.getNumericValue(number) - 1;
             Task t = strList.remove(index);
             System.out.println(line);
-            System.out.println("\tNoted. I've removed this task: ");
+            String message = "Noted. I've removed this task: " + "\n";
+            System.out.println("\t" + message);
             System.out.println("\t" + "\t" + t.toString());
-            System.out.println("\tNow you have " + strList.size() + " tasks in the list.");
+            message = message + t.toString() + "\n";
+            String nowTasks = "Now you have " + strList.size() + " tasks in the list.";
+            System.out.println("\t" + nowTasks);
+            message = message + nowTasks;
             System.out.println(line);
+            return message;
         }
     }
 
@@ -174,7 +198,7 @@ public class TaskList {
      * Prints out all the tasks that match the taskName
      * @param taskName the name of the task that we are finding for
      */
-    public void findTask(String taskName) {
+    public String findTask(String taskName) {
         System.out.println(taskName);
         ArrayList<Task> findList = new ArrayList<>();
         for (Task i : this.strList) {
@@ -183,12 +207,16 @@ public class TaskList {
             }
         }
         System.out.println(line);
-        System.out.println("\tHere are the matching tasks in your list:");
+        String message = "Here are the matching tasks in your list:" + "\n";
+        System.out.println("\t" + message);
         for (int i = 0; i < findList.size(); i++) {
             int number = i + 1;
-            System.out.println("\t" + number + "." + findList.get(i).toString());
+            String x = number + "." + findList.get(i).toString() + "\n";
+            System.out.println("\t" + x);
+            message = message + x;
         }
         System.out.println(line);
+        return message;
     }
 
     /**
