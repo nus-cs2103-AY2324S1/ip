@@ -5,7 +5,6 @@ import java.time.format.DateTimeParseException;
 
 import duke.DukeException;
 import duke.Storage;
-import duke.Ui;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -75,12 +74,11 @@ public class AddCommand extends Command {
      * Executes the given AddCommand using the specified TaskList, Ui and Storage.
      *
      * @param tasks The task list to run the command on.
-     * @param ui The UI to print any output onto.
      * @param storage The storage to save tasks to.
      * @throws DukeException If task type is invalid; or date Strings cannot be parsed (for deadlines and events).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
         try {
             Task newTask;
             switch (this.type) {
@@ -97,11 +95,13 @@ public class AddCommand extends Command {
                 throw new DukeException("Task type is invalid!");
                 // break not needed as exception is thrown
             }
+
             tasks.add(newTask);
-            ui.print("Got it. I've added this task:");
-            ui.print("  " + newTask);
-            ui.print("Now you have " + tasks.getSize() + " tasks in the list.");
             storage.saveTasks(tasks);
+
+            return "Got it. I've added this task:" + "\n"
+                    + "\u2022 " + newTask + "\n"
+                    + "Now you have " + tasks.getSize() + " tasks in the list.";
         } catch (DateTimeParseException e) {
             throw new DukeException("Dates should be formatted yyyy-mm-ddThh:mm:ss,\n"
                     + "\t e.g. 2023-09-12T12:06:53");

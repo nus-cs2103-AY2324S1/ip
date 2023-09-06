@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.DukeException;
 import duke.Storage;
-import duke.Ui;
 import duke.task.TaskList;
 
 /**
@@ -25,17 +24,20 @@ public class MarkCommand extends Command {
      * Executes the given MarkCommand using the specified TaskList, Ui and Storage.
      *
      * @param tasks The task list to mark a task in.
-     * @param ui The UI to print any output onto.
      * @param storage The storage to save and update tasks.
      * @throws DukeException If index is out of range for the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
         if (index >= 1 && index <= tasks.getSize()) {
+            StringBuilder responseBuilder = new StringBuilder();
+
             tasks.markAsDone(index);
-            ui.print("Nice! I've marked this task as done:");
-            ui.print("  " + tasks.getTaskString(index));
+            responseBuilder.append("Nice! I've marked this task as done:\n");
+            responseBuilder.append("\u2022 " + tasks.getTaskString(index) + "\n");
             storage.saveTasks(tasks);
+
+            return responseBuilder.toString();
         } else {
             throw new DukeException("Cannot mark a task that is out of range!");
         }

@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.Storage;
-import duke.Ui;
 import duke.task.TaskList;
 
 /**
@@ -13,12 +12,11 @@ public class ExitCommand extends Command {
      * Executes the given ExitCommand using the specified TaskList, Ui and Storage.
      *
      * @param tasks The task list to run the command on (if needed).
-     * @param ui The UI to print any output onto.
      * @param storage The storage to save and update tasks (if needed).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.print("Bye. Hope to see you again soon!");
+    public String execute(TaskList tasks, Storage storage) {
+        return null;
     }
 
     /**

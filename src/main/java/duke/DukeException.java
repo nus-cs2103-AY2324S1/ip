@@ -15,8 +15,7 @@ public class DukeException extends Exception {
 
     @Override
     public String toString() {
-        return "\t____________________________________________________________\n"
-                + "\t ☹ OOPS!!! " + this.getMessage() + "\n"
-                + "\t____________________________________________________________\n";
+        return "OOPS! I couldn't process your message. :(\n"
+                + this.getMessage() + "\n";
     }
 }
