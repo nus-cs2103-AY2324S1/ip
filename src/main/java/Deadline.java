@@ -1,16 +1,31 @@
-public class Deadline extends Task {
-    private String by;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String task, Boolean isNotSaved, String by) {
+public class Deadline extends Task {
+
+    private String byStr;
+    private LocalDateTime by;
+
+    public Deadline(String task, Boolean isNotSaved, String by) throws DukeException {
         super(task, isNotSaved);
-        this.by = by;
+        try {
+            this.by = parseDateTime(by);
+            this.byStr = by;
+
+        } catch (Exception e) {
+            throw new DukeException(Duke.horizontalLine + "Invalid date format :< Please use dd/MM/yyyy\n" + Duke.horizontalLine);
+        }
         if (isNotSaved) {
             saveToFile();
         }
     }
-    @Override
+
+
     public String toString() {
-        return "[D]" + super.toString() + "(by:" + by + ")";
+        // Format LocalDateTime as a string in your desired output format
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a");
+        String formattedDateTime = by.format(outputFormatter);
+        return "[D]" + super.toString() + " (by: " + formattedDateTime + ")";
     }
 
     public void print() {
@@ -20,12 +35,14 @@ public class Deadline extends Task {
 
     public String generateStr() {
         return "D | " + (this.getStatus() == TaskStatus.DONE ? 1 : 0)
-                + " | " + this.getTask() + " | " + by;
+                + " | " + this.getTask() + " | " + byStr;
     }
 
     @Override
     public void saveToFile() {
-        Duke.saveTaskToFile(generateStr());
+        if (isNotSaved) {
+            Duke.saveTaskToFile(generateStr());
+        }
     }
 
 }
