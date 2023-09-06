@@ -1,4 +1,5 @@
 import javax.management.InstanceNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
@@ -7,6 +8,13 @@ public class Duke {
     private ArrayList<String> tasks = new ArrayList<>();
     private ArrayList<Task> taskArrayList = new ArrayList<>();
     private int count = 1;
+    private final String filePath = "./data/duke.txt";
+
+    public Duke() {
+        // Load tasks from the file when the chatbot starts up
+        loadTasksFromFile();
+    }
+
 
     public void greeting() {
         System.out.println("Hello! I'm " + name +
@@ -132,10 +140,81 @@ public class Duke {
                 }
             } catch (CustomException exception) {
                 System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+            } catch (StringIndexOutOfBoundsException exception) {
+                System.out.println("☹ OOPS!!! The description lacks details.");
             }
         }
         scanner.close();
     }
+
+
+//    private void saveTasksToFile() {
+////        try (FileOutputStream fos = new FileOutputStream(filePath);
+////             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+////            // Write the taskArrayList to the file
+////            oos.writeObject(taskArrayList);
+////        } catch (IOException e) {
+////            e.printStackTrace();
+////        }
+//        try {
+//            FileWriter writer = new FileWriter(filePath);
+//            for(Task task: taskArrayList) {
+//                writer.write(task.toString() + System.lineSeparator());
+//            }
+//            writer.close();
+//        } catch (IOException e) {
+//            System.out.println("Error opening file, try again!");
+//            e.printStackTrace();
+//        }
+//    }
+
+    private void saveTasksToFile() {
+        File file = new File(filePath);
+        File directory = file.getParentFile();
+
+        try {
+            // Create the directory if it doesn't exist
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            // Create the file if it doesn't exist
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            try (FileOutputStream fos = new FileOutputStream(file);
+                 ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+                // Write the taskArrayList to the file
+                oos.writeObject(taskArrayList);
+            } catch (IOException e) {
+                System.out.println("Error saving tasks to file!");
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            System.out.println("Error creating the file or directory!");
+            e.printStackTrace();
+        }
+    }
+
+    private void loadTasksFromFile() {
+        File file = new File(filePath);
+        if (file.exists()) {
+            try (FileInputStream fis = new FileInputStream(file);
+                 ObjectInputStream ois = new ObjectInputStream(fis)) {
+                // Read the taskArrayList from the file
+                taskArrayList = (ArrayList<Task>) ois.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                // Handle exceptions, e.g., if the file is corrupted
+                taskArrayList = new ArrayList<>();
+                e.printStackTrace();
+            }
+        } else {
+            taskArrayList = new ArrayList<>();
+        }
+    }
+
+
 
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
@@ -150,5 +229,6 @@ public class Duke {
         //myBot.addTask();
         //myBot.chat();
         myBot.setTasks();
+        myBot.saveTasksToFile();
     }
 }
