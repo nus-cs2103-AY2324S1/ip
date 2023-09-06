@@ -3,7 +3,7 @@ package corgi.commands;
 import corgi.storage.Storage;
 import corgi.tasks.Task;
 import corgi.tasks.TaskList;
-import corgi.ui.Ui;
+import corgi.ui.TextRenderer;
 
 /**
  * Represents a command to list tasks in the task list.
@@ -26,11 +26,11 @@ public class ListTasksCommand extends Command {
      * @param storage The storage for saving and loading tasks (not used in this command).
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage<Task> storage) {
+    public String execute(TaskList list, TextRenderer renderer, Storage<Task> storage) {
         if (list.isEmpty()) {
-            ui.showNoTaskInList();
+            return renderer.showNoTaskInList();
         } else {
-            ui.showTaskList(list.toString());
+            return renderer.showTaskList(list.toString());
         }
 
     }

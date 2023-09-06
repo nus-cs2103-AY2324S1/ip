@@ -3,7 +3,7 @@ package corgi.commands;
 import corgi.storage.Storage;
 import corgi.tasks.Task;
 import corgi.tasks.TaskList;
-import corgi.ui.Ui;
+import corgi.ui.TextRenderer;
 
 /**
  * Represents a command to add a task to the task list.
@@ -48,9 +48,9 @@ public class AddTaskCommand extends Command {
      * @param storage The storage for saving and loading tasks (if applicable).
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage<Task> storage) {
+    public String execute(TaskList list, TextRenderer renderer, Storage<Task> storage) {
         list.add(this.target);
         storage.save(list);
-        ui.showTaskAdded(this.taskType, target.toString(), list.size());
+        return renderer.showTaskAdded(this.taskType, target.toString(), list.size());
     }
 }

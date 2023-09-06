@@ -8,7 +8,7 @@ import corgi.tasks.Deadline;
 import corgi.tasks.Event;
 import corgi.tasks.Task;
 import corgi.tasks.TaskList;
-import corgi.ui.Ui;
+import corgi.ui.TextRenderer;
 
 /**
  * Represents a command to find tasks on a specific date in the task list.
@@ -55,15 +55,15 @@ public class FindTasksOnDateCommand extends Command {
      * @param storage The storage for saving and loading tasks (not used in this command).
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage<Task> storage) {
+    public String execute(TaskList list, TextRenderer renderer, Storage<Task> storage) {
         TaskList tasksOnDate = list.filter(predicate);
 
         String outputDate = this.target.format(Task.DATE_OUTPUT_FORMATTER);
 
         if (tasksOnDate.isEmpty()) {
-            ui.showNoTaskOnDate(outputDate);;
+            return renderer.showNoTaskOnDate(outputDate);
         } else {
-            ui.showTasksOnDate(outputDate, tasksOnDate.toString());
+            return renderer.showTasksOnDate(outputDate, tasksOnDate.toString());
         }
     }
 }

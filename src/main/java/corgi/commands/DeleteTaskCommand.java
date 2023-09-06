@@ -4,7 +4,7 @@ import corgi.storage.Storage;
 import corgi.tasks.Task;
 import corgi.tasks.TaskList;
 import corgi.tasks.TaskListIndexOutOfBoundsException;
-import corgi.ui.Ui;
+import corgi.ui.TextRenderer;
 
 /**
  * Represents a command to delete a task from the task list.
@@ -37,12 +37,12 @@ public class DeleteTaskCommand extends Command {
      * @throws CommandExecutionException If an error occurs during command execution.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage<Task> storage) throws CommandExecutionException {
+    public String execute(TaskList list, TextRenderer renderer, Storage<Task> storage) throws CommandExecutionException {
         try {
             String targetTaskInfo = list.getTaskInfo(targetIdx);
             list.remove(targetIdx);
             storage.save(list);
-            ui.showTaskDeleted(targetTaskInfo, list.size());
+            return renderer.showTaskDeleted(targetTaskInfo, list.size());
         } catch (TaskListIndexOutOfBoundsException e) {
             throw new CommandExecutionException("Invalid index provided!");
         }
