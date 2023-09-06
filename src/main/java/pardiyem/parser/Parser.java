@@ -4,6 +4,7 @@ import pardiyem.command.AddCommand;
 import pardiyem.command.ByeCommand;
 import pardiyem.command.Command;
 import pardiyem.command.DeleteCommand;
+import pardiyem.command.FindCommand;
 import pardiyem.command.ListCommand;
 import pardiyem.command.MarkCommand;
 import pardiyem.command.UnmarkCommand;
@@ -36,6 +37,8 @@ public class Parser {
                 return new AddCommand(in.substring(5).trim(), 3);
             case "delete":
                 return new DeleteCommand(in.substring(6).trim());
+            case "find":
+                return new FindCommand(in.substring(4).trim());
             default:
                 throw new NoSuchMethodException("Whoops, I do not recognize that command");
         }
