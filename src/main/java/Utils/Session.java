@@ -14,7 +14,7 @@ public class Session {
             print(this.response);
         }
     }
-
+    
     private void print(Response r) {
         System.out.println(r);
     }

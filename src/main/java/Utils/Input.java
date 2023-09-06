@@ -1,30 +1,33 @@
 package Utils;
 
 import java.util.Scanner;
-import java.util.Set;
-import java.util.HashSet;
 
 public class Input {
+    private static final String FILEPATH = "./data/duke.csv";
     private static Scanner scanner = new Scanner(System.in);
+    private Storage storage;
     private TaskList tasks;
     private String input;
 
-    public Input() {
-        this.tasks = new TaskList();
+    protected Input() {
+        this.storage = new Storage(Input.FILEPATH);
+        this.tasks = new TaskList(this.storage.load());
     }
     
-    public Response command() {
+    protected Response command() {
         this.input = Input.scanner.nextLine();
         return executeCommand();
     }
 
-    public Response executeCommand() {
+    protected Response executeCommand() {
         String command = this.input.split(" ")[0];
         if (command.equals("bye")) {
             return Response.TERMINATE;
         }
         try {
-            return this.tasks.execute(this.input, command);
+            Response response = this.tasks.execute(this.input, command);
+            this.storage.save(this.tasks.csvArray());
+            return response;
         } catch (DukeException e) {
             return Response.generate(e.toString());
         }

@@ -1,40 +1,52 @@
 package Utils;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
 
 public class TaskList {
     private ArrayList<Task> tasks;
+
     enum Type {
-        MARK,
-        UNMARK,
-        LIST,
-        TODO,
-        DEADLINE,
-        EVENT,
-        DELETE,
-        NOTFOUND
-    }
-    private final HashMap<String,Type> commandMap = new HashMap<>(Map.of(
-        "mark", Type.MARK,
-        "unmark", Type.UNMARK,
-        "list", Type.LIST,
-        "todo", Type.TODO,
-        "deadline", Type.DEADLINE,
-        "event", Type.EVENT,
-        "delete", Type.DELETE
-      ));
+        MARK("mark"),
+        UNMARK("unmark"),
+        LIST("list"),
+        TODO("todo"),
+        DEADLINE("deadline"),
+        EVENT("event"),
+        DELETE("delete"),
+        NOTFOUND("");
 
-    protected TaskList() {
-        this.tasks = new ArrayList<>();
+        private final String name;
+
+        private Type(String name) {
+            this.name = name;
+        }
+
+        protected static Type of(String name) {
+            for (Type type : values()) {
+                if (type.name.equals(name)) {
+                    return type;
+                }
+            }
+            return NOTFOUND;
+        }
     }
 
+    protected TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    protected ArrayList<String> csvArray() {
+        ArrayList<String> csv = new ArrayList<>();
+        for (Task task : this.tasks) {
+            csv.add(task.toCsv());
+        }
+        return csv;
+    }
+    
     protected Response execute(String input, String command) throws DukeException {
         Task task;
-        Type commandVal = commandMap.get(command) == null ? Type.NOTFOUND : commandMap.get(command);
 
-        switch(commandVal) {
+        switch(Type.of(command)) {
             case TODO:
                 task = new Todo(Command.assertString(input,command));
                 break;
