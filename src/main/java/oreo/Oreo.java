@@ -85,7 +85,7 @@ public class Oreo {
     }
 
         public static void main(String[] args) {
-            Oreo oreo = new Oreo("/Users/daniel/Desktop/CS2103T/iP/src/main/java/data/duke.txt");
+            Oreo oreo = new Oreo("/Users/daniel/Desktop/CS2103T/iP/src/main/java/data/oreo.txt");
             oreo.run();
         }
     }
