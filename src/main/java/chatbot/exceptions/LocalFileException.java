@@ -8,6 +8,6 @@ public class LocalFileException extends ChatBotException {
     }
     @Override
     public String toString() {
-        return "\tOOPS, an error occurred with file " + this.filePath;
+        return "OOPS, an error occurred with file " + this.filePath;
     }
 }

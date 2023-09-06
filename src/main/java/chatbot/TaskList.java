@@ -88,7 +88,7 @@ public class TaskList {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
-            sb.append(String.format("\t%d.%s\n",
+            sb.append(String.format("%d.%s\n",
                     i + 1,
                     task.toString()));
         }
@@ -111,9 +111,9 @@ public class TaskList {
             }
         });
         if (matchedTasks.isEmpty()) {
-            return "\tNo task in the list matches the query.";
+            return "No task in the list matches the query.";
         } else {
-            return "\tHere are the matching tasks in your list:\n" + new TaskList(matchedTasks).listTasks();
+            return "Here are the matching tasks in your list:\n" + new TaskList(matchedTasks).listTasks();
         }
     }
 

@@ -13,7 +13,6 @@ public class ChatBot {
     static final String NAME = "4F5DA2";
     static final String LOCAL_DIRECTORY_PATH = "./data";
     static final String LOCAL_FILE_PATH = LOCAL_DIRECTORY_PATH + "/chatbot.txt";
-    private final Ui ui;
     private final Storage storage;
     private TaskList tasks;
     private boolean isExit = false; // Whether the user has indicated to exit the program.
@@ -21,69 +20,62 @@ public class ChatBot {
 
     /**
      * Constructor to instantiate a new ChatBot object.
-     * @param directoryPath String path to the data file's directory
-     * @param filePath String path to the data file
      */
-    public ChatBot(String directoryPath, String filePath) {
-        this.ui = new Ui();
-        this.storage = new Storage(directoryPath, filePath);
+    public ChatBot() {
+        this.storage = new Storage(LOCAL_DIRECTORY_PATH, LOCAL_FILE_PATH);
+    }
+
+    public String initTaskList() {
         try {
             this.tasks = new TaskList(storage.readData());
+            return "ok";
         } catch (LocalFileException e) {
-            this.ui.showLoadingError(e);
             this.tasks = new TaskList();
             if (e instanceof FilePermissionException) {
                 this.noLocalFileAccess = true;
             }
+            return e.toString();
         }
     }
 
-    private void run() {
-        this.ui.greet();
-        while (!isExit) {
-            try {
-                String command = this.ui.nextCommand();
-                this.ui.showLine();
-                this.handleCommand(command);
-            } catch (ChatBotException e) {
-                this.ui.output(e.toString());
-            }
-        }
+    public String greet() {
+        return "Welcome back, human!\n"
+                + "I'm your personal chatBot, " + NAME + ".\n"
+                + "What can I do for you today?";
     }
 
-    private void handleCommand(String command) throws ChatBotException {
+    private String farewell() {
+        return "Bye. Hope to see you again soon!";
+    }
+
+    public String handleCommand(String command) throws ChatBotException {
         String[] words = command.split(" ");
         String firstWord = words[0];
         switch (firstWord) {
         case "bye":
             this.isExit = true;
-            this.ui.farewell();
-            break;
+            return this.farewell();
         case "list":
-            this.ui.output(this.tasks.listTasks());
-            break;
+            return this.tasks.listTasks();
         case "find":
             String name = Parser.parseFindCommand(command);
-            this.ui.output(this.tasks.findTasks(name));
-            break;
+            return this.tasks.findTasks(name);
         case "mark":
         case "unmark":
             boolean isDone = words[0].equals("mark");
             String taskString = this.tasks.markAs(isDone, Parser.parseMarkCommand(words));
             this.writeTaskList();
-            this.ui.output(String.format("\t%s\n\t%s",
+            return String.format("%s\n%s",
                     isDone ? "Nice! I've marked this task as done:"
                             : "OK, I've marked this task as not done yet:",
-                    taskString));
-            break;
+                    taskString);
         case "delete":
             taskString = this.tasks.deleteTask(Parser.parseDeleteCommand(words));
             this.writeTaskList();
-            this.ui.output(String.format("\tNoted. I've removed this task:\n\t%s\n"
-                            + "\tNow you have %d tasks in the list.",
+            return String.format("Noted. I've removed this task:\n%s\n"
+                            + "Now you have %d tasks in the list.",
                     taskString,
-                    this.tasks.getSize()));
-            break;
+                    this.tasks.getSize());
         case "todo":
         case "deadline":
         case "event":
@@ -94,12 +86,11 @@ public class ChatBot {
                     : Parser.parseEventTaskCommand(command);
             this.tasks.addTask(task);
             this.writeTaskList();
-            this.ui.output(String.format("\tGot it. I've added this task:\n\t\t%s"
-                            + "\n\tNow you have %d tasks in the list",
+            return String.format("Got it. I've added this task:\n%s"
+                            + "\nNow you have %d tasks in the list",
                     task,
                     this.tasks.getSize()
-            ));
-            break;
+            );
         default:
             throw new IllegalCommandException();
         }
@@ -109,9 +100,5 @@ public class ChatBot {
         if (!noLocalFileAccess) {
             this.storage.writeToDataFile(this.tasks.taskListToStrings());
         }
-    }
-
-    public static void main(String[] args) {
-        new ChatBot(ChatBot.LOCAL_DIRECTORY_PATH, ChatBot.LOCAL_FILE_PATH).run();
     }
 }
