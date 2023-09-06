@@ -9,7 +9,6 @@ public class Parser {
 
     public static Command parse(String command) throws JellyException  {
         try {
-            System.out.println(command);
             String[] stringArray = command.split(" ");
             if (stringArray[0].equals("list")) {
                 return new ListCommand();

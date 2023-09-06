@@ -35,6 +35,7 @@ shadowJar {
     archiveBaseName = "Jelly"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveFileName ="Jelly.jar"
 }
 
 run{
