@@ -21,26 +21,21 @@ public class Ui {
      * @param tasks the TaskList object to store and manage tasks
      * @param storage the Storage object to save and load tasks
      */
-    public void getInput(TaskList tasks, Storage storage) {
-        Scanner sc = new Scanner(System.in);
-        String s = sc.nextLine();
-        while (!s.equals("bye")) {
+    public String getInput(TaskList tasks, Storage storage, String input) {
+        while (!input.equals("bye")) {
             try {
-                parser.parse(s, tasks);
-                s = sc.nextLine();
+                return parser.parse(input, tasks);
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
-                s = sc.nextLine();
+                return e.getMessage();
+
             }
         }
-        if (s.equals("bye")) {
-            try {
-                storage.saveTasks(tasks.taskList);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-            System.out.println("Bye! Auntie maggie see you later!");
+        try {
+            storage.saveTasks(tasks.taskList);
+        } catch (IOException e) {
+            return e.getMessage();
         }
+        return "Bye! Auntie maggie see you later!";
     }
 }
 

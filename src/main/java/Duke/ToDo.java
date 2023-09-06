@@ -12,10 +12,10 @@ public class ToDo extends SingleTask {
     /**
      * Marks the task as done and displays a message to the user.
      */
-    public void mark() {
+    public String mark() {
         this.isDone = true;
-        System.out.println("Ok boy i mark for you already \n" +
-                "[" +this.getStatusIcon() +"] " + this.description);
+        return "Ok boy i mark for you already \n" +
+                "[" +this.getStatusIcon() +"] " + this.description;
     }
 
     /**
@@ -29,10 +29,10 @@ public class ToDo extends SingleTask {
     /**
      * Unmarks the task as done and displays a message to the user.
      */
-    public void unmark() {
+    public String unmark() {
         this.isDone = false;
-        System.out.println("Ok boy I unmark for you already \n" +
-                "[" +this.getStatusIcon() +"] " + this.description);
+        return "Ok boy I unmark for you already \n" +
+                "[" +this.getStatusIcon() +"] " + this.description;
     }
 
     /**
@@ -52,7 +52,7 @@ public class ToDo extends SingleTask {
      */
     @Override
     public String listString() {
-        return ". [T]" + "[" +this.getStatusIcon() +"] " + this.description;
+        return ". [T]" + "[" +this.getStatusIcon() +"] " + this.description +"\n";
     }
 
     /**

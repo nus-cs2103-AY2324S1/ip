@@ -12,10 +12,10 @@ public abstract class SingleTask {
         this.isDone = false;
     }
 
-    public abstract void mark();
+    public abstract String mark();
     public abstract String getStatusIcon();
 
-    public abstract void unmark();
+    public abstract String unmark();
     public abstract String listString();
 
     public abstract String remove ();

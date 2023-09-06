@@ -30,28 +30,31 @@ public class TaskList {
      * @param TaskNumber the index of the task to delete (1-based indexing)
      * @throws DukeException if the given index is out of bounds
      */
-    public void deleteTask(int TaskNumber) throws DukeException {
+    public String deleteTask(int TaskNumber) throws DukeException {
         if (TaskNumber - 1 >=  this.taskList.size()) {
             throw new DukeException("Boy ah cannot delete a task you dont have eh.");
         }
         SingleTask task = this.taskList.get(TaskNumber - 1);
-        System.out.println(task.remove());
+        String s = task.remove();
         this.taskList.remove(TaskNumber - 1);
+        return s;
     }
 
     /**
      * Displays the list of tasks to the user.
      */
-    public void list() {
+    public String list() {
+        String s = "";
         if (this.taskList.size() == 0) {
-            System.out.println("No tasks here ah boy");
+            return "No tasks here ah boy";
         } else {
-            System.out.println("Here are your tasks ah boy:");
+            s += "Here are your tasks ah boy:\n";
             for (int i = 0; i < this.taskList.size(); i++) {
                 SingleTask task = this.taskList.get(i);
-                System.out.println((i + 1) + task.listString());
+                s += (i + 1) + task.listString();
             }
         }
+        return s;
     }
 
     /**
@@ -59,12 +62,12 @@ public class TaskList {
      * @param TaskNumber the index of the task to mark as done (1-based indexing)
      * @throws DukeException if the given index is out of bounds
      */
-    public void mark(int TaskNumber) throws DukeException {
+    public String mark(int TaskNumber) throws DukeException {
         if (TaskNumber - 1 >=  this.taskList.size()) {
             throw new DukeException("Boy ah cannot mark a task you dont have eh.");
         }
         SingleTask task = this.taskList.get(TaskNumber - 1);
-        task.mark();
+        return task.mark();
     }
 
     /**
@@ -72,23 +75,25 @@ public class TaskList {
      * @param TaskNumber the index of the task to unmark as done (1-based indexing)
      * @throws DukeException if the given index is out of bounds
      */
-    public void unmark(int TaskNumber) throws DukeException {
+    public String unmark(int TaskNumber) throws DukeException {
         if (TaskNumber - 1 >=  this.taskList.size()) {
             throw new DukeException("Boy ah cannot unmark a task you dont have eh.");
         }
         SingleTask task = this.taskList.get(TaskNumber - 1);
-        task.unmark();
+        return task.unmark();
     }
 
     /**
      * Creates a new ToDo task and adds it to the list of tasks.
      * @param content the description of the ToDo task
      */
-    public void createToDo(String content) {
+    public String createToDo(String content) {
         SingleTask taskT = new ToDo(content);
         this.taskList.add(taskT);
-        System.out.println(taskT.toString());
-        System.out.println(String.format("Got %d task in list boy", taskList.size()));
+        String msg = "";
+        msg += taskT.toString();
+        msg += String.format("\nGot %d task in list boy", taskList.size());
+        return msg;
     }
 
     /**
@@ -96,11 +101,13 @@ public class TaskList {
      * @param description the description of the Deadline task
      * @param deadline the deadline of the Deadline task
      */
-    public void createDeadline(String description, String deadline) {
+    public String createDeadline(String description, String deadline) {
         SingleTask taskD = new Deadline(description, deadline);
         taskList.add(taskD);
-        System.out.println(taskD.toString());
-        System.out.println(String.format("Got %d task in list boy", taskList.size()));
+        String msg = "";
+        msg += taskD.toString();
+        msg += String.format("\nGot %d task in list boy", taskList.size());
+        return msg;
     }
 
     /**
@@ -109,22 +116,24 @@ public class TaskList {
      * @param from the start time of the Event
      * @param to the end time of the Event
      */
-    public void createEvent(String description, String from, String to) {
+    public String createEvent(String description, String from, String to) {
         SingleTask taskE = new Event(description, from, to);
         taskList.add(taskE);
-        System.out.println(taskE.toString());
-        System.out.println(String.format("Got %d task in list boy", taskList.size()));
+        String msg = "";
+        msg += taskE.toString();
+        msg += String.format("\nGot %d task in list boy", taskList.size());
+        return msg;
     }
 
     /**
      * Finds and displays tasks that contain a given keyword in their description.
      * @param keyWord the keyword to search for in the descriptions of tasks
      */
-    public void find(String keyWord) {
-        if (this.taskList.size() == 0) {
-            System.out.println("Boy ah got no tasks how to find anything??");
-        }
+    public String find(String keyWord) {
         String msg = "";
+        if (this.taskList.size() == 0) {
+            return "Boy ah got no tasks how to find anything??";
+        }
         int i = 1;
         for (SingleTask task : this.taskList) {
             if (task.description.contains(keyWord)) {
@@ -132,6 +141,6 @@ public class TaskList {
                 i++;
             }
         }
-        System.out.println(msg);
+        return msg;
     }
 }
