@@ -15,8 +15,12 @@ import ekud.exceptions.EkudInvalidCommandException;
 public class TaskList {
     // Actual list storing the tasks
     private List<Task> tasks;
+    // Cached list before clearing the main list
     private List<Task> cachedTasks;
-    // Constructor for TaskList
+
+    /**
+     * Constructor for TaskList which initialises its arrays.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
         this.cachedTasks = new ArrayList<>();
@@ -24,15 +28,16 @@ public class TaskList {
 
     /**
      * Returns the tasks as a string.
+     * @return String response message for user.
      */
     public String showTasks() {
         if (this.tasks.isEmpty()) {
             return "Your to-do list is currently empty :o";
         }
         StringBuilder output = new StringBuilder("Here is your to-do list:\n");
-        int len = tasks.size();
+        int len = this.tasks.size();
         for (int i = 0; i < len; i++) {
-            output.append(String.format("%d. %s\n", i + 1, tasks.get(i).toString()));
+            output.append(String.format("%d. %s\n", i + 1, this.tasks.get(i).toString()));
         }
         return output.toString();
     }
@@ -40,13 +45,14 @@ public class TaskList {
     /**
      * Marks a specific task as done and returns a confirmation message.
      * @param index Index number of task supplied by user.
+     * @return String response message for user.
      * @throws EkudIllegalArgException Illegal arg for index number.
      */
     public String markTaskAsDone(int index) throws EkudIllegalArgException {
         if (index >= this.tasks.size()) {
             throw new EkudIllegalArgException("Task index number is out of bounds :/");
         }
-        Task task = tasks.get(index);
+        Task task = this.tasks.get(index);
         task.markAsDone();
         return "The following task is marked done, sheeesh:\n" + task;
     }
@@ -57,19 +63,20 @@ public class TaskList {
      * @param index
      */
     public void markDoneOnStart(int index) {
-        tasks.get(index).markAsDone();
+        this.tasks.get(index).markAsDone();
     }
 
     /**
      * Marks a specific task as not done and returns a confirmation messsage.
      * @param index Index number of task supplied by user.
+     * @return String response message for user.
      * @throws EkudIllegalArgException Illegal arg for index number.
      */
     public String markTaskAsNotDone(int index) throws EkudIllegalArgException {
         if (index >= this.tasks.size()) {
             throw new EkudIllegalArgException("Task index number is out of bounds :/");
         }
-        Task task = tasks.get(index);
+        Task task = this.tasks.get(index);
         task.markAsNotDone();
         return "The following task is marked as not done yet:\n" + task;
     }
@@ -77,12 +84,13 @@ public class TaskList {
     /**
      * Returns the confirmation message for having added a task.
      * @param task
+     * @return String response message for user.
      */
     private String confirmAddedTask(Task task) {
         return String.format(
                 "Got it! I've added this task:\n%s\nNow you have %d task(s) in the list.",
                 task.toString(),
-                tasks.size());
+                this.tasks.size());
     }
 
     /**
@@ -98,6 +106,7 @@ public class TaskList {
     /**
      * Adds a to-do task to this TaskList.
      * @param description Description of the to-do task.
+     * @return String response message for user.
      * @throws EkudIllegalArgException Illegal arg for to-do task.
      */
     public String addToDo(String description) {
@@ -110,6 +119,7 @@ public class TaskList {
      * Adds a deadline task to this TaskList.
      * @param description Description of the deadline task.
      * @param dateTime Date and time to complete this task by.
+     * @return String response message for user.
      * @throws EkudIllegalArgException Illegal arg(s) for deadline task.
      */
     public String addDeadline(String description, LocalDateTime dateTime) {
@@ -119,14 +129,13 @@ public class TaskList {
     }
 
     /**
-     * Adds an event task to this TaskList.
+     * Adds an event task to this TaskList and returns a confirmation message.
      * @param description Description of the event task.
-     * @param fromDateTime Date and time this event starts.
-     * @param toDateTime Date and time this event ends.
-     * @throws EkudIllegalArgException Illegal arg(s) for event task.
+     * @param dateTimes Date and Time this event starts and ends.
+     * @return String response for user.
      */
-    public String addEvent(String description, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
-        Event newEvent = new Event(description, fromDateTime, toDateTime);
+    public String addEvent(String description, LocalDateTime ... dateTimes) {
+        Event newEvent = new Event(description, dateTimes[0], dateTimes[1]);
         this.tasks.add(newEvent);
         return this.confirmAddedTask(newEvent);
     }
@@ -134,7 +143,7 @@ public class TaskList {
     /**
      * Deletes a task from this TaskList and returns a confirmation message.
      * @param index Index number of task to be deleted as supplied by user.
-     * @throws EkudIllegalArgException Illegal arg for index number.
+     * @return String response message for user.
      */
     public String deleteTask(int index) throws EkudException {
         if (this.tasks.isEmpty()) {
@@ -143,7 +152,7 @@ public class TaskList {
         if (index >= this.tasks.size()) {
             throw new EkudIllegalArgException("Task index number is out of bounds :/");
         }
-        Task task = tasks.get(index);
+        Task task = this.tasks.get(index);
         this.tasks.remove(index);
         return String.format(
                 "Alright, this task has been removed:\n%s\nNow you have %d task(s) in the list.",
@@ -153,6 +162,8 @@ public class TaskList {
 
     /**
      * Finds a list of tasks matching the user's keyword search and returns it as a String.
+     * @param keyword
+     * @return String response of tasks for user.
      */
     public String findTasks(String keyword) {
         List<String> matchingTasks = new ArrayList<>();
@@ -174,7 +185,7 @@ public class TaskList {
     }
 
     /**
-     * Used by the storage object to retrieve the number of tasks to store
+     * Helper function used by the storage object to retrieve the number of tasks to store
      * into the hard disk.
      * @return Number of tasks to be saved.
      */
@@ -183,7 +194,7 @@ public class TaskList {
     }
 
     /**
-     * Used by the storage object to format all tasks to be saved.
+     * Helper function used by the storage object to format all tasks to be saved.
      * @param i Index number of task to be formatted.
      * @return Task formatted for saving.
      */
