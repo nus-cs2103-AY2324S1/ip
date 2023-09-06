@@ -10,10 +10,10 @@ import tasks.Task;
  * can be executed in the application.
  */
 public class Command {
-    boolean isExit;
+    boolean hasExit;
 
     public Command() {
-        this.isExit = false;
+        this.hasExit = false;
     }
 
     /**
@@ -28,12 +28,13 @@ public class Command {
     public void execute(TaskList<Task> tasks, Ui ui, boolean marked, boolean load) throws DukeException {
     }
 
+
     /**
      * indicate to Duke class whether it is time to end the program
      *
      * @return boolean of whether to end the program
      */
-    public boolean isExit() {
-        return this.isExit;
+    public boolean hasExit() {
+        return this.hasExit;
     }
 }

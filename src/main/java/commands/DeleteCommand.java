@@ -8,8 +8,7 @@ import tasks.Task;
 /**
  * A command to delete a task from the task list.
  */
-public class DeleteCommand extends commands.Command {
-
+public class DeleteCommand extends Command {
 
     /**
      * Constructs a `DeleteCommand` object
@@ -33,9 +32,9 @@ public class DeleteCommand extends commands.Command {
         }
         Task job = (Task) tasks.get(index);
         tasks.remove(index);
-        System.out.println("____________________________________________________________\n" +
+        System.out.println(ui.showLine() + "\n" +
                 "Noted, I've removed this task:\n" + job.toString() + "\n" +
-                String.format("Now you have %d tasks in the list\n", tasks.size()) +
-                "____________________________________________________________");
+                String.format("Now you have %d tasks in the list\n", tasks.size())
+                + ui.showLine());
     }
 }

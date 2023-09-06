@@ -39,7 +39,7 @@ public class Ui {
      *
      * @return The user's input command as a string.
      */
-    public String readCommand() throws functional.DukeException {
+    public String readCommand() throws DukeException {
         Scanner io = new Scanner(System.in);
         try {
             String s = io.nextLine();
@@ -47,7 +47,7 @@ public class Ui {
             this.input = s;
             return s;
         } catch (NoSuchElementException e) {
-            throw new functional.DukeException();
+            throw new DukeException();
         }
     }
 
