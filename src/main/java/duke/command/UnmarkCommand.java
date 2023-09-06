@@ -20,8 +20,7 @@ public class UnmarkCommand extends Command {
      * @params tasks TaskList containing all existing Task objects
      * @params ui UI interface that is used to print messages to the terminal
      * @params storage Storage object that houses database of the program
-     * @throws DukeException exception thrown if unmarking task is not able to be done, 
-     * possibly due to erroneous indexing
+     * @throws DukeException exception thrown if unmarking task is not able to be done
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {

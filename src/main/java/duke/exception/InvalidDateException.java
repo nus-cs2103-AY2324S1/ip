@@ -1,7 +1,7 @@
 package duke.exception;
 
 /**
- * A class that represents all exceptions thrown by the program when 
+ * A class that represents all exceptions thrown by the program when
  * dates provided when adding tasks is of the wrong format
  */
 public class InvalidDateException extends DukeException {

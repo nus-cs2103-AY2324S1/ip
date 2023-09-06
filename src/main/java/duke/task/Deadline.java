@@ -10,7 +10,7 @@ import duke.exception.MissingInformationException;
 
 
 /**
- * A class that represents the Deadline class. It is 
+ * A class that represents the Deadline class. It is
  * a subtype of the abstract Task class.
  */
 
@@ -32,9 +32,7 @@ public class Deadline extends Task {
      * String input is guaranteed to start with "deadline"
      * @param input user input from terminal.
      * @return a Deadline object given the input string.
-     * @throws MissingInformationException due to possibly an empty
-     * description of the Deadline task or a missing /by deadline for
-     * the task.
+     * @throws MissingInformationException due to missing required informaiton.
      */
     public static Deadline of(String input) throws MissingInformationException {
         Matcher matcher = Pattern.compile("deadline ").matcher(input);

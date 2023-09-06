@@ -124,8 +124,7 @@ public class TaskList {
      * A method that takes in a string and returns tasklist containing
      * all tasks such that inputted string is a substring of the tasks' description
      * @param keyString string that user wants to compare tasks' descriptions against
-     * @return TaskList object containing all desired tasks with descriptions being
-     * superstring of inputted string
+     * @return TaskList object containing all matching tasks
      */
     public TaskList filter(String keyString) {
         ArrayList<Task> out = new ArrayList<Task>();

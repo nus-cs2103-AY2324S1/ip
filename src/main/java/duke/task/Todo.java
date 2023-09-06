@@ -7,7 +7,7 @@ import duke.exception.EmptyDescriptionException;
 import duke.exception.MissingInformationException;
 
 /**
- * A class that represents the Event class. It is 
+ * A class that represents the Event class. It is
  * a subtype of the abstract Task class.
  */
 
@@ -26,8 +26,7 @@ public class Todo extends Task {
      * String input is guaranteed to start with "todo"
      * @param input user input from terminal.
      * @return a Todo object given the input string.
-     * @throws MissingInformationException due to possibly an empty
-     * description of the todo task.
+     * @throws MissingInformationException due to missing required information.
      */
     public static Todo of(String input) throws MissingInformationException {
         input = input.trim();

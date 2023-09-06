@@ -19,7 +19,7 @@ public class FindCommand extends Command {
      * @param ui UI interface that is used to print messages to the terminal
      * @param storage Storage object that houses database of the program
      */
-    @Override 
+    @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         return ui.find(tasks, this.keyString);
     }

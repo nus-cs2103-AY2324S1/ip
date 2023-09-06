@@ -28,9 +28,10 @@ public class Storage {
     }
 
     /**
-     * A method that returns a Task ArrayList based on stored data. ArrayList 
+     * A method that returns a Task ArrayList based on stored data. ArrayList
      * generated is then used to initialise TaskList object
-     * @return ArrayList<Task> based on stored data
+     * @return ArrayList based on stored data
+     * @throws Exception if file is corrupted
      */
     public ArrayList<Task> load() throws Exception {
         ArrayList<Task> arr = new ArrayList<>();

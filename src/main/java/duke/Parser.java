@@ -90,8 +90,7 @@ public class Parser {
      * A method to parse command that user gave
      * @param fullCommand string that user gave
      * @return A Command object representing the command user gives
-     * @throws DukeException when user input does not represent any particular
-     * command
+     * @throws DukeException when user input does not represent any command
      */
     public static Command parse(String fullCommand) throws DukeException {
         int taskType = Parser.getCommand(fullCommand);
@@ -117,15 +116,18 @@ public class Parser {
         }
         case 3: {
             switch (Parser.getTaskType(fullCommand)) {
-                case 0: {
-                    return new AddCommand().new TodoCommand(fullCommand);
-                }
-                case 1: {
-                    return new AddCommand().new DeadlineCommand(fullCommand);
-                }
-                case 2: {
-                    return new AddCommand().new EventCommand(fullCommand);
-                }
+            case 0: {
+                return new AddCommand().new TodoCommand(fullCommand);
+            }
+            case 1: {
+                return new AddCommand().new DeadlineCommand(fullCommand);
+            }
+            case 2: {
+                return new AddCommand().new EventCommand(fullCommand);
+            }
+            default: {
+                throw new UnknownTaskTypeException();
+            }
             }
         }
         case 4: {

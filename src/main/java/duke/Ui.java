@@ -121,8 +121,7 @@ public class Ui {
     /**
      * A method that prints message when user wants a list of tasks in TaskList object
      * @param arr TaskList object that contains existing Task objects
-     * @return string that is printed representing list of tasks in specified
-     * TaskList
+     * @return string that is printed representing list of tasks in specified TaskList
      */
     public String list(TaskList arr) {
         String out = "Here are the tasks in your list:\n";
@@ -134,7 +133,7 @@ public class Ui {
     }
 
     /**
-     * A method that finds all existing tasks that contains specified substring and lists it 
+     * A method that finds all existing tasks that contains specified substring and lists it
      * @param arr taskList object that contains existing Task objects
      * @param keyString string that user wants to search for
      * @return string that lists all tasks with descriptions containing specified substring

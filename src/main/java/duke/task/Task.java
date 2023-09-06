@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * An abstract class that is the supertype of all 
+ * An abstract class that is the supertype of all
  * tasks that program accepts (Todo, Deadline, Event).
  */
 public abstract class Task {
