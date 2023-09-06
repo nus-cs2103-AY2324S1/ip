@@ -1,7 +1,7 @@
 package jeeves.exception;
 
 /**
- * Custom exception that is thrown when there is no data provided after a '/to ' 
+ * Custom exception that is thrown when there is no data provided after a '/to '
  * Encountered when adding a new event task and no 'to date' is provided by the user
  */
 public class MissingToException extends Exception {

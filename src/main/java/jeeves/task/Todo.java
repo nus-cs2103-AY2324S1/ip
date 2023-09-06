@@ -1,5 +1,8 @@
 package jeeves.task;
 
+/**
+ * The representation of a To.do task
+ */
 public class Todo extends Task {
 
     public Todo(String desc) {

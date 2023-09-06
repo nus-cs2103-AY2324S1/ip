@@ -1,19 +1,18 @@
 package jeeves;
 
-import jeeves.exception.DeletedIdException;
-
-import jeeves.task.Task;
-import jeeves.task.Todo;
-import jeeves.task.Deadline;
-import jeeves.task.Event;
-import jeeves.task.TaskList;
-import jeeves.storage.Storage;
-import jeeves.parser.Parser;
-import jeeves.ui.Ui;
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.LocalDate;
+
+import jeeves.exception.DeletedIdException;
+import jeeves.parser.Parser;
+import jeeves.storage.Storage;
+import jeeves.task.Deadline;
+import jeeves.task.Event;
+import jeeves.task.Task;
+import jeeves.task.TaskList;
+import jeeves.task.Todo;
+import jeeves.ui.Ui;
 
 /**
  * Contains the main method and primary logic for Jeeves.
@@ -22,7 +21,7 @@ public class Jeeves {
 
     private static final String RELATIVE_PATH_DATA_DIRECTORY = "data";
     private static final String RELATIVE_PATH_DATA_FILE = "data/JeevesData.txt";
-    
+
     private final Storage storage;
     private final TaskList tasks;
     private final Parser parser;
@@ -56,9 +55,9 @@ public class Jeeves {
      */
     public void run() {
         ui.printGreeting();
-        
+
         Scanner sc = new Scanner(System.in);
-        
+
         // Waits for user input and process it accordingly
         while (true) {
             // Reads the user input and parses the relevant tokens for use
@@ -86,13 +85,13 @@ public class Jeeves {
             } else if (currentCommand.equals("mark")) {
                 // Get the id and try to process the marking
                 int id = Integer.parseInt(tokens.get(1));
-                
+
                 try {
                     if (tasks.getTask(id) == null) {
                         // If the id to be marked belongs to a deleted task (null), throws the DeletedIdException
                         throw new DeletedIdException();
                     }
-                    
+
                     tasks.markTask(id);
                     System.out.println("Understood, I have marked the following task as done:");
                     System.out.println("    ");
@@ -103,28 +102,29 @@ public class Jeeves {
                 }
             } else if (currentCommand.equals("unmark")) {
                 int id = Integer.parseInt(tokens.get(1));
-                
+
                 try {
                     if (tasks.getTask(id) == null) {
                         // If the id to be marked belongs to a deleted task (null), throws the DeletedIdException
                         throw new DeletedIdException();
                     }
-                    
+
                     tasks.unmarkTask(id);
                     System.out.println("Understood, I have marked the following task as not done:");
-                    System.out.println("    " + tasks.getTask(id).toString() + "\n");
+                    System.out.println("    "
+                            + tasks.getTask(id).toString() + "\n");
                 } catch (DeletedIdException e) {
                     System.out.println(e.getMessage());
                 }
             } else if (currentCommand.equals("delete")) {
                 int id = Integer.parseInt(tokens.get(1));
-                
+
                 try {
                     if (tasks.getTask(id) == null) {
                         // If the id to be marked belongs to a deleted task (null), throws the DeletedIdException
                         throw new DeletedIdException();
                     }
-                    
+
                     System.out.println("Understood, I have deleted the following task:");
                     System.out.println("    " + tasks.getTask(id).toString() + "\n");
                     tasks.setTask(id, null);
@@ -135,24 +135,25 @@ public class Jeeves {
                 // Adds the To.do normally to the task list
                 Todo newTodo = new Todo(tokens.get(1));
                 tasks.addTaskAtIndex(Task.getTaskCount(), newTodo);
-                System.out.println("Task added:\n" +
-                        "    " + newTodo + "\n");
+                System.out.println("Task added:\n"
+                        + "    " + newTodo + "\n");
 
             } else if (currentCommand.equals("deadline")) {
                 // Checks if the Date input is in the accepted format
                 LocalDate deadline = LocalDate.parse(tokens.get(2));
-                
+
                 // Adds the 'Deadline' Task to the task list
                 Deadline newDeadline = new Deadline(tokens.get(1), deadline);
                 tasks.addTaskAtIndex(Task.getTaskCount(), newDeadline);
-                System.out.println("Deadline added:\n" +
-                        "    " + newDeadline + "\n");
+                System.out.println("Deadline added:\n"
+                        + "    "
+                        + newDeadline + "\n");
             } else if (currentCommand.equals("event")) {
                 // Adds the 'Event' Task to the task list
                 Event newEvent = new Event(tokens.get(1), tokens.get(2), tokens.get(3));
                 tasks.addTaskAtIndex(Task.getTaskCount(), newEvent);
-                System.out.println("Event added:\n" +
-                        "    " + newEvent + "\n");
+                System.out.println("Event added:\n"
+                        + "    " + newEvent + "\n");
             } else if (currentCommand.equals("find")) {
                 tasks.searchFor(tokens.get(1));
             } else if (currentCommand.equals("bye")) {

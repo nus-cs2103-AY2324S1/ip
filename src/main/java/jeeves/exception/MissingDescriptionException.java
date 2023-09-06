@@ -9,7 +9,7 @@ public class MissingDescriptionException extends Exception {
     /**
      * Default constructor for MissingDescriptionException.
      * Calls the super constructor with the custom error message
-     * 
+     *
      * @param errorMsg The custom error message
      */
     public MissingDescriptionException(String errorMsg) {

@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
 
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd LLL yyyy");
-    
+
     protected LocalDate by;
 
     public Deadline(String desc, LocalDate by) {

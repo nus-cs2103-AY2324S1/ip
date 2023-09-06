@@ -1,5 +1,7 @@
 package jeeves.parser;
 
+import java.util.ArrayList;
+
 import jeeves.exception.MissingByException;
 import jeeves.exception.MissingDescriptionException;
 import jeeves.exception.MissingFromException;
@@ -8,8 +10,6 @@ import jeeves.exception.MissingToException;
 import jeeves.exception.NotIntegerIdException;
 import jeeves.exception.OutOfBoundIdException;
 import jeeves.task.Task;
-
-import java.util.ArrayList;
 
 /**
  * Parser processes user input and returns an arraylist of string tokens for other classes to use.
@@ -32,13 +32,13 @@ public class Parser {
      * Currently, requires no arguments to initialize.
      */
     public Parser() {
-        
+
     }
 
     /**
      * Takes the user's input line and returns an array list of relevant string tokens for usage.
      * Used by the live implementation of Jeeves.
-     * 
+     *
      * @param input A line of user input.
      * @return String ArrayList containing relevant useful string tokens
      */
@@ -151,7 +151,7 @@ public class Parser {
             } else if (Integer.parseInt(idString) > Task.getTaskCount()) {
                 // id does not exist
                 throw new OutOfBoundIdException();
-            } 
+            }
         } catch (MissingIdException | NotIntegerIdException | OutOfBoundIdException e) {
             System.out.println(e.getMessage());
         }
@@ -186,7 +186,8 @@ public class Parser {
         return byDateIndex;
     }
 
-    static int getFromDateIndex(String input) throws MissingFromException, MissingToException, MissingDescriptionException {
+    static int getFromDateIndex(String input) throws MissingFromException, MissingToException,
+            MissingDescriptionException {
         int fromDateIndex = input.indexOf("/from ");
         if (fromDateIndex == -1) {
             // If the "/from " block is missing, throws the MissingFromException
@@ -203,7 +204,7 @@ public class Parser {
             throw new MissingToException();
         }
         if (input.length() == (toDateIndex + FIND_FIELD_TO_OFFSET)) {
-            // If the /to block is present but no data has been given to the field, throw 
+            // If the /to block is present but no data has been given to the field, throw
             // the MissingToException
             throw new MissingToException();
         }
@@ -212,7 +213,7 @@ public class Parser {
             throw new MissingDescriptionException("The description of a event cannot be empty\n");
         }
         if ((toDateIndex - 1) <= (fromDateIndex + FIND_FIELD_FROM_OFFSET)) {
-            // If the /from block is present but no data has been given to the field, throw 
+            // If the /from block is present but no data has been given to the field, throw
             // the MissingFromException
             throw new MissingFromException();
         }

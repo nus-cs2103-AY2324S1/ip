@@ -1,7 +1,7 @@
 package jeeves.exception;
 
 /**
- * Custom exception that is thrown when the id provided is not a valid integer value. 
+ * Custom exception that is thrown when the id provided is not a valid integer value.
  * Encountered when attempting to mark, unmark or delete a task.
  */
 public class NotIntegerIdException extends Exception {

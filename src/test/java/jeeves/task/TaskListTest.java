@@ -1,11 +1,11 @@
 package jeeves.task;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
     @Test
@@ -34,7 +34,7 @@ public class TaskListTest {
         System.out.println(testTaskList.getTaskListDataAsString());
         assertEquals("T|0|some todo desc\n"
                 + "D|0|some deadline desc|2023-09-03\n"
-                + "E|0|some event desc|some from date|some to date\n"
-                , testTaskList.getTaskListDataAsString());
+                + "E|0|some event desc|some from date|some to date\n",
+                testTaskList.getTaskListDataAsString());
     }
 }

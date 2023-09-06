@@ -3,7 +3,7 @@ package jeeves.task;
 import java.util.ArrayList;
 
 public class TaskList {
-    
+
     /**
      * The arraylist used to track tasks.
      * Due to how the taskCount variable is used as the id and
@@ -11,7 +11,7 @@ public class TaskList {
      * taskList is effectively 1-indexed
      */
     private final ArrayList<Task> taskList;
-    
+
     public TaskList() {
         taskList = new ArrayList<>();
     }
@@ -19,23 +19,23 @@ public class TaskList {
     public TaskList(ArrayList<Task> tasks) {
         taskList = tasks;
     }
-    
+
     public void addTaskAtIndex(int index, Task t) {
         taskList.add(index, t);
     }
-    
+
     public void setTask(int index, Task t) {
-        taskList.set(index,t);
+        taskList.set(index, t);
     }
-    
+
     public Task getTask(int index) {
         return taskList.get(index);
     }
-    
+
     public void printTask(int index) {
         System.out.println(taskList.get(index).toString());
     }
-    
+
     public void markTask(int index) {
         taskList.get(index).setStatus(true);
     }
@@ -43,7 +43,7 @@ public class TaskList {
     public void unmarkTask(int index) {
         taskList.get(index).setStatus(false);
     }
-    
+
     public String getTaskListDataAsString() {
         // Starts by creating the text to write to the output file
         StringBuilder sb = new StringBuilder();
@@ -86,9 +86,9 @@ public class TaskList {
                 }
             }
         }
-        return sb.toString(); 
+        return sb.toString();
     }
-    
+
     public void searchFor(String searchTerm) {
         StringBuilder sb = new StringBuilder();
         boolean hasMatch = false;

@@ -1,10 +1,5 @@
 package jeeves.storage;
 
-import jeeves.task.Deadline;
-import jeeves.task.Event;
-import jeeves.task.Task;
-import jeeves.task.Todo;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -14,19 +9,24 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import jeeves.task.Deadline;
+import jeeves.task.Event;
+import jeeves.task.Task;
+import jeeves.task.Todo;
+
 /**
  * Storage is responsible for all read/write/other interactions with the .txt datafile containing Jeeves's data.
  */
 public class Storage {
-    
+
     private final Path dataDirPath;
     private final Path dataFilePath;
-    
+
     /**
      * Constructor for a Storage object.
      * Takes 2 different Strings and checks if the relative directory and datafile exists.
      * Creates them if they do not exist.
-     * 
+     *
      * @param dirPathString Relative path for the directory in String format
      * @param filePathString Relative path for the data file in String format
      */
@@ -66,7 +66,7 @@ public class Storage {
             bw.write(data);
             bw.flush();
             bw.close();
-        } catch(IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -91,18 +91,18 @@ public class Storage {
                 boolean status = Integer.parseInt(currData[1]) == 1;
                 String desc = currData[2];
                 switch (taskType) {
-                    case "T":
-                        taskList.add(new Todo(desc, status));
-                        break;
-                    case "D":
-                        LocalDate deadline = LocalDate.parse(currData[3]);
-                        taskList.add(new Deadline(desc, deadline, status));
-                        break;
-                    case "E":
-                        String startTime = currData[3];
-                        String endTime = currData[4];
-                        taskList.add(new Event(desc, startTime, endTime, status));
-                        break;
+                case "T":
+                    taskList.add(new Todo(desc, status));
+                    break;
+                case "D":
+                    LocalDate deadline = LocalDate.parse(currData[3]);
+                    taskList.add(new Deadline(desc, deadline, status));
+                    break;
+                case "E":
+                    String startTime = currData[3];
+                    String endTime = currData[4];
+                    taskList.add(new Event(desc, startTime, endTime, status));
+                    break;
                 }
             }
             br.close();

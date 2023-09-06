@@ -1,7 +1,7 @@
 package jeeves.exception;
 
 /**
- * Custom exception that is thrown when there is no valid id provided when using a command that requires an id input. 
+ * Custom exception that is thrown when there is no valid id provided when using a command that requires an id input.
  * Encountered when attempting to mark, unmark or delete a task.
  */
 public class MissingIdException extends Exception {

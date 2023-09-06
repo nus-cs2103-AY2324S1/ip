@@ -10,7 +10,7 @@ public class Ui {
      * Currently, requires no arguments to initialize.
      */
     public Ui() {
-        
+
     }
 
     /**

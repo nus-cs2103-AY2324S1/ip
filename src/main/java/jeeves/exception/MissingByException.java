@@ -1,7 +1,7 @@
 package jeeves.exception;
 
 /**
- * Custom exception that is thrown when there is no data provided after a '/by ' 
+ * Custom exception that is thrown when there is no data provided after a '/by '
  * Encountered when adding a new deadline task and no 'by date' is provided by the user
  */
 public class MissingByException extends Exception {
