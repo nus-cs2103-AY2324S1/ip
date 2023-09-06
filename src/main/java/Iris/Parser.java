@@ -9,7 +9,7 @@ public class Parser {
         switch (command) {
             case "bye": {
                 Ui.exitMsg();
-                System.exit(1);
+                System.exit(0);
             }
 
             case "list": {

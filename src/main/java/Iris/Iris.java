@@ -26,7 +26,6 @@ public class Iris {
                 System.out.println("Out of Bounds Error: " + e.getMessage());
             }
         }
-        scanner.close();
     }
 
     public static void main(String[] args) {
