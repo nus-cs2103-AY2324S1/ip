@@ -6,7 +6,7 @@ package duke;
 public class Parser {
 
     private enum Commands {
-        invalid, todo, deadline, event, mark, unmark, list, delete, bye;
+        invalid, todo, deadline, event, mark, unmark, list, delete, find, bye;
     }
 
     private TaskList taskList;
@@ -107,6 +107,15 @@ public class Parser {
                 return true;
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("To delete a task you have to include the index");
+            }
+        } else if (cmd.equals(Commands.find)) {
+            try {
+                String keyword= command.split(" ")[1];
+                TaskList matchingTasks = taskList.findTask(keyword);
+                ui.findTaskMessage(matchingTasks, keyword);
+                return true;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("To search for a task you need to include a keyword");
             }
         } else {
             System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");

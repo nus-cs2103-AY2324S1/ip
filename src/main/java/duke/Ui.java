@@ -148,4 +148,20 @@ public class Ui {
         System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         showLine();
     }
+
+    /**
+     * Displays a message when the user searches for a task.
+     */
+    public void findTaskMessage(TaskList taskList, String keyword) {
+        if (!taskList.isEmpty()) {
+            showLine();
+            System.out.println("Here are the matching tasks in your list:");
+            System.out.println(taskList.toString());
+            showLine();
+        } else {
+            showLine();
+            System.out.println("There are no tasks that contain the keyword: " + keyword);
+            showLine();
+        }
+    }
 }

@@ -97,6 +97,30 @@ public class TaskList {
         return this.tasks.size();
     }
 
+    /**
+     * Checks if there are tasks in the task list.
+     *
+     * @return Boolean depending on whether the task list is empty.
+     */
+    public boolean isEmpty() {
+        return this.tasks.isEmpty();
+    }
+
+    /**
+     * Gets a list of tasks with descriptions that matches the specified keyword.
+     *
+     * @param keyword The specified keyword to match.
+     * @return A list of tasks that contain the keyword.
+     */
+    public TaskList findTask(String keyword) {
+        TaskList tempTaskList = new TaskList(ui);
+        for (Task task: tasks) {
+            if (task.description.contains(keyword)) {
+                tempTaskList.addTask(task);
+            }
+        }
+        return tempTaskList;
+    }
 
     /**
      * Returns a string representation of the task list, including task numbers and their details.
