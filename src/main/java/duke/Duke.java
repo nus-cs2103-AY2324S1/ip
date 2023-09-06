@@ -17,7 +17,7 @@ public class Duke {
     private TaskList tasks;
     private UI ui;
     private String uiOutput;
-    private boolean justCreatedFile = false;
+    private boolean hasCreatedFile = false;
 
     /**
      * Constructor for the Duke object.
@@ -30,7 +30,7 @@ public class Duke {
             tasks = new TaskList(storage.load());
         } catch (FileNotFoundException e) {
             ui.showLoadingError();
-            this.justCreatedFile = true;
+            this.hasCreatedFile = true;
             try {
                 File f = new File(filePath);
                 if (f.createNewFile()) {
@@ -59,7 +59,7 @@ public class Duke {
     }
 
     public boolean getJustCreatedFile() {
-        return this.justCreatedFile;
+        return this.hasCreatedFile;
     }
 
 }

@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.exception.UnknownCommandException;
+
 /**
  * The Event class extends Task. An event has 2 extra fields
  * of start and end time
@@ -25,10 +27,19 @@ public class Event extends Task {
      * @param start the start time of the event.
      * @param end the end time of the event.
      */
-    public Event(String description, String start, String end) {
-        super(description);
-        this.start = start;
-        this.end = end;
+    public Event(String commands) throws UnknownCommandException {
+        String[] items = commands.split(" /");
+        if (items.length == 3) {
+            if (items[1].startsWith("from ") && items[2].startsWith("to ")) {
+                this.description = items[0];
+                this.start = items[1].substring(5);
+                this.end = items[2].substring(3);
+            } else {
+                throw new UnknownCommandException();
+            }
+        } else {
+            throw new UnknownCommandException();
+        }
     }
 
     @Override
@@ -37,7 +48,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String fileRepresentation() {
+    public String showFileRepresentation() {
         return ("E" + " | " + (this.isDone ? "1" : "0")
                 + " | " + this.description + " | " + start + " | " + end + "\n");
     }

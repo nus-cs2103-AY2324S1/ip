@@ -12,7 +12,7 @@ public class TodoTest {
 
     @Test
     public void testFileRepresentation() {
-        assertEquals("T | 0 | read book\n", new Todo("read book").fileRepresentation());
+        assertEquals("T | 0 | read book\n", new Todo("read book").showFileRepresentation());
     }
 
     @Test

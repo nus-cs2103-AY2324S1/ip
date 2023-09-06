@@ -64,7 +64,7 @@ public class Storage {
         FileWriter file = new FileWriter("storage.txt");
         for (int i = 0; i < arrayTasks.size(); i++) {
             Task task = arrayTasks.get(i);
-            file.write(task.fileRepresentation());
+            file.write(task.showFileRepresentation());
         }
         file.close();
     }
@@ -77,7 +77,7 @@ public class Storage {
      */
     public void append(Task task) throws IOException {
         FileWriter file = new FileWriter("storage.txt", true);
-        file.write(task.fileRepresentation());
+        file.write(task.showFileRepresentation());
         file.close();
     }
 }
