@@ -90,7 +90,7 @@ public class Duke {
      * Retrieves the response to the input given via GUI
      *
      * @param input   The String of the full command.
-     * @return String The reply of Duke.
+     * @return String The reply of Respironix.
      */
     public String getResponse(String input) {
         try {
@@ -98,7 +98,7 @@ public class Duke {
             return c.execute(tasks, ui, storage);
         } catch (Exception e) {
             System.out.println(e);
-            return "Duke heard unknown command: " + input;
+            return "Respironix heard unknown command: " + input;
         }
 
 
