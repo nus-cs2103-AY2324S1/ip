@@ -1,12 +1,13 @@
 package duke;
 
-import duke.tasks.Deadline;
-import duke.tasks.Task;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import duke.tasks.Deadline;
+import duke.tasks.Task;
 
 public class DeadlineTest {
 
@@ -30,7 +31,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void UnMark_unMarkedTaskReturned() {
+    public void unMark_unMarkedTaskReturned() {
         Task task = new Deadline(LocalDate.of(2023, 6, 23), "abc");
         task.markAsDone();
         task.unMark();

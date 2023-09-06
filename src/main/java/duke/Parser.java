@@ -1,13 +1,14 @@
 package duke;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Class that deals with making sense of the user command.
@@ -31,8 +32,8 @@ public class Parser {
             String command = words[0];
 
             for (Command c : Command.values()) {
-                if (c.name().toLowerCase().equals(command) &&
-                        !c.equals(Command.BYE) && !c.equals(Command.LIST)) {
+                if (c.name().toLowerCase().equals(command)
+                        && !c.equals(Command.BYE) && !c.equals(Command.LIST)) {
                     return c;
                 }
             }

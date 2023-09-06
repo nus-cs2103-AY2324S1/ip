@@ -13,6 +13,9 @@ public class DukeException extends Exception {
         super(message);
     }
 
+    /**
+     * Prints the message of the DukeException.
+     */
     public void printException() {
         System.out.println("-----------------------------------------------");
         System.out.println(this.getMessage());

@@ -1,7 +1,5 @@
 package duke;
 
-import duke.tasks.Task;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,6 +8,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import duke.tasks.Task;
+
 
 /**
  * Class that deals with loading tasks from the file and saving tasks in the file.

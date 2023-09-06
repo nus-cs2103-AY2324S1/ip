@@ -1,26 +1,27 @@
 package duke;
 
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.Todo;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 public class TaskListTest {
-    List<Task> list = new ArrayList<>();
-    Task task1 = new Todo("abc");
-    Task task2 = new Event(LocalDate.of(2023, 8, 16),
+    private List<Task> list = new ArrayList<>();
+    private Task task1 = new Todo("abc");
+    private Task task2 = new Event(LocalDate.of(2023, 8, 16),
             LocalDate.of(2023, 8, 27),
             "read book");
-    Task task3 = new Deadline(LocalDate.of(2023, 5, 23), "read book");
+    private Task task3 = new Deadline(LocalDate.of(2023, 5, 23), "read book");
     private TaskList taskList = new TaskList(list);
 
     @BeforeEach
@@ -38,8 +39,8 @@ public class TaskListTest {
             assertEquals(task4.toString(), list.get(3).toString());
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("Input for deadline doesn't match the expected format." +
-                    "\ndeadline ... /by ...", e.getMessage());
+            assertEquals("Input for deadline doesn't match the expected format."
+                    + "\ndeadline {description} /by {endDate in YYYY-MM-DD}", e.getMessage());
         }
     }
 
@@ -51,8 +52,8 @@ public class TaskListTest {
             assertEquals(task4.toString(), list.get(3).toString());
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("Input for deadline doesn't match the expected format." +
-                    "\ndeadline ... /by ...", e.getMessage());
+            assertEquals("Input for deadline doesn't match the expected format."
+                    + "\ndeadline {description} /by {endDate in YYYY-MM-DD}", e.getMessage());
         }
     }
 
