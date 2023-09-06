@@ -132,7 +132,7 @@ class Duke {
                 String by = deadlineParts[1];
                 tasks.add(new Deadline(description, by));
             } catch (Exception e) {
-                throw new WrongFormatException("OOPS!!! deadlines need to be in this format, deadline return book /by YYYY-MM-DD");
+                throw new WrongFormatException("OOPS deadlines need to be in this format, deadline return book /by YYYY-MM-DD");
             }
         } else if (commandType == CommandType.EVENT) {
             if (inputParts.length <= 1){
@@ -145,7 +145,7 @@ class Duke {
                 String to = eventParts[2];
                 tasks.add(new Event(description, from, to));
             } catch (Exception e) {
-                throw new WrongFormatException("OOPS!!! events need to be in this format, event project meeting /from Mon 2pm /to 4pm");
+                throw new WrongFormatException("OOPS events need to be in this format, event project meeting /from Mon 2pm /to 4pm");
             }
         } else {
             throw new UnknownCommandException();
@@ -170,7 +170,7 @@ class WrongFormatException extends Exception {
 
 class UnknownCommandException extends Exception {
     public UnknownCommandException() {
-        super("OOPS!!! I'm sorry, but I don't know what that means :-P");
+        super("OOPS I'm sorry, but I don't know what that means :-P");
     }
 }
 
