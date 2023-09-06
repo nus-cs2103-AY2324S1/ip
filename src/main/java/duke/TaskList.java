@@ -21,7 +21,7 @@ public class TaskList {
             } else if (task.contains("D")){
                 String[] deadlineString = task.substring(8).split("\\(");
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy ha");
-                LocalDateTime deadlineDate = LocalDateTime.parse(deadlineString[1].substring(4, deadlineString[1].length()-1), formatter);
+                LocalDateTime deadlineDate = LocalDateTime.parse(deadlineString[1].substring(4, deadlineString[1].length()-1).trim(), formatter);
                 Deadline deadlineTask = new Deadline(deadlineString[0].trim(), deadlineDate);
                 this.taskList.add(deadlineTask);
             } else if (task.contains("E")){

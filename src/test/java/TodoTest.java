@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TodoTest {
 
     @Test
-    public void ToDoStringConversion(){
-        String taskName = "return book" ;
+    public void ToDoStringConversion() {
+        String taskName = "return book";
         assertEquals("[T] [ ] return book", new Todo(taskName).toString());
     }
 }
