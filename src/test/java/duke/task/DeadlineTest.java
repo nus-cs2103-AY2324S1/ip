@@ -29,7 +29,7 @@ public class DeadlineTest {
         Deadline deadline = new Deadline("homework", "12/09/2080 1718");
         LocalDateTime dateTime = LocalDateTime.of(2080, 9, 12, 17, 18);
         String actual = deadline.formatDateTime(dateTime);
-        String expected = "12 Sep 2080 5:18 PM"; // Adjust the expected value accordingly
+        String expected = "12 Sep 2080 5:18 PM";
         assertEquals(expected, actual);
     }
 

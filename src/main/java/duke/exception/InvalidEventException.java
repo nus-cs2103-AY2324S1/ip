@@ -9,6 +9,6 @@ public class InvalidEventException extends Exception {
      * Constructor with an error message.
      */
     public InvalidEventException() {
-        super("☹ OOPS!!! You forgot to indicate the start and/or end date/time.");
+        super("Oops! You forgot to indicate the start and/or end date/time.");
     }
 }

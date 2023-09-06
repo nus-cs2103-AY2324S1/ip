@@ -32,8 +32,8 @@ public class Deadline extends Task {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
             return LocalDateTime.parse(dateTimeString, formatter);
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("☹ OOPS!!! Invalid date/time format. "
-                    + "Please use dd/MM/yyyy HHmm");
+            throw new IllegalArgumentException("Oops! This is an invalid date/time format - "
+                    + "Please use dd/MM/yyyy HHmm.");
         }
     }
 

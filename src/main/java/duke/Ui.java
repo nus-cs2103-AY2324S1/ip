@@ -9,24 +9,21 @@ import duke.task.TaskList;
 public class Ui {
     /**
      * Displays a default start message when the program starts.
+     *
+     * @return Start message.
      */
-    public void startMessage() {
-        System.out.println("Hello friend :> My name is John, nice to meet you! "
-                + "What do you have to do today?");
+    public String startMessage() {
+        return "I'm Boo, nice to meet you! "
+                + "You can start adding your tasks :-)";
     }
 
     /**
      * Displays the default end message when the user exits the program.
+     *
+     * @return End message.
      */
-    public void endMessage() {
-        System.out.println("Bye for now, hope to see you soon.");
-    }
-
-    /**
-     * Displays a prompt for the user to reply.
-     */
-    public void promptReply() {
-        System.out.print("Reply John: ");
+    public String endMessage() {
+        return "Bye for now, hope to see you soon!";
     }
 
     /**
@@ -34,10 +31,11 @@ public class Ui {
      *
      * @param task The task that is added.
      * @param totalTasks The total number of tasks in the list after adding.
+     * @return String representation of a task being added.
      */
-    public void showTaskAdded(Task task, int totalTasks) {
-        System.out.println("Got it. I've added this task:\n  " + task
-                + "\nNow you have " + totalTasks + " tasks in the list.");
+    public String showTaskAdded(Task task, int totalTasks) {
+        return "Got it. I've added this task:\n  " + task.toString()
+                + "\nNow you have " + totalTasks + " tasks in the list.";
     }
 
     /**
@@ -45,59 +43,71 @@ public class Ui {
      *
      * @param task The task that is deleted.
      * @param totalTasks The total number of tasks in the list after deleting.
+     * @return String representation of a task being deleted.
      */
-    public void showTaskDeleted(Task task, int totalTasks) {
-        System.out.println("Noted. I've removed this task:\n" + "  " + task
-                + "\nNow you have " + totalTasks + " tasks in the list.");
+    public String showTaskDeleted(Task task, int totalTasks) {
+        return "Noted. I've removed this task:\n  " + task.toString()
+                + "\nNow you have " + totalTasks + " tasks in the list.";
     }
 
     /**
      * Displays a message when a task is marked as done.
      *
      * @param task The task that is marked as done.
+     * @return String representation of a task being marked.
      */
-    public void showTaskMarked(Task task) {
-        System.out.println("Nice! I've marked this task as done:\n" + "[X] "
-                + task.getDescription());
+    public String showTaskMarked(Task task) {
+        return "Nice! I've marked this task as done:\n" + "[X] "
+                + task.getDescription();
     }
 
     /**
      * Displays a message when a task is unmarked.
      *
      * @param task The task that is unmarked.
+     * @return String representation of a task being unmarked.
      */
-    public void showTaskUnmarked(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:\n" + "[ ] "
-                + task.getDescription());
+    public String showTaskUnmarked(Task task) {
+        return "OK, I've marked this task as not done yet:\n" + "[ ] "
+                + task.getDescription();
     }
 
     /**
      * Displays the user's task list.
      *
      * @param taskList The task list to be displayed.
+     * @return String representation of the user's list of task/s.
      */
-    public void showList(TaskList taskList) {
-        System.out.println("Here are the tasks in your list:");
+    public String showList(TaskList taskList) {
+        StringBuilder list = new StringBuilder();
+        list.append("Here are the tasks in your list:\n");
 
         for (int i = 1; i <= taskList.getSize(); i++) {
             // Adding toString() to use the overridden one in duke.task.Task, etc.
-            System.out.println(i + ". " + taskList.getTask(i - 1).toString());
+            list.append(i).append(". ").append(taskList.getTask(i - 1).toString())
+                    .append("\n");;
         }
+
+        return list.toString();
     }
 
     /**
      * Displays the list of matching task from the user's task list.
      *
      * @param matchingTaskList The task list to be displayed.
+     * @return String representation of the list of matching task from the user's task list.
      */
-    public void showMatchingList(TaskList matchingTaskList) {
-        System.out.println("Here are the matching tasks in your list:");
+    public String showMatchingList(TaskList matchingTaskList) {
+        StringBuilder matchingList = new StringBuilder();
+        matchingList.append("Here are the matching tasks in your list:\n");
 
         for (int i = 1; i <= matchingTaskList.getSize(); i++) {
             // Adding toString() to use the overridden one in duke.task.Task, etc.
-            System.out.println(i + ". " + matchingTaskList.getTask(i - 1).toString());
+            matchingList.append(i).append(". ").append(matchingTaskList.getTask(i - 1).toString())
+                    .append("\n");
         }
 
+        return matchingList.toString();
     }
 
 }

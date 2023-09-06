@@ -9,6 +9,6 @@ public class InvalidDeadlineException extends Exception {
      * Constructor with an error message.
      */
     public InvalidDeadlineException() {
-        super("☹ OOPS!!! You forgot to indicate the due date/time.");
+        super("Oops! You forgot to indicate the due date/time.");
     }
 }
