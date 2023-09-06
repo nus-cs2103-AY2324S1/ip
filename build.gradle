@@ -32,6 +32,12 @@ application {
     mainClass.set("duke.Duke")
 }
 
+checkstyle {
+    toolVersion = '10.2'
+    config = file('../config/checkstyle/checkstyle.xml')
+    suppressionsFile = file('../config/checkstyle/suppressions.xml')
+}
+
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
