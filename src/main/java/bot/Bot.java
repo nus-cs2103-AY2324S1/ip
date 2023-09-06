@@ -22,6 +22,9 @@ public class Bot {
         bot.start();
     }
 
+    /**
+     * Start running the Bot chatbot
+     */
     public void start() {
         this.ui.start();
     }

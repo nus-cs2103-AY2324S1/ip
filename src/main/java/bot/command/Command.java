@@ -9,5 +9,11 @@ public abstract class Command {
 
     public static final String SPACER = "____________________________________________________________";
 
-    public abstract void execute() throws IllegalExpressionBotException, FileErrorBotException, IOException;
+    /**
+     * Execute a series of instructions depending on the type of Command
+     *
+     * @throws FileErrorBotException if the file or directory is missing or corrupted
+     * @throws IOException if an I/O error occurred
+     */
+    public abstract void execute() throws FileErrorBotException, IOException;
 }

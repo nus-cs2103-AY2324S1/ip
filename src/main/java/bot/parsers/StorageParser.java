@@ -11,6 +11,13 @@ public class StorageParser {
     private static final String TODO_HEADER = "[T] ";
     private static final String DEADLINE_HEADER = "[D] ";
 
+    /**
+     * Returns the corresponding Task object based on the String input from data/task.txt file.
+     *
+     * @param str string of the File Input
+     * @return the task based on memory stored in data/task.txt
+     * @throws DateTimeParseBotException if the DateTime is stored incorrectly in data/task.txt
+     */
     public static Task parseFileInput(String str) throws DateTimeParseBotException {
         String[] stringArr = str.split(StorageParser.UNIQUE_FILE_SEPARATOR);
         switch(stringArr[0]) {

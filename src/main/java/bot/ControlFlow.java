@@ -36,7 +36,16 @@ public class ControlFlow {
         this.taskList = taskList;
     }
 
-
+    /**
+     * Returns the Command object that is to be executed based on user input.
+     *
+     * @param str the input by the user
+     * @return Command the necessary tasks that needed to be executed as per the user's input
+     * @throws IllegalExpressionBotException
+     * @throws IncompleteBotException
+     * @throws FileErrorBotException
+     * @throws DateTimeParseBotException
+     */
     public Command execute(String str) throws IllegalExpressionBotException,
             IncompleteBotException, FileErrorBotException, DateTimeParseBotException {
         if (str.isBlank()) {

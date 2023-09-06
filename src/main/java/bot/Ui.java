@@ -26,6 +26,9 @@ public class Ui {
         this.taskLst = taskLst;
     }
 
+    /**
+     * Activate the UI which start the interaction with the user
+     */
     public void start() {
         System.out.println(Ui.INTRO);
         this.begin();
