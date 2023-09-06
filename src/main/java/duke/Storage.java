@@ -23,7 +23,6 @@ public class Storage{
 
     /**
      * Saves the tasks in the task list to the specified file path.
-     *
      * @param filePath The path to the file where tasks will be saved.
      * @param tasks    The task list to be saved.
      * @throws FileNotFoundException If the specified file is not found.
@@ -48,7 +47,6 @@ public class Storage{
     }
     /**
      * Formats a task into a string representation suitable for saving to a file.
-     *
      * @param task The task to be formatted.
      * @return A formatted string representation of the task.
      */
@@ -59,7 +57,6 @@ public class Storage{
     }
     /**
      * Loads tasks from the specified file path and returns them as a TaskList.
-     *
      * @param filePath The path to the file from which tasks will be loaded.
      * @return A TaskList containing the loaded tasks.
      */
@@ -102,7 +99,6 @@ public class Storage{
 
     /**
      * Creates the necessary directory and file if they do not exist.
-     *
      * @param filePath The path to the file to be created.
      * @throws IOException If an error occurs during directory or file creation.
      */

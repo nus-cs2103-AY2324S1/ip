@@ -27,7 +27,6 @@ public class Parser {
 
     /**
      * Parses user input and executes various instructions to manage tasks.
-     *
      * @param str    The user input string.
      * @param tasks  The task list to which tasks are added or manipulated.
      */

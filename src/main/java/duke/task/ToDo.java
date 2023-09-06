@@ -42,7 +42,6 @@ public class ToDo extends Task {
      * Returns a string representation of the ToDo Task that can be used for
      * saving the task to a txt file, including its type, completion status,
      * and description.
-     *
      * @return A string suitable for saving the ToDo Task to a text file.
      */
     @Override
