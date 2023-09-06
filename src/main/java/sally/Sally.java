@@ -1,42 +1,27 @@
 package sally;
 import java.util.Scanner;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 
 /**
  * Represents the main class that interacts with the user and coordinates the program execution.
  */
-public class Sally extends Application {
+public class Sally {
     private final Storage storage;
     private TaskList tasks;
-    private final Ui ui;
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
+    private Stage stage;
 
     /**
      * Constructs a Sally object.
      * Initializes the user interface, storage, and task list.
      * Load tasks from the specified file path if available..
      */
-    public Sally() {
-        ui = new Ui();
+    public Sally(Stage stage) {
+        this.stage = stage;
         storage = new Storage("data/sally.txt");
         try {
             tasks = new TaskList(storage.loadTasksFromFile().getTaskList());
         } catch (SallyException e) {
-            ui.showLoadingError();
+            System.out.println(e.getMessage());
             tasks = new TaskList();
         }
     }
@@ -46,113 +31,17 @@ public class Sally extends Application {
      * Shows a welcome message to the user.
      * Reads and processes user commands until the user types "bye".
      */
-    public void run() {
-        ui.showWelcomeMessage();
-
-        Scanner scanner = new Scanner(System.in);
-
-        while (true) {
-            try {
-                String input = scanner.nextLine();
-                if (input.equals("bye")) {
-                    ui.showGoodbyeMessage();
-                    break;
-                }
-
-                Command command = Parser.parse(input);
-                command.execute(tasks, storage, ui);
-            } catch (SallyException e) {
-                ui.showError(e.getMessage());
+    public String execute(String input) {
+        try {
+            if (input.equals("bye")) {
+                stage.close();
             }
+            Command command = Parser.parse(input);
+            String res = command.execute(tasks, storage);
+            return res;
+        } catch (SallyException e) {
+            return e.getMessage();
         }
-    }
 
-    /**
-     * Main method to start the program.
-     * Creates a Sally instance with the specified file path and runs it.
-     *
-     * @param args The command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new Sally().run();
-    }
-
-    @Override
-    public void start(Stage stage) {
-        //Step 1. Setting up required components
-
-        //The container for the content of the chat to scroll.
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
-        userInput = new TextField();
-        sendButton = new Button("Send");
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        scene = new Scene(mainLayout);
-
-        stage.setScene(scene);
-        stage.show();
-
-        //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
-        stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
-
-        mainLayout.setPrefSize(400.0, 600.0);
-
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        // You will need to import `javafx.scene.layout.Region` for this.
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
-
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput , 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
-
-        //Step 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        userInput.setOnAction((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        //Scroll down to the end every time dialogContainer's height changes.
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-    }
-
-    /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
-    private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
     }
 }

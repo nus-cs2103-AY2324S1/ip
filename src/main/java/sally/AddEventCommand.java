@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
  */
 public class AddEventCommand implements Command {
     private final String input;
+    private Message message;
 
     /**
      * Constructs an AddEventCommand object with the given input.
@@ -26,12 +27,13 @@ public class AddEventCommand implements Command {
      *
      * @param tasks The TaskList containing tasks.
      * @param storage The Storage for tasks.
-     * @param ui The Ui for user interaction.
      * @throws SallyException If there's an issue while executing the command.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws SallyException {
+    public String execute(TaskList tasks, Storage storage) throws SallyException {
         String[] parts = input.split("/from | /to ");
+        message = new Message();
+
         if (parts.length < 3) {
             throw new SallyException(
                     "OOPS! The description of an event cannot be incomplete, you need a '/from' and '/to'.");
@@ -50,7 +52,7 @@ public class AddEventCommand implements Command {
                             convertToDateTime(toDateTimeInput));
             tasks.addTask(newEvent);
             storage.saveTasksToFile(tasks);
-            ui.showAddedTask(newEvent, tasks.getSize());
+            return message.addMessage(newEvent, tasks.getTaskList().size());
         }
     }
 

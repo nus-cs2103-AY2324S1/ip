@@ -5,6 +5,7 @@ package sally;
  */
 public class DeleteCommand implements Command {
     private final int taskIndex;
+    private Message message;
 
     /**
      * Constructs a DeleteCommand object with the task index to be deleted.
@@ -26,12 +27,13 @@ public class DeleteCommand implements Command {
      *
      * @param tasks The TaskList containing tasks.
      * @param storage The Storage for tasks.
-     * @param ui The Ui for user interaction.
      * @throws SallyException If the specified task index is invalid or there's an issue
      *                        while deleting the task.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws SallyException {
+    public String execute(TaskList tasks, Storage storage) throws SallyException {
+        message = new Message();
+
         if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
             throw new SallyException("OOPS! Provide a valid task number to delete.");
         }
@@ -39,6 +41,6 @@ public class DeleteCommand implements Command {
         Task deletedTask = tasks.getTask(taskIndex);
         tasks.deleteTask(taskIndex);
         storage.saveTasksToFile(tasks);
-        ui.showDeletedTask(deletedTask, tasks.getSize());
+        return message.deleteMessage(deletedTask, tasks.getSize());
     }
 }

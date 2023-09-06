@@ -7,15 +7,17 @@ package sally;
  */
 public class ListCommand implements Command {
 
+    private Message message;
+
     /**
      * Executes the list command by showing all tasks in the TaskList.
      *
      * @param tasks The TaskList containing tasks to be displayed.
      * @param storage The Storage for tasks (not used in this command).
-     * @param ui The Ui for user interaction to display tasks.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
-        ui.showTasks(tasks);
+    public String execute(TaskList tasks, Storage storage) {
+        message = new Message();
+        return message.listMessage(tasks);
     }
 }

@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
  */
 public class AddDeadlineCommand implements Command {
     private final String input;
+    private Message message;
 
     /**
      * Constructs an AddDeadlineCommand with the given input.
@@ -27,12 +28,13 @@ public class AddDeadlineCommand implements Command {
      *
      * @param tasks The TaskList containing tasks.
      * @param storage The Storage for tasks.
-     * @param ui The Ui for user interaction.
      * @throws SallyException If there's an issue while executing the command.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws SallyException {
+    public String execute(TaskList tasks, Storage storage) throws SallyException {
         String[] parts = input.split("/by ");
+        message = new Message();
+
         if (parts.length < 2) {
             throw new SallyException(
                     "OOPS! The description of a deadline cannot be incomplete, you need a ' /by '.");
@@ -47,7 +49,7 @@ public class AddDeadlineCommand implements Command {
             Deadline newDeadline = new Deadline(taskDescription, convertToDateTime(dateTimeInput));
             tasks.addTask(newDeadline);
             storage.saveTasksToFile(tasks);
-            ui.showAddedTask(newDeadline, tasks.getSize());
+            return message.addMessage(newDeadline, tasks.getTaskList().size());
         }
     }
 
