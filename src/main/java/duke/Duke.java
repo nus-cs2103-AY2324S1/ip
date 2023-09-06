@@ -5,10 +5,18 @@ import duke.exceptions.DukeException;
 import duke.parser.Parser;
 import duke.tasks.TaskList;
 
+/**
+ * Class for the CringeBot chat bot.
+ */
 public class Duke {
     private final Storage storage;
     private TaskList tasks;
 
+    /**
+     * Constructor for Duke.
+     *
+     * @param filePath file path to the storage.
+     */
     public Duke(String filePath) {
         storage = new Storage(filePath);
         try {
@@ -19,8 +27,10 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets response from CringeBot, based on the user input.
+     *
+     * @param input input from the user.
+     * @return response from CringeBot.
      */
     public String getResponse(String input) {
         return Parser.parseCommands(input, this.tasks, this.storage);

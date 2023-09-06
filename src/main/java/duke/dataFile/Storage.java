@@ -13,11 +13,19 @@ import java.io.ObjectInputStream;
 
 import java.util.ArrayList;
 
+/**
+ * Class to handle storage events.
+ */
 public class Storage {
     private final String filePath;
+
+    /**
+     * Constructor for storage.
+     *
+     * @param filePath path to the data storage file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
-
         try {
             File file = new File(this.filePath);
             if (!file.exists()) {

@@ -7,13 +7,25 @@ import duke.ui.Ui;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Temporary storage for the user's tasks.
+ */
 public class TaskList implements Serializable {
 
     public ArrayList<Task> tasks;
+
+    /**
+     * Constructor for TaskList.
+     *
+     * @param tasks tasks loaded from the storage.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Constructor when there are no tasks loaded from the storage.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
@@ -85,7 +97,7 @@ public class TaskList implements Serializable {
     /**
      * Find all items with the keyword from the list, then prints them.
      *
-     * @param input input from the user
+     * @param input input from the user.
      */
     public String findItems(String input) {
         String keyword = input.split(" ")[1].strip();

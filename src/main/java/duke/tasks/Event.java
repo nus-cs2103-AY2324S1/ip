@@ -1,7 +1,15 @@
 package duke.tasks;
 
+/**
+ * Class to create an event.
+ */
 class Event extends Task {
 
+    /**
+     * Constructor for Event.
+     *
+     * @param name text inputted by user for the Event.
+     */
     public Event(String name) {
         super(name);
     }

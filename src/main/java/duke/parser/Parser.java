@@ -5,6 +5,9 @@ import duke.dataFile.Storage;
 import duke.ui.Ui;
 import duke.tasks.TaskList;
 
+/**
+ * Class for parsing commands made by the user.
+ */
 public class Parser {
     public enum modifyStatus {
         MARK,
@@ -23,7 +26,7 @@ public class Parser {
      * @param nextLine input from the user.
      * @param tasks list of task stored.
      * @param storage storage for the tasks to be housed.
-     * @return lets the program know to stop
+     * @return lets the program know to stop.
      */
     public static String parseCommands(String nextLine, TaskList tasks, Storage storage) {
         String firstWord = nextLine.split(" ")[0];

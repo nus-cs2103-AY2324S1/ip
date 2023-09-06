@@ -4,10 +4,19 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Class to create a deadline for the user.
+ */
 public class Deadline extends Task {
     private LocalDate date;
     private boolean hasDate = false;
 
+    /**
+     * Constructor for Deadline.
+     *
+     * @param name label for the deadline.
+     * @param date Date inputted by the /by command.
+     */
     public Deadline(String name, String date) {
         super(name);
         try {

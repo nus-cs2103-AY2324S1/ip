@@ -3,11 +3,16 @@ package duke.ui;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 
+/**
+ * Class that handles the statements said by CringeBot
+ */
 public class Ui {
     private static final String BAR = "____________________________________________________________";
 
     /**
      * Greets the user.
+     *
+     * @return the greeting.
      */
     public static String greetUser() {
         return "Hello! I'm CringeBot\n"
@@ -16,6 +21,8 @@ public class Ui {
 
     /**
      * Says goodbye.
+     *
+     * @return the farewell message.
      */
     public static String bidFarewell() {
         return "Bye. Hope to see you again soon!";
@@ -25,6 +32,7 @@ public class Ui {
      * Print the items from the list of task.
      *
      * @param tasks takes in the list of tasks.
+     * @return items from tasks.
      */
     public static String printItems(TaskList tasks) {
         StringBuilder sayWord = new StringBuilder("Here are the tasks in your list:");
@@ -34,15 +42,12 @@ public class Ui {
         return sayWord.toString();
     }
 
-    public static String printFound(String foundItems) {
-        return String.format("%s%s", "Here are the matching tasks in your list:", foundItems);
-    }
-
     /**
      * Prints after item has been deleted.
      *
      * @param taskSize Size of the list.
      * @param deletedTask Task that has been deleted.
+     * @return item that was deleted
      */
     public static String deleteItem(int taskSize, Task deletedTask) {
         return "Noted. I've removed this task:\n"
@@ -50,14 +55,5 @@ public class Ui {
                 + "\nNow you have "
                 + taskSize
                 + " tasks in the list.";
-    }
-
-    /**
-     * Wraps the print statement with bars.
-     *
-     * @param input input to be printed.
-     */
-    public static void printWrapped(String input) {
-        System.out.printf("%s\n%s\n%s%n", Ui.BAR, input, Ui.BAR);
     }
 }

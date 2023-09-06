@@ -11,6 +11,9 @@ import javafx.scene.layout.VBox;
 
 import java.util.Objects;
 
+/**
+ * Main window for the chat interface
+ */
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -28,6 +31,9 @@ public class MainWindow extends AnchorPane {
     private final Image dukeImage = new Image(
             Objects.requireNonNull(this.getClass().getResourceAsStream("/images/CringeBot.jpeg")));
 
+    /**
+     * Initialises the dialog containers and greetings
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -36,8 +42,13 @@ public class MainWindow extends AnchorPane {
         );
     }
 
+    /**
+     * Sets the chat bot to be used throughout
+     *
+     * @param d chat bot to be used
+     */
     public void setDuke(Duke d) {
-        duke = d;
+        this.duke = d;
     }
 
     /**
