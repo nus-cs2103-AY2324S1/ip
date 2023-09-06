@@ -27,17 +27,17 @@ public class MarkTaskCommand extends Command {
 
     /**
      * Executes the command to mark a task as completed.
+     *
+     * @return A string representing the task that was marked as complete.
      */
     @Override
-    public void execute() {
+    public String execute() {
         try {
             Optional<Task> optionalTask = dukeBot.markTask(taskId - 1);
-            optionalTask.ifPresentOrElse(
-                    uiService::printMarkTask, () ->
-                    uiService.printInvalidTaskIndexProvided(taskId, dukeBot.getNumberOfTasks())
-            );
+            return optionalTask.map(task -> uiService.formatMarkTask(task))
+                .orElseGet(() -> uiService.formatInvalidTaskIndexProvided(taskId, dukeBot.getNumberOfTasks()));
         } catch (DukeStorageException e) {
-            uiService.printStorageMarkFailure();
+            return uiService.formatStorageMarkFailure();
         }
     }
 }

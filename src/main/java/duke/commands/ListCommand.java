@@ -20,9 +20,13 @@ public class ListCommand extends Command {
 
     /**
      * Executes the command to display the list of tasks.
+     *
+     * @return A string representing the tasks in the task list, prefixed by their index.
+     *         If there are no tasks, it returns a string indicating that there are no
+     *         tasks in the task list.
      */
     @Override
-    public void execute() {
-        uiService.printTaskList(dukeBot.getTaskList());
+    public String execute() {
+        return uiService.formatTaskList(dukeBot.getTaskList());
     }
 }

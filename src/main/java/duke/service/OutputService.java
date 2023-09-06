@@ -14,14 +14,16 @@ import duke.tasks.Task;
  */
 public class OutputService {
     private static final int indentLength = 4;
+    private final String divider = appendNewLine(
+        indentLeft(String.format("%40s", "").replace(" ", "-")));
 
     /**
      * Echos the provided input string to the user without a prefix.
      *
      * @param input The string to be displayed.
      */
-    public void echo(String input) {
-        echo(input, "");
+    public String echo(String input) {
+        return echo(input, "");
     }
 
     /**
@@ -30,8 +32,8 @@ public class OutputService {
      * @param input  The string to be displayed.
      * @param prefix A prefix to be added before the input string.
      */
-    public void echo(String input, String prefix) {
-        echo(List.of(prefix + input));
+    public String echo(String input, String prefix) {
+        return echo(List.of(prefix + input));
     }
 
     /**
@@ -39,12 +41,14 @@ public class OutputService {
      *
      * @param inputs The list of strings to be displayed.
      */
-    public void echo(List<String> inputs) {
-        String divider = indentLeft(String.format("%80s", "").replace(" ", "-"));
-        System.out.println(divider);
+    public String echo(List<String> inputs) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(divider);
         inputs.stream().map(this::indentLeft)
-                .forEach(System.out::println);
-        System.out.println(divider);
+            .map(this::appendNewLine)
+            .forEach(sb::append);
+        sb.append(divider);
+        return sb.toString();
     }
 
     /**
@@ -74,5 +78,9 @@ public class OutputService {
             tasksWithNumber.add(taskNumber + taskList.get(i));
         }
         return tasksWithNumber;
+    }
+
+    private String appendNewLine(String line) {
+        return String.format("%s%n", line);
     }
 }

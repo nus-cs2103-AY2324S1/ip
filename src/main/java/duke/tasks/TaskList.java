@@ -103,7 +103,7 @@ public class TaskList {
      */
     public List<Task> searchTasks(String keyword) {
         return taskList.stream()
-            .filter(task -> task.getTaskName().contains(keyword))
+            .filter(task -> task.getTaskName().toLowerCase().contains(keyword.toLowerCase()))
             .collect(Collectors.toList());
     }
 

@@ -37,17 +37,20 @@ public class AddTaskCommand extends Command {
 
     /**
      * Executes the command to add a task.
+     *
+     * @return A string representing the status of the task addition.
+     *         It either confirms the task addition or details any errors encountered.
      */
     @Override
-    public void execute() {
+    public String execute() {
         try {
             Task task = taskFactory.createTask(taskType, argsList);
             dukeBot.addTask(task);
-            uiService.printAddTask(task, dukeBot.getNumberOfTasks());
+            return uiService.formatAddTask(task, dukeBot.getNumberOfTasks());
         } catch (TaskParseException | TimeUtilException e) {
-            uiService.printGenericMessage(e.getMessage());
+            return uiService.formatGenericMessage(e.getMessage());
         } catch (DukeStorageException e) {
-            uiService.printStorageAddFailure();
+            return uiService.formatStorageAddFailure();
         }
     }
 }

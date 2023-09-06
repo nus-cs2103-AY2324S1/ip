@@ -24,9 +24,15 @@ public class FindTaskCommand extends Command {
         this.keyword = keyword;
     }
 
+    /**
+     * Executes the command to find tasks based on the provided keyword.
+     *
+     * @return A string representing the tasks that matched the keyword. If no tasks matched,
+     *         it returns a string indicating that no tasks were found.
+     */
     @Override
-    public void execute() {
+    public String execute() {
         List<Task> matchedTasks = dukeBot.searchTasks(keyword.trim());
-        uiService.printFoundTasks(matchedTasks, keyword);
+        return uiService.formatFoundTasks(matchedTasks, keyword);
     }
 }

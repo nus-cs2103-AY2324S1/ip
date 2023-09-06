@@ -1,5 +1,6 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +24,7 @@ public class Duke {
     private final CliParserService cliParserService;
 
     /**
-     * No-args constructor for Duke.
+     * No-args constructor for Duke. Sets up the various services.
      */
     public Duke() {
         this.botName = "Changoose";
@@ -33,24 +34,37 @@ public class Duke {
         TaskFactory taskFactory = new TaskFactory();
         CommandFactory commandFactory = new CommandFactory(taskFactory, this, uiService);
         this.cliParserService = new CliParserService(uiService, commandFactory);
+    }
+
+    /**
+     * Initializes the StorageService and attempts to load the stored tasks into taskList.
+     *
+     * @return A string containing the greet message, and any additional info about the initialization of the
+     *         StorageService.
+     */
+    public String initStorage() {
         try {
             StorageService storageService = new StorageService();
+            List<String> displayText = new ArrayList<>();
             if (storageService.wasFileCorrupted()) {
-                uiService.printStorageFileCorrupted();
+                displayText.add(uiService.storageFileCorruptedMessage());
             }
             taskList.loadFromStorage(storageService);
+            displayText.add(uiService.greetMessage(getBotName()));
+            return uiService.formatGenericMessage(displayText);
         } catch (DukeStorageException e) {
-            uiService.printStorageInitializationFailure();
+            return uiService.formatStorageInitializationFailure();
         }
     }
 
     /**
-     * Starts accepting user input.
+     * Returns the result of parsing and executing the input.
+     *
+     * @param input The given input to be parsed and executed.
+     * @return A string representing the result of executing the parsed input.
      */
-    public void run() {
-        uiService.printGreet(getBotName());
-        cliParserService.parse();
-        uiService.printBye();
+    public String getResponse(String input) {
+        return cliParserService.parse(input);
     }
 
     /**
@@ -66,11 +80,10 @@ public class Duke {
      * Adds a new task to the internal task list.
      *
      * @param task The task to be added.
-     * @return True if the task was added successfully, false otherwise.
      * @throws DukeStorageException If an error occurs while saving to storage.
      */
-    public boolean addTask(Task task) throws DukeStorageException {
-        return taskList.addTask(task);
+    public void addTask(Task task) throws DukeStorageException {
+        taskList.addTask(task);
     }
 
     /**
@@ -127,5 +140,4 @@ public class Duke {
     public int getNumberOfTasks() {
         return taskList.getNumberOfTasks();
     }
-
 }
