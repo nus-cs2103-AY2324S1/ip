@@ -1,14 +1,13 @@
 package chatbot;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import chatbot.exceptions.ChatBotException;
 import chatbot.exceptions.FilePermissionException;
 import chatbot.exceptions.IllegalCommandException;
 import chatbot.exceptions.LocalFileException;
+import chatbot.gui.Gui;
 import chatbot.tasks.Task;
 
 /**

@@ -1,13 +1,16 @@
-package chatbot;
+package chatbot.gui;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.Scene;
+
 
 public class Gui {
     public static final double ANCHORPANE_WIDTH = 400.0;
@@ -16,6 +19,8 @@ public class Gui {
     public static final double SCROLLPANE_HEIGHT = 535.0;
     public static final double USERINPUT_WIDTH = 325.0;
     public static final double SENDBUTTON_WIDTH = 55.0;
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
+    private Image chatBotImage = new Image(this.getClass().getResourceAsStream("/images/ChatBot.png"));
     private ScrollPane chatHistoryScrollPane;
     private VBox chatContainer;
     private TextField userInput;
@@ -67,23 +72,25 @@ public class Gui {
         AnchorPane.setRightAnchor(this.sendButton, 1.0);
     }
 
-    private Label getChatLabel(String text) {
-        Label chatLabel = new Label(text);
-        chatLabel.setWrapText(true);
+    private void handleUserInput() {
+        Label userText = new Label(this.userInput.getText());
+        Label chatBotText = new Label(getResponse(this.userInput.getText()));
+        this.chatContainer.getChildren().addAll(
+                new DialogBox(userText, new ImageView(userImage)),
+                new DialogBox(chatBotText, new ImageView(chatBotImage))
+        );
 
-        return chatLabel;
+        this.userInput.clear();
+    }
+
+    private String getResponse(String input) {
+        return "I heard " + input;
     }
 
     private void initActions() {
-        this.sendButton.setOnMouseClicked(event -> {
-            this.chatContainer.getChildren().add(getChatLabel(this.userInput.getText()));
-            this.userInput.clear();
-        });
+        this.sendButton.setOnMouseClicked(event -> handleUserInput());
 
-        this.userInput.setOnAction(event -> {
-            this.chatContainer.getChildren().add(getChatLabel(this.userInput.getText()));
-            this.userInput.clear();
-        });
+        this.userInput.setOnAction(event -> handleUserInput());
     }
 
     public Scene getScene() {
