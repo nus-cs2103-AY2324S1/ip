@@ -1,49 +1,40 @@
 package bouncybob;
 
-import javafx.collections.ObservableList;
-import jdk.jfr.Event;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Scanner;
-import bouncybob.task.Task;
-import bouncybob.task.Deadlines;
-import bouncybob.task.Events;
-import bouncybob.task.ToDos;
-import bouncybob.util.TaskList;
-import bouncybob.util.TaskFileHandler;
-import bouncybob.util.Parser;
-import bouncybob.util.Ui;
-
-import bouncybob.gui.TaskCell;
 
 import javafx.application.Application;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ComboBox;
-
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
-import javafx.geometry.Insets;
 import javafx.stage.Stage;
+
+import bouncybob.gui.TaskCell;
+import bouncybob.task.Deadlines;
+import bouncybob.task.Events;
+import bouncybob.task.Task;
+import bouncybob.task.ToDos;
+import bouncybob.util.Parser;
+import bouncybob.util.TaskFileHandler;
+import bouncybob.util.TaskList;
+import bouncybob.util.Ui;
 
 /**
  * Main class for the BouncyBob application.
  */
 public class BouncyBob extends Application {
+
     private TaskList taskList = new TaskList();
 
-    /**
-     * Starts the BouncyBob application.
-     *
-     * @param stage The stage to be used for the application.
-     */
     @Override
     public void start(Stage stage) {
         Label titleLabel = new Label("BouncyBob's List");
@@ -60,11 +51,6 @@ public class BouncyBob extends Application {
         stage.show();
     }
 
-    /**
-     * Initializes the list view that displays the tasks.
-     *
-     * @return The list view.
-     */
     private ListView<Task> initializeTaskListView() {
         ListView<Task> taskListView = new ListView<>();
         TaskFileHandler.loadTasksFromDisk(taskList);
@@ -73,12 +59,6 @@ public class BouncyBob extends Application {
         return taskListView;
     }
 
-    /**
-     * Creates the input box for users to add tasks.
-     *
-     * @param taskListView The list view that displays the tasks.
-     * @return The input box.
-     */
     private HBox createTaskInputBox(ListView<Task> taskListView) {
         ComboBox<TaskType> taskTypeComboBox = new ComboBox<>();
         taskTypeComboBox.getItems().addAll(TaskType.TODO, TaskType.DEADLINE, TaskType.EVENT);
@@ -118,13 +98,6 @@ public class BouncyBob extends Application {
         return new HBox(10, taskTypeComboBox, taskInputField, addButton, deleteButton);
     }
 
-    /**
-     * Displays an error dialog with the given title, header, and content.
-     *
-     * @param title   The title of the dialog.
-     * @param header  The header of the dialog.
-     * @param content The content of the dialog.
-     */
     private void showErrorDialog(String title, String header, String content) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle(title);
@@ -132,6 +105,7 @@ public class BouncyBob extends Application {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
     /**
      * Enum representing the types of tasks.
      */

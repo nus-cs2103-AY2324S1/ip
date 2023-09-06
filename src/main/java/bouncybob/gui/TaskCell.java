@@ -1,12 +1,14 @@
 package bouncybob.gui;
 
-import bouncybob.task.Task;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+
+import bouncybob.task.Task;
+
 
 /**
  * Represents a cell in the task list.
