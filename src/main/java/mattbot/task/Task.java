@@ -28,7 +28,9 @@ public abstract class Task {
 
     public abstract String toFile();
 
-    public String showStatusAsFile() { return (isDone ? "1" : "0"); }
+    public String showStatusAsFile() {
+        return (isDone ? "1" : "0");
+    }
     public String toString() {
         return String.format("[%s] [%s] %s", this.identifier(), this.showStatus(), this.showName());
     }

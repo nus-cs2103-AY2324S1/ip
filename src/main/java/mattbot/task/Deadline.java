@@ -1,20 +1,17 @@
 package mattbot.task;
 
-import mattbot.task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
+
 public class Deadline extends Task {
+    private static final DateTimeFormatter DTFORMAT = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
     protected LocalDateTime date;
-    public static final DateTimeFormatter DTFORMAT  = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
 
     public Deadline(String name, LocalDateTime date) {
         super(name, false);
         this.date = date;
     }
-    public Deadline(String name, boolean isDone, LocalDateTime date ) {
+    public Deadline(String name, boolean isDone, LocalDateTime date) {
         super(name, isDone);
         this.date = date;
     }
@@ -51,6 +48,7 @@ public class Deadline extends Task {
     }
     @Override
     public String toString() {
-        return String.format("[%s] [%s] %s (by: %s)", this.identifier(), this.showStatus(), this.showName(), dateToString());
+        return String.format("[%s] [%s] %s (by: %s)",
+                this.identifier(), this.showStatus(), this.showName(), dateToString());
     }
 }

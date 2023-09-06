@@ -2,13 +2,11 @@ package mattbot.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
 
 public class Event extends Task {
+    private static final DateTimeFormatter DTFORMAT = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
     protected LocalDateTime startDate;
     protected LocalDateTime endDate;
-    public static final DateTimeFormatter DTFORMAT  = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
     public Event(String name, LocalDateTime startDate, LocalDateTime endDate) {
         super(name, false);
         this.startDate = startDate;

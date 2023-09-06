@@ -1,18 +1,16 @@
 package mattbot;
 
-import mattbot.task.Task;
-import mattbot.task.Todo;
-import mattbot.task.Deadline;
-import mattbot.task.Event;
-import mattbot.Storage;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
+
+import mattbot.task.Deadline;
+import mattbot.task.Event;
+import mattbot.task.Task;
+import mattbot.task.Todo;
+
 
 public class Parser {
-    public final static DateTimeFormatter DTFORMAT  = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
+    public static final DateTimeFormatter DTFORMAT = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
     public Parser() {}
 
     /*public static void parseInput(String input) {
@@ -44,7 +42,7 @@ public class Parser {
                 break;
             case "E":
                 newTask = new Event(details[2], getBoolean(details[1]),
-                        LocalDateTime.parse(details[3],DTFORMAT) , LocalDateTime.parse(details[4],DTFORMAT));
+                        LocalDateTime.parse(details[3], DTFORMAT) , LocalDateTime.parse(details[4], DTFORMAT));
                 break;
             default:
                 // Should throw an error here, maybe a can't read error?
@@ -64,8 +62,7 @@ public class Parser {
      * @params String Done state as represented by 1 or 0
      * @return True or False
      */
-    public static boolean getBoolean(String value)
-    {
+    public static boolean getBoolean(String value) {
         return (value.equals("1"));
     }
 }
