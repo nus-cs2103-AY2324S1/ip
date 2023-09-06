@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String botName = "Aaaronbot";
+        String botName = "Aaronbot";
         String savedString = "";
         Storage storage = new Storage("src/main/java/seedu/duke/data/duke.txt");
         savedString = storage.load();
