@@ -54,6 +54,18 @@ public class TaskList {
         }
     }
 
+    public void listTasks(Ui ui, String findStr) {
+        if (findStr == null || findStr.isEmpty()) {
+            return;
+        }
+        for (int index = 0; index < tasks.size(); index++) {
+            Task currTask = tasks.get(index);
+            if (currTask.getDescription().contains(findStr)) {
+                ui.printTaskListFormat(tasks.get(index), index + 1);
+            }
+        }
+    }
+
     public Pair<Task, Boolean> markTask(int index) {
         boolean wasNotMarked = tasks.get(index).markDone();
         return new Pair<>(tasks.get(index), wasNotMarked);
