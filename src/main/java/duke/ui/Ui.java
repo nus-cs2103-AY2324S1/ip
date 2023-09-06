@@ -1,9 +1,9 @@
 package duke.ui;
 
+import java.util.Scanner;
+
 import duke.task.Task;
 import duke.task.TaskList;
-
-import java.util.Scanner;
 
 /**
  * Represents the user interface of the application.
@@ -77,31 +77,31 @@ public class Ui {
 
     /**
      * Shows the success message after adding a task.
-     * 
-     * @param task The task that was added.
+     *
+     * @param task          The task that was added.
      * @param numberOfTasks The number of tasks in the list.
      */
     public void showAddTask(Task task, int numberOfTasks) {
         String message = "Got it. I've added this task:\n  " + task + "\nNow you have " + numberOfTasks
-                + (numberOfTasks == 1 ? " task" : " tasks") + " in the list.";
+            + (numberOfTasks == 1 ? " task" : " tasks") + " in the list.";
         showMessage(message);
     }
 
     /**
      * Shows the success message after deleting a task.
-     * 
-     * @param task The task that was deleted.
+     *
+     * @param task          The task that was deleted.
      * @param numberOfTasks The number of tasks in the list.
      */
     public void showDeleteTask(Task task, int numberOfTasks) {
         String message = "Noted. I've removed this task:\n  " + task + "\nNow you have " + numberOfTasks
-                + (numberOfTasks == 1 ? " task" : " tasks") + " in the list.";
+            + (numberOfTasks == 1 ? " task" : " tasks") + " in the list.";
         showMessage(message);
     }
 
     /**
      * Shows the success message after marking a task as done.
-     * 
+     *
      * @param task The task that was marked as done.
      */
     public void showMarkTaskAsDone(Task task) {
@@ -111,7 +111,7 @@ public class Ui {
 
     /**
      * Shows the success message after marking a task as not done.
-     * 
+     *
      * @param task The task that was marked as not done.
      */
     public void showUnmarkTaskAsDone(Task task) {
@@ -128,7 +128,7 @@ public class Ui {
 
     /**
      * Shows the given input with indentation to indicate that it is the chatbot's response.
-     * 
+     *
      * @param input The input to be shown.
      */
     private void showInputWithIndentation(String input) {
@@ -137,7 +137,7 @@ public class Ui {
 
     /**
      * Shows the given input with proper indentation.
-     * 
+     *
      * @param input The input to be shown.
      */
     private void showMessage(String input) {
@@ -149,7 +149,7 @@ public class Ui {
 
     /**
      * Shows the given error message.
-     * 
+     *
      * @param input The error message to be shown.
      */
     public void showError(String input) {

@@ -12,9 +12,14 @@ import duke.ui.Ui;
  */
 public class Duke {
     private final Storage storage; // The storage used to store the list of tasks.
-    private TaskList tasks; // The list of tasks.
     private final Ui ui; // The user interface.
+    private TaskList tasks; // The list of tasks.
 
+    /**
+     * Constructs a Duke object with the given file path.
+     *
+     * @param filePath The path of the file to store the list of tasks.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -26,6 +31,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Initializes the application and starts the interaction with the user.
+     *
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         new Duke("tasks.txt").run();
     }

@@ -1,5 +1,7 @@
 package duke.parser;
 
+import java.time.format.DateTimeParseException;
+
 import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
@@ -14,16 +16,10 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-import java.time.format.DateTimeParseException;
-
 /**
  * Represents a parser that parses user input into specific commands.
  */
 public class Parser {
-    private static enum COMMAND {
-        LIST, MARK, UNMARK, DELETE, BYE, TODO, DEADLINE, EVENT, FIND
-    }
-
     /**
      * Parses the user input into a specific command.
      *
@@ -36,9 +32,9 @@ public class Parser {
 
         String command = inputs[0].toUpperCase();
         String argument = inputs.length == 2 ? inputs[1] : "";
-        
+
         try {
-            switch (COMMAND.valueOf(command)) {
+            switch (CommandKeyword.valueOf(command)) {
             case LIST:
                 return new ListCommand();
             case MARK:
@@ -80,7 +76,7 @@ public class Parser {
                     throw new DukeException("\u2639 OOPS!!! The deadline of a deadline cannot be empty.");
                 } catch (DateTimeParseException e) {
                     throw new DukeException(
-                            "\u2639 OOPS!!! The date time format must be something like 2007-12-03T10:15:30.");
+                        "\u2639 OOPS!!! The date time format must be something like 2007-12-03T10:15:30.");
                 }
             case EVENT:
                 try {
@@ -92,10 +88,10 @@ public class Parser {
                     return new AddCommand(task);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException(
-                            "\u2639 OOPS!!! The start time or end time of an event cannot be empty.");
+                        "\u2639 OOPS!!! The start time or end time of an event cannot be empty.");
                 } catch (DateTimeParseException e) {
                     throw new DukeException(
-                            "\u2639 OOPS!!! The date time format must be something like 2007-12-03T10:15:30.");
+                        "\u2639 OOPS!!! The date time format must be something like 2007-12-03T10:15:30.");
                 }
             case FIND:
                 return new FindCommand(argument);
@@ -105,5 +101,9 @@ public class Parser {
         } catch (IllegalArgumentException e) {
             throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+    }
+
+    private enum CommandKeyword {
+        LIST, MARK, UNMARK, DELETE, BYE, TODO, DEADLINE, EVENT, FIND
     }
 }

@@ -1,11 +1,11 @@
 package duke.storage;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
 
 public class StorageTest {
     @Test
@@ -17,7 +17,7 @@ public class StorageTest {
         } catch (Exception e) {
             // the test should not reach this line
             fail();
-        }        
+        }
     }
 
     @Test

@@ -1,11 +1,11 @@
 package duke.task;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.format.DateTimeParseException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {
     @Test
@@ -58,7 +58,7 @@ public class DeadlineTest {
             new Deadline("return book", "no idea :)");
             fail(); // the test should not reach this line
         } catch (DateTimeParseException e) {
-            // the test should reach this line            
+            // the test should reach this line
         } catch (Exception e) {
             fail(); // the test should not reach this line
         }

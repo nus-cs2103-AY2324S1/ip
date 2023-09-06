@@ -10,7 +10,7 @@ import duke.ui.Ui;
  * Represents a command issued by the user to find tasks with a keyword.
  */
 public class FindCommand extends Command {
-    private String keyword; // The keyword to search for.
+    private final String keyword; // The keyword to search for.
 
     public FindCommand(String keyword) {
         this.keyword = keyword;
@@ -25,5 +25,5 @@ public class FindCommand extends Command {
             }
         }
         ui.showFilteredTaskList(filteredTasks);
-    } 
+    }
 }
