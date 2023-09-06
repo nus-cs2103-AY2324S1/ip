@@ -1,9 +1,13 @@
 package duke.ui;
 
-import duke.task.Task;
-
 import java.time.LocalDate;
 
+import duke.task.Task;
+import duke.task.TaskList;
+
+/**
+ * Represents a user interface, either graphical or CLI.
+ */
 public interface Ui {
     /**
      * Initialises the UI.
@@ -83,8 +87,9 @@ public interface Ui {
      * @param isExcludingDone whether to exclude tasks already done
      * @param date the date before which to display deadlines before or events happening on,
      *             null if not to filter by date
+     * @param taskList the task list to display
      */
-    void notifyList(Type type, boolean isExcludingDone, LocalDate date);
+    void notifyList(Type type, boolean isExcludingDone, LocalDate date, TaskList taskList);
 
     /**
      * Notifies that a task has been added.
@@ -111,8 +116,9 @@ public interface Ui {
     /**
      * Notify the user of the search results.
      * @param input the search parameter
+     * @param output the search result
      */
-    void notifyFind(String input);
+    void notifyFind(String input, String output);
 
     /**
      * Display custom data

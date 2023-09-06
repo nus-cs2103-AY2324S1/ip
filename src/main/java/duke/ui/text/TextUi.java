@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import duke.parse.DateTimeManager;
 import duke.task.Task;
+import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
@@ -161,9 +162,10 @@ public class TextUi implements Ui {
      * @param isExcludingDone whether to exclude tasks already done
      * @param date the date before which to display deadlines before or events happening on,
      *             null if not to filter by date
+     * @param taskList the task list to display
      */
     @Override
-    public void notifyList(Type type, boolean isExcludingDone, LocalDate date) {
+    public void notifyList(Type type, boolean isExcludingDone, LocalDate date, TaskList taskList) {
         String typeString;
         switch (type) {
         case TODO:
@@ -193,6 +195,7 @@ public class TextUi implements Ui {
                         : ""
                 ) + ":"
         );
+        System.out.println(taskList.getTasks(isExcludingDone, date));
     }
 
     /**
@@ -233,10 +236,14 @@ public class TextUi implements Ui {
     /**
      * Notify the user of the search result.
      * @param input the search parameter
+     * @param output the search result
      */
     @Override
-    public void notifyFind(String input) {
-        System.out.println("Here are the tasks that match \"" + input + "\"");
+    public void notifyFind(String input, String output) {
+        System.out.println(
+                "Here are the tasks that match \"" + input + "\"\n"
+                + output
+        );
     }
 
     /**

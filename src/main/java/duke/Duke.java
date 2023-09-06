@@ -1,9 +1,5 @@
 package duke;
 
-import duke.ui.graphic.MainWindow;
-import javafx.application.Application;
-
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -14,10 +10,9 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 import duke.ui.graphic.DukeApplication;
+import duke.ui.graphic.MainWindow;
 import duke.ui.text.TextUi;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.application.Application;
 
 /**
  * Main class, where the user interacts with the bot.
@@ -39,8 +34,9 @@ public class Duke {
         if (isCli) {
             this.interact();
         } else {
-            ((MainWindow) this.userInterface).setErrorPrependAndAppend("Quack, ", "!");
-            ((MainWindow) this.userInterface).setDuke(this);
+            MainWindow graphicalUi = (MainWindow) this.userInterface;
+            graphicalUi.setErrorPrependAndAppend("Quack, ", "!");
+            graphicalUi.setDuke(this);
             this.userInterface.initialise(this.myName, new String[] {});
         }
     }
@@ -121,8 +117,7 @@ public class Duke {
      *             null if to not exclude any task by date
      */
     public void showList(boolean isExcludingDone, LocalDate date) {
-        this.userInterface.notifyList(Ui.Type.DEFAULT, isExcludingDone, date);
-        this.taskList.displayTasks(isExcludingDone, date, this.userInterface);
+        this.userInterface.notifyList(Ui.Type.DEFAULT, isExcludingDone, date, this.taskList);
     }
 
     /**
@@ -130,8 +125,7 @@ public class Duke {
      * @param isExcludingDone whether to exclude tasks already done
      */
     public void showTodos(boolean isExcludingDone) {
-        this.userInterface.notifyList(Ui.Type.TODO, isExcludingDone, null);
-        this.taskList.displayTodos(isExcludingDone, this.userInterface);
+        this.userInterface.notifyList(Ui.Type.TODO, isExcludingDone, null, this.taskList);
     }
 
     /**
@@ -140,8 +134,7 @@ public class Duke {
      * @param date the date to display deadlines before
      */
     public void showDeadlines(boolean isExcludingDone, LocalDate date) {
-        this.userInterface.notifyList(Ui.Type.DEADLINE, isExcludingDone, date);
-        this.taskList.displayDeadlines(isExcludingDone, date, this.userInterface);
+        this.userInterface.notifyList(Ui.Type.DEADLINE, isExcludingDone, date, this.taskList);
     }
 
     /**
@@ -150,8 +143,7 @@ public class Duke {
      * @param date the date to display events happening on
      */
     public void showEvents(boolean isExcludingDone, LocalDate date) {
-        this.userInterface.notifyList(TextUi.Type.EVENT, isExcludingDone, date);
-        this.taskList.displayEvents(isExcludingDone, date, this.userInterface);
+        this.userInterface.notifyList(TextUi.Type.EVENT, isExcludingDone, date, this.taskList);
     }
 
     /**
@@ -236,12 +228,11 @@ public class Duke {
      * @param input the input from the user
      */
     public void find(String input) {
-        this.userInterface.notifyFind(input);
-        this.taskList.showResults(input, this.userInterface);
+        this.userInterface.notifyFind(input, this.taskList.results(input, this.userInterface));
     }
 
     public static void main(String[] args) {
-//        new Duke(true, new TextUi("Quack, ", "!"));
+        // new Duke(true, new TextUi("Quack, ", "!"));
         Application.launch(DukeApplication.class, args);
     }
 }

@@ -1,5 +1,7 @@
 package duke.ui.graphic;
 
+import java.io.IOException;
+
 import duke.Duke;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,8 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
+/**
+ * Serves as entry point for the GUI programme, to be invoked by Application::launch
+ */
 public class DukeApplication extends Application {
     @Override
     public void start(Stage stage) {

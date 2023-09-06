@@ -1,22 +1,22 @@
 package duke.ui.graphic;
 
+import java.time.LocalDate;
+
+import duke.Duke;
+import duke.parse.DateTimeManager;
+import duke.parse.Parser;
+import duke.parse.command.Command;
 import duke.storage.Storage;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.ui.Ui;
+import duke.ui.graphic.components.DialogBox;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-
-import duke.Duke;
-import duke.parse.DateTimeManager;
-import duke.parse.Parser;
-import duke.parse.command.Command;
-import duke.task.Task;
-import duke.ui.Ui;
-import duke.ui.graphic.components.DialogBox;
-
-import java.time.LocalDate;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -63,9 +63,9 @@ public class MainWindow extends VBox implements Ui {
         this.dialogContainer.maxWidthProperty().bind(this.scrollPane.widthProperty());
         this.dialogContainer.minWidthProperty().bind(this.scrollPane.widthProperty());
         this.scrollPane.getContent().setOnScroll(scrollEvent -> {
-            this.scrollPane.setVvalue((this.scrollPane.getVvalue() * this.dialogContainer.getHeight() -
-                    scrollEvent.getDeltaY()) /
-                    this.dialogContainer.getHeight());
+            this.scrollPane.setVvalue((this.scrollPane.getVvalue() * this.dialogContainer.getHeight()
+                    - scrollEvent.getDeltaY())
+                    / this.dialogContainer.getHeight());
         });
     }
 
@@ -110,6 +110,7 @@ public class MainWindow extends VBox implements Ui {
     /**
      * Notifies the user that data is being loaded.
      */
+    @Override
     public void notifyDataLoading() {
         this.displayData("Loading data from hard disk ...");
     }
@@ -117,6 +118,7 @@ public class MainWindow extends VBox implements Ui {
     /**
      * Notifies the user that data has been loaded.
      */
+    @Override
     public void notifyDataLoaded() {
         this.displayData("Done loading.");
     }
@@ -124,6 +126,7 @@ public class MainWindow extends VBox implements Ui {
     /**
      * Notifies the user that data could not be loaded due to IO error.
      */
+    @Override
     public void notifyLoadingIoError() {
         this.displayData("Quack, an error has occurred while trying to save data to hard disk.\n"
                 + "Starting with an empty task list.");
@@ -133,6 +136,7 @@ public class MainWindow extends VBox implements Ui {
      * Notifies the user that data is corrupted and allow user to take action.
      * @return whether the user has decided to exit the programme.
      */
+    @Override
     public boolean handleFileCorrupted() {
         String input = this.userInput.getText();
         switch (input) {
@@ -154,11 +158,15 @@ public class MainWindow extends VBox implements Ui {
      * Takes input from the user.
      * @return the input from the user
      */
-    public String takeInput(String prompt) { return "test"; }
+    @Override
+    public String takeInput(String prompt) {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Exit the programme
      */
+    @Override
     public void exit() {
         Platform.exit();
     }
@@ -166,6 +174,7 @@ public class MainWindow extends VBox implements Ui {
     /**
      * Notifies user-input error.
      */
+    @Override
     public void notifyError(String message) {
         this.displayData(this.errorPrepend + message + this.errorAppend);
     }
@@ -174,6 +183,7 @@ public class MainWindow extends VBox implements Ui {
      * Notifies user that a task has been marked done.
      * @param task the task to notify
      */
+    @Override
     public void notifyMarkDone(Task task) {
         this.displayData("Nice! I've marked this task as done:\n" + task);
     }
@@ -182,6 +192,7 @@ public class MainWindow extends VBox implements Ui {
      * Notifies user that a task has been marked as not done.
      * @param task the task to notify
      */
+    @Override
     public void notifyMarkNotDone(Task task) {
         this.displayData("OK, I've marked this task as not done yet:\n" + task);
     }
@@ -190,33 +201,36 @@ public class MainWindow extends VBox implements Ui {
      * Notifies that a task has been removed.
      * @param task the task removed
      */
+    @Override
     public void notifyRemoved(Task task) {
         this.displayData("Noted, I've removed this task:\n" + task);
     }
 
     /**
      * Notifies that a list of task is going to be displayed.
-     * Does not display the tasks itself.
+     * Displays the task list.
      * @param type type of task (todo/deadline/event/default)
      * @param isExcludingDone whether to exclude tasks already done
      * @param date the date before which to display deadlines before or events happening on,
      *             null if not to filter by date
+     * @param taskList the task list to display
      */
-    public void notifyList(Ui.Type type, boolean isExcludingDone, LocalDate date) {
+    @Override
+    public void notifyList(Ui.Type type, boolean isExcludingDone, LocalDate date, TaskList taskList) {
         String typeString;
         switch (type) {
-            case TODO:
-                typeString = "to-do tasks";
-                break;
-            case DEADLINE:
-                typeString = "deadlines";
-                break;
-            case EVENT:
-                typeString = "events";
-                break;
-            default:
-                typeString = "tasks";
-                break;
+        case TODO:
+            typeString = "to-do tasks";
+            break;
+        case DEADLINE:
+            typeString = "deadlines";
+            break;
+        case EVENT:
+            typeString = "events";
+            break;
+        default:
+            typeString = "tasks";
+            break;
         }
         this.displayData(
                 "Alright, here is your list of "
@@ -230,7 +244,7 @@ public class MainWindow extends VBox implements Ui {
                         : " for "
                 ) + DateTimeManager.dateToDisplay(date)
                         : ""
-                ) + ":"
+                ) + ":\n" + taskList.getTasks(isExcludingDone, date)
         );
     }
 
@@ -245,6 +259,7 @@ public class MainWindow extends VBox implements Ui {
     /**
      * Notifies that data is being saved to disk.
      */
+    @Override
     public void notifyDataSaving() {
         this.displayData("Saving data ...");
     }
@@ -252,6 +267,7 @@ public class MainWindow extends VBox implements Ui {
     /**
      * Notifies the user that data has been saved to disk.
      */
+    @Override
     public void notifyDataSaved() {
         this.displayData("Done saving.");
     }
@@ -260,6 +276,7 @@ public class MainWindow extends VBox implements Ui {
      * Show task count.
      * @param count the number of task in the list
      */
+    @Override
     public void showTaskCount(int count) {
         this.displayData("Now you have " + count + " in the list.");
     }
@@ -268,13 +285,18 @@ public class MainWindow extends VBox implements Ui {
      * Notify the user of the search results.
      * @param input the search parameter
      */
-    public void notifyFind(String input) {
-        this.displayData("Here are the tasks that match \"" + input + "\"");
+    @Override
+    public void notifyFind(String input, String output) {
+        this.displayData(
+                "Here are the tasks that match \"" + input + "\"\n"
+                + output
+        );
     }
 
     /**
      * Display custom data
      */
+    @Override
     public void displayData(String data) {
         this.dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(data, this.dukeImage)

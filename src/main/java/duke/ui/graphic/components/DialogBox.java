@@ -1,5 +1,7 @@
 package duke.ui.graphic.components;
 
+import java.io.IOException;
+
 import duke.ui.graphic.MainWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,16 +13,18 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 
-import java.io.IOException;
-
+/**
+ * Represents a dialog box, which is a message within the GUI.
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
     @FXML
     private ImageView displayPicture;
 
-    public DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, boolean isUser) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -32,25 +36,33 @@ public class DialogBox extends HBox {
 
         this.dialog.setText(text);
         this.displayPicture.setImage(img);
+
+        if (!isUser) {
+            this.setAlignment(Pos.TOP_LEFT);
+            ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
+            FXCollections.reverse(tmp);
+            this.getChildren().setAll(tmp);
+            this.dialog.setFont(new Font("Consolas", this.dialog.getFont().getSize()));
+        }
     }
 
     /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     * Instantiate a new dialog box for user.
+     * @param l the message from user
+     * @param iv user's representative image
+     * @return a new instance of DialogBox for user
      */
-    private void flip() {
-        this.setAlignment(Pos.TOP_LEFT);
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        FXCollections.reverse(tmp);
-        this.getChildren().setAll(tmp);
-    }
-
     public static DialogBox getUserDialog(String l, Image iv) {
-        return new DialogBox(l, iv);
+        return new DialogBox(l, iv, true);
     }
 
+    /**
+     * Instantiate a new dialog box for bot.
+     * @param l the message from bot
+     * @param iv bot's representative image
+     * @return a new instance of DialogBox for bot
+     */
     public static DialogBox getDukeDialog(String l, Image iv) {
-        var db = new DialogBox(l, iv);
-        db.flip();
-        return db;
+        return new DialogBox(l, iv, false);
     }
 }

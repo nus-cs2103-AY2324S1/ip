@@ -98,8 +98,7 @@ public class TaskList {
      * @param date the date to include deadlines before and events happening on,
      *             null if to not filter by date
      */
-    private static void displayTasks(ArrayList<Task> taskList, boolean isExcludingDone,
-                                     LocalDate date, Ui userInterface) {
+    private static String getTasks(ArrayList<Task> taskList, boolean isExcludingDone, LocalDate date) {
         if (isExcludingDone) {
             taskList.removeIf(Task::isDone);
         }
@@ -110,7 +109,7 @@ public class TaskList {
         for (int i = 0; i < taskList.size(); i++) {
             data.append((i + 1) + ". " + taskList.get(i) + (i == taskList.size() - 1 ? "" : "\n"));
         }
-        userInterface.displayData(data.toString());
+        return data.toString();
     }
 
     /**
@@ -118,44 +117,11 @@ public class TaskList {
      * Assume that there is no filtering by task type (todo/deadline/event)
      * @param isExcludingDone whether to exclude tasks already done
      * @param date the date to filter in deadlines before and events happening on
+     * @return the string representation of the filtered list of tasks
      */
-    public void displayTasks(boolean isExcludingDone, LocalDate date, Ui userInterface) {
+    public String getTasks(boolean isExcludingDone, LocalDate date) {
         ArrayList<Task> taskList = (ArrayList<Task>) this.taskList.clone();
-        TaskList.displayTasks(taskList, isExcludingDone, date, userInterface);
-    }
-
-    /**
-     * Displays to-do tasks with the given filters.
-     * @param isExcludingDone whether to filter out tasks already done
-     */
-    public void displayTodos(boolean isExcludingDone, Ui userInterface) {
-        ArrayList<Task> taskList = (ArrayList<Task>) this.taskList.clone();
-        taskList.removeIf(task -> !(task instanceof ToDo));
-        TaskList.displayTasks(taskList, isExcludingDone, null, userInterface);
-    }
-
-    /**
-     * Displays deadlines with the given filters.
-     * @param isExcludingDone whether to filter out tasks already done
-     * @param date the date to choose deadlines with end time before,
-     *             null if to not filter by date
-     */
-    public void displayDeadlines(boolean isExcludingDone, LocalDate date, Ui userInterface) {
-        ArrayList<Task> taskList = (ArrayList<Task>) this.taskList.clone();
-        taskList.removeIf(task -> !(task instanceof Deadline));
-        TaskList.displayTasks(taskList, isExcludingDone, date, userInterface);
-    }
-
-    /**
-     * Displays events with the given filters.
-     * @param isExcludingDone whether to filter out tasks already done
-     * @param date the date to choose events happening on,
-     *             null if to not filter by date
-     */
-    public void displayEvents(boolean isExcludingDone, LocalDate date, Ui userInterface) {
-        ArrayList<Task> taskList = (ArrayList<Task>) this.taskList.clone();
-        taskList.removeIf(task -> !(task instanceof Event));
-        TaskList.displayTasks(taskList, isExcludingDone, date, userInterface);
+        return TaskList.getTasks(taskList, isExcludingDone, date);
     }
 
     /**
@@ -184,9 +150,9 @@ public class TaskList {
      * Display the tasks that match the given input.
      * @param input the search parameter
      */
-    public void showResults(String input, Ui userInterface) {
+    public String results(String input, Ui userInterface) {
         ArrayList<Task> list = (ArrayList<Task>) this.taskList.clone();
         list.removeIf(task -> !task.containsString(input));
-        TaskList.displayTasks(list, false, null, userInterface);
+        return TaskList.getTasks(list, false, null);
     }
 }
