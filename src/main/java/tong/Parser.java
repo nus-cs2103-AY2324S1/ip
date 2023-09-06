@@ -86,52 +86,52 @@ public class Parser {
         String description = matcher.group("description");
 
         switch (type) {
-            case ToDo.TYPE:
-                ToDo todo = new ToDo(description);
-                return new AddCommand(todo);
+        case ToDo.TYPE:
+            ToDo todo = new ToDo(description);
+            return new AddCommand(todo);
 
-            case Deadline.TYPE:
-                final Matcher matcherDeadline = DEADLINE_DES_FORMAT.matcher(description.trim());
-                if (!matcherDeadline.matches()) {
-                    return new IncorrectCommand("Invalid Format:(\n"
-                            + "Could you talk in the ways that I can understand:D\n"
-                            + AddCommand.MESSAGE_USAGE);
-                }
-
-                String deadlineDes = matcherDeadline.group("description");
-                String ddl = matcherDeadline.group("deadline");
-                String[] ddlSplit = ddl.split(" ");
-                String date = ddlSplit[0];
-                String time = ddlSplit[1];
-
-                Deadline deadline = new Deadline(deadlineDes, date, time);
-                return new AddCommand(deadline);
-
-            case Event.TYPE:
-                final Matcher matcherEvent = EVENT_DES_FORMAT.matcher(description.trim());
-                if (!matcherEvent.matches()) {
-                    return new IncorrectCommand("Invalid Format:(\n"
-                            + "Could you talk in the ways that I can understand:D\n"
-                            + AddCommand.MESSAGE_USAGE);
-                }
-
-                String eventDes = matcherEvent.group("description");
-                String start = matcherEvent.group("start");
-                String end = matcherEvent.group("end");
-                String[] startSplit = start.split(" ");
-                String[] endSplit = end.split(" ");
-                String fromDate = startSplit[0];
-                String fromTime = startSplit[1];
-                String toDate = endSplit[0];
-                String toTime = endSplit[1];
-
-                Event event = new Event(eventDes, fromDate, fromTime, toDate, toTime);
-                return new AddCommand(event);
-
-            default:
-                return new IncorrectCommand("Sorry, I don't know this type of tasks:(\n"
-                        + "You may choose from what I have:D\n"
+        case Deadline.TYPE:
+            final Matcher matcherDeadline = DEADLINE_DES_FORMAT.matcher(description.trim());
+            if (!matcherDeadline.matches()) {
+                return new IncorrectCommand("Invalid Format:(\n"
+                        + "Could you talk in the ways that I can understand:D\n"
                         + AddCommand.MESSAGE_USAGE);
+            }
+
+            String deadlineDes = matcherDeadline.group("description");
+            String ddl = matcherDeadline.group("deadline");
+            String[] ddlSplit = ddl.split(" ");
+            String date = ddlSplit[0];
+            String time = ddlSplit[1];
+
+            Deadline deadline = new Deadline(deadlineDes, date, time);
+            return new AddCommand(deadline);
+
+        case Event.TYPE:
+            final Matcher matcherEvent = EVENT_DES_FORMAT.matcher(description.trim());
+            if (!matcherEvent.matches()) {
+                return new IncorrectCommand("Invalid Format:(\n"
+                        + "Could you talk in the ways that I can understand:D\n"
+                        + AddCommand.MESSAGE_USAGE);
+            }
+
+            String eventDes = matcherEvent.group("description");
+            String start = matcherEvent.group("start");
+            String end = matcherEvent.group("end");
+            String[] startSplit = start.split(" ");
+            String[] endSplit = end.split(" ");
+            String fromDate = startSplit[0];
+            String fromTime = startSplit[1];
+            String toDate = endSplit[0];
+            String toTime = endSplit[1];
+
+            Event event = new Event(eventDes, fromDate, fromTime, toDate, toTime);
+            return new AddCommand(event);
+
+        default:
+            return new IncorrectCommand("Sorry, I don't know this type of tasks:(\n"
+                    + "You may choose from what I have:D\n"
+                    + AddCommand.MESSAGE_USAGE);
         }
     }
 

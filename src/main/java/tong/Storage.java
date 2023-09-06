@@ -88,17 +88,17 @@ public class Storage {
 
             char type = encodedString.charAt(0);
             switch (type) {
-                case 'T':
-                    decodedTasks.add(Task.getDecodedToDo(encodedString));
-                    break;
-                case 'D':
-                    decodedTasks.add(Task.getDecodedDeadline(encodedString));
-                    break;
-                case 'E':
-                    decodedTasks.add(Task.getDecodedEvent(encodedString));
-                    break;
-                default:
-                    throw new DecodingException("Problem encountered during decoding the data file.");
+            case 'T':
+                decodedTasks.add(Task.getDecodedToDo(encodedString));
+                break;
+            case 'D':
+                decodedTasks.add(Task.getDecodedDeadline(encodedString));
+                break;
+            case 'E':
+                decodedTasks.add(Task.getDecodedEvent(encodedString));
+                break;
+            default:
+                throw new DecodingException("Problem encountered during decoding the data file.");
             }
         }
 
