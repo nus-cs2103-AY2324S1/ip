@@ -25,16 +25,30 @@ public class Ui {
     }
 
     /**
-     * Greets the user everytime chatbot opens.
+     * Gets response string.
+     *
+     * @param lines Lines to be in the response.
      */
-    public static void greetUser() {
-        printLines("Hello I'm ADJ", "What can I do for you?");
+    public static String getResponse(String ...lines) {
+        String response = "";
+        for (String line : lines) {
+            response += ("\t " + line + "\n");
+        }
+
+        return response;
     }
 
     /**
-     * Prints an goodbye message when the user exits.
+     * Gets a greeting message for when the user opens the chatbot.
      */
-    public static void printExitMessage() {
-        printLines("Bye. Hope to see you again soon!");
+    public static String getGreetingMessage() {
+        return getResponse("Hello I'm ADJ", "What can I do for you?");
+    }
+
+    /**
+     * Gets a goodbye message when the user exits.
+     */
+    public static String getExitMessage() {
+        return getResponse("Bye. Hope to see you again soon!");
     }
 }

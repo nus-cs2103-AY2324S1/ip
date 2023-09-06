@@ -30,20 +30,14 @@ public class Duke {
     private static final Parser parser = new Parser();
 
     /**
-     * Sends a greeting message to the user.
-     */
-    private static void greetUser() {
-        Ui.greetUser();
-    }
-
-    /**
      * Adds a task to the task list and sends a message of the task added.
      * A task can be a ToDo, Deadline, or Event.
      *
      * @param command Task command of input.
      * @param taskInfo Info regarding the task.
+     * @return Response message to be sent by the bot.
      */
-    private static void addTask(Command command, String taskInfo)
+    private static String addTask(Command command, String taskInfo)
             throws DukeInvalidDateException {
         Task newTask;
 
@@ -58,7 +52,7 @@ public class Duke {
             newTask = new Event(eventInfo[0], eventTime[0], eventTime[1]);
         }
 
-        tasks.addTask(newTask);
+        return tasks.addTask(newTask);
     }
 
     /**
@@ -67,15 +61,18 @@ public class Duke {
      *
      * @param command Edit command of input.
      * @param taskIndex Index of task to edit.
+     * @return Response message to be sent by the bot.
      */
-    private static void editTask(Command command, int taskIndex) {
+    private static String editTask(Command command, int taskIndex) {
         if (command == Command.DELETE) {
-            tasks.deleteTask(taskIndex);
+            return tasks.deleteTask(taskIndex);
         } else if (command == Command.MARK) {
-            tasks.markTask(taskIndex);
+            return tasks.markTask(taskIndex);
         } else if (command == Command.UNMARK) {
-            tasks.unmarkTask(taskIndex);
+            return tasks.unmarkTask(taskIndex);
         }
+
+        return Ui.getResponse("Something went wrong :(");
     }
 
     /**
@@ -83,9 +80,10 @@ public class Duke {
      * Find command lists all tasks which contains a certain keyword.
      *
      * @param keyword Keyword to find tasks
+     * @return Response message to be sent by the bot.
      */
-    private static void executeFindCommand(String keyword) {
-        tasks.printTasksByKeyword(keyword);
+    private static String executeFindCommand(String keyword) {
+        return tasks.printTasksByKeyword(keyword);
     }
 
     /**
@@ -93,13 +91,20 @@ public class Duke {
      * Single commands consists of: Listing all tasks, Printing goodbye message.
      *
      * @param command Single command of input.
+     * @return Response message to be sent by the bot.
      */
-    private static void executeSingleCommand(Command command) {
+    private static String executeSingleCommand(Command command) {
+        String response;
+
         if (command == Command.LIST) {
-            Ui.printLines(tasks.toString());
+            response = Ui.getResponse(tasks.toString());
         } else if (command == Command.BYE) {
-            Ui.printExitMessage();
+            response = Ui.getExitMessage();
+        } else {
+            response = Ui.getResponse("Something went wrong :(");
         }
+
+        return response;
     }
 
     /**
@@ -107,26 +112,27 @@ public class Duke {
      *
      * @param command Command of the user input.
      * @param inputs Arguments of the input.
-     * @return A boolean to stop the chatbot on "bye" command
+     * @return Response message to be sent by the bot.
      * @throws DukeException Error when executing the command.
      */
-    private static boolean runCommand(Command command, String[] inputs) throws DukeException {
-        if (command == Command.BYE) {
-            Ui.printExitMessage();
-            storage.writeTasks(tasks);
+    private static String runCommandAndGetResponse(Command command, String[] inputs) throws DukeException {
+        String response;
 
-            return false;
+        if (command == Command.BYE) {
+            response = Ui.getExitMessage();
+            storage.writeTasks(tasks);
+            return response;
         } else if (command == Command.TODO || command == Command.DEADLINE || command == Command.EVENT) {
             if (inputs.length == 1 || inputs[1].equals("")) {
                 throw new DukeEmptyArgumentException("OOPS!!! Argument for this command cannot be empty.");
             }
 
             if (command == Command.TODO) {
-                addTask(Command.TODO, inputs[1]);
+                response = addTask(Command.TODO, inputs[1]);
             } else if (command == Command.DEADLINE) {
-                addTask(Command.DEADLINE, inputs[1]);
+                response = addTask(Command.DEADLINE, inputs[1]);
             } else {
-                addTask(Command.EVENT, inputs[1]);
+                response = addTask(Command.EVENT, inputs[1]);
             }
         } else if (command == Command.DELETE) {
             if (inputs.length == 1 || inputs[1].equals("")) {
@@ -141,15 +147,15 @@ public class Duke {
                 throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
             }
 
-            editTask(Command.DELETE, Integer.parseInt(inputs[1]));
+            response = editTask(Command.DELETE, Integer.parseInt(inputs[1]));
         } else if (command == Command.LIST) {
-            executeSingleCommand(Command.LIST);
+            response = executeSingleCommand(Command.LIST);
         } else if (command == Command.FIND) {
             if (inputs.length == 1 || inputs[1].equals("")) {
                 throw new DukeEmptyArgumentException("OOPS!!! Argument for this command cannot be empty.");
             }
 
-            executeFindCommand(inputs[1]);
+            response = executeFindCommand(inputs[1]);
         } else if (command == Command.MARK) {
             if (inputs.length == 1 || inputs[1].equals("")) {
                 throw new DukeEmptyArgumentException("OOPS!!! Argument for this command cannot be empty.");
@@ -163,7 +169,7 @@ public class Duke {
                 throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
             }
 
-            editTask(Command.MARK, Integer.parseInt(inputs[1]));
+            response = editTask(Command.MARK, Integer.parseInt(inputs[1]));
         } else if (command == Command.UNMARK) {
             if (inputs.length == 1 || inputs[1].equals("")) {
                 throw new DukeEmptyArgumentException("OOPS!!! Argument for this command cannot be empty.");
@@ -177,17 +183,57 @@ public class Duke {
                 throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
             }
 
-            Duke.editTask(Command.UNMARK, Integer.parseInt(inputs[1]));
+            response = Duke.editTask(Command.UNMARK, Integer.parseInt(inputs[1]));
         } else {
             throw new DukeUnknownCommandException(inputs[0]);
         }
 
-        return true;
+        return response;
+    }
+
+    /**
+     * Gets all tasks from the data and store it in the storage.
+     */
+    public void getTasksData() {
+        try {
+            storage.getTasksFromData(tasks);
+        } catch (IOException exception) {
+            return;
+        }
+    }
+
+    /**
+     * Gets a greeting message to be sent went a user activates the chatbot.
+     *
+     * @return Greeting message to be sent.
+     */
+    public String getGreetingMessage() {
+        return Ui.getGreetingMessage();
+    }
+
+    /**
+     * Gets the response message based on the User's input.
+     *
+     * @param userInput User input.
+     * @return Response message to be sent by the bot.
+     */
+    public String getResponse(String userInput) {
+        String response;
+
+        try {
+            Command command = parser.parseInput(userInput);
+            String[] inputs = userInput.split(" ", 2);
+
+            response = runCommandAndGetResponse(command, inputs);
+            storage.writeTasks(tasks);
+        } catch (DukeException exception) {
+            response = Ui.getResponse(exception.getMessage());
+        }
+
+        return response;
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
-        greetUser();
 
         try {
             storage.getTasksFromData(tasks);
@@ -202,13 +248,14 @@ public class Duke {
                 Command command = parser.parseInput(userInput);
                 String[] inputs = userInput.split(" ", 2);
 
-                if (!Duke.runCommand(command, inputs)) {
+                if (Duke.runCommandAndGetResponse(command, inputs) == Ui.getExitMessage()) {
                     break;
                 }
                 storage.writeTasks(tasks);
 
             } catch (Exception exception) {
                 Ui.printLines(exception.getMessage());
+
             }
         }
     }
