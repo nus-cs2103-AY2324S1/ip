@@ -13,12 +13,13 @@ import duke.exceptions.UnknownCommandException;
 
 /**
  * Represents a parser that parses user input into a Command object.
+ * This parser is used for commands that take in an index as a parameter.
  */
 public class IndexCommandParser extends CommandParser {
 
     /**
      * Creates a CommandParser object.
-     * 
+     *
      * @param commandName The name of the command.
      */
     public IndexCommandParser(String commandName) {

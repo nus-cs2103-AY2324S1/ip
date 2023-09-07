@@ -7,10 +7,10 @@ package duke.exceptions;
 public class InvalidIndexException extends Exception {
     /**
      * Creates an InvalidIndexException object.
-     * 
+     *
      * @param Message The description of the exception.
      */
-    public InvalidIndexException(String Message) {
-        super("Invalid index!\n    " + Message);
+    public InvalidIndexException(String message) {
+        super("Invalid index!\n    " + message);
     }
 }

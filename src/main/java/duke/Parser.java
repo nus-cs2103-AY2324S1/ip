@@ -28,14 +28,14 @@ public class Parser {
         /*
          * The different types of commands and their corresponding parsers.
          */
-        LIST("list", new SimpleCommandParser("list")), 
+        LIST("list", new SimpleCommandParser("list")),
         MARK("mark", new IndexCommandParser("mark")),
         UNMARK("unmark", new IndexCommandParser("unmark")),
         DELETE("delete", new IndexCommandParser("delete")),
         FIND("find", new WordCommandParser("find")),
         TODO("todo", new TodoCommandParser()),
         DEADLINE("deadline", new DeadlineCommandParser()),
-        EVENT("event", new EventCommandParser()); 
+        EVENT("event", new EventCommandParser());
         // @formatter:on
 
         /**
@@ -43,6 +43,18 @@ public class Parser {
          */
         public final String commandString;
         private final CommandParser commandParser;
+
+        /**
+         * Constructs a new command with the specified string representation and one
+         * parameter.
+         *
+         * @param commandString the string representation of the command
+         * @param pattern the pattern that the command takes
+         */
+        private Commands(String commandString, CommandParser commandParser) {
+            this.commandString = commandString;
+            this.commandParser = commandParser;
+        }
 
         /**
          * Returns the command with the specified string representation.
@@ -61,18 +73,6 @@ public class Parser {
         }
 
         /**
-         * Constructs a new command with the specified string representation and one
-         * parameter.
-         *
-         * @param commandString the string representation of the command
-         * @param pattern       the pattern that the command takes
-         */
-        private Commands(String commandString, CommandParser commandParser) {
-            this.commandString = commandString;
-            this.commandParser = commandParser;
-        }
-
-        /**
          * Returns the parser for the command.
          *
          * @return the parser for the command
@@ -85,7 +85,7 @@ public class Parser {
 
     /**
      * Parses the user input into a Command object.
-     * 
+     *
      * @param input the user input
      * @return the Command object
      * @throws UnknownCommandException if the command is not recognised

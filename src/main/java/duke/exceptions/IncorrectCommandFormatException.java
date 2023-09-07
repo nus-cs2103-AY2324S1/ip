@@ -8,7 +8,7 @@ package duke.exceptions;
 public class IncorrectCommandFormatException extends Exception {
     /**
      * Creates an IncorrectCommandFormatException object.
-     * 
+     *
      * @param description The description of the exception.
      */
     public IncorrectCommandFormatException(String description) {

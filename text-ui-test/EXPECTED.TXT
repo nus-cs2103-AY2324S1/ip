@@ -74,7 +74,7 @@
     Now you have 2 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
-    OOPS!!! Command format is incorrect!
+    OOPS!!! The description of a Todo cannot be empty.
     ____________________________________________________________
     ____________________________________________________________
     OOPS!!! The description of a Todo cannot be empty.
@@ -167,7 +167,7 @@
     ____________________________________________________________
     ____________________________________________________________
     OOPS!!! Command format is incorrect!
-        Usage: Time formatting for deadline incorrect
+        Proper Format: yyyy-mm-dd
     ____________________________________________________________
     ____________________________________________________________
     Got it. I've added this task:

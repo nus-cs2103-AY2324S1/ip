@@ -14,7 +14,7 @@ public class MarkCommand implements Command {
 
     /**
      * Creates a MarkCommand object.
-     * 
+     *
      * @param matcher The matcher object that contains the user input matched to the mark regex.
      */
     public MarkCommand(Matcher matcher) {

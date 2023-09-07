@@ -5,7 +5,7 @@ import java.time.LocalDate;
 /**
  * Adapted from Partial Solution given in Level-4 of
  * https://nus-cs2103-ay2324s1.github.io/website/schedule/week2/project.html
- * 
+ *
  * Event class extends from the parent class Task
  * Events: tasks that start at a specific date/time and
  * ends at a specific date/time
@@ -19,7 +19,7 @@ public class Event extends Task {
      * The start date/time of the event.
      */
     protected LocalDate from;
-    
+
     /**
      * The end date/time of the event.
      */

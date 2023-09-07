@@ -7,7 +7,7 @@ package duke.exceptions;
 public class MissingDescriptionException extends Exception {
     /**
      * Creates a MissingDescriptionException object.
-     * 
+     *
      * @param task The task that is missing a description.
      */
     public MissingDescriptionException(String task) {

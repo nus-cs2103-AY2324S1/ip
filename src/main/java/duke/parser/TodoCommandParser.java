@@ -3,7 +3,7 @@ package duke.parser;
 import java.util.regex.Matcher;
 
 import duke.commands.Command;
-import duke.commands.TaskCommands.TodoCommand;
+import duke.commands.taskcommands.TodoCommand;
 import duke.exceptions.IncorrectCommandFormatException;
 import duke.exceptions.InvalidIndexException;
 import duke.exceptions.MissingDescriptionException;

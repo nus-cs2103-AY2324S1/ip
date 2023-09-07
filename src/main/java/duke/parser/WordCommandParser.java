@@ -8,6 +8,10 @@ import duke.exceptions.IncorrectCommandFormatException;
 import duke.exceptions.InvalidTimeFormatException;
 import duke.exceptions.MissingDescriptionException;
 
+/**
+ * Represents a parser that parses user input into a Command object.
+ * This parser is used for commands that take in a single word as a keyword.
+ */
 public class WordCommandParser extends CommandParser {
 
     public WordCommandParser(String commandName) {
@@ -31,10 +35,10 @@ public class WordCommandParser extends CommandParser {
     protected Command createCommand(Matcher matcher)
             throws MissingDescriptionException, IncorrectCommandFormatException, InvalidTimeFormatException {
         switch (commandName) {
-            case "find":
-                return new FindCommand(matcher.group("keyword").trim());
-            default:
-                throw new UnsupportedOperationException("Unimplemented method " + commandName);
+        case "find":
+            return new FindCommand(matcher.group("keyword").trim());
+        default:
+            throw new UnsupportedOperationException("Unimplemented method " + commandName);
         }
     }
 

@@ -2,9 +2,9 @@
 import java.io.File;
 import java.util.Scanner;
 
-import duke.Ui;
 import duke.Parser;
 import duke.TaskListStorage;
+import duke.Ui;
 import duke.exceptions.IncorrectCommandFormatException;
 import duke.exceptions.InvalidIndexException;
 import duke.exceptions.InvalidTimeFormatException;
@@ -19,7 +19,7 @@ public class Duke {
 
     /**
      * Main entry-point for the java.duke.Duke application.
-     * 
+     *
      * @param args The command line arguments, for now it serves no purpose.
      */
     public static void main(String[] args) {

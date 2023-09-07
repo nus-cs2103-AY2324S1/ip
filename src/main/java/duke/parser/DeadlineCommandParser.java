@@ -3,7 +3,7 @@ package duke.parser;
 import java.util.regex.Matcher;
 
 import duke.commands.Command;
-import duke.commands.TaskCommands.DeadlineCommand;
+import duke.commands.taskcommands.DeadlineCommand;
 import duke.exceptions.IncorrectCommandFormatException;
 import duke.exceptions.InvalidTimeFormatException;
 import duke.exceptions.MissingDescriptionException;
@@ -16,10 +16,12 @@ public class DeadlineCommandParser extends CommandParser {
     /**
      * Creates a DeadlineCommandParser object.
      */
+    // CHECKSTYLE.OFF: LineLength
     public DeadlineCommandParser() {
         super("deadline",
                 "^(?<command>deadline)(?: ((?!/by)(?<description>.*?))?(?<by> /by.*?)?(?<byTime>\\d{4}-\\d{1,2}-\\d{1,2})?)?$");
     }
+    // CHECKSTYLE.ON: LineLength
 
     @Override
     protected void validate(Matcher matcher)

@@ -3,7 +3,7 @@ package duke.parser;
 import java.util.regex.Matcher;
 
 import duke.commands.Command;
-import duke.commands.TaskCommands.EventCommand;
+import duke.commands.taskcommands.EventCommand;
 import duke.exceptions.IncorrectCommandFormatException;
 import duke.exceptions.InvalidTimeFormatException;
 import duke.exceptions.MissingDescriptionException;
@@ -16,10 +16,12 @@ public class EventCommandParser extends CommandParser {
     /**
      * Creates a EventCommandParser object.
      */
+    // CHECKSTYLE.OFF: LineLength
     public EventCommandParser() {
         super("event",
                 "^(?<command>event)(?: (?<description>.*?)?(?<from> /from.*?)?(?<fromTime>\\d{4}-\\d{1,2}-\\d{1,2})?(?<to> /to.*?)?(?<toTime>\\d{4}-\\d{1,2}-\\d{1,2})?)?$");
     }
+    // CHECKSTYLE.ON: LineLength
 
     @Override
     protected void validate(Matcher matcher)

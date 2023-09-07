@@ -14,7 +14,7 @@ public class UnmarkCommand implements Command {
 
     /**
      * Creates a UnmarkCommand object.
-     * 
+     *
      * @param matcher The matcher object that contains the user input matched to the unmark regex.
      */
     public UnmarkCommand(Matcher matcher) {

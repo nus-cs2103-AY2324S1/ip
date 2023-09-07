@@ -14,7 +14,7 @@ public class DeleteCommand implements Command {
 
     /**
      * Creates a DeleteCommand object.
-     * 
+     *
      * @param matcher The matcher object that contains the user input matched to the delete regex.
      */
     public DeleteCommand(Matcher matcher) {

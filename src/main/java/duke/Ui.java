@@ -22,7 +22,7 @@ public class Ui {
 
     /**
      * Prints a message with a tab in front.
-     * 
+     *
      * @param s The message to be printed.
      */
     public static void printWithTab(String s) {
@@ -48,7 +48,7 @@ public class Ui {
 
     /**
      * Prints a message with a line above and below.
-     * 
+     *
      * @param s The message to be printed.
      */
     public static void printInLine(String s) {

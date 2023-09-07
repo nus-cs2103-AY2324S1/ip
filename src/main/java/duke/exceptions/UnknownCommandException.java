@@ -6,7 +6,7 @@ package duke.exceptions;
 public class UnknownCommandException extends Exception {
     /**
      * Creates an UnknownCommandException object.
-     * 
+     *
      * @param message The description of the exception.
      */
     public UnknownCommandException(String message) {

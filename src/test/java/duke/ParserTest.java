@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 
 import duke.commands.Command;
-import duke.commands.TaskCommands.DeadlineCommand;
-import duke.commands.TaskCommands.TodoCommand;
+import duke.commands.taskcommands.DeadlineCommand;
+import duke.commands.taskcommands.TodoCommand;
 import duke.exceptions.IncorrectCommandFormatException;
 import duke.exceptions.InvalidIndexException;
 import duke.exceptions.InvalidTimeFormatException;
@@ -70,14 +70,14 @@ public class ParserTest {
     }
 
     @Test
-    public void testDispatch_deadlineCommand_fail_unknownCommand_exceptionThrown() {
+    public void deadlineCommand_unknownCommand_exceptionThrown() {
         Parser parser = new Parser();
         String input = "Deadline read book /by 2021-01-01";
         assertThrows(UnknownCommandException.class, () -> parser.dispatch(input));
     }
 
     @Test
-    public void testDispatch_deadlineCommand_fail_incorrectFormat_exceptionThrown() {
+    public void deadlineCommand_incorrectFormat_exceptionThrown() {
         Parser parser = new Parser();
         String input = "deadline read book 2021-01-01";
         assertThrows(IncorrectCommandFormatException.class, () -> parser.dispatch(input));

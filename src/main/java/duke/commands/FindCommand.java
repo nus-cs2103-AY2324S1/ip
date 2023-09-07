@@ -14,7 +14,7 @@ public class FindCommand implements Command {
 
     /**
      * Constructs a FindCommand object.
-     * 
+     *
      * @param keyword The keyword to search for.
      */
     public FindCommand(String keyword) {

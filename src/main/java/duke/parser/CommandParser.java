@@ -3,12 +3,12 @@ package duke.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import duke.exceptions.MissingDescriptionException;
-import duke.exceptions.UnknownCommandException;
 import duke.commands.Command;
 import duke.exceptions.IncorrectCommandFormatException;
 import duke.exceptions.InvalidIndexException;
 import duke.exceptions.InvalidTimeFormatException;
+import duke.exceptions.MissingDescriptionException;
+import duke.exceptions.UnknownCommandException;
 
 /**
  * Represents a parser that parses user input into a Command object.
@@ -25,7 +25,7 @@ public abstract class CommandParser {
 
     /**
      * Creates a CommandParser object.
-     * 
+     *
      * @param commandName The name of the command.
      * @param regexPattern The regex pattern that the user input must match.
      */
@@ -36,7 +36,7 @@ public abstract class CommandParser {
 
     /**
      * Parses the user input into a Command object.
-     * 
+     *
      * @param input The user input.
      * @return The Command object.
      * @throws UnknownCommandException If the command is unknown.
@@ -58,7 +58,7 @@ public abstract class CommandParser {
 
     /**
      * Validates the user input.
-     * 
+     *
      * @param matcher The matcher object that contains the user input.
      * @throws UnknownCommandException If the command is unknown.
      * @throws MissingDescriptionException If the description is missing.
@@ -68,10 +68,10 @@ public abstract class CommandParser {
      */
     protected abstract void validate(Matcher matcher) throws UnknownCommandException, MissingDescriptionException,
             IncorrectCommandFormatException, InvalidIndexException, InvalidTimeFormatException;
-    
+
     /**
      * Creates a Command object from the user input matched to its regex.
-     * 
+     *
      * @param matcher The matcher object that contains the user input.
      * @return The Command object.
      * @throws MissingDescriptionException If the description is missing.

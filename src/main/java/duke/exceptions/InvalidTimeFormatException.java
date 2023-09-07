@@ -8,7 +8,7 @@ package duke.exceptions;
 public class InvalidTimeFormatException extends Exception {
     /**
      * Creates an InvalidTimeFormatException object.
-     * 
+     *
      * @param message The description of the exception.
      */
     public InvalidTimeFormatException(String message) {

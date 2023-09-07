@@ -19,7 +19,7 @@ import duke.tasks.Todo;
  * It contains functionality to manipulate this list (ie, marking, unmarking,
  * adding, deleting tasks)
  * It also handles saving/loading the list of tasks to/from a file.
- * 
+ *
  * Notes: Combining Task and Storage is a solution adopted from the discussion
  * here https://github.com/nus-cs2103-AY2324S1/forum/issues/30
  */
@@ -28,7 +28,7 @@ public class TaskListStorage {
      * The list of tasks.
      */
     private final ArrayList<Task> taskList = new ArrayList<>();
-    
+
     /**
      * The file object to save/read the list of tasks to/from.
      */
@@ -42,7 +42,7 @@ public class TaskListStorage {
     /**
      * Creates a TaskListStorage object.
      * This also loads the list of tasks from the file.
-     * 
+     *
      * @param filepath The filepath of the file to save the list of tasks to.
      */
     public TaskListStorage(String filepath) {
@@ -57,7 +57,8 @@ public class TaskListStorage {
             try {
                 this.file.createNewFile();
             } catch (java.io.IOException e) {
-                String errorString = "Error creating file! Make sure you have the correct permissions.\nOtherwise tasks will not be saved.\n"
+                String errorString = "Error creating file! Make sure you have the correct permissions.\n"
+                        + "Otherwise tasks will not be saved.\n"
                         + e.getMessage();
                 Ui.printInLine(errorString);
             }
@@ -78,7 +79,7 @@ public class TaskListStorage {
             String[] taskInfo = line.split(" \\| ");
             String taskType = taskInfo[0];
             boolean isDone = taskInfo[1].equals("1");
-            String taskDescription = taskInfo[2].replace("\\|", "|");  // Unescape
+            String taskDescription = taskInfo[2].replace("\\|", "|"); //Unescape
             try {
                 switch (taskType) {
                 case "T":
@@ -109,7 +110,8 @@ public class TaskListStorage {
             try {
                 this.file.createNewFile();
             } catch (java.io.IOException e) {
-                String errorString = "Error creating file! Make sure you have the correct permissions.\nOtherwise tasks will not be saved.\n"
+                String errorString = "Error creating file! Make sure you have the correct permissions.\n"
+                        + "Otherwise tasks will not be saved.\n"
                         + e.getMessage();
                 Ui.printInLine(errorString);
             }
@@ -139,7 +141,7 @@ public class TaskListStorage {
 
     /**
      * Marks a task as done.
-     * 
+     *
      * @param index The index of the task to mark as done.
      * @throws InvalidIndexException If the index is invalid.
      */
@@ -157,7 +159,7 @@ public class TaskListStorage {
 
     /**
      * Marks a task as undone.
-     * 
+     *
      * @param index The index of the task to mark as undone.
      * @throws InvalidIndexException If the index is invalid.
      */
@@ -173,9 +175,9 @@ public class TaskListStorage {
         Ui.printInLine(outputString);
     }
 
-    /** 
+    /**
      * Adds a todo task to the list of tasks.
-     * 
+     *
      * @param todo The todo task to add.
      * @throws MissingDescriptionException If the description is missing.
      */
@@ -189,7 +191,7 @@ public class TaskListStorage {
 
     /**
      * Adds a deadline task to the list of tasks.
-     * 
+     *
      * @param deadline The deadline task to add.
      * @throws MissingDescriptionException If the description is missing.
      * @throws IncorrectCommandFormatException If the command is in the wrong format.
@@ -204,7 +206,7 @@ public class TaskListStorage {
 
     /**
      * Adds an event task to the list of tasks.
-     * 
+     *
      * @param event The event task to add.
      * @throws MissingDescriptionException If the description is missing.
      * @throws IncorrectCommandFormatException If the command is in the wrong format.
@@ -219,7 +221,7 @@ public class TaskListStorage {
 
     /**
      * Deletes a task from the list of tasks.
-     * 
+     *
      * @param index The index of the task to delete.
      * @throws InvalidIndexException If the index is invalid.
      */
@@ -252,5 +254,5 @@ public class TaskListStorage {
             outputString += (i + 1) + ". " + matchingTasks.get(i) + "\n";
         }
         Ui.printInLine(outputString);
-    } 
+    }
 }
