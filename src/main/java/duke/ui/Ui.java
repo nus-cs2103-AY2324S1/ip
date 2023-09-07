@@ -14,17 +14,19 @@ public class Ui {
      * @param tasks TaskList
      * @param task Task to be added
      */
-    public void addTask(TaskList tasks, Task task) {
-        print("Got it. I've added this task:");
-        print(String.format("  %s\n", task.toString()));
-        print(String.format("Now you have %d tasks in the list.", tasks.size()));
+    public String addTask(TaskList tasks, Task task) {
+        String res = "";
+        res += "Got it. I've added this task:\n";
+        res += String.format("  %s\n", task.toString());
+        res += String.format("Now you have %d tasks in the list.", tasks.size());
+        return res;
     }
 
     /**
      * Displays bye message.
      */
-    public void bye() {
-        print("Bye. Hope to see you again soon!");
+    public String bye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -33,16 +35,17 @@ public class Ui {
      * @param date Date given by user
      * @throws DukeException if invalid date
      */
-    public void date(TaskList tasks, String date) throws DukeException {
+    public String date(TaskList tasks, String date) throws DukeException {
         String dmy = Parser.convertToDmy(date);
         if (tasks.isEmpty()) {
-            print(String.format("There is no task on %s.", dmy));
-            return;
+            return String.format("There is no task on %s.\n", dmy);
         }
-        print(String.format("Here are the tasks on %s:", dmy));
+        String res = "";
+        res += String.format("Here are the tasks on %s:\n", dmy);
         for (int i = 0; i < tasks.size(); i++) {
-            print(String.format("%d.%s", i + 1, tasks.get(i).toString()));
+            res += String.format("%d.%s\n", i + 1, tasks.get(i).toString());
         }
+        return res.substring(0, res.length() - 1);
     }
 
     /**
@@ -50,10 +53,12 @@ public class Ui {
      * @param tasks TaskList
      * @param task task to be removed
      */
-    public void deleteTask(TaskList tasks, Task task) {
-        print("Noted. I've removed this task:");
-        print(String.format("  %s\n", task.toString()));
-        print(String.format("Now you have %d tasks in the list.", tasks.size()));
+    public String deleteTask(TaskList tasks, Task task) {
+        String res = "";
+        res += "Noted. I've removed this task:\n";
+        res += String.format("  %s\n", task.toString());
+        res += String.format("Now you have %d tasks in the list.", tasks.size());
+        return res;
     }
 
     /**
@@ -61,37 +66,39 @@ public class Ui {
      * @param tasks TaskList
      * @param keyword String of specified keyword
      */
-    public void find(TaskList tasks, String keyword) {
+    public String find(TaskList tasks, String keyword) {
         if (tasks.isEmpty()) {
-            print("There is no matching task with: " + keyword);
-            return;
+            return "There is no matching task with: " + keyword + "\n";
         }
-        print("Here are the matching tasks in your list:");
+        String res = "";
+        res += "Here are the matching tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
-            print(String.format("%d.%s", i + 1, tasks.get(i).toString()));
+            res += String.format("%d.%s\n", i + 1, tasks.get(i).toString());
         }
+        return res.substring(0, res.length() - 1);
     }
 
     /**
      * Displays hello message.
      */
-    public void hello() {
-        print("Hello! I'm AdaBot.\nWhat do you want to do today?");
+    public String hello() {
+        return "Hello! I'm AdaBot.\nWhat do you want to do today?";
     }
 
     /**
      * Displays all tasks in TaskList.
      * @param tasks TaskList
      */
-    public void list(TaskList tasks) {
+    public String list(TaskList tasks) {
         if (tasks.size() == 0) {
-            print("There is no task in your list.");
-            return;
+            return "There is no task in your list.";
         }
-        print("Here are the tasks in your list:");
+        String res = "";
+        res += "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
-            print(String.format("%d.%s", i + 1, tasks.get(i).toString()));
+            res += String.format("%d.%s\n", i + 1, tasks.get(i).toString());
         }
+        return res.substring(0, res.length() - 1);
     }
 
     /**
@@ -99,9 +106,11 @@ public class Ui {
      * @param tasks TaskList
      * @param task task to be marked
      */
-    public void mark(TaskList tasks, Task task) {
-        print("Nice! I've marked this task as done:");
-        print("  " + task.toString());
+    public String mark(TaskList tasks, Task task) {
+        String res = "";
+        res += "Nice! I've marked this task as done:\n";
+        res += "  " + task.toString();
+        return res;
     }
 
     public void print(String s) {
@@ -117,8 +126,10 @@ public class Ui {
      * @param tasks TaskList
      * @param task task to be unmarked
      */
-    public void unmark(TaskList tasks, Task task) {
-        print("OK, I've marked this task as not done yet:");
-        print("  " + task.toString());
+    public String unmark(TaskList tasks, Task task) {
+        String res = "";
+        res += "OK, I've marked this task as not done yet:\n";
+        res += "  " + task.toString();
+        return res;
     }
 }

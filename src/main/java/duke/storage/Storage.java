@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -103,5 +104,20 @@ public class Storage {
             }
         }
         writeToFile(data);
+    }
+
+    /**
+     * Converts String paths to URL
+     * @param more directories
+     * @return URL
+     */
+    public static URL toUrl(String... more) {
+        try {
+            String home = System.getProperty("user.dir");
+            Path path = Paths.get(home, more);
+            return path.toUri().toURL();
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
