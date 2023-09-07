@@ -3,15 +3,18 @@ package taskmanager;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * An Event task type
+ */
 public class Event extends Task {
 
+    private static final DateTimeFormatter DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern("dd MMM yyyy h:mma");
     private String taskDesc; //task description
     private String fromDateStr; //start date and time in String
     private String toDateStr; //end date and time in String
     private LocalDateTime fromDate; //start date and time in LocalDateTime
     private LocalDateTime toDate; // end date and time in LocalDateTime
-    private static final DateTimeFormatter DATE_TIME_FORMATTER =
-            DateTimeFormatter.ofPattern("dd MMM yyyy h:mma");
 
     /**
      * Constructs a new Event task with the specified user input.
@@ -38,7 +41,7 @@ public class Event extends Task {
      */
     public Event(String completion, String taskDesc, String fromDateStr, String toDateStr) {
         try {
-            if (completion.equals("1")){
+            if (completion.equals("1")) {
                 this.taskDesc = taskDesc.trim();
                 this.fromDateStr = fromDateStr.trim();
                 this.toDateStr = toDateStr.trim();
@@ -126,7 +129,7 @@ public class Event extends Task {
             return false;
         } else if (!fromDateStr.equals(event.fromDateStr)) {
             return false;
-        } else{
+        } else {
             return toDateStr.equals(event.toDateStr);
         }
     }
@@ -139,12 +142,11 @@ public class Event extends Task {
      */
     public boolean isMatch(String keyword) {
         String[] split = taskDesc.split(" ");
-        for(int i = 0; i < split.length; i ++) {
+        for (int i = 0; i < split.length; i++) {
             if (keyword.equals(split[i])) {
                 return true;
             }
         }
         return false;
     }
-
 }

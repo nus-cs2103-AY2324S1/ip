@@ -12,10 +12,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import taskmanager.Task;
-import taskmanager.Event;
-import taskmanager.ToDo;
 import taskmanager.Deadline;
+import taskmanager.Event;
+import taskmanager.Task;
+import taskmanager.ToDo;
+
 
 
 /**
@@ -71,9 +72,12 @@ public class FileHandler {
                     try {
                         String[] split = line.split(" \\| ");
                         if (split.length > 3) {
-                            throw new IndexOutOfBoundsException("There is an error in your Todos content format!");
-                        } if (split.length < 3) {
-                            throw new IndexOutOfBoundsException("There is missing info for your Todos content in the file!");
+                            throw new IndexOutOfBoundsException(
+                                    "There is an error in your Todos content format!");
+                        }
+                        if (split.length < 3) {
+                            throw new IndexOutOfBoundsException(
+                                    "There is missing info for your Todos content in the file!");
                         }
                         ToDo newtodo = new ToDo(split[2], split[1]);
                         task.add(newtodo);
@@ -85,9 +89,12 @@ public class FileHandler {
                     try {
                         String[] split = line.split(" \\| ");
                         if (split.length > 4) {
-                            throw new IndexOutOfBoundsException("There is an error in your Deadlines content format!");
-                        } if (split.length < 4) {
-                            throw new IndexOutOfBoundsException("There is missing info for your Deadlines content in the file!");
+                            throw new IndexOutOfBoundsException(
+                                    "There is an error in your Deadlines content format!");
+                        }
+                        if (split.length < 4) {
+                            throw new IndexOutOfBoundsException(
+                                    "There is missing info for your Deadlines content in the file!");
                         }
                         Deadline newdeadline = new Deadline(split[1], split[2], split[3]);
                         task.add(newdeadline);
@@ -99,9 +106,12 @@ public class FileHandler {
                     try {
                         String[] split = line.split(" \\| ");
                         if (split.length > 5) {
-                            throw new IndexOutOfBoundsException("There is an error in your Events content format!");
-                        } if (split.length < 5) {
-                            throw new IndexOutOfBoundsException("There is missing info for your Events content in the file!");
+                            throw new IndexOutOfBoundsException(
+                                    "There is an error in your Events content format!");
+                        }
+                        if (split.length < 5) {
+                            throw new IndexOutOfBoundsException(
+                                    "There is missing info for your Events content in the file!");
                         }
                         Event newevent = new Event(split[1], split[2], split[3], split[4]);
                         task.add(newevent);
@@ -135,3 +145,4 @@ public class FileHandler {
         }
     }
 }
+

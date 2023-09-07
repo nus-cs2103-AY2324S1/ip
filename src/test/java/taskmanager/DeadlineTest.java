@@ -1,14 +1,16 @@
 package taskmanager;
 
-import parser.DateTime;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import parser.DateTime;
 
 class DeadlineTest {
 
     @Test
-    void testEvents()  {
+    void testEvents() {
 
         DateTime dateTime = new DateTime();
         String formattedDate = dateTime.formatDateTime("23/08/2023 1800");
@@ -29,9 +31,5 @@ class DeadlineTest {
         assertFalse(newdeadline.equals(newdeadline2));
         assertFalse(newdeadline.equals(newdeadline3));
         assertTrue(newdeadline.equals(newdeadline4));
-
-
-
     }
-
 }

@@ -1,19 +1,19 @@
 package command;
 
-import ui.Ui;
-
-import storage.TaskList;
 import storage.FileHandler;
+import storage.TaskList;
+
+import ui.Ui;
 
 /**
  * An error command.
  */
-public class ErrorCommand extends Command{
+public class ErrorCommand extends Command {
 
     /**
      * Constructs an `ErrorCommand` object.
      */
-    public ErrorCommand(){
+    public ErrorCommand() {
     }
 
     /**
@@ -25,7 +25,6 @@ public class ErrorCommand extends Command{
      */
     @Override
     public void execute(TaskList t, Ui ui, FileHandler f) {
-
     }
 
     /**

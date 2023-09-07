@@ -1,14 +1,19 @@
 package storage;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
 import parser.DateTime;
+
 import taskmanager.Deadline;
 import taskmanager.Event;
 import taskmanager.Task;
 import taskmanager.ToDo;
-import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class TaskListTest {
 
@@ -77,6 +82,5 @@ class TaskListTest {
         assertFalse(tasks1.taskListEqual(tasks4));
         assertTrue(tasks1.taskListEqual(tasks5));
         assertFalse(tasks1.taskListEqual(tasks6));
-
     }
 }

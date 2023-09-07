@@ -1,19 +1,19 @@
 package command;
 
-import ui.Ui;
-
-import storage.TaskList;
 import storage.FileHandler;
+import storage.TaskList;
+
+import ui.Ui;
 
 /**
  * A command to exit the application.
  */
-public class ByeCommand extends Command{
+public class ByeCommand extends Command {
 
     /**
      * Constructs a `ByeCommand` object.
      */
-    public ByeCommand(){
+    public ByeCommand() {
     }
 
     /**

@@ -1,21 +1,21 @@
 package command;
 
-import ui.Ui;
-
-import storage.TaskList;
 import storage.FileHandler;
+import storage.TaskList;
+
+import ui.Ui;
 
 /**
  * A find command to query task with a keyword.
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
 
-    String keyword;
+    private String keyword;
 
     /**
      * Constructs an `FindCommand` object.
      */
-    public FindCommand(String keyword){
+    public FindCommand(String keyword) {
         this.keyword = keyword;
     }
 

@@ -1,16 +1,16 @@
 package command;
 
-import ui.Ui;
-
-import storage.TaskList;
 import storage.FileHandler;
+import storage.TaskList;
 
 import taskmanager.Task;
+
+import ui.Ui;
 
 /**
  * A command to delete a task from the task list.
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
 
     private int index;
 

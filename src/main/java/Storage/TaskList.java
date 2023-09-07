@@ -1,8 +1,8 @@
 package storage;
 
-import taskmanager.Task;
-
 import java.util.ArrayList;
+
+import taskmanager.Task;
 
 /**
  * The `TaskList` class behave like an ArrayList
@@ -56,7 +56,9 @@ public class TaskList {
      *
      * @param i The index of the task to be removed.
      */
-    public void remove(int i) {this.task.remove(i);}
+    public void remove(int i) {
+        this.task.remove(i);
+    }
 
     /**
      * Returns the ArrayList of tasks in the task list.
@@ -97,10 +99,14 @@ public class TaskList {
         return true;
     }
 
+    /**
+     * Displays all the tasks in the list
+     *
+     */
     public void display() {
-        for (int i = 0 ; i < task.size(); i ++) {
+        for (int i = 0; i < task.size(); i++) {
             int j = i + 1;
-            System.out.println("     " + j + ". " +  task.get(i).toString());
+            System.out.println("     " + j + ". " + task.get(i).toString());
         }
     }
 
@@ -113,7 +119,7 @@ public class TaskList {
     public TaskList findKeyword(String str) {
         TaskList matchedList = new TaskList();
 
-        for (int i = 0; i < task.size(); i ++) {
+        for (int i = 0; i < task.size(); i++) {
             if (this.task.get(i).isMatch(str)) {
                 matchedList.add(this.task.get(i));
             }

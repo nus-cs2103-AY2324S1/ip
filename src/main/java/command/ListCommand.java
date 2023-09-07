@@ -1,14 +1,14 @@
 package command;
 
-import ui.Ui;
-
-import storage.TaskList;
 import storage.FileHandler;
+import storage.TaskList;
+
+import ui.Ui;
 
 /**
  * A command to list the tasks.
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
 
     /**
      * Constructs a `ListCommand` object.
