@@ -111,16 +111,16 @@ public class TaskList {
      * @param searchTerm the term to search for in the task list.
      */
     public static String searchFor(String searchTerm) {
-        String searchResult = "        ____________________________________________________________"
-                + "\n        Here are the matching tasks in your list: (≧▽≦)";
+        String searchResult = "_____________________________________"
+                + "\nHere are the matching tasks in your list: (≧▽≦)\n";
         List<Task> result = toDo.stream()
                 .filter(task -> task.checkTerm(searchTerm))
                 .collect(Collectors.toList());
         for (int i = 0; i < result.size(); i++) {
             Task currTask = result.get(i);
             String description = currTask.getDescription();
-            searchResult += "        " + (i + 1) + "." + description;
+            searchResult += (i + 1) + "." + description + "\n\n";
         }
-        return searchResult + "        ____________________________________________________________";
+        return searchResult + "_____________________________________";
     }
 }

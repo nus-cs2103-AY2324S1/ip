@@ -2,7 +2,6 @@ package duke;
 
 import javafx.scene.image.Image;
 
-
 /**
  * Represents the Duke chatbot.
  */
@@ -14,6 +13,10 @@ public class Duke {
     private Image user = new Image(this.getClass().getResourceAsStream("/images/batblob1.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/batblob2.png"));
 
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
     String getResponse(String input) {
         try {
             return dukeReply(input);

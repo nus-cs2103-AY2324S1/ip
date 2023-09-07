@@ -27,7 +27,7 @@ public class Ui {
      * Displays all current tasks in the task list.
      */
     public static String listTasks() {
-        String tasks = lines + "\nHere are the tasks in your list:\n";
+        String tasks = lines + "\nHere are the tasks in your list:\n\n";
         tasks += TaskList.listOut();
         return tasks + lines;
     }
@@ -36,7 +36,7 @@ public class Ui {
      * Displays message when task if successfully marked.
      * @param description the description of the task marked.
      */
-    public static String  markMsg(String description) {
+    public static String markMsg(String description) {
         return lines + "\nNice! I've marked this task as done: (≧▽≦)\n"
                 + description + "\n"
                 + lines;
@@ -60,7 +60,7 @@ public class Ui {
      * @param size the updated number of tasks in the task list.
      */
     public static String successfulAdd(String type, String description, Integer size) {
-        return lines + "\nGot it. I've added this new " + type + ":\n            "
+        return lines + "\nGot it. I've added this new " + type + ":\n"
                 + description + "\nNow you have " + size + " tasks in the list.\n" + lines;
     }
 
@@ -70,7 +70,7 @@ public class Ui {
      * @param size the updated number of tasks in the task list.
      */
     public static String successfulDelete(String description, Integer size) {
-        return lines + "\nNoted, I've removed this task:\n              "
+        return lines + "\nNoted, I've removed this task:\n"
                 + description + "\nNow you have " + size + " tasks in the list"
                 + "\n" + lines;
     }
