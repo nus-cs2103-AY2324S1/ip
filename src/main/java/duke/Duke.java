@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * Main class for the Duke application.
+ * duke.Main class for the Duke application.
  * This class handles user interactions and manages tasks using the Archive class.
  */
 public class Duke extends Application{
@@ -96,11 +96,11 @@ public class Duke extends Application{
         });
 
         sendButton.setOnMouseClicked((event) -> {
-            handleUserInput(stage);
+            handleUserInput();
         });
 
         userInput.setOnAction((event) -> {
-            handleUserInput(stage);
+            handleUserInput();
         });
     }
 
@@ -117,28 +117,25 @@ public class Duke extends Application{
         return textToAdd;
     }
 
-    public static DialogBox getUserDialog(Label l, ImageView iv) {
-        return new DialogBox(l, iv);
-    }
-
-    public static DialogBox getDukeDialog(Label l, ImageView iv) {
-        var db = new DialogBox(l, iv);
-        db.flip();
-        return db;
-    }
     /**
      * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
-    private void handleUserInput(Stage stage) {
-        Label userText = new Label(userInput.getText());
+    private void handleUserInput() {
         String input = userInput.getText();
+        String dukeProcessedText = getResponse(input);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userInput.getText(), userImage),
+                DialogBox.getDukeDialog(dukeProcessedText, dukeImage)
+        );
+        userInput.clear();
+    }
+
+    public String getResponse(String input) {
         String dukeProcessedText;
         String[] parsedText = Parser.parse(input, tasks);
         switch(parsedText[0]) {
-            case "exit" :
-                stage.close();
             case "mark" :
                 dukeProcessedText = tasks.markTask(Integer.parseInt(parsedText[1]));
                 break;
@@ -175,12 +172,7 @@ public class Duke extends Application{
                 break;
         }
         storage.save(tasks);
-        Label dukeText = new Label(dukeProcessedText);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(userImage)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(dukeImage))
-        );
-        userInput.clear();
+        return dukeProcessedText;
     }
 
     /**
