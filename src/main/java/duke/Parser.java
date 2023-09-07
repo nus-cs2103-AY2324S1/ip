@@ -38,9 +38,9 @@ public class Parser {
                         + "and todo followed by the task please la dei!\n");
             }
         } catch (InvalidInputExpression e) {
-            System.out.println(e.getMessage());
+            throw new InvalidInputExpression("Invalid input!! "
+                    + "Specify commands as list, mark, unmark, or deadline, event "
+                    + "and todo followed by the task please la dei!\n");
         }
-
-        return new String[]{""};
     }
 }

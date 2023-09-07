@@ -3,6 +3,21 @@ package duke;
 import java.io.IOException;
 import java.util.Scanner;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import static javafx.application.Platform.exit;
+
 /**
  * Main to class to handle duke operations
  */
@@ -12,21 +27,45 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
      * Constructor
-     * @param filePath path to file
      */
 
-    public Duke(String filePath) {
+    public Duke() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage();
         parser = new Parser();
         try {
             tasks = new TaskList(storage.handleReadAllTasksFromFile());
         } catch (DukeException | IOException e) {
             ui.showLoadingError(e);
             tasks = new TaskList();
+        }
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    String getResponse(String input) {
+        if (input.equals("bye")) {
+            return input;
+        }
+        try {
+            String[] commandType = parser.handleUserInput(input);
+            String str = handleCommand(commandType[0], commandType[1]);
+            storage.handleChangesInFile(tasks.getTasks());
+            return str;
+        } catch (Exception e) {
+            return e.getMessage();
         }
     }
 
@@ -64,6 +103,10 @@ public class Duke {
      */
 
     public String handleCommand(String command, String input) throws DukeException, IOException {
+        if (input.equals("")) {
+            throw new DukeException("Invalid Command!");
+        }
+
         switch (command) {
         case "mark":
             return tasks.markTask(input);
@@ -82,11 +125,7 @@ public class Duke {
         case "find":
             return tasks.handleFindTask(input);
         default:
+            throw new DukeException("Invalid Command!");
         }
-        return "";
-    }
-
-    public static void main(String[] args) {
-        new Duke("./src/data/duke.txt").run();
     }
 }

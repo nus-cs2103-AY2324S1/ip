@@ -32,8 +32,8 @@ public class Ui {
      *
      * @param toPrint The string to be printed.
      */
-    public void print(String toPrint) {
-        System.out.println(divider + toPrint + "\n" + divider);
+    public String print(String toPrint) {
+        return divider + toPrint + "\n" + divider;
     }
 
     /**

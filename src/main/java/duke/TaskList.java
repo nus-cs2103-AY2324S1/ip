@@ -294,7 +294,7 @@ public class TaskList {
                 task += taskArray[i] + " ";
             }
         } else if (from.equals("file")) {
-            String [] parts = input.split("by: ");
+            String [] parts = input.split("\\(by: ");
             String[] taskArray = parts[0].split(" ");
             String[] deadlineInfo = parts[1].split(" ");
 
@@ -390,7 +390,7 @@ public class TaskList {
 
         if (from.equals("file")) {
 
-            String[] parts = input.split("from: ");
+            String[] parts = input.split("\\(from: ");
             String[] taskArray = parts[0].split(" ");
             String[] taskInfo = parts[1].split("to: ");
 
