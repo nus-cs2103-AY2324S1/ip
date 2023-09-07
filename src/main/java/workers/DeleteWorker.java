@@ -1,10 +1,13 @@
-package Workers;
-
-import Tasks.Task;
-import duke.IrisException;
+package workers;
 
 import java.util.ArrayList;
 
+import duke.IrisException;
+import tasks.Task;
+
+/**
+ * A specialised worker class that does the delete command.
+ */
 public class DeleteWorker extends TaskWorker {
     /**
      * This method deletes the Task at the specified index.
@@ -19,8 +22,9 @@ public class DeleteWorker extends TaskWorker {
                 throw new IrisException("☹ OOPS!!! Unable to delete non-existent task");
             }
             Task removedTask = taskList.remove(index);
-            return "Noted. I've removed this task:\n" + removedTask +
-                    "\nNow you have " + taskList.size() + " tasks in the list.";
+            return "Noted. I've removed this task:\n" + removedTask
+                    + "\nNow you have " + taskList.size()
+                    + " tasks in the list.";
         } catch (IrisException e) {
             return e.toString();
         }

@@ -1,9 +1,12 @@
-package Workers;
-
-import Tasks.Task;
+package workers;
 
 import java.util.ArrayList;
 
+import tasks.Task;
+
+/**
+ * A specialised worker class that does the mark command.
+ */
 public class MarkWorker extends TaskWorker {
     /**
      * This method marks the Task at the specified index as done.

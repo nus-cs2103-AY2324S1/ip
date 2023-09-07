@@ -1,9 +1,12 @@
-package Workers;
-
-import Tasks.Task;
+package workers;
 
 import java.util.ArrayList;
 
+import tasks.Task;
+
+/**
+ * A specialised worker class that does the list command.
+ */
 public class ListWorker extends TaskWorker {
     /**
      * This method prints out the Tasks that are inside the ArrayList.

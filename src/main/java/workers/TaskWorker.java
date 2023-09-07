@@ -1,12 +1,8 @@
-package Workers;
-
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.Todo;
-import duke.IrisException;
+package workers;
 
 import java.util.ArrayList;
+
+import tasks.Task;
 
 /**
  * This class handles any actions/commands that are to be done to the Task objects.

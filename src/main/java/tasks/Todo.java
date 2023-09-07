@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 /**
  * This class represents a task that only has a description.
@@ -15,4 +15,5 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
 }

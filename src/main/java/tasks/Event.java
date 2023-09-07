@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,6 +11,12 @@ public class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;
 
+    /**
+     * Constructor of Event class.
+     * @param description
+     * @param from
+     * @param to
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.from = LocalDate.parse(from);

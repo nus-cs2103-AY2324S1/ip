@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -58,5 +58,4 @@ public class DialogBox extends HBox {
         db.flip();
         return db;
     }
-
 }

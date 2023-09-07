@@ -1,9 +1,10 @@
 package duke;
 
-import Tasks.Deadline;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import tasks.Deadline;
 
 public class DeadlineTest {
     @Test

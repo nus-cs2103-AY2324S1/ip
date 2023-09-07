@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 /**
  * This class handles the UI on the terminal. Obsolete now that we have the GUI.

@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 /**
  * This class is the parent to all the types of Tasks.
@@ -7,6 +7,10 @@ public class Task {
     protected String description;
     protected boolean done;
 
+    /**
+     * Constructor of Task class.
+     * @param description
+     */
     public Task(String description) {
         this.description = description;
         this.done = false;
@@ -55,3 +59,4 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
     }
 }
+

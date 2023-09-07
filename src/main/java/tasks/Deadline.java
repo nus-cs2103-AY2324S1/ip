@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,6 +11,11 @@ public class Deadline extends Task {
 
     protected LocalDate by;
 
+    /**
+     * Constructor of Deadline class.
+     * @param description
+     * @param by
+     */
     public Deadline(String description, String by) {
         super(description);
         this.by = LocalDate.parse(by);

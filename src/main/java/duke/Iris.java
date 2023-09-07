@@ -1,8 +1,8 @@
 package duke;
 
-import Tasks.Task;
-
 import java.util.ArrayList;
+
+import tasks.Task;
 
 /**
  * Where the chatBot begins and ends. Uses has-a relationship
@@ -23,5 +23,4 @@ public class Iris {
         storage.updateTasksFile(taskList);
         return output;
     }
-
 }

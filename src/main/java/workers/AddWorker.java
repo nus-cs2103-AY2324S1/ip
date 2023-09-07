@@ -1,13 +1,16 @@
-package Workers;
-
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.Todo;
-import duke.IrisException;
+package workers;
 
 import java.util.ArrayList;
 
+import duke.IrisException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+
+/**
+ * A specialised worker class that does the add command.
+ */
 public class AddWorker extends TaskWorker {
     /**
      * This method adds a Task to the given ArrayList.
@@ -37,8 +40,9 @@ public class AddWorker extends TaskWorker {
             }
 
             taskList.add(newTask);
-            return "Got it. I've added this task:\n" + newTask +
-                    "\nNow you have " + taskList.size() + " tasks in the list.";
+            return "Got it. I've added this task:\n" + newTask
+                    + "\nNow you have " + taskList.size()
+                    + " tasks in the list.";
         } catch (IrisException e) {
             return e.getMessage();
         }
