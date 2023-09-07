@@ -15,7 +15,7 @@ import java.util.Scanner;
  * @author Freddy Chen You Ren
  */
 public class Ui {
-    public String HORIZONTAL_LINE = "    ____________________________________________________________"; //60 underscores.
+    public String HORIZONTAL_LINE = "____________________________________________________________"; //60 underscores.
     private Scanner scanner;
 
     /**
@@ -25,19 +25,26 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
-    protected void printHorizontalLine() {
-        System.out.println(HORIZONTAL_LINE);
+    protected String printHorizontalLine() {
+
+        return HORIZONTAL_LINE;
     }
 
     /**
      * Displays a greeting message to the user.
      */
-    public void greet() {
-        System.out.println("\nStarting SeeWhyAre Bot...");
-        printHorizontalLine();
-        System.out.println("    Hello! I'm SeeWhyAre Bot!");
-        System.out.println("    What can I do for you?");
-        printHorizontalLine();
+    public String greet() {
+        StringBuilder message = new StringBuilder("\nStarting SeeWhyAre Bot...\n");
+        message.append(printHorizontalLine()).append("\nHello! I'm SeeWhyAre Bot!")
+                .append("\nWhat can I do for you?")
+                .append(printHorizontalLine());
+        return message.toString();
+
+//        System.out.println("\nStarting SeeWhyAre Bot...");
+//        printHorizontalLine();
+//        System.out.println("    Hello! I'm SeeWhyAre Bot!");
+//        System.out.println("    What can I do for you?");
+//        printHorizontalLine();
     }
 
     /**
@@ -53,11 +60,18 @@ public class Ui {
     /**
      * Displays a farewell message to the user and closes the scanner.
      */
-    protected void farewell() {
-        printHorizontalLine();
-        System.out.println("    You are closing the SeeWhyAre chat bot.");
-        System.out.println("    Bye bye. Please use me again soon!");
-        printHorizontalLine();
+    protected String farewell() {
+        StringBuilder message = new StringBuilder(printHorizontalLine());
+        message.append("\nYou are closing the SeeWhyAre chat bot.")
+                .append("\nBye bye. Please use me again soon!")
+                        .append(printHorizontalLine());
         scanner.close();
+        return message.toString();
+
+//        printHorizontalLine();
+//        System.out.println("    You are closing the SeeWhyAre chat bot.");
+//        System.out.println("    Bye bye. Please use me again soon!");
+//        printHorizontalLine();
+//        scanner.close();
     }
 }

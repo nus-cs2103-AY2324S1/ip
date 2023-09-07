@@ -53,9 +53,10 @@ public class Deadline extends Task {
      * @param userInput A valid user input for a Deadline task.
      * @throws IOException If there is an error with the storage.
      */
-    public static void handleDeadlineTask(String userInput) throws IOException {
+    public static String handleDeadlineTask(String userInput) throws IOException {
         String[] details = userInput.split("/by");
         //details[0] contains "deadline" plus duke.task description, need to erase "deadline". details[1] contains deadline timing
+        StringBuilder message = new StringBuilder();
         if (details.length == 2) {
             String taskDescription = details[0].trim().replaceFirst("deadline", "").trim();
             String deadline = details[1].trim();
@@ -67,25 +68,29 @@ public class Deadline extends Task {
                     Storage.saveTask(deadlineTask, true);
                     Storage.listOfTasks.add(deadlineTask); //duke.task.Deadline <: duke.task.Task
 
-                    //Print details in the console
-                    System.out.println(Duke.HORIZONTAL_LINE);
-                    System.out.println("     Got it. I've added this Task:");
-                    System.out.printf("       %s\n", deadlineTask.toString());
-                    System.out.printf("     Now you have %d task(s) in the list.\n", Storage.listOfTasks.size());
-                    System.out.println(Duke.HORIZONTAL_LINE);
+                    //Print details for the user
+                    message.append("Got it, I've added this Task:\n");
+                    message.append(String.format(" %s\n", deadlineTask));
+                    message.append(String.format("Now you have %d task(s) in the list.\n", Storage.listOfTasks.size()));
+//                    System.out.println("     Got it. I've added this Task:");
+//                    System.out.printf("       %s\n", deadlineTask.toString());
+//                    System.out.printf("     Now you have %d task(s) in the list.\n", Storage.listOfTasks.size());
                 } else {
                     throw new InvalidDateException();
                 }
             } catch (InvalidDateException e) {
                 System.out.println(e.toString());
+                message.append(e);
             }
 
         } else {
-            System.out.println(Duke.HORIZONTAL_LINE);
-            System.out.println("     Invalid Deadline Task input.\n"
-                    + "     Please input in the following format:\n"
-                    + "     deadline <Task Description> /by <deadline timing>");
-            System.out.println(Duke.HORIZONTAL_LINE);
+            message.append("Invalid Deadline Task input.\n"
+                    + "Please input in the following format:\n"
+                    + "deadline <Task Description> /by <deadline timing>");
+//            System.out.println("     Invalid Deadline Task input.\n"
+//                    + "     Please input in the following format:\n"
+//                    + "     deadline <Task Description> /by <deadline timing>");
         }
+        return message.toString();
     }
 }
