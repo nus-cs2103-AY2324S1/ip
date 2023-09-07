@@ -9,8 +9,6 @@ import java.time.format.DateTimeFormatter;
  * @author Sebastian Tay
  */
 public class Deadline extends Task {
-    //TODO
-
     static final String SYMBOL = "D";
     protected String by;
 

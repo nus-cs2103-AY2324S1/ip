@@ -28,7 +28,7 @@ public class Veda {
             switch (method) {
             case -1:
                 //Unrecognised input
-                System.out.println("Unrecognised command.");
+                ui.displayUnrecognisedInput();
                 break;
 
             case 0:
