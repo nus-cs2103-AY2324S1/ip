@@ -1,6 +1,4 @@
-T | 0 | 1
 T | 0 | hello
 T | 0 | go home
+T | 0 | help
 T | 0 | go home
-T | 0 | go home
-T | 0 | w
