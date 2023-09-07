@@ -3,7 +3,7 @@ package duke.command;
 import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
+import duke.UiManager;
 
 public abstract class Command {
 
@@ -19,9 +19,9 @@ public abstract class Command {
     /**
      * Executes this command.
      * @param taskList Task list that this command need to access.
-     * @param ui The way command interact with user.
+     * @param uiManager The way command interact with user.
      * @param storage Storage can store and load file where command need to execute
      * @throws DukeException When there is an exception.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList taskList, UiManager uiManager, Storage storage) throws DukeException;
 }

@@ -2,7 +2,7 @@ package duke.command;
 import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
+import duke.UiManager;
 import duke.task.Deadline;
 import duke.task.Task;
 
@@ -19,11 +19,11 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, UiManager uiManager, Storage storage) throws DukeException {
         Task temp = new Deadline(description, by);
         taskList.addTask(temp);
-        ui.printAddTaskMessage(temp, taskList);
         storage.save(taskList);
+        return uiManager.getAddTaskMessage(temp, taskList);
     }
 
     @Override
