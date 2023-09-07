@@ -30,7 +30,9 @@ public class Storage {
     }
 
     /**
-     * Reads the file and adds all the tasks in the file into the list.
+     * Reads the file and adds all the tasks from the file into the list.
+     *
+     * @return The list containing tasks read from the file
      */
     public List<Task> load() {
         try {
@@ -48,7 +50,7 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("Something went wrong reading the file.");
         } catch (DukeException e) {
-            e.printException();
+            System.out.println(e);
         }
 
         // returns empty list if file is corrupted
@@ -69,7 +71,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            throw new DukeException("\"Something went wrong writing to the file.\"");
+            throw new DukeException("Something went wrong writing to the file.");
         }
 
     }

@@ -47,13 +47,12 @@ public class TaskListTest {
     @Test
     public void addDeadline_wrongDateFormat_exceptionThrown() {
         try {
-            taskList.addDeadline("deadline read book 2023-16-04");
+            taskList.addDeadline("deadline read book /by 2023-16-04");
             Task task4 = new Deadline(LocalDate.of(2023, 4, 16), "read book");
             assertEquals(task4.toString(), list.get(3).toString());
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("Input for deadline doesn't match the expected format."
-                    + "\ndeadline {description} /by {endDate in YYYY-MM-DD}", e.getMessage());
+            assertEquals("Date input in wrong format. Please input as YYYY-MM-DD", e.getMessage());
         }
     }
 
