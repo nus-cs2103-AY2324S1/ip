@@ -1,42 +1,56 @@
-import java.util.NoSuchElementException;
+package chatterchicken;
+
+import chatterchicken.parser.Parser;
+import chatterchicken.storage.Storage;
+import chatterchicken.tasklist.TaskList;
+import chatterchicken.ui.Ui;
+
 import java.util.Scanner;
+
 
 public class ChatterChicken {
 
-    public static final String LINE = "\n    _____________________________________________________________________________\n      ";
-    public static final String INDENT = "      ";
-    public static final String INDENT_BIG = "        ";
+    public static final String PATH = "src/main/data/task-list.txt";
+
+    private TaskList tasks;
+
+    private Parser parser;
+    private Storage storage;
+
+    private Ui ui;
+
+    public ChatterChicken() {
+        this.ui = new Ui();
+        this.parser = new Parser();
+        this.storage = new Storage(parser);
+    }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        List list = new List();
+        ChatterChicken chatterChicken = new ChatterChicken();
+        chatterChicken.run();
+    }
 
-        System.out.println(LINE + "Hello! I'm ChatterChicken!\n" + INDENT + "What can I do for you?" + LINE);
-        String input = sc.nextLine();
 
-        while(!input.equals("bye")) {
-            if (input.equals("list")) {
-                list.printList();
-            } else {
-                String action = input.substring(0, input.indexOf(' '));
-                switch (action) {
-                    case "mark":
-                        list.markTask(input);
-                        break;
-                    case "unmark":
-                        list.unmarkTask(input);
-                        break;
-                    case "todo":
-                    case "deadline":
-                    case "event":
-                        list.addTask(action, input);
-                        break;
-                }
+    /**
+     * Initiates the main loop of the ChatterChicken application.
+     * Reads user input, processes commands, and provides responses until the user chooses to exit.
+     * Catches and displays exceptions.
+     */
+    private void run() {
+        try (Scanner sc = new Scanner(System.in)) {
+            tasks = new TaskList(storage.loadTasksFromFile(), ui);
+            ui.displayGreeting();
+            String input = sc.nextLine();
+            while (!input.equals("bye")) {
+                Command command = parser.parseInput(input);
+                executeCommand(command);
+                storage.saveTasksToFile(tasks);
+                input = sc.nextLine();
             }
         } catch (CCException e) {
             System.err.println(e.getMessage());
         }
-        exit();
+        ui.displayFarewell();
     }
 
     /**
@@ -47,7 +61,6 @@ public class ChatterChicken {
     private void executeCommand(Command command) throws CCException {
         String action = command.getAction();
         String taskDescription = command.getTaskDescription();
-        String output = "";
         switch (action) {
             case "list":
                 tasks.printList();
@@ -69,6 +82,5 @@ public class ChatterChicken {
             default:
                 throw new CCException("OOPS!!! I'm sorry, but I don't know what that means :<");
         }
-        System.out.println(LINE + "Bye. Hope to see you again soon!" + LINE);
     }
 }

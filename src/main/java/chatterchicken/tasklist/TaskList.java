@@ -16,8 +16,11 @@ public class TaskList implements Iterable<Task> {
 
     private ArrayList<Task> taskList;
 
-    public TaskList(ArrayList<Task> taskList) {
+    private Ui ui;
+
+    public TaskList(ArrayList<Task> taskList, Ui ui) {
         this.taskList = taskList;
+        this.ui = ui;
     }
 
     /**
@@ -29,11 +32,7 @@ public class TaskList implements Iterable<Task> {
      */
     public void addTask(Task task) throws CCException {
         taskList.add(task);
-        System.out.println(ChatterChicken.LINE
-                + ChatterChicken.INDENT + "Got it. I've added this task:\n"
-                + ChatterChicken.INDENT_BIG + task.getTaskForPrinting() + "\n"
-                + ChatterChicken.INDENT + "Now you have " + taskList.size() + " tasks in the list."
-                + ChatterChicken.LINE);
+        ui.displayAddTask(task, taskList.size());
     }
 
     /**
@@ -47,10 +46,7 @@ public class TaskList implements Iterable<Task> {
         try {
             Task task = taskList.get(getIndex(input));
             task.setDone(true);
-            System.out.println(ChatterChicken.LINE
-                    + ChatterChicken.INDENT + "Nice! I've marked this task as done:\n"
-                    + ChatterChicken.INDENT_BIG + task.getTaskForPrinting()
-                    + ChatterChicken.LINE);
+            ui.displayMarkTask(task);
         } catch (IndexOutOfBoundsException e) {
             throw new CCException("Invalid input for marking list of length " + taskList.size());
         }
@@ -67,10 +63,7 @@ public class TaskList implements Iterable<Task> {
         try {
             Task task = taskList.get(getIndex(input));
             task.setDone(false);
-            System.out.println(ChatterChicken.LINE
-                    + ChatterChicken.INDENT + "OK, I've marked this task as not done yet:\n"
-                    + ChatterChicken.INDENT_BIG + task.getTaskForPrinting()
-                    + ChatterChicken.LINE);
+            ui.displayUnmarkTask(task);
         } catch (IndexOutOfBoundsException e) {
             throw new CCException("Invalid input for list of length " + taskList.size());
         }
@@ -88,11 +81,7 @@ public class TaskList implements Iterable<Task> {
             int index = getIndex(input);
             Task task = taskList.get(index);
             taskList.remove(index);
-            System.out.println(ChatterChicken.LINE
-                    + ChatterChicken.INDENT + "Noted. I've removed this task:\n"
-                    + ChatterChicken.INDENT_BIG + task.getTaskForPrinting() + "\n"
-                    + ChatterChicken.INDENT + "Now you have " + taskList.size() + " tasks in your list."
-                    + ChatterChicken.LINE);
+            ui.displayDeleteTask(task, taskList.size());
         } catch (IndexOutOfBoundsException e) {
             throw new CCException("Invalid input for list of length " + taskList.size());
         }
@@ -112,11 +101,7 @@ public class TaskList implements Iterable<Task> {
      * Prints the list of tasks with their respective indexes.
      */
     public void printList() {
-        System.out.println(ChatterChicken.LINE + ChatterChicken.INDENT + "Here are the tasks in your list:");
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(ChatterChicken.INDENT_BIG + (i + 1) + "." + taskList.get(i).getTaskForPrinting());
-        }
-        System.out.println(ChatterChicken.LINE);
+        ui.displayList(taskList);
     }
 
     @Override

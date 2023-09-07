@@ -14,7 +14,7 @@ public class Ui {
      * Displays a greeting message to the user to introduce chatterchicken.ChatterChicken.
      */
     public void displayGreeting() {
-        printToScreen(INDENT + "Hello! I'm chatterchicken.ChatterChicken!\n"
+        printToScreen(INDENT + "Hello! I'm ChatterChicken!\n"
                 + INDENT + "What can I do for you?");
     }
 

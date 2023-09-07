@@ -50,6 +50,7 @@ public class Storage {
         } catch (CCException e) {
             System.err.println("An error occurred while adding tasks: " + e.getMessage());
         }
+        System.out.println("HERE");
         return null;
     }
 

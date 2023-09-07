@@ -13,12 +13,11 @@ public class ToDo extends Task {
      * @return The formatted representation of the todo task.
      */
     @Override
-    public String getTask() {
+    public String getTaskForPrinting() {
         return String.format("[%s][T] %s", super.checkDone(), super.getName());
     }
 
-    @Override
-    public String getTaskDescription() {
+    public String getInput() {
         return "todo " + super.getTaskDescription();
     }
 }

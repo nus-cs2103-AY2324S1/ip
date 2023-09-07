@@ -19,10 +19,20 @@ public abstract class Task {
         return this.name;
     }
 
-    public abstract String getTask();
-
     protected String getTaskDescription() {
         return this.taskDescription;
+    }
+
+    public abstract String getInput();
+
+    public abstract String getTaskForPrinting();
+
+    public String getTaskForSaving() {
+        String done = " ";
+        if (isDone) {
+            done = "X";
+        }
+        return done + getInput();
     }
 
     public void setDone(boolean isDone) {

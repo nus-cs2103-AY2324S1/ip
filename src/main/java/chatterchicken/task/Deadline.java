@@ -17,12 +17,11 @@ public class Deadline extends Task {
      * @return The formatted representation of the deadline task.
      */
     @Override
-    public String getTask() {
+    public String getTaskForPrinting() {
         return String.format("[%s][D] %s (by: %s)", super.checkDone(), super.getName(), super.formatDate(end));
     }
 
-    @Override
-    public String getTaskDescription() {
+    public String getInput() {
         return "deadline " + super.getTaskDescription();
     }
 }
