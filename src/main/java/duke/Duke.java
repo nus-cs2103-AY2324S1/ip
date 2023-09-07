@@ -11,7 +11,7 @@ import exception.InvalidFormatException;
 /**
  * Duke is the chatbot program.
  */
-public class Duke {
+public class Duke extends {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
@@ -29,6 +29,7 @@ public class Duke {
 
     /**
      * The main function which will run when the user starts the chatbot.
+     *
      * @param args
      */
     public static void main(String[] args) {
