@@ -1,6 +1,11 @@
 package duke;
 
 import java.util.ArrayList;
+
+/**
+ * Tasklist class is responsible for adding new task and
+ * storing them in a list
+ */
 public class TaskList {
 
     private static ArrayList<Task> listOfTasks = new ArrayList<>();

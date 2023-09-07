@@ -2,6 +2,9 @@ package duke;
 
 import java.time.LocalDateTime;
 
+/**
+ * Deadline class is responsible for creating new Deadline object and handle deadline event
+ */
 public class Deadline extends Task {
 
     private LocalDateTime time;

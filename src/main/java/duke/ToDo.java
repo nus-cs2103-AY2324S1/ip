@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * ToDo class is responsible for creating new ToDo object and handle todo event
+ */
 public class ToDo extends Task {
     /**
      * Constructor for ToDO class

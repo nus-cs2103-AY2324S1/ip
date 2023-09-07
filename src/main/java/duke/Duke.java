@@ -56,7 +56,7 @@ public class Duke {
      * Run the chatbot depending on what command the user entered
      */
     public void startChatting() {
-        Messages.Greet();
+        Messages.greet();
 
         String exitC = "bye";
         String listC = "list";
@@ -107,6 +107,6 @@ public class Duke {
             }
         } while (!userInput.equalsIgnoreCase(exitC));
 
-        this.messages.Exit();
+        this.messages.exit();
     }
 }

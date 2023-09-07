@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Message class is responsible for printing the relevant messages
+ */
 public class Messages {
 
     /**
@@ -7,14 +10,14 @@ public class Messages {
      * Print the greeting message and create a new Ui object to allow for user input
      */
     public Messages() {
-        Messages.Greet();
+        Messages.greet();
         Ui ui = new Ui();
     }
 
     /**
      * Print the greeting message when called
      */
-    public static final void Greet() {
+    public static final void greet() {
         System.out.println("Hello! I'm Chatty!");
         System.out.println("What can I do for you today? ");
     }
@@ -22,7 +25,7 @@ public class Messages {
     /**
      * Print the exit message when called
      */
-    public static final void Exit() {
+    public static final void exit() {
         System.out.println("Bye bye! Hope to see you again soon");
     }
 

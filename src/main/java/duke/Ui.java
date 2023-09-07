@@ -2,6 +2,9 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * Ui class is responsible for allowing user to enter input.
+ */
 public class Ui {
 
     private Scanner scanner;
@@ -33,8 +36,8 @@ public class Ui {
         String result = " ";
         TaskList.findKeyword(keyword);
 
-        if(TaskList.getKeywordList().isEmpty()) {
-            result =  Messages.findNothing();
+        if (TaskList.getKeywordList().isEmpty()) {
+            result = Messages.findNothing();
         } else {
             result = Messages.keywordFound();
             int listSize = TaskList.getKeywordList().size();

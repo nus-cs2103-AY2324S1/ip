@@ -1,8 +1,12 @@
 package duke;
 
-import duke.exception.DetailsUnknownException;
 import java.time.LocalDateTime;
 
+import duke.exception.DetailsUnknownException;
+
+/**
+ * Event class is responsible for creating new Event object and handle event task
+ */
 public class Event extends Task {
 
     private LocalDateTime startDateTime;
@@ -14,8 +18,10 @@ public class Event extends Task {
      *
      * @param task the task description of the task entered by user
      * @param dateTimeDetails the details of the event task such as its start and end timing
-     * @throws DetailsUnknownException throws details unknown exception if the start or end details of the event task is missing
+     * @throws DetailsUnknownException throws details unknown exception if the start or end details
+     *      of the event task is missing
      */
+
     public Event(String task, String dateTimeDetails) throws DetailsUnknownException {
         super(task);
         try {

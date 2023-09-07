@@ -1,5 +1,8 @@
 package duke.exception;
 
+/**
+ * if user entered a task number that does not exist
+ */
 public class InvalidTaskNumberException extends ChattyException {
 
     public InvalidTaskNumberException() {

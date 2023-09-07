@@ -3,6 +3,9 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Parser clas is responsible for doing the necessary parsing
+ */
 public class Parser {
 
     /**

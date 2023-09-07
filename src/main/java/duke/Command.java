@@ -1,10 +1,14 @@
 package duke;
 
-import duke.exception.IncompleteMessageException;
 import duke.exception.DetailsUnknownException;
+import duke.exception.IncompleteMessageException;
 import duke.exception.InvalidTaskNumberException;
-public class Command {
 
+/**
+ * Command is responsible for handling the different command
+ * enter by the user.
+ */
+public class Command {
     private TaskList taskList;
     private Ui ui;
 
@@ -31,17 +35,17 @@ public class Command {
      * method to handle the delete command from user.
      * Check if the user entered the command in the correct format. Else throw the relevant exception.
      *
-     * @param userInput the input entered by user
+     * @param uI the input entered by user
      * @param keyword the key command word i.e. delete entered by user
      * @throws IncompleteMessageException when user did not specify what task to delete
      * @throws InvalidTaskNumberException when user specify a task number that does not exist
      */
-    public void handleDelete(String userInput, String keyword) throws IncompleteMessageException, InvalidTaskNumberException {
-        if (userInput.length() == keyword.length()) {
+    public void handleDelete(String uI, String keyword) throws IncompleteMessageException, InvalidTaskNumberException {
+        if (uI.length() == keyword.length()) {
             throw new IncompleteMessageException("Delete");
         }
 
-        String getIndex = userInput.substring(keyword.length() + 1);
+        String getIndex = uI.substring(keyword.length() + 1);
         int taskIndex = Integer.parseInt(getIndex);
 
         if (taskIndex > this.taskList.numOfTasks()) {
@@ -55,17 +59,17 @@ public class Command {
      * method that handles the mark done command from user.
      * Check if the user entered the command in the correct format. Else throw the relevant exception.
      *
-     * @param userInput the input entered by user
+     * @param uI the input entered by user
      * @param keyword the key command word i.e. mark entered by user
      * @throws IncompleteMessageException when user did not specify what task to mark done
      * @throws InvalidTaskNumberException when user specify a task number that does not exist
      */
-    public void handleDone(String userInput, String keyword) throws IncompleteMessageException, InvalidTaskNumberException {
-        if (userInput.length() == keyword.length()) {
+    public void handleDone(String uI, String keyword) throws IncompleteMessageException, InvalidTaskNumberException {
+        if (uI.length() == keyword.length()) {
             throw new IncompleteMessageException("Done");
         }
 
-        String getIndex = userInput.substring(keyword.length() + 1);
+        String getIndex = uI.substring(keyword.length() + 1);
         int taskIndex = Integer.parseInt(getIndex);
 
         if (taskIndex > this.taskList.numOfTasks()) {
@@ -79,17 +83,17 @@ public class Command {
      * method that handles the unmark done command from user.
      * Check if the user entered the command in the correct format. Else throw the relevant exception.
      *
-     * @param userInput the input entered by user
+     * @param uI the input entered by user
      * @param keyword the key command word i.e. unmark entered by user
      * @throws IncompleteMessageException when user did not specify what task to mark undone
      * @throws InvalidTaskNumberException when user specify a task number that does not exist
      */
-    public void handleUndone(String userInput, String keyword) throws IncompleteMessageException, InvalidTaskNumberException {
-        if (userInput.length() == keyword.length()) {
+    public void handleUndone(String uI, String keyword) throws IncompleteMessageException, InvalidTaskNumberException {
+        if (uI.length() == keyword.length()) {
             throw new IncompleteMessageException("Undone");
         }
 
-        String getIndex = userInput.substring(keyword.length() + 1);
+        String getIndex = uI.substring(keyword.length() + 1);
         int taskIndex = Integer.parseInt(getIndex);
 
         if (taskIndex > this.taskList.numOfTasks()) {
@@ -104,17 +108,17 @@ public class Command {
      * check if the necessary details such as the deadline are entered and whether they are in the right format.
      * Else throw the relevant exception.
      *
-     * @param userInput the input entered by user
+     * @param uI the input entered by user
      * @param keyword the key command word i.e. deadline entered by user
      * @throws IncompleteMessageException when the user only enter the keyword deadline with no other details
      * @throws DetailsUnknownException when user did not enter the deadline of the task
      */
-    public void handleDeadline(String userInput, String keyword) throws IncompleteMessageException, DetailsUnknownException {
+    public void handleDeadline(String uI, String keyword) throws IncompleteMessageException, DetailsUnknownException {
 
         try {
-            String[] inputToArr = Parser.splitInput(userInput); //return [keyword, task /by time]
+            String[] inputToArr = Parser.splitInput(uI); //return [keyword, task /by time]
 
-            if (userInput.length() == keyword.length()) {
+            if (uI.length() == keyword.length()) {
                 throw new IncompleteMessageException("D");
             }
 
@@ -133,20 +137,21 @@ public class Command {
 
     /**
      * method that handles the addition of event task.
-     * check if the necessary details such as the start and end timing are entered and whether they are in the right format.
+     * check if the necessary details such as the start and end timing are entered
+     * and whether they are in the right format.
      * Else throw the relevant exception.
      *
-     * @param userInput the input entered by user
+     * @param uI the input entered by user
      * @param keyword the key command word i.e. event entered by user
      * @throws IncompleteMessageException when the user only enter the keyword deadline with no other details
      * @throws DetailsUnknownException when user did not enter the start or end timing of the task
      */
-    public void handleEvent(String userInput, String keyword) throws IncompleteMessageException, DetailsUnknownException {
+    public void handleEvent(String uI, String keyword) throws IncompleteMessageException, DetailsUnknownException {
 
         try {
-            String[] inputToArr = Parser.splitInput(userInput); // return [kw, task /from time /to time]
+            String[] inputToArr = Parser.splitInput(uI); // return [kw, task /from time /to time]
 
-            if (userInput.length() == keyword.length()) {
+            if (uI.length() == keyword.length()) {
                 throw new IncompleteMessageException("E");
             }
 

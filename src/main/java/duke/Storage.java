@@ -1,10 +1,16 @@
 package duke;
 
-import duke.exception.DetailsUnknownException;
-
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
+import duke.exception.DetailsUnknownException;
+
+/**
+ * Storage class is responsible for storing the task that is added and load the file
+ */
 public class Storage {
     private String filePath;
 
@@ -57,18 +63,18 @@ public class Storage {
 
             Task currT = null;
             switch (keywords[0]) {
-                case "T":
-                    currT = new ToDo(keywords[2]);
-                    break;
-                case "D":
-                    currT = new Deadline(keywords[2], keywords[3]);
-                    break;
-                case "E":
-                    currT = new Event(keywords[2], keywords[3]);
-                    break;
-                default:
-                    System.out.println("Error: Unknown task type. ");
-                    break;
+            case "T":
+                currT = new ToDo(keywords[2]);
+                break;
+            case "D":
+                currT = new Deadline(keywords[2], keywords[3]);
+                break;
+            case "E":
+                currT = new Event(keywords[2], keywords[3]);
+                break;
+            default:
+                System.out.println("Error: Unknown task type. ");
+                break;
             }
 
             if (keywords[1].equals("1")) {

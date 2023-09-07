@@ -1,5 +1,9 @@
 package duke;
 
+/**
+ * Task class is to keep track of each of the task to be added in the tasklist
+ * and mark the task as done or undone
+ */
 public class Task {
 
     private String task;
@@ -52,11 +56,11 @@ public class Task {
      */
     public String getTaskType(Task task) {
         if (task instanceof Event) {
-            return "E | " + this.task + "| " + ((Event) task).getStartDateTime() + " to " + ((Event) task).getEndDateTime();
+            return "E | " + task + "| " + ((Event) task).getStartDateTime() + " to " + ((Event) task).getEndDateTime();
         } else if (task instanceof Deadline) {
-            return "D | " + this.task + "| " + ((Deadline) task).getTime();
+            return "D | " + task + "| " + ((Deadline) task).getTime();
         } else if (task instanceof ToDo) {
-            return "T | " + this.task;
+            return "T | " + task;
         } else {
             return "Unknown";
         }
@@ -73,6 +77,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + (this.isDone? "X" : " ") + "] " + this.task;
+        return "[" + (this.isDone ? "X" : " ") + "] " + this.task;
     }
 }
