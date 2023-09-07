@@ -1,9 +1,7 @@
 package duke.command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import duke.*;
+import duke.task.AlreadyMarkedException;
 
 public class MarkCommand extends Command {
     private Integer index;
@@ -11,7 +9,8 @@ public class MarkCommand extends Command {
         this.index = index;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws OutOfRangeException,
+            AlreadyMarkedException, SaveToFileException {
         ui.displayMessage(tasks.mark(index));
         storage.save(tasks);
     }
