@@ -2,11 +2,10 @@ package rocket;
 
 import java.time.format.DateTimeFormatter;
 
-
-
-public class Rocket {
+public class Rocket{
     public static final DateTimeFormatter uglyDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     public static final DateTimeFormatter prettyDateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+    public static final String FILE_PATH = "data/tasks.txt";
 
     private Storage storage;
     private TaskList tasks;
@@ -14,11 +13,10 @@ public class Rocket {
 
     /**
      * Create new chatbot
-     * @param filePath filePath where saved tasks should be stored.
      */
-    public Rocket(String filePath) {
+    public Rocket() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
         try {
             tasks = new TaskList(storage.load());
         } catch (RocketException e) {
@@ -53,7 +51,21 @@ public class Rocket {
      * @param args idk.
      */
     public static void main(String[] args) {
-
-        new Rocket("data/tasks.txt").run();
+        new Rocket().run();
     }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    protected String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+        } catch (RocketException e) {
+            return e.getMessage();
+        }
+        return ui.getLastResponse();
+    }
+
 }

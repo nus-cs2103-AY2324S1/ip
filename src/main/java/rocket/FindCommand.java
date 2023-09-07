@@ -16,9 +16,13 @@ public class FindCommand extends Command {
                 matchingTasks.add(tasks.get(i));
             }
         }
-        System.out.println("    Here are the matching tasks in your list:");
+        String response = "";
+        response += "    Here are the matching tasks in your list:\n";
         for (int i = 0; i < matchingTasks.size(); i++) {
-            System.out.println("    " + (i + 1) + ". " + matchingTasks.get(i));
+            response += "    " + (i + 1) + ". " + matchingTasks.get(i) + "\n";
         }
+        System.out.println(response);
+        ui.setLastResponse(response);
+
     }
 }
