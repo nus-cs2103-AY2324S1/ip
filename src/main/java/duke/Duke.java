@@ -9,7 +9,8 @@ import duke.data.TaskList;
 import duke.data.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.data.Message;
+
 
 /**
  * Duke is an application that helps user store and manage tasks.
@@ -18,7 +19,7 @@ public class Duke {
 
     private Storage storage;
     private TaskList tasks;
-    private final Ui ui;
+    private Message message;
 
     /**
      * Constructor to initialize Duke.
@@ -26,49 +27,43 @@ public class Duke {
      * @param filePath the path of the .txt file to be loaded
      */
     public Duke(String filePath) {
-        ui = new Ui();
+        message = new Message();
         try {
             storage = new Storage(filePath);
             tasks = new TaskList(storage.load());
         } catch (DukeException | FileNotFoundException e) {
-            ui.showLoadingError();
+            message.showLoadingError();
             tasks = new TaskList();
         } catch (ParseException e) {
-            ui.showError(e.getMessage());
+            message.showError(e.getMessage());
         }
     }
 
-    /** Executes Duke */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parseCommand(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            } catch (ParseException e) {
-                ui.showInvalidFormat();
-            } catch (IOException e) {
-                ui.showWriteFileError();
-            } catch (IllegalArgumentException e) {
-                ui.showInvalidCommand();
-            } finally {
-                ui.showLine();
-            }
+    public Duke() {
+        message = new Message();
+        try {
+            storage = new Storage("data/tasks.txt");
+            tasks = new TaskList(storage.load());
+        } catch (DukeException | FileNotFoundException e) {
+            message.showLoadingError();
+            tasks = new TaskList();
+        } catch (ParseException e) {
+            message.showError(e.getMessage());
         }
     }
 
-    /**
-     * Start point of Duke.
-     *
-     * @param args arguments passed in by user.
-     */
-    public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+    public String getResponse(String command) {
+        try {
+            Command c = Parser.parseCommand(command);
+            return c.execute(tasks, message, storage);
+        } catch (DukeException e) {
+            return message.showError(e.getMessage());
+        } catch (ParseException e) {
+            return message.showInvalidFormat();
+        } catch (IOException e) {
+            return message.showWriteFileError();
+        } catch (IllegalArgumentException exception) {
+            return message.showInvalidCommand();
+        }
     }
 }

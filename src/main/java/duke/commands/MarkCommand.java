@@ -5,7 +5,7 @@ import java.io.IOException;
 import duke.data.TaskList;
 import duke.data.exception.DukeException;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.data.Message;
 
 /**
  * The MarkCommand marks a task as completed, update the .txt file
@@ -29,9 +29,9 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException, IOException {
+    public String execute(TaskList taskList, Message message, Storage storage) throws DukeException, IOException {
         taskList.markTask(taskList.getTask(taskID - 1));
-        ui.showMarked(taskList.getTask(taskID - 1));
         Storage.save(taskList);
+        return message.showMarked(taskList.getTask(taskID - 1));
     }
 }

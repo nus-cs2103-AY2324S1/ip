@@ -5,7 +5,7 @@ import java.io.IOException;
 import duke.data.TaskList;
 import duke.data.exception.DukeException;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.data.Message;
 
 /**
  * The UnmarkCommand unmark a task as completed, update the .txt file
@@ -29,9 +29,9 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException, IOException {
+    public String execute(TaskList taskList, Message message, Storage storage) throws DukeException, IOException {
         taskList.unmarkTask(taskList.getTask(taskID - 1));
-        ui.showUnmarked(taskList.getTask(taskID - 1));
         Storage.save(taskList);
+        return message.showUnmarked(taskList.getTask(taskID - 1));
     }
 }

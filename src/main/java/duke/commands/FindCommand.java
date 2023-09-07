@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import duke.data.TaskList;
 import duke.data.task.Task;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.data.Message;
 
 /**
  * The FindCommand search the TaskList with a given query
@@ -19,8 +19,8 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, Message message, Storage storage) throws IOException {
         ArrayList<Task> results = taskList.findTasks(query);
-        ui.showSearchResults(results);
+        return message.showSearchResults(results);
     }
 }

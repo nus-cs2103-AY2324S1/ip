@@ -5,7 +5,7 @@ import java.io.IOException;
 import duke.data.TaskList;
 import duke.data.task.Todo;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.data.Message;
 
 /**
  * The AddToDoCommand adds a todo into TaskList, writes into .txt file
@@ -25,10 +25,10 @@ public class AddToDoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, Message message, Storage storage) throws IOException {
         Todo newTodo = new Todo(description);
         taskList.addTask(newTodo);
         Storage.save(newTodo);
-        ui.showTaskAdded(newTodo, taskList.countTasks());
+        return message.showTaskAdded(newTodo, taskList.countTasks());
     }
 }
