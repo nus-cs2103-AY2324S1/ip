@@ -20,15 +20,15 @@ public class Task {
         this.type = type;
 
         switch (this.type) {
-            case 1:
-                break;
-            case 2:
-                this.endDate = LocalDate.parse(endDate);
-                break;
-            case 3:
-                this.startDate = LocalDate.parse(startDate);
-                this.endDate = LocalDate.parse(endDate);
-                break;
+        case 1:
+            break;
+        case 2:
+            this.endDate = LocalDate.parse(endDate);
+            break;
+        case 3:
+            this.startDate = LocalDate.parse(startDate);
+            this.endDate = LocalDate.parse(endDate);
+            break;
         }
 
 
@@ -50,18 +50,22 @@ public class Task {
         return message;
     }
 
+    /**
+     * return the string representing how the Task object should be displayed
+     * @return string representation of the Task object
+     */
     public String display() {
         String description = "[";
         switch (this.type) {
-            case 1:
-                description = description + "T]";
-                break;
-            case 2:
-                description = description + "D]";
-                break;
-            case 3:
-                description = description + "E]";
-                break;
+        case 1:
+            description = description + "T]";
+            break;
+        case 2:
+            description = description + "D]";
+            break;
+        case 3:
+            description = description + "E]";
+            break;
         }
         if (isDone) {
             description = description + "[X] " + taskName;
@@ -83,6 +87,10 @@ public class Task {
         return description;
     }
 
+    /**
+     * return the string representing how the Task object should be stored
+     * @return string representation of the Task object
+     */
     public String ForRecordingInTextFile() {
         // Record format: "Type | Status | Name | StartTime(optional) | EndTime(optional)"
         // example: "D | 0 | return book | June 6th"
@@ -90,15 +98,15 @@ public class Task {
 
         String description = "";
         switch (this.type) {
-            case 1:
-                description = description + "T | ";
-                break;
-            case 2:
-                description = description + "D | ";
-                break;
-            case 3:
-                description = description + "E | ";
-                break;
+        case 1:
+            description = description + "T | ";
+            break;
+        case 2:
+            description = description + "D | ";
+            break;
+        case 3:
+            description = description + "E | ";
+            break;
         }
         if (isDone) {
             description = description + "1 | " + taskName;
