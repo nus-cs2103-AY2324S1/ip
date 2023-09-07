@@ -1,4 +1,8 @@
+package ui;
+
 import java.util.Scanner;
+
+import task.Task;
 
 /**
  * Represents the user interface of the Duke application.
@@ -42,8 +46,8 @@ public class Ui {
     public void showCommandGuide() {
         System.out.println(">  Commands:");
         System.out.println("todo [task] - Adds a new ToDo task");
-        System.out.println("deadline [task] /by [YYYY-MM-DD HH:mm] - Adds a new Deadline task");
-        System.out.println("event [task] /from [YYYY-MM-DD HH:mm] /to [YYYY-MM-DD HH:mm] - Adds a new Event task");
+        System.out.println("deadline [task] /by [YYYY-MM-DD HH:mm] - Adds a new task.Deadline task");
+        System.out.println("event [task] /from [YYYY-MM-DD HH:mm] /to [YYYY-MM-DD HH:mm] - Adds a new task.Event task");
         System.out.println("list - Shows all tasks");
         System.out.println("mark [task number] - Marks a task as completed");
         System.out.println("unmark [task number] - Marks a task as incomplete");
@@ -69,7 +73,7 @@ public class Ui {
      * @return The formatted error message.
      */
     public String invalidIndexError(int index) {
-        return ">  Task " + index + " not found, please enter a valid task number.";
+        return ">  task.Task " + index + " not found, please enter a valid task number.";
     }
 
     /**
@@ -122,7 +126,7 @@ public class Ui {
      * @param task  The marked task.
      */
     public void showMarkedTask(int index, Task task) {
-        System.out.println(">  ok, you have completed Task " + (index + 1));
+        System.out.println(">  ok, you have completed task.Task " + (index + 1));
         System.out.println(task);
     }
 
@@ -133,7 +137,7 @@ public class Ui {
      * @param task  The unmarked task.
      */
     public void showUnmarkedTask(int index, Task task) {
-        System.out.println(">  ok, you haven't completed Task " + (index + 1));
+        System.out.println(">  ok, you haven't completed task.Task " + (index + 1));
         System.out.println(task);
     }
 
@@ -144,7 +148,7 @@ public class Ui {
      * @param deletedTask The deleted task.
      */
     public void showDeletedTask(int index, Task deletedTask) {
-        System.out.println(">  Task " + (index) + " has been removed");
+        System.out.println(">  task.Task " + (index) + " has been removed");
         System.out.println(">  " + deletedTask + " has been deleted.");
     }
 

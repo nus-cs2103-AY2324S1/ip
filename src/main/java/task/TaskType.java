@@ -1,3 +1,5 @@
+package task;
+
 /**
  * Represents the type of a task.
  */
@@ -8,12 +10,12 @@ public enum TaskType {
     TODO,
 
     /**
-     * Represents a Deadline task.
+     * Represents a task.Deadline task.
      */
     DEADLINE,
 
     /**
-     * Represents an Event task.
+     * Represents an task.Event task.
      */
     EVENT
 }

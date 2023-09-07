@@ -1,23 +1,31 @@
+package command;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import exception.DukeException;
+import storage.Storage;
+import task.Event;
+import task.TaskList;
+import ui.Ui;
+
 /**
- * Represents a command to add an Event task.
+ * Represents a command to add a task.Event task.
  */
 public class AddEvent extends AddCommand {
 
     /**
-     * Initializes an AddEvent command with the specified input.
+     * Initializes a command.AddEvent command with the specified input.
      *
      * @param input The input string containing task details.
      */
     public AddEvent(String input) {
-        super(TaskType.EVENT, input);
+        super(input);
     }
 
     /**
-     * Executes the AddEvent command to add an Event task to the task list.
+     * Executes the command.AddEvent command to add a task.Event task to the task list.
      *
      * @param tasks   The list of tasks.
      * @param ui      The user interface for displaying messages.
@@ -29,7 +37,7 @@ public class AddEvent extends AddCommand {
         try {
             // Check if input contains /from and /to
             if (!input.contains("/from") || !input.contains("/to")) {
-                throw new DukeException("An Event task should have a '/from' and '/to' with respective times.");
+                throw new DukeException("An task.Event task should have a '/from' and '/to' with respective times.");
             }
 
             // Split the input into sections
@@ -49,7 +57,7 @@ public class AddEvent extends AddCommand {
             LocalDateTime formattedFrom = parseDateTime(from);
             LocalDateTime formattedTo = parseDateTime(to);
 
-            // Create and add Event task
+            // Create and add task.Event task
             tasks.add(new Event(description, formattedFrom, formattedTo));
 
             // Display message

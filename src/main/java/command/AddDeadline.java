@@ -1,23 +1,32 @@
+package command;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import exception.DukeException;
+import task.Deadline;
+import task.TaskList;
+import storage.Storage;
+import ui.Ui;
+
+
 /**
- * Represents a command to add a Deadline task.
+ * Represents a command to add a task.Deadline task.
  */
 public class AddDeadline extends AddCommand {
 
     /**
-     * Creates an AddDeadline command.
+     * Creates a command.AddDeadline command.
      *
      * @param input The user input containing task description and deadline.
      */
     public AddDeadline(String input) {
-        super(TaskType.DEADLINE, input);
+        super(input);
     }
 
     /**
-     * Executes the AddDeadline command to add a Deadline task.
+     * Executes the command.AddDeadline command to add a task.Deadline task.
      *
      * @param tasks   The list of tasks.
      * @param ui      The user interface for displaying messages.
@@ -29,7 +38,7 @@ public class AddDeadline extends AddCommand {
         try {
             // Check if input contains /by
             if (!input.contains("/by")) {
-                throw new DukeException("A Deadline task should have a '/by' followed by the deadline time.");
+                throw new DukeException("A task.Deadline task should have a '/by' followed by the deadline time.");
             }
 
             // Split the input into sections
@@ -47,7 +56,7 @@ public class AddDeadline extends AddCommand {
             // Parse date and time to LocalDateTime
             LocalDateTime deadlineDateTime = parseDateTime(by);
 
-            // Create and add Deadline task
+            // Create and add task.Deadline task
             tasks.add(new Deadline(description, deadlineDateTime));
 
             // Display message
