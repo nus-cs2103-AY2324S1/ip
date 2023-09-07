@@ -2,6 +2,22 @@ import duke.*;
 
 import java.util.Scanner;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.Region;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+
+
+
+
 /**
  * A chatbot that helps a person to keep track of a list of tasks.
  *
@@ -9,56 +25,51 @@ import java.util.Scanner;
  */
 public class Duke {
 
+    private static final String FILE_PATH = "./data/main.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
+
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
      * Creates a new Duke instance.
      *
-     * @param filePath The file path where the list of tasks are saved in.
      */
-    public Duke(String filePath) {
+    public Duke() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
-            ui.showLoadingError();
+            //ui.showLoadingError();
+            System.out.println("Loading Error");
             tasks = new TaskList();
         }
     }
 
+
     /**
-     * Runs the Duke program.
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    public void run() {
-        Scanner scanner = new Scanner(System.in);
-        ui.showIntro();
-
-        while (true) {
-
-            String command = scanner.nextLine();
-
-            if (command.isEmpty()) {
-                try {
-                    throw new DukeException("OOPS!!! The description cannot be empty.");
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            // exits program
-            } else if (command.equalsIgnoreCase("bye")) {
-                ui.showBye();
-                break;
-            } else {
-                Parser.parse(command, tasks, storage, ui);
+    public String getResponse(String input) {
+        try {
+            if (input.isEmpty()) {
+                throw new DukeException("OOPS!!! The description cannot be empty.");
             }
+            return Parser.parse(input, tasks, storage, ui);
+        } catch (DukeException e) {
+            return e.getMessage();
         }
     }
 
 
-    public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
-    }
 
 }
