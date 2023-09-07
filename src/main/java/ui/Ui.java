@@ -11,30 +11,21 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class Ui {
-    private final String NAME = "main.Corubi";
-
     private Parser parser;
     private TaskList tasks;
+    private Storage store;
 
-    public void start() {
-        System.out.println("Hello! I am " + NAME + ". \nWhat can I do for you?");
-    }
-
-    public String takeCommands(Storage store, TaskList task, Parser parse, String command) throws IOException {
+    public String takeCommands(Storage storage, TaskList task, Parser parse, String command) throws IOException {
         parser = parse;
-//        store.load(parser);
         tasks = task;
+        store = storage;
 
         ArrayList<String> commands = new ArrayList<>();
         String[] commandList = {"todo", "deadline", "event", "mark", "unmark", "bye"};
         Collections.addAll(commands, commandList);
 
-
-
-
         if (command.equalsIgnoreCase("bye")) {
             return command + " " + command + "...please come back soon :(";
-
         } else {
             if (command.equalsIgnoreCase("list")) {
                 return listCommand(tasks);
@@ -47,7 +38,7 @@ public class Ui {
             } else if (command.toLowerCase().contains("find ")) {
                 return findCommand(command, tasks);
             } else {
-                return processTask(command, tasks, parser, store, commands);
+                return processTask(command, tasks, parser, commands);
             }
         }
     }
@@ -62,7 +53,7 @@ public class Ui {
         StringBuilder result = new StringBuilder();
         int number = parser.findNum(input);
         try {
-            tasks.retrieve(number - 1).unmarkDone();
+            result.append(tasks.retrieve(number - 1).unmarkDone());
         } catch (IndexOutOfBoundsException e) {
             result.append(number).append(" is too high! List size is only ").append(tasks.size()).append("\n");
         } finally {
@@ -106,7 +97,7 @@ public class Ui {
         return result.toString();
     }
 
-    private String processTask(String input, TaskList tasks, Parser parser, Storage store, ArrayList<String> commands) throws IOException {
+    private String processTask(String input, TaskList tasks, Parser parser, ArrayList<String> commands) throws IOException {
         StringBuilder result = new StringBuilder();
         if (input.toLowerCase().contains("todo ")) {
             Task newTask = new ToDos(parser.taskName(input), false);
