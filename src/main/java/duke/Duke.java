@@ -11,7 +11,7 @@ public class Duke {
 
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private Response response;
 
     /**
      * Constructs a new Duke instance.
@@ -20,11 +20,11 @@ public class Duke {
      */
     public Duke() {
         try {
-            this.ui = new Ui();
+            this.response = new Response();
             this.storage = new Storage("data/duke.txt");
             this.tasks = storage.loadIntoList(new TaskList());
         } catch (DukeException e) {
-            ui.printException(e.getMessage());
+            response.printException(e.getMessage());
         }
     }
 
@@ -35,9 +35,9 @@ public class Duke {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            return c.execute(tasks, ui, storage);
+            return c.execute(tasks, response, storage);
         } catch (DukeException e) {
-            return ui.printException(e.getMessage());
+            return response.printException(e.getMessage());
         }
     }
 

@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import duke.DukeException;
+import duke.Response;
 import duke.Storage;
-import duke.Ui;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -33,7 +33,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Response response, Storage storage) throws DukeException {
         switch (this.taskType) {
         case "T":
             Task newTodo = new Todo(commandDetails.get(0));
@@ -43,7 +43,7 @@ public class AddCommand extends Command {
             } catch (IOException e) {
                 throw new DukeException("OOPS!!! There is something wrong with the description.");
             }
-            return ui.printTaskAdded(newTodo, tasks.size());
+            return response.printTaskAdded(newTodo, tasks.size());
         case "D":
             Task newDeadline = new Deadline(commandDetails.get(0), commandDetails.get(1));
             tasks.add(newDeadline);
@@ -52,7 +52,7 @@ public class AddCommand extends Command {
             } catch (IOException e) {
                 throw new DukeException("OOPS!!! There is something wrong with the description.");
             }
-            return ui.printTaskAdded(newDeadline, tasks.size());
+            return response.printTaskAdded(newDeadline, tasks.size());
         case "E":
             Task newEvent = new Event(commandDetails.get(0), commandDetails.get(1), commandDetails.get(2));
             tasks.add(newEvent);
@@ -61,7 +61,7 @@ public class AddCommand extends Command {
             } catch (IOException e) {
                 throw new DukeException("OOPS!!! There is something wrong with the description.");
             }
-            return ui.printTaskAdded(newEvent, tasks.size());
+            return response.printTaskAdded(newEvent, tasks.size());
         default:
             throw new DukeException("OOPS!!! Something went wrong when adding the task.");
         }

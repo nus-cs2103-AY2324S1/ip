@@ -3,8 +3,8 @@ package duke.command;
 import java.util.ArrayList;
 
 import duke.DukeException;
+import duke.Response;
 import duke.Storage;
-import duke.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -24,7 +24,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Response response, Storage storage) throws DukeException {
         int taskNumber = 0;
         try {
             taskNumber = Integer.parseInt(commandDetails.get(0));
@@ -37,7 +37,7 @@ public class UnmarkCommand extends Command {
         Task unmarkedTask = tasks.get(taskNumber - 1);
         unmarkedTask.markAsNotDone();
         storage.writeListToFile(tasks);
-        return ui.printTaskMarked(unmarkedTask);
+        return response.printTaskMarked(unmarkedTask);
     }
 
     /**

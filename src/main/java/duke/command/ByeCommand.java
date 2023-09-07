@@ -2,8 +2,8 @@ package duke.command;
 
 import java.util.ArrayList;
 
+import duke.Response;
 import duke.Storage;
-import duke.Ui;
 import duke.task.TaskList;
 
 /**
@@ -22,7 +22,7 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Response response, Storage storage) {
         return "";
     }
 

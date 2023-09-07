@@ -8,7 +8,7 @@ import duke.task.TaskList;
 /**
  * The Ui class handles the user interface and interacts with the user in the Duke application.
  */
-public class Ui {
+public class Response {
 
     private static final String LOGO = " _____   __                 _____ _           _   _           _  ___\n"
             + "|  _\\ \\ / /                /  __ \\ |         | | | |         | ||_  |\n"
