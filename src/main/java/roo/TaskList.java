@@ -67,28 +67,31 @@ public class TaskList {
      * Lists tasks matching the given date.
      * @param date The date for which tasks are to be listed.
      */
-    public void listDateEvents(LocalDate date) {
+    public String listDateEvents(LocalDate date) {
+        StringBuilder str = new StringBuilder();
         for (Task dt : data) {
             if (dt.getDate() != null && dt.getDate().getDayOfMonth() == date.getDayOfMonth()) {
-                System.out.println("- " + dt.toString());
+                str.append("- ").append(dt.toString()).append("\n");
             }
         }
-        System.out.println(" ");
+        return str.toString();
     }
 
     /**
      * Lists tasks matching a given keyword.
      * @param keyword The keyword to search for in tasks.
      */
-    public void find(String keyword) {
+    public String find(String keyword) {
         int count = 1;
+        StringBuilder str = new StringBuilder();
         for (Task dt : data) {
             if (dt.toString().contains(keyword)) {
                 System.out.println(count + ". " + dt.toString());
+                str.append(count).append(". ").append(dt.toString()).append("\n");
                 count++;
             }
         }
-        System.out.println(" ");
+        return str.toString();
     }
 
     /**
@@ -113,9 +116,11 @@ public class TaskList {
      * Deletes a task at a specific index, updates the storage, and displays updated task count.
      * @param index The index of the task to delete.
      */
-    public void delete(int index) {
+    public String delete(int index) {
+        String temp = data.get(index).toString();
         data.remove(index);
         storage.modifyFile(this.data);
+        return temp;
     }
 
     /**
@@ -130,15 +135,16 @@ public class TaskList {
     /**
      * Lists all tasks in the task list.
      */
-    public void list() {
+    public String list() {
         if (data.isEmpty()) {
-            System.out.println("Congrats!!! Nothing to do now!!!\n");
+            return "Congrats!!! Nothing to do now!!!\n";
         } else {
+            StringBuilder str = new StringBuilder();
             for (int i = 0; i < data.size(); i++) {
                 Task dt = data.get(i);
-                System.out.println((i + 1) + ". " + dt.toString());
+                str.append((i + 1)).append(". ").append(dt.toString()).append("\n");
             }
-            System.out.println(" ");
+            return str.toString();
         }
     }
 
