@@ -1,124 +1,105 @@
 package harvard;
-import java.util.Scanner;
 /**
  * Represents a user interface.
  */
 
 public class Ui {
     /**
-     * The scanner.
-     */
-    private Scanner scanner;
-    /**
-     * Constructs a Ui object.
-     */
-    public Ui() {
-        scanner = new Scanner(System.in);
-    }
-    /**
      * Displays the welcome message.
      */
-    public void displayWelcome() {
-        displayLine();
-        System.out.println("Hello! I'm Harvard\nWhat can I do for you?");
-        displayLine();
+    public String displayWelcome() {
+        return "Hello! I'm Duke\n" + "What can I do for you?";
     }
-    /**
-     * Reads the command.
-     * @return The command in String.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
-    }
+
     /**
      * Displays a line.
+     * @return A line.
      */
-    public void displayLine() {
-        System.out.println("____________________________________________________________");
+    public String displayLine() {
+        return "____________________________________________________________";
     }
     /**
      * Displays the bye message.
+     * @return The bye message.
      */
-    public void displayBye() {
-        displayLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        displayLine();
+    public String displayBye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
-     * Displays adding task message.
-     * @param task The task to be added.
-     * @param tasks The list of tasks.
+     * Displays the add task message.
+     * @param task
+     * @param tasks
+     * @return The add task message.
      */
-    public void showAddTask(Task task, TaskList tasks) {
-        displayLine();
-        System.out.println("Got it. I've added this task:\n" + task
-                + "\nNow you have " + tasks.size() + " tasks in the list.");
-        displayLine();
+    public String showAddTask(Task task, TaskList tasks) {
+        return "Got it. I've added this task:\n" + task
+                + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
+
     /**
      * Displays the list of tasks.
-     * @param tasks The list of tasks.
+     * @param tasks
+     * @return The list of tasks.
      */
-    public void showList(TaskList tasks) {
-        displayLine();
-        System.out.println("Here are the tasks in your list:");
+    public String showList(TaskList tasks) {
+        String result = "Here are the tasks in your list:";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+            result += "\n" + (i + 1) + "." + tasks.get(i);
         }
-        displayLine();
+        return result;
     }
 
     /**
-     * Shows the delete message.
-     * @param task The task to be deleted.
-     * @param tasks The list of tasks.
+     * Displays the delete message.
+     * @param task
+     * @param tasks
+     * @return The delete message.
      */
-    public void showDelete(Task task, TaskList tasks) {
-        displayLine();
-        System.out.println("Noted. I've removed this task:\n" + task
-                + "\nNow you have " + tasks.size() + " tasks in the list.");
-        displayLine();
+    public String showDelete(Task task, TaskList tasks) {
+        return "Noted. I've removed this task:\n" + task
+                + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
     /**
-     * Shows the done message.
-     * @param task The task to be marked as done.
+     * Displays the done message.
+     * @param task
+     * @return The done message.
      */
-    public void showDone(Task task) {
-        displayLine();
-        System.out.println("Nice! I've marked this task as done:\n" + task);
-        displayLine();
+    public String showDone(Task task) {
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
-     * Shows the undone message.
-     * @param task The task to be marked as undone.
+     * Displays the undone message.
+     * @param task
+     * @return The undone message.
      */
 
-    public void showUndone(Task task) {
-        displayLine();
-        System.out.println("Ok! I've marked this task as not done yet:");
-        displayLine();
+    public String showUndone(Task task) {
+        return "Ok! I've marked this task as not done yet:";
     }
+
     /**
-     * Shows the find message.
-     * @param matchingTasks The list of matching tasks.
+     * Displays the find message.
+     * @param matchingTasks
+     * @return The find message.
      */
 
-    public void showFind(TaskList matchingTasks) {
-        displayLine();
-        System.out.println("Here are the matching tasks in your list:");
+    public String showFind(TaskList matchingTasks) {
+        String result = "Here are the matching tasks in your list:";
         for (int i = 0; i < matchingTasks.size(); i++) {
-            System.out.println((i + 1) + "." + matchingTasks.get(i));
+            result += "\n" + (i + 1) + "." + matchingTasks.get(i);
         }
-        displayLine();
+        return result;
     }
+
     /**
      * Displays the error message.
-     * @param e The error.
+     * @param e
+     * @return The error message.
      */
-    public void displayError(DukeException e) {
-        System.out.println(e.getMessage());
+    public String displayError(DukeException e) {
+        return e.getMessage();
     }
 }

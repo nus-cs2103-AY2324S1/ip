@@ -17,20 +17,13 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int index) {
         this.index = index;
     }
-
-    /**
-     * Executes the command.
-     * @param tasks The task list.
-     * @param ui The user interface.
-     * @param storage The storage.
-     * @throws DukeException If there is an error executing the command.
-     */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task task = tasks.get(index);
         tasks.remove(index);
-        ui.showDelete(task, tasks);
+
         storage.save(tasks);
+        return ui.showDelete(task, tasks);
     }
 
     /**

@@ -1,4 +1,3 @@
-
 package harvard;
 
 /**
@@ -18,19 +17,11 @@ public class AddCommand extends Command {
     public AddCommand(Task task) {
         this.task = task;
     }
-
-    /**
-     * Executes the command.
-     * @param tasks The task list.
-     * @param ui The user interface.
-     * @param storage The storage.
-     * @throws DukeException If there is an error executing the command.
-     */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         tasks.add(task);
-        ui.showAddTask(task, tasks);
         storage.save(tasks);
+        return ui.showAddTask(task, tasks);
     }
 
     /**
@@ -41,5 +32,4 @@ public class AddCommand extends Command {
     public boolean isExit() {
         return false;
     }
-
 }
