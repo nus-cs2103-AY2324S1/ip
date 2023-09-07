@@ -67,24 +67,24 @@ public class Juke {
     }
 
     public String printList() {
-        return ui.printList(tasks.tasks);
+        return ui.printList(tasks.getTasks());
     }
 
     public String unmark(int index) throws JukeError {
         Task currTask = tasks.markAsUndone(index);
-        storage.updateAll(tasks.tasks);
+        storage.updateAll(tasks.getTasks());
         return ui.unmark(currTask);
     }
 
     public String mark(int index) throws JukeError {
         Task currTask = tasks.markAsDone(index);
-        storage.updateAll(tasks.tasks);
+        storage.updateAll(tasks.getTasks());
         return ui.mark(currTask);
     }
 
     public String delete(int index) throws JukeError {
         Task currTask = tasks.delete(index);
-        storage.updateAll(tasks.tasks);
+        storage.updateAll(tasks.getTasks());
         return ui.delete(currTask, tasks.getSize());
     }
 

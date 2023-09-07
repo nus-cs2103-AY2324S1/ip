@@ -3,7 +3,7 @@ package juke;
 import java.util.ArrayList;
 
 public class TaskList {
-    public ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
@@ -54,4 +54,7 @@ public class TaskList {
         return results;
     }
 
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
+    }
 }

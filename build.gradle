@@ -54,7 +54,7 @@ test {
 }
 
 application {
-    mainClass.set("juke.Juke")
+    mainClass.set("juke.Launcher")
 }
 
 shadowJar {

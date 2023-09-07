@@ -50,6 +50,7 @@ public class Parser {
             return juke.createTodo(input.substring(5));
         }
         else if (input.startsWith("deadline")) {
+            // Match string with pattern deadline (taskname) /by (date)
             final Pattern deadlinePattern = Pattern.compile(
                     "^deadline\\s+(.*)\\s+/by\\s+(.*)$");
             Matcher matcher = deadlinePattern.matcher(input);
@@ -62,6 +63,7 @@ public class Parser {
             }
         }
         else if (input.startsWith("event")) {
+            // Match string with pattern event (taskName) /from (date) /to (date)
             final Pattern eventPattern = Pattern.compile(
                     "^event\\s+(.*)\\s+/from\\s+(.*)\\s+/to\\s+(.*)$");
             Matcher matcher = eventPattern.matcher(input);
