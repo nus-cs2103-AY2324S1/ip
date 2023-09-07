@@ -6,12 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ToDoTest {
     @Test
-    public void dummyTest(){
-        assertEquals(2, 2);
-    }
+    public void toString_validDescription_success() {
+        ToDo todo = new ToDo("Buy food");
 
-    @Test
-    public void anotherDummyTest(){
-        assertEquals(4, 4);
+        assertEquals("[T][ ]  Buy food", todo.toString());
+
+        todo.markDone();
+
+        assertEquals("[T][X]  Buy food", todo.toString());
     }
 }
