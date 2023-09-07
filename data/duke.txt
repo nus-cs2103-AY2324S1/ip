@@ -3,3 +3,4 @@ D | 0 | return book | Sunday
 E | 0 | project meeting | Mon 2pm-4pm
 T | 0 | fly
 E | 0 | project meeting | Mon 2pm-4pm
+T | 0 | sleep
