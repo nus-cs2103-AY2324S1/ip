@@ -9,6 +9,8 @@ import ekud.error.EkudException;
 import ekud.state.Task;
 import ekud.state.TaskList;
 import ekud.ui.Ui;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,6 +24,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Gui extends Ui {
@@ -52,7 +55,7 @@ public class Gui extends Ui {
         historyScrollContainer.setContent(historyContainer);
         historyScrollContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
         historyScrollContainer.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-        historyScrollContainer.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
+        historyScrollContainer.setHbarPolicy(ScrollBarPolicy.NEVER);
         historyScrollContainer.setFitToWidth(true);
         historyScrollContainer.vvalueProperty().bind(historyContainer.heightProperty());
         VBox.setVgrow(historyScrollContainer, Priority.ALWAYS);
@@ -110,10 +113,9 @@ public class Gui extends Ui {
             return;
         }
 
-        addBotMessage("Here are the tasks in your list:");
+        String message = "Here are the tasks in your list:\n";
         List<Task> tasks = taskList.asList();
         for (int taskId = 1; taskId <= tasks.size(); taskId++) {
-            String message = "";
             // Add padding to align single-digit numbers if we'll render two-digit numbers
             // later on.
             if (tasks.size() > 9 && taskId < 10) {
@@ -121,9 +123,9 @@ public class Gui extends Ui {
             }
             message += taskId;
             Task task = taskList.getTask(taskId);
-            message += ". " + task.toString();
-            addBotMessage(message);
+            message += ". " + task.toString() + "\n";
         }
+        addBotMessage(message);
     }
 
     @Override
@@ -133,26 +135,22 @@ public class Gui extends Ui {
 
     @Override
     public void showTaskAdded(Task task) {
-        addBotMessage("Got it. I've added this task:");
-        addBotMessage("   " + task);
+        addBotMessage("Got it. I've added this task:\n   " + task);
     }
 
     @Override
     public void showTaskMarked(Task task) {
-        addBotMessage("Nice! I've marked this task as done:");
-        addBotMessage("   " + task);
+        addBotMessage("Nice! I've marked this task as done:\n   " + task);
     }
 
     @Override
     public void showTaskUnmarked(Task task) {
-        addBotMessage("OK, I've marked this task as not done yet:");
-        addBotMessage("   " + task);
+        addBotMessage("OK, I've marked this task as not done yet:\n   " + task);
     }
 
     @Override
     public void showTaskRemoved(Task task) {
-        addBotMessage("Noted. I've removed this task:");
-        addBotMessage("   " + task);
+        addBotMessage("Noted. I've removed this task:\n   " + task);
     }
 
     @Override
@@ -162,9 +160,8 @@ public class Gui extends Ui {
             return;
         }
 
-        addBotMessage("Here are the matching tasks in your list:");
+        String message = "Here are the matching tasks in your list:\n";
         for (int taskId = 1; taskId <= foundTasks.size(); taskId++) {
-            String message = "";
             // Add padding to align single-digit numbers if we'll render two-digit numbers
             // later on.
             if (foundTasks.size() > 9 && taskId < 10) {
@@ -172,9 +169,9 @@ public class Gui extends Ui {
             }
             message += taskId;
             Task task = foundTasks.get(taskId - 1);
-            message += ". " + task.toString();
-            addBotMessage(message);
+            message += ". " + task.toString() + "\n";
         }
+        addBotMessage(message);
     }
 
     @Override
@@ -183,29 +180,23 @@ public class Gui extends Ui {
     }
 
     private void addBotMessage(String message) {
-        ImageView botImageView = new ImageView(BOT_IMAGE);
-        botImageView.setFitWidth(50);
-        botImageView.setFitHeight(50);
-
-        Label messageText = new Label(message);
-        messageText.setWrapText(true);
-        HBox.setHgrow(messageText, Priority.ALWAYS);
-
-        HBox container = new HBox(botImageView, messageText);
-
-        historyContainer.getChildren().add(container);
+        addMessage(BOT_IMAGE, message);
     }
 
     private void addUserMessage(String message) {
-        ImageView userImageView = new ImageView(USER_IMAGE);
-        userImageView.setFitWidth(50);
-        userImageView.setFitHeight(50);
+        addMessage(USER_IMAGE, message);
+    }
 
-        Label messageText = new Label(message);
-        messageText.setWrapText(true);
-        HBox.setHgrow(messageText, Priority.ALWAYS);
+    private void addMessage(Image profileImage, String message) {
+        ImageView userImageView = new ImageView(profileImage);
+        userImageView.setFitWidth(30);
+        userImageView.setFitHeight(30);
 
-        HBox container = new HBox(userImageView, messageText);
+        Label messageLabel = new Label(message);
+        messageLabel.setWrapText(true);
+        HBox.setHgrow(messageLabel, Priority.ALWAYS);
+
+        HBox container = new HBox(userImageView, messageLabel);
 
         historyContainer.getChildren().add(container);
     }
