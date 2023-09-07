@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.util.ArrayList;
 
     public class Duke {
         private static final String FILE_PATH = "./data/duke.txt";
@@ -72,6 +73,10 @@ import java.util.Scanner;
                         case "delete":
                             handleDelete(input, taskManager);
                             break;
+                        case "find":
+                            handleFind(input, taskManager);
+                        case "bye":
+                            break;
                         default:
                             throw new UnknownCommandException("I may be the GOAT but I don't know what that means.");
                     }
@@ -80,6 +85,12 @@ import java.util.Scanner;
                 }
             }
             ui.exit();
+        }
+
+        private void handleFind(String input, TaskManager taskManager) throws InvalidArgumentException {
+            String keyword = parser.parseFind(input);
+            ArrayList<Task> filteredList = taskManager.filterList(keyword);
+            ui.displayFilteredList(filteredList, filteredList.size());
         }
 
 

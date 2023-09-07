@@ -117,4 +117,15 @@ public class TaskManager {
     public ArrayList<Task> getList() {
         return list;
     }
+
+    ArrayList<Task> filterList(String keyword) {
+        ArrayList<Task> filteredList = new ArrayList<>();
+        for (Task task : list) {
+            if (task.toString().contains(keyword)) {
+                filteredList.add(task);
+            }
+        }
+        return filteredList;
+    }
+
 }

@@ -118,4 +118,17 @@ public class UI {
         System.out.println("OK, I've marked this task as not done.\n [ ] " + taskName);
         printLine();
     }
+
+    protected void displayFilteredList(ArrayList<Task> filteredList, int numOfTasks) {
+        printLine();
+        if (numOfTasks == 0) {
+            System.out.println("There are no tasks matching your search :(");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < numOfTasks; i++) {
+                System.out.println((i + 1) + ". " + filteredList.get(i));
+            }
+        }
+        printLine();
+    }
 }

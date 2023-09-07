@@ -38,6 +38,19 @@ public class Parser {
         return taskName;
     }
 
+    protected String parseFind(String input) throws InvalidArgumentException {
+        int indexOfSpace = input.indexOf(" ");
+        if (indexOfSpace == -1 || indexOfSpace == input.length() - 1) {
+            throw new InvalidArgumentException("Please enter a keyword");
+        }
+        String keyword = input.substring(input.indexOf(" ") + 1).trim();
+
+        // Check if keyword contains more than one word
+        if (keyword.isEmpty() || keyword.split("\\s+").length > 1) {
+            throw new InvalidArgumentException("Please enter only one keyword");
+        }
+        return keyword;
+    }
     /**
      * Parses the task name and due date for a Deadline task from the user input.
      *
