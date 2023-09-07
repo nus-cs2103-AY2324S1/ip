@@ -1,7 +1,5 @@
 package duke;
 
-import duke.*;
-
 import java.util.ArrayList;
 
 
@@ -16,11 +14,14 @@ public class Ui {
      * Creates a new Ui instance.
      */
     public Ui() {}
+
     /**
-     * Prints the welcome message when program just started running.
+     * Returns the welcome message when program just started running.
+     *
+     * @return a String showing the welcome message
      */
     public String showIntro() {
-        String s = "Hello! I'm Duke.\nWhat can I do for you?";
+        String s = "Hello! I'm duke.Duke.\nWhat can I do for you?";
         return s;
     }
 

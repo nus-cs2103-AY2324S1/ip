@@ -1,22 +1,11 @@
-import duke.*;
+package duke;
 
-import java.util.Scanner;
-
-import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
-
-
-
 
 /**
  * A chatbot that helps a person to keep track of a list of tasks.
@@ -29,17 +18,10 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
 
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
-     * Creates a new Duke instance.
+     * Creates a new duke.Duke instance.
      *
      */
     public Duke() {
@@ -48,7 +30,6 @@ public class Duke {
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
-            //ui.showLoadingError();
             System.out.println("Loading Error");
             tasks = new TaskList();
         }

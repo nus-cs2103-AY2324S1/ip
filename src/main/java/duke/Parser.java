@@ -1,8 +1,5 @@
 package duke;
 
-import duke.Deadline;
-import duke.DukeException;
-
 import java.util.ArrayList;
 
 /**
@@ -42,18 +39,18 @@ public class Parser {
             } else {
                 throw new DukeException("OOPS!!! Please fill in the task I need to delete");
             }
-        // list tasks
+            // list tasks
         } else if (command.equalsIgnoreCase("list")) {
             return ui.printList(list);
 
-        // find task
+            // find task
         } else if (command.toLowerCase().startsWith("find")) {
             String keyword = command.substring(5).trim();
             ArrayList<Task> matchingTasks = list.find(keyword);
 
             return ui.printMatchingTasks(matchingTasks);
 
-        // mark task as done
+            // mark task as done
         } else if (command.toLowerCase().startsWith("mark")) {
             String[] sub = command.split(" ");
 
@@ -73,7 +70,7 @@ public class Parser {
                 throw new DukeException("OOPS!!! Please fill in the task I need to mark");
             }
 
-        // unmark task
+            // unmark task
         } else if (command.toLowerCase().startsWith("unmark")) {
             String[] sub = command.split(" ");
 
@@ -93,7 +90,7 @@ public class Parser {
                 throw new DukeException("OOPS!!! Please fill in the task I need to unmark");
             }
 
-        // add todo
+            // add todo
         } else if (command.toLowerCase().startsWith("todo")) {
             String todo = command.substring(4).trim();
             if (todo.isEmpty()) {
@@ -107,7 +104,7 @@ public class Parser {
                 return ui.addTodo(list, newTodo);
             }
 
-        // add deadline
+            // add deadline
         } else if (command.toLowerCase().startsWith("deadline")) {
             String deadline = command.substring(8).trim();
 
@@ -133,7 +130,7 @@ public class Parser {
                 }
             }
 
-        // add event
+            // add event
         } else if (command.toLowerCase().startsWith("event")) {
             String event = command.substring(5).trim();
 
@@ -172,9 +169,7 @@ public class Parser {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
 
-        // save updated task list to storage
-        //storage.save(list);
-        //return "hello";
+
     }
 
 }
