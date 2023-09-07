@@ -14,13 +14,6 @@ public class Parser {
 
     }
 
-    public String getUserInput() {
-        Scanner getUserInput = new Scanner(System.in);
-        String userInput = getUserInput.nextLine();
-        getUserInput.close();
-        return userInput;
-    }
-
     public void processUserCommand(String userInput) {
 
 

@@ -68,7 +68,8 @@ public class TaskList {
         } else {
 
             userList[position].markDone();
-            return "Following task is marked as done:\n" + userList[position].display();
+            return "Following task is marked as done:\n" + position + ". "
+                    + userList[position].display();
 
         }
     }
@@ -79,7 +80,8 @@ public class TaskList {
         } else {
 
             userList[position].unmarkDone();
-            return "Following task is marked as undone:\n" + userList[position].display();
+            return "Following task is marked as undone:\n" + position + ". "
+                    + userList[position].display();
 
         }
     }
@@ -99,11 +101,33 @@ public class TaskList {
             StringBuilder message = new StringBuilder();
             for (int i = 0; i < userListPointer; i++) {
                 int num = i + 1;
-                message.append(num).append(userList[i].display()).append("\n");
+                message.append(num).append(". ").append(userList[i].display()).append("\n");
 
 
             }
             return message.toString();
+        }
+    }
+
+    public String findTask(String keyWords) {
+        if (userListPointer < 1) {
+            return "No items in the list yet";
+        } else {
+            int num = 1;
+            StringBuilder message = new StringBuilder();
+            for (int i = 0; i < userListPointer; i++) {
+                if (userList[i].getTaskName().toLowerCase().contains(keyWords.toLowerCase())) {
+                    message.append(num).append(". ").append(userList[i].display()).append("\n");
+                    num++;
+                }
+
+            }
+            if (num == 1) {
+                return "No matches found";
+            } else {
+                return "Here are the matching tasks in your list:\n" + message;
+            }
+
         }
     }
 }

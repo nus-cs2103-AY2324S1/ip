@@ -15,6 +15,8 @@ import HelperClass.Ui;
 import HelperClass.Parser;
 import HelperClass.TaskList;
 
+import java.util.Scanner;
+
 public class Duke {
 
 
@@ -50,13 +52,14 @@ public class Duke {
         boolean wantToExit = false;
         boolean userListHaveChanges;
 
-
+        Scanner getUserInput = new Scanner(System.in);
 
         while (!(wantToExit)) {
 
             userListHaveChanges = false;
 
-            parser.processUserCommand(parser.getUserInput());
+            String userInput = getUserInput.nextLine();
+            parser.processUserCommand(userInput);
 
             switch (parser.getCommand()) {
 
@@ -132,6 +135,10 @@ public class Duke {
 
                     break;
 
+                case "find":
+                    ui.Speak(tasks.findTask(parser.getTaskName()));
+                    break;
+
 
                 default:
                     ui.Speak("OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -149,6 +156,8 @@ public class Duke {
 
 
         }
+
+        getUserInput.close();
 
 
 

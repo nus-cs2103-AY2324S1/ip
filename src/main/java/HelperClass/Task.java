@@ -118,6 +118,10 @@ public class Task {
 
         return description;
     }
+
+    public String getTaskName() {
+        return taskName;
+    }
 }
 
 
