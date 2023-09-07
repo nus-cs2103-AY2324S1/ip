@@ -182,8 +182,8 @@ public class Parser {
      * @return Find command
      */
     public Command handleFind(String fullCommand) {
-        String item = fullCommand.substring(5).trim();
-        return new FindCommand(item);
+        String[] items = fullCommand.substring(5).split(" ");
+        return new FindCommand(items);
     }
 }
 

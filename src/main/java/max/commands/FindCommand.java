@@ -13,15 +13,15 @@ import java.util.ArrayList;
  */
 public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
-    private String item;
+    private String[] items;
 
     /**
      * Specifies item to be found.
      *
-     * @param item Item to be found
+     * @param items Item to be found
      */
-    public FindCommand(String item) {
-        this.item = item;
+    public FindCommand(String... items) {
+        this.items = items;
     }
 
     /**
@@ -36,8 +36,10 @@ public class FindCommand extends Command {
         ArrayList<Task> currList =  tasks.getList();
         ArrayList<Task> filterList = new ArrayList<>();
         for (Task task : currList) {
-            if (task.getItem().contains(item)) {
-                filterList.add(task);
+            for (String item : items) {
+                if (task.getItem().contains(item)) {
+                    filterList.add(task);
+                }
             }
         }
         return ui.showList(filterList);
