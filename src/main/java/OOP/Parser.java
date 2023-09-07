@@ -73,7 +73,6 @@ public class Parser {
                         case "find":
                             String searchText = extractSecondWordOnwards(userCommandText);
                             return new FindTasksCommand(searchText);
-
                         default:
                             return new InvalidCommand();
                     }
