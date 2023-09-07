@@ -2,8 +2,6 @@ package LogicHandlers.CommandHandlers;
 
 import Models.TaskArray;
 
-import static Ui.BasicOutputPrinter.printBasicOutput;
-
 /**
  * HelpCommandHandler handles all 'help' commands.
  */
@@ -26,7 +24,7 @@ public class HelpCommandHandler implements Command{
      * @param commandContent The content of the input.
      */
     @Override
-    public void parseCommandContent(String commandContent) {
+    public String parseCommandContent(String commandContent) {
         String help = " Hello! I'm EGGBOT!\n\n" +
                 " Adding of tasks:\n" +
                 " ToDo task: 'todo [Task]'\n" +
@@ -40,7 +38,7 @@ public class HelpCommandHandler implements Command{
                 " To view a list of commands, type 'help' \n" +
                 " To exit, type 'bye' or 'exit'";
 
-        printBasicOutput(help);
+        return (help);
     }
 }
 

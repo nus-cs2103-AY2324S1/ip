@@ -5,6 +5,8 @@ import Models.TaskArray;
 
 import java.util.HashMap;
 
+import static Ui.BasicOutputPrinter.printBasicOutput;
+
 /**
  * Handles and parses all user input, and assigns each command to a valid handler.
  */
@@ -38,15 +40,15 @@ public class CentralCommandHandler {
 
         if (!COMMAND_MAP.containsKey(command)) {
             InvalidInputHandler invalidHandler = new InvalidInputHandler(this.tasks);
-            invalidHandler.parseCommandContent("");
+            printBasicOutput(invalidHandler.parseCommandContent(""));
 
         } else {
             Command commandHandler= COMMAND_MAP.get(command);
 
             if (splitInput.length < 2) {
-                commandHandler.parseCommandContent("");
+                printBasicOutput(commandHandler.parseCommandContent(""));
             } else {
-                commandHandler.parseCommandContent(splitInput[1].strip());
+                printBasicOutput(commandHandler.parseCommandContent(splitInput[1].strip()));
             }
         }
     }

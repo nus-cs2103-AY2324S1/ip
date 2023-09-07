@@ -3,9 +3,6 @@ package LogicHandlers.CommandHandlers;
 import Models.TaskArray;
 import Models.ToDo;
 
-import static Ui.BasicOutputPrinter.printBasicOutput;
-import static Ui.ErrorOutputPrinter.printErrorOutput;
-
 /**
  * TodoHandler handles all 'todo' commands.
  */
@@ -27,18 +24,16 @@ public class TodoHandler implements Command{
      * @param commandContent The content of the input.
      */
     @Override
-    public void parseCommandContent(String commandContent) {
+    public String parseCommandContent(String commandContent) {
         if (commandContent.equals("")) {
-            printErrorOutput("You cannot add an empty 'ToDo' task!");
+            return ("You cannot add an empty 'ToDo' task!");
 
         } else {
             tasks.addTask(new ToDo(commandContent, false));
 
-            String output = "Got it, I've added this task: \n" +
+            return ("Got it, I've added this task: \n" +
                     tasks.get(tasks.size() - 1) + "\n" +
-                    "You now have " + tasks.size() + " tasks in the list.";
-
-            printBasicOutput(output);
+                    "You now have " + tasks.size() + " tasks in the list.");
         }
     }
 }

@@ -27,9 +27,10 @@ public class ExitHandler implements Command {
      * @param commandContent The content of the input.
      */
     @Override
-    public void parseCommandContent(String commandContent) {
+    public String parseCommandContent(String commandContent) {
         printBasicOutput("Bye. Hope to see you again soon!");
-
         exit(0);
+
+        return("");
     }
 }

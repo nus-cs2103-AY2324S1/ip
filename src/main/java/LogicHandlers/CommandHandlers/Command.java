@@ -7,5 +7,5 @@ public interface Command {
      *
      * @param commandContent The content of the input.
      */
-    void parseCommandContent(String commandContent);
+    String parseCommandContent(String commandContent);
 }

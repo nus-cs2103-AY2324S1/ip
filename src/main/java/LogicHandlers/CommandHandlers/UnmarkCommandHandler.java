@@ -6,8 +6,6 @@ import Models.TaskArray;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static Ui.BasicOutputPrinter.printBasicOutput;
-import static Ui.ErrorOutputPrinter.printErrorOutput;
 
 /**
  * UnmarkCommandHandler handles all mark commands.
@@ -30,9 +28,9 @@ public class UnmarkCommandHandler implements Command{
      * @param commandContent The content of the input.
      */
     @Override
-    public void parseCommandContent(String commandContent) {
+    public String parseCommandContent(String commandContent) {
         if (commandContent.equals("")) {
-            printErrorOutput("You cannot unmark an empty task!");
+            return ("You cannot unmark an empty task!");
 
         } else {
             int index;
@@ -49,17 +47,15 @@ public class UnmarkCommandHandler implements Command{
                 index = Integer.parseInt(commandContent) - 1;
 
                 if (index >= tasks.size() || index < 0) {
-                    printErrorOutput("Task " + (index + 1) + " not found!");
+                    return ("Task " + (index + 1) + " not found!");
                 } else {
                     tasks.unmarkTask(index);
 
-                    String output = "OK, I've marked this task as not done yet: \n" +
-                            tasks.get(index);
-
-                    printBasicOutput(output);
+                    return ("OK, I've marked this task as not done yet: \n" +
+                            tasks.get(index));
                 }
             } catch (DukeInvalidIndexException e) {
-                printErrorOutput(e.toString());
+                return (e.toString());
             }
         }
     }

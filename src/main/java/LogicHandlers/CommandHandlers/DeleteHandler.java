@@ -6,9 +6,6 @@ import Models.TaskArray;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static Ui.BasicOutputPrinter.printBasicOutput;
-import static Ui.ErrorOutputPrinter.printErrorOutput;
-
 /**
  * DeleteHandler handles all 'delete' commands.
  */
@@ -30,9 +27,9 @@ public class DeleteHandler implements Command{
      * @param commandContent The content of the input.
      */
     @Override
-    public void parseCommandContent(String commandContent) {
+    public String parseCommandContent(String commandContent) {
         if (commandContent.equals("")) {
-            printErrorOutput("Please specify a task to delete!");
+            return ("Please specify a task to delete!");
         } else {
             try {
                 // Regex to tell if content is an integer
@@ -46,18 +43,18 @@ public class DeleteHandler implements Command{
                 int index = Integer.parseInt(commandContent) - 1;
 
                 if (index >= tasks.size()) {
-                    printErrorOutput("Task " + (index + 1) + " not found!");
+                    return ("Task " + (index + 1) + " not found!");
                 } else {
                     String output = "Noted, I've removed this task: \n" +
                             tasks.get(index) + "\n" +
                             "You now have " + (tasks.size() - 1) + " tasks in the list.";
 
-                    printBasicOutput(output);
-
                     tasks.deleteTask(index);
+
+                    return (output);
                 }
             } catch (DukeInvalidIndexException e) {
-                printErrorOutput(e.toString());
+                return (e.toString());
             }
         }
     }

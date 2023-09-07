@@ -6,9 +6,6 @@ import Models.TaskArray;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static Ui.BasicOutputPrinter.printBasicOutput;
-import static Ui.ErrorOutputPrinter.printErrorOutput;
-
 /**
  * MarkCommandHandler handles all mark commands.
  */
@@ -30,9 +27,9 @@ public class MarkCommandHandler implements Command{
      * @param commandContent The content of the input.
      */
     @Override
-    public void parseCommandContent(String commandContent) {
+    public String parseCommandContent(String commandContent) {
         if (commandContent.equals("")) {
-            printErrorOutput("You cannot mark an empty task!");
+            return ("You cannot mark an empty task!");
 
         } else {
             int index;
@@ -49,17 +46,15 @@ public class MarkCommandHandler implements Command{
                 index = Integer.parseInt(commandContent) - 1;
 
                 if (index >= tasks.size() || index < 0) {
-                    printErrorOutput("Task " + (index + 1) + " not found!");
+                    return ("Task " + (index + 1) + " not found!");
                 } else {
                     tasks.markTask(index);
 
-                    String output = "Nice! I've marked this task as done: \n" +
-                            tasks.get(index);
-
-                    printBasicOutput(output);
+                    return ("Nice! I've marked this task as done: \n" +
+                            tasks.get(index));
                 }
             } catch (DukeInvalidIndexException e) {
-                printErrorOutput(e.toString());
+                return (e.toString());
             }
         }
     }
