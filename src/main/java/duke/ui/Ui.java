@@ -68,47 +68,59 @@ public class Ui {
      *
      * @param command
      */
-    public static void printResult(Commands command, Optional<Task> task, TaskList taskList) {
+    public static String printResult(Commands command, Optional<Task> task, TaskList taskList) {
+        Optional<String> printRes = Optional.empty();
         switch (command) {
         case TODO:
         case DEADLINE:
         case EVENT: {
-            task.ifPresent(t -> {
-                System.out.println("\uD83D\uDE0A I've added a new task: " + t.toString());
-                System.out.println("Now you have " + taskList.getSize() + " tasks!");
+            printRes = task.map(t -> {
+//                System.out.println("\uD83D\uDE0A I've added a new task: " + t.toString());
+//                System.out.println("Now you have " + taskList.getSize() + " tasks!");
+                return "\\uD83D\\uDE0A I've added a new task: " + t.toString() + "\n" + "Now you have " + taskList.getSize() + " tasks!";
+
+
             });
             break;
         }
         case MARK: {
-            task.ifPresent(t -> System.out.println("Nice! I've marked this task as done: \n    " + t.toString()));
+//            task.ifPresent(t -> System.out.println("Nice! I've marked this task as done: \n    " + t.toString()));
+            printRes = task.map(t -> {
+                return "Nice! I've marked this task as done: \n    " + t.toString();
+            });
 
             break;
         }
         case UNMARK: {
-            task.ifPresent(t -> System.out.println("Nice! I've marked this task as undone: \n    " + t.toString()));
-
+//            task.ifPresent(t -> System.out.println("Nice! I've marked this task as undone: \n    " + t.toString()));
+            printRes = task.map(t -> "Nice! I've marked this task as undone: \n    " + t.toString());
             break;
         }
         case DELETE: {
-            task.ifPresent(t -> System.out.println("\uD83D\uDE0A I've removed this task: " + t.toString()));
+//            task.ifPresent(t -> System.out.println("\uD83D\uDE0A I've removed this task: " + t.toString()));
+            printRes = task.map(t -> "\uD83D\uDE0A I've removed this task: " + t.toString());
             break;
         }
         case LIST: {
             System.out.println(taskList);
+            printRes = Optional.of(taskList.toString());
             break;
         }
         case FIND: {
             if (taskList.getSize() == 0) {
-                System.out.println("Couldn't find any matching tasks!");
+//                System.out.println("Couldn't find any matching tasks!");
+                printRes = Optional.of("Couldn't find any matching tasks!");
             } else {
-                System.out.println("I found " + taskList.getSize() + " matching tasks:");
-                System.out.println(taskList.toString());
+                printRes = Optional.of("I found " + taskList.getSize() + " matching tasks:\n" + taskList);
+//                System.out.println("I found " + taskList.getSize() + " matching tasks:");
+//                System.out.println(taskList.toString());
             }
             break;
         }
         case BYE: {
-            String exitMsg = "Bye! Hope to see you again soon.";
-            System.out.println(exitMsg);
+//            String exitMsg = "Bye! Hope to see you again soon.";
+//            System.out.println(exitMsg);
+            printRes = Optional.of("Bye! Hope to see you again soon.");
 
             break;
         }
@@ -118,7 +130,9 @@ public class Ui {
             break;
         }
         }
+        return printRes.get();
     }
+
 
     /**
      * Prints a simple divider line to the screen.
