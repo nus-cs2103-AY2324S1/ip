@@ -28,15 +28,17 @@ public class TaskCommand extends Command {
      * @param taskList The used TaskList
      * @param ui The ui object
      * @param storage The storage used
+     * @return Message response from running the command.
      * @throws Exception If createTaskType and writeFile throw Exception
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws Exception {
         Task newTask = Task.createTaskType(splitTask);
         taskList.add(newTask);
         int i = taskList.indexOf(newTask);
 
-        ui.printAddTask(newTask, i + 1);
         storage.writeFile(taskList);
+
+        return ui.printAddTask(newTask, i + 1);
     }
 }

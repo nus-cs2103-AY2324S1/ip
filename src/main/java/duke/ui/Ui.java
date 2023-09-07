@@ -21,17 +21,24 @@ public class Ui {
 
     /**
      * A method that print greeting message
+     *
+     * @return Greeting statement.
      */
-    public void printGreet() {
+    public String printGreet() {
         printFinal("     Hello! I'm Siri\n"
                 + "     What can I do for you?\n");
+        return "     Hello! I'm Siri\n"
+                + "     What can I do for you?\n";
     }
 
     /**
      * A method that print goodbye message.
+     *
+     * @return Goodbye message
      */
-    public void printBye() {
+    public String printBye() {
         printFinal("     Bye. Hope to see you again soon!\n");
+        return "     Bye. Hope to see you again soon!\n";
     }
 
     /**
@@ -39,11 +46,16 @@ public class Ui {
      *
      * @param newTask the newly added task
      * @param numberOfTask The number of tasks in the TaskList
+     * @return Task added statement.
      */
-    public void printAddTask(Task newTask, int numberOfTask) {
+    public String printAddTask(Task newTask, int numberOfTask) {
         printFinal("     Got it. I've added this duke.task:\n"
                 + "      " + newTask + "\n"
                 + "     Now you have " + numberOfTask + " tasks in the list." + "\n");
+
+        return "     Got it. I've added this duke.task:\n"
+                + "      " + newTask + "\n"
+                + "     Now you have " + numberOfTask + " tasks in the list." + "\n";
     }
 
     /**
@@ -51,19 +63,25 @@ public class Ui {
      *
      * @param deletedTask the deleted task
      * @param numberOfTask the number of tasks in the TaskList
+     * @return delete message.
      */
-    public void printDeleteTask(Task deletedTask, int numberOfTask) {
+    public String printDeleteTask(Task deletedTask, int numberOfTask) {
         printFinal("     Noted. I've removed this duke.task:" + "\n"
                 + "       " + deletedTask + "\n"
                 + "     Now you have " + numberOfTask + " tasks in the list." + "\n");
+
+        return "     Noted. I've removed this duke.task:" + "\n"
+                + "       " + deletedTask + "\n"
+                + "     Now you have " + numberOfTask + " tasks in the list." + "\n";
     }
 
     /**
      * Print all the task in the taskList.
      *
      * @param taskList the taskList that going to be printed.
+     * @return all the task in the taskList.
      */
-    public void printTaskList(TaskList taskList) {
+    public String printTaskList(TaskList taskList) {
         String items = "";
 
         for (int i = 0; i < taskList.size(); i++) {
@@ -74,27 +92,35 @@ public class Ui {
         }
 
         printFinal("     Here are the tasks in your list:\n" + items);
+        return "     Here are the tasks in your list:\n" + items;
     }
 
     /**
      * Print the message when marking a task.
      *
      * @param task The marked task.
+     * @return Marked task message.
      */
-    public void printMark(Task task) {
+    public String printMark(Task task) {
         printFinal("     Nice! I've marked this duke.task as done:" + "\n"
                 + "       " + task + "\n");
 
+        return "     Nice! I've marked this duke.task as done:" + "\n"
+                + "       " + task + "\n";
     }
 
     /**
      * Print the message when unmarking a task.
      *
      * @param task the unmark task
+     * @return unmarked task message.
      */
-    public void printUnmark(Task task) {
+    public String printUnmark(Task task) {
         printFinal("     OK, I've marked this duke.task as not done yet:" + "\n"
                 + "       " + task + "\n");
+
+        return "     OK, I've marked this duke.task as not done yet:" + "\n"
+                + "       " + task + "\n";
     }
 
     /**

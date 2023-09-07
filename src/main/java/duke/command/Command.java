@@ -16,7 +16,8 @@ public abstract class Command {
      * @param taskList The used TaskList
      * @param ui The ui object
      * @param storage The storage used
+     * @return Message response from running the command.
      * @throws Exception Throw Exception if needed
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws Exception;
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws Exception;
 }
