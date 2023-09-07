@@ -2,7 +2,6 @@ import duke.DukeException;
 import duke.TaskList;
 import duke.Ui;
 import duke.command.MarkCommand;
-import duke.messages.ErrorMessages;
 import duke.task.Todo;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +27,7 @@ public class MarkCommandTest {
         assertEquals(successMessage, new MarkCommand(1).execute(taskList, ui));
     }
     @Test
-    public void execute_mark_alreadyMarkedExceptionThrown(){
+    public void execute_mark_alreadyMarkedExceptionThrown() {
         Todo toDoTask = new Todo("return book");
         Todo toDoTask2 = new Todo("run 5km");
         ArrayList<String> taskListString = new ArrayList<>();
@@ -40,12 +39,12 @@ public class MarkCommandTest {
         String successMessage = ui.showMarkMessage(toDoTask);
         try {
             assertEquals(successMessage, new MarkCommand(1).execute(taskList, ui));
-        } catch (Exception e){
+        } catch (Exception e) {
             assertEquals("Task has already been marked as completed.", e.getMessage());
         }
     }
     @Test
-    public void execute_mark_indexOutOfBoundsExceptionThrown(){
+    public void execute_mark_indexOutOfBoundsExceptionThrown() {
         Todo toDoTask = new Todo("return book");
         Todo toDoTask2 = new Todo("run 5km");
         ArrayList<String> taskListString = new ArrayList<>();
@@ -57,9 +56,9 @@ public class MarkCommandTest {
         String successMessage = ui.showMarkMessage(toDoTask);
         try {
             assertEquals(successMessage, new MarkCommand(3).execute(taskList, ui));
-        } catch (Exception e){
-            assertEquals("I'm sorry, the task number you have entered a number that exceeds the size of " +
-                    "your task list.", e.getMessage());
+        } catch (Exception e) {
+            assertEquals("I'm sorry, the task number you have entered a number that exceeds the size of "
+                    + "your task list.", e.getMessage());
         }
     }
 }

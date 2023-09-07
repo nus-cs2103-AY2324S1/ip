@@ -6,16 +6,16 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a Deadline Task
  */
-public class Deadline extends Task{
-    protected LocalDateTime deadline ;
+public class Deadline extends Task {
+    protected LocalDateTime deadline;
 
-    public Deadline(String name, LocalDateTime deadline){
+    public Deadline(String name, LocalDateTime deadline) {
         super(name);
         this.deadline = deadline;
     }
 
     // Override toString method
-    @Override public String toString(){
+    @Override public String toString() {
         return "[D] " + super.toString() + " (by: " + deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy ha")) + ")";
     }
 

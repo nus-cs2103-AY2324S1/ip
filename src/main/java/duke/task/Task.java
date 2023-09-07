@@ -5,35 +5,35 @@ package duke.task;
  */
 
 public class Task {
-    protected String name ;
-    protected boolean status ;
+    protected String name;
+    protected boolean status;
 
     //Constructors
-    public Task(String name){
-        this.name = name ;
+    public Task(String name) {
+        this.name = name;
         this.status = false;
     }
 
-    public String getName(){
-        return this.name ;
+    public String getName() {
+        return this.name;
     }
-    public boolean isTaskCompleted(){
+    public boolean isTaskCompleted() {
         return this.status;
     }
 
-    public void markTaskCompleted(){
+    public void markTaskCompleted() {
         this.status = true;
     }
-    public void markTaskUncompleted(){
+    public void markTaskUncompleted() {
         this.status = false;
     }
 
     @Override
     public String toString(){
         if (this.status){
-            return "[X] " + this.name ;
+            return "[X] " + this.name;
         } else {
-            return "[ ] " + this.name ;
+            return "[ ] " + this.name;
         }
     }
 }

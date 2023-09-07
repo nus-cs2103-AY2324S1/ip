@@ -11,16 +11,16 @@ import java.util.ArrayList;
 
 public class Ui {
 
-    public String showWelcome(){
+    public String showWelcome() {
         // Introduction Message
         return Messages.INTRODUCTION.getMessage();
     }
 
-    public String showExitMessage(){
+    public String showExitMessage() {
         return Messages.GOODBYE_MESSAGE.getMessage();
     }
 
-    public String showListMessage(TaskList taskList){
+    public String showListMessage(TaskList taskList) {
         StringBuilder tasks = new StringBuilder();
         for (int i = 0 ; i < taskList.getLengthOfTaskList() ; i++){
             if (i == taskList.getLengthOfTaskList() - 1){
@@ -32,11 +32,11 @@ public class Ui {
         return Messages.LIST_COMMAND.getMessage() + "\n" + tasks ;
     }
 
-    public String showMarkMessage(Task task){
+    public String showMarkMessage(Task task) {
         return Messages.MARK_COMMAND.getMessage() + "\n" + task;
     }
 
-    public String showUnmarkMessage(Task task){
+    public String showUnmarkMessage(Task task) {
         return Messages.UNMARK_COMMAND.getMessage() + "\n" + task;
     }
 
@@ -48,7 +48,7 @@ public class Ui {
         return Messages.TASK_ADDED.getMessage() + "\n" + task + "\n" + showTaskListSize(taskList);
     }
 
-    public String showFoundMessages(ArrayList<Task> taskList){
+    public String showFoundMessages(ArrayList<Task> taskList) {
         StringBuilder tasks = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
             if (i == taskList.size() - 1){
@@ -60,7 +60,7 @@ public class Ui {
         return Messages.FOUND_TASKS.getMessage() + "\n" + tasks;
     }
 
-    public String showTaskListSize(TaskList taskList){
+    public String showTaskListSize(TaskList taskList) {
         return ("Now you have " + taskList.getTaskList().size() + " tasks in the list.");
     }
 }

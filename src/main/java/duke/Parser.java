@@ -21,25 +21,25 @@ public class Parser {
      */
     public Command parse(String command) throws DukeException {
         if (command.contains("bye")) {
-            if (command.trim().length() == 3){
+            if (command.trim().length() == 3) {
                 return new ExitCommand();
             } else {
                 throw new DukeException(ErrorMessages.INVALID_INPUT.getMessage() + " 'bye' ?");
             }
         } else if (command.contains("list")){
-            if (command.trim().length() == 4){
+            if (command.trim().length() == 4) {
                 return new ListCommand();
             } else {
                 throw new DukeException(ErrorMessages.INVALID_INPUT.getMessage() + " 'list' ?");
             }
         } else if (command.contains("delete")) {
-            if (command.trim().length() == 6){
+            if (command.trim().length() == 6) {
                 throw new DukeException(ErrorMessages.MISSING_TASK_NUMBER.getMessage());
             } else {
                 return new DeleteCommand(Integer.parseInt(command.substring(7)) - 1);
             }
         } else if (command.contains("todo")) {
-            if (command.trim().length() == 4){
+            if (command.trim().length() == 4) {
                 throw new DukeException(ErrorMessages.EMPTY_DESCRIPTION_HEAD.getMessage() + "todo"
                         + ErrorMessages.EMPTY_DESCRIPTION_TAIL.getMessage());
             } else {
@@ -47,7 +47,7 @@ public class Parser {
                 return new AddCommand(toDoTask);
             }
         } else if (command.contains("deadline")) {
-            if (command.trim().length() == 8){
+            if (command.trim().length() == 8) {
                 throw new DukeException(ErrorMessages.EMPTY_DESCRIPTION_HEAD.getMessage() +
                         "deadline" + ErrorMessages.EMPTY_DESCRIPTION_TAIL.getMessage());
             } else {
@@ -58,14 +58,16 @@ public class Parser {
                 } else {
                     // Deal with DateTimeParseException
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Messages.DATE_FORMAT.getMessage());
-                    LocalDateTime deadlineDate = LocalDateTime.parse(deadlineString[1].substring(3), formatter);
+                    LocalDateTime deadlineDate = LocalDateTime.parse(deadlineString[1].substring(3),
+                            formatter);
                     Deadline deadlineTask = new Deadline(deadlineString[0].trim(), deadlineDate);
                     return new AddCommand(deadlineTask);
                 }
             }
         } else if (command.contains("event")) {
             if (command.trim().length() == 5) {
-                throw new DukeException(ErrorMessages.EMPTY_DESCRIPTION_HEAD.getMessage() + "event" + ErrorMessages.EMPTY_DESCRIPTION_TAIL.getMessage());
+                throw new DukeException(ErrorMessages.EMPTY_DESCRIPTION_HEAD.getMessage() + "event" +
+                        ErrorMessages.EMPTY_DESCRIPTION_TAIL.getMessage());
             } else {
                 String[] eventString = command.substring(6).split("/");
                 // Check if a start and end time has been provided.
@@ -85,22 +87,22 @@ public class Parser {
                     }
                 }
             }
-        } else if (command.contains("mark") && !command.contains("unmark")){
-            if (command.trim().length() == 4){
+        } else if (command.contains("mark") && !command.contains("unmark")) {
+            if (command.trim().length() == 4) {
                 throw new DukeException(ErrorMessages.MISSING_TASK_NUMBER.getMessage());
             } else {
                 int taskNumber = Integer.parseInt(command.substring(5).trim()) - 1;
                 return new MarkCommand(taskNumber);
             }
-        } else if (command.contains("unmark")){
-            if (command.trim().length() == 6){
+        } else if (command.contains("unmark")) {
+            if (command.trim().length() == 6) {
                 throw new DukeException(ErrorMessages.MISSING_TASK_NUMBER.getMessage());
             } else {
                 int taskNumber = Integer.parseInt(command.substring(7).trim()) - 1;
                 return new UnmarkCommand(taskNumber);
             }
-        } else if (command.contains("find")){
-            if (command.trim().length() == 4){
+        } else if (command.contains("find")) {
+            if (command.trim().length() == 4) {
                 throw new DukeException(ErrorMessages.NO_KEYWORD_PROVIDED.getMessage());
             } else {
                 String input = command.substring(5).trim();

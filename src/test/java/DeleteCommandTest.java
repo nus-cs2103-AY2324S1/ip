@@ -20,8 +20,8 @@ public class DeleteCommandTest {
         taskList.addTask(toDoTask2);
         Ui ui = new Ui();
 
-        String successMessage = "Noted. I've removed this task:" + "\n" + toDoTask + "\n" +
-                "Now you have 1 tasks in the list.";
+        String successMessage = "Noted. I've removed this task:" + "\n" + toDoTask + "\n"
+                + "Now you have 1 tasks in the list.";
 
         assertEquals(successMessage, new DeleteCommand(1).execute(taskList, ui));
     }
@@ -35,12 +35,13 @@ public class DeleteCommandTest {
         taskList.addTask(toDoTask2);
         Ui ui = new Ui();
 
-        String successMessage = "Noted. I've removed this task:" + "\n" + toDoTask + "\n" +
-                "Now you have 1 tasks in the list.";
-        try{
+        String successMessage = "Noted. I've removed this task:" + "\n" + toDoTask + "\n"
+                + "Now you have 1 tasks in the list.";
+        try {
             assertEquals(successMessage, new DeleteCommand(3).execute(taskList, ui));
-        } catch (Exception e){
-            assertEquals("I'm sorry, the task number you have entered a number that exceeds the size of your task list.", e.getMessage());
+        } catch (Exception e) {
+            assertEquals("I'm sorry, the task number you have entered a number that exceeds the size "
+                    + "of your task list.", e.getMessage());
         }
     }
 }

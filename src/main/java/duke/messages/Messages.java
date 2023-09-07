@@ -16,11 +16,11 @@ public enum Messages {
 
     private final String MESSAGE;
 
-    Messages(String message){
+    Messages(String message) {
         this.MESSAGE = message;
     }
 
-    public String getMessage(){
+    public String getMessage() {
         return this.MESSAGE;
     }
 }
