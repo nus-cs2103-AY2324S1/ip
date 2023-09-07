@@ -78,6 +78,6 @@ public class Dukduk {
     }
     
     public static void main(String[] args) {
-        new Dukduk("ip-master/src/main/java/data/duke.txt").run();
+        new Dukduk("src/main/java/data/duke.txt").run();
     }
 }
