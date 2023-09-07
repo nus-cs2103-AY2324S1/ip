@@ -9,7 +9,7 @@ import jarvis.tasks.Task;
  */
 public class Ui {
     /**
-     * ASCII Art Generated from http://patorjk.com/software/taag/
+     * ASCII Art Generated from <a href="http://patorjk.com/software/taag/">...</a>
      */
     private static final String LOGO = 
     "    ██  █████  ██████  ██    ██ ██ ███████ \n" +

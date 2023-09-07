@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The Paser class is responsible for parsing user input and converting it into executable commands and tasks.
+ * The Parser class is responsible for parsing user input and converting it into executable commands and tasks.
  */
 public class Parser {
     /**
@@ -82,8 +82,7 @@ public class Parser {
         for (String inputFormat : inputFormats) {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(inputFormat);
-                LocalDateTime parsedDateTime = LocalDateTime.parse(inputDateTime, formatter);
-                result = parsedDateTime;
+                result = LocalDateTime.parse(inputDateTime, formatter);
                 break;
             } catch (Exception e) {
                 continue;
@@ -108,7 +107,7 @@ public class Parser {
         try {
             String[] lineSplit = line.split("\\|");
             String taskType = lineSplit[0].trim();
-            boolean isCompleted = Integer.parseInt(lineSplit[1].trim()) == 1 ? true : false;
+            boolean isCompleted = Integer.parseInt(lineSplit[1].trim()) == 1;
             String taskDetails = lineSplit[2].trim();
 
             switch (taskType) {

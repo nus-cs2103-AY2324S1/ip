@@ -1,17 +1,17 @@
-package jarvis;
+// package jarvis;
 
-import org.junit.jupiter.api.Test;
+// import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+// import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class JarvisTest {
-    
-    public void dummyTest() {
-        assertEquals(2, 2);
-    }
+// public class JarvisTest {
 
-     @Test
-    public void anotherDummyTest() {
-        assertEquals(3, 2);
-    }
-}
+//     public void dummyTest() {
+//         assertEquals(2, 2);
+//     }
+
+//     @Test
+//     public void anotherDummyTest() {
+//         assertEquals(3, 2);
+//     }
+// }

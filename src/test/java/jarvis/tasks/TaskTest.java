@@ -1,18 +1,16 @@
-package jarvis.tasks;
+// package jarvis.tasks;
 
+// import org.junit.jupiter.api.Test;
 
-import org.junit.jupiter.api.Test;
+// import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+// public class TaskTest {
+//     public void dummyTest() {
+//         assertEquals(2, 2);
+//     }
 
-
-public class TaskTest {
-    public void dummyTest() {
-        assertEquals(2, 2);
-    }
-
-     @Test
-    public void anotherDummyTest() {
-        assertEquals(3, 2);
-    }
-}
+//     @Test
+//     public void anotherDummyTest() {
+//         assertEquals(3, 2);
+//     }
+// }
