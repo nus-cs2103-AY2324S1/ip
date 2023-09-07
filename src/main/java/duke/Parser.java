@@ -1,6 +1,8 @@
 package duke;
 
 import Tasks.Task;
+import Workers.*;
+import javafx.application.Platform;
 
 import java.util.ArrayList;
 
@@ -10,25 +12,32 @@ import java.util.ArrayList;
  */
 public class Parser {
 
-    public String parse(String input, ArrayList<Task> taskList, TaskExecutor executor) {
+    public String parse(String input, ArrayList<Task> taskList) {
         String[] inputParts = input.split(" ", 2);
         String command = inputParts[0];
+        TaskWorker worker;
 
         switch (command) {
         case "list":
-            return executor.listTasks(taskList);
+            worker = new ListWorker();
+            return worker.work(taskList);
         case "mark":
-            return executor.markTask(inputParts, taskList, true);
+            worker = new MarkWorker();
+            return worker.work(inputParts, taskList, true);
         case "unmark":
-            return executor.markTask(inputParts, taskList, false);
+            worker = new MarkWorker();
+            return worker.work(inputParts, taskList, false);
         case "delete":
-            return executor.deleteTask(inputParts, taskList);
+            worker = new DeleteWorker();
+            return worker.work(inputParts, taskList);
         case "find":
-            return executor.findTasks(inputParts, taskList);
+            worker = new FindWorker();
+            return worker.work(inputParts, taskList);
         case "bye":
             return "Bye. Hope to see you again soon!\n";
         default:
-            return executor.addTask(inputParts, taskList);
+            worker = new AddWorker();
+            return worker.work(inputParts, taskList);
         }
     }
 
