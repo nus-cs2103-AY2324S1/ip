@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.data.task.TaskList;
 import duke.storage.Storage;
-import duke.ui.Ui;
 
 /**
  * Represents a command to exit the chatbot application.
@@ -10,14 +9,10 @@ import duke.ui.Ui;
 public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "bye";
+    private static final String COMMAND_RESPONSE = "Bye. Hope to see you again soon!";
 
     @Override
-    public boolean isExit() {
-        return true;
-    }
-
-    @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return ui.getExitMessage();
+    public String execute(TaskList tasks, Storage storage) {
+        return COMMAND_RESPONSE;
     }
 }

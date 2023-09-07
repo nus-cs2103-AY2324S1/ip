@@ -15,6 +15,10 @@ import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
 import duke.data.exception.DukeException;
+import duke.data.exception.InvalidCommandException;
+import duke.data.exception.InvalidKeywordException;
+import duke.data.exception.InvalidTaskArgumentException;
+import duke.data.exception.InvalidTaskIndexException;
 
 /**
  * Represents the parser of user-given commands.
@@ -43,7 +47,7 @@ public class Parser {
      * @throws DukeException If no such command exists or there was an error with
      *                       the command arguments.
      */
-    public Command parse(String fullCommand) throws DukeException {
+    public static Command parse(String fullCommand) throws DukeException {
         //@author samuelim01-reused
         // Reused from Addressbook Level 2 with minor modifications.
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(fullCommand.trim());
@@ -76,7 +80,7 @@ public class Parser {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         default:
-            throw new DukeException("I'm sorry, but I don't know what that means :-(");
+            throw new InvalidCommandException();
         }
         //@@author
     }
@@ -85,12 +89,12 @@ public class Parser {
      * Returns an {@code AddTodoCommand} from the given arguments.
      * @param arguments The user arguments to the command.
      * @return An instance of {@code AddTodoCommand} with the given arguments.
-     * @throws DukeException If the arguments were invalid.
+     * @throws InvalidTaskArgumentException If the arguments were invalid.
      */
-    private Command prepareTodo(String arguments) throws DukeException {
+    private static Command prepareTodo(String arguments) throws DukeException {
         final Matcher matcher = TODO_DATA_ARGS_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
-            throw new DukeException("The description of a todo must be specified.");
+            throw new InvalidTaskArgumentException("The description of a todo must be specified.");
         }
 
         return new AddTodoCommand(matcher.group("description"));
@@ -100,12 +104,12 @@ public class Parser {
      * Returns an {@code AddDeadlineCommand} from the given arguments.
      * @param arguments The user arguments to the command.
      * @return An instance of {@code AddDeadlineCommand} with the given arguments.
-     * @throws DukeException If the arguments were invalid.
+     * @throws InvalidTaskArgumentException If the arguments were invalid.
      */
-    private Command prepareDeadline(String arguments) throws DukeException {
+    private static Command prepareDeadline(String arguments) throws DukeException {
         final Matcher matcher = DEADLINE_DATA_ARGS_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
-            throw new DukeException("The description and the /by field must be specified.");
+            throw new InvalidTaskArgumentException("The description and the /by field must be specified.");
         }
 
         return new AddDeadlineCommand(matcher.group("description"), matcher.group("by"));
@@ -115,12 +119,12 @@ public class Parser {
      * Returns an {@code AddEventCommand} from the given arguments.
      * @param arguments The user arguments to the command.
      * @return An instance of {@code AddEventCommand} with the given arguments.
-     * @throws DukeException If the arguments were invalid.
+     * @throws InvalidTaskArgumentException If the arguments were invalid.
      */
-    private Command prepareEvent(String arguments) throws DukeException {
+    private static Command prepareEvent(String arguments) throws DukeException {
         final Matcher matcher = EVENT_DATA_ARGS_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
-            throw new DukeException("The description and the /from and /to fields must be specified.");
+            throw new InvalidTaskArgumentException("The description and the /from and /to fields must be specified.");
         }
 
         return new AddEventCommand(
@@ -135,12 +139,12 @@ public class Parser {
      * @param arguments The user arguments to the command.
      * @param isMarked True if the command is meant to mark the task, false otherwise.
      * @return An instance of {@code MarkCommand} or {@code UnmarkCommand} with the given arguments.
-     * @throws DukeException If the task was not specified or invalid.
+     * @throws InvalidTaskIndexException If the task was not specified or invalid.
      */
-    private Command prepareMark(String arguments, boolean isMarked) throws DukeException {
+    private static Command prepareMark(String arguments, boolean isMarked) throws DukeException {
         final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
-            throw new DukeException("The task must be specified.");
+            throw new InvalidTaskIndexException();
         }
 
         if (isMarked) {
@@ -156,10 +160,10 @@ public class Parser {
      * @return An instance of {@code DeleteCommand} with the given arguments.
      * @throws DukeException If the task was not specified or invalid.
      */
-    private Command prepareDelete(String arguments) throws DukeException {
+    private static Command prepareDelete(String arguments) throws DukeException {
         final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
-            throw new DukeException("The task must be specified.");
+            throw new InvalidTaskIndexException();
         }
 
         return new DeleteCommand(matcher.group("taskIndex"));
@@ -170,12 +174,12 @@ public class Parser {
      *
      * @param arguments  The user arguments to the command.
      * @return An instance of {@code FindCommand} with the given arguments.
-     * @throws DukeException If no keywords were provided.
+     * @throws InvalidKeywordException If keyword was not specified or more than one.
      */
-    private Command prepareFind(String arguments) throws DukeException {
+    private static Command prepareFind(String arguments) throws InvalidKeywordException {
         final Matcher matcher = KEYWORD_DATA_ARGS_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
-            throw new DukeException("The keyword must be specified and a single word.");
+            throw new InvalidKeywordException();
         }
 
         return new FindCommand(matcher.group("keyword"));

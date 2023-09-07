@@ -97,4 +97,36 @@ public class TaskList {
         }
         return stringBuilder.toString();
     }
+
+    /**
+     * Returns an instance of {@code TaskList} with the tasks that
+     * match the given keyword.
+     *
+     * @param keyword The given keyword to match against the task descriptions.
+     * @return An instance of {@code TaskList} with the matched tasks.
+     */
+    public TaskList filter(String keyword) {
+        List<Task> filteredTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            boolean hasKeyword = task.toString().contains(keyword);
+
+            if (hasKeyword) {
+                filteredTasks.add(task);
+            }
+        }
+        return new TaskList(filteredTasks);
+    }
+
+    /**
+     * Returns the list of tasks as a formatted indexed list.
+     *
+     * @return List of tasks as a formatted indexed list.
+     */
+    public String getFormattedList() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(String.format("\t%d. %s\n", i + 1, tasks.get(i)));
+        }
+        return sb.toString();
+    }
 }

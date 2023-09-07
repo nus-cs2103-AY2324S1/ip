@@ -4,19 +4,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import duke.data.exception.DukeException;
+import duke.data.exception.InvalidDateException;
 import duke.data.task.Event;
-import duke.data.task.TaskList;
-import duke.storage.Storage;
-import duke.ui.Ui;
 
 /**
  * Represents a command to add a new event to the list of tasks.
  */
-public class AddEventCommand extends Command {
+public class AddEventCommand extends AddTaskCommand {
 
     public static final String COMMAND_WORD = "event";
-
-    private final Event toAdd;
 
     /**
      * Returns an instance of {@code AddEventCommand} with the given description, from and to dates.
@@ -31,23 +27,7 @@ public class AddEventCommand extends Command {
         try {
             this.toAdd = new Event(description, LocalDate.parse(from), LocalDate.parse(to));
         } catch (DateTimeParseException e) {
-            throw new DukeException("The dates must be filled in \"yyyy-mm-dd\" format.");
+            throw new InvalidDateException();
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        tasks.add(toAdd);
-        storage.save(tasks);
-        return ui.getMessage(
-                "Got it. I've added this task:",
-                "\t" + toAdd,
-                "Now you have " + tasks.size() + " tasks in the list."
-        );
     }
 }
