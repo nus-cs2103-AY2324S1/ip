@@ -1,23 +1,23 @@
 Hello! I'm Albatross
 Please enter a command
-duke.DukeException: ☹ OOPS!!! There is no task with this index number.
-duke.DukeException: Invalid input for index
-duke.DukeException: ☹ OOPS!!! Incorrect description of a todo.
+duke.main.DukeException: ☹ OOPS!!! There is no task with this index number.
+duke.main.DukeException: Invalid input for index
+duke.main.DukeException: ☹ OOPS!!! Incorrect description of a todo.
 Got it. I've added this task:
 [T][ ] nothing
 Now you have 1 tasks in the list.
-duke.DukeException: ☹ OOPS!!! Incorrect description of a deadline.
-duke.DukeException: ☹ OOPS!!! Incorrect description of a deadline.
-duke.DukeException: ☹ OOPS!!! Incorrect description of a deadline.
-duke.DukeException: ☹ OOPS!!! Incorrect description of a deadline.
-duke.DukeException: Something is wrong with the date provided.
+duke.main.DukeException: ☹ OOPS!!! Incorrect description of a deadline.
+duke.main.DukeException: ☹ OOPS!!! Incorrect description of a deadline.
+duke.main.DukeException: ☹ OOPS!!! Incorrect description of a deadline.
+duke.main.DukeException: ☹ OOPS!!! Incorrect description of a deadline.
+duke.main.DukeException: Something is wrong with the date provided.
 Got it. I've added this task:
 [D][ ] nothing By: Nov 11 1111
 Now you have 2 tasks in the list.
-duke.DukeException: ☹ OOPS!!! Incorrect description of an event.
-duke.DukeException: ☹ OOPS!!! Incorrect description of an event.
-duke.DukeException: ☹ OOPS!!! Incorrect description of an event.
-duke.DukeException: Something is wrong with the date provided.
+duke.main.DukeException: ☹ OOPS!!! Incorrect description of an event.
+duke.main.DukeException: ☹ OOPS!!! Incorrect description of an event.
+duke.main.DukeException: ☹ OOPS!!! Incorrect description of an event.
+duke.main.DukeException: Something is wrong with the date provided.
 Got it. I've added this task:
 [E][ ] nothing From: Nov 11 1111 To: Nov 11 1111
 Now you have 3 tasks in the list.
@@ -33,15 +33,15 @@ Here are the tasks in your list:
 1. [T][ ] nothing
 2. [D][ ] nothing By: Nov 11 1111
 3. [E][ ] nothing From: Nov 11 1111 To: Nov 11 1111
-duke.DukeException: Invalid input for index
-duke.DukeException: Invalid input for index
-duke.DukeException: ☹ OOPS!!! There is no task with this index number.
+duke.main.DukeException: Invalid input for index
+duke.main.DukeException: Invalid input for index
+duke.main.DukeException: ☹ OOPS!!! There is no task with this index number.
 Noted. I've removed this task:
 [D][ ] nothing By: Nov 11 1111
 Now you have 2 tasks in the list.
 Here are the tasks in your list:
 1. [T][ ] nothing
 2. [E][ ] nothing From: Nov 11 1111 To: Nov 11 1111
-duke.DukeException: ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
-duke.DukeException: ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+duke.main.DukeException: ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+duke.main.DukeException: ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
 Bye! Hope to see you again soon!

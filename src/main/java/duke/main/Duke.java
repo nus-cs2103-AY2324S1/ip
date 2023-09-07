@@ -1,4 +1,4 @@
-package duke;
+package duke.main;
 
 import duke.command.Command;
 
@@ -6,13 +6,12 @@ import duke.command.Command;
  * The Duke class.
  */
 public class Duke {
-
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
     /**
-     * Constructor for the duke.Duke class.
+     * Constructor for the duke.main.Duke class.
      *
      * @param filePath The String representing the filePath of the file to be used.
      */
@@ -25,6 +24,10 @@ public class Duke {
             System.out.println(e.getMessage());
             taskList = new TaskList();
         }
+    }
+
+    public Duke() {
+        this("duke.txt");
     }
 
     /**
@@ -45,7 +48,22 @@ public class Duke {
         }
     }
 
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    String getResponse(String input) {
+        String result;
+        try {
+            Command command = Parser.parse(input);
+            result = command.execute(taskList, ui, storage);
+        } catch (DukeException e) {
+            result = e.getMessage();
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
-        new Duke("duke.txt").run();
+        new Duke().run();
     }
 }

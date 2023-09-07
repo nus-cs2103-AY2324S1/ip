@@ -1,4 +1,4 @@
-package duke;
+package duke.main;
 
 /**
  * The DukeException class.
