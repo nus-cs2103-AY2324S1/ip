@@ -3,17 +3,15 @@ package adam;
 import adam.command.Command;
 import adam.exception.AdamException;
 import adam.tasks.Task;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
 /**
  * This is the main java class that contains instructions to create the chatbot Tasks.Task manager Adam.Adam.
  */
-public class Adam extends Application {
+public class Adam {
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpeg"));
     private Image adam = new Image(this.getClass().getResourceAsStream("/images/DaAdam.jpeg"));
     private Scene scene;
@@ -32,7 +30,6 @@ public class Adam extends Application {
         } catch (AdamException e) {
             list = new TaskList(new ArrayList<Task>());
         }
-
     }
 
     /**
@@ -48,24 +45,11 @@ public class Adam extends Application {
         }
     }
 
-    /**
-     * Starts the program and this method will only end when the program stops running.
-     */
-    @Override
-    public void start(Stage stage) {
-        boolean isRunning =  true;
-        ui.welcome();
-            while (isRunning) {
-                try {
-                    String li = ui.readInput();
-                    Command command = Parser.parse(li);
-                    command.execute(list, storage, ui);
-                    isRunning = list.isRunning();
-                    }
-                catch (AdamException e) {
-                    ui.displayError(e.getInfo());
-                }
-            }
+    public String getGreeting() {
+        return ui.welcome();
     }
 
+    public boolean running() {
+        return list.isRunning();
+    }
 }
