@@ -95,7 +95,7 @@ public class Duke {
                         command.handleTodo(userInput, todoC);
                     } else if (userInput.startsWith(findC)) {
                         command.handleFind(userInput, findC);
-                    }else {
+                    } else {
                         throw new UnknownCommandException();
                     }
                     storage.saveTaskToFile();
