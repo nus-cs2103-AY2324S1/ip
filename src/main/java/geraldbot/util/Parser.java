@@ -26,10 +26,17 @@ public class Parser {
 
     private final Ui ui;
 
-    private enum TaskType {
+    private enum Command {
+        LIST,
+        BYE,
+        FIND,
+        MARK,
+        UNMARK,
+        DELETE,
         TODO,
         DEADLINE,
-        EVENT
+        EVENT,
+        INVALID
     }
 
     /**
@@ -51,151 +58,179 @@ public class Parser {
      * @throws DukeException If an error occurs during parsing or execution.
      */
     public String parse(String input) throws DukeException {
-        if (input.equals("list")) {
+        Command command = getCommand(input);
+
+        switch (command) {
+        case LIST:
             return this.printList();
-        } else if (input.equals("bye")) {
+        case BYE:
             return this.ui.bye();
+        case FIND:
+            return findTasks(input.substring(5).trim());
+        case MARK:
+            return handleMarkCommand(input);
+        case UNMARK:
+            return handleUnmarkCommand(input);
+        case DELETE:
+            return handleDeleteCommand(input);
+        case TODO:
+            return handleTodoCommand(input);
+        case DEADLINE:
+            return handleDeadlineCommand(input);
+        case EVENT:
+            return handleEventCommand(input);
+        case INVALID:
+        default:
+            throw new DukeInvalidCommandException();
+        }
+    }
+
+    private Command getCommand(String input) {
+        if (input.equals("list")) {
+            return Command.LIST;
+        } else if (input.equals("bye")) {
+            return Command.BYE;
         } else if (input.startsWith("find")) {
-
-            if (input.replaceAll("\\s", "").equals(input)) {
-                throw new DukeInvalidCommandException("find");
-            }
-
-            String keyword = input.substring(input.indexOf("find") + 5).trim();
-            return findTasks(keyword);
+            return Command.FIND;
         } else if (input.startsWith("mark")) {
-
-            if (input.replaceAll("\\s", "").equals(input)) {
-                throw new DukeInvalidCommandException("mark");
-            }
-
-            String[] parsedString = input.split(" ");
-            try {
-                int num = Integer.parseInt(parsedString[1]);
-                if (num > lst.size() || num <= 0) {
-                    throw new DukeInvalidIndexException(lst.size());
-                }
-                Task selectedTask = lst.get(num - 1);
-                String message = this.markCompletion(selectedTask, num);
-                return message;
-            } catch (NumberFormatException e) {
-                throw new DukeInvalidIndexException(lst.size());
-            }
+            return Command.MARK;
         } else if (input.startsWith("unmark")) {
-
-            if (input.replaceAll("\\s", "").equals(input)) {
-                throw new DukeInvalidCommandException("unmark");
-            }
-
-            String[] parsedString = input.split(" ");
-            try {
-                int num = Integer.parseInt(parsedString[1]);
-                if (num > lst.size() || num <= 0) {
-                    throw new DukeInvalidIndexException(lst.size());
-                }
-                Task selectedTask = lst.get(num - 1);
-                String message = this.unmarkCompletion(selectedTask, num);
-                return message;
-            } catch (NumberFormatException e) {
-                throw new DukeInvalidIndexException(lst.size());
-            }
+            return Command.UNMARK;
         } else if (input.startsWith("delete")) {
+            return Command.DELETE;
+        } else if (input.startsWith("todo")) {
+            return Command.TODO;
+        } else if (input.startsWith("deadline")) {
+            return Command.DEADLINE;
+        } else if (input.startsWith("event")) {
+            return Command.EVENT;
+        } else {
+            return Command.INVALID;
+        }
+    }
 
-            if (input.replaceAll("\\s", "").equals(input)) {
-                throw new DukeInvalidCommandException("delete");
-            }
+    private String handleMarkCommand(String input) throws DukeException {
+        String[] parsedString = input.split(" ");
 
-            String[] parsedString = input.split(" ");
-            try {
-                int num = Integer.parseInt(parsedString[1]);
-                if (num > lst.size() || num <= 0) {
-                    throw new DukeInvalidIndexException(lst.size());
-                }
-                String message = this.deleteTask(num);
-                return message;
-            } catch (NumberFormatException e) {
+        if (parsedString.length != 2) {
+            throw new DukeInvalidCommandException("mark");
+        }
+
+        try {
+            int num = Integer.parseInt(parsedString[1]);
+            if (num > lst.size() || num <= 0) {
                 throw new DukeInvalidIndexException(lst.size());
             }
+            Task selectedTask = lst.get(num - 1);
+            return this.markCompletion(selectedTask, num);
+        } catch (NumberFormatException e) {
+            throw new DukeInvalidIndexException(lst.size());
+        }
+    }
 
+    // Handle the "unmark" command
+    private String handleUnmarkCommand(String input) throws DukeException {
+        String[] parsedString = input.split(" ");
+
+        if (parsedString.length != 2) {
+            throw new DukeInvalidCommandException("unmark");
+        }
+
+        try {
+            int num = Integer.parseInt(parsedString[1]);
+            if (num > lst.size() || num <= 0) {
+                throw new DukeInvalidIndexException(lst.size());
+            }
+            Task selectedTask = lst.get(num - 1);
+            return this.unmarkCompletion(selectedTask, num);
+        } catch (NumberFormatException e) {
+            throw new DukeInvalidIndexException(lst.size());
+        }
+    }
+
+    // Handle the "delete" command
+    private String handleDeleteCommand(String input) throws DukeException {
+        String[] parsedString = input.split(" ");
+
+        if (parsedString.length != 2) {
+            throw new DukeInvalidCommandException("delete");
+        }
+
+        try {
+            int num = Integer.parseInt(parsedString[1]);
+            if (num > lst.size() || num <= 0) {
+                throw new DukeInvalidIndexException(lst.size());
+            }
+            return this.deleteTask(num);
+        } catch (NumberFormatException e) {
+            throw new DukeInvalidIndexException(lst.size());
+        }
+    }
+
+    // Handle the "todo" command
+    private String handleTodoCommand(String input) throws DukeException {
+        if (input.replaceAll("\\s", "").equals(input)) {
+            throw new DukeInvalidCommandException("todo");
+        }
+
+        String command = "todo";
+        String description = input.substring(input.indexOf(' ') + 1).trim();
+
+        if (description.equals("")) {
+            throw new DukeInvalidCommandException(command);
+        }
+
+        return this.addTodo(description, false);
+    }
+
+    // Handle the "deadline" command
+    private String handleDeadlineCommand(String input) throws DukeException {
+        if (input.replaceAll("\\s", "").equals(input)) {
+            throw new DukeInvalidCommandException("deadline");
+        }
+
+        String command = "deadline";
+        String task = input.substring(input.indexOf(' ') + 1);
+        String[] parsedTask = task.split("/", 2);
+        String description = parsedTask[0].trim();
+
+        if (parsedTask.length < 2) {
+            throw new DukeEmptyParametersException();
+        }
+
+        String by = parsedTask[1].trim();
+        LocalDateTime deadlineDate = parseDate(by);
+
+        if (description.equals("")) {
+            throw new DukeInvalidCommandException(command);
+        } else if (deadlineDate == null) {
+            throw new DukeInvalidDateException();
         } else {
-            Parser.TaskType taskType;
-            if (input.startsWith("todo")) {
-                taskType = Parser.TaskType.TODO;
-            } else if (input.startsWith("deadline")) {
-                taskType = Parser.TaskType.DEADLINE;
-            } else if (input.startsWith("event")) {
-                taskType = Parser.TaskType.EVENT;
-            } else {
-                taskType = null;
-            }
+            return this.addDeadline(description, false, deadlineDate);
+        }
+    }
 
-            if (taskType == Parser.TaskType.TODO) {
+    // Handle the "event" command
+    private String handleEventCommand(String input) throws DukeException {
+        if (input.replaceAll("\\s", "").equals(input)) {
+            throw new DukeInvalidCommandException("event");
+        }
 
-                if (input.replaceAll("\\s", "").equals(input)) {
-                    throw new DukeInvalidCommandException("todo");
-                }
+        String task = input.substring(input.indexOf(' ') + 1);
+        String[] parsedTask = task.split("/");
 
-                String command = input.substring(0, input.indexOf(' '));
-                String description = input.substring(input.indexOf(' ') + 1).trim();
-                if (description.equals("")) {
-                    throw new DukeInvalidCommandException(command);
-                }
-                String message = this.addTodo(description, false);
-                return message;
-            } else if (taskType == Parser.TaskType.DEADLINE) {
+        if (parsedTask.length < 3) {
+            throw new DukeEmptyParametersException();
+        }
 
-                if (input.replaceAll("\\s", "").equals(input)) {
-                    throw new DukeInvalidCommandException("deadline");
-                }
+        String description = parsedTask[0].trim();
+        String start = parsedTask[1].substring(parsedTask[1].indexOf(' ') + 1).trim();
+        String by = parsedTask[2].substring(parsedTask[2].indexOf(' ') + 1).trim();
 
-                String command = input.substring(0, input.indexOf(' '));
-                String task = input.substring(input.indexOf(' ') + 1);
-                String[] parsedTask = task.split("/", 2);
-                String description = parsedTask[0].trim();
-
-                if (parsedTask.length < 2) {
-                    throw new DukeEmptyParametersException();
-                }
-
-                String by = parsedTask[1].trim();
-                LocalDateTime deadlineDate = parseDate(by);
-
-                if (description.equals("")) {
-                    throw new DukeInvalidCommandException(command);
-                } else if (deadlineDate == null) {
-                    throw new DukeInvalidDateException();
-                } else {
-                    String message = this.addDeadline(description, false, deadlineDate);
-                    return message;
-                }
-            } else if (taskType == Parser.TaskType.EVENT) {
-
-                if (input.replaceAll("\\s", "").equals(input)) {
-                    throw new DukeInvalidCommandException("event");
-                }
-
-                String command = input.substring(0, input.indexOf(' '));
-                String task = input.substring(input.indexOf(' ') + 1);
-                String[] parsedTask = task.split("/");
-
-                if (parsedTask.length < 3) {
-                    throw new DukeEmptyParametersException();
-                }
-
-                String description = parsedTask[0].trim();
-                String start = parsedTask[1].substring(parsedTask[1].indexOf(' ') + 1).trim();
-                String by = parsedTask[2].substring(parsedTask[2].indexOf(' ') + 1).trim();
-                if (description.equals("")) {
-                    throw new DukeInvalidCommandException(command);
-                } else if (start.equals("") || by.equals("")) {
-                    throw new DukeEmptyParametersException();
-                } else {
-                    String message = this.addEvent(description, false, start, by);
-                    return message;
-                }
-            } else {
-                throw new DukeInvalidCommandException();
-            }
+        if (description.equals("") || start.equals("") || by.equals("")) {
+            throw new DukeEmptyParametersException();
+        } else {
+            return this.addEvent(description, false, start, by);
         }
     }
 
