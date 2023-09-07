@@ -15,9 +15,7 @@ public class DefaultCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, Ui ui, TaskList taskList) {
-        System.out.println(ui.format_response(
-                "☹ OOPS!!! I'm sorry, but I don't know what that means :-("
-        ));
+    public String execute(Storage storage, Ui ui, TaskList taskList) {
+        return "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
     }
 }

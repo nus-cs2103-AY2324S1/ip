@@ -18,11 +18,10 @@ public class ToDoCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, Ui ui, TaskList taskList) {
+    public String execute(Storage storage, Ui ui, TaskList taskList) {
         Task task = new ToDo(this.description);
         task.setDone(this.done);
         taskList.addTask(task);
-        System.out.println(taskList);
-        ui.printLine();
+        return taskList.toString();
     }
 }

@@ -14,8 +14,7 @@ public class PrintListCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, Ui ui, TaskList taskList) {
-        System.out.println(taskList);
-        ui.printLine();
+    public String execute(Storage storage, Ui ui, TaskList taskList) {
+        return taskList.toString();
     }
 }

@@ -16,15 +16,15 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, Ui ui, TaskList taskList) {
+    public String execute(Storage storage, Ui ui, TaskList taskList) {
         try {
             if (taskIndex < 0 || taskIndex >= taskList.getSize()) {
                 throw new TaskIndexOutOfBoundsException("Invalid task index");
             }
             taskList.deleteTask(taskIndex);
-            System.out.println(ui.format_response("duke.task.Task successfully deleted"));
+            return ui.format_response("duke.task.Task successfully deleted");
         } catch (TaskIndexOutOfBoundsException e) {
-            System.out.println(ui.format_response("Invalid task index. Please provide a valid index."));
+            return ui.format_response("Invalid task index. Please provide a valid index.");
         }
     }
 }

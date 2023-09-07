@@ -17,13 +17,12 @@ public class LoadCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, Ui ui, TaskList taskList) {
+    public String execute(Storage storage, Ui ui, TaskList taskList) {
         try {
             taskList.setTasks(storage.load());
-            System.out.println(taskList);
-            ui.printLine();
+            return taskList.toString();
         } catch (InvalidFileTypeException e) {
-            System.out.println(ui.format_response(e.getMessage()));
+            return ui.format_response(e.getMessage());
         }
     }
 }

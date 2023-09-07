@@ -19,15 +19,14 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, Ui ui, TaskList taskList) {
+    public String execute(Storage storage, Ui ui, TaskList taskList) {
         try {
             Task task = new Deadlines(description, by);
             task.setDone(this.done);
             taskList.addTask(task);
-            System.out.println(taskList);
-            ui.printLine();
+            return taskList.toString();
         } catch (Exception e) {
-            System.out.println(ui.format_response(e.getLocalizedMessage()));
+            return ui.format_response(e.getLocalizedMessage());
         }
     }
 }

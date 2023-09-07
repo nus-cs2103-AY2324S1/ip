@@ -22,15 +22,14 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, Ui ui, TaskList taskList) {
+    public String execute(Storage storage, Ui ui, TaskList taskList) {
         try {
             Task task = new Event(description, from, to);
             task.setDone(done);
             taskList.addTask(task);
-            System.out.println(taskList);
-            ui.printLine();
+            return taskList.toString();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 
