@@ -8,6 +8,9 @@ import java.util.Scanner;
  */
 public class Parser {
     private Scanner sc;
+    public Parser() {
+
+    }
 
     /**
      * Creates a new instance of the Parser.
@@ -22,45 +25,46 @@ public class Parser {
      * @param input Command entered by user.
      * @param taskList Tasks in the chatbot.
      */
-    public void parseUserInput(String input, TaskList taskList) {
+    public String parseUserInput(String input, TaskList taskList) {
+
         if (input.equals("list")) {
 
-            System.out.println("Here are the tasks in your list:");
-            taskList.printList();
-            System.out.println(Ballsorter.LINE);
+            StringBuilder output = new StringBuilder();
+            output.append("Here are the tasks in your list:\n");
+            output.append(taskList.getStringList());
+            return output.toString();
 
         } else if (input.startsWith("mark")) {
 
             int target = Integer.parseInt(input.substring(5)) - 1;
-            taskList.markTask(target);
+            return taskList.markTask(target);
 
         } else if (input.startsWith("unmark")) {
 
             int target = Integer.parseInt(input.substring(7)) - 1;
-            taskList.unmarkTask(target);
+            return taskList.unmarkTask(target);
 
         } else if (input.startsWith("delete")) {
 
             int target = Integer.parseInt(input.substring(7)) - 1;
-            taskList.deleteTask(target);
+            return taskList.deleteTask(target);
 
         } else if (input.startsWith("find")) {
 
             if (input.length() == 4) {
-                System.out.println("☹ OOPS!!! Please enter a search term");
+                return "☹ OOPS!!! Please enter a search term";
             } else {
                 String searchString = input.substring(4).trim();
                 if (searchString.equals("")) {
-                    System.out.println("☹ OOPS!!! Please enter a search term");
+                    return "☹ OOPS!!! Please enter a search term";
                 } else {
-                    taskList.printSearchList(input.substring(5));
+                    return taskList.getSearchList(input.substring(5));
                 }
             }
-            System.out.println(Ballsorter.LINE);
 
         } else {
 
-            Task curr;
+            Task curr = null;
             StringBuilder description = new StringBuilder();
             StringBuilder start = new StringBuilder();
 
@@ -68,9 +72,7 @@ public class Parser {
 
                 String des = input.substring(4).trim();
                 if (des.equals("")) {
-                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
-                    System.out.println(Ballsorter.LINE);
-                    curr = null;
+                    return "☹ OOPS!!! The description of a todo cannot be empty.";
                 } else {
                     curr = new Todo(des);
                 }
@@ -84,13 +86,9 @@ public class Parser {
                 }
                 i += 4;
                 if (description.toString().equals("")) {
-                    System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
-                    System.out.println(Ballsorter.LINE);
-                    curr = null;
+                    return "☹ OOPS!!! The description of a deadline cannot be empty.";
                 } else if (i >= input.length() || input.substring(i).equals("")) {
-                    System.out.println("☹ OOPS!!! The deadline of a deadline cannot be empty.");
-                    System.out.println(Ballsorter.LINE);
-                    curr = null;
+                    return "☹ OOPS!!! The deadline of a deadline cannot be empty.";
                 } else {
                     LocalDateTime endDateTime = LocalDateTime.parse(input.substring(i), Ballsorter.inputFormatter);
                     curr = new Deadline(description.toString(), endDateTime);
@@ -111,17 +109,11 @@ public class Parser {
                 }
                 i += 4;
                 if (description.toString().equals("")) {
-                    System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
-                    System.out.println(Ballsorter.LINE);
-                    curr = null;
+                    return "☹ OOPS!!! The description of an event cannot be empty.";
                 } else if (start.toString().equals("")) {
-                    System.out.println("☹ OOPS!!! The start time of an event cannot be empty.");
-                    System.out.println(Ballsorter.LINE);
-                    curr = null;
+                    return "☹ OOPS!!! The start time of an event cannot be empty.";
                 } else if (i >= input.length() || input.substring(i).equals("")) {
-                    System.out.println("☹ OOPS!!! The end time of an event cannot be empty.");
-                    System.out.println(Ballsorter.LINE);
-                    curr = null;
+                    return "☹ OOPS!!! The end time of an event cannot be empty.";
                 } else {
                     LocalDateTime startDateTime = LocalDateTime.parse(start.toString(), Ballsorter.inputFormatter);
                     LocalDateTime endDateTime = LocalDateTime.parse(input.substring(i), Ballsorter.inputFormatter);
@@ -129,14 +121,13 @@ public class Parser {
                 }
 
             } else {
-                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                System.out.println(Ballsorter.LINE);
-                curr = null;
+                return "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
             }
 
-            if (curr != null) {
-                taskList.addTask(curr);
-            }
+            return taskList.addTask(curr);
+//            if (curr != null) {
+//                taskList.addTask(curr);
+//            }
         }
     }
 }

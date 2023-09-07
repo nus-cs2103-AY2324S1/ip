@@ -65,7 +65,7 @@ public class Storage {
             if (stat == 1) {
                 curr.markDone();
             }
-            taskList.addTaskSilent(curr);
+            taskList.addTask(curr);
         }
     }
 

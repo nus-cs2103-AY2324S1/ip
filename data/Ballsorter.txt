@@ -1,9 +1,7 @@
 D|1|finish assignment|2023-08-31 09:04
-E|0|gen training|2023-09-02 09:00|2023-09-02 17:00
+E|1|gen training|2023-09-02 09:00|2023-09-02 17:00
 T|0|laundry
 D|1|watch lecture |2023-09-01 09:00
 T|0|buy oats
-T|1|buy milk
 T|0|finish milk
-T|0|cs2103t tutorial
 D|0|cs2103t iP |2023-09-07 23:59
