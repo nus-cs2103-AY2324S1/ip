@@ -3,7 +3,7 @@ package duke.command;
 import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
+import duke.UiManager;
 import duke.task.Task;
 import duke.task.Todo;
 
@@ -16,11 +16,11 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, UiManager uiManager, Storage storage) throws DukeException {
         Task temp = new Todo(description);
         taskList.addTask(temp);
-        ui.printAddTaskMessage(temp, taskList);
         storage.save(taskList);
+        return uiManager.getAddTaskMessage(temp, taskList);
     }
 
     @Override

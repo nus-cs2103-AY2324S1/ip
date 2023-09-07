@@ -1,0 +1,14 @@
+/* styles.css */
+.chat-bubble {
+    -fx-background-color: #5D6D7E; /* Bubble background color */
+    -fx-background-radius: 15px;
+    -fx-padding: 10px;
+    -fx-spacing: 5px;
+    -fx-border-color: #000000; /* Border color */
+    -fx-border-width: 3px; /* Border width */
+    -fx-border-radius: 15px; /* Border radius for rounded corners */
+    -fx-font-size: 14px; /* Set the font size */
+}
+
+
+

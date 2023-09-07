@@ -27,13 +27,13 @@ public class Parser {
             return new ListCommand();
         case "todo":
             if (inputArr.length == 1) {
-                throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
             }
             String des = inputArr[1];
             return new TodoCommand(des);
         case "deadline":
             if (inputArr.length == 1) {
-                throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
             }
             String details = inputArr[1];
             String[] detailsArr = details.split(" /by ", 2);
@@ -52,7 +52,7 @@ public class Parser {
 
         case "event":
             if (inputArr.length == 1) {
-                throw new DukeException("☹ OOPS!!! The description of a event cannot be empty.");
+                throw new DukeException("OOPS!!! The description of a event cannot be empty.");
             }
             String detail = inputArr[1];
             String[] detailArr = detail.split(" /from ", 2);
@@ -80,7 +80,7 @@ public class Parser {
 
         case "mark":
             if (inputArr.length == 1) {
-                throw new DukeException("☹ OOPS!!! The description of a mark cannot be empty.");
+                throw new DukeException("OOPS!!! The description of a mark cannot be empty.");
             }
             if (input.split(" ").length > 2) {
                 throw new DukeException("Invalid mark command ?_? " +
@@ -97,7 +97,7 @@ public class Parser {
 
         case "unmark":
             if (inputArr.length == 1) {
-                throw new DukeException("☹ OOPS!!! The description of a unmark cannot be empty.");
+                throw new DukeException("OOPS!!! The description of a unmark cannot be empty.");
             }
             if (input.split(" ").length > 2) {
                 throw new DukeException("Invalid unmark command ?_? " +
@@ -114,7 +114,7 @@ public class Parser {
 
         case "delete":
             if (inputArr.length == 1) {
-                throw new DukeException("☹ OOPS!!! The description of a delete cannot be empty.");
+                throw new DukeException("OOPS!!! The description of a delete cannot be empty.");
             }
             if (input.split(" ").length > 2) {
                 throw new DukeException("Invalid delete command ?_? " +
@@ -130,7 +130,7 @@ public class Parser {
 
         case "find":
             if (inputArr.length == 1) {
-                throw new DukeException("☹ OOPS!!! The description of a find cannot be empty.");
+                throw new DukeException("OOPS!!! The description of a find cannot be empty.");
             }
             if (inputArr.length > 2) {
                 throw new DukeException("You only allowed to type ONE keyword!");
@@ -144,7 +144,7 @@ public class Parser {
             return new DoNothingCommand();
 
         default:
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
