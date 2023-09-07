@@ -1,12 +1,16 @@
 package duke;
 
-import duke.exception.UnknownCommandException;
-import duke.exception.ChattyException;
-import duke.exception.DetailsUnknownException;
-
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
+import duke.exception.ChattyException;
+import duke.exception.DetailsUnknownException;
+import duke.exception.UnknownCommandException;
+
+/**
+ * Duke is the main class that will run and call different classes depending
+ * on the command entered by user
+ */
 public class Duke {
 
     private Ui ui;
