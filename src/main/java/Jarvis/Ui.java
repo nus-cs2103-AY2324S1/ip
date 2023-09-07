@@ -15,115 +15,84 @@ public class Ui {
     private static final String deleteInforming = "Alright Sir, I've removed this task";
     private static final String findInforming = "Here are the matching tasks in your list Sir:";
 
-    public static void printGreeting() {
-        System.out.println(line);
-        System.out.println(greeting + name + "!");
-        System.out.println(question);
-        System.out.println(line);
+    public static String printGreeting() {
+        return greeting + name + "!" + "\n" + question;
     }
 
-    public static void printBye() {
-        System.out.println(line);
-        System.out.println(signOff);
-        System.out.println(line);
+    public static String getByeMessage() {
+        return signOff;
     }
 
-    public static void printMark(Task currentTask) {
-        System.out.println(line);
-        System.out.println(markInforming);
-        System.out.println(currentTask.toString());
-        System.out.println(line);
+    public static String getMarkMessage(Task currentTask) {
+        return markInforming + "\n" + currentTask.toString();
     }
 
-    public static void printUncheck(Task currentTask) {
-        System.out.println(line);
-        System.out.println(uncheckInforming);
-        System.out.println(currentTask.toString());
-        System.out.println(line);
+    public static String getUncheckMessage(Task currentTask) {
+        return uncheckInforming + "\n" + currentTask.toString();
     }
 
-    public static void printListOfCommands(ArrayList<String> validCommands, String inputCommand, Exception e) {
-        System.out.println(line);
-        System.out.println(e.getMessage());
-        System.out.println("    This is the list of valid commands:");
-        for (int i = 0; i < validCommands.size(); i++) {
+    public static String getListOfCommands(ArrayList<String> validCommands, Exception e) {
+        String returnString = e.getMessage() + "\n";
+        for (int i = 0; i < validCommands.size(); i++) { // listing out the current task
             int numbering = i + 1;
-            System.out.println("    " + numbering + ". " + validCommands.get(i));
+            returnString = returnString + "    " + numbering + ". " + validCommands.get(i) + "\n";
         }
-        System.out.println(line);
+        return returnString;
     }
 
-    public static void printWrongFormat(String command, Exception e) {
+    public static String getWrongFormatMessage(String command, Exception e) {
         if (command.equals("mark")) {
-            System.out.println(line);
-            System.out.println(e.getMessage());
-            System.out.println("    The following is the correct format:");
-            System.out.println("        mark <task number>");
-            System.out.println(line);
+            return e.getMessage() + "\n" +
+                    "    The following is the correct format:" + "\n"
+                    + "        mark <task number>";
         } else if (command.equals("uncheck")) {
-            System.out.println(line);
-            System.out.println(e.getMessage());
-            System.out.println("    The following is the correct format:");
-            System.out.println("        uncheck <task number>");
-            System.out.println(line);
+            return e.getMessage() + "\n" +
+                    "    The following is the correct format:" + "\n"
+                    + "        uncheck <task number>";
         } else if (command.equals("todo")) {
-            System.out.println(line);
-            System.out.println(e.getMessage());
-            System.out.println("    The following is the correct format:");
-            System.out.println("        todo <description>");
-            System.out.println(line);
+            return e.getMessage() + "\n" +
+                    "    The following is the correct format:" + "\n"
+                    + "        todo <description>";
         } else if (command.equals("deadline")) {
-            System.out.println(line);
-            System.out.println(e.getMessage());
-            System.out.println("    The following is the correct format:");
-            System.out.println("        deadline <description> /by <date or time>");
-            System.out.println(line);
-        } else if (command.equals("event")) {
-            System.out.println(line);
-            System.out.println(e.getMessage());
-            System.out.println("    The following is the correct format:");
-            System.out.println("        event <description> /from <date or time> /to <date or time>");
-            System.out.println(line);
+            return e.getMessage() + "\n" +
+                    "    The following is the correct format:" + "\n"
+                    + "        deadline <description> /by <date or time>";
+        } else {
+            return e.getMessage() + "\n" +
+                    "    The following is the correct format:" + "\n"
+                    + "        event <description> /from <date or time> /to <date or time>";
         }
-
     }
 
-    public static void printTask(TaskList tasks, Task currentTask) {
-        System.out.println(line);
-        System.out.println(taskInforming);
-        System.out.println(currentTask.toString());
-        System.out.println("You have now " + tasks.countTask() + " tasks in the list Sir.");
-        System.out.println(line);
+    public static String getTaskMessage(TaskList tasks, Task currentTask) {
+        return taskInforming + "\n" + "You have now " + tasks.countTask() + " tasks in the list Sir.";
     }
 
-    public static void printDelete(TaskList tasks, Task currentTask) {
-        System.out.println(line);
-        System.out.println(deleteInforming);
-        System.out.println(currentTask.toString());
-        System.out.println("You have now " + tasks.countTask() + " tasks in the list Sir.");
-        System.out.println(line);
+    public static String getDeleteMessage(TaskList tasks, Task currentTask) {
+        return deleteInforming + "\n" + "You have now " + tasks.countTask() + " tasks in the list Sir.";
     }
 
-    public static void printTaskList(TaskList tasks) {
-        System.out.println(line);
-        System.out.println(listInforming);
+    public static String getTaskList(TaskList tasks) {
+        String returnString = listInforming + "\n";
         for (int i = 0; i < tasks.countTask(); i++) { // listing out the current task
             int count = i + 1;
             Task currentTask = tasks.getTask(i);
-            System.out.println(count + "." + currentTask.toString());
+            returnString = returnString + count + "." + currentTask.toString() + "\n";
         }
-        System.out.println(line);
+        return returnString;
     }
 
-    public static void printFoundTask(ArrayList<Task> foundTasks) {
-        System.out.println(line);
-        System.out.println(findInforming);
+    public static String getFoundTaskMessage(ArrayList<Task> foundTasks) {
+        String returnString = findInforming + "\n";
         for (int i = 0; i < foundTasks.size(); i++) { // listing out the current task
             int count = i + 1;
             Task currentTask = foundTasks.get(i);
-            System.out.println(count + "." + currentTask.toString());
+            returnString = returnString + count + "." + currentTask.toString() + "\n";
         }
-        System.out.println(line);
+        return returnString;
     }
 
+    public static String respond(String message) {
+        return message;
+    }
 }

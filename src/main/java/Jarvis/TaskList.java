@@ -83,10 +83,6 @@ public class TaskList {
             try {
                 throw new InvalidTaskNumberException("Apologies Sir, the task number you provided is out of range.");
             } catch (InvalidTaskNumberException e) {
-                System.out.println(line);
-                System.out.println(e.getMessage());
-                System.out.println("    There are currently " + this.taskList.size() + " tasks in the list.");
-                System.out.println(line);
                 isValid = false;
             }
         }
