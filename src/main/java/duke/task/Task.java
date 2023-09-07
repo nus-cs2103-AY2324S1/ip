@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.utility.Ui;
+
 /**
  * Represents a task that can be marked as done or undone.
  */
@@ -23,10 +25,10 @@ public abstract class Task {
      *
      * @param willDisplayMessage Whether to display a message indicating the task was marked as done.
      */
-    public void markAsDone(boolean willDisplayMessage) {
+    public void markAsDone(boolean willDisplayMessage, Ui ui) {
         this.isDone = true;
         if (willDisplayMessage) {
-            System.out.println("\nNice! I've marked this task as done:\n  " + this + "\n");
+            ui.printMessage("\nNice! I've marked this task as done:\n  " + this + "\n");
         }
     }
 

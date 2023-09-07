@@ -28,32 +28,27 @@ public class Duke {
         this.ui = new Ui();
         this.taskList = new TaskList();
         this.storage = new Storage(filePath);
-        storage.loadTasks(this.taskList);
+        storage.loadTasks(this.taskList, ui);
     }
 
     /**
      * Runs the Duke application, handling user input and commands.
      */
-    public void run() {
-        ui.greet(this.name);
-        String input = ui.readCommand();
-        while (!input.equals("bye")) {
-            Command command = Parser.processInputIntoCommand(input, this.ui);
-            if (command != null) {
-                command.execute(this.taskList, this.storage, this.ui);
-            }
-            input = ui.readCommand();
+    public String getResponse(String input) {
+        this.ui.clearOutput();
+        Command command = Parser.processInputIntoCommand(input, this.ui);
+        if (command != null) {
+            command.execute(this.taskList, this.storage, this.ui);
         }
-        ui.exit();
+        return this.ui.getOutput();
     }
 
     /**
-     * The main method that initializes and runs the Duke application.
+     * Returns the name of the Duke application.
      *
-     * @param args Command-line arguments (not used in this context).
+     * @return The name of the Duke application.
      */
-    public static void main(String[] args) {
-        Duke duke = new Duke("Duke", "data/duke.txt");
-        duke.run();
+    public String getName() {
+        return this.name;
     }
 }
