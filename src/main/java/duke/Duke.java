@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Duke{
+public class Duke {
     public static void main(String[] args) {
         String saveFileDir = "./data/duke.txt";
         Ui Ui = new Ui();
@@ -17,10 +17,9 @@ public class Duke{
         Scanner myScanner = new Scanner(System.in);
         Parser parser = new Parser(tasks, Ui, storage, myScanner);
 
-        while(myScanner.hasNext()){
+        while (myScanner.hasNext()) {
             String inValue = myScanner.next();
             parser.parseInput(inValue);
         }
     }
 }
-

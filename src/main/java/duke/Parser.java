@@ -4,17 +4,19 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
 public class Parser {
-    private TaskList tasks;
-    private Ui Ui;
-    private Storage storage;
-    private Scanner myScanner;
+    private final TaskList tasks;
+    private final Ui Ui;
+    private final Storage storage;
+    private final Scanner myScanner;
 
     /**
      * Creates a Parser
-     * @param tasks the TaskList
-     * @param Ui the ui object
-     * @param storage the storage object
+     *
+     * @param tasks     the TaskList
+     * @param Ui        the ui object
+     * @param storage   the storage object
      * @param myScanner the created Scanner object
      */
     Parser(TaskList tasks, Ui Ui, Storage storage, Scanner myScanner) {
@@ -26,11 +28,12 @@ public class Parser {
 
     /**
      * Parses the input given by the user
+     *
      * @param inValue the initials of the string given by user
      */
-    public void parseInput(String inValue){
+    public void parseInput(String inValue) {
         Task item;
-        switch(inValue) {
+        switch (inValue) {
         case "bye":
             Ui.goodbye();
             storage.saveTasksToFile(tasks);
@@ -67,21 +70,21 @@ public class Parser {
 
         case "todo":
             inValue = myScanner.nextLine();
-            if (inValue.length() != 0){
+            if (inValue.length() != 0) {
                 inValue = inValue.substring(1);
             } else {
                 //throw new duke.DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
                 Ui.showError("todo");
                 break;
             }
-            ToDo t =  new ToDo(inValue);
+            ToDo t = new ToDo(inValue);
             tasks.add(t);
             Ui.taskAdd(t, tasks);
             storage.saveTasksToFile(tasks);
             break;
         case "deadline":
             inValue = myScanner.nextLine();
-            if (inValue.length() != 0){
+            if (inValue.length() != 0) {
                 inValue = inValue.substring(1);
             } else {
                 Ui.showError("deadline");
@@ -91,11 +94,10 @@ public class Parser {
             }
             String[] toBeSplit = inValue.split(" /by ");
             Deadline d;
-            if (toBeSplit[1].contains (" ")){
+            if (toBeSplit[1].contains(" ")) {
                 //date + time is present
                 d = new Deadline(toBeSplit[0], LocalDateTime.parse(toBeSplit[1], DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm")));
-            }
-            else{
+            } else {
                 d = new Deadline(toBeSplit[0], LocalDate.parse(toBeSplit[1], DateTimeFormatter.ofPattern("yyyy/MM/dd")));
             }
             tasks.add(d);
@@ -104,7 +106,7 @@ public class Parser {
             break;
         case "event":
             inValue = myScanner.nextLine();
-            if (inValue.length() != 0){
+            if (inValue.length() != 0) {
                 inValue = inValue.substring(1);
             } else {
                 Ui.showError("event");
@@ -120,7 +122,7 @@ public class Parser {
             break;
         case "find":
             inValue = myScanner.nextLine();
-            if (inValue.length() != 0){
+            if (inValue.length() != 0) {
                 inValue = inValue.substring(1);
             } else {
                 Ui.showError("find");

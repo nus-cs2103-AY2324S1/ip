@@ -3,6 +3,7 @@ package duke;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
 
     protected String by;
@@ -57,11 +58,9 @@ public class Deadline extends Task {
     private String dateAsString() {
         if (this.modeOfTime == 1) {
             return this.date.format(formatDate);
-        }
-        else if (this.modeOfTime == 2) {
+        } else if (this.modeOfTime == 2) {
             return this.dateTime.format(formatDateTime);
-        }
-        else {
+        } else {
             return this.by;
         }
     }
@@ -69,14 +68,13 @@ public class Deadline extends Task {
     private String dateAsSavedString() {
         if (this.modeOfTime == 1) {
             return this.date.toString();
-        }
-        else if (this.modeOfTime == 2) {
+        } else if (this.modeOfTime == 2) {
             return this.dateTime.toString();
-        }
-        else {
+        } else {
             return this.by;
         }
     }
+
     //this.date = LocalDate.parse(by, format);
     @Override
     public String toString() {
@@ -84,7 +82,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toSaveString(){
+    public String toSaveString() {
         String divider = " | ";
         return "D" + divider + super.toSaveString() + divider + this.dateAsSavedString() + divider + this.modeOfTime;
     }

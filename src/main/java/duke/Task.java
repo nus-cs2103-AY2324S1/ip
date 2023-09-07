@@ -24,7 +24,7 @@ public class Task {
         this.isDone = false; // mark done task with X
     }
 
-    public int isDoneInt(){
+    public int isDoneInt() {
         return this.isDone ? 1 : 0;
     }
 
@@ -33,11 +33,10 @@ public class Task {
         return "[" + this.getStatusIcon() + "]" + " " + this.get();
     }
 
-    public String toSaveString(){
+    public String toSaveString() {
         String divider = " | ";
-        return String.valueOf(this.isDoneInt()) + divider + this.description;
+        return this.isDoneInt() + divider + this.description;
     }
-
 
 
     //...

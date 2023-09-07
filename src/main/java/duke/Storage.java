@@ -11,13 +11,13 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 
 public class Storage {
-    private String dir;
+    private final String dir;
 
-    public Storage (String dir){
+    public Storage(String dir) {
         this.dir = dir;
     }
 
-    public void saveTasksToFile(TaskList tasks){
+    public void saveTasksToFile(TaskList tasks) {
         FileWriter fileWriter;
         BufferedWriter bufferedWriter;
         try {
@@ -26,17 +26,18 @@ public class Storage {
             outputFile.createNewFile();
             fileWriter = new FileWriter(outputFile);
             bufferedWriter = new BufferedWriter((fileWriter));
-            for (Task t: tasks.getList()) {
+            for (Task t : tasks.getList()) {
                 bufferedWriter.write(t.toSaveString());
                 bufferedWriter.newLine();
             }
             bufferedWriter.flush();
             bufferedWriter.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             Ui.Error(e);
         }
     }
-    public ArrayList<Task> loadSaveFile(){
+
+    public ArrayList<Task> loadSaveFile() {
         FileReader fileReader;
         BufferedReader bufferedReader;
         ArrayList<Task> input = new ArrayList<Task>();
@@ -61,7 +62,7 @@ public class Storage {
                     break;
                 case "D":
                     int key = Integer.valueOf(splitted[4]);
-                    if (key == 2){
+                    if (key == 2) {
                         input.add(new Deadline(splitted[2], LocalDateTime.parse(splitted[3]), (splitted[1] == "1")));
                     } else if (key == 1) {
                         input.add(new Deadline(splitted[2], LocalDate.parse(splitted[3]), (splitted[1] == "1")));
@@ -73,7 +74,7 @@ public class Storage {
                 nextLine = bufferedReader.readLine();
             }
             bufferedReader.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             Ui.Error(e);
         }
         return input;
