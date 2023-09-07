@@ -4,8 +4,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The class responsible for parsing user input and creating tasks.
+ */
 public class Parser {
-    
+
+    /**
+     * Parses user input and creates a task object based on the input.
+     *
+     * @param input The user input to be parsed.
+     * @return A Task object created from the input.
+     * @throws DukdukException If there is an error in the input or task creation.
+     */
     public static Task parseTask(String input) throws DukdukException {
         if (input.startsWith("todo")) {
             if (input.length() <= 5) {
