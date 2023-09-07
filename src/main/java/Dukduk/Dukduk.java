@@ -77,6 +77,10 @@ public class Dukduk {
                     } catch (DukdukException e) {
                         Ui.printErrorMsg(e);
                     }
+                } else if (input.startsWith("find")) {
+                    String keyword = input.substring(5).trim();
+                    ArrayList<Task> matchingTasks = this.tasks.findTasks(keyword);
+                    Ui.printTasksIfFound(matchingTasks);
                 } else {
                     throw new DukdukException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
