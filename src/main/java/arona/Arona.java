@@ -48,6 +48,7 @@ public class Arona {
         while (true) {
             userInput = scanner.nextLine().toLowerCase().trim();
 
+            // Handles the case of user pressing enter without any input.
             if (userInput.isEmpty()) {
                 continue;
             }
