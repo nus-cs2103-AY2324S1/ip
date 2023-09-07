@@ -1,19 +1,20 @@
 package duke;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Storage {
 
-    private String fileName;
-    private String[] directories;
     private Path filePath;
     private File saveFile;
 
     public Storage(String fileName, String[] directories) {
-        this.fileName = fileName;
-        this.directories = directories;
 
         filePath = Path.of(System.getProperty("user.dir"));
 

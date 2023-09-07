@@ -1,9 +1,13 @@
 package duke.command;
 
-import duke.*;
+import duke.OutOfRangeException;
+import duke.SaveToFileException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
 
 public class DeleteCommand extends Command {
-    Integer index;
+    private final Integer index;
     public DeleteCommand(Integer index) {
         this.index = index;
     }

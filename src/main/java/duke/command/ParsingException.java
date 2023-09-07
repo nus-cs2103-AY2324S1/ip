@@ -4,7 +4,7 @@ import duke.DukeException;
 
 public class ParsingException extends DukeException {
 
-    enum ExceptionType {
+    public enum ExceptionType {
         IMPROPER_FORMAT,
         MISSING_DESCRIPTION,
         MISSING_DETAIL,
@@ -22,28 +22,31 @@ public class ParsingException extends DukeException {
 
     @Override
     public String getMessage() {
+
         switch (exceptionType) {
-            case IMPROPER_FORMAT:
-                return "Please format your description properly.";
 
-            case MISSING_DESCRIPTION:
-                return "I can't read your mind. Do add a description.";
+        case IMPROPER_FORMAT:
+            return "Please format your description properly.";
 
-            case MISSING_DETAIL:
-                return "I can't read your mind. Do add more details.";
+        case MISSING_DESCRIPTION:
+            return "I can't read your mind. Do add a description.";
 
-            case MISSING_INDEX:
-                return "I can't read your mind. Provide a suitable index.";
+        case MISSING_DETAIL:
+            return "I can't read your mind. Do add more details.";
 
-            case NOT_A_NUMBER:
-                return "I can't understand that number.";
+        case MISSING_INDEX:
+            return "I can't read your mind. Provide a suitable index.";
 
-            case EXCESS_INPUT:
-                return "Sorry, you're speaking a little fast. Could you repeat just the first word?";
+        case NOT_A_NUMBER:
+            return "I can't understand that number.";
 
-            default:
-                return "Something went wrong.";
+        case EXCESS_INPUT:
+            return "Sorry, you're speaking a little fast. Could you repeat just the first word?";
+
+        default:
+            return "Something went wrong.";
         }
+
     }
 
 }

@@ -7,7 +7,7 @@ import duke.Ui;
 import duke.task.Task;
 
 public class AddCommand extends Command {
-    private Task taskToAdd;
+    private final Task taskToAdd;
     public AddCommand(Task task) {
         this.taskToAdd = task;
     }

@@ -1,10 +1,14 @@
 package duke.command;
 
-import duke.*;
+import duke.OutOfRangeException;
+import duke.SaveToFileException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
 import duke.task.AlreadyUnmarkedException;
 
 public class UnmarkCommand extends Command {
-    private Integer index;
+    private final Integer index;
     public UnmarkCommand(Integer index) {
         this.index = index;
     }

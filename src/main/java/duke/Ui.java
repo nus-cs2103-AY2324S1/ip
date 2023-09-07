@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Ui {
 
-    Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
     static String softbreak = "--------------------------------------------------";
     static String hardbreak = "——————————————————————————————————————————————————";
 

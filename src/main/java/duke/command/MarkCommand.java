@@ -1,10 +1,14 @@
 package duke.command;
 
-import duke.*;
+import duke.OutOfRangeException;
+import duke.SaveToFileException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
 import duke.task.AlreadyMarkedException;
 
 public class MarkCommand extends Command {
-    private Integer index;
+    private final Integer index;
     public MarkCommand(Integer index) {
         this.index = index;
     }

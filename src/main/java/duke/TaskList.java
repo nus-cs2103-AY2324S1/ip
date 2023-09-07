@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class TaskList implements Serializable {
 
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     public TaskList(TaskList loadedList) {
         this.tasks = loadedList.tasks;
