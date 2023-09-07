@@ -25,7 +25,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
 
         if (taskIndex < 1 || taskIndex > tasks.size()) {
             throw new DukeException("No such task exists.");
@@ -34,7 +34,7 @@ public class DeleteCommand extends Command {
         Task task = tasks.remove(taskIndex);
 
         storage.save(tasks);
-        ui.showMessage(
+        return ui.getMessage(
                 "Noted. I've removed this task:",
                 "\t " + task
         );

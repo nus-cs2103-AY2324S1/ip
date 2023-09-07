@@ -30,48 +30,33 @@ public class Duke {
      * Initializes the chatbot application with the given file path.
      * Loads up the data from the storage file, and shows the welcome message.
      *
-     * @param filePath The file path where the data of the chatbot is stored.
      */
-    public Duke(String filePath) {
+    public Duke() {
         ui = new Ui(BOT_NAME);
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
         parser = new Parser();
         try {
             tasks = new TaskList(storage.load());
-            ui.showWelcomeMessage();
         } catch (DukeException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
+            // Solution below inspired by Addressbook Level 2.
+            // The application cannot be expected to recover from such an exception.
+            throw new RuntimeException(ui.getLoadingErrorMessage());
         }
     }
 
     /**
-     * Runs the application.
+     * Returns the chatbot response after executing
+     * the user input command.
      *
-     * @param args The arguments specified by the user at program launch.
+     * @param input The input by the user.
+     * @return The response by the chatbot.
      */
-    public static void main(String[] args) {
-        Duke duke = new Duke(FILE_PATH);
-        duke.run();
-    }
-
-    /**
-     * Repeatedly reads user command and executes it until
-     * the user inputs the ExitCommand. If the given command
-     * does not exist, prints an error message.
-     */
-    private void run() {
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String fullCommand = ui.getUserCommand();
-                Command command = parser.parse(fullCommand);
-                command.execute(tasks, ui, storage);
-                isExit = command.isExit();
-            } catch (DukeException exception) {
-                ui.showErrorMessage(exception.getMessage());
-            }
+    public String getResponse(String input) {
+        try {
+            Command command = parser.parse(input);
+            return command.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            return ui.getErrorMessage(e.getMessage());
         }
     }
 

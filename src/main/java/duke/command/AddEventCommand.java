@@ -41,13 +41,13 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         tasks.add(toAdd);
-        ui.showMessage(
+        storage.save(tasks);
+        return ui.getMessage(
                 "Got it. I've added this task:",
                 "\t" + toAdd,
                 "Now you have " + tasks.size() + " tasks in the list."
         );
-        storage.save(tasks);
     }
 }

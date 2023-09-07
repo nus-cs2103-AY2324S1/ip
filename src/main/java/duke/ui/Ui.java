@@ -1,16 +1,17 @@
 package duke.ui;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 import duke.data.task.Task;
 
 /**
- * Represents the text UI of the chatbot applicaiton.
+ * Represents the text UI of the chatbot application.
  */
 public class Ui {
 
-    private static final String LINE = "\t____________________________________________________________";
+    public static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!";
 
     private final String botName;
     private final Scanner scanner;
@@ -27,32 +28,13 @@ public class Ui {
     }
 
     /**
-     * Returns the command entered by the user. If the given
-     * command is only made out of whitespaces, prompts the
-     * user for a command again.
-     *
-     * @return command The command entered by the user.
-     */
-    public String getUserCommand() {
-        String command = scanner.nextLine();
-        while (command.trim().isEmpty()) {
-            command = scanner.nextLine();
-        }
-        return command;
-    }
-
-    /**
-     * Prints the given message to the user. If multiple messages are
-     * specified, each message is printed on a new line.
+     * Returns the given message. If multiple messages are
+     * specified, each message is after a new line.
      *
      * @param message The message to be printed.
      */
-    public void showMessage(String... message) {
-        System.out.println(LINE);
-        for (String messageLine : message) {
-            System.out.println("\t" + messageLine);
-        }
-        System.out.println("\n" + LINE + "\n");
+    public String getMessage(String... message) {
+        return String.join("\n", Arrays.asList(message));
     }
 
     /**
@@ -60,64 +42,56 @@ public class Ui {
      *
      * @param message The error message to be printed.
      */
-    public void showErrorMessage(String message) {
-        showMessage("☹ OOPS!!! " + message);
+    public String getErrorMessage(String message) {
+        return getMessage("OOPS!!! " + message);
     }
 
     /**
-     * Prints the welcome message to the user.
+     * Returns the welcome message.
      */
-    public void showWelcomeMessage() {
-        showMessage("Hello! I'm " + botName, "What can I do for you?");
+    public String getWelcomeMessage() {
+        return getMessage("Hello! I'm " + botName, "What can I do for you?");
     }
 
     /**
-     * Prints the exit message to the user.
+     * Returns the exit message.
      */
-    public void showExitMessage() {
-        showMessage("Bye. Hope to see you again soon!");
+    public String getExitMessage() {
+        return EXIT_MESSAGE;
     }
 
     /**
-     * Prints the message indicating there was an error in the loading
+     * Returns the message indicating there was an error in the loading
      * of the files.
      */
-    public void showLoadingError() {
-        showErrorMessage("There was an error in loading the existing tasks.");
+    public String getLoadingErrorMessage() {
+        return getMessage("There was an error in loading the existing tasks.");
     }
 
     /**
-     * Prints the list of tasks as a formatted indexed list.
+     * Returns the list of tasks as a formatted indexed list.
      *
-     * @param tasks The tasks to be printed.
+     * @param tasks The tasks to be formatted as an indexed list.
      */
-    public void showList(List<? extends Task> tasks) {
-        System.out.println(LINE);
+    public String getListMessage(List<? extends Task> tasks) {
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("\t%d. %s\n", i + 1, tasks.get(i));
+            sb.append(String.format("\t%d. %s\n", i + 1, tasks.get(i)));
         }
-
-        System.out.println("\n" + LINE + "\n");
+        return sb.toString();
     }
 
     /**
-     * Prints the filtered list of tasks as a formatted indexed list.
+     * Returns the filtered list of tasks as a formatted indexed list.
      *
-     * @param tasks The filtered list of tasks to be printed.
+     * @param tasks The filtered list of tasks to be formatted as an indexed list.
      */
-    public void showFilteredList(List<? extends Task> tasks) {
-        System.out.println(LINE);
+    public String getFilteredListMessage(List<? extends Task> tasks) {
+        String listMessage = getListMessage(tasks);
 
         if (tasks.size() == 0) {
-            System.out.println("\t There are no matching tasks in your list.");
-        } else {
-            System.out.println("\t Here are the matching tasks in your list:");
+            return "There are no matching tasks in your list." + listMessage;
         }
-
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("\t%d. %s\n", i + 1, tasks.get(i));
-        }
-
-        System.out.println("\n" + LINE + "\n");
+        return "Here are the matching tasks in your list:\n" + listMessage;
     }
 }

@@ -25,7 +25,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
 
         if (taskIndex < 1 || taskIndex > tasks.size()) {
             throw new DukeException("No such task exists.");
@@ -34,7 +34,7 @@ public class UnmarkCommand extends Command {
         Task task = tasks.unmark(taskIndex);
 
         storage.save(tasks);
-        ui.showMessage(
+        return ui.getMessage(
                 "Nice! I've marked this task as not done yet:",
                 "\t " + task
         );

@@ -44,6 +44,8 @@ public class Parser {
      *                       the command arguments.
      */
     public Command parse(String fullCommand) throws DukeException {
+        //@author samuelim01-reused
+        // Reused from Addressbook Level 2 with minor modifications.
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(fullCommand.trim());
         if (!matcher.matches()) {
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
@@ -67,6 +69,8 @@ public class Parser {
             return prepareMark(arguments, true);
         case UnmarkCommand.COMMAND_WORD:
             return prepareMark(arguments, false);
+        case FindCommand.COMMAND_WORD:
+            return prepareFind(arguments);
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
         case ExitCommand.COMMAND_WORD:
@@ -74,6 +78,7 @@ public class Parser {
         default:
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
+        //@@author
     }
 
     /**
@@ -174,6 +179,23 @@ public class Parser {
         }
 
         return new FindCommand(matcher.group("keyword"));
+    }
+
+    /**
+     * Returns true if the input matches an exit command,
+     * else returns false.
+     *
+     * @param input The user input.
+     * @return true if the input matches an exit command, false otherwise.
+     */
+    public static boolean isExitCommand(String input) {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
+        if (!matcher.matches()) {
+            return false;
+        }
+
+        final String commandWord = matcher.group("commandWord");
+        return commandWord.equals(ExitCommand.COMMAND_WORD);
     }
 
 }
