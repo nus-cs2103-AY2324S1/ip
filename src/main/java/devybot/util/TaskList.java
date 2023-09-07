@@ -1,4 +1,4 @@
-package devybot;
+package devybot.util;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

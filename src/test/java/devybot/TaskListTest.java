@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import devybot.exceptions.EmptyDescriptionException;
 import devybot.exceptions.TaskIndexOutOfBoundsException;
+import devybot.util.TaskList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;

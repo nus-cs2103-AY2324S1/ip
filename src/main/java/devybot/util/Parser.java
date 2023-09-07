@@ -1,11 +1,11 @@
-package devybot;
+package devybot.util;
+
 import devybot.exceptions.DevyBotException;
 import devybot.exceptions.EmptyDescriptionException;
 import devybot.exceptions.NonIntegerInputException;
 import devybot.exceptions.UnknownCommandException;
 
 public class Parser {
-    private static boolean isRun = true;
     private static enum CommandType {
         TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, LIST, BYE, UNKNOWN, FIND
     }
@@ -45,7 +45,7 @@ public class Parser {
                 taskList.deleteTask(deleteIndex);
                 break;
             case BYE:
-                isRun = false;
+                Ui.exit();
                 break;
             case LIST:
                 taskList.listTasks();
@@ -71,7 +71,4 @@ public class Parser {
         }
     }
 
-    public static boolean isRun() {
-        return isRun;
-    }
 }

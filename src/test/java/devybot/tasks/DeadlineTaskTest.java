@@ -31,7 +31,7 @@ public class DeadlineTaskTest {
         LocalDateTime dateTime = LocalDateTime.of(2023, 9, 10, 14, 30);
         DeadlineTask task = new DeadlineTask("Finish project", dateTime);
 
-        String expected = "[D][ ] Finish project (by: Sep 10 2023 2:30 pm)";
+        String expected = "[D][ ] Finish project (by: Sep 10 2023 2:30 PM)";
         assertEquals(expected, task.toString());
     }
 
