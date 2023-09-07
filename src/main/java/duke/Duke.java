@@ -60,4 +60,8 @@ public class Duke {
         }
         ui.showExit();
     }
+
+    public String getResponse(String input) {
+        return "Duke heard: " + input + "\n";
+    }
 }
