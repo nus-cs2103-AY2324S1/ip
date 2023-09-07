@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.dukduk;
 
 import org.junit.jupiter.api.Test;
 import dukduk.Ui;
