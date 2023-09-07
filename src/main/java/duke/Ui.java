@@ -22,20 +22,15 @@ public class Ui {
      * Generates and prints the welcome message upon the start of the application.
      */
     public String showWelcome() {
-        return ("____________________________________________________________\n"
-                + "Hello! I'm ET\n"
-                + "What can I do for you?\n"
-                + "____________________________________________________________\n");
+        return ("Hello! I'm ET\n"
+                + "What can I do for you?\n");
     }
 
     /**
      * Generates and prints the exit message upon the termination of the application.
      */
     public String showExit() {
-        return ("____________________________________________________________\n"
-                + "Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________\n"
-        );
+        return ("Bye. Hope to see you again soon!\n");
     }
 
     /**
@@ -51,10 +46,8 @@ public class Ui {
      * @param task task that was marked.
      */
     public String showMarked(Task task) {
-        return ("____________________________________________________________\n"
-                + "Nice! I've marked this task as done:\n"
-                + task + "\n"
-                + "____________________________________________________________\n");
+        return ("Nice! I've marked this task as done:\n"
+                + task + "\n");
     }
 
     /**
@@ -62,11 +55,8 @@ public class Ui {
      * @param task task that was marked.
      */
     public String showUnmarked(Task task) {
-        return ("____________________________________________________________\n"
-                + "OK, I've marked this task as not done yet:\n"
-                + task + "\n"
-                + "____________________________________________________________\n"
-        );
+        return ("OK, I've marked this task as not done yet:\n"
+                + task + "\n");
     }
 
     /**
@@ -75,12 +65,9 @@ public class Ui {
      * @param num number of task in task list.
      */
     public String showTaskAdded(Task task, int num) {
-        return ("____________________________________________________________\n"
-                + "Got it. I've added this task:\n"
+        return ( "Got it. I've added this task:\n"
                 + task + "\n"
-                + "Now you have " + num + " tasks in the list.\n"
-                + "____________________________________________________________\n"
-        );
+                + "Now you have " + num + " tasks in the list.\n");
     }
 
     /**
@@ -89,11 +76,9 @@ public class Ui {
      * @param num number of task in task list
      */
     public String showDeleted(Task task, int num) {
-        return ("____________________________________________________________\n"
-                + "Noted. I've removed this task:\n"
+        return ("Noted. I've removed this task:\n"
                 + task + "\n"
-                + "Now you have " + num + " tasks in the list.\n"
-                + "____________________________________________________________\n");
+                + "Now you have " + num + " tasks in the list.\n");
     }
 
     /**
@@ -117,8 +102,7 @@ public class Ui {
      * @param tasks tasks that match the keyword.
      */
     public String showMatchingTasks(TaskList tasks) {
-        String response = ("____________________________________________________________\n"
-                + "Here are the matching tasks in your list:");
+        String response = ("Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.total(); i++) {
             response = response.concat(tasks.get(i).toString() + "\n");
         }
@@ -131,10 +115,7 @@ public class Ui {
      * @param errorMsg error message of the exception thrown.
      */
     public String showError(String errorMsg) {
-        return ("____________________________________________________________\n"
-                + errorMsg + "\n"
-                + "____________________________________________________________\n"
-        );
+        return (errorMsg + "\n");
     }
 
 }
