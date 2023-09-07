@@ -36,8 +36,8 @@ public class Parser {
      * @throws DukeException If there is an issue parsing the input or creating the Command.
      */
     public static Command parseUserInput(String input) throws DukeException {
-        String[] inputParts = input.split(" ", 2);
-        String userCommand = inputParts[0].toUpperCase();
+        String[] splitString = input.split(" ", 2);
+        String userCommand = splitString[0].toUpperCase();
         CommandType commandType;
 
         try {
@@ -52,21 +52,27 @@ public class Parser {
         case LIST:
             return new ListCommand();
         case MARK:
-            return new MarkCommand(Integer.parseInt(parseArgument(inputParts)) - 1);
+            // Subtract task index by 1 to account for 1-based indexing.
+            // Users typically start counting tasks from 1, while internal indexing is 0-based.
+            return new MarkCommand(Integer.parseInt(parseArgument(splitString)) - 1);
         case UNMARK:
-            return new UnmarkCommand(Integer.parseInt(parseArgument(inputParts)) - 1);
+            // Subtract task index by 1 to account for 1-based indexing.
+            // Users typically start counting tasks from 1, while internal indexing is 0-based.
+            return new UnmarkCommand(Integer.parseInt(parseArgument(splitString)) - 1);
         case TODO:
-            return new AddTodoCommand(parseArgument(inputParts));
+            return new AddTodoCommand(parseArgument(splitString));
         case DEADLINE:
-            return parseAddDeadlineCommand(parseArgument(inputParts));
+            return parseAddDeadlineCommand(parseArgument(splitString));
         case EVENT:
-            return parseAddEventCommand(parseArgument(inputParts));
+            return parseAddEventCommand(parseArgument(splitString));
         case DELETE:
-            return new DeleteCommand(Integer.parseInt(parseArgument(inputParts)) - 1);
+            // Subtract task index by 1 to account for 1-based indexing.
+            // Users typically start counting tasks from 1, while internal indexing is 0-based.
+            return new DeleteCommand(Integer.parseInt(parseArgument(splitString)) - 1);
         case FIND:
-            return new FindCommand(parseArgument(inputParts));
+            return new FindCommand(parseArgument(splitString));
         case CHECK:
-            return new CheckCommand(Parser.parseArgument(inputParts));
+            return new CheckCommand(Parser.parseArgument(splitString));
         case TODAY:
             return new TodayCommand();
         case HELP:
@@ -79,12 +85,12 @@ public class Parser {
     /**
      * Parses the argument from a user input and returns it.
      *
-     * @param inputParts The split user input.
+     * @param splitString The split user input.
      * @return The argument portion of the user input.
      */
-    public static String parseArgument(String[] inputParts) {
-        if (inputParts.length > 1) {
-            return inputParts[1];
+    public static String parseArgument(String[] splitString) {
+        if (splitString.length > 1) {
+            return splitString[1];
         }
         return "";
     }
