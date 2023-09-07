@@ -1,66 +1,77 @@
 package aj;
 
 /**
- * Ui class responsible for User Interface of the programme.
+ * Ui class responsible for User Interface of the programme. Return string instead
+ * change java doc
  */
 public class Ui {
     TaskList taskList;
 
-    public void horiLine() {
-        System.out.println("---------------------");
+    public String horiLine() {
+//        System.out.println("---------------------");
+        return "---------------------\n";
     }
 
     /**
      * Greets user.
      */
-    public void greet() {
-        horiLine();
-        System.out.println("Hello! I'm Aj\n");
-        System.out.println("Loading data....\nHere are your saved data:\n");
-        printList();
-        System.out.println("\nWhat can i do for you?");
-        horiLine();
+    public String greet() {
+        return horiLine() + "Hello! I'm Aj\n" + "Loading data....\nHere are your saved data:\n" + printList() +
+                "\nWhat can i do for you?\n" + horiLine();
     }
 
+    public String getHelpMessage() {
+        return "Here is a list of commands you can try:\n\n" + "list - To list your added tasks\n" + "mark - To mark " +
+                "a " + "task as completed\n" + "unmark - To unmark a tast\n" + "delete - To delete a task\n" + "find " +
+                "- To " + "find any keyword related to the task\n" + "todo - To create a 'Todo' task\n" + "deadline -" +
+                " To " + "craete" + " a 'deadline' task\n" + "event - To create an 'event' task\n\n\n\n" + "To get " +
+                "more " + "specific help for each command, type the command itself!!!\n";
+    }
 
     /**
-     * Checks that user input is correct, prints help message and throws error otherwise.
+     * Throws error with help message if command is valid, throws NoSuchCommandException otherwise
      *
      * @param cmd First part of user input which indicates type of command.
-     * @param msg Second part of user input which indicates content and parameters.
      * @throws EmptyDescriptionException If second part of user input does not exist.
+     * @throws NoSuchCommandException    If command from user input does not exist.
      */
-    public void checkMessage(String cmd, String msg) throws
-            EmptyDescriptionException { // if no arguments, give help message
+    public void checkCommand(String cmd) throws EmptyDescriptionException,
+            NoSuchCommandException { // if no arguments, give help message
         String helpMessage;
-        if (msg.length() == 0 || msg.equals(" ")) {
-            if (cmd.equals("todo")) {
-                helpMessage = "todo <task name>";
-            } else if (cmd.equals("deadline")) {
-                helpMessage = "deadline <task name> /by <date/time>";
-            } else if (cmd.equals("event")) {
-                helpMessage = "event <task name> /from <date/time> /to <date/time>";
-            } else if (cmd.equals("mark")) {
-                helpMessage = "mark <idx>";
-            } else if (cmd.equals("unmark")) {
-                helpMessage = "unmark <idx>";
-            } else if (cmd.equals("delete")) {
-                helpMessage = "delete <idx>";
-            } else if (cmd.equals("find")) {
-                helpMessage = "find <any keyword for task name>";
-            } else {
-                helpMessage = "";
-            }
-            throw new EmptyDescriptionException(cmd,
-                    helpMessage);
+        switch (cmd) {
+        case "todo":
+            helpMessage = "todo <task name>";
+            break;
+        case "deadline":
+            helpMessage = "deadline <task name> /by <YYYY-MM-DD>";
+            break;
+        case "event":
+            helpMessage = "event <task name> /from <date/time> /to <date/time>";
+            break;
+        case "mark":
+            helpMessage = "mark <task_no>";
+            break;
+        case "unmark":
+            helpMessage = "unmark <task_no>";
+            break;
+        case "delete":
+            helpMessage = "delete <task_no>";
+            break;
+        case "find":
+            helpMessage = "find <any keyword related to the task>";
+            break;
+        default:
+            throw new NoSuchCommandException();
         }
+        throw new EmptyDescriptionException(cmd,
+                helpMessage);
     }
 
     /**
      * Takes in an index 'idx' and checks if it is within range of taskList size.
      *
      * @param idx Index given by user input.
-     * @throws IndexOutOfRangeException If user gives an index 'idx' > taskList size.
+     * @throws IndexOutOfRangeException If user gives an index 'idx' bigger than taskList size.
      */
     public void checkIndex(int idx) throws IndexOutOfRangeException { // throws error if index invalid
         if (idx <= this.taskList.getSize() - 1 && idx >= 0) {
@@ -73,43 +84,55 @@ public class Ui {
     /**
      * Prints number of Tasks in taskList.
      */
-    public void printNumTask() {
-        System.out.printf("Now you have %d tasks in the list.\n",
+    public String printNumTask() {
+//        System.out.printf("Now you have %d tasks in the list.\n",
+//                this.taskList.getSize());
+        return String.format("Now you have %d tasks in the list.\n",
                 this.taskList.getSize());
     }
 
     /**
      * Prints the Tasks in taskList.
      */
-    public void printList() {
+    public String printList() {
+        String str = "";
         if (this.taskList.getSize() == 0) {
-            System.out.println("No items yet, add something!!!");
+//            System.out.println("No items yet, add something!!!");
+            str = "No items yet, add something!!!\n";
         }
         for (int i = 1; i <= this.taskList.getSize(); i++) {
 //        System.out.println(i + "." + this.lst[i - 1]);
-            System.out.println(i + "." + this.taskList.getTask(i - 1));
+//            System.out.println(i + "." + this.taskList.getTask(i - 1));
+            str += i + "." + this.taskList.getTask(i - 1) + "\n";
         }
+        return str;
     }
 
-    public void printKeywordTask(String k) {
-        System.out.println("Finding tasks with names matching : \"" + k + "\"");
-        System.out.println("Here they are!!:");
+    public String printKeywordTask(String k) {
+        String str = "";
+        str += "Finding tasks with names matching : \"" + k + "\"\n";
+        str += "Here they are!!:\n";
+//        System.out.println("Finding tasks with names matching : \"" + k + "\"");
+//        System.out.println("Here they are!!:");
         int no = 1;
         for (int i = 0; i < this.taskList.getSize(); i++) {
             Task task = this.taskList.getTask(i);
             if (task.getTaskName().contains(k)) {
-                System.out.println(Integer.toString(no) + "." + task);
+//                System.out.println(Integer.toString(no) + "." + task);
+                str += Integer.toString(no++) + "." + task + "\n";
             }
         }
-        horiLine();
+        str += horiLine();
+        return str;
     }
 
     /**
      * Prints exit message.
      */
-    public void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String exit() {
+//        System.out.println("Bye. Hope to see you again soon!");
         horiLine();
+        return "Bye. Hope to see you again soon!" + horiLine() + "\n";
     }
 
     Ui(TaskList taskList) {

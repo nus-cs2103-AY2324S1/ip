@@ -21,7 +21,7 @@ public class ParserTest {
     }
 
     @Test
-    public void getDeadlineTask_correctInput_taskReturned() { // test that the deadline Task created have same behaviour
+    public void getDeadlineTask_correctInput_taskReturned() throws WrongDescriptionException { // test that the deadline Task created have same behaviour
         String userInput = "deadline homework /by 2019-10-15";
         Scanner scanner = new Scanner(userInput);
         String command = scanner.next().toLowerCase();
@@ -35,7 +35,7 @@ public class ParserTest {
     }
 
     @Test
-    public void getEventTask_correctInput_taskReturned() { // test that the event Task created have same behaviour
+    public void getEventTask_correctInput_taskReturned() throws WrongDescriptionException { // test that the event Task created have same behaviour
         String userInput = "event project meeting /from Mon 2pm /to 4pm";
         Scanner scanner = new Scanner(userInput);
         String command = scanner.next().toLowerCase();

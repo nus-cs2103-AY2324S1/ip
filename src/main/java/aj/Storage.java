@@ -62,7 +62,7 @@ public class Storage {
                 taskList.add(task);
             }
 
-        } catch (IOException e) {
+        } catch (IOException | WrongDescriptionException e) {
             e.printStackTrace();
         }
         return taskList;
