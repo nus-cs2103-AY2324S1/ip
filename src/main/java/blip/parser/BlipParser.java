@@ -139,15 +139,11 @@ public class BlipParser {
                     return new InvalidCommand(input);
             }
         } catch (EmptyTaskNumberException e2) {
-            System.out.println(e2.getMessage());
-            ui.showEmptyTaskNumErr();
+            return new ExceptionCommand(e2, e2.getMessage());
         } catch (EmptyDescriptionException e3) {
-            System.out.println(e3.getMessage());
-            ui.showEmptyDescErr();
+            return new ExceptionCommand(e3, e3.getMessage());
         } catch (DateTimeFormatException e4) {
-            System.out.println(e4.getMessage());
-            ui.showDateTimeFormatErr();
+            return new ExceptionCommand(e4, e4.getMessage());
         }
-        return new InvalidCommand(input);
     }
 }

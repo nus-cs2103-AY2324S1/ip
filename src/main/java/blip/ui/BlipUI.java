@@ -65,6 +65,16 @@ public class BlipUI {
     }
 
     /**
+     * Prints the list of other commands.
+     */
+    public String showListOfOtherCmds() {
+        return "4. mark [task number]"
+                + "\n5. unmark [task number]"
+                + "\n6. delete [task number]"
+                + "\n7. list";
+    }
+
+    /**
      * Prints the loading data file error message.
      */
     public String showLoadingErr() {
@@ -82,15 +92,7 @@ public class BlipUI {
         return "Please format your date time to be yyyy-mm-dd HH:mm";
     }
 
-    /**
-     * Prints the list of other commands.
-     */
-    public String showListOfOtherCmds() {
-        return "4. mark [task number]"
-        + "\n5. unmark [task number]"
-        + "\n6. delete [task number]"
-        + "\n7. list";
-    }
+
 
     /**
      * Prints the list of tasks.
