@@ -4,37 +4,9 @@ import duke.CheeException;
 import duke.task.Task;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Ui {
-    private Scanner input;
 
-    public Ui(){
-        input = new Scanner(System.in);
-    }
-
-//    /**
-//     * Print the error message.
-//     * @param error The error message.
-//     */
-//    public void showError(String error) {
-//        System.out.println(error);
-//    }
-
-    /**
-     * Print a line.
-     */
-    public String showLine() {
-        return "________________________________________________________";
-    }
-
-    /**
-     * read the command that the users input.
-     * @return String representation of the user input.
-     */
-    public String readCommand() {
-        return input.nextLine();
-    }
 
     /**
      * Print out the Task that is added into the TaskList and the number of tasks
@@ -108,7 +80,7 @@ public class Ui {
     public String printList(TaskList tasklist) {
         String output = "";
         for (int i = 0; i < tasklist.size(); i++){
-            output += tasklist.getTaskDescription(i);
+            output += tasklist.getTaskDescription(i) + "\n";
         }
         return output;
     }
