@@ -8,7 +8,19 @@
     -fx-border-width: 3px; /* Border width */
     -fx-border-radius: 15px; /* Border radius for rounded corners */
     -fx-font-size: 14px; /* Set the font size */
+    -fx-text-fill: white;
 }
 
+.custom-button {
+    -fx-background-color: #21618C; /* Button background color */
+    -fx-text-fill: white; /* Text color (e.g., white) */
+    -fx-background-radius: 15px; /* Adjust this value to change the border-radius */
+
+}
+
+.custom-textfield {
+    -fx-background-radius: 15px; /* Adjust this value to change the border radius */
+
+}
 
 

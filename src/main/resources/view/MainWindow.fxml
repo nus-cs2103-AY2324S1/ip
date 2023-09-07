@@ -9,8 +9,8 @@
 <?import javafx.geometry.Insets?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.ui.MainWindow">
     <children>
-        <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="41.0" prefWidth="508.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5" />
-        <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="5.0" />
+        <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="41.0" prefWidth="508.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5" styleClass="custom-textfield"/>
+        <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="5.0" styleClass="custom-button"/>
         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="6.0" layoutY="7.0" prefHeight="737.0" prefWidth="580.0" vvalue="1.0" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="7.0">
             <content>
                 <VBox fx:id="dialogContainer" prefHeight="735.0" prefWidth="575.0" spacing="5">
