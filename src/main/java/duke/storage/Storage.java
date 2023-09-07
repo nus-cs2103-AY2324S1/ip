@@ -12,7 +12,6 @@ import duke.commands.Parser;
 import duke.exception.DukeException;
 import duke.task.Task;
 import duke.task.TaskList;
-import duke.ui.Ui;
 
 /**
  * Represents a storage for tasks

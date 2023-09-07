@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import duke.commands.Command;
-import duke.commands.Parser;
 import duke.exception.DeadlineException;
 import duke.exception.DeleteException;
 import duke.exception.DukeException;
@@ -17,6 +16,10 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
 import duke.ui.Ui;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 
 /**
@@ -27,7 +30,6 @@ public class Duke {
     private final TaskList taskList;
     private final String filePath = "./src/main/resources/duke.txt";
     private final Storage storage = new Storage(filePath);
-    private final Ui ui = new Ui();
 
 
 
@@ -43,13 +45,13 @@ public class Duke {
      *
      * @param taskIndex Index of the task to be marked as done, starts from '1'
      */
-    public void markTaskByBot(int taskIndex) throws DukeException {
+    public String markTaskByBot(int taskIndex) throws DukeException {
         if (!taskList.isValidListIndex(taskIndex - 1)) {
             throw new DeleteException("Invalid Index of task!");
         }
         taskList.markTaskAsDone(taskIndex - 1);
         saveTasksToFile(this.taskList);
-        ui.showMessage(taskList.getTaskDetails(taskIndex - 1));
+        return taskList.getTaskDetails(taskIndex - 1);
     }
 
     /**
@@ -57,15 +59,15 @@ public class Duke {
      *
      * @param taskIndex Index of the task to be marked as not done, starts from '1'
      */
-    public void unmarkTaskByBot(int taskIndex) throws DukeException {
+    public String unmarkTaskByBot(int taskIndex) throws DukeException {
         if (!taskList.isValidListIndex(taskIndex - 1)) {
             throw new DeleteException("detail: Invalid Index of task!");
         }
 
         taskList.markTaskAsNotDone(taskIndex - 1);
         saveTasksToFile(this.taskList);
-        ui.showMessage(" OK, I've marked this task as not done yet:\n"
-                + taskList.getTaskDetails(taskIndex - 1));
+        return " OK, I've marked this task as not done yet:\n"
+                + taskList.getTaskDetails(taskIndex - 1);
     }
 
     /**
@@ -74,14 +76,15 @@ public class Duke {
      * @param taskIndex The index of the task to be deleted.
      * @throws DeleteException If the input string is not numeric or if the task index is out of valid range.
      */
-    public void deleteTaskByBot(int taskIndex) throws DukeException {
+    public String deleteTaskByBot(int taskIndex) throws DukeException {
         if (taskIndex < 1 || taskIndex > taskList.getTaskCount()) {
             throw new DeleteException("Invalid Index of task!");
         } else {
-            ui.showMessage(" Noted. I've removed this task:\n"
+            String return_str =  " Noted. I've removed this task:\n"
                     + this.taskList.getTaskDetails(taskIndex - 1)
-                    + "\n Now you have " + (taskList.getTaskCount() - 1) + " tasks in the list.\n");
+                    + "\n Now you have " + (taskList.getTaskCount() - 1) + " tasks in the list.\n";
             taskList.deleteTask(taskIndex - 1);
+            return return_str;
         }
     }
 
@@ -91,17 +94,16 @@ public class Duke {
      * @param description The description of the todo task
      * @throws TodoException If the description is empty
      */
-    public void addTodo(String description) throws TodoException {
+    public String addTodo(String description) throws TodoException {
         Task newTask;
         if (description.isEmpty()) {
             throw new TodoException();
         } else {
             newTask = new Todo(description);
             taskList.addTask(newTask);
-            ui.showMessage(
-                    " Got it. I've added this task:\n"
-                            + newTask
-                            + "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n");
+            return " Got it. I've added this task:\n"
+                    + newTask
+                    + "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n";
         }
     }
 
@@ -112,17 +114,16 @@ public class Duke {
      * @param deadlineDate The deadline date of the deadline task
      * @throws DeadlineException If the description or deadline date is empty
      */
-    public void addDeadline(String description, LocalDate deadlineDate) throws DeadlineException {
+    public String addDeadline(String description, LocalDate deadlineDate) throws DeadlineException {
         if (description.isEmpty() || deadlineDate == null) {
-            System.out.println("Error in addDeadline");
+//            System.out.println("Error in addDeadline");
             throw new DeadlineException();
         } else {
             Task newTask = new Deadline(description, deadlineDate);
             taskList.addTask(newTask);
-            ui.showMessage(
-                    " Got it. I've added this task:\n"
-                            + newTask
-                            + "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n");
+            return " Got it. I've added this task:\n"
+                    + newTask
+                    + "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n";
         }
     }
 
@@ -134,16 +135,15 @@ public class Duke {
      * @param eventToDate   The end date of the event task
      * @throws EventException If the description, start date or end date is empty
      */
-    public void addEvent(String description, LocalDate eventFromDate, LocalDate eventToDate) throws EventException {
+    public String addEvent(String description, LocalDate eventFromDate, LocalDate eventToDate) throws EventException {
         if (description.isEmpty() || eventFromDate == null || eventToDate == null) {
             throw new EventException();
         } else {
             Task newTask = new Event(description, eventFromDate, eventToDate);
             taskList.addTask(newTask);
-            ui.showMessage(
-                    " Got it. I've added this task:\n"
-                            + newTask
-                            + "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n");
+            return " Got it. I've added this task:\n"
+                    + newTask
+                    + "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n";
         }
     }
 
@@ -172,20 +172,20 @@ public class Duke {
      *
      * @param keyword The keyword to search for.
      */
-    public void findTasksByKeyword(String keyword) {
+    public String findTasksByKeyword(String keyword) {
         ArrayList<Task> matchingTasks = taskList.findTasksByKeyword(keyword);
+        StringBuilder matchingTasksString = new StringBuilder();
         if (matchingTasks.isEmpty()) {
-            ui.showMessage("No matching tasks found.");
+            return "No matching tasks found.";
         } else {
-            StringBuilder matchingTasksString = new StringBuilder();
             matchingTasksString.append("Here are the matching tasks in your list:\n");
             int count = 1;
             for (Task task : matchingTasks) {
                 matchingTasksString.append(count).append(".").append(task).append("\n");
                 count++;
             }
-            ui.showMessage(matchingTasksString.toString());
         }
+        return matchingTasksString.toString();
     }
 
     /**
@@ -195,7 +195,7 @@ public class Duke {
      * @return True if the command is not "bye", false otherwise
      * @throws DukeException If the command type is not recognized
      */
-    public boolean handleCommand(Command command) throws DukeException {
+    public String handleCommand(Command command) throws DukeException {
         String commandType = command.getCommandType();
         String description = command.getDescription();
         int taskIndex = command.getTaskIndex();
@@ -205,64 +205,55 @@ public class Duke {
 
         switch (commandType) {
         case "mark":
-            this.markTaskByBot(taskIndex);
-            break;
+            return markTaskByBot(taskIndex);
         case "unmark":
-            this.unmarkTaskByBot(taskIndex);
-            break;
+            return unmarkTaskByBot(taskIndex);
         case "bye":
-            return false;
+            return "Bye. Hope to see you again soon!";
         case "list":
-            ui.showMessage(this.taskList.toString());
-            break;
+            return this.taskList.toString();
         case "find":
-            this.findTasksByKeyword(description);
-            break;
+            return this.findTasksByKeyword(description);
         case "todo":
-            this.addTodo(description);
-            break;
+            return this.addTodo(description);
         case "deadline":
-            this.addDeadline(description, deadlineDate);
-            break;
+            return this.addDeadline(description, deadlineDate);
         case "event":
-            this.addEvent(description, eventFromDate, eventToDate);
-            break;
+            return this.addEvent(description, eventFromDate, eventToDate);
         case "delete":
-            this.deleteTaskByBot(taskIndex);
-            break;
+            return this.deleteTaskByBot(taskIndex);
         default:
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
-        return true;
     }
 
     /**
      * Starts the chatbot application
      */
     public void start() throws DukeException {
-        Ui.showWelcomeMessage();
-        String userInput;
-        Command parsedCommand;
-
-        this.loadTasksFromFile();
-
-        boolean isContinuing = true;
-        while (isContinuing) {
-            try {
-                userInput = Ui.getUserInput();
-                parsedCommand = Parser.parse(userInput);
-                isContinuing = handleCommand(parsedCommand);
-                this.saveTasksToFile(this.taskList);
-            } catch (DukeException e) {
-                ui.showErrorMessage(e.getMessage());
-            }
-        }
-
-        Ui.showGoodByeMessage();
+//        Ui.showWelcomeMessage();
+//        String userInput;
+//        Command parsedCommand;
+//
+//        this.loadTasksFromFile();
+//
+//        boolean isContinuing = true;
+//        while (isContinuing) {
+//            try {
+//                userInput = Ui.getUserInput();
+//                parsedCommand = Parser.parse(userInput);
+//                isContinuing = handleCommand(parsedCommand);
+//                this.saveTasksToFile(this.taskList);
+//            } catch (DukeException e) {
+//                ui.showErrorMessage(e.getMessage());
+//            }
+//        }
+//
+//        Ui.showGoodByeMessage();
     }
 
     public static void main(String[] args) throws DukeException {
-        Duke duke = new Duke();
-        duke.start();
+//        Duke duke = new Duke();
+//        duke.start();
     }
 }

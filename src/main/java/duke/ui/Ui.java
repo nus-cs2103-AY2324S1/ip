@@ -1,7 +1,11 @@
 package duke.ui;
 
 
+import duke.commands.Command;
+import duke.commands.Parser;
+import duke.exception.DukeException;
 import duke.main.Duke;
+import duke.ui.DialogBox;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -28,9 +32,14 @@ public class Ui extends Application{
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
+    private Duke duke = new Duke();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/AncientHuman.jpeg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/HolyGod.jpeg"));
+
+    public Ui() {
+
+    }
 
     /**
      * Prints the welcome message to the user.
@@ -147,8 +156,8 @@ public class Ui extends Application{
 
         stage.setScene(scene);
         stage.show();
-
-        handleInitialGreeting();
+//
+//        handleInitialGreeting();
     }
 
     /**
@@ -175,27 +184,37 @@ public class Ui extends Application{
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Duke duke = new Duke();
+        //        duke.loadTasksFromFile();
 
         Label userText = new Label(userInput.getText());
-
-//        duke.loadTasksFromFile();
-
-        Label dukeText = new Label(getResponse(userInput.getText()));
-
+        String output = getResponse(userInput.getText());
+        Label dukeText = new Label(output);
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(userImage)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(dukeImage))
         );
         userInput.clear();
+
+//        if (output.equals("bye")) {
+//            Stage stage = (Stage) userInput.getScene().getWindow();
+//            stage.close();
+//        }
     }
+
 
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        return "Pu Sa Niang Niang heard: " + input + " ";
+        String dukeResponse;
+        try {
+            Command parsedCommand = Parser.parse(input);
+            dukeResponse = duke.handleCommand(parsedCommand);
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
+        return dukeResponse;
     }
 }
