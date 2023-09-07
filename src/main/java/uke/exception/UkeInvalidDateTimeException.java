@@ -1,9 +1,9 @@
-package duke;
+package uke.exception;
 
 /**
- * Represents a Duke exception when a wrongly formatted date and time is entered.
+ * Represents a Uke exception when a wrongly formatted date and time is entered.
  */
-public class DukeInvalidDateTimeException extends DukeException {
+public class UkeInvalidDateTimeException extends UkeException {
 
     /**
      * Returns the string representation of the exception.

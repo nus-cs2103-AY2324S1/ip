@@ -1,9 +1,9 @@
-package duke;
+package uke.exception;
 
 /**
- * Represents a Duke exception when any error occurs related to the data file.
+ * Represents a Uke exception when any error occurs related to the data file.
  */
-public class DukeDataFileException extends DukeException {
+public class UkeDataFileException extends UkeException {
 
     /**
      * Returns the string representation of the exception.

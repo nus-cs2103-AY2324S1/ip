@@ -1,10 +1,11 @@
-package duke;
+package uke;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import uke.task.Deadline;
 import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {

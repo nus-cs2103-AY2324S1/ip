@@ -1,4 +1,7 @@
-package duke;
+package uke;
+
+import uke.exception.UkeInvalidCommandException;
+import uke.exception.UkeMissingArgumentException;
 
 /**
  * Deals with making sense of user commands.
@@ -10,15 +13,15 @@ public class Parser {
      *
      * @param input Input entered by the user.
      * @return Command entered by the user.
-     * @throws DukeMissingArgumentException If command entered is invalid.
+     * @throws UkeMissingArgumentException If command entered is invalid.
      */
-    public static String parseCommand(String input) throws DukeInvalidCommandException {
+    public static String parseCommand(String input) throws UkeInvalidCommandException {
         String[] strArr;
         try {
             strArr = input.split(" ", 2);
             return strArr[0];
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeInvalidCommandException(input);
+            throw new UkeInvalidCommandException(input);
         }
     }
 
@@ -27,14 +30,14 @@ public class Parser {
      *
      * @param input Input entered by the user.
      * @return Information other than command entered by the user.
-     * @throws DukeMissingArgumentException If no information is found.
+     * @throws UkeMissingArgumentException If no information is found.
      */
-    public static String parseInfo(String input) throws DukeMissingArgumentException {
+    public static String parseInfo(String input) throws UkeMissingArgumentException {
         try {
             String[] strArr = input.split(" ", 2);
             return strArr[1];
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeMissingArgumentException();
+            throw new UkeMissingArgumentException();
         }
     }
 }
