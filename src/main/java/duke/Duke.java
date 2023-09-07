@@ -2,10 +2,9 @@ package duke;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+
 import java.util.Scanner;
 
-import duke.task.Task;
 
 /**
  * Program to run a task manager that can add, delete and mark tasks.
@@ -13,17 +12,20 @@ import duke.task.Task;
  * @author Teo Kai Sheng
  */
 public class Duke {
-    private static ArrayList<Task> list = new ArrayList<Task>();
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private static Path filePath = Paths.get(".", "data", "duke.txt"); // ./data/duke.txt
 
+    public String getResponse(String input) {
+        Parser parser = new Parser(ui, tasks);
+        String response = parser.parse(input);
+        return response;
+    }
     /**
      * Constructor to start the program.
-     *
-     * @param filePath The file path of the saved task list.
      */
-    public Duke(Path filePath) {
+    public Duke() {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList(storage.loadTaskList());
@@ -42,6 +44,10 @@ public class Duke {
             input = scanner.nextLine();
             parser.parse(input);
         }
+        updateTaskList();
+    }
+
+    public void updateTaskList() {
         storage.updateTaskList();
     }
 
@@ -51,6 +57,6 @@ public class Duke {
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
-        new Duke(Paths.get(".", "data", "duke.txt")).run(); // ./data/duke.txt
+        new Duke().run();
     }
 }

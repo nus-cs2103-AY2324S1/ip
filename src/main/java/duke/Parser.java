@@ -1,5 +1,8 @@
 package duke;
 
+
+import javafx.application.Platform;
+
 /**
  * Used to parse user input into appropriate commands.
  *
@@ -27,33 +30,35 @@ public class Parser {
      *
      * @param s User input picked up by the scanner.
      */
-    public void parse(String s) {
+    public String parse(String s) {
         String[] input = s.split(" ", 2);
         String command = input[0];
         ui.horizontalLine();
         if (command.equals("list")) {
-            tasks.showList(input);
+            return tasks.showList(input);
         } else if (command.equals("mark")) {
-            tasks.markTask(input);
+            return tasks.markTask(input);
         } else if (command.equals("unmark")) {
-            tasks.unmarkTask(input);
+            return tasks.unmarkTask(input);
         } else if (command.equals("delete")) {
-            tasks.deleteTask(input);
+            return tasks.deleteTask(input);
         } else if (command.equals("deadline")) {
-            tasks.addDeadline(input);
+            return tasks.addDeadline(input);
         } else if (command.equals("event")) {
-            tasks.addEvent(input);
+            return tasks.addEvent(input);
         } else if (command.equals("todo")) {
-            tasks.addToDo(input);
+            return tasks.addToDo(input);
         } else if (command.equals("find")) {
-            tasks.findTasks(input);
+            return tasks.findTasks(input);
         } else if (command.equals("bye")) {
             this.isFinished = true;
             ui.bye();
+            Platform.exit();
         } else {
             ui.printErrorMessage();
         }
         ui.horizontalLine();
+        return ui.printErrorMessage();
     }
 
     /**
