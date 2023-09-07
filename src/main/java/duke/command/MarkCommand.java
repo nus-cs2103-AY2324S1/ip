@@ -24,7 +24,7 @@ public class MarkCommand extends Command {
      */
     public String execute(TaskList taskList, Ui ui) throws DukeException {
         try {
-            Task taskToBeMarked= taskList.getTask(this.taskNumber);
+            Task taskToBeMarked= taskList.getTask(this.taskNumber - 1);
             if (taskToBeMarked.isTaskCompleted()){
                 throw new DukeException("Task has already been marked as completed.");
             }

@@ -23,7 +23,7 @@ public class DeleteCommand extends Command {
      */
     public String execute (TaskList taskList, Ui ui) throws DukeException {
         try{
-            Task taskToBeDeleted = taskList.getTask(taskNumber);
+            Task taskToBeDeleted = taskList.getTask(taskNumber - 1);
             taskList.removeTask(taskNumber);
             return ui.showDeletedMessage(taskToBeDeleted, taskList);
         } catch (IndexOutOfBoundsException e){
