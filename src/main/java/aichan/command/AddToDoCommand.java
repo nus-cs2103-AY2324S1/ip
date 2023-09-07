@@ -35,13 +35,13 @@ public class AddToDoCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AiChanException {
         tasks.addTask(task);
         int size = tasks.getSize();
-        ui.showMessage(String.format("Got it. I've added this task:\n  %s\n" +
-                "Now you have %d tasks in the list", task, size));
+        ui.showMessage(String.format("Got it. I've added this task:\n  %s\n"
+                + "Now you have %d tasks in the list", task, size));
         storage.save(tasks);
     }
 
     @Override
-    public boolean isExit(){
+    public boolean isExit() {
         return false;
     }
 }

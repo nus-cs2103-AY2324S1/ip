@@ -58,7 +58,6 @@ public class AiChan {
      * @param args The command line arguments (not used).
      */
     public static void main(String[] args) {
-        // System.out.println("hello world");
         new AiChan("data/tasks.txt").run();
     }
 }

@@ -32,7 +32,9 @@ public class UnmarkCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AiChanException {
         int size = tasks.getSize();
-        if (taskId < 1 || taskId > size) throw new AiChanException("Please provide a valid task number.");
+        if (taskId < 1 || taskId > size) {
+            throw new AiChanException("Please provide a valid task number.");
+        }
         Task task = tasks.getTask(taskId);
         task.unmark();
         ui.showMessage("OK, I've marked this task as not done yet:\n"
@@ -41,7 +43,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public boolean isExit(){
+    public boolean isExit() {
         return false;
     }
 }

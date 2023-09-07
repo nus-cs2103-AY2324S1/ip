@@ -12,7 +12,7 @@ public class Ui {
      * Constructs a ui object.
      * Initializes the scanner.
      */
-    public Ui(){
+    public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
@@ -27,9 +27,9 @@ public class Ui {
      * Displays welcome message.
      */
     public void showWelcome() {
-        String greet = "Hiya! I'm Ai-chan~\n" +
-                "Hey there, dear viewer, what's on your mind?\n" +
-                "Is there anything I can do to sprinkle some magic into your day?";
+        String greet = "Hiya! I'm Ai-chan~\n"
+                + "Hey there, dear viewer, what's on your mind?\n"
+                + "Is there anything I can do to sprinkle some magic into your day?";
         this.showLine();
         System.out.println(greet);
         this.showLine();

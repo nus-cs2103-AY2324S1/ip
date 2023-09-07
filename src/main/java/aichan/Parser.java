@@ -26,10 +26,10 @@ public class Parser {
     public static Command parse(String input) throws AiChanException {
         // command is user's input
         // put the if-else logic to call different constructor (subclass)
-        if (input == null ) {
+        if (input == null) {
             throw new AiChanException("Please enter command, thanks!");
         }
-        String inputs[] = input.split(" ", 2);
+        String[] inputs = input.split(" ", 2);
 
         String commandType = inputs[0];
         if (commandType.equals(ActionType.BYE.toString())) {

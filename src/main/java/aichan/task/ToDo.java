@@ -4,7 +4,7 @@ package aichan.task;
  * Represents a task that user need to do.
  * Inherits from Task.
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
 
     /**
      * Constructs the ToDo object.

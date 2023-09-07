@@ -1,10 +1,10 @@
 package aichan.task;
 
-import aichan.AiChanException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import aichan.AiChanException;
 
 /**
  * Represents an event with its start date and end date.

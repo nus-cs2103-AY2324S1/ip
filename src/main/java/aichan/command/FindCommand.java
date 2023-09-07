@@ -9,7 +9,7 @@ import aichan.task.Task;
  * Represents a command to find task with keyword.
  * Inherits from the Command class.
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
     private String keyword;
 
     /**

@@ -1,12 +1,12 @@
 package aichan;
 
-import aichan.task.Task;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import aichan.task.Task;
 
 /**
  * Represents a storage which deals with loading tasks and saving tasks.

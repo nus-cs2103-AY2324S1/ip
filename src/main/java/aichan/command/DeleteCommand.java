@@ -34,10 +34,12 @@ public class DeleteCommand extends Command {
         // control the main logic
         // add/delete task, show words
         int size = tasks.getSize();
-        if (taskId < 1 || taskId > size) throw new AiChanException("Please provide a valid task number.");
+        if (taskId < 1 || taskId > size) {
+            throw new AiChanException("Please provide a valid task number.");
+        }
         Task task = tasks.deleteTask(taskId);
-        ui.showMessage(String.format("Noted. I've removed this task:\n  %s\n" +
-                "Now you have %d tasks in the list", task, size - 1));
+        ui.showMessage(String.format("Noted. I've removed this task:\n  %s\n"
+                + "Now you have %d tasks in the list", task, size - 1));
         storage.save(tasks);
     }
 

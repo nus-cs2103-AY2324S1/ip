@@ -1,10 +1,10 @@
 package aichan.task;
 
-import aichan.AiChanException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import aichan.AiChanException;
 
 /**
  * Represents a task that user need to do with its deadline.

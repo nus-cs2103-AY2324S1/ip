@@ -1,8 +1,9 @@
 package aichan;
 
+import java.util.ArrayList;
+
 import aichan.task.Task;
 
-import java.util.ArrayList;
 
 /**
  * Represents a list contains the tasks.
@@ -42,7 +43,7 @@ public class TaskList {
      * @return The task.
      */
     public Task deleteTask(int index) {
-        return arrTask.remove(index -1);
+        return arrTask.remove(index - 1);
     }
 
     /**

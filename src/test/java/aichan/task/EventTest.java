@@ -1,9 +1,10 @@
 package aichan.task;
 
-import aichan.AiChanException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import aichan.AiChanException;
 
 /**
  * Tests the Event class.

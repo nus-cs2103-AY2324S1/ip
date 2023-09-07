@@ -36,17 +36,23 @@ public class Task {
         String description = str.substring(8);
         if (type == 'T') {
             Task t = new ToDo(description);
-            if (isMark) t.mark();
+            if (isMark) {
+                t.mark();
+            }
             return t;
         } else if (type == 'D') {
             String[] arr = description.split(" \\| ");
             Task t = new Deadline(arr);
-            if (isMark) t.mark();
+            if (isMark) {
+                t.mark();
+            }
             return t;
         } else if (type == 'E') {
             String[] arr = description.split(" \\| | - ");
             Task t = new Event(arr);
-            if (isMark) t.mark();
+            if (isMark) {
+                t.mark();
+            }
             return t;
         } else {
             return null;
@@ -74,7 +80,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        String status = this.isDone? "[X]" : "[ ]";
+        String status = this.isDone ? "[X]" : "[ ]";
         return status + " " + this.taskName;
     }
 
@@ -84,7 +90,7 @@ public class Task {
      * @return A string indicates whether the task is done followed by its description.
      */
     public String toFileLine() {
-        int zeroOrOne = this.isDone? 1: 0;
+        int zeroOrOne = this.isDone ? 1 : 0;
         return zeroOrOne + " | " + this.taskName;
     }
 

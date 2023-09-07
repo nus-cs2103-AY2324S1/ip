@@ -22,7 +22,7 @@ public class AddDeadlineCommand extends Command {
      */
     public AddDeadlineCommand(String str) throws AiChanException {
         String[] arr = str.split(" /by ");
-        if(arr.length < 2) {
+        if (arr.length < 2) {
             throw new AiChanException("Behind description, please provide the deadline after ' /by '");
         }
         this.task = new Deadline(arr);
@@ -40,13 +40,13 @@ public class AddDeadlineCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AiChanException {
         tasks.addTask(task);
         int size = tasks.getSize();
-        ui.showMessage(String.format("Got it. I've added this task:\n  %s\n" +
-                "Now you have %d tasks in the list", task, size));
+        ui.showMessage(String.format("Got it. I've added this task:\n  %s\n"
+                + "Now you have %d tasks in the list", task, size));
         storage.save(tasks);
     }
 
     @Override
-    public boolean isExit(){
+    public boolean isExit() {
         return false;
     }
 }
