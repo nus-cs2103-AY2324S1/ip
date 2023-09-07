@@ -1,13 +1,17 @@
 package duke;
 
+import java.util.Scanner;
+
 import duke.commands.Command;
-import duke.exceptions.*;
+import duke.exceptions.InvalidDateTimeException;
+import duke.exceptions.InvalidDescriptionException;
+import duke.exceptions.InvalidKeywordException;
+import duke.exceptions.InvalidTaskIndexException;
+import duke.exceptions.MissingTaskIndexException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
-
-import java.util.Scanner;
 
 /**
  * The main class for the Ding Chatbot application.

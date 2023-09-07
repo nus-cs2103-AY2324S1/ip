@@ -1,12 +1,20 @@
 package duke.parser;
 
-import duke.commands.Command;
-import duke.exceptions.*;
-import duke.tasks.*;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+
+import duke.commands.Command;
+import duke.exceptions.InvalidDateTimeException;
+import duke.exceptions.InvalidDescriptionException;
+import duke.exceptions.InvalidKeywordException;
+import duke.exceptions.InvalidTaskIndexException;
+import duke.exceptions.MissingTaskIndexException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.tasks.ToDo;
 
 /**
  * The duke.parser.Parser class is responsible for parsing user input and
@@ -21,8 +29,8 @@ public class Parser {
      * @return The parsed command.
      */
     public static Command getCommand(String str) {
-        String command_word = str.split(" ")[0];
-        Command command = Command.valueOf(command_word.toUpperCase());
+        String commandWord = str.split(" ")[0];
+        Command command = Command.valueOf(commandWord.toUpperCase());
         return command;
     }
 
@@ -49,6 +57,8 @@ public class Parser {
                 break;
             case UNMARK:
                 tasks.markTaskAsUndone(taskIndex);
+                break;
+            default:
                 break;
             }
             return taskIndex;
@@ -84,7 +94,7 @@ public class Parser {
      * @throws MissingTaskIndexException  If the task index is missing.
      */
     public static Task taskToDelete(String str, TaskList tasks)
-            throws InvalidTaskIndexException, MissingTaskIndexException{
+            throws InvalidTaskIndexException, MissingTaskIndexException {
         if (str.split(" ").length == 2) {
             int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
             if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {

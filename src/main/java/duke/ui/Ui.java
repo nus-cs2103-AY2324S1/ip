@@ -16,8 +16,8 @@ public class Ui {
      * @param tasks  The list of tasks.
      */
     public static void addTaskReply(String str, TaskList tasks) {
-        System.out.println(String.format("Ding: What does '%s' mean? I'll just add it anyway.\n " +
-                "You have like %d tasks now", str, tasks.getSize()));
+        System.out.println(String.format("Ding: What does '%s' mean? I'll just add it anyway.\n "
+                + "You have like %d tasks now", str, tasks.getSize()));
     }
 
     /**
@@ -30,12 +30,15 @@ public class Ui {
     public static void markTaskReply(int taskIndex, TaskList tasks, Command command) {
         switch (command) {
         case MARK:
-            System.out.println(String.format("Ding: Okay, I marked this task as done, " +
-                    "but I have no idea what that means:\n %s", tasks.getTask(taskIndex)));
+            System.out.println(String.format("Ding: Okay, I marked this task as done, "
+                    + "but I have no idea what that means:\n %s", tasks.getTask(taskIndex)));
             break;
         case UNMARK:
-            System.out.println(String.format("Ding: Okay, I marked this task as undone, " +
-                    "but I have no idea what that means:\n %s", tasks.getTask(taskIndex)));
+            System.out.println(String.format("Ding: Okay, I marked this task as undone, "
+                    + "but I have no idea what that means:\n %s", tasks.getTask(taskIndex)));
+            break;
+        default:
+            System.out.println("Error occurred");
         }
     }
 
@@ -46,8 +49,8 @@ public class Ui {
      * @param tasks The list of tasks.
      */
     public static void deleteTaskReply(Task task, TaskList tasks) {
-        System.out.println(String.format("Ding: Okay, I've forgotten this task, " +
-                "so don't expect me to remember it:\n %s", task));
+        System.out.println(String.format("Ding: Okay, I've forgotten this task, "
+                + "so don't expect me to remember it:\n %s", task));
         System.out.println(String.format("Ding: Right so now you have like %d tasks left", tasks.getSize()));
     }
 
@@ -63,9 +66,9 @@ public class Ui {
      */
     public static void exitReply() {
         System.out.println(
-                "____________________________________________________________\n" +
-                "Ding: Bye. Hopefully I get to see you again soon!\n" +
-                "____________________________________________________________");
+                "____________________________________________________________\n"
+                        + "Ding: Bye. Hopefully I get to see you again soon!\n"
+                        + "____________________________________________________________");
     }
 
     /**
@@ -73,10 +76,10 @@ public class Ui {
      */
     public static void introReply() {
         System.out.println(
-                "____________________________________________________________\n" +
-                "Hello! I'm Ding!\n" +
-                "What can I do for you?\n" +
-                "____________________________________________________________\n");
+                "____________________________________________________________\n"
+                        + "Hello! I'm Ding!\n"
+                        + "What can I do for you?\n"
+                        + "____________________________________________________________\n");
     }
 
     /**
@@ -85,8 +88,8 @@ public class Ui {
      * @param tasks The list of tasks to display.
      */
     public static void printListReply(TaskList tasks) {
-        System.out.println(String.format("Ding: These are your tasks... " +
-                "If I remember correctly:\n%s", tasks));
+        System.out.println(String.format("Ding: These are your tasks... "
+                + "If I remember correctly:\n%s", tasks));
     }
 
     /**
@@ -105,8 +108,8 @@ public class Ui {
     public static void illegalArgumentExceptionReply() {
         System.out.println("Ding: I seriously have no idea what I need to do here");
         System.out.println("Ding: No way you forgot to even input a proper command...");
-        System.out.println("Ding: Available commands are 'todo', 'deadline', 'event', " +
-                "'list', 'mark', 'unmark', 'delete', 'find', 'bye'");
+        System.out.println("Ding: Available commands are 'todo', 'deadline', 'event', "
+                + "'list', 'mark', 'unmark', 'delete', 'find', 'bye'");
     }
 
     /**
@@ -125,13 +128,13 @@ public class Ui {
      * @param tasks The list of tasks.
      */
     public static void invalidTaskIndexExceptionReply(TaskList tasks) {
-        System.out.println("Ding: Oh wait it's not lost, " +
-                "the task number you gave just doesn't exist in your list...");
+        System.out.println("Ding: Oh wait it's not lost, "
+                + "the task number you gave just doesn't exist in your list...");
         if (tasks.getSize() > 0) {
             System.out.println(String.format("Ding: Please input a task number from 1 to %d", tasks.getSize()));
         } else {
-            System.out.println("Ding: You have nothing in your task list... " +
-                    "What are you even trying to get me to do?");
+            System.out.println("Ding: You have nothing in your task list... "
+                    + "What are you even trying to get me to do?");
         }
     }
 
@@ -147,8 +150,8 @@ public class Ui {
      * Displays a reply for an invalid date-time format exception.
      */
     public static void invalidDateTimeExceptionReply() {
-        System.out.println("Ding: I already told you... " +
-                "please enter the timestamps in this format 'YYYY-MM-DD HH:mm'");
+        System.out.println("Ding: I already told you... "
+                + "please enter the timestamps in this format 'YYYY-MM-DD HH:mm'");
     }
 
     /**
