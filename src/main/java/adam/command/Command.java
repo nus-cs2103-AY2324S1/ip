@@ -16,5 +16,5 @@ public interface Command {
      * @param storage Storage used to store the list in the hard disk.
      * @param ui Ui that is used to print messages.
      */
-    public void execute(TaskList tasks, Storage storage, Ui ui);
+    public String execute(TaskList tasks, Storage storage, Ui ui);
 }

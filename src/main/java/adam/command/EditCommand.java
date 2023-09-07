@@ -33,7 +33,8 @@ public class EditCommand implements Command {
      * @param ui Ui that is used to print messages.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
+    public String execute(TaskList tasks, Storage storage, Ui ui) {
+        String respond = "Something went wrong";
         if (tokens.length != 2) {
             throw new NumberException();
         }
@@ -46,17 +47,18 @@ public class EditCommand implements Command {
         }
         switch (text) {
         case "mark":
-            tasks.markAsDone(number);
+            respond = tasks.markAsDone(number);
             break;
         case "unmark":
-            tasks.unmarkAsDone(number);
+            respond = tasks.unmarkAsDone(number);
             break;
         case "delete":
-            tasks.deleteTask(number);
+            respond = tasks.deleteTask(number);
             break;
         default:
-            System.out.println("Wrong input");
+            respond = "Wrong input";
         }
         tasks.save(storage);
+        return respond;
     }
 }

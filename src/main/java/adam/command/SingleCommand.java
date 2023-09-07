@@ -30,19 +30,21 @@ public class SingleCommand implements Command {
      * @param ui Ui that is used to print messages.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui){
+    public String execute(TaskList tasks, Storage storage, Ui ui){
+        String respond = "Something went wrong";
         if (tokens.length > 1) {
             throw new OneWordException();
         }
         switch (input) {
         case "bye":
-            tasks.bye();
+            respond = tasks.bye();
             break;
         case "list":
-            tasks.list();
+            respond = tasks.list();
             break;
         default:
-            System.out.println("Wrong input");
+            respond = "Wrong input";
         }
+        return respond;
     }
 }

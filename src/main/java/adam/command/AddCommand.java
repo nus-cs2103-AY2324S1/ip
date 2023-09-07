@@ -40,13 +40,14 @@ public class AddCommand implements Command {
      * @param ui Ui that is used to print messages.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui){
+    public String execute(TaskList tasks, Storage storage, Ui ui){
+        String respond = "Something went wrong";
         if (tokens.length == 1) {
             throw new DescriptionException();
         }
         switch (input) {
         case "todo":
-            tasks.addTodo(item);
+            respond = tasks.addTodo(item);
             break;
         case "deadline":
             String[] by = item.split(" /by ");
@@ -64,7 +65,7 @@ public class AddCommand implements Command {
             } catch (DateTimeParseException e) {
                 throw new DateException();
             }
-            tasks.addDeadline(by[0], by[1]);
+            respond = tasks.addDeadline(by[0], by[1]);
             break;
         case "event":
             String[] divide1 = item.split(" /from ");
@@ -94,11 +95,12 @@ public class AddCommand implements Command {
             } catch (DateTimeParseException e) {
                 throw new DateException();
             }
-            tasks.addEvent(text, from, to);
+            respond = tasks.addEvent(text, from, to);
             break;
         default:
-            System.out.println("Wrong input");
+            respond = "Wrong input";
         }
         tasks.save(storage);
+        return respond;
     }
 }
