@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import duke.components.TaskList;
+import duke.task.ToDos;
+
 public class TaskListTest {
     @Test
     public void addToList_addOne_success() {

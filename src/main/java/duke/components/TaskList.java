@@ -1,6 +1,8 @@
-package duke;
+package duke.components;
 
 import java.util.ArrayList;
+
+import duke.task.Task;
 
 /**
  * Represents a list of Task as an ArrayList. Contains operations on the tasks in
@@ -36,9 +38,13 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void addToList(Task task) {
+    //    public void addToList(Task task) {
+    //        this.fullList.add(task);
+    //        ui.showAddMessage(task, this.fullList.size());
+    //    };
+    public String addToList(Task task) {
         this.fullList.add(task);
-        ui.showAddMessage(task, this.fullList.size());
+        return ui.showAddMessage(task, this.fullList.size());
     };
 
     /**
@@ -46,13 +52,22 @@ public class TaskList {
      *
      * @param index The index of the task to be deleted.
      */
-    public void deleteFromList(int index) {
+    //    public void deleteFromList(int index) {
+    //        if (index >= 0 && index < fullList.size()) {
+    //            Task item = fullList.get(index);
+    //            this.fullList.remove(item);
+    //            ui.showDeleteMessage(item, this.fullList.size());
+    //        } else {
+    //            ui.showNoItemMessage();
+    //        }
+    //    }
+    public String deleteFromList(int index) {
         if (index >= 0 && index < fullList.size()) {
             Task item = fullList.get(index);
             this.fullList.remove(item);
-            ui.showDeleteMessage(item, this.fullList.size());
+            return ui.showDeleteMessage(item, this.fullList.size());
         } else {
-            ui.showNoItemMessage();
+            return ui.showNoItemMessage();
         }
     }
 
@@ -61,13 +76,22 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as done.
      */
-    public void markItem(int index) {
+    //    public void markItem(int index) {
+    //        if (index >= 0 && index < fullList.size()) {
+    //            Task curr = fullList.get(index);
+    //            curr.markDone();
+    //            ui.showMarkMessage(curr);
+    //        } else {
+    //            ui.showNoItemMessage();
+    //        }
+    //    }
+    public String markItem(int index) {
         if (index >= 0 && index < fullList.size()) {
             Task curr = fullList.get(index);
             curr.markDone();
-            ui.showMarkMessage(curr);
+            return ui.showMarkMessage(curr);
         } else {
-            ui.showNoItemMessage();
+            return ui.showNoItemMessage();
         }
     }
 
@@ -76,13 +100,22 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as not done.
      */
-    public void unMarkItem(int index) {
+    //    public void unMarkItem(int index) {
+    //        if (index >= 0 && index < fullList.size()) {
+    //            Task curr = fullList.get(index);
+    //            curr.markNotDone();
+    //            ui.showUnmarkMessage(curr);
+    //        } else {
+    //            ui.showNoItemMessage();
+    //        }
+    //    }
+    public String unMarkItem(int index) {
         if (index >= 0 && index < fullList.size()) {
             Task curr = fullList.get(index);
             curr.markNotDone();
-            ui.showUnmarkMessage(curr);
+            return ui.showUnmarkMessage(curr);
         } else {
-            ui.showNoItemMessage();
+            return ui.showNoItemMessage();
         }
     }
 

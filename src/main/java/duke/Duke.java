@@ -2,23 +2,31 @@ package duke;
 
 import java.util.Scanner;
 
+import duke.components.FileStorage;
+import duke.components.Parser;
+import duke.components.TaskList;
+import duke.components.Ui;
+import duke.exception.FileCorruptedException;
+import duke.exception.FileLoadException;
+import duke.exception.FileNoExistingTasksException;
+
 /**
  * Represents the main class where the chatbot will run.
  */
 public class Duke {
     private static String filePath = "./data/duke.txt";
+    private Scanner scanner = new Scanner(System.in);
     private TaskList fullList;
     private final FileStorage fileStorage;
     private Parser parser;
     private Ui ui;
 
     /**
-     * Constructs a chatbot which will load any existing tasks stored in the filePath
+     * Constructs a chatBot which will load any existing tasks stored in the filePath
      * specified.
      *
-     * @param filePath Represents the location of stored tasks.
      */
-    public Duke(String filePath) {
+    public Duke() {
         this.fileStorage = new FileStorage(filePath);
         try {
             this.fullList = new TaskList(fileStorage.loadFiles());
@@ -42,26 +50,35 @@ public class Duke {
         }
     }
 
-    /**
-     * Initialises the application, displays a welcome message and
-     * enters a loop to process user inputs until the use enters "bye".
-     */
-    public void run() {
-        Scanner scanner = new Scanner(System.in);
-        ui.showWelcome();
-        boolean isNotBye = true;
-        while (isNotBye) {
-            isNotBye = parser.createTaskAction(scanner.nextLine());
-        }
-        scanner.close();
+    public String getResponse(String input) {
+        return parser.createTaskAction(input);
     }
 
-    /**
-     * Entry point of the Duke application.
-     *
-     * @param args Command-line arguments. Not used in this context.
-     */
-    public static void main(String[] args) {
-        new Duke(filePath).run();
+    public String getWelcome() {
+        return ui.showWelcome();
     }
+
+    //    /**
+    //     * Initialises the application, displays a welcome message and
+    //     * enters a loop to process user inputs until the use enters "bye".
+    //     */
+    //    public void run() {
+    //        ui.showWelcome();
+    //        boolean isBye = false;
+    //        while (!isBye) {
+    //            String input = scanner.nextLine();
+    //            isBye = parser.isBye(input);
+    //            parser.createTaskAction(input);
+    //        }
+    //        scanner.close();
+    //    }
+
+    //    /**
+    //     * Entry point of the Duke application.
+    //     *
+    //     * @param args Command-line arguments. Not used in this context.
+    //     */
+    //    public static void main(String[] args) {
+    //        new Duke().run();
+    //    }
 }

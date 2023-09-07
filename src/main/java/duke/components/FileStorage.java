@@ -1,4 +1,4 @@
-package duke;
+package duke.components;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -8,6 +8,13 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.exception.FileCorruptedException;
+import duke.exception.FileLoadException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDos;
 
 /**
  * Represents the class which handles reading and writing tasks to a file.

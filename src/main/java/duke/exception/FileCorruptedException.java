@@ -1,4 +1,4 @@
-package duke;
+package duke.exception;
 
 /**
  * Represents the Exception which occurs when a file has been corrupted during loading.

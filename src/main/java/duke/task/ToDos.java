@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 /**
  * Represents a ToDos task. A <code>ToDos</code> corresponds to a Task

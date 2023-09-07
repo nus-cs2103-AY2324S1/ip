@@ -1,4 +1,4 @@
-package duke;
+package duke.exception;
 
 /**
  * Represents the base exception class for file loading errors.

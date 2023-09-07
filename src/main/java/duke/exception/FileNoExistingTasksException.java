@@ -1,4 +1,4 @@
-package duke;
+package duke.exception;
 
 /**
  * Represents the exception that indicates there are no existing tasks in a file during loading.
