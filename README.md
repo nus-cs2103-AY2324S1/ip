@@ -15,7 +15,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    1. If there are any further prompts, accept the defaults.
 1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/MainCli.java` file, right-click it, and choose `Run MainCli.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+3. After that, build the project (which should use Gradle automatically), and then execute the `run` Gradle task. If the setup is correct, you will see a GUI (or TUI if you configure it to run with the `-t` or `--text-ui` flag) presenting something resembling a chat interface:
    ```
    [Todoify]:
      Hello! I'm Todoify, your friendly task helper.
