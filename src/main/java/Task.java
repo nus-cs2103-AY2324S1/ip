@@ -1,8 +1,8 @@
-public class Tasks {
+public class Task {
     protected String name;
     protected boolean isMarked;
 
-    public Tasks(String name, boolean isMarked) {
+    public Task(String name, boolean isMarked) {
         this.name = name;
         this.isMarked = isMarked;
     }

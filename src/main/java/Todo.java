@@ -1,4 +1,4 @@
-public class Todo extends Tasks {
+public class Todo extends Task {
 
     public Todo(String name, boolean isMarked) {
         super(name, isMarked);

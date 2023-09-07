@@ -1,18 +1,16 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.io.File;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
-import java.io.IOException;
 
 public class Duke {
+
+    //private Storage storage;
+    //private TaskList tasks;
+    //private Ui ui;
+
 
 
     public static void main(String[] args) {
@@ -23,10 +21,10 @@ public class Duke {
         // Create a File object with the filename
         File file = new File(filename);
 
-        ArrayList<Tasks> tasksList = new ArrayList<>();
+        TaskList tasks = new TaskList();
         if (file.exists()) {
-            tasksList = TaskReader.readTasksFromFile(filename);
-            System.out.println(tasksList);
+            tasks = TaskReader.readTasksFromFile(filename);
+            System.out.println(tasks);
         }
         while (true) {
             System.out.println("Enter a command: ");
@@ -36,27 +34,16 @@ public class Duke {
                 System.out.println(exit.exitMessage());
                 break;
             } else if (command.equalsIgnoreCase("list")) { //list shows the task list
-                System.out.println("Here are the tasks in your list: ");
-                if (!tasksList.isEmpty()) {
-                    for (int i = 1; i <= tasksList.size(); i++) {
-                        System.out.println(i + "." + tasksList.get(i - 1));
-                    }
-                }
+                tasks.listOfTasks();
             } else if (command.startsWith("unmark")) { // unmark the task in question
                 int taskNumber = Integer.parseInt(command.substring(7)) - 1;
-                if (taskNumber < tasksList.size()) {
-                    Tasks task = tasksList.get(taskNumber);
-                    task.setMarked(false);
-                    tasksList.set(taskNumber, task);
-                    System.out.println("OK, I've marked this task as not done yet:\n" + "  " + tasksList.get(taskNumber));
+                if (taskNumber < tasks.size()) {
+                    tasks.unmarkTask(taskNumber);;
                 }
             } else if (command.startsWith("mark")) { // mark the task in question
                 int taskNumber = Integer.parseInt(command.substring(5)) - 1;
-                if (taskNumber < tasksList.size()) {
-                    Tasks task = tasksList.get(taskNumber);
-                    task.setMarked(true);
-                    tasksList.set(taskNumber, task);
-                    System.out.println("Nice! I've marked this task as done:\n" + "  " + tasksList.get(taskNumber));
+                if (taskNumber < tasks.size()) {
+                    tasks.markTaskAsDone(taskNumber);
                 }
 
 
@@ -69,11 +56,8 @@ public class Duke {
                     }
 
                     Todo todo = new Todo(description, false);
-                    tasksList.add(todo);
+                    tasks.addTask(todo);
 
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + todo);
-                    System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
                 } catch (EmptyTodoException e) {
                     System.out.println(e.getMessage());
                 }
@@ -103,10 +87,8 @@ public class Duke {
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
                             LocalDate localDateDeadline = LocalDate.parse(deadline, formatter);
                             Deadline deadlineTask = new Deadline(description,false, localDateDeadline);
-                            tasksList.add(deadlineTask);
-                            System.out.println("Got it. I've added this deadline:");
-                            System.out.println("  " + deadlineTask);
-                            System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
+                            tasks.addTask(deadlineTask);
+
                         } else {
                             System.out.println("Please input your deadline in YYYY/MM/DD format");
                         }
@@ -136,24 +118,17 @@ public class Duke {
 
                         // Create a new Event object
                         Event eventTask = new Event(description, false, startTime, endTime);
-                        tasksList.add(eventTask);
+                        tasks.addTask(eventTask);
 
-                        // Print confirmation message
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + eventTask);
-                        System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
                     } else {
                         System.out.println("Invalid input format for event command.");
                     }
                 }
             } else if (command.startsWith("delete")) {
                 int taskNumber = Integer.parseInt(command.substring(7)) - 1;
-                if (taskNumber < tasksList.size()) {
-                    Tasks task = tasksList.get(taskNumber);
-                    tasksList.remove(taskNumber);
+                if (taskNumber < tasks.size()) {
+                    tasks.deleteTask(taskNumber);
 
-                    System.out.println("Noted. I've removed this task: \n" + "  " + task);
-                    System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
                 }
 
 
@@ -166,7 +141,7 @@ public class Duke {
             }
 
         }
-        TaskWriter.writeTasksToFile(tasksList, "tasks.txt");
+        TaskWriter.writeTasksToFile(tasks, "tasks.txt");
     }
 }
 
