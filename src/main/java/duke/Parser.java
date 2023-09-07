@@ -8,10 +8,10 @@ import duke.task.Todo;
 import java.util.ArrayList;
 
 public class Parser {
-    final static String LINE = "────────────────────────────────────────────────────";
+
+    String result;
 
     public Parser() {
-
     }
 
     /**
@@ -19,8 +19,9 @@ public class Parser {
      *
      * @param command User input.
      * @param tasks The list of all Tasks.
+     * @return Bot's response in String.
      */
-    public void parse(String command, TaskList tasks) {
+    public String parse(String command, TaskList tasks) {
         try {
             String[] commandArr = command.split(" ",2);
             switch (commandArr[0]) {
@@ -35,31 +36,26 @@ public class Parser {
                             targetList.add(task);
                         }
                     }
-                    System.out.print("Here are the matching tasks in your list: \n");
+                    result = "Here are the matching tasks in your list: \n";
                     for (int i = 0; i < targetList.size(); i++) {
                         int index = i + 1;
                         Task t = targetList.get(i);
-                        System.out.println(index + "." + t.toString());
+                        result += index + "." + t.toString() + "\n";
                     }
-                    break;
+
+                    return result;
                 case "list":
-                    tasks.print();
-                    System.out.print(LINE + "\n");
-                    break;
+                    return tasks.print();
                 case "mark":
                     int mIndex = command.charAt(5) - 49;
                     Task t = tasks.getTask(mIndex);
                     t.markAsDone();
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(t.toString() + "\n" + LINE);
-                    break;
+                    return result = "Nice! I've marked this task as done:\n" + t.toString();
                 case "unmark":
                     int umIndex = command.charAt(7) - 49;
                     Task umTask = tasks.getTask(umIndex);
                     umTask.markAsUndone();
-                    System.out.println("Nice! I've marked this task as not done yet:");
-                    System.out.println(umTask.toString() + "\n" + LINE);
-                    break;
+                    return result = "Nice! I've marked this task as not done yet:\n" + umTask.toString();
                 case "deadline":
                     if (commandArr[1].isEmpty()) {
                         throw new DukeException(String.format(DukeException.NON_EMPTY, "DEADLINE"));
@@ -67,9 +63,8 @@ public class Parser {
                     String[] deadlineArr = commandArr[1].split("/by ", 2);
                     Task deadline = new Deadline(deadlineArr[0], deadlineArr[1]);
                     tasks.addTask(deadline);
-                    System.out.println("added " + deadline.toString() + "\n");
-                    System.out.println("Now you have " + tasks.getSize() + " tasks in the list. \n" + LINE);
-                    break;
+                    result = "added " + deadline.toString() + "\n";
+                    return result + "Now you have " + tasks.getSize() + " tasks in the list.";
                 case "event":
                     if (commandArr[1].isEmpty()) {
                         throw new DukeException(String.format(DukeException.NON_EMPTY, "EVENT"));
@@ -78,33 +73,28 @@ public class Parser {
                     String[] eventArr2 = eventArr1[1].split(" /to ", 2);
                     Task event = new Event(eventArr1[0], eventArr2[0], eventArr2[1]);
                     tasks.addTask(event);
-                    System.out.println("added " + event.toString() + "\n");
-                    System.out.println("Now you have " + tasks.getSize() + " tasks in the list. \n" + LINE);
-                    break;
+                    result = "added " + event.toString() + "\n";
+                    return result + "Now you have " + tasks.getSize() + " tasks in the list.";
                 case "todo":
                     if (commandArr[1].isEmpty()) {
                         throw new DukeException(String.format(DukeException.NON_EMPTY, "TODO"));
                     }
                     Task todo = new Todo(commandArr[1]);
                     tasks.addTask(todo);
-                    System.out.println("added " + todo.toString() + "\n");
-                    System.out.println("Now you have " + tasks.getSize() + " tasks in the list. \n" + LINE);
-                    break;
+                    result = "added " + todo.toString() + "\n";
+                    return result + "Now you have " + tasks.getSize() + " tasks in the list.";
                 case "delete":
                     int deleteIndex = command.charAt(7) - 49;
                     Task deleted = tasks.deleteTask(deleteIndex);
-                    System.out.println("Noted. I've removed the task: \n");
-                    System.out.println(deleted.toString() + "\n");
-                    System.out.println("Now you have " + tasks.getSize() + " tasks in the list. \n" + LINE);
-                    break;
+                    result = "Noted. I've removed the task: \n" + deleted.toString() + "\n";
+                    return result + "Now you have " + tasks.getSize() + " tasks in the list.";
                 case "bye":
-                    Ui.bye();
-                    break;
+                    return Ui.bye();
                 default:
                     throw new DukeException(DukeException.UNKNOWN);
             }
         } catch (DukeException e) {
-            System.out.println(e.getMessage() + "\n" + LINE);
+            return e.getMessage();
         }
     }
 }
