@@ -32,7 +32,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E][%s] %s (from: %s to: %s)",
+        return String.format("[E][%s] %s (from: %s to: %s)\n",
                 this.getStatusIcon(),
                 this.description,
                 this.start.format(DateTimeFormatter.ofPattern("d MMM yyyy")),
