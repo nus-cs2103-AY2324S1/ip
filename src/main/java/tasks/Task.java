@@ -40,15 +40,17 @@ public class Task {
     /**
      * Marks the task as done.
      */
-    public void markDone() {
+    public String markDone() {
         isDone = true;
+        return "";
     }
 
     /**
      * Unmarks the task as done.
      */
-    public void unmarkDone() {
+    public String unmarkDone() {
         isDone = false;
+        return "";
     }
 
     /**

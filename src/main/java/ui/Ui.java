@@ -3,128 +3,136 @@ package ui;
 import customexceptions.WrongCommandException;
 import parser.Parser;
 import storage.Storage;
-import tasks.Deadlines;
-import tasks.Events;
-import tasks.Task;
-import tasks.TaskList;
-import tasks.ToDos;
+import tasks.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-
-/**
- * The `Ui` class handles user interactions and provides a text-based interface for the Corubi chatbot.
- */
 public class Ui {
-    private final String NAME = "Corubi";
-    private final String DIVIDER = "---------------------------------------------------";
+    private final String NAME = "main.Corubi";
 
-    private String input;
+    private Parser parser;
+    private TaskList tasks;
 
-    /**
-     * Displays the bot's greeting message.
-     */
     public void start() {
-        System.out.println(DIVIDER);
         System.out.println("Hello! I am " + NAME + ". \nWhat can I do for you?");
-        System.out.println(DIVIDER);
     }
 
-    /**
-     * Handles user input and performs corresponding actions.
-     *
-     * @param store  The Storage instance for managing data persistence.
-     * @param tasks  The TaskList instance for managing tasks.
-     * @param parser The Parser instance for parsing user input.
-     * @throws IOException If an I/O operation is interrupted.
-     */
-    public void takeCommands(Storage store, TaskList tasks, Parser parser) throws IOException {
-        Scanner sc = new Scanner(System.in);
-        store.load(parser);
-        input = sc.nextLine();
+    public String takeCommands(Storage store, TaskList task, Parser parse, String command) throws IOException {
+        parser = parse;
+//        store.load(parser);
+        tasks = task;
 
         ArrayList<String> commands = new ArrayList<>();
         String[] commandList = {"todo", "deadline", "event", "mark", "unmark", "bye"};
         Collections.addAll(commands, commandList);
 
-        while (!input.equals("bye") && !input.equals("Bye")) {
-            if (input.equals("list") || input.equals("List")) {
-                System.out.println(DIVIDER);
-                tasks.printList();
-                input = sc.nextLine();
-            } else if (input.contains("unmark") || input.contains("Unmark")) {
-                int number = parser.findNum(input);
-                try {
-                    tasks.retrieve(number - 1).unmarkDone();
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println(number + " is too high! List size is only " + tasks.size());
-                } finally {
-                    System.out.println(DIVIDER);
-                    store.overwrite();
-                    input = sc.nextLine();
-                }
-            } else if (input.contains("mark") || input.contains("Mark")) {
-                int number = parser.findNum(input);
-                try {
-                    tasks.retrieve(number - 1).markDone();
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println(number + " is too high! List size is only " + tasks.size());
-                } finally {
-                    System.out.println(DIVIDER);
-                    store.overwrite();
-                    input = sc.nextLine();
-                }
-            } else if (input.contains("delete")) {
-                int number = parser.findNum(input);
-                try {
-                    Task index = tasks.retrieve(number - 1);
-                    tasks.remove(index);
-                    System.out.printf("I have deleted the following task:\n%s\nYour list has %d items left\n\n",
-                            index.toString(), tasks.size());
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println(number + " is too high! List size is only " + tasks.size());
-                }
-                System.out.println(DIVIDER);
-                store.overwrite();
-                input = sc.nextLine();
-            } else if (input.contains("find ")) {
-                System.out.println(DIVIDER);
-                System.out.println("Here are the matching items in your list:\n");
-                tasks.find(parser.find(input));
-                input = sc.nextLine();
+
+
+
+        if (command.equalsIgnoreCase("bye")) {
+            return command + " " + command + "...please come back soon :(";
+
+        } else {
+            if (command.equalsIgnoreCase("list")) {
+                return listCommand(tasks);
+            } else if (command.toLowerCase().contains("unmark")) {
+                return unmarkCommand(command, tasks, store);
+            } else if (command.toLowerCase().contains("mark")) {
+                return markCommand(command, tasks, store);
+            } else if (command.toLowerCase().contains("delete")) {
+                return deleteCommand(command, tasks, store);
+            } else if (command.toLowerCase().contains("find ")) {
+                return findCommand(command, tasks);
             } else {
-                if (input.contains("todo ")) {
-                    Task newTask = new ToDos(parser.taskName(input), false);
-                    tasks.add(newTask);
-                    store.write(newTask);
-                    System.out.println("Okay! I have added the following task\n" + newTask);
-                } else if (input.contains("deadline ")) {
-                    Task newTask = new Deadlines(parser.taskName(input), parser.taskBy(input), false);
-                    tasks.add(newTask);
-                    System.out.println("Okay! I have added the following task\n" + newTask);
-                    store.write(newTask);
-                } else if (input.contains("event ")) {
-                    Task newTask = new Events(parser.taskName(input), parser.taskFrom(input), parser.taskTo(input),
-                            false);
-                    tasks.add(newTask);
-                    System.out.println("Okay! I have added the following task\n" + newTask.toString());
-                    store.write(newTask);
-                } else {
-                    try {
-                        if (!commands.contains(input.split(" ")[0])) {
-                            throw new WrongCommandException(input);
-                        }
-                    } catch (WrongCommandException e) {
-                        System.out.println(e.getMessage());
-                    }
-                }
-                System.out.println(DIVIDER);
-                input = sc.nextLine();
+                return processTask(command, tasks, parser, store, commands);
             }
         }
-        System.out.println(input + " " + input + "...please come back soon :(");
     }
+
+    private String listCommand(TaskList tasks) {
+        StringBuilder result = new StringBuilder();
+        result.append(tasks.printList()).append("\n");
+        return result.toString();
+    }
+
+    private String unmarkCommand(String input, TaskList tasks, Storage store) throws IOException {
+        StringBuilder result = new StringBuilder();
+        int number = parser.findNum(input);
+        try {
+            tasks.retrieve(number - 1).unmarkDone();
+        } catch (IndexOutOfBoundsException e) {
+            result.append(number).append(" is too high! List size is only ").append(tasks.size()).append("\n");
+        } finally {
+            store.overwrite();
+        }
+        return result.toString();
+    }
+
+    private String markCommand(String input, TaskList tasks, Storage store) throws IOException {
+        StringBuilder result = new StringBuilder();
+        int number = parser.findNum(input);
+        try {
+            result.append(tasks.retrieve(number - 1).markDone());
+        } catch (IndexOutOfBoundsException e) {
+            result.append(number).append(" is too high! List size is only ").append(tasks.size()).append("\n");
+        } finally {
+            store.overwrite();
+        }
+        return result.toString();
+    }
+
+    private String deleteCommand(String input, TaskList tasks, Storage store) throws IOException {
+        StringBuilder result = new StringBuilder();
+        int number = parser.findNum(input);
+        try {
+            Task index = tasks.retrieve(number - 1);
+            tasks.remove(index);
+            result.append("I have deleted the following task:\n").append(index.toString()).append("\nYour list has ")
+                    .append(tasks.size()).append(" items left\n\n");
+        } catch (IndexOutOfBoundsException e) {
+            result.append(number).append(" is too high! List size is only ").append(tasks.size()).append("\n");
+        }
+        store.overwrite();
+        return result.toString();
+    }
+
+    private String findCommand(String input, TaskList tasks) {
+        StringBuilder result = new StringBuilder();
+        result.append("Here are the matching items in your list:\n").append("\n");
+        result.append(tasks.find(parser.find(input))).append("\n");
+        return result.toString();
+    }
+
+    private String processTask(String input, TaskList tasks, Parser parser, Storage store, ArrayList<String> commands) throws IOException {
+        StringBuilder result = new StringBuilder();
+        if (input.toLowerCase().contains("todo ")) {
+            Task newTask = new ToDos(parser.taskName(input), false);
+            tasks.add(newTask);
+            store.write(newTask);
+            result.append("Okay! I have added the following task\n").append(newTask).append("\n");
+        } else if (input.toLowerCase().contains("deadline ")) {
+            Task newTask = new Deadlines(parser.taskName(input), parser.taskBy(input), false);
+            tasks.add(newTask);
+            result.append("Okay! I have added the following task\n").append(newTask).append("\n");
+            store.write(newTask);
+        } else if (input.toLowerCase().contains("event ")) {
+            Task newTask = new Events(parser.taskName(input), parser.taskFrom(input), parser.taskTo(input), false);
+            tasks.add(newTask);
+            result.append("Okay! I have added the following task\n").append(newTask.toString()).append("\n");
+            store.write(newTask);
+        } else {
+            try {
+                if (!commands.contains(input.split(" ")[0].toLowerCase())) {
+                    throw new WrongCommandException(input);
+                }
+            } catch (WrongCommandException e) {
+                result.append(e.getMessage()).append("\n");
+            }
+        }
+        return result.toString();
+    }
+
 }

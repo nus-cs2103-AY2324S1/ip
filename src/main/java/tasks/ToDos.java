@@ -19,9 +19,9 @@ public class ToDos extends Task {
     Description: Checks the specified task
      */
     @Override
-    public void markDone() {
+    public String markDone() {
         super.markDone();
-        System.out.println("Oki, I've marked this task as done: \n" + this.toString());
+        return "Oki, I've marked this task as done: \n" + this.toString();
     }
 
     /*
@@ -29,8 +29,8 @@ public class ToDos extends Task {
     Description: Unchecks the specified task
      */
     @Override
-    public void unmarkDone() {
+    public String unmarkDone() {
         super.unmarkDone();
-        System.out.println("Damn bro...unmarked this task :( : \n" + this.toString());
+        return "Damn bro...unmarked this task :( : \n" + this.toString();
     }
 }
