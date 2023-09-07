@@ -1,0 +1,99 @@
+
+____________________________________________________________
+Hello! I'm MACHO-CATTO! Your personal chat-bot to make your 
+day macho!
+What can I do for you today?
+____________________________________________________________
+
+____________________________________________________________
+No tasks recorded, macho!
+
+____________________________________________________________
+
+____________________________________________________________
+Got it macho! I've added this task:
+[T][ ] create task
+You now have 1 tasks in the list, macho!
+
+____________________________________________________________
+
+____________________________________________________________
+Wrong argument 'finish ip by monday' provided, macho! Please use /by for any deadline tasks, macho!
+
+____________________________________________________________
+
+____________________________________________________________
+Got it macho! I've added this task:
+[D][ ] finish ip (by: monday)
+You now have 2 tasks in the list, macho!
+
+____________________________________________________________
+
+____________________________________________________________
+Macho...I do not understand what this means. Please enter a correct command, macho!
+
+____________________________________________________________
+
+____________________________________________________________
+Wrong argument 'attend talk from 2pm /to 4pm' provided, macho! Please use /from and /to for any deadline tasks, macho!
+
+____________________________________________________________
+
+____________________________________________________________
+Got it macho! I've added this task:
+[E][ ] attend talk (from: 2pm to: 4pm)
+You now have 3 tasks in the list, macho!
+
+____________________________________________________________
+
+____________________________________________________________
+1.[T][ ] create task
+2.[D][ ] finish ip (by: monday)
+3.[E][ ] attend talk (from: 2pm to: 4pm)
+
+____________________________________________________________
+
+____________________________________________________________
+I have marked this task as done per your request, macho!
+[E][x] attend talk (from: 2pm to: 4pm)
+
+____________________________________________________________
+
+____________________________________________________________
+I have marked this task as done per your request, macho!
+[T][x] create task
+
+____________________________________________________________
+
+____________________________________________________________
+1.[T][x] create task
+2.[D][ ] finish ip (by: monday)
+3.[E][x] attend talk (from: 2pm to: 4pm)
+
+____________________________________________________________
+
+____________________________________________________________
+I have marked this task as undone yet, per your request, macho!
+[E][ ] attend talk (from: 2pm to: 4pm)
+
+____________________________________________________________
+
+____________________________________________________________
+I have deleted this task as done per your request, macho!
+[T][x] create task
+You now have 2 tasks in the list, macho!
+
+____________________________________________________________
+
+____________________________________________________________
+1.[D][ ] finish ip (by: monday)
+2.[E][ ] attend talk (from: 2pm to: 4pm)
+
+____________________________________________________________
+
+____________________________________________________________
+
+Bye! Hope to see you again soon, macho!
+
+____________________________________________________________
+

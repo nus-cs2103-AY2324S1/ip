@@ -9,8 +9,8 @@ public class InvalidTimeFormatException extends Exception {
      * Public constructor for throwing InvalidTaskDescriptionException
      * @param message string of text
      */
-    public InvalidTimeFormatException(String message, String divider) {
+    public InvalidTimeFormatException(String message) {
         super("Macho! The input time format of a " + message + " is wrong, macho! Please enter in format "
-               + "yyyy-MM-dd HH:mm, macho!\n" + divider);
+               + "yyyy-MM-dd HH:mm, macho!\n");
     }
 }

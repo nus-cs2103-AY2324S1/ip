@@ -9,7 +9,6 @@ public class InvalidIndexException extends Exception {
      * @param message string of text
      */
     public InvalidIndexException(String message) {
-        super("Macho! The target you delete is out of the list or does not exist, please enter again macho!\n"
-            + message);
+        super("Macho! The target you selected is out of the list or does not exist, please enter again macho!\n");
     }
 }

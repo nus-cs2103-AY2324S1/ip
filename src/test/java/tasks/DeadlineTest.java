@@ -6,10 +6,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import helpers.Message;
 import org.junit.jupiter.api.Test;
 
 import exceptions.InvalidTimeFormatException;
-import helpers.Ui;
 
 /**
  * Test class for testing Deadline object and operations
@@ -44,7 +44,7 @@ public class DeadlineTest {
      */
     @Test
     public void testInvalidDeadlineException() {
-        Ui ui = new Ui();
+        Message message = new Message();
         try {
             Deadline deadline = new Deadline("finish homework", false,
                     LocalDateTime.parse("invalid date", dateTimeFormat));
@@ -54,7 +54,7 @@ public class DeadlineTest {
                             + " is wrong, macho! Please enter in format "
                             + "yyyy-MM-dd HH:mm, macho!\n"
                             + "____________________________________________________________",
-                    new InvalidTimeFormatException("invalid date", ui.getDivider()).getMessage());
+                    new InvalidTimeFormatException("invalid date"));
         }
 
 

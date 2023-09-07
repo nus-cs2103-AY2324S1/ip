@@ -6,10 +6,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import helpers.Message;
 import org.junit.jupiter.api.Test;
 
 import exceptions.InvalidTimeFormatException;
-import helpers.Ui;
 
 /**
  * Test class for testing Event object and operations
@@ -47,7 +47,7 @@ public class EventsTest {
      */
     @Test
     public void testInvalidEventException() {
-        Ui ui = new Ui();
+        Message message = new Message();
         try {
             Events event = new Events("internship talk", false,
                     LocalDateTime.parse("invalid date", dateTimeFormat),
@@ -58,7 +58,7 @@ public class EventsTest {
                             + " is wrong, macho! Please enter in format "
                             + "yyyy-MM-dd HH:mm, macho!\n"
                             + "____________________________________________________________",
-                    new InvalidTimeFormatException("invalid date", ui.getDivider()).getMessage());
+                    new InvalidTimeFormatException("invalid date"));
         }
 
 
