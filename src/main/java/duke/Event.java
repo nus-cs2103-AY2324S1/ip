@@ -30,8 +30,8 @@ public class Event extends Task {
     }
 
     @Override
-    public String lineToWriteFile() {
-        return "E | " + super.lineToWriteFile() + " | " + convertDateToString(this.from)
+    public String convertToSaveFormat() {
+        return "E | " + super.convertToSaveFormat() + " | " + convertDateToString(this.from)
                 + " to " + convertDateToString(this.to);
     }
 }

@@ -64,8 +64,8 @@ public class TaskList {
      * @param taskList the TaskList object that contains the array list containing the tasks.
      * @param isMatch true if the user command is a "find" command, false otherwise.
      */
-    public void listTasks(TaskList taskList, boolean isMatch) {
-        Ui.showTaskList(taskList.taskArray, isMatch);
+    public String listTasks(TaskList taskList, boolean isMatch) {
+        return Ui.showTaskList(taskList.taskArray, isMatch);
     }
 
     /**
@@ -75,16 +75,17 @@ public class TaskList {
      * @param taskNum the task number to be marked or unmarked.
      * @throws DukeException if task number does not exist in the array list.
      */
-    public void markOrUnmarkTask(String action, int taskNum) throws DukeException {
+    public String markOrUnmarkTask(String action, int taskNum) throws DukeException {
+        StringBuilder stringBuilder = new StringBuilder();
         try {
             if (action.equals("mark")) {
-                Ui.taskMarked(this.taskArray.get(taskNum - 1).isDone);
+                stringBuilder.append(Ui.getTaskMarked(this.taskArray.get(taskNum - 1).isDone));
                 this.taskArray.get(taskNum - 1).markDone();
             } else {
-                Ui.taskNotMarked(!this.taskArray.get(taskNum - 1).isDone);
+                stringBuilder.append(Ui.getTaskNotMarked(!this.taskArray.get(taskNum - 1).isDone));
                 this.taskArray.get(taskNum - 1).markNotDone();
             }
-            Ui.print(this.taskArray.get(taskNum - 1).toString());
+            return stringBuilder.append(this.taskArray.get(taskNum - 1).toString()).toString();
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             throw new DukeException("WARBLE WARBLE! This task number does not exist!");
         }
@@ -130,11 +131,11 @@ public class TaskList {
      * @param taskNum the corresponding task number to be deleted.
      * @throws DukeException if the task number does not exist.
      */
-    public void deleteTasks(int taskNum) throws DukeException {
+    public String deleteTasks(int taskNum) throws DukeException {
         try {
             Task taskDeleted = this.taskArray.get(taskNum - 1);
             this.taskArray.remove(taskNum - 1);
-            Ui.deleteTaskOutput(taskDeleted.toString(), this.taskArray.size());
+            return Ui.deleteTaskOutput(taskDeleted.toString(), this.taskArray.size());
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new DukeException("WARBLE WARBLE, this task number does not exist!");
         }
@@ -145,13 +146,13 @@ public class TaskList {
      *
      * @param keyword the keyword to find in the tasks.
      */
-    public void findTasks(String keyword) {
+    public String findTasks(String keyword) {
         ArrayList<Task> foundTasksArray = new ArrayList<>();
         for (int i = 0; i < this.taskArray.size(); i++) {
             if (this.taskArray.get(i).toString().contains(keyword)) {
                 foundTasksArray.add(this.taskArray.get(i));
             }
         }
-        Ui.showTaskList(foundTasksArray, true);
+        return Ui.showTaskList(foundTasksArray, true);
     }
 }

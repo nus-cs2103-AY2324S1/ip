@@ -23,6 +23,7 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
     private void createDirectory() {
         File f = new File("./data");
         if (!hasDirectory() && !f.mkdir()) {
@@ -35,7 +36,7 @@ public class Storage {
         if (f.exists() && f.isDirectory()) {
             return true;
         }
-        Ui.directoryNotFound();
+        //Ui.directoryNotFound();
         return false;
     }
 
@@ -43,9 +44,6 @@ public class Storage {
         File f = new File(this.filePath);
         try {
             if (!f.createNewFile()) {
-                Ui.savedFileFound();
-            } else {
-                Ui.savedFileNotFound();
             }
             return new Scanner(f);
         } catch (IOException e) {
@@ -106,9 +104,9 @@ public class Storage {
         try {
             FileWriter fw = new FileWriter(this.filePath, true);
             if (taskList.taskArray.size() == 1) {
-                fw.write(taskList.taskArray.get(0).lineToWriteFile());
+                fw.write(taskList.taskArray.get(0).convertToSaveFormat());
             } else {
-                fw.write("\n" + taskList.taskArray.get(taskList.taskArray.size() - 1).lineToWriteFile());
+                fw.write("\n" + taskList.taskArray.get(taskList.taskArray.size() - 1).convertToSaveFormat());
             }
             fw.close();
         } catch (IOException e) {
@@ -127,9 +125,9 @@ public class Storage {
             FileWriter fw = new FileWriter(this.filePath);
             for (int i = 0; i < taskList.taskArray.size(); i++) {
                 if (i != taskList.taskArray.size() - 1) {
-                    fw.write(taskList.taskArray.get(i).lineToWriteFile() + "\n");
+                    fw.write(taskList.taskArray.get(i).convertToSaveFormat() + "\n");
                 } else {
-                    fw.write(taskList.taskArray.get(i).lineToWriteFile());
+                    fw.write(taskList.taskArray.get(i).convertToSaveFormat());
                 }
             }
             fw.close();

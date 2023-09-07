@@ -8,7 +8,7 @@ public class Parser {
     private TaskList taskList;
     private Storage storage;
     private String userInput;
-    private boolean bye;
+    private boolean isBye;
 
 
     /**
@@ -22,26 +22,26 @@ public class Parser {
         this.taskList = taskList;
         this.userInput = userInput;
         this.storage = storage;
-        this.bye = false;
+        this.isBye = false;
     }
 
     /**
      * Checks the user input and perform the corresponding action based on the input.
      */
-    public void parse() {
+    public String parse() {
         String[] input = this.userInput.split(" ", 2);
-        Ui.horizontalLine();
+        StringBuilder stringBuilder = new StringBuilder();
         try {
             switch (input[0]) {
             case "list":
-                this.taskList.listTasks(this.taskList, false);
+                stringBuilder.append(this.taskList.listTasks(this.taskList, false));
                 break;
             case "mark":
             case "unmark":
                 try {
                     int taskNum = Integer.parseInt(input[1]);
-                    this.taskList.markOrUnmarkTask(input[0], taskNum);
                     storage.rewriteFile(this.taskList);
+                    stringBuilder.append(this.taskList.markOrUnmarkTask(input[0], taskNum));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("BEEPBEEP! You forgot to give a task number!");
                 } catch (NumberFormatException e) {
@@ -49,13 +49,13 @@ public class Parser {
                 }
                 break;
             case "bye":
-                Ui.goodbyeMessage();
-                this.bye = true;
+                stringBuilder.append(Ui.getGoodbyeMessage());
+                this.isBye = true;
                 break;
             case "todo":
                 try {
                     this.taskList.addTodoTask(input[1]);
-                    Ui.addedTaskOutput(this.taskList);
+                    stringBuilder.append(Ui.addTaskOutput(this.taskList));
                     storage.addLineToFile(this.taskList);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("BEEPBEEP! You forgot to give a description!");
@@ -66,7 +66,7 @@ public class Parser {
                 try {
                     String[] remainLine = input[1].split(" /", 2);
                     this.taskList.addDeadlineOrEventTask(input[0], remainLine);
-                    Ui.addedTaskOutput(this.taskList);
+                    stringBuilder.append(Ui.addTaskOutput(this.taskList));
                     storage.addLineToFile(this.taskList);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("BEEPBEEP! You forgot to give a description or date/time!");
@@ -75,7 +75,7 @@ public class Parser {
             case "delete":
                 try {
                     int taskNum = Integer.parseInt(input[1]);
-                    this.taskList.deleteTasks(taskNum);
+                    stringBuilder.append(this.taskList.deleteTasks(taskNum));
                     storage.rewriteFile(this.taskList);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("BEEPBEEP! You forgot to give a task number!");
@@ -88,7 +88,7 @@ public class Parser {
                     if (input[1].isEmpty()) {
                         throw new ArrayIndexOutOfBoundsException();
                     }
-                    this.taskList.findTasks(input[1].trim());
+                    stringBuilder.append(this.taskList.findTasks(input[1].trim()));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("BEEPBEEP! You forgot to give a keyword for me to search!");
                 }
@@ -98,12 +98,12 @@ public class Parser {
                         + "Because I don't know what that means!");
             }
         } catch (DukeException e) {
-            Ui.showExceptionError(e);
+            return Ui.showExceptionError(e);
         }
-        Ui.horizontalLine();
+        return stringBuilder.toString();
     }
 
     public boolean isBye() {
-        return this.bye;
+        return this.isBye;
     }
 }
