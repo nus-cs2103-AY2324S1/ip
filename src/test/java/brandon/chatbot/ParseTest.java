@@ -1,13 +1,12 @@
 package brandon.chatbot;
 
-import brandon.chatbot.commands.Command;
-import brandon.chatbot.commands.UnknownCommand;
-import brandon.chatbot.common.DukeException;
-import brandon.chatbot.parser.Parser;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
+
+import brandon.chatbot.commands.Command;
+import brandon.chatbot.commands.UnknownCommand;
+import brandon.chatbot.parser.Parser;
 public class ParseTest {
     @Test
     public void deadline_noDeadline_exceptionThrown() {

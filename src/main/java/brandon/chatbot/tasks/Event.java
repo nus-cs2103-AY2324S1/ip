@@ -32,7 +32,7 @@ public class Event extends Task {
     public String toString() {
         return "Event";
     }
-@Override
+    @Override
     public String getStatus() {
         return "[E]" + super.getStatus() + " (from: " + this.startTime + " to: " + this.endTime + ")";
     }

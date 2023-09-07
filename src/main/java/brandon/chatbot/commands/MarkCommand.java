@@ -3,7 +3,7 @@ package brandon.chatbot.commands;
 import brandon.chatbot.common.DukeIndexOutOfBoundsException;
 
 public class MarkCommand extends Command {
-    public final String MARK_SUCCESS = "ok... I'm marking...";
+    public static final String MARK_SUCCESS = "ok... I'm marking...";
     private int index;
 
     public MarkCommand(int index) {

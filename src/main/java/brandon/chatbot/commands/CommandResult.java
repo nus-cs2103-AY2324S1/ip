@@ -1,11 +1,9 @@
 package brandon.chatbot.commands;
 
-import brandon.chatbot.tasks.Task;
+import java.util.Optional;
+
 import brandon.chatbot.tasks.TaskList;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Represents the result of running the command.
@@ -31,7 +29,7 @@ public class CommandResult {
     /**
      * Returns Optional object containing TaskList, if there is one.
      *
-     * @return Optional object containign TaskList if exists.
+     * @return Optional object containing TaskList if exists.
      */
     public Optional<TaskList> getTasks() {
         return Optional.ofNullable(tasks);

@@ -1,5 +1,8 @@
 package brandon.chatbot.parser;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import brandon.chatbot.commands.AddDeadlineCommand;
 import brandon.chatbot.commands.AddEventCommand;
 import brandon.chatbot.commands.AddTodoCommand;
@@ -8,12 +11,9 @@ import brandon.chatbot.commands.DeleteCommand;
 import brandon.chatbot.commands.ExitCommand;
 import brandon.chatbot.commands.ListCommand;
 import brandon.chatbot.commands.MarkCommand;
-import brandon.chatbot.commands.UnmarkCommand;
 import brandon.chatbot.commands.UnknownCommand;
+import brandon.chatbot.commands.UnmarkCommand;
 import brandon.chatbot.common.DukeException;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Represents the parser that parses the user inputs.
@@ -42,24 +42,24 @@ public class Parser {
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
-            case "todo":
-                return prepareTodo(arguments);
-            case "delete":
-                return prepareDelete(arguments);
-            case "list":
-                return new ListCommand();
-            case "mark":
-                return prepareMark(arguments);
-            case "unmark":
-                return prepareUnmark(arguments);
-            case "deadline":
-                return prepareDeadline(arguments);
-            case "event":
-                return prepareEvent(arguments);
-            case "bye":
-                return new ExitCommand();
-            default:
-                break;
+        case "todo":
+            return prepareTodo(arguments);
+        case "delete":
+            return prepareDelete(arguments);
+        case "list":
+            return new ListCommand();
+        case "mark":
+            return prepareMark(arguments);
+        case "unmark":
+            return prepareUnmark(arguments);
+        case "deadline":
+            return prepareDeadline(arguments);
+        case "event":
+            return prepareEvent(arguments);
+        case "bye":
+            return new ExitCommand();
+        default:
+            break;
         }
         return null;
     }

@@ -1,16 +1,15 @@
 package brandon.chatbot.tasks;
 
-import brandon.chatbot.common.DukeException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import brandon.chatbot.common.DukeException;
 
 /**
  * Represents a Task with Deadline date.
  */
 public class Deadline extends Task {
-
     private String deadline;
 
     /**

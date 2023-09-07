@@ -1,9 +1,8 @@
 package brandon.chatbot;
 
-import java.util.Locale;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Locale;
 
 import brandon.chatbot.commands.Command;
 import brandon.chatbot.commands.CommandResult;
@@ -12,8 +11,8 @@ import brandon.chatbot.commands.UnknownCommand;
 import brandon.chatbot.parser.Parser;
 import brandon.chatbot.storage.Storage;
 import brandon.chatbot.tasks.TaskList;
-
 import brandon.chatbot.ui.TextUi;
+
 
 /**
  * Entry point of the Duke chatbot application.
