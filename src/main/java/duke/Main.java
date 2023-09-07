@@ -1,8 +1,10 @@
 package duke;
 
+import static duke.Duke.storage;
+import static duke.Storage.loadTasksFromFile;
+
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import duke.gui.MainWindow;
 import javafx.application.Application;
@@ -11,17 +13,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import static duke.Duke.storage;
-import static duke.Storage.loadTasksFromFile;
-
 /**
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
+    private static int index = 0;
     private Duke duke = new Duke();
-//    static Storage storage = new Storage();
-//    static ArrayList<Task> taskList = new TaskList();
-    static int index = 0;
 
     @Override
     public void start(Stage stage) {

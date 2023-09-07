@@ -1,8 +1,6 @@
 package duke;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Consumer;
 
 
@@ -11,7 +9,7 @@ import java.util.function.Consumer;
  * Inherits from the ArrayList class and specializes for tasks.
  */
 public class TaskList extends ArrayList<Task> {
-    ArrayList<Task> tasks;
+    protected ArrayList<Task> tasks;
 
     /**
      * Constructs a TaskList object.

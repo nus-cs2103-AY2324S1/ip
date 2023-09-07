@@ -1,7 +1,11 @@
 package duke;
 
-import java.io.*;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 
@@ -9,9 +13,9 @@ import java.util.ArrayList;
  * Handles the saving and loading of tasks to and from a file in a directory.
  */
 public class Storage {
-    java.nio.file.Path path = java.nio.file.Paths.get( "../../../..", "src", "main", "data", "duke.txt");
+    protected java.nio.file.Path path = java.nio.file.Paths.get("../../../..", "src", "main", "data", "duke.txt");
     private final boolean fileExists = java.nio.file.Files.exists(path);
-    File f = new File(String.valueOf(path));
+    protected File f = new File(String.valueOf(path));
 
     /**
      * Saves the provided list of tasks to the specified file path.

@@ -1,6 +1,5 @@
 package duke.gui;
 
-import duke.Duke;
 import java.io.IOException;
 import java.util.Collections;
 
@@ -18,6 +17,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 
+/**
+ * The `DialogBox` class represents a graphical dialog box used in the Duke application's user interface.
+ * It extends the JavaFX `HBox` class and is used to display a conversation between the user and Duke,
+ * the chatbot.
+ *
+ * This class includes methods to create user and Duke dialog boxes, flip the order of items in the dialog
+ * for Duke's responses, and handle the text and image to be displayed in the dialog box.
+ *
+ * @author Your Name
+ * @version 1.0
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;

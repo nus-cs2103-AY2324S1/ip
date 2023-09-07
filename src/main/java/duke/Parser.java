@@ -1,26 +1,28 @@
 package duke;
 
-import javafx.application.Platform;
+import static duke.Event.DATE_TIME_FORMATTER;
+import static duke.Storage.saveTasksToFile;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import java.util.ArrayList;
 
-import static duke.Event.DATE_TIME_FORMATTER;
-import static duke.Storage.saveTasksToFile;
+import javafx.application.Platform;
+
+
+
 
 /**
  * Handles the parsing of user input and the corresponding actions in the Duke application.
  */
 public class Parser {
-    final static String EXIT_PHRASE = "bye";
-    final static String LIST_PHRASE = "list";
-    final static String TODO_PHRASE = "todo";
-    final static String DEADLINE_PHRASE = "deadline";
-    final static String EVENT_PHRASE = "event";
-    final static String DELETE_PHRASE = "delete";
-    final static String SEARCH_PHRASE = "find";
+    static final String EXIT_PHRASE = "bye";
+    static final String LIST_PHRASE = "list";
+    static final String TODO_PHRASE = "todo";
+    static final String DEADLINE_PHRASE = "deadline";
+    static final String EVENT_PHRASE = "event";
+    static final String DELETE_PHRASE = "delete";
+    static final String SEARCH_PHRASE = "find";
 
 
     /**
@@ -50,16 +52,15 @@ public class Parser {
             } else {
                 finalText += "Here are the tasks in your list:\n";
                 for (int j = 0; j < i; j++) {
-                    finalText += j + 1 + "." +
-                            taskList.get(j).toString() + "\n";
+                    finalText += j + 1 + "." + taskList.get(j).toString() + "\n";
                 }
             }
             return finalText;
         } else if (commandWord.equals("mark")) {
-                Task curr = taskList.get(Integer.parseInt(binaryArr[1]) - 1);
-                curr.mark();
-                finalText = "Nice! I've marked this task as done: \n" + "[X] " + curr.getDescription();
-                return finalText;
+            Task curr = taskList.get(Integer.parseInt(binaryArr[1]) - 1);
+            curr.mark();
+            finalText = "Nice! I've marked this task as done: \n" + "[X] " + curr.getDescription();
+            return finalText;
         } else if (commandWord.equals("unmark")) {
             Task curr = taskList.get(Integer.parseInt(binaryArr[1]) - 1);
             curr.unmark();
@@ -87,7 +88,7 @@ public class Parser {
             if (binaryArr[1].equals("")) {
                 throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
             }
-            String[] deadlineArr  = binaryArr[1].split("/by ");
+            String[] deadlineArr = binaryArr[1].split("/by ");
             LocalDate by;
             if (deadlineArr[1].equals("today")) {
                 by = LocalDate.now();
@@ -126,8 +127,7 @@ public class Parser {
             int searchListSize = searchList.size();
             finalText += "Here are the matching tasks in your list:\n";
             for (int j = 0; j < searchListSize; j++) {
-                finalText += j + 1 + "." +
-                        searchList.get(j).toString() + "\n";
+                finalText += j + 1 + "." + searchList.get(j).toString() + "\n";
             }
             return finalText;
         }

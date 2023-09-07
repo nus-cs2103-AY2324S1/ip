@@ -1,13 +1,13 @@
 package duke;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task with a specific deadline.
  * Inherits from the Task class.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
     protected LocalDate by;
     /**

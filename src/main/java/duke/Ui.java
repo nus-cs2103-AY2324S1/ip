@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Handles user input and output interactions.
  */
 public class Ui {
-    Scanner uiScanner = new Scanner(System.in);
+    protected Scanner uiScanner = new Scanner(System.in);
 
     /**
      * Prints the message to the console.
