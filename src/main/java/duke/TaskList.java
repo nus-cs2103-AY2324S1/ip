@@ -19,11 +19,14 @@ public class TaskList {
         this.todoList = new ArrayList<Task>();
     }
 
-    /**
-     * Returns the array list of tasks currently stored in the TaskList.
-     *
-     * @return The array list of tasks.
-     */
+    public String getListInString() {
+        StringBuilder list = new StringBuilder();
+        for (Task task : this.todoList) {
+            list.append(task.toString()).append("\n");
+        }
+        return list.toString();
+    }
+
     public List<Task> getList() {
         return this.todoList;
     }
@@ -47,16 +50,6 @@ public class TaskList {
         return this.todoList.get(index).toString();
     }
 
-    /**
-     * Adds a new task to the task list and prints message
-     *
-     * @param task The task to be added.
-     */
-    public void addTask(Task task, Boolean withString) {
-        this.todoList.add(task);
-        System.out.println("Roger! I have added the following task to the list");
-        System.out.println(task.toString());
-    }
 
     /**
      * Adds a new task to the task list.
@@ -75,8 +68,6 @@ public class TaskList {
     public void deleteTask(int taskToDeleteIndex) {
         String taskToRemove = todoList.get(taskToDeleteIndex).toString();
         this.todoList.remove(taskToDeleteIndex);
-        System.out.println("Okay! I have removed the following task from the list");
-        System.out.println(taskToRemove);
     }
 
     /**
@@ -122,6 +113,12 @@ public class TaskList {
     public void printTaskListInString() {
         System.out.println(String.format("You have %d task(s) currently in the list",
                 todoList.size()));
+    }
+
+    public String NumberOfTaskListInString() {
+        String s = String.format("You have %d task(s) currently in the list",
+                todoList.size());
+        return s;
     }
 
 }
