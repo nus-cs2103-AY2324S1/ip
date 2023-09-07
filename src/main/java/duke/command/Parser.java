@@ -8,28 +8,69 @@ import duke.task.TodoTask;
 
 import java.time.LocalDate;
 
+/**
+ * The Parser class is responsible for parsing user commands and generating corresponding Task objects.
+ * It also provides utility methods for checking specific command types.
+ */
 public class Parser {
 
+    /**
+     * Checks if the given command represents the "bye" command.
+     *
+     * @param command The user command to check.
+     * @return True if the command is "bye," false otherwise.
+     */
     public static boolean isBye(String command) {
         return command.equalsIgnoreCase("bye");
     }
 
+    /**
+     * Checks if the given command represents the "list" command.
+     *
+     * @param command The user command to check.
+     * @return True if the command is "list," false otherwise.
+     */
     public static boolean isList(String command) {
         return command.equalsIgnoreCase("list");
     }
 
+    /**
+     * Checks if the given command represents the "mark" command.
+     *
+     * @param command The user command to check.
+     * @return True if the command starts with "mark," false otherwise.
+     */
     public static boolean isMarkDone(String command) {
         return command.startsWith("mark");
     }
 
+    /**
+     * Checks if the given command represents the "unmark" command.
+     *
+     * @param command The user command to check.
+     * @return True if the command starts with "unmark," false otherwise.
+     */
     public static boolean isMarkNotDone(String command) {
         return command.startsWith("unmark");
     }
 
+    /**
+     * Checks if the given command represents the "delete" command.
+     *
+     * @param command The user command to check.
+     * @return True if the command starts with "delete," false otherwise.
+     */
     public static boolean isDelete(String command) {
         return command.startsWith("delete");
     }
 
+    /**
+     * Extracts the task index from the given command.
+     *
+     * @param command The user command containing the task index.
+     * @return The extracted task index.
+     * @throws DukeException If the task index cannot be extracted or is invalid.
+     */
     public static int extractTaskIndex(String command) throws DukeException {
         String[] parts = command.split(" ");
         if (parts.length < 2) {
@@ -38,6 +79,13 @@ public class Parser {
         return Integer.parseInt(parts[1].trim()) - 1;
     }
 
+    /**
+     * Parses the given command and generates a Task object based on its content.
+     *
+     * @param command The user command to parse.
+     * @return A Task object representing the parsed command.
+     * @throws DukeException If the command cannot be parsed or is invalid.
+     */
     public static Task parseTask(String command) throws DukeException {
         String[] parts = command.split(" ", 2);
 
@@ -85,6 +133,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a line from a file and generates a Task object based on its content.
+     *
+     * @param line The line from the file to parse.
+     * @return A Task object representing the parsed line.
+     * @throws DukeException If the line cannot be parsed or is invalid.
+     */
     public static Task parseFileLine(String line) throws DukeException {
         // Parse the line and create tasks based on the format in the file
         String[] parts = line.split(" \\| ");
