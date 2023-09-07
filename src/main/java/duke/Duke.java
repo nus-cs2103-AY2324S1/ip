@@ -9,11 +9,7 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
-import javafx.application.Application;
 import javafx.scene.image.Image;
-import javafx.stage.Stage;
-
-
 
 
 /**
@@ -65,7 +61,7 @@ public class Duke {
     public String getResponse(String input) {
         // TODO
         try {
-            Parser.parseAndPrint(input, listContainer, storage);
+            Parser.parseInput(input, listContainer, storage);
             return "";
         } catch (DukeException e) {
             return e.getMessage();

@@ -1,6 +1,6 @@
 package duke.ui;
 
-import java.util.Optional;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.exceptions.UnknownCommandException;
@@ -56,7 +56,9 @@ public class Ui {
                     System.out.println("Byebye!");
                     break;
                 }
-                Parser.parseAndPrint(inputString, taskList, storage);
+
+                ArrayList<Task> modifiedTasks = Parser.parseInput(inputString, taskList, storage);
+                printResult(Parser.getInputCommand(inputString), modifiedTasks, taskList);
 
                 storage.saveTasks(taskList);
                 printDivider();
@@ -71,40 +73,42 @@ public class Ui {
      * Prints feedback to the user on what and how a Task got modified,
      * based on the user's command.
      *
-     * @param command
+     * @param command       the command input by the user
+     * @param modifiedTasks The tasks that were modified in the input
+     * @param taskList      the task container
      */
-    public static void printResult(Commands command, Task task, TaskList taskList) throws UnknownCommandException {
-        System.out.println(getResponseMessage(command, task, taskList));
+    public static void printResult(Commands command, ArrayList<Task> modifiedTasks, TaskList taskList) throws UnknownCommandException {
+        System.out.println(getResponseMessage(command, modifiedTasks, taskList));
     }
 
     /**
      * Gets the text that a user should see, either in GUI or in command line.
      *
      * @param command
-     * @param task
+     * @param modifiedTasks
      * @param taskList
      * @return
      */
-    public static String getResponseMessage(Commands command, Task task, TaskList taskList) throws UnknownCommandException {
+    public static String getResponseMessage(Commands command, ArrayList<Task> modifiedTasks, TaskList taskList) throws UnknownCommandException {
         String result = "";
         switch (command) {
         case TODO:
         case DEADLINE:
         case EVENT: {
-            result = "\uD83D\uDE0A I've added a new task: " + task + "\n" + "Now you have " + taskList.getSize() + " tasks!";
+            result = "\uD83D\uDE0A I've added a new task: " + modifiedTasks + "\n" + "Now you have " + taskList.getSize() + " tasks!";
             break;
         }
         case MARK: {
-            result = "Nice! I've marked this task as done: \n    " + task;
+            result = "Nice! I've marked this task as done: \n    " + modifiedTasks;
 
             break;
         }
         case UNMARK: {
-            result = "Nice! I've marked this task as undone: \n    " + task;
+            result = "Nice! I've marked this task as undone: \n    " + modifiedTasks;
             break;
         }
         case DELETE: {
-            result = ("\uD83D\uDE0A I've removed this task: " + task);
+            result = ("\uD83D\uDE0A I've removed this task: " + modifiedTasks);
             break;
         }
         case LIST: {
@@ -112,10 +116,10 @@ public class Ui {
             break;
         }
         case FIND: {
-            if (taskList.getSize() == 0) {
+            if (modifiedTasks.isEmpty()) {
                 result = ("Couldn't find any matching tasks!");
             } else {
-                result = "I found " + taskList.getSize() + " matching tasks:" + "\n" + taskList;
+                result = "I found " + modifiedTasks.size() + " matching tasks:" + "\n" + new TaskList(modifiedTasks);
 
             }
             break;

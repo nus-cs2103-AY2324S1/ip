@@ -104,6 +104,13 @@ public class TaskList {
     }
 
     /**
+     * Gets all tasks.
+     *
+     */
+    public ArrayList<Task> getTasks() {
+        return this.list;
+    }
+    /**
      * Encodes the current Duke. Tasks in a string, each task separated by a newline.
      *
      * @return String representation
