@@ -16,15 +16,19 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 /**
  * Class representing a dialog box for displaying both user and Dook input/response.
  */
 public class DialogBox extends HBox {
     @FXML
-    private Label dialog;
+    private Text dialog;
     @FXML
-    private ImageView displayPicture;
+    private Circle displayPicture;
 
     private DialogBox(String text, Image img) {
         try {
@@ -37,7 +41,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        displayPicture.setImage(img);
+        displayPicture.setFill(new ImagePattern(img));
     }
 
 
@@ -59,7 +63,8 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getUserDialog(String l, Image iv) {
         var db = new DialogBox(l, iv);
-        db.setBackground(new Background(new BackgroundFill(Color.web("#B5CEF6"), null, new Insets(5))));
+        db.dialog.setTextAlignment(TextAlignment.RIGHT);
+        db.setBackground(new Background(new BackgroundFill(Color.web("#ccccd7"), null, new Insets(5))));
         return db;
     }
 
@@ -72,7 +77,7 @@ public class DialogBox extends HBox {
     public static DialogBox getDukeDialog(String l, Image iv) {
         var db = new DialogBox(l, iv);
         db.flip();
-        db.setBackground(new Background(new BackgroundFill(Color.web("#F3BD95"), null, new Insets(5))));
+        db.setBackground(new Background(new BackgroundFill(Color.web("#a4a6ad"), null, new Insets(5))));
 
         return db;
     }

@@ -7,6 +7,7 @@ import dook.DookException;
 import dook.command.AddTaskCommand;
 import dook.command.AfterCommand;
 import dook.command.BeforeCommand;
+import dook.command.ByeCommand;
 import dook.command.Command;
 import dook.command.CommandInfo;
 import dook.command.DeleteTaskCommand;
@@ -48,6 +49,8 @@ public class Parser {
         CommandInfo command = parseKeyword(tmp[0].trim());
         String body = tmp.length == 1 ? "" : tmp[1].trim();
         switch (command) {
+        case bye:
+            return new ByeCommand();
         case list:
             return new ListCommand();
         case save:
