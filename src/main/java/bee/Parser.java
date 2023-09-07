@@ -1,5 +1,7 @@
 package bee;
 
+import bee.ui.Ui;
+
 /**
  * Handles the parsing of user commands and delegates the corresponding actions.
  * Provides methods for parsing user input and executing actions based on the
@@ -17,52 +19,35 @@ public class Parser {
      * @param ui        The Ui instance to handle user interface.
      * @return True if the chatbot should continue running, false if it should exit.
      */
-    public static boolean parseUserCommand(String userInput, TaskList tasks, Storage storage, Ui ui) {
+    public static String parseUserCommand(String userInput, TaskList tasks, Storage storage, Ui ui) {
         String[] splitInput = userInput.split(" ");
         String command = splitInput[0].toLowerCase();
         try {
             switch (command) {
             case "bye":
-                ui.farewell();
-                return false;
+                return ui.farewell();
             case "list":
-                tasks.listAllTasks();
-                break;
+                return tasks.listAllTasks();
             case "todo":
-                tasks.createTask(TaskClass.TODO, userInput);
-                break;
+                return tasks.createTask(TaskClass.TODO, userInput);
             case "deadline":
-                tasks.createTask(TaskClass.DEADLINE, userInput);
-                break;
+                return tasks.createTask(TaskClass.DEADLINE, userInput);
             case "event":
-                tasks.createTask(TaskClass.EVENT, userInput);
-                break;
+                return tasks.createTask(TaskClass.EVENT, userInput);
             case "mark":
-                tasks.updateTask(TaskAction.MARK, userInput);
-                break;
+                return tasks.updateTask(TaskAction.MARK, userInput);
             case "unmark":
-                tasks.updateTask(TaskAction.UNMARK, userInput);
-                break;
+                return tasks.updateTask(TaskAction.UNMARK, userInput);
             case "delete":
-                tasks.updateTask(TaskAction.DELETE, userInput);
-                break;
+                return tasks.updateTask(TaskAction.DELETE, userInput);
             case "find":
-                tasks.findTasksByKeyword(userInput);
-                break;
+                return tasks.findTasksByKeyword(userInput);
             default:
-                throw new BeeException("Sorry, you need to use a command!");
+                return Ui.returnErrorString(new BeeException("Sorry, you need to use a command!"));
             }
         } catch (BeeException e) {
-            System.out.println(e.toString());
-        } catch (Exception e) {
-            System.out.println("    _  _\n"
-                    + "   | )/ )\n"
-                    + "\\\\ |//,' __\n"
-                    + "(\")(_)-\"()))=-\n"
-                    + "   (\\\\ BZZZZZZZ!!!! Something went very wrong!!");
+            return Ui.returnErrorString(e);
         }
-        storage.saveTasksToFile();
-        return true;
     }
 
     /**

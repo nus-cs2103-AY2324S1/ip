@@ -2,6 +2,8 @@ package bee;
 
 import java.util.Scanner;
 
+import bee.ui.Ui;
+
 /**
  * The main class representing the chatbot application.
  * Orchestrates the initialization, execution, and termination of the chatbot.
@@ -23,13 +25,26 @@ public class Bee {
         try {
             ui = new Ui();
             storage = new Storage(filePath);
-            tasks = new TaskList(storage.loadTasksFromFile());
+            tasks = new TaskList(storage.loadTasksFromFile(), storage);
         } catch (BeeException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
     }
 
+    /**
+     * Constructs a new Bee chatbot instance.
+     */
+    public Bee() {
+        try {
+            ui = new Ui();
+            storage = new Storage(DATA_FILE_PATH);
+            tasks = new TaskList(storage.loadTasksFromFile(), storage);
+        } catch (BeeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
     /**
      * Starts the execution of the chatbot.
      * Displays a greeting, reads user input, and processes commands until the
@@ -43,11 +58,17 @@ public class Bee {
 
         while (isRunning) {
             String userInput = scanner.nextLine();
-            isRunning = Parser.parseUserCommand(userInput, tasks, storage, ui);
+//            isRunning = Parser.parseUserCommand(userInput, tasks, storage, ui);
         }
         scanner.close();
     }
 
+    /**
+     * Parses the user's response and returns Bee's output
+     */
+    public String getResponse(String input) {
+        return Parser.parseUserCommand(input, tasks, storage, ui);
+    }
     /**
      * The entry point of the chatbot application.
      * Creates a new Bee instance and starts its execution.

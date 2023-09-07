@@ -21,9 +21,8 @@ public class Storage {
      * Constructs a Storage instance with the specified file path.
      *
      * @param filePath The path to the data file for storing tasks.
-     * @throws BeeException If there's an issue with the provided file path.
      */
-    public Storage(String filePath) throws BeeException {
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
