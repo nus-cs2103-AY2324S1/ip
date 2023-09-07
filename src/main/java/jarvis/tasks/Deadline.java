@@ -10,7 +10,7 @@ import jarvis.Ui;
  */
 public class Deadline extends Task {
 
-    private LocalDateTime dueDate;
+    private LocalDateTime dueDateTime;
 
     public Deadline(String title, LocalDateTime dueDate, boolean isCompleted) {
         super(title, isCompleted);
