@@ -47,29 +47,29 @@ public class Storage {
                 String[] pastTaskDetails = pastTaskLine.split(" \\| ");
                 Task pastTask;
                 switch (pastTaskDetails[0]) {
-                    case "T":
-                        pastTask = new Task(pastTaskDetails[2]);
-                        tasks.addTask(pastTask);
-                        if (pastTaskDetails[1].equals("1")) {
-                            pastTask.setDone(true);
-                        }
-                        break;
-                    case "D":
-                        pastTask = new Deadline(pastTaskDetails[2], LocalDate.parse(pastTaskDetails[3]));
-                        tasks.addTask(pastTask);
-                        if (pastTaskDetails[1].equals("1")) {
-                            pastTask.setDone(true);
-                        }
-                        break;
-                    case "E":
-                        pastTask = new Event(pastTaskDetails[2], pastTaskDetails[3], pastTaskDetails[4]);
-                        tasks.addTask(pastTask);
-                        if (pastTaskDetails[1].equals("1")) {
-                            pastTask.setDone(true);
-                        }
-                        break;
-                    default:
-                        throw new ChatException("☹ OOPS!!! The file is corrupted");
+                case "T":
+                    pastTask = new Task(pastTaskDetails[2]);
+                    tasks.addTask(pastTask);
+                    if (pastTaskDetails[1].equals("1")) {
+                        pastTask.setDone(true);
+                    }
+                    break;
+                case "D":
+                    pastTask = new Deadline(pastTaskDetails[2], LocalDate.parse(pastTaskDetails[3]));
+                    tasks.addTask(pastTask);
+                    if (pastTaskDetails[1].equals("1")) {
+                        pastTask.setDone(true);
+                    }
+                    break;
+                case "E":
+                    pastTask = new Event(pastTaskDetails[2], pastTaskDetails[3], pastTaskDetails[4]);
+                    tasks.addTask(pastTask);
+                    if (pastTaskDetails[1].equals("1")) {
+                        pastTask.setDone(true);
+                    }
+                    break;
+                default:
+                    throw new ChatException("☹ OOPS!!! The file is corrupted");
                 }
             }
             return tasks;

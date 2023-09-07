@@ -42,9 +42,9 @@ public class MarkCommandTest {
             assertEquals("Nice! I've marked this task as done:\n" +
                     "[E][X] sleep (from: 12am to: 12pm)", outputStreamCaptor.toString().trim());
             assertTrue(taskList.getTask(3).isDone());
-            assertEquals("T | 0 | read 5 books" + System.lineSeparator() +
-                    "D | 0 | write 10 reviews | 2023-12-12" + System.lineSeparator() +
-                    "E | 1 | sleep | 12am | 12pm" + System.lineSeparator(),
+            assertEquals("T | 0 | read 5 books" + System.lineSeparator()
+                            + "D | 0 | write 10 reviews | 2023-12-12" + System.lineSeparator()
+                            + "E | 1 | sleep | 12am | 12pm" + System.lineSeparator(),
                     Files.readString(Path.of("data/testDuke.txt")));
         } catch (ChatException e) {
             fail("Chat Exception occurred while getting task");

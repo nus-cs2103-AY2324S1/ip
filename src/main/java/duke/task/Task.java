@@ -54,7 +54,9 @@ public class Task {
         this.isDone = isDone;
     }
 
-    public boolean isDone() {return this.isDone;}
+    public boolean isDone() {
+        return this.isDone;
+    }
 
 
     public boolean isFound(String keyword) {

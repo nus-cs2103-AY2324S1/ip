@@ -9,7 +9,7 @@ import duke.ui.Ui;
  * Prompts program to mark a task as not done.
  */
 public class UnmarkCommand extends Command {
-    int taskNumber;
+    private int taskNumber;
     /**
      * Constructor for the class UnmarkCommand.
      * @param taskNumber Index of the task to be marked as not done.

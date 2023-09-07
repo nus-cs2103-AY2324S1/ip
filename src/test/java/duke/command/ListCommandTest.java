@@ -39,10 +39,10 @@ public class ListCommandTest {
         taskList.addTask(new Event("sleep", "12am", "12pm"));
         ListCommand listCommand = new ListCommand();
         listCommand.execute(taskList, new Ui(), new Storage("data/testDuke.txt"));
-        Assertions.assertEquals("Here are the tasks in your list:" + System.lineSeparator() +
-                "1. [T][ ] read 25 books" + System.lineSeparator() +
-                "2. [D][ ] write 100 reviews (by: Dec 12 2023)" + System.lineSeparator() +
-                "3. [E][ ] sleep (from: 12am to: 12pm)", outputStreamCaptor.toString().trim());
+        Assertions.assertEquals("Here are the tasks in your list:" + System.lineSeparator()
+                + "1. [T][ ] read 25 books" + System.lineSeparator()
+                + "2. [D][ ] write 100 reviews (by: Dec 12 2023)" + System.lineSeparator()
+                + "3. [E][ ] sleep (from: 12am to: 12pm)", outputStreamCaptor.toString().trim());
     }
 }
 

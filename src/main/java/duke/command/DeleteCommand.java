@@ -25,7 +25,7 @@ public class DeleteCommand extends Command{
      * @param ui Responses to be shown to user.
      * @param storage Saves the list of task to be accessed in the future.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage){
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             ui.deleteTaskResponse(tasks.getTask(taskNumber), tasks);
             tasks.deleteTask(taskNumber);
