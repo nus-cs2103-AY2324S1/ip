@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #202329;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.ui.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #202329;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jarvis.ui.MainWindow">
    <children>
       <Pane fx:id="chatHeader" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #2e333d;">
          <children>
@@ -21,12 +21,12 @@
             </Label>
          </children>
       </Pane>
-      <TextArea id="textField" fx:id="textField" layoutX="14.0" layoutY="535.0" onKeyPressed="#onEnter" prefHeight="38.0" prefWidth="372.0" style="-fx-border-color: #2e333d;" styleClass="text-area" stylesheets="@../css/Application.css" wrapText="true">
+      <TextArea id="textField" fx:id="textField" layoutX="14.0" layoutY="534.0" onKeyPressed="#onEnter" prefHeight="50.0" prefWidth="324.0" style="-fx-border-color: #2e333d;" styleClass="text-area" stylesheets="@../css/Application.css" wrapText="true">
          <font>
             <Font name="Segoe UI" size="17.0" />
          </font>
       </TextArea>
-      <ImageView fx:id="sendButton" fitHeight="39.0" fitWidth="38.0" layoutX="338.0" layoutY="542.0" onMousePressed="#onClick" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="sendButton" fitHeight="39.0" fitWidth="38.0" layoutX="348.0" layoutY="540.0" onMousePressed="#onClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/send.png" />
          </image>

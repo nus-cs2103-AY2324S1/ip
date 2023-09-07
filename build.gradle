@@ -39,7 +39,7 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("jarvis.Jarvis")
 }
 
 shadowJar {
@@ -52,4 +52,4 @@ run{
     standardInput = System.in
 }
 
-mainClassName = 'duke.Duke'
+mainClassName = 'jarvis.Jarvis'

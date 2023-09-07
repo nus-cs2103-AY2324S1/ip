@@ -3,32 +3,32 @@ Greetings, I am Jarvis. How may I assist you today?
 _______________________________________________________________
 _______________________________________________________________
 Added the following task to the list.
-1) [duke.tasks.Deadline] [ ] study CS2100 (by: Aug 28 2023 06:00 pm)
+1) [jarvis.tasks.Deadline] [ ] study CS2100 (by: Aug 28 2023 06:00 pm)
 You currently have 1 tasks in your list.
 _______________________________________________________________
 _______________________________________________________________
 Added the following task to the list.
-2) [duke.tasks.Todo] [ ] drive car
+2) [jarvis.tasks.Todo] [ ] drive car
 You currently have 2 tasks in your list.
 _______________________________________________________________
 _______________________________________________________________
 Added the following task to the list.
-3) [duke.tasks.Event] [ ] play badminton (from: Aug 29 2023 03:00 pm to: Aug 29 2023 06:00 pm)
+3) [jarvis.tasks.Event] [ ] play badminton (from: Aug 29 2023 03:00 pm to: Aug 29 2023 06:00 pm)
 You currently have 3 tasks in your list.
 _______________________________________________________________
 _______________________________________________________________
 The following task is marked as complete:
-1) [duke.tasks.Deadline] [X] study CS2100 (by: Aug 28 2023 06:00 pm)
+1) [jarvis.tasks.Deadline] [X] study CS2100 (by: Aug 28 2023 06:00 pm)
 Is there anything else I can assist you with?
 _______________________________________________________________
 _______________________________________________________________
 The following task has been unmarked:
-1) [duke.tasks.Deadline] [ ] study CS2100 (by: Aug 28 2023 06:00 pm)
+1) [jarvis.tasks.Deadline] [ ] study CS2100 (by: Aug 28 2023 06:00 pm)
 Is there anything else I can assist you with?
 _______________________________________________________________
 _______________________________________________________________
 The following task has been removed:
-2) [duke.tasks.Todo] [ ] drive car
+2) [jarvis.tasks.Todo] [ ] drive car
 Is there anything else I can assist you with?
 _______________________________________________________________
 _______________________________________________________________
