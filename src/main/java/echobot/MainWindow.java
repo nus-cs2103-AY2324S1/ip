@@ -1,6 +1,5 @@
 package echobot;
 
-import echobot.utilities.Input;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -35,10 +34,7 @@ public class MainWindow extends AnchorPane {
         this.echobot = echobot;
     }
 
-    /**
-     * Creates two dialog boxes, one echoing user input and the other containing EchoBot's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
+    @FXML
     private void handleUserInput() {
         String userText = userInput.getText();
         String dukeText = getResponse(userInput.getText());
