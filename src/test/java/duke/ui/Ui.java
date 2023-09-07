@@ -116,7 +116,7 @@ public class Ui {
      *
      * @param name The name of the bot.
      */
-    public void greetFunction(String name){
+    public static void greetFunction(String name){
 
         String greetings = Duke.HORIZONTAL_LINE +"\nHello! I'm " + name + "\n"
                 + Duke.LOGO

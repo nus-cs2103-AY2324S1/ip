@@ -30,13 +30,13 @@ public class TaskArray {
     /**
      * Prints the list of tasks along with their indexes.
      */
-    public void printTaskArrayList() {
-        System.out.println(Duke.HORIZONTAL_LINE);
+    public String printTaskArrayList() {
+        String output ="";
         for(int i = 0; i < taskArrayList.size(); i++ ) {
             int index = i + 1;
-            System.out.println(index +": " + taskArrayList.get(i).getTypeCheckedText());
+            output += "\n"+index +": " + taskArrayList.get(i).getTypeCheckedText();
         }
-        System.out.println(Duke.HORIZONTAL_LINE);
+        return output;
     }
 
     /**
@@ -44,14 +44,11 @@ public class TaskArray {
      *
      * @param task The task to be added to the TaskArray.
      */
-    public void add(Task task) {
+    public String add(Task task) {
         taskArrayList.add(task);
-        String word = "added:" + task.getText();
-        System.out.println(Duke.HORIZONTAL_LINE);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.getTypeCheckedText());
-        System.out.println("Now you have "+ getTaskCount()+" tasks in the list.");
-        System.out.println(Duke.HORIZONTAL_LINE);
+        String word = "Got it. I've added this task:\n" + task.getTypeCheckedText();
+        word += "\nNow you have "+ getTaskCount()+" tasks in the list.";
+        return word;
     }
 
     /**
@@ -78,23 +75,19 @@ public class TaskArray {
      *
      * @param index The index of the task to be removed.
      */
-    public void removeTask(int index) {
+    public String removeTask(int index) {
+        String output = "";
         if(index < 0 && index >=taskArrayList.size()){
-            System.out.println(Duke.HORIZONTAL_LINE);
-            System.out.println("Invalid Index");
-            System.out.println(Duke.HORIZONTAL_LINE);
-            return;
+            output = "Invalid Index";
+            return output;
         }
         Task removingTask = taskArrayList.get(index);
-        System.out.println(Duke.HORIZONTAL_LINE);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(removingTask.getTypeCheckedText());
         taskArrayList.remove(index);
-        System.out.println("Now you have "+ getTaskCount()+" tasks in the list.");
-        System.out.println(Duke.HORIZONTAL_LINE);
+        output = "Noted. I've removed this task:\n" + removingTask.getTypeCheckedText() +"\nNow you have "+ getTaskCount()+" tasks in the list.";
+        return output;
     }
 
-    public void printFind(String arg) {
+    public String printFind(String arg) {
 
         ArrayList<Task> tempTaskArraylist = new ArrayList<>();
 
@@ -104,13 +97,14 @@ public class TaskArray {
                 tempTaskArraylist.add(task);
             }
         }
-        System.out.println(Duke.HORIZONTAL_LINE);
-        System.out.println("Here are the matching tasks in your list:");
+
+        String output = "Here are the matching tasks in your list:";
         for(int i = 0; i < tempTaskArraylist.size(); i++) {
             int index = i + 1;
-            System.out.println(index+"."+ tempTaskArraylist.get(i).getTypeCheckedText());
+            output += ("\n" + index+"."+ tempTaskArraylist.get(i).getTypeCheckedText());
         }
-        System.out.println(Duke.HORIZONTAL_LINE);
+
+        return output;
     }
 
     /**

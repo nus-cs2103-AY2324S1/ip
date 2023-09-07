@@ -50,7 +50,7 @@ public class Task {
         if(checked) {
             return "[/]";
         }else{
-            return "[]";
+            return "[ ]";
         }
     }
 
@@ -87,24 +87,17 @@ public class Task {
     /**
      * Marks the task as completed.
      */
-    public void mark() {
+    public String mark() {
         checked = true;
-        System.out.println(Duke.HORIZONTAL_LINE);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(getStatusText());
-        System.out.println(Duke.HORIZONTAL_LINE);
+        return "Nice! I've marked this task as done:\n" + getStatusText();
     }
 
     /**
      * Unmarks the task as completed.
      */
-    public void unmark(){
+    public String unmark(){
         checked = false;
-        System.out.println(Duke.HORIZONTAL_LINE);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(getStatusText());
-        System.out.println(Duke.HORIZONTAL_LINE);
-
+        return "OK, I've marked this task as not done yet:\n" + getStatusText();
     }
 
     /**

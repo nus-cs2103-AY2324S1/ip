@@ -40,7 +40,7 @@ public class Duke {
      * Runs the Duke application.
      */
     public void run() {
-        ui.greetFunction("Jack");
+        Ui.greetFunction("Jack");
         ui.helpFunction();
 
         taskArrayList = ui.runTask(taskArrayList);
