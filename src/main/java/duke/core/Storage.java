@@ -11,23 +11,23 @@ import java.util.stream.Stream;
  * Class to handle storage of data.
  */
 public class Storage {
-    private static String baseDirectory = "./data/";
+    private String baseDirectory;
 
     /**
-     * Sets the base directory for storage.
+     * Constructor for Storage.
      *
      * @param baseDirectory Base directory for storage.
      */
-    public void setBaseDirectory(String baseDirectory) {
+    public Storage(String baseDirectory) {
         // Ensures that it is valid directory
         if (baseDirectory.endsWith("/")) {
-            Storage.baseDirectory = baseDirectory;
+            this.baseDirectory = baseDirectory;
         } else {
-            Storage.baseDirectory = baseDirectory + "/";
+            this.baseDirectory = baseDirectory + "/";
         }
     }
 
-    private static void createFileIfNotExists(Path filePath) throws DukeException {
+    private void createFileIfNotExists(Path filePath) throws DukeException {
         // Handle errors
         if (!Files.exists(filePath)) {
             try {
@@ -46,8 +46,8 @@ public class Storage {
      * @return Stream of lines from the file.
      * @throws DukeException If an error occurs while reading the file.
      */
-    public static Stream<String> readFile(String fileName) throws DukeException {
-        Path filePath = Path.of(Storage.baseDirectory + fileName);
+    public Stream<String> readFile(String fileName) throws DukeException {
+        Path filePath = Path.of(this.baseDirectory + fileName);
 
         if (Files.notExists(filePath)) {
             return Stream.empty();
@@ -68,18 +68,18 @@ public class Storage {
      * @param content Content to be written to the file.
      * @throws DukeException If an error occurs while writing to the file.
      */
-    public static void writeFile(String fileName, Stream<String> content) throws DukeException {
-        Path filePath = Path.of(Storage.baseDirectory + fileName);
+    public void writeFile(String fileName, Stream<String> content) throws DukeException {
+        Path filePath = Path.of(this.baseDirectory + fileName);
 
         try {
-            Storage.createFileIfNotExists(filePath);
+            this.createFileIfNotExists(filePath);
             BufferedWriter writer = Files.newBufferedWriter(filePath);
             content.forEach(lineToWrite -> {
                 try {
                     writer.write(lineToWrite);
                     writer.newLine();
                 } catch (IOException e) {
-                    //TODO: handle IOException
+                    // TODO: handle IOException
                 }
             });
             writer.close();
