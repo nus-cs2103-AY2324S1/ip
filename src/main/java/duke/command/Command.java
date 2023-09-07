@@ -17,12 +17,14 @@ public abstract class Command {
     public abstract boolean isExit();
 
     /**
-     * Executes the required actions for the specific duke.command.Command instance.
+     * Executes the required actions for the specific duke.command.Command instance
+     * and returns the response.
      *
      * @param tasks   The existing duke.TaskList instance containing all the tasks.
      * @param ui      The existing duke.Ui instance.
      * @param storage The existing duke.Storage instance.
+     * @return        The response of the command.
      * @throws DukeException if anything goes wrong in the execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 }

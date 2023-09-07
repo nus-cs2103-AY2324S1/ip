@@ -22,12 +22,12 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         String tasksFound = tasks.findTasks(this.query);
         if (tasksFound.isEmpty()) {
-            ui.printWithLines(Messages.MESSAGE_NO_TASKS_FOUND);
+            return Messages.MESSAGE_NO_TASKS_FOUND;
         } else {
-            ui.printWithLines(Messages.MESSAGE_TASKS_FOUND + tasksFound);
+            return Messages.MESSAGE_TASKS_FOUND + tasksFound;
         }
     }
 }

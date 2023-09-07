@@ -27,24 +27,20 @@ public class Duke {
     }
 
     /**
-     * Runs the main loop of the chatbot.
+     * Returns the response of parsing and executing the user input command.
+     *
+     * @param input The String of the user input command.
+     * @return      The response message.
      */
-    public void run() {
-        ui.showGreeting();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                System.out.print(e.getMessage());
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            if (c.isExit()) {
+                return Ui.showExitMessage();
             }
+            return c.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            return e.getMessage();
         }
-    }
-
-    public static void main(String[] args) {
-        new Duke("./data/duke.txt").run();
     }
 }
