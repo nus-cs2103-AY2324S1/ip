@@ -5,8 +5,10 @@ public class Ui {
     /**
      * Wraps responses in upper and lower lines
      */
-    public static void wrapText(String content) {
+    public static String wrapText(String content) {
         String line = "_____________________________________\n";
-        System.out.println(line + content + "\n" + line);
+        String output = line + content + "\n" + line;
+        System.out.println(output);
+        return output;
     }
 }
