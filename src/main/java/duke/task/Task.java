@@ -1,6 +1,5 @@
 package duke.task;
 
-import duke.Ui;
 import duke.exceptions.DukeException;
 
 /**
@@ -47,24 +46,24 @@ public abstract class Task {
      * marks the task as done, if it is undone
      * @throws DukeException if task is already done
      */
-    public void mark() throws DukeException {
+    public String mark() throws DukeException {
         if (this.isDone) {
             throw new DukeException("Task already done");
         }
         this.isDone = true;
-        Ui.print("Nice! I've marked this task as done:\n" + toString());
+        return ("Nice! I've marked this task as done:\n" + toString());
     }
 
     /**
      * unmarks the task as undone, if it is done
      * @throws DukeException if task is still undone
      */
-    public void unmark() throws DukeException {
+    public String unmark() throws DukeException {
         if (!this.isDone) {
             throw new DukeException("Task still undone");
         }
         this.isDone = false;
-        Ui.print("OK, I've marked this task as not done yet:\n" + toString());
+        return "OK, I've marked this task as not done yet:\n" + toString();
     }
     /**
      * get String representation of whether the task is done

@@ -3,6 +3,8 @@ package duke;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.exceptions.DukeException;
+
 /**
  * responsible for printing messages and recieving commands
  */
@@ -46,5 +48,16 @@ public class Ui {
         for (int i = 0; i < list.size(); i++) {
             Ui.print((i + 1) + "." + list.get(i));
         }
+    }
+    public static String getListAsString(ArrayList list) throws DukeException {
+        if (list.size() == 0) {
+            throw new DukeException("There are no tasks yet");
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Object obj : list) {
+            stringBuilder.append(obj.toString()).append("\n");
+        }
+        return stringBuilder.toString();
     }
 }
