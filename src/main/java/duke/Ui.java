@@ -18,30 +18,16 @@ public class Ui {
      */
     public Ui() {
         name = "dukey";
-        lines = "        ____________________________________________________________";
+        lines = "_____________________________________";
         greeting = "        Hello! I'm " + name + "\n        What can I do for you?\n";
         goodbye = "        Bye. Hope to see you again soon! :D\n";
-    }
-
-    /**
-     * Prints out the hello message when the chatbot first starts.
-     */
-    public static String helloMsg() {
-        return lines + "\n" + greeting + lines;
-    }
-
-    /**
-     * Prints out the goodbye message.
-     */
-    public static String goodbyeMsg() {
-        return lines + "\n" + goodbye + lines;
     }
 
     /**
      * Displays all current tasks in the task list.
      */
     public static String listTasks() {
-        String tasks = lines + "\n        Here are the tasks in your list:\n";
+        String tasks = lines + "\nHere are the tasks in your list:\n";
         tasks += TaskList.listOut();
         return tasks + lines;
     }
@@ -51,8 +37,7 @@ public class Ui {
      * @param description the description of the task marked.
      */
     public static String  markMsg(String description) {
-        return lines
-                + "\n        Nice! I've marked this task as done: (≧▽≦)\n          "
+        return lines + "\nNice! I've marked this task as done: (≧▽≦)\n"
                 + description + "\n"
                 + lines;
     }
@@ -63,7 +48,7 @@ public class Ui {
      */
     public static String unmarkMsg(String description) {
         return lines
-                + "\n        OK, I've marked this task as not done yet: (≧▽≦)\n          "
+                + "\nOK, I've marked this task as not done yet: (≧▽≦)\n"
                 + description + "\n"
                 + lines;
     }
@@ -75,8 +60,8 @@ public class Ui {
      * @param size the updated number of tasks in the task list.
      */
     public static String successfulAdd(String type, String description, Integer size) {
-        return lines + "\n         Got it. I've added this new " + type + ":\n            "
-                + description + "\n         Now you have " + size + " tasks in the list.\n" + lines;
+        return lines + "\nGot it. I've added this new " + type + ":\n            "
+                + description + "\nNow you have " + size + " tasks in the list.\n" + lines;
     }
 
     /**
@@ -85,8 +70,8 @@ public class Ui {
      * @param size the updated number of tasks in the task list.
      */
     public static String successfulDelete(String description, Integer size) {
-        return lines + "\n         Noted, I've removed this task:\n              "
-                + description + "\n         Now you have " + size + " tasks in the list"
+        return lines + "\nNoted, I've removed this task:\n              "
+                + description + "\nNow you have " + size + " tasks in the list"
                 + "\n" + lines;
     }
 }

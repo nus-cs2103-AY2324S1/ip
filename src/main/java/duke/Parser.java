@@ -98,11 +98,14 @@ public class Parser {
             break;
         case "delete":
             if (splitted.length <= 1) {
-                throw new DukeException("You do not have that much tasks! (⋟﹏⋞)");
+                throw new DukeException("You do not have that much tasks! parse! parse! (⋟﹏⋞)");
             } else {
                 int target = Integer.parseInt(splitted[1]);
                 response = TaskList.delete(target);
             }
+            break;
+        case "bye":
+            response = "Bye bye! Hope to see you again! o(^◇^)o";
             break;
         default:
             response =  response;

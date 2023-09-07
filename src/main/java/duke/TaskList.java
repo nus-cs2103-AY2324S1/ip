@@ -53,7 +53,7 @@ public class TaskList {
             String successMsg = Ui.successfulDelete(description, toDo.size());
             return successMsg;
         } else {
-            throw new DukeException("You do not have that many tasks! (⋟﹏⋞)");
+            throw new DukeException("You do not have that many tasks! err! err! (⋟﹏⋞)");
         }
     }
 
@@ -101,7 +101,7 @@ public class TaskList {
         for (int i = 0; i < toDo.size(); i++) {
             Task currTask = toDo.get(i);
             String description = currTask.getDescription();
-            tasks += "        " + (i + 1) + "." + description;
+            tasks += (i + 1) + ". " + description + "\n\n";
         }
         return tasks;
     }

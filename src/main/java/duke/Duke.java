@@ -13,8 +13,6 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.util.Scanner;
-
 
 /**
  * Represents the Duke chatbot.
@@ -39,7 +37,7 @@ public class Duke extends Application{
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         dialogContainer.getChildren()
-                .add(DialogBox.getDukeDialog("Hi! I'm Dukey 👋🏻 What can I do for you?", duke));
+                .add(DialogBox.getDukeDialog("Hi! I'm Dukey! (((o(*ﾟ▽ﾟ*)o))) What can I do for you?", duke));
         scrollPane.setContent(dialogContainer);
 
         userInput = new TextField();
@@ -70,6 +68,7 @@ public class Duke extends Application{
 
         // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        dialogContainer.paddingProperty();
 
         userInput.setPrefWidth(325.0);
 
@@ -103,8 +102,6 @@ public class Duke extends Application{
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userInput.getText(), user),
                 DialogBox.getDukeDialog(getResponse(userInput.getText()), duke)
@@ -126,10 +123,10 @@ public class Duke extends Application{
     }
 
     /**
-     * reply -- returns the string according to the user input
-     * @param userInput
-     * @return
-     * @throws DukeException
+     * Gets the reply from the Duke chatbot based on the user input.
+     * @param userInput the command given by the user.
+     * @return reply from Duke.
+     * @throws DukeException when user input is invalid.
      */
 
     public String dukeReply(String userInput) throws DukeException {

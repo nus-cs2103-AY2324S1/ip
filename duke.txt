@@ -2,8 +2,7 @@ T | 1 | something
 D | 1 | read | 2023-10-19
 D | 0 | return | 2003-10-08
 T | 0 | work?
-T | 0 | read books
-E | 0 | reading session | friday - sunday
-T | 1 | hahaha
+D | 0 | apply | 2023-09-24
 T | 0 | something
-T | 0 | something else
+T | 0 | this project
+T | 0 | debugging
