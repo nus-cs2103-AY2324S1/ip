@@ -6,6 +6,7 @@ import duke.commands.Parser;
 import duke.exception.DukeException;
 import duke.main.Duke;
 import duke.ui.DialogBox;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.util.Scanner;
 
@@ -196,10 +198,17 @@ public class Ui extends Application{
         );
         userInput.clear();
 
-//        if (output.equals("bye")) {
-//            Stage stage = (Stage) userInput.getScene().getWindow();
-//            stage.close();
-//        }
+        if (output.equals("Bye. Hope to see you again soon!")) {
+            userInput.setDisable(true);
+            sendButton.setDisable(true);
+
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
+            delay.setOnFinished(event -> {
+                Stage stage = (Stage) userInput.getScene().getWindow();
+                stage.close();
+            });
+            delay.play();
+        }
     }
 
 
