@@ -15,12 +15,12 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(ChatBotList list, Ui ui, Storage storage) throws ChatBotListException {
+    public String execute(ChatBotList list, Storage storage) throws ChatBotListException {
         String res = list.findItem(this.query);
         if (res == "") {
-            ui.print("No results found.");
+            return "No results found.";
         } else {
-            ui.print(String.format("Here are the matching tasks in your list:\n" + res));
+            return String.format("Here are the matching tasks in your list:\n" + res);
         }
     }
 

@@ -11,10 +11,10 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(ChatBotList list, Ui ui, Storage storage) throws ChatBotListException {
+    public String execute(ChatBotList list, Storage storage) throws ChatBotListException {
         String res = list.markItem(this.idx);
-        ui.print(String.format("Nice! I've marked this task as done:\n  " + res));
         storage.writeToSave(list);
+        return String.format("Nice! I've marked this task as done:\n  " + res);
     }
     @Override
     public boolean equals(Object o) {

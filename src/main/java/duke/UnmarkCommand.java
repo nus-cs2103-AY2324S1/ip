@@ -7,10 +7,10 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(ChatBotList list, Ui ui, Storage storage) throws ChatBotListException {
+    public String execute(ChatBotList list, Storage storage) throws ChatBotListException {
         String res = list.unmarkItem(this.idx);
-        ui.print(String.format("OK, I've marked this task as not done yet:\n  " + res));
         storage.writeToSave(list);
+        return String.format("OK, I've marked this task as not done yet:\n  " + res);
     }
 
     @Override

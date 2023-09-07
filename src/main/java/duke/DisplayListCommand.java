@@ -4,9 +4,9 @@ package duke;
  */
 public class DisplayListCommand extends Command {
     @Override
-    public void execute(ChatBotList list, Ui ui, Storage storage) {
-        ui.print(list.toString());
+    public String execute(ChatBotList list, Storage storage) {
         storage.writeToSave(list);
+        return list.toString();
     }
 
     @Override

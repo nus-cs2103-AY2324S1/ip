@@ -10,10 +10,10 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(ChatBotList list, Ui ui, Storage storage) throws ChatBotListException {
+    public String execute(ChatBotList list, Storage storage) throws ChatBotListException {
         String res = list.deleteItem(this.idx);
-        ui.print(String.format("Noted. I've removed this task:\n  " + res));
         storage.writeToSave(list);
+        return String.format("Noted. I've removed this task:\n  " + res);
     }
 
     @Override

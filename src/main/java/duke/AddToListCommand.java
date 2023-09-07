@@ -17,11 +17,11 @@ public class AddToListCommand extends Command {
     }
 
     @Override
-    public void execute(ChatBotList list, Ui ui, Storage storage) throws IllegalChatBotListArgumentException {
+    public String execute(ChatBotList list, Storage storage) throws IllegalChatBotListArgumentException {
         String res = list.addToList(queries, type);
-        ui.print("Got it. I've added this task:\n" + res
-                + "\nNow you have " + list.getLength() + " tasks in the list.");
         storage.writeToSave(list);
+        return String.format("Got it. I've added this task:\n" + res
+                + "\nNow you have " + list.getLength() + " tasks in the list.");
     }
 
     @Override
