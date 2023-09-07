@@ -11,7 +11,7 @@ import pogo.common.Messages;
  * Represents the text user interface for the application.
  * Based on AddressBook-Level2.
  */
-public class TextUi {
+public class CommandLineUi {
     private static final String HORIZONTAL_DIVIDER = "-".repeat(40);
     private final Scanner in;
     private final PrintStream out;
@@ -19,7 +19,7 @@ public class TextUi {
     /**
      * Creates a TextUi object with System.in and System.out and input and output.
      */
-    public TextUi() {
+    public CommandLineUi() {
         this(System.in, System.out);
     }
 
@@ -29,15 +29,13 @@ public class TextUi {
      * @param in  The input stream.
      * @param out The output stream.
      */
-    public TextUi(InputStream in, PrintStream out) {
+    public CommandLineUi(InputStream in, PrintStream out) {
         this.in = new Scanner(in);
         this.out = out;
     }
 
     /**
-     * Shows message(s) to the user
-     *
-     * @param message Message(s) to show to the user
+     * {@inheritDoc}
      */
     public void showToUser(String... message) {
         for (String m : message) {
@@ -48,21 +46,19 @@ public class TextUi {
     /**
      * Generates and prints the welcome message to the user.
      */
-    public void showStartupMessage() {
+    private void showStartupMessage() {
         showToUser(Messages.STARTUP_MESSAGE, HORIZONTAL_DIVIDER);
     }
 
     /**
-     * Generates and prints the initialisation success message to the user.
-     *
-     * @param taskCount Number of tasks loaded
+     * {@inheritDoc}
      */
     public void showInitSuccessMessage(int taskCount) {
         showToUser(String.format(Messages.TASK_LOAD_SUCCESS, taskCount), HORIZONTAL_DIVIDER);
     }
 
     /**
-     * Generates and prints the initialisation failure message to the user.
+     * {@inheritDoc}
      */
     public void showInitFailureMessage() {
         showToUser(Messages.TASK_LOAD_FAILURE, HORIZONTAL_DIVIDER);
@@ -74,7 +70,7 @@ public class TextUi {
      *
      * @return Text entered by the user
      */
-    public String getUserInput() {
+    private String getUserInput() {
         String line = in.nextLine();
         while (line.trim().isEmpty()) {
             line = in.nextLine();
