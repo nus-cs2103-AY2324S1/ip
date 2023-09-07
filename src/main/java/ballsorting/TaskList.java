@@ -26,36 +26,34 @@ public class TaskList {
      * Adds a new Task to the TaskList.
      * @param t New Task.
      */
-    public void addTask(Task t) {
+    public String addTask(Task t) {
         tasks.add(t);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(t.toString());
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println(Ballsorter.LINE);
-    }
-
-    /**
-     * Adds a new Task to the TaskList without printing.
-     * @param t New Task.
-     */
-    public void addTaskSilent(Task t) {
-        tasks.add(t);
+        StringBuilder output = new StringBuilder();
+        output.append("Got it. I've added this task:\n");
+        output.append(t.toString());
+        output.append("\n");
+        output.append("Now you have " + tasks.size() + " tasks in the list.");
+        return output.toString();
     }
 
     /**
      * Deletes a task.
      * @param target Index of the task in the list.
      */
-    public void deleteTask(int target) {
+    public String deleteTask(int target) {
         if (target >= tasks.size()) {
-            System.out.println("☹ OOPS!!! This task does not exist");
-            System.out.println(Ballsorter.LINE);
+            return "☹ OOPS!!! This task does not exist";
         } else {
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(tasks.get(target).toString());
+            StringBuilder output = new StringBuilder();
+            output.append("Noted. I've removed this task:\n");
+            output.append(tasks.get(target).toString());
+            output.append("\n");
+
             tasks.remove(target);
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            System.out.println(Ballsorter.LINE);
+
+            output.append("Now you have " + tasks.size() + " tasks in the list.");
+
+            return output.toString();
         }
     }
 
@@ -63,14 +61,14 @@ public class TaskList {
      * Marks a task as done.
      * @param target Index of task in list.
      */
-    public void markTask(int target) {
+    public String markTask(int target) {
         if (target >= tasks.size()) {
-            System.out.println("☹ OOPS!!! This task does not exist");
-            System.out.println(Ballsorter.LINE);
+            return "☹ OOPS!!! This task does not exist";
         } else {
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(tasks.get(target).markDone());
-            System.out.println(Ballsorter.LINE);
+            StringBuilder output = new StringBuilder();
+            output.append("Nice! I've marked this task as done:\n");
+            output.append(tasks.get(target).markDone());
+            return output.toString();
         }
     }
 
@@ -78,28 +76,30 @@ public class TaskList {
      * Unmarks a task as not done.
      * @param target Index of task in list.
      */
-    public void unmarkTask(int target) {
+    public String unmarkTask(int target) {
         if (target >= tasks.size()) {
-            System.out.println("☹ OOPS!!! This task does not exist");
-            System.out.println(Ballsorter.LINE);
+            return "☹ OOPS!!! This task does not exist";
         } else {
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(tasks.get(target).markNotDone());
-            System.out.println(Ballsorter.LINE);
+            StringBuilder output = new StringBuilder();
+            output.append("OK, I've marked this task as not done yet:");
+            output.append(tasks.get(target).markNotDone());
+            return output.toString();
         }
     }
 
     /**
      * Prints the list of tasks.
      */
-    public void printList() {
+    public String getStringList() {
         if (tasks.size() == 0) {
-            System.out.println("You do not have any tasks yet ☹");
+            return "You do not have any tasks yet ☹";
         }
+        StringBuilder output = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             int temp = i + 1;
-            System.out.println(temp + ". " + tasks.get(i).toString());
+            output.append(temp + ". " + tasks.get(i).toString() + "\n");
         }
+        return output.toString();
     }
 
     /**
@@ -118,7 +118,7 @@ public class TaskList {
      * Prints the list of tasks matching the search input.
      * @param searchString search input the user keys in
      */
-    public void printSearchList(String searchString) {
+    public String getSearchList(String searchString) {
         ArrayList<Task> searchList = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).description.contains(searchString)) {
@@ -126,12 +126,14 @@ public class TaskList {
             }
         }
         if (searchList.isEmpty()) {
-            System.out.println("☹ OOPS!!! No tasks found");
+            return "☹ OOPS!!! No tasks found";
         } else {
+            StringBuilder output = new StringBuilder();
             for (int j = 0; j < searchList.size(); j++) {
                 int temp = j + 1;
-                System.out.println(temp + ". " + searchList.get(j).toString());
+                output.append(temp + ". " + searchList.get(j).toString() + "\n");
             }
+            return output.toString();
         }
     }
 }
