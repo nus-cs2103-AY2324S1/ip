@@ -4,7 +4,7 @@ package duke.tasks;
  * Encapsulates a basic Task.
  */
 public abstract class Task {
-    private static int TASK_COUNT = 1;
+    private static int taskCount = 1;
     private String itemName;
     private int id;
     private boolean isDone;
@@ -16,8 +16,8 @@ public abstract class Task {
      */
     public Task(String itemName) {
         this.itemName = itemName;
-        this.id = TASK_COUNT;
-        TASK_COUNT++;
+        this.id = taskCount;
+        taskCount++;
 
     }
 
