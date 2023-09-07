@@ -2,6 +2,7 @@ package task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 enum Priority {
     HIGH, MEDIUM, LOW
@@ -17,6 +18,14 @@ public class Deadline extends Task {
         this.by = by;
         this.priority = priority;
         this.isDone = isDone;
+    }
+
+    public Deadline(String description, Date date) {
+        super(description);
+    }
+
+    public Deadline(String description, String s) {
+        super(description);
     }
 
     public Priority getPriority() {

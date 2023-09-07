@@ -8,78 +8,94 @@ import task.Task;
 import task.TaskType;
 import task.Todo;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Storage {
-    private static final String FILE_PATH = "./data/dialogix.txt";
+    private String filePath;
 
-    public List<Task> loadTasks() throws DialogixException {
-        List<Task> tasks = new ArrayList<>();
+    Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    /**
+     * Loads tasks from the user's hard drive.
+     *
+     * @return The list of tasks currently stored in the user's hard drive.
+     */
+    ArrayList<Task> load() throws DialogixException {
+        ArrayList<Task> tasks = new ArrayList<>();
+
         try {
-            File file = new File(FILE_PATH);
+            File file = new File(filePath);
             if (!file.exists()) {
                 return tasks;
             }
 
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                Task task = parseSavedTask(line);
-                if (task != null) {
-                    tasks.add(task);
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String input;
+            while ((input = br.readLine()) != null) {
+                String[] splitInput = input.split(" \\| ");
+
+                Task task;
+                switch (splitInput[0]) {
+                    case "T":
+                        task = new Todo(splitInput[2]);
+                        break;
+                    case "D":
+                        if (Parser.isDate(splitInput[3])) {
+                            task = new Deadline(splitInput[2], Parser.parseDate(splitInput[3]));
+                            break;
+                        }
+                        task = new Deadline(splitInput[2], splitInput[3]);
+                        break;
+                    case "E":
+                        if (Parser.isDate(splitInput[3])) {
+                            task = new Event(splitInput[2], Parser.parseDate(splitInput[3]));
+                            break;
+                        }
+                        task = new Event(splitInput[2], splitInput[3]);
+                        break;
+                    default:
+                        throw new DialogixException("Error occurred during file parsing, unexpected task type encountered.");
                 }
+
+                if (Integer.parseInt(splitInput[1]) == 1) {
+                    task.markAsDone();
+                }
+                tasks.add(task);
             }
-            scanner.close();
-            return tasks;
         } catch (IOException e) {
-            throw new DialogixException("Error loading tasks from file.");
+            throw new DialogixException("An IOException occurred. " + e);
+        } catch (NumberFormatException e) {
+            throw new DialogixException("An error occurred during file parsing, unexpected done value encountered.");
         }
+
+        return tasks;
     }
 
-    public void saveTasks(List<Task> tasks) throws DialogixException {
+
+    /**
+     * Saves the given list to the user's hard drive.
+     *
+     * @param list The given list to be saved.
+     */
+    public void save(ArrayList<Task> list) throws DialogixException {
         try {
-            File file = new File(FILE_PATH);
-            File parentDirectory = file.getParentFile();
+            File file = new File(filePath);
+            file.getParentFile().mkdirs();
 
-            if (!parentDirectory.exists()) {
-                parentDirectory.mkdirs();
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+            for (Task l : list) {
+                bw.append(l.toSaveString());
+                bw.append("\n");
             }
-
-            FileWriter fileWriter = new FileWriter(file);
-            for (Task task : tasks) {
-                fileWriter.write(task.toSaveString() + "\n");
-            }
-            fileWriter.close();
+            bw.close();
         } catch (IOException e) {
-            throw new DialogixException("Error saving tasks to file.");
-        }
-    }
-
-    private Task parseSavedTask(String line) {
-        String[] parts = line.split(" \\| ");
-        TaskType taskType = TaskType.valueOf(parts[0]);
-        boolean isDone = parts[1].equals("1");
-        String description = parts[2];
-
-        switch (taskType) {
-            case TODO:
-                return new Todo(description, isDone);
-            case DEADLINE:
-                LocalDate byDate = LocalDate.parse(parts[3]);
-//                Priority priority = Priority.valueOf(parts[4]);
-                return new Deadline(description, byDate, null, isDone);
-            case EVENT:
-                LocalDate fromDate = LocalDate.parse(parts[3]);
-                LocalDate toDate = LocalDate.parse(parts[4]);
-                return new Event(description, fromDate, toDate);
-            default:
-                return null;
+            throw new DialogixException("An IOException occurred. " + e);
         }
     }
 }

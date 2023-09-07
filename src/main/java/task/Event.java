@@ -2,6 +2,7 @@ package task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class Event extends Task {
     protected LocalDate from;
@@ -11,6 +12,14 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+    }
+
+    public Event(String description, Date date) {
+        super(description);
+    }
+
+    public Event(String description, String s) {
+        super(description);
     }
 
     @Override
