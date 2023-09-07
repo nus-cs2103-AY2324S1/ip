@@ -1,18 +1,14 @@
 package duke;
 
+import java.util.Scanner;
+
 import duke.exceptions.WrongMarkException;
 import duke.tasks.Task;
 
-import java.util.Scanner;
-
+/**
+ * Represents a Ui object that deals with user input and output.
+ */
 public class Ui {
-    private final String LOGO = "" +
-            "  /\\______/\\ \n" +
-            " /  O    O  \\ \n" +
-            "|    -_-     | \n" +
-            "|   \\___/    | \n" +
-            " \\__________/ \n";
-
     /**
      * Creates a Ui object.
      */
@@ -24,9 +20,15 @@ public class Ui {
      */
     public void showWelcome() {
         separatorLines();
-        System.out.println(LOGO);
-        System.out.println("Call me sillyBOT\n" +
-                "Tell me what silly things you are gonna do, if you are haha?");
+        String logo = ""
+                + "  /\\______/\\ \n"
+                + " /  O    O  \\ \n"
+                + "|    -_-     | \n"
+                + "|   \\___/    | \n"
+                + " \\__________/ \n";
+        System.out.println(logo);
+        System.out.println("Call me sillyBOT\n"
+                + "Tell me what silly things you are gonna do, if you are haha?");
     }
 
     /**
@@ -72,7 +74,7 @@ public class Ui {
      */
     public void showInvalidIndex() {
         separatorLines();
-        System.out.println("You silly ah! That does not even exist! Wake up!!");
+        System.out.println("Aiyo! That does not even exist!");
     }
 
     /**
@@ -90,8 +92,8 @@ public class Ui {
      */
     public void deleteTaskMessage(Task task) {
         separatorLines();
-        System.out.println("HAhahah! You couldn't do it. Could ya?\n" + task + "\n" +
-                "Now you have " + Task.taskCount + " tasks in the list.");
+        System.out.println("HAhahah! You couldn't do it. Could ya?\n" + task + "\n"
+                + "Now you have " + Task.getTaskCount() + " tasks in the list.");
     }
 
     /**
@@ -101,8 +103,8 @@ public class Ui {
      */
     public void addTaskMessage(Task task) {
         separatorLines();
-        System.out.println("For some reason I believe you are gonna do that!\n" + task + "\n" +
-                "Now you have " + Task.taskCount + " tasks in the list.");
+        System.out.println("For some reason I believe you are gonna do that!\n" + task + "\n"
+                + "Now you have " + Task.getTaskCount() + " tasks in the list.");
     }
 
     /**

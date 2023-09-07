@@ -1,5 +1,8 @@
 package duke.exceptions;
 
+/**
+ * Represents an exception when the user inputs an incomplete input.
+ */
 public class IncompleteInputException extends DukeException {
     /**
      * Constructor for IncompleteInputException.

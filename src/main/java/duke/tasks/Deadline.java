@@ -1,9 +1,12 @@
 package duke.tasks;
 
-import duke.DatesAndTimesFormatter;
-
 import java.time.LocalDate;
 
+import duke.DatesAndTimesFormatter;
+
+/**
+ * Represents a Deadline object that is a Task.
+ */
 public class Deadline extends Task {
     protected String by;
     protected LocalDate date;

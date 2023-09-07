@@ -1,13 +1,16 @@
 package duke;
 
-import duke.tasks.Task;
-import duke.tasks.TaskList;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+
+/**
+ * Represents a Storage object that handles the loading and saving of tasks.
+ */
 public class Storage {
     private String filePath;
     private File file;
@@ -22,7 +25,7 @@ public class Storage {
     public Storage(String filePath) throws IOException {
         this.filePath = filePath;
         this.file = new File(filePath);
-        if (! file.exists()) {
+        if (!file.exists()) {
             System.out.println("File does not exist. Creating file...");
             file.getParentFile().mkdirs();
             file.createNewFile();

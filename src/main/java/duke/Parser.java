@@ -1,14 +1,17 @@
 package duke;
 
+import java.io.IOException;
+import java.util.Objects;
+
 import duke.exceptions.IncompleteInputException;
 import duke.exceptions.InvalidInputException;
 import duke.exceptions.WrongMarkException;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 
-import java.io.IOException;
-import java.util.Objects;
-
+/**
+ * Represents a Parser object that deals with making sense of the user command.
+ */
 public class Parser {
     /**
      * Creates a Parser object.
