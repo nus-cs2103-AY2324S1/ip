@@ -1,4 +1,4 @@
-package Utils;
+package duke.Utils;
 
 import java.util.Arrays;
 import java.util.regex.Pattern;

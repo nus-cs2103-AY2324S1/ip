@@ -1,4 +1,4 @@
-package Utils;
+package duke.Utils;
 
 public class TaskNotFoundException extends DukeException {
     protected TaskNotFoundException() {

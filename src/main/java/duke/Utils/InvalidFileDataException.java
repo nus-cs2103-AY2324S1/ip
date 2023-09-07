@@ -1,4 +1,4 @@
-package Utils;
+package duke.Utils;
 
 public class InvalidFileDataException extends DukeException {
     protected InvalidFileDataException() {

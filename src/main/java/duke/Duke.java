@@ -1,4 +1,6 @@
-import Utils.Session;
+package duke;
+
+import duke.Utils.Session;
 
 public class Duke {
    public static void main(String[] args) {

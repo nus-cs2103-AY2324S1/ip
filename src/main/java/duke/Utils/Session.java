@@ -1,4 +1,4 @@
-package Utils;
+package duke.Utils;
 
 public class Session {
     private Response response;

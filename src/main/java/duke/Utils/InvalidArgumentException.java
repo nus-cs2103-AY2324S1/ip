@@ -1,6 +1,6 @@
-package Utils;
+package duke.Utils;
 
-import Utils.Command.Type;
+import duke.Utils.Command.Type;
 
 public class InvalidArgumentException extends DukeException {
     protected InvalidArgumentException(String arg, Type type) {

@@ -1,4 +1,4 @@
-package Utils;
+package duke.Utils;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

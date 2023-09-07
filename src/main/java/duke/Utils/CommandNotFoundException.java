@@ -1,4 +1,4 @@
-package Utils;
+package duke.Utils;
 
 public class CommandNotFoundException extends DukeException {
     protected CommandNotFoundException() {
