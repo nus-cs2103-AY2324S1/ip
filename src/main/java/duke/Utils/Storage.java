@@ -3,6 +3,8 @@ package duke.Utils;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -13,10 +15,11 @@ public class Storage {
     }
     private final String filepath;
 
-    protected Storage(String filepath) {
+    protected Storage(String filepath, String folderpath) {
         this.filepath = filepath;
         File file = new File(filepath);
-        try {     
+        try {
+            Files.createDirectories(Paths.get(folderpath));
             if (!file.exists()) {
                 file.createNewFile();
             }

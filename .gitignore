@@ -19,5 +19,5 @@ text-ui-test/EXPECTED-UNIX.TXT
 # Java class files
 *.class
 
-# Saved data files
-*.csv
+# Data folder for csv
+/data
