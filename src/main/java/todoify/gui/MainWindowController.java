@@ -131,12 +131,17 @@ public class MainWindowController extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        Chatbot bot = new Chatbot(null, null);
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindowController>getController().setChatbot(new Chatbot(null, null));
+            stage.setTitle(bot.getName());
+            stage.setMinWidth(320);
+            stage.setMinHeight(320);
+            fxmlLoader.<MainWindowController>getController().setChatbot(bot);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
