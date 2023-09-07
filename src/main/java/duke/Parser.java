@@ -25,24 +25,25 @@ public class Parser {
      * @param tasks current Tasklist from chatBot.
      * @param ui ui that control output result to user.
      */
-    public static void replyUser(String input, TaskList tasks, Ui ui) throws DukeException {
+    public static String replyUser(String input, TaskList tasks, Ui ui) throws DukeException {
+        String result;
 
         switch (input) {
         case "bye":
-            ui.exitGreeting();
+            result = ui.exitGreeting();
             break;
         case "barbie":
-            ui.customReply();
+            result = ui.customReply();
             break;
         case "list":
-            ui.outputList(tasks);
+            result = ui.outputList(tasks);
             break;
         default:
             if (input.startsWith("mark ")) {
                 try {
                     int i = Integer.parseInt(input.substring(5));
                     tasks.markTaskDone(i - 1);
-                    ui.markSuccess(tasks.getTasks(i - 1));
+                    result = ui.markSuccess(tasks.getTasks(i - 1));
                 } catch (NumberFormatException err) {
                     throw new DukeException("☹ OOPS!!! The number input does not exist.", err);
                 }
@@ -50,7 +51,7 @@ public class Parser {
                 try {
                     int i = Integer.parseInt(input.substring(7));
                     tasks.markTaskUndone(i - 1);
-                    ui.unMarkSuccess(tasks.getTasks(i - 1));
+                    result = ui.unMarkSuccess(tasks.getTasks(i - 1));
                 } catch (NumberFormatException err) {
                     throw new DukeException("☹ OOPS!!! The number input does not exist.", err);
                 }
@@ -60,7 +61,7 @@ public class Parser {
                     throw new DukeException("☹ OOPS!!! The description of find cannot be empty.",
                             new RuntimeException());
                 } else {
-                    ui.findSuccess(tasks.findTasks(desc));
+                    result = ui.findSuccess(tasks.findTasks(desc));
                 }
             } else {
                 if (input.startsWith("todo ")) {
@@ -70,7 +71,7 @@ public class Parser {
                                 new RuntimeException());
                     } else {
                         tasks.addTask(new ToDo(desc));
-                        ui.toDoSuccess(tasks.getTasks(tasks.getSize() - 1), tasks.getSize());
+                        result = ui.toDoSuccess(tasks.getTasks(tasks.getSize() - 1), tasks.getSize());
                     }
                 } else if (input.startsWith("deadline ")) {
                     try {
@@ -82,7 +83,7 @@ public class Parser {
                             date = input.substring(index + 4);
                         }
                         tasks.addTask(new Deadline(input.substring(9, index - 1), date));
-                        ui.deadLineSuccess(tasks.getTasks(tasks.getSize() - 1), tasks.getSize());
+                        result = ui.deadLineSuccess(tasks.getTasks(tasks.getSize() - 1), tasks.getSize());
                     } catch (StringIndexOutOfBoundsException err) {
                         throw new DukeException("☹ OOPS!!! The deadline format is incorrect! \n"
                                 + "follow the format: deadline description /by end date", err);
@@ -107,7 +108,7 @@ public class Parser {
                         tasks.addTask(new Event(input.substring(6, indexFrom - 1),
                                 dateFrom,
                                 dateTo));
-                        ui.eventSuccess(tasks.getTasks(tasks.getSize() - 1), tasks.getSize());
+                        result = ui.eventSuccess(tasks.getTasks(tasks.getSize() - 1), tasks.getSize());
                     } catch (StringIndexOutOfBoundsException err) {
                         throw new DukeException("☹ OOPS!!! The event format is incorrect! \n"
                                 + "follow the format: event description /from start date /to end date", err);
@@ -116,7 +117,7 @@ public class Parser {
                     try {
                         int i = Integer.parseInt(input.substring(7));
                         Task removedTask = tasks.removeTask(i - 1);
-                        ui.deleteSuccess(removedTask, tasks.getSize());
+                        result = ui.deleteSuccess(removedTask, tasks.getSize());
                     } catch (NumberFormatException err) {
                         throw new DukeException("☹ OOPS!!! The number input does not exist.", err);
                     }
@@ -127,6 +128,8 @@ public class Parser {
             }
             break;
         }
+
+        return result;
 
     }
     /**
