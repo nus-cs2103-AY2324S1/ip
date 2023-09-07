@@ -5,10 +5,10 @@ import java.util.Scanner;
 /**
  * Class representing a UI which reads inputs from users
  * and prints outputs depending on the command or error.
- * 
+ *
  * @author Owen Yeo
  */
-public class Ui {
+public class Printer {
 
     //Scanner used to see user input
     private static final Scanner sc = new Scanner(System.in);
@@ -18,33 +18,32 @@ public class Ui {
 
     /**
      * Prints the inputs out for the user.
-     * 
+     *
      * @param inputs
      */
-    public void print(String[] inputs) {
-        System.out.println(BORDER);
+    public String print(String[] inputs) {
+        String output = "";
         for (int i = 0; i < inputs.length; i++) {
             if (inputs[i] != null) {
-            System.out.println(inputs[i]);
+                output += inputs[i] +"\n";
             }
         }
-        System.out.println(BORDER);
+        return output;
     }
     
 
     /**
      * Prints an introduction.
      */
-    public void intro() {
-        print(new String[] {"Hello! I am Bobby Wasabi", 
-            "What can I do for you today?"});
+    public String intro() {
+        return "Hello! I am Bobby Wasabi\nWhat can I do for you today?";
     }
 
     /**
      * Prints a goodbye message.
      */
-    public void bye() {
-        print(new String[] {"Bye. Have a bad day you doofus."});
+    public String bye() {
+        return "Bye. Have a bad day you doofus.";
     }
 
     /**
@@ -61,8 +60,8 @@ public class Ui {
      * 
      * @param e Exception instance.
      */
-    public void showError(Exception e) {
-        System.out.println("Error! " + e.getMessage());
+    public String showError(Exception e) {
+        return "Error! " + e.getMessage();
     }
 
 }

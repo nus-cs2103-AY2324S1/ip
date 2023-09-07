@@ -14,7 +14,8 @@ public enum CommandType {
     ADD_DEADLINE("deadline"),
     ADD_EVENT("event"),
     DELETE("delete"),
-    FIND("find");
+    FIND("find"),
+    SHOWERROR("");
 
     private final String input;
 
@@ -38,6 +39,6 @@ public enum CommandType {
                 return commandType;
             }
         }
-        return null;
+        return SHOWERROR;
     }
 }

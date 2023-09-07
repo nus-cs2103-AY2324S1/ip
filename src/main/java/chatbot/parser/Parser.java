@@ -1,16 +1,17 @@
 package chatbot.parser;
 
-import chatbot.commands.Command;
 import chatbot.commands.AddDeadline;
 import chatbot.commands.AddEvent;
 import chatbot.commands.AddToDo;
 import chatbot.commands.Bye;
+import chatbot.commands.Command;
 import chatbot.commands.CommandType;
 import chatbot.commands.DeleteItem;
 import chatbot.commands.DisplayList;
-import chatbot.commands.MarkItem;
-import chatbot.commands.UnmarkItem;
 import chatbot.commands.FindTask;
+import chatbot.commands.MarkItem;
+import chatbot.commands.ShowError;
+import chatbot.commands.UnmarkItem;
 
 import chatbot.exceptions.InvalidCommandException;
 import chatbot.exceptions.InvalidDescriptionException;
@@ -38,9 +39,6 @@ public class Parser {
         //Split the input so that we can read command and their description (if any).
         String[] inputStrings = input.split(" ", 2);
         CommandType command = CommandType.parseInput(inputStrings[0]);
-        if (command == null) {
-            throw new InvalidCommandException("What are you saying? Try again.");
-        }
 
         switch(command) {
             case BYE:
@@ -71,7 +69,7 @@ public class Parser {
                 return new FindTask(inputStrings[1], CommandType.FIND);
 
             default:
-                throw new InvalidCommandException("Don't be stupid, speak english.");
+                return new ShowError("", CommandType.SHOWERROR, new InvalidCommandException("Don't be stupid, speak english."));
         }
     }
 }

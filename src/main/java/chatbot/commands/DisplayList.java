@@ -2,7 +2,7 @@ package chatbot.commands;
 
 import chatbot.storage.Storage;
 import chatbot.task.TaskList;
-import chatbot.ui.Ui;
+import chatbot.ui.Printer;
 
 /**
  * Displays the existing list when executed
@@ -21,7 +21,7 @@ public class DisplayList extends Command{
      * Displays the current list on the UI when executed.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
+    public String execute(TaskList tasks, Storage storage, Printer ui) {
         String[] taskStrings = new String[100] ; 
 
         for (int i = 1; i < tasks.getLength() + 1; i++) {
@@ -29,6 +29,6 @@ public class DisplayList extends Command{
             taskStrings[i - 1] = listString;
         }
 
-        ui.print(taskStrings);
+        return ui.print(taskStrings);
     }
 }

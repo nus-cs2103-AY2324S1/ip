@@ -2,7 +2,7 @@ package chatbot.commands;
 
 import chatbot.storage.Storage;
 import chatbot.task.TaskList;
-import chatbot.ui.Ui;
+import chatbot.ui.Printer;
 
 /**
  * Abstract class representing a command.
@@ -30,9 +30,11 @@ public abstract class Command {
      * 
      * @param tasks TaskList
      * @param storage Storage
-     * @param ui UI
+     * @param printer Printer
      */
-    public void execute(TaskList tasks, Storage storage, Ui ui) {}
+    public String execute(TaskList tasks, Storage storage, Printer printer) {
+        return printer.intro();
+    }
 
     /**
      * Checks if the current command will cause an exit.

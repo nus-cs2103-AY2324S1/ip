@@ -2,17 +2,25 @@ package chatbot.commands;
 
 
 import chatbot.task.TaskList;
+import chatbot.ui.Printer;
 import chatbot.storage.Storage;
-import chatbot.ui.Ui;
 
+/**
+ * Finds the items in the list that match the query.
+ */
 public class FindTask extends Command{
 
     public FindTask(String input, CommandType commandType) {
         super(input, commandType);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * Finds the tasks that contain the words found in the input.
+     */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
+    public String execute(TaskList tasks, Storage storage, Printer ui) {
         String[] validStrings = new String[100];
         validStrings[0] = "Here are items that match your search:";
 
@@ -25,7 +33,7 @@ public class FindTask extends Command{
             }
         }
 
-        ui.print(validStrings);
+        return ui.print(validStrings);
     }
 
     

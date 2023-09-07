@@ -2,7 +2,7 @@ package chatbot.commands;
 
 import chatbot.storage.Storage;
 import chatbot.task.TaskList;
-import chatbot.ui.Ui;
+import chatbot.ui.Printer;
 
 /**
  * Command that exits the chatbot and forces it close.
@@ -19,8 +19,8 @@ public class Bye extends Command {
      * Asks UI to print a goodbye message.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
-        ui.bye();
+    public String execute(TaskList tasks, Storage storage, Printer ui) {
+        return ui.bye();
     }
 
     /**
