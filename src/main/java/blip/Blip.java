@@ -9,10 +9,6 @@ import blip.exceptions.*;
 import blip.commands.*;
 
 
-import javafx.application.Platform;
-
-
-
 /**
  * Represents the Blip ChatBot.
  */
@@ -41,6 +37,7 @@ public class Blip {
 
     /**
      * Constructor of Blip ChatBot.
+     *
      * @param filePath The data file path for tasks
      */
     public Blip(String filePath) {
@@ -56,10 +53,11 @@ public class Blip {
     }
 
 
-
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets the response from user on the Blip ChatBot GUI
+     *
+     * @param input The user input on the Blip ChatBot GUI
+     * @return String representation of execution of user input
      */
     public String getResponse(String input) {
         Command command = parser.parse(input);
@@ -88,6 +86,7 @@ public class Blip {
 
     /**
      * Main for Blip ChatBot where it runs Blip.
+     *
      * @param args CLI Arguments
      */
     public static void main(String[] args) {

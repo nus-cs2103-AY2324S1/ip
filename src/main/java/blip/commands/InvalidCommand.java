@@ -34,7 +34,7 @@ public class InvalidCommand extends Command {
     public String execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
         description = description.toLowerCase();
         if (!containsCommands(description)) {
-            return ui.showInvalidCmdErr() + ui.showListOfOtherCmds();
+            return ui.showInvalidCmdErr();
         }
         return "";
     }

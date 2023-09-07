@@ -20,11 +20,12 @@ public class ExceptionCommand extends Command {
 
 
     /**
+     * Executes the exception commands where Blip will inform user of errors encountered.
      *
      * @param taskList The Array List of tasks to do commands on
      * @param ui The user interface of Blip
      * @param storage The storage for Blip
-     * @return
+     * @return String representation of error messages
      */
     public String execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
         if (exception instanceof EmptyTaskNumberException) {

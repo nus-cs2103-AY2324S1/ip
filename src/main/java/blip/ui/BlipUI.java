@@ -8,7 +8,9 @@ import blip.tasks.*;
 public class BlipUI {
 
     /**
-     * Prints the intro message.
+     * Returns the string representation of the intro message.
+     *
+     * @return String representation of the intro message
      */
     public String showIntro() {
         // Intro message by Blip.
@@ -18,7 +20,9 @@ public class BlipUI {
     }
 
     /**
-     * Prints the out message.
+     * Returns the string representation of the outro message.
+     *
+     * @return String representation of the outro message
      */
     public String showOutro() {
         // Outro message by Blip.
@@ -27,7 +31,9 @@ public class BlipUI {
     }
 
     /**
-     * Prints the empty task number error message.
+     * Returns the string representation of the empty task number error message.
+     *
+     * @return String representation of the empty task number error
      */
     public String showEmptyTaskNumErr() {
         return "\nOh no! The task number cannot be empty."
@@ -35,7 +41,9 @@ public class BlipUI {
     }
 
     /**
-     * Prints the invalid task number error message.
+     * Returns the string representation of the invalid task number error message.
+     *
+     * @return String representation of the invalid task number error
      */
     public String showInvalidTaskNumErr() {
         return "Oh no! The task number does not exist."
@@ -44,7 +52,9 @@ public class BlipUI {
     }
 
     /**
-     * Prints the empty description error message.
+     * Returns the string representation of the empty description error message.
+     *
+     * @return String representation of the empty description error
      */
     public String showEmptyDescErr() {
         return "Oh no! The task description cannot be empty."
@@ -55,39 +65,45 @@ public class BlipUI {
     }
 
     /**
-     * Prints the invalid command error message.
+     * Returns the string representation of the invalid command error message.
+     *
+     * @return String representation of the invalid command error
      */
     public String showInvalidCmdErr() {
         return "Oh no! I don't understand what you mean. Please key in either"
         + "\n1. deadline [task description] /by [yyyy-MM-dd HH:mm]"
         + "\n2. event [task description] /from [yyyy-MM-dd HH:mm] /to [yyyy-MM-dd HH:mm]"
-        + "\n3. todo [task description].";
+        + "\n3. todo [task description]."
+        + "\n4. mark [task number]"
+        + "\n5. unmark [task number]"
+        + "\n6. delete [task number]"
+        + "\n7. list";
     }
 
-    /**
-     * Prints the list of other commands.
-     */
-    public String showListOfOtherCmds() {
-        return "\n4. mark [task number]"
-                + "\n5. unmark [task number]"
-                + "\n6. delete [task number]"
-                + "\n7. list";
-    }
 
     /**
-     * Prints the loading data file error message.
+     * Returns the string representation of the loading data file error message.
+     *
+     * @return String representation of the loading data file error
      */
     public String showLoadingErr() {
         return "Error loading file: ";
     }
 
     /**
-     * Prints the saving data file error message.
+     * Returns the string representation of the saving data file error message.
+     *
+     * @return String representation of the saving data file error
      */
     public String showSavingErr() {
         return "Error saving file: ";
     }
 
+    /**
+     * Returns the string representation of the date time format error message.
+     *
+     * @return String representation of the date time format error
+     */
     public String showDateTimeFormatErr() {
         return "Please format your date time to be yyyy-mm-dd HH:mm";
     }
@@ -95,9 +111,10 @@ public class BlipUI {
 
 
     /**
-     * Prints the list of tasks.
+     * Returns the string representation of the list of tasks.
      *
-     * @param tasks The task list to print tasks from
+     * @param tasks The task list to list out tasks from
+     * @return String representation of the list of tasks matched
      */
     public static String listsTasksMsg(TaskList tasks) {
         String listIntro = "Here are the tasks in your list:";
@@ -111,6 +128,14 @@ public class BlipUI {
         }
         return listIntro + tasksInList;
     }
+
+    /**
+     * Returns the string representation of the list of tasks matched.
+     *
+     * @param tasks The task list to match tasks from
+     * @param description The description to match with tasks from task list
+     * @return String representation of the list of tasks matched
+     */
 
     public static String listTasksMatched(TaskList tasks, String description) {
         String matchedTasksIntro = "Here are the matching tasks in  your list:";
@@ -171,11 +196,4 @@ public class BlipUI {
     public String unmarksTasksMsg(Task task) {
         return "Nice! I've marked this task as not done yet:" + task.toString();
     }
-
-
-    public String showNoMatchingTasksMsg() {
-        return "There are no matching tasks in the list!";
-    }
-
-
 }

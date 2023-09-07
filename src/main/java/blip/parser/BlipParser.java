@@ -103,6 +103,12 @@ public class BlipParser {
     }
 
 
+    /**
+     * Parses the user input into different commands.
+     *
+     * @param input The string input to parse
+     * @return The command related to user input
+     */
     public Command parse(String input) {
         try {
             String[] parts = input.split(" ");
