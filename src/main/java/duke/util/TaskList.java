@@ -1,12 +1,12 @@
 package duke.util;
 
-import duke.exception.EmptyDescriptionException;
-import duke.task.Task;
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import duke.exception.EmptyDescriptionException;
+import duke.task.Task;
 
 /**
  * Represents a Task List which is just a list of Tasks.
@@ -19,9 +19,10 @@ import java.util.ArrayList;
  * @author Freddy Chen You Ren
  */
 public class TaskList {
+    //60 underscores.
+    protected static String HORIZONTAL_LINE = "    ____________________________________________________________";
     protected Storage storage;
     protected ArrayList<Task> listOfTasks;
-    protected static String HORIZONTAL_LINE = "    ____________________________________________________________"; //60 underscores.
 
     /**
      * Constructs a TaskList with the given Storage.
@@ -42,13 +43,13 @@ public class TaskList {
      */
     protected String listAllTasks() {
         if (listOfTasks.isEmpty()) {
+            System.out.println("    No tasks for now!");
             return "No tasks for now!";
-//            System.out.println("    No tasks for now!");
         } else {
             StringBuilder message = new StringBuilder();
             message.append(String.format("You have %d tasks now. Here is your task list:\n", listOfTasks.size()));
 
-            //System.out.println("    Your current task list:");
+            System.out.printf("     You have %d tasks now. Here is your task list:\n", listOfTasks.size());
             for (int i = 0; i < listOfTasks.size(); i++) {
                 //System.out.printf("     %d.%s\n", i + 1, listOfTasks.get(i).toString());
                 message.append("\t").append(i + 1).append(".").append(listOfTasks.get(i)).append("\n");
@@ -79,15 +80,15 @@ public class TaskList {
                 message.append("Noted. I've removed this task:\n");
                 message.append(String.format("%s\n", removedTask.toString()));
                 message.append(String.format("Now you have %d task(s) in the list.\n", listOfTasks.size()));
+                System.out.println("     Noted. I've removed this Task:");
+                System.out.printf("       %s\n", removedTask.toString());
+                System.out.printf("     Now you have %d task(s) in the list.\n", listOfTasks.size());
                 storage.clearAllData();
                 storage.updateData();
-//                System.out.println("     Noted. I've removed this Task:");
-//                System.out.printf("       %s\n", removedTask.toString());
-//                System.out.printf("     Now you have %d task(s) in the list.\n", listOfTasks.size());
             } else {
                 message.append("OOPS!!! The task index is invalid.\n");
                 message.append(String.format("You currently have %d task(s).\n", listOfTasks.size()));
-//                System.out.printf("     You currently have %d task(s).\n", listOfTasks.size());
+                System.out.printf("     You currently have %d task(s).\n", listOfTasks.size());
             }
             return message.toString();
         } catch (NumberFormatException e) {
@@ -117,8 +118,8 @@ public class TaskList {
             storage.updateData();
             message.append("Nice! I've marked this Task as done:\n");
             message.append(String.format("\t[%s] %s\n", task.getStatusIcon(), task.getDescription()));
-//            System.out.println("     Nice! I've marked this Task as done:");
-//            System.out.printf("       [%s] %s\n", task.getStatusIcon(), task.description);
+            System.out.println("     Nice! I've marked this Task as done:");
+            System.out.printf("       [%s] %s\n", task.getStatusIcon(), task.getDescription());
         }
         return message.toString();
     }
@@ -142,8 +143,8 @@ public class TaskList {
             storage.updateData();
             message.append("Ok. I've marked this Task as NOT done yet:\n");
             message.append(String.format("\t[%s] %s\n", task.getStatusIcon(), task.getDescription()));
-//            System.out.println("     Nice! I've marked this Task as done:");
-//            System.out.printf("       [%s] %s\n", task.getStatusIcon(), task.description);
+            System.out.println("     Nice! I've marked this Task as done:");
+            System.out.printf("       [%s] %s\n", task.getStatusIcon(), task.getDescription());
         }
         return message.toString();
     }
@@ -163,7 +164,8 @@ public class TaskList {
             String completionStatus = tokens[1].trim();
             String description = tokens[2].trim();
 
-            return taskType.matches("[TDE]") && completionStatus.matches("[01]") && !description.isEmpty(); // Line matches expected format
+            // Line matches expected format
+            return taskType.matches("[TDE]") && completionStatus.matches("[01]") && !description.isEmpty();
         }
 
         return false; // Line is not valid
@@ -187,12 +189,9 @@ public class TaskList {
         return true;
     }
 
-    // Find task
-    // Get keyword from user. Use StringBuilder: use contains(), for loop all available tasks.
-
     /**
      * Finds all tasks that contain a given keyword.
-     * 
+     *
      * @param matchingKeyword The keyword given by the user to find all tasks containing it.
      */
     protected String findTask(String matchingKeyword) {
@@ -216,8 +215,8 @@ public class TaskList {
             if (taskCount > 0) {
                 return matchingTasks.toString();
             } else {
-                return String.format("\t Hm there are no matching tasks with '%s'. " +
-                        "Try with another keyword.", matchingKeyword);
+                return String.format("\t Hm there are no matching tasks with '%s'. "
+                        + "Try with another keyword.", matchingKeyword);
             }
         } finally {
             printHorizontalLine();

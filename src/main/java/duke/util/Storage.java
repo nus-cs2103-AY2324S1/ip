@@ -1,11 +1,5 @@
 package duke.util;
 
-import duke.exception.InvalidDateException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -16,8 +10,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.ArrayList;
+
+import duke.exception.InvalidDateException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 /**
  * Represents a Storage to store the list of tasks of a user into a file in hard disk.
@@ -30,8 +30,8 @@ import java.time.LocalDate;
  * @author Freddy Chen You Ren
  */
 public class Storage {
-    protected static String filePath;
     public static ArrayList<Task> listOfTasks;
+    protected static String filePath;
 
     /**
      * Constructs a Storage with the specified file path
@@ -93,8 +93,8 @@ public class Storage {
         try {
             Path directory = Path.of("./data");
             if (!Files.exists(directory)) {
-                System.out.println("System Message: Directory 'data' does not exist. Creating one..." +
-                        "You can view it under root directory after exiting the program this time.");
+                System.out.println("System Message: Directory 'data' does not exist. Creating one..."
+                        + "You can view it under root directory after exiting the program this time.");
                 Files.createDirectories(directory); // Create the directory if it doesn't exist
             } else {
                 System.out.println("System Message: Directory 'data' exists!");
@@ -102,8 +102,8 @@ public class Storage {
 
             Path file = Path.of("./data/duke.txt");
             if (!Files.exists(file)) {
-                System.out.println("System Message: File 'duke.txt' does not exist. Creating one..." +
-                        "You can view it under 'data' directory after exiting the program this time.");
+                System.out.println("System Message: File 'duke.txt' does not exist. Creating one..."
+                        + "You can view it under 'data' directory after exiting the program this time.");
                 Files.createFile(file); // Create the file if it doesn't exist
             } else {
                 System.out.println("System Message: File 'duke.txt' exists! Loading past data...");
@@ -128,7 +128,8 @@ public class Storage {
                             if (!TaskList.isValidDate(content[3]) || !TaskList.isValidDate(content[4])) {
                                 System.out.printf("Skipping line with invalid date: %s\n", currentLine);
                             } else {
-                                taskFromHardDisk = new Event(taskDescription, LocalDate.parse(content[3]), LocalDate.parse(content[4]));
+                                taskFromHardDisk = new Event(taskDescription, LocalDate.parse(content[3]),
+                                        LocalDate.parse(content[4]));
                                 checkCompletionStatus(taskFromHardDisk, content[1]);
                                 listOfTasks.add(taskFromHardDisk);
                                 //Potential error for content[3]

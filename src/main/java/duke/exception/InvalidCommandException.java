@@ -13,7 +13,6 @@ import duke.util.Parser;
  * @author Freddy Chen You Ren
  */
 public class InvalidCommandException extends Exception {
-    protected static String HORIZONTAL_LINE = "    ____________________________________________________________"; //60 underscores.
     public InvalidCommandException(String message) {
         super(message);
     }
@@ -29,10 +28,10 @@ public class InvalidCommandException extends Exception {
             message.append(c + "\n");
         }
         return message.toString();
-//        System.out.println("     OOPS!!! " + this.getMessage());
-//        System.out.println("     Please input valid commands. Currently SeeWhyAre bot supports:");
-//        for (Parser.Command c : Parser.Command.values()) {
-//            System.out.println("     " + c);
-//        }
+        // System.out.println("     OOPS!!! " + this.getMessage());
+        // System.out.println("     Please input valid commands. Currently SeeWhyAre bot supports:");
+        // for (Parser.Command c : Parser.Command.values()) {
+        //     System.out.println("     " + c);
+        // }
     }
 }

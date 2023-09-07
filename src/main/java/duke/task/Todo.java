@@ -1,11 +1,10 @@
 package duke.task;
 //A-CodingStandard and branch-level-10 needs to be properly pushed. Currently, it is not.
 
-import duke.Duke;
+import java.io.IOException;
+
 import duke.exception.EmptyDescriptionException;
 import duke.util.Storage;
-
-import java.io.IOException;
 
 /**
  * Represents a Todo task.
@@ -56,9 +55,9 @@ public class Todo extends Task {
             message.append("Got it. I've added this task:\n");
             message.append(String.format(" %s\n", todoTask));
             message.append(String.format("Now you have %d task(s) in the list.\n", Storage.listOfTasks.size()));
-//            System.out.println("     Got it. I've added this task:");
-//            System.out.printf("       %s\n", todoTask.toString());
-//            System.out.printf("     Now you have %d task(s) in the list.\n", Storage.listOfTasks.size());
+            System.out.println("     Got it. I've added this task:");
+            System.out.printf("       %s\n", todoTask.toString());
+            System.out.printf("     Now you have %d task(s) in the list.\n", Storage.listOfTasks.size());
         }
         return message.toString();
     }
