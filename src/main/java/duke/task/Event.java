@@ -30,6 +30,7 @@ public class Event extends Task {
     public Event(String commands) throws UnknownCommandException {
         String[] items = commands.split(" /");
         if (items.length == 3) {
+            assert items.length == 3 : "Should only have 3 items in total";
             if (items[1].startsWith("from ") && items[2].startsWith("to ")) {
                 this.description = items[0];
                 this.start = items[1].substring(5);
