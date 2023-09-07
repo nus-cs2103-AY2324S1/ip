@@ -33,9 +33,9 @@ public class Parser {
      * @throws InvalidInputException    If the command given is invalid.
      */
     public static String checkCommandType(String commandGiven,
-                                           TaskList tasks,
-                                           Ui ui,
-                                           Storage storage)
+                                          TaskList tasks,
+                                          Ui ui,
+                                          Storage storage)
             throws IncompleteInputException,
             WrongMarkException,
             InvalidInputException {

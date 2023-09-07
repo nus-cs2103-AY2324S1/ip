@@ -89,7 +89,7 @@ public class Ui {
     /**
      * Prints message if task is already undone.
      */
-    public String showAlreadyUndone() throws WrongMarkException{
+    public String showAlreadyUndone() throws WrongMarkException {
         separatorLines();
         throw new WrongMarkException("Yea I know you didn't do it! Why tell me again? Start working now!");
     }
@@ -98,7 +98,6 @@ public class Ui {
      * Prints message for deleting task.
      *
      * @param task The task to be deleted.
-     *
      * @return The message for deleting task.
      */
     public String deleteTaskMessage(Task task) {
@@ -113,7 +112,6 @@ public class Ui {
      * Prints message for adding task.
      *
      * @param task The task to be added.
-     *
      * @return The message for adding task.
      */
     public String addTaskMessage(Task task) {
