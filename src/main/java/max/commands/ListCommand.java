@@ -20,8 +20,8 @@ public class ListCommand extends Command {
      * @param storage Storage
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showList(tasks.getList());
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showList(tasks.getList());
     }
     /**
      * Checks if command is an exit command.

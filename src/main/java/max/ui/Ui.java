@@ -42,8 +42,8 @@ public class Ui {
     /**
      * Prints exit message.
      */
-    public void exit() {
-        System.out.println("     Bye! Please come again!");
+    public String exit() {
+        return "Bye! Please come again!";
     }
 
     /**
@@ -56,8 +56,8 @@ public class Ui {
     /**
      * Prints error message when no tasks found.
      */
-    public void showLoadingError() {
-        System.out.println("No tasks were found! Making you a new list real quick xd");
+    public String showLoadingError() {
+        return "No tasks were found! Making you a new list real quick xd";
     }
 
     /**
@@ -65,9 +65,8 @@ public class Ui {
      *
      * @param task task that was marked.
      */
-    public void showMark(Task task) {
-        System.out.println("     Good job on completing your task!");
-        System.out.println("       " + task);
+    public String showMark(Task task) {
+        return "Good job on completing your task! \n" + task;
     }
 
     /**
@@ -75,9 +74,8 @@ public class Ui {
      *
      * @param task task that was unmarked.
      */
-    public void showUnmark(Task task) {
-        System.out.println("     Okay, I've marked this as not done yet!");
-        System.out.println("       " + task);
+    public String showUnmark(Task task) {
+        return "Okay, I've marked this as not done yet: \n" + task;
     }
 
     /**
@@ -86,10 +84,9 @@ public class Ui {
      * @param task task that was added.
      * @param size number of tasks in list.
      */
-    public void showAdd(Task task, int size) {
-        System.out.println("     I gotchu. I've added this task:");
-        System.out.println("       " + task);
-        System.out.println(String.format("     Now you have %d task(s) in the list.", size));
+    public String showAdd(Task task, int size) {
+        return "I gotchu. I've added this task: \n" + task
+                + String.format("\nNow you have %d task(s) in the list.", size);
     }
 
     /**
@@ -98,10 +95,9 @@ public class Ui {
      * @param task task that was deleted.
      * @param size number of tasks in list.
      */
-    public void showDelete(Task task, int size) {
-        System.out.println("     Aights mate. I've killed this task:");
-        System.out.println("       " + task);
-        System.out.println(String.format("     Now you have %d task(s) left.", size));
+    public String showDelete(Task task, int size) {
+        return "Aights mate. I've killed this task:\n" + task
+                + String.format("     Now you have %d task(s) left.", size);
     }
 
     /**
@@ -109,17 +105,18 @@ public class Ui {
      *
      * @param list List containing tasks
      */
-    public void showList(List list) {
+    public String showList(List list) {
         if (list.isEmpty()) {
-            System.out.println("     Hohoho, you have no tasks.");
+            return "Hohoho, you have no tasks.";
         } else {
-            System.out.println("     Here are all your tasks:");
+            String ls = "Here are all your tasks:\n";
 
             // Iterate through ArrayList of tasks and enumerate them
             for (int i = 0; i < list.size(); i++) {
                 int index = i + 1;
-                System.out.println("     " + index + ". " + list.get(i));
+                ls += index + ". " + list.get(i) +"\n";
             }
+            return ls;
         }
     }
 
@@ -128,7 +125,7 @@ public class Ui {
      *
      * @param msg Error message.
      */
-    public void showError(String msg) {
-        System.out.println(msg);
+    public String showError(String msg) {
+        return msg;
     }
 }

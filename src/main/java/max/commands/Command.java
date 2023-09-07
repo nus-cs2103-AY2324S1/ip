@@ -24,7 +24,7 @@ public class Command {
      * @param storage Storage
      * @throws MaxException If command is invalid
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
         throw new MaxException("This command cannot be executed bro.");
     }
 

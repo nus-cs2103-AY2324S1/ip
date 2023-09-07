@@ -30,11 +30,11 @@ public class UnmarkCommand extends Command {
      * @param storage Storage
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
         Task unmark = tasks.getList().get(taskNumber - 1);
         tasks.unmark(taskNumber);
         storage.writeToFile(tasks);
-        ui.showUnmark(unmark);
+        return ui.showUnmark(unmark);
     }
     /**
      * Checks if command is an exit command.

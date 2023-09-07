@@ -32,10 +32,10 @@ public class AddCommand extends Command {
      * @param storage Storage
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);
         storage.writeToFile(tasks);
-        ui.showAdd(task, tasks.getList().size());
+        return ui.showAdd(task, tasks.getList().size());
     }
     /**
      * Checks if command is an exit command.

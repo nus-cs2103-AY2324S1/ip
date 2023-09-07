@@ -29,11 +29,11 @@ public class MarkCommand extends Command {
      * @param storage Storage
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
         Task mark = tasks.getList().get(taskNumber - 1);
         tasks.mark(taskNumber);
         storage.writeToFile(tasks);
-        ui.showMark(mark);
+        return ui.showMark(mark);
     }
     /**
      * Checks if command is an exit command.

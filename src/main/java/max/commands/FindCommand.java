@@ -32,7 +32,7 @@ public class FindCommand extends Command {
      * @param storage Storage
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> currList =  tasks.getList();
         ArrayList<Task> filterList = new ArrayList<>();
         for (Task task : currList) {
@@ -40,7 +40,7 @@ public class FindCommand extends Command {
                 filterList.add(task);
             }
         }
-        ui.showList(filterList);
+        return ui.showList(filterList);
     }
 
     /**

@@ -30,11 +30,11 @@ public class DeleteCommand extends Command {
      * @param storage Storage
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
         Task deleted = tasks.getList().get(taskNumber - 1);
         tasks.delete(taskNumber);
         storage.writeToFile(tasks);
-        ui.showDelete(deleted, tasks.getList().size());
+        return ui.showDelete(deleted, tasks.getList().size());
     }
     /**
      * Checks if command is an exit command.

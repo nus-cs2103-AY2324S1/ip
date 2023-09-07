@@ -20,7 +20,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Max max;
+    private Max duke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Max.png"));
@@ -31,7 +31,7 @@ public class MainWindow extends AnchorPane {
     }
 
     public void setMax(Max d) {
-        max = d;
+        duke = d;
     }
 
     /**
@@ -41,10 +41,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = max.getResponse(input);
+        String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialog(input, userImage),
-            DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getMaxDialog(response, dukeImage)
         );
         userInput.clear();
     }
