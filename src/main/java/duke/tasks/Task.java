@@ -56,10 +56,12 @@ public class Task {
      * Prints a message to the user.
      *
      * @param task The Task to be set as done.
+     * @return The message to the user.
      */
-    public void setAsDone(Task task) {
+    public String setAsDone(Task task) {
         this.isDone = true;
         System.out.println("Whoa... are you kidding me? You did that!?" + "\n" + task);
+        return "Whoa... are you kidding me? You did that!?" + "\n" + task;
     }
 
     /**
@@ -75,10 +77,12 @@ public class Task {
      * Prints a message to the user.
      *
      * @param task The Task to be set as undone.
+     * @return The message to the user.
      */
-    public void setAsUndone(Task task) {
+    public String setAsUndone(Task task) {
         this.isDone = false;
         System.out.println("HAHHAA! I knew it! You won't be able to!" + "\n" + task);
+        return "HAHHAA! I knew it! You won't be able to!" + "\n" + task;
     }
 
     /**
