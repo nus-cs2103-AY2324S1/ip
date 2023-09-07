@@ -1,6 +1,7 @@
 package duke;
 
 import duke.command.Command;
+import duke.command.CommandParser;
 
 public class Duke {
 
@@ -16,7 +17,7 @@ public class Duke {
         storage = new Storage(fileName, directories);
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
+        } catch (CreateNewSaveException | NewSaveFailedException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
@@ -29,7 +30,7 @@ public class Duke {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showSoftLine(); // show the divider line ("_______")
-                Command c = Parser.parse(fullCommand);
+                Command c = CommandParser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (DukeException e) {

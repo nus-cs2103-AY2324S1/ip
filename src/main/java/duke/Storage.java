@@ -42,7 +42,7 @@ public class Storage {
 
     }
 
-    public TaskList load() throws DukeException {
+    public TaskList load() throws CreateNewSaveException, NewSaveFailedException {
 
         if (saveFile.length() == 0) {
             return new TaskList();
@@ -58,22 +58,21 @@ public class Storage {
             saveFile.delete();
             try {
                 saveFile.createNewFile();
-                System.out.println("File failed to load, created new save file.");
-                return new TaskList();
+                throw new CreateNewSaveException();
             } catch (IOException ee) {
-                throw new DukeException("Failed to load file, new save file could not be created.");
+                throw new NewSaveFailedException();
             }
         }
     }
 
-    public void save(TaskList tasks) throws DukeException {
+    public void save(TaskList tasks) throws SaveToFileException {
         try {
             FileOutputStream fos = new FileOutputStream(saveFile);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(tasks);
             oos.close();
         } catch (IOException e) {
-            throw new DukeException("Saving to file failed");
+            throw new SaveToFileException();
         }
     }
 

@@ -1,5 +1,7 @@
 package duke;
 
+import duke.task.AlreadyMarkedException;
+import duke.task.AlreadyUnmarkedException;
 import duke.task.Task;
 
 import java.io.Serializable;
@@ -22,7 +24,7 @@ public class TaskList implements Serializable {
         return task.getAddMessage() + "\n" + task;
     }
 
-    public String delete(Integer index) throws DukeException {
+    public String delete(Integer index) throws OutOfRangeException {
 
         if (index == null) {
             tasks.clear();
@@ -32,7 +34,7 @@ public class TaskList implements Serializable {
         int i = index;
 
         if (index < 0 || index >= tasks.size()) {
-            throw new DukeException("Please provide a number within range.");
+            throw new OutOfRangeException();
         }
 
         Task task = tasks.remove(i);
@@ -51,13 +53,13 @@ public class TaskList implements Serializable {
 
     }
 
-    public String mark(Integer index) throws DukeException {
+    public String mark(Integer index) throws OutOfRangeException, AlreadyMarkedException {
 
         if (index == null) {
             for (Task task : tasks) {
                 try {
                     task.markDone();
-                } catch (DukeException ignored) {
+                } catch (AlreadyMarkedException ignored) {
                 }
             }
             return "All done.";
@@ -70,18 +72,18 @@ public class TaskList implements Serializable {
             task.markDone();
             return "Mission accomplished.\n" + task.toString();
         } else {
-            throw new DukeException("Please provide a number within range.");
+            throw new OutOfRangeException();
         }
 
     }
 
-    public String unmark(Integer index) throws DukeException {
+    public String unmark(Integer index) throws OutOfRangeException, AlreadyUnmarkedException {
 
         if (index == null) {
             for (Task task : tasks) {
                 try {
                     task.markUndone();
-                } catch (DukeException ignored) {
+                } catch (AlreadyUnmarkedException ignored) {
                 }
             }
             return "All undone.";
@@ -91,10 +93,10 @@ public class TaskList implements Serializable {
 
         if (i < 0 || i >= tasks.size()) {
             Task task = tasks.get(i);
-            task.markDone();
+            task.markUndone();
             return "Uncharacteristic of you. More work has been added to the pile.\n" + task.toString();
         } else {
-            throw new DukeException("Please provide a number within range.");
+            throw new OutOfRangeException();
         }
 
     }
