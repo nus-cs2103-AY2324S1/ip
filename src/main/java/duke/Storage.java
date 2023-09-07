@@ -32,12 +32,14 @@ public class Storage {
             parentDirectory.mkdirs();
         }
 
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println("Error creating file: " + e.getMessage());
-            }
+        if (file.exists()) {
+            return;
+        }
+
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error creating file: " + e.getMessage());
         }
     }
 

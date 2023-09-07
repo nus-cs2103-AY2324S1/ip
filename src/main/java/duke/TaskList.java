@@ -133,12 +133,13 @@ public class TaskList {
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             Matcher matcher = pattern.matcher(task.toString()); // Match the task's string representation with the regex
+            if (!matcher.find()) {
+                continue;
+            }
 
-            if (matcher.find()) { // Check if the regex matches the task's string representation
-                result.append((i + 1) + ". " + task);
-                if (i + 1 < tasks.size()) {
-                    result.append("\n");
-                }
+            result.append((i + 1) + ". " + task);
+            if (i + 1 < tasks.size()) {
+                result.append("\n");
             }
         }
         return result.toString();
