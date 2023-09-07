@@ -19,22 +19,22 @@ public class DeleteCommand extends Command {
      * Executes the delete command by deleting specified task from task list and disk.
      *
      * @param tasks The task list from where the task is deleted.
-     * @param ui The user interface handling the command execution.
      * @param storage The storage manager for persisting task data.
      * @throws SanaException
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SanaException {
+    public String execute(TaskList tasks, Storage storage) throws SanaException {
         String arguments = getArguments();
         if (arguments.isBlank()) {
             throw new SanaException("Error! Need to specify which task to delete");
         }
 
         Task deletedTask = tasks.delete(Integer.parseInt(arguments));
-        System.out.println("Noted. I've removed this task:\n" + deletedTask.toString() + "\n"
+        tasks.update(storage);
+        return("Noted. I've removed this task:\n" + deletedTask.toString() + "\n"
                 + "Now you have " + tasks.size() + (tasks.size() <= 1 ? " task" : " tasks")
                 + " in the list");
-        tasks.update(storage);
+
     }
 
     /**

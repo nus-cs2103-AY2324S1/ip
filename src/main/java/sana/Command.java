@@ -24,11 +24,10 @@ public abstract class Command {
      * Executes the command's specific action on the given task list, UI, and storage.
      *
      * @param tasks The task list on which the command's action is performed.
-     * @param ui The user interface handling the command execution.
      * @param storage The storage manager for persisting task data.
      * @throws SanaException If an exception specific to the Sana application occurs during execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws SanaException;
+    public abstract String execute(TaskList tasks, Storage storage) throws SanaException;
 
     /**
      * Checks whether the command is an exit command.

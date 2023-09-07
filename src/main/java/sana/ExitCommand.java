@@ -19,12 +19,11 @@ public class ExitCommand extends Command {
      * Executes the exit command by printing out the exit message.
      *
      * @param tasks      The task list on which the command's action is performed.
-     * @param ui         The user interface handling the command execution.
      * @param storage    The storage manager for persisting task data.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String execute(TaskList tasks, Storage storage) {
+        return ("Bye. Hope to see you again soon!");
     }
 
     /**

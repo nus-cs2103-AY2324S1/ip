@@ -21,12 +21,11 @@ public class AddCommand extends Command {
      * Executes the add command by adding a task to the task list and saving to file.
      *
      * @param tasks   The TaskList object containing the list of tasks.
-     * @param ui      The Ui object for handling user interface.
      * @param storage The Storage object for saving and loading tasks.
      * @throws SanaException If an error specific to Sana occurs during execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SanaException {
+    public String execute(TaskList tasks, Storage storage) throws SanaException {
         String cmd = getCmd();
         String arguments = getArguments();
         switch (cmd) {
@@ -39,11 +38,11 @@ public class AddCommand extends Command {
                 storage.save("/Users/ariellacallista/Desktop",
                         "/Users/ariellacallista/Desktop/SanaTasks.txt", newTodo);
 
-                System.out.println("Got it. I've added this task:\n" + newTodo + "\n"
+                return("Got it. I've added this task:\n" + newTodo + "\n"
                         + "Now you have " + tasks.size() + (tasks.size() <= 1 ? " task" : " tasks")
                         + " in the list");
             }
-            break;
+
 
         case "deadline":
             if (arguments.isBlank()) {
@@ -69,13 +68,12 @@ public class AddCommand extends Command {
                 tasks.add(newDeadline);
                 storage.save("/Users/ariellacallista/Desktop",
                         "/Users/ariellacallista/Desktop/SanaTasks.txt", newDeadline);
-                System.out.println("Got it. I've added this task:\n" + newDeadline + "\n"
+                return("Got it. I've added this task:\n" + newDeadline + "\n"
                         + "Now you have " + tasks.size() + (tasks.size() <= 1 ? " task" : " tasks")
                         + " in the list\n");
             } catch (DateTimeParseException e) {
-                ui.showError(e.getMessage());
+                return e.getMessage();
             }
-            break;
 
         case "event":
             if (arguments.isBlank()) {
@@ -88,7 +86,7 @@ public class AddCommand extends Command {
             if (lastDescId == -1 || arguments.length() < lastDescId + 6
                     || arguments.substring(lastDescId + 6).isBlank()) {
                 throw new SanaException("OOPS!! The 'from' field cannot be empty.\nMake sure you follow the format "
-                        + "'deadline [name of task] /from [from] /to [to]'");
+                        + "'event [name of task] /from [from] /to [to]'");
             }
             desc = arguments.substring(0, lastDescId - 1);
 
@@ -96,7 +94,7 @@ public class AddCommand extends Command {
             if (lastFromId == -1 || arguments.length() < lastFromId + 4
                     || arguments.substring(lastFromId + 4).isBlank()) {
                 throw new SanaException("OOPS!! The 'to' field cannot be empty.\nMake sure you follow the format "
-                        + "'deadline [name of task] /from [from] /to [to]'");
+                        + "'event [name of task] /from [from] /to [to]'");
             }
             String from = arguments.substring(lastDescId + 6, lastFromId - 1);
             String to = arguments.substring(lastFromId + 4);
@@ -107,14 +105,14 @@ public class AddCommand extends Command {
                 LocalDate toDate = LocalDate.parse(to);
                 newEvent = new Event(desc, fromDate, toDate, false);
             } catch (DateTimeParseException e) {
-                System.out.println("Invalid date format! Make sure it is yyyy-mm-dd");
+                return("Invalid date format! Make sure it is yyyy-mm-dd");
             }
 
             if (newEvent != null) {
                 tasks.add(newEvent);
                 storage.save("/Users/ariellacallista/Desktop",
                         "/Users/ariellacallista/Desktop/SanaTasks.txt", newEvent);
-                System.out.println("Got it. I've added this task:\n" + newEvent + "\n"
+                return("Got it. I've added this task:\n" + newEvent + "\n"
                         + "Now you have " + tasks.size() + (tasks.size() <= 1 ? " task" : " tasks")
                         + " in the list");
             }
@@ -122,6 +120,7 @@ public class AddCommand extends Command {
         default:
             throw new SanaException("Task type not recognized!");
         }
+        return ("Command not recognized!");
     }
 
     /**

@@ -19,14 +19,14 @@ public class MarkCommand extends Command {
      * Executes mark command by marking the specified taks in the list as done and updates changes in file.
      *
      * @param tasks The task list on which the command's action is performed.
-     * @param ui The user interface handling the command execution.
      * @param storage The storage manager for persisting task data.
      * @throws SanaException
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SanaException {
-        tasks.mark(Integer.parseInt(getArguments()));
+    public String execute(TaskList tasks, Storage storage) throws SanaException {
+        String response = tasks.mark(Integer.parseInt(getArguments()));
         tasks.update(storage);
+        return response;
     }
 
     /**

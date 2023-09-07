@@ -19,14 +19,14 @@ public class UnmarkCommand extends Command {
      * Executes unmark command by marking the specified taks in the list as NOT done and updates changes in file.
      *
      * @param tasks The task list on which the specified task is marked as done.
-     * @param ui The user interface handling the command execution.
      * @param storage The storage manager for persisting task data.
      * @throws SanaException
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SanaException {
-        tasks.unmark(Integer.parseInt(getArguments()));
+    public String execute(TaskList tasks, Storage storage) throws SanaException {
+        String response = tasks.unmark(Integer.parseInt(getArguments()));
         tasks.update(storage);
+        return response;
     }
 
     /**
