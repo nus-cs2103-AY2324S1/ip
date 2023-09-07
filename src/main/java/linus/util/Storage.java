@@ -74,9 +74,8 @@ public class Storage {
      *
      * @param tasks The list of tasks.
      */
-    public void store(List<Task> tasks) {
+    public void store(List<Task> tasks) throws LinusException {
         gson = new GsonBuilder()
-
                 .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
                 .create();
 
@@ -86,7 +85,7 @@ public class Storage {
             fileWriter.write(json);
             fileWriter.close();
         } catch (IOException e) {
-            Ui.print("The file system experienced an unexpected error.");
+            throw new LinusException("The file system experienced an unexpected error.");
         }
     }
 }
