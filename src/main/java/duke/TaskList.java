@@ -7,9 +7,9 @@ import java.util.ArrayList;
  * the list.
  */
 public class TaskList {
-    ArrayList<Task> fullList;
-    Ui ui;
-    private final static String line = "------------------------------------";
+    private static final String line = "------------------------------------";
+    private ArrayList<Task> fullList;
+    private Ui ui;
 
     /**
      * Constructs a new TaskList by initializing a new ArrayList and

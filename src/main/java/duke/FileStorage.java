@@ -2,12 +2,10 @@ package duke;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
-
 import java.time.LocalDateTime;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,7 +13,7 @@ import java.util.Scanner;
  * Represents the class which handles reading and writing tasks to a file.
  */
 public class FileStorage {
-    private final String FILE_PATH;
+    private final String filePath;
 
     /**
      * Constructs a FileStorage object with the specified file path.
@@ -23,7 +21,7 @@ public class FileStorage {
      * @param filePath The path to the file used for storing tasks.
      */
     public FileStorage(String filePath) {
-        this.FILE_PATH = filePath;
+        this.filePath = filePath;
     }
 
     /**
@@ -31,8 +29,8 @@ public class FileStorage {
      *
      * @param taskList The list of tasks to be saved.
      */
-    public void saveTasks (TaskList taskList) {
-        File file = new File(FILE_PATH);
+    public void saveTasks(TaskList taskList) {
+        File file = new File(filePath);
         file.mkdirs();
 
         if (file.exists()) {
@@ -47,7 +45,7 @@ public class FileStorage {
             if (!isCreateNewFileSuccess) {
                 System.out.println("Failed to create save file!");
             } else {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true));
                 for (Task task : taskList.getTask()) {
                     writer.append(task.toFileString()).append("\n");
                 }
@@ -105,7 +103,7 @@ public class FileStorage {
      * @throws FileLoadException If there is any error loading tasks from the file.
      */
     public ArrayList<Task> loadFiles() throws FileLoadException {
-        File file = new File(FILE_PATH);
+        File file = new File(filePath);
         try {
             Scanner scanner = new Scanner(file);
             ArrayList<Task> tempList = new ArrayList<>();
@@ -145,7 +143,7 @@ public class FileStorage {
             return tempList;
         } catch (FileNotFoundException e) {
             System.out.println("There are no existing tasks, please use the commands to add new tasks!");
-            File newFile = new File(FILE_PATH);
+            File newFile = new File(filePath);
             newFile.mkdirs();
             return new ArrayList<>();
         }

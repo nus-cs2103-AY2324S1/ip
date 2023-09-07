@@ -6,10 +6,10 @@ import java.util.Scanner;
  * Represents the main class where the chatbot will run.
  */
 public class Duke {
-    private TaskList fullList;
-    private final FileStorage FILE_STORAGE;
-    private Parser parser;
     private static String filePath = "./data/duke.txt";
+    private TaskList fullList;
+    private final FileStorage fileStorage;
+    private Parser parser;
     private Ui ui;
 
     /**
@@ -19,11 +19,11 @@ public class Duke {
      * @param filePath Represents the location of stored tasks.
      */
     public Duke(String filePath) {
-        this.FILE_STORAGE = new FileStorage(filePath);
+        this.fileStorage = new FileStorage(filePath);
         try {
-            this.fullList  = new TaskList(FILE_STORAGE.loadFiles());
+            this.fullList = new TaskList(fileStorage.loadFiles());
             this.ui = new Ui();
-            this.parser = new Parser(FILE_STORAGE, fullList, ui);
+            this.parser = new Parser(fileStorage, fullList, ui);
         } catch (FileCorruptedException e) {
             System.out.println("Saved tasks is corrupted. Please start adding new tasks");
             this.fullList = new TaskList();

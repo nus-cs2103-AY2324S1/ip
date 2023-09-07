@@ -51,7 +51,7 @@ public class Event extends Task {
      * @param start Start date to be compared.
      * @param end End date to be compared.
      */
-    public boolean isStartDateBefore (LocalDateTime start, LocalDateTime end) {
+    public boolean isStartDateBefore(LocalDateTime start, LocalDateTime end) {
         if (start.isBefore(end) || start.equals(end)) {
             return true;
         } else {
@@ -73,7 +73,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E] " + super.toString() +
-                " (from: " + start.format(formatter) + " to: " + end.format(formatter) + ")";
+        return "[E] " + super.toString()
+                + " (from: " + start.format(formatter) + " to: " + end.format(formatter) + ")";
     }
 }

@@ -8,19 +8,19 @@ import java.util.Scanner;
  */
 public class Ui {
     private Scanner scanner;
-    private final String LINE = "------------------------------------";
-    private final String CHATBOT = "chuababyy";
-    private final String COMMANDS =
-            LINE + "\n" + "List of commands\n" + "1. todo [description]\n"
+    private final String line = "------------------------------------";
+    private final String chatBot = "chuababyy";
+    private final String commands =
+            line + "\n" + "List of commands\n" + "1. todo [description]\n"
                     + "2. deadline [description] /by [deadline in DD-MM-YYYY TIME]\n"
-                    + "3. event [description] /from [start date in DD-MM-YYYY TIME] " +
-                    "/to [end date in DD-MM-YYYY TIME]\n"
+                    + "3. event [description] /from [start date in DD-MM-YYYY TIME] "
+                    + "/to [end date in DD-MM-YYYY TIME]\n"
                     + "4. mark [item_number]\n"
                     + "5. unmark [item_number]\n"
                     + "6. delete [item_number]\n"
                     + "7. list\n"
                     + "8. bye\n"
-                    + LINE ;
+                    + line;
 
     /**
      * Constructs a Ui instance and initializes the scanner.
@@ -33,15 +33,15 @@ public class Ui {
      * Displays a separator line.
      */
     public void showLine() {
-        System.out.println(LINE);
+        System.out.println(line);
     }
 
     /**
-     * Displays a welcome message when the chatbot starts.
+     * Displays a welcome message when the chatBot starts.
      */
     public void showWelcome() {
         showLine();
-        System.out.println("Hello! I'm " + CHATBOT);
+        System.out.println("Hello! I'm " + chatBot);
         System.out.println("What can I do for you?");
         showLine();
     }
@@ -60,7 +60,7 @@ public class Ui {
      */
     public void showUnknownMessage() {
         showLine();
-        System.out.println("Invalid structure. Please follow the valid commands below.\n" + COMMANDS);
+        System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
         showLine();
     }
 
@@ -68,7 +68,7 @@ public class Ui {
      * Displays a message which indicates an invalid command.
      */
     public void showInvalidMessage() {
-        System.out.println("Invalid structure. Please follow the valid commands below.\n" + COMMANDS);
+        System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
     }
 
     /**
@@ -105,11 +105,11 @@ public class Ui {
      * @param size The size of the current list.
      */
     public void showAddMessage(Task task, int size) {
-        System.out.println(LINE);
+        showLine();
         System.out.println("Got it. I've added this task:");
         System.out.println(task.toString());
         System.out.println("Now you have " + size + " tasks in the list.");
-        System.out.println(LINE);
+        showLine();
     };
 
     /**
@@ -120,9 +120,9 @@ public class Ui {
      */
     public void showDeleteMessage(Task task, int size) {
         showLine();
-        System.out.println("Noted. I've removed this task:\n" +
-                task.toString() + "\n" +
-                        "Now you have " + size + " tasks in the list.");
+        System.out.println("Noted. I've removed this task:\n"
+                + task.toString() + "\n"
+                        + "Now you have " + size + " tasks in the list.");
         showLine();
     }
 
