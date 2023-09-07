@@ -26,6 +26,10 @@ public class Duke {
                         int unmarkItem = sc.nextInt();
                         taskList.get(unmarkItem - 1).markUndone();
                         break;
+                    case "delete":
+                         int deleteItem = sc.nextInt();
+                        delete(deleteItem);
+                        break;
                     case "todo":
                         add(new ToDo(sc.nextLine()));
                         break;
@@ -66,6 +70,13 @@ public class Duke {
         System.out.println("Got it! This task has been added: ");
         System.out.println(input.getStatus());
         System.out.println("Current # of task: " + taskList.size());
+    }
+
+    public static void delete(int num) {
+        System.out.println("I've removed this task:");
+        taskList.get(num-1).getStatus();
+        taskList.remove(num - 1);
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
     public static void print() {
