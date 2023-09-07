@@ -60,81 +60,81 @@ public class Duke {
 
             switch (parser.getCommand()) {
 
-                case "bye":
-                    //bye
+            case "bye":
+                //bye
 
-                    wantToExit = true;
-                    ui.Speak(ui.Exit());
+                wantToExit = true;
+                ui.Speak(ui.Exit());
 
-                    break;
+                break;
 
-                case "list":
-                    //list
-                    ui.Speak(tasks.displayList());
-                    break;
+            case "list":
+                //list
+                ui.Speak(tasks.displayList());
+                break;
 
-                case "mark":
-                    //mark 1
+            case "mark":
+                //mark 1
 
-                    try {
-                        int i = Integer.parseInt(parser.getTaskName()) - 1;
-                        ui.Speak(tasks.markTask(i));
-                        userListHaveChanges = true;
-                    } catch (NumberFormatException e) {
-                        ui.Speak("need to provide an integer index of task.");
-                    }
-
-
-                    break;
-
-                case "unmark":
-                    //unmark 1
-                    try {
-                        int i = Integer.parseInt(parser.getTaskName()) - 1;
-                        ui.Speak(tasks.unmarkTask(i));
-                        userListHaveChanges = true;
-                    } catch (NumberFormatException e) {
-                        ui.Speak("need to provide an integer index of task.");
-                    }
-
-                    break;
-
-                case "todo":
-                    //todo read book
-                    ui.Speak(tasks.addTask(new Task(parser.getTaskName(),
-                            1, "Null", "Null", false)));
+                try {
+                    int i = Integer.parseInt(parser.getTaskName()) - 1;
+                    ui.Speak(tasks.markTask(i));
                     userListHaveChanges = true;
-                    break;
+                } catch (NumberFormatException e) {
+                    ui.Speak("need to provide an integer index of task.");
+                }
 
-                case "deadline":
-                    //deadline read book /by 2022-01-01
-                    ui.Speak(tasks.addTask(new Task(parser.getTaskName(),
-                            2, "Null", parser.getFirstEnteredTime(), false)));
+
+                break;
+
+            case "unmark":
+                //unmark 1
+                try {
+                    int i = Integer.parseInt(parser.getTaskName()) - 1;
+                    ui.Speak(tasks.unmarkTask(i));
                     userListHaveChanges = true;
-                    break;
+                } catch (NumberFormatException e) {
+                    ui.Speak("need to provide an integer index of task.");
+                }
 
-                case "event":
-                    //event read book /from 2022-01-01 /to 2022-01-02
-                    ui.Speak(tasks.addTask(new Task(parser.getTaskName(),
-                            3, parser.getFirstEnteredTime(), parser.getSecondEnteredTime(), false)));
+                break;
+
+            case "todo":
+                //todo read book
+                ui.Speak(tasks.addTask(new Task(parser.getTaskName(),
+                        1, "Null", "Null", false)));
+                userListHaveChanges = true;
+                break;
+
+            case "deadline":
+                //deadline read book /by 2022-01-01
+                ui.Speak(tasks.addTask(new Task(parser.getTaskName(),
+                        2, "Null", parser.getFirstEnteredTime(), false)));
+                userListHaveChanges = true;
+                break;
+
+            case "event":
+                //event read book /from 2022-01-01 /to 2022-01-02
+                ui.Speak(tasks.addTask(new Task(parser.getTaskName(),
+                        3, parser.getFirstEnteredTime(), parser.getSecondEnteredTime(), false)));
+                userListHaveChanges = true;
+                break;
+
+            case "delete":
+                //delete 1
+                try {
+                    int i = Integer.parseInt(parser.getTaskName()) - 1;
+                    ui.Speak(tasks.deleteTask(i));
                     userListHaveChanges = true;
-                    break;
+                } catch (NumberFormatException e) {
+                    ui.Speak("need to provide an integer index of task.");
+                }
 
-                case "delete":
-                    //delete 1
-                    try {
-                        int i = Integer.parseInt(parser.getTaskName()) - 1;
-                        ui.Speak(tasks.deleteTask(i));
-                        userListHaveChanges = true;
-                    } catch (NumberFormatException e) {
-                        ui.Speak("need to provide an integer index of task.");
-                    }
-
-                    break;
+                break;
 
 
-                default:
-                    ui.Speak("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            default:
+                ui.Speak("OOPS!!! I'm sorry, but I don't know what that means :-(");
 
 
             }

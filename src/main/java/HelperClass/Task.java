@@ -20,15 +20,15 @@ public class Task {
         this.type = type;
 
         switch (this.type) {
-            case 1:
-                break;
-            case 2:
-                this.endDate = LocalDate.parse(endDate);
-                break;
-            case 3:
-                this.startDate = LocalDate.parse(startDate);
-                this.endDate = LocalDate.parse(endDate);
-                break;
+        case 1:
+            break;
+        case 2:
+            this.endDate = LocalDate.parse(endDate);
+            break;
+        case 3:
+            this.startDate = LocalDate.parse(startDate);
+            this.endDate = LocalDate.parse(endDate);
+            break;
         }
 
 
@@ -53,15 +53,15 @@ public class Task {
     public String display() {
         String description = "[";
         switch (this.type) {
-            case 1:
-                description = description + "T]";
-                break;
-            case 2:
-                description = description + "D]";
-                break;
-            case 3:
-                description = description + "E]";
-                break;
+        case 1:
+            description = description + "T]";
+            break;
+        case 2:
+            description = description + "D]";
+            break;
+        case 3:
+            description = description + "E]";
+            break;
         }
         if (isDone) {
             description = description + "[X] " + taskName;
@@ -90,15 +90,15 @@ public class Task {
 
         String description = "";
         switch (this.type) {
-            case 1:
-                description = description + "T | ";
-                break;
-            case 2:
-                description = description + "D | ";
-                break;
-            case 3:
-                description = description + "E | ";
-                break;
+        case 1:
+            description = description + "T | ";
+            break;
+        case 2:
+            description = description + "D | ";
+            break;
+        case 3:
+            description = description + "E | ";
+            break;
         }
         if (isDone) {
             description = description + "1 | " + taskName;
