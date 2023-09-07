@@ -21,6 +21,9 @@ public class Duke {
         storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
     }
+    public String getResponse(String input) throws DukeException, IOException {
+        return Parser.parseAndExecute(input, ui, tasks, storage);
+    }
 
     /**
      * Runs the chatbot.

@@ -43,11 +43,13 @@ public class Ui {
         return input.nextLine();
     }
 
-    public void printList(TaskList tasks) {
+    public String printList(TaskList tasks) {
         printLine();
         System.out.println("\tHere are the task in your list:");
-        tasks.printTasks();
+        String list = tasks.printTasks();
         printLine();
+
+        return list;
     }
 
     /**
@@ -56,12 +58,16 @@ public class Ui {
      * @param size updated number of tasks
      * @param task task that has been added
      */
-    public void printAddedTask(int size, Task task) {
+    public String printAddedTask(int size, Task task) {
         printLine();
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t  " + task.toString());
         System.out.println("\tNow you have " + size + " tasks in the list.");
         printLine();
+
+        return "Got it. I've added this task:" + "\n"
+                + "  " + task.toString() + "\n"
+                + "Now you have " + size + " tasks in the list.";
 
     }
 
@@ -70,11 +76,14 @@ public class Ui {
      * @param index task number
      * @param tasks TaskList object
      */
-    public void printAfterMark(int index, TaskList tasks) {
+    public String printAfterMark(int index, TaskList tasks) {
         printLine();
         System.out.println("\tNice! I've marked this task as done:");
         System.out.println("\t  " + tasks.getTasks().get(index).toString());
         printLine();
+
+        return "Nice! I've marked this task as done:" + "\n"
+                + "  " + tasks.getTasks().get(index).toString();
     }
 
     /**
@@ -82,11 +91,14 @@ public class Ui {
      * @param index task number
      * @param tasks TaskList object
      */
-    public void printAfterUnmark(int index, TaskList tasks) {
+    public String printAfterUnmark(int index, TaskList tasks) {
         printLine();
         System.out.println("\tOK, I've marked this task as not done yet:");
         System.out.println("\t  " + tasks.getTasks().get(index).toString());
         printLine();
+
+        return "OK, I've marked this task as not done yet:" + "\n"
+                + "  " + tasks.getTasks().get(index).toString();
     }
 
     /**
@@ -94,11 +106,14 @@ public class Ui {
      * @param size updated number of tasks
      * @param removedTask task that has been removed
      */
-    public void printAfterDelete(int size, Task removedTask) {
+    public String printAfterDelete(int size, Task removedTask) {
         printLine();
         System.out.println("\t  " + removedTask.toString());
         System.out.println("\tNow you have " + size + " tasks in the list.");
         printLine();
+
+        return "\t" + removedTask.toString() + "\n"
+                + "Now you have " + size + " tasks in the list.";
 
     }
 
@@ -106,12 +121,16 @@ public class Ui {
      * Prints out information about the task that contains a specified keyword.
      * @param taskList an ArrayList of task that contain the keyword
      */
-    public void printMatchingTasks(ArrayList<Task> taskList) {
+    public String printMatchingTasks(ArrayList<Task> taskList) {
+        String listOfMatchingTasks = "\tHere are the matching tasks in your list: \n";
         printLine();
         System.out.println("\tHere are the matching tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
             System.out.println("\t" + (i + 1) + "." + taskList.get(i).toString());
+            listOfMatchingTasks += (i + 1) + "." + taskList.get(i).toString() + "\n";
         }
         printLine();
+
+        return listOfMatchingTasks;
     }
 }

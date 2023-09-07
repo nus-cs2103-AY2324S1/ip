@@ -20,10 +20,10 @@ public class Parser {
      * @throws DukeException if command cannot be parsed
      * @throws IOException if file cannot be opened.
      */
-    public static void parseAndExecute(String command, Ui ui, TaskList tasks, Storage storage)
+    public static String parseAndExecute(String command, Ui ui, TaskList tasks, Storage storage)
             throws DukeException, IOException {
         if (command.equals("list")) {
-            ui.printList(tasks);
+            return ui.printList(tasks);
         } else {
             if (command.indexOf(" ") == -1) {
                 throw new DukeException("Incorrect Format of Command");
@@ -40,8 +40,7 @@ public class Parser {
                 tasks.addTask(todo);
                 storage.appendToFile("T | " + todo.getStatusIcon() + " | "
                         + todo.taskDescription + System.lineSeparator());
-                ui.printAddedTask(tasks.getSize(), todo);
-                break;
+                return ui.printAddedTask(tasks.getSize(), todo);
             case "deadline":
                 String dl = arr[0];
                 String by = arr[1].substring(3);
@@ -51,8 +50,7 @@ public class Parser {
                 tasks.addTask(deadline);
                 storage.appendToFile("D | " + deadline.getStatusIcon() + " | "
                         + deadline.taskDescription + "| " + by + System.lineSeparator());
-                ui.printAddedTask(tasks.getSize(), deadline);
-                break;
+                return ui.printAddedTask(tasks.getSize(), deadline);
             case "event":
                 String ev = arr[0];
                 String from = arr[1].substring(5, 5 + "yyyyMMdd HHmm".length());
@@ -64,32 +62,28 @@ public class Parser {
                 tasks.addTask(event);
                 storage.appendToFile("E | " + event.getStatusIcon() + " | "
                         + event.taskDescription + "| " + from + "-" + to + System.lineSeparator());
-                ui.printAddedTask(tasks.getSize(), event);
-                break;
+                return ui.printAddedTask(tasks.getSize(), event);
             case "mark":
                 int indexToMark = java.lang.Integer.parseInt(task) - 1;
                 tasks.changeStatusOfTask(indexToMark);
                 storage.updateFileAfterMark(indexToMark + 1);
-                ui.printAfterMark(indexToMark, tasks);
-                break;
+                return ui.printAfterMark(indexToMark, tasks);
             case "unmark":
                 int indexToUnmark = java.lang.Integer.parseInt(task) - 1;
                 tasks.changeStatusOfTask(indexToUnmark);
                 storage.updateFileAfterUnmark(indexToUnmark + 1);
-                ui.printAfterUnmark(indexToUnmark, tasks);
-                break;
+                return ui.printAfterUnmark(indexToUnmark, tasks);
             case "delete":
                 int indexToDelete = java.lang.Integer.parseInt(task) - 1;
                 Task removedTask = tasks.deleteTask(indexToDelete);
                 storage.updateFileAfterDelete(indexToDelete + 1);
-                ui.printAfterDelete(tasks.getSize(), removedTask);
-                break;
+                return ui.printAfterDelete(tasks.getSize(), removedTask);
             case "find":
                 String keyword = task;
                 ArrayList<Task> tasksWithKeyword = tasks.findTaskUsingKeyword(keyword);
-                ui.printMatchingTasks(tasksWithKeyword);
-                break;
+                return ui.printMatchingTasks(tasksWithKeyword);
             }
         }
+        return "";
     }
 }
