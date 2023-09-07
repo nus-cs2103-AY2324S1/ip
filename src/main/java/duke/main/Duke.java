@@ -10,18 +10,17 @@ import java.io.IOException;
  */
 public class Duke {
 
+    private static final String FILE_PATH = "./tasks.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
     /**
      * Constructs a Duke object with the given file path.
-     *
-     * @param filePath The path to the file used for storing tasks.
      */
-    public Duke(String filePath) {
+    public Duke() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
         try {
             tasks = new TaskList(storage.load());
         } catch (IOException e) {
@@ -30,33 +29,27 @@ public class Duke {
         }
     }
 
+    public String initialise() {
+        ui.showWelcome();
+        return ui.getCurrentMessage();
+    }
+
     /**
      * Runs the chatbot application
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+    public void run(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    /**
-     * The main method that starts the chatbot application.
-     *
-     * @param args The command-line arguments.
-     */
-    public static void main(String[] args) {
-        new Duke("./tasks.txt").run();
+    public String getResponse(String input) {
+        run(input);
+        return ui.getCurrentMessage();
     }
-
 }
