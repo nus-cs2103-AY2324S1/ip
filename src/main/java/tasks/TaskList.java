@@ -56,11 +56,13 @@ public class TaskList {
     /**
      * Prints the list of tasks in the `TaskList`.
      */
-    public void printList() {
-        System.out.println("Here are the tasks in your list:");
+    public String printList() {
+        StringBuilder ans = new StringBuilder();
+        ans.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+            ans.append((i + 1) + ". " + tasks.get(i) + "\n");
         }
+        return ans.toString();
     }
 
     /**
@@ -68,16 +70,15 @@ public class TaskList {
      *
      * @param keyword The keyword to search for in task names.
      */
-    public void find(String keyword) {
+    public String find(String keyword) {
         int count = 0;
+        StringBuilder ans = new StringBuilder();
         for (Task task : tasks) {
             if (task.getName().contains(keyword)) {
                 count++;
-                System.out.println(count + ". " + task);
+                ans.append(count + ". " + task + "\n");
             }
         }
-        if (count == 0) {
-            System.out.println("No matching tasks found.");
-        }
+        return ans.toString();
     }
 }

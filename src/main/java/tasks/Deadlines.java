@@ -37,19 +37,21 @@ public class Deadlines extends Task {
 
     /**
      * Marks the `Deadlines` task as done and prints a message indicating the task is marked as done.
+     *
+     * @return
      */
     @Override
-    public void markDone() {
+    public String markDone() {
         super.markDone();
-        System.out.println("Oki, I've marked this task as done: \n" + this.toString());
+        return "Oki, I've marked this task as done: \n" + this.toString();
     }
 
     /**
      * Unmarks the `Deadlines` task as done and prints a message indicating the task is unmarked as done.
      */
     @Override
-    public void unmarkDone() {
+    public String unmarkDone() {
         super.unmarkDone();
-        System.out.println("Damn bro...unmarked this task :( : \n" + this.toString());
+        return "Damn bro...unmarked this task :( : \n" + this.toString();
     }
 }

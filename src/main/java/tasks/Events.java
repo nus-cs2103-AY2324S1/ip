@@ -44,17 +44,17 @@ public class Events extends Task {
      * Marks the `Events` task as done and provides feedback.
      */
     @Override
-    public void markDone() {
+    public String markDone() {
         super.markDone();
-        System.out.println("Oki, I've marked this event task as done: \n" + this.toString());
+        return "Oki, I've marked this event task as done: \n" + this.toString();
     }
 
     /**
      * Unmarks the `Events` task as done and provides feedback.
      */
     @Override
-    public void unmarkDone() {
+    public String unmarkDone() {
         super.unmarkDone();
-        System.out.println("Damn bro...unmarked this event task :( : \n" + this.toString());
+        return "Damn bro...unmarked this event task :( : \n" + this.toString();
     }
 }
