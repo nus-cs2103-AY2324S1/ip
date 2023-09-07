@@ -1,7 +1,7 @@
 package command;
 import duke.DukeException;
 import storage.Storage;
-import taskList.TaskList;
+import tasklist.TaskList;
 import ui.Ui;
 
 /**
@@ -32,20 +32,11 @@ public class UnknownCommand extends Command {
      * @param taskList The task list (not used in this command).
      * @param ui       The user interface for displaying error messages.
      * @param storage  The storage component (not used in this command).
+     * @return An error message indicating that the command is unknown.
      * @throws DukeException This exception is not thrown in this command.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        ui.showError(new DukeException("Unknown command: " + unknownCommand));
-    }
-
-    /**
-     * Indicates whether this command should exit the application.
-     *
-     * @return `false` because the unknown command does not exit the application.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        return ui.showError(new DukeException("Unknown command: " + unknownCommand));
     }
 }

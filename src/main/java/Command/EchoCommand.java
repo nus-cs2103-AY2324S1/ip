@@ -1,7 +1,7 @@
 package command;
 import duke.DukeException;
 import storage.Storage;
-import taskList.TaskList;
+import tasklist.TaskList;
 import ui.Ui;
 
 /**
@@ -31,20 +31,11 @@ public class EchoCommand extends Command {
      * @param taskList The task list (not used in this command).
      * @param ui       The user interface for displaying the echo message.
      * @param storage  The storage component (not used in this command).
+     * @return The echoed message.
      * @throws DukeException An exception may be thrown if there is an error executing the command (e.g., UI error).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        ui.showEcho(message);
-    }
-
-    /**
-     * Indicates whether this command should exit the application.
-     *
-     * @return `false` because the "Echo" command does not exit the application.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        return ui.showEcho(message);
     }
 }

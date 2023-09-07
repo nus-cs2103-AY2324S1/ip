@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  */
 public class DeadLine extends Task {
     protected LocalDateTime byDateTime;
-    protected String byDescription;
+    protected String by;
 
     /**
      * Constructs a new `DeadLine` task with the specified description and deadline.
@@ -21,10 +21,10 @@ public class DeadLine extends Task {
      * @param description   The description of the `DeadLine` task.
      * @param byDescription The deadline represented as a string.
      */
-    public DeadLine(String description, String byDescription) {
+    public DeadLine(String description, String by) {
         super(description);
-        this.byDescription = byDescription;
-        this.byDateTime = parseDateTime(byDescription);
+        this.by = by;
+        this.byDateTime = parseDateTime(by);
     }
 
     /**
@@ -40,7 +40,7 @@ public class DeadLine extends Task {
             return getTask() + getStatusIcon() + " " + description + " (by: "
                     + super.printDateTime(this.byDateTime) + ")";
         } else {
-            return getTask() + getStatusIcon() + " " + description + " (by: " + byDescription + ")";
+            return getTask() + getStatusIcon() + " " + description + " (by: " + by + ")";
         }
     }
 }

@@ -2,7 +2,7 @@ package command;
 import duke.DukeException;
 import storage.Storage;
 import task.Task;
-import taskList.TaskList;
+import tasklist.TaskList;
 import ui.Ui;
 
 /**
@@ -34,29 +34,20 @@ public class DeleteCommand extends Command {
      * @param taskList The task list from which the task should be deleted.
      * @param ui       The user interface for displaying feedback to the user.
      * @param storage  The storage component for saving the updated task list.
+     * @return A message indicating that the specified task has been successfully deleted.
      * @throws DukeException An exception may be thrown if:
      *                       - The specified task index is out of range.
      *                       - There is an error executing the command (e.g., storage error).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {
             Task removedTask = taskList.deleteTask(taskIndex);
-            ui.showDeletedTask(removedTask, taskList.getTaskCount());
             storage.saveTask(taskList.getTasks());
+            return ui.showDeletedTask(removedTask, taskList.getTaskCount());
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Task index is out of range!");
         }
-    }
-
-    /**
-     * Indicates whether this command should exit the application.
-     *
-     * @return `false` because the "Delete" command does not exit the application.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }
 

@@ -1,7 +1,7 @@
 package command;
 import duke.DukeException;
 import storage.Storage;
-import taskList.TaskList;
+import tasklist.TaskList;
 import ui.Ui;
 
 /**
@@ -21,24 +21,15 @@ public class ByeCommand extends Command {
      * @param taskList The task list (not used in this command).
      * @param ui       The user interface for displaying the goodbye message.
      * @param storage  The storage component for saving the task list (optional).
+     * @return A goodbye message.
      * @throws DukeException An exception may be thrown if there is an error executing
      *      the command (e.g., storage error).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        ui.showBye();
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (storage != null) {
             storage.saveTask(taskList.getTasks());
         }
-    }
-
-    /**
-     * Indicates whether this command should exit the application.
-     *
-     * @return `true` because the "Bye" command signals the application to exit.
-     */
-    @Override
-    public boolean isExit() {
-        return true;
+        return ui.showBye();
     }
 }

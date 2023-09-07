@@ -3,7 +3,7 @@ package command;
 import duke.DukeException;
 import storage.Storage;
 import task.Task;
-import taskList.TaskList;
+import tasklist.TaskList;
 import ui.Ui;
 
 /**
@@ -35,13 +35,14 @@ public class MarkCommand extends Command {
      * @param taskList The task list containing the task to be marked.
      * @param ui       The user interface for displaying feedback to the user.
      * @param storage  The storage component for saving the updated task list.
+     * @return A message indicating that the task has been marked as done.
      * @throws DukeException An exception may be thrown if:
      *                       - The specified task index is out of range.
      *                       - The task is already marked as done.
      *                       - There is an error executing the command (e.g., storage error).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (taskIndex < 0 || taskIndex >= taskList.getTaskCount()) {
             throw new DukeException("Invalid task index.");
         }
@@ -51,23 +52,13 @@ public class MarkCommand extends Command {
 
             if (!taskToMark.checkIsDone()) {
                 taskToMark.isCompleted();
-                ui.showTaskMarked(taskToMark);
                 storage.saveTask(taskList.getTasks());
+                return ui.showTaskMarked(taskToMark);
             } else {
                 throw new DukeException("This task is already marked as done.");
             }
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Task index is out of range!");
         }
-    }
-
-    /**
-     * Indicates whether this command should exit the application.
-     *
-     * @return `false` because the "Mark" command does not exit the application.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

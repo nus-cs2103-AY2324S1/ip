@@ -2,7 +2,7 @@ package command;
 import duke.DukeException;
 import storage.Storage;
 import task.Task;
-import taskList.TaskList;
+import tasklist.TaskList;
 import ui.Ui;
 
 /**
@@ -31,10 +31,11 @@ public class UnmarkCommand extends Command {
      * @param taskList The task list where the task is stored.
      * @param ui       The user interface for displaying messages.
      * @param storage  The storage component for saving task data.
+     * @return A message indicating that the task has been unmarked as done.
      * @throws DukeException If there is an issue executing the unmark command.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (taskIndex < 0 || taskIndex >= taskList.getTaskCount()) {
             throw new DukeException("Invalid task index.");
         }
@@ -44,23 +45,13 @@ public class UnmarkCommand extends Command {
 
             if (taskToUnmark.checkIsDone()) {
                 taskToUnmark.isNotCompleted();
-                ui.showTaskUnmarked(taskToUnmark);
                 storage.saveTask(taskList.getTasks());
+                return ui.showTaskUnmarked(taskToUnmark);
             } else {
                 throw new DukeException("This task is already marked as done.");
             }
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Task index is out of range!");
         }
-    }
-
-    /**
-     * Indicates whether this command should exit the application.
-     *
-     * @return `false` because the unmark command does not exit the application.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

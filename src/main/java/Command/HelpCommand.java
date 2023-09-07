@@ -1,6 +1,6 @@
 package command;
 import storage.Storage;
-import taskList.TaskList;
+import tasklist.TaskList;
 import ui.Ui;
 
 /**
@@ -21,19 +21,10 @@ public class HelpCommand extends Command {
      * @param taskList The task list (not used in this command).
      * @param ui       The user interface for displaying the list of available commands.
      * @param storage  The storage component (not used in this command).
+     * @return A message displaying a list of available commands.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showCommands();
-    }
-
-    /**
-     * Indicates whether this command should exit the application.
-     *
-     * @return `false` because the "Help" command does not exit the application.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.showCommands();
     }
 }

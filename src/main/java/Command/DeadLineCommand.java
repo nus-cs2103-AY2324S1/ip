@@ -2,7 +2,7 @@ package command;
 import duke.DukeException;
 import storage.Storage;
 import task.DeadLine;
-import taskList.TaskList;
+import tasklist.TaskList;
 import ui.Ui;
 
 /**
@@ -36,24 +36,15 @@ public class DeadLineCommand extends Command {
      * @param taskList The task list to which the deadline task should be added.
      * @param ui       The user interface for displaying feedback to the user.
      * @param storage  The storage component for saving the updated task list.
+     * @return A message indicating that the deadline task has been added.
      * @throws DukeException An exception may be thrown if there is an error executing the
      *      command (e.g., storage error).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         DeadLine deadline = new DeadLine(description, by);
         taskList.addTask(deadline);
-        ui.showTaskAdded(deadline, taskList.getTaskCount());
         storage.saveTask(taskList.getTasks());
-    }
-
-    /**
-     * Indicates whether this command should exit the application.
-     *
-     * @return `false` because the "Deadline" command does not exit the application.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        return ui.showTaskAdded(deadline, taskList.getTaskCount());
     }
 }

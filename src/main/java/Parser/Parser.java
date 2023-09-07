@@ -109,7 +109,7 @@ public class Parser {
             return new ToDoCommand(todoTask);
         case "add":
             String addDesc = input.substring(4).trim();
-            Task addTask = new ToDo(addDesc);
+            Task addTask = new Add(addDesc);
             return new AddCommand(addTask);
         case "deadline":
             String deadlineDesc = input.substring(8).trim(); // Extract the description
