@@ -46,7 +46,7 @@ public class Harvard {
                 ui.displayError(e);
             }
         }
-        return "";
+        return "Harvard has left the chat";
     }
     /**
      * The main method.
