@@ -42,7 +42,7 @@ public class AddDeadlineCommand extends Command {
         int size = tasks.getSize();
         ui.showMessage(String.format("Got it. I've added this task:\n  %s\n"
                 + "Now you have %d tasks in the list", task, size));
-        storage.save(tasks);
+        storage.saveTasks(tasks);
     }
 
     @Override
