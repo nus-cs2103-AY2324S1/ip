@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javafx.application.Platform;
 import jo.task.Task;
 
 /**
@@ -13,6 +14,7 @@ import jo.task.Task;
  */
 public class Ui {
     private final Scanner scanner;
+    private final ArrayList<String> messageBuffer = new ArrayList<>();
 
     /**
      * Constructs a new `Ui` object with a `Scanner` for reading user input.
@@ -35,24 +37,28 @@ public class Ui {
      * Displays a welcome message when the application starts.
      */
     public void showWelcome() {
-        System.out.println("> Hello! I'm Jo.\n> What can I do for you?");
+        String message = "Hello! I'm Jo.\n What can I do for you?";
+        bufferMessage(message);
     }
 
     /**
      * Displays a farewell message when the application is about to exit.
      */
     public void sayBye() {
-        System.out.println("> Bye. Hope to see you again soon!");
+        String message = "Bye. Hope to see you again soon!";
+        bufferMessage(message);
         this.scanner.close();
+        Platform.exit();
     }
 
     /**
      * Displays an error message to the user.
      *
-     * @param message The error message to display.
+     * @param input The error message to display.
      */
-    public void showError(String message) {
-        System.out.println("> OOPS!!! " + message);
+    public void showError(String input) {
+        String message = "OOPS!!! " + input;
+        bufferMessage(message);
     }
 
     /**
@@ -62,13 +68,13 @@ public class Ui {
      * @param isDone `true` if the task was marked as done, `false` if marked as undone.
      */
     public void markResult(Task task, boolean isDone) {
+        String message = "";
         if (isDone) {
-            System.out.println("> Nice! I've marked this task as done:");
-            System.out.println("\t" + task);
+            message = "Nice! I've marked this task as done:\n";
         } else {
-            System.out.println("> OK, I've marked this task as not done yet:");
-            System.out.println("\t" + task);
+            message = "OK, I've marked this task as not done yet:\n";
         }
+        bufferMessage(message + "\t" + task.toString());
     }
 
     /**
@@ -79,13 +85,15 @@ public class Ui {
      * @param isAdd     `true` if a task was added, `false` if a task was removed.
      */
     public void modifyListResult(Task task, TaskList taskList, boolean isAdd) {
+        String message = "";
         if (isAdd) {
-            System.out.println("> Got it. I've added this task:");
+            message = "Got it. I've added this task:\n";
         } else {
-            System.out.println("> Noted. I've removed this task:");
+            message = "Noted. I've removed this task:\n";
         }
-        System.out.println("\t" + task.toString());
-        System.out.printf("> Now you have %d tasks in the list.%n", taskList.getSize());
+        message += "\t" + task.toString();
+        message += String.format("Now you have %d tasks in the list.%n", taskList.getSize());
+        bufferMessage(message);
     }
 
     /**
@@ -94,16 +102,17 @@ public class Ui {
      * @param deadline     The deadline date for which tasks are displayed.
      * @param resultList   The list of tasks that match the deadline.
      */
-    public void searchResult(LocalDate deadline, ArrayList<Task> resultList) {
-        System.out.println("> Here are the tasks that are due on "
-                + deadline.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ": ");
+    public void findDeadlineResult(LocalDate deadline, ArrayList<Task> resultList) {
+        String message = "Here are the tasks that are due on "
+                + deadline.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ":\n";
         if (!resultList.isEmpty()) {
             for (Task t : resultList) {
-                System.out.println("\t" + t);
+                message += "\t" + t;
             }
         } else {
-            System.out.println("\tYay, you have no task due on this day!");
+            message += "\tYay, you have no task due on this day!";
         }
+        bufferMessage(message);
     }
 
     /**
@@ -111,15 +120,17 @@ public class Ui {
      *
      * @param resultList An ArrayList of tasks that match the search criteria.
      */
-    public void findResult(ArrayList<Task> resultList) {
+    public void findKeywordResult(ArrayList<Task> resultList) {
+        String message = "";
         if (!resultList.isEmpty()) {
-            System.out.println("> Here are the matching tasks in your list: ");
+            message += "Here are the matching task(s) in your list: \n";
             for (Task t : resultList) {
-                System.out.println("\t" + t);
+                message += "\t" + t;
             }
         } else {
-            System.out.println("> No matching tasks found.");
+            message += "No matching tasks found.";
         }
+        bufferMessage(message);
     }
 
     /**
@@ -128,11 +139,32 @@ public class Ui {
      * @param taskList The task list to display.
      */
     public void printList(TaskList taskList) {
-        System.out.println("> Here are the tasks in your list:");
+        String message = "Here are the tasks in your list:\n";
 
         for (int i = 0; i < taskList.getSize(); i++) {
             Task t = taskList.getTask(i);
-            System.out.println("\t" + (i + 1) + ". " + t.toString());
+            message += "\t" + (i + 1) + ". " + t.toString();
         }
+
+        bufferMessage(message);
+    }
+
+    /**
+     * Adds the message to a buffer
+     * @param message A string message
+     */
+    private void bufferMessage(String message) {
+        System.out.println(message);
+        messageBuffer.add(message);
+    }
+
+    /**
+     * Returns the messages stored in the buffer and clears the buffer
+     * @return Messages in the buffer
+     */
+    public String flushBuffer() {
+        String combinedMessage = String.join("\n", messageBuffer);
+        messageBuffer.clear();
+        return combinedMessage;
     }
 }

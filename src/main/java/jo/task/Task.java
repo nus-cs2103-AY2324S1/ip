@@ -34,7 +34,7 @@ public class Task {
      * @return A string in the format: "[T][Status] Description".
      */
     public String toString() {
-        return String.format("[T][%s] %s", this.getStatusIcon(), this.description);
+        return String.format("[T][%s] %s\n", this.getStatusIcon(), this.description);
     }
 
     /**

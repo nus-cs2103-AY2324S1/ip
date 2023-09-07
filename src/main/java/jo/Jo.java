@@ -7,11 +7,13 @@ import jo.command.Command;
  * It allows users to interact with tasks through a command-line interface.
  */
 public class Jo {
-    protected static String filePath = "data/jo.txt";
+
+    protected static String DEFAULT_FILE_PATH = "data/jo.txt";
 
     private Storage storage;
     private TaskList tasks;
     private final Ui ui;
+    private boolean isExit = false;
 
     /**
      * Constructs a new Jo object with the specified file path.
@@ -29,25 +31,55 @@ public class Jo {
         }
     }
 
+    public Jo() throws JoException {
+        this(DEFAULT_FILE_PATH);
+    }
+
     /**
      * Runs the Jo application, displaying the welcome message and processing user commands.
      */
     public void run() {
         ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
+        while (!this.isExit) {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
-                isExit = c.isExit();
+                this.isExit = c.isExit();
             } catch (JoException e) {
                 ui.showError(e.getMessage());
             }
+
         }
     }
 
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    String getResponse(String input) throws JoException {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+            if (c.isExit()) {
+                this.isExit = true;
+            }
+        } catch (JoException e) {
+            ui.showError(e.getMessage());
+        }
+
+        return ui.flushBuffer();
+    }
+
     public static void main(String[] args) throws JoException {
-        new Jo(filePath).run();
+        new Jo(DEFAULT_FILE_PATH).run();
+    }
+
+    /**
+     * Returns whether Jo is ready to be terminated.
+     * @return Boolean indicating if Jo received an ExitCommand
+     */
+    public boolean shouldExit() {
+        return this.isExit;
     }
 }

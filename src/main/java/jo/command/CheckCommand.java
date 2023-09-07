@@ -33,7 +33,7 @@ public class CheckCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JoException {
-        ui.searchResult(this.deadline, tasks.search(this.deadline));
+        ui.findDeadlineResult(this.deadline, tasks.search(this.deadline));
     }
 
     /**
