@@ -16,7 +16,7 @@ public abstract class Command {
      * @param storage Storage of the session
      * @throws DukeException if errors occur
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 
     /**
      * Returns if app should quit after executing this command.

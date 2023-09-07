@@ -12,10 +12,13 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        String returnMessage = "Looking at your tasks again to remind yourself is good,"
+                + " but remember to actually do them:";
         for (int i = 1; i <= tasks.getLength(); i++) {
             Task t = tasks.getTask((i-1));
-            System.out.format("%d. " + t.toString() + "\n", i);
+            returnMessage.concat(i + ". " + t.toString() + "\n");
         }
+        return returnMessage;
     }
 }

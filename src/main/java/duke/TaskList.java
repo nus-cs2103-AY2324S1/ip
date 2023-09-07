@@ -66,7 +66,7 @@ public class TaskList {
      * @param index Task number to be deleted
      * @throws DukeException errors that occur due to invalid user input
      */
-    public void delete(int index) throws DukeException {
+    public String delete(int index) throws DukeException {
         if (index < 0 || index > tasks.size()-1) {
             throw new DukeException("Wow, deleting a nonexistent task? Check your tasks again with 'list'.");
         }
@@ -75,7 +75,7 @@ public class TaskList {
         String returnLine = "Looks like you have more time to sleep now. Deleted this for you:\n"
                 + t.toString()
                 + "\nYou now have " + tasks.size() + " things to do.\n";
-        System.out.println(returnLine);
+        return returnLine;
     }
 
     /**

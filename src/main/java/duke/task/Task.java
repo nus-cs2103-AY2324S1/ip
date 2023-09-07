@@ -30,19 +30,19 @@ public class Task {
     /**
      * Marks a task as done.
      */
-    public void markAsDone() {
+    public String markAsDone() {
         this.isDone = true;
-        System.out.format("Someone's productive. Marked it done for you:\n"
-        + " [%s]" + " %s\n" , this.getStatusIcon(), this.description);
+        return "Someone's productive. Marked it done for you:\n"
+                + " [" + this.getStatusIcon() + "] " + this.description + "\n";
     }
 
     /**
      * Marks the task as not done.
      */
-    public void markAsUndone() {
+    public String markAsUndone() {
         this.isDone = false;
-        System.out.format("What happened to being productive? Marked it as not done yet:\n"
-                + " [%s]" + " %s\n" , this.getStatusIcon(), this.description);
+        return "What happened to being productive? Marked it as not done yet:\n"
+                + " [" + this.getStatusIcon() + "] " + this.description + "\n";
     }
 
     /**

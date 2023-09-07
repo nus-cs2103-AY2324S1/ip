@@ -15,10 +15,11 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
-            tasks.delete(index);
+            String deleteMessage = tasks.delete(index);
             storage.writeData(tasks.toWriteString());
+            return deleteMessage;
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Wow, that's a nonexistent task. Check your tasks again with 'list'.");
         }
