@@ -2,6 +2,7 @@ package dukeutilities;
 
 import task.Task;
 
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,7 +19,7 @@ public class FileHandler {
     /**
      * Constructs a FileHandler object with the specified file and directory names.
      *
-     * @param fileName     The name of the file to be handled.
+     * @param fileName      The name of the file to be handled.
      * @param directoryName The name of the directory where the file resides.
      */
     public FileHandler(String fileName, String directoryName) {
@@ -47,7 +48,7 @@ public class FileHandler {
         if (!file.exists()) {
             try {
                 file.createNewFile();
-            } catch (IOException e ) {
+            } catch (IOException e) {
                 System.out.println("Error generating task list");
             }
         }

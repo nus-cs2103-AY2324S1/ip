@@ -27,18 +27,22 @@ public class DeleteCommand extends Command {
      * Executes the delete command, removing the task from the task list and updating storage.
      *
      * @param taskList The task list to operate on.
-     * @param storage The storage handler for reading/writing tasks.
-     * @param ui The user interface for displaying messages.
+     * @param storage  The storage handler for reading/writing tasks.
+     * @param ui       The user interface for displaying messages.
      * @throws DukeException If there is an error executing the command.
      */
     @Override
-    public void execute(TaskList taskList, Storage storage, Ui ui) throws DukeException {
+    public String execute(TaskList taskList, Storage storage, Ui ui) throws DukeException {
         try {
-            taskList.deleteTask(this.taskToDeleteIndex);
+            String taskRemoved = taskList.getTaskInString(taskToDeleteIndex);
+            taskList.deleteTask(taskToDeleteIndex);
+            storage.writeListToFile(taskList);
+            String s = String.format("Okay! I have removed the following task from the list:\n %s\n %s",
+                    taskRemoved, taskList.NumberOfTaskListInString());
+            return s;
         } catch (IndexOutOfBoundsException e) {
-        throw new DukeException("This task does not exist! Try again!");
-    }
-        storage.writeListToFile(taskList);
-        taskList.printTaskListInString();
+            throw new DukeException("This task does not exist! Try again!");
+        }
+
     }
 }

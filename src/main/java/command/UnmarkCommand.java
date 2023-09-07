@@ -18,7 +18,8 @@ public class UnmarkCommand extends Command {
      */
     public UnmarkCommand(String fullCommand) {
         super(false);
-        String[] parts = fullCommand.split(" "); {
+        String[] parts = fullCommand.split(" ");
+        {
             int taskIndex = Integer.parseInt(parts[1]) - 1;
             this.index = taskIndex;
         }
@@ -28,20 +29,22 @@ public class UnmarkCommand extends Command {
      * Executes the unmark command, unmarking the task and updating storage.
      *
      * @param taskList The task list to operate on.
-     * @param storage The storage handler for reading/writing tasks.
-     * @param ui The user interface for displaying messages.
+     * @param storage  The storage handler for reading/writing tasks.
+     * @param ui       The user interface for displaying messages.
      * @throws DukeException If there is an error executing the command.
      */
     @Override
-    public void execute(TaskList taskList, Storage storage, Ui ui) throws DukeException {
+    public String execute(TaskList taskList, Storage storage, Ui ui) throws DukeException {
         try {
             taskList.unmarkTask(index);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("This task does not exist! Try again!");
         }
         storage.writeListToFile(taskList);
-        ui.showMarkTaskMessage(taskList.getTaskInString(index), false);
-        }
+        String s = String.format("Aw man! I have marked this task as undone. We go again!\n %s",
+                taskList.getTaskInString(index));
+        return s;
     }
+}
 
 

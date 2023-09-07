@@ -31,6 +31,10 @@ public class Duke {
      * Runs the Duke application, handling user input and executing commands.
      */
     public void run() {
+        ui = new Ui();
+        storage = new Storage("duke.txt", "data");
+        tasks = new TaskList();
+        /*
         ui.showWelcomeMessage();
         boolean isExit = false;
         while (!isExit) {
@@ -48,6 +52,7 @@ public class Duke {
                 ui.showLine();
             }
         }
+        */
     }
 
     /**
@@ -55,7 +60,14 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, storage, ui);
+        } catch (DukeException e) {
+            return e.getMessage();
+        } catch (DateTimeParseException e) {
+            return "Incorrect format input";
+        }
     }
 
     /**

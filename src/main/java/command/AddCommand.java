@@ -27,13 +27,15 @@ public class AddCommand extends Command {
      * Executes the add command, adding the task to the task list and updating storage.
      *
      * @param taskList The task list to operate on.
-     * @param storage The storage handler for reading/writing tasks.
-     * @param ui The user interface for displaying messages.
+     * @param storage  The storage handler for reading/writing tasks.
+     * @param ui       The user interface for displaying messages.
      */
     @Override
-    public void execute(TaskList taskList, Storage storage, Ui ui) {
-        taskList.addTask(this.taskToAdd, true);
+    public String execute(TaskList taskList, Storage storage, Ui ui) {
+        taskList.addTask(this.taskToAdd);
         storage.writeListToFile(taskList);
-        taskList.printTaskListInString();
+        String s = String.format("Roger! I have added the following task to the list:\n %s\n %s",
+                this.taskToAdd.toString(), taskList.NumberOfTaskListInString());
+        return s;
     }
 }

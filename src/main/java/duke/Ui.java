@@ -85,9 +85,7 @@ public class Ui {
      * @param taskList The TaskList containing tasks to be displayed.
      */
     public void showList(TaskList taskList) {
-        for (int i = 1; i < taskList.getLength() + 1; i++) {
-            System.out.println(i + ". " + taskList.getTaskInString(i - 1));
-        }
+        StringBuilder result = new StringBuilder();
         taskList.printTaskListInString();
     }
 
@@ -105,3 +103,4 @@ public class Ui {
                 taskList.getLength()));
     }
 }
+
