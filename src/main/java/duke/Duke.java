@@ -43,6 +43,9 @@ public class Duke extends Application {
 
     @Override
     public void start(Stage stage) {
+        // Read file
+        Storage.readTask(tasks, ui);
+
         //Step 1. Setting up required components
 
         //The container for the content of the chat to scroll.
