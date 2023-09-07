@@ -1,4 +1,13 @@
-package duke;
+package uke;
+
+import uke.exception.UkeDataFileException;
+import uke.exception.UkeException;
+import uke.exception.UkeInvalidTaskStringException;
+import uke.task.Deadline;
+import uke.task.Event;
+import uke.task.Task;
+import uke.task.TaskList;
+import uke.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,9 +37,9 @@ public class Storage {
     /**
      * Creates a directory and text file if and only if directory and text file do not already exist.
      *
-     * @throws DukeException If error is encountered creating the text file.
+     * @throws UkeException If error is encountered creating the text file.
      */
-    public void createDataFile() throws DukeException {
+    public void createDataFile() throws UkeException {
         File dataFile = new File(this.path);
         File dataDir = new File(dataFile.getParent());
         dataDir.mkdir();
@@ -38,7 +47,7 @@ public class Storage {
         try {
             dataFile.createNewFile();
         } catch (IOException e) {
-            throw new DukeDataFileException();
+            throw new UkeDataFileException();
         }
     }
 
@@ -64,9 +73,9 @@ public class Storage {
      * Updates the text file with the newest state of the task list.
      *
      * @param storedTasks Task list with all stored tasks.
-     * @throws DukeDataFileException If error is encountered accessing the text file.
+     * @throws UkeDataFileException If error is encountered accessing the text file.
      */
-    public void update(TaskList storedTasks) throws DukeDataFileException {
+    public void update(TaskList storedTasks) throws UkeDataFileException {
         File dataFile = new File(this.path);
 
         try {
@@ -75,16 +84,17 @@ public class Storage {
             writer.write(updatedTaskList);
             writer.close();
         } catch (IOException e) {
-            throw new DukeDataFileException();
+            throw new UkeDataFileException();
         }
     }
 
     /**
      * Loads the task list from the text file into an ArrayList.
+     * Create a text file if file does not exist yet.
      *
-     * @throws DukeInvalidTaskStringException If line in text file is not correctly formatted.
+     * @throws UkeInvalidTaskStringException If line in text file is not correctly formatted.
      */
-    public ArrayList<Task> loadTaskList() throws DukeInvalidTaskStringException {
+    public ArrayList<Task> loadTaskList() throws UkeException {
         ArrayList<Task> taskList = new ArrayList<>();
         File dataFile = new File(this.path);
 
@@ -96,6 +106,7 @@ public class Storage {
             }
             sc.close();
         } catch (FileNotFoundException e) {
+            createDataFile();
             return taskList;
         }
 
@@ -105,9 +116,9 @@ public class Storage {
     /**
      * Converts the string representation of a task saved into the text file into a Task object.
      *
-     * @throws DukeInvalidTaskStringException If line in text file is not correctly formatted.
+     * @throws UkeInvalidTaskStringException If line in text file is not correctly formatted.
      */
-    public Task convertStrToTask(String str) throws DukeInvalidTaskStringException {
+    public Task convertStrToTask(String str) throws UkeInvalidTaskStringException {
         String[] strArr = str.split("//");
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
         Task t;
@@ -125,7 +136,7 @@ public class Storage {
                     LocalDateTime.parse(strArr[4], dateTimeFormatter));
             break;
         default:
-            throw new DukeInvalidTaskStringException();
+            throw new UkeInvalidTaskStringException();
         }
 
         if (isDone) {

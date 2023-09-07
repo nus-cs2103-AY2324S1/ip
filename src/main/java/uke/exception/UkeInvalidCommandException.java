@@ -1,9 +1,9 @@
-package duke;
+package uke.exception;
 
 /**
- * Represents a Duke exception when an invalid command is entered.
+ * Represents a Uke exception when an invalid command is entered.
  */
-public class DukeInvalidCommandException extends DukeException {
+public class UkeInvalidCommandException extends UkeException {
 
     private String command;
 
@@ -12,7 +12,7 @@ public class DukeInvalidCommandException extends DukeException {
      *
      * @param command Invalid command entered.
      */
-    public DukeInvalidCommandException(String command) {
+    public UkeInvalidCommandException(String command) {
         this.command = command;
     }
 

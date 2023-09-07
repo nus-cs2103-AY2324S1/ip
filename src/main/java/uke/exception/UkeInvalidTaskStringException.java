@@ -1,9 +1,9 @@
-package duke;
+package uke.exception;
 
 /**
- * Represents a Duke exception when task file contains an unreadable task.
+ * Represents a Uke exception when task file contains an unreadable task.
  */
-public class DukeInvalidTaskStringException extends DukeException {
+public class UkeInvalidTaskStringException extends UkeException {
 
     /**
      * Returns the string representation of the exception.

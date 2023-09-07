@@ -1,9 +1,9 @@
-package duke;
+package uke.exception;
 
 /**
- * Represents a Duke exception when a command is entered without necessary argument(s).
+ * Represents a Uke exception when a command is entered without necessary argument(s).
  */
-public class DukeMissingArgumentException extends DukeException {
+public class UkeMissingArgumentException extends UkeException {
 
     /**
      * Returns the string representation of the exception.

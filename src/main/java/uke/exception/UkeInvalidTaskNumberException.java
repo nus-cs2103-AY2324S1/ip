@@ -1,9 +1,9 @@
-package duke;
+package uke.exception;
 
 /**
- * Represents a Duke exception when an invalid task number is entered.
+ * Represents a Uke exception when an invalid task number is entered.
  */
-public class DukeInvalidTaskNumberException extends DukeException {
+public class UkeInvalidTaskNumberException extends UkeException {
 
     private String taskNum;
 
@@ -12,7 +12,7 @@ public class DukeInvalidTaskNumberException extends DukeException {
      *
      * @param taskNum Invalid task number entered.
      */
-    public DukeInvalidTaskNumberException(String taskNum) {
+    public UkeInvalidTaskNumberException(String taskNum) {
         this.taskNum = taskNum;
     }
 

@@ -1,9 +1,9 @@
-package duke;
+package uke.exception;
 
 /**
- * Represents a Duke exception.
+ * Represents a Uke exception.
  */
-public class DukeException extends Exception {
+public class UkeException extends Exception {
 
     /**
      * Returns the string representation of the exception.

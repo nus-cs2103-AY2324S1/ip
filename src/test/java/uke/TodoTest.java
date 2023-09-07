@@ -1,7 +1,8 @@
-package duke;
+package uke;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import uke.task.Todo;
 import org.junit.jupiter.api.Test;
 
 public class TodoTest {
