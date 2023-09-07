@@ -12,12 +12,22 @@ public class Duke {
 
                 switch (taskType) {
                     case "todo":
+
                         tasks[taskCount++] = new Todo(taskDescription);
+
                         break;
                     case "deadline":
                         String[] deadlineParts = taskDescription.split(" /by ");
                         if (deadlineParts.length == 2) {
-                            tasks[taskCount++] = new Deadline(deadlineParts[0], deadlineParts[1]);
+                            String deadlineTask = deadlineParts[0];
+                            String deadlineTime = deadlineParts[1];
+                            if (deadlineTask.trim().isEmpty()) {
+                                System.out.println("What kind of deadline do you have??");
+                            } else if (deadlineTime.trim().isEmpty()) {
+                                System.out.println("Can you tell me when is your deadline??");
+                            } else {
+                                tasks[taskCount++] = new Deadline(deadlineParts[0], deadlineParts[1]);
+                            }
                         } else {
                             System.out.println("Invalid deadline format.");
                         }
@@ -25,13 +35,24 @@ public class Duke {
                     case "event":
                         String[] eventParts = taskDescription.split(" /from | /to ");
                         if (eventParts.length == 3) {
-                            tasks[taskCount++] = new Event(eventParts[0], eventParts[1], eventParts[2]);
+                            String eventTask = eventParts[0];
+                            String eventStartTime = eventParts[1];
+                            String eventEndTime = eventParts[2];
+                            if (eventTask.trim().isEmpty()) {
+                                System.out.println("What event do you have?");
+                            } else if (eventStartTime.trim().isEmpty()) {
+                                System.out.println("When will the event start?");
+                            } else if (eventEndTime.trim().isEmpty()) {
+                                System.out.println("When will the event end?");
+                            } else {
+                                tasks[taskCount++] = new Event(eventParts[0], eventParts[1], eventParts[2]);
+                            }
                         } else {
                             System.out.println("Invalid event format.");
                         }
                         break;
                     default:
-                        System.out.println("Invalid task type.");
+                        System.out.println("Invalid command format.");
                         break;
                 }
 
@@ -41,7 +62,15 @@ public class Duke {
                     System.out.println("Now you have " + taskCount + " tasks in the list.");
                 }
             } else {
-                System.out.println("Invalid command format.");
+                if (parts[0].equalsIgnoreCase("todo")) {
+                    System.out.println("What you want to do?");
+                } else if (parts[0].equalsIgnoreCase("deadline")) {
+                    System.out.println("What deadline do you have??");
+                } else if (parts[0].equalsIgnoreCase("event")) {
+                    System.out.println("What event are you going to attend??");
+                } else {
+                    System.out.println("Sorry, I don't know what that means :(");
+                }
             }
         } else {
             System.out.println("Sorry, the task list is full.");
