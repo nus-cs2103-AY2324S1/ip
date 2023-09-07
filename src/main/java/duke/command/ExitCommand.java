@@ -13,8 +13,8 @@ public class ExitCommand extends Command {
      * @param storage The Storage instance that will update the file.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.printExitMessage();
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.printExitMessage();
     }
 
     /**

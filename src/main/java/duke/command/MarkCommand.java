@@ -25,11 +25,11 @@ public class MarkCommand extends Command {
      * @param storage The Storage instance that will update the file.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         Task task = taskList.mark(num);
-        ui.printMarkMessage(task);
         String toBeWritten = taskList.toString();
         storage.write(toBeWritten);
+        return ui.printMarkMessage(task);
     }
 
     /**

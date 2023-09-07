@@ -11,11 +11,11 @@ public class FindCommand extends Command {
         this.find = find;
     }
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         // add task into tasks, input coming from Parse class, Parse class is supposed to make the String into a duke.task.Task
         // print in ui
         // write in storage
-        ui.printFind(taskList.find(this.find));
+        return ui.printFind(taskList.find(this.find));
     }
 
     @Override

@@ -24,11 +24,11 @@ public class DeleteCommand extends Command {
      * @param storage The Storage instance that will update the file.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         Task task = taskList.delete(this.num);
-        ui.printDeletedTask(task, taskList.size());
         String toBeWritten = taskList.toString();
         storage.write(toBeWritten);
+        return ui.printDeletedTask(task, taskList.size());
     }
 
     /**
