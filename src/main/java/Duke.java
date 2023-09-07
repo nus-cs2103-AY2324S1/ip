@@ -1,3 +1,5 @@
+import command.Command;
+
 import parser.Parser;
 
 import storage.FileHandler;
@@ -5,7 +7,7 @@ import storage.TaskList;
 
 import ui.Ui;
 
-import command.Command;
+
 
 /**
  * Duke class is a simple chatbot that allows users
@@ -13,10 +15,11 @@ import command.Command;
  * list, and manage tasks.
  */
 public class Duke {
+
+    private static final String DATA_FILE_PATH = "data/TaskList.txt"; //The file path of the .txt file
     private FileHandler fileHandler; //FileHandler to read or write file.
     private TaskList task; // The list of task.
     private Ui ui; //The user interface.
-    private static final String DATA_FILE_PATH = "data/TaskList.txt"; //The file path of the .txt file
 
     /**
      * Constructs a Duke instance with the specified file path.
@@ -59,5 +62,6 @@ public class Duke {
     public static void main(String[] args) {
         new Duke(DATA_FILE_PATH).run();
     }
+
 }
 

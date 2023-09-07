@@ -1,9 +1,9 @@
 package taskmanager;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 class ToDoTest {
 
@@ -25,7 +25,5 @@ class ToDoTest {
         assertTrue(newtodo.equals(newtodo4));
         assertFalse(newtodo.equals(newtodo5));
         assertTrue(newtodo.equals(newtodo6));
-
     }
-
 }

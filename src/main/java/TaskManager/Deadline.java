@@ -3,14 +3,16 @@ package taskmanager;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A Deadline task type
+ */
 public class Deadline extends Task {
 
+    private static final DateTimeFormatter DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern("dd MMM yyyy h:mma");
     private String taskDesc; //task description
     private String dueDateStr; // due date in String
     private LocalDateTime dueDate; // due date in LocalDateTime
-
-    private static final DateTimeFormatter DATE_TIME_FORMATTER =
-                            DateTimeFormatter.ofPattern("dd MMM yyyy h:mma");
 
     /**
      * Constructs a new Event task with the specified description, completion status, and date-time information.
@@ -33,7 +35,7 @@ public class Deadline extends Task {
      */
     public Deadline(String completion, String taskDesc, String dueDateStr) {
         try {
-            if (completion.equals("1")){
+            if (completion.equals("1")) {
                 this.taskDesc = taskDesc.trim();
                 this.dueDateStr = dueDateStr.trim();
                 this.dueDate = LocalDateTime.parse(dueDateStr, DATE_TIME_FORMATTER);
@@ -96,7 +98,7 @@ public class Deadline extends Task {
         String str1 = String.format("[%s] ", x);
         String str2 = String.format(" (by: %s)", this.dueDateStr);
 
-        return "[D]" + str1 + this.taskDesc + str2 ;
+        return "[D]" + str1 + this.taskDesc + str2;
     }
 
     /**
@@ -128,7 +130,7 @@ public class Deadline extends Task {
      */
     public boolean isMatch(String keyword) {
         String[] split = taskDesc.split(" ");
-        for(int i = 0; i < split.length; i ++) {
+        for (int i = 0; i < split.length; i++) {
             if (keyword.equals(split[i])) {
                 return true;
             }

@@ -1,16 +1,16 @@
 package command;
 
+import storage.FileHandler;
+import storage.TaskList;
+
 import taskmanager.Deadline;
 
 import ui.Ui;
 
-import storage.TaskList;
-import storage.FileHandler;
-
 /**
  * Command to add a Deadlines task.
  */
-public class AddDeadlineCommand extends Command{
+public class AddDeadlineCommand extends Command {
     private String taskDesc;
     private String dueDateStr;
 

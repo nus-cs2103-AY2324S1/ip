@@ -1,13 +1,16 @@
 package taskmanager;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
+
 import parser.DateTime;
-import static org.junit.jupiter.api.Assertions.*;
 
 class EventTest {
 
     @Test
-    void testEvents()  {
+    void testEvents() {
 
         DateTime dateTime = new DateTime();
         String formattedDate = dateTime.formatDateTime("23/08/2023 1800");
@@ -27,7 +30,5 @@ class EventTest {
         assertFalse(newevent.equals(newevent2));
         assertFalse(newevent.equals(newevent3));
         assertTrue(newevent.equals(newevent4));
-
     }
-
 }

@@ -1,23 +1,25 @@
 package command;
 
+import storage.FileHandler;
+import storage.TaskList;
+
 import ui.Ui;
 
-import storage.TaskList;
-import storage.FileHandler;
 
 /**
  * Represents a miscellaneous command.
  */
-public class MiscCommand extends Command{
+public class MiscCommand extends Command {
 
     /**
      * Constructs a `MiscCommand` object.
      */
-    public MiscCommand(){
+    public MiscCommand() {
     }
 
     /**
-     * Executes the miscellaneous command, displaying a message to the user indicating that the command is not understood.
+     * Executes the miscellaneous command, displaying a message to the user
+     * indicating that the command is not understood.
      *
      * @param t  The task list (not used in this command).
      * @param ui The user interface to display the message.

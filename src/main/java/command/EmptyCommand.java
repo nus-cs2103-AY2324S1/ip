@@ -1,19 +1,19 @@
 package command;
 
-import ui.Ui;
-
-import storage.TaskList;
 import storage.FileHandler;
+import storage.TaskList;
+
+import ui.Ui;
 
 /**
  * An empty command.
  */
-public class EmptyCommand extends Command{
+public class EmptyCommand extends Command {
 
     /**
      * Constructs an `EmptyCommand` object.
      */
-    public EmptyCommand(){
+    public EmptyCommand() {
     }
 
     /**

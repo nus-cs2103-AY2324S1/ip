@@ -24,7 +24,7 @@ public class ToDo extends Task {
      */
     public ToDo(String taskDesc, String completion) {
         try {
-            if (completion.equals("1")){
+            if (completion.equals("1")) {
                 this.taskDesc = taskDesc.trim();
                 this.markDone();
             } else {
@@ -105,7 +105,7 @@ public class ToDo extends Task {
      */
     public boolean isMatch(String keyword) {
         String[] split = taskDesc.split(" ");
-        for(int i = 0; i < split.length; i ++) {
+        for (int i = 0; i < split.length; i++) {
             if (keyword.equals(split[i])) {
                 return true;
             }

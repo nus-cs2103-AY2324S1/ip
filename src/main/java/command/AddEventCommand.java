@@ -1,16 +1,16 @@
 package command;
 
-import ui.Ui;
-
-import storage.TaskList;
 import storage.FileHandler;
+import storage.TaskList;
 
 import taskmanager.Event;
+
+import ui.Ui;
 
 /**
  * Command to add an Events task.
  */
-public class AddEventCommand extends Command{
+public class AddEventCommand extends Command {
     private String taskDesc;
     private String to;
     private String from;
@@ -23,11 +23,9 @@ public class AddEventCommand extends Command{
      * @param to        The end date and time in string.
      */
     public AddEventCommand(String taskDesc, String from, String to) {
-
         this.taskDesc = taskDesc;
         this.from = from;
         this.to = to;
-
     }
 
     /**
@@ -39,14 +37,12 @@ public class AddEventCommand extends Command{
      */
     @Override
     public void execute(TaskList task, Ui ui, FileHandler f) {
-
         Event newEvent = new Event(taskDesc, from, to);
         if (newEvent.isValid()) {
             task.add(newEvent);
             FileHandler.writeTasksToFile(task);
             ui.addedEvent(newEvent);
         }
-
     }
 
     /**
@@ -56,8 +52,6 @@ public class AddEventCommand extends Command{
      */
     @Override
     public boolean isExit() {
-
         return false;
-
     }
 }

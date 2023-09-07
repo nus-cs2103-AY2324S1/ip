@@ -1,16 +1,16 @@
 package command;
 
-import ui.Ui;
-
-import storage.TaskList;
 import storage.FileHandler;
+import storage.TaskList;
 
 import taskmanager.ToDo;
+
+import ui.Ui;
 
 /**
  * Command to add a ToDos task.
  */
-public class AddTodoCommand extends Command{
+public class AddTodoCommand extends Command {
     private String taskDesc;
 
     /**

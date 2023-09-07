@@ -1,14 +1,13 @@
 package command;
 
-import ui.Ui;
-
-import storage.TaskList;
 import storage.FileHandler;
+import storage.TaskList;
 
+import ui.Ui;
 /**
  * A command to mark a task as not done.
  */
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
 
     private int index;
 
