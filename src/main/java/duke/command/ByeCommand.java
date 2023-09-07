@@ -22,8 +22,8 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        return;
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return "";
     }
 
     /**

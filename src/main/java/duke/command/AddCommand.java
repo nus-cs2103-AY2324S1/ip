@@ -33,7 +33,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         switch (this.taskType) {
         case "T":
             Task newTodo = new Todo(commandDetails.get(0));
@@ -41,32 +41,29 @@ public class AddCommand extends Command {
             try {
                 storage.appendToFile(newTodo);
             } catch (IOException e) {
-                throw new DukeException("☹ OOPS!!! There is something wrong with the description.");
+                throw new DukeException("OOPS!!! There is something wrong with the description.");
             }
-            ui.printTaskAdded(newTodo, tasks.size());
-            break;
+            return ui.printTaskAdded(newTodo, tasks.size());
         case "D":
             Task newDeadline = new Deadline(commandDetails.get(0), commandDetails.get(1));
             tasks.add(newDeadline);
             try {
                 storage.appendToFile(newDeadline);
             } catch (IOException e) {
-                throw new DukeException("☹ OOPS!!! There is something wrong with the description.");
+                throw new DukeException("OOPS!!! There is something wrong with the description.");
             }
-            ui.printTaskAdded(newDeadline, tasks.size());
-            break;
+            return ui.printTaskAdded(newDeadline, tasks.size());
         case "E":
             Task newEvent = new Event(commandDetails.get(0), commandDetails.get(1), commandDetails.get(2));
             tasks.add(newEvent);
             try {
                 storage.appendToFile(newEvent);
             } catch (IOException e) {
-                throw new DukeException("☹ OOPS!!! There is something wrong with the description.");
+                throw new DukeException("OOPS!!! There is something wrong with the description.");
             }
-            ui.printTaskAdded(newEvent, tasks.size());
-            break;
+            return ui.printTaskAdded(newEvent, tasks.size());
         default:
-            throw new DukeException("☹ OOPS!!! Something went wrong when adding the task.");
+            throw new DukeException("OOPS!!! Something went wrong when adding the task.");
         }
     }
 

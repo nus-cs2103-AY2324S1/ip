@@ -47,7 +47,7 @@ public class Parser {
             break;
         case "todo":
             if (firstSpaceIndex == -1 || strCommand.length() < 6) {
-                throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
             }
             String todoDesc = strCommand.substring(firstSpaceIndex + 1);
             commandDetailList.add(todoDesc);
@@ -57,7 +57,7 @@ public class Parser {
             int fromIndex = strCommand.indexOf("/from");
             int toIndex = strCommand.indexOf("/to");
             if (firstSpaceIndex == -1 || fromIndex == -1 || toIndex == -1 || toIndex < fromIndex) {
-                throw new DukeException("☹ OOPS!!! The format of the event command is invalid.\n"
+                throw new DukeException("OOPS!!! The format of the event command is invalid.\n"
                         + "Here is an example of a valid format:"
                         + " event coding /from 2023-01-01 /to 2023-12-31");
             }
@@ -65,7 +65,7 @@ public class Parser {
             String from = strCommand.substring(fromIndex + 6, toIndex - 1);
             String to = strCommand.substring(toIndex + 4);
             if (eventDesc.isBlank() || from.isBlank() || to.isBlank()) {
-                throw new DukeException("☹ OOPS!!! The format of the event command is invalid.\n"
+                throw new DukeException("OOPS!!! The format of the event command is invalid.\n"
                         + "Here is an example of a valid format:"
                         + " event coding /from 2023-01-01 /to 2023-12-31");
             }
@@ -77,14 +77,14 @@ public class Parser {
         case "deadline":
             int byIndex = strCommand.indexOf("/by");
             if (byIndex == -1 || firstSpaceIndex == -1) {
-                throw new DukeException("☹ OOPS!!! The format of the deadline command is invalid.\n"
+                throw new DukeException("OOPS!!! The format of the deadline command is invalid.\n"
                         + "Here is an example of a valid format:"
                         + " deadline coding /by 2023-09-04");
             }
             String deadlineDesc = strCommand.substring(firstSpaceIndex + 1, byIndex - 1);
             String by = strCommand.substring(byIndex + 4);
             if (deadlineDesc.isBlank() || by.isBlank()) {
-                throw new DukeException("☹ OOPS!!! The format of the deadline command is invalid.\n"
+                throw new DukeException("OOPS!!! The format of the deadline command is invalid.\n"
                         + "Here is an example of a valid format:"
                         + " deadline coding /by 2023-09-04");
             }
@@ -94,50 +94,50 @@ public class Parser {
             break;
         case "mark":
             if (firstSpaceIndex == -1 || strCommand.length() < 6) {
-                throw new DukeException("☹ OOPS!!! The task number to mark cannot be empty.");
+                throw new DukeException("OOPS!!! The task number to mark cannot be empty.");
             }
             String taskToMark = strCommand.substring(firstSpaceIndex + 1);
             if (taskToMark.isBlank()) {
-                throw new DukeException("☹ OOPS!!! The task number to mark cannot be empty.");
+                throw new DukeException("OOPS!!! The task number to mark cannot be empty.");
             }
             commandDetailList.add(taskToMark);
             command = new MarkCommand(commandDetailList);
             break;
         case "unmark":
             if (firstSpaceIndex == -1 || strCommand.length() < 8) {
-                throw new DukeException("☹ OOPS!!! The task number to unmark cannot be empty.");
+                throw new DukeException("OOPS!!! The task number to unmark cannot be empty.");
             }
             String taskToUnmark = strCommand.substring(firstSpaceIndex + 1);
             if (taskToUnmark.isBlank()) {
-                throw new DukeException("☹ OOPS!!! The task number to unmark cannot be empty.");
+                throw new DukeException("OOPS!!! The task number to unmark cannot be empty.");
             }
             commandDetailList.add(taskToUnmark);
             command = new UnmarkCommand(commandDetailList);
             break;
         case "delete":
             if (firstSpaceIndex == -1 || strCommand.length() < 8) {
-                throw new DukeException("☹ OOPS!!! The task number to delete cannot be empty.");
+                throw new DukeException("OOPS!!! The task number to delete cannot be empty.");
             }
             String taskToDelete = strCommand.substring(firstSpaceIndex + 1);
             if (taskToDelete.isBlank()) {
-                throw new DukeException("☹ OOPS!!! The task number to delete cannot be empty.");
+                throw new DukeException("OOPS!!! The task number to delete cannot be empty.");
             }
             commandDetailList.add(taskToDelete);
             command = new DeleteComand(commandDetailList);
             break;
         case "find":
             if (firstSpaceIndex == -1 || strCommand.length() < 8) {
-                throw new DukeException("☹ OOPS!!! The find keyword cannot be empty.");
+                throw new DukeException("OOPS!!! The find keyword cannot be empty.");
             }
             String keyword = strCommand.substring(firstSpaceIndex + 1);
             if (keyword.isBlank()) {
-                throw new DukeException("☹ OOPS!!! The find keyword cannot be empty.");
+                throw new DukeException("OOPS!!! The find keyword cannot be empty.");
             }
             commandDetailList.add(keyword);
             command = new FindCommand(commandDetailList);
             break;
         default:
-            throw new DukeException("☹ OOPS!!! This command is invalid.");
+            throw new DukeException("OOPS!!! This command is invalid.");
         }
         return command;
     }

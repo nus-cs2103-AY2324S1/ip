@@ -31,7 +31,7 @@ public abstract class Command {
      * @param storage The Storage object to read from or write to data storage.
      * @throws DukeException If there is an issue during command execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 
     /**
      * Checks if the command is an exit command.
