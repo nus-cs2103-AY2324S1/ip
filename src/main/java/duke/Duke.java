@@ -56,6 +56,6 @@ public class Duke {
      * @param args Command-line arguments (not used in this application).
      */
     public static void main(String[] args) {
-        new Duke("/Users/jamesbond/ip/src/main/data/jamesbond.txt").run();
+        new Duke("/Users/jamesbond/ip/data/jamesbond.txt").run();
     }
 }
