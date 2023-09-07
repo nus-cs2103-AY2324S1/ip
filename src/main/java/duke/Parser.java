@@ -83,8 +83,9 @@ public class Parser {
             } else if (userInput.startsWith("delete")) {
                 response = taskList.deleteTask(userInput);
                 taskList.updateTaskFile();
-            }
-            else {
+            } else if (userInput.equals("i love u")) {
+                response = "i love u too <3";
+            } else {
                 throw new InvalidInputException("Invalid Input");
             }
         } catch (InvalidInputException | EmptyTaskException | EmptyDateException | OutOfRangeException |

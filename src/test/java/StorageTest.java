@@ -1,6 +1,7 @@
 import duke.*;
 import exceptions.ParseTaskFromStringException;
 import org.junit.jupiter.api.Test;
+import tasks.Event;
 
 import java.time.LocalDateTime;
 

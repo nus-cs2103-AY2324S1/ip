@@ -1,59 +1,27 @@
 package duke;
 
-import exceptions.DukeException;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import tasks.Task;
 
-import javafx.application.Application;
+import exceptions.DukeException;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.geometry.Pos;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.image.Image;
-import javafx.stage.Stage;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
+import javafx.scene.layout.VBox;
 
-import static duke.CaptureSystemOutput.captureOutput;
-
-/**
- * Duke is a task management application that allows users to manage their tasks.
- * It provides features to add, mark, unmark, and delete tasks, and also displays the list of tasks.
- */
-public class Duke extends Application {
+public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
     static ArrayList<Task> taskArray = new ArrayList<>();
-    static TaskList taskList =  new TaskList(taskArray);
-    @FXML
-    private ScrollPane scrollPane;
+    static TaskList taskList = new TaskList(taskArray);
     @FXML
     private VBox dialogContainer;
-    @FXML
-    private TextField userInput;
-    @FXML
-    private Button sendButton;
-    private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/girl.jpg"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/duke.jpg"));
-    private static String dukeResponse;
-
-    public static void setResponse(String response) {
-        dukeResponse = response;
-    }
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/girl.jpg"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke.jpg"));
 
     /**
      * Constructs a Duke instance with the specified file path for task storage.
@@ -71,11 +39,7 @@ public class Duke extends Application {
         }
     }
 
-    /**
-     * Runs the Duke application, handling user interactions and task management.
-     */
-    public void run() {
-        Ui.printWelcomeMessage();
+    public String loadTasks() {
         String dukeText;
         try {
             taskList = new TaskList(Storage.load());
@@ -95,10 +59,16 @@ public class Duke extends Application {
             System.out.println("Error: " + e.getMessage());
             dukeText = "Error: " + e.getMessage();
         }
+        return dukeText;
+    }
 
-        Label dukeLabel = new Label(dukeText);
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(dukeLabel, new ImageView(duke)));
 
+    /**
+     * Runs the Duke application, handling user interactions and task management.
+     */
+    public void run() {
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(Ui.printWelcomeMessage(), dukeImage));
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(loadTasks(), dukeImage));
         Scanner scanner = new Scanner(System.in);
         String userInput;
 
@@ -113,7 +83,6 @@ public class Duke extends Application {
         scanner.close();
     }
 
-
     /**
      * The main method to start the Duke application.
      *
@@ -121,80 +90,6 @@ public class Duke extends Application {
      */
     public static void main(String[] args) {
         new Duke().run();
-    }
-
-    @Override
-    public void start(Stage stage) {
-        //Step 1. Setting up required components
-
-        //The container for the content of the chat to scroll.
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
-        userInput = new TextField();
-        sendButton = new Button("Send");
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        scene = new Scene(mainLayout);
-
-        stage.setScene(scene);
-        stage.show();
-
-        //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
-        stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
-
-        mainLayout.setPrefSize(400.0, 600.0);
-
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        // You will need to import `javafx.scene.layout.Region` for this.
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
-
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput , 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
-
-        //Step 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        userInput.setOnAction((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        //Scroll down to the end every time dialogContainer's height changes.
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
-        //Part 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
     }
 
     /**
@@ -209,60 +104,6 @@ public class Duke extends Application {
         textToAdd.setWrapText(true);
 
         return textToAdd;
-    }
-
-    public static class DialogBox extends HBox {
-
-        private Label text;
-        private ImageView displayPicture;
-
-        public DialogBox(Label l, ImageView iv) {
-            text = l;
-            displayPicture = iv;
-
-            text.setWrapText(true);
-            displayPicture.setFitWidth(100.0);
-            displayPicture.setFitHeight(100.0);
-
-            this.setAlignment(Pos.TOP_RIGHT);
-            this.getChildren().addAll(text, displayPicture);
-        }
-
-        /**
-         * Flips the dialog box such that the ImageView is on the left and text on the right.
-         */
-        private void flip() {
-            this.setAlignment(Pos.TOP_LEFT);
-            ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-            FXCollections.reverse(tmp);
-            this.getChildren().setAll(tmp);
-        }
-
-        public static DialogBox getUserDialog(Label l, ImageView iv) {
-            return new DialogBox(l, iv);
-        }
-
-        public static DialogBox getDukeDialog(Label l, ImageView iv) {
-            var db = new DialogBox(l, iv);
-            db.flip();
-            return db;
-        }
-    }
-
-    /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
-    @FXML
-    private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
-        );
-        userInput.clear();
     }
 
     /**

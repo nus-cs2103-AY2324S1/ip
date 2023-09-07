@@ -14,9 +14,9 @@ public class Ui {
      * Prints a welcome message to the user.
      */
     public static String printWelcomeMessage() {
-        System.out.println("Hello! I'm BbabBBB");
+        System.out.println("Hi! I'm Philip");
         System.out.println("What can I do for you?");
-        return "Hello! I'm BbabBBB\n" + "What can I do for you?";
+        return "Hi! I'm Philip. " + "What can I do for you?";
     }
 
     /**
