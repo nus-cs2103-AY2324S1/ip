@@ -5,23 +5,25 @@ import chatterchicken.tasklist.TaskList;
 
 import java.util.ArrayList;
 
+/**
+ * The Ui class handles user interface interactions for the ChatterChicken task manager application.
+ * It provides methods to display messages and task-related information to the user.
+ */
 public class Ui {
 
     private static final String LINE = "\n    _____________________________________________________________________________\n";
-
     private static final String INDENT = "      ";
     private static final String INDENT_BIG = "        ";
 
     /**
-     * Displays a greeting message to the user to introduce chatterchicken.ChatterChicken.
+     * Displays a greeting message to the user to introduce ChatterChicken.
      */
     public void displayGreeting() {
-        printToScreen(INDENT + "Hello! I'm ChatterChicken!\n"
-                + INDENT + "What can I do for you?");
+        printToScreen(INDENT + "Hello! I'm ChatterChicken!\n" + INDENT + "What can I do for you?");
     }
 
     /**
-     * Displays a farewell message to the user as they exit the chatterchicken.ChatterChicken application.
+     * Displays a farewell message to the user as they exit the ChatterChicken application.
      */
     public void displayFarewell() {
         printToScreen(INDENT + "Bye. Hope to see you again soon!");
@@ -99,7 +101,7 @@ public class Ui {
      *
      * @param message The message to be printed.
      */
-    public void printToScreen(String message) {
+    private void printToScreen(String message) {
         System.out.println(LINE + message + LINE);
     }
 }

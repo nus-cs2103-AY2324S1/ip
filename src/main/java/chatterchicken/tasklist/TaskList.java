@@ -4,21 +4,26 @@ import chatterchicken.data.exception.CCException;
 import chatterchicken.data.task.Task;
 import chatterchicken.ui.Ui;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * The chatterchicken.tasklist.TaskList class represents a collection of tasks managed by the chatterchicken.ChatterChicken task manager.
+ * The TaskList class represents a collection of tasks managed by the ChatterChicken task manager.
  * It allows for adding, marking, unmarking, and deleting tasks, as well as printing the list of tasks
  * along with their respective indexes. Tasks can be of different types: ToDo, Deadline, and Event.
  */
 public class TaskList implements Iterable<Task> {
 
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
 
-    private Ui ui;
+    private final Ui ui;
 
+    /**
+     * Constructs a new TaskList with the provided list of tasks and a UI component for user interactions.
+     *
+     * @param taskList The initial list of tasks.
+     * @param ui The user interface component for displaying messages and user interactions.
+     */
     public TaskList(ArrayList<Task> taskList, Ui ui) {
         this.taskList = taskList;
         this.ui = ui;
