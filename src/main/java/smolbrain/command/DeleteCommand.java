@@ -12,7 +12,7 @@ import smolbrain.task.TaskList;
 public class DeleteCommand implements Command {
 
     private int id;
-    private boolean loading;
+    private boolean isLoading;
 
     /**
      * Creates the command.
@@ -47,7 +47,7 @@ public class DeleteCommand implements Command {
      */
     @Override
     public void setLoading() {
-        this.loading = true;
+        this.isLoading = true;
     }
 
 }

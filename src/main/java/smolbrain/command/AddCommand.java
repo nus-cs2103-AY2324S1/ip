@@ -11,7 +11,7 @@ import smolbrain.task.TaskList;
 public class AddCommand implements Command {
 
     private Task task;
-    private boolean loading;
+    private boolean isLoading;
 
     /**
      * Creates the command.
@@ -25,7 +25,7 @@ public class AddCommand implements Command {
      * Sets the flag that chatbot is loading to true.
      */
     public void setLoading() {
-        this.loading = true;
+        this.isLoading = true;
     }
 
     /**
@@ -38,7 +38,7 @@ public class AddCommand implements Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(task);
-        if (!loading) {
+        if (!isLoading) {
             ui.showMessage("Got it. I've added this task: \n" + task);
             ui.showMessage("Now you have " + tasks.getSize() + " tasks in the list.");
         }
