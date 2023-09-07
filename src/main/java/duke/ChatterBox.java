@@ -2,8 +2,13 @@ package duke;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import java.io.IOException;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 
 
 /**
@@ -12,11 +17,16 @@ import java.io.IOException;
  * tasks even after termination, and manipulate them as per the 
  * user's requests. 
  */
-public class ChatterBox {
+public class ChatterBox extends Application {
 
     private Ui ui;
     private TaskList tl;
     private Storage store;
+
+    /**
+     * Constructs an empty ChatterBox object.
+     */
+    public ChatterBox() {}
 
     /**
      * Constructs a ChatterBox object with all parameters specified.
@@ -40,6 +50,15 @@ public class ChatterBox {
     public static void main(String[] args) throws DukeException, IOException {
         ChatterBox cb = new ChatterBox(new Ui(), new TaskList(), new Storage());
         cb.run();
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 
     /**
