@@ -1,3 +1,6 @@
+package potato.task;
+
+import potato.*;
 public class Event extends Task {
     private static String LINE = "-----------------------------------------\n";
     protected DateTime start;

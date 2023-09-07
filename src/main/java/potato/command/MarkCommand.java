@@ -1,13 +1,16 @@
+package potato.command;
+
+import potato.*;
 import java.io.IOException;
 
-public class UnmarkCommand extends Command{
-    public UnmarkCommand(String input) {
+public class MarkCommand extends Command{
+    public MarkCommand(String input) {
         super.isExit = false;
         super.input = input;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        tasks.unmark(input, storage);
+        tasks.mark(input, storage);
     }
 }

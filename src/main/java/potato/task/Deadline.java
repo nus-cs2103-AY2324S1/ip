@@ -1,4 +1,6 @@
-import java.time.LocalDate;
+package potato.task;
+
+import potato.*;
 
 public class Deadline extends Task {
     private static String LINE = "-----------------------------------------\n";

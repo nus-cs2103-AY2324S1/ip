@@ -1,3 +1,6 @@
+package potato;
+
+import potato.command.*;
 import java.io.IOException;
 
 public class Potato {

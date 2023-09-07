@@ -1,3 +1,6 @@
+package potato.command;
+
+import potato.*;
 import java.io.IOException;
 
 public abstract class Command {

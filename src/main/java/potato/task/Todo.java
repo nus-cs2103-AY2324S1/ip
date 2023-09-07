@@ -1,4 +1,6 @@
-import java.util.ArrayList;
+package potato.task;
+
+import potato.*;
 
 public class Todo extends Task {
     private static String LINE = "-----------------------------------------\n";

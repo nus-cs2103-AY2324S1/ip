@@ -1,3 +1,5 @@
+package potato;
+
 import java.util.Scanner;
 
 public class Ui {
