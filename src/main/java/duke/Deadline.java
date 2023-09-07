@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /** Abstraction for tasks that have deadlines. */
 public class Deadline extends Task {
 
-    /** duke.Deadline of task. */
+    /** Deadline of task. */
     protected LocalDate deadline;
 
     /**

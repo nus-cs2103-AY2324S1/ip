@@ -31,15 +31,15 @@ public abstract class Task {
     }
 
     /** Changes the state of task to completed. */
-    public void markAsDone() {
+    public String markAsDone() {
         this.isDone = true;
-        this.ui.showTaskMarked(this);
+        return this.ui.showTaskMarked(this);
     }
 
     /** Changes the state of task to not completed. */
-    public void markAsUndone() {
+    public String markAsUndone() {
         this.isDone = false;
-        this.ui.showTaskUnmarked(this);
+        return this.ui.showTaskUnmarked(this);
     }
 
     /**

@@ -24,9 +24,9 @@ public class TaskList {
      *
      * @param index Index of task to be marked.
      * */
-    public void mark(int index) {
+    public String mark(int index) {
         try {
-            this.list.get(index).markAsDone();
+            return this.list.get(index).markAsDone();
         } catch (IndexOutOfBoundsException error) {
             throw new IllegalArgumentException("OOPS!!! I could not find any task in that position.");
         }
@@ -37,9 +37,9 @@ public class TaskList {
      *
      * @param index Index of task to be unmarked.
      */
-    public void unmark(int index) {
+    public String unmark(int index) {
         try {
-            this.list.get(index).markAsUndone();
+            return this.list.get(index).markAsUndone();
         } catch (IndexOutOfBoundsException error) {
             throw new IllegalArgumentException("OOPS!!! I could not find any task in that position.");
         }
@@ -83,30 +83,13 @@ public class TaskList {
     }
 
     /** Prints out the list of tasks stored. */
-    public void printList() {
-        System.out.println("Here are the tasks in your list:");
+    public String printList() {
+        StringBuilder printedList = new StringBuilder("Here are the tasks in your list:\n");
         for (int index = 0; index < this.list.size(); index++) {
             Task item = this.list.get(index);
-            System.out.println((index + 1) + ". " + item.toString());
+            printedList.append((index + 1) + ". " + item.toString() + "\n");
         }
-    }
-
-    /**
-     * Goes through all task stored in list and updates the hard drive.
-     *
-     * @param filePath Path to the file data.txt.
-     */
-    public void updateStorage(String filePath) {
-        try {
-            FileWriter writer = new FileWriter(filePath);
-            for (Task task: this.list) {
-                String description = task.getStorageDescription();
-                writer.write(description + "\n");
-            }
-            writer.close();
-        } catch (IOException error) {
-            throw new IllegalArgumentException("Oops! Something went wrong!");
-        }
+        return printedList.toString();
     }
 
     /**
@@ -114,8 +97,11 @@ public class TaskList {
      *
      * @param filterWord Word to be matched with task description.
      */
-    public void find(String filterWord) {
-        System.out.println("Here are the matching tasks in your list:");
-        this.list.stream().filter(task -> task.description.contains(filterWord)).forEach(System.out::println);
+    public String find(String filterWord) {
+        StringBuilder reply = new StringBuilder("Here are the matching tasks in your list:\n");
+        this.list.stream()
+                .filter(task -> task.description.contains(filterWord))
+                .forEach(task -> reply.append(task.toString() + "\n"));
+        return reply.toString();
     }
 }

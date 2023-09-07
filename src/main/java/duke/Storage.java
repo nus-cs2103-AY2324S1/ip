@@ -2,6 +2,7 @@ package duke;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -78,6 +79,23 @@ public class Storage {
             if (!file.createNewFile()) {
                 load();
             }
+        } catch (IOException error) {
+            throw new IllegalArgumentException("Oops! Something went wrong!");
+        }
+    }
+
+    /** Goes through all task stored in list and updates the hard drive.
+     *
+     * @param filePath Path to the file data.txt.
+     */
+    public static void updateStorage(String filePath, TaskList list) {
+        try {
+            FileWriter writer = new FileWriter(filePath);
+            for (int i = 0; i < list.length(); i++) {
+                String description = list.retrieve(i).getStorageDescription();
+                writer.write(description + "\n");
+            }
+            writer.close();
         } catch (IOException error) {
             throw new IllegalArgumentException("Oops! Something went wrong!");
         }
