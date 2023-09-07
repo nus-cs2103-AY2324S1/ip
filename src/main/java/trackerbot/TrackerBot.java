@@ -5,7 +5,7 @@ import trackerbot.exception.TrackerBotException;
 import trackerbot.task.TaskList;
 import trackerbot.utils.Parser;
 import trackerbot.utils.Storage;
-import trackerbot.utils.Ui;
+import trackerbot.gui.UiHandler;
 
 /**
  * Main Program for the application. <br>
@@ -23,32 +23,50 @@ public class TrackerBot {
     private TaskList tasks;
 
     /** Displays user IO. */
-    private Ui ui;
+    private UiHandler uiHandler;
 
     /**
      * Constructor for the TrackerBot instance.
      *
      * @param appName The name of the app to instantiate.
      */
-    public TrackerBot(String appName) {
+    private TrackerBot(String appName) {
         tasks = new TaskList();
-        ui = Ui.instantiate(appName);
+        uiHandler = UiHandler.instantiate(appName);
+    }
+
+    /**
+     * Instantiates the TrackerBot object.
+     *
+     * @return The TrackerBot instance, with loaded data in the Task List, if any.
+     */
+    public static TrackerBot instantiate() {
+        TrackerBot instance = new TrackerBot(APP_NAME);
+
+        try {
+            Storage.read(instance.tasks);
+        } catch (TrackerBotException e) {
+            instance.uiHandler.showError(e.getMessage());
+        }
+
+        return instance;
     }
 
     /**
      * Calls the Ui to read commands, create Commands and execute the command.
      *
      * @return If the program has requested to exit.
+     * @deprecated This is for use with the Text-Based UI.
      */
     private boolean handleInput() {
-        Command command = Parser.parseCommand(ui.readCommand());
+        Command command = Parser.parseCommand(uiHandler.readCommand());
         try {
-            ui.showLine();
-            command.execute(tasks, ui);
+            uiHandler.showLine();
+            command.execute(tasks, uiHandler);
         } catch (TrackerBotException e) {
-            ui.showError(e.getMessage());
+            uiHandler.showError(e.getMessage());
         } finally {
-            ui.showLine();
+            uiHandler.showLine();
         }
 
         return command.isExit();
@@ -59,7 +77,7 @@ public class TrackerBot {
         try {
             Storage.read(tasks);
         } catch (TrackerBotException e) {
-            ui.showError(e.getMessage());
+            uiHandler.showError(e.getMessage());
         }
 
         boolean isBye;

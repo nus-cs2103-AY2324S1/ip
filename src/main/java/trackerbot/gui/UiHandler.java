@@ -1,4 +1,4 @@
-package trackerbot.utils;
+package trackerbot.gui;
 
 import java.util.Scanner;
 
@@ -8,7 +8,7 @@ import java.util.Scanner;
  * @author WZWren
  * @version A-JavaDoc
  */
-public class Ui {
+public class UiHandler {
     /** Line separators for the console between paragraphs. **/
     private static final String FORMAT_LINE =
             "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
@@ -25,7 +25,7 @@ public class Ui {
      * on creation.</p>
      * @param appName The name of the instance.
      */
-    private Ui(String appName) {
+    private UiHandler(String appName) {
         this.appName = appName;
     }
 
@@ -35,13 +35,13 @@ public class Ui {
      * @param appName The name of the instance.
      * @return A new Ui instance.
      */
-    public static Ui instantiate(String appName) {
-        Ui ui = new Ui(appName);
+    public static UiHandler instantiate(String appName) {
+        UiHandler uiHandler = new UiHandler(appName);
         System.out.println(FORMAT_LINE);
-        System.out.println("Greetings from " + ui.appName + "!");
+        System.out.println("Greetings from " + uiHandler.appName + "!");
         System.out.println("How may I assist?");
         System.out.println(FORMAT_LINE);
-        return ui;
+        return uiHandler;
     }
 
     /**

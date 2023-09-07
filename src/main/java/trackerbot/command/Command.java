@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import trackerbot.exception.TrackerBotException;
 import trackerbot.task.TaskList;
-import trackerbot.utils.Ui;
+import trackerbot.gui.UiHandler;
 
 /**
  * Abstracts the Commands obtained from user input.
@@ -19,11 +19,11 @@ public abstract class Command {
      * Runs the command specified by the specific command.
      *
      * @param tasks The Collection of Tasks stored by TrackerBot.
-     * @param ui The UI object of TrackerBot, to pass status messages into.
+     * @param uiHandler The UI object of TrackerBot, to pass status messages into.
      * @throws TrackerBotException The internal TrackerBotException, for expected and recoverable
      *                             errors to display on the UI.
      */
-    public abstract void execute(TaskList tasks, Ui ui) throws TrackerBotException;
+    public abstract void execute(TaskList tasks, UiHandler uiHandler) throws TrackerBotException;
 
     public abstract boolean isExit();
 
@@ -96,8 +96,8 @@ public abstract class Command {
             this.type = type;
         }
 
-        public void execute(TaskList tasks, Ui ui) throws TrackerBotException {
-            ui.showMessage(tasks.add(type, commandFields));
+        public void execute(TaskList tasks, UiHandler uiHandler) throws TrackerBotException {
+            uiHandler.showMessage(tasks.add(type, commandFields));
         }
 
         public boolean isExit() {
@@ -114,7 +114,7 @@ public abstract class Command {
             this.type = type;
         }
 
-        public void execute(TaskList tasks, Ui ui) throws TrackerBotException {
+        public void execute(TaskList tasks, UiHandler uiHandler) throws TrackerBotException {
             Scanner scanner = new Scanner(commandFields);
             if (!scanner.hasNextInt()) {
                 scanner.close();
@@ -130,10 +130,10 @@ public abstract class Command {
             scanner.close();
             switch (type) {
             case MARK:
-                ui.showMessage(tasks.markTask(index));
+                uiHandler.showMessage(tasks.markTask(index));
                 break;
             case UNMARK:
-                ui.showMessage(tasks.unmarkTask(index));
+                uiHandler.showMessage(tasks.unmarkTask(index));
                 break;
             default:
                 throw new IllegalStateException("Created ToggleCommand with invalid field.");
@@ -152,8 +152,8 @@ public abstract class Command {
             this.commandFields = commandFields;
         }
 
-        public void execute(TaskList tasks, Ui ui) {
-            ui.showMessage(tasks.findAll(commandFields));
+        public void execute(TaskList tasks, UiHandler uiHandler) {
+            uiHandler.showMessage(tasks.findAll(commandFields));
         }
 
         public boolean isExit() {
@@ -168,7 +168,7 @@ public abstract class Command {
             this.commandFields = commandFields;
         }
 
-        public void execute(TaskList tasks, Ui ui) throws TrackerBotException {
+        public void execute(TaskList tasks, UiHandler uiHandler) throws TrackerBotException {
             Scanner scanner = new Scanner(commandFields);
             if (!scanner.hasNextInt()) {
                 scanner.close();
@@ -182,7 +182,7 @@ public abstract class Command {
             }
 
             scanner.close();
-            ui.showMessage(tasks.delete(index));
+            uiHandler.showMessage(tasks.delete(index));
         }
 
         public boolean isExit() {
@@ -193,8 +193,8 @@ public abstract class Command {
     private static class ExitCommand extends Command {
         private ExitCommand() {}
 
-        public void execute(TaskList tasks, Ui ui) {
-            ui.exitApp();
+        public void execute(TaskList tasks, UiHandler uiHandler) {
+            uiHandler.exitApp();
         }
 
         public boolean isExit() {
@@ -205,8 +205,8 @@ public abstract class Command {
     private static class ListCommand extends Command {
         private ListCommand() {}
 
-        public void execute(TaskList tasks, Ui ui) {
-            ui.showMessage(tasks.list());
+        public void execute(TaskList tasks, UiHandler uiHandler) {
+            uiHandler.showMessage(tasks.list());
         }
 
         public boolean isExit() {
@@ -215,7 +215,7 @@ public abstract class Command {
     }
 
     private static class UnknownCommand extends Command {
-        public void execute(TaskList tasks, Ui ui) throws TrackerBotException {
+        public void execute(TaskList tasks, UiHandler uiHandler) throws TrackerBotException {
             throw new TrackerBotException("Unrecognised Command Type. Try another?");
         }
 
