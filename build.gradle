@@ -3,6 +3,7 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 checkstyle {
@@ -13,9 +14,15 @@ repositories {
     mavenCentral()
 }
 
+javafx {
+    version = "17.0.7"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+
 }
 
 test {
@@ -44,4 +51,5 @@ shadowJar {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
