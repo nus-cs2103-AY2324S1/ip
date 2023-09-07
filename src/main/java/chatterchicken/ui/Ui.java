@@ -1,6 +1,6 @@
 package chatterchicken.ui;
 
-import chatterchicken.task.Task;
+import chatterchicken.data.task.Task;
 import java.util.ArrayList;
 
 public class Ui {

@@ -1,5 +1,7 @@
 package chatterchicken;
 
+import chatterchicken.command.Command;
+import chatterchicken.data.exception.CCException;
 import chatterchicken.parser.Parser;
 import chatterchicken.storage.Storage;
 import chatterchicken.tasklist.TaskList;

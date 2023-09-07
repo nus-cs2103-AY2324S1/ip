@@ -1,4 +1,4 @@
-package chatterchicken.task;
+package chatterchicken.data.task;
 
 import java.time.LocalDate;
 

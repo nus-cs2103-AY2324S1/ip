@@ -1,4 +1,4 @@
-package chatterchicken;
+package chatterchicken.command;
 
 public class Command {
     private final String action;

@@ -1,11 +1,10 @@
 package chatterchicken.tasklist;
 
-import chatterchicken.CCException;
-import chatterchicken.task.Task;
+import chatterchicken.data.exception.CCException;
+import chatterchicken.data.task.Task;
 import chatterchicken.ui.Ui;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.concurrent.ForkJoinTask;
 
 /**
  * The chatterchicken.tasklist.TaskList class represents a collection of tasks managed by the chatterchicken.ChatterChicken task manager.

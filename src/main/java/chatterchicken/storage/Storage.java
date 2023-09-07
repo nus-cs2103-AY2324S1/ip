@@ -1,9 +1,9 @@
 package chatterchicken.storage;
 
-import chatterchicken.CCException;
+import chatterchicken.data.exception.CCException;
 import chatterchicken.ChatterChicken;
 import chatterchicken.parser.Parser;
-import chatterchicken.task.Task;
+import chatterchicken.data.task.Task;
 import chatterchicken.tasklist.TaskList;
 import java.io.File;
 import java.io.BufferedReader;

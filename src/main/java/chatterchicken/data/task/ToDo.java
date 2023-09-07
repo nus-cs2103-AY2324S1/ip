@@ -1,4 +1,4 @@
-package chatterchicken.task;
+package chatterchicken.data.task;
 
 public class ToDo extends Task {
 
