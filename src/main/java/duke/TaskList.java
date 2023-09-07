@@ -35,16 +35,6 @@ public class TaskList {
             }
         }
     }
-
-    /**
-     * Displays all tasks loaded in the user's previous sessions.
-     */
-    public void load() {
-        for (Task task:this.taskList){
-            System.out.println(task.toString());
-        }
-    }
-
     /**
      * Obtain the task list in arraylist format.
      * @return the ArrayList

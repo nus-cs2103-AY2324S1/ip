@@ -18,11 +18,9 @@ public class AddCommand extends Command {
      * @param taskList the existing task list of the user
      * @param ui the ui that handles successful/unsuccessful messages
      */
-    public void execute(TaskList taskList, Ui ui){
+    public String execute(TaskList taskList, Ui ui){
         taskList.addTask(this.taskToBeAdded);
-        ui.showAddedMessage();
-        System.out.println(this.taskToBeAdded.toString());
-        ui.showTaskListSize(taskList);
+        return ui.showAddedMessage(taskToBeAdded, taskList);
     }
 
 }

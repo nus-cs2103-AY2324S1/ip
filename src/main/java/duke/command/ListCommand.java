@@ -13,10 +13,7 @@ public class ListCommand extends Command {
      * @param ui the ui that handles successful/unsuccessful messages
      */
 
-    public void execute(TaskList taskList, Ui ui){
-        ui.showListMessage();
-        for (int i = 0; i < taskList.getLengthOfTaskList(); i++){
-            System.out.println(Integer.toString(i+1) + "." + taskList.getTaskList().get(i).toString());
-        }
+    public String execute(TaskList taskList, Ui ui){
+        return ui.showListMessage(taskList);
     }
 }

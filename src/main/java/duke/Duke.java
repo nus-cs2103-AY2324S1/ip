@@ -56,13 +56,13 @@ public class Duke extends Application{
 
     }
     /**
-     * Runs the chatbot.
+     * Runs the chatBot.
      * @throws DukeException if the filepath is incorrectly provided
      */
     public void run() throws DukeException {
         Parser parser = new Parser();
-        ui.showWelcome();
-        taskList.load();
+        System.out.println(ui.showWelcome());
+        System.out.println(ui.showListMessage(taskList));
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -70,7 +70,8 @@ public class Duke extends Application{
             try {
                 String userInput = scanner.nextLine().trim();
                 Command c = parser.parse(userInput);
-                c.execute(taskList, ui);
+                String response = c.execute(taskList, ui);
+                System.out.println(response);
                 if (c instanceof ExitCommand) {
                     break;
                 }
@@ -177,7 +178,13 @@ public class Duke extends Application{
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        Parser parser = new Parser();
+        try {
+            Command c = parser.parse(input);
+            return c.execute(taskList, ui);
+        } catch (DukeException e){
+            return e.getMessage();
+        }
     }
 
     public static void main(String[] args) throws DukeException, IOException {

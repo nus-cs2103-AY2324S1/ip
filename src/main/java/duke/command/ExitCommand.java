@@ -1,7 +1,8 @@
 package duke.command;
+import duke.DukeException;
+import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-import duke.messages.Messages;
 
 /**
  * A command that allows the user to exit the app.
@@ -12,7 +13,12 @@ public class ExitCommand extends Command {
      * @param taskList the existing task list of the user.
      * @param ui the ui that handles successful/unsuccessful messages
      */
-    public void execute(TaskList taskList, Ui ui){
-        System.out.println(Messages.GOODBYE_MESSAGE.getMessage());
+    public String execute(TaskList taskList, Ui ui){
+        try {
+            new Storage("data/duke.txt").update(taskList, "data/duke.txt");
+        } catch (DukeException e){
+            return e.getMessage();
+        }
+        return ui.showExitMessage();
     }
 }

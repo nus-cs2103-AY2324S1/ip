@@ -22,7 +22,7 @@ public class MarkCommand extends Command {
      * @param ui the ui that handles successful/unsuccessful messages
      * @throws DukeException If the task has already been marked, an error is thrown
      */
-    public void execute(TaskList taskList, Ui ui)throws DukeException {
+    public String execute(TaskList taskList, Ui ui) throws DukeException {
         try {
             Task taskToBeMarked= taskList.getTask(this.taskNumber);
             if (taskToBeMarked.isTaskCompleted()){
@@ -30,8 +30,7 @@ public class MarkCommand extends Command {
             }
             else {
                 taskToBeMarked.markTaskCompleted();
-                ui.showMarkMessage();
-                System.out.println(taskToBeMarked.toString());
+                return ui.showMarkMessage(taskToBeMarked);
             }
         } catch (IndexOutOfBoundsException e){
             throw new DukeException(ErrorMessages.INVALID_TASK_NUMBER.getMessage());

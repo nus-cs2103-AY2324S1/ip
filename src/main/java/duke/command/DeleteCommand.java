@@ -21,13 +21,11 @@ public class DeleteCommand extends Command {
      * @param ui the ui that handles successful/unsuccessful messages
      * @throws DukeException if the task number provided is not in the bounds of the list, an error is thrown
      */
-    public void execute (TaskList taskList, Ui ui) throws DukeException {
+    public String execute (TaskList taskList, Ui ui) throws DukeException {
         try{
-            Task taskToBeDeleted = taskList.getTask(this.taskNumber);
-            taskList.removeTask(this.taskNumber);
-            ui.showDeletedMessage();
-            System.out.println(taskToBeDeleted.toString());
-            ui.showTaskListSize(taskList);
+            Task taskToBeDeleted = taskList.getTask(taskNumber);
+            taskList.removeTask(taskNumber);
+            return ui.showDeletedMessage(taskToBeDeleted, taskList);
         } catch (IndexOutOfBoundsException e){
             // Check if task number is within the size of task list.
             throw new DukeException(ErrorMessages.INVALID_TASK_NUMBER.getMessage());

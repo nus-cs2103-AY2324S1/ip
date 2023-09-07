@@ -24,8 +24,7 @@ public class FindCommand extends Command{
      * @param ui the ui that handles successful/unsuccessful messages
      * @throws DukeException if no task is found, throw an error
      */
-    @Override
-    public void execute(TaskList taskList, Ui ui) throws DukeException {
+    public String execute(TaskList taskList, Ui ui) throws DukeException {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : taskList.getTaskList()){
             if (task.getName().contains(this.keyword)){
@@ -36,10 +35,7 @@ public class FindCommand extends Command{
             throw new DukeException(ErrorMessages.KEYWORD_NOT_FOUND.getMessage());
         }
         else {
-            System.out.println(Messages.FOUND_TASKS.getMessage());
-            for (Task matchedTask:matchingTasks) {
-                System.out.println(matchedTask.toString());
-            }
+            return ui.showFoundMessages(matchingTasks);
         }
     }
 }

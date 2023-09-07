@@ -23,15 +23,15 @@ public class UnmarkCommand extends Command {
      * @throws DukeException If the task has already been unmarked, an error is thrown
      */
 
-    public void execute(TaskList taskList, Ui ui) throws DukeException {
+    public String execute(TaskList taskList, Ui ui) throws DukeException {
         try {
             Task taskToBeUnmarked = taskList.getTask(this.taskNumber);
             if (!taskToBeUnmarked.isTaskCompleted()){
                 throw new DukeException("Task has already been marked as uncompleted.");
+            } else {
+                taskToBeUnmarked.markTaskUncompleted();
+                return ui.showUnmarkMessage(taskToBeUnmarked);
             }
-            taskToBeUnmarked.markTaskUncompleted();
-            ui.showUnmarkMessage();
-            System.out.println(taskToBeUnmarked.toString());
         } catch (IndexOutOfBoundsException e){
             throw new DukeException(ErrorMessages.INVALID_TASK_NUMBER.getMessage());
         }

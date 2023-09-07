@@ -1,4 +1,5 @@
 import duke.Duke;
+import duke.MainWindow;
 import javafx.application.Application;
 
 public class Launcher {

@@ -8,6 +8,6 @@ import duke.DukeException;
  */
 public abstract class Command {
 
-    public abstract void execute(TaskList taskList, Ui ui) throws DukeException;
+    public abstract String execute(TaskList taskList, Ui ui) throws DukeException;
 
 }

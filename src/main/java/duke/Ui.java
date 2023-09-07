@@ -1,6 +1,9 @@
 package duke;
 
 import duke.messages.Messages;
+import duke.task.Task;
+
+import java.util.ArrayList;
 
 /**
  * Shows all appropriate messages to the user.
@@ -8,33 +11,56 @@ import duke.messages.Messages;
 
 public class Ui {
 
-    public void showWelcome(){
+    public String showWelcome(){
         // Introduction Message
-        System.out.println(Messages.INTRODUCTION.getMessage());
-        System.out.println();
+        return Messages.INTRODUCTION.getMessage();
     }
 
-    public void showListMessage(){
-        System.out.println(Messages.LIST_COMMAND.getMessage());
+    public String showExitMessage(){
+        return Messages.GOODBYE_MESSAGE.getMessage();
     }
 
-    public void showMarkMessage(){
-        System.out.println(Messages.MARK_COMMAND.getMessage());
+    public String showListMessage(TaskList taskList){
+        StringBuilder tasks = new StringBuilder();
+        for (int i = 0 ; i < taskList.getLengthOfTaskList() ; i++){
+            if (i == taskList.getLengthOfTaskList() - 1){
+                tasks.append((i + 1)).append(". ").append(taskList.getTaskList().get(i));
+            } else {
+                tasks.append((i + 1)).append(". ").append(taskList.getTaskList().get(i)).append("\n");
+            }
+        }
+        return Messages.LIST_COMMAND.getMessage() + "\n" + tasks ;
     }
 
-    public void showUnmarkMessage(){
-        System.out.println(Messages.UNMARK_COMMAND.getMessage());
+    public String showMarkMessage(Task task){
+        return Messages.MARK_COMMAND.getMessage() + "\n" + task;
     }
 
-    public void showDeletedMessage(){
-        System.out.println(Messages.DELETED_COMMAND.getMessage());
+    public String showUnmarkMessage(Task task){
+        return Messages.UNMARK_COMMAND.getMessage() + "\n" + task;
     }
 
-    public void showAddedMessage() {
-        System.out.println(Messages.TASK_ADDED.getMessage());
+    public String showDeletedMessage(Task task, TaskList taskList) {
+        return Messages.DELETED_COMMAND.getMessage() + "\n" + task + "\n" + showTaskListSize(taskList);
     }
 
-    public void showTaskListSize(TaskList taskList){
-        System.out.println("Now you have " + taskList.getTaskList().size() + " tasks in the list.");
+    public String showAddedMessage(Task task, TaskList taskList) {
+        return Messages.TASK_ADDED.getMessage() + "\n" + task + "\n" + showTaskListSize(taskList);
+    }
+
+    public String showFoundMessages(ArrayList<Task> taskList){
+        StringBuilder tasks = new StringBuilder();
+        for (int i = 0; i < taskList.size(); i++) {
+            if (i == taskList.size() - 1){
+                tasks.append((i + 1)).append(". ").append(taskList.get(i));
+            } else {
+                tasks.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
+            }
+        }
+        return Messages.FOUND_TASKS.getMessage() + "\n" + tasks;
+    }
+
+    public String showTaskListSize(TaskList taskList){
+        return ("Now you have " + taskList.getTaskList().size() + " tasks in the list.");
     }
 }
