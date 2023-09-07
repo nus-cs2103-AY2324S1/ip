@@ -2,12 +2,13 @@ package ui;
 
 import java.io.IOException;
 
+import Duke.Duke;
+import exceptions.ErrorStorageException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import ui.controllers.Duke;
 import ui.controllers.MainWindow;
 
 /**
@@ -15,7 +16,10 @@ import ui.controllers.MainWindow;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Duke duke = new Duke("/tasks.txt");
+
+    public Main() throws ErrorStorageException {
+    }
 
     @Override
     public void start(Stage stage) {
@@ -30,4 +34,5 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+
 }
