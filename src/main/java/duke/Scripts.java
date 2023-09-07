@@ -7,11 +7,11 @@ public class Scripts {
     public Scripts() {
     }
 
-    public void sayhi() {
-        System.out.println(greeting);
+    public String sayhi() {
+        return this.greeting;
     }
 
-    public void saybye() {
-        System.out.println(bye);
+    public String saybye() {
+        return this.bye;
     }
 }

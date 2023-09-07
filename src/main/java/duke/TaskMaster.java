@@ -6,46 +6,41 @@ public abstract class TaskMaster {
     protected static TaskList tasks = new TaskList();
     protected static Storage storage;
 
-    public static void masterTasks(String filePath) {
-        storage = new Storage(filePath);
-        Scanner sn = new Scanner(System.in);
-
-        String input = sn.nextLine();
+    public static void masterTasks(String input) {
         String[] splt = input.split(" ");
         String keyword = splt[0];
-        while (!keyword.equals("bye")) {
-            Parser.parseInput(splt,keyword);
-            input = sn.nextLine();
-            splt = input.split(" ");
-            keyword = splt[0];
-        }
+        Parser.parseInput(splt,keyword);
     }
 
-    public static void mark(int i) {
-        tasks.mark(i);
+    public static void initialStorage(String filePath) {
+        storage = new Storage(filePath);
     }
 
-    public static void unmark(int i) {
-        tasks.unmark(i);
+    public static String mark(int i) {
+        return tasks.mark(i);
     }
 
-    public static void list() {
-        tasks.list();
+    public static String unmark(int i) {
+        return tasks.unmark(i);
     }
 
-    public static void addTask(Task t) {
-        tasks.addTask(t);
+    public static String list() {
+        return tasks.list();
     }
 
-    public static void removeTask(int index) {
-        tasks.removeTask(index);
+    public static String addTask(Task t) {
+        return tasks.addTask(t);
     }
 
-    public static void readTask(String key) {
-        tasks.readTask(key);
+    public static String removeTask(int index) {
+        return tasks.removeTask(index);
     }
 
-    public static void findTask(String key) {
-        tasks.findTask(key);
+    public static String readTask(String key) {
+        return tasks.readTask(key);
+    }
+
+    public static String findTask(String key) {
+        return tasks.findTask(key);
     }
 }

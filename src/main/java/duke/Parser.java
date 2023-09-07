@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
  * Provides functionality for parsing user inputs and executing corresponding commands.
  */
 public abstract class Parser {
+    private static String response;
 
     /**
      * Parses the user input and dispatches corresponding commands.
@@ -17,16 +18,16 @@ public abstract class Parser {
             throws IllegalArgumentException {
         switch (keyword) {
         case "list":
-            TaskMaster.list();
+            Parser.response = TaskMaster.list();
             break;
         case "delete":
-            TaskMaster.removeTask(Integer.parseInt(split[1]));
+            Parser.response = TaskMaster.removeTask(Integer.parseInt(split[1]));
             break;
         case "mark":
-            TaskMaster.mark(Integer.parseInt(split[1]));
+            Parser.response = TaskMaster.mark(Integer.parseInt(split[1]));
             break;
         case "unmark":
-            TaskMaster.unmark(Integer.parseInt(split[1]));
+            Parser.response = TaskMaster.unmark(Integer.parseInt(split[1]));
             break;
         case "find":
             try {
@@ -39,10 +40,10 @@ public abstract class Parser {
                             "☹ OOPS!!! You must enter a keyword to search for tasks.");
                 }
                 key = key.substring(0, key.length() - 1);
-                TaskMaster.findTask(key);
+                Parser.response = TaskMaster.findTask(key);
                 break;
             } catch (IllegalArgumentException e){
-                System.out.println(e.getMessage() + "\nTry again: ");
+                Parser.response = e.getMessage() + "\nTry again: ";
             }
         default:
             try {
@@ -57,7 +58,7 @@ public abstract class Parser {
                                 "☹ OOPS!!! The description of a todo cannot be empty.");
                     }
                     description = description.substring(0, description.length() - 1);
-                    TaskMaster.addTask(new Todos(description));
+                    Parser.response = TaskMaster.addTask(new Todos(description));
                     break;
                 }
                 case "deadline": {
@@ -89,7 +90,7 @@ public abstract class Parser {
                                 "☹ OOPS!!! The time/date of a deadline cannot be empty.");
                     }
                     time = time.substring(0, time.length() - 1);
-                    TaskMaster.addTask(new Deadlines(description, time));
+                    Parser.response = TaskMaster.addTask(new Deadlines(description, time));
                     break;
                 }
                 case "event": {
@@ -138,7 +139,7 @@ public abstract class Parser {
                                 "☹ OOPS!!! The ending time of an event cannot be empty.");
                     }
                     end = end.substring(0, end.length() - 1);
-                    TaskMaster.addTask(new Events(description, start, end));
+                    Parser.response = TaskMaster.addTask(new Events(description, start, end));
                     break;
                 }
                 default:
@@ -146,8 +147,12 @@ public abstract class Parser {
                             "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             } catch (IllegalArgumentException | DateTimeParseException e) {
-                System.out.println(e.getMessage() + "\nTry again: ");
+                Parser.response = e.getMessage() + "\nTry again: ";
             }
         }
+    }
+
+    public static String getResponse() {
+        return response;
     }
 }

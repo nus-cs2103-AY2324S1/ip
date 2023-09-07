@@ -9,14 +9,14 @@ public class Ui {
     /**
      * Prints the greeting message to the user.
      */
-    public void sayhi() {
-        System.out.println("Hello! I'm LimBay.\nWhat can I do for you?\n");
+    public String sayhi() {
+        return "Hello! I'm LimBay.\nWhat can I do for you?\n";
     }
 
     /**
      * Prints the goodbye message to the user.
      */
-    public void saybye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String saybye() {
+        return "Bye. Hope to see you again soon!";
     }
 }

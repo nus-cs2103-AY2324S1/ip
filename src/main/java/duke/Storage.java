@@ -40,11 +40,12 @@ public class Storage {
      *
      * @param inputs The string to be written to the file.
      */
-    public void write(String inputs) {
+    public String write(String inputs) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(inputs);
+            return "write successful !!\n";
         } catch (IOException e) {
-            e.printStackTrace();
+            return e.getMessage();
         }
     }
 
