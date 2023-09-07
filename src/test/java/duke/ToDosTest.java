@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import duke.task.ToDos;
+
 public class ToDosTest {
     @Test
     public void toString_description_success() {

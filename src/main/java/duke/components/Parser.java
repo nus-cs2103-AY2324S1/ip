@@ -1,8 +1,12 @@
-package duke;
+package duke.components;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.ToDos;
 
 /**
  * Represents the logic used to handle user inputs, and parse user
@@ -48,7 +52,7 @@ public class Parser {
     }
 
     /**
-     * Returns a CommandType based on the use input.
+     * Returns a CommandType based on the user input.
      *
      * @param input User input to be parsed.
      * @return The CommandType enum representing the parsed user input.
@@ -95,91 +99,95 @@ public class Parser {
     }
 
     /**
+     * Checks if the input is BYE.
+     *
+     * @param input The user command.
+     * @return True if the user command is bye. False if user input is not bye.
+     */
+    public boolean isBye(String input) {
+        String[] userInputParts = input.split(" ", 2);
+        String commandUser = userInputParts[0];
+        CommandType command = parseCommand(commandUser);
+
+        switch (command) {
+        case BYE:
+            return true;
+        default:
+            return false;
+        }
+    }
+
+    /**
      * Processes user input to create and execute task-related actions.
      *
      * @param input The user input to be processed.
      * @return {@code true} if the application should continue running. {@code false} if it should exit.
      */
-    public boolean createTaskAction(String input) {
+    public String createTaskAction(String input) {
         String[] userInputParts = input.split(" ", 2);
         String commandUser = userInputParts[0];
         CommandType command = parseCommand(commandUser);
 
         switch (command) {
         case EMPTY:
-            ui.showEmptyMessage();
-            return true;
+            return ui.showEmptyMessage();
 
         case UNKNOWN:
-            ui.showUnknownMessage();
-            return true;
+            return ui.showUnknownMessage();
 
         case BYE:
             fileStorage.saveTasks(fullList);
-            ui.showByeMessage();
-            return false;
+            return ui.showByeMessage();
 
         case LIST:
             if (userInputParts.length > 1) {
-                ui.showInvalidMessage();
-                return true;
+                return ui.showInvalidMessage();
             }
-            ui.showList(fullList);
-            return true;
+            return ui.showList(fullList);
 
         case MARK:
             String[] splitIndexMark = input.split(" ");
             if (splitIndexMark.length <= 1 || splitIndexMark.length > 2) {
-                ui.showInvalidMessage();
-                return true;
+                return ui.showInvalidMessage();
             }
             int index = Integer.parseInt(splitIndexMark[1]) - 1;
-            fullList.markItem(index);
-            return true;
+            return fullList.markItem(index);
 
         case UNMARK:
             String[] splitIndexUnMark = input.split(" ");
             if (splitIndexUnMark.length <= 1 || splitIndexUnMark.length > 2) {
-                ui.showInvalidMessage();
-                return true;
+                return ui.showInvalidMessage();
             }
             int indexUnmark = Integer.parseInt(splitIndexUnMark[1]) - 1;
-            fullList.unMarkItem(indexUnmark);
-            return true;
+            return fullList.unMarkItem(indexUnmark);
 
         case TODO:
             if (userInputParts.length <= 1) {
-                ui.showInvalidMessage();
-                return true;
+                return ui.showInvalidMessage();
             }
             ToDos toDo = new ToDos(userInputParts[1].trim());
-            fullList.addToList(toDo);
-            return true;
+            return fullList.addToList(toDo);
 
         case DEADLINE:
             String[] details = userInputParts[1].split("/by");
             String description = details[0].trim();
 
             if (details.length <= 1) {
-                ui.showInvalidMessage();
-                return true;
+                return ui.showInvalidMessage();
             }
 
             LocalDateTime by = setDate(details[1].trim());
             Deadline deadline = new Deadline(description, by);
-            fullList.addToList(deadline);
-            return true;
+            return fullList.addToList(deadline);
 
         case EVENT:
             String[] det = userInputParts[1].split("/from");
             if (det.length <= 1) {
-                ui.showInvalidMessage();
-                return true;
+                return ui.showInvalidMessage();
             }
             String[] dateParts = det[1].trim().split("/to");
             if (dateParts.length <= 1) {
-                ui.showInvalidMessage();
-                return true;
+                return ui.showInvalidMessage();
             }
 
             String descr = det[0].trim();
@@ -189,37 +197,31 @@ public class Parser {
             Event event = new Event(descr, from, to);
 
             if (event.isStartDateBefore(from, to)) {
-                fullList.addToList(event);
-                return true;
+                return fullList.addToList(event);
             } else {
-                ui.showInvalidDate();
-                return true;
+                return ui.showInvalidDate();
             }
 
         case DELETE:
             String[] split = input.split(" ");
             if (split.length <= 1 || split.length > 2) {
-                ui.showInvalidMessage();
-                return true;
+                return ui.showInvalidMessage();
             }
             int ind = Integer.parseInt(split[1]) - 1;
-            fullList.deleteFromList(ind);
-            return true;
+            return fullList.deleteFromList(ind);
 
         case FIND:
             String[] inputParts = input.split(" ", 2);
             String keyword = inputParts[1].trim();
             TaskList list = fullList.findTask(keyword);
             if (list.getSize() == 0) {
-                ui.showNoFind();
+                return ui.showNoFind();
             } else {
-                ui.showFind(list);
+                return ui.showFind(list);
             }
-            return true;
 
         default:
-            ui.showInvalidMessage();
-            return true;
+            return ui.showInvalidMessage();
         }
     }
 }
