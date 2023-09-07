@@ -1,8 +1,8 @@
 package duke;
 
 public class Scripts {
-    String greeting = "Hello! I'm LimBay.\nWhat can I do for you?\n";
-    String bye = "Bye. Hope to see you again soon!";
+    private String greeting = "Hello! I'm LimBay.\nWhat can I do for you?\n";
+    private String bye = "Bye. Hope to see you again soon!";
 
     public Scripts() {
     }

@@ -42,8 +42,9 @@ public abstract class Parser {
                 key = key.substring(0, key.length() - 1);
                 Parser.response = TaskMaster.findTask(key);
                 break;
-            } catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 Parser.response = e.getMessage() + "\nTry again: ";
+                break;
             }
         default:
             try {

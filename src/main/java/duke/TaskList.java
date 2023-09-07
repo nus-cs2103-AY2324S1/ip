@@ -16,9 +16,9 @@ public class TaskList {
      * @param i The index (1-based) of the task to be marked as done.
      */
     public String mark(int i) { //need handling
-        tasks.get(i-1).setDone();
+        tasks.get(i - 1).setDone();
         return "Nice! I've marked this task as done:\n  "
-                + tasks.get(i-1).toString();
+                + tasks.get(i - 1).toString();
     }
 
     /**
@@ -26,9 +26,9 @@ public class TaskList {
      * @param i The index (1-based) of the task to be marked as not done.
      */
     public String unmark(int i) {
-        tasks.get(i-1).setNotDone();
+        tasks.get(i - 1).setNotDone();
         return "OK, I've marked this task as not done yet:\n  "
-                + tasks.get(i-1).toString();
+                + tasks.get(i - 1).toString();
     }
 
     /**
@@ -63,8 +63,8 @@ public class TaskList {
      * @param index The index (1-based) of the task to be removed.
      */
     public String removeTask(int index) {
-        String temp = tasks.get(index-1).toString();
-        tasks.remove(index-1);
+        String temp = tasks.get(index - 1).toString();
+        tasks.remove(index - 1);
         counter -= 1;
         return "Noted. I've removed this task:\n"
                 + temp + "\nNow you have " + counter + " tasks in the list.\n";
@@ -94,7 +94,7 @@ public class TaskList {
         } else {
             String ans = "This are the matching tasks in your list:\n";
             for (int i = 1; i <= lines.size(); ++i) {
-                ans += (i + "." + lines.get(i-1) + '\n');
+                ans += (i + "." + lines.get(i - 1) + '\n');
             }
             return ans;
         }
@@ -112,7 +112,7 @@ public class TaskList {
             if (!lines.isEmpty()) {
                 String ans = "This are the matching tasks in your list:\n";
                 for (int i = 1; i <= lines.size(); ++i) {
-                    ans += (i + "." + lines.get(i-1) + '\n');
+                    ans += (i + "." + lines.get(i - 1) + '\n');
                 }
                 return ans;
             }

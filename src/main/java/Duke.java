@@ -1,27 +1,22 @@
-import duke.Ui;
-import duke.TaskMaster;
 import duke.DialogBox;
 import duke.Parser;
-
+import duke.TaskMaster;
+import duke.Ui;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.stage.Stage;
-
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
-
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-
-import javafx.geometry.Insets;
-
-import javafx.animation.PauseTransition;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class Duke extends Application {
@@ -42,14 +37,13 @@ public class Duke extends Application {
         ui = new Ui();
     }
 
-    /*
-    public void run(String filePath) {
-        addMessage(this.ui.sayhi());
-        TaskMaster.masterTasks(filePath);
-        addMessage(this.ui.saybye());
-    }
-    */
-
+    /**
+     * Initializes the primary stage and sets up the user interface components for the chatbot.
+     * This method constructs the main chat window layout and binds actions to user input fields
+     * and buttons. It also sets up the initial properties for the main window and UI components.
+     *
+     * @param stage The primary stage for the application.
+     */
     @Override
     public void start(Stage stage) {
         scrollPane = new ScrollPane();
@@ -120,10 +114,11 @@ public class Duke extends Application {
     }
 
     /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
+     * Creates a label with the given text and enables word wrap.
+     * This label is typically used for displaying messages in the chat interface.
+     *
+     * @param text The message text to be displayed in the label.
+     * @return A new label containing the specified text with word wrap enabled.
      */
     private Label getDialogLabel(String text) {
         Label textToAdd = new Label(text);
@@ -133,9 +128,10 @@ public class Duke extends Application {
     }
 
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input by echoing it and displaying Duke's response.
+     * After a user sends a message, this method processes the input, displays the user's message
+     * and Duke's reply in the chat interface. If the user's command is "bye", it will also initiate
+     * an exit sequence after a short delay.
      */
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
@@ -158,8 +154,13 @@ public class Duke extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generates a response based on user input.
+     * This method checks for specific commands such as "bye" and returns a respective response from Duke.
+     * For other inputs, it processes the command using the TaskMaster and Parser classes and returns the
+     * corresponding response.
+     *
+     * @param input The command inputted by the user.
+     * @return A string response based on the user input.
      */
     private String getResponse(String input) {
         if (input.equals("bye")) {
@@ -169,6 +170,12 @@ public class Duke extends Application {
         return Parser.getResponse();
     }
 
+    /**
+     * Adds a message from Duke to the chat interface.
+     * This method creates a dialog box containing Duke's message and displays it in the dialog container.
+     *
+     * @param text The message from Duke to be displayed.
+     */
     private void addDukeMessage(String text) {
         Label dukeText = new Label(text);
         DialogBox dukeDialog = DialogBox.getDukeDialog(dukeText, new ImageView(duke));

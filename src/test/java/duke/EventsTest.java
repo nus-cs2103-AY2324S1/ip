@@ -1,13 +1,11 @@
 package duke;
-
+import java.time.format.DateTimeParseException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.time.format.DateTimeParseException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EventsTest {
-
     private Events event;
 
     @BeforeEach

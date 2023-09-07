@@ -1,7 +1,5 @@
 package duke;
 
-import java.util.Scanner;
-
 public abstract class TaskMaster {
     protected static TaskList tasks = new TaskList();
     protected static Storage storage;
@@ -9,7 +7,7 @@ public abstract class TaskMaster {
     public static void masterTasks(String input) {
         String[] splt = input.split(" ");
         String keyword = splt[0];
-        Parser.parseInput(splt,keyword);
+        Parser.parseInput(splt, keyword);
     }
 
     public static void initialStorage(String filePath) {

@@ -10,16 +10,16 @@ import java.time.format.DateTimeParseException;
  */
 public class DateTime {
     /** Formatter for the date representation. */
-    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 
     /** Formatter for the time representation. */
-    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
+    private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
 
     /** The local date object. */
-    LocalDate ld;
+    private LocalDate ld;
 
     /** The local time object. */
-    LocalTime lt;
+    private LocalTime lt;
 
     /**
      * Initializes a DateTime object based on the given string representation.
@@ -68,8 +68,8 @@ public class DateTime {
      *
      * @return The formatted string of date-time.
      */
-    public String toString(){
-        return getFormattedDate() +
-                ((this.lt == null) ? "" : " " + getFormattedTime());
+    public String toString() {
+        return getFormattedDate()
+                + ((this.lt == null) ? "" : " " + getFormattedTime());
     }
 }
