@@ -1,6 +1,10 @@
 package ballsorting;
+
 import java.time.LocalDateTime;
 
+/**
+ * Encapsulates an Event with a start and end time.
+ */
 public class Event extends Task {
     private LocalDateTime start;
     private LocalDateTime end;

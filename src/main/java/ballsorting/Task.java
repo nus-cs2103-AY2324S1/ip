@@ -1,4 +1,8 @@
 package ballsorting;
+
+/**
+ * Encapsulates a Task.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

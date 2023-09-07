@@ -1,6 +1,11 @@
 package ballsorting;
+
 import java.time.LocalDateTime;
 import java.util.Scanner;
+
+/**
+ * Encapsulates the reading of user input.
+ */
 public class Parser {
     private Scanner sc;
 
@@ -129,7 +134,9 @@ public class Parser {
                 curr = null;
             }
 
-            if (curr != null) taskList.addTask(curr);
+            if (curr != null) {
+                taskList.addTask(curr);
+            }
         }
     }
 }

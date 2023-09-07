@@ -1,4 +1,8 @@
 package ballsorting;
+
+/**
+ * Encapsulates a Todo.
+ */
 public class Todo extends Task {
     /**
      * Creates a new instance of Todo.
