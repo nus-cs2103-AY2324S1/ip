@@ -64,6 +64,13 @@ public class Ui {
     }
 
     /**
+     * Returns the exit greeting message.
+     */
+    public String getExitGreeting() {
+        return this.exitGreeting;
+    }
+
+    /**
      * Displays a message using the botMessage formatting.
      *
      * @param message The message to display.

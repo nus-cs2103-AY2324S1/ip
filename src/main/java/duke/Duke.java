@@ -63,7 +63,7 @@ public class Duke {
 
         while (!userInput.equalsIgnoreCase(Command.EXIT)) {
             // Generate a response based on the user's input.
-            String botOutput = generateResponse(userInput, scanner, this.tasks);
+            String botOutput = generateResponse(userInput);
 
             // Display the bot's response to the user.
             this.ui.displayMessage(botOutput);
@@ -83,24 +83,24 @@ public class Duke {
      * @param list      The task list to operate on.
      * @return A response generated based on the user input.
      */
-    public String generateResponse(String userInput, Scanner scanner, TaskList list) {
+    public String generateResponse(String userInput) {
         // Initialize the bot's response.
         String botOutput = "";
 
         // Check for various user commands and generate responses accordingly.
         if (userInput.equalsIgnoreCase(Command.LIST)) {
             // Generate a list of tasks and display it to the user.
-            botOutput = botOutput + "Here are the tasks in your list: \n    " + list.toString();
+            botOutput = botOutput + "Here are the tasks in your list: \n    " + this.tasks.toString();
 
         } else if (userInput.equalsIgnoreCase(Command.LIST_WITHIN_WEEK)) {
             // Generate a list of tasks due within a week and display it to the user.
-            TaskList listWeek = list.dueWithinWeek();
+            TaskList listWeek = this.tasks.dueWithinWeek();
             botOutput = botOutput + "Here are the tasks in your list that start/due within one week: \n    "
                     + listWeek.toString();
 
         } else if (userInput.equalsIgnoreCase(Command.LIST_WITHIN_MONTH)) {
             // Generate a list of tasks due within a month and display it to the user.
-            TaskList monthWeek = list.dueWithinMonth();
+            TaskList monthWeek = this.tasks.dueWithinMonth();
             botOutput = botOutput + "Here are the tasks in your list that start/due within one month: \n    "
                     + monthWeek.toString();
 
@@ -108,8 +108,8 @@ public class Duke {
             // Process a command to mark a task as done and display the result.
             botOutput = botOutput + "Nice! I've marked this task as done: \n    ";
             try {
-                int taskNo = parser.parseMark(userInput, list);
-                Task x = list.getTask(taskNo - 1);
+                int taskNo = parser.parseMark(userInput, this.tasks);
+                Task x = this.tasks.getTask(taskNo - 1);
                 x.markAsDone();
                 botOutput += x;
             } catch (ParserException p) {
@@ -120,8 +120,8 @@ public class Duke {
             // Process a command to mark a task as not done and display the result.
             botOutput = botOutput + "Ok, I've marked this task as not done yet: \n    ";
             try {
-                int taskNo = parser.parseUnmark(userInput, list);
-                Task x = list.getTask(taskNo - 1);
+                int taskNo = parser.parseUnmark(userInput, this.tasks);
+                Task x = this.tasks.getTask(taskNo - 1);
                 x.markAsUndone();
                 botOutput += x;
             } catch (ParserException p) {
@@ -132,8 +132,8 @@ public class Duke {
             // Process a command to delete a task and display the deleted task.
             botOutput = botOutput + "Noted. I've removed this task: \n    ";
             try {
-                int taskNo = parser.parseDelete(userInput, list);
-                Task x = list.deleteTask(taskNo - 1);
+                int taskNo = parser.parseDelete(userInput, this.tasks);
+                Task x = this.tasks.deleteTask(taskNo - 1);
                 botOutput += x;
             } catch (ParserException p) {
                 // Handle parsing exceptions.
@@ -141,19 +141,21 @@ public class Duke {
             }
         } else if (userInput.startsWith(Command.FIND)) {
             try {
-                String queryString = parser.parseFind(userInput, list);
-                TaskList listSearchMatches = list.searchMatches(queryString);
+                String queryString = parser.parseFind(userInput, this.tasks);
+                TaskList listSearchMatches = this.tasks.searchMatches(queryString);
                 botOutput = botOutput + "Here are the matching tasks in your list: \n    "
                         + listSearchMatches.toString();
             } catch (ParserException p) {
                 botOutput = p.getMessage();
             }
+        } else if (userInput.equalsIgnoreCase("BYE")) {
+            botOutput = this.ui.getExitGreeting();
         } else {
             try {
                 // Attempt to create a new task based on the user input.
                 Task t = Task.taskCon(userInput);
-                list.addTask(t);
-                botOutput = botOutput + "added: " + t + "\n    Now you have " + list.getSize() + " tasks in the list.";
+                this.tasks.addTask(t);
+                    botOutput = botOutput + "added: " + t + "\n    Now you have " + this.tasks.getSize() + " tasks in the list.";
             } catch (InvalidCommandException e) {
                 // Handle invalid commands.
                 botOutput = "OOPS!!! I'm sorry, but I'm afraid I don't comprehend Sergeant!";
