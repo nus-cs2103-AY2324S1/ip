@@ -62,7 +62,7 @@ public class Parser {
     public Task parseTask(String type, String input) throws CCException {
         Task task = null;
         switch (type) {
-            case "todo":
+        case "todo":
             task = parseToDo(input);
             break;
         case "deadline":

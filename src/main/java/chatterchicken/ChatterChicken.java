@@ -64,25 +64,25 @@ public class ChatterChicken {
         String action = command.getAction();
         String taskDescription = command.getTaskDescription();
         switch (action) {
-            case "list":
-                tasks.printList();
-                break;
-            case "mark":
-                tasks.markTask(taskDescription);
-                break;
-            case "unmark":
-                tasks.unmarkTask(taskDescription);
-                break;
-            case "delete":
-                tasks.deleteTask(taskDescription);
-                break;
-            case "todo":
-            case "deadline":
-            case "event":
-                tasks.addTask(parser.parseTask(action, taskDescription));
-                break;
-            default:
-                throw new CCException("OOPS!!! I'm sorry, but I don't know what that means :<");
+        case "list":
+            tasks.printList();
+            break;
+        case "mark":
+            tasks.markTask(taskDescription);
+            break;
+        case "unmark":
+            tasks.unmarkTask(taskDescription);
+            break;
+        case "delete":
+            tasks.deleteTask(taskDescription);
+            break;
+        case "todo":
+        case "deadline":
+        case "event":
+            tasks.addTask(parser.parseTask(action, taskDescription));
+            break;
+        default:
+            throw new CCException("OOPS!!! I'm sorry, but I don't know what that means :<");
         }
     }
 }
