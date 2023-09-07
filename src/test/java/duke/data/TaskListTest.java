@@ -1,10 +1,12 @@
 package duke.data;
 
-import duke.data.exception.DukeException;
-import duke.data.task.Todo;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import duke.data.exception.DukeException;
+import duke.data.task.Todo;
 
 public class TaskListTest {
     /** Tests add feature of TaskList */

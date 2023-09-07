@@ -3,11 +3,15 @@ package duke.commands;
 import java.io.IOException;
 import java.util.Date;
 
-import duke.data.task.Event;
 import duke.data.TaskList;
-import duke.ui.Ui;
+import duke.data.task.Event;
 import duke.storage.Storage;
+import duke.ui.Ui;
 
+/**
+ * The AddEventCommand adds an event into TaskList, writes into .txt file
+ * and display a task added message when it is executed.
+ */
 public class AddEventCommand extends Command {
     /** Description of the event */
     private final String description;

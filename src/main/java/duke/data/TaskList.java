@@ -1,11 +1,14 @@
 package duke.data;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import duke.data.task.Task;
 import duke.data.exception.DukeException;
+import duke.data.task.Task;
 
+/**
+ * The TaskList class stores an array of tasks.
+ * It is updated whenever the user adds or deletes tasks.
+ */
 public class TaskList {
     private final ArrayList<Task> taskList;
 
@@ -100,15 +103,21 @@ public class TaskList {
     }
 
     /**
-     * Retrieves the task based on taskID
+     * Retrieves the task based on taskID.
      *
-     * @param taskID the taskID of the task to be retrieved
+     * @param taskID the taskID of the task to be retrieved/
      * @return task that is searched for.
      */
     public Task getTask(int taskID) {
         return taskList.get(taskID);
     }
 
+    /**
+     * Retrieves a list of task based on the user's search query.
+     *
+     * @param query the query entered by the user.
+     * @return array list of tasks that matches the query entered.
+     */
     public ArrayList<Task> findTasks(String query) {
         ArrayList<Task> results = new ArrayList<>();
         for (Task task: taskList) {

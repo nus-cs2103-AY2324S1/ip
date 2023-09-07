@@ -1,5 +1,9 @@
 package duke.data.task;
 
+/**
+ * The Task class represents a task with description
+ * and whether it is completed or not.
+ */
 public class Task {
     /** Description of the task */
     protected String description;

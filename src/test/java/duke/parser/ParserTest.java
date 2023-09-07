@@ -1,12 +1,21 @@
 package duke.parser;
 
-import duke.commands.*;
-import duke.data.exception.DukeException;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.text.ParseException;
+
+import org.junit.jupiter.api.Test;
+
+import duke.commands.AddDeadlineCommand;
+import duke.commands.AddEventCommand;
+import duke.commands.AddToDoCommand;
+import duke.commands.Command;
+import duke.commands.DeleteTaskCommand;
+import duke.commands.DisplayTaskCommand;
+import duke.commands.MarkCommand;
+import duke.commands.UnmarkCommand;
+import duke.data.exception.DukeException;
 
 public class ParserTest {
 

@@ -4,18 +4,29 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import duke.commands.*;
-
-import duke.data.task.Task;
-import duke.data.task.Event;
+import duke.commands.AddDeadlineCommand;
+import duke.commands.AddEventCommand;
+import duke.commands.AddToDoCommand;
+import duke.commands.ByeCommand;
+import duke.commands.Command;
+import duke.commands.DeleteTaskCommand;
+import duke.commands.DisplayTaskCommand;
+import duke.commands.FindCommand;
+import duke.commands.MarkCommand;
+import duke.commands.UnmarkCommand;
+import duke.data.exception.DukeException;
 import duke.data.task.Deadline;
+import duke.data.task.Event;
+import duke.data.task.Task;
 import duke.data.task.Todo;
 
-import duke.data.exception.DukeException;
-
+/**
+ * The Parser class takes in the command enter by the user and
+ * returns a Command instance based on the command entered
+ */
 public class Parser {
 
-    enum Instruction {bye, list, mark, unmark, todo, deadline, event, delete, find}
+    enum Instruction { bye, list, mark, unmark, todo, deadline, event, delete, find }
 
     /**
      * Returns the command object based on the command string entered by the user.
@@ -28,45 +39,45 @@ public class Parser {
      */
     public static Command parseCommand(String command) throws ParseException, DukeException, IllegalArgumentException {
         SimpleDateFormat inputDateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-        String first_word = command.split(" ", 2)[0];
-        String second_word = "";
+        String firstWord = command.split(" ", 2)[0];
+        String secondWord = "";
 
         if (command.contains(" ")) {
-            second_word = command.split(" ", 2)[1];
+            secondWord = command.split(" ", 2)[1];
         }
 
-        Instruction instruction = Instruction.valueOf(first_word);
+        Instruction instruction = Instruction.valueOf(firstWord);
         switch (instruction) {
         case bye:
             return new ByeCommand();
         case list:
             return new DisplayTaskCommand();
         case mark:
-            return new MarkCommand(Integer.parseInt(second_word));
+            return new MarkCommand(Integer.parseInt(secondWord));
         case unmark:
-            return new UnmarkCommand(Integer.parseInt(second_word));
+            return new UnmarkCommand(Integer.parseInt(secondWord));
         case todo:
-            return new AddToDoCommand(second_word);
+            return new AddToDoCommand(secondWord);
         case deadline:
-            if (second_word.contains(" /by ")) {
-                String deadlineTask = second_word.split(" /by ")[0];
-                Date deadline = inputDateFormatter.parse(second_word.split(" /by ")[1]);
+            if (secondWord.contains(" /by ")) {
+                String deadlineTask = secondWord.split(" /by ")[0];
+                Date deadline = inputDateFormatter.parse(secondWord.split(" /by ")[1]);
                 return new AddDeadlineCommand(deadlineTask, deadline);
             } else {
                 throw new DukeException("☹ OOPS!!! The description / by of a deadline cannot be empty.");
             }
         case event:
-            if (second_word.contains(" /from ") && second_word.contains(" /to ")) {
-                String eventTask = second_word.split(" /from ")[0];
-                Date from = inputDateFormatter.parse(second_word.split(" /from ")[1].split(" /to ")[0]);
-                Date to = inputDateFormatter.parse(second_word.split(" /from ")[1].split(" /to ")[1]);
+            if (secondWord.contains(" /from ") && secondWord.contains(" /to ")) {
+                String eventTask = secondWord.split(" /from ")[0];
+                Date from = inputDateFormatter.parse(secondWord.split(" /from ")[1].split(" /to ")[0]);
+                Date to = inputDateFormatter.parse(secondWord.split(" /from ")[1].split(" /to ")[1]);
                 return new AddEventCommand(eventTask, from, to);
             }
             throw new DukeException("☹ OOPS!!! The description / from / to of a event cannot be empty.");
         case delete:
-            return new DeleteTaskCommand(Integer.parseInt(second_word));
+            return new DeleteTaskCommand(Integer.parseInt(secondWord));
         case find:
-            return new FindCommand(second_word);
+            return new FindCommand(secondWord);
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -90,7 +101,8 @@ public class Parser {
             return markTask(new Deadline(splitTask[2], readDateFormatter.parse(splitTask[3])), splitTask[1]);
         case "E":
             String[] duration = splitTask[3].split("-");
-            return markTask(new Event(splitTask[2], readDateFormatter.parse(duration[0]), readDateFormatter.parse(duration[1])), splitTask[1]);
+            return markTask(new Event(splitTask[2], readDateFormatter.parse(duration[0]),
+                    readDateFormatter.parse(duration[1])), splitTask[1]);
         default:
             throw new DukeException("File is corrupted");
         }

@@ -4,13 +4,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 
-import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.commands.Command;
 import duke.data.TaskList;
 import duke.data.exception.DukeException;
-import duke.commands.Command;
 import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.ui.Ui;
 
+/**
+ * Duke is an application that helps user store and manage tasks.
+ */
 public class Duke {
 
     private Storage storage;
@@ -22,7 +25,7 @@ public class Duke {
      *
      * @param filePath the path of the .txt file to be loaded
      */
-    public Duke(String filePath)  {
+    public Duke(String filePath) {
         ui = new Ui();
         try {
             storage = new Storage(filePath);
@@ -54,8 +57,7 @@ public class Duke {
                 ui.showWriteFileError();
             } catch (IllegalArgumentException e) {
                 ui.showInvalidCommand();
-            }
-            finally {
+            } finally {
                 ui.showLine();
             }
         }

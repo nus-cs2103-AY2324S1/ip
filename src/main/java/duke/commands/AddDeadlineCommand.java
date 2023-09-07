@@ -3,11 +3,15 @@ package duke.commands;
 import java.io.IOException;
 import java.util.Date;
 
-import duke.data.task.Deadline;
 import duke.data.TaskList;
-import duke.ui.Ui;
+import duke.data.task.Deadline;
 import duke.storage.Storage;
+import duke.ui.Ui;
 
+/**
+ * The AddDeadlineCommand adds a deadline into TaskList, writes into .txt file
+ * and display a task added message when it is executed.
+ */
 public class AddDeadlineCommand extends Command {
     /** Description of the deadline task */
     private final String description;

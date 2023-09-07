@@ -2,11 +2,15 @@ package duke.commands;
 
 import java.io.IOException;
 
-import duke.data.task.Todo;
 import duke.data.TaskList;
-import duke.ui.Ui;
+import duke.data.task.Todo;
 import duke.storage.Storage;
+import duke.ui.Ui;
 
+/**
+ * The AddToDoCommand adds a todo into TaskList, writes into .txt file
+ * and display a task added message when it is executed.
+ */
 public class AddToDoCommand extends Command {
     /** Description of the Todo task */
     private final String description;

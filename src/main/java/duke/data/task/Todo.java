@@ -1,11 +1,16 @@
 package duke.data.task;
-public class Todo  extends Task {
+
+/**
+ * The Todo class a child class of Task that
+ * only has the description attribute.
+ */
+public class Todo extends Task {
     /**
      * Constructor to initialize Todo.
      *
      * @param description Description of the Todo task.
      */
-    public Todo (String description) {
+    public Todo(String description) {
         super(description);
     }
 

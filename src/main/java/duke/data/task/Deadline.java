@@ -1,8 +1,12 @@
 package duke.data.task;
 
-import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
+/**
+ * The Deadline class a child class of Task that
+ * has the description and by attribute..
+ */
 public class Deadline extends Task {
     /** Date of deadline */
     protected Date by;

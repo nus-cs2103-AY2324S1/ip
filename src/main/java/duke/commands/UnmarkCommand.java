@@ -2,15 +2,18 @@ package duke.commands;
 
 import java.io.IOException;
 
-import duke.data.exception.DukeException;
 import duke.data.TaskList;
-import duke.ui.Ui;
+import duke.data.exception.DukeException;
 import duke.storage.Storage;
+import duke.ui.Ui;
 
+/**
+ * The UnmarkCommand unmark a task as completed, update the .txt file
+ * and display a task unmarked message when it is executed.
+ */
 public class UnmarkCommand extends Command {
 
     /** ID of task to be unmarked. */
-
     private final int taskID;
 
     /**

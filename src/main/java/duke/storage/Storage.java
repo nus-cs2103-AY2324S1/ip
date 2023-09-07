@@ -11,14 +11,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.data.TaskList;
-import duke.data.task.Task;
 import duke.data.exception.DukeException;
+import duke.data.task.Task;
 import duke.parser.Parser;
 
+/**
+ * The Storage class read .txt file and load the data into TaskList
+ * and write tasks in TaskList into .txt file.
+ */
 public class Storage {
     /** the path of the .txt file */
-    public static String DEFAULT_STORAGE_FILEPATH;
-    public final Path path;
+    private static String storageFilePath;
+    private final Path path;
 
     /**
      * Constructor to initialize Storage.
@@ -27,7 +31,7 @@ public class Storage {
      * @throws DukeException when the file does not end in .txt format.
      */
     public Storage(String filePath) throws DukeException {
-        DEFAULT_STORAGE_FILEPATH = filePath;
+        storageFilePath = filePath;
         path = Paths.get(filePath);
         if (!isValidPath(path)) {
             throw new DukeException("Storage file should end with '.txt'");
@@ -45,7 +49,7 @@ public class Storage {
      * @throws IOException when the path is invalid.
      */
     public static void save(Task task) throws IOException {
-        FileWriter fw = new FileWriter(DEFAULT_STORAGE_FILEPATH, true);
+        FileWriter fw = new FileWriter(storageFilePath, true);
         fw.write(task.toWrite());
         fw.close();
     }
@@ -57,7 +61,7 @@ public class Storage {
      * @throws IOException when the path is invalid.
      */
     public static void save(TaskList tasks) throws IOException {
-        FileWriter fw = new FileWriter(DEFAULT_STORAGE_FILEPATH);
+        FileWriter fw = new FileWriter(storageFilePath);
         for (Task task: tasks.getList()) {
             fw.write(task.toWrite());
         }
@@ -73,7 +77,7 @@ public class Storage {
      * @throws DukeException when the file is corrupted.
      */
     public ArrayList<Task> load() throws FileNotFoundException, ParseException, DukeException {
-        File file = new File(DEFAULT_STORAGE_FILEPATH);
+        File file = new File(storageFilePath);
         Scanner scanner = new Scanner(file);
         ArrayList<Task> taskList = new ArrayList<>();
         while (scanner.hasNext()) {
