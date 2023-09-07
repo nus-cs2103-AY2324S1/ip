@@ -61,6 +61,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
     public void delete(int index) {
+        assert tasks.size() > 0 : "You should only delete on a task list with at least 1 element";
         if (index < 1 || index > tasks.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range.");
         }
@@ -75,6 +76,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
     public void mark(int index) {
+        assert 0 <= index && index < tasks.size() : "Task should be in the task list";
         if (index < 1 || index > tasks.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range.");
         }
@@ -89,6 +91,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
     public void unmark(int index) {
+        assert 0 <= index && index < tasks.size() : "Task should be in the task list";
         if (index < 1 || index > tasks.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range.");
         }
@@ -104,6 +107,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
     public Task get(int index) {
+        assert 0 <= index && index < tasks.size() : "Task should be in the task list";
         if (index < 1 || index > tasks.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range.");
         }
@@ -133,12 +137,13 @@ public class TaskList {
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             Matcher matcher = pattern.matcher(task.toString()); // Match the task's string representation with the regex
+            if (!matcher.find()) {
+                continue;
+            }
 
-            if (matcher.find()) { // Check if the regex matches the task's string representation
-                result.append((i + 1) + ". " + task);
-                if (i + 1 < tasks.size()) {
-                    result.append("\n");
-                }
+            result.append((i + 1) + ". " + task);
+            if (i + 1 < tasks.size()) {
+                result.append("\n");
             }
         }
         return result.toString();
