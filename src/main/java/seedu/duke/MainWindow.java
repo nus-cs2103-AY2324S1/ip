@@ -60,7 +60,7 @@ public class MainWindow extends AnchorPane {
         // Check if the user input is "bye"
         if (input.equalsIgnoreCase("bye")) {
             // Create a PauseTransition to delay the exit
-            PauseTransition pause = new PauseTransition(Duration.seconds(1.5)); // Delay for 3 seconds
+            PauseTransition pause = new PauseTransition(Duration.seconds(0.5)); // Delay for 0.5 seconds
 
             // Set the action to be performed after the delay
             pause.setOnFinished(event -> {
