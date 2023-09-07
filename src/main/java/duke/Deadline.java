@@ -26,8 +26,8 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String lineToWriteFile() {
-        return "D | " + super.lineToWriteFile() + " | "
+    public String convertToSaveFormat() {
+        return "D | " + super.convertToSaveFormat() + " | "
                 + convertDateToString(this.by);
     }
 }

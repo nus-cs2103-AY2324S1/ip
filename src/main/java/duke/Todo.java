@@ -20,7 +20,7 @@ public class Todo extends Task {
     }
 
     @Override
-    public String lineToWriteFile() {
-        return "T | " + super.lineToWriteFile();
+    public String convertToSaveFormat() {
+        return "T | " + super.convertToSaveFormat();
     }
 }

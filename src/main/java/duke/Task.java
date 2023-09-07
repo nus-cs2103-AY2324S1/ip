@@ -53,7 +53,7 @@ public class Task {
      *
      * @return a string consisting of the string representation that will be written into a file.
      */
-    public String lineToWriteFile() {
+    public String convertToSaveFormat() {
         return (isDone ? "X" : " ") + " | " + this.description;
     }
 
