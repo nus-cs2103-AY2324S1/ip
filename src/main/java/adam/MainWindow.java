@@ -57,5 +57,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getAdamDialog(response,adamImage)
         );
         userInput.clear();
+        if(!adam.running()){
+            System.exit(0);
+        }
     }
 }
