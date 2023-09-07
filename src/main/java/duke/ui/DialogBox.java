@@ -29,7 +29,8 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        dialog.setStyle("-fx-background-color: #c2dadf;" +
+                "-fx-padding: 10px; -fx-background-radius: 20px;");
         dialog.setText(input);
         displayPicture.setImage(img);
     }
