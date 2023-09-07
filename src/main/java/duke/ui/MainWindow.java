@@ -43,6 +43,13 @@ public class MainWindow extends AnchorPane {
      */
     public void setDuke(Duke d) {
         duke = d;
+        assert userImage != null : "User image is null";
+        assert dukeImage != null : "Duke image is null";
+        assert scrollPane != null : "ScrollPane is null";
+        assert dialogContainer != null : "DialogContainer is null";
+        assert userInput != null : "UserInput is null";
+        assert sendButton != null : "SendButton is null";
+
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(duke.init(), dukeImage));
     }
