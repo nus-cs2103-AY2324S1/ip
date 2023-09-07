@@ -1,5 +1,5 @@
-
 package controllers;
+
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -14,7 +14,7 @@ import main.Corubi;
  */
 public class Main extends Application {
 
-    private Corubi corubi = new Corubi();
+    private Corubi duke = new Corubi();
 
     @Override
     public void start(Stage stage) {
@@ -23,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setBot(corubi);
+            fxmlLoader.<MainWindow>getController().setBot(duke);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
