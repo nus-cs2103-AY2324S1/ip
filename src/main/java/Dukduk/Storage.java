@@ -3,8 +3,17 @@ package dukduk;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * The class responsible for loading and saving tasks from/to a file.
+ */
 public class Storage {
 
+    /**
+     * Loads tasks from a specified file.
+     *
+     * @param filePath The file path from which to load tasks.
+     * @return An ArrayList of tasks loaded from the file.
+     */
     public static ArrayList<Task> loadTasksFromFile(String filePath) {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -37,6 +46,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to a specified file.
+     *
+     * @param filePath The file path to which tasks will be saved.
+     * @param tasks    An ArrayList of tasks to be saved to the file.
+     */
     public static void saveTasksToFile(String filePath, ArrayList<Task> tasks) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {

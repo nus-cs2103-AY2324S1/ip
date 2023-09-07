@@ -3,12 +3,20 @@ package dukduk;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * The main class used for the Dukduk chatbot.
+ */
 public class Dukduk {
 
     private TaskList tasks;
     private Ui ui;
     private String filePath;
 
+    /**
+     * Constructs a new Dukduk chatbot with the specified file path.
+     *
+     * @param filePath The file path to load and save tasks.
+     */
     public Dukduk(String filePath) {
         this.tasks = new TaskList();
         this.ui = new Ui();
@@ -19,6 +27,9 @@ public class Dukduk {
         }
     }
 
+    /**
+     * Runs the Dukduk chatbot, handling user input and managing tasks.
+     */
     public void run() {
         Ui.printGreetings();
         Scanner scanner = new Scanner(System.in);
@@ -76,7 +87,12 @@ public class Dukduk {
             }
         }
     }
-    
+
+    /**
+     * The main entry point for the Dukduk chatbot.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
         new Dukduk("src/main/java/data/duke.txt").run();
     }
