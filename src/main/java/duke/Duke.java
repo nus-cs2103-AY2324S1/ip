@@ -1,7 +1,6 @@
 package duke;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Duke {
     private TaskList tasks;
@@ -23,19 +22,7 @@ public class Duke {
      */
     public void run() {
         try {
-            Parser parser = new Parser();
-
-            Ui.greet();
-            Scanner userInput = new Scanner(System.in);
-            String input = userInput.nextLine();
-            parser.parse(input, tasks);
-
-            while (!input.equals("bye")) {
-                input = userInput.nextLine();
-                parser.parse(input, tasks);
-            }
-
-            try{
+            try {
                 storage.writeTasksToFile(tasks.getTasks());
             } catch (IOException e) {
                 throw new DukeException("Cannot write tasks into file!");
@@ -45,7 +32,13 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
-        new Duke("./data/data.txt").run();
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        Parser parser = new Parser();
+        String result = parser.parse(input, tasks);
+        return result;
     }
 }

@@ -71,12 +71,13 @@ public class TaskList {
     /**
      * Prints all the tasks in the tasklist.
      */
-    public void print() {
-        System.out.print("Here are the tasks in your list: \n");
+    public String print() {
+        String response = "Here are the tasks in your list: \n";
         for (int i = 0; i < tasklist.size(); i++) {
             int index = i + 1;
             Task t = tasklist.get(i);
-            System.out.println(index + "." + t.toString());
+            response += index + "." + t.toString() + "\n";
         }
+        return response;
     }
 }

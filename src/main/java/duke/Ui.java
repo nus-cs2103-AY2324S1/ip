@@ -1,26 +1,22 @@
 package duke;
 
 public class Ui {
-    final static String LINE = "────────────────────────────────────────────────────";
 
     /**
      * Greets the user.
+     *
+     * @return Greetings String.
      */
-    public static void greet() {
-        String logo = "___.                 \n"
-                + "\\_ |__ ___.__. ____  \n"
-                + " | __ <   |  |/ __ \\ \n"
-                + " | \\_\\ \\___  \\  ___/ \n"
-                + " |___  / ____|\\___  >\n"
-                + "     \\/\\/         \\/ \n";
-        System.out.println("\nHello! I'm \n" + logo);
-        System.out.println("How can I help you? \n" + LINE);
+    public static String greet() {
+        return ("Hello! I'm Ren, your personal chatbot.\n"  + "How can I help you?");
     }
 
     /**
      * Says bye.
+     *
+     * @return Bye String.
      */
-    public static void bye() {
-        System.out.println("Bye (actually hehe). Hope to see you again!\n" + LINE);
+    public static String bye() {
+        return "Byeee. Hope to see you again!";
     }
 }
