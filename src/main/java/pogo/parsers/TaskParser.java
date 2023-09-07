@@ -35,8 +35,7 @@ public class TaskParser {
     public static Command parseDeadlineCommand(String input) throws PogoInvalidTaskException {
         final Matcher matcher = DEADLINE_PATTERN.matcher(input);
 
-        InvalidCommand ic =
-            new InvalidCommand(Messages.INVALID_TASK
+        InvalidCommand ic = new InvalidCommand(Messages.INVALID_TASK
                 + System.lineSeparator()
                 + AddDeadlineCommand.MESSAGE_USAGE);
         if (!matcher.matches()) {
@@ -66,9 +65,9 @@ public class TaskParser {
     public static Command parseToDoCommand(String input) throws PogoInvalidTaskException {
         final Matcher matcher = TODO_PATTERN.matcher(input);
         InvalidCommand ic =
-            new InvalidCommand(Messages.INVALID_TASK
-                + System.lineSeparator()
-                + AddToDoCommand.MESSAGE_USAGE);
+                new InvalidCommand(Messages.INVALID_TASK
+                        + System.lineSeparator()
+                        + AddToDoCommand.MESSAGE_USAGE);
         if (!matcher.matches()) {
             return ic;
         }
@@ -91,9 +90,9 @@ public class TaskParser {
     public static Command parseEventCommand(String input) throws PogoInvalidTaskException {
         final Matcher matcher = EVENT_PATTERN.matcher(input);
         InvalidCommand ic =
-            new InvalidCommand(Messages.INVALID_TASK
-                + System.lineSeparator()
-                + AddEventCommand.MESSAGE_USAGE);
+                new InvalidCommand(Messages.INVALID_TASK
+                        + System.lineSeparator()
+                        + AddEventCommand.MESSAGE_USAGE);
         if (!matcher.matches()) {
             return ic;
         }

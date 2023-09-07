@@ -81,8 +81,8 @@ public class TextStorage implements Storage {
     public List<Task> load() throws IOException {
         createTaskFileIfNotExist();
 
-        File f = new File(TASKS_FILE);
-        List<String> lines = Files.readAllLines(f.toPath());
+        File tasksFile = new File(TASKS_FILE);
+        List<String> lines = Files.readAllLines(tasksFile.toPath());
         return encoder.decode(lines);
     }
 }

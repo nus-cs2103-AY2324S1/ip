@@ -28,6 +28,11 @@ public class Pogo {
     private static final Storage storage = TextStorage.of();
     private static final TextUi ui = new TextUi();
 
+    /**
+     * Helper method to handle user input.
+     * @param input the user input.
+     * @return true if the user wants to exit the application, false otherwise.
+     */
     private static boolean handleInput(String input) {
         Command command = Parser.parseCommand(input);
         command.setData(tasks);
