@@ -27,17 +27,10 @@ public class Ui {
     /**
      * Prints a goodbye message when users close the bot.
      */
-    public void goodbye() {
-        System.out.println("Bye. Don't come back!\n");
+    public String bidGoodbye() {
+        return "Bye. Don't come back!";
     }
 
-    /**
-     * Awaits user input.
-     * @return User input for procesing
-     */
-    public String awaitCommand() {
-        return sc.nextLine();
-    }
 
     /**
      * Prints lines to inform user that there are no saved tasks in the data.

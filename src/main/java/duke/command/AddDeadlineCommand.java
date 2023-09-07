@@ -20,12 +20,13 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Deadline deadline = new Deadline(description, by);
         tasks.addDeadline(deadline);
         storage.writeData(tasks.toWriteString());
-        System.out.println("Ok. Your tasklist has grown longer with this addition:\n"
-        + deadline.toString()
-        + "\nYou now have " + tasks.getLength() + " things to do.\n");
+        String returnMessage = "Ok. Your tasklist has grown longer with this addition:\n"
+                + deadline.toString()
+                + "\nYou now have " + tasks.getLength() + " things to do.\n";
+        return returnMessage;
     }
 }
