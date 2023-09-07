@@ -4,7 +4,6 @@ import duke.task.AlreadyMarkedException;
 import duke.task.AlreadyUnmarkedException;
 import duke.task.Task;
 
-import java.io.ObjectOutput;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -60,7 +59,7 @@ public class TaskList implements Serializable {
             for (Task task : tasks) {
                 try {
                     task.markDone();
-                } catch (DukeException ignored) {
+                } catch (AlreadyMarkedException ignored) {
                 }
             }
             return "All done.";
@@ -84,7 +83,7 @@ public class TaskList implements Serializable {
             for (Task task : tasks) {
                 try {
                     task.markUndone();
-                } catch (DukeException ignored) {
+                } catch (AlreadyUnmarkedException ignored) {
                 }
             }
             return "All undone.";

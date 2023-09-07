@@ -1,6 +1,5 @@
 package duke.task;
 
-import duke.Duke;
 import duke.DukeException;
 
 public class AlreadyUnmarkedException extends DukeException {

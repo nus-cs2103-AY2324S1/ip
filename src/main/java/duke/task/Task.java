@@ -1,7 +1,5 @@
 package duke.task;
 
-import duke.DukeException;
-
 import java.io.Serializable;
 
 public abstract class Task implements Serializable {
