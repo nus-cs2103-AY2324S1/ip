@@ -3,6 +3,8 @@ package duke.tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import duke.exceptions.DukeException;
+
 
 public class Event extends Task {
     private final LocalDate from;

@@ -1,6 +1,7 @@
 package duke.tasks;
 
 import duke.tasks.Task;
+import duke.exceptions.DukeException;
 
 public class ToDo extends Task {
 
