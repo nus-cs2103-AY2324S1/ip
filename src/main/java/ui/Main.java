@@ -2,7 +2,7 @@ package ui;
 
 import java.io.IOException;
 
-import Duke.Duke;
+import duke.Duke;
 import exceptions.ErrorStorageException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -1,8 +1,5 @@
 package helpers;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-
 import exceptions.EmptyTasksException;
 import exceptions.ErrorStorageException;
 import exceptions.InvalidArgumentException;
@@ -12,35 +9,15 @@ import exceptions.InvalidTimeFormatException;
 import tasks.Task;
 
 /**
- * Represents Ui class that operations to print out messages for users
+ * Represents Message class that operations to print out messages for users
  */
-public class Ui {
+public class Message {
     final boolean isDebug = true;
-    final String DIVIDER = "____________________________________________________________";
-
-    /**
-     * Method to print out the welcome message
-     */
-    public void showWelcome() {
-        System.out.println(DIVIDER + "\nHello! I'm MACHO-CATTO! Your personal chat-bot to make your \nday macho!"
-                + "\nWhat can I do for you today?\n" + DIVIDER);
-    }
-
-    /**
-     * Method to get command from input
-     *
-     * @param br BufferedReader
-     * @return String of input
-     * @throws IOException Input exception
-     */
-    public String getCommand(BufferedReader br) throws IOException {
-        return br.readLine();
-    }
-
     /**
      * Method to show message that task has been marked
      *
      * @param task Task to mark as done
+     * @return String of message
      */
     public String showMarkDoneMessage(Task task) {
         return "I have marked this task as done per your request, macho!\n" + task;
@@ -50,7 +27,7 @@ public class Ui {
      * Method to show message that task has been unmarked
      *
      * @param task Task to unmarked as done
-     * @return
+     * @return String of message
      */
     public String showUnmarkDoneMessage(Task task) {
         return "I have marked this task as undone yet, per your request, macho!\n" + task;
@@ -61,6 +38,7 @@ public class Ui {
      *
      * @param taskList List of tasks
      * @param task     Task to be deleted
+     * @return String of message
      */
     public String showDeletedTaskMessage(TaskList taskList, Task task) {
         return "I have deleted this task as done per your request, macho!\n" + task.toString()
@@ -72,6 +50,7 @@ public class Ui {
      *
      * @param taskList List of tasks
      * @param task     Task to be added
+     * @return String of message
      */
     public String showAddTaskMessage(TaskList taskList, Task task) {
         return "Got it macho! I've added this task:\n" + task + "\n"
@@ -82,6 +61,7 @@ public class Ui {
      * Method to show message on the list of tasks
      *
      * @param taskList List of tasks
+     * @return String of message
      */
     public String showTaskList(TaskList taskList) {
         return taskList.printTaskList();
@@ -91,6 +71,7 @@ public class Ui {
      * Method to show message on the filtered list of tasks
      *
      * @param taskList List of tasks
+     * @return String of message
      */
     public String showFilteredTaskList(TaskList taskList, String input) {
         return taskList.filterTaskList(input);
@@ -99,11 +80,10 @@ public class Ui {
     /**
      * Method to show error message if loading of storage fails
      *
-     * @throws ErrorStorageException Exception for storage loading error
+     * @return String of message
      */
-    public void showLoadingError() throws ErrorStorageException {
-        System.out.println(DIVIDER);
-        throw new ErrorStorageException(DIVIDER);
+    public String showLoadingError() {
+        return new ErrorStorageException("").toString();
     }
 
     /**
@@ -111,12 +91,10 @@ public class Ui {
      *
      * @param substring String with invalid argument
      * @param s         Command for correct argument
-     * @throws InvalidArgumentException Exception for invalid argument
+     * @return String of message
      */
-
-    public void showArgumentErrorMessage(String substring, String s) throws InvalidArgumentException {
-        System.out.println(DIVIDER);
-        throw new InvalidArgumentException(substring, s, DIVIDER);
+    public String showArgumentErrorMessage(String substring, String s) {
+        return new InvalidArgumentException(substring, s).toString();
     }
 
 
@@ -124,22 +102,20 @@ public class Ui {
      * Method to show error message if there is invalid datetime format
      *
      * @param part String containing the invalid format
-     * @throws InvalidTimeFormatException Exception for invalid datetimeformat
+     * @return String of message
      */
-    public void showInvalidTimeFormatErrorMessage(String part) throws InvalidTimeFormatException {
-        System.out.println(DIVIDER);
-        throw new InvalidTimeFormatException(part, DIVIDER);
+    public String showInvalidTimeFormatErrorMessage(String part) {
+        return new InvalidTimeFormatException(part).toString();
     }
 
     /**
      * Method to show error message if there is invalid index
      *
      * @param input String containing the invalid index
-     * @throws InvalidIndexException Exception for invalid index
+     * @return String of message
      */
-    public void showInvalidIndexErrorMessage(String input) throws InvalidIndexException {
-        System.out.println(DIVIDER);
-        throw new InvalidIndexException(DIVIDER);
+    public String showInvalidIndexErrorMessage(String input) {
+        return new InvalidIndexException(input).toString();
     }
 
 
@@ -147,40 +123,29 @@ public class Ui {
      * Method to show error message if there is invalid command entered
      *
      * @param message String containing the invalid command
-     * @throws InvalidCommandException Exception for invalid command given
+     * @return String of message
      */
-    public void showInvalidCommandErrorMessage(String message) throws InvalidCommandException {
-        System.out.println(DIVIDER);
-        throw new InvalidCommandException(DIVIDER);
+    public String showInvalidCommandErrorMessage(String message) {
+        return new InvalidCommandException(message).toString();
     }
 
     /**
      * Method to show error message if there is invalid command entered
      *
      * @param message String containing the invalid command
-     * @throws InvalidArgumentException Exception for invalid command given
+     * @return String of message
      */
-    public void showInvalidArgumentErrorMessage(String command, String message) throws InvalidArgumentException {
-        System.out.println(DIVIDER);
-        throw new InvalidArgumentException(message, command, DIVIDER);
+    public String showInvalidArgumentErrorMessage(String command, String message) {
+        return new InvalidArgumentException(message, command).toString();
     }
 
     /**
      * Method to show error message if user is performing actions on empty tasks
      *
-     * @throws EmptyTasksException Exception for empty tasks
+     * @return String of message
      */
-    public void showEmptyTasksError(String input) throws EmptyTasksException {
-        System.out.println(DIVIDER);
-        throw new EmptyTasksException(DIVIDER);
+    public String showEmptyTasksError(String input) {
+        return new EmptyTasksException(input).toString();
     }
 
-    /**
-     * Method to get the string of divider
-     *
-     * @return DIVIDER
-     */
-    public String getDivider() {
-        return DIVIDER;
-    }
 }

@@ -1,6 +1,6 @@
 package ui.controllers;
 
-import Duke.Duke;
+import duke.Duke;
 import exceptions.ErrorStorageException;
 import exceptions.InvalidCommandException;
 import helpers.Parser;
