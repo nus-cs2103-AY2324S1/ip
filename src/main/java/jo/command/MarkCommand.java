@@ -10,17 +10,17 @@ import jo.Ui;
  */
 public class MarkCommand extends Command {
 
-    private int index;
+    private int[] taskIndices;
     private boolean isDone;
 
     /**
      * Constructs a `MarkCommand` object with the specified index of the task and its completion status.
      *
-     * @param index  The index of the task to be marked or unmarked.
-     * @param isDone `true` if the task should be marked as done, `false` if it should be marked as undone.
+     * @param taskIndices  The indices of the tasks to be marked or unmarked.
+     * @param isDone `true` if the tasks should be marked as done, `false` if it should be marked as undone.
      */
-    public MarkCommand(int index, boolean isDone) {
-        this.index = index;
+    public MarkCommand(int[] taskIndices, boolean isDone) {
+        this.taskIndices = taskIndices;
         this.isDone = isDone;
     }
 
@@ -34,12 +34,14 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JoException {
-        if (this.index < 0 || this.index >= tasks.getSize()) {
-            throw new JoException("This task does not exist.");
-        } else {
-            tasks.markTask(this.index, this.isDone);
-            storage.update(tasks);
-            ui.markResult(tasks.getTask(this.index), this.isDone);
+        for (int index : taskIndices) {
+            if (index < 0 || index >= tasks.getSize()) {
+                throw new JoException("This task does not exist.");
+            } else {
+                tasks.markTask(index, this.isDone);
+                storage.update(tasks);
+                ui.markResult(tasks.getTask(index), this.isDone);
+            }
         }
     }
 

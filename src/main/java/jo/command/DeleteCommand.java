@@ -1,5 +1,7 @@
 package jo.command;
 
+import java.util.Arrays;
+
 import jo.JoException;
 import jo.Storage;
 import jo.TaskList;
@@ -11,15 +13,15 @@ import jo.task.Task;
  */
 public class DeleteCommand extends Command {
 
-    private int index;
+    private int[] taskIndices;
 
     /**
      * Constructs a `DeleteCommand` object with the specified index of the task to be deleted.
      *
-     * @param index The index of the task to be deleted from the task list.
+     * @param taskIndices The index of the task to be deleted from the task list.
      */
-    public DeleteCommand(int index) {
-        this.index = index;
+    public DeleteCommand(int[] taskIndices) {
+        this.taskIndices = taskIndices;
     }
 
     /**
@@ -32,13 +34,17 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JoException {
-        if (this.index < 0 || this.index >= tasks.getSize()) {
-            throw new JoException("This task does not exist.");
-        } else {
-            Task removedTask = tasks.getTask(this.index);
-            tasks.deleteTask(this.index);
-            storage.update(tasks);
-            ui.modifyListResult(removedTask, tasks, false);
+        Arrays.sort(taskIndices);
+        for (int i = this.taskIndices.length - 1; i >= 0; i--) {
+            int index = taskIndices[i];
+            if (index < 0 || index >= tasks.getSize()) {
+                throw new JoException("This task does not exist.");
+            } else {
+                Task removedTask = tasks.getTask(index);
+                tasks.deleteTask(index);
+                storage.update(tasks);
+                ui.modifyListResult(removedTask, tasks, false);
+            }
         }
     }
 

@@ -29,7 +29,8 @@ public class ParserTest {
     }
     @Test
     public void parseDeleteCommand() throws JoException {
-        DeleteCommand expectedDeleteCommand = new DeleteCommand(1);
+        int[] taskIndices = { 1 };
+        DeleteCommand expectedDeleteCommand = new DeleteCommand(taskIndices);
         Command parsedDeleteCommand = Parser.parse("delete 1");
         assertEquals(expectedDeleteCommand.getClass(), parsedDeleteCommand.getClass());
     }
@@ -42,11 +43,12 @@ public class ParserTest {
     }
     @Test
     public void parseMarkCommand() throws JoException {
-        MarkCommand expectedMarkCommand = new MarkCommand(1, true);
+        int[] taskIndices = {1};
+        MarkCommand expectedMarkCommand = new MarkCommand(taskIndices, true);
         Command parsedMarkCommand = Parser.parse("mark 1");
         assertEquals(expectedMarkCommand.getClass(), parsedMarkCommand.getClass());
 
-        MarkCommand expectedMarkCommand2 = new MarkCommand(1, false);
+        MarkCommand expectedMarkCommand2 = new MarkCommand(taskIndices, false);
         Command parsedUnmarkCommand = Parser.parse("unmark 1");
         assertEquals(expectedMarkCommand2.getClass(), parsedUnmarkCommand.getClass());
     }

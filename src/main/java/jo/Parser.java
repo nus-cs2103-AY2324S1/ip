@@ -90,33 +90,36 @@ public class Parser {
         public abstract Command perform(String s) throws JoException;
     }
 
+    /**
+     * List of commands that act on integer values (eg. indices).
+     */
     protected enum INT_COMMAND {
         mark {
             @Override
-            public Command perform(int taskIndex) {
-                return new MarkCommand(taskIndex, true);
+            public Command perform(int... taskIndices) {
+                return new MarkCommand(taskIndices, true);
             }
         },
         unmark {
             @Override
-            public Command perform(int taskIndex) {
-                return new MarkCommand(taskIndex, false);
+            public Command perform(int... taskIndices) {
+                return new MarkCommand(taskIndices, false);
             }
         },
         delete {
             @Override
-            public Command perform(int taskIndex) {
-                return new DeleteCommand(taskIndex);
+            public Command perform(int... taskIndices) {
+                return new DeleteCommand(taskIndices);
             }
         };
 
         /**
          * Performs the parsing of the command based on the provided task index.
          *
-         * @param taskIndex The index of the task associated with the command.
+         * @param taskIndices The index of the task associated with the command.
          * @return The corresponding `Command` object.
          */
-        public abstract Command perform(int taskIndex);
+        public abstract Command perform(int... taskIndices);
     }
 
     /**
@@ -146,16 +149,22 @@ public class Parser {
     public static Command parse(String input) throws JoException {
         if (input.equalsIgnoreCase("bye")) {
             return new ExitCommand();
+
         } else if (input.trim().isEmpty()) {
             throw new JoException("The command cannot be empty.");
+
         } else if (input.equals("list")) {
             return new ListCommand();
+
         } else if (isInEnum(input.trim(), STRING_COMMAND.class)) {
-            throw new JoException(String.format("The description of a %s cannot be empty.", input));
+            throw new JoException(String.format("The description of a %s cannot be empty.", input.trim()));
+
         } else if (isInEnum(input, INT_COMMAND.class)) {
-            throw new JoException(String.format("Please specify a valid task number to %s.", input));
+            throw new JoException(String.format("Please specify a valid task number to %s.", input.trim()));
+
         } else {
-            String instruction = input.split(" ", 2)[0].trim();
+            String[] parts = input.split(" ", 2);
+            String instruction = parts[0].trim();
             if (isInEnum(instruction, STRING_COMMAND.class)) {
                 for (STRING_COMMAND t : STRING_COMMAND.values()) {
                     if (t.name().equals(instruction)) {
@@ -165,8 +174,14 @@ public class Parser {
             } else if (isInEnum(instruction, INT_COMMAND.class)) {
                 for (INT_COMMAND c : INT_COMMAND.values()) {
                     if (c.name().equals(instruction)) {
-                        int taskIndex = Character.getNumericValue(input.charAt(input.length() - 1)) - 1;
-                        return c.perform(taskIndex);
+                        String[] values = parts[1].split(", ");
+                        int[] taskIndices = new int[values.length];
+
+                        // Parse each value to an integer and store in the taskIndices array
+                        for (int i = 0; i < values.length; i++) {
+                            taskIndices[i] = Integer.parseInt(values[i].trim()) - 1;
+                        }
+                        return c.perform(taskIndices);
                     }
                 }
             } else {
