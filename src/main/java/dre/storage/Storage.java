@@ -1,7 +1,12 @@
+package dre.storage;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import dre.task.Task;
+import dre.parser.Parser;
+import dre.task.TaskList;
+import dre.exception.DreException;
 
 public class Storage {
 
@@ -32,13 +37,14 @@ public class Storage {
         return list;
     }
 
-    public void save(List<Task> list) {
+    public void save(TaskList taskList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(dataFilePath))) {
-            for (Task task : list) {
+            for (int i = 0; i < taskList.size(); i++) {
+                Task task = taskList.getTask(i + 1); // since getTask uses an index starting from 1
                 writer.write(task.fileSaveFormat());
                 writer.newLine();
             }
-        } catch (IOException e) {
+        } catch (IOException | DreException e) {
             System.out.println("Error saving tasks to the file.");
         }
     }

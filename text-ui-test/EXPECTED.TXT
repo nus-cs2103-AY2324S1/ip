@@ -2,17 +2,17 @@ ____________________________________________________________
 Hello! I'm Dre
 What can I do for you?
 ____________________________________________________________
-Got it. I've added this task:
+Got it. I've added this dre.task:
 [T][ ] one
 Now you have 1 tasks in the list.
-Got it. I've added this task:
+Got it. I've added this dre.task:
 [D][ ] two (by: time)
 Now you have 2 tasks in the list.
 1. [T][ ] one
 2. [D][ ] two (by: time)
-Nice! I've marked this task as done:
+Nice! I've marked this dre.task as done:
 [T][X] one
-Got it. I've added this task:
+Got it. I've added this dre.task:
 [E][ ] three (from: now to: later)
 Now you have 3 tasks in the list.
 ____________________________________________________________

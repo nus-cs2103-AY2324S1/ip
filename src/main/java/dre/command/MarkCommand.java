@@ -1,3 +1,10 @@
+package dre.command;
+
+import dre.storage.Storage;
+import dre.ui.Ui;
+import dre.task.TaskList;
+import dre.exception.DreException;
+
 public class MarkCommand extends Command {
     private final int index;
 
@@ -11,7 +18,7 @@ public class MarkCommand extends Command {
             tasks.mark(index);
             ui.showMarkedTask(tasks.getTask(index));
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("Invalid task index.");
+            ui.showError("Invalid dre.task index.");
         }
     }
 }

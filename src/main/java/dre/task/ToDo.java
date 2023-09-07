@@ -1,4 +1,6 @@
-public class ToDo extends Task{
+package dre.task;
+
+public class ToDo extends Task {
     public ToDo(String task) {
         super(task);
     }

@@ -1,10 +1,19 @@
-public class NewDre {
+package dre;
+
+import dre.exception.DreException;
+import dre.ui.Ui;
+import dre.storage.Storage;
+import dre.parser.Parser;
+import dre.task.TaskList;
+import dre.command.Command;
+
+public class Dre {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    public NewDre(String filePath) {
+    public Dre(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -35,6 +44,6 @@ public class NewDre {
     }
 
     public static void main(String[] args) {
-        new NewDre("data/dre.txt").run();
+        new Dre("data/dre.txt").run();
     }
 }

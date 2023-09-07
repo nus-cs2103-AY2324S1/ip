@@ -1,3 +1,10 @@
+package dre.command;
+
+import dre.storage.Storage;
+import dre.ui.Ui;
+import dre.task.Task;
+import dre.task.TaskList;
+
 public class AddCommand extends Command {
     private final Task task;
 

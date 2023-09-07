@@ -1,6 +1,14 @@
+package dre.parser;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import dre.task.*;
+import dre.command.*;
+import dre.exception.DreException;
+
+
+
 
 public class Parser {
     //may return a null.
@@ -35,7 +43,7 @@ public class Parser {
         if (isDone) {
             task.done();
         }
-        return task; //instead of adding to list, just return the task.
+        return task; //instead of adding to list, just return the dre.task.
     }
 
     private static LocalDate parseDate(String dateString) {
@@ -44,7 +52,7 @@ public class Parser {
     }
 
     public static Command parse(String input) throws DreException {
-        String[] words = input.split(" ", 2);  // split command from the rest of the input
+        String[] words = input.split(" ", 2);  // split dre.command from the rest of the input
         String commandWord = words[0];
 
         switch (commandWord) {
@@ -54,17 +62,17 @@ public class Parser {
                 return new ListCommand();
             case "mark":
                 if (words.length < 2) {
-                    throw new DreException("Please specify the task index to mark.");
+                    throw new DreException("Please specify the dre.task index to mark.");
                 }
                 return new MarkCommand(Integer.parseInt(words[1].trim()));
             case "unmark":
                 if (words.length < 2) {
-                    throw new DreException("Please specify the task index to unmark.");
+                    throw new DreException("Please specify the dre.task index to unmark.");
                 }
                 return new UnmarkCommand(Integer.parseInt(words[1].trim()));
             case "delete":
                 if (words.length < 2) {
-                    throw new DreException("Please specify the task index to delete.");
+                    throw new DreException("Please specify the dre.task index to delete.");
                 }
                 return new DeleteCommand(Integer.parseInt(words[1].trim()));
             case "todo":

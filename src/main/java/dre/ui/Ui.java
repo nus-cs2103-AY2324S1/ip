@@ -1,4 +1,10 @@
+package dre.ui;
+
 import java.util.Scanner;
+import dre.task.TaskList;
+import dre.exception.DreException;
+import dre.task.Task;
+
 
 public class Ui {
 

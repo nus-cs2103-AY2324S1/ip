@@ -1,5 +1,8 @@
+package dre.task;
+
 import java.util.ArrayList;
 import java.util.List;
+import dre.exception.DreException;
 
 public class TaskList {
 
@@ -17,28 +20,28 @@ public class TaskList {
         tasks.add(task);
     }
 
-    // Delete task from the list by index
+    // Delete dre.task from the list by index
     public Task delete(int index) {
         return tasks.remove(index);
     }
 
-    // Mark task as done by index
+    // Mark dre.task as done by index
     public void mark(int index) throws DreException {
         try {
             Task task = tasks.get(index - 1);
             task.done();
         } catch (IndexOutOfBoundsException e) {
-            throw new DreException("Invalid task index.");
+            throw new DreException("Invalid dre.task index.");
         }
     }
 
-    // Unmark task by index
+    // Unmark dre.task by index
     public void unmark(int index) throws DreException {
         try {
             Task task = tasks.get(index - 1);
             task.undo();
         } catch (IndexOutOfBoundsException e) {
-            throw new DreException("Invalid task index.");
+            throw new DreException("Invalid dre.task index.");
         }
     }
 
@@ -46,7 +49,7 @@ public class TaskList {
         try {
             return tasks.get(index - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new DreException("Invalid task index.");
+            throw new DreException("Invalid dre.task index.");
         }
     }
 
@@ -54,7 +57,7 @@ public class TaskList {
         try {
             tasks.remove(index - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new DreException("Invalid task index.");
+            throw new DreException("Invalid dre.task index.");
         }
     }
 

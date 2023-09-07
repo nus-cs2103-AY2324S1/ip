@@ -1,3 +1,10 @@
+package dre.command;
+
+import dre.storage.Storage;
+import dre.ui.Ui;
+import dre.exception.DreException;
+import dre.task.TaskList;
+
 public class DeleteCommand extends Command {
     private final int index;
 
