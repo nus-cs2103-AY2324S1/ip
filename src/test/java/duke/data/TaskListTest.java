@@ -14,18 +14,18 @@ public class TaskListTest {
     @Test
     public void TaskList_addTask_success() {
         TaskList tasklist = new TaskList();
-        assertEquals(0, tasklist.getTasklist().size());
-        tasklist.addTodo("this");
-        assertEquals(1, tasklist.getTasklist().size());
+        assertEquals(0, tasklist.getTaskList().size());
+        tasklist.addToDo("this");
+        assertEquals(1, tasklist.getTaskList().size());
     }
 
     public void TaskList_deleteTask_success() throws DukeException {
         TaskList tasklist = new TaskList();
-        assertEquals(0, tasklist.getTasklist().size());
-        tasklist.addTodo("this");
-        assertEquals(1, tasklist.getTasklist().size());
+        assertEquals(0, tasklist.getTaskList().size());
+        tasklist.addToDo("this");
+        assertEquals(1, tasklist.getTaskList().size());
         tasklist.deleteTask(1);
-        assertEquals(1, tasklist.getTasklist().size());
+        assertEquals(1, tasklist.getTaskList().size());
     }
 
 }
