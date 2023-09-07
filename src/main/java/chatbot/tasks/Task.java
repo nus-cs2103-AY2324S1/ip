@@ -8,6 +8,7 @@ public class Task {
      * Description of task
      */
     protected String description;
+
     /**
      * Indicates whether the task is done or not
      */

@@ -37,12 +37,12 @@ public class Event extends Task {
         this.start = start;
         this.end = end;
 
-        try{
+        try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
                     "dd-MM-yyyy HH:mm:ss");
             formattedStart = LocalDateTime.parse(this.start, formatter);
             formattedEnd = LocalDateTime.parse(this.end, formatter);
-        } catch (DateTimeException e){
+        } catch (DateTimeException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }

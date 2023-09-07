@@ -1,13 +1,13 @@
 package chatbot;
 
+import java.io.FileNotFoundException;
+
 import chatbot.commands.Command;
 import chatbot.exceptions.DukeException;
 import chatbot.parser.Parser;
 import chatbot.storage.Storage;
 import chatbot.tasks.TaskList;
 import chatbot.ui.Ui;
-
-import java.io.FileNotFoundException;
 
 public class Duke {
     private final Storage storage;

@@ -4,11 +4,19 @@ import chatbot.storage.Storage;
 import chatbot.tasks.TaskList;
 import chatbot.ui.Ui;
 
-public class FindCommand extends Command{
+/**
+ * Finds a task from the task list
+ */
+
+public class FindCommand extends Command {
 
     private String input;
 
-    public FindCommand(String input){
+    /**
+     * Constructor for FindCommand
+     * @param input Keyword
+     */
+    public FindCommand(String input) {
         this.input = input;
     }
 

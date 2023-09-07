@@ -12,6 +12,7 @@ public class Deadline extends Task {
      * Due date of the deadline
      */
     protected String date;
+
     /**
      * Formatted due date of the deadline
      */
@@ -26,11 +27,11 @@ public class Deadline extends Task {
         super(description);
         this.date = date;
 
-        try{
+        try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
                     "dd-MM-yyyy HH:mm:ss");
             formattedDate = LocalDateTime.parse(this.date, formatter);
-        } catch (DateTimeException e){
+        } catch (DateTimeException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }

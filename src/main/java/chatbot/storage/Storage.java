@@ -1,13 +1,17 @@
 package chatbot.storage;
 
-import chatbot.tasks.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import chatbot.tasks.Task;
+import chatbot.tasks.TaskList;
+import chatbot.tasks.Todo;
+import chatbot.tasks.Event;
+import chatbot.tasks.Deadline;
 
 /**
  * Represents a storage which stores and retrieves the task list
@@ -25,7 +29,7 @@ public class Storage {
     public Storage(String path) {
         this.file = new File(path);
 
-        if(!file.exists()){
+        if (!file.exists()) {
             file.mkdirs();
         }
     }

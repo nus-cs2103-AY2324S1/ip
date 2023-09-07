@@ -13,12 +13,12 @@ public class DeadlineCommand extends Command {
     /**
      * Description of the deadline to be added
      */
-    String description;
+    private String description;
 
     /**
      * Due date for the task
      */
-    String date;
+    private String date;
 
     /**
      * Constructor for DeadlineCommand
@@ -47,7 +47,7 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public void execute(TaskList tasksList, Ui ui, Storage storage) {
-        Task deadline = new Deadline(description,date);
+        Task deadline = new Deadline(description, date);
         tasksList.addTask(deadline);
         ui.showAddedTask(tasksList);
     }

@@ -13,17 +13,17 @@ public class EventCommand extends Command {
     /**
      * Description of the event task to be added
      */
-    String description;
+    private String description;
 
     /**
      * Start date of the event
      */
-    String from;
+    private String from;
 
     /**
      * End date of the event
      */
-    String to;
+    private String to;
 
     /**
      * Constructor for EventCommand
