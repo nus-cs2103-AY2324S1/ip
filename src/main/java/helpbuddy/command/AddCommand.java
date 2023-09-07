@@ -25,11 +25,12 @@ public class AddCommand extends Command {
      * @param taskList the tasklist for Task to be added to.
      * @param ui the ui that prints message.
      * @param storage the storage with saved data in TaskList.
+     * @return a String message of HelpBuddy's reply after adding task.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.addTask(this.task);
-        ui.printAddTaskMessage(this.task, taskList);
+        return ui.printAddTaskMessage(this.task, taskList);
     }
 
     /**

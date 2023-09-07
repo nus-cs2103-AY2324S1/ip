@@ -32,10 +32,11 @@ public class FindCommand extends Command {
      * @param taskList the taskList that stores Task objects.
      * @param ui the ui that prints the corresponding response from HelpBuddy chatbot.
      * @param storage the storage that loads and saves data.
+     * @return a String message of HelpBuddy's reply after finding relevant tasks.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         ArrayList<Task> commonTaskList = taskList.findCommonTask(taskDescription);
-        ui.printFindTaskMessage(commonTaskList);
+        return ui.printFindTaskMessage(commonTaskList);
     }
 }

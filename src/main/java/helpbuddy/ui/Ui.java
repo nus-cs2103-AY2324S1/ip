@@ -1,7 +1,6 @@
 package helpbuddy.ui;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import helpbuddy.task.Task;
 import helpbuddy.task.TaskList;
@@ -10,69 +9,49 @@ import helpbuddy.task.TaskList;
  * An Ui class that prints the corresponding response by HelpBuddy after user input.
  */
 public class Ui {
-    private final String horizontalLine = "\t____________________________________________________________";
-    private Scanner sc;
-
-    /**
-     * Constructs an Ui object.
-     */
-    public Ui() {
-        this.sc = new Scanner(System.in);
-    }
-
-    /**
-     * Prints a standard format for output message by HelpBuddy.
-     * @param s String that contains the response from HelpBuddy.
-     */
-    private void printMessageBlock(String s) {
-        System.out.println(horizontalLine + "\n\t" + s + horizontalLine + "\n");
-    }
-
-    /**
-     * Prints hello message when HelpBuddy is first launched.
-     */
-    public void printHelloMessage() {
-        printMessageBlock("Hello! I'm HelpBuddy.\n" + "\tWhat can I do for you?\n");
-    }
 
     /**
      * Prints bye message when HelpBuddy is closed by user.
+     * @return a String of HelpBuddy's farewell message.
      */
-    public void printByeMessage() {
-        printMessageBlock("Bye. Hope to see you again soon!\n");
+    public String printByeMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
      * Prints a list of Task that user has keyed into HelpBuddy.
      * @param taskList the taskList that stores Task objects.
+     * @return a String message of HelpBuddy's reply after being asked to list all Tasks.
      */
-    public void printListMessage(TaskList taskList) {
+    public String printListMessage(TaskList taskList) {
         if (taskList.isEmpty()) {
-            printMessageBlock("You have no task in your list.\n");
+            return "You have no task in your list.";
         } else {
             String messageOutput = "Here are the tasks in your list:\n";
             for (int i = 0; i < taskList.getSize(); i++) {
                 int taskIndex = i + 1;
-                messageOutput += "\t" + taskIndex + ". " + taskList.getTask(i) + "\n";
+                messageOutput += taskIndex + ". " + taskList.getTask(i) + "\n";
             }
-            printMessageBlock(messageOutput);
+            return messageOutput;
         }
     }
 
     /**
      * Prints the message that a Task object is marked as done.
      * @param task the task to mark as done.
+     * @return a String message of HelpBuddy's reply after being asked to mark a Task.
      */
-    public void printMarkMessage(Task task) {
-        printMessageBlock("Nice! I've marked this task as done:\n\t  " + task + "\n");
+    public String printMarkMessage(Task task) {
+        return "Nice! I've marked this task as done:\n\t" + task;
     }
 
     /**
      * Prints the message that a Task object is marked as not done.
      * @param task the task to mark as not done.
+     * @return a String message of HelpBuddy's reply after being asked to mark a Task.
      */
-    public void printUnmarkMessage(Task task) {
-        printMessageBlock("OK, I've marked this task as not done yet:\n\t  " + task + "\n");
+    public String printUnmarkMessage(Task task) {
+        return "OK, I've marked this task as not done yet:\n\t" + task;
     }
 
     /**
@@ -81,71 +60,52 @@ public class Ui {
      * @return a String message that Ui will output to users to notify the number of Task objects in taskList.
      */
     private String stringifyNumOfTasks(TaskList taskList) {
-        return "\n\tNow you have " + taskList.getSize() + " tasks in the list.\n";
+        return "\nNow you have " + taskList.getSize() + " tasks in the list.";
     }
 
     /**
      * Prints task added successfully.
      * @param task the task added.
      * @param taskList the taskList that task is added to.
+     * @return a String message of HelpBuddy's reply after task is added successfully.
      */
-    public void printAddTaskMessage(Task task, TaskList taskList) {
-        printMessageBlock("Got it. I've added this task:\n\t  " + task + stringifyNumOfTasks(taskList));
+    public String printAddTaskMessage(Task task, TaskList taskList) {
+        return "Got it. I've added this task:\n" + task + stringifyNumOfTasks(taskList);
     }
 
     /**
      * Prints task deleted successfully.
      * @param task the task deleted.
      * @param taskList the taskList that task is deleted from.
+     * @return a String message of HelpBuddy's reply after deleting task.
      */
-    public void printDeleteTaskMessage(Task task, TaskList taskList) {
-        printMessageBlock("Noted. I've removed this task:\n\t  " + task + stringifyNumOfTasks(taskList));
+    public String printDeleteTaskMessage(Task task, TaskList taskList) {
+        return "Noted. I've removed this task:\n" + task + stringifyNumOfTasks(taskList);
     }
 
     /**
      * Prints the taskList.
      * @param taskList the taskList that contains Task objects user is finding.
      */
-    public void printFindTaskMessage(ArrayList<Task> taskList) {
+    public String printFindTaskMessage(ArrayList<Task> taskList) {
         if (taskList.isEmpty()) {
-            printMessageBlock("There is no such task in your list.\n");
+            return "There is no such task in your list.";
         } else {
             String messageOutput = "Here are the matching tasks in your list:\n";
             for (int i = 0; i < taskList.size(); i++) {
                 int taskIndex = i + 1;
-                messageOutput += "\t" + taskIndex + ". " + taskList.get(i) + "\n";
+                messageOutput += taskIndex + ". " + taskList.get(i) + "\n";
             }
-            printMessageBlock(messageOutput);
+            return messageOutput;
         }
     }
 
     /**
-     * Prints error message.
-     * @param s the String of error message.
+     * Returns a String that directs users to follow the format of dates for Deadline and Event Task inputs.
+     * @return a String containing date time parse error message.
      */
-    public void printErrorMessage(String s) {
-        printMessageBlock(s);
+    public String printDateTimeParseErrorMessage() {
+        return "Please enter the start/end time in the format of <DD/MM/YY HH:MM>!";
     }
 
-    /**
-     * Prints a message that directs users to follow the format of dates for Deadline and Event Task inputs.
-     */
-    public void printDateTimeParseErrorMessage() {
-        printErrorMessage("Please enter the start/end time in the format of <DD/MM/YY HH:MM>!\n");
-    }
-
-    /**
-     * Reads user inputs into HelpBuddy.
-     * @return String representation of user input.
-     */
-    public String readInput() {
-        return this.sc.nextLine();
-    }
-
-    /**
-     * Closes the scanner.
-     */
-    public void closeScanner() {
-        this.sc.close();
-    }
 }

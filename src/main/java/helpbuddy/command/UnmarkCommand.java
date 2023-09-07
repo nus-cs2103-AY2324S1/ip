@@ -30,10 +30,11 @@ public class UnmarkCommand extends Command {
      * @param taskList the tasklist for Task to be unmarked.
      * @param ui the ui that prints message.
      * @param storage the storage with saved data in TaskList.
+     * @return a String message of HelpBuddy's reply after being asked to unmark a Task.
      * @throws HelpBuddyException if taskIndex is out of range (taskIndex > taskList.getSize()).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws HelpBuddyException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws HelpBuddyException {
         if (this.taskIndex > taskList.getSize()) {
             throw new HelpBuddyException("Invalid task number.\n");
         }
@@ -42,7 +43,7 @@ public class UnmarkCommand extends Command {
             throw new HelpBuddyException("Task is not marked as done.\n");
         }
         task.updateDone();
-        ui.printUnmarkMessage(task);
+        return ui.printUnmarkMessage(task);
     }
 
     /**

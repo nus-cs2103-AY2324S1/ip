@@ -78,7 +78,8 @@ public class Storage {
                     LocalDateTime.parse(fromToFields[1], formatter));
             break;
         default:
-            throw new IOException("Error occurred when reading data from storage file.");
+            throw new IOException("Error occurred when reading data from storage file.\n " +
+                    "Delete file and relaunch HelpBuddy again.");
         }
 
         if (Integer.parseInt(fields[1]) == 1) {
