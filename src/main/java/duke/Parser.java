@@ -62,18 +62,23 @@ public class Parser {
     public static Task parseTask(String[] parts) throws DukeException {
         String taskType = parts[0];
         boolean isDone = parts[1].equals("1");
+        Task task;
         try {
             if (taskType.equals("Event")) {
-                return new Event(parts[2], parts[3], parts[4]);
+                task = new Event(parts[2], parts[3], parts[4]);
             } else if (taskType.equals("Todo")) {
-                return new Todo(parts[2]);
+                task = new Todo(parts[2]);
             } else if (taskType.equals("Deadline")) {
-                return new Deadline(parts[2], parts[3]);
+                task = new Deadline(parts[2], parts[3]);
             } else {
                 throw new DukeException("Wrong storing format in storage");
             }
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Wrong storing format in storage");
         }
+        if (isDone) {
+            task.doTask();
+        }
+        return task;
     }
 }
