@@ -13,33 +13,19 @@ public class Ui {
         input = new Scanner(System.in);
     }
 
-    /**
-     * Print the error message.
-     * @param error The error message.
-     */
-    public void showError(String error) {
-        System.out.println(error);
-    }
+//    /**
+//     * Print the error message.
+//     * @param error The error message.
+//     */
+//    public void showError(String error) {
+//        System.out.println(error);
+//    }
 
     /**
      * Print a line.
      */
-    public void showLine() {
-        System.out.println("________________________________________________________");
-    }
-
-    /**
-     * Print the welcome message.
-     */
-    public void showWelcome() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I'm duke.CheeChat");
-        System.out.println("What can I do for you?");
+    public String showLine() {
+        return "________________________________________________________";
     }
 
     /**
@@ -56,10 +42,10 @@ public class Ui {
      * @param task The task that got added into the TaskList.
      * @param size The size of the TaskList.
      */
-    public void printAddedTask(Task task, int size) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task.toString());
-        System.out.println("Now you have " + size + " tasks in the list.");
+    public String printAddedTask(Task task, int size) {
+        return "Got it. I've added this task:"
+                + "\n  " + task.toString()
+                + "\nNow you have " + size + " tasks in the list.";
     }
 
     /**
@@ -68,52 +54,62 @@ public class Ui {
      * @param task The task that is getting deleted.
      * @param size The size of the TaskList
      */
-    public void printDeletedTask(Task task, int size) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task.toString());
-        System.out.println("Now you have " + size + " tasks in the list.");
+    public String printDeletedTask(Task task, int size) {
+        return "Noted. I've removed this task:"
+                + "\n  " + task.toString()
+                + "Now you have " + size + " tasks in the list.";
     }
 
-    public void printFind (ArrayList<Task> tasks) {
-        System.out.println("Here are the matching tasks in your list:");
+    public String printFind (ArrayList<Task> tasks) {
+        String output = "Here are the matching tasks in your list:";
         for (int i = 0; i < tasks.size(); i++) {
-            String toPrint = i + ". " + tasks.get(i).toString();
-            System.out.println(toPrint);
+            output += "\n" + i + ". " + tasks.get(i).toString();
         }
+        return output;
     }
 
     /**
      * Print the exit message.
      */
-    public void printExitMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String printExitMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
      * Print the task that got marked as done.
      * @param task The task that got marked as done.
      */
-    public void printMarkMessage(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + task.toString());
+    public String printMarkMessage(Task task) {
+        return "Nice! I've marked this task as done:"
+                    + "\n  " + task.toString();
+
+    }
+
+    public String printUnmarkMessage(Task task) {
+        return "OK, I've marked this task as not done yet:"
+                + "\n  " + task.toString();
     }
 
     /**
      * Print error message when there is an invalid command.
      */
-    public void printInvalidMessage() {
+    public String printInvalidMessage() {
         try {
             throw new CheeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         } catch (CheeException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 
     /**
      * Print the tasks present in the TaskList.
-     * @param list The string representation of all the Tasks in the TaskList.
+     * @param tasklist The TaskList with all the Tasks.
      */
-    public void printList(String list) {
-        System.out.println(list);
+    public String printList(TaskList tasklist) {
+        String output = "";
+        for (int i = 0; i < tasklist.size(); i++){
+            output += tasklist.getTaskDescription(i);
+        }
+        return output;
     }
 }
