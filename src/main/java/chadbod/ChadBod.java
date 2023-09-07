@@ -43,7 +43,6 @@ public class ChadBod {
         try {
             tasks = storage.loadTasks();
         } catch (ChadBodException e) {
-            ui.displayErrorMessage(e.getMessage());
             tasks = new TaskList();
         }
     }

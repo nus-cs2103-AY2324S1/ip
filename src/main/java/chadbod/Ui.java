@@ -1,18 +1,24 @@
 package chadbod;
 
 /**
- * The Ui class handles user interface interactions by generating messages as strings.
+ * The Ui class handles user interface interactions by returning messages as strings.
  */
 public class Ui {
     /**
-     * Generates a farewell message as a string.
+     * Returns a welcome message as a string.
+     */
+    public static String displayGreeting() {
+        return "Hello! I'm ChadBod. \nWhat can I do for you?";
+    }
+    /**
+     * Returns a farewell message as a string.
      */
     public String displayFarewell() {
         return "Bye. Hope to see you again soon!";
     }
 
     /**
-     * Generates an error message as a string.
+     * Returns an error message as a string.
      *
      * @param str The error message to be generated.
      */
@@ -21,7 +27,7 @@ public class Ui {
     }
 
     /**
-     * Generates a status update message for a task as a string.
+     * Returns a status update message for a task as a string.
      *
      * @param done If true, the task is marked as done; if false, marked as not done.
      * @param task The task for which the status update message is generated.
@@ -37,7 +43,7 @@ public class Ui {
     }
 
     /**
-     * Generates a message indicating that a given task has been added as a string, as well as the new task count.
+     * Returns a message indicating that a given task has been added as a string, as well as the new task count.
      *
      * @param newTask   The task that has been added.
      * @param taskCount The total number of tasks in the list after adding the new task.
@@ -50,7 +56,7 @@ public class Ui {
     }
 
     /**
-     * Generates a message indicating that a given task has been removed as a string, as well as the new task count.
+     * Returns a message indicating that a given task has been removed as a string, as well as the new task count.
      *
      * @param removedTask The task that has been removed.
      * @param taskCount   The total number of tasks in the list after removing the task.
@@ -63,7 +69,7 @@ public class Ui {
     }
 
     /**
-     * Generates the string representation of the given list of tasks.
+     * Returns the string representation of the given list of tasks.
      *
      * @param tasks The list of tasks to be represented as a string.
      */

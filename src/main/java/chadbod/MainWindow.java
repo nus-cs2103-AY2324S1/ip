@@ -32,7 +32,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
-        String greetingText = "Hello! I'm ChadBod. \nWhat can I do for you?";
+        String greetingText = Ui.displayGreeting();
         dialogContainer.getChildren().addAll(
                 DialogBox.getChadDialog(greetingText, chadImage)
         );
