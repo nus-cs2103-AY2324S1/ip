@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * This class handles any actions/commands that are to be done to the Task objects.
  */
 public abstract class TaskWorker {
-    
+
     public String work(ArrayList<Task> taskList) {
         return "";
     }
@@ -22,7 +22,6 @@ public abstract class TaskWorker {
     }
 
     public String work(String[] inputParts, ArrayList<Task> taskList, boolean markAsDone) {
-
         return "";
     }
 }
