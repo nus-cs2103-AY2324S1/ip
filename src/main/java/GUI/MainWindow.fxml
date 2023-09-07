@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="peko.GUIController">
+    <children>
+        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0" AnchorPane.bottomAnchor="1.0" />
+        <Button fx:id="sendButton" layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" styleClass="white-background" stylesheets="@../Values/style.css" vvalue="1.0">
+            <content>
+                <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" styleClass="white-background" stylesheets="@../Values/style.css" />
+            </content>
+        </ScrollPane>
+      <HBox prefHeight="78.0" prefWidth="400.0" styleClass="gray-background" stylesheets="@../Values/style.css">
+         <children>
+            <StackPane alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="162.0">
+               <children>
+                  <Circle fill="DODGERBLUE" radius="32.0" stroke="LIME" strokeType="INSIDE" strokeWidth="3.0" />
+                  <ImageView fitHeight="66.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../resources/Pics/tumblr_67c47d22da73ac2ba89e1e97bce6e525_76dfa232_400.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <HBox alignment="CENTER" prefHeight="71.0" prefWidth="629.0">
+               <children>
+                  <Text fill="#7ec2fe" strokeType="OUTSIDE" strokeWidth="0.0" text="兎田ぺこら" textAlignment="CENTER">
+                     <font>
+                        <Font name="Bauhaus 93" size="48.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+    </children>
+</AnchorPane>

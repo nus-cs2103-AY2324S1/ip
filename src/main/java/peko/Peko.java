@@ -13,6 +13,8 @@ public class Peko extends Application implements EventHandler<ActionEvent> {
     private UI ui;
     private StorageHandler storageHandler;
     public static void main(String[] args) {
+
+        Application.launch(GUIController.class, args);
         new Peko().run();
     }
     private void run() {
@@ -36,11 +38,7 @@ public class Peko extends Application implements EventHandler<ActionEvent> {
 
     @Override
     public void start(Stage stage) {
-        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
-        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
-
-        stage.setScene(scene); // Setting the stage to show our screen
-        stage.show(); // Render the stage.
+        Application.launch(GUIController.class);
     }
 
     @Override

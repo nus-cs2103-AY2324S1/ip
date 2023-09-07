@@ -1,7 +1,11 @@
 package peko;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,19 +22,30 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class GUIController extends Application implements Initializable {
 
+    @FXML
     private ScrollPane scrollPane;
+    @FXML
     private VBox dialogContainer;
+    @FXML
     private TextField userInput;
+    @FXML
     private Button sendButton;
     private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/Pics/tumblr_67c47d22da73ac2ba89e1e97bce6e525_76dfa232_400.png"));
-
+    private Image pekoIcon = new Image(this.getClass().getResourceAsStream("/Pics/tumblr_67c47d22da73ac2ba89e1e97bce6e525_76dfa232_400.png"));
+    private Image userIcon = new Image(this.getClass().getResourceAsStream("/Pics/tumblr_cd531dc8ea0423c248426f9f8cf65f72_1a341469_1280.png"));
     public static void main(String[] args) {
 
     }
@@ -101,36 +116,22 @@ public class GUIController extends Application implements Initializable {
         return textToAdd;
     }
 
-    public class DialogBox extends HBox {
 
-        private Label text;
-        private ImageView displayPicture;
-
-        public DialogBox(Label l, ImageView iv) {
-            text = l;
-            displayPicture = iv;
-
-            text.setWrapText(true);
-            displayPicture.setFitWidth(100.0);
-            displayPicture.setFitHeight(100.0);
-
-            this.setAlignment(Pos.TOP_RIGHT);
-            this.getChildren().addAll(text, displayPicture);
-        }
-    }
-
+    @FXML
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(user))
+                DialogBox.getUserDialog(userText, new ImageView(userIcon)),
+                DialogBox.getDukeDialog(dukeText, new ImageView(pekoIcon))
         );
         userInput.clear();
     }
     private String getResponse(String input) {
-        return "Duke heard: " + input;
+        return "Peko heard: " + input;
     }
+
+
     private Circle headerCircle;
 
 

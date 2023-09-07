@@ -6,7 +6,7 @@
  }
 
 .white-background{
-    -fx-background-color: #FFFFFFF;
+    -fx-background-color: #FFFFFF;
 }
 
 .radius{
@@ -16,3 +16,4 @@
 .green-border {
     -fx-background-color: #00FF00;
 }
+
