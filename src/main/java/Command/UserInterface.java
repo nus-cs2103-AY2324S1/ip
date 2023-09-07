@@ -12,19 +12,17 @@ public class UserInterface {
     /**
      * Show welcome message.
      */
-    public void showWelcomeMessage() {
-        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
-        System.out.println("Hello! I am Nila");
-        System.out.println("What can I do for you?");
-        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
+    public String showWelcomeMessage() {
+        return "- - - - - - - - - - - - - - - - - - - - - - - - -\n" + "Hello! I am Nila\n" +
+                "What can I do for you?\n" + "- - - - - - - - - - - - - - - - - - - - - - - - -";
     }
 
     /**
      * Show command line.
      */
 
-    public void showCommandLine(){
-        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
+    public String showCommandLine(){
+        return "- - - - - - - - - - - - - - - - - - - - - - - - -\n";
     }
 
     /**
@@ -33,8 +31,8 @@ public class UserInterface {
      * @param message the message
      */
 
-    public void showMessage(String message) {
-        System.out.println(message);
+    public String showMessage(String message) {
+        return message;
     }
 
     /**
@@ -43,37 +41,38 @@ public class UserInterface {
      * @param errorMessage the error message
      */
 
-    public void showError(String errorMessage) {
-        System.out.println("Error: " + errorMessage);
+    public String showError(String errorMessage) {
+        return "Error: " + errorMessage;
     }
 
     /**
      * Show task list.
      *
      * @param taskList the task list
+     * @return the string
      */
-
-    public void showTaskList(ArrayList<Task> taskList) {
-        System.out.println("Here are your tasks:");
+    public String showTaskList(ArrayList<Task> taskList) {
+        StringBuilder result = new StringBuilder("Here are your tasks:\n");
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + taskList.get(i));
+            result.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
         }
+        return result.toString();
     }
-
     /**
      * To show matching results.
      */
 
 
-    public void showFindTasks(ArrayList<Task> taskList) {
-        System.out.println("Here are the matching tasks:");
+    public String showFindTasks(ArrayList<Task> taskList) {
+        StringBuilder result = new StringBuilder("Here are the matching tasks:\n");
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + taskList.get(i));
+            result.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
         }
+        return result.toString();
     }
 
-    public void showTaskAddedMessage() {
-        System.out.println("Got it! I've added the task to your list.");
+    public String showTaskAddedMessage() {
+        return "Got it! I've added the task to your list.\n";
     }
 
     /**
@@ -81,55 +80,55 @@ public class UserInterface {
      *
      * @param taskList the task list
      */
-    public void showCurrentStatus(ArrayList<Task> taskList){
-        System.out.println(taskList.get(taskList.size() - 1).getStatusIcon());
-        System.out.println(" Now you have " + taskList.size() +" tasks in the list.");
+    public String showCurrentStatus(ArrayList<Task> taskList){
+        return taskList.get(taskList.size() - 1).getStatusIcon() +
+            "\n Now you have " + taskList.size() +" tasks in the list.\n";
     }
 
     /**
      * Show task deleted message.
      */
 
-    public void showTaskDeletedMessage() {
-        System.out.println("Noted! I've removed the task from your list.");
+    public String showTaskDeletedMessage() {
+        return "Noted! I've removed the task from your list.\n";
     }
 
     /**
      * Show task marked message.
      */
-    public void showTaskMarkedMessage() {
-        System.out.println("Nice! I've marked this task as done.");
+    public String showTaskMarkedMessage() {
+        return "Nice! I've marked this task as done.\n";
     }
 
     /**
      * Show task unmarked message.
      */
-    public void showTaskUnmarkedMessage() {
-        System.out.println(" OK, I've marked this task as not done yet.");
+    public String showTaskUnmarkedMessage() {
+        return " OK, I've marked this task as not done yet.\n";
     }
 
     /**
      * Show unknown command message.
      */
 
-    public void showUnknownCommandMessage() {
-        System.out.println("Sorry, I don't understand that command.");
+    public String showUnknownCommandMessage() {
+        return "Sorry, I don't understand that command.\n";
     }
 
     /**
      * Show loading error.
      */
 
-    public void showLoadingError() {
-        System.out.println("Error loading tasks. Starting with an empty list.");
+    public String showLoadingError() {
+        return "Error loading tasks. Starting with an empty list.\n";
     }
 
     /**
      * Show goodbye message.
      */
 
-    public void showGoodbyeMessage() {
-        System.out.println("\nBye. Hope to see you again soon!");
+    public String showGoodbyeMessage() {
+        return "\nBye. Hope to see you again soon!\n";
     }
 
 }
