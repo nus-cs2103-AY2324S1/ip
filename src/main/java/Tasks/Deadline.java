@@ -34,7 +34,9 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + String.format(" (by: %s)", printFormatter.format(this.deadlineTemporal));
+        return "[D]"
+                    + super.toString()
+                        + String.format(" (by: %s)", printFormatter.format(this.deadlineTemporal));
     }
 
     /**
@@ -44,6 +46,12 @@ public class Deadline extends Task {
      */
     public String toString(boolean isWritten) {
         String completionStr = super.isDone() ? "1" : "0";
-        return "D" + " | " + completionStr + " | " + super.getName() + " | " + saveFormatter.format(this.deadlineTemporal);
+        return "D"
+                + " | "
+                    + completionStr
+                        + " | "
+                            + super.getName()
+                                + " | "
+                                    + saveFormatter.format(this.deadlineTemporal);
     }
 }

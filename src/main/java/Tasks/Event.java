@@ -32,6 +32,14 @@ public class Event extends Task {
 
     public String toString(boolean isWritten) {
         String completionStr = super.isDone() ? "1" : "0";
-        return "E" + " | " + completionStr + " | " + super.getName() + " | " + this.eventStart + " | " + this.eventEnd;
+        return "E"
+            + " | "
+                + completionStr
+                        + " | "
+                            + super.getName()
+                                + " | "
+                                    + this.eventStart
+                                        + " | "
+                                            + this.eventEnd;
     }
 }

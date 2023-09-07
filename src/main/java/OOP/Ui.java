@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Ui {
     /** The Scanner object used to read user input */
-    Scanner scanner;
+    private Scanner scanner;
 
     /**
      * Constructs a new ui instance.

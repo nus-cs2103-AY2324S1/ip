@@ -3,7 +3,6 @@ import OOP.TaskList;
 import OOP.Ui;
 import OOP.Storage;
 import Tasks.Deadline;
-import Tasks.Task;
 public class AddDeadlineCommand implements Command {
     /** The deadline to be added to the task upon execution.*/
     private Deadline deadline;

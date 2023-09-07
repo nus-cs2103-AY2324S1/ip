@@ -1,9 +1,9 @@
 package Tasks;
 
-public class ToDo extends Task{
+public class ToDo extends Task {
 
     /**
-     * Construts a ToDo instance.
+     * Constructs a ToDo instance.
      *
      * @param name The name of the task.
      * @param isDone The completion status of the task.
