@@ -11,7 +11,9 @@ import java.time.format.FormatStyle;
 /**
  * A utility formatter and converter class to assist in formatting dates to and from the Unix epoch.
  */
-public class EpochConverter {
+public final class EpochConverter {
+
+    private EpochConverter() {}
 
     /**
      * Converts the given date-time string to number representing seconds since the Unix epoch.
@@ -63,12 +65,25 @@ public class EpochConverter {
      * Converts seconds since the Unix epoch to a user-readable date-time string.
      *
      * @param epochSeconds The number of seconds since the Unix epoch of 1970-01-01, 00:00:00, UTC.
-     * @return The resulting date time string in a user readable format.
+     * @return The resulting date-time string in a user readable format.
      */
-    public static String getUserReadableStringFromEpoch(long epochSeconds) {
+    public static String getUserReadableDateTimeStringFromEpoch(long epochSeconds) {
         return LocalDateTime
                 .ofInstant(Instant.ofEpochSecond(epochSeconds), ZoneId.systemDefault())
                 .format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT));
+    }
+
+
+    /**
+     * Converts seconds since the Unix epoch to a user-readable time string.
+     *
+     * @param epochSeconds The number of seconds since the Unix epoch of 1970-01-01, 00:00:00, UTC.
+     * @return The resulting time string in a user readable format.
+     */
+    public static String getUserReadableTimeStringFromEpoch(long epochSeconds) {
+        return LocalDateTime
+                .ofInstant(Instant.ofEpochSecond(epochSeconds), ZoneId.systemDefault())
+                .format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
     }
 
 

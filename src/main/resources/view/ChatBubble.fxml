@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefWidth="400.0" spacing="16.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ImageView fx:id="senderImageView" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER" />
+      <VBox maxHeight="1.7976931348623157E308" minHeight="-Infinity" spacing="8.0">
+         <children>
+            <HBox spacing="8.0">
+               <children>
+                  <Label fx:id="titleLabel" maxWidth="1.7976931348623157E308" text="Title">
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="timestampLabel" contentDisplay="RIGHT" text="12:34" textFill="#00000080" textOverrun="LEADING_ELLIPSIS">
+                     <font>
+                        <Font name="Arial" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+              <Label fx:id="messageLabel" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" minHeight="-Infinity" text="Example Message Text" wrapText="true" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+    </children>
+    <padding>
+        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+    </padding>
+</fx:root>

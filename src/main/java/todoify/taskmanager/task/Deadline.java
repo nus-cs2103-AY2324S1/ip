@@ -43,7 +43,7 @@ public class Deadline extends Task {
                 "<D> %s %s (by: %s)",
                 this.getCompletedIndicatorString(),
                 this.getTitle(),
-                this.deadline == null ? null : EpochConverter.getUserReadableStringFromEpoch(this.getDeadline())
+                this.deadline == null ? null : EpochConverter.getUserReadableDateTimeStringFromEpoch(this.getDeadline())
         );
     }
 }

@@ -1,4 +1,4 @@
-package todoify;
+package todoify.stdio;
 
 import java.util.Scanner;
 
@@ -10,15 +10,20 @@ import todoify.chatbot.Chatbot;
  *
  * <p>
  * The default name for the chatbot is specified at {@link todoify.chatbot.Chatbot#DEFAULT_NAME}. Custom names can be
- * set by modifying the {@link MainCli#main} implementation here.
+ * set by modifying the {@link MainTextUi#run} implementation here.
  * </p>
  */
-public class MainCli {
+public class MainTextUi {
 
     private static final String CHATBOT_PADDING = "  ";
     private static final String USER_PADDING = " > ";
 
-    public static void main(String[] args) {
+    /**
+     * Runs the TUI with the given program arguments.
+     *
+     * @param args The program arguments.
+     */
+    public static void run(String[] args) {
 
         // Initialise with default settings.
         Chatbot chatbot = new Chatbot(null, null);
