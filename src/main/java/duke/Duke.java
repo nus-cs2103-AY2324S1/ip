@@ -79,8 +79,6 @@ public class Duke {
      * Generates a response for the given user input. Keeps track of and modifies TaskList list.
      *
      * @param userInput The user's input command.
-     * @param scanner   The Scanner object for user input.
-     * @param list      The task list to operate on.
      * @return A response generated based on the user input.
      */
     public String generateResponse(String userInput) {
@@ -141,7 +139,7 @@ public class Duke {
             }
         } else if (userInput.startsWith(Command.FIND)) {
             try {
-                String queryString = parser.parseFind(userInput, this.tasks);
+                String[] queryString = parser.parseFind(userInput, this.tasks);
                 TaskList listSearchMatches = this.tasks.searchMatches(queryString);
                 botOutput = botOutput + "Here are the matching tasks in your list: \n    "
                         + listSearchMatches.toString();

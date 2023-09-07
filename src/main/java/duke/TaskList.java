@@ -122,17 +122,19 @@ public class TaskList {
     /**
      * Searches for relevant or matching tasks within the tasklist.
      *
-     * @param queryString The user's input query string.
+     * @param queryStrings The user's input query string.
      * @return The TaskList of matching tasks.
      */
-    public TaskList searchMatches(String queryString) {
+    public TaskList searchMatches(String... queryStrings) {
         TaskList listSearches = new TaskList();
         for (Task t: this.taskArrayList) {
             String taskDescription = t.getDescription();
 
-            // Check if the task's description contains the queryString
-            if (taskDescription.contains(queryString)) {
-                listSearches.addTask(t);
+            for (String queryString : queryStrings) {
+                if (taskDescription.contains(queryString)) {
+                    listSearches.addTask(t);
+                    break; //Break the inner loop if a match is found with any one keyword.
+                }
             }
         }
         return listSearches;
