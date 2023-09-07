@@ -20,10 +20,15 @@ public class TaskList {
         return this.tasks;
     }
 
-    public void printTasks() {
+    public String printTasks() {
+        String list = "";
+
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println("\t" + (i + 1) + "." + tasks.get(i).toString());
+            list += (i + 1) + "." + tasks.get(i).toString() + "\n";
         }
+
+        return list;
     }
 
     public void addTask(Task task) {
