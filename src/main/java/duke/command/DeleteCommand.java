@@ -44,7 +44,7 @@ public class DeleteCommand extends Command {
         //printing messages
         String res = "Noted. I've removed this task: \n" + task + "\nNow you have "
                 + tasks.size() + " tasks in the list.";
-        ui.printMessage(res);
+        ui.updateMessage(res);
     }
 
     /**

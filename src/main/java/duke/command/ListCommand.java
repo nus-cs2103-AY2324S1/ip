@@ -25,7 +25,8 @@ public class ListCommand extends Command {
             res += "\n" + i + ". " + tasks.get(i - 1);
         }
 
-        ui.printMessage(res);
+        ui.updateMessage(res);
+
     }
 
     /**

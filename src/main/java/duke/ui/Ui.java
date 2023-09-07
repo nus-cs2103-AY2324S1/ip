@@ -7,9 +7,11 @@ import java.util.Scanner;
  * It provides methods for displaying messages, reading user input, and showing error messages.
  */
 public class Ui {
-    private String name = "Bob";
+    private static final String name = "Bob";
     private final String horizontal = "____________________________________________________________";
     private Scanner sc;
+
+    private String latestMessage = "";
 
     /**
      * Constructs a Ui object with a Scanner to read user input from the console.
@@ -31,20 +33,20 @@ public class Ui {
     /**
      * Displays a welcome message when the Duke application is started.
      */
-    public void showWelcome() {
-        String ln1 = String.format("Hello! I'm %s", this.name);
+    public static String showWelcome() {
+        String ln1 = String.format("Hello! I'm %s", Ui.name);
         String ln2 = "What can I do for you?";
         String ln3 = ln1 + "\n" + ln2;
 
-        System.out.println(messageCard(ln3));
+        return ln3;
     }
 
     /**
      * Displays a farewell message when the user exits the Duke application.
      */
-    public void bye() {
+    public String showBye() {
         String ln3 = "Bye. Hope to see you again soon!";
-        System.out.println(messageCard(ln3));
+        return ln3;
     }
 
     /**
@@ -60,32 +62,25 @@ public class Ui {
      *
      * @param msg The error message to be displayed.
      */
-    public void showError(String msg) {
-        System.out.println(msg);
+    public String showError(String msg) {
+        return msg;
     }
 
     /**
-     * Displays a horizontal line to separate different sections of the UI.
-     */
-    public void showLine() {
-        System.out.println(horizontal);
-    }
-
-    /**
-     * Prints a message in a formatted message card.
+     * Retrieves the latest message displayed.
      *
-     * @param msg The message to be displayed.
+     * @return The latest message.
      */
-    public void printMessage(String msg) {
-        System.out.println(messageCard(msg));
+    public String retrieveMessage() {
+        return this.latestMessage;
     }
 
     /**
-     * Reads a command from the user through the console input.
+     * Updates the latest message.
      *
-     * @return The user's input command as a String.
+     * @param msg The new message to be set as the latest message.
      */
-    public String readCommand() {
-        return this.sc.nextLine();
+    public void updateMessage(String msg) {
+        this.latestMessage = msg;
     }
 }
