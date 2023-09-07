@@ -38,6 +38,7 @@ public class Parser {
                 throwException("The task index of a task cannot be empty", "delete <task index>");
             }
             int index = Validate.validateNumber(tokens[1]);
+            assert index >= 0 : "Index should be non-negative";
             return new DeleteCommand(index);
         }
         case "mark": {
@@ -45,6 +46,7 @@ public class Parser {
                 throwException("The task index of a task cannot be empty", "mark <task index>");
             }
             int index = Validate.validateNumber(tokens[1]);
+            assert index >= 0 : "Index should be non-negative";
             return new MarkCommand(index);
         }
         case "unmark": {
@@ -52,6 +54,7 @@ public class Parser {
                 throwException("The task index of a task cannot be empty", "unmark <task index>");
             }
             int index = Validate.validateNumber(tokens[1]);
+            assert index >= 0 : "Index should be non-negative";
             return new UnmarkCommand(index);
 
         }
