@@ -8,6 +8,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Stores the tasks in a file.
+ */
 public class Storage {
     private String dataPath;
 
@@ -15,6 +18,12 @@ public class Storage {
         this.dataPath = dataPath;
     }
 
+    /**
+     * Writes the list of tasks to data file.
+     *
+     * @param taskList The list of tasks.
+     * @throws IOException If the input is failed or interrupted.
+     */
     public void writeFile(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(dataPath);
         for (Task t: taskList.getTaskList()) {
@@ -24,6 +33,12 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Reads the data file and adds them to the list of tasks.
+     *
+     * @param taskList The list of tasks.
+     * @throws FileNotFoundException If the data file is not found.
+     */
     public void readFile(TaskList taskList) throws FileNotFoundException {
         File file = new File(dataPath);
         Scanner s = new Scanner(file);
