@@ -29,10 +29,12 @@ test {
 
 application {
     mainClass.set("Duke")
+    mainClassName = 'Duke'
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "EGGBOT"
+    archiveVersion = "v0.1"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

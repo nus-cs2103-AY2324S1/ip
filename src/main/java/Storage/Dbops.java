@@ -21,7 +21,7 @@ public class Dbops {
     /**
      * A constant that holds the path to the memory file.
      */
-    private static final String FILEPATH = "src/data/";
+    private static final String FILEPATH = "data/";
 
     /**
      * A constant that holds the name of the memory file.
@@ -43,7 +43,13 @@ public class Dbops {
      * Creates the memory file, based on the filepath and filename.
      */
     private static void createMemoryFile() {
-        File newFile = new File(Dbops.FILEPATH + Dbops.FILENAME);
+        File newFile = new File(Dbops.FILEPATH);
+
+        if (!newFile.exists()) {
+            newFile.mkdir();
+        }
+
+        newFile = new File(Dbops.FILEPATH + Dbops.FILENAME);
 
         try {
             if (newFile.createNewFile()) {
