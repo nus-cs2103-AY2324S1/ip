@@ -1,9 +1,12 @@
 package duke.tasks;
 
-import duke.DatesAndTimesFormatter;
-
 import java.time.LocalDate;
 
+import duke.DatesAndTimesFormatter;
+
+/**
+ * Represents an Event object that is a Task.
+ */
 public class Event extends Task {
     protected String from;
     protected String to;

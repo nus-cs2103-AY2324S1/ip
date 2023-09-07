@@ -1,10 +1,13 @@
 package duke;
 
+import java.io.IOException;
+
 import duke.exceptions.DukeException;
 import duke.tasks.TaskList;
 
-import java.io.IOException;
-
+/**
+ * Represents a Duke object that runs the duke program.
+ */
 public class Duke {
     private TaskList tasks;
     private Ui ui;
@@ -47,7 +50,7 @@ public class Duke {
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
-        while (! isExit) {
+        while (!isExit) {
             try {
                 String fullCommand = ui.getUserInput();
                 isExit = Parser.checkCommandType(fullCommand, tasks, ui, storage);

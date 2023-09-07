@@ -1,15 +1,18 @@
 package duke.tasks;
 
+import java.time.LocalDate;
+
 import duke.DatesAndTimesFormatter;
 import duke.exceptions.IncompleteInputException;
 import duke.exceptions.InvalidInputException;
 
-import java.time.LocalDate;
-
+/**
+ * Represents a Task object that can be a Todo, Deadline or Event.
+ */
 public class Task {
+    private static int taskCount = 0;
     protected String description;
     protected boolean isDone;
-    public static int taskCount = 0;
 
     /**
      * Creates a Task object.
@@ -30,6 +33,22 @@ public class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    /**
+     * Returns the current count of tasks.
+     *
+     * @return the current count of tasks.
+     */
+    public static int getTaskCount() {
+        return taskCount;
+    }
+
+    /**
+     * Decreases the taskCount by one.
+     */
+    public static void decreaseTaskCountByOne() {
+        taskCount--;
     }
 
     /**

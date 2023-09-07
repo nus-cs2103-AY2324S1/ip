@@ -3,6 +3,9 @@ package duke.tasks;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a TaskList object that contains the tasks.
+ */
 public class TaskList extends ArrayList<Task> {
     /**
      * Creates a TaskList object.
@@ -40,7 +43,7 @@ public class TaskList extends ArrayList<Task> {
      * @param index the (index - 1) of the task to be deleted from the TaskList.
      */
     public void deleteTask(int index) {
-        Task.taskCount--;
+        Task.decreaseTaskCountByOne();
         this.remove(index - 1);
     }
 
