@@ -22,9 +22,9 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task currentTask = tasks.markAsUndone(index);
-        ui.showTaskUndone(currentTask);
         storage.saveTasks(tasks);
+        return ui.showTaskUndone(currentTask);
     }
 }

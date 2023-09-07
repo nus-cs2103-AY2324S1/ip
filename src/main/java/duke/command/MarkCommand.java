@@ -22,9 +22,9 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task currentTask = tasks.markAsDone(index);
-        ui.showTaskDone(currentTask);
         storage.saveTasks(tasks);
+        return ui.showTaskDone(currentTask);
     }
 }
