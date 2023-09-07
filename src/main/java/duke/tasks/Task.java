@@ -36,6 +36,23 @@ public abstract class Task {
 
     public abstract String saveString();
 
+    public boolean contains(String pattern) {
+        if (pattern == null || this.description == null) {
+            return false;
+        }
+
+        int patternLength = pattern.length();
+
+        for (int i = 0; i <= this.description.length() - patternLength; i++) {
+            if (this.description.regionMatches(true, i, pattern, 0, patternLength)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
     @Override
     public String toString() {
         return (isDone() ? DONE_FLAG : UNDONE_FLAG) + getDescription();

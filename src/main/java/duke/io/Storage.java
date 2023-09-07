@@ -2,13 +2,12 @@ package duke.io;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 import duke.tasks.Task;
@@ -19,7 +18,8 @@ import duke.tasks.TaskList;
 import duke.exceptions.UnknownCommandException;
 import duke.exceptions.FileIoException;
 import duke.exceptions.ErrorMessages;
-public class Loader {
+
+public class Storage {
     private static final String TODO_FLAG = "[T]";
     private static final String DEADLINE_FLAG = "[D]";
     private static final String EVENT_FLAG = "[E]";
@@ -29,7 +29,7 @@ public class Loader {
     private final String completeFilePath;
     private final Path parentDirectory;
     private final File dataFile;
-    public Loader(String filePath) {
+    public Storage(String filePath) {
         String baseDirectoryPath = Paths.get("").toAbsolutePath().toString();
         this.completeFilePath = Paths.get(baseDirectoryPath, filePath).toString();
         this.parentDirectory = Paths.get(baseDirectoryPath, Paths.get(filePath).getParent().toString());
@@ -90,5 +90,35 @@ public class Loader {
             task.markAsDone();
         }
         list.addTask(task);
+    }
+
+    public void save(TaskList taskList) throws FileIoException {
+        createParentFolderIfNotExists();
+        StringBuilder record = new StringBuilder();
+
+        for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
+            Task task = taskList.getTask(i);
+            record.append(task.saveString()).append(System.lineSeparator());
+        }
+
+        try {
+            writeToFile(record.toString());
+        } catch (IOException e) {
+            throw new FileIoException(ErrorMessages.STORAGE_ERROR);
+        }
+    }
+
+    private void writeToFile(String textToAdd) throws IOException {
+        Files.write(Paths.get(completeFilePath), textToAdd.getBytes());
+    }
+
+    private void createParentFolderIfNotExists() {
+        if (Files.notExists(parentDirectory)) {
+            try {
+                Files.createDirectories(parentDirectory);
+            } catch (IOException e) {
+                System.out.println("Error occurred in creating directory");
+            }
+        }
     }
 }
