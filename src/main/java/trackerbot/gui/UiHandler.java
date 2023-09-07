@@ -1,12 +1,14 @@
 package trackerbot.gui;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.util.Duration;
 
 /**
  * Generates UI elements for TrackerBot.
  *
  * @author WZWren
- * @version A-JavaDoc
+ * @version Level-10
  */
 public class UiHandler {
     /** Name of the app. **/
@@ -52,8 +54,9 @@ public class UiHandler {
      */
     public void exitApp() {
         uiMessage = "Thank you for using " + appName + ". Goodbye.";
-        new Thread(() -> Thread.sleep(3000))
-        Platform.exit();
+        PauseTransition delay = new PauseTransition(Duration.seconds(0.5));
+        delay.setOnFinished(e -> Platform.exit());
+        delay.play();
     }
 
     /**
