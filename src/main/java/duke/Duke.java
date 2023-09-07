@@ -1,7 +1,15 @@
 package duke;
+import duke.commands.Commands;
+import duke.task.TaskList;
+import duke.ui.Ui;
+import duke.utilities.*;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Scanner;
+
+
 
 /**
  * The main class for the Duke application.
@@ -9,8 +17,7 @@ import java.util.Scanner;
  *
  */
 
-public class Duke  {
-
+public class Duke {
     private Storage storage;
     private Parser parser;
     private TaskList tasks;
@@ -20,12 +27,10 @@ public class Duke  {
     /**
      * Constructs a Duke instance with the file path.
      * Initializes the user interface, task lists, commands and parser.
-     *
-     * @param filePath The file path for loading and saving task data.
      */
-    public Duke(String filePath) {
+    public Duke() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage("src/main/MYBOT.txt");
 
         try {
             tasks = new TaskList(storage.loadTaskFromFile());
@@ -33,7 +38,7 @@ public class Duke  {
             tasks = new TaskList();
         } catch (Exception e) {
             ui.printFileError();
-            new File(filePath);
+            new File("src/main/MYBOT.txt");
             tasks = new TaskList();
         }
         command = new Commands(ui,storage,tasks);
@@ -63,13 +68,30 @@ public class Duke  {
     }
 
     /**
+     * converts the output of run from a system outprint to a string.
+     *
+     * @param input
+     * @return
+     */
+    public String getResponse(String input) {
+        // @@author tjch-o-reused
+        // reused from iP with minor modifications
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        PrintStream originalOutput = System.out;
+        System.setOut(new PrintStream(output));
+        parser.analyseInput(input);
+        System.setOut(originalOutput);
+        return output.toString();
+    }
+
+    /**
      * The main entry point of the Duke application.
      * Creates a new instance of Duke with a specified file path and runs the application.
      *
      * @param args
      */
     public static void main(String[] args) {
-        new Duke("src/main/MYBOT.txt").run();
+        new Duke().run();
     }
 }
 

@@ -1,1 +1,2 @@
-
+T|N|sleep
+T|N|eat
