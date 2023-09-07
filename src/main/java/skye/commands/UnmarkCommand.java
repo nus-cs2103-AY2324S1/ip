@@ -38,9 +38,9 @@ public class UnmarkCommand extends Command {
      * @throws IOException Describes the I/O error encountered in the OS file system
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException, IOException {
+    public String execute(TaskList taskList, UI ui, Storage storage) throws DukeException, IOException {
         Task unmarkedTask = taskList.unmarkTask(this.taskNumber);
         storage.write(taskList.getTasks());
-        ui.showUnmarkedTask(unmarkedTask);
+        return ui.showUnmarkedTask(unmarkedTask);
     }
 }

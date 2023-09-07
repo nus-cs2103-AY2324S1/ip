@@ -27,9 +27,9 @@ public class AddTaskCommand extends Command {
      * @throws IOException Describes the I/O error encountered in the OS file system
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
         taskList.addTask(task);
         storage.write(taskList.getTasks());
-        ui.showAddedTask(task, taskList.getTasks());
+        return ui.showAddedTask(task, taskList.getTasks());
     }
 }

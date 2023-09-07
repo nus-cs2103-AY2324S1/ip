@@ -38,9 +38,9 @@ public class MarkCommand extends Command {
      * @throws IOException Describes the I/O error encountered in the OS file system
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException, IOException {
+    public String execute(TaskList taskList, UI ui, Storage storage) throws DukeException, IOException {
         Task markedTask = taskList.markTask(taskNumber);
         storage.write(taskList.getTasks());
-        ui.showMarkedTask(markedTask);
+        return ui.showMarkedTask(markedTask);
     }
 }

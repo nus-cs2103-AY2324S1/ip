@@ -25,7 +25,7 @@ public abstract class Command {
      * @throws DukeException Describes the error encountered when executing the command
      * @throws IOException Describes the I/O error encountered in the OS file system
      */
-    public abstract void execute(TaskList taskList, UI ui, Storage storage) throws DukeException, IOException;
+    public abstract String execute(TaskList taskList, UI ui, Storage storage) throws DukeException, IOException;
 
     /**
      * Returns whether if the command when executed can exit the program.
