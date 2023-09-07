@@ -1,4 +1,4 @@
-package duke;
+package tasks;
 
 /**
  * Represents a general task with a name and completion status.

@@ -1,4 +1,4 @@
-package duke;
+package tasks;
 
 /**
  * The ToDo class represents a task of type "ToDo" that the user wants to do.

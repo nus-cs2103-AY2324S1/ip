@@ -3,8 +3,11 @@ package duke;
 import exceptions.EmptyTaskException;
 import exceptions.EmptyDateException;
 import exceptions.OutOfRangeException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -54,7 +57,7 @@ public class TaskList {
      * @throws OutOfRangeException If the task index is out of the array range.
      * @throws IOException If an I/O error occurs while updating the task file.
      */
-    public static void markTask(String userInput) throws EmptyTaskException, OutOfRangeException, IOException {
+    public static String markTask(String userInput) throws EmptyTaskException, OutOfRangeException, IOException {
         if (userInput.equals("mark")) {
             throw new EmptyTaskException("mark");
         }
@@ -67,6 +70,8 @@ public class TaskList {
         currentTask.markDone();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(currentTask.statusAndTask());
+        return "Nice! I've marked this task as done:\n" + currentTask.statusAndTask();
+
     }
 
     /**
@@ -76,7 +81,7 @@ public class TaskList {
      * @throws EmptyTaskException If the user input is missing task details.
      * @throws OutOfRangeException If the task index is out of the array range.
      */
-    public static void unmarkTask(String userInput) throws EmptyTaskException, OutOfRangeException {
+    public static String unmarkTask(String userInput) throws EmptyTaskException, OutOfRangeException {
         if (userInput.equals("unmark")) {
             throw new EmptyTaskException("unmark");
         }
@@ -89,6 +94,7 @@ public class TaskList {
         currentTask.unmarkDone();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(currentTask.statusAndTask());
+        return "OK, I've marked this task as not done yet:\n" + currentTask.statusAndTask();
     }
 
     /**
@@ -96,12 +102,15 @@ public class TaskList {
      *
      * @param userInput The user input specifying the ToDo task.
      */
-    public static void makeToDo(String userInput) {
+    public static String makeToDo(String userInput) {
         String taskName = userInput.substring("todo".length()).trim();
         taskArray.add(new ToDo(taskName));
         System.out.println("Got it. I've added this task:");
         System.out.println(taskArray.get(taskArray.size() - 1).statusAndTask());
         System.out.println("Now you have " + taskArray.size() + " task(s) in the list.");
+        return "Got it. I've added this task:\n" +
+                taskArray.get(taskArray.size() - 1).statusAndTask() + "\n" +
+                "Now you have " + taskArray.size() + " task(s) in the list.";
     }
 
     /**
@@ -110,7 +119,7 @@ public class TaskList {
      * @param userInput The user input specifying the Deadline task.
      * @throws EmptyDateException If the user input is missing the task deadline.
      */
-    public static void makeDeadline(String userInput) throws EmptyDateException {
+    public static String makeDeadline(String userInput) throws EmptyDateException {
         String description = userInput.substring("deadline".length()).trim();
         String[] parts = description.split("/by");
         if (parts.length == 1) {
@@ -123,6 +132,9 @@ public class TaskList {
         System.out.println("Got it. I've added this task:");
         System.out.println(taskArray.get(taskArray.size() - 1).statusAndTask());
         System.out.println("Now you have " + taskArray.size() + " task(s) in the list.");
+        return "Got it. I've added this task:\n" +
+                taskArray.get(taskArray.size() - 1).statusAndTask() + "\n" +
+                "Now you have " + taskArray.size() + " task(s) in the list.";
     }
 
     /**
@@ -131,7 +143,7 @@ public class TaskList {
      * @param userInput The user input specifying the Event task.
      * @throws EmptyDateException If the user input is missing the event start or end date.
      */
-    public static void makeEvent(String userInput) throws EmptyDateException {
+    public static String makeEvent(String userInput) throws EmptyDateException {
         String description = userInput.substring("event".length()).trim();
         String[] partsA = description.split("/from");
         String taskName = partsA[0].trim();
@@ -148,6 +160,9 @@ public class TaskList {
         System.out.println("Got it. I've added this task:");
         System.out.println(taskArray.get(taskArray.size() - 1).statusAndTask());
         System.out.println("Now you have " + taskArray.size() + " task(s) in the list.");
+        return "Got it. I've added this task:\n" +
+                taskArray.get(taskArray.size() - 1).statusAndTask() + "\n" +
+                "Now you have " + taskArray.size() + " task(s) in the list.";
     }
 
     /**
@@ -157,7 +172,7 @@ public class TaskList {
      * @throws EmptyTaskException If the user input is missing task details.
      * @throws OutOfRangeException If the task index is out of the array range.
      */
-    public static void deleteTask(String userInput) throws EmptyTaskException, OutOfRangeException {
+    public static String deleteTask(String userInput) throws EmptyTaskException, OutOfRangeException {
         if (userInput.equals("delete")) {
             throw new EmptyTaskException("delete");
         }
@@ -171,6 +186,9 @@ public class TaskList {
         System.out.println("Noted. I've removed this task:");
         System.out.println(currentTask.statusAndTask());
         System.out.println("Now you have " + taskArray.size() + " task(s) in the list.");
+        return "Noted. I've removed this task:\n" +
+                currentTask.statusAndTask() + "\n" +
+                "Now you have " + taskArray.size() + " task(s) in the list.";
     }
 
     /**

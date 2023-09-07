@@ -13,16 +13,18 @@ public class Ui {
     /**
      * Prints a welcome message to the user.
      */
-    public static void printWelcomeMessage() {
-        System.out.println("Hello! I'm BbabBBB");
+    public static String printWelcomeMessage() {
+        System.out.println("Hi! I'm Philip");
         System.out.println("What can I do for you?");
+        return "Hi! I'm Philip. " + "What can I do for you?";
     }
 
     /**
      * Prints a farewell message to the user.
      */
-    public static void printExitMessage() {
+    public static String printExitMessage() {
         System.out.println("Bye. Hope to see you again soon!");
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
