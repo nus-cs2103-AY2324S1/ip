@@ -3,7 +3,6 @@ package adam.command;
 import adam.Storage;
 import adam.TaskList;
 import adam.Ui;
-import adam.exception.DescriptionException;
 import adam.exception.FindException;
 
 /**
@@ -35,16 +34,18 @@ public class FindCommand implements Command{
      * @param ui Ui that is used to print messages.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
+    public String execute(TaskList tasks, Storage storage, Ui ui) {
+        String respond = "Something went wrong";
         if (tokens.length == 1) {
             throw new FindException();
         }
         switch (input) {
         case "find":
-            tasks.find(item);
+            respond = tasks.find(item);
             break;
         default:
-            System.out.println("Wrong Input");
+            respond = "Wrong Input";
         }
+        return respond;
     }
 }

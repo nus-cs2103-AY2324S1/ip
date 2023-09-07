@@ -1,8 +1,8 @@
 package adam;
 
-import java.util.Scanner;
-
 import adam.tasks.Task;
+
+import java.util.Scanner;
 
 /**
  * This Class is responsible for the print statements of the program and shows the personality of the program.
@@ -22,8 +22,8 @@ public class Ui {
     /**
      * Prints the welcome message at the start of the program.
      */
-    public void welcome() {
-        System.out.println("What's up I am Adam\n" + "so like what do you want?");
+    public String welcome() {
+         return "What's up I am Adam\n" + "so like what do you want?";
     }
 
     /**
@@ -31,8 +31,8 @@ public class Ui {
      *
      * @param size Size of the list.
      */
-    public void getAmount(int size) {
-        System.out.println(String.format("%d tasks in this list, stop procrasinating them!!!", size));
+    public String getAmount(int size) {
+        return String.format("%d tasks in this list, stop procrasinating them!!!", size);
     }
 
     /**
@@ -41,10 +41,9 @@ public class Ui {
      * @param curr Current Task.
      * @param size Size of the list.
      */
-    public void delete(Task curr, int size) {
-        System.out.println("I have removed the Task, so just make up your mind next time:");
-        System.out.println(curr.toString());
-        getAmount(size);
+    public String delete(Task curr, int size) {
+        return "I have removed the Task, so just make up your mind next time:\n" + curr.toString() +
+                "\n" + getAmount(size);
     }
 
     /**
@@ -53,10 +52,9 @@ public class Ui {
      * @param curr Current Task.
      * @param size Size of the list.
      */
-    public void addTodo(Task curr, int size) {
-        System.out.println("I added this todo to the list of endless work you have:");
-        System.out.println(curr.toString());
-        getAmount(size);
+    public String addTodo(Task curr, int size) {
+       return "I added this todo to the list of endless work you have:\n" + curr.toString() +
+               "\n" + getAmount(size);
     }
 
     /**
@@ -65,10 +63,9 @@ public class Ui {
      * @param curr Current Task.
      * @param size Size of the list.
      */
-    public void addEvent(Task curr, int size) {
-        System.out.println("I added this event to your list, congrats on having a life outside of work:");
-        System.out.println(curr.toString());
-        getAmount(size);
+    public String addEvent(Task curr, int size) {
+        return "I added this event to your list, congrats on having a life outside of work:" + curr.toString() +
+                "\n" + getAmount(size);
     }
 
     /**
@@ -77,40 +74,38 @@ public class Ui {
      * @param curr Current Task.
      * @param size Size of the list.
      */
-    public void addDeadline(Task curr, int size) {
-        System.out.println("I have added this deadline to the list, good " +
-                "luck on remembering it one day before deadline:");
-        System.out.println(curr.toString());
-        getAmount(size);
+    public String addDeadline(Task curr, int size) {
+        return "I have added this deadline to the list, good " +
+                "luck on remembering it one day before deadline:\n" + curr.toString() + "\n" + getAmount(size);
     }
 
     /**
      * Lists out all the task in your list.
      */
-    public void list() {
-        System.out.println("Here are the amount of hard labor you have in your lists:");
+    public String list() {
+        return "Here are the amount of hard labor you have in your lists:";
     }
 
     /**
      * Prints a goodbye message when you end the program.
      */
-    public void bye() {
-        System.out.println("Bye. Hope we don't see each other too often");
+    public String bye() {
+        return "Bye. Hope we don't see each other too often";
     }
 
     /**
      * Prints out a message to indicate that you have completed a Task.
      */
-    public void mark() {
-        System.out.println("Congrats on getting one step closer to achieving true happines," +
-                " I have marked this task as complete");
+    public String mark() {
+        return "Congrats on getting one step closer to achieving true happines," +
+                " I have marked this task as complete";
     }
 
     /**
      * Prints out a message to indicate that you have uncompleted a Task.
      */
-    public void unmark() {
-        System.out.println("turns out you still got more work to do, I have unmarked it");
+    public String unmark() {
+        return "turns out you still got more work to do, I have unmarked it";
     }
 
     /**
@@ -118,21 +113,21 @@ public class Ui {
      *
      * @param message Message of the specific error.
      */
-    public void displayError(String message) {
-        System.out.println(message);
+    public String displayError(String message) {
+        return message;
     }
 
     /**
      * Prints out whenever the find method couldnt find a match.
      */
-    public void apologize() {
-        System.out.println("I couldn't find anything are you sure its here?");
+    public String apologize() {
+        return "I couldn't find anything are you sure its here?";
     }
 
     /**
      * Prints when you find a match using the find method.
      */
-    public void search() {
-        System.out.println("Here are some of the tasks I found:");
+    public String search() {
+        return "Here are some of the tasks I found:";
     }
 }

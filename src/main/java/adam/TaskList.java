@@ -1,12 +1,11 @@
 package adam;
 
-import java.util.ArrayList;
-
 import adam.tasks.Deadline;
 import adam.tasks.Event;
 import adam.tasks.Task;
-import adam.exception.OutOfBoundException;
 import adam.tasks.ToDo;
+
+import java.util.ArrayList;
 
 /**
  * This class holds all the methods that is realted to the task list such as adding and deleting tasks.
@@ -30,10 +29,10 @@ public class TaskList {
      *
      * @param num Number thatinidcates the index inside the array.
      */
-    public void deleteTask(int num) {
+    public String deleteTask(int num) {
         Task curr = tasks.get(num-1);
         tasks.remove(num-1);
-        ui.delete(curr, tasks.size());
+        return ui.delete(curr, tasks.size());
     }
 
     /**
@@ -41,10 +40,10 @@ public class TaskList {
      *
      * @param text Text inside the todo.
      */
-    public void addTodo(String text) {
+    public String addTodo(String text) {
         ToDo curr = new ToDo(text);
         tasks.add(curr);
-        ui.addTodo(curr, tasks.size());
+        return ui.addTodo(curr, tasks.size());
     }
 
     /**
@@ -53,10 +52,10 @@ public class TaskList {
      * @param text Text inside the deadline.
      * @param by By what time the deadline is due.
      */
-    public void addDeadline(String text, String by) {
+    public String addDeadline(String text, String by) {
         Deadline curr = new Deadline(text, by);
         tasks.add(curr);
-        ui.addDeadline(curr, tasks.size());
+        return ui.addDeadline(curr, tasks.size());
     }
 
     /**
@@ -66,22 +65,24 @@ public class TaskList {
      * @param from From what time does the event start.
      * @param to To what time does the event ends.
      */
-    public void addEvent(String text, String from, String to) {
+    public String addEvent(String text, String from, String to) {
         Event curr = new Event(text, from, to);
         tasks.add(curr);
-        ui.addEvent(curr, tasks.size());
+        return ui.addEvent(curr, tasks.size());
     }
 
     /**
      * Prints all the existing tasks inside the list.
      */
-    public void list() {
-        ui.list();
+    public String list() {
+        String sentence =  ui.list() + "\n";
         int count = 1;
         for (Task item: tasks) {
-            System.out.println(count + ". " + item.toString());
+            String task = count + ". " + item.toString()+"\n";
+            sentence = sentence + task;
             count++;
         }
+        return sentence;
     }
 
     /**
@@ -89,10 +90,10 @@ public class TaskList {
      *
      * @param number Number of index that is going to be marked.
      */
-    public void markAsDone(int number) {
+    public String markAsDone(int number) {
         Task curr = tasks.get(number - 1);
-        ui.mark();
         curr.markAsDone();
+        return ui.mark();
     }
 
     /**
@@ -100,10 +101,10 @@ public class TaskList {
      *
      * @param number Number of index that is going to be unmarked.
      */
-    public void unmarkAsDone(int number) {
+    public String unmarkAsDone(int number) {
         Task curr = tasks.get(number - 1);
-        ui.unmark();
         curr.unmarkAsDone();
+        return ui.unmark();
     }
 
     /**
@@ -118,9 +119,9 @@ public class TaskList {
     /**
      * Ends the program.
      */
-    public void bye() {
+    public String bye() {
         isActive = false;
-        ui.bye();
+        return ui.bye();
     }
 
     /**
@@ -146,7 +147,7 @@ public class TaskList {
      *
      * @param item String that is being searched.
      */
-    public void find(String item) {
+    public String find(String item) {
         ArrayList<Task> matches = new ArrayList<>();
         int count = 1;
         for (Task task : tasks) {
@@ -155,13 +156,15 @@ public class TaskList {
            }
         }
         if (matches.size() == 0) {
-            ui.apologize();
+            return ui.apologize();
         } else {
-            ui.search();
+            String sentence = ui.search() + "\n";
             for (Task match : matches) {
-                System.out.println(count + ". " + match.toString());
+                String task = count + ". " + match.toString() + "\n";
+                sentence = sentence + task;
                 count++;
             }
+            return sentence;
         }
     }
 }
