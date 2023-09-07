@@ -18,15 +18,15 @@ public class Parser {
      * @throws IllegalArgumentException If the input is not a valid command or is missing required parameters.
      */
     public Executable parseCommand(String input) {
-        // Split into command and rest
-        String[] parts = input.split(" ", 2);
-        final String command = parts[0];
-        final String rest = parts.length > 1 ? parts[1] : "";
+        // Split into command and restOfCommand
+        String[] words = input.split(" ", 2);
+        final String command = words[0];
+        final String restOfCommand = words.length > 1 ? words[1] : "";
 
         switch (command) {
         case "deadline": {
             try {
-                final String[] deadlineParts = rest.split(" /by ", 2);
+                final String[] deadlineParts = restOfCommand.split(" /by ", 2);
                 final String name = deadlineParts[0];
                 final String endTime = deadlineParts[1];
 
@@ -37,16 +37,16 @@ public class Parser {
         }
 
         case "delete": {
-            if (rest.isEmpty()) {
+            if (restOfCommand.isEmpty()) {
                 throw new IllegalArgumentException("Task index is missing.");
             }
-            int index = Integer.parseInt(rest);
+            int index = Integer.parseInt(restOfCommand);
             return new TaskDeleter(tasks, index);
         }
 
         case "event": {
             try {
-                final String[] deadlineParts = rest.split(" /from ", 2);
+                final String[] deadlineParts = restOfCommand.split(" /from ", 2);
                 final String name = deadlineParts[0];
                 final String deadline = deadlineParts[1];
 
@@ -61,7 +61,7 @@ public class Parser {
         }
 
         case "find": {
-            return new Finder(tasks, rest);
+            return new Finder(tasks, restOfCommand);
         }
 
         case "list": {
@@ -69,23 +69,23 @@ public class Parser {
         }
 
         case "mark": {
-            if (rest.isEmpty()) {
+            if (restOfCommand.isEmpty()) {
                 throw new IllegalArgumentException("Task index is missing.");
             }
-            int index = Integer.parseInt(rest);
+            int index = Integer.parseInt(restOfCommand);
             assert index >= 0 : "Parsing failed; value is not a non-negative integer.";
             return new TaskMarker(tasks, index);
         }
 
         case "todo": {
-            return new ToDoAdder(tasks, rest);
+            return new ToDoAdder(tasks, restOfCommand);
         }
 
         case "unmark": {
-            if (rest.isEmpty()) {
+            if (restOfCommand.isEmpty()) {
                 throw new IllegalArgumentException("Task index is missing.");
             }
-            int index = Integer.parseInt(rest);
+            int index = Integer.parseInt(restOfCommand);
             assert index >= 0 : "Parsing failed; value is not a non-negative integer.";
             return new TaskUnmarker(tasks, index);
         }
