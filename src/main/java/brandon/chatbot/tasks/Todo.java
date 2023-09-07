@@ -16,10 +16,6 @@ public class Todo extends Task {
     public Todo(String title) throws DukeException {
         super(title);
     }
-    @Override
-    public String toString() {
-        return "Todo";
-    }
 
     @Override
     public String getStatus() {
