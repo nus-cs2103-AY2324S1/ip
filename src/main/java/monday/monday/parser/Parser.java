@@ -24,7 +24,8 @@ public class Parser {
         DEADLINE,
         EVENT,
         DELETE,
-        FIND
+        FIND,
+        HI
     }
 
     /**
@@ -32,11 +33,11 @@ public class Parser {
      *
      * @param userInput the user input to be parsed
      * @param taskList the TaskList object to perform actions on
-     * @return true if the application should continue running, false otherwise
+     * @return response from chatbot
      * @throws MondayExceptions if there are errors related to the Monday application
      * @throws IllegalArgumentException if the user input is in the wrong format
      */
-    public static boolean mondayParser(String userInput, TaskList taskList) throws MondayExceptions {
+    public static String mondayParser(String userInput, TaskList taskList) throws MondayExceptions {
         String[] input = userInput.split(" ", 2);
         String command = input[0];
         String content = input.length > 1 ? input[1] : null;
@@ -45,20 +46,19 @@ public class Parser {
 
 
         switch (commandEnum) {
+        case HI:
+            return Ui.greet();
         case BYE:
-            Ui.exit();
-            return false;
+            return Ui.exit();
         case LIST:
-            taskList.displayList();
-            break;
+            return taskList.displayList();
         case MARK: {
             if (content == null) {
                 throw new MondayExceptions("Mark requires a index to mark the task as completed.");
             }
             int index = Integer.parseInt(content);
 
-            taskList.mark(index);
-            break;
+            return taskList.mark(index);
         }
         case UNMARK: {
             if (content == null) {
@@ -67,8 +67,7 @@ public class Parser {
 
             int index = Integer.parseInt(content);
 
-            taskList.unMark(index);
-            break;
+            return taskList.unMark(index);
         }
         case TODO:
             if (content == null) {
@@ -76,8 +75,7 @@ public class Parser {
                         + "Usage: todo (task)");
             }
 
-            taskList.addToTask(new ToDo(content));
-            break;
+            return taskList.addToTask(new ToDo(content));
         case DEADLINE:
             try {
                 if (content == null) {
@@ -89,12 +87,11 @@ public class Parser {
                 String description = taskDetails[0];
                 String date = taskDetails[1];
 
-                taskList.addToTask(new Deadline(description.trim(), date.trim()));
+                return taskList.addToTask(new Deadline(description.trim(), date.trim()));
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new IllegalArgumentException("Invalid Format. "
                         + "Usage: deadline (task) /by (time)");
             }
-            break;
         case EVENT:
             try {
                 if (content == null) {
@@ -108,22 +105,20 @@ public class Parser {
                 String start = taskTiming[0];
                 String end = taskTiming[1];
 
-                taskList.addToTask(new Event(description.trim(),
+                return taskList.addToTask(new Event(description.trim(),
                         start.trim(),
                         end.trim()));
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new IllegalArgumentException("Invalid Format. "
                         + "Usage: event (task) /from (start time) /to (end time)");
             }
-            break;
         case DELETE:
             if (content == null) {
                 throw new MondayExceptions("Delete requires a index to delete the task");
             }
             int index = Integer.parseInt(content);
 
-            taskList.delete(index);
-            break;
+            return taskList.delete(index);
         case FIND:
             if (content == null) {
                 throw new MondayExceptions("Find requires a keyword to find the tasks");
@@ -136,12 +131,10 @@ public class Parser {
                         + "Usage: find (keyword), there should only be one keyword.");
             }
 
-            taskList.find(keywordDetails[0]);
-            break;
+            return taskList.find(keywordDetails[0]);
         default:
             throw new MondayExceptions("Sorry, I do not understand what that means.\n"
                     + "Please provide a valid input/command. e.g todo read book");
         }
-        return true;
     }
 }

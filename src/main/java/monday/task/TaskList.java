@@ -3,6 +3,7 @@ package monday.task;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import monday.monday.ui.Ui;
 import monday.storage.Storage;
 
 /**
@@ -43,31 +44,35 @@ public class TaskList {
      * Adds a task to the task list.
      *
      * @param task The task to be added.
+     * @return Message with the task added.
      */
-    public void addToTask(Task task) {
+    public String addToTask(Task task) {
         list.add(task);
         save();
-        System.out.println("Got it. I've added this task:\n    " + task.toString());
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        return Ui.addTask(task, list.size());
     }
 
     /**
      * Displays the list of tasks.
+     *
+     * @return Message with the list of all tasks.
      */
-    public void displayList() {
-        System.out.println("Here are the tasks in your list:");
+    public String displayList() {
+        StringBuilder ans = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < list.size(); i++) {
-            System.out.println((i + 1) + "." + list.get(i).toString());
+            ans.append((i + 1)).append(".").append(list.get(i).toString()).append("\n");
         }
+        return ans.toString();
     }
 
     /**
      * Marks a task as done.
      *
      * @param index The index of the task to be marked as done.
+     * @return Message after marking the task as done.
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
-    public void mark(int index) {
+    public String mark(int index) {
         if (index < 1 || index > list.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range. "
                     + "Check the number of tasks using the 'list' command.");
@@ -75,16 +80,17 @@ public class TaskList {
         Task taskToEdit = list.get(index - 1);
         taskToEdit.markAsDone();
         save();
-        System.out.println("Nice! I've marked this task as done:\n" + taskToEdit);
+        return Ui.markTask(taskToEdit);
     }
 
     /**
      * Marks a task as not done.
      *
      * @param index The index of the task to be marked as not done.
+     * @return Message after marking the task as not done.
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
-    public void unMark(int index) {
+    public String unMark(int index) {
         if (index < 1 || index > list.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range. "
                     + "Check the number of tasks using the 'list' command.");
@@ -92,16 +98,17 @@ public class TaskList {
         Task taskToEdit = list.get(index - 1);
         taskToEdit.unMark();
         save();
-        System.out.println("OK, I've marked this task as not done yet:\n" + taskToEdit);
+        return Ui.unMarkTask(taskToEdit);
     }
 
     /**
      * Deletes a task from the task list.
      *
      * @param index The index of the task to be deleted.
+     * @return Message after deleting the task.
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
-    public void delete(int index) {
+    public String delete(int index) {
         if (index < 1 || index > list.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range. "
                     + "Check the number of tasks using the 'list' command.");
@@ -109,27 +116,28 @@ public class TaskList {
         Task taskToEdit = list.get(index - 1);
         list.remove(index - 1);
         save();
-        System.out.println("Noted. I've removed this task:\n" + taskToEdit);
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        return Ui.deleteTask(taskToEdit, list.size());
     }
 
     /**
      * Finds and prints tasks containing the specified keyword.
      *
      * @param keyword the keyword to search for in the tasks
+     * @return Message with the list of tasks containing the keyword.
      */
-    public void find(String keyword) {
+    public String find(String keyword) {
         if (list.isEmpty()) {
-            System.out.println("Your list is empty.");
+            return ("Your list is empty.");
         } else {
             int matchingTaskCount = 1;
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder ans = new StringBuilder("Here are the matching tasks in your list:\n");
             for (Task curr : list) {
                 if (curr.toString().contains(keyword)) {
-                    System.out.println(matchingTaskCount + "." + curr);
+                    ans.append(matchingTaskCount).append(".").append(curr).append("\n");
                     matchingTaskCount++;
                 }
             }
+            return ans.toString();
         }
     }
 }
