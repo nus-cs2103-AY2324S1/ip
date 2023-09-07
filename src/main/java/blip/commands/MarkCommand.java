@@ -24,12 +24,14 @@ public class MarkCommand extends Command {
 
     /**
      * Executes the mark command to mark task as done.
+     *
      * @param taskList The Array List of tasks to mark a task from
      * @param ui The user interface of Blip
      * @param storage The storage for Blip
+     * @return String message shown to user.
      */
     @Override
-    public void execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
+    public String execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
         // Task number does not exist.
         try {
             if (this.index < 0 || this.index >= taskList.size()) {
@@ -38,9 +40,9 @@ public class MarkCommand extends Command {
             Task taskToMark = taskList.getTask(index);
             taskList.markTask(index);
             storage.saveToFile(taskList);
-            ui.marksTasksMsg(taskToMark);
+            return ui.marksTasksMsg(taskToMark);
         } catch (WrongNumberException e) {
-            ui.showInvalidTaskNumErr();
+            return ui.showInvalidTaskNumErr();
         }
     }
 }

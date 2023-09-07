@@ -10,12 +10,14 @@ import blip.storage.*;
 public class ListCommand extends Command {
     /**
      * Executes the list command to list out all the tasks.
+     *
      * @param taskList The Array List of tasks to list out tasks from
      * @param ui The user interface of Blip
      * @param storage The storage for Blip
+     * @return String message shown to user.
      */
     @Override
-    public void execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
-        ui.listsTasksMsg(taskList);
+    public String execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
+        return ui.listsTasksMsg(taskList);
     }
 }

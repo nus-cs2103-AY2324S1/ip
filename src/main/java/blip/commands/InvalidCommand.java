@@ -15,6 +15,7 @@ public class InvalidCommand extends Command {
 
     /**
      * Constructor of InvalidCommand.
+     *
      * @param description The description of the invalid command
      */
     public InvalidCommand(String description) {
@@ -23,21 +24,24 @@ public class InvalidCommand extends Command {
 
     /**
      * Executes the necessary messages for an invalid command.
+     *
      * @param taskList The Array List of tasks to do commands on
      * @param ui The user interface of Blip
      * @param storage The storage for Blip
+     * @return String message shown to user.
      */
 
-    public void execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
+    public String execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
         description = description.toLowerCase();
         if (!containsCommands(description)) {
-            ui.showInvalidCmdErr();
-            ui.showListOfOtherCmds();
+            return ui.showInvalidCmdErr() + ui.showListOfOtherCmds();
         }
+        return "";
     }
 
     /**
      * Checks if there are any valid commands of Blip ChatBot.
+     *
      * @param input The input of command
      * @return boolean true if the input contains any command words at all, false otherwise
      */

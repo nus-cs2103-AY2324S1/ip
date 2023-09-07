@@ -26,6 +26,7 @@ public class EventCommand extends Command {
 
     /**
      * Constructor of EventCommand.
+     *
      * @param description The description of the event task
      * @param eventStart The start time of the event task
      * @param eventEnd The end time of the event task
@@ -38,9 +39,11 @@ public class EventCommand extends Command {
 
     /**
      * Executes the event command to add an event task.
+     *
      * @param taskList The Array List of tasks to add event task into
      * @param ui The user interface of Blip
      * @param storage The storage for Blip
+     * @return String message shown to user.
      */
     @Override
     public String execute(TaskList taskList, BlipUI ui, BlipStorage storage) {

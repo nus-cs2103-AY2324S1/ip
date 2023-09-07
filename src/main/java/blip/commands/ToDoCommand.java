@@ -15,6 +15,7 @@ public class ToDoCommand extends Command {
 
     /**
      * Constructor of ToDoCommand.
+     *
      * @param description The description of the to do task
      */
     public ToDoCommand(String description) {
@@ -23,15 +24,17 @@ public class ToDoCommand extends Command {
 
     /**
      * Executes the to do command to add to do task.
+     *
      * @param taskList The Array List of tasks to add the to do task into
      * @param ui The user interface of Blip
      * @param storage The storage for Blip
+     * @return String message shown to user.
      */
     @Override
-    public void execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
+    public String execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
         ToDo toDoTask = new ToDo(description, false);
         taskList.addTask(toDoTask);
         storage.saveToFile(taskList);
-        ui.addsTasksMsg(toDoTask, taskList.size());
+        return ui.addsTasksMsg(toDoTask, taskList.size());
     }
 }

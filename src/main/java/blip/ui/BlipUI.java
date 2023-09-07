@@ -110,7 +110,26 @@ public class BlipUI {
         return listIntro + tasksInList;
     }
 
-    public static String listTasksMatched(TaskList tasks, )
+    public static String listTasksMatched(TaskList tasks, String description) {
+        String matchedTasksIntro = "Here are the matching tasks in  your list:";
+        String noMatchMessage = "There are no matching tasks in the list";
+        String matchedTasksList = "";
+        if (tasks.size() == 0) {
+            return noMatchMessage;
+        }
+        int numOfTasksMatched = 0;
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.getTask(i).toString().contains(description)) {
+                matchedTasksList += "\n" + (numOfTasksMatched + 1) + "." + tasks.getTask(i).toString();
+                numOfTasksMatched++;
+            }
+        }
+        if (numOfTasksMatched == 0) {
+            return noMatchMessage;
+        }
+        return matchedTasksIntro + matchedTasksList;
+    }
+
     /**
      * Prints the message that task has been added.
      *

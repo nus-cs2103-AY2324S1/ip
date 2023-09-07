@@ -15,6 +15,7 @@ public class FindCommand extends Command {
 
     /**
      * Constructor of FindCommand.
+     *
      * @param description The description of task to find.
      */
     public FindCommand(String description) {
@@ -23,27 +24,17 @@ public class FindCommand extends Command {
 
     /**
      * Executes the finding of matching tasks in task list.
+     *
      * @param tasks The Array List of tasks to find matching description
      * @param ui The user interface of Blip
      * @param storage The storage for Blip
+     * @return String message shown to user.
      */
     @Override
     public String execute(TaskList tasks, BlipUI ui, BlipStorage storage) {
-        if (tasks.size() == 0) {
-            return ui.showNoMatchingTasksMsg();
-        }
-        int numOfTasksMatched = 0;
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.getTask(i).toString().contains(description)) {
-                if (numOfTasksMatched == 0) {
-                    System.out.println("Here are the matching tasks in your list:");
-                }
-                System.out.println((i + 1) + "." + tasks.getTask(i).toString());
-                numOfTasksMatched++;
-            }
-        }
-        if (numOfTasksMatched == 0) {
-            ui.showNoMatchingTasksMsg();
-        }
+        return ui.listTasksMatched(tasks, this.description);
     }
+
+
+
 }

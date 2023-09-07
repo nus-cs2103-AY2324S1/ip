@@ -22,6 +22,7 @@ public class DeadlineCommand extends Command {
 
     /**
      * Constructor of DeadlineCommand.
+     *
      * @param description The description of the deadline task
      * @param deadline The deadline of the deadline task
      */
@@ -32,9 +33,11 @@ public class DeadlineCommand extends Command {
 
     /**
      * Executes the deadline command to add a deadline task.
+     *
      * @param taskList The Array List of tasks to do add deadline task into
      * @param ui The user interface of Blip
      * @param storage The storage for Blip
+     * @return String message shown to user.
      */
     @Override
     public String execute(TaskList taskList, BlipUI ui, BlipStorage storage) {

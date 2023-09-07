@@ -16,6 +16,7 @@ public class UnmarkCommand extends Command {
 
     /**
      * Constructor of UnmarkCommand.
+     *
      * @param index The index of task to mark as done
      */
     public UnmarkCommand(int index) {
@@ -24,12 +25,14 @@ public class UnmarkCommand extends Command {
 
     /**
      * Executes the unmark command to unmark task as not done.
+     *
      * @param taskList The Array List of tasks to unmark a task from
      * @param ui The user interface of Blip
      * @param storage The storage for Blip
+     * @return String message shown to user.
      */
     @Override
-    public void execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
+    public String execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
         // Task number does not exist.
         try {
             if (this.index < 0 || this.index >= taskList.size()) {
@@ -38,9 +41,9 @@ public class UnmarkCommand extends Command {
             Task taskToUnmark = taskList.getTask(index);
             taskList.unmarkTask(index);
             storage.saveToFile(taskList);
-            ui.unmarksTasksMsg(taskToUnmark);
+            return ui.unmarksTasksMsg(taskToUnmark);
         } catch (WrongNumberException e) {
-            ui.showInvalidTaskNumErr();
+            return ui.showInvalidTaskNumErr();
         }
     }
 }
