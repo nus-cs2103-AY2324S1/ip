@@ -13,13 +13,27 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * Stores the saved list of tasks and its state of done.
+ */
 public class Storage {
     private final String pathName;
     private final TaskList tasks = new TaskList();
 
+    /**
+     * Constructor for the class Storage.
+     * @param pathName Pathname of the file where information about the list of tasks is saved.
+     */
     public Storage(String pathName) {
         this.pathName = pathName;
     }
+
+    /**
+     * Returns the saved list of tasks when program starts.
+     * Creates file where list is saved and returns blank list if nothing has been saved before.
+     * @return Saved list of tasks.
+     * @throws ChatException Errors locating file or if file is corrupted.
+     */
     public TaskList loadFile() throws ChatException {
         try {
             File f = new File(this.pathName);
@@ -63,6 +77,12 @@ public class Storage {
             throw new ChatException("☹ OOPS!!! There are errors locating the file.");
         }
     }
+
+    /**
+     * Saves the list of task in a file.
+     * @param taskList List of tasks to be saved.
+     * @throws ChatException Error saving the tasks.
+     */
     public void saveList(TaskList taskList) throws ChatException {
         try {
             FileWriter fw = new FileWriter(this.pathName);

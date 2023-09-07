@@ -6,7 +6,17 @@ import duke.exception.ChatException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Interprets user input.
+ */
 public class Parser {
+    /**
+     * Interprets user inputs and executes command according to what was inputted.
+     * @param userInput User Input to be interpreted.
+     * @return Command of what needs to be executed.
+     * @throws ChatException Errors when user input cannot be interpreted.
+     */
+
     public static Command parse(String userInput) throws ChatException {
         String[] userCommand = userInput.split(" ", 2);
         try {
