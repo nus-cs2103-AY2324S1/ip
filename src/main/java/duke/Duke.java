@@ -7,7 +7,8 @@ import data.TaskList;
 import data.exception.DukeException;
 import parser.Parser;
 import storage.Storage;
-import ui.Ui;
+import ui.UiCli;
+import ui.UiMessage;
 
 /**
  * The Duke class. Entry point for the Duke chatbot to start.
@@ -30,13 +31,13 @@ public class Duke {
     private Parser parser;
 
     /**
-     * Handles displaying messages and errors.
+     * Handles displaying messages and errors on command line.
      */
-    private Ui ui;
+    private UiCli uiCli;
 
     /**
      * Constructor method of the Duke chatbot. Initializes its main components:
-     * {@link TaskList}, {@link Storage}, {@link Parser} and {@link Ui}.
+     * {@link TaskList}, {@link Storage}, {@link Parser} and {@link UiCli}.
      * Additionally, it loads the tasks from a file stored on disk if the user 
      * has used the chatbot previously.
      * 
@@ -48,7 +49,17 @@ public class Duke {
         this.storage = new Storage(filePath, fileDir);
         this.tasks = new TaskList(this.storage.load());
         this.parser = new Parser();
-        this.ui = new Ui();
+        this.uiCli = new UiCli();
+    }
+
+    public Duke() {
+        this.storage = new Storage(
+            "./save/data.txt",
+            "./save"
+        );
+        this.tasks = new TaskList(this.storage.load());
+        this.parser = new Parser();
+        this.uiCli = new UiCli();
     }
 
     /**
@@ -58,23 +69,35 @@ public class Duke {
      * @throws IOException Thrown when there's an issue with
      *                     reading user input.
      */
-    public void start() throws IOException {
-        ui.displayIntro();
+    public void run() throws IOException {
+        uiCli.displayIntro();
 
         // Begin chatbot's main event loop
         String input = "";
         boolean isExit = false;
         while (!isExit) {
-            ui.displayInputStart();
-            input = ui.readInput();
+            uiCli.displayInputStart();
+            input = uiCli.readInput();
             try {
                 Command c = parser.parse(input);
-                c.execute(tasks, storage, ui);
+                UiMessage result = c.execute(tasks, storage, uiCli);
+                uiCli.displayMsg(result.getRawStringArr());
                 isExit = c.isExit();
             } catch (DukeException e) {
-                ui.displayError(e.toString());
+                uiCli.displayError(e.toString());
             }
         }
+    }
+
+    public String startIntroduction() {
+        return "Hi. I'm Bryan\n"
+                + "What can I do for you?";
+    }
+
+    public String getResponse(String input) throws DukeException {
+        Command c = parser.parse(input);
+        UiMessage result = c.execute(tasks, storage, uiCli);
+        return result.toString();
     }
 
     public static void main(String[] args) throws IOException {
@@ -82,6 +105,6 @@ public class Duke {
             "./save/data.txt",
             "./save"
         );
-        chatbot.start();
+        chatbot.run();
     }
 }

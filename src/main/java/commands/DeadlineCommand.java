@@ -7,7 +7,8 @@ import data.exception.DukeException;
 import data.tasks.Deadline;
 import data.tasks.Task;
 import storage.Storage;
-import ui.Ui;
+import ui.UiCli;
+import ui.UiMessage;
 
 /**
  * The DeadlineCommand class.
@@ -31,14 +32,14 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks,
+    public UiMessage execute(TaskList tasks,
             Storage storage,
-            Ui ui) throws DukeException {
+            UiCli uiCli) throws DukeException {
         Task dl = new Deadline(description, deadline);
         tasks.add(dl);
         storage.update(tasks);
-        ui.displayMsg(new String[] {
-            "Okie! I've added a new " + Ui.cTxt("DEADLINE", Ui.Color.BLUE) + ":",
+        return new UiMessage(new String[] {
+            "Okie! I've added a new DEADLINE:",
             "  " + dl.toString(),
             "Total no. of tasks stored: " + tasks.getSize()
         });

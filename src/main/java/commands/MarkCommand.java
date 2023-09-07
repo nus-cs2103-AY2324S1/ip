@@ -4,7 +4,8 @@ import data.TaskList;
 import data.exception.DukeException;
 import data.tasks.Task;
 import storage.Storage;
-import ui.Ui;
+import ui.UiCli;
+import ui.UiMessage;
 
 /**
  * The MarkCommand class.
@@ -30,16 +31,15 @@ public class MarkCommand extends Command {
             this.isDone = isDone;
         } catch (NumberFormatException e) {
             throw new DukeException(new String[] {
-                Ui.cTxt((isDone ? "mark" : "unmark"), Ui.Color.PURPLE)
-                        + " takes in a number. Try "
-                        + Ui.cTxt("mark", Ui.Color.PURPLE) + " 1."
+                isDone ? "mark" : "unmark"
+                        + " takes in a number. Try mark 1"
             });
         }
     }
 
     @Override
-    public void execute(
-            TaskList tasks, Storage storage, Ui ui) throws DukeException {
+    public UiMessage execute(
+            TaskList tasks, Storage storage, UiCli uiCli) throws DukeException {
         // User tries to mark/unmark a task that is out of bounds.
         if (taskCount < 1 || taskCount > tasks.getSize()) {
             throw new DukeException(String.format(
@@ -55,11 +55,11 @@ public class MarkCommand extends Command {
             ? "Nice, I've marked this task as done:"
             : "Okie, I've marked this task as not done yet:";
 
-        ui.displayMsg(new String[]{
+        storage.update(tasks);
+
+        return new UiMessage(new String[]{
             success,
             "  " + task.toString()
         });
-
-        storage.update(tasks);
     }
 }

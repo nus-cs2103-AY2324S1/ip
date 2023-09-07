@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * The Ui class.
- * Handles printing Duke's messages and errors.
- * Also helps to add colour to the text printed.
+ * The UiCli class.
+ * Handles printing Duke's messages and errors
+ * on the command line.
  */
-public class Ui {
+public class UiCli {
     /**
      * The COLOR enum.
      * Contains all the allowed ANSI color codes
@@ -51,7 +51,7 @@ public class Ui {
      */
     public void displayIntro() {
         displayMsg(new String[] {
-            "Hi. I'm " + Ui.cTxt("Bryan", Ui.Color.PURPLE),
+            "Hi. I'm " + UiCli.cTxt("Bryan", UiCli.Color.PURPLE),
             "What can I do for you?"
         });
     }

@@ -7,7 +7,8 @@ import data.exception.DukeException;
 import data.tasks.Event;
 import data.tasks.Task;
 import storage.Storage;
-import ui.Ui;
+import ui.UiCli;
+import ui.UiMessage;
 
 /**
  * The EventCommand class.
@@ -33,13 +34,13 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(
-            TaskList tasks, Storage storage, Ui ui) throws DukeException {
+    public UiMessage execute(
+            TaskList tasks, Storage storage, UiCli uiCli) throws DukeException {
         Task event = new Event(description, from, to);
         tasks.add(event);
         storage.update(tasks);
-        ui.displayMsg(new String[] {
-            "Okie! I've added a new " + Ui.cTxt("EVENT", Ui.Color.YELLOW) + ":",
+        return new UiMessage(new String[] {
+            "Okie! I've added a new EVENT:",
             "  " + event.toString(),
             "Total no. of tasks stored: " + tasks.getSize()
         });

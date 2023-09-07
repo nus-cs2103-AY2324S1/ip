@@ -1,8 +1,10 @@
 package data.exception;
 
+import ui.UiCli;
+
 /**
  * The custom {@link Exception} class for Duke.
- * Used by {@link ui.Ui} to print error messages.
+ * Used by {@link UiCli} to print error messages.
  */
 public class DukeException extends Exception {
     private String msg;
@@ -28,7 +30,7 @@ public class DukeException extends Exception {
     public DukeException(String[] msg) {
         String temp = "";
         for (String stub : msg) {
-            temp += String.format("    %s\n", stub);
+            temp += String.format("%s\n", stub);
         }
         this.msg = temp.trim().strip();
     }

@@ -15,7 +15,7 @@ import commands.MarkCommand;
 import commands.TodoCommand;
 import common.DateParser;
 import data.exception.DukeException;
-import ui.Ui;
+import ui.UiCli;
 
 /**
  * The Parser class. Handles the parsing of user commands
@@ -67,10 +67,9 @@ public class Parser {
             return parseFindCommand(input);
         default:
             throw new DukeException(new String[] {
-                "Unrecognized command " + Ui.cTxt(command, Ui.Color.PURPLE),
+                "Unrecognized command: " + command,
                 "Maybe create a new TODO with "
-                        + Ui.cTxt("todo", Ui.Color.PURPLE)
-                        + " read a book?"
+                        + "todo read a book"
             });
         }
     }
@@ -107,7 +106,7 @@ public class Parser {
         if (parseArr.length < 2) {
             throw new DukeException(new String[] {
                 "Looks like you're missing a number:",
-                "Try " + Ui.cTxt("mark", Ui.Color.PURPLE) + " 1"
+                "Try mark 1"
             });
         }
 
@@ -128,7 +127,7 @@ public class Parser {
         if (parseArr.length < 2) {
             throw new DukeException(new String[] {
                 "Looks like you're missing a description:",
-                "Try " + Ui.cTxt("todo", Ui.Color.PURPLE) + " read a book"
+                "Try todo read a book"
             });
         }
 
@@ -156,8 +155,8 @@ public class Parser {
         if (header.length < 2) {
             throw new DukeException(new String[] {
                 "Looks like you're missing a description:",
-                "Try " + Ui.cTxt("deadline", Ui.Color.PURPLE)
-                        + " submit essay /by Oct 10 2023 1600"
+                "Try deadline "
+                        + "submit essay /by Oct 10 2023 1600"
             });
         }
 
@@ -166,8 +165,8 @@ public class Parser {
             throw new DukeException(new String[] {
                 "Looks like you're missing a date:",
                 "<- Remember to include /by ->",
-                "Try " + Ui.cTxt("deadline", Ui.Color.PURPLE)
-                        + " submit essay /by Oct 10 2023 1600"
+                "Try deadline "
+                        + "submit essay /by Oct 10 2023 1600"
             });
         }
 
@@ -177,13 +176,10 @@ public class Parser {
             throw new DukeException(new String[] {
                 "Oops, looks like your date is in an invalid format...",
                 "Here are some valid formats:",
-                Ui.cTxt(
-                    "2023-10-20, 20-10-2023, 2023/10/20, "
-                            + "20/10/2023, Oct 10 2023, 10 Oct 2023",
-                    Ui.Color.PURPLE
-                ),
+                "2023-10-20, 20-10-2023, 2023/10/20, "
+                        + "20/10/2023, Oct 10 2023, 10 Oct 2023",
                 "You can provide a timing as well: "
-                        + Ui.cTxt("2023-10-20 1800", Ui.Color.YELLOW)
+                        + "2023-10-20 1800"
             });
         }
         return new DeadlineCommand(
@@ -213,17 +209,17 @@ public class Parser {
         if (header.length < 2) {
             throw new DukeException(new String[] {
                 "Looks like you're missing a description:",
-                "Try " + Ui.cTxt("event", Ui.Color.PURPLE)
-                        + " NUS carnival /from 21 Aug 2023 /to 22 Aug 2023"
+                "Try event "
+                        + "NUS carnival /from 21 Aug 2023 /to 22 Aug 2023"
             });
         }
 
         // Check if /from exists.
         if (parseArr.length < 2) {
             throw new DukeException(new String[] {
-                "Looks like you're missing " + Ui.cTxt("/from", Ui.Color.PURPLE),
-                "Try " + Ui.cTxt("event", Ui.Color.PURPLE)
-                        + " NUS carnival /from 21 Aug 2023 /to 22 Aug 2023"
+                "Looks like you're missing /from",
+                "Try event "
+                        + "NUS carnival /from 21 Aug 2023 /to 22 Aug 2023"
             });
         }
 
@@ -233,9 +229,9 @@ public class Parser {
         // Check if /to exists.
         if (dateParse.length < 2) {
             throw new DukeException(new String[] {
-                "Looks like you're missing " + Ui.cTxt("/to", Ui.Color.PURPLE),
-                "Try " + Ui.cTxt("event", Ui.Color.PURPLE)
-                        + " NUS carnival /from 21 Aug 2023 /to 22 Aug 2023"
+                "Looks like you're missing /to",
+                "Try event "
+                        + "NUS carnival /from 21 Aug 2023 /to 22 Aug 2023"
             });
         }
 
@@ -246,13 +242,10 @@ public class Parser {
             throw new DukeException(new String[] {
                 "Oops, looks like your date is in an invalid format...",
                 "Here are some valid formats:",
-                Ui.cTxt(
-                    "2023-10-20, 20-10-2023, 2023/10/20, "
-                            + "20/10/2023, Oct 10 2023, 10 Oct 2023",
-                    Ui.Color.PURPLE
-                ),
+                "2023-10-20, 20-10-2023, 2023/10/20, "
+                        + "20/10/2023, Oct 10 2023, 10 Oct 2023",
                 "You can provide a timing as well: "
-                        + Ui.cTxt("2023-10-20 1800", Ui.Color.YELLOW)
+                        + "2023-10-20 1800"
             });
         }
         return new EventCommand(
@@ -275,7 +268,7 @@ public class Parser {
         if (parseArr.length < 2) {
             throw new DukeException(new String[] {
                 "Looks like you're missing a number:",
-                "Try " + Ui.cTxt("delete", Ui.Color.PURPLE) + " 1"
+                "Try delete 1"
             });
         }
 
@@ -295,8 +288,8 @@ public class Parser {
         if (parseArr.length < 2) {
             throw new DukeException(new String[] {
                 "Looks like you didn't provide a keyword:",
-                "Try " + Ui.cTxt("find", Ui.Color.PURPLE) + " read",
-                "Or try " + Ui.cTxt("find", Ui.Color.PURPLE) + " read a book"
+                "Try find read",
+                "Or try find read a book"
             });
         }
 

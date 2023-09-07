@@ -3,7 +3,8 @@ package commands;
 import data.TaskList;
 import data.exception.DukeException;
 import storage.Storage;
-import ui.Ui;
+import ui.UiCli;
+import ui.UiMessage;
 
 /**
  * The Command abstract class.
@@ -12,8 +13,8 @@ import ui.Ui;
  * for the respective user command.
  */
 public abstract class Command {
-    public abstract void execute(
-            TaskList tasks, Storage storage, Ui ui) throws DukeException;
+    public abstract UiMessage execute(
+            TaskList tasks, Storage storage, UiCli uiCli) throws DukeException;
 
     public boolean isExit() {
         return false;

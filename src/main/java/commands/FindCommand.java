@@ -6,7 +6,8 @@ import data.TaskList;
 import data.exception.DukeException;
 import data.tasks.Task;
 import storage.Storage;
-import ui.Ui;
+import ui.UiCli;
+import ui.UiMessage;
 
 /**
  * The FindCommand class.
@@ -28,24 +29,26 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws DukeException {
+    public UiMessage execute(TaskList tasks, Storage storage, UiCli uiCli) throws DukeException {
         ArrayList<Task> result = tasks.findTasks(keyword);
 
         int count = result.size();
         if (count == 0) {
-            ui.displayMsg("Nothing found with keyword: " + Ui.cTxt(keyword, Ui.Color.YELLOW));
-            return;
+            return new UiMessage(new String[] {
+                "Nothing found with keyword: " + keyword
+            });
         }
 
         String[] displayArr = new String[result.size() + 1];
-        displayArr[0] = "I've found " 
-            + Ui.cTxt(String.valueOf(count), Ui.Color.YELLOW)
-            + " task(s) that matches the keyword: " 
-            + Ui.cTxt(keyword, Ui.Color.YELLOW);
+        displayArr[0] = String.format(
+            "I've found %d tasks(s) that matches the keyword: %s",
+            count,
+            keyword
+        );
         for (int i = 1; i < result.size() + 1; i++) {
             displayArr[i] = "  " + result.get(i - 1).toString();
         }
 
-        ui.displayMsg(displayArr);
+        return new UiMessage(displayArr);
     }
 }

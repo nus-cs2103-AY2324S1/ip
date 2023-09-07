@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import data.exception.DukeException;
 import data.tasks.Task;
 import storage.Storage;
-import ui.Ui;
+import ui.UiCli;
 
 /**
  * The TaskList class.
@@ -108,7 +108,7 @@ public class TaskList {
         if (taskIndex < 0 || taskIndex >= getSize()) {
             throw new DukeException(String.format(
                 "Unable to "
-                        + Ui.cTxt("delete", Ui.Color.PURPLE)
+                        + UiCli.cTxt("delete", UiCli.Color.PURPLE)
                         + " task %d :( You have %d task(s) stored.",
                 taskIndex + 1, getSize()
             ));

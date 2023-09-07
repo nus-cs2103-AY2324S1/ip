@@ -2,7 +2,8 @@ package commands;
 
 import data.TaskList;
 import storage.Storage;
-import ui.Ui;
+import ui.UiCli;
+import ui.UiMessage;
 
 /**
  * The ListCommand class.
@@ -12,11 +13,12 @@ import ui.Ui;
 public class ListCommand extends Command {
 
     @Override
-    public void execute(
-            TaskList tasks, Storage storage, Ui ui) {
+    public UiMessage execute(
+            TaskList tasks, Storage storage, UiCli uiCli) {
         if (tasks.isEmpty()) {
-            ui.displayMsg("Nothing stored.");
-            return;
+            return new UiMessage(new String[] {
+                "Nothing stored."
+            });
         }
 
         String[] formatTasks = new String[tasks.getSize() + 1];
@@ -27,6 +29,6 @@ public class ListCommand extends Command {
                 i + 1, tasks.getTask(i).toString()
             );
         }
-        ui.displayMsg(formatTasks);
+        return new UiMessage(formatTasks);
     }
 }

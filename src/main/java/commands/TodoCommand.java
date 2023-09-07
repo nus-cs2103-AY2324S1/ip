@@ -5,7 +5,8 @@ import data.exception.DukeException;
 import data.tasks.Task;
 import data.tasks.Todo;
 import storage.Storage;
-import ui.Ui;
+import ui.UiCli;
+import ui.UiMessage;
 
 /**
  * The TodoCommand class.
@@ -25,13 +26,13 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute(
-            TaskList tasks, Storage storage, Ui ui) throws DukeException {
+    public UiMessage execute(
+            TaskList tasks, Storage storage, UiCli uiCli) throws DukeException {
         Task todo = new Todo(description);
         tasks.add(todo);
         storage.update(tasks);
-        ui.displayMsg(new String[] {
-            "Okie! I've added a new " + Ui.cTxt("TODO", Ui.Color.GREEN) + ":",
+        return new UiMessage(new String[] {
+            "Okie! I've added a new TODO:",
             "  " + todo.toString(),
             "Total no. of tasks stored: " + tasks.getSize()
         });

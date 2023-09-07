@@ -2,7 +2,8 @@ package commands;
 
 import data.TaskList;
 import storage.Storage;
-import ui.Ui;
+import ui.UiCli;
+import ui.UiMessage;
 
 /**
  * The ExitCommand class.
@@ -11,9 +12,11 @@ import ui.Ui;
 public class ExitCommand extends Command {
     
     @Override
-    public void execute(
-            TaskList tasks, Storage storage, Ui ui) {
-        ui.displayGoodbye();
+    public UiMessage execute(
+            TaskList tasks, Storage storage, UiCli uiCli) {
+        return new UiMessage(new String[] {
+            "Bye~ See you again soon!"
+        });
     }
 
     @Override

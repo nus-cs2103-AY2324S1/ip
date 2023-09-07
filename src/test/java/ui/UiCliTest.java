@@ -8,7 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-public class UiTest {
+public class UiCliTest {
     private static final ByteArrayOutputStream OUT_STREAM = new ByteArrayOutputStream();
     private static final String RESET = "\u001B[0m";
     private static final String GREEN = "\033[0;32m";
@@ -30,8 +30,8 @@ public class UiTest {
     }
     @Test
     public void testSingleLineDisplay() {
-        Ui ui = new Ui();
-        ui.displayMsg("Hello");
+        UiCli uiCli = new UiCli();
+        uiCli.displayMsg("Hello");
         String expected = String.format("\n    Hello\n\n");
         String actual = OUT_STREAM.toString().replace("\r\n", "\n");
         assertEquals(expected, actual);
@@ -40,8 +40,8 @@ public class UiTest {
 
     @Test
     public void testMultiLineDisplay() {
-        Ui ui = new Ui();
-        ui.displayMsg(new String[] {
+        UiCli uiCli = new UiCli();
+        uiCli.displayMsg(new String[] {
             "Hello, this line 1",
             "and... this is line 2",
             "and three!"
@@ -58,8 +58,8 @@ public class UiTest {
 
     @Test
     public void testSingleLineError() {
-        Ui ui = new Ui();
-        ui.displayError("Some error message.");
+        UiCli uiCli = new UiCli();
+        uiCli.displayError("Some error message.");
         String expected = String.format(
             "\n    " + RED + "Erm... error :(" + RESET
                 + "\n    Some error message.\n\n"
@@ -71,8 +71,8 @@ public class UiTest {
 
     @Test
     public void testMultiLineError() {
-        Ui ui = new Ui();
-        ui.displayError(new String[] {
+        UiCli uiCli = new UiCli();
+        uiCli.displayError(new String[] {
             "Error message",
             "Help tooltip",
             "Standard example"
@@ -90,13 +90,13 @@ public class UiTest {
 
     @Test
     public void testColors() {
-        Ui ui = new Ui();
-        ui.displayMsg(new String[] {
-            Ui.cTxt("GREEN", Ui.Color.GREEN),
-            Ui.cTxt("YELLOW", Ui.Color.YELLOW),
-            Ui.cTxt("BLUE", Ui.Color.BLUE),
-            Ui.cTxt("PURPLE", Ui.Color.PURPLE),
-            Ui.cTxt("RED", Ui.Color.RED),
+        UiCli uiCli = new UiCli();
+        uiCli.displayMsg(new String[] {
+            UiCli.cTxt("GREEN", UiCli.Color.GREEN),
+            UiCli.cTxt("YELLOW", UiCli.Color.YELLOW),
+            UiCli.cTxt("BLUE", UiCli.Color.BLUE),
+            UiCli.cTxt("PURPLE", UiCli.Color.PURPLE),
+            UiCli.cTxt("RED", UiCli.Color.RED),
         });
         String expected = String.format(
             "\n    " + GREEN + "GREEN" + RESET

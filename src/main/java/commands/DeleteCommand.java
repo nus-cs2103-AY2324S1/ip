@@ -4,7 +4,8 @@ import data.TaskList;
 import data.exception.DukeException;
 import data.tasks.Task;
 import storage.Storage;
-import ui.Ui;
+import ui.UiCli;
+import ui.UiMessage;
 
 /**
  * The DeleteCommand class.
@@ -26,23 +27,22 @@ public class DeleteCommand extends Command {
             this.taskIndex = Integer.parseInt(taskIndex);
         } catch (NumberFormatException e) {
             throw new DukeException(new String[] {
-                Ui.cTxt("delete", Ui.Color.PURPLE)
-                        + " takes in a number. Try delete 1."
+                "delete takes in a number. Try delete 1."
             });
         }
     }
 
     @Override
-    public void execute(
-            TaskList tasks, Storage storage, Ui ui) throws DukeException {
+    public UiMessage execute(
+            TaskList tasks, Storage storage, UiCli uiCli) throws DukeException {
         Task removedTask = tasks.delete(taskIndex - 1);
-        ui.displayMsg(new String[] {
+
+        // Write modified task list to file
+        storage.update(tasks);
+        return new UiMessage(new String[] {
             "Okie! I've deleted task " + taskIndex + ":",
             "  " + removedTask.toString(),
             "Total no. of tasks stored: " + tasks.getSize()
         });
-
-        // Write modified task list to file
-        storage.update(tasks);
     }
 }
