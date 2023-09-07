@@ -4,11 +4,17 @@ import duke.command.Command;
 import duke.exception.InvalidIndexException;
 import duke.exception.NoSuchCommandException;
 import duke.task.TaskList;
+
 import java.nio.file.Paths;
 import java.time.DateTimeException;
 import java.nio.file.Path;
 
-public class Duke {
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
+public class Duke extends Application {
 
     /*
         The task list of Duke.
@@ -77,5 +83,14 @@ public class Duke {
      */
     public static void main(String[] args) {
         new Duke(Paths.get("data", "duke.txt")).run();
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 }
