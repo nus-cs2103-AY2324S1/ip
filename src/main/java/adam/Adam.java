@@ -1,10 +1,10 @@
 package adam;
 
-import java.util.ArrayList;
-
-import adam.exception.AdamException;
 import adam.command.Command;
+import adam.exception.AdamException;
 import adam.tasks.Task;
+
+import java.util.ArrayList;
 
 /**
  * This is the main java class that contains instructions to create the chatbot Tasks.Task manager Adam.Adam.
@@ -29,7 +29,7 @@ public class Adam {
     }
 
     /**
-     * Starts the program and this method will only end when the program stops running.
+     * This method starts the program.
      */
     public void start() {
         boolean isRunning =  true;
