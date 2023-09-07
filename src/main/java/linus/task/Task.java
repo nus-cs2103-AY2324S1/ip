@@ -24,10 +24,6 @@ public abstract class Task {
      */
     public void mark() {
         this.isDone = true;
-        Ui.print("Nice! I've marked this task as done:\n"
-                + "[X] "
-                + this.description
-        );
     }
 
     /**
@@ -35,11 +31,6 @@ public abstract class Task {
      */
     public void unmark() {
         this.isDone = false;
-        Ui.print(
-                "OK, I've marked this task as not done yet:\n"
-                        + "[ ] "
-                        + this.description
-        );
     }
 
 
