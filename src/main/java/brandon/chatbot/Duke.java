@@ -1,21 +1,20 @@
 package brandon.chatbot;
 
 import java.io.IOException;
-import java.util.Locale;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Locale;
 
 import brandon.chatbot.commands.Command;
 import brandon.chatbot.commands.CommandResult;
 import brandon.chatbot.commands.ExitCommand;
 import brandon.chatbot.commands.UnknownCommand;
+import brandon.chatbot.common.DukeException;
 import brandon.chatbot.parser.Parser;
 import brandon.chatbot.storage.Storage;
 import brandon.chatbot.tasks.TaskList;
+import brandon.chatbot.ui.TextUi;
 
-import ui.TextUi;
-import brandon.chatbot.common.DukeException;
 public class Duke {
     public static final String CURRENT_DIRECTORY = System.getProperty("user.dir");
     private static Path outputPath = Paths.get(CURRENT_DIRECTORY, "output.txt");

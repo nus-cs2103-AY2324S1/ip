@@ -1,11 +1,8 @@
 package brandon.chatbot.commands;
 
-import brandon.chatbot.tasks.Task;
-import brandon.chatbot.tasks.TaskList;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
+
+import brandon.chatbot.tasks.TaskList;
 
 public class CommandResult {
     public final String feedbackToUser;

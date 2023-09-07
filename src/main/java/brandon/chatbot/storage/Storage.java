@@ -1,11 +1,11 @@
 package brandon.chatbot.storage;
 
-import brandon.chatbot.tasks.Task;
-import brandon.chatbot.tasks.TaskList;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
+import brandon.chatbot.tasks.Task;
+import brandon.chatbot.tasks.TaskList;
 
 public class Storage {
     private Path path;

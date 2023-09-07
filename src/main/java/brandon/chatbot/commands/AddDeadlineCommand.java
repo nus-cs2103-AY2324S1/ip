@@ -2,11 +2,10 @@ package brandon.chatbot.commands;
 
 import brandon.chatbot.common.DukeException;
 import brandon.chatbot.tasks.Deadline;
-import brandon.chatbot.tasks.Todo;
 
 public class AddDeadlineCommand extends Command {
-    private Deadline toAdd;
     public static final String ADD_SUCCESS = "ok... I'm adding..";
+    private Deadline toAdd;
 
     public AddDeadlineCommand(String taskName, String deadline) throws DukeException {
         this.toAdd = new Deadline(taskName, deadline);
