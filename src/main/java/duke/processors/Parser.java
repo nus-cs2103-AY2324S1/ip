@@ -1,5 +1,6 @@
 package duke.processors;
 
+import duke.exception.DukeDateOutOfRange;
 import duke.exception.DukeNoDateException;
 import duke.exception.DukeNoDescriptionException;
 import duke.exception.DukeUnknownInstruction;
@@ -16,8 +17,9 @@ public class Parser {
         terminate = false;
     }
 
-    private void displayInfo(String msg) throws DukeUnknownInstruction
-            , DukeNoDescriptionException, DukeNoDateException{
+    private void displayInfo(String msg) throws DukeUnknownInstruction,
+            DukeNoDescriptionException, DukeNoDateException,
+            DukeDateOutOfRange{
         Task task;
 
         if (msg.startsWith("todo")) {
@@ -37,7 +39,8 @@ public class Parser {
     }
 
     public void readInputs(String msg) throws DukeUnknownInstruction,
-            DukeNoDescriptionException, DukeNoDateException{
+            DukeNoDescriptionException, DukeNoDateException,
+            DukeDateOutOfRange {
         if (msg.equals("list")) {
 
             tasks.listTasks();

@@ -1,10 +1,12 @@
 package duke.task;
 
+import duke.exception.DukeDateOutOfRange;
 import duke.exception.DukeNoDateException;
 import duke.exception.DukeNoDescriptionException;
 import duke.processors.TimeProcessor;
 public class Event extends Task{
-    public Event(String Description) throws DukeNoDescriptionException, DukeNoDateException {
+    public Event(String Description) throws DukeNoDescriptionException,
+            DukeNoDateException,  DukeDateOutOfRange {
         super(Description);
         if (Description.split("\\s+").length == 1) {
             throw new DukeNoDescriptionException("Event");
@@ -20,7 +22,8 @@ public class Event extends Task{
         this.isDone = isDone;
     }
 
-    private String getContent(String Description) throws DukeNoDateException {
+    private String getContent(String Description) throws DukeNoDateException,
+            DukeDateOutOfRange {
         String time;
         int index = Description.indexOf("/");
         String content = Description.substring(6, index);

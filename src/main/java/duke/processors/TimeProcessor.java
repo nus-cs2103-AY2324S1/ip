@@ -1,5 +1,7 @@
 package duke.processors;
 
+import duke.exception.DukeDateOutOfRange;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,14 +10,18 @@ import java.util.Locale;
 
 
 public class TimeProcessor {
-    public static String StringToDate(String info) {
+    public static String StringToDate(String info) throws DukeDateOutOfRange{
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        String reg = "\\d{1,2}\\/\\d{1,2}\\/\\d{2,4}";
         LocalDate current = LocalDate.now();
         LocalDate date;
 
         if (isCorrect(info, dateFormatter)) {
             date = LocalDate.parse(info, dateFormatter);
         } else {
+            if (info.matches(reg) || info.matches("[0-9]+")) {
+                throw new DukeDateOutOfRange();
+            }
             date = null;
         }
 
@@ -33,7 +39,7 @@ public class TimeProcessor {
                        System.out.println("Can only supports day of weeks "
                                + "or date in format dd/MM/yyyy "
                                + "Cannot support abbreviations "
-                               +"months " + "or simplified dates!");
+                               +"and months + day !!!" );
                    }
                }
            }
@@ -53,3 +59,4 @@ public class TimeProcessor {
     }
 
 }
+

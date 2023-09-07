@@ -9,6 +9,7 @@ public class ToDo extends Task{
         if (Description.split("\\s+").length == 1) {
             throw new DukeNoDescriptionException("todo");
         }
+        Description = Description.replaceAll("\\s+", " ");
         this.Description = Description.substring(5);
         System.out.println("Got it. I've added this task:");
         System.out.println("    " + this);
