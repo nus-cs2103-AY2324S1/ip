@@ -16,7 +16,7 @@ public class EventCommand {
      * @param tasks List of tasks.
      * @param storage Stores the file and handles file methods.
      */
-    public static void execute(String input, TaskList tasks, Storage storage) {
+    public static String execute(String input, TaskList tasks, Storage storage) {
         try {
             if (input.length() <= 6 || input.substring(6).isBlank()) {
                 throw new EmptyDescriptionException();
@@ -31,13 +31,13 @@ public class EventCommand {
             Task task = new Event(details[0], fromDateTime, toDateTime);
             tasks.add(task);
             storage.rewrite(tasks.fileList());
-            Ui.addTask(task.toString(), tasks.size());
+            return Ui.addTask(task.toString(), tasks.size());
         } catch (EmptyDescriptionException e) {
-            Ui.emptyDesc("event");
+            return Ui.emptyDesc("event");
         } catch (DurationUnclearException e) {
-            Ui.unclear("duration");
+            return Ui.unclear("duration");
         } catch (DateTimeParseException e) {
-            Ui.wrongDateTimeFormat();
+            return Ui.wrongDateTimeFormat();
         }
     }
 }

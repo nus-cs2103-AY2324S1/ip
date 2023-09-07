@@ -6,16 +6,18 @@ import java.util.Scanner;
  * The Ui class represents the User Interface.
  */
 public class Ui {
-    private static final String line = "    ____________________________________________________________";
+    private static final String line = "    __________________________________________________________";
 
     /**
      * Prints the starting messages of the chatbot.
      */
-    public static void start() {
-        System.out.println(line);
-        System.out.println("     " + "Hello! I'm ChatGP0");
-        System.out.println("     " + "What can I do for you?");
-        System.out.println(line + "\n");
+    public static String start() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(line + "\n");
+        sb.append("     " + "Hello! I'm ChatGP0" + "\n");
+        sb.append("     " + "What can I do for you?" + "\n");
+        sb.append(line + "\n");
+        return sb.toString();
     }
 
     /**
@@ -33,11 +35,13 @@ public class Ui {
      *
      * @param tasks The list of tasks as a string.
      */
-    public static void listOfTasks(String tasks) {
-        System.out.println(line);
-        System.out.println("     " + "Here are the tasks in your list:");
-        System.out.println(tasks);
-        System.out.println(line + "\n");
+    public static String listOfTasks(String tasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(line + "\n");
+        sb.append("     " + "Here are the tasks in your list:" + "\n");
+        sb.append(tasks + "\n");
+        sb.append(line + "\n");
+        return sb.toString();
     }
 
     /**
@@ -46,12 +50,14 @@ public class Ui {
      * @param taskStr The new task as a string.
      * @param size The number of tasks.
      */
-    public static void addTask(String taskStr, int size) {
-        System.out.println(line);
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("       " + taskStr);
-        System.out.println("     Now you have " + size + " tasks in the list.");
-        System.out.println(line + "\n");
+    public static String addTask(String taskStr, int size) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(line + "\n");
+        sb.append("     Got it. I've added this task:" + "\n");
+        sb.append("       " + taskStr + "\n");
+        sb.append("     Now you have " + size + " tasks in the list." + "\n");
+        sb.append(line + "\n");
+        return sb.toString();
     }
 
     /**
@@ -59,10 +65,12 @@ public class Ui {
      *
      * @param type The type of task.
      */
-    public static void emptyDesc(String type) {
-        System.out.println(line);
-        System.out.println("     ☹ OOPS!!! The description of a " + type + " cannot be empty.");
-        System.out.println(line + "\n");
+    public static String emptyDesc(String type) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(line + "\n");
+        sb.append("     ☹ OOPS!!! The description of a " + type + " cannot be empty." + "\n");
+        sb.append(line + "\n");
+        return sb.toString();
     }
 
     /**
@@ -70,19 +78,23 @@ public class Ui {
      *
      * @param type The type of task.
      */
-    public static void unclear(String type) {
-        System.out.println(line);
-        System.out.println("     ☹ OOPS!!! The " + type + " is unclear.");
-        System.out.println(line + "\n");
+    public static String unclear(String type) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(line + "\n");
+        sb.append("     ☹ OOPS!!! The " + type + " is unclear." + "\n");
+        sb.append(line + "\n");
+        return sb.toString();
     }
 
     /**
      * Prints the mistake the user made for the date and time format.
      */
-    public static void wrongDateTimeFormat() {
-        System.out.println(line);
-        System.out.println("     ☹ OOPS!!! Please follow the \"yyyy-MM-dd HHmm\" format.");
-        System.out.println(line + "\n");
+    public static String wrongDateTimeFormat() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(line + "\n");
+        sb.append("     ☹ OOPS!!! Please follow the \"yyyy-MM-dd HHmm\" format." + "\n");
+        sb.append(line + "\n");
+        return sb.toString();
     }
 
     /**
@@ -90,11 +102,13 @@ public class Ui {
      *
      * @param task The task being marked.
      */
-    public static void mark(Task task) {
-        System.out.println(line);
-        System.out.println("     " + "Nice! I've marked this task as done:");
-        System.out.println("       " + task.toString());
-        System.out.println(line + "\n");
+    public static String mark(Task task) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(line + "\n");
+        sb.append("     " + "Nice! I've marked this task as done:" + "\n");
+        sb.append("       " + task.toString() + "\n");
+        sb.append(line + "\n");
+        return sb.toString();
     }
 
     /**
@@ -102,11 +116,13 @@ public class Ui {
      *
      * @param task The task being unmarked.
      */
-    public static void unmark(Task task) {
-        System.out.println(line);
-        System.out.println("     " + "OK, I've marked this task as not done yet:");
-        System.out.println("       " + task.toString());
-        System.out.println(line + "\n");
+    public static String unmark(Task task) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(line + "\n");
+        sb.append("     " + "OK, I've marked this task as not done yet:" + "\n");
+        sb.append("       " + task.toString() + "\n");
+        sb.append(line + "\n");
+        return sb.toString();
     }
 
     /**
@@ -115,39 +131,47 @@ public class Ui {
      * @param task The deleted task.
      * @param size The number of tasks left.
      */
-    public static void delete(Task task, int size) {
-        System.out.println(line);
-        System.out.println("     Noted. I've removed this task:");
-        System.out.println("       " + task.toString());
-        System.out.println("     Now you have " + size + " tasks in the list.");
-        System.out.println(line + "\n");
+    public static String delete(Task task, int size) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(line + "\n");
+        sb.append("     Noted. I've removed this task:" + "\n");
+        sb.append("       " + task.toString() + "\n");
+        sb.append("     Now you have " + size + " tasks in the list." + "\n");
+        sb.append(line + "\n");
+        return sb.toString();
     }
 
     /**
      * Prints the mistake the user made for the task number not existing.
      */
-    public static void invalidTask() {
-        System.out.println(line);
-        System.out.println("     ☹ OOPS!!! This task does not exist :O");
-        System.out.println(line + "\n");
+    public static String invalidTask() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(line + "\n");
+        sb.append("     ☹ OOPS!!! This task does not exist :O" + "\n");
+        sb.append(line + "\n");
+        return sb.toString();
     }
 
     /**
      * Prints the mistake the user made for the command not existing.
      */
-    public static void invalidText() {
-        System.out.println(line);
-        System.out.println("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-        System.out.println(line + "\n");
+    public static String invalidText() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(line + "\n");
+        sb.append("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(" + "\n");
+        sb.append(line + "\n");
+        return sb.toString();
     }
 
     /**
      * Prints a goodbye statement before the program ends.
      */
-    public static void bye() {
-        System.out.println(line);
-        System.out.println("     " + "Bye. Hope to see you again soon!");
-        System.out.println(line);
+    public static String bye() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(line + "\n");
+        sb.append("     " + "Bye. Hope to see you again soon!" + "\n");
+        sb.append(line);
+        return sb.toString();
     }
 
     /**
@@ -155,10 +179,12 @@ public class Ui {
      *
      * @param selectedTasks List of tasks.
      */
-    public static void searchTasks(String selectedTasks) {
-        System.out.println(line);
-        System.out.println("     Here are the matching tasks in your list:");
-        System.out.println(selectedTasks);
-        System.out.println(line + "\n");
+    public static String searchTasks(String selectedTasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(line + "\n");
+        sb.append("     Here are the matching tasks in your list:" + "\n");
+        sb.append(selectedTasks + "\n");
+        sb.append(line + "\n");
+        return sb.toString();
     }
 }

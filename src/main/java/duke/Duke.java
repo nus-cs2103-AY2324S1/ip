@@ -41,4 +41,24 @@ public class Duke {
     public static void main(String[] args) {
         new Duke("./duke.txt").run();
     }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        Ui.start();
+        if (input.equals("bye")) {
+            return Ui.bye();
+        } else {
+            return Parser.parseInput(input, this.tasks, this.storage);
+        }
+        /*
+        while (!input.equals("bye")) {
+            Parser.parseInput(input, this.tasks, this.storage);
+            input = Ui.getInput(scan);
+        }
+        Ui.bye();
+         */
+    }
 }
