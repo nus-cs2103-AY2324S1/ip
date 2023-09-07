@@ -27,12 +27,12 @@ public class Parser {
      * @param tasks        The TaskList object containing the tasks.
      * @param ui           The Ui object to deal with user input and output.
      * @param storage      The Storage object to deal with loading tasks from the file and saving tasks in the file.
-     * @return true if the command given is "bye", false otherwise.
+     * @return The String containing the output of the command.
      * @throws IncompleteInputException If the command given is incomplete.
      * @throws WrongMarkException       If the command given is wrong.
      * @throws InvalidInputException    If the command given is invalid.
      */
-    public static boolean checkCommandType(String commandGiven,
+    public static String checkCommandType(String commandGiven,
                                            TaskList tasks,
                                            Ui ui,
                                            Storage storage)
@@ -42,24 +42,26 @@ public class Parser {
         commandGiven = commandGiven.trim();
         String[] splittedCommands = commandGiven.split(" ");
         String commandType = splittedCommands[0];
+        String command = "";
         switch (commandType) {
         case "list":
             ui.separatorLines();
-            tasks.printTasks();
+            command = tasks.printTasks();
             break;
         case "mark":
             try {
                 Task task = tasks.get(Integer.parseInt(splittedCommands[1]) - 1);
                 if (Objects.equals(task.getStatusIcon(), "X")) {
-                    ui.showAlreadyDone();
+                    command = ui.showAlreadyDone();
                 } else {
                     ui.separatorLines();
-                    task.setAsDone(task);
+                    command = task.setAsDone(task);
                 }
                 storage.save(tasks);
             } catch (IndexOutOfBoundsException | NullPointerException e) {
-                ui.showInvalidIndex();
+                command = ui.showInvalidIndex();
             } catch (IOException e) {
+                command = String.valueOf(e);
                 throw new RuntimeException(e);
             }
             break;
@@ -67,15 +69,16 @@ public class Parser {
             try {
                 Task task = tasks.get(Integer.parseInt(splittedCommands[1]) - 1);
                 if (Objects.equals(task.getStatusIcon(), " ")) {
-                    ui.showAlreadyUndone();
+                    command = ui.showAlreadyUndone();
                 } else {
                     ui.separatorLines();
-                    task.setAsUndone(task);
+                    command = task.setAsUndone(task);
                 }
                 storage.save(tasks);
             } catch (IndexOutOfBoundsException | NullPointerException e) {
-                ui.showInvalidIndex();
+                command = ui.showInvalidIndex();
             } catch (IOException e) {
+                command = String.valueOf(e);
                 throw new RuntimeException(e);
             }
             break;
@@ -83,17 +86,18 @@ public class Parser {
             try {
                 Task task = tasks.get(Integer.parseInt(splittedCommands[1]) - 1);
                 tasks.deleteTask(Integer.parseInt(splittedCommands[1]));
-                ui.deleteTaskMessage(task);
+                command = ui.deleteTaskMessage(task);
             } catch (IndexOutOfBoundsException | NullPointerException e) {
-                ui.showInvalidIndex();
+                command = ui.showInvalidIndex();
             }
             break;
         case "find":
             ui.separatorLines();
             try {
                 String keyword = splittedCommands[1];
-                tasks.findTasks(keyword);
+                command = tasks.findTasks(keyword);
             } catch (IndexOutOfBoundsException | NullPointerException e) {
+                command = "find what eh! ";
                 throw new IncompleteInputException("find what eh! ");
             }
             break;
@@ -103,23 +107,26 @@ public class Parser {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            return true;
+            command = "bye";
+            break;
         default:
             try {
                 Task task = Task.createTask(commandGiven);
                 tasks.addTask(task);
-                ui.addTaskMessage(task);
+                command = ui.addTaskMessage(task);
                 storage.save(tasks);
             } catch (InvalidInputException e) {
                 ui.separatorLines();
+                command = "I dont understand! " + e;
                 throw new InvalidInputException("I dont understand! " + e);
             } catch (IncompleteInputException e) {
                 ui.separatorLines();
+                command = "Incomplete input eh! " + e;
                 throw new IncompleteInputException("Incomplete input eh! " + e);
             } catch (IOException e) {
-                ui.showSaveError();
+                command = ui.showSaveError();
             }
         }
-        return false;
+        return command.trim();
     }
 }

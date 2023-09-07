@@ -39,7 +39,7 @@ public class Duke {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        new Duke("./data/stored_tasks").run();
+        new Duke("./data/stored_tasks.txt").run();
     }
 
     /**
@@ -49,15 +49,33 @@ public class Duke {
      */
     public void run() {
         ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
+        String commandGiven = "";
+        while (!commandGiven.equals("bye")) {
             try {
                 String fullCommand = ui.getUserInput();
-                isExit = Parser.checkCommandType(fullCommand, tasks, ui, storage);
+                commandGiven = Parser.checkCommandType(fullCommand, tasks, ui, storage);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
         }
         ui.showExit();
+    }
+
+    public String getResponse(String input) {
+        String commandGiven = "";
+        if (tasks == null) {
+            tasks = new TaskList();
+        } else {
+            try {
+                commandGiven = Parser.checkCommandType(input, tasks, ui, storage);
+                if (commandGiven.equals("bye")) {
+                    commandGiven = ui.showExit();
+                    System.exit(0);
+                }
+            } catch (DukeException e) {
+                return e.getMessage();
+            }
+        }
+        return commandGiven;
     }
 }

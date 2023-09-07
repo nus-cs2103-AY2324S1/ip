@@ -1,0 +1,3 @@
+|T| |X| buy pencil
+|D| |X| return book (by: Sunday)
+|T| | | ggg
