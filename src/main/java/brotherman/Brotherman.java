@@ -62,28 +62,32 @@ public class Brotherman extends Application {
     /**
      * Runs the Brotherman chatbot
      */
-    public void run() {
-        ui.showWelcomeMessage();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command command = Parser.parse(fullCommand);
-                command.execute(taskList, ui, storage);
-                isExit = command.isExit();
-            } catch (BrothermanException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
+    //public void run() {
+    //    ui.showWelcomeMessage();
+    //    boolean isExit = false;
+    //    while (!isExit) {
+    //        try {
+    //            String fullCommand = ui.readCommand();
+    //            ui.showLine();
+    //            Command command = Parser.parse(fullCommand);
+    //            command.execute(taskList, ui, storage);
+    //            isExit = command.isExit();
+    //        } catch (BrothermanException e) {
+    //            ui.showError(e.getMessage());
+    //        } finally {
+    //            ui.showLine();
+    //        }
+    //    }
+    //}
 
     @Override
     public void start(Stage stage) {
         //Step 1. Setting up required components
+
+        Brotherman brotherman = new Brotherman("./data/brotherman.txt");
+        this.storage = brotherman.storage;
+        this.taskList = brotherman.taskList;
+        this.ui = brotherman.ui;
 
         //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
@@ -102,6 +106,11 @@ public class Brotherman extends Application {
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
+        stage.setOnCloseRequest(
+                (event) -> {
+                    closeProgram();
+                }
+        );
 
         mainLayout.setPrefSize(400.0, 600.0);
 
@@ -112,7 +121,6 @@ public class Brotherman extends Application {
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.setPrefWidth(325.0);
@@ -138,11 +146,19 @@ public class Brotherman extends Application {
         });
 
         sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
+            try {
+                handleUserInput();
+            } catch (BrothermanException e) {
+                ui.showError(e.getMessage());
+            }
         });
 
         userInput.setOnAction((event) -> {
-            handleUserInput();
+            try {
+                handleUserInput();
+            } catch (BrothermanException e) {
+                ui.showError(e.getMessage());
+            }
         });
 
         stage.setScene(scene);
@@ -150,6 +166,7 @@ public class Brotherman extends Application {
 
         // more code to be added here later
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
     }
 
     /**
@@ -159,14 +176,13 @@ public class Brotherman extends Application {
      * @return a label with the specified text that has word wrap enabled.
      */
     private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
 
         return textToAdd;
     }
 
-    private void handleUserInput() {
+    private void handleUserInput() throws BrothermanException {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
@@ -176,8 +192,21 @@ public class Brotherman extends Application {
         userInput.clear();
     }
 
-    private String getResponse(String input) {
-        return "Brotherman heard: " + input;
+    private String getResponse(String input) throws BrothermanException {
+        String response = input;
+        Command command = Parser.parse(input);
+        String output = command.execute(taskList, ui, storage);
+        boolean isExit = command.isExit();
+        if (isExit) {
+            closeProgram();
+        }
+
+        return output;
+    }
+
+    private void closeProgram() {
+        storage.saveToFile(taskList.list());
+        System.exit(0);
     }
 
     //    public static void main(String[] args) {

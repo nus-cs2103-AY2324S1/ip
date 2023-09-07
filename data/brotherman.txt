@@ -1,0 +1,3 @@
+T|false| nothing
+D|true|eat ass/by05/03/2001
+E|false|no do anything/from05/03/2001/to06/03/2001

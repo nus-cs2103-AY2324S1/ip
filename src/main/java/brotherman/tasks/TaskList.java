@@ -38,15 +38,14 @@ public class TaskList {
      * Deletes a task from the task list
      * @param num Task number to be deleted
      */
-    public void delete(int num) {
+    public String delete(int num) {
         if (num < 0 || num >= taskList.size()) {
-            System.out.println("Brotherman the value you put in wrong.  Try again.");
+            return "Brotherman the value you put in wrong.  Try again.";
         } else {
-            System.out.println(
-                            "The task is now deleted Brotherman \n"
-                            + taskList.get(num).toString()
-            );
             taskList.remove(num);
+
+            return "The task is now deleted Brotherman \n"
+                            + taskList.get(num).toString();
         }
     }
 
@@ -72,15 +71,13 @@ public class TaskList {
      * Marks the task at the specified index as done
      * @param num Index of the task
      */
-    public void markDone(int num) {
+    public String markDone(int num) {
         if (num < 0 || num >= taskList.size()) {
-            System.out.println("Brotherman the value you put in wrong.  Try again.");
+            return "Brotherman the value you put in wrong.  Try again.";
         } else {
             taskList.get(num).markAsDone();
-            System.out.println(
-                    "The task is done Brotherman \n"
-                    + taskList.get(num).toString()
-            );
+            return "The task is done Brotherman \n"
+                    + taskList.get(num).toString();
         }
     }
 
@@ -88,15 +85,13 @@ public class TaskList {
      * Marks the task at the specified index as not done
      * @param num Index of the task
      */
-    public void markUndone(int num) {
+    public String markUndone(int num) {
         if (num < 0 || num >= taskList.size()) {
-            System.out.println("Brotherman the value you put in wrong.  Try again.");
+            return "Brotherman the value you put in wrong.  Try again.";
         } else {
             taskList.get(num).unmarkAsDone();
-            System.out.println(
-                    "The task is now undone Brotherman \n"
-                    + taskList.get(num).toString()
-            );
+            return "The task is now undone Brotherman \n"
+                    + taskList.get(num).toString();
         }
     }
 

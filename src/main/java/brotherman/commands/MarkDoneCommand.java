@@ -29,7 +29,7 @@ public class MarkDoneCommand extends Command {
      * @param storage Storage to save the task list
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.markDone(taskNum);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return tasks.markDone(taskNum);
     }
 }

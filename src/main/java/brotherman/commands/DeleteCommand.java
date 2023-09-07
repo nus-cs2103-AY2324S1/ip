@@ -29,9 +29,9 @@ public class DeleteCommand extends Command {
      * @param storage Storage to save the task list
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showLine();
-        tasks.delete(taskNum);
-        ui.showLine();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        //ui.showLine();
+        return tasks.delete(taskNum);
+        //ui.showLine();
     }
 }
