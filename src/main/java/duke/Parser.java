@@ -131,6 +131,7 @@ public class Parser {
             break;
 
         default:
+
             inValue += myScanner.nextLine();
             Ui.unrecognisedCommand();
             break;
