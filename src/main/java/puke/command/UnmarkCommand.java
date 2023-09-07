@@ -2,7 +2,6 @@ package puke.command;
 
 import puke.managers.DataHandler;
 import puke.managers.TaskList;
-import puke.managers.Ui;
 
 /**
  * A Command class that when executed, marks a task as undone.
@@ -28,17 +27,18 @@ public class UnmarkCommand extends Command {
      * If the command is in the wrong format or an index is out of bounds, prints an error message instead.
      *
      * @param tl The task list.
-     * @param ui The UI.
+     * @return the message String.
      */
-    public void execute(TaskList tl, Ui ui) {
+    public String execute(TaskList tl) {
         try {
             tl.unmark(this.index);
-            System.out.println(ui.unmark());
-            System.out.println(Ui.separator());
             DataHandler.writeToDatabase(tl);
+            return "Very well. I have acknowledged your request to unmark the task of "
+                    + "specified index as having been completed and "
+                    + "will now proceed to set said task of specified index to be considered as "
+                    + "having not yet been completed.";
         } catch (Exception e) {
-            System.out.println(Ui.errorMessage());
-            System.out.println(Ui.separator());
+            return ERROR_MESSAGE;
         }
     }
 

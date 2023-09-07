@@ -31,15 +31,8 @@ public class PukeTest {
         //Testing Parsing ClearCommand
         assertEquals(new ClearCommand(""), Parser.parse("clearall", ""));
         //Testing Parsing ErrorCommand 1
-        //assertEquals(new ErrorCommand(), Parser.parse("bye", "123"));
+        assertEquals(new ErrorCommand(), Parser.parse("bye", "123"));
         //Testing Parsing ErrorCommand 2
         assertEquals(new ErrorCommand(), Parser.parse("todo", ""));
-    }
-
-    @Test
-    public void UiMessageTests() {
-        //Testing of Ui Exit Message
-        assertEquals("It appears that the user has decided to close the program as indicated by the command of which this is the function being issued and therefore,\n" +
-                "I shall bid thee farewell and wish thee great fortune in your future endeavors.", new Ui().exit());
     }
 }

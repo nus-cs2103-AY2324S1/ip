@@ -1,7 +1,6 @@
 package puke.command;
 
 import puke.managers.TaskList;
-import puke.managers.Ui;
 
 /**
  * A Command class that when executed, looks for tasks in the task list that match the keywords provided.
@@ -22,16 +21,17 @@ public class FindCommand extends Command {
      * Executes the command, printing out the corresponding message from the UI while printing each matching
      * task in the task list.
      * @param tl the task list
-     * @param ui the UI
+     * @return the message String.
      */
-    public void execute(TaskList tl, Ui ui) {
+    public String execute(TaskList tl) {
         try {
-            System.out.println(ui.find());
-            System.out.println(tl.find(this.key));
-            System.out.println(Ui.separator());
+            return "As per the instructions provided, I shall initiate a search into your list of items, of which "
+                    + "we have previously declared to be known as tasks due too their relatively "
+                    + "urgent need of attention within a specified or unspecified frame of time, for those of which "
+                    + "have an alphabetical similarity to the frame of reference that you have provided.\n\n"
+                    + tl.find(key);
         } catch (Exception PukeException) {
-            System.out.println(Ui.errorMessage());
-            System.out.println(Ui.separator());
+            return ERROR_MESSAGE;
         }
     }
 }

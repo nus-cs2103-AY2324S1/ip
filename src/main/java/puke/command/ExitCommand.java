@@ -1,7 +1,6 @@
 package puke.command;
 
 import puke.managers.TaskList;
-import puke.managers.Ui;
 
 /**
  * A Command class that when executed, prints the exit message.
@@ -17,14 +16,15 @@ public class ExitCommand extends Command {
      * If the command is in the wrong format.
      *
      * @param tl The task list.
-     * @param ui The UI.
+     * @return the message String.
      */
-    public void execute(TaskList tl, Ui ui) {
+    public String execute(TaskList tl) {
         if (!super.isValid) {
-            System.out.println(Ui.errorMessage());
-            System.out.println(Ui.separator());
+            return ERROR_MESSAGE;
         } else {
-            System.out.println(ui.exit());
+            return "It appears that the user has decided to close the program as indicated by the command of "
+                    + "which this is the function being issued and therefore, "
+                    + "I shall bid thee farewell and wish thee great fortune in your future endeavors.";
         }
     }
 

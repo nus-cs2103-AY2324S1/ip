@@ -32,7 +32,7 @@ public class TaskList {
         return sb.toString();
     }
 
-    Task get(int index) throws PukeException {
+    public Task get(int index) throws PukeException {
         try {
             return list.get(index);
         } catch (Exception e) {
@@ -108,7 +108,7 @@ public class TaskList {
         }
     }
 
-    int size() {
+    public int size() {
         return list.size();
     }
 

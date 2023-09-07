@@ -32,21 +32,21 @@ public class Parser {
             } else if (command.equals("list")) {
                 return new ListCommand(line);
             } else if (command.equals("mark")) {
-                return new MarkCommand(line.substring(1));
+                return new MarkCommand(line);
             } else if (command.equals("unmark")) {
-                return new UnmarkCommand(line.substring(1));
+                return new UnmarkCommand(line);
             } else if (command.equals("todo")) {
-                return new TodoCommand(line.substring(1));
+                return new TodoCommand(line);
             } else if (command.equals("deadline")) {
-                return new DeadlineCommand(line.substring(1));
+                return new DeadlineCommand(line);
             } else if (command.equals("event")) {
-                return new EventCommand(line.substring(1));
+                return new EventCommand(line);
             } else if (command.equals("delete")) {
-                return new DeleteCommand(line.substring(1));
+                return new DeleteCommand(line);
             } else if (command.equals("clearall")) {
                 return new ClearCommand(line);
             } else if (command.equals("find")) {
-                return new FindCommand(line.substring(1));
+                return new FindCommand(line);
             } else {
                 return new ErrorCommand();
             }
