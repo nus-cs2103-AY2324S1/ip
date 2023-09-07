@@ -44,7 +44,7 @@ public abstract class Task {
      *
      * @return String representation of Task.
      */
-    public String save() {
+    public String toSaveFormat() {
        return this.isComplete + "|" + this.description;
     }
 

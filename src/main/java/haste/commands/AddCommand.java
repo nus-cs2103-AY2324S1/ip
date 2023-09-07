@@ -14,10 +14,10 @@ import java.time.LocalDateTime;
  */
 public class AddCommand extends Command {
 
-    private String desc;
+    private String taskDesc;
     private LocalDateTime start;
     private LocalDateTime end;
-    private String type;
+    private String taskType;
 
     /**
      * Creates an AddCommand for ToDo.
@@ -25,8 +25,8 @@ public class AddCommand extends Command {
      * @param desc Description of the task.
      */
     public AddCommand(String desc) {
-        this.desc = desc;
-        this.type = "t";
+        this.taskDesc = desc;
+        this.taskType = "t";
     }
 
     /**
@@ -36,8 +36,8 @@ public class AddCommand extends Command {
      * @param end Deadline of the task.
      */
     public AddCommand(String desc, LocalDateTime end) {
-        this.desc = desc;
-        this.type = "d";
+        this.taskDesc = desc;
+        this.taskType = "d";
         this.end = end;
     }
 
@@ -49,8 +49,8 @@ public class AddCommand extends Command {
      * @param start Start time of the task.
      */
     public AddCommand(String desc, LocalDateTime end, LocalDateTime start) {
-        this.desc = desc;
-        this.type = "e";
+        this.taskDesc = desc;
+        this.taskType = "e";
         this.start = start;
         this.end = end;
     }
@@ -64,16 +64,16 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui) {
         Task newTask = null;
-        switch (this.type) {
-            case "t":
-                newTask = new ToDo(this.desc, false);
-                break;
-            case "d":
-                newTask = new Deadline(this.desc, this.end, false);
-                break;
-            case "e":
-                newTask = new Event(this.desc, this.start, this.end, false);
-                break;
+        switch (this.taskType) {
+        case "t":
+            newTask = new ToDo(this.taskDesc, false);
+            break;
+        case "d":
+            newTask = new Deadline(this.taskDesc, this.end, false);
+            break;
+        case "e":
+            newTask = new Event(this.taskDesc, this.start, this.end, false);
+            break;
         }
         tasks.addTask(newTask);
         return ui.add(newTask.toString(), tasks);

@@ -68,7 +68,6 @@ public class Storage {
             e.printStackTrace();
         }
     }
-    // add one line to text file
 
     // Solution inspired by LAM JIN HENG BRAYDON
 
@@ -122,7 +121,7 @@ public class Storage {
     public void save(TaskList tasks) {
         create();
         for (Task task: tasks.taskList) {
-            write(task.save() + "\n");
+            write(task.toSaveFormat() + "\n");
         }
     }
 

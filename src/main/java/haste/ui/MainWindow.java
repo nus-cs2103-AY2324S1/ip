@@ -33,6 +33,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(" Hello! I'm Haste\n"
+                + " What can I do for you?", dukeImage));
     }
 
     public void setHaste(Haste haste) {
@@ -77,5 +79,7 @@ public class MainWindow extends AnchorPane {
             Platform.exit();
         });
     }
+
+
 
 }

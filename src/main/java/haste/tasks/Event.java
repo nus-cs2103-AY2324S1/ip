@@ -19,7 +19,7 @@ public class Event extends Task {
      * @param isComplete Completion status of Task.
      */
     public Event(String description, LocalDateTime start, LocalDateTime end, boolean isComplete) {
-        super(description,isComplete);
+        super(description, isComplete);
         this.start = start;
         this.end = end;
     }
@@ -28,8 +28,8 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + Parser.formatTime(this.start) + " to: " + Parser.formatTime(this.end) + ")";
     }
     @Override
-    public String save() {
-        return "E|" + super.save() + "|" + Parser.getCmd(this.start) + "|" + Parser.getCmd(this.end);
+    public String toSaveFormat() {
+        return "E|" + super.toSaveFormat() + "|" + Parser.getCmdFormat(this.start) + "|" + Parser.getCmdFormat(this.end);
     }
 
 }

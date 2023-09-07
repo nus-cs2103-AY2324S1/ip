@@ -106,7 +106,7 @@ public class Parser {
      * @return MarkCommand object containing index of task.
      */
     public static Command verifyMark(String[] words) {
-        int id ;
+        int id;
 
         if (words.length != 2) {
             return new InvalidCommand("input (only) number after \"mark\"!");
@@ -156,11 +156,11 @@ public class Parser {
      * @return AddCommand object containing description of task.
      */
     public static Command verifyTodo(String cmd) {
-        Pattern pt = Pattern.compile("todo( (.+))?"); // ( ...)? is optional group
-        Matcher mt = pt.matcher(cmd);
-        mt.find();
+        Pattern pattern = Pattern.compile("todo( (.+))?"); // ( ...)? is optional group
+        Matcher matcher = pattern.matcher(cmd);
+        matcher.find();
 
-        String desc = mt.group(2);
+        String desc = matcher.group(2);
 
         if (Task.checkEmpty(desc)) { // check if desc is null
             return new InvalidCommand("Description of ToDo cannot be empty!");
@@ -177,19 +177,19 @@ public class Parser {
      * @return AddCommand object containing description and deadline of task.
      */
     public static Command verifyDeadline(String cmd) {
-        Pattern pt = Pattern.compile("deadline(( (.*) )?/by( (.*))?)?");
-        Matcher mt = pt.matcher(cmd);
-        mt.find();
+        Pattern pattern = Pattern.compile("deadline(( (.*) )?/by( (.*))?)?");
+        Matcher matcher = pattern.matcher(cmd);
+        matcher.find();
 
-        String overall = mt.group(1);
-        String desc = mt.group(3);
+        String overall = matcher.group(1);
+        String desc = matcher.group(3);
         LocalDateTime end;
 
         if (Task.checkEmpty(overall)|| Task.checkEmpty(desc)) {
             return new InvalidCommand("Description of Deadline cannot be empty!");
         }
         try {
-            end = Parser.parseTime(mt.group(5));
+            end = Parser.parseTime(matcher.group(5));
         } catch (DateTimeParseException e) {
             return new InvalidCommand("Date Time should be in yyyy-MM-dd HHmm format!");
         }
@@ -204,12 +204,12 @@ public class Parser {
      * @return AddCommand object containing description, start time and deadline of task.
      */
     public static Command verifyEvent(String cmd) {
-        Pattern pt = Pattern.compile("event(( (.*) )?/from( (.*) )?/to( (.*))?)?");
-        Matcher mt = pt.matcher(cmd);
-        mt.find();
+        Pattern pattern = Pattern.compile("event(( (.*) )?/from( (.*) )?/to( (.*))?)?");
+        Matcher matcher = pattern.matcher(cmd);
+        matcher.find();
 
-        String overall = mt.group(1);
-        String desc = mt.group(3);
+        String overall = matcher.group(1);
+        String desc = matcher.group(3);
         LocalDateTime start;
         LocalDateTime end;
 
@@ -217,8 +217,8 @@ public class Parser {
             return new InvalidCommand("Description of Event cannot be empty!");
         }
         try {
-            start = Parser.parseTime(mt.group(5));
-            end = Parser.parseTime(mt.group(7));
+            start = Parser.parseTime(matcher.group(5));
+            end = Parser.parseTime(matcher.group(7));
         } catch (DateTimeParseException e) {
             return new InvalidCommand("Date Time should be in yyyy-MM-dd HHmm format!");
         }
@@ -266,7 +266,7 @@ public class Parser {
      * @param savedTime LocalDateTime object stored in task.
      * @return String representation of time.
      */
-    public static String getCmd(LocalDateTime savedTime) {
+    public static String getCmdFormat(LocalDateTime savedTime) {
         // format LocalDateTime back into command format
         int year = savedTime.getYear();
         String month = savedTime.getMonthValue() >= 10 ? String.valueOf(savedTime.getMonthValue())

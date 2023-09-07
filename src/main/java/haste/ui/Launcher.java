@@ -1,6 +1,5 @@
 package haste.ui;
 
-import haste.ui.Main;
 import javafx.application.Application;
 
 /**
