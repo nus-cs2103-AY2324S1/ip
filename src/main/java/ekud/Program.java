@@ -6,7 +6,6 @@ import ekud.handler.Handler;
 import ekud.state.State;
 import ekud.storage.Storage;
 import ekud.ui.Ui;
-import ekud.util.Pair;
 
 /**
  * Represents the abstract ekud program, decoupled from input and output
@@ -66,14 +65,8 @@ public final class Program {
      * 
      * @return Whether the program should continue or end execution.
      */
-    public boolean step() {
+    public boolean step(Command command) {
         try {
-            Pair<Command, Boolean> result = ui.readCommand();
-            Command command = result.getFirst();
-            boolean shouldContinue = result.getSecond();
-            if (!shouldContinue) {
-                return false;
-            }
             if (!handler.handle(state, command, ui)) {
                 return false;
             }
@@ -90,9 +83,7 @@ public final class Program {
      * Runs the program by stepping until execution is ended.
      */
     public void run() {
-        ui.showGreeting();
-        while (step()) {
-        }
-        ui.showFarewell();
+        ui.setOnCommand(this::step);
+        ui.run();
     }
 }

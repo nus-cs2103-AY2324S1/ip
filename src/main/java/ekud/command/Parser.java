@@ -1,18 +1,8 @@
-package ekud.ui.cli;
+package ekud.command;
 
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 
-import ekud.command.ByeCommand;
-import ekud.command.Command;
-import ekud.command.CreateDeadlineCommand;
-import ekud.command.CreateEventCommand;
-import ekud.command.CreateTodoCommand;
-import ekud.command.DeleteCommand;
-import ekud.command.FindCommand;
-import ekud.command.ListCommand;
-import ekud.command.MarkCommand;
-import ekud.command.UnmarkCommand;
 import ekud.error.ParseException;
 import ekud.util.DateTime;
 

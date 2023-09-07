@@ -6,7 +6,6 @@ import ekud.command.Command;
 import ekud.error.EkudException;
 import ekud.state.Task;
 import ekud.state.TaskList;
-import ekud.util.Pair;
 
 /**
  * Represents any user interface to ekud.
@@ -14,23 +13,20 @@ import ekud.util.Pair;
  * interface.
  */
 public abstract class Ui {
-    /**
-     * Reads a command from the user interface.
-     * 
-     * @return Returns a pair containing the command that was read and whether to
-     *         continue the program i.e. EOF not passed.
-     */
-    public abstract Pair<Command, Boolean> readCommand();
+    private CommandHandler handler;
 
-    /**
-     * Display a greeting to the user.
-     */
-    public abstract void showGreeting();
+    public void setOnCommand(CommandHandler handler) {
+        this.handler = handler;
+    }
 
-    /**
-     * Display a farewell message to the user.
-     */
-    public abstract void showFarewell();
+    protected boolean handle(Command command) {
+        if (handler == null) {
+            return true;
+        }
+        return handler.handle(command);
+    }
+
+    public abstract void run();
 
     /**
      * Display the given task list to the user.

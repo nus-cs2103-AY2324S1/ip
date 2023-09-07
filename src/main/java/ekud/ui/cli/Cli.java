@@ -8,11 +8,11 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import ekud.command.Command;
+import ekud.command.Parser;
 import ekud.error.EkudException;
 import ekud.state.Task;
 import ekud.state.TaskList;
 import ekud.ui.Ui;
-import ekud.util.Pair;
 
 /**
  * Represents a command-line user interface to the ekud program.
@@ -36,31 +36,35 @@ public final class Cli extends Ui {
         this.err = new PrintStream(err);
     }
 
-    public Pair<Command, Boolean> readCommand() {
-        out.print("> ");
-
-        String line;
-        try {
-            line = in.nextLine().trim();
-        } catch (NoSuchElementException error) {
-            out.println();
-            return new Pair<>(null, false);
-        }
-
-        if (line.isEmpty()) {
-            return new Pair<>(null, true);
-        }
-
-        Command command = Parser.parseCommand(line);
-        return new Pair<>(command, true);
-    }
-
-    public void showGreeting() {
+    public void run() {
         out.println("Hello! I'm Ekud!");
         out.println("What can I do for you?");
-    }
 
-    public void showFarewell() {
+        while (true) {
+            out.print("> ");
+
+            String line;
+            try {
+                line = in.nextLine().trim();
+            } catch (NoSuchElementException error) {
+                out.println();
+                break;
+            }
+
+            if (line.isEmpty()) {
+                continue;
+            }
+
+            try {
+                Command command = Parser.parseCommand(line);
+                if (!handle(command)) {
+                    break;
+                }
+            } catch (EkudException error) {
+                showError(error);
+            }
+        }
+
         out.println("Bye. Hope to see you again soon!");
     }
 
