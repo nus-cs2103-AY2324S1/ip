@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Handles the saving and loading of tasks to and from a file in a directory.
  */
 public class Storage {
-    java.nio.file.Path path = java.nio.file.Paths.get( "./","src", "main", "data", "duke.txt");
+    java.nio.file.Path path = java.nio.file.Paths.get( "../../../..", "src", "main", "data", "duke.txt");
     private final boolean fileExists = java.nio.file.Files.exists(path);
     File f = new File(String.valueOf(path));
 

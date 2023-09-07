@@ -4,50 +4,34 @@ import java.io.*;
 
 import java.util.ArrayList;
 
+import static duke.Parser.EXIT_PHRASE;
 import static duke.Storage.loadTasksFromFile;
-import static duke.Storage.saveTasksToFile;
+
+import duke.gui.DialogBox;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * The main class for the Duke application.
  */
 public class Duke {
-    public static void main(String[] args) throws DukeException {
-        Storage storage = new Storage();
-        Ui ui = new Ui();
-        ArrayList<Task> taskList = new TaskList();
+    static Storage storage = new Storage();
+    static Ui ui = new Ui();
+    static ArrayList<Task> taskList = new TaskList();
+    static int index = 0;
 
-        if (!storage.getFileExists()) {
-            try {
-                boolean fileCreated = storage.f.createNewFile();
-                if (fileCreated) {
-                    Ui.print("File created: " + storage.path);
-                } else {
-                    Ui.print("Failed to create file.");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-        }
-
-        int LIMIT = 100;
-        int index = 0;
-        if (storage.getFileExists()) {
-            taskList = loadTasksFromFile(String.valueOf(storage.path));
-            index = taskList.size(); // Set the list size to the loaded tasks count
-        }
-
-
-        Ui.print(
-                "Hello! I'm Sunacchi!\n" +
-                        "What can I do for you?\n"
-        );
-
-
-        Parser.parse(taskList, index, ui, storage);
-        Ui.print("Bye. Hope to see you again soon!");
-
+    public String getResponse(String input) throws DukeException {
+        index = taskList.size();
+        return Parser.parse(taskList, index, ui, storage, input);
     }
-
 }

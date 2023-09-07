@@ -1,5 +1,7 @@
 package duke;
 
+import javafx.application.Platform;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -29,132 +31,106 @@ public class Parser {
      * @param ui The user interface object.
      * @throws DukeException If an error occurs during parsing.
      */
-    public static void parse(ArrayList<Task> taskList,
-                             int i, Ui ui, Storage storage) throws DukeException {
-        String userInput = ui.next();
-        while (!userInput.equals(EXIT_PHRASE)) {
-            if (userInput.equals(LIST_PHRASE)) {
-                if (taskList.isEmpty()) {
-                    Ui.print("There are currently no tasks in your list");
-                } else {
-                    Ui.print("Here are the tasks in your list:");
-                    for (int j = 0; j < i; j++) {
-                        Ui.print(j + 1 + "." +
-                                taskList.get(j).toString());
-                    }
-                }
-                userInput = ui.next();
-                continue;
-            }
-//            if (userInput.equals("")) {
-//                userInput = ui.next();
-//                continue;
-//            }
-
-            if (userInput.equals("mark")) {
-                userInput = ui.next();
-                Task curr = taskList.get(Integer.parseInt(userInput) - 1);
-                curr.mark();
-                Ui.print("Nice! I've marked this task as done: \n" + "[X] " + curr.getDescription());
-                userInput = ui.next();
-                continue;
-            }
-
-            if (userInput.equals("unmark")) {
-                userInput = ui.next();
-                Task curr = taskList.get(Integer.parseInt(userInput) - 1);
-                curr.unmark();
-                Ui.print("OK, I've marked this task as not done yet: \n" + "[ ] " + curr.getDescription());
-                userInput = ui.next();
-                continue;
-            }
-
-            if (userInput.equals(DELETE_PHRASE)) {
-                userInput = ui.next();
-                Task curr = taskList.get(Integer.parseInt(userInput) - 1);
-                taskList.remove(Integer.parseInt(userInput) - 1);
-                i--;
-                Ui.print("Noted. I've removed this task:");
-                Ui.print(curr.toString());
-                Ui.print("Now you have " + i + " tasks in the list.");
-                userInput = ui.next();
-                continue;
-            }
-
-            if (userInput.equals(TODO_PHRASE)) {
-                userInput = ui.nextLine();
-                if (userInput.equals("")) {
-                    throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
-                }
-                taskList.add(new Todo(userInput));
-                Ui.print("Got it. I've added this task: ");
-                Ui.print(taskList.get(i).toString());
-                i++;
-                Ui.print("Now you have " + i + " tasks in the list.");
-                userInput = ui.next();
-                continue;
-            }
-
-            if (userInput.equals(DEADLINE_PHRASE)) {
-                userInput = ui.nextLine();
-                if (userInput.equals("")) {
-                    throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
-                }
-                Ui.print("To be done by?");
-                String userInputBy = ui.nextLine();
-                LocalDate by;
-                if (userInputBy.equals("today")) {
-                    by = LocalDate.now();
-                } else {
-                    by = LocalDate.parse(userInputBy);
-                }
-                taskList.add(new Deadline(userInput, by));
-                Ui.print("Got it. I've added this task: ");
-                Ui.print(taskList.get(i).toString());
-                i++;
-                Ui.print("Now you have " + i + " tasks in the list.");
-                userInput = ui.next();
-                continue;
-            }
-
-            if (userInput.equals(EVENT_PHRASE)) {
-                userInput = ui.nextLine();
-                if (userInput.equals("")) {
-                    throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
-                }
-                Ui.print("From?");
-                LocalDateTime from = LocalDateTime.parse(ui.nextLine(), DATE_TIME_FORMATTER);
-                Ui.print("To?");
-                LocalDateTime to = LocalDateTime.parse(ui.nextLine(), DATE_TIME_FORMATTER);
-
-                taskList.add(new Event(userInput, from, to));
-                Ui.print("Got it. I've added this task: ");
-                Ui.print(taskList.get(i).toString());
-                i++;
-                Ui.print("Now you have " + i + " tasks in the list.");
-                userInput = ui.next();
-                continue;
-            }
-
-            if (userInput.equals(SEARCH_PHRASE)) {
-                String searchTerm = ui.nextLine();
-                ArrayList<Task> searchList = new TaskList();
-                taskList.forEach(t -> {
-                    if (t.getDescription().contains(searchTerm)) {
-                        searchList.add(t);
-                    }
-                });
-                int searchListSize = searchList.size();
-                System.out.println("Here are the matching tasks in your list:");
-                for (int j = 0; j < searchListSize; j++) {
-                    Ui.print(j + 1 + "." +
-                            searchList.get(j).toString());
-                }
-                userInput = ui.next();
-                continue;
-            }
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+    public static String parse(ArrayList<Task> taskList,
+                             int i, Ui ui, Storage storage, String userInput) throws DukeException {
+        String finalText = "";
+        String[] binaryArr = userInput.split(" ", 2);
+        if (binaryArr.length == 1) {
+            binaryArr = new String[] {binaryArr[0], null};
         }
-        saveTasksToFile(taskList, String.valueOf(storage.path));
+
+        String commandWord = binaryArr[0];
+        if (commandWord.equals(EXIT_PHRASE)) {
+            saveTasksToFile(taskList, String.valueOf(storage.path));
+            Platform.exit();
+            return "Bye. Hope to see you again soon!";
+        } else if (commandWord.equals(LIST_PHRASE)) {
+            if (taskList.isEmpty()) {
+                finalText = "There are currently no tasks in your list";
+            } else {
+                finalText += "Here are the tasks in your list:\n";
+                for (int j = 0; j < i; j++) {
+                    finalText += j + 1 + "." +
+                            taskList.get(j).toString() + "\n";
+                }
+            }
+            return finalText;
+        } else if (commandWord.equals("mark")) {
+                Task curr = taskList.get(Integer.parseInt(binaryArr[1]) - 1);
+                curr.mark();
+                finalText = "Nice! I've marked this task as done: \n" + "[X] " + curr.getDescription();
+                return finalText;
+        } else if (commandWord.equals("unmark")) {
+            Task curr = taskList.get(Integer.parseInt(binaryArr[1]) - 1);
+            curr.unmark();
+            finalText = "OK, I've marked this task as not done yet: \n" + "[ ] " + curr.getDescription();
+            return finalText;
+        } else if (commandWord.equals(DELETE_PHRASE)) {
+            Task curr = taskList.get(Integer.parseInt(binaryArr[1]) - 1);
+            taskList.remove(Integer.parseInt(binaryArr[1]) - 1);
+            i--;
+            finalText += "Noted. I've removed this task:\n";
+            finalText += curr.toString();
+            finalText += "\nNow you have " + i + " tasks in the list.";
+            return finalText;
+        } else if (commandWord.equals(TODO_PHRASE)) {
+            if (binaryArr[1].equals("")) {
+                throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+            }
+            taskList.add(new Todo(binaryArr[1]));
+            finalText += "Got it. I've added this task: \n";
+            finalText += taskList.get(i).toString();
+            i++;
+            finalText += "\nNow you have " + i + " tasks in the list.";
+            return finalText;
+        } else if (commandWord.equals(DEADLINE_PHRASE)) {
+            if (binaryArr[1].equals("")) {
+                throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+            }
+            String[] deadlineArr  = binaryArr[1].split("/by ");
+            LocalDate by;
+            if (deadlineArr[1].equals("today")) {
+                by = LocalDate.now();
+            } else {
+                by = LocalDate.parse(deadlineArr[1]);
+            }
+            taskList.add(new Deadline(deadlineArr[0], by));
+            finalText += "Got it. I've added this task: \n";
+            finalText += taskList.get(i).toString();
+            i++;
+            finalText += "Now you have " + i + " tasks in the list.";
+            return finalText;
+        } else if (userInput.equals(EVENT_PHRASE)) {
+            if (binaryArr[1].equals("")) {
+                throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+            }
+            String[] eventAndTime = binaryArr[1].split("/from ");
+            String[] eventDuration = eventAndTime[1].split("/to ");
+            LocalDateTime from = LocalDateTime.parse(eventDuration[0], DATE_TIME_FORMATTER);
+            LocalDateTime to = LocalDateTime.parse(eventDuration[1], DATE_TIME_FORMATTER);
+
+            taskList.add(new Event(eventAndTime[0], from, to));
+            finalText += "Got it. I've added this task: \n";
+            finalText += taskList.get(i).toString();
+            i++;
+            finalText += "Now you have " + i + " tasks in the list.";
+            return finalText;
+        } else if (commandWord.equals(SEARCH_PHRASE)) {
+            String searchTerm = binaryArr[1];
+            ArrayList<Task> searchList = new TaskList();
+            taskList.forEach(t -> {
+                if (t.getDescription().contains(searchTerm)) {
+                    searchList.add(t);
+                }
+            });
+            int searchListSize = searchList.size();
+            finalText += "Here are the matching tasks in your list:\n";
+            for (int j = 0; j < searchListSize; j++) {
+                finalText += j + 1 + "." +
+                        searchList.get(j).toString() + "\n";
+            }
+            return finalText;
+        }
+        throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 }

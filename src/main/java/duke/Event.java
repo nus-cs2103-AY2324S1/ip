@@ -32,7 +32,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + "[" + this.getStatusIcon() + "]"
+        return "[E]" + "[" + this.getStatusIcon() + "] "
                 + super.toString() + " (from: " + from.format(DATE_TIME_FORMATTER) +
                 " to: " + to.format(DATE_TIME_FORMATTER) + ")";
     }
