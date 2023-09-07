@@ -15,7 +15,8 @@ public class ExitCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showMessage("BYE!");
+        // ui.showMessage("BYE!");
+        output.append("No.");
     }
 
     /**

@@ -94,14 +94,14 @@ public class Parser {
      */
     private static LocalDate getDateWithCommand(String str, String command) throws MissingCommandException,
             MissingParametersException, InvalidDateFormatException {
-        boolean found = false;
+        boolean isFound = false;
         LocalDate date = null;
 
         String[] splitStr = str.split(" ");
         for (String word : splitStr) {
-            if (!found) {
+            if (!isFound) {
                 if (word.equals("/" + command)) {
-                    found = true;
+                    isFound = true;
                 }
             } else {
                 try {
@@ -114,8 +114,8 @@ public class Parser {
             }
         }
 
-        if (!found) {
-            throw new MissingCommandException("Command " + command + "could not be found");
+        if (!isFound) {
+            throw new MissingCommandException("Command " + command + "could not be isFound");
         } else if (date == null) {
             throw new MissingParametersException("Command " + command + " does not contain any parameters");
         } else {

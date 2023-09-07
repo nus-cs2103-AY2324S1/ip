@@ -18,7 +18,7 @@ public class Event extends Task {
      * @param to Date when the event ends.
      */
     public Event(@JsonProperty("task") String task, @JsonProperty("from") LocalDate from,
-                 @JsonProperty("to")LocalDate to) {
+                 @JsonProperty("to") LocalDate to) {
         super(task);
         this.from = from;
         this.to = to;
@@ -32,6 +32,14 @@ public class Event extends Task {
      */
     private String getDate(LocalDate localDate) {
         return localDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+    }
+
+    public LocalDate getFrom() {
+        return from;
+    }
+
+    public LocalDate getTo() {
+        return to;
     }
 
     @Override

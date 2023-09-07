@@ -46,13 +46,15 @@ public class TaskList {
     /**
      * Prints out the list of tasks.
      */
-    public void print() {
+    public String print() {
+        StringBuilder output = new StringBuilder();
         if (tasks.isEmpty()) {
-            System.out.println("     You have no tasks added yet :(");
+            return "You have no tasks added yet :(\n";
         } else {
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println("     " + (i + 1) + ". " + tasks.get(i));
+                output.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
             }
+            return output.toString();
         }
     }
 
@@ -61,28 +63,32 @@ public class TaskList {
      *
      * @param searchString String to search with.
      */
-    public void print(String searchString) {
+    public String print(String searchString) {
         boolean found = false;
+        StringBuilder output = new StringBuilder();
+
         if (tasks.isEmpty()) {
-            System.out.println("     You have no tasks added yet :(");
+            return "You have no tasks added yet :(\n";
         } else {
             for (int i = 0; i < tasks.size(); i++) {
                 if (tasks.get(i).getTask().contains(searchString)) {
-                    System.out.println("     " + (i + 1) + ". " + tasks.get(i));
+                    output.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
+                    found = true;
                 }
             }
         }
-
         if (!found) {
-            System.out.println("No tasks found with string '" + searchString + "'");
+            return "No tasks found with string '" + searchString + "'\n";
+        } else {
+            return output.toString();
         }
     }
 
     /**
      * Prints number of tasks.
      */
-    public void printSize() {
-        System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+    public String printSize() {
+        return "Now you have " + tasks.size() + " tasks in the list.\n";
     }
 
     /**

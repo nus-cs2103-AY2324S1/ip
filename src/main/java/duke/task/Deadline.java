@@ -20,6 +20,10 @@ public class Deadline extends Task {
         this.dateTime = dateTime;
     }
 
+    public LocalDate getDateTime() {
+        return dateTime;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: "

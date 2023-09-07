@@ -8,6 +8,7 @@ import duke.main.Ui;
 /** Command interface **/
 public interface Command {
 
+    StringBuilder output = new StringBuilder();
     /**
      * Executes code related to the nature of command.
      *
@@ -24,5 +25,13 @@ public interface Command {
      *
      * @return Command
      */
-    boolean isExit();
+    default boolean isExit() {
+        return false;
+    };
+
+    default String getString() {
+        String outputString = output.toString();
+        output.delete(0, output.length());
+        return outputString;
+    };
 }
