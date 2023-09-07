@@ -188,7 +188,7 @@ public class Duke extends Application {
                 ui.showLine();
                 Command command = Parser.parse(userInput);
                 isExit = command.execute(this.tasks, ui);
-                Storage.writeTask(tasks, ui);
+                Storage.writeTask(tasks, ui); // Store to file
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
             } finally {
