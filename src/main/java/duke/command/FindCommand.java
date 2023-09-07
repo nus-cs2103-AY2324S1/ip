@@ -3,8 +3,8 @@ package duke.command;
 import java.util.ArrayList;
 
 import duke.DukeException;
+import duke.Response;
 import duke.Storage;
-import duke.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -19,7 +19,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Response response, Storage storage) throws DukeException {
         TaskList resultList = new TaskList();
         String keyword = commandDetails.get(0);
         for (int i = 0; i < tasks.size(); i++) {
@@ -28,6 +28,6 @@ public class FindCommand extends Command {
                 resultList.add(cur);
             }
         }
-        ui.printFind(resultList);
+        return response.printFind(resultList);
     }
 }

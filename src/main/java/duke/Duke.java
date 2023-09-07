@@ -11,48 +11,34 @@ public class Duke {
 
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private Response response;
 
     /**
      * Constructs a new Duke instance.
      *
-     * @param filePath The file path to the data file used for storing tasks.
      * @throws DukeException If there is an issue initializing Duke or loading tasks from the data file.
      */
-    public Duke(String filePath) throws DukeException {
-        this.ui = new Ui();
-        this.storage = new Storage(filePath);
-        this.tasks = storage.loadIntoList(new TaskList());
-    }
-
-    /**
-     * Runs the Duke application.
-     *
-     * @throws DukeException If there is an issue during the execution of the Duke application.
-     */
-    public void run() throws DukeException {
-        this.ui.greet();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.printException(e.getMessage());
-            }
+    public Duke() {
+        try {
+            this.response = new Response();
+            this.storage = new Storage("data/duke.txt");
+            this.tasks = storage.loadIntoList(new TaskList());
+        } catch (DukeException e) {
+            response.printException(e.getMessage());
         }
-        this.ui.sendOff();
     }
 
     /**
-     * Starts the Duke application.
-     *
-     * @param args The command-line arguments (not used in this application).
-     * @throws DukeException If there is an issue during the execution of the Duke application.
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    public static void main(String[] args) throws DukeException {
-        new Duke("data/duke.txt").run();
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, response, storage);
+        } catch (DukeException e) {
+            return response.printException(e.getMessage());
+        }
     }
+
 }

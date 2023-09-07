@@ -3,8 +3,8 @@ package duke.command;
 import java.util.ArrayList;
 
 import duke.DukeException;
+import duke.Response;
 import duke.Storage;
-import duke.Ui;
 import duke.task.TaskList;
 
 
@@ -27,11 +27,11 @@ public abstract class Command {
      * Executes the command with the given task list, user interface, and storage.
      *
      * @param tasks The TaskList to manipulate, if needed, during command execution.
-     * @param ui The Ui object to interact with the user during command execution.
+     * @param response The Response object to generate response.
      * @param storage The Storage object to read from or write to data storage.
      * @throws DukeException If there is an issue during command execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Response response, Storage storage) throws DukeException;
 
     /**
      * Checks if the command is an exit command.
