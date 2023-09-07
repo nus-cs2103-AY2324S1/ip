@@ -1,5 +1,8 @@
 package Utils;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     enum Type {
         TODO("[T]", 3),
@@ -33,9 +36,11 @@ public abstract class Task {
         }
 
     }
-
     private static final String MARKED_CHECKBOX = "[X]";
     private static final String UNMARKED_CHECKBOX = "[ ]";
+    private static final DateTimeFormatter DATETIME_FORMAT =
+        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
     private String title;
     private Type type;
     private boolean checked;
@@ -67,6 +72,10 @@ public abstract class Task {
     }
 
     protected abstract String toCsv();
+
+    protected static String dateToString(LocalDateTime datetime) {
+        return datetime.format(Task.DATETIME_FORMAT);
+    }
 
     @Override
     public String toString() {

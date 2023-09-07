@@ -53,14 +53,14 @@ public class TaskList {
             case DEADLINE:
                 task = new Deadline(
                     Command.assertString(input,command), 
-                    Command.assertString(input,"by")
+                    Command.assertDateTime(input,"by")
                     );
                 break;
             case EVENT:
                 task = new Event(
                     Command.assertString(input, command), 
-                    Command.assertString(input,"from"), 
-                    Command.assertString(input,"to")
+                    Command.assertDateTime(input,"from"), 
+                    Command.assertDateTime(input,"to")
                     );
                 break;
             case MARK:
