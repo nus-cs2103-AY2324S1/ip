@@ -2,23 +2,24 @@ package ax;
 
 import java.util.Scanner;
 
+import ax.commands.Parser;
+import ax.display.DialogBox;
+import ax.display.Ui;
+import ax.storage.Storage;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
-import ax.commands.Parser;
-import ax.display.Ui;
-import ax.storage.Storage;
-import ax.display.DialogBox;
+
 
 /**
  * The main Ax Class for the chatbot
@@ -31,6 +32,7 @@ public class Ax extends Application {
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image ax = new Image(this.getClass().getResourceAsStream("/images/DaAx.png"));
+
     /**
      * the main command for Ax chatbot
      *
@@ -105,7 +107,7 @@ public class Ax extends Application {
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
 
-        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         //Step 3. Add functionality to handle user input.
@@ -132,9 +134,11 @@ public class Ax extends Application {
 
         // more code to be added here later
     }
+
     /**
      * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
+     *
      * @param text String containing text to add
      * @return a label with the specified text that has word wrap enabled.
      */
@@ -145,6 +149,7 @@ public class Ax extends Application {
 
         return textToAdd;
     }
+
     /**
      * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
@@ -155,8 +160,7 @@ public class Ax extends Application {
         Label axText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getAxDialog(axText, new ImageView(ax))
-        );
+                DialogBox.getAxDialog(axText, new ImageView(ax)));
         userInput.clear();
     }
 
