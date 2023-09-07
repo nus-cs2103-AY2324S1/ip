@@ -58,7 +58,7 @@ public class EventsTest {
                             + " is wrong, macho! Please enter in format "
                             + "yyyy-MM-dd HH:mm, macho!\n"
                             + "____________________________________________________________",
-                    new InvalidTimeFormatException("invalid date", message.getDivider()).getMessage());
+                    new InvalidTimeFormatException("invalid date"));
         }
 
 

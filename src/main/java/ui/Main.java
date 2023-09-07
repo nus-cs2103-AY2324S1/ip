@@ -21,6 +21,7 @@ public class Main extends Application {
     public Main() throws ErrorStorageException {
     }
 
+
     @Override
     public void start(Stage stage) {
         try {
