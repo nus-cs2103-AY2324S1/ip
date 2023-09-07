@@ -29,7 +29,7 @@ public class TaskList {
     public TaskList(Stream<String> taskDataStream) {
         taskDataStream.forEach(taskData -> {
             try {
-                Parser.parseTaskDataString(taskData).execute(this, null, null);
+                Parser.parseTaskDataString(taskData).execute(this, null);
             } catch (DukeException e) {
                 this.hasLoadingError = true;
             }
