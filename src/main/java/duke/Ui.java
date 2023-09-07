@@ -37,8 +37,8 @@ public class Ui {
      * @param description the description of the task marked.
      */
     public static String markMsg(String description) {
-        return lines + "\nNice! I've marked this task as done: (≧▽≦)\n"
-                + description + "\n"
+        return lines + "\nNice! I've marked this task as done: (≧▽≦)\n\n"
+                + description + "\n\n"
                 + lines;
     }
 
@@ -48,8 +48,8 @@ public class Ui {
      */
     public static String unmarkMsg(String description) {
         return lines
-                + "\nOK, I've marked this task as not done yet: (≧▽≦)\n"
-                + description + "\n"
+                + "\nOK, I've marked this task as not done yet: (≧▽≦)\n\n"
+                + description + "\n\n"
                 + lines;
     }
 
@@ -60,8 +60,8 @@ public class Ui {
      * @param size the updated number of tasks in the task list.
      */
     public static String successfulAdd(String type, String description, Integer size) {
-        return lines + "\nGot it. I've added this new " + type + ":\n"
-                + description + "\nNow you have " + size + " tasks in the list.\n" + lines;
+        return lines + "\nGot it. I've added this new " + type + ":\n\n"
+                + description + "\n\nNow you have " + size + " tasks in the list.\n" + lines;
     }
 
     /**
@@ -70,8 +70,8 @@ public class Ui {
      * @param size the updated number of tasks in the task list.
      */
     public static String successfulDelete(String description, Integer size) {
-        return lines + "\nNoted, I've removed this task:\n"
-                + description + "\nNow you have " + size + " tasks in the list"
+        return lines + "\nNoted, I've removed this task:\n\n"
+                + description + "\n\nNow you have " + size + " tasks in the list"
                 + "\n" + lines;
     }
 }

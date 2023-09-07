@@ -112,7 +112,7 @@ public class TaskList {
      */
     public static String searchFor(String searchTerm) {
         String searchResult = "_____________________________________"
-                + "\nHere are the matching tasks in your list: (≧▽≦)\n";
+                + "\nHere are the matching tasks in your list: (≧▽≦)\n\n";
         List<Task> result = toDo.stream()
                 .filter(task -> task.checkTerm(searchTerm))
                 .collect(Collectors.toList());

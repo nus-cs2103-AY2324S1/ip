@@ -1,8 +1,8 @@
 T | 1 | something
 D | 1 | read | 2023-10-19
-D | 0 | return | 2003-10-08
-T | 0 | work?
-D | 1 | apply | 2023-09-24
-T | 1 | something
+D | 1 | return | 2003-10-08
+D | 0 | apply | 2023-09-24
 T | 0 | this project
 T | 1 | debugging
+E | 0 | project | today - tomorrow
+T | 0 | wheeeee
