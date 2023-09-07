@@ -50,6 +50,10 @@ public class Task {
         return message;
     }
 
+    /**
+     * return the string representing how the Task object should be displayed
+     * @return string representation of the Task object
+     */
     public String display() {
         String description = "[";
         switch (this.type) {
@@ -83,6 +87,10 @@ public class Task {
         return description;
     }
 
+    /**
+     * return the string representing how the Task object should be stored
+     * @return string representation of the Task object
+     */
     public String ForRecordingInTextFile() {
         // Record format: "Type | Status | Name | StartTime(optional) | EndTime(optional)"
         // example: "D | 0 | return book | June 6th"

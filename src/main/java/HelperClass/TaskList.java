@@ -92,6 +92,10 @@ public class TaskList {
         return userListPointer;
     }
 
+    /**
+     * return the String containing all the information in the list
+     * @return the String representation of the content in the list
+     */
     public String displayList() {
         if (userListPointer < 1) {
             return "No items in the list yet";
