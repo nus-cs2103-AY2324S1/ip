@@ -3,6 +3,8 @@ package chatterchicken.tasklist;
 import chatterchicken.data.exception.CCException;
 import chatterchicken.data.task.Task;
 import chatterchicken.ui.Ui;
+
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -84,6 +86,16 @@ public class TaskList implements Iterable<Task> {
         } catch (IndexOutOfBoundsException e) {
             throw new CCException("Invalid input for list of length " + taskList.size());
         }
+    }
+
+    public void find(String input) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : taskList) {
+            if(task.getTaskDescription().contains(input)) {
+                matchingTasks.add(task);
+            }
+        }
+        ui.displayMatchingTasks(matchingTasks);
     }
 
     /**

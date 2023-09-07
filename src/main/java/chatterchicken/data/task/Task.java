@@ -19,7 +19,7 @@ public abstract class Task {
         return this.name;
     }
 
-    protected String getTaskDescription() {
+    public String getTaskDescription() {
         return this.taskDescription;
     }
 
