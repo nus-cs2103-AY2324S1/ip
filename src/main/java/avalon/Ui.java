@@ -14,7 +14,9 @@ public class Ui {
     }
 
     public void linePrint() {
-        System.out.print("   _________________________________________________________________________________\n");
+        System.out.print("   _________________________________________" +
+                "________________________________________\n");
+
     }
 
     public void styleMessage(String message) {

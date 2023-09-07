@@ -66,7 +66,7 @@ public class Avalon {
                 case "deadline":
                     parts = userInput.substring(9).split(" /by ");
                     if (parts.length != 2) {
-                        throw new IllegalArgumentException("Please provide a description and a deadline (use /by).");
+                        throw new IllegalArgumentException("Please provide a description and a deadline       (use /by).");
                     }
                     description = parts[0];
                     String by = parts[1];
@@ -78,7 +78,7 @@ public class Avalon {
                 case "event":
                     parts = userInput.substring(6).split(" /from | /to ");
                     if (parts.length != 3) {
-                        throw new IllegalArgumentException("Please provide a description, a starting time, and an ending time (use /from and /to).");
+                        throw new IllegalArgumentException("Please provide a description, a starting time,     and an ending time (use /from and /to).");
                     }
                     description = parts[0];
                     String from = parts[1];
@@ -99,7 +99,7 @@ public class Avalon {
                     }
                     break;
                 default:
-                    throw new IllegalArgumentException("I humbly apologize, but thy words remain a mystery to me...");
+                    throw new IllegalArgumentException("I humbly apologize, but thy words remain a mystery     to me...");
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println("☹ OOPS!!! " + e.getMessage());

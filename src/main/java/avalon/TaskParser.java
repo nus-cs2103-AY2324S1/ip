@@ -24,8 +24,7 @@ public class TaskParser {
         return task;
     }
 
-
-    // Serialize a avalon.Task object to a string for saving to the file
+    // Serialize avalon.Task object to a string for saving to the file
     public static String serialize(Task task) {
         String doneStatus = task.isDone ? "1" : "0";
 
@@ -33,11 +32,13 @@ public class TaskParser {
             return "T | " + doneStatus + " | " + task.description;
         } else if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
-            return "D | " + doneStatus + " | " + task.description + " | " + DateTimeParser.dateTimeToString(deadline.by);
+            return "D | " + doneStatus + " | " + task.description + " | "
+                    + DateTimeParser.dateTimeToString(deadline.by);
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return "E | " + doneStatus + " | " + task.description + " | " + DateTimeParser.dateTimeToString(event.from)
-                    + " | " + DateTimeParser.dateTimeToString(event.to);
+            return "E | " + doneStatus + " | " + task.description + " | "
+                    + DateTimeParser.dateTimeToString(event.from) + " | "
+                    + DateTimeParser.dateTimeToString(event.to);
         } else {
             return "Wrong formatting";
         }
