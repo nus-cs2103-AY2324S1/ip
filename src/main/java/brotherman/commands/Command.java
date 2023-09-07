@@ -28,7 +28,7 @@ public abstract class Command {
      * @param ui Ui to show the user the task has been added
      * @param storage Storage to save the task list
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage);
 
     /**
      * Returns whether the command is an exit command

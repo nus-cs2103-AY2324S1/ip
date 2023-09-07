@@ -76,10 +76,8 @@ public class Parser {
 
             return new AddCommand(parseEvent(desc, startTime, endTime));
         } else {
-            System.out.println("brotherman input a todo, event or deadline!");
+            throw new BrothermanException("brotherman wtf does that even mean!");
         }
-
-        return new ListCommand();
     }
 
 
