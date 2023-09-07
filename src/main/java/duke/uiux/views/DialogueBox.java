@@ -31,7 +31,6 @@ public class DialogueBox extends HBox {
     private Label dialogue;
     @FXML
     private Circle displayPicture;
-    private Color paint;
 
     private DialogueBox(String text, Image img, Color paint) {
         try {
@@ -47,6 +46,10 @@ public class DialogueBox extends HBox {
         displayPicture.setFill(new ImagePattern(img));
         BackgroundFill bf = new BackgroundFill(paint, new CornerRadii(0), null);
         this.setBackground(new Background(bf));
+    }
+
+    public void initialize() {
+        
     }
 
     /**
