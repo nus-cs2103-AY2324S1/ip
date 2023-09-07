@@ -2,7 +2,11 @@ public class Task {
     String task;
     boolean isDone;
 
-    public Task(String task) {
+    public Task(String task) throws DukeException {
+        //when the command didn't go through any of the given cases
+        if (task == null){
+            throw new DukeException("I'm sorry, but I don't know what that means.");
+        }
         this.task = task;
         this.isDone = false;
     }

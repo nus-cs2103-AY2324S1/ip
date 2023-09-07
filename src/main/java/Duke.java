@@ -13,33 +13,51 @@ public class Duke {
         
         String input = sc.next();
         while(!input.equals("bye")) {
-            if (input.equals("list")) {
-                print();
-            } else if (input.equals("mark")) {
-                int item = sc.nextInt();
-                taskList.get(item - 1).markDone();
-            } else if (input.equals("unmark")) {
-                int item = sc.nextInt();
-                taskList.get(item - 1).markUndone();
-            } else if (input.equals("todo")) {
-                add(new ToDo(sc.nextLine()));
-            } else if (input.equals("event")) {
-                String eventCommand = sc.nextLine();
-                String[] event = new String[3];
-                event[0] = eventCommand.substring(1, eventCommand.indexOf(" /"));
-                event[1] = eventCommand.substring(eventCommand.indexOf("/from") + 6, eventCommand.indexOf(" /to"));
-                event[2] = eventCommand.substring(eventCommand.indexOf("/to") + 4);
-                add(new Event(event[0], event[1], event[2]));
-            } else if (input.equals("deadline")) {
-                String ddlCommand = sc.nextLine();
-                String[] ddl = ddlCommand.split(" /by ");
-                add(new Deadline(ddl[0].substring(1), ddl[1]));
-            } else {
-                add(new Task(input));
+            try {
+                switch(input){
+                    case "list":
+                        print();
+                        break;
+                    case "mark":
+                        int markItem = sc.nextInt();
+                        taskList.get(markItem - 1).markDone();
+                        break;
+                    case "unmark":
+                        int unmarkItem = sc.nextInt();
+                        taskList.get(unmarkItem - 1).markUndone();
+                        break;
+                    case "todo":
+                        add(new ToDo(sc.nextLine()));
+                        break;
+                    case "event":
+                        String eventCommand = sc.nextLine();
+                        String[] event = new String[3];
+                        event[0] = eventCommand.substring(1, eventCommand.indexOf(" /"));
+                        event[1] = eventCommand.substring(eventCommand.indexOf("/from") + 6, 
+                        eventCommand.indexOf(" /to"));
+                        event[2] = eventCommand.substring(eventCommand.indexOf("/to") + 4);
+                        add(new Event(event[0], event[1], event[2]));
+                        break;
+                    case "deadline":
+                        String ddlCommand = sc.nextLine();
+                        String[] ddl = ddlCommand.split(" /by ");
+                        add(new Deadline(ddl[0].substring(1), ddl[1]));
+                        break;
+                    default:
+                        add(new Task(input));
+                }
+            } 
+
+            catch (DukeException e) {
+                System.out.println(e.getMessage());
             }
-            System.out.println(partition);
-            input = sc.next();
+
+            finally {
+                System.out.println(partition);
+                input = sc.next();
+            }
         }
+            
         exit();
     }
 
