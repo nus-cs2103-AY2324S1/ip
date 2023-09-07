@@ -39,18 +39,6 @@ public class UiHandler {
     }
 
     /**
-     * Awaits user input in the console.
-     * @return The String representation of user input.
-     * @deprecated UiHandler no longer works on user input.
-     */
-    public String readCommand() {
-        String input;
-        System.out.print("Format :: [keyword] [parse string] | ");
-        input = "";
-        return input;
-    }
-
-    /**
      * Sets the error message in UiHandler.
      *
      * @param message The error message to display.

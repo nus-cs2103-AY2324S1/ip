@@ -67,23 +67,6 @@ public class TrackerBot {
     }
 
     /**
-     * Calls the Ui to read commands, create Commands and execute the command.
-     *
-     * @return If the program has requested to exit.
-     * @deprecated This is for use with the Text-Based UI.
-     */
-    private boolean handleInput() {
-        Command command = Parser.parseCommand(uiHandler.readCommand());
-        try {
-            command.execute(tasks, uiHandler);
-        } catch (TrackerBotException e) {
-            uiHandler.setError(e.getMessage());
-        }
-
-        return command.isExit();
-    }
-
-    /**
      * Parses a Command and executes it.
      *
      * @return The post-execution String in our UiHandler.
@@ -98,25 +81,5 @@ public class TrackerBot {
         }
 
         return uiHandler.getMessage();
-    }
-
-    /** Starts the app. */
-    public void run() {
-        try {
-            Storage.read(tasks);
-        } catch (TrackerBotException e) {
-            uiHandler.setError(e.getMessage());
-        }
-
-        boolean isBye;
-        do {
-            isBye = handleInput();
-        } while (!isBye);
-
-        try {
-            Storage.save(tasks);
-        } catch (TrackerBotException e) {
-            uiHandler.setError(e.getMessage());
-        }
     }
 }
