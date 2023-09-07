@@ -29,10 +29,6 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toString() {
-        return "Deadline";
-    }
-    @Override
     public String getStatus() {
         return "[D]" + super.getStatus() + " (by: " + this.deadline + ")";
     }

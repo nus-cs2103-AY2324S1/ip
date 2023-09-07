@@ -1,15 +1,6 @@
 package brandon.chatbot.parser;
 
-import brandon.chatbot.commands.AddDeadlineCommand;
-import brandon.chatbot.commands.AddEventCommand;
-import brandon.chatbot.commands.AddTodoCommand;
-import brandon.chatbot.commands.Command;
-import brandon.chatbot.commands.DeleteCommand;
-import brandon.chatbot.commands.ExitCommand;
-import brandon.chatbot.commands.ListCommand;
-import brandon.chatbot.commands.MarkCommand;
-import brandon.chatbot.commands.UnmarkCommand;
-import brandon.chatbot.commands.UnknownCommand;
+import brandon.chatbot.commands.*;
 import brandon.chatbot.common.DukeException;
 import brandon.chatbot.common.DukeUnknownCommandException;
 
@@ -17,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 public class Parser {
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    public static final Pattern TODO_ARGS_FORMAT = Pattern.compile("(?<name>\\S+)");
+    public static final Pattern TODO_FIND_ARGS_FORMAT = Pattern.compile("(?<name>\\S+)");
     public static final Pattern DEADLINE_ARGS_FORMAT = Pattern.compile("(?<name>[^/]+)/by(?<deadline>[^/]+)");
     public static final Pattern EVENT_ARGS_FORMAT = Pattern.compile("(?<name>[^/]+)"
             + "/from(?<from>[^/]+)"
@@ -33,6 +24,8 @@ public class Parser {
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
+            case "find":
+                return prepareFind(arguments);
             case "todo":
                 return prepareTodo(arguments);
             case "delete":
@@ -55,8 +48,22 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Returns a command that finds the task with the same title passed in the argument.
+     *
+     * @param arg is the title passed by the user.
+     * @return the command that finds the task with the given name.
+     */
+    private Command prepareFind(String arg) {
+        final Matcher matcher = TODO_FIND_ARGS_FORMAT.matcher(arg.trim());
+        if (!matcher.matches()) {
+            return new UnknownCommand();
+        }
+        return new FindCommand(matcher.group("name").strip());
+    }
+
     private Command prepareTodo(String args) {
-        final Matcher matcher = TODO_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = TODO_FIND_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new UnknownCommand();

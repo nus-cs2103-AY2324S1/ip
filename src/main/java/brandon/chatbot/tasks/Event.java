@@ -17,10 +17,6 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
-    @Override
-    public String toString() {
-        return "Event";
-    }
 @Override
     public String getStatus() {
         return "[E]" + super.getStatus() + " (from: " + this.startTime + " to: " + this.endTime + ")";
