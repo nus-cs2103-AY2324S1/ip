@@ -14,53 +14,71 @@ public class Duke {
     private Ui ui;
 
     public Duke(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
+        this.ui = new Ui();
+
+        this.storage = new Storage(filePath);
+
         try {
-            tasks = new TaskList(storage.loadTasksFromFile());
+            this.tasks = new TaskList(this.storage.loadTasksFromFile());
         } catch (DukeException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
+            this.ui.showLoadingError();
+            this.tasks = new TaskList();
         }
     }
 
     public void run() {
-        ui.showWelcomeMessage();
+        this.ui.showWelcomeMessage();
+
+        int taskIndex;
 
         Scanner scanner = new Scanner(System.in);
+
         while (true) {
             String command = scanner.nextLine();
 
             try {
                 if (Parser.isBye(command)) {
-                    ui.showGoodbyeMessage();
-                    storage.saveTasksToFile(tasks.getAllTasks());
+                    this.ui.showGoodbyeMessage();
+
+                    this.storage.saveTasksToFile(this.tasks.getAllTasks());
                     break;
                 } else if (Parser.isList(command)) {
-                    ui.showTaskList(tasks.getAllTasks());
+                    this.ui.showTaskList(this.tasks.getAllTasks());
                 } else if (Parser.isMarkDone(command)) {
-                    int taskIndex = Parser.extractTaskIndex(command);
-                    tasks.markAsDone(taskIndex);
-                    ui.showTaskMarkedAsDone(tasks.getTask(taskIndex));
-                    storage.saveTasksToFile(tasks.getAllTasks());
+                    taskIndex = Parser.extractTaskIndex(command);
+
+                    this.tasks.markAsDone(taskIndex);
+
+                    this.ui.showTaskMarkedAsDone(this.tasks.getTask(taskIndex));
+
+                    this.storage.saveTasksToFile(this.tasks.getAllTasks());
                 } else if (Parser.isMarkNotDone(command)) {
-                    int taskIndex = Parser.extractTaskIndex(command);
-                    tasks.markAsNotDone(taskIndex);
-                    ui.showTaskMarkedAsNotDone(tasks.getTask(taskIndex));
-                    storage.saveTasksToFile(tasks.getAllTasks());
+                    taskIndex = Parser.extractTaskIndex(command);
+
+                    this.tasks.markAsNotDone(taskIndex);
+
+                    this.ui.showTaskMarkedAsNotDone(this.tasks.getTask(taskIndex));
+
+                    this.storage.saveTasksToFile(this.tasks.getAllTasks());
                 } else if (Parser.isDelete(command)) {
-                    int taskIndex = Parser.extractTaskIndex(command);
-                    Task deletedTask = tasks.deleteTask(taskIndex);
-                    ui.showTaskDeleted(deletedTask, tasks.getTotalTasks());
-                    storage.saveTasksToFile(tasks.getAllTasks());
+                    taskIndex = Parser.extractTaskIndex(command);
+
+                    Task deletedTask = this.tasks.deleteTask(taskIndex);
+
+                    this.ui.showTaskDeleted(deletedTask, this.tasks.getTotalTasks());
+
+                    this.storage.saveTasksToFile(this.tasks.getAllTasks());
                 } else {
                     Task newTask = Parser.parseTask(command);
-                    tasks.addTask(newTask);
-                    ui.showTaskAdded(newTask, tasks.getTotalTasks());
-                    storage.saveTasksToFile(tasks.getAllTasks());
+
+                    this.tasks.addTask(newTask);
+
+                    this.ui.showTaskAdded(newTask, this.tasks.getTotalTasks());
+
+                    this.storage.saveTasksToFile(this.tasks.getAllTasks());
                 }
             } catch (DukeException e) {
-                ui.showError(e.getMessage());
+                this.ui.showError(e.getMessage());
             }
         }
     }

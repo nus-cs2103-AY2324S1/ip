@@ -10,7 +10,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return isDone ? "X" : " ";
+        return this.isDone ? "X" : " ";
     }
 
     public void markAsDone() {
@@ -23,11 +23,11 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "]";
+        return "[" + this.getStatusIcon() + "]";
     }
 
     public String toFileString() {
-        return String.format("%s | %d | %s", getTaskType(), isDone ? 1 : 0, description);
+        return String.format("%s | %d | %s", this.getTaskType(), this.isDone ? 1 : 0, this.description);
     }
 
     public String getTaskType() {

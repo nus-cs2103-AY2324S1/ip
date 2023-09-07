@@ -13,13 +13,13 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " " + getDescriptionDetails();
+        return "[D]" + super.toString() + " " + this.getDescriptionDetails();
     }
 
     @Override
     public String toFileString() {
-        return String.format("%s | %d | %s (by: %s)", getTaskType(), isDone ? 1 : 0, description,
-                byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        return String.format("%s | %d | %s (by: %s)", getTaskType(), this.isDone ? 1 : 0, this.description,
+                this.byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
 
     @Override
@@ -28,6 +28,6 @@ public class DeadlineTask extends Task {
     }
 
     private String getDescriptionDetails() {
-        return description + " (by: " + byDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return this.description + " (by: " + this.byDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }
