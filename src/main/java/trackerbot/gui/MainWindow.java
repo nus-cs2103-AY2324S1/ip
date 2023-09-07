@@ -7,9 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import trackerbot.TrackerBot;
-import trackerbot.gui.DialogBox;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -27,7 +25,7 @@ public class MainWindow extends AnchorPane {
     private TrackerBot trackerBot;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Bot.png"));
+    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/Bot.png"));
 
     @FXML
     public void initialize() {
@@ -37,7 +35,7 @@ public class MainWindow extends AnchorPane {
     public void setTrackerBot(TrackerBot bot) {
         trackerBot = bot;
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(trackerBot.getLastMessage(), dukeImage)
+                DialogBox.getBotDialog(trackerBot.getLastMessage(), botImage)
         );
     }
 
@@ -51,7 +49,7 @@ public class MainWindow extends AnchorPane {
         String response = trackerBot.handleInput(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getBotDialog(response, botImage)
         );
         userInput.clear();
     }
