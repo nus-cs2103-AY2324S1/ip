@@ -9,29 +9,38 @@ import chatterchicken.ui.Ui;
 
 import java.util.Scanner;
 
-
+/**
+ * The {@code ChatterChicken} class is the main class for the ChatterChicken task manager application.
+ * It initializes and coordinates the application's components, such as the UI, parser, storage, and task list.
+ * The class also defines the main method for launching the application and the main loop for user interaction.
+ */
 public class ChatterChicken {
 
     public static final String PATH = "src/main/data/task-list.txt";
-
     private TaskList tasks;
+    private final Parser parser;
+    private final Storage storage;
+    private final Ui ui;
 
-    private Parser parser;
-    private Storage storage;
-
-    private Ui ui;
-
+    /**
+     * Initializes the ChatterChicken application by creating instances of the UI, parser, and storage.
+     */
     public ChatterChicken() {
         this.ui = new Ui();
         this.parser = new Parser();
         this.storage = new Storage(parser);
     }
 
+    /**
+     * The main entry point of the ChatterChicken application.
+     * Initializes the application, runs the main loop, and catches and displays exceptions.
+     *
+     * @param args Command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         ChatterChicken chatterChicken = new ChatterChicken();
         chatterChicken.run();
     }
-
 
     /**
      * Initiates the main loop of the ChatterChicken application.
@@ -57,6 +66,7 @@ public class ChatterChicken {
 
     /**
      * Executes the specified command by invoking corresponding methods on the tasks.
+     * 
      * @param command The parsed user command.
      * @throws CCException If an error occurs during command execution.
      */
