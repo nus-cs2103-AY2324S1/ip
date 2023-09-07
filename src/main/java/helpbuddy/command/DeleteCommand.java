@@ -30,16 +30,17 @@ public class DeleteCommand extends Command {
      * @param taskList the tasklist for Task to be deleted.
      * @param ui the ui that prints message.
      * @param storage the storage with saved data in TaskList.
+     * @return a String message of HelpBuddy's reply after deleting task.
      * @throws HelpBuddyException if taskIndex is out of range (taskIndex > taskList.getSize()).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws HelpBuddyException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws HelpBuddyException {
         if (this.taskIndex > taskList.getSize()) {
             throw new HelpBuddyException("Invalid task number.\n");
         }
         Task task = taskList.getTask(this.taskIndex - 1);
         taskList.deleteTask(this.taskIndex - 1);
-        ui.printDeleteTaskMessage(task, taskList);
+        return ui.printDeleteTaskMessage(task, taskList);
     }
 
     /**

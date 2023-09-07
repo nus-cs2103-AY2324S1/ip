@@ -14,9 +14,10 @@ public class ListCommand extends Command {
      * @param taskList the tasklist for Task to be listed.
      * @param ui the ui that prints message.
      * @param storage the storage with saved data in TaskList.
+     * @return a String message of HelpBuddy's reply after being asked to list all Tasks.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.printListMessage(taskList);
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.printListMessage(taskList);
     }
 }
