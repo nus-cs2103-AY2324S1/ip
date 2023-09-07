@@ -75,9 +75,9 @@ public class TaskListStorageTest {
         } catch (Exception e) {
             fail("Exception should not have been thrown");
         }
-        // CHECKSTYLE.OFF: LineLength
+        //CHECKSTYLE.OFF: LineLength
         String expectedContent = "T | 0 | test todo\nD | 1 | test deadline | 2022-12-31\nE | 0 | test event | 2022-12-31 | 2023-01-01\n";
-        // CHECKSTYLE.ON: LineLength
+        //CHECKSTYLE.ON: LineLength
         String actualContent = new String(Files.readAllBytes(Paths.get(filepath)));
 
         assertEquals(expectedContent, actualContent);
