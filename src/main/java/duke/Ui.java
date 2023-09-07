@@ -103,7 +103,7 @@ public class Ui {
      * @param isMarked true if the task is already marked.
      * @param task     task to be unmarked.
      */
-    public void showUnmarkTask(boolean isMarked, Task task) {
+    public void showUnMarkTask(boolean isMarked, Task task) {
         if (isMarked) {
             System.out.println("໒( ̿･ ᴥ ̿･ )ʋ All righty, I've marked this task as uncompleted:\n" +
                     task.toString());

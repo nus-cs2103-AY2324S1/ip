@@ -143,11 +143,9 @@ public class Parser {
             throw new NoTaskIdException();
         } else {
             String strIndex = inputArr[1];
-            if (isNumber(strIndex)) {
-                int index = Integer.parseInt(strIndex) - 1; //because index starts from 1
-                if (tasks.isValidTaskId(index)) {
-                    tasks.markTask(index);
-                }
+            int index = Integer.parseInt(strIndex) - 1;
+            if (isNumber(strIndex) && tasks.isValidTaskId(index)) {
+                tasks.markTask(index);
             } else {
                 throw new InvalidTaskIdException();
             }
@@ -164,16 +162,14 @@ public class Parser {
      * @throws InvalidTaskIdException If a non-numerical id is provided.
      */
     public void parseUnMark(String input) throws NoTaskIdException, InvalidTaskIdException {
-        String[] inputs = input.split(" ", 2);
-        if (inputs.length == 1) {
+        String[] inputArr = input.split(" ", 2);
+        if (inputArr.length == 1) {
             throw new NoTaskIdException();
         } else {
-            String strIndex = inputs[1];
-            if (isNumber(strIndex)) {
-                int index = Integer.parseInt(strIndex) - 1; //because index starts from 1
-                if (tasks.isValidTaskId(index)) {
-                    tasks.unMarkTask(index);
-                }
+            String strIndex = inputArr[1];
+            int index = Integer.parseInt(strIndex) - 1;
+            if (isNumber(strIndex) && tasks.isValidTaskId(index)) {
+                tasks.unMarkTask(index);
             } else {
                 throw new InvalidTaskIdException();
             }
@@ -191,15 +187,12 @@ public class Parser {
         String[] inputs = input.split(" ", 2);
         if (inputs.length == 1) {
             throw new NoDescException();
-        } else {
-            if (inputs[1].isBlank()) {
-                throw new NoDescException();
-            } else {
-                //0 for unmarked, any other number for marked
-                ToDo toDo = new ToDo(0, inputs[1]);
-                tasks.addTask(toDo);
-            }
         }
+        if (inputs[1].isBlank()) {
+            throw new NoDescException();
+        }
+        ToDo toDo = new ToDo(0, inputs[1]);
+        tasks.addTask(toDo);
     }
 
     /**
@@ -215,28 +208,28 @@ public class Parser {
         String[] inputs = input.split(" ", 2);
         if (inputs.length == 1) {
             throw new NoDescException();
-        } else {
-            String afterCommand = inputs[1];
-            String[] details = afterCommand.split(" /by ", 2);
+        }
 
-            if (details.length < 2) {
-                throw new InvalidDeadlineException();
-            } else {
-                String desc = details[0];
-                String date = details[1];
+        String afterCommand = inputs[1];
+        String[] details = afterCommand.split(" /by ", 2);
 
-                if (desc.isEmpty()) {
-                    throw new NoDescException();
-                } else {
-                    try {
-                        LocalDateTime dateTime = convertToDateTime(date);
-                        Deadline deadline = new Deadline(0, desc, dateTime);
-                        tasks.addTask(deadline);
-                    } catch (DateTimeParseException e) {
-                        ui.showInvalidDateFormat();
-                    }
-                }
-            }
+        if (details.length < 2) {
+            throw new InvalidDeadlineException();
+        }
+
+        String desc = details[0];
+        String date = details[1];
+
+        if (desc.isBlank()) {
+            throw new NoDescException();
+        }
+
+        try {
+            LocalDateTime dateTime = convertToDateTime(date);
+            Deadline deadline = new Deadline(0, desc, dateTime);
+            tasks.addTask(deadline);
+        } catch (DateTimeParseException e) {
+            ui.showInvalidDateFormat();
         }
     }
 
@@ -257,47 +250,47 @@ public class Parser {
         String[] inputs = input.split(" ", 2);
         if (inputs.length == 1) {
             throw new NoDescException();
-        } else if (inputs[1].isBlank()) {
+        }
+        if (inputs[1].isBlank()) {
             throw new NoDescException();
-        } else {
-            String afterCommand = inputs[1];
-            String[] details = afterCommand.split(" /from ", 2);
+        }
 
-            if (details[0].isBlank()) {
-                throw new NoDescException();
-            } else if (details.length == 1) {
-                throw new InvalidEventException();
-            } else {
-                String task = details[0];
-                String start = details[1].split(" /to ", 2)[0];
+        String afterCommand = inputs[1];
+        String[] details = afterCommand.split(" /from ", 2);
 
-                if (start.isBlank()) {
-                    throw new NoStartException();
-                } else {
-                    String[] endDetails = afterCommand.split(" /to ", 2);
+        if (details[0].isBlank()) {
+            throw new NoDescException();
+        }
+        if (details.length == 1) {
+            throw new InvalidEventException();
+        }
 
-                    if (endDetails.length == 1) { //no end date added
-                        throw new NoEndException();
-                    } else {
-                        String end = endDetails[1];
+        String task = details[0];
+        String start = details[1].split(" /to ", 2)[0];
 
-                        if (end.isBlank()) {
-                            throw new NoEndException();
-                        } else {
-                            try {
-                                LocalDateTime startDateTime = convertToDateTime(start);
-                                LocalDateTime endDateTime = convertToDateTime(end);
-                                Event event = new Event(0, task, startDateTime, endDateTime);
-                                tasks.addTask(event);
-                            } catch (DateTimeParseException e) {
-                                ui.showInvalidDateFormat();
-                            }
-                        }
-                    }
-                }
-            }
+        if (start.isBlank()) {
+            throw new NoStartException();
+        }
+        String[] endDetails = afterCommand.split(" /to ", 2);
+        if (endDetails.length == 1) { //no end date added
+            throw new NoEndException();
+        }
+
+        String end = endDetails[1];
+
+        if (end.isBlank()) {
+            throw new NoEndException();
+        }
+        try {
+            LocalDateTime startDateTime = convertToDateTime(start);
+            LocalDateTime endDateTime = convertToDateTime(end);
+            Event event = new Event(0, task, startDateTime, endDateTime);
+            tasks.addTask(event);
+        } catch (DateTimeParseException e) {
+            ui.showInvalidDateFormat();
         }
     }
+
 
     /**
      * Handles the finding of tasks that match the specified keyword.

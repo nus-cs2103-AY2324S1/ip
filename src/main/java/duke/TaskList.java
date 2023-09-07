@@ -117,10 +117,10 @@ public class TaskList {
     public void unMarkTask(int taskId) {
         Task task = this.list.get(taskId);
         if (task.canUnMark()) {
-            ui.showUnmarkTask(true, task);
+            ui.showUnMarkTask(true, task);
             this.storage.updateFile(this.list);
         } else {
-            ui.showUnmarkTask(false, task);
+            ui.showUnMarkTask(false, task);
         }
     }
 

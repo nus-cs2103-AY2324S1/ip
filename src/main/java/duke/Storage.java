@@ -84,6 +84,7 @@ public class Storage {
 
             while (sc.hasNextLine()) {
                 String task = sc.nextLine();
+
                 if (!task.isBlank()) {
                     // | is a special symbol
                     String[] taskDetails = task.split(" " + "\\|" + " ");
@@ -96,14 +97,17 @@ public class Storage {
                         ToDo toDo = new ToDo(status, desc);
                         list.add(toDo);
                         break;
+
                     case "D":
                         LocalDateTime date = convertToDateTime(taskDetails[3]);
                         Deadline deadline = new Deadline(status, desc, date);
                         list.add(deadline);
                         break;
+
                     case "E":
                         LocalDateTime start = convertToDateTime(taskDetails[3]);
                         LocalDateTime end = convertToDateTime(taskDetails[4]);
+
                         try {
                             Event event = new Event(status, desc, start, end);
                             list.add(event);
