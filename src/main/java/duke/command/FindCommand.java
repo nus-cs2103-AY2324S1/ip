@@ -41,8 +41,7 @@ public class FindCommand extends Command {
                 count++;
             }
         }
-
-        ui.printMessage(res);
+        ui.updateMessage(res);
     }
 
     /**

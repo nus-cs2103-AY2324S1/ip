@@ -53,7 +53,7 @@ public class AddCommand extends Command {
             switch (category) {
             case "T":
                 if (words.length < 2) {
-                    throw new DukeException(ui.messageCard("☹ OOPS!!! The description of a todo cannot be empty."));
+                    throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
                 }
 
                 //creating the to do
@@ -67,11 +67,11 @@ public class AddCommand extends Command {
                 String message = "Got it. I've added this task: \n" + todo
                         + "\nNow you have " + tasks.size() + " tasks in the list.";
 
-                ui.printMessage(message);
+                ui.updateMessage(message);
                 break;
             case "D":
                 if (words.length < 2) {
-                    throw new DukeException(ui.messageCard("☹ OOPS!!! The description of a deadline cannot be empty."));
+                    throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
                 }
 
                 String text = words[1];
@@ -87,11 +87,12 @@ public class AddCommand extends Command {
                 //printing the messages
                 String dlMessage = "Got it. I've added this task: \n" + dl
                         + "\nNow you have " + tasks.size() + " tasks in the list.";
-                ui.printMessage(dlMessage);
+                ui.updateMessage(dlMessage);
+
                 break;
             case "E":
                 if (words.length < 2) {
-                    throw new DukeException(ui.messageCard("☹ OOPS!!! The description of a event cannot be empty."));
+                    throw new DukeException("OOPS!!! The description of a event cannot be empty.");
                 }
 
                 String text2 = words[1];
@@ -110,7 +111,8 @@ public class AddCommand extends Command {
                 //print messages
                 String eMessage = "Got it. I've added this task: \n" + e
                         + "\nNow you have " + tasks.size() + " tasks in the list. ";
-                ui.printMessage(eMessage);
+                ui.updateMessage(eMessage);
+
                 break;
             default:
                 throw new DukeException(ui.messageCard("There may be wrong parameters inputted in, "

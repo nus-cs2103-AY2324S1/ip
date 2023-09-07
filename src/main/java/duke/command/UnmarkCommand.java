@@ -43,7 +43,7 @@ public class UnmarkCommand extends Command {
 
         String res = "OK, I've marked this task as not done yet:" + "\n"
                 + "[" + task.getStatusIcon() + "] " + task.getDescription();
-        ui.printMessage(res);
+        ui.updateMessage(res);
     }
 
     /**

@@ -43,7 +43,8 @@ public class MarkCommand extends Command {
 
         String res = "Nice! I've marked this task as done:" + "\n"
                 + "[" + task.getStatusIcon() + "] " + task.getDescription();
-        ui.printMessage(res);
+        ui.updateMessage(res);
+
     }
 
     /**
