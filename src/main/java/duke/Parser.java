@@ -18,19 +18,20 @@ public class Parser {
      * Parses and responds to the user command.
      * @throws DukeException when user command is invalid.
      */
-    public void parseAndRespond() throws DukeException {
+    public String parseAndRespond() throws DukeException {
         String[] splitted = userCommand.split(" ", 2);
+        String response = "Huhhhhhhh??? (o_O) ? "
+                + "Please use one of the command words: todo, event, deadline, list, mark, unmark, delete, bye";
         switch (splitted[0]) {
         case "list":
-            Ui.listTasks();
+            response = Ui.listTasks();
             break;
         case "mark":
             if (splitted.length <= 1) {
                 throw new DukeException("Please indicate which task to mark!");
             } else {
                 int taskNo = Integer.parseInt(splitted[1]);
-                TaskList.mark(taskNo);
-                Storage.save();
+                response = TaskList.mark(taskNo);
             }
             break;
         case "unmark":
@@ -38,8 +39,7 @@ public class Parser {
                 throw new DukeException("Please indicate which task to unmark!");
             } else {
                 int taskNo = Integer.parseInt(splitted[1]);
-                TaskList.unmark(taskNo);
-                Storage.save();
+                response = TaskList.unmark(taskNo);
             }
             break;
         case "find":
@@ -47,7 +47,7 @@ public class Parser {
                 throw new DukeException("Please provide a term to search for! (⋟﹏⋞)");
             } else {
                 String searchTerm = splitted[1];
-                TaskList.searchFor(searchTerm);
+                response = TaskList.searchFor(searchTerm);
             }
             break;
         case "todo":
@@ -56,7 +56,7 @@ public class Parser {
             } else {
                 String todoTask = splitted[1];
                 Todo newTodo = new Todo(todoTask);
-                TaskList.add(newTodo, "todo");
+                response = TaskList.add(newTodo, "todo");
             }
             break;
         case "deadline":
@@ -71,7 +71,7 @@ public class Parser {
                     String deadTime = deadTask[1];
                     deadTime = deadTime.trim();
                     Deadline deadlineTask = new Deadline(deadDescription, deadTime);
-                    TaskList.add(deadlineTask, "deadline");
+                    response = TaskList.add(deadlineTask, "deadline");
                 }
             }
             break;
@@ -91,7 +91,7 @@ public class Parser {
                         String eventStart = startEnd[0];
                         String eventEnd = startEnd[1];
                         Event newEvent = new Event(eventDescription, eventStart, eventEnd);
-                        TaskList.add(newEvent, "event");
+                        response = TaskList.add(newEvent, "event");
                     }
                 }
             }
@@ -101,12 +101,13 @@ public class Parser {
                 throw new DukeException("You do not have that much tasks! (⋟﹏⋞)");
             } else {
                 int target = Integer.parseInt(splitted[1]);
-                TaskList.delete(target);
+                response = TaskList.delete(target);
             }
             break;
         default:
-            throw new DukeException("Huhhhhhhh??? (o_O) ? "
-                    + "Please use one of the command words: todo, event, deadline, list, mark, unmark, delete, bye");
+            response =  response;
         }
+
+        return response;
     }
 }

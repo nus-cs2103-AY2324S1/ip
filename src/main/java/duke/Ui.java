@@ -26,46 +26,46 @@ public class Ui {
     /**
      * Prints out the hello message when the chatbot first starts.
      */
-    public static void helloMsg() {
-        System.out.println(lines + "\n" + greeting + lines);
+    public static String helloMsg() {
+        return lines + "\n" + greeting + lines;
     }
 
     /**
      * Prints out the goodbye message.
      */
-    public static void goodbyeMsg() {
-        System.out.println(lines + "\n" + goodbye + lines);
+    public static String goodbyeMsg() {
+        return lines + "\n" + goodbye + lines;
     }
 
     /**
      * Displays all current tasks in the task list.
      */
-    public static void listTasks() {
-        System.out.println(lines + "\n        Here are the tasks in your list:\n");
-        TaskList.listOut();
-        System.out.println(lines);
+    public static String listTasks() {
+        String tasks = lines + "\n        Here are the tasks in your list:\n";
+        tasks += TaskList.listOut();
+        return tasks + lines;
     }
 
     /**
      * Displays message when task if successfully marked.
      * @param description the description of the task marked.
      */
-    public static void markMsg(String description) {
-        System.out.println(lines
+    public static String  markMsg(String description) {
+        return lines
                 + "\n        Nice! I've marked this task as done: (≧▽≦)\n          "
                 + description + "\n"
-                + lines);
+                + lines;
     }
 
     /**
      * Displays message when task is successfully unmarked.
      * @param description the description of the task unmarked.
      */
-    public static void unmarkMsg(String description) {
-        System.out.println(lines
+    public static String unmarkMsg(String description) {
+        return lines
                 + "\n        OK, I've marked this task as not done yet: (≧▽≦)\n          "
                 + description + "\n"
-                + lines);
+                + lines;
     }
 
     /**
@@ -74,9 +74,9 @@ public class Ui {
      * @param description the description of the task added.
      * @param size the updated number of tasks in the task list.
      */
-    public static void successfulAdd(String type, String description, Integer size) {
-        System.out.println(lines + "\n         Got it. I've added this new " + type + ":\n            "
-                + description + "\n         Now you have " + size + " tasks in the list.\n" + lines);
+    public static String successfulAdd(String type, String description, Integer size) {
+        return lines + "\n         Got it. I've added this new " + type + ":\n            "
+                + description + "\n         Now you have " + size + " tasks in the list.\n" + lines;
     }
 
     /**
@@ -84,9 +84,9 @@ public class Ui {
      * @param description the description of the task deleted.
      * @param size the updated number of tasks in the task list.
      */
-    public static void successfulDelete(String description, Integer size) {
-        System.out.println(lines + "\n         Noted, I've removed this task:\n              "
+    public static String successfulDelete(String description, Integer size) {
+        return lines + "\n         Noted, I've removed this task:\n              "
                 + description + "\n         Now you have " + size + " tasks in the list"
-                + "\n" + lines);
+                + "\n" + lines;
     }
 }

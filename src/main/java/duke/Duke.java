@@ -38,6 +38,8 @@ public class Duke extends Application{
         //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
+        dialogContainer.getChildren()
+                .add(DialogBox.getDukeDialog("Hi! I'm Dukey 👋🏻 What can I do for you?", duke));
         scrollPane.setContent(dialogContainer);
 
         userInput = new TextField();
@@ -52,7 +54,7 @@ public class Duke extends Application{
         stage.show();
 
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("Dukey");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -80,6 +82,7 @@ public class Duke extends Application{
 
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+
 
         //Part 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
@@ -114,35 +117,34 @@ public class Duke extends Application{
      * Replace this stub with your completed method.
      */
     String getResponse(String input) {
-        return "Duke heard: " + input;
-    }
-
-
-    /**
-     * Runs the Duke chatbot.
-     * @throws DukeException if user enters invalid input.
-     */
-    public void run(String filepath) throws DukeException {
-        ui = new Ui();
-        storage = new Storage(filepath);
-        toDo = new TaskList();
-        Scanner sc = new Scanner(System.in);
-        String userCommand;
-        storage.load();
-        ui.helloMsg();
-        userCommand = sc.nextLine();
-
-        while (!userCommand.equals("bye")) {
-            Parser p = new Parser(userCommand);
-            p.parseAndRespond();
-            userCommand = sc.nextLine();
+        try {
+            return dukeReply(input);
+        } catch (DukeException e) {
+            return "Sorry, I don't understand that o(TヘTo)";
         }
 
-        ui.goodbyeMsg();
     }
 
-    public static void main(String[] args) throws DukeException {
-        Duke dukey = new Duke();
-        dukey.run("duke.txt");
+    /**
+     * reply -- returns the string according to the user input
+     * @param userInput
+     * @return
+     * @throws DukeException
+     */
+
+    public String dukeReply(String userInput) throws DukeException {
+        ui = new Ui();
+        storage = new Storage("duke.txt");
+        toDo = new TaskList();
+        storage.load();
+        String respondMsg = "Got it!";
+        Parser parseCommand = new Parser(userInput);
+        try {
+            respondMsg = parseCommand.parseAndRespond();
+        } catch (DukeException e) {
+            respondMsg = e.getMessage();
+        }
+        return respondMsg;
     }
+
 }

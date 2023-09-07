@@ -23,11 +23,12 @@ public class TaskList {
      * @param task the task to add into task list.
      * @param type type of task added.
      */
-    public static void add(Task task, String type) {
+    public static String add(Task task, String type) {
         toDo.add(task);
-        String description = task.getDescription();
-        Ui.successfulAdd(type, description, toDo.size());
         Storage.save();
+        String description = task.getDescription();
+        String successMsg = Ui.successfulAdd(type, description, toDo.size());
+        return successMsg;
     }
 
     /**
@@ -43,13 +44,14 @@ public class TaskList {
      * @param target the index of the task in the task list that should be deleted.
      * @throws DukeException throws exception when the index of the task given is larger than the size of the task list.
      */
-    public static void delete(Integer target) throws DukeException {
+    public static String delete(Integer target) throws DukeException {
         if (target <= toDo.size()) {
             Task toDelete = toDo.get(target - 1);
             String description = toDelete.getDescription();
             toDo.remove(target - 1);
-            Ui.successfulDelete(description, toDo.size());
             Storage.save();
+            String successMsg = Ui.successfulDelete(description, toDo.size());
+            return successMsg;
         } else {
             throw new DukeException("You do not have that many tasks! (⋟﹏⋞)");
         }
@@ -60,13 +62,14 @@ public class TaskList {
      * @param taskNo the index of the task in the task list to be marked.
      * @throws DukeException exception thrown when the <code>taskNo</code> given exceeds the size of the task list.
      */
-    public static void mark(Integer taskNo) throws DukeException {
+    public static String mark(Integer taskNo) throws DukeException {
         if (taskNo <= toDo.size()) {
             Task target = toDo.get(taskNo - 1);
             target.mark();
             String description = target.getDescription();
-            Ui.markMsg(description);
+            String successMsg = Ui.markMsg(description);
             Storage.save();
+            return successMsg;
         } else {
             throw new DukeException("You do not have that many tasks! (⋟﹏⋞)");
         }
@@ -77,13 +80,14 @@ public class TaskList {
      * @param taskNo the index of the task in the task list to be unmarked.
      * @throws DukeException exception thrown when the <code>taskNo</code> given exceeds the size of the task list.
      */
-    public static void unmark(Integer taskNo) throws DukeException {
+    public static String unmark(Integer taskNo) throws DukeException {
         if (taskNo <= toDo.size()) {
             Task target = toDo.get(taskNo - 1);
             target.unmark();
             String description = target.getDescription();
-            Ui.unmarkMsg(description);
+            String successMsg = Ui.unmarkMsg(description);
             Storage.save();
+            return successMsg;
         } else {
             throw new DukeException("You do not have that many tasks! (⋟﹏⋞)");
         }
@@ -92,29 +96,31 @@ public class TaskList {
     /**
      * Displays all the tasks currently in the task list.
      */
-    public static void listOut() {
+    public static String listOut() {
+        String tasks = "";
         for (int i = 0; i < toDo.size(); i++) {
             Task currTask = toDo.get(i);
             String description = currTask.getDescription();
-            System.out.println("        " + (i + 1) + "." + description);
+            tasks += "        " + (i + 1) + "." + description;
         }
+        return tasks;
     }
 
     /**
      * Searches for a task in the task list.
      * @param searchTerm the term to search for in the task list.
      */
-    public static void searchFor(String searchTerm) {
+    public static String searchFor(String searchTerm) {
+        String searchResult = "        ____________________________________________________________"
+                + "\n        Here are the matching tasks in your list: (≧▽≦)";
         List<Task> result = toDo.stream()
                 .filter(task -> task.checkTerm(searchTerm))
                 .collect(Collectors.toList());
-        System.out.println("        ____________________________________________________________"
-                + "\n        Here are the matching tasks in your list: (≧▽≦)");
         for (int i = 0; i < result.size(); i++) {
             Task currTask = result.get(i);
             String description = currTask.getDescription();
-            System.out.println("        " + (i + 1) + "." + description);
+            searchResult += "        " + (i + 1) + "." + description;
         }
-        System.out.println("        ____________________________________________________________");
+        return searchResult + "        ____________________________________________________________";
     }
 }
