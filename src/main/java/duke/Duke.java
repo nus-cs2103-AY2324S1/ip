@@ -39,9 +39,9 @@ public class Duke {
         while (true) {
             try {
                 String userInput = scanner.nextLine();
-                Command command = Parser.parse(userInput); // This interprets the user input and returns the respective command
+                Command command = Parser.parse(userInput);
 
-                command.execute(tasks, ui, storage); // Execute the command
+                command.execute(tasks, ui, storage);
 
                 if (command instanceof ByeCommand) {
                     break;

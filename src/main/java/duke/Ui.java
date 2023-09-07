@@ -32,7 +32,7 @@ public class Ui {
      */
     public void showWelcome() {
         printLine("____________________________________________________________");
-        printLine("Hello! I'm duke.Duke");
+        printLine("Hello! I'm Duke");
         printLine("What can I do for you?");
         printLine("____________________________________________________________");
     }
@@ -156,6 +156,11 @@ public class Ui {
         printLine("____________________________________________________________");
     }
 
+    /**
+     * Displays the tasks that match the provided keyword.
+     *
+     * @param matchingTasks A list of tasks that match the keyword.
+     */
     public void showMatchingTasks(ArrayList<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
             printMessage("No tasks match your search.");

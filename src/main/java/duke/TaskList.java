@@ -123,6 +123,13 @@ public class TaskList implements Iterable<Task> {
         return tasks.iterator();
     }
 
+    /**
+     * Finds and returns a list of tasks that contain the specified keyword
+     * in their descriptions.
+     *
+     * @param keyword The keyword to search for within task descriptions.
+     * @return A list of tasks that contain the keyword.
+     */
     public ArrayList<Task> findTasksByKeyword(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
