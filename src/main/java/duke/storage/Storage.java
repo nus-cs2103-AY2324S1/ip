@@ -12,15 +12,13 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    private String path;
+    private final String path = "toothless.txt";
     private File tempFile;
 
     /**
      * Constructor for a locally saved file.
-     * @param path Location of the file.
      */
-    public Storage(String path) {
-        this.path = path;
+    public Storage() {
         this.tempFile = null;
     }
 

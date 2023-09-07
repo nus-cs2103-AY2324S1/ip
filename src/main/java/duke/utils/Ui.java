@@ -19,52 +19,52 @@ public class Ui {
     /**
      * Greets the user.
      */
-    public void greet() {
-        System.out.println(greeting);
+    public String greet() {
+        return greeting;
     }
 
     /**
      * Bids farewell to the user.
      */
-    public void farewell() {
-        System.out.println(farewell);
+    public String farewell() {
+        return farewell;
     }
 
     /**
      * Displays the type of input error.
      * @param e The exception thrown.
      */
-    public void showDukeError(DukeException e) {
-        System.out.println(e.getMessage());
+    public String showDukeError(DukeException e) {
+        return e.getMessage();
     }
 
     /**
      * Tells user to input the correct date format.
      */
-    public void showDateError() {
-        System.out.println("Date cannot be recognised :( please input a valid date format yyyy-mm-dd !");
+    public String showDateError() {
+        return "Date cannot be recognised :( please input a valid date format yyyy-mm-dd !";
     }
 
     /**
      * Tells user that there has been an error.
      */
-    public void showGeneralError() {
-        System.out.println("There has been an internal error. Please try again!");
+    public String showGeneralError() {
+        return "There has been an internal error. Please try again!";
     }
 
     /**
      * Confirms that a task has been added.
      * @param taskDescription Description of the task added.
      */
-    public void showTaskAdded(String taskDescription) {
-        System.out.println(addTask + taskDescription);
+    public String showTaskAdded(String taskDescription) {
+        return addTask + taskDescription;
     }
 
     /**
      * Displays a message when there are no tasks in the list.
      */
-    public void showNoTasks() {
-        System.out.println("You have no tasks! Yay :)");
+    public String showNoTasks() {
+        return "You have no tasks! Yay :)";
     }
 
     /**
@@ -72,18 +72,21 @@ public class Ui {
      *     0 represents all tasks, other numbers represent matching tasks.
      * @param tasksDescriptions The list of descriptions of the tasks.
      */
-    public void showTasks(List<String> tasksDescriptions, int type) {
+    public String showTasks(List<String> tasksDescriptions, int type) {
+        String output = "";
         if (tasksDescriptions.isEmpty()) {
-            showNoTasks();
+            return showNoTasks();
         } else {
             if (type == 0) {
-                System.out.println("Here's your list of tasks!\n");
+                output = "Here's your list of tasks!\n";
             } else {
-                System.out.println("Here's the matching tasks!\n");
+                output = "Here's the matching tasks!\n";
             }
             for (int i = 0; i < tasksDescriptions.size(); i++) {
-                System.out.println((i + 1) + ": " + tasksDescriptions.get(i));
+                String description = (i + 1) + ": " + tasksDescriptions.get(i) + "\n";
+                output += description;
             }
+            return output;
         }
     }
 
@@ -91,8 +94,8 @@ public class Ui {
      * Confirms that the status of a task has changed.
      * @param status The current status of the task.
      */
-    public void showStatusChanged(String status) {
-        System.out.println(status);
+    public String showStatusChanged(String status) {
+        return status;
     }
 
     /**
