@@ -14,7 +14,10 @@ import java.util.ArrayList;
 import java.io.FileNotFoundException;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
 import javafx.application.Platform;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
 public class Duke {
     private String name;
@@ -89,7 +92,9 @@ public class Duke {
         }
 
         if (command instanceof ExitCommand) {
-            Platform.exit();
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            pause.setOnFinished(e -> Platform.exit());
+            pause.play();
         }
 
         try {
@@ -102,7 +107,8 @@ public class Duke {
         String capturedOutput = byteArrayOutputStream.toString();
         capturedOutput = capturedOutput.replaceAll("_________________" +
                 "___________________________________________", "");
-        return "Duke says: \n" + capturedOutput;
+
+        return this.name + " says: \n" + capturedOutput;
     }
 }
 
