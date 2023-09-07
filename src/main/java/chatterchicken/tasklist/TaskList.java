@@ -29,7 +29,7 @@ public class TaskList implements Iterable<Task> {
      * @param task The task to be added to the task list.
      * @throws CCException If there is an error in adding the task.
      */
-    public void addTask(Task task) throws CCException {
+    public void addTask(Task task) {
         taskList.add(task);
         ui.displayAddTask(task, taskList.size());
     }

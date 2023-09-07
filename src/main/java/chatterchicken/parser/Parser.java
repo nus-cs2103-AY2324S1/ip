@@ -63,14 +63,16 @@ public class Parser {
         Task task = null;
         switch (type) {
             case "todo":
-                task = parseToDo(input);
-                break;
-            case "deadline":
-                task = parseDeadline(input);
-                break;
-            case "event":
-                task = parseEvent(input);
-                break;
+            task = parseToDo(input);
+            break;
+        case "deadline":
+            task = parseDeadline(input);
+            break;
+        case "event":
+            task = parseEvent(input);
+            break;
+        default:
+            throw new CCException("Invalid task type.");
         }
         return task;
     }
