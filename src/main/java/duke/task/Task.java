@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     @JsonSubTypes.Type(value = Deadline.class, name = "Deadline")
 })
 public class Task {
-    private boolean done = false;
+    private boolean isDone = false;
     private final String task;
 
     /**
@@ -29,14 +29,14 @@ public class Task {
      * Sets boolean done to true.
      */
     public void mark() {
-        done = true;
+        isDone = true;
     }
 
     /**
      * Sets boolean done to false;
      */
     public void unmark() {
-        done = false;
+        isDone = false;
     }
 
     public String getTask() {
@@ -45,6 +45,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + ((done) ? "X" : " ") + "] " + task;
+        return "[" + ((isDone) ? "X" : " ") + "] " + task;
     }
 }

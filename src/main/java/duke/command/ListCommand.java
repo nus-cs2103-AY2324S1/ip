@@ -15,11 +15,7 @@ public class ListCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        taskList.print();
+        output.append(taskList.print());
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

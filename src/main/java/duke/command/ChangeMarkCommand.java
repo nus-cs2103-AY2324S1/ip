@@ -37,20 +37,17 @@ public class ChangeMarkCommand implements Command {
             if (isMark) {
                 taskList.mark(index);
                 storage.save(taskList.getTasks());
-                ui.showMessage("Task at index " + (index + 1) + "has been successfully marked");
+                //ui.showMessage("Task at index " + (index + 1) + "has been successfully marked");
+                output.append("Task at index ").append(index + 1).append("has been successfully marked");
             } else {
                 taskList.unmark(index);
                 storage.save(taskList.getTasks());
-                ui.showMessage("Task at index " + (index + 1) + "has been successfully unmarked");
+                //ui.showMessage("Task at index " + (index + 1) + "has been successfully unmarked");
+                output.append("Task at index ").append(index + 1).append("has been successfully unmarked");
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             taskList.print();
             throw new InvalidParametersException("Insert an integer from the list");
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

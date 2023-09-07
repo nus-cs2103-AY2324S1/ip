@@ -21,11 +21,6 @@ public class FindCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        taskList.print(searchString);
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
+        output.append(taskList.print(searchString));
     }
 }

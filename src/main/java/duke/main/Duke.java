@@ -1,8 +1,7 @@
 package duke.main;
 
 import duke.command.Command;
-import duke.exception.DukeException;
-import duke.exception.InvalidFileException;
+import duke.exception.*;
 
 /**
  * Main entry point for application to run.
@@ -55,5 +54,15 @@ public class Duke {
 
     public static void main(String[] args) {
         new Duke("tasks.json").run();
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+            return c.getString();
+        } catch (DukeException e) {
+            return "Error: " + e.getMessage();
+        }
     }
 }
