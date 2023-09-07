@@ -17,7 +17,7 @@ public class Parser {
      * @param taskManager   the task manager
      * @param userInterface the user interface
      */
-    public static String parseCommand(String command, TaskManager taskManager, UserInterface userInterface) {
+    public static String parseCommand(String command, TaskManager taskManager, UserInterface userInterface, Storage storage) {
         String[] parts = command.split(" ", 2);
         String action = parts[0];
         StringBuilder output = new StringBuilder("");
@@ -134,6 +134,7 @@ public class Parser {
             output.append(userInterface.showCommandLine());
             output.append(userInterface.showGoodbyeMessage());
             output.append(userInterface.showCommandLine());
+            storage.save(taskManager.displayList());
             break;
 
         default:
