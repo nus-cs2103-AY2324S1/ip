@@ -31,6 +31,13 @@ public abstract class Task {
     }
 
     /**
+     * Default constructor for Task.
+     */
+    public Task() {
+        this.isDone = false;
+    }
+
+    /**
      * Checks isDone status.
      * @return Boolean value of whether the task is completed.
      */
@@ -61,5 +68,5 @@ public abstract class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
-    public abstract String fileRepresentation();
+    public abstract String showFileRepresentation();
 }
