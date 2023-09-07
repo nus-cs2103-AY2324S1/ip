@@ -1,13 +1,7 @@
 package duke.parser;
 
-import duke.command.AddCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.ExitCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.UnmarkCommand;
+import duke.Duke;
+import duke.command.*;
 import duke.exception.DukeException;
 
 /**
@@ -31,8 +25,12 @@ public class Parser {
                     return new ListCommand();
                 } else if (input.equalsIgnoreCase("bye")) {
                     return new ExitCommand();
+                } else if(input.equalsIgnoreCase("todo") ||
+                        input.equalsIgnoreCase("deadline") ||
+                        input.equalsIgnoreCase("event")) {
+                    return new AddCommand(input);
                 } else {
-                    throw new DukeException("I'm sorry, I don't know what that means");
+                    return new InvalidCommand(new DukeException(" Oops! I'm sorry, I don't know what that means"));
                 }
             } else {
                 String task = input.substring(0, input.indexOf(" "));
@@ -48,8 +46,8 @@ public class Parser {
                     return new AddCommand(input);
                 }
             }
-        } catch (IllegalArgumentException e) {
-            throw new DukeException("Oops! I'm sorry, I don't know what that means");
+        } catch (Exception e) {
+            return new InvalidCommand(new DukeException(" Oops! I'm sorry, I don't know what that means"));
         }
     }
 }

@@ -1,8 +1,6 @@
 package duke.GUI;
 
 import duke.Duke;
-import duke.exception.DukeException;
-import duke.parser.Parser;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -21,6 +19,8 @@ public class Main extends Application {
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
+
+    private String MESSAGE = " Hello! I'm ChatBot\n" + " What can I do for you?\n";
     private Button sendButton;
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
@@ -29,9 +29,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        //Step 1. Setting up required components
-
-        //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -63,8 +60,7 @@ public class Main extends Application {
 
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(new Label(" Hello! I'm ChatBot\n"
-                + " What can I do for you?\n"), new ImageView(chat)));
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(new Label(MESSAGE), new ImageView(chat)));
 
         userInput.setPrefWidth(325.0);
 
@@ -106,7 +102,6 @@ public class Main extends Application {
     }
 
     /**
-     * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
      *
      * @param text String containing text to add
@@ -120,7 +115,6 @@ public class Main extends Application {
     }
 
     /**
-     * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */

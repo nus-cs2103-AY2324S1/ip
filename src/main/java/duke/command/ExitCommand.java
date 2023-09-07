@@ -18,6 +18,7 @@ public class ExitCommand extends Command {
      * @param tasks The TaskList where the command is to be executed.
      * @param ui The UI which functions as the user interface of the Chat bot.
      * @param storage The storage file to store the list of tasks.
+     * @return the string containing the farewell message.
      * @throws DukeException If the command execution fails.
      */
     @Override

@@ -12,7 +12,6 @@ import duke.ui.Ui;
  */
 public abstract class Command {
 
-
     /**
      * Executes the command.
      *
@@ -20,6 +19,9 @@ public abstract class Command {
      * @param ui The UI which functions as the user interface of the Chat bot.
      * @param storage The storage file to store the list of tasks.
      * @throws DukeException If the command execution fails.
+     * @return a string.
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+
+
 }

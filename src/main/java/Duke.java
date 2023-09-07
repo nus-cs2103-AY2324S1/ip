@@ -21,7 +21,7 @@ public class Duke {
     private Scanner scanner;
 
     /**
-     * Constructs an instance of the chat bot.
+     * Constructs an instance of the chatbot.
      */
     public Duke() {
         this.scanner = new Scanner(System.in);
@@ -54,10 +54,6 @@ public class Duke {
         }
     }
 
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(input);
