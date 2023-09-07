@@ -30,7 +30,7 @@ public class AddCommand implements Command {
         taskList.add(task);
         storage.save(taskList.getTasks());
         // ui.showMessage("Task " + task.getTask() + " successfully added");
-        output.append("Task").append(task.getTask()).append(" successfully added\n");
+        output.append("Task ").append(task.getTask()).append(" successfully added\n");
         output.append(taskList.printSize());
     }
 }

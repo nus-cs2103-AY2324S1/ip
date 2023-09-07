@@ -47,38 +47,43 @@ public class TaskList {
      * Prints out the list of tasks.
      */
     public String print() {
-        StringBuilder output = new StringBuilder();
         if (tasks.isEmpty()) {
             return "You have no tasks added yet :(\n";
-        } else {
-            for (int i = 0; i < tasks.size(); i++) {
-                output.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
-            }
-            return output.toString();
         }
+
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            output.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
+        }
+        return output.toString();
+
     }
 
     /**
      * Prints out the list of tasks.
      *
-     * @param searchString String to search with.
+     * @param stringToSearch String to search with.
      */
-    public String print(String searchString) {
-        boolean found = false;
-        StringBuilder output = new StringBuilder();
-
+    public String print(String... stringToSearch) {
         if (tasks.isEmpty()) {
             return "You have no tasks added yet :(\n";
-        } else {
-            for (int i = 0; i < tasks.size(); i++) {
-                if (tasks.get(i).getTask().contains(searchString)) {
+        }
+
+        StringBuilder output = new StringBuilder();
+        boolean isFound = false;
+
+        // TODO: Fix arrowhead coding
+        for (int i = 0; i < tasks.size(); i++) {
+            for (String s : stringToSearch) {
+                if (tasks.get(i).getTask().contains(s)) {
                     output.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
-                    found = true;
+                    isFound = true;
                 }
             }
         }
-        if (!found) {
-            return "No tasks found with string '" + searchString + "'\n";
+
+        if (!isFound) {
+            return "No tasks found with given string(s).\n";
         } else {
             return output.toString();
         }
