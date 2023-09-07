@@ -4,7 +4,7 @@ import duke.*;
 import duke.task.AlreadyMarkedException;
 
 public class MarkCommand extends Command {
-    private Integer index;
+    private final Integer index;
     public MarkCommand(Integer index) {
         this.index = index;
     }

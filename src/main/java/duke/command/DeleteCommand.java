@@ -3,7 +3,7 @@ package duke.command;
 import duke.*;
 
 public class DeleteCommand extends Command {
-    Integer index;
+    private final Integer index;
     public DeleteCommand(Integer index) {
         this.index = index;
     }

@@ -4,7 +4,7 @@ import duke.*;
 import duke.task.AlreadyUnmarkedException;
 
 public class UnmarkCommand extends Command {
-    private Integer index;
+    private final Integer index;
     public UnmarkCommand(Integer index) {
         this.index = index;
     }

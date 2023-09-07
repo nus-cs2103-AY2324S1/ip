@@ -6,14 +6,10 @@ import java.nio.file.Paths;
 
 public class Storage {
 
-    private String fileName;
-    private String[] directories;
     private Path filePath;
     private File saveFile;
 
     public Storage(String fileName, String[] directories) {
-        this.fileName = fileName;
-        this.directories = directories;
 
         filePath = Path.of(System.getProperty("user.dir"));
 

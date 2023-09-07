@@ -5,7 +5,7 @@ import duke.TaskList;
 import duke.Ui;
 
 public class MessageCommand extends Command {
-    private String message;
+    private final String message;
     public MessageCommand(String message) {
         this.message = message;
     }
