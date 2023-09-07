@@ -92,14 +92,9 @@ public class Parser {
      * @return The query string to search for.a
      * @throws ParserException if parsing or validation fails.
      */
-    public String parseFind(String userInput, TaskList list) throws ParserException {
-        String queryString;
-        try {
-            queryString = userInput.substring(5);
-        } catch (NumberFormatException e) {
-            throw new ParserException("Please enter valid Task No. (INTEGER) to delete in the format: 'delete 4'");
-        }
-        return queryString;
+    public String[] parseFind(String userInput, TaskList list) throws ParserException {
+        String argsString = userInput.substring(5).trim();
+        return argsString.split("\\s+");
     }
 
 
