@@ -68,7 +68,7 @@ public class BlipUI {
      * Prints the list of other commands.
      */
     public String showListOfOtherCmds() {
-        return "4. mark [task number]"
+        return "\n4. mark [task number]"
                 + "\n5. unmark [task number]"
                 + "\n6. delete [task number]"
                 + "\n7. list";
