@@ -8,91 +8,90 @@ import java.util.ArrayList;
 public class Ui {
 
     /**
-     * Greets the user.
+     * Returns a greeting.
+     * @return a greeting.
      */
-    public static void greet() {
-        System.out.println("Hello! I'm Gman! \nWhat can I do for you?");
+    public static String greet() {
+        return ("Hello! I'm Gman! \nWhat can I do for you?");
     }
 
     /**
-     * Says goodbye to the user.
+     * Returns a goodbye message.
+     * @return a goodbye message.
      */
-    public static void goodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public static String goodbye() {
+        return ("Bye. Hope to see you again soon!");
     }
 
     /**
-     * Prints out all tasks in taskList.
-     *
-     * @param taskList taskList to retrieve Tasks from.
+     * Returns a list of all tasks in a String.
+     * @param taskList the Task List containing all tasks.
+     * @return a list of all tasks in a String.
      */
-    public static void listTasks(TaskList taskList) {
-        try {
-            if (taskList.getSize() == 0) {
-                throw new GmanException("There's nothing to print in the list");
-            }
-            System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < taskList.getSize(); i++) {
-                System.out.println((i + 1) + ". "  + taskList.getTask(i).toString());
-            }
-        } catch (GmanException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    /**
-     * Prints out the number of tasks in taskList.
-     *
-     * @param taskList taskList to retrieve tasks from.
-     */
-    public static void numberOfTasks(TaskList taskList) {
+    public static String listTasks(TaskList taskList) {
         if (taskList.getSize() == 0) {
-            System.out.println("There are no tasks in the list!");
+            showError(new GmanException("There's nothing to print in the list"));
+        }
+        String listOfTasks = ("Here are the tasks in your list:\n");
+        for (int i = 0; i < taskList.getSize(); i++) {
+            listOfTasks += ((i + 1) + ". "  + taskList.getTask(i).toString() + "\n");
+        }
+        return listOfTasks;
+    }
+
+    /**
+     * Returns a String stating how many tasks there are in the current tasklist.
+     * @param taskList the Task List containing all tasks.
+     * @return a String stating how many tasks there are in the current tasklist.
+     */
+    public static String numberOfTasks(TaskList taskList) {
+        if (taskList.getSize() == 0) {
+            return ("There are no tasks in the list!");
         } else if (taskList.getSize() == 1) {
-            System.out.println("Now you have 1 task in the list.");
+            return ("Now you have 1 task in the list.");
         } else {
-            System.out.println("Now you have " + taskList.getSize() + " tasks in the list.");
+            return ("Now you have " + taskList.getSize() + " tasks in the list.");
         }
     }
 
     /**
-     * Prints to the user that this task has been added.
-     *
-     * @param task Task to print the description of.
+     * Returns a message stating the task has been added and the task description.
+     * @param task The task to be added.
+     * @return a message stating the task has been added and the task description.
      */
-    public static void addedTask(Task task) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
+    public static String addedTask(Task task) {
+        String message = "Got it. I've added this task:\n" + task.toString();
+        return message;
     }
 
     /**
-     * Prints to the user that this task has been removed.
-     *
-     * @param task Task to print the description of.
+     * Returns a message stating the task has been removed and the task description.
+     * @param task The task to be removed
+     * @return a message stating the task has been removed and the task description.
      */
-    public static void removedTask(Task task) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task.toString());
+    public static String removedTask(Task task) {
+        String message = "Noted. I've removed this task:\n" + task.toString();
+        return message;
     }
 
     /**
-     * Prints to the user that this task has been marked as done.
-     *
-     * @param taskToString Task description.
+     * Returns a message stating the task has been marked and the task description.
+     * @param taskToString The task description.
+     * @return a message stating the task has been marked and the task description.
      */
-    public static void mark(String taskToString) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(taskToString);
+    public static String mark(String taskToString) {
+        String message = "Nice! I've marked this task as done:\n" + taskToString;
+        return message;
     }
 
     /**
-     * Prints to the user that this task has been marked as undone.
-     *
-     * @param taskToString Task description.
+     * Returns a message stating the task has been unmarked and the task description.
+     * @param taskToString The task description.
+     * @return a message stating the task has been unmarked and the task description.
      */
-    public static void unmark(String taskToString) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(taskToString);
+    public static String unmark(String taskToString) {
+        String message = "OK, I've marked this task as not done yet:\n" + taskToString;
+        return message;
     }
 
     /**
@@ -100,10 +99,15 @@ public class Ui {
      *
      * @param tasks taskList to find tasks from.
      */
-    public static void listTasksFound(ArrayList<Task> tasks) {
-        System.out.println("Here are the matching tasks in your list:");
+    public static String listTasksFound(ArrayList<Task> tasks) {
+        String message  = "Here are the matching tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i).toString());
+            message += (i + 1) + ". " + tasks.get(i).toString() + "\n";
         }
+        return message;
+    }
+
+    public static String showError(GmanException e) {
+        return e.getMessage();
     }
 }
