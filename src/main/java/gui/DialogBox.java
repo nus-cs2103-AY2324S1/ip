@@ -29,7 +29,7 @@ public class DialogBox extends HBox {
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(
-                Storage.toURL("src", "main", "resources", "view", "DialogBox.fxml"));
+                Storage.toUrl("src", "main", "resources", "view", "DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
