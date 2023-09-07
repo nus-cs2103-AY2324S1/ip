@@ -1,8 +1,12 @@
 package duke.commands;
 
 import duke.data.TaskList;
-import duke.ui.Ui;
 import duke.storage.Storage;
+import duke.ui.Ui;
+
+/**
+ * The ByeCommand display a goodbye message when it is executed.
+ */
 public class ByeCommand extends Command {
 
     public ByeCommand() { }

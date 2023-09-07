@@ -6,6 +6,9 @@ import java.util.Scanner;
 import duke.data.TaskList;
 import duke.data.task.Task;
 
+/**
+ * The Ui class handles user input and display messages.
+ */
 public class Ui {
     private final Scanner scanner;
 
@@ -129,6 +132,7 @@ public class Ui {
         System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
+    /** Displays all the tasks in the array list in the parameter */
     public void showSearchResults(ArrayList<Task> results) {
         for (int i = 0; i < results.size(); i++) {
             System.out.println((i + 1) + "." + results.get(i));

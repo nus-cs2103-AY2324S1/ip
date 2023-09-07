@@ -4,9 +4,13 @@ import java.io.IOException;
 
 import duke.data.TaskList;
 import duke.data.exception.DukeException;
-import duke.ui.Ui;
 import duke.storage.Storage;
+import duke.ui.Ui;
 
+/**
+ * The Command class is an abstract class with an
+ * abstract method execute for subclasses to implement
+ */
 public abstract class Command {
     /**
      * Executes command based on the command type.

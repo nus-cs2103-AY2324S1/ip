@@ -2,11 +2,16 @@ package duke.commands;
 
 import java.io.IOException;
 
+import duke.data.TaskList;
 import duke.data.exception.DukeException;
 import duke.data.task.Task;
-import duke.data.TaskList;
-import duke.ui.Ui;
 import duke.storage.Storage;
+import duke.ui.Ui;
+
+/**
+ * The DeleteTaskCommand deletes a given task, updates the .txt file
+ * and display task is deleted message when executed.
+ */
 public class DeleteTaskCommand extends Command {
 
     /** ID of task to be deleted. */

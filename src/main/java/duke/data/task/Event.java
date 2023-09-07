@@ -1,8 +1,12 @@
 package duke.data.task;
 
-import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
+/**
+ * The Event class a child class of Task that
+ * has the description, from and to attribute.
+ */
 public class Event extends Task {
     /** Start date of event */
     protected Date from;

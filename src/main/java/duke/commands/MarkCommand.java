@@ -2,11 +2,15 @@ package duke.commands;
 
 import java.io.IOException;
 
-import duke.data.exception.DukeException;
 import duke.data.TaskList;
-import duke.ui.Ui;
+import duke.data.exception.DukeException;
 import duke.storage.Storage;
+import duke.ui.Ui;
 
+/**
+ * The MarkCommand marks a task as completed, update the .txt file
+ * and display a task marked message when it is executed.
+ */
 public class MarkCommand extends Command {
 
     /** ID of task to be marked. */
