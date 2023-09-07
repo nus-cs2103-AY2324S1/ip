@@ -22,13 +22,12 @@ public class HelpCommand extends Command {
      * Executes the help command by printing a message to acknowledge invalid command.
      *
      * @param tasks The task list containing all tasks in the program.
-     * @param ui The text user interface handling the command execution.
      * @param storage The storage manager for persisting task data.
      * @throws SanaException
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        System.out.println(getCmd() + " is not a valid command!");
+    public String execute(TaskList tasks, Storage storage) {
+        return(getCmd() + " is not a valid command!");
     }
 
     /**

@@ -22,18 +22,17 @@ public class ListCommand extends Command {
      * Executes list command by printing all tasks in the list.
      *
      * @param tasks The task list on which the command's action is performed.
-     * @param ui The user interface handling the command execution.
      * @param storage The storage manager for persisting task data.
      * @throws SanaException
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SanaException {
+    public String execute(TaskList tasks, Storage storage) throws SanaException {
         if (tasks.toString().isBlank()) {
             throw new SanaException("Your list is empty! Add tasks first to display list");
         }
 
         TaskList updatedTasks = new TaskList(storage.load());
-        System.out.println(updatedTasks);
+        return(updatedTasks.toString());
     }
 
     /**

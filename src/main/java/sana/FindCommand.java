@@ -21,22 +21,23 @@ public class FindCommand extends Command {
      * Executes find command task by finding matching tasks in the list/file and printing them out.
      *
      * @param tasks The task list on which the keyword is to be matched against.
-     * @param ui The user interface handling the command execution.
      * @param storage The storage manager for persisting task data.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
+        String matchedTasks = "";
         for (int i = 0; i < tasks.size(); i++) {
             Task currTask = tasks.get(i);
             if (currTask.toString().contains(getArguments())) {
                 matchingTasks.add(currTask);
             }
         }
-        System.out.println("Here are the matching tasks in your list:");
         for (int j = 0; j < matchingTasks.size(); j++) {
-            System.out.println(j + 1 + ". " + matchingTasks.get(j).toString());
+            matchedTasks += j + 1 + ". " + matchingTasks.get(j).toString() + "\n";
         }
+
+        return("Here are the matching tasks in your list:\n" + matchedTasks);
     }
 
     /**

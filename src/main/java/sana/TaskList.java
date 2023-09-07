@@ -93,12 +93,12 @@ public class TaskList {
      * @param taskId the ID of the task to be marked as done.
      * @throws SanaException if the specified task ID is invalid.
      */
-    public void mark(int taskId) throws SanaException {
+    public String mark(int taskId) throws SanaException {
         if (taskId > tasksList.size() || taskId <= 0) {
             throw new SanaException("No such task!");
         }
         tasksList.get(taskId - 1).markAsDone();
-        System.out.println("Nice! I've marked this task as done:\n"
+        return("Nice! I've marked this task as done:\n"
                 + tasksList.get(taskId - 1).toString());
     }
 
@@ -108,12 +108,12 @@ public class TaskList {
      * @param taskId the ID of the task to be marked as not done.
      * @throws SanaException if the specified task ID is invalid.
      */
-    public void unmark(int taskId) throws SanaException {
+    public String unmark(int taskId) throws SanaException {
         if (taskId > tasksList.size() || taskId <= 0) {
             throw new SanaException("No such task!");
         }
         tasksList.get(taskId - 1).markAsNotDone();
-        System.out.println("OK, I've marked this task as not done yet:\n"
+        return("OK, I've marked this task as not done yet:\n"
                 + tasksList.get(taskId - 1).toString());
     }
 
