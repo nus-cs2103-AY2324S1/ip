@@ -1,12 +1,13 @@
 package duke.task;
 
+import duke.exception.DukeDateOutOfRange;
 import duke.exception.DukeNoDateException;
 import duke.exception.DukeNoDescriptionException;
 import duke.processors.TimeProcessor;
 
 public class Deadline extends Task{
     public Deadline(String Description) throws DukeNoDescriptionException,
-            DukeNoDateException{
+            DukeNoDateException, DukeDateOutOfRange{
         super(Description);
         if (Description.split("\\s+").length == 1) {
             throw new DukeNoDescriptionException("Deadline");
