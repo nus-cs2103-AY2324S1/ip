@@ -4,7 +4,9 @@ package duke.tasks;
  * Encapsulates a basic Task.
  */
 public abstract class Task {
+    private static int TASK_COUNT = 1;
     private String itemName;
+    private int id;
     private boolean isDone;
 
     /**
@@ -14,6 +16,9 @@ public abstract class Task {
      */
     public Task(String itemName) {
         this.itemName = itemName;
+        this.id = TASK_COUNT;
+        TASK_COUNT++;
+
     }
 
     @Override
@@ -68,6 +73,14 @@ public abstract class Task {
         return this.itemName;
     }
 
+    /**
+     * Gets the ID
+     *
+     * @return the task id
+     */
+    public int getId() {
+        return this.id;
+    }
 
     /**
      * Gets the task type as a single character.
@@ -81,7 +94,6 @@ public abstract class Task {
 
     /**
      * Encodes the task into a formatted string to be stored in a database
-     *
      */
     public String encodeTask() {
         return this.getTaskType() + " | " + (this.isDone ? "1" : "0") + " | " + this.itemName;
@@ -92,7 +104,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + this.itemName;
+        return "#" + this.id + " [" + this.getTaskType() + "] " + "[" + getStatusIcon() + "] " + this.itemName;
     }
 
 }

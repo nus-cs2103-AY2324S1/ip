@@ -6,11 +6,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import duke.exceptions.DukeException;
+import duke.exceptions.InvalidFormatException;
+import duke.exceptions.UnknownCommandException;
 import duke.storage.Storage;
 import duke.tasks.Commands;
 import duke.tasks.DeadlineTask;
@@ -18,7 +19,6 @@ import duke.tasks.EventTask;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.tasks.TodoTask;
-
 
 
 /**
@@ -39,6 +39,34 @@ public class Parser {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
+     * Determines if the program should terminate.
+     *
+     * @param inputString The user input
+     * @return true if the user input is the 'end' command
+     */
+    public static boolean isTerminateCommand(String inputString) {
+        return inputString.equals("bye");
+    }
+
+    /**
+     * Parses the input string to find the enum command.
+     *
+     * @param inputString the user's input string
+     * @return an enum
+     * @throws UnknownCommandException if the input command is unknown or malformed.
+     */
+    public static Commands getInputCommand(String inputString) throws UnknownCommandException {
+        String inputCommandString = (inputString.split(" ")[0].toUpperCase());
+        if (!Commands.contains(inputCommandString)) {
+            throw new UnknownCommandException();
+        }
+
+        Commands inputCommand = Commands.valueOf(inputCommandString);
+
+        return inputCommand;
+    }
+
+    /**
      * Parses the input string by the user.
      *
      * @param inputString The input string entered by the user.
@@ -47,52 +75,35 @@ public class Parser {
      * @return true if the program can continue, false if the program has to halt.
      * @throws DukeException
      */
-    public static boolean parse(String inputString, TaskList taskList, Storage storage) throws DukeException {
-        String inputCommandString = (inputString.split(" ")[0].toUpperCase());
-        if (!Commands.contains(inputCommandString)) {
-            throw new DukeException(UNKNOWN_COMMAND);
-        }
+    public static void parseAndPrint(String inputString, TaskList taskList, Storage storage) throws DukeException {
 
-        Commands inputCommand = Commands.valueOf(inputCommandString);
+        Commands inputCommand = getInputCommand(inputString);
 
-        boolean canContinue;
         switch (inputCommand) {
-        case BYE: {
-            printResult(inputCommand, null, taskList);
-
-            canContinue = false;
-            break;
-        }
         case LIST: {
             printResult(inputCommand, null, taskList);
-
-            canContinue = true;
             break;
-
         }
         case MARK: {
             // check if is number
             int index = Integer.parseInt(inputString.split(" ")[1]);
-            Optional<Task> markedTask = taskList.markAsDone(index);
+            Task markedTask = taskList.markAsDone(index);
 
             printResult(inputCommand, markedTask, taskList);
-            canContinue = true;
             break;
         }
         case UNMARK: {
             int index = Integer.parseInt(inputString.split(" ")[1]);
-            Optional<Task> unmarkedTask = taskList.markAsUnDone(index);
+            Task unmarkedTask = taskList.markAsUnDone(index);
 
             printResult(inputCommand, (unmarkedTask), taskList);
-            canContinue = true;
             break;
         }
         case DELETE: {
             int index = Integer.parseInt(inputString.split(" ")[1]);
-            Optional<Task> removedTask = taskList.removeFromList(index);
+            Task removedTask = taskList.removeFromList(index);
 
             printResult(inputCommand, removedTask, taskList);
-            canContinue = true;
             break;
         }
         case TODO: {
@@ -101,7 +112,7 @@ public class Parser {
 
             if (itemName.isEmpty()) {
                 // no item name
-                throw new DukeException(NAME_EMPTY);
+                throw new InvalidFormatException(NAME_EMPTY, inputString);
             }
 
 
@@ -109,8 +120,7 @@ public class Parser {
 
             taskList.addToList(todoTask);
 
-            printResult(inputCommand, Optional.of(todoTask), taskList);
-            canContinue = true;
+            printResult(inputCommand, (todoTask), taskList);
             break;
         }
         case DEADLINE: {
@@ -119,19 +129,19 @@ public class Parser {
 
             if (itemName.isEmpty()) {
                 // no item name
-                throw new DukeException(NAME_EMPTY);
+                throw new InvalidFormatException(NAME_EMPTY, inputString);
             }
 
             String[] inputArgs = inputString.replace("deadline ", "").split(" /by ");
             if (inputArgs.length < 2) {
                 // missing deadline
-                throw new DukeException(DEADLINE_EMPTY);
+                throw new InvalidFormatException(DEADLINE_EMPTY, inputString);
             }
             String deadline = inputArgs[1];
 
             if (deadline.isEmpty()) {
                 // no item name
-                throw new DukeException(DEADLINE_EMPTY);
+                throw new InvalidFormatException(DEADLINE_EMPTY, inputString);
             }
 
             // parse the deadline - should be a LocalDate format
@@ -143,13 +153,12 @@ public class Parser {
 
                 taskList.addToList(deadlineTask);
 
-                printResult(inputCommand, Optional.of(deadlineTask), taskList);
+                printResult(inputCommand, (deadlineTask), taskList);
             } catch (DateTimeParseException e) {
-                throw new DukeException(INVALID_DATE_FORMAT);
+                throw new InvalidFormatException(INVALID_DATE_FORMAT, inputString);
             }
 
 
-            canContinue = true;
             break;
         }
         case EVENT: {
@@ -161,7 +170,7 @@ public class Parser {
 
             if (itemName.isEmpty()) {
                 // no item name
-                throw new DukeException(NAME_EMPTY);
+                throw new InvalidFormatException(NAME_EMPTY, inputString);
             }
 
             // get the 'from...to'
@@ -174,7 +183,7 @@ public class Parser {
                 // yes, formatted correctly
                 from = matcherFrom.group(2);
             } else {
-                throw new DukeException(FROM_EMPTY);
+                throw new InvalidFormatException(FROM_EMPTY, inputString);
             }
 
             // parse the 'from'
@@ -185,7 +194,7 @@ public class Parser {
             String to = inputArgs.split("/to ")[1];
 
             if (to.isEmpty()) {
-                throw new DukeException(TO_EMPTY);
+                throw new InvalidFormatException(TO_EMPTY, inputString);
             }
             // parse the 'to'
             LocalDateTime dateTimeTo = LocalDateTime.parse(to, formatter);
@@ -194,77 +203,69 @@ public class Parser {
 
             taskList.addToList(eventTask);
 
-            printResult(inputCommand, Optional.of(eventTask), taskList);
-            canContinue = true;
+            printResult(inputCommand, (eventTask), taskList);
             break;
         }
         case FIND: {
             String searchString = inputString.replace("find ", "");
 
-            ArrayList<Optional<Task>> filtered = taskList.findTasksByName(searchString);
+            ArrayList<Task> filtered = taskList.findTasksByName(searchString);
 
 
             printResult(inputCommand, null, new TaskList(filtered));
-            canContinue = true;
             break;
         }
 
         default:
-            throw new DukeException(UNKNOWN_COMMAND);
+            throw new UnknownCommandException();
         }
 
-        storage.saveTasks(taskList);
+//        storage.saveTasks(taskList);
 
-        return canContinue;
     }
 
     public static String getResponse(String inputString, TaskList taskList, Storage storage) throws DukeException {
-        String inputCommandString = (inputString.split(" ")[0].toUpperCase());
-        if (!Commands.contains(inputCommandString)) {
-            throw new DukeException(UNKNOWN_COMMAND);
-        }
 
-        Commands inputCommand = Commands.valueOf(inputCommandString);
 
-        boolean canContinue;
+        Commands inputCommand = getInputCommand(inputString);
+
         switch (inputCommand) {
         case BYE: {
             printResult(inputCommand, null, taskList);
 
-            return Parser.BREAK_LOOP;
 
             break;
         }
         case LIST: {
-            String result = printResult(inputCommand, null, taskList);
+            printResult(inputCommand, null, taskList);
 
-            canContinue = true;
+
             break;
 
         }
         case MARK: {
             // check if is number
-            int index = Integer.parseInt(inputString.split(" ")[1]);
-            Optional<Task> markedTask = taskList.markAsDone(index);
+            int id = Integer.parseInt(inputString.split(" ")[1]);
+            Task markedTask = taskList.markAsDone(id);
 
             printResult(inputCommand, markedTask, taskList);
-            canContinue = true;
+
             break;
         }
         case UNMARK: {
-            int index = Integer.parseInt(inputString.split(" ")[1]);
-            Optional<Task> unmarkedTask = taskList.markAsUnDone(index);
+            int id = Integer.parseInt(inputString.split(" ")[1]);
+            Task unmarkedTask = taskList.markAsUnDone(id);
 
             printResult(inputCommand, (unmarkedTask), taskList);
-            canContinue = true;
+
             break;
         }
         case DELETE: {
-            int index = Integer.parseInt(inputString.split(" ")[1]);
-            Optional<Task> removedTask = taskList.removeFromList(index);
+            int id = Integer.parseInt(inputString.split(" ")[1]);
+            Task removedTask = taskList.removeFromList(id);
 
             printResult(inputCommand, removedTask, taskList);
-            canContinue = true;
+
             break;
         }
         case TODO: {
@@ -281,8 +282,8 @@ public class Parser {
 
             taskList.addToList(todoTask);
 
-            printResult(inputCommand, Optional.of(todoTask), taskList);
-            canContinue = true;
+            printResult(inputCommand, (todoTask), taskList);
+
             break;
         }
         case DEADLINE: {
@@ -315,13 +316,12 @@ public class Parser {
 
                 taskList.addToList(deadlineTask);
 
-                printResult(inputCommand, Optional.of(deadlineTask), taskList);
+                printResult(inputCommand, (deadlineTask), taskList);
             } catch (DateTimeParseException e) {
                 throw new DukeException(INVALID_DATE_FORMAT);
             }
 
 
-            canContinue = true;
             break;
         }
         case EVENT: {
@@ -366,18 +366,18 @@ public class Parser {
 
             taskList.addToList(eventTask);
 
-            printResult(inputCommand, Optional.of(eventTask), taskList);
-            canContinue = true;
+            printResult(inputCommand, (eventTask), taskList);
+
             break;
         }
         case FIND: {
             String searchString = inputString.replace("find ", "");
 
-            ArrayList<Optional<Task>> filtered = taskList.findTasksByName(searchString);
+            ArrayList<Task> filtered = taskList.findTasksByName(searchString);
 
 
             printResult(inputCommand, null, new TaskList(filtered));
-            canContinue = true;
+
             break;
         }
 
@@ -387,6 +387,6 @@ public class Parser {
 
         storage.saveTasks(taskList);
 
-        return canContinue;
+        return "";
     }
 }

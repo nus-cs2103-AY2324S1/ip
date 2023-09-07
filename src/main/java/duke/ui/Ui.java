@@ -3,6 +3,7 @@ package duke.ui;
 import java.util.Optional;
 import java.util.Scanner;
 
+import duke.exceptions.UnknownCommandException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.Commands;
@@ -50,10 +51,14 @@ public class Ui {
             try {
                 inputString = keyboard.nextLine();
                 printDivider();
-                boolean canContinue = Parser.parse(inputString, taskList, storage);
-                if (!canContinue) {
+                boolean isTerminateCommand = Parser.isTerminateCommand(inputString);
+                if (isTerminateCommand) {
+                    System.out.println("Byebye!");
                     break;
                 }
+                Parser.parseAndPrint(inputString, taskList, storage);
+
+                storage.saveTasks(taskList);
                 printDivider();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -68,71 +73,68 @@ public class Ui {
      *
      * @param command
      */
-    public static String printResult(Commands command, Optional<Task> task, TaskList taskList) {
-        Optional<String> printRes = Optional.empty();
+    public static void printResult(Commands command, Task task, TaskList taskList) throws UnknownCommandException {
+        System.out.println(getResponseMessage(command, task, taskList));
+    }
+
+    /**
+     * Gets the text that a user should see, either in GUI or in command line.
+     *
+     * @param command
+     * @param task
+     * @param taskList
+     * @return
+     */
+    public static String getResponseMessage(Commands command, Task task, TaskList taskList) throws UnknownCommandException {
+        String result = "";
         switch (command) {
         case TODO:
         case DEADLINE:
         case EVENT: {
-            printRes = task.map(t -> {
-//                System.out.println("\uD83D\uDE0A I've added a new task: " + t.toString());
-//                System.out.println("Now you have " + taskList.getSize() + " tasks!");
-                return "\\uD83D\\uDE0A I've added a new task: " + t.toString() + "\n" + "Now you have " + taskList.getSize() + " tasks!";
-
-
-            });
+            result = "\uD83D\uDE0A I've added a new task: " + task + "\n" + "Now you have " + taskList.getSize() + " tasks!";
             break;
         }
         case MARK: {
-//            task.ifPresent(t -> System.out.println("Nice! I've marked this task as done: \n    " + t.toString()));
-            printRes = task.map(t -> {
-                return "Nice! I've marked this task as done: \n    " + t.toString();
-            });
+            result = "Nice! I've marked this task as done: \n    " + task;
 
             break;
         }
         case UNMARK: {
-//            task.ifPresent(t -> System.out.println("Nice! I've marked this task as undone: \n    " + t.toString()));
-            printRes = task.map(t -> "Nice! I've marked this task as undone: \n    " + t.toString());
+            result = "Nice! I've marked this task as undone: \n    " + task;
             break;
         }
         case DELETE: {
-//            task.ifPresent(t -> System.out.println("\uD83D\uDE0A I've removed this task: " + t.toString()));
-            printRes = task.map(t -> "\uD83D\uDE0A I've removed this task: " + t.toString());
+            result = ("\uD83D\uDE0A I've removed this task: " + task);
             break;
         }
         case LIST: {
-            System.out.println(taskList);
-            printRes = Optional.of(taskList.toString());
+            result = taskList.toString();
             break;
         }
         case FIND: {
             if (taskList.getSize() == 0) {
-//                System.out.println("Couldn't find any matching tasks!");
-                printRes = Optional.of("Couldn't find any matching tasks!");
+                result = ("Couldn't find any matching tasks!");
             } else {
-                printRes = Optional.of("I found " + taskList.getSize() + " matching tasks:\n" + taskList);
-//                System.out.println("I found " + taskList.getSize() + " matching tasks:");
-//                System.out.println(taskList.toString());
+                result = "I found " + taskList.getSize() + " matching tasks:" + "\n" + taskList;
+
             }
             break;
         }
         case BYE: {
-//            String exitMsg = "Bye! Hope to see you again soon.";
-//            System.out.println(exitMsg);
-            printRes = Optional.of("Bye! Hope to see you again soon.");
+            result = "Bye! Hope to see you again soon.";
+
 
             break;
         }
         default: {
-            System.out.println("Unhandled enum error!");
+            throw new UnknownCommandException();
 
-            break;
+
         }
         }
-        return printRes.get();
+
+        return result;
     }
-
 
     /**
      * Prints a simple divider line to the screen.

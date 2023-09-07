@@ -1,4 +1,3 @@
-T | 0 | hello
-T | 1 | die
-T | 0 | thrill
-T | 1 | hello
+D | 1 | gell | 2022-03-03T15:20
+T | 1 | akdnfkasd
+T | 0 | ajdjkfajdskf
