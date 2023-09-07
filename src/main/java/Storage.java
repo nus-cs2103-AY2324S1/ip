@@ -35,10 +35,8 @@ public class Storage {
                 Task task = Parser.parseTaskFromFileString(line);
                 tasks.add(task);
             }
-            System.out.println("Tasks loaded successfully!");
             return tasks;
         } catch (IOException e) {
-            System.out.println("Tasks failed to load");
             throw new NoTaskFoundException();
         }
     }

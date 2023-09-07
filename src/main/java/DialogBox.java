@@ -47,10 +47,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns the DialogBox of the user on the right side of the Chat.
+     *
+     * @param text The message the user has typed.
+     * @param img The image of the user.
+     * @return The DialogBox of the user.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns the DialogBox of Chewy on the left side of the Chat.
+     *
+     * @param text The message Chewy responded with.
+     * @param img The image of Chewy.
+     * @return The DialogBox of Chewy.
+     */
     public static DialogBox getChewyDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

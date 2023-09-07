@@ -1,64 +1,78 @@
 import Exceptions.DukeException;
 import java.util.Scanner;
 public class Duke {
-    private final Ui _ui;
-    private TaskList _taskList;
-    private final Storage _storage;
+    private final Ui ui;
+    private TaskList taskList;
+    private final Storage storage;
     public static final String DATA_FILE_PATH = "data/duke.txt";
 
     public Duke(String filepath) {
-        _ui = new Ui();
-        _storage = new Storage(filepath);
+        this.ui = new Ui();
+        this.storage = new Storage(filepath);
         try {
-            _taskList = new TaskList(_storage.load());
+            this.taskList = new TaskList(this.storage.load());
         } catch (DukeException e) {
-            _ui.showDukeError(e);
-            _taskList = new TaskList();
+            this.ui.showDukeError(e);
+            this.taskList = new TaskList();
         }
     }
 
-    public void run() {
-        _ui.showWelcome();
-        // Create a scanner object to read commands entered by the user
-        Scanner scanner = new Scanner(System.in);
+    /**
+     * Loads the list of tasks from the data file.
+     * @return The status of loading the list of tasks.
+     */
+    public String loadTasks() {
+        try {
+            this.taskList = new TaskList(this.storage.load());
+            return "Tasks loaded successfully!";
+        } catch (DukeException e) {
+            this.taskList = new TaskList();
+            return "Tasks failed to load" + this.ui.showDukeError(e);
+        } catch (Exception e) {
+            return this.ui.showException(e);
+        }
+    }
 
-        // Start command loop
-        while (true) {
-            // Read the next line of input
-            String userInput = scanner.nextLine();
+    /**
+     * Shows the welcome message.
+     * @return the welcome message.
+     */
+    public String showWelcome() {
+        return this.ui.showWelcome();
+    }
 
-            try {
-                if (userInput.equals("bye")) {
-                    System.out.println("Bye. Hope to see you again soon!");
-                    break;
-                } else if (userInput.equals("help")) {
-                    _ui.displayHelpMessage();
-                } else if (userInput.equals("list")) {
-                    _taskList.listTasks();
-                } else if (userInput.startsWith("mark")) {
-                    _taskList.markTaskAsDone(userInput);
-                    _taskList.saveTask(_storage.filepath);
-                } else if (userInput.startsWith("unmark")) {
-                    _taskList.unmarkTaskAsDone(userInput);
-                    _taskList.saveTask(_storage.filepath);
-                } else if (userInput.startsWith("delete")) {
-                    _taskList.deleteTask(userInput);
-                    _taskList.saveTask(_storage.filepath);
-                } else if (userInput.startsWith("find")) {
-                    _taskList.findTasks(userInput);
-                } else {
-                    _taskList.addTask(userInput);
-                    _taskList.saveTask(_storage.filepath);
-                }
-            } catch (DukeException e) {
-                _ui.showDukeError(e);
-            } catch (Exception e) {
-                _ui.showException(e);
+    /**
+     * Returns Chewy's response to the user's input.
+     * @param userInput The user's input.
+     * @return Chewy's response.
+     */
+    public String getResponse(String userInput) {
+        try {
+            if (userInput.equals("bye")) {
+                return this.ui.displayFarewellMessage();
+            } else if (userInput.equals("help")) {
+                return this.ui.displayHelpMessage();
+            } else if (userInput.equals("list")) {
+                return this.taskList.listTasks();
+            } else if (userInput.startsWith("mark")) {
+                return this.taskList.markTaskAsDone(userInput)
+                        + this.taskList.saveTask(this.storage.filepath);
+            } else if (userInput.startsWith("unmark")) {
+                return this.taskList.unmarkTaskAsDone(userInput)
+                        + this.taskList.saveTask(this.storage.filepath);
+            } else if (userInput.startsWith("delete")) {
+                return this.taskList.deleteTask(userInput)
+                        + this.taskList.saveTask(this.storage.filepath);
+            } else if (userInput.startsWith("find")) {
+                return this.taskList.findTasks(userInput);
+            } else {
+                return this.taskList.addTask(userInput)
+                        + this.taskList.saveTask(this.storage.filepath);
             }
+        } catch (DukeException e) {
+            return this.ui.showDukeError(e);
+        } catch (Exception e) {
+            return this.ui.showException(e);
         }
-    }
-
-    public String getResponse(String input) {
-        return "";
     }
 }

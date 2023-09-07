@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -30,6 +31,17 @@ public class MainWindow extends AnchorPane {
 
     public void setDuke(Duke d) {
         duke = d;
+    }
+
+    /**
+     * Creates the two dialog boxes that are shown at the start of the program.
+     * One of them is the welcome message and the other is the load task status.
+     */
+    public void onStart() {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getChewyDialog(this.duke.showWelcome(), chewyImage),
+                DialogBox.getChewyDialog(this.duke.loadTasks(), chewyImage)
+        );
     }
 
     /**
