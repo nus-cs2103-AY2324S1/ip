@@ -6,10 +6,10 @@ import duke.main.Ui;
 
 /** Command to find tasks based on search string */
 public class FindCommand implements Command {
-    private final String searchString;
+    private final String stringToSearch;
 
-    public FindCommand(String searchString) {
-        this.searchString = searchString;
+    public FindCommand(String stringToSearch) {
+        this.stringToSearch = stringToSearch;
     }
 
     /**
@@ -21,6 +21,7 @@ public class FindCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        output.append(taskList.print(searchString));
+        String[] splitString = stringToSearch.split(" ");
+        output.append(taskList.print(splitString));
     }
 }
