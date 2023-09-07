@@ -1,25 +1,252 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="robert.ui.MainWindow">
     <children>
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="680.0" prefWidth="920.0" vvalue="1.0">
-            <content>
-                <VBox fx:id="dialogContainer" prefHeight="680.0" prefWidth="920.0" style="-fx-background-color: #AAAAAA;" />
-            </content>
-        </ScrollPane>
-      <HBox alignment="CENTER" layoutY="680.0" prefHeight="70.0" prefWidth="920.0" style="-fx-background-color: #555555; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,1), 10, 0, 0, 0);">
+      <Pane prefHeight="140.0" prefWidth="500.0">
          <children>
-              <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="42.0" prefWidth="800.0" style="-fx-background-color: #555555; -fx-text-fill: #FFFFFF; -fx-font-size: large;" />
-              <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="39.0" prefWidth="50.0" text="Send" />
+            <Button fx:id="taskButton" alignment="TOP_CENTER" layoutX="330.0" layoutY="16.0" mnemonicParsing="false" onAction="#showTasks" prefHeight="70.0" prefWidth="160.0" style="-fx-background-color: #AAAAAA; -fx-background-radius: 20 20 0 0;" text="Task List">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" />
+               </effect>
+            </Button>
+            <Button fx:id="cmdButton" alignment="TOP_CENTER" layoutX="170.0" layoutY="16.0" mnemonicParsing="false" onAction="#showCommands" prefHeight="70.0" prefWidth="160.0" style="-fx-background-color: #CCCCCC; -fx-background-radius: 20 20 0 0;" text="Commands">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" />
+               </effect>
+            </Button>
+              <Button fx:id="introButton" alignment="TOP_CENTER" layoutX="10.0" layoutY="16.0" mnemonicParsing="false" onAction="#showIntroduction" prefHeight="70.0" prefWidth="160.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 20 20 0 0;" text="Introduction">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" />
+               </effect>
+            </Button>
          </children>
+      </Pane>
+      <VBox fx:id="taskTab" alignment="TOP_CENTER" layoutX="10.0" layoutY="85.0" prefHeight="630.0" prefWidth="480.0" style="-fx-background-color: #AAAAAA; -fx-background-radius: 0 0 20 20;">
+         <children>
+            <Label alignment="CENTER" prefHeight="300.0" prefWidth="480.0" style="-fx-background-radius: 10;" text="Task listing function to be added soon..." textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Cambria" size="21.0" />
+               </font>
+               <padding>
+                  <Insets left="50.0" right="50.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+      <VBox fx:id="cmdTab" alignment="TOP_CENTER" layoutX="10.0" layoutY="85.0" prefHeight="630.0" prefWidth="480.0" style="-fx-background-color: #CCCCCC; -fx-background-radius: 0 0 20 20;">
+         <children>
+            <ScrollPane hbarPolicy="NEVER" prefHeight="630.0" prefWidth="480.0" style="-fx-background-radius: 10; -fx-background-color: #CCCCCC;">
+               <content>
+                  <TextFlow prefHeight="903.0" prefWidth="425.0" style="-fx-background-color: #CCCCCC;">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-style: italic; -fx-font-weight: bold;" text="list&#10;">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="List all of your tracked items.&#10;&#10;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-style: italic; -fx-font-weight: bold;" text="todo [description]&#10;">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add a 'todo' task with a given description to your list of items.&#10;&#10;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-style: italic; -fx-font-weight: bold;" text="event [desc] /from [YYYY-MM-DD] /to [YYYY-MM-DD]&#10;">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add an 'event' task with a given description, start date and end date to your list of items.&#10;&#10;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-style: italic; -fx-font-weight: bold;" text="deadline [desc] /by [YYYY-MM-DD]&#10;">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add a 'deadline' task with a given description and a due date to your list of items.&#10;&#10;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-style: italic; -fx-font-weight: bold;" text="delete [index]&#10;">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Delete a tracked item with a reference index from the list.&#10;&#10;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-style: italic; -fx-font-weight: bold;" text="clear&#10;">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Remove all tracked tasks from your list.&#10;&#10;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-style: italic; -fx-font-weight: bold;" text="filter [YYYY-MM-DD]&#10;">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Retrieve all deadline tasks with indicated due date or 'event' tasks that is happening on indicated date.&#10;&#10;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-style: italic; -fx-font-weight: bold;" text="find [keyword]&#10;">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Retrieve all items that are associated to the keyword.&#10;&#10;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-style: italic; -fx-font-weight: bold;" text="mark [index]&#10;">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mark an item as done with a reference index from the list.&#10;&#10;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-style: italic; -fx-font-weight: bold;" text="unmark [index]&#10;">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Unmark a marked item with a reference index from the list.&#10;&#10;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-style: italic; -fx-font-weight: bold;" text="bye&#10;">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Exit from the programme.">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <padding>
+                        <Insets top="20.0" />
+                     </padding>
+                  </TextFlow>
+               </content>
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin>
+            </ScrollPane>
+         </children>
+      </VBox>
+      <VBox fx:id="introTab" alignment="TOP_CENTER" layoutX="10.0" layoutY="85.0" prefHeight="630.0" prefWidth="480.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 0 0 20 20;">
+         <children>
+            <ImageView fx:id="introPicture" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </ImageView>
+            <Label alignment="TOP_CENTER" prefHeight="300.0" prefWidth="480.0" style="-fx-background-radius: 10;" text="Hi, I am Robert, your Personal Assistant Chatbot. I am here to help you keep track of various things! For more information about the commands you can use, click on the tabs above." textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Cambria" size="21.0" />
+               </font>
+               <padding>
+                  <Insets left="50.0" right="50.0" top="40.0" />
+               </padding>
+            </Label>
+         </children>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" height="0.0" radius="4.75" />
+         </effect>
+      </VBox>
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="500.0" prefHeight="680.0" prefWidth="700.0" vvalue="1.0">
+            <content>
+                <VBox fx:id="dialogContainer" prefHeight="680.0" prefWidth="700.0" style="-fx-background-color: #AAAAAA;" />
+            </content>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" />
+         </effect>
+        </ScrollPane>
+      <HBox alignment="CENTER" layoutX="500.0" layoutY="679.0" prefHeight="70.0" prefWidth="700.0" style="-fx-background-color: #555555;">
+         <children>
+              <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="42.0" prefWidth="600.0" style="-fx-background-color: #555555; -fx-text-fill: #FFFFFF; -fx-font-size: large;" />
+            <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" text="Send">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" />
+         </effect>
       </HBox>
-      <VBox layoutX="920.0" prefHeight="750.0" prefWidth="280.0" style="-fx-background-color: #444444;" />
     </children>
 </AnchorPane>

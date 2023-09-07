@@ -2,9 +2,11 @@ package robert.ui;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import robert.Robert;
@@ -21,18 +23,36 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
+    @FXML
+    private Button introButton;
+    @FXML
+    private Button cmdButton;
+    @FXML
+    private Button taskButton;
+    @FXML
+    private VBox introTab;
+    @FXML
+    private VBox cmdTab;
+    @FXML
+    private VBox taskTab;
+
+
     private Robert robert;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image robertImage = new Image(this.getClass().getResourceAsStream("/images/DaRobert.png"));
+
+    @FXML
+    private ImageView introPicture;
+
 
     /**
      * Initialises the GUI of Robert with some configurations.
      */
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         scrollPane.setFitToWidth(true);
+        introPicture.setImage(new Image(this.getClass().getResourceAsStream("/images/DaSecondRobert.png")));
     }
 
     /**
@@ -76,6 +96,41 @@ public class MainWindow extends AnchorPane {
                 Platform.exit();
             }).start();
         }
+
+        // manually layout scrollPane for scrolling to the bottom.
+        scrollPane.applyCss();
+        scrollPane.layout();
+        scrollPane.setVvalue(1.0);
+
         userInput.clear();
+    }
+
+    /**
+     * Show the introduction tab in GUI.
+     */
+    @FXML
+    private void showIntroduction() {
+        cmdButton.toFront();
+        introButton.toFront();
+        introTab.toFront();
+    }
+
+    /**
+     * Show the commands tab in GUI.
+     */
+    @FXML
+    private void showCommands() {
+        cmdButton.toFront();
+        cmdTab.toFront();
+    }
+
+    /**
+     * Show the tasks tab in GUI.
+     */
+    @FXML
+    private void showTasks() {
+        cmdButton.toFront();
+        taskButton.toFront();
+        taskTab.toFront();
     }
 }
