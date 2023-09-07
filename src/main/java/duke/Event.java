@@ -1,8 +1,11 @@
 package duke;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
+/**
+ * Event
+ */
 public class Event extends Task {
 
     protected String from;

@@ -1,13 +1,14 @@
 package duke;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeadlineTest {
 
     @Test
-    public void toStringTest(){
+    public void toStringTest() {
         assertEquals("[D][ ] Test deadline (by: Aug 31 2023, 18:00)", (new Deadline("Test deadline",
                 "31-08-2023 18:00", false)).toString());
 

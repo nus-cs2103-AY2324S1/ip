@@ -1,15 +1,17 @@
 package duke;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 
 public class ToDoTest {
     @Test
-    public void toStringTest(){
+    public void toStringTest() {
         assertEquals("[T][ ] Test message", (new ToDos("Test message", false)).toString());
     }
 
     @Test
-    public void markAsDone(){
+    public void markAsDone() {
         ToDos todo2 = new ToDos("Test marked message", true);
         todo2.markTask();
         assertEquals("[T][X] Test marked message", todo2.toString());

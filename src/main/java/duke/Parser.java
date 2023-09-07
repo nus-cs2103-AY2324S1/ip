@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Parses the string
+ */
 public class Parser {
 
     /**
@@ -20,7 +23,8 @@ public class Parser {
 
         if (matcher.find()) {
             String dateAndTime = matcher.group(1);
-            LocalDateTime dateTime = LocalDateTime.parse(dateAndTime, DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm"));
+            LocalDateTime dateTime = LocalDateTime.parse(dateAndTime,
+                    DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm"));
             String formattedDateTime = dateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
             String result = input.replaceFirst("by: " + dateAndTime, "/by " + formattedDateTime);
             result = result.replace(")", "");
@@ -49,8 +53,8 @@ public class Parser {
             try {
                 Date fromDate = inputDateFormat.parse(matcher.group(2));
                 Date toDate = inputDateFormat.parse(matcher.group(3));
-
-                String replacement = "/from " + outputDateFormat.format(fromDate) + " /to " + outputDateFormat.format(toDate);
+                String replacement = "/from " + outputDateFormat.format(fromDate) + " /to "
+                        + outputDateFormat.format(toDate);
                 matcher.appendReplacement(sb, replacement);
             } catch (java.text.ParseException e) {
                 e.printStackTrace();
