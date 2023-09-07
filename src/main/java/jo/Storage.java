@@ -25,9 +25,17 @@ public class Storage {
      *
      * @param filePath The file path where task data is stored.
      */
-    public Storage(String filePath) {
+    public Storage(String filePath) throws JoException {
         this.filePath = filePath;
         this.f = new File(filePath);
+        if (!this.f.exists()) {
+            try {
+                // Create a new file
+                this.f.createNewFile();
+            } catch (IOException e) {
+                throw new JoException(e.getMessage());
+            }
+        }
     }
 
     /**

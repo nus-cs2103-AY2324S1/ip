@@ -9,7 +9,7 @@ import jo.command.Command;
 public class Jo {
     protected static String filePath = "data/jo.txt";
 
-    private final Storage storage;
+    private Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
@@ -18,10 +18,10 @@ public class Jo {
      *
      * @param filePath The file path for storing task data.
      */
-    public Jo(String filePath) {
+    public Jo(String filePath) throws JoException {
         ui = new Ui();
-        storage = new Storage(filePath);
         try {
+            storage = new Storage(filePath);
             tasks = new TaskList(storage.load());
         } catch (JoException e) {
             ui.showError(e.getMessage());
@@ -47,7 +47,7 @@ public class Jo {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JoException {
         new Jo(filePath).run();
     }
 }
