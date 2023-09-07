@@ -8,9 +8,9 @@ import java.util.Scanner;
  */
 public class Ui {
     /** Line separator to separate input and output */
-    private static String lineBreak = "____________________________________________________________";
+    private static final String LINE_BREAK = "____________________________________________________________";
     /** Logo used on startup */
-    private static String logo = "\r\n"
+    private static final String LOGO = "\r\n"
             + "__________               __                          \r\n"
             + "\\______   \\ ____   ____ |  | __ _____ _____    ____  \r\n"
             + " |       _//  _ \\_/ ___\\|  |/ //     \\\\__  \\  /    \\ \r\n"
@@ -40,7 +40,7 @@ public class Ui {
      * @param words
      */
     public void respond(String words) {
-        String response = words + "\n" + lineBreak;
+        String response = words + "\n" + LINE_BREAK;
         say(response.replaceAll("\n", "\n\t"));
     }
     /**
@@ -48,7 +48,7 @@ public class Ui {
      * on startup of the bot
      */
     public void startup() {
-        say(logo);
+        say(LOGO);
         respond("Startup successful!");
     }
     /**

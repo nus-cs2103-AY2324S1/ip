@@ -12,21 +12,21 @@ public abstract class Task implements Serializable {
     /** One letter abbreviation for the task. */
     protected String oneLetterAbbrev;
     /** Whether the task has been completed */
-    private boolean completed;
+    private boolean isCompleted;
     /**
      * Creates a task with the given name
      * @param taskName Name of task
      */
     public Task(String taskName) {
         this.taskName = taskName;
-        completed = false;
+        isCompleted = false;
     }
     /**
      * Checks if a task is completed
      * @return State of completeness of task
      */
     public boolean isCompleted() {
-        return this.completed;
+        return this.isCompleted;
     }
     /**
      * Sets the completion state of task
@@ -35,14 +35,14 @@ public abstract class Task implements Serializable {
      *     of task to.
      */
     public void setCompleted(boolean completed) {
-        if (this.completed == completed) {
+        if (this.isCompleted() == completed) {
             if (completed) {
                 throw new IllegalArgumentException("Task is already marked!");
             } else {
                 throw new IllegalArgumentException("Task is already unmarked");
             }
         }
-        this.completed = completed;
+        this.isCompleted = completed;
     }
     public String getName() {
         return this.taskName;
@@ -54,8 +54,12 @@ public abstract class Task implements Serializable {
      */
     @Override
     public String toString() {
-        return this.isCompleted()
-            ? "[" + this.oneLetterAbbrev + "][X] " + this.taskName
-            : "[" + this.oneLetterAbbrev + "][ ] " + this.taskName;
+        String marked;
+        if (this.isCompleted()) {
+            marked = "X";
+        } else {
+            marked = " ";
+        }
+        return String.format("[%s][%s] %s",this.oneLetterAbbrev, marked, this.taskName);
     }
 }

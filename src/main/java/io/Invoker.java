@@ -28,6 +28,7 @@ public class Invoker {
      * @param inputString User's input.
      */
     public String handle(String inputString) throws RockException {
+        //Removes the command name from the string, such that the rest of the string can be parsed.
         Parser input = new Parser(removeFirstWord(inputString));
         String keyword = inputString.split(" ")[0];
         try {
