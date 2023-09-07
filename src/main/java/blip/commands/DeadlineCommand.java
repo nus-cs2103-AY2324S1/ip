@@ -37,10 +37,10 @@ public class DeadlineCommand extends Command {
      * @param storage The storage for Blip
      */
     @Override
-    public void execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
+    public String execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
         Deadline deadlineTask = new Deadline(description, deadline, false);
         taskList.addTask(deadlineTask);
         storage.saveToFile(taskList);
-        ui.addsTasksMsg(deadlineTask, taskList.size());
+        return ui.addsTasksMsg(deadlineTask, taskList.size());
     }
 }

@@ -43,10 +43,10 @@ public class EventCommand extends Command {
      * @param storage The storage for Blip
      */
     @Override
-    public void execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
+    public String execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
         Event eventTask = new Event(description, eventStart, eventEnd, false);
         taskList.addTask(eventTask);
         storage.saveToFile(taskList);
-        ui.addsTasksMsg(eventTask, taskList.size());
+        return ui.addsTasksMsg(eventTask, taskList.size());
     }
 }

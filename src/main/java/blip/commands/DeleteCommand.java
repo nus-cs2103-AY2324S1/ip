@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
      * @param storage The storage for Blip
      */
     @Override
-    public void execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
+    public String execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
         // Task number does not exist.
         try {
             if (this.index < 0 || this.index >= taskList.size()) {
@@ -38,9 +38,9 @@ public class DeleteCommand extends Command {
             Task taskToDelete = taskList.getTask(index);
             taskList.deleteTask(index);
             storage.saveToFile(taskList);
-            ui.deletesTasksMsg(taskToDelete, taskList.size());
+            return ui.deletesTasksMsg(taskToDelete, taskList.size());
         } catch (WrongNumberException e) {
-            ui.showInvalidTaskNumErr();
+            return ui.showInvalidTaskNumErr();
         }
     }
 }

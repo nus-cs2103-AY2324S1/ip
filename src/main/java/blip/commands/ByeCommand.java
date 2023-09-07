@@ -16,7 +16,7 @@ public class ByeCommand extends Command {
      * @param storage The storage for Blip
      */
     @Override
-    public void execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
-        ui.showOutro();
+    public String execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
+        return ui.showOutro();
     }
 }

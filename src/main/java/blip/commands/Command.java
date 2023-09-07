@@ -14,7 +14,7 @@ public abstract class Command {
      * @param ui The user interface of Blip
      * @param storage The storage for Blip
      */
-    public abstract void execute(TaskList taskList, BlipUI ui, BlipStorage storage);
+    public abstract String execute(TaskList taskList, BlipUI ui, BlipStorage storage);
 
 
 }

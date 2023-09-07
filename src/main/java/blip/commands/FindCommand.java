@@ -28,9 +28,9 @@ public class FindCommand extends Command {
      * @param storage The storage for Blip
      */
     @Override
-    public void execute(TaskList tasks, BlipUI ui, BlipStorage storage) {
+    public String execute(TaskList tasks, BlipUI ui, BlipStorage storage) {
         if (tasks.size() == 0) {
-            ui.showNoMatchingTasksMsg();
+            return ui.showNoMatchingTasksMsg();
         }
         int numOfTasksMatched = 0;
         for (int i = 0; i < tasks.size(); i++) {
