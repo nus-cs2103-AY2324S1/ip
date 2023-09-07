@@ -28,12 +28,13 @@ public class ToDoCommand extends Command {
      *
      * @param tasks The task list.
      * @param ui    The user interface.
+     * @return The response to the user input.
      */
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         Task task = new ToDo(description);
         tasks.addTask(task);
-        ui.showTodoMessage(task);
-        ui.showTaskListSizeMessage(tasks.getSize(), true);
+        return ui.showTodoMessage(task) + "\n" +
+                ui.showTaskListSizeMessage(tasks.getSize(), true);
     }
 
     @Override

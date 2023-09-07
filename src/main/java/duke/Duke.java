@@ -1,5 +1,6 @@
 package duke;
 
+import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.InvalidCommand;
 import duke.parser.Parser;
@@ -25,8 +26,10 @@ public class Duke {
      */
     public Duke() {
         ui = new Ui();
+
         storage = new Storage(ui);
         parser = new Parser(ui);
+
         try {
             list = new TaskList(storage.readFile());
         } catch (Exception e) {
@@ -35,33 +38,23 @@ public class Duke {
         }
     }
 
-    /**
-     * Runs the application.
-     * Starts the interaction with the user.
-     */
-    public void run() {
-        ui.showStartMessage();
 
-        Command command = new InvalidCommand();
-        while (command.type != Command.CommandType.BYE) {
-            command = parser.parseCommand(ui.readCommand());
-            command.execute(list, ui);
-        }
-
-        // Write to file
-        try {
-            storage.writeFile(list);
-        } catch (Exception e) {
-            ui.showError("Error writing to file.");
-        }
-    }
-
-    /**
-     * Starts the application by calling the run method.
+    /** 
+     * Parses the user input and executes the command.
      * 
-     * @param args Command line arguments.
-     */
-    public static void main(String[] args) {
-        new Duke().run();
+     * @param input The user input.
+     * @return The response to the user input.
+    */
+    public String getResponse(String input) {
+        Command command = parser.parseCommand(input.trim());
+        if (command instanceof ByeCommand){
+            try {
+                command.execute(list, ui);
+                storage.writeFile(list);
+            } catch (Exception e) {
+                return ui.showError("Error writing to file.");
+            }
+        }
+        return command.execute(list, ui);
     }
 }

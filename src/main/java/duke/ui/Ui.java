@@ -9,182 +9,140 @@ import duke.task.TaskList;
  */
 public class Ui {
 
-    String logo = " ___  __    ________  ________  ________   ________  ________      \r\n" + //
-            "|\\  \\|\\  \\ |\\   __  \\|\\   __  \\|\\   ___  \\|\\   __  \\|\\   ____\\     \r\n" + //
-            "\\ \\  \\/  /|\\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\\\ \\  \\ \\  \\|\\  \\ \\  \\___|_    \r\n" + //
-            " \\ \\   ___  \\ \\   _  _\\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\\\\\  \\ \\_____  \\   \r\n" + //
-            "  \\ \\  \\\\ \\  \\ \\  \\\\  \\\\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\\\\\  \\|____|\\  \\  \r\n" + //
-            "   \\ \\__\\\\ \\__\\ \\__\\\\ _\\\\ \\_______\\ \\__\\\\ \\__\\ \\_______\\____\\_\\  \\ \r\n" + //
-            "    \\|__| \\|__|\\|__|\\|__|\\|_______|\\|__| \\|__|\\|_______|\\_________\\\r\n" + //
-            "                                                       \\|_________|";
-
-    String divider = "\n____________________________________________________________\n";
-
-    Scanner sc;
-
     /**
-     * Initialises the Ui by creating a scanner object for user inputs.
+     * Initialises the Ui.
      */
     public Ui() {
-        sc = new Scanner(System.in);
     }
 
     /**
-     * Prints the divider.
+     * Returns message for invalid command.
+     * 
+     * @return The message for invalid command.
      */
-    public void printDivider() {
-        System.out.println(divider);
+    public String showInvalidCommandMessage() {
+        return "Do not test my patience, mortal. Speak clearly.";
     }
 
     /**
-     * Prints message for invalid command.
+     * Returns the welcome message.
+     * 
+     * @return The welcome message.
      */
-    public void showInvalidCommandMessage() {
-        printDivider();
-        showError("Do not test my patience, mortal. Speak clearly.");
-        printDivider();
+    public String showStartMessage() {
+        return "Greetings, puny mortal. This is Kronos, The Lord of Time. \nWhat foolish errand do you seek to accomplish with my immense powers?";
     }
 
     /**
-     * Prints the welcome message.
-     */
-    public void showStartMessage() {
-        System.out.println("Greetings, puny mortal. This is \n" + logo
-                + "\nThe Lord of Time. \nWhat foolish errand do you seek to accomplish with my immense powers?");
-        printDivider();
-    }
-
-    /**
-     * Prints the error message.
+     * Shows the error message.
      * 
      * @param errorMessage The error message to be printed.
+     * @return The error message.
      */
-    public void showError(String errorMessage) {
-        System.out.println(errorMessage);
-    }
-
-    /**
-     * Takes in one user input as a String.
-     * 
-     * @return The user input as a String.
-     */
-    public String readCommand() {
-        return sc.nextLine();
+    public String showError(String errorMessage) {
+        return errorMessage;
     }
 
     /**
      * Prints the list of tasks.
      * 
-     * @param taskList The list of tasks to be printed.
+     * @param taskList  The list of tasks to be printed.
      * @param searching Whether the list is for a search (true for search).
      */
-    public void listTasks(TaskList taskList, boolean searching) {
-        printDivider();
+    public String listTasks(TaskList taskList, boolean searching) {
+        String output = "";
         if (searching) {
-            System.out.println("The following tasks match what you seek:\n");
+            output += "The following tasks match what you seek:\n";
         } else {
-            System.out.println("You have somehow found the audacity to conjure up this laughable list of inconsequential endeavours:\n");
+            output += "You have somehow found the audacity to conjure up this laughable list of inconsequential endeavours:\n";
         }
         for (int i = 1; i <= taskList.getSize(); i++) {
-            System.out.println(i + ". " + taskList.getTask(i - 1));
+            output += (i + ". " + taskList.getTask(i - 1) + "\n");
         }
-        printDivider();
+        return output;
     }
 
     /**
-     * Prints the message for when a task is marked as done.
+     * Returns the message for when a task is marked as done.
      * 
      * @param task The task that was marked as done.
      */
-    public void showMarkTaskMessage(Task task) {
-        printDivider();
-        System.out.println(
-                "Astonishingly enough, you have managed to triumph over this mind-bogglingly simple task:\n");
-        System.out.println(task.toString());
-        printDivider();
+    public String showMarkTaskMessage(Task task) {
+        return "Astonishingly enough, you have managed to triumph over this mind-bogglingly simple task:\n\n"
+                + task.toString();
     }
 
     /**
-     * Prints the message for when a task is unmarked.
+     * Returns the message for when a task is unmarked.
      * 
      * @param task The task that was unmarked.
+     * @return The message for when a task is unmarked.
      */
-    public void showUnmarkTaskMessage(Task task) {
-        printDivider();
-        System.out.println(
-                "You have somehow managed to fail this mind-bogglingly simple task:\n");
-        System.out.println(task.toString());
-        printDivider();
+    public String showUnmarkTaskMessage(Task task) {
+        return "You have somehow managed to fail this mind-bogglingly simple task:\n\n" + task.toString();
     }
 
     /**
-     * Prints the message for when a todo task is added.
+     * Returns the message for when a todo task is added.
      * 
      * @param task The todo task that was added.
+     * @return The message for when a todo task is added.
      */
-    public void showTodoMessage(Task task) {
-        printDivider();
-        System.out.println("This task has been reluctantly bestowed upon your ever-growing list:\n");
-        System.out.println(task.toString());
+    public String showTodoMessage(Task task) {
+        return "This task has been reluctantly bestowed upon your ever-growing list:\n\n" + task.toString();
     }
 
     /**
-     * Prints the message for when a deadline task is added.
+     * Returns the message for when a deadline task is added.
      * 
      * @param task The deadline task that was added.
+     * @return The message for when a deadline task is added.
      */
-    public void showDeadlineMessage(Task task) {
-        printDivider();
-        System.out.println(
-                "With your constant mediocrity, it is entirely unlikely that you will be able to meet this deadline I have just added: \n");
-        System.out.println(task.toString());
+    public String showDeadlineMessage(Task task) {
+        return "With your constant mediocrity, it is entirely unlikely that you will be able to meet this deadline I have just added: \n\n"
+                + task.toString();
     }
 
     /**
-     * Prints the message for when an event task is added.
+     * Returns the message for when an event task is added.
      * 
      * @param task The event task that was added.
+     * @return The message for when an event task is added.
      */
-    public void showEventMessage(Task task) {
-        printDivider();
-        System.out.println(
-                "Looks like I will have to slow time down myself if you wish to make it to this event I just added:\n");
-        System.out.println(task.toString());
+    public String showEventMessage(Task task) {
+        return "Looks like I will have to slow time down myself if you wish to make it to this event I just added:\n\n + "
+                + task.toString();
     }
 
     /**
-     * Prints the message for when a task is deleted.
+     * Returns the message for when a task is deleted.
      * 
      * @param task The task that was deleted.
+     * @return The message for when a task is deleted.
      */
-    public void showDeleteMessage(Task task) {
-        printDivider();
-        System.out.println(
-                "One less annoyance to plague your feeble list. This task has been banished:\n");
-        System.out.println(task.toString());
+    public String showDeleteMessage(Task task) {
+        return "One less annoyance to plague your feeble list. This task has been banished:\n\n" + task.toString();
     }
 
     /**
-     * Prints the end message.
+     * Returns the end message.
      */
-    public void showEndMessage() {
-        printDivider();
-        System.out.println("Is that all? I have better things to do than to listen to lesser beings. Farewell.");
-        printDivider();
+    public String showEndMessage() {
+        return "Is that all? I have better things to do than to listen to lesser beings. Farewell.";
     }
 
     /**
-     * Prints the message for when the task list size changes.
+     * Returns the message for when the task list size changes.
      * 
      * @param size    The new size of the task list.
      * @param growing Whether a task was added or removed (true for added).
+     * @return The message for when the task list size changes.
      */
-    public void showTaskListSizeMessage(int size, boolean growing) {
+    public String showTaskListSizeMessage(int size, boolean growing) {
         if (growing) {
-            System.out.println("Congratulations, your pile of tasks has swelled to a whopping " + size + ".");
+            return "Congratulations, your pile of tasks has swelled to a whopping " + size + ".";
         } else {
-            System.out.println("Your pile of tasks has shrunk to a measly " + size + ".");
+            return "Your pile of tasks has shrunk to a measly " + size + ".";
         }
-        printDivider();
     }
 }

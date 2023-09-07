@@ -24,10 +24,11 @@ public class FindCommand extends Command {
      * 
      * @param tasks The task list to find tasks from.
      * @param ui The ui to display the matching tasks.
+     * @return The response to the user input.
      */
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         TaskList matchingTasks = tasks.findTasks(searchTerm);
-        ui.listTasks(matchingTasks, true);
+        return ui.listTasks(matchingTasks, true);
     }
 
     @Override

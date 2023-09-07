@@ -26,16 +26,15 @@ public class DeleteCommand extends Command {
      *
      * @param tasks The task list.
      * @param ui    The user interface.
+     * @return The response to the user input.
      */
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         try {
             Task task = tasks.getTask(taskNum - 1);
             tasks.deleteTask(taskNum - 1);
-            ui.showDeleteMessage(task);
-            ui.showTaskListSizeMessage(tasks.getSize(), false);
+            return ui.showDeleteMessage(task) + ui.showTaskListSizeMessage(tasks.getSize(), false);
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("You have no such task, mortal.");
-            return;
+            return ui.showError("You have no such task, mortal.");
         }
     }
 

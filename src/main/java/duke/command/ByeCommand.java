@@ -21,8 +21,8 @@ public class ByeCommand extends Command {
      * @param tasks The task list.
      * @param ui    The user interface.
      */
-    public void execute(TaskList tasks, Ui ui) {
-        ui.showEndMessage();
+    public String execute(TaskList tasks, Ui ui) {
+        return ui.showEndMessage();
     }
     
     @Override
