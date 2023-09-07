@@ -93,6 +93,16 @@ public class TaskList implements Iterable<Task> {
         }
     }
 
+    public void find(String input) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : taskList) {
+            if(task.getTaskDescription().contains(input)) {
+                matchingTasks.add(task);
+            }
+        }
+        ui.displayMatchingTasks(matchingTasks);
+    }
+
     /**
      * Retrieves the index of a task based on the provided input.
      *

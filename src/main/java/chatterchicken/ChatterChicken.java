@@ -86,6 +86,9 @@ public class ChatterChicken {
         case "delete":
             tasks.deleteTask(taskDescription);
             break;
+        case "find":
+            tasks.find(taskDescription);
+            break;
         case "todo":
         case "deadline":
         case "event":

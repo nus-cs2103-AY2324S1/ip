@@ -1,6 +1,7 @@
 package chatterchicken.ui;
 
 import chatterchicken.data.task.Task;
+import chatterchicken.tasklist.TaskList;
 
 import java.util.ArrayList;
 
@@ -70,6 +71,16 @@ public class Ui {
     public void displayUnmarkTask(Task task) {
         printToScreen(INDENT + "OK, I've marked this task as not done yet:\n"
                 + INDENT_BIG + task.getTaskForPrinting());
+    }
+
+    public void displayMatchingTasks(ArrayList<Task> taskList) {
+        System.out.println(LINE + INDENT + "Here are the matching tasks in your list:");
+        int index = 1;
+        for (Task task : taskList) {
+            System.out.println(INDENT_BIG + index + "." + task.getTaskForPrinting());
+            index++;
+        }
+        System.out.println(LINE);
     }
 
     /**
