@@ -77,7 +77,8 @@ public class Ui {
      * @param modifiedTasks The tasks that were modified in the input
      * @param taskList      the task container
      */
-    public static void printResult(Commands command, ArrayList<Task> modifiedTasks, TaskList taskList) throws UnknownCommandException {
+    public static void printResult(Commands command, ArrayList<Task> modifiedTasks, TaskList taskList)
+            throws UnknownCommandException {
         System.out.println(getResponseMessage(command, modifiedTasks, taskList));
     }
 
@@ -89,13 +90,15 @@ public class Ui {
      * @param taskList
      * @return
      */
-    public static String getResponseMessage(Commands command, ArrayList<Task> modifiedTasks, TaskList taskList) throws UnknownCommandException {
+    public static String getResponseMessage(Commands command, ArrayList<Task> modifiedTasks, TaskList taskList)
+            throws UnknownCommandException {
         String result = "";
         switch (command) {
         case TODO:
         case DEADLINE:
         case EVENT: {
-            result = "\uD83D\uDE0A I've added a new task: " + modifiedTasks + "\n" + "Now you have " + taskList.getSize() + " tasks!";
+            result = "\uD83D\uDE0A I've added a new task: " + modifiedTasks + "\n"
+                    + "Now you have " + taskList.getSize() + " tasks!";
             break;
         }
         case MARK: {

@@ -1,12 +1,10 @@
 package duke.tasks;
 
-import duke.exceptions.NotFoundException;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
+import duke.exceptions.NotFoundException;
 /**
  * Stores the list of tasks that the user has.
  * Provides additional methods for operating on the tasks.
@@ -136,9 +134,9 @@ public class TaskList {
      * @return tasks whose name contains the search string.
      */
     public ArrayList<Task> findTasksByName(String searchString) {
-        List<Task> filtered = this.list.stream().filter(a -> a.getName().contains(searchString)).collect(Collectors.toList());
 
-        return new ArrayList<>(filtered);
+        return this.list.stream()
+                .filter(a -> a.getName().contains(searchString)).collect(Collectors.toCollection(ArrayList::new));
 
     }
 

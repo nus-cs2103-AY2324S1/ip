@@ -1,5 +1,7 @@
 package duke.ui;
 
+import java.util.ArrayList;
+
 import duke.Duke;
 import duke.exceptions.DukeException;
 import duke.parser.Parser;
@@ -8,16 +10,14 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
+
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -50,7 +50,8 @@ public class MainWindow extends AnchorPane {
     public void setDuke(Duke d) {
         duke = d;
 
-        this.dialogContainer.getChildren().add(DialogBox.getDukeDialog("Hello! Type something to get started.", crop(dukeImage, true)));
+        this.dialogContainer.getChildren()
+                .add(DialogBox.getDukeDialog("Hello! Type something to get started.", crop(dukeImage, true)));
     }
 
     /**
