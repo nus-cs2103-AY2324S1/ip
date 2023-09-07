@@ -49,6 +49,8 @@ public class MainWindow extends AnchorPane {
      */
     public void setDuke(Duke d) {
         duke = d;
+
+        this.dialogContainer.getChildren().add(DialogBox.getDukeDialog("Hello! Type something to get started.", crop(dukeImage, true)));
     }
 
     /**
@@ -72,6 +74,7 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getUserDialog((input), crop(userImage, true)),
                     DialogBox.getDukeDialog(response, crop(dukeImage, true))
             );
+            userInput.clear();
         }
 
     }
