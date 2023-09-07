@@ -95,7 +95,7 @@ public class Storage {
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid date format! Please input date using the format yyyy-MM-dd");
         } catch (IOException e) {
-            throw new DukeException("OOPS !!! Can't Load task from File");
+            throw new DukeException("OOPS! Can't Load task from File");
         }
     }
 
@@ -115,7 +115,7 @@ public class Storage {
             }
             fileWriter.close();
         } catch (IOException e) {
-            throw new DukeException("OOPS !!! Can't write to file");
+            System.out.println("OOPS! Failed to write task to file.");
         }
     }
 }

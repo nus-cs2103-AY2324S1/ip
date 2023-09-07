@@ -27,6 +27,12 @@ public class Duke {
         this.scanner = new Scanner(System.in);
         this.ui = new Ui();
         this.storage = new Storage();
+        try {
+            this.storage.init();
+            this.tasks = this.storage.readFromFile();
+        } catch (DukeException e) {
+            this.ui.errorPrint(e);
+        }
     }
     /**
      * Runs the Duke chatbot.
