@@ -1,33 +1,68 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
+/**
+ * The Deadline class represents a task with a specific deadline.
+ * It is a subclass of the Task class.
+ */
 public class Deadline extends Task {
     protected String by;
     protected LocalDateTime dateTime;
     static DateTimeFormatter formatterToTxtString = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
-    public Deadline(String description, String by) {
+    /**
+     * Constructs a new Deadline task with a description and deadline date/time.
+     *
+     * @param description The description of the task.
+     * @param by          The deadline date/time in the format "dd/MM/yyyy HHmm".
+     * @throws DukeException If the provided date/time format is invalid.
+     */
+    public Deadline(String description, String by) throws DukeException {
         super(description);
         this.by = by;
-        this.dateTime = getDateTime(by);
+        try {
+            this.dateTime = getDateTime(by);
+        } catch (DukeException e) {
+            throw new DukeException("☹ OOPS!!! Invalid Date/Time format, use DD/MM/YYYY HHmm");
+        }
     }
-    public static LocalDateTime getDateTime(String dateTime) {
-//        String[] datesPart = dateTime.split(" "); // 2/12/2019 1800 -> {2/12/2019, 1800}   2019-12-02 1800
-//        LocalDate lt = LocalDate.parse(datesPart[0]);
-//        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        return LocalDateTime.parse(dateTime, formatterToTxtString);
+
+    /**
+     * Parses the provided date/time string into a LocalDateTime object.
+     *
+     * @param dateTime The date/time string in the format "dd/MM/yyyy HHmm".
+     * @return A LocalDateTime object representing the parsed date/time.
+     * @throws DukeException If the provided date/time format is invalid.
+     */
+    public static LocalDateTime getDateTime(String dateTime) throws DukeException {
+        try {
+            return LocalDateTime.parse(dateTime, formatterToTxtString);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("☹ OOPS!!! Invalid Date/Time format, use DD/MM/YYYY HHmm");
+        }
     }
+
+    /**
+     * Returns a formatted string representation of the Deadline task for saving to a file.
+     *
+     * @return A string in the format "[D] | [X] | Description | Deadline".
+     */
     @Override
     public String toTxtString() {
-//        return "D | " + (this.isDone ? "1" : "0") + " | " + this.description + " | " + by;
-
         return "[D] | [" + (this.isDone ? "X": " ") + "] | " + this.description + " | "
                 + this.dateTime.format(formatterToTxtString);
     }
+
+    /**
+     * Returns a string representation of the Deadline task for displaying to the user.
+     *
+     * @return A string in the format "[D] [Status] Description (by: Deadline)".
+     */
     @Override
     public String toString() {
-//        return "[D]" + super.toString() + " (by: " + by + ")";
         DateTimeFormatter formatterToString = DateTimeFormatter.ofPattern("MM/dd/yyyy HHmm");
         return "[D]" + super.toString() + " (by: " + this.dateTime.format(formatterToString) + ")";
     }
 }
+
