@@ -16,11 +16,13 @@ public class Ui {
     public void linePrint() {
         System.out.print("   _________________________________________________________________________________\n");
     }
+
     public void styleMessage(String message) {
         linePrint();
         System.out.print(message);
         linePrint();
     }
+
     public void greetMessage() {
         styleMessage("    Hello! I'm Arthur Pendragon.\n    What can I do for you?\n");
     }
