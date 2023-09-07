@@ -1,10 +1,8 @@
 import java.util.*;
 
-import javafx.concurrent.Task;
-
 public class Duke {
     public static String partition = "------------------------------------------------------------";
-    public static ArrayList<String> taskList = new ArrayList<String>();
+    public static ArrayList<Task> taskList = new ArrayList<Task>();
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
     
@@ -17,8 +15,14 @@ public class Duke {
         while(!input.equals("bye")) {
             if (input.equals("list")) {
                 print();
+            } else if (input.equals("mark")) {
+                int item = sc.nextInt();
+                taskList.get(item - 1).markDone();
+            } else if (input.equals("unmark")) {
+                int item = sc.nextInt();
+                taskList.get(item - 1).markUndone();
             } else {
-                add(input);
+                add(new Task(input));
             }
             System.out.println(partition);
             input = sc.next();
@@ -26,15 +30,15 @@ public class Duke {
         exit();
     }
 
-    public static void add(String input) {
+    public static void add(Task input) {
         taskList.add(input);
-        System.out.println("added: " + input);
+        System.out.println("Hi! This task has been added: " + input.getTask());
     }
 
     public static void print() {
         int index = 1;
-        for (String task: taskList) {
-            System.out.println(index + ". " + task);
+        for (Task task: taskList) {
+            System.out.println(index + ". " + task.getStatus());
             index ++;
         }
     }
