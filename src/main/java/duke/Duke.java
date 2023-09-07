@@ -1,5 +1,6 @@
 package duke;
 
+import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.InvalidCommand;
 import duke.parser.Parser;
@@ -46,6 +47,14 @@ public class Duke {
     */
     public String getResponse(String input) {
         Command command = parser.parseCommand(input.trim());
+        if (command instanceof ByeCommand){
+            try {
+                command.execute(list, ui);
+                storage.writeFile(list);
+            } catch (Exception e) {
+                return ui.showError("Error writing to file.");
+            }
+        }
         return command.execute(list, ui);
     }
 }
