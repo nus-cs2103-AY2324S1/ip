@@ -35,20 +35,22 @@ public class Task implements Serializable {
 
     /**
      * Marks a task as done
+     *
+     * @return String output after marking as done
      */
-    public void markAsDone() {
+    public String markAsDone() {
         this.isDone = true;
-        System.out.println("You have marked this task as done");
-        System.out.println("\t" + this.convertToString());
+        return "You have marked this task as done\n" + "\t" + this.convertToString();
     }
 
     /**
      * Marks a task as not done
+     *
+     * @return String output after marking as not done
      */
-    public void markAsNotDone() {
+    public String markAsNotDone() {
         this.isDone = false;
-        System.out.println("You have marked this task as not done");
-        System.out.println("\t" + this.convertToString());
+        return "You have marked this task as not done\n" + "\t" + this.convertToString();
     }
 
     /**

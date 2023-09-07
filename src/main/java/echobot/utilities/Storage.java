@@ -66,11 +66,11 @@ public class Storage {
             tasks = (ArrayList<Task>) ois.readObject();
             ois.close();
         } catch (FileNotFoundException e) {
-            System.out.println("!ERROR! File is not found");
+            System.out.println("File is not found\n" + "Please be careful next time");
         } catch (IOException e) {
-            System.out.println("!ERROR! " + e);
+            System.out.println("e.getMessage()\n" + "Please be careful next time");
         } catch (ClassNotFoundException e) {
-            System.out.println("!ERROR! Class is not found");
+            System.out.println("Class is not found\n" + "Please be careful next time");
         }
         return tasks;
     }

@@ -3,9 +3,8 @@ package echobot.utilities;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import echobot.exceptions.DukeException;
+import echobot.EchoBot;
 import echobot.exceptions.EmptyListException;
-import echobot.exceptions.InvalidCommandException;
 import echobot.exceptions.InvalidCommandSyntaxException;
 import echobot.exceptions.InvalidTaskNumberException;
 import echobot.exceptions.InvalidTaskTimeException;
@@ -18,10 +17,6 @@ import echobot.exceptions.MissingTaskNumberException;
  */
 public class Ui {
 
-    /** Variable to show horizontal lines */
-    public static final String LINE_BREAK = ("--------------------------------------------------"
-            + "---------------------------------");
-
     /** Variable to detect user input */
     private Scanner sc = new Scanner(System.in);
 
@@ -29,8 +24,6 @@ public class Ui {
      * Prints greetings to the user interface
      */
     public void greet() {
-        System.out.println("\n");
-        System.out.println(LINE_BREAK);
         System.out.println("Welcome. My name is Duke");
         System.out.println("What will you do today?");
     }
@@ -41,33 +34,31 @@ public class Ui {
      * @return Input as String
      */
     public String startInputSession() {
-        System.out.println(LINE_BREAK);
-        System.out.println("\n");
-        String input = sc.nextLine().trim();
-        System.out.println(LINE_BREAK);
-        return input;
+        return sc.nextLine().trim();
     }
 
     /**
      * Shows the contents of the list of tasks
      *
      * @param tasks The list of tasks
-     * @param fullInput The full user input
      * @param numberOfWords The number of words in the user input
+     * @return String output showing tasks
      * @throws InvalidCommandSyntaxException If there are words after the "list" command
      */
-    public void showList(TaskList tasks, String fullInput, int numberOfWords)
+    public String showList(TaskList tasks, int numberOfWords)
             throws InvalidCommandSyntaxException {
         if (numberOfWords > 1) {
             throw new InvalidCommandSyntaxException("'list' command must not be followed by anything");
         }
         if (tasks.getSize() == 0) {
-            System.out.println("List is empty");
+            return "List is empty";
         } else {
+            StringBuilder output = new StringBuilder();
             for (int i = 1; i < tasks.getSize() + 1; i++) {
                 Task current = tasks.getTask(i - 1);
-                System.out.println(i + ". " + current.convertToString());
+                output.append(i).append(". ").append(current.convertToString()).append("\n");
             }
+            return output.toString();
         }
     }
 
@@ -78,30 +69,33 @@ public class Ui {
      * @param command The first word of the input
      * @param fullInput The full user input
      * @param numberOfWords The number of words in the user input
+     * @return String output showing changed task mark
      * @throws MissingTaskNumberException If the command is not followed by any number
      * @throws EmptyListException If the list of tasks is empty
      * @throws InvalidTaskNumberException If the task number to be manipulated does not exist
      */
-    public void showManipulateTasks(TaskList tasks, String command, String fullInput, int numberOfWords)
+    public String showManipulateTasks(TaskList tasks, String command, String fullInput, int numberOfWords)
             throws MissingTaskNumberException, EmptyListException, InvalidTaskNumberException {
         if (numberOfWords == 1) {
             throw new MissingTaskNumberException("Task number cannot be empty");
         } else if (tasks.getSize() < 1) {
             throw new EmptyListException("List is currently empty");
         }
+        String output = "";
         switch (command) {
         case "mark":
-            tasks.manipulateTasks(fullInput, "mark", 5);
+            output = tasks.manipulateTasks(fullInput, "mark", 5);
             break;
         case "unmark":
-            tasks.manipulateTasks(fullInput, "unmark", 7);
+            output = tasks.manipulateTasks(fullInput, "unmark", 7);
             break;
         case "delete":
-            tasks.manipulateTasks(fullInput, "delete", 7);
+            output = tasks.manipulateTasks(fullInput, "delete", 7);
             break;
         default:
             break;
         }
+        return output;
     }
 
     /**
@@ -110,15 +104,16 @@ public class Ui {
      * @param tasks The list of tasks
      * @param fullInput The full user input
      * @param numberOfWords The number of words in the user input
+     * @return String output showing added todo task
      * @throws MissingTaskDescriptionException If the command is not followed by any description
      */
-    public void showAddToDo(TaskList tasks, String fullInput, int numberOfWords)
+    public String showAddToDo(TaskList tasks, String fullInput, int numberOfWords)
             throws MissingTaskDescriptionException {
         if (numberOfWords <= 1) {
             throw new MissingTaskDescriptionException("Todo task description cannot be empty");
         }
         String taskName = fullInput.substring(5);
-        tasks.addToDo(taskName);
+        return tasks.addToDo(taskName);
     }
 
     /**
@@ -128,18 +123,19 @@ public class Ui {
      * @param fullInput The full user input
      * @param numberOfWords The number of words in the user input
      * @param parser The parser to parse dates
+     * @return String output showing added deadline task
      * @throws MissingTaskDescriptionException If the command is not followed by any description
      * @throws MissingTaskNameException If the task name is not specified
      * @throws InvalidTaskTimeException If there are missing or more than one deadlines
      */
-    public void showAddDeadline(TaskList tasks, String fullInput, int numberOfWords, Parser parser)
+    public String showAddDeadline(TaskList tasks, String fullInput, int numberOfWords, Parser parser)
             throws MissingTaskDescriptionException, MissingTaskNameException, InvalidTaskTimeException {
         if (numberOfWords <= 1) {
             throw new MissingTaskDescriptionException("Deadline task description cannot be empty");
         }
         String[] taskDesc = fullInput.substring(9).split("/by");
         if (taskDesc.length != 2) {
-            throw new InvalidTaskTimeException("Deadline task must have exactly one /by deadline");
+            throw new InvalidTaskTimeException("Deadline task must have exactly one deadline using /by tag");
         }
         String taskName = taskDesc[0].trim();
         if (taskName.length() == 0) {
@@ -148,7 +144,9 @@ public class Ui {
         String strDeadline = taskDesc[1].trim();
         String deadline = parser.formatDate(strDeadline);
         if (!deadline.equals("Invalid date")) {
-            tasks.addDeadline(taskName, deadline);
+            return tasks.addDeadline(taskName, deadline);
+        } else {
+            return "\nDate needs to be in the form of yyyy-mm-dd";
         }
     }
 
@@ -159,11 +157,12 @@ public class Ui {
      * @param fullInput The full user input
      * @param numberOfWords The number of words in the user input
      * @param parser The parser to parse dates
+     * @return String output showing added event task
      * @throws MissingTaskDescriptionException If the command is not followed by any description
      * @throws MissingTaskNameException If the task name is not specified
      * @throws InvalidTaskTimeException If there are missing or more than one start or end dates
      */
-    public void showAddEvent(TaskList tasks, String fullInput, int numberOfWords, Parser parser)
+    public String showAddEvent(TaskList tasks, String fullInput, int numberOfWords, Parser parser)
             throws MissingTaskDescriptionException, MissingTaskNameException, InvalidTaskTimeException {
         if (numberOfWords <= 1) {
             throw new MissingTaskDescriptionException("Event task description cannot be empty");
@@ -171,13 +170,15 @@ public class Ui {
         String[] taskDesc = fullInput.substring(6).split("/from");
         if (taskDesc.length != 2) {
             throw new InvalidTaskTimeException(
-                    "Event task must have exactly one /from and one /to times, in that order");
+                    "Event task must have exactly one start and one end dates"
+                    + "using one /from and one /to tags, in that order");
         }
         String taskName = taskDesc[0].trim();
         String[] fromAndTo = taskDesc[1].split("/to");
         if (fromAndTo.length != 2) {
             throw new InvalidTaskTimeException(
-                    "Event task must have exactly one /from and one /to times, in that order");
+                    "Event task must have exactly one start and one end dates"
+                            + "using one /from and one /to tags, in that order");
         }
         if (taskName.length() == 0) {
             throw new MissingTaskNameException("Event task name cannot be empty");
@@ -188,8 +189,12 @@ public class Ui {
         if (!start.equals("Invalid date")) {
             String end = parser.formatDate(strEnd);
             if (!end.equals("Invalid date")) {
-                tasks.addEvent(taskName, start, end);
+                return tasks.addEvent(taskName, start, end);
+            } else {
+                return "\nDate needs to be in the form of yyyy-mm-dd";
             }
+        } else {
+            return "\nDate needs to be in the form of yyyy-mm-dd";
         }
     }
 
@@ -199,9 +204,10 @@ public class Ui {
      * @param tasks The list of tasks
      * @param fullInput The full user input
      * @param numberOfWords The number of words in the user input
+     * @return String output showing found tasks with specified keywords
      * @throws MissingTaskDescriptionException If command is not followed by any description
      */
-    public void showFind(TaskList tasks, String fullInput, int numberOfWords)
+    public String showFind(TaskList tasks, String fullInput, int numberOfWords)
             throws MissingTaskDescriptionException {
         if (numberOfWords <= 1) {
             throw new MissingTaskDescriptionException("Todo task description cannot be empty");
@@ -210,76 +216,30 @@ public class Ui {
         ArrayList<Task> tasksFiltered = tasks.filterTaskName(taskToBeFound);
         int size = tasksFiltered.size();
         if (size > 0) {
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder output = new StringBuilder();
+            output.append("Here are the matching tasks in your list:");
             for (int i = 0; i < size; i++) {
-                System.out.println((i + 1) + ". " + tasksFiltered.get(i).convertToString());
+                output.append("\n").append(i + 1).append(". ").append(tasksFiltered.get(i).convertToString());
             }
+            return output.toString();
         } else {
-            System.out.println("There are no matching tasks in your list");
+            return "There are no matching tasks in your list";
         }
     }
 
     /**
      * Shows text output when the user exits the chatbot
      *
-     * @param tasks The list of tasks
      * @param numberOfWords The number of words in the user input
+     * @return String output showing goodbye
      * @throws InvalidCommandSyntaxException If there are words after the "bye" command
      */
-    public void showBye(TaskList tasks, int numberOfWords)
+    public String showBye(int numberOfWords)
             throws InvalidCommandSyntaxException {
         if (numberOfWords > 1) {
             throw new InvalidCommandSyntaxException("'bye' command must not be followed by anything");
         }
-        System.out.println("I hope you enjoy my service. Thank you and goodbye");
-        System.out.println(LINE_BREAK);
-    }
-
-    /**
-     * Handles the various cases of user inputs
-     *
-     * @param tasks TaskList object that contains the list
-     * @param input Input object that contains parsed user input
-     * @param parser Parser used to parse user inputs
-     * @return True or false signifying breaking or continuing the loop
-     */
-    public boolean handleInput(TaskList tasks, Input input, Parser parser) {
-        boolean endSession = true;
-        try {
-            String command = input.getCommand();
-            String fullInput = input.getFullInput();
-            int numberOfWords = input.getLength();
-            switch (command) {
-            case "list":
-                showList(tasks, fullInput, numberOfWords);
-                break;
-            case "mark":
-            case "unmark":
-            case "delete":
-                showManipulateTasks(tasks, command, fullInput, numberOfWords);
-                break;
-            case "todo":
-                showAddToDo(tasks, fullInput, numberOfWords);
-                break;
-            case "deadline":
-                showAddDeadline(tasks, fullInput, numberOfWords, parser);
-                break;
-            case "event":
-                showAddEvent(tasks, fullInput, numberOfWords, parser);
-                break;
-            case "find":
-                showFind(tasks, fullInput, numberOfWords);
-                break;
-            case "bye":
-                showBye(tasks, numberOfWords);
-                endSession = false;
-                break;
-            default:
-                throw new InvalidCommandException("No such command exists, please try again");
-            }
-        } catch (DukeException e) {
-            System.out.println("!ERROR! " + e);
-        }
-        return endSession;
+        EchoBot.stopBot();
+        return "I hope you enjoy my service. Thank you and goodbye";
     }
 }
