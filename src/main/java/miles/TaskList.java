@@ -21,7 +21,6 @@ public class TaskList {
 
     /**
      * Constructor to create a new task list when given an existing array list.
-     * 
      * @param taskList
      */
     public TaskList(ArrayList<Task> taskList) {
@@ -40,15 +39,19 @@ public class TaskList {
      * Deletes a task from a task list.
      * @param taskNum the task number to be deleted
      * @return        the deleted task
+     * @throws        MilesException when task number does not exist
      */
-    public Task deleteTask(int taskNum) {
+    public Task deleteTask(int taskNum) throws MilesException {
+        if (taskNum <= 0 || taskNum > this.taskList.size()) {
+            throw new MilesException("No such task to delete!");
+        }
+
         Task deletedTask = this.taskList.remove(taskNum);
         return deletedTask;
     }
 
     /**
      * Gets a task from a task list when given the task number.
-     * 
      * @param taskNum the task number to be retrieved
      * @return        the task
      */
@@ -58,7 +61,6 @@ public class TaskList {
 
     /**
      * Gets the number of tasks in the list.
-     * 
      * @return the number of tasks in the list
      */
     public int getSize() {
@@ -67,9 +69,8 @@ public class TaskList {
 
     /**
      * Updates the task status when reading from a file.
-     * 
-     * @param task
-     * @param status
+     * @param task    the particular task
+     * @param status  the status when reading from the file
      */
     public void updateTaskStatusFromFile(Task task, String status) {
         if (status.equals("[X]")) {
@@ -81,7 +82,6 @@ public class TaskList {
 
     /**
      * Marks a particular task as done when given the task number.
-     * 
      * @param taskNum the task number to be marked as done
      */
     public void markTaskAsDone(int taskNum) {
@@ -92,15 +92,12 @@ public class TaskList {
 
         Task task = this.getTask(taskNum - 1);
         task.markAsDone();
-        this.ui.showLine();
-        this.ui.formatString(" Nice! I've marked this task as done:");
-        this.ui.formatString("  " + task.toString());
-        this.ui.showLine();
+        this.ui.formatString("Wow, productive day huh! I've marked this task as done:");
+        this.ui.formatString(task.toString());
     }
 
     /**
      * Marks a particular task as undone when given the task number.
-     * 
      * @param taskNum the task number to be marked as undone
      */
     public void markTaskAsUndone(int taskNum) {
@@ -111,50 +108,42 @@ public class TaskList {
 
         Task task = this.getTask(taskNum - 1);
         task.markAsUndone();
-        this.ui.showLine();
-        this.ui.formatString(" OK, I've marked this task as not done yet:");
-        this.ui.formatString("  " + task.toString());
-        this.ui.showLine();
+        this.ui.formatString("No worries, I've marked this task as not done yet:");
+        this.ui.formatString(task.toString());
     }
 
     /**
      * Prints every task in the task list that contains the keyword.
-     * 
      * @param keyword the keyword that each task must contain
      */
     public void displayListWithKeyword(String keyword) {
         int n = this.getSize();
         int count = 0;
         
-        this.ui.showLine();
-        this.ui.formatString(" Here are the matching tasks in your list:");
+        this.ui.formatString("Here are the matching tasks you requested for, brother:");
 
         for (int i = 0; i < n; i += 1) {
             Task currentTask = this.getTask(i);
             String taskString = currentTask.toString();
             if (taskString.contains(keyword)) {
-                String output = " " + (count + 1) + ". " + currentTask.toString();
+                String output = (count + 1) + ". " + currentTask.toString();
                 ui.formatString(output);
                 count += 1;
             }
         }
-
-        this.ui.showLine();
     }
 
-    /*
+    /**
      * Prints every task in the task list.
      */
     public void displayList() {
         int n = this.getSize();
 
-        this.ui.showLine();
-        this.ui.formatString(" Here are the tasks in your list my G:");
+        this.ui.formatString("Here are the tasks in your list my G:");
         for (int i = 0; i < n; i += 1) {
             Task currentTask = taskList.get(i);
-            String output = " " + (i + 1) + ". " + currentTask.toString();
+            String output = (i + 1) + ". " + currentTask.toString();
             ui.formatString(output);
         }
-        this.ui.showLine();
     }
 }

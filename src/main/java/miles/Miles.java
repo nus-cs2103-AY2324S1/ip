@@ -10,8 +10,8 @@ import miles.command.Command;
  * Represents our chat bot, Miles.
  */
 public class Miles {
-    private String filePath;
     private static String directoryPath = "./data";
+    private String filePath;
     private Ui ui;
     private Storage storage;
     private TaskList taskList;

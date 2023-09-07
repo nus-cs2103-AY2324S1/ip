@@ -58,7 +58,11 @@ public class StorageTest {
         assertEquals(task1.toString(), taskList2.getTask(0).toString());
 
         // to clean up the file for future tests
-        taskList2.deleteTask(0);
-        storage.saveFile(taskList2);
+        try {
+            taskList2.deleteTask(0);
+            storage.saveFile(taskList2);
+        } catch (MilesException e) {
+            System.out.println(e.getMessage());
+        } 
     }
 }

@@ -31,9 +31,14 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         int taskNum = getTaskNumber(this.input);
-        Task deletedTask = taskList.deleteTask(taskNum - 1);
-        storage.saveFile(taskList);
-        int n = taskList.getSize();
-        ui.printDeletedTask(deletedTask, n);
+
+        try {
+            Task deletedTask = taskList.deleteTask(taskNum - 1);
+            storage.saveFile(taskList);
+            int n = taskList.getSize();
+            ui.printDeletedTask(deletedTask, n);
+        } catch (Exception e) {
+            ui.printErrorMsg(e.getMessage());
+        }
     }
 }

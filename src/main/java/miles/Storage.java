@@ -22,7 +22,6 @@ public class Storage {
 
     /**
      * Constructor to create a new storage.
-     * 
      * @param filePath       file path of the text file
      * @param directoryPath  directory path of the text file
      */
@@ -34,7 +33,6 @@ public class Storage {
 
     /**
      * Adds task into task list and triggers a save to the text file when the user adds a task.
-     * 
      * @param task      the task to be saved
      * @param taskList  the task list containing the task to be saved
      */
@@ -44,11 +42,9 @@ public class Storage {
     }
 
     /**
-     * Loads the file from the data folder if it exists, else it creates a new file for users to 
-     * store their tasks.
-     * 
+     * Loads the file from the data folder if it exists, else it creates a new file for users to store their tasks.
      * @returns TaskList   a TaskList object containing the tasks from the file
-     * @throws IOException if there is an error creating the file  
+     * @throws IOException if there is an error creating the file
      */
     public TaskList loadFile() {
         try {
@@ -64,7 +60,7 @@ public class Storage {
             if (!newFile.exists()) {
                 newFile.createNewFile();
                 System.out.println("created a new file");
-                return new TaskList(); 
+                return new TaskList();
             }
 
             Scanner scanner = new Scanner(newFile);
@@ -89,7 +85,7 @@ public class Storage {
                     Task newTask = new Deadline(task, deadline);
 
                     taskList.updateTaskStatusFromFile(newTask, status);
-                    taskList.addTask(newTask);                  
+                    taskList.addTask(newTask);
                 } else if (taskType.equals("E")) {
                     String status = parts[1].trim();
                     String task = parts[2].trim();
@@ -113,7 +109,6 @@ public class Storage {
 
     /**
      * Saves the tasks in the task list to the text file.
-     * 
      * @param taskList     the task list containing the tasks to be saved
      * @throws IOException if there is an error writing to the file
      */
