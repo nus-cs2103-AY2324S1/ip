@@ -3,8 +3,8 @@ package trackerbot.command;
 import java.util.Scanner;
 
 import trackerbot.exception.TrackerBotException;
-import trackerbot.task.TaskList;
 import trackerbot.gui.UiHandler;
+import trackerbot.task.TaskList;
 
 /**
  * Abstracts the Commands obtained from user input.
@@ -12,7 +12,7 @@ import trackerbot.gui.UiHandler;
  * a small number of available commands that can be called through the UI. </p>
  * <p>Every nested Command should be assigned a corresponding CommandType enum.</p>
  * @author WZWren
- * @version A-JavaDoc
+ * @version Level-10
  */
 public abstract class Command {
     /**

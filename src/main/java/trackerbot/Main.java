@@ -11,7 +11,9 @@ import trackerbot.exception.TrackerBotException;
 import trackerbot.gui.MainWindow;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for TrackerBot using FXML.
+ *
+ * @version Level-10
  */
 public class Main extends Application {
 
@@ -33,6 +35,9 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Attempts to save the data from TrackerBot in the exit sequence.
+     */
     @Override
     public void stop() {
         try {

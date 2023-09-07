@@ -2,10 +2,10 @@ package trackerbot;
 
 import trackerbot.command.Command;
 import trackerbot.exception.TrackerBotException;
+import trackerbot.gui.UiHandler;
 import trackerbot.task.TaskList;
 import trackerbot.utils.Parser;
 import trackerbot.utils.Storage;
-import trackerbot.gui.UiHandler;
 
 /**
  * Main Program for the application. <br>
@@ -13,7 +13,7 @@ import trackerbot.gui.UiHandler;
  * as part of the requirements for the iP.
  *
  * @author WZWren
- * @version A-JavaDoc
+ * @version Level-10
  */
 public class TrackerBot {
     /** Name of the app. **/
@@ -53,6 +53,10 @@ public class TrackerBot {
         return instance;
     }
 
+    /**
+     * Saves the tasks in TaskList, if any.
+     * @throws TrackerBotException if the save fails.
+     */
     public void handleSave() throws TrackerBotException {
         Storage.save(tasks);
     }
