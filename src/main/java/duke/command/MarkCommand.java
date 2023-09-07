@@ -1,11 +1,9 @@
 package duke.command;
 
 import java.util.Map;
-import java.util.stream.Stream;
 
 import duke.core.DukeException;
 import duke.core.Storage;
-import duke.core.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -24,7 +22,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
         if (tasks.size() == 0) {
             throw new DukeException("There are no tasks added. Please add a task first.");
         }
@@ -49,14 +47,13 @@ public class MarkCommand extends Command {
             }
 
             Task taskMarked = tasks.markAsDone(taskIndex);
+            tasks.storeTasks(storage);
 
-            if (taskMarked == null) {
-                return;
-            }
+            StringBuilder response = new StringBuilder();
+            response.append("Nice! I've marked this task as done:\n");
+            response.append(String.format("  %s", taskMarked.toString()));
 
-            Ui.respond(Stream.of("Nice! I've marked this task as done:",
-                    String.format("  %s", taskMarked.toString())));
-            tasks.storeTasks();
+            return response.toString();
         } catch (NumberFormatException e) {
             throw new DukeException(String.format("Task number provided \"%s\" is not a number.\n     "
                     + "Please retry with a valid task number.", taskIndexString));

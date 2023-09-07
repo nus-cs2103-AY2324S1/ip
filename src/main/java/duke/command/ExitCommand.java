@@ -3,7 +3,6 @@ package duke.command;
 import java.util.Map;
 
 import duke.core.Storage;
-import duke.core.Ui;
 import duke.task.TaskList;
 
 /**
@@ -21,8 +20,8 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        // Do nothing
+    public String execute(TaskList tasks, Storage storage) {
+        return "Bye. Hope to see you again soon!";
     }
 
     @Override

@@ -76,7 +76,8 @@ public class TaskList {
      */
     public Task markAsDone(int taskIndex) throws DukeException {
         try {
-            return taskArray.get(taskIndex).markAsDone();
+            Task markedTask = taskArray.get(taskIndex).markAsDone();
+            return markedTask;
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Task number provided does not exist.");
         }
@@ -91,7 +92,8 @@ public class TaskList {
      */
     public Task markAsUndone(int taskIndex) throws DukeException {
         try {
-            return taskArray.get(taskIndex).markAsUndone();
+            Task unmarkedTask = taskArray.get(taskIndex).markAsUndone();
+            return unmarkedTask;
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Task number provided does not exist.");
         }
@@ -101,12 +103,13 @@ public class TaskList {
      * Deletes a task from the task list.
      *
      * @param taskIndex Index of task to be deleted.
-     * @return String representation of task that was deleted.
+     * @return Task that was deleted.
      * @throws DukeException If index provided is out of bounds.
      */
-    public String deleteTask(int taskIndex) throws DukeException {
+    public Task deleteTask(int taskIndex) throws DukeException {
         try {
-            return taskArray.remove(taskIndex).toString();
+            Task removedTask = taskArray.remove(taskIndex);
+            return removedTask;
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Task number provided does not exist.");
         }
@@ -117,7 +120,7 @@ public class TaskList {
      *
      * @throws DukeException If there is an error writing to the file.
      */
-    public void storeTasks() throws DukeException {
-        Storage.writeFile("tasks.txt", taskArray.stream().map(task -> task.getDataString()));
+    public void storeTasks(Storage storage) throws DukeException {
+        storage.writeFile("tasks.txt", taskArray.stream().map(task -> task.getDataString()));
     }
 }
