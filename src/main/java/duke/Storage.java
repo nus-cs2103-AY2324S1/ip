@@ -103,10 +103,10 @@ public class Storage {
     /**
      * Saves the list of tasks to the database file.
      *
-     * @param todoList The list of tasks to save.
+     * @param tasks The list of tasks to save.
      * @throws IOException If there's an error writing to the file.
      */
-    public void saveFile(Tasklist todoList) throws IOException {
+    public void saveFile(Tasklist tasks) throws IOException {
         if (!Files.exists(filePath.getParent())) {
             try {
                 // Create the directory
@@ -129,7 +129,7 @@ public class Storage {
         }
         FileWriter fw = new FileWriter(String.valueOf(filePath), false);
         BufferedWriter bw = new BufferedWriter(fw);
-        todoList.saveList(bw);
+        tasks.saveList(bw);
         bw.close();
         fw.close();
     }
