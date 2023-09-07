@@ -23,9 +23,9 @@ public class TaskList {
      */
     public ArrayList<Task> find(String keyword) {
         ArrayList<Task> containsKey = new ArrayList<>();
-        for (int i = 0; i < this.arr.size(); i++) {
-            if (this.arr.get(i).toString().contains(keyword)) {
-                containsKey.add(this.arr.get(i));
+        for (Task task : this.arr) {
+            if (task.toString().contains(keyword)) {
+                containsKey.add(task);
             }
         }
         return containsKey;
@@ -84,14 +84,9 @@ public class TaskList {
      * Returns the String representation of the TaskList.
      * @return The String representation of the TaskList.
      */
-    @Override
-    public String toString() {
-        String toBePrinted = "";
-        for (int i = 0; i < arr.size(); i++) {
-            toBePrinted = toBePrinted.concat(arr.get(i).toString());
-            toBePrinted += System.lineSeparator();
-        }
-        return toBePrinted;
+
+    public String getTaskDescription(int index) {
+        return this.arr.get(index).toString();
     }
 
 
@@ -101,8 +96,8 @@ public class TaskList {
      */
     public String toWrite() {
         String toBeWritten = "";
-        for (int i = 0; i < arr.size(); i++) {
-            toBeWritten = toBeWritten.concat(arr.get(i).toWrite());
+        for (Task task : this.arr) {
+            toBeWritten = toBeWritten.concat(task.toWrite());
             toBeWritten += System.lineSeparator();
         }
         return toBeWritten;
