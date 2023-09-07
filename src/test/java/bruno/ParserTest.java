@@ -1,8 +1,7 @@
 package bruno;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +21,8 @@ public class ParserTest {
     @Test void testParse_normalInput_correctOutputGenerated() {
         try {
             String task = "todo work";
-            assertTrue(parser.parseInput(task));
+            assertEquals("Woof. I have added this task:\n[T][ ] work\nNow you have 1 task in your tasks.",
+                    parser.parseInput(task));
         } catch (BrunoException e) {
             fail();
         }
@@ -31,7 +31,7 @@ public class ParserTest {
     @Test void testParse_byeTask_falseReturned() {
         try {
             String task = "bye";
-            assertFalse(parser.parseInput(task));
+            assertEquals("bye", parser.parseInput(task));
         } catch (BrunoException e) {
             fail();
         }

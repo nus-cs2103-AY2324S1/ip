@@ -24,17 +24,12 @@ public class UiTest {
     }
 
     @Test void testDisplayGreeting() {
-        ui.displayGreeting();
-        String s = "                ;~~,__,\n" + ":-….,———-‘`----/   ._.*\n" + " `-,,,   BRUNO   ,’\n"
-                + "     ;   ,~.——;  /\n" + "     :  |     :  |\n" + "     `_ ’     `_ ‘\n"
-                + "Woof Woof! I'm Bruno \uD83D\uDC3E\n" + "How can I help you?\n[Please not that date/time "
-                + "must be in \"yyyy-MM-dd HH:mm\" format]\n";
-        assertEquals(s, outputStreamCaptor.toString());
+        String s = "Woof Woof! I'm Bruno \uD83D\uDC3E\n" + "How can I help you?";
+        assertEquals(s, ui.displayGreeting());
     }
 
     @Test void testDisplayBye() {
-        ui.displayBye();
-        assertEquals("\tBye Bye! Hope to see you again soon! \uD83D\uDC36\n", outputStreamCaptor.toString());
+        assertEquals("Bye Bye! Hope to see you again soon! \uD83D\uDC36", ui.displayBye());
     }
 
     @Test void testDisplayMessage() {

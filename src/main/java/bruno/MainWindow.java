@@ -30,7 +30,7 @@ public class MainWindow extends AnchorPane {
     private Image brunoImage = new Image(this.getClass().getResourceAsStream("/images/DaDog.png"));
     private UI ui;
 
-    @FXML public void initialize() {
+    @FXML private void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         ui = new bruno.UI();
         this.setBackground(new javafx.scene.layout.Background(new javafx.scene.layout.BackgroundFill(
@@ -69,6 +69,9 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Displays the greeting when the app starts up.
+     */
     public void startUpBruno() {
         DialogBox brunoDialog = DialogBox.getBrunoDialog(ui.displayGreeting(), brunoImage);
         dialogContainer.getChildren().clear();
