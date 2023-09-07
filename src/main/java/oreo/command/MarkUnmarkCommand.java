@@ -16,11 +16,11 @@ public class MarkUnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, TaskList tasks) {
+    public String execute(TaskList tasks) {
         try {
-            ui.say(tasks.changeMark(command, tokeniser));
+            return tasks.changeMark(command, tokeniser);
         } catch (IllegalCommandException e) {
-            ui.say(e.getMessage());
+            return e.getMessage();
         }
     }
 }

@@ -5,7 +5,7 @@ import oreo.ui.Ui;
 
 public class ByeCommand extends Command {
     @Override
-    public void execute(Ui ui, TaskList tasks) {
-        // do nothing
+    public String execute(TaskList tasks) {
+        return "";
     }
 }

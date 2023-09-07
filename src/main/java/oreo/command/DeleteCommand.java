@@ -13,11 +13,11 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, TaskList tasks) {
+    public String execute(TaskList tasks) {
         try {
-            ui.say(tasks.deleteTask(tokeniser));
+            return tasks.deleteTask(tokeniser);
         } catch (IllegalCommandException e) {
-            ui.say(e.getMessage());
+            return e.getMessage();
         }
     }
 }

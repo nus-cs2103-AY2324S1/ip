@@ -16,7 +16,7 @@ public abstract class Command {
      * @param ui Ui of the chatbot
      * @param tasks Tasklist of the chatbot
      */
-    public abstract void execute(Ui ui, TaskList tasks);
+    public abstract String execute(TaskList tasks);
 
     /**
      * Checks if command is bye

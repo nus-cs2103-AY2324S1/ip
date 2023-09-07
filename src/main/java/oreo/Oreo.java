@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.InputMismatchException;
 
+
 /**
  * This class implements the chatbot Oreo.
  *
@@ -19,7 +20,7 @@ import java.util.InputMismatchException;
  * @version 03/09/2023
  */
 public class Oreo {
-    private Ui ui;
+    private MainWindow ui;
 
     private Storage storage;
 
@@ -32,10 +33,12 @@ public class Oreo {
      *                 task will be written to file for next start up
      *                 of chatbot.
      */
-    public Oreo(String filePath) {
+    public Oreo(String filePath, MainWindow gui) {
         this.tasks = new TaskList();
-        this.ui = new Ui();
+        this.ui = gui;
+        gui.setOreo(this);
         this.storage = new Storage(filePath);
+        gui.startUp();
     }
 
     /**
@@ -44,48 +47,37 @@ public class Oreo {
      * @throws IllegalCommandException If user inputs a command that
      *                                 is not accepted.
      */
-    public void run() throws IllegalCommandException {
-        /*
-        This portion reads file that has been loaded.
-         */
-        try {
-            storage.readFile(tasks); // reads loaded file
-        } catch (FileNotFoundException | IllegalDateTimeException |
-                 InputMismatchException e) {
-            storage.clearFile();    // file is corrupt, clear file
-            tasks.clearAll();       // clear any task if it has been loaded
-            ui.say("saved file is corrupt, creating new file...");  // alerts user
-        }
-        /*
-        This portion displays greet message after file read
-         */
-        ui.greet(tasks);            // passes in tasks to see if there are any saved task
-        /*
-        This portion handles the main logic of taking input and processing it
-         */
-        boolean isExit = false;
-        while (!isExit) {
-            String fullCommand = ui.readCommand();
-            Command c = Parser.parse(fullCommand);
-            c.execute(ui, tasks);
-            isExit = c.isExit();
-        }
-        /*
-        This portion writes tasks to file
-         */
-        try {
-            storage.writeFile(tasks);   // write file with all tasks upon "bye" command
-        } catch (IOException e) {
-            ui.say(e.getMessage());
-        }
-        /*
-        This portion displays exit message
-         */
-        ui.sayBye();
+    public String getResponse(String input) {
+        return "Oreo heard: " + input;
     }
 
-        public static void main(String[] args) {
-            Oreo oreo = new Oreo("/Users/daniel/Desktop/CS2103T/iP/src/main/java/data/oreo.txt");
-            oreo.run();
+    public void startUp() throws FileNotFoundException, IllegalDateTimeException {
+            storage.readFile(tasks); // reads loaded file
+    }
+    public void clearTaskAndFile() {
+        storage.clearFile();
+        tasks.clearAll();
+    }
+
+    public String greet() {
+        String greetMessage = "Woof! I'm Oreo! How may I help you?\n";
+        if (tasks.getNumberOfTask() != 0) {
+            return greetMessage
+                    + "Welcome back! "
+                    + tasks.list();
+        } else {
+            return greetMessage;
         }
     }
+    public String sayBye() {
+        return "I will be sad to see you go! bye!\n";
+    }
+
+    public String execute(Command command) {
+        return command.execute(tasks);
+    }
+
+    public void closeProcess() throws IOException {
+        storage.writeFile(tasks);
+    }
+}

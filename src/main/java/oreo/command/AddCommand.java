@@ -18,18 +18,18 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, TaskList tasks) {
+    public String execute(TaskList tasks) {
         try {
             Task newTask = Task.generateTask(command, tokeniser);
             tasks.add(newTask);
-            ui.say("Gotchu! noted down: \n"
+            return "Gotchu! noted down: \n"
                     + Ui.indentLineBy(newTask.toString(), 2)
                     + "Now you have " + tasks.getNumberOfTask()
-                    + " tasks in the list!");
+                    + " tasks in the list!";
         } catch (IllegalCommandException e) {
-            ui.say(e.getMessage());
+            return e.getMessage();
         } catch (IllegalDateTimeException e) {
-            ui.say(e.getMessage());
+            return e.getMessage();
         }
     }
 }
