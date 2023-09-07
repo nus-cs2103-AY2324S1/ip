@@ -28,10 +28,8 @@ public class Main extends Application {
             stage.show();
 
             // Display Duke's welcome message in the GUI
-            Label welcomeLabel = new Label("____________________________________________________________\n" +
-                    "Hello! I'm Dookie.\n" +
-                    "What can I do for you?\n" +
-                    "____________________________________________________________");
+            Label welcomeLabel = new Label("Hello! I'm Dookie.\n" +
+                    "What can I do for you?");
             Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
             fxmlLoader.<MainWindow>getController().getDialogContainer().getChildren().add(DialogBox.getDukeDialog(welcomeLabel.getText(), dukeImage));
         } catch (IOException e) {
