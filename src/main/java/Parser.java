@@ -28,32 +28,32 @@ public class Parser {
         boolean isDone = lineParts[1].equals("X");
         String description = lineParts[2];
         switch (taskType) {
-            case "T":
-                task = new Todo(description);
-                break;
-            case "D":
-                String by;
-                if (lineParts.length == 4) {
-                    by = lineParts[3];
-                    task = new Deadline(description, by); // add by
-                } else {
-                    task = new Deadline(description);
-                }
-                break;
-            case "E":
-                String from;
-                String to;
-                if (lineParts.length == 5) {
-                    from = lineParts[3];
-                    to = lineParts[4];
-                    task = new Event(description, from, to); // add from and to
-                } else {
-                    task = new Event(description);
-                }
-                break;
-            default:
-                // Line does not start with a task value (T,D,E), file corrupted, throw error
-                throw new IllegalArgumentException("Invalid Tasks.Task Type");
+        case "T":
+            task = new Todo(description);
+            break;
+        case "D":
+            String by;
+            if (lineParts.length == 4) {
+                by = lineParts[3];
+                task = new Deadline(description, by); // add by
+            } else {
+                task = new Deadline(description);
+            }
+            break;
+        case "E":
+            String from;
+            String to;
+            if (lineParts.length == 5) {
+                from = lineParts[3];
+                to = lineParts[4];
+                task = new Event(description, from, to); // add from and to
+            } else {
+                task = new Event(description);
+            }
+            break;
+        default:
+            // Line does not start with a task value (T,D,E), file corrupted, throw error
+            throw new IllegalArgumentException("Invalid Tasks.Task Type");
         }
         if (isDone) task.markAsDone();
         return task;
