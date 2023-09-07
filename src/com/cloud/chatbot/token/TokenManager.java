@@ -13,8 +13,6 @@ import com.cloud.chatbot.exceptions.MissingInputException;
 public abstract class TokenManager {
     protected List<Token> tokens = new ArrayList<>();
 
-    public TokenManager() {}
-
     protected static List<Token> stringToTokens(String s) {
         String trimmed = s.trim();
 
