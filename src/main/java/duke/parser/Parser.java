@@ -74,11 +74,12 @@ public class Parser {
     /**
      * Parses the user input and returns a Command object.
      * 
-     * @param input The user input.
+     * @param input The user input as an array of Strings.
      * @return A Command object.
      */
-    public Command parseCommand(String input) {
-        String[] inputComponents = input.split(" ");
+    public Command parseCommand(String... input) {
+        String[] inputComponents = input;
+        String fullInput = String.join(" ", inputComponents);
         String command = inputComponents[0];
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
@@ -91,13 +92,13 @@ public class Parser {
             case "unmark":
                 return new UnmarkCommand(Integer.parseInt(inputComponents[1]));
             case "todo":
-                return new ToDoCommand(input.substring(5));
+                return new ToDoCommand(fullInput.substring(5));
             case "deadline":
-                String[] deadlineComponents = input.substring(9).split(" /by ");
+                String[] deadlineComponents = fullInput.substring(9).split(" /by ");
                 return new DeadlineCommand(deadlineComponents[0],
                         LocalDateTime.parse(deadlineComponents[1], inputFormatter));
             case "event":
-                String[] eventComponents = input.substring(6).split(" /from ");
+                String[] eventComponents = fullInput.substring(6).split(" /from ");
                 String[] eventDates = eventComponents[1].split(" /to ");
                 LocalDateTime eventStart = LocalDateTime.parse(eventDates[0], inputFormatter);
                 LocalDateTime eventEnd = LocalDateTime.parse(eventDates[1], inputFormatter);
@@ -105,7 +106,7 @@ public class Parser {
             case "delete":
                 return new DeleteCommand(Integer.parseInt(inputComponents[1]));
             case "find":
-                return new FindCommand(input.substring(5));
+                return new FindCommand(fullInput.substring(5));
             case "bye":
                 return new ByeCommand();
             }
