@@ -21,6 +21,19 @@ public class Duke {
             } else if (input.equals("unmark")) {
                 int item = sc.nextInt();
                 taskList.get(item - 1).markUndone();
+            } else if (input.equals("todo")) {
+                add(new ToDo(sc.nextLine()));
+            } else if (input.equals("event")) {
+                String eventCommand = sc.nextLine();
+                String[] event = new String[3];
+                event[0] = eventCommand.substring(1, eventCommand.indexOf(" /"));
+                event[1] = eventCommand.substring(eventCommand.indexOf("/from") + 6, eventCommand.indexOf(" /to"));
+                event[2] = eventCommand.substring(eventCommand.indexOf("/to") + 4);
+                add(new Event(event[0], event[1], event[2]));
+            } else if (input.equals("deadline")) {
+                String ddlCommand = sc.nextLine();
+                String[] ddl = ddlCommand.split(" /by ");
+                add(new Deadline(ddl[0].substring(1), ddl[1]));
             } else {
                 add(new Task(input));
             }
@@ -32,7 +45,9 @@ public class Duke {
 
     public static void add(Task input) {
         taskList.add(input);
-        System.out.println("Hi! This task has been added: " + input.getTask());
+        System.out.println("Got it! This task has been added: ");
+        System.out.println(input.getStatus());
+        System.out.println("Current # of task: " + taskList.size());
     }
 
     public static void print() {
