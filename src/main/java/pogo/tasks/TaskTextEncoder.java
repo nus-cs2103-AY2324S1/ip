@@ -27,8 +27,9 @@ public class TaskTextEncoder implements TaskEncoder, TaskVisitor {
      */
     @Override
     public void visit(Deadline deadline) {
-        String deadlineString =
-            String.join(SEPARATOR_ENCODING, ID_DEADLINE, deadline.isDone() ? "1" : "0", deadline.getDescription(),
+        String deadlineString = String.join(SEPARATOR_ENCODING, ID_DEADLINE,
+                deadline.isDone() ? "1" : "0",
+                deadline.getDescription(),
                 deadline.getDeadline());
         tasksOut.append(deadlineString).append(System.lineSeparator());
     }
@@ -42,8 +43,9 @@ public class TaskTextEncoder implements TaskEncoder, TaskVisitor {
      */
     @Override
     public void visit(Event event) {
-        String eventString =
-            String.join(SEPARATOR_ENCODING, ID_EVENT, event.isDone() ? "1" : "0", event.getDescription(),
+        String eventString = String.join(SEPARATOR_ENCODING, ID_EVENT,
+                event.isDone() ? "1" : "0",
+                event.getDescription(),
                 event.getFrom(), event.getTo());
         tasksOut.append(eventString).append(System.lineSeparator());
     }

@@ -72,10 +72,19 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the status icon for whether the task is completed or not.
+     * @return String Status icon of the task.
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
+    /**
+     * Returns the status message of the task.
+     *
+     * @return String Status message of the task.
+     */
     public String getStatusMessage() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }

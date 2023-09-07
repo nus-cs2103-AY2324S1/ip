@@ -50,7 +50,6 @@ public class Parser {
         try {
             switch (commandWord) {
             case ListTasksCommand.COMMAND_WORD:
-                final Pattern LIST_PATTERN = Pattern.compile("/from (?<from>.*) /to (?<to>.*)");
                 final Matcher listMatcher = LIST_PATTERN.matcher(arguments);
                 // Set from and to encompass all dates
                 LocalDateTime from = LocalDateTime.of(LocalDate.MIN, LocalTime.MIN);
