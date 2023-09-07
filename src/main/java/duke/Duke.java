@@ -5,9 +5,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import duke.exceptions.DukeException;
+import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
+import javafx.scene.image.Image;
 
 
 /**
@@ -16,18 +18,23 @@ import duke.ui.Ui;
  * @author Marcus Soh
  */
 public class Duke {
-    private static final Path SAVE_FILE_LOCATION = Paths.get("data", "duke.txt");
+    public static final Path SAVE_FILE_LOCATION = Paths.get("data", "duke.txt");
     private Ui ui;
     private TaskList listContainer = new TaskList(new ArrayList<>());
+    private Storage storage = new Storage(String.valueOf(SAVE_FILE_LOCATION));
+
+    private Image userAvatar = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image dukeAvatar = new Image(this.getClass().getResourceAsStream("/images/elonmusk.jpg"));
+
 
     /**
      * Constructor for our chatbot.
      *
      * @param filePath Specifies where the save file to store previous information is to be saved.
      */
-    public Duke(String filePath) {
+    public Duke() {
 
-        Storage storage = new Storage(filePath);
+
 
         try {
             this.listContainer = new TaskList(storage.load());
@@ -44,8 +51,29 @@ public class Duke {
         ui.beginLogging();
     }
 
+
     public static void main(String[] args) {
-        new Duke(String.valueOf(SAVE_FILE_LOCATION)).run();
+        new Duke().run();
+    }
+
+
+    /**
+     * Get the task list assigned to this Duke.
+     * @return
+     */
+    public TaskList getTaskList() {
+        return this.listContainer;
+    }
+
+    public String getResponse(String input) {
+        // TODO
+        try {
+            Parser.parseInput(input, listContainer);
+            return "";
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
+
     }
 }
 

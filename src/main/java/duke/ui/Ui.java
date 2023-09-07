@@ -1,8 +1,9 @@
 package duke.ui;
 
-import java.util.Optional;
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.exceptions.UnknownCommandException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.Commands;
@@ -50,10 +51,16 @@ public class Ui {
             try {
                 inputString = keyboard.nextLine();
                 printDivider();
-                boolean canContinue = Parser.parse(inputString, taskList, storage);
-                if (!canContinue) {
+                boolean isTerminateCommand = Parser.isTerminateCommand(inputString);
+                if (isTerminateCommand) {
+                    System.out.println("Byebye!");
                     break;
                 }
+
+                ArrayList<Task> modifiedTasks = Parser.parseInput(inputString, taskList);
+                printResult(Parser.getInputCommand(inputString), modifiedTasks, taskList);
+
+                storage.saveTasks(taskList);
                 printDivider();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -66,58 +73,71 @@ public class Ui {
      * Prints feedback to the user on what and how a Task got modified,
      * based on the user's command.
      *
-     * @param command
+     * @param command       the command input by the user
+     * @param modifiedTasks The tasks that were modified in the input
+     * @param taskList      the task container
      */
-    public static void printResult(Commands command, Optional<Task> task, TaskList taskList) {
+    public static void printResult(Commands command, ArrayList<Task> modifiedTasks, TaskList taskList) throws UnknownCommandException {
+        System.out.println(getResponseMessage(command, modifiedTasks, taskList));
+    }
+
+    /**
+     * Gets the text that a user should see, either in GUI or in command line.
+     *
+     * @param command
+     * @param modifiedTasks
+     * @param taskList
+     * @return
+     */
+    public static String getResponseMessage(Commands command, ArrayList<Task> modifiedTasks, TaskList taskList) throws UnknownCommandException {
+        String result = "";
         switch (command) {
         case TODO:
         case DEADLINE:
         case EVENT: {
-            task.ifPresent(t -> {
-                System.out.println("\uD83D\uDE0A I've added a new task: " + t.toString());
-                System.out.println("Now you have " + taskList.getSize() + " tasks!");
-            });
+            result = "\uD83D\uDE0A I've added a new task: " + modifiedTasks + "\n" + "Now you have " + taskList.getSize() + " tasks!";
             break;
         }
         case MARK: {
-            task.ifPresent(t -> System.out.println("Nice! I've marked this task as done: \n    " + t.toString()));
+            result = "Nice! I've marked this task as done: \n    " + modifiedTasks;
 
             break;
         }
         case UNMARK: {
-            task.ifPresent(t -> System.out.println("Nice! I've marked this task as undone: \n    " + t.toString()));
-
+            result = "Nice! I've marked this task as undone: \n    " + modifiedTasks;
             break;
         }
         case DELETE: {
-            task.ifPresent(t -> System.out.println("\uD83D\uDE0A I've removed this task: " + t.toString()));
+            result = ("\uD83D\uDE0A I've removed this task: " + modifiedTasks);
             break;
         }
         case LIST: {
-            System.out.println(taskList);
+            result = taskList.toString();
             break;
         }
         case FIND: {
-            if (taskList.getSize() == 0) {
-                System.out.println("Couldn't find any matching tasks!");
+            if (modifiedTasks.isEmpty()) {
+                result = ("Couldn't find any matching tasks!");
             } else {
-                System.out.println("I found " + taskList.getSize() + " matching tasks:");
-                System.out.println(taskList.toString());
+                result = "I found " + modifiedTasks.size() + " matching tasks:" + "\n" + new TaskList(modifiedTasks);
+
             }
             break;
         }
         case BYE: {
-            String exitMsg = "Bye! Hope to see you again soon.";
-            System.out.println(exitMsg);
+            result = "Bye! Hope to see you again soon.";
+
 
             break;
         }
         default: {
-            System.out.println("Unhandled enum error!");
+            throw new UnknownCommandException();
 
-            break;
+
         }
         }
+
+        return result;
     }
 
     /**

@@ -39,7 +39,7 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString()
+        return super.toString()
                 + " (from: " + this.fromDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"))
                 + " to: " + this.toDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a")) + ")";
     }

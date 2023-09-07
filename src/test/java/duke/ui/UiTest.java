@@ -7,6 +7,8 @@ import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import duke.exceptions.DukeException;
+import duke.exceptions.UnknownCommandException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +30,7 @@ public class UiTest {
         System.setOut(new PrintStream(outputStreamCaptor));
     }
     @Test
-    public void testPrintList() {
+    public void testPrintList() throws UnknownCommandException {
         TaskList taskList = new TaskList(new ArrayList<>());
 
         Task task1 = new TodoTask("Task1");
@@ -45,7 +47,7 @@ public class UiTest {
 
     }
     @Test
-    public void testMarkDoneAndUndone() {
+    public void testMarkDoneAndUndone() throws DukeException {
         TaskList taskList = new TaskList(new ArrayList<>());
 
         Task task1 = new TodoTask("Task1");

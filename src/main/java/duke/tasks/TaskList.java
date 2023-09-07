@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import duke.exceptions.NotFoundException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +12,7 @@ import java.util.stream.Collectors;
  * Provides additional methods for operating on the tasks.
  */
 public class TaskList {
-    private ArrayList<Optional<Task>> list = new ArrayList<>();
+    private ArrayList<Task> list = new ArrayList<>();
 
 
     /**
@@ -18,7 +20,7 @@ public class TaskList {
      *
      * @param tasks The default tasks (if any) this should be initialised to
      */
-    public TaskList(ArrayList<Optional<Task>> tasks) {
+    public TaskList(ArrayList<Task> tasks) {
         this.list = tasks;
     }
 
@@ -28,20 +30,30 @@ public class TaskList {
      * @param task The user's task
      */
     public void addToList(Task task) {
-        list.add(Optional.of(task));
+        list.add(task);
 
     }
 
     /**
-     * Removes an item from the list.
-     * Indexes start from 1, not zero
+     * Removes an item from the list
      *
-     * @param index the index of the task to remove.
+     * @param id the id of the task to remove.
      * @return the task that was removed
      */
-    public Optional<Task> removeFromList(int index) {
-        Optional<Task> task = list.get(index - 1);
-        list.remove(index - 1);
+    public Task removeFromList(int id) throws NotFoundException {
+        int taskToDeleteIndex = -1;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getId() == id) {
+                taskToDeleteIndex = i;
+                break;
+            }
+        }
+        if (taskToDeleteIndex == -1) {
+            throw new NotFoundException();
+        }
+        Task task = list.get(taskToDeleteIndex);
+        list.remove(taskToDeleteIndex);
+
         return task;
     }
 
@@ -49,27 +61,37 @@ public class TaskList {
      * Marks a specific task in the list as done.
      * Indexes start from 1, not 0
      *
-     * @param index
+     * @param id
      * @return the task that was modified
      */
-    public Optional<Task> markAsDone(int index) {
-        Optional<Task> task = list.get(index - 1);
-        task.ifPresent((t) -> t.setDone());
+    public Task markAsDone(int id) throws NotFoundException {
 
-        return task;
+        for (Task t : this.list) {
+            if (t.getId() == id) {
+                t.setDone();
+                return t;
+            }
+        }
+        throw new NotFoundException();
+
     }
 
     /**
      * Marks a specific task in the list as undone.
-     * Indexes start from 1, not 0
      *
-     * @param index
+     * @param id
      * @return the task that was modified
      */
-    public Optional<Task> markAsUnDone(int index) {
-        Optional<Task> task = list.get(index - 1);
-        task.ifPresent((t) -> t.setUnDone());
-        return task;
+    public Task markAsUnDone(int id) throws NotFoundException {
+
+
+        for (Task t : this.list) {
+            if (t.getId() == id) {
+                t.setUnDone();
+                return t;
+            }
+        }
+        throw new NotFoundException();
     }
 
     /**
@@ -78,19 +100,28 @@ public class TaskList {
      * @return integer representing the size
      */
     public int getSize() {
-        return this.list.stream().filter(Optional::isPresent).collect(Collectors.toList()).size();
+        return this.list.size();
     }
 
     /**
+     * Gets all tasks.
+     *
+     */
+    public ArrayList<Task> getTasks() {
+        return this.list;
+    }
+    /**
      * Encodes the current Duke. Tasks in a string, each task separated by a newline.
+     *
      * @return String representation
      */
     public String serialize() {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (int i = 0; i < this.list.size(); i++) {
-            Optional<Task> task = this.list.get(i);
-            task.ifPresent((t) -> stringBuilder.append(t.encodeTask()));
+            Task task = this.list.get(i);
+            stringBuilder.append(task.encodeTask());
+
             stringBuilder.append("\n");
         }
 
@@ -104,27 +135,25 @@ public class TaskList {
      * @param searchString the string to match
      * @return tasks whose name contains the search string.
      */
-    public ArrayList<Optional<Task>> findTasksByName(String searchString) {
-        List<Optional<Task>> filtered = this.list.stream().map(Optional::get)
-                .map(a -> a.getName().contains(searchString) ? a : null)
-                .map(Optional::ofNullable)
-                .collect(Collectors.toList());
+    public ArrayList<Task> findTasksByName(String searchString) {
+        List<Task> filtered = this.list.stream().filter(a -> a.getName().contains(searchString)).collect(Collectors.toList());
 
         return new ArrayList<>(filtered);
 
     }
+
     @Override
     public String toString() {
         StringBuilder resultMsg = new StringBuilder();
 
         for (int i = 0; i < list.size(); i++) {
-            Optional<Task> task = list.get(i);
-            int finalI = i;
-            task.ifPresent((t) -> {
-                resultMsg.append(finalI + 1).append(". ").append(t.toString());
+            Task task = list.get(i);
 
-                resultMsg.append("\n");
-            });
+
+            resultMsg.append(task);
+
+            resultMsg.append("\n");
+
 
         }
 
