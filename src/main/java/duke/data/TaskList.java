@@ -1,13 +1,12 @@
 package duke.data;
 
-import duke.data.task.ToDo;
+import java.util.ArrayList;
+
+import duke.data.exception.DukeException;
 import duke.data.task.Deadline;
 import duke.data.task.Event;
 import duke.data.task.Task;
-import duke.data.exception.DukeException;
-
-import java.io.IOException;
-import java.util.ArrayList;
+import duke.data.task.ToDo;
 
 public class TaskList {
     private ArrayList<Task> tasklist;
@@ -31,7 +30,7 @@ public class TaskList {
      * @return The marked Task.
      */
     public Task markTask(int input) throws DukeException {
-        if (input < 1 || (input + 1) > tasklist.size()) {
+        if (input < 1 || input > tasklist.size()) {
             throw new DukeException("☹ OOPS!!! The task number is invalid.");
         }
         Task task = tasklist.get(input - 1);
@@ -47,7 +46,7 @@ public class TaskList {
      * @return The unmarked Task.
      */
     public Task unmarkTask(int input) throws DukeException {
-        if (input < 1 || (input + 1) > tasklist.size()) {
+        if (input < 1 || input > tasklist.size()) {
             throw new DukeException("☹ OOPS!!! The task number is invalid.");
         }
         Task task = tasklist.get(input - 1);

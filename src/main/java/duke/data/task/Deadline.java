@@ -3,7 +3,7 @@ package duke.data.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
+
 public class Deadline extends Task {
     private String deadline;
 
@@ -24,7 +24,7 @@ public class Deadline extends Task {
         }
     }
     @Override
-    public  String saveString() {
+    public String saveString() {
         return "D" + super.saveString() + " | " + this.deadline;
     }
 
