@@ -39,19 +39,20 @@ public class Remark extends Command {
      * @throws DukeException If there is an error while executing the command.
      */
     @Override
-    public void execute(TaskList lst, UI io, Storage storage) throws DukeException {
-        int index = CommonMethods.getIndex(s);
-        if (state == 0) {
-            Task t = lst.unmark(index);
-            io.mark(t);
-        } else {
-            Task t = lst.mark(index);
-            io.unmark(t);
-        }
+    public String execute(TaskList lst, UI io, Storage storage) throws DukeException {
         try {
-            storage.changeFile(lst);
+            int index = CommonMethods.getIndex(s);
+            if (state == 0) {
+                Task t = lst.unmark(index);
+                storage.changeFile(lst);
+                return io.mark(t);
+            } else {
+                Task t = lst.mark(index);
+                storage.changeFile(lst);
+                return io.unmark(t);
+            }
         } catch (IOException ignored) {
-            throw new DukeException(ignored.getMessage());
+            return ignored.getMessage();
         }
     }
 }

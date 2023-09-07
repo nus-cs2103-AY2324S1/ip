@@ -35,7 +35,7 @@ public class AddDeadline extends Command {
      * @throws DukeException If there is an error while executing the command.
      */
     @Override
-    public void execute(TaskList lst, UI io, Storage storage) throws DukeException {
+    public String execute(TaskList lst, UI io, Storage storage) throws DukeException {
         if (s.isEmpty() || s.equals(" ")) {
             throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
         } else if (!s.matches(" \\S.*\\s/by\\s\\d.*")) {
@@ -48,8 +48,8 @@ public class AddDeadline extends Command {
             try {
                 LocalDate d = LocalDate.parse(temp[1]);
                 Task newTask = lst.addTask(temp[0].substring(1), d);
-                io.addTask(newTask, lst);
                 storage.addToFile(newTask);
+                return io.addTask(newTask, lst);
             } catch (DateTimeException e) {
                 throw new DukeException(
                         "OOPS!!! Please follow the following pattern to input the time:\n  "

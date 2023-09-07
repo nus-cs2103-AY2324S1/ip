@@ -28,8 +28,8 @@ public class Bye extends Command {
      * @param s The storage handler (not used in this command).
      */
     @Override
-    public void execute(TaskList lst, UI io, Storage s) {
-        io.showMessage("Bye. Hope to see you again soon!");
+    public String execute(TaskList lst, UI io, Storage s) {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**

@@ -34,13 +34,13 @@ public class AddTodo extends Command {
      * @throws DukeException If there is an error while executing the command.
      */
     @Override
-    public void execute(TaskList lst, UI io, Storage storage) throws DukeException {
+    public String execute(TaskList lst, UI io, Storage storage) throws DukeException {
         if (s.isEmpty() || s.equals(" ")) {
             throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
         } else {
             Task newTask = lst.addTask(s);
-            io.addTask(newTask, lst);
             storage.addToFile(newTask);
+            return io.addTask(newTask, lst);
         }
     }
 }

@@ -30,7 +30,7 @@ public class Unknown extends Command {
      * @throws DukeException Always thrown with the unknown command string.
      */
     @Override
-    public void execute(TaskList lst, UI io, Storage s) throws DukeException {
-        throw new DukeException(super.s);
+    public String execute(TaskList lst, UI io, Storage s) {
+        return "OOPS!!! I'm sorry, but I don't know what that means :-(";
     }
 }

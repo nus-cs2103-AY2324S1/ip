@@ -32,7 +32,7 @@ public abstract class Command {
      * @param s The storage handler for reading and storing task data.
      * @throws DukeException If there is an error while executing the command.
      */
-    public abstract void execute(TaskList lst, UI ui, Storage s) throws DukeException;
+    public abstract String execute(TaskList lst, UI ui, Storage s) throws DukeException;
 
     /**
      * Checks if this command is an exit command.

@@ -7,6 +7,13 @@ import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.UI;
 
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+
 
 /**
  * The main class that manages the Duke application.
@@ -17,52 +24,36 @@ public class Duke {
     private TaskList tasks;
     private final UI ui;
 
-    /**
-     * Constructs a Duke object with the specified file path.
-     * Initializes the UI, storage, and tasks based on loaded data or an empty list.
-     *
-     * @param filePath The file path for storing and loading task data.
-     */
-    public Duke(String filePath) {
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+
+    public Duke() {
         ui = new UI();
-        storage = new Storage(filePath);
+        storage = new Storage("data/duke.txt");
         try {
             tasks = new TaskList(storage.load());
+//            ui.showWelcome();
         } catch (DukeException e) {
-            ui.showMessage(e.getMessage());
+            System.out.println(e.getMessage());
             tasks = new TaskList();
         }
     }
 
     /**
-     * Runs the Duke application.
-     * Displays a welcome message, reads and processes user input in a loop,
-     * and handles exceptions and command execution.
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showMessage(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
+    public String getResponse(String input) {
+        try{
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            return e.getMessage();
         }
-    }
-
-    /**
-     * The main method that starts the Duke application.
-     *
-     * @param args Command-line arguments (not used in this application).
-     */
-    public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
     }
 }

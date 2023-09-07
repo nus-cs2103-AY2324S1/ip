@@ -34,12 +34,12 @@ public class Delete extends Command {
      * @throws DukeException If there is an error while executing the command.
      */
     @Override
-    public void execute(TaskList lst, UI io, Storage storage) throws DukeException {
-        int index = CommonMethods.getIndex(s);
-        Task t = lst.delete(index);
-        io.delete(t);
+    public String execute(TaskList lst, UI io, Storage storage) throws DukeException {
         try {
+            int index = CommonMethods.getIndex(s);
+            Task t = lst.delete(index);
             storage.changeFile(lst);
+            return io.delete(t);
         } catch (IOException iE) {
             throw new DukeException(iE.getMessage());
         }
