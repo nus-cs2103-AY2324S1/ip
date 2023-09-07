@@ -26,7 +26,7 @@ public class DueCommand extends Command {
      * @param storage Storage
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) {
-        ui.showTasksDueOn(date, taskList.showTasksDueOn(date));
+    public String execute(TaskList taskList, UI ui, Storage storage) {
+        return ui.showTasksDueOn(date, taskList.showTasksDueOn(date));
     }
 }

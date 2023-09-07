@@ -49,17 +49,21 @@ public class UI {
     /**
      * Display the welcome message used at the start of the program.
      */
-    public void showWelcome() {
-        printMessage("Hello! I'm Skye, your personal task assistant.\n"
-                + "What can I do for you?");
+    public String showWelcome() {
+        String message = "Hello! I'm Skye, your personal task assistant.\n"
+                + "What can I do for you?";
+        printMessage(message);
+        return message;
     }
 
     /**
      * Display the exit message shown when exiting the program.
      */
-    public void showGoodBye() {
+    public String showGoodBye() {
         scanner.close();
-        printMessage("Bye. Hope to see you again soon!");
+        String message = "Bye. Hope to see you again soon!";
+        printMessage(message);
+        return message;
     }
 
     /**
@@ -74,17 +78,28 @@ public class UI {
      *
      * @param tasks A list of tasks from the TaskList
      */
-    public void showTasks(List<Task> tasks) {
+    public String showTasks(List<Task> tasks) {
+        StringBuilder stringBuilder = new StringBuilder();
         renderLine();
         System.out.println("Here are the tasks in your list:");
+        stringBuilder
+                .append("Here are the tasks in your list:")
+                .append(System.lineSeparator());
         if (!tasks.isEmpty()) {
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.printf("%d.%s%n", i + 1, tasks.get(i));
+                stringBuilder
+                        .append(String.format("%d. %s", i + 1, tasks.get(i)))
+                        .append(System.lineSeparator());
             }
         } else {
             System.out.println("Nice!! You're all caught up and have no pending tasks to worry about.");
+            stringBuilder
+                    .append("Nice!! You're all caught up and have no pending tasks to worry about.")
+                    .append(System.lineSeparator());
         }
         renderLine();
+        return stringBuilder.toString();
     }
 
     /**
@@ -93,14 +108,14 @@ public class UI {
      * @param task Task that was added to the task list
      * @param tasks Task list
      */
-    public void showAddedTask(Task task, List<Task> tasks) {
-        printMessage(
-            String.format(
-                    "Got it. I've added this task:\n %s\nNow you have %d task(s) in the list.",
-                    task.toString(),
-                    tasks.size()
-            )
+    public String showAddedTask(Task task, List<Task> tasks) {
+        String message = String.format(
+                "Got it. I've added this task:\n %s\nNow you have %d task(s) in the list.",
+                task.toString(),
+                tasks.size()
         );
+        printMessage(message);
+        return message;
     }
 
     /**
@@ -109,14 +124,14 @@ public class UI {
      * @param task Task that was deleted from the task list
      * @param tasks Task list
      */
-    public void showRemovedTask(Task task, List<Task> tasks) {
-        printMessage(
-            String.format(
+    public String showRemovedTask(Task task, List<Task> tasks) {
+        String message = String.format(
                 "Noted. I've removed this task:\n %s\nNow you have %d tasks in the list",
                 task.toString(),
                 tasks.size()
-            )
         );
+        printMessage(message);
+        return message;
     }
 
     /**
@@ -124,8 +139,10 @@ public class UI {
      *
      * @param task Task marked as completed
      */
-    public void showMarkedTask(Task task) {
-        printMessage(String.format("Nice! I've marked this task as done:\n %s", task));
+    public String showMarkedTask(Task task) {
+        String message = String.format("Nice! I've marked this task as done:\n %s", task);
+        printMessage(message);
+        return message;
     }
 
     /**
@@ -133,8 +150,10 @@ public class UI {
      *
      * @param task Task unmarked as incomplete
      */
-    public void showUnmarkedTask(Task task) {
-        printMessage(String.format("OK, I've marked this task as not done yet:\n %s", task));
+    public String showUnmarkedTask(Task task) {
+        String message = String.format("OK, I've marked this task as not done yet:\n %s", task);
+        printMessage(message);
+        return message;
     }
 
     /**
@@ -143,15 +162,25 @@ public class UI {
      * @param date Due date
      * @param tasks Task list
      */
-    public void showTasksDueOn(LocalDate date, List<Task> tasks) {
+    public String showTasksDueOn(LocalDate date, List<Task> tasks) {
+        StringBuilder stringBuilder = new StringBuilder();
         renderLine();
         System.out.println("Here are the tasks due on: " + date.toString());
+        stringBuilder
+                .append("Here are the tasks due on: ")
+                .append(date.toString())
+                .append(System.lineSeparator());
         if (!tasks.isEmpty()) {
             tasks.forEach(System.out::println);
+            tasks.forEach(task -> stringBuilder.append(task).append(System.lineSeparator()));
         } else {
             System.out.println("Great!! You've nothing due!");
+            stringBuilder
+                    .append("Great!! You've nothing due!")
+                    .append(System.lineSeparator());
         }
         renderLine();
+        return stringBuilder.toString();
     }
 
     /**
@@ -159,20 +188,25 @@ public class UI {
      *
      * @param lines Lines from the help guide
      */
-    public void showHelpMessage(List<String> lines) {
+    public String showHelpMessage(List<String> lines) {
+        StringBuilder stringBuilder = new StringBuilder();
         renderLine();
         for (String line : lines) {
             System.out.println(line);
+            stringBuilder.append(line).append(System.lineSeparator());
         }
         renderLine();
+        return stringBuilder.toString();
     }
 
     /**
      * Displays a message when an unrecognized command is typed and
      * refers the user to the help command
      */
-    public void showInvalidCommandMsg() {
-        printMessage("I'm sorry, I don't know what that means :-(");
+    public String showInvalidCommandMsg() {
+        String message = "I'm sorry, I don't know what that means :-(";
+        printMessage(message);
+        return message;
     }
 
     /**
@@ -180,16 +214,28 @@ public class UI {
      *
      * @param tasks A list of matching tasks found
      */
-    public void showFoundTasks(List<Task> tasks) {
+    public String showFoundTasks(List<Task> tasks) {
+        StringBuilder stringBuilder = new StringBuilder();
         renderLine();
         System.out.println("Here are the matching tasks in your list:");
+        stringBuilder
+                .append("Here are the matching tasks in your list:")
+                .append(System.lineSeparator());
         if (!tasks.isEmpty()) {
             for (int i = 0; i < tasks.size(); i++) {
+                stringBuilder
+                        .append(String.format("%d.%s%n", i + 1, tasks.get(i)))
+                        .append(System.lineSeparator());
                 System.out.printf("%d.%s%n", i + 1, tasks.get(i));
             }
         } else {
+            stringBuilder
+                    .append("No matching tasks found :(")
+                    .append(System.lineSeparator());
             System.out.println("No matching tasks found :(");
         }
         renderLine();
+
+        return stringBuilder.toString();
     }
 }
