@@ -22,6 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Dook");
             fxmlLoader.<MainWindow>getController().setDuke(dook);
             stage.show();
             fxmlLoader.<MainWindow>getController().startUpDook();

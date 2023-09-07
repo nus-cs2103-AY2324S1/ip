@@ -1,5 +1,6 @@
 package dook.gui;
 import dook.Dook;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -41,6 +42,10 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        if (dook.getIsExit()) {
+            Platform.exit();
+        }
+
         String input = userInput.getText();
         String response = dook.getResponse(input);
         dialogContainer.getChildren().addAll(
@@ -57,7 +62,7 @@ public class MainWindow extends AnchorPane {
     public void startUpDook() {
         String response = dook.initialise();
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("Greetings, Duke here.\n" + response, dukeImage)
+                DialogBox.getDukeDialog("Greetings, Dook here.\n" + response, dukeImage)
         );
     }
 

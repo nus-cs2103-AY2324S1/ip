@@ -18,12 +18,18 @@ public class Dook {
     private final Parser parser;
     private TaskList taskList = new TaskList(null);
 
+    private boolean isExit = false;
+
     /**
      * Assigns the proper file path to Storage.
      */
     public Dook() {
         this.storage = new Storage(PROPER_PATH);
         this.parser = new Parser();
+    }
+
+    public boolean getIsExit() {
+        return this.isExit;
     }
 
     /**
@@ -43,8 +49,10 @@ public class Dook {
     public String getResponse(String input) {
         try {
             Command c = parser.parseFullInput(input);
+            if (c.getIsExit()) {
+                this.isExit = true;
+            }
             return c.execute(storage, taskList);
-
         } catch (DookException e) {
             return e.getMessage();
         }
