@@ -5,6 +5,7 @@ import duke.command.Parser;
 import duke.task.Task;
 import duke.task.TaskList;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -53,6 +54,10 @@ public class Duke {
                     Task deletedTask = tasks.deleteTask(taskIndex);
                     ui.showTaskDeleted(deletedTask, tasks.getTotalTasks());
                     storage.saveTasksToFile(tasks.getAllTasks());
+                } else if (Parser.isFind(command)) {
+                    String keyword = Parser.extractKeyword(command);
+                    ArrayList<Task> matchingTasks = tasks.findTasksByKeyword(keyword);
+                    ui.showMatchingTasks(matchingTasks);
                 } else {
                     Task newTask = Parser.parseTask(command);
                     tasks.addTask(newTask);

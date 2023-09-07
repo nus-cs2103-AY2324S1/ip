@@ -33,4 +33,8 @@ public class Task {
     public String getTaskType() {
         return ""; // Override in subclasses
     }
+
+    public String getDescription() {
+        return description;
+    }
 }

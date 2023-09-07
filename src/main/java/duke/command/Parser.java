@@ -38,6 +38,14 @@ public class Parser {
         return Integer.parseInt(parts[1].trim()) - 1;
     }
 
+    public static boolean isFind(String command) {
+        return command.startsWith("find");
+    }
+
+    public static String extractKeyword(String command) {
+        return command.substring("find".length()).trim();
+    }
+
     public static Task parseTask(String command) throws DukeException {
         String[] parts = command.split(" ", 2);
 
