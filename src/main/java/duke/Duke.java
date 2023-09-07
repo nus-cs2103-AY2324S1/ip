@@ -16,45 +16,27 @@ public class Duke {
     private final Ui ui;
 
     /**
-     * Duke chatbot initialised with the task list saved in the specified file path
-     *
-     * @param filePath file path to the saved task list
+     * Initialises a Duke chatbot
      */
-    public Duke(String filePath) {
+    public Duke() {
         this.ui = new Ui();
-        this.storage = new Storage(filePath);
+        this.storage = new Storage("./data/tasks.txt");
         this.tasks = new TaskList(storage.readFile());
     }
 
-    /**
-     * Runs the program until termination
-     */
-    public void run() {
-        this.ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = this.ui.readCommand();
-                this.ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(this.tasks, this.ui, this.storage);
-                isExit = c.isExit();
-            } catch (NumberFormatException e) {
-                // user input has invalid argument for mark and unmark eg. "mark ab"
-                this.ui.showError("Invalid command! Please enter only one valid task ID (numbers only)");
-            } catch (DateTimeParseException e) {
-                // user input has date/time in invalid format
-                this.ui.showError("Invalid date and time format! Please use the format dd/mm/yyyy hhmm");
-            } catch (DukeException e) {
-                this.ui.showError(e.getMessage());
-            } finally {
-                this.ui.showLine();
-            }
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(this.tasks, this.ui, this.storage);
+        } catch (NumberFormatException e) {
+            // user input has invalid argument for mark and unmark eg. "mark ab"
+            return "Invalid command! Please enter only one valid task ID (numbers only)";
+        } catch (DateTimeParseException e) {
+            // user input has date/time in invalid format
+            return "Invalid date and time format! Please use the format dd/mm/yyyy hhmm";
+        } catch (DukeException e) {
+            return e.getMessage();
         }
-    }
-
-    public static void main(String[] args) {
-        new Duke("./data/tasks.txt").run();
     }
 }
 

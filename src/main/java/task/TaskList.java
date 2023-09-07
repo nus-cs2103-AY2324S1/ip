@@ -67,15 +67,16 @@ public class TaskList {
     }
 
     /**
-     * Prints the current task list
+     * Returns a string representation of the task list
      */
-    public void printTaskList() {
+    public String toString() {
         int index = 1;
-        System.out.println(" Here are the tasks in your list:");
+        String res = "";
         for (Task task : tasks) {
-            System.out.printf("  %d. %s\n", index, task.toString());
+            res += String.format("%d. %s\n", index, task.toString());
             index++;
         }
+        return res;
     }
 
     /**

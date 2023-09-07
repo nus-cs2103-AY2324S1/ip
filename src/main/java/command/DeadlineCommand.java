@@ -12,7 +12,7 @@ import task.TaskList;
  */
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
-    public static final String MESSAGE_SUCCESS = " Got it. I've added this task:\n";
+    public static final String MESSAGE_SUCCESS = "Got it. I've added this task:\n";
 
     /** Description of the task */
     protected String description;
@@ -40,11 +40,12 @@ public class DeadlineCommand extends Command {
      * @param storage File path where the tasks are stored
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Deadline deadline = new Deadline(this.description, this.by);
         tasks.addTask(deadline);
         storage.writeToFile(tasks.getList());
-        ui.showMessage(MESSAGE_SUCCESS + "     " + deadline
-                + "\n Now you have " + tasks.getSize() + " tasks in the list");
+        String response = MESSAGE_SUCCESS + deadline
+                + "\nNow you have " + tasks.getSize() + " tasks in the list";
+        return response;
     }
 }

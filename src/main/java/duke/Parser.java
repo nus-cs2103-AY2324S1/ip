@@ -7,7 +7,6 @@ import command.Command;
 import command.DeadlineCommand;
 import command.DeleteCommand;
 import command.EventCommand;
-import command.ExitCommand;
 import command.FindCommand;
 import command.ListCommand;
 import command.MarkCommand;
@@ -29,9 +28,6 @@ public class Parser {
     public static Command parse(String input) throws DukeException {
         if (input.equals("list")) {
             return new ListCommand();
-        }
-        if (input.equals("bye")) {
-            return new ExitCommand();
         } else {
             String[] details = input.split(" ", 2);
             String commandName = details[0];
