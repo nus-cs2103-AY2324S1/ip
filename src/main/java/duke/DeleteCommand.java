@@ -13,10 +13,10 @@ public class DeleteCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task t = tasks.get(INDEX);
         tasks.delete(INDEX);
-        ui.showDeleted(t, tasks.total());
+        return ui.showDeleted(t, tasks.total());
     }
 
     @Override

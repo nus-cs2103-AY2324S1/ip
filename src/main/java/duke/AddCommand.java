@@ -15,14 +15,14 @@ public class AddCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             if (TASK_TO_ADD.startsWith("todo ")) {
                 if (TASK_TO_ADD.length() < 6) throw new IncompleteInputException("todo");
                 String des = TASK_TO_ADD.substring(5);
                 Todo todo = new Todo(des);
                 tasks.add(todo);
-                ui.showTaskAdded(todo, tasks.total());
+                return ui.showTaskAdded(todo, tasks.total());
 
             } else if (TASK_TO_ADD.startsWith("deadline ")) {
                 String[] words = TASK_TO_ADD.split("/");
@@ -34,7 +34,7 @@ public class AddCommand extends Command{
                 LocalDate by = LocalDate.parse(date);
                 Deadline dl = new Deadline(des, by);
                 tasks.add(dl);
-                ui.showTaskAdded(dl, tasks.total());
+                return ui.showTaskAdded(dl, tasks.total());
 
 
             } else if (TASK_TO_ADD.startsWith("event ")) {
@@ -49,13 +49,13 @@ public class AddCommand extends Command{
                 LocalDate to = LocalDate.parse(toDate);
                 Event event = new Event(des, from, to);
                 tasks.add(event);
-                ui.showTaskAdded(event, tasks.total());
+                return ui.showTaskAdded(event, tasks.total());
 
             } else {
                 throw new InvalidInputException();
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            return ui.showError(e.getMessage());
         }
     }
 
