@@ -3,7 +3,6 @@ package devybot;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import devybot.exceptions.EmptyDescriptionException;
@@ -12,7 +11,6 @@ import devybot.util.TaskList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TaskListTest {
 

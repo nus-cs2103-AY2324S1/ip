@@ -1,7 +1,5 @@
 package devybot;
 
-import java.util.Scanner;
-
 import devybot.exceptions.DevyBotException;
 import devybot.util.Parser;
 import devybot.util.Storage;
