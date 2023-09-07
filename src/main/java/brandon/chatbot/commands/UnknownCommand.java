@@ -1,5 +1,8 @@
 package brandon.chatbot.commands;
 
+/**
+ * Represents commands that the program does not understand.
+ */
 public class UnknownCommand extends Command {
     @Override
     public CommandResult execute() {

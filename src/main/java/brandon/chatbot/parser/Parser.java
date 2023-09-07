@@ -11,10 +11,13 @@ import brandon.chatbot.commands.MarkCommand;
 import brandon.chatbot.commands.UnmarkCommand;
 import brandon.chatbot.commands.UnknownCommand;
 import brandon.chatbot.common.DukeException;
-import brandon.chatbot.common.DukeUnknownCommandException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+/**
+ * Represents the parser that parses the user inputs.
+ */
 public class Parser {
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     public static final Pattern TODO_ARGS_FORMAT = Pattern.compile("(?<name>\\S+)");
@@ -23,6 +26,12 @@ public class Parser {
             + "/from(?<from>[^/]+)"
             + "/to(?<to>[^/]+)");
 
+    /**
+     * Parses the user input string and returns a command according to it.
+     *
+     * @param userInput is the direct input the user types in.
+     * @return Command to be run.
+     */
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
@@ -109,11 +118,5 @@ public class Parser {
     private Command prepareUnmark(String args) {
         final int index = Integer.parseInt(args.trim());
         return new UnmarkCommand(index);
-    }
-
-    public static class ParseException extends Exception {
-        ParseException(String message) {
-            super(message);
-        }
     }
 }

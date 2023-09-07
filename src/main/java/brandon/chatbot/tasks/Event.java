@@ -2,9 +2,20 @@ package brandon.chatbot.tasks;
 
 import brandon.chatbot.common.DukeException;
 
+/**
+ * Represents an Event Task with starting time and end time.
+ */
 public class Event extends Task {
     private String startTime;
     private String endTime;
+
+    /**
+     *
+     * @param title of the event.
+     * @param startTime of the event.
+     * @param endTime of the event.
+     * @throws DukeException if the parameters are invalid.
+     */
     public Event(String title, String startTime, String endTime) throws DukeException {
         super(title);
         if (startTime.isBlank()) {

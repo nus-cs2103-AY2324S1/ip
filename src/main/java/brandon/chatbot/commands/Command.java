@@ -1,32 +1,37 @@
 package brandon.chatbot.commands;
 
-import brandon.chatbot.common.DukeException;
-import brandon.chatbot.common.DukeIndexOutOfBoundsException;
-import brandon.chatbot.common.DukeUnknownCommandException;
-import brandon.chatbot.tasks.Deadline;
-import brandon.chatbot.tasks.Event;
 import brandon.chatbot.tasks.TaskList;
-import brandon.chatbot.tasks.Todo;
 
+/**
+ * Represents the command that the user typed in.
+ */
 public class Command {
-    public static final String LIST_SUCCESS = "ok... here is the list..";
-    public static final String DELETE_SUCCESS = "ok... I'm deleting..";
-    public static final String MARK_SUCCESS = "ok... I'm marking..";
-    public static final String UNMARK_SUCCESS = "ok... I'm unmarking..";
-    private String[] parsedCommand;
+
     protected TaskList tasks;
+
+    /**
+     * Constructs an instance of Command and assigns the parameter value to the tasks TaskList class member.
+     *
+     * @param tasks is a TaskList instance to be assigned to tasks class variable.
+     */
     public Command(TaskList tasks) {
         this.tasks = tasks;
     }
 
-    protected Command () {
-
+    protected Command() {
     }
 
+    /**
+     * Executes the command and returns the result.
+     */
     public CommandResult execute() throws Exception {
         throw new UnsupportedOperationException("This method is to be implemented by child classes");
     }
 
+    /**
+     * Assigns the TaskList parameter to the class variable tasks.
+     * @param tasks
+     */
     public void setData(TaskList tasks) {
         this.tasks = tasks;
     }

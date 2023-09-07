@@ -1,4 +1,4 @@
-package ui;
+package brandon.chatbot.ui;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -12,21 +12,38 @@ import brandon.chatbot.commands.CommandResult;
 import brandon.chatbot.tasks.Task;
 import brandon.chatbot.tasks.TaskList;
 
+/**
+ * Handles the Ui that users view on screen.
+ */
 public class TextUi {
     private static final String DIVIDER = "--------------------------------";
     private final Scanner in;
     private final PrintStream out;
     private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
 
-
+    /**
+     * Assigns input and output streams to the constructor below.
+     */
     public TextUi() {
         this(System.in, System.out);
     }
+
+    /**
+     * Assigns new Scanner and System.out print stream to the class variables.
+     *
+     * @param in assigns System.in input stream to Scanner upon TextUi() call.
+     * @param out assigns System.out print stream to the class variable.
+     */
     public TextUi(InputStream in, PrintStream out) {
         this.in = new Scanner(in);
         this.out = out;
     }
 
+    /**
+     * Receives input from the user and prints the command entered to the user.
+     *
+     * @return input string the user entered.
+     */
     public String getUserCommand() {
         String fullInputLine = in.nextLine();
 
@@ -34,12 +51,23 @@ public class TextUi {
         return fullInputLine;
     }
 
-    public void showToUser(String... message) {
-        for (String m : message) {
+    /**
+     * Prints out the string messages
+     *
+     * @param messages the user wants to show to user.
+     */
+    public void showToUser(String... messages) {
+        for (String m : messages) {
             out.println(m);
         }
     }
 
+    /**
+     * Prints the feedback the CommandResult entails, tasks by calling showTasks if the result is not empty
+     * and prints the divider.
+     *
+     * @param result is of type CommandResult which when called getTasks() returns an optional.
+     */
     public void showResultToUser(CommandResult result) {
         final Optional<TaskList> resultTasks = result.getTasks();
         showToUser(result.feedbackToUser);
@@ -50,19 +78,17 @@ public class TextUi {
     }
 
     private void showTasks(TaskList tasks) {
-        final List<String> formattedTasks = new ArrayList<>();
+        final ArrayList<String> formattedTasks = new ArrayList<>();
         for (Task t : tasks.getList()) {
             formattedTasks.add(t.getStatus());
         }
         showToUserAsIndexedList(formattedTasks);
     }
 
-    /** Shows a list of strings to the user, formatted as an indexed list. */
     private void showToUserAsIndexedList(List<String> list) {
         showToUser(getIndexedListForViewing(list));
     }
 
-    /** Formats a list of strings as a viewable indexed list. */
     private static String getIndexedListForViewing(List<String> listItems) {
         final StringBuilder formatted = new StringBuilder();
         int displayIndex = 1;
@@ -76,6 +102,10 @@ public class TextUi {
     private static String getIndexedListItem(int visibleIndex, String listItem) {
         return String.format(MESSAGE_INDEXED_LIST_ITEM, visibleIndex, listItem);
     }
+
+    /**
+     * Prints out welcome message to the user.
+     */
     public void showWelcomeMessage() {
         out.println("Hello.. I'm ekuD..");
         out.println("I probably won't be much of a help.. But ask me something..");

@@ -1,6 +1,5 @@
 package brandon.chatbot;
 
-import java.io.IOException;
 import java.util.Locale;
 
 import java.nio.file.Path;
@@ -14,19 +13,23 @@ import brandon.chatbot.parser.Parser;
 import brandon.chatbot.storage.Storage;
 import brandon.chatbot.tasks.TaskList;
 
-import ui.TextUi;
-import brandon.chatbot.common.DukeException;
+import brandon.chatbot.ui.TextUi;
+
+/**
+ * Entry point of the Duke chatbot application.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Duke {
     public static final String CURRENT_DIRECTORY = System.getProperty("user.dir");
     private static Path outputPath = Paths.get(CURRENT_DIRECTORY, "output.txt");
     private TaskList tasks;
     private TextUi ui;
     private Storage storage;
+
     /**
-     *
-     * @throws IOException
+     * Sets up TextUi, TaskList, and Storage used for the chatbot.
      */
-    public void greeting() throws Exception {
+    public void greeting() {
         this.ui = new TextUi();
         tasks = new TaskList();
         storage = new Storage(outputPath);
@@ -35,7 +38,11 @@ public class Duke {
         System.out.println("    bye...");
         System.exit(1);
     }
-    public void parseAndRun() throws DukeException {
+
+    /**
+     * Parses the input, convert it into Command instance, then runs the program until termination.
+     */
+    public void parseAndRun() {
         Command parsedCommand;
         do {
             String userCommand = ui.getUserCommand();
@@ -54,7 +61,7 @@ public class Duke {
             return new UnknownCommand().execute();
         }
     }
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         Locale.setDefault(Locale.ENGLISH);
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
