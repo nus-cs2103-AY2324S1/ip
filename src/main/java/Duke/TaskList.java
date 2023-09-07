@@ -28,10 +28,11 @@ public class TaskList {
      * Adds a Task into the ArrayList of Tasks.
      *
      * @param task specific Task to be added into the ArrayList.
+     * @return a message showing the task has been added.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         tasks.add(task);
-        Ui.addedTask(task);
+        return Ui.addedTask(task);
     }
 
     /**
@@ -40,39 +41,40 @@ public class TaskList {
      * @param index specified index of Task to delete in the ArrayList.
      * @throws GmanException When there is no Task to delete.
      */
-    public void deleteTask(int index) throws GmanException{
-        try {
-            if (index > this.getSize() || this.getSize() == 0) {
-                throw new GmanException("HEYHEYHEY! There's nothing to delete here!");
-            }
-            Ui.removedTask(tasks.get(index));
+    public String deleteTask(int index) {
+        if (index > this.getSize() || this.getSize() == 0) {
+            return Ui.showError(new GmanException("HEYHEYHEY! There's nothing to delete here!"));
+        } else {
+            String removedTask = Ui.removedTask(tasks.get(index));
             tasks.remove(index);
-        } catch (GmanException e) {
-            System.out.println(e.getMessage());
+            return removedTask;
         }
+
     }
 
     /**
      * Unmarks Task in specified index of tasks.
      *
      * @param index specified index of Task in tasks.
+     * @return a string stating the task has been unmarked.
      */
-    public void unmark(int index) {
+    public String unmark(int index) {
         //needed to let tasks remain private
         Task task = tasks.get(index);
         task.unmark();
-        Ui.unmark(task.toString());
+        return Ui.unmark(task.toString()); //i dont like how this is here and not in parser.
     }
 
     /**
      * Marks Task in specified index of tasks.
      *
      * @param index specified index of Task in tasks.
+     * @return a string stating the task has been marked.
      */
-    public void mark(int index) {
+    public String mark(int index) {
         Task task = tasks.get(index);
         task.mark();
-        Ui.mark(task.toString());
+        return Ui.mark(task.toString());
     }
 
     /**
@@ -108,15 +110,16 @@ public class TaskList {
      * Finds all tasks in taskList with given keyword and puts these tasks in a new ArrayList.
      *
      * @param keyword The keyword to check if present in the task description.
+     * @return a string of all tasks found with the specific keyword given.
      */
-    public void findTasks(String keyword) {
+    public String findTasks(String keyword) {
         ArrayList<Task> tasksWithKeyword = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
                 tasksWithKeyword.add(task);
             }
         }
-        Ui.listTasksFound(tasksWithKeyword);
+        return Ui.listTasksFound(tasksWithKeyword);
     }
 
 }
