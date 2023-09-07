@@ -8,10 +8,22 @@ import OOP.TaskList;
 import OOP.Ui;
 
 public class Duke {
+    /** The name of the chatbot */
     private String name = "WallE";
+
+    /** The Storage instance to be used by Duke */
     private Storage storage;
+
+    /** The TaskList instance to be used by Duke to keep track of tasks */
     private TaskList tasks;
+    /** The Ui instance that handles interactions with the user */
     private Ui ui;
+
+    /**
+     * Constructs an instance of Duke which is used to run the chatbot
+     *
+     * @param filePath The filepath of the storage file to be used by duke when loading and saving tasks.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -25,12 +37,18 @@ public class Duke {
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();
     }
+
+    /**
+     * Greets the user and runs the chatbot.
+     */
     public void run() {
         ui.printGreeting(this.name);
         runCommandLoopUntilExitCommand();
     }
 
-    /** Reads the user command and executes it, until the user issues the bye (exit) command.  */
+    /**
+     * Reads the user command and executes it, until the user issues the bye (exit) command.
+     * */
     private void runCommandLoopUntilExitCommand() {
         Command command = null;
         do {
