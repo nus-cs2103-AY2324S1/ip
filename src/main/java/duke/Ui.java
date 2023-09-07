@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Ui {
 
     /** Break line for each input and output */
-    private static final String DIVIDER = "____________________________________________________________";
+    private static final String DIVIDER = "________________________________________________________";
 
     /** instance that read input from user */
     private final Scanner in;
@@ -43,122 +43,164 @@ public class Ui {
      *
      * @param name of the chatBot
      */
-    public void printGreeting(String name) {
-        System.out.println(DIVIDER);
-        System.out.println("Hello! I'm " + name + "!");
-        System.out.println("What can I do for you?");
-        System.out.println(DIVIDER);
+    public String printGreeting(String name) {
+        StringBuilder result = new StringBuilder();
+        result.append(DIVIDER);
+        result.append("\n");
+        result.append("Hello! I'm " + name + "!");
+        result.append("\n");
+        result.append("What can I do for you?");
+        result.append("\n");
+        result.append(DIVIDER);
+        return result.toString();
     }
 
     /**
      * Output the greeting before chatBot terminates.
      */
-    public void exitGreeting() {
+    public String exitGreeting() {
         this.exit = true;
-        System.out.println(DIVIDER);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(DIVIDER);
+        StringBuilder result = new StringBuilder();
+        result.append(DIVIDER);
+        result.append("\n");
+        result.append("Bye. Hope to see you again soon!");
+        result.append("\n");
+        result.append(DIVIDER);
+        return result.toString();
     }
 
     /**
      * Output message that indicate mark function is successful.
      * @param task store the current list of tasks.
      */
-    public void markSuccess(Task task) {
-        System.out.println(DIVIDER);
-        System.out.println("Nice! I've marked this task as done: \n" + task);
-        System.out.println(DIVIDER);
+    public String markSuccess(Task task) {
+        StringBuilder result = new StringBuilder();
+        result.append(DIVIDER);
+        result.append("\n");
+        result.append("Nice! I've marked this task as done: \n" + task);
+        result.append("\n");
+        result.append(DIVIDER);
+        return result.toString();
     }
 
     /**
      * Output message that indicate unMark function is successful.
      * @param task store the current list of tasks.
      */
-    public void unMarkSuccess(Task task) {
-        System.out.println(DIVIDER);
-        System.out.println("OK, I've marked this task as not done yet: \n" + task);
-        System.out.println(DIVIDER);
+    public String unMarkSuccess(Task task) {
+        StringBuilder result = new StringBuilder();
+        result.append(DIVIDER);
+        result.append("\n");
+        result.append("OK, I've marked this task as not done yet: \n" + task);
+        result.append("\n");
+        result.append(DIVIDER);
+        return result.toString();
     }
 
     /**
      * Output message that indicate adding todo is successful.
      * @param task store the current list of tasks.
      */
-    public void toDoSuccess(Task task, int size) {
-        System.out.println(DIVIDER);
-        System.out.println("Got it. I've added this task: \n" + task + "\n"
+    public String toDoSuccess(Task task, int size) {
+        StringBuilder result = new StringBuilder();
+        result.append(DIVIDER);
+        result.append("\n");
+        result.append("Got it. I've added this task: \n" + task + "\n"
                 + "Now you have " + size + " tasks in the list.");
-        System.out.println(DIVIDER);
-
+        result.append("\n");
+        result.append(DIVIDER);
+        return result.toString();
     }
 
     /**
      * Output message that indicate adding deadline is successful.
      * @param task store the current list of tasks.
      */
-    public void deadLineSuccess(Task task, int size) {
-        System.out.println(DIVIDER);
-        System.out.println("Got it. I've added this task: \n" + task + "\n"
+    public String deadLineSuccess(Task task, int size) {
+        StringBuilder result = new StringBuilder();
+        result.append(DIVIDER);
+        result.append("\n");
+        result.append("Got it. I've added this task: \n" + task + "\n"
                 + "Now you have " + size + " tasks in the list.");
-        System.out.println(DIVIDER);
+        result.append("\n");
+        result.append(DIVIDER);
+        return result.toString();
     }
 
     /**
      * Output message that indicate adding event is successful.
      * @param task store the current list of tasks.
      */
-    public void eventSuccess(Task task, int size) {
-        System.out.println(DIVIDER);
-        System.out.println("Got it. I've added this task: \n" + task + "\n"
+    public String eventSuccess(Task task, int size) {
+        StringBuilder result = new StringBuilder();
+        result.append(DIVIDER);
+        result.append("\n");
+        result.append("Got it. I've added this task: \n" + task + "\n"
                 + "Now you have " + size + " tasks in the list.");
-        System.out.println(DIVIDER);
+        result.append("\n");
+        result.append(DIVIDER);
+        return result.toString();
     }
 
     /**
      * Output message that indicate delete task is successful.
      * @param task store the current list of tasks.
      */
-    public void deleteSuccess(Task task, int size) {
-        System.out.println(DIVIDER);
-        System.out.println("Noted. I've removed this task: \n" + task +
+    public String deleteSuccess(Task task, int size) {
+        StringBuilder result = new StringBuilder();
+        result.append(DIVIDER);
+        result.append("\n");
+        result.append("Noted. I've removed this task: \n" + task +
                 "\nNow you have " + size + " tasks in the list.");
-        System.out.println(DIVIDER);
+        result.append("\n");
+        result.append(DIVIDER);
+        return result.toString();
     }
 
     /**
      * Output all the user input.
      */
-    public void outputList(TaskList tasks) {
+    public String outputList(TaskList tasks) {
         StringBuilder output = new StringBuilder();
+        output.append(DIVIDER);
+        output.append("\n");
         output.append("Here are the tasks in your list: ");
         int i = 1;
         for (Task val : tasks.getTasks()) {
             output.append("\n").append(i).append(". ").append(val);
             i++;
         }
-        System.out.println(DIVIDER);
-        System.out.println(output);
-        System.out.println(DIVIDER);
+        output.append("\n");
+        output.append(DIVIDER);
 
+        return output.toString();
     }
 
     /**
      * Output customized reply for specific userInput.
      */
-    public void customReply() {
-        System.out.println(DIVIDER);
-        System.out.println("Hi barbie!");
-        System.out.println(DIVIDER);
+    public String customReply() {
+        StringBuilder result = new StringBuilder();
+        result.append(DIVIDER);
+        result.append("\n");
+        result.append("Hi barbie!");
+        result.append("\n");
+        result.append(DIVIDER);
+        return result.toString();
     }
 
     /**
      * Output exception msg in a formatted output.
      * @param e exception.
      */
-    public void showErrorMsg(Exception e) {
-        System.out.println(DIVIDER);
-        System.out.println(e.getMessage());
-        System.out.println(DIVIDER);
+    public String showErrorMsg(Exception e) {
+        StringBuilder result = new StringBuilder();
+        result.append(DIVIDER);
+        result.append("\n");
+        result.append(e.getMessage());
+        result.append("\n");
+        result.append(DIVIDER);
+        return result.toString();
     }
 
     /**
@@ -170,16 +212,20 @@ public class Ui {
         return this.exit;
     }
 
-    public void findSuccess(TaskList tasks) {
+    public String findSuccess(TaskList tasks) {
         StringBuilder output = new StringBuilder();
+        output.append(DIVIDER);
+        output.append("\n");
         output.append("Here are the matching tasks in your list: ");
         int i = 1;
         for (Task val : tasks.getTasks()) {
             output.append("\n").append(i).append(". ").append(val);
             i++;
         }
-        System.out.println(DIVIDER);
-        System.out.println(output);
-        System.out.println(DIVIDER);
+
+        output.append("\n");
+        output.append(DIVIDER);
+
+        return output.toString();
     }
 }

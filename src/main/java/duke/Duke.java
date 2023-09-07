@@ -61,6 +61,23 @@ public class Duke {
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
-
     }
+
+    public String getGreeting() {
+        return ui.printGreeting(name);
+    }
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        try {
+            String result = Parser.replyUser(input, tasks, this.ui);
+            storage.save(tasks.getTasks());
+            return result;
+        } catch (DukeException e){
+            return ui.showErrorMsg(e);
+        }
+    }
+
 }
