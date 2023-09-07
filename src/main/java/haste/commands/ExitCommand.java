@@ -26,9 +26,10 @@ public class ExitCommand extends Command {
      * @param ui Ui that handles interactions.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
-        ui.bye();
+    public String execute(TaskList tasks, Ui ui) {
         this.store.delete();
         this.store.save(tasks);
+
+        return ui.bye();
     }
 }

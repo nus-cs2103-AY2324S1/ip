@@ -27,7 +27,7 @@ public class InvalidCommand extends Command {
      * @throws HasteException Exception that contains the relevant error message.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) throws HasteException {
+    public String execute(TaskList tasks, Ui ui) throws HasteException {
         throw new HasteException(message);
     }
 }

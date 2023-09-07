@@ -62,7 +62,7 @@ public class AddCommand extends Command {
      * @param ui Ui that handles interactions.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         Task newTask = null;
         switch (this.type) {
             case "t":
@@ -76,6 +76,6 @@ public class AddCommand extends Command {
                 break;
         }
         tasks.addTask(newTask);
-        ui.add(newTask.toString(), tasks);
+        return ui.add(newTask.toString(), tasks);
     }
 }

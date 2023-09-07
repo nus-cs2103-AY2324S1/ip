@@ -26,10 +26,10 @@ public class UnmarkCommand extends Command{
      * @param ui Ui that handles interactions.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         Task unmarkedTask = tasks.getTask(index);
         unmarkedTask.markUndone();
         String taskDesc = unmarkedTask.toString();
-        ui.mark(taskDesc, tasks);
+        return ui.mark(taskDesc, tasks);
     }
 }

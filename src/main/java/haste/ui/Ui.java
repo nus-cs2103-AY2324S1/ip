@@ -15,46 +15,50 @@ public class Ui {
     public static final String LINE = "＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿";
     public static final String INDENT = "    ";
 
+    public static final String formatLine = INDENT + LINE + "\n";
+
     public boolean running = true;
 
 
-    public static void formatPrint(String input) {
-        System.out.println(INDENT + LINE);
+    public static String formatPrint(String input) {
+        //System.out.println(INDENT + LINE);
+        StringBuilder output = new StringBuilder();
         String[] lines = input.split("\n");
         for (String line : lines) {
-            System.out.println(INDENT + line);
+            output.append(INDENT).append(line).append("\n");
         }
-        System.out.println(INDENT + LINE);
-    }
-    public void greet() {
-        formatPrint("Hello! I'm HASTE\nWhat can I do for you?");
-    }
-    public void bye() {
-        formatPrint("Bye. Hope to see you again!");
-        this.running = false;
-    }
-
-    public void mark(String taskDesc, TaskList tasks) {
-        formatPrint("Nice! I've marked this task as done:\n" + taskDesc);
-    }
-
-    public void unmark(String taskDesc, TaskList tasks) {
-        formatPrint("Okay, I've marked this task as not done:\n" + taskDesc);
-    }
-    public void delete(String taskDesc, TaskList tasks) {
-        formatPrint("Noted. I've removed this task\n" + taskDesc + "\nNow you have " + tasks.getNumOfTasks() + " tasks in the list");
+        return output.toString();
 
     }
-    public void add(String taskDesc, TaskList tasks) {
-        Ui.formatPrint("Got it. I've added this task:\n" + taskDesc + "\nNow you have " + tasks.getNumOfTasks() + " tasks in the list.");
+    public String greet() {
+        return formatPrint("Hello! I'm HASTE\nWhat can I do for you?");
+    }
+    public String bye() {
+        return formatPrint("Bye. Hope to see you again!");
+        //this.running = false;
     }
 
-    public void printList(TaskList tasks) {
-        System.out.println(INDENT + LINE);
+    public String mark(String taskDesc, TaskList tasks) {
+        return formatPrint("Nice! I've marked this task as done:\n" + taskDesc);
+    }
+
+    public String unmark(String taskDesc, TaskList tasks) {
+        return formatPrint("Okay, I've marked this task as not done:\n" + taskDesc);
+    }
+    public String delete(String taskDesc, TaskList tasks) {
+        return formatPrint("Noted. I've removed this task\n" + taskDesc + "\nNow you have " + tasks.getNumOfTasks() + " tasks in the list");
+
+    }
+    public String add(String taskDesc, TaskList tasks) {
+        return formatPrint("Got it. I've added this task:\n" + taskDesc + "\nNow you have " + tasks.getNumOfTasks() + " tasks in the list.");
+    }
+
+    public String printList(TaskList tasks) {
+        StringBuilder listOfTasks = new StringBuilder();
         for (Task x : tasks.taskList) {
-            System.out.println(INDENT + (tasks.taskList.indexOf(x) + 1) + ". " + x);
+            listOfTasks.append(INDENT).append(tasks.taskList.indexOf(x) + 1).append(". ").append(x).append("\n");
         }
-        System.out.println(INDENT + LINE);
+        return listOfTasks.toString();
     }
 
 }

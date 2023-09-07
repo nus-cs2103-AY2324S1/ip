@@ -17,6 +17,6 @@ public abstract class Command {
      * @param ui Ui that handles interactions.
      * @throws HasteException for invalid command
      */
-    public abstract void execute(TaskList tasks, Ui ui) throws HasteException;
+    public abstract String execute(TaskList tasks, Ui ui) throws HasteException;
 
 }

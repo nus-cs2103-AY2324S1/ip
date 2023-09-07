@@ -25,9 +25,9 @@ public class DeleteCommand extends Command {
      * @param ui Ui that handles interactions.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         String desc = tasks.getTask(index).toString();
         tasks.deleteTask(index);
-        ui.delete(desc, tasks);
+        return ui.delete(desc, tasks);
     }
 }
