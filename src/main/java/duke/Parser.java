@@ -24,6 +24,7 @@ public class Parser {
         final String restOfCommand = words.length > 1 ? words[1] : "";
 
         switch (command) {
+        case "d":
         case "deadline": {
             try {
                 final String[] deadlineParts = restOfCommand.split(" /by ", 2);
@@ -36,6 +37,7 @@ public class Parser {
             }
         }
 
+        case "rm":
         case "delete": {
             if (restOfCommand.isEmpty()) {
                 throw new IllegalArgumentException("Task index is missing.");
@@ -44,6 +46,7 @@ public class Parser {
             return new TaskDeleter(tasks, index);
         }
 
+        case "e":
         case "event": {
             try {
                 final String[] deadlineParts = restOfCommand.split(" /from ", 2);
@@ -60,14 +63,17 @@ public class Parser {
             }
         }
 
+        case "f":
         case "find": {
             return new Finder(tasks, restOfCommand);
         }
 
+        case "ls":
         case "list": {
             return new Lister(tasks);
         }
 
+        case "m":
         case "mark": {
             if (restOfCommand.isEmpty()) {
                 throw new IllegalArgumentException("Task index is missing.");
@@ -77,10 +83,12 @@ public class Parser {
             return new TaskMarker(tasks, index);
         }
 
+        case "t":
         case "todo": {
             return new ToDoAdder(tasks, restOfCommand);
         }
 
+        case "um":
         case "unmark": {
             if (restOfCommand.isEmpty()) {
                 throw new IllegalArgumentException("Task index is missing.");
