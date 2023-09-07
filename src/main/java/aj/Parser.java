@@ -12,6 +12,27 @@ public class Parser {
 
 
     /**
+     * Takes in user input string, parse it, and return command string and task string
+     *
+     * @param userInput User input.
+     * @return String array, where first element is command, and second element is task, if no match, return empty
+     * array.
+     */
+    public String[] parseCommand(String userInput) {
+        Pattern pattern = Pattern.compile("(\\w+) (.*)");
+        Matcher matcher = pattern.matcher(userInput);
+        String[] strArray;
+        if (matcher.matches()) {
+            String command = matcher.group(1);
+            String taskString = matcher.group(2);
+            taskString = " " + taskString;
+            strArray = new String[]{command, taskString};
+            return strArray;
+        }
+        return new String[]{};
+    }
+
+    /**
      * Creates and return a Todo Task.
      *
      * @param remaining The remaining sub-command from user input.
@@ -30,23 +51,26 @@ public class Parser {
      * @param isMark    Mark task as complete or not.
      * @return Deadline Task.
      */
-    public Task getDeadlineTask(String remaining, boolean isMark) { // takes in command, parse it and return task object
+    public Task getDeadlineTask(String remaining, boolean isMark) throws
+            WrongDescriptionException { // takes in command, parse it and return task object
         // deadline return book /by 2019-10-15
         String pattern = " (.*) /by (.*)";
 
         Pattern regexPattern = Pattern.compile(pattern);
         Matcher matcher = regexPattern.matcher(remaining);
-
-        if (matcher.matches()) {
-            String taskName = matcher.group(1);
-            String by = matcher.group(2);
-            LocalDate newDate = LocalDate.parse(by);
-//            System.out.println(newDate);
-            return new Deadline(taskName,
-                    isMark,
-                    newDate);
+        try {
+            if (matcher.matches()) {
+                String taskName = matcher.group(1);
+                String by = matcher.group(2);
+                LocalDate newDate = LocalDate.parse(by);
+                return new Deadline(taskName,
+                        isMark,
+                        newDate);
+            }
+        } catch (Exception e) {
+            throw new WrongDescriptionException("ERROR!! Please ensure that your date format is correct");
         }
-        return null;
+        throw new WrongDescriptionException("ERROR!! Please type 'deadline' to view correct format!!");
     }
 
     /**
@@ -56,7 +80,8 @@ public class Parser {
      * @param isMark    Mark task as complete or not.
      * @return Event Task.
      */
-    public Task getEventTask(String remaining, boolean isMark) { // takes in command, parse it and return task object
+    public Task getEventTask(String remaining, boolean isMark) throws
+            WrongDescriptionException { // takes in command, parse it and return task object
         String pattern = " (.*) /from (.*?) /to (.*)";
 
         Pattern regexPattern = Pattern.compile(pattern);
@@ -71,6 +96,6 @@ public class Parser {
                     startTime,
                     endTime);
         }
-        return null;
+        throw new WrongDescriptionException("ERROR!! Please type 'event' to view correct format!!");
     }
 }

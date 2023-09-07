@@ -16,7 +16,8 @@ public class UiTest {
         String command = scanner.next().toLowerCase();
         String remaining = scanner.nextLine();
         Parser parser = new Parser();
-        Task testTodoTask = parser.getTodoTask(remaining, false);
+        Task testTodoTask = parser.getTodoTask(remaining,
+                false);
         taskList.add(testTodoTask);
         return new TaskList(taskList);
     }
@@ -50,38 +51,36 @@ public class UiTest {
     }
 
     @Test
-    public void checkMessage_correctInput_noExceptionThrown() {
+    public void checkCommand_wrongInput_EmptyDescriptionExceptionThrown() {
         TaskList testTaskList = createTestTaskList();
         Ui testUi = new Ui(testTaskList);
-        String userInput = "todo return book\n";
-        Scanner scanner = new Scanner(userInput);
-        String command = scanner.next().toLowerCase();
-        String remaining = scanner.nextLine();
-        boolean haveException = false;
+        String userInput = "todo";
+        boolean isCorrect = false;
         try {
-            testUi.checkMessage(command, remaining);
-        } catch (EmptyDescriptionException e) {
-            haveException = true;
+            testUi.checkCommand(userInput);
+        } catch (AjException e) {
+            if (e instanceof EmptyDescriptionException) {
+                isCorrect = true;
+            }
         } finally {
-            assertFalse(haveException);
+            assertTrue(isCorrect);
         }
     }
 
     @Test
-    public void checkMessage_incorrectInput_ExceptionThrown() {
+    public void checkCommand_wrongInput_NoSuchCommandExceptionThrown() {
         TaskList testTaskList = createTestTaskList();
         Ui testUi = new Ui(testTaskList);
-        String userInput = "todo\n";
-        Scanner scanner = new Scanner(userInput);
-        String command = scanner.next().toLowerCase();
-        String remaining = scanner.nextLine();
-        boolean haveException = false;
+        String userInput = "deadline wrong command"; // no 'by' flag
+        boolean isCorrect = false;
         try {
-            testUi.checkMessage(command, remaining);
-        } catch (EmptyDescriptionException e) {
-            haveException = true;
+            testUi.checkCommand(userInput);
+        } catch (AjException e) {
+            if (e instanceof NoSuchCommandException) {
+                isCorrect = true;
+            }
         } finally {
-            assertTrue(haveException);
+            assertTrue(isCorrect);
         }
     }
 }
