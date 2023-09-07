@@ -105,11 +105,13 @@ public class TaskList {
      * Iterates through the contained list of tasks and outputs them
      * to the Ui class for printing to standard output.
      */
-    public void taskIterator() {
+    public String taskIterator() {
+        String finalOutput = "";
         for (int i = 0; i < taskList.size(); i++) {
-            Ui.staticTabPrinter(String.format("%d. %s", i + 1,
+            finalOutput += Ui.staticTabPrinter(String.format("%d. %s", i + 1,
                     taskList.get(i).toString()));
         }
+        return finalOutput;
     }
 
     /**
@@ -119,14 +121,16 @@ public class TaskList {
      *
      * @param s The String expression to search.
      */
-    public void findTask(String s) {
+    public String findTask(String s) {
+        String finalOutput = "";
         for (int i = 0; i < taskList.size(); i++) {
             if (taskList.get(i).name.contains(s)) {
-                Ui.staticTabPrinter(String.format("%d. %s", i + 1,
+                finalOutput += Ui.staticTabPrinter(String.format("%d. %s", i + 1,
                         taskList.get(i).toString()));
             } else {
                 continue;
             }
         }
+        return finalOutput;
     }
 }

@@ -54,7 +54,7 @@ public class Parser {
      */
     public ToDo parseTodo() throws DukeException {
         if (fullLine.split("todo ").length < 1) {
-            new Ui().todoErrorPrinter();
+            //new Ui().todoErrorPrinter();
             throw new DukeException(new Ui().todoErrorString());
         }
 
@@ -69,10 +69,11 @@ public class Parser {
      * @throws DukeException If incorrect input.
      */
     public Deadline parseDeadline() throws DukeException {
-        if (fullLine.split("/by ").length < 1) {
-            new Ui().deadlineErrorPrinter();
+        if (fullLine.split("/by ").length < 2) {
+            //new Ui().deadlineErrorPrinter();
             throw new DukeException(new Ui().deadlineErrorString());
         }
+
         String longName = fullLine.split("/by ")[0];
         String date = fullLine.split("/by ")[1];
         String taskName = longName.split("deadline ")[1];
@@ -90,7 +91,7 @@ public class Parser {
      */
     public Event parseEvent() throws DukeException {
         if (fullLine.split("/").length < 3) {
-            new Ui().eventErrorPrinter();
+            //new Ui().eventErrorPrinter();
             throw new DukeException(new Ui().eventErrorString());
         }
         String[] longNameArray = fullLine.split("/");

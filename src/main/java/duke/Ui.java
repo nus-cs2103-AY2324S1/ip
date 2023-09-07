@@ -14,8 +14,8 @@ public class Ui {
      *
      * @param s The input String to be printed.
      */
-    public void tabPrinter(String s) {
-        System.out.println("      " + s);
+    public String tabPrinter(String s) {
+        return "      " + s;
     }
 
     /**
@@ -25,17 +25,18 @@ public class Ui {
      *
      * @param s The input String to be printed.
      */
-    public static void staticTabPrinter(String s) {
-        System.out.println("      " + s);
+    public static String staticTabPrinter(String s) {
+        return "      " + s;
     }
 
     /**
      * Prints a sequence of dashes to cumulatively form a line separator.
      */
-    public void linePrinter() {
-        this.tabPrinter
-                ("___________________________________________________________");
-        System.out.println(" ");
+    public String linePrinter() {
+        return this.tabPrinter
+                ("___________________________________") + "\n";
+
+
     }
 
     /**
@@ -43,30 +44,44 @@ public class Ui {
      *
      * @param s The input String to be printed.
      */
-    public void slicePrinter(String s) {
-        this.linePrinter();
-        this.tabPrinter(s);
-        this.linePrinter();
+    public String slicePrinter(String s) {
+        String finalOutput = "";
+        finalOutput += this.linePrinter()
+                + "\n"
+                + this.tabPrinter(s)
+                + "\n"
+                + this.linePrinter();
+
+        return finalOutput;
     }
 
     /**
      * Prints the start screen with basic usage information.
      */
-    public void startScreen() {
-        this.linePrinter();
-        this.tabPrinter("Hello! I'm ChatterBox");
-        this.tabPrinter("What can I do for you?");
-        System.out.println("");
-        this.tabPrinter("Available commands:");
-        this.tabPrinter("todo <TASK>");
-        this.tabPrinter("deadline <TASK> /by YYYY-MM-DD");
-        this.tabPrinter("event <TASK> /from <START> /to <END>");
-        this.linePrinter();
+    public String startScreen() {
+        String finalOutput = "";
+        finalOutput += this.linePrinter()
+                + "\n"
+                + this.tabPrinter("Hello! I'm ChatterBox")
+                + "\n"
+                + this.tabPrinter("What can I do for you?")
+                + "\n"
+                + this.tabPrinter("Available commands:")
+                + "\n"
+                + this.tabPrinter("todo <TASK>")
+                + "\n"
+                + this.tabPrinter("deadline <TASK> /by YYYY-MM-DD")
+                + "\n"
+                + this.tabPrinter("event <TASK> /from <START> /to <END>")
+                + "\n"
+                + this.linePrinter();
+
+        return finalOutput;
     }
 
     /** Prints the "Goodbye" screen */
-    public void byeScreen() {
-        this.slicePrinter("Bye. Hope to see you again soon!");
+    public String byeScreen() {
+        return this.slicePrinter("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -74,11 +89,18 @@ public class Ui {
      *
      * @param tl The given TaskList object.
      */
-    public void taskListPrinter(TaskList tl) {
-        this.linePrinter();
-        this.tabPrinter("Here are the tasks in your list:");
-        tl.taskIterator();
-        this.linePrinter();
+    public String taskListPrinter(TaskList tl) {
+        String finalOutput = "";
+
+        finalOutput += this.linePrinter()
+                + "\n"
+                + this.tabPrinter("Here are the tasks in your list:")
+                + "\n"
+                + tl.taskIterator()
+                + "\n"
+                + this.linePrinter();
+
+        return finalOutput;
     }
 
     /**
@@ -86,11 +108,17 @@ public class Ui {
      * @param tl The given TaskList object.
      * @param s The string pattern to search.
      */
-    public void findListPrinter(TaskList tl, String s) {
-        this.linePrinter();
-        this.tabPrinter("Here are the matching tasks in your list:");
-        tl.findTask(s);
-        this.linePrinter();
+    public String findListPrinter(TaskList tl, String s) {
+        String finalOutput = "";
+
+        finalOutput = this.linePrinter()
+                + "\n"
+                + this.tabPrinter("Here are the matching tasks in your list:")
+                + "\n"
+                + tl.findTask(s)
+                + this.linePrinter();
+
+        return finalOutput;
     }
 
 
@@ -100,11 +128,17 @@ public class Ui {
      * @param tl The given TaskList object.
      * @param a The index of the Task being marked as done.
      */
-    public void markPrinter(TaskList tl, int a) {
-        this.linePrinter();
-        this.tabPrinter("Nice! I've marked this task as done:");
-        this.tabPrinter(tl.taskString(a));
-        this.linePrinter();
+    public String markPrinter(TaskList tl, int a) {
+        String finalOutput = "";
+
+        finalOutput += this.linePrinter()
+                + "\n"
+                + this.tabPrinter("Nice! I've marked this task as done:")
+                + "\n"
+                + this.tabPrinter(tl.taskString(a))
+                + this.linePrinter();
+
+        return finalOutput;
     }
 
     /**
@@ -113,11 +147,18 @@ public class Ui {
      * @param tl The given TaskList object.
      * @param a The index of the Task being marked as undone.
      */
-    public void unmarkPrinter(TaskList tl, int a) {
-        this.linePrinter();
-        this.tabPrinter("OK, I've marked this task as not done yet:");
-        this.tabPrinter(tl.taskString(a));
-        this.linePrinter();
+    public String unmarkPrinter(TaskList tl, int a) {
+        String finalOutput = "";
+
+        finalOutput += this.linePrinter()
+                + "\n"
+                + this.tabPrinter("OK, I've marked this task as not done yet:")
+                + "\n"
+                + this.tabPrinter(tl.taskString(a))
+                + this.linePrinter();
+
+        return finalOutput;
+
     }
 
     /**
@@ -125,8 +166,8 @@ public class Ui {
      *
      * @param a The int input equalling the current size of the TaskList object.
      */
-    private void sizePrinter(int a) {
-        this.tabPrinter(
+    private String sizePrinter(int a) {
+        return this.tabPrinter(
                 String.format("Now you have %d tasks in the list.",
                         a));
     }
@@ -137,12 +178,20 @@ public class Ui {
      * @param task The given Task
      * @param a The int input equalling the current size of the TaskList object
      */
-    public void addedTaskScreen(Task task, int a) {
-        this.linePrinter();
-        this.tabPrinter("Got it. I've added this task:");
-        this.tabPrinter(" " + task.toString());
-        this.sizePrinter(a);
-        this.linePrinter();
+    public String addedTaskScreen(Task task, int a) {
+        String finalOutput = "";
+
+        finalOutput += this.linePrinter()
+                + "\n"
+                + this.tabPrinter("Got it. I've added this task:")
+                + "\n"
+                + this.tabPrinter(" " + task.toString())
+                + "\n"
+                + this.sizePrinter(a)
+                + "\n"
+                + this.linePrinter();
+
+        return finalOutput;
     }
 
     /**
@@ -151,11 +200,18 @@ public class Ui {
      * @param task The given Task
      * @param a The int input equalling the current size of the TaskList object
      */
-    public void removedTaskScreen(Task task, int a) {
-        this.linePrinter();
-        this.tabPrinter("Noted. I've removed this task:");
-        this.tabPrinter(task.toString());
-        this.linePrinter();
+    public String removedTaskScreen(Task task, int a) {
+        String finalOutput = "";
+
+        finalOutput += this.linePrinter()
+                + "\n"
+                + this.tabPrinter("Noted. I've removed this task:")
+                + "\n"
+                + this.tabPrinter(task.toString())
+                + "\n"
+                + this.linePrinter();
+
+        return finalOutput;
     }
 
 
@@ -187,6 +243,10 @@ public class Ui {
     /** Returns an Error String for Unknown Errors. */
     public String unknownError() {
         return "I'm sorry I don't know what that means.";
+    }
+
+    public String fileErrorString() {
+        return "A file-related error occured.";
     }
 
 
