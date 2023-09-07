@@ -8,8 +8,18 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
-
+/**
+ * A class used to transform dates of certain format to a String
+ * of another format.
+ */
 public class TimeProcessor {
+
+    /**
+     * To convert string that is a date to another format of date.
+     * @param info the string date
+     * @return a date or time given by the user
+     * @throws DukeDateOutOfRange will be thrown if the date is wrong
+     */
     public static String StringToDate(String info) throws DukeDateOutOfRange{
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         String reg = "\\d{1,2}\\/\\d{1,2}\\/\\d{2,4}";

@@ -4,7 +4,19 @@ import duke.exception.DukeDateOutOfRange;
 import duke.exception.DukeNoDateException;
 import duke.exception.DukeNoDescriptionException;
 import duke.processors.TimeProcessor;
+
+/**
+ * A event class contains start time and end time.
+ */
 public class Event extends Task{
+    /**
+     * A constructor for event class
+     * @param Description The description of event
+     * @throws DukeNoDescriptionException if the description is empty
+     * @throws DukeNoDateException if the description does not contain
+     *                             the two dates
+     * @throws DukeDateOutOfRange if the date given is wrong
+     */
     public Event(String Description) throws DukeNoDescriptionException,
             DukeNoDateException,  DukeDateOutOfRange {
         super(Description);
@@ -17,10 +29,16 @@ public class Event extends Task{
         System.out.println("    " + this);
     }
 
+    /**
+     * A constructor for reading from txt file
+     * @param content the content of the event
+     * @param isDone the status of the event
+     */
     public Event(String content, boolean isDone) {
         super(content);
         this.isDone = isDone;
     }
+
 
     private String getContent(String Description) throws DukeNoDateException,
             DukeDateOutOfRange {
@@ -50,6 +68,10 @@ public class Event extends Task{
         return content + "(" + time + ")";
     }
 
+    /**
+     * A string containing the information about the event.
+     * @return a string containing info of the event
+     */
     public String toString() {
         return "[E]" + super.toString();
     }

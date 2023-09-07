@@ -5,7 +5,20 @@ import duke.exception.DukeNoDateException;
 import duke.exception.DukeNoDescriptionException;
 import duke.processors.TimeProcessor;
 
+/**
+ * Deadline contains a fixed date by which a task should be completed.
+ */
 public class Deadline extends Task{
+
+    /**
+     * Constructor for deadline.
+     *
+     * @param Description The information needed to create a deadline
+     * @throws DukeNoDescriptionException if the description is empty
+     *                                    despite "deadline"
+     * @throws DukeNoDateException if the date is missing
+     * @throws DukeDateOutOfRange if the date is not a proper date
+     */
     public Deadline(String Description) throws DukeNoDescriptionException,
             DukeNoDateException, DukeDateOutOfRange{
         super(Description);
@@ -32,11 +45,21 @@ public class Deadline extends Task{
         System.out.println("    " + this);
     }
 
+    /**
+     * Another constructor for deadline.
+     * @param content The description for deadline
+     * @param isDone The status of the deadline.
+     */
     public Deadline(String content, boolean isDone) {
         super(content);
         this.isDone = isDone;
     }
 
+    /**
+     * A string contains the status, the label
+     * and description of deadline.
+     * @return A string containing info of the deadline
+     */
     public String toString() {
 
         return "[D]" + super.toString();
