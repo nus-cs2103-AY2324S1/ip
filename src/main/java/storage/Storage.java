@@ -43,9 +43,10 @@ public class Storage {
      * @param parser The Parser instance for parsing task details.
      * @throws IOException If an I/O operation is interrupted.
      */
-    public void load(Parser parser) throws IOException {
+    public String load(Parser parser) throws IOException {
+        StringBuilder results = new StringBuilder();
         try (Scanner fileScanner = new Scanner(new File("./src/main/java/OUTPUT.txt"))) {
-            System.out.println("Your leftover tasks are:");
+            results.append("Your leftover tasks are:\n");
             int i = 0;
             while (fileScanner.hasNextLine()) {
                 i++;
@@ -55,20 +56,20 @@ public class Storage {
                     String taskName = parser.taskNameFromTextFile(taskInfo, "[T] ");
                     Task newTask = new ToDos(taskName, isDone);
                     tasks.add(newTask);
-                    System.out.println(i + ". " + newTask);
+                    results.append(i + ". " + newTask + "\n");
                 } else if (taskInfo.contains("[E]")) {
                     String taskName = parser.taskNameFromTextFile(taskInfo, "[E] ");
                     String taskFrom = parser.taskFromFromTextFile(taskInfo);
                     String taskTo = parser.taskToFromTextFile(taskInfo);
                     Task newTask = new Events(taskName, taskFrom, taskTo, isDone);
                     tasks.add(newTask);
-                    System.out.println(i + ". " + newTask);
+                    results.append(i + ". " + newTask + "\n");
                 } else if (taskInfo.contains("[D]")) {
                     String taskName = parser.taskNameFromTextFile(taskInfo, "[D] ");
                     String taskBy = parser.taskByFromTextFile(taskInfo);
                     Task newTask = new Deadlines(taskName, taskBy, isDone);
                     tasks.add(newTask);
-                    System.out.println(i + ". " + newTask);
+                    results.append(i + ". " + newTask + "\n");
                 }
             }
         } catch (IOException e) {
@@ -77,7 +78,7 @@ public class Storage {
         } finally {
             // Instance of PrintWriter to write new outputs to the file
             pw = new FileWriter("./src/main/java/OUTPUT.txt", true);
-            userUi.start();
+            return results.toString();
         }
     }
 

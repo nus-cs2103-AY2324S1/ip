@@ -8,6 +8,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import main.Corubi;
+import parser.Parser;
+import storage.Storage;
+import tasks.TaskList;
 
 import java.io.IOException;
 
@@ -25,17 +28,25 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Corubi corubi;
+    private Parser parser = new Parser();
+
 
     private final Image user = new Image(this.getClass().getResourceAsStream("/images/idol.png"));
     private final Image bot = new Image(this.getClass().getResourceAsStream("/images/chad.png"));
+    private final String NAME = "Corubi";
+
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setBot(Corubi d) {
+    public void setBot(Corubi d) throws IOException {
         corubi = d;
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(corubi.getStore().load(parser), bot),
+                DialogBox.getDukeDialog("Hello! I am " + NAME + ". \nWhat can I do for you?", bot)
+);
     }
 
     /**
@@ -50,6 +61,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, user),
                 DialogBox.getDukeDialog(response, bot)
         );
+        if (input.equalsIgnoreCase("bye")) {
+            System.exit(0);
+        }
         userInput.clear();
     }
 }
