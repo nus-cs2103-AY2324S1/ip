@@ -20,6 +20,7 @@ public class TaskList {
         DEADLINE("deadline"),
         EVENT("event"),
         DELETE("delete"),
+        FIND("find"),
         NOTFOUND("");
 
         private final String name;
@@ -102,6 +103,8 @@ public class TaskList {
             return this.delete(Command.assertInteger(input, command));
         case LIST:
             return this.list();
+        case FIND:
+            return this.find(Command.assertString(input, command));
         default:
             throw new CommandNotFoundException();
         }
@@ -151,7 +154,7 @@ public class TaskList {
     protected Response mark(int idx) throws DukeException {
         ArrayList<String> output = new ArrayList<>();
         if (!this.inRange(idx)) {
-            throw new TaskNotFoundException();
+            throw new OutOfRangeException();
         }
         Task task = this.tasks.get(--idx);
         task.mark();
@@ -171,7 +174,7 @@ public class TaskList {
     protected Response unmark(int idx) throws DukeException {
         ArrayList<String> output = new ArrayList<>();
         if (!this.inRange(idx)) {
-            throw new TaskNotFoundException();
+            throw new OutOfRangeException();
         }
         Task task = this.tasks.get(--idx);
         task.unmark();
@@ -191,7 +194,7 @@ public class TaskList {
     protected Response delete(int idx) throws DukeException {
         ArrayList<String> output = new ArrayList<>();
         if (!this.inRange(idx)) {
-            throw new TaskNotFoundException();
+            throw new OutOfRangeException();
         }
         Task task = this.tasks.get(--idx);
         output.add("Noted. I've removed this task:");
@@ -199,6 +202,22 @@ public class TaskList {
         this.tasks.remove(idx);
         output.add(String.format("Now you have %d tasks in the list.", tasks.size()));
 
+        return Response.generate(output);
+    }
+
+    protected Response find(String keyword) throws DukeException {
+        ArrayList<String> output = new ArrayList<>();
+        output.add("Here are the matching tasks in your list:");
+
+        int count = 0;
+        for (Task task : this.tasks) {
+            if (task.name().contains(keyword)) {
+                output.add(String.format("%d.%s", ++count, task.toString()));
+            }
+        }
+        if (count == 0) {
+            throw new TaskNotFoundException();
+        }
         return Response.generate(output);
     }
 }
