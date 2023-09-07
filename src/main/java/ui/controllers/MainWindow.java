@@ -1,6 +1,9 @@
 package ui.controllers;
 
 import Duke.Duke;
+import exceptions.ErrorStorageException;
+import exceptions.InvalidCommandException;
+import helpers.Parser;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -38,7 +41,7 @@ public class MainWindow extends AnchorPane {
      * then appends them to the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws InvalidCommandException, ErrorStorageException {
         String input = userInput.getText();
         String response = getResponse(input);
         dialogContainer.getChildren().addAll(
@@ -52,7 +55,9 @@ public class MainWindow extends AnchorPane {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    String getResponse(String input) {
-        return "controllers.Duke heard: " + input;
+    String getResponse(String input) throws ErrorStorageException, InvalidCommandException {
+        String cmd = input.split(" ")[0].toUpperCase();
+        Parser parser = new Parser(cmd, duke.getTaskList(), duke.getStorage());
+        return parser.execute(input);
     }
 }

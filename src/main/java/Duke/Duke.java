@@ -1,12 +1,6 @@
 package Duke;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 import exceptions.ErrorStorageException;
-import exceptions.InvalidCommandException;
-import helpers.Parser;
 import helpers.Storage;
 import helpers.TaskList;
 import helpers.Ui;
@@ -16,7 +10,7 @@ import helpers.Ui;
  */
 public class Duke {
 
-    private static TaskList taskList;
+    private TaskList taskList;
     private final String DIRECTORY = "data";
     private Storage storage;
     private Ui ui;
@@ -47,28 +41,35 @@ public class Duke {
 
     }
 
+    public Storage getStorage() {
+        return this.storage;
+    }
+
+    public TaskList getTaskList() {
+        return this.taskList;
+    }
+
     /**
      * Running method for executing other core processes
      */
-    public void run() {
-        //Create buffered reader for user input
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        try {
-            ui.showStartLogo();
-            ui.showWelcome();
-            boolean isRunning = true;
-            //exits the echo commands when input contains 'bye'
-            while (isRunning) {
-                String input = ui.getCommand(br);
-                String cmd = input.split(" ")[0].toUpperCase();
-                Parser parser = new Parser(cmd, input, taskList, ui, storage);
-                parser.execute();
-                if (cmd.equalsIgnoreCase("bye")) {
-                    isRunning = false;
-                }
-            }
-        } catch (IOException | InvalidCommandException | ErrorStorageException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+//    public void run() {
+//        //Create buffered reader for user input
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        try {
+//            ui.showWelcome();
+//            boolean isRunning = true;
+//            //exits the echo commands when input contains 'bye'
+//            while (isRunning) {
+//                String input = ui.getCommand(br);
+//                String cmd = input.split(" ")[0].toUpperCase();
+//                Parser parser = new Parser(cmd, taskList, storage);
+//                parser.execute(input);
+//                if (cmd.equalsIgnoreCase("bye")) {
+//                    isRunning = false;
+//                }
+//            }
+//        } catch (IOException | InvalidCommandException | ErrorStorageException e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
 }

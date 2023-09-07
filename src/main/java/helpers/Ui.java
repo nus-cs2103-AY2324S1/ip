@@ -19,46 +19,11 @@ public class Ui {
     final String DIVIDER = "____________________________________________________________";
 
     /**
-     * Method to print out the starting logo
-     */
-    public void showStartLogo() {
-        String logo = isDebug ? ""
-                : "      ＼ﾌﾌ 　　      ム｀ヽ\n"
-                + "    / ノ)　  A　 A 　  ）  ヽ\n"
-                + "   / ｜　　( ´・ω・`)ノ⌒ ゝ_ノ\n"
-                + "  /　ﾉ⌒ 7  ⌒ヽーく　 ＼　／\n"
-                + "  丶＿ ノ ｡　　  ノ､　　|/\n"
-                + "　　  `ヽ   `ー-'_人`ーﾉ\n"
-                + "　　　   丶   ￣ _人'彡ﾉ\n";
-        System.out.println(logo);
-    }
-
-    /**
      * Method to print out the welcome message
      */
     public void showWelcome() {
         System.out.println(DIVIDER + "\nHello! I'm MACHO-CATTO! Your personal chat-bot to make your \nday macho!"
                 + "\nWhat can I do for you today?\n" + DIVIDER);
-    }
-
-    /**
-     * Method to print ending logo when user quits application
-     */
-    public void quit() {
-        String endLogo = isDebug ? ""
-                : "               ＿   ★★EVERYDAY★★\n"
-                + "           ／     j     ★★ IS A  ★★\n"
-                + "        ／     /ｰ'          ★★ MACHO  ★★\n"
-                + "     〈       ヽ               ★★ DAY!!!  ★★\n"
-                + "           ､       ヽ ﾍ⌒ ヽﾌ\n"
-                + "             〉       ´ ･ω )        ,-､、\n"
-                + "           / ノ         ￣⌒ヽ　「　   〉\n"
-                + "          ﾉ       ' L          `ヽ.／   /\n"
-                + "     ／    , '           .ノ＼    ´    /\n"
-                + "    (                ∠_       ヽ､＿,.\n"
-                + "     ＼   (            ヽ ";
-        System.out.println(DIVIDER);
-        System.out.println(endLogo);
     }
 
     /**
@@ -77,21 +42,18 @@ public class Ui {
      *
      * @param task Task to mark as done
      */
-    public void showMarkDoneMessage(Task task) {
-        System.out.println(DIVIDER);
-        System.out.println("I have marked this task as done per your request, macho!\n" + task);
-        System.out.println(DIVIDER);
+    public String showMarkDoneMessage(Task task) {
+        return "I have marked this task as done per your request, macho!\n" + task;
     }
 
     /**
      * Method to show message that task has been unmarked
      *
      * @param task Task to unmarked as done
+     * @return
      */
-    public void showUnmarkDoneMessage(Task task) {
-        System.out.println(DIVIDER);
-        System.out.println("I have marked this task as undone yet, per your request, macho!\n" + task);
-        System.out.println(DIVIDER);
+    public String showUnmarkDoneMessage(Task task) {
+        return "I have marked this task as undone yet, per your request, macho!\n" + task;
     }
 
     /**
@@ -100,11 +62,9 @@ public class Ui {
      * @param taskList List of tasks
      * @param task     Task to be deleted
      */
-    public void showDeletedTaskMessage(TaskList taskList, Task task) {
-        System.out.println(DIVIDER);
-        System.out.println("I have deleted this task as done per your request, macho!\n" + task.toString()
-                + "\nYou now have " + taskList.getListLength() + " tasks in the list, macho!");
-        System.out.println(DIVIDER);
+    public String showDeletedTaskMessage(TaskList taskList, Task task) {
+        return "I have deleted this task as done per your request, macho!\n" + task.toString()
+                + "\nYou now have " + taskList.getListLength() + " tasks in the list, macho!";
     }
 
     /**
@@ -113,11 +73,9 @@ public class Ui {
      * @param taskList List of tasks
      * @param task     Task to be added
      */
-    public void showAddTaskMessage(TaskList taskList, Task task) {
-        System.out.println(DIVIDER);
-        System.out.println("Got it macho! I've added this task:\n" + task + "\n"
-                + "You now have " + taskList.getListLength() + " tasks in the list, macho!");
-        System.out.println(DIVIDER);
+    public String showAddTaskMessage(TaskList taskList, Task task) {
+        return "Got it macho! I've added this task:\n" + task + "\n"
+                + "You now have " + taskList.getListLength() + " tasks in the list, macho!";
     }
 
     /**
@@ -125,10 +83,8 @@ public class Ui {
      *
      * @param taskList List of tasks
      */
-    public void showTaskList(TaskList taskList) {
-        System.out.println(DIVIDER);
-        System.out.println(taskList.printTaskList());
-        System.out.println(DIVIDER);
+    public String showTaskList(TaskList taskList) {
+        return taskList.printTaskList();
     }
 
     /**
@@ -136,10 +92,8 @@ public class Ui {
      *
      * @param taskList List of tasks
      */
-    public void showFilteredTaskList(TaskList taskList, String input) {
-        System.out.println(DIVIDER);
-        System.out.println(taskList.filterTaskList(input));
-        System.out.println(DIVIDER);
+    public String showFilteredTaskList(TaskList taskList, String input) {
+        return taskList.filterTaskList(input);
     }
 
     /**
