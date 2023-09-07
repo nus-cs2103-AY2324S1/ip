@@ -1,29 +1,39 @@
 package chatterchicken.storage;
 
-import chatterchicken.data.exception.CCException;
 import chatterchicken.ChatterChicken;
 import chatterchicken.parser.Parser;
+import chatterchicken.data.exception.CCException;
 import chatterchicken.data.task.Task;
 import chatterchicken.tasklist.TaskList;
+
 import java.io.File;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * The Storage class is responsible for loading and saving tasks from/to a data file for the ChatterChicken task manager application.
+ * It interacts with the data file to read and write task information, ensuring data persistence.
+ */
 public class Storage {
 
     Parser parser;
 
+    /**
+     * Constructs a new Storage object with the specified parser.
+     *
+     * @param parser The parser used to interpret and convert data from the data file.
+     */
     public Storage(Parser parser) {
         this.parser = parser;
     }
 
     /**
-     * Loads tasks from the data file and returns them as an ArrayList.
+     * Loads tasks from the data file and returns them as an ArrayList of tasks.
      * If the data file doesn't exist, a new file is created.
      *
      * @return An ArrayList containing the loaded tasks, or null in case of errors.
@@ -55,9 +65,9 @@ public class Storage {
     }
 
     /**
-     * Saves tasks from the provided chatterchicken.tasklist.TaskList to the data file.
+     * Saves tasks from the provided TaskList to the data file.
      *
-     * @param taskList The chatterchicken.tasklist.TaskList containing tasks to be saved.
+     * @param taskList The TaskList containing tasks to be saved.
      */
     public void saveTasksToFile(TaskList taskList) {
         try {
