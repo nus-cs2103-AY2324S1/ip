@@ -26,7 +26,7 @@ public class Storage {
      *
      * @return The list of tasks currently stored in the user's hard drive.
      */
-    ArrayList<Task> load() throws DialogixException {
+    ArrayList<Task> loadTasks() throws DialogixException {
         ArrayList<Task> tasks = new ArrayList<>();
 
         try {
