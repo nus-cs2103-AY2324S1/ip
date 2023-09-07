@@ -34,7 +34,7 @@ public class Task {
             this.status = !this.status;
             return "Sure! Task status unchecked!" + "\n" + indent + this.toString();
         } else {
-            return "Task already unchecked. Please try again..." + "\n" + indent + this.toString();
+            return "Task already checked. Please try again..." + "\n" + indent + this.toString();
         }
     }
 

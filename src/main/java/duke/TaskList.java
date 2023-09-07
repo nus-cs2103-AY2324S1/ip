@@ -13,13 +13,13 @@ import java.util.ListIterator;
  */
 
 public class TaskList {
-    public static ArrayList<Task> storeTask = new ArrayList<>(1);   //stores all the tasks
+    private static ArrayList<Task> storeTask = new ArrayList<>(1);   //stores all the tasks
     /**
      * Displays the entire list of tasks to user.
      */
-    public static void userListChoice() {
+    public static String userListChoice() {
         ListIterator<Task> ls = storeTask.listIterator();
-        Ui.printList(ls);
+        return Ui.printList(ls);
     }
 
     /**
@@ -28,9 +28,9 @@ public class TaskList {
      * @param taskNumber The task number to be marked/unmarked.
      * @param userMarkerChoice User choice mark/unmark.
      */
-    public static void userMarkUnmark(String taskNumber, String userMarkerChoice) {
+    public static String userMarkUnmark(String taskNumber, String userMarkerChoice) {
         Task taskItem = storeTask.get(Integer.parseInt(taskNumber) - 1);
-        System.out.println(Ui.indent + taskItem.changeStatus(userMarkerChoice));
+        return Ui.indent + taskItem.changeStatus(userMarkerChoice);
     }
 
     /**
@@ -38,9 +38,9 @@ public class TaskList {
      *
      * @param userDescription Description attached to task.
      */
-    public static void addToDo(String userDescription) {
+    public static String addToDo(String userDescription) {
         storeTask.add(new ToDo(userDescription));
-        Ui.printNumberOfEntries();
+        return Ui.printNumberOfEntries();
     }
 
     /**
@@ -49,12 +49,12 @@ public class TaskList {
      * @param userDescription Description attached to Deadline.
      * @param deadlineBy Deadline given in yyyy-mm-dd HH:mm format.
      */
-    public static void addDeadline(String userDescription, String deadlineBy) {
+    public static String addDeadline(String userDescription, String deadlineBy) {
         try {
             storeTask.add(new Deadline(userDescription, deadlineBy));
-            Ui.printNumberOfEntries();
+            return Ui.printNumberOfEntries();
         } catch (DateTimeParseException e) {
-            Ui.invalidDateTimeEntry();
+            return Ui.invalidDateTimeEntry();
         }
     }
 
@@ -65,12 +65,12 @@ public class TaskList {
      * @param from From Date & Time given in yyyy-mm-dd HH:mm format.
      * @param to To Date & Time given in yyyy-mm-dd HH:mm format.
      */
-    public static void addEvent(String userDescription, String from, String to) {
+    public static String addEvent(String userDescription, String from, String to) {
         try {
             storeTask.add(new Event(userDescription, from, to));
-            Ui.printNumberOfEntries();
+            return Ui.printNumberOfEntries();
         } catch (DateTimeParseException e) {
-            Ui.invalidDateTimeEntry();
+            return Ui.invalidDateTimeEntry();
         }
     }
 
@@ -80,18 +80,17 @@ public class TaskList {
      * @param delUserChoice The task number to be deleted (based on number on list).
      * @throws DukeException  If TaskList is empty or invalid selection by user.
      */
-    public static void deleteTask(int delUserChoice) throws DukeException{
+    public static String deleteTask(int delUserChoice) throws DukeException{
         if ((delUserChoice - 1) < 0) {                                          //if number entered smaller than 1, array will go negative index.
             throw new DukeException("Invalid Task entered. Please try again...");
         } else if (storeTask.isEmpty()) {
             throw new DukeException("Task Scheduler is empty... Please try again!");
         } else {
             Task itemRemoved = storeTask.remove(delUserChoice - 1);
-            System.out.println(Ui.indent + "This task was removed..." + "\n" + itemRemoved);
-            System.out.println(Ui.indent + "Now you have " + storeTask.size() + " tasks in your task scheduler...");
+            return Ui.deleteTaskPrint(itemRemoved);
         }
     }
-    public static void taskToBeFound(String findThis) {
+    public static String taskToBeFound(String findThis) {
         ListIterator<Task> ls = storeTask.listIterator();
         ArrayList<Task> filteredList = new ArrayList<>();
         while (ls.hasNext()) {
@@ -103,12 +102,16 @@ public class TaskList {
         }
         ListIterator<Task> iterFilteredList = filteredList.listIterator();
         if (filteredList.size() == 0) {
-            Ui.emptyList();
-            Ui.printHorizontalLine();
+            return Ui.emptyList();
         } else {
-            System.out.println(Ui.indent + "Tasks that may match your search result...");
-            Ui.printList(iterFilteredList);
-            Ui.printHorizontalLine();
+            return Ui.findTaskPrint(iterFilteredList);
         }
+    }
+
+    public static ArrayList<Task> getStoreTask() {
+        return storeTask;
+    }
+    public static int getTaskSize() {
+        return storeTask.size();
     }
 }

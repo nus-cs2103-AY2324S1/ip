@@ -25,45 +25,37 @@ public class Parser {
      * @return boolean value false to break out of program, true otherwise.
      * @throws DukeException when incorrect / invalid input is entered.
      */
-    public static boolean parse(String userInput) throws DukeException {
+    public static String parse(String userInput) throws DukeException {
         String[] userInputList = userInput.split(" ", 2);
         String userTaskChoiceKey = userInputList[0];
         //Stores enum value. might throw exception if invalid input entered.
         TaskKeyVal taskKeyVal = TaskKeyVal.valueOf(userTaskChoiceKey);
 
         if (taskKeyVal == TaskKeyVal.bye) {
-            userExit();
-            return false;
+            return userExit();
         } else if (taskKeyVal == TaskKeyVal.list) {
-            TaskList.userListChoice();
-            return true;
+            return TaskList.userListChoice();
         } else if (taskKeyVal == TaskKeyVal.mark || taskKeyVal == TaskKeyVal.unmark) {
             String userMarkerChoice = userInputList[1];
-            TaskList.userMarkUnmark(userMarkerChoice, userTaskChoiceKey);
-            return true;
+            return TaskList.userMarkUnmark(userMarkerChoice, userTaskChoiceKey);
         } else if (userInputList.length == 1 && enumCheck(userTaskChoiceKey)) {
             throw new DukeException(" ☹ OOPS!!! The description of a task cannot be empty.");
         } else if (taskKeyVal == TaskKeyVal.ToDo) {
-            TaskList.addToDo(userInputList[1]);
-            return true;
+            return TaskList.addToDo(userInputList[1]);
         } else if (taskKeyVal == TaskKeyVal.Deadline) {
             String[] deadlineList = userInputList[1].split("/", 2);
-            TaskList.addDeadline(deadlineList[0], deadlineList[1]);
-            return true;
+            return TaskList.addDeadline(deadlineList[0], deadlineList[1]);
         } else if (taskKeyVal == TaskKeyVal.Event) {
             String[] eventList = userInputList[1].split("/", 3);
-            TaskList.addEvent(eventList[0], eventList[1], eventList[2]);
-            return true;
+            return TaskList.addEvent(eventList[0], eventList[1], eventList[2]);
         } else if (taskKeyVal == TaskKeyVal.Delete) {
             Integer delUserChoice = Integer.parseInt(userInputList[1]);
-            TaskList.deleteTask(delUserChoice);
-            return true;
+            return TaskList.deleteTask(delUserChoice);
         } else if (taskKeyVal == TaskKeyVal.find) {
             String findThis = userInputList[1];
-            TaskList.taskToBeFound(findThis);
-            return true;
+            return TaskList.taskToBeFound(findThis);
         } else {                                                                    //in case wrong input like Delete abc entered
-            throw new DukeException("☹ OOPS!!! Sorry, but i do not know what that means :-(");
+            throw new DukeException("OOPS!!! Sorry, but i do not know what that means :-(");
         }
     }
 
@@ -75,17 +67,17 @@ public class Parser {
         }
         return false;
     }
-    private static void userExit() {
+    private static String userExit() {
         try {
             Files.write(Duke.pathOfDirectory, new byte[0], StandardOpenOption.TRUNCATE_EXISTING);    //closes file and truncates it
-            for (int i = 0; i < TaskList.storeTask.size(); i++) {
-                String taskToString = TaskList.storeTask.get(i).storeToDiskFormat() + "\n";
+            for (int i = 0; i < TaskList.getTaskSize(); i++) {
+                String taskToString = TaskList.getStoreTask().get(i).storeToDiskFormat() + "\n";
                 Files.write(Duke.pathOfDirectory, taskToString.getBytes(), StandardOpenOption.APPEND);
             }
-            Ui.endDukeMsg();
+            return Ui.endDukeMsg();
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("An error occurred...");
+            return "An error occurred...";
         }
     }
 }

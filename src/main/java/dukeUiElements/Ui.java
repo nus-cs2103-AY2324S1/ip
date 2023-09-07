@@ -21,29 +21,42 @@ public class Ui {
     public void userInputUsher() {
         System.out.println(indent + "What would you like to do next? Enter date in yyyy-mm-dd hh:mm format: ");
     }
-
-    public static void endDukeMsg() {
-        System.out.println("\n" + indent + hashMap.get("endMessage"));
-    }
-    public static void printList(ListIterator<Task> ls) {
+    public static String printList(ListIterator<Task> ls) {
         int count = 0;
-        System.out.println("\n" + indent + "Entries on memory...");
+        String listString = "Entries on memory..." + "\n";
         while (ls.hasNext()) {
             count++;
-            System.out.println(indent + count + "." + ls.next().toString());
+            listString = listString + count + "." + ls.next().toString() + "\n";
         }
+        return listString;
     }
-    public static void printNumberOfEntries() {
-        System.out.println(Ui.indent + "Now you have " + TaskList.storeTask.size() + " tasks in your task scheduler...");
-        printHorizontalLine();
+    public static String printNumberOfEntries() {
+        return Ui.indent + "Now you have " + TaskList.getTaskSize() + " tasks in your task scheduler...";
     }
     public static void printHorizontalLine() {
         System.out.println(indent + horizontalLine);
     }
-    public static void invalidDateTimeEntry() {
-        System.out.println("Invalid date/time entry. Please give in yyyy-mm-dd hh:mm format...");
+    public static String invalidDateTimeEntry() {
+        return "Invalid date/time entry. Please give in yyyy-mm-dd hh:mm format...";
     }
-    public static void emptyList() {
-        System.out.println("Duke could not find your query! Please try again...");
+    public static String emptyList() {
+        return "Duke could not find your query! Please try again...";
+    }
+    public static String deleteTaskPrint(Task itemRemoved) {
+        String removedTask = indent + "This task was removed..." + "\n" + itemRemoved + "\n";
+        removedTask = indent + "Now you have " + TaskList.getTaskSize() + " tasks in your task scheduler...";
+        return removedTask;
+    }
+    public static String findTaskPrint(ListIterator<Task> ls) {
+        String findString = indent + "Tasks that may match your search result..." + "\n";
+        findString += printList(ls);
+        return findString;
+    }
+
+    public static void miscMsgPrint(String msg) {
+        System.out.println(msg);
+    }
+    public static String endDukeMsg() {
+        return "bye";
     }
 }
