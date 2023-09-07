@@ -1,6 +1,5 @@
 package brandon.chatbot.parser;
 
-<<<<<<< HEAD
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,6 +9,7 @@ import brandon.chatbot.commands.AddTodoCommand;
 import brandon.chatbot.commands.Command;
 import brandon.chatbot.commands.DeleteCommand;
 import brandon.chatbot.commands.ExitCommand;
+import brandon.chatbot.commands.FindCommand;
 import brandon.chatbot.commands.ListCommand;
 import brandon.chatbot.commands.MarkCommand;
 import brandon.chatbot.commands.UnknownCommand;
