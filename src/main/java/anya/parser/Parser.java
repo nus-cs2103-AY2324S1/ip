@@ -14,8 +14,10 @@ import anya.task.TaskList;
 import anya.task.Todo;
 
 /**
- * The `Parser` class is responsible for interpreting user input and executing corresponding actions in the Anya application.
- * It handles parsing commands, validating arguments, and performing the appropriate operations on tasks and data storage.
+ * The `Parser` class is responsible for interpreting user input
+ * and executing corresponding actions in the Anya application.
+ * It handles parsing commands, validating arguments,
+ * and performing the appropriate operations on tasks and data storage.
  */
 public class Parser {
     private Storage storage;
