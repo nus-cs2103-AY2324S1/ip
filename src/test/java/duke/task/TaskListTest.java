@@ -9,6 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import duke.exception.DukeException;
+
 class TaskListTest {
     private TaskList taskList;
 
@@ -18,7 +20,7 @@ class TaskListTest {
     }
 
     @Test
-    void getTaskDetails() {
+    void getTaskDetails() throws DukeException {
         Task task1 = new Task("Sample Task 1");
         Task task2 = new Task("Sample Task 2");
         taskList.addTask(task1);
@@ -29,7 +31,7 @@ class TaskListTest {
     }
 
     @Test
-    void addTaskTest() {
+    void addTaskTest() throws DukeException {
         Task task = new Task("Sample Task");
         taskList.addTask(task);
 
@@ -38,7 +40,7 @@ class TaskListTest {
     }
 
     @Test
-    void deleteTaskTest() {
+    void deleteTaskTest() throws DukeException {
         Task task = new Task("Sample Task");
         taskList.addTask(task);
 

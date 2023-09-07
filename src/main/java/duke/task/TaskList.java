@@ -2,7 +2,7 @@ package duke.task;
 
 import java.util.ArrayList;
 
-import duke.ui.Ui;
+import duke.exception.DukeException;
 
 /**
  * Represents a list of tasks and provides methods to manipulate them
@@ -35,14 +35,14 @@ public class TaskList {
      *
      * @param taskListIndex The index of the task in the task list.
      * @return Details of the task as a formatted string, or null if the index is invalid.
+     * @throws DukeException If the index is invalid.
      */
-    public String getTaskDetails(int taskListIndex) {
+    public String getTaskDetails(int taskListIndex) throws DukeException {
         if (isValidListIndex(taskListIndex)) {
             Task task = tasks.get(taskListIndex);
             return task.toString();
         } else {
-            Ui.showMessage("Invalid Index of task!");
-            return null;
+            throw new DukeException("Invalid Index");
         }
     }
 
@@ -51,13 +51,13 @@ public class TaskList {
      *
      * @param taskListIndex The index of the task in the task list.
      * @return The task, or null if the index is invalid.
+     * @throws DukeException If the index is invalid.
      */
-    public Task getTask(int taskListIndex) {
+    public Task getTask(int taskListIndex) throws DukeException {
         if (isValidListIndex(taskListIndex)) {
             return tasks.get(taskListIndex);
         } else {
-            Ui.showMessage("Invalid Index of task!");
-            return null;
+            throw new DukeException("Invalid Index");
         }
     }
 
@@ -141,7 +141,11 @@ public class TaskList {
         } else {
             StringBuilder taskListString = new StringBuilder("Here are the tasks in your list:\n");
             for (int i = 0; i < taskCount; i++) {
-                taskListString.append((i + 1)).append(". ").append(this.getTaskDetails(i)).append("\n");
+                try {
+                    taskListString.append((i + 1)).append(". ").append(this.getTaskDetails(i)).append("\n");
+                } catch (DukeException e) {
+                    throw new RuntimeException(e);
+                }
             }
             return taskListString.toString();
         }

@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import duke.commands.Command;
-import duke.commands.Parser;
 import duke.exception.DeadlineException;
 import duke.exception.DeleteException;
 import duke.exception.DukeException;
@@ -16,8 +15,6 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
-import duke.ui.Ui;
-
 
 /**
  * The main class that initiates the chatbot application.
@@ -25,8 +22,9 @@ import duke.ui.Ui;
 public class Duke {
 
     private final TaskList taskList;
-    private final String filePath = "./src/main/data/duke.txt";
+    private final String filePath = "./src/main/resources/duke.txt";
     private final Storage storage = new Storage(filePath);
+
 
 
     /**
@@ -36,55 +34,58 @@ public class Duke {
         this.taskList = new TaskList();
     }
 
-    public static void main(String[] args) {
-        Duke duke = new Duke();
-        duke.start();
-    }
 
     /**
      * Marks a task as done and provides user feedback
      *
      * @param taskIndex Index of the task to be marked as done, starts from '1'
+     * @return The feedback string.
+     * @throws DeleteException If the input string is not numeric or if the task index is out of valid range.
      */
-    public void markTaskByBot(int taskIndex) throws DeleteException {
+    public String markTaskByBot(int taskIndex) throws DukeException {
         if (!taskList.isValidListIndex(taskIndex - 1)) {
             throw new DeleteException("Invalid Index of task!");
         }
         taskList.markTaskAsDone(taskIndex - 1);
-        saveTasksToFile(this.taskList);
-        Ui.showMessage(taskList.getTaskDetails(taskIndex - 1));
+        saveTasksToFile();
+        return " OK, I've marked this task as done:\n"
+                + taskList.getTaskDetails(taskIndex - 1);
     }
 
     /**
      * Marks a task as not done and provides user feedback.
      *
      * @param taskIndex Index of the task to be marked as not done, starts from '1'
+     * @return The feedback string.
+     * @throws DeleteException If the input string is not numeric or if the task index is out of valid range.
      */
-    public void unmarkTaskByBot(int taskIndex) throws DeleteException {
+    public String unmarkTaskByBot(int taskIndex) throws DukeException {
         if (!taskList.isValidListIndex(taskIndex - 1)) {
             throw new DeleteException("detail: Invalid Index of task!");
         }
 
         taskList.markTaskAsNotDone(taskIndex - 1);
-        saveTasksToFile(this.taskList);
-        Ui.showMessage(" OK, I've marked this task as not done yet:\n"
-                + taskList.getTaskDetails(taskIndex - 1));
+        saveTasksToFile();
+        return " OK, I've marked this task as not done yet:\n"
+                + taskList.getTaskDetails(taskIndex - 1);
     }
 
     /**
      * Deletes a task from the task list based on the provided input.
      *
      * @param taskIndex The index of the task to be deleted.
+     * @return The feedback string.
      * @throws DeleteException If the input string is not numeric or if the task index is out of valid range.
      */
-    public void deleteTaskByBot(int taskIndex) throws DeleteException {
+    public String deleteTaskByBot(int taskIndex) throws DukeException {
         if (taskIndex < 1 || taskIndex > taskList.getTaskCount()) {
             throw new DeleteException("Invalid Index of task!");
         } else {
-            Ui.showMessage(" Noted. I've removed this task:\n"
+            String returnStr = " Noted. I've removed this task:\n"
                     + this.taskList.getTaskDetails(taskIndex - 1)
-                    + "\n Now you have " + (taskList.getTaskCount() - 1) + " tasks in the list.\n");
+                    + "\n Now you have " + (taskList.getTaskCount() - 1) + " tasks in the list.\n";
             taskList.deleteTask(taskIndex - 1);
+            return returnStr;
         }
     }
 
@@ -92,19 +93,19 @@ public class Duke {
      * Adds a todo task to the task list and provides user feedback
      *
      * @param description The description of the todo task
+     * @return The feedback string.
      * @throws TodoException If the description is empty
      */
-    public void addTodo(String description) throws TodoException {
+    public String addTodo(String description) throws TodoException {
         Task newTask;
         if (description.isEmpty()) {
             throw new TodoException();
         } else {
             newTask = new Todo(description);
             taskList.addTask(newTask);
-            Ui.showMessage(
-                    " Got it. I've added this task:\n"
-                            + newTask
-                            + "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n");
+            return " Got it. I've added this task:\n"
+                    + newTask
+                    + "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n";
         }
     }
 
@@ -113,19 +114,18 @@ public class Duke {
      *
      * @param description  The description of the deadline task
      * @param deadlineDate The deadline date of the deadline task
+     * @return The feedback string.
      * @throws DeadlineException If the description or deadline date is empty
      */
-    public void addDeadline(String description, LocalDate deadlineDate) throws DeadlineException {
+    public String addDeadline(String description, LocalDate deadlineDate) throws DeadlineException {
         if (description.isEmpty() || deadlineDate == null) {
-            System.out.println("Error in addDeadline");
             throw new DeadlineException();
         } else {
             Task newTask = new Deadline(description, deadlineDate);
             taskList.addTask(newTask);
-            Ui.showMessage(
-                    " Got it. I've added this task:\n"
-                            + newTask
-                            + "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n");
+            return " Got it. I've added this task:\n"
+                    + newTask
+                    + "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n";
         }
     }
 
@@ -135,70 +135,77 @@ public class Duke {
      * @param description   The description of the event task
      * @param eventFromDate The start date of the event task
      * @param eventToDate   The end date of the event task
+     * @return The feedback string.
      * @throws EventException If the description, start date or end date is empty
      */
-    public void addEvent(String description, LocalDate eventFromDate, LocalDate eventToDate) throws EventException {
+    public String addEvent(String description, LocalDate eventFromDate, LocalDate eventToDate) throws EventException {
         if (description.isEmpty() || eventFromDate == null || eventToDate == null) {
             throw new EventException();
         } else {
             Task newTask = new Event(description, eventFromDate, eventToDate);
             taskList.addTask(newTask);
-            Ui.showMessage(
-                    " Got it. I've added this task:\n"
-                            + newTask
-                            + "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n");
+            return " Got it. I've added this task:\n"
+                    + newTask
+                    + "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n";
         }
     }
 
     /**
      * Loads the tasks from the storage file
+     *
+     * @return The feedback string.
+     * @throws DukeException If the file path is invalid
      */
-    private void loadTasksFromFile() {
+    public String loadTasksFromFile() throws DukeException {
         for (Task taskData : storage.loadTasks()) {
             this.taskList.addTask(taskData);
         }
 
         if (!this.taskList.isEmpty()) {
-            System.out.println(this.taskList);
+            return this.taskList.toString();
         }
+        return "No tasks found in file.";
     }
 
     /**
      * Saves the tasks to the storage file
+     *
+     * @throws DukeException If the file path is invalid
      */
-    private void saveTasksToFile(TaskList taskList) {
-        this.storage.saveTasks(taskList);
+    public void saveTasksToFile() throws DukeException {
+        this.storage.saveTasks(this.taskList);
     }
 
     /**
      * Finds tasks containing the given keyword and displays them.
      *
      * @param keyword The keyword to search for.
+     * @return The feedback string.
      */
-    public void findTasksByKeyword(String keyword) {
+    public String findTasksByKeyword(String keyword) {
         ArrayList<Task> matchingTasks = taskList.findTasksByKeyword(keyword);
+        StringBuilder matchingTasksString = new StringBuilder();
         if (matchingTasks.isEmpty()) {
-            Ui.showMessage("No matching tasks found.");
+            return "No matching tasks found.";
         } else {
-            StringBuilder matchingTasksString = new StringBuilder();
             matchingTasksString.append("Here are the matching tasks in your list:\n");
             int count = 1;
             for (Task task : matchingTasks) {
                 matchingTasksString.append(count).append(".").append(task).append("\n");
                 count++;
             }
-            Ui.showMessage(matchingTasksString.toString());
         }
+        return matchingTasksString.toString();
     }
 
     /**
      * Handles the command based on the command type
      *
      * @param command The command to be handled
-     * @return True if the command is not "bye", false otherwise
+     * @return The feedback string.
      * @throws DukeException If the command type is not recognized
      */
-    public boolean handleCommand(Command command) throws DukeException {
+    public String handleCommand(Command command) throws DukeException {
         String commandType = command.getCommandType();
         String description = command.getDescription();
         int taskIndex = command.getTaskIndex();
@@ -208,59 +215,25 @@ public class Duke {
 
         switch (commandType) {
         case "mark":
-            this.markTaskByBot(taskIndex);
-            break;
+            return markTaskByBot(taskIndex);
         case "unmark":
-            this.unmarkTaskByBot(taskIndex);
-            break;
+            return unmarkTaskByBot(taskIndex);
         case "bye":
-            return false;
+            return "Bye. Hope to see you again soon!";
         case "list":
-            Ui.showMessage(this.taskList.toString());
-            break;
+            return this.taskList.toString();
         case "find":
-            this.findTasksByKeyword(description);
-            break;
+            return this.findTasksByKeyword(description);
         case "todo":
-            this.addTodo(description);
-            break;
+            return this.addTodo(description);
         case "deadline":
-            this.addDeadline(description, deadlineDate);
-            break;
+            return this.addDeadline(description, deadlineDate);
         case "event":
-            this.addEvent(description, eventFromDate, eventToDate);
-            break;
+            return this.addEvent(description, eventFromDate, eventToDate);
         case "delete":
-            this.deleteTaskByBot(taskIndex);
-            break;
+            return this.deleteTaskByBot(taskIndex);
         default:
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
-        return true;
-    }
-
-    /**
-     * Starts the chatbot application
-     */
-    public void start() {
-        Ui.showWelcomeMessage();
-        String userInput;
-        Command parsedCommand;
-
-        this.loadTasksFromFile();
-
-        boolean isContinuing = true;
-        while (isContinuing) {
-            try {
-                userInput = Ui.getUserInput();
-                parsedCommand = Parser.parse(userInput);
-                isContinuing = handleCommand(parsedCommand);
-                this.saveTasksToFile(this.taskList);
-            } catch (DukeException e) {
-                Ui.showErrorMessage(e.getMessage());
-            }
-        }
-
-        Ui.showGoodByeMessage();
     }
 }
