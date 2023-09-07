@@ -1,10 +1,14 @@
+package duke.task;
+
+import duke.DukeException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * The Deadline class represents a task with a specific deadline.
- * It is a subclass of the Task class.
+ * The duke.task.Deadline class represents a duke.task with a specific deadline.
+ * It is a subclass of the duke.task.Task class.
  */
 public class Deadline extends Task {
     protected String by;
@@ -12,9 +16,9 @@ public class Deadline extends Task {
     static DateTimeFormatter formatterToTxtString = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
     /**
-     * Constructs a new Deadline task with a description and deadline date/time.
+     * Constructs a new duke.task.Deadline duke.task with a description and deadline date/time.
      *
-     * @param description The description of the task.
+     * @param description The description of the duke.task.
      * @param by          The deadline date/time in the format "dd/MM/yyyy HHmm".
      * @throws DukeException If the provided date/time format is invalid.
      */
@@ -44,9 +48,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a formatted string representation of the Deadline task for saving to a file.
+     * Returns a formatted string representation of the duke.task.Deadline duke.task for saving to a file.
      *
-     * @return A string in the format "[D] | [X] | Description | Deadline".
+     * @return A string in the format "[D] | [X] | Description | duke.task.Deadline".
      */
     @Override
     public String toTxtString() {
@@ -55,9 +59,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the Deadline task for displaying to the user.
+     * Returns a string representation of the duke.task.Deadline duke.task for displaying to the user.
      *
-     * @return A string in the format "[D] [Status] Description (by: Deadline)".
+     * @return A string in the format "[D] [Status] Description (by: duke.task.Deadline)".
      */
     @Override
     public String toString() {

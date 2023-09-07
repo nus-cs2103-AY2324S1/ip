@@ -1,14 +1,16 @@
+package duke;
+
 import java.util.Scanner;
 
 /**
- * The Ui class handles user interactions and displays messages to the user.
+ * The duke.Ui class handles user interactions and displays messages to the user.
  */
 public class Ui {
     private Scanner scanner;
     private String logo = "Wiz";
 
     /**
-     * Constructs a new Ui instance and initializes the scanner for user input.
+     * Constructs a new duke.Ui instance and initializes the scanner for user input.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);

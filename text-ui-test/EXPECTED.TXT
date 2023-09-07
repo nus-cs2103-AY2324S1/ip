@@ -5,35 +5,35 @@ What can I do for you?
 --------------------------
 --------------------------
 --------------------------
- I've added this task:
+ I've added this duke.task:
    [T][ ] read book
  Now you have 1 tasks in the list.
 --------------------------
 --------------------------
 --------------------------
 --------------------------
- I've added this task:
+ I've added this duke.task:
    [T][ ] buy bread
  Now you have 2 tasks in the list.
 --------------------------
 --------------------------
 --------------------------
 --------------------------
- I've added this task:
+ I've added this duke.task:
    [D][ ] return books (by: Sunday)
  Now you have 3 tasks in the list.
 --------------------------
 --------------------------
 --------------------------
 --------------------------
- I've added this task:
+ I've added this duke.task:
    [E][ ] project meeting (from: Mon 2pm to:4pm)
  Now you have 4 tasks in the list.
 --------------------------
 --------------------------
 --------------------------
 --------------------------
-Task List:
+duke.task.Task List:
  1. [T][ ] read book
  2. [T][ ] buy bread
  3. [D][ ] return books (by: Sunday)
@@ -48,7 +48,7 @@ Task List:
 --------------------------
 --------------------------
 --------------------------
-Task List:
+duke.task.Task List:
  1. [T][ ] read book
  2. [T][X] buy bread
  3. [D][ ] return books (by: Sunday)
@@ -63,7 +63,7 @@ Task List:
 --------------------------
 --------------------------
 --------------------------
-Task List:
+duke.task.Task List:
  1. [T][ ] read book
  2. [T][ ] buy bread
  3. [D][ ] return books (by: Sunday)

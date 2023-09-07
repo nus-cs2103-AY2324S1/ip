@@ -1,18 +1,25 @@
+package duke;
+
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+import duke.task.Deadline;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * Creates a new instance of the Parser class.
+ * Creates a new instance of the duke.Parser class.
  *
- * The Parser class is responsible for parsing user commands and performing
+ * The duke.Parser class is responsible for parsing user commands and performing
  * tasks accordingly.
  */
 public class Parser {
     /**
-     * Constructs a new Parser instance.
+     * Constructs a new duke.Parser instance.
      *
-     * The Parser class is responsible for parsing user commands and performing
+     * The duke.Parser class is responsible for parsing user commands and performing
      * tasks based on those commands.
      */
     public Parser() {
@@ -114,7 +121,7 @@ public class Parser {
                     }
                     int taskNumber = Integer.parseInt(separateCommand[1]);
                     if (command.startsWith("delete")) {
-                        System.out.println(" Noted. I've removed this task:");
+                        System.out.println(" Noted. I've removed this duke.task:");
                         System.out.println("   " + taskList.getTaskItem(taskNumber - 1).toString());
                         taskList.deleteTask(taskNumber - 1);
                     }
@@ -127,7 +134,7 @@ public class Parser {
             if (command.startsWith("delete")) {
                 System.out.println(" Now you have " + taskList.getSize() + " tasks in the list.");
             } else {
-                System.out.println(" I've added this task:" + "\n" + "   " + taskList.getTaskItem(taskList.getSize() - 1).toString()
+                System.out.println(" I've added this duke.task:" + "\n" + "   " + taskList.getTaskItem(taskList.getSize() - 1).toString()
                         + "\n" + " Now you have " + taskList.getSize() + " tasks in the list.");
             }
             writeLine(filePath, taskList);
@@ -137,11 +144,11 @@ public class Parser {
     }
 
     /**
-     * Writes the contents of a TaskList to a specified file path.
+     * Writes the contents of a duke.TaskList to a specified file path.
      *
-     * @param filePath  The file path to write the TaskList contents to.
-     * @param taskList  The TaskList containing tasks to be written to the file.
-     * @throws DukeException If an error occurs while writing to the file, or if the description of a task is empty.
+     * @param filePath  The file path to write the duke.TaskList contents to.
+     * @param taskList  The duke.TaskList containing tasks to be written to the file.
+     * @throws DukeException If an error occurs while writing to the file, or if the description of a duke.task is empty.
      */
     public static void writeLine(String filePath, TaskList taskList) throws DukeException {
         File resourceFile = new File(filePath);
