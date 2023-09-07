@@ -2,10 +2,10 @@ package trackerbot;
 
 import trackerbot.command.Command;
 import trackerbot.exception.TrackerBotException;
+import trackerbot.gui.UiHandler;
 import trackerbot.task.TaskList;
 import trackerbot.utils.Parser;
 import trackerbot.utils.Storage;
-import trackerbot.utils.Ui;
 
 /**
  * Main Program for the application. <br>
@@ -13,7 +13,7 @@ import trackerbot.utils.Ui;
  * as part of the requirements for the iP.
  *
  * @author WZWren
- * @version A-JavaDoc
+ * @version Level-10
  */
 public class TrackerBot {
     /** Name of the app. **/
@@ -23,59 +23,67 @@ public class TrackerBot {
     private TaskList tasks;
 
     /** Displays user IO. */
-    private Ui ui;
+    private UiHandler uiHandler;
 
     /**
      * Constructor for the TrackerBot instance.
      *
      * @param appName The name of the app to instantiate.
      */
-    public TrackerBot(String appName) {
+    private TrackerBot(String appName) {
         tasks = new TaskList();
-        ui = Ui.instantiate(appName);
+        uiHandler = UiHandler.instantiate(appName);
     }
 
     /**
-     * Calls the Ui to read commands, create Commands and execute the command.
+     * Instantiates the TrackerBot object.
      *
-     * @return If the program has requested to exit.
+     * @return The TrackerBot instance, with loaded data in the Task List, if any.
      */
-    private boolean handleInput() {
-        Command command = Parser.parseCommand(ui.readCommand());
+    public static TrackerBot instantiate() {
+        TrackerBot instance = new TrackerBot(APP_NAME);
+
         try {
-            ui.showLine();
-            command.execute(tasks, ui);
+            Storage.read(instance.tasks);
         } catch (TrackerBotException e) {
-            ui.showError(e.getMessage());
-        } finally {
-            ui.showLine();
+            instance.uiHandler.setError("I failed to retrieve your save file. "
+                    + "Here's the error I got: \n" + e.getMessage());
         }
 
-        return command.isExit();
+        return instance;
     }
 
-    /** Starts the app. */
-    public void run() {
-        try {
-            Storage.read(tasks);
-        } catch (TrackerBotException e) {
-            ui.showError(e.getMessage());
-        }
-
-        boolean isBye;
-        do {
-            isBye = handleInput();
-        } while (!isBye);
-
-        try {
-            Storage.save(tasks);
-        } catch (TrackerBotException e) {
-            ui.showError(e.getMessage());
-        }
+    /**
+     * Saves the tasks in TaskList, if any.
+     * @throws TrackerBotException if the save fails.
+     */
+    public void handleSave() throws TrackerBotException {
+        Storage.save(tasks);
     }
 
-    /** Entry point. **/
-    public static void main(String[] args) {
-        new TrackerBot(APP_NAME).run();
+    /**
+     * Returns the message from the TrackerBot.
+     *
+     * @return The message, stored in the UiHandler instance.
+     */
+    public String getLastMessage() {
+        return uiHandler.getMessage();
+    }
+
+    /**
+     * Parses a Command and executes it.
+     *
+     * @return The post-execution String in our UiHandler.
+     */
+    public String handleInput(String input) {
+        Command command = Parser.parseCommand(input);
+        try {
+            // TODO: This is a bit weird... Why is there different levels of handling on uiHandler?
+            command.execute(tasks, uiHandler);
+        } catch (TrackerBotException e) {
+            uiHandler.setError(e.getMessage());
+        }
+
+        return uiHandler.getMessage();
     }
 }
