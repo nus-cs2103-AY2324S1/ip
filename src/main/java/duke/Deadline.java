@@ -36,10 +36,10 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
-    @Override
     /**
      * {@inheritDoc}
      */
+    @Override
     public String toFileString() {
         return "D" + super.toFileString() + " | " + this.deadline.format(formatterSave);
     }

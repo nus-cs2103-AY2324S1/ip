@@ -38,6 +38,10 @@ public class Parser {
         this.fullList = fullList;
     }
 
+    /**
+     * Represents the various command types that can be used in the chatBot application.
+     * These command types define the actions the chatBot can perform.
+     */
     public enum CommandType {
         TODO, DEADLINE, EVENT, MARK, UNMARK,
         DELETE, LIST, BYE, UNKNOWN, EMPTY, FIND
@@ -94,13 +98,12 @@ public class Parser {
      * Processes user input to create and execute task-related actions.
      *
      * @param input The user input to be processed.
-     * @return {@code true} if the application should continue running,
-     * {@code false} if it should exit.
+     * @return {@code true} if the application should continue running. {@code false} if it should exit.
      */
     public boolean createTaskAction(String input) {
         String[] userInputParts = input.split(" ", 2);
-        String command_user = userInputParts[0];
-        CommandType command = parseCommand(command_user);
+        String commandUser = userInputParts[0];
+        CommandType command = parseCommand(commandUser);
 
         switch (command) {
         case EMPTY:
@@ -140,8 +143,8 @@ public class Parser {
                 ui.showInvalidMessage();
                 return true;
             }
-            int index_unmark = Integer.parseInt(splitIndexUnMark[1]) - 1;
-            fullList.unMarkItem(index_unmark);
+            int indexUnmark = Integer.parseInt(splitIndexUnMark[1]) - 1;
+            fullList.unMarkItem(indexUnmark);
             return true;
 
         case TODO:
@@ -169,12 +172,12 @@ public class Parser {
 
         case EVENT:
             String[] det = userInputParts[1].split("/from");
-            if (det.length <=1) {
+            if (det.length <= 1) {
                 ui.showInvalidMessage();
                 return true;
             }
             String[] dateParts = det[1].trim().split("/to");
-            if (dateParts.length <=1) {
+            if (dateParts.length <= 1) {
                 ui.showInvalidMessage();
                 return true;
             }

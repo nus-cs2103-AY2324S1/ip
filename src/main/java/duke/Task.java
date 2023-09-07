@@ -3,7 +3,7 @@ package duke;
 /**
  * Represents a task with a description and completion status.
  */
-public class Task{
+public class Task {
     private String description;
     private boolean isDone;
 
@@ -85,6 +85,6 @@ public class Task{
         return (isDone
                 ? "[" + "X" + "] " + description
                 : "[" + " " + "] " + description
-        );
+            );
     }
 }
