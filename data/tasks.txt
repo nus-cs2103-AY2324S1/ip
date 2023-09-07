@@ -5,3 +5,8 @@ D | 0 | return book | Oct 15 2019
 E | 0 | return book | Feb 12 2019 | Feb 12 2019
 E | 0 | return book | Oct 15 2019 1800 | Oct 15 2019 2000
 E | 0 | return book | Feb 12 2019 1800 | Feb 12 2019 2000
+T | 0 | eat
+T | 0 | sleep
+T | 0 | play
+T | 0 | list
+T | 0 | eat

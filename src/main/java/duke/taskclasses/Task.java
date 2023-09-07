@@ -44,11 +44,11 @@ public abstract class Task {
     public abstract String getDbString();
 
     /**
-     * Prints the description of the added task.
+     * Returns the description of the added task.
      */
-    public void addedTaskDescription() {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("   " + this.getStatusAndDescription());
+    public String[] addedTaskDescription() {
+        String[] res = {"Got it. I've added this task:", "   " + this.getStatusAndDescription()};
+        return res;
     }
 
     /**

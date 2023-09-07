@@ -6,11 +6,12 @@ import duke.taskclasses.TaskList;
  * Represents the user interface of the application.
  */
 public class Ui {
-
+    private MainWindow mainWindow;
     /**
      * Constructs a new Ui instance and displays the welcome message.
      */
-    public Ui() {
+    public Ui(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
         String logo = " ██▄   ████▄    ▄     ▄▀  \n"
                 + "█  █  █   █     █  ▄▀    \n"
                 + "█   █ █   █ ██   █ █ ▀▄  \n"
@@ -18,8 +19,8 @@ public class Ui {
                 + "███▀        █  █ █  ███  \n"
                 + "            █   ██       \n"
                 + "                         ";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("What can I do for you?\n");
+        mainWindow.printDukeReply("Hello from\n" + logo);
+        mainWindow.printDukeReply("What can I do for you?\n");
     }
 
     /**
@@ -27,9 +28,9 @@ public class Ui {
      *
      * @param taskContent The content of the task that has been marked as done.
      */
-    public void printTaskMarkAsDone(String taskContent) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + taskContent);
+    public String[] printTaskMarkAsDone(String taskContent) {
+        String[] res = { "Nice! I've marked this task as done:", "  " + taskContent};
+        return res;
     }
 
     /**
@@ -37,16 +38,17 @@ public class Ui {
      *
      * @param taskContent The content of the task that has been marked as not done.
      */
-    public void printTaskMarkAsNotDone(String taskContent) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + taskContent);
+    public String[] printTaskMarkAsNotDone(String taskContent) {
+        String[] res = {"OK, I've marked this task as not done yet:", "  " + taskContent};
+        return res;
     }
 
     /**
      * Informs the user that there was an error loading data from storage.
      */
-    public void showLoadingError() {
-        System.out.println("ERROR reading the file, might be corrupted");
+    public String[] showLoadingError() {
+        String[] res = {"ERROR reading the file, might be corrupted"};
+        return res;
     }
 
     /**
@@ -54,9 +56,10 @@ public class Ui {
      *
      * @param tasks The task list containing tasks to print.
      */
-    public void printList(TaskList tasks) {
-        System.out.println("Here are the tasks in your list:");
-        tasks.printAllStatusAndDescription();
+    public String[] returnList(TaskList tasks) {
+        String[] res = {"Here are the tasks in your list:",
+            tasks.allStatusAndDescriptionToString()};
+        return res;
     }
 
     /**
@@ -71,9 +74,9 @@ public class Ui {
      *
      * @param content The content of the deleted task.
      */
-    public void deleteTask(String content) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(content);
+    public String[] deleteTask(String content) {
+        String[] res = {"Noted. I've removed this task:", content};
+        return res;
     }
 
     /**
@@ -81,8 +84,9 @@ public class Ui {
      *
      * @param count The current number of tasks.
      */
-    public void printTaskCount(int count) {
-        System.out.println(String.format("Now you have %s tasks in the list.", count));
+    public String[] printTaskCount(int count) {
+        String[] res = {String.format("Now you have %s tasks in the list.", count)};
+        return res;
     }
 
     /**
@@ -90,16 +94,17 @@ public class Ui {
      *
      * @param tasks The task list containing tasks to print.
      */
-    public void printTaskContainingKeyword(TaskList tasks, String keyword) {
-        System.out.println("Here are the matching tasks in your list:");
-        tasks.printAllStatusAndDescriptionWithKeyword(keyword);
+    public String[] printTaskContainingKeyword(TaskList tasks, String keyword) {
+        String[] res = {"Here are the matching tasks in your list:",
+            tasks.getAllStatusAndDescriptionWithKeyword(keyword)};
+        return res;
     }
 
 
     /**
      * Prints a goodbye message.
      */
-    public void printBye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String[] printBye() {
+        return new String[]{"Bye. Hope to see you again soon!"};
     }
 }

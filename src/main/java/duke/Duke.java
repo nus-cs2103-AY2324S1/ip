@@ -1,75 +1,57 @@
 package duke;
-//
-//import duke.taskclasses.TaskList;
-//
-///**
-// * The main entry point for the Duke application.
-// * It initializes the necessary components and runs the application.
-// */
-//public class Duke {
-//    private Storage storage;
-//    private TaskList tasks;
-//    private Ui ui;
-//
-//    /**
-//     * Constructor for the Duke application.
-//     *
-//     * @param filePath The file path where tasks are saved and loaded.
-//     */
-//    public Duke(String filePath) {
-//        ui = new Ui();
-//        storage = new Storage(filePath);
-//        try {
-//            tasks = storage.load();
-//        } catch (Exception e) {
-//            ui.showLoadingError();
-//            tasks = new TaskList();
-//        }
-//    }
-//
-//    /**
-//     * Runs the Duke application by invoking the parser.
-//     */
-//    public void run() {
-//        Parser.run(ui, storage, tasks);
-//    }
-//
-//    /**
-//     * The main method to launch the Duke application.
-//     *
-//     * @param args Command line arguments (not used).
-//     */
-//    public static void main(String[] args) {
-//        new Duke("./data/tasks.txt").run();
-//    }
-//}
 
+import java.util.ArrayList;
+
+import duke.taskclasses.TaskList;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
+/**
+ * Initialise and configuration for the main program, Duke.
+ */
 public class Duke extends Application {
 
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
 
-    public static void main(String[] args) {
-        // ...
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    /**
+     * Constructor for the Duke application.
+     *
+     * @param filePath The file path where tasks are saved and loaded.
+     */
+    public Duke(String filePath) {
+        storage = new Storage(filePath);
+    }
+
+    /**
+     * To intialise the program before running the application.
+     *
+     * @param mainWindow The configuration of the main application to run.
+     */
+    public void activate(MainWindow mainWindow) {
+        ui = new Ui(mainWindow);
+        try {
+            tasks = storage.load();
+        } catch (Exception e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
     }
 
     @Override
@@ -119,7 +101,7 @@ public class Duke extends Application {
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
 
-        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         //Step 3. Add functionality to handle user input.
@@ -133,20 +115,12 @@ public class Duke extends Application {
             userInput.clear();
         });
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
-        //Part 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
     }
 
     /**
      * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
+     *
      * @param text String containing text to add
      * @return a label with the specified text that has word wrap enabled.
      */
@@ -159,25 +133,11 @@ public class Duke extends Application {
     }
 
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
-    private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
-        );
-        userInput.clear();
-    }
-
-    /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
-        return "Duke heard: " + input;
+    ArrayList<String> getResponse(String input) {
+        return Parser.run(input, ui, storage, tasks);
     }
+
 }

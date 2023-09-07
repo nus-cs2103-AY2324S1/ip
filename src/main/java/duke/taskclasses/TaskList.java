@@ -42,13 +42,16 @@ public class TaskList {
     }
 
     /**
-     * Prints the status and description of all tasks in the list.
+     * Returns the status and description of all tasks in the list.
      */
-    public void printAllStatusAndDescription() {
+    public String allStatusAndDescriptionToString() {
+        String output = "";
         for (int i = 0; i < taskLists.size(); i++) {
             Task taskToPrint = taskLists.get(i);
-            System.out.println((i + 1) + ". " + taskToPrint.getStatusAndDescription());
+            String newLine = (i + 1) + ". " + taskToPrint.getStatusAndDescription() + "\n";
+            output += newLine;
         }
+        return output;
     }
 
     /**
@@ -76,13 +79,14 @@ public class TaskList {
      * @param isDone The completion status of the task.
      * @param description Description of the task.
      */
-    public void addToDoToList(Boolean isDone, String description) {
+    public Task addToDoToList(Boolean isDone, String description) {
         Task newTask = new ToDo(description);
         if (isDone) {
             newTask.markAsDone();
         }
         taskLists.add(newTask);
         this.taskCount++;
+        return newTask;
     }
 
     /**
@@ -93,13 +97,14 @@ public class TaskList {
      * @param date Due date of the task.
      * @throws InvalidDateTimeException If the provided date string is not in a valid format.
      */
-    public void addDeadlineToList(Boolean isDone, String description, String date) throws InvalidDateTimeException {
+    public Task addDeadlineToList(Boolean isDone, String description, String date) throws InvalidDateTimeException {
         Task newTask = new Deadline(description, date);
         if (isDone) {
             newTask.markAsDone();
         }
         taskLists.add(newTask);
         this.taskCount++;
+        return newTask;
     }
 
     /**
@@ -111,7 +116,7 @@ public class TaskList {
      * @param end End date and time of the event.
      * @throws InvalidDateTimeException If the provided date strings are not in a valid format.
      */
-    public void addEventToList(Boolean isDone, String description, String start, String end)
+    public Task addEventToList(Boolean isDone, String description, String start, String end)
             throws InvalidDateTimeException {
         Task newTask = new Event(description, start, end);
         if (isDone) {
@@ -119,6 +124,7 @@ public class TaskList {
         }
         taskLists.add(newTask);
         this.taskCount++;
+        return newTask;
     }
 
     /**
@@ -160,14 +166,17 @@ public class TaskList {
     }
 
     /**
-     * Prints the status and description of all tasks in the list that contains the keyword in description.
+     * Returns the status and description of all tasks in the list that contains the keyword in description.
      */
-    public void printAllStatusAndDescriptionWithKeyword(String keyword) {
+    public String getAllStatusAndDescriptionWithKeyword(String keyword) {
+        String output = "";
         for (int i = 0; i < taskLists.size(); i++) {
             Task taskToPrint = taskLists.get(i);
             if (taskToPrint.description.contains(keyword)) {
-                System.out.println((i + 1) + ". " + taskToPrint.getStatusAndDescription());
+                String newLine = (i + 1) + ". " + taskToPrint.getStatusAndDescription() + "\n";
+                output += newLine;
             }
         }
+        return output;
     }
 }
