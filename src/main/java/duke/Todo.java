@@ -20,11 +20,6 @@ class Todo extends Task {
     @Override
     public void mark() {
         this.isDone = true;
-
-        System.out.println("-------------------------------\n"
-                + "Nice! I've marked this task as done:\n"
-                + this
-                + "\n-------------------------------");
     }
     /**
      * Unmark this Todo task as not done yet.
@@ -32,9 +27,6 @@ class Todo extends Task {
     @Override
     public void unmark() {
         this.isDone = false;
-
-        System.out.println("OK, I've marked this task as not done yet:\n"
-                + this);
     }
     @Override
     public String toString() {

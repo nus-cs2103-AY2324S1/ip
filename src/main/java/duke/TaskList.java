@@ -21,58 +21,40 @@ class TaskList {
      * Creates a Todo task in taskArr.
      * @param desc Description of the Todo task
      */
-    public Todo addTodo(String desc) {
+    public String addTodo(String desc) {
         Todo curr = new Todo(desc);
         taskArr.add(curr);
 
-        System.out.println("-------------------------------\n"
-                + "Got it. I've added this task:\n"
-                + curr.toString()
-                + countTotalTasks()
-                + "\n-------------------------------\n");
-
-        return curr;
+        return curr.toString();
     }
     /**
      * Creates a Deadline task in taskArr.
      * @param desc Description of the Deadline task
      * @param date Date to complete the Deadline task by
      */
-    public Deadline addDeadline(String desc, String date) {
+    public String addDeadline(String desc, String date) {
         Deadline curr = new Deadline(desc, date);
         taskArr.add(curr);
 
-        System.out.println("-------------------------------\n"
-                + "Got it. I've added this task:\n"
-                + curr.toString()
-                + countTotalTasks()
-                + "\n-------------------------------\n");
-
-        return curr;
+        return curr.toString();
     }
     /**
      * Creates an Event task in taskArr.
      * @param desc Description of the Event task
      * @param timeline Start and End date of the Event task
      */
-    public Event addEvent(String desc, String timeline) {
+    public String addEvent(String desc, String timeline) {
         Event curr = new Event(desc, timeline);
         taskArr.add(curr);
 
-        System.out.println("-------------------------------\n"
-                + "Got it. I've added this task:\n"
-                + curr.toString()
-                + countTotalTasks()
-                + "\n-------------------------------\n");
-
-        return curr;
+        return curr.toString();
     }
     /**
      * Mark a specific task in the Task ArrayList as done.
      * @param input User input for mark action
      * @throws WrongInput Error when user enters illegal input
      */
-    public void mark(String[] input) throws WrongInput {
+    public String mark(String[] input) throws WrongInput {
         int size = taskArr.size();
 
         try {
@@ -81,6 +63,8 @@ class TaskList {
                 throw new WrongInput();
             } else {
                 taskArr.get(index - 1).mark();
+                return "Got it, I've marked this task:\n"
+                + taskArr.get(index - 1).toString();
             }
         } catch (NumberFormatException e) {
             throw new WrongInput();
@@ -91,7 +75,7 @@ class TaskList {
      * @param input User input for unmark action
      * @throws WrongInput Error when user enters illegal input
      */
-    public void unmark(String[] input) throws WrongInput {
+    public String unmark(String[] input) throws WrongInput {
         int size = taskArr.size();
 
         try {
@@ -100,6 +84,8 @@ class TaskList {
                 throw new WrongInput();
             } else {
                 taskArr.get(index - 1).unmark();
+                return "Got it, I've unmarked this task:\n"
+                        + taskArr.get(index - 1).toString();
             }
         } catch (NumberFormatException e) {
             throw new WrongInput();
@@ -110,7 +96,7 @@ class TaskList {
      * @param input User input for delete action
      * @throws WrongInput Error when user enters illegal input
      */
-    public void delete(String[] input) throws WrongInput {
+    public String delete(String[] input) throws WrongInput {
         int size = taskArr.size();
 
         try {
@@ -121,11 +107,8 @@ class TaskList {
                 int index = num - 1;
                 Task toRemove = taskArr.get(index);
                 taskArr.remove(index);
-                System.out.println("-------------------------------\n"
-                        + "Noted, I've removed this task:\n"
-                        + toRemove.toString()
-                        + countTotalTasks()
-                        + "\n-------------------------------\n");
+                return "Noted, I've removed this task:\n"
+                        + toRemove.toString();
             }
         } catch (NumberFormatException e) {
             throw new WrongInput();
@@ -134,17 +117,15 @@ class TaskList {
     /**
      * Lists out all the tasks in taskArr.
      */
-    public void listOut() {
+    public String listOut() {
         int size = taskArr.size();
-
-        System.out.println("-------------------------------\n"
-                + "Here are the tasks in your list:");
+        String response = "Here are the tasks in your list:\n";
 
         for (int i = 0; i < size; i++) {
-            System.out.println(i + 1 + ". " + taskArr.get(i).toString());
+            response += i + 1 + ". " + taskArr.get(i).toString() + "\n";
         }
 
-        System.out.println("-------------------------------\n");
+        return response + countTotalTasks();
     }
     /**
      * String to show the user the current state of the Task ArrayList.
@@ -223,12 +204,11 @@ class TaskList {
 
         return from + " - " + to;
     }
-    public void find(String[] arr) throws WrongInput {
+    public String find(String[] arr) throws WrongInput {
         if (arr.length == 1) {
             throw new WrongInput();
         } else {
-            System.out.println("-------------------------------\n"
-                    + "Here are the matching tasks in your list:");
+            String response = "Here are the matching tasks in your list:\n";
 
             int[] result = new int[taskArr.size()];
             String term = arr[1];
@@ -244,11 +224,10 @@ class TaskList {
 
             for (int i = 0; i < taskArr.size(); i++) {
                 if (result[i] == 1) {
-                    System.out.println(taskArr.get(i).toString());
+                    response += taskArr.get(i).toString();
                 }
             }
-
-            System.out.println("-------------------------------\n");
+            return response;
         }
     }
     public ArrayList<Task> retrieveArray() {
