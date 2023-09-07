@@ -212,3 +212,5 @@ public class Duke {
 // A-Gradle
 // A-JUnit
 // A-Jar
+
+// A-CodingStandard
