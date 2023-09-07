@@ -150,7 +150,7 @@ public class Cheesebot  extends Application{
 
   public static void main(String[] args) {
     Cheesebot cheesebot = new Cheesebot();
-    cheesebot.run();
+    launch();
   }
 
   @Override
@@ -210,11 +210,11 @@ public class Cheesebot  extends Application{
     
     dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     
-    Label start = startMessage();
-    start.setStyle("-fx-background-color: lightgreen");
+    Label startMsg = startMessage();
+    startMsg.setStyle("-fx-background-color: lightgreen");
     dialogContainer.getChildren().addAll(
       DialogBox.getCheesebotDialog(
-        start,
+        startMsg,
         new ImageView(cheesebotImage)
       )
     );
