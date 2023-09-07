@@ -33,14 +33,13 @@ public class Storage {
     public static void saveTasks(TaskList taskList) {
         try {
             //Solution below inspired by https://www.geeksforgeeks.org/io-bufferedwriter-class-methods-java/
-            FileWriter file = new FileWriter(filePath);
-            BufferedWriter writer = new BufferedWriter(file);
+            //changing according to notes
+            FileWriter fw = new FileWriter(filePath);
             for (int i = 0; i < taskList.getSize(); i++) {
                 Task task = taskList.getTask(i);
-                writer.write(task.fileString());
-                writer.newLine();
+                fw.write(task.fileString() + "\n");
             }
-            writer.close();
+            fw.close();
         } catch (IOException e) {
             System.out.println("☹ OOPS!!! Error when saving task(s).");
         }
@@ -56,7 +55,7 @@ public class Storage {
         try {
             File loadedFile = new File(filePath);
             Scanner sc = new Scanner(loadedFile);
-            while (sc.hasNextLine()) {
+            while (sc.hasNext()) {
                 String nextLine = sc.nextLine();
                 Parser.readLine(nextLine, taskList);
             }
