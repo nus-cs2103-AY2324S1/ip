@@ -1,9 +1,6 @@
 package duke.command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import duke.*;
 
 public class DeleteCommand extends Command {
     Integer index;
@@ -11,7 +8,7 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws SaveToFileException, OutOfRangeException {
         ui.displayMessage(tasks.delete(index));
         storage.save(tasks);
     }

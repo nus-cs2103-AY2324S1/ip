@@ -20,7 +20,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void deleteTask_onlyTask_success() throws DukeException {
+    public void deleteTask_onlyTask_success() throws OutOfRangeException {
         TaskList taskList = new TaskList();
         taskList.add(new Task("fakeTask") {
             @Override
