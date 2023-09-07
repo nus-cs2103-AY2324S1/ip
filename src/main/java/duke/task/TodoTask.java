@@ -13,21 +13,25 @@ public class TodoTask extends Task {
         this.toDate = toDate;
     }
 
+    @Override
     public String toString() {
-        String var10000 = super.toString();
-        return "[T]" + var10000 + " " + this.getDescriptionDetails();
+        return "[T]" + super.toString() + " " + getDescriptionDetails();
     }
 
+    @Override
     public String toFileString() {
-        return String.format("%s | %d | %s (from: %s to: %s)", this.getTaskType(), this.isDone ? 1 : 0, this.description, this.fromDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), this.toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        return String.format("%s | %d | %s (from: %s to: %s)", getTaskType(), isDone ? 1 : 0, description,
+                fromDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
 
+    @Override
     public String getTaskType() {
         return "T";
     }
 
     private String getDescriptionDetails() {
-        String var10000 = this.description;
-        return var10000 + " (from: " + this.fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " to: " + this.toDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return description + " (from: " + fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) +
+                " to: " + toDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

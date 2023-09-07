@@ -8,3 +8,4 @@ public enum TaskType {
     private TaskType() {
     }
 }
+

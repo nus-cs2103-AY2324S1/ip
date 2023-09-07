@@ -11,21 +11,23 @@ public class DeadlineTask extends Task {
         this.byDate = byDate;
     }
 
+    @Override
     public String toString() {
-        String var10000 = super.toString();
-        return "[D]" + var10000 + " " + this.getDescriptionDetails();
+        return "[D]" + super.toString() + " " + getDescriptionDetails();
     }
 
+    @Override
     public String toFileString() {
-        return String.format("%s | %d | %s (by: %s)", this.getTaskType(), this.isDone ? 1 : 0, this.description, this.byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        return String.format("%s | %d | %s (by: %s)", getTaskType(), isDone ? 1 : 0, description,
+                byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
 
+    @Override
     public String getTaskType() {
         return "D";
     }
 
     private String getDescriptionDetails() {
-        String var10000 = this.description;
-        return var10000 + " (by: " + this.byDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return description + " (by: " + byDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

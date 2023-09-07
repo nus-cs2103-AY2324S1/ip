@@ -1,11 +1,10 @@
 package duke;
 
 import duke.task.Task;
+
 import java.util.List;
 
 public class Ui {
-    public Ui() {
-    }
 
     public void showWelcomeMessage() {
         System.out.println("____________________________________________________________");
@@ -29,11 +28,9 @@ public class Ui {
     public void showTaskList(List<Task> taskList) {
         System.out.println("____________________________________________________________");
         System.out.println(" Here are the tasks in your list:");
-
-        for(int i = 0; i < taskList.size(); ++i) {
+        for (int i = 0; i < taskList.size(); i++) {
             System.out.println(" " + (i + 1) + "." + taskList.get(i));
         }
-
         System.out.println("____________________________________________________________");
     }
 

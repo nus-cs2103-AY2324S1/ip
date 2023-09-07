@@ -11,21 +11,23 @@ public class EventTask extends Task {
         this.atDate = atDate;
     }
 
+    @Override
     public String toString() {
-        String var10000 = super.toString();
-        return "[E]" + var10000 + " " + this.getDescriptionDetails();
+        return "[E]" + super.toString() + " " + getDescriptionDetails();
     }
 
+    @Override
     public String toFileString() {
-        return String.format("%s | %d | %s (at: %s)", this.getTaskType(), this.isDone ? 1 : 0, this.description, this.atDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        return String.format("%s | %d | %s (at: %s)", getTaskType(), isDone ? 1 : 0, description,
+                atDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
 
+    @Override
     public String getTaskType() {
         return "E";
     }
 
     private String getDescriptionDetails() {
-        String var10000 = this.description;
-        return var10000 + " (at: " + this.atDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return description + " (at: " + atDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }
