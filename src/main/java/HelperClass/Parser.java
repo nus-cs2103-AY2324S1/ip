@@ -14,9 +14,15 @@ public class Parser {
 
     }
 
-    public void processUserCommand() {
+    public String getUserInput() {
         Scanner getUserInput = new Scanner(System.in);
         String userInput = getUserInput.nextLine();
+        getUserInput.close();
+        return userInput;
+    }
+
+    public void processUserCommand(String userInput) {
+
 
         List<String> formattedLine = new ArrayList<>();
         Scanner lineScanner = new Scanner(userInput);
@@ -63,7 +69,7 @@ public class Parser {
 
         }
 
-        System.out.println(command);
+
 
 
 

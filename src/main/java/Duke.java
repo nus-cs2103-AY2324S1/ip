@@ -56,7 +56,7 @@ public class Duke {
 
             userListHaveChanges = false;
 
-            parser.processUserCommand();
+            parser.processUserCommand(parser.getUserInput());
 
             switch (parser.getCommand()) {
 
