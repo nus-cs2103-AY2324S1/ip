@@ -26,6 +26,7 @@ public class CentralCommandHandler {
         COMMAND_MAP.put("unmark", new UnmarkCommandHandler(this.tasks));
         COMMAND_MAP.put("delete", new DeleteHandler(this.tasks));
         COMMAND_MAP.put("help", new HelpCommandHandler(this.tasks));
+        COMMAND_MAP.put("find", new FindHandler(this.tasks));
     }
 
     public static CentralCommandHandler initializeCommandHandler(TaskArray tasks) {
@@ -36,7 +37,7 @@ public class CentralCommandHandler {
         String[] splitInput = input.split(" ", 2);
 
         // The command inputted.
-        String command = splitInput[0].strip();
+        String command = splitInput[0].strip().toLowerCase();
 
         if (!COMMAND_MAP.containsKey(command)) {
             InvalidInputHandler invalidHandler = new InvalidInputHandler(this.tasks);

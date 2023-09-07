@@ -21,6 +21,9 @@ public class Task {
         return "Model.Task," + this.name + "," + this.isMarked;
     }
 
+    public boolean containsWord(String word) {
+        return this.name.toLowerCase().contains(word.toLowerCase());
+    }
     public String toString() {
         if (this.isMarked) {
             return "[X] " + this.name;

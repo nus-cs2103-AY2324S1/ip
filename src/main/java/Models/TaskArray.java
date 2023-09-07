@@ -1,6 +1,7 @@
 package Models;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static Storage.Dbops.*;
 
@@ -66,8 +67,21 @@ public class TaskArray extends ArrayList<Task> {
         saveTasksToFile(this);
     }
 
-    public void modifyTask(int index, Task modifiedTask) {
+    public String findTasks(String findString) {
+        // Display the list of tasks
+        StringBuilder output = new StringBuilder();
 
+        for (int i = 0; i < this.size(); i ++) {
+            if (this.get(i).containsWord(findString)) {
+                output.append(i + 1).append(". ").append(this.get(i)).append("\n");
+            }
+        }
+
+        if(Objects.equals(String.valueOf(output), "")) {
+            return "No tasks found with provided words!";
+        }
+
+        return String.valueOf(output);
     }
 
     /**
