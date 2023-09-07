@@ -26,7 +26,8 @@ public class Event extends Task {
     }
 
     /**
-     * Constructs a new `Event` instance with the specified description, start date-time, end date-time, and done status.
+     * Constructs a new `Event` instance with the specified description,
+     * start date-time, end date-time, and done status.
      *
      * @param description A description of the event task.
      * @param from        The start date and time of the event task.
