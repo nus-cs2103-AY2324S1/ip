@@ -55,6 +55,7 @@ public class Parser {
      * Parses the user input and executes the corresponding actions.
      *
      * @param input The user input to be parsed and processed.
+     * @return A String message containing the result of the executed action.
      * @throws DukeException If an error occurs during parsing or execution.
      */
     public String parse(String input) throws DukeException {
@@ -85,6 +86,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Determines the command type based on the user input.
+     *
+     * @param input The user input to be analyzed.
+     * @return The Command enum representing the detected command type.
+     */
     private Command getCommand(String input) {
         if (input.equals("list")) {
             return Command.LIST;
@@ -109,6 +116,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the "mark" command to mark a task as done and updates the storage.
+     *
+     * @param input The user input for the "mark" command.
+     * @return A message indicating the success of marking the task as done.
+     * @throws DukeException If there is an issue with the input or task index.
+     */
     private String handleMarkCommand(String input) throws DukeException {
         String[] parsedString = input.split(" ");
 
@@ -128,7 +142,13 @@ public class Parser {
         }
     }
 
-    // Handle the "unmark" command
+    /**
+     * Parses the "unmark" command to remove the completion status of a task and updates the storage.
+     *
+     * @param input The user input for the "unmark" command.
+     * @return A message indicating the success of marking the task as not done.
+     * @throws DukeException If there is an issue with the input or task index.
+     */
     private String handleUnmarkCommand(String input) throws DukeException {
         String[] parsedString = input.split(" ");
 
@@ -148,7 +168,13 @@ public class Parser {
         }
     }
 
-    // Handle the "delete" command
+    /**
+     * Parses the "delete" command to delete a task from the task list and updates the storage.
+     *
+     * @param input The user input for the "delete" command.
+     * @return A message indicating the success of deleting the task.
+     * @throws DukeException If there is an issue with the input or task index.
+     */
     private String handleDeleteCommand(String input) throws DukeException {
         String[] parsedString = input.split(" ");
 
@@ -167,7 +193,13 @@ public class Parser {
         }
     }
 
-    // Handle the "todo" command
+    /**
+     * Parses the "todo" command to add a new todo task to the task list and storage.
+     *
+     * @param input   The user input for the "todo" command.
+     * @return A message indicating the success of adding the todo task.
+     * @throws DukeException If there is an issue with the input or task description.
+     */
     private String handleTodoCommand(String input) throws DukeException {
         if (input.replaceAll("\\s", "").equals(input)) {
             throw new DukeInvalidCommandException("todo");
@@ -183,7 +215,13 @@ public class Parser {
         return this.addTodo(description, false);
     }
 
-    // Handle the "deadline" command
+    /**
+     * Parses the "deadline" command to add a new deadline task to the task list and storage.
+     *
+     * @param input   The user input for the "deadline" command.
+     * @return A message indicating the success of adding the deadline task.
+     * @throws DukeException If there is an issue with the input, task description, or date format.
+     */
     private String handleDeadlineCommand(String input) throws DukeException {
         if (input.replaceAll("\\s", "").equals(input)) {
             throw new DukeInvalidCommandException("deadline");
@@ -210,7 +248,13 @@ public class Parser {
         }
     }
 
-    // Handle the "event" command
+    /**
+     * Parses the "event" command to add a new event task to the task list and storage.
+     *
+     * @param input   The user input for the "event" command.
+     * @return A message indicating the success of adding the event task.
+     * @throws DukeException If there is an issue with the input or task parameters.
+     */
     private String handleEventCommand(String input) throws DukeException {
         if (input.replaceAll("\\s", "").equals(input)) {
             throw new DukeInvalidCommandException("event");
