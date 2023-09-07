@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    private final String PATH = "toothless.txt";
+    private final String path = "toothless.txt";
     private File tempFile;
 
     /**
@@ -28,7 +28,7 @@ public class Storage {
      */
     public List<String> readFile() {
         List<String> output = new ArrayList<>();
-        File f = new File(PATH);
+        File f = new File(path);
         try {
             f.createNewFile();
             Scanner s = new Scanner(f);
@@ -60,7 +60,7 @@ public class Storage {
      */
     public String saveToDisk(List<String> tasks) {
         try {
-            FileWriter fw = new FileWriter(PATH);
+            FileWriter fw = new FileWriter(path);
             String input = "";
             for (int i = 0; i < tasks.size(); i++) {
                 input = input + tasks.get(i) + "\n";
