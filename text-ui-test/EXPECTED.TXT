@@ -1,42 +1,49 @@
------------------------------------------
-     Got it. I've added this task:
-    [T][ ] borrow book
-     Now you have 1 tasks in the list.
- -----------------------------------------
+Hello! I'm Sivraj
+What can I do for you?
 ----------------------------------------
-    Here are the tasks in your list:
-    1. [T][ ] borrow book
- -----------------------------------------
------------------------------------------
+     Got it. I've added this task:
+         [T][ ] run
+     Now you have 1 tasks in the list.
+----------------------------------------
+----------------------------------------
+     Got it. I've added this task:
+         [T][ ] walk
+     Now you have 2 tasks in the list.
+----------------------------------------
+----------------------------------------
      Got it. I've added this task:
        [D][ ] return book (by: Sunday)
-     Now you have 2 tasks in the list.
- -----------------------------------------
------------------------------------------
+     Now you have 3 tasks in the list.
+----------------------------------------
+----------------------------------------
      Got it. I've added this task:
        [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     Now you have 3 tasks in the list.
- -----------------------------------------
+     Now you have 4 tasks in the list.
+----------------------------------------
 ----------------------------------------
     Here are the tasks in your list:
-    1. [T][ ] borrow book
-    2. [D][ ] return book (by: Sunday)
-    3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
- -----------------------------------------
-------------------------------------------
+     1.[T][ ] run
+     2.[T][ ] walk
+     3.[D][ ] return book (by: Sunday)
+     4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+----------------------------------------
+----------------------------------------
     Nice! I've marked this task as done:
-       [D][X] return book (by: Sunday)
- ------------------------------------------
--------------------------------------------
+       [T][X] walk
+----------------------------------------
+----------------------------------------
      OK, I've marked this task as not done yet:
-       [D][ ] return book (by: Sunday)
- -------------------------------------------
+       [T][ ] walk
+----------------------------------------
 ----------------------------------------
     Here are the tasks in your list:
-    1. [T][ ] borrow book
-    2. [D][ ] return book (by: Sunday)
-    3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
- -----------------------------------------
- Bye. Hope to see you again soon!
+     1.[T][ ] run
+     2.[T][ ] walk
+     3.[D][ ] return book (by: Sunday)
+     4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+----------------------------------------
+Bye. Hope to see you again soon!
+
+
 
 
