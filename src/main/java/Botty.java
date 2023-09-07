@@ -54,7 +54,7 @@ public class Botty {
         } catch (EmptyChoiceException e) {
             System.out.println(e.getMessage());
         }
-        return "Sorry, I don't recognise the command";
+        return "Sorry, I don't recognise the command, please try another command";
     }
     public void run() {
         String name = "Botty";
