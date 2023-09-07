@@ -46,7 +46,7 @@ public class Duke {
      * @return The response to the user input.
     */
     public String getResponse(String input) {
-        Command command = parser.parseCommand(input.trim());
+        Command command = parser.parseCommand(input.trim().split(" "));
         if (command instanceof ByeCommand){
             try {
                 command.execute(list, ui);
