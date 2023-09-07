@@ -1,9 +1,9 @@
-package DukeException;
+package dukeexception;
 
 /**
  * An Exceptional class for any errors faced by the user inputs.
  */
-public class DukeException extends Exception{
+public class DukeException extends Exception {
 
     /**
      * Constructor method that creates the exception.

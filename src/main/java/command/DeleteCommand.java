@@ -1,16 +1,17 @@
-package Command;
+package command;
 
-import List.TaskList;
-import Ui.Ui;
-import FileStorage.FileStorage;
-import DukeException.DukeException;
-import Tasks.Task;
+import dukeexception.DukeException;
+import filestorage.FileStorage;
+import list.TaskList;
+import tasks.Task;
+import ui.Ui;
+
 
 /**
  * A class that is part of the command class, for this in particular it deletes a task.
  */
-public class DeleteCommand extends Command{
-    private int index;
+public class DeleteCommand extends Command {
+    private final int index;
     public DeleteCommand(int index) {
         this.index = index;
     }

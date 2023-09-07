@@ -1,17 +1,24 @@
-package List;
-
-import Tasks.Task;
-import DukeException.DukeException;
+package list;
 
 import java.util.ArrayList;
+
+import dukeexception.DukeException;
+import tasks.Task;
+
+
 
 /**
  * A class that stores Tasks inside an Arraylist.
  */
 public class TaskList {
 
-    private ArrayList<Task> taskList;
-
+    private final ArrayList<Task> taskList;
+    /**
+     * A Constructor method that will create a new TaskList.
+     */
+    public TaskList() {
+        this.taskList = new ArrayList<>();
+    }
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
@@ -23,7 +30,7 @@ public class TaskList {
      * A method that will convert a TaskList to an ArrayList.
      *
      * @param userList the TaskList that is going to be converted.
-     * @return an Arraylist that is converted from Tasklist.
+     * @return an Arraylist that is converted from TaskList.
      */
     public ArrayList<Task> convert(TaskList userList) {
         for (int i = 0; i < userList.size(); i++) {
@@ -31,16 +38,13 @@ public class TaskList {
         }
         return taskList;
     }
-    public TaskList() {
-        this.taskList = new ArrayList<>();
-    }
-
     /**
      * A method that returns the size of the TaskList.
      *
      * @return the size of the TaskList.
      */
-    public int size() { return taskList.size(); }
+    public int size() {
+        return taskList.size(); }
 
     /**
      * A method that will get the task in the list.
@@ -49,14 +53,16 @@ public class TaskList {
      * @return the task that is called for.
      */
 
-    public Task get(int i) { return taskList.get(i); }
+    public Task get(int i) {
+        return taskList.get(i); }
 
     /**
      * A method that adds a task to the TaskList.
      *
      * @param task the task that the user wants to add.
      */
-    public void add(Task task) { taskList.add(task); }
+    public void add(Task task) {
+        taskList.add(task); }
 
     /**
      * A method that will delete a task depending on the index provided.
@@ -101,9 +107,9 @@ public class TaskList {
         if (i > this.taskList.size() || i < 1) {
             throw new DukeException("Invalid Index provided.");
         }
-        Task unmarking = this.taskList.get(i - 1);
-        unmarking.unmarkDone();
-        return unmarking;
+        Task unMarking = this.taskList.get(i - 1);
+        unMarking.unmarkDone();
+        return unMarking;
     }
 
     /**

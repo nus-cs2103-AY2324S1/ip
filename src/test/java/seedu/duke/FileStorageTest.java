@@ -1,12 +1,10 @@
 package seedu.duke;
 
-import DukeException.DukeException;
-import FileStorage.FileStorage;
+import dukeexception.DukeException;
+import filestorage.FileStorage;
 
 
 import org.junit.jupiter.api.Test;
-
-import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -17,7 +15,7 @@ public class FileStorageTest {
     public void testingFileSuccess() {
         FileStorage storage = new FileStorage("testing.txt");
         try {
-            assertEquals(storage.read().size(), 5);
+            assertEquals(storage.read().size(), 6);
         } catch (DukeException e) {
             fail();
         }

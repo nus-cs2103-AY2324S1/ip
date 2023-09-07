@@ -1,13 +1,15 @@
-package Command;
-import List.TaskList;
-import Ui.Ui;
-import FileStorage.FileStorage;
-import DukeException.DukeException;
+package command;
+
+import dukeexception.DukeException;
+import filestorage.FileStorage;
+import list.TaskList;
+import ui.Ui;
+
 
 /**
  * A class that is part of the command, for this particularly it will clear all the past tasks.
  */
-public class ClearCommand extends Command{
+public class ClearCommand extends Command {
 
     /**
      * A method that will excute the clearing of all past cases.

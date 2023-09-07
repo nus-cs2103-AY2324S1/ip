@@ -1,16 +1,17 @@
-package Command;
+package command;
 
-import List.TaskList;
-import Ui.Ui;
-import FileStorage.FileStorage;
-import DukeException.DukeException;
-import Tasks.Todo;
+import dukeexception.DukeException;
+import filestorage.FileStorage;
+import list.TaskList;
+import tasks.Todo;
+import ui.Ui;
+
 
 /**
  * A class that is part of the command family, this in particular calls for todo tasks.
  */
-public class TodoCommand extends Command{
-    private String task;
+public class TodoCommand extends Command {
+    private final String task;
     public TodoCommand(String task) {
         this.task = task;
     }

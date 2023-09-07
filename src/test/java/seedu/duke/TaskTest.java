@@ -1,15 +1,9 @@
 package seedu.duke;  //same package as the class being tested
 
-import DukeException.DukeException;
-import List.TaskList;
-import Tasks.Deadline;
-import Parser.Parser;
-import Tasks.Todo;
+import dukeexception.DukeException;
+import parser.Parser;
+import tasks.Todo;
 import org.junit.jupiter.api.Test;
-import Command.Command;
-import Command.TodoCommand;
-import List.TaskList;
-import Ui.Ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;

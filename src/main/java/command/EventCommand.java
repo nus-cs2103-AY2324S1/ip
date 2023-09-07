@@ -1,18 +1,18 @@
-package Command;
+package command;
 
-import List.TaskList;
-import Ui.Ui;
-import FileStorage.FileStorage;
-import DukeException.DukeException;
-import Tasks.Event;
+import dukeexception.DukeException;
+import filestorage.FileStorage;
+import list.TaskList;
+import tasks.Event;
+import ui.Ui;
 
 /**
- * A class that is part of the command, for this in particular it will result in a event being stored.
+ * A class that is part of the command, for this in particular it will result in event being stored.
  */
-public class EventCommand extends Command{
-    private String task;
-    private String startDate;
-    private String endDate;
+public class EventCommand extends Command {
+    private final String task;
+    private final String startDate;
+    private final String endDate;
 
     /**
      * Constructor method that will initialise all content of the user input.

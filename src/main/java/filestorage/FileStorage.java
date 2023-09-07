@@ -1,11 +1,4 @@
-package FileStorage;
-
-import DukeException.DukeException;
-import List.TaskList;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.Todo;
+package filestorage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,12 +7,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import dukeexception.DukeException;
+import list.TaskList;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+
 /**
  * Represents a class that will convey the user input to a file and also the other way around.
  */
 public class FileStorage {
 
-    private File fileData;
+    private final File fileData;
 
     public FileStorage(String filePath) {
         this.fileData = new File(filePath);
@@ -47,7 +47,7 @@ public class FileStorage {
     /**
      * A method that will read all the information on a textFile and load it back into the program
      *
-     * @return ArrayList<Task> a list of all the task by user.
+     * @return ArrayList a list of all the task by user.
      * @throws DukeException if the content on the file cannot be recognised.
      */
     public ArrayList<Task> read() throws DukeException {
@@ -55,27 +55,31 @@ public class FileStorage {
             ArrayList<Task> dataList = new ArrayList<>();
             Scanner scanner = new Scanner(this.fileData);
             Task task;
-            int count = 0;
             //System.out.println("reading");
             while (scanner.hasNext()) {
-                count++;
                 String inputs = scanner.nextLine();
                 if (inputs.startsWith("  [T]")) {
                     String info = inputs.substring(9);
                     task = new Todo(info);
-                    if (inputs.substring(6).startsWith("X")) task.markDone();
+                    if (inputs.substring(6).startsWith("X")) {
+                        task.markDone();
+                    }
                     dataList.add(task);
                 } else if (inputs.startsWith("  [D]")) {
                     String info = inputs.substring(9);
                     String[] split = info.split("\\(by: |\\)");
                     task = new Deadline(split[0], split[1]);
-                    if (inputs.substring(6).startsWith("X")) task.markDone();
+                    if (inputs.substring(6).startsWith("X")) {
+                        task.markDone();
+                    }
                     dataList.add(task);
                 } else if (inputs.startsWith("  [E]")) {
                     String info = inputs.substring(9);
                     String[] split = info.split("\\(from: | to: |\\)");
                     task = new Event(split[0], split[1], split[2]);
-                    if (inputs.substring(6).startsWith("X")) task.markDone();
+                    if (inputs.substring(6).startsWith("X")) {
+                        task.markDone();
+                    }
                     dataList.add(task);
                 }
             }

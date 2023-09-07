@@ -1,9 +1,9 @@
-package Command;
+package command;
 
-import List.TaskList;
-import Ui.Ui;
-import FileStorage.FileStorage;
-import DukeException.DukeException;
+import dukeexception.DukeException;
+import filestorage.FileStorage;
+import list.TaskList;
+import ui.Ui;
 
 /**
  * An Abstract class that represents the action that will be done by the different command input

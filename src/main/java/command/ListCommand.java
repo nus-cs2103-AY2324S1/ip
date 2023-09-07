@@ -1,14 +1,15 @@
-package Command;
+package command;
 
-import List.TaskList;
-import Ui.Ui;
-import FileStorage.FileStorage;
-import DukeException.DukeException;
+import dukeexception.DukeException;
+import filestorage.FileStorage;
+import list.TaskList;
+import ui.Ui;
+
 
 /**
  * A class that excutes the list command.
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
 
     /**
      * A method that will list out all the task stored in the TaskList.
