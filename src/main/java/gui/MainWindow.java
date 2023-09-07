@@ -1,6 +1,7 @@
 package gui;
 
 import duke.Duke;
+import duke.DukeException;
 import duke.storage.Storage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -35,6 +36,9 @@ public class MainWindow extends AnchorPane {
 
     public void setDuke(Duke d) {
         this.duke = d;
+        dialogContainer.getChildren().addAll(
+            DialogBox.getDukeDialog(duke.init(), dukeImage)
+        );
     }
 
     /**
@@ -46,10 +50,15 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+            DialogBox.getUserDialog(input, userImage),
+            DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+        if (duke.isTerminated()) {
+            userInput.setDisable(true);
+            userInput.setPromptText("AdaBot is terminated. You may close this window.");
+            sendButton.setDisable(true);
+        }
     }
 
 
@@ -58,6 +67,10 @@ public class MainWindow extends AnchorPane {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            return duke.process(input);
+        } catch (DukeException e) {
+            return "OOPS! " + e.toString();
+        }
     }
 }

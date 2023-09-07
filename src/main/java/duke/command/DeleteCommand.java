@@ -16,11 +16,11 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) throws DukeException {
+    public String execute(TaskList tasks, Ui ui) throws DukeException {
         if (index < 0 || index >= tasks.size()) {
             throw new DukeException("Invalid task index");
         }
         Task task = tasks.remove(index);
-        ui.deleteTask(tasks, task);
+        return ui.deleteTask(tasks, task);
     }
 }

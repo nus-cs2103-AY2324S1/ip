@@ -12,7 +12,7 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) {
-        ui.bye();
+    public String execute(TaskList tasks, Ui ui) {
+        return ui.bye();
     }
 }

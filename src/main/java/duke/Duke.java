@@ -12,6 +12,7 @@ import duke.ui.Ui;
  * The backbone of the program.
  */
 public class Duke {
+    private boolean isTerminated;
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -20,6 +21,7 @@ public class Duke {
      * Constructor for Duke.
      */
     public Duke() {
+        this.isTerminated = false;
         this.storage = new Storage();
         this.tasks = new TaskList();
         this.ui = new Ui();
@@ -30,6 +32,7 @@ public class Duke {
      * @param filePath
      */
     public Duke(String filePath) {
+        this.isTerminated = false;
         this.storage = new Storage(filePath);
         this.tasks = new TaskList();
         this.ui = new Ui();
@@ -39,38 +42,46 @@ public class Duke {
      * Runs the program.
      */
     public void run() {
-        try {
-            tasks = storage.read();
-        } catch (DukeException e) {
-            ui.printError(e.toString());
-        }
+        ui.print(init());
 
         Scanner input = new Scanner(System.in);
-        ui.hello();
 
         while (input.hasNextLine()) {
             try {
                 String response = input.nextLine();
-                Command command = Parser.parse(response);
-                command.execute(tasks, ui);
-                if (command.isExit()) {
+                ui.print(process(response));
+                if (isTerminated) {
                     break;
                 }
             } catch (DukeException e) {
                 ui.printError(e.toString());
             }
         }
-
-        try {
-            storage.write(tasks);
-        } catch (DukeException e) {
-            ui.printError(e.toString());
-        }
-
         input.close();
+    }
+
+    public String init() {
+        try {
+            tasks = storage.read();
+            return ui.hello();
+        } catch (DukeException e) {
+            return e.toString();
+        }
+    }
+
+    public String process(String input) throws DukeException {
+        Command command = Parser.parse(input);
+        isTerminated = command.isExit();
+        String res = command.execute(tasks, ui);
+        storage.write(tasks);
+        return res;
     }
 
     public static void main(String[] args) {
         new Duke().run();
+    }
+
+    public boolean isTerminated() {
+        return isTerminated;
     }
 }

@@ -16,13 +16,13 @@ public class DateCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) throws DukeException {
+    public String execute(TaskList tasks, Ui ui) throws DukeException {
         TaskList tasksToday = new TaskList();
         for (Task task: tasks) {
             if (task.isToday(date)) {
                 tasksToday.add(task);
             }
         }
-        ui.find(tasksToday, date);
+        return ui.find(tasksToday, date);
     }
 }
