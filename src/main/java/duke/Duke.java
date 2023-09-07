@@ -5,6 +5,7 @@ import duke.command.Parser;
 import duke.task.Task;
 import duke.task.TaskList;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -75,6 +76,7 @@ public class Duke {
 
                     this.storage.saveTasksToFile(this.tasks.getAllTasks());
                 } else if (Parser.isDelete(command)) {
+
                     taskIndex = Parser.extractTaskIndex(command);
 
                     Task deletedTask = this.tasks.deleteTask(taskIndex);
@@ -82,6 +84,12 @@ public class Duke {
                     this.ui.showTaskDeleted(deletedTask, this.tasks.getTotalTasks());
 
                     this.storage.saveTasksToFile(this.tasks.getAllTasks());
+                } else if (Parser.isFind(command)) {
+                    String keyword = Parser.extractKeyword(command);
+
+                    ArrayList<Task> matchingTasks = tasks.findTasksByKeyword(keyword);
+
+                    ui.showMatchingTasks(matchingTasks);
                 } else {
                     Task newTask = Parser.parseTask(command);
 

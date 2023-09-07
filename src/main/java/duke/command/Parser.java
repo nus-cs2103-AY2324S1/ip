@@ -81,6 +81,14 @@ public class Parser {
         return Integer.parseInt(parts[1].trim()) - 1;
     }
 
+    public static boolean isFind(String command) {
+        return command.startsWith("find");
+    }
+
+    public static String extractKeyword(String command) {
+        return command.substring("find".length()).trim();
+    }
+
     /**
      * Parses the given command and generates a Task object based on its content.
      *

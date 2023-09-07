@@ -3,6 +3,7 @@ package duke;
 import duke.task.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Ui class provides user interface functionality for interacting with the Duke application.
@@ -42,7 +43,6 @@ public class Ui {
         System.out.println(line);
     }
 
-
     /**
      * Displays a list of tasks to the user.
      *
@@ -56,6 +56,17 @@ public class Ui {
             System.out.println(" " + (i + 1) + "." + taskList.get(i));
         }
         System.out.println(line);
+    }
+
+    public void showMatchingTasks(ArrayList<Task> matchingTasks) {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Here are the matching tasks in your list:");
+
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println(" " + (i + 1) + "." + matchingTasks.get(i));
+        }
+
+        System.out.println("____________________________________________________________");
     }
 
     /**
