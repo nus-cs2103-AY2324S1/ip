@@ -122,7 +122,7 @@ public class Bert {
             throw new BertEmptyTaskException();
         }
         String[] inputs = substring.split(" /by ");
-        LocalDate ld = LocalDate.parse(inputs[1], DateTimeFormatter.ofPattern("yyyy-mm-dd"));
+        LocalDate ld = LocalDate.parse(inputs[1]);
         Deadline t = new Deadline(inputs[0], ld);
         al.add(t);
         System.out.println(
@@ -146,8 +146,8 @@ public class Bert {
         }
         String[] descriptionAndTimes = substring.split(" /from ");
         String[] times = descriptionAndTimes[1].split(" /to ");
-        LocalDate ld1 = LocalDate.parse(times[0], DateTimeFormatter.ofPattern("yyyy-mm-dd"));
-        LocalDate ld2 = LocalDate.parse(times[1], DateTimeFormatter.ofPattern("yyyy-mm-dd"));
+        LocalDate ld1 = LocalDate.parse(times[0]);
+        LocalDate ld2 = LocalDate.parse(times[1]);
         Event t = new Event(descriptionAndTimes[0], ld1, ld2);
         al.add(t);
         System.out.println(
