@@ -39,4 +39,26 @@ public class Event extends Task {
         return addMessage;
     }
 
+    /**
+     * Searches for a given search term in the name or the description strings.
+     * If there is no description string due to the Event being constructed with Dates, then
+     * only the name is searched.
+     * @param searchTerm The term to search for.
+     * @return True if the name or descriptions contain the search term, false otherwise.
+     */
+    @Override
+    public boolean contains(String searchTerm) {
+
+        if (super.name.contains(searchTerm)) {
+            return true;
+        }
+
+        if (startDate != null) {
+            return description1.contains(searchTerm) || description2.contains(searchTerm);
+        }
+
+        return false;
+
+    }
+
 }

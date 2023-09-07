@@ -23,19 +23,19 @@ public class CommandParser {
             case "todo":
 
                 if (detail.isBlank())
-                    throw new ParsingException(ParsingException.ExceptionType.MISSING_BODY);
+                    throw new ParsingException(ParsingException.ExceptionType.MISSING_DESCRIPTION);
                 return new AddCommand(new Todo(detail));
 
             case "deadline":
 
                 if (detail.isBlank())
-                    throw new ParsingException(ParsingException.ExceptionType.MISSING_BODY);
+                    throw new ParsingException(ParsingException.ExceptionType.MISSING_DESCRIPTION);
                 try {
                     String[] deadlineSplits = detail.split("/by", 2);
                     String deadlineDescription = deadlineSplits[0].strip();
                     String deadlineStr = deadlineSplits[1].strip();
                     if (deadlineStr.isBlank() || deadlineDescription.isBlank())
-                        throw new ParsingException(ParsingException.ExceptionType.MISSING_BODY);
+                        throw new ParsingException(ParsingException.ExceptionType.MISSING_DESCRIPTION);
 
                     try {
                         LocalDateTime deadlineDate = LocalDateTime.parse(deadlineStr);
@@ -50,7 +50,7 @@ public class CommandParser {
             case "event":
 
                 if (detail.isBlank())
-                    throw new ParsingException(ParsingException.ExceptionType.MISSING_BODY);
+                    throw new ParsingException(ParsingException.ExceptionType.MISSING_DESCRIPTION);
                 try {
                     String[] eventSplit1 = detail.split("/from", 2);
                     String[] eventSplit2 = eventSplit1[1].split("/to", 2);
@@ -128,6 +128,14 @@ public class CommandParser {
                 } catch (NumberFormatException e) {
                     throw new ParsingException(ParsingException.ExceptionType.NOT_A_NUMBER);
                 }
+
+            case "find":
+
+                if (detail.isBlank()) {
+                    throw new ParsingException(ParsingException.ExceptionType.MISSING_DESCRIPTION);
+                }
+
+                return new FindCommand(detail.toLowerCase());
 
             case "thanks":
 

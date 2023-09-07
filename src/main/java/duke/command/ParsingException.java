@@ -6,7 +6,7 @@ public class ParsingException extends DukeException {
 
     enum ExceptionType {
         IMPROPER_FORMAT,
-        MISSING_BODY,
+        MISSING_DESCRIPTION,
         MISSING_DETAIL,
         MISSING_INDEX,
         NOT_A_NUMBER,
@@ -26,7 +26,7 @@ public class ParsingException extends DukeException {
             case IMPROPER_FORMAT:
                 return "Please format your description properly.";
 
-            case MISSING_BODY:
+            case MISSING_DESCRIPTION:
                 return "I can't read your mind. Do add a description.";
 
             case MISSING_DETAIL:

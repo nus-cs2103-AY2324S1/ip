@@ -131,4 +131,26 @@ public class TaskList implements Serializable {
 
     }
 
+    /**
+     * Searches through the list for all tasks containing the given string.
+     * @param searchTerm The term(s) to search for.
+     * @return A list of the tasks that contain the search term.
+     */
+    public String find(String searchTerm) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (Task task : tasks) {
+
+            if (task.contains(searchTerm)) {
+                stringBuilder.append(task.toString());
+                stringBuilder.append("\n");
+            }
+
+        }
+
+        return stringBuilder.toString();
+
+    }
+
 }
