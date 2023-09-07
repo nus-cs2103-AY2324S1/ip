@@ -10,5 +10,4 @@
         <Label fx:id="dialog" text="Label" wrapText="true" minHeight="-Infinity"/>
         <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
     </children>
-
 </fx:root>
