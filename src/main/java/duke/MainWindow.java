@@ -1,5 +1,6 @@
 package duke;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -22,8 +26,8 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
@@ -50,6 +54,19 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+
+        if (response.equals(Ui.showExitMessage())) {
+            // sleep for 1 second then quit
+            CompletableFuture.runAsync(() -> {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+                Platform.exit();
+                System.exit(0);
+            });
+        }
     }
 }
 
