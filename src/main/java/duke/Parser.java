@@ -73,6 +73,7 @@ public class Parser {
                 throw new IllegalArgumentException("Task index is missing.");
             }
             int index = Integer.parseInt(restOfCommand);
+            assert index >= 0 : "Parsing failed; value is not a non-negative integer.";
             return new TaskMarker(tasks, index);
         }
 
@@ -85,6 +86,7 @@ public class Parser {
                 throw new IllegalArgumentException("Task index is missing.");
             }
             int index = Integer.parseInt(restOfCommand);
+            assert index >= 0 : "Parsing failed; value is not a non-negative integer.";
             return new TaskUnmarker(tasks, index);
         }
 
