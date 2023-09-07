@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 public class Storage {
     /** The file that the storage will be dealing with. */
-    private File f = null;
+    private File taskFile = null;
 
     /**
      * Constructs a new Storage that deals with the file at the corresponding path.
@@ -22,9 +22,9 @@ public class Storage {
      * @param filepath Path to the file.
      */
     public Storage(String filepath) {
-        this.f = new File(filepath);
+        this.taskFile = new File(filepath);
         try {
-            f.createNewFile();
+            taskFile.createNewFile();
         } catch (IOException e) {
             throw new DukeFileNotFoundException();
         }
@@ -35,19 +35,19 @@ public class Storage {
      *
      * @return The list with all the lines.
      */
-    public ArrayList<String> load() {
+    public ArrayList<String> loadFromFile() {
         Scanner sc;
-        ArrayList<String> lines = new ArrayList<>();
+        ArrayList<String> linesInFile = new ArrayList<>();
         try {
-            sc = new Scanner(f);
+            sc = new Scanner(taskFile);
         } catch (IOException e) {
             throw new DukeFileNotFoundException();
         }
         while (sc.hasNextLine()) {
             String s = sc.nextLine();
-            lines.add(s);
+            linesInFile.add(s);
         }
-        return lines;
+        return linesInFile;
     }
 
     /**
@@ -55,10 +55,10 @@ public class Storage {
      *
      * @param strings The list of strings to be stored.
      */
-    public void store(ArrayList<String> strings) {
+    public void storeToFile(ArrayList<String> strings) {
         FileWriter fw;
         try {
-            fw = new FileWriter(f);
+            fw = new FileWriter(taskFile);
             for (String s : strings) {
                 fw.write(s + "\n");
             }

@@ -28,7 +28,7 @@ public class Duke {
         this.ui = new Ui();
         try {
             this.storage = new Storage(filepath);
-            this.tasks = new TaskList(storage.load());
+            this.tasks = new TaskList(storage.loadFromFile());
         } catch (DukeException e) {
             this.ui.print(e.getMessage());
             this.tasks = new TaskList();
@@ -40,7 +40,7 @@ public class Duke {
      * Runs the chatbot.
      */
     public void run() {
-        ui.welcome();
+        ui.sayHi();
         boolean isExit;
         String command = ui.readCommand();
 
@@ -48,7 +48,7 @@ public class Duke {
             try {
                 parser.parse(command);
                 isExit = parser.isExit();
-                storage.store(tasks.toStringInFile());
+                storage.storeToFile(tasks.toStringInFile());
                 if (isExit) {
                     break;
                 } else {

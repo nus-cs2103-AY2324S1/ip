@@ -45,8 +45,7 @@ public class Task {
      *
      * @return Desired string representation of the task.
      */
-    @Override
-    public String toString() {
+    public String convertToString() {
         return "[" + getStatusIcon() + "] " + this.description;
     }
 
@@ -55,7 +54,7 @@ public class Task {
      *
      * @return Desired string representation of the task.
      */
-    public String toStringInFile() {
+    public String convertToStringInFile() {
         if (isDone) {
             return " 1 / " + this.description;
         } else {

@@ -61,79 +61,79 @@ public class Parser {
      * Reads the command given and executes them.
      * Throws exceptions when fail to comprehend the command.
      *
-     * @param s The command line.
+     * @param command The command line.
      * @throws DateTimeParseException If the input format of the dates is invalid.
      */
-    public void parse(String s) throws DateTimeParseException {
-        String[] stringList = s.split(" ", 2);
-        String first = stringList[0];
-        String second = null;
+    public void parse(String command) throws DateTimeParseException {
+        String[] stringList = command.split(" ", 2);
+        String firstWord = stringList[0];
+        String otherWords = null;
         try {
-            second = stringList[1];
+            otherWords = stringList[1];
         } catch (IndexOutOfBoundsException e) {
             // do nothing
         }
-        switch (first) {
+        switch (firstWord) {
         case "bye":
             break;
         case "list":
             printList();
             break;
         case "mark":
-            markDone(second);
+            markDone(otherWords);
             break;
         case "unmark":
-            markUndone(second);
+            markUndone(otherWords);
             break;
         case "todo":
-            addTodo(second);
+            addTodo(otherWords);
             break;
         case "deadline":
-            addDeadline(second);
+            addDeadline(otherWords);
             break;
         case "event":
-            addEvent(second);
+            addEvent(otherWords);
             break;
         case "delete":
-            delete(second);
+            delete(otherWords);
             break;
         case "find":
-            find(second);
+            findTask(otherWords);
             break;
         default:
-            throw new InvalidInputException("OOPS! I do not know what " + first
+            throw new InvalidInputException("OOPS! I do not know what " + firstWord
                     + " means. Please try again :)");
         }
-        if (first.equals("bye")) {
-            ending();
+        if (firstWord.equals("bye")) {
+            sayBye();
         }
     }
 
     /**
      * Reads the inputs passed from a file and adds the tasks into the TaskArray.
      *
-     * @param s The input line.
+     * @param line The input line.
      */
-    public void parseFromFile(String s) {
-        String[] chars = s.split(" / ");
-        String type = chars[0];
-        boolean isDone = chars[1].equals("1");
+    public void parseFromFile(String line) {
+        String[] strings = line.split(" / ");
+        String typeOfTask = strings[0];
+        boolean isDone = strings[1].equals("1");
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm");
         Task t;
-        switch (type) {
+        switch (typeOfTask) {
         case "[T]":
-            t = new Todo(chars[2]);
+            t = new Todo(strings[2]);
             if (isDone) {
                 t.markDone();
             }
             tasks.add(t);
             break;
         case "[D]":
-            if (chars.length == 4) {
-                t = new Deadline(chars[2], LocalDate.parse(chars[3]));
+            if (strings.length == 4) {
+                t = new Deadline(strings[2], LocalDate.parse(strings[3]));
             } else {
-                t = new Deadline(chars[2], LocalDate.parse(chars[3]),
-                        LocalTime.parse(chars[4], dateFormat));
+                t = new Deadline(strings[2], LocalDate.parse(strings[3]),
+                        LocalTime.parse(strings[4], dateFormat));
             }
             if (isDone) {
                 t.markDone();
@@ -141,18 +141,18 @@ public class Parser {
             tasks.add(t);
             break;
         case "[E]":
-            if (chars.length == 7) {
-                t = new Event(chars[2], LocalDate.parse(chars[3]), LocalTime.parse(chars[4], dateFormat),
-                        LocalDate.parse(chars[5]), LocalTime.parse(chars[6]));
-            } else if (chars.length == 5) {
-                t = new Event(chars[2], LocalDate.parse(chars[3]), LocalDate.parse(chars[4]));
+            if (strings.length == 7) {
+                t = new Event(strings[2], LocalDate.parse(strings[3]), LocalTime.parse(strings[4], dateFormat),
+                        LocalDate.parse(strings[5]), LocalTime.parse(strings[6]));
+            } else if (strings.length == 5) {
+                t = new Event(strings[2], LocalDate.parse(strings[3]), LocalDate.parse(strings[4]));
             } else {
-                if (chars[5].length() > 5) {
-                    t = new Event(chars[2], LocalDate.parse(chars[3]), LocalTime.parse(chars[4], dateFormat), //chars
-                            LocalDate.parse(chars[5]));
+                if (strings[5].length() > 5) {
+                    t = new Event(strings[2], LocalDate.parse(strings[3]), LocalTime.parse(strings[4], dateFormat), //chars
+                            LocalDate.parse(strings[5]));
                 } else {
-                    t = new Event(chars[2], LocalDate.parse(chars[3]), LocalDate.parse(chars[4]),
-                            LocalTime.parse(chars[5], dateFormat));
+                    t = new Event(strings[2], LocalDate.parse(strings[3]), LocalDate.parse(strings[4]),
+                            LocalTime.parse(strings[5], dateFormat));
                 }
             }
             if (isDone) {
@@ -164,48 +164,48 @@ public class Parser {
     }
 
     /**
-     * Prints out the tasks in the TaskArray.
+     * Prints out the tasks in the TaskList.
      */
     private void printList() {
         if (tasks.isEmpty()) {
             this.ui.print("list is empty :(");
         } else {
             for (int i = 0; i < tasks.size(); i++) {
-                this.ui.print(i + 1 + " " + tasks.get(i).toString());
+                this.ui.print(i + 1 + " " + tasks.get(i).convertToString());
             }
         }
     }
 
-    private void ending() {
+    private void sayBye() {
         this.isExit = true;
-        this.ui.farewell();
+        this.ui.sayBye();
     }
 
     /**
      * Adds a todo task into the list.
      *
-     * @param x Details of the task.
+     * @param details Details of the task.
      */
-    private void addTodo(String x) {
-        if (x == null || x.trim().isEmpty()) {
+    private void addTodo(String details) {
+        if (details == null || details.trim().isEmpty()) {
             throw new LackDescriptionException("todo");
         }
-        Todo t = new Todo(x);
+        Todo t = new Todo(details);
         tasks.add(t);
-        addedTask(x);
+        confirmAddedTask(details);
     }
 
     /**
      * Adds a deadline task into the list.
      *
-     * @param x Details of the task.
+     * @param details Details of the task.
      */
-    private void addDeadline(String x) {
-        if (x == null || x.trim().isEmpty() || x.trim().startsWith("/by")) {
+    private void addDeadline(String details) {
+        if (details == null || details.trim().isEmpty() || details.trim().startsWith("/by")) {
             throw new LackDescriptionException("deadline");
         }
 
-        String[] s = x.split(" /by ");
+        String[] s = details.split(" /by ");
         String description = s[0];
         String deadline;
         try {
@@ -227,20 +227,20 @@ public class Parser {
         }
 
         tasks.add(d);
-        addedTask(description);
+        confirmAddedTask(description);
     }
 
     /**
      * Adds an event task into the list.
      *
-     * @param x Details of the task.
+     * @param details Details of the task.
      */
-    private void addEvent(String x) {
-        if (x == null || x.trim().isEmpty() || x.trim().startsWith("/from") || x.trim().startsWith("/to")) {
+    private void addEvent(String details) {
+        if (details == null || details.trim().isEmpty() || details.trim().startsWith("/from") || details.trim().startsWith("/to")) {
             throw new LackDescriptionException("event");
         }
 
-        String[] s = x.split(" /from ");
+        String[] s = details.split(" /from ");
         String description = s[0];
         String fromto = null;
         try {
@@ -292,10 +292,10 @@ public class Parser {
         }
 
         tasks.add(e);
-        addedTask(description);
+        confirmAddedTask(description);
     }
 
-    private void addedTask(String x) {
+    private void confirmAddedTask(String x) {
         this.ui.print("Added to list: " + x);
         this.ui.print("Now you have " + tasks.size()
                 + (tasks.size() == 1 ? " task " : " tasks ") + "in the list");
@@ -304,16 +304,16 @@ public class Parser {
     /**
      * Marks the task as done.
      *
-     * @param x Index of the target task.
+     * @param details Index of the target task.
      */
-    private void markDone(String x) {
-        if (x == null || x.trim().isEmpty()) {
+    private void markDone(String details) {
+        if (details == null || details.trim().isEmpty()) {
             throw new InvalidMarkingException("Missing index");
         }
 
         int j;
         try {
-            j = Integer.parseInt(x);
+            j = Integer.parseInt(details);
         } catch (NumberFormatException e) {
             throw new InvalidMarkingException("Please provide a valid index");
         }
@@ -331,16 +331,16 @@ public class Parser {
     /**
      * Marks the task as undone.
      *
-     * @param x Index of the target task.
+     * @param details Index of the target task.
      */
-    private void markUndone(String x) {
-        if (x == null || x.trim().isEmpty()) {
+    private void markUndone(String details) {
+        if (details == null || details.trim().isEmpty()) {
             throw new InvalidMarkingException("Missing index");
         }
 
         int j;
         try {
-            j = Integer.parseInt(x);
+            j = Integer.parseInt(details);
         } catch (NumberFormatException e) {
             throw new InvalidMarkingException("Please provide a valid index");
         }
@@ -358,16 +358,16 @@ public class Parser {
     /**
      * Deletes a task from the list.
      *
-     * @param x Index of the target task.
+     * @param details Index of the target task.
      */
-    private void delete(String x) {
-        if (x == null || x.trim().isEmpty()) {
+    private void delete(String details) {
+        if (details == null || details.trim().isEmpty()) {
             throw new InvalidMarkingException("Missing index");
         }
 
         int j;
         try {
-            j = Integer.parseInt(x);
+            j = Integer.parseInt(details);
         } catch (NumberFormatException e) {
             throw new InvalidMarkingException("Please provide a valid index");
         }
@@ -385,7 +385,7 @@ public class Parser {
                 + " in the list");
     }
 
-    private void find(String x) {
+    private void findTask(String x) {
         if (x == null || x.trim().isEmpty()) {
             throw new InvalidFindingException("Missing keyword");
         }
@@ -393,7 +393,7 @@ public class Parser {
         int counter = 1;
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.get(i);
-            if (t.toString().contains(x)) {
+            if (t.convertToString().contains(x)) {
                 this.ui.print(counter + " " + t);
                 counter += 1;
             }

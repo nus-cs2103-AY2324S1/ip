@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
  * A task that has a deadline.
  */
 public class Deadline extends Task {
-    private final LocalDate date;
-    private final LocalTime time;
+    private final LocalDate endDate;
+    private final LocalTime endTime;
 
     /**
      * Creates a deadline task instance.
@@ -19,8 +19,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDate date) {
         super(description);
-        this.date = date;
-        this.time = null;
+        this.endDate = date;
+        this.endTime = null;
     }
 
     /**
@@ -32,8 +32,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDate date, LocalTime time) {
         super(description);
-        this.date = date;
-        this.time = time;
+        this.endDate = date;
+        this.endTime = time;
     }
 
     /**
@@ -42,15 +42,15 @@ public class Deadline extends Task {
      * @return Desired string representation of the task.
      */
     @Override
-    public String toString() {
-        return "[D] " + super.toString() + " (by: "
-                + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                + this.timeString() + ")";
+    public String convertToString() {
+        return "[D] " + super.convertToString() + " (by: "
+                + this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + this.convertEndTimeToString() + ")";
     }
 
-    private String timeString() {
-        return (this.time != null)
-                ? " " + this.time.format(DateTimeFormatter.ofPattern("h:mma"))
+    private String convertEndTimeToString() {
+        return (this.endTime != null)
+                ? " " + this.endTime.format(DateTimeFormatter.ofPattern("h:mma"))
                 : "";
     }
 
@@ -60,14 +60,14 @@ public class Deadline extends Task {
      * @return Desired string representation of the task.
      */
     @Override
-    public String toStringInFile() {
-        return "[D] /" + super.toStringInFile() + " / " + this.date
-                + this.timeStringInFile();
+    public String convertToStringInFile() {
+        return "[D] /" + super.convertToStringInFile() + " / " + this.endDate
+                + this.convertEndTimeToStringInFile();
     }
 
-    private String timeStringInFile() {
-        return this.time != null
-                ? " / " + this.time.format(DateTimeFormatter.ofPattern("HH:mm"))
+    private String convertEndTimeToStringInFile() {
+        return this.endTime != null
+                ? " / " + this.endTime.format(DateTimeFormatter.ofPattern("HH:mm"))
                 : "";
     }
 }

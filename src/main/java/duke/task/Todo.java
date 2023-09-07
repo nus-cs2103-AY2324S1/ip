@@ -20,8 +20,8 @@ public class Todo extends Task {
      * @return Desired string representation of the task.
      */
     @Override
-    public String toString() {
-        return "[T] " + super.toString();
+    public String convertToString() {
+        return "[T] " + super.convertToString();
     }
 
     /**
@@ -30,7 +30,7 @@ public class Todo extends Task {
      * @return Desired string representation of the task.
      */
     @Override
-    public String toStringInFile() {
-        return "[T] /" + super.toStringInFile();
+    public String convertToStringInFile() {
+        return "[T] /" + super.convertToStringInFile();
     }
 }

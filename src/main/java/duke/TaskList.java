@@ -77,7 +77,7 @@ public class TaskList {
     public ArrayList<String> toStringInFile() {
         ArrayList<String> strings = new ArrayList<>();
         for (Task t : tasks) {
-            strings.add(t.toStringInFile());
+            strings.add(t.convertToStringInFile());
         }
         return strings;
     }

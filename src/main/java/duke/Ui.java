@@ -10,14 +10,14 @@ public class Ui {
     /**
      * Prints a welcome message to the screen.
      */
-    public void welcome() {
+    public void sayHi() {
         System.out.println("Hello! I'm BoxBox\nWhat can I do for you?");
     }
 
     /**
      * Prints a farewell message to the screen.
      */
-    public void farewell() {
+    public void sayBye() {
         System.out.println("Bye! Hope to see you again!");
     }
 
