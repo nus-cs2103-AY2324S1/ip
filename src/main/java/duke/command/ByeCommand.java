@@ -1,16 +1,16 @@
 package duke.command;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import duke.main.Storage;
+import duke.main.TaskList;
+import duke.main.Ui;
 
 /**
  * The ByeCommand class.
  */
 public class ByeCommand extends Command {
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showGoodbyeMsg();
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.showGoodbyeMsg();
     }
 
     @Override

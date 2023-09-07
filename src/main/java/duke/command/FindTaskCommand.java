@@ -1,9 +1,9 @@
 package duke.command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import duke.main.DukeException;
+import duke.main.Storage;
+import duke.main.TaskList;
+import duke.main.Ui;
 
 /**
  * The FindTaskCommand class.
@@ -16,8 +16,8 @@ public class FindTaskCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        ui.findTasks(taskList, keyword);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        return ui.findTasks(taskList, keyword);
     }
 
     @Override

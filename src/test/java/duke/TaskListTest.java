@@ -3,6 +3,8 @@ package duke;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import duke.main.DukeException;
+import duke.main.TaskList;
 import org.junit.jupiter.api.Test;
 
 import duke.task.Task;

@@ -2,10 +2,10 @@ package duke.command;
 
 import java.io.IOException;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import duke.main.DukeException;
+import duke.main.Storage;
+import duke.main.TaskList;
+import duke.main.Ui;
 import duke.task.Task;
 
 /**
@@ -24,12 +24,12 @@ public class DeleteTaskCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {
             Task task = taskList.getTask(index);
             taskList.delete(index);
             storage.rewriteToFile(taskList.getList());
-            ui.successfulTaskDeletionMsg(task.displayableForm(), taskList.getSize());
+            return ui.successfulTaskDeletionMsg(task.displayableForm(), taskList.getSize());
         } catch (IOException e) {
             throw new DukeException("Something went wrong: " + e.getMessage());
         }

@@ -1,4 +1,4 @@
-package duke;
+package duke.main;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -28,10 +28,10 @@ public class Ui {
     }
 
     /**
-     * Prints the goodbye message.
+     * Returns the goodbye message.
      */
-    public void showGoodbyeMsg() {
-        System.out.println("Bye! Hope to see you again soon!");
+    public String showGoodbyeMsg() {
+        return "Bye! Hope to see you again soon!";
     }
 
     /**
@@ -40,10 +40,12 @@ public class Ui {
      * @param taskString The string representation of the added task.
      * @param index The number of tasks in the list.
      */
-    public void successfulAddTaskMsg(String taskString, int index) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(taskString);
-        System.out.println("Now you have " + index + " tasks in the list.");
+    public String successfulAddTaskMsg(String taskString, int index) {
+        String result = "";
+        result += "Got it. I've added this task:\n";
+        result += taskString;
+        result += "Now you have " + index + " tasks in the list.";
+        return result;
     }
 
     /**
@@ -51,9 +53,10 @@ public class Ui {
      *
      * @param taskString The string representation of the task.
      */
-    public void successfulMarkDoneMsg(String taskString) {
+    public String successfulMarkDoneMsg(String taskString) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(taskString);
+        return "Nice! I've marked this task as done:\n" + taskString;
     }
 
     /**
@@ -61,9 +64,10 @@ public class Ui {
      *
      * @param taskString The string representation of the task.
      */
-    public void successfulMarkNotDoneMsg(String taskString) {
+    public String successfulMarkNotDoneMsg(String taskString) {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(taskString);
+        return "OK, I've marked this task as not done yet:\n" + taskString;
     }
 
     /**
@@ -72,10 +76,15 @@ public class Ui {
      * @param taskString The string representation of the added task.
      * @param index The number of tasks in the list.
      */
-    public void successfulTaskDeletionMsg(String taskString, int index) {
+    public String successfulTaskDeletionMsg(String taskString, int index) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(taskString);
         System.out.println("Now you have " + index + " tasks in the list.");
+        String result = "";
+        result += "Noted. I've removed this task:";
+        result += taskString;
+        result += "Now you have " + index + " tasks in the list.";
+        return result;
     }
 
     /**
@@ -83,8 +92,8 @@ public class Ui {
      *
      * @param taskList The task list being printed.
      */
-    public void printTaskList(TaskList taskList) {
-        taskList.printTaskList();
+    public String printTaskList(TaskList taskList) {
+        return taskList.printTaskList();
     }
 
     /**
@@ -94,13 +103,15 @@ public class Ui {
      * @param keyword The keyword input by the user.
      * @throws DukeException
      */
-    public void findTasks(TaskList taskList, String keyword) throws DukeException {
+    public String findTasks(TaskList taskList, String keyword) throws DukeException {
         try {
+            String result = "";
             ArrayList<Task> list = taskList.findTasks(keyword);
-            System.out.println("Here are the matching tasks in your list:");
+            result += "Here are the matching tasks in your list:";
             for (int i = 0; i < list.size(); i++) {
-                System.out.println((i + 1) + ". " + list.get(i).displayableForm());
+                result += ((i + 1) + ". " + list.get(i).displayableForm());
             }
+            return result;
         } catch (DukeException e) {
             throw new DukeException(e.getMessage());
         }

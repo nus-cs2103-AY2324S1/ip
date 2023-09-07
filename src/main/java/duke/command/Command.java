@@ -1,9 +1,9 @@
 package duke.command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import duke.main.DukeException;
+import duke.main.Storage;
+import duke.main.TaskList;
+import duke.main.Ui;
 
 /**
  * The Command class.
@@ -18,7 +18,7 @@ public abstract class Command {
      * @param storage
      * @throws DukeException
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 
     /**
      * Indicates if the program is supposed to end or not after this command is executed.

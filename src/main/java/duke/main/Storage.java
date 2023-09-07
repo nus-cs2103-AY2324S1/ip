@@ -1,4 +1,4 @@
-package duke;
+package duke.main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.main.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -20,7 +21,7 @@ public class Storage {
     private File file;
 
     /**
-     * Constructor for the duke.Storage class.
+     * Constructor for the duke.main.Storage class.
      *
      * @param filePath The string representing the path of the file used.
      */

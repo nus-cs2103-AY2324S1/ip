@@ -1,4 +1,4 @@
-package duke;
+package duke.main;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ public class TaskList {
     private int index;
 
     /**
-     * Constructor for the duke.TaskList class.
+     * Constructor for the duke.main.TaskList class.
      *
      * @param list The list to become the list in the task list.
      */
@@ -28,7 +28,7 @@ public class TaskList {
     }
 
     /**
-     * Constructor for the duke.TaskList class.
+     * Constructor for the duke.main.TaskList class.
      */
     public TaskList() {
         this.taskList = new ArrayList<>(100);
@@ -107,11 +107,13 @@ public class TaskList {
     /**
      * Prints the tasks in the list.
      */
-    public void printTaskList() {
-        System.out.println("Here are the tasks in your list:");
+    public String printTaskList() {
+        String result = "";
+        result += "Here are the tasks in your list:\n";
         for (int i = 0; i < this.getSize(); i++) {
-            System.out.println((i + 1) + ". " + this.taskList.get(i).displayableForm());
+            result += ((i + 1) + ". " + this.taskList.get(i).displayableForm() + "\n");
         }
+        return result;
     }
 
     /**

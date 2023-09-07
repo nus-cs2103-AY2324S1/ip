@@ -1,4 +1,4 @@
-package duke;
+package duke.main;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -7,13 +7,11 @@ import duke.command.AddDeadlineCommand;
 import duke.command.AddEventCommand;
 import duke.command.AddTodoCommand;
 import duke.command.ByeCommand;
-
 import duke.command.Command;
 import duke.command.DeleteTaskCommand;
 import duke.command.FindTaskCommand;
 import duke.command.ListCommand;
 import duke.command.MarkDoneCommand;
-
 import duke.command.MarkNotDoneCommand;
 
 /**

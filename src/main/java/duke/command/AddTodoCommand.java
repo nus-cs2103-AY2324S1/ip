@@ -2,10 +2,10 @@ package duke.command;
 
 import java.io.IOException;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import duke.main.DukeException;
+import duke.main.Storage;
+import duke.main.TaskList;
+import duke.main.Ui;
 import duke.task.Todo;
 
 /**
@@ -24,12 +24,12 @@ public class AddTodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {
             Todo todo = new Todo(taskName, false);
             taskList.addTask(todo);
-            storage.appendToFile(todo.displayableForm());
-            ui.successfulAddTaskMsg(todo.displayableForm(), taskList.getIndex());
+            storage.rewriteToFile(taskList.getList());
+            return ui.successfulAddTaskMsg(todo.displayableForm(), taskList.getIndex());
         } catch (IOException e) {
             throw new DukeException("Something went wrong: " + e.getMessage());
         }
