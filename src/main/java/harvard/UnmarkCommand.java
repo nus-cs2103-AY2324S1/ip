@@ -21,13 +21,6 @@ public class UnmarkCommand extends Command {
     public boolean isExit() {
         return false;
     }
-    /**
-     * Executes the command.
-     * @param tasks The task list.
-     * @param ui The user interface.
-     * @param storage The storage.
-     * @throws DukeException
-     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (index >= tasks.size() || index < 0) {

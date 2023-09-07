@@ -43,13 +43,9 @@ public class Harvard {
                 isExit = c.isExit();
                 return c.execute(tasks, ui, storage);
             } catch (DukeException e) {
-                ui.displayError(e);
+                return ui.displayError(e);
             }
         }
         return "Harvard has left the chat";
     }
-    /**
-     * The main method.
-     * @param args The command line arguments.
-     */
 }
