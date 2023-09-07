@@ -6,7 +6,7 @@ import duke.data.TaskList;
 import duke.data.exception.DukeException;
 import duke.data.task.Task;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.data.Message;
 
 /**
  * The DeleteTaskCommand deletes a given task, updates the .txt file
@@ -25,9 +25,9 @@ public class DeleteTaskCommand extends Command {
         this.taskID = taskID;
     }
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException, IOException {
+    public String execute(TaskList taskList, Message message, Storage storage) throws DukeException, IOException {
         Task deletedTask = taskList.deleteTask(taskID);
-        ui.showTaskDeleted(deletedTask, taskList.countTasks());
         Storage.save(taskList);
+        return message.showTaskDeleted(deletedTask, taskList.countTasks());
     }
 }

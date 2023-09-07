@@ -6,7 +6,7 @@ import java.util.Date;
 import duke.data.TaskList;
 import duke.data.task.Deadline;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.data.Message;
 
 /**
  * The AddDeadlineCommand adds a deadline into TaskList, writes into .txt file
@@ -30,10 +30,10 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, Message message, Storage storage) throws IOException {
         Deadline newDeadline = new Deadline(description, by);
         taskList.addTask(newDeadline);
         Storage.save(newDeadline);
-        ui.showTaskAdded(newDeadline, taskList.countTasks());
+        return message.showTaskAdded(newDeadline, taskList.countTasks());
     }
 }

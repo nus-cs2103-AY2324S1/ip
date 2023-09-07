@@ -6,7 +6,7 @@ import java.util.Date;
 import duke.data.TaskList;
 import duke.data.task.Event;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.data.Message;
 
 /**
  * The AddEventCommand adds an event into TaskList, writes into .txt file
@@ -35,10 +35,10 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, Message message, Storage storage) throws IOException {
         Event newEvent = new Event(description, from, to);
         taskList.addTask(newEvent);
         Storage.save(newEvent);
-        ui.showTaskAdded(newEvent, taskList.countTasks());
+        return message.showTaskAdded(newEvent, taskList.countTasks());
     }
 }
