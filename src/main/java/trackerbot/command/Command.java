@@ -97,7 +97,7 @@ public abstract class Command {
         }
 
         public void execute(TaskList tasks, UiHandler uiHandler) throws TrackerBotException {
-            uiHandler.showMessage(tasks.add(type, commandFields));
+            uiHandler.setMessage(tasks.add(type, commandFields));
         }
 
         public boolean isExit() {
@@ -130,10 +130,10 @@ public abstract class Command {
             scanner.close();
             switch (type) {
             case MARK:
-                uiHandler.showMessage(tasks.markTask(index));
+                uiHandler.setMessage(tasks.markTask(index));
                 break;
             case UNMARK:
-                uiHandler.showMessage(tasks.unmarkTask(index));
+                uiHandler.setMessage(tasks.unmarkTask(index));
                 break;
             default:
                 throw new IllegalStateException("Created ToggleCommand with invalid field.");
@@ -153,7 +153,7 @@ public abstract class Command {
         }
 
         public void execute(TaskList tasks, UiHandler uiHandler) {
-            uiHandler.showMessage(tasks.findAll(commandFields));
+            uiHandler.setMessage(tasks.findAll(commandFields));
         }
 
         public boolean isExit() {
@@ -182,7 +182,7 @@ public abstract class Command {
             }
 
             scanner.close();
-            uiHandler.showMessage(tasks.delete(index));
+            uiHandler.setMessage(tasks.delete(index));
         }
 
         public boolean isExit() {
@@ -206,7 +206,7 @@ public abstract class Command {
         private ListCommand() {}
 
         public void execute(TaskList tasks, UiHandler uiHandler) {
-            uiHandler.showMessage(tasks.list());
+            uiHandler.setMessage(tasks.list());
         }
 
         public boolean isExit() {

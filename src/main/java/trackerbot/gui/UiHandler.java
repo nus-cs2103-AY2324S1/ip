@@ -1,6 +1,6 @@
 package trackerbot.gui;
 
-import java.util.Scanner;
+import javafx.application.Platform;
 
 /**
  * Generates UI elements for TrackerBot.
@@ -9,15 +9,11 @@ import java.util.Scanner;
  * @version A-JavaDoc
  */
 public class UiHandler {
-    /** Line separators for the console between paragraphs. **/
-    private static final String FORMAT_LINE =
-            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
-
-    /** Constant Scanner taking in the System.in stream throughout the app's lifetime */
-    private static final Scanner USER_INPUT = new Scanner(System.in);
-
     /** Name of the app. **/
     private final String appName;
+
+    /** Stores the last known message from the app. */
+    private String uiMessage;
 
     /**
      * Constructor for the class.
@@ -31,57 +27,62 @@ public class UiHandler {
 
     /**
      * Factory method for UI.
-     * <p>This generates the intended side effect of a bootup message on creation.</p>
+     * This automatically sets the UiHandler message to be a greeting message.
      * @param appName The name of the instance.
      * @return A new Ui instance.
      */
     public static UiHandler instantiate(String appName) {
         UiHandler uiHandler = new UiHandler(appName);
-        System.out.println(FORMAT_LINE);
-        System.out.println("Greetings from " + uiHandler.appName + "!");
-        System.out.println("How may I assist?");
-        System.out.println(FORMAT_LINE);
+        uiHandler.uiMessage = "Greetings from " + uiHandler.appName + "!\n"
+                + "How may I assist?";
         return uiHandler;
     }
 
     /**
      * Awaits user input in the console.
      * @return The String representation of user input.
+     * @deprecated UiHandler no longer works on user input.
      */
     public String readCommand() {
         String input;
         System.out.print("Format :: [keyword] [parse string] | ");
-        input = USER_INPUT.nextLine();
+        input = "";
         return input;
     }
 
     /**
-     * Displays the separator line in the console.
-     */
-    public void showLine() {
-        System.out.println(FORMAT_LINE);
-    }
-
-    /**
-     * Displays the error message in the console.
+     * Sets the error message in UiHandler.
+     *
      * @param message The error message to display.
      */
-    public void showError(String message) {
-        System.out.println("I got some trouble with that input...\n  " + message);
+    public void setError(String message) {
+        uiMessage = "Oh dear.\n" + message;
     }
 
     /**
-     * Displays the exit message in the console.
+     * Sets the message to be the exit message.
      */
     public void exitApp() {
-        System.out.println("Thank you for using " + appName + ". Goodbye.");
+        uiMessage = "Thank you for using " + appName + ". Goodbye.";
+        new Thread(() -> Thread.sleep(3000))
+        Platform.exit();
     }
 
     /**
-     * Displays the status message in the console.
+     * Sets the message in UiHandler.
+     *
      * @param message The status message to display.
      */
-    public void showMessage(String message) {
-        System.out.println(message);
+    public void setMessage(String message) {
+        uiMessage = message;
+    }
+
+    /**
+     * Gets the message in UiHandler.
+     *
+     * @return The String representation of the message in UiHandler.
+     */
+    public String getMessage() {
+        return uiMessage;
     }
 }

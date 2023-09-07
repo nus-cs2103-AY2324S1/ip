@@ -46,10 +46,24 @@ public class TrackerBot {
         try {
             Storage.read(instance.tasks);
         } catch (TrackerBotException e) {
-            instance.uiHandler.showError(e.getMessage());
+            instance.uiHandler.setError("I failed to retrieve your save file. "
+                    + "Here's the error I got: \n" + e.getMessage());
         }
 
         return instance;
+    }
+
+    public void handleSave() throws TrackerBotException {
+        Storage.save(tasks);
+    }
+
+    /**
+     * Returns the message from the TrackerBot.
+     *
+     * @return The message, stored in the UiHandler instance.
+     */
+    public String getLastMessage() {
+        return uiHandler.getMessage();
     }
 
     /**
@@ -61,15 +75,29 @@ public class TrackerBot {
     private boolean handleInput() {
         Command command = Parser.parseCommand(uiHandler.readCommand());
         try {
-            uiHandler.showLine();
             command.execute(tasks, uiHandler);
         } catch (TrackerBotException e) {
-            uiHandler.showError(e.getMessage());
-        } finally {
-            uiHandler.showLine();
+            uiHandler.setError(e.getMessage());
         }
 
         return command.isExit();
+    }
+
+    /**
+     * Parses a Command and executes it.
+     *
+     * @return The post-execution String in our UiHandler.
+     */
+    public String handleInput(String input) {
+        Command command = Parser.parseCommand(input);
+        try {
+            // TODO: This is a bit weird... Why is there different levels of handling on uiHandler?
+            command.execute(tasks, uiHandler);
+        } catch (TrackerBotException e) {
+            uiHandler.setError(e.getMessage());
+        }
+
+        return uiHandler.getMessage();
     }
 
     /** Starts the app. */
@@ -77,7 +105,7 @@ public class TrackerBot {
         try {
             Storage.read(tasks);
         } catch (TrackerBotException e) {
-            uiHandler.showError(e.getMessage());
+            uiHandler.setError(e.getMessage());
         }
 
         boolean isBye;
@@ -88,12 +116,7 @@ public class TrackerBot {
         try {
             Storage.save(tasks);
         } catch (TrackerBotException e) {
-            ui.showError(e.getMessage());
+            uiHandler.setError(e.getMessage());
         }
-    }
-
-    /** Entry point. **/
-    public static void main(String[] args) {
-        new TrackerBot(APP_NAME).run();
     }
 }

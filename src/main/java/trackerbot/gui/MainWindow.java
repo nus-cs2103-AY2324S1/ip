@@ -26,8 +26,8 @@ public class MainWindow extends AnchorPane {
 
     private TrackerBot trackerBot;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Bot.png"));
 
     @FXML
     public void initialize() {
@@ -36,6 +36,9 @@ public class MainWindow extends AnchorPane {
 
     public void setTrackerBot(TrackerBot bot) {
         trackerBot = bot;
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(trackerBot.getLastMessage(), dukeImage)
+        );
     }
 
     /**
@@ -45,8 +48,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        // TODO: Change implementation of handleUserInput
-        String response = "PLACEHOLDER";
+        String response = trackerBot.handleInput(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
