@@ -21,6 +21,10 @@ public class Parser {
         return userInput;
     }
 
+    /**
+     * Process the user input to extract relevant information and store them correctly for executing user command.
+     * @param userInput the input user command
+     */
     public void processUserCommand(String userInput) {
 
 

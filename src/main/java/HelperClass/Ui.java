@@ -8,6 +8,10 @@ public class Ui {
         this.MyName = MyName;
     }
 
+    /**
+     * print message in a specific format
+     * @param message the original message to be printed
+     */
     public void Speak(String message) {
         System.out.println("---------------------------");
         System.out.println(message);
