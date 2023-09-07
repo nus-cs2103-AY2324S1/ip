@@ -20,6 +20,7 @@ Features:
 - [X] Storing tasks
 - [X] Marking/Unmarking tasks
 - [X] Removing tasks
+- [X] Finding tasks
 - [ ] Managing deadlines (coming soon)
 - [ ] Reminders (coming soon)
 
