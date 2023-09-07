@@ -3,7 +3,9 @@ package duke.Utils;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
 import java.lang.NumberFormatException;
+
 import java.time.LocalDateTime;
 
 /**
@@ -12,7 +14,7 @@ import java.time.LocalDateTime;
  */
 public class Command {
     // Regular expression pattern for date and time in the format "YYYY-MM-DD HH:mm"
-    private static final Pattern DATERX = Pattern.compile(
+    private static final Pattern DATE_RX = Pattern.compile(
         "^"
         + "("
         + "((2000|2400|2800|(19|2[0-9])(0[48]|[2468][048]|[13579][26]))-02-29)" 
@@ -100,8 +102,8 @@ public class Command {
      */
     protected static LocalDateTime assertDateTime(String input, String argName) throws InvalidArgumentException {
         String arg = Command.getArg(input, argName);
-        System.out.println(arg  + '|');
-        if (!Command.DATERX.matcher(arg).matches()) {
+        System.out.println(arg + '|');
+        if (!Command.DATE_RX.matcher(arg).matches()) {
             throw new InvalidArgumentException(argName, Type.DATETIME);
         }
         String[] timeSplit = arg.split(" ");

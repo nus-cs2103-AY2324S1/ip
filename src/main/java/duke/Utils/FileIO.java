@@ -4,6 +4,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
+
 import java.time.LocalDateTime;
 
 /**
@@ -52,17 +53,17 @@ public class FileIO {
             Task.Type type = Task.Type.of(args[0]);
             assertParams(args, type);
             switch(type) {
-                case TODO:
-                    tasks.add(Todo.of(args));
-                    break;
-                case DEADLINE:
-                    tasks.add(Deadline.of(args));
-                    break;
-                case EVENT:
-                    tasks.add(Event.of(args));
-                    break;
-                default:
-                    throw new InvalidFileDataException();
+            case TODO:
+                tasks.add(Todo.of(args));
+                break;
+            case DEADLINE:
+                tasks.add(Deadline.of(args));
+                break;
+            case EVENT:
+                tasks.add(Event.of(args));
+                break;
+            default:
+                throw new InvalidFileDataException();
             }
         }
         return tasks;

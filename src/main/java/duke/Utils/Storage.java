@@ -3,8 +3,10 @@ package duke.Utils;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -17,20 +19,20 @@ public class Storage {
         INTEGER,
         STRING
     }
-    private final String filepath;
+    private final String filePath;
 
     /**
      * Constructs a new Storage object with the specified file path and folder path.
      * If the file does not exist, it creates the file.
      *
-     * @param filepath   The path to the storage file.
-     * @param folderpath The path to the folder where the storage file should be located.
+     * @param filePath   The path to the storage file.
+     * @param folderPath The path to the folder where the storage file should be located.
      */
-    protected Storage(String filepath, String folderpath) {
-        this.filepath = filepath;
-        File file = new File(filepath);
+    protected Storage(String filePath, String folderPath) {
+        this.filePath = filePath;
+        File file = new File(filePath);
         try {
-            Files.createDirectories(Paths.get(folderpath));
+            Files.createDirectories(Paths.get(folderPath));
             if (!file.exists()) {
                 file.createNewFile();
             }
@@ -47,7 +49,7 @@ public class Storage {
     protected ArrayList<Task> load() {
         ArrayList<String> taskData = new ArrayList<>();
         try {
-            File file = new File(filepath);
+            File file = new File(this.filePath);
             Scanner scanner = new Scanner(file);
 
             while (scanner.hasNextLine()) {
@@ -71,7 +73,7 @@ public class Storage {
      */
     protected void save(ArrayList<String> taskData) {
         try {
-            FileWriter writer = new FileWriter(filepath);
+            FileWriter writer = new FileWriter(this.filePath);
 
             for (String line : taskData) {
                 writer.write(line + "\n");

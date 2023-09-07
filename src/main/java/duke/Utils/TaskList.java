@@ -78,32 +78,32 @@ public class TaskList {
         Task task;
 
         switch (Type.of(command)) {
-            case TODO:
-                task = new Todo(Command.assertString(input, command));
-                break;
-            case DEADLINE:
-                task = new Deadline(
-                    Command.assertString(input, command), 
-                    Command.assertDateTime(input, "by")
-                );
-                break;
-            case EVENT:
-                task = new Event(
-                    Command.assertString(input, command), 
-                    Command.assertDateTime(input, "from"), 
-                    Command.assertDateTime(input, "to")
-                );
-                break;
-            case MARK:
-                return this.mark(Command.assertInteger(input, command));
-            case UNMARK:
-                return this.unmark(Command.assertInteger(input, command));
-            case DELETE:
-                return this.delete(Command.assertInteger(input, command));
-            case LIST:
-                return this.list();
-            default:
-                throw new CommandNotFoundException();
+        case TODO:
+            task = new Todo(Command.assertString(input, command));
+            break;
+        case DEADLINE:
+            task = new Deadline(
+                Command.assertString(input, command), 
+                Command.assertDateTime(input, "by")
+            );
+            break;
+        case EVENT:
+            task = new Event(
+                Command.assertString(input, command), 
+                Command.assertDateTime(input, "from"), 
+                Command.assertDateTime(input, "to")
+            );
+            break;
+        case MARK:
+            return this.mark(Command.assertInteger(input, command));
+        case UNMARK:
+            return this.unmark(Command.assertInteger(input, command));
+        case DELETE:
+            return this.delete(Command.assertInteger(input, command));
+        case LIST:
+            return this.list();
+        default:
+            throw new CommandNotFoundException();
         }
         this.tasks.add(task);
         return Response.generate(new String[]{

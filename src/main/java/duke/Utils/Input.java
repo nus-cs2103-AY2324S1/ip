@@ -7,8 +7,8 @@ import java.util.Scanner;
  * in the Duke application.
  */
 public class Input {
-    private static final String FILEPATH = "./data/duke.csv";
-    private static final String FOLDERPATH = "./data";
+    private static final String FILE_PATH = "./data/duke.csv";
+    private static final String FOLDER_PATH = "./data";
     private static Scanner scanner = new Scanner(System.in);
     private Storage storage;
     private TaskList tasks;
@@ -18,7 +18,7 @@ public class Input {
      * Constructs a new Input object and initializes storage and task list.
      */
     protected Input() {
-        this.storage = new Storage(Input.FILEPATH, Input.FOLDERPATH);
+        this.storage = new Storage(Input.FILE_PATH, Input.FOLDER_PATH);
         this.tasks = new TaskList(this.storage.load());
     }
     
