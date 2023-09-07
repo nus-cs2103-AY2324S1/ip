@@ -57,7 +57,7 @@ public class Ui {
                     break;
                 }
 
-                ArrayList<Task> modifiedTasks = Parser.parseInput(inputString, taskList, storage);
+                ArrayList<Task> modifiedTasks = Parser.parseInput(inputString, taskList);
                 printResult(Parser.getInputCommand(inputString), modifiedTasks, taskList);
 
                 storage.saveTasks(taskList);

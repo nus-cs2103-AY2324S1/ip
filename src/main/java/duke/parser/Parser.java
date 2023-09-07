@@ -71,11 +71,10 @@ public class Parser {
      *
      * @param inputString The input string entered by the user.
      * @param taskList    The list of tasks
-     * @param storage     The storage object that handles saving updates.
      * @return true if the program can continue, false if the program has to halt.
      * @throws DukeException
      */
-    public static ArrayList<Task> parseInput(String inputString, TaskList taskList, Storage storage) throws DukeException {
+    public static ArrayList<Task> parseInput(String inputString, TaskList taskList) throws DukeException {
 
         Commands inputCommand = getInputCommand(inputString);
         ArrayList<Task> modifiedTasks = new ArrayList<>();

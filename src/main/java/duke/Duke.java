@@ -57,11 +57,18 @@ public class Duke {
     }
 
 
+    /**
+     * Get the task list assigned to this Duke.
+     * @return
+     */
+    public TaskList getTaskList() {
+        return this.listContainer;
+    }
 
     public String getResponse(String input) {
         // TODO
         try {
-            Parser.parseInput(input, listContainer, storage);
+            Parser.parseInput(input, listContainer);
             return "";
         } catch (DukeException e) {
             return e.getMessage();

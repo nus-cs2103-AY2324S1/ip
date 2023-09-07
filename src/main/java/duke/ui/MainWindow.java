@@ -1,6 +1,9 @@
 package duke.ui;
 
 import duke.Duke;
+import duke.exceptions.DukeException;
+import duke.parser.Parser;
+import duke.tasks.Task;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,6 +16,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import java.util.ArrayList;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -53,18 +58,28 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog((input), crop(userImage, true)),
-                DialogBox.getDukeDialog((response), crop(dukeImage, true))
-        );
-        userInput.clear();
+        try {
+            ArrayList<Task> modifiedTasks = Parser.parseInput(input, duke.getTaskList());
+            String response = Ui.getResponseMessage(Parser.getInputCommand(input), modifiedTasks, duke.getTaskList());
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog((input), crop(userImage, true)),
+                    DialogBox.getDukeDialog((response), crop(dukeImage, true))
+            );
+            userInput.clear();
+        } catch (DukeException e) {
+            String response = e.getMessage();
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog((input), crop(userImage, true)),
+                    DialogBox.getDukeDialog(response, crop(dukeImage, true))
+            );
+        }
+
     }
 
     /**
      * Crops an image to a circle.
      *
-     * @param img The image to crop
+     * @param img      The image to crop
      * @param toCircle Whether we want a circle
      * @return a cropped image
      */
