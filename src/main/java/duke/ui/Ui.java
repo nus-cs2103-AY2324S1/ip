@@ -21,8 +21,14 @@ public class Ui {
         System.out.println("Got it. I've added this task:\n  " + task
                 + "\nNow you have " + tasks.getSize() + " tasks in the list.");
     }
-    public void listTaskResponse(TaskList tasks) {
+    public void listTaskResponse(TaskList tasks) throws ChatException {
         System.out.println("Here are the tasks in your list:");
+        for (int i = 1; i < tasks.getSize() + 1; i++) {
+            System.out.println(i + ". " + tasks.getTask(i).toString());
+        }
+    }
+    public void listMatchingTaskResponse(TaskList tasks) throws ChatException {
+        System.out.println("Here are the matching tasks in your list:");
         for (int i = 1; i < tasks.getSize() + 1; i++) {
             System.out.println(i + ". " + tasks.getTask(i).toString());
         }

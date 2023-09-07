@@ -16,7 +16,6 @@ public class Parser {
      * @return Command of what needs to be executed.
      * @throws ChatException Errors when user input cannot be interpreted.
      */
-
     public static Command parse(String userInput) throws ChatException {
         String[] userCommand = userInput.split(" ", 2);
         try {
@@ -55,38 +54,56 @@ public class Parser {
                 case "mark":
                 int taskNumberMark = Integer.parseInt(userCommand[1]);
                 return new MarkCommand(taskNumberMark);
-                // Fallthrough
+                //Fallthrough
                 case "unmark":
                 int taskNumberUnmark = Integer.parseInt(userCommand[1]);
                 return new UnmarkCommand(taskNumberUnmark);
-                // Fallthrough
+                //Fallthrough
                 case "delete":
                 int taskNumberDelete = Integer.parseInt(userCommand[1]);
                 return new DeleteCommand(taskNumberDelete);
-                // Fallthrough
+                //Fallthrough
+                case"find":
+                String[] parseKeyword = userCommand[1].split(" ");
+                if (parseKeyword.length > 1) {
+                    throw new ChatException("☹ OOPS!!! Please only enter one keyword.");
+                }
+                String keyword = userCommand[1];
+                return new FindCommand(keyword);
+                //Fallthrough
                 case "bye":
                 return new ByeCommand();
-                // Fallthrough
+                //Fallthrough
                 default:
                 return new InvalidCommand();
-                // Fallthrough
+                //Fallthrough
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             switch (userCommand[0]) {
                 case "mark":
-                    throw new ChatException("☹ OOPS!!! Please specify the task number.");
+                throw new ChatException("☹ OOPS!!! Please specify the task number.");
+                //Fallthrough
                 case "unmark":
-                    throw new ChatException("☹ OOPS!!! Please specify the task number.");
+                throw new ChatException("☹ OOPS!!! Please specify the task number.");
+                //Fallthrough
                 case "todo":
-                    throw new ChatException("☹ OOPS!!! The description of a todo cannot be empty.");
+                throw new ChatException("☹ OOPS!!! The description of a todo cannot be empty.");
+                //Fallthrough
                 case "deadline":
-                    throw new ChatException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                throw new ChatException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                //Fallthrough
                 case "event":
-                    throw new ChatException("☹ OOPS!!! The description of an event cannot be empty.");
+                throw new ChatException("☹ OOPS!!! The description of an event cannot be empty.");
+                //Fallthrough
                 case "delete":
-                    throw new ChatException("☹ OOPS!!! Please specify the task number.");
+                throw new ChatException("☹ OOPS!!! Please specify the task number.");
+                //Fallthrough
+                case "find":
+                throw new ChatException("☹ OOPS!!! Please enter a keyword.");
+                //Fallthrough
                 default:
-                    throw new ChatException("☹ OOPS!!! Please be more detailed in your instructions.");
+                throw new ChatException("☹ OOPS!!! Please be more detailed in your instructions.");
+                //Fallthrough
             }
         }
     }
