@@ -39,7 +39,7 @@ public class MarkCommand extends Command {
         task.mark();
         ui.showMessage("Nice! I've marked this task as done:\n"
                 + task.toString());
-        storage.save(tasks);
+        storage.saveTasks(tasks);
     }
 
     @Override

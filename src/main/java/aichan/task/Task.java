@@ -27,12 +27,14 @@ public class Task {
      * @return The corresponding task.
      * @throws AiChanException If the line has incorrect format.
      */
-    public static Task stringToTask(String str) throws AiChanException {
+    public static Task getTaskFromFileLine(String str) throws AiChanException {
         char type = str.charAt(0);
         boolean isMark = (str.charAt(4) == '1');
+
         if (str.length() < 8) {
             throw new AiChanException("incorrect format in the file");
         }
+
         String description = str.substring(8);
         if (type == 'T') {
             Task t = new ToDo(description);

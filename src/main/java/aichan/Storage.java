@@ -29,7 +29,7 @@ public class Storage {
      * @param tasks TaskList contains current tasks.
      * @throws AiChanException If an error occurs when saving tasks.
      */
-    public void save(TaskList tasks) throws AiChanException {
+    public void saveTasks(TaskList tasks) throws AiChanException {
         try {
             File file = new File(this.filePath);
             FileWriter filewriter = new FileWriter(file);
@@ -57,25 +57,30 @@ public class Storage {
      * @return ArrayList which contains the tasks.
      * @throws AiChanException If an error occurs when loading tasks.
      */
-    public ArrayList<Task> load() throws AiChanException {
+    public ArrayList<Task> loadTasks() throws AiChanException {
         ArrayList<Task> arrTask = new ArrayList<>();
 
         try {
             File file = new File(this.filePath);
+
             if (!file.exists()) {
                 return arrTask;
             }
+
             Scanner scn = new Scanner(file);
+
             while (scn.hasNextLine()) {
                 String line = scn.nextLine();
                 if (line.isEmpty()) {
                     break;
                 }
-                Task task = Task.stringToTask(line);
+
+                Task task = Task.getTaskFromFileLine(line);
                 if (task != null) {
                     arrTask.add(task);
                 }
             }
+
             scn.close();
         } catch (IOException e) {
             throw new AiChanException("Error loading tasks from file.");

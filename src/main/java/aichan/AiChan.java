@@ -21,7 +21,7 @@ public class AiChan {
         storage = new Storage(filePath);
 
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(storage.loadTasks());
         } catch (AiChanException e) {
             ui.showError(e.getMessage());
             tasks = new TaskList();
