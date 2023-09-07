@@ -27,6 +27,7 @@ public class Duke {
     private final TaskList taskList;
     private final String filePath = "./src/main/resources/duke.txt";
     private final Storage storage = new Storage(filePath);
+    private final Ui ui = new Ui();
 
 
 
@@ -42,13 +43,13 @@ public class Duke {
      *
      * @param taskIndex Index of the task to be marked as done, starts from '1'
      */
-    public void markTaskByBot(int taskIndex) throws DeleteException {
+    public void markTaskByBot(int taskIndex) throws DukeException {
         if (!taskList.isValidListIndex(taskIndex - 1)) {
             throw new DeleteException("Invalid Index of task!");
         }
         taskList.markTaskAsDone(taskIndex - 1);
         saveTasksToFile(this.taskList);
-        Ui.showMessage(taskList.getTaskDetails(taskIndex - 1));
+        ui.showMessage(taskList.getTaskDetails(taskIndex - 1));
     }
 
     /**
@@ -56,14 +57,14 @@ public class Duke {
      *
      * @param taskIndex Index of the task to be marked as not done, starts from '1'
      */
-    public void unmarkTaskByBot(int taskIndex) throws DeleteException {
+    public void unmarkTaskByBot(int taskIndex) throws DukeException {
         if (!taskList.isValidListIndex(taskIndex - 1)) {
             throw new DeleteException("detail: Invalid Index of task!");
         }
 
         taskList.markTaskAsNotDone(taskIndex - 1);
         saveTasksToFile(this.taskList);
-        Ui.showMessage(" OK, I've marked this task as not done yet:\n"
+        ui.showMessage(" OK, I've marked this task as not done yet:\n"
                 + taskList.getTaskDetails(taskIndex - 1));
     }
 
@@ -73,11 +74,11 @@ public class Duke {
      * @param taskIndex The index of the task to be deleted.
      * @throws DeleteException If the input string is not numeric or if the task index is out of valid range.
      */
-    public void deleteTaskByBot(int taskIndex) throws DeleteException {
+    public void deleteTaskByBot(int taskIndex) throws DukeException {
         if (taskIndex < 1 || taskIndex > taskList.getTaskCount()) {
             throw new DeleteException("Invalid Index of task!");
         } else {
-            Ui.showMessage(" Noted. I've removed this task:\n"
+            ui.showMessage(" Noted. I've removed this task:\n"
                     + this.taskList.getTaskDetails(taskIndex - 1)
                     + "\n Now you have " + (taskList.getTaskCount() - 1) + " tasks in the list.\n");
             taskList.deleteTask(taskIndex - 1);
@@ -97,7 +98,7 @@ public class Duke {
         } else {
             newTask = new Todo(description);
             taskList.addTask(newTask);
-            Ui.showMessage(
+            ui.showMessage(
                     " Got it. I've added this task:\n"
                             + newTask
                             + "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n");
@@ -118,7 +119,7 @@ public class Duke {
         } else {
             Task newTask = new Deadline(description, deadlineDate);
             taskList.addTask(newTask);
-            Ui.showMessage(
+            ui.showMessage(
                     " Got it. I've added this task:\n"
                             + newTask
                             + "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n");
@@ -139,7 +140,7 @@ public class Duke {
         } else {
             Task newTask = new Event(description, eventFromDate, eventToDate);
             taskList.addTask(newTask);
-            Ui.showMessage(
+            ui.showMessage(
                     " Got it. I've added this task:\n"
                             + newTask
                             + "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n");
@@ -149,7 +150,7 @@ public class Duke {
     /**
      * Loads the tasks from the storage file
      */
-    private void loadTasksFromFile() {
+    public void loadTasksFromFile() throws DukeException {
         for (Task taskData : storage.loadTasks()) {
             this.taskList.addTask(taskData);
         }
@@ -162,7 +163,7 @@ public class Duke {
     /**
      * Saves the tasks to the storage file
      */
-    private void saveTasksToFile(TaskList taskList) {
+    private void saveTasksToFile(TaskList taskList) throws DukeException {
         this.storage.saveTasks(taskList);
     }
 
@@ -174,7 +175,7 @@ public class Duke {
     public void findTasksByKeyword(String keyword) {
         ArrayList<Task> matchingTasks = taskList.findTasksByKeyword(keyword);
         if (matchingTasks.isEmpty()) {
-            Ui.showMessage("No matching tasks found.");
+            ui.showMessage("No matching tasks found.");
         } else {
             StringBuilder matchingTasksString = new StringBuilder();
             matchingTasksString.append("Here are the matching tasks in your list:\n");
@@ -183,7 +184,7 @@ public class Duke {
                 matchingTasksString.append(count).append(".").append(task).append("\n");
                 count++;
             }
-            Ui.showMessage(matchingTasksString.toString());
+            ui.showMessage(matchingTasksString.toString());
         }
     }
 
@@ -212,7 +213,7 @@ public class Duke {
         case "bye":
             return false;
         case "list":
-            Ui.showMessage(this.taskList.toString());
+            ui.showMessage(this.taskList.toString());
             break;
         case "find":
             this.findTasksByKeyword(description);
@@ -238,7 +239,7 @@ public class Duke {
     /**
      * Starts the chatbot application
      */
-    public void start() {
+    public void start() throws DukeException {
         Ui.showWelcomeMessage();
         String userInput;
         Command parsedCommand;
@@ -253,14 +254,14 @@ public class Duke {
                 isContinuing = handleCommand(parsedCommand);
                 this.saveTasksToFile(this.taskList);
             } catch (DukeException e) {
-                Ui.showErrorMessage(e.getMessage());
+                ui.showErrorMessage(e.getMessage());
             }
         }
 
         Ui.showGoodByeMessage();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         Duke duke = new Duke();
         duke.start();
     }

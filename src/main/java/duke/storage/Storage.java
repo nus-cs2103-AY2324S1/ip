@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.commands.Parser;
+import duke.exception.DukeException;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -28,7 +29,7 @@ public class Storage {
      *
      * @return An ArrayList of tasks
      */
-    public ArrayList<Task> loadTasks() {
+    public ArrayList<Task> loadTasks() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         Task task = null;
 
@@ -38,7 +39,7 @@ public class Storage {
                 tasks.add(task);
             }
         } catch (FileNotFoundException e) {
-            Ui.showMessage("Data file not found, starting with an empty task list.");
+            throw new DukeException("Data file not found, starting with an empty task list.");
         }
         return tasks;
     }
@@ -48,13 +49,13 @@ public class Storage {
      *
      * @param tasks The task list to be saved
      */
-    public void saveTasks(TaskList tasks) {
+    public void saveTasks(TaskList tasks) throws DukeException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
             for (int i = 0; i < tasks.getTaskCount(); i++) {
                 writer.println(Parser.readTaskToFile(tasks.getTask(i)));
             }
-        } catch (IOException e) {
-            Ui.showErrorMessage("Error saving tasks to file: " + e.getMessage());
+        } catch (IOException | DukeException e) {
+            throw new DukeException("Error saving tasks to file: " + e.getMessage());
         }
     }
 }
