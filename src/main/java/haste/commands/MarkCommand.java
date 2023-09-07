@@ -26,10 +26,10 @@ public class MarkCommand extends Command {
      * @param ui Ui that handles interactions.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         Task markedTask = tasks.getTask(index);
         markedTask.markDone();
         String taskDesc = markedTask.toString();
-        ui.mark(taskDesc, tasks);
+        return ui.mark(taskDesc, tasks);
     }
 }

@@ -27,8 +27,8 @@ public class FindCommand extends Command {
      * @param ui Ui that handles interactions.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         TaskList filteredTasks = tasks.filterTasks(this.keyword);
-        ui.printList(filteredTasks);
+        return ui.printList(filteredTasks);
     }
 }
