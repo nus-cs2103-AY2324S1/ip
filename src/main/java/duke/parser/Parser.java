@@ -95,19 +95,16 @@ public class Parser {
      */
     public static Task taskToDelete(String str, TaskList tasks)
             throws InvalidTaskIndexException, MissingTaskIndexException {
-        if (str.split(" ").length == 2) {
-            int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
-            if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
-                throw new InvalidTaskIndexException("Invalid Task Index.");
-            }
-            Task toRemove = tasks.getTask(taskIndex);
-            tasks.deleteTask(taskIndex);
-            return toRemove;
-
-        } else {
+        if (str.split(" ").length != 2) {
             throw new MissingTaskIndexException("Task Index Missing.");
         }
-
+        int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
+        if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
+            throw new InvalidTaskIndexException("Invalid Task Index.");
+        }
+        Task toRemove = tasks.getTask(taskIndex);
+        tasks.deleteTask(taskIndex);
+        return toRemove;
     }
 
     /**
@@ -123,49 +120,46 @@ public class Parser {
         Command command = getCommand(str);
         switch(command) {
         case TODO:
-            if (str.split(" ").length > 1) {
-                ToDo todo = new ToDo(str.split(" ")[1]);
-                return todo;
-            } else {
+            if (str.split(" ").length <= 1) {
                 throw new InvalidDescriptionException("Invalid description.");
             }
+            ToDo todo = new ToDo(str.split(" ")[1]);
+            return todo;
         case DEADLINE:
-            if (str.split(" ").length > 3) {
-                String fullTaskDescription = str.split(" ", 2)[1];
-                String description = fullTaskDescription.split(" /by ")[0];
-                String by = fullTaskDescription.split(" /by ")[1];
-                String[] datetime = by.split(" ");
-                try {
-                    LocalDate date = LocalDate.parse(datetime[0]);
-                    LocalTime time = LocalTime.parse(datetime[1]);
-                    Deadline deadline = new Deadline(description, date, time);
-                    return deadline;
-                } catch (DateTimeParseException e) {
-                    throw new InvalidDateTimeException("Invalid Datetime.");
-                }
-            } else {
+            if (str.split(" ").length <= 3) {
                 throw new InvalidDescriptionException("Invalid description.");
+            }
+            String fullTaskDescriptionDeadline = str.split(" ", 2)[1];
+            String deadlineDescription = fullTaskDescriptionDeadline.split(" /by ")[0];
+            String by = fullTaskDescriptionDeadline.split(" /by ")[1];
+            String[] datetime = by.split(" ");
+            try {
+                LocalDate date = LocalDate.parse(datetime[0]);
+                LocalTime time = LocalTime.parse(datetime[1]);
+                Deadline deadline = new Deadline(deadlineDescription, date, time);
+                return deadline;
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateTimeException("Invalid Datetime.");
             }
         case EVENT:
-            if (str.split(" ").length > 4) {
-                String fullTaskDescription = str.split(" ", 2)[1];
-                String description = fullTaskDescription.split(" /from ")[0];
-                String from = String.join("", fullTaskDescription.split(" /from ")[1]).split(" /to ")[0];
-                String to = fullTaskDescription.split(" /to ")[1];
-                try {
-                    String[] fromDatetime = from.split(" ");
-                    String[] toDatetime = to.split(" ");
-                    LocalDate fromDate = LocalDate.parse(fromDatetime[0]);
-                    LocalTime fromTime = LocalTime.parse(fromDatetime[1]);
-                    LocalDate toDate = LocalDate.parse(toDatetime[0]);
-                    LocalTime toTime = LocalTime.parse(toDatetime[1]);
-                    Event event = new Event(description, fromDate, fromTime, toDate, toTime);
-                    return event;
-                } catch (DateTimeParseException e) {
-                    throw new InvalidDateTimeException("Invalid Datetime");
-                }
-            } else {
+            if (str.split(" ").length <= 4) {
                 throw new InvalidDescriptionException("Invalid description.");
+            }
+            String fullTaskDescriptionEvent = str.split(" ", 2)[1];
+            String eventDescription = fullTaskDescriptionEvent.split(" /from ")[0];
+            String from = String.join("", fullTaskDescriptionEvent.split(" /from ")[1]).split(" /to ")[0];
+            String to = fullTaskDescriptionEvent.split(" /to ")[1];
+            try {
+                String[] fromDatetime = from.split(" ");
+                String[] toDatetime = to.split(" ");
+                LocalDate fromDate = LocalDate.parse(fromDatetime[0]);
+                LocalTime fromTime = LocalTime.parse(fromDatetime[1]);
+                LocalDate toDate = LocalDate.parse(toDatetime[0]);
+                LocalTime toTime = LocalTime.parse(toDatetime[1]);
+                Event event = new Event(eventDescription, fromDate, fromTime, toDate, toTime);
+                return event;
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateTimeException("Invalid Datetime");
             }
         default:
             return null;
