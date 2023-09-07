@@ -27,10 +27,11 @@ public class Storage {
      * Loads tasks from the file path
      *
      * @return An ArrayList of tasks
+     * @throws DukeException If the file path is invalid
      */
     public ArrayList<Task> loadTasks() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
-        Task task = null;
+        Task task;
 
         try (Scanner scanner = new Scanner(new File(filePath))) {
             while (scanner.hasNextLine()) {
@@ -47,6 +48,7 @@ public class Storage {
      * Saves tasks to the file path
      *
      * @param tasks The task list to be saved
+     * @throws DukeException If the file path is invalid
      */
     public void saveTasks(TaskList tasks) throws DukeException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {

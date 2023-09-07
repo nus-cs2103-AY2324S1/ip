@@ -35,6 +35,7 @@ public class TaskList {
      *
      * @param taskListIndex The index of the task in the task list.
      * @return Details of the task as a formatted string, or null if the index is invalid.
+     * @throws DukeException If the index is invalid.
      */
     public String getTaskDetails(int taskListIndex) throws DukeException {
         if (isValidListIndex(taskListIndex)) {
@@ -50,6 +51,7 @@ public class TaskList {
      *
      * @param taskListIndex The index of the task in the task list.
      * @return The task, or null if the index is invalid.
+     * @throws DukeException If the index is invalid.
      */
     public Task getTask(int taskListIndex) throws DukeException {
         if (isValidListIndex(taskListIndex)) {

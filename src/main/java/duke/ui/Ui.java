@@ -1,11 +1,12 @@
 package duke.ui;
 
+import java.util.Objects;
+import java.util.Scanner;
 
 import duke.commands.Command;
 import duke.commands.Parser;
 import duke.exception.DukeException;
 import duke.main.Duke;
-import duke.ui.DialogBox;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -21,45 +22,26 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.util.Scanner;
+
 
 /**
  * Represents the user interface of the application.
  */
-public class Ui extends Application{
+public class Ui extends Application {
     private static final Scanner scanner = new Scanner(System.in);
-
-    private ScrollPane scrollPane;
     private static VBox dialogContainer;
+    private ScrollPane scrollPane;
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Duke duke = new Duke();
+    private final Duke duke = new Duke();
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/AncientHuman.jpeg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/HolyGod.jpeg"));
 
-    public Ui() {
+    private final Image userImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/AncientHuman.jpeg")));
+    private final Image dukeImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/HolyGod.jpeg")));
 
-    }
-
-    /**
-     * Prints the welcome message to the user.
-     */
-    public static void showWelcomeMessage() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm duke.main.Duke\n What can I do for you?");
-        System.out.println("____________________________________________________________");
-    }
-
-    /**
-     * Prints the goodbye message to the user.
-     */
-    public static void showGoodByeMessage() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
-    }
 
     /**
      * Prints a message to the user.
@@ -67,35 +49,11 @@ public class Ui extends Application{
      * @param message The message to be printed.
      */
     public void showMessage(String message) {
-        System.out.println("____________________________________________________________");
-        System.out.println(message);
-        System.out.println("____________________________________________________________");
-        Label dukeMessage = new Label(message);
+        Label dukeMessage = new Label("____________________________________________________________\n"
+                + message + "\n"
+                + "____________________________________________________________");
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(dukeMessage, new ImageView(dukeImage)));
     }
-
-    /**
-     * Prints an error message to the user.
-     *
-     * @param error The error message to be printed.
-     */
-    public void showErrorMessage(String error) {
-        showMessage("☹ OOPS!!! " + error);
-    }
-
-    /**
-     * Retrieves the next line of user input.
-     *
-     * @return The next line of user input.
-     */
-    public static String getUserInput() {
-        return scanner.nextLine();
-    }
-
-    public static void main(String[] args) {
-        Application.launch(Ui.class, args);
-    }
-
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -160,17 +118,12 @@ public class Ui extends Application{
         stage.show();
 
         handleFileLoading();
-
     }
+
 
     /**
-     * Greets the user at the start of the chat.
+     * Prints the initial greeting message to the user.
      */
-    private void handleInitialGreeting() {
-        Label dukeGreetingText = new Label("hello HUMAN what do you need");
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(dukeGreetingText, new ImageView(dukeImage)));
-    }
-
     private void handleFileLoading() throws DukeException {
         Label dukeLoadTasks = new Label("hello HUMAN what do you need \n"
                 + duke.loadTasksFromFile());
@@ -178,18 +131,7 @@ public class Ui extends Application{
 
     }
 
-    private void handleDukeMessage(String string) {
-        Label dukeMessage = new Label(string);
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(dukeMessage, new ImageView(dukeImage)));
-    }
-
-    private void handleUserMessage(String string) {
-        Label dukeMessage = new Label(string);
-        dialogContainer.getChildren().add(DialogBox.getUserDialog(dukeMessage, new ImageView(userImage)));
-    }
-
     /**
-     * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
@@ -222,6 +164,9 @@ public class Ui extends Application{
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
+     *
+     * @param input The user input.
+     * @return The response to the user input.
      */
     private String getResponse(String input) {
         String dukeResponse;
@@ -233,5 +178,9 @@ public class Ui extends Application{
             return e.getMessage();
         }
         return dukeResponse;
+    }
+
+    public static void main(String[] args) {
+        Application.launch(Ui.class, args);
     }
 }

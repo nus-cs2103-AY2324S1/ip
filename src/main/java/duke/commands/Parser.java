@@ -63,6 +63,7 @@ public class Parser {
      * E | 0 | project meeting | Aug 6th 2-4pm
      * File corruption is not handled.
      *
+     * @param taskData The data string from the storage file.
      * @return The completion status of the task.
      */
     public static Task parseFileString(String taskData) {
