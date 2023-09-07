@@ -4,7 +4,6 @@ import duke.data.exception.DukeException;
 import duke.data.task.Task;
 import duke.data.task.TaskList;
 import duke.storage.Storage;
-import duke.ui.Ui;
 
 /**
  * Represents a command to delete the specified task.
@@ -12,6 +11,7 @@ import duke.ui.Ui;
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
+    private static final String COMMAND_RESPONSE_SUCCESS = "Noted. I've removed this task:\n\t";
 
     private int taskIndex;
 
@@ -20,23 +20,9 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-
-        if (taskIndex < 1 || taskIndex > tasks.size()) {
-            throw new DukeException("No such task exists.");
-        }
-
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
         Task task = tasks.remove(taskIndex);
-
         storage.save(tasks);
-        ui.showMessage(
-                "Noted. I've removed this task:",
-                "\t " + task
-        );
+        return COMMAND_RESPONSE_SUCCESS + task;
     }
 }

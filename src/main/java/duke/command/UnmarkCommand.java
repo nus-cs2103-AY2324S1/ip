@@ -4,7 +4,6 @@ import duke.data.exception.DukeException;
 import duke.data.task.Task;
 import duke.data.task.TaskList;
 import duke.storage.Storage;
-import duke.ui.Ui;
 
 /**
  * Represents a command to mark the specified task as not done yet.
@@ -12,6 +11,7 @@ import duke.ui.Ui;
 public class UnmarkCommand extends Command {
 
     public static final String COMMAND_WORD = "unmark";
+    private static final String COMMAND_RESPONSE = "Nice! I've marked this task as not done yet:\n\t";
 
     private int taskIndex;
 
@@ -20,23 +20,9 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-
-        if (taskIndex < 1 || taskIndex > tasks.size()) {
-            throw new DukeException("No such task exists.");
-        }
-
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
         Task task = tasks.unmark(taskIndex);
-
         storage.save(tasks);
-        ui.showMessage(
-                "Nice! I've marked this task as not done yet:",
-                "\t " + task
-        );
+        return COMMAND_RESPONSE + task;
     }
 }

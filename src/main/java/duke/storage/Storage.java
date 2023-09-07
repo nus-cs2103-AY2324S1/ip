@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import duke.data.exception.DukeException;
+import duke.data.exception.StorageLoadException;
 import duke.data.task.Deadline;
 import duke.data.task.Event;
 import duke.data.task.Task;
@@ -35,7 +36,7 @@ public class Storage {
      * @return The list of tasks.
      * @throws DukeException If there was an issue running the file.
      */
-    public List<Task> load() throws DukeException {
+    public List<Task> load() throws StorageLoadException {
         try {
             List<Task> tasks = new ArrayList<>();
             File file = new File(filePath);
@@ -71,7 +72,7 @@ public class Storage {
                     task = new Event(description, localFrom, localTo);
                     break;
                 default:
-                    throw new DukeException("Invalid save data.");
+                    throw new StorageLoadException("Invalid save data.");
                 }
 
                 tasks.add(task);
@@ -83,7 +84,7 @@ public class Storage {
             return tasks;
 
         } catch (IOException e) {
-            throw new DukeException("There was an IOException while loading the tasks.");
+            throw new StorageLoadException("There was an IOException while loading the tasks.");
         }
     }
 

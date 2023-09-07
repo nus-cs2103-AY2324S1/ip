@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.data.task.TaskList;
 import duke.storage.Storage;
-import duke.ui.Ui;
 
 /**
  * Represents a command to list all existing tasks.
@@ -10,14 +9,10 @@ import duke.ui.Ui;
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
+    private static final String COMMAND_RESPONSE = "Here are the list of tasks:\n";
 
     @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showList(tasks.getAllTasks());
+    public String execute(TaskList tasks, Storage storage) {
+        return COMMAND_RESPONSE + tasks.getFormattedList();
     }
 }

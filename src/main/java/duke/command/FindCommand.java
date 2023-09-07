@@ -1,12 +1,7 @@
 package duke.command;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import duke.data.task.Task;
 import duke.data.task.TaskList;
 import duke.storage.Storage;
-import duke.ui.Ui;
 
 /**
  * Represents a command to find tasks that match the keyword provided.
@@ -14,6 +9,7 @@ import duke.ui.Ui;
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
+    private static final String COMMAND_RESPONSE = "Here are the matching tasks in your list:\n";
 
     private String keyword;
 
@@ -22,21 +18,8 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        List<Task> allTasks = tasks.getAllTasks();
-        List<Task> filteredTasks = new ArrayList<>();
-        for (Task task : allTasks) {
-            boolean hasKeyword = task.toString().contains(keyword);
-
-            if (hasKeyword) {
-                filteredTasks.add(task);
-            }
-        }
-        ui.showFilteredList(filteredTasks);
+    public String execute(TaskList tasks, Storage storage) {
+        TaskList filteredTasks = tasks.filter(keyword);
+        return COMMAND_RESPONSE + filteredTasks.getFormattedList();
     }
 }
