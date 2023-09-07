@@ -1,10 +1,9 @@
 package ui;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import duke.DukeException;
 import task.Task;
-import taskList.TaskList;
+import tasklist.TaskList;
 
 /**
  * The `Ui` class is responsible for handling the user interface of the BloopBot application.
@@ -17,72 +16,63 @@ public class Ui {
 
     /**
      * Displays a welcome message to the user when the application starts.
+     *
+     * @return A welcome message.
      */
-    public void showWelcome() {
-        System.out.println("Hello from BloopBot");
-        System.out.println("My name is BloopBloop");
-        System.out.println("What can I do for you?");
-        showLine();
+    public String showWelcome() {
+        return "Hello!!! My name is BloopBloop\n" + "What can I do for you? :)";
     }
 
     /**
      * Displays a farewell message to the user when they exit the application.
+     *
+     * @return A farewell message.
      */
-    public void showBye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String showBye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
      * Displays an error message to the user.
      *
      * @param e The DukeException containing the error message.
+     * @return An error message.
      */
-    public void showError(DukeException e) {
-        System.out.println("Error: " + e.getMessage());
-    }
-
-    /**
-     * Displays a horizontal line to separate different sections of output.
-     */
-    public void showLine() {
-        System.out.println("____________________________________________________________");
+    public String showError(DukeException e) {
+        String errorMsg = e.getMessage();
+        return "Woops, Error: " + errorMsg;
     }
 
     /**
      * Displays a list of available commands to the user.
-     */
-    public void showCommands() {
-        System.out.println("List of Commands: Add, Deadline, Event, Todo, Echo, Mark, Unmark, Delete, Find, Bye");
-        System.out.println("1. Add - Add a task to the list");
-        System.out.println("2. Deadline - Add a task with a deadline");
-        System.out.println("3. Event - Add an event task");
-        System.out.println("4. Todo - Add a todo task");
-        System.out.println("5. Echo - Echo a message");
-        System.out.println("6. Mark - Mark a task as done");
-        System.out.println("7. Unmark - Unmark a task as done");
-        System.out.println("8. Delete - Delete a task");
-        System.out.println("9. Find - Find tasks by keyword");
-        System.out.println("10. Bye - Exit the program");
-    }
-
-    /**
-     * Reads a user command from the console input.
      *
-     * @return The user's input as a String.
+     * @return A list of available commands.
      */
-    public String readCommand() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
+    public String showCommands() {
+        return "List of Commands: Add, Deadline, Event, Todo, Echo, Mark, Unmark, Delete, Find, Bye\n"
+                + "1. Add - Add a task to the list\n"
+                + "2. Deadline - Add a task with a deadline\n"
+                + "3. Event - Add an event task\n"
+                + "4. Todo - Add a todo task\n"
+                + "5. Echo - Echo a message\n"
+                + "6. Mark - Mark a task as done\n"
+                + "7. Unmark - Unmark a task as done\n"
+                + "8. Delete - Delete a task\n"
+                + "9. Find - Find tasks by keyword\n"
+                + "10. Bye - Exit the program";
     }
 
     /**
      * Displays the list of tasks to the user.
      *
      * @param taskList The TaskList containing the tasks to be displayed.
+     * @return A formatted string containing the list of tasks or a message indicating no tasks.
      */
-    public void showTasks(TaskList taskList) {
-        System.out.println("Here are the tasks in your list:");
-        taskList.displayTasks();
+    public String showTasks(TaskList taskList) {
+        StringBuilder output = new StringBuilder();
+        output.append("Here are the tasks in your list:\n");
+        output.append(taskList.displayTasks());
+        return output.toString();
     }
 
     /**
@@ -90,11 +80,14 @@ public class Ui {
      *
      * @param task       The added task.
      * @param totalTasks The total number of tasks in the list.
+     * @return A message confirming the addition of the task.
      */
-    public void showTaskAdded(Task task, int totalTasks) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("   " + task);
-        System.out.println("Now you have " + totalTasks + " tasks in the list.");
+    public String showTaskAdded(Task task, int totalTasks) {
+        StringBuilder output = new StringBuilder();
+        output.append("Got it. I've added this task:\n");
+        output.append("   ").append(task).append("\n");
+        output.append("Now you have ").append(totalTasks).append(" tasks in the list.");
+        return output.toString();
     }
 
     /**
@@ -102,53 +95,62 @@ public class Ui {
      *
      * @param task       The deleted task.
      * @param totalTasks The total number of tasks in the list.
+     * @return A message confirming the deletion of the task.
      */
-    public void showDeletedTask(Task task, int totalTasks) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + totalTasks + " tasks in the list.");
+    public String showDeletedTask(Task task, int totalTasks) {
+        StringBuilder output = new StringBuilder();
+        output.append("Noted. I've removed this task:\n");
+        output.append("   ").append(task).append("\n");
+        output.append("Now you have ").append(totalTasks).append(" tasks in the list.");
+        return output.toString();
     }
 
     /**
      * Displays an echoed message to the user.
      *
      * @param message The message to be echoed.
+     * @return The echoed message.
      */
-    public void showEcho(String message) {
-        System.out.println("Echo: " + message);
+    public String showEcho(String message) {
+        return "Echo: " + message;
     }
 
     /**
      * Displays a message to indicate that a task has been unmarked as done.
      *
      * @param taskToUnmark The task that was unmarked.
+     * @return A message indicating the task was unmarked.
      */
-    public void showTaskUnmarked(Task taskToUnmark) {
-        System.out.println("Task unmarked: " + taskToUnmark.getDescription());
+    public String showTaskUnmarked(Task taskToUnmark) {
+        return "Task unmarked: " + taskToUnmark.getDescription();
     }
 
     /**
      * Displays a message to indicate that a task has been marked as done.
      *
      * @param taskToUnmark The task that was marked as done.
+     * @return A message indicating the task was marked.
      */
-    public void showTaskMarked(Task taskToUnmark) {
-        System.out.println("Task marked: " + taskToUnmark.getDescription());
+    public String showTaskMarked(Task taskToUnmark) {
+        return "Task marked: " + taskToUnmark.getDescription();
     }
 
     /**
      * Displays a list of tasks that match a specified keyword in their descriptions.
      *
      * @param matchingTasks An ArrayList of tasks that match the specified keyword.
+     * @return A formatted string containing the matching tasks or a message indicating no matches.
      */
-    public void showMatchingTasks(ArrayList<Task> matchingTasks) {
+    public String showMatchingTasks(ArrayList<Task> matchingTasks) {
+        StringBuilder output = new StringBuilder();
         if (matchingTasks.isEmpty()) {
-            System.out.println("No matching tasks found.");
+            output.append("No matching tasks found.");
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            output.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println((i + 1) + "." + matchingTasks.get(i).toString());
+                output.append((i + 1)).append(".").append(matchingTasks.get(i).toString()).append("\n");
             }
         }
+        return output.toString();
     }
 }

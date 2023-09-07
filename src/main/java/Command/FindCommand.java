@@ -1,11 +1,8 @@
 package command;
 
-import java.util.ArrayList;
-
 import duke.DukeException;
 import storage.Storage;
-import task.Task;
-import taskList.TaskList;
+import tasklist.TaskList;
 import ui.Ui;
 
 /**
@@ -30,25 +27,14 @@ public class FindCommand extends Command {
      * Executes the "find" command to search for tasks containing the specified keyword
      * in their descriptions and displays the matching tasks.
      *
-     * @param tasks   The task list to search for matching tasks.
+     * @param taskList   The task list to search for matching tasks.
      * @param ui      The user interface to display the matching tasks.
      * @param storage The storage system (not used in this command).
+     * @return A message displaying the list of tasks that match the specification
      * @throws DukeException If an error occurs while executing the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
-        ui.showMatchingTasks(matchingTasks);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        return ui.showMatchingTasks(taskList.findTasks(keyword));
     }
-
-    /**
-     * Indicates whether this command should exit the application.
-     *
-     * @return `false` because the "find" command does not exit the application.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
 }

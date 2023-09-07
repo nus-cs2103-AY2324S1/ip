@@ -9,7 +9,7 @@ import java.util.Scanner;
 import duke.DukeException;
 import parser.Parser;
 import task.Task;
-import taskList.TaskList;
+import tasklist.TaskList;
 
 /**
  * The `Storage` class is responsible for managing the storage and retrieval of tasks in the BloopBot application.
@@ -58,28 +58,31 @@ public class Storage { // Previously named TaskListManager, serves the same purp
      * Saves the provided list of tasks to the task data file.
      *
      * @param tasks The list of tasks to be saved.
+     * @return A message indicating the result of the save operation.
      */
-    public void saveTask(ArrayList<Task> tasks) {
+    public String saveTask(ArrayList<Task> tasks) {
         try {
             FileWriter w = new FileWriter(taskDataPath);
             for (Task task : tasks) {
                 w.write(task.toString() + "\n");
             }
             w.close();
+            return "Tasks saved successfully!";
         } catch (IOException e) {
-            System.out.println("Error occurred when saving tasks to the file.");
+            return "Error occurred when saving tasks to the file.";
         }
     }
 
     /**
      * Loads tasks from the task data file and adds them to the `TaskList`.
+     *
+     * @return A message indicating the result of the load operation.
      */
-    public void loadTasks() {
+    public String loadTasks() {
         try {
             File file = new File(taskDataPath);
             if (!file.exists()) {
-                System.out.println("No such file");
-                return;
+                return "No such file";
             }
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNextLine()) {
@@ -90,10 +93,11 @@ public class Storage { // Previously named TaskListManager, serves the same purp
                 }
             }
             fileScanner.close();
+            return "Tasks loaded successfully.";
         } catch (IOException e) {
-            System.out.println("Error occurred when loading tasks from the file.");
+            return "Error occurred when loading tasks from the file.";
         } catch (DukeException e) {
-            System.out.println("File is corrupted :(");
+            return "File is corrupted :(";
         }
     }
 }

@@ -1,7 +1,7 @@
 package command;
 import duke.DukeException;
 import storage.Storage;
-import taskList.TaskList;
+import tasklist.TaskList;
 import ui.Ui;
 
 /**
@@ -23,15 +23,8 @@ public abstract class Command {
      * @param taskList The task list on which the command should operate.
      * @param ui       The user interface for displaying feedback to the user.
      * @param storage  The storage component for saving or retrieving data (not used in all commands).
+     * @return A message indicating the result of executing the command.
      * @throws DukeException An exception may be thrown if there is an error executing the command.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
-
-    /**
-     * Indicates whether this command should exit the application.
-     * Subclasses override this method to specify whether the command should trigger an application exit.
-     *
-     * @return `true` if the command should exit the application, `false` otherwise.
-     */
-    public abstract boolean isExit();
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 }

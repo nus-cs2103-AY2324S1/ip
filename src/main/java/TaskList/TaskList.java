@@ -1,7 +1,8 @@
-package taskList;
+package tasklist;
 
 import java.util.ArrayList;
 
+import duke.DukeException;
 import task.Task;
 
 /**
@@ -25,69 +26,37 @@ public class TaskList {
      * Adds a task to the task list.
      *
      * @param taskDesc The task to be added.
+     * @return A message indicating the result of the add operation.
      */
-    public void addTask(Task taskDesc) {
-        if (taskList.size() < 100) {
-            taskList.add(taskDesc);
-        } else {
-            System.out.println("100/100 Task limit reached.");
-            System.out.println("Pay to upgrade your account.");
+    public String addTask(Task taskDesc) {
+        try {
+            if (taskList.size() < 100) {
+                taskList.add(taskDesc);
+                return "Task added: " + taskDesc.toString();
+            } else {
+                return "100/100 Task limit reached. Pay to upgrade your account.";
+            }
+        } catch (Exception e) {
+            return "Error adding the task: " + e.getMessage();
         }
     }
 
     /**
      * Displays the tasks in the task list.
      * If the list is empty, a message indicating no tasks are present is displayed.
+     *
+     * @return A formatted string containing the task list or a message indicating no tasks.
      */
-    public void displayTasks() {
+    public String displayTasks() {
+        StringBuilder output = new StringBuilder();
         if (taskList.isEmpty()) {
-            System.out.println("No tasks present in the list");
+            output.append("No tasks present in the list");
         } else {
             for (int i = 0; i < taskList.size(); i++) {
-                System.out.println(" " + (i + 1) + "." + taskList.get(i));
+                output.append(" ").append(i + 1).append(".").append(taskList.get(i)).append("\n");
             }
         }
-    }
-
-    /**
-     * Marks a task as completed in the task list.
-     *
-     * @param taskNum The index of the task to be marked as completed.
-     */
-    public void doneAndDusted(int taskNum) {
-        if (taskNum >= 0 && taskNum < taskList.size()) {
-            taskList.get(taskNum).isCompleted();
-        } else {
-            System.out.println("Error: No such Task Number");
-        }
-    }
-
-    /**
-     * Marks a task as not completed in the task list.
-     *
-     * @param taskNum The index of the task to be marked as not completed.
-     */
-    public void notDoneNotDusted(int taskNum) {
-        if (taskNum >= 0 && taskNum < taskList.size()) {
-            taskList.get(taskNum).isNotCompleted();
-        } else {
-            System.out.println("Error: No such Task Number");
-        }
-    }
-
-    /**
-     * Checks if a task is marked as completed.
-     *
-     * @param taskNum The index of the task to be checked.
-     * @return `true` if the task is marked as completed, `false` otherwise.
-     */
-    public boolean isMarked(int taskNum) {
-        if (taskNum >= 0 && taskNum < taskList.size()) {
-            return taskList.get(taskNum).checkIsDone();
-        } else {
-            System.out.println("Error: No such Task Number");
-            return false;
-        }
+        return output.toString();
     }
 
     /**
@@ -95,15 +64,15 @@ public class TaskList {
      *
      * @param taskNum The index of the task to be deleted.
      * @return The deleted task.
+     * @throws DukeException If the task index is invalid.
      */
-    public Task deleteTask(int taskNum) {
+    public Task deleteTask(int taskNum) throws DukeException {
         if (taskNum >= 0 && taskNum < taskList.size()) {
             Task removedTask = taskList.remove(taskNum);
             return removedTask;
         } else {
-            System.out.println("Error: No such Task Number");
+            throw new DukeException("Invalid task index.");
         }
-        return null;
     }
 
     /**
@@ -122,16 +91,6 @@ public class TaskList {
      */
     public int getTaskCount() {
         return taskList.size();
-    }
-
-    /**
-     * Loads tasks from another `TaskList` object, replacing the current task list.
-     *
-     * @param loadedTasks The `TaskList` object from which tasks will be loaded.
-     */
-    public void loadTasks(TaskList loadedTasks) {
-        taskList.clear();
-        taskList.addAll(loadedTasks.getTasks());
     }
 
     /**
