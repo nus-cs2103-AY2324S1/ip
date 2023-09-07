@@ -17,4 +17,16 @@ public class Todo extends Task {
         return addMessage;
     }
 
+    /**
+     * Searches for a given search term in the name of the to-do.
+     * @param searchTerm The term to search for.
+     * @return True if the name contains the search term, false otherwise.
+     */
+    @Override
+    public boolean contains(String searchTerm) {
+
+        return super.name.contains(searchTerm);
+
+    }
+
 }
