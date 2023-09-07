@@ -6,8 +6,6 @@ import Models.Deadline;
 import Models.TaskArray;
 
 import static LogicHandlers.Parsers.DateTimeParser.parseDateTimeFromString;
-import static Ui.BasicOutputPrinter.printBasicOutput;
-import static Ui.ErrorOutputPrinter.printErrorOutput;
 
 /**
  * DeadlineHandler handles all 'deadline' commands.
@@ -30,9 +28,9 @@ public class DeadlineHandler implements Command {
      * @param commandContent The content of the input.
      */
     @Override
-    public void parseCommandContent(String commandContent) {
+    public String parseCommandContent(String commandContent) {
         if (commandContent.equals("")) {
-            printErrorOutput("You cannot add an empty 'Deadline' task!");
+            return ("You cannot add an empty 'Deadline' task!");
         } else {
             try {
                 String[] taskArr = commandContent.split("/", 2);
@@ -46,17 +44,13 @@ public class DeadlineHandler implements Command {
                 tasks.addTask(new Deadline(taskArr[0].strip(),
                         false, parseDateTimeFromString(taskArr[1].strip())));
 
-                String output = "Got it, I've added this task: \n" +
+                return ("Got it, I've added this task: \n" +
                         tasks.get(tasks.size() - 1) + "\n" +
-                        "You now have " + tasks.size() + " tasks in the list";
-
-                printBasicOutput(output);
+                        "You now have " + tasks.size() + " tasks in the list");
 
             } catch (DukeInvalidFormatException | DukeInvalidDateTimeException e) {
-                String errorString = "Something went wrong! Please format the task properly and add it again. \n" +
-                        "Error: " + e;
-
-                printErrorOutput(errorString);
+                return ("Something went wrong! Please format the task properly and add it again. \n" +
+                        "Error: " + e);
             }
         }
     }

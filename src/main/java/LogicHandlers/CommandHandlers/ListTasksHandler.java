@@ -2,8 +2,6 @@ package LogicHandlers.CommandHandlers;
 
 import Models.TaskArray;
 
-import static Ui.BasicOutputPrinter.printBasicOutput;
-
 /**
  * ListTasksHandler handles all list commands.
  */
@@ -25,13 +23,12 @@ public class ListTasksHandler implements Command{
      * @param commandContent The content of the input.
      */
     @Override
-    public void parseCommandContent(String commandContent) {
+    public String parseCommandContent(String commandContent) {
         if (this.tasks.isEmpty()) {
-            printBasicOutput("You have no tasks!");
+            return ("You have no tasks!");
 
         }
 
-        String output = "Your tasks: \n" + this.tasks;
-        printBasicOutput(output);
+        return ("Your tasks: \n" + this.tasks);
     }
 }

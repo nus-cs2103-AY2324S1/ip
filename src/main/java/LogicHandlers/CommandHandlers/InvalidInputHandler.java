@@ -2,8 +2,6 @@ package LogicHandlers.CommandHandlers;
 
 import Models.TaskArray;
 
-import static Ui.ErrorOutputPrinter.printErrorOutput;
-
 /**
  * InvalidInputHandler handles all 'todo' commands.
  */
@@ -26,7 +24,7 @@ public class InvalidInputHandler implements Command{
      * @param commandContent The content of the input.
      */
     @Override
-    public void parseCommandContent(String commandContent) {
-        printErrorOutput("Not a valid command!");
+    public String parseCommandContent(String commandContent) {
+        return ("Not a valid command!");
     }
 }
