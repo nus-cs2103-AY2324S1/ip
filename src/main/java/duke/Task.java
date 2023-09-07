@@ -1,4 +1,5 @@
 package duke;
+
 /**
  * duke.Task represents a task created by a user.
  */
@@ -14,34 +15,57 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+    /**
+     * Retrieves the task status.
+     * @return The task status.
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
+    /**
+     * Updates the status of the task as done.
+     */
     public void updateAsDone() {
         this.isDone = true;
     }
-
-    public void markAsDone() {
+    /**
+     * Updates the status of the task as not done.
+     * @return Message for the progress of the task.
+     */
+    public String markAsDone() {
         this.isDone = true;
-        System.out.println("     Nice! I've marked this task as done:\n"
-                           + "       " + this.printDesc());
+        return "     Nice! I've marked this task as done:\n"
+                + "       " + this.printDesc();
     }
-    public void markAsUndone() {
+    /**
+     * Updates the status of the task as done.
+     * @return Message for the progress of the task.
+     */
+    public String markAsUndone() {
         this.isDone = false;
-        System.out.println("     OK, I've marked this task as not done yet:\n"
-                           + "       " + this.printDesc());
+        return "     OK, I've marked this task as not done yet:\n"
+                + "       " + this.printDesc();
     }
+    /**
+     * Gets the status of the task.
+     * @return Message for the status of the task.
+     */
     public String printDesc() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
-    public void printMessage(int numTask) {
-        System.out.println(Duke.HORIZONTAL_LINE + "\n"
-                + "     Got it. I've added this task:\n"
+    /**
+     * Get the message after creating the new task.
+     * @return Message for the new creation of the task.
+     */
+    public String printMessage(int numTask) {
+        return "     Got it. I've added this task:\n"
                 + "       " + this.printDesc() + "\n"
-                + "     Now you have " + (numTask + 1) + " tasks in the list.\n"
-                + Duke.HORIZONTAL_LINE);
+                + "     Now you have " + (numTask + 1) + " tasks in the list.";
     }
-
+    /**
+     * Gets the description and status of the task.
+     * @return Message for the description and status of the task.
+     */
     public String getDescription() {
         if (this.isDone) {
             return "done~" + this.description;
@@ -49,6 +73,10 @@ public class Task {
             return "notDone~" + this.description;
         }
     }
+    /**
+     * Gets the description of the task.
+     * @return Message for the description of the task.
+     */
     public String getDesc() {
         return this.description;
     }

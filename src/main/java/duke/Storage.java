@@ -94,6 +94,15 @@ public class Storage {
         return taskArray;
     }
     // saves new tasks
+    protected void saveTask(TaskList taskList) throws IOException {
+        FileWriter fw = new FileWriter(this.filePath);
+        ArrayList<Task> taskArray = taskList.getTaskArray();
+        for (Task task : taskArray) {
+            String writeTask = task.getDescription() + "\n";
+            fw.write(writeTask);
+        }
+        fw.close();
+    }
     protected void saveTask(ArrayList<Task> taskList) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
         for (Task task : taskList) {
@@ -102,4 +111,5 @@ public class Storage {
         }
         fw.close();
     }
+
 }

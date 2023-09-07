@@ -3,7 +3,6 @@ package duke;
 import Exceptions.DukeArgumentException;
 import org.junit.jupiter.api.Test;
 
-import static duke.Ui.horizontalLine;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

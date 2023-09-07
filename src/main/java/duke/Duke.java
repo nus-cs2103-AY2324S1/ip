@@ -4,9 +4,18 @@ import Exceptions.DukeArgumentException;
 import Exceptions.DukeException;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -14,16 +23,19 @@ import java.util.Scanner;
 /**
  * This class represents the main program.
  */
-public class Duke extends Application{
+public class Duke {
     private static Storage storage;
     private static Ui ui;
     private static Parser parser;
     private static TaskList tasks;
-    private static String directoryPath;
-    private static String filePath;
-    protected static final String HORIZONTAL_LINE = "    ____________________________________________________________";
+    private static String DIR_PATH = "./data";
+    private static String FILE_PATH = "./data/duke.txt";
     enum Command { MARK, UNMARK, DELETE, TODO, EVENT, DEADLINE, BYE, LIST, INVALID, FIND }
-
+    /**
+     * Checks if the command is valid or invalid.
+     * @param command Command word to be identified.
+     * @return The command word in type Command.
+     */
     public static Command commandCheck(String command) {
         switch(command) {
         case "bye":
@@ -48,94 +60,64 @@ public class Duke extends Application{
             return Command.INVALID;
         }
     }
-    public static void printCommand(Command command, String info)
+    /**
+     * Implements the action of the command.
+     * @param command Command word of the task.
+     * @param info Details of the task.
+     * @return The message to acknowledge the success of the implementation of task.
+     */
+    public static String printCommand(Command command, String info)
             throws DukeException, IOException, DukeArgumentException {
         switch(command) {
         case BYE:
-            ui.exit();
-            break;
-        case UNMARK:
-            System.out.println(HORIZONTAL_LINE);
-            tasks.unmark(info);
-            System.out.println(HORIZONTAL_LINE);
-            break;
+            return ui.exit();
+            case UNMARK:
+            return tasks.unmark(info);
         case MARK:
-            System.out.println(HORIZONTAL_LINE);
-            tasks.mark(info);
-            System.out.println(HORIZONTAL_LINE);
-            break;
+            return tasks.mark(info);
         case DELETE:
-            System.out.println(HORIZONTAL_LINE);
-            tasks.deleteTask(info);
-            System.out.println(HORIZONTAL_LINE);
-            break;
+            return tasks.deleteTask(info);
         case LIST:
-            System.out.println(HORIZONTAL_LINE);
-            tasks.listTask();
-            System.out.println(HORIZONTAL_LINE);
-            break;
+            return tasks.listTask();
         case TODO:
-            tasks.todoTask(info);
-            break;
+            return tasks.todoTask(info);
         case EVENT:
-            tasks.eventTask(info);
-            break;
+            return tasks.eventTask(info);
         case DEADLINE:
-            tasks.deadlineTask(info);
-            break;
+            return tasks.deadlineTask(info);
         case FIND:
-            System.out.println(HORIZONTAL_LINE);
-            tasks.findTask(info);
-            System.out.println(HORIZONTAL_LINE);
-            break;
+            return tasks.findTask(info);
         default:
             throw new DukeException("     OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
+    /**
+     * Empty constructor method for Duke.
+     */
     public Duke() {
+        this.storage = new Storage(DIR_PATH, FILE_PATH);
         ui = new Ui();
         parser = new Parser();
+        tasks = new TaskList(storage.loadTask(), storage);
     }
 
     /**
-     * Constructor method for Duke.
-     * @param directoryPath Directory to be created, where the save file resides.
-     * @param filePath Relative path of the save file.
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    public Duke(String directoryPath, String filePath) {
-        this.directoryPath = directoryPath;
-        this.filePath = filePath;
-        ui = new Ui();
-        parser = new Parser();
-    }
-    public void run() {
-        ui.greet();
-        Scanner input = new Scanner(System.in);
-        storage = new Storage(directoryPath, filePath);
-        tasks = new TaskList(storage.loadTask(), storage);
-        while (input.hasNext()) {
-            String command = input.nextLine();
-            String[] findCommand = parser.commandSplit(command);
-            Command order = commandCheck(findCommand[0]);
-            try {
-                printCommand(order, command);
-                storage.saveTask(tasks.getTaskArray());
-            } catch (DukeException | DukeArgumentException message) {
-                System.out.println(HORIZONTAL_LINE + "\n" + message.getMessage() + "\n" + HORIZONTAL_LINE);
-            } catch (IOException e) {
-                System.out.println("     Oh no, seems like something is not working.. We can't save your data.");
-            }
+    @FXML
+    String getResponse(String input) {
+        String[] findCommand = parser.commandSplit(input);
+        Command order = commandCheck(findCommand[0]);
+        String response;
+        try {
+            response = printCommand(order, input);
+            storage.saveTask(tasks);
+        } catch (DukeException | DukeArgumentException message) {
+            response = message.getMessage();
+        } catch (IOException e) {
+            response = "     Oh no, seems like something is not working.. We can't save your data.";
         }
-    }
-    @Override
-    public void start(Stage stage) {
-        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
-        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
-
-        stage.setScene(scene); // Setting the stage to show our screen
-        stage.show(); // Render the stage.
-    }
-    public static void main(String[] args) {
-        new Duke("./data", "./data/duke.txt").run();
+        return response;
     }
 }

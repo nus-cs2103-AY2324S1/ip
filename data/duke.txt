@@ -1,7 +1,5 @@
-T~notDone~work agn
-D~notDone~hw ~2023-12-02T23:59
-E~notDone~wedding~2023-09-09T09:00 - 2023-09-09T09:30
-T~notDone~work
-E~notDone~work~2023-09-23T12:00 - 2023-10-10T10:10:10
-T~notDone~2103T tutorial
+T~done~2103T tutorial
 D~notDone~sleep ~2023-09-09T12:20:20
+T~done~work
+T~notDone~work
+D~notDone~hw ~2023-10-10T23:59
