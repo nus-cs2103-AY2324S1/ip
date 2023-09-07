@@ -25,4 +25,3 @@ public class AddEventCommand extends Command {
         storage.writeToFile(tasks.getAllTasks());
     }
 }
-}

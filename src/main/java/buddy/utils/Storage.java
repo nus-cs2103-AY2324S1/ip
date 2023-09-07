@@ -3,39 +3,66 @@ package buddy.utils;
 import buddy.*;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Scanner;
 
 public class Storage {
-    private String filePath = "./data/tasks.txt";;
+    private String filePath = "./data/tasks.txt";
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public TaskList readFile() { // load tasks
-        try {
-            File file = new File(filePath);
-            if (file.exists()) {
-                BufferedReader reader = new BufferedReader(new FileReader(file));
-                String line;
-                TaskList taskList = new TaskList();
-                while ((line = reader.readLine()) != null) {
-                    taskList = parseTask(line);
-                }
-                reader.close();
-                return taskList;
-            }
-        } catch (IOException | BuddyException e) {
-            System.out.println("Error loading tasks from file: " + e.getMessage());
+    public String getFilePath() {
+        return this.filePath;
+    }
+//    public TaskList readFile() { // load tasks
+//        try {
+//            File file = new File(filePath);
+//            if (file.exists()) {
+//                BufferedReader reader = new BufferedReader(new FileReader(file));
+//                String line;
+//                TaskList taskList = new TaskList();
+//                while ((line = reader.readLine()) != null) {
+//                    taskList = parseTask(line);
+//                }
+//                reader.close();
+//                return taskList;
+//            }
+//        } catch (IOException | BuddyException e) {
+//            System.out.println("Error loading tasks from file: " + e.getMessage());
+//        }
+//        return new TaskList();
+//    }
+
+    public ArrayList<Task> readFile() {
+        File file = new File(filePath);
+        ArrayList<Task> taskList = new ArrayList<>();
+        if (!file.exists()) {
+            return taskList;
         }
-        return new TaskList();
+
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine();
+                taskList.addAll(parseTask(line).getAllTasks());
+            }
+        } catch (FileNotFoundException | BuddyException e) {
+            throw new RuntimeException(e);
+        }
+        return taskList;
+
     }
 
-    public void writeToFile(TaskList tasks) { // save tasks
+    public void writeToFile(ArrayList<Task> tasks) { // save tasks
         try {
             FileWriter fileWriter = new FileWriter(filePath);
-            for (int i = 0; i < tasks.getSize(); i++) {
-                Task task = tasks.getTask(i);
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.get(i);
                 fileWriter.write(task.toSaveFileFormat() + "\n");
             }
             fileWriter.close();
@@ -58,14 +85,19 @@ public class Storage {
                 break;
 
             case "D":
-                String deadlineBy = parts[3];
+                String by = parts[3];
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate deadlineBy = LocalDate.parse(by, formatter);
                 tasks.addTask(new Deadline(description, deadlineBy, isDone));
                 break;
 
             case "E":
                 String start = parts[3];
                 String end = parts[4];
-                tasks.addTask(new Event(description, start, end, isDone));
+                formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate startDate = LocalDate.parse(start, formatter);
+                LocalDate endDate = LocalDate.parse(end, formatter);
+                tasks.addTask(new Event(description, startDate, endDate, isDone));
                 break;
         }
 

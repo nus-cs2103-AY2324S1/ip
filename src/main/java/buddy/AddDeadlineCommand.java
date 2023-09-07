@@ -21,6 +21,5 @@ public class AddDeadlineCommand extends Command {
         tasks.addTask(deadline);
         ui.printAddSuccessMessage(deadline, tasks);
         storage.writeToFile(tasks.getAllTasks());
-        }
     }
 }

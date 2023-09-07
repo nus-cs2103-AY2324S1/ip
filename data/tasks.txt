@@ -1,2 +1,2 @@
-T | 1 | read book
-E | 0 | holiday | Dec 22 2023 | Dec 30 2023
+T | 0 | borrow book
+E | 0 | holiday | 2023-12-05 | 2023-12-12
