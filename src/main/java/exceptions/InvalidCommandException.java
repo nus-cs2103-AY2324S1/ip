@@ -9,7 +9,6 @@ public class InvalidCommandException extends Exception {
      * @param message string of text
      */
     public InvalidCommandException(String message) {
-        super("Macho...I do not understand what this means. Please enter a correct command, macho!\n"
-            + message);
+        super("Macho...I do not understand what " + message + " means. Please enter a correct command, macho!\n");
     }
 }

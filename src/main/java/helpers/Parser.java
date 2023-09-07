@@ -168,18 +168,22 @@ public class Parser {
      * @param input String of user input
      */
     public String deleteTask(String input) {
-        int index = Integer.parseInt(input.split(" ", 2)[1]) - 1;
-        if (index < 0 || this.taskList.getListLength() == 0) {
-            return message.showEmptyTasksError(input);
-        } else {
-            try {
-                Task task = this.taskList.removeTask(index);
-                this.storage.write(this.taskList.getTaskList());
-                return message.showDeletedTaskMessage(this.taskList, task);
+        try {
+            int index = Integer.parseInt(input.split(" ", 2)[1]) - 1;
+            if (index < 0 || this.taskList.getListLength() == 0) {
+                return message.showEmptyTasksError(input);
+            } else {
+                try {
+                    Task task = this.taskList.removeTask(index);
+                    this.storage.write(this.taskList.getTaskList());
+                    return message.showDeletedTaskMessage(this.taskList, task);
 
-            } catch (IndexOutOfBoundsException e) {
-                return message.showInvalidIndexErrorMessage(input);
+                } catch (IndexOutOfBoundsException e) {
+                    return message.showInvalidIndexErrorMessage(input);
+                }
             }
+        } catch (IndexOutOfBoundsException e) {
+            return message.showInvalidIndexErrorMessage(input);
         }
     }
 
@@ -199,7 +203,6 @@ public class Parser {
     /**
      * Execute the controllers.Duke's functions to process user's input.
      *
-     * @throws InvalidCommandException if user enters an invalid command
      */
     public String execute(String input) {
         this.input = input;

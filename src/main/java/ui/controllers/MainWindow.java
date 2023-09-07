@@ -43,7 +43,7 @@ public class MainWindow extends AnchorPane {
      * then appends them to the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws InvalidCommandException, ErrorStorageException {
+    private void handleUserInput() {
         String input = userInput.getText();
         String response = getResponse(input);
         dialogContainer.getChildren().addAll(
@@ -51,13 +51,16 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+        if (input.equalsIgnoreCase("bye")) {
+            System.exit(0);
+        }
     }
 
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    String getResponse(String input) throws ErrorStorageException, InvalidCommandException {
+    String getResponse(String input) {
         String cmd = input.split(" ")[0].toUpperCase();
         Parser parser = new Parser(cmd, duke.getTaskList(), duke.getStorage());
         return parser.execute(input);

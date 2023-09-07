@@ -10,6 +10,6 @@ public class InvalidArgumentException extends Exception {
      */
     public InvalidArgumentException(String message, String cmd) {
         super("Wrong argument '" + message + "' provided, macho! Please use " + cmd
-                + " for any deadline tasks, macho!\n");
+                + " for any tasks, macho!\n");
     }
 }
