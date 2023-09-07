@@ -49,7 +49,7 @@ public class Storage {
      *
      * @param taskList The TaskList to which tasks should be added.
      */
-    public void loadTasks(TaskList taskList) {
+    public void loadTasks(TaskList taskList, Ui ui) {
         try {
             File file = new File(filePath);
             System.out.println("Loading tasks...");
@@ -57,7 +57,7 @@ public class Storage {
             String line;
             while ((line = reader.readLine()) != null) {
                 validateString(line);
-                Task task = convertStringIntoTask(line);
+                Task task = convertStringIntoTask(line, ui);
                 taskList.addTask(task);
             }
             reader.close();
@@ -81,7 +81,7 @@ public class Storage {
      * @return The parsed Task object.
      * @throws DukeException If parsing encounters an error.
      */
-    public Task convertStringIntoTask(String dataString) throws DukeException {
+    public Task convertStringIntoTask(String dataString, Ui ui) throws DukeException {
         String[] dataArr = dataString.split(" \\| ");
         String taskType = dataArr[0];
         boolean isDone = dataArr[1].equals("1");
@@ -103,7 +103,7 @@ public class Storage {
         }
 
         if (isDone) {
-            task.markAsDone(false);
+            task.markAsDone(false, ui);
         }
         return task;
     }
@@ -190,7 +190,7 @@ public class Storage {
      *
      * @param taskNumber The index of the task to be deleted.
      */
-    public void deleteTask(int taskNumber) {
+    public void deleteTask(int taskNumber, Ui ui) {
         try {
             File file = new File(filePath);
             BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -207,7 +207,7 @@ public class Storage {
             fileWriter.write(newContents.toString());
             fileWriter.close();
         } catch (java.io.IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            ui.printMessage("Something went wrong: " + e.getMessage());
             System.exit(1);
         }
     }

@@ -1,34 +1,43 @@
 package duke.utility;
 
-import java.util.Scanner;
-
 /**
  * Handles interaction with the user by providing input and displaying messages.
  */
 public class Ui {
-    private final Scanner scanner;
+    private StringBuilder output;
 
+
+    /**
+     * Constructs a Ui object.
+     */
     public Ui() {
-        this.scanner = new Scanner(System.in);
+        this.output = new StringBuilder();
     }
 
-    public void echo(String line) {
-        formatPrintMessage(line);
+    /**
+     * Returns the next line of input from the user.
+     *
+     * @return The next line of input from the user.
+     */
+    public String getOutput() {
+        return this.output.toString();
     }
 
-    public void greet(String name) {
-        formatPrintMessage("\nHello! I'm " + name + "\nWhat can I do for you?");
+    /**
+     * Clears the output.
+     */
+    public void clearOutput() {
+        this.output = new StringBuilder();
     }
 
-    public void exit() {
-        formatPrintMessage("\nBye. Hope to see you again soon!");
+    /**
+     * Prints a message to the user.
+     *
+     * @param message The message to be printed.
+     */
+    public void printMessage(String message) {
+        this.output.append(message);
     }
 
-    public void formatPrintMessage(String message) {
-        System.out.println(message + "\n");
-    }
 
-    public String readCommand() {
-        return this.scanner.nextLine();
-    }
 }

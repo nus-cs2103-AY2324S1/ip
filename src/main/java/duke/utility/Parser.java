@@ -4,6 +4,7 @@ import duke.DukeException;
 import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
@@ -50,11 +51,13 @@ public class Parser {
             case "find":
                 String keyword = input.replace("find", "").trim();
                 return new FindCommand(keyword);
+            case "bye":
+                return new ExitCommand();
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (DukeException e) {
-            ui.formatPrintMessage(e.getMessage());
+            ui.printMessage(e.getMessage());
         }
         return null;
     }
