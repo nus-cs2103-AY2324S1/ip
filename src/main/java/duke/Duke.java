@@ -7,12 +7,21 @@ import duke.task.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * The Duke class represents a chatbot application.
+ * It allows users to add, mark as done, mark as not done, delete, and list 3 different type of tasks.
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Duke object with the specified file path for storage.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -24,6 +33,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the Duke application.
+     * It displays a welcome message, reads user commands,
+     * and performs corresponding actions until the user exits.
+     */
     public void run() {
         ui.showWelcomeMessage();
 
@@ -65,6 +79,11 @@ public class Duke {
         }
     }
 
+    /**
+     * The main method to start the Duke application.
+     *
+     * @param args The command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         new Duke("./src/main/java/duke/duke.txt").run();
     }

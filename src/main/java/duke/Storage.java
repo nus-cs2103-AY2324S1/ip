@@ -8,14 +8,28 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Storage class is responsible for loading and saving tasks to/from a file.
+ */
 public class Storage {
 
     private String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from a file and returns them as a list of tasks.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws DukeException If there is an error loading tasks from the file.
+     */
     public ArrayList<Task> loadTasksFromFile() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -39,6 +53,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves a list of tasks to the file.
+     *
+     * @param tasks The list of tasks to be saved.
+     * @throws DukeException If there is an error saving tasks to the file.
+     */
     public void saveTasksToFile(List<Task> tasks) throws DukeException {
         try {
             FileWriter writer = new FileWriter(filePath);
