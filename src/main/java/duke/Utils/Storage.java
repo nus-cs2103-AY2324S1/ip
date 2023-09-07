@@ -8,6 +8,10 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * The Storage class is responsible for reading and writing data to/from storage files
+ * in the Duke application.
+ */
 public class Storage {
     enum Type {
         INTEGER,
@@ -15,6 +19,13 @@ public class Storage {
     }
     private final String filepath;
 
+    /**
+     * Constructs a new Storage object with the specified file path and folder path.
+     * If the file does not exist, it creates the file.
+     *
+     * @param filepath   The path to the storage file.
+     * @param folderpath The path to the folder where the storage file should be located.
+     */
     protected Storage(String filepath, String folderpath) {
         this.filepath = filepath;
         File file = new File(filepath);
@@ -28,6 +39,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads data from the storage file and returns a list of tasks.
+     *
+     * @return A list of Task objects loaded from the storage file.
+     */
     protected ArrayList<Task> load() {
         ArrayList<String> taskData = new ArrayList<>();
         try {
@@ -48,6 +64,11 @@ public class Storage {
         return new ArrayList<>();
     }
 
+    /**
+     * Saves a list of task data to the storage file.
+     *
+     * @param taskData A list of task data to be saved to the storage file.
+     */
     protected void save(ArrayList<String> taskData) {
         try {
             FileWriter writer = new FileWriter(filepath);

@@ -6,7 +6,12 @@ import java.util.stream.Collectors;
 import java.lang.NumberFormatException;
 import java.time.LocalDateTime;
 
+/**
+ * The Command class provides utility methods for parsing and validating
+ * command arguments in a specific format.
+ */
 public class Command {
+    // Regular expression pattern for date and time in the format "YYYY-MM-DD HH:mm"
     private static final Pattern DATERX = Pattern.compile(
         "^"
         + "("
@@ -20,6 +25,9 @@ public class Command {
         + "$"
       ); // YYYY-MM-DD HH:mm
     
+    /**
+     * Enumeration representing the types of command arguments.
+     */
     enum Type {
         NONE,
         INTEGER,
@@ -27,6 +35,13 @@ public class Command {
         DATETIME
     }
 
+    /**
+     * Extracts the value of a specific argument from an input string.
+     *
+     * @param input      The input string containing arguments.
+     * @param targetArg  The name of the argument to extract.
+     * @return           The value of the specified argument.
+     */
     private static String getArg(String input, String targetArg) {
         String[] args = input.split("/");
         for (String arg : args) {
@@ -39,18 +54,34 @@ public class Command {
         return "";
     }
 
+    /**
+     * Validates and retrieves a string argument from the input.
+     *
+     * @param input     The input string containing arguments.
+     * @param argName   The name of the string argument to validate and retrieve.
+     * @return          The validated string argument value.
+     * @throws InvalidArgumentException if the argument is missing or empty.
+     */
     protected static String assertString(String input, String argName) throws InvalidArgumentException {
         String arg = Command.getArg(input, argName);
-        if (arg == "") {
+        if (arg.isEmpty()) {
             throw new InvalidArgumentException(argName, Type.STRING);
         }
         return arg;
     }
 
+    /**
+     * Validates and retrieves an integer argument from the input.
+     *
+     * @param input     The input string containing arguments.
+     * @param argName   The name of the integer argument to validate and retrieve.
+     * @return          The validated integer argument value.
+     * @throws InvalidArgumentException if the argument is missing, empty, or not a valid integer.
+     */
     protected static Integer assertInteger(String input, String argName) throws InvalidArgumentException {
         try {
             String arg = Command.getArg(input, argName);
-            if (arg == "") {
+            if (arg.isEmpty()) {
                 throw new InvalidArgumentException(argName, Type.INTEGER);
             }
             return Integer.parseInt(arg);
@@ -59,6 +90,14 @@ public class Command {
         }
     }
 
+    /**
+     * Validates and retrieves a LocalDateTime argument from the input.
+     *
+     * @param input     The input string containing arguments.
+     * @param argName   The name of the DateTime argument to validate and retrieve.
+     * @return          The validated LocalDateTime argument value.
+     * @throws InvalidArgumentException if the argument is missing or not in the expected format.
+     */
     protected static LocalDateTime assertDateTime(String input, String argName) throws InvalidArgumentException {
         String arg = Command.getArg(input, argName);
         System.out.println(arg  + '|');
