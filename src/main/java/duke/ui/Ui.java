@@ -158,8 +158,9 @@ public class Ui extends Application{
 
         stage.setScene(scene);
         stage.show();
-//
-//        handleInitialGreeting();
+
+        handleFileLoading();
+
     }
 
     /**
@@ -168,6 +169,13 @@ public class Ui extends Application{
     private void handleInitialGreeting() {
         Label dukeGreetingText = new Label("hello HUMAN what do you need");
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(dukeGreetingText, new ImageView(dukeImage)));
+    }
+
+    private void handleFileLoading() throws DukeException {
+        Label dukeLoadTasks = new Label("hello HUMAN what do you need \n"
+                + duke.loadTasksFromFile());
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(dukeLoadTasks, new ImageView(dukeImage)));
+
     }
 
     private void handleDukeMessage(String string) {
@@ -186,7 +194,6 @@ public class Ui extends Application{
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        //        duke.loadTasksFromFile();
 
         Label userText = new Label(userInput.getText());
         String output = getResponse(userInput.getText());
@@ -221,6 +228,7 @@ public class Ui extends Application{
         try {
             Command parsedCommand = Parser.parse(input);
             dukeResponse = duke.handleCommand(parsedCommand);
+            duke.saveTasksToFile();
         } catch (DukeException e) {
             return e.getMessage();
         }

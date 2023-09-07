@@ -40,6 +40,7 @@ public class Duke {
         this.taskList = new TaskList();
     }
 
+
     /**
      * Marks a task as done and provides user feedback
      *
@@ -50,7 +51,7 @@ public class Duke {
             throw new DeleteException("Invalid Index of task!");
         }
         taskList.markTaskAsDone(taskIndex - 1);
-        saveTasksToFile(this.taskList);
+        saveTasksToFile();
         return taskList.getTaskDetails(taskIndex - 1);
     }
 
@@ -65,7 +66,7 @@ public class Duke {
         }
 
         taskList.markTaskAsNotDone(taskIndex - 1);
-        saveTasksToFile(this.taskList);
+        saveTasksToFile();
         return " OK, I've marked this task as not done yet:\n"
                 + taskList.getTaskDetails(taskIndex - 1);
     }
@@ -150,21 +151,22 @@ public class Duke {
     /**
      * Loads the tasks from the storage file
      */
-    public void loadTasksFromFile() throws DukeException {
+    public String loadTasksFromFile() throws DukeException {
         for (Task taskData : storage.loadTasks()) {
             this.taskList.addTask(taskData);
         }
 
         if (!this.taskList.isEmpty()) {
-            System.out.println(this.taskList);
+            return this.taskList.toString();
         }
+        return "No tasks found in file.";
     }
 
     /**
      * Saves the tasks to the storage file
      */
-    private void saveTasksToFile(TaskList taskList) throws DukeException {
-        this.storage.saveTasks(taskList);
+    public void saveTasksToFile() throws DukeException {
+        this.storage.saveTasks(this.taskList);
     }
 
     /**
