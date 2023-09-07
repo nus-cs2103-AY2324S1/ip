@@ -41,7 +41,7 @@ public class Storage {
         try {
             Files.createDirectories(path.getParent());
         } catch (IOException e) {
-            throw new DukeException(Ui.LINE + e.getMessage() + Ui.LINE);
+            throw new DukeException(e.getMessage());
         }
 
         File file = new File(filePath);
@@ -49,7 +49,7 @@ public class Storage {
             try {
                 Files.createFile(path);
             } catch (IOException e) {
-                throw new DukeException(Ui.LINE + e.getMessage() + Ui.LINE);
+                throw new DukeException(e.getMessage());
             }
         }
 
@@ -79,13 +79,13 @@ public class Storage {
                 Matcher matcher = pattern.matcher(str);
 
                 if (!matcher.matches()) {
-                    throw new DukeException(Ui.LINE + Messages.MESSAGE_CORRUPT_FILE + Ui.LINE);
+                    throw new DukeException(Messages.MESSAGE_CORRUPT_FILE);
                 }
 
                 switch (matcher.group(1)) {
                 case "T":
                     if (matcher.group(2) == null || matcher.group(3) == null) {
-                        throw new DukeException(Ui.LINE + Messages.MESSAGE_CORRUPT_FILE + Ui.LINE);
+                        throw new DukeException(Messages.MESSAGE_CORRUPT_FILE);
                     }
 
                     Todo newTodo = new Todo(matcher.group(3));
@@ -98,7 +98,7 @@ public class Storage {
                     if (matcher.group(2) == null
                             || matcher.group(3) == null
                             || matcher.group(4) == null) {
-                        throw new DukeException(Ui.LINE + Messages.MESSAGE_CORRUPT_FILE + Ui.LINE);
+                        throw new DukeException(Messages.MESSAGE_CORRUPT_FILE);
                     }
 
                     LocalDateTime parsedDate;
@@ -106,7 +106,7 @@ public class Storage {
                         parsedDate = LocalDateTime.parse(matcher.group(4),
                                 DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
                     } catch (DateTimeParseException e) {
-                        throw new DukeException(Ui.LINE + Messages.MESSAGE_CORRUPT_FILE + Ui.LINE);
+                        throw new DukeException(Messages.MESSAGE_CORRUPT_FILE);
                     }
 
                     Deadline newDeadline = new Deadline(matcher.group(3), parsedDate);
@@ -120,7 +120,7 @@ public class Storage {
                             || matcher.group(3) == null
                             || matcher.group(4) == null
                             || matcher.group(5) == null) {
-                        throw new DukeException(Ui.LINE + Messages.MESSAGE_CORRUPT_FILE + Ui.LINE);
+                        throw new DukeException(Messages.MESSAGE_CORRUPT_FILE);
                     }
 
                     Event newEvent = new Event(matcher.group(3), matcher.group(4), matcher.group(5));
@@ -132,7 +132,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            throw new DukeException(Ui.LINE + e.getMessage() + Ui.LINE);
+            throw new DukeException(e.getMessage());
         }
 
         return tasks;
@@ -151,7 +151,7 @@ public class Storage {
             fileWriter.write(tasks.getSaveString());
             fileWriter.close();
         } catch (IOException e) {
-            throw new DukeException(Ui.LINE + e.getMessage() + Ui.LINE);
+            throw new DukeException(e.getMessage());
         }
     }
 }

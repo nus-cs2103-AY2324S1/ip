@@ -45,7 +45,7 @@ public class TaskList {
      */
     public Task remove(int index) throws DukeException {
         if (index < 1 || index > tasks.size()) {
-            throw new DukeException(Ui.LINE + Messages.MESSAGE_INVALID_INDEX + Ui.LINE);
+            throw new DukeException(Messages.MESSAGE_INVALID_INDEX);
         }
 
         return this.tasks.remove(index - 1);
@@ -72,10 +72,15 @@ public class TaskList {
     /**
      * Prints the duke.task.Task instances in the TaskList in a human-readable format.
      */
-    public void printTasks() {
+    public String printTasks() {
+        StringBuilder tempString = new StringBuilder();
         for (int i = 0; i < this.tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + this.tasks.get(i));
+            tempString.append((i + 1))
+                    .append(". ")
+                    .append(this.tasks.get(i))
+                    .append(System.lineSeparator());
         }
+        return tempString.toString();
     }
 
     /**
@@ -87,7 +92,7 @@ public class TaskList {
      */
     public Task markAsDone(int index) throws DukeException {
         if (index < 1 || index > tasks.size()) {
-            throw new DukeException(Ui.LINE + Messages.MESSAGE_INVALID_INDEX + Ui.LINE);
+            throw new DukeException(Messages.MESSAGE_INVALID_INDEX);
         }
 
         Task currentTask = this.tasks.get(index - 1);
@@ -104,7 +109,7 @@ public class TaskList {
      */
     public Task markAsUndone(int index) throws DukeException {
         if (index < 1 || index > tasks.size()) {
-            throw new DukeException(Ui.LINE + Messages.MESSAGE_INVALID_INDEX + Ui.LINE);
+            throw new DukeException(Messages.MESSAGE_INVALID_INDEX);
         }
 
         Task currentTask = this.tasks.get(index - 1);
