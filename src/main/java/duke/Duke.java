@@ -1,22 +1,24 @@
 package duke;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
-import javafx.application.Platform;
+import javafx.stage.Stage;
 
+/**
+ * Duke
+ */
 public class Duke extends Application {
     private Ui ui;
     private Storage storage;
@@ -36,16 +38,14 @@ public class Duke extends Application {
     /**
      * @param filePath The file path of the txt document to read and write from.
      */
-    public Duke (String filePath) {
-//        tasks = new TaskList();
-//        storage = new Storage(filePath, tasks);
-//        storage.startStorage();
-//        ui = new Ui(tasks);
-//        ui.startUi();
-//        storage.writeToStorage();
+    public Duke(String filePath) {
+
     }
 
-    public Duke () {
+    /**
+     * Old constructor
+     */
+    public Duke() {
         String filePath = "../ip/src/main/data/duke.txt";
         tasks = new TaskList();
         storage = new Storage(filePath, tasks);
@@ -73,13 +73,12 @@ public class Duke extends Application {
     private String getResponse(String input) {
         return input;
     }
-
-    @FXML
     /**
      * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
+    @FXML
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
         String userInputText = userInput.getText();

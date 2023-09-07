@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * ToDos
+ */
 public class ToDos extends Task {
 
     protected String by;

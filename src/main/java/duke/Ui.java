@@ -1,10 +1,13 @@
 package duke;
 
-import java.util.Scanner;
 import java.util.Arrays;
+
+/**
+ * Starts the UI
+ */
 public class Ui {
-    public static String line = "\t____________________________________________________________\n";
-    public static String exitMessage = line + "\tBye. Hope to see you again\n" + line;
+    private static String line = "\t____________________________________________________________\n";
+    private static String exitMessage = line + "\tBye. Hope to see you again\n" + line;
     protected TaskList tasks;
 
     /**
@@ -20,17 +23,6 @@ public class Ui {
      * Starts the UI interaction with the user.
      */
     public String startUi(String echo) {
-//        String greeting =
-//                line +
-//                        "\tHello! I'm DukeBot\n" +
-//                        "\tWhat can I do for you?\n" +
-//                        line;
-//        System.out.println(greeting);
-//
-//        Scanner myObj = new Scanner(System.in);  // Create a Scanner object
-//        String echo = myObj.nextLine();  // Read user input
-
-        //while (!echo.equalsIgnoreCase("bye")) {
         try {
             String[] words = echo.split(" ");
             if (echo.equalsIgnoreCase("list")) {
@@ -63,8 +55,5 @@ public class Ui {
             //exception caught
             return "OOPS!!! I'm sorry, but I don't know what that means :-(";
         }
-            //echo = myObj.nextLine();  // Read user input
-        //}
-        //System.out.println(exitMessage);
     }
 }

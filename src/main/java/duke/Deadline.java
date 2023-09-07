@@ -1,7 +1,12 @@
 package duke;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+/**
+ * Deadline Class
+ */
+
 public class Deadline extends Task {
 
     protected String by;

@@ -4,6 +4,10 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
+/**
+ * Storage
+ */
 public class Storage {
     protected String filepath;
     protected BufferedReader reader;
@@ -29,29 +33,33 @@ public class Storage {
             reader = new BufferedReader(new FileReader(filepath));
             String fileLine;
 
-            while((fileLine = reader.readLine()) != null) {
+            while ((fileLine = reader.readLine()) != null) {
                 String eventType = Character.toString(fileLine.charAt(1));
                 String isDone = Character.toString(fileLine.charAt(4));
                 String extractedSubstring = fileLine.substring(7, fileLine.length());
                 switch (eventType) {
-                    case "T":
-                        tasks.toDoHandler(extractedSubstring, isDone.equals("X"), true);
-                        break;
-                    case "D": {
-                        //System.out.println(extractedSubstring);
-                        String description = Parser.convertDeadlineFormat(extractedSubstring);
-                        tasks.deadlineHandler(description, isDone.equals("X"), true);
-                        break;
-                    }
-                    case "E": {
-                        String description = Parser.convertEventFormat(extractedSubstring);
-                        tasks.eventHandler(description, isDone.equals("X"), true);
-                        break;
-                    }
+                case "T": {
+                    tasks.toDoHandler(extractedSubstring, isDone.equals("X"), true);
+                    break;
+                }
+                case "D": {
+                    //System.out.println(extractedSubstring);
+                    String description = Parser.convertDeadlineFormat(extractedSubstring);
+                    tasks.deadlineHandler(description, isDone.equals("X"), true);
+                    break;
+                }
+                case "E": {
+                    String description = Parser.convertEventFormat(extractedSubstring);
+                    tasks.eventHandler(description, isDone.equals("X"), true);
+                    break;
+                }
+                default: {
+                    break;
+                }
                 }
             }
             reader.close();
-        } catch (IOException e ) {
+        } catch (IOException e) {
             e.printStackTrace();
             System.out.println("The file named duke.txt does not exist.");
         } catch (EmptyDescriptionException e) {

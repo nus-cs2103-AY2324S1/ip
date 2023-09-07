@@ -2,10 +2,19 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * TaskList
+ */
 public class TaskList {
-    public static String line = "\t____________________________________________________________\n";
+    private static String line = "\t____________________________________________________________\n";
     protected ArrayList<Task> strList;
 
+    /**
+     * Constructor to create a new task list
+     */
+    public TaskList() {
+        this.strList = new ArrayList<>();
+    }
 
     /**
      * Prints a tasks to the console when a task is added
@@ -31,7 +40,8 @@ public class TaskList {
      * @param readingFile boolean to check if readingFile or not
      * @throws EmptyDescriptionException
      */
-    public String toDoHandler(String description, boolean isDone, boolean readingFile) throws EmptyDescriptionException {
+    public String toDoHandler(String description, boolean isDone, boolean readingFile)
+            throws EmptyDescriptionException {
         if (description.equals("")) {
             throw new EmptyDescriptionException("todo");
         } else {
@@ -56,7 +66,7 @@ public class TaskList {
         if (description.equals("")) {
             throw new EmptyDescriptionException("deadline");
         } else {
-            String[] parts = description.split("/by");  // Split the input string by the delimiter "/"
+            String[] parts = description.split("/by"); // Split the input string by the delimiter "/"
             String before = parts[0].trim();
             String after = parts[1].trim();
             Task newDeadline = new Deadline(before, after, isDone);
@@ -75,12 +85,13 @@ public class TaskList {
      * @param readingFile boolean to check if readingFile or not
      * @throws EmptyDescriptionException
      */
-    public String eventHandler(String description, boolean isDone, boolean readingFile) throws EmptyDescriptionException {
+    public String eventHandler(String description, boolean isDone, boolean readingFile)
+            throws EmptyDescriptionException {
         if (description.equals("")) {
             throw new EmptyDescriptionException("event");
         } else {
-            int fromIndex = description.indexOf("/from");  // Find the index of "/from"
-            int toIndex = description.indexOf("/to");  // Find the index of "/to"
+            int fromIndex = description.indexOf("/from"); // Find the index of "/from"
+            int toIndex = description.indexOf("/to"); // Find the index of "/to"
             String eventDescription = description.substring(0, fromIndex).trim();
             String from = description.substring(fromIndex + "/from".length(), toIndex).trim();
             String to = description.substring(toIndex + "/to".length()).trim();
@@ -92,6 +103,10 @@ public class TaskList {
             return null;
         }
     }
+
+    /**
+     * PrintTaskList
+     */
     public void printTaskList() {
         for (Task element : strList) {
             System.out.println(element.toString());
@@ -218,13 +233,5 @@ public class TaskList {
         System.out.println(line);
         return message;
     }
-
-    /**
-     * Constructor to create a new task list
-     */
-    public TaskList() {
-        this.strList = new ArrayList<>();
-    }
-
 
 }
