@@ -10,19 +10,18 @@ import duke.data.task.Task;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.ui.Ui;
-
+import javafx.fxml.FXML;
 
 
 public class Duke {
-
-    private final Storage storage;
+    private Storage storage;
     private TaskList tasklist;
-    private final Ui ui;
-    private final Parser parser;
+    private Ui ui;
+    private Parser parser;
 
-    public Duke(String filePath) {
+    public Duke() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage("data/duke.txt");
         parser = new Parser();
         try {
             tasklist = new TaskList(storage.loadTasks());
@@ -31,78 +30,62 @@ public class Duke {
         }
     }
 
-    public void run() {
+    public String getResponse(String input) {
         this.ui.greet();
-        Scanner scanner = new Scanner(System.in);
 
-        while (true) {
-            String input = scanner.nextLine();
-            String keyword = parser.getInstruction(input);
-            try {
-                switch (keyword) {
-                case "bye": {
-                    this.ui.exitBot();
-                    return;
-                }
-                case "list": {
-                    this.ui.printList(tasklist.getTaskList());
-                    break;
-                }
-                case "unmark": {
-                    Task task = this.tasklist.unmarkTask(parser.getTaskNumber(input));
-                    this.ui.printUnmarkedMessage(task);
-                    this.storage.rewriteFile(this.tasklist.getTaskList());
-                    break;
-                }
-                case "mark": {
-                    Task task = this.tasklist.markTask(parser.getTaskNumber(input));
-                    this.ui.printMarkedMessage(task);
-                    this.storage.rewriteFile(this.tasklist.getTaskList());
-                    break;
-                }
-                case "delete": {
-                    Task task = this.tasklist.deleteTask(parser.getTaskNumber(input));
-                    this.ui.printDeletedMessage(task, this.tasklist.getTaskList().size());
-                    this.storage.rewriteFile(this.tasklist.getTaskList());
-                    break;
-                }
-                case "todo": {
-                    Task task = this.tasklist.addToDo(parser.getTodoDescription(input));
-                    this.ui.printAddedToListMessage(task, this.tasklist.getTaskList().size());
-                    this.storage.appendToFile(task.saveString());
-                    break;
-                }
-                case "deadline": {
-                    Task task = this.tasklist.addDeadline(parser.getDeadlineDescription(input), parser.getBy(input));
-                    this.ui.printAddedToListMessage(task, this.tasklist.getTaskList().size());
-                    this.storage.appendToFile(task.saveString());
-                    break;
-                }
-                case "event": {
-                    Task task = this.tasklist.addEvent(parser.getEventDescription(input), parser.getFrom(input),
-                            parser.getTo(input));
-                    this.ui.printAddedToListMessage(task, this.tasklist.getTaskList().size());
-                    this.storage.appendToFile(task.saveString());
-                    break;
-                }
-                case "find": {
-                    String description = parser.getDescription(input);
-                    ArrayList<Task> res = tasklist.searchTasks(description);
-                    ui.printSearchList(res);
-                    break;
-                }
-                default: {
-                    ui.printBotErrorMsg();
-                }
-                }
-            } catch (DukeException e) {
-                ui.printBotMessage(e.toString());
-            } catch (IOException e) {
-                System.out.println("Something went wrong: " + e.getMessage());
+        String keyword = parser.getInstruction(input);
+        try {
+            switch (keyword) {
+            case "bye": {
+                return this.ui.exitBot();
             }
+            case "list": {
+                return this.ui.printList(tasklist.getTaskList());
+            }
+            case "unmark": {
+                Task task = this.tasklist.unmarkTask(parser.getTaskNumber(input));
+                this.storage.rewriteFile(this.tasklist.getTaskList());
+                return this.ui.printUnmarkedMessage(task);
+            }
+            case "mark": {
+                Task task = this.tasklist.markTask(parser.getTaskNumber(input));
+                this.storage.rewriteFile(this.tasklist.getTaskList());
+                return this.ui.printMarkedMessage(task);
+            }
+            case "delete": {
+                Task task = this.tasklist.deleteTask(parser.getTaskNumber(input));
+                this.storage.rewriteFile(this.tasklist.getTaskList());
+                return this.ui.printDeletedMessage(task, this.tasklist.getTaskList().size());
+            }
+            case "todo": {
+                Task task = this.tasklist.addToDo(parser.getTodoDescription(input));
+                this.storage.appendToFile(task.saveString());
+                return this.ui.printAddedToListMessage(task, this.tasklist.getTaskList().size());
+            }
+            case "deadline": {
+                Task task = this.tasklist.addDeadline(parser.getDeadlineDescription(input), parser.getBy(input));
+                this.storage.appendToFile(task.saveString());
+                return this.ui.printAddedToListMessage(task, this.tasklist.getTaskList().size());
+            }
+            case "event": {
+                Task task = this.tasklist.addEvent(parser.getEventDescription(input), parser.getFrom(input),
+                        parser.getTo(input));
+                this.storage.appendToFile(task.saveString());
+                return this.ui.printAddedToListMessage(task, this.tasklist.getTaskList().size());
+            }
+            case "find": {
+                String description = parser.getDescription(input);
+                ArrayList<Task> res = tasklist.searchTasks(description);
+                return ui.printSearchList(res);
+            }
+            default: {
+                return ui.printBotErrorMsg();
+            }
+            }
+        } catch (DukeException e) {
+            return ui.printBotMessage(e.toString());
+        } catch (IOException e) {
+            return "Something went wrong: " + e.getMessage();
         }
-    }
-    public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
     }
 }

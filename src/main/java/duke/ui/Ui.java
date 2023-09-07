@@ -5,83 +5,63 @@ import java.util.ArrayList;
 import duke.data.task.Task;
 
 public class Ui {
-    private String dottedLine = "____________________________________________________________\n";
     public Ui() {
     }
-    public void greet() {
-        System.out.println(dottedLine
-                + "Hello! I'm Charlie\n"
-                + "What can I do for you?\n"
-                + dottedLine);
+    public String greet() {
+        return "Hello! I'm Charlie\n"
+                + "What can I do for you?\n";
     }
 
-    public void exitBot() {
-        System.out.println(dottedLine
-                + "Bye. Hope to see you again soon!\n"
-                + dottedLine);
+    public String exitBot() {
+        return "Bye. Hope to see you again soon!\n";
     }
 
-    public void printMarkedMessage(Task task) {
-        System.out.println(dottedLine
-                + "Nice! I've marked this task as done:\n"
-                + task.toString() + "\n"
-                + dottedLine);
+    public String printMarkedMessage(Task task) {
+        return "Nice! I've marked this task as done:\n"
+                + task.toString() + "\n";
     }
 
-    public void printUnmarkedMessage(Task task) {
-        System.out.println(dottedLine
-                + "OK, I've marked this task as not done yet:\n"
-                + task.toString() + "\n"
-                + dottedLine);
+    public String printUnmarkedMessage(Task task) {
+        return "OK, I've marked this task as not done yet:\n"
+                + task.toString() + "\n";
     }
 
-    public void printAddedToListMessage(Task task, int size) {
-        System.out.println("____________________________________________________________\n"
-                + "Got it. I've added this task:\n"
+    public String printAddedToListMessage(Task task, int size) {
+        return "Got it. I've added this task:\n"
                 + task.toString()
-                + "\nNow you have " + size + " tasks in the list."
-                + "\n____________________________________________________________\n");
+                + "\nNow you have " + size + " tasks in the list.";
     }
 
-    public void printDeletedMessage(Task task, int size) {
-        System.out.println("____________________________________________________________\n"
-                + "Noted. I've removed this task:\n"
+    public String printDeletedMessage(Task task, int size) {
+        return "Noted. I've removed this task:\n"
                 + task
-                + "\nNow you have " + size + " tasks in the list."
-                + "\n____________________________________________________________\n");
+                + "\nNow you have " + size + " tasks in the list.";
     }
-    public void invalidTaskNumber() {
-        System.out.println(dottedLine
-                + "☹ OOPS!!! The task number is invalid.\n"
-                + dottedLine);
+    public String invalidTaskNumber() {
+        return "☹ OOPS!!! The task number is invalid.\n";
     }
-    public void printBotErrorMsg() {
-        System.out.println(dottedLine
-                + "☹ OOPS!!! I'm sorry, but I don't know what that means :-("
-                + "\n" + dottedLine);
-
+    public String printBotErrorMsg() {
+        return "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
     }
 
-    public void printBotMessage(String msg) {
-        System.out.println(dottedLine
-                + msg
-                + "\n" + dottedLine);
+    public String printBotMessage(String msg) {
+        return msg;
     }
 
 
-    public void printSearchList(ArrayList<Task> arr) {
-        System.out.println(dottedLine + "Here are the matching tasks in your list:");
+    public String printSearchList(ArrayList<Task> arr) {
+        String ans = "Here are the matching tasks in your list:";
         for (Task t : arr) {
-            System.out.printf("%d. %s%n", arr.indexOf(t) + 1, t.toString());
+            ans += String.format("%d. %s%n", arr.indexOf(t) + 1, t.toString());
         }
-        System.out.println(dottedLine);
+        return ans;
     }
 
-    public void printList(ArrayList<Task> arr) {
-        System.out.println(dottedLine + "Here are the tasks in your list:");
+    public String printList(ArrayList<Task> arr) {
+        String ans = "Here are the tasks in your list:\n";
         for (Task t : arr) {
-            System.out.printf("%d. %s%n", arr.indexOf(t) + 1, t.toString());
+            ans += String.format("%d. %s%n", arr.indexOf(t) + 1, t.toString());
         }
-        System.out.println(dottedLine);
+        return ans;
     }
 }
