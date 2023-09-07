@@ -32,12 +32,13 @@ public class FindCommand extends Command {
 
         String keyword = super.getParameterMap().get("default");
         Stream<String> taskDetails = tasks.getTasks().map(task -> task.toString())
-                .filter(task -> task.contains(keyword)).map(task -> String.format("%d. $d\n", count.getAndIncrement(), tasks));
+                .filter(task -> task.contains(keyword))
+                .map(task -> String.format("%d. $d\n", count.getAndIncrement(), tasks));
 
         if (taskDetails.count() == 0) {
             return "There are no matching tasks found.";
         }
-        
+
         StringBuilder response = new StringBuilder("Here are the matching tasks in your list:\n");
         taskDetails.forEach(task -> response.append(task));
 
