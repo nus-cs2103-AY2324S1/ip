@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+
 /**
  * Represents a command line-based task manager.
  */
@@ -51,18 +52,20 @@ public class Duke {
     /**
      * Represents the list of tasks.
      */
-    private Tasklist todoList;
+    private Tasklist tasks;
 
     /**
      * Represents the storage functionality for Duke.
      */
     private Storage storage;
 
+
+
     /**
      * Constructs a new instance of the Duke command line-based task manager.
      */
-    private Duke() {
-        this.todoList = new Tasklist();
+    public Duke() {
+        this.tasks = new Tasklist();
         this.storage = new Storage(FILE_PATH);
     }
 
@@ -71,7 +74,7 @@ public class Duke {
      */
     private void exit() {
         try {
-            storage.saveFile(todoList);
+            storage.saveFile(tasks);
             Ui.exit();
         } catch (IOException e) {
             System.out.println("Error when saving data!");
@@ -98,27 +101,68 @@ public class Duke {
             this.exit();
             return false;
         } else if (s.equals(LIST)) {
-            Ui.printList(todoList);
+            Ui.printList(tasks);
             return true;
         } else if (check1.equals(MARK)) {
-            todoList.mark(Integer.parseInt(str.substring(5, str.length())));
+            tasks.mark(Integer.parseInt(str.substring(5, str.length())));
             return true;
         } else if (check1.equals(FIND)) {
-            Ui.find(todoList.find(str.substring(5, str.length())));
+            Ui.find(tasks.find(str.substring(5, str.length())));
             return true;
         } else if (check2.equals(UNMARK)) {
-            todoList.unmark(Integer.parseInt(str.substring(7, str.length())));
+            tasks.unmark(Integer.parseInt(str.substring(7, str.length())));
             return true;
         } else if (check2.equals(DELETE)) {
-            todoList.delete(Integer.parseInt(str.substring(7, str.length())));
+            tasks.delete(Integer.parseInt(str.substring(7, str.length())));
             return true;
         } else {
             try {
-                todoList.addToList(s);
+                tasks.addToList(s);
             } catch (DukeMissingArgumentException | DukeInvalidArgumentException e) {
                 System.out.println(e.toString());
             }
             return true;
+        }
+    }
+
+
+
+    /**
+     * Processes the user input and responds accordingly.
+     * @param s The user's input string.
+     * @return The response
+     */
+    public String getResponse(String s) {
+        StringBuilder str = new StringBuilder(s);
+        String check1 = "";
+        String check2 = "";
+        //2 over so that delete and mark cannot have blank input
+        if (s.length() >= 6) {
+            check1 = str.substring(0, 4);
+        }
+        if (s.length() >= 8) {
+            check2 = str.substring(0, 6);
+        }
+        if (s.equals(BYE)) {
+            return Ui.exit();
+        } else if (s.equals(LIST)) {
+            return Ui.printList(tasks);
+        } else if (check1.equals(MARK)) {
+            return tasks.mark(Integer.parseInt(str.substring(5, str.length())));
+        } else if (check1.equals(FIND)) {
+            return Ui.find(tasks.find(str.substring(5, str.length())));
+        } else if (check2.equals(UNMARK)) {
+            return tasks.unmark(Integer.parseInt(str.substring(7, str.length())));
+        } else if (check2.equals(DELETE)) {
+            return tasks.delete(Integer.parseInt(str.substring(7, str.length())));
+        } else {
+            String result = "";
+            try {
+                result = tasks.addToList(s);
+            } catch (DukeMissingArgumentException | DukeInvalidArgumentException e) {
+                System.out.println(e.toString());
+            }
+            return result;
         }
     }
 

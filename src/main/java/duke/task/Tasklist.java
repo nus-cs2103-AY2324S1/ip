@@ -20,13 +20,13 @@ public class Tasklist {
     /**
      * The actual list storing the tasks.
      */
-    private ArrayList<Task> todoList;
+    private ArrayList<Task> tasks;
 
     /**
      * Initializes an empty task list.
      */
     public Tasklist() {
-        this.todoList = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -34,14 +34,13 @@ public class Tasklist {
      *
      * @param i Index of the task in the list.
      */
-    public void mark(int i) {
-        if (i > todoList.size() || i <= 0) {
-            System.out.println("Please mark something in the list");
-            return;
+    public String mark(int i) {
+        if (i > tasks.size() || i <= 0) {
+            return "Please mark something in the list";
         }
-        todoList.get(i - 1).mark();
-        Task t = todoList.get(i - 1);
-        Ui.mark(t);
+        tasks.get(i - 1).mark();
+        Task t = tasks.get(i - 1);
+        return Ui.mark(t);
     }
 
     /**
@@ -49,14 +48,13 @@ public class Tasklist {
      *
      * @param i Index of the task in the list.
      */
-    public void unmark(int i) {
-        if (i > todoList.size() || i <= 0) {
-            System.out.println("Please unmark something in the list");
-            return;
+    public String unmark(int i) {
+        if (i > tasks.size() || i <= 0) {
+            return "Please unmark something in the list";
         }
-        todoList.get(i - 1).unmark();
-        Task t = todoList.get(i - 1);
-        Ui.unmark(t);
+        tasks.get(i - 1).unmark();
+        Task t = tasks.get(i - 1);
+        return Ui.unmark(t);
     }
 
     /**
@@ -66,7 +64,7 @@ public class Tasklist {
      * @throws DukeMissingArgumentException If the required arguments for a task are missing.
      * @throws DukeInvalidArgumentException  If the provided arguments for a task are invalid.
      */
-    public void addToList(String s) throws DukeMissingArgumentException, DukeInvalidArgumentException {
+    public String addToList(String s) throws DukeMissingArgumentException, DukeInvalidArgumentException {
         StringBuilder str = new StringBuilder(s);
         String cmd = Parser.parseCommand(s);
         Task task = null;
@@ -78,7 +76,7 @@ public class Tasklist {
                 throw new DukeMissingArgumentException();
             } else {
                 Todo t = new Todo(str.substring(5, str.length()).toString());
-                todoList.add(t);
+                tasks.add(t);
                 task = t;
             }
         } else if (cmd.equals("deadline")) {
@@ -91,13 +89,12 @@ public class Tasklist {
                     String[] arr = t.split("/by ");
                     LocalDateTime deadline = LocalDateTime.parse(arr[1], formatter);
                     Deadline d = new Deadline(arr[0], deadline);
-                    todoList.add(d);
+                    tasks.add(d);
                     task = d;
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeMissingArgumentException();
                 } catch (DateTimeParseException e) {
-                    System.out.println("Please enter the start/end time in the format of <DD/MM/YY HH:MM>!");
-                    return;
+                    return "Please enter the start/end time in the format of <DD/MM/YY HH:MM>!";
                 }
             }
         } else if (cmd.equals("event")) {
@@ -112,23 +109,21 @@ public class Tasklist {
                     LocalDateTime startTime = LocalDateTime.parse(times[0], formatter);
                     LocalDateTime endTime = LocalDateTime.parse(times[1], formatter);
                     if (startTime.isAfter(endTime)) {
-                        System.out.println("End time must be after the start time!");
-                        return;
+                        return "End time must be after the start time!";
                     }
                     Event e = new Event(arr[0], startTime, endTime);
-                    todoList.add(e);
+                    tasks.add(e);
                     task = e;
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeMissingArgumentException();
                 } catch (DateTimeParseException e) {
-                    System.out.println("Please enter the start/end time in the format of <DD/MM/YY HH:MM>!");
-                    return;
+                    return "Please enter the start/end time in the format of <DD/MM/YY HH:MM>!";
                 }
             }
         } else {
             throw new DukeInvalidArgumentException();
         }
-        Ui.add(task, todoList.size());
+        return Ui.add(task, tasks.size());
     }
 
     /**
@@ -136,25 +131,26 @@ public class Tasklist {
      *
      * @param i Index of the task to delete.
      */
-    public void delete(int i) {
-        if (i > todoList.size() || i <= 0) {
-            System.out.println("Please delete something in the list");
-            return;
+    public String delete(int i) {
+        if (i > tasks.size() || i <= 0) {
+            return "Please delete something in the list";
         }
-        Task t = todoList.get(i - 1);
-        todoList.remove(i - 1);
-        Ui.delete(t, todoList.size());
+        Task t = tasks.get(i - 1);
+        tasks.remove(i - 1);
+        return Ui.delete(t, tasks.size());
     }
 
 
     /**
      * Prints all tasks in the list to the console.
      */
-    public void printList() {
-        for (int i = 1; i <= this.todoList.size(); ++i) {
-            Task t =  this.todoList.get(i - 1);
-            System.out.println(i + ". " + t.toString());
+    public String printList() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 1; i <= this.tasks.size(); ++i) {
+            Task t =  this.tasks.get(i - 1);
+            stringBuilder.append(i + ". " + t.toString() + "\n");
         }
+        return stringBuilder.toString();
     }
 
     /**
@@ -164,7 +160,7 @@ public class Tasklist {
      * @throws IOException If an error occurs during writing.
      */
     public void saveList(BufferedWriter bw) throws IOException {
-        for (Task task : this.todoList) {
+        for (Task task : this.tasks) {
             bw.write(task.stringifyTask());
             bw.newLine();
         }
@@ -173,7 +169,7 @@ public class Tasklist {
     public String find(String arg) {
         StringBuilder s = new StringBuilder();
         int i = 1;
-        for (Task task : this.todoList) {
+        for (Task task : this.tasks) {
             if (task.find(arg)) {
                 s.append(i++);
                 s.append(". ");
@@ -194,7 +190,7 @@ public class Tasklist {
     public String toString() {
         StringBuilder s = new StringBuilder();
         int i = 1;
-        for (Task task : this.todoList) {
+        for (Task task : this.tasks) {
             s.append(i++);
             s.append(". ");
             s.append(task.toString());
