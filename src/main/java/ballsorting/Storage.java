@@ -1,10 +1,16 @@
 package ballsorting;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.Scanner;
+
+/**
+ * Encapsulates the storage of the TaskList after user exits the chatbot,
+ * and the initialisation of the TaskList on startup.
+ */
 public class Storage {
     private File tmpDir;
 

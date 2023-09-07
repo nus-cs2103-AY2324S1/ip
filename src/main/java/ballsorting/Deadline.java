@@ -1,6 +1,9 @@
 package ballsorting;
 import java.time.LocalDateTime;
 
+/**
+ * Encapsulates a Deadline with a by date.
+ */
 public class Deadline extends Task {
     private LocalDateTime end;
 

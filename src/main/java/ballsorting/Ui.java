@@ -1,5 +1,10 @@
 package ballsorting;
+
 import java.util.Scanner;
+
+/**
+ * Handles interactions with the user.
+ */
 public class Ui {
     private Scanner sc;
     /**

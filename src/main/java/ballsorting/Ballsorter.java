@@ -3,10 +3,18 @@ import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
+/**
+ * Main class of the chatbot.
+ */
 public class Ballsorter {
+    //CHECKSTYLE.OFF: VisibilityModifier
+    //CHECKSTYLE.OFF: StaticVariableName
     static String LINE = "____________________________________________________________";
+    //CHECKSTYLE.ON: StaticVariableName
     static DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     static DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM, HH:mm");
+    //CHECKSTYLE.ON: VisibilityModifier
     private TaskList taskList = new TaskList();
     private Storage storage;
     private Ui ui;

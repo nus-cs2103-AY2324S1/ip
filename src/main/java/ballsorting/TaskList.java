@@ -1,6 +1,9 @@
 package ballsorting;
 import java.util.ArrayList;
 
+/**
+ * Encapsulates a list of Tasks entered by the user.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
@@ -110,6 +113,11 @@ public class TaskList {
         }
         return store.toString();
     }
+
+    /**
+     * Prints the list of tasks matching the search input.
+     * @param searchString search input the user keys in
+     */
     public void printSearchList(String searchString) {
         ArrayList<Task> searchList = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
