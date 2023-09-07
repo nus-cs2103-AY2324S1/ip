@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +17,7 @@ public class Duke {
     /**
      * Constructs a new Duke chatbot instance with a specified file path for data storage.
      *
-     * @param filePath The file path to load and save task data.
+     * @param filePath The file path to load and save duke.task data.
      */
     public Duke(String filePath) {
         ui = new Ui();
@@ -34,7 +38,6 @@ public class Duke {
     public void run() {
         ui.showWelcomeMessage();
         String command = ui.readCommand();
-//        ui.showLine();
         while (!Parser.isExitCommand(command)) {
             try {
                 Parser.parseCommand(command, filePath, tasks);

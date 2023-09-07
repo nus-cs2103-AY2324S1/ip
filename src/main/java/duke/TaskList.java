@@ -1,14 +1,18 @@
+package duke;
+
+import duke.task.Task;
+
 import java.util.List;
 
 /**
- * The TaskList class represents a collection of tasks.
+ * The duke.TaskList class represents a collection of tasks.
  * It provides methods for adding, deleting, and accessing tasks within the list.
  */
 public class TaskList {
     private List<Task> tasks;
 
     /**
-     * Constructs a new TaskList with a given list of tasks.
+     * Constructs a new duke.TaskList with a given list of tasks.
      *
      * @param tasks The initial list of tasks.
      */
@@ -16,26 +20,27 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+
     /**
-     * Adds a task to the TaskList.
+     * Adds a duke.task to the duke.TaskList.
      *
-     * @param task The task to be added.
+     * @param task The duke.task to be added.
      */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
     /**
-     * Deletes a task from the TaskList based on its index.
+     * Deletes a duke.task from the duke.TaskList based on its index.
      *
-     * @param taskIndex The index of the task to be deleted.
+     * @param taskIndex The index of the duke.task to be deleted.
      */
     public void deleteTask(int taskIndex) {
         tasks.remove(taskIndex);
     }
 
     /**
-     * Retrieves the list of tasks stored in the TaskList.
+     * Retrieves the list of tasks stored in the duke.TaskList.
      *
      * @return A List containing the tasks.
      */
@@ -44,10 +49,10 @@ public class TaskList {
     }
 
     /**
-     * Retrieves a specific task from the TaskList based on its index.
+     * Retrieves a specific duke.task from the duke.TaskList based on its index.
      *
-     * @param taskIndex The index of the task to retrieve.
-     * @return The task at the specified index.
+     * @param taskIndex The index of the duke.task to retrieve.
+     * @return The duke.task at the specified index.
      */
     public Task getTaskItem(int taskIndex) {
         return tasks.get(taskIndex);
@@ -63,9 +68,9 @@ public class TaskList {
     }
 
     /**
-     * Gets the number of tasks in the TaskList.
+     * Gets the number of tasks in the duke.TaskList.
      *
-     * @return The number of tasks in the TaskList.
+     * @return The number of tasks in the duke.TaskList.
      */
     public int getSize() {
         return tasks.size();
