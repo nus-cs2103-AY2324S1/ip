@@ -2,23 +2,8 @@ package duke;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+
 import java.util.Scanner;
-
-import duke.task.Task;
-
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.scene.layout.Region;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 
 /**
@@ -33,7 +18,9 @@ public class Duke {
     private static Path filePath = Paths.get(".", "data", "duke.txt"); // ./data/duke.txt
 
     public String getResponse(String input) {
-        return ("Duke heard: " + input);
+        Parser parser = new Parser(ui, tasks);
+        String response = parser.parse(input);
+        return response;
     }
     /**
      * Constructor to start the program.
@@ -57,6 +44,10 @@ public class Duke {
             input = scanner.nextLine();
             parser.parse(input);
         }
+        updateTaskList();
+    }
+
+    public void updateTaskList() {
         storage.updateTaskList();
     }
 

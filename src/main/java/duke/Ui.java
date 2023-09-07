@@ -15,11 +15,16 @@ public class Ui {
         System.out.println(line + "\n    Hello, I'm your task manager :)\n    What can I do for you?\n" + line);
     }
 
+    public String initialResponse() {
+        return "Hello, I'm your task manager :)\n    What can I do for you?";
+    }
+
     /**
      * Displays a goodbye message to the user.
      */
-    public void bye() {
+    public String bye() {
         System.out.println("    Bye. Hope to see you again soon!");
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -32,7 +37,8 @@ public class Ui {
     /**
      * Displays an error message.
      */
-    public void printErrorMessage() {
+    public String printErrorMessage() {
         System.out.println("    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        return "OOPS!!! I'm sorry, but I don't know what that means :-(";
     }
 }

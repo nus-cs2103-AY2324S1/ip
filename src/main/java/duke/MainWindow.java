@@ -2,6 +2,7 @@ package duke;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -25,13 +26,21 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+
+
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String initialResponse = "Hello, I'm your task manager :)\nWhat can I do for you?";
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(initialResponse, dukeImage));
     }
 
     public void setDuke(Duke d) {
         duke = d;
+    }
+
+    public void getExitMessage() {
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog("Bye. Hope to see you again soon!", dukeImage));
     }
 
     /**
@@ -46,6 +55,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
+
         userInput.clear();
     }
 }

@@ -31,18 +31,21 @@ public class TaskList {
      *
      * @param input User input.
      */
-    public void showList(String[] input) {
+    public String showList(String[] input) {
         try {
             if (!(input.length == 1 || input[1].strip().equals(""))) {
                 throw new DukeException("    Did you mean list?");
             }
             System.out.println("    Here are the tasks in your list:");
+            String output = "Here are the tasks in your list:\n";
             for (int i = 0; i < taskList.size(); i++) {
-                System.out.println(String.format("    %d.%s",
-                        i + 1, taskList.get(i).toString()));
+                System.out.println(String.format("    %d.%s", i + 1, taskList.get(i).toString()));
+                output = output + String.format("    %d.%s", i + 1, taskList.get(i).toString()) + "\n";
             }
+            return output;
         } catch (DukeException e) {
             System.out.println(e.getMessage());
+            return "Did you mean list?";
         }
     }
 
@@ -51,17 +54,20 @@ public class TaskList {
      *
      * @param input User input.
      */
-    public void markTask(String[] input) {
+    public String markTask(String[] input) {
         try {
             int toMark = Integer.parseInt(input[1]);
             Task task = taskList.get(toMark - 1);
             task.markAsDone();
             System.out.println("    Nice! I've marked this task as done:");
             System.out.println(String.format("      %s", task.toString()));
+            return "Nice! I've marked this task as done:\n" + task.toString();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("    Task does not exist.");
+            return "Task does not exist.";
         } catch (NumberFormatException e) {
             System.out.println("    Please enter a number e.g., mark 1");
+            return "Please enter a number e.g., mark 1";
         }
     }
 
@@ -70,17 +76,20 @@ public class TaskList {
      *
      * @param input User input.
      */
-    public void unmarkTask(String[] input) {
+    public String unmarkTask(String[] input) {
         try {
             int toMark = Integer.parseInt(input[1]);
             Task task = taskList.get(toMark - 1);
             task.markAsUndone();
             System.out.println("    OK, I've marked this task as not done yet:");
             System.out.println(String.format("      %s", task.toString()));
+            return "OK, I've marked this task as not done yet:\n" + task.toString();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("    Task does not exist.");
+            return "Task does not exist.";
         } catch (NumberFormatException e) {
             System.out.println("    Please enter a number e.g., unmark 1");
+            return "Please enter a number e.g., unmark 1";
         }
     }
 
@@ -89,18 +98,22 @@ public class TaskList {
      *
      * @param input User input.
      */
-    public void deleteTask(String[] input) {
+    public String deleteTask(String[] input) {
         try {
             int toDelete = Integer.parseInt(input[1]);
             Task task = taskList.get(toDelete - 1);
+            String output = task.toString();
             System.out.println("    Noted. I've removed this task:");
-            System.out.println(String.format("      %s", task.toString()));
+            System.out.println(String.format("      %s", output));
             taskList.remove(toDelete - 1);
             System.out.println("    Number of tasks: " + taskList.size());
+            return "Noted. I've removed this task:\n" + output + "\n" + "Number of tasks: " + taskList.size();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("    Task does not exist.");
+            return "Task does not exist.";
         } catch (NumberFormatException e) {
             System.out.println("    Please enter a number e.g., delete 1");
+            return "Please enter a number e.g., delete 1";
         }
     }
 
@@ -109,7 +122,7 @@ public class TaskList {
      *
      * @param input User input.
      */
-    public void addEvent(String[] input) {
+    public String addEvent(String[] input) {
         try {
             String[] s1 = input[1].split("/from", 2);
             String[] s2 = s1[1].split("/to", 2);
@@ -124,12 +137,16 @@ public class TaskList {
             System.out.println("    Got it. I've added this task:");
             System.out.println("      " + e.toString());
             System.out.println("    Number of tasks: " + taskList.size());
+            return "Got it. I've added this task:\n" + e.toString() + "\n" + "Number of tasks: " + taskList.size();
         } catch (DukeException e) {
             System.out.println(e.getMessage());
+            return e.getMessage();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("    Format: event description /from yyyy-mm-dd /to yyyy-mm-dd");
+            return "Format: event description /from yyyy-mm-dd /to yyyy-mm-dd";
         } catch (DateTimeParseException e) {
             System.out.println("    Enter valid date yyyy-mm-dd");
+            return "Enter valid date yyyy-mm-dd";
         }
     }
 
@@ -138,7 +155,7 @@ public class TaskList {
      *
      * @param input User input.
      */
-    public void addDeadline(String[] input) {
+    public String addDeadline(String[] input) {
         try {
             String[] s = input[1].split("/by", 2);
             String desc = s[0].strip();
@@ -151,12 +168,16 @@ public class TaskList {
             System.out.println("    Got it. I've added this task:");
             System.out.println("      " + d.toString());
             System.out.println("    Number of tasks: " + taskList.size());
+            return "Got it. I've added this task:\n" + d.toString() + "\n" + "Number of tasks: " + taskList.size();
         } catch (DukeException e) {
             System.out.println(e.getMessage());
+            return e.getMessage();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("    Format: deadline description /by yyyy-mm-dd");
+            return "Format: deadline description /by yyyy-mm-dd";
         } catch (DateTimeParseException e) {
             System.out.println("    Enter valid date yyyy-mm-dd");
+            return "Enter valid date yyyy-mm-dd";
         }
     }
 
@@ -165,7 +186,7 @@ public class TaskList {
      *
      * @param input User input.
      */
-    public void addToDo(String[] input) {
+    public String addToDo(String[] input) {
         try {
             String desc = input[1];
             if (desc.strip().equals("")) {
@@ -176,10 +197,13 @@ public class TaskList {
             System.out.println("    Got it. I've added this task:");
             System.out.println("      " + t.toString());
             System.out.println("    Number of tasks: " + taskList.size());
+            return "Got it. I've added this task:\n" + t.toString() + "\n" + "Number of tasks: " + taskList.size();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("    ☹ OOPS!!! The description of a todo cannot be empty.");
+            return "OOPS!!! The description of a todo cannot be empty.";
         } catch (DukeException e) {
             System.out.println(e.getMessage());
+            return "OOPS!!! The description of a todo cannot be empty.";
         }
     }
 
@@ -188,26 +212,30 @@ public class TaskList {
      *
      * @param input User input.
      */
-    public void findTasks(String[] input) {
+    public String findTasks(String[] input) {
         try {
             String keyword = input[1];
             if (keyword.strip().equals("")) {
                 throw new DukeException("    What do you want me to find?");
             }
-
+            String output = "Here are the matching tasks in your list:\n";
             System.out.println("    Here are the matching tasks in your list:");
             int counter = 1;
             for (int i = 0; i < taskList.size(); i++) {
                 String s = taskList.get(i).toString();
                 if (s.contains(keyword)) {
                     System.out.println(String.format("    %d.%s", counter, s));
+                    output = output + String.format("    %d.%s", counter, s) + "\n";
                     counter++;
                 }
             }
+            return output;
         } catch (IndexOutOfBoundsException e) {
             System.out.println("    What do you want me to find?");
+            return "What do you want me to find?";
         } catch (DukeException e) {
             System.out.println(e.getMessage());
+            return "What do you want me to find?";
         }
     }
 }
