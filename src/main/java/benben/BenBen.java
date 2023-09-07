@@ -34,7 +34,7 @@ public class BenBen {
      * @param str the string command from the user
      * @throws BenBenException when  the command from the user is of the wrong format
      */
-    public void todo(String str) throws BenBenException{
+    public String todo(String str) throws BenBenException{
         String[] strSplit = str.split("\\s+");
         String des = "";
         for (int i =  1; i < strSplit.length; i++) {
@@ -49,7 +49,7 @@ public class BenBen {
         Task t = new Todo(des);
         tasks.add(t);
         storage.write(tasks);
-        ui.showAdd(t.toString(), tasks.size());
+        return ui.showAdd(t.toString(), tasks.size());
     }
 
     /**
@@ -58,7 +58,7 @@ public class BenBen {
      * @param str the string command from the user
      * @throws BenBenException when  the command from the user is of the wrong format
      */
-    public void deadline(String str) throws BenBenException{
+    public String deadline(String str) throws BenBenException{
         String[] strSplit = str.split("\\s+");
         String des = "";
         String ddl = "";
@@ -85,7 +85,7 @@ public class BenBen {
         Task t = new Deadline(des, ddl);
         tasks.add(t);
         storage.write(tasks);
-        ui.showAdd(t.toString(), tasks.size());
+        return ui.showAdd(t.toString(), tasks.size());
     }
 
     /**
@@ -94,7 +94,7 @@ public class BenBen {
      * @param str the string command from the user
      * @throws BenBenException when  the command from the user is of the wrong format
      */
-    public void event (String str) throws BenBenException{
+    public String event (String str) throws BenBenException{
         String[] strSplit = str.split("\\s+");
         String des = "";
         String start = "";
@@ -131,15 +131,15 @@ public class BenBen {
 
         Task t = new Event(des, start, end);
         tasks.add(t);
-        ui.showAdd(t.toString(), tasks.size());
         storage.write(tasks);
+        return ui.showAdd(t.toString(), tasks.size());
     }
 
     /**
      * Iterates the list and prints out the tasks currently in the task list and their status
      */
-    public void iterList() {
-        ui.showList(tasks);
+    public String iterList() {
+        return ui.showList(tasks);
     }
 
     /**
@@ -148,7 +148,7 @@ public class BenBen {
      * @param str the string command from the suer
      * @throws BenBenException if the command is not of the required format or if the target task does not exist
      */
-    public void mark(String str) throws BenBenException{
+    public String mark(String str) throws BenBenException{
         String[] strSplit = str.split("\\s+");
         if (strSplit.length < 2) {
             throw new BenBenException("Please enter a task to mark!");
@@ -162,8 +162,8 @@ public class BenBen {
         try {
             x = Integer.parseInt(strSplit[1]);
             tasks.get(x - 1).mark();
-            ui.showMark(tasks.get(x - 1).toString());
             storage.write(tasks);
+            return ui.showMark(tasks.get(x - 1).toString());
         } catch(NumberFormatException e) {
             throw new BenBenException("Please use an integer value to indicate your task!");
         } catch(NullPointerException e) {
@@ -177,7 +177,7 @@ public class BenBen {
      * @param str the string command from the suer
      * @throws BenBenException if the command is not of the required format or if the target task does not exist
      */
-    public void unmark(String str) throws BenBenException{
+    public String unmark(String str) throws BenBenException{
 
         String[] strSplit = str.split("\\s+");
 
@@ -192,8 +192,8 @@ public class BenBen {
         try {
             x = Integer.parseInt(strSplit[1]);
             tasks.get(x - 1).unmark();
-            ui.showUnmark(tasks.get(x - 1).toString());
             storage.write(tasks);
+            return ui.showUnmark(tasks.get(x - 1).toString());
         } catch (NumberFormatException e) {
             throw new BenBenException("Please use an integer value to indicate your task!");
         } catch (NullPointerException e) {
@@ -207,7 +207,7 @@ public class BenBen {
      * @param str the string command from the user
      * @throws BenBenException if the command is not of the required format or if the target task does not exist
      */
-    public void remove(String str) throws BenBenException {
+    public String remove(String str) throws BenBenException {
         String[] strSplit = str.split("\\s+");
 
         if (strSplit.length < 2) {
@@ -223,9 +223,8 @@ public class BenBen {
 
             Task temp = tasks.get(x - 1);
             tasks.remove(x - 1);
-
-            ui.showRemove(temp.toString(), tasks.size());
             storage.write(tasks);
+            return ui.showRemove(temp.toString(), tasks.size());
         } catch (NumberFormatException e) {
             throw new BenBenException("Please use an integer value to indicate your task!");
         } catch (NullPointerException | IndexOutOfBoundsException e) {
@@ -234,9 +233,12 @@ public class BenBen {
     }
 
     /**
-     * Exits the program
+     * Finds the task with the keyword
+     *
+     * @param str the string command from the user
+     * @throws BenBenException if the command is not of the required format
      */
-    public void find(String str) throws BenBenException{
+    public String find(String str) throws BenBenException{
         String[] strSplit = str.split("\\s+");
 
         if (strSplit.length < 2) {
@@ -253,38 +255,25 @@ public class BenBen {
                 relevantTasks.add(t);
             }
         }
-        ui.showMatching(relevantTasks);
-    }
-
-    public void exit() {
-        ui.showExit();
-        System.exit(0);
+        return ui.showMatching(relevantTasks);
     }
 
     /**
-     * Starts the chatbot
+     * Exits the program
      */
-    public void run() {
-        ui.showWelcome();
-        Scanner sc = new Scanner(System.in);
-        while (sc.hasNext()) {
-            try {
-                String next = sc.nextLine();
-                Parser.parse(this, next);
-            } catch (BenBenException e) {
-                ui.show(e.toString());
-            }
+    public String exit() {
+        return ui.showExit();
+    }
+
+
+    public String getResponse(String input) {
+        try {
+            return Parser.parse(this, input);
+        } catch (BenBenException e) {
+            return e.toString();
         }
+
     }
 
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     * @throws BenBenException if there is any error and prints teh error message
-     */
-    public static void main(String[] args) throws BenBenException {
-        new BenBen("./src/main/java/tasks.txt").run();
-    }
 }
 

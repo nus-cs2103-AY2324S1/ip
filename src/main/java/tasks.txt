@@ -1,4 +1,4 @@
 D | 0 | ip | 2023-08-31
 E | 1 | meeting | 2023-09-01 10:00 | 2023-09-01 12:00
-T | 0 | eat vitamins
-T | 0 | eat fruits
+T | 1 | eat fruits
+T | 0 | CS2103T tutorial

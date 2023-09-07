@@ -8,87 +8,65 @@ public class Ui {
     public Ui() {
     }
 
-    public void show(String message) {
-        System.out.println(LINE);
-        System.out.println(message);
-        System.out.print(LINE);
+    public String show(String message) {
+        return message;
     }
 
-    public void showExit() {
-        System.out.println(LINE);
-        System.out.println("Bye. Hope to see you again soon!\n" + LINE);
+    public String showExit() {
+        return "Bye. Hope to see you again soon!\n";
     }
 
-    public void showLoadingError() {
-        System.out.println(LINE);
-        System.out.println("An error occurred while we are loading your task list! A new list has been generated!");
-        System.out.print(LINE);
+    public String showLoadingError() {
+        return "An error occurred while we are loading your task list! A new list has been generated!";
     }
 
-    public void showWelcome() {
-        System.out.println(LINE);
-        System.out.println("Hello! I'm BenBen.\n" +
-                "What can I do for you?");
-        System.out.println(LINE);
+    public String showWelcome() {
+        return "Hello! I'm BenBen.\n" + "What can I do for you?";
     }
 
-    public void showAdd(String msg, int size) {
-        System.out.println(LINE);
-        System.out.println("Got it. I've added this task:\n");
-        System.out.println(msg);
-        System.out.println("Now you have " + size + " tasks in the list.");
-        System.out.println(LINE);
+    public String showAdd(String msg, int size) {
+        return "Got it. I've added this task:\n" + msg + "\n"
+                + "Now you have " + size + " tasks in the list.";
     }
 
-    public void showRemove(String msg, int size) {
-        System.out.println(LINE);
-        System.out.println("Noted. I've removed this task:\n");
-        System.out.println(msg);
-        System.out.println("Now you have " + size + " tasks in the list.");
-        System.out.println(LINE);
+    public String showRemove(String msg, int size) {
+        return "Noted. I've removed this task:\n" + msg + "\n"
+                + "Now you have " + size + " tasks in the list.";
     }
 
-    public void showUnmark(String msg) {
-        System.out.println(LINE);
-        System.out.println("OK, I've marked this task as not done yet:\n" +
-                "    " + msg);
-        System.out.println(LINE);
+    public String showUnmark(String msg) {
+        return "OK, I've marked this task as not done yet:\n" + "    " + msg;
     }
 
-    public void showMark(String msg) {
-        System.out.println(LINE);
-        System.out.println("OK, I've marked this task as not done yet:\n" +
-                "    " + msg);
-        System.out.println(LINE);
+    public String showMark(String msg) {
+        return "OK, I've marked this task as not done yet:\n" + "    " + msg;
     }
 
-    public void showList(TaskList tasks) {
+    public String showList(TaskList tasks) {
         if (tasks.size() == 0) {
-            System.out.println(LINE);
-            System.out.println("Your list is currently empty! Add a new task now!");
-            System.out.println(LINE);
+            return "Your list is currently empty! Add a new task now!";
         } else {
-            System.out.println(LINE);
-            System.out.println("Here are the tasks in your list:");
+            StringBuilder sb = new StringBuilder("Here are the tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i).toString());
+                sb.append("\n");
+                sb.append((i + 1) + "." + tasks.get(i).toString());
+
             }
-            System.out.println(LINE);
+            return sb.toString();
         }
     }
 
-    public void showMatching(ArrayList<Task> tasks) {
+    public String showMatching(ArrayList<Task> tasks) {
         if (tasks.size() == 0) {
-            System.out.println(line);
-            System.out.println("There is no matching tasks! Try another keyword?");
-            System.out.println(line);
+            return "There is no matching tasks! Try another keyword?";
         } else {
-            System.out.println(line);
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.println((i + 1) + "." + tasks.get(i).toString());
+                sb.append("/n");
+                sb.append((i + 1) + "." + tasks.get(i).toString());
             }
-            System.out.println(line);
+            return sb.toString();
         }
     }
 }

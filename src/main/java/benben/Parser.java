@@ -13,63 +13,49 @@ public class Parser {
      * @param next the command
      * @throws BenBenException if the command cannot be recognised
      */
-    public static void parse(BenBen bb, String next) throws BenBenException{
-        boolean isParsed = false;
+    public static String parse(BenBen bb, String next) throws BenBenException {
 
-        if (!isParsed && next.equals("bye")) {
-            bb.exit();
-            isParsed = true;
+        if (next.equals("bye")) {
+            return bb.exit();
         }
 
-        if (!isParsed && next.equals("list")) {
-            bb.iterList();
-            isParsed = true;
+        if (next.equals("list")) {
+            return bb.iterList();
         }
 
-        if (!isParsed && next.startsWith("mark")) {
-            bb.mark(next);
-            isParsed = true;
+        if (next.startsWith("mark")) {
+            return bb.mark(next);
         }
 
-        if (!isParsed && next.startsWith("unmark")) {
-            bb.unmark(next);
-            isParsed = true;
+        if (next.startsWith("unmark")) {
+            return bb.unmark(next);
         }
 
-        if (!isParsed && next.startsWith("todo")) {
-            bb.todo(next);
-            isParsed = true;
+        if (next.startsWith("todo")) {
+            return bb.todo(next);
         }
 
-        if (!isParsed && next.startsWith("deadline")) {
-            bb.deadline(next);
-            isParsed = true;
+        if (next.startsWith("deadline")) {
+            return bb.deadline(next);
         }
 
-        if (!isParsed && next.startsWith("event")) {
-            bb.event(next);
-            isParsed = true;
+        if (next.startsWith("event")) {
+            return bb.event(next);
         }
 
-        if (!isParsed && next.startsWith("delete")) {
-            bb.remove(next);
-            isParsed = true;
+        if (next.startsWith("delete")) {
+            return bb.remove(next);
         }
 
-        if (!isParsed && next.startsWith("find")) {
-            bb.find(next);
-            isParsed = true;
+        if (next.startsWith("find")) {
+            return bb.find(next);
         }
 
-        if (!isParsed && next.startsWith("exit")) {
-            bb.exit();
-            isParsed = true;
+        if (next.startsWith("exit")) {
+            return bb.exit();
         }
 
-        if (!isParsed) {
-            throw new BenBenException("bb does not understand your instruction:(");
-        }
-
+            throw new BenBenException("BenBen does not understand your instruction:(");
     }
 
 }
