@@ -2,7 +2,7 @@ package puke.task;
 
 import java.time.LocalDateTime;
 
-import puke.PukeException;
+import puke.managers.PukeException;
 
 /**
  * A Task class that has a deadline attached to it.

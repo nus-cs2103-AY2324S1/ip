@@ -1,6 +1,6 @@
 package puke.task;
 
-import puke.PukeException;
+import puke.managers.PukeException;
 
 /**
  * A Task class that does not have a specific time attached to it.

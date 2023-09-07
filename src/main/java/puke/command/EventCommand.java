@@ -1,9 +1,8 @@
 package puke.command;
 
-import puke.DataHandler;
-import puke.PukeException;
-import puke.TaskList;
-import puke.Ui;
+import puke.managers.DataHandler;
+import puke.managers.PukeException;
+import puke.managers.TaskList;
 import puke.task.Event;
 
 /**
@@ -26,18 +25,28 @@ public class EventCommand extends Command {
      * If the command is in the wrong format, prints an error message instead.
      *
      * @param tl The task list.
-     * @param ui The UI.
+     * @return the message String.
      */
-    public void execute(TaskList tl, Ui ui) {
+    public String execute(TaskList tl) {
         try {
             tl.add(new Event(this.rest));
-            System.out.println(ui.event(tl));
-            System.out.println(Ui.separator());
             DataHandler.writeToDatabase(tl);
+            return generateMessage(tl);
         } catch (Exception PukeException) {
-            System.out.println(Ui.errorMessage());
-            System.out.println(Ui.separator());
+            return ERROR_MESSAGE;
         }
+    }
+
+    private String generateMessage(TaskList tl) throws PukeException {
+        return "Understood. I have hereby created a task known to require participation for a set period of time "
+                + "alongside this stipulated duration that you have indicated and inserted it into "
+                + "the overall collection of these tasks that require action.\n"
+                + "Here is a display of the added deadline task: "
+                + tl.get(tl.size() - 1)
+                + "\n"
+                + "You now, in total, have "
+                + tl.size()
+                + " of these tasks recorded within said collection.";
     }
 
     /**

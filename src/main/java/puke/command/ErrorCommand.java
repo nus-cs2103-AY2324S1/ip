@@ -1,7 +1,6 @@
 package puke.command;
 
-import puke.TaskList;
-import puke.Ui;
+import puke.managers.TaskList;
 
 /**
  * A Command class that when executed, prints the error message.
@@ -16,11 +15,10 @@ public class ErrorCommand extends Command {
      * Executes the command by printing out the corresponding message.
      *
      * @param tl The task list.
-     * @param ui The UI.
+     * @return the message String.
      */
-    public void execute(TaskList tl, Ui ui) {
-        System.out.println(Ui.errorMessage());
-        System.out.println(Ui.separator());
+    public String execute(TaskList tl) {
+        return ERROR_MESSAGE;
     }
 
     /**

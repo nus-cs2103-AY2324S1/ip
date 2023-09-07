@@ -1,8 +1,7 @@
 package puke.command;
 
-import puke.DataHandler;
-import puke.TaskList;
-import puke.Ui;
+import puke.managers.DataHandler;
+import puke.managers.TaskList;
 import puke.task.Task;
 
 
@@ -26,18 +25,28 @@ public class DeleteCommand extends Command {
      * If the command is invalid due to the index being out of bounds, prints an error message instead.
      *
      * @param tl The task list.
-     * @param ui The UI.
+     * @return the message String.
      */
-    public void execute(TaskList tl, Ui ui) {
+    public String execute(TaskList tl) {
         try {
             Task hold = tl.delete(this.index);
-            System.out.println(ui.delete(hold, tl));
-            System.out.println(Ui.separator());
             DataHandler.writeToDatabase(tl);
+            return generateMessage(hold, tl);
         } catch (Exception PukeException) {
-            System.out.println(Ui.errorMessage());
-            System.out.println(Ui.separator());
+            return ERROR_MESSAGE;
         }
+    }
+
+    private String generateMessage(Task task, TaskList tl) {
+        return "I have acknowledged your request to have the task allocated to the specific index at which "
+                + "you have mentioned removed from the collection of all\n"
+                + "such tasks, colloquially known as your To Do list.\n"
+                + "The task in question that has been deleted is: "
+                + task
+                + "\n"
+                + "As of this current moment, there are a total of "
+                + tl.size()
+                + " occurrences of tasks in your list.";
     }
 
     /**

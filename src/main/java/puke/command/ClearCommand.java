@@ -1,8 +1,7 @@
 package puke.command;
 
-import puke.DataHandler;
-import puke.TaskList;
-import puke.Ui;
+import puke.managers.DataHandler;
+import puke.managers.TaskList;
 
 /**
  * A Command class that when executed, clears the task list.
@@ -13,26 +12,27 @@ public class ClearCommand extends Command {
     }
 
     /**
-     * Executes the command by printing out the corresponding message.
+     * Executes the command by returning the corresponding message.
      * If the command is invalid, an error message is printed instead.
      *
      * @param tl The task list.
-     * @param ui The UI.
+     * @return The message for clearing all tasks.
      */
-    public void execute(TaskList tl, Ui ui) {
+    public String execute(TaskList tl) {
         if (!super.isValid) {
-            System.out.println(Ui.errorMessage());
-            System.out.println(Ui.separator());
+            return ERROR_MESSAGE;
         } else {
             try {
                 tl.clear();
                 DataHandler.clearAll();
-                System.out.println(ui.clear());
-                System.out.println(Ui.separator());
+                return "Well I certainly hope you had meant to do that because I am not going too ask for your "
+                        + "confirmation. As per the aforementioned instructions, I shall now purge all of the tasks "
+                        + "that you have previously recorded and designated as requiring attention.";
             } catch (Exception e) {
                 tl.clear();
-                System.out.println(ui.clear());
-                System.out.println(Ui.separator());
+                return "Well I certainly hope you had meant to do that because I am not going too ask for your "
+                        + "confirmation. As per the aforementioned instructions, I shall now purge all of the tasks "
+                        + "that you have previously recorded and designated as requiring attention.";
             }
         }
     }

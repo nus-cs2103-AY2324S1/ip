@@ -1,8 +1,7 @@
 package puke.command;
 
-import puke.DataHandler;
-import puke.TaskList;
-import puke.Ui;
+import puke.managers.DataHandler;
+import puke.managers.TaskList;
 
 /**
  * A Command class that when executed, prints the message to mark a task as complete.
@@ -24,18 +23,21 @@ public class MarkCommand extends Command {
      * If the command is in the wrong format or an index is out of bounds, prints an error message instead.
      *
      * @param tl The task list.
-     * @param ui The UI.
+     * @return the message String.
      */
-    public void execute(TaskList tl, Ui ui) {
+    public String execute(TaskList tl) {
         try {
             tl.mark(this.index);
-            System.out.println(ui.mark(this.index));
-            System.out.println(Ui.separator());
             DataHandler.writeToDatabase(tl);
+            return generateMessage();
         } catch (Exception PukeException) {
-            System.out.println(Ui.errorMessage());
-            System.out.println(Ui.separator());
+            return ERROR_MESSAGE;
         }
+    }
+    private String generateMessage() {
+        return "I have been made aware of your desire to indicate that the task numbered "
+                + index
+                + " has been since been achieved as of the time at which you have stipulated as so.";
     }
 
     /**

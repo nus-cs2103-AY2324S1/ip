@@ -1,4 +1,4 @@
-package puke;
+package puke.managers;
 
 import java.util.ArrayList;
 
@@ -10,11 +10,11 @@ import puke.task.Task;
 public class TaskList {
     private final ArrayList<Task> list;
 
-    TaskList() {
+    public TaskList() {
         this.list = new ArrayList<Task>(100);
     }
 
-    TaskList(ArrayList<Task> list) {
+    public TaskList(ArrayList<Task> list) {
         this.list = list;
     }
 
@@ -32,7 +32,7 @@ public class TaskList {
         return sb.toString();
     }
 
-    Task get(int index) throws PukeException {
+    public Task get(int index) throws PukeException {
         try {
             return list.get(index);
         } catch (Exception e) {
@@ -108,7 +108,7 @@ public class TaskList {
         }
     }
 
-    int size() {
+    public int size() {
         return list.size();
     }
 

@@ -1,4 +1,4 @@
-package puke;
+package puke.managers;
 
 import puke.command.ClearCommand;
 import puke.command.Command;
@@ -13,8 +13,10 @@ import puke.command.MarkCommand;
 import puke.command.TodoCommand;
 import puke.command.UnmarkCommand;
 
-
-class Parser {
+/**
+ * A class that takes in input and parses it to return a command.
+ */
+public class Parser {
     /**
      * Parses the command string as input from the UI and returns its corresponding command
      *
@@ -30,21 +32,21 @@ class Parser {
             } else if (command.equals("list")) {
                 return new ListCommand(line);
             } else if (command.equals("mark")) {
-                return new MarkCommand(line.substring(1));
+                return new MarkCommand(line);
             } else if (command.equals("unmark")) {
-                return new UnmarkCommand(line.substring(1));
+                return new UnmarkCommand(line);
             } else if (command.equals("todo")) {
-                return new TodoCommand(line.substring(1));
+                return new TodoCommand(line);
             } else if (command.equals("deadline")) {
-                return new DeadlineCommand(line.substring(1));
+                return new DeadlineCommand(line);
             } else if (command.equals("event")) {
-                return new EventCommand(line.substring(1));
+                return new EventCommand(line);
             } else if (command.equals("delete")) {
-                return new DeleteCommand(line.substring(1));
+                return new DeleteCommand(line);
             } else if (command.equals("clearall")) {
                 return new ClearCommand(line);
             } else if (command.equals("find")) {
-                return new FindCommand(line.substring(1));
+                return new FindCommand(line);
             } else {
                 return new ErrorCommand();
             }

@@ -1,6 +1,6 @@
 package puke.task;
 
-import puke.PukeException;
+import puke.managers.PukeException;
 
 /**
  * A class that represents an action that has to be tracked and carried out at a specified or unspecified time.

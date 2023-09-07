@@ -1,4 +1,4 @@
-package puke;
+package puke.managers;
 
 /**
  * An exception class that represents any invalid formatting encountered by Puke.
