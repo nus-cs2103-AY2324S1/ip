@@ -30,7 +30,7 @@ test {
 }
 
 application {
-    mainClass.set("duke.core.Duke")
+    mainClass.set("duke.core.Launcher")
 }
 
 shadowJar {
