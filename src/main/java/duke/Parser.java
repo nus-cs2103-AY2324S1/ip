@@ -97,47 +97,49 @@ public class Parser {
      * @param taskList ArrayList that stores the tasks loaded from memory
      * @param storage Storage that can be written to or read from
      */
-    public static void parse(String input, Ui ui, TaskList taskList, Storage storage) {
+    public static String parse(String input, Ui ui, TaskList taskList, Storage storage) {
         // Splits the input based on whitespaces.
         String command = input.split("\\s+")[0];
+        String message = "";
         int choice = -1;
         switch (command) {
         case "list":
-            ui.listTask(taskList);
+            message = ui.listTask(taskList);
             break;
         case "mark":
             choice = Integer.parseInt(input.split("\\s+")[1]);
             taskList.mark(choice);
-            ui.displayMarkTask(taskList, choice);
+            message = ui.displayMarkTask(taskList, choice);
             break;
         case "unmark":
             choice = Integer.parseInt(input.split("\\s+")[1]);
             taskList.unmark(choice);
-            ui.displayUnmarkTask(taskList, choice);
+            message = ui.displayUnmarkTask(taskList, choice);
             break;
         case "delete":
             choice = Integer.parseInt(input.split("\\s+")[1]);
             Task removedTask = taskList.delete(choice);
-            ui.displayDeleteTask(removedTask, taskList);
+            message = ui.displayDeleteTask(removedTask, taskList);
             break;
         case "find":
             String word = input.split("\\s+")[1];
             ArrayList<Task> matchingList = taskList.find(word);
-            ui.displayMatchingTask(matchingList);
+            message = ui.displayMatchingTask(matchingList);
             break;
         default:
             Task task = null;
             try {
                 task = createTask(input);
             } catch (Exception e) {
-                ui.showExceptionError(e);
+                message = ui.showExceptionError(e);
             }
             if (task != null) {
                 taskList.add(task);
-                ui.displayAddTask(task, taskList);
+                message = ui.displayAddTask(task, taskList);
             }
         }
         storage.updateTasks(taskList);
+        return message;
     }
 
 }
