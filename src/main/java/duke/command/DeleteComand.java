@@ -8,6 +8,10 @@ import duke.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
 
+/**
+ * The DeleteCommand class represents a command to delete a task.
+ * It is a subclass of the Command class.
+ */
 public class DeleteComand extends Command {
 
     /**
