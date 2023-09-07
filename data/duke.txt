@@ -1,3 +1,0 @@
-T | 0 | read 5 books
-D | 1 | write 10 reviews | 2023-12-12
-E | 0 | sleep | 12am | 12pm

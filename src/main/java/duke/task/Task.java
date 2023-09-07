@@ -31,4 +31,14 @@ public class Task {
     }
 
     public boolean isDone() {return this.done;}
+
+    public boolean isFound(String keyword) {
+        String[] words = this.description.split(" ");
+        for (String parts : words) {
+            if (keyword.equals(parts)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
