@@ -4,7 +4,7 @@ package Duke.Tasks;
  * The Task class represents a basic task with a description and completion status.
  */
 public class Task {
-    private Boolean done = false;
+    private Boolean isDone = false;
 
     private String task;
 
@@ -13,7 +13,7 @@ public class Task {
     }
 
     public void markDone() {
-        done = true;
+        isDone = true;
     }
 
     /**
@@ -29,15 +29,15 @@ public class Task {
 
 
     public void markUndone() {
-        done = false;
+        isDone = false;
     }
 
     protected boolean isDone() {
-        return done;
+        return isDone;
     }
 
     public String toString() {
-        if (done) {
+        if (isDone) {
             return "[X] " + "| " + task;
         } else {
             return "[ ] " +"| " + task;
