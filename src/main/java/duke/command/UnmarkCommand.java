@@ -18,6 +18,7 @@ public class UnmarkCommand extends Command {
      */
     public UnmarkCommand(int taskNum) {
         super(CommandType.UNMARK);
+        this.taskNum = taskNum;
     }
 
     /**
