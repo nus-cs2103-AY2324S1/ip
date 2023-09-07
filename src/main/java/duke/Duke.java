@@ -177,6 +177,7 @@ public class Duke extends Application {
         return ui.getLastMsg();
     }
 
+    /*
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -196,6 +197,7 @@ public class Duke extends Application {
             }
         }
     }
+     */
 
     public static class DialogBox extends HBox {
 
