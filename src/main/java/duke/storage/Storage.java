@@ -67,9 +67,7 @@ public class Storage {
                 directory.mkdir();
             }
             File taskFile = new File(filePath);
-            if (taskFile.createNewFile()) {
-                //new file created
-            } else {
+            if (!taskFile.createNewFile()) {
                 tasks = getTasks();
             }
 

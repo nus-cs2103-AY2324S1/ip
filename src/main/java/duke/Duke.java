@@ -67,7 +67,7 @@ public class Duke {
                     Ui.exitReply();
                     return;
                 default:
-                    Ui.illegalArgumentExceptionReply();
+                    break;
                 }
             } catch (InvalidTaskIndexException e) {
                 Ui.invalidTaskIndexExceptionReply(tasks);
@@ -79,6 +79,8 @@ public class Duke {
                 Ui.invalidDateTimeExceptionReply();
             } catch (InvalidKeywordException e) {
                 Ui.invalidKeywordExceptionReply();
+            } catch (IllegalArgumentException e) {
+                Ui.illegalArgumentExceptionReply();
             } finally {
                 storage.updateStorage(tasks);
                 if (isRunning) {
