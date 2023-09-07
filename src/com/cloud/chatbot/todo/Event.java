@@ -8,6 +8,11 @@ package com.cloud.chatbot.todo;
 public class Event extends Deadline {
     private String timestampStart;
 
+    /**
+     * @param description The TODO description.
+     * @param start The starting timestamp for the TODO.
+     * @param end The ending timestamp for the TODO.
+     */
     public Event(String _description, String start, String end) {
         super(_description, end);
 

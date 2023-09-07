@@ -10,6 +10,9 @@ public class Todo {
 
     private String description;
 
+    /**
+     * @param description The TODO description.
+     */
     public Todo(String _description) {
         this.description = _description;
     }

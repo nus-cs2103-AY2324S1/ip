@@ -18,6 +18,9 @@ public final class Token {
 
     private int nextSpaces = 0;
 
+    /**
+     * @param _token The word this token represents.
+     */
     public Token(String _token) {
         this.token = _token;
     }

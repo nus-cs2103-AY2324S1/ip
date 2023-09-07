@@ -21,6 +21,9 @@ public class CommandManager extends TokenManager {
     // Index by flag text instead of Token for faster retrieval
     private HashMap<String, FlagManager> flagSets = new HashMap<>();
 
+    /**
+     * @param input The full instance of user input.
+     */
     public CommandManager(String input) {
         this.tokens = TokenManager.stringToTokens(input);
 

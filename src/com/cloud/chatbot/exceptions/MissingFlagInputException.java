@@ -10,6 +10,9 @@ import com.cloud.chatbot.token.FlagManager;
 public class MissingFlagInputException extends MissingInputException {
     private FlagManager manager;
 
+    /**
+     * @param _manager The FlagManager that threw this exception.
+     */
     public MissingFlagInputException(FlagManager _manager) {
         this.manager = _manager;
     }
