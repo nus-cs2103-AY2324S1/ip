@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * A chatbot named Bert that keeps track of a task list.
@@ -120,7 +122,8 @@ public class Bert {
             throw new BertEmptyTaskException();
         }
         String[] inputs = substring.split(" /by ");
-        Deadline t = new Deadline(inputs[0], inputs[1]);
+        LocalDate ld = LocalDate.parse(inputs[1]);
+        Deadline t = new Deadline(inputs[0], ld);
         al.add(t);
         System.out.println(
                 "____________________________________________________________\n" +
@@ -143,7 +146,9 @@ public class Bert {
         }
         String[] descriptionAndTimes = substring.split(" /from ");
         String[] times = descriptionAndTimes[1].split(" /to ");
-        Event t = new Event(descriptionAndTimes[0], times[0], times[1]);
+        LocalDate ld1 = LocalDate.parse(times[0]);
+        LocalDate ld2 = LocalDate.parse(times[1]);
+        Event t = new Event(descriptionAndTimes[0], ld1, ld2);
         al.add(t);
         System.out.println(
                 "____________________________________________________________\n" +
