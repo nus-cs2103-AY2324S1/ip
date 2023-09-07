@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 /**
  * DialogBox Controller.
@@ -70,6 +71,7 @@ public class DialogBox extends HBox {
         DialogBox db = new DialogBox(text, img);
         db.setStyle("-fx-background-color: #E0E0E0");
         db.flip();
+        db.dialog.setTextAlignment(TextAlignment.LEFT);
         return db;
     }
 
@@ -86,6 +88,7 @@ public class DialogBox extends HBox {
         db.setStyle("-fx-background-color: #E0E0E0");
         db.dialog.setFill(Color.valueOf(color));
         db.flip();
+        db.dialog.setTextAlignment(TextAlignment.LEFT);
         return db;
     }
 }

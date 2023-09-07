@@ -7,7 +7,7 @@
 
 <fx:root alignment="TOP_RIGHT" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <Text fx:id="dialog" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="300.0">
+      <Text fx:id="dialog" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="RIGHT" wrappingWidth="300.0">
          <HBox.margin>
             <Insets left="10.0" right="10.0" />
          </HBox.margin>
