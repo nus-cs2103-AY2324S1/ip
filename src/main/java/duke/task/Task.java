@@ -25,7 +25,7 @@ public class Task {
      * @return "X" if the task is done, or a space " " if the task is not done.
      */
     public String getStatusIcon() {
-        return isDone ? "X" : " ";
+        return this.isDone ? "X" : " ";
     }
 
     /**
@@ -49,7 +49,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "]";
+        return "[" + this.getStatusIcon() + "]";
     }
 
     /**
@@ -58,7 +58,7 @@ public class Task {
      * @return A formatted string containing task type, status, and description.
      */
     public String toFileString() {
-        return String.format("%s | %d | %s", getTaskType(), isDone ? 1 : 0, description);
+        return String.format("%s | %d | %s", this.getTaskType(), this.isDone ? 1 : 0, this.description);
     }
 
     /**

@@ -29,7 +29,7 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " " + getDescriptionDetails();
+        return "[D]" + super.toString() + " " + this.getDescriptionDetails();
     }
 
     /**
@@ -40,8 +40,8 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("%s | %d | %s (by: %s)", getTaskType(), isDone ? 1 : 0, description,
-                byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        return String.format("%s | %d | %s (by: %s)", getTaskType(), this.isDone ? 1 : 0, this.description,
+                this.byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
 
     /**
@@ -60,6 +60,6 @@ public class DeadlineTask extends Task {
      * @return The deadline task name together with the by date.
      */
     private String getDescriptionDetails() {
-        return description + " (by: " + byDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return this.description + " (by: " + this.byDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

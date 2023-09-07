@@ -19,11 +19,4 @@ public enum TaskType {
      * Represents an EVENT task type.
      */
     EVENT;
-
-    /**
-     * Default constructor for the TaskType enum.
-     * This constructor is private as the enum constants do not require initialization.
-     */
-    private TaskType() {
-    }
 }

@@ -29,7 +29,7 @@ public class EventTask extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " " + getDescriptionDetails();
+        return "[E]" + super.toString() + " " + this.getDescriptionDetails();
     }
 
     /**
@@ -40,8 +40,8 @@ public class EventTask extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("%s | %d | %s (at: %s)", getTaskType(), isDone ? 1 : 0, description,
-                atDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        return String.format("%s | %d | %s (at: %s)", getTaskType(), this.isDone ? 1 : 0, this.description,
+                this.atDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
 
     /**
@@ -60,6 +60,6 @@ public class EventTask extends Task {
      * @return The event task name together with the at date.
      */
     private String getDescriptionDetails() {
-        return description + " (at: " + atDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return this.description + " (at: " + this.atDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

@@ -32,7 +32,7 @@ public class TodoTask extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString() + " " + getDescriptionDetails();
+        return "[T]" + super.toString() + " " + this.getDescriptionDetails();
     }
 
     /**
@@ -43,9 +43,9 @@ public class TodoTask extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("%s | %d | %s (from: %s to: %s)", getTaskType(), isDone ? 1 : 0, description,
-                fromDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        return String.format("%s | %d | %s (from: %s to: %s)", getTaskType(), this.isDone ? 1 : 0, this.description,
+                this.fromDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                this.toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
 
     /**
@@ -64,7 +64,7 @@ public class TodoTask extends Task {
      * @return The to-do task name together with the from and to dates.
      */
     private String getDescriptionDetails() {
-        return description + " (from: " + fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) +
-                " to: " + toDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return this.description + " (from: " + this.fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) +
+                " to: " + this.toDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

@@ -3,7 +3,6 @@ package duke.task;
 import duke.command.DukeException;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The TaskList class represents a list of tasks in the Duke application.
@@ -11,13 +10,12 @@ import java.util.List;
  */
 public class TaskList {
     private ArrayList<Task> tasks;
-    private String filePath = "./src/main/java/duke.txt";
 
     /**
      * Constructs an empty TaskList.
      */
     public TaskList() {
-        tasks = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -35,7 +33,7 @@ public class TaskList {
      * @param task The task to add.
      */
     public void addTask(Task task) {
-        tasks.add(task);
+        this.tasks.add(task);
     }
 
     /**
@@ -46,9 +44,10 @@ public class TaskList {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        if (!tasks.isEmpty()) {
-            for (int i = 0; i < tasks.size(); i++) {
-                sb.append(" ").append(i + 1).append(".").append(tasks.get(i));
+
+        if (!this.tasks.isEmpty()) {
+            for (int i = 0; i < this.tasks.size(); i++) {
+                sb.append(" ").append(i + 1).append(".").append(this.tasks.get(i));
                 sb.append("\n");
             }
         }
@@ -56,12 +55,12 @@ public class TaskList {
     }
 
     /**
-     * Returns a list of all tasks in the TaskList.
+     * Returns an ArrayList of all tasks in the TaskList.
      *
-     * @return A List of all tasks.
+     * @return An ArrayList of all tasks.
      */
-    public List<Task> getAllTasks() {
-        return tasks;
+    public ArrayList<Task> getAllTasks() {
+        return this.tasks;
     }
 
     /**
@@ -70,7 +69,7 @@ public class TaskList {
      * @return The total number of tasks.
      */
     public int getTotalTasks() {
-        return tasks.size();
+        return this.tasks.size();
     }
 
     /**
@@ -80,11 +79,10 @@ public class TaskList {
      * @return The task at the specified index, or null if the index is out of bounds.
      */
     public Task getTask(int index) {
-        if (index >= 0 && index < tasks.size()) {
-            return tasks.get(index);
-        } else {
-            return null;
+        if (index >= 0 && index < this.tasks.size()) {
+            return this.tasks.get(index);
         }
+        return null;
     }
 
     /**
@@ -94,8 +92,8 @@ public class TaskList {
      * @throws DukeException If there is an error marking the task as done.
      */
     public void markAsDone(int taskIndex) throws DukeException {
-        if (taskIndex >= 0 && taskIndex < tasks.size()) {
-            tasks.get(taskIndex).markAsDone();
+        if (taskIndex >= 0 && taskIndex < this.tasks.size()) {
+            this.tasks.get(taskIndex).markAsDone();
         } else {
             throw new DukeException("Invalid task index.");
         }
@@ -108,8 +106,8 @@ public class TaskList {
      * @throws DukeException If there is an error marking the task as not done.
      */
     public void markAsNotDone(int taskIndex) throws DukeException {
-        if (taskIndex >= 0 && taskIndex < tasks.size()) {
-            tasks.get(taskIndex).markAsNotDone();
+        if (taskIndex >= 0 && taskIndex < this.tasks.size()) {
+            this.tasks.get(taskIndex).markAsNotDone();
         } else {
             throw new DukeException("Invalid task index.");
         }
@@ -123,12 +121,11 @@ public class TaskList {
      * @throws DukeException If there is an error deleting the task.
      */
     public Task deleteTask(int taskIndex) throws DukeException {
-        if (taskIndex >= 0 && taskIndex < tasks.size()) {
-            Task deletedTask = tasks.remove(taskIndex);
+        if (taskIndex >= 0 && taskIndex < this.tasks.size()) {
+            Task deletedTask = this.tasks.remove(taskIndex);
             return deletedTask;
         } else {
             throw new DukeException("Invalid task index.");
         }
     }
-
 }
