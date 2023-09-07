@@ -13,5 +13,5 @@ src/main/resources/docs/
 *.iml
 bin/
 
-/text-Duke.ui-test/ACTUAL.TXT
-text-Duke.ui-test/EXPECTED-UNIX.TXT
+/text-duke.ui.Duke.ui-test/ACTUAL.TXT
+text-duke.ui.Duke.ui-test/EXPECTED-UNIX.TXT

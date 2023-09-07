@@ -34,15 +34,17 @@ public class Task {
      * Sets isDone to true or false depending on user input
      * @param action string mark or unmark
      */
-    public void setAction(String action){
+    public String setAction(String action){
+        String result = "";
         if(action.equals("mark")){
             this.isDone = true;
-            System.out.println("Nice! I've marked this task as done:");
+            result = "Nice! I've marked this task as done:\n";
         } else if(action.equals("unmark")){
             this.isDone = false;
-            System.out.println("OK, I've marked this task as not done yet:");
+            result = "OK, I've marked this task as not done yet:\n";
         }
-        System.out.println("  " + this);
+        result += "  " + this;
+        return result;
     }
 
     /***

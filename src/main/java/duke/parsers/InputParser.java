@@ -16,7 +16,11 @@ import java.util.Scanner;
 
 public class InputParser {
 
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks;
+
+    public InputParser(ArrayList<Task> existingTasks){
+        tasks = existingTasks;
+    }
 
     /***
      * Checks user inputs, if invalid throws DukeException
@@ -60,18 +64,19 @@ public class InputParser {
      * @return truw if user has not exited, false if user has exited chatbot
      */
 
-    public static boolean parse(String input, boolean toStore) {
+    public String parse(String input, boolean toStore) {
         String[] splitStr = input.trim().split("\\s+");
+        String reply = "";
 
         if (input.equals("bye")) {
-            return false;
+            reply = "See you Soon";
         }
-        //list out each task from Duke.tasks ArrayList
+        //list out each task from duke.ui.Duke.tasks ArrayList
         else if (input.equals("list")) {
-            System.out.println("  Here are the tasks in your list:");
+            reply += "  Here are the tasks in your list:\n";
             for (int i = 0; i < Task.getSize(); i++) {
                 int index = i + 1;
-                System.out.println("  " + index + "." + tasks.get(i).toString());
+                reply += "  " + index + "." + tasks.get(i).toString() + "\n";
             }
         }
         //create Todo object
@@ -80,11 +85,12 @@ public class InputParser {
                 inputChecker(splitStr, "todo");
                 Todo t = new Todo(input.substring(5));
                 tasks.add(t);
+                reply += t.addedMessage();
                 if (toStore){
                     Storage.saveTasks(tasks);
                 };
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
+                reply += e.getMessage();
             }
         }
         //create deadline object, splitting the due date by "/" and stripping off the by:
@@ -96,11 +102,12 @@ public class InputParser {
 
                 Deadline d = new Deadline(deadlineArr[0].substring(9), deadline);
                 tasks.add(d);
+                reply += d.addedMessage();
                 if (toStore){
                     Storage.saveTasks(tasks);
                 };
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
+                reply += e.getMessage();
             }
         }
         //create event object, splitting the due date by "/" and stripping off the to: and from:
@@ -115,11 +122,12 @@ public class InputParser {
 
                 Event e = new Event(input.substring(6, startIndex), from, to);
                 tasks.add(e);
+                reply += e.addedMessage();
                 if (toStore){
                     Storage.saveTasks(tasks);
                 };
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
+                reply += e.getMessage();
             }
         }
 
@@ -136,16 +144,16 @@ public class InputParser {
                     }
                 }
                 if (foundTasks.size() >0){
-                    System.out.println("Here are the matching tasks in your list:");
+                    reply += "Here are the matching tasks in your list:\n";
                     for (int i = 0; i < foundTasks.size(); i++) {
                         int index = i + 1;
-                        System.out.println("  " + index + "." + foundTasks.get(i).toString());
+                        reply += "  " + index + "." + foundTasks.get(i).toString() + "\n";
                     }
                 } else{
-                    System.out.println("No tasks called " + toFind + " found");
+                    reply += "No tasks called " + toFind + " found\n" ;
                 }
             } catch (DukeException e){
-                System.out.println(e.getMessage());
+                reply += e.getMessage();
             }
         }
 
@@ -155,15 +163,15 @@ public class InputParser {
                 inputChecker(splitStr, "mark/unmark");
                 int index = Integer.parseInt(splitStr[1]);
                 Task item = tasks.get(index - 1);
-                item.setAction(splitStr[0]);
+                reply += item.setAction(splitStr[0]);
                 if (toStore){  Storage.saveTasks(tasks); };
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
+                reply += e.getMessage();
             }
 
         }
 
-        //delete task from Duke.tasks ArrayList
+        //delete task from duke.ui.Duke.tasks ArrayList
         else if (splitStr[0].equals("delete")) {
             try {
                 inputChecker(splitStr, "delete");
@@ -174,32 +182,15 @@ public class InputParser {
                     Storage.saveTasks(tasks);
                 };
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
+                reply += e.getMessage();
             }
         }
 
         //unknown command
         else {
-            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            reply += "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n";
         }
-        System.out.println("----------------------------------------");
-        return true;
-    }
 
-
-    /***
-     * Until user types 'bye', will keep calling parse function with user input
-     * @param savedTasks loads existing
-     */
-
-    public static void getUserInputs(ArrayList<Task> savedTasks) {
-        tasks = savedTasks;
-        boolean flag = true;
-        Scanner userInput = new Scanner(System.in);
-
-        while (flag == true) {
-            String input = userInput.nextLine();
-            flag = parse(input,true);
-        }
+        return reply;
     }
 }
