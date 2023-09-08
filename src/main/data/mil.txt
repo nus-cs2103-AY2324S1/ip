@@ -1,2 +1,3 @@
-T | 0 | read a book
-D | 0 | do presentation | Sep 15 2023
+T | 0 | study
+D | 0 | sss | Sep 9 2023
+E | 0 | jhd  | Sep 9 2023 - Feb 12 2023

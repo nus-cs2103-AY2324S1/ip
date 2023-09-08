@@ -42,6 +42,7 @@ public class Storage {
         } catch (IOException e) {
             System.err.println("Error loading tasks: " + e.getMessage());
         }
+
         return taskList;
     }
 

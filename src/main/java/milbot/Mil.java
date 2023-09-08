@@ -20,6 +20,7 @@ public class Mil {
         taskList = storage.loadTasksFromFile();
         parser = new Parser(taskList, ui, storage);
     }
+
     public String getResponse(String input) {
         String response = parser.parseInput(input);
         assert response != null: "The response should not be null.";

@@ -1,6 +1,8 @@
 package milbot;
 
 import taskclasses.Task;
+import taskclasses.Deadline;
+import taskclasses.Event;
 
 /**
  * Ui class handles user interface-related functionalities.
@@ -119,12 +121,15 @@ public class Ui {
         if (taskList.getSize() == 0) {
             return "There is no task matched to your query";
         }
+
         String searchResult = "Here are the matching tasks in your list:\n";
         int i = 1;
+
         for (Task task : taskList.getTaskList()) {
             searchResult += String.format("%d.%s \n", i, task.toString());
             i++;
         }
+
         return searchResult;
     }
 }
