@@ -105,7 +105,9 @@ public class Parser {
      *
      * @return True if the user input starts with "find ", indicating an event command; false otherwise.
      */
-    public boolean find() { return userInput.startsWith("find ");}
+    public boolean find() {
+        return userInput.startsWith("find ");
+    }
 
 
     /**

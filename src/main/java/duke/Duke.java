@@ -15,11 +15,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
-
-
-
-
-
 /**
  * The Duke class represents a task management application that allows users to interact with tasks.
  * It provides methods to manage tasks, mark them as done, and perform various operations on tasks.
@@ -32,7 +27,6 @@ public class Duke extends Application {
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
-    private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
@@ -166,20 +160,6 @@ public class Duke extends Application {
         }
         ui.goodbye();
         parser.goodbye();
-    }
-
-    /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
-    private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
     }
 
     /**

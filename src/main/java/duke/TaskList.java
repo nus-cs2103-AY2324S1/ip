@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class TaskList {
     static File taskList;
     static int taskCount = 0;
+    static ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Constructs a TaskList instance with the specified file containing task data.
@@ -24,7 +25,6 @@ public class TaskList {
      */
     public TaskList(File file) throws FileNotFoundException {
         taskList = file;
-//        taskList.deleteOnExit();
     }
 
     /**
@@ -34,7 +34,6 @@ public class TaskList {
         taskList = new File("./src/main/data/tasklist.txt");
         taskList.deleteOnExit();
     }
-    static ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Prints the contents of the task list.
@@ -116,10 +115,10 @@ public class TaskList {
                 throw new DukeException("Error: Invalid Task Index!");
             } else {
                 int remainingTasks = taskCount - 1;
-                String response = Ui.line + "Got it! I've removed this task:" +
-                        "\n" + tasks.get(taskIndex).toString() +
-                        "\n" + "You now have " + remainingTasks +
-                        " task(s) in the list" + "\n" + Ui.line;
+                String response = Ui.line + "Got it! I've removed this task:"
+                        + "\n" + tasks.get(taskIndex).toString()
+                        + "\n" + "You now have " + remainingTasks
+                        + " task(s) in the list" + "\n" + Ui.line;
                 tasks.remove(taskIndex);
                 if (taskCount > 0) {
                     taskCount--;
@@ -176,8 +175,8 @@ public class TaskList {
 
     public void addToList(Task task, int taskId) {
         int numTasks = taskCount + 1;
-        String response = Ui.line + "Got it! I've added this task:" +
-                "\n" + task.toString() + "\n"
+        String response = Ui.line + "Got it! I've added this task:"
+                + "\n" + task.toString() + "\n"
                 + "You now have " + numTasks
                 + " task(s) in the list" + "\n" + Ui.line;
         tasks.add(taskId, task);
