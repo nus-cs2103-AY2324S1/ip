@@ -62,6 +62,10 @@ public class Storage extends JukeObject {
             }
         }
 
+        // the file and directory should exist if execution reaches here
+        assert Files.exists(Storage.FILE_PATH);
+        assert Files.exists(Storage.DIRECTORY_PATH);
+
         return new Storage();
     }
 

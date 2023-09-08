@@ -30,17 +30,18 @@ public class TaskList extends JukeObject {
     /**
      * {@code Storage} instance in charge of storing, retrieving and modifying data.
      */
-    private final Storage storageManager;
+    private final Storage storage;
 
     /**
      * Creates an instance of {@code TaskList} that initialises the tasks within
      * this {@code TaskList}.
      *
+     * @param storage The storage object that manages any I/O operations on the datafile
      * @throws JukeStorageException if there is are any issues with retrieving data from the datafile
      */
-    private TaskList(Storage storageManager) {
-        this.storageManager = storageManager;
-        this.tasks = new LinkedList<>(storageManager.read());
+    private TaskList(Storage storage) {
+        this.storage = storage;
+        this.tasks = new LinkedList<>(storage.read());
     }
 
     /**
@@ -61,10 +62,12 @@ public class TaskList extends JukeObject {
      * @throws JukeStorageException if there is are any issues with retrieving data from the datafile
      */
     public boolean addTask(JukeTask task) {
+        int lengthOfTasks = this.tasks.size();
         boolean isSuccess = this.tasks.add(task);
 
         if (isSuccess) {
-            this.storageManager.write(this.tasks);
+            assert this.tasks.size() == lengthOfTasks + 1;
+            this.storage.write(this.tasks);
         }
 
         return isSuccess;
@@ -81,9 +84,11 @@ public class TaskList extends JukeObject {
     public JukeTask deleteTask(int task) {
         try {
             JukeTask returnedTask = this.tasks.get(task);
+            int lengthOfTasks = this.tasks.size();
 
             if (this.tasks.remove(returnedTask)) {
-                this.storageManager.write(this.tasks);
+                assert this.tasks.size() == lengthOfTasks - 1;
+                this.storage.write(this.tasks);
             }
 
             return returnedTask;
@@ -106,7 +111,7 @@ public class TaskList extends JukeObject {
         }
 
         this.tasks.get(index).setAsComplete();
-        this.storageManager.write(this.tasks);
+        this.storage.write(this.tasks);
     }
 
     /**
@@ -123,7 +128,7 @@ public class TaskList extends JukeObject {
         }
 
         this.tasks.get(index).setAsIncomplete();
-        this.storageManager.write(this.tasks);
+        this.storage.write(this.tasks);
     }
 
     /**
