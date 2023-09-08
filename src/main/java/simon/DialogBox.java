@@ -2,6 +2,7 @@ package simon;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -22,6 +23,8 @@ public class DialogBox extends HBox {
         displayPicture.setFitHeight(100.0);
 
         this.setAlignment(Pos.TOP_RIGHT);
+        // Add padding to the Label (text)
+        HBox.setMargin(text, new Insets(0, 10, 0, 10));  // 10 units of padding to the sides of the Label
         this.getChildren().addAll(text, displayPicture);
     }
 
