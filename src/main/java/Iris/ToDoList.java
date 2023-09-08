@@ -2,17 +2,36 @@ package Iris;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks in the Iris application.
+ */
 public class ToDoList {
     private final ArrayList<Task> list;
 
+    /**
+     * Constructor for the ToDoList class.
+     *
+     * @param list The initial list of tasks.
+     */
     public ToDoList(ArrayList<Task> list) {
         this.list = list;
     }
 
+    /**
+     * Adds a task to the list.
+     *
+     * @param task The task to be added.
+     */
     public void add(Task task) {
         list.add(task);
     }
 
+    /**
+     * Removes a task from the list by index.
+     *
+     * @param index The index of the task to be removed.
+     * @throws IndexOutOfBoundsException If the index is out of range.
+     */
     public void remove(int index) {
         if (index < 1 || index > list.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range.");
@@ -20,6 +39,13 @@ public class ToDoList {
         list.remove(index - 1);
     }
 
+    /**
+     * Gets a task from the list by index.
+     *
+     * @param index The index of the task to be retrieved.
+     * @return The task at the specified index.
+     * @throws IndexOutOfBoundsException If the index is out of range.
+     */
     public Task get(int index) {
         if (index < 1 || index > list.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range.");
@@ -27,6 +53,12 @@ public class ToDoList {
         return list.get(index - 1);
     }
 
+    /**
+     * Marks a task as done by index.
+     *
+     * @param index The index of the task to be marked as done.
+     * @throws IndexOutOfBoundsException If the index is out of range.
+     */
     public void mark(int index) {
         if (index < 1 || index > list.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range.");
@@ -34,6 +66,12 @@ public class ToDoList {
         list.get(index - 1).markDone();
     }
 
+    /**
+     * Marks a task as undone by index.
+     *
+     * @param index The index of the task to be marked as undone.
+     * @throws IndexOutOfBoundsException If the index is out of range.
+     */
     public void unmark(int index) {
         if (index < 1 || index > list.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range.");
@@ -41,10 +79,23 @@ public class ToDoList {
         list.get(index - 1).markUndone();
     }
 
+    /**
+     * Returns the number of tasks in the list.
+     *
+     * @return The number of tasks in the list.
+     */
     public int size() {
         return list.size();
     }
 
+    /**
+     * Adds a task to the ToDoList based on the command and description provided.
+     *
+     * @param toDoList     The ToDoList to which the task will be added.
+     * @param command      The command indicating the type of task (e.g., "todo").
+     * @param description  The description of the task.
+     * @throws EmptyTaskDescriptorsException If the task description is empty.
+     */
     public static void addTask(ToDoList toDoList, String command, String description)
             throws EmptyTaskDescriptorsException {
         if (description.isEmpty()) {
@@ -73,6 +124,12 @@ public class ToDoList {
         Ui.printLength(toDoList);
     }
 
+    /**
+     * Deletes a task from the ToDoList by index.
+     *
+     * @param toDoList The ToDoList from which the task will be deleted.
+     * @param index    The index of the task to be deleted.
+     */
     public static void deleteTask(ToDoList toDoList, int index) {
         Task task = toDoList.get(index);
         toDoList.remove(index);
@@ -81,6 +138,11 @@ public class ToDoList {
         Ui.printLength(toDoList);
     }
 
+    /**
+     * Overrides the default toString method to provide a custom string representation of the ToDoList.
+     *
+     * @return A formatted string representing the list of tasks.
+     */
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();

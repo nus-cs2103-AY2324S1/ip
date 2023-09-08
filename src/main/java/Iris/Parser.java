@@ -1,7 +1,17 @@
 package Iris;
 
+/**
+ * The class responsible for parsing user commands in the Iris application.
+ */
 public class Parser {
 
+    /**
+     * Parses and executes user commands.
+     *
+     * @param taskStorage The storage object for tasks.
+     * @param toDoList    The to-do list containing tasks.
+     * @param input       The user input command to be parsed.
+     */
     public void parseCommand(Storage taskStorage, ToDoList toDoList, String input) {
         String[] sections = input.split(" ", 2);
         String command = sections[0];

@@ -7,13 +7,26 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The class responsible for loading and saving tasks to a file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructor for the Storage class.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from a file.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     */
     public ArrayList<Task> loadTask() {
         File file = new File(this.filePath);
         ArrayList<Task> toDoList = new ArrayList<Task>();
@@ -40,6 +53,11 @@ public class Storage {
         return toDoList;
     }
 
+    /**
+     * Writes tasks to a file.
+     *
+     * @param toDoList The ToDoList containing tasks to be saved to the file.
+     */
     public void writeTask(ToDoList toDoList) {
         try (FileWriter fileWriter = new FileWriter("iris.txt")) {
             for (int i = 1; i <= toDoList.size(); i++) {
@@ -51,5 +69,4 @@ public class Storage {
                     "Error:" + e.getMessage());
         }
     }
-
 }
