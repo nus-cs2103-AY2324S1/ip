@@ -1,0 +1,5 @@
+TODO | read book
+DEADLINE | return book | June 6th
+EVENT | project meeting | Aug 6th 2pm | 4pm
+TODO | join sports club
+TODO | borrow book
