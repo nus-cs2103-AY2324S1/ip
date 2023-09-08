@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 /**
  * Utility class that provides methods for manipulating Strings.
  */
-public class StringUtils {
+public abstract class StringUtils {
     /**
      * Wraps the given text to the specified length. Text is automatically
      * delimited by the carriage return character.
