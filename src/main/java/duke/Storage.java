@@ -77,7 +77,6 @@ public class Storage {
                 new File(this.savePath).mkdirs();
                 File save = new File(this.savePath);
                 boolean isCreated = save.createNewFile();
-                assert isCreated;
                 return new TaskList();
             } catch (IOException innerE) {
                 throw new Error("Cannot create save file");

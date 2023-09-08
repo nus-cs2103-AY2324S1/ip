@@ -3,7 +3,9 @@ package duke.command;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertLinesMatch;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -22,6 +24,9 @@ public class TodoCommandTest {
     public void todoCorrect(@TempDir Path savePath) throws IOException {
         try {
             Storage storage = new Storage(savePath.resolve("duke.txt").toString());
+            FileWriter writer = new FileWriter(savePath.resolve("duke.txt").toString(), false);
+            writer.write("");
+            writer.close();
             TaskList taskList = storage.load();
             Command c = new TodoCommand("task");
             c.execute(taskList, null, storage);
@@ -35,9 +40,15 @@ public class TodoCommandTest {
     }
 
     @Test
-    public void missingArgument_throwsException() {
-        assertThrows(DukeException.class, () -> {
-            new TodoCommand(null).execute(null, null, null);
-        });
+    public void missingArgument_throwsException(@TempDir Path savePath) {
+        try {
+            Storage storage = new Storage(savePath.resolve("duke.txt").toString());
+            TaskList taskList = storage.load();
+            assertThrows(DukeException.class, () -> {
+                new TodoCommand(null).execute(taskList, null, storage);
+            });
+        } catch (DukeException e) {
+            fail("DukeException Thrown");
+        }
     }
 }

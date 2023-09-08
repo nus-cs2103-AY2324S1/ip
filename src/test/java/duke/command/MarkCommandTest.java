@@ -3,6 +3,7 @@ package duke.command;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertLinesMatch;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -33,22 +34,34 @@ public class MarkCommandTest {
             List<String> lines = List.of("1 todo task", "0 todo task1");
             assertLinesMatch(lines, Files.readAllLines(savePath.resolve("duke.txt")));
         } catch (DukeException ignored) {
-            // Do Nothing
+            fail("DukeException Thrown");
         }
     }
 
     @Test
-    public void withoutArgument_throwsDukeException() {
-        assertThrows(DukeException.class, () -> {
-            new MarkCommand("").execute(null, null, null);
-        });
+    public void withoutArgument_throwsDukeException(@TempDir Path savePath) {
+        try {
+            Storage storage = new Storage(savePath.resolve("duke.txt").toString());
+            TaskList taskList = storage.load();
+            assertThrows(DukeException.class, () -> {
+                new MarkCommand("").execute(taskList, null, storage);
+            });
+        } catch (DukeException e) {
+            fail("DukeException Thrown");
+        }
     }
 
     @Test
-    public void nonNumeric_throwsDukeException() {
-        assertThrows(DukeException.class, () -> {
-            new MarkCommand("notNumber").execute(null, null, null);
-        });
+    public void nonNumeric_throwsDukeException(@TempDir Path savePath) {
+        try {
+            Storage storage = new Storage(savePath.resolve("duke.txt").toString());
+            TaskList taskList = storage.load();
+            assertThrows(DukeException.class, () -> {
+                new MarkCommand("notNumber").execute(taskList, null, storage);
+            });
+        } catch (DukeException e) {
+            fail("DukeException Thrown");
+        }
     }
 
     @Test
@@ -63,7 +76,7 @@ public class MarkCommandTest {
                 new MarkCommand("3").execute(taskList, null, storage);
             });
         } catch (DukeException ignored) {
-            // Do Nothing
+            fail("DukeException Thrown");
         }
     }
 }

@@ -1,7 +1,5 @@
 package duke.command;
 
-import java.util.Objects;
-
 import duke.DukeException;
 import duke.Storage;
 import duke.task.TaskList;
@@ -21,8 +19,8 @@ public interface Command {
      * @throws DukeException if there is error running the command
      */
     default void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
-        Objects.requireNonNull(taskList, "TaskList cannot be null");
-        Objects.requireNonNull(storage, "storage cannot be null");
+        assert taskList != null;
+        assert storage != null;
     }
 
 }

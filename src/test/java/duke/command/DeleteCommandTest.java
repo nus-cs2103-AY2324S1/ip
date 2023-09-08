@@ -3,6 +3,7 @@ package duke.command;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertLinesMatch;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -33,23 +34,35 @@ public class DeleteCommandTest {
 
             List<String> lines = List.of("0 todo task1");
             assertLinesMatch(lines, Files.readAllLines(savePath.resolve("duke.txt")));
-        } catch (DukeException ignored) {
-            // Do Nothing
+        } catch (DukeException e) {
+            fail("DukeException Thrown");
         }
     }
 
     @Test
-    public void withoutArgument_throwsDukeException() {
-        assertThrows(DukeException.class, () -> {
-            new DeleteCommand("").execute(null, null, null);
-        });
+    public void withoutArgument_throwsDukeException(@TempDir Path savePath) {
+        try {
+            Storage storage = new Storage(savePath.resolve("duke.txt").toString());
+            TaskList taskList = storage.load();
+            assertThrows(DukeException.class, () -> {
+                new DeleteCommand("").execute(taskList, null, storage);
+            });
+        } catch (DukeException e) {
+            fail("DukeException Thrown");
+        }
     }
 
     @Test
-    public void nonNumeric_throwsDukeException() {
-        assertThrows(DukeException.class, () -> {
-            new DeleteCommand("notNumber").execute(null, null, null);
-        });
+    public void nonNumeric_throwsDukeException(@TempDir Path savePath) {
+        try {
+            Storage storage = new Storage(savePath.resolve("duke.txt").toString());
+            TaskList taskList = storage.load();
+            assertThrows(DukeException.class, () -> {
+                new DeleteCommand("notNumber").execute(taskList, null, storage);
+            });
+        } catch (DukeException e) {
+            fail("DukeException Thrown");
+        }
     }
 
     @Test
@@ -63,8 +76,8 @@ public class DeleteCommandTest {
             assertThrows(DukeException.class, () -> {
                 new DeleteCommand("3").execute(taskList, null, storage);
             });
-        } catch (DukeException ignored) {
-            // Do Nothing
+        } catch (DukeException e) {
+            fail("DukeException Thrown");
         }
     }
 }
