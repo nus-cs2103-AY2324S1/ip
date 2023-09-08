@@ -3,6 +3,8 @@ package duke.ui;
 import duke.task.Task;
 import duke.task.TaskList;
 
+import java.util.ArrayList;
+
 public class Ui {
     private final String HORIZONTAL_LINE = "    _______________________________________________________________";
     public void printList(TaskList taskList) {
@@ -48,5 +50,18 @@ public class Ui {
 
     public void printError(Exception e) {
         System.out.println("    " + e.getMessage());
+    }
+
+    /**
+     * Prints the matching task to user.
+     *
+     * @param tasks Array contains matching tasks.
+     */
+    public void printMatchingTasks(ArrayList<Task> tasks) {
+        System.out.println("    Here are the matching tasks in your list:");
+        int index = 0;
+        for (Task task: tasks) {
+            System.out.println("    " + (++index) + "." + task.toString());
+        }
     }
 }
