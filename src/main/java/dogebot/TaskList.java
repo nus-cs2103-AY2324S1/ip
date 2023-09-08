@@ -175,4 +175,33 @@ public class TaskList {
         tasks.remove(index);
         updateTasksCounter();
     }
+
+    /**
+     * Retrieves tasks with the input keyword.
+     *
+     * @param s Input keyword.
+     * @throws DogeBotException If input keyword is empty.
+     */
+    public static void find(String s) throws DogeBotException {
+        if (s.isBlank()) {
+            throw new DogeBotException("Oops ! The keyword cannot be empty :(");
+        }
+
+        ArrayList<Task> found = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.hasWord(s)) {
+                found.add(task);
+            }
+        }
+
+        if (found.size() == 0) {
+            System.out.println("Oh nyo, looks like there's no tasks matching that keyword :(");
+        } else {
+            System.out.println("Found it~ Here are your matching tasks:");
+            int i = 1;
+            for (Task task : found) {
+                System.out.println(i++ + ". " + task.toString());
+            }
+        }
+    }
 }

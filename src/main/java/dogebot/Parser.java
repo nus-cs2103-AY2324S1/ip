@@ -46,6 +46,9 @@ public class Parser {
             case "delete":
                 TaskList.delete(sc.nextInt() - 1);
                 break;
+            case "find":
+                TaskList.find(sc.nextLine().trim());
+                break;
             default:
                 System.out.println("Wuff, I'm not sure what that means :(");
                 sc.nextLine(); // absorb remaining words so 'default' block doesn't act up
