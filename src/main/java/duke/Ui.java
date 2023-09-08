@@ -11,16 +11,15 @@ public class Ui {
     /**
      * Displays a greeting message to the user.
      */
-    public static void greet() {
-        System.out.println("Hello! I'm Bot");
-        System.out.println("What can I do for you?");
+    public static String greet() {
+        return "Hello! I'm Bot!\n" + "What can I do for you?";
     }
 
     /**
      * Displays an exit message to the user.
      */
-    public static void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public static String exit() {
+        return "Bye! Hope to see you again soon!";
     }
 
     /**
@@ -28,11 +27,13 @@ public class Ui {
      *
      * @param list The TaskList containing the tasks to be listed.
      */
-    public static void listTasks(TaskList list) {
-        System.out.println("Here are the tasks in your list:");
+    public static String listTasks(TaskList list) {
+        StringBuilder output = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(i + 1 + ". " + list.get(i));
+            String str = i + 1 + ". " + list.get(i) + "\n";
+            output.append(str);
         }
+        return output.toString();
     }
 
     /**
@@ -40,9 +41,8 @@ public class Ui {
      *
      * @param task The task that was added.
      */
-    public static void addTask(Task task) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
+    public static String addTask(Task task) {
+        return "Got it. I've added this task:\n" +  task.toString();
     }
 
     /**
@@ -50,8 +50,8 @@ public class Ui {
      *
      * @param list The list of tasks to be counted.
      */
-    public static void countTasks(ArrayList<Task> list) {
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
+    public static String countTasks(TaskList list) {
+        return "Now you have " + list.size() + " tasks in the list.";
     }
 
     /**
@@ -59,9 +59,8 @@ public class Ui {
      *
      * @param task The task that was marked as done.
      */
-    public static void markAsDone(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
+    public static String markAsDone(Task task) {
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
@@ -69,9 +68,8 @@ public class Ui {
      *
      * @param task The task that was deleted.
      */
-    public static void deleteTask(Task task) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
+    public static String deleteTask(Task task) {
+        return "Noted. I've removed this task:\n" + task;
     }
 
     /**
@@ -79,10 +77,12 @@ public class Ui {
      *
      * @param list The list of matching tasks to be displayed.
      */
-    public static void findTasks(ArrayList<Task> list) {
-        System.out.println("Here are the matching tasks in your list:");
+    public static String findTasks(ArrayList<Task> list) {
+        StringBuilder output = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(i + 1 + ". " + list.get(i));
+            String str = i + 1 + ". " + list.get(i) + "\n";
+            output.append(str);
         }
+        return output.toString();
     }
 }
