@@ -112,7 +112,7 @@ public class Jeeves {
 
                 tasks.setTask(id, null);
                 return "Understood, I have deleted the following task:\n"
-                                + "    " 
+                                + "    "
                                 + tasks.getTask(id).toString()
                                 + "\n";
             } catch (DeletedIdException e) {
@@ -141,7 +141,7 @@ public class Jeeves {
             Event newEvent = new Event(tokens.get(1), tokens.get(2), tokens.get(3));
             tasks.addTaskAtIndex(Task.getTaskCount(), newEvent);
             return "Event added:\n"
-                            + "    " 
+                            + "    "
                             + newEvent
                             + "\n";
         } else if (currentCommand.equals("find")) {
@@ -153,7 +153,7 @@ public class Jeeves {
             // Displays the farewell message and terminates the application
             return "I bid you farewell, Master\n";
         }
-        
+
         // By default, informs the user that the command is not recognized.
         return "Apologies Master, I am unable to understand that command.\n"
                         + "I will improve myself to better serve you in the future.\n";

@@ -3,14 +3,14 @@ package jeeves.ui;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import jeeves.Jeeves;
 
@@ -19,10 +19,10 @@ import jeeves.Jeeves;
  * Ui is responsible for all visual interactions with the user.
  */
 public class Ui extends Application {
-    
-    private static final String MESSAGE_WELCOME = "Greetings, Master. Jeeves at your service\n" 
+
+    private static final String MESSAGE_WELCOME = "Greetings, Master. Jeeves at your service\n"
             + "How may I serve you today?\n";
-    
+
     private final Image jeeves = new Image(this.getClass().getResourceAsStream("/images/jeeves.jpg"));
     private final Image user = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private ScrollPane scrollPane;
@@ -45,16 +45,16 @@ public class Ui extends Application {
         setupUi();
         configureUi(stage);
         configureHandlers();
-        
+
         // Displaying the pre-designed scene and welcome message
         dialogContainer.getChildren().addAll(
                 DialogBox.getJeevesDialog(new Label(MESSAGE_WELCOME), new ImageView(jeeves)));
         scene = new Scene(mainLayout);
-        
+
         stage.setScene(scene);
         stage.show();
     }
-    
+
     private void setupUi() {
         // Setting up the default chat window
         scrollPane = new ScrollPane();
@@ -67,7 +67,7 @@ public class Ui extends Application {
         mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
     }
-    
+
     private void configureUi(Stage stage) {
         // Custom formatting for the window
         stage.setTitle("Jeeves Chatbot");
@@ -98,7 +98,7 @@ public class Ui extends Application {
         AnchorPane.setBottomAnchor(userInput, 1.0);
         AnchorPane.setLeftAnchor(userInput, 1.0);
     }
-    
+
     private void configureHandlers() {
         // Handlers to deal with input and other events
         sendButton.setOnMouseClicked((event) -> {
@@ -112,7 +112,7 @@ public class Ui extends Application {
         dialogContainer.heightProperty().addListener((observable -> scrollPane.setVvalue(1.0)));
 
     }
-    
+
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
         Label jeevesText = new Label(getResponse(userInput.getText()));
@@ -122,7 +122,7 @@ public class Ui extends Application {
         );
         userInput.clear();
     }
-    
+
     private String getResponse(String input) {
         return Jeeves.processInput(input);
     }
