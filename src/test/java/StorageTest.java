@@ -1,7 +1,4 @@
-import duke.DukeException;
-import duke.Storage;
-import duke.TaskList;
-import duke.Todo;
+import duke.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +19,8 @@ public class StorageTest {
 
     @Test
     void testExceptionThrown() throws DukeException {
-        Storage storage = new Storage("data/duke.txt");
+        Duke duke = new Duke("data/duke.txt");
+        Storage storage = new Storage(duke, "data/duke.txt");
         File file = new File("data/duke.txt");
         DukeException exception = assertThrows(DukeException.class, () -> {
             file.delete();

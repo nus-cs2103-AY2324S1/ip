@@ -1,9 +1,16 @@
 package duke;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.FileInputStream;
 
 public class Storage {
-    public Storage(String filePath) throws DukeException {
+
+    protected Duke duke;
+    public Storage(Duke duke, String filePath) throws DukeException {
+        this.duke = duke;
         String[] splitFile = filePath.split("/",2);
         File dir = new File(splitFile[0]);
         boolean dirExists = dir.exists();
@@ -31,7 +38,7 @@ public class Storage {
                     boolean isDone = done.equals('X');
 
                     if (line.startsWith("[T]")) {
-                        Todo todo = new Todo(line.substring(7));
+                        Todo todo = new Todo(duke, line.substring(7));
                         if (isDone) {
                             todo.mark(false);
                         }
@@ -39,7 +46,7 @@ public class Storage {
                     } else if (line.startsWith("[D]")) {
                         int index = line.indexOf("(");
                         int endIndex = line.indexOf(")");
-                        Deadline deadline = new Deadline(line.substring(7, index - 1),
+                        Deadline deadline = new Deadline(duke, line.substring(7, index - 1),
                                 line.substring(index + 5, endIndex));
                         if (isDone) {
                             deadline.mark(false);
@@ -49,7 +56,8 @@ public class Storage {
                         int index = line.indexOf("(");
                         int midIndex = line.indexOf("to:");
                         int endIndex = line.indexOf(")");
-                        Event event = new Event(line.substring(7, index - 1), line.substring(index + 7, midIndex - 1),
+                        Event event = new Event(duke, line.substring(7, index - 1), line.substring(index + 7,
+                                midIndex - 1),
                                 line.substring(midIndex + 4, endIndex));
                         if (isDone) {
                             event.mark(false);

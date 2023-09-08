@@ -2,8 +2,8 @@ package duke;
 
 public class Todo extends Task {
 
-    public Todo(String description) {
-        super(description);
+    public Todo(Duke duke, String description) {
+        super(duke, description);
     }
 
     @Override

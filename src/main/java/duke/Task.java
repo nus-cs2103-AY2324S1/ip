@@ -4,7 +4,10 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    protected Duke duke;
+
+    public Task(Duke duke, String description) {
+        this.duke = duke;
         this.description = description;
         this.isDone = false;
     }
@@ -13,20 +16,23 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public void mark(boolean flag) {
+    public String mark(boolean flag) {
         if (!flag) {
             this.isDone = true;
         } else {
             System.out.println("Nice! I've marked this task as done:\n");
             this.isDone = true;
             System.out.println(this);
+            return "Nice! I've marked this task as done:\n" + this;
         }
+        return "";
     }
 
-    public void unmark() {
+    public String unmark() {
         System.out.println("OK, I've marked this task as not done yet:\n");
         this.isDone = false;
         System.out.println(this);
+        return "OK, I've marked this task as not done yet:\n" + this;
     }
 
     @Override

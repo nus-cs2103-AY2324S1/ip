@@ -7,14 +7,16 @@ public class Event extends Task {
     protected String from;
     protected String to;
 
+    protected Duke duke;
+
     /**
      * Creates a new Event task that is not in LocalDate format.
      * @param description   Description of an event task.
      * @param from  Start date of event task.
      * @param to    End date of event task.
      */
-    public Event(String description, String from, String to) {
-        super(description);
+    public Event(Duke duke, String description, String from, String to) {
+        super(duke, description);
         this.from = from;
         this.to = to;
     }
@@ -25,8 +27,8 @@ public class Event extends Task {
      * @param from  Start date of event task.
      * @param to    End date of event task.
      */
-    public Event(String description, LocalDate from, LocalDate to) {
-        super(description);
+    public Event(Duke duke, String description, LocalDate from, LocalDate to) {
+        super(duke, description);
         this.from = from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         this.to = to.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }

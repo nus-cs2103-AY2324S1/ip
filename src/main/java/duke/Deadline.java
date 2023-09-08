@@ -5,14 +5,15 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     protected String by; //deadline of task
+    protected Duke duke;
 
     /**
      * Creates a new deadline task that is not in LocalDate format.
      * @param description   Description of deadline task.
      * @param by    Deadline of task.
      */
-    public Deadline(String description, String by) {
-        super(description);
+    public Deadline(Duke duke, String description, String by) {
+        super(duke, description);
         this.by = by;
     }
 
@@ -21,8 +22,8 @@ public class Deadline extends Task {
      * @param description   Description of deadline task.
      * @param date  Deadline of task in LocalDate format.
      */
-    public Deadline(String description, LocalDate date) {
-        super(description);
+    public Deadline(Duke duke, String description, LocalDate date) {
+        super(duke, description);
         this.by = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
