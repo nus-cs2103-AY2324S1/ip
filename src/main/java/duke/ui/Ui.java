@@ -84,6 +84,9 @@ public class Ui {
      * @return the list of tasks.
      */
     public String listOfTasks(TaskList tasksList, int count) {
+        if(tasksList.getTaskCount() == 0) {
+            return "You currently have no tasks!";
+        }
         String output = "";
         for (int i = 0; i < count; i++) {
             output += (i + 1) + ". " + tasksList.getTask(i) + "\n";
@@ -108,6 +111,9 @@ public class Ui {
      * @return the tasks found with the specific keyword.
      */
     public String printFoundTasks(TaskList findTasks) {
+        if(findTasks.getTaskCount() == 0) {
+            return "Sorry, there are no tasks with that keyword!";
+        }
         String output = "";
         output += "Here are the matching tasks in your list:\n";
         for (int i = 0; i < findTasks.getTaskCount(); i++) {

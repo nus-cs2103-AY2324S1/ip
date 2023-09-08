@@ -3,6 +3,7 @@ package duke;
 import java.util.Scanner;
 
 import duke.command.Command;
+import duke.command.ExitCommand;
 import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
@@ -68,6 +69,7 @@ public class Duke {
             throw new RuntimeException(e);
         }
     }
+
 
     public static void main(String[] args) {
         Duke duke = new Duke();

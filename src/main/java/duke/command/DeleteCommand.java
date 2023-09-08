@@ -1,6 +1,8 @@
 package duke.command;
 
+import duke.exception.DukeException;
 import duke.storage.Storage;
+import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
@@ -32,10 +34,17 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        if (index >= 0 && index < tasks.getTaskCount()) {
-            tasks.remove(index);
+        if (tasks.getTaskCount() == 0) {
+            return ui.errorPrint(new DukeException("The task list is empty. There are no tasks to delete."));
         }
-        return ui.deletePrint(tasks.getTask(index), tasks.getTaskCount() - 1);
+
+        if (index < 0 || index >= tasks.getTaskCount()) {
+            return ui.errorPrint(new DukeException("OOPS! Please provide a valid task number to delete"));
+        }
+
+        Task task = tasks.getTask(index);
+        tasks.remove(index);
+        return ui.deletePrint(task, tasks.getTaskCount());
     }
 }
 

@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -32,6 +33,13 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        if (tasks.getTaskCount() == 0) {
+            return ui.errorPrint(new DukeException("The task list is empty. There are no tasks to unmark."));
+        }
+
+        if (index < 0 || index >= tasks.getTaskCount()) {
+            return ui.errorPrint(new DukeException("OOPS! Please provide a valid task number to unmark"));
+        }
         Task task = tasks.getTask(index);
         task.unmarkDone();
         return ui.unmarkDonePrint(task);

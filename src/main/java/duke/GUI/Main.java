@@ -1,8 +1,10 @@
 package duke.GUI;
 
 import duke.Duke;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.util.Duration;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -24,8 +26,8 @@ public class Main extends Application {
     private String MESSAGE = " Hello! I'm ChatBot\n" + " What can I do for you?\n";
     private Button sendButton;
     private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image chat = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/siri.png"));
+    private Image chat = new Image(this.getClass().getResourceAsStream("/images/google_assistant.png"));
     private Duke duke = new Duke();
 
     @Override
@@ -120,12 +122,31 @@ public class Main extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(duke.getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(chat))
-        );
-        userInput.clear();
+        String userInputText = userInput.getText();
+        Label userText = new Label(userInputText);
+
+        if (userInputText.equalsIgnoreCase("bye")) {
+            // Display the user's "bye" message in the chat
+            dialogContainer.getChildren().add(DialogBox.getUserDialog(userText, new ImageView(user)));
+
+            Label dukeText = new Label(duke.getResponse(userInputText));
+            dialogContainer.getChildren().add(DialogBox.getDukeDialog(dukeText, new ImageView(chat)));
+
+            // Disable user input
+            userInput.setDisable(true);
+            sendButton.setDisable(true);
+
+            // Delay for a moment before exiting the application
+            PauseTransition pause = new PauseTransition(Duration.seconds(0.6));
+            pause.setOnFinished(event -> Platform.exit());
+            pause.play();
+        } else {
+            Label dukeText = new Label(duke.getResponse(userInputText));
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(userText, new ImageView(user)),
+                    DialogBox.getDukeDialog(dukeText, new ImageView(chat))
+            );
         }
+        userInput.clear();
     }
+}
