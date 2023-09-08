@@ -40,6 +40,20 @@ public class Deadline extends Task {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } else if (other instanceof Deadline) {
+            Deadline deadline = (Deadline) other;
+            boolean isDescriptionEqual = this.description.equalsIgnoreCase(deadline.description);
+            boolean isByEqual = this.by.equals(deadline.by);
+            return isDescriptionEqual && isByEqual;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(),
                 by.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")));

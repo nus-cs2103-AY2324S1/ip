@@ -17,6 +17,17 @@ public class ToDo extends Task {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } else if (other instanceof ToDo) {
+            ToDo todo = (ToDo) other;
+            return this.description.equalsIgnoreCase(todo.description);
+        } else {
+            return false;
+        }
+    }
+    @Override
     public String toString() {
         return String.format("[T]%s", super.toString());
     }
