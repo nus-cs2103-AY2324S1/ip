@@ -19,17 +19,24 @@ public class FindCommand extends NonemptyArgumentCommand implements Command {
 
     @Override
     protected void validate(String arguments) throws DukeException {
+
+        // Validate Inherited Rules
         super.validate(arguments);
     }
 
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
+
+        // Execute default statements
+        Command.super.execute(taskList, ui, storage);
+
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
             if (taskList.get(i).getDescription().contains(argument)) {
                 output.append(i + 1).append(". ").append(taskList.get(i)).append("\n");
             }
         }
+
         if (output.length() == 0) {
             ui.sendMessage("No Items in List");
         } else {

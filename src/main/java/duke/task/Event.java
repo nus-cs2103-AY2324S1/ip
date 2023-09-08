@@ -14,12 +14,16 @@ public class Event extends Task {
     /**
      * Constructor to Event Task.
      *
-     * @param description description of task
-     * @param from        task start date
-     * @param to          task end date
+     * @param description description of task.
+     * @param from        task start date.
+     * @param to          task end date.
      */
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
+
+        assert from != null;
+        assert to != null;
+
         this.from = from;
         this.to = to;
     }
@@ -27,22 +31,23 @@ public class Event extends Task {
     /**
      * Returns if task is before given date.
      *
-     * @param date given date to check against
-     * @return true if task is before given date, false otherwise
+     * @param date given date to check against.
+     * @return true if task is before given date, false otherwise.
      */
     @Override
     public boolean isBefore(LocalDate date) {
+        assert date != null;
+
         return this.to.isBefore(date);
     }
 
     /**
      * Get string representation of task.
      *
-     * @return string representation of task
+     * @return string representation of task.
      */
     @Override
     public String toString() {
-
         return String.format("[E]%s (from: %s to: %s)",
                 super.toString(),
                 from.format(DateTimeFormatter.ofPattern("MMM dd yyyy")),
@@ -52,11 +57,10 @@ public class Event extends Task {
     /**
      * Get a string representing this event to save to file.
      *
-     * @return string representing this event to save to file
+     * @return string representing this event to save to file.
      */
     @Override
     public String getSaveString() {
-
         return String.format("%d event %s /from %s /to %s", isDone ? 1 : 0, description.trim(), from, to);
     }
 }

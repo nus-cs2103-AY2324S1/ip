@@ -37,18 +37,24 @@ public class DeadlineCommand extends NonemptyArgumentCommand implements Command 
      */
     @Override
     protected void validate(String arguments) throws DukeException {
+
+        // Validate Inherited Rules
         super.validate(arguments);
+
         String[] userArgs = arguments.split("/by ");
+        // Arguments don't have /by
         if (userArgs.length != 2) {
             throw new DukeException("Missing Argument for command: "
                     + commandString
                     + ", should include /by YYYY-MM-DD");
         }
+        // Description is missing
         if (Objects.equals(userArgs[1], "")) {
             throw new DukeException("Missing Argument for command: "
                     + commandString
                     + ", should include /by YYYY-MM-DD");
         }
+        // Check if date argument is valid
         try {
             LocalDate date = LocalDate.parse(userArgs[1]);
         } catch (DateTimeParseException e) {
@@ -56,7 +62,6 @@ public class DeadlineCommand extends NonemptyArgumentCommand implements Command 
                     + commandString
                     + ", should be /by YYYY-MM-DD");
         }
-
     }
 
     /**
@@ -69,15 +74,26 @@ public class DeadlineCommand extends NonemptyArgumentCommand implements Command 
      */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
+
+        // Execute default statements
+        Command.super.execute(taskList, ui, storage);
+
         validate(this.arguments);
+
         String[] userArgs = arguments.split("/by ");
         LocalDate date = LocalDate.parse(userArgs[1]);
+
+        assert userArgs.length == 2;
+        assert date != null;
+
         taskList.add(new Deadline(userArgs[0], date));
+
         if (ui != null) {
             ui.sendMessage("Got it. I've added this task:\n  "
                     + taskList.get(taskList.size() - 1)
                     + String.format("\nNow you have %d tasks in the list.", taskList.size()));
         }
+
         storage.updateFile(taskList, ui);
     }
 

@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * Represents a task.
@@ -15,6 +16,9 @@ public abstract class Task {
      * @param description description of task
      */
     public Task(String description) {
+
+        assert !Objects.equals(description, "");
+
         this.description = description;
         this.isDone = false;
     }

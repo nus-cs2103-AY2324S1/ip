@@ -13,29 +13,33 @@ public class Deadline extends Task {
     /**
      * Constructor to Deadline Task.
      *
-     * @param description description of task
-     * @param by          date task is due
+     * @param description description of task.
+     * @param by          date task is due.
      */
     public Deadline(String description, LocalDate by) {
         super(description);
+
+        assert by != null;
+
         this.by = by;
     }
 
     /**
      * Returns if task is before given date.
      *
-     * @param date given date to check against
-     * @return true if task is before given date, false otherwise
+     * @param date given date to check against.
+     * @return true if task is before given date, false otherwise.
      */
     @Override
     public boolean isBefore(LocalDate date) {
+        assert date != null;
         return this.by.isBefore(date);
     }
 
     /**
      * Get string representation of task.
      *
-     * @return string representation of task
+     * @return string representation of task.
      */
     @Override
     public String toString() {
@@ -45,11 +49,10 @@ public class Deadline extends Task {
     /**
      * Get a string representing this event to save to file.
      *
-     * @return string representing this event to save to file
+     * @return string representing this event to save to file.
      */
     @Override
     public String getSaveString() {
-
         return String.format("%d deadline %s /by %s", isDone ? 1 : 0, description.trim(), by);
     }
 }

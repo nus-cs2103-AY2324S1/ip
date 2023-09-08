@@ -31,12 +31,22 @@ public class UnmarkCommand extends NumberedChoiceCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
+
+        // Execute default statements
+        Command.super.execute(taskList, ui, storage);
+
         validate(taskList);
+
         int choice = Integer.parseInt(arguments) - 1;
+
+        assert choice >= 0 && choice < taskList.size();
+
         taskList.get(choice).markAsNotDone();
+
         if (ui != null) {
             ui.sendMessage("OK, I've marked this task as not done yet:\n  " + taskList.get(choice));
         }
+
         storage.updateFile(taskList, ui);
     }
 
@@ -50,7 +60,11 @@ public class UnmarkCommand extends NumberedChoiceCommand implements Command {
      * @throws DukeException if arguments are invalid
      */
     private void validate(TaskList taskList) throws DukeException {
+
+        // Validate inherited rules
         super.validate(this.arguments);
+
+        // Ensure valid choice
         int choice = Integer.parseInt(arguments) - 1;
         if (choice < 0 || choice >= taskList.size()) {
             throw new DukeException("Argument Provided out of range: " + (choice + 1));

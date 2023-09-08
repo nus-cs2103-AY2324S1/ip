@@ -69,7 +69,12 @@ public class ListCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
+
+        // Execute default statements
+        Command.super.execute(taskList, ui, storage);
+
         validate(this.argument);
+
         LocalDate date;
         if (this.argument != null) {
             if (this.argument.equals("now")) {
@@ -80,12 +85,16 @@ public class ListCommand implements Command {
         } else {
             date = LocalDate.MAX;
         }
+
+        assert date != null;
+
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
             if (taskList.get(i).isBefore(date)) {
                 output.append(i + 1).append(". ").append(taskList.get(i)).append("\n");
             }
         }
+
         if (output.length() == 0) {
             ui.sendMessage("No Items in List");
         } else {

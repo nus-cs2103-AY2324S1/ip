@@ -5,7 +5,6 @@ import duke.command.Parser;
 import duke.task.TaskList;
 import duke.ui.UI;
 
-
 /**
  * The main duke class.
  */
@@ -31,6 +30,7 @@ public class Duke {
     }
 
     public void setUi(UI ui) {
+        assert ui != null;
         this.ui = ui;
     }
 

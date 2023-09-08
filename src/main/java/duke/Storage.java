@@ -29,6 +29,9 @@ public class Storage {
      * @param taskList the current list of tasks
      */
     public void updateFile(TaskList taskList, UI ui) {
+
+        assert taskList != null;
+
         if (isUpdatable) {
             try {
                 FileWriter writer = new FileWriter(savePath, false);
@@ -69,8 +72,10 @@ public class Storage {
         } catch (IOException e) {
             try {
                 System.out.println(e);
+                new File(this.savePath).mkdirs();
                 File save = new File(this.savePath);
-                save.createNewFile();
+                boolean isCreated = save.createNewFile();
+                assert isCreated;
                 return new TaskList();
             } catch (IOException innerE) {
                 throw new Error("Cannot create save file");
