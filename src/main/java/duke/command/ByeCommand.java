@@ -20,6 +20,14 @@ public class ByeCommand extends Command {
         ui.byeGreeting();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param taskList List of Task objects.
+     * @param ui UI that the user interact with.
+     * @param storage Storage to handle data to and from an external file.
+     * @return A string message.
+     */
     @Override
     public String executeGui(TaskList taskList, Ui ui, Storage storage) {
         return "Bye. Hope to see you again soon!";

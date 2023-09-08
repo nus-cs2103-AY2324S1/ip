@@ -13,13 +13,14 @@ public class FindCommand extends Command {
     private String keyword;
 
     /**
-     * Constructor method.
+     * Constructs the FindCommand.
      *
      * @param input User input.
      * @throws DukeException If any error occurs.
      */
     public FindCommand(String input) throws DukeException {
         if (input == null) {
+            // No keyword to find.
             throw new DukeException(" ☹ OOPS!!! What exactly are you finding?");
         }
         this.keyword = input.strip();
@@ -39,6 +40,15 @@ public class FindCommand extends Command {
                 + "%s", taskList.findTasks(keyword)));
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param taskList List of Task objects.
+     * @param ui UI that the user interact with.
+     * @param storage Storage to handle data to and from an external file.
+     * @return A String message.
+     * @throws DukeException If any error occurs.
+     */
     @Override
     public String executeGui(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         return String.format("Here are the matching tasks in your list:"

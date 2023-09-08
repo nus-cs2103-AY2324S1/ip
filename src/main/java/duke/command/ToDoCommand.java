@@ -14,13 +14,14 @@ public class ToDoCommand extends Command {
     private ToDo todo;
 
     /**
-     * Constructor method.
+     * Constructs the ToDoCommand.
      *
      * @param input User input.
      * @throws DukeException If any error occurs.
      */
     public ToDoCommand(String input) throws DukeException {
         if (input == null) {
+            // No description.
             throw new DukeException(" ☹ OOPS!!! The description of a todo cannot be empty.");
         }
         this.todo = new ToDo(input.strip());
@@ -42,6 +43,15 @@ public class ToDoCommand extends Command {
         storage.appendFile(todo);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param taskList List of Task objects.
+     * @param ui UI that the user interact with.
+     * @param storage Storage to handle data to and from an external file.
+     * @return A String message.
+     * @throws DukeException If any error occurs.
+     */
     @Override
     public String executeGui(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         taskList.addTask(todo);

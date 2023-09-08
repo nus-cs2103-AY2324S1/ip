@@ -9,7 +9,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructor method.
+     * Constructs a Task.
      *
      * @param description Task description.
      * @param isDone Status of task.
@@ -19,6 +19,11 @@ public class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Constructs a Task, by default isDone is false.
+     *
+     * @param description Task description.
+     */
     public Task(String description) {
         this(description, false);
     }
@@ -42,6 +47,11 @@ public class Task {
         return description.contains(keyword);
     }
 
+    /**
+     * Converts isDone, a boolean, to a status icon for printing.
+     *
+     * @return An icon String.
+     */
     private String getStatusIcon() {
         return (isDone ? "X" : " ");
     }

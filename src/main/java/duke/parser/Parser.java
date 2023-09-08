@@ -51,7 +51,8 @@ public class Parser {
             default:
                 throw new DukeException(" ☹ I'm not ChatGPT, cannot understand what you mean.");
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (NullPointerException e) {
+            // If userInput is null, .split of `userInput` will fail.
             throw new DukeException(" ☹ What are you exactly asking me to do?");
         }
     }

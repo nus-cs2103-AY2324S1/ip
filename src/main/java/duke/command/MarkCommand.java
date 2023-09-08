@@ -14,13 +14,14 @@ public class MarkCommand extends Command {
     private int index;
 
     /**
-     * Constructor method.
+     * Constructs the MarkCommand.
      *
      * @param input User input.
      * @throws DukeException If any error occurs.
      */
     public MarkCommand(String input) throws DukeException {
         if (input == null) {
+            // No index.
             throw new DukeException(" ☹ Which task?");
         }
         this.index = Integer.parseInt(input.strip());
@@ -28,6 +29,7 @@ public class MarkCommand extends Command {
 
     /**
      * {@inheritDoc}
+     *
      * @param taskList List of Task objects.
      * @param ui UI that the user interact with.
      * @param storage Storage to handle data to and from an external file.
@@ -40,6 +42,15 @@ public class MarkCommand extends Command {
         storage.writeFile(taskList.stringToFile());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param taskList List of Task objects.
+     * @param ui UI that the user interact with.
+     * @param storage Storage to handle data to and from an external file.
+     * @return A String message.
+     * @throws DukeException If any error occurs.
+     */
     @Override
     public String executeGui(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         Task markedTask = taskList.markTask(index);

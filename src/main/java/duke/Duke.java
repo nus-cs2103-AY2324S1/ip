@@ -18,7 +18,7 @@ public class Duke {
     private final Ui ui;
 
     /**
-     * Constructor method.
+     * Constructs the Duke object.
      */
     public Duke() {
         ui = new Ui();
@@ -35,7 +35,7 @@ public class Duke {
      * Runs the bot.
      */
     public void run() {
-        ui.helloGreeting();
+        ui.helloGreeting(); // Prints hello message.
         boolean isExit = false;
         while (!isExit) {
             try {
