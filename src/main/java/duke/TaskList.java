@@ -38,10 +38,11 @@ public class TaskList {
      * @param idx The index of the task to be deleted.
      * @throws IndexOutOfBoundsException If the index is out of the valid range of task indices.
      */
-    public void deleteTask(int idx) throws IndexOutOfBoundsException{
+    public String deleteTask(int idx) throws IndexOutOfBoundsException{
         Task task = tasks.get(idx);
         tasks.remove(task);
         ui.showDeleteTaskMessage(task, tasks.size());
+        return "Got it! I've deleted this task:\n" + task;
     }
 
     /**
@@ -60,10 +61,11 @@ public class TaskList {
      * @param idx The index of the task to be marked as completed.
      * @throws IndexOutOfBoundsException If the index is out of the valid range of task indices.
      */
-    public void markTask(int idx) throws IndexOutOfBoundsException {
+    public String markTask(int idx) throws IndexOutOfBoundsException {
         Task task = tasks.get(idx);
         task.setIsCompleted(true);
         ui.showMarkedTask(task);
+        return "Got it! I've marked this task as complete!\n" + task;
     }
 
     /**
@@ -72,10 +74,11 @@ public class TaskList {
      * @param idx The index of the task to be unmarked.
      * @throws IndexOutOfBoundsException If the index is out of the valid range of task indices.
      */
-    public void unmarkTask(int idx) throws IndexOutOfBoundsException {
+    public String unmarkTask(int idx) throws IndexOutOfBoundsException {
         Task task = tasks.get(idx);
         task.setIsCompleted(false);
         ui.showUnmarkedTask(task);
+        return "Got it! I've marked this task as incomplete!\n" + task;
     }
 
     /**

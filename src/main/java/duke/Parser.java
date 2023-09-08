@@ -43,7 +43,7 @@ public class Parser {
      * @param input The user's input command.
      * @return True if the program should continue executing, false if the program should exit.
      */
-    public boolean parseCommand(String input) {
+    public String parseCommand(String input) {
         Command cmd = Command.invalid;
         for (Command c : Command.values()) {
             if (input.startsWith(c.toString())) {
@@ -52,45 +52,46 @@ public class Parser {
         }
         if (cmd.equals(Command.bye)) {
             ui.showByeMessage();
-            return false;
+            return "Bye! Hope to see you soon!";
         } else if (cmd.equals(Command.list)) {
             ui.showTaskList(taskList);
-            return true;
+            return taskList.toString();
         } else if (cmd.equals(Command.mark)) {
             try {
-                taskList.markTask(Integer.parseInt(input.split(" ")[1]));
+                return taskList.markTask(Integer.parseInt(input.split(" ")[1]));
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 ui.showInvalidIndexError();
+                return "Invalid task index!";
             }
-            return true;
         } else if (cmd.equals(Command.unmark)) {
             try {
-                taskList.unmarkTask(Integer.parseInt(input.split(" ")[1]));
+                return taskList.unmarkTask(Integer.parseInt(input.split(" ")[1]));
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 ui.showInvalidIndexError();
+                return "Invalid task index!";
             }
-            return true;
         } else if (cmd.equals(Command.delete)) {
             try {
-                taskList.deleteTask(Integer.parseInt(input.split(" ")[1]));
+                return taskList.deleteTask(Integer.parseInt(input.split(" ")[1]));
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 ui.showInvalidIndexError();
+                return "Invalid task index!";
             }
-            return true;
         } else if (cmd.equals(Command.invalid)) {
             ui.showInvalidCommandError();
-            return true;
+            return "Invalid command!";
         } else if (cmd.equals(Command.find)) {
             ui.showFindResults(taskList.find(input.split(" ", 2)[1]));
+            return taskList.find(input.split(" ", 2)[1]).toString();
         } else if (Command.taskTypes().contains(cmd)) {
             try {
-                createTask(cmd, input);
+                return createTask(cmd, input);
             } catch (DukeInvalidDateException e) {
                 ui.showAddTaskError(e.getMessage());
+                return e.getMessage();
             }
-            return true;
         }
-        return true;
+        return "";
     }
 
     private String getTaskInfo(String input) {
@@ -107,12 +108,13 @@ public class Parser {
      * Parses the input information to create and add an Event task to the TaskList.
      *
      * @param info The input information containing details about the Event task.
+     * @return String indicating the event information or the error when trying to create event
      * @throws DukeInvalidDateException If the input contains invalid date formats for the event's start and end times.
      */
-    private void parseAndAndEvent(String info) throws DukeInvalidDateException {
+    private String parseAndAndEvent(String info) throws DukeInvalidDateException {
         if (!info.matches(".*\\b /by \\b.*") || !info.matches(".*\\b /to \\b.*")) {
-            ui.showAddTaskError("An event must contain a description," +
-                    " start and end specified with `/by` and `/to`!");
+            return "An event must contain a description," +
+                    " start and end specified with `/by` and `/to`!";
         } else {
             // In case the user does /to before /by, split /by and /to and vice versa to get by and to
             try {
@@ -125,8 +127,10 @@ public class Parser {
                 task = task.replaceFirst("event ", "");
                 Event event = new Event(task, by, to);
                 taskList.addTask(event);
+                return "Got it! I've added the Event: " + event;
             } catch (IndexOutOfBoundsException e) {
                 ui.showAddTaskError("Description, /by and /to cannot be empty!");
+                return "Event description, /by and /to cannot be empty!";
             }
         }
     }
@@ -136,26 +140,33 @@ public class Parser {
      *
      * @param cmd The command indicating the type of task to create.
      * @param input The user's input containing task information.
+     * @return String indicating the task information or the error when trying to create task
      * @throws DukeInvalidDateException If the input contains an invalid date format for tasks that require dates.
      */
-    private void createTask(Command cmd, String input) throws DukeInvalidDateException {
+    private String createTask(Command cmd, String input) throws DukeInvalidDateException {
         String[] splitInput = input.split(" ");
         if (splitInput.length < 2) {
             ui.showAddTaskError("Task description cannot be empty!");
-            return;
+            return "Task description cannot be empty!";
         }
         String info = getTaskInfo(input);
         if (cmd.equals(Command.todo)) {
-            taskList.addTask(new Todo(info));
+            Todo todo = new Todo(info);
+            taskList.addTask(todo);
+            return "Got it! I've added the Todo: " + todo;
         } else if (cmd.equals(Command.deadline)) {
             String[] splitInfo = info.split(" /by ", 2);
             if (splitInfo.length == 2) {
-                taskList.addTask(new Deadline(splitInfo[0], splitInfo[1]));
+                Deadline deadline = new Deadline(splitInfo[0], splitInfo[1]);
+                taskList.addTask(deadline);
+                return "Got it! I've added the Deadline: " + deadline;
             } else {
                 ui.showAddTaskError("Description and /by cannot be empty!");
+                return "Deadline description and /by cannot be empty!";
             }
         } else if (cmd.equals(Command.event)) {
-            parseAndAndEvent(info);
+            return parseAndAndEvent(info);
         }
+        return "Unknown task type!";  // Should never happen
     }
 }
