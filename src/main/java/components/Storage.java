@@ -1,4 +1,4 @@
-package mypackage;
+package components;
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -6,16 +6,23 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.List;
+
+import tasks.Deadline;
+import tasks.Event;
+import tasks.TaskList;
+import tasks.ToDo;
+
 import java.io.IOException;
 
-public class Database {
+public class Storage {
 
-    private final String PARENT_DIR = "./data";
-    private final String FILEPATH = "./data/store.txt";
+    private String PARENT_DIR;
+    private String FILEPATH;
     private File store;
 
-    public Database() {
-
+    public Storage(String PARENT_DIR, String FILEPATH) {
+        this.PARENT_DIR = PARENT_DIR;
+        this.FILEPATH = FILEPATH;
     }
 
     //This method loads the file if it exists, and creates it if it doesn't
@@ -52,9 +59,9 @@ public class Database {
     }
 
     //This should only be accessed one time at startup
-    public CustomList readData() throws DukeException {
+    public TaskList readData() throws DukeException {
         BufferedReader br;
-        CustomList result = new CustomList();
+        TaskList result = new TaskList();
         try {
             br = new BufferedReader(new FileReader(this.store));
             String line;

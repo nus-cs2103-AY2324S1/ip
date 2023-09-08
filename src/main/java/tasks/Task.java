@@ -1,4 +1,4 @@
-package mypackage;
+package tasks;
 
 public class Task {
   private Boolean isDone = false;
