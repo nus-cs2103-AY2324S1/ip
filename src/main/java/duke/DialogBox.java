@@ -25,6 +25,11 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Method to display the dialog box
+     * @param text input text
+     * @param img image for user or duke
+     */
     public DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -36,7 +41,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        dialog.setMinSize(Label.USE_PREF_SIZE,Label.USE_PREF_SIZE);
+        dialog.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
         displayPicture.setImage(img);
     }
 

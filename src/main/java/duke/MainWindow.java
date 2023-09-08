@@ -29,12 +29,14 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Method to initialise the dialogContainer
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("Welcome Messi! How can I help you?", dukeImage)
-                );
+                DialogBox.getDukeDialog("Welcome Messi! How can I help you?", dukeImage));
         dialogContainer.autosize();
     }
 
@@ -64,25 +66,6 @@ public class MainWindow extends AnchorPane {
             });
             pause.play();
         }
-
-
-    }
-
-    @FXML
-    public void greetUser() {
-        dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog("Hello Messi!"
-                        + "Welcome to Ronaldo's world!"
-                        + "The following are the commands that I offer:\n"
-                        + "list\n"
-                        + "mark\n"
-                        + "unmark\n"
-                        + "todo\n"
-                        + "deadline\n"
-                        + "event\n"
-                        + "find\n"
-                        + "bye\n", dukeImage)
-        );
     }
 }
 
