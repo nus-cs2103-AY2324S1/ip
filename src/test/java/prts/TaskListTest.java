@@ -16,6 +16,11 @@ public class TaskListTest {
             public String getAddMessage() {
                 return "";
             }
+
+            @Override
+            public boolean contains(String searchTerm) {
+                return false;
+            }
         });
         assertEquals("\n[ ] fakeTask", output);
     }
@@ -27,6 +32,11 @@ public class TaskListTest {
             @Override
             public String getAddMessage() {
                 return "";
+            }
+
+            @Override
+            public boolean contains(String searchTerm) {
+                return false;
             }
         });
         assertEquals("As you wish. This task has been removed:\n[ ] fakeTask"
