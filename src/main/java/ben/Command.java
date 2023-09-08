@@ -22,5 +22,5 @@ public abstract class Command {
      * @throws EmptyDescriptionException Error for empty description commands.
      * @throws DateTimeParseException Error for when DateTime cannot be parsed.
      */
-    public abstract void execute(TaskList tasks, Ui ui) throws InvalidCommandException, EmptyDescriptionException, DateTimeParseException;
+    public abstract String execute(TaskList tasks, Ui ui) throws InvalidCommandException, EmptyDescriptionException, DateTimeParseException;
 }

@@ -1,7 +1,5 @@
 package ben;
 
-import java.time.format.DateTimeParseException;
-
 /**
  * Represents a bye command.
  */
@@ -23,7 +21,7 @@ public class ByeCommand extends Command{
      * @param ui The UI handling user interaction
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
-        ui.bye();
+    public String execute(TaskList tasks, Ui ui) {
+        return ui.bye();
     }
 }

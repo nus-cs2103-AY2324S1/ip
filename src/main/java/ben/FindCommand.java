@@ -59,7 +59,7 @@ public class FindCommand extends Command {
      * @throws EmptyDescriptionException Error thrown when description if empty.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) throws EmptyDescriptionException {
+    public String execute(TaskList tasks, Ui ui) throws EmptyDescriptionException {
         TaskList filteredTasks = new TaskList();
         extractSearch(command);
 
@@ -70,9 +70,9 @@ public class FindCommand extends Command {
         }
 
         if (filteredTasks.size() == 0) {
-            Ui.displayMessage("\n" + "Sorry, no tasks seems to match: " + search + "\n");
+            return Ui.displayMessage("Sorry, no tasks seems to match: " + search + "\n");
         } else {
-            Ui.displayMessage("\n" + "Here are the matching tasks!" + "\n" + filteredTasks);
+            return Ui.displayMessage("Here are the matching tasks!" + "\n" + filteredTasks);
         }
     }
 }

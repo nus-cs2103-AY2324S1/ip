@@ -11,7 +11,7 @@ import java.util.Arrays;
 /**
  * Represents a command to add task to a taskList.
  */
-public class AddCommand extends Command{
+public class AddCommand extends Command {
     private String command;
 
     private Task task;
@@ -29,9 +29,9 @@ public class AddCommand extends Command{
      * Interprets the command and initialises the task field if the command is valid. Throws InvalidCommandException,
      * DateTimeParseException or EmptyDescriptionException if the command is not valid.
      *
-     * @throws InvalidCommandException Error for invalid commands.
+     * @throws InvalidCommandException   Error for invalid commands.
      * @throws EmptyDescriptionException Error for empty description commands.
-     * @throws DateTimeParseException Error for when DateTime cannot be parsed.
+     * @throws DateTimeParseException    Error for when DateTime cannot be parsed.
      */
     public void interpretTask() throws InvalidCommandException, EmptyDescriptionException, DateTimeParseException {
         String[] words = command.split("\\s+");
@@ -148,15 +148,17 @@ public class AddCommand extends Command{
      * Executes adding the task to the taskList.
      *
      * @param tasks The taskList
-     * @param ui The UI handling user interaction
-     * @throws InvalidCommandException Error for invalid commands.
+     * @param ui    The UI handling user interaction
+     * @throws InvalidCommandException   Error for invalid commands.
      * @throws EmptyDescriptionException Error for empty description commands.
-     * @throws DateTimeParseException Error for when DateTime cannot be parsed.
+     * @throws DateTimeParseException    Error for when DateTime cannot be parsed.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) throws InvalidCommandException,
+    public String execute(TaskList tasks, Ui ui) throws InvalidCommandException,
             EmptyDescriptionException, DateTimeParseException {
         interpretTask();
         tasks.add(task, true);
+        return Ui.displayMessage("Got It! This task has been added:\n" + task +
+                "\nNow you have " + tasks.size() + " items in the list\n");
     }
 }

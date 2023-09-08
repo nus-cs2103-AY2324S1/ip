@@ -35,7 +35,9 @@ public class DeleteCommand extends Command{
      * @param ui The UI handling user interaction
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         tasks.delete(task);
+        return Ui.displayMessage("Sure thing! This task has been removed\n" + task +
+                "\nNow you have " + tasks.size() + " tasks left\n");
     }
 }

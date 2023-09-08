@@ -3,7 +3,7 @@ package ben;
 /**
  * Represents an Unmark command
  */
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
     /**
      * The task to be unmarked
      */
@@ -32,12 +32,11 @@ public class UnmarkCommand extends Command{
      * Executes the task.
      *
      * @param tasks The taskList
-     * @param ui The UI handling user interaction
+     * @param ui    The UI handling user interaction
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         task.unmark();
-        Ui.displayMessage("\n" +
-                "Okay! This task is not completed\n" + task + "\n");
+        return Ui.displayMessage("Okay! This task is not completed\n" + task + "\n");
     }
 }
