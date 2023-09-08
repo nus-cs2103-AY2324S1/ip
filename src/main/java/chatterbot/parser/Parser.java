@@ -7,9 +7,22 @@ import chatterbot.data.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents the interpretation of entered user inputs.
+ */
 public class Parser {
 
-    public static void evaluateCommand(String userMessage, Ui ui, ArrayList<Task> list, Storage storage, String file, TaskList taskList) {
+    /**
+     * Evaluates entered user inputs and calls the corresponding method.
+     * @param userMessage This is the entered user input.
+     * @param ui This is what will be returned to the user.
+     * @param list This is the current task list.
+     * @param storage This is where the file and list contents are edited.
+     * @param file This is the file path to retrieve the .txt file
+     * @param taskList This is the list of tasks that have been added.
+     */
+    public static void evaluateCommand(String userMessage, Ui ui, ArrayList<Task> list, Storage storage, String file,
+                                       TaskList taskList) {
         if (userMessage.toLowerCase().equals("bye")) {
             ui.showGoodbyeMessage();
             return;
@@ -17,11 +30,11 @@ public class Parser {
             ui.showTaskList();
         } else if (userMessage.startsWith("mark") && isInteger(userMessage.substring(5))) {
             String toMark = userMessage.substring(5);
-            list.get(Integer.parseInt(toMark) - 1).markAsDone();
+            list.get(Integer.parseInt(toMark) - 1).setDone();
             ui.showMarked(toMark);
         } else if (userMessage.startsWith("unmark")) {
             String toUnmark = userMessage.substring(7);
-            list.get(Integer.parseInt(toUnmark) - 1).markAsUndone();
+            list.get(Integer.parseInt(toUnmark) - 1).setUndone();
             ui.showUnmarked(toUnmark);
         } else {
             if (userMessage.startsWith("deadline")) {
@@ -93,6 +106,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns whether an entered string is an integer.
+     * @param str This is the entered string.
+     * @return boolean This is representative of whether the string is an integer or not.
+     */
     public static boolean isInteger(String str) {
         try {
             Integer.parseInt(str);

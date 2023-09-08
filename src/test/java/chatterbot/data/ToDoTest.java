@@ -18,6 +18,7 @@ public class ToDoTest {
 
     @Test
     public void toDo_empty_exceptionThrown() {
+        // IllegalArgumentException will be thrown
         assertThrows(IllegalArgumentException.class, () -> {
             new Todo("");
         });
