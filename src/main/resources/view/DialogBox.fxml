@@ -6,10 +6,13 @@
 <?import javafx.scene.layout.HBox?>
 
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.StackPane?>
+
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="800.0" style="-fx-border-color: #ADDFFF;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
 <!--        <Label fx:id="dialog" text="Label" wrapText="true" style="-fx-font-family: 'Andale Mono'; -fx-font-size: 15px; -fx-padding: 0px 15px; -fx-border-insets: 15px; -fx-background-insets: 15px;" />-->
-        <Text fx:id="dialog" text="Label" style="-fx-background-color: #CFECEC; -fx-highlight-text-fill: #CFECEC; -fx-font-family: 'Andale Mono'; -fx-font-size: 15px; -fx-padding: 30px; -fx-border-insets: 15px; -fx-background-insets: 15px; " />
+<!--        <Text fx:id="dialog" text="Label" style="-fx-background-color: #CFECEC; -fx-highlight-text-fill: #CFECEC; -fx-font-family: 'Andale Mono'; -fx-font-size: 15px; -fx-padding: 30px; -fx-border-insets: 15px; -fx-background-insets: 15px; " />-->
+        <StackPane fx:id="dialog" />
         <ImageView fx:id="displayPicture" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
     </children>
     <padding>
