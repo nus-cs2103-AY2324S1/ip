@@ -10,4 +10,11 @@ public class TaskTest {
         Task actual = new Task("eat cereal", false);
         assertEquals("0 | eat cereal", actual.toString());
     }
+
+    @Test
+    public void hasWordTest() {
+        Task actual = new Task("buy milk", false);
+        assertEquals(true, actual.hasWord("milk"));
+        assertEquals(false, actual.hasWord("cereal"));
+    }
 }

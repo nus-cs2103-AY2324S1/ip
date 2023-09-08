@@ -37,4 +37,14 @@ public class Task {
     public void markTask(boolean mark) {
         isDone = (mark) ? true : false;
     }
+
+    /**
+     * Checks if tasks description contains the input word.
+     *
+     * @param s Word to search in task description.
+     * @return If the task description contains the input word.
+     */
+    public boolean hasWord(String s) {
+        return (description.contains(s)) ? true : false;
+    }
 }
