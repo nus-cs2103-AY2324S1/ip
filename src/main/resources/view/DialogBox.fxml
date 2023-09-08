@@ -16,7 +16,7 @@
             <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
          </padding>
          <HBox.margin>
-            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+            <Insets bottom="5.0" left="2.0" right="2.0" top="5.0" />
          </HBox.margin></Label>
         <ImageView fx:id="displayPicture" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
          <HBox.margin>
