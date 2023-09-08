@@ -5,18 +5,19 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import bot.exceptions.DuplicateTaskException;
 import bot.exceptions.InvalidIndexException;
 import bot.utils.tasks.Task;
 
 /**
- * Bot.Task list abstraction. Functions like an arraylist but may not contain one.
+ * Task list abstraction. Functions like an arraylist but may not contain one. Does not accept duplicates.
  * Index starts at 1.
  */
 public class TaskList {
     /**
      * Data structure to hold list.
      */
-    private List<Task> list = new ArrayList<>();
+    private final List<Task> tasks = new ArrayList<>();
 
     /**
      * Default constructor. To be used when an empty list is needed.
@@ -30,16 +31,26 @@ public class TaskList {
      * @param list List of Task objects.
      */
     public TaskList(Collection<Task> list) {
-        this.list.addAll(list);
+        for (Task task : list) {
+            try {
+                add(task);
+            } catch (DuplicateTaskException exception) {
+                // We ignore duplicates because our task list should have unique items.
+            }
+        }
     }
 
     /**
      * Adds a task to the end of the list.
      *
-     * @param task Bot.Task to add.
+     * @param task Task to add.
+     * @throws DuplicateTaskException If the list already contains the task.
      */
-    public void add(Task task) {
-        this.list.add(task);
+    public void add(Task task) throws DuplicateTaskException {
+        if (tasks.contains(task)) {
+            throw new DuplicateTaskException();
+        }
+        tasks.add(task);
     }
 
     /**
@@ -49,7 +60,7 @@ public class TaskList {
      * @return Bot.Task object.
      */
     public Task get(int index) {
-        return this.list.get(index - 1);
+        return tasks.get(index - 1);
     }
 
     /**
@@ -60,10 +71,10 @@ public class TaskList {
      * @throws InvalidIndexException If index is out of range.
      */
     public Task remove(int index) throws InvalidIndexException {
-        if (index < 1 || index > list.size()) {
+        if (index < 1 || index > tasks.size()) {
             throw new InvalidIndexException();
         }
-        return this.list.remove(index - 1);
+        return tasks.remove(index - 1);
     }
 
     /**
@@ -72,7 +83,7 @@ public class TaskList {
      * @return Length of list.
      */
     public int size() {
-        return this.list.size();
+        return tasks.size();
     }
 
     /**
@@ -81,7 +92,7 @@ public class TaskList {
      * @return Iterator of Task objects.
      */
     public Iterator<Task> getIterator() {
-        return this.list.iterator();
+        return tasks.iterator();
     }
 
     /**
@@ -91,10 +102,10 @@ public class TaskList {
      * @throws InvalidIndexException If index is out of range.
      */
     public void mark(int index) throws InvalidIndexException {
-        if (index < 1 || index > list.size()) {
+        if (index < 1 || index > tasks.size()) {
             throw new InvalidIndexException();
         }
-        this.list.get(index - 1).mark();
+        tasks.get(index - 1).mark();
     }
 
     /**
@@ -104,10 +115,10 @@ public class TaskList {
      * @throws InvalidIndexException If index is out of range.
      */
     public void unmark(int index) throws InvalidIndexException {
-        if (index < 1 || index > list.size()) {
+        if (index < 1 || index > tasks.size()) {
             throw new InvalidIndexException();
         }
-        this.list.get(index - 1).unmark();
+        tasks.get(index - 1).unmark();
     }
 
     /**
@@ -117,12 +128,16 @@ public class TaskList {
      * @return TaskList of tasks.
      */
     public TaskList findAll(String str) {
-        Iterator<Task> iter = list.iterator();
+        Iterator<Task> iter = tasks.iterator();
         TaskList out = new TaskList();
         while (iter.hasNext()) {
             Task task = iter.next();
             if (task.getName().toLowerCase().contains(str.toLowerCase())) {
-                out.add(task);
+                try {
+                    out.add(task);
+                } catch (DuplicateTaskException exception) {
+                    // We ignore duplicate tasks because there's no better way to deal with them in this method.
+                }
             }
         }
         return out;
