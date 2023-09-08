@@ -73,4 +73,22 @@ public class Ui {
         System.out.println("   Now you have " + tasks.size() + " task(s) in the list.");
         linePrint();
     }
+
+    /**
+     * Displays a message with the matching tasks found by a search operation.
+     *
+     * @param matchingTasks The TaskList containing matching tasks to be displayed.
+     */
+    public void showFindMessage(TaskList matchingTasks) {
+        if (matchingTasks.isEmpty()) {
+            styleMessage("    No matching tasks found.\n");
+        } else {
+            linePrint();
+            System.out.println("    Here are the matching tasks in your list:\n");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println("    " + (i + 1) + "." + matchingTasks.get(i));
+            }
+            linePrint();
+        }
+    }
 }
