@@ -1,14 +1,14 @@
 package bob;
 
 /**
- * Represents a todo task that contains a description
+ * Represents a todo task that contains a description.
  */
 public class Todo extends Task {
 
     /**
-     * Constructor for the Todo class
+     * Constructor for the Todo class.
      *
-     * @param description the name/description of the todo
+     * @param description the name/description of the todo.
      */
     public Todo(String description) {
         super(description);
@@ -16,9 +16,9 @@ public class Todo extends Task {
 
     /**
      * Returns the string representation of this todo, including its type of task, completion status,
-     * and description
+     * and description.
      *
-     * @return the string representation of the todo
+     * @return the string representation of the todo.
      */
 
     @Override

@@ -4,17 +4,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a deadline task that contains a description and a date for the deadline
+ * Represents a deadline task that contains a description and a date for the deadline.
  */
 public class Deadline extends Task {
 
     protected LocalDate by;
 
     /**
-     * Constructor for the Deadline class
+     * Constructor for the Deadline class.
      *
-     * @param description the name/description of the deadline
-     * @param by the due date for this task
+     * @param description the name/description of the deadline.
+     * @param by the due date for this task.
      */
     public Deadline(String description, LocalDate by) {
         super(description);
@@ -33,9 +33,9 @@ public class Deadline extends Task {
 
     /**
      * Returns the string representation of this deadline, including its type of task, completion status,
-     * description, and due date
+     * description, and due date.
      *
-     * @return the string representation of the deadline
+     * @return the string representation of the deadline.
      */
     @Override
     public String toString() {

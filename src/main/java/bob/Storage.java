@@ -13,16 +13,20 @@ import java.util.Scanner;
 public class Storage {
 
     String filePath;
-    //Parser parser;
 
+    /**
+     * Constructor for Storage class.
+     *
+     * @param filePath the path of the file to store.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
     /**
-     * Loads file content and re-initialises task if file exists, else creates new file
+     * Loads file content and re-initialises task if file exists, else creates new file.
      *
-     * @return ArrayList</Task> the list of tasks that were recorded in the existing file, else an empty list
+     * @return ArrayList</Task> the list of tasks that were recorded in the existing file, else an empty list.
      * @throws BobException
      */
     public ArrayList<Task> load() throws BobException {
@@ -107,9 +111,9 @@ public class Storage {
     }
 
     /**
-     * Saves the new list into the file
+     * Saves the new list into the file.
      *
-     * @param list the TaskList containing the tasks to be saved in the file
+     * @param list the TaskList containing the tasks to be saved in the file.
      */
     public void saveNewList(TaskList list) {
         //clears file

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents an event task that contains a description, starting date and ending date
+ * Represents an event task that contains a description, starting date and ending date.
  */
 public class Event extends Task {
 
@@ -12,11 +12,11 @@ public class Event extends Task {
     protected LocalDate to;
 
     /**
-     * Constructor for the Event class
+     * Constructor for the Event class.
      *
-     * @param description the name/description of the event
-     * @param from the starting date & time of the event
-     * @param to the ending date & time of the event
+     * @param description the name/description of the event.
+     * @param from the starting date & time of the event.
+     * @param to the ending date & time of the event.
      */
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
@@ -41,9 +41,9 @@ public class Event extends Task {
 
     /**
      * Returns the string representation of this event, including its type of task, completion status,
-     * description, and duration (date & time)
+     * description, and duration (date & time).
      *
-     * @return the string representation of the event
+     * @return the string representation of the event.
      */
     @Override
     public String toString() {

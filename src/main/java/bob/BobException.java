@@ -4,9 +4,9 @@ public class BobException extends Exception {
     protected String message;
 
     /**
-     * Constructor for the BobException class
+     * Constructor for the BobException class.
      *
-     * @param message the reason for the exception
+     * @param message the reason for the exception.
      */
     public BobException(String message) {
         super(message);
@@ -14,9 +14,9 @@ public class BobException extends Exception {
     }
 
     /**
-     * Returns the string representation of this BobException, showing the reason for this exception
+     * Returns the string representation of this BobException, showing the reason for this exception.
      *
-     * @return the string representation of the reason for the exception
+     * @return the string representation of the reason for the exception.
      */
     @Override
     public String toString() {
