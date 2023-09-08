@@ -1,6 +1,9 @@
 package duke;
 
-import java.util.Scanner;
+import duke.components.Parser;
+import duke.components.Storage;
+import duke.components.TaskList;
+import duke.components.Ui;
 
 /**
  * Main class to run BUTTER.
@@ -9,6 +12,7 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private Parser parser;
 
     /**
      * Class constructor for Duke.
@@ -18,33 +22,12 @@ public class Duke {
      */
     public Duke(String filePath) {
         ui = new Ui();
-        storage = new Storage(filePath, ui);
+        storage = new Storage(filePath);
         tasks = new TaskList(storage.loadTasks(), storage, ui);
+        parser = new Parser(storage, tasks, ui);
     }
 
-    /**
-     * Runs the main logic of the program.
-     * Uses a scanner object to scan user input, and passes it to the
-     * parser object for interpretation.
-     */
-    public void run() {
-        this.ui.greeting();
-
-        Parser parser = new Parser(this.storage, this.tasks, this.ui);
-        Scanner scanner = new Scanner(System.in);
-
-        while (scanner.hasNextLine()) {
-            String input = scanner.nextLine();
-            if (parser.isGoodbye(input)) {
-                break;
-            } else {
-                parser.parseInput(input);
-            }
-        }
-        this.ui.bye();
-    }
-
-    public static void main(String[] args) {
-        new Duke("./data/duke.txt").run();
+    public String getResponse(String input) {
+        return parser.parseInput(input);
     }
 }

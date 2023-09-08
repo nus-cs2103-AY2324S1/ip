@@ -1,4 +1,4 @@
-package duke;
+package duke.components;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -24,17 +24,14 @@ import duke.tasks.ToDo;
  */
 public class Storage {
     private String path;
-    private Ui ui;
 
     /**
      * Constructor for Storage class.
      *
      * @param path path of file where data is stored.
-     * @param ui   ui to be used.
      */
-    public Storage(String path, Ui ui) {
+    public Storage(String path) {
         this.path = path;
-        this.ui = ui;
     }
 
     /**
@@ -123,7 +120,7 @@ public class Storage {
             }
             sc.close();
         } catch (IOException | InvalidStartEndException e) {
-            ui.showError(e.getMessage());
+            System.out.println(e.getMessage());
         }
         return list;
     }

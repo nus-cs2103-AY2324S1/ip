@@ -2,7 +2,7 @@ package duke.stubs;
 
 import java.util.ArrayList;
 
-import duke.TaskList;
+import duke.components.TaskList;
 import duke.tasks.Task;
 
 /**
@@ -28,10 +28,10 @@ public class TaskListStub extends TaskList {
     }
 
     @Override
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         this.listStub.add(task);
         this.storageStub.updateFile(listStub);
-        this.uiStub.showTaskAdded(task, this.listStub.size());
+        return this.uiStub.showTaskAdded(task, this.listStub.size());
     }
 
     @Override

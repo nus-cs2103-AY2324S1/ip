@@ -1,4 +1,4 @@
-package duke;
+package duke.components;
 
 import java.util.ArrayList;
 
@@ -44,9 +44,9 @@ public class TaskList {
      * Appends all the tasks into a string, and passes it to ui object for printing.
      * If no tasks, calls ui.showNoTasks().
      */
-    public void listTasks() {
+    public String listTasks() {
         if (list.size() == 0) {
-            ui.showNoTasks();
+            return ui.showNoTasks();
         } else {
             String result = "";
             for (int i = 0; i < list.size(); i++) {
@@ -54,7 +54,7 @@ public class TaskList {
                 Task task = list.get(i);
                 result += index + ". " + task.toString() + "\n";
             }
-            ui.showTasks(result);
+            return ui.showTasks(result);
         }
     }
 
@@ -79,10 +79,10 @@ public class TaskList {
      *
      * @param task id of task to be added.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         this.list.add(task);
         this.storage.updateFile(this.list);
-        ui.showTaskAdded(task, this.getListSize());
+        return ui.showTaskAdded(task, this.getListSize());
     }
 
     /**
@@ -92,13 +92,14 @@ public class TaskList {
      * @param taskId if of task to delete.
      * @throws InvalidTaskIdException if taskID is invalid.
      */
-    public void deleteTask(int taskId) throws InvalidTaskIdException {
+    public String deleteTask(int taskId) throws InvalidTaskIdException {
         if (isValidTaskId(taskId)) {
             Task toRemove = list.get(taskId);
             list.remove(taskId);
             this.storage.updateFile(this.list);
-            ui.showDeleteTask(toRemove, this.getListSize());
+            return ui.showDeleteTask(toRemove, this.getListSize());
         }
+        return "";
     }
 
     /**
@@ -106,13 +107,13 @@ public class TaskList {
      *
      * @param taskId id of task to mark.
      */
-    public void markTask(int taskId) {
+    public String markTask(int taskId) {
         Task task = this.list.get(taskId);
         if (task.canMark()) {
-            ui.showMarkTask(false, task);
             this.storage.updateFile(this.list);
+            return ui.showMarkTask(false, task);
         } else {
-            ui.showMarkTask(true, task);
+            return ui.showMarkTask(true, task);
         }
     }
 
@@ -121,13 +122,13 @@ public class TaskList {
      *
      * @param taskId id of task to unmark.
      */
-    public void unMarkTask(int taskId) {
+    public String unMarkTask(int taskId) {
         Task task = this.list.get(taskId);
         if (task.canUnMark()) {
-            ui.showUnMarkTask(true, task);
             this.storage.updateFile(this.list);
+            return ui.showUnMarkTask(true, task);
         } else {
-            ui.showUnMarkTask(false, task);
+            return ui.showUnMarkTask(false, task);
         }
     }
 
