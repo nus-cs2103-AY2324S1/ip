@@ -53,6 +53,8 @@ public class TaskList {
      * @param taskNumber The task number of the task to be marked as not done.
      */
     public Task unmarkTask(int taskNumber) throws DukeException {
+        assert taskNumber > 0 : "Task number should be greater than 0";
+        assert taskNumber <= tasks.size() : "Task number should be less than or equal to the number of tasks";
         try {
             Task task = tasks.get(taskNumber - 1);
             task.markAsUndone();
@@ -67,6 +69,8 @@ public class TaskList {
      * @param taskNumber The task number of the task to be marked as done.
      */
     public Task markTask(int taskNumber) throws DukeException {
+        assert taskNumber > 0 : "Task number should be greater than 0";
+        assert taskNumber <= tasks.size() : "Task number should be less than or equal to the number of tasks";
         try {
             Task task = tasks.get(taskNumber - 1);
             task.markAsDone();
@@ -122,6 +126,8 @@ public class TaskList {
      * @throws DukeException If the task number is not an integer or if the task number is out of bounds.
      */
     public Task deleteTask(int taskNumber) throws DukeException {
+        assert taskNumber > 0 : "Task number should be greater than 0";
+        assert taskNumber <= tasks.size() : "Task number should be less than or equal to the number of tasks";
         try {
             Task task = tasks.get(taskNumber - 1);
             tasks.remove(taskNumber - 1);

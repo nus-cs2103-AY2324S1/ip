@@ -15,7 +15,6 @@ import duke.task.Task;
  */
 public class Storage {
     private String path;
-    private File file;
 
     /**
      * Constructs a Storage object.
@@ -24,7 +23,6 @@ public class Storage {
      */
     public Storage(String path) {
         this.path = path;
-        this.file = new File(this.path);
     }
 
     /**
