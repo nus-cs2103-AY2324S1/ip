@@ -32,6 +32,15 @@ application {
     mainClass.set("main.Duke")
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'main.Duke'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null

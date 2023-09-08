@@ -22,3 +22,9 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+   
+## Running the JAR file
+
+1. Download the JAR file from [here]
+2. Open the terminal and navigate to the directory where the JAR file is located
+3. Run the JAR file using the command `java -jar ip.jar`
