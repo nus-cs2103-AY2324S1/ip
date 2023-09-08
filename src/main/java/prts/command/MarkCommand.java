@@ -30,9 +30,9 @@ public class MarkCommand extends Command {
      * @param storage The Storage object stored by PRTS.
      * @throws OutOfRangeException If the index provided is out of range of the TaskList.
      * @throws AlreadyMarkedException If the Task indicated by the provided index is already marked
-     * as complete.
+     *         as complete.
      * @throws SaveToFileException If the Storage object fails to save the state of the TaskList
-     * after the marking of the Task.
+     *         after the marking of the Task.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws OutOfRangeException,

@@ -1,11 +1,11 @@
 package prts.command;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 import prts.task.Deadline;
 import prts.task.Event;
 import prts.task.Todo;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 /**
  * The parser used to convert arbitrary user input into definite commands executable by PRTS.
@@ -37,21 +37,25 @@ public class CommandParser {
 
         case "todo":
 
-            if (detail.isBlank())
+            if (detail.isBlank()) {
                 throw new ParsingException(ParsingException.ExceptionType.MISSING_DESCRIPTION);
+            }
+
             return new AddCommand(new Todo(detail));
 
         case "deadline":
 
-            if (detail.isBlank())
+            if (detail.isBlank()) {
                 throw new ParsingException(ParsingException.ExceptionType.MISSING_DESCRIPTION);
+            }
+
             try {
                 String[] deadlineSplits = detail.split("/by", 2);
                 String deadlineDescription = deadlineSplits[0].strip();
                 String deadlineStr = deadlineSplits[1].strip();
-                if (deadlineStr.isBlank() || deadlineDescription.isBlank())
+                if (deadlineStr.isBlank() || deadlineDescription.isBlank()) {
                     throw new ParsingException(ParsingException.ExceptionType.MISSING_DESCRIPTION);
-
+                }
                 try {
                     LocalDateTime deadlineDate = LocalDateTime.parse(deadlineStr);
                     return new AddCommand(new Deadline(deadlineDescription, deadlineDate));
@@ -64,16 +68,19 @@ public class CommandParser {
 
         case "event":
 
-            if (detail.isBlank())
+            if (detail.isBlank()) {
                 throw new ParsingException(ParsingException.ExceptionType.MISSING_DESCRIPTION);
+            }
+
             try {
                 String[] eventSplit1 = detail.split("/from", 2);
                 String[] eventSplit2 = eventSplit1[1].split("/to", 2);
                 String eventDescription = eventSplit1[0].strip();
                 String startDate = eventSplit2[0].strip();
                 String endDate = eventSplit2[1].strip();
-                if (eventDescription.isBlank() || startDate.isBlank() || endDate.isBlank())
+                if (eventDescription.isBlank() || startDate.isBlank() || endDate.isBlank()) {
                     throw new ParsingException(ParsingException.ExceptionType.MISSING_DETAIL);
+                }
                 System.out.println("Roger that. Preparations will be underway.");
                 try {
                     LocalDateTime eventStartDate = LocalDateTime.parse(startDate);
@@ -105,8 +112,9 @@ public class CommandParser {
 
         case "unmark":
 
-            if (detail.isBlank())
+            if (detail.isBlank()) {
                 throw new ParsingException(ParsingException.ExceptionType.MISSING_INDEX);
+            }
 
             if (detail.equalsIgnoreCase("all")) {
                 return new UnmarkCommand(null);

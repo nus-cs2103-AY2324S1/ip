@@ -8,17 +8,17 @@ import java.util.Scanner;
  */
 public class Ui {
 
+    private static String softbreak = "--------------------------------------------------";
+    private static String hardbreak = "——————————————————————————————————————————————————";
     private final Scanner scanner = new Scanner(System.in);
-    static String softbreak = "--------------------------------------------------";
-    static String hardbreak = "——————————————————————————————————————————————————";
 
     /**
      * Displays the initial message on startup.
      */
     public void showWelcome() {
-        System.out.println(hardbreak +
-                "\n...Fingerprint match found. Verification complete. Welcome home.\n" +
-                "PRTS, at your service. What would you like to do today?\n" + hardbreak);
+        System.out.println(hardbreak
+                + "\n...Fingerprint match found. Verification complete. Welcome home.\n"
+                + "PRTS, at your service. What would you like to do today?\n" + hardbreak);
     }
 
     /**

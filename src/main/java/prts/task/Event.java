@@ -12,10 +12,10 @@ public class Event extends Task {
 
     private String description1;
     private String description2;
-    private String addMessage = "Roger that. Preparations will be underway.";
+    private final String addMessage = "Roger that. Preparations will be underway.";
 
-    LocalDateTime startDate;
-    LocalDateTime endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     /**
      * Constructs an Event object, with user-input strings as the start and end dates.

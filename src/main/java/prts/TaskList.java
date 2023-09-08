@@ -1,11 +1,11 @@
 package prts;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 import prts.task.AlreadyMarkedException;
 import prts.task.AlreadyUnmarkedException;
 import prts.task.Task;
-
-import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * Represents the list of Tasks the user has added in PRTS, and manages all modifications to this list.
@@ -25,7 +25,7 @@ public class TaskList implements Serializable {
      * Adds a new Task to the list.
      * @param task The Task to be added to the list.
      * @return A message to be displayed to the user as acknowledgement and indication of successful
-     * execution.
+     *         execution.
      */
     public String add(Task task) {
         tasks.add(task);
@@ -38,9 +38,9 @@ public class TaskList implements Serializable {
      *              This is a number from 1 to the size of the list, or null if all items should be
      *              deleted.
      * @return A message to be displayed to the user as acknowledgement and indication of successful
-     * execution.
+     *         execution.
      * @throws OutOfRangeException If the index provided is 0 or less, or greater than the size of
-     * the list.
+     *         the list.
      */
     public String delete(Integer index) throws OutOfRangeException {
 
@@ -77,9 +77,9 @@ public class TaskList implements Serializable {
      *              This is a number from 1 to the size of the list, or null if all items should be
      *              marked.
      * @return A message to be displayed to the user as acknowledgement and indication of successful
-     * execution.
+     *         execution.
      * @throws OutOfRangeException If the index provided is 0 or less, or greater than the size of
-     * the list.
+     *         the list.
      * @throws AlreadyMarkedException If the item to be marked is already marked.
      */
     public String mark(Integer index) throws OutOfRangeException, AlreadyMarkedException {
@@ -89,6 +89,9 @@ public class TaskList implements Serializable {
                 try {
                     task.markDone();
                 } catch (AlreadyMarkedException ignored) {
+                    // AlreadyMarkedExceptions here can be safely ignored.
+                    // We don't want to display a bunch of exceptions if the list already has many
+                    // marked tasks.
                 }
             }
             return "All done.";
@@ -112,9 +115,9 @@ public class TaskList implements Serializable {
      *              This is a number from 1 to the size of the list, or null if all items should be
      *              unmarked.
      * @return A message to be displayed to the user as acknowledgement and indication of successful
-     * execution.
+     *         execution.
      * @throws OutOfRangeException If the index provided is 0 or less, or greater than the size of
-     * the list.
+     *         the list.
      * @throws AlreadyUnmarkedException If the item to be unmarked is already unmarked.
      */
     public String unmark(Integer index) throws OutOfRangeException, AlreadyUnmarkedException {
@@ -124,6 +127,9 @@ public class TaskList implements Serializable {
                 try {
                     task.markUndone();
                 } catch (AlreadyUnmarkedException ignored) {
+                    // AlreadyUnmarkedExceptions here can be safely ignored.
+                    // We don't want to display a bunch of exceptions if the list already has many
+                    // unmarked tasks.
                 }
             }
             return "All undone.";
@@ -147,10 +153,10 @@ public class TaskList implements Serializable {
      */
     public String docRest() {
         if (tasks.isEmpty()) {
-            return "...have a good rest.";
+            return "How'd you even sleep while standing up... well, have a good rest.";
         } else {
-            return "There's still lots of work that needs to be done. " +
-                    "We can't afford to have you resting.";
+            return "There's still lots of work that needs to be done. "
+                    + "We can't afford to have you resting.";
         }
     }
 

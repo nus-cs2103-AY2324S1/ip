@@ -9,7 +9,10 @@ import prts.PrtsException;
  */
 public class ParsingException extends PrtsException {
 
-    public enum ExceptionType {
+    /**
+     * A list of all possible types of exceptions this class can represent.
+     */
+    enum ExceptionType {
 
         IMPROPER_FORMAT,
         MISSING_DESCRIPTION,
@@ -19,7 +22,7 @@ public class ParsingException extends PrtsException {
         EXCESS_INPUT;
     }
 
-    ExceptionType exceptionType;
+    private final ExceptionType exceptionType;
 
     /**
      * Constructs a ParsingException given the error type.

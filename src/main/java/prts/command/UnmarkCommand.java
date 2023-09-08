@@ -30,9 +30,9 @@ public class UnmarkCommand extends Command {
      * @param storage The Storage object stored by PRTS.
      * @throws OutOfRangeException If the index provided is out of range of the TaskList.
      * @throws AlreadyUnmarkedException If the Task indicated by the provided index is already marked
-     * as not yet complete.
+     *         as not yet complete.
      * @throws SaveToFileException If the Storage object fails to save the state of the TaskList
-     * after the Task is unmarked.
+     *         after the Task is unmarked.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AlreadyUnmarkedException,

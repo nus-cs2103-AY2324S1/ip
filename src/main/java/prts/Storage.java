@@ -59,9 +59,9 @@ public class Storage {
      * Attempts to load the TaskList from the save file.
      * @return The loaded TaskList.
      * @throws CreateNewSaveException If the file could not be located or read, and a new save file
-     * was created.
+     *         was created.
      * @throws NewSaveFailedException If the file could not be located or read, and a new save file
-     * could not be created.
+     *         could not be created.
      */
     public TaskList load() throws CreateNewSaveException, NewSaveFailedException {
 

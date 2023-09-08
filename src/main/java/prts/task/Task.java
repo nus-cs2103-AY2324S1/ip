@@ -9,8 +9,8 @@ import java.io.Serializable;
  */
 public abstract class Task implements Serializable {
 
-    private boolean isDone;
     protected String name;
+    private boolean isDone;
 
     /**
      * Constructs a Task object. Always initializes the Task as not-yet-done.
