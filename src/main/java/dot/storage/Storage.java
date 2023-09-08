@@ -1,10 +1,13 @@
 package dot.storage;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 import dot.errors.DotException;
 import dot.errors.TaskError;
@@ -66,16 +69,17 @@ public class Storage {
     public ArrayList<Task> getTasks() throws DotException {
         try {
             File file = this.getFile();
-            Scanner sc = new Scanner(file);
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            Stream<String> lines = bufferedReader.lines();
 
             ArrayList<Task> taskList = new ArrayList<>();
-            while (sc.hasNextLine()) {
-                String currLine = sc.nextLine();
-                if (currLine.isBlank()) {
-                    break;
+
+            lines.forEach(line -> {
+                if (line.isBlank()) {
+                    return;
                 }
                 // Pipe is a special character is regex
-                String[] items = currLine.split(" \\| ");
+                String[] items = line.split(" \\| ");
                 String taskType = items[0];
                 boolean isCompleted = items[1].equals("1");
                 String description = items[2];
@@ -95,7 +99,7 @@ public class Storage {
                 default:
                     break;
                 }
-            }
+            });
             return taskList;
         } catch (IOException e) {
             throw new DotException("Error reading file", TaskError.ERR_READING_FILE);
