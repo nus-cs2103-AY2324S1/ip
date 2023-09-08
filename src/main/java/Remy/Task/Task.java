@@ -2,6 +2,9 @@ package remy.task;
 
 import java.io.Serializable;
 
+/**
+ * A Task that can be added into the Tasklist.
+ */
 public class Task implements Serializable {
     protected String description;
     protected boolean isDone;
@@ -27,7 +30,7 @@ public class Task implements Serializable {
         return this.description;
     }
 
-      /**
+    /**
      * Marks Task as Done. Status icon: [X].
      */
     public void markAsDone() {

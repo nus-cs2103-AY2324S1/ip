@@ -1,40 +1,41 @@
 package remy.command;
 
-import remy.ChatbotException;
-import remy.Storage;
-import remy.task.TaskList;
-import remy.Ui;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import remy.ChatbotException;
+import remy.Storage;
+import remy.Ui;
+import remy.task.TaskList;
 
 public class MarkCommandTest {
 
     @Test
-    public void MarkCommand_missingIndex_throwChatbotException() {
+    public void markCommand_missingIndex_throwChatbotException() {
         assertThrows(ChatbotException.class, () -> new MarkCommand("mark"));
     }
 
     @Test
-    public void MarkCommand_invalidIndex_throwChatbotException() {
+    public void markCommand_invalidIndex_throwChatbotException() {
         assertThrows(ChatbotException.class, () -> new MarkCommand("mark abc"));
     }
 
     @Test
-    public void MarkCommand_negativeIndex_throwChatbotException() {
+    public void markCommand_negativeIndex_throwChatbotException() {
         assertThrows(ChatbotException.class, () -> new MarkCommand("mark -1"));
     }
 
     @Test
-    public void MarkCommand_caseInsensitive_throwChatbotException() throws ChatbotException {
+    public void markCommand_caseInsensitive_success() throws ChatbotException {
         MarkCommand mc = new MarkCommand("Mark 1");
         return;
     }
 
     @Test
-    public void execute_invalidIndex_throwChatbotException() throws ChatbotException{
+    public void execute_invalidIndex_throwChatbotException() throws ChatbotException {
         TaskList taskList = new TaskList();
         Ui ui = new Ui();
         Storage storage = new Storage(Paths.get(".", "data", "remy.ser"));

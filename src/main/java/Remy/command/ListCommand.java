@@ -1,7 +1,8 @@
 package remy.command;
-import remy.task.TaskList;
-import remy.Ui;
+
 import remy.Storage;
+import remy.Ui;
+import remy.task.TaskList;
 
 /**
  * A Command that prints a String representation of the current TaskList upon executing.

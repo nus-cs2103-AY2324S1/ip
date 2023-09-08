@@ -3,6 +3,9 @@ package remy.task;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * A TaskList that stores Tasks created by the user.
+ */
 public class TaskList implements Serializable {
     private ArrayList<Task> tasks;
 
