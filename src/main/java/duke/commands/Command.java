@@ -11,7 +11,7 @@ public interface Command {
     /**
      * Executes the command given an input.
      *
-     * @param input The command to be run.
+     * @param input    The command to be run.
      * @param taskList The application's task list.
      * @param ui       The UI of the application.
      */

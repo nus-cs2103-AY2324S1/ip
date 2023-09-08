@@ -1,12 +1,5 @@
 package duke;
 
-import duke.commands.*;
-import duke.exceptions.InsufficientArgumentsException;
-import duke.exceptions.UnknownCommandException;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,6 +10,22 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+
+import duke.commands.Command;
+import duke.commands.DeleteCommand;
+import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
+import duke.commands.InsertCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkCommand;
+import duke.commands.UnmarkCommand;
+import duke.exceptions.InsufficientArgumentsException;
+import duke.exceptions.UnknownCommandException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
+
 
 /**
  * Represents the Application object responsible for storing and executing commands.
@@ -43,6 +52,9 @@ public class Parser {
      */
     private final HashMap<String, Command> commandMap = new HashMap<>();
 
+    /**
+     * Creates a new {@code Parser} instance.
+     */
     public Parser() {
         this.addCommand("delete", new DeleteCommand());
         this.addCommand("list", new ListCommand());
@@ -74,6 +86,7 @@ public class Parser {
                     return LocalDateTime.of(date, LocalTime.MIDNIGHT);
                 }
             } catch (DateTimeParseException ignored) {
+                // continue attempting all valid formats
             }
         }
         throw new DateTimeParseException(String.format(Messages.ERROR_PREFIX, String.format(

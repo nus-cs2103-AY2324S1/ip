@@ -39,7 +39,7 @@ public class Ui {
     /**
      * Displays a message to the user, formatted for the application.
      *
-     * @param message      The message to be displayed.
+     * @param message The message to be displayed.
      */
     public void displayMessage(String message) {
         this.displayMessage(message, true);
@@ -81,7 +81,7 @@ public class Ui {
      * @param message The error message to be displayed.
      */
     public void displayError(String message) {
-        System.out.println(Ui.indent(Messages.HORIZONTAL_LINE + "\n" +
-                String.format(Messages.ERROR_PREFIX, message) + "\n" + Messages.HORIZONTAL_LINE));
+        System.out.println(Ui.indent(Messages.HORIZONTAL_LINE + "\n"
+                + String.format(Messages.ERROR_PREFIX, message) + "\n" + Messages.HORIZONTAL_LINE));
     }
 }

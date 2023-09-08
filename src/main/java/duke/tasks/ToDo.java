@@ -5,6 +5,12 @@ package duke.tasks;
  */
 public class ToDo extends Task {
 
+    /**
+     * Creates a new {@code ToDo} instance
+     *
+     * @param description The description of the to-do.
+     * @param isDone      The indication of the event being to-do.
+     */
     public ToDo(String description, boolean isDone) {
         super(description, isDone);
     }

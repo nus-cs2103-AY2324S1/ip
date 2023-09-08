@@ -1,13 +1,12 @@
 package duke;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests the {@code Parser} class.
@@ -53,7 +52,7 @@ public class ParserTest {
             fail();
         } catch (DateTimeParseException e) {
             assertEquals(String.format(Messages.ERROR_PREFIX, String.format(
-                                    Messages.INVALID_DATE_TIME_FORMAT, dateTimeString)), e.getMessage()
+                    Messages.INVALID_DATE_TIME_FORMAT, dateTimeString)), e.getMessage()
             );
         }
     }

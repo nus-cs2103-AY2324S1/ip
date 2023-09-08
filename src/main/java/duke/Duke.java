@@ -1,11 +1,11 @@
 package duke;
 
+import java.io.IOException;
+import java.time.format.DateTimeParseException;
+
 import duke.exceptions.InsufficientArgumentsException;
 import duke.exceptions.StorageCreationException;
 import duke.exceptions.UnknownCommandException;
-
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
 
 /**
  * Serves as the entry point to run the application.
@@ -21,8 +21,8 @@ public class Duke {
             Storage storage = new DukeStorage();
             taskList.setStorage(storage);
             taskList.loadTasks();
-        } catch (IOException | InsufficientArgumentsException |
-                 DateTimeParseException | StorageCreationException e) {
+        } catch (IOException | InsufficientArgumentsException
+                 | DateTimeParseException | StorageCreationException e) {
             ui.displayError(e.getMessage());
         }
 
