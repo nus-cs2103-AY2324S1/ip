@@ -77,7 +77,6 @@ public class Storage {
                 if (line.isBlank()) {
                     return;
                 }
-                // Pipe is a special character is regex
                 addTaskToList(line, taskList);
             });
             return taskList;
@@ -94,6 +93,7 @@ public class Storage {
      * @param taskList This is the taskList to populate.
      */
     private void addTaskToList(String currLine, ArrayList<Task> taskList) {
+        // Pipe is a special character is regex
         String[] items = currLine.split(" \\| ");
         String taskType = items[0];
         boolean isCompleted = items[1].equals("1");
