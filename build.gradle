@@ -57,6 +57,7 @@ shadowJar {
     dependsOn("distZip", "distTar")
 }
 
-run{
+run {
+    enableAssertions = true
     standardInput = System.in
 }
