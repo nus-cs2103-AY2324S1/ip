@@ -7,12 +7,6 @@ import fluke.tasks.Task;
  */
 public class Ui {
     private static final String CHATBOT_NAME = "Fluke";
-    private static final String LOGO =
-            "    ________      __\n"
-                    + "   / ____/ /_  __/ /_____\n"
-                    + "  / /_  / / / / / //_/ _ \\\n"
-                    + " / __/ / / /_/ / ,< /  __/\n"
-                    + "/_/   /_/\\__,_/_/|_|\\___/";
     private static final String GREETING =
             "Hello! I'm " + CHATBOT_NAME + ", everything I do is down to luck!" + "\n"
                     + "Feeling lucky today?";
@@ -21,45 +15,33 @@ public class Ui {
     /**
      * Greets the user.
      */
-    public void greet() {
+    public String getGreeting() {
         // introduce Fluke
-        System.out.println(LOGO);
-        addHorizontalLine();
-        System.out.println(GREETING);
-        addHorizontalLine();
+        return GREETING;
     }
 
     /**
      * Says goodbye to the user.
      */
-    public void sayBye() {
-        System.out.println(GOODBYE);
-    }
-
-    /**
-     * Adds a horizontal line break
-     */
-    private void addHorizontalLine() {
-        System.out.println("____________________________________________________________");
+    public String getBye() {
+        return GOODBYE;
     }
 
     /**
      * prints an error
      * @param message the error message
      */
-    public void showError(String message) {
-        System.out.println("☹ OOPS!!! " + message);
-        addHorizontalLine();
+    public String getError(String message) {
+        return "☹ OOPS!!! " + message;
     }
 
     /**
      * shows the current list of tasks to the user.
      * @param tasks the corresponding TaskList.
      */
-    public void showListOfTasks(TaskList tasks) {
-        System.out.println("Here are the tasks we have currently!");
-        System.out.println(tasks);
-        addHorizontalLine();
+    public String getListOfTasks(TaskList tasks) {
+        String response = "Here are the tasks we have currently!\n" + tasks.toString();
+        return response;
     }
 
     /**
@@ -67,11 +49,10 @@ public class Ui {
      * @param addedTask the task added.
      * @param tasks the list of tasks.
      */
-    public void showTaskAdded(Task addedTask, TaskList tasks) {
-        System.out.println("(Scribbles randomly). Hope I got it right!");
-        System.out.println("  " + addedTask);
-        System.out.println("I think there are now " + tasks.getSize() + " tasks in the list.");
-        addHorizontalLine();
+    public String getTaskAdded(Task addedTask, TaskList tasks) {
+        return "(Scribbles randomly). Hope I got it right!\n"
+                + "  " + addedTask + "\n"
+                + "I think there are now " + tasks.getSize() + " tasks in the list.";
     }
 
     /**
@@ -79,47 +60,43 @@ public class Ui {
      * @param deletedTask the task deleted.
      * @param tasks the list of tasks.
      */
-    public void showTaskDeleted(Task deletedTask, TaskList tasks) {
-        System.out.println("fluke.tasks.Task deleted! I hope it's the right one:");
-        System.out.println("  " + deletedTask);
-        System.out.println("I think there are now " + tasks.getSize() + " tasks in the list.");
-        addHorizontalLine();
+    public String getTaskDeleted(Task deletedTask, TaskList tasks) {
+        return "fluke.tasks.Task deleted! I hope it's the right one:\n"
+                + "  " + deletedTask + "\n"
+                + "I think there are now " + tasks.getSize() + " tasks in the list.";
     }
 
     /**
      * Shows a task being marked as done to the user.
      * @param markedTask the task marked as done.
      */
-    public void showTaskMarkedAsDone(Task markedTask) {
-        System.out.println("I have marked this task as done, I hope it's the right one:");
-        System.out.println("  " + markedTask);
-        addHorizontalLine();
+    public String getTaskMarkedAsDone(Task markedTask) {
+        return "I have marked this task as done, I hope it's the right one:\n"
+                + "  " + markedTask;
     }
 
     /**
      * Shows a task being marked as not done to the user.
      * @param markedTask the task marked as not done.
      */
-    public void showTaskMarkedAsUndone(Task markedTask) {
-        System.out.println("I have marked this task as not done yet, I hope it's the right one:");
-        System.out.println("  " + markedTask);
-        addHorizontalLine();
+    public String getTaskMarkedAsUndone(Task markedTask) {
+        return "I have marked this task as not done yet, I hope it's the right one:\n"
+                + "  " + markedTask;
     }
 
     /**
      * Shows the user tasks with a certain keyword
      * @param tasksWithKeyword list of tasks to show
      */
-    public void showTasksWithKeyword(TaskList tasksWithKeyword) {
-        System.out.println("I have randomly picked out a few tasks. Looks like they have what you want!");
-        System.out.println(tasksWithKeyword);
-        addHorizontalLine();
+    public String getTasksWithKeyword(TaskList tasksWithKeyword) {
+        return "I have randomly picked out a few tasks. Looks like they have what you want!"
+                + tasksWithKeyword;
     }
 
     /**
      * Shows a loading error to the user.
      */
-    public void showLoadingError() {
-        showError("Failed to load!");
+    public String getLoadingError() {
+        return getError("Failed to load!");
     }
 }

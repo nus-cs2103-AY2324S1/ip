@@ -58,6 +58,7 @@ public class Storage {
      * @throws IOException Error that occurs during saving
      */
     public void save(ArrayList<Task> tasks) throws IOException {
+        System.out.println(tasks);
         FileWriter writer = new FileWriter(this.filePath);
         for (int i = 0; i < tasks.size(); i++) {
             String out = tasks.get(i).toString() + "\n";
