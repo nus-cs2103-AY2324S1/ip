@@ -1,16 +1,25 @@
 package duke;
 
-import duke.exceptions.*;
-
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
-import duke.tasks.Deadline;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import duke.exceptions.DukeException;
+import duke.exceptions.InvalidCommandException;
+import duke.exceptions.InvalidDeadlineException;
+import duke.exceptions.InvalidEventException;
+import duke.exceptions.InvalidFindTaskException;
+import duke.exceptions.InvalidStartEndException;
+import duke.exceptions.InvalidTaskIdException;
+import duke.exceptions.NoDescException;
+import duke.exceptions.NoEndException;
+import duke.exceptions.NoStartException;
+import duke.exceptions.NoTaskIdException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
 
 /**
  * Interprets user commands, and controls what the user can or cannot do. An object acts as a
@@ -21,6 +30,13 @@ public class Parser {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Class constructor for Parser.
+     *
+     * @param storage storage to where data is stored.
+     * @param tasks   tasks in the list.
+     * @param ui      ui to be used.
+     */
     public Parser(Storage storage, TaskList tasks, Ui ui) {
         this.storage = storage;
         this.tasks = tasks;
@@ -256,7 +272,7 @@ public class Parser {
             throw new NoDescException();
         }
         if (details.length == 1) {
-            throw new InvalidEventException();//can either be no desc or no start
+            throw new InvalidEventException(); //can either be no desc or no start
         }
 
         String task = details[0].trim();

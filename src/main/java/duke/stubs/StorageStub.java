@@ -1,16 +1,26 @@
 package duke.stubs;
 
-import duke.Storage;
-import duke.Ui;
-import duke.tasks.Task;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import duke.Storage;
+import duke.Ui;
+import duke.tasks.Task;
+
+/**
+ * Stub for Storage class, created for testing purposes.
+ */
 public class StorageStub extends Storage {
+
+    /**
+     * Class constructor for StorageStub.
+     *
+     * @param path path of file where data is stored.
+     * @param ui   ui to be used.
+     */
     public StorageStub(String path, Ui ui) {
         super(path, ui);
     }

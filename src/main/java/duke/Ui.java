@@ -12,8 +12,8 @@ public class Ui {
      * Prints welcome words to the user.
      */
     public void greeting() {
-        String intro = "(｡･o･｡)ﾉ Hey there! I'm BUTTER.\n" +
-                "How can I help you today?\n";
+        String intro = "(｡･o･｡)ﾉ Hey there! I'm BUTTER.\n"
+                + "How can I help you today?\n";
         System.out.println(line + "\n" + intro + line);
     }
 
@@ -105,8 +105,8 @@ public class Ui {
      */
     public void showUnMarkTask(boolean isMarked, Task task) {
         if (isMarked) {
-            System.out.println("໒( ̿･ ᴥ ̿･ )ʋ All righty, I've marked this task as uncompleted:\n" +
-                    task.toString());
+            System.out.println("໒( ̿･ ᴥ ̿･ )ʋ All righty, I've marked this task as uncompleted:\n"
+                    + task.toString());
             System.out.println(line);
         } else {
             System.out.println("┐(´～｀)┌ This task is already marked as uncompleted!");

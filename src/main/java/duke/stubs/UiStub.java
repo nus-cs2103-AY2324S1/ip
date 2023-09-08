@@ -3,6 +3,9 @@ package duke.stubs;
 import duke.Ui;
 import duke.tasks.Task;
 
+/**
+ * Stub for Ui class, created for testing purposes.
+ */
 public class UiStub extends Ui {
     private String line = "--------------------------------------------------------------------";
 

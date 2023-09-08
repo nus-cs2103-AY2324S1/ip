@@ -1,14 +1,14 @@
 package duke.tasks;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class TaskTest {
 
     //this is the concrete implementation of Task, used for testing
-    public class concreteTask extends Task {
-        public concreteTask(int status, String task) {
+    public class ConcreteTask extends Task {
+        public ConcreteTask(int status, String task) {
             super(status, task);
         }
 
@@ -20,59 +20,59 @@ public class TaskTest {
 
     @Test
     public void canMark_successful() {
-        concreteTask task = new concreteTask(0, "Set up unit tests");
+        ConcreteTask task = new ConcreteTask(0, "Set up unit tests");
         task.canMark();
         assertEquals(1, task.getStatus());
     }
 
     @Test
     public void canMark_unsuccessful() {
-        concreteTask task = new concreteTask(1, "Set up unit tests");
+        ConcreteTask task = new ConcreteTask(1, "Set up unit tests");
         task.canMark();
         assertEquals(1, task.getStatus());
     }
 
     @Test
     public void canUnMark_successful() {
-        concreteTask task = new concreteTask(1, "Set up unit tests");
+        ConcreteTask task = new ConcreteTask(1, "Set up unit tests");
         task.canUnMark();
         assertEquals(0, task.getStatus());
     }
 
     @Test
     public void canUnMark_unsuccessful() {
-        concreteTask task = new concreteTask(0, "Set up unit tests");
+        ConcreteTask task = new ConcreteTask(0, "Set up unit tests");
         task.canUnMark();
         assertEquals(0, task.getStatus());
     }
 
     @Test
     public void getStatus_uncompleted() {
-        concreteTask task = new concreteTask(0, "Set up unit tests");
+        ConcreteTask task = new ConcreteTask(0, "Set up unit tests");
         assertEquals(0, task.getStatus());
     }
 
     @Test
     public void getStatus_completed() {
-        concreteTask task = new concreteTask(1, "Set up unit tests");
+        ConcreteTask task = new ConcreteTask(1, "Set up unit tests");
         assertEquals(1, task.getStatus());
     }
 
     @Test
     public void getTask_completed() {
-        concreteTask task = new concreteTask(1, "Set up unit tests");
+        ConcreteTask task = new ConcreteTask(1, "Set up unit tests");
         assertEquals("Set up unit tests", task.getTask());
     }
 
     @Test
     public void toString_uncompleted() {
-        concreteTask task = new concreteTask(0, "Set up unit tests");
+        ConcreteTask task = new ConcreteTask(0, "Set up unit tests");
         assertEquals("[ ] " + "Set up unit tests", task.toString());
     }
 
     @Test
     public void toString_completed() {
-        concreteTask task = new concreteTask(1, "Set up unit tests");
+        ConcreteTask task = new ConcreteTask(1, "Set up unit tests");
         assertEquals("[X] " + "Set up unit tests", task.toString());
     }
 }

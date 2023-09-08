@@ -1,20 +1,24 @@
 package duke;
 
-import duke.exceptions.*;
-import duke.stubs.StorageStub;
-import duke.stubs.TaskListStub;
-import duke.stubs.UiStub;
-import duke.tasks.Task;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import duke.exceptions.DukeException;
+import duke.exceptions.InvalidEventException;
+import duke.exceptions.InvalidStartEndException;
+import duke.exceptions.NoDescException;
+import duke.exceptions.NoEndException;
+import duke.exceptions.NoStartException;
+import duke.stubs.StorageStub;
+import duke.stubs.TaskListStub;
+import duke.stubs.UiStub;
+import duke.tasks.Task;
 
 public class ParserTest {
 
@@ -32,8 +36,8 @@ public class ParserTest {
         String input = "event";
         String expected = "(・´з`・) Uh oh... please add a description\n" + ui.showLine() + "\n";
 
-        NoDescException e = assertThrows(NoDescException.class,
-                () -> parser.parseEvent(input));
+        NoDescException e = assertThrows(
+                NoDescException.class, () -> parser.parseEvent(input));
         ui.showError(e.getMessage());
 
         assertEquals(expected, outContent.toString());
@@ -53,8 +57,8 @@ public class ParserTest {
         String input = "event      ";
         String expected = "(・´з`・) Uh oh... please add a description\n" + ui.showLine() + "\n";
 
-        NoDescException e = assertThrows(NoDescException.class,
-                () -> parser.parseEvent(input));
+        NoDescException e = assertThrows(
+                NoDescException.class, () -> parser.parseEvent(input));
         ui.showError(e.getMessage());
 
         assertEquals(expected, outContent.toString());
@@ -72,10 +76,11 @@ public class ParserTest {
         Parser parser = new Parser(storage, list, ui);
 
         String input = "event     /from 2023-09-09 18:00 /to 2023-09-09 19:00";
-        String expected = "(・´з`・) Uh oh... please add a description\n" + ui.showLine() + "\n";
+        String expected = "(・´з`・) Uh oh... please add a description\n"
+                + ui.showLine() + "\n";
 
-        NoDescException e = assertThrows(NoDescException.class,
-                () -> parser.parseEvent(input));
+        NoDescException e = assertThrows(
+                NoDescException.class, () -> parser.parseEvent(input));
         ui.showError(e.getMessage());
 
         assertEquals(expected, outContent.toString());
@@ -95,8 +100,8 @@ public class ParserTest {
         String input = "event/from 2023-09-09 19:00 /to 2023-09-09 19:00";
         String expected = "(・´з`・) Uh oh... improper event format!\n" + ui.showLine() + "\n";
 
-        InvalidEventException e = assertThrows(InvalidEventException.class,
-                () -> parser.parseEvent(input));
+        InvalidEventException e = assertThrows(
+                InvalidEventException.class, () -> parser.parseEvent(input));
         ui.showError(e.getMessage());
 
         assertEquals(expected, outContent.toString());
@@ -116,8 +121,8 @@ public class ParserTest {
         String input = "event live lecture /to 2023-09-09 19:00";
         String expected = "(・´з`・) Uh oh... improper event format!\n" + ui.showLine() + "\n";
 
-        InvalidEventException e = assertThrows(InvalidEventException.class,
-                () -> parser.parseEvent(input));
+        InvalidEventException e = assertThrows(
+                InvalidEventException.class, () -> parser.parseEvent(input));
         ui.showError(e.getMessage());
 
         assertEquals(expected, outContent.toString());
@@ -137,8 +142,8 @@ public class ParserTest {
         String input = "event live lecture /from/to 2023-09-09 19:00";
         String expected = "(・´з`・) Uh oh... please add a start date\n" + ui.showLine() + "\n";
 
-        NoStartException e = assertThrows(NoStartException.class,
-                () -> parser.parseEvent(input));
+        NoStartException e = assertThrows(
+                NoStartException.class, () -> parser.parseEvent(input));
         ui.showError(e.getMessage());
 
         assertEquals(expected, outContent.toString());
@@ -158,8 +163,8 @@ public class ParserTest {
         String input = "event live lecture /from     /to 2023-09-09 19:00";
         String expected = "(・´з`・) Uh oh... please add a start date\n" + ui.showLine() + "\n";
 
-        NoStartException e = assertThrows(NoStartException.class,
-                () -> parser.parseEvent(input));
+        NoStartException e = assertThrows(
+                NoStartException.class, () -> parser.parseEvent(input));
         ui.showError(e.getMessage());
 
         assertEquals(expected, outContent.toString());
@@ -179,8 +184,8 @@ public class ParserTest {
         String input = "event live lecture /from 2023-09-09 19:00";
         String expected = "(・´з`・) Uh oh... please add an end date\n" + ui.showLine() + "\n";
 
-        NoEndException e = assertThrows(NoEndException.class,
-                () -> parser.parseEvent(input));
+        NoEndException e = assertThrows(
+                NoEndException.class, () -> parser.parseEvent(input));
         ui.showError(e.getMessage());
 
         assertEquals(expected, outContent.toString());
@@ -200,8 +205,8 @@ public class ParserTest {
         String input = "event live lecture /from 2023-09-09 19:00 /to";
         String expected = "(・´з`・) Uh oh... please add an end date\n" + ui.showLine() + "\n";
 
-        NoEndException e = assertThrows(NoEndException.class,
-                () -> parser.parseEvent(input));
+        NoEndException e = assertThrows(
+                NoEndException.class, () -> parser.parseEvent(input));
         ui.showError(e.getMessage());
 
         assertEquals(expected, outContent.toString());
@@ -221,8 +226,8 @@ public class ParserTest {
         String input = "event live lecture /from 2023-09-09 19:00 /to     ";
         String expected = "(・´з`・) Uh oh... please add an end date\n" + ui.showLine() + "\n";
 
-        NoEndException e = assertThrows(NoEndException.class,
-                () -> parser.parseEvent(input));
+        NoEndException e = assertThrows(
+                NoEndException.class, () -> parser.parseEvent(input));
         ui.showError(e.getMessage());
 
         assertEquals(expected, outContent.toString());
@@ -242,8 +247,8 @@ public class ParserTest {
         String input = "event live lecture /from 2023-09-09 19:00 /to 2023-09-09 14:00";
         String expected = "(・´з`・) Uh oh... start must be after end!\n" + ui.showLine() + "\n";
 
-        InvalidStartEndException e = assertThrows(InvalidStartEndException.class,
-                () -> parser.parseEvent(input));
+        InvalidStartEndException e = assertThrows(
+                InvalidStartEndException.class, () -> parser.parseEvent(input));
         ui.showError(e.getMessage());
 
         assertEquals(expected, outContent.toString());
@@ -308,8 +313,8 @@ public class ParserTest {
 
         String input = "event live lecture /from 2023-09-09 10:00 /to 2023-09-09 14:00";
         String expectedEvent = "[E] [ ] live lecture (from: 2023-09-09 10:00 to: 2023-09-09 14:00)" + "\n";
-        String expectedMessage = "(｀･ω･´)ﾉ New task added:\n" + expectedEvent +
-                "Now you have 1 task in the list!\n" + ui.showLine() + "\n";
+        String expectedMessage = "(｀･ω･´)ﾉ New task added:\n" + expectedEvent
+                + "Now you have 1 task in the list!\n" + ui.showLine() + "\n";
         try {
             parser.parseEvent(input);
             assertEquals(expectedMessage, outContent.toString()); //check message to user

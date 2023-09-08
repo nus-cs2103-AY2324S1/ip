@@ -4,7 +4,7 @@ package duke.tasks;
  * Encapsulates a Task. Contains methods that allows users to interact with a Task
  * object, such as marking, unmarking or deleting tasks.
  */
-abstract public class Task {
+public abstract class Task {
     private int status;
     private String task;
 
@@ -19,7 +19,7 @@ abstract public class Task {
         this.task = task;
     }
 
-    abstract public String convertTask();
+    public abstract String convertTask();
 
     /**
      * Marks this task as completed.

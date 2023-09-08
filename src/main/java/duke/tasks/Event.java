@@ -1,9 +1,9 @@
 package duke.tasks;
 
-import duke.exceptions.InvalidStartEndException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import duke.exceptions.InvalidStartEndException;
 
 /**
  * Encapsulates an Event. Contains the task description, completion status,
