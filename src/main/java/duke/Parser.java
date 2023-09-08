@@ -10,16 +10,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * Creates a new instance of the duke.Parser class.
+ * Creates a new instance of the Parser class.
  *
- * The duke.Parser class is responsible for parsing user commands and performing
+ * The Parser class is responsible for parsing user commands and performing
  * tasks accordingly.
  */
 public class Parser {
     /**
-     * Constructs a new duke.Parser instance.
+     * Constructs a new Parser instance.
      *
-     * The duke.Parser class is responsible for parsing user commands and performing
+     * The Parser class is responsible for parsing user commands and performing
      * tasks based on those commands.
      */
     public Parser() {
@@ -144,11 +144,11 @@ public class Parser {
     }
 
     /**
-     * Writes the contents of a duke.TaskList to a specified file path.
+     * Writes the contents of a TaskList to a specified file path.
      *
-     * @param filePath  The file path to write the duke.TaskList contents to.
-     * @param taskList  The duke.TaskList containing tasks to be written to the file.
-     * @throws DukeException If an error occurs while writing to the file, or if the description of a duke.task is empty.
+     * @param filePath  The file path to write the TaskList contents to.
+     * @param taskList  The TaskList containing tasks to be written to the file.
+     * @throws DukeException If an error occurs while writing to the file, or if the description of a task is empty.
      */
     public static void writeLine(String filePath, TaskList taskList) throws DukeException {
         File resourceFile = new File(filePath);

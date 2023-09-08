@@ -14,16 +14,16 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * The duke.Storage class handles the loading and saving of tasks to a specified file.
+ * The Storage class handles the loading and saving of tasks to a specified file.
  */
 public class Storage {
     private String filePath;
     private String folderPath;
 
     /**
-     * Constructs a new duke.Storage instance with the file path for data storage.
+     * Constructs a new Storage instance with the file path for data storage.
      *
-     * @param filePath The file path to load and save duke.task data.
+     * @param filePath The file path to load and save task data.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
