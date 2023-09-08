@@ -1,9 +1,5 @@
 package duke;
 
-import duke.exceptions.InsufficientArgumentsException;
-import duke.exceptions.StorageCreationException;
-import duke.tasks.Task;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+
+import duke.exceptions.InsufficientArgumentsException;
+import duke.exceptions.StorageCreationException;
+import duke.tasks.Task;
 
 /**
  * Represents the interface between the application and the storage file.
@@ -76,8 +76,8 @@ public class DukeStorage implements Storage {
     /**
      * Initialises the storage directory and file if they do not exist.
      *
-     * @throws StorageCreationException       If the storage file and directory creation failed.
-     * @throws IOException                    If the storage file creation failed.
+     * @throws StorageCreationException If the storage file and directory creation failed.
+     * @throws IOException              If the storage file creation failed.
      */
     private void initialiseStorage() throws IOException, StorageCreationException {
         String directoryPath = String.format("./%s", DIRECTORY_PATH);

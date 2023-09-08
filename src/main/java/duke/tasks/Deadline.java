@@ -1,9 +1,9 @@
 package duke.tasks;
 
-import duke.Parser;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import duke.Parser;
 
 /**
  * Represents a task containing a description, and the due time.
@@ -15,6 +15,13 @@ public class Deadline extends Task {
         this(description, false, by);
     }
 
+    /**
+     * Creates a new {@code Deadline} instance
+     *
+     * @param description The description of the deadline.
+     * @param isDone      The indication of the deadline being marked.
+     * @param by          The due date of the deadline.
+     */
     public Deadline(String description, boolean isDone, LocalDateTime by) {
         super(description, isDone);
         this.by = by;

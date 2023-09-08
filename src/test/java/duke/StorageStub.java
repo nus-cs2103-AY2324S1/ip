@@ -1,12 +1,5 @@
 package duke;
 
-import duke.exceptions.InsufficientArgumentsException;
-import duke.exceptions.StorageCreationException;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -14,13 +7,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import duke.exceptions.InsufficientArgumentsException;
+import duke.exceptions.StorageCreationException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
+
 /**
  * Represents a stub class for storage.
  */
 public class StorageStub implements Storage {
 
-    public List<Task> storage;
+    private final List<Task> storage;
 
+    /**
+     * Creates a new {@code StorageStub} instance.
+     */
     public StorageStub() {
         LocalDateTime dateTimeMidnight = LocalDateTime.of(2023, 9, 5, 0, 0);
         LocalDateTime dateTimeNoon = LocalDateTime.of(2023, 9, 5, 12, 0);
@@ -57,5 +60,4 @@ public class StorageStub implements Storage {
         this.storage.clear();
         this.storage.addAll(tasks);
     }
-
 }

@@ -1,10 +1,10 @@
 package duke.commands;
 
+import java.io.IOException;
+
 import duke.Messages;
 import duke.TaskList;
 import duke.Ui;
-
-import java.io.IOException;
 
 /**
  * Unmarks a task.
