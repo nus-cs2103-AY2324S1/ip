@@ -43,6 +43,7 @@ public class Deadline extends Task {
 
     @Override
     public boolean isOnDate(LocalDateTime startOfDay, LocalDateTime endOfDay) {
+        assert startOfDay.isBefore(endOfDay) : "startOfDay should be before endOfDay";
         // Event can either start or end on the date itself, or both
         return this.deadline.isAfterOrOn(startOfDay) && this.deadline.isBeforeOrOn(endOfDay);
     }

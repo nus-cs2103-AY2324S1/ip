@@ -21,7 +21,7 @@ public class Todo extends Task {
      * This is the overloaded Constructor for Todo.
      *
      * @param description This is the description for the Task.
-     * @param isCompleted   This is the boolean representing the completeness of the Todo.
+     * @param isCompleted This is the boolean representing the completeness of the Todo.
      */
     public Todo(String description, boolean isCompleted) {
         super(description, isCompleted);
@@ -34,6 +34,7 @@ public class Todo extends Task {
 
     @Override
     public boolean isOnDate(LocalDateTime startOfDay, LocalDateTime endOfDay) {
+        assert startOfDay.isBefore(endOfDay) : "startOfDay should be before endOfDay";
         return false;
     }
 

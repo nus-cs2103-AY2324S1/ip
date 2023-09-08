@@ -35,6 +35,7 @@ public class Parser {
      * @return corresponding LocalDateTime object.
      */
     public static LocalDateTime parseDateInputIntoDateTime(String dateInput) {
+        assert !dateInput.isBlank() : "dateInput is not supposed to be an empty string";
         String[] dayMonthYear = dateInput.split("/");
         return LocalDateTime.parse(String.format("%s-%02d-%02dT00:00:00", dayMonthYear[2],
                 Integer.valueOf(dayMonthYear[1]), Integer.valueOf(dayMonthYear[0])));
@@ -43,12 +44,13 @@ public class Parser {
     /**
      * Parses from MMM dd yyyy HHmm to yyyy-MM-dd HHmm.
      * Reference: https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/
-     *            DateTimeFormatter.html
+     * DateTimeFormatter.html
      *
      * @param displayDateTime of format MMM dd yyyy ha.
      * @return String in format yyyy-MM-dd HHmm i.e. user input.
      */
     public static String parseDisplayDatetimeToStorageDatetime(String displayDateTime) {
+        assert !displayDateTime.isBlank() : "displayDateTime is not supposed to be an empty string";
         try {
             DateTimeFormatter displayDateTimeFormat = DateTimeFormatter.ofPattern("MMM dd yyyy ha");
             LocalDateTime displayLocalDateTime = LocalDateTime.parse(displayDateTime, displayDateTimeFormat);
@@ -101,37 +103,51 @@ public class Parser {
     }
 
     private static Command getMarkCommand(String input, TaskList dotTaskList) throws DotException {
+        assert !input.isBlank() : "input is not supposed to be an empty string";
+        assert dotTaskList != null : "dotTaskList is not supposed to be null";
         int position = Validation.getIntIfValidCommandSpaceNumber(input, TaskError.ERR_USING_MARK);
         return new MarkCommand(position, dotTaskList);
     }
 
     private static Command getUnmarkCommand(String input, TaskList dotTaskList) throws DotException {
+        assert !input.isBlank() : "input is not supposed to be an empty string";
+        assert dotTaskList != null : "dotTaskList is not supposed to be null";
         int position = Validation.getIntIfValidCommandSpaceNumber(input, TaskError.ERR_USING_UNMARK);
         return new UnmarkCommand(position, dotTaskList);
     }
 
     private static Command getTodoCommand(String input, TaskList dotTaskList) throws DotException {
+        assert !input.isBlank() : "input is not supposed to be an empty string";
+        assert dotTaskList != null : "dotTaskList is not supposed to be null";
         String restOfString = Validation.getDescIfValidCommandSpaceDesc(input, "todo",
                 "task description", TaskError.ERR_USING_TODO);
         return new TodoCommand(restOfString, dotTaskList);
     }
 
     private static Command getDeadlineCommand(String input, TaskList dotTaskList) throws DotException {
+        assert !input.isBlank() : "input is not supposed to be an empty string";
+        assert dotTaskList != null : "dotTaskList is not supposed to be null";
         String[] args = Validation.getArgsIfValidDeadlineFormat(input);
         return new DeadlineCommand(args[0], args[1], dotTaskList);
     }
 
     private static Command getEventCommand(String input, TaskList dotTaskList) throws DotException {
+        assert !input.isBlank() : "input is not supposed to be an empty string";
+        assert dotTaskList != null : "dotTaskList is not supposed to be null";
         String[] args = Validation.getArgsIfValidEventFormat(input);
         return new EventCommand(args[0], args[1], args[2], dotTaskList);
     }
 
     private static Command getDeleteCommand(String input, TaskList dotTaskList) throws DotException {
+        assert !input.isBlank() : "input is not supposed to be an empty string";
+        assert dotTaskList != null : "dotTaskList is not supposed to be null";
         int position = Validation.getIntIfValidCommandSpaceNumber(input, TaskError.ERR_DELETING_TASK);
         return new DeleteCommand(position, dotTaskList);
     }
 
     private static Command getWhatsgoingonCommand(String input, TaskList dotTaskList) throws DotException {
+        assert !input.isBlank() : "input is not supposed to be an empty string";
+        assert dotTaskList != null : "dotTaskList is not supposed to be null";
         String restOfString = Validation.getDescIfValidCommandSpaceDesc(input,
                 "whatsgoingon", "date", TaskError.ERR_USING_WHATSGOINGON);
         if (!(Validation.isValidDate(restOfString))) {
@@ -143,6 +159,8 @@ public class Parser {
     }
 
     private static Command getFindCommand(String input, TaskList dotTaskList) throws DotException {
+        assert !input.isBlank() : "input is not supposed to be an empty string";
+        assert dotTaskList != null : "dotTaskList is not supposed to be null";
         String restOfString = Validation.getDescIfValidCommandSpaceDesc(input,
                 "find", "query string", TaskError.ERR_USING_FIND);
         return new FindCommand(restOfString, dotTaskList);
