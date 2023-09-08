@@ -14,8 +14,8 @@ public class Ui {
      */
     public void printWelcomeMessage() {
         printHorizontalLine();
-        System.out.println("\t " + "Hey there amigo, excited to meet you! I'm Buddy, your friendly chat companion!\n" +
-                "\t " + "What can I do for you?");
+        System.out.println("\t " + "Hey there amigo, excited to meet you! I'm Buddy, your friendly chat companion!\n"
+                + "\t " + "What can I do for you?");
         printHorizontalLine();
     }
 
@@ -58,12 +58,12 @@ public class Ui {
     /**
      * Prints the TaskList.
      * @param tasks the TaskList being used.
-     * @throws DukeException
+     * @throws DukeException throws a duke exception.
      */
     public void printListMessage(TaskList tasks) throws DukeException {
-            printHorizontalLine();
-            tasks.printTasks();
-            printHorizontalLine();
+        printHorizontalLine();
+        tasks.printTasks();
+        printHorizontalLine();
     }
 
     /**
@@ -83,12 +83,11 @@ public class Ui {
 
     /**
      * Prints that a task has been deleted.
-     * @param pos the index of the element.
      * @param tasks the TaskList being used.
      * @param element the Task that is to be deleted.
-     * @throws DukeException
+     * @throws DukeException throws a duke exception.
      */
-    public void printDeleteTasks(int pos, TaskList tasks, Task element) throws DukeException {
+    public void printDeleteTasks(TaskList tasks, Task element) throws DukeException {
         printHorizontalLine();
         System.out.println("\tOkie I've removed this task:\n\t" + element.toString());
         System.out.println("\tNow you have " + tasks.getSize() + " tasks in the list.");
@@ -108,6 +107,11 @@ public class Ui {
         System.out.println("\tNow you have " + tasks.getSize() + " tasks in the list");
         printHorizontalLine();
     }
+
+    /**
+     * * prints what tasks have been found.
+     * @param foundTasks the array used to store the tasks that match.
+     */
     public void printFindTask(TaskList foundTasks) {
         System.out.println("\tSure, I can do that! What are buddies for afterall?");
         System.out.println("\tHere are the matching tasks in your list:");

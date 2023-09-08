@@ -1,11 +1,15 @@
 package duke;
-import duke.Exception.DukeException;
-import duke.task.ToDo;
-import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
+import duke.Exception.DukeException;
+import duke.task.ToDo;
+
+
 public class ParserTest {
-    Parser parser = new Parser();
+    private Parser parser = new Parser();
 
     @Test
     public void testMarkCommand() throws DukeException {

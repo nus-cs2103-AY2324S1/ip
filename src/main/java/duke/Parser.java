@@ -1,20 +1,21 @@
 package duke;
 
+import java.io.IOException;
+import java.time.DateTimeException;
+
 import duke.Exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
-import java.io.IOException;
-import java.time.DateTimeException;
+
 
 /**
- *
  * Interpretes and executes the inputs that the user passes in.
  */
 public class Parser {
-    public static Ui ui = new Ui();
+    private static Ui ui = new Ui();
 
 
     /**
@@ -30,7 +31,8 @@ public class Parser {
      * @throws NumberFormatException
      */
 
-    public static void userCommand(String input, Storage storage, TaskList tasks) throws DukeException, NumberFormatException {
+    public static void userCommand(String input, Storage storage, TaskList tasks) throws DukeException,
+            NumberFormatException {
         try {
             if (input.startsWith("mark")) {
                 int taskIndex = Integer.parseInt(input.substring(5));
@@ -56,7 +58,7 @@ public class Parser {
                 }
                 Task element = tasks.getTask(pos - 1);
                 tasks.deleteTask(pos - 1);
-                ui.printDeleteTasks(pos, tasks, element);
+                ui.printDeleteTasks(tasks, element);
                 storage.writeTasksToFile(tasks);
             } else if (input.startsWith("list")) {
                 ui.printListMessage(tasks);
@@ -110,9 +112,9 @@ public class Parser {
                     throw new DukeException("\t Sorry! The description of a deadline cannot be empty :(");
                 }
 
-                if (!input.contains("/by"))  {
-                    throw new DukeException("\t Hey bud! Please include when the deadline is! " +
-                            "\n\t For example you can type: deadline read /by 2023-09-01 1700");
+                if (!input.contains("/by")) {
+                    throw new DukeException("\t Hey bud! Please include when the deadline is! "
+                            + "\n\t For example you can type: deadline read /by 2023-09-01 1700");
                 }
                 Task task = new Deadline(input.substring(9, index - 1), input.substring(index + 4));
                 tasks.addTask(task);
@@ -126,12 +128,12 @@ public class Parser {
                     throw new DukeException("\t Sorry! The description of an event cannot be empty :(");
                 }
                 if (!input.contains("/from")) {
-                    throw new DukeException("\t Hey bud! Please include when the event is!" +
-                            "\n\t For example you can type: event hangout /from 2023-09-01 1700 /to 2023-09-01 2000");
+                    throw new DukeException("\t Hey bud! Please include when the event is!"
+                            + "\n\t For example you can type: event hangout /from 2023-09-01 1700 /to 2023-09-01 2000");
                 }
                 if (!input.contains("/to")) {
-                    throw new DukeException("\t Hey bud! Please include when the end date of the event is!" +
-                            "\n\t For example you can type: event hangout /from 2023-09-01 1700 /to 2023-09-01 2000");
+                    throw new DukeException("\t Hey bud! Please include when the end date of the event is!"
+                            + "\n\t For example you can type: event hangout /from 2023-09-01 1700 /to 2023-09-01 2000");
                 }
                 Task task = new Event(input.substring(6, indexFrom - 1),
                         input.substring(indexFrom + 6, indexTo - 1), input.substring(indexTo + 4));
@@ -155,8 +157,8 @@ public class Parser {
         if (e instanceof DukeException) {
             System.out.println(e.getMessage());
         } else if (e instanceof DateTimeException) {
-            System.out.println("\tPlease put a valid date and time in the format YYYY-MM-DD HHMM." +
-                    "\n\tFor example: 2023-08-08 1800");
+            System.out.println("\tPlease put a valid date and time in the format YYYY-MM-DD HHMM."
+                    + "\n\tFor example: 2023-08-08 1800");
         } else if (e instanceof IOException) {
             System.out.println("\tAn error occurred while performing a file operation: " + e.getMessage());
         } else if (e instanceof NumberFormatException ) {
@@ -165,5 +167,4 @@ public class Parser {
             System.out.println("\tAn unexpected error occurred: " + e.getMessage());
         }
     }
-
 }

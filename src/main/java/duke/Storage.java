@@ -1,15 +1,16 @@
 package duke;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.ToDo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.ToDo;
+
 
 /**
  * Handles the storage and loading of the text file.
@@ -38,6 +39,7 @@ public class Storage {
      * @throws IOException
      */
 
+    @SuppressWarnings("checkstyle:MissingSwitchDefault")
     public void saveTasks() throws IOException {
         try {
             if (!Files.isDirectory(Paths.get("data/"))) {
@@ -48,11 +50,9 @@ public class Storage {
                 Files.createFile(Paths.get("data/duke.txt"));
                 System.out.println("New file created");
             }
-            
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         Scanner scanner = new Scanner(new File(filepath));
         while (scanner.hasNext()) {
             String[] split = scanner.nextLine().split("\\|");
@@ -61,7 +61,6 @@ public class Storage {
             }
             String description = split[2];
             boolean isDone = split[1].equals("X");
-
             switch (split[0]) {
             case "T":
                 tasks.addTask(new ToDo(description, isDone));
@@ -76,6 +75,7 @@ public class Storage {
                 tasks.addTask(new Event(description, split[3], split[4], isDone));
                 break;
             }
+
         }
     }
 
@@ -89,7 +89,7 @@ public class Storage {
     public void writeTasksToFile(TaskList tasks) throws IOException {
         FileWriter fileWriter = new FileWriter(filepath);
         for (int i = 0; i < tasks.getSize(); i++) {
-            fileWriter.write(tasks.getTask(i).toWriteString()+"\n");
+            fileWriter.write(tasks.getTask(i).toWriteString() + "\n");
         }
         fileWriter.close();
     }

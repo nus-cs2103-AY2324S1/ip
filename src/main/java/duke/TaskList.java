@@ -1,9 +1,10 @@
 package duke;
 
+import java.util.ArrayList;
+
 import duke.Exception.DukeException;
 import duke.task.Task;
 
-import java.util.ArrayList;
 
 /**
  * Data Structure that stores the chatbot's tasks.

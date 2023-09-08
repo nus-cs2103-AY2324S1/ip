@@ -1,2 +1,4 @@
 T | 0 | hi
 T | 0 | run with friends
+T | 0 | fun
+D | X | read book | 2023-08-08 2300

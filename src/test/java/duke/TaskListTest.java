@@ -1,14 +1,19 @@
 package duke;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+
 
 public class TaskListTest {
 
     @Test
-    public void testMark(){
+    public void testMark() {
         TaskList tasks = new TaskList();
         ToDo sampleToDo = new ToDo("do econs");
         tasks.addTask(sampleToDo);
@@ -17,7 +22,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testMarkAsNotDone(){
+    public void testMarkAsNotDone() {
         TaskList tasks = new TaskList();
         ToDo sampleToDo = new ToDo("do econs");
         tasks.addTask(sampleToDo);

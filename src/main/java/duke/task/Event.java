@@ -56,9 +56,8 @@ public class Event extends Task {
      */
     @Override
     public String toWriteString() {
-        return "E | " + (isDone ? "X" : "0") +  " | " + this.description + " | " +
-                from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | " +
-                to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return "E | " + (isDone ? "X" : "0") + " | " + this.description + " | "
+                + from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | "
+                + to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
-
 }
