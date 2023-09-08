@@ -15,7 +15,7 @@ public class ByeCommand extends CommandAbstract {
     }
 
     private boolean isValid() {
-        Pattern commandRegex = Pattern.compile("^bye\\s", Pattern.CASE_INSENSITIVE);
+        Pattern commandRegex = Pattern.compile("^bye($| .+$)", Pattern.CASE_INSENSITIVE);
         Matcher inputMatcher = commandRegex.matcher(this.input);
         return inputMatcher.find();
     }
@@ -25,5 +25,10 @@ public class ByeCommand extends CommandAbstract {
         taskList.writeToFile();
         System.out.print("ChadGPT: Bye. Hope to see you again soon!\n" + HORIZONTAL);
         System.exit(0);
+    }
+
+    @Override
+    public void printChatbotLine() {
+        return;
     }
 }

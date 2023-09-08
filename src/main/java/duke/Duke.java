@@ -45,8 +45,6 @@ public class Duke {
             System.out.print(horizontal + "\nUser: ");
         }
         sc.close();
-
         storage.writeToFile();
-        System.out.print("ChadGPT: Bye. Hope to see you again soon!\n" + horizontal);
     }
 }

@@ -9,10 +9,12 @@ public abstract class OperationOnListCommandAbstract extends CommandAbstract {
         super(input);
     }
 
+    @Override
     protected boolean isValid(TaskList tasklist) {
         Pattern commandRegex = Pattern.compile("^(mark|unmark|delete)\\s\\d+$", Pattern.CASE_INSENSITIVE);
         Matcher inputMatcher = commandRegex.matcher(this.input);
         if (!inputMatcher.find()) {
+            inputMatcher.reset();
             Pattern inputStartRegex = Pattern.compile("^(mark|unmark|delete)\\s", Pattern.CASE_INSENSITIVE);
             if (inputMatcher.usePattern(inputStartRegex).find()) {
                 System.out.println("Ensure that you have included the index value of the task you would like to" +
@@ -23,11 +25,11 @@ public abstract class OperationOnListCommandAbstract extends CommandAbstract {
         return true;
     }
 
-    protected void completeOperation(TaskList taskList) {
-        if (this.input.toLowerCase().startsWith("mark")) {
-            taskList.markTaskAt(Integer.parseInt(input.split(" ")[1]) - 1);
-        } else {
-            taskList.unmarkTaskAt(Integer.parseInt(input.split(" ")[1]) - 1);
-        }
+    @Override
+    protected abstract void completeOperation(TaskList taskList);
+
+    @Override
+    public void printChatbotLine() {
+        return;
     }
 }
