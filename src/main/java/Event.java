@@ -1,4 +1,3 @@
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -8,7 +7,7 @@ public class Event extends Task {
     protected LocalDateTime to;
 
     public Event(String description, LocalDateTime from, LocalDateTime to) {
-        super(description);
+        super(  "EVENT",description);
         this.from = from;
         this.to = to;
     }
