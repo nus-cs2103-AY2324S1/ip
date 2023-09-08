@@ -1,8 +1,8 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'application'
     id 'checkstyle'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 repositories {
@@ -35,6 +35,7 @@ application {
 }
 
 shadowJar {
+    archiveFileName = 'duke.jar'
     archiveBaseName = "duke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
