@@ -16,7 +16,7 @@ import jarvis.tasks.Task;
  * Storage class is responsible for storing and loading tasks from file destination.
  */
 public class Storage {
-    private static final String FILE_PATH = "./jarvis/data/jarvis.txt";
+    private static final String FILE_PATH = "jarvis/data/jarvis.txt";
 
     /**
      * Saves a list of tasks to the file destination.
