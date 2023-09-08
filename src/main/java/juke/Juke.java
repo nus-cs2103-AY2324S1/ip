@@ -36,7 +36,7 @@ public class Juke {
     /**
      * Starts the UI for Juke.
      */
-    public void start() {
+    private void start() {
         Application.launch(Ui.class);
     }
 }

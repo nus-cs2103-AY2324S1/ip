@@ -60,7 +60,9 @@ public class JukeDeadline extends JukeTask {
      */
     @Override
     public String toString() {
-        return JukeDeadline.TASK_DESCRIPTOR + super.toString() + " (by: "
+        return JukeDeadline.TASK_DESCRIPTOR
+                + super.toString()
+                + " (by: "
                 + this.deadline.format(DateTimeFormatter.ofPattern("dd MMM yyyy, HHmm"))
                 + " hrs)";
     }

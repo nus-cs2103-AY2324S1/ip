@@ -44,6 +44,9 @@ public class JukeEvent extends JukeTask {
     public JukeEvent(String taskName, LocalDateTime start, LocalDateTime end, boolean completion) {
         this(taskName, start, end);
 
+        // the event should have a start date that is before the end date
+        assert start.isBefore(end);
+
         if (completion) {
             this.setAsComplete();
         }
@@ -66,7 +69,8 @@ public class JukeEvent extends JukeTask {
      */
     @Override
     public String toString() {
-        return JukeEvent.TASK_DESCRIPTOR + super.toString()
+        return JukeEvent.TASK_DESCRIPTOR
+                + super.toString()
                 + " (from " + start.format(DateTimeFormatter.ofPattern("dd MMM yyyy, HHmm"))
                 + " hrs to " + end.format(DateTimeFormatter.ofPattern("dd MMM yyyy, HHmm")) + " hrs)";
     }
