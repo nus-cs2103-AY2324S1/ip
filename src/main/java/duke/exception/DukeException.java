@@ -1,4 +1,4 @@
-package duke;
+package duke.exception;
 
 /**
  * The DukeException class is a custom exception class used to represent exceptions specific to the Duke application.

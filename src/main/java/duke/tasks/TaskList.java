@@ -80,10 +80,14 @@ public class TaskList {
      * Prints all the tasks in the task list.
      */
     public String list() {
+        if (tasks.size() == 0) {
+            return "You have no tasks in your list. Add some tasks!";
+        }
+
         String s = "";
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            s = s + (i + 1) + ". " + task.getDescription();
+            s = s + (i + 1) + ". " + task.getDescription() + "\n";
         }
         return s;
     }

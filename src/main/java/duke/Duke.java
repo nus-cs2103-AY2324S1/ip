@@ -1,9 +1,11 @@
 package duke;
 
 import duke.commands.Command;
+import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
+import graphicaluserinterface.MainWindow;
 
 /**
  * The main class for the Duke application. Duke is a simple task manager.

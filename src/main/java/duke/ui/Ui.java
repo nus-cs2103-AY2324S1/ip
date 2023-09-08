@@ -1,7 +1,6 @@
 package duke.ui;
 
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 
 /**
  * The Ui class handles user interface interactions and messages for the Duke application.
