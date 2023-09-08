@@ -34,6 +34,7 @@ public class AddDeadlineCommand extends Command {
      * @param tasks A list of tasks.
      * @param ui User interface to show message.
      * @param storage Storage storing the tasks' description.
+     * @return Response as String.
      * @throws AiChanException If any error occur when save Deadline object into storage.
      */
     @Override

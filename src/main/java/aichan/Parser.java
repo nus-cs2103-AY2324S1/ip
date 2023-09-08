@@ -49,7 +49,7 @@ public class Parser {
         } else if (commandType.equals(ActionType.DELETE.toString())) {
             return new DeleteCommand(strToNum(checkLen(inputs)));
         } else if (commandType.equals(ActionType.FIND.toString())) {
-            return new FindCommand(checkLen(inputs));
+            return new FindCommand(checkLen(inputs).split(" "));
         } else {
             throw new AiChanException("oops~ I'm so sorry, but I don't know what that means :'(");
         }
