@@ -1,4 +1,4 @@
-package ui;
+package bob.ui;
 
 import java.util.Scanner;
 

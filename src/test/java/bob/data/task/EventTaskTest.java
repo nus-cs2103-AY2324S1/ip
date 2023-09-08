@@ -1,6 +1,7 @@
-package data.task;
+package bob.data.task;
 
-import data.exception.DukeException;
+import bob.data.exception.DukeException;
+import bob.data.task.EventTask;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

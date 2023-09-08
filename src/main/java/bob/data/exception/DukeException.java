@@ -1,4 +1,4 @@
-package data.exception;
+package bob.data.exception;
 
 public class DukeException extends Exception {
     /**

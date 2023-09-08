@@ -1,7 +1,7 @@
-package data.task;
+package bob.data.task;
 
-import data.exception.DukeException;
-import parser.Parser.Command;
+import bob.data.exception.DukeException;
+import bob.parser.Parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -73,7 +73,7 @@ public class TaskList {
      * @param input The input string for the command.
      * @throws DukeException If an EventTask is instantiated with invalid dates.
      */
-    public void executeCommand(Command command, String input) throws DukeException {
+    public void executeCommand(Parser.Command command, String input) throws DukeException {
         switch (command) {
         case MARK:
             this.setTaskComplete(input);
@@ -113,7 +113,7 @@ public class TaskList {
      * @param input The input needed for the instantiation of the Task.
      * @throws DukeException If the EventTask is instantiated with invalid dates.
      */
-    public void addTask(Command command, String input) throws DukeException {
+    public void addTask(Parser.Command command, String input) throws DukeException {
         Task taskToAdd;
         String[] inputArr;
 

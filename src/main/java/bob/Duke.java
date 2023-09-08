@@ -1,9 +1,11 @@
-import data.exception.DukeException;
-import data.task.TaskList;
-import parser.Parser;
-import parser.Parser.Command;
-import storage.Storage;
-import ui.Ui;
+package bob;
+
+import bob.data.exception.DukeException;
+import bob.data.task.TaskList;
+import bob.parser.Parser;
+import bob.parser.Parser.Command;
+import bob.storage.Storage;
+import bob.ui.Ui;
 
 public class Duke {
     public static void main(String[] args) {

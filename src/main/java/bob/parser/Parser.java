@@ -1,6 +1,6 @@
-package parser;
+package bob.parser;
 
-import data.exception.DukeException;
+import bob.data.exception.DukeException;
 
 public class Parser {
     /**

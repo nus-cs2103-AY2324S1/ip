@@ -1,5 +1,6 @@
-package data.task;
+package bob.data.task;
 
+import bob.data.task.DeadlineTask;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
