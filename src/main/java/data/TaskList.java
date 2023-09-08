@@ -140,10 +140,12 @@ public class TaskList {
 
     @Override
     public String toString() {
-        String taskListString = "";
+        StringBuilder taskListString = new StringBuilder();
         for (Task task : this.tasks) {
-            taskListString += task.toFileFormatString() + "\n";
+            taskListString
+                .append(task.toFileFormatString())
+                .append("\n");
         }
-        return taskListString.strip();
+        return taskListString.toString().strip();
     }
 }
