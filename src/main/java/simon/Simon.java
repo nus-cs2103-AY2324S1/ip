@@ -16,7 +16,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
  * The main class for the {@code Simon} application.
@@ -126,6 +125,55 @@ public class Simon extends Application {
         }
     }
 
+    public void run2(String inData) {
+        ui.showWelcome();
+
+        Parser.Command command = Parser.parseCommand(inData.split(" ")[0]);
+
+        try {
+            switch (command) {
+                case LIST:
+                    ui.listTasks(tasks);
+                    break;
+                case TODO:
+                case DEADLINE:
+                case EVENT:
+                    Task newTask = Parser.parseAddTask(inData, command);
+                    tasks.addTask(newTask);
+                    storage.save(tasks.getAllTasks());
+                    ui.showAddedTask(newTask, tasks.getTaskCount());
+                    break;
+                case UNMARK:
+                    Task unmarkedTask = tasks.markTask(inData, false);
+                    storage.save(tasks.getAllTasks());
+                    ui.showMarkedTask(false, unmarkedTask);
+                    break;
+                case MARK:
+                    Task markedTask = tasks.markTask(inData, true);
+                    storage.save(tasks.getAllTasks());
+                    ui.showMarkedTask(true, markedTask);
+                    break;
+                case DELETE:
+                    Task deletedTask = tasks.deleteTask(inData);
+                    storage.save(tasks.getAllTasks());
+                    ui.showDeletedTask(deletedTask, tasks.getTaskCount());
+                    break;
+                case FIND:
+                    TaskList matchedTasks = tasks.findTasks(inData);
+                    ui.showMatchingTasks(matchedTasks);
+                    break;
+                case BYE:
+                    ui.showGoodbye();
+                    return;
+                case UNKNOWN:
+                default:
+                    ui.showUnknownCommand();
+            }
+        } catch (SimonException se) {
+            ui.showError(se.getMessage());
+        }
+    }
+
     /**
      * The main entry point for the {@code Simon} application.
      *
@@ -215,6 +263,10 @@ public class Simon extends Application {
      * Replace this stub with your completed method.
      */
     String getResponse(String input) {
-        return "Duke heard: " + input;
+        this.ui.clearOutput();
+        if (input != null) {
+            run2(input);
+        }
+        return this.ui.getOutput();
     }
 }
