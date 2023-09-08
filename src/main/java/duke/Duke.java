@@ -1,3 +1,5 @@
+package duke;
+
 import command.Command;
 
 import parser.Parser;
@@ -5,12 +7,8 @@ import parser.Parser;
 import storage.FileHandler;
 import storage.TaskList;
 
-import ui.Ui;
-
-
-
 /**
- * Duke class is a simple chatbot that allows users
+ * duke.Duke class is a simple chatbot that allows users
  * to mark down their tasks.It allows users to add,
  * list, and manage tasks.
  */
@@ -24,44 +22,47 @@ public class Duke {
     /**
      * Constructs a Duke instance with the specified file path.
      *
-     * @param filePath The file path to store task data.
      */
-    public Duke(String filePath) {
-        this.fileHandler = new FileHandler(filePath);
+    public Duke() {
+        this.fileHandler = new FileHandler(DATA_FILE_PATH);
         this.task = new TaskList(FileHandler.readTasksFromFile());
         this.ui = new Ui(task);
     }
 
+
     /**
-     * Runs the Duke application.
+     * Runs the duke.Duke application.
      * It displays a welcome message and processes user commands
      * until the 'bye' command is received to terminate the program.
      */
     public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(task, ui, fileHandler);
-                isExit = c.isExit();
-            } catch (Exception e) {
-                // Handle the specific exception here
-                System.out.println(e.getMessage());
-            }
-        }
+        fileHandler = new FileHandler(DATA_FILE_PATH);
+        task = new TaskList(FileHandler.readTasksFromFile());
+        ui = new Ui(task);
     }
 
     /**
-     * The main for the Duke application.
-     * Create a Duke instance to run.
+     * The main for the duke.Duke application.
+     * Create a duke.Duke instance to run.
      *
      * @param args (not used in this application).
      */
     public static void main(String[] args) {
-        new Duke(DATA_FILE_PATH).run();
+        new Duke().run();
     }
 
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(task, ui, fileHandler);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return e.getMessage();
+        }
+    }
 }
 

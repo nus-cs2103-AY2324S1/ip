@@ -5,7 +5,7 @@ import storage.TaskList;
 
 import taskmanager.Deadline;
 
-import ui.Ui;
+import duke.Ui;
 
 /**
  * Command to add a Deadlines task.
@@ -31,15 +31,16 @@ public class AddDeadlineCommand extends Command {
      * @param task The task list to which the Deadlines task will be added.
      * @param ui   The user interface.
      * @param f    The file handler for storing tasks.
-     */
+     *
+     * @return     The string representation of the task.
+     * */
     @Override
-    public void execute(TaskList task, Ui ui, FileHandler f) {
-        Deadline newdeadlines = new Deadline(taskDesc, dueDateStr);
-        if (newdeadlines.isValid()) {
-            task.add(newdeadlines);
-            FileHandler.writeTasksToFile(task);
-            ui.addedDeadlines(newdeadlines);
-        }
+    public String execute(TaskList task, Ui ui, FileHandler f) {
+        Deadline newDeadline = new Deadline(taskDesc, dueDateStr);
+        task.add(newDeadline);
+        FileHandler.writeTasksToFile(task);
+        return "Help you added a new deadline.\n     " + newDeadline.toString()
+                + "\nNow you have " + task.size() + String.format(" task(s) in the list.");
     }
 
     /**

@@ -3,17 +3,19 @@ package command;
 import storage.FileHandler;
 import storage.TaskList;
 
-import ui.Ui;
+import duke.Ui;
 
 /**
  * An error command.
  */
 public class ErrorCommand extends Command {
 
+    private String errorMessage;
     /**
      * Constructs an `ErrorCommand` object.
      */
-    public ErrorCommand() {
+    public ErrorCommand(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     /**
@@ -22,9 +24,12 @@ public class ErrorCommand extends Command {
      * @param t  The task list (not used in this command).
      * @param ui The user interface. (not used in this command).
      * @param f  The file handler (not used in this command).
+     *
+     * @return   The string representation of the error.
      */
     @Override
-    public void execute(TaskList t, Ui ui, FileHandler f) {
+    public String execute(TaskList t, Ui ui, FileHandler f) {
+        return errorMessage;
     }
 
     /**

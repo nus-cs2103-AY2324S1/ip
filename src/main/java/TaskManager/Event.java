@@ -56,7 +56,7 @@ public class Event extends Task {
                 this.toDate = LocalDateTime.parse(toDateStr, DATE_TIME_FORMATTER);
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("Hey! There is an invalid todo task in the task list!");
+            System.out.println("Hey! There is an invalid event task in the task list!");
             this.taskDesc = null;
         }
     }

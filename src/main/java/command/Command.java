@@ -3,7 +3,7 @@ package command;
 import storage.FileHandler;
 import storage.TaskList;
 
-import ui.Ui;
+import duke.Ui;
 
 /**
  * Abstract class for few types of command that
@@ -19,8 +19,9 @@ public abstract class Command {
      * @param t  The task list.
      * @param ui The user interface.
      * @param f  The file handler for storing tasks.
+     * @return   A string representation of message.
      */
-    public abstract void execute(TaskList t, Ui ui, FileHandler f);
+    public abstract String execute(TaskList t, Ui ui, FileHandler f);
 
     /**
      * Checks whether the command is an exit command.

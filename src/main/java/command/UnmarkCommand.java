@@ -3,7 +3,7 @@ package command;
 import storage.FileHandler;
 import storage.TaskList;
 
-import ui.Ui;
+import duke.Ui;
 /**
  * A command to mark a task as not done.
  */
@@ -26,15 +26,22 @@ public class UnmarkCommand extends Command {
      * @param t  The task list containing the tasks.
      * @param ui The user interface to display the result.
      * @param f  The file handler (not used in this command).
+     *
+     * @return   A string representation of ynmark message.
      */
     @Override
-    public void execute(TaskList t, Ui ui, FileHandler f) {
+    public String execute(TaskList t, Ui ui, FileHandler f) {
         try {
-            t.get(index - 1).markNotDone();
-            FileHandler.writeTasksToFile(t);
-            ui.unmark(index);
+            if (!t.get(index - 1).isDone()) {
+                return "The task has been unmarked";
+            } else {
+                t.get(index - 1).markNotDone();
+                FileHandler.writeTasksToFile(t);
+                return "Alright, I've marked this task as not done yet:\n"
+                        + "    " + t.get(index - 1).toString();
+            }
         } catch (IndexOutOfBoundsException e) {
-            ui.ioobExceptionMessage();
+            return "Please enter the correct task's index number.";
         }
     }
 

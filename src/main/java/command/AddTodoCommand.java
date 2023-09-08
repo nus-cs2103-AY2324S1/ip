@@ -5,7 +5,7 @@ import storage.TaskList;
 
 import taskmanager.ToDo;
 
-import ui.Ui;
+import duke.Ui;
 
 /**
  * Command to add a ToDos task.
@@ -29,15 +29,16 @@ public class AddTodoCommand extends Command {
      * @param task The task list to which the ToDos task will be added.
      * @param ui   The user interface.
      * @param f    The file handler for storing tasks.
+     *
+     * @return     The string representation of the task.
      */
     @Override
-    public void execute(TaskList task, Ui ui, FileHandler f) {
-        ToDo newtodo = new ToDo(taskDesc);
-        if (newtodo.isValid()) {
-            task.add(newtodo);
-            f.writeTasksToFile(task);
-            ui.addedTodo(newtodo);
-        }
+    public String execute(TaskList task, Ui ui, FileHandler f) {
+        ToDo newTodo = new ToDo(taskDesc);
+        task.add(newTodo);
+        f.writeTasksToFile(task);
+        return "Help you added a new event.\n     " + newTodo.toString()
+                + "\nNow you have " + task.size() + String.format(" task(s) in the list.");
     }
 
     /**

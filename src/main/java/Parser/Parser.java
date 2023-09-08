@@ -39,7 +39,7 @@ public class Parser {
             } catch (IllegalArgumentException e) {
                 System.out.println("Hey! I think you forget to enter the "
                         + "todo description or leave a space after the command!");
-                return new ErrorCommand();
+                return new ErrorCommand("Hey! I think you forget to enter the todo description!");
             }
         } else if (str.startsWith("deadline")) { // deadline command
             try {
@@ -65,7 +65,7 @@ public class Parser {
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
-                return new ErrorCommand();
+                return new ErrorCommand(e.getMessage());
             }
         } else if (str.startsWith("event")) { // event command
             try {
@@ -108,7 +108,7 @@ public class Parser {
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
-                return new ErrorCommand();
+                return new ErrorCommand(e.getMessage());
             }
         } else if (str.equals("list")) {
             return new ListCommand();
@@ -125,11 +125,9 @@ public class Parser {
             return new ByeCommand();
         } else if (str.startsWith("find")) {
             String[] split = str.split(" ");
-
             if (split.length < 2) {
-                throw new IllegalArgumentException("Hey! Please provide a keyword");
+                return new ErrorCommand("Hey! Please provide a keyword");
             }
-
             return new FindCommand(split[1].trim());
         } else {
             return new MiscCommand();

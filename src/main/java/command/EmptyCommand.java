@@ -3,7 +3,7 @@ package command;
 import storage.FileHandler;
 import storage.TaskList;
 
-import ui.Ui;
+import duke.Ui;
 
 /**
  * An empty command.
@@ -22,10 +22,12 @@ public class EmptyCommand extends Command {
      * @param t  The task list (not used in this command).
      * @param ui The user interface.
      * @param f  The file handler (not used in this command).
+     *
+     * @return   The string representation of the empty message.
      */
     @Override
-    public void execute(TaskList t, Ui ui, FileHandler f) {
-        ui.empty();
+    public String execute(TaskList t, Ui ui, FileHandler f) {
+        return "Please enter something!";
     }
 
     /**
