@@ -1,7 +1,6 @@
 package fluke;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 import fluke.exceptions.FlukeException;
 import fluke.exceptions.InvalidInputException;
@@ -11,6 +10,7 @@ import fluke.tasks.Task;
  * Fluke is a chatbot which gets your commands right by fluke. Fluke's main goal is to help manage tasks.
  */
 public class Fluke {
+
     private static final String SAVE_FILE_NAME = "fluke.txt";
 
     /**
@@ -27,66 +27,48 @@ public class Fluke {
      * Constructs a Fluke chatbot.
      * @param filePath file path in which Fluke stores its tasks.
      */
-    public Fluke(String filePath) {
+    public Fluke(String filePath) throws FlukeException {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
+        tasks = new TaskList(storage.load());
+    }
+
+    /**
+     * Constructs a Fluke chatbot.
+     * @throws FlukeException when an error is encountered during the creation of a Fluke chatbot.
+     */
+    public Fluke() throws FlukeException {
+        this.ui = new Ui();
+        this.storage = new Storage(SAVE_FILE_NAME);
+        tasks = new TaskList(storage.load());
+    }
+
+    public String getGreeting() {
+        return this.ui.getGreeting();
+    }
+
+    public String getResponse(String input) {
         try {
-            tasks = new TaskList(storage.load());
-        } catch (FlukeException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
-        }
-    }
-
-    /**
-     * Main entry point into Fluke's program.
-     * @param args Arguments given for Fluke's program.
-     */
-    public static void main(String[] args) {
-        // initialise Fluke
-        Fluke fluke = new Fluke(SAVE_FILE_NAME);
-        fluke.run();
-    }
-
-    /**
-     * Runs Fluke's program, accepting input from the user and outputting appropriately.
-     */
-    public void run() {
-        // greet the user
-        this.ui.greet();
-        // initialise scanner to check for user input
-        Scanner scanner = new Scanner(System.in);
-        boolean isWaitingForInput = true;
-        while (isWaitingForInput) {
-            // check for user commands
-            try {
-                String nextCommand = scanner.nextLine();
-                Command commandType = Parser.parseCommand(nextCommand);
-                switch (commandType) {
-                case BYE:
-                    isWaitingForInput = false;
-                    this.ui.sayBye();
-                    break;
-                case LIST:
-                    this.ui.showListOfTasks(tasks);
-                    break;
-                case FIND:
-                    findTask(nextCommand);
-                    break;
-                case MARK:
-                case UNMARK:
-                case DELETE:
-                case TODO:
-                case DEADLINE:
-                case EVENT:
-                    changeTodoList(commandType, nextCommand);
-                    break;
-                default:
-                    throw new InvalidInputException();
-                }
-            } catch (FlukeException d) {
-                this.ui.showError(d.getMessage());
+            Command commandType = Parser.parseCommand(input);
+            switch (commandType) {
+            case BYE:
+                return this.ui.getBye();
+            case LIST:
+                return this.ui.getListOfTasks(tasks);
+            case FIND:
+                return findTask(input);
+            case MARK:
+            case UNMARK:
+            case DELETE:
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+                return changeTodoList(commandType, input);
+            default:
+                throw new InvalidInputException();
             }
+        } catch (FlukeException d) {
+            return this.ui.getError(d.getMessage());
         }
     }
 
@@ -95,10 +77,10 @@ public class Fluke {
      * @param command Command given to Fluke.
      * @throws FlukeException if an error occurs while adding the task, for instance, with invalid inputs.
      */
-    public void addTodo(String command) throws FlukeException {
+    public String addTodo(String command) throws FlukeException {
         String parsedDescription = Parser.parseTodoCommand(command);
         Task taskAdded = this.tasks.addTodo(parsedDescription);
-        this.ui.showTaskAdded(taskAdded, tasks);
+        return this.ui.getTaskAdded(taskAdded, tasks);
     }
 
     /**
@@ -106,12 +88,12 @@ public class Fluke {
      * @param command Command given to Fluke.
      * @throws FlukeException if an error occurs while adding the task, for instance, with invalid inputs.
      */
-    private void addDeadline(String command) throws FlukeException {
+    private String addDeadline(String command) throws FlukeException {
         String[] parsedCommand = Parser.parseDeadlineCommand(command);
         String description = parsedCommand[0];
         String byDate = parsedCommand[1];
         Task taskAdded = this.tasks.addDeadline(description, byDate);
-        this.ui.showTaskAdded(taskAdded, tasks);
+        return this.ui.getTaskAdded(taskAdded, tasks);
     }
 
     /**
@@ -119,13 +101,13 @@ public class Fluke {
      * @param command Command given to Fluke.
      * @throws FlukeException if an error occurs while adding the task, for instance, with invalid inputs.
      */
-    private void addEvent(String command) throws FlukeException {
+    private String addEvent(String command) throws FlukeException {
         String[] parsedCommand = Parser.parseEventCommand(command);
         String description = parsedCommand[0];
         String fromDate = parsedCommand[1];
         String toDate = parsedCommand[2];
         Task taskAdded = this.tasks.addEvent(description, fromDate, toDate);
-        this.ui.showTaskAdded(taskAdded, tasks);
+        return this.ui.getTaskAdded(taskAdded, tasks);
     }
 
     /**
@@ -133,10 +115,10 @@ public class Fluke {
      * @param command Command given to Fluke.
      * @throws FlukeException if an error occurs while marking a task as done, for instance, with invalid inputs.
      */
-    private void markTaskAsDone(String command) throws FlukeException {
+    private String markTaskAsDone(String command) throws FlukeException {
         int index = Parser.parseMarkAsDoneCommand(command);
         Task taskMarked = tasks.markTaskAsDone(index);
-        this.ui.showTaskMarkedAsDone(taskMarked);
+        return this.ui.getTaskMarkedAsDone(taskMarked);
     }
 
     /**
@@ -144,10 +126,10 @@ public class Fluke {
      * @param command Command given to Fluke.
      * @throws FlukeException if an error occurs while marking a task as not done, for instance, with invalid inputs.
      */
-    private void markTaskAsUndone(String command) throws FlukeException {
+    private String markTaskAsUndone(String command) throws FlukeException {
         int index = Parser.parseMarkAsUndoneCommand(command);
         Task taskMarked = tasks.markTaskAsUndone(index);
-        this.ui.showTaskMarkedAsUndone(taskMarked);
+        return this.ui.getTaskMarkedAsUndone(taskMarked);
     }
 
     /**
@@ -155,10 +137,10 @@ public class Fluke {
      * @param command Command given to Fluke.
      * @throws FlukeException if an error occurs while deleting a task, for instance, with invalid inputs.
      */
-    private void deleteTask(String command) throws FlukeException {
+    private String deleteTask(String command) throws FlukeException {
         int index = Parser.parseDeleteCommand(command);
         Task deleted = tasks.deleteTask(index);
-        this.ui.showTaskDeleted(deleted, tasks);
+        return this.ui.getTaskDeleted(deleted, tasks);
     }
 
     /**
@@ -166,9 +148,9 @@ public class Fluke {
      * @param command the command given
      * @throws InvalidInputException if there is no keyword given.
      */
-    private void findTask(String command) throws InvalidInputException {
+    private String findTask(String command) throws InvalidInputException {
         String keyword = Parser.parseFindCommand(command);
-        this.ui.showTasksWithKeyword(this.tasks.findTask(keyword));
+        return this.ui.getTasksWithKeyword(this.tasks.findTask(keyword));
     }
 
     /**
@@ -177,26 +159,27 @@ public class Fluke {
      * @param command the content in the command
      * @throws FlukeException an exception related to operations with fluke.Fluke
      */
-    private void changeTodoList(Command commandType, String command) throws FlukeException {
+    private String changeTodoList(Command commandType, String command) throws FlukeException {
         // 1. make changes to the list
+        String response = "";
         switch (commandType) {
         case MARK:
-            markTaskAsDone(command);
+            response = markTaskAsDone(command);
             break;
         case UNMARK:
-            markTaskAsUndone(command);
+            response = markTaskAsUndone(command);
             break;
         case DELETE:
-            deleteTask(command);
+            response = deleteTask(command);
             break;
         case TODO:
-            addTodo(command);
+            response = addTodo(command);
             break;
         case DEADLINE:
-            addDeadline(command);
+            response = addDeadline(command);
             break;
         case EVENT:
-            addEvent(command);
+            response = addEvent(command);
             break;
         default:
             // should not occur
@@ -208,5 +191,7 @@ public class Fluke {
         } catch (IOException i) {
             throw new FlukeException(i.getMessage());
         }
+        // 3. return response
+        return response;
     }
 }
