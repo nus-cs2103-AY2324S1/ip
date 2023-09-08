@@ -1,5 +1,8 @@
 package dude.exception;
 
+/**
+ * Exception for invalid task data format when loading from disk.
+ */
 public class InvalidTaskDataException extends DudeException {
   public InvalidTaskDataException() {
     super(

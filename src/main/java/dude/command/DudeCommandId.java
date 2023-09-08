@@ -1,7 +1,7 @@
 package dude.command;
 
 /**
- * String identifier of command to be entered into dude.Dude.
+ * String identifier of command to be entered into Dude.
  */
 public enum DudeCommandId {
   list,

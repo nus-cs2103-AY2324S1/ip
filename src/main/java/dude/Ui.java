@@ -3,7 +3,7 @@ package dude;
 import java.util.Scanner;
 
 /**
- * Handles user interactions.
+ * User interface.
  */
 public class Ui {
 
@@ -20,7 +20,7 @@ public class Ui {
   private final Scanner sc;
 
   /**
-   * Constructor for dude.Ui class.
+   * Constructor for Ui class.
    */
   public Ui() {
     sc = new Scanner(System.in);

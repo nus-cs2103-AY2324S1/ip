@@ -1,5 +1,8 @@
 package dude.exception;
 
+/**
+ * Exception for invalid date/time argument in command.
+ */
 public class InvalidDateTimeArgumentException extends DudeException {
   public InvalidDateTimeArgumentException() {
     super(

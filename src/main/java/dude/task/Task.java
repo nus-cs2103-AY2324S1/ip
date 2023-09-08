@@ -2,22 +2,25 @@ package dude.task;
 
 import dude.exception.InvalidTaskDataException;
 
+/**
+ * Task.
+ */
 public class Task {
   protected boolean isDone;
   protected String description;
   /**
-   * Delimiter regex for save file data
+   * Delimiter string for save file data.
    */
   public static final String DELIMITER = "  ||  ";
   /**
-   * Delimiter regex for save file data
+   * Delimiter regex for save file data.
    */
   public static final String DELIMITER_REGEX = "  \\|\\|  ";
 
   /**
    * Constructor for task.
    *
-   * @param description Description of task
+   * @param description Description of task.
    */
   public Task(String description) {
     this.description = description;
@@ -27,8 +30,8 @@ public class Task {
   /**
    * Constructor for task, specifying completion status.
    *
-   * @param description Description of task
-   * @param isDone      Boolean representing task completion status
+   * @param description Description of task.
+   * @param isDone      Boolean representing task completion status.
    */
   public Task(String description, boolean isDone) {
     this.description = description;
@@ -38,16 +41,16 @@ public class Task {
   /**
    * Gets text status icon of task's completion status.
    *
-   * @return space if not done; X if done.
+   * @return Space if not done; X if done.
    */
   public String getStatusIcon() {
     return (this.isDone ? "X" : " ");
   }
 
   /**
-   * Gets task formatted with status icon
+   * Gets task formatted with status icon.
    *
-   * @return Task formatted as a string. e.g. [X] completed task
+   * @return Task formatted as a string. e.g. <code>[X] completed task</code>.
    */
   @Override
   public String toString() {
@@ -72,9 +75,9 @@ public class Task {
   /**
    * Parses save file data into a Task instance.
    *
-   * @param data line from save file
-   * @return Task instance
-   * @throws InvalidTaskDataException if data is not in the expected format
+   * @param data Line from save file.
+   * @return Task instance.
+   * @throws InvalidTaskDataException If data is not in the expected format.
    */
   public static Task fromData(String data) throws InvalidTaskDataException {
      /*
@@ -99,9 +102,9 @@ public class Task {
 
 
   /**
-   * Parses To Do task instance into save file string data
+   * Parses task instance into save file string data.
    *
-   * @return Task data as string
+   * @return Task data as string.
    */
   public String toData() {
      /*

@@ -1,5 +1,8 @@
 package dude.exception;
 
+/**
+ * Exception for invalid task index in command.
+ */
 public class InvalidTaskIndexException extends DudeException {
   public InvalidTaskIndexException(String index) {
     super(

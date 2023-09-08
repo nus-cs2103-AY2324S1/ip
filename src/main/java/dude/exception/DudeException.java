@@ -1,11 +1,11 @@
 package dude.exception;
 
 /**
- * Exception specific to dude.Dude (Duke)
+ * Exception specific to Dude.
  */
 public class DudeException extends Exception {
   /**
-   * Constructor for dude.Dude exception with message
+   * Constructor for Dude exception with message
    *
    * @param message Human-readable error message.
    */
@@ -14,7 +14,7 @@ public class DudeException extends Exception {
   }
 
   /**
-   * Constructor for dude.Dude exception with default message
+   * Constructor for Dude exception with default message
    */
   public DudeException() {
     super("An error occurred. :(");

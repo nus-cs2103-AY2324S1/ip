@@ -6,7 +6,7 @@ import dude.exception.DudeException;
 import dude.task.TaskList;
 
 /**
- * Handles command actions.
+ * Command for Dude.
  */
 public abstract class DudeCommand {
   /**

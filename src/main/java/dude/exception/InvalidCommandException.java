@@ -1,5 +1,8 @@
 package dude.exception;
 
+/**
+ * Exception for unknown command input.
+ */
 public class InvalidCommandException extends DudeException {
   public InvalidCommandException() {
     super(

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Handles loading and saving of task data to disk.
+ * Class that handles loading and saving of task data to disk.
  */
 public class Storage {
   /**
@@ -26,7 +26,7 @@ public class Storage {
    * Constructor for storage class.
    *
    * @param filePath Path to text file to use as save-file.
-   * @throws SaveFileException if file cannot be created
+   * @throws SaveFileException If file cannot be created.
    */
   public Storage(String filePath) throws SaveFileException {
     this.filePath = filePath;
@@ -36,7 +36,7 @@ public class Storage {
   /**
    * Create new empty save file at SAVE_FILE_PATH if it does not already exist.
    *
-   * @throws SaveFileException if file cannot be created
+   * @throws SaveFileException If file cannot be created.
    */
   public void createSaveFile() throws SaveFileException {
     File saveFile = new File(filePath);
@@ -54,11 +54,11 @@ public class Storage {
   }
 
   /**
-   * Reads save file contents and returns dude.task.TaskList.
+   * Reads save file contents and returns TaskList.
    *
-   * @return dude.task.TaskList instance.
-   * @throws SaveFileException        if there is an error reading the file
-   * @throws InvalidTaskDataException if the text data format is invalid
+   * @return TaskList instance.
+   * @throws SaveFileException        If there is an error reading the file.
+   * @throws InvalidTaskDataException If the text data format is invalid.
    */
   public ArrayList<Task> load() throws SaveFileException, InvalidTaskDataException {
     try {
@@ -94,7 +94,7 @@ public class Storage {
   /**
    * Saves given list of tasks to save file.
    *
-   * @param tasks ArrayList of dude.task.Task instances.
+   * @param tasks ArrayList of Task instances.
    * @throws SaveFileException If there is an error saving the file.
    */
   public void save(ArrayList<Task> tasks) throws SaveFileException {

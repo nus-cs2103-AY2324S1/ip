@@ -5,7 +5,7 @@ import dude.exception.DudeException;
 import dude.task.TaskList;
 
 /**
- * Dude (Duke, but renamed)
+ * Dude (Duke, but renamed).
  */
 public class Dude {
   private Storage storage;
