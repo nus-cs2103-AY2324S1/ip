@@ -1,5 +1,7 @@
 package anya;
 
+import static anya.messages.Messages.MESSAGE_GREETING;
+
 import anya.gui.DialogBox;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -39,6 +41,7 @@ public class Main extends Application {
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
         scene = new Scene(mainLayout);
         stage.setScene(scene); // Setting the stage to show our screen.
+        stage.getIcons().add(new Image("/images/anya.png"));
         stage.show(); // Render the stage.
 
         // Step 2: Formatting the window to look as expected.
@@ -81,6 +84,7 @@ public class Main extends Application {
 
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+        dialogContainer.getChildren().add(DialogBox.getAnyaDialog(new Label(MESSAGE_GREETING), new ImageView(anya)));
     }
 
     /**
@@ -104,10 +108,10 @@ public class Main extends Application {
      */
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        Label anyaText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(anya))
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getAnyaDialog(anyaText, new ImageView(anya))
         );
         userInput.clear();
     }
@@ -117,6 +121,6 @@ public class Main extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        return "Anya heard: " + input;
+        return input;
     }
 }
