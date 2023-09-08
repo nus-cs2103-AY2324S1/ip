@@ -3,6 +3,7 @@ package duke.task;
 import java.util.ArrayList;
 import java.util.List;
 
+import duke.Duke;
 import duke.exception.DukeException;
 
 /**
@@ -34,9 +35,29 @@ public class TaskList {
      * Adds a Task object to the list.
      *
      * @param task Task object to be added.
+     * @throws DukeException If any error occurs.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws DukeException {
+        if (containsTask(task)) {
+            throw new DukeException(" ☹ Duplicate task! You wanna do this task twice?");
+        }
         taskList.add(task);
+    }
+
+    /**
+     * Checks whether taskList contains said task.
+     *
+     * @param task Task to be checked.
+     * @return Whether taskList contains said task.
+     */
+    private boolean containsTask(Task task) {
+        for (Task t: taskList) {
+            if (!t.equals(task)) {
+                continue;
+            }
+            return true;
+        }
+        return false;
     }
 
     /**
