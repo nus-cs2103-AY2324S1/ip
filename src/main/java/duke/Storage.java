@@ -37,8 +37,8 @@ public class Storage {
         ArrayList<String> list = new ArrayList<>();
         try {
             File directory = new File(folder);
-            assert directory.exists() || directory.mkdirs() :
-                    "Failed to create directory: " + directory.getAbsolutePath();
+            assert directory.exists() || directory.mkdirs()
+                    : "Failed to create directory: " + directory.getAbsolutePath();
             File file = new File(directory, text);
             assert file.exists() || file.createNewFile() : "Failed to create file: " + file.getAbsolutePath();
             Scanner fileScanner = new Scanner(file);
