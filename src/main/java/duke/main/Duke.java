@@ -15,13 +15,42 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-    public class Duke {
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.scene.layout.Region;
+import javafx.scene.control.Label;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.image.Image;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
+
+
+
+
+    public class Duke{
         private static final String FILE_PATH = "./data/duke.txt";
         private static final String chatBotName = "Cristiano";
         private Storage storage;
         private TaskManager taskManager;
         private UI ui;
         private Parser parser;
+        private ScrollPane scrollPane;
+        private VBox dialogContainer;
+        private TextField userInput;
+        private Button sendButton;
+        private Scene scene;
+        private Image user = new Image(this.getClass().getResourceAsStream("/images/speed.png"));
+        private Image duke = new Image(this.getClass().getResourceAsStream("/images/ronaldo.png"));
 
         public Duke() {
             try {
@@ -35,9 +64,15 @@ import java.util.ArrayList;
             }
         }
 
+
+//        protected String getResponse(String input) {
+//            return "Duke heard: " + input;
+//        }
+
+
         public static void main(String[] args) {
             Duke duke = new Duke();
-            duke.run();
+
         }
 
         /**
@@ -45,34 +80,28 @@ import java.util.ArrayList;
          * It takes in users input, calls getCommand to decide which function it should to call to handle the input.
          * It also handles duke.exceptions and waits for user to say bye.
          */
-        protected void run() {
+        protected String getResponse(String input) {
 
-            Scanner scanner = new Scanner(System.in);
-            String input = "";
+            //Scanner scanner = new Scanner(System.in);
+            //String input = "";
             while (!input.equals("bye")) {
                 try {
-                    input = scanner.nextLine();
+                    //input = scanner.nextLine();
                     String command = this.parser.getCommand(input);
                     switch (command) {
                         case "list":
-                            taskManager.list();
-                            break;
+                            return taskManager.list();
                         case "mark":
                         case "unmark":
-                            handleMarking(input, taskManager);
-                            break;
+                            return handleMarking(input, taskManager);
                         case "todo":
-                            handleTodo(input, taskManager);
-                            break;
+                            return handleTodo(input, taskManager);
                         case "deadline":
-                            handleDeadline(input, taskManager);
-                            break;
+                            return handleDeadline(input, taskManager);
                         case "event":
-                            handleEvent(input, taskManager);
-                            break;
+                            return handleEvent(input, taskManager);
                         case "delete":
-                            handleDelete(input, taskManager);
-                            break;
+                            return handleDelete(input, taskManager);
                         case "find":
                             handleFind(input, taskManager);
                         case "bye":
@@ -81,16 +110,16 @@ import java.util.ArrayList;
                             throw new UnknownCommandException("I may be the GOAT but I don't know what that means.");
                     }
                 } catch (DukeException e) {
-                    ui.displayError(e);
+                    return ui.displayError(e);
                 }
             }
-            ui.exit();
+            return ui.exit();
         }
 
-        private void handleFind(String input, TaskManager taskManager) throws InvalidArgumentException {
+        private String handleFind(String input, TaskManager taskManager) throws InvalidArgumentException {
             String keyword = parser.parseFind(input);
             ArrayList<Task> filteredList = taskManager.filterList(keyword);
-            ui.displayFilteredList(filteredList, filteredList.size());
+            return ui.displayFilteredList(filteredList, filteredList.size());
         }
 
 
@@ -106,16 +135,18 @@ import java.util.ArrayList;
          * @param taskManager
          * @throws InvalidArgumentException
          */
-        private void handleMarking(String input, TaskManager taskManager) throws DukeException {
+        private String handleMarking(String input, TaskManager taskManager) throws DukeException {
             String[] words = input.split(" ");
             try {
                 int index = Integer.parseInt(words[1]);
+                String response = "";
                 if (words[0].equals("mark")) {
-                    taskManager.mark(index);
+                    response = taskManager.mark(index);
                 } else if (words[0].equals("unmark")) {
-                    taskManager.unmark(index);
+                    response = taskManager.unmark(index);
                 }
                 updateStorage();
+                return response;
             } catch (NumberFormatException e) {
                 throw new InvalidArgumentException("Please enter a numerical index!");
             } catch (StorageException e) {
@@ -133,11 +164,12 @@ import java.util.ArrayList;
          * @param taskManager
          * @throws InvalidArgumentException
          */
-        private void handleTodo(String input, TaskManager taskManager) throws InvalidArgumentException, StorageException {
+        private String handleTodo(String input, TaskManager taskManager) throws InvalidArgumentException, StorageException {
             String taskName = this.parser.parseToDo(input);
             Task task = new ToDo(taskName);
-            taskManager.add(task);
+            String response = taskManager.add(task);
             updateStorage();
+            return response;
         }
 
         /**
@@ -146,7 +178,7 @@ import java.util.ArrayList;
          * @param taskManager
          * @throws InvalidArgumentException
          */
-        private void handleDeadline(String input, TaskManager taskManager) throws InvalidArgumentException, StorageException {
+        private String handleDeadline(String input, TaskManager taskManager) throws InvalidArgumentException, StorageException {
             String[] parsedInput = this.parser.parseDeadline(input);
             String taskName = parsedInput[0];
             String dueDate = parsedInput[1];
@@ -160,8 +192,9 @@ import java.util.ArrayList;
             }
 
             Task task = new Deadline(taskName, time);
-            taskManager.add(task);
+            String response = taskManager.add(task);
             updateStorage();
+            return response;
         }
 
         /**
@@ -170,7 +203,7 @@ import java.util.ArrayList;
          * @param taskManager
          * @throws InvalidArgumentException
          */
-        private void handleEvent(String input, TaskManager taskManager) throws InvalidArgumentException, StorageException {
+        private String handleEvent(String input, TaskManager taskManager) throws InvalidArgumentException, StorageException {
             String[] parsedInput = this.parser.parseEvent(input);
             String taskName = parsedInput[0];
             String from = parsedInput[1];
@@ -188,8 +221,9 @@ import java.util.ArrayList;
             }
 
             Task task = new Event(taskName, fromTime, toTime);
-            taskManager.add(task);
+            String response = taskManager.add(task);
             updateStorage();
+            return response;
         }
 
         /**
@@ -198,11 +232,12 @@ import java.util.ArrayList;
          * @param taskManager
          * @throws InvalidArgumentException
          */
-        private void handleDelete(String input, TaskManager taskManager) throws InvalidArgumentException {
+        private String handleDelete(String input, TaskManager taskManager) throws InvalidArgumentException {
             String[] words = input.split(" ");
             try {
                 int index = Integer.parseInt(words[1]);
-                taskManager.delete(index);
+                String response = taskManager.delete(index);
+                return response;
             } catch (NumberFormatException e) {
                 throw new InvalidArgumentException("Please enter a numerical index!");
             }
