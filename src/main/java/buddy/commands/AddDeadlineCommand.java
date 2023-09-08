@@ -1,5 +1,7 @@
-package buddy;
+package buddy.commands;
 
+import buddy.Deadline;
+import buddy.TaskList;
 import buddy.utils.BuddyException;
 import buddy.utils.Storage;
 import buddy.utils.Ui;
