@@ -45,9 +45,9 @@ public class TaskList {
      * @param index Index of the item to be removed from the list.
      */
     public void deleteTask(int index) {
-        this.list.remove(index);
         System.out.println("Noted. I've removed this task:");
         System.out.println(list.get(index));
+        this.list.remove(index);
         count--;
         System.out.println("Now you have " + count + " tasks in the list");
     }

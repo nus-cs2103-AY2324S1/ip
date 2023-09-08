@@ -66,13 +66,13 @@ public class Parser {
                 list.addTask(new Event(des, from, to));
             } else if (input.startsWith("delete ")) {
                 int index = Integer.parseInt(input.substring(7)) - 1;
-                if (index >= 0 && index < list.count) {
+                if (index >= 0 && index <= list.count) {
                     list.deleteTask(index);
                 } else {
-                    System.out.println("Invalid.");
+                    throw new OutOfRangeException();
                 }
             } else if (input.equals("bye")) {
-                System.out.println("BYE");
+                System.out.println("slay");
             } else if (input.startsWith("find ")) {
                 String description = input.substring(5);
                 list.findTask(description, list);
