@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 /**
  * The Main class serves as the entry point for the Duke application.
- * It sets up the JavaFX user interface and initializes the Duke chatbot.
+ * It sets up the JavaFX user interface and initializes the bot.
  *
  */
 public class Main extends Application {
