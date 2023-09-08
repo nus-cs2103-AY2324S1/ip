@@ -41,6 +41,9 @@ public class Duke {
         return ui.getStatus();
     }
 
+    /**
+     * Gets the exit status of Duke.
+     */
     public boolean getExitStatus() {
         return hasExited;
     }
