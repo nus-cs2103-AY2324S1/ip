@@ -21,8 +21,8 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ChatBuddyException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ChatBuddyException {
         Task task = tasks.deleteTask(taskNum);
-        ui.showTaskDeletion(task, tasks.getSize());
+        return ui.showTaskDeletion(task, tasks.getSize());
     }
 }
