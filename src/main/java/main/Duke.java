@@ -1,5 +1,6 @@
 package main;
 
+import javafx.fxml.FXML;
 import parser.Parser;
 import tasks.Task;
 import ui.Ui;
@@ -168,12 +169,13 @@ public class Duke extends Application{
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
+    @FXML
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+                DialogBox.getUserDialog(userInput.getText(), user),
+                DialogBox.getDukeDialog(getResponse(userInput.getText()), duke)
         );
         userInput.clear();
     }
@@ -182,7 +184,7 @@ public class Duke extends Application{
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
+    public String getResponse(String input) {
         return "zx says: " + input;
     }
 
