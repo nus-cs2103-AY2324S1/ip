@@ -6,8 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import duke.Storage;
-import duke.Ui;
+import duke.components.Storage;
 import duke.tasks.Task;
 
 /**
@@ -19,10 +18,9 @@ public class StorageStub extends Storage {
      * Class constructor for StorageStub.
      *
      * @param path path of file where data is stored.
-     * @param ui   ui to be used.
      */
-    public StorageStub(String path, Ui ui) {
-        super(path, ui);
+    public StorageStub(String path) {
+        super(path);
     }
 
     @Override

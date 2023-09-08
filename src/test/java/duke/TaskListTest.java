@@ -44,7 +44,7 @@ public class TaskListTest {
     @Test
     public void findMatches_emptyString() {
         UiStub ui = new UiStub();
-        StorageStub storage = new StorageStub("./src/test/testdata.txt", ui);
+        StorageStub storage = new StorageStub("./src/test/testdata.txt");
         TaskListStub list = new TaskListStub(this.tasks, storage, ui);
 
         String result = list.listTasks(list.findMatches(""));
@@ -57,7 +57,7 @@ public class TaskListTest {
     @Test
     public void findMatches_keywordFound() {
         UiStub ui = new UiStub();
-        StorageStub storage = new StorageStub("./src/test/testdata.txt", ui);
+        StorageStub storage = new StorageStub("./src/test/testdata.txt");
         TaskListStub list = new TaskListStub(this.tasks, storage, ui);
 
         String result = list.listTasks(list.findMatches("cookies"));
@@ -75,7 +75,7 @@ public class TaskListTest {
     @Test
     public void findMatches_keywordNotFound() {
         UiStub ui = new UiStub();
-        StorageStub storage = new StorageStub("./src/test/testdata.txt", ui);
+        StorageStub storage = new StorageStub("./src/test/testdata.txt");
         TaskListStub list = new TaskListStub(this.tasks, storage, ui);
 
         String result = list.listTasks(list.findMatches("math"));
@@ -88,7 +88,7 @@ public class TaskListTest {
     @Test
     public void findMatches_keywordWithSpaces() {
         UiStub ui = new UiStub();
-        StorageStub storage = new StorageStub("./src/test/testdata.txt", ui);
+        StorageStub storage = new StorageStub("./src/test/testdata.txt");
         TaskListStub list = new TaskListStub(this.tasks, storage, ui);
 
         String result = list.listTasks(list.findMatches("cookies   "));
@@ -101,7 +101,7 @@ public class TaskListTest {
     @Test
     public void findMatches_moreThanOneKeyword() {
         UiStub ui = new UiStub();
-        StorageStub storage = new StorageStub("./src/test/testdata.txt", ui);
+        StorageStub storage = new StorageStub("./src/test/testdata.txt");
         TaskListStub list = new TaskListStub(this.tasks, storage, ui);
 
         String result = list.listTasks(list.findMatches("bake cookies"));
@@ -115,7 +115,7 @@ public class TaskListTest {
     @Test
     public void findMatches_byDate() {
         UiStub ui = new UiStub();
-        StorageStub storage = new StorageStub("./src/test/testdata.txt", ui);
+        StorageStub storage = new StorageStub("./src/test/testdata.txt");
         TaskListStub list = new TaskListStub(this.tasks, storage, ui);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

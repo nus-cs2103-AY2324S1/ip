@@ -1,4 +1,4 @@
-package duke;
+package duke.components;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -55,19 +55,6 @@ public class Parser {
     }
 
     /**
-     * Returns true if the input string is "bye".
-     *
-     * @param input the input entered by user.
-     * @return true if input is "bye".
-     */
-    public boolean isGoodbye(String input) {
-        if (input.equals("bye")) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Converts a string of the format YYYY-MM-dd HH:mm to a LocalDateTime object.
      *
      * @param str a datetime string.
@@ -91,34 +78,39 @@ public class Parser {
      *
      * @param input user input.
      */
-    public void parseInput(String input) {
+    public String parseInput(String input) {
         String[] inputs = input.split(" ");
         String command = inputs[0];
         try {
             if (command.equals("list")) {
-                tasks.listTasks();
+                return tasks.listTasks();
             } else if (command.equals("delete")) {
-                parseDelete(input);
+                return parseDelete(input);
             } else if (command.equals("mark")) {
-                parseMark(input);
+                return parseMark(input);
             } else if (command.equals("unmark")) {
-                parseUnMark(input);
+                return parseUnMark(input);
             } else if (command.equals("todo")) {
-                parseToDo(input);
+                return parseToDo(input);
             } else if (command.equals("deadline")) {
-                parseDeadline(input);
+                return parseDeadline(input);
             } else if (command.equals("event")) {
-                parseEvent(input);
+                return parseEvent(input);
             } else if (command.equals("find")) {
-                findTask(input);
+                return findTask(input);
+            } else if (command.equals("bye")) {
+                return parseBye();
             } else {
                 throw new InvalidCommandException();
             }
         } catch (DukeException e) {
-            ui.showError(e.getMessage());
+            return e.getMessage();
         }
     }
 
+    public String parseBye() {
+        return ui.bye();
+    }
     /**
      * Handles the deleting of a specified task.
      * Checks if a taskID is provided. Calls tasks.deleteTask(index) function to
@@ -128,7 +120,7 @@ public class Parser {
      * @throws NoTaskIdException      if no taskID is provided.
      * @throws InvalidTaskIdException if a non-numerical id is provided.
      */
-    public void parseDelete(String input) throws NoTaskIdException, InvalidTaskIdException {
+    public String parseDelete(String input) throws NoTaskIdException, InvalidTaskIdException {
         String[] inputArr = input.split(" ");
         if (inputArr.length == 1) {
             throw new NoTaskIdException();
@@ -136,7 +128,7 @@ public class Parser {
             String strIndex = inputArr[1];
             if (isNumber(strIndex)) {
                 int index = Integer.parseInt(strIndex) - 1; //because index starts from 1
-                tasks.deleteTask(index);
+                return tasks.deleteTask(index);
             } else {
                 //case where a number was not provided
                 throw new InvalidTaskIdException();
@@ -153,7 +145,7 @@ public class Parser {
      * @throws NoTaskIdException      if no taskID is provided.
      * @throws InvalidTaskIdException If a non-numerical id is provided.
      */
-    public void parseMark(String input) throws NoTaskIdException, InvalidTaskIdException {
+    public String parseMark(String input) throws NoTaskIdException, InvalidTaskIdException {
         String[] inputArr = input.split(" ", 2);
         if (inputArr.length == 1) {
             throw new NoTaskIdException();
@@ -161,7 +153,7 @@ public class Parser {
             String strIndex = inputArr[1];
             int index = Integer.parseInt(strIndex) - 1;
             if (isNumber(strIndex) && tasks.isValidTaskId(index)) {
-                tasks.markTask(index);
+                return tasks.markTask(index);
             } else {
                 throw new InvalidTaskIdException();
             }
@@ -177,7 +169,7 @@ public class Parser {
      * @throws NoTaskIdException      if no taskID is provided.
      * @throws InvalidTaskIdException If a non-numerical id is provided.
      */
-    public void parseUnMark(String input) throws NoTaskIdException, InvalidTaskIdException {
+    public String parseUnMark(String input) throws NoTaskIdException, InvalidTaskIdException {
         String[] inputArr = input.split(" ", 2);
         if (inputArr.length == 1) {
             throw new NoTaskIdException();
@@ -185,7 +177,7 @@ public class Parser {
             String strIndex = inputArr[1];
             int index = Integer.parseInt(strIndex) - 1;
             if (isNumber(strIndex) && tasks.isValidTaskId(index)) {
-                tasks.unMarkTask(index);
+                return tasks.unMarkTask(index);
             } else {
                 throw new InvalidTaskIdException();
             }
@@ -199,7 +191,7 @@ public class Parser {
      * @param input user input.
      * @throws NoDescException if no description is provided.
      */
-    public void parseToDo(String input) throws NoDescException {
+    public String parseToDo(String input) throws NoDescException {
         String[] inputs = input.split(" ", 2);
         if (inputs.length == 1) {
             throw new NoDescException();
@@ -208,7 +200,7 @@ public class Parser {
             throw new NoDescException();
         }
         ToDo toDo = new ToDo(0, inputs[1]);
-        tasks.addTask(toDo);
+        return tasks.addTask(toDo);
     }
 
     /**
@@ -220,7 +212,7 @@ public class Parser {
      * @throws NoDescException          if no description is provided.
      * @throws InvalidDeadlineException if command is not of the correct format.
      */
-    public void parseDeadline(String input) throws NoDescException, InvalidDeadlineException {
+    public String parseDeadline(String input) throws NoDescException, InvalidDeadlineException {
         String[] inputs = input.split(" ", 2);
         if (inputs.length == 1) {
             throw new NoDescException();
@@ -240,9 +232,10 @@ public class Parser {
         try {
             LocalDateTime dateTime = convertToDateTime(date);
             Deadline deadline = new Deadline(0, desc, dateTime);
-            tasks.addTask(deadline);
+            return tasks.addTask(deadline);
+
         } catch (DateTimeParseException e) {
-            ui.showInvalidDateFormat();
+            return ui.showInvalidDateFormat();
         }
     }
 
@@ -256,7 +249,7 @@ public class Parser {
      * @throws InvalidStartEndException if start datetime is after end datetime.
      * @throws InvalidEventException    if command is not of the correct format.
      */
-    public void parseEvent(String input) throws NoDescException, NoStartException, NoEndException,
+    public String parseEvent(String input) throws NoDescException, NoStartException, NoEndException,
             InvalidStartEndException, InvalidEventException {
         String[] inputs = input.split(" ", 2);
         if (inputs.length == 1) {
@@ -293,9 +286,9 @@ public class Parser {
             LocalDateTime startDateTime = convertToDateTime(start);
             LocalDateTime endDateTime = convertToDateTime(end);
             Event event = new Event(0, task, startDateTime, endDateTime);
-            tasks.addTask(event);
+            return tasks.addTask(event);
         } catch (DateTimeParseException e) {
-            ui.showInvalidDateFormat();
+            return ui.showInvalidDateFormat();
         }
     }
 
@@ -305,14 +298,14 @@ public class Parser {
      * @param input user input.
      * @throws InvalidFindTaskException if 0 or more than 1 keyword is specified.
      */
-    public void findTask(String input) throws InvalidFindTaskException {
+    public String findTask(String input) throws InvalidFindTaskException {
         String[] inputs = input.split(" ");
         if (inputs.length != 2) {
             throw new InvalidFindTaskException();
         } else {
             String keyword = inputs[1];
             ArrayList<Task> matches = tasks.findMatches(keyword);
-            ui.showMatches(tasks.listTasks(matches));
+            return ui.showMatches(tasks.listTasks(matches));
         }
     }
 }
