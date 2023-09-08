@@ -8,27 +8,34 @@ import simon.task.Task;
  * messages and reading user input.
  */
 public class Ui {
+    private static StringBuilder output;
+
+    public Ui() {
+        this.output = new StringBuilder();
+    }
 
     /**
      * Displays the welcome message.
      */
-    public void showWelcome() {
-        System.out.println(Simon.SPACEN + SimonAscii.toStr());
-        System.out.println("Hello! I'm Simon\nWhat can I do for you?\n" + Simon.SPACE);
+    public static void showWelcome() {
+        clearOutput();
+        output.append("Hello! I'm Simon\nWhat can I do for you?\n");
     }
 
     /**
      * Displays the goodbye message.
      */
     public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!" + Simon.NSPACE);
+        clearOutput();
+        output.append("Bye. Hope to see you again soon!");
     }
 
     /**
      * Displays an error message indicating a loading error.
      */
     public void showLoadingError() {
-        System.out.println("Data file not found. Starting with an empty task list." + Simon.NSPACE);
+        clearOutput();
+        output.append("Data file not found. Starting with an empty task list.");
     }
 
     /**
@@ -37,7 +44,8 @@ public class Ui {
      * @param message The error message to be displayed.
      */
     public void showError(String message) {
-        System.out.println(message + Simon.NSPACE);
+        clearOutput();
+        output.append(message);
     }
 
     /**
@@ -47,9 +55,10 @@ public class Ui {
      * @param count The current number of tasks.
      */
     public void showAddedTask(Task task, int count) {
-        System.out.println(Simon.SPACEN + "Got it. I've added this task:\n" + " " +
+        clearOutput();
+        output.append("Got it. I've added this task:\n" + " " +
                 task + String.format("\nNow you have %d %s in the list.",
-                count, count > 1 ? "tasks" : "task") + Simon.NSPACE);
+                count, count > 1 ? "tasks" : "task"));
     }
 
     /**
@@ -59,8 +68,9 @@ public class Ui {
      * @param count The current number of tasks.
      */
     public void showDeletedTask(Task task, int count) {
-        System.out.println("Noted. I've removed this task:\n" + task + String.format("\nNow you have %d %s in the list.",
-                count, count > 1 ? "tasks" : "task") + Simon.NSPACE);
+        clearOutput();
+        output.append("Noted. I've removed this task:\n" + task + String.format("\nNow you have %d %s in the list.",
+                count, count > 1 ? "tasks" : "task"));
     }
 
     /**
@@ -70,10 +80,11 @@ public class Ui {
      * @param task   The task whose status has been changed.
      */
     public void showMarkedTask(boolean marked, Task task) {
+        clearOutput();
         if (marked) {
-            System.out.println("Nice! I've marked this task as done:\n " + task + Simon.NSPACE);
+            output.append("Nice! I've marked this task as done:\n ").append(task);
         } else {
-            System.out.println("OK, I've marked this task as not done yet:\n " + task + Simon.NSPACE);
+            output.append("OK, I've marked this task as not done yet:\n ").append(task);
         }
     }
 
@@ -81,7 +92,8 @@ public class Ui {
      * Displays a message indicating an unknown command was entered.
      */
     public void showUnknownCommand() {
-        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(" + Simon.NSPACE);
+        clearOutput();
+        output.append("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
     /**
@@ -90,10 +102,10 @@ public class Ui {
      * @param tasks The task list.
      */
     public void listTasks(TaskList tasks) {
+        clearOutput();
         for (int i = 0; i < tasks.getTaskCount(); i++) {
-            System.out.println((i + 1) + "." + tasks.getTask(i));
+            output.append((i + 1) + "." + tasks.getTask(i) + "\n");
         }
-        System.out.println(Simon.SPACE);
     }
 
     /**
@@ -102,20 +114,26 @@ public class Ui {
      * @param matchedTasks An ArrayList of tasks that match the keyword.
      */
     public void showMatchingTasks(TaskList matchedTasks) {
-        System.out.println(Simon.SPACEN + "Here are the matching tasks in your list:");
+        clearOutput();
+        output.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < matchedTasks.getTaskCount(); i++) {
-            System.out.println((i + 1) + "." + matchedTasks.getTask(i));
+            output.append((i + 1)).append(".").append(matchedTasks.getTask(i)).append("\n");
         }
-        System.out.println(Simon.SPACE);
     }
 
     /**
-     * Reads user input from the provided scanner.
+     * Returns the next line of input from the user.
      *
-     * @param scanner The scanner to read input from.
-     * @return The user's input as a string.
+     * @return The next line of input from the user.
      */
-    public String readInput(Scanner scanner) {
-        return scanner.nextLine();
+    public String getOutput() {
+        return output.toString();
+    }
+
+    /**
+     * Clears the output.
+     */
+    public static void clearOutput() {
+        output = new StringBuilder();
     }
 }
