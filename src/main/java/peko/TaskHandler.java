@@ -40,38 +40,41 @@ public class TaskHandler {
         System.out.println(lineBreak);
         return out;
     }
-    private void unmark(String s) {
-        try {
-            int i = Integer.parseInt(s);
-            StorageHandler.setUnmarkArray(i);
-        } catch (NumberFormatException e) {
-            System.out.println("That's not a number Bakatare!");
-        }
+    private String unmark(String s) throws NumberFormatException{
+        int i = Integer.parseInt(s);
+        String out = StorageHandler.setUnmarkArray(i);
         System.out.println(lineBreak);
+        return out;
     }
-    private void todo(String s) throws InvalidTaskException{
+    private String todo(String s) throws InvalidTaskException{
         Task t = new ToDos(description);
-        StorageHandler.addToArray(t);
+        String out = StorageHandler.addToArray(t);
         System.out.println(lineBreak);
+        return out;
     }
-    private void deadline(String s) throws InvalidTaskException {
+    private String deadline(String s) throws InvalidTaskException {
         Task t = new Deadline(description);
-        StorageHandler.addToArray(t);
+        String out = StorageHandler.addToArray(t);
         System.out.println(lineBreak);
+        return out;
     }
-    private void Event(String s) throws InvalidTaskException {
+    private String Event(String s) throws InvalidTaskException {
         Task t = new Event(description);
-        StorageHandler.addToArray(t);
+        String out = StorageHandler.addToArray(t);
         System.out.println(lineBreak);
+        return out;
     }
-    private void Find(String s) {
+    private String Find(String s) {
         Find find = new Find(s);
-        find.display();
+        String out = find.display();
         System.out.println(lineBreak);
+        return out;
     }
-    public void delete(String s) {
+    public String delete(String s) {
         int i = Integer.parseInt(s);
         StorageHandler.setDelete(i);
+        String out = "I have deleted the task Peko";
+        return out;
     }
 
     public String getResponse() {
@@ -87,23 +90,17 @@ public class TaskHandler {
                 case MARK:
                     return mark(description);
                 case UNMARK:
-                    unmark(description);
-                    return true;
+                    return unmark(description);
                 case TODO:
-                    todo(description);
-                    return true;
+                    return todo(description);
                 case DEADLINE:
-                    deadline(description);
-                    return true;
+                    return deadline(description);
                 case EVENT:
-                    Event(description);
-                    return true;
+                    return Event(description);
                 case FIND:
-                    Find(description);
-                    return true;
+                    return Find(description);
                 case DELETE:
-                    delete(description);
-                    return true;
+                    return delete(description);
                 case COPYPASTA:
                     try {
                         StorageHandler.degen();
@@ -114,18 +111,18 @@ public class TaskHandler {
                     }
                 case OTSUPEKO:
                     SaveHandler.saveTo();
-                    return false;
+                    return "";
                 default:
-                    return true;
+                    return "Gomen Peko I don't understand";
 
             }
         } catch (InvalidTaskException e) {
             System.out.println(e);
-            return true;
+            return e.toString();
         } catch (NumberFormatException e) {
-            System.out.println("That's not a number Bakatare!");
+            String out = ("That's not a number Bakatare!");
 
-            return true;
+            return out;
         }
     }
 

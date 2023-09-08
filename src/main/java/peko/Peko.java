@@ -32,7 +32,7 @@ public class Peko extends Application implements EventHandler<ActionEvent> {
 
     public String getResponse(String s) {
         userInputHandler.newInput(s);
-        userInputHandler.processInput();
+        return userInputHandler.getResponse();
     }
     public Peko() {
         userInputHandler = new UserInputHandler();

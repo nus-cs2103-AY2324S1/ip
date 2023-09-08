@@ -32,7 +32,7 @@ public class UserInputHandler {
 
     public String getResponse() {
         TaskHandler taskHandler = new TaskHandler(command, description);
-
+        return taskHandler.getResponse();
     }
 
     public boolean processInput() {

@@ -47,7 +47,7 @@ public class StorageHandler {
         }
         return out;
     }
-    public static void setUnmarkArray(int i) {
+    public static String setUnmarkArray(int i) {
         try {
             todoList[i-1].setUnmark();
             System.out.println("You haven't done this yet peko?!");
