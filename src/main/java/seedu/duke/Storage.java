@@ -1,3 +1,5 @@
+package seedu.duke;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,15 +9,37 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Represents a storage manager.
+ * A storage manager is responsible for
+ * reading and writing data into a database
+ * such as .txt files.
+ *
+ * @author KAM JIA YUE
+ * @since 2023-08-29
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * The main constructor of the Storage class.
+     */
     public Storage() {}
 
+    /**
+     * Sets the path of the storage file.
+     *
+     * @param filePath Path of the storage file.
+     */
     public void setHardDiskFilePath(String filePath) {
         this.filePath = filePath;
     };
 
+    /**
+     * Loads data from the storage file to the given task list.
+     *
+     * @param list Task list to load data to.
+     */
     public void loadData(List<Task> list) {
         String directoriesPathString = this.getParentDirectoriesPathFromFilePath();
         Path directoriesPath = Paths.get(directoriesPathString);
@@ -36,17 +60,17 @@ public class Storage {
 
 
                 switch (taskType) {
-                    case 'T':
-                        this.loadTodo(list, input);
-                        break;
-                    case 'D':
-                        this.loadDeadline(list, input);
-                        break;
-                    case 'E':
-                        this.loadEvent(list, input);
-                        break;
-                    default:
-                        throw new DukeException(this.filePath + " file is corrupted");
+                case 'T':
+                    this.loadTodo(list, input);
+                    break;
+                case 'D':
+                    this.loadDeadline(list, input);
+                    break;
+                case 'E':
+                    this.loadEvent(list, input);
+                    break;
+                default:
+                    throw new DukeException(this.filePath + " file is corrupted");
                 }
             }
 
@@ -55,6 +79,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads a Todo task from the storage file to
+     * the given task list.
+     *
+     * @param list Task list to load data to.
+     * @param input Input from the user.
+     * @throws DukeException If there are any file corruptions.
+     */
     public void loadTodo(List<Task> list, String input) throws DukeException {
         int[] vLines = newVLines(2, input);
 
@@ -65,6 +97,14 @@ public class Storage {
         list.add(task);
     }
 
+    /**
+     * Loads a Deadline task from the storage file to
+     * the given task list.
+     *
+     * @param list Task list to load data to.
+     * @param input Input from the user.
+     * @throws DukeException If there are any file corruptions.
+     */
     public void loadDeadline(List<Task> list, String input) throws DukeException {
         int[] vLines = newVLines(3, input);
 
@@ -78,6 +118,14 @@ public class Storage {
         list.add(task);
     }
 
+    /**
+     * Loads an Event task from the storage file to
+     * the given task list.
+     *
+     * @param list Task list to load data to.
+     * @param input Input from the user.
+     * @throws DukeException If there are any file corruptions.
+     */
     public void loadEvent(List<Task> list, String input) throws DukeException {
         int[] vLines = newVLines(4, input);
 
@@ -92,6 +140,16 @@ public class Storage {
         list.add(task);
     }
 
+    /**
+     * Creates an array indicating the indexes of
+     * the vertical lines of the user inputs stored
+     * in the storage file.
+     *
+     * @param size Size of the array to be created.
+     * @param input Input from the user.
+     * @return An array of a specific size.
+     * @throws DukeException If there are any file corruptions.
+     */
     public int[] newVLines(int size, String input) throws DukeException {
         int[] vLines = new int[size];
         for (int i = 0, j = 0; i < input.length(); i++) {
@@ -106,6 +164,12 @@ public class Storage {
         return vLines;
     }
 
+    /**
+     * Gets all the parent directories from the
+     * storage file path.
+     *
+     * @return all the parent directories from the storage file path.
+     */
     public String getParentDirectoriesPathFromFilePath() {
         String path = "";
         for (int i = this.filePath.length() - 1; i >= 0; i--) {
@@ -118,19 +182,38 @@ public class Storage {
         return path;
     }
 
+    /**
+     * Updates the storage file with the latest
+     * information in the given task list.
+     *
+     * @param list Task list as reference to write data to the storage file.
+     */
     public void updateHardDisk(List<Task> list) {
         File oldFile = new File(this.filePath);
         oldFile.delete();
         File newFile = new File(this.filePath);
 
         try {
-            FileWriter fileWriter = new FileWriter(newFile);
-            for (Task task : list) {
-                fileWriter.write(task.toStringForSave() + "\n");
-            }
-            fileWriter.close();
+            Task[] tasks = new Task[list.size()];
+            list.toArray(tasks);
+            writeToHardDisk(newFile, tasks);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    /**
+     * Writes to the Hard Disk File.
+     *
+     * @param newFile File to write to.
+     * @param tasks List of tasks.
+     * @throws IOException If there are any IO error.
+     */
+    public void writeToHardDisk(File newFile, Task ... tasks) throws IOException {
+        FileWriter fileWriter = new FileWriter(newFile);
+        for (Task task : tasks) {
+            fileWriter.write(task.toStringForSave() + "\n");
+        }
+        fileWriter.close();
     }
 }
