@@ -2,6 +2,18 @@ package duke;
 
 import duke.task.Task;
 import duke.task.TaskList;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+
 
 import java.util.List;
 import java.util.Scanner;
@@ -16,7 +28,18 @@ public class Ui {
     //singleton
     public static Ui ui = new Ui();
 
-    Scanner scanner = new Scanner(System.in);
+    private String currInput = "";
+
+    // object / node in Scene graph
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
+
+    // profile picture of chat
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/sleeping_beauty.jpg"));
+    private Image chewie = new Image(this.getClass().getResourceAsStream("/images/Chewbacca.png"));
 
     /**
      * Draws a line
@@ -34,31 +57,15 @@ public class Ui {
     }
 
     /**
-     * Draws logo of DUKE
-     *
-     */
-    public void logo() {
-        String logo = " ____        _\n"
-                + "|  _ \\ _   _| | _____\n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-
-
-        System.out.println("Hello from\n" + logo);
-    }
-
-    /**
      * Displays message of creating Task
      *
      * @param task
      */
-    public void createTaskPrompt (Task task) {
+    public String createTaskPrompt (Task task) {
 
-        System.out.println(drawLine());
-        System.out.println("Chewie gotcha, task added:\n" + task.status() + task.taskName());
-        System.out.println("Chewie now find " + Duke.listSize() + " tasks in the list" + "\n");
-        System.out.println(drawLine());
+        String result = "Chewie gotcha, task added:\n" + task.status() + task.taskName();
+        result += "\nChewie now find " + Duke.listSize() + " tasks in the list";
+        return result;
     }
 
     /**
@@ -66,11 +73,11 @@ public class Ui {
      *
      * @param task task created
      */
-    public void markPrompt(Task task) {
-        System.out.println(drawLine());
-        System.out.println("Rrrruuuurrr, Chewie has marked the task.");
-        System.out.println(task.status() + task.taskName());
-        System.out.println("\n" + drawLine());
+    public String markPrompt(Task task) {
+        String result = "Rrrruuuurrr, Chewie has marked the task.\n";
+        result += task.status() + task.taskName();
+
+        return result;
     }
 
     /**
@@ -78,11 +85,10 @@ public class Ui {
      *
      * @param task task created
      */
-    public void unmarkPrompt(Task task) {
-        System.out.println(drawLine());
-        System.out.println("Rrrruuuurrr, Chewie has unmarked the task.");
-        System.out.println(task.status() + task.taskName());
-        System.out.println("\n" + drawLine());
+    public String unmarkPrompt(Task task) {
+        String result = "Rrrruuuurrr, Chewie has unmarked the task.\n";
+        result += task.status() + task.taskName();
+        return result;
     }
 
     /**
@@ -90,11 +96,10 @@ public class Ui {
      *
      * @param task task created
      */
-    public void deletePrompt(Task task) {
-        System.out.println(drawLine());
-        System.out.println("Chewie gotcha, task removed:\n" + task.status() + task.taskName());
-        System.out.println("Chewie now find " + (Duke.listSize() - 1) + " tasks in the list" + "\n");
-        System.out.println(drawLine());
+    public String deletePrompt(Task task) {
+        String result = "Chewie gotcha, task removed:\n" + task.status() + task.taskName();
+        result += "\nChewie now find " + (Duke.listSize() - 1) + " tasks in the list" + "\n";
+        return result;
     }
 
     /**
@@ -102,57 +107,50 @@ public class Ui {
      *
      * @param taskList user's task list
      */
-    public void listPrompt(TaskList taskList) {
+    public String listPrompt(TaskList taskList) {
         List<Task> list = taskList.list();
 
-        System.out.println(drawLine());
-        System.out.println("Chewie found your task list:");
+
+        String result = "Chewie found your task list:\n";
 
         for (int i = 0; i < list.size(); i++) {
             int index = i + 1;
             Task task = list.get(i);
 
-            System.out.println(index + "." + task.status() + task.taskName());
+            result += index + "." + task.status() + task.taskName() + "\n";
         }
-
-        System.out.println("\n" + drawLine());
+        return result;
     }
 
-    public void findPrompt(Task[] list) {
-        System.out.println(drawLine());
-        System.out.println("Chewie found these task:");
+    public String findPrompt(Task[] list) {
+
+       String result = "Chewie found these task:\n";
 
         for(int i = 0; i < list.length; i++) {
             int index = i + 1;
             Task task = list[i];
 
-            System.out.println(index + "." + task.status() + task.taskName());
+           result += index + "." + task.status() + task.taskName() + "\n";
         }
 
-        System.out.println("\n" + drawLine());
+        return result;
     }
 
     /**
      * Display the starting message of the program
      *
      */
-    public void startPrompt() {
-        logo();
-
-        System.out.println(drawLine());
-        System.out.println("Rrrruuuurrr, I am Chewbacca, son of Attichitcuk");
-        System.out.println("How can Chewie help?\n");
-        System.out.println(drawLine());
+    public String startPrompt() {
+        String result = "Rrrruuuurrr, I am Chewbacca, son of Attichitcuk \nHow can Chewie help?";
+        return result;
     }
 
     /**
      * Display ending message of program
      *
      */
-    public void endPrompt() {
-        System.out.println(drawLine());
-        System.out.println("Chewie is going home now.\nBye bye.\n");
-        System.out.println(drawLine());
+    public String endPrompt() {
+        return "Chewie is going home now.\nBye bye.\n";
     }
 
     /**
@@ -160,20 +158,16 @@ public class Ui {
      *
      * @param e error encountered
      */
-    public void errorPrompt(Exception e) {
-        System.out.println(drawLine());
-        System.out.println(e.getMessage());
-        System.out.println("\n" + drawLine());
+    public String errorPrompt(Exception e) {
+        return e.getMessage();
     }
 
     /**
      * Display wrong date format message
      *
      */
-    public void wrongDateFormatPrompt() {
-        System.out.println(drawLine());
-        System.out.println("The date format is incorrect, please use yyyy-mm-dd format");
-        System.out.println("\n" + drawLine());
+    public String wrongDateFormatPrompt() {
+        return "The date format is incorrect, please use yyyy-mm-dd format";
     }
 
     /**
@@ -181,7 +175,104 @@ public class Ui {
      *
      * @return input as String
      */
+//    public String readInput() {
+//        return scanner.nextLine();
+//    }
+
+
+    // GUI of application
+    public void GuiSetup(Stage stage) {
+        stage.setTitle("Chewie");
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
+
+        // init nodes needed
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
+
+        // configure scroll pane
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+
+        userInput = new TextField();
+        sendButton = new Button("Send");
+
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane,userInput,sendButton);
+
+        // set size of application window
+        mainLayout.setPrefSize(400.0, 600.0);
+
+        // set dimension of dialog box & user input
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
+        userInput.setPrefWidth(325.0);
+
+        sendButton.setPrefWidth(55.0);
+
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+
+        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        AnchorPane.setRightAnchor(sendButton, 1.0);
+
+        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
+
+        scene = new Scene(mainLayout);
+
+        stage.setScene(scene);
+        stage.show();
+
+        // starting prompt
+        DialogBox.getDukeDialog(new Label(startPrompt()), new ImageView(chewie));
+    }
+    private void setCurrInput(String text) {
+        this.currInput = text;
+    }
+
     public String readInput() {
-        return scanner.nextLine();
+
+        sendButton.setOnMouseClicked((event) -> {
+            String input = userInput.getText();
+            setCurrInput(input);
+
+            String output = Duke.run();
+
+            if (!input.isBlank()) {
+                dialogContainer.getChildren().addAll(DialogBox.getUserDialog(new Label(input),new ImageView(user)));
+                dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(new Label(output),new ImageView(chewie)));
+            }
+            userInput.clear();
+        });
+
+        userInput.setOnAction((event) -> {
+            String input = userInput.getText();
+            setCurrInput(input);
+
+            String output = Duke.run();
+
+            if (!input.isBlank()) {
+                dialogContainer.getChildren().addAll(DialogBox.getUserDialog(new Label(input),new ImageView(user)));
+                dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(new Label(output),new ImageView(chewie)));
+            }
+            userInput.clear();
+        });
+
+        return currInput;
+    }
+
+    private Label getDialogLabel(String text) {
+
+        Label textToAdd = new Label(text);
+        textToAdd.setWrapText(true);
+
+        return textToAdd;
     }
 }

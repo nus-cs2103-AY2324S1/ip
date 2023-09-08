@@ -12,10 +12,9 @@ public class FindCommand extends Command {
         this.keyword = keyword;
     }
     @Override
-    public void execute(TaskList list) {
+    public String execute(TaskList list) {
         Task[] result = list.findTask(keyword);
-        Ui.ui.findPrompt(result);
-        Duke.run();
+        return Ui.ui.findPrompt(result);
     }
 
     public String getKeyword() {

@@ -12,9 +12,8 @@ import duke.task.TaskList;
 public class ListCommand extends Command{
 
     @Override
-    public void execute(TaskList list) {
-        Ui.ui.listPrompt(list);
-        Duke.run();
+    public String execute(TaskList list) {
+        return Ui.ui.listPrompt(list);
     }
 
     @Override

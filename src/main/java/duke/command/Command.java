@@ -15,6 +15,6 @@ public abstract class Command {
      *
      * @param list
      */
-    public abstract void execute(TaskList list);
+    public abstract String execute(TaskList list);
 
 }
