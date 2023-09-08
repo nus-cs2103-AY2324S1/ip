@@ -1,6 +1,7 @@
 package anya.task;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Represents a collection of tasks in the Anya application.
@@ -28,10 +29,10 @@ public class TaskList {
     /**
      * Adds a task to the `TaskList`.
      *
-     * @param task The task to be added.
+     * @param tasks The tasks to be added.
      */
-    public void add(Task task) {
-        this.tasks.add(task);
+    public void add(Task... tasks) {
+        Collections.addAll(this.tasks, tasks);
     }
 
     /**
