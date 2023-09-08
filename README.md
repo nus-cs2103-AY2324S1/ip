@@ -1,24 +1,36 @@
-# Anya project template
+# Anya Forger - Your Task Management Chat bot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Anya Forger is a chat bot inspired by the character from the [_Spy x Family_](https://en.wikipedia.org/wiki/Spy_%C3%97_Family) anime. She is your ultimate task management companion. Whether you're a secret agent or just someone with a busy schedule, Anya can help you stay organized and on top of your tasks.
 
-## Setting up in Intellij
+## Features:
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+* **Task Management**: Anya Forger can create, edit, and track your tasks effortlessly.
+* **Priority Sorting**: Arrange your tasks by priority to ensure you focus on what matters most.
+* **Deadline Alerts**: Receive timely reminders, so you never miss a deadline.
+* **Cross-Device Sync**: Access your tasks from anywhere, on any device.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Anya.java` file, right-click it, and choose `Run Anya.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## 🚀Mission Accomplished:
+> "Anya Forger is the secret agent of Task Management." - Anonymous
+
+## Task List:
+- [ ] Finish coding the chat-bot
+- [ ] Test Anya's task management features
+- [ ] Write documentation
+- [ ] Deploy Anya to production!
+
+## Getting Started:
+
+1. Download the `anya.jar` file from [here]()
+2. Run the following command:
+```
+java -jar Anya.jar 
+```
+> ✏️ Note: run the command in the same folder as the jar file
+
+If you are Java programmer, you can use it to practice Java too. Here's the `main` method:
+```java
+public class Main {
+    public static void main(String[] args) {
+        Application.launch(MainApp.class, args);
+    }
+}
