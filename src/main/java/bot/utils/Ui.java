@@ -1,5 +1,7 @@
 package bot.utils;
 
+import bot.utils.tasks.Task;
+
 import java.util.Iterator;
 
 /**
@@ -60,7 +62,7 @@ public class Ui {
      */
     public String displayTaskList(TaskList tasks) {
         StringBuilder out = new StringBuilder();
-        Iterator<Task> iter = tasks.iterator();
+        Iterator<Task> iter = tasks.getIterator();
         for (int ctr = 1; iter.hasNext(); ctr++) {
             out.append(ctr).append(". ")
                     .append(iter.next().toString())

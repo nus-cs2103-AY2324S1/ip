@@ -1,26 +1,22 @@
 package bot.utils;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
-import java.time.LocalDate;
-
+import bot.exceptions.InvalidTaskException;
+import bot.utils.tasks.Task;
 import org.junit.jupiter.api.Test;
 
-import bot.exceptions.InvalidTaskException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskTest {
     @Test
     public void makeTask_validInput_success() throws InvalidTaskException {
-        assertEquals(new Task.ToDo("name1"), Task.makeTask("todo name1"));
+        assertEquals("[T][ ] name1", Task.makeTask("todo name1").toString());
 
-        assertEquals(new Task.Deadline("name2", LocalDate.parse("2024-08-10")),
-                Task.makeTask("deadline name2 /by 2024-08-10"));
+        assertEquals("[D][ ] name2 (by: Aug 10 2024)",
+                Task.makeTask("deadline name2 /by 2024-08-10").toString());
 
-        assertEquals(new Task.Event("name3",
-                LocalDate.parse("2024-07-01"),
-                LocalDate.parse("2024-08-01")),
-                Task.makeTask("event name3 /from 2024-07-01 /to 2024-08-01"));
+        assertEquals("[E][ ] name3 (from: Jul 1 2024 to: Aug 1 2024)",
+                Task.makeTask("event name3 /from 2024-07-01 /to 2024-08-01").toString());
     }
 
     @Test
