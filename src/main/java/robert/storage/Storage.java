@@ -96,6 +96,7 @@ public class Storage {
     /**
      * Saves the tasks from Robert into the hard disk.
      *
+     * @param tasks a TaskList that contains all tasks that are currently recorded by Robert.
      * @throws RobertException if there is an issue saving the tasks into the hard disk.
      */
     public void save(TaskList tasks) throws RobertException {
