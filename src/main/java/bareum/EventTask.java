@@ -65,7 +65,7 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E][" + this.getStatusIcon() + "] " + this.description
+        return "[E][" + this.getStatusIcon() + "] " + this.getDescription()
                 + "(from:" + startDateTime + "to:" + endDateTime + ")";
     }
 
@@ -75,7 +75,7 @@ public class EventTask extends Task {
      */
     @Override
     public String toSavedString() {
-        String done = isDone ? "1" : "0";
-        return "E|" + done + "|" + this.description + "|" + this.startDateTime + "|" + this.endDateTime +"\n";
+        String done = this.getIsDone() ? "1" : "0";
+        return "E|" + done + "|" + this.getDescription() + "|" + this.startDateTime + "|" + this.endDateTime + "\n";
     }
 }

@@ -1,14 +1,15 @@
 package bareum;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import bareum.commands.Command;
+import org.junit.jupiter.api.Test;
+
 import bareum.commands.AddDeadlineCommand;
 import bareum.commands.AddEventCommand;
 import bareum.commands.AddTodoCommand;
 import bareum.commands.ByeCommand;
+import bareum.commands.Command;
 import bareum.commands.DeleteCommand;
 import bareum.commands.IncorrectCommand;
 import bareum.commands.ListCommand;
@@ -40,8 +41,8 @@ public class ParserTest {
             Parser.parse("mark");
             fail();
         } catch (BareumException e) {
-            assertEquals("Bareum: Oops! Please give the index of the task you would like to mark.\n" +
-                    "Correct format: mark <index>", e.getMessage());
+            assertEquals("Bareum: Oops! Please give the index of the task you would like to mark.\n"
+                    + "Correct format: mark <index>", e.getMessage());
         }
     }
 
@@ -57,8 +58,8 @@ public class ParserTest {
             Parser.parse("unmark");
             fail();
         } catch (BareumException e) {
-            assertEquals("Bareum: Oops! Please give the index of the task you would like to unmark.\n" +
-                    "Correct format: unmark <index>", e.getMessage());
+            assertEquals("Bareum: Oops! Please give the index of the task you would like to unmark.\n"
+                    + "Correct format: unmark <index>", e.getMessage());
         }
     }
     @Test
@@ -73,8 +74,8 @@ public class ParserTest {
             Parser.parse("delete");
             fail();
         } catch (BareumException e) {
-            assertEquals("Bareum: Oops! Please give the index of the task you would like to delete.\n" +
-                    "Correct format: delete <index>", e.getMessage());
+            assertEquals("Bareum: Oops! Please give the index of the task you would like to delete.\n"
+                    + "Correct format: delete <index>", e.getMessage());
         }
     }
 
@@ -90,8 +91,8 @@ public class ParserTest {
             Parser.parse("todo");
             fail();
         } catch (BareumException e) {
-            assertEquals("Bareum: Oops! Please include the description of your todo :(\n" +
-                    "Correct format: todo <description>", e.getMessage());
+            assertEquals("Bareum: Oops! Please include the description of your todo :(\n"
+                    + "Correct format: todo <description>", e.getMessage());
         }
     }
 
@@ -106,8 +107,8 @@ public class ParserTest {
         try {
             Parser.parse("deadline");
         } catch (BareumException e) {
-            assertEquals("Bareum: Oops! The details of your deadline are missing :(\n" +
-                    "\nCorrect format: deadline <description> /by <due date in YYYY-MM-DD>", e.getMessage());
+            assertEquals("Bareum: Oops! The details of your deadline are missing :(\n"
+                    + "\nCorrect format: deadline <description> /by <due date in YYYY-MM-DD>", e.getMessage());
         }
     }
 
@@ -116,8 +117,8 @@ public class ParserTest {
         try {
             Parser.parse("deadline /by 2023-09-02");
         } catch (BareumException e) {
-            assertEquals("Bareum: Oops! Please include the description of your deadline :(\n" +
-                    "Correct format: deadline <description> /by <due date in YYYY-MM-DD>", e.getMessage());
+            assertEquals("Bareum: Oops! Please include the description of your deadline :(\n"
+                    + "Correct format: deadline <description> /by <due date in YYYY-MM-DD>", e.getMessage());
         }
     }
 
@@ -126,8 +127,8 @@ public class ParserTest {
         try {
             Parser.parse("deadline return book");
         } catch (BareumException e) {
-            assertEquals("Bareum: Oops! Please include the due date of your deadline :(\n" +
-                    "\nCorrect format: deadline <description> /by <due date in YYYY-MM-DD>", e.getMessage());
+            assertEquals("Bareum: Oops! Please include the due date of your deadline :(\n"
+                    + "\nCorrect format: deadline <description> /by <due date in YYYY-MM-DD>", e.getMessage());
         }
     }
 
@@ -136,8 +137,8 @@ public class ParserTest {
         try {
             Parser.parse("deadline return book /by");
         } catch (BareumException e) {
-            assertEquals("Bareum: Oops! Please include the due date of your deadline :(\n" +
-                    "Correct format: deadline <description> /by <due date in YYYY-MM-DD>", e.getMessage());
+            assertEquals("Bareum: Oops! Please include the due date of your deadline :(\n"
+                    + "Correct format: deadline <description> /by <due date in YYYY-MM-DD>", e.getMessage());
         }
     }
 
@@ -152,8 +153,8 @@ public class ParserTest {
         try {
             Parser.parse("event");
         } catch (BareumException e) {
-            assertEquals("Bareum: The details of your event are missing :(\n" +
-                    "\nCorrect format: event <description> /from <start time> /to <end time>", e.getMessage());
+            assertEquals("Bareum: The details of your event are missing :(\n"
+                    + "\nCorrect format: event <description> /from <start time> /to <end time>", e.getMessage());
         }
     }
 
@@ -162,8 +163,8 @@ public class ParserTest {
         try {
             Parser.parse("event /from Mon 2pm /to 4pm");
         } catch (BareumException e) {
-            assertEquals("Bareum: Oops! Please include the description of your event :(\n" +
-                    "Correct format: event <description> /from <start time> /to <end time>", e.getMessage());
+            assertEquals("Bareum: Oops! Please include the description of your event :(\n"
+                    + "Correct format: event <description> /from <start time> /to <end time>", e.getMessage());
         }
     }
 
@@ -172,8 +173,8 @@ public class ParserTest {
         try {
             Parser.parse("event project meeting /to 4pm");
         } catch (BareumException e) {
-            assertEquals("Bareum: Oops! Please include the start time of your event :(\n" +
-                    "Correct format: event <description> /from <start time> /to <end time>", e.getMessage());
+            assertEquals("Bareum: Oops! Please include the start time of your event :(\n"
+                    + "Correct format: event <description> /from <start time> /to <end time>", e.getMessage());
         }
     }
 
@@ -182,8 +183,8 @@ public class ParserTest {
         try {
             Parser.parse("event project meeting /from /to 4pm");
         } catch (BareumException e) {
-            assertEquals("Bareum: Oops! Please include the start time of your event :(\n" +
-                    "Correct format: event <description> /from <start time> /to <end time>", e.getMessage());
+            assertEquals("Bareum: Oops! Please include the start time of your event :(\n"
+                    + "Correct format: event <description> /from <start time> /to <end time>", e.getMessage());
         }
     }
 
@@ -192,8 +193,8 @@ public class ParserTest {
         try {
             Parser.parse("event project meeting /from Mon 2pm");
         } catch (BareumException e) {
-            assertEquals("Bareum: Oops! Please include the end time of your event :(\n" +
-                    "Correct format: event <description> /from <start time> /to <end time>", e.getMessage());
+            assertEquals("Bareum: Oops! Please include the end time of your event :(\n"
+                    + "Correct format: event <description> /from <start time> /to <end time>", e.getMessage());
         }
     }
 
@@ -202,8 +203,8 @@ public class ParserTest {
         try {
             Parser.parse("event project meeting /from Mon 2pm /to");
         } catch (BareumException e) {
-            assertEquals("Bareum: Oops! Please include the end time of your event :(\n" +
-                    "Correct format: event <description> /from <start time> /to <end time>", e.getMessage());
+            assertEquals("Bareum: Oops! Please include the end time of your event :(\n"
+                    + "Correct format: event <description> /from <start time> /to <end time>", e.getMessage());
         }
     }
 

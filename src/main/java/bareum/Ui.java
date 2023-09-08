@@ -19,7 +19,7 @@ public class Ui {
      * @return Details of the task the user wants to create.
      */
     String getUserInput() {
-       return sc.nextLine();
+        return sc.nextLine();
     }
 
     /**
