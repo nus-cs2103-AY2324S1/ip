@@ -2,7 +2,7 @@ package duke.assets.commands;
 
 import duke.assets.tasks.Deadline;
 import duke.assets.tasks.TaskAbstract;
-import duke.data.TaskList;
+import duke.assets.storage.TaskList;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -10,7 +10,10 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 public class CreateDeadlineCommand extends CommandAbstract {
+    private static final String INPUT_DEADLINE_REGEX_STRING = String.format("^deadline .+ /by %s($| %s$)",
+            VALID_DATE_REGEX_STRING, VALID_TIME_REGEX_STRING);
     private final boolean isDone;
+
     public CreateDeadlineCommand(String input, boolean isDone) {
         super(input);
         this.isDone = isDone;
@@ -22,9 +25,7 @@ public class CreateDeadlineCommand extends CommandAbstract {
     }
 
     private boolean isValid() {
-        String dateFormatRegex = SLASHDATEFORMAT + "|" + DASHDATEFORMAT;
-        String commandRegexString = String.format("^deadline\\s.+\\s(%s)\\s(\\d{4}$|$)", dateFormatRegex);
-        Pattern inputRegex = Pattern.compile(commandRegexString, Pattern.CASE_INSENSITIVE);
+        Pattern inputRegex = Pattern.compile(INPUT_DEADLINE_REGEX_STRING, Pattern.CASE_INSENSITIVE);
         Matcher inputMatcher = inputRegex.matcher(this.input);
         if (!inputMatcher.find()) {
             findException();
@@ -72,7 +73,7 @@ public class CreateDeadlineCommand extends CommandAbstract {
 
     @Override
     protected void completeOperation(TaskList tasklist) {
-        String information = this.input.split(" /by ")[0].split("^(?i)(deadline)\\s")[0];
+        String information = this.input.split(" /by ")[0].split("^(?i)(deadline)\\s")[1];
         String dateAndTime = this.input.split(" /by ")[1];
         TaskAbstract newTask = new Deadline(information, dateAndTime);
         if (this.isDone) {

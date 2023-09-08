@@ -1,6 +1,6 @@
 package duke.assets.commands;
 
-import duke.data.TaskList;
+import duke.assets.storage.TaskList;
 
 public class DeleteCommand extends OperationOnListCommandAbstract {
     public DeleteCommand(String input) {

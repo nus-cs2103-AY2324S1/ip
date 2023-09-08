@@ -1,6 +1,6 @@
 package duke.assets.commands;
 
-import duke.data.TaskList;
+import duke.assets.storage.TaskList;
 
 public class UnmarkCommand extends OperationOnListCommandAbstract {
     public UnmarkCommand(String input) {

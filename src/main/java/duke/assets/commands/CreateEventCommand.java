@@ -6,10 +6,12 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 import duke.assets.tasks.TaskAbstract;
-import duke.data.TaskList;
+import duke.assets.storage.TaskList;
 import duke.assets.tasks.Event;
 
 public class CreateEventCommand extends CommandAbstract {
+    private static final String INPUT_EVENT_REGEX_STRING = String.format("^event .+ /from %s( | %s )/to %s($| %s$)",
+            VALID_DATE_REGEX_STRING, VALID_TIME_REGEX_STRING, VALID_DATE_REGEX_STRING, VALID_TIME_REGEX_STRING);
     private final boolean isDone;
     public CreateEventCommand(String input, boolean isDone) {
         super(input);
@@ -22,10 +24,7 @@ public class CreateEventCommand extends CommandAbstract {
     }
 
     private boolean isValid() {
-        String dateFormatRegex = SLASHDATEFORMAT + "|" + DASHDATEFORMAT;
-        String commandRegexString = String.format("^event\\s.+\\s/from\\s(%s)\\s(" +
-                "\\d{4}\\s/to|/to)\\s(%s)(\\s\\d{4}$|$)/", dateFormatRegex, dateFormatRegex);
-        Pattern commandRegex = Pattern.compile(commandRegexString, Pattern.CASE_INSENSITIVE);
+        Pattern commandRegex = Pattern.compile(INPUT_EVENT_REGEX_STRING, Pattern.CASE_INSENSITIVE);
         Matcher inputMatcher = commandRegex.matcher(this.input);
         if (!inputMatcher.find()) {
             findException();
@@ -88,33 +87,9 @@ public class CreateEventCommand extends CommandAbstract {
         }
     }
 
-    private String findInformation() {
-        String stringWithoutCommand =  this.input.split("event")[1];
-        return stringWithoutCommand.split(" /to ")[0];
-    }
-
-    private String findDate(String startOrEnd) {
-        Pattern dateRegex = Pattern.compile(String.format("\\s(%s|%s)\\s", SLASHDATEFORMAT, DASHDATEFORMAT));
-        Matcher inputDateMatcher = dateRegex.matcher(this.input);
-        inputDateMatcher.find();
-        if (startOrEnd.equals("end")) {
-            inputDateMatcher.find();
-        }
-        return inputDateMatcher.group();
-    }
-
-    private String findTime(String startOrEnd) {
-        Pattern startTimeRegex = Pattern.compile("\\s\\d{4}\\s");
-        Pattern endTimeRegex = Pattern.compile("\\s\\d{4}$");
-        Matcher inputTimeMatcher = startOrEnd.equals("start") ? startTimeRegex.matcher(this.input) :
-                endTimeRegex.matcher(this.input);
-        inputTimeMatcher.find();
-        return inputTimeMatcher.group();
-    }
-
     @Override
     protected void completeOperation(TaskList tasklist) {
-        String information = this.input.split(" /from ")[0].split("^(?i)(event)\\s")[0];
+        String information = this.input.split(" /from ")[0].split("^(?i)(event)\\s")[1];
         String allDateAndTime = this.input.split(" /from ")[1];
         String startDateAndTime = allDateAndTime.split(" /to ")[0];
         String endDateAndTime = allDateAndTime.split(" /to ")[1];

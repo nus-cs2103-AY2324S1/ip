@@ -1,4 +1,4 @@
-package duke.data;
+package duke.assets.storage;
 
 import duke.assets.tasks.TaskAbstract;
 import duke.dukeexceptions.StateCannotBeAlteredException;
@@ -24,9 +24,9 @@ public class TaskList {
     }
 
     public void markTaskAt(int index) {
-        if (index <= 0 || index > this.numberOfTasks) {
-            if (index == -1) {
-                System.out.println("ChadGPT: Can't delete from an empty list :(");
+        if (index < 0 || index >= this.numberOfTasks) {
+            if (this.numberOfTasks == 0) {
+                System.out.println("ChadGPT: Please add at least one task to your list first :)");
             } else {
                 System.out.println("ChadGPT: Ensure the index is of in the range 1 - " + this.numberOfTasks);
             }
@@ -40,9 +40,9 @@ public class TaskList {
     }
 
     public void unmarkTaskAt(int index) {
-        if (index <= 0 || index > this.numberOfTasks) {
-            if (index == -1) {
-                System.out.println("ChadGPT: Can't delete from an empty list :(");
+        if (index < 0 || index >= this.numberOfTasks) {
+            if (this.numberOfTasks == 0) {
+                System.out.println("ChadGPT: Please add at least one task to your list first :)");
             } else {
                 System.out.println("ChadGPT: Ensure the index is of in the range 1 - " + this.numberOfTasks);
             }
@@ -57,7 +57,7 @@ public class TaskList {
 
     public void deleteTaskAt(int index) {
         if (index < 0 || index >= this.numberOfTasks) {
-            if (index == -1) {
+            if (this.numberOfTasks == 0) {
                 System.out.println("ChadGPT: Can't delete from an empty list :(");
             } else {
                 System.out.println("ChadGPT: Ensure the index is of in the range 1 - " + this.numberOfTasks);
@@ -82,11 +82,25 @@ public class TaskList {
         }
     }
 
+    public String saveToFileFormat() {
+        String returnString = "";
+        for (TaskAbstract t : taskList) {
+            returnString += t.saveToTextFormat();
+            returnString += "\n";
+        }
+        return returnString;
+    }
+
     public void listTasks() {
         int counter = 0;
         for (TaskAbstract t : this.taskList) {
             System.out.print("    " + ++counter + ". ");
             t.printStatus();
         }
+    }
+
+    public void clearList() {
+        this.taskList.clear();
+        this.numberOfTasks = 0;
     }
 }
