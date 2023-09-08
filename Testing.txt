@@ -1,6 +1,2 @@
-  [D][ ] bye (by: Oct 10 2020)
-  [E][ ] yo (from: Oct 10 2020 to: Oct 12 2020)
   [T][ ] poo
-  [T][ ] book
-  [T][ ] book
-  [T][ ] screenshot this
+  [D][ ] poo more (by: Oct 10 2020)

@@ -24,9 +24,9 @@ public class DeleteCommand extends Command {
      * @param fileStorage Writing and reading on text files.
      * @throws DukeException If user inputs is invalid.
      */
-    public void excute(TaskList tasklist, Ui ui, FileStorage fileStorage) throws DukeException {
+    public String excute(TaskList tasklist, Ui ui, FileStorage fileStorage) throws DukeException {
         Task task = tasklist.deleteTask(this.index);
         fileStorage.write(tasklist);
-        ui.showDeleteTask(task, tasklist);
+        return ui.showDeleteTask(task, tasklist);
     }
 }

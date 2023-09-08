@@ -19,8 +19,8 @@ public class ClearCommand extends Command {
      * @param fileStorage Writing and reading on text files.
      * @throws DukeException If user inputs is invalid.
      */
-    public void excute(TaskList tasklist, Ui ui, FileStorage fileStorage) throws DukeException {
+    public String excute(TaskList tasklist, Ui ui, FileStorage fileStorage) throws DukeException {
         fileStorage.write(tasklist.clear());
-        ui.showClearTask();
+        return ui.showClearTask();
     }
 }

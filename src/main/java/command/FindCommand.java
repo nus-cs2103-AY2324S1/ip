@@ -21,13 +21,13 @@ public class FindCommand extends Command {
      * @param fileStorage Writing and reading on text files.
      * @throws DukeException if the word cannot be found.
      */
-    public void excute(TaskList tasklist, Ui ui, FileStorage fileStorage) throws DukeException {
+    public String excute(TaskList tasklist, Ui ui, FileStorage fileStorage) throws DukeException {
         TaskList newList = new TaskList();
         for (int i = 0; i < tasklist.size(); i++) {
             if (tasklist.get(i).toString().contains(word)) {
                 newList.add(tasklist.get(i));
             }
         }
-        ui.showFoundResults(newList);
+        return ui.showFoundResults(newList);
     }
 }

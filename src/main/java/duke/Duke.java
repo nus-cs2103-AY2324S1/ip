@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.Scanner;
 
 import command.Command;
@@ -43,7 +45,7 @@ public class Duke {
         System.out.println("\n \n" + "Please Input the txt file you wish to access");
         Scanner scanner = new Scanner(System.in);
         String textFile = scanner.nextLine();
-        new Duke(textFile).run();
+        new Duke("Testing.txt").run();
     }
 
     /**
@@ -66,6 +68,19 @@ public class Duke {
             }
         }
         userInterface.closeScanner();
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.excute(userList, userInterface, fileStorage);
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
+    }
+
+    public String start() {
+        return userInterface.showGreetings() + "\n Enter clear if you would like to start a new list";
     }
 }
 

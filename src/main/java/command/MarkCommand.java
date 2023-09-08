@@ -25,9 +25,9 @@ public class MarkCommand extends Command {
      * @param fileStorage Writing and reading on text files.
      * @throws DukeException If user inputs is invalid.
      */
-    public void excute(TaskList tasklist, Ui ui, FileStorage fileStorage) throws DukeException {
+    public String excute(TaskList tasklist, Ui ui, FileStorage fileStorage) throws DukeException {
         Task task = tasklist.markTask(this.index);
         fileStorage.write(tasklist);
-        ui.showMarkedTask(task);
+        return ui.showMarkedTask(task);
     }
 }

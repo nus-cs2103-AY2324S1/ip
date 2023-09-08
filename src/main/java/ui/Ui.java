@@ -1,9 +1,10 @@
 package ui;
 
+import java.util.Scanner;
+
 import list.TaskList;
 import tasks.Task;
 
-import java.util.Scanner;
 
 /**
  * A class that is used to show the user inferfaces.
@@ -11,9 +12,9 @@ import java.util.Scanner;
 public class Ui {
 
     private Scanner scanner;
-    final String UNKNOWN_COMMAND = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
-    final String NAME = "CathyTheChattyCat";
-    String lineBreak = "\n__________________________________________\n";
+    //private final String UNKNOWN_COMMAND = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
+    private final String NAME = "CathyTheChattyCat";
+    private String lineBreak = "\n________________________________________\n";
 
     /**
      * A constructor method to initialise the UI.
@@ -60,8 +61,8 @@ public class Ui {
      *
      * @param e the error code produced.
      */
-    public void showError(String e) {
-        System.out.println(e);
+    public String showError(String e) {
+        return e;
     }
 
     /**
@@ -70,18 +71,20 @@ public class Ui {
      * @param task the task to add.
      * @param userList the TaskList to add to.
      */
-    public void showTaskAdded(Task task, TaskList userList) {
-        System.out.println("Got it. I've added this task: \n" + task);
+    public String showTaskAdded(Task task, TaskList userList) {
+        String top = ("Got it. I've added this task: \n" + task);
         int size = userList.size();
-        System.out.println("Now you have " + size + " tasks in the list.");
+        String bottom = ("Now you have " + size + " tasks in the list.");
+        return top + "\n" + bottom;
     }
 
     /**
      * A method that will greet the user at the start.
      */
-    public void showGreetings() {
-        System.out.println(lineBreak + "Hello! I'm " + NAME);
-        System.out.printf("What can I do for you?" + lineBreak);
+    public String showGreetings() {
+        String top = (lineBreak + "Hello! I'm " + NAME);
+        String bottom = ("What can I do for you?" + lineBreak);
+        return top + "\n" + bottom;
     }
 
     /**
@@ -89,8 +92,8 @@ public class Ui {
      *
      * @param task the task being marked.
      */
-    public void showMarkedTask(Task task) {
-        System.out.println("Nice! I've marked this task as done: \n\t" + task);
+    public String showMarkedTask(Task task) {
+        return ("Nice! I've marked this task as done: \n\t" + task);
     }
 
     /**
@@ -98,8 +101,8 @@ public class Ui {
      *
      * @param task the task being unmarked.
      */
-    public void showUnMarkedTask(Task task) {
-        System.out.println("OK, I've unmarked this task as not done yet: \n\t" + task);
+    public String showUnMarkedTask(Task task) {
+        return ("OK, I've unmarked this task as not done yet: \n\t" + task);
     }
 
     /**
@@ -108,16 +111,17 @@ public class Ui {
      * @param task task being deleted.
      * @param userList where task is deleted from.
      */
-    public void showDeleteTask(Task task, TaskList userList) {
-        System.out.println("Noted. I've removed this task: \n" + task);
-        System.out.println("Now you have " + userList.size() + " tasks in the list");
+    public String showDeleteTask(Task task, TaskList userList) {
+        String top = ("Noted. I've removed this task: \n" + task);
+        String bottom = ("Now you have " + userList.size() + " tasks in the list");
+        return top + "\n" + bottom;
     }
 
     /**
      * A method that shows that the task is cleared.
      */
-    public void showClearTask() {
-        System.out.println("Noted. I've removed all the tasks.");
+    public String  showClearTask() {
+        return ("Noted. I've removed all the tasks.");
     }
 
     /**
@@ -125,30 +129,39 @@ public class Ui {
      *
      * @param userList where the task is from.
      */
-    public void showList(TaskList userList) {
+    public String showList(TaskList userList) {
         //System.out.println(lineBreak);
-        System.out.println("Here are the tasks in your list:");
+        StringBuilder builder = new StringBuilder();
+        String top = ("Here are the tasks in your list:");
         for (int i = 0; i < userList.size(); i++) {
             int index = i + 1;
-            System.out.println(index + "." + userList.get(i));
+            builder.append(index + "." + userList.get(i) + '\n');
         }
-        //System.out.println(lineBreak);
+        return top + "\n" + builder;
     }
 
     /**
      * A method to say BYE.
      */
-    public void showGoodbye() {
-        System.out.print("Bye. Hope to see you again soon!");
+    public String showGoodbye() {
+        return ("Bye. Hope to see you again soon!");
     }
     public void closeScanner() {
         scanner.close();
     }
-    public void showFoundResults(TaskList foundList) {
-        System.out.println("Here are the matching tasks in your list:");
+
+    /**
+     * Shows the result found base on the word given.
+     * @param foundList the list of found tasks.
+     * @return a string of all the tasks.
+     */
+    public String showFoundResults(TaskList foundList) {
+        StringBuilder builder = new StringBuilder();
+        String top = ("Here are the matching tasks in your list:");
         for (int i = 0; i < foundList.size(); i++) {
             int index = i + 1;
-            System.out.println(index + "." + foundList.get(i));
+            builder.append(index + "." + foundList.get(i) + "\n");
         }
+        return top + "\n" + builder;
     }
 }

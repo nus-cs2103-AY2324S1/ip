@@ -30,5 +30,5 @@ public abstract class Command {
      * @param fileStorage Writing and reading on text files.
      * @throws DukeException If user inputs is invalid.
      */
-    public abstract void excute(TaskList tasklist, Ui ui, FileStorage fileStorage) throws DukeException;
+    public abstract String excute(TaskList tasklist, Ui ui, FileStorage fileStorage) throws DukeException;
 }

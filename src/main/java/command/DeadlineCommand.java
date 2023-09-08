@@ -32,10 +32,10 @@ public class DeadlineCommand extends Command {
      * @param fileStorage Writing and reading on text files.
      * @throws DukeException If user inputs is invalid.
      */
-    public void excute(TaskList tasklist, Ui ui, FileStorage fileStorage) throws DukeException {
+    public String excute(TaskList tasklist, Ui ui, FileStorage fileStorage) throws DukeException {
         Deadline task = new Deadline(this.task, this.deadDate);
         tasklist.add(task);
         fileStorage.write(tasklist);
-        ui.showTaskAdded(task, tasklist);
+        return ui.showTaskAdded(task, tasklist);
     }
 }

@@ -19,8 +19,8 @@ public class ByeCommand extends Command {
      * @param ui contains the user interface that will be shown to the user depending on the inputs.
      * @param fileStorage Writing and reading on text files.
      */
-    public void excute(TaskList taskList, Ui ui, FileStorage fileStorage) {
+    public String excute(TaskList taskList, Ui ui, FileStorage fileStorage) {
         this.isExit = true;
-        ui.showGoodbye();
+        return ui.showGoodbye();
     }
 }
