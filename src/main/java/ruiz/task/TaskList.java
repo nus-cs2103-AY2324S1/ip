@@ -54,7 +54,7 @@ public class TaskList {
      * @param input The string that consists of the keyWord "mark" and task index being input by the user.
      * @throws BotException if the input is not a valid one.
      */
-    public void markTask(String input) throws BotException {
+    public String markTask(String input) throws BotException {
         if (input.split(" ").length < 2) {
             throw new BotException("OOPS!!! The index of a task cannot be empty.");
         }
@@ -67,7 +67,7 @@ public class TaskList {
         if (taskIndex >= 0 && this.taskList.size() > taskIndex) {
             Task task = this.taskList.get(taskIndex);
             task.mark();
-            ui.markTask(task);
+            return ui.markTask(task);
         } else {
             throw new BotException("This task does not exist!");
         }
@@ -79,7 +79,7 @@ public class TaskList {
      * @param input The string that consists of the keyWord "unmark" and task index being input by the user.
      * @throws BotException if the input is not a valid one.
      */
-    public void unmarkTask(String input) throws BotException {
+    public String unmarkTask(String input) throws BotException {
         if (input.split(" ").length < 2) {
             throw new BotException("OOPS!!! The index of a task cannot be empty.");
         }
@@ -92,7 +92,7 @@ public class TaskList {
         if (taskIndex >= 0 && this.taskList.size() > taskIndex) {
             Task task = this.taskList.get(taskIndex);
             task.unmark();
-            ui.unmarkTask(task);
+            return ui.unmarkTask(task);
         } else {
             throw new BotException("This task does not exist!");
         }
@@ -104,7 +104,7 @@ public class TaskList {
      * @param input The string that contains the keyWord "delete" and the index of the task.
      * @throws BotException if the input of the user is not a valid one.
      */
-    public void deleteTask(String input) throws BotException {
+    public String deleteTask(String input) throws BotException {
         if (input.split(" ").length < 2) {
             throw new BotException("OOPS!!! The index of a task cannot be empty.");
         }
@@ -117,7 +117,7 @@ public class TaskList {
         if (taskIndex >= 0 && this.taskList.size() > taskIndex) {
             Task task = this.taskList.get(taskIndex);
             this.taskList.remove(taskIndex);
-            ui.deletedTask(task, this.getTaskListSize());
+            return ui.deletedTask(task, this.getTaskListSize());
         } else {
             throw new BotException("This task does not exist!");
         }
@@ -129,11 +129,11 @@ public class TaskList {
      * @param input contains the keyWord "todo" and the description of the todo.
      * @throws BotException if the input is not in the format of a valid todo.
      */
-    public void addTodo(String input) throws BotException {
+    public String addTodo(String input) throws BotException {
         String content = parser.getTodoDescription(input);
         Task temp = new ToDos(content);
         this.taskList.add(temp);
-        ui.addedNewTaskMsg(temp, this.getTaskListSize());
+        return ui.addedNewTaskMsg(temp, this.getTaskListSize());
     }
 
     /**
@@ -143,12 +143,12 @@ public class TaskList {
      *              with the time it needs to be completed by.
      * @throws BotException if the input is not in the valid format of a deadline.
      */
-    public void addDeadline(String input) throws BotException, IOException {
+    public String addDeadline(String input) throws BotException, IOException {
         String description = parser.getDeadlineDescription(input);
         String by = parser.getBy(input);
         Task temp = new Deadlines(description, by);
         this.taskList.add(temp);
-        ui.addedNewTaskMsg(temp, this.getTaskListSize());
+        return ui.addedNewTaskMsg(temp, this.getTaskListSize());
     }
 
     /**
@@ -158,13 +158,13 @@ public class TaskList {
      *              with the time it takes place from and ends by.
      * @throws BotException if the input is not in the form a valid event.
      */
-    public void addEvent(String input) throws BotException, IOException {
+    public String addEvent(String input) throws BotException, IOException {
         String description = parser.getEventDescription(input);
         String from = parser.getFrom(input);
         String to = parser.getTo(input);
         Task temp = new Events(description, from, to);
         this.taskList.add(temp);
-        ui.addedNewTaskMsg(temp, this.getTaskListSize());
+        return ui.addedNewTaskMsg(temp, this.getTaskListSize());
     }
 
     /**
@@ -173,7 +173,7 @@ public class TaskList {
      * @param input contains the command "find" and the "keyword"
      * @throws BotException if the input is not in the form a valid "find".
      */
-    public void findTasksWithKeyword(String input) throws BotException {
+    public String findTasksWithKeyword(String input) throws BotException {
         ArrayList<Task> tasksWithKeyword = new ArrayList<>();
         String keyword = parser.getKeyword(input);
         for (Task task : taskList) {
@@ -181,6 +181,6 @@ public class TaskList {
                 tasksWithKeyword.add(task);
             }
         }
-        new Ui().getTasks(tasksWithKeyword);
+        return new Ui().getTasks(tasksWithKeyword);
     }
 }
