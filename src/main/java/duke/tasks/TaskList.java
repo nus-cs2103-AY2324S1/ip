@@ -2,8 +2,6 @@ package duke.tasks;
 
 import java.util.ArrayList;
 
-import duke.ui.Ui;
-
 /**
  * Represents a list of tasks in the Duke application.
  */
@@ -26,10 +24,10 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         tasks.add(task);
-        Ui.printMessageWithSeparator("Got it. I've added this task:\n" + task.getDescription()
-                + "\nNow you have " + tasks.size() + " tasks in the list.");
+        return "Got it. I've added this task:\n" + task.getDescription()
+                + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
     /**
@@ -37,14 +35,14 @@ public class TaskList {
      *
      * @param index The index of the task to be deleted.
      */
-    public void deleteTask(int index) {
+    public String deleteTask(int index) {
         if (index < 0 || index >= tasks.size()) {
-            Ui.printMessageWithSeparator("Please enter a valid number.");
+            return "Please enter a valid number.";
         } else {
             Task task = tasks.get(index);
             tasks.remove(index);
-            Ui.printMessageWithSeparator("Noted. I've removed this task:\n" + task.getDescription()
-                    + "\nNow you have " + tasks.size() + " tasks in the list.");
+            return "Noted. I've removed this task:\n" + task.getDescription()
+                    + "\nNow you have " + tasks.size() + " tasks in the list.";
         }
     }
 
@@ -53,13 +51,13 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as done.
      */
-    public void markTaskAsDone(int index) {
+    public String markTaskAsDone(int index) {
         if (index < 0 || index >= tasks.size()) {
-            Ui.printMessageWithSeparator("Please enter a valid number.");
+            return "Please enter a valid number.";
         } else {
             Task task = tasks.get(index);
             task.markAsDone();
-            Ui.printMessageWithSeparator("Nice! I've marked this task as done:\n" + task.getDescription());
+            return "Nice! I've marked this task as done:\n" + task.getDescription();
         }
     }
 
@@ -68,26 +66,30 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as not done.
      */
-    public void unmarkTask(int index) {
+    public String unmarkTask(int index) {
         if (index < 0 || index >= tasks.size()) {
-            Ui.printMessageWithSeparator("Please enter a valid number.");
+            return "Please enter a valid number.";
         } else {
             Task task = tasks.get(index);
             task.unmark();
-            Ui.printMessageWithSeparator("OK, I've marked this task as not done yet:\n" + task.getDescription());
+            return "OK, I've marked this task as not done yet:\n" + task.getDescription();
         }
     }
 
     /**
      * Prints all the tasks in the task list.
      */
-    public void list() {
-        System.out.println(Ui.LINE_SEPARATOR);
+    public String list() {
+        if (tasks.size() == 0) {
+            return "You have no tasks in your list. Add some tasks!";
+        }
+
+        String s = "";
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.println((i + 1) + ". " + task.getDescription());
+            s = s + (i + 1) + ". " + task.getDescription() + "\n";
         }
-        System.out.println(Ui.LINE_SEPARATOR);
+        return s;
     }
 
     /**
@@ -95,7 +97,7 @@ public class TaskList {
      *
      * @param keyword The keyword to be searched for.
      */
-    public void findTasks(String keyword) {
+    public String findTasks(String keyword) {
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
@@ -103,15 +105,14 @@ public class TaskList {
             }
         }
         if (foundTasks.size() == 0) {
-            Ui.printMessageWithSeparator("No matching tasks found.");
+            return "No matching tasks found.";
         } else {
-            System.out.println(Ui.LINE_SEPARATOR);
-            System.out.println("Here are the matching tasks in your list:");
+            String s = "Here are the matching tasks in your list:";
             for (int i = 0; i < foundTasks.size(); i++) {
                 Task task = foundTasks.get(i);
-                System.out.println((i + 1) + ". " + task.getDescription());
+                s = s + (i + 1) + ". " + task.getDescription();
             }
-            System.out.println(Ui.LINE_SEPARATOR);
+            return s;
         }
     }
 

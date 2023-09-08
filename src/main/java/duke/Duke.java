@@ -1,10 +1,11 @@
 package duke;
 
 import duke.commands.Command;
+import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
-import duke.ui.Ui;
+import graphicaluserinterface.MainWindow;
 
 /**
  * The main class for the Duke application. Duke is a simple task manager.
@@ -17,8 +18,15 @@ public class Duke {
     /** The task list object used to store and manipulate tasks. */
     private TaskList taskList;
 
-    /** The UI object used to interact with the user. */
-    private Ui ui;
+    /** The GUI window used to interact with the user. */
+    private MainWindow mainWindow;
+
+    /**
+     * Constructs a Duke instance with a default file path for data storage.
+     */
+    public Duke() {
+        this("./data/duke.txt");
+    }
 
     /**
      * Constructs a Duke instance with a specified file path for data storage.
@@ -26,44 +34,41 @@ public class Duke {
      * @param filePath The file path where task data is loaded from and saved to.
      */
     public Duke(String filePath) {
-        ui = new Ui();
         try {
             storage = new Storage(filePath);
             taskList = new TaskList(storage.load());
         } catch (DukeException e) {
-            ui.printMessageWithSeparator("Error loading duke.tasks from file: " + e.getMessage());
+            mainWindow.printMessage("Error loading duke.tasks from file: " + e.getMessage());
         }
-    }
-
-    public static void main(String[] args) {
-        String filePath = "./data/duke.txt";
-        Duke duke = new Duke(filePath);
-        duke.run();
     }
 
     /**
      * Runs the Duke application, displaying a welcome message and processing user commands.
      */
-    public void run() {
-        this.ui.showWelcome();
-        String userInput = ui.readCommand();
-        Command command = null;
-        while (true) {
-            try {
-                command = Parser.parse(userInput);
-                command.execute(taskList, ui, storage);
-            } catch (DukeException e) {
-                ui.printMessageWithSeparator(e.getMessage());
-            }
-
-            if (command instanceof Command.ExitCommand) {
-                break;
-            }
-
-            userInput = ui.readCommand();
+    public void run(String userInput) {
+        try {
+            Command command = Parser.parse(userInput);
+            String response = command.execute(taskList, storage);
+            this.mainWindow.setResponse(response);
+        } catch (DukeException e) {
+            this.mainWindow.setResponse(e.getMessage());
         }
     }
 
+    /**
+     * Sets the GUI window used to interact with the user.
+     *
+     * @param mainWindow The GUI window used to interact with the user.
+     */
+    public void setMainWindow(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
+    }
+
+    /**
+     * Gets the task list object used to store and manipulate tasks.
+     *
+     * @return The task list object used to store and manipulate tasks.
+     */
     public TaskList getTaskList() {
         return taskList;
     }
