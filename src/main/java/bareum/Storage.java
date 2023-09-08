@@ -51,7 +51,7 @@ public class Storage {
                 savedTasks.append((char) currChar);
             }
 
-            String[] allTaskInputs = savedTasks.toString(). split("\n");
+            String[] allTaskInputs = savedTasks.toString().split("\n");
             for (int i = 0; i < allTaskInputs.length; i++) {
                 String[] taskInputs = allTaskInputs[i].split("\\|");
                 if (taskInputs[0].equals("T")) {

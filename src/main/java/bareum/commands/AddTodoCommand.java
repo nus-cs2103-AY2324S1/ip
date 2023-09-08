@@ -1,9 +1,9 @@
 package bareum.commands;
 
 import bareum.BareumException;
-import bareum.TodoTask;
 import bareum.Storage;
 import bareum.TaskList;
+import bareum.TodoTask;
 import bareum.Ui;
 
 /**
@@ -13,7 +13,7 @@ public class AddTodoCommand extends Command {
     /**
      * Description of the todo.
      */
-    String description;
+    private String description;
 
     /**
      * Create a new instance of a command that creates a todo with the corresponding description when executed.
@@ -40,8 +40,8 @@ public class AddTodoCommand extends Command {
                     + taskList.size() + " task(s) in your list.";
             Ui.reply(added);
         } catch (BareumException e) {
-            Ui.reply("Oops! The description of a todo cannot be empty.\n" +
-                    "Correct format: todo <description>");
+            Ui.reply("Oops! The description of a todo cannot be empty.\n"
+                    + "Correct format: todo <description>");
         }
     }
 }
