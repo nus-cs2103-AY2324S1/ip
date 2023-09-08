@@ -15,14 +15,13 @@ import duke.ui.Ui;
 public abstract class Command {
 
     /**
-     * Executes the command with access to task data, user interface, and storage.
+     * Executes the command with access to task data and storage by returning a string.
      *
      * @param tasks   The TaskList containing tasks to be manipulated.
-     * @param ui      The user interface for displaying messages.
      * @param storage The storage object for reading and writing task data.
      * @throws DukeException If an error occurs during command execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Storage storage) throws DukeException;
 
     /**
      * Returns the CommandType associated with the specific command type.
@@ -41,15 +40,14 @@ public abstract class Command {
          * Executes the "bye" command, saving the task data to storage and displaying the goodbye message.
          *
          * @param tasks   The TaskList containing tasks to be saved.
-         * @param ui      The user interface for displaying messages.
          * @param storage The storage object for writing task data.
          * @throws DukeException If an error occurs during task data saving.
          */
         @Override
-        public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        public String execute(TaskList tasks, Storage storage) throws DukeException {
             try {
                 storage.saveTasksToFile(tasks);
-                ui.showGoodbye();
+                return Ui.MESSAGE_GOODBYE;
             } catch (IOException e) {
                 throw new DukeException("Error saving duke.tasks to file: " + e.getMessage());
             }
@@ -71,13 +69,12 @@ public abstract class Command {
          * Executes the "list" command, displaying the list of tasks in the user interface.
          *
          * @param tasks   The TaskList containing tasks to be displayed.
-         * @param ui      The user interface for displaying messages.
          * @param storage The storage object (not used in this command).
          * @throws DukeException If an error occurs during task listing.
          */
         @Override
-        public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-            tasks.list();
+        public String execute(TaskList tasks, Storage storage) throws DukeException {
+            return tasks.list();
         }
 
         @Override
@@ -108,14 +105,13 @@ public abstract class Command {
          * Executes the "mark" command, marking the specified task as done in the task list.
          *
          * @param tasks   The TaskList containing tasks to be manipulated.
-         * @param ui      The user interface for displaying messages.
          * @param storage The storage object (not used in this command).
          * @throws DukeException If an error occurs during task marking.
          */
         @Override
-        public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        public String execute(TaskList tasks, Storage storage) throws DukeException {
             int index = taskNumber - 1;
-            tasks.markTaskAsDone(index);
+            return tasks.markTaskAsDone(index);
         }
 
         @Override
@@ -146,14 +142,13 @@ public abstract class Command {
          * Executes the "unmark" command, unmarking the specified task in the task list.
          *
          * @param tasks   The TaskList containing tasks to be manipulated.
-         * @param ui      The user interface for displaying messages.
          * @param storage The storage object (not used in this command).
          * @throws DukeException If an error occurs during task unmarking.
          */
         @Override
-        public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        public String execute(TaskList tasks, Storage storage) throws DukeException {
             int index = taskNumber - 1;
-            tasks.unmarkTask(index);
+            return tasks.unmarkTask(index);
         }
 
         @Override
@@ -184,14 +179,13 @@ public abstract class Command {
          * Executes the "delete" command, deleting the specified task from the task list.
          *
          * @param tasks   The TaskList containing tasks to be manipulated.
-         * @param ui      The user interface for displaying messages.
          * @param storage The storage object (not used in this command).
          * @throws DukeException If an error occurs during task deletion.
          */
         @Override
-        public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        public String execute(TaskList tasks, Storage storage) throws DukeException {
             int index = taskNumber - 1;
-            tasks.deleteTask(index);
+            return tasks.deleteTask(index);
         }
 
         @Override
@@ -228,13 +222,12 @@ public abstract class Command {
          * Executes the "add" command, adding the specified task to the task list.
          *
          * @param tasks   The TaskList containing tasks to be manipulated.
-         * @param ui      The user interface for displaying messages.
          * @param storage The storage object (not used in this command).
          * @throws DukeException If an error occurs during task addition.
          */
         @Override
-        public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-            tasks.addTask(task);
+        public String execute(TaskList tasks, Storage storage) throws DukeException {
+            return tasks.addTask(task);
         }
 
         @Override
@@ -265,13 +258,12 @@ public abstract class Command {
          * Executes the "find" command, finding tasks in the task list that contain the specified keyword.
          *
          * @param tasks   The TaskList containing tasks to be manipulated.
-         * @param ui      The user interface for displaying messages.
          * @param storage The storage object (not used in this command).
          * @throws DukeException If an error occurs during task finding.
          */
         @Override
-        public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-            tasks.findTasks(keyword);
+        public String execute(TaskList tasks, Storage storage) throws DukeException {
+            return tasks.findTasks(keyword);
         }
 
         @Override
@@ -302,12 +294,11 @@ public abstract class Command {
          * Executes the Invalid command, throwing a DukeException with the error message.
          *
          * @param tasks   The TaskList (not used in this command).
-         * @param ui      The user interface for displaying messages.
          * @param storage The storage object (not used in this command).
          * @throws DukeException Always throws a DukeException with the specified error message.
          */
         @Override
-        public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        public String execute(TaskList tasks, Storage storage) throws DukeException {
             throw new DukeException(message);
         }
 
