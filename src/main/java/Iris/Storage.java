@@ -1,4 +1,4 @@
-package Iris;
+package iris;
 
 import java.io.BufferedReader;
 import java.io.File;

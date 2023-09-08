@@ -1,4 +1,4 @@
-package Iris;
+package iris;
 
 /**
  * Represents a todo task in the Iris application.

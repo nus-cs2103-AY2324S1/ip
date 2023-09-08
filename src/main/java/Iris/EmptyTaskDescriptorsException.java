@@ -1,4 +1,4 @@
-package Iris;
+package iris;
 
 /**
  * An exception class representing a situation where the description of a todo task is empty.

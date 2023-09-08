@@ -1,7 +1,7 @@
 /**
  * Represents a task with a deadline.
  */
-package Iris;
+package iris;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

@@ -1,4 +1,4 @@
-package Iris;
+package iris;
 
 /**
  * An abstract class representing a task in the Iris application.

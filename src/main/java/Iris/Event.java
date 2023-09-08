@@ -1,4 +1,4 @@
-package Iris;
+package iris;
 
 /**
  * Represents an event task with a start and end time.

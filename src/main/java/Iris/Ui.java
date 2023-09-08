@@ -1,4 +1,4 @@
-package Iris;
+package iris;
 
 /**
  * The class responsible for user interface interactions in the Iris application.

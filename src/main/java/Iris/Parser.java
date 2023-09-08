@@ -1,4 +1,4 @@
-package Iris;
+package iris;
 
 /**
  * The class responsible for parsing user commands in the Iris application.
