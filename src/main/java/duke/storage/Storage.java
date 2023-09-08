@@ -31,6 +31,7 @@ public class Storage {
             for (int i = 0; i < temp.length - 1; i++) {
                 directoryPath += temp[i];
                 File directory = new File(directoryPath);
+                assert !directory.exists();
                 if (!directory.isDirectory()) {
                     directory.mkdir();
                 }
@@ -96,6 +97,7 @@ public class Storage {
             Scanner sc = new Scanner(loadFile());
             while (sc.hasNext()) {
                 String[] temp = sc.nextLine().split(" \\| ");
+                assert (temp[1].strip().equals("0") | temp[1].strip().equals("1"));
                 switch (temp[0].strip()) {
                 case "T":
                     taskList.add(new ToDo(temp[2].strip()));
@@ -107,6 +109,7 @@ public class Storage {
                     taskList.add(new Event(temp[2].strip(), temp[3].strip(), temp[4].strip()));
                     break;
                 default:
+                    assert false;
                     break;
                 }
                 if (temp[1].strip().equals("1")) {

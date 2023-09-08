@@ -58,6 +58,8 @@ public class MainWindow extends AnchorPane {
         } catch (DukeException e) {
             response = e.getMessage().replace("☹", ":P"); // JavaFX cannot recognize "☹"
         }
+        assert (response != null) : "Response is empty";
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
