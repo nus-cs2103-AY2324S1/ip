@@ -21,7 +21,7 @@ public class Todo extends Task {
     public String writeTaskToFile() {
         return String.format("%s | %s | %s", "T",
                 this.isDone() ? 1 : 0,
-                this.getName());
+                this.getDescription());
     }
 
     /**

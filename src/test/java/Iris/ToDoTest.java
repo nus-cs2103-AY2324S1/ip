@@ -1,4 +1,4 @@
-package Iris;
+package iris;
 
 import org.junit.jupiter.api.Test;
 

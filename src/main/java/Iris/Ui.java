@@ -71,6 +71,18 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    public static void printKeywordTasksMsg(ToDoList keywordToDoList) {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Here are the matching tasks in your list:");
+        System.out.println(keywordToDoList);
+        System.out.println(HORIZONTAL_LINE);
+    }
+    public static void printNoKeywordTasksFound() {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("No matching tasks found.");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
     /**
      * Displays the number of tasks in the list.
      *

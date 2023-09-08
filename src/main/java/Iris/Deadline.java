@@ -40,7 +40,7 @@ public class Deadline extends Task {
     public String writeTaskToFile() {
         return String.format("%s | %s | %s | %s", "D",
                 this.isDone() ? 1 : 0,
-                this.getName(),
+                this.getDescription(),
                 this.getDeadlineString());
     }
 

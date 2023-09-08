@@ -138,6 +138,16 @@ public class ToDoList {
         Ui.printLength(toDoList);
     }
 
+    public ToDoList getTasksWithKeyword(String keyword) {
+        ArrayList<Task> keywordTasks = new ArrayList<Task>();
+        for (Task task : list) {
+            if (task.ifDescriptionContains(keyword)) {
+                keywordTasks.add(task);
+            }
+        }
+        return new ToDoList(keywordTasks);
+    }
+
     /**
      * Overrides the default toString method to provide a custom string representation of the ToDoList.
      *

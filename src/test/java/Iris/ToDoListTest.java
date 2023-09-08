@@ -1,4 +1,4 @@
-package Iris;
+package iris;
 
 import java.util.ArrayList;
 
