@@ -62,14 +62,14 @@ public class TaskList {
      *
      * @param index The index of the task to retrieve.
      * @return The task at the specified index.
-     * @throws JavAIException If the index is out of bounds.
+     * @throws JavAiException If the index is out of bounds.
      */
-    public Task get(int index) throws JavAIException {
+    public Task get(int index) throws JavAiException {
 
         try {
             return tasks.get(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new JavAIException("☹ OOPS!!! The task number does not exist.Please enter valid task number.");
+            throw new JavAiException("☹ OOPS!!! The task number does not exist.Please enter valid task number.");
         }
     }
 

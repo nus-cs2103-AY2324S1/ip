@@ -12,9 +12,9 @@ public class Parser {
      * @param input The user input string to be parsed.
      * @param tasks The TaskList to which tasks are added or modified.
      * @param ui The Ui instance for displaying messages and user interface.
-     * @throws JavAIException If there's an error in parsing or executing the command.
+     * @throws JavAiException If there's an error in parsing or executing the command.
      */
-    public void parse(String input, TaskList tasks, Ui ui) throws JavAIException {
+    public void parse(String input, TaskList tasks, Ui ui) throws JavAiException {
         String[] words = input.split(" ");
         String description = "";
         int iterator = 1;
@@ -27,11 +27,11 @@ public class Parser {
                 }
                 Todo todo = new Todo(description);
                 if (description.equals("")) {
-                    throw new JavAIException("☹ OOPS!!! The description of a todo cannot be empty.");
+                    throw new JavAiException("☹ OOPS!!! The description of a todo cannot be empty.");
                 }
                 tasks.add(todo);
                 ui.printAddTask(todo, tasks);
-            } catch (JavAIException e) {
+            } catch (JavAiException e) {
                 ui.showLoadingError(e);
             }
 
@@ -39,8 +39,8 @@ public class Parser {
             String endDate = "";
             String endTime = "";
             try {
-                if(!input.contains("/by")) {
-                    throw new JavAIException("☹ OOPS!!! Please input a valid deadline using '/by'.");
+                if (!input.contains("/by")) {
+                    throw new JavAiException("☹ OOPS!!! Please input a valid deadline using '/by'.");
                 }
                 while (!words[iterator].equals("/by")) {
                     description += words[iterator] + " ";
@@ -48,21 +48,21 @@ public class Parser {
                 }
                 iterator++;
                 if (iterator + 1 > words.length) {
-                    throw new JavAIException("☹ OOPS!!! Please specify both date and time in following " +
-                            "format after after /by: yyyy-mm-dd hh:mm'.");
+                    throw new JavAiException("☹ OOPS!!! Please specify both date and time in following "
+                            + "format after after /by: yyyy-mm-dd hh:mm'.");
                 }
                 endDate = words[iterator];
                 endTime = words[iterator + 1];
                 Deadline deadline = new Deadline(description, endDate, endTime);
                 tasks.add(deadline);
                 ui.printAddTask(deadline, tasks);
-            } catch (JavAIException e) {
+            } catch (JavAiException e) {
                 ui.showLoadingError(e);
             }
         } else if (words[0].equals("event")) {
             try {
-                if(!input.contains("/from") || !input.contains("/to")) {
-                    throw new JavAIException("☹ OOPS!!! Please input a valid event using '/from' and '/to'.");
+                if (!input.contains("/from") || !input.contains("/to")) {
+                    throw new JavAiException("☹ OOPS!!! Please input a valid event using '/from' and '/to'.");
                 }
                 String from = "";
                 String to = "";
@@ -83,7 +83,7 @@ public class Parser {
                 Event event = new Event(description, from, to);
                 tasks.add(event);
                 ui.printAddTask(event, tasks);
-            } catch (JavAIException e) {
+            } catch (JavAiException e) {
                 ui.print(e.getMessage());
             }
         } else if (words[0].equals("mark")) {
@@ -92,11 +92,11 @@ public class Parser {
                 tasks.get(iden).markAsDone();
                 ui.printDone(tasks.get(iden));
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new JavAIException("☹ OOPS!!! Please input a valid numerical value after 'mark'.");
+                throw new JavAiException("☹ OOPS!!! Please input a valid numerical value after 'mark'.");
             } catch (NullPointerException e) {
-                throw new JavAIException("☹ OOPS!!! Please input a valid numerical value after 'mark'.");
+                throw new JavAiException("☹ OOPS!!! Please input a valid numerical value after 'mark'.");
             } catch (NumberFormatException e) {
-                throw new JavAIException("☹ OOPS!!! Please input a valid numerical value after 'mark'.");
+                throw new JavAiException("☹ OOPS!!! Please input a valid numerical value after 'mark'.");
             }
         } else if (words[0].equals("unmark")) {
             try {
@@ -104,11 +104,11 @@ public class Parser {
                 tasks.get(iden).markAsUndone();
                 ui.printUndone(tasks.get(iden));
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new JavAIException("☹ OOPS!!! Please input a valid numerical value after 'unmark'.");
+                throw new JavAiException("☹ OOPS!!! Please input a valid numerical value after 'unmark'.");
             } catch (NullPointerException e) {
-                throw new JavAIException("☹ OOPS!!! Please input a valid numerical value after 'unmark'.");
+                throw new JavAiException("☹ OOPS!!! Please input a valid numerical value after 'unmark'.");
             } catch (NumberFormatException e) {
-                throw new JavAIException("☹ OOPS!!! Please input a valid numerical value after 'unmark'.");
+                throw new JavAiException("☹ OOPS!!! Please input a valid numerical value after 'unmark'.");
             }
 
         } else if (words[0].equals("delete")) {
@@ -124,7 +124,7 @@ public class Parser {
             }
         } else if (words[0].equals("find")) {
             if (words.length != 2) {
-                throw new JavAIException("☹ OOPS!!! Please input agi valid keyword after 'find'.");
+                throw new JavAiException("☹ OOPS!!! Please input agi valid keyword after 'find'.");
             } else {
                 String keyword = words[1];
                 ui.print("Here are the matching tasks in your list:");

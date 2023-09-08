@@ -6,7 +6,7 @@ import java.util.Scanner;
  * JavAI is a simple chatbot that allows users to add, mark, unmark, delete,
  * and list tasks.
  */
-public class JavAI {
+public class JavAi {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -17,7 +17,7 @@ public class JavAI {
      *
      * @param filePath The file path where tasks are stored.
      */
-    public JavAI(String filePath) {
+    public JavAi(String filePath) {
         ui = new Ui();
         parser = new Parser();
         storage = new Storage(filePath);
@@ -44,7 +44,7 @@ public class JavAI {
             } else {
                 try {
                     parser.parse(input, tasks, ui);
-                } catch(JavAIException e) {
+                } catch (JavAiException e) {
                     ui.showLoadingError(e);
                 }
             }
@@ -57,6 +57,6 @@ public class JavAI {
      */
     public static void main(String[] args) {
 
-        new JavAI("./src/main/txtFolder/JavAI.txt").run();
+        new JavAi("./src/main/txtFolder/JavAI.txt").run();
     }
 }

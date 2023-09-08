@@ -1,6 +1,8 @@
 package javai;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +37,7 @@ public class TaskListTest {
         taskList.delete(1);
 
         assertEquals(2, taskList.size());
-        assertThrows(JavAIException.class, () -> taskList.get(2));
+        assertThrows(JavAiException.class, () -> taskList.get(2));
     }
 
 }

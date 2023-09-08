@@ -1,16 +1,21 @@
 package javai;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
 
 /**
  * The Storage class handles loading tasks from and writing tasks to a file.
  */
 public class Storage {
-    String filePath;
+    private String filePath;
 
     /**
      * Constructs a Storage instance with the specified file path.

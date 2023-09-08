@@ -5,7 +5,7 @@ package javai;
  */
 public class Ui {
 
-    String line = "     ____________________________________________________________";
+    private String line = "     ____________________________________________________________";
 
     /**
      * Displays a welcome message when the chatbot starts.
@@ -29,8 +29,8 @@ public class Ui {
      */
     public void printAddTask(Task task, TaskList tasks) {
         displayLine();
-        System.out.println("Got it. I've added this task:\n" + task +
-                "\nNow you have " + tasks.size() + " tasks in the list.");
+        System.out.println("Got it. I've added this task:\n"
+                + task + "\nNow you have " + tasks.size() + " tasks in the list.");
         displayLine();
     }
 
@@ -47,7 +47,7 @@ public class Ui {
                 System.out.println((i + 1) + "." + tasks.get(i).toString());
             }
             displayLine();
-        } catch (JavAIException e) {
+        } catch (JavAiException e) {
             showLoadingError(e);
         }
     }
@@ -60,8 +60,8 @@ public class Ui {
      */
     public void printDelete(Task task, TaskList tasks) {
         displayLine();
-        System.out.println("Noted. I've removed this task:\n" + task +
-                "\nNow you have " + tasks.size() + " tasks in the list.");
+        System.out.println("Noted. I've removed this task:\n"
+                + task + "\nNow you have " + tasks.size() + " tasks in the list.");
         displayLine();
     }
 
