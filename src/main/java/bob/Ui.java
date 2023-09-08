@@ -4,20 +4,25 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Represents a parser that deals with interactions with the user
+ * Represents a parser that deals with interactions with the user.
  */
 public class Ui {
 
     private static Parser parser;
 
+    /**
+     * Constructor for Ui class.
+     */
     public Ui() {
         this.parser = new Parser();
     }
 
     /**
-     * Marks a task as completed according to specified task index
+     * Marks a task as completed according to specified task index.
      *
-     * @param markNo index of the task in the list to be marked
+     * @param list the TaskList containing the tasks.
+     * @param markNo index of the task in the list to be marked.
+     * @return the string representation of Bob's response.
      */
     public static String markTask(TaskList list, int markNo) {
         if (markNo > 0 && markNo <= list.size()) {
@@ -32,9 +37,11 @@ public class Ui {
     }
 
     /**
-     * Deletes a task from the list according to specified task index
+     * Deletes a task from the list according to specified task index.
      *
-     * @param deleteNo index of the task in the list to be deleted
+     * @param list the TaskList containing the tasks.
+     * @param deleteNo index of the task in the list to be deleted.
+     * @return the string representation of Bob's response.
      */
     public static String deleteTask(TaskList list, int deleteNo) {
         String response = "Noted. I've removed this task:\n";
@@ -48,10 +55,11 @@ public class Ui {
     }
 
     /**
-     * Finds task according to the specified keyword and lists them out
+     * Finds task according to the specified keyword and lists them out.
      * 
-     * @param list the list containing all tasks
-     * @param keyword the keyword used to filter tasks
+     * @param list the list containing all tasks.
+     * @param keyword the keyword used to filter tasks.
+     * @return the string representation of Bob's response.
      */
     public static String findTask(TaskList list, String keyword) {
         ArrayList<Task> matches = new ArrayList<Task>();
@@ -73,9 +81,11 @@ public class Ui {
     }
 
     /**
-     * Adds a task into the list of tasks
+     * Adds a task into the list of tasks.
      *
-     * @param newTask the new Task object that is to be added into the list
+     * @param list the TaskList containing the tasks.
+     * @param newTask the new Task object that is to be added into the list.
+     * @return the string representation of Bob's response.
      */
     public static String addTask(TaskList list, Task newTask) {
         String response;
@@ -94,8 +104,10 @@ public class Ui {
      * Checks what type of task is given in the input, Identifies the task name and dates/times (if applicable),
      * then instantiates the Task of the specified type and adds it to list by calling addTask method.
      *
-     * @param task the input string given
-     * @throws BobException
+     * @param list the TaskList containing the tasks.
+     * @param task the input string given.
+     * @return the string representation of Bob's response.
+     * @throws BobException if input is invalid.
      */
     public static String checkAndAddTask(TaskList list, String task) throws BobException {
         char[] charArray = task.toCharArray();
@@ -114,7 +126,6 @@ public class Ui {
                 return addTask(list, thisTask);
             }
 
-            //return "";
         }
 
         //deadline
@@ -145,7 +156,6 @@ public class Ui {
                 return addTask(list, thisTask);
             }
 
-            //return "";
         }
 
         //event
@@ -183,16 +193,17 @@ public class Ui {
                 return addTask(list, thisTask);
             }
 
-            //return "";
         }
 
         //not a task
         throw new BobException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-        //return "OOPS!!! I'm sorry, but I don't know what that means :-(";
     }
 
     /**
      * Prints all the tasks in the list.
+     *
+     * @param list the TaskList containing the tasks.
+     * @return the string representation of Bob's response.
      */
     public static String printTasks(TaskList list) {
         String response;
@@ -206,14 +217,14 @@ public class Ui {
     }
 
     /**
-     * Shows the loading error
+     * Shows the loading error.
      */
     public void showLoadingError() {
         System.out.println("Error loading file");
     }
 
     /**
-     * Prints greeting when it is the user's first time running
+     * Prints greeting when it is the user's first time running.
      */
     public void printGreeting() {
         System.out.println("Hello! I'm Bob");
@@ -221,7 +232,9 @@ public class Ui {
     }
 
     /**
-     * Prints goodbye message when user says bye
+     * Prints and returns goodbye message when user says bye.
+     *
+     * @return goodbye message
      */
     public String printGoodbye() {
         System.out.println("Bye. Hope to see you again soon!");

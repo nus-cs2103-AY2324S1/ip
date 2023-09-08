@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -30,6 +31,11 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the Bob instance.
+     *
+     * @param b the instance of Bob to set to bob.
+     */
     public void setBob(Bob b) {
         bob = b;
     }
@@ -44,7 +50,7 @@ public class MainWindow extends AnchorPane {
         String response = bob.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, bobImage)
+                DialogBox.getBobDialog(response, bobImage)
         );
         userInput.clear();
     }
