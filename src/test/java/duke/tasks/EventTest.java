@@ -1,14 +1,14 @@
 package duke.tasks;
 
-import duke.exceptions.InvalidStartEndException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import duke.exceptions.InvalidStartEndException;
 
 public class EventTest {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -17,8 +17,8 @@ public class EventTest {
     public void event_exceptionThrown_hours() {
         LocalDateTime end = LocalDateTime.now();
         LocalDateTime start = end.plusHours(9);
-        InvalidStartEndException ex = assertThrows(InvalidStartEndException.class,
-                () -> new Event(0, "bake cookies", start, end));
+        InvalidStartEndException ex = assertThrows(
+                InvalidStartEndException.class, () -> new Event(0, "bake cookies", start, end));
         assertEquals("(・´з`・) Uh oh... start must be after end!", ex.getMessage());
     }
 
@@ -26,8 +26,8 @@ public class EventTest {
     public void event_exceptionThrown_minutes() {
         LocalDateTime end = LocalDateTime.now();
         LocalDateTime start = end.plusMinutes(1);
-        InvalidStartEndException ex = assertThrows(InvalidStartEndException.class,
-                () -> new Event(0, "bake cookies", start, end));
+        InvalidStartEndException ex = assertThrows(
+                InvalidStartEndException.class, () -> new Event(0, "bake cookies", start, end));
         assertEquals("(・´з`・) Uh oh... start must be after end!", ex.getMessage());
     }
 
@@ -36,8 +36,8 @@ public class EventTest {
         LocalDateTime start = LocalDateTime.now();
         LocalDateTime end = start.plusHours(9);
         Event event = new Event(0, "bake cookies", start, end);
-        String expected = "E | 0 | bake cookies | " + start.format(formatter) +
-                " | " + end.format(formatter);
+        String expected = "E | 0 | bake cookies | " + start.format(formatter)
+                + " | " + end.format(formatter);
         assertEquals(expected, event.convertTask());
     }
 
@@ -46,8 +46,8 @@ public class EventTest {
         LocalDateTime start = LocalDateTime.now();
         LocalDateTime end = start.plusHours(9);
         Event event = new Event(1, "bake cookies", start, end);
-        String expected = "E | 1 | bake cookies | " + start.format(formatter) +
-                " | " + end.format(formatter);
+        String expected = "E | 1 | bake cookies | " + start.format(formatter)
+                + " | " + end.format(formatter);
         assertEquals(expected, event.convertTask());
     }
 
@@ -56,8 +56,8 @@ public class EventTest {
         LocalDateTime start = LocalDateTime.now();
         LocalDateTime end = start.plusHours(9);
         Event event = new Event(0, "bake cookies", start, end);
-        String expected = "[E] [ ] bake cookies (from: " + start.format(formatter) +
-                " to: " + end.format(formatter) + ")";
+        String expected = "[E] [ ] bake cookies (from: " + start.format(formatter)
+                + " to: " + end.format(formatter) + ")";
         assertEquals(expected, event.toString());
     }
 
@@ -66,8 +66,8 @@ public class EventTest {
         LocalDateTime start = LocalDateTime.now();
         LocalDateTime end = start.plusHours(9);
         Event event = new Event(1, "bake cookies", start, end);
-        String expected = "[E] [X] bake cookies (from: " + start.format(formatter) +
-                " to: " + end.format(formatter) + ")";
+        String expected = "[E] [X] bake cookies (from: " + start.format(formatter)
+                + " to: " + end.format(formatter) + ")";
         assertEquals(expected, event.toString());
     }
 }

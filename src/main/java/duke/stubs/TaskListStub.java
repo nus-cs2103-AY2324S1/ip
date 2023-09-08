@@ -1,15 +1,25 @@
 package duke.stubs;
 
+import java.util.ArrayList;
+
 import duke.TaskList;
 import duke.tasks.Task;
 
-import java.util.ArrayList;
-
+/**
+ * Stub for TaskList created for testing purposes.
+ */
 public class TaskListStub extends TaskList {
     private ArrayList<Task> listStub;
     private UiStub uiStub;
     private StorageStub storageStub;
 
+    /**
+     * Class constructor for TaskListStub.
+     *
+     * @param list list to be initialised.
+     * @param storage storage to be used.
+     * @param ui ui to be used.
+     */
     public TaskListStub(ArrayList<Task> list, StorageStub storage, UiStub ui) {
         super(list, storage, ui);
         this.listStub = list;

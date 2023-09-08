@@ -1,11 +1,5 @@
 package duke;
 
-import duke.exceptions.InvalidStartEndException;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -19,6 +13,12 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.exceptions.InvalidStartEndException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
+
 /**
  * Handles interactions between task list and hard drive.
  */
@@ -26,6 +26,12 @@ public class Storage {
     private String path;
     private Ui ui;
 
+    /**
+     * Constructor for Storage class.
+     *
+     * @param path path of file where data is stored.
+     * @param ui   ui to be used.
+     */
     public Storage(String path, Ui ui) {
         this.path = path;
         this.ui = ui;
@@ -110,6 +116,9 @@ public class Storage {
                     Event event = new Event(status, desc, start, end);
                     list.add(event);
                     break;
+
+                default:
+                    //do not add to list if string is not of the correct form
                 }
             }
             sc.close();

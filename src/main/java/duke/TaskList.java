@@ -1,9 +1,9 @@
 package duke;
 
+import java.util.ArrayList;
+
 import duke.exceptions.InvalidTaskIdException;
 import duke.tasks.Task;
-
-import java.util.ArrayList;
 
 /**
  * Contains the task list, and methods to modify the tasks in the list
@@ -13,6 +13,13 @@ public class TaskList {
     private Storage storage;
     private Ui ui;
 
+    /**
+     * Class constructor for TaskList.
+     *
+     * @param list list to be initialised.
+     * @param storage storage to be used.
+     * @param ui ui to be used.
+     */
     public TaskList(ArrayList<Task> list, Storage storage, Ui ui) {
         this.list = list;
         this.storage = storage;
