@@ -18,12 +18,13 @@ public class ListCommand extends Command {
      * @param storage Storage storing the tasks' description.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showMessage("Here are the tasks in your list:");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        String response = "Here are the tasks in your list:\n";
         int size = tasks.getSize();
         for (int i = 1; i <= size; i++) {
-            ui.showMessage(i + "." + tasks.getTask(i).toString());
+            response = response + i + "." + tasks.getTask(i).toString() + "\n";
         }
+        return response;
     }
 
     @Override

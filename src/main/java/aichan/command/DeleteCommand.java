@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
      * @param storage Storage storing the tasks' description.
      * @throws AiChanException If the task number is invalid.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AiChanException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws AiChanException {
         // control the main logic
         // add/delete task, show words
         int size = tasks.getSize();
@@ -38,9 +38,9 @@ public class DeleteCommand extends Command {
             throw new AiChanException("Please provide a valid task number.");
         }
         Task task = tasks.deleteTask(taskId);
-        ui.showMessage(String.format("Noted. I've removed this task:\n  %s\n"
-                + "Now you have %d tasks in the list", task, size - 1));
         storage.saveTasks(tasks);
+        return String.format("Noted. I've removed this task:\n  %s\n"
+                + "Now you have %d tasks in the list", task, size - 1);
     }
 
     @Override

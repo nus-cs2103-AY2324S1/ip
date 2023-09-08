@@ -38,12 +38,12 @@ public class AddEventCommand extends Command {
      * @throws AiChanException If any error occur when save Event object into storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AiChanException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws AiChanException {
         tasks.addTask(task);
         int size = tasks.getSize();
-        ui.showMessage(String.format("Got it. I've added this task:\n  %s\n"
-                + "Now you have %d tasks in the list", task, size));
         storage.saveTasks(tasks);
+        return String.format("Got it. I've added this task:\n  %s\n"
+                + "Now you have %d tasks in the list", task, size);
     }
 
     @Override
