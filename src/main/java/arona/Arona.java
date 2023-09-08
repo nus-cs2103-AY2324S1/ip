@@ -2,6 +2,8 @@ package arona;
 
 import java.util.Scanner;
 
+import javafx.application.Application;
+
 import arona.commands.DeadlineCommand;
 import arona.commands.DeleteCommand;
 import arona.commands.EventCommand;
@@ -19,7 +21,7 @@ import arona.ui.Ui;
  * Arona is a simple command-line task management application that allows users to manage their tasks.
  * Users can add tasks, mark tasks as done, delete tasks, and list all tasks.
  */
-public class Arona {
+public class Arona extends Application {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
