@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  * An example of a custom control using FXML.
@@ -51,14 +52,17 @@ public class DialogBox extends HBox {
 
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
-        db.setStyle("-fx-background-color: lightblue;");  // Set user dialog background color
+        db.getStyleClass().add("user-dialog");
+        ((VBox) db.getChildren().get(0)).setAlignment(Pos.CENTER_RIGHT);
         return db;
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.setStyle("-fx-background-color: lightgreen;");  // Set Duke dialog background color
         db.flip();
+        db.getStyleClass().add("duke-dialog");
+        ((VBox) db.getChildren().get(1)).setAlignment(Pos.CENTER_LEFT);
         return db;
     }
+
 }

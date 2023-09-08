@@ -1,6 +1,7 @@
 package simon;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +23,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/view/styles.css")).toExternalForm());
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(simon);
             stage.show();

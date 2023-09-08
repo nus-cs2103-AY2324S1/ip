@@ -7,9 +7,9 @@
 <?import javafx.scene.shape.Circle?>
 
 <?import javafx.scene.layout.VBox?>
-<fx:root alignment="TOP_RIGHT" style="-fx-background-color: lightblue;" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_RIGHT" styleClass="dialog-box" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <VBox alignment="CENTER" HBox.hgrow="ALWAYS" style="-fx-padding: 10;">
+        <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS" style="-fx-padding: 10;">
             <Label fx:id="dialog" text="Label" wrapText="true">
                 <HBox.margin>
                     <Insets bottom="5" left="5" right="5" top="5"/>
@@ -24,6 +24,6 @@
         </ImageView>
     </children>
     <padding>
-        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
     </padding>
 </fx:root>
