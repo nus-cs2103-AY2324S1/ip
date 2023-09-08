@@ -1,12 +1,15 @@
 package sisyphus;
 
+import java.time.LocalDate;
+
 import sisyphus.task.Deadline;
 import sisyphus.task.Event;
 import sisyphus.task.TaskList;
 import sisyphus.task.ToDo;
 
-import java.time.LocalDate;
-
+/**
+ * Parser class that processes the main logic flow to parse different commands.
+ */
 public class Parser {
     private boolean isChatting;
 
@@ -36,9 +39,10 @@ public class Parser {
      * @param ui
      * @throws SisyphusException
      */
-    public void runCommand(String fullCommand, TaskList taskList, Storage storage, Ui ui)  throws SisyphusException {
+    public void runCommand(String fullCommand, TaskList taskList, Storage storage, Ui ui) throws SisyphusException {
         String[] inputArray;
-        String command, params = "";
+        String command;
+        String params = "";
 
         inputArray = fullCommand.split(" ", 2);
         command = inputArray[0];
@@ -97,8 +101,8 @@ public class Parser {
         }
         case ("todo"): {
             if (params == "" || params == null) {
-                throw new SisyphusException("Include a description for the sisyphus.task.ToDo. \nHere is an example: " +
-                        "todo Roll Boulder");
+                throw new SisyphusException("Include a description for the sisyphus.task.ToDo. \nHere is an example: "
+                        + "todo Roll Boulder");
             }
             ToDo todoTask = new ToDo(params);
             taskList.addTask(todoTask);
@@ -107,15 +111,16 @@ public class Parser {
             break;
         }
         case ("deadline"): {
-            String description, deadline;
+            String description;
+            String deadline;
             LocalDate deadlineDate;
             try {
                 description = params.split(" /by ")[0];
                 deadline = params.split(" /by ")[1];
                 deadlineDate = LocalDate.parse(deadline);
             } catch (Exception e) {
-                throw new SisyphusException("Include both description and deadline for a deadline. \nHere " +
-                        "is an example: deadline roll boulder /by 2023-10-15");
+                throw new SisyphusException("Include both description and deadline for a deadline. \nHere "
+                        + "is an example: deadline roll boulder /by 2023-10-15");
             }
 
             Deadline deadlineTask = new Deadline(description, deadlineDate);
@@ -125,15 +130,18 @@ public class Parser {
             break;
         }
         case ("event"): {
-            String description, fromAndToTime, from, to;
+            String description;
+            String fromAndToTime;
+            String from;
+            String to;
             try {
                 description = params.split(" /from ")[0];
                 fromAndToTime = params.split(" /from ")[1];
                 from = fromAndToTime.split(" /to ")[0];
                 to = fromAndToTime.split(" /to ")[1];
             } catch (Exception e) {
-                throw new SisyphusException("Include the description, from and to time for an event. \nHere is" +
-                        " an example: event roll boulder /from past /to eternity");
+                throw new SisyphusException("Include the description, from and to time for an event. \nHere is"
+                        + " an example: event roll boulder /from past /to eternity");
             }
 
             Event eventTask = new Event(description, from, to);
@@ -143,13 +151,13 @@ public class Parser {
             break;
         }
         case ("find"): {
-             TaskList matchingTaskList = taskList.findMatchingTasks(params);
-             ui.printMatchingTasks(matchingTaskList, params);
-             break;
+            TaskList matchingTaskList = taskList.findMatchingTasks(params);
+            ui.printMatchingTasks(matchingTaskList, params);
+            break;
         }
         default: {
-            throw new SisyphusException("Enter a valid command. Available comments are " +
-                    "bye, find, list, event, deadline, todo, mark, unmark, delete.");
+            throw new SisyphusException("Enter a valid command. Available comments are "
+                    + "bye, find, list, event, deadline, todo, mark, unmark, delete.");
         }
         }
 

@@ -1,7 +1,11 @@
 package sisyphus.task;
 
+/**
+ * Event class that inherits Task to store events.
+ */
 public class Event extends Task {
-    protected String start, end;
+    protected String start;
+    protected String end;
 
     /**
      * Constructor when provided description, start and end time.
@@ -37,7 +41,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E][" + this.getStatusIcon() + "] " +  this.description + " (from: " + this.start + " to: " + this.end + ")";
+        return "[E][" + this.getStatusIcon() + "] " + this.description + " (from: "
+                + this.start + " to: " + this.end + ")";
     }
 
     /**

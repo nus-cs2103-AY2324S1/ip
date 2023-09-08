@@ -1,28 +1,31 @@
 package sisyphus;
 
-import sisyphus.task.TaskList;
-
 import java.util.Scanner;
 
+import sisyphus.task.TaskList;
+
+/**
+ * class for UI to print pre-set messages.
+ */
 public class Ui {
 
     private static final String NAME = "sisyphus.Sisyphus";
     private static final String HORIZONTAL_LINE = "_________________________________";
-    private static final String LOGO = "\n" +
-            "      ,-'\"\"\"`-.\n" +
-            "    ,'         `.\n" +
-            "   /        `    \\\n" +
-            "  (    /          )\n" +
-            "  |             \" |\n" +
-            "  (               )\n" +
-            " `.\\\\          \\ /\n" +
-            "   `:.     , \\ ,\\ _\n" +
-            " WE   `:-.___,-`-.{\\)\n" +
-            " MUST  `.        |/ \\\n" +
-            " GO      `.        \\ \\\n" +
-            " ON        `-.     _\\,)\n" +
-            "              `.  |,-||\n" +
-            "                `.|| ||\n";
+    private static final String LOGO = "\n"
+            + "      ,-'\"\"\"`-.\n"
+            + "    ,'         `.\n"
+            + "   /        `    \\\n"
+            + "  (    /          )\n"
+            + "  |             \" |\n"
+            + "  (               )\n"
+            + " `.\\\\          \\ /\n"
+            + "   `:.     , \\ ,\\ _\n"
+            + " WE   `:-.___,-`-.{\\)\n"
+            + " MUST  `.        |/ \\\n"
+            + " GO      `.        \\ \\\n"
+            + " ON        `-.     _\\,)\n"
+            + "              `.  |,-||\n"
+            + "                `.|| ||\n";
 
     private Scanner scanner;
 
@@ -79,6 +82,12 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Print tasks with the matching keyword.
+     *
+     * @param taskList
+     * @param keyword
+     */
     public static void printMatchingTasks(TaskList taskList, String keyword) {
         printHorizontalLine();
         System.out.println("Below is the list of tasks with keyword - \"" + keyword + "\" :");

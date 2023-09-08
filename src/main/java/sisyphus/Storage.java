@@ -1,20 +1,27 @@
 package sisyphus;
 
-import sisyphus.task.Deadline;
-import sisyphus.task.Event;
-import sisyphus.task.TaskList;
-import sisyphus.task.ToDo;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import sisyphus.task.Deadline;
+import sisyphus.task.Event;
+import sisyphus.task.TaskList;
+import sisyphus.task.ToDo;
+
+
+/**
+ * Storage class that stores and reads a local data file in the user's computer.
+ */
 public class Storage {
-    String currentDirectory = System.getProperty("user.dir");
-    String fileName = "sisyphusData.csv";
-    Path filePath = Path.of(currentDirectory, fileName);
+    private String currentDirectory = System.getProperty("user.dir");
+    private final String fileName = "sisyphusData.csv";
+    private Path filePath = Path.of(currentDirectory, fileName);
 
 
     /**
