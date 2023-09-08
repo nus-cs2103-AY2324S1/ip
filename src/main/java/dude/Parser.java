@@ -26,7 +26,7 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
 /**
- * Handles parsing of user input.
+ * Parser for user input.
  */
 public class Parser {
   /**
@@ -55,7 +55,7 @@ public class Parser {
   }
 
   /**
-   * Parses command with task number with format `{cmd} {index}`, getting corresponding task.
+   * Parses command with task number with format <code>{cmd} {index}</code>, getting corresponding task.
    *
    * @param input Input command.
    * @return Index of task specified in command.
@@ -165,7 +165,7 @@ public class Parser {
   }
 
   /**
-   * Parses text input and returns dude.command.DudeCommand instance.
+   * Parses text input and returns DudeCommand instance.
    *
    * @param input Input to parse.
    * @return dude.command.DudeCommand instance parsed from input.

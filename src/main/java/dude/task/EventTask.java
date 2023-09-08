@@ -6,14 +6,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
+/**
+ * Task with a start and end date/time.
+ */
 public class EventTask extends Task {
 
   /**
-   * Start time
+   * Start time.
    */
   protected LocalDateTime startTime;
   /**
-   * End time
+   * End time.
    */
   protected LocalDateTime endTime;
 
@@ -45,7 +48,7 @@ public class EventTask extends Task {
   }
 
   /**
-   * Gets Event task formatted with type and status icon
+   * Gets Event task formatted with type and status icon.
    *
    * @return Task formatted as a string.
    */
@@ -60,9 +63,9 @@ public class EventTask extends Task {
   /**
    * Parses save file data into an event task instance.
    *
-   * @param data line from save file
-   * @return Task instance
-   * @throws InvalidTaskDataException if data is not in the expected format
+   * @param data Line from save file.
+   * @return Task instance.
+   * @throws InvalidTaskDataException If data is not in the expected format.
    */
   public static EventTask fromData(String data) throws InvalidTaskDataException {
      /*
@@ -92,8 +95,9 @@ public class EventTask extends Task {
   /**
    * Parses event task instance into save file string data.
    *
-   * @return Task data as string.
+   * @return {@inheritDoc}
    */
+  @Override
   public String toData() {
      /*
        expected format:

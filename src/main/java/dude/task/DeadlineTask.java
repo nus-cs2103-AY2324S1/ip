@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
+/**
+ * Task with a deadline.
+ */
 public class DeadlineTask extends Task {
   /**
    * Deadline
@@ -26,9 +29,9 @@ public class DeadlineTask extends Task {
   /**
    * Constructor for deadline task, specifying completion status.
    *
-   * @param description Description of task
-   * @param isDone      Boolean representing task completion status
-   * @param deadline    Deadline for task
+   * @param description Description of task.
+   * @param isDone      Boolean representing task completion status.
+   * @param deadline    Deadline for task.
    */
   public DeadlineTask(String description, LocalDateTime deadline, boolean isDone) {
     super(description, isDone);
@@ -36,7 +39,7 @@ public class DeadlineTask extends Task {
   }
 
   /**
-   * Returns Deadline task formatted with type and status icon
+   * Returns Deadline task formatted with type and status icon.
    *
    * @return Task formatted as a string.
    */
@@ -77,10 +80,11 @@ public class DeadlineTask extends Task {
   }
 
   /**
-   * Parses deadline task instance into save file string data
+   * Parses deadline task instance into save file string data.
    *
-   * @return Task data as string
+   * @return {@inheritDoc}
    */
+  @Override
   public String toData() {
      /*
        expected format:

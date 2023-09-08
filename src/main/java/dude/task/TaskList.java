@@ -5,7 +5,7 @@ import dude.exception.InvalidTaskIndexException;
 import java.util.ArrayList;
 
 /**
- * Handles task list operations.
+ * List of tasks.
  */
 public class TaskList {
   /**
@@ -36,7 +36,7 @@ public class TaskList {
   /**
    * Add task to tasks list.
    *
-   * @param task Task to add
+   * @param task Task to add.
    */
   public void add(Task task) {
     tasks.add(task);
