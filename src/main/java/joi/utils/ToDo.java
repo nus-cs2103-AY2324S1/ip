@@ -1,7 +1,6 @@
 package joi.utils;
 
 public class ToDo extends Task {
-    private final static String TASKTYPE = "ToDo";
     public ToDo (String description) throws InvalidCommandException {
         super();
         if (description.length() <= 5) {
