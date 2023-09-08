@@ -24,10 +24,10 @@ public class DeleteCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public void execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException {
+    public String execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException {
         Task task = taskList.deleteTask(this.index);
         storage.write(taskList);
-        ui.showDeleteMessage(task, taskList);
+        return ui.showDeleteMessage(task, taskList);
 
     }
 

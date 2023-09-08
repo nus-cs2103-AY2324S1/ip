@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.controllers.MainWindow;
 import duke.list.FunnyList;
 import duke.storage.Storage;
 import duke.ui.Ui;
@@ -16,8 +17,8 @@ public class ExitCommand extends Command {
      * Extends the base Command class.
      */
     @Override
-    public void execute(FunnyList taskList, Ui ui, Storage storage) {
+    public String execute(FunnyList taskList, Ui ui, Storage storage) {
         this.isExit = true;
-        ui.showGoodbyeMessage();
+        return ui.showGoodbyeMessage();
     }
 }

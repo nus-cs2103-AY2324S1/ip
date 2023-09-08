@@ -24,9 +24,9 @@ public class MarkCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public void execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException {
+    public String execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException {
         Task task = taskList.completeTask(this.index);
         storage.write(taskList);
-        ui.showMarkMessage(task);
+        return ui.showMarkMessage(task);
     }
 }

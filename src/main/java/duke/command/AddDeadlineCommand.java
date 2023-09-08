@@ -31,11 +31,11 @@ public class AddDeadlineCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public void execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException  {
+    public String execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException  {
         Deadline task = new Deadline(this.taskDescription, false, this.by);
         taskList.add(task);
         storage.write(taskList);
-        ui.showAddTodoMessage(task, taskList);
+        return ui.showTaskAdded(task, taskList);
     }
 
 }

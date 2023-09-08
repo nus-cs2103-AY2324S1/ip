@@ -28,11 +28,11 @@ public class AddTodoCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public void execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException  {
+    public String execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException  {
         ToDo task = new ToDo(this.taskDescription);
         taskList.add(task);
         storage.write(taskList);
-        ui.showAddTodoMessage(task, taskList);
+        return ui.showTaskAdded(task, taskList);
     }
 
 }

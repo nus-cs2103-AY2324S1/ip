@@ -24,13 +24,13 @@ public class Ui {
     }
 
     /**
-     *  Displays a welcome message from the FUNNY application.
+     *  Returns a welcome message from the FUNNY application.
      *  Introduces the application and invites users to interact with it
+     *
+     * @return Welcome Message
      */
-    public void showWelcome() {
-        printLine();
-        System.out.println("\tHello! I'm FUNNY.\n\tWhat can I do for you?");
-        printLine();
+    public String showWelcome() {
+        return "Hello! I'm FUNNY.\nWhat can I do for you?";
     }
 
     /**
@@ -43,108 +43,130 @@ public class Ui {
     }
 
     /**
-     * Displays an error message indicating a loading issue with the tasklist.
+     * Returns an error message indicating a loading issue with the tasklist.
      * Indicates that a brand new tasklist is initialised.
+     * @return Loading Error Message
      */
-    public void showLoadingError() {
-        printLine();
-        System.out.println("\tNo previous tasklist detected. We have initialised a new tasklist");
-        printLine();
+    public String showLoadingError() {
+        return "Your tasklist is empty.";
     }
 
     /**
-     * Displays a message confirming the addition of a new Todo task.
+     * Returns a message notifying the user that loading of previous task list was successful
+     * @return Loading Success Message
+     */
+    public String showLoadingSuccess() {
+        return "You have an existing tasklist.";
+    }
+
+    /**
+     * Returns a message confirming the addition of a new task.
      * This method prints a formatted message to the console after successfully
-     * adding a new Todo task to the tasklist. It includes information about
+     * adding a task to the tasklist. It includes information about
      * the added task and the updated total number of tasks in the list.
      *
-     * @param task The Todo task that was added.
+     * @param task The task that was added.
      * @param taskList The FunnyList containing the tasks.
+     * @return Message containing the details on the addition of task
      */
-    public void showAddTodoMessage(Task task, FunnyList taskList) {
-        System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t\t" + task);
-        System.out.println("\tNow you have " + String.valueOf(taskList.size()) + " tasks in the list");
+    public String showTaskAdded(Task task, FunnyList taskList) {
+        return "Got it. I've added this task:\n"
+                + "\t" + task + "\n"
+                + "Now you have " + String.valueOf(taskList.size()) + " tasks in the list";
     }
 
     /**
-     * Displays an error message indicating that a wrong command was entered.
+     * Returns an error message indicating that a wrong command was entered.
      * Indicates that a brand new tasklist is initialised.
+     *
+     * @return Error Message (specifically for wrong commands)
      */
-    public void showInvalidInput() {
-        System.out.println(new DukeException("I'm sorry, but I don't know what that means :-("));
+    public String showInvalidInput() {
+        return showError(new DukeException("I'm sorry, but I don't know what that means :-("));
     }
 
     /**
-     * Displays an error message based on the provided DukeException.
+     * Returns an error message based on the provided DukeException.
      *
      * @param e The DukeException containing the error details.
+     * @return Error Message
      */
-    public void showError(DukeException e) {
-        System.out.println(e);
+    public String showError(DukeException e) {
+        return e.toString();
     }
 
     /**
-     * Displays a message confirming the task to be marked as completed.
+     * Returns a message confirming the task to be marked as completed.
      * It includes information about the marked task.
      *
      * @param task The task to be marked as completed.
+     * @return Message containing the details on the completion of the task
      */
-    public void showMarkMessage(Task task) {
-        System.out.println("\tNice! I've marked this task as done:\n\t\t" + task);
+    public String showMarkMessage(Task task) {
+        return "Nice! I've marked this task as done:\n\t" + task;
     }
 
     /**
-     * Displays a message confirming the task to be unmarked as incomplete.
+     * Returns a message confirming the task to be unmarked as incomplete.
      * It includes information about the unmarked task.
      *
      * @param task The task to be marked as incomplete.
+     * @return Message containing the details on the undoing of the task
      */
-    public void showUnmarkMessage(Task task) {
-        System.out.println("\tOk, I've marked this task as not done yet:\n\t\t" + task);
+    public String showUnmarkMessage(Task task) {
+        return "Ok, I've marked this task as not done yet:\n\t" + task;
     }
 
     /**
-     * Displays the items in a FunnyList.
-     * This method iterates through the provided FunnyList and displays each item
+     * Returns the items in a FunnyList.
+     * This method iterates through the provided FunnyList and returns each item
      * formatted as a numbered list.
      *
      * @param taskList The FunnyList containing the tasks to be displayed.
+     * @return A String containing the details of each items in the list
      */
-    public void showItems(FunnyList taskList) {
+    public String showItems(FunnyList taskList) {
+        StringBuilder listString = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println("\t" + String.valueOf(i + 1) + ". " + taskList.get(i));
+            listString.append((i + 1) + ". " + taskList.get(i) + "\n");
         }
+        return listString.toString();
     }
 
     /**
-     * Displays a message confirming the task to be unmarked as incomplete.
+     * Returns a message confirming the task to be unmarked as incomplete.
      * It includes information about the unmarked task.
      *
      * @param task The task to be marked as incomplete.
+     * @return Message containing the details on the deletion of the task
      */
-    public void showDeleteMessage(Task task, FunnyList taskList) {
-        System.out.println("\tNoted. I've removed this duke.task:");
-        System.out.println("\t\t" + task);
-        System.out.println("\tNow you have " + String.valueOf(taskList.size()) + " tasks in the list");
+    public String showDeleteMessage(Task task, FunnyList taskList) {
+        return "Noted. I've removed this duke.task:\n"
+                + "\t" + task + "\n"
+                + "Now you have " + taskList.size() + " tasks in the list";
     }
 
-    public void showMatchingTasks(ArrayList<Task> tasks) {
+    public String showMatchingTasks(ArrayList<Task> tasks) {
         if (tasks.size() == 0) {
-            System.out.println("\tThere are no matching tasks found based on you search.");
+            return "There are no matching tasks found based on you search.";
         } else {
-            System.out.println("\tHere are the matching tasks in your list");
+            StringBuilder listString = new StringBuilder();
+
+            listString.append("Here are the matching tasks in your list\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println("\t" + String.valueOf(i + 1) + ". " + tasks.get(i));
+                listString.append("" + (i + 1) + ". " + tasks.get(i) + "\n");
             }
+            return listString.toString();
         }
     }
 
     /**
-     * Displays a goodbye message confirming the termination of the program.
+     * Returns a goodbye message confirming the termination of the program.
+     *
+     * @return Goodbye Message
      */
-    public void showGoodbyeMessage() {
-        System.out.println("\tBye. Hope to see you again soon!");
+    public String showGoodbyeMessage() {
+        return "Bye. Hope to see you again soon! Closing the application in 3 seconds...";
     }
 
     /**

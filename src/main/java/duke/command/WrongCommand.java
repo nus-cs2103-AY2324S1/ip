@@ -12,7 +12,7 @@ public class WrongCommand extends Command {
      * @return The task that was marked as not completed.
      */
     @Override
-    public void execute(FunnyList taskList, Ui ui, Storage storage) {
-        ui.showInvalidInput();
+    public String execute(FunnyList taskList, Ui ui, Storage storage) {
+        return ui.showInvalidInput();
     }
 }

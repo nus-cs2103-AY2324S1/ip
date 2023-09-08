@@ -34,11 +34,11 @@ public class AddEventCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public void execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException  {
+    public String execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException  {
         Event task = new Event(this.taskDescription, false, this.from, this.to);
         taskList.add(task);
         storage.write(taskList);
-        ui.showAddTodoMessage(task, taskList);
+        return ui.showTaskAdded(task, taskList);
     }
 
 }
