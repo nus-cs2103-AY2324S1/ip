@@ -7,29 +7,25 @@ public class Ui {
     /**
      * Displays the information of the application and greet the user.
      */
-    public void welcomeMessage() {
+    public static String welcomeMessage() {
 
-        String logo = "\t ____        _        \n"
+        String logo = "____        _        \n"
                 + "\t|  _ \\ _   _| | _____ \n"
                 + "\t| | | | | | | |/ / _ \\\n"
                 + "\t| |_| | |_| |   <  __/\n"
                 + "\t|____/ \\__,_|_|\\_\\___|\n";
 
-        System.out.println("\tHello from\n" + logo);
-        System.out.println(showLine());
-        System.out.println("\t Hello! I'm YOLO \n\t What can I do for you? \n");
-        System.out.println(showLine());
-        System.out.println();
+        String result = "\nHello from\n" + logo + showLine() + "\n Hello! I'm YOLO \n What can I do for you? \n" + showLine();
+        return result;
     }
 
     /**
      * Displays the farewell message when the application is terminated.
      */
-    public void farewell() {
+    public static String farewell() {
 
-        System.out.println(showLine());
-        System.out.println("\t Bye. Hope to see you again soon! \n");
-        System.out.println(showLine());
+        String result = showLine() + "\n Bye. Hope to see you again soon! \n" + showLine();
+        return result;
     }
 
     /**
@@ -38,7 +34,7 @@ public class Ui {
      * @return A string of dashes that looks like a line.
      */
     public static String showLine() {
-        return "\t---------------------------------------------------------------------------";
+        return "-------------------------------";
     }
 
     /**
@@ -46,7 +42,7 @@ public class Ui {
      *
      * @return A string that contains the input of the user.
      */
-    public String readCommand() {
+    public static String readCommand() {
 
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();
