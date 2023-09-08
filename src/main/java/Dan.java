@@ -4,6 +4,13 @@ import java.util.Scanner;
 public class Dan {
     private final static String greets = "\nDan: \n";
     private static MyList tasks = new MyList(100);
+    private final static String[] commands = new String[] {
+            "toDo [TASK]",
+            "deadline [TASK] /by [DEADLINE]",
+            "event [TASK] /from [START_TIME] /to [END_TIME]",
+            "list", "bye",
+            "mark [TASK_ID]", "unmark [TASK_ID]"
+    };
 
 
     public static void main(String[] args) {
@@ -19,34 +26,44 @@ public class Dan {
         String[] texts;
         String command;
         a: while (true) {
+            try {
             text = new Scanner(System.in).nextLine();
             texts = text.split(" ");
-            System.out.println(Arrays.toString(texts));
             command = texts[0].toLowerCase();
             switch (command) {
-                case "bye" :
+                case "bye":
                     break a;
-                case "list" :
-                    list(); break;
-                case "mark" :
+                case "list":
+                    list();
+                    break;
+                case "mark":
                     if (!mark(texts[1]))
                         continue;
                     break;
-                case "unmark" :
+                case "unmark":
                     if (!unmark(texts[1]))
                         continue;
                     break;
-                case "todo" :
+                case "todo":
                     addTask(text, 1);
                     break;
-                case "deadline" :
+                case "deadline":
                     addTask(text, 2);
                     break;
-                case "event" :
+                case "event":
                     addTask(text, 3);
                     break;
                 default:
-                    System.out.println("?");
+                    throw new DanException("Incorrect command");
+                }
+            } catch (DanException e) {
+                if (e.getMessage().equals("Incorrect command")) {
+                    System.out.println(greets + " 你输入的东西不太对哦\n");
+                }
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println(greets + " 输入格式不对！\n");
+            } finally {
+                System.out.println(" 你可以跟我说：\n" + Arrays.toString(commands));
             }
         }
     }
@@ -80,12 +97,12 @@ public class Dan {
         }
         System.out.println(
                 greets + " 啊？没做完啊 是不小心手滑了么？\n " +
-                        currTask.toString() + "\n"
+                currTask + "\n"
         );
         return true;
     }
 
-    public static void addTask(String text, int id) throws NullPointerException {
+    public static void addTask(String text, int id) throws IndexOutOfBoundsException {
         String[] texts = text.split("/");
         for (int i = 0; i < texts.length; i++) {
             texts[i] = texts[i].trim();
