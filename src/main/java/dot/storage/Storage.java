@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.stream.Stream;
 
 import dot.errors.DotException;
@@ -79,30 +78,41 @@ public class Storage {
                     return;
                 }
                 // Pipe is a special character is regex
-                String[] items = line.split(" \\| ");
-                String taskType = items[0];
-                boolean isCompleted = items[1].equals("1");
-                String description = items[2];
-                switch (taskType) {
-                case "T":
-                    Task todoTask = new Todo(description, isCompleted);
-                    taskList.add(todoTask);
-                    break;
-                case "D":
-                    Task deadlineTask = new Deadline(description, items[3], isCompleted);
-                    taskList.add(deadlineTask);
-                    break;
-                case "E":
-                    Task eventTask = new Event(description, items[3], items[4], isCompleted);
-                    taskList.add(eventTask);
-                    break;
-                default:
-                    break;
-                }
+                addTaskToList(line, taskList);
             });
             return taskList;
         } catch (IOException e) {
             throw new DotException("Error reading file", TaskError.ERR_READING_FILE);
+        }
+    }
+
+    /**
+     * Helper method for getTasks. Parses currLine to appropriate variables
+     * and creates the appropriate Tasks to add into taskList,
+     *
+     * @param currLine This is a line representing a task from the text file.
+     * @param taskList This is the taskList to populate.
+     */
+    private void addTaskToList(String currLine, ArrayList<Task> taskList) {
+        String[] items = currLine.split(" \\| ");
+        String taskType = items[0];
+        boolean isCompleted = items[1].equals("1");
+        String description = items[2];
+        switch (taskType) {
+        case "T":
+            Task todoTask = new Todo(description, isCompleted);
+            taskList.add(todoTask);
+            break;
+        case "D":
+            Task deadlineTask = new Deadline(description, items[3], isCompleted);
+            taskList.add(deadlineTask);
+            break;
+        case "E":
+            Task eventTask = new Event(description, items[3], items[4], isCompleted);
+            taskList.add(eventTask);
+            break;
+        default:
+            break;
         }
     }
 
