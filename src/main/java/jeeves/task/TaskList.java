@@ -32,10 +32,6 @@ public class TaskList {
         return taskList.get(index);
     }
 
-    public void printTask(int index) {
-        System.out.println(taskList.get(index).toString());
-    }
-
     public void markTask(int index) {
         taskList.get(index).setStatus(true);
     }

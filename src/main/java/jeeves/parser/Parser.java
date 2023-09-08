@@ -118,6 +118,8 @@ public class Parser {
             args.add(findTerm);
         } else if (input.equals("bye")) {
             args.add(input);
+        } else {
+            args.add("invalid_command");
         }
         return args;
     }
