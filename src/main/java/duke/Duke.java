@@ -1,6 +1,5 @@
 package duke;
 
-import javafx.application.Application;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,8 +12,7 @@ import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
-
+import javafx.application.Application;
 
 /**
  * Contains utility functions to be used in several contexts.

@@ -1,5 +1,4 @@
 package duke;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,7 +12,7 @@ import javafx.stage.Stage;
 
 
 /**
- * Gui handles setting the stage for the GUI, processing user input and output.
+ * Gui handles setting the stage for the GUI. and responding to user input.
  */
 public class Gui extends Application {
     private ScrollPane scrollPane;
@@ -23,29 +22,33 @@ public class Gui extends Application {
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-    private DtFormat dtf = new DtFormat();
-    private Ui ui = new Ui(dtf);
-    private Storage storage = new Storage("./data/");
-    private TaskList tasks;
     private Parser parser;
 
+    /**
+     * Default constructor for Gui class, initializes the parser and Tasklist.
+     */
     public Gui() {
+        DtFormat dtf = new DtFormat();
+        TaskList tasks;
+        Ui ui = new Ui(dtf);
+        Storage storage = new Storage("./data/");
         try {
             tasks = new TaskList(storage.load(), dtf);
         } catch (DukeException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
-        this.tasks = tasks;
         this.parser = new Parser(dtf, ui, tasks);
     }
+
+    /**
+     * Sets the stage for the GUI.
+     * @param stage the stage upon which to set the scene.
+     */
 
     @Override
     public void start(Stage stage) {
 
-
-
-        this.parser = new Parser(dtf, ui, tasks);
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -60,9 +63,6 @@ public class Gui extends Application {
 
         stage.setScene(scene);
         stage.show();
-
-        //Step 2
-
         stage.setTitle("Duke");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
@@ -77,7 +77,6 @@ public class Gui extends Application {
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.setPrefWidth(325.0);
@@ -104,9 +103,7 @@ public class Gui extends Application {
     }
 
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Function to handle user text input.
      */
     private void handleUserInput() {
         String userText = userInput.getText();
@@ -118,8 +115,7 @@ public class Gui extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns a response given a user string input.
      */
     public String getResponse(String input) {
         DukeException ex;
