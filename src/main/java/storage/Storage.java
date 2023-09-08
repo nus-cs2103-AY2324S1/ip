@@ -18,15 +18,26 @@ import java.nio.file.Paths;
 
 import java.util.ArrayList;
 
+/**
+ * Responsible for reading from and writing to the file that stores the list of tasks in the String format.
+ */
 public class Storage {
     private String filepath;
     private Path path;
+
+    /**
+     * Constructs a new Storage instance with a specified file path.
+     *
+     * @param filepath The path to the file that stores the list of tasks in the String format.
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
         this.path = Paths.get(this.filepath);
     }
+
     /**
-     * Create the directory and file to store the previous list, else update it to the current list.
+     * Ensures that the necessary directories and file used for storage exist.
+     * If the directory or file does not exist, it creates them.
      */
     public void createFileIfNotExists() {
         Path directoryPath = this.path.getParent();
@@ -51,9 +62,9 @@ public class Storage {
     }
 
     /**
-     * Update the list of tasks in the duke.txt according to the current list
+     * Writes the current list of tasks to the file right before the program ends.
      *
-     * @param tasks the ArrayList of tasks that were added
+     * @param tasks The current list of tasks right before the program ends.
      */
     public void saveTasksToFile(TaskList tasks) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.path.toFile()))) {
@@ -67,12 +78,11 @@ public class Storage {
     }
 
     /**
-     * Read the list of tasks stored in the duke.txt file and return the ArrayList of tasks.
+     * Reads the list of tasks from the file in the String format and returns it as an ArrayList of Task objects.
      *
-     * @return The ArrayList of tasks saved from previous usage.
+     * @return The list of tasks read from the file.
+     * @throws IOException If an I/O error occurs while reading from the file.
      */
-
-
     public ArrayList<Task> loadTasksFromFile() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(this.path.toFile()))) {

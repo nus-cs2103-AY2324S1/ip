@@ -20,7 +20,17 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Parser class handles the interpretation of user input into commands that can be executed.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input and returns a Command object representing the user's intended action.
+     *
+     * @param input The full input string entered by the user.
+     * @return A Command object representing the action to be taken.
+     */
     public static Command parse(String input) {
         String commandWord = input.split(" ")[0].toLowerCase(); // Extract the first word (the command word)
 

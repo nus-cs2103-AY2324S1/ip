@@ -6,23 +6,45 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Represents an "Event" task, which extends the abstract Task class.
+ * An "Event" task is a task with a description, a start date, and a due date by which the task should be completed.
+ */
 public class Event extends Task {
     private String startDate;
     private String dueDate;
+
+    /**
+     * Constructs an Event instance with a specified task name, start date, and due date, automatically setting its task type to EVENT.
+     *
+     * @param taskName The name or description of the Event task.
+     * @param startDate The start date for the Event task.
+     * @param dueDate The due date for the Event task represented as a String.
+     */
     public Event(String taskName, String startDate,String dueDate) {
         super(taskName, TaskType.EVENT);
         this.startDate = startDate;
         this.dueDate = dueDate;
     }
+
+    /**
+     * Returns a string representation of the Event task, which includes its task type represented as "[E]"
+     * followed by its status (done or not done), its name, its start date and its due date.
+     *
+     * @return A string representing the Event task.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + startDate + " to: " + dueDate + ")";
     }
 
     /**
-     * Parse from string to a task.Event task
+     * Parses a string representation of an Event task back into an Event object.
+     * It reads the task's description, completion status, start date and due date from the given line of string and creates a corresponding Event object.
+     * It also handles dates formatted in different styles by trying to parse the date in various formats.
      *
-     * @param line The String that is needed to parse into a task.Event Task
+     * @param line The string representation of the Event task, typically read from a data file.
+     * @return An Event object that corresponds to the data in the given line of string.
      */
     public static Event parseFromString(String line) {
         int firstBracketIndex = line.indexOf(']');

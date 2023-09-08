@@ -6,12 +6,21 @@ import ui.Ui;
 
 import java.io.*;
 
-//My chatbot function
+/**
+ * The Duke class represents a chatbot that manages tasks.
+ * It is the main class that contains the methods to run the chatbot.
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
+    /**
+     * Creates a Duke instance that represents the chatbot.
+     *
+     * @param filePath The path to the file where tasks are saved and loaded from.
+     */
     Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -23,6 +32,11 @@ public class Duke {
             tasks = new TaskList();
         }
     }
+
+
+    /**
+     * Runs the Duke chatbot. It reads and executes commands from the user until the user exits.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
