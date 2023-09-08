@@ -16,9 +16,9 @@ import java.io.IOException;
 
 public class Storage {
 
-    private String PARENT_DIR;
-    private String FILEPATH;
-    private File store;
+    private final String PARENT_DIR;
+    private final String FILEPATH;
+    File store;
 
     public Storage(String PARENT_DIR, String FILEPATH) {
         this.PARENT_DIR = PARENT_DIR;
@@ -51,7 +51,7 @@ public class Storage {
                 }
             }
         
-            //it is guarneeted that the file exists
+            //it is guaranteed that the file exists
             store = file;
         } catch (IOException e) {
                throw new DukeException(FILEPATH + " cannot be created.");
@@ -59,7 +59,7 @@ public class Storage {
     }
 
     //This should only be accessed one time at startup
-    public TaskList readData() throws DukeException {
+    public TaskList readData(Storage storage) throws DukeException {
         BufferedReader br;
         TaskList result = new TaskList();
         try {
@@ -69,11 +69,11 @@ public class Storage {
                 //[T][X] read book 
                 if (line.startsWith("[T]")) {
                     result.addTask(new ToDo(
-                        line.substring(7, line.length())), 
-                        this, 
+                        line.substring(7)),
+                        storage,
                         true
                         );
-                    if (line.substring(4, 5).equals("X")) {
+                    if (line.charAt(4) == 'X') {
                         result.get(result.size() - 1).markAsDone();
                     }
                 //[D][ ] return book (by: Sunday)
@@ -82,10 +82,10 @@ public class Storage {
                     result.addTask(new Deadline(
                         line.substring(7, byIndex - 1), 
                         line.substring(byIndex + 5, line.length() - 1)),
-                        this,
+                        storage,
                         true
                         );
-                    if (line.substring(4, 5).equals("X")) {
+                    if (line.charAt(4) == 'X') {
                         result.get(result.size() - 1).markAsDone();
                     }
                 //[E][ ] project meeting (from: Mon 2pm to: Fri 4pm)
@@ -96,10 +96,10 @@ public class Storage {
                         line.substring(7, fromIndex), 
                         line.substring(fromIndex + 8, toIndex),
                         line.substring(toIndex + 5, line.length() - 1)),
-                        this,
+                        storage,
                         true
                         );
-                    if (line.substring(4, 5).equals("X")) {
+                    if (line.charAt(4) == 'X') {
                         result.get(result.size() - 1).markAsDone();
                     }
                 } 

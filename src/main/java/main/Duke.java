@@ -7,9 +7,9 @@ import components.Ui;
 import tasks.TaskList;
 
 public class Duke {
-    private Storage storage;
+    private final Storage storage;
     private TaskList list;
-    private Ui ui;
+    private final Ui ui;
     private static final String chatBotName = "CHAD CCP";
 
     public Duke(String PARENT_DIR, String FILEPATH) {
@@ -17,7 +17,7 @@ public class Duke {
         storage = new Storage(PARENT_DIR, FILEPATH);
         try {
             storage.loadOrCreateFile();
-            list = storage.readData();
+            list = storage.readData(storage);
         } catch (DukeException e) {
             ui.showError(e);
         }
@@ -35,8 +35,6 @@ public class Duke {
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showError(e);
-            } finally {
-                //ui.showLine();
             }
         }
     }
