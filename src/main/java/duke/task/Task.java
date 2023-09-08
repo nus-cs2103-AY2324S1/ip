@@ -49,6 +49,11 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
+    /**
+     *
+     * @param keyword the keyword to be searched in the list of tasks
+     * @return boolean depending on if the keyword exists
+     */
     public boolean contains(String keyword) {
         return this.description.contains(keyword);
     }

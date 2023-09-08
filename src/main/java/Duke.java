@@ -1,6 +1,9 @@
+package duke;
+
 import java.util.Scanner;
 
 import duke.command.Command;
+import duke.command.ExitCommand;
 import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
@@ -14,17 +17,23 @@ import duke.ui.Ui;
  */
 public class Duke {
     private Storage storage;
-    private TaskList tasks;
+    private TaskList tasks = new TaskList();
     private Ui ui;
     private Scanner scanner;
 
     /**
-     * Constructs an instance of the chat bot.
+     * Constructs an instance of the chatbot.
      */
     public Duke() {
         this.scanner = new Scanner(System.in);
         this.ui = new Ui();
         this.storage = new Storage();
+        try {
+            this.storage.init();
+            this.tasks = this.storage.readFromFile();
+        } catch (DukeException e) {
+            this.ui.errorPrint(e);
+        }
     }
     /**
      * Runs the Duke chatbot.
@@ -51,6 +60,16 @@ public class Duke {
             }
         }
     }
+
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public static void main(String[] args) {
         Duke duke = new Duke();
