@@ -5,6 +5,21 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+import javafx.application.Application;
+import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.Region;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.geometry.Insets;
+
 import ruiz.command.Command;
 import ruiz.exception.BotException;
 import ruiz.task.TaskList;
@@ -13,18 +28,23 @@ import ruiz.task.TaskList;
  * Ruiz is a task management chatbot.
  */
 public class Ruiz {
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
     private static String filePath = "tasks.txt";
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
     private Parser parser;
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
      * Constructor for the Ruiz class.
-     *
-     * @param filePath path to the file that the tasks are saved in.
      */
-    public Ruiz(String filePath) {
+    public Ruiz() {
         ui = new Ui();
         storage = new Storage(filePath);
         parser = new Parser();
@@ -39,40 +59,38 @@ public class Ruiz {
     /**
      * Runs the chatbot.
      */
-    public void run() {
-        Scanner inputObj = new Scanner(System.in);
-        ui.printGreet();
+    public String getResponse(String input) {
         while (true) {
+            String message = "";
             try {
-                String input = inputObj.nextLine();
                 Command command = parser.getCommand(input);
                 switch (command) {
                 case BYE:
-                    ui.printBye();
-                    return;
+                    message = ui.printBye();
+                    break;
                 case LIST:
-                    ui.getTasks(this.tasks.getTaskList());
+                    message = ui.getTasks(this.tasks.getTaskList());
                     break;
                 case MARK:
-                    this.tasks.markTask(input);
+                    message = this.tasks.markTask(input);
                     break;
                 case UNMARK:
-                    this.tasks.unmarkTask(input);
+                    message = this.tasks.unmarkTask(input);
                     break;
                 case DELETE:
-                    this.tasks.deleteTask(input);
+                    message = this.tasks.deleteTask(input);
                     break;
                 case DEADLINE:
-                    this.tasks.addDeadline(input);
+                    message = this.tasks.addDeadline(input);
                     break;
                 case TODO:
-                    this.tasks.addTodo(input);
+                    message = this.tasks.addTodo(input);
                     break;
                 case EVENT:
-                    this.tasks.addEvent(input);
+                    message = this.tasks.addEvent(input);
                     break;
                 case FIND:
-                    this.tasks.findTasksWithKeyword(input);
+                    message = this.tasks.findTasksWithKeyword(input);
                     break;
                 case UNKNOWN:
                     throw new BotException(ui.botErrorMsg());
@@ -82,14 +100,11 @@ public class Ruiz {
             } catch (BotException e) {
                 System.out.println(e);
             } catch (IOException e) {
-                ui.unableToSaveTask();
+                message = ui.unableToSaveTask();
             } catch (DateTimeParseException e) {
-                ui.wrongFormat();
+                message = ui.wrongFormat();
             }
+            return message;
         }
-    }
-
-    public static void main(String[] args) {
-        new Ruiz(filePath).run();
     }
 }
