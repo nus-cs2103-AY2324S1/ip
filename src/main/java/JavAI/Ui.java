@@ -5,20 +5,12 @@ package javai;
  */
 public class Ui {
 
-    private String line = "     ____________________________________________________________";
 
     /**
      * Displays a welcome message when the chatbot starts.
      */
-    public void welcome() {
-        System.out.println(line + "\n      Hello, I'm JavAI.\n      What can I do for you?\n" + line);
-    }
-
-    /**
-     * Displays a horizontal line to separate sections in the output.
-     */
-    public void displayLine() {
-        System.out.println(line);
+    public String displayWelcome() {
+        return ("      Hello, I'm JavAI.\n      What can I do for you?\n");
     }
 
     /**
@@ -27,11 +19,11 @@ public class Ui {
      * @param task The added task.
      * @param tasks The current list of tasks.
      */
-    public void printAddTask(Task task, TaskList tasks) {
-        displayLine();
-        System.out.println("Got it. I've added this task:\n"
+    public String printAddTask(Task task, TaskList tasks) {
+        return ("Got it. I've added this task:\n"
                 + task + "\nNow you have " + tasks.size() + " tasks in the list.");
-        displayLine();
+
+
     }
 
     /**
@@ -39,16 +31,15 @@ public class Ui {
      *
      * @param tasks The list of tasks to display.
      */
-    public void printList(TaskList tasks) {
+    public String printList(TaskList tasks) {
         try {
-            displayLine();
-            System.out.println("Here are the tasks in your list:");
+            String result = "Here are the tasks in your list:";
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i).toString());
+                result += "\n" +  (i + 1) + "." + tasks.get(i).toString();
             }
-            displayLine();
+            return result;
         } catch (JavAiException e) {
-            showLoadingError(e);
+            return showLoadingError(e);
         }
     }
 
@@ -58,11 +49,11 @@ public class Ui {
      * @param task The deleted task.
      * @param tasks The current list of tasks.
      */
-    public void printDelete(Task task, TaskList tasks) {
-        displayLine();
-        System.out.println("Noted. I've removed this task:\n"
-                + task + "\nNow you have " + tasks.size() + " tasks in the list.");
-        displayLine();
+    public String printDelete(Task task, TaskList tasks) {
+
+        return ("Noted. I've removed this task:\n"
+                + task + "\nNow you have " + (tasks.size() - 1) + " tasks in the list.\n");
+
     }
 
     /**
@@ -70,10 +61,10 @@ public class Ui {
      *
      * @param task The task marked as done.
      */
-    public void printDone(Task task) {
-        displayLine();
-        System.out.println("Nice! I've marked this task as done:\n" + task);
-        displayLine();
+    public String printDone(Task task) {
+        return ("Nice! I've marked this task as done:\n"
+                + task
+                + "\n" );
     }
 
     /**
@@ -81,18 +72,16 @@ public class Ui {
      *
      * @param task The task marked as not done.
      */
-    public void printUndone(Task task) {
-        displayLine();
-        System.out.println("Ok! I've marked this task as not done yet:\n" + task);
-        displayLine();
+    public String printUndone(Task task) {
+        return ("Ok! I've marked this task as not done yet:\n" + task + "\n");
     }
 
     /**
      * Displays an exit message when the chatbot exits.
      */
-    public void exit() {
+    public String exit() {
 
-        System.out.println(line + "\n      Bye. Hope to see you again soon!\n" + line);
+        return ("      Bye. Hope to see you again soon!\n");
     }
 
     /**
@@ -100,9 +89,9 @@ public class Ui {
      *
      * @param e The exception that occurred.
      */
-    public void showLoadingError(Exception e) {
+    public String showLoadingError(Exception e) {
 
-        System.out.println(e.getMessage());
+        return e.getMessage();
     }
 
     /**
@@ -110,9 +99,9 @@ public class Ui {
      *
      * @param string The message to display.
      */
-    public void print(String string) {
+    public String print(String string) {
 
-        System.out.println(string);
+        return string;
     }
 
 }

@@ -1,5 +1,9 @@
 package javai;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * The Parser class is responsible for parsing user input and executing corresponding commands
  * to manage tasks in a task list.
@@ -14,7 +18,7 @@ public class Parser {
      * @param ui The Ui instance for displaying messages and user interface.
      * @throws JavAiException If there's an error in parsing or executing the command.
      */
-    public void parse(String input, TaskList tasks, Ui ui) throws JavAiException {
+    public String parse(String input, TaskList tasks, Ui ui) throws JavAiException {
         String[] words = input.split(" ");
         String description = "";
         int iterator = 1;
@@ -30,9 +34,9 @@ public class Parser {
                     throw new JavAiException("☹ OOPS!!! The description of a todo cannot be empty.");
                 }
                 tasks.add(todo);
-                ui.printAddTask(todo, tasks);
+                return ui.printAddTask(todo, tasks);
             } catch (JavAiException e) {
-                ui.showLoadingError(e);
+                return ui.showLoadingError(e);
             }
 
         } else if (words[0].equals("deadline")) {
@@ -53,11 +57,19 @@ public class Parser {
                 }
                 endDate = words[iterator];
                 endTime = words[iterator + 1];
+                try {
+                    LocalDate.parse(endDate);
+                    DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("HHmm");
+                    LocalTime.parse(endTime, inputFormatter);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new JavAiException("☹ OOPS!!! Please specify valid date and time in following "
+                            + "format after after /by: yyyy-mm-dd hh:mm'.");
+                }
                 Deadline deadline = new Deadline(description, endDate, endTime);
                 tasks.add(deadline);
-                ui.printAddTask(deadline, tasks);
+                return ui.printAddTask(deadline, tasks);
             } catch (JavAiException e) {
-                ui.showLoadingError(e);
+                return ui.showLoadingError(e);
             }
         } else if (words[0].equals("event")) {
             try {
@@ -82,15 +94,15 @@ public class Parser {
                 }
                 Event event = new Event(description, from, to);
                 tasks.add(event);
-                ui.printAddTask(event, tasks);
+                return ui.printAddTask(event, tasks);
             } catch (JavAiException e) {
-                ui.print(e.getMessage());
+                return ui.print(e.getMessage());
             }
         } else if (words[0].equals("mark")) {
             try {
                 int iden = Integer.parseInt(words[1]) - 1;
                 tasks.get(iden).markAsDone();
-                ui.printDone(tasks.get(iden));
+                return ui.printDone(tasks.get(iden));
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new JavAiException("☹ OOPS!!! Please input a valid numerical value after 'mark'.");
             } catch (NullPointerException e) {
@@ -102,7 +114,7 @@ public class Parser {
             try {
                 int iden = Integer.parseInt(words[1]) - 1;
                 tasks.get(iden).markAsUndone();
-                ui.printUndone(tasks.get(iden));
+                return ui.printUndone(tasks.get(iden));
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new JavAiException("☹ OOPS!!! Please input a valid numerical value after 'unmark'.");
             } catch (NullPointerException e) {
@@ -113,31 +125,35 @@ public class Parser {
 
         } else if (words[0].equals("delete")) {
             try {
-                ui.printDelete(tasks.get(Integer.parseInt(words[1]) - 1), tasks);
+                String result = ui.printDelete(tasks.get(Integer.parseInt(words[1]) - 1), tasks);
                 tasks.delete(Integer.parseInt(words[1]) - 1);
+                return result;
             } catch (ArrayIndexOutOfBoundsException e) {
-                ui.print("☹ OOPS!!! Please input a valid numerical value after 'delete'.");
+                return ui.print("☹ OOPS!!! Please input a valid numerical value after 'delete'.");
             } catch (IndexOutOfBoundsException e) {
-                ui.print("☹ OOPS!!! Please input a valid numerical value after 'delete'.");
+                return ui.print("☹ OOPS!!! Please input a valid numerical value after 'delete'.");
             } catch (NumberFormatException e) {
-                ui.print("☹ OOPS!!! Please input a valid numerical value after 'delete'.");
+                return ui.print("☹ OOPS!!! Please input a valid numerical value after 'delete'.");
             }
         } else if (words[0].equals("find")) {
             if (words.length != 2) {
                 throw new JavAiException("☹ OOPS!!! Please input agi valid keyword after 'find'.");
             } else {
+
                 String keyword = words[1];
-                ui.print("Here are the matching tasks in your list:");
+                String result = ui.print("Here are the matching tasks in your list:");
                 for (int i = 0; i < tasks.size(); i++) {
                     if (tasks.get(i).getDescription().contains(keyword)) {
-                        System.out.println((i + 1) + "." + tasks.get(i).toString());
+                        result += "\n" + (i + 1) + "." + tasks.get(i).toString();
                     }
                 }
+                return result;
+
             }
         } else if (input.equals("list")) {
-            ui.printList(tasks);
+            return ui.printList(tasks);
         } else {
-            ui.print("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            return ui.print("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }
