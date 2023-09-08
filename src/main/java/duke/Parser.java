@@ -11,9 +11,12 @@ public class Parser {
      * @param s The response of the user.
      * @param tasks The current Tasklist.
      */
-    public static void parseResponse(String s, Tasklist tasks) {
+    public static String parseResponse(String s, Tasklist tasks, Storage storage) {
         if (s.equals("list")) {
-            Ui.listTasks(tasks);
+            return Ui.listTasks(tasks);
+        } else if (s.equals("bye")) {
+            storage.updateTasks(tasks.getTasks());
+            return Ui.goodbye();
         } else {
             try {
                 String[] splitStr = s.split(" ");
@@ -23,23 +26,23 @@ public class Parser {
                         int itemNumber = Integer.parseInt(splitStr[1]);
                         if (splitStr[0].equals("mark")) {
                             tasks.markDone(itemNumber - 1);
-                            Ui.informTaskDone(tasks.getTask(itemNumber - 1));
+                            return Ui.informTaskDone(tasks.getTask(itemNumber - 1));
                         } else {
                             tasks.markUndone(itemNumber - 1);
-                            Ui.informTaskUndone(tasks.getTask(itemNumber - 1));
+                            return Ui.informTaskUndone(tasks.getTask(itemNumber - 1));
                         }
                     } catch (NumberFormatException e) {
                         throw new WrongInputException();
                     }
                 } else if (splitStr.length == 2 && splitStr[0].equals("delete")) {
                     if (tasks.getSize() == 0) {
-                        System.out.println("No items already, what you want to delete?");
+                        return "No items already, what you want to delete?\n";
                     } else {
                         try {
                             int itemNumber = Integer.parseInt(splitStr[1]);
-                            Ui.informTaskDeleted(tasks.getTask(itemNumber - 1));
+                            Task deletedTask = tasks.getTask(itemNumber - 1);
                             tasks.deleteItem(itemNumber - 1);
-                            Ui.informListSize(tasks.getSize());
+                            return Ui.informTaskDeleted(deletedTask, tasks.getSize());
                         } catch (NumberFormatException e) {
                             throw new WrongInputException();
                         }
@@ -72,17 +75,17 @@ public class Parser {
                         break;
                     }
                     tasks.addTask(addedTask);
-                    Ui.informTaskAdded(addedTask, tasks.getSize());
+                    return Ui.informTaskAdded(addedTask, tasks.getSize());
                 } else if (splitStr[0].equals("find") && splitStr.length > 1 && !splitStr[1].equals("")) {
                     String subString = s.substring(5);
                     ArrayList<Task> filteredList = tasks.filterBySubstring(subString);
                     Tasklist newTasklist = new Tasklist(filteredList);
-                    Ui.listTasks(newTasklist);
+                    return Ui.listTasks(newTasklist);
                 } else {
                     throw new WrongInputException();
                 }
             } catch (Exception e) {
-                System.out.println("Error: " + e);
+                return "Error: " + e + "\n";
             }
         }
     }
