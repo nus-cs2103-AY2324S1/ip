@@ -12,7 +12,7 @@ public class ListCommand {
      * @param tasks List of tasks.
      * @param storage Stores the file and handles file methods.
      */
-    public static void execute(String input, TaskList tasks, Storage storage) {
-        Ui.listOfTasks(tasks.showList());
+    public static String execute(String input, TaskList tasks, Storage storage) {
+        return Ui.listOfTasks(tasks.showList());
     }
 }

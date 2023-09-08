@@ -12,14 +12,14 @@ public class FindCommand {
      * @param tasks List of tasks.
      * @param storage Stores the file and handles file methods.
      */
-    public static void execute(String input, TaskList tasks, Storage storage) {
+    public static String execute(String input, TaskList tasks, Storage storage) {
         try {
             if (input.length() <= 5 || input.substring(5).isBlank()) {
                 throw new EmptyDescriptionException();
             }
+            return Ui.searchTasks(tasks.showSpecificTasks(input.substring(5)));
         } catch (EmptyDescriptionException e) {
-            Ui.emptyDesc("find");
+            return Ui.emptyDesc("find");
         }
-        Ui.searchTasks(tasks.showSpecificTasks(input.substring(5)));
     }
 }
