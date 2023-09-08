@@ -41,7 +41,7 @@ public class Parser {
      * Parses the user's input command and executes the corresponding action.
      *
      * @param input The user's input command.
-     * @return True if the program should continue executing, false if the program should exit.
+     * @return The response from Duke
      */
     public String parseCommand(String input) {
         Command cmd = Command.invalid;
