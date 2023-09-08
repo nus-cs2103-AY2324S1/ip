@@ -25,14 +25,13 @@ public class Event extends Task {
         int fromIndex = description.indexOf("/from");
         String tempStarting = description.substring(fromIndex + 6, fromIndex + 16);
         int toIndex = fromIndex + 21;
-        try{
+        try {
             this.starting = LocalDate.parse(tempStarting);
             this.ending = LocalDate.parse(description.substring(toIndex));
             if (this.starting.isAfter(this.ending)) {
                 throw new InvalidTimeException("The starting time could not pass the ending time");
             }
-        }
-        catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             throw new InvalidTimeException("Invalid input of Date");
         }
     }
@@ -54,8 +53,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E] [" + this.getStatusIcon() + "] " + this.description +
-                " (from: " + this.starting.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
-                " to: " + this.ending.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[E] [" + this.getStatusIcon() + "] " + this.description
+                + " (from: " + this.starting.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: " + this.ending.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + ")";
     }
 }

@@ -35,7 +35,7 @@ public class Duke {
     private void run() {
         this.ui.showWelcome();
         boolean isExit = false;
-        while(!isExit) {
+        while (!isExit) {
             try {
                 String fullCommand = this.ui.readCommand();
                 this.ui.showLine();
@@ -58,7 +58,8 @@ public class Duke {
      */
     public static void main(String[] args) {
         Duke duke = new Duke();
-        String logo = " ____        _        \n|  _ \\ _   _| | _____ \n| | | | | | | |/ / _ \\\n| |_| | |_| |   <  __/\n|____/ \\__,_|_|\\_\\___|\n";
+        String logo = " ____        _        \n|  _ \\ _   _| | _____ \n| | | | | | | |/ / _ \\\n| |_| | |_| |   "
+                    + "<  __/\n|____/ \\__,_|_|\\_\\___|\n";
         duke.run();
     }
 }

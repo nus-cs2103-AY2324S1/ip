@@ -4,6 +4,11 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents the Command Find that find a task from the list
+ *
+ * @author Angky Akdi Frandy Putrakelana
+ */
 public class FindCommand extends Command {
     private String keyword;
 

@@ -1,6 +1,5 @@
 package duke.exception;
 
-import java.lang.Exception;
 /**
  * Represents the exceptions for Duke application.
  *

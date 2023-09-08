@@ -4,10 +4,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
 import duke.exception.DukeException;
-import duke.task.TaskList;
 import duke.task.Deadline;
 import duke.task.Event;
+import duke.task.TaskList;
 import duke.task.Todo;
 /**
  * Stores the list of tasks.
@@ -32,8 +33,7 @@ public class Storage {
             if (!CURRENT_FILE.exists()) {
                 this.CURRENT_FILE.createNewFile();
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new DukeException("Cannot Make File :'(");
         }
     }
@@ -66,8 +66,7 @@ public class Storage {
 
             }
             return taskList;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new DukeException("Cannot Read File :'(");
         }
     }
@@ -85,8 +84,7 @@ public class Storage {
                 fileWriter.write(tasks.getTaskInput(i) + "\n");
             }
             fileWriter.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new DukeException("Cannot Write File :'(");
         }
     }
