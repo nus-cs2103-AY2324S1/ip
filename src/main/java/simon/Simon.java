@@ -199,4 +199,11 @@ public class Simon extends Application {
         }
         return this.ui.getOutput();
     }
+
+    public void logMessages(String... messages) {
+        for (String msg : messages) {
+            System.out.println("[DEBUG]: " + msg);
+        }
+    }
+
 }
