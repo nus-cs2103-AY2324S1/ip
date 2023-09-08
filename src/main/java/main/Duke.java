@@ -12,6 +12,11 @@ public class Duke {
     private final Ui ui;
     private static final String chatBotName = "CHAD CCP";
 
+    /**
+     * Constructor for Duke.
+     * @param PARENT_DIR Parent directory of the file.
+     * @param FILEPATH Filepath of the file.
+     */
     public Duke(String PARENT_DIR, String FILEPATH) {
         ui = new Ui();
         storage = new Storage(PARENT_DIR, FILEPATH);
@@ -23,6 +28,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Drives the program by reading user input and executing the command.
+     */
     public void run() {
         ui.showWelcome(chatBotName);
         boolean isExit = false;
@@ -39,6 +47,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Main method to run the program.
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         new Duke("./data", "./data/store.txt").run();
     }

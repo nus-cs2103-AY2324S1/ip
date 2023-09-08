@@ -12,6 +12,13 @@ import commands.UnknownCommand;
 import tasks.ToDo;
 
 public class Parser {
+    /**
+     * Create a ToDo task.
+     *
+     * @param command Command to be parsed.
+     * @return ToDo task.
+     * @throws DukeException If command is invalid.
+     */
     public static ToDo createToDoTask(String command) throws DukeException {
         try {
             command.substring(5);
@@ -27,6 +34,13 @@ public class Parser {
         return new ToDo(description);
     }
 
+    /**
+     * Create a Deadline task.
+     *
+     * @param fullCommand Command to be parsed.
+     * @return Deadline task.
+     * @throws DukeException If command is invalid.
+     */
     public static Command parse(String fullCommand) throws DukeException {
         String[] command = fullCommand.split(" ");
 
