@@ -1,7 +1,54 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
 
+Dan:
+ 我是小丹！
+ 有什么可以要帮忙可以跟我说！
+
+Dan:
+ 新任务：
+ [T][ ] borrow book!
+ 现在有1项任务哦！
+
+Dan:
+ 新任务：
+ [D][ ] return book (by: sunday)!
+ 现在有2项任务哦！
+
+Dan:
+ 新任务：
+ [E][ ]  project meeting (from: mon 2pm to: 4pm)!
+ 现在有3项任务哦！
+
+Dan:
+ 你还有些要做的事情呢 我看看有什么吧！
+  1. [T][ ] borrow book
+  2. [D][ ] return book (by: sunday)
+  3. [E][ ]  project meeting (from: mon 2pm to: 4pm)
+
+Dan:
+ 哟 做完啦？帮你标记好了！
+ [T][V] borrow book
+
+Dan:
+ 哟 做完啦？帮你标记好了！
+ [E][V]  project meeting (from: mon 2pm to: 4pm)
+
+Dan:
+ 啊？没做完啊 是不小心手滑了么？
+ [E][ ]  project meeting (from: mon 2pm to: 4pm)
+
+Dan:
+ 这个没标记过哦！
+
+Dan:
+ 你还有些要做的事情呢 我看看有什么吧！
+  1. [T][V] borrow book
+  2. [D][ ] return book (by: sunday)
+  3. [E][ ]  project meeting (from: mon 2pm to: 4pm)
+
+Dan:
+ 新任务：
+ [D][ ] do homework (by: no idea :-p)!
+ 现在有4项任务哦！
+
+Dan:
+ 拜拜啦！下次见！

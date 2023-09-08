@@ -19,11 +19,11 @@ public class Task {
         } else {                        /* to unmark marked task */
             if (isDone == true) {
                 isDone = false;
+                return true;
             } else {                        /* if the task is already unmarked */
                 return false;
             }
         }
-        return false;
     }
 
     // toString
