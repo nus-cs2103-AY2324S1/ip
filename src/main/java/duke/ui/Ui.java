@@ -1,7 +1,8 @@
-package duke;
+package duke.ui;
 
 import java.util.Scanner;
 
+import duke.DukeException;
 import duke.task.Task;
 
 /**
@@ -94,6 +95,16 @@ public class Ui {
     public void deleteMessage(Task task, int total) {
         currentMessage += "Noted. I've removed this task: \n" + task + "\n"
                 + "Now you have " + total + " tasks in the list.";
+    }
+
+    /**
+     * Displays a message indicating that a task has been edited in the task list.
+     *
+     * @param task The task that was edit.
+     */
+    public void editMessage(Task task) {
+        currentMessage += "Got it. I've edited this task to be: \n" + task + "\n";
+
     }
 
     /**

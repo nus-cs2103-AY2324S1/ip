@@ -20,6 +20,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
+import duke.ui.Ui;
 
 public class StorageTest {
     private static final String TEST_FOLDER = "test_folder";

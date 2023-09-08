@@ -4,6 +4,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 import duke.command.Command;
+import duke.parser.Parser;
+import duke.ui.Ui;
 import javafx.application.Platform;
 
 /**

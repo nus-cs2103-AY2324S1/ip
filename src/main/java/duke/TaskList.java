@@ -10,6 +10,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
+import duke.ui.Ui;
 
 /**
  * Represents a list of tasks in the Duke application.
@@ -68,7 +69,7 @@ public class TaskList {
 
     private void checkIndex(int index) throws DukeException {
         if (index < 1 || index - 1 >= tasks.size()) {
-            throw new DukeException("duke.task.Task number is out of range.");
+            throw new DukeException("Task number is out of range.");
         }
     }
 
@@ -94,6 +95,19 @@ public class TaskList {
         checkIndex(index);
         Task task = this.tasks.remove(index - 1);
         ui.deleteMessage(task, tasks.size());
+    }
+
+    /**
+     * Edits a task from the task list by index and displays a corresponding message using the provided UI.
+     *
+     * @param index The index of the task to be deleted.
+     * @param ui    The user interface to interact with the user or display messages.
+     * @throws DukeException If the provided index is out of range.
+     */
+    public void editTask(int index, Task task, Ui ui) throws DukeException {
+        checkIndex(index);
+        this.tasks.set(index - 1, task);
+        ui.editMessage(task);
     }
 
     /**
