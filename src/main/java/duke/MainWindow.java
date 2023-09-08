@@ -23,6 +23,7 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    private Ui ui = new Ui();
 
     private Duke duke;
 
@@ -36,7 +37,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("Welcome Messi! How can I help you?", dukeImage));
+                DialogBox.getDukeDialog(ui.greet(), dukeImage));
         dialogContainer.autosize();
     }
 
@@ -55,11 +56,11 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(input.equals("bye") ? "Goodbye! Closing the chat." : response, dukeImage)
+                DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
 
-        if (response.equals("bye")) {
+        if (input.equals("bye")) {
             PauseTransition pause = new PauseTransition(Duration.seconds(3));
             pause.setOnFinished(event -> {
                 Platform.exit();

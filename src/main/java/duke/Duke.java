@@ -10,6 +10,7 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Parser parser;
+    private Ui ui;
     /**
      * Constructor
      */
@@ -17,6 +18,7 @@ public class Duke {
     public Duke() {
         storage = new Storage();
         parser = new Parser();
+        ui = new Ui();
         try {
             tasks = new TaskList(storage.handleReadAllTasksFromFile());
         } catch (DukeException | IOException e) {
@@ -30,7 +32,7 @@ public class Duke {
      */
     String getResponse(String input) {
         if (input.equals("bye")) {
-            return input;
+            return ui.exit();
         }
         try {
             String[] commandType = parser.handleUserInput(input);
