@@ -143,7 +143,6 @@ public class TaskList {
      * @return The list of tasks that contains the keyword.
      */
     public TaskList filterTasks(String... searchTerms) {
-        System.out.println(Arrays.toString(searchTerms));
         ArrayList<Task> filteredTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (Arrays.stream(searchTerms).allMatch(task.getDescription()::contains)) {
