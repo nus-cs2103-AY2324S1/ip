@@ -1,18 +1,17 @@
 package joe;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javafx.application.Application;
 import joe.commands.Command;
 import joe.exceptions.JoeException;
+import joe.ui.Ui;
 
 /**
  * Represents the Joe chatbot.
  */
 public class Joe {
-    private static final String FILE_NOT_FOUND_MESSAGE = "No saved task list was found.";
     private final Storage storage;
-    private final Ui ui;
     private TaskList tasks;
 
     /**
@@ -21,43 +20,40 @@ public class Joe {
      * @param filePath The file path for storing tasks.
      */
     public Joe(String filePath) {
-        ui = new Ui();
         storage = new Storage(filePath);
 
         try {
             tasks = storage.readTasks();
-        } catch (FileNotFoundException e) {
-            ui.print(FILE_NOT_FOUND_MESSAGE);
-            tasks = new TaskList();
         } catch (IOException | JoeException e) {
-            ui.print(e.getMessage());
             tasks = new TaskList();
         }
     }
 
     /**
-     * Starts the Joe application.
+     * Constructs a Joe object with the default file path for task storage.
      */
-    public void run() {
-        boolean isExit = false;
+    public Joe() {
+        storage = new Storage("joe.txt");
 
-        ui.newLine();
-        ui.greet();
-        ui.newLine();
-
-        while (!isExit) {
-            try {
-                String input = ui.readCommand();
-                Command c = Parser.parse(input);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (JoeException e) {
-                ui.print(e.getMessage());
-            } finally {
-                ui.newLine();
-            }
+        try {
+            tasks = storage.readTasks();
+        } catch (IOException | JoeException e) {
+            tasks = new TaskList();
         }
+    }
 
+    /**
+     * Executes the users command and returns a String result.
+     *
+     * @param input The user's input into the dialogBox
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, storage);
+        } catch (JoeException e) {
+            return e.getMessage();
+        }
     }
 
     /**
@@ -66,6 +62,6 @@ public class Joe {
      * @param args The command-line arguments.
      */
     public static void main(String[] args) {
-        new Joe("joe.txt").run();
+        Application.launch(Ui.class, args);
     }
 }

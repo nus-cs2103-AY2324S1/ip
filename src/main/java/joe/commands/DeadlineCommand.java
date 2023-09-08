@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import joe.Storage;
 import joe.TaskList;
-import joe.Ui;
 import joe.tasks.DeadlineTask;
 
 /**
@@ -29,19 +28,16 @@ public class DeadlineCommand extends Command {
      * Executes the command to add a deadline task to the task list.
      *
      * @param tasks   The TaskList on which the command should be executed.
-     * @param ui      The user interface to interact with the user.
      * @param storage The storage for saving and loading tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         DeadlineTask newTask = new DeadlineTask(taskDetails, by);
         tasks.add(newTask);
-
-        ui.print(
+        storage.saveToFile(tasks);
+        return (
                 String.format(
                         "Got it, I've added this task:%n %s%nNow you have %d tasks in the list.",
                         newTask, tasks.size()));
-
-        storage.saveToFile(tasks);
     }
 }
