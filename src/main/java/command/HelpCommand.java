@@ -1,17 +1,23 @@
+package command;
+
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
+
 /**
  * Represents a command to display the command guide.
  */
 public class HelpCommand extends Command {
 
     /**
-     * Constructs a HelpCommand.
+     * Constructs a command.HelpCommand.
      */
     public HelpCommand() {
         super(null);
     }
 
     /**
-     * Executes the HelpCommand, displaying the command guide to the user.
+     * Executes the command.HelpCommand, displaying the command guide to the user.
      *
      * @param tasks   The list of tasks (not used in this command).
      * @param ui      The user interface for displaying messages.

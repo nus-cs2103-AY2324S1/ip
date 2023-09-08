@@ -1,17 +1,24 @@
+package command;
+
+import storage.Storage;
+import task.Task;
+import task.TaskList;
+import ui.Ui;
+
 /**
  * Represents a command to list all tasks.
  */
 public class ListCommand extends Command {
 
     /**
-     * Constructs a ListCommand.
+     * Constructs a command.ListCommand.
      */
     public ListCommand() {
         super(null);
     }
 
     /**
-     * Executes the ListCommand, displaying the list of tasks to the user.
+     * Executes the command.ListCommand, displaying the list of tasks to the user.
      *
      * @param tasks   The list of tasks to be displayed.
      * @param ui      The user interface for displaying messages.

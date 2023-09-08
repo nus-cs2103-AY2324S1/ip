@@ -1,17 +1,23 @@
+package command;
+
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
+
 /**
  * Represents a command to exit the application.
  */
 public class ExitCommand extends Command {
 
     /**
-     * Constructs an ExitCommand.
+     * Constructs a command.ExitCommand.
      */
     public ExitCommand() {
         super(null);
     }
 
     /**
-     * Executes the ExitCommand, displaying a goodbye message and exiting the application.
+     * Executes the command.ExitCommand, displaying a goodbye message and exiting the application.
      *
      * @param tasks   The list of tasks (not used in this command).
      * @param ui      The user interface for displaying messages.

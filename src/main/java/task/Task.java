@@ -1,6 +1,7 @@
+package task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents a task that can be completed and described.
@@ -88,7 +89,7 @@ public class Task implements Completable, Describable {
      * Creates a task object from its string representation as stored in a file.
      *
      * @param fileString The string representation of the task as stored in a file.
-     * @return A Task object created from the file string, or null if parsing fails.
+     * @return A task.Task object created from the file string, or null if parsing fails.
      */
     public static Task fromFileString(String fileString) {
         String[] parts = fileString.split("\\|");

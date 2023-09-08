@@ -1,13 +1,18 @@
+package parser;
+
+import command.*;
+import exception.DukeException;
+
 /**
- * Parses user commands to create corresponding Command objects.
+ * Parses user commands to create corresponding command.Command objects.
  */
 public class Parser {
 
     /**
-     * Parses the user input command and returns the corresponding Command object.
+     * Parses the user input command and returns the corresponding command.Command object.
      *
      * @param fullCommand The user's input command.
-     * @return A Command object representing the parsed command.
+     * @return A command.Command object representing the parsed command.
      * @throws DukeException If there is an error in the command or the input is invalid.
      */
     public static Command parse(String fullCommand) throws DukeException {

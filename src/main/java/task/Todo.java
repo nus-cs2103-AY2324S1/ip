@@ -1,3 +1,7 @@
+package task;
+
+import task.Task;
+
 /**
  * Represents a To-Do task.
  */

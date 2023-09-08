@@ -1,3 +1,11 @@
+package command;
+
+import exception.DukeException;
+import storage.Storage;
+import task.TaskList;
+import task.Todo;
+import ui.Ui;
+
 /**
  * Represents a command to add a new To-Do task.
  * Extends the {@link AddCommand} class.
@@ -5,16 +13,16 @@
 public class AddTodo extends AddCommand {
 
     /**
-     * Initializes an AddTodo command with the specified input.
+     * Initializes an command.AddTodo command with the specified input.
      *
      * @param input The user input for creating the To-Do task.
      */
     public AddTodo(String input) {
-        super(TaskType.TODO, input);
+        super(input);
     }
 
     /**
-     * Executes the AddTodo command to add a new To-Do task to the task list.
+     * Executes the command.AddTodo command to add a new To-Do task to the task list.
      *
      * @param tasks   The {@link TaskList} containing the list of tasks.
      * @param ui      The {@link Ui} for user interface interactions.
@@ -39,7 +47,7 @@ public class AddTodo extends AddCommand {
             ui.showAddedTask(tasks.getList().get(tasks.size() - 1));
         } catch (DukeException e) {
 
-            // Handle DukeException by displaying an error message
+            // Handle exception.DukeException by displaying an error message
             throw new DukeException("The description of a To-Do task cannot be empty.");
 
         }

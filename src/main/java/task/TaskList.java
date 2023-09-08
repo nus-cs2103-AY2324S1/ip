@@ -1,3 +1,7 @@
+package task;
+
+import task.Task;
+
 import java.util.ArrayList;
 
 /**
@@ -17,7 +21,7 @@ public class TaskList {
     /**
      * Creates a task list with the given list of tasks.
      *
-     * @param tasks The list of tasks to initialize the TaskList.
+     * @param tasks The list of tasks to initialize the task.TaskList.
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
