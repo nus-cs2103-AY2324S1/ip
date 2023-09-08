@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import duke.parser.Parser;
 import org.junit.jupiter.api.Test;
 
 import duke.command.AddCommand;
@@ -14,6 +13,7 @@ import duke.command.ExitCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
+import duke.parser.Parser;
 
 public class ParserTest {
 

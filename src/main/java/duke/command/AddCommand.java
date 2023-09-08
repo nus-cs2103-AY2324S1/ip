@@ -3,8 +3,8 @@ package duke.command;
 import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
-import duke.ui.Ui;
 import duke.task.Task;
+import duke.ui.Ui;
 
 /**
  * Represents a command to add a task to the task list in the Duke application.
