@@ -8,8 +8,6 @@ import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
-import java.util.ArrayList;
-
 /**
  * This is the main java class that contains instructions to create the chatbot Tasks.Task manager Adam.Adam.
  */
