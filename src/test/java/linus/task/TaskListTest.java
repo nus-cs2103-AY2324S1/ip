@@ -8,7 +8,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import linus.exception.LinusException;
-import linus.util.Ui;
 
 public class TaskListTest {
     @Test

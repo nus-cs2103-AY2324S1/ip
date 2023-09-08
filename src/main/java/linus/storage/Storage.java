@@ -15,8 +15,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import linus.exception.LinusException;
-import linus.storage.LocalDateTypeAdapter;
-import linus.storage.TaskDeserializer;
 import linus.task.Deadline;
 import linus.task.Event;
 import linus.task.Task;

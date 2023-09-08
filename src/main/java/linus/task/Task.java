@@ -1,7 +1,5 @@
 package linus.task;
 
-import linus.util.Ui;
-
 /**
  * Represents a Task.
  */

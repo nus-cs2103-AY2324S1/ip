@@ -1,12 +1,12 @@
 package linus;
 
 import linus.exception.LinusException;
+import linus.storage.Storage;
 import linus.task.Deadline;
 import linus.task.Event;
 import linus.task.TaskList;
 import linus.task.ToDo;
 import linus.util.Parser;
-import linus.storage.Storage;
 import linus.util.Ui;
 
 /**
@@ -34,12 +34,19 @@ public class Linus {
     private Ui ui = null;
 
     /**
+     * Constructs a Linus Chatbot with the default file path.
+     */
+    public Linus() {
+        this(FILE_PATH);
+    }
+
+    /**
      * Constructs a Linus Chatbot with the specified file path.
      *
      * @param filePath The file path.
      */
     public Linus(String filePath) {
-        storage = new Storage("data/linus.txt");
+        storage = new Storage(filePath);
         ui = new Ui();
         try {
             tasks = new TaskList(storage.load());

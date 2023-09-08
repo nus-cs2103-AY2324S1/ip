@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import linus.Linus;
 
 /**
@@ -29,6 +28,9 @@ public class MainWindow extends AnchorPane {
     private Image linusImage = new Image(this.getClass().getResourceAsStream("/images/Linus.jpg"));
     private Image sendIcon = new Image(this.getClass().getResourceAsStream("/images/sendIcon.png"));
 
+    /**
+     * Initializes the MainWindow.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -40,6 +42,11 @@ public class MainWindow extends AnchorPane {
         sendButton.setGraphic(sendIconImageView);
     }
 
+    /**
+     * Sets the Linus object.
+     *
+     * @param linus The Linus object.
+     */
     public void setLinus(Linus linus) {
         this.linus = linus;
         dialogContainer.getChildren().addAll(

@@ -12,7 +12,6 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import linus.storage.LocalDateTypeAdapter;
 import linus.task.Task;
 
 /**

@@ -1,6 +1,5 @@
 package linus.util;
 
-import java.lang.StringBuilder;
 import java.util.List;
 
 import linus.task.Task;
@@ -80,11 +79,16 @@ public class Ui {
      * @param task
      * @param size
      */
-    public void printUnmarkSuccessMessage (Task task, int size) {
+    public void printUnmarkSuccessMessage(Task task, int size) {
         addToOutput("OK, I've marked this task as not done yet:\n");
         addToOutput("\t" + task + "\n");
     }
 
+    /**
+     * Prints a success message after a task is found.
+     *
+     * @param tasks List of tasks found.
+     */
     public void printFindSuccessMessage(List<Task> tasks) {
         if (tasks.size() == 0) {
             print("There are no matching tasks in your list.");
