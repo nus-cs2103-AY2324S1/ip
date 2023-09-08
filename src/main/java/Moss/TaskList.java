@@ -16,37 +16,49 @@ public class TaskList {
      * @param storage The storage object for saving tasks.
      * @throws MossException If there's an issue with processing commands or managing tasks.
      */
-    public static void command(String message, ArrayList<Task> things, Storage storage) throws MossException {
+    public static String command(String message, ArrayList<Task> things, Storage storage) throws MossException {
+        String output = "";
+        if (message.equals("bye")){
+            UI ui = new UI();
+            return ui.bye();
+        }
         if (message.equals("list")) {
             // List all tasks
-            System.out.println("____________________________________________________________");
-            System.out.println("Here are the tasks in your list:");
+            String temp = "";
             for (int i = 0; i < things.size(); i++) {
-                System.out.println(i + 1 + "." + things.get(i).toString("x"));
+                temp += (i + 1) + (".") + (things.get(i).toString("x"));
             }
-            System.out.println("____________________________________________________________");
+            output += "___________________________________________________________\n"
+                    + "Here are the tasks in your list:\n"
+                    + temp + "\n"
+                    + "____________________________________________________________\n";
+            return output;
         } else if (message.startsWith("mark")) {
             // Mark a task as done
             String indexSubstring = message.substring(5);
             int index = Integer.parseInt(indexSubstring) - 1;
-            things.get(index).markDone();
+            output = things.get(index).markDone();
             storage.saveTasks(things);
+            return output;
         } else if (message.startsWith("unmark")) {
             // Mark a task as undone
             String indexSubstring = message.substring(7);
             int index = Integer.parseInt(indexSubstring) - 1;
-            things.get(index).markUndone();
+            output += things.get(index).markUndone();
             storage.saveTasks(things);
+            return output;
         } else if (message.startsWith("delete")) {
             // Delete a task
             String indexSubstring = message.substring(7);
             int index = Integer.parseInt(indexSubstring) - 1;
             Task temp = things.remove(index);
-            System.out.println("____________________________________________________________");
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(temp.toString());
-            System.out.println("Now you have " + things.size() + " tasks in the list.");
+            output += "___________________________________________________________\n"
+                    + "Noted. I've removed this task:\n"
+                    + temp.toString() + "\n"
+                    + "Now you have " + things.size() + " tasks in the list.\n"
+                    + "________________________________________________________\n";
             storage.saveTasks(things);
+            return output;
         } else {
             // Process other commands using the command method
             if (message.startsWith("todo")) {
@@ -59,11 +71,13 @@ public class TaskList {
                 storage.saveTasks(things);
 
                 // Provide feedback about the added task
-                System.out.println("____________________________________________________________");
-                System.out.println("Got it. I've added this task: ");
-                System.out.println(things.get(things.size() - 1).toString());
-                System.out.println("Now you have " + things.size() + " tasks in the list.");
-                System.out.println("____________________________________________________________");
+                output += "________________________________________________________\n"
+                        + "Got it. I've added this task: \n"
+                        + things.get(things.size() - 1).toString() + "\n"
+                        + "Now you have " + things.size() + " tasks in the list.\n"
+                        +"________________________________________________________\n";
+
+                return output;
             }
             // Add a deadline task
             else if (message.startsWith("deadline")) {
@@ -90,11 +104,13 @@ public class TaskList {
                 storage.saveTasks(things);
 
                 // Provide feedback about the added task
-                System.out.println("____________________________________________________________");
-                System.out.println("Got it. I've added this task: ");
-                System.out.println(things.get(things.size() - 1).toString());
-                System.out.println("Now you have " + things.size() + " tasks in the list.");
-                System.out.println("____________________________________________________________");
+                output += "____________________________________________________________\n"
+                        + "Got it. I've added this task: \n"
+                        + things.get(things.size() - 1).toString() + "\n"
+                        + "Now you have " + things.size() + " tasks in the list.\n"
+                        + "____________________________________________________________\n";
+
+                return output;
             }
             // Add an event task
             else if (message.startsWith("event")) {
@@ -120,26 +136,29 @@ public class TaskList {
                 storage.saveTasks(things);
 
                 // Provide feedback about the added task
-                System.out.println("____________________________________________________________");
-                System.out.println("Got it. I've added this task: ");
-                System.out.println(things.get(things.size() - 1).toString());
-                System.out.println("Now you have " + things.size() + " tasks in the list.");
-                System.out.println("____________________________________________________________");
+                output += "____________________________________________________________\n"
+                        + "Got it. I've added this task: \n"
+                        + things.get(things.size() - 1).toString() + "\n"
+                        + "Now you have " + things.size() + " tasks in the list.\n"
+                        + "____________________________________________________________\n";
+
+                return output;
             }
             else if (message.startsWith("find")) {
                 String taskDescription = message.substring(5);
                 int count = 0;
-                System.out.println("____________________________________________________________");
-                System.out.println("Here are the matching tasks in your list: ");
+                output += "________________________________________________________\n"
+                        + "Here are the matching tasks in your list: \n";
                 for (int i = 0; i < things.size(); i++) {
                     if (things.get(i).getDescription().contains(taskDescription)) {
                         count++;
-                        System.out.println(count + ". " + things.get(i).toString(""));
+                        output += count + ". " + things.get(i).toString("") + "\n";
                     }
                 }
                 if (count == 0) {
-                    System.out.println("There is no matching task.");
+                    output += "There is no matching task.\n";
                 }
+                return output;
             }
             // check if the command is valid otherwise throw errors
             else {

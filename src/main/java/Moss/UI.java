@@ -8,30 +8,23 @@ public class UI {
     /**
      * Displays a greeting message when the application starts.
      */
-    public void greeting() {
+    public String greeting() {
         String greet = "____________________________________________________________\n"
                 + "Hello! I'm Moss \n"
                 + "What can I do for you? \n"
                 + "____________________________________________________________\n";
-        System.out.println(greet);
+        return greet;
     }
 
     /**
      * Displays a farewell message when the application is about to exit.
      */
-    public void bye() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+    public String bye() {
+        String bye = "________________________________________________________\n"
+                +"Bye. Hope to see you again soon! \n"
+                + "________________________________________________________";
+        return bye;
     }
 
-    /**
-     * Displays a welcome message when the application is launched.
-     */
-    public void welcome() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Welcome to Moss.Moss! How can I help you today?");
-        System.out.println("____________________________________________________________");
-    }
 }
 
