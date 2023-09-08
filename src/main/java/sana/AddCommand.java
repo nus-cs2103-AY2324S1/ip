@@ -38,7 +38,7 @@ public class AddCommand extends Command {
                 storage.save("/Users/ariellacallista/Desktop",
                         "/Users/ariellacallista/Desktop/SanaTasks.txt", newTodo);
 
-                return("Got it. I've added this task:\n" + newTodo + "\n"
+                return ("Got it. I've added this task:\n" + newTodo + "\n"
                         + "Now you have " + tasks.size() + (tasks.size() <= 1 ? " task" : " tasks")
                         + " in the list");
             }
@@ -68,7 +68,7 @@ public class AddCommand extends Command {
                 tasks.add(newDeadline);
                 storage.save("/Users/ariellacallista/Desktop",
                         "/Users/ariellacallista/Desktop/SanaTasks.txt", newDeadline);
-                return("Got it. I've added this task:\n" + newDeadline + "\n"
+                return ("Got it. I've added this task:\n" + newDeadline + "\n"
                         + "Now you have " + tasks.size() + (tasks.size() <= 1 ? " task" : " tasks")
                         + " in the list\n");
             } catch (DateTimeParseException e) {
@@ -105,14 +105,14 @@ public class AddCommand extends Command {
                 LocalDate toDate = LocalDate.parse(to);
                 newEvent = new Event(desc, fromDate, toDate, false);
             } catch (DateTimeParseException e) {
-                return("Invalid date format! Make sure it is yyyy-mm-dd");
+                return ("Invalid date format! Make sure it is yyyy-mm-dd");
             }
 
             if (newEvent != null) {
                 tasks.add(newEvent);
                 storage.save("/Users/ariellacallista/Desktop",
                         "/Users/ariellacallista/Desktop/SanaTasks.txt", newEvent);
-                return("Got it. I've added this task:\n" + newEvent + "\n"
+                return ("Got it. I've added this task:\n" + newEvent + "\n"
                         + "Now you have " + tasks.size() + (tasks.size() <= 1 ? " task" : " tasks")
                         + " in the list");
             }

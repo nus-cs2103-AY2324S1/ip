@@ -37,7 +37,7 @@ public class FindCommand extends Command {
             matchedTasks += j + 1 + ". " + matchingTasks.get(j).toString() + "\n";
         }
 
-        return("Here are the matching tasks in your list:\n" + matchedTasks);
+        return ("Here are the matching tasks in your list:\n" + matchedTasks);
     }
 
     /**

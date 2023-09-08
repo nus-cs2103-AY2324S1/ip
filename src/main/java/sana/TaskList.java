@@ -98,7 +98,7 @@ public class TaskList {
             throw new SanaException("No such task!");
         }
         tasksList.get(taskId - 1).markAsDone();
-        return("Nice! I've marked this task as done:\n"
+        return ("Nice! I've marked this task as done:\n"
                 + tasksList.get(taskId - 1).toString());
     }
 
@@ -113,10 +113,16 @@ public class TaskList {
             throw new SanaException("No such task!");
         }
         tasksList.get(taskId - 1).markAsNotDone();
-        return("OK, I've marked this task as not done yet:\n"
+        return ("OK, I've marked this task as not done yet:\n"
                 + tasksList.get(taskId - 1).toString());
     }
 
+    /**
+     * Retrieves a task with the specified identifier from the task list.
+     *
+     * @param id The unique identifier of the task to retrieve.
+     * @return The task object associated with the provided identifier, or null if not found.
+     */
     public Task get(int id) {
         return tasksList.get(id);
     }

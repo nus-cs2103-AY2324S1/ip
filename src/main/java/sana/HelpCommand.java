@@ -27,7 +27,7 @@ public class HelpCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
-        return(getCmd() + " is not a valid command!");
+        return (getCmd() + " is not a valid command!");
     }
 
     /**

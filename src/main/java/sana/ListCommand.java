@@ -32,7 +32,7 @@ public class ListCommand extends Command {
         }
 
         TaskList updatedTasks = new TaskList(storage.load());
-        return(updatedTasks.toString());
+        return (updatedTasks.toString());
     }
 
     /**

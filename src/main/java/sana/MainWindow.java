@@ -25,6 +25,12 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/img.png"));
     private Image sanaImage = new Image(this.getClass().getResourceAsStream("/images/img_2.png"));
 
+    /**
+     * Initializes the JavaFX controller.
+     * This method is automatically called when the corresponding FXML file is loaded.
+     * It sets up the initial dialogue in the chat interface and binds the scroll pane
+     * to automatically scroll to the latest message.
+     */
     @FXML
     public void initialize() {
         dialogContainer.getChildren().addAll(

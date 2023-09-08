@@ -1,5 +1,4 @@
 package sana;
-import java.util.Scanner;
 
 /**
  * Represents a chatBot named Sana.
