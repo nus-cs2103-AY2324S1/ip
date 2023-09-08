@@ -62,4 +62,14 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
+    /**
+     * Returns true if the task description contains the string given, false otherwise.
+     *
+     * @param str String that may be in the task description.
+     * @return true if the task description contains the string given, false otherwise.
+     */
+    public boolean contains(String str) {
+        return description.contains(str);
+    }
 }

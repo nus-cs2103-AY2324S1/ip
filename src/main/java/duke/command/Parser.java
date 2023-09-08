@@ -6,6 +6,7 @@ import duke.task.*;
 import duke.ui.Ui;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Deals with the user command.
@@ -53,6 +54,11 @@ public class Parser {
             }
             Task task = taskList.deleteTask(index - 1);
             ui.deleteTask(task, taskList.size());
+        }
+        else if (command.startsWith("find")) {
+            String str = command.substring(5);
+            ArrayList<Task> tasks = taskList.contains(str);
+            ui.printMatchingTasks(tasks);
         }
         else {
             addTask(command, ui, taskList);
