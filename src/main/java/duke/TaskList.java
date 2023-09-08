@@ -38,6 +38,12 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Reads the input given by the user and creates a Task object.
+     *
+     * @param line The user's input line.
+     * @return The Task object created accordingly.
+     */
     private Task readLine(String line) {
         String[] split = line.split(" \\| ");
         String type = split[0];
@@ -164,8 +170,7 @@ public class TaskList {
      * @return The created Event task.
      */
     public Event addEvent(String description, String from, String to) {
-        Event event = new Event(description,
-                                LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+        Event event = new Event(description, LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                                 LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
         this.tasks.add(event);
         return event;
@@ -180,9 +185,8 @@ public class TaskList {
      * @return The created Deadline task.
      */
     public Deadline addDeadline(String description, String by) {
-        Deadline deadline = new Deadline(description, LocalDateTime.parse(by,
-                                                                          DateTimeFormatter.ofPattern(
-                                                                                  "yyyy-MM-dd HH:mm")));
+        Deadline deadline = new Deadline(description, LocalDateTime.parse(by, DateTimeFormatter.ofPattern(
+                "yyyy-MM-dd HH:mm")));
         this.tasks.add(deadline);
         return deadline;
     }
