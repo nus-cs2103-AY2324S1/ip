@@ -1,12 +1,11 @@
 package duke.commands;
+import java.io.IOException;
 
 import duke.DukeException;
 import duke.storage.Storage;
-import duke.ui.Ui;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
-
-import java.io.IOException;
+import duke.ui.Ui;
 
 /**
  * The Command class is an abstract base class for various command types in the Duke application.

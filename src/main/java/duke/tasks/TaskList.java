@@ -1,8 +1,8 @@
 package duke.tasks;
 
-import duke.ui.Ui;
-
 import java.util.ArrayList;
+
+import duke.ui.Ui;
 
 /**
  * Represents a list of tasks in the Duke application.

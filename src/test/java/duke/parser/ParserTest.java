@@ -1,8 +1,10 @@
 package duke.parser;
 
-import duke.commands.CommandType;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import duke.commands.CommandType;
 
 public class ParserTest {
     @Test
@@ -27,7 +29,8 @@ public class ParserTest {
 
     @Test
     public void testParseAddEventCommand() {
-        assertEquals(CommandType.ADD_EVENT, Parser.parse("event Task /from 01/01/2023 1200 /to 01/01/2023 1400").getType());
+        assertEquals(CommandType.ADD_EVENT,
+                Parser.parse("event Task /from 01/01/2023 1200 /to 01/01/2023 1400").getType());
     }
 
     @Test

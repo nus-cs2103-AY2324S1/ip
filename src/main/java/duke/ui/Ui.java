@@ -19,7 +19,7 @@ public class Ui {
     public static final DateTimeFormatter DATE_FORMAT_OUTPUT = DateTimeFormatter.ofPattern("d MMM yyyy hh:mm a");
 
     /** The scanner used for reading user input. */
-    Scanner scanner;
+    private Scanner scanner;
 
     /**
      * Constructs a Ui object with a new scanner.
@@ -58,7 +58,7 @@ public class Ui {
      * @return The formatted message with separators.
      */
     public static String messageWithSeparator(String message) {
-        return LINE_SEPARATOR+ "\n" + message + "\n" + LINE_SEPARATOR;
+        return LINE_SEPARATOR + "\n" + message + "\n" + LINE_SEPARATOR;
     }
 
     /**

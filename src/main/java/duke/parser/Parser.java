@@ -1,14 +1,14 @@
 package duke.parser;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 import duke.commands.Command;
 import duke.commands.CommandType;
 import duke.tasks.DeadlineTask;
 import duke.tasks.EventTask;
 import duke.tasks.ToDoTask;
 import duke.ui.Ui;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 /**
  * The Parser class is responsible for parsing user input commands and converting them into executable commands.
@@ -129,9 +129,8 @@ public class Parser {
                 return new Command.Find(commandDetails);
             }
         case INVALID:
+        default:
             return new Command.InvalidCommand("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-
-        return new Command.InvalidCommand("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 }

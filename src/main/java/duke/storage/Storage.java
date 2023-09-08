@@ -1,13 +1,5 @@
 package duke.storage;
 
-import duke.DukeException;
-import duke.tasks.DeadlineTask;
-import duke.tasks.EventTask;
-import duke.tasks.Task;
-import duke.tasks.TaskList;
-import duke.tasks.ToDoTask;
-import duke.ui.Ui;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,6 +7,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import duke.DukeException;
+import duke.tasks.DeadlineTask;
+import duke.tasks.EventTask;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.tasks.ToDoTask;
+import duke.ui.Ui;
 
 /**
  * The Storage class handles the storage and retrieval of task data for the Duke application.
@@ -36,7 +36,7 @@ public class Storage {
 
         try {
             accessOrCreateFile(filePath);
-        }  catch (DukeException e) {
+        } catch (DukeException e) {
             throw e;
         }
     }
