@@ -4,27 +4,43 @@ import java.util.Scanner;
 
 public class Ui {
     private Scanner scanner;
+    public static final String LINE = "__________________________________________________________________";
 
+    /**
+     * Constructor for Ui class.
+     */
     public Ui () {
         scanner = new Scanner(System.in);
     }
 
-    public static final String LINE = "__________________________________________________________________";
-
+    /**
+     * Prints the error message.
+     * @param e
+     */
     public void showError(DukeException e) {
         System.out.println(Ui.LINE);
         System.out.println(e);
         System.out.println(Ui.LINE);
     }
 
+    /**
+     * Prints the message.
+     */
     public void showLine() {
         System.out.println(Ui.LINE);
     }
 
+    /**
+     * Reads the command using Scanner class.
+     */
     public String readCommand() {
         return scanner.nextLine();
     }
 
+    /**
+     * Shows the welcome message.
+     * @param chatBotName
+     */
     public void showWelcome(String chatBotName) {
         System.out.println(Ui.LINE);
         String logo = " ____        _        \n"
@@ -38,6 +54,9 @@ public class Ui {
         System.out.println(Ui.LINE);
     }
 
+    /**
+     * Shows the goodbye message.
+     */
     public void showBye() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(Ui.LINE);

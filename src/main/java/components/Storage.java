@@ -20,12 +20,20 @@ public class Storage {
     private final String FILEPATH;
     File store;
 
+    /**
+     * Constructor for Storage class
+     * @param PARENT_DIR The parent directory of the file to be created
+     * @param FILEPATH The path of the file to be created
+     */
     public Storage(String PARENT_DIR, String FILEPATH) {
         this.PARENT_DIR = PARENT_DIR;
         this.FILEPATH = FILEPATH;
     }
 
-    //This method loads the file if it exists, and creates it if it doesn't
+    /**
+     * Creates a file if it does not exist
+     * @throws DukeException
+     */
     public void loadOrCreateFile() throws DukeException {
         try {
             // Create a File object for the parent directory
@@ -58,7 +66,12 @@ public class Storage {
         }
     }
 
-    //This should only be accessed one time at startup
+    /**
+     * Reads data from the file and returns a TaskList object
+     * @param storage
+     * @return
+     * @throws DukeException
+     */
     public TaskList readData(Storage storage) throws DukeException {
         BufferedReader br;
         TaskList result = new TaskList();
@@ -113,6 +126,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes data to the file
+     * @param newData
+     * @throws DukeException
+     */
     public void writeData(String newData) throws DukeException {
         BufferedWriter bw;
         try {
@@ -125,6 +143,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes a line from the file
+     * @param lineNumber
+     * @throws DukeException
+     */
     public void deleteLine(int lineNumber) throws DukeException {
         List<String> lines = new ArrayList<>();
         BufferedReader br = null;
@@ -170,6 +193,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Replaces a line in the file
+     * @param lineNumber
+     * @param newData
+     * @throws DukeException
+     */
     public void replaceLine(int lineNumber, String newData) throws DukeException {
         List<String> lines = new ArrayList<>();
         BufferedReader br = null;
