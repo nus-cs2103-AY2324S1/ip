@@ -5,13 +5,27 @@ import duke.tasks.Task;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * The Storage class that encapsulates the filepath and the file.
+ */
 public class Storage {
     final private String FILEPATH;
     private File file;
+
+    /**
+     * Instantiates a new Storage.
+     *
+     * @param filepath the filepath
+     */
     Storage(String filepath) {
         this.FILEPATH = filepath;
     }
 
+    /**
+     * Loads file and handles the case if the file does not exist or already exists.
+     *
+     * @return the file
+     */
     public File load() {
         File openfile = new File(FILEPATH);
         try {
@@ -28,6 +42,11 @@ public class Storage {
     }
 
 
+    /**
+     * Updates the file given the updated TaskList list.
+     *
+     * @param list the list
+     */
     public void updatefile(ArrayList<Task> list) {
 
         try(FileWriter fw = new FileWriter(file, true);
@@ -40,6 +59,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns the file.
+     *
+     * @return the file
+     */
     public File openfile() {
         return file;
     }

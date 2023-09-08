@@ -1,8 +1,19 @@
 package duke.exceptions;
 
+/**
+ * The Duke exception.
+ */
 public class DukeException extends Exception{
-    String msg;
+    /**
+     * The description of the error.
+     */
+    private String msg;
 
+    /**
+     * Instantiates a new Duke exception.
+     *
+     * @param msg the description
+     */
     public DukeException(String msg) {
         this.msg = msg;
     }

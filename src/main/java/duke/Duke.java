@@ -6,6 +6,10 @@ import duke.tasks.Task;
 
 import java.util.Scanner;
 
+/**
+ * The chatbot Duke.
+ * Contains a Ui, Storage, TaskList and Parser object.
+ */
 public class Duke {
     private Ui ui;
     private Storage storage;
@@ -13,6 +17,11 @@ public class Duke {
     private TaskList tasks;
     private Parser parser;
 
+    /**
+     * Instantiates a new Duke object.
+     *
+     * @param filePath the file path
+     */
     public Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -25,6 +34,9 @@ public class Duke {
         this.parser = new Parser(ui, storage, tasks);
     }
 
+    /**
+     * Runs the chatbot until "bye" is entered.
+     */
     public void run() {
         ui.intromsg();
 
@@ -42,18 +54,24 @@ public class Duke {
         ui.byemsg();
     }
 
-
-    public static void inputChecker(Task task) throws DukeException {
-        if (task.toString().trim().isEmpty()) {
-            throw new DukeException("☹ OOPS!!! The description of a " + task + " cannot be empty.");
-        }
-    }
-
+    /**
+     * Checks if a user input can be split.
+     *
+     * @param input    the input
+     * @param splitter the regex for splitting
+     * @throws DukeException cannot split exception
+     */
     public static void cansplit(String input, String splitter) throws DukeException {
         if (input.split(splitter).length == 1) {
             throw new DukeException("☹ OOPS!!!");
         }
     }
+
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();
     }

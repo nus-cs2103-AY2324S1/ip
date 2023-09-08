@@ -9,9 +9,18 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The type Task list.
+ */
 public class TaskList {
     private ArrayList<Task> tasklist;
 
+    /**
+     * Instantiates a new Task list, given a file to read from.
+     *
+     * @param file the file
+     * @throws DukeException the duke exception if file is somehow not found
+     */
     TaskList(File file) throws DukeException {
         this.tasklist = new ArrayList<Task>();
         try {
@@ -29,10 +38,18 @@ public class TaskList {
         }
     }
 
+    /**
+     * Instantiates a new Task list.
+     */
     TaskList() {
         this.tasklist = new ArrayList<Task>();
     }
 
+    /**
+     * Returns the tasklist.
+     *
+     * @return the array list with Tasks.
+     */
     public ArrayList<Task> list() {
         return tasklist;
     }

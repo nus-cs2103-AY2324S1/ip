@@ -3,8 +3,17 @@ package duke.tasks;
 import duke.tasks.Task;
 import duke.exceptions.DukeException;
 
+/**
+ * The ToDo class, which is a task to be done.
+ */
 public class ToDo extends Task {
 
+    /**
+     * Instantiates a new ToDo.
+     *
+     * @param name the description of the ToDo
+     * @throws DukeException a duke exception for when the description is empty
+     */
     public ToDo(String name) throws DukeException {
         super(name);
         if (name.trim().isEmpty()) {

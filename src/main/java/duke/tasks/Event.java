@@ -6,9 +6,21 @@ import java.time.format.DateTimeParseException;
 import duke.exceptions.DukeException;
 
 
+/**
+ * The Event class, which is a Task that has a specified start and end date.
+ */
 public class Event extends Task {
     private final LocalDate from;
     private final LocalDate to;
+
+    /**
+     * Instantiates a new Event.
+     *
+     * @param name the description of the Event
+     * @param from the start date
+     * @param to   the end date
+     * @throws DukeException the duke exception
+     */
     public Event(String name, String from, String to) throws DukeException {
         super(name);
         if (name.trim().isEmpty()) {

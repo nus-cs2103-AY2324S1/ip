@@ -9,15 +9,34 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
 
+/**
+ * The Parser class that makes sense of the user's input.
+ */
 public class Parser {
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
+
+    /**
+     * Instantiates a new Parser.
+     *
+     * @param ui       the ui
+     * @param storage  the storage
+     * @param tasklist the tasklist
+     */
     public Parser(Ui ui, Storage storage, TaskList tasklist) {
         this.ui = ui;
         this.storage = storage;
         this.tasks = tasklist;
     }
+
+    /**
+     * Makes sense of file data and creates tasks accordingly.
+     *
+     * @param input the String line in the file
+     * @return the corresponding task
+     * @throws DukeException the duke exception if the file data is incorrect or corrupted
+     */
     public static Task ParseFileInfo(String input) throws DukeException {
         String regex = " : ";
         String[] split = input.split(regex);
@@ -44,6 +63,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Makes sense of user inputs, makes changes to lists and file and outputs messages
+     *
+     * @param userinput the user's input
+     * @throws DukeException the duke exception when the user input is incorrect
+     */
     public void parse(String userinput) throws DukeException {
         if (userinput.equalsIgnoreCase("list")) {
             ui.listlist(tasks.list());

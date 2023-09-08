@@ -5,8 +5,19 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import duke.exceptions.DukeException;
 
+/**
+ * The Deadline class, which is a Task that has a specified due date.
+ */
 public class Deadline extends Task {
     private final LocalDate by;
+
+    /**
+     * Instantiates a new Deadline.
+     *
+     * @param name the description of the Deadline
+     * @param by   the due date
+     * @throws DukeException the duke exception for when the description is empty or the format is not followed
+     */
     public Deadline(String name, String by) throws DukeException {
         super(name);
         if (name.trim().isEmpty()) {
