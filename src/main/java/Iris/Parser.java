@@ -63,6 +63,15 @@ public class Parser {
                 ToDoList.deleteTask(toDoList, index);
                 break;
             }
+            case "find": {
+                ToDoList keywordToDoList = toDoList.getTasksWithKeyword(rest);
+                if (keywordToDoList.size() >= 1) {
+                    Ui.printKeywordTasksMsg(keywordToDoList);
+                } else {
+                    Ui.printNoKeywordTasksFound();
+                }
+                break;
+            }
             default: {
                 throw new IllegalArgumentException("Unknown command.");
             }

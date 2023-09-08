@@ -4,16 +4,16 @@ package iris;
  * An abstract class representing a task in the Iris application.
  */
 public abstract class Task {
-    private String name;
+    private String description;
     private boolean isDone;
 
     /**
      * Constructor for the Task class.
      *
-     * @param name The name of the task.
+     * @param description The name of the task.
      */
-    public Task(String name) {
-        this.name = name;
+    public Task(String description) {
+        this.description = description;
         this.isDone = false;
     }
 
@@ -45,8 +45,8 @@ public abstract class Task {
      *
      * @return The name of the task.
      */
-    public String getName() {
-        return this.name;
+    public String getDescription() {
+        return this.description;
     }
 
     /**
@@ -82,6 +82,10 @@ public abstract class Task {
         return task;
     }
 
+    public boolean ifDescriptionContains(String keyword) {
+        return this.description.contains(keyword);
+    }
+
     /**
      * Overrides the default toString method to provide a custom string representation of the task.
      *
@@ -90,6 +94,6 @@ public abstract class Task {
     @Override
     public String toString() {
         String status = this.isDone ? "X" : " ";
-        return "[" + status + "] " + this.name;
+        return "[" + status + "] " + this.description;
     }
 }

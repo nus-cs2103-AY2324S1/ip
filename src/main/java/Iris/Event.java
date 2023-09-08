@@ -45,7 +45,7 @@ public class Event extends Task {
     public String writeTaskToFile() {
         return String.format("%s | %s | %s | %s-%s", "E",
                 this.isDone() ? 1 : 0,
-                this.getName(),
+                this.getDescription(),
                 this.getStartTime(),
                 this.getEndTime());
     }
