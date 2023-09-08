@@ -50,8 +50,7 @@ public class MainWindow extends AnchorPane {
         assert userInput != null : "UserInput is null";
         assert sendButton != null : "SendButton is null";
 
-        dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(duke.init(), dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(duke.init(), dukeImage));
     }
 
     /**
@@ -63,8 +62,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+            DialogBox.getUserDialog(input, userImage),
+            DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
     }

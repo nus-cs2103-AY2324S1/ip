@@ -30,9 +30,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: "
-                + start.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"))
-                + " to: " + end.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")) + ")";
+        return "[E]" + super.toString() + " (from: " + start.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"))
+            + " to: " + end.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")) + ")";
     }
 
     /**
@@ -43,7 +42,7 @@ public class Event extends Task {
     @Override
     public String toSaveLine() {
         return String.format("E | %d | %s | %s | %s", isDone ? 1 : 0, description,
-                             start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                             end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+            start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+            end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
     }
 }

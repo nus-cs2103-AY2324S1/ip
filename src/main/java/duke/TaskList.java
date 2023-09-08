@@ -185,7 +185,7 @@ public class TaskList {
      */
     public Event addEvent(String description, String from, String to) {
         Event event = new Event(description, LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                                LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+            LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
         this.tasks.add(event);
         return event;
     }
@@ -199,8 +199,8 @@ public class TaskList {
      * @return The created Deadline task.
      */
     public Deadline addDeadline(String description, String by) {
-        Deadline deadline = new Deadline(description, LocalDateTime.parse(by, DateTimeFormatter.ofPattern(
-                "yyyy-MM-dd HH:mm")));
+        Deadline deadline =
+            new Deadline(description, LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
         this.tasks.add(deadline);
         return deadline;
     }
