@@ -52,7 +52,7 @@ public class Storage {
      * @return Returns false if it is unable to load and the user does not want to be able to save the task list.
      *     True if otherwise.
      */
-    public static boolean load(ListOfTask taskList, int startLine) {
+    public static String load(ListOfTask taskList, int startLine, String errorCarryForward) {
         File saveData = new File("./src/data/duke.txt");
         String error = null;
         try {
@@ -76,28 +76,11 @@ public class Storage {
             }
             readData.close();
         } catch (DukeException e) {
-            System.out.println("line " + startLine + " corrupted: " + error);
             startLine++;
-            load(taskList, startLine);
+            load(taskList, startLine, errorCarryForward + "line " + startLine + " corrupted: " + error + "\n");
         } catch (IOException f) {
-            if (clarify() == 0) {
-                return false;
-            }
+                return "You do not have access to create a save file";
         }
-        return true;
-    }
-
-    private static int clarify() {
-        System.out.println("You do not have access to create a save file");
-        System.out.println("Do you wish to continue? (yes/no) None of your data will be saved.");
-        Scanner scan = new Scanner(System.in);
-        String respond = scan.nextLine();
-        if (respond.equals("yes")) {
-            return 1;
-        } else if (respond.equals("no")) {
-            return 0;
-        } else {
-            return clarify();
-        }
+        return errorCarryForward;
     }
 }

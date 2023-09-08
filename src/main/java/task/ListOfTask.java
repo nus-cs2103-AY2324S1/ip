@@ -22,12 +22,13 @@ public class ListOfTask {
     }
 
 
-    private void addTask(Task task, boolean print) {
+    private String addTask(Task task, boolean print) {
         listOfTask.add(task);
         if (print) {
-            System.out.println("added: " + task);
             Storage.save(listOfTask);
+            return "added: " + task;
         }
+        return null;
     }
 
     /**
@@ -36,9 +37,9 @@ public class ListOfTask {
      * @param task The task that is to be added.
      * @param print True to print messages, false to not print messages.
      */
-    public void addToDo(String task, boolean print) {
+    public String addToDo(String task, boolean print) {
         Task temp = new ToDo(task);
-        addTask(temp, print);
+        return addTask(temp, print);
     }
 
     /**
@@ -48,9 +49,9 @@ public class ListOfTask {
      * @param dayDate The deadline of the task.
      * @param print True to print messages, false to not print messages.
      */
-    public void addDeadline(String task, LocalDateTime dayDate, boolean print) {
+    public String addDeadline(String task, LocalDateTime dayDate, boolean print) {
         Task temp = new Deadline(task, dayDate);
-        addTask(temp, print);
+        return addTask(temp, print);
     }
 
     /**
@@ -61,23 +62,31 @@ public class ListOfTask {
      * @param endDayDateTime The date and time of the end of the task.
      * @param print True to print messages, false to not print messages.
      */
-    public void addEvent(String task, LocalDateTime startDayDateTime,
+    public String addEvent(String task, LocalDateTime startDayDateTime,
                         LocalDateTime endDayDateTime, boolean print) {
         Task temp = new Event(task, startDayDateTime, endDayDateTime);
-        addTask(temp, print);
+        return addTask(temp, print);
     }
 
     /**
      * Prints out the list of task.
      */
-    public void listTasks() {
+    public String listTasks() {
+        String[] list = new String[1];
         int[] i = new int[1];
         i[0] = 1;
         listOfTask.forEach(x -> {
-            System.out.print(i[0] + ".");
-            System.out.println(x);
+            if (list[0] == null) {
+                list[0] = i[0] + "." + x + "\n";
+            } else {
+                list[0] += i[0] + "." + x + "\n";
+            }
             i[0]++;
         });
+        if (list[0] == null) {
+            return "There is nothing in the list";
+        }
+        return list[0];
     }
 
 
@@ -86,7 +95,8 @@ public class ListOfTask {
      *
      * @param str The string that will be searched.
      */
-    public void find(String str) {
+    public String find(String str) {
+        String[] list = new String[1];
         int[] foundCounter = new int[1];
         foundCounter[0] = 0;
         int size = listOfTask.size();
@@ -94,14 +104,19 @@ public class ListOfTask {
         counter[0] = 1;
         listOfTask.forEach(task -> {
             if (task.getTaskDescription().contains(str)) {
-                System.out.println(counter[0] + "." + task);
+                if (list[0] == null) {
+                    list[0] = counter[0] + "." + task + "\n";
+                } else {
+                    list[0] += counter[0] + "." + task + "\n";
+                }
                 foundCounter[0]++;
             }
             counter[0]++;
         });
         if (foundCounter[0] == 0) {
-            System.out.println("Whoopys uWu, sorry I couldnyt fynd any taysk that contyain that strying. XD uWu");
+            return "Whoopys uWu, sorry I couldnyt fynd any taysk that contyain that strying. XD uWu\n";
         }
+        return list[0];
     }
 
     /**
@@ -112,7 +127,7 @@ public class ListOfTask {
      * @param print True to print messages, false to not print messages.
      * @throws DukeException If the number is outside the range of indexes in the list.
      */
-    public void markOrUnmark(int index, boolean markOrUnmark, boolean print) throws DukeException {
+    public String markOrUnmark(int index, boolean markOrUnmark, boolean print) throws DukeException {
         try {
             if (markOrUnmark) {
                 listOfTask.get(index - 1).setDone();
@@ -120,9 +135,10 @@ public class ListOfTask {
                 listOfTask.get(index - 1).setNotDone();
             }
             if (print) {
-                System.out.println(listOfTask.get(index - 1).toString());
                 Storage.save(listOfTask);
+                return listOfTask.get(index - 1).toString();
             }
+            return null;
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Please select from index 1 to " + listOfTask.size());
         }
@@ -136,13 +152,14 @@ public class ListOfTask {
      * @param print True to print messages, false to not print messages.
      * @throws DukeException If the number is outside the range of indexes in the list.
      */
-    public void delete(int index, boolean print) throws DukeException {
+    public String delete(int index, boolean print) throws DukeException {
         try {
             Task removed = listOfTask.remove(index - 1);
             if (print) {
-                System.out.println(removed + " has been deleted");
+                Storage.save(listOfTask);
+                return removed + " has been deleted";
             }
-            Storage.save(listOfTask);
+            return null;
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Please select from index 1 to " + listOfTask.size());
         }

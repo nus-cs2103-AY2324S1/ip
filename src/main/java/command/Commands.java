@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import dukeExceptions.DukeException;
 import task.ListOfTask;
+import ui.Ui;
 
 /**
  * This class uses its state to execute commands.
@@ -123,7 +124,7 @@ public class Commands {
      * @return Returns 0 if the 'bye' command is executed, returns 1 if any other command is successfully executed.
      * @throws DukeException The exception thrown when encountering any problems in executing.
      */
-    public int execute(ListOfTask taskList) throws DukeException {
+    public String execute(ListOfTask taskList) throws DukeException {
         return execute(taskList, 0, null);
     }
 
@@ -136,62 +137,56 @@ public class Commands {
      * @return Returns 0 if the 'bye' command is executed, returns 1 if any other command is successfully executed.
      * @throws DukeException The exception thrown when encountering any problems in executing.
      */
-    public int execute(ListOfTask taskList, int lineNumber, String error) throws DukeException {
+    public String execute(ListOfTask taskList, int lineNumber, String error) throws DukeException {
         boolean load = true;
         if (lineNumber == 0 && error == null) {
             load = false;
         }
         switch (this.primaryCommand) {
         case BYE:
-            return 0;
+            return Ui.exit();
 
         case LIST:
-            taskList.listTasks();
-            break;
+            return taskList.listTasks();
 
         case TODO:
             if (!load) {
-                taskList.addToDo(this.taskDescription, true);
+                return taskList.addToDo(this.taskDescription, true);
             } else {
-                taskList.addToDo(this.taskDescription, false);
+                return taskList.addToDo(this.taskDescription, false);
             }
-            break;
 
         case FIND:
-            taskList.find(this.taskDescription);
-            break;
+            return taskList.find(this.taskDescription);
 
-        case SORT:
-            break;
+        //case SORT:
+        //    break;
 
         case MARK:
             if (!load) {
-                taskList.markOrUnmark(this.index, true, true);
+                return taskList.markOrUnmark(this.index, true, true);
             } else {
-                taskList.markOrUnmark(this.index, true, false);
+                return taskList.markOrUnmark(this.index, true, false);
             }
-            break;
 
         case UNMARK:
             if (!load) {
-                taskList.markOrUnmark(this.index, false, true);
+                return taskList.markOrUnmark(this.index, false, true);
             } else {
-                taskList.markOrUnmark(this.index, false, false);
+                return taskList.markOrUnmark(this.index, false, false);
             }
-            break;
 
         case DELETE:
             if (!load) {
-                taskList.delete(this.index, true);
+                return taskList.delete(this.index, true);
             } else {
-                taskList.delete(this.index, false);
+                return taskList.delete(this.index, false);
             }
-            break;
 
         default:
 
         }
-        return 1;
+        return null;
     }
 
     /**
@@ -253,7 +248,7 @@ public class Commands {
          * @inheritDoc
          */
         @Override
-        public int execute(ListOfTask taskList, int lineNumber, String error) throws DukeException {
+        public String execute(ListOfTask taskList, int lineNumber, String error) throws DukeException {
             boolean load = true;
             if (lineNumber == 0 && error == null) {
                 load = false;
@@ -262,16 +257,15 @@ public class Commands {
 
             case DEADLINE:
                 if (!load) {
-                    taskList.addDeadline(super.taskDescription, this.secondaryCommand.dateTime, true);
+                    return taskList.addDeadline(super.taskDescription, this.secondaryCommand.dateTime, true);
                 } else {
-                    taskList.addDeadline(super.taskDescription, this.secondaryCommand.dateTime, false);
+                    return taskList.addDeadline(super.taskDescription, this.secondaryCommand.dateTime, false);
                 }
-                break;
 
             default:
 
             }
-            return 1;
+            return null;
         }
 
         /**
@@ -321,7 +315,7 @@ public class Commands {
          * @inheritDoc
          */
         @Override
-        public int execute(ListOfTask taskList, int lineNumber, String error) throws DukeException {
+        public String execute(ListOfTask taskList, int lineNumber, String error) throws DukeException {
             boolean load = true;
             if (lineNumber == 0 && error == null) {
                 load = false;
@@ -330,18 +324,17 @@ public class Commands {
 
             case EVENT:
                 if (!load) {
-                    taskList.addEvent(super.taskDescription, this.phaseTwo.dateTime,
+                    return taskList.addEvent(super.taskDescription, this.phaseTwo.dateTime,
                             this.phaseThree.dateTime, true);
                 } else {
-                    taskList.addEvent(super.taskDescription, this.phaseTwo.dateTime,
+                    return taskList.addEvent(super.taskDescription, this.phaseTwo.dateTime,
                             this.phaseThree.dateTime, false);
                 }
-                break;
 
             default:
 
             }
-            return 1;
+            return null;
         }
 
         /**

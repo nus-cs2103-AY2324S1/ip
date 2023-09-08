@@ -46,8 +46,7 @@ public class CommandsTest {
             System.setOut(new PrintStream(outContent));
             try {
                 Commands c = cm.parse();
-                c.execute(new task.ListOfTask());
-                assertEquals(cmd3 + cmd2 + "\r\n", outContent.toString());
+                assertEquals(cmd3 + cmd2, c.execute(new task.ListOfTask()));
             } catch (DukeException e) {
                 assertEquals("Please add the task name\r\n", e.getMessage() + "\r\n");
             }
@@ -69,8 +68,7 @@ public class CommandsTest {
             System.setOut(new PrintStream(outContent));
             try {
                 Commands c = cm.parse();
-                c.execute(new task.ListOfTask());
-                assertEquals(cmd3 + cmd2 + cmd4 + "\r\n", outContent.toString());
+                assertEquals(cmd3 + cmd2 + cmd4, c.execute(new task.ListOfTask()));
             } catch (DukeDateTimeParseException e) {
                 assertEquals("The format for dates&time is 'dd-MM-yyyy hhmm'", e.getMessage());
             } catch (DukeNullPointerException e) {
@@ -109,8 +107,7 @@ public class CommandsTest {
             System.setOut(new PrintStream(outContent));
             try {
                 Commands c = cm.parse();
-                c.execute(new task.ListOfTask());
-                assertEquals(cmd3 + cmd2 + cmd4 + "\r\n", outContent.toString());
+                assertEquals(cmd3 + cmd2 + cmd4, c.execute(new task.ListOfTask()));
             } catch (DukeFromEarlierThanToException e) {
                 assertEquals("From must be earlier than To", e.getMessage());
             } catch (DukeDateTimeParseException e) {
@@ -148,8 +145,8 @@ public class CommandsTest {
             try {
                 final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
                 System.setOut(new PrintStream(outContent));
-                taskList.markOrUnmark(indexes[i] + 1, true, true);
-                assertEquals(cmdi[i] + "\r\n", outContent.toString());
+                String str = taskList.markOrUnmark(indexes[i] + 1, true, true);
+                assertEquals(cmdi[i], str);
             } catch (DukeNumberFormatException e) {
                 assertEquals("Place a number after the command", e.getMessage());
             } catch (DukeException e) {
@@ -194,8 +191,8 @@ public class CommandsTest {
             try {
                 final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
                 System.setOut(new PrintStream(outContent));
-                taskList.markOrUnmark(indexes[i] + 1, false, true);
-                assertEquals(cmdi[i] + "\r\n", outContent.toString());
+                String str = taskList.markOrUnmark(indexes[i] + 1, false, true);
+                assertEquals(cmdi[i], str);
             } catch (DukeNumberFormatException e) {
                 assertEquals("Place a number after the command", e.getMessage());
             } catch (DukeException e) {
@@ -238,8 +235,7 @@ public class CommandsTest {
             try {
                 final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
                 System.setOut(new PrintStream(outContent));
-                taskList.delete(1, true);
-                assertEquals(cmdi[i] + "\r\n", outContent.toString());
+                assertEquals(cmdi[i], taskList.delete(1, true));
             } catch (DukeNumberFormatException e) {
                 assertEquals("Place a number after the command", e.getMessage());
             } catch (DukeException e) {
@@ -263,9 +259,9 @@ public class CommandsTest {
         String[] cmd = {"todo CS2103T A-JUnit",
             "deadline CS2103T A-JUnit /by 18-09-2023 0000",
             "event CS2103T A-JUnit /from 18-09-2023 0000 /to 18-09-2024 0000"};
-        String cmdi = "1.[T][ ] CS2103T A-JUnit\r\n"
-            + "2.[D][ ] CS2103T A-JUnit (by: 18-09-2023 0000)\r\n"
-            + "3.[E][ ] CS2103T A-JUnit (from: 18-09-2023 0000 to: 18-09-2024 0000)\r\n";
+        String cmdi = "1.[T][ ] CS2103T A-JUnit\n"
+            + "2.[D][ ] CS2103T A-JUnit (by: 18-09-2023 0000)\n"
+            + "3.[E][ ] CS2103T A-JUnit (from: 18-09-2023 0000 to: 18-09-2024 0000)\n";
         ListOfTask taskList = new ListOfTask();
         for (String str : cmd) {
             Parser cm = new Parser(str);
@@ -283,8 +279,7 @@ public class CommandsTest {
             Parser p = new Parser(str);
             try {
                 Commands c = p.parse();
-                c.execute(taskList);
-                assertEquals(cmdi, outContent.toString());
+                assertEquals(cmdi, c.execute(taskList));
             } catch (DukeException e) {
                 assertEquals("Unknown command", e.getMessage());
             }
@@ -296,10 +291,10 @@ public class CommandsTest {
         String[] cmd = {"todo CS2103T A-JUnit",
             "deadline CS2103T B-JUnit /by 18-09-2023 0000",
             "event CS2103T C-JUnit /from 18-09-2023 0000 /to 18-09-2024 0000"};
-        String[] cmdi = {"3.[E][ ] CS2103T C-JUnit (from: 18-09-2023 0000 to: 18-09-2024 0000)\r\n",
-            "2.[D][ ] CS2103T B-JUnit (by: 18-09-2023 0000)\r\n",
-            "1.[T][ ] CS2103T A-JUnit\r\n",
-            "Whoopys uWu, sorry I couldnyt fynd any taysk that contyain that strying. XD uWu\r\n"};
+        String[] cmdi = {"3.[E][ ] CS2103T C-JUnit (from: 18-09-2023 0000 to: 18-09-2024 0000)\n",
+            "2.[D][ ] CS2103T B-JUnit (by: 18-09-2023 0000)\n",
+            "1.[T][ ] CS2103T A-JUnit\n",
+            "Whoopys uWu, sorry I couldnyt fynd any taysk that contyain that strying. XD uWu\n"};
         ListOfTask taskList = new ListOfTask();
         for (String str : cmd) {
             Parser cm = new Parser(str);
@@ -318,8 +313,7 @@ public class CommandsTest {
                 System.setOut(new PrintStream(outContent));
                 Parser p = new Parser(cmdj[i]);
                 Commands c = p.parse();
-                c.execute(taskList);
-                assertEquals(cmdi[i - 3], outContent.toString());
+                assertEquals(cmdi[i - 3], c.execute(taskList));
             } catch (DukeUnknownCommandException e) {
                 assertEquals("Unknown command", e.getMessage());
             } catch (DukeException e) {

@@ -26,15 +26,15 @@ public class Ui {
     /**
      * Prints the greeting of the program.
      */
-    public void greet() {
-        System.out.println("Hello. I am Luxion. \n"
-                + "What can I do for you?");
+    public static String greet() {
+        return "Hello. I am Luxion. \n"
+                + "What can I do for you?";
     }
 
     /**
      * Prints the exit of the program.
      */
-    public void exit() {
-        System.out.println("Bye. See you soon.");
+    public static String exit() {
+        return "Bye. See you soon.";
     }
 }

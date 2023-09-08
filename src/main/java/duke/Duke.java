@@ -20,6 +20,7 @@ public class Duke {
     public static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
     private static ListOfTask taskList = new ListOfTask();
     private static Ui ui = new Ui();
+    private static boolean isExit = false;
 
     /**
      * This starts the Duke chatbot.
@@ -30,31 +31,18 @@ public class Duke {
         greet();
     }
 
-    private static void greet() {
-        if (!Storage.load(taskList, 1)) {
-            return;
-        }
-        ui.greet();
-        nextCommand(ui.nextInput());
+    public static String greet() {
+        String str = Storage.load(taskList, 1, null);
+        return ui.greet() + ((str == null) ? "" : str);
     }
 
-    private static void nextCommand(String command) {
+    public static String nextCommand(String command) {
         try {
             Parser cmd = new Parser(command);
             Commands action = cmd.parse();
-            if (action.execute(taskList) == 1) {
-                nextCommand(ui.nextInput());
-            } else {
-                ui.exit();
-            }
+            return action.execute(taskList);
         } catch (DukeException e) {
-            System.out.println(e.getMessage());
-            nextCommand(ui.nextInput());
+            return e.getMessage();
         }
     }
-
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
-    }
-
 }
