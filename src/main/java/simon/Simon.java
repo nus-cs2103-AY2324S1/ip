@@ -1,6 +1,7 @@
 package simon;
 
 import java.util.Scanner;
+
 import simon.command.Parser;
 import simon.task.Task;
 

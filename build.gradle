@@ -45,7 +45,7 @@ test {
 
 application {
 //    mainClassName = 'simon.Simon.Main'
-    mainClass.set("simon.Simon")
+    mainClass.set("simon.Launcher")
 }
 
 checkstyle {
