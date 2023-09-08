@@ -3,7 +3,6 @@ package command;
 import duke.DiskManager;
 import duke.DukeException;
 import duke.TaskManager;
-import gui.MainWindow;
 
 /**
  * Represents a command that can be executed, performing specific tasks when doing so.

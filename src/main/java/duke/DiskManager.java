@@ -107,7 +107,11 @@ public class DiskManager {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             StringBuilder jsonData = new StringBuilder();
             String line;
-            while ((line = reader.readLine()) != null) {
+            while (true) {
+                line = reader.readLine();
+                if (line == null) {
+                    break;
+                }
                 jsonData.append(line);
             }
             String json = jsonData.toString();
