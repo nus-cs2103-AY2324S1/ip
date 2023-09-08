@@ -1,0 +1,49 @@
+Hello! I'm the trash gremlin Caelus!
+What can I do for you?
+ERROR: Sorry, I dunno what you're saying. Must be the trash getting to my brain.
+Here are the tasks in your list:
+1. [T][ ] taskone
+2. [D][ ] tasktwo (by: Nov 11 2023)
+I've removed this task:
+[T][ ] taskone
+Now you have 1 task(s) in the list.
+I've removed this task:
+[D][ ] tasktwo (by: Nov 11 2023)
+Now you have 0 task(s) in the list.
+Added:
+[T][ ] taskone
+Now you have 1 task(s) in the list.
+Here are the tasks in your list:
+1. [T][ ] taskone
+I'll mark this as done:
+[T][X] taskone
+Here are the tasks in your list:
+1. [T][X] taskone
+I'll mark this as not done:
+[T][ ] taskone
+Here are the tasks in your list:
+1. [T][ ] taskone
+Added:
+[D][ ] tasktwo (by: Nov 11 2023)
+Now you have 2 task(s) in the list.
+Here are the tasks in your list:
+1. [T][ ] taskone
+2. [D][ ] tasktwo (by: Nov 11 2023)
+Added:
+[E][ ] taskthree (from: Aug 25 2023 to: Aug 26 2023)
+Now you have 3 task(s) in the list.
+ERROR: Event end time can't be before event start time!
+ERROR: One or more dates are invalid.
+Here are the tasks in your list:
+1. [T][ ] taskone
+2. [D][ ] tasktwo (by: Nov 11 2023)
+3. [E][ ] taskthree (from: Aug 25 2023 to: Aug 26 2023)
+I'll mark this as done:
+[E][X] taskthree (from: Aug 25 2023 to: Aug 26 2023)
+I've removed this task:
+[E][X] taskthree (from: Aug 25 2023 to: Aug 26 2023)
+Now you have 2 task(s) in the list.
+Here are the tasks in your list:
+1. [T][ ] taskone
+2. [D][ ] tasktwo (by: Nov 11 2023)
+Bye. I'll be at the nearest trash can!
