@@ -19,13 +19,15 @@ public class Ui {
      *
      * @param markNo index of the task in the list to be marked
      */
-    public static void markTask(TaskList list, int markNo) {
+    public static String markTask(TaskList list, int markNo) {
         if (markNo > 0 && markNo <= list.size()) {
             System.out.println("Nice! I've marked this task as done:");
             list.get(markNo - 1).markAsDone();
             System.out.println(list.get(markNo - 1).toString());
+            return "Nice! I've marked this task as done:\n" + list.get(markNo - 1).toString();
         } else {
             System.out.println("Sorry, there is no such task!");
+            return "Sorry, there is no such task!";
         }
     }
 
@@ -34,11 +36,15 @@ public class Ui {
      *
      * @param deleteNo index of the task in the list to be deleted
      */
-    public static void deleteTask(TaskList list, int deleteNo) {
+    public static String deleteTask(TaskList list, int deleteNo) {
+        String response = "Noted. I've removed this task:\n";
         System.out.println("Noted. I've removed this task:");
         System.out.println(list.get(deleteNo - 1).toString());
+        response += list.get(deleteNo - 1).toString() + "\n";
         list.remove(deleteNo - 1);
+        response += "Now you have " + String.valueOf(list.size()) + " tasks in the list.";
         System.out.println("Now you have " + String.valueOf(list.size()) + " tasks in the list.");
+        return response;
     }
 
     /**
@@ -47,8 +53,9 @@ public class Ui {
      * @param list the list containing all tasks
      * @param keyword the keyword used to filter tasks
      */
-    public static void findTask(TaskList list, String keyword) {
+    public static String findTask(TaskList list, String keyword) {
         ArrayList<Task> matches = new ArrayList<Task>();
+        String response;
 
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).toString().contains(keyword)) {
@@ -57,9 +64,12 @@ public class Ui {
         }
 
         System.out.println("Here are the matching tasks in your list:");
+        response = "Here are the matching tasks in your list:\n";
         for (int i = 1; i <= matches.size(); i++) {
             System.out.println(i + ". " + list.get(i - 1).toString());
+            response += i + ". " + list.get(i - 1).toString() + "\n";
         }
+        return response;
     }
 
     /**
@@ -67,11 +77,17 @@ public class Ui {
      *
      * @param newTask the new Task object that is to be added into the list
      */
-    public static void addTask(TaskList list, Task newTask) {
+    public static String addTask(TaskList list, Task newTask) {
+        String response;
         list.add(newTask);
         System.out.println("Got it. I've added this task:");
+        response = "Got it. I've added this task:\n";
         System.out.println(newTask.toString());
+        response += newTask.toString() + "\n";
         System.out.println("Now you have " + String.valueOf(list.size()) + " tasks in the list.");
+        response += "Now you have " + String.valueOf(list.size()) + " tasks in the list.";
+
+        return response;
     }
 
     /**
@@ -81,7 +97,7 @@ public class Ui {
      * @param task the input string given
      * @throws BobException
      */
-    public static void checkAndAddTask(TaskList list, String task) throws BobException {
+    public static String checkAndAddTask(TaskList list, String task) throws BobException {
         char[] charArray = task.toCharArray();
         String taskName = "";
 
@@ -95,10 +111,10 @@ public class Ui {
                 throw new BobException("OOPS!!! The description of a todo cannot be empty.");
             } else {
                 Todo thisTask = new Todo(taskName);
-                addTask(list, thisTask);
+                return addTask(list, thisTask);
             }
 
-            return;
+            //return "";
         }
 
         //deadline
@@ -126,10 +142,10 @@ public class Ui {
             } else {
                 LocalDate d1 = LocalDate.parse(by);
                 Deadline thisTask = new Deadline(taskName, d1);
-                addTask(list, thisTask);
+                return addTask(list, thisTask);
             }
 
-            return;
+            //return "";
         }
 
         //event
@@ -164,24 +180,29 @@ public class Ui {
                 LocalDate d1 = LocalDate.parse(from);
                 LocalDate d2 = LocalDate.parse(to);
                 Event thisTask = new Event(taskName, d1, d2);
-                addTask(list, thisTask);
+                return addTask(list, thisTask);
             }
 
-            return;
+            //return "";
         }
 
         //not a task
         throw new BobException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        //return "OOPS!!! I'm sorry, but I don't know what that means :-(";
     }
 
     /**
      * Prints all the tasks in the list.
      */
-    public static void printTasks(TaskList list) {
+    public static String printTasks(TaskList list) {
+        String response;
         System.out.println("Here are the tasks in your list:");
+        response = "Here are the tasks in your list:\n";
         for (int i = 1; i <= list.size(); i++) {
             System.out.println(i + ". " + list.get(i - 1).toString());
+            response += i + ". " + list.get(i - 1).toString() + "\n";
         }
+        return response;
     }
 
     /**
@@ -202,7 +223,8 @@ public class Ui {
     /**
      * Prints goodbye message when user says bye
      */
-    public void printGoodbye() {
+    public String printGoodbye() {
         System.out.println("Bye. Hope to see you again soon!");
+        return "Bye. Hope to see you again soon!";
     }
 }
