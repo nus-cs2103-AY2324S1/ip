@@ -4,7 +4,6 @@ import duke.task.Event;
 import duke.task.Deadline;
 import duke.task.Task;
 import duke.task.ToDo;
-import duke.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,16 +13,16 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * The duke.Storage class handles the loading and saving of tasks to a specified file.
+ * The Storage class handles the loading and saving of tasks to a specified file.
  */
 public class Storage {
     private String filePath;
     private String folderPath;
 
     /**
-     * Constructs a new duke.Storage instance with the file path for data storage.
+     * Constructs a new Storage instance with the file path for data storage.
      *
-     * @param filePath The file path to load and save duke.task data.
+     * @param filePath The file path to load and save task data.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -41,11 +40,11 @@ public class Storage {
         List<Task> tasks = new ArrayList<>();
         try {
             File resourceFile = new File(filePath);
-            Scanner myReader = new Scanner(resourceFile);
+            Scanner fileReader = new Scanner(resourceFile);
             int count = -1;
-            while (myReader.hasNextLine()) {
+            while (fileReader.hasNextLine()) {
                 count += 1;
-                String data = myReader.nextLine();
+                String data = fileReader.nextLine();
                 String[] parts = data.split(" \\| ");
                 String taskType = parts[0].substring(1, 2);
                 String description = parts[2];
@@ -72,7 +71,7 @@ public class Storage {
                     }
                 }
             }
-            myReader.close();
+            fileReader.close();
             return tasks;
         } catch (FileNotFoundException e) {
             createDataFolderIfNeeded(folderPath);

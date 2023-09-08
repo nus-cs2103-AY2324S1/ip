@@ -5,14 +5,14 @@ import duke.task.Task;
 import java.util.List;
 
 /**
- * The duke.TaskList class represents a collection of tasks.
+ * The TaskList class represents a collection of tasks.
  * It provides methods for adding, deleting, and accessing tasks within the list.
  */
 public class TaskList {
     private List<Task> tasks;
 
     /**
-     * Constructs a new duke.TaskList with a given list of tasks.
+     * Constructs a new TaskList with a given list of tasks.
      *
      * @param tasks The initial list of tasks.
      */
@@ -22,18 +22,18 @@ public class TaskList {
 
 
     /**
-     * Adds a duke.task to the duke.TaskList.
+     * Adds a task to the duke.TaskList.
      *
-     * @param task The duke.task to be added.
+     * @param task The task to be added.
      */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
     /**
-     * Deletes a duke.task from the duke.TaskList based on its index.
+     * Deletes a task from the TaskList based on its index.
      *
-     * @param taskIndex The index of the duke.task to be deleted.
+     * @param taskIndex The index of the task to be deleted.
      */
     public void deleteTask(int taskIndex) {
         tasks.remove(taskIndex);
@@ -49,10 +49,10 @@ public class TaskList {
     }
 
     /**
-     * Retrieves a specific duke.task from the duke.TaskList based on its index.
+     * Retrieves a specific task from the duke.TaskList based on its index.
      *
-     * @param taskIndex The index of the duke.task to retrieve.
-     * @return The duke.task at the specified index.
+     * @param taskIndex The index of the task to retrieve.
+     * @return The task at the specified index.
      */
     public Task getTaskItem(int taskIndex) {
         return tasks.get(taskIndex);

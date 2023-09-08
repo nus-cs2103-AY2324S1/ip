@@ -17,7 +17,7 @@ public class Duke {
     /**
      * Constructs a new Duke chatbot instance with a specified file path for data storage.
      *
-     * @param filePath The file path to load and save duke.task data.
+     * @param filePath The file path to load and save task data.
      */
     public Duke(String filePath) {
         ui = new Ui();
