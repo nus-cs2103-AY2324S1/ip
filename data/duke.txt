@@ -1,5 +1,5 @@
 T | 1 | eat cookies
 T | 0 | bake cookie
 T | 1 | bake more cookies
-E | 0 | cookie baking event | 2023-09-08 18:00 | 2023-09-09 01:00
-D | 0 | cookies marathon | 2023-09-08 17:00
+E | 1 | cookie baking event | 2023-09-08 18:00 | 2023-09-09 01:00
+D | 1 | cookies marathon | 2023-09-08 17:00

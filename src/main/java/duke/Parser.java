@@ -212,18 +212,15 @@ public class Parser {
 
         String afterCommand = inputs[1];
         String[] details = afterCommand.split(" /by ", 2);
-
         if (details.length < 2) {
             throw new InvalidDeadlineException();
         }
 
         String desc = details[0];
         String date = details[1];
-
         if (desc.isBlank()) {
             throw new NoDescException();
         }
-
         try {
             LocalDateTime dateTime = convertToDateTime(date);
             Deadline deadline = new Deadline(0, desc, dateTime);
@@ -240,8 +237,6 @@ public class Parser {
      *
      * @param input user input.
      * @throws NoDescException          if no description provided.
-     * @throws NoStartException         if no start datetime provided.
-     * @throws NoEndException           if no end datetime provided.
      * @throws InvalidStartEndException if start datetime is after end datetime.
      * @throws InvalidEventException    if command is not of the correct format.
      */
@@ -256,31 +251,28 @@ public class Parser {
         }
 
         String afterCommand = inputs[1];
-        String[] details = afterCommand.split(" /from ", 2);
-
+        String[] details = afterCommand.split("/from", 2);
         if (details[0].isBlank()) {
             throw new NoDescException();
         }
         if (details.length == 1) {
-            throw new InvalidEventException();
+            throw new InvalidEventException();//can either be no desc or no start
         }
 
-        String task = details[0];
-        String start = details[1].split(" /to ", 2)[0];
-
+        String task = details[0].trim();
+        String[] dateDetails = details[1].split("/to");
+        String start = dateDetails[0].trim();
         if (start.isBlank()) {
             throw new NoStartException();
         }
-        String[] endDetails = afterCommand.split(" /to ", 2);
-        if (endDetails.length == 1) { //no end date added
+        if (dateDetails.length == 1) {
             throw new NoEndException();
         }
-
-        String end = endDetails[1];
-
+        String end = dateDetails[1].trim();
         if (end.isBlank()) {
             throw new NoEndException();
         }
+
         try {
             LocalDateTime startDateTime = convertToDateTime(start);
             LocalDateTime endDateTime = convertToDateTime(end);
@@ -290,7 +282,6 @@ public class Parser {
             ui.showInvalidDateFormat();
         }
     }
-
 
     /**
      * Handles the finding of tasks that match the specified keyword.

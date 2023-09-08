@@ -81,45 +81,39 @@ public class Storage {
 
         try {
             Scanner sc = new Scanner(dataFile);
-
             while (sc.hasNextLine()) {
                 String task = sc.nextLine();
+                if (task.isBlank()) {
+                    break;
+                }
+                // | is a special symbol
+                String[] taskDetails = task.split(" " + "\\|" + " ");
+                String type = taskDetails[0];
+                int status = Integer.parseInt(taskDetails[1]);
+                String desc = taskDetails[2];
 
-                if (!task.isBlank()) {
-                    // | is a special symbol
-                    String[] taskDetails = task.split(" " + "\\|" + " ");
-                    String type = taskDetails[0];
-                    int status = Integer.parseInt(taskDetails[1]);
-                    String desc = taskDetails[2];
+                switch (type) {
+                case "T":
+                    ToDo toDo = new ToDo(status, desc);
+                    list.add(toDo);
+                    break;
 
-                    switch (type) {
-                    case "T":
-                        ToDo toDo = new ToDo(status, desc);
-                        list.add(toDo);
-                        break;
+                case "D":
+                    LocalDateTime date = convertToDateTime(taskDetails[3]);
+                    Deadline deadline = new Deadline(status, desc, date);
+                    list.add(deadline);
+                    break;
 
-                    case "D":
-                        LocalDateTime date = convertToDateTime(taskDetails[3]);
-                        Deadline deadline = new Deadline(status, desc, date);
-                        list.add(deadline);
-                        break;
-
-                    case "E":
-                        LocalDateTime start = convertToDateTime(taskDetails[3]);
-                        LocalDateTime end = convertToDateTime(taskDetails[4]);
-
-                        try {
-                            Event event = new Event(status, desc, start, end);
-                            list.add(event);
-                        } catch (InvalidStartEndException e) {
-                            ui.showError(e.getMessage());
-                        }
-                        break;
-                    }
+                case "E":
+                    LocalDateTime start = convertToDateTime(taskDetails[3]);
+                    LocalDateTime end = convertToDateTime(taskDetails[4]);
+                    Event event = new Event(status, desc, start, end);
+                    list.add(event);
+                    break;
                 }
             }
             sc.close();
-        } catch (IOException e) {
+        } catch (IOException | InvalidStartEndException e) {
             ui.showError(e.getMessage());
         }
         return list;
@@ -150,7 +144,6 @@ public class Storage {
                 writer.newLine();
                 writer.flush();
             }
-
             writer.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());

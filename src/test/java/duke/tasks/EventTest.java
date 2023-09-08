@@ -19,7 +19,7 @@ public class EventTest {
         LocalDateTime start = end.plusHours(9);
         InvalidStartEndException ex = assertThrows(InvalidStartEndException.class,
                 () -> new Event(0, "bake cookies", start, end));
-        assertEquals("(・´з`・) Uh oh...start must be after end!", ex.getMessage());
+        assertEquals("(・´з`・) Uh oh... start must be after end!", ex.getMessage());
     }
 
     @Test
@@ -28,7 +28,7 @@ public class EventTest {
         LocalDateTime start = end.plusMinutes(1);
         InvalidStartEndException ex = assertThrows(InvalidStartEndException.class,
                 () -> new Event(0, "bake cookies", start, end));
-        assertEquals("(・´з`・) Uh oh...start must be after end!", ex.getMessage());
+        assertEquals("(・´з`・) Uh oh... start must be after end!", ex.getMessage());
     }
 
     @Test
