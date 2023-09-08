@@ -1,4 +1,4 @@
-package joe;
+package joe.ui;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -9,19 +9,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
- * containing text from the speaker.
+ * Represents the dialog box in the Ui using FXML.
  */
 public class DialogBox extends HBox {
     @FXML
-    private Label dialog;
+    private Text dialog;
     @FXML
     private ImageView displayPicture;
 
@@ -36,7 +36,16 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+
         displayPicture.setImage(img);
+
+        //Round the displayPicture
+        Rectangle clip = new Rectangle(
+                displayPicture.getFitWidth(), displayPicture.getFitHeight()
+        );
+        clip.setArcWidth(50);
+        clip.setArcHeight(50);
+        displayPicture.setClip(clip);
     }
 
     /**
@@ -49,14 +58,28 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates the dialog box for the user.
+     *
+     * @param text The text in the dialog.
+     * @param img The image to be displayed for the user.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.setBackgroundColor("#FFFFFF");
+        db.dialog.setTextAlignment(TextAlignment.RIGHT);
+        db.setBackgroundColor("#DDDDDD");
         return db;
     }
 
+    /**
+     * Creates the dialog box for joe.
+     *
+     * @param text The text in the dialog.
+     * @param img The image to be displayed for joe.
+     */
     public static DialogBox getJoeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
+        db.dialog.setTextAlignment(TextAlignment.LEFT);
         db.flip();
         db.setBackgroundColor("#CCCCCC");
         return db;

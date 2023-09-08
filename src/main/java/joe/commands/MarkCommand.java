@@ -2,7 +2,6 @@ package joe.commands;
 
 import joe.Storage;
 import joe.TaskList;
-import joe.Ui;
 import joe.exceptions.JoeIndexOutOfBoundsException;
 
 /**
@@ -24,19 +23,19 @@ public class MarkCommand extends Command {
      * Executes the command to mark a task as done in the task list.
      *
      * @param tasks   The TaskList on which the command should be executed.
-     * @param ui      The user interface to interact with the user.
      * @param storage The storage for saving and loading tasks.
      * @throws JoeIndexOutOfBoundsException If the provided index is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws JoeIndexOutOfBoundsException {
+    public String execute(TaskList tasks, Storage storage) throws JoeIndexOutOfBoundsException {
         if (idx < 1 || idx > tasks.size()) {
             throw new JoeIndexOutOfBoundsException(idx);
         }
 
         tasks.get(idx - 1).markAsDone();
-        ui.print(String.format("Nice! I've marked this task as done:%n %s", tasks.get(idx - 1)));
 
         storage.saveToFile(tasks);
+
+        return (String.format("Nice! I've marked this task as done:%n %s", tasks.get(idx - 1)));
     }
 }
