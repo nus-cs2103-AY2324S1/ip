@@ -1,5 +1,8 @@
 package urchatbot.tasks;
 
+/**
+ * Represents a Todo task.
+ */
 public class ToDo extends Task {
     /**
      * Construct the Todo class.

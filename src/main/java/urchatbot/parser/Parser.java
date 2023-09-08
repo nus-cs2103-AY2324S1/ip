@@ -1,18 +1,28 @@
 package urchatbot.parser;
 
-import urchatbot.commands.*;
-import urchatbot.exception.URChatBotException;
-import urchatbot.ui.Ui;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-
-public class Parser{
-    Ui ui = new Ui();
+import urchatbot.commands.ClearCommand;
+import urchatbot.commands.Command;
+import urchatbot.commands.DeadlineCommand;
+import urchatbot.commands.DeleteCommand;
+import urchatbot.commands.EventCommand;
+import urchatbot.commands.ExitCommand;
+import urchatbot.commands.FindCommand;
+import urchatbot.commands.ListCommand;
+import urchatbot.commands.MarkCommand;
+import urchatbot.commands.PrintCommand;
+import urchatbot.commands.TodoCommand;
+import urchatbot.commands.UnmarkCommand;
+import urchatbot.exception.URChatBotException;
+/**
+ * Parses input arguments and creates a new AddCommand object
+ */
+public class Parser {
 
     /**
      * Categorises and returns subclass of Command type based on entered command.
@@ -56,14 +66,13 @@ public class Parser{
      *
      * @param time Time in the format of "yyyy-MM-dd HH:mm" or "yyyy-MM-dd" or "HH:mm."
      * @return a String of time in the format of "MMM d yyyy HH:mm" or "MMM d yyyy" or "HH:mm"
-     * @throws URChatBotException If command undefined.
      */
     public static String changeTimeFormat(String time) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime d = LocalDateTime.parse(time, formatter);
             return d.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
-        } catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             try {
                 LocalDate d = LocalDate.parse(time);
                 return d.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));

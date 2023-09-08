@@ -1,15 +1,21 @@
 package urchatbot.storage;
 
-import urchatbot.exception.URChatBotException;
-import urchatbot.taskList.TaskList;
-import urchatbot.tasks.Task;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import urchatbot.exception.URChatBotException;
+import urchatbot.taskList.TaskList;
+import urchatbot.tasks.Task;
+/**
+ * Stores existing tasks into the tasklist.
+ */
 public class Storage {
     private static String filePath;
 
@@ -25,8 +31,8 @@ public class Storage {
     /**
      * Loads the existing tasks from the stored tasklist.
      *
-     * @return tasklist ArrayList<Task> tasklist.
-     * @throws URChatBotException if Error occurs in loading.
+     * @return tasklist An Arraylist of tasklist.
+     * @throws URChatBotException If Error occurs in loading.
      */
     public static ArrayList<Task> load() throws URChatBotException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -39,7 +45,7 @@ public class Storage {
                 line = reader.readLine();
             }
         } catch (IOException e) {
-            throw new URChatBotException( "Error loading tasks from file: " + e.getMessage());
+            throw new URChatBotException("Error loading tasks from file: " + e.getMessage());
         }
         return tasks;
     }

@@ -6,6 +6,9 @@ import urchatbot.taskList.TaskList;
 import urchatbot.tasks.Task;
 import urchatbot.ui.Ui;
 
+/**
+ * Marks a task identified using it's displayed index as undone.
+ */
 public class UnmarkCommand extends Command {
     private int taskNumber;
 

@@ -5,6 +5,9 @@ import urchatbot.storage.Storage;
 import urchatbot.taskList.TaskList;
 import urchatbot.ui.Ui;
 
+/**
+ * Deletes a task identified using it's displayed index from the tasklist.
+ */
 public class DeleteCommand extends Command {
     private int taskNumber;
     /**
@@ -23,7 +26,7 @@ public class DeleteCommand extends Command {
         }
         String deletedTask = tasks.getTasks().get(taskNumber).toString();
         int taskSize = tasks.getSize() - 1;
-        if (taskSize == 1 || taskSize ==0) {
+        if (taskSize == 1 || taskSize == 0) {
             ui.showDeleteMessage(deletedTask, taskSize);
         } else {
             ui.showDeleteMessagePlural(deletedTask, taskSize);

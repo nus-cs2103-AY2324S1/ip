@@ -5,6 +5,9 @@ import urchatbot.storage.Storage;
 import urchatbot.taskList.TaskList;
 import urchatbot.ui.Ui;
 
+/**
+ * The main entry point to the application.
+ */
 public class URChatBot {
 
     private Storage storage;

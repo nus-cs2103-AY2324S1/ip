@@ -4,6 +4,9 @@ import urchatbot.storage.Storage;
 import urchatbot.taskList.TaskList;
 import urchatbot.ui.Ui;
 
+/**
+ * Finds and lists all tasks in tasklist which the date matches the input date.
+ */
 public class PrintCommand extends Command {
     private String formattedDate;
 
@@ -22,7 +25,7 @@ public class PrintCommand extends Command {
         int count = 0;
         for (int i = 0; i < tasks.getTasks().size(); i++) {
             if (tasks.getTasks().get(i).toString().contains(formattedDate)) {
-                count ++;
+                count++;
                 System.out.println(tasks.getTasks().get(i).toString() + "\n");
             }
         }

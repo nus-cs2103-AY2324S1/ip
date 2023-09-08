@@ -4,6 +4,10 @@ import urchatbot.storage.Storage;
 import urchatbot.taskList.TaskList;
 import urchatbot.ui.Ui;
 
+/**
+ * Finds and lists all tasks in tasklist which the description contains any of the argument keywords.
+ * Keyword matching is case insensitive.
+ */
 public class FindCommand extends Command {
     private String searchWord;
 
@@ -23,9 +27,8 @@ public class FindCommand extends Command {
 
         for (int i = 0; i < tasks.getTasks().size(); i++) {
             if (tasks.getTasks().get(i).toString().contains(searchWord)) {
-                    System.out.println(i + 1 + "." + tasks.getTasks().get(i).toString());
-                }
+                System.out.println(i + 1 + "." + tasks.getTasks().get(i).toString());
+            }
         }
     }
 }
-

@@ -6,9 +6,12 @@ import urchatbot.tasks.Event;
 import urchatbot.tasks.Task;
 import urchatbot.ui.Ui;
 
+/**
+ * Adds Event type of task.
+ */
 public class EventCommand extends Command {
-    public String from;
-    public String to;
+    private String from;
+    private String to;
     /**
      * Constructs the EventCommand class.
      *
@@ -21,13 +24,22 @@ public class EventCommand extends Command {
         this.from = from;
         this.to = to;
     }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        Task newTask = new Event(taskDescription, false, from, to);
+        Task newTask = new Event(getTaskDescription(), false, from, to);
         tasks.addTask(newTask);
         Storage.save(tasks);
         int taskSize = tasks.getSize();
-        if (taskSize == 1 || taskSize ==0) {
+        if (taskSize == 1 || taskSize == 0) {
             ui.showEventMessage(newTask.toString(), taskSize);
         } else {
             ui.showEventMessagePlural(newTask.toString(), taskSize);

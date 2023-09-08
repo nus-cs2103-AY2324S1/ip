@@ -1,11 +1,14 @@
 package urchatbot.taskList;
+import java.util.ArrayList;
 
-import urchatbot.exception.URChatBotException;
 import urchatbot.tasks.Task;
 
-import java.util.ArrayList;
+
+/**
+ * Represents a list of tasks input by the user.
+ */
 public class TaskList {
-    public static ArrayList<Task> tasks;
+    private static ArrayList<Task> tasks;
 
     /**
      * Constructs the Tasklist class.

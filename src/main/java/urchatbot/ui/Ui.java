@@ -1,13 +1,32 @@
 package urchatbot.ui;
 
-import urchatbot.exception.URChatBotException;
+import static urchatbot.common.Messages.MESSAGE_ADD;
+import static urchatbot.common.Messages.MESSAGE_CLEAR;
+import static urchatbot.common.Messages.MESSAGE_DELETE;
+import static urchatbot.common.Messages.MESSAGE_FIND;
+import static urchatbot.common.Messages.MESSAGE_GOODBYE;
+import static urchatbot.common.Messages.MESSAGE_LIST;
+import static urchatbot.common.Messages.MESSAGE_LOADING_ERROR;
+import static urchatbot.common.Messages.MESSAGE_MARK;
+import static urchatbot.common.Messages.MESSAGE_MESSAGE_TASK_IN_THE_LIST_PLURAL;
+import static urchatbot.common.Messages.MESSAGE_NOW_YOU_HAVE;
+import static urchatbot.common.Messages.MESSAGE_PRINT;
+import static urchatbot.common.Messages.MESSAGE_PRINT_TWO;
+import static urchatbot.common.Messages.MESSAGE_PRINT_TWO_PLURAL;
+import static urchatbot.common.Messages.MESSAGE_TASK_IN_THE_LIST;
+import static urchatbot.common.Messages.MESSAGE_UNMARK;
+import static urchatbot.common.Messages.MESSAGE_WELCOME;
 
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-import static urchatbot.common.Messages.*;
+import urchatbot.exception.URChatBotException;
 
+
+/**
+ * Deals with interactions with the user
+ */
 public class Ui {
     private final Scanner in;
     private final PrintStream out;
@@ -49,9 +68,9 @@ public class Ui {
         return rawInputLine.trim().isEmpty() || isCommentLine(rawInputLine);
     }
     private boolean isCommentLine(String rawInputLine) {
-        return rawInputLine.toUpperCase().trim().matches("\\b(?: BYE | DELETE | CLEAR |" +
-                " LIST | MARK | UNMARK | FIND" +
-                " TODO | DEADLINE | EVENT | PRINT)\\b");
+        return rawInputLine.toUpperCase().trim().matches("\\b(?: BYE | DELETE | CLEAR |"
+                + " LIST | MARK | UNMARK | FIND"
+                + " TODO | DEADLINE | EVENT | PRINT)\\b");
     }
 
 

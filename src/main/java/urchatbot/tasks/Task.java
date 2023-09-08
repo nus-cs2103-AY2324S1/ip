@@ -1,5 +1,8 @@
 package urchatbot.tasks;
 
+/**
+ * Represents a task with its essential properties.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -29,7 +32,7 @@ public class Task {
     /**
      * Converts the tasks into a format to store.
      */
-    public String toFileString(){
+    public String toFileString() {
         return "";
     };
     /**

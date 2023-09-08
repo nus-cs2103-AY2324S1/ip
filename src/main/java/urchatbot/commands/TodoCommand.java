@@ -6,6 +6,9 @@ import urchatbot.tasks.Task;
 import urchatbot.tasks.ToDo;
 import urchatbot.ui.Ui;
 
+/**
+ * Adds Todo type of task.
+ */
 public class TodoCommand extends Command {
     /**
      * Constructs the TodoCommand class.
@@ -18,7 +21,7 @@ public class TodoCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        Task newTask = new ToDo(taskDescription, false);
+        Task newTask = new ToDo(getTaskDescription(), false);
         tasks.addTask(newTask);
         Storage.save(tasks);
         int taskSize = tasks.getSize();

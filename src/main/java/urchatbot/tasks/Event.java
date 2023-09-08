@@ -1,5 +1,8 @@
 package urchatbot.tasks;
 
+/**
+ * Represents a Event task.
+ */
 public class Event extends Task {
 
     protected String from;

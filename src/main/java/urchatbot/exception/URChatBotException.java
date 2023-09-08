@@ -1,5 +1,8 @@
 package urchatbot.exception;
 
+/**
+ * Represents an error encountered by the program.
+ */
 public class URChatBotException extends Exception {
     /**
      * Constructs the URChatBotException class.

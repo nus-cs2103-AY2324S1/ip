@@ -4,8 +4,11 @@ import urchatbot.storage.Storage;
 import urchatbot.taskList.TaskList;
 import urchatbot.ui.Ui;
 
+/**
+ * Represents a command with hidden internal logic and the ability to be executed.
+ */
 public class Command {
-    public String taskDescription;
+    private String taskDescription;
     /**
      * Constructs the Command class.
      *
@@ -20,8 +23,12 @@ public class Command {
      *
      * @return boolean If it is the exit command.
      */
-    public boolean isExit(){
+    public boolean isExit() {
         return false;
+    }
+
+    public String getTaskDescription() {
+        return this.taskDescription;
     }
 
     /**

@@ -4,6 +4,9 @@ import urchatbot.storage.Storage;
 import urchatbot.taskList.TaskList;
 import urchatbot.ui.Ui;
 
+/**
+ * Clears tasks in tasklist.
+ */
 public class ClearCommand extends Command {
     /**
      * Constructs the ClearCommand class.

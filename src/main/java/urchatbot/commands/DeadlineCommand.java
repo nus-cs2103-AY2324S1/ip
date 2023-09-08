@@ -6,8 +6,11 @@ import urchatbot.tasks.Deadline;
 import urchatbot.tasks.Task;
 import urchatbot.ui.Ui;
 
+/**
+ * Adds Deadline type of task.
+ */
 public class DeadlineCommand extends Command {
-    public String by;
+    private String by;
 
     /**
      * Constructs the DeadlineCommand class.
@@ -19,13 +22,18 @@ public class DeadlineCommand extends Command {
         super(taskDescription);
         this.by = by;
     }
+
+    public String getBy() {
+        return by;
+    }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        Task newTask = new Deadline(taskDescription, false, by);
+        Task newTask = new Deadline(getTaskDescription(), false, by);
         tasks.addTask(newTask);
         Storage.save(tasks);
         int taskSize = tasks.getSize();
-        if (taskSize == 1 || taskSize ==0) {
+        if (taskSize == 1 || taskSize == 0) {
             ui.showDeadlineMessage(newTask.toString(), taskSize);
         } else {
             ui.showDeadlineMessagePlural(newTask.toString(), taskSize);

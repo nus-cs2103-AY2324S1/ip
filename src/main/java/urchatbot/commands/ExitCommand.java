@@ -4,6 +4,9 @@ import urchatbot.storage.Storage;
 import urchatbot.taskList.TaskList;
 import urchatbot.ui.Ui;
 
+/**
+ * Terminates the program.
+ */
 public class ExitCommand extends Command {
     /**
      * Constructs the ExitCommand class.
@@ -15,7 +18,7 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public boolean isExit(){
+    public boolean isExit() {
         return true;
     }
     @Override
