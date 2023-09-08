@@ -17,7 +17,7 @@ public class ListCommand extends Command {
         System.out.println("JonBird:");
         System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println("\t\t"+ (i+1) + ". " + taskList.getTask(i).printTask());
+            System.out.println("\t\t" + (i + 1) + ". " + taskList.getTask(i).printTask());
         }
     }
 

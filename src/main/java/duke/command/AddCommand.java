@@ -1,13 +1,13 @@
 package duke.command;
 
+import java.time.DateTimeException;
+
 import duke.main.Storage;
-import duke.task.TaskList;
-import duke.task.Task;
-import duke.task.Todos;
 import duke.task.Deadlines;
 import duke.task.Events;
-
-import java.time.DateTimeException;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todos;
 
 /**
  * A class for the command for adding new task to list based on user input.
@@ -17,63 +17,66 @@ public class AddCommand extends Command {
     /**
      * The type of task being added; todo, deadline or event.
      */
-    private String commandType;
+    private final String commandType;
 
     /**
      * The description of task being added.
      */
-    private String description;
+    private final String description;
 
     /**
      * The starting date for the task being added.
      */
-    private String startDate;
+    private final String startDate;
 
     /**
      * The ending date for the task being added.
      */
-    private String endDate;
+    private final String endDate;
 
     /**
      * The constructor for AddCommand
+     *
      * @param commandType The type of task being added; todo, deadline or event
      * @param description The description of task being added
-     * @param startDate The starting date for the task being added
-     * @param endDate The ending date for the task being added
+     * @param startDate   The starting date for the task being added
+     * @param endDate     The ending date for the task being added
      */
     public AddCommand(String commandType, String description, String startDate, String endDate) {
-            this.commandType = commandType;
-            this.description = description;
-            this.startDate = startDate;
-            this.endDate = endDate;
+        this.commandType = commandType;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     @Override
     public void execute(TaskList taskList, Storage storage) {
         Task temp = null;
-        switch(commandType) {
-            case "T":
-                temp = new Todos(this.description);
+        switch (commandType) {
+        case "T":
+            temp = new Todos(this.description);
+            break;
+        case "D":
+            try {
+                temp = new Deadlines(this.description, this.endDate);
                 break;
-            case "D":
-                try {
-                    temp = new Deadlines(this.description, this.endDate);
-                    break;
-                } catch (DateTimeException e) {
-                    System.out.println("JonBird:\n\t" + "Please ensure that your date is in \"yyyy-MM-dd HH:mm\"" +
-                            " format. Put 00:00 if time does not matter.");
-                    return;
-                }
+            } catch (DateTimeException e) {
+                System.out.println("JonBird:\n\t" + "Please ensure that your date is in \"yyyy-MM-dd HH:mm\""
+                        + " format. Put 00:00 if time does not matter.");
+                return;
+            }
 
-            case "E":
-                try {
-                    temp = new Events(this.description, this.startDate, this.endDate);
-                    break;
-                } catch (DateTimeException e) {
-                    System.out.println("JonBird:\n\t" + "Please ensure that your date is in \"yyyy-MM-dd HH:mm\"" +
-                            " format. Put 00:00 if time does not matter.");
-                    return;
-                }
+        case "E":
+            try {
+                temp = new Events(this.description, this.startDate, this.endDate);
+                break;
+            } catch (DateTimeException e) {
+                System.out.println("JonBird:\n\t" + "Please ensure that your date is in \"yyyy-MM-dd HH:mm\""
+                        + " format. Put 00:00 if time does not matter.");
+                return;
+            }
+        default:
+            return;
         }
         taskList.addTask(temp);
         storage.writeData(taskList.convertToFileContent());

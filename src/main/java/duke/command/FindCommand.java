@@ -1,8 +1,8 @@
 package duke.command;
 
 import duke.main.Storage;
-import duke.task.TaskList;
 import duke.task.Task;
+import duke.task.TaskList;
 
 /**
  * A class for the command for finding tasks in list using keywords
@@ -10,7 +10,7 @@ import duke.task.Task;
 public class FindCommand extends Command {
 
     /** Keywords to search for in the task description*/
-    private String keywords;
+    private final String keywords;
 
     /**
      * The constructor for FindCommand
@@ -37,7 +37,7 @@ public class FindCommand extends Command {
         System.out.println("JonBird:");
         System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < filteredTaskList.size(); i++) {
-            System.out.println("\t\t"+ (i+1) + ". " + filteredTaskList.getTask(i).printTask());
+            System.out.println("\t\t" + (i + 1) + ". " + filteredTaskList.getTask(i).printTask());
         }
     }
     @Override

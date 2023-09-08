@@ -1,12 +1,11 @@
 package duke.main;
 
+import java.time.DateTimeException;
+import java.util.Scanner;
+
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.task.TaskList;
-import duke.command.Command;
-
-import java.time.DateTimeException;
-
-import java.util.Scanner;
 
 /**
  * A class for the Duke bot.
@@ -16,7 +15,7 @@ public class Duke {
     /**
      * The ui for Duke bot
      */
-    private static Ui ui = new Ui();
+    private static final Ui ui = new Ui();
 
     /**
      * The main function for running Duke bot
@@ -24,11 +23,11 @@ public class Duke {
      */
     public static void main(String[] args) {
         boolean listen = true;
-        /** Captures user input*/
+        //Captures user input
         Scanner jonBird = new Scanner(System.in);
-        /** Stores user input*/
-        TaskList inputList =  new TaskList();
-        /** User input*/
+        //Stores user input
+        TaskList inputList;
+        //User input
         String input = "";
 
         Parser parser = new Parser();
@@ -45,10 +44,10 @@ public class Duke {
                 currentCommand.execute(inputList, storage);
                 listen = currentCommand.isContinue();
             } catch (DukeException e) {
-                System.out.println("JonBird:\n\t" + e.toString());
+                System.out.println("JonBird:\n\t" + e);
             } catch (DateTimeException e) {
-                System.out.println("JonBird:\n\t" + "Please ensure that your date is in \"yyyy-MM-dd HH:mm\"" +
-                        " format. Put 00:00 if time does not matter.");
+                System.out.println("JonBird:\n\t" + "Please ensure that your date is in \"yyyy-MM-dd HH:mm\""
+                        + " format. Put 00:00 if time does not matter.");
             }
 
         }

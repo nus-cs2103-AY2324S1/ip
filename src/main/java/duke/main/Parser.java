@@ -1,12 +1,16 @@
 package duke.main;
 
-import duke.command.*;
+import duke.command.AddCommand;
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
 import duke.exception.DukeException;
-import duke.exception.InvalidCommandException;
 import duke.exception.InvalidSyntaxException;
-import duke.task.*;
-
-import java.time.DateTimeException;
+import duke.task.TaskList;
 
 /**
  * A class handling commands from user input
@@ -18,7 +22,7 @@ public class Parser {
      */
     public enum ValidCommand {
         BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, UNKNOWN, FIND
-    };
+    }
 
     /**
      * The current command from user input
@@ -42,25 +46,26 @@ public class Parser {
             currentCommand = ValidCommand.UNKNOWN;
         } else {
             currentCommand = ValidCommand.valueOf(inp[0].toUpperCase());
-            if (currentCommand == ValidCommand.MARK || currentCommand == ValidCommand.UNMARK ||
-                    currentCommand == ValidCommand.DELETE) {
+            if (currentCommand == ValidCommand.MARK || currentCommand == ValidCommand.UNMARK
+                    || currentCommand == ValidCommand.DELETE) {
                 if (inp.length == 2) {
                     try {
                         taskIndex = Integer.parseInt(inp[1]);
                     } catch (NumberFormatException e) {
                         currentCommand = ValidCommand.UNKNOWN;
                     }
-                    ;
                 } else {
                     currentCommand = ValidCommand.UNKNOWN;
                 }
-            } else if (currentCommand == ValidCommand.TODO || currentCommand == ValidCommand.DEADLINE ||
-                    currentCommand == ValidCommand.FIND) {
+            } else if (currentCommand == ValidCommand.TODO || currentCommand == ValidCommand.DEADLINE
+                    || currentCommand == ValidCommand.FIND) {
                 int i = 1;
                 title = "";
                 endDate = "";
                 for (; i < inp.length; i++) {
-                    if (inp[i].equals("/by")) break;
+                    if (inp[i].equals("/by")) {
+                        break;
+                    }
                     if (i == 1) {
                         isValid = true;
                     }
@@ -84,7 +89,9 @@ public class Parser {
                 startDate = "";
                 endDate = "";
                 for (; start < inp.length; start++) {
-                    if (inp[start].equals("/from")) break;
+                    if (inp[start].equals("/from")) {
+                        break;
+                    }
                     if (start == 1) {
                         isValid = true;
                     }
@@ -96,7 +103,9 @@ public class Parser {
                 }
 
                 for (end = start + 1; end < inp.length; end++) {
-                    if (inp[end].equals("/to")) break;
+                    if (inp[end].equals("/to")) {
+                        break;
+                    }
                     if (startDate.equals("")) {
                         startDate = inp[end];
                     } else {
@@ -115,58 +124,58 @@ public class Parser {
         }
 
         switch (currentCommand) {
-            case UNKNOWN:
-                if (isValidCommand(inp[0])) {
-                    throw new InvalidSyntaxException("The format of the command is invalid.");
-                } else {
-                    throw new InvalidSyntaxException("I'm sorry, but I don't know what that means :-(");
+        case UNKNOWN:
+            if (isValidCommand(inp[0])) {
+                throw new InvalidSyntaxException("The format of the command is invalid.");
+            } else {
+                throw new InvalidSyntaxException("I'm sorry, but I don't know what that means :-(");
+            }
+        case BYE:
+            return new ByeCommand();
+        case LIST:
+            return new ListCommand();
+        case FIND:
+            return new FindCommand(title);
+        case UNMARK:
+            if (taskIndex > taskList.size() || taskIndex < 1) {
+                throw new InvalidSyntaxException("The task does not exist.");
+            } else {
+                return new UnmarkCommand(taskIndex);
+            }
+        case MARK:
+            if (taskIndex > taskList.size() || taskIndex < 1) {
+                throw new InvalidSyntaxException("The task does not exist.");
+            } else {
+                return new MarkCommand(taskIndex);
+            }
+        case DELETE:
+            if (taskIndex > taskList.size() || taskIndex < 1) {
+                throw new InvalidSyntaxException("The task does not exist.");
+            } else {
+                return new DeleteCommand(taskIndex);
+            }
+        default:
+            if (inp.length < 2 || !isValid) {
+                throw new InvalidSyntaxException("The description of a " + inp[0] + " cannot be empty.");
+            }
+            if (inp[0].equals("todo")) {
+                return new AddCommand("T", title, "", "");
+            }
+            if (inp[0].equals("deadline")) {
+                if (endDate.equals("")) {
+                    throw new InvalidSyntaxException("The end date of a " + inp[0] + " cannot be empty.");
                 }
-            case BYE:
-                return new ByeCommand();
-            case LIST:
-                return new ListCommand();
-            case FIND:
-                return new FindCommand(title);
-            case UNMARK:
-                if (taskIndex > taskList.size() || taskIndex < 1) {
-                    throw new InvalidSyntaxException("The task does not exist.");
-                } else {
-                    return new UnmarkCommand(taskIndex);
+                return new AddCommand("D", title, "", endDate);
+            }
+            if (inp[0].equals("event")) {
+                if (startDate.equals("")) {
+                    throw new InvalidSyntaxException("The start date of a " + inp[0] + " cannot be empty.");
                 }
-            case MARK:
-                if (taskIndex > taskList.size() || taskIndex < 1) {
-                    throw new InvalidSyntaxException("The task does not exist.");
-                } else {
-                    return new MarkCommand(taskIndex);
+                if (endDate.equals("")) {
+                    throw new InvalidSyntaxException("The end date of a " + inp[0] + " cannot be empty.");
                 }
-            case DELETE:
-                if (taskIndex > taskList.size() || taskIndex < 1) {
-                    throw new InvalidSyntaxException("The task does not exist.");
-                } else {
-                    return new DeleteCommand(taskIndex);
-                }
-            default:
-                if (inp.length < 2 || !isValid) {
-                    throw new InvalidSyntaxException("The description of a " + inp[0] + " cannot be empty.");
-                }
-                if (inp[0].equals("todo")) {
-                    return new AddCommand("T", title, "", "");
-                }
-                if (inp[0].equals("deadline")) {
-                    if (endDate.equals("")) {
-                        throw new InvalidSyntaxException("The end date of a " + inp[0] + " cannot be empty.");
-                    }
-                    return new AddCommand("D", title, "", endDate);
-                }
-                if (inp[0].equals("event")) {
-                    if (startDate.equals("")) {
-                        throw new InvalidSyntaxException("The start date of a " + inp[0] + " cannot be empty.");
-                    }
-                    if (endDate.equals("")) {
-                        throw new InvalidSyntaxException("The end date of a " + inp[0] + " cannot be empty.");
-                    }
-                    return new AddCommand("E", title, startDate, endDate);
-                }
+                return new AddCommand("E", title, startDate, endDate);
+            }
         }
         return null;
     }

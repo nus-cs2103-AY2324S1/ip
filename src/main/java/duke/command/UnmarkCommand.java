@@ -12,7 +12,7 @@ public class UnmarkCommand extends Command {
     /**
      * The index of the task in the taskList to be unmarked.
      */
-    private int index;
+    private final int index;
 
     /**
      * The constructor for UnmarkCommand

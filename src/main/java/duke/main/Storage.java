@@ -2,18 +2,17 @@ package duke.main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.time.DateTimeException;
-import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Scanner;
 
 import duke.task.Deadlines;
+import duke.task.Events;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todos;
-import duke.task.Events;
 
 /**
  * A class handling the saving and load the taskList

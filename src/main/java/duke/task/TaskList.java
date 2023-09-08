@@ -1,18 +1,18 @@
 package duke.task;
 
 import java.util.ArrayList;
+
 import duke.main.DateFormatter;
 
 /** Class to represent the taskList of the user*/
 public class TaskList {
 
-    /** The list to store the tasks*/
-    private ArrayList<Task> taskList;
-
     /**
      * A formatter for the date
      */
     private static final DateFormatter DF = new DateFormatter();
+    /** The list to store the tasks*/
+    private final ArrayList<Task> taskList;
 
     /**
      * A constructor for the TaskList
@@ -74,13 +74,13 @@ public class TaskList {
                 line = currentTask.getTypeIcon() + " | " + mark + " | " + currentTask.description;
             } else if (currentTask instanceof Deadlines) {
                 String mark = currentTask.isDone ? "1" : "0";
-                line = currentTask.getTypeIcon() + " | " + mark + " | " + currentTask.description + " | " +
-                        DF.saveDateToFile(((Deadlines) currentTask).endDate);
+                line = currentTask.getTypeIcon() + " | " + mark + " | " + currentTask.description + " | "
+                        + DF.saveDateToFile(((Deadlines) currentTask).endDate);
             } else if (currentTask instanceof Events) {
                 String mark = currentTask.isDone ? "1" : "0";
-                line = currentTask.getTypeIcon() + " | " + mark + " | " + currentTask.description + " | " +
-                        DF.saveDateToFile(((Events) currentTask).startDate) + " | " +
-                        DF.saveDateToFile(((Events) currentTask).endDate);
+                line = currentTask.getTypeIcon() + " | " + mark + " | " + currentTask.description + " | "
+                        + DF.saveDateToFile(((Events) currentTask).startDate) + " | "
+                        + DF.saveDateToFile(((Events) currentTask).endDate);
             }
             result += line + "\n";
         }

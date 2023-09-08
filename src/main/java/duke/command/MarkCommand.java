@@ -12,7 +12,7 @@ public class MarkCommand extends Command {
     /**
      * The index of the task in the taskList to be marked.
      */
-    private int index;
+    private final int index;
 
     /**
      * The constructor for MarkCommand
