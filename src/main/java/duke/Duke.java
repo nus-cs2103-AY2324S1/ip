@@ -223,7 +223,7 @@ public class Duke {
      * @return String containing Duke's greeting.
      */
     public String greet() {
-        return "Hello! I'm Max!\nWhat can I do for you?";
+        return String.format("Hello! I'm Max!%nWhat can I do for you?");
     }
 
 }

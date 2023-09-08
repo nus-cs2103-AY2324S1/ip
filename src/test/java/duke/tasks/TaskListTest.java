@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import duke.storage.Storage;
 
 public class TaskListTest {
-    private final String listHeader = "Here are the tasks in your list:\n";
+    private final String listHeader = String.format("Here are the tasks in your list:%n");
     private final String emptyList = "You have no tasks in your list.";
 
     @Test
@@ -23,11 +23,11 @@ public class TaskListTest {
         assertEquals(expected.append("1.[T][ ] todo").toString(), taskList.toString());
 
         taskList.add(TaskList.TaskType.DEADLINE, "deadline", "2023-08-25 23:59");
-        expected.append("\n2.[D][ ] deadline (by: Fri 25 Aug 2023 23:59)");
+        expected.append(String.format("%n2.[D][ ] deadline (by: Fri 25 Aug 2023 23:59)"));
         assertEquals(expected.toString(), taskList.toString());
 
         taskList.add(TaskList.TaskType.EVENT, "event", "2023-08-26 23:59", "2023-08-27 23:59");
-        expected.append("\n3.[E][ ] event (from: Sat 26 Aug 2023 23:59 to: Sun 27 Aug 2023 23:59)");
+        expected.append(String.format("%n3.[E][ ] event (from: Sat 26 Aug 2023 23:59 to: Sun 27 Aug 2023 23:59)"));
         assertEquals(expected.toString(), taskList.toString());
     }
 
@@ -123,9 +123,9 @@ public class TaskListTest {
 
         TaskList taskList = new TaskList(fileName);
         taskList.delete(1);
-        assertEquals(listHeader
+        assertEquals(String.format(listHeader
                         + "1.[D][ ] deadline (by: Fri 25 Aug 2023 23:59)"
-                        + "\n2.[E][ ] event (from: Sat 26 Aug 2023 23:59 to: Sun 27 Aug 2023 23:59)",
+                        + "%n2.[E][ ] event (from: Sat 26 Aug 2023 23:59 to: Sun 27 Aug 2023 23:59)"),
                 taskList.toString());
 
         taskList.delete(2);
@@ -148,24 +148,24 @@ public class TaskListTest {
 
         TaskList taskList = new TaskList(fileName);
         taskList.mark(1);
-        assertEquals(listHeader
+        assertEquals(String.format(listHeader
                         + "1.[T][X] todo"
-                        + "\n2.[D][ ] deadline (by: Fri 25 Aug 2023 23:59)"
-                        + "\n3.[E][ ] event (from: Sat 26 Aug 2023 23:59 to: Sun 27 Aug 2023 23:59)",
+                        + "%n2.[D][ ] deadline (by: Fri 25 Aug 2023 23:59)"
+                        + "%n3.[E][ ] event (from: Sat 26 Aug 2023 23:59 to: Sun 27 Aug 2023 23:59)"),
                 taskList.toString());
 
         taskList.mark(2);
-        assertEquals(listHeader
+        assertEquals(String.format(listHeader
                         + "1.[T][X] todo"
-                        + "\n2.[D][X] deadline (by: Fri 25 Aug 2023 23:59)"
-                        + "\n3.[E][ ] event (from: Sat 26 Aug 2023 23:59 to: Sun 27 Aug 2023 23:59)",
+                        + "%n2.[D][X] deadline (by: Fri 25 Aug 2023 23:59)"
+                        + "%n3.[E][ ] event (from: Sat 26 Aug 2023 23:59 to: Sun 27 Aug 2023 23:59)"),
                 taskList.toString());
 
         taskList.mark(3);
-        assertEquals(listHeader
+        assertEquals(String.format(listHeader
                         + "1.[T][X] todo"
-                        + "\n2.[D][X] deadline (by: Fri 25 Aug 2023 23:59)"
-                        + "\n3.[E][X] event (from: Sat 26 Aug 2023 23:59 to: Sun 27 Aug 2023 23:59)",
+                        + "%n2.[D][X] deadline (by: Fri 25 Aug 2023 23:59)"
+                        + "%n3.[E][X] event (from: Sat 26 Aug 2023 23:59 to: Sun 27 Aug 2023 23:59)"),
                 taskList.toString());
     }
 
@@ -180,24 +180,24 @@ public class TaskListTest {
 
         TaskList taskList = new TaskList(fileName);
         taskList.unmark(2);
-        assertEquals(listHeader
+        assertEquals(String.format(listHeader
                         + "1.[T][X] todo"
-                        + "\n2.[D][ ] deadline (by: Fri 25 Aug 2023 23:59)"
-                        + "\n3.[E][X] event (from: Sat 26 Aug 2023 23:59 to: Sun 27 Aug 2023 23:59)",
+                        + "%n2.[D][ ] deadline (by: Fri 25 Aug 2023 23:59)"
+                        + "%n3.[E][X] event (from: Sat 26 Aug 2023 23:59 to: Sun 27 Aug 2023 23:59)"),
                 taskList.toString());
 
         taskList.unmark(3);
-        assertEquals(listHeader
+        assertEquals(String.format(listHeader
                         + "1.[T][X] todo"
-                        + "\n2.[D][ ] deadline (by: Fri 25 Aug 2023 23:59)"
-                        + "\n3.[E][ ] event (from: Sat 26 Aug 2023 23:59 to: Sun 27 Aug 2023 23:59)",
+                        + "%n2.[D][ ] deadline (by: Fri 25 Aug 2023 23:59)"
+                        + "%n3.[E][ ] event (from: Sat 26 Aug 2023 23:59 to: Sun 27 Aug 2023 23:59)"),
                 taskList.toString());
 
         taskList.unmark(1);
-        assertEquals(listHeader
+        assertEquals(String.format(listHeader
                         + "1.[T][ ] todo"
-                        + "\n2.[D][ ] deadline (by: Fri 25 Aug 2023 23:59)"
-                        + "\n3.[E][ ] event (from: Sat 26 Aug 2023 23:59 to: Sun 27 Aug 2023 23:59)",
+                        + "%n2.[D][ ] deadline (by: Fri 25 Aug 2023 23:59)"
+                        + "%n3.[E][ ] event (from: Sat 26 Aug 2023 23:59 to: Sun 27 Aug 2023 23:59)"),
                 taskList.toString());
     }
 
@@ -211,9 +211,9 @@ public class TaskListTest {
         storage.save(data);
 
         TaskList taskList = new TaskList(fileName);
-        assertEquals("Here are the 2 matching tasks in your list:\n"
-                        + "2.[D][ ] return book (by: Fri 25 Aug 2023 23:59)\n"
-                        + "3.[E][X] booking (from: Sat 26 Aug 2023 23:59 to: Sun 27 Aug 2023 23:59)",
+        assertEquals(String.format("Here are the 2 matching tasks in your list:%n"
+                        + "2.[D][ ] return book (by: Fri 25 Aug 2023 23:59)%n"
+                        + "3.[E][X] booking (from: Sat 26 Aug 2023 23:59 to: Sun 27 Aug 2023 23:59)"),
                 taskList.find("book"));
     }
 }

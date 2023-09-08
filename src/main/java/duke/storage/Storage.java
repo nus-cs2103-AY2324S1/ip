@@ -14,7 +14,7 @@ import duke.exceptions.DukeIOException;
 public class Storage {
 
     // The path where the data is saved.
-    private final Path saveFilePath;
+    private final Path pathToSaveFile;
 
     /**
      * Constructor for a Storage.
@@ -23,11 +23,11 @@ public class Storage {
      * @param saveFileName The name of the file to save the data to. Eg: data.txt
      */
     public Storage(String saveFileName) throws DukeIOException {
-        saveFilePath = Path.of(System.getProperty("user.dir"), "data", saveFileName);
+        pathToSaveFile = Path.of(System.getProperty("user.dir"), "data", saveFileName);
         try {
-            if (!Files.exists(saveFilePath)) {
-                Files.createDirectories(saveFilePath.getParent());
-                Files.createFile(saveFilePath);
+            if (!Files.exists(pathToSaveFile)) {
+                Files.createDirectories(pathToSaveFile.getParent());
+                Files.createFile(pathToSaveFile);
             }
         } catch (IOException ioe) {
             throw new DukeIOException("Error creating file: " + ioe.getMessage());
@@ -42,11 +42,12 @@ public class Storage {
      */
     public String load() throws DukeIOException {
         try {
-            BufferedReader reader = Files.newBufferedReader(saveFilePath, StandardCharsets.UTF_8);
+            BufferedReader reader = Files.newBufferedReader(pathToSaveFile, StandardCharsets.UTF_8);
             StringBuilder data = new StringBuilder();
 
             String line = reader.readLine();
             while (line != null) {
+                // \n is used here instead of %n to preserve save file formatting
                 data.append(line).append("\n");
                 line = reader.readLine();
             }
@@ -67,7 +68,7 @@ public class Storage {
      */
     public void save(String data) throws DukeIOException {
         try {
-            Files.writeString(saveFilePath, data);
+            Files.writeString(pathToSaveFile, data);
         } catch (IOException ioe) {
             throw new DukeIOException("Error writing to file: " + ioe.getMessage());
         }

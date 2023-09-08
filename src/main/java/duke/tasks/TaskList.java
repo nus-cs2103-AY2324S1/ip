@@ -21,7 +21,7 @@ public class TaskList {
             "Noted. I've removed this task:%n%s%nNow you have %d %s in the list.";
 
     // An ArrayList that stores the list of tasks.
-    protected final ArrayList<Task> list;
+    protected final ArrayList<Task> tasks;
 
     /**
      * Enum for types of tasks.
@@ -43,13 +43,13 @@ public class TaskList {
      */
     public TaskList(String saveFileName) {
         this.taskStorage = new Storage(saveFileName);
-        this.list = new ArrayList<>();
+        this.tasks = new ArrayList<>();
         this.importData();
     }
 
     // Returns "task" if there is only 1 task in the list, else returns "tasks".
-    private String taskOrTasks() {
-        return this.list.size() == 1 ? "task" : "tasks";
+    private String formatTaskPlurality() {
+        return this.tasks.size() == 1 ? "task" : "tasks";
     }
 
     /**
@@ -71,24 +71,24 @@ public class TaskList {
         switch (taskType) {
         case TODO:
             Task toDoTask = new ToDo(description);
-            this.list.add(toDoTask);
+            this.tasks.add(toDoTask);
             this.exportData();
             output = String.format(ADD_TASK_TEMPLATE,
-                    toDoTask, this.list.size(), taskOrTasks());
+                    toDoTask, this.tasks.size(), formatTaskPlurality());
             break;
         case DEADLINE:
             Task deadlineTask = new Deadline(description, by);
-            this.list.add(deadlineTask);
+            this.tasks.add(deadlineTask);
             this.exportData();
             output = String.format(ADD_TASK_TEMPLATE,
-                    deadlineTask, this.list.size(), taskOrTasks());
+                    deadlineTask, this.tasks.size(), formatTaskPlurality());
             break;
         case EVENT:
             Task eventTask = new Event(description, start, end);
-            this.list.add(eventTask);
+            this.tasks.add(eventTask);
             this.exportData();
             output = String.format(ADD_TASK_TEMPLATE,
-                    eventTask, this.list.size(), taskOrTasks());
+                    eventTask, this.tasks.size(), formatTaskPlurality());
             break;
         default:
             break;
@@ -171,12 +171,12 @@ public class TaskList {
      */
     public String mark(int num) throws DukeIllegalArgumentException {
         int index = num - 1;
-        if (index < 0 || index >= this.list.size()) {
+        if (index < 0 || index >= this.tasks.size()) {
             throw new DukeIllegalArgumentException(ERROR_MESSAGE_INDEX_OUT_OF_BOUNDS);
         }
-        this.list.get(index).markAsDone();
+        this.tasks.get(index).markAsDone();
         this.exportData();
-        return String.format("Nice! I've marked this task as done:%n%s", this.list.get(index).toString());
+        return String.format("Nice! I've marked this task as done:%n%s", this.tasks.get(index).toString());
     }
 
     /**
@@ -188,12 +188,12 @@ public class TaskList {
      */
     public String unmark(int num) throws DukeIllegalArgumentException {
         int index = num - 1;
-        if (index < 0 || index >= this.list.size()) {
+        if (index < 0 || index >= this.tasks.size()) {
             throw new DukeIllegalArgumentException(ERROR_MESSAGE_INDEX_OUT_OF_BOUNDS);
         }
-        this.list.get(index).unmarkAsDone();
+        this.tasks.get(index).unmarkAsDone();
         this.exportData();
-        return String.format("OK, I've marked this task as not done yet:%n%s", this.list.get(index).toString());
+        return String.format("OK, I've marked this task as not done yet:%n%s", this.tasks.get(index).toString());
     }
 
     /**
@@ -204,12 +204,12 @@ public class TaskList {
      */
     public String delete(int num) throws DukeIllegalArgumentException {
         int index = num - 1;
-        if (index < 0 || index >= list.size()) {
+        if (index < 0 || index >= tasks.size()) {
             throw new DukeIllegalArgumentException(ERROR_MESSAGE_INDEX_OUT_OF_BOUNDS);
         }
-        Task task = list.remove(index);
+        Task task = tasks.remove(index);
         this.exportData();
-        return String.format(DELETE_TASK_TEMPLATE, task, this.list.size(), taskOrTasks());
+        return String.format(DELETE_TASK_TEMPLATE, task, this.tasks.size(), formatTaskPlurality());
     }
 
     /**
@@ -221,11 +221,11 @@ public class TaskList {
     public String find(String keyword) {
         StringBuilder sb = new StringBuilder();
         int count = 0;
-        for (int i = 0; i < list.size(); i++) {
-            Task task = list.get(i);
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
             if (task.hasKeywordInDescription(keyword)) {
                 count++;
-                sb.append("\n").append(i + 1).append(".").append(task);
+                sb.append(String.format("%n%d.%s", i + 1, task));
             }
         }
         if (count == 0) {
@@ -246,11 +246,11 @@ public class TaskList {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the tasks in your list:");
-        if (list.isEmpty()) {
-            sb.append("\nYou have no tasks in your list.");
+        if (tasks.isEmpty()) {
+            sb.append(String.format("%nYou have no tasks in your list."));
         } else {
-            for (int i = 0; i < list.size(); i++) {
-                sb.append("\n").append((i + 1)).append(".").append(list.get(i));
+            for (int i = 0; i < tasks.size(); i++) {
+                sb.append(String.format("%n%d.%s", i + 1, tasks.get(i)));
             }
         }
         return sb.toString();
@@ -265,7 +265,8 @@ public class TaskList {
      */
     private void exportData() throws DukeIOException {
         StringBuilder sb = new StringBuilder();
-        for (Task task : list) {
+        for (Task task : tasks) {
+            // \n is used here instead of %n to preserve save file formatting
             sb.append(task.export()).append("\n");
         }
         taskStorage.save(sb.toString());
@@ -281,8 +282,8 @@ public class TaskList {
         if (exportedData.isBlank()) {
             return;
         }
-        String[] tasks = exportedData.split("\n");
-        for (String t : tasks) {
+        String[] exportedTasks = exportedData.split("\n");
+        for (String t : exportedTasks) {
             String[] args = t.split(" \\|\\| ");
             TaskType taskType = TaskType.valueOf(args[0]);
             switch (taskType) {
@@ -299,7 +300,7 @@ public class TaskList {
                 break;
             }
             if (args[1].equals("X")) {
-                this.mark(this.list.size());
+                this.mark(this.tasks.size());
             }
         }
     }
