@@ -21,8 +21,8 @@ public class Parser {
             case "event":
                 try {
                     ToDoList.addTask(toDoList, command, rest);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new IllegalArgumentException("Invalid format.");
+                } catch (EmptyTaskDescriptorsException e) {
+                    System.out.println(e.toString());
                 }
                 break;
             case "mark": {

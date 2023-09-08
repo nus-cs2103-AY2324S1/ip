@@ -45,9 +45,10 @@ public class ToDoList {
         return list.size();
     }
 
-    public static void addTask(ToDoList toDoList, String command, String description) {
+    public static void addTask(ToDoList toDoList, String command, String description)
+            throws EmptyTaskDescriptorsException {
         if (description.isEmpty()) {
-            throw new IllegalArgumentException("Description is missing.");
+            throw new EmptyTaskDescriptorsException();
         }
         Task task = null;
         if (command.equalsIgnoreCase("todo")) {
