@@ -81,16 +81,6 @@ public class TaskList {
     }
 
     /**
-     * Checks if there are completed tasks in the {@code ArrayList}.
-     *
-     * @return {@code true} iff the {@code ArrayList} contains at least one completed task;
-     *     {@code false} otherwise.
-     */
-    public boolean hasCompletedTasks() {
-        return this.numOfCompletedTasks > 0;
-    }
-
-    /**
      * Increments the number of completed tasks when a {@code Task} is marked as complete.
      */
     public void incrementCompletedTasks() {
@@ -110,7 +100,7 @@ public class TaskList {
      *
      * @param details Details to be checked.
      * @return {@code true} iff there exists a {@code Task} with the given details;
-     *     false otherwise.
+     * false otherwise.
      */
     public boolean checkDuplicates(String details) {
         for (Task t : tasks) {

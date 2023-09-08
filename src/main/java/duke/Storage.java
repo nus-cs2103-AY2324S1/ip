@@ -31,7 +31,7 @@ public class Storage {
             file.createNewFile();
         } catch (IOException e) {
             System.out.println("Due to technical issues, I'm only available in guest mode.%n"
-                    + "I sincerely apologise for the inconvenience caused.");
+                + "I sincerely apologise for the inconvenience caused.");
         }
     }
 
@@ -40,12 +40,12 @@ public class Storage {
      * directly adds them to the list.
      *
      * @param filePath Relative path of the text file containing details on the tasks.
-     * @throws FileNotFoundException When the system is unable to find the specified file.
+     * @throws FileNotFoundException    When the system is unable to find the specified file.
      * @throws IllegalArgumentException When the system is unable to parse the saved tasks,
-     *     possibly due to the file being corrupted.
+     *                                  possibly due to the file being corrupted.
      */
     public void readTasksFromDisk(String filePath) throws FileNotFoundException,
-            IllegalArgumentException {
+        IllegalArgumentException {
         File f = new File(filePath);
         Scanner sc = new Scanner(f);
         while (sc.hasNext()) {
@@ -57,7 +57,6 @@ public class Storage {
             try {
                 type = TaskList.TaskType.valueOf(args[0].toUpperCase());
             } catch (IllegalArgumentException e) {
-                System.out.println("Task not found");
                 return;
             }
             String details = args[1];
@@ -70,29 +69,28 @@ public class Storage {
                     end = LocalDateTime.parse(args[4]);
                 }
             } catch (DateTimeParseException e) {
-                System.out.println("Could not retrieve date and/or time");
                 return;
             }
             switch (type) {
-            case TASK:
+            case TASK -> {
                 Task t = new Task(details, isCompleted);
                 tasks.add(t);
-                break;
-            case TODO:
+            }
+            case TODO -> {
                 ToDo todo = new ToDo(details, isCompleted);
                 tasks.add(todo);
-                break;
-            case DEADLINE:
+            }
+            case DEADLINE -> {
                 Deadline d = new Deadline(details, isCompleted, due);
                 tasks.add(d);
-                break;
-            case EVENT:
+            }
+            case EVENT -> {
                 Event e = new Event(details, isCompleted, start, end);
                 tasks.add(e);
-                break;
-            default:
-                // Shouldn't reach here
-                break;
+            }
+            default -> {
+            }
+            // Shouldn't reach here
             }
         }
     }
@@ -101,7 +99,7 @@ public class Storage {
      * Saves the tasks in the {@code TaskList} in the text file specified by the {@code filePath}.
      *
      * @param filePath Relative path of the text file to be written to.
-     * @param tasks {@code TaskList} containing the current tasks.
+     * @param tasks    {@code TaskList} containing the current tasks.
      * @throws IOException When the {@code FileWriter} is unable to write to the file.
      */
     public void saveTasksToDisk(String filePath, duke.TaskList tasks) throws IOException {
@@ -112,32 +110,24 @@ public class Storage {
                 duke.TaskList.TaskType type = tasks.getTaskType(i);
                 Task t = tasks.get(i);
                 switch (type) {
-                case TODO:
-                    bw.write(String.format("ToDo/%s/%c",
-                            t.getDetails(),
-                            t.isCompleted ? 'Y' : 'N'));
-                    break;
-                case DEADLINE:
-                    bw.write(String.format("Deadline/%s/%c/%s",
-                            t.getDetails(),
-                            t.isCompleted ? 'Y' : 'N', (
-                            (Deadline) t).due));
-                    break;
-                case EVENT:
-                    bw.write(String.format("Event/%s/%c/%s/%s",
-                            t.getDetails(),
-                            t.isCompleted ? 'Y' : 'N', (
-                            (Event) t).start, (
-                            (Event) t).end));
-                    break;
-                case TASK:
-                    bw.write(String.format("Task/%s/%c",
-                            t.getDetails(),
-                            t.isCompleted ? 'Y' : 'N'));
-                    break;
-                default:
-                    // Shouldn't reach here
-                    break;
+                case TODO -> bw.write(String.format("ToDo/%s/%c",
+                    t.getDetails(),
+                    t.isCompleted ? 'Y' : 'N'));
+                case DEADLINE -> bw.write(String.format("Deadline/%s/%c/%s",
+                    t.getDetails(),
+                    t.isCompleted ? 'Y' : 'N', (
+                        (Deadline) t).due));
+                case EVENT -> bw.write(String.format("Event/%s/%c/%s/%s",
+                    t.getDetails(),
+                    t.isCompleted ? 'Y' : 'N', (
+                        (Event) t).start, (
+                        (Event) t).end));
+                case TASK -> bw.write(String.format("Task/%s/%c",
+                    t.getDetails(),
+                    t.isCompleted ? 'Y' : 'N'));
+                default -> {
+                }
+                // Shouldn't reach here
                 }
                 bw.newLine();
             }

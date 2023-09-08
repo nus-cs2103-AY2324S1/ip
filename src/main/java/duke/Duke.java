@@ -1,20 +1,14 @@
 package duke;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Scanner;
-
 
 /**
  * The {@code Duke} class. Main class that drives other functions.
  */
 public class Duke {
 
-    private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
     private final Parser parser;
@@ -23,279 +17,217 @@ public class Duke {
      * Initiates a new {@code Duke} object.
      *
      * @throws IOException When the {@code saveTasksToDisk()} method in the {@code Storage} class
-     *     fails to function properly.
+     *                     fails to function properly.
      */
     public Duke() throws IOException {
         this.tasks = new TaskList();
         this.ui = new Ui();
-        this.storage = new Storage(tasks);
-        this.parser = new Parser(this, tasks, ui);
-        this.run();
-    }
-
-    /**
-     * Contains the tasks required for {@code Duke} to start.
-     * Also acts as a driver method for the {@code Parser} to read the user input.
-     *
-     * @throws IOException When the {@code saveTasksToDisk()} method in the {@code Storage} class
-     *     fails to function properly.
-     */
-    public void run() throws IOException {
+        Storage storage = new Storage(tasks);
+        this.parser = new Parser(this, tasks, ui, storage);
         storage.launchOnStart();
-        try {
-            storage.readTasksFromDisk("./data/tasks.txt");
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found. Please check your directory and try again.");
-            this.exit(2);
-        }
-        ui.printSelfIntroduction();
-        Scanner sc = new Scanner(System.in);
-        while (true) {
-            if (ui.getInvalidInputCount() >= 10) {
-                this.exit(1);
-                break;
-            } else if (ui.getInvalidInputCount() == 8) {
-                System.out.println("If you keep giving me nonsense, I'm leaving!");
-            }
-            String msg = sc.nextLine();
-            parser.readInput(msg);
-        }
-        this.exit(0);
+        storage.readTasksFromDisk("./data/tasks.txt");
     }
 
     /**
-     * Creates a new {@code Task} object with details input by the user and adds it to the list.
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    public void createTask() {
-        String details = parser.checkTaskInput("task");
-        if (details != null) {
+    String getResponse(String input) throws IOException {
+        return parser.readInput(input);
+    }
+
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    public void executeTask(StringBuilder res, String details) {
+        if (tasks.checkDuplicates(details)) {
+            res.append(ui.getDuplicateTasksMessage(details));
+        } else {
             tasks.add(new Task(details));
-            System.out.printf("Don't expect me to %s for you!%n", details);
-            ui.printEndOfOperation();
+            res.append(ui.getTaskAddedMessage(details));
         }
     }
 
-    /**
-     * Creates a new {@code Todo} object with details input by the user and adds it to the list.
-     */
-    public void createToDo() {
-        String details = parser.checkTaskInput("todo");
-        if (details != null) {
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    public void executeTodo(StringBuilder res, String details) {
+        if (tasks.checkDuplicates(details)) {
+            res.append(ui.getDuplicateTasksMessage(details));
+        } else {
             tasks.add(new ToDo(details));
-            System.out.printf("Stop talking to me! Go and %s!%n", details);
-            ui.printEndOfOperation();
+            res.append(ui.getTodoAddedMessage(details));
         }
     }
 
-    /**
-     * Creates a new {@code Deadline} object with details input by the user and adds it to the list.
-     * If no time is input by the user, the time will be set to 23:59 by default.
-     */
-    public void createDeadline() {
-        String details = parser.checkTaskInput("deadline");
-        if (details == null) {
-            return;
-        }
-        LocalDate dueDate = parser.checkDateInput("deadline", "due");
-        if (dueDate == null) {
-            return;
-        }
-        LocalTime dueTime = parser.checkTimeInput("deadline", "due");
-        if (dueTime == null) {
-            // Shouldn't reach here as creation of deadline without time input is supported.
-            // Invalid input is also handled in the Parser class.
-            // Default dueTime is 23:59.
-            return;
-        }
-        LocalDateTime due = dueTime.atDate(dueDate);
-        if (parser.checkStartDateTime("deadline", due)) {
-            tasks.add(new Deadline(details, due));
-            System.out.printf("Just saying, better %s now.%n"
-                    + "Not like it's my problem if you don't.%n", details);
-            ui.printEndOfOperation();
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    public void executeDeadline(StringBuilder res, String details, LocalDateTime dueDateTime) {
+        if (tasks.checkDuplicates(details)) {
+            res.append(ui.getDuplicateTasksMessage(details));
+        } else if (checkStartDateTime(dueDateTime)) {
+            res.append(ui.getInvalidStartMessage(Parser.Command.DEADLINE));
+        } else {
+            tasks.add(new Deadline(details, dueDateTime));
+            res.append(ui.getDeadlineAddedMessage(details));
         }
     }
 
-    /**
-     * Creates a new {@code Event} object with details input by the user and adds it to the list.
-     */
-    public void createEvent() {
-        String details = parser.checkTaskInput("event");
-        if (details == null) {
-            return;
-        }
-        LocalDate startDate = parser.checkDateInput("event", "start");
-        if (startDate == null) {
-            return;
-        }
-        LocalTime startTime = parser.checkTimeInput("event", "start");
-        if (startTime == null) {
-            return;
-        }
-        LocalDate endDate = parser.checkDateInput("event", "end");
-        if (endDate == null) {
-            return;
-        }
-        LocalTime endTime = parser.checkTimeInput("event", "end");
-        if (endTime == null) {
-            return;
-        }
-        LocalDateTime start = startTime.atDate(startDate);
-        LocalDateTime end = endTime.atDate(endDate);
-        if (parser.checkStartDateTime("event", end)
-                && parser.checkTimeInterval("event", start, end)) {
-            tasks.add(new Event(details, start, end));
-            System.out.printf("Wow, you have a %s?%n"
-                    + "Uhh, n-not like I wanna join you!%n", details);
-            ui.printEndOfOperation();
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    public void executeEvent(StringBuilder res, String details, LocalDateTime startDateTime,
+                             LocalDateTime endDateTime) {
+        if (tasks.checkDuplicates(details)) {
+            res.append(ui.getDuplicateTasksMessage(details));
+        } else if (checkStartDateTime(endDateTime)) {
+            res.append(ui.getInvalidStartMessage(Parser.Command.EVENT));
+        } else if (!checkTimeInterval(startDateTime, endDateTime)) {
+            res.append(ui.getInvalidIntervalMessage(Parser.Command.EVENT));
+        } else {
+            tasks.add(new Event(details, startDateTime, endDateTime));
+            res.append(ui.getEventAddedMessage(details));
         }
     }
 
-    /**
-     * Prints all stored Task objects and prints them in a list format.
-     * Also shows the completion status of each task marked with an "[X]", and the
-     * breakdown of completed/incomplete tasks.
-     */
-    public void list() {
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    public void executeList(StringBuilder res) {
         int numOfTasks = tasks.getNumOfTasks();
         int numOfCompletedTasks = tasks.getNumOfCompletedTasks();
-        System.out.printf("You have %d tasks. (%d complete, %d incomplete)%n",
-                numOfTasks, numOfCompletedTasks, numOfTasks - numOfCompletedTasks);
-        for (int i = 0; i < numOfTasks; i++) {
-            System.out.printf("%d. " + tasks.get(i).toString()
-                    + "%n", i + 1);
-        }
+        res.append(ui.getListSummary(numOfTasks, numOfCompletedTasks));
+        res.append(ui.getTasksInList(tasks));
         if (numOfCompletedTasks == numOfTasks) {
-            System.out.println("You've completed all your tasks. Good for you.");
+            res.append(ui.getAllCompleteMessage());
         } else {
-            System.out.println("Don't expect me to remember them for you!");
+            res.append(ui.getNotAllCompleteMessage());
         }
-        ui.printEndOfOperation();
+    }
+
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    public void executeMark(StringBuilder res, int taskNumber) {
+        if (markAsComplete(taskNumber)) {
+            res.append(ui.getMarkMessage(Parser.Command.MARK, taskNumber));
+        } else {
+            res.append(ui.getMarkRedundantMessage(Parser.Command.MARK, taskNumber));
+        }
+    }
+
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    public void executeUnmark(StringBuilder res, int taskNumber) {
+        if (markAsIncomplete(taskNumber)) {
+            res.append(ui.getMarkMessage(Parser.Command.UNMARK, taskNumber));
+        } else {
+            res.append(ui.getMarkRedundantMessage(Parser.Command.UNMARK, taskNumber));
+        }
+    }
+
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    public void executeDelete(StringBuilder res, int taskNumber) {
+        Task task = tasks.get(taskNumber - 1);
+        tasks.remove(task);
+        res.append(ui.getTaskDeletedMessage(tasks, taskNumber));
+    }
+
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    public void executeSearch(StringBuilder res, String keyword) {
+        ArrayList<Task> matchingTasks = getMatchingTasks(keyword);
+        if (matchingTasks.isEmpty()) {
+            res.append(ui.getEmptySearchResultsMessage(keyword));
+        } else {
+            res.append(ui.getSearchResultsMessage(matchingTasks));
+        }
     }
 
     /**
      * Marks a selected task as complete, with the task number input by the user.
      */
-    public void markAsComplete() {
-        if (tasks.isEmpty()) {
-            System.out.println("No tasks to mark.");
-            System.out.println("Please create a task first.");
-            ui.incrementInvalidInputs();
-            ui.printHorizontalLine();
+    public boolean markAsComplete(int taskNumber) {
+        Task task = tasks.get(taskNumber - 1);
+        if (!task.isCompleted) {
+            task.setCompleted();
+            tasks.incrementCompletedTasks();
+            return true;
         } else {
-            Integer taskNumber = parser.launchConfirmationScreen("mark as complete");
-            if (taskNumber != null) {
-                Task task = tasks.get(taskNumber - 1);
-                if (!task.isCompleted) {
-                    task.setCompleted();
-                    tasks.incrementCompletedTasks();
-                    System.out.printf("Task %d set as complete.%n", taskNumber);
-                } else {
-                    System.out.printf("Task %d is already complete.%n Stop wasting my time!%n", taskNumber);
-                }
-            }
-            ui.printEndOfOperation();
+            return false;
         }
     }
 
     /**
      * Marks a selected task as incomplete, with the task number input by the user.
      */
-    public void markAsIncomplete() {
-        if (!tasks.hasCompletedTasks()) {
-            System.out.println("No tasks to unmark.");
-            if (!tasks.isEmpty()) {
-                System.out.println("You have no completed tasks.");
-            } else {
-                System.out.println("Please create a task first.");
-            }
-            ui.incrementInvalidInputs();
-            ui.printHorizontalLine();
+    public boolean markAsIncomplete(int taskNumber) {
+        Task task = tasks.get(taskNumber - 1);
+        if (task.isCompleted) {
+            task.setIncomplete();
+            tasks.decrementCompletedTasks();
+            return true;
         } else {
-            Integer taskNumber = parser.launchConfirmationScreen("mark as incomplete");
-            if (taskNumber != null) {
-                Task task = tasks.get(taskNumber - 1);
-                if (task.isCompleted) {
-                    task.setIncomplete();
-                    tasks.decrementCompletedTasks();
-                    System.out.printf("Task %d set as incomplete.%n", taskNumber);
-                } else {
-                    System.out.printf("Task %d is already incomplete.%n Stop wasting my time!%n", taskNumber);
-                }
-            }
-            ui.printEndOfOperation();
+            return false;
         }
     }
 
     /**
-     * Deletes a selected task from the list, with the task number input by the user.
-     */
-    public void deleteTask() {
-        if (tasks.isEmpty()) {
-            System.out.println("No tasks to delete.");
-            System.out.println("Please create a task first.");
-            ui.incrementInvalidInputs();
-            ui.printHorizontalLine();
-        } else {
-            Integer taskNumber = parser.launchConfirmationScreen("delete");
-            if (taskNumber != null) {
-                Task task = tasks.get(taskNumber - 1);
-                tasks.remove(task);
-                System.out.printf("Task %d deleted successfully.%n You now have %d tasks.%n",
-                        taskNumber, tasks.getNumOfTasks());
-            }
-            ui.printEndOfOperation();
-        }
-    }
-
-    /**
-     * Finds all tasks containing a keyword input by the user, and prints them in a list format.
-     */
-    public void findTask() {
-        if (tasks.isEmpty()) {
-            System.out.println("No tasks to find.");
-            System.out.println("Please create a task first.");
-            ui.incrementInvalidInputs();
-            ui.printHorizontalLine();
-        } else {
-            ArrayList<Task> matchingTasks = parser.getMatchingTasks();
-            if (matchingTasks == null) {
-                System.out.printf("Keyword cannot be empty. Please try again.%n");
-                ui.printHorizontalLine();
-            } else if (matchingTasks.isEmpty()) {
-                System.out.printf("No tasks with your keyword. Please try again.%n");
-                ui.printHorizontalLine();
-            } else {
-                System.out.printf("Here are the matching tasks in your list:%n");
-                for (int i = 0; i < matchingTasks.size(); i++) {
-                    System.out.printf("%d. " + matchingTasks.get(i).toString()
-                            + "%n", i + 1);
-                }
-                ui.printEndOfOperation();
-            }
-        }
-    }
-
-    /**
-     * Terminates the {@code Duke} object.
+     * Gets all tasks in the {@code TaskList} containing a keyword input by the user.
      *
-     * @param status Indicates the cause of termination as follows:
-     *               0 - Normal operations.
-     *               1 - Excessive invalid inputs from user.
-     *               2 - When {@code FileNotFoundException} is thrown.
-     * @throws IOException When the {@code saveTasksToDisk()} method in the {@code Storage} class
-     *     fails to function properly.
+     * @return {@code ArrayList} of tasks matching the keyword; {@code null} if the user input is blank.
      */
-    public void exit(int status) throws IOException {
-        storage.saveTasksToDisk("./data/tasks.txt", tasks);
-        if (status == 1) {
-            System.out.printf("I've had enough of your nonsense!%n"
-                    + "Don't let me see you again!%n");
-        } else if (status == 0) {
-            System.out.println("Finally I can rest. Bye!");
+    public ArrayList<Task> getMatchingTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (int i = 0; i < tasks.getNumOfTasks(); i++) {
+            Task t = tasks.get(i);
+            String details = t.getDetails();
+            if (details.contains(keyword)) {
+                matchingTasks.add(t);
+            }
         }
-        ui.printHorizontalLine();
-        System.exit(0);
+        return matchingTasks;
+    }
+
+    /**
+     * Checks if the input {@code LocalDateTime} is at or after the current system time.
+     *
+     * @param dateTime {@code LocalDateTime} of the {@code Task}.
+     * @return {@code true} if the {@code LocalDateTime} is at or after the current system time;
+     * {@code false} otherwise.
+     */
+    public boolean checkStartDateTime(LocalDateTime dateTime) {
+        return dateTime.isAfter(LocalDateTime.now());
+    }
+
+    /**
+     * Checks if the end time of a {@code Task} is at or after the start time.
+     *
+     * @param startTime Start time of the {@code Task}.
+     * @param endTime   End time of the {@code Task}.
+     * @return {@code true} if the end time is at or after the start time; {@code false} otherwise.
+     */
+    public boolean checkTimeInterval(LocalDateTime startTime, LocalDateTime endTime) {
+        return endTime.isAfter(startTime);
+    }
+
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    public String executeCommand(Parser.Command command, String message,
+                                 LocalDateTime... localDateTimes) {
+        StringBuilder res = new StringBuilder();
+        switch (command) {
+        case TASK -> executeTask(res, message);
+        case TODO -> executeTodo(res, message);
+        case DEADLINE -> executeDeadline(res, message, localDateTimes[0]);
+        case EVENT -> executeEvent(res, message, localDateTimes[0], localDateTimes[1]);
+        case LIST -> executeList(res);
+        case MARK -> {
+            int taskNumber = Integer.parseInt(message);
+            executeMark(res, taskNumber);
+        }
+        case UNMARK -> {
+            int taskNumber = Integer.parseInt(message);
+            executeUnmark(res, taskNumber);
+        }
+        case DELETE -> {
+            int taskNumber = Integer.parseInt(message);
+            executeDelete(res, taskNumber);
+        }
+        case SEARCH -> executeSearch(res, message);
+        case COMMANDS -> res.append(ui.getCommands());
+        default -> {
+        }
+        }
+        res.append(ui.getEndOfOperationMessage());
+        parser.resetCommandInExecution();
+        return res.toString();
     }
 
     public static void main(String[] args) throws IOException {
