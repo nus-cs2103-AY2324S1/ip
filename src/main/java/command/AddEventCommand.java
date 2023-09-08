@@ -5,7 +5,7 @@ import storage.TaskList;
 
 import taskmanager.Event;
 
-import ui.Ui;
+import duke.Ui;
 
 /**
  * Command to add an Events task.
@@ -34,15 +34,16 @@ public class AddEventCommand extends Command {
      * @param task The task list to which the Events task will be added.
      * @param ui   The user interface.
      * @param f    The file handler for storing tasks.
+     *
+     * @return     The string representation of the task.
      */
     @Override
-    public void execute(TaskList task, Ui ui, FileHandler f) {
+    public String execute(TaskList task, Ui ui, FileHandler f) {
         Event newEvent = new Event(taskDesc, from, to);
-        if (newEvent.isValid()) {
-            task.add(newEvent);
-            FileHandler.writeTasksToFile(task);
-            ui.addedEvent(newEvent);
-        }
+        task.add(newEvent);
+        FileHandler.writeTasksToFile(task);
+        return "Help you added a new event.\n     " + newEvent.toString()
+                + "\nNow you have " + task.size() + String.format(" task(s) in the list.");
     }
 
     /**

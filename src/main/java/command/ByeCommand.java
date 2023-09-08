@@ -3,7 +3,7 @@ package command;
 import storage.FileHandler;
 import storage.TaskList;
 
-import ui.Ui;
+import duke.Ui;
 
 /**
  * A command to exit the application.
@@ -22,10 +22,12 @@ public class ByeCommand extends Command {
      * @param task The task list (not used in this command).
      * @param ui   The user interface.
      * @param f    The file handler for storing tasks (not used in this command).
+     *
+     * @return     A string representation of goodbye message.
      */
     @Override
-    public void execute(TaskList task, Ui ui, FileHandler f) {
-        ui.bye();
+    public String execute(TaskList task, Ui ui, FileHandler f) {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**

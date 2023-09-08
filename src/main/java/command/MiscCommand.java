@@ -3,8 +3,7 @@ package command;
 import storage.FileHandler;
 import storage.TaskList;
 
-import ui.Ui;
-
+import duke.Ui;
 
 /**
  * Represents a miscellaneous command.
@@ -24,10 +23,12 @@ public class MiscCommand extends Command {
      * @param t  The task list (not used in this command).
      * @param ui The user interface to display the message.
      * @param f  The file handler (not used in this command).
+     *
+     * @return   A string representation of miscellaneous message.
      */
     @Override
-    public void execute(TaskList t, Ui ui, FileHandler f) {
-        ui.misc();
+    public String execute(TaskList t, Ui ui, FileHandler f) {
+        return "I don't really understand what you mean.";
     }
 
     /**

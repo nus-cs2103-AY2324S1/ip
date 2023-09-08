@@ -1,4 +1,4 @@
-package ui;
+package duke;
 
 import java.util.Scanner;
 
@@ -8,7 +8,6 @@ import taskmanager.Deadline;
 import taskmanager.Event;
 import taskmanager.Task;
 import taskmanager.ToDo;
-
 
 /**
  * The Ui class handles user interaction and displays messages to the user.

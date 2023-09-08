@@ -3,7 +3,7 @@ package command;
 import storage.FileHandler;
 import storage.TaskList;
 
-import ui.Ui;
+import duke.Ui;
 
 /**
  * A command to list the tasks.
@@ -24,8 +24,11 @@ public class ListCommand extends Command {
      * @param f  The file handler (not used in this command).
      */
     @Override
-    public void execute(TaskList t, Ui ui, FileHandler f) {
-        ui.list();
+    public String execute(TaskList t, Ui ui, FileHandler f) {
+        if (t.toTaskStr().equals("")) {
+            return "Empty list!";
+        }
+        return t.toTaskStr();
     }
 
     /**

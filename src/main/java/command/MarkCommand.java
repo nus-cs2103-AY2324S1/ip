@@ -3,7 +3,7 @@ package command;
 import storage.FileHandler;
 import storage.TaskList;
 
-import ui.Ui;
+import duke.Ui;
 
 /**
  * A command to mark a task as done.
@@ -27,15 +27,22 @@ public class MarkCommand extends Command {
      * @param t  The task list containing the tasks.
      * @param ui The user interface to display the result.
      * @param f  The file handler (not used in this command).
+     *
+     * @return   A string representation of mark message.
      */
     @Override
-    public void execute(TaskList t, Ui ui, FileHandler f) {
+    public String execute(TaskList t, Ui ui, FileHandler f) {
         try {
-            t.get(index - 1).markDone();
-            FileHandler.writeTasksToFile(t);
-            ui.mark(index);
+            if (t.get(index - 1).isDone()) {
+                return "The task has been marked as done.";
+            } else {
+                t.get(index - 1).markDone();
+                FileHandler.writeTasksToFile(t);
+                return "Well done! I've marked this task as done :\n"
+                        + "    " + t.get(index - 1).toString();
+            }
         } catch (IndexOutOfBoundsException e) {
-            ui.ioobExceptionMessage();
+            return "Please enter the correct task's index number.";
         }
     }
 
