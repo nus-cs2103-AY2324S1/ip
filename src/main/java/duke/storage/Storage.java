@@ -39,7 +39,7 @@ public class Storage {
                 file.createNewFile();
             }
         } catch (IOException e) {
-            throw new DukeException("☹ OOPS!!! Failed to create file.");
+            throw new DukeException("OOPS!!! Failed to create file.");
         }
     }
 
@@ -79,14 +79,14 @@ public class Storage {
                     }
                     tasks.addTask(event);
                 } else {
-                    throw new DukeException("☹ OOPS!!! Failed to load tasks from file.");
+                    throw new DukeException("OOPS!!! Failed to load tasks from file.");
                 }
             }
             return tasks;
         } catch (DateTimeParseException e) {
-            throw new DukeException("☹ OOPS!!! Invalid date format. Please type dates in the format yyyy-mm-dd");
+            throw new DukeException("OOPS!!! Invalid date format. Please type dates in the format yyyy-mm-dd");
         } catch (IOException e) {
-            throw new DukeException("☹ OOPS!!! Failed to load tasks from file.");
+            throw new DukeException("OOPS!!! Failed to load tasks from file.");
         }
     }
 
@@ -105,7 +105,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            throw new DukeException("☹ OOPS!!! Failed to write to file.");
+            throw new DukeException("OOPS!!! Failed to write to file.");
         }
     }
 }

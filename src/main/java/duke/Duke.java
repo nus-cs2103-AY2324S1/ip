@@ -15,7 +15,7 @@ import duke.ui.Ui;
  * @author Joseph Oliver Lim
  */
 public class Duke {
-    private TaskList tasks;
+    private TaskList tasks = new TaskList();
     private Scanner sc;
     private Ui ui;
     private Storage storage;
@@ -27,41 +27,30 @@ public class Duke {
         this.sc = new Scanner(System.in);
         this.ui = new Ui();
         this.storage = new Storage();
+        try {
+            this.storage.initialize();
+            this.tasks = this.storage.readFile();
+        } catch (DukeException e) {
+            this.ui.errorMessage(e);
+        }
     }
 
     /**
      * Runs the Duke chatbot.
      */
-    public void run() {
-        this.ui.printHello();
+    public String run(String input) {
         try {
-            this.storage.initialize();
-            this.tasks = this.storage.readFile();
+            Command command = Parser.parse(input);
+            return command.execute(this.tasks, this.ui, this.storage);
         } catch (DukeException e) {
-            this.ui.printErrorMessage(e);
-        }
-        while (this.sc.hasNextLine()) {
-            try {
-                String input = this.sc.nextLine();
-                Command command = Parser.parse(input);
-                command.execute(this.tasks, this.ui, this.storage);
-                if (input.split(" ")[0].equals("bye")) {
-                    this.sc.close();
-                    break;
-                }
-            } catch (DukeException e) {
-                this.ui.printErrorMessage(e);
-            }
+            return this.ui.errorMessage(e);
         }
     }
 
     /**
-     * Starts the Duke chatbot.
-     *
-     * @param args Args.
+     * Gets a response from the Duke chatbot.
      */
-    public static void main(String[] args) {
-        Duke duke = new Duke();
-        duke.run();
+    protected String getResponse(String input) {
+        return run(input);
     }
 }

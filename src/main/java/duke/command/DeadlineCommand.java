@@ -35,16 +35,17 @@ public class DeadlineCommand extends Command {
      * @param tasks The TaskList where the command is to be executed.
      * @param ui The Ui that functions as user interface.
      * @param storage The Storage that functions to store data.
+     * @return A String to be shown to the user after the command is executed.
      * @throws DukeException If the deadline date is of invalid format.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
             Task task = new Deadline(this.description, this.by);
             tasks.addTask(task);
-            ui.printAddTask(task, tasks.getCountTasks());
+            return ui.addTask(task, tasks.getCountTasks());
         } catch (DateTimeParseException e) {
-            throw new DukeException("☹ OOPS!!! Invalid date format. Please type dates in the format yyyy-mm-dd");
+            throw new DukeException("OOPS!!! Invalid date format. Please type dates in the format yyyy-mm-dd");
         }
     }
 }

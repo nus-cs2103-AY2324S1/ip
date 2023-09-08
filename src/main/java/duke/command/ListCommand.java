@@ -16,9 +16,10 @@ public class ListCommand extends Command {
      * @param tasks The TaskList where the command is to be executed.
      * @param ui The Ui that functions as user interface.
      * @param storage The Storage that functions to store data.
+     * @return A String to be shown to the user after the command is executed.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printTaskList(tasks, tasks.getCountTasks());
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.taskList(tasks, tasks.getCountTasks());
     }
 }

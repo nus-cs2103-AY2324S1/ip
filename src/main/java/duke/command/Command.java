@@ -17,7 +17,8 @@ public abstract class Command {
      * @param tasks The TaskList where the command is to be executed.
      * @param ui The Ui that functions as user interface.
      * @param storage The Storage that functions to store data.
+     * @return A String to be shown to the user after the command is executed.
      * @throws DukeException If the execution of the command fails.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 }

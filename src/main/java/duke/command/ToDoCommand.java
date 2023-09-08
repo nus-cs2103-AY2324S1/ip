@@ -29,11 +29,12 @@ public class ToDoCommand extends Command {
      * @param tasks The TaskList where the command is to be executed.
      * @param ui The Ui that functions as user interface.
      * @param storage The Storage that functions to store data.
+     * @return A String to be shown to the user after the command is executed.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = new ToDo(this.description);
         tasks.addTask(task);
-        ui.printAddTask(task, tasks.getCountTasks());
+        return ui.addTask(task, tasks.getCountTasks());
     }
 }
