@@ -28,7 +28,6 @@ public class Storage {
                 System.out.println("Directory '" + this.dirName + "' created.");
             } else {
                 System.err.println("Failed to create directory '" + this.dirName + "'.");
-                return;
             }
         }
 

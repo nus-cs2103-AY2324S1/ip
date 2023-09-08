@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 public class Task {
     private boolean isDone;
 
-    private int type;
+    private int typeOfTask;
 
     private String taskName;
 
@@ -15,11 +15,11 @@ public class Task {
     private LocalDate endDate;
 
 
-    public Task(String taskName, int type, String startDate, String endDate, boolean isDone) {
+    public Task(String taskName, int typeOfTask, String startDate, String endDate, boolean isDone) {
         this.taskName = taskName;
-        this.type = type;
+        this.typeOfTask = typeOfTask;
 
-        switch (this.type) {
+        switch (this.typeOfTask) {
         case 1:
             break;
         case 2:
@@ -36,18 +36,12 @@ public class Task {
 
     }
 
-    public String markDone() {
+    public void markDone() {
         isDone = true;
-        String message = "Nice! I've marked this task as done:";
-        message = message + "\n" + "[X] " + taskName;
-        return message;
     }
 
-    public String unmarkDone() {
+    public void unmarkDone() {
         isDone = false;
-        String message = "OK, I've marked this task as not done yet:";
-        message = message + "\n" + "[ ] " + taskName;
-        return message;
     }
 
     /**
@@ -56,7 +50,7 @@ public class Task {
      */
     public String display() {
         String description = "[";
-        switch (this.type) {
+        switch (this.typeOfTask) {
         case 1:
             description = description + "T]";
             break;
@@ -73,11 +67,11 @@ public class Task {
             description = description + "[ ] " + taskName;
         }
 
-        if (this.type == 2) {
+        if (this.typeOfTask == 2) {
             description = description + " (by: " + endDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
         }
 
-        if (this.type == 3) {
+        if (this.typeOfTask == 3) {
             description = description + " (from: " + startDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
                     + " to: " + endDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
         }
@@ -92,12 +86,12 @@ public class Task {
      * @return string representation of the Task object
      */
     public String ForRecordingInTextFile() {
-        // Record format: "Type | Status | Name | StartTime(optional) | EndTime(optional)"
+        // Record format: "typeOfTask | Status | Name | StartTime(optional) | EndTime(optional)"
         // example: "D | 0 | return book | June 6th"
         // "0" for not done and "1" for done
 
         String description = "";
-        switch (this.type) {
+        switch (this.typeOfTask) {
         case 1:
             description = description + "T | ";
             break;
@@ -114,11 +108,11 @@ public class Task {
             description = description + "0 | " + taskName;
         }
 
-        if (this.type == 2) {
+        if (this.typeOfTask == 2) {
             description = description + " | " + endDate.toString();
         }
 
-        if (this.type == 3) {
+        if (this.typeOfTask == 3) {
             description = description + " | " + startDate.toString() + " | " + endDate.toString();
         }
 
