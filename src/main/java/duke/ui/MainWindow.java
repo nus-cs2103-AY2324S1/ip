@@ -1,6 +1,8 @@
 package duke.ui;
 
 import duke.Duke;
+import duke.storage.StorageException;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -33,20 +35,35 @@ public class MainWindow extends AnchorPane {
 
     public void setDuke(Duke d) {
         duke = d;
+
+        try {
+            duke.loadTasks();
+            dialogContainer.getChildren().add(DialogBox.getDukeDialog(duke.getGreetings(), dukeImage));
+        } catch (StorageException e) {
+            dialogContainer.getChildren().add(DialogBox.getDukeDialog(String.format(
+                    "%s. Initializing empty task list ...",
+                    e.getMessage()
+            ), dukeImage));
+        }
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one showing the user's input and the other containing Duke's response, and then
+     * appends them to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
+        String input = userInput.getText().trim();
         String response = duke.getResponse(input);
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+
+        if (duke.shouldTerminate()) {
+            Platform.exit();
+        }
     }
 }

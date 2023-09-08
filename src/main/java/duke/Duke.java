@@ -5,7 +5,6 @@ import duke.commands.CommandException;
 import duke.commands.CommandResult;
 import duke.storage.Storage;
 import duke.storage.StorageException;
-import duke.ui.TextUi;
 
 /**
  * Duke is a task management tool.
@@ -13,50 +12,30 @@ import duke.ui.TextUi;
 public class Duke {
     private static final String NAME = "Jimmy";
     private static final String TASKS_CACHE_PATH = ".duke-cache";
+    private final Storage storage;
+    private TaskList tasks;
+    private boolean shouldTerminate;
 
-    public static void main(String[] args) {
-        TextUi ui = new TextUi();
-        Storage storage = new Storage(TASKS_CACHE_PATH);
-        TaskList tasks;
 
-        try {
-            tasks = storage.load();
-            ui.say(String.format("Loaded existing tasks from %s", TASKS_CACHE_PATH));
-        } catch (StorageException e) {
-            ui.say(String.format("%s. Initializing empty task list...", e.getMessage()));
-            tasks = new TaskList();
-        }
+    /**
+     * Constructor for an instance of Duke.
+     */
+    public Duke() {
+        this.storage = new Storage(TASKS_CACHE_PATH);
+        this.tasks = new TaskList();
+        this.shouldTerminate = false;
+    }
 
-        ui.greet(NAME);
+    public void loadTasks() throws StorageException {
+        tasks = storage.load();
+    }
 
-        boolean shouldTerminate = false;
+    public boolean shouldTerminate() {
+        return shouldTerminate;
+    }
 
-        while (!shouldTerminate) {
-            String input = ui.getInput();
-
-            try {
-                Command command = Command.parse(input);
-
-                if (command == null) {
-                    continue;
-                }
-                if (command.shouldExit()) {
-                    shouldTerminate = true;
-                }
-
-                CommandResult result = command.run(tasks);
-
-                if (result.isTaskListDirty()) {
-                    storage.save(tasks);
-                }
-
-                ui.say(result.getResponse().toArray(new String[0]));
-            } catch (CommandException e) {
-                ui.say(e.getMessage());
-            }
-        }
-
-        storage.save(tasks);
+    public String getGreetings() {
+        return String.format("Hello, I'm %s!", NAME);
     }
 
     /**
@@ -66,6 +45,23 @@ public class Duke {
      * @return A string containing the response from duke.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            Command command = Command.parse(input);
+            assert command != null;
+
+            if (command.shouldExit()) {
+                shouldTerminate = true;
+            }
+
+            CommandResult result = command.run(tasks);
+
+            if (result.isTaskListDirty()) {
+                storage.save(tasks);
+            }
+
+            return String.join("\n", result.getResponse());
+        } catch (CommandException e) {
+            return e.getMessage();
+        }
     }
 }
