@@ -30,13 +30,13 @@ public class ParserTest {
 
     @Test
     public void testParseCreateTaskInputTodo() throws DukeException {
-        Task task = Parser.parseCreateTaskInput("todo A random task description");
+        Task task = Parser.parseStringToTask("todo A random task description");
         assertEquals("A random task description", task.getDescription());
     }
 
     @Test
     public void testParseCreateTaskInputEvent() throws DukeException {
-        Task task = Parser.parseCreateTaskInput("event Random Event Description /from 2023-08-23 0000 /to 2023-08-24 0000");
+        Task task = Parser.parseStringToTask("event Random Event Description /from 2023-08-23 0000 /to 2023-08-24 0000");
         assertEquals("Random Event Description", task.getDescription());
     }
 

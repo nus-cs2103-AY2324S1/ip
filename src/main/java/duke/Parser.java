@@ -116,7 +116,7 @@ public class Parser {
         } else if (isListCommand(input)) {
             ui.showTaskList(tasks);
         } else if (isCreateTaskCommand(input)) {
-            Task newTask = parseCreateTaskInput(input);
+            Task newTask = parseStringToTask(input);
             tasks.addTask(newTask);
         } else if (isFindCommand(input)) {
             String keyword = input.substring(5).trim();
@@ -143,7 +143,7 @@ public class Parser {
         }
 
         String taskType = parts[0].trim();
-        String done = parts[1].trim();
+        String taskStatus = parts[1].trim();
         String taskDescription = parts[2].trim();
         System.out.println(taskDescription);
         String start = parts[3].trim();
@@ -162,7 +162,7 @@ public class Parser {
                 task = new Event(taskDescription, start, end);
                 break;
             }
-            if (done.equals("0") && task != null) {
+            if (taskStatus.equals("0") && task != null) {
                 task.isDone = false;
             }
         } catch (DukeException e) {
@@ -178,7 +178,7 @@ public class Parser {
      * @return The Task object created from the input.
      * @throws DukeException If there is an error in parsing the input or creating the task.
      */
-    public static Task parseCreateTaskInput(String input) throws DukeException {
+    public static Task parseStringToTask(String input) throws DukeException {
         TaskType taskType;
         String[] parts = input.split("/");
         String taskDetails = parts[0].trim();
@@ -218,7 +218,10 @@ public class Parser {
             String end = parts[2].substring(3).trim();
             newTask = new Event(taskDetails, start, end);
             break;
+        default:
+            throw new DukeException("Invalid task");
         }
+
         return newTask;
     }
 }
