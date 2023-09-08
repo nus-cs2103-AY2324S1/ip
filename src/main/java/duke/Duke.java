@@ -16,7 +16,6 @@ public class Duke {
     private TaskList tasks;
     private boolean shouldTerminate;
 
-
     /**
      * Constructor for an instance of Duke.
      */
