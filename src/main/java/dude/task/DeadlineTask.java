@@ -75,8 +75,8 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toString() {
-      return String.format("<D>%s (BY: %s)", super.toString(),
-              deadline.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)));
+        return String.format("<D>%s (BY: %s)", super.toString(),
+                deadline.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)));
     }
 
     /**

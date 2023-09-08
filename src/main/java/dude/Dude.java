@@ -8,9 +8,9 @@ import dude.task.TaskList;
  * Dude (Duke, but renamed).
  */
 public class Dude {
+    private final Ui ui;
     private Storage storage;
     private TaskList tasks;
-    private final Ui ui;
 
     /**
      * Constructor for Dude.

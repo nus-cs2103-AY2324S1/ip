@@ -10,21 +10,19 @@ import dude.exception.InvalidTaskIndexException;
 public class TaskList {
     public static final String emptyTaskList = "You currently have no tasks in your list.";
     public static final String taskListPrefix = "Here's your tasks list:\n";
+    public static final String SEARCH_RESULTS_PREFIX = "Here are the matching tasks in your list:\n";
+    public static final String NO_SEARCH_RESULTS_MSG = "Couldn't find any tasks matching \"%s\".";
     /**
      * Tasks stored by user.
      */
     private final ArrayList<Task> tasks;
 
-    public static final String SEARCH_RESULTS_PREFIX = "Here are the matching tasks in your list:\n";
-
-  public static final String NO_SEARCH_RESULTS_MSG = "Couldn't find any tasks matching \"%s\".";
-
-  /**
-   * Constructor for empty TaskList.
-   */
-  public TaskList() {
-    tasks = new ArrayList<>();
-  }
+    /**
+     * Constructor for empty TaskList.
+     */
+    public TaskList() {
+        tasks = new ArrayList<>();
+    }
 
     /**
      * Constructor for TaskList from existing list of tasks.
@@ -88,40 +86,40 @@ public class TaskList {
      * @param substring Substring to search (case-insensitive).
      * @return ArrayList of tasks with given keyword.
      */
-  public ArrayList<Task> search(String substring) {
-    ArrayList<Task> results = new ArrayList<>();
-    for (Task task : tasks) {
-      if (task.description.toLowerCase().contains(substring.strip().toLowerCase())) {
-        results.add(task);
-      }
+    public ArrayList<Task> search(String substring) {
+        ArrayList<Task> results = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.description.toLowerCase().contains(substring.strip().toLowerCase())) {
+                results.add(task);
+            }
+        }
+        return results;
     }
-    return results;
-  }
 
-  /**
-   * Finds list of tasks with descriptions containing given substring.
-   *
-   * @param substring Substring to search (case-insensitive).
-   * @return String list of tasks with given keyword.
-   */
-  public String displaySearch(String substring) {
-    StringBuilder tasksList = new StringBuilder(SEARCH_RESULTS_PREFIX);
-    for (int i = 0; i < tasks.size(); i++) {
-      Task task = tasks.get(i);
-      if (task.description.toLowerCase().contains(substring.strip().toLowerCase())) {
-        String taskNumberPrefix = String.format("%3s-", i + 1);
-        String taskStr = taskNumberPrefix + task + "\n";
-        tasksList.append(taskStr);
-      }
+    /**
+     * Finds list of tasks with descriptions containing given substring.
+     *
+     * @param substring Substring to search (case-insensitive).
+     * @return String list of tasks with given keyword.
+     */
+    public String displaySearch(String substring) {
+        StringBuilder tasksList = new StringBuilder(SEARCH_RESULTS_PREFIX);
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.description.toLowerCase().contains(substring.strip().toLowerCase())) {
+                String taskNumberPrefix = String.format("%3s-", i + 1);
+                String taskStr = taskNumberPrefix + task + "\n";
+                tasksList.append(taskStr);
+            }
+        }
+        if (tasksList.toString().equals(SEARCH_RESULTS_PREFIX)) {
+            return String.format(NO_SEARCH_RESULTS_MSG, substring);
+        } else {
+            return tasksList.toString();
+        }
     }
-    if (tasksList.toString().equals(SEARCH_RESULTS_PREFIX)) {
-      return String.format(NO_SEARCH_RESULTS_MSG, substring);
-    } else {
-      return tasksList.toString();
-    }
-  }
 
-  /**
+    /**
      * Returns list of all tasks as a string.
      *
      * @return Tasks list formatted as a string.

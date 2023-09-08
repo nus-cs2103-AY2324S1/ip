@@ -19,12 +19,12 @@ public class Ui {
 
     private final Scanner sc;
 
-  /**
-   * Constructor for Ui class.
-   */
-  public Ui() {
-    sc = new Scanner(System.in);
-  }
+    /**
+     * Constructor for Ui class.
+     */
+    public Ui() {
+        sc = new Scanner(System.in);
+    }
 
     /**
      * Formats and prints given message/prompt to console.

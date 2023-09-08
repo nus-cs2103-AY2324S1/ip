@@ -25,14 +25,14 @@ public class ToDoTask extends Task {
         super(description, isDone);
     }
 
-  /**
-   * Parses save file data into a To Do task instance.
-   *
-   * @param data Line from save file.
-   * @return Task instance.
-   * @throws InvalidTaskDataException If data is not in the expected format.
-   */
-  public static ToDoTask fromData(String data) throws InvalidTaskDataException {
+    /**
+     * Parses save file data into a To Do task instance.
+     *
+     * @param data Line from save file.
+     * @return Task instance.
+     * @throws InvalidTaskDataException If data is not in the expected format.
+     */
+    public static ToDoTask fromData(String data) throws InvalidTaskDataException {
      /*
        expected format:
        completed: 1, incomplete: 0
@@ -52,23 +52,24 @@ public class ToDoTask extends Task {
         boolean isCompleted = taskCompleted.equals("1");
         return new ToDoTask(taskDescription, isCompleted);
     }
-  /**
-   * Gets Todo task formatted with type and status icon.
-   *
-   * @return Task formatted as a string.
-   */
-  @Override
-  public String toString() {
-    return "<T>" + super.toString();
-  }
 
-  /**
-   * Parses To Do task instance into save file string data.
-   *
-   * @return {@inheritDoc}
-   */
-  @Override
-  public String toData() {
+    /**
+     * Gets Todo task formatted with type and status icon.
+     *
+     * @return Task formatted as a string.
+     */
+    @Override
+    public String toString() {
+        return "<T>" + super.toString();
+    }
+
+    /**
+     * Parses To Do task instance into save file string data.
+     *
+     * @return {@inheritDoc}
+     */
+    @Override
+    public String toData() {
      /*
        expected format:
        completed: 1, incomplete: 0

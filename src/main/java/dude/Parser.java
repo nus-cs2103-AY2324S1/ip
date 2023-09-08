@@ -167,65 +167,65 @@ public class Parser {
         return new AddTaskCommand(task);
     }
 
-  /**
-   * Parses find command.
-   *
-   * @param input Input command.
-   * @return Find command.
-   * @throws SearchStringMissingException If substring to search is missing.
-   */
-  public static FindTaskCommand parseFind(String input)
-    throws SearchStringMissingException {
-    String[] splitInput = input.split(" ", 2);
-    if (splitInput.length < 2) {
-      // search string not specified
-      throw new SearchStringMissingException();
+    /**
+     * Parses find command.
+     *
+     * @param input Input command.
+     * @return Find command.
+     * @throws SearchStringMissingException If substring to search is missing.
+     */
+    public static FindTaskCommand parseFind(String input)
+            throws SearchStringMissingException {
+        String[] splitInput = input.split(" ", 2);
+        if (splitInput.length < 2) {
+            // search string not specified
+            throw new SearchStringMissingException();
+        }
+        String searchString = splitInput[1];
+        return new FindTaskCommand(searchString);
     }
-    String searchString = splitInput[1];
-    return new FindTaskCommand(searchString);
-  }
 
-  /**
-   * Parses text input and returns DudeCommand instance.
-   *
-   * @param input Input to parse.
-   * @return dude.command.DudeCommand instance parsed from input.
-   * @throws DudeException If command cannot be parsed.
-   */
-  public static DudeCommand parse(String input) throws DudeException {
-    // extract command (strip leading and trailing whitespace, take first word)
-    String[] splitInput = input.split(" ", 2);
-    String cmdString = splitInput[0].toLowerCase();
-    try {
-      DudeCommandId cmd = DudeCommandId.valueOf(cmdString);
-      switch (cmd) {
-        case bye:
-          return new ExitCommand();
-        case list:
-          return new ListTasksCommand();
-        case mark:
-          return new MarkTaskCommand(parseTaskIndex(input));
-        case unmark:
-          return new UnmarkTaskCommand(parseTaskIndex(input));
-        case delete:
-          // Fallthrough - alias
-        case remove:
-          return new DeleteTaskCommand(parseTaskIndex(input));
-        case todo:
-          return parseTodo(input);
-        case deadline:
-          return parseDeadline(input);
-        case event:
-          return parseEvent(input);
-        case find:
-          return parseFind(input);
-        default:
-          throw new InvalidCommandException();
-      }
-    } catch (IllegalArgumentException e) {
-      // invalid command entered
-      throw new InvalidCommandException();
+    /**
+     * Parses text input and returns DudeCommand instance.
+     *
+     * @param input Input to parse.
+     * @return dude.command.DudeCommand instance parsed from input.
+     * @throws DudeException If command cannot be parsed.
+     */
+    public static DudeCommand parse(String input) throws DudeException {
+        // extract command (strip leading and trailing whitespace, take first word)
+        String[] splitInput = input.split(" ", 2);
+        String cmdString = splitInput[0].toLowerCase();
+        try {
+            DudeCommandId cmd = DudeCommandId.valueOf(cmdString);
+            switch (cmd) {
+            case bye:
+                return new ExitCommand();
+            case list:
+                return new ListTasksCommand();
+            case mark:
+                return new MarkTaskCommand(parseTaskIndex(input));
+            case unmark:
+                return new UnmarkTaskCommand(parseTaskIndex(input));
+            case delete:
+                // Fallthrough - alias
+            case remove:
+                return new DeleteTaskCommand(parseTaskIndex(input));
+            case todo:
+                return parseTodo(input);
+            case deadline:
+                return parseDeadline(input);
+            case event:
+                return parseEvent(input);
+            case find:
+                return parseFind(input);
+            default:
+                throw new InvalidCommandException();
+            }
+        } catch (IllegalArgumentException e) {
+            // invalid command entered
+            throw new InvalidCommandException();
+        }
     }
-  }
 }
 

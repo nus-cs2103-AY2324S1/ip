@@ -38,14 +38,14 @@ public class Task {
         this.isDone = isDone;
     }
 
-  /**
-   * Parses save file data into a Task instance.
-   *
-   * @param data Line from save file.
-   * @return Task instance.
-   * @throws InvalidTaskDataException If data is not in the expected format.
-   */
-  public static Task fromData(String data) throws InvalidTaskDataException {
+    /**
+     * Parses save file data into a Task instance.
+     *
+     * @param data Line from save file.
+     * @return Task instance.
+     * @throws InvalidTaskDataException If data is not in the expected format.
+     */
+    public static Task fromData(String data) throws InvalidTaskDataException {
      /*
        expected format:
        completed: 1, incomplete: 0
@@ -66,45 +66,45 @@ public class Task {
         return new Task(taskDescription, isCompleted);
     }
 
-  /**
-   * Gets text status icon of task's completion status.
-   *
-   * @return Space if not done; X if done.
-   */
-  public String getStatusIcon() {
-    return (this.isDone ? "X" : " ");
-  }
+    /**
+     * Gets text status icon of task's completion status.
+     *
+     * @return Space if not done; X if done.
+     */
+    public String getStatusIcon() {
+        return (this.isDone ? "X" : " ");
+    }
 
-  /**
-   * Gets task formatted with status icon.
-   *
-   * @return Task formatted as a string. e.g. <code>[X] completed task</code>.
-   */
-  @Override
-  public String toString() {
-    return String.format("[%s] %s", this.getStatusIcon(), this.description);
-  }
+    /**
+     * Gets task formatted with status icon.
+     *
+     * @return Task formatted as a string. e.g. <code>[X] completed task</code>.
+     */
+    @Override
+    public String toString() {
+        return String.format("[%s] %s", this.getStatusIcon(), this.description);
+    }
 
-  /**
-   * Marks task as done.
-   */
-  public void markAsDone() {
-    this.isDone = true;
-  }
+    /**
+     * Marks task as done.
+     */
+    public void markAsDone() {
+        this.isDone = true;
+    }
 
-  /**
-   * Marks task as not done.
-   */
-  public void markAsNotDone() {
-    this.isDone = false;
-  }
+    /**
+     * Marks task as not done.
+     */
+    public void markAsNotDone() {
+        this.isDone = false;
+    }
 
-  /**
-   * Parses task instance into save file string data.
-   *
-   * @return Task data as string.
-   */
-  public String toData() {
+    /**
+     * Parses task instance into save file string data.
+     *
+     * @return Task data as string.
+     */
+    public String toData() {
      /*
        expected format:
        completed: 1, incomplete: 0

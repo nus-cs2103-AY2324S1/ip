@@ -47,14 +47,14 @@ public class EventTask extends Task {
         this.endTime = endTime;
     }
 
-  /**
-   * Parses save file data into an event task instance.
-   *
-   * @param data Line from save file.
-   * @return Task instance.
-   * @throws InvalidTaskDataException If data is not in the expected format.
-   */
-  public static EventTask fromData(String data) throws InvalidTaskDataException {
+    /**
+     * Parses save file data into an event task instance.
+     *
+     * @param data Line from save file.
+     * @return Task instance.
+     * @throws InvalidTaskDataException If data is not in the expected format.
+     */
+    public static EventTask fromData(String data) throws InvalidTaskDataException {
      /*
        expected format:
        completed: 1, incomplete: 0
@@ -79,25 +79,25 @@ public class EventTask extends Task {
         return new EventTask(taskDescription, taskStart, taskEnd, isCompleted);
     }
 
-  /**
-   * Gets Event task formatted with type and status icon.
-   *
-   * @return Task formatted as a string.
-   */
-  @Override
-  public String toString() {
-    return String.format("<E>%s (FROM: %s | TO: %s)", super.toString(),
-            startTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
-            endTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)));
-  }
+    /**
+     * Gets Event task formatted with type and status icon.
+     *
+     * @return Task formatted as a string.
+     */
+    @Override
+    public String toString() {
+        return String.format("<E>%s (FROM: %s | TO: %s)", super.toString(),
+                startTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)),
+                endTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)));
+    }
 
-  /**
-   * Parses event task instance into save file string data.
-   *
-   * @return {@inheritDoc}
-   */
-  @Override
-  public String toData() {
+    /**
+     * Parses event task instance into save file string data.
+     *
+     * @return {@inheritDoc}
+     */
+    @Override
+    public String toData() {
      /*
        expected format:
        completed: 1, incomplete: 0
