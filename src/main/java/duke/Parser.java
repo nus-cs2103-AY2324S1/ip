@@ -1,15 +1,16 @@
 package duke;
 
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
-import duke.commands.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import duke.commands.*;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
+
 
 /**
  * Handles interpretation and execution of user commands.
@@ -133,7 +134,7 @@ public class Parser {
      * @throws DateTimeParseException If error arises during execution.
      */
     public static LocalDateTime parseDateTime(String userInput) throws DateTimeParseException {
-            return LocalDateTime.parse(userInput, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+        return LocalDateTime.parse(userInput, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
     }
 
     /**

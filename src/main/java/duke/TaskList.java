@@ -1,8 +1,8 @@
 package duke;
 
-import duke.tasks.Task;
-
 import java.util.ArrayList;
+
+import duke.tasks.Task;
 
 /**
  * Represents and handles a list of tasks in application.
@@ -71,7 +71,6 @@ public class TaskList {
     }
 
     /**
-<<<<<<< HEAD
      * Returns the task corresponding to the given task index.
      *
      * @param taskIndex the index of the task that is to be retrieved.

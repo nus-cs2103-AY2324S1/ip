@@ -1,8 +1,8 @@
 package duke;
 
-import duke.commands.Command;
-
 import java.time.format.DateTimeParseException;
+
+import duke.commands.Command;
 
 /**
  * Main class of the application.

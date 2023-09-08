@@ -1,8 +1,8 @@
 package duke.tasks;
 
-import duke.Parser;
-
 import java.time.LocalDateTime;
+
+import duke.Parser;
 
 /**
  * Represents an Event task object.

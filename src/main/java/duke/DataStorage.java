@@ -1,21 +1,21 @@
 package duke;
 
+import java.io.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
-
-import java.time.LocalDateTime;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.*;
 
 /**
  * Handles saving and loading of data.
  */
 public class DataStorage {
 
-    public ArrayList<Task> taskDataList;
+    protected ArrayList<Task> taskDataList;
 
     /**
      * Initialises a new DataStorage object.

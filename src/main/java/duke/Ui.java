@@ -1,16 +1,16 @@
 package duke;
 
-import duke.tasks.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.tasks.Task;
 
 /**
  * Handles user interactions through user interface.
  */
 public class Ui {
 
-    String logo = "   / \\__\n"
+    private String logo = "   / \\__\n"
             + "  (    @\\___\n"
             + "  /          O\n"
             + " /   (_____/\n"
@@ -44,7 +44,7 @@ public class Ui {
      */
     public void showWelcome() {
         showLine();
-        System.out.println("Hello I'm Barkley\n"+logo);
+        System.out.println("Hello I'm Barkley\n" + logo);
         System.out.println("Howl can I help you?");
         showLine();
     }
@@ -131,7 +131,7 @@ public class Ui {
      */
     public void showFindCommandList(ArrayList<Task> taskList, String keyword) {
         if (taskList.isEmpty()) {
-           System.out.println("There are no tasks containing: " + keyword);
+            System.out.println("There are no tasks containing: " + keyword);
         } else {
             System.out.println("The following tasks contain '" + keyword + "' :");
             for (int i = 0; i < taskList.size(); i++) {
