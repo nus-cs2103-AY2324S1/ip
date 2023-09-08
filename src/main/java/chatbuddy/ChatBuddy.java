@@ -1,6 +1,7 @@
 package chatbuddy;
 
 import chatbuddy.command.Command;
+import chatbuddy.command.ExitCommand;
 import chatbuddy.parser.Parser;
 import chatbuddy.storage.Storage;
 import chatbuddy.ui.Ui;
@@ -23,31 +24,44 @@ public class ChatBuddy {
         try {
             tasks = new TaskList(storage.load());
         } catch (ChatBuddyException e) {
-            ui.showError(e.getMessage());
             tasks = new TaskList();
         }
     }
 
-    /** Runs the chatbot. */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command command = Parser.parse(fullCommand);
-                command.execute(tasks, ui, storage);
-                isExit = command.isExit();
-            } catch (ChatBuddyException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
+    /**
+     * Returns the welcome message.
+     *
+     * @return The welcome message.
+     */
+    public String getWelcome() {
+        return ui.showWelcome();
+    }
+
+    /**
+     * Saves the data and returns the exit message.
+     *
+     * @return The exit message.
+     */
+    public String saveAndGetExitMessage() {
+        try {
+            ExitCommand exitCommand = new ExitCommand();
+            return exitCommand.execute(tasks, ui, storage);
+        } catch (ChatBuddyException e) {
+            return e.getMessage();
         }
     }
 
-    public static void main(String[] args) {
-        new ChatBuddy("data/tasks.txt").run();
+    /**
+     * Returns the response of the command executed from the input.
+     * @param input The user input.
+     * @return The response of the command.
+     */
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(tasks, ui, storage);
+        } catch (ChatBuddyException e) {
+            return e.getMessage();
+        }
     }
 }

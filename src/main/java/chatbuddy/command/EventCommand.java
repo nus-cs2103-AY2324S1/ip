@@ -29,9 +29,9 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ChatBuddyException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ChatBuddyException {
         Event event = new Event(taskDescription, from, to);
         tasks.addTask(event);
-        ui.showTaskAddition(event, tasks.getSize());
+        return ui.showTaskAddition(event, tasks.getSize());
     }
 }

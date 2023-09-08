@@ -33,14 +33,14 @@ public class ParserTest {
             Parser.parse("hi");
             fail();
         } catch (ChatBuddyException e) {
-            assertEquals("☹ OOPS!!! I'm sorry, but I don't know what that means :-(", e.getMessage());
+            assertEquals("OOPS!!! I'm sorry, but I don't know what that means :-(", e.getMessage());
         }
 
         try {
             Parser.parse("Bye");
             fail();
         } catch (ChatBuddyException e) {
-            assertEquals("☹ OOPS!!! I'm sorry, but I don't know what that means :-(", e.getMessage());
+            assertEquals("OOPS!!! I'm sorry, but I don't know what that means :-(", e.getMessage());
         }
     }
 
@@ -50,24 +50,24 @@ public class ParserTest {
             Parser.parse("todo");
             fail();
         } catch (ChatBuddyException e) {
-            assertEquals("☹ OOPS!!! The description of a todo cannot be empty.", e.getMessage());
+            assertEquals("OOPS!!! The description of a todo cannot be empty.", e.getMessage());
         }
 
         try {
             Parser.parse("todo      ");
             fail();
         } catch (ChatBuddyException e) {
-            assertEquals("☹ OOPS!!! The description of a todo cannot be empty.", e.getMessage());
+            assertEquals("OOPS!!! The description of a todo cannot be empty.", e.getMessage());
         }
     }
 
     @Test
     public void parse_invalidDeadlineInput_chatBuddyExceptionThrown() {
-        String errorMessage = "☹ OOPS!!! Please input deadlines in the format "
+        String errorMessage = "OOPS!!! Please input deadlines in the format "
                 + "'deadline [task description] /by [deadline in dd/MM/yyyy]'.\n"
                 + "The task description and deadline cannot be empty.";
 
-        String dateFormatErrorMessage = "☹ OOPS!!! Please input the deadline date in the format dd/MM/yyyy.";
+        String dateFormatErrorMessage = "OOPS!!! Please input the deadline date in the format dd/MM/yyyy.";
 
         try {
             Parser.parse("deadline    ");

@@ -22,9 +22,9 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ChatBuddyException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ChatBuddyException {
         ToDo todo = new ToDo(taskDescription);
         tasks.addTask(todo);
-        ui.showTaskAddition(todo, tasks.getSize());
+        return ui.showTaskAddition(todo, tasks.getSize());
     }
 }
