@@ -1,6 +1,9 @@
 package command;
+
 import storage.Storage;
+
 import tasklist.TaskList;
+
 import ui.Ui;
 
 /**
@@ -11,11 +14,13 @@ import ui.Ui;
 public class ListCommand extends Command {
 
     /**
-     * Executes the list command which triggers the UI to display all tasks currently in the task list.
+     * Executes the list command which triggers the UI
+     * to display all tasks currently in the task list.
      *
      * @param tasks The list of tasks to be displayed in the UI.
      * @param ui The UI where the task list will be displayed.
-     * @param storage The storage of tasks, which is not utilized in this method but is here to override the abstract method in the parent class.
+     * @param storage The storage of tasks, which is not utilized in this method but
+     *                is here to override the abstract method in the parent class.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

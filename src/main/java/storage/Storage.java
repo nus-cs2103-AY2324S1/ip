@@ -19,7 +19,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
- * Responsible for reading from and writing to the file that stores the list of tasks in the String format.
+ * Responsible for reading from and writing to the
+ * file that stores the list of tasks in the String format.
  */
 public class Storage {
     private String filepath;
@@ -78,7 +79,8 @@ public class Storage {
     }
 
     /**
-     * Reads the list of tasks from the file in the String format and returns it as an ArrayList of Task objects.
+     * Reads the list of tasks from the file in the String format
+     * and returns it as an ArrayList of Task objects.
      *
      * @return The list of tasks read from the file.
      * @throws IOException If an I/O error occurs while reading from the file.
@@ -87,17 +89,16 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(this.path.toFile()))) {
             String line;
+
             while ((line = reader.readLine()) != null) {
                 String taskType = line.substring(line.indexOf("[") + 1, line.indexOf("]"));
+
                 // Convert String back to Task object
                 if (taskType.equals("T")) {
-                    System.out.println(line);
                     tasks.add(ToDo.parseFromString(line));
                 } else if (taskType.equals("D")) {
-                    System.out.println(line);
                     tasks.add(Deadline.parseFromString(line));
                 } else {
-                    System.out.println(line);
                     tasks.add(Event.parseFromString(line));
                 }
             }

@@ -1,6 +1,7 @@
 package tasklist;
 
 import java.util.ArrayList;
+
 import task.Task;
 
 /**
@@ -41,7 +42,8 @@ public class TaskList {
      */
     public void delete(int taskNumber) {
         // change number to index
-        taskList.remove(taskNumber - 1);
+        int index = taskNumber - 1;
+        this.taskList.remove(index);
     }
 
     /**
@@ -50,7 +52,7 @@ public class TaskList {
      * @return The number of tasks in the tasklist.
      */
     public int size() {
-        return taskList.size();
+        return this.taskList.size();
     }
 
 
@@ -61,7 +63,9 @@ public class TaskList {
      * @return The Task object at the specified position in the list.
      */
     public Task get(int taskNumber) {
-        return taskList.get(taskNumber - 1);
+        // change number to index
+        int index = taskNumber - 1;
+        return this.taskList.get(index);
     }
 
 }

@@ -1,7 +1,9 @@
 package command;
 
 import storage.Storage;
+
 import tasklist.TaskList;
+
 import ui.Ui;
 
 /**
@@ -10,8 +12,9 @@ import ui.Ui;
  * and to check whether it is an exit command.
  */
 public class ErrorCommand extends Command {
-    // The error message to be displayed in the UI
-    String errorMessage;
+
+    /** Error message to be displayed in the UI */
+    private String errorMessage;
 
     /**
      * Creates a new ErrorCommand with the specified error message to be displayed in the UI.
@@ -25,9 +28,11 @@ public class ErrorCommand extends Command {
     /**
      * Executes the error command by displaying the error message in the UI.
      *
-     * @param tasks The list of tasks, which is not utilized in this method but is here to override the abstract method in the parent class.
+     * @param tasks The list of tasks, which is not utilized in this method
+     *              but is here to override the abstract method in the parent class.
      * @param ui The UI where the error message will be displayed.
-     * @param storage The storage of tasks, which is not utilized in this method but is here to override the abstract method in the parent class.
+     * @param storage The storage of tasks, which is not utilized in this method
+     *                but is here to override the abstract method in the parent class.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

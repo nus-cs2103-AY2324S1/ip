@@ -8,13 +8,22 @@ import java.util.List;
 
 /**
  * Represents a "Deadline" task, which extends the abstract Task class.
- * A "Deadline" task is a task with a description and a due date by which the task should be completed.
+ * A "Deadline" task is a task with a description
+ * and a due date by which the task should be completed.
  */
 public class Deadline extends Task {
+    // A List containing possible formats of date and time.
+    private static final List<String> DATE_STRING_FORMATS = Arrays.asList(
+            "yyyy-MM-dd HH:mm",
+            "dd/MM/yyyy HH:mm",
+            "MM-dd-yyyy HH:mm"
+            // Add other formats here
+    );
     private String dueDate;
 
     /**
-     * Constructs a Deadline instance with a specified task name and due date, automatically setting its task type to DEADLINE.
+     * Constructs a Deadline instance with a specified task name and due date,
+     * automatically setting its task type to DEADLINE.
      *
      * @param taskName The name or description of the Deadline task.
      * @param dueDate The due date for the Deadline task represented as a String.
@@ -25,7 +34,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the Deadline task, which includes its task type represented as "[D]"
+     * Returns a string representation of the Deadline task,
+     * which includes its task type represented as "[D]"
      * followed by its status (done or not done), its name, and its due date.
      *
      * @return A string representing the Deadline task.
@@ -37,8 +47,10 @@ public class Deadline extends Task {
 
     /**
      * Parses a string representation of a Deadline task back into a Deadline object.
-     * It reads the task's description, completion status, and due date from the given line of string and creates a corresponding Deadline object.
-     * It also handles dates formatted in different styles by trying to parse the date in various formats.
+     * It reads the task's description, completion status,
+     * and due date from the given line of string and creates a corresponding Deadline object.
+     * It also handles dates formatted in different styles
+     * by trying to parse the date in various formats.
      *
      * @param line The string representation of the Deadline task, typically read from a data file.
      * @return A Deadline object that corresponds to the data in the given line of string.
@@ -46,19 +58,11 @@ public class Deadline extends Task {
     public static Deadline parseFromString(String line) {
         int firstBracketIndex = line.indexOf(']');
         String description = line.substring(firstBracketIndex + 5).split(" \\(by: ")[0];
-
-        // ArrayList containing possible formats of Date and Time.
-        List<String> formatStrings = Arrays.asList(
-                "yyyy-MM-dd HH:mm",
-                "dd/MM/yyyy HH:mm",
-                "MM-dd-yyyy HH:mm"
-                // Add other formats here
-        );
         String dateInput = line.split("\\(by: |\\)")[1];
         String dueDate = null;
 
         // Try parsing with different formats
-        for (String formatString : formatStrings) {
+        for (String formatString : DATE_STRING_FORMATS) {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatString);
                 LocalDateTime dateTime = LocalDateTime.parse(dateInput, formatter);
@@ -68,6 +72,7 @@ public class Deadline extends Task {
                 // Ignore the exception and try the next format
             }
         }
+
         String mark = line.substring(firstBracketIndex + 2, firstBracketIndex + 3);
         Deadline task = new Deadline(description, dueDate);
 
@@ -75,6 +80,7 @@ public class Deadline extends Task {
         if (mark.equals("X")) {
             task.markDone();
         }
+
         return task;
     }
 }

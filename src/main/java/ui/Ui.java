@@ -2,16 +2,24 @@ package ui;
 
 import java.util.Scanner;
 
-import tasklist.TaskList;
 import task.Task;
 
+import tasklist.TaskList;
+
 /**
- * This class handles the User Interface part of the chatbot, managing user inputs and displaying outputs.
+ * This class handles the User Interface part of the chatbot,
+ * managing user inputs and displaying outputs.
  */
 public class Ui {
+
+    /** Scanner for user input */
     private Scanner scanner;
-    final String SPACE = "------------------------------------"; // for spacing purposes
-    String name = "Adam's Bot"; // name of bot
+
+    /** For spacing purposes */
+    private static final String SPACE = "------------------------------------";
+
+    /** Name of bot */
+    private String name = "Adam's Bot";
 
     /**
      * Constructs a Ui object which initializes a Scanner object to read user inputs.
@@ -26,7 +34,8 @@ public class Ui {
      * @return The trimmed user input.
      */
     public String readCommand() {
-        return scanner.nextLine().trim();// remove trailing spaces and get use input
+        // remove trailing spaces and get use input
+        return scanner.nextLine().trim();
     }
 
     /**
@@ -45,7 +54,7 @@ public class Ui {
      */
     public void showWelcome() {
         System.out.println(SPACE);
-        System.out.println("Hello! I'm " + name);
+        System.out.println("Hello! I'm " + this.name);
         System.out.println("What can I do for you?");
         System.out.println(SPACE);
     }
