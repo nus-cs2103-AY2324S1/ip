@@ -1,7 +1,9 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
+enum TASK_TYPE {TODO, DEADLINE, EVENT}
 public class Dan {
+
     private final static String greets = "\nDan: \n";
     private static MyList tasks = new MyList(100);
     private final static String[] commands = new String[] {
@@ -45,13 +47,13 @@ public class Dan {
                         continue;
                     break;
                 case "todo":
-                    addTask(text, 1);
+                    addTask(text, TASK_TYPE.TODO);
                     break;
                 case "deadline":
-                    addTask(text, 2);
+                    addTask(text, TASK_TYPE.DEADLINE);
                     break;
                 case "event":
-                    addTask(text, 3);
+                    addTask(text, TASK_TYPE.EVENT);
                     break;
                 case "delete":
                     deleteTask(Integer.parseInt(texts[1]));
@@ -81,7 +83,7 @@ public class Dan {
         );
     }
 
-    public static void addTask(String text, int id) throws IndexOutOfBoundsException {
+    public static void addTask(String text, TASK_TYPE id) throws IndexOutOfBoundsException {
         String[] texts = text.split("/");
         for (int i = 0; i < texts.length; i++) {
             texts[i] = texts[i].trim();
