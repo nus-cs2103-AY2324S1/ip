@@ -13,12 +13,29 @@ import tasks.Event;
 import tasks.Task;
 import tasks.ToDos;
 
+/**
+ * Storage class handles reading and writing of tasks (i.e. reading from txt file, writing to txt file).
+ *
+ * @author Kenvyn Kwek
+ */
 public class Storage {
     private File file;
+
+    /**
+     * Initializes Storage object with input File object.
+     *
+     * @param file file to read from and write to.
+     */
     public Storage(File file) {
         this.file = file;
     }
-    public ArrayList<Task> readFromTxtFile() {
+
+    /**
+     * Reads tasks from text file.
+     *
+     * @return Tasks from text file.
+     */
+    public TaskList readFromTxtFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             Scanner reader = new Scanner(file);
@@ -51,13 +68,19 @@ public class Storage {
             System.out.println(e.getMessage());
         }
 
-        return tasks;
+        return new TaskList(tasks);
     }
+
+    /**
+     * Saves current tasks to text file.
+     *
+     * @param tasks Current tasks.
+     */
     public void save(TaskList tasks) { // overwrite 'tasklist.txt' with 'tasks' arraylist
         try {
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
-            for (Task task : tasks.get()) {
+            for (Task task : tasks.getTasks()) {
                 bw.write(task.toString() + "\n");
             }
             bw.close();

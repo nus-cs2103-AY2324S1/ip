@@ -3,7 +3,18 @@ package dogebot;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Parser class handles user commands and calls the next appropriate method for its respective action.
+ *
+ * @author Kenvyn Kwek
+ */
 public class Parser {
+    /**
+     * Reads user command and calls the next appropriate method for its respective action. If "bye" command is entered,
+     * false is returned to end the DogeBot.run() method's input loop.
+     *
+     * @return Loop status.
+     */
     public boolean scan() {
         Scanner sc = new Scanner(System.in);
         boolean isLoop = true;

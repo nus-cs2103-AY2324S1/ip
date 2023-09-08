@@ -1,24 +1,25 @@
 package dogebot;
 
-import org.junit.jupiter.api.Test;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.ToDos;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDos;
 
 public class StorageTest {
     @Test
     public void readFromTxtFileSuccess() {
         // test input
-        String HOME = System.getProperty("user.home"); // get relative path
-        java.nio.file.Path PATH = java.nio.file.Paths.get(HOME, "OneDrive", "Desktop", "iP", "src", "main");
-        File file = new File(PATH.toString(), "tasklistTest.txt");
+        String home = System.getProperty("user.home"); // get relative path
+        java.nio.file.Path path = java.nio.file.Paths.get(home, "OneDrive", "Desktop", "iP", "src", "main");
+        File file = new File(path.toString(), "tasklistTest.txt");
         try {
             if (!file.exists()) {
                 file.createNewFile();
@@ -27,7 +28,7 @@ public class StorageTest {
             System.out.println(e.getMessage());
         }
         Storage storage = new Storage(file);
-        ArrayList<Task> actual = storage.readFromTxtFile();
+        ArrayList<Task> actual = storage.readFromTxtFile().getTasks();
 
         // expected
         ArrayList<Task> expected = new ArrayList<>();
