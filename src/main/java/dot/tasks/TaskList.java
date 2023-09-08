@@ -79,16 +79,16 @@ public class TaskList {
      *                        due the execution of the command to the GUI.
      */
     public void addTask(Task newTask, Consumer<String> handleDotOutput) {
-        if (this.tasks.size() < this.maxSize) {
-            this.tasks.add(newTask);
-            handleDotOutput.accept(Ui.wrapStringWithHorizontalRules(
-                    String.format("Got it. I've added this task:\n"
-                            + "  %s\nNow you have %d tasks in the list.", newTask, this.tasks.size())));
-        } else {
+        if (this.tasks.size() >= this.maxSize) {
             handleDotOutput.accept(Ui.wrapStringWithHorizontalRules(
                     String.format("Your task list has reached the limit of %d tasks. "
                             + "Please remove some tasks to proceed.", this.maxSize)));
+            return;
         }
+        this.tasks.add(newTask);
+        handleDotOutput.accept(Ui.wrapStringWithHorizontalRules(
+                String.format("Got it. I've added this task:\n"
+                        + "  %s\nNow you have %d tasks in the list.", newTask, this.tasks.size())));
     }
 
     /**
@@ -133,13 +133,13 @@ public class TaskList {
      *                        due the execution of the command to the GUI.
      */
     public void deleteTask(int position, Consumer<String> handleDotOutput) {
-        if (position >= 0 && position < this.tasks.size()) {
-            Task removedTask = this.tasks.remove(position);
-            handleDotOutput.accept(Ui.wrapStringWithHorizontalRules(
-                    String.format("Task \"%s\" removed successfully!", removedTask)));
-        } else {
+        if (!(position >= 0 && position < this.tasks.size())) {
             handleDotOutput.accept(Ui.wrapStringWithHorizontalRules("Invalid position."));
+            return;
         }
+        Task removedTask = this.tasks.remove(position);
+        handleDotOutput.accept(Ui.wrapStringWithHorizontalRules(
+                String.format("Task \"%s\" removed successfully!", removedTask)));
     }
 
     /**
