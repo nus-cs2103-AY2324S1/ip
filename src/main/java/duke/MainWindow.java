@@ -26,7 +26,7 @@ public class MainWindow extends AnchorPane {
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaComputer.png"));
 
     /**
-     * A method that initialises and displays the elements when a user first starts and opens the program
+     * A method that initialises and displays the elements when a user first starts and opens the program.
      */
     @FXML
     public void initialize() {
@@ -39,8 +39,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * A method to set Duke class for fxmlLoader in Main class
-     * @param d duke object to be set
+     * A method to set Duke class for fxmlLoader in Main class.
+     * @param d duke object to be set.
      */
     public void setDuke(Duke d) {
         duke = d;

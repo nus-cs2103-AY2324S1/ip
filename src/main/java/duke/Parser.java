@@ -1,6 +1,5 @@
 package duke;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import duke.command.AddCommand;
@@ -82,7 +81,7 @@ public class Parser {
      * @param fullCommand string that user gave
      * @return string that user wants to search with regards to tasks' descriptions
      */
-    public static String getKeyString(String fullCommand) {
+    public static String getString(String fullCommand) {
         return fullCommand.split(" ", 2)[1].trim();
     }
 
@@ -99,23 +98,63 @@ public class Parser {
             return new ListCommand();
         }
         case 1: {
-            Matcher matcher = Pattern.compile("mark ").matcher(fullCommand);
-            if (!matcher.find()) {
-                // return error
-            }
-            int index = Parser.getIndex(fullCommand);
+            int index = indexForCommand("mark ", fullCommand);
             return new MarkCommand(index - 1);
         }
         case 2: {
-            Matcher matcher = Pattern.compile("unmark ").matcher(fullCommand);
-            if (!matcher.find()) {
-                // return error
-            }
-            int index = Parser.getIndex(fullCommand);
+            int index = indexForCommand("unmark ", fullCommand);
             return new UnmarkCommand(index - 1);
         }
         case 3: {
-            switch (Parser.getTaskType(fullCommand)) {
+            return parseTaskAdditionCommand(fullCommand);
+        }
+        case 4: {
+            int index = indexForCommand("delete ", fullCommand);
+            return new DeleteCommand(index - 1);
+        }
+        case 5: {
+            String keyString = stringForCommand("find ", fullCommand);
+            return new FindCommand(keyString);
+        }
+        case 6: {
+            return new ExitCommand();
+        }
+        default: {
+            throw new UnknownTaskTypeException();
+        }
+        }
+    }
+
+    /**
+     * A method that returns index for commands that specifies index.
+     * @param regexExpression regex representing command type.
+     * @param fullCommand string representing user input.
+     * @return index as specified by user in user input.
+     */
+    public static int indexForCommand(String regexExpression, String fullCommand) {
+        Pattern.compile(regexExpression).matcher(fullCommand).find();
+        return Parser.getIndex(fullCommand);
+    }
+
+    /**
+     * A method that returns string for commands that specifies string.
+     * @param regexExpression regex representing command type.
+     * @param fullCommand string representing user input.
+     * @return string as specified by user in user input.
+     */
+    public static String stringForCommand(String regexExpression, String fullCommand) {
+        Pattern.compile(regexExpression).matcher(fullCommand).find();
+        return Parser.getString(fullCommand);
+    }
+
+    /**
+     * A method that returns commands related to task addition.
+     * @param fullCommand string representing user input.
+     * @return command to add task for tasks of Todo, Deadline and Event class.
+     * @throws DukeException
+     */
+    public static Command parseTaskAdditionCommand(String fullCommand) throws DukeException {
+        switch (Parser.getTaskType(fullCommand)) {
             case 0: {
                 return new AddCommand().new TodoCommand(fullCommand);
             }
@@ -129,30 +168,6 @@ public class Parser {
                 throw new UnknownTaskTypeException();
             }
             }
-        }
-        case 4: {
-            Matcher matcher = Pattern.compile("delete ").matcher(fullCommand);
-            if (!matcher.find()) {
-                // return error
-            }
-            int index = Parser.getIndex(fullCommand);
-            return new DeleteCommand(index - 1);
-        }
-        case 5: {
-            Matcher matcher = Pattern.compile("find ").matcher(fullCommand);
-            if (!matcher.find()) {
-                // return error
-            }
-            String keyString = Parser.getKeyString(fullCommand);
-            return new FindCommand(keyString);
-        }
-        case 6: {
-            return new ExitCommand();
-        }
-        default: {
-            throw new UnknownTaskTypeException();
-        }
-        }
     }
 
 }

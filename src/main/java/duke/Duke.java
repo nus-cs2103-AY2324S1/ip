@@ -3,7 +3,7 @@ package duke;
 import duke.command.Command;
 
 /**
- * A class that represents the whole program
+ * A class that represents the whole program.
  */
 public class Duke {
 
@@ -12,8 +12,8 @@ public class Duke {
     private Ui ui;
 
     /**
-     * A constructor for the Duke program
-     * @param filePath the path to database of the program
+     * A constructor for the Duke program.
+     * @param filePath the path to database of the program.
      */
     public Duke(String filePath) {
         ui = new Ui();
@@ -27,7 +27,7 @@ public class Duke {
     }
 
     /**
-     * A method to start the program
+     * A method to start the program.
      */
     public void run() {
         this.ui.greeting();
@@ -50,9 +50,9 @@ public class Duke {
     }
 
     /**
-     * A method that gets response from user and returns program's response
-     * @param input string that user inputted
-     * @return string to be displayed on GUI based on user's command
+     * A method that gets response from user and returns program's response.
+     * @param input string that user inputted.
+     * @return string to be displayed on GUI based on user's command.
      */
     String getResponse(String input) {
         try {
@@ -64,8 +64,8 @@ public class Duke {
     }
 
     /**
-     * Method to start the duke program
-     * @param args list of arguments passed
+     * Method to start the duke program.
+     * @param args list of arguments passed.
      */
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();

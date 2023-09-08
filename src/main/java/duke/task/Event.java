@@ -21,10 +21,10 @@ public class Event extends Task {
     protected LocalDate end;
 
     /**
-     * A constructor of the Event object
-     * @param description Description of Event object
-     * @param start start date of Event object
-     * @param end end date of Event object
+     * A constructor of the Event object.
+     * @param description Description of Event object.
+     * @param start start date of Event object.
+     * @param end end date of Event object.
      */
     public Event(String description, LocalDate start, LocalDate end) {
         super(description);
@@ -73,8 +73,8 @@ public class Event extends Task {
     }
 
     /**
-     * A method that returns the string representation of a Deadline object
-     * @return string representation of the Deadline object to be stored in the database
+     * A method that returns the string representation of a Deadline object.
+     * @return string representation of the Deadline object to be stored in the database.
      */
     @Override
     public String toBeStored() {

@@ -6,7 +6,7 @@ import duke.Ui;
 import duke.exception.DukeException;
 
 /**
- * A class that represents the user command to mark a task
+ * A class that represents the user command to mark a task.
  */
 public class MarkCommand extends Command {
     private int index;
@@ -16,11 +16,11 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * A method that executes the command that user gave
-     * @params tasks TaskList containing all existing Task objects
-     * @params ui UI interface that is used to print messages to the terminal
-     * @params storage Storage object that houses database of the program
-     * @throws DukeException exception thrown if marking task is not able to be done, possibly due to erroneous indexing
+     * A method that executes the command that user gave.
+     * @params tasks TaskList containing all existing Task objects.
+     * @params ui UI interface that is used to print messages to the terminal.
+     * @params storage Storage object that houses database of the program.
+     * @throws DukeException exception thrown if marking task is not able to be done, possibly due to erroneous indexing.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {

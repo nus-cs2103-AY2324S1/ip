@@ -12,8 +12,8 @@ public abstract class Task {
     protected boolean isDone = false;
 
     /**
-     * Constructor for the Task object
-     * @param description Description of Task object
+     * Constructor for the Task object.
+     * @param description Description of Task object.
      */
     public Task(String description) {
         this.description = description;
@@ -48,15 +48,15 @@ public abstract class Task {
     }
 
     /**
-     * A method that marks task as not done
+     * A method that marks task as not done.
      */
     public void markAsNotDone() {
         this.isDone = false;
     }
 
     /**
-     * A method that returns the string representation of a task
-     * @return string representation of the task
+     * A method that returns the string representation of a task.
+     * @return string representation of the task.
      */
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
@@ -64,8 +64,8 @@ public abstract class Task {
 
     /**
      * A method that returns whether the Task object has a description such that
-     * inputted keyString is a substring of the description
-     * @param keyString string to check against task description
+     * inputted keyString is a substring of the description.
+     * @param keyString string to check against task description.
      */
     public boolean isKey(String keyString) {
         Matcher matcher = Pattern.compile(keyString).matcher(this.getDescription());
@@ -76,8 +76,8 @@ public abstract class Task {
     }
 
     /**
-     * An abstract method that returns string representation of Task object to be stored
-     * @return String to be stored in the database
+     * An abstract method that returns string representation of Task object to be stored.
+     * @return String to be stored in the database.
      */
     public abstract String toBeStored();
 

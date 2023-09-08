@@ -16,7 +16,7 @@ public class Main extends Application {
     private Duke duke = new Duke("data/tasks.txt");
 
     /**
-     * A method to start the program
+     * A method to start the program.
      */
     @Override
     public void start(Stage stage) {

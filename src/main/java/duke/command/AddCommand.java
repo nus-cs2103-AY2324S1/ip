@@ -20,10 +20,11 @@ public class AddCommand extends Command {
     }
 
     /**
-     * A method that executes the command that user gave
-     * @params tasks TaskList containing all existing Task objects
-     * @params ui UI interface that is used to print messages to the terminal
-     * @params storage Storage object that houses database of the program
+     * A method that executes the command that user gave.
+     * @params tasks TaskList containing all existing Task objects.
+     * @params ui UI interface that is used to print messages to the terminal.
+     * @params storage Storage object that houses database of the program.
+     * @throws DukeException when command is unable to be executed.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
@@ -34,13 +35,13 @@ public class AddCommand extends Command {
     }
 
     /**
-     * A class that represents the user command to add a Todo task
+     * A class that represents the user command to add a Todo task.
      */
     public class TodoCommand extends AddCommand {
         /**
-         * Constructor for TodoCommand object
-         * @param fullCommand command that user gave
-         * @throws DukeException when command is unable to be processed properly
+         * Constructor for TodoCommand object.
+         * @param fullCommand command that user gave.
+         * @throws DukeException when command is unable to be processed properly.
          */
         public TodoCommand(String fullCommand) throws DukeException {
             try {
@@ -52,13 +53,13 @@ public class AddCommand extends Command {
     }
 
     /**
-     * A class that represents the user command to add a Deadline task
+     * A class that represents the user command to add a Deadline task.
      */
     public class DeadlineCommand extends AddCommand {
         /**
-         * Constructor for DeadlineCommand object
-         * @param fullCommand command that user gave
-         * @throws DukeException when command is unable to be processed properly
+         * Constructor for DeadlineCommand object.
+         * @param fullCommand command that user gave.
+         * @throws DukeException when command is unable to be processed properly.
          */
         public DeadlineCommand(String fullCommand) throws DukeException {
             try {
@@ -70,13 +71,13 @@ public class AddCommand extends Command {
     }
 
     /**
-     * A class that represents the user command to add an Event task
+     * A class that represents the user command to add an Event task.
      */
     public class EventCommand extends AddCommand {
         /**
-         * Constructor for EventCommand object
-         * @param fullCommand command that user gave
-         * @throws DukeException when command is unable to be processed properly
+         * Constructor for EventCommand object.
+         * @param fullCommand command that user gave.
+         * @throws DukeException when command is unable to be processed properly.
          */
         public EventCommand(String fullCommand) throws DukeException {
             try {

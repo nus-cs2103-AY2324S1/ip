@@ -18,9 +18,9 @@ public class Deadline extends Task {
     protected LocalDate deadline;
 
     /**
-     * A constructor of the Deadline object
-     * @param description Description of deadline object
-     * @param deadline deadline of Deadline object
+     * A constructor of the Deadline object.
+     * @param description Description of deadline object.
+     * @param deadline deadline of Deadline object.
      */
     public Deadline(String description, LocalDate deadline) {
         super(description);
@@ -29,10 +29,10 @@ public class Deadline extends Task {
 
     /**
      * Factory method of Deadline class.
-     * String input is guaranteed to start with "deadline"
+     * String input is guaranteed to start with "deadline".
      * @param input user input from terminal.
      * @return a Deadline object given the input string.
-     * @throws MissingInformationException due to missing required informaiton.
+     * @throws MissingInformationException due to missing required information.
      */
     public static Deadline of(String input) throws MissingInformationException {
         Matcher matcher = Pattern.compile("deadline ").matcher(input);
@@ -49,8 +49,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * A method that returns the string representation of a Deadline object
-     * @return string representation of the Deadline object
+     * A method that returns the string representation of a Deadline object.
+     * @return string representation of the Deadline object.
      */
     @Override
     public String toString() {
@@ -59,8 +59,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * A method that returns the string representation of a Deadline object
-     * @return string representation of the Deadline object to be stored in the database
+     * A method that returns the string representation of a Deadline object.
+     * @return string representation of the Deadline object to be stored in the database.
      */
     @Override
     public String toBeStored() {
