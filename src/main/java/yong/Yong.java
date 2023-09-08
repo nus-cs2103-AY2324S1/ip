@@ -2,6 +2,7 @@ package yong;
 
 import yong.command.Command;
 
+import yong.command.ExitCommand;
 import yong.exception.DukeException;
 
 import yong.tasklist.TaskList;
@@ -14,6 +15,8 @@ public class Yong {
 
     private TaskList taskList;
     private Storage storage;
+
+    private boolean isExit = false;
 
     /**
      * Class for running all the chatbot logic.
@@ -59,11 +62,18 @@ public class Yong {
         try {
             Parser parser = new Parser(taskList);
             Command c = parser.parse(userInput);
+            if (c instanceof ExitCommand) {
+                isExit = true;
+            }
             String outputString = c.execute();
             storage.saveFile();
             return outputString;
         } catch (DukeException e) {
             return e.getMessage();
         }
+    }
+
+    public boolean getExit() {
+        return isExit;
     }
 }
