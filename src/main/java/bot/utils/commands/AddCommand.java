@@ -40,7 +40,7 @@ class AddCommand extends Command {
      * @param ui      User interface for interacting with users.
      * @param storage Bot.Storage for storing data.
      * @return Bot's response to the command.
-     * @throws InvalidTaskException If the command creates a task and fails to do so.
+     * @throws InvalidTaskException If the command adds a task and fails to do so.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidTaskException {
         Task newTask = Task.makeTask(input);

@@ -104,7 +104,7 @@ public abstract class Command {
      * @return Bot's response to the command.
      * @throws EmptyListException    If an illegal operation is performed on an empty list.
      * @throws InvalidIndexException If the command tries to access an invalid index.
-     * @throws InvalidTaskException  If the command creates a task and fails to do so.
+     * @throws InvalidTaskException  If the command adds a task and fails to do so.
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws EmptyListException,
             InvalidIndexException, InvalidTaskException;
