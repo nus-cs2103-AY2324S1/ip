@@ -13,34 +13,39 @@ public class StorageHandler {
         todoList = SaveHandler.loadFrom();
         size = SaveHandler.size();
     }
-    public static void readArray() {
+    public static String readArray() {
         int i = 0;
-        System.out.println("--------------LIST-PEKO------------------");
+        String out = "--------------LIST-PEKO------------------\n";
         while (todoList[i] != null) {
-            System.out.println(i+1 + ". " + todoList[i]);
+            out += (i+1 + ". " + todoList[i] + "\n");
             i++;
         }
         if (i == 0) {
-            System.out.println("You are FREE PEKO!!!!!");
+            out = ("You are FREE PEKO!!!!!\n");
         }
+        return out;
     }
-    public static void addToArray(Task t) {
+    public static String addToArray(Task t) {
         todoList[size] = t;
-        System.out.println("Added: \n   " + todoList[size].toString() + "\npeko!");
-        System.out.println("You have: " + (size+1) + " tasks now peko");
+        String out = "Added: \n   " + todoList[size].toString() + "\npeko!";
+        out += "You have: " + (size+1) + " tasks now peko";
+        System.out.println(out);
         size++;
         SaveHandler.saveTo();
+        return out;
     }
-    public static void setMarkArray(int i) {
+    public static String setMarkArray(int i) {
+        String out;
         try {
             todoList[i-1].setMark();
-            System.out.println("Marked as done peko!");
-            System.out.println("    " + todoList[i-1]);
+            out = "Marked as done peko!\n";
+            out += ("    " + todoList[i-1] + "\n");
             SaveHandler.saveTo();
 
         } catch (NullPointerException e) {
-            System.out.println("You don't have so many Tasks Peko!");
+            out = ("You don't have so many Tasks Peko!\n");
         }
+        return out;
     }
     public static void setUnmarkArray(int i) {
         try {

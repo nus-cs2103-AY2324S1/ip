@@ -29,6 +29,11 @@ public class Peko extends Application implements EventHandler<ActionEvent> {
         Output.exit();
 
     }
+
+    public String getResponse(String s) {
+        userInputHandler.newInput(s);
+        userInputHandler.processInput();
+    }
     public Peko() {
         userInputHandler = new UserInputHandler();
         storageHandler = new StorageHandler();

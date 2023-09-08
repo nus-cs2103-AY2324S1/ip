@@ -7,7 +7,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import peko.GUIController;
 
 public class DialogBox extends HBox {
 
@@ -32,11 +31,11 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
-    public static DialogBox getUserDialog(Label l, ImageView iv) {
+    public static DialogBox getUserDialog(String l, ImageView iv) {
         return new DialogBox(l, iv);
     }
 
-    public static DialogBox getDukeDialog(Label l, ImageView iv) {
+    public static DialogBox getDukeDialog(String l, ImageView iv) {
         var db = new DialogBox(l, iv);
         db.flip();
         return db;

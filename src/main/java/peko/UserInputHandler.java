@@ -23,6 +23,18 @@ public class UserInputHandler {
         description = parser.getDescription();
     }
 
+    public void newInput(String s) {
+        Parser parser = new Parser(s);
+        command = parser.getResponseValue();
+        description = parser.getDescription();
+
+    }
+
+    public String getResponse() {
+        TaskHandler taskHandler = new TaskHandler(command, description);
+
+    }
+
     public boolean processInput() {
         TaskHandler taskHandler = new TaskHandler(command, description);
         return taskHandler.run();

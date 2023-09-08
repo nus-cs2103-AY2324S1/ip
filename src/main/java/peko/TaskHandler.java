@@ -13,28 +13,32 @@ public class TaskHandler {
         this.description = description;
     }
 
-    private void echo() {
+    private String echo() {
+        String out;
         if (description.isBlank()) {
-            System.out.println("You didn't say anything peko?");
+            out = "You didn't say anything peko?";
         } else {
-            System.out.println(description);
+            out = description;
         }
 
+        System.out.println(out);
         System.out.println(lineBreak);
+        return out;
     }
-    private void readArray() {
-        StorageHandler.readArray();
-        System.out.println(lineBreak);
+    private String readArray() {
+        return StorageHandler.readArray() + lineBreak;
     }
-    private void addToArray() throws InvalidTaskException {
+    private String addToArray() throws InvalidTaskException {
         Task t = new Task(description);
-        StorageHandler.addToArray(t);
+        String out = StorageHandler.addToArray(t);
         System.out.println(lineBreak);
+        return out;
     }
-    private void mark(String s) throws NumberFormatException{
+    private String mark(String s) throws NumberFormatException{
         int i = Integer.parseInt(s);
-        StorageHandler.setMarkArray(i);
+        String out = StorageHandler.setMarkArray(i);
         System.out.println(lineBreak);
+        return out;
     }
     private void unmark(String s) {
         try {
@@ -68,6 +72,61 @@ public class TaskHandler {
     public void delete(String s) {
         int i = Integer.parseInt(s);
         StorageHandler.setDelete(i);
+    }
+
+    public String getResponse() {
+        try {
+
+            switch (command) {
+                case ECHO:
+                    return echo();
+                case LIST:
+                    return readArray();
+                case WRITE:
+                    return addToArray();
+                case MARK:
+                    return mark(description);
+                case UNMARK:
+                    unmark(description);
+                    return true;
+                case TODO:
+                    todo(description);
+                    return true;
+                case DEADLINE:
+                    deadline(description);
+                    return true;
+                case EVENT:
+                    Event(description);
+                    return true;
+                case FIND:
+                    Find(description);
+                    return true;
+                case DELETE:
+                    delete(description);
+                    return true;
+                case COPYPASTA:
+                    try {
+                        StorageHandler.degen();
+                    } catch (FileNotFoundException e) {
+                        System.out.println("Hentai!");
+                    } finally {
+                        return false;
+                    }
+                case OTSUPEKO:
+                    SaveHandler.saveTo();
+                    return false;
+                default:
+                    return true;
+
+            }
+        } catch (InvalidTaskException e) {
+            System.out.println(e);
+            return true;
+        } catch (NumberFormatException e) {
+            System.out.println("That's not a number Bakatare!");
+
+            return true;
+        }
     }
 
     public boolean run() {
