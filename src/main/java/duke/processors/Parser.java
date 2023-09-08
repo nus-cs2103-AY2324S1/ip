@@ -7,7 +7,7 @@ import duke.exception.DukeUnknownInstruction;
 import duke.task.*;
 
 /**
- *Handle the command from the user
+ * Handle the command from the user
  */
 public class Parser {
     private final TaskList TASKS;
@@ -17,6 +17,7 @@ public class Parser {
 
     /**
      * Constructor for the Parser class
+     *
      * @param TASKS to modify or display the tasks
      */
     public Parser(TaskList TASKS) {
@@ -26,7 +27,7 @@ public class Parser {
 
     private void displayInfo(String msg) throws DukeUnknownInstruction,
             DukeNoDescriptionException, DukeNoDateException,
-            DukeDateOutOfRange{
+            DukeDateOutOfRange {
         Task task;
 
         if (msg.startsWith("todo")) {
@@ -47,12 +48,13 @@ public class Parser {
 
     /**
      * display the description of the task if it is a valid task
+     *
      * @param msg the msg to be interpreted
-     * @throws DukeUnknownInstruction if the msg is not applicable
+     * @throws DukeUnknownInstruction     if the msg is not applicable
      * @throws DukeNoDescriptionException if msg has no description
-     * @throws DukeNoDateException if the msg given is not
-     *                             date specific for some tasks
-     * @throws DukeDateOutOfRange if the date in msg is out of range
+     * @throws DukeNoDateException        if the msg given is not
+     *                                    date specific for some tasks
+     * @throws DukeDateOutOfRange         if the date in msg is out of range
      */
     public void readInputs(String msg) throws DukeUnknownInstruction,
             DukeNoDescriptionException, DukeNoDateException,
@@ -65,8 +67,8 @@ public class Parser {
             this.terminate = true;
         } else {
             boolean isKeyword = msg.matches(".*\\040[0-9]");
+            String[] part = msg.split("\\s+");
             if (isKeyword) {
-                String[] part = msg.split("\\s+");
                 int ind = Integer.parseInt(part[1]) - 1;
                 try {
                     if (ind > TASKS.getCount() || ind < 0) {
@@ -86,6 +88,8 @@ public class Parser {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("The given index is not in the available range");
                 }
+            } else if (msg.startsWith("find")) {
+                TASKS.findTasks(part[1]);
             } else {
                 displayInfo(msg);
             }
@@ -94,6 +98,7 @@ public class Parser {
 
     /**
      * Get the state of Parser
+     *
      * @return boolean value
      */
     public boolean getTerminate() {

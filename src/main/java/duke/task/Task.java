@@ -56,6 +56,14 @@ public class Task {
     }
 
     /**
+     * Return task's description.
+     * @return String
+     */
+    public String getDescription() {
+        return this.Description;
+    }
+
+    /**
      * Return a string containing the status and description.
      * @return return the icon and the description of the task
      */

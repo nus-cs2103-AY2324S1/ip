@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class TaskList {
 
     private final ArrayList<Task> TASKS = new ArrayList<>();
-    private int count = 0;
+    private int count;
 
     /**
      * A constructor for TaskList class.
@@ -63,6 +63,21 @@ public class TaskList {
         System.out.println("Now you have " + this.count + " TASKS in the list.");
 
         duke.DeleteLine(delete.toString());
+    }
+
+    /**
+     * Output a list of tasks matching the keyword.
+     * @param keyword the word to be searched
+     */
+    public void findTasks(String keyword) {
+        int count = 1;
+        System.out.println("Here are the matching tasks in your lists:");
+        for (Task task : TASKS) {
+            if (task.getDescription().contains(keyword)) {
+                System.out.println(count + "." + task);
+                count++;
+            }
+        }
     }
 
     /**
