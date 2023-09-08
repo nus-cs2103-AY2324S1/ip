@@ -1,12 +1,23 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Duke {
     private static final int MAX_TASKS = 100;
-    // private static Task[] tasks = new Task[MAX_TASKS];
     private static ArrayList<Task> tasks = new ArrayList<>();
+    // private static Task[] tasks = new Task[MAX_TASKS];
     private static int taskCount= 0;
+    private static final String DATA_FILE_PATH = "./docs/duke.txt";
     public enum TaskType {
         TODO, DEADLINE, EVENT
+    }
+    public enum TaskStatus {
+        DONE, NOT_DONE
     }
     private static void addTask(String userCommand) {
         if (taskCount < MAX_TASKS) {
@@ -86,7 +97,7 @@ public class Duke {
         try {
             int index = Integer.parseInt(userCommand.split(" ")[1]) - 1;
             if (index >= 1 && index <= taskCount) {
-                Task removedTask = tasks.remove(index - 1);
+                Task removedTask = tasks.remove(index);
                 taskCount--;
                 System.out.println("OK, I've removed this task.");
             } else {
@@ -137,7 +148,65 @@ public class Duke {
             System.out.println("Invalid command format. Please use 'unmark [task number]'.");
         }
     }
+
+    private static void loadTasks() {
+        File file = new File(DATA_FILE_PATH);
+
+        if (file.exists()) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] taskData = line.split(" \\| ");
+                    if (taskData.length >= 2) {
+                        TaskType taskType = TaskType.valueOf(taskData[0]);
+                        String taskDescription = taskData[1];
+                        String taskTime1 = (taskData.length > 2) ? taskData[2] : "";
+                        String taskTime2 = (taskData.length > 3) ? taskData[3] : "";
+
+                        switch (taskType) {
+                            case TODO:
+                                tasks.add(new Todo(taskDescription));
+                                break;
+                            case DEADLINE:
+                                tasks.add(new Deadline(taskDescription, taskTime1));
+                                break;
+                            case EVENT:
+                                tasks.add(new Event(taskDescription, taskTime1, taskTime2));
+                                break;
+                            default:
+                                System.out.println("Invalid task type: " + taskType);
+                                break;
+                        }
+                        taskCount++;
+                    } else {
+                        System.out.println("Skipping corrupted task data: " + line);
+                    }
+                }
+            } catch (IOException e) {
+                System.out.println("Error loading tasks.");
+            }
+        } else {
+            System.out.println("Data file does not exist.");
+        }
+    }
+
+    private static void saveTask() {
+        File file = new File(DATA_FILE_PATH);
+        file.getParentFile().mkdirs();
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            for (Task task : tasks) {
+                writer.write(task.toDataString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks.");
+        }
+    }
+
     public static void main(String[] args) {
+        loadTasks(); // Load tasks from duke.txt
+
         String greeting = "Hi, I'm BiuBiu.\nWhat can I do for you?";
         System.out.println(greeting);
         String exit = "Bye. Have a great day!";
@@ -160,6 +229,7 @@ public class Duke {
             }else {
                 addTask(userCommand);
             }
+            saveTask();
         }
     }
 }
