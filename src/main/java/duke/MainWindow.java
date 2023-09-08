@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
-    @FXML
+    @FXML 
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
