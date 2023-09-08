@@ -10,7 +10,7 @@ import java.io.*;
 public class DukeTest {
     @Test
     public void testTodoCommand() {
-        Duke duke = new Duke("./data/duke.txt");
+        Duke duke = new Duke();
 
         // Simulate user input to add a "todo" task
         String simulatedUserInput = "todo Read a book\nbye\n";
@@ -34,7 +34,7 @@ public class DukeTest {
 
     @Test
     public void testDeadlineCommand() {
-        Duke duke = new Duke("./data/duke.txt");
+        Duke duke = new Duke();
 
         // Simulate user input to add a "deadline" task
         String simulatedUserInput = "deadline Finish report /by 30/08/2023 1430\nbye\n";

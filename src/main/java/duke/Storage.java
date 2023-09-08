@@ -58,18 +58,46 @@ public class Storage {
      * @param isDone Array of boolean indicating whether action is done.
      * @return number of tasks saved in tasklist.
      */
-    public static int load(String fileName, String[] actions, String[] type, boolean[] isDone) {
+//    public static int load(String fileName, String[] actions, String[] type, boolean[] isDone) {
+//        int count = 0;
+//        try (FileReader fileReader = new FileReader(fileName)) {
+//            Scanner scanner = new Scanner(fileReader);
+//            while (scanner.hasNextLine() && count < actions.length) {
+//                String line = scanner.nextLine();
+//                String[] parts = line.split(" \\| ");
+//                // to split the line read into the different parts action num and done
+//                if (parts.length >= 3) {
+//                    type[count] = parts[0];
+//                    isDone[count] = parts[1].equals("1");
+//                    actions[count] = parts[2];
+//                    count++;
+//                }
+//            }
+//        } catch (IOException e) {
+//            System.out.println(e.getMessage());
+//        }
+//        return count;
+//    }
+    public static int load(String fileName, String[] actions, String[] type, boolean[] isDone, String[] dueStrings, LocalDateTime[] startTimes, LocalDateTime[] endTimes) {
         int count = 0;
         try (FileReader fileReader = new FileReader(fileName)) {
             Scanner scanner = new Scanner(fileReader);
             while (scanner.hasNextLine() && count < actions.length) {
                 String line = scanner.nextLine();
                 String[] parts = line.split(" \\| ");
-                // to split the line read into the different parts action num and done
+
                 if (parts.length >= 3) {
                     type[count] = parts[0];
                     isDone[count] = parts[1].equals("1");
                     actions[count] = parts[2];
+                    // Check the type to determine if dueStrings, startTimes, and endTimes need to be populated
+                    if (type[count].equals("D")) {
+                            dueStrings[count] = parts[3];
+                        }
+                     else if (type[count].equals("E")) {
+                            startTimes[count] = LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+                            endTimes[count] = LocalDateTime.parse(parts[4], DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+                    }
                     count++;
                 }
             }
@@ -78,6 +106,8 @@ public class Storage {
         }
         return count;
     }
+
+
 
     /**
      * Loads an array whether the activity is done.
@@ -152,6 +182,69 @@ public class Storage {
             throw new RuntimeException(e);
         }
         return actions;
+    }
+
+    public String[] loadDueStrings() {
+        String[] dueStrings = new String[100];
+        int count = 0;
+        try (FileReader fileReader = new FileReader(fileDir)) {
+            Scanner scanner = new Scanner(fileReader);
+            while (scanner.hasNextLine()) {
+                if (dueStrings.length > count) {
+                    String line = scanner.nextLine();
+                    String[] parts = line.split(" \\| ");
+                    if (parts[0].equals("D")) {
+                        dueStrings[count] = parts[3]; // Assuming due string is at index 4
+                        count++;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return dueStrings;
+    }
+
+    public LocalDateTime[] loadStartTimes() {
+        LocalDateTime[] startTimes = new LocalDateTime[100];
+        int count = 0;
+        try (FileReader fileReader = new FileReader(fileDir)) {
+            Scanner scanner = new Scanner(fileReader);
+            while (scanner.hasNextLine()) {
+                if (startTimes.length > count) {
+                    String line = scanner.nextLine();
+                    String[] parts = line.split(" \\| ");
+                    if (parts.length >= 6 && parts[0].equals("E")) {
+                        startTimes[count] = LocalDateTime.parse(parts[4], DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+                        count++;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return startTimes;
+    }
+
+    public LocalDateTime[] loadEndTimes() {
+        LocalDateTime[] endTimes = new LocalDateTime[100];
+        int count = 0;
+        try (FileReader fileReader = new FileReader(fileDir)) {
+            Scanner scanner = new Scanner(fileReader);
+            while (scanner.hasNextLine()) {
+                if (endTimes.length > count) {
+                    String line = scanner.nextLine();
+                    String[] parts = line.split(" \\| ");
+                    if (parts.length >= 6 && parts[0].equals("E")) {
+                        endTimes[count] = LocalDateTime.parse(parts[5], DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+                        count++;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return endTimes;
     }
 }
 
