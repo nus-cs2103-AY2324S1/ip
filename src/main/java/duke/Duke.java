@@ -1,6 +1,7 @@
 package duke;
 
 import duke.exception.DukeException;
+
 import java.time.format.DateTimeParseException;
 
 /**
@@ -30,41 +31,25 @@ public class Duke {
             this.storage = new Storage(filepath);
             this.tasks = new TaskList(storage.loadFromFile());
         } catch (DukeException e) {
-            this.ui.print(e.getMessage());
+            this.ui.sendMessage(e.getMessage());
             this.tasks = new TaskList();
         }
         this.parser = new Parser(this.tasks, this.ui);
     }
 
     /**
-     * Runs the chatbot.
+     * Returns a String as a response to the user input.
      */
-    public void run() {
-        ui.sayHi();
-        boolean isExit;
-        String command = ui.readCommand();
-
-        while (!command.isEmpty()) {
-            try {
-                parser.parse(command);
-                isExit = parser.isExit();
-                storage.storeToFile(tasks.toStringInFile());
-                if (isExit) {
-                    break;
-                } else {
-                    command = ui.readCommand();
-                }
-            } catch (DukeException e) {
-                ui.print(e.getMessage());
-                command = ui.readCommand();
-            } catch (DateTimeParseException f) {
-                ui.print("Please follow this format: YYYY-MM-DD or YYYY-MM-DD HH:mm");
-                command = ui.readCommand();
-            }
+    public String getResponse(String input) {
+        String res;
+        try {
+            res = parser.parse(input);
+            storage.storeToFile(tasks.toStringInFile());
+        } catch (DukeException e) {
+            res = ui.sendMessage(e.getMessage());
+        } catch (DateTimeParseException f) {
+            res = ui.sendMessage("Please follow this format: YYYY-MM-DD or YYYY-MM-DD HH:mm");
         }
-    }
-
-    public static void main(String[] args) {
-        new Duke("./duke.txt").run();
+        return res;
     }
 }
