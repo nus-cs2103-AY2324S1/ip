@@ -106,7 +106,6 @@ public class Ui {
     public void showUnknownCommand() {
         clearOutput();
         output.append("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-        output.append("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(" + Simon.NSPACE);
     }
 
