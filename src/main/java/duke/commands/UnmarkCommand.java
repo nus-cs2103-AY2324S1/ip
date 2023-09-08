@@ -1,6 +1,6 @@
 package duke.commands;
 
-import duke.parsers.ErrorMessages;
+import duke.exceptions.ErrorMessages;
 import duke.io.Storage;
 import duke.tasks.Task;
 import duke.tasks.TaskList;

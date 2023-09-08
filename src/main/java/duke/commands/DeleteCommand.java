@@ -1,6 +1,6 @@
 package duke.commands;
 
-import duke.parsers.ErrorMessage;
+import duke.exceptions.ErrorMessages;
 import duke.io.Storage;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
@@ -18,7 +18,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
         if (tasks.isEmpty()) {
             //if the task list is empty, throw an exception
         }

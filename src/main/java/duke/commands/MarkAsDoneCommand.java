@@ -1,13 +1,12 @@
 package duke.commands;
 
-import duke.parsers.ErrorMessages;
+import duke.exceptions.ErrorMessages;
 import duke.io.Storage;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
 public class MarkAsDoneCommand extends Command {
-    private static final String MARKED_AS_DONE_MESSAGE =
     private final int indexToMark;
 
     public MarkAsDoneCommand(int index) {
