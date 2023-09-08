@@ -19,5 +19,5 @@ public abstract class Command {
      * @param ui The user interface for displaying messages to the user.
      * @param storage The storage component for interacting with task data storage.
      */
-    public abstract void execute(TaskList tasksList, Ui ui, Storage storage);
+    public abstract String execute(TaskList tasksList, Ui ui, Storage storage);
 }

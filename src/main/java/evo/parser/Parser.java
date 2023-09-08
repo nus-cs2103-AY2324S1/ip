@@ -57,8 +57,8 @@ public class Parser {
      * @param fullCommand The user command or input as a string.
      * @return A Command object corresponding to the user's input command.
      */
-    public Command parse(String fullCommand) {
-        try {
+    public Command parse(String fullCommand) throws Exception {
+//        try {
             String[] actionType = fullCommand.split(" ");
 
             String[] typeAndDate = fullCommand.split("/");
@@ -162,65 +162,6 @@ public class Parser {
                 // Invalid command
                 throw new InvalidOperationException();
             }
-        } catch (InvalidDateAndTimeInputException invalidDateAndTimeInputException) {
-            // Catch the exception when the user types in an invalid date and time
-            System.out.println("Please type in a valid date/time input. Eg: event project meeting /from "
-                    + "2019-12-15 1800 /to 2000\n");
-        } catch (InvalidDateInputException invalidDateInputException) {
-            // Catch the exception when the user types in an invalid date
-            System.out.println("Please type in a valid date input. Eg: deadline return book /from "
-                    + "2019-12-15 1800\n");
-        } catch (InvalidInputException invalidInputException) {
-            // Catch the exception when the user types in an invalid integer after the command
-            System.out.println("Please type in a valid integer after the command.\n");
-        } catch (MissingDescriptionAndDeadlineException missingDescriptionAndDeadlineException) {
-            // Catch the exception when the description and deadline of Deadline object are missing
-            System.out.println("Description and deadline of this task are missing. "
-                    + "Please specify the description and the deadline of this task.\n");
-        } catch (MissingDeadlineException missingDeadlineException) {
-            // Catch the exception when the deadline of Deadline object are missing
-            System.out.println("Deadline of this task are missing. Please specify the deadline of this task.\n");
-        } catch (MissingDescriptionAndDurationException missingDescAndDurationExp) {
-            // Catch the exception when the description and duration of Event object are missing
-            System.out.println("Description and duration of this event are missing. "
-                    + "Please specify the description and the duration of this event.\n");
-        } catch (MissingDurationException missingDurationException) {
-            // Catch the exception when the duration of Event object is missing
-            System.out.println("Duration of this event is incomplete. "
-                    + "Please specify the start date/time and/or end date/time.\n");
-        } catch (MissingTaskToDeleteException missingTaskToDeleteException) {
-            // Catch the exception when user never specifies which task to be deleted
-            System.out.println("Please specify the task to be deleted.\n");
-        } catch (MissingTaskToFindException missingTaskToFindException) {
-            // Catch the exception when user never specifies a keyword to find a task
-            System.out.println("Please specify a keyword to find a task.\n");
-        } catch (MissingTaskToMarkException missingTaskToMarkException) {
-            // Catch the exception when user never specifies which task to be marked
-            System.out.println("Please specify the task to be marked.\n");
-        } catch (MissingTaskToUnmarkException missingTaskToUnmarkException) {
-            // Catch the exception when user never specifies which task to be unmarked
-            System.out.println("Please specify the task to be unmarked.\n");
-        } catch (MissingToDoDescriptionException missingToDoDescriptionException) {
-            // Catch the exception when the description of ToDo task is missing
-            System.out.println("Description of this task is missing. "
-                    + "Please specify the description of this task.\n");
-        } catch (NoTaskDeleteException noTaskDeleteException) {
-            // Catch the exception when user tries to delete task from an empty taskList
-            System.out.println("This task cannot be deleted as there is no task in the list.\n");
-        } catch (NoTaskFindException noTaskFindException) {
-            // Catch the exception when user tries to find task from an empty taskList
-            System.out.println("No task can be found as there is no task in the list.\n");
-        } catch (NoSuchTaskException noSuchTaskException) {
-            // Catch the exception when the task to be marked/unmarked does not exist.
-            System.out.println("The task to be marked/unmarked does not exist.\n");
-        } catch (NoSuchTaskDeleteException noSuchTaskDeleteException) {
-            // Catch the exception when the task to be deleted does not exist.
-            System.out.println("The task to be deleted does not exist.\n");
-        } catch (InvalidOperationException invalidOperationException) {
-            // Catch the exception when the operation is invalid
-            System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(\n");
-        }
-        return null;
     }
 
     /**

@@ -4,6 +4,8 @@ import evo.storage.Storage;
 import evo.tasks.TaskList;
 import evo.ui.Ui;
 
+import java.util.ArrayList;
+
 /**
  * Represents a command to find and display tasks that match a specified keyword.
  * When executed, this command searches the task list for tasks containing the specified keyword
@@ -27,7 +29,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Executes the FindCommand by searching for tasks matching the specified keyword in the task list
+     * Executes the FindCommand by searching for tasks matching the specified keyword in the taskLists
      * and displaying the matching tasks to the user.
      *
      * @param tasksList The task list containing all the tasks.
@@ -35,19 +37,33 @@ public class FindCommand extends Command {
      * @param storage The storage component for saving and loading tasks from a file.
      */
     @Override
-    public void execute(TaskList tasksList, Ui ui, Storage storage) {
-        ui.showText("Here are the matching tasks in your list:\n");
+    public String execute(TaskList tasksList, Ui ui, Storage storage) {
+        ArrayList<String> responses = new ArrayList<>();
+
+        responses.add(ui.showText("Here are the matching tasks in your list:\n"));
         for (int i = 0; i < tasksList.tasksListLength(); i++) {
             if (tasksList.getDescription(i).contains(this.keyword)) {
-                ui.showText(listIndexNumber + "." + tasksList.get(i).toString());
+                responses.add(ui.showText(listIndexNumber + ". " + tasksList.get(i).toString()));
                 listIndexNumber++;
             }
-            if (i == tasksList.tasksListLength() - 1) {
-                if (listIndexNumber == 1) {
-                    ui.showText("[Sorry. No matched task was found with " + this.keyword + " keyword.]");
-                }
-                ui.showNewLine();
+            if (i == tasksList.tasksListLength() - 1 && listIndexNumber == 1) {
+                responses.add(ui.showText("[Sorry. No matched task was found with " + this.keyword + " keyword.]"));
             }
         }
+        return concatenateString(responses);
+    }
+
+    /**
+     * Concatenates a list of response strings into a single string.
+     *
+     * @param responses The list of response strings to concatenate.
+     * @return The concatenated response string.
+     */
+    public String concatenateString(ArrayList<String> responses) {
+        String textToRespond = "";
+        for (int i = 0; i < responses.size(); i++) {
+            textToRespond += responses.get(i);
+        }
+        return textToRespond;
     }
 }

@@ -5,6 +5,9 @@ import evo.tasks.TaskList;
 import evo.tasks.ToDo;
 import evo.ui.Ui;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 /**
  * The ToDoCommand class represents a command to add a "To-Do" task to a TaskList.
  * When executed, it creates a new "To-Do" task with the specified description and adds it to the TaskList.
@@ -26,34 +29,53 @@ public class ToDoCommand extends Command {
     }
 
     /**
-     * Executes the ToDoCommand to add a "To-Do" task to the TaskList, updates the UI, and optionally the storage.
+     * Executes the ToDoCommand, creating a "To-Do" task based on user input and adding it to the tasksList.
      *
-     * @param tasksList The TaskList containing the tasks to be managed.
-     * @param ui The user interface for displaying messages to the user.
-     * @param storage The storage component for interacting with task data storage.
+     * @param tasksList The tasksList to which the "To-Do" task will be added.
+     * @param ui The Ui component for user interface interactions.
+     * @param storage The Storage component for data storage operations.
+     * @return A confirmation message indicating the task has been added or an error message if an exception occurs.
      */
     @Override
-    public void execute(TaskList tasksList, Ui ui, Storage storage) {
-        String taskDescription = "";
-        for (int i = 1; i < this.actionType.length; i++) {
-            if (i == this.actionType.length - 1) {
-                taskDescription += this.actionType[i];
-            } else {
-                taskDescription += this.actionType[i] + " ";
+    public String execute(TaskList tasksList, Ui ui, Storage storage) {
+        ArrayList<String> responses = new ArrayList<>();
+        try {
+            String taskDescription = "";
+            for (int i = 1; i < this.actionType.length; i++) {
+                if (i == this.actionType.length - 1) {
+                    taskDescription += this.actionType[i];
+                } else {
+                    taskDescription += this.actionType[i] + " ";
+                }
             }
-        }
 
-        ToDo toDo = new ToDo(taskDescription);
-        tasksList.addTask(toDo);
-        ui.showText("Got it. I've added this task:");
-        ui.showText("  " + toDo.toString());
-        if (tasksList.tasksListLength() <= 1) {
-            ui.showText("Now you have " + tasksList.tasksListLength() + " task in the list.");
-            ui.showNewLine();
-        } else {
-            ui.showText("Now you have " + tasksList.tasksListLength() + " tasks in the list.");
-            ui.showNewLine();
+            ToDo toDo = new ToDo(taskDescription);
+            tasksList.addTask(toDo);
+            storage.saveTasksInFile(tasksList);
+            responses.add(ui.showText("Got it. I've added this task:\n"));
+            responses.add(ui.showText("  " + toDo.toString() + "\n"));
+            if (tasksList.tasksListLength() <= 1) {
+                responses.add(ui.showText("Now you have " + tasksList.tasksListLength() + " task in the list."));
+            } else {
+                responses.add(ui.showText("Now you have " + tasksList.tasksListLength() + " tasks in the list."));
+            }
+        } catch (IOException e) {
+            responses.add(ui.showText("Something went wrong: " + e.getMessage()));
         }
+        return concatenateString(responses);
+    }
+
+    /**
+     * Concatenates a list of response strings into a single string.
+     *
+     * @param responses The list of response strings to concatenate.
+     * @return The concatenated response string.
+     */
+    public String concatenateString(ArrayList<String> responses) {
+        String textToRespond = "";
+        for (int i = 0; i < responses.size(); i++) {
+            textToRespond += responses.get(i);
+        }
+        return textToRespond;
     }
 }
-

@@ -20,11 +20,11 @@ public class ByeCommand extends Command {
      * Executes the ByeCommand to exit the application, displaying a goodbye message to the user.
      *
      * @param tasksList The TaskList containing the tasks.
-     * @param ui The user interface for displaying messages to the user.
-     * @param storage The storage component for interacting with task data storage.
+     * @param ui        The user interface for displaying messages to the user.
+     * @param storage   The storage component for interacting with task data storage.
      */
     @Override
-    public void execute(TaskList tasksList, Ui ui, Storage storage) {
-        ui.showExit();
+    public String execute(TaskList tasksList, Ui ui, Storage storage) {
+        return ui.showExit();
     }
 }
