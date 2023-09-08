@@ -7,7 +7,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.exception.DukeException;
-import duke.task.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
 
 /**
  * Storage class to load and write data from or to
