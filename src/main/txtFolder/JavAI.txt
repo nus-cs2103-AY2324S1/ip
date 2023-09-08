@@ -1,3 +1,2 @@
-[T][X] Sample Todo 
-[D][X] Sample Deadline ( by: Dec 31 2023 23:59 )
-[T][X] beach activity 
+[T][ ] Sample todo 
+[D][ ] settle expenses  ( by: Oct 22 2023 23:59 )

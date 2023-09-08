@@ -1,6 +1,6 @@
 package javai;
 
-import java.util.Scanner;
+import javafx.application.Platform;
 
 /**
  * JavAI is a simple chatbot that allows users to add, mark, unmark, delete,
@@ -11,6 +11,7 @@ public class JavAi {
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
+
 
     /**
      * Constructs a JavAI chatbot instance.
@@ -29,34 +30,26 @@ public class JavAi {
         }
     }
 
-    /**
-     * Starts the JavAI chatbot and handles user interactions.
-     */
-    public void run() {
-        ui.welcome();
-        Scanner sc = new Scanner(System.in);
-        while (sc.hasNext()) {
-            String input = sc.nextLine();
-            if (input.equals("bye")) {
-                storage.taskListWriter(tasks.getTasksAsArrayList());
-                ui.exit();
-                break;
-            } else {
-                try {
-                    parser.parse(input, tasks, ui);
-                } catch (JavAiException e) {
-                    ui.showLoadingError(e);
-                }
+    public JavAi() {
+        this("./src/main/txtFolder/JavAI.txt");
+    }
+
+    String getResponse(String input) {
+
+        if (input.equals("bye")) {
+            storage.taskListWriter(tasks.getTasksAsArrayList());
+            Platform.exit();
+            return ui.exit();
+        } else {
+            try {
+                return parser.parse(input, tasks, ui);
+            } catch (JavAiException e) {
+                return ui.showLoadingError(e);
             }
         }
-    }
-    /**
-     * The main method that starts the JavAI chatbot.
-     *
-     * @param args Command-line arguments.
-     */
-    public static void main(String[] args) {
 
-        new JavAi("./src/main/txtFolder/JavAI.txt").run();
+
     }
+
+
 }
