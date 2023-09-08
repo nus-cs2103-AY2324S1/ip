@@ -1,14 +1,10 @@
 package simon;
 
-import java.util.Scanner;
-
 import simon.command.Parser;
 import simon.task.Task;
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -68,63 +64,6 @@ public class Simon extends Application {
         }
     }
 
-    /**
-     * Starts and runs the main loop of the {@code Simon} application.
-     * Continues to prompt the user for commands until the 'bye' command is given.
-     */
-    public void run() {
-        Scanner scan = new Scanner(System.in);
-        ui.showWelcome();
-
-        while (true) {
-            String inData = scan.nextLine();
-            Parser.Command command = Parser.parseCommand(inData.split(" ")[0]);
-
-            try {
-                switch (command) {
-                    case LIST:
-                        ui.listTasks(tasks);
-                        break;
-                    case TODO:
-                    case DEADLINE:
-                    case EVENT:
-                        Task newTask = Parser.parseAddTask(inData, command);
-                        tasks.addTask(newTask);
-                        storage.save(tasks.getAllTasks());
-                        ui.showAddedTask(newTask, tasks.getTaskCount());
-                        break;
-                    case UNMARK:
-                        Task unmarkedTask = tasks.markTask(inData, false);
-                        storage.save(tasks.getAllTasks());
-                        ui.showMarkedTask(false, unmarkedTask);
-                        break;
-                    case MARK:
-                        Task markedTask = tasks.markTask(inData, true);
-                        storage.save(tasks.getAllTasks());
-                        ui.showMarkedTask(true, markedTask);
-                        break;
-                    case DELETE:
-                        Task deletedTask = tasks.deleteTask(inData);
-                        storage.save(tasks.getAllTasks());
-                        ui.showDeletedTask(deletedTask, tasks.getTaskCount());
-                        break;
-                    case FIND:
-                        TaskList matchedTasks = tasks.findTasks(inData);
-                        ui.showMatchingTasks(matchedTasks);
-                        break;
-                    case BYE:
-                        ui.showGoodbye();
-                        return;
-                    case UNKNOWN:
-                    default:
-                        ui.showUnknownCommand();
-                }
-            } catch (SimonException se) {
-                ui.showError(se.getMessage());
-            }
-        }
-    }
-
     public void run2(String inData) {
         ui.showWelcome();
 
@@ -172,15 +111,6 @@ public class Simon extends Application {
         } catch (SimonException se) {
             ui.showError(se.getMessage());
         }
-    }
-
-    /**
-     * The main entry point for the {@code Simon} application.
-     *
-     * @param args Command line arguments. Not used.
-     */
-    public static void main(String[] args) {
-        new Simon("data/simon.txt").run();
     }
 
     @Override
@@ -263,7 +193,7 @@ public class Simon extends Application {
      * Replace this stub with your completed method.
      */
     String getResponse(String input) {
-        this.ui.clearOutput();
+        Ui.clearOutput();
         if (input != null) {
             run2(input);
         }
