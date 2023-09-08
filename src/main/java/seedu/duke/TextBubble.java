@@ -1,6 +1,6 @@
 package seedu.duke;
 
-import java.awt.Rectangle;
+import javafx.scene.shape.Rectangle;
 
 public class TextBubble extends Rectangle {
 
