@@ -1,6 +1,6 @@
 package milbot;
 
-import taskclasses.*;
+import taskclasses.Task;
 
 /**
  * Ui class handles user interface-related functionalities.
@@ -8,6 +8,8 @@ import taskclasses.*;
 public class Ui {
     /**
      * Prints a goodbye message before the chatbot exits.
+     *
+     * @return the goodbye message.
      */
 
     public String printGoodbyeMessage() {
@@ -30,6 +32,8 @@ public class Ui {
      *
      * @param taskList The TaskList containing the added task.
      * @param task     The added task.
+     *
+     * @return add new task message.
      */
 
     public String printNewTask(TaskList taskList, Task task) {
@@ -45,6 +49,7 @@ public class Ui {
      * Prints the list of tasks.
      *
      * @param taskList The TaskList containing the tasks to be printed.
+     * @return A message containing the task list.
      */
 
     public String printTaskList(TaskList taskList) {
@@ -63,6 +68,7 @@ public class Ui {
      * Prints a message indicating that a task has been marked as done.
      *
      * @param task The task that has been marked as done.
+     * @return A message indicating that the task has been marked as done.
      */
 
     public String printMarkTask(Task task) {
@@ -73,6 +79,7 @@ public class Ui {
      * Prints a message indicating that a task has been marked as not done yet.
      *
      * @param task The task that has been marked as not done yet.
+     * @return A message indicating that the task has been marked as undone.
      */
 
     public String printUnmarkTask(Task task) {
@@ -85,6 +92,7 @@ public class Ui {
      *
      * @param task     The task that has been removed.
      * @param taskList The TaskList after the task has been removed.
+     * @return A message indicating that the task has been removed.
      */
 
     public String printRemoveTask(Task task, TaskList taskList) {
@@ -94,11 +102,19 @@ public class Ui {
 
     /**
      * Prints a message indicating an unknown command.
+     *
+     * @return A message indicating that the user command is unknown.
      */
     public String printUnknownMessage() {
         return "Oopsie! I'm sorry, but I don't know what that means :(";
     }
 
+    /**
+     * Generates a message containing tasks that match the search query.
+     *
+     * @param taskList The task list to search within.
+     * @return A message of tasks that match the search query, or no matches found.
+     */
     public String printSearchResult(TaskList taskList) {
         if (taskList.getSize() == 0) {
             return "There is no task matched to your query";

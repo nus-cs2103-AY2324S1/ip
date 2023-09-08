@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
  * Represents a basic task with a description and completion status.
  */
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    private String description;
+    private boolean isDone;
 
     /**
      * Constructs a Task with the given description and sets the completion status to false.
@@ -16,6 +16,7 @@ public class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
+        assert description != null : "Task description should not be null";
         this.description = description;
         this.isDone = false;
     }
@@ -27,6 +28,7 @@ public class Task {
      * @param isDone      The completion status of the task.
      */
     public Task(String description, boolean isDone) {
+        assert description != null : "Task description should not be null";
         this.description = description;
         this.isDone = isDone;
     }
@@ -39,10 +41,13 @@ public class Task {
      */
     public static Task createTaskFromData(String dataLine) {
         String[] parts = dataLine.split(" \\| ");
+        assert parts.length >= 3 : "Invalid data line format";
+
         String type = parts[0].trim();
         boolean isDone = parts[1].trim().equals("1");
         String description = parts[2].trim();
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+
         if (type.equals("T")) {
             return new Todo(description);
         } else if (type.equals("D")) {
@@ -64,10 +69,12 @@ public class Task {
     }
 
     public void markAsDone() {
+        assert !isDone : "This task is already marked as done";
         this.isDone = true;
     }
 
     public void markAsUndone() {
+        assert isDone : "This task is not marked as done";
         this.isDone = false;
     }
 

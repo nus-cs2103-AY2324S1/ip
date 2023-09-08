@@ -1,7 +1,12 @@
 package milbot;
 
 import taskclasses.*;
-import exception.*;
+import exception.EmptyFindQueryException;
+import exception.EmptyTaskException;
+import exception.InvalidDeadlineException;
+import exception.InvalidEventException;
+import exception.InvalidTaskIndexException;
+import exception.NoTaskIndexException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -44,6 +49,7 @@ public class Parser {
             } catch (InvalidTaskIndexException e) {
                 return ui.printErrorMessage(e.getMessage());
             }
+            
             if(index != -1) {
                 Task task = taskList.getTask(index);
                 if (input.startsWith("mark")) {
