@@ -1,5 +1,17 @@
 package duke;
 
+import com.sun.javafx.stage.EmbeddedWindow;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -33,20 +45,24 @@ correct status icon, by creating a new task array of tasks instead of a string a
  * Duke is a task management application that allows users to manage their tasks, including todos, deadlines, and events
  */
 public class Duke {
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
     private static String filePath = "./data/duke.txt";
+    private Stage stage;
+    private static Ui ui;
+    private static Storage storage;
+    private static TaskList taskList;
+    private static Parser parser;
 
-    /**
-     * The main entry point of the Duke application.
-     *
-     * @param args Command-line arguments (not used in this application).
-     */
-    public static void main(String[] args) throws DukeException.NoSuchItemException,
-            DukeException.ToDoException, IOException {
+    public Duke() {
         ArrayList<Task> tasks = new ArrayList<>();
-        Ui ui = new Ui();
-        Storage storage = new Storage(filePath);
-        TaskList taskList = new TaskList();
-        Parser parser = new Parser();
+        ui = new Ui();
+        storage = new Storage(filePath);
+        taskList = new TaskList();
+        parser = new Parser();
 
         try {
             tasks = storage.loadTasks(); // Load tasks from file
@@ -54,41 +70,113 @@ public class Duke {
         } catch (IOException e) {
             System.out.println("Error loading tasks: " + e.getMessage());
         }
-
         ui.displayWelcomeText();
+    }
 
-        Scanner sc = new Scanner(System.in);
-        // int num_items = tasks.size();
-
-        String userText = sc.nextLine();
-
-        while (!userText.isEmpty()) {
-            try {
-                Command command = parser.parseCommand(userText);
-                command.execute(taskList, ui, storage);
-            } catch (DukeException.ToDoException e) {
-                ui.printToDoException();
-            } catch (DukeException.NoSuchItemException e) {
-                ui.printNoSuchElementException();
-            } catch (DukeException.EventException e) {
-                ui.printEventException();
-            } catch (DukeException.DeadlineException e) {
-                ui.printDeadlineException();
-            } catch (DukeException.MarkException e) {
-                ui.printMarkException();
-            } catch (DukeException.UnmarkException e) {
-                ui.printUnmarkException();
-            } catch (DukeException.DeadlineFormatException e) {
-                ui.printDeadlineFormatException();
-            } catch (DukeException.EventFormatException e) {
-                ui.printEventFormatException();
-            } catch (DukeException.SearchException e) {
-                ui.printSearchException();
-            } catch (DukeException e) {
-                throw new RuntimeException(e);
-            }
-            userText = sc.hasNextLine() ? sc.nextLine() : "";
+    String getResponse(String input) {
+        try {
+            Command command = parser.parseCommand(input);
+            return command.execute(taskList, ui, storage);
+        } catch (DukeException.ToDoException e) {
+            return ui.printToDoException();
+        } catch (DukeException.NoSuchItemException e) {
+            return ui.printNoSuchElementException();
+        } catch (DukeException.EventException e) {
+            return ui.printEventException();
+        } catch (DukeException.DeadlineException e) {
+            return ui.printDeadlineException();
+        } catch (DukeException.MarkException e) {
+            return ui.printMarkException();
+        } catch (DukeException.UnmarkException e) {
+            return ui.printUnmarkException();
+        } catch (DukeException.DeadlineFormatException e) {
+            return ui.printDeadlineFormatException();
+        } catch (DukeException.EventFormatException e) {
+            return ui.printEventFormatException();
+        } catch (DukeException.SearchException e) {
+            return ui.printSearchException();
+        } catch (DukeException e) {
+            throw new RuntimeException(e);
         }
-        sc.close();
+    }
+
+    /*
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        this.stage = primaryStage;
+
+        //The container for the content of the chat to scroll.
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
+
+        userInput = new TextField();
+        sendButton = new Button("Send");
+
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+
+        scene = new Scene(mainLayout);
+
+        stage.setScene(scene);
+        stage.show();
+
+        //Step 2. Formatting the window to look as expected
+        stage.setTitle("Duke");
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
+
+        mainLayout.setPrefSize(400.0, 600.0);
+
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+
+        // You will need to import `javafx.scene.layout.Region` for this.
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        userInput.setPrefWidth(325.0);
+
+        sendButton.setPrefWidth(55.0);
+
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+
+        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        AnchorPane.setRightAnchor(sendButton, 1.0);
+
+        AnchorPane.setLeftAnchor(userInput, 1.0);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
+
+        //Step 3. Add functionality to handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+
+        userInput.setOnAction((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+
+        //Scroll down to the end every time dialogContainer's height changes.
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+    }
+     */
+
+    /**
+     * Iteration 1:
+     * Creates a label with the specified text and adds it to the dialog container.
+     *
+     * @param text String containing text to add
+     * @return a label with the specified text that has word wrap enabled.
+     */
+    private Label getDialogLabel(String text) {
+        Label textToAdd = new Label(text);
+        textToAdd.setWrapText(true);
+        return textToAdd;
     }
 }

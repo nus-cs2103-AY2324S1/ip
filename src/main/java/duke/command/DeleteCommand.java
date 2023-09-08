@@ -34,14 +34,14 @@ public class DeleteCommand extends Command {
      * @param storage  The Storage object responsible for reading and writing data to a file.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             Task taskToDelete = taskList.getTask(index);
             taskList.deleteTask(taskToDelete);
-            ui.displayDeleteTask(taskToDelete, taskList.numTasks());
             storage.saveTasks(taskList.getAllTasks());
+            return ui.displayDeleteTask(taskToDelete, taskList.numTasks());
         } catch (IndexOutOfBoundsException e) {
-            ui.showErrorMessage("Invalid task index.");
+            return ui.showErrorMessage("Invalid task index.");
         }
     }
 }

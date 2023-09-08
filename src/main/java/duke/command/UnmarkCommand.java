@@ -33,14 +33,14 @@ public class UnmarkCommand extends Command {
      * @param storage  The Storage object responsible for reading and writing data to a file.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             Task tasktoUnmark = taskList.getTask(taskIndex);
             tasktoUnmark.markAsNotDone();
-            ui.displayUnmarked(tasktoUnmark);
             storage.saveTasks(taskList.getAllTasks()); // Save the updated task list
+            return ui.displayUnmarked(tasktoUnmark);
         } catch (IndexOutOfBoundsException e) {
-            ui.showErrorMessage("Invalid task index.");
+            return ui.showErrorMessage("Invalid task index.");
         }
     }
 }

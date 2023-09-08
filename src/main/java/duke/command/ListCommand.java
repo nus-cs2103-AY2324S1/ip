@@ -20,8 +20,7 @@ public class ListCommand extends Command {
      * @param storage  The Storage object responsible for reading and writing data to a file (not used in this command).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.displayTaskList(taskList);
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.displayTaskList(taskList);
     }
 }
-

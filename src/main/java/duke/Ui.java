@@ -3,6 +3,7 @@ package duke;
 import java.util.ArrayList;
 
 // Solution below adapted and inspired by https://chat.openai.com/share/7f037351-3be6-4105-b138-77f68d428c84
+
 /**
  * Handles user interface-related operations for the Duke application.
  * Provides methods for displaying messages and error messages to the user.
@@ -15,15 +16,15 @@ public class Ui {
     /**
      * Displays the welcome text to the user.
      */
-    public void displayWelcomeText() {
-        System.out.println(separators + "\n" + text1);
+    public String displayWelcomeText() {
+        return separators + "\n" + text1;
     }
 
     /**
      * Displays the goodbye text to the user.
      */
-    public void displayGoodbyeText() {
-        System.out.println(separators + "\n" + text2 + "\n" + separators);
+    public String displayGoodbyeText() {
+        return separators + "\n" + text2 + "\n" + separators;
     }
 
     /**
@@ -31,21 +32,19 @@ public class Ui {
      *
      * @param message The error message to display.
      */
-    public void showErrorMessage(String message) {
-        System.out.println(separators + "\n" + message + "\n" + separators);
+    public String showErrorMessage(String message) {
+        return separators + "\n" + message + "\n" + separators;
     }
 
     /**
      * Displays a message when a task is successfully deleted.
      *
-     * @param deletedTask         The task that was deleted.
+     * @param deletedTask          The task that was deleted.
      * @param remainingNumberTasks The number of tasks remaining in the list.
      */
-    public void displayDeleteTask(Task deletedTask, int remainingNumberTasks) {
-        System.out.println(separators);
-        System.out.println("Noted. I've removed this task:" + "\n" + deletedTask.toString());
-        System.out.println("Now you have " + remainingNumberTasks + " tasks in the list.");
-        System.out.println(separators);
+    public String displayDeleteTask(Task deletedTask, int remainingNumberTasks) {
+        return separators + "\n" + "Noted. I've removed this task:" + "\n" + deletedTask.toString() + "\n"
+            + "Now you have " + remainingNumberTasks + " tasks in the list." + separators;
     }
 
     /**
@@ -54,11 +53,9 @@ public class Ui {
      * @param newTask   The task that was added.
      * @param newNumber The new total number of tasks in the list.
      */
-    public void displayAddedTask(Task newTask, int newNumber) {
-        System.out.println(separators);
-        System.out.println("Got it. I've added this task:" + "\n" + newTask.toString());
-        System.out.println("Now you have " + newNumber + " tasks in the list.");
-        System.out.println(separators);
+    public String displayAddedTask(Task newTask, int newNumber) {
+        return separators + "\n" + "Got it. I've added this task:" + "\n" + newTask.toString() + "\n"
+            + "Now you have " + newNumber + " tasks in the list." + separators;
     }
 
     /**
@@ -66,13 +63,14 @@ public class Ui {
      *
      * @param taskList The TaskList containing the tasks to be displayed.
      */
-    public void displayTaskList(TaskList taskList) {
-        System.out.println(separators);
-        System.out.println("Here are the tasks in your list:");
+    public String displayTaskList(TaskList taskList) {
+        StringBuilder message = new StringBuilder(separators + "\n" + "Here are the tasks in your list:"
+            + "\n");
         for (int i = 0; i < taskList.numTasks(); i++) {
-            System.out.println((i + 1) + "." + taskList.getTask(i).toString());
+            message.append((i + 1)).append(".").append(taskList.getTask(i).toString()).append("\n");
         }
-        System.out.println(separators);
+        message.append(separators);
+        return message.toString();
     }
 
     /**
@@ -80,11 +78,9 @@ public class Ui {
      *
      * @param markedTask The task that was marked as done.
      */
-    public void displayMarked(Task markedTask) {
-        System.out.println(separators);
-        System.out.println("Nice! I've marked this task as done:" + "\n" + markedTask.toString());
-        System.out.println(separators);
-
+    public String displayMarked(Task markedTask) {
+        return separators + "\n" + "Nice! I've marked this task as done:" + "\n" + markedTask.toString()
+            + separators;
     }
 
     /**
@@ -92,108 +88,94 @@ public class Ui {
      *
      * @param markedTask The task that was marked as not done.
      */
-    public void displayUnmarked(Task markedTask) {
-        System.out.println(separators);
-        System.out.println("OK, I've marked this task as not done yet:" + "\n" + markedTask.toString());
-        System.out.println(separators);
+    public String displayUnmarked(Task markedTask) {
+        return separators + "\n" + "OK, I've marked this task as not done yet:" + "\n" + markedTask.toString()
+            + separators;
     }
 
     /**
      * Displays a list of searched tasks.
-     *
+     * <p>
      * This method takes an ArrayList of Task objects and prints them to the console,
      * numbering each task for easy reference. It also adds separators before and after
      * the list to visually separate it from other output.
      *
      * @param searchedTask An ArrayList of Task objects containing the tasks to be displayed.
      */
-    public void displaySearched(ArrayList<Task> searchedTask) {
-        System.out.println(separators);
-        System.out.println("Here are the matching tasks in your list:");
+    public String displaySearched(ArrayList<Task> searchedTask) {
+        StringBuilder message = new StringBuilder(separators + "\n" + "Here are the matching tasks in your list:"
+            + "\n");
         for (int i = 0; i < searchedTask.size(); i++) {
-            System.out.println((i + 1) + "." + searchedTask.get(i).toString());
+            message.append((i + 1)).append(".").append(searchedTask.get(i).toString()).append("\n");
         }
-        System.out.println(separators);
+        message.append(separators);
+        return message.toString();
     }
 
     /**
      * Displays an error message for an empty todo description.
      */
-    public void printToDoException() {
-        System.out.println("____________________________________________________________");
-        System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
-        System.out.println("____________________________________________________________");
+    public String printToDoException() {
+        return separators + "\n" + "☹ OOPS!!! The description of a todo cannot be empty." + "\n" + separators;
     }
 
     /**
      * Displays an error message for an unrecognized command.
      */
-    public void printNoSuchElementException() {
-        System.out.println("____________________________________________________________");
-        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-        System.out.println("____________________________________________________________");
+    public String printNoSuchElementException() {
+        return separators + "\n" + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(" + "\n" + separators;
     }
 
     /**
      * Displays an error message for an empty event description.
      */
-    public void printEventException() {
-        System.out.println("____________________________________________________________");
-        System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
-        System.out.println("____________________________________________________________");
+    public String printEventException() {
+        return separators + "\n" + "☹ OOPS!!! The description of an event cannot be empty." + "\n" + separators;
     }
 
     /**
      * Displays an error message for an empty deadline description.
      */
-    public void printDeadlineException() {
-        System.out.println("____________________________________________________________");
-        System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
-        System.out.println("____________________________________________________________");
+    public String printDeadlineException() {
+        return separators + "\n" + "☹ OOPS!!! The description of a deadline cannot be empty." + "\n" + separators;
     }
 
     /**
      * Displays an error message for an unspecified task to mark.
      */
-    public void printMarkException() {
-        System.out.println("____________________________________________________________");
-        System.out.println("☹ OOPS!!! The task to mark must be specified.");
-        System.out.println("____________________________________________________________");
+    public String printMarkException() {
+        return separators + "\n" + "☹ OOPS!!! The task to mark must be specified." + "\n" + separators;
     }
 
     /**
      * Displays an error message for an unspecified task to unmark.
      */
-    public void printUnmarkException() {
-        System.out.println("____________________________________________________________");
-        System.out.println("☹ OOPS!!! The task to unmark must be specified.");
-        System.out.println("____________________________________________________________");
+    public String printUnmarkException() {
+        return separators + "\n" + "☹ OOPS!!! The task to unmark must be specified." + "\n" + separators;
     }
 
     /**
      * Displays an error message for a search command in the wrong format.
      */
-    public void printSearchException() {
-        System.out.println("____________________________________________________________");
-        System.out.println("☹ OOPS!!! The task to search must be specified.");
-        System.out.println("____________________________________________________________");
+    public String printSearchException() {
+        return separators + "\n" + "☹ OOPS!!! The task to search must be specified." + "\n" + separators;
     }
 
     /**
      * Displays an error message for a deadline task in the wrong format.
+     *
+     * @return
      */
-    public void printDeadlineFormatException() {
-        System.out.println("____________________________________________________________");
-        System.out.println("☹ OOPS!!! Enter in the format: deadline (task) /by dd/MM/yyyy HHmm");
-        System.out.println("____________________________________________________________");
+    public String printDeadlineFormatException() {
+        return separators + "\n" + "☹ OOPS!!! Enter in the format: deadline (task) /by dd/MM/yyyy HHmm"
+            + "\n" + separators;
     }
 
     /**
      * Displays an error message for a event task in the wrong format.
      */
-    public void printEventFormatException() {
-        System.out.println("____________________________________________________________");
-        System.out.println("☹ OOPS!!! Enter in the format: \n event (task) /from yyyy/MM/dd HHmm /to yyyy/MM/dd HHmm");
-        System.out.println("____________________________________________________________");
+    public String printEventFormatException() {
+        return separators + "\n" + "☹ OOPS!!! Enter in the format: \n event (task) /from yyyy/MM/dd HHmm /to yyyy/MM/dd HHmm"
+            + "\n" + separators;
     }
 }

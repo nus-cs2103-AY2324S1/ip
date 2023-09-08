@@ -19,7 +19,8 @@ public class ByeCommand extends Command {
      * @param storage  The Storage object responsible for reading and writing data to a file.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.displayGoodbyeText();
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.displayGoodbyeText();
     }
 }
+

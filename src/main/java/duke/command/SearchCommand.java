@@ -34,7 +34,7 @@ public class SearchCommand extends Command {
      * @param storage The Storage object for data storage operations.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         ArrayList<Task> matchedTasks = new ArrayList<>();
         for (Task task : taskList.getAllTasks()) {
             if (task.getDescription().contains(taskToFind)) {
@@ -42,9 +42,9 @@ public class SearchCommand extends Command {
             }
         }
         if (matchedTasks.isEmpty()) {
-            ui.showErrorMessage("No such task found.");
+            return ui.showErrorMessage("No such task found.");
         } else {
-            ui.displaySearched(matchedTasks);
+            return ui.displaySearched(matchedTasks);
         }
     }
 }
