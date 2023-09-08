@@ -9,6 +9,16 @@ import duke.task.TaskList;
  * Represents an abstract command that can be executed by the Duke chatbot.
  */
 public abstract class Command {
+    protected String usageText;
+
+    /**
+     * Constructs a Command object with the specified usage text.
+     *
+     * @param usageText The usage text for the command.
+     */
+    protected Command(String usageText) {
+        this.usageText = usageText;
+    }
 
     /**
      * Executes the command with the given task list, user interface, and storage.
@@ -28,4 +38,10 @@ public abstract class Command {
     public boolean isExit() {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Usage: %s", this.usageText);
+    }
+
 }

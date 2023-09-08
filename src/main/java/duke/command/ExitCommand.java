@@ -10,6 +10,13 @@ import duke.task.TaskList;
 public class ExitCommand extends Command {
 
     /**
+     * Constructs an ExitCommand object.
+     */
+    public ExitCommand() {
+        super("exit");
+    }
+
+    /**
      * Executes the exit command, displaying a goodbye message on the user interface.
      *
      * @param tasks   The task list (not used in this command).

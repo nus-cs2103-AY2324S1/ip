@@ -3,6 +3,7 @@ package duke.command;
 import duke.error.DukeException;
 import duke.lib.Storage;
 import duke.lib.UI;
+import duke.parser.Validate;
 import duke.task.TaskList;
 
 /**
@@ -12,14 +13,15 @@ public class DeleteCommand extends Command {
     private final int index;
 
     /**
-     * Constructs a DeleteCommand with the given task index.
+     * Constructs a DeleteCommand with the specified parameters.
      *
-     * @param index The index of the task to be deleted.
+     * @param params The parameters associated with the command.
+     * @throws DukeException If there's an issue validating or retrieving the parameter.
      */
-    public DeleteCommand(int index) {
-        this.index = index;
+    public DeleteCommand(Params params) throws DukeException {
+        super("delete <index> | rm <index>");
+        this.index = Validate.validateNumber(params.getArgumentIfSet("index", usageText));
     }
-
 
     /**
      * Executes the delete command, removing the specified task from the task list. Notifies the user interface and

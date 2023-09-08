@@ -8,6 +8,12 @@ import duke.task.TaskList;
  * Represents a command to list all tasks in the task list.
  */
 public class ListCommand extends Command {
+    /**
+     * Constructs an ExitCommand object.
+     */
+    public ListCommand() {
+        super("list\n\tls");
+    }
 
     /**
      * Executes the list command, displaying all tasks in the task list on the user interface.
