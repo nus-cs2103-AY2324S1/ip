@@ -1,6 +1,7 @@
 package simon;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -109,10 +110,15 @@ public class Main extends Application {
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
-        );
+
+        DialogBox userDialog = DialogBox.getUserDialog(userText, new ImageView(user));
+        DialogBox dukeDialog = DialogBox.getDukeDialog(dukeText, new ImageView(duke));
+
+        // Add padding between DialogBoxes
+        VBox.setMargin(userDialog, new Insets(0, 0, 20, 0));  // 20 units of padding at the bottom
+        VBox.setMargin(dukeDialog, new Insets(0, 0, 20, 0));  // 20 units of padding at the bottom
+
+        dialogContainer.getChildren().addAll(userDialog, dukeDialog);
         userInput.clear();
     }
 
