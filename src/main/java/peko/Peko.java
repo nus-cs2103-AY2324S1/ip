@@ -132,9 +132,11 @@ public class Peko extends Application implements EventHandler<ActionEvent> {
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
+        DialogBox userDB = DialogBox.getUserDialog(userText, new ImageView(user));
+        DialogBox pekoDB = DialogBox.getPekoDialog(dukeText, new ImageView(peko));
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(peko))
+                userDB,
+                pekoDB
         );
         userInput.clear();
     }
