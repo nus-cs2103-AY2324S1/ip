@@ -18,6 +18,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
+        assert stage != null : "stage should not be null when starting an application on javaFx";
         stage.setTitle("Duke");
         Duke duke = new Duke("data", "tasks.json", stage);
         try {

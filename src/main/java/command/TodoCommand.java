@@ -17,6 +17,8 @@ public class TodoCommand extends Command {
      */
     public TodoCommand(String description) {
         this.description = description;
+
+        assert this.description != null : "description of todo command should not be null";
     }
 
     @Override
