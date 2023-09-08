@@ -41,8 +41,6 @@ public class TaskList {
      */
     public void delete(Task task) {
         tasks.remove(task);
-        Ui.displayMessage("\n" + "Sure thing! This task has been removed\n" + task +
-                "\nNow you have " + tasks.size() + " tasks left\n");
     }
 
     /**

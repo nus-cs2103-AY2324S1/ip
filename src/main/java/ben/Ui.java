@@ -2,6 +2,9 @@ package ben;
 
 import java.util.Scanner;
 
+/**
+ * Represents the UI handles user interactions with the GUI
+ */
 public class Ui {
     private Scanner user;
 
@@ -15,20 +18,20 @@ public class Ui {
         return user.nextLine();
     }
 
-    public static void displayMessage(String message) {
-        System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
+    public static String displayMessage(String message) {
+        return message;
     }
 
-    public void greeting() {
-        displayMessage("\nWhat's up! I'm Ben\nWhat can I do for you?\n");
+    public static String greeting() {
+        return displayMessage("What's up! I'm Ben\nWhat can I do for you?");
     }
 
-    public void bye() {
-        displayMessage("\nBye. For now\n");
+    public static String bye() {
+        return "Bye. For now";
     }
 
-    public void displayList(TaskList tasks) {
-        displayMessage("\n" + tasks);
+    public String displayList(TaskList tasks) {
+        return displayMessage("\n" + tasks);
     }
 
     public static void showError(String message) {

@@ -35,9 +35,8 @@ public class MarkCommand extends Command{
      * @param ui The UI handling user interaction
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         task.mark();
-        Ui.displayMessage("\n" +
-                "Nice! This task is completed\n" + task + "\n");
+        return Ui.displayMessage("Nice! This task is completed\n" + task + "\n");
     }
 }
