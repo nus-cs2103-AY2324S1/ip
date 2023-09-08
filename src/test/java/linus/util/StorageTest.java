@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import linus.exception.LinusException;
+import linus.storage.Storage;
 import linus.task.Task;
 
 public class StorageTest {

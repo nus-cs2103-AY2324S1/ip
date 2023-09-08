@@ -6,7 +6,7 @@ import linus.task.Event;
 import linus.task.TaskList;
 import linus.task.ToDo;
 import linus.util.Parser;
-import linus.util.Storage;
+import linus.storage.Storage;
 import linus.util.Ui;
 
 /**

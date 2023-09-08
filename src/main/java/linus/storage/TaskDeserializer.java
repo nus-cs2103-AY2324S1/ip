@@ -1,4 +1,4 @@
-package linus.util;
+package linus.storage;
 
 import java.lang.reflect.Type;
 import java.time.LocalDate;
@@ -12,6 +12,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import linus.storage.LocalDateTypeAdapter;
 import linus.task.Task;
 
 /**
