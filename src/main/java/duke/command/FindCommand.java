@@ -39,11 +39,12 @@ public class FindCommand extends Command {
      * @throws InvalidArgumentException If the command is missing the keyword.
      */
     @Override
-    public void execute(TaskList tasks , Ui ui, Storage storage) {
+    public String execute(TaskList tasks , Ui ui, Storage storage) {
         String[] words = this.fullCommand.split(" ", 2);
         if (words.length < 2) {
             throw new InvalidArgumentException("find");
         }
-        tasks.findMatching(words[1]);
+        String s = tasks.findMatching(words[1]);
+        return s;
     }
 }

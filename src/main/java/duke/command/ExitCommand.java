@@ -31,12 +31,12 @@ public class ExitCommand extends Command {
      * @throws DukeException If there is an error writing to file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        Ui.showLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        Ui.showLine();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Bye. Hope to see you again soon!");
         try {
             storage.writeTasksToFile(tasks.getTasks());
+            return sb.toString();
         } catch (IOException e) {
             throw new DukeException("Error in writing taskList to file!");
         }

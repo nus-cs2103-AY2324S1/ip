@@ -35,7 +35,8 @@ public class DeadlineCommand extends Command {
      * @throws InvalidDateException      If the date provided is in an invalid format.
      */
     @Override
-    public void execute(TaskList tasks , Ui ui, Storage storage) throws InvalidArgumentException, InvalidDateException {
+    public String execute(TaskList tasks , Ui ui, Storage storage)
+            throws InvalidArgumentException, InvalidDateException {
         String[] words = this.fullCommand.split(" ", 2);
         if (words.length < 2) {
             throw new InvalidArgumentException("deadline");
@@ -52,7 +53,8 @@ public class DeadlineCommand extends Command {
                 try {
                     LocalDateTime deadline = LocalDateTime.parse(splitTask[1], Storage.DATE_TIME_INPUT_FORMATTER);
                     Deadline t = new Deadline(c, deadline);
-                    tasks.addTask(t);
+                    String s = tasks.addTask(t);
+                    return s;
                 } catch (DateTimeParseException e) {
                     throw new InvalidDateException();
                 }

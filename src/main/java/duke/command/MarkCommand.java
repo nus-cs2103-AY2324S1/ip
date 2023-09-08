@@ -30,15 +30,15 @@ public class MarkCommand extends Command {
      * @throws InvalidArgumentException If the command is missing required arguments.
      */
     @Override
-    public void execute(TaskList tasks , Ui ui, Storage storage) {
+    public String execute(TaskList tasks , Ui ui, Storage storage) {
         try {
             String[] words = this.fullCommand.split(" ", 2);
             Task t = tasks.getTasks().get(Integer.parseInt(words[1]) - 1);
             t.markDone();
-            Ui.showLine();
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(t);
-            Ui.showLine();
+            StringBuilder sb = new StringBuilder();
+            sb.append("Nice! I've marked this task as done:" + "\n");
+            sb.append(t + "\n");
+            return sb.toString();
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidArgumentException("☹ OOPS!!! I'm sorry, please enter a valid index to mark");
         }

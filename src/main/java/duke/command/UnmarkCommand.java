@@ -30,15 +30,15 @@ public class UnmarkCommand extends Command {
      * @throws InvalidArgumentException If the command is missing required arguments.
      */
     @Override
-    public void execute(TaskList tasks , Ui ui, Storage storage) throws InvalidArgumentException {
+    public String execute(TaskList tasks , Ui ui, Storage storage) throws InvalidArgumentException {
         try {
             String[] words = this.fullCommand.split(" ", 2);
             Task t = tasks.getTasks().get(Integer.parseInt(words[1]) - 1);
             t.markUndone();
-            Ui.showLine();
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(t);
-            Ui.showLine();
+            StringBuilder sb = new StringBuilder();
+            sb.append("OK, I've marked this task as not done yet:" + "\n");
+            sb.append(t + "\n");
+            return sb.toString();
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidArgumentException("☹ OOPS!!! I'm sorry, please enter a valid index to mark");
         }
