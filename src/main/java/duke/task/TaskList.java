@@ -96,16 +96,11 @@ public class TaskList {
         int foundCount = 0;
         for (int i = 1; i <= taskList.size(); i++) {
             Task task = taskList.get(i - 1);
-            if (task.contains(keyword)) {
-                if (foundCount == 0) {
-                    msg.append("\n");
-                }
-                foundCount += 1;
-                msg.append(String.format("%d.%s", foundCount, task));
-                if (i != taskList.size()) {
-                    msg.append("\n");
-                }
+            if (!task.contains(keyword)) {
+                continue;
             }
+            foundCount += 1;
+            msg.append(String.format("\n%d.%s", foundCount, task));
         }
         return msg.toString();
     }
@@ -127,13 +122,7 @@ public class TaskList {
     public String toString() {
         StringBuilder msg = new StringBuilder("Here are the tasks in your list:");
         for (int i = 1; i <= taskList.size(); i++) {
-            if (i == 1) {
-                msg.append("\n");
-            }
-            msg.append(String.format("%d.%s", i, taskList.get(i - 1)));
-            if (i != taskList.size()) {
-                msg.append("\n");
-            }
+            msg.append(String.format("\n%d.%s", i, taskList.get(i - 1)));
         }
         return msg.toString();
     }

@@ -20,6 +20,15 @@ public abstract class Command {
      */
     public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 
+    /**
+     * Executes the command (GUI version).
+     *
+     * @param taskList List of Task objects.
+     * @param ui UI that the user interact with.
+     * @param storage Storage to handle data to and from an external file.
+     * @return A String message.
+     * @throws DukeException If any error occurs.
+     */
     public abstract String executeGui(TaskList taskList, Ui ui, Storage storage) throws DukeException;
     /**
      * Checks whether the command is to exit the bot ("bye").

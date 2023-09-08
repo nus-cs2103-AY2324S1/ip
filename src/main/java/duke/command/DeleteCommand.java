@@ -15,13 +15,14 @@ public class DeleteCommand extends Command {
     private int index;
 
     /**
-     * Constructor method.
+     * Constructs the DeleteCommand.
      *
      * @param input User input.
      * @throws DukeException If any error occurs.
      */
     public DeleteCommand(String input) throws DukeException {
         if (input == null) {
+            // No index.
             throw new DukeException(" ☹ Which task?");
         }
         this.index = Integer.parseInt(input.strip());
@@ -43,6 +44,15 @@ public class DeleteCommand extends Command {
         storage.writeFile(taskList.stringToFile());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param taskList List of Task objects.
+     * @param ui UI that the user interact with.
+     * @param storage Storage to handle data to and from an external file.
+     * @return A String message.
+     * @throws DukeException If any error occurs.
+     */
     @Override
     public String executeGui(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         Task deletedTask = taskList.deleteTask(index);

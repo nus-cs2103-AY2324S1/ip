@@ -56,6 +56,7 @@ public class MainWindow extends AnchorPane {
         try {
             response = duke.getResponseToGui(input);
         } catch (DukeException e) {
+            // An exception occurs, to replace response with exception message.
             response = e.getMessage().replace("☹", ":P"); // JavaFX cannot recognize "☹"
         }
         assert (response != null) : "Response is empty";
@@ -64,10 +65,14 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
+
+        // If "bye" command, disable user from continue typing and sending commands.
         if (input.strip().equalsIgnoreCase("bye")) {
             userInput.setDisable(true);
             sendButton.setDisable(true);
         }
+
+        // Clears user input.
         userInput.clear();
     }
 }

@@ -25,6 +25,7 @@ public class Deadline extends Task {
         try {
             this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         } catch (DateTimeParseException e) {
+            // If `by` is in wrong format, throws exception and asks user to retype again.
             throw new DukeException(" ☹ Please enter datetime in format yyyy-MM-dd HH:mm");
         }
     }

@@ -14,15 +14,17 @@ public class DeadlineCommand extends Command {
     private Deadline deadline;
 
     /**
-     * Constructor method.
+     * Constructs the DeadlineCommand.
      *
      * @param input User input.
      * @throws DukeException If any error occurs.
      */
     public DeadlineCommand(String input) throws DukeException {
         if (input == null) {
+            // Empty description.
             throw new DukeException(" ☹ OOPS!!! The description of a deadline cannot be empty.");
         } else if (!input.contains("/by")) {
+            // No by date.
             throw new DukeException(" ☹ OOPS!!! By when?");
         }
         String[] tokens = input.split("/by");
@@ -45,6 +47,15 @@ public class DeadlineCommand extends Command {
         storage.appendFile(deadline);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param taskList List of Task objects.
+     * @param ui UI that the user interact with.
+     * @param storage Storage to handle data to and from an external file.
+     * @return A String message.
+     * @throws DukeException If any error occurs.
+     */
     @Override
     public String executeGui(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         taskList.addTask(deadline);
