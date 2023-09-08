@@ -71,11 +71,8 @@ public abstract class JukeCommand extends JukeObject {
             return JukeCommand.find(args, taskList);
         default:
             // exits the switch and throws an exception in the proceeding line
-            break;
+            throw new JukeIllegalArgumentException("Oh no! I do not understand that command!");
         }
-
-        // runs if no commands are matched
-        throw new JukeIllegalArgumentException("Oh no! I do not understand that command!");
     }
 
     /**
@@ -222,15 +219,15 @@ public abstract class JukeCommand extends JukeObject {
                 throw new JukeIllegalArgumentException("Oh no! The topic cannot contain the character \"|\"!");
             }
 
-            LocalDateTime localTimeOne = DateTimeParser.parse(parsedArguments[1]);
-            LocalDateTime localTimeTwo = DateTimeParser.parse(parsedArguments[2]);
+            LocalDateTime startTime = DateTimeParser.parse(parsedArguments[1]);
+            LocalDateTime endTime = DateTimeParser.parse(parsedArguments[2]);
 
-            if (localTimeTwo.isBefore(localTimeOne)) {
+            if (endTime.isBefore(startTime)) {
                 throw new JukeIllegalArgumentException("Oh no! The \"to\" date cannot be before the "
                                                                + "\"from\" date!");
             }
 
-            JukeTask jt = new JukeEvent(parsedArguments[0], localTimeOne, localTimeTwo);
+            JukeTask jt = new JukeEvent(parsedArguments[0], startTime, endTime);
             return new JukeAddTaskCommand(taskList, jt);
         }
     }
@@ -257,6 +254,8 @@ public abstract class JukeCommand extends JukeObject {
      *
      * @param response {@code Response} object that contains response from Juke and the user
      * @return {@code Response} object that contains response from Juke and the user
+     * @throws JukeException or any of its subclasses if there are any issues encountered
+     *     during the execution of code
      */
     public abstract Response execute(Response response) throws JukeException;
 }

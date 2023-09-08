@@ -61,13 +61,13 @@ public class TaskList extends JukeObject {
      * @throws JukeStorageException if there is are any issues with retrieving data from the datafile
      */
     public boolean addTask(JukeTask task) {
-        boolean success = this.tasks.add(task);
+        boolean isSuccess = this.tasks.add(task);
 
-        if (success) {
+        if (isSuccess) {
             this.storageManager.write(this.tasks);
         }
 
-        return success;
+        return isSuccess;
     }
 
     /**
@@ -80,13 +80,13 @@ public class TaskList extends JukeObject {
      */
     public JukeTask deleteTask(int task) {
         try {
-            JukeTask retTask = this.tasks.get(task);
+            JukeTask returnedTask = this.tasks.get(task);
 
-            if (this.tasks.remove(retTask)) {
+            if (this.tasks.remove(returnedTask)) {
                 this.storageManager.write(this.tasks);
             }
 
-            return retTask;
+            return returnedTask;
         } catch (IndexOutOfBoundsException ex) {
             throw new JukeIllegalArgumentException("Oh no! The task index you have provided is not valid!");
         }
@@ -148,15 +148,15 @@ public class TaskList extends JukeObject {
      * @return {@code List} of {@code JukeTask} objects whose subject matches the word
      */
     public List<JukeTask> findTask(String word) {
-        List<JukeTask> matchesWord = new LinkedList<>();
+        List<JukeTask> wordMatches = new LinkedList<>();
 
         for (JukeTask t : this.tasks) {
             if (t.stringMatches(word)) {
-                matchesWord.add(t);
+                wordMatches.add(t);
             }
         }
 
-        return matchesWord;
+        return wordMatches;
     }
 
     /**

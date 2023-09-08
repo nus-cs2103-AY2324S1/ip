@@ -38,10 +38,10 @@ public class JukeFindTaskCommand extends JukeCommand {
      */
     @Override
     public Response execute(Response response) {
-        List<JukeTask> foundTask = this.taskList.findTask(this.word);
+        List<JukeTask> foundTasks = this.taskList.findTask(this.word);
         StringBuilder stringBuilder = new StringBuilder();
 
-        if (foundTask.size() == 0) {
+        if (foundTasks.size() == 0) {
             stringBuilder.append("Sorry! I could not find any task with the word \"")
                     .append(this.word)
                     .append("\" in the task list!");
@@ -51,7 +51,7 @@ public class JukeFindTaskCommand extends JukeCommand {
                     .append(this.word)
                     .append("\":\n");
 
-            for (JukeTask t : foundTask) {
+            for (JukeTask t : foundTasks) {
                 stringBuilder.append(t)
                         .append("\n");
             }
