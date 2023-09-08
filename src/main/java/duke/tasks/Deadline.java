@@ -10,12 +10,12 @@ public class Deadline extends Task {
     public Deadline(String name, String by) throws DukeException {
         super(name);
         if (name.trim().isEmpty()) {
-            throw new DukeException("☹ OOPS!!! The description of a duke.tasks.Deadline cannot be empty.");
+            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
         }
         try {
             this.by = LocalDate.parse(by);
         } catch (DateTimeParseException e) {
-            throw new DukeException("☹ OOPS!!! Follow the format for a duke.tasks.Deadline.");
+            throw new DukeException("☹ OOPS!!! Follow the format for a deadline.");
         }
     }
 
