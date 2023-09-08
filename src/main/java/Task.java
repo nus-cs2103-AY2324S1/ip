@@ -24,4 +24,7 @@ public class Task {
     public void setNotDone() {
         isDone = false;
     }
+    public String toFileString() {
+        return "[" + this.getStatusIcon() + "]" + " " + this.description;
+    }
 }

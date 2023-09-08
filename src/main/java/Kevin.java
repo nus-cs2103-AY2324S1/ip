@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,7 +12,7 @@ import java.util.Scanner;
 public class Kevin{
     private  static final String filePath = "src/main/java/Database.txt";
     private static final List<Task> taskList = new ArrayList<>();
-    private static final String line = "____________________________________________________________";
+    public static final String line = "____________________________________________________________";
     public static void main(String[] args) {
         Kevin.printGreetMessage();
         try {
@@ -59,6 +61,12 @@ public class Kevin{
                         System.out.println(line);
                         System.out.println(e1.getMessage());
                         System.out.println(line);
+                    } catch (DateTimeParseException e2) {
+                        System.out.println(Kevin.line);
+                        System.out.println("OOPS!!! You have entered a wrong date format.");
+                        System.out.println("Please follow this format:");
+                        System.out.println("yyyy-mm-dd");
+                        System.out.println(Kevin.line);
                     }
             }
             userInput = scanner.nextLine();
@@ -137,7 +145,7 @@ public class Kevin{
 
         taskList.add(task);
         try {
-            Kevin.writeToFile(task.toString());
+            Kevin.writeToFile(task.toFileString());
         } catch (IOException error) {
             System.out.println(error.getMessage());
         }
@@ -183,15 +191,15 @@ public class Kevin{
         } else if (taskType == 'D') {
             String[] split = string.split(" \\(by: ");
             String description = split[0].substring(7);
-            String day = split[1].substring(0, split[1].length() - 1);
+            LocalDate day = LocalDate.parse(split[1].substring(0, split[1].length() - 1));
             taskList.add(new Deadline(description, day, isDone));
         } else {
             String[] split1 = string.split(" \\(from: ");
             String[] split2 = split1[1].split(" to: ");
             String description = split1[0].substring(7);
             String start = split2[0];
-            String end = split2[1];
-            taskList.add(new Event(description, start, end, isDone));
+            String end = split2[1].substring(0, split2[1].length() - 1);
+            taskList.add(new Event(description, LocalDate.parse(start), LocalDate.parse(end), isDone));
         }
     }
 
