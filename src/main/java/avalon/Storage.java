@@ -5,13 +5,27 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Handles the loading and saving of tasks to/from a file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a new Storage instance with the specified file path.
+     *
+     * @param filePath The path to the file used for storing tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file into the provided TaskList.
+     *
+     * @param taskList The TaskList to which tasks will be loaded.
+     * @return The TaskList with loaded tasks.
+     */
     public TaskList loadTasks(TaskList taskList) {
         try {
             File file = new File(filePath);
@@ -32,6 +46,11 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves tasks from the provided TaskList to the file.
+     *
+     * @param taskList The TaskList containing tasks to be saved.
+     */
     public void saveTasks(TaskList taskList) {
         try {
             FileWriter writer = new FileWriter(filePath);

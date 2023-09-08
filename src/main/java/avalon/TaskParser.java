@@ -1,6 +1,16 @@
 package avalon;
 
+/**
+ * Utility class for parsing and serializing tasks.
+ */
 public class TaskParser {
+
+    /**
+     * Parses a string representation of a task and returns the corresponding Task object.
+     *
+     * @param line The string representation of the task to be parsed.
+     * @return The Task object parsed from the input string.
+     */
     public static Task parse(String line) {
         String[] parts = line.split(" \\| ");
 
@@ -24,7 +34,12 @@ public class TaskParser {
         return task;
     }
 
-    // Serialize avalon.Task object to a string for saving to the file
+    /**
+     * Serializes a Task object to a string for saving to a file.
+     *
+     * @param task The Task object to be serialized.
+     * @return The string representation of the serialized task.
+     */
     public static String serialize(Task task) {
         String doneStatus = task.isDone ? "1" : "0";
 
