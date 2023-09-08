@@ -12,21 +12,21 @@ import duke.ui.Ui;
  */
 public class MarkCommand extends Command {
 
-	public static final String COMMAND_WORD = "mark";
+    public static final String COMMAND_WORD = "mark";
 
-	private int index;
+    private int index;
 
-	public MarkCommand(int index) {
-		this.index = index;
-	}
+    public MarkCommand(int index) {
+        this.index = index;
+    }
 
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public void execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException {
-		Task task = taskList.completeTask(this.index);
-		storage.write(taskList);
-		ui.showMarkMessage(task);
-	}
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public String execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException {
+        Task task = taskList.completeTask(this.index);
+        storage.write(taskList);
+        return ui.showMarkMessage(task);
+    }
 }

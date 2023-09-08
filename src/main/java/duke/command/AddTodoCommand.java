@@ -11,28 +11,28 @@ import duke.storage.Storage;
  * Extends the base Command class.
  */
 public class AddTodoCommand extends Command {
-	public static final String COMMAND_WORD = "todo";
+    public static final String COMMAND_WORD = "todo";
 
-	private String taskDescription;
+    private String taskDescription;
 
-	/**
-	 * Constructs a AddTodoCommand with the given task description.
-	 *
-	 * @param taskDescription The description of the todo task.
-	 */
-	public AddTodoCommand(String taskDescription) {
-		this.taskDescription = taskDescription;
-	}
+    /**
+     * Constructs a AddTodoCommand with the given task description.
+     *
+     * @param taskDescription The description of the todo task.
+     */
+    public AddTodoCommand(String taskDescription) {
+        this.taskDescription = taskDescription;
+    }
 
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public void execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException  {
-		ToDo task = new ToDo(this.taskDescription);
-		taskList.add(task);
-		storage.write(taskList);
-		ui.showAddTodoMessage(task, taskList);
-	}
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public String execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException  {
+        ToDo task = new ToDo(this.taskDescription);
+        taskList.add(task);
+        storage.write(taskList);
+        return ui.showTaskAdded(task, taskList);
+    }
 
 }

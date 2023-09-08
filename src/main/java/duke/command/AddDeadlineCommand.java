@@ -11,31 +11,31 @@ import duke.storage.Storage;
  * Extends the base Command class.
  */
 public class AddDeadlineCommand extends Command {
-	public static final String COMMAND_WORD = "deadline";
+    public static final String COMMAND_WORD = "deadline";
 
-	private String taskDescription;
-	private String by;
+    private String taskDescription;
+    private String by;
 
-	/**
-	 * Constructs an AddDeadlineCommand with the given task description and due date.
-	 *
-	 * @param taskDescription The description of the deadline task.
-	 * @param by The due date of the deadline task.
-	 */
-	public AddDeadlineCommand(String taskDescription, String by) {
-		this.taskDescription = taskDescription;
-		this.by = by;
-	}
+    /**
+     * Constructs an AddDeadlineCommand with the given task description and due date.
+     *
+     * @param taskDescription The description of the deadline task.
+     * @param by The due date of the deadline task.
+     */
+    public AddDeadlineCommand(String taskDescription, String by) {
+        this.taskDescription = taskDescription;
+        this.by = by;
+    }
 
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public void execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException  {
-		Deadline task = new Deadline(this.taskDescription, false, this.by);
-		taskList.add(task);
-		storage.write(taskList);
-		ui.showAddTodoMessage(task, taskList);
-	}
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public String execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException  {
+        Deadline task = new Deadline(this.taskDescription, false, this.by);
+        taskList.add(task);
+        storage.write(taskList);
+        return ui.showTaskAdded(task, taskList);
+    }
 
 }

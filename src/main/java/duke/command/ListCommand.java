@@ -11,13 +11,13 @@ import duke.ui.Ui;
  */
 public class ListCommand extends Command {
 
-	public static final String COMMAND_WORD = "list";
+    public static final String COMMAND_WORD = "list";
 
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public void execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException {
-		ui.showItems(taskList);
-	}
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public String execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException {
+        return ui.showItems(taskList);
+    }
 }
