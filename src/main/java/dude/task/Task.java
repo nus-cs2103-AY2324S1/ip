@@ -6,37 +6,65 @@ import dude.exception.InvalidTaskDataException;
  * Task.
  */
 public class Task {
-  protected boolean isDone;
-  protected String description;
-  /**
-   * Delimiter string for save file data.
-   */
-  public static final String DELIMITER = "  ||  ";
-  /**
-   * Delimiter regex for save file data.
-   */
-  public static final String DELIMITER_REGEX = "  \\|\\|  ";
+    /**
+     * Delimiter string for save file data.
+     */
+    public static final String DELIMITER = "  ||  ";
+    /**
+     * Delimiter regex for save file data.
+     */
+    public static final String DELIMITER_REGEX = "  \\|\\|  ";
+    protected boolean isDone;
+    protected String description;
+
+    /**
+     * Constructor for task.
+     *
+     * @param description Description of task.
+     */
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
+    }
+
+    /**
+     * Constructor for task, specifying completion status.
+     *
+     * @param description Description of task.
+     * @param isDone      Boolean representing task completion status.
+     */
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
 
   /**
-   * Constructor for task.
+   * Parses save file data into a Task instance.
    *
-   * @param description Description of task.
+   * @param data Line from save file.
+   * @return Task instance.
+   * @throws InvalidTaskDataException If data is not in the expected format.
    */
-  public Task(String description) {
-    this.description = description;
-    this.isDone = false;
-  }
+  public static Task fromData(String data) throws InvalidTaskDataException {
+     /*
+       expected format:
+       completed: 1, incomplete: 0
+       todo: T || 1/0 || description
+     */
+        String[] splitData = data.split(DELIMITER_REGEX, 3);
 
-  /**
-   * Constructor for task, specifying completion status.
-   *
-   * @param description Description of task.
-   * @param isDone      Boolean representing task completion status.
-   */
-  public Task(String description, boolean isDone) {
-    this.description = description;
-    this.isDone = isDone;
-  }
+        if (splitData.length < 3) {
+            throw new InvalidTaskDataException();
+        }
+        String taskType = splitData[0];
+        String taskCompleted = splitData[1];
+        String taskDescription = splitData[2];
+        if (!taskCompleted.equals("1") && !taskCompleted.equals("0")) {
+            throw new InvalidTaskDataException();
+        }
+        boolean isCompleted = taskCompleted.equals("1");
+        return new Task(taskDescription, isCompleted);
+    }
 
   /**
    * Gets text status icon of task's completion status.
@@ -71,36 +99,6 @@ public class Task {
     this.isDone = false;
   }
 
-
-  /**
-   * Parses save file data into a Task instance.
-   *
-   * @param data Line from save file.
-   * @return Task instance.
-   * @throws InvalidTaskDataException If data is not in the expected format.
-   */
-  public static Task fromData(String data) throws InvalidTaskDataException {
-     /*
-       expected format:
-       completed: 1, incomplete: 0
-       todo: T || 1/0 || description
-     */
-    String[] splitData = data.split(DELIMITER_REGEX, 3);
-
-    if (splitData.length < 3) {
-      throw new InvalidTaskDataException();
-    }
-    String taskType = splitData[0];
-    String taskCompleted = splitData[1];
-    String taskDescription = splitData[2];
-    if (!taskCompleted.equals("1") && !taskCompleted.equals("0")) {
-      throw new InvalidTaskDataException();
-    }
-    boolean isCompleted = taskCompleted.equals("1");
-    return new Task(taskDescription, isCompleted);
-  }
-
-
   /**
    * Parses task instance into save file string data.
    *
@@ -112,7 +110,7 @@ public class Task {
        completed: 1, incomplete: 0
        todo: T || 1/0 || description
      */
-    String taskCompleted = this.isDone ? "1" : "0";
-    return String.join(DELIMITER, "T", taskCompleted, this.description) + "\n";
-  }
+        String taskCompleted = this.isDone ? "1" : "0";
+        return String.join(DELIMITER, "T", taskCompleted, this.description) + "\n";
+    }
 }
