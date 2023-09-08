@@ -1,6 +1,5 @@
-14
+25
 T | 0 | Read a book
-D | 0 | Finish report | null
 D | 0 | Finish report | null
 T | 0 | Read a book
 D | 0 | Finish report | null
@@ -13,3 +12,15 @@ D | 0 | Finish report | null
 T | 0 | Read a book
 D | 0 | Finish report | null
 T | 0 | book
+T | 0 | eat
+D | 0 | return book | null
+D | 0 | return book | null
+T | 0 | reafuihealruf
+D | 0 | return book | null
+D | 0 | return book | null
+T | 0 | eat
+D | 0 | return book | null
+D | 0 | return book | null
+D | 0 | return book | null
+D | 0 | return book | null
+T | 1 | eat
