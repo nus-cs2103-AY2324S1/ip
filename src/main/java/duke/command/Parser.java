@@ -81,7 +81,8 @@ public class Parser {
             ui.addTask(todo, taskList.size());
         }
         else if (task.startsWith("deadline")) {
-            if (task.length() < 10) throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+            if (task.length() < 10) throw new DukeException("☹ OOPS!!! The description of a deadline " +
+                    "cannot be empty.");
             String description = "";
             String by = "";
             for (int i = 9; i < task.length(); ++i) {
