@@ -49,7 +49,6 @@ public class Deadline extends Task {
      */
     @Override
     public String getSaveString() {
-
         return String.format("%d deadline %s /by %s", isDone ? 1 : 0, description.trim(), by);
     }
 }
