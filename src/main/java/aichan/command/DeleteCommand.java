@@ -28,6 +28,7 @@ public class DeleteCommand extends Command {
      * @param tasks A list of task.
      * @param ui User interface to show message.
      * @param storage Storage storing the tasks' description.
+     * @return Response as String.
      * @throws AiChanException If the task number is invalid.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws AiChanException {

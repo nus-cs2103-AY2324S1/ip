@@ -105,7 +105,7 @@ public class AiChan extends Application {
         stage.show();
 
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("AiChan");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -158,10 +158,10 @@ public class AiChan extends Application {
      */
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        Label aiChanText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getAiChanDialog(dukeText, new ImageView(aiChan))
+                DialogBox.getAiChanDialog(aiChanText, new ImageView(aiChan))
         );
         userInput.clear();
     }
