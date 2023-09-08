@@ -98,6 +98,10 @@ public class Avalon {
                             throw new IllegalArgumentException("Invalid task number to be deleted.");
                         }
                         break;
+                    case "find":
+                        String keyword = userInput.substring(5).trim();
+                        findTasksByKeyword(keyword);
+                        break;
                     default:
                         throw new IllegalArgumentException("I humbly apologize, but thy words remain a mystery to me...");
                 }
@@ -106,6 +110,23 @@ public class Avalon {
             }
         }
 
+    }
+
+    /**
+     * Searches for tasks containing the specified keyword in their descriptions and displays the matching tasks.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     */
+    private void findTasksByKeyword(String keyword) {
+        TaskList matchingTasks = new TaskList();
+
+        for (Task task : tasks.tasks()) {
+            if (task.description.contains(keyword)) {
+                matchingTasks.addTask(task);
+            }
+        }
+
+        ui.showFindMessage(matchingTasks);
     }
 
     public static void main(String[] args) {
