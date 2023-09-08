@@ -51,20 +51,14 @@ public class Parser {
     }
 
     /**
-     * Returns true is the user wants to end the conversation.
-     */
-    public boolean isExit() {
-        return this.isExit;
-    }
-
-    /**
      * Reads the command given and executes them.
      * Throws exceptions when fail to comprehend the command.
      *
      * @param command The command line.
+     * @return Returns a string as a response from Duke.
      * @throws DateTimeParseException If the input format of the dates is invalid.
      */
-    public void parse(String command) throws DateTimeParseException {
+    public String parse(String command) throws DateTimeParseException {
         String[] stringList = command.split(" ", 2);
         String firstWord = stringList[0];
         String otherWords = null;
@@ -77,36 +71,26 @@ public class Parser {
         case "bye":
             break;
         case "list":
-            printList();
-            break;
+            return printList();
         case "mark":
-            markDone(otherWords);
-            break;
+            return markDone(otherWords);
         case "unmark":
-            markUndone(otherWords);
-            break;
+            return markUndone(otherWords);
         case "todo":
-            addTodo(otherWords);
-            break;
+            return addTodo(otherWords);
         case "deadline":
-            addDeadline(otherWords);
-            break;
+            return addDeadline(otherWords);
         case "event":
-            addEvent(otherWords);
-            break;
+            return addEvent(otherWords);
         case "delete":
-            delete(otherWords);
-            break;
+            return delete(otherWords);
         case "find":
-            findTask(otherWords);
-            break;
+            return findTask(otherWords);
         default:
             throw new InvalidInputException("OOPS! I do not know what " + firstWord
                     + " means. Please try again :)");
         }
-        if (firstWord.equals("bye")) {
-            sayBye();
-        }
+        return null;
     }
 
     /**
@@ -164,43 +148,42 @@ public class Parser {
     }
 
     /**
-     * Prints out the tasks in the TaskList.
+     * Returns a string containing the tasks in the TaskList.
      */
-    private void printList() {
+    private String printList() {
         if (tasks.isEmpty()) {
-            this.ui.print("list is empty :(");
+            return ui.sendMessage("list is empty :(");
         } else {
+            String res = "";
             for (int i = 0; i < tasks.size(); i++) {
-                this.ui.print(i + 1 + " " + tasks.get(i).convertToString());
+                res = String.join("",res + "\n", ui.sendMessage(i + 1 + " " + tasks.get(i).convertToString()));
             }
+            return res;
         }
-    }
-
-    private void sayBye() {
-        this.isExit = true;
-        this.ui.sayBye();
     }
 
     /**
      * Adds a todo task into the list.
      *
      * @param details Details of the task.
+     * @return Returns the message from Duke.
      */
-    private void addTodo(String details) {
+    private String addTodo(String details) {
         if (details == null || details.trim().isEmpty()) {
             throw new LackDescriptionException("todo");
         }
         Todo t = new Todo(details);
         tasks.add(t);
-        confirmAddedTask(details);
+        return confirmAddedTask(details);
     }
 
     /**
      * Adds a deadline task into the list.
      *
      * @param details Details of the task.
+     * @return Returns the message from Duke.
      */
-    private void addDeadline(String details) {
+    private String addDeadline(String details) {
         if (details == null || details.trim().isEmpty() || details.trim().startsWith("/by")) {
             throw new LackDescriptionException("deadline");
         }
@@ -227,15 +210,16 @@ public class Parser {
         }
 
         tasks.add(d);
-        confirmAddedTask(description);
+        return confirmAddedTask(description);
     }
 
     /**
      * Adds an event task into the list.
      *
      * @param details Details of the task.
+     * @return Returns the message from Duke.
      */
-    private void addEvent(String details) {
+    private String addEvent(String details) {
         if (details == null || details.trim().isEmpty() || details.trim().startsWith("/from") || details.trim().startsWith("/to")) {
             throw new LackDescriptionException("event");
         }
@@ -292,21 +276,20 @@ public class Parser {
         }
 
         tasks.add(e);
-        confirmAddedTask(description);
+        return confirmAddedTask(description);
     }
 
-    private void confirmAddedTask(String x) {
-        this.ui.print("Added to list: " + x);
-        this.ui.print("Now you have " + tasks.size()
-                + (tasks.size() == 1 ? " task " : " tasks ") + "in the list");
+    private String confirmAddedTask(String x) {
+        return String.join("", ui.sendMessage("Added to list: " + x) + "\n", ui.sendMessage("Now you have " + tasks.size()));
     }
 
     /**
      * Marks the task as done.
      *
      * @param details Index of the target task.
+     * @return Returns the message from Duke.
      */
-    private void markDone(String details) {
+    private String markDone(String details) {
         if (details == null || details.trim().isEmpty()) {
             throw new InvalidMarkingException("Missing index");
         }
@@ -325,15 +308,16 @@ public class Parser {
         Task t = tasks.get(j-1);
         t.markDone();
 
-        this.ui.print("Task marked as done.");
+        return ui.sendMessage("Task marked as done.");
     }
 
     /**
      * Marks the task as undone.
      *
      * @param details Index of the target task.
+     * @return Returns the message from Duke.
      */
-    private void markUndone(String details) {
+    private String markUndone(String details) {
         if (details == null || details.trim().isEmpty()) {
             throw new InvalidMarkingException("Missing index");
         }
@@ -352,15 +336,16 @@ public class Parser {
         Task t = tasks.get(j-1);
         t.markUndone();
 
-        this.ui.print("Task marked as undone.");
+        return ui.sendMessage("Task marked as undone.");
     }
 
     /**
      * Deletes a task from the list.
      *
      * @param details Index of the target task.
+     * @return Returns the message from Duke.
      */
-    private void delete(String details) {
+    private String delete(String details) {
         if (details == null || details.trim().isEmpty()) {
             throw new InvalidMarkingException("Missing index");
         }
@@ -379,30 +364,38 @@ public class Parser {
         Task t = tasks.get(j - 1);
         tasks.remove(j - 1);
 
-        this.ui.print("I've removed this task:");
-        this.ui.print(t);
-        this.ui.print("Now you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task")
+        String res = String.join("", "I've removed this task:\n", t.convertToString());
+        res = String.join("", res + "\n", "Now you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task")
                 + " in the list");
+
+        return res;
     }
 
-    private void findTask(String x) {
+    /**
+     * Finds the task in the list.
+     *
+     * @param x Keyword to be searched.
+     * @return Matched tasks.
+     */
+    private String findTask(String x) {
         if (x == null || x.trim().isEmpty()) {
             throw new InvalidFindingException("Missing keyword");
         }
 
         int counter = 1;
+        String res = "";
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.get(i);
             if (t.convertToString().contains(x)) {
-                this.ui.print(counter + " " + t);
+                res = String.join("", res + "\n", ui.sendMessage(counter + " " + t.convertToString()));
                 counter += 1;
             }
         }
 
         if (counter == 1) {
-            this.ui.print("No matching found");
+            return ui.sendMessage("No matching found");
         } else {
-            this.ui.print("You have " + (counter-1) + " matching tasks in your list");
+            return String.join("", res + "\n", ui.sendMessage("You have " + (counter-1) + " matching tasks in your list"));
         }
     }
 }
