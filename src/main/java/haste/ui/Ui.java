@@ -3,11 +3,6 @@ package haste.ui;
 import haste.data.TaskList;
 import haste.tasks.Task;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
-import static java.lang.Integer.parseInt;
-
 /**
  * Represents a user interface that prints information ot user.
  */
@@ -15,9 +10,9 @@ public class Ui {
     public static final String LINE = "＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿";
     public static final String INDENT = "    ";
 
-    public static final String formatLine = INDENT + LINE + "\n";
+    public static final String FORMATLINE = INDENT + LINE + "\n";
 
-    public boolean running = true;
+    private boolean isRunning = true;
 
 
     public static String formatPrint(String input) {
@@ -46,19 +41,25 @@ public class Ui {
         return formatPrint("Okay, I've marked this task as not done:\n" + taskDesc);
     }
     public String delete(String taskDesc, TaskList tasks) {
-        return formatPrint("Noted. I've removed this task\n" + taskDesc + "\nNow you have " + tasks.getNumOfTasks() + " tasks in the list");
+        return formatPrint("Noted. I've removed this task\n" + taskDesc + "\nNow you have "
+                + tasks.getNumOfTasks() + " tasks in the list");
 
     }
     public String add(String taskDesc, TaskList tasks) {
-        return formatPrint("Got it. I've added this task:\n" + taskDesc + "\nNow you have " + tasks.getNumOfTasks() + " tasks in the list.");
+        return formatPrint("Got it. I've added this task:\n" + taskDesc + "\nNow you have "
+                + tasks.getNumOfTasks() + " tasks in the list.");
     }
 
     public String printList(TaskList tasks) {
         StringBuilder listOfTasks = new StringBuilder();
-        for (Task x : tasks.taskList) {
-            listOfTasks.append(INDENT).append(tasks.taskList.indexOf(x) + 1).append(". ").append(x).append("\n");
+        for (Task x : tasks.getTasks()) {
+            listOfTasks.append(INDENT).append(tasks.getTasks().indexOf(x) + 1).append(". ").append(x).append("\n");
         }
         return listOfTasks.toString();
+    }
+
+    public boolean getRunning() {
+        return isRunning;
     }
 
 }

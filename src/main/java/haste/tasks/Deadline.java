@@ -1,8 +1,8 @@
 package haste.tasks;
 
-import haste.commands.Parser;
-
 import java.time.LocalDateTime;
+
+import haste.commands.Parser;
 
 /**
  * Represents a Deadline.
@@ -19,7 +19,7 @@ public class Deadline extends Task {
      * @param isComplete Completion status of Task.
      */
     public Deadline(String description, LocalDateTime by, boolean isComplete) {
-        super(description,isComplete);
+        super(description, isComplete);
         this.by = by;
     }
 

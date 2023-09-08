@@ -1,8 +1,8 @@
 package haste.tasks;
 
-import haste.commands.Parser;
-
 import java.time.LocalDateTime;
+
+import haste.commands.Parser;
 
 /**
  * Represents an Event.
@@ -12,6 +12,7 @@ public class Event extends Task {
     protected LocalDateTime end;
 
     /**
+     * Creates an Event
      *
      * @param description Task description.
      * @param start Start time of the Task.
@@ -25,11 +26,13 @@ public class Event extends Task {
     }
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + Parser.formatTime(this.start) + " to: " + Parser.formatTime(this.end) + ")";
+        return "[E]" + super.toString() + " (from: " + Parser.formatTime(this.start)
+                + " to: " + Parser.formatTime(this.end) + ")";
     }
     @Override
     public String toSaveFormat() {
-        return "E|" + super.toSaveFormat() + "|" + Parser.getCmdFormat(this.start) + "|" + Parser.getCmdFormat(this.end);
+        return "E|" + super.toSaveFormat() + "|" + Parser.getCmdFormat(this.start)
+                + "|" + Parser.getCmdFormat(this.end);
     }
 
 }

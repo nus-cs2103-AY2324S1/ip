@@ -1,28 +1,21 @@
 package haste;
 
+import java.util.Scanner;
+
 import haste.commands.Command;
 import haste.commands.Parser;
 import haste.data.Storage;
 import haste.data.TaskList;
 import haste.exceptions.HasteException;
 import haste.ui.Ui;
-
-import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.scene.control.Label;
-
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
-import java.util.Scanner;
 
 /**
  * Represents a chatbot that keeps track of tasks.
@@ -66,7 +59,7 @@ public class Haste {
      */
     public void run() {
         Scanner sc = new Scanner(System.in);
-        while (ui.running) {
+        while (ui.getRunning()) {
             String cmd = sc.nextLine();
             Command c = Parser.handleCommand(cmd, storage);
 

@@ -1,16 +1,15 @@
 package haste.data;
 
-import haste.tasks.Task;
-
 import java.util.ArrayList;
+
+import haste.tasks.Task;
 
 /**
  * Represents a list of Task objects.
  */
 public class TaskList {
-    public ArrayList<Task> taskList;
-    // number tracker
-    public static int numOfTasks;
+    private static int numOfTasks;
+    private ArrayList<Task> taskList;
 
     /**
      * Creates a TaskList to store Task objects.
@@ -44,7 +43,7 @@ public class TaskList {
      *
      * @return Total Tasks.
      */
-    public int getNumOfTasks() {
+    public static int getNumOfTasks() {
         return numOfTasks;
     }
 
@@ -75,4 +74,10 @@ public class TaskList {
         TaskList.numOfTasks = this.taskList.size();
         return filteredTasks;
     }
+
+    public ArrayList<Task> getTasks() {
+        return taskList;
+    }
+
+
 }

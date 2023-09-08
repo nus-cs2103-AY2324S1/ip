@@ -5,6 +5,7 @@ package haste.tasks;
  */
 public class ToDo extends Task {
     /**
+     * Creates a ToDo.
      *
      * @param description
      * @param isComplete Completion status of Task.

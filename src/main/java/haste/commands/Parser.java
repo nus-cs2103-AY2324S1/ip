@@ -1,15 +1,14 @@
 package haste.commands;
 
-import haste.data.Storage;
-import haste.data.TaskList;
-import haste.tasks.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import haste.data.Storage;
+import haste.data.TaskList;
+import haste.tasks.Task;
 
 // Solution inspired by CLEON TAN DE XUAN
 
@@ -91,7 +90,7 @@ public class Parser {
         } catch (NumberFormatException e) {
             return new InvalidCommand("only numerical input allowed!");
         }
-        if (id >= TaskList.numOfTasks || id < 0) {
+        if (id >= TaskList.getNumOfTasks() || id < 0) {
             return new InvalidCommand("task does not exist! input within the list of numbered tasks.");
         }
 
@@ -116,7 +115,7 @@ public class Parser {
         } catch (NumberFormatException e) {
             return new InvalidCommand("only numerical input allowed!");
         }
-        if (id >= TaskList.numOfTasks || id < 0) {
+        if (id >= TaskList.getNumOfTasks() || id < 0) {
             return new InvalidCommand("task does not exist! input within the list of numbered tasks.");
         }
 
@@ -141,7 +140,7 @@ public class Parser {
         } catch (NumberFormatException e) {
             return new InvalidCommand("only numerical input allowed!");
         }
-        if (id >= TaskList.numOfTasks || id < 0) {
+        if (id >= TaskList.getNumOfTasks() || id < 0) {
             return new InvalidCommand("task does not exist! input within the list of numbered tasks.");
         }
 
@@ -185,7 +184,7 @@ public class Parser {
         String desc = matcher.group(3);
         LocalDateTime end;
 
-        if (Task.checkEmpty(overall)|| Task.checkEmpty(desc)) {
+        if (Task.checkEmpty(overall) || Task.checkEmpty(desc)) {
             return new InvalidCommand("Description of Deadline cannot be empty!");
         }
         try {

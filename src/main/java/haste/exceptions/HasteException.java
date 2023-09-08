@@ -3,7 +3,7 @@ package haste.exceptions;
 /**
  * Represents an exception for Haste exceptions.
  */
-public class HasteException extends Exception{
+public class HasteException extends Exception {
 
     /**
      * Creates an Exception.
