@@ -7,6 +7,11 @@ import bob.parser.Parser.Command;
 import bob.storage.Storage;
 import bob.ui.Ui;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 public class Duke {
     public static void main(String[] args) {
         Ui ui = new Ui();
@@ -36,5 +41,9 @@ public class Duke {
             }
             input = ui.getInput();
         }
+    }
+
+    public String getResponse(String input) {
+        return "Bob heard: " + input;
     }
 }
