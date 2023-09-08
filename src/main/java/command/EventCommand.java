@@ -40,13 +40,21 @@ public class EventCommand extends Command {
         return res;
     }
 
+    private boolean hasSamePeriod(EventCommand other) {
+        return this.start.equals(other.start)
+                && this.end.equals(other.end);
+    }
+
+    private boolean hasSameDescription(EventCommand other) {
+        return this.description.equals(other.description);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other instanceof EventCommand) {
             EventCommand temp = (EventCommand) other;
-            return temp.description.equals(this.description)
-                    && temp.start.equals(this.start)
-                    && temp.end.equals(this.end);
+            return this.hasSameDescription(temp)
+                    && this.hasSamePeriod(temp);
         }
         return false;
     }
