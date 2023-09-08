@@ -1,3 +1,4 @@
 [T][ ] borrow book
 [E][X] buy a computer (from: today 2pm to: 4pm)
 [D][X] finish slides (by: Sep 10 2023 2359)
+[T][X] read book
