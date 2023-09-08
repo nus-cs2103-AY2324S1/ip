@@ -141,6 +141,7 @@ public class Parser {
         boolean isDone = split[1].equals("1");
         String description = split[2];
         Task task = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         switch (type) {
         case "T": {
@@ -151,7 +152,6 @@ public class Parser {
             break;
         }
         case "D": {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime by = LocalDateTime.parse(split[3], formatter);
             task = new Deadline(description, by);
             if (isDone) {
@@ -160,7 +160,6 @@ public class Parser {
             break;
         }
         case "E": {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime start = LocalDateTime.parse(split[3], formatter);
             LocalDateTime end = LocalDateTime.parse(split[4], formatter);
             task = new Event(description, start, end);
