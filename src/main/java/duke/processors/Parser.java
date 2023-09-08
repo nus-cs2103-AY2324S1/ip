@@ -97,7 +97,6 @@ public class Parser {
      * @return boolean value
      */
     public boolean getTerminate() {
-
         return this.terminate;
     }
 }

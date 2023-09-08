@@ -20,7 +20,8 @@ public class TimeProcessor {
      * @return a date or time given by the user
      * @throws DukeDateOutOfRange will be thrown if the date is wrong
      */
-    public static String StringToDate(String info) throws DukeDateOutOfRange{
+    public static String StringToDate(String info)
+            throws DukeDateOutOfRange {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         String reg = "\\d{1,2}\\/\\d{1,2}\\/\\d{2,4}";
         LocalDate current = LocalDate.now();
@@ -42,7 +43,7 @@ public class TimeProcessor {
                int dayDiff = (7 + (endDay.getValue() - today.getValue())) % 7;
                date = current.plusDays(dayDiff);
            } catch (IllegalArgumentException e) {
-               if (info.isEmpty()){
+               if (info.isEmpty()) {
                    date = current;
                } else {
                    if (!Character.isDigit(info.charAt(0))) {
@@ -56,7 +57,8 @@ public class TimeProcessor {
         }
 
         return date == null ? info :
-                date.format(DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH));
+                date.format(DateTimeFormatter.ofPattern("MMM d yyyy",
+                        Locale.ENGLISH));
     }
 
     private static boolean isCorrect(String info, DateTimeFormatter formatter) {

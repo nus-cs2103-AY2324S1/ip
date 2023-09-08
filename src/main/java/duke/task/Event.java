@@ -8,7 +8,7 @@ import duke.processors.TimeProcessor;
 /**
  * A event class contains start time and end time.
  */
-public class Event extends Task{
+public class Event extends Task {
     /**
      * A constructor for event class
      * @param Description The description of event

@@ -60,7 +60,6 @@ public class Task {
      * @return return the icon and the description of the task
      */
     public String toString() {
-
         return GetStatusIcon() + " " + Description;
     }
 }

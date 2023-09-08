@@ -20,7 +20,7 @@ public class Deadline extends Task{
      * @throws DukeDateOutOfRange if the date is not a proper date
      */
     public Deadline(String Description) throws DukeNoDescriptionException,
-            DukeNoDateException, DukeDateOutOfRange{
+            DukeNoDateException, DukeDateOutOfRange {
         super(Description);
         if (Description.split("\\s+").length == 1) {
             throw new DukeNoDescriptionException("Deadline");
@@ -61,7 +61,6 @@ public class Deadline extends Task{
      * @return A string containing info of the deadline
      */
     public String toString() {
-
         return "[D]" + super.toString();
     }
 }

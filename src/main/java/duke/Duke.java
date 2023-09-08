@@ -7,31 +7,31 @@ import duke.processors.TaskList;
 import duke.processors.Ui;
 
 public class Duke {
-    private final Ui ui;
-    private final Parser parser;
+    private final Ui UI;
+    private final Parser PARSER;
 
     public Duke() {
-        ui = new Ui();
+        UI = new Ui();
         TaskList tasks = new TaskList(new FileHandler());
-        parser = new Parser(tasks);
+        PARSER = new Parser(tasks);
     }
 
     private void run() {
-        ui.OnEnter();
+        UI.OnEnter();
         new FileHandler().fileCreate();
-        while (!parser.getTerminate()) {
+        while (!PARSER.getTerminate()) {
             try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                parser.readInputs(fullCommand);
+                String fullCommand = UI.readCommand();
+                UI.showLine();
+                PARSER.readInputs(fullCommand);
             } catch (DukeException e) {
-                ui.showLine();
-                ui.showError(e.getMessage());
+                UI.showLine();
+                UI.showError(e.getMessage());
             } finally {
-                ui.showLine();
+                UI.showLine();
             }
         }
-        ui.OnExit();
+        UI.OnExit();
     }
 
 

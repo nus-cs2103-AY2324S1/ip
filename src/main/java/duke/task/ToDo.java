@@ -6,13 +6,13 @@ import duke.exception.DukeNoDescriptionException;
 /**
  * A todo class contains the description of the task.
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
     /**
      * A construct, mainly used when reading inputs from user.
      * @param Description contains description of todo
      * @throws DukeNoDescriptionException if the description is empty
      */
-    public ToDo(String Description) throws DukeNoDescriptionException{
+    public ToDo(String Description) throws DukeNoDescriptionException {
         super(Description);
         if (Description.split("\\s+").length == 1) {
             throw new DukeNoDescriptionException("todo");
@@ -39,7 +39,6 @@ public class ToDo extends Task{
      */
     @Override
     public String toString() {
-
         return "[T]" + super.toString();
     }
 }

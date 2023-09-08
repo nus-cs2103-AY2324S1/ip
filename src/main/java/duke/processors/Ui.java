@@ -46,7 +46,6 @@ public class Ui {
      * @throws DukeEmptyCommandException if the command is empty
      */
     public String readCommand() throws DukeEmptyCommandException {
-
         String command = SC.nextLine();
         if (command.isEmpty()) {
             throw new DukeEmptyCommandException();
@@ -69,7 +68,6 @@ public class Ui {
      * Prints the separation line
      */
     public void showLine() {
-
         System.out.println(SEPARATION);
     }
 
@@ -78,7 +76,6 @@ public class Ui {
      * @param err the error occurred
      */
     public void showError(String err) {
-
         System.out.println(err);
     }
 }

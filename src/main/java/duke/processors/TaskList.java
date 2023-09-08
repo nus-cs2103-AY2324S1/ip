@@ -14,7 +14,7 @@ public class TaskList {
 
     /**
      * A constructor for TaskList class.
-     * @param duke
+     * @param duke FileHandler to read data from txt file
      */
     public TaskList(FileHandler duke) {
         duke.readFile(TASKS);
