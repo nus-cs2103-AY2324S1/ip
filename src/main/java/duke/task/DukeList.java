@@ -1,6 +1,10 @@
 package duke.task;
 
+import duke.Duke;
+import duke.DukeException;
+
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -35,65 +39,74 @@ public class DukeList {
         return this.arr;
     }
 
-    /**
-     * Displays a message indicating the addition of a new task to the list.
-     *
-     * @param task The task that was added.
-     */
-    public void showList(Task task) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("\t" + task.toString());
-        System.out.println("Now you have " + arr.size() + " tasks in the list");
-    }
 
     /**
      * Deletes a task from the list by its index.
      *
-     * @param number The index of the task to be deleted.
+     * @param description The index of the task to be deleted.
      */
-    public void deleteTask(int number) {
-        Task chosenTask = arr.get(number);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("\t" + chosenTask.toString());
+    public Task deleteTask(String description) throws DukeException {
+        if (!description.equals(null)) {
+            int num = Integer.parseInt(description);
+            Task deletedTask = arr.get(num);
+            arr.remove(num);
+            return deletedTask;
+        } else {
+            throw new DukeException("Please indicate the index of task to be deleted");
+        }
 
-        arr.remove(number);
-        System.out.println("Now you have " + arr.size() + " tasks in the list");
+    }
+    public Todo createTodo(String description) throws DukeException{
+        if (description == null || description.isEmpty()) {
+            throw new DukeException("The description of a todo cannot be empty.");
+        }
+        return new Todo(description);
     }
 
-    /**
-     * Adds a Todo task to the list.
-     *
-     * @param input The description of the Todo task.
-     */
-    public void addTodo(String input) {
-        Todo todo = new Todo(input);
-        arr.add(todo);
-        showList(todo);
+    public Deadline createDeadline(String description) throws DukeException {
+        String[] splited = description.split(" ", 2);
+        if (splited.length > 1) {
+            String[] splitted = description.split(" ", 2);
+            String[] deadline = splitted[1].split("/by", 2);
+            LocalDateTime by = formatData(deadline[1]);
+            return new Deadline(deadline[0], by);
+        } else {
+            throw new DukeException("The description of a deadline cannot be empty.");
+        }
     }
 
-    /**
-     * Adds a Deadline task to the list.
-     *
-     * @param input The description of the Deadline task.
-     * @param by    The deadline for the task.
-     */
-    public void addDeadline(String input, LocalDateTime by) {
-        Deadline deadline = new Deadline(input, by);
-        arr.add(deadline);
-        showList(deadline);
+    public Event createEvent(String description) throws DukeException {
+        String[] splited = description.split(" ", 2);
+        if (splited.length > 1) {
+            String[] splitted = description.split(" ", 2);
+            String[] from = splitted[1].split("/from", 2);
+            String[] to = from[1].split("/to", 2);
+            LocalDateTime start = formatData(to[0]);
+            LocalDateTime end = formatData(to[1]);
+            return new Event(from[0], start, end);
+        } else {
+            throw new DukeException("The description of an event cannot be empty.");
+        }
     }
 
-    /**
-     * Adds an Event task to the list.
-     *
-     * @param input The description of the Event task.
-     * @param start The start time of the event.
-     * @param end   The end time of the event.
-     */
-    public void addEvent(String input, LocalDateTime start, LocalDateTime end) {
-        Event event = new Event(input, start, end);
-        arr.add(event);
-        showList(event);
+
+    public Task addTask(String taskType, String description) throws DukeException {
+        Task newTask = null;
+        try {
+            if (taskType.equals("Todo")) {
+                newTask = createTodo(description);
+            }
+            if (taskType.equals("Deadline")) {
+                newTask = createDeadline(description);
+            }
+            if (taskType.equals("Event")) {
+                newTask = createEvent(description);
+            }
+            this.arr.add(newTask);
+        } catch (DukeException e) {
+            throw new DukeException(e.getMessage());
+        }
+        return newTask;
     }
 
     /**
@@ -131,5 +144,47 @@ public class DukeList {
         chosenTask.markUndone();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("\t" + chosenTask.toString());
+    }
+
+    public Task setTaskStatus(String description, boolean toMark) throws DukeException {
+        String[] splited = description.split(" ", 2);
+        if (splited.length > 1){
+            int num = Integer.parseInt(splited[1]);
+            if (toMark) {
+                setDone(num);
+            } else {
+                setUndone(num);
+            }
+            return arr.get(num);
+
+        } else {
+            throw new DukeException("Please indicate the index of task to be marked");
+        }
+    }
+
+    public String findTasks(String description) throws DukeException {
+        String[] splited = description.split(" ", 2);
+        if (splited.length > 1) {
+            String desc = splited[1];
+            DukeList newList = new DukeList();
+            String strToReturn = "Here are the matching tasks in the list:";
+            for (int i = 0; i < this.arr.size(); i++) {
+                int count = 1;
+                if (arr.get(i).description.contains(desc)) {
+                    strToReturn += (count + ". " + arr.get(i).toString() + "\n");
+                    count++;
+                }
+            }
+            return strToReturn;
+        } else {
+            throw new DukeException("The description of find cannot be empty.");
+        }
+    }
+
+    public LocalDateTime formatData(String data) {
+        String trimmed = data.trim();
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        LocalDateTime localDate;
+        return localDate = LocalDateTime.parse(trimmed, formatter);
     }
 }
