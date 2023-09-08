@@ -64,124 +64,15 @@ import javafx.scene.Node;
             }
         }
 
-//        @Override
-//        public void start(Stage stage) {
-//            scrollPane = new ScrollPane();
-//            dialogContainer = new VBox();
-//            scrollPane.setContent(dialogContainer);
-//
-//            userInput = new TextField();
-//            sendButton = new Button("Send");
-//
-//            AnchorPane mainLayout = new AnchorPane();
-//            mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-//
-//            scene = new Scene(mainLayout);
-//
-//            stage.setTitle("Duke");
-//            stage.setResizable(false);
-//            stage.setMinHeight(600.0);
-//            stage.setMinWidth(400.0);
-//
-//            mainLayout.setPrefSize(400.0, 600.0);
-//
-//            scrollPane.setPrefSize(385, 535);
-//            scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-//            scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-//
-//            scrollPane.setVvalue(1.0); //This sets the vertical scroll value of the scrollPane to 1.0. This means the content inside the scrollPane will be scrolled to the very bottom.
-//            scrollPane.setFitToWidth(true); //This ensures that the content inside the scrollPane will always be resized to fit the width of the scrollPane.
-//
-//            // You will need to import `javafx.scene.layout.Region` for this.
-//            dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-//
-//            userInput.setPrefWidth(325.0);
-//
-//            sendButton.setPrefWidth(55.0);
-//
-//            AnchorPane.setTopAnchor(scrollPane, 1.0);
-//
-//            AnchorPane.setBottomAnchor(sendButton, 1.0);
-//            AnchorPane.setRightAnchor(sendButton, 1.0);
-//
-//            AnchorPane.setLeftAnchor(userInput , 1.0);
-//            AnchorPane.setBottomAnchor(userInput, 1.0);
-//
-//            stage.setScene(scene);
-//            stage.show();
-//
-//            sendButton.setOnMouseClicked((event) -> {
-//                handleUserInput();
-//            });
-//
-//            userInput.setOnAction((event) -> {
-//                handleUserInput();
-//            });
-//
-//            dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-//        }
-//
-//        private void handleUserInput() {
-//            Label userText = new Label(userInput.getText());
-//            Label dukeText = new Label(getResponse(userInput.getText()));
-//            dialogContainer.getChildren().addAll(
-//                    getUserDialog(userText, new ImageView(user)),
-//                    getDukeDialog(dukeText, new ImageView(duke))
-//            );
-//            userInput.clear();
-//        }
-//
-        protected String getResponse(String input) {
-            return "Duke heard: " + input;
-        }
-//
-//        private Label getDialogLabel(String text) {
-//            Label textToAdd = new Label(text);
-//            textToAdd.setWrapText(true);
-//
-//            return textToAdd;
-//        }
-//
-//        public class DialogBox extends HBox {
-//
-//            private Label text;
-//            private ImageView displayPicture;
-//
-//            public DialogBox(Label l, ImageView iv) {
-//                text = l;
-//                displayPicture = iv;
-//
-//                text.setWrapText(true);
-//                displayPicture.setFitWidth(100.0);
-//                displayPicture.setFitHeight(100.0);
-//
-//                this.setAlignment(Pos.TOP_RIGHT);
-//                this.getChildren().addAll(text, displayPicture);
-//            }
-//
-//            protected void flip() {
-//                this.setAlignment(Pos.TOP_LEFT);
-//                ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-//                FXCollections.reverse(tmp);
-//                this.getChildren().setAll(tmp);
-//            }
-//
-//        }
-//
-//        public DialogBox getUserDialog(Label l, ImageView iv) {
-//            return new DialogBox(l, iv);
-//        }
-//
-//        public DialogBox getDukeDialog(Label l, ImageView iv) {
-//            DialogBox db = new DialogBox(l, iv);
-//            db.flip();
-//            return db;
+
+//        protected String getResponse(String input) {
+//            return "Duke heard: " + input;
 //        }
 
 
         public static void main(String[] args) {
             Duke duke = new Duke();
-            duke.run();
+
         }
 
         /**
@@ -189,34 +80,28 @@ import javafx.scene.Node;
          * It takes in users input, calls getCommand to decide which function it should to call to handle the input.
          * It also handles duke.exceptions and waits for user to say bye.
          */
-        protected void run() {
+        protected String getResponse(String input) {
 
-            Scanner scanner = new Scanner(System.in);
-            String input = "";
+            //Scanner scanner = new Scanner(System.in);
+            //String input = "";
             while (!input.equals("bye")) {
                 try {
-                    input = scanner.nextLine();
+                    //input = scanner.nextLine();
                     String command = this.parser.getCommand(input);
                     switch (command) {
                         case "list":
-                            taskManager.list();
-                            break;
+                            return taskManager.list();
                         case "mark":
                         case "unmark":
-                            handleMarking(input, taskManager);
-                            break;
+                            return handleMarking(input, taskManager);
                         case "todo":
-                            handleTodo(input, taskManager);
-                            break;
+                            return handleTodo(input, taskManager);
                         case "deadline":
-                            handleDeadline(input, taskManager);
-                            break;
+                            return handleDeadline(input, taskManager);
                         case "event":
-                            handleEvent(input, taskManager);
-                            break;
+                            return handleEvent(input, taskManager);
                         case "delete":
-                            handleDelete(input, taskManager);
-                            break;
+                            return handleDelete(input, taskManager);
                         case "find":
                             handleFind(input, taskManager);
                         case "bye":
@@ -225,16 +110,16 @@ import javafx.scene.Node;
                             throw new UnknownCommandException("I may be the GOAT but I don't know what that means.");
                     }
                 } catch (DukeException e) {
-                    ui.displayError(e);
+                    return ui.displayError(e);
                 }
             }
-            ui.exit();
+            return ui.exit();
         }
 
-        private void handleFind(String input, TaskManager taskManager) throws InvalidArgumentException {
+        private String handleFind(String input, TaskManager taskManager) throws InvalidArgumentException {
             String keyword = parser.parseFind(input);
             ArrayList<Task> filteredList = taskManager.filterList(keyword);
-            ui.displayFilteredList(filteredList, filteredList.size());
+            return ui.displayFilteredList(filteredList, filteredList.size());
         }
 
 
@@ -250,16 +135,18 @@ import javafx.scene.Node;
          * @param taskManager
          * @throws InvalidArgumentException
          */
-        private void handleMarking(String input, TaskManager taskManager) throws DukeException {
+        private String handleMarking(String input, TaskManager taskManager) throws DukeException {
             String[] words = input.split(" ");
             try {
                 int index = Integer.parseInt(words[1]);
+                String response = "";
                 if (words[0].equals("mark")) {
-                    taskManager.mark(index);
+                    response = taskManager.mark(index);
                 } else if (words[0].equals("unmark")) {
-                    taskManager.unmark(index);
+                    response = taskManager.unmark(index);
                 }
                 updateStorage();
+                return response;
             } catch (NumberFormatException e) {
                 throw new InvalidArgumentException("Please enter a numerical index!");
             } catch (StorageException e) {
@@ -277,11 +164,12 @@ import javafx.scene.Node;
          * @param taskManager
          * @throws InvalidArgumentException
          */
-        private void handleTodo(String input, TaskManager taskManager) throws InvalidArgumentException, StorageException {
+        private String handleTodo(String input, TaskManager taskManager) throws InvalidArgumentException, StorageException {
             String taskName = this.parser.parseToDo(input);
             Task task = new ToDo(taskName);
-            taskManager.add(task);
+            String response = taskManager.add(task);
             updateStorage();
+            return response;
         }
 
         /**
@@ -290,7 +178,7 @@ import javafx.scene.Node;
          * @param taskManager
          * @throws InvalidArgumentException
          */
-        private void handleDeadline(String input, TaskManager taskManager) throws InvalidArgumentException, StorageException {
+        private String handleDeadline(String input, TaskManager taskManager) throws InvalidArgumentException, StorageException {
             String[] parsedInput = this.parser.parseDeadline(input);
             String taskName = parsedInput[0];
             String dueDate = parsedInput[1];
@@ -304,8 +192,9 @@ import javafx.scene.Node;
             }
 
             Task task = new Deadline(taskName, time);
-            taskManager.add(task);
+            String response = taskManager.add(task);
             updateStorage();
+            return response;
         }
 
         /**
@@ -314,7 +203,7 @@ import javafx.scene.Node;
          * @param taskManager
          * @throws InvalidArgumentException
          */
-        private void handleEvent(String input, TaskManager taskManager) throws InvalidArgumentException, StorageException {
+        private String handleEvent(String input, TaskManager taskManager) throws InvalidArgumentException, StorageException {
             String[] parsedInput = this.parser.parseEvent(input);
             String taskName = parsedInput[0];
             String from = parsedInput[1];
@@ -332,8 +221,9 @@ import javafx.scene.Node;
             }
 
             Task task = new Event(taskName, fromTime, toTime);
-            taskManager.add(task);
+            String response = taskManager.add(task);
             updateStorage();
+            return response;
         }
 
         /**
@@ -342,11 +232,12 @@ import javafx.scene.Node;
          * @param taskManager
          * @throws InvalidArgumentException
          */
-        private void handleDelete(String input, TaskManager taskManager) throws InvalidArgumentException {
+        private String handleDelete(String input, TaskManager taskManager) throws InvalidArgumentException {
             String[] words = input.split(" ");
             try {
                 int index = Integer.parseInt(words[1]);
-                taskManager.delete(index);
+                String response = taskManager.delete(index);
+                return response;
             } catch (NumberFormatException e) {
                 throw new InvalidArgumentException("Please enter a numerical index!");
             }

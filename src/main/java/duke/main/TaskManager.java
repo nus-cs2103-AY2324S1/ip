@@ -46,18 +46,19 @@ public class TaskManager {
      *
      * @param task The task to be added.
      */
-    public void add (Task task) {
+    public String add (Task task) {
         this.list.add(task);
         this.numOfTasks += 1;
         String taskName = task.getTaskName();
-        ui.addTask(taskName, numOfTasks);
+        String response = ui.addTask(taskName, numOfTasks);
+        return response;
     }
 
     /**
      * Lists all tasks in the list using the UI.
      */
-    public void list() {
-        ui.displayList(list, numOfTasks);
+    public String list() {
+        return ui.displayList(list, numOfTasks);
     }
 
     /**
@@ -66,14 +67,15 @@ public class TaskManager {
      * @param index The index of the task to be marked.
      * @throws InvalidArgumentException If the index is out of range.
      */
-    public void mark(int index) throws InvalidArgumentException {
+    public String mark(int index) throws InvalidArgumentException {
         if (index > numOfTasks) {
             throw new InvalidArgumentException("I'm sorry but that task does not exist. There are only " + numOfTasks + "duke.tasks.");
         }
         index -= 1; // since 0 indexed
         Task task = list.get(index);
         task.mark();
-        ui.markTask(task.getTaskName());
+        String response = ui.markTask(task.getTaskName());
+        return response;
     }
 
 
@@ -83,14 +85,15 @@ public class TaskManager {
      * @param index The index of the task to be unmarked.
      * @throws InvalidArgumentException If the index is out of range.
      */
-    public void unmark(int index) throws InvalidArgumentException {
+    public String unmark(int index) throws InvalidArgumentException {
         if (index > numOfTasks) {
             throw new InvalidArgumentException("I'm sorry but that task does not exist. There are only " + numOfTasks + " duke.tasks.");
         }
         index -= 1; // since 0 indexed
         Task task = list.get(index);
         task.unmark();
-        ui.unMarkTask(task.getTaskName());
+        String response = ui.unMarkTask(task.getTaskName());
+        return response;
     }
 
     /**
@@ -99,14 +102,15 @@ public class TaskManager {
      * @param index The index of the task to be unmarked.
      * @throws InvalidArgumentException If the index is out of range.
      */
-    public void delete(int index) throws InvalidArgumentException {
+    public String delete(int index) throws InvalidArgumentException {
         if (index > numOfTasks) {
             throw new InvalidArgumentException("I'm sorry but that task does not exist. There are only " + numOfTasks + " duke.tasks.");
         }
         numOfTasks -= 1;
         Task removedTask = list.get(index);
         list.remove(index);
-        ui.deleteTask(removedTask.getTaskName(), numOfTasks);
+        String response = ui.deleteTask(removedTask.getTaskName(), numOfTasks);
+        return response;
     }
 
     /**
