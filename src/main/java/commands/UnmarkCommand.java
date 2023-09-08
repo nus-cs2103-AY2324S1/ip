@@ -28,10 +28,10 @@ public class UnmarkCommand extends Command {
      * @param storage The storage interface for saving data.
      * @throws IOException If an I/O error occurs while interacting with storage.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         Task t = tasks.unmarkTask(this.num);
-        ui.showUnmarkMsg(t);
         storage.saveFiles(tasks.showList());
+        return ui.showUnmarkMsg(t);
     }
 }
 

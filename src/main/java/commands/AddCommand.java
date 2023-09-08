@@ -58,9 +58,9 @@ public class AddCommand extends Command {
      * @param storage The storage interface for saving data.
      * @throws IOException If an I/O error occurs while interacting with storage.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         Task t = tasks.createTask(this.desc, this.first, this.second);
-        ui.showTaskMsg(t, tasks);
         storage.saveFiles(tasks.showList());
+        return ui.showTaskMsg(t, tasks);
     }
 }

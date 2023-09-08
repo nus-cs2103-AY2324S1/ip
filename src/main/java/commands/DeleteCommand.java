@@ -29,10 +29,10 @@ public class DeleteCommand extends Command {
      * @param storage The storage interface for saving data.
      * @throws IOException If an I/O error occurs while interacting with storage.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         Task t = tasks.deleteTask(num);
-        ui.showDeleteMsg(t, tasks.numOfTasks());
         storage.saveFiles(tasks.showList());
+        return ui.showDeleteMsg(t, tasks.numOfTasks());
     }
 }
 

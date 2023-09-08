@@ -16,7 +16,7 @@ public abstract class Command {
      * @param storage  The storage interface for saving and loading data.
      * @throws IOException If an I/O error occurs while interacting with storage.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws IOException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws IOException;
 
     /**
      * Checks if the command is an exit command.

@@ -25,7 +25,7 @@ public class ErrorCommand extends Command {
      * @param ui      The user interface for displaying messages.
      * @param storage The storage interface (not used in this command).
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showErrorMsg(this.errorMsg);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showErrorMsg(this.errorMsg);
     }
 }

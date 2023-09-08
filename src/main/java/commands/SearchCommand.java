@@ -31,8 +31,8 @@ public class SearchCommand extends Command {
      * @param ui      The user interface for displaying messages.
      * @param storage The storage interface (not used in this command).
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> matches = tasks.searchTask(this.searchWord);
-        ui.showMatchesMsg(matches);
+        return ui.showMatchesMsg(matches);
     }
 }

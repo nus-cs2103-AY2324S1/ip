@@ -21,8 +21,8 @@ public class ListCommand extends Command {
      * @param storage The storage interface (not used in this command).
      * @throws IOException If an I/O error occurs while interacting with storage.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        ui.showListMsg(tasks.showList());
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+        return ui.showListMsg(tasks.showList());
     }
 }
 
