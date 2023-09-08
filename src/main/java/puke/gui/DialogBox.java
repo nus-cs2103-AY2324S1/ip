@@ -65,7 +65,8 @@ public class DialogBox extends HBox {
      * @return startup dialog
      */
     public static DialogBox startup(Image img) {
-        var db = new DialogBox("Greetings, I am Puke", img);
+        var db = new DialogBox("Salutations! I hereby would like to inform you that my identity is that of Puke, "
+                + "an exceedingly verbose conversation simulation program.", img);
         db.flip();
         return db;
     }
