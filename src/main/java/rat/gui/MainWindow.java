@@ -82,6 +82,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         if (!input.isBlank()) {
             String response = rat.getResponse(input);
+            assert userImage != null : "User image should not be null";
+            assert ratImage != null : "Rat image should not be null";
             dialogContainer.getChildren().addAll(
                     RightDialogBox.getUserDialog(input, userImage),
                     LeftDialogBox.getRatDialog(response, ratImage)
