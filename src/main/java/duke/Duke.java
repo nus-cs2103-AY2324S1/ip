@@ -81,6 +81,7 @@ public class Duke {
         } catch (DukeException e) {
             throw new DukeException();
         }
+        assert !message.isEmpty() : "Message should not be empty";
         return message;
     }
 }
