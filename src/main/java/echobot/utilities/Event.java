@@ -19,7 +19,7 @@ public class Event extends Task {
      * @param endDate End time of task
      */
     public Event(String name, String startDate, String endDate) {
-        super(name, Type.EVENT, " (from: " + startDate + " to: " + endDate + ")");
+        super(name, Type.EVENT, "(from: " + startDate + " to: " + endDate + ")");
         this.startDate = startDate;
         this.endDate = endDate;
     }

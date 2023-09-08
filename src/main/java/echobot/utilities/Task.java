@@ -30,7 +30,7 @@ public class Task implements Serializable {
         this.name = name;
         this.isDone = false;
         this.type = type;
-        this.description = description;
+        this.description = description.equals("") ? description : "\n\t" + description;
     }
 
     /**
@@ -60,7 +60,7 @@ public class Task implements Serializable {
      */
     public String convertToString() {
         return "[" + this.getType().charAt(0) + "]"
-                + "[" + (this.isDone() ? "X" : " ") + "] "
+                + "[" + (this.isDone() ? "X" : "  ") + "] "
                 + this.getName() + this.description;
     }
 

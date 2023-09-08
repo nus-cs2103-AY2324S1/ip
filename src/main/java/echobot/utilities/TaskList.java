@@ -71,7 +71,7 @@ public class TaskList {
         this.tasks.add(task);
         String output = "";
         output += "You have added a task:\n";
-        output += "\t[T][ ] " + taskName + "\n";
+        output += "\t[T][  ] " + taskName + "\n";
         output += "There are now " + tasks.size() + " tasks in the list";
         return output;
     }
@@ -88,7 +88,7 @@ public class TaskList {
         this.tasks.add(task);
         String output = "";
         output += "You have added a task:\n";
-        output += "\t[D][ ] " + taskName + " (by: " + deadline + ")\n";
+        output += "\t[D][  ] " + taskName + "\n\t(by: " + deadline + ")\n";
         output += "There are now " + this.getSize() + " tasks in the list";
         return output;
     }
@@ -106,7 +106,7 @@ public class TaskList {
         this.tasks.add(task);
         String output = "";
         output += "You have added a task:\n";
-        output += "\t[E][ ] " + taskName + " (from: " + startDate + " to: " + endDate + ")\n";
+        output += "\t[E][  ] " + taskName + "\n\t(from: " + startDate + " to: " + endDate + ")\n";
         output += "There are now " + tasks.size() + " tasks in the list";
         return output;
     }
