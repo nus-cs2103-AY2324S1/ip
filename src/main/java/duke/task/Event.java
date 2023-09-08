@@ -30,6 +30,20 @@ public class Event extends Task {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } else if (other instanceof Event) {
+            Event event = (Event) other;
+            boolean isDescriptionEqual = this.description.equalsIgnoreCase(event.description);
+            boolean isFromEqual = this.from.equals(event.from);
+            boolean isToEqual = this.to.equals(event.to);
+            return isDescriptionEqual && isFromEqual && isToEqual;
+        } else {
+            return false;
+        }
+    }
+    @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(), from, to);
     }
