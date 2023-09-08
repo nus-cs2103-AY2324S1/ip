@@ -1,3 +1,10 @@
+package urchatbot;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 import urchatbot.commands.Command;
 import urchatbot.exception.URChatBotException;
 import urchatbot.parser.Parser;
@@ -8,14 +15,14 @@ import urchatbot.ui.Ui;
 /**
  * The main entry point to the application.
  */
-public class URChatBot {
+public class URChatBot{
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
     /**
-     * Constructs the URChatBot class.
+     * Constructs the urchatbot.URChatBot class.
      *
      * @param filePath Path to store users' tasklist.
      */
@@ -51,8 +58,9 @@ public class URChatBot {
         }
     }
 
+
     /**
-     * Instantiates a URChatBot.
+     * Instantiates a urchatbot.URChatBot.
      *
      * @param args Arguments.
      */
