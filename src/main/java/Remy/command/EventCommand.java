@@ -1,19 +1,19 @@
 package remy.command;
 
-import remy.task.TaskList;
-import remy.Ui;
-import remy.Storage;
 import remy.ChatbotException;
+import remy.Storage;
+import remy.Ui;
 import remy.task.Event;
+import remy.task.TaskList;
 
 /**
  * A Command that creates and adds an Event to the TaskList upon executing.
  */
 public class EventCommand extends Command {
+    public static final String COMMAND_WORD = "event";
     private String eventName;
     private String startDate;
     private String endDate;
-    public static final String COMMAND_WORD = "event";
 
     /**
      * Creates new Event command that parses user input and check that the format is correct.
@@ -21,7 +21,9 @@ public class EventCommand extends Command {
      * @throws ChatbotException if input is missing information, or in the wrong format.
      */
     public EventCommand(String input) throws ChatbotException {
-        if (input.length() < 7) throw new ChatbotException("missing info lah.");
+        if (input.length() < 7) {
+            throw new ChatbotException("missing info lah.");
+        }
         String[] parts = input.substring(6).split(" /from | /to ");
         if (parts.length == 3) {
             this.eventName = parts[0];

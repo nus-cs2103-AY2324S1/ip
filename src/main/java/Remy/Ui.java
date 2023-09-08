@@ -1,20 +1,22 @@
 package remy;
 
+import java.util.Scanner;
+
 import remy.task.Task;
 import remy.task.TaskList;
 
-import java.util.Scanner;
-
+/**
+ * Reads user input and outputs Remy's response in the correct format.
+ */
 public class Ui {
+    private static final String DIVIDER = "____________________________________________________________\n";
+    private static final String SHORT_DIVIDER = "_____________\n";
+    private static final String WELCOME_MESSAGE = "I'm Remy.Remy, and it is NOT nice to see you.\n"
+                    + "Faster tell me what you want and go away.";
+
+    private static final String EXIT_MESSAGE = "Hope to never see you again!\n" + DIVIDER;
 
     public final Scanner scanner;
-    private static String divider = "____________________________________________________________\n";
-    private static String shortDivider = "_____________\n";
-    private static String welcomeMessage =
-            "I'm Remy.Remy, and it is NOT nice to see you.\n" +
-                    "Faster tell me what you want and go away.";
-
-    private static String exitMessage = "Hope to never see you again!\n" + divider;
 
     /**
      * Constructs new Ui object that is able to read user input.
@@ -23,25 +25,29 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
+    public static void printShortDivider() {
+        System.out.println(SHORT_DIVIDER);
+    }
+
     /**
      * Prints out a horizontal divider line.
      */
     public static void printDivider() {
-        System.out.println(divider);
+        System.out.println(DIVIDER);
     }
 
     /**
      * Prints out the Welcome Message segment.
      */
     public static void printWelcomeMessage() {
-        printLongSandwich(welcomeMessage);
+        printLongSandwich(WELCOME_MESSAGE);
     }
 
     /**
      * Prints the Exit Message segment.
      */
     public static void printExitMessage() {
-        System.out.println(exitMessage);
+        System.out.println(EXIT_MESSAGE);
         printDivider();
     }
 
@@ -50,9 +56,9 @@ public class Ui {
      * @param content to be included within the dividers.
      */
     public static void printShortSandwich(String content) {
-            System.out.println(shortDivider);
-            System.out.println(content);
-            System.out.println(shortDivider);
+        printShortDivider();
+        System.out.println(content);
+        printShortDivider();
     }
 
     /**
@@ -60,9 +66,9 @@ public class Ui {
      * @param content to be included within the dividers.
      */
     public static void printLongSandwich(String content) {
-        System.out.println(divider);
+        printDivider();
         System.out.println(content);
-        System.out.println(divider);
+        printDivider();
     }
 
     /**
@@ -92,9 +98,8 @@ public class Ui {
      */
     public static void printAddedTask(Task task, int num) {
         String taskWord = num == 1 ? "task" : "tasks";
-        String content = "Added, now scram.\n" +
-                task.toString() + "\n" +
-                "Now you have " + num + " " + taskWord + " in the list.";
+        String content = "Added, now scram.\n" + task.toString() + "\n"
+                + "Now you have " + num + " " + taskWord + " in the list.";
         Ui.printShortSandwich(content);
     }
 

@@ -1,22 +1,23 @@
 package remy.command;
 
-import remy.task.TaskList;
-import remy.Ui;
-import remy.Storage;
-import remy.ChatbotException;
-import remy.task.Deadline;
-
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import remy.ChatbotException;
+import remy.Storage;
+import remy.Ui;
+import remy.task.Deadline;
+import remy.task.TaskList;
+
 
 /**
  * A Command that creates and adds a Deadline to the TaskList upon executing.
  */
 public class DeadlineCommand extends Command {
+    public static final String COMMAND_WORD = "deadline";
     private String taskName;
     private String dueDate;
-    public static final String COMMAND_WORD = "deadline";
 
     /**
      * Creates new DeadLine command that parses user input and check that the format is correct.

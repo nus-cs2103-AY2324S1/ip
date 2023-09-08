@@ -1,16 +1,16 @@
 package remy.command;
 
-import remy.task.TaskList;
-import remy.Ui;
-import remy.Storage;
 import remy.ChatbotException;
+import remy.Storage;
+import remy.Ui;
+import remy.task.TaskList;
 
 /**
  * A Command that marks a given Task as undone upon executing.
  */
 public class UnmarkCommand extends Command {
-    private int index;
     public static final String COMMAND_WORD = "unmark";
+    private int index;
 
     /**
      * Creates new Unmark Command that parses user input to identify the Task to be marked as completed.
@@ -18,7 +18,9 @@ public class UnmarkCommand extends Command {
      * @throws ChatbotException if input is in the wrong format or has missing information.
      */
     public UnmarkCommand(String input) throws ChatbotException {
-        if (input.length() < 8) throw new ChatbotException("missing info lah.");
+        if (input.length() < 8) {
+            throw new ChatbotException("missing info lah.");
+        }
         int index = Integer.parseInt(input.substring(7)) - 1;
         if (index >= 0) {
             this.index = index;

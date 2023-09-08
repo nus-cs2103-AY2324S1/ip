@@ -1,16 +1,17 @@
 package remy.command;
-import remy.task.TaskList;
-import remy.Ui;
-import remy.Storage;
+
 import remy.ChatbotException;
+import remy.Storage;
+import remy.Ui;
+import remy.task.TaskList;
 import remy.task.Todo;
 
 /**
  * A Command that creates and adds a Todo to the TaskList upon executing.
  */
 public class TodoCommand extends Command {
-    private String taskName;
     public static final String COMMAND_WORD = "todo";
+    private String taskName;
 
     /**
      * Creates new DeadLine command that parses user input and check that the format is correct.
@@ -19,7 +20,9 @@ public class TodoCommand extends Command {
      * @throws ChatbotException if input is missing information, or in the wrong format.
      */
     public TodoCommand(String input) throws ChatbotException {
-        if (input.length() < 6) throw new ChatbotException("missing info lah.");
+        if (input.length() < 6) {
+            throw new ChatbotException("missing info lah.");
+        }
         String taskName = input.substring(5);
         if (taskName.trim().length() > 0) {
             this.taskName = taskName;

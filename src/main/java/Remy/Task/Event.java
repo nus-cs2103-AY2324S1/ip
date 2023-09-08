@@ -1,5 +1,8 @@
 package remy.task;
 
+/**
+ * An event object that stores a description, start time, and end time.
+ */
 public class Event extends Task {
 
     protected String startTime;
@@ -18,10 +21,6 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
-    /**
-     * Returns String representation of the Event, labelled [E].
-     * @return String representation of the Event.
-     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (" + this.startTime + " to " + this.endTime + ")";

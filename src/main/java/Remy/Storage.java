@@ -5,8 +5,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
 import remy.task.TaskList;
 
+/**
+ * Handles saving and loading of Remy's tasklist.
+ */
 public class Storage {
 
     private Path filePath;

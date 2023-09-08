@@ -1,19 +1,19 @@
 package remy.command;
 
-import remy.task.TaskList;
-import remy.Ui;
-import remy.Storage;
-import remy.ChatbotException;
-
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import remy.ChatbotException;
+import remy.Storage;
+import remy.Ui;
+import remy.task.TaskList;
 
 /**
  * A Command that marks a given Task as completed upon executing.
  */
 public class MarkCommand extends Command {
-    private int index;
     public static final String COMMAND_WORD = "mark";
+    private int index;
 
     /**
      * Creates new Mark Command that parses user input to identify the Task to be marked as completed.

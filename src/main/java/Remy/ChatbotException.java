@@ -1,5 +1,8 @@
 package remy;
 
+/**
+ * Exception for this Chatbot.
+ */
 public class ChatbotException extends Exception {
 
     /**
@@ -10,10 +13,6 @@ public class ChatbotException extends Exception {
         super(message);
     }
 
-    /**
-     * Returns String representation of the Exception.
-     * @return String representation of the Exception.
-     */
     @Override
     public String toString() {
         return this.getMessage();
