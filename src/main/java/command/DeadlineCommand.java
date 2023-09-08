@@ -23,6 +23,9 @@ public class DeadlineCommand extends Command {
     public DeadlineCommand(String description, LocalDate deadline) {
         this.description = description;
         this.deadline = deadline;
+
+        assert this.description != null : "description of deadline command should not be null";
+        assert this.deadline != null : "deadline of deadline command should not be null";
     }
     
     @Override

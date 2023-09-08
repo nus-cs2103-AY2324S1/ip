@@ -25,6 +25,9 @@ public class Event extends Task {
         super(taskName);
         this.start = start;
         this.end = end;
+
+        assert this.start != null : "start date of an Event should not be null";
+        assert this.end != null : "end date of an Event should not be null";
     }
 
     public LocalDate getStart() {
@@ -37,10 +40,12 @@ public class Event extends Task {
 
     public void setStart(LocalDate start) {
         this.start = start;
+        assert this.start != null : "start date of an Event should not be null";
     }
 
     public void setEnd(LocalDate end) {
         this.end = end;
+        assert this.end != null : "end date of an Event should not be null";
     }
 
     private String getFormattedDate(LocalDate date) {
