@@ -36,7 +36,7 @@ public class Bot {
         this.ui = new Ui();
         this.storage = new Storage("/data/tasks.txt");
         try {
-            tasks = new TaskList(storage.load(this.ui));
+            tasks = new TaskList(storage.load());
         } catch (LoadingException e) {
             ui.showError(e.getMessage());
             tasks = new TaskList();
@@ -53,6 +53,7 @@ public class Bot {
         String response;
         try {
             Command command = Parser.parse(input);
+            assert command != null;
             response = command.execute(tasks, ui, storage);
             if (command.getExitStatus()) {
                 isExit = true;

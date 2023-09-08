@@ -29,18 +29,17 @@ public class Storage {
     /**
      * Loads data from that file path, and creates the file if it doesn't exist.
      *
-     * @param ui UI for displaying messages.
      * @return ArrayList of Task objects.
      * @throws LoadingException If the data file cannot be read or created.
      */
-    public ArrayList<Task> load(Ui ui) throws LoadingException {
+    public ArrayList<Task> load() throws LoadingException {
         File f = new File(this.filePath);
         ArrayList<Task> tasks;
         try {
             if (!f.isFile()) {
                 createTasksFile(f);
             }
-            tasks = loadTasksFromFile(f, ui);
+            tasks = loadTasksFromFile(f);
         } catch (IOException | SecurityException e) {
             throw new LoadingException(e.getMessage());
         }
@@ -62,14 +61,13 @@ public class Storage {
     }
 
     /**
-     * Creates an ArrayList of tasks from the contents of the file, printing to the Ui object given.
+     * Creates an ArrayList of tasks from the contents of the file.
      *
      * @param f File to read tasks from.
-     * @param ui UI to print to.
      * @return Tasks in an ArrayList.
      * @throws FileNotFoundException If file cannot be found.
      */
-    private static ArrayList<Task> loadTasksFromFile(File f, Ui ui) throws FileNotFoundException {
+    private static ArrayList<Task> loadTasksFromFile(File f) throws FileNotFoundException {
         Scanner scanner = new Scanner(f);
         ArrayList<Task> tasks = new ArrayList<>();
         while (scanner.hasNextLine()) {
@@ -89,6 +87,7 @@ public class Storage {
      * @throws LoadingException If the list cannot be saved fully.
      */
     public void save(TaskList lst) throws LoadingException {
+        assert lst != null : "lst must not be null";
         try {
             File f = new File(this.filePath);
             FileWriter fw = new FileWriter(f);
