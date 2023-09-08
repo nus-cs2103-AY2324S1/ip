@@ -6,6 +6,9 @@ import emiya.datehandler.DateHandler;
 import emiya.emiyaexception.InvalidDateException;
 import emiya.emiyaexception.WrongDateFormatException;
 
+/**
+ * A class representing the Event tasks that the user can create.
+ */
 public class Event extends Task {
 
     private final String start;

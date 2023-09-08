@@ -1,9 +1,10 @@
 package emiya.emiyaexception;
 
-public class EmptyDeleteException extends EmiyaException{
+/**
+ * An exception that is thrown when the user uses a delete command without providing a list index.
+ */
+public class EmptyDeleteException extends EmiyaException {
     public EmptyDeleteException() {
-        super("-----------------------------------------\n" +
-                "Please give a list index for delete operations!\n"
-                + "-----------------------------------------\n");
+        super("Please give a list index for delete operations!\n");
     }
 }

@@ -1,5 +1,8 @@
 package emiya.task;
 
+/**
+ * An abstract class the other Task subtypes inherit from.
+ */
 public abstract class Task {
     protected boolean isCompleted;
     protected String taskDescription;
@@ -18,7 +21,16 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Returns a String that indicates what type of task it is.
+     * @return Returns a String that indicates what type of task it is.
+     */
     public abstract String typeOfString();
+
+    /**
+     * Returns a String that indicates whether the task is completed or not.
+     * @return Returns a String that indicates whether the task is completed or not.
+     */
     public String printStatusString() {
         if (isCompleted) {
             return "1 ";
@@ -27,6 +39,10 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Returns a String that contains the details of the task.
+     * @return Returns a String that contains the details of the task.
+     */
     public abstract String printTaskDetailsString();
 
     public void setUnmarked() {

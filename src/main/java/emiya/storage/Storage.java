@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 import emiya.emiyaexception.CreateDirectoryFailException;
 import emiya.emiyaexception.InvalidDateException;
@@ -127,9 +126,9 @@ public class Storage {
      * @param fileContent A String that contains all the Tasks that should be written into the
      *                    TaskList instance.
      * @throws WrongDateFormatException When the format of the date received from the fileContent
-     * is of the wrong format.
+     *     is of the wrong format.
      * @throws InvalidDateException When the date received from the fileContent
-     * is invalid.
+     *     is invalid.
      */
     public void fillListWithFileContent(TaskList taskList, String fileContent)
             throws WrongDateFormatException, InvalidDateException {
