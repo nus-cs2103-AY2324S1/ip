@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 public class DialogBox extends HBox {
 
@@ -21,6 +22,10 @@ public class DialogBox extends HBox {
         text.setWrapText(true);
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
+
+        // Clip the ImageView into a circle shape
+        Circle circleClip = new Circle(50, 50, 50); // Assuming the ImageView's dimensions are 100x100
+        displayPicture.setClip(circleClip);
 
         this.setAlignment(Pos.TOP_RIGHT);
         // Add padding to the Label (text)
