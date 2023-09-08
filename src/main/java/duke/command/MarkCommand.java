@@ -33,21 +33,17 @@ public class MarkCommand extends Command {
      * @param storage  The Storage object responsible for reading and writing data to a file.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             Task taskToMark = taskList.getTask(taskIndex);
             taskToMark.markAsDone();
-            ui.displayMarked(taskToMark);
             storage.saveTasks(taskList.getAllTasks()); // Save the updated task list
+            return ui.displayMarked(taskToMark);
         } catch (IndexOutOfBoundsException e) {
-            ui.showErrorMessage("Invalid task index.");
+            return ui.showErrorMessage("Invalid task index.");
         }
     }
 }
-
-
-
-
 
 
 

@@ -41,7 +41,7 @@ correct status icon, by creating a new task array of tasks instead of a string a
  * The main class for the Duke application.
  * Duke is a task management application that allows users to manage their tasks, including todos, deadlines, and events.
  */
-public class Duke extends Application {
+public class Duke {
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -49,18 +49,17 @@ public class Duke extends Application {
     private Scene scene;
     private static String filePath = "./data/duke.txt";
     private Stage stage;
+    private static Ui ui;
+    private static Storage storage;
+    private static TaskList taskList;
+    private static Parser parser;
 
-    /**
-     * The main entry point of the Duke application.
-     *
-     * @param args Command-line arguments (not used in this application).
-     */
-    public static void main(String[] args) throws DukeException.NoSuchItemException, DukeException.ToDoException, IOException {
+    public Duke() {
         ArrayList<Task> tasks = new ArrayList<>();
-        Ui ui = new Ui();
-        Storage storage = new Storage(filePath);
-        TaskList taskList = new TaskList();
-        Parser parser = new Parser();
+        ui = new Ui();
+        storage = new Storage(filePath);
+        taskList = new TaskList();
+        parser = new Parser();
 
         try {
             tasks = storage.loadTasks(); // Load tasks from file
@@ -68,48 +67,37 @@ public class Duke extends Application {
         } catch (IOException e) {
             System.out.println("Error loading tasks: " + e.getMessage());
         }
-
         ui.displayWelcomeText();
-
-        Scanner sc = new Scanner(System.in);
-        // int num_items = tasks.size();
-
-        String user_text = sc.nextLine();
-
-        while (!user_text.isEmpty()) {
-            try {
-                Command command = parser.parseCommand(user_text);
-                command.execute(taskList, ui, storage);
-            } catch (DukeException.ToDoException e) {
-                ui.printToDoException();
-            } catch (DukeException.NoSuchItemException e) {
-                ui.printNoSuchElementException();
-            } catch (DukeException.EventException e) {
-                ui.printEventException();
-            } catch (DukeException.DeadlineException e) {
-                ui.printDeadlineException();
-            } catch (DukeException.MarkException e) {
-                ui.printMarkException();
-            } catch (DukeException.UnmarkException e) {
-                ui.printUnmarkException();
-            } catch (DukeException.DeadlineFormatException e) {
-                ui.printDeadlineFormatException();
-            } catch (DukeException.EventFormatException e) {
-                ui.printEventFormatException();
-            } catch (DukeException.SearchException e) {
-                ui.printSearchException();
-            } catch (DukeException e) {
-                throw new RuntimeException(e);
-            }
-            user_text = sc.hasNextLine() ? sc.nextLine() : "";
-        }
-        sc.close();
     }
 
     String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            Command command = parser.parseCommand(input);
+            return command.execute(taskList, ui, storage);
+        } catch (DukeException.ToDoException e) {
+            return ui.printToDoException();
+        } catch (DukeException.NoSuchItemException e) {
+            return ui.printNoSuchElementException();
+        } catch (DukeException.EventException e) {
+            return ui.printEventException();
+        } catch (DukeException.DeadlineException e) {
+            return ui.printDeadlineException();
+        } catch (DukeException.MarkException e) {
+            return ui.printMarkException();
+        } catch (DukeException.UnmarkException e) {
+            return ui.printUnmarkException();
+        } catch (DukeException.DeadlineFormatException e) {
+            return ui.printDeadlineFormatException();
+        } catch (DukeException.EventFormatException e) {
+            return ui.printEventFormatException();
+        } catch (DukeException.SearchException e) {
+            return ui.printSearchException();
+        } catch (DukeException e) {
+            throw new RuntimeException(e);
+        }
     }
 
+    /*
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.stage = primaryStage;
@@ -174,15 +162,16 @@ public class Duke extends Application {
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
+     */
 
     /**
      * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
+     *
      * @param text String containing text to add
      * @return a label with the specified text that has word wrap enabled.
      */
     private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
 

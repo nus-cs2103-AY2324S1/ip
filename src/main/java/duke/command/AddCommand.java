@@ -78,7 +78,7 @@ public class AddCommand extends Command {
      * @param storage  The storage handler for saving tasks to a file.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             Task newTask = null;
             switch (taskType) {
@@ -93,10 +93,10 @@ public class AddCommand extends Command {
                     break;
             }
             taskList.addTask(newTask);
-            ui.displayAddedTask(newTask, taskList.numTasks());
             storage.saveTasks(taskList.getAllTasks()); // Save the updated task list
+            return ui.displayAddedTask(newTask, taskList.numTasks());
         } catch (Exception e) {
-            ui.showErrorMessage("Error adding task.");
+            return ui.showErrorMessage("Error adding task.");
         }
     }
 }
