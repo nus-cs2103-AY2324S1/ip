@@ -34,12 +34,13 @@ public abstract class Command {
      * @param tasks   The list of tasks.
      * @param ui      The user interface for displaying messages.
      * @param storage The storage handler for data persistence.
+     * @return A message or result of the command execution.
      * @throws Exception Any exceptions that may occur during command execution.
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws Exception;
 
     /**
-     * Checks if the command is an exit command to determine whether bot should end.
+     * Checks if the command is an exit command to determine whether the bot should end.
      *
      * @return True if the command is an exit command, otherwise false.
      */

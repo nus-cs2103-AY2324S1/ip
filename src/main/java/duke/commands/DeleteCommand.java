@@ -14,7 +14,7 @@ public class DeleteCommand extends Command {
     /**
      * Constructs a DeleteCommand with the given full command string.
      *
-     * @param fullCommand The full command string.
+     * @param fullCommand The full command string containing the index of the task to delete.
      */
     public DeleteCommand(String fullCommand) {
         super(fullCommand);
@@ -26,6 +26,7 @@ public class DeleteCommand extends Command {
      * @param tasks   The list of tasks.
      * @param ui      The user interface for displaying messages.
      * @param storage The storage handler (not used in this command).
+     * @return A message indicating the deletion of the task.
      * @throws NoIndexException If the provided index is invalid or missing.
      */
     @Override

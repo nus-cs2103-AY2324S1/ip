@@ -26,6 +26,7 @@ public class MarkCommand extends Command {
      * @param tasks   The list of tasks.
      * @param ui      The user interface for displaying messages.
      * @param storage The storage handler (not used in this command).
+     * @return A string indicating that the task has been marked as done.
      * @throws NoIndexException If the provided index is invalid or missing.
      */
     @Override

@@ -23,6 +23,7 @@ public class ListCommand extends Command {
      * @param tasks   The list of tasks.
      * @param ui      The user interface for displaying messages.
      * @param storage The storage handler.
+     * @return A string containing the list of tasks.
      * @throws EmptyTaskListException If the task list is empty.
      */
     @Override

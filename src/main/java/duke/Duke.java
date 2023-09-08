@@ -90,7 +90,7 @@ public class Duke {
      * Retrieves the response to the input given via GUI
      *
      * @param input   The String of the full command.
-     * @return String The reply of Respironix.
+     * @return The reply of Respironix.
      */
     public String getResponse(String input) {
         try {

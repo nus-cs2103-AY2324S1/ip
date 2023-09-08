@@ -127,6 +127,7 @@ public class Ui {
      * Displays the list of tasks.
      *
      * @param tasks The list of tasks to be displayed.
+     * @return The list of tasks as a String.
      */
     public String printTasks(TaskList tasks) {
         System.out.println("Here are your list of tasks:");
@@ -145,6 +146,7 @@ public class Ui {
      *
      * @param tasks    The list of tasks to be displayed.
      * @param datetime The specified date and time for filtering tasks.
+     * @return The list of scheduled tasks as a String.
      */
     public String printScheduledTasks(TaskList tasks, LocalDateTime datetime) {
         System.out.println("Here are your list of tasks:");
@@ -166,6 +168,7 @@ public class Ui {
      *
      * @param tasks    The list of tasks to be displayed.
      * @param keyword  The word used to filter tasks.
+     * @return The list of related tasks as a String.
      */
     public String printRelatedTasks(TaskList tasks, String keyword) {
         System.out.println("Here are your list of tasks:");

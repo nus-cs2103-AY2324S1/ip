@@ -17,7 +17,7 @@ public class CheckCommand extends Command {
     /**
      * Constructs a CheckCommand with the specified command and date-time formatter.
      *
-     * @param fullCommand The full command string.
+     * @param fullCommand The full command string, including the "check" keyword and date-time.
      * @param formatter   The date-time formatter to parse date and time inputs.
      */
     public CheckCommand(String fullCommand, DateTimeFormatter formatter) {
@@ -30,11 +30,13 @@ public class CheckCommand extends Command {
      *
      * @param tasks   The list of tasks.
      * @param ui      The user interface for displaying messages.
-     * @param storage The storage handler.
+     * @param storage The storage handler for saving and loading tasks.
+     * @return A message indicating the tasks scheduled on the specified date and time.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         String content = fullCommand.replaceAll("^\\s*check\\s*", "");
-        return ui.printScheduledTasks(tasks, LocalDateTime.parse(content, formatter));
+        LocalDateTime dateTime = LocalDateTime.parse(content, formatter);
+        return ui.printScheduledTasks(tasks, dateTime);
     }
 }

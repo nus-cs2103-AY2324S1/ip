@@ -25,6 +25,7 @@ public class FindCommand extends Command {
      * @param tasks   The list of tasks.
      * @param ui      The user interface for displaying messages.
      * @param storage The storage handler for data persistence.
+     * @return A string containing the result of executing the FindCommand.
      * @throws Exception Any exceptions that may occur during command execution.
      */
     @Override
