@@ -1,7 +1,8 @@
-package duke;
+package valerie;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * The Parser class is responsible for parsing user input and file input
@@ -14,10 +15,10 @@ public class Parser {
      * @param userInput The user's input command.
      * @param taskList  The list of tasks to be manipulated.
      */
-    public static void parseUserInput(String userInput, TaskList taskList) {
+    public static ArrayList<String> parseUserInput(String userInput, TaskList taskList) {
         if (userInput.equals("list")) {
             // If user wants to check list
-            Ui.showList(taskList);
+            return Ui.showList(taskList);
 
         } else if (userInput.startsWith("mark")) {
             // If user wants to mark something
@@ -25,13 +26,13 @@ public class Parser {
             if (parts.length == 2) {
                 try {
                     int index = Integer.parseInt(parts[1]) - 1;
-                    taskList.markTask(taskList.getTask(index));
+                    return taskList.markTask(taskList.getTask(index));
                 } catch (NumberFormatException e) {
-                    Ui.showError("Invalid task number");
+                    return Ui.showError("Invalid task number");
                 }
             } else {
                 // Invalid command format
-                Ui.showError("Invalid command format");
+                return Ui.showError("Invalid command format");
             }
 
         } else if (userInput.startsWith("unmark")) {
@@ -40,13 +41,13 @@ public class Parser {
             if (parts.length == 2) {
                 try {
                     int index = Integer.parseInt(parts[1]) - 1;
-                    taskList.unmarkTask(taskList.getTask(index));
+                    return taskList.unmarkTask(taskList.getTask(index));
                 } catch (NumberFormatException e) {
-                    Ui.showError("Invalid task number");
+                    return Ui.showError("Invalid task number");
                 }
             } else {
                 // Invalid command format
-                Ui.showError("Invalid command format");
+                return Ui.showError("Invalid command format");
             }
 
         } else if (userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")) {
@@ -57,15 +58,15 @@ public class Parser {
                 // If user wants to create a ToDos task
                 if (userInput.length() < 5) {
                     // Incorrect input format for todos
-                    Ui.showError("Incorrect input format for todo");
+                    return Ui.showError("Incorrect input format for todo");
                 } else {
                     String description = userInput.substring(5).trim();
                     if (description.isBlank()) {
                         // If there's do description
-                        Ui.showError("The description of a todo cannot be empty");
+                        return Ui.showError("The description of a todo cannot be empty");
                     } else {
                         newTask = new ToDos(description);
-                        taskList.addTask(newTask);
+                        return taskList.addTask(newTask);
                     }
                 }
 
@@ -83,14 +84,14 @@ public class Parser {
 
                     if (description.isBlank() || by.isBlank()) {
                         // If description or by is empty
-                        Ui.showError("The description or by of a deadline cannot be empty");
+                        return Ui.showError("The description or by of a deadline cannot be empty");
                     } else {
                         newTask = new Deadlines(description, deadlineDate);
-                        taskList.addTask(newTask);
+                        return taskList.addTask(newTask);
                     }
                 } else {
                     // Incorrect input format for deadline
-                    Ui.showError("Incorrect input format for deadline");
+                    return Ui.showError("Incorrect input format for deadline");
                 }
 
             } else {
@@ -105,21 +106,19 @@ public class Parser {
 
                     if (description.isBlank() || from.isBlank() || to.isBlank()) {
                         // If description, from, or to is empty
-                        Ui.showError("The description or from or to of an event cannot be empty");
+                        return Ui.showError("The description or from or to of an event cannot be empty");
                     } else {
                         newTask = new Events(description, from, to);
-                        taskList.addTask(newTask);
+                        return taskList.addTask(newTask);
                     }
                 } else {
                     // Incorrect input format for events
-                    Ui.showError("Incorrect input format for event");
+                    return Ui.showError("Incorrect input format for event");
                 }
             }
 
-            if (newTask != null) {
-                // If task is initialized
-                Ui.showAddedTask(newTask, taskList);
-            }
+            // If task is initialized
+            // return Ui.showAddedTask(newTask, taskList);
 
         } else if (userInput.startsWith("delete")) {
             // If user wants to delete a task
@@ -127,23 +126,24 @@ public class Parser {
             if (parts.length == 2) {
                 try {
                     int index = Integer.parseInt(parts[1]) - 1;
-                    taskList.deleteTask(taskList.getTask(index));
+                    return taskList.deleteTask(taskList.getTask(index));
                 } catch (NumberFormatException e) {
-                    Ui.showError("Invalid task number");
+                    return Ui.showError("Invalid task number");
                 }
             } else {
                 // Invalid command format
-                Ui.showError("Invalid command format");
+                return Ui.showError("Invalid command format");
             }
 
         } else if (userInput.startsWith("find")) {
-            // IF user wants to find a task
+            // If user wants to find a task
             String keyword = userInput.substring(5).trim();
-            taskList.findTasks(keyword);
+            return taskList.findTasks(keyword);
 
         } else {
-            Ui.showError("I'm sorry, but I don't know what that means");
+            return Ui.showError("I'm sorry, but I don't know what that means");
         }
+
     }
 
     /**

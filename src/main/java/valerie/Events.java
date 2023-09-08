@@ -1,4 +1,4 @@
-package duke;
+package valerie;
 
 /**
  * A class for Events tasks.
