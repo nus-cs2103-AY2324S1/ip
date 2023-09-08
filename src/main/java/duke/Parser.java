@@ -36,7 +36,7 @@ public class Parser {
             if (command.trim().length() == 6) {
                 throw new DukeException(ErrorMessages.MISSING_TASK_NUMBER.getMessage());
             } else {
-                return new DeleteCommand(Integer.parseInt(command.substring(7)) - 1);
+                return new DeleteCommand(Integer.parseInt(command.substring(7)));
             }
         } else if (command.contains("todo")) {
             if (command.trim().length() == 4) {
@@ -91,14 +91,14 @@ public class Parser {
             if (command.trim().length() == 4) {
                 throw new DukeException(ErrorMessages.MISSING_TASK_NUMBER.getMessage());
             } else {
-                int taskNumber = Integer.parseInt(command.substring(5).trim()) - 1;
+                int taskNumber = Integer.parseInt(command.substring(5).trim());
                 return new MarkCommand(taskNumber);
             }
         } else if (command.contains("unmark")) {
             if (command.trim().length() == 6) {
                 throw new DukeException(ErrorMessages.MISSING_TASK_NUMBER.getMessage());
             } else {
-                int taskNumber = Integer.parseInt(command.substring(7).trim()) - 1;
+                int taskNumber = Integer.parseInt(command.substring(7).trim());
                 return new UnmarkCommand(taskNumber);
             }
         } else if (command.contains("find")) {
