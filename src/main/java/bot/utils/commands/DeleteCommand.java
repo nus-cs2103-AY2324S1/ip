@@ -2,9 +2,9 @@ package bot.utils.commands;
 
 import bot.exceptions.InvalidIndexException;
 import bot.utils.Storage;
-import bot.utils.tasks.Task;
 import bot.utils.TaskList;
 import bot.utils.Ui;
+import bot.utils.tasks.Task;
 
 /**
  * Command to delete tasks.

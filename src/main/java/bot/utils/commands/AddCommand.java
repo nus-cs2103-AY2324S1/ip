@@ -2,9 +2,9 @@ package bot.utils.commands;
 
 import bot.exceptions.InvalidTaskException;
 import bot.utils.Storage;
-import bot.utils.tasks.Task;
 import bot.utils.TaskList;
 import bot.utils.Ui;
+import bot.utils.tasks.Task;
 
 /**
  * Bot.Command to add tasks to the task list.

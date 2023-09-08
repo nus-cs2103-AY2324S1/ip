@@ -1,11 +1,12 @@
 package bot.utils;
 
-import bot.exceptions.InvalidTaskException;
-import bot.utils.tasks.Task;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import bot.exceptions.InvalidTaskException;
+import bot.utils.tasks.Task;
 
 public class TaskTest {
     @Test

@@ -1,8 +1,8 @@
 package bot.utils;
 
-import bot.utils.tasks.Task;
-
 import java.util.Iterator;
+
+import bot.utils.tasks.Task;
 
 /**
  * User interface class responsible for dealing with interactions with the user.

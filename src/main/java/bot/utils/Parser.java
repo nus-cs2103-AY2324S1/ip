@@ -1,11 +1,11 @@
 package bot.utils;
 
+import java.util.regex.Pattern;
+
 import bot.exceptions.InvalidArgumentException;
 import bot.exceptions.InvalidCommandException;
 import bot.utils.commands.Command;
 import bot.utils.tasks.Task;
-
-import java.util.regex.Pattern;
 
 /**
  * Abstraction for making sense of user commands.
@@ -42,23 +42,23 @@ public class Parser {
     public static Command parse(String str) throws InvalidCommandException, InvalidArgumentException {
         String commandWord = str.split(" ", 2)[0].toLowerCase().trim();
         switch (commandWord) {
-            case "bye":
-                return Command.exit();
-            case "list":
-                return Command.list();
-            case "mark":
-                return Command.mark(getMarkIndex(str));
-            case "unmark":
-                return Command.unmark(getUnmarkIndex(str));
-            case "delete":
-                return Command.delete(getDeleteIndex(str));
-            case "find":
-                return Command.find(getFindTerm(str));
-            default:
-                if (!Task.isTaskCommand(commandWord)) {
-                    throw new InvalidCommandException();
-                }
-                return Command.add(str);
+        case "bye":
+            return Command.exit();
+        case "list":
+            return Command.list();
+        case "mark":
+            return Command.mark(getMarkIndex(str));
+        case "unmark":
+            return Command.unmark(getUnmarkIndex(str));
+        case "delete":
+            return Command.delete(getDeleteIndex(str));
+        case "find":
+            return Command.find(getFindTerm(str));
+        default:
+            if (!Task.isTaskCommand(commandWord)) {
+                throw new InvalidCommandException();
+            }
+            return Command.add(str);
         }
     }
 

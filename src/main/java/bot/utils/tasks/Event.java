@@ -1,10 +1,10 @@
 package bot.utils.tasks;
 
-import bot.exceptions.InvalidTaskException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import bot.exceptions.InvalidTaskException;
 
 /**
  * Event subclass. Contains a name, event start time and end time.

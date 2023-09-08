@@ -2,11 +2,11 @@ package bot;
 
 import bot.exceptions.BotException;
 import bot.exceptions.LoadingException;
-import bot.utils.commands.Command;
 import bot.utils.Parser;
 import bot.utils.Storage;
 import bot.utils.TaskList;
 import bot.utils.Ui;
+import bot.utils.commands.Command;
 
 /**
  * Main class for the bot.
