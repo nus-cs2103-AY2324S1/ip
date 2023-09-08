@@ -1,5 +1,8 @@
 package duke;
 
+import duke.commands.*;
+
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -9,83 +12,64 @@ import java.time.format.DateTimeParseException;
  * It interacts with the TaskList and Ui classes to manage tasks and user interface interactions.
  */
 public class Parser {
-    private final TaskList list;
-    private boolean shouldContinue;
-
-    /**
-     * Constructs a Parser object with the specified TaskList and Ui instances.
-     *
-     * @param list The TaskList instance for managing tasks.
-     */
-    public Parser(TaskList list) {
-        this.list = list;
-        this.shouldContinue = true;
-    }
-
     /**
      * Parses user input and executes corresponding actions.
      *
      * @param input The user input to be parsed and acted upon.
      * @throws DukeException If there is an issue with parsing or executing the input.
      */
-    public void parse(String input) throws DukeException {
+    public static Command parse(String input) throws DukeException {
         String[] parts = input.split(" ", 2);
         String action = parts[0];
         String details = parts.length == 1 ? "" : parts[1];
         switch (action) {
         case "bye":
-            this.shouldContinue = false;
-            Ui.exit();
-            break;
+            return new ExitCommand();
         case "list":
-            Ui.listTasks(this.list);
-            break;
+            return new ListCommand();
         case "mark":
             try {
-                this.list.markAsDone(Integer.parseInt(details));
+                return new MarkCommand(Integer.parseInt(details));
             } catch (NumberFormatException e) {
                 throw new DukeException("Please enter a valid number...");
             }
-            break;
         case "find":
-            if (details.isEmpty()) {
-                throw new DukeException("So what exactly do you want to do?");
-            }
-            this.list.findTasks(details);
-            break;
+            return new FindCommand(details);
         case "todo":
             if (details.isEmpty()) {
                 throw new DukeException("So what exactly do you want to do?");
             }
-            this.list.addTask(new ToDo(details));
-            break;
+            return new AddCommand(details);
         case "deadline":
-            String[] subParts = details.split(" /by ", 2);
-            try {
-                LocalDateTime dateTime = formatDateTime(subParts[1]);
-                this.list.addTask(new Deadline(subParts[0], dateTime));
-            } catch (DateTimeParseException e) {
-                throw new DukeException("Check the date time format again!");
+            if (details.isEmpty()) {
+                throw new DukeException("So what exactly is the task?");
             }
-            break;
-        case "event":
-            String[] taskPart = details.split(" /from ", 2);
-            String[] timePart = taskPart[1].split(" /to ", 2);
             try {
+                String[] subParts = details.split(" /by ", 2);
+                LocalDateTime dateTime = formatDateTime(subParts[1]);
+                return new AddCommand(subParts[0], dateTime);
+            } catch (Exception e) {
+                throw new DukeException("OOPS! The time format should be DD/MM/YYYY HHmm");
+            }
+        case "event":
+            if (details.isEmpty()) {
+                throw new DukeException("So what exactly is the task?");
+            }
+            try {
+                String[] taskPart = details.split(" /from ", 2);
+                String[] timePart = taskPart[1].split(" /to ", 2);
                 LocalDateTime from = formatDateTime(timePart[0]);
                 LocalDateTime to = formatDateTime(timePart[1]);
-                this.list.addTask(new Event(taskPart[0], from, to));
-            } catch (DateTimeParseException e) {
-                throw new DukeException("Oh no! Check the date time format again!");
+                return new AddCommand(taskPart[0], from, to);
+            } catch (Exception e) {
+                throw new DukeException("OOPS! The time format should be DD/MM/YYYY HHmm");
             }
-            break;
         case "delete":
             try {
-                this.list.deleteTask(Integer.parseInt(details));
+                return new DeleteCommand(Integer.parseInt(details));
             } catch (NumberFormatException e) {
                 throw new DukeException("Please enter a valid number...");
             }
-            break;
         default:
             throw new DukeException("I have no idea what that means...");
         }
@@ -100,14 +84,5 @@ public class Parser {
      */
     private static LocalDateTime formatDateTime(String input) throws DateTimeParseException {
         return LocalDateTime.parse(input, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-    }
-
-    /**
-     * Returns the status of the Parser indicating whether the main application loop should continue in Duke.
-     *
-     * @return True if the main loop should continue, false otherwise.
-     */
-    public boolean getStatus() {
-        return this.shouldContinue;
     }
  }

@@ -52,8 +52,6 @@ public class TaskList {
      */
     public void addTask(Task task) {
         this.list.add(task);
-        Ui.addTask(task);
-        Ui.countTasks(this.list);
         saveToFile();
     }
 
@@ -63,9 +61,8 @@ public class TaskList {
      * @param taskNum The index of the task to be marked as done.
      */
     public void markAsDone(int taskNum) {
-        Task task = this.list.get(taskNum - 1);
+        Task task = this.list.get(taskNum);
         task.markAsDone();
-        Ui.markAsDone(task);
         saveToFile();
     }
 
@@ -75,10 +72,8 @@ public class TaskList {
      * @param taskNum The index of the task to be deleted.
      */
     public void deleteTask(int taskNum) {
-        Task task = this.list.get(taskNum - 1);
-        this.list.remove(taskNum - 1);
-        Ui.deleteTask(task);
-        Ui.countTasks(this.list);
+        Task task = this.list.get(taskNum);
+        this.list.remove(taskNum);
         saveToFile();
     }
 
@@ -87,14 +82,14 @@ public class TaskList {
      *
      * @param input The search query to match against task descriptions.
      */
-    public void findTasks(String input) {
+    public ArrayList<Task> findTasks(String input) {
         ArrayList<Task> matches = new ArrayList<>();
         for (Task task : this.list) {
             if (task.getTask().contains(input)) {
                 matches.add(task);
             }
         }
-        Ui.findTasks(matches);
+        return matches;
     }
 
     /**
