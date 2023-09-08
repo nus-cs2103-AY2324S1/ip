@@ -1,2 +1,3 @@
 [T][X] Sample Todo 
 [D][X] Sample Deadline ( by: Dec 31 2023 23:59 )
+[T][X] beach activity 

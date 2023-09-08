@@ -1,16 +1,23 @@
 package javai;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
-import java.io.*;
-import java.util.Scanner;
+
+
 
 public class StorageTest {
 
+    private static final String FILE_PATH = "./src/main/txtFolder/JavAI.txt";
     private Storage storage;
-    private final String FILE_PATH = "./src/main/txtFolder/JavAI.txt";
 
     @BeforeEach
     void setUp() {
@@ -47,8 +54,8 @@ public class StorageTest {
         }
         scanner.close();
 
-        String expectedContent = "[T][ ] Write JUnit Tests\n" +
-                "[D][ ] Finish Project ( by: Dec 31 2023 23:59 )\n";
+        String expectedContent = "[T][ ] Write JUnit Tests\n"
+                + "[D][ ] Finish Project ( by: Dec 31 2023 23:59 )\n";
         assertEquals(expectedContent, fileContent.toString());
     }
 }

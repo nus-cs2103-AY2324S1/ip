@@ -1,8 +1,9 @@
 package javai;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a deadline task that has a description and a due date.
  */
@@ -23,12 +24,16 @@ public class Deadline extends Task {
         super(description);
         this.endDate = LocalDate.parse(endDate);
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("HHmm");
-       this.endTime = LocalTime.parse(endTime, inputFormatter);
+        this.endTime = LocalTime.parse(endTime, inputFormatter);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " ( by: " +
-                this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + this.endTime + " )";
+        return "[D]" + super.toString()
+                + " ( by: "
+                + this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " "
+                + this.endTime
+                + " )";
     }
 }
