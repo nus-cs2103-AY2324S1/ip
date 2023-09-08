@@ -94,18 +94,9 @@ public class Validation {
      * @throws DotException if input is invalid
      */
     public static String[] getArgsIfValidDeadlineFormat(String input) throws DotException {
-        if (input.length() <= 9) {
-            throw new DotException("No task description given", TaskError.ERR_USING_DEADLINE);
-        }
-        // We can assume that input is of format "deadline .+"
-        // Case: "deadline /by"
-        int indexOfSlash = input.indexOf(" /by");
-        if (indexOfSlash == -1 || indexOfSlash == 8) {
-            throw new DotException("No deadline given or is given without task description.",
-                    TaskError.ERR_USING_DEADLINE);
-        }
-        // We can assume that input is now in the format "deadline .+ /by.*'
-        String[] substrings = input.split(" /by");
+
+        // We can assume that input is now in the format "deadline .* /by.*'
+        String[] substrings = splitDeadlineFormatIntoSubstrings(input);
 
         if (substrings.length == 1) {
             throw new DotException("No deadline description given.", TaskError.ERR_USING_DEADLINE);
@@ -128,6 +119,28 @@ public class Validation {
             throw new DotException("No deadline description given", TaskError.ERR_USING_DEADLINE);
         }
         return new String[] {description, deadline};
+    }
+
+    /**
+     * Helper function for getArgsIfValidDeadlineFormat, which checks that input is in
+     * format: deadline .* /by.*, before returning its split version.
+     *
+     * @param input The input from the user.
+     * @return The input, if validated, split by ' /by'.
+     * @throws DotException On detected error.
+     */
+    private static String[] splitDeadlineFormatIntoSubstrings(String input) throws DotException {
+        if (input.length() <= 9) {
+            throw new DotException("No task description given", TaskError.ERR_USING_DEADLINE);
+        }
+        // We can assume that input is of format "deadline .+"
+        // Case: "deadline /by"
+        int indexOfSlash = input.indexOf(" /by");
+        if (indexOfSlash == -1 || indexOfSlash == 8) {
+            throw new DotException("No deadline given or is given without task description.",
+                    TaskError.ERR_USING_DEADLINE);
+        }
+        return input.split(" /by");
     }
 
     /**
