@@ -1,8 +1,5 @@
 package duke.ui;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
-
 import duke.Duke;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -75,7 +72,7 @@ public class MainWindow extends AnchorPane {
         String response = duke.getResponse(input);
 
         if (duke.getExitStatus()) {
-            CompletableFuture.delayedExecutor(2, TimeUnit.SECONDS).execute(() -> Platform.exit());
+            setTimeout(Platform::exit, 1000);
         }
 
         dialogContainer.getChildren().addAll(
@@ -85,6 +82,12 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Sets a timeout for executing a Runnable after a specified delay.
+     *
+     * @param runnable The code to be executed after the delay.
+     * @param delay    The delay in milliseconds before executing the Runnable.
+     */
     public static void setTimeout(Runnable runnable, int delay) {
         new Thread(() -> {
             try {

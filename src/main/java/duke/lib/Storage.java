@@ -38,7 +38,7 @@ public class Storage {
      *
      * @throws DukeException If an unexpected error occurs while creating the directory or file.
      */
-    private void createIfMissing() throws DukeException {
+    private void createMissingSaveFiles() throws DukeException {
         try {
             File directory = new File(this.directoryPath);
             if (!directory.exists()) {
@@ -67,7 +67,7 @@ public class Storage {
             }
             saveFileReader.close();
         } catch (FileNotFoundException e1) {
-            this.createIfMissing();
+            this.createMissingSaveFiles();
         } catch (Exception e) {
             throw new DukeException("File save is corrupted");
         }
