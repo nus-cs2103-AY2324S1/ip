@@ -36,4 +36,10 @@ public class TaskList {
     public ArrayList<Task> list() {
         return tasklist;
     }
+
+    public ArrayList<Task> contains(String key) {
+        ArrayList<Task> temp = new ArrayList<>(this.tasklist);
+        temp.removeIf(t -> !t.containsStr(key));
+        return temp;
+    }
 }

@@ -4,6 +4,8 @@ public abstract class Task {
     private boolean done;
     private final String name;
 
+    public abstract String dataString();
+
     private Task() {
         this.name = "";
         done = false;
@@ -26,8 +28,9 @@ public abstract class Task {
         return this.name;
     }
 
-    public abstract String dataString();
-
+    public boolean containsStr(String str) {
+        return name.toLowerCase().contains(str.toLowerCase());
+    }
     @Override
     public String toString() {
         String box;

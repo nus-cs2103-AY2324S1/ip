@@ -9,6 +9,9 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 public class Parser {
     private Ui ui;
     private Storage storage;
@@ -23,19 +26,19 @@ public class Parser {
         String[] split = input.split(regex);
         if (split[0].equals("T")) {
             ToDo todo = new ToDo(split[2]);
-            if (split[1] == "1") {
+            if (Objects.equals(split[1], "1")) {
                 todo.setdone();
             }
             return todo;
         } else if (split[0].equals("D")) {
             Deadline deadline = new Deadline(split[2], split[3]);
-            if (split[1] == "1") {
+            if (Objects.equals(split[1], "1")) {
                 deadline.setdone();
             }
             return deadline;
         } else if (split[0].equals("E")) {
             Event event = new Event(split[2], split[3], split[4]);
-            if (split[1] == "1") {
+            if (Objects.equals(split[1], "1")) {
                 event.setdone();
             }
             return event;
@@ -98,6 +101,10 @@ public class Parser {
             } catch (NumberFormatException e) {
                 ui.validnumbermsg();
             }
+        } else if (userinput.length() >= 6 && userinput.substring(0, 5).equalsIgnoreCase("find ")) {
+            ui.findmsg();
+            ui.listlist(tasks.contains(userinput.substring(5)));
+
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

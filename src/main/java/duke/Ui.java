@@ -47,4 +47,8 @@ public class Ui {
     public void byemsg() {
         System.out.println("Bye. Hope to see you again soon!");
     }
+
+    public void findmsg() {
+        System.out.println("Here are the matching tasks in your list:");
+    }
 }
