@@ -1,9 +1,11 @@
 package duke;
 
 import instructionstuff.Instruction;
+import javafx.application.Application;
 import storagestuff.Storage;
 import taskstuff.TaskList;
-import userstuff.Ui;
+import userstuff.MainWindow;
+import userstuff.UiLauncher;
 
 /**
  * Main class of Duke bot.
@@ -21,8 +23,8 @@ public class Duke {
     /** String representing filepath of data file. */
     private String filePath;
 
-    /** The Ui object which handles the ui of this chatbot. */
-    private Ui ui;
+    /** The MainWindow object which handles the ui of this chatbot. */
+    private MainWindow mainWindow;
 
 
     /**
@@ -35,14 +37,21 @@ public class Duke {
      */
     public Duke(String filePath) {
         this.filePath = filePath;
-        this.ui = new Ui();
         try {
             this.storage = new Storage(this.filePath);
             this.taskList = new TaskList(this.storage.load());
+            UiLauncher.set(this, "");
         } catch (DukeException d) {
-            ui.showMessage(d.getMessage());
-            return;
+            UiLauncher.set(this, d.getMessage() + "\n");
         }
+
+        Application.launch(UiLauncher.class);
+
+
+    }
+
+    public void setUi(MainWindow ui) {
+        this.mainWindow = ui;
     }
 
 
@@ -50,30 +59,15 @@ public class Duke {
      * Handles input from the user accordingly.
      *
      */
-    public void run() {
-        this.ui.showWelcome();
-        this.ui.showMessage("");
-        String userInput = ui.readCommand();
-        this.ui.showLine();
+    public void run(String userInput) {
         Instruction instruction = null;
-        while (true) {
-            try {
-                instruction = Parser.parse(userInput);
-                instruction.execute(this.storage, this.taskList, this.ui);
+        try {
+            instruction = Parser.parse(userInput);
+            instruction.execute(this.storage, this.taskList, this.mainWindow);
 
-            } catch (DukeException d) {
-                this.ui.showMessage(d.getMessage());
-            }
-            if (instruction instanceof Instruction.Exit) {
-                return;
-            }
-            this.ui.showLine();
-            this.ui.showMessage("");
-            userInput = this.ui.readCommand();
-            this.ui.showLine();
-
+        } catch (DukeException d) {
+            this.mainWindow.setMessage(d.getMessage());
         }
-
     }
 
     /**
@@ -85,7 +79,7 @@ public class Duke {
 
         String filePath = "./data/Duke.txt";
         Duke duke = new Duke(filePath);
-        duke.run();
+
 
     }
 }

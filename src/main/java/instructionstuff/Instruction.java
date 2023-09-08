@@ -6,7 +6,7 @@ import duke.DukeException;
 import storagestuff.Storage;
 import taskstuff.Task;
 import taskstuff.TaskList;
-import userstuff.Ui;
+import userstuff.MainWindow;
 
 
 
@@ -21,10 +21,10 @@ public abstract class Instruction {
      *
      * @param storage The Storage instance to store data in if needed.
      * @param taskList The taskList instance to execute instructions on.
-     * @param ui The Ui instance to use to display messages.
+     * @param mainWindow The MainWindow instance to use to display messages.
      * @throws DukeException If an error occurred during execution.
      */
-    public abstract void execute(Storage storage, TaskList taskList, Ui ui) throws DukeException;
+    public abstract void execute(Storage storage, TaskList taskList, MainWindow mainWindow) throws DukeException;
 
 
     /**
@@ -51,15 +51,16 @@ public abstract class Instruction {
          *
          * @param storage The Storage instance to store data in if needed.
          * @param taskList The taskList instance to add the task in.
-         * @param ui The Ui instance to use to display messages.
+         * @param mainWindow The MainWindow instance to use to display messages.
          * @throws DukeException If an error occurred during execution.
          */
         @Override
-        public void execute(Storage storage, TaskList taskList, Ui ui) throws DukeException {
+        public void execute(Storage storage, TaskList taskList, MainWindow mainWindow) throws DukeException {
             taskList.addTask(this.task);
-            ui.showMessage("Got it. I've added this task:");
-            ui.showMessage(" " + this.task);
-            ui.showMessage("Now you have " + taskList.getSize() + " tasks in the list.");
+            String s = "Got it. I've added this task:\n " + this.task + "\nNow you have "
+                    + taskList.getSize() + " tasks in the list.";
+
+            mainWindow.setMessage(s);
         }
 
     }
@@ -87,14 +88,14 @@ public abstract class Instruction {
          *
          * @param storage The Storage instance to store data in if needed.
          * @param taskList The taskList instance to mark the task in.
-         * @param ui The Ui instance to use to display messages.
+         * @param mainWindow The MainWindow instance to use to display messages.
          * @throws DukeException If an error occurred during execution.
          */
         @Override
-        public void execute(Storage storage, TaskList taskList, Ui ui) throws DukeException {
+        public void execute(Storage storage, TaskList taskList, MainWindow mainWindow) throws DukeException {
             taskList.markTask(this.index);
-            ui.showMessage("Nice! I've marked this task as done:");
-            ui.showMessage(" " + taskList.getTask(index));
+            String s = "Nice! I've marked this task as done:\n " + taskList.getTask(index);
+            mainWindow.setMessage(s);
         }
     }
 
@@ -124,14 +125,14 @@ public abstract class Instruction {
          *
          * @param storage The Storage instance to store data in if needed.
          * @param taskList The taskList instance to unmark task in.
-         * @param ui The Ui instance to use to display messages.
+         * @param mainWindow The MainWindow instance to use to display messages.
          * @throws DukeException If an error occurred during execution.
          */
         @Override
-        public void execute(Storage storage, TaskList taskList, Ui ui) throws DukeException {
+        public void execute(Storage storage, TaskList taskList, MainWindow mainWindow) throws DukeException {
             taskList.unmarkTask(this.index);
-            ui.showMessage("Ok. I have marked this task as not done yet:");
-            ui.showMessage(" " + taskList.getTask(index));
+            String s = "Nice! I've marked this task as not done:\n " + taskList.getTask(index);
+            mainWindow.setMessage(s);
         }
     }
 
@@ -161,15 +162,15 @@ public abstract class Instruction {
          *
          * @param storage The Storage instance to store data in if needed.
          * @param taskList The taskList instance to delete task from.
-         * @param ui The Ui instance to use to display messages.
+         * @param mainWindow The MainWindow instance to use to display messages.
          * @throws DukeException If an error occurred during execution.
          */
         @Override
-        public void execute(Storage storage, TaskList taskList, Ui ui) throws DukeException {
+        public void execute(Storage storage, TaskList taskList, MainWindow mainWindow) throws DukeException {
             String task = taskList.deleteTask(this.index);
-            ui.showMessage("Noted. I have removed this task from the list:");
-            ui.showMessage(" " + task);
-            ui.showMessage("Now you have " + taskList.getSize() + " tasks in the list.");
+            String s = "Noted. I've removed this task from the list\n " + task;
+            s = s + "Now you have " + taskList.getSize() + " tasks in the list.";
+            mainWindow.setMessage(s);
         }
     }
 
@@ -184,17 +185,17 @@ public abstract class Instruction {
          *
          * @param storage The Storage instance to store data in if needed.
          * @param taskList The taskList instance list tasks from.
-         * @param ui The Ui instance to use to display messages.
+         * @param mainWindow The MainWindow instance to use to display messages.
          * @throws DukeException If an error occurred during execution.
          */
         @Override
-        public void execute(Storage storage, TaskList taskList, Ui ui) throws DukeException {
-            ui.showMessage("Here are the tasks in your list:");
-            String[] s = taskList.getTasks();
-            for (int i = 0; i < s.length; i++) {
-                String t = (i + 1) + ". " + s[i];
-                ui.showMessage(t);
+        public void execute(Storage storage, TaskList taskList, MainWindow mainWindow) throws DukeException {
+            String[] t = taskList.getTasks();
+            String s = "Here are the tasks in your list:\n";
+            for (int i = 0; i < t.length; i++) {
+                s = s + (i + 1) + ". " + t[i] + "\n";
             }
+            mainWindow.setMessage(s);
         }
     }
 
@@ -220,15 +221,16 @@ public abstract class Instruction {
          * Finds the tasks in the given taskList.
          * @param storage Unused here.
          * @param taskList The taskList containing tasks to find.
+         * @param mainWindow The MainWindow instance to use to display message.
          */
         @Override
-        public void execute(Storage storage, TaskList taskList, Ui ui) throws DukeException {
-            ui.showMessage("Here are the matching tasks in your list:");
+        public void execute(Storage storage, TaskList taskList, MainWindow mainWindow) throws DukeException {
             ArrayList<String> foundTasks = taskList.findTasks(this.keyWord);
+            String s = "Here are the matching tasks in your list:\n";
             for (int i = 0; i < foundTasks.size(); i++) {
-                String t = (i + 1) + ". " + foundTasks.get(i);
-                ui.showMessage(t);
+                s = s + (i + 1) + ". " + foundTasks.get(i).toString() + "\n";
             }
+            mainWindow.setMessage(s);
         }
     }
 
@@ -242,14 +244,14 @@ public abstract class Instruction {
          *
          * @param storage The Storage instance to store data in.
          * @param taskList The taskList instance which holds the data to store in storage.
-         * @param ui The Ui instance to use to display messages.
+         * @param mainWindow The MainWindow instance to use to display messages.
          * @throws DukeException If an error occurred during storing data.
          */
         @Override
-        public void execute(Storage storage, TaskList taskList, Ui ui) throws DukeException {
+        public void execute(Storage storage, TaskList taskList, MainWindow mainWindow) throws DukeException {
             String[] s = taskList.getTasks();
             storage.store(s);
-            ui.showBye();
+            mainWindow.setMessage("Bye. Hope to see you again soon.");
         }
     }
 }
