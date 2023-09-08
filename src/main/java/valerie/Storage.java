@@ -1,4 +1,4 @@
-package duke;
+package valerie;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -36,7 +36,6 @@ public class Storage {
             // Create the file if it doesn't exist and print a message
             if (file.createNewFile()) {
                 System.out.println("        New File Created");
-                Ui.showLine();
             }
 
             // Use a Scanner to read tasks from the file

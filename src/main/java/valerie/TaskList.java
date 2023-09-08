@@ -1,4 +1,4 @@
-package duke;
+package valerie;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +24,9 @@ public class TaskList {
      *
      * @param task The task to be added to the list.
      */
-    public void addTask(Task task) {
+    public ArrayList<String> addTask(Task task) {
         userList.add(task);
+        return Ui.showAddedTask(task, this);
     }
 
     /**
@@ -33,9 +34,9 @@ public class TaskList {
      *
      * @param task The task to be marked as done.
      */
-    public void markTask(Task task) {
+    public ArrayList<String> markTask(Task task) {
         task.markAsDone();
-        Ui.showMarkedTask(task);
+        return Ui.showMarkedTask(task);
     }
 
     /**
@@ -43,9 +44,9 @@ public class TaskList {
      *
      * @param task The task to be marked as not done.
      */
-    public void unmarkTask(Task task) {
+    public ArrayList<String> unmarkTask(Task task) {
         task.markAsUndone();
-        Ui.showUnmarkedTask(task);
+        return Ui.showUnmarkedTask(task);
     }
 
     /**
@@ -53,9 +54,9 @@ public class TaskList {
      *
      * @param task The task to be deleted from the list.
      */
-    public void deleteTask(Task task) {
+    public ArrayList<String> deleteTask(Task task) {
         userList.remove(task);
-        Ui.showDeletedTask(task, this);
+        return Ui.showDeletedTask(task, this);
     }
 
     /**
@@ -63,7 +64,7 @@ public class TaskList {
      *
      * @param keyword The keyword to search for in task descriptions.
      */
-    public void findTasks(String keyword) {
+    public ArrayList<String> findTasks(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         TaskList matchingTasksList = new TaskList(matchingTasks);
 
@@ -73,7 +74,7 @@ public class TaskList {
             }
         }
 
-        Ui.showMatchingTasks(matchingTasksList);
+        return Ui.showMatchingTasks(matchingTasksList);
     }
 
     /**
