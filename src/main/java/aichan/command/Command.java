@@ -17,9 +17,10 @@ public class Command {
      * @param storage Storage storing the tasks' description.
      * @throws AiChanException If occurs any error.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AiChanException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws AiChanException {
         // control the main logic
         // add/delete task + ui shows words
+        return "some error happen.";
     }
 
     /**

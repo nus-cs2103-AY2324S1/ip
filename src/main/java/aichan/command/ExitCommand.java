@@ -18,9 +18,9 @@ public class ExitCommand extends Command {
      * @param storage Storage storing the tasks' description.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         // no interaction with tasks
-        ui.showMessage("Ta-da! It's time to go~ Keep smiling till we reunite!");
+        return "Ta-da! It's time to go~ Keep smiling till we reunite!";
     }
 
     @Override

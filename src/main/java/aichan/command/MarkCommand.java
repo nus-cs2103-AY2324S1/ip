@@ -30,16 +30,16 @@ public class MarkCommand extends Command {
      * @param storage Storage storing the tasks' description.
      * @throws AiChanException If the task number is invalid.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AiChanException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws AiChanException {
         int size = tasks.getSize();
         if (taskId < 1 || taskId > size) {
             throw new AiChanException("Please provide a valid task number.");
         }
         Task task = tasks.getTask(taskId);
         task.mark();
-        ui.showMessage("Nice! I've marked this task as done:\n"
-                + task.toString());
         storage.saveTasks(tasks);
+        return "Nice! I've marked this task as done:\n"
+                + task.toString();
     }
 
     @Override
