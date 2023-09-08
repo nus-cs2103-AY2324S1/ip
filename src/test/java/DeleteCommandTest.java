@@ -26,7 +26,7 @@ public class DeleteCommandTest {
         assertEquals(successMessage, new DeleteCommand(1).execute(taskList, ui));
     }
     @Test
-    public void execute_delete_exceptionThrown() {
+    public void execute_delete_indexOutOfBoundsExceptionThrown() {
         Todo toDoTask = new Todo("return book");
         Todo toDoTask2 = new Todo("run 5km");
         ArrayList<String> taskListString = new ArrayList<>();

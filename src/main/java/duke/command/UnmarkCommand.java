@@ -25,7 +25,7 @@ public class UnmarkCommand extends Command {
 
     public String execute(TaskList taskList, Ui ui) throws DukeException {
         try {
-            Task taskToBeUnmarked = taskList.getTask(this.taskNumber);
+            Task taskToBeUnmarked = taskList.getTask(this.taskNumber - 1);
             if (!taskToBeUnmarked.isTaskCompleted()){
                 throw new DukeException("Task has already been marked as uncompleted.");
             } else {
