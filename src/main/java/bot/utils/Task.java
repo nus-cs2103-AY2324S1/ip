@@ -55,6 +55,7 @@ public abstract class Task {
         } else if (str.startsWith("deadline")) {
             newTask = Deadline.makeDeadline(str);
         } else {
+            assert str.startsWith("event") : "str must start with event";
             newTask = Event.makeEvent(str);
         }
         return newTask;
@@ -74,6 +75,7 @@ public abstract class Task {
         if (str.startsWith("d")) {
             return Deadline.convertFromString(str);
         }
+        assert str.startsWith("e") : "str must start with e";
         return Event.convertFromString(str);
     }
 
@@ -171,7 +173,8 @@ public abstract class Task {
             if (!str.matches("t/[01]/.+")) {
                 throw new InvalidTaskException("Could not read Todo.");
             }
-            String[] arr = str.split("/");
+            String[] arr = str.split("/", 3);
+            assert arr.length == 3 : "array length == 3";
             return new ToDo(arr[2], arr[1].equals("1"));
         }
 
@@ -203,6 +206,7 @@ public abstract class Task {
             if (name.equals("")) {
                 throw new InvalidTaskException("Sorry, the todo description can't be empty.");
             }
+            assert name.length() > 0 : "name length > 0";
             return new ToDo(name);
         }
 
@@ -269,7 +273,8 @@ public abstract class Task {
             if (!str.matches("d/[01]/.+/.+")) {
                 throw new InvalidTaskException("Could not read Deadline.");
             }
-            String[] arr = str.split("/");
+            String[] arr = str.split("/", 4);
+            assert arr.length == 4 : "array length == 4";
             return new Deadline(arr[2], arr[1].equals("1"),
                     LocalDate.parse(arr[3], DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         }

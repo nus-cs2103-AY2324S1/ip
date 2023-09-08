@@ -35,6 +35,7 @@ public class Storage {
      * @throws LoadingException If the data file cannot be read or created.
      */
     public ArrayList<Task> load(Ui ui) throws LoadingException {
+        assert ui != null : "ui must not be null";
         ArrayList<Task> tasks = new ArrayList<>();
         File f = new File(this.filePath);
         File parent = new File(f.getParent());
@@ -68,6 +69,7 @@ public class Storage {
      * @throws LoadingException If the list cannot be saved fully.
      */
     public void save(TaskList lst) throws LoadingException {
+        assert lst != null : "lst must not be null";
         try {
             File f = new File(this.filePath);
             FileWriter fw = new FileWriter(f);

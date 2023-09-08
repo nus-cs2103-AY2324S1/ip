@@ -53,6 +53,7 @@ public class Bot {
         String response;
         try {
             Command command = Parser.parse(input);
+            assert command != null;
             response = command.execute(tasks, ui, storage);
             if (command.isExit()) {
                 isExit = true;

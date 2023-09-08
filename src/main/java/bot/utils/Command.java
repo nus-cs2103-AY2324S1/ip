@@ -61,6 +61,7 @@ public abstract class Command {
             throw new InvalidArgumentException();
         }
         int index = Integer.parseInt(str.substring(5));
+        assert index > 0 : "Index must be more than 0 (1-indexed)";
         return new MarkCommand(index, DoneStatus.DONE);
     }
 
@@ -77,6 +78,9 @@ public abstract class Command {
             throw new InvalidArgumentException();
         }
         int index = Integer.parseInt(str.substring(7));
+
+        assert index > 0 : "Index must be more than 0 (1-indexed)";
+
         return new MarkCommand(index, DoneStatus.NOT_DONE);
     }
 
@@ -103,6 +107,9 @@ public abstract class Command {
             throw new InvalidArgumentException();
         }
         int index = Integer.parseInt(str.substring(7));
+
+        assert index > 0 : "Index must be more than 0 (1-indexed)";
+
         return new DeleteCommand(index);
     }
 
@@ -154,9 +161,9 @@ public abstract class Command {
         /**
          * Executes the command.
          *
-         * @param tasks   Bot.Task list containing tasks.
+         * @param tasks   Task list containing tasks.
          * @param ui      User interface for interacting with users.
-         * @param storage Bot.Storage for storing data.
+         * @param storage Storage for storing data.
          */
         public String execute(TaskList tasks, Ui ui, Storage storage) {
             return ui.showGoodbye();
@@ -285,8 +292,9 @@ public abstract class Command {
          */
         public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidTaskException {
             Task newTask = Task.makeTask(input);
+            assert newTask != null : "newTask must not be null";
             tasks.add(newTask);
-            return ui.println("Added:\n" + newTask.toString())
+            return ui.println("Added:\n" + newTask)
                     .concat(ui.println("Now you have " + tasks.size() + " task(s) in the list."));
         }
     }
@@ -329,7 +337,8 @@ public abstract class Command {
          */
         public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
             Task task = tasks.remove(index);
-            return ui.println("I've removed this task:\n" + task.toString())
+            assert task != null: "task removed must not be null";
+            return ui.println("I've removed this task:\n" + task)
                     .concat(ui.println("Now you have " + tasks.size() + " task(s) in the list."));
         }
     }
@@ -371,6 +380,7 @@ public abstract class Command {
          */
         public String execute(TaskList tasks, Ui ui, Storage storage) {
             TaskList queries = tasks.findAll(input.substring(5).trim());
+            assert queries != null : "queries must not be null";
             if (queries.size() > 0) {
                 return ui.println("Here are the matching tasks in your list:")
                         .concat(ui.displayTaskList(queries));

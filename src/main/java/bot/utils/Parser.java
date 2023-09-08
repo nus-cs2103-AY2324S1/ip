@@ -23,6 +23,7 @@ public class Parser {
      * @throws InvalidArgumentException If the arguments are clearly invalid.
      */
     public static Command parse(String str) throws InvalidCommandException, InvalidArgumentException {
+        assert str != null : "str must not be null";
         if (str.equalsIgnoreCase("bye")) {
             return Command.exit();
         } else if (str.equalsIgnoreCase("list")) {
