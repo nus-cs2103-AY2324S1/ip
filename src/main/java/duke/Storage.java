@@ -10,10 +10,9 @@ public class Storage {
     /**
      * Loads the content of the file into the ChatBot
      * @param filepath directs to the file containing the saved content
-     * @param parser handles the content in the file
      * @return a TaskList that contains the tasks from the content
      */
-    public static TaskList load(String filepath, Parser parser) {
+    public static TaskList load(String filepath) {
         TaskList taskList = new TaskList();
         File file = new File(filepath);
         try {
@@ -23,7 +22,7 @@ public class Storage {
                 if (text.equals("")) {
                     continue;
                 }
-                parser.handleInput(text, taskList, true);
+                Parser.handleInput(text, taskList, true);
             }
         } catch (FileNotFoundException ex) {
             //ignore;
