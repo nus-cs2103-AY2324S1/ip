@@ -50,7 +50,7 @@ public class TaskList {
                 throw new DukeException("deadline error");
             }
             break;
-        default:
+        case EVENT:
             Pattern pattern = Pattern.compile("(.+) /from (.+) /to (.+)");
             Matcher matcher = pattern.matcher(description);
             if (matcher.matches() && !matcher.group(1).isEmpty() && !matcher.group(2).isEmpty()
