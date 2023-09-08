@@ -17,10 +17,9 @@ public class UnmarkCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList list) {
+    public String execute(TaskList list) {
         list.unmark(index);
-        Ui.ui.unmarkPrompt(list.list().get(index));
-        Duke.run();
+        return Ui.ui.unmarkPrompt(list.list().get(index));
     }
 
     public int index() {

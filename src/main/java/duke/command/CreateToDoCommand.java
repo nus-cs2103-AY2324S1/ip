@@ -18,10 +18,9 @@ public class CreateToDoCommand extends Command{
         this.task = new ToDo(task);
     }
     @Override
-    public void execute(TaskList list) {
+    public String execute(TaskList list) {
         list.add(task);
-        Ui.ui.createTaskPrompt(task);
-        Duke.run();
+        return Ui.ui.createTaskPrompt(task);
     }
 
     public ToDo task(){

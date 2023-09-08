@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.task.Task;
 import duke.task.TaskList;
 import duke.*;
 
@@ -17,10 +18,10 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list) {
-        Ui.ui.deletePrompt(list.list().get(index));
+    public String execute(TaskList list) {
+        Task temp = list.list().get(index);
         list.delete(index);
-        Duke.run();
+        return Ui.ui.deletePrompt(temp);
     }
 
     public int index() {

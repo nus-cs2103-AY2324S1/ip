@@ -20,10 +20,9 @@ public class CreateDeadlineCommand extends Command {
         this.task = new Deadline(task,by);
     }
     @Override
-    public void execute(TaskList list) {
+    public String execute(TaskList list) {
         list.add(task);
-        Ui.ui.createTaskPrompt(task);
-        Duke.run();
+        return Ui.ui.createTaskPrompt(task);
     }
 
 

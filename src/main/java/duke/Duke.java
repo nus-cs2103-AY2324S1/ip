@@ -1,32 +1,35 @@
 package duke;
 
-import duke.DukeException;
-import duke.Parser;
-import duke.Storage;
-import duke.Ui;
-import duke.command.Command;
-import duke.task.TaskList;
-
 import java.time.format.DateTimeParseException;
 
+import javafx.application.Application;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
+import duke.command.Command;
+import duke.task.TaskList;
 /**
  * Duke is a chat-bot program, that can help you manage your tasks.
  * The chat-bot's name is Chewbacca, son of Attichukk.
  *
  * @author Lian Zhi Xuan
  */
-public class Duke {
-
+public class Duke extends Application {
+    private static Parser parser;
     private static TaskList list;
-    public static Parser parser;
     private static Storage storage;
-
-
 
     public static void main(String[] args) {
         initialize();
         Ui.ui.startPrompt();
         run();
+    }
+
+    @Override
+    public void start(Stage stage) {
+        initialize();
+        Ui.ui.GuiSetup(stage);
+        Ui.ui.readInput();
     }
 
     /**
@@ -43,19 +46,17 @@ public class Duke {
     /**
      * Runs the actual program.
      */
-    public static void run() {
+    public static String run() {
         try {
             String input = Ui.ui.readInput();
             Command cmd = parser.readInput(input);
-            cmd.execute(list);
+            return cmd.execute(list);
 
         } catch (DukeException e) {
-            Ui.ui.errorPrompt(e);
-            run();
+            return Ui.ui.errorPrompt(e);
 
         } catch (DateTimeParseException e) {
-            Ui.ui.wrongDateFormatPrompt();
-            run();
+            return Ui.ui.wrongDateFormatPrompt();
         }
     }
 

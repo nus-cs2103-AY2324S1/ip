@@ -18,10 +18,9 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list) {
+    public String execute(TaskList list) {
         list.mark(index);
-        Ui.ui.markPrompt(list.list().get(index));
-        Duke.run();
+        return Ui.ui.markPrompt(list.list().get(index));
     }
 
     public int index() {

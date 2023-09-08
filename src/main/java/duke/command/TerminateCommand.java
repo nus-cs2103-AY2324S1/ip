@@ -11,10 +11,10 @@ import duke.task.TaskList;
  */
 public class TerminateCommand extends Command {
     @Override
-    public void execute(TaskList list) {
+    public String execute(TaskList list) {
         Storage storage = new Storage();
         storage.save(list);
-        Ui.ui.endPrompt();
+        return Ui.ui.endPrompt();
     }
 
     @Override
