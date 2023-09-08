@@ -1,13 +1,15 @@
 package prts;
 
-import prts.command.ListCommand;
-import prts.command.MessageCommand;
-import prts.command.CommandParser;
-import prts.command.ParsingException;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import prts.command.CommandParser;
+import prts.command.ListCommand;
+import prts.command.MessageCommand;
+import prts.command.ParsingException;
+
 
 public class ParserTest {
 
@@ -35,6 +37,7 @@ public class ParserTest {
             assertEquals(CommandParser.parse("list list").getClass(), MessageCommand.class);
             fail();
         } catch (ParsingException ignored) {
+            // success case, ignore exception
         }
     }
 

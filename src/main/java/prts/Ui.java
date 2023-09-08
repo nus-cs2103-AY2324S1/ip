@@ -8,24 +8,24 @@ import java.util.Scanner;
  */
 public class Ui {
 
+    private static final String SOFTBREAK = "--------------------------------------------------";
+    private static final String HARDBREAK = "——————————————————————————————————————————————————";
     private final Scanner scanner = new Scanner(System.in);
-    static String softbreak = "--------------------------------------------------";
-    static String hardbreak = "——————————————————————————————————————————————————";
 
     /**
      * Displays the initial message on startup.
      */
     public void showWelcome() {
-        System.out.println(hardbreak +
-                "\n...Fingerprint match found. Verification complete. Welcome home.\n" +
-                "PRTS, at your service. What would you like to do today?\n" + hardbreak);
+        System.out.println(HARDBREAK
+                + "\n...Fingerprint match found. Verification complete. Welcome home.\n"
+                + "PRTS, at your service. What would you like to do today?\n" + HARDBREAK);
     }
 
     /**
      * Displays the farewell message upon exiting the program.
      */
     public void showGoodbye() {
-        System.out.println("Farewell. See you again soon.\n" + hardbreak);
+        System.out.println("Farewell. See you again soon.\n" + HARDBREAK);
     }
 
     /**
@@ -40,21 +40,21 @@ public class Ui {
      * Displays a dashed line.
      */
     public void showSoftLine() {
-        System.out.println(softbreak);
+        System.out.println(SOFTBREAK);
     }
 
     /**
      * Displays a solid line.
      */
     public void showHardLine() {
-        System.out.println(hardbreak);
+        System.out.println(HARDBREAK);
     }
 
     /**
      * Lists the current Tasks stored in the TaskList.
      * @param tasks The current state of the TaskList.
      */
-    public void list(TaskList tasks) {
+    public void listTasks(TaskList tasks) {
 
         System.out.println("Here are your tasks for today.");
 
