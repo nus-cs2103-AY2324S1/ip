@@ -8,10 +8,10 @@ import dude.exception.InvalidTaskIndexException;
  * List of tasks.
  */
 public class TaskList {
-    public static final String emptyTaskList = "You currently have no tasks in your list.";
-    public static final String taskListPrefix = "Here's your tasks list:\n";
-    public static final String SEARCH_RESULTS_PREFIX = "Here are the matching tasks in your list:\n";
-    public static final String NO_SEARCH_RESULTS_MSG = "Couldn't find any tasks matching \"%s\".";
+    private static final String emptyTaskList = "You currently have no tasks in your list.";
+    private static final String taskListPrefix = "Here's your tasks list:\n";
+    private static final String SEARCH_RESULTS_PREFIX = "Here are the matching tasks in your list:\n";
+    private static final String NO_SEARCH_RESULTS_MSG = "Couldn't find any tasks matching \"%s\".";
     /**
      * Tasks stored by user.
      */
