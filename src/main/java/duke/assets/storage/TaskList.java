@@ -10,6 +10,8 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 
 public class TaskList {
+    private static final String HORIZONTAL = "------------------------------------------------------------" +
+            "---------------------------";
     private ArrayList<TaskAbstract> taskList;
     private int numberOfTasks;
 
@@ -33,6 +35,7 @@ public class TaskList {
         } else {
             try {
                 this.taskList.get(index).completeTask();
+                System.out.println("ChadGPT: Great, I'll mark task!");
             } catch (StateCannotBeAlteredException exp) {
                 System.out.println("ChadGPT: Task is already complete :-)");
             }
@@ -49,6 +52,7 @@ public class TaskList {
         } else {
             try {
                 this.taskList.get(index).undo();
+                System.out.println("ChadGPT: I'll unmark it for now but do remember to complete it!");
             } catch (StateCannotBeAlteredException exp) {
                 System.out.println("ChadGPT: Task is already incomplete :-)");
             }
@@ -63,6 +67,7 @@ public class TaskList {
                 System.out.println("ChadGPT: Ensure the index is of in the range 1 - " + this.numberOfTasks);
             }
         } else{
+            System.out.println("ChadGPT: Deleted!");
             this.taskList.remove(index);
             this.numberOfTasks--;
         }

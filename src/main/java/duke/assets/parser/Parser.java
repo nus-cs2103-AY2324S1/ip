@@ -46,9 +46,11 @@ public class Parser {
 
     public void passUserCommand(String input, TaskList tasklist) {
         try {
-            this.createUserCommand(input).execute(tasklist);
+            CommandAbstract command = createUserCommand(input);
+            command.execute(tasklist);
+            command.printChatbotLine();
         } catch (InvalidCommandException exp) {
-            System.out.println("ChadGPT: Please ensure that you have entered a valid command.");
+            //System.out.println("ChadGPT: Please ensure that you have entered a valid command.");
         }
     }
 
@@ -85,7 +87,8 @@ public class Parser {
 
     public void passDataCommand(String input, TaskList tasklist) throws CorruptDataException {
         try {
-            this.createDataCommand(input).execute(tasklist);
+            CommandAbstract command = createDataCommand(input);
+            command.execute(tasklist);
         } catch (InvalidCommandException exp) {
             throw new CorruptDataException(input);
         }

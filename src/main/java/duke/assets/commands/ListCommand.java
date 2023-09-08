@@ -25,4 +25,9 @@ public class ListCommand extends CommandAbstract {
         System.out.println("ChadGPT: Here are your tasks: ");
         taskList.listTasks();
     }
+
+    @Override
+    public void printChatbotLine() {
+        return;
+    }
 }

@@ -81,4 +81,9 @@ public class CreateDeadlineCommand extends CommandAbstract {
         }
         tasklist.addTask(newTask);
     }
+
+    @Override
+    public void printChatbotLine() {
+        System.out.print("ChadGPT: Gotcha, I have added the task to the list.\n" + HORIZONTAL);
+    }
 }

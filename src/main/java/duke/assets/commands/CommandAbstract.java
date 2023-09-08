@@ -22,6 +22,8 @@ public abstract class CommandAbstract {
         }
     }
 
+    public abstract void printChatbotLine();
+
     protected abstract boolean isValid(TaskList tasklist);
 
     protected abstract void completeOperation(TaskList tasklist);
