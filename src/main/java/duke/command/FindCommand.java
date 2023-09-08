@@ -24,16 +24,6 @@ public class FindCommand extends NonemptyArgumentCommand implements Command {
 
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
-        StringBuilder output = new StringBuilder();
-        for (int i = 0; i < taskList.size(); i++) {
-            if (taskList.get(i).getDescription().contains(argument)) {
-                output.append(i + 1).append(". ").append(taskList.get(i)).append("\n");
-            }
-        }
-        if (output.length() == 0) {
-            ui.sendMessage("No Items in List");
-        } else {
-            ui.sendMessage("Here are the matching tasks in your list:\n" + output);
-        }
+        ui.sendMessage(taskList.getTasksMatchingQuery(this.argument));
     }
 }
