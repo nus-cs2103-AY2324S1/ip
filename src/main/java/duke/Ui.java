@@ -29,27 +29,20 @@ public class Ui {
     }
 
     /**
-     * Displays a horizontal line to separate messages.
-     */
-    public static void showLine() {
-        System.out.println(HORIZONTAL_LINE);
-    }
-
-    /**
      * Displays a greeting message to the user.
      */
-    public static void greet() {
+    public static String greet() {
+        StringBuilder sb = new StringBuilder();
         String logo = "       .__\n"
                 + "  ____ |__| ____   ____\n"
                 + "/    \\|  |/    \\ /  _  \\\n"
                 + "|   |  \\  |   |  (  <_> )\n"
                 + "|___|  /__|___|  /\\____/\n"
                 + "     \\/        \\/";
-        System.out.println("Hello from\n" + logo);
-        Ui.showLine();
-        System.out.println("Hello! I'm NINO!");
-        System.out.println("What can I do for you?");
-        Ui.showLine();
+        sb.append("Hello from\n" + logo + "\n");
+        sb.append("Hello! I'm NINO!" + "\n");
+        sb.append("What can I do for you?" + "\n");
+        return sb.toString();
     }
 
     /**
@@ -57,9 +50,9 @@ public class Ui {
      *
      * @param e A DukeException representing the error to be displayed.
      */
-    public static void showError(DukeException e) {
-        Ui.showLine();
-        System.out.println(e.getMessage());
-        Ui.showLine();
+    public static String showError(DukeException e) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(e.getMessage() + "\n");
+        return sb.toString();
     }
 }

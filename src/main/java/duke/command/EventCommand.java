@@ -35,7 +35,7 @@ public class EventCommand extends Command {
      * @throws InvalidDateException      If the date provided is in an invalid format.
      */
     @Override
-    public void execute(TaskList tasks , Ui ui, Storage storage) throws InvalidArgumentException, InvalidDateException {
+    public String execute(TaskList tasks , Ui ui, Storage storage) throws InvalidArgumentException, InvalidDateException {
         String[] words = this.fullCommand.split(" ", 2);
         if (words.length < 2) {
             throw new InvalidArgumentException("event");
@@ -59,7 +59,8 @@ public class EventCommand extends Command {
                         LocalDateTime to = LocalDateTime.parse(splitDeadline[1].split(" ", 2)[1]
                                 .strip(), Storage.DATE_TIME_INPUT_FORMATTER);
                         Event t = new Event(c, from, to);
-                        tasks.addTask(t);
+                        String s = tasks.addTask(t);
+                        return s;
                     } catch (DateTimeParseException e) {
                         throw new InvalidDateException();
                     }

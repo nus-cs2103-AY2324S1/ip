@@ -27,10 +27,10 @@ public class ListCommand extends Command {
      * @param storage The storage object for reading from or writing to a data file.
      */
     @Override
-    public void execute(TaskList tasks , Ui ui, Storage storage) {
-        Ui.showLine();
-        tasks.printTasks();
-        Ui.showLine();
+    public String execute(TaskList tasks , Ui ui, Storage storage) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(tasks.printTasks());
+        return sb.toString();
     }
     @Override
     public boolean isExit() {

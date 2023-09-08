@@ -32,14 +32,13 @@ public class TaskList {
      *
      * @param t The task to add.
      */
-    public void addTask(Task t) {
+    public String addTask(Task t) {
+        StringBuilder sb = new StringBuilder();
         this.taskList.add(t);
-        Ui.showLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(t);
-        System.out.println("Now you have " + this.taskList.size() + " in the list.");
-        Ui.showLine();
-
+        sb.append("Got it. I've added this task:\n");
+        sb.append(t + "\n" );
+        sb.append("Now you have " + this.taskList.size() + " in the list." + "\n" );
+        return sb.toString();
     }
 
     /**
@@ -56,15 +55,15 @@ public class TaskList {
      *
      * @param i The index of the task to delete.
      */
-    public void deleteTask(int i) {
+    public String deleteTask(int i) {
         Task t = this.taskList.get(i);
         this.taskList.remove(i);
         int length = this.taskList.size();
-        Ui.showLine();
-        System.out.println("Noted! I've removed this task:");
-        System.out.println(t);
-        System.out.println("Now you have " + length + " tasks in the list.");
-        Ui.showLine();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Noted! I've removed this task:" + "\n" );
+        sb.append(t + "\n" );
+        sb.append("Now you have " + length + " tasks in the list." + "\n" );
+        return sb.toString();
     }
 
     /**
@@ -72,31 +71,33 @@ public class TaskList {
      *
      * @param s The string to search among the tasks
      */
-    public void findMatching(String s) {
+    public String findMatching(String s) {
         int index = 1;
-        Ui.showLine();
-        System.out.println("Here are the matching tasks in your list:");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the matching tasks in your list:" + "\n" );
         for (Task t : this.taskList) {
             if (t.contains(s)) {
-                System.out.println(index + "." + t);
+                sb.append(index + "." + t + "\n" );
                 index += 1;
             }
         }
-        Ui.showLine();
+        return sb.toString();
     }
 
     /**
      * Prints the tasks in the list.
      */
-    public void printTasks() {
+    public String printTasks() {
         int len = this.taskList.size();
-        System.out.println("Here are the tasks in your list:");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks in your list:" + "\n");
         for (int i = 0; i < len; i++) {
             int taskNumber = i + 1;
             Task t = this.taskList.get(i);
-            System.out.println(taskNumber
+            sb.append(taskNumber
                     + "."
-                    + t);
+                    + t + "\n");
         }
+        return sb.toString();
     }
 }

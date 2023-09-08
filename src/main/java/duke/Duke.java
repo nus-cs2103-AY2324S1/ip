@@ -12,6 +12,15 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
     private Storage storage;
+    public Duke() {
+        this.ui = new Ui();
+        this.storage = new Storage("./data/duke.txt");
+        try {
+            tasks = new TaskList(this.storage.readTasksFromFile());
+        } catch (FileNotFoundException e) {
+            tasks = new TaskList();
+        }
+    }
 
     /**
      * Constructs a Duke instance with the specified file path.
@@ -41,11 +50,23 @@ public class Duke {
         }
     }
 
-    /**
-     * Main method for the Duke instance.
-     * @param args The command line arguments.
-     */
-    public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+    String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            String response = command.execute(tasks, ui, storage);
+            if (command.isExit()) {
+                javafx.application.Platform.exit();
+            }
+            return response;
+        } catch (DukeException e) {
+            return Ui.showError(e);
+        }
+    }
+
+    String getWelcomeMessage() {
+        return Ui.greet();
     }
 }
+
+
+
