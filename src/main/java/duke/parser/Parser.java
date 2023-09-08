@@ -2,6 +2,8 @@ package duke.parser;
 
 import static duke.parser.TaskParser.parseTask;
 
+import java.util.HashMap;
+
 import duke.DukeException;
 import duke.command.AddCommand;
 import duke.command.Command;
@@ -12,6 +14,7 @@ import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
+
 
 /**
  * Handles the parsing of user input commands and creates corresponding Command objects.
@@ -71,21 +74,39 @@ public class Parser {
             }
             return new MarkCommand(targetIndex);
         } else if (input.startsWith("edit")) {
-            String[] split = input.split(" /new ", 2);
-            if (split.length == 1) {
-                throw new DukeException("Edit must have a /new.");
-            } else if (split[0].length() < 5) {
-                throw new DukeException("Task number to be edited cannot be empty.");
+
+            String[] tokens = input.split(" ", 2);
+            if (tokens.length == 0) {
+                throw new DukeException("Task number to edit cannot be empty.");
             }
-            String index = split[0].substring(5);
+            String[] params = tokens[1].split("\\s*/");
+            HashMap<String, String> paramsMap = new HashMap<>();
+
+            if (params.length < 1) {
+                throw new DukeException("Task number to edit cannot be empty.");
+            }
+            if (params.length == 1) {
+                throw new DukeException("Edit at least 1 attribute:\n\nedit <index> /<attribute> <new value>");
+            }
+
+            for (int i = 1; i < params.length; i++) {
+                String param = params[i];
+                String[] pair = param.trim().split("\\s+", 2);
+                if (pair.length != 2) {
+                    throw new DukeException("Parameter must have a value");
+                }
+
+                paramsMap.put(pair[0], pair[1]);
+            }
+
+            String index = params[0];
             int targetIndex;
             try {
                 targetIndex = Integer.parseInt(index);
             } catch (NumberFormatException e) {
                 throw new DukeException("Task to be edited must be a number.");
             }
-            String task = split[1];
-            return new EditCommand(targetIndex, parseTask(task));
+            return new EditCommand(targetIndex, paramsMap);
         } else if (input.startsWith("delete")) {
             if (input.length() < 7) {
                 throw new DukeException("Task number to be deleted cannot be empty.");

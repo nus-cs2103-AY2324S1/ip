@@ -1,9 +1,10 @@
 package duke.command;
 
+import java.util.Map;
+
 import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
-import duke.task.Task;
 import duke.ui.Ui;
 
 /**
@@ -11,16 +12,16 @@ import duke.ui.Ui;
  */
 public class EditCommand extends Command {
     private int index;
-    private Task task;
+    private Map<String, String> params;
 
     /**
      * Constructs an EditCommand object with the specified task to be edit.
      *
      * @param index The index of the task to be deleted.
      */
-    public EditCommand(int index, Task task) {
+    public EditCommand(int index, Map<String, String> params) {
         this.index = index;
-        this.task = task;
+        this.params = params;
     }
 
     /**
@@ -33,7 +34,7 @@ public class EditCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        tasks.editTask(index, task, ui);
+        tasks.editTask(index, params, ui);
         storage.saveFile(tasks);
     }
 }

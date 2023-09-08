@@ -1,9 +1,14 @@
 package duke.task;
 
+import java.util.Map;
+
+import duke.DukeException;
+
+
 /**
  * Represents a task in the Duke application.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -66,4 +71,6 @@ public class Task {
     public String toSaveLine() {
         return ("");
     }
+
+    public abstract void update(Map<String, String> params) throws DukeException;
 }

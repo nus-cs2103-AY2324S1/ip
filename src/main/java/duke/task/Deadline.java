@@ -2,6 +2,11 @@ package duke.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
+
+import duke.DukeException;
+import duke.parser.TaskParser;
+
 
 /**
  * Represents a task with a specific deadline in the Duke application.
@@ -40,5 +45,16 @@ public class Deadline extends Task {
     public String toSaveLine() {
         return String.format("D | %d | %s | %s", isDone ? 1 : 0, description,
             byDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+    }
+
+    @Override
+    public void update(Map<String, String> params) throws DukeException {
+        TaskParser.checkForExtraParams(params, "desc", "by");
+        if (params.containsKey("desc")) {
+            this.description = params.get("desc");
+        }
+        if (params.containsKey("by")) {
+            this.byDateTime = TaskParser.parseDateTime(params.get("by"));
+        }
     }
 }

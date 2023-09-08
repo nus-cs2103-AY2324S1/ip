@@ -24,7 +24,8 @@
             </ScrollPane>
 
             <HBox alignment="CENTER" spacing="5.0">
-                <TextField fx:id="userInput" prefHeight="60.0" prefWidth="600.0" HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="userInput" prefHeight="60.0" prefWidth="600.0" HBox.hgrow="ALWAYS"
+                           onAction="#handleUserInput"/>
                 <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="60.0"
                         prefWidth="100.0" text="Send"/>
             </HBox>

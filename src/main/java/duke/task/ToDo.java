@@ -1,5 +1,10 @@
 package duke.task;
 
+import java.util.Map;
+
+import duke.DukeException;
+import duke.parser.TaskParser;
+
 /**
  * Represents a task that is a ToDo in the Duke application.
  */
@@ -32,5 +37,13 @@ public class ToDo extends Task {
     @Override
     public String toSaveLine() {
         return String.format("T | %d | %s", isDone ? 1 : 0, description);
+    }
+
+    @Override
+    public void update(Map<String, String> params) throws DukeException {
+        TaskParser.checkForExtraParams(params, "desc");
+        if (params.containsKey("desc")) {
+            this.description = params.get("desc");
+        }
     }
 }
