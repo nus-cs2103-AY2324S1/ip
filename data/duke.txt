@@ -1,3 +1,8 @@
-D | 1 | submit lab | 31/08/2023 2359
-D | 0 | submit lab | 31/08/2023 0000
-E | 0 | NUS Hackers | 8/09/2023 1900 | 8/09/2023 2100
+E | 1 | NUS Hackers | 8/09/2023 1900 | 8/09/2023 2100
+T | 0 | read book
+D | 0 | submit CS2106 lab | 10/09/2023 2359
+T | 0 | find my car key
+D | 0 | CS2103T quiz | 13/09/2023 2359
+E | 0 | Block Event | 12/09/2023 1800 | 12/09/2023 2300
+T | 0 | buy slippers
+T | 0 | buy laundry pods at Clementi

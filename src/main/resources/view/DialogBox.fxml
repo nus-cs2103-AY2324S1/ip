@@ -5,10 +5,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="800.0" style="-fx-background-color: #CFECEC; -fx-border-color: #ADDFFF;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.text.Text?>
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="800.0" style="-fx-border-color: #ADDFFF;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" text="Label" wrapText="true" />
-        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
+<!--        <Label fx:id="dialog" text="Label" wrapText="true" style="-fx-font-family: 'Andale Mono'; -fx-font-size: 15px; -fx-padding: 0px 15px; -fx-border-insets: 15px; -fx-background-insets: 15px;" />-->
+        <Text fx:id="dialog" text="Label" style="-fx-background-color: #CFECEC; -fx-highlight-text-fill: #CFECEC; -fx-font-family: 'Andale Mono'; -fx-font-size: 15px; -fx-padding: 30px; -fx-border-insets: 15px; -fx-background-insets: 15px; " />
+        <ImageView fx:id="displayPicture" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />

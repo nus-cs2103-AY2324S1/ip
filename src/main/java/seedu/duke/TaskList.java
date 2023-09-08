@@ -45,7 +45,7 @@ public class TaskList {
     public String listOutEverything() {
         String response = "Here are the tasks in your list:\n";
         for (int i = 0; i < this.list.size(); i++) {
-            response += (Ui.I5 + (i + 1) + "." + this.list.get(i) + "\n");
+            response += ((i + 1) + "." + this.list.get(i) + "\n");
         }
         return response;
     }
