@@ -1,13 +1,13 @@
 package haste.commands;
 
+import java.time.LocalDateTime;
+
 import haste.data.TaskList;
 import haste.tasks.Deadline;
 import haste.tasks.Event;
 import haste.tasks.Task;
 import haste.tasks.ToDo;
 import haste.ui.Ui;
-
-import java.time.LocalDateTime;
 
 /**
  * Represents a command that adds tasks to a TaskList.
@@ -74,6 +74,8 @@ public class AddCommand extends Command {
         case "e":
             newTask = new Event(this.taskDesc, this.start, this.end, false);
             break;
+        default:
+            newTask = new ToDo("error", false);
         }
         tasks.addTask(newTask);
         return ui.add(newTask.toString(), tasks);

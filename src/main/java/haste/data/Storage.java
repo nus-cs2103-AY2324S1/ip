@@ -1,16 +1,16 @@
 package haste.data;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 import haste.commands.Parser;
 import haste.tasks.Deadline;
 import haste.tasks.Event;
 import haste.tasks.Task;
 import haste.tasks.ToDo;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 /**
  * Represents a storage for data to be stored.
@@ -57,7 +57,7 @@ public class Storage {
         try {
             Scanner scanner = new Scanner(this.file);
             if (scanner.hasNextLine()) {
-               System.out.println("loading tasks from saved files...");
+                System.out.println("loading tasks from saved files...");
             }
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -94,6 +94,8 @@ public class Storage {
         case "e":
             newTask = new Event(description, Parser.parseTime(words[3]), Parser.parseTime(words[4]), isComplete);
             break;
+        default:
+            newTask = new ToDo("error", isComplete);
         }
 
         return newTask;
@@ -120,7 +122,7 @@ public class Storage {
      */
     public void save(TaskList tasks) {
         create();
-        for (Task task: tasks.taskList) {
+        for (Task task: tasks.getTasks()) {
             write(task.toSaveFormat() + "\n");
         }
     }

@@ -13,7 +13,7 @@ public abstract class Task {
      * @param description Task description.
      * @param isComplete Completion status of Task.
      */
-    public Task(String description, boolean isComplete){
+    public Task(String description, boolean isComplete) {
         this.description = description;
         this.isComplete = isComplete;
     }
@@ -45,7 +45,7 @@ public abstract class Task {
      * @return String representation of Task.
      */
     public String toSaveFormat() {
-       return this.isComplete + "|" + this.description;
+        return this.isComplete + "|" + this.description;
     }
 
     public String getDescription() {

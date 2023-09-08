@@ -7,7 +7,7 @@ import haste.ui.Ui;
 /**
  * Represents a command that marks a specific task as undone.
  */
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
     private int index;
 
     /**

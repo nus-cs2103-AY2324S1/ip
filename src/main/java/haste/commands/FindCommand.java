@@ -3,8 +3,6 @@ package haste.commands;
 import haste.data.TaskList;
 import haste.ui.Ui;
 
-import java.util.ArrayList;
-
 /**
  * Represents a command which finds tasks containing keyword.
  */
