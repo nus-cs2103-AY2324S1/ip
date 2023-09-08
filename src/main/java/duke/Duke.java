@@ -26,11 +26,10 @@ public class Duke {
     }
 
     public void run() {
-        ui.intromsg();
-
+        ui.introMessage();
         Scanner scan = new Scanner(System.in);
-
         String userinput = scan.nextLine();
+
         while (!userinput.equalsIgnoreCase("bye")) {
             try {
                 parser.parse(userinput);
@@ -39,7 +38,8 @@ public class Duke {
             }
             userinput = scan.nextLine();
         }
-        ui.byemsg();
+
+        ui.byeMessage();
     }
 
 
@@ -49,7 +49,7 @@ public class Duke {
         }
     }
 
-    public static void cansplit(String input, String splitter) throws DukeException {
+    public static void canSplit(String input, String splitter) throws DukeException {
         if (input.split(splitter).length == 1) {
             throw new DukeException("☹ OOPS!!!");
         }

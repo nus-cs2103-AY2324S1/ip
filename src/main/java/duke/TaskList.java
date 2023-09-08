@@ -10,16 +10,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskList {
-    private ArrayList<Task> tasklist;
+    private ArrayList<Task> taskList;
 
     TaskList(File file) throws DukeException {
-        this.tasklist = new ArrayList<Task>();
+        this.taskList = new ArrayList<Task>();
         try {
             Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
                 String data = reader.nextLine();
                 try {
-                    tasklist.add(Parser.ParseFileInfo(data));
+                    taskList.add(Parser.parseFileInfo(data));
                 } catch (DukeException e) {
                     System.out.println(e);
                 }
@@ -30,10 +30,10 @@ public class TaskList {
     }
 
     TaskList() {
-        this.tasklist = new ArrayList<Task>();
+        this.taskList = new ArrayList<Task>();
     }
 
     public ArrayList<Task> list() {
-        return tasklist;
+        return taskList;
     }
 }
