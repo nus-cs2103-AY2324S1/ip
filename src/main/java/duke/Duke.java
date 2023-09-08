@@ -7,11 +7,16 @@ import exception.EmptyInputException;
 import exception.InvalidCommandException;
 import exception.InvalidDateTimeException;
 import exception.InvalidFormatException;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 
 /**
  * Duke is the chatbot program.
  */
-public class Duke extends {
+public class Duke {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
@@ -28,12 +33,11 @@ public class Duke extends {
     }
 
     /**
-     * The main function which will run when the user starts the chatbot.
-     *
-     * @param args
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    public static void main(String[] args) {
-        new Duke("./data/paimon.txt").run();
+    public String getResponse(String input) {
+        return "Paimon heard: " + input;
     }
 
     /**
