@@ -41,6 +41,8 @@ public class Parser {
             return new DeadlineCommand(arguments);
         case "event":
             return new EventCommand(arguments);
+        case "find":
+            return new FindCommand(arguments);
         default:
             throw new DukeException("Invalid Command: " + command + " , Please Try Again...");
         }

@@ -53,9 +53,11 @@ public class Storage {
      */
     public TaskList load() throws DukeException {
         try {
+
             File save = new File(this.savePath);
             Scanner scanner = new Scanner(save);
             TaskList taskList = new TaskList();
+
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 if (line.length() != 0) {
