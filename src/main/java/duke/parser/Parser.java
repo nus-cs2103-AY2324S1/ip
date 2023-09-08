@@ -29,7 +29,7 @@ public class Parser {
             String keyword = tokens[0].strip();
             String details = tokens.length > 1 ? tokens[1].strip() : null;
 
-            switch (keyword) {
+            switch (keyword.toLowerCase()) {
             case "bye":
                 return new ByeCommand();
             case "list":
