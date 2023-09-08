@@ -1,7 +1,7 @@
 package duke.task;
 
 /**
- * The duke.task.Event class represents a task of type "duke.task.Event" inherited from the duke.task.Task class.
+ * The Event class represents a task of type "duke.task.Event" inherited from Task class.
  * It contains a description and a time interval during which the event occurs.
  */
 public class Event extends Task {
@@ -11,7 +11,7 @@ public class Event extends Task {
     /**
      * Constructs a new Event task with the provided description and time interval.
      *
-     * @param description The description of the duke.task.Event duke.task.
+     * @param description The description of the Event duke.task.
      * @param start       The start time of the event.
      * @param end         The end time of event
      */

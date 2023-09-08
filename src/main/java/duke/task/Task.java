@@ -11,7 +11,7 @@ public class Task {
     /**
      * Constructs a new Task instance with a given description.
      *
-     * @param description The description of the duke.task.
+     * @param description The description of the task.
      */
     public Task(String description) {
         this.description = description;
