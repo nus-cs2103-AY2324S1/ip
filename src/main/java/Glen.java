@@ -1,10 +1,18 @@
 import java.util.Scanner;
 
+/**
+ * Glen is a chatbot that helps you keep track of your tasks.
+ */
 public class Glen {
     static final String HORLINE = "_____________________________________________________\n";
     private static Storage storage = new Storage("./data/tasks.txt");
     static TaskList tasks = new TaskList();
     
+    /**
+     * Main method that runs the chatbot.
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         tasks = storage.read();
 
@@ -86,6 +94,11 @@ public class Glen {
         scan.close();
     }
     
+    /**
+     * Returns the introduction text.
+     * 
+     * @return String of introduction text.
+     */
     static String intro() {
         String logo = "  _____ _            \n" +
                       " / ____| |           \n" +
@@ -98,6 +111,11 @@ public class Glen {
         return HORLINE + logo + introText + HORLINE;
     }
 
+    /**
+     * Returns the exit text.
+     * 
+     * @return String of exit text.
+     */
     static String exit() {
         return HORLINE + "Bye. Hope to see you again soon!\n" + HORLINE;
     }
