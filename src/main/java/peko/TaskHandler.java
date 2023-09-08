@@ -103,11 +103,12 @@ public class TaskHandler {
                     return delete(description);
                 case COPYPASTA:
                     try {
-                        StorageHandler.degen();
+                        return StorageHandler.degen();
                     } catch (FileNotFoundException e) {
-                        System.out.println("Hentai!");
+                        return "Hentai!";
+
                     } finally {
-                        return false;
+                        return "Something Went Wrong Peko....";
                     }
                 case OTSUPEKO:
                     SaveHandler.saveTo();

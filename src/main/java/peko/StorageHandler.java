@@ -48,14 +48,17 @@ public class StorageHandler {
         return out;
     }
     public static String setUnmarkArray(int i) {
+        String out = "";
         try {
             todoList[i-1].setUnmark();
-            System.out.println("You haven't done this yet peko?!");
-            System.out.println("    " + todoList[i-1]);
+            out += ("You haven't done this yet peko?!\n");
+            out += ("    " + todoList[i-1]);
             SaveHandler.saveTo();
         } catch (NullPointerException e) {
-            System.out.println("You don't have so many Tasks Peko!");
+            out = ("You don't have so many Tasks Peko!");
         }
+        System.out.println(out);
+        return out;
 
     }
 
@@ -86,12 +89,15 @@ public class StorageHandler {
         size--;
         SaveHandler.saveTo();
     }
-    public static void degen() throws FileNotFoundException {
+    public static String degen() throws FileNotFoundException {
         File text = new File("src/main/Copypasta.txt");
         Scanner sc = new Scanner(text);
+        String out = "";
         while (sc.hasNextLine()) {
-            System.out.println(sc.nextLine());
+            String temp = (sc.nextLine() + "\n");
+            out += temp;
         }
+        return out;
     }
 
 }
