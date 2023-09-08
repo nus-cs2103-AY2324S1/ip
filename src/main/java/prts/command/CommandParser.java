@@ -73,11 +73,11 @@ public class CommandParser {
             }
 
             try {
-                String[] eventSplit1 = detail.split("/from", 2);
-                String[] eventSplit2 = eventSplit1[1].split("/to", 2);
-                String eventDescription = eventSplit1[0].strip();
-                String startDate = eventSplit2[0].strip();
-                String endDate = eventSplit2[1].strip();
+                String[] splitDescriptionDate = detail.split("/from", 2);
+                String[] splitDates = splitDescriptionDate[1].split("/to", 2);
+                String eventDescription = splitDescriptionDate[0].strip();
+                String startDate = splitDates[0].strip();
+                String endDate = splitDates[1].strip();
                 if (eventDescription.isBlank() || startDate.isBlank() || endDate.isBlank()) {
                     throw new ParsingException(ParsingException.ExceptionType.MISSING_DETAIL);
                 }
