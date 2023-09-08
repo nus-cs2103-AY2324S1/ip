@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import bot.exceptions.InvalidIndexException;
+import bot.utils.tasks.Task;
 
 /**
  * Bot.Task list abstraction. Functions like an arraylist but may not contain one.
@@ -79,7 +80,7 @@ public class TaskList {
      *
      * @return Iterator of Task objects.
      */
-    public Iterator<Task> iterator() {
+    public Iterator<Task> getIterator() {
         return this.list.iterator();
     }
 
