@@ -102,6 +102,12 @@ public class TaskManager {
 
     }
 
+    /**
+     * Finds the tasks that has description that matches the pattern.
+     *
+     * @param pattern The pattern to be matched.
+     * @return The string representation of task found.
+     */
     public String find(String pattern) {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the matching tasks in your list:\n");
