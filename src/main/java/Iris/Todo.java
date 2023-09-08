@@ -33,7 +33,7 @@ public class Todo extends Task {
     public static Todo readTaskFromFile(String[] args) {
         Todo newTodoTask = new Todo(args[2]);
         if (args[1].equals("1")) {
-            newTodoTask.markDone();
+            newTodoTask.markAsDone();
         }
         return newTodoTask;
     }

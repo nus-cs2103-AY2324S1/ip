@@ -59,11 +59,11 @@ public class ToDoList {
      * @param index The index of the task to be marked as done.
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
-    public void mark(int index) {
+    public void markTask(int index) {
         if (index < 1 || index > list.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range.");
         }
-        list.get(index - 1).markDone();
+        list.get(index - 1).markAsDone();
     }
 
     /**
@@ -72,11 +72,11 @@ public class ToDoList {
      * @param index The index of the task to be marked as undone.
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
-    public void unmark(int index) {
+    public void unmarkTask(int index) {
         if (index < 1 || index > list.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range.");
         }
-        list.get(index - 1).markUndone();
+        list.get(index - 1).markAsUndone();
     }
 
     /**

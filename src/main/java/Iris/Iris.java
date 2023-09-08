@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Iris {
     private final Storage taskStorage;
     private final Parser commandParser;
-    private static ToDoList toDoList;
+    private ToDoList toDoList;  // Remove static modifier
 
     /**
      * Constructor for the Iris class.

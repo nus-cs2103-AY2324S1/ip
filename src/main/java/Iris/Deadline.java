@@ -53,7 +53,7 @@ public class Deadline extends Task {
     public static Deadline readTaskFromFile(String[] args) {
         Deadline newDeadlineTask = new Deadline(args[2], args[3]);
         if (args[1].equals("1")) {
-            newDeadlineTask.markDone();
+            newDeadlineTask.markAsDone();
         }
         return newDeadlineTask;
     }

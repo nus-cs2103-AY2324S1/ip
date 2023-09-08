@@ -40,7 +40,7 @@ public class Parser {
                     throw new IllegalArgumentException("Index is missing.");
                 }
                 int index = Integer.parseInt(rest);
-                toDoList.mark(index);
+                toDoList.markTask(index);
                 Task task = toDoList.get(index);
                 Ui.markTaskMsg(task);
                 break;
@@ -50,7 +50,7 @@ public class Parser {
                     throw new IllegalArgumentException("Index is missing.");
                 }
                 int index = Integer.parseInt(rest);
-                toDoList.unmark(index);
+                toDoList.unmarkTask(index);
                 Task task = toDoList.get(index);
                 Ui.unmarkTaskMsg(task);
                 break;

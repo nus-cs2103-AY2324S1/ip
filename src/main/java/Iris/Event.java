@@ -1,5 +1,4 @@
 package iris;
-
 /**
  * Represents an event task with a start and end time.
  */
@@ -61,7 +60,7 @@ public class Event extends Task {
         String[] eventTime = args[3].split("-");
         Event newEventTask = new Event(args[2], eventTime[0], eventTime[1]);
         if (args[1].equals("1")) {
-            newEventTask.markDone();
+            newEventTask.markAsDone();
         }
         return newEventTask;
     }
@@ -77,3 +76,4 @@ public class Event extends Task {
                 this.startTime, this.endTime);
     }
 }
+
