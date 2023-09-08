@@ -23,7 +23,7 @@ public class ByeCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Response response, Storage storage) {
-        return "";
+        return "Bye.";
     }
 
     /**
