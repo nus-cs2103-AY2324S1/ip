@@ -5,6 +5,7 @@ import dude.command.DeleteTaskCommand;
 import dude.command.DudeCommand;
 import dude.command.DudeCommandId;
 import dude.command.ExitCommand;
+import dude.command.FindTaskCommand;
 import dude.command.ListTasksCommand;
 import dude.command.MarkTaskCommand;
 import dude.command.UnmarkTaskCommand;
@@ -14,6 +15,7 @@ import dude.exception.EventStartMissingException;
 import dude.exception.InvalidCommandException;
 import dude.exception.InvalidDateTimeArgumentException;
 import dude.exception.InvalidTaskIndexException;
+import dude.exception.SearchStringMissingException;
 import dude.exception.TaskDeadlineMissingException;
 import dude.exception.TaskDescriptionMissingException;
 import dude.exception.TaskIndexMissingException;
@@ -165,6 +167,24 @@ public class Parser {
   }
 
   /**
+   * Parses find command.
+   *
+   * @param input Input command.
+   * @return Find command.
+   * @throws SearchStringMissingException If substring to search is missing.
+   */
+  public static FindTaskCommand parseFind(String input)
+    throws SearchStringMissingException {
+    String[] splitInput = input.split(" ", 2);
+    if (splitInput.length < 2) {
+      // search string not specified
+      throw new SearchStringMissingException();
+    }
+    String searchString = splitInput[1];
+    return new FindTaskCommand(searchString);
+  }
+
+  /**
    * Parses text input and returns dude.command.DudeCommand instance.
    *
    * @param input Input to parse.
@@ -196,6 +216,8 @@ public class Parser {
           return parseDeadline(input);
         case event:
           return parseEvent(input);
+        case find:
+          return parseFind(input);
         default:
           throw new InvalidCommandException();
       }

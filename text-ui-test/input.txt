@@ -25,6 +25,11 @@ todo a
 todo b
 todo c
 list
+find
+find party
+find meeting
+find project meeting
+find a
 remove 2
 delete 2
 list

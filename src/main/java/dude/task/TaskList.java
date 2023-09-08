@@ -17,6 +17,10 @@ public class TaskList {
 
   public static final String taskListPrefix = "Here's your tasks list:\n";
 
+  public static final String SEARCH_RESULTS_PREFIX = "Here are the matching tasks in your list:\n";
+
+  public static final String NO_SEARCH_RESULTS_MSG = "Couldn't find any tasks matching \"%s\".";
+
   /**
    * Constructor for empty TaskList.
    */
@@ -81,6 +85,45 @@ public class TaskList {
   }
 
   /**
+   * Finds list of tasks with descriptions containing given substring.
+   *
+   * @param substring Substring to search (case-insensitive).
+   * @return ArrayList of tasks with given keyword.
+   */
+  public ArrayList<Task> search(String substring) {
+    ArrayList<Task> results = new ArrayList<>();
+    for (Task task : tasks) {
+      if (task.description.toLowerCase().contains(substring.strip().toLowerCase())) {
+        results.add(task);
+      }
+    }
+    return results;
+  }
+
+  /**
+   * Finds list of tasks with descriptions containing given substring.
+   *
+   * @param substring Substring to search (case-insensitive).
+   * @return String list of tasks with given keyword.
+   */
+  public String displaySearch(String substring) {
+    StringBuilder tasksList = new StringBuilder(SEARCH_RESULTS_PREFIX);
+    for (int i = 0; i < tasks.size(); i++) {
+      Task task = tasks.get(i);
+      if (task.description.toLowerCase().contains(substring.strip().toLowerCase())) {
+        String taskNumberPrefix = String.format("%3s-", i + 1);
+        String taskStr = taskNumberPrefix + task + "\n";
+        tasksList.append(taskStr);
+      }
+    }
+    if (tasksList.toString().equals(SEARCH_RESULTS_PREFIX)) {
+      return String.format(NO_SEARCH_RESULTS_MSG, substring);
+    } else {
+      return tasksList.toString();
+    }
+  }
+
+  /**
    * Returns list of all tasks as a string.
    *
    * @return Tasks list formatted as a string.
@@ -91,7 +134,7 @@ public class TaskList {
       return emptyTaskList;
     }
     StringBuilder tasksList = new StringBuilder(taskListPrefix);
-    for (int i = 0; i < getNumTasks(); i++) {
+    for (int i = 0; i < tasks.size(); i++) {
       String taskNumberPrefix = String.format("%3s-", i + 1);
       String taskStr = taskNumberPrefix + tasks.get(i).toString() + "\n";
       tasksList.append(taskStr);
