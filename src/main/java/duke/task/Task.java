@@ -6,8 +6,8 @@ import java.time.LocalDate;
  * Represents a task.
  */
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
+    private String description;
+    private boolean isDone;
 
     /**
      * Constructor for Task.
@@ -58,6 +58,15 @@ public abstract class Task {
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * Returns the status of the event
+     *
+     * @return a boolean representing the status of the event
+     */
+    public boolean getIsDone() {
+        return isDone;
     }
 
     /**
