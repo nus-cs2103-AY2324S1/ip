@@ -1,7 +1,11 @@
 package joi.utils;
 
+import joi.parser.DateTimeParse;
+
+import java.util.Date;
+
 public class Deadline extends Task {
-    private final String end;
+    private final Date end;
 
     public Deadline (String description) throws InvalidCommandException {
         super();
@@ -16,14 +20,14 @@ public class Deadline extends Task {
             throw new InvalidCommandException("Deadline has to have an end date.");
         }
         this.description = tokens[0];
-        this.end = tokens[1];
+        this.end = DateTimeParse.parseDateTime(tokens[1]);
     }
 
     public Deadline(String description, String end, boolean status) {
         super();
 
         this.description = description;
-        this.end = end;
+        this.end = DateTimeParse.parseDateTime(end);
         this.isDone = status;
     }
 
