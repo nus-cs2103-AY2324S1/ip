@@ -22,6 +22,7 @@ public class Parser {
         String[] userInput = rawCommand.split(" ", 2);
         String command = userInput[0];
         String arguments = userInput.length == 2 ? userInput[1] : null;
+
         switch (command) {
         case "bye":
             return new ByeCommand();

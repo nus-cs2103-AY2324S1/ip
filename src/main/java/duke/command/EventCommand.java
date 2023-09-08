@@ -37,7 +37,11 @@ public class EventCommand extends NonemptyArgumentCommand implements Command {
      */
     @Override
     protected void validate(String arguments) throws DukeException {
+
+        // Validate Inherited Rules
         super.validate(arguments);
+
+        // Ensure /from is present
         String[] userArgs = arguments.split("/from ");
         if (userArgs.length != 2) {
             throw new DukeException("Missing Argument for command: "
@@ -45,17 +49,23 @@ public class EventCommand extends NonemptyArgumentCommand implements Command {
                     + ", should include /from YYYY-MM-DD /to YYYY-MM-DD");
         }
         String desc = userArgs[0];
+
+        // Ensure /to is present
         String[] subcommandArgs = userArgs[1].split("/to ");
         if (subcommandArgs.length != 2) {
             throw new DukeException("Missing Argument for command: "
                     + commandString
                     + ", should include /from YYYY-MM-DD /to YYYY-MM-DD");
         }
+
+        // Ensure dates are not empty
         if (Objects.equals(subcommandArgs[0], "") || Objects.equals(subcommandArgs[1], "")) {
             throw new DukeException("Missing Argument for command: "
                     + commandString
                     + ", should include /from YYYY-MM-DD /to YYYY-MM-DD");
         }
+
+        // Ensure valid dates
         try {
             LocalDate date = LocalDate.parse(subcommandArgs[0].trim());
             date = LocalDate.parse(subcommandArgs[1].trim());
@@ -76,16 +86,28 @@ public class EventCommand extends NonemptyArgumentCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
+
+        // Execute default statements
+        Command.super.execute(taskList, ui, storage);
+
         validate(this.arguments);
+
         String[] userArgs = arguments.split("/from |/to ");
         LocalDate from = LocalDate.parse(userArgs[1].trim());
         LocalDate to = LocalDate.parse(userArgs[2].trim());
+
+        assert !Objects.equals(userArgs[0], "");
+        assert from != null;
+        assert to != null;
+
         taskList.add(new Event(userArgs[0].trim(), from, to));
+        
         if (ui != null) {
             ui.sendMessage("Got it. I've added this task:\n  "
                     + taskList.get(taskList.size() - 1)
                     + String.format("\nNow you have %d tasks in the list.", taskList.size()));
         }
+
         storage.updateFile(taskList, ui);
     }
 

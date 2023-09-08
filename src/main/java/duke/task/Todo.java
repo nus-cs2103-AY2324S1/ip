@@ -16,7 +16,6 @@ public class Todo extends Task {
 
     @Override
     public String getSaveString() {
-
         return String.format("%d todo %s", getIsDone() ? 1 : 0, getDescription().trim());
     }
 }

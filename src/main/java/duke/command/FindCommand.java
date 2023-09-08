@@ -19,11 +19,17 @@ public class FindCommand extends NonemptyArgumentCommand implements Command {
 
     @Override
     protected void validate(String arguments) throws DukeException {
+
+        // Validate Inherited Rules
         super.validate(arguments);
     }
 
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
+      
+        // Execute default statements
+        Command.super.execute(taskList, ui, storage);
+
         ui.sendMessage(taskList.getTasksMatchingQuery(this.argument));
     }
 }

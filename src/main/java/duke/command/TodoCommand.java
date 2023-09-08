@@ -33,6 +33,7 @@ public class TodoCommand extends NonemptyArgumentCommand implements Command {
      */
     @Override
     protected void validate(String arguments) throws DukeException {
+        // Validate Inherited Rules
         super.validate(arguments);
     }
 
@@ -46,13 +47,20 @@ public class TodoCommand extends NonemptyArgumentCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
+
+        // Execute default statements
+        Command.super.execute(taskList, ui, storage);
+
         validate(this.arguments);
+
         taskList.add(new Todo(this.arguments));
+
         if (ui != null) {
             ui.sendMessage("Got it. I've added this task:\n  "
                     + taskList.get(taskList.size() - 1)
                     + String.format("\nNow you have %d tasks in the list.", taskList.size()));
         }
+
         storage.updateFile(taskList, ui);
     }
 

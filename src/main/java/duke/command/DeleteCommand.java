@@ -31,13 +31,21 @@ public class DeleteCommand extends NumberedChoiceCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
+
+        // Execute default statements
+        Command.super.execute(taskList, ui, storage);
+
         validate(taskList);
+
         int choice = Integer.parseInt(arguments) - 1;
+        assert choice >= 0 && choice < taskList.size();
+
         if (ui != null) {
             ui.sendMessage("Noted. I've removed this task:\n  "
                     + taskList.get(choice)
                     + String.format("\nNow you have %d tasks in the list.", taskList.size() - 1));
         }
+
         taskList.remove(choice);
         storage.updateFile(taskList, ui);
     }
@@ -52,7 +60,11 @@ public class DeleteCommand extends NumberedChoiceCommand implements Command {
      * @throws DukeException if arguments are invalid
      */
     private void validate(TaskList taskList) throws DukeException {
+
+        // Validate Inherited Rules
         super.validate(this.arguments);
+
+        // Ensure valid numerical choice
         int choice = Integer.parseInt(arguments) - 1;
         if (choice < 0 || choice >= taskList.size()) {
             throw new DukeException("Argument Provided out of range: " + (choice + 1));

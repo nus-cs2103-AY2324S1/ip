@@ -16,7 +16,10 @@ public abstract class NumberedChoiceCommand extends NonemptyArgumentCommand {
      * @throws DukeException if arguments are invalid
      */
     protected void validate(String arguments) throws DukeException {
+
+        // Validate inherited rules
         super.validate(arguments);
+
         try {
             int i = Integer.parseInt(arguments) - 1;
         } catch (NumberFormatException e) {
