@@ -7,7 +7,19 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Deals with the user command.
+ */
 public class Parser {
+    /**
+     * Processes the user's command.
+     *
+     * @param command The command user types.
+     * @param ui The chatbot's ui.
+     * @param taskList The list of tasks.
+     * @param storage The storage of tasks.
+     * @throws DukeException If the command is invalid.
+     */
     public void processCommand(String command, Ui ui, TaskList taskList, Storage storage) throws DukeException {
         if (command.equals("bye")) {
             ui.bye();
@@ -54,6 +66,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Processes command to add task to the task list.
+     * @param task Task to be added to list.
+     * @param ui The chatbot's ui.
+     * @param taskList The list of tasks.
+     * @throws DukeException If the task is invalid.
+     */
     public void addTask(String task, Ui ui, TaskList taskList) throws DukeException {
         if (task.startsWith("todo")) {
             if (task.length() < 6) throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");

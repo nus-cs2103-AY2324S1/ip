@@ -11,6 +11,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Represents the chatbot that can store tasks.
+ */
 public class Duke {
     private Storage storage;
     private Parser parser;
@@ -37,6 +40,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the program.
+     */
     public void run() {
         ui.hello();
         Scanner in = new Scanner(System.in);
