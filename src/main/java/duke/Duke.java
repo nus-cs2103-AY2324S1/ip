@@ -1,9 +1,12 @@
+package duke;
+
 import java.util.Scanner;
-import duke.TaskList.TaskList;
-import duke.Ui.Ui;
+
+import duke.DukeException.DukeException;
 import duke.Parser.Parser;
 import duke.Storage.Storage;
-import duke.DukeException.DukeException;
+import duke.TaskList.TaskList;
+import duke.Ui.Ui;
 /**
  * Chatbot that can list tasks.
  */
@@ -26,44 +29,35 @@ public class Duke {
     private Storage storage;
 
     /**
-     * Constructs the instance of the Duke.
+     * Constructs the instance of the duke.Duke.
      */
     public Duke() {
         this.ui = new Ui();
         this.storage = new Storage();
         this.sc = new Scanner(System.in);
-    }
-
-    /**
-     * Runs the chatbot.
-     */
-    public void run() {
-        this.ui.Hello();
         try {
             this.storage.createStorage();
             this.tasks = this.storage.getStorage();
         } catch (DukeException e) {
             this.ui.error(e);
         }
-        while (this.sc.hasNextLine()) {
-            try {
-                String input = this.sc.nextLine();
-                Parser.parse(input, ui, storage, tasks);
-                if (input.toUpperCase().equals("BYE")) {
-                    this.sc.close();
-                    break;
-                }
-            } catch (DukeException e) {
-                this.ui.error(e);
-            }
-        }
     }
 
     /**
-     * Start the chatbot.
-     * @param args args.
+     * Get the response for the chatbot.
+     * @param input Command input by the user.
+     * @return the response
      */
-    public static void main(String[] args) {
-        new Duke().run();
+    public String getResponse(String input) {
+        try {
+            return Parser.parse(input, ui, storage, tasks);
+        } catch (DukeException e) {
+            this.ui.error(e);
+        }
+        return "Cannot reach here";
+    }
+
+    public String intro() {
+        return this.ui.hello();
     }
 }
