@@ -1,0 +1,7 @@
+todo Buy groceries
+deadline Finish report /by 2023-12-15
+event Team meeting /from 2023-12-20 14:00 /to 2023-12-20 15:30
+list
+mark 1
+list
+bye
