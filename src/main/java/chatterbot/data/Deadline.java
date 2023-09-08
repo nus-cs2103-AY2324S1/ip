@@ -10,6 +10,9 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException("OOPS!!! Invalid input! No ttask description.");
+        }
     }
 
     @Override

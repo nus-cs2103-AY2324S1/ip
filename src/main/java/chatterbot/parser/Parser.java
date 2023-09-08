@@ -57,7 +57,7 @@ public class Parser {
                     list.add(td);
                     ui.showAddedTodo(td);
                 } catch (IllegalArgumentException e) {
-                    System.out.println("OOPS!!! Invalid input!");
+                    System.out.println("OOPS!!! Invalid input! " + e.getMessage() + ".");
                 }
             } else if (userMessage.startsWith("event")) {
                 try {

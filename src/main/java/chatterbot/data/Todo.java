@@ -6,6 +6,9 @@ public class Todo extends Task {
 
     public Todo(String description) {
         super(description);
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException("OOPS!!! Invalid input! No ttask description.");
+        }
     }
 
     @Override

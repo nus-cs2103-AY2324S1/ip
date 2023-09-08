@@ -4,3 +4,8 @@ deadline this stuff /by 2019-10-01
 todo submit this
 todo homework
 deadline rvss photoessay /by 2023-09-03
+todo eat bugs
+todo my assignments
+deadline this assignment /by 2019-10-12
+event birthday party /from today /to tomorrow
+event birthday party /from today /to tomorrow

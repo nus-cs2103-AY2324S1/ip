@@ -9,11 +9,14 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException("OOPS!!! Invalid input! No ttask description.");
+        }
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + from + "to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 
     @Override
