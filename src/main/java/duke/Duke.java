@@ -1,20 +1,16 @@
 package duke;
 
 import duke.command.Command;
+import duke.exception.EmptyDescriptionException;
 import duke.exception.InvalidIndexException;
 import duke.exception.NoSuchCommandException;
+import duke.exception.UnmatchedArgumentException;
 import duke.task.TaskList;
 
-import java.nio.file.Paths;
 import java.time.DateTimeException;
 import java.nio.file.Path;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
-
-public class Duke extends Application {
+public class Duke {
 
     /*
         The task list of Duke.
@@ -48,49 +44,31 @@ public class Duke extends Application {
     /**
      * Runs the Duke application to interact with the user until the exit command is entered.
      */
-    public void run() {
+    public String getResponse(String input) {
 
-        ui.welcomeMessage();
+        String result;
         boolean isExit = false;
 
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                System.out.println(Ui.showLine()); // show the divider line ("_______")
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, storage);
-                isExit = c.isExit();
-            } catch (NoSuchCommandException e) {
-                System.out.println(e);
-            } catch (InvalidIndexException e) {
-                System.out.println(e);
-            } catch (NumberFormatException | StringIndexOutOfBoundsException | DateTimeException e) {
-
-                System.out.println(Ui.showLine());
-                System.out.println("\tPlease enter a proper date.");
-                System.out.println("\t" + e.getMessage());
-                System.out.println();
-                System.out.println(Ui.showLine());
+        try {
+            Command c = Parser.parse(input);
+            result = c.execute(tasks, storage);
+            if (c.isExit()) {
+                result = "";
             }
+        } catch (NoSuchCommandException e) {
+            result = e.toString();
+        } catch (InvalidIndexException e) {
+            result = e.toString();
+        } catch (UnmatchedArgumentException e) {
+            result = e.toString();
+        } catch (EmptyDescriptionException e) {
+            result = e.toString();
+        } catch (NumberFormatException | StringIndexOutOfBoundsException | DateTimeException e) {
+
+            result = Ui.showLine() + "\n\tPlease enter a proper date." + "\n\t" + e.getMessage();
+            result += "\n";
+            result += Ui.showLine();
         }
-        ui.farewell();
-    }
-
-    /**
-     * The entry point for the application.
-     *
-     * @param args The command-line arguments.
-     */
-    public static void main(String[] args) {
-        new Duke(Paths.get("data", "duke.txt")).run();
-    }
-
-    @Override
-    public void start(Stage stage) {
-        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
-        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
-
-        stage.setScene(scene); // Setting the stage to show our screen
-        stage.show(); // Render the stage.
+        return result;
     }
 }

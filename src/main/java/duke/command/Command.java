@@ -53,80 +53,67 @@ public class Command {
      *
      * @param tasks The task list for addition of task.
      * @param storage The storage object for reading or writing tasks into a specific file.
+     * @return Task object based on the input command.
      * @throws NoSuchCommandException When an invalid command is inputted.
      * @throws InvalidIndexException If an invalid task index is inputted.
      * @throws EmptyDescriptionException If a task description is not inputted.
      * @throws UnmatchedArgumentException If unmatched arguments are inputted.
      */
-    public void execute(TaskList tasks, Storage storage) throws NoSuchCommandException, InvalidIndexException {
+    public String execute(TaskList tasks, Storage storage) throws NoSuchCommandException, InvalidIndexException,
+            UnmatchedArgumentException, EmptyDescriptionException {
 
-        try {
-            if (command.equals("list")) {
-                tasks.listAllTask();
-            } else if (command.equals("mark")) {
+        String result = "";
+        if (command.equals("list")) {
+            result = tasks.listAllTask();
+        } else if (command.equals("mark")) {
 
-                if (!isValidDetail) {
-                    throw new InvalidIndexException();
-                }
-                int index = Integer.parseInt(details);
-                if (index > 0 && index <= tasks.size()) {
-                    mark(index, tasks, storage);
-                } else {
-                    throw new InvalidIndexException();
-                }
-            } else if (command.equals("delete")) {
-
-                if (!isValidDetail) {
-                    throw new InvalidIndexException();
-                }
-                int index = Integer.parseInt(details);
-                if (index > 0 && index <= tasks.size()) {
-                    delete(index, tasks, storage);
-                } else {
-                    throw new InvalidIndexException();
-                }
-            } else if (command.equals("unmark")) {
-
-                if (!isValidDetail) {
-                    throw new InvalidIndexException();
-                }
-                int index = Integer.parseInt(details);
-                if (index > 0 && index <= tasks.size()) {
-                    unmark(index, tasks, storage);
-                } else {
-                    throw new InvalidIndexException();
-                }
-            } else if (command.equals("todo")) {
-                addTodo(details, tasks, storage);
-            } else if (command.equals("deadline")) {
-                addDeadline(details, tasks, storage);
-            } else if (command.equals("event")) {
-                addEvent(details, tasks, storage);
-            } else if (command.equals("due")) {
-                checkTaskDue(details, tasks);
-            } else if (command.equals("find")) {
-                find(details, tasks);
-            } else if (command.equals("bye")) {
-                isExit();
-            } else {
-                throw new NoSuchCommandException();
+            if (!isValidDetail) {
+                throw new InvalidIndexException();
             }
-        } catch (NoSuchCommandException e) {
-            System.out.println(e);
-        } catch (UnmatchedArgumentException e) {
-            System.out.println(e);
-        } catch (InvalidIndexException e) {
-            System.out.println(e);
-        } catch (EmptyDescriptionException e) {
-            System.out.println(e);
-        } catch (NumberFormatException | StringIndexOutOfBoundsException | DateTimeException e) {
+            int index = Integer.parseInt(details);
+            if (index > 0 && index <= tasks.size()) {
+                result = mark(index, tasks, storage);
+            } else {
+                throw new InvalidIndexException();
+            }
+        } else if (command.equals("delete")) {
 
-            System.out.println(Ui.showLine());
-            System.out.println("\tPlease enter a proper date.");
-            System.out.println("\t" + e.getMessage());
-            System.out.println();
-            System.out.println(Ui.showLine());
+            if (!isValidDetail) {
+                throw new InvalidIndexException();
+            }
+            int index = Integer.parseInt(details);
+            if (index > 0 && index <= tasks.size()) {
+                result = delete(index, tasks, storage);
+            } else {
+                throw new InvalidIndexException();
+            }
+        } else if (command.equals("unmark")) {
+
+            if (!isValidDetail) {
+                throw new InvalidIndexException();
+            }
+            int index = Integer.parseInt(details);
+            if (index > 0 && index <= tasks.size()) {
+                result = unmark(index, tasks, storage);
+            } else {
+                throw new InvalidIndexException();
+            }
+        } else if (command.equals("todo")) {
+            result = addTodo(details, tasks, storage);
+        } else if (command.equals("deadline")) {
+            result = addDeadline(details, tasks, storage);
+        } else if (command.equals("event")) {
+            result = addEvent(details, tasks, storage);
+        } else if (command.equals("due")) {
+            result = checkTaskDue(details, tasks);
+        } else if (command.equals("find")) {
+            result = find(details, tasks);
+        } else if (command.equals("bye")) {
+            isExit();
+        } else {
+            throw new NoSuchCommandException();
         }
+        return result;
     }
 
     /**
@@ -135,16 +122,17 @@ public class Command {
      * @param i The index of the task to be marked as done in the list.
      * @param tasks The task list containing the tasks.
      * @param storage The storage object that contains the file for updating.
+     * @return The response of the bot after mark the task as done.
      */
-    public static void mark(int i, TaskList tasks, Storage storage) {
+    public String mark(int i, TaskList tasks, Storage storage) {
 
+        String result = "";
         tasks.get(i - 1).mark();
-        System.out.println(Ui.showLine());
-        System.out.println(" \tNice! I've marked this task as done:");
-        System.out.println("\t  " + tasks.get(i - 1).toString());
-        System.out.println();
-        System.out.println(Ui.showLine());
+        result += Ui.showLine() + "\n" + " Nice! I've marked this task as done:" + "\n" + " " + tasks.get(i - 1).toString();
+        result += "\n";
+        result += Ui.showLine();
         storage.writeInto(tasks);
+        return result;
     }
 
     /**
@@ -153,16 +141,17 @@ public class Command {
      * @param i The index of the task to be unmarked in the list.
      * @param tasks The task list containing the tasks.
      * @param storage The storage object that contains the file for updating.
+     * @return The response of the bot after mark the task as undone.
      */
-    public static void unmark(int i, TaskList tasks, Storage storage) {
+    public String unmark(int i, TaskList tasks, Storage storage) {
 
+        String result = "";
         tasks.get(i - 1).unmark();
-        System.out.println(Ui.showLine());
-        System.out.println(" \tOk! I've marked this task as not done yet:");
-        System.out.println("\t  " + tasks.get(i - 1).toString());
-        System.out.println();
-        System.out.println(Ui.showLine());
+        result += Ui.showLine() + "\n" + " Ok! I've marked this task as not done yet:" + "\n" + " " + tasks.get(i - 1).toString();
+        result += "\n";
+        result += Ui.showLine();
         storage.writeInto(tasks);
+        return result;
     }
 
     /**
@@ -171,22 +160,22 @@ public class Command {
      * @param message The description of the task.
      * @param tasks The task list for the addition of task.
      * @param storage The storage object that contains the file for updating.
+     * @return The response of the bot after adding a todo task.
      * @throws UnmatchedArgumentException If the description of the task is empty.
      */
-    public static void addTodo(String message, TaskList tasks, Storage storage) throws UnmatchedArgumentException {
+    public String addTodo(String message, TaskList tasks, Storage storage) throws UnmatchedArgumentException {
 
         if (message.isBlank()) {
             throw new UnmatchedArgumentException(0, 1);
         }
-        System.out.println(Ui.showLine());
-        System.out.println("\tGot it. I've added this task: ");
         Task todo = new Todo(message, false);
         tasks.add(todo);
-        System.out.println("\t  " + todo);
-        System.out.println("\tNow you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task") + " in the list.");
-        System.out.println();
-        System.out.println(Ui.showLine());
         storage.writeInto(tasks);
+        String result = Ui.showLine() + "\n" + "Got it. I've added this task: " + "\n";
+        result += " " + todo + "\n" + "Now you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task") + " in the list.";
+        result += "\n";
+        result += Ui.showLine();
+        return result;
     }
 
     /**
@@ -195,10 +184,11 @@ public class Command {
      * @param message The description and deadline of the task.
      * @param tasks The task list for the addition of the task.
      * @param storage The storage object that contains the file for updating.
+     * @return The response of the bot after adding a deadline.
      * @throws UnmatchedArgumentException If the arguments passed in are insufficient.
      * @throws EmptyDescriptionException If the description of the task is empty.
      */
-    public static void addDeadline(String message, TaskList tasks, Storage storage) throws UnmatchedArgumentException,
+    public String addDeadline(String message, TaskList tasks, Storage storage) throws UnmatchedArgumentException,
             EmptyDescriptionException {
 
         String[] arr = message.split(" /");
@@ -212,13 +202,12 @@ public class Command {
         String dateAndTime = arr[1].substring(3).replace(" ", "/");
         Deadline dl = new Deadline(arr[0], false, p.checkDateAndTime(dateAndTime));
         tasks.add(dl);
-        System.out.println(Ui.showLine());
-        System.out.println("\tGot it. I've added this task: ");
-        System.out.println("\t  " + dl);
-        System.out.println("\tNow you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task") + " in the list.");
-        System.out.println();
-        System.out.println(Ui.showLine());
         storage.writeInto(tasks);
+        String result = Ui.showLine() + "\n" + "Got it. I've added this task: " + "\n" + " " + dl + "\n";
+        result += "Now you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task") + " in the list.";
+        result += "\n";
+        result += Ui.showLine();
+        return result;
     }
 
     /**
@@ -227,11 +216,12 @@ public class Command {
      * @param message The description and the event duration of the task.
      * @param tasks The task list for the addition of the task.
      * @param storage The storage object for that contains the file for updating.
+     * @return The response of the bot after adding an event.
      * @throws UnmatchedArgumentException If the arguments passed in are insufficient.
      * @throws EmptyDescriptionException If the description of the task is empty.
      * @throws DateTimeException If the start or end time of the event is invalid.
      */
-    public static void addEvent(String message, TaskList tasks, Storage storage) throws UnmatchedArgumentException, EmptyDescriptionException {
+    public String addEvent(String message, TaskList tasks, Storage storage) throws UnmatchedArgumentException, EmptyDescriptionException {
 
         String[] arr = message.split(" /");
         Parser p = new Parser();
@@ -248,13 +238,12 @@ public class Command {
         }
         Event e = new Event(arr[0], false, start, end);
         tasks.add(e);
-        System.out.println(Ui.showLine());
-        System.out.println("\tGot it. I've added this task: ");
-        System.out.println("\t  " + e);
-        System.out.println("\tNow you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task") + " in the list.");
-        System.out.println();
-        System.out.println(Ui.showLine());
         storage.writeInto(tasks);
+        String result =  Ui.showLine() + "\n" + "Got it. I've added this task: " + "\n" + " " + e + "\n";
+        result += "Now you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task") + " in the list.";
+        result += "\n";
+        result += Ui.showLine();
+        return result;
     }
 
     /**
@@ -263,17 +252,17 @@ public class Command {
      * @param index The task with the index to be deleted.
      * @param tasks The task list for the deletion of task.
      * @param storage The storage object that contains the file for updating.
+     * @return The response of the bot when the task is deleted.
      */
-    public static void delete(int index, TaskList tasks, Storage storage) {
+    public String delete(int index, TaskList tasks, Storage storage) {
 
-        System.out.println(Ui.showLine());
-        System.out.println("\tNoted. I've removed this task:");
-        System.out.println("\t  " + tasks.get(index - 1));
         tasks.remove(index - 1);
-        System.out.println("\tNow that you have " + tasks.size() + (tasks.size() < 2 ? " task" : " tasks") + " in the list.");
-        System.out.println();
-        System.out.println(Ui.showLine());
         storage.writeInto(tasks);
+        String result = Ui.showLine() + "\n" + "Noted. I've removed this task:" + "\n  " + tasks.get(index - 1);
+        result += "\nNow that you have " + tasks.size() + (tasks.size() < 2 ? " task" : " tasks") + " in the list.";
+        result += "\n";
+        result += Ui.showLine();
+        return result;
     }
 
     /**
@@ -281,8 +270,9 @@ public class Command {
      *
      * @param dueDate The task with the date in the task list.
      * @param tasks The task list to search for based on the provided date.
+     * @return The list of tasks that match the due date inputted.
      */
-    public static void checkTaskDue(String dueDate, TaskList tasks) {
+    public String checkTaskDue(String dueDate, TaskList tasks) {
 
         ArrayList<Task> dueDateList = new ArrayList<>();
         Parser p = new Parser();
@@ -299,13 +289,14 @@ public class Command {
             }
         }
         boolean isGreaterThan1 = dueDateList.size() > 1;
-        System.out.println("\tHere " + (isGreaterThan1 ? "are" : "is") +" the " +
-                (isGreaterThan1 ? "tasks that contain" : "task that contains") + " the date:\n");
+        String result = "\tHere " + (isGreaterThan1 ? "are" : "is") +" the " +
+                (isGreaterThan1 ? "tasks that contain" : "task that contains") + " the date:\n";
         for (Task t : dueDateList) {
-            System.out.println("\t\t" + t);
+            result += t + "\n";
         }
-        System.out.println(Ui.showLine());
-        System.out.println();
+        result += Ui.showLine();
+        result += "\n";
+        return result;
     }
 
     /**
@@ -322,8 +313,9 @@ public class Command {
      *
      * @param toFind The task with the message in the task list.
      * @param tasks The task list to search for based on the provided message.
+     * @return The response of the bot that match the task inputted.
      */
-    public void find(String toFind, TaskList tasks) {
+    public String find(String toFind, TaskList tasks) {
 
         ArrayList<Task> contain = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
@@ -332,12 +324,13 @@ public class Command {
             }
         }
         boolean isGreaterThan1 = contain.size() > 1;
-        System.out.println("\tHere " + (isGreaterThan1 ? "are" : "is") + " are the matching " +
-                (isGreaterThan1 ? "tasks" : "task") + " in your list:\n");
+        String result = "Here " + (isGreaterThan1 ? "are" : "is") + " are the matching " +
+                (isGreaterThan1 ? "tasks" : "task") + " in your list:\n";
         for (int i = 0; i < contain.size(); i++) {
-            System.out.println("\t\t" + (i + 1) + ". " + contain.get(i));
+            result += (i + 1) + ". " + contain.get(i) + "\n";
         }
-        System.out.println(Ui.showLine());
-        System.out.println();
+        result += Ui.showLine();
+        result += "\n";
+        return result;
     }
 }

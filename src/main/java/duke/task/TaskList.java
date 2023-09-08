@@ -28,19 +28,22 @@ public class TaskList {
 
     /**
      * Lists all the tasks in the task list and displays them.
+     *
+     * @return The tasks in the task list in string format.
      */
-    public void listAllTask() {
+    public String listAllTask() {
 
-        System.out.println(Ui.showLine());
-        System.out.println("\tHere " + (tasks.size() > 1 ? "are" : "is") +
-                " the " + (tasks.size() > 1 ? "tasks" : "task") + " in your list: ");
+        String result = Ui.showLine();
+        result += "\nHere " + (tasks.size() > 1 ? "are" : "is") +
+                " the " + (tasks.size() > 1 ? "tasks" : "task") + " in your list: ";
         if (tasks.size() > 0) {
             for (int i = 1; i < tasks.size() + 1; i++) {
-                System.out.println("\t" + i + "." + tasks.get(i - 1).toString());
+                result += "\n" + i + "." + tasks.get(i - 1).toString();
             }
         }
-        System.out.println();
-        System.out.println(Ui.showLine());
+        result += "\n";
+        result += Ui.showLine();
+        return result;
     }
 
     /**
