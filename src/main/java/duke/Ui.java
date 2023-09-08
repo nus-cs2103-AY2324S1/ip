@@ -121,6 +121,11 @@ public class Ui {
         currentMessage += "There are no results matching your keyword.";
     }
 
+    /**
+     * Displays the current message and sets it to empty string.
+     *
+     * @return A string to be displayed to user.
+     */
     public String getCurrentMessage() {
         String temp = currentMessage;
         currentMessage = "";
