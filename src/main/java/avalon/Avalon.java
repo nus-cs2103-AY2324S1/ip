@@ -1,11 +1,19 @@
 package avalon;
 
+/**
+ * The main class for the Duke ChatBot (Avalon).
+ */
 public class Avalon {
 
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Constructs an Avalon instance with the specified file path for task storage.
+     *
+     * @param filePath The path to the file used for storing tasks.
+     */
     public Avalon(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -13,6 +21,9 @@ public class Avalon {
         storage.loadTasks(this.tasks);
     }
 
+    /**
+     * Runs the Avalon application, allowing users to manage tasks using a command-line interface.
+     */
     public void run() {
         int taskIndex;
         String description;
@@ -28,6 +39,7 @@ public class Avalon {
             try {
 
                 switch (command) {
+                // Handle various commands
                     case "bye":
                         storage.saveTasks(tasks);
                         ui.byeMessage();
@@ -108,7 +120,13 @@ public class Avalon {
 
     }
 
+    /**
+     * The entry point of the Avalon application.
+     *
+     * @param args The command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
+        // Create an instance of Avalon and start the application
         new Avalon("src/main/data/Avalon.txt").run();
     }
 }
