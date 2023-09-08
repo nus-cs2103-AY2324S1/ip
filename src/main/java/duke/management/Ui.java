@@ -1,4 +1,4 @@
-package duke;
+package duke.management;
 
 public class Ui {
 

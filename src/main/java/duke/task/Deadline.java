@@ -1,6 +1,6 @@
 package duke.task;
 
-import duke.DateHelper;
+import duke.helper.DateHelper;
 import duke.DukeException;
 
 import java.time.LocalDateTime;

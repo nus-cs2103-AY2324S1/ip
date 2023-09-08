@@ -1,5 +1,9 @@
 package duke;
 
+import duke.management.Parser;
+import duke.management.Storage;
+import duke.management.TaskList;
+
 import java.io.IOException;
 
 public class Duke {
