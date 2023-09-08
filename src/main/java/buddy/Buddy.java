@@ -1,5 +1,6 @@
 package buddy;
 
+import buddy.commands.Command;
 import buddy.utils.BuddyException;
 import buddy.utils.Parser;
 import buddy.utils.Storage;
