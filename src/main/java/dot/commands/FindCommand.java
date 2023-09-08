@@ -23,6 +23,7 @@ public class FindCommand extends Command {
      * @param dotTaskList This is the TaskList to search from.
      */
     public FindCommand(String query, TaskList dotTaskList) {
+        assert !query.isEmpty() : "query is supposed to be a nonempty string";
         this.query = query;
         this.dotTaskList = dotTaskList;
     }

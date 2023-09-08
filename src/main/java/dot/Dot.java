@@ -18,6 +18,7 @@ public class Dot {
      * @param maxSize The maximum number of tasks Dot can handle
      */
     public Dot(int maxSize) {
+        assert maxSize >= 0 : "maxSize is supposed to be positive";
         String storageLocation = "./data/dot.txt";
         storage = new Storage(storageLocation);
         try {

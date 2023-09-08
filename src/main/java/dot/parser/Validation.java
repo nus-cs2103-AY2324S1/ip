@@ -28,6 +28,7 @@ public class Validation {
      * @return true if input begins with command.
      */
     public static boolean isValidCommand(String input, String command) {
+        assert !command.isEmpty() : "command is supposed to be a string of at least length 1";
         int commandLen = command.length();
         return input.startsWith(command) && (
                 input.length() == commandLen || input.charAt(commandLen) == ' ');
@@ -44,6 +45,7 @@ public class Validation {
      */
     public static int getIntIfValidCommandSpaceNumber(String input,
                                                       TaskError potentialError) throws DotException {
+        assert potentialError != null : "potentialError is supposed to be nonnull";
         // If position is returned, this value will definitely be overridden
         int position = 1;
 
@@ -77,6 +79,8 @@ public class Validation {
      */
     public static String getDescIfValidCommandSpaceDesc(String input, String command, String parameterDesc,
                                                         TaskError potentialError) throws DotException {
+        assert potentialError != null : "potentialError is supposed to be nonnull";
+        assert !command.isEmpty() : "command is supposed to be a string of at least length 1";
         int commandLen = command.length();
         if (input.strip().length() <= commandLen) {
             throw new DotException(String.format("No %s given", parameterDesc),
@@ -97,32 +101,27 @@ public class Validation {
         if (input.length() <= 9) {
             throw new DotException("No task description given", TaskError.ERR_USING_DEADLINE);
         }
-        // We can assume that input is of format "deadline .+"
-        // Case: "deadline /by"
-        int indexOfSlash = input.indexOf(" /by");
+        int indexOfSlash = input.indexOf(" /by"); // Case: "deadline /by"
         if (indexOfSlash == -1 || indexOfSlash == 8) {
             throw new DotException("No deadline given or is given without task description.",
                     TaskError.ERR_USING_DEADLINE);
         }
+        assert input.matches("deadline .* /by.*");
         // We can assume that input is now in the format "deadline .+ /by.*'
         String[] substrings = input.split(" /by");
 
         if (substrings.length == 1) {
             throw new DotException("No deadline description given.", TaskError.ERR_USING_DEADLINE);
         } else if (substrings.length != 2) {
-            // A side effect of this is that "deadline <desc> /by today /by"
-            // will pass the check, and in a way, autocorrect
             throw new DotException("Too many instances of deadline descriptions.",
                     TaskError.ERR_USING_DEADLINE);
         }
-        // Since supposedly filled spaces can appear as whitespace,
-        // we need to run a check after the split
+        // Since supposedly filled spaces can appear as whitespace, run check after split
         // We will truncate "deadline" from the first element and strip it
         String description = substrings[0].substring(8).strip();
         if (description.isEmpty()) {
             throw new DotException("No task description given", TaskError.ERR_USING_DEADLINE);
         }
-        // We will strip the second element, to see if deadline desc is given
         String deadline = substrings[1].strip();
         if (deadline.isEmpty()) {
             throw new DotException("No deadline description given", TaskError.ERR_USING_DEADLINE);

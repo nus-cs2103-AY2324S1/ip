@@ -23,6 +23,7 @@ public class TodoCommand extends Command {
      * @param dotTaskList This is the TaskList which encapsulates the Task and operations.
      */
     public TodoCommand(String description, TaskList dotTaskList) {
+        assert !description.isEmpty() : "description is supposed to be a nonempty string";
         this.description = description;
         this.dotTaskList = dotTaskList;
     }
