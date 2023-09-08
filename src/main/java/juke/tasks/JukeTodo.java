@@ -20,12 +20,12 @@ public class JukeTodo extends JukeTask {
      * Creates an instance of {@code JukeTodo}.
      *
      * @param task Task description
-     * @param completion Status of completion of the task
+     * @param isCompleted Status of completion of the task
      */
-    public JukeTodo(String task, boolean completion) {
+    public JukeTodo(String task, boolean isCompleted) {
         super(task);
 
-        if (completion) {
+        if (isCompleted) {
             this.setAsComplete();
         }
     }

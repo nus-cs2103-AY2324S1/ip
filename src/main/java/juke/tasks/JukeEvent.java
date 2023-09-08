@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import juke.exceptions.JukeStateException;
 
 /**
- * Represents an Event task. Event tasks contain both a start and end
+ * Represents an Event task. Event tasks contain both a startTime and endTime
  * deadline, which are represented by {@code LocalDateTime} objects.
  */
 public class JukeEvent extends JukeTask {
@@ -14,40 +14,39 @@ public class JukeEvent extends JukeTask {
     private static final String TASK_DESCRIPTOR = "[E] ";
 
     /** Start Time. */
-    private final LocalDateTime start;
+    private final LocalDateTime startTime;
 
     /** End Time. */
-    private final LocalDateTime end;
+    private final LocalDateTime endTime;
 
     /**
      * Creates an instance of {@code JukeEvent}.
      *
      * @param taskName Task description
-     * @param start Start date/time
-     * @param end End date/time
+     * @param startTime Start date/time
+     * @param endTime End date/time
      */
-    public JukeEvent(String taskName, LocalDateTime start, LocalDateTime end) {
+    public JukeEvent(String taskName, LocalDateTime startTime, LocalDateTime endTime) {
         super(taskName);
-        this.start = start;
-        this.end = end;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     /**
      * Creates an instance of {@code JukeEvent}.
      *
      * @param taskName Task description
-     * @param start Start date/time
-     * @param end End date/time
-     * @param completion Status of completion of the task
+     * @param startTime Start date/time
+     * @param endTime End date/time
+     * @param isCompleted Status of completion of the task
      * @throws JukeStateException if the task is already completed
      */
-    public JukeEvent(String taskName, LocalDateTime start, LocalDateTime end, boolean completion) {
-        this(taskName, start, end);
+    public JukeEvent(String taskName, LocalDateTime startTime, LocalDateTime endTime, boolean isCompleted) {
+        this(taskName, startTime, endTime);
 
-        // the event should have a start date that is before the end date
-        assert start.isBefore(end);
-
-        if (completion) {
+        if (isCompleted) {
+            // the event should have a start date that is before the end date
+            assert startTime.isBefore(endTime);
             this.setAsComplete();
         }
     }
@@ -59,7 +58,7 @@ public class JukeEvent extends JukeTask {
      */
     @Override
     public String save() {
-        return "E" + super.save() + "|" + start + "|" + end;
+        return "E" + super.save() + "|" + startTime + "|" + endTime;
     }
 
     /**
@@ -71,7 +70,7 @@ public class JukeEvent extends JukeTask {
     public String toString() {
         return JukeEvent.TASK_DESCRIPTOR
                 + super.toString()
-                + " (from " + start.format(DateTimeFormatter.ofPattern("dd MMM yyyy, HHmm"))
-                + " hrs to " + end.format(DateTimeFormatter.ofPattern("dd MMM yyyy, HHmm")) + " hrs)";
+                + " (from " + startTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy, HHmm"))
+                + " hrs to " + endTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy, HHmm")) + " hrs)";
     }
 }

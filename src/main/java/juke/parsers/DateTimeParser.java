@@ -51,11 +51,14 @@ public class DateTimeParser extends JukeObject {
 
         if (isValidDateTime(datetime)) {
             String[] dateTimeSplit = datetime.split(" ");
-            String[] date = dateTimeSplit[0].split("\\/|-");
-            String[] time = Pattern.matches("\\d{4}", dateTimeSplit[1])
+            String[] parsedDate = dateTimeSplit[0].split("\\/|-");
+            boolean isMatchingRegex = Pattern.matches("\\d{4}", dateTimeSplit[1]);
+
+            String[] parsedTime = isMatchingRegex
                     ? new String[]{dateTimeSplit[1].substring(0, 2), dateTimeSplit[1].substring(2, 4)}
                     : dateTimeSplit[1].split("-|:");
-            return LocalDateTime.parse(date[2] + "-" + date[1] + "-" + date[0] + "T" + time[0] + ":" + time[1] + ":00");
+            return LocalDateTime.parse(parsedDate[2] + "-" + parsedDate[1] + "-" + parsedDate[0] + "T"
+                                               + parsedTime[0] + ":" + parsedTime[1] + ":00");
         } else if (isValidDate(datetime)) {
             String[] date = datetime.split("\\/|-");
             return LocalDateTime.parse(date[2] + "-" + date[1] + "-" + date[0] + "T00:00:00");

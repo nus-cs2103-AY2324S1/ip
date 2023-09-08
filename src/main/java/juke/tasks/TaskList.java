@@ -63,14 +63,14 @@ public class TaskList extends JukeObject {
      */
     public boolean addTask(JukeTask task) {
         int lengthOfTasks = this.tasks.size();
-        boolean success = this.tasks.add(task);
+        boolean isSuccess = this.tasks.add(task);
 
-        if (success) {
+        if (isSuccess) {
             assert this.tasks.size() == lengthOfTasks + 1;
             this.storage.write(this.tasks);
         }
 
-        return success;
+        return isSuccess;
     }
 
     /**
@@ -153,15 +153,15 @@ public class TaskList extends JukeObject {
      * @return {@code List} of {@code JukeTask} objects whose subject matches the word
      */
     public List<JukeTask> findTask(String word) {
-        List<JukeTask> matchesWord = new LinkedList<>();
+        List<JukeTask> wordMatches = new LinkedList<>();
 
         for (JukeTask t : this.tasks) {
             if (t.stringMatches(word)) {
-                matchesWord.add(t);
+                wordMatches.add(t);
             }
         }
 
-        return matchesWord;
+        return wordMatches;
     }
 
     /**

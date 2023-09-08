@@ -322,7 +322,7 @@
             <property name="option" value="nl"/>
         </module>
         <module name="OperatorWrap">
-            <!-- Checks that the assignment type operator is at the previous end of line in a line wrap.
+            <!-- Checks that the assignment type operator is at the previous endTime of line in a line wrap.
                  This includes "=", "/=", "+=", "-=", "*=", "%=", ">>=", ">>>=", "<<=", "^=", "&=".
             -->
             <property name="tokens" value="ASSIGN, DIV_ASSIGN, PLUS_ASSIGN, MINUS_ASSIGN, STAR_ASSIGN, MOD_ASSIGN,
@@ -336,7 +336,7 @@
             <property name="option" value="nl"/>
         </module>
         <module name="SeparatorWrap">
-            <!-- Checks that the ",", "]", "[", "...", ";", "(" is at the previous end of line in a line wrap. -->
+            <!-- Checks that the ",", "]", "[", "...", ";", "(" is at the previous endTime of line in a line wrap. -->
             <property name="tokens" value="COMMA, RBRACK, ARRAY_DECLARATOR, ELLIPSIS, SEMI, LPAREN"/>
             <property name="option" value="eol"/>
         </module>
@@ -369,12 +369,12 @@
         <module name="SingleSpaceSeparator">
             <!-- Validate whitespace surrounding comments as well.
 
-                 a = 1; // Allowed (single space before start of comment)
-                 a = 1; /* Allowed (single space before start of comment) */
-                 /* Allowed (single space after end of comment) */ a = 1;
-                 a = 1;  // Not allowed (more than one space before start of comment)
-                 a = 1;  /* Not allowed (more than one space before start of comment) */
-                 /* Not allowed (more than one space after end of comment) */  a = 1;
+                 a = 1; // Allowed (single space before startTime of comment)
+                 a = 1; /* Allowed (single space before startTime of comment) */
+                 /* Allowed (single space after endTime of comment) */ a = 1;
+                 a = 1;  // Not allowed (more than one space before startTime of comment)
+                 a = 1;  /* Not allowed (more than one space before startTime of comment) */
+                 /* Not allowed (more than one space after endTime of comment) */  a = 1;
 
                  This doesn't validate whitespace within comments so a comment /* like  this */ is allowed.
             -->
@@ -391,7 +391,7 @@
         <!-- Checks that Javadoc block tags appear only at the beginning of the line. -->
         <module name="JavadocBlockTagLocation"/>
 
-        <!-- Checks that all Javadoc comments start from the second line. -->
+        <!-- Checks that all Javadoc comments startTime from the second line. -->
         <module name="JavadocContentLocationCheck" />
 
         <!-- Checks that each line in Javadoc has leading asterisks. -->

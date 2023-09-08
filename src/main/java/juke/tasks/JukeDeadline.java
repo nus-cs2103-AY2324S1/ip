@@ -32,13 +32,13 @@ public class JukeDeadline extends JukeTask {
      *
      * @param task Task description
      * @param deadline Deadline for task
-     * @param completion Status of completion of the task
+     * @param isCompleted Status of completion of the task
      * @throws JukeStateException if the task is already completed
      */
-    public JukeDeadline(String task, LocalDateTime deadline, boolean completion) {
+    public JukeDeadline(String task, LocalDateTime deadline, boolean isCompleted) {
         this(task, deadline);
 
-        if (completion) {
+        if (isCompleted) {
             this.setAsComplete();
         }
     }
