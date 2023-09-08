@@ -3,6 +3,7 @@ package duke.command;
 import duke.error.DukeException;
 import duke.lib.Storage;
 import duke.lib.UI;
+import duke.parser.Validate;
 import duke.task.TaskList;
 
 /**
@@ -12,12 +13,14 @@ public class MarkCommand extends Command {
     private final int index;
 
     /**
-     * Constructs a MarkCommand object with the specified task index.
+     * Constructs a MarkCommand with the specified parameters.
      *
-     * @param index The index of the task to be marked as done.
+     * @param params The parameters associated with the command.
+     * @throws DukeException If there's an issue validating or retrieving the parameter.
      */
-    public MarkCommand(int index) {
-        this.index = index;
+    public MarkCommand(Params params) throws DukeException {
+        super("mark <index> | m <index>");
+        this.index = Validate.validateNumber(params.getArgumentIfSet("index", usageText));
     }
 
     /**

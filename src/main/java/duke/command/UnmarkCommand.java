@@ -3,6 +3,7 @@ package duke.command;
 import duke.error.DukeException;
 import duke.lib.Storage;
 import duke.lib.UI;
+import duke.parser.Validate;
 import duke.task.TaskList;
 
 /**
@@ -12,12 +13,14 @@ public class UnmarkCommand extends Command {
     private final int index;
 
     /**
-     * Constructs an UnmarkCommand object with the specified task index.
+     * Constructs an UnmarkCommand with the specified parameters.
      *
-     * @param index The index of the task to be marked as not done.
+     * @param params The parameters associated with the command.
+     * @throws DukeException If there's an issue validating or retrieving the parameter.
      */
-    public UnmarkCommand(int index) {
-        this.index = index;
+    public UnmarkCommand(Params params) throws DukeException {
+        super("unmark <index> | um <index>");
+        this.index = Validate.validateNumber(params.getArgumentIfSet("index", usageText));
     }
 
     /**
@@ -31,7 +34,7 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
         ui.showMessage(String.format("OK, I've marked this task as not done yet:\n\t%s\n",
-                tasks.unmarkTask(this.index)));
+            tasks.unmarkTask(this.index)));
         storage.save(tasks);
     }
 }

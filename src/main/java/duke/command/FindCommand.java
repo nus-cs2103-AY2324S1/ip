@@ -1,22 +1,26 @@
 package duke.command;
 
+import duke.error.DukeException;
 import duke.lib.Storage;
 import duke.lib.UI;
+import duke.parser.Validate;
 import duke.task.TaskList;
 
 /**
  * Represents a command to search for tasks containing a specified keyword.
  */
 public class FindCommand extends Command {
-    private String searchKeyword;
+    private final String searchKeyword;
 
     /**
-     * Constructs a FindCommand with the specified search keyword.
+     * Constructs a FindCommand with the specified parameters.
      *
-     * @param searchKeyword The keyword to search for in task descriptions.
+     * @param params The parameters associated with the command.
+     * @throws DukeException If there's an issue validating or retrieving the parameter.
      */
-    public FindCommand(String searchKeyword) {
-        this.searchKeyword = searchKeyword;
+    public FindCommand(Params params) throws DukeException {
+        super("find <search> | f <search>");
+        this.searchKeyword = params.getArgumentIfSet("search", usageText);
     }
 
     /**

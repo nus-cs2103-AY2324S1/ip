@@ -9,7 +9,7 @@ import duke.task.TaskList;
 /**
  * Represents a command to add a task.
  */
-public class AddCommand extends Command {
+public abstract class AddCommand extends Command {
     private final Task task;
 
     /**
@@ -17,7 +17,8 @@ public class AddCommand extends Command {
      *
      * @param task The task to be added.
      */
-    public AddCommand(Task task) {
+    public AddCommand(Task task, String usageText) {
+        super(usageText);
         this.task = task;
     }
 
