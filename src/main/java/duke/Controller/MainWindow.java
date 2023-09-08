@@ -1,5 +1,9 @@
 package duke.Controller;
 
+import duke.Duke;
+import duke.Ui.Ui;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -19,19 +23,26 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private TextField Intro;
 
-    private duke.Duke duke;
+    private Duke duke;
 
+    private Ui ui = new Ui();
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpeg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Duke.png"));
+
+    private boolean isIntroDone = false;
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(duke.Duke d) {
+    public void setDuke(Duke d) {
         duke = d;
+        handleUserInput();
+        isIntroDone = true;
     }
 
     /**
@@ -40,12 +51,22 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
-        String response = duke.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
-        );
-        userInput.clear();
+        if (!isIntroDone){
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getDukeDialog(duke.intro(), dukeImage)
+            );
+            return;
+        } else {
+            String input = userInput.getText();
+            String response = duke.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(ui.printChat(input), userImage),
+                    DialogBox.getDukeDialog(response, dukeImage)
+            );
+            if (input.equalsIgnoreCase("bye")){
+                Platform.exit();
+            }
+            userInput.clear();
+        }
     }
 }

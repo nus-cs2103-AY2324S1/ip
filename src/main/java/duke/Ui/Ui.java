@@ -9,7 +9,7 @@ import duke.TaskList.TaskList;
  * Collection of the Ui
  */
 public class Ui {
-    private final String Border = "____________________________________________________________";
+    private final String Border = "______________________________________";
 
     /**
      * Print a chat with specified message.
@@ -17,7 +17,6 @@ public class Ui {
      */
     public String printChat(String chat) {
 
-        System.out.println(Border + "\n" + chat + "\n" + Border);
         return Border + "\n" + chat + "\n" + Border;
     }
 
