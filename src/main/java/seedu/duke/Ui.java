@@ -1,5 +1,8 @@
 package seedu.duke;
 
+import seedu.duke.command.Command;
+import seedu.duke.task.Task;
+
 /**
  * Represents the UI used by this chatbot.
  * A UI is responsible for the managing the
@@ -49,7 +52,7 @@ public class Ui {
         return "Bye. Hope to see you again soon!";
     }
 
-    public Commands parseUserInput(String input) {
+    public Command parseUserInput(String input) {
         return this.parser.parse(input);
     }
 

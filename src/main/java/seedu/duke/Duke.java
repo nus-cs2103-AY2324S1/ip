@@ -1,5 +1,7 @@
 package seedu.duke;
 
+import seedu.duke.command.Command;
+
 /**
  * Represents my version of a chatbot.
  * It is mainly used for recording tasks like
@@ -41,68 +43,16 @@ public class Duke {
      */
     public String getResponse(String input) {
 
-        boolean exceptionOccurs = false;
-
-        String response = "";
-
-        Commands cmd = this.ui.parseUserInput(input);
-
-        Task task = null;
+        String[] response = new String[1];
 
         try {
-            switch (cmd) {
-            case BYE:
-                response = this.ui.bye();
-                break;
-            case LIST:
-                response = this.taskList.listOutEverything();
-                break;
-            case MARK:
-                int markIndex = this.ui.mark(input);
-                if (this.taskList.isOutOfRange(markIndex)) {
-                    throw new DukeException(Ui.I5 + "☹ OOPS!!! Please specify a valid task number to be marked.");
-                }
-                response = this.taskList.mark(markIndex);
-                break;
-            case UNMARK:
-                int unmarkIndex = this.ui.unmark(input);
-                if (taskList.isOutOfRange(unmarkIndex)) {
-                    throw new DukeException(Ui.I5 + "☹ OOPS!!! Please specify a valid task number to be unmarked.");
-                }
-                response = this.taskList.unmark(unmarkIndex);
-                break;
-            case DELETE:
-                int deleteIndex = this.ui.delete(input);
-                if (taskList.isOutOfRange(deleteIndex)) {
-                    throw new DukeException(Ui.I5 + "☹ OOPS!!! Please specify a valid task number to be deleted.");
-                }
-                response = this.taskList.remove(deleteIndex);
-                break;
-            case TODO:
-                task = this.ui.todo(input);
-                break;
-            case DEADLINE:
-                task = this.ui.deadline(input);
-                break;
-            case EVENT:
-                task = this.ui.event(input);
-                break;
-            case FIND:
-                String toFind = this.ui.find(input);
-                response = this.taskList.find(toFind);
-                break;
-            default:
-                throw new DukeException(Ui.I5 + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-            }
-        } catch (DukeException e) {
-            exceptionOccurs = true;
-            response = (e.getMessage());
+            Command c = this.ui.parseUserInput(input);
+            c.execute(this.taskList, this.ui, response);
+        } catch (Exception e) {
+            response[0] = (e.getMessage());
         }
 
-        if (!exceptionOccurs && task != null) {
-            response = this.taskList.add(task);
-        }
+        return response[0];
 
-        return response;
     }
 }

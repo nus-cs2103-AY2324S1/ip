@@ -1,4 +1,6 @@
-package seedu.duke;
+package seedu.duke.task;
+
+import seedu.duke.task.Task;
 
 /**
  * Represents a Todo task.

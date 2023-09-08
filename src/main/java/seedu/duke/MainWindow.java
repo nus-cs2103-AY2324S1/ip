@@ -23,8 +23,8 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/naruto-smiling.gif"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/minion-dance.gif"));
 
     /**
      * Initializes the main window of the chat bot.
