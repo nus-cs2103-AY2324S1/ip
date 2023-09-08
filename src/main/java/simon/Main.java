@@ -115,8 +115,8 @@ public class Main extends Application {
         DialogBox dukeDialog = DialogBox.getDukeDialog(dukeText, new ImageView(duke));
 
         // Add padding between DialogBoxes
-        VBox.setMargin(userDialog, new Insets(0, 0, 20, 0));  // 20 units of padding at the bottom
-        VBox.setMargin(dukeDialog, new Insets(0, 0, 20, 0));  // 20 units of padding at the bottom
+        VBox.setMargin(userDialog, new Insets(0, 0, 10, 0));  // 10 units of padding at the bottom
+        VBox.setMargin(dukeDialog, new Insets(0, 0, 10, 0));  // 10 units of padding at the bottom
 
         dialogContainer.getChildren().addAll(userDialog, dukeDialog);
         userInput.clear();
