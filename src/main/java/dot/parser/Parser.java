@@ -69,58 +69,82 @@ public class Parser {
      * @return The appropriate Command.
      * @throws DotException On detected error.
      */
-    public static Command parseInputToCommand(String input,
-                                              TaskList dotTaskList) throws DotException {
-        if (input.strip().equals("bye")) {
-            return new ByeCommand();
-
-        } else if (input.strip().equals("list") || input.strip().equals("ls")) {
-            return new ListCommand(dotTaskList);
-
-        } else if (Validation.isValidCommand(input, "mark")) {
-            int position = Validation.getIntIfValidCommandSpaceNumber(input, TaskError.ERR_USING_MARK);
-            return new MarkCommand(position, dotTaskList);
-
-        } else if (Validation.isValidCommand(input, "unmark")) {
-            int position = Validation.getIntIfValidCommandSpaceNumber(input, TaskError.ERR_USING_UNMARK);
-            return new UnmarkCommand(position, dotTaskList);
-
-        } else if (Validation.isValidCommand(input, "todo")) {
-            String restOfString = Validation.getDescIfValidCommandSpaceDesc(input, "todo",
-                    "task description", TaskError.ERR_USING_TODO);
-            return new TodoCommand(restOfString, dotTaskList);
-
-        } else if (Validation.isValidCommand(input, "deadline")) {
-            String[] args = Validation.getArgsIfValidDeadlineFormat(input);
-            return new DeadlineCommand(args[0], args[1], dotTaskList);
-
-        } else if (Validation.isValidCommand(input, "event")) {
-            String[] args = Validation.getArgsIfValidEventFormat(input);
-            return new EventCommand(args[0], args[1], args[2], dotTaskList);
-
-        } else if (Validation.isValidCommand(input, "delete")) {
-            int position = Validation.getIntIfValidCommandSpaceNumber(input, TaskError.ERR_DELETING_TASK);
-            return new DeleteCommand(position, dotTaskList);
-
-        } else if (Validation.isValidCommand(input, "whatsgoingon")) {
-            String restOfString = Validation.getDescIfValidCommandSpaceDesc(input,
-                    "whatsgoingon", "date", TaskError.ERR_USING_WHATSGOINGON);
-            if (!(Validation.isValidDate(restOfString))) {
-                throw new DotException("Incorrect format for data, use dd/MM/yyyy",
-                        TaskError.ERR_USING_WHATSGOINGON);
+    public static Command parseInputToCommand(String input, TaskList dotTaskList) throws DotException {
+        switch (input.strip()) {
+        case "bye":
+            return new ByeCommand(); // no break due to return
+        case "help":
+            return new HelpCommand(); // no break due to return
+        case "list":
+        case "ls":
+            return new ListCommand(dotTaskList); // no break due to return
+        default:
+            if (Validation.isValidCommand(input, "mark")) {
+                return getMarkCommand(input, dotTaskList);
+            } else if (Validation.isValidCommand(input, "unmark")) {
+                return getUnmarkCommand(input, dotTaskList);
+            } else if (Validation.isValidCommand(input, "todo")) {
+                return getTodoCommand(input, dotTaskList);
+            } else if (Validation.isValidCommand(input, "deadline")) {
+                return getDeadlineCommand(input, dotTaskList);
+            } else if (Validation.isValidCommand(input, "event")) {
+                return getEventCommand(input, dotTaskList);
+            } else if (Validation.isValidCommand(input, "delete")) {
+                return getDeleteCommand(input, dotTaskList);
+            } else if (Validation.isValidCommand(input, "whatsgoingon")) {
+                return getWhatsgoingonCommand(input, dotTaskList);
+            } else if (Validation.isValidCommand(input, "find")) {
+                return getFindCommand(input, dotTaskList);
             }
-            LocalDateTime parsedLocalDateTime = Parser.parseDateInputIntoDateTime(restOfString);
-            return new WhatsgoingonCommand(parsedLocalDateTime, dotTaskList);
-
-        } else if (Validation.isValidCommand(input, "find")) {
-            String restOfString = Validation.getDescIfValidCommandSpaceDesc(input,
-                    "find", "query string", TaskError.ERR_USING_FIND);
-            return new FindCommand(restOfString, dotTaskList);
-
-        } else if (input.equals("help")) {
-            return new HelpCommand();
-
+            throw new DotException("Unknown command.", TaskError.ERR_READING_COMMAND); // no break due to throw
         }
-        throw new DotException("Unknown command.", TaskError.ERR_READING_COMMAND);
+    }
+
+    private static Command getMarkCommand(String input, TaskList dotTaskList) throws DotException {
+        int position = Validation.getIntIfValidCommandSpaceNumber(input, TaskError.ERR_USING_MARK);
+        return new MarkCommand(position, dotTaskList);
+    }
+
+    private static Command getUnmarkCommand(String input, TaskList dotTaskList) throws DotException {
+        int position = Validation.getIntIfValidCommandSpaceNumber(input, TaskError.ERR_USING_UNMARK);
+        return new UnmarkCommand(position, dotTaskList);
+    }
+
+    private static Command getTodoCommand(String input, TaskList dotTaskList) throws DotException {
+        String restOfString = Validation.getDescIfValidCommandSpaceDesc(input, "todo",
+                "task description", TaskError.ERR_USING_TODO);
+        return new TodoCommand(restOfString, dotTaskList);
+    }
+
+    private static Command getDeadlineCommand(String input, TaskList dotTaskList) throws DotException {
+        String[] args = Validation.getArgsIfValidDeadlineFormat(input);
+        return new DeadlineCommand(args[0], args[1], dotTaskList);
+    }
+
+    private static Command getEventCommand(String input, TaskList dotTaskList) throws DotException {
+        String[] args = Validation.getArgsIfValidEventFormat(input);
+        return new EventCommand(args[0], args[1], args[2], dotTaskList);
+    }
+
+    private static Command getDeleteCommand(String input, TaskList dotTaskList) throws DotException {
+        int position = Validation.getIntIfValidCommandSpaceNumber(input, TaskError.ERR_DELETING_TASK);
+        return new DeleteCommand(position, dotTaskList);
+    }
+
+    private static Command getWhatsgoingonCommand(String input, TaskList dotTaskList) throws DotException {
+        String restOfString = Validation.getDescIfValidCommandSpaceDesc(input,
+                "whatsgoingon", "date", TaskError.ERR_USING_WHATSGOINGON);
+        if (!(Validation.isValidDate(restOfString))) {
+            throw new DotException("Incorrect format for data, use dd/MM/yyyy",
+                    TaskError.ERR_USING_WHATSGOINGON);
+        }
+        LocalDateTime parsedLocalDateTime = Parser.parseDateInputIntoDateTime(restOfString);
+        return new WhatsgoingonCommand(parsedLocalDateTime, dotTaskList);
+    }
+
+    private static Command getFindCommand(String input, TaskList dotTaskList) throws DotException {
+        String restOfString = Validation.getDescIfValidCommandSpaceDesc(input,
+                "find", "query string", TaskError.ERR_USING_FIND);
+        return new FindCommand(restOfString, dotTaskList);
     }
 }
