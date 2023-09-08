@@ -660,7 +660,7 @@ class Parser {
         }
 
         if (userInput.equals("list")) {
-            out = "Here are the tasks in your list:";
+            out += ui.print("Here are the tasks in your list:");
             out += ui.printItems(tl.getItems());
 
         } else if (splitStr[0].equals("find")) {
@@ -676,7 +676,7 @@ class Parser {
                     suitable.add(tl.getItem(i));
                 }
             }
-            out = "Here are the matching tasks in your list:";
+            out += ui.print("Here are the matching tasks in your list:");
             out += ui.printItems(suitable);
 
         } else if (splitStr[0].equals("mark")) {
@@ -688,7 +688,7 @@ class Parser {
                 throw new DukeException("Index is out of list range.");
             }
             tl.getItem(x).setIsCompleted(true);
-            out += "Nice! I've marked this task as done:";
+            out += ui.print("Nice! I've marked this task as done:");
             out += ui.print(ui.formatTaskToPrint(tl.getItem(x), dtf.getOutFormatter()));
 
         } else if (splitStr[0].equals("unmark")) {
@@ -700,7 +700,7 @@ class Parser {
                 throw new DukeException("Index is out of list range.");
             }
             tl.getItem(x).setIsCompleted(false);
-            out += "Ok, I've marked this task as not done yet:";
+            out += ui.print("Ok, I've marked this task as not done yet:");
             out += ui.print(ui.formatTaskToPrint(tl.getItem(x), dtf.getOutFormatter()));
 
         } else if (splitStr[0].equals("remove")) {
@@ -711,7 +711,7 @@ class Parser {
             if (x < 0 || x + 1 > tl.getSize()) {
                 throw new DukeException("Index is out of list range.");
             }
-            out += "Ok, the following item was removed:";
+            out += ui.print("Ok, the following item was removed:");
             out += ui.print(ui.formatTaskToPrint(tl.getItem(x), dtf.getOutFormatter()));
             tl.removeItem(x);
 
