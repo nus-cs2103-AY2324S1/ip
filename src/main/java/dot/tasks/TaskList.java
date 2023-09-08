@@ -54,6 +54,7 @@ public class TaskList {
      * @return The new TaskList.
      */
     public static TaskList getNewTaskList(int maxSize, Storage storage) {
+        assert maxSize >= 0 : "maxSize is supposed to be positive";
         return new TaskList(maxSize, storage);
     }
 
@@ -68,6 +69,7 @@ public class TaskList {
      * @return The new TaskList.
      */
     public static TaskList getTaskListFromArrayList(int maxSize, ArrayList<Task> taskList, Storage storage) {
+        assert maxSize >= 0 : "maxSize is supposed to be positive";
         return new TaskList(maxSize, taskList, storage);
     }
 

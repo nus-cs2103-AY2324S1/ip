@@ -30,6 +30,7 @@ public class Main extends Application {
      * Handles re-entering an app, with a nice loading bar.
      */
     private final Consumer<Stage> handleReEnterApp = (Stage stage) -> {
+        assert stage != null : "stage is not supposed to be null";
         ProgressBar progressBar = new ProgressBar();
         progressBar.setProgress(0.0);
 
@@ -63,6 +64,7 @@ public class Main extends Application {
      * Handles exiting the app, directing to a landing exit page.
      */
     private final Consumer<Stage> handleExitApp = (Stage stage) -> {
+        assert stage != null : "stage is not supposed to be null";
         Label exitPageLabel = new Label("You have exited the app.");
         exitPageLabel.setFont(new Font("Arial", 20));
 
