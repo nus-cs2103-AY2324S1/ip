@@ -2,6 +2,10 @@ package duke.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
+
+import duke.DukeException;
+import duke.parser.TaskParser;
 
 /**
  * Represents a task with a specific event in the Duke application.
@@ -44,5 +48,19 @@ public class Event extends Task {
         return String.format("E | %d | %s | %s | %s", isDone ? 1 : 0, description,
             start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
             end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+    }
+
+    @Override
+    public void update(Map<String, String> params) throws DukeException {
+        TaskParser.checkForExtraParams(params, "desc", "from", "to");
+        if (params.containsKey("desc")) {
+            this.description = params.get("desc");
+        }
+        if (params.containsKey("from")) {
+            this.start = TaskParser.parseDateTime(params.get("from"));
+        }
+        if (params.containsKey("to")) {
+            this.end = TaskParser.parseDateTime(params.get("to"));
+        }
     }
 }

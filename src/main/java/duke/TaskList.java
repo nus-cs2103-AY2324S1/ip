@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Map;
 
 import duke.task.Deadline;
 import duke.task.Event;
@@ -104,9 +105,10 @@ public class TaskList {
      * @param ui    The user interface to interact with the user or display messages.
      * @throws DukeException If the provided index is out of range.
      */
-    public void editTask(int index, Task task, Ui ui) throws DukeException {
+    public void editTask(int index, Map<String, String> params, Ui ui) throws DukeException {
         checkIndex(index);
-        this.tasks.set(index - 1, task);
+        Task task = this.tasks.get(index - 1);
+        task.update(params);
         ui.editMessage(task);
     }
 

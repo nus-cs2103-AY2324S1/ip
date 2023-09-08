@@ -2,6 +2,8 @@ package duke.parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Map;
 
 import duke.DukeException;
 import duke.task.Deadline;
@@ -13,6 +15,50 @@ import duke.task.ToDo;
  * The class for parsing commands to add tasks.
  */
 public class TaskParser {
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    /**
+     * Parses a date-time string into a LocalDateTime object.
+     *
+     * @param input The date-time string to be parsed.
+     * @return The LocalDateTime object parsed from the input string.
+     * @throws DukeException If the input string is not in the expected format.
+     */
+    public static LocalDateTime parseDateTime(String input) throws DukeException {
+        try {
+            return LocalDateTime.parse(input, formatter);
+        } catch (Exception e) {
+            throw new DukeException("DateTime should be in yyyy-MM-dd HH:mm.");
+        }
+    }
+
+    /**
+     * Checks for extra parameters in the provided map.
+     *
+     * @param params      The map of parameters to be checked.
+     * @param allowedKeys The list of allowed parameter keys.
+     * @throws DukeException If any extra parameters are found.
+     */
+    public static void checkForExtraParams(Map<String, String> params, String... allowedKeys) throws DukeException {
+        ArrayList<String> extraParams = new ArrayList<>();
+
+        for (String key : params.keySet()) {
+            boolean isAllowed = false;
+            for (String allowedKey : allowedKeys) {
+                if (key.equals(allowedKey)) {
+                    isAllowed = true;
+                    break;
+                }
+            }
+            if (!isAllowed) {
+                extraParams.add(key);
+            }
+        }
+
+        if (!extraParams.isEmpty()) {
+            throw new DukeException(String.format("Unknown attributes was found: %s", extraParams));
+        }
+    }
 
     /**
      * Returns the task after parsing the user's input.
@@ -44,16 +90,7 @@ public class TaskParser {
             if (description.trim().equals("")) {
                 throw new DukeException("The description of a deadline cannot be empty.");
             }
-            String str = split[1];
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            LocalDateTime dateTime;
-            try {
-                dateTime = LocalDateTime.parse(str, formatter);
-            } catch (Exception e) {
-                throw new DukeException("DateTime should be in yyyy-MM-dd HH:mm.");
-            }
-
-            return new Deadline(description, dateTime);
+            return new Deadline(description, parseDateTime(split[1]));
         } else if (input.contains("event")) {
             String[] split = input.split(" /from ", 2);
             if (split.length == 1) {
@@ -75,18 +112,7 @@ public class TaskParser {
             } else if (duration[0].trim().equals("") || duration[1].trim().equals("")) {
                 throw new DukeException("/from and /to cannot be empty.");
             }
-
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-            LocalDateTime dateTimeStart;
-            LocalDateTime dateTimeEnd;
-            try {
-                dateTimeStart = LocalDateTime.parse(duration[0], formatter);
-                dateTimeEnd = LocalDateTime.parse(duration[1], formatter);
-            } catch (Exception e) {
-                throw new DukeException("DateTime should be in yyyy-MM-dd HH:mm.");
-            }
-            return new Event(description, dateTimeStart, dateTimeEnd);
+            return new Event(description, parseDateTime(duration[0]), parseDateTime(duration[1]));
         } else {
             throw new DukeException("I'm not sure what this task means.");
         }
