@@ -28,8 +28,8 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
+    private Image userImage;
+    private Image dukeImage;
 
     /**
      * Initializes the MainWindow. Binds the ScrollPane's vertical value to the height of the dialog container, ensuring
@@ -37,6 +37,19 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
+        assert scrollPane != null : "ScrollPane is not initialized";
+        assert dialogContainer != null : "DialogContainer is not initialized";
+        assert userInput != null : "UserInput is not initialized";
+        assert sendButton != null : "SendButton is not initialized";
+
+        java.io.InputStream userImagePath = this.getClass().getResourceAsStream("/images/user.png");
+        assert userImagePath != null : "UserImage could not be loaded";
+        userImage = new Image(userImagePath);
+
+        java.io.InputStream dukeImagePath = this.getClass().getResourceAsStream("/images/duke.png");
+        assert dukeImagePath != null : "DukeImage could not be loaded";
+        dukeImage = new Image(dukeImagePath);
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 

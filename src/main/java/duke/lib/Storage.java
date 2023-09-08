@@ -16,9 +16,9 @@ import duke.task.TaskList;
  */
 public class Storage {
 
-    private File saveFile;
-    private String directoryPath;
-    private String fullFilePath;
+    private final File saveFile;
+    private final String directoryPath;
+    private final String fullFilePath;
 
     /**
      * Constructs a Storage object with the specified directory and file name.
