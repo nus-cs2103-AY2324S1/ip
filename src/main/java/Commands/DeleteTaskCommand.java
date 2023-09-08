@@ -21,10 +21,10 @@ public class DeleteTaskCommand implements Command {
      * Executes the command to delete the task with the encapsulated id from the TaskList.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task removedTask = tasks.deleteTask(id);
-            ui.printTaskDeletedMessage(removedTask);
+            return ui.printTaskDeletedMessage(removedTask);
         } catch (RuntimeException e) {
             throw new DukeException("\tIndex out of bounds. There are "
                                         + tasks.getSize()

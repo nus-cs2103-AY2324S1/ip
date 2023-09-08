@@ -14,14 +14,21 @@ public class FindTasksCommand implements Command {
     public FindTasksCommand(String searchText) {
         this.searchText = searchText;
     }
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+
+    /**
+     * {@inheritDoc}
+     *
+     * Executes the FindTasksCommand which filters out task based on a string prompt.
+     */
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         List<Task> filteredTasks = tasks.getTasks().stream().filter(t -> t.toString().contains(searchText)).collect(Collectors.toList());
         // get UI to print out the filtered list of tasks
-        int i = 1;
-        ui.printFindTaskMessage();
+        int i = 0;
+        String res = ui.printFindTaskMessage();
         for (Task task : filteredTasks) {
-            ui.printTask(i, task);
+            res += ui.printTask(i, task);
             i++;
         }
+        return res;
     }
 }

@@ -12,5 +12,5 @@ public interface Command {
      * @param ui ui instance that is used in the current Duke application instance.
      * @param storage storage instance that is used in the current Duke application instance.
      */
-    void execute(TaskList tasks, Ui ui, Storage storage);
+    String execute(TaskList tasks, Ui ui, Storage storage);
 }

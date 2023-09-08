@@ -8,7 +8,7 @@ public class InvalidCommand implements Command {
      * Executes the command to print out the message that indicates to the user that they have entered an invalid command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printNotSureMessage();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.printNotSureMessage();
     }
 }

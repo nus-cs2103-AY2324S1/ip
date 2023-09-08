@@ -28,8 +28,8 @@ public class AddEventCommand implements Command {
      * Executes the command to add an event to the TaskList.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(this.event);
-        ui.printTaskAddedMessage(this.event, tasks);
+        return ui.printTaskAddedMessage(this.event, tasks);
     }
 }

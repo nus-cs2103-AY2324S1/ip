@@ -20,10 +20,10 @@ public class MarkTaskCommand implements Command {
      * Executes the command to mark the task with the encapsulated id as done.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             tasks.markTask(id);
-            ui.printTaskMarkedMessage(tasks.getTask(id));
+            return ui.printTaskMarkedMessage(tasks.getTask(id));
         } catch (RuntimeException e) {
             throw new DukeException("\tIndex out of bounds. There are "
                                         + tasks.getSize()

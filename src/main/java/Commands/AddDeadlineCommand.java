@@ -14,7 +14,7 @@ public class AddDeadlineCommand implements Command {
      * @param deadlineString The string to be parsed and converted into a LocalDate/LocalDateTime object.
      */
     public AddDeadlineCommand(String deadlineName, String deadlineString) {
-        Deadline deadline  = Storage.parseDeadlineFromString(deadlineName, deadlineString);
+        Deadline deadline = Storage.parseDeadlineFromString(deadlineName, deadlineString);
         this.deadline = deadline;
     }
 
@@ -27,8 +27,8 @@ public class AddDeadlineCommand implements Command {
      *  Executes the command to add a deadline to the TaskList.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(this.deadline);
-        ui.printTaskAddedMessage(this.deadline, tasks);
+        return ui.printTaskAddedMessage(this.deadline, tasks);
     }
 }

@@ -25,8 +25,8 @@ public class AddToDoCommand implements Command {
      * Executes the command to add the encapsulated toDo to the TaskList.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(this.toDo);
-        ui.printTaskAddedMessage(toDo, tasks);
+        return ui.printTaskAddedMessage(toDo, tasks);
     }
 }

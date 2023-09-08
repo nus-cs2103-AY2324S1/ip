@@ -20,10 +20,10 @@ public class UnmarkTaskCommand implements Command {
      * Executes the command to mark the task with the encapsulated id as not done.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             tasks.unmarkTask(id);
-            ui.printTaskUnmarkedMessage(tasks.getTask(id));
+            return ui.printTaskUnmarkedMessage(tasks.getTask(id));
         } catch (RuntimeException e) {
             throw new DukeException("\tIndex out of bounds. There are "
                                         + tasks.getSize()

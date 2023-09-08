@@ -8,8 +8,8 @@ public class ExitCommand implements Command {
      * Executes the command to quit the chatbot, causing it to bid farewell.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.bidFarewell();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.bidFarewell();
     }
 
     /**
