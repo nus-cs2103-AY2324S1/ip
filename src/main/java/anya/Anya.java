@@ -10,7 +10,7 @@ import anya.task.TaskList;
 import anya.ui.Ui;
 
 /**
- * Represents a chatbot named anya.
+ * Represents a chat bot named anya.
  */
 public class Anya {
 
@@ -47,7 +47,6 @@ public class Anya {
 
     /**
      * Executes the main functionality of the Anya application by running its core components.
-     *
      * This method is responsible for executing the main workflow of the Anya application, which includes displaying a
      * greeting message, parsing user input, and showing an exit message when the application is finished.
      *
