@@ -1,4 +1,7 @@
-package peko;
+package peko.commands;
+
+import peko.tasks.Task;
+import peko.memory.StorageHandler;
 
 public class Find {
     private Task[] tempTaskList;

@@ -1,6 +1,10 @@
 package peko;
 
 
+import peko.commands.Commands;
+import peko.memory.StorageHandler;
+import peko.tasks.TaskHandler;
+
 import java.util.Scanner;
 
 public class UserInputHandler {

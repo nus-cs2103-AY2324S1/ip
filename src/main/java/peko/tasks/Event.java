@@ -1,4 +1,7 @@
-package peko;
+package peko.tasks;
+
+import peko.DateTimeHandler;
+import peko.exceptions.InvalidTaskException;
 
 public class Event extends Task {
     private char type = 'E';

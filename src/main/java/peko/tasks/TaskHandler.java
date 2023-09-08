@@ -1,4 +1,10 @@
-package peko;
+package peko.tasks;
+
+import peko.commands.Commands;
+import peko.commands.Find;
+import peko.exceptions.InvalidTaskException;
+import peko.memory.SaveHandler;
+import peko.memory.StorageHandler;
 
 import java.io.FileNotFoundException;
 

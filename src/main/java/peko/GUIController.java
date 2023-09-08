@@ -33,7 +33,7 @@ import javafx.scene.layout.HBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GUIController extends Application implements Initializable {
+public class GUIController extends Application {
 
     @FXML
     private ScrollPane scrollPane;
@@ -119,27 +119,12 @@ public class GUIController extends Application implements Initializable {
 
     @FXML
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(userIcon)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(pekoIcon))
-        );
-        userInput.clear();
     }
     private String getResponse(String input) {
         return "Peko heard: " + input;
     }
 
 
-    private Circle headerCircle;
 
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        headerCircle.setStroke(Color.color(0,255,0));
-        Image im = new Image("Pics/tumblr_67c47d22da73ac2ba89e1e97bce6e525_76dfa232_400.png", false);
-        headerCircle.setFill(new ImagePattern(im));
-
-    }
 }

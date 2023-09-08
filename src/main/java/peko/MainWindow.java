@@ -37,14 +37,6 @@ public class MainWindow {
      * Creates two dialog boxes, one echoing user input and the other containing peko's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
-    @FXML
-    private void handleUserInput() {
-        String input = userInput.getText();
-        String response = peko.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, new ImageView(userImage)),
-                DialogBox.getDukeDialog(response, new ImageView(pekoImage))
-        );
-        userInput.clear();
-    }
+
+
 }

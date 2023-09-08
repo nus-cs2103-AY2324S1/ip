@@ -1,4 +1,4 @@
-package peko;
+package peko.exceptions;
 
 public class InvalidTaskException extends Exception {
     private String errorMessage;

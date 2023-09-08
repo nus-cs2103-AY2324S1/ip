@@ -1,8 +1,9 @@
-package peko;
+package peko.tasks;
 
-import java.util.Arrays;
+import peko.exceptions.InvalidTaskException;
+import peko.tasks.Task;
 
-public class ToDos extends Task{
+public class ToDos extends Task {
     char type = 'T';
     public ToDos(String s) throws InvalidTaskException {
         super(s);

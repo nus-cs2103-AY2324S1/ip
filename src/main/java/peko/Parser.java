@@ -1,6 +1,8 @@
 package peko;
 
 
+import peko.commands.Commands;
+
 public class Parser {
 
     private String string;
