@@ -2,6 +2,7 @@ package avalon;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class TaskList {
     private List<Task> tasks;
 
@@ -10,8 +11,9 @@ public class TaskList {
     }
 
     public ArrayList<Task> tasks() {
-        return (ArrayList)tasks;
+        return (ArrayList) tasks;
     }
+
     public boolean isEmpty() {
         return tasks.isEmpty();
     }
