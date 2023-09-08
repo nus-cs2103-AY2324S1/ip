@@ -1,5 +1,20 @@
 package seedu.duke;
 
+import seedu.duke.command.AddCommand;
+import seedu.duke.command.Command;
+import seedu.duke.command.DeleteCommand;
+import seedu.duke.command.ErrorCommand;
+import seedu.duke.command.ExitCommand;
+import seedu.duke.command.FindCommand;
+import seedu.duke.command.ListCommand;
+import seedu.duke.command.MarkCommand;
+import seedu.duke.command.UnmarkCommand;
+import seedu.duke.task.Deadline;
+import seedu.duke.task.Event;
+import seedu.duke.task.Task;
+import seedu.duke.task.TaskType;
+import seedu.duke.task.Todo;
+
 /**
  * Represents a parser.
  * A parser is responsible for parsing and
@@ -23,27 +38,27 @@ public class Parser {
      * @param input Input from the user.
      * @return A type of Commands enum to prevent erroneous inputs.
      */
-    public Commands parse(String input) {
+    public Command parse(String input) {
         if (input.equals("bye")) {
-            return Commands.BYE;
+            return new ExitCommand();
         } else if (input.equals("list")) {
-            return Commands.LIST;
+            return new ListCommand();
         } else if (input.startsWith("mark")) {
-            return Commands.MARK;
+            return new MarkCommand(input);
         } else if (input.startsWith("unmark")) {
-            return Commands.UNMARK;
+            return new UnmarkCommand(input);
         } else if (input.startsWith("delete")) {
-            return Commands.DELETE;
+            return new DeleteCommand(input);
         } else if (input.startsWith("todo")) {
-            return Commands.TODO;
+            return new AddCommand(input, TaskType.TODO);
         } else if (input.startsWith("deadline")) {
-            return Commands.DEADLINE;
+            return new AddCommand(input, TaskType.DEADLINE);
         } else if (input.startsWith("event")) {
-            return Commands.EVENT;
+            return new AddCommand(input, TaskType.EVENT);
         } else if (input.startsWith("find")) {
-            return Commands.FIND;
+            return new FindCommand(input);
         }
-        return Commands.DEFAULT;
+        return new ErrorCommand();
     }
 
     /**
