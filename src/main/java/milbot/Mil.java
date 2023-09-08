@@ -20,19 +20,9 @@ public class Mil {
         taskList = storage.loadTasksFromFile();
         parser = new Parser(taskList, ui, storage);
     }
-
-//    public static void main(String[] args) {
-//        Scanner scanner = new Scanner(System.in);
-//        String input;
-//        //ui.printWelcomeMessage();
-//
-//        while (scanner.hasNext()) {
-//            input = scanner.nextLine();
-//            parser.parseInput(input);
-//        }
-//
-//    }
     public String getResponse(String input) {
-        return parser.parseInput(input);
+        String response = parser.parseInput(input);
+        assert response != null: "The response should not be null.";
+        return response;
     }
 }
