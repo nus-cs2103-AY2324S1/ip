@@ -15,7 +15,7 @@ public class ParserTest {
             Command command = Parser.parse("blah");
             fail();
         } catch (DukeException e) {
-            assertEquals("☹ OOPS!!! I'm sorry, but I don't know what that means :-(", e.getMessage());
+            assertEquals("OOPS!!! I'm sorry, but I don't know what that means :-(", e.getMessage());
         }
     }
 
@@ -25,7 +25,7 @@ public class ParserTest {
             Command command = Parser.parse("deadline read");
             fail();
         } catch (DukeException e) {
-            assertEquals("☹ OOPS!!! The description of the deadline is of wrong format.", e.getMessage());
+            assertEquals("OOPS!!! The description of the deadline is of wrong format.", e.getMessage());
         }
     }
 }
