@@ -35,7 +35,8 @@ public class EventCommand extends Command {
      * @throws InvalidDateException      If the date provided is in an invalid format.
      */
     @Override
-    public String execute(TaskList tasks , Ui ui, Storage storage) throws InvalidArgumentException, InvalidDateException {
+    public String execute(TaskList tasks , Ui ui, Storage storage)
+            throws InvalidArgumentException, InvalidDateException {
         String[] words = this.fullCommand.split(" ", 2);
         if (words.length < 2) {
             throw new InvalidArgumentException("event");

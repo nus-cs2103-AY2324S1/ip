@@ -36,8 +36,8 @@ public class TaskList {
         StringBuilder sb = new StringBuilder();
         this.taskList.add(t);
         sb.append("Got it. I've added this task:\n");
-        sb.append(t + "\n" );
-        sb.append("Now you have " + this.taskList.size() + " in the list." + "\n" );
+        sb.append(t + "\n");
+        sb.append("Now you have " + this.taskList.size() + " in the list." + "\n");
         return sb.toString();
     }
 
@@ -60,9 +60,9 @@ public class TaskList {
         this.taskList.remove(i);
         int length = this.taskList.size();
         StringBuilder sb = new StringBuilder();
-        sb.append("Noted! I've removed this task:" + "\n" );
-        sb.append(t + "\n" );
-        sb.append("Now you have " + length + " tasks in the list." + "\n" );
+        sb.append("Noted! I've removed this task:" + "\n");
+        sb.append(t + "\n");
+        sb.append("Now you have " + length + " tasks in the list." + "\n");
         return sb.toString();
     }
 
@@ -74,10 +74,10 @@ public class TaskList {
     public String findMatching(String s) {
         int index = 1;
         StringBuilder sb = new StringBuilder();
-        sb.append("Here are the matching tasks in your list:" + "\n" );
+        sb.append("Here are the matching tasks in your list:" + "\n");
         for (Task t : this.taskList) {
             if (t.contains(s)) {
-                sb.append(index + "." + t + "\n" );
+                sb.append(index + "." + t + "\n");
                 index += 1;
             }
         }

@@ -12,6 +12,10 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
     private Storage storage;
+
+    /**
+     * Constructor for Duke class.
+     */
     public Duke() {
         this.ui = new Ui();
         this.storage = new Storage("./data/duke.txt");
