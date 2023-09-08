@@ -112,7 +112,7 @@ public class Parser {
                 break;
             }
         } catch (DukeException e) {
-            System.out.println("OOPS!" + e.toString().split("DukeException:")[1]);
+            return "OOPS!" + e.toString().split("DukeException:")[1];
         }
         return output;
     }
