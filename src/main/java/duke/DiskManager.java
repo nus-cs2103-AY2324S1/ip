@@ -57,6 +57,7 @@ public class DiskManager {
                 file.createNewFile();
             }
 
+            assert file != null : "file returned by getFile() should not be null";
             return file;
         } catch (IOException e) {
             e.printStackTrace();
@@ -65,6 +66,7 @@ public class DiskManager {
     }
 
     private String taskManagerToJson(TaskManager taskManager) throws DukeException {
+        assert taskManager != null : "taskManager should not be null when converting to JSON format";
         try {
             return MAPPER.writeValueAsString(taskManager);
         } catch (JsonProcessingException e) {
@@ -79,14 +81,13 @@ public class DiskManager {
      * @throws DukeException If taskManager could not be serialized into json or FileWriter failed to write to the disk.
      */
     public void saveToDisk(TaskManager taskManager) throws DukeException {
+        assert taskManager != null : "taskManager should not be null when saving to disk";
         try {
             String json = taskManagerToJson(taskManager);
             File file = getFile();
-            if (file != null) {
-                FileWriter fileWriter = new FileWriter(file);
-                fileWriter.write(json);
-                fileWriter.close();
-            }
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(json);
+            fileWriter.close();
         } catch (IOException e) {
             throw new DukeException("Error when writing to local disk.");
         }
@@ -101,9 +102,6 @@ public class DiskManager {
     public TaskManager loadFromDisk() throws DukeException {
         try {
             File file = getFile();
-            if (file == null) {
-                throw new DukeException("Error when loading file: could not get file");
-            }
 
             // read the file
             BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -122,6 +120,7 @@ public class DiskManager {
             }
 
             TaskManager taskManager = MAPPER.readValue(json, TaskManager.class);
+            assert taskManager != null : "taskManger loaded from disks should not be null";
             return taskManager;
         } catch (JsonProcessingException e) {
             throw new DukeException("Error when deserializing file");

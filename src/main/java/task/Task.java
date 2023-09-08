@@ -26,6 +26,7 @@ public abstract class Task {
     @JsonCreator
     public Task(@JsonProperty("description") String description) {
         this.description = description;
+        assert this.description != null : "task description should not be null";
     }
 
 
@@ -39,6 +40,8 @@ public abstract class Task {
 
     public void setDescription(String description) {
         this.description = description;
+
+        assert this.description != null : "task description should not be null";
     }
 
     public void setDone(boolean isDone) {

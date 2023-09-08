@@ -18,6 +18,8 @@ public class FindCommand extends Command {
      */
     public FindCommand(String pattern) {
         this.pattern = pattern;
+
+        assert this.pattern != null : "pattern of find command should not be null";
     }
 
     @Override
