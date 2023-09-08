@@ -1,5 +1,8 @@
 package sisyphus.task;
 
+/**
+ * Abstract class to represent all tasks.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -9,11 +12,10 @@ public abstract class Task {
      *
      * @param description
      */
-     public Task(String description) {
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
-
     /**
      * Constructor when provided description and isDone.
      *
@@ -50,7 +52,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " +  this.description;
+        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
     /**

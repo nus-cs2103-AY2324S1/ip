@@ -2,12 +2,18 @@ package sisyphus;
 
 import sisyphus.task.TaskList;
 
+/**
+ * Class for Sisyphus chatbot.
+ */
 public class Sisyphus {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Constructor for the Sisyphus chatBot.
+     */
     public Sisyphus() {
         ui = new Ui();
         storage = new Storage();
@@ -26,7 +32,7 @@ public class Sisyphus {
                 String fullCommand = ui.readLine();
                 parser.runCommand(fullCommand, tasks, storage, ui);
                 isChatting = parser.getActiveStatus();
-            } catch (SisyphusException e){
+            } catch (SisyphusException e) {
                 System.out.println(e.getMessage());
             }
         }

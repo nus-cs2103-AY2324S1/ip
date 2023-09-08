@@ -3,6 +3,9 @@ package sisyphus.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class for deadline to store deadline as localDate.
+ */
 public class Deadline extends Task {
     protected LocalDate deadline;
 
@@ -12,7 +15,7 @@ public class Deadline extends Task {
      * @param description
      * @param deadline
      */
-    public Deadline (String description, LocalDate deadline) {
+    public Deadline(String description, LocalDate deadline) {
         super(description);
         this.deadline = deadline;
     }
@@ -24,7 +27,7 @@ public class Deadline extends Task {
      * @param isDone
      * @param deadline
      */
-    public Deadline (String description, boolean isDone, LocalDate deadline) {
+    public Deadline(String description, boolean isDone, LocalDate deadline) {
         super(description, isDone);
         this.deadline = deadline;
     }
@@ -46,7 +49,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D][" + this.getStatusIcon() + "] " +  this.description + " (by: " + formatDate(this.deadline) + ")";
+        return "[D][" + this.getStatusIcon() + "] " + this.description + " (by: " + formatDate(this.deadline) + ")";
     }
 
     /**

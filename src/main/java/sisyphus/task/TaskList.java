@@ -2,6 +2,9 @@ package sisyphus.task;
 
 import java.util.ArrayList;
 
+/**
+ * Class for TaskList
+ */
 public class TaskList {
 
     protected ArrayList<Task> taskList;
@@ -74,7 +77,7 @@ public class TaskList {
      * @return the last task added into the list.
      */
     public Task getLastTask() {
-        return getTask(getSize()- 1);
+        return getTask(getSize() - 1);
     }
 
     /**
