@@ -1,8 +1,8 @@
 package duke.tasks;
 
-import duke.ui.Ui;
-
 import java.time.LocalDateTime;
+
+import duke.ui.Ui;
 
 /**
  * Represents an "Event" task in the Duke application, which includes a specific start date and time and end date and
@@ -36,7 +36,9 @@ public class EventTask extends Task {
      */
     @Override
     public String getDescription() {
-        return "[E]" + super.getDescription() + " (from: " + from.format(Ui.DATE_FORMAT_OUTPUT) + " to: " + to.format(Ui.DATE_FORMAT_OUTPUT) + ")";
+        return "[E]" + super.getDescription()
+                + " (from: " + from.format(Ui.DATE_FORMAT_OUTPUT)
+                + " to: " + to.format(Ui.DATE_FORMAT_OUTPUT) + ")";
     }
 
     /**
@@ -46,7 +48,9 @@ public class EventTask extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + super.toFileString() + " | " + from.format(Ui.DATE_FORMAT_OUTPUT) + " | " + to.format(Ui.DATE_FORMAT_OUTPUT);
+        return "E | " + super.toFileString()
+                + " | " + from.format(Ui.DATE_FORMAT_OUTPUT)
+                + " | " + to.format(Ui.DATE_FORMAT_OUTPUT);
     }
 
     /**
