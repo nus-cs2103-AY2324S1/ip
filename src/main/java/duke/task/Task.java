@@ -1,6 +1,5 @@
 package duke.task;
 
-
 /**
  * Represents the Task.
  *

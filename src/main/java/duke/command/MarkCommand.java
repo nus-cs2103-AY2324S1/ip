@@ -2,9 +2,9 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.exception.TaskNotFoundException;
+import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
-import duke.storage.Storage;
 
 /**
  * Represents the Command Mark that will mark/unmark the task

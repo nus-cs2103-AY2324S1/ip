@@ -25,14 +25,14 @@ public class Parser {
         String[] splittedCommand = input.split(" ");
         if (input.equals("list")) {
             return new ListCommand();
-        } else if (splittedCommand[0].equalsIgnoreCase("mark") && splittedCommand.length == 2 &&
-                isInteger((splittedCommand[1]))) {
+        } else if (splittedCommand[0].equalsIgnoreCase("mark") && splittedCommand.length == 2
+                && isInteger((splittedCommand[1]))) {
             return new MarkCommand(true, Integer.parseInt(splittedCommand[1]) - 1);
-        } else if (splittedCommand[0].equalsIgnoreCase("unmark") && splittedCommand.length == 2 &&
-                isInteger((splittedCommand[1]))) {
+        } else if (splittedCommand[0].equalsIgnoreCase("unmark") && splittedCommand.length == 2
+                && isInteger((splittedCommand[1]))) {
             return new MarkCommand(false, Integer.parseInt(splittedCommand[1]) - 1);
-        } else if (splittedCommand[0].equalsIgnoreCase("delete") && splittedCommand.length == 2 &&
-                isInteger((splittedCommand[1]))) {
+        } else if (splittedCommand[0].equalsIgnoreCase("delete") && splittedCommand.length == 2
+                && isInteger((splittedCommand[1]))) {
             return new DeleteCommand(Integer.parseInt(splittedCommand[1]) - 1);
         } else if (input.equalsIgnoreCase("bye")) {
             return new ExitCommand();
@@ -47,8 +47,7 @@ public class Parser {
         try {
             Integer check = Integer.parseInt(str);
             return true;
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return false;
         }
     }

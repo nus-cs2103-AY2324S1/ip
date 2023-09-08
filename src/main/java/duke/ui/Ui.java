@@ -9,7 +9,7 @@ import java.util.Scanner;
  * @author Angky Akdi Frandy Putrakelana
  */
 public class Ui {
-    Scanner sc;
+    private Scanner sc;
 
     /**
      * Constructs the User Interface.
@@ -24,11 +24,11 @@ public class Ui {
      *
      */
     public void showWelcome() {
-        String Introduction = "____________________________________________________________\n" +
-                " Hello! I'm FootyCouch\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________";
-        System.out.println(Introduction);
+        String introduction = "____________________________________________________________\n"
+                + " Hello! I'm FootyCouch\n"
+                + " What can I do for you?\n"
+                + "____________________________________________________________";
+        System.out.println(introduction);
     }
 
     /**
