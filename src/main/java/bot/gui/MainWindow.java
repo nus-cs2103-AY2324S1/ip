@@ -70,7 +70,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        if (bot.isExit()) {
+        if (bot.getExitStatus()) {
             return;
         }
         String input = userInput.getText();

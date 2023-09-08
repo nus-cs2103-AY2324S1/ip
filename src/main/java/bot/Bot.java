@@ -2,7 +2,7 @@ package bot;
 
 import bot.exceptions.BotException;
 import bot.exceptions.LoadingException;
-import bot.utils.Command;
+import bot.utils.commands.Command;
 import bot.utils.Parser;
 import bot.utils.Storage;
 import bot.utils.TaskList;
@@ -54,7 +54,7 @@ public class Bot {
         try {
             Command command = Parser.parse(input);
             response = command.execute(tasks, ui, storage);
-            if (command.isExit()) {
+            if (command.getExitStatus()) {
                 isExit = true;
             }
             storage.save(tasks);
@@ -78,7 +78,7 @@ public class Bot {
      *
      * @return True if the bot is active, else false.
      */
-    public boolean isExit() {
+    public boolean getExitStatus() {
         return this.isExit;
     }
 }
