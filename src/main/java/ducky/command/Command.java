@@ -10,20 +10,11 @@ import ducky.TaskList;
 public abstract class Command {
 
     /**
-     * Returns whether command is an exit command.
-     * @return True if command is an exit command.
-     */
-    public boolean isExit() {
-        return false;
-    }
-
-    /**
      * Executes the current command.
      *
      * @param taskList TaskList of Ducky chatbot instance.
-     * @param ui       UserInterface of Ducky chatbot instance.
      * @param storage  Storage module of Ducky chatbot instance.
-     * @return
+     * @return String indicating result of chatbot command.
      * @throws DuckyException If exceptions specific to Ducky are raised.
      */
     public abstract String execute(TaskList taskList, Storage storage) throws DuckyException;
