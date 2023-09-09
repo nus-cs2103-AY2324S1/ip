@@ -45,7 +45,7 @@ public class Storage {
             }
 
             s.close();
-            return populate(arr);
+            return populateTaskList(arr);
 
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
@@ -64,7 +64,7 @@ public class Storage {
      * @param arr An array of tasks in the stored string format.
      * @return A TaskList of the said tasks.
      */
-    private TaskList populate(ArrayList<String> arr) {
+    private TaskList populateTaskList(ArrayList<String> arr) {
         TaskList taskList = new TaskList();
 
         for (String str : arr) {
