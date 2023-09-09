@@ -68,6 +68,7 @@ public class Storage {
             tasks.add(new ToDoTask(taskData[2], isComplete));
             break;
           default:
+            assert taskData[0].equals("deadline");
             tasks.add(new DeadlineTask(taskData[2], parser.parseTime(taskData[3]), isComplete));
         }
       }

@@ -74,6 +74,7 @@ public class CommandParser {
     } else if (words[0].equals("event")) {
       return this.createEventTask(words);
     } else {
+      assert words[0].equals("deadline");
       return this.createDeadlineTask(words);
     }
   }
