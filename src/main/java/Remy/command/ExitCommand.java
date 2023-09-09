@@ -17,12 +17,13 @@ public class ExitCommand extends Command {
 
     /**
      * Prints the exit message.
+     *
      * @param taskList The TaskList to be acted on.
-     * @param ui Handles User interaction.
-     * @param storage Handles saving the updated TaskList.
+     * @param ui       Handles User interaction.
+     * @param storage  Handles saving the updated TaskList.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        Ui.printExitMessage();
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return Ui.getExitMessage();
     }
 }
