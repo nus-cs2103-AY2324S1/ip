@@ -10,12 +10,13 @@ import java.util.ArrayList;
 public class Ui {
     private Scanner sc = new Scanner(System.in);
     private String CHATBOT_NAME = "Richie";
+    private String currentMessage = "";
 
     /**
      * Prints the welcome message
      */
     public void showWelcome() {
-        System.out.println("Hello! I'm " + CHATBOT_NAME + "\nWhat can I do for you?");
+        currentMessage =  "Hello! I'm " + CHATBOT_NAME + "\nWhat can I do for you?";
     }
 
     /**
@@ -23,7 +24,7 @@ public class Ui {
      */
 
     public void showLoadingError() {
-        System.out.println("There was an error loading the data!");
+        currentMessage = "There was an error loading the data!";
     }
 
     /**
@@ -38,7 +39,7 @@ public class Ui {
      * Prints the bye message
      */
     public void showBye() {
-        System.out.println("Bye hope to see you again soon!");
+        currentMessage = "Bye hope to see you again soon!";
     }
 
     /**
@@ -46,7 +47,7 @@ public class Ui {
      * @param message String representing the message to be printed to the ui
      */
     public void showMessage(String message) {
-        System.out.println(message);
+        currentMessage = message;
     }
 
     /**
@@ -54,7 +55,7 @@ public class Ui {
      * @param task
      */
     public void showTaskMarked(Task task) {
-        System.out.println("Nice! I've marked this task as done:\n " + task);
+        currentMessage = "Nice! I've marked this task as done:\n " + task;
     }
 
     /**
@@ -62,11 +63,17 @@ public class Ui {
      * @param tasks ArrayList of tasks that have been filtered down by the keyword
      */
     public void showFilteredTasksList(ArrayList<Task> tasks) {
-        System.out.println("Here are the matching tasks in your list: ");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the matching tasks in your list: \n") ;
         int count = 1;
         for (Task task : tasks) {
-            System.out.println(count + ". " + task.toString());
+            sb.append(count).append(". ").append(task.toString()).append("\n");
             count++;
         }
+        currentMessage = sb.toString();
+    }
+
+    public String getCurrentMessage() {
+        return this.currentMessage;
     }
 }

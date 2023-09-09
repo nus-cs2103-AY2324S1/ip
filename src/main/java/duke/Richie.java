@@ -2,6 +2,9 @@ package duke;
 
 import duke.command.Command;
 import duke.command.ExitCommand;
+import javafx.application.Platform;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Entry point class for the Richie application
@@ -27,33 +30,30 @@ public class Richie {
         }
     }
 
-    /**
-     * Runs the Richie application
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String userInput = ui.scanUserInput();
-                Command command = Parser.parse(userInput);
-                command.execute(this.ui, this.storage, this.tasks);
-                if (command instanceof ExitCommand) {
-                    isExit = true;
-                }
 
-            } catch (RichieException e) {
-                ui.showMessage(e.getMessage());
+    public String init() {
+        ui.showWelcome();
+        return ui.getCurrentMessage();
+    }
+
+    public String getResponse(String userInput) {
+        try {
+            Command command = Parser.parse(userInput);
+            command.execute(this.ui, this.storage, this.tasks);
+            if (command instanceof ExitCommand) {
+                //exit program
+                // make sure the program will show the exit message before exiting the platform
+                Platform.exit();
             }
+        } catch (RichieException e) {
+            ui.showMessage(e.getMessage());
         }
+        return ui.getCurrentMessage();
     }
 
     /**
      * Entry point to the Richie application
      * @param args not used in the application
      */
-    public static void main(String[] args) {
-        new Richie("src/data.txt").run();
-    }
 }
 

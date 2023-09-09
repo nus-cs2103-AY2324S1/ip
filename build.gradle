@@ -1,20 +1,22 @@
 plugins {
     id 'java'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+checkstyle {
+    toolVersion = '10.2'
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
     String javaFxVersion = '17.0.7'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
@@ -32,24 +34,29 @@ dependencies {
 
 test {
     useJUnitPlatform()
-}
 
-jar {
-    manifest {
-        attributes "Main-Class": "duke.Richie"
-    }
+    testLogging {
+        events "passed", "skipped", "failed"
 
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
     }
 }
 
 application {
-    mainClassName = 'duke.Richie'
+    mainClass.set("duke.Launcher")
 }
 
 shadowJar {
-    archiveFileName = 'duke.jar'
-    archiveBaseName = 'Richie'
-    archiveVersion = 'v.0.1'
+    archiveBaseName = "duke"
+    archiveClassifier = null
+    dependsOn("distZip", "distTar")
+}
+
+run {
+    enableAssertions = true
+    standardInput = System.in
 }
