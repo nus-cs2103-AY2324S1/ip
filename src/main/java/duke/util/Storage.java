@@ -1,15 +1,16 @@
 package duke.util;
 
-import duke.task.Task;
-import duke.task.ToDo;
 import duke.task.Deadline;
 import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
 
-import java.io.IOException;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.BufferedReader;
 import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.ArrayList;
 
 /**

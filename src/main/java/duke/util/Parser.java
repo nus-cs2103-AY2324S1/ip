@@ -5,10 +5,10 @@ import duke.Duke;
 import duke.exception.InvalidCommandException;
 import duke.exception.MissingInputException;
 
+import duke.task.Deadline;
+import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
-import duke.task.Event;
-import duke.task.Deadline;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,90 +22,81 @@ import java.util.ArrayList;
  * @since 3 September 2023
  */
 public class Parser {
+    private final TaskList taskList;
+    private final Ui ui;
+    private final Storage storage;
+
+    public Parser(TaskList taskList, Ui ui, Storage storage) {
+        this.taskList = taskList;
+        this.ui = ui;
+        this.storage = storage;
+    }
 
     /**
      * Parses the user's input and executes the corresponding commands.
      *
      * @param userInput The user's input.
-     * @param taskList The list of tasks.
-     * @param ui The Ui for displaying messages.
-     * @param storage The Storage for saving and loading tasks.
      */
-    public void parseUserInput(String userInput, TaskList taskList, Ui ui, Storage storage) {
+    public String parseUserInput(String userInput) {
 
         try {
             String[] individualWords = userInput.split(" ");
 
-            if (individualWords.length > 0) { // To handle whitespace input
-                String firstWord = individualWords[0];
-                String lowerCapsFirstWord = firstWord.toLowerCase();
-
-                try {
-                    switch (lowerCapsFirstWord) {
-                        case "bye":
-                            ui.showGoodbye();
-                            Duke.isDone = true;
-                            break;
-                        case "list":
-                            listTasks(taskList, ui);
-                            break;
-                        case "mark":
-                            markTask(userInput, taskList, ui);
-                            break;
-                        case "unmark":
-                            unmarkTask(userInput, taskList, ui);
-                            break;
-                        case "delete":
-                            deleteTask(userInput, taskList, ui);
-                            break;
-                        case "todo":
-                            addTodoTask(userInput, taskList, ui);
-                            break;
-                        case "deadline":
-                            addDeadlineTask(userInput, taskList, ui);
-                            break;
-                        case "event":
-                            addEventTask(userInput, taskList, ui);
-                            break;
-                        case "find":
-                            findByKeyword(userInput, taskList, ui);
-                            break;
-                        default:
-                            throw new InvalidCommandException();
-                    }
-
-                    try {
-                        storage.save(taskList.getAllTasks());
-                    } catch (IOException e) {
-                        ui.showMessage("Cannot save tasks.");
-                    }
-                } catch (MissingInputException | InvalidCommandException | IndexOutOfBoundsException e) {
-                    ui.showMessage(e.getMessage());
-                }
-            } else {
+            if (individualWords.length == 0) {
                 throw new InvalidCommandException();
             }
-        } catch (InvalidCommandException e) {
-            ui.showMessage(e.getMessage());
+
+            String firstWord = individualWords[0];
+            String lowerCapsFirstWord = firstWord.toLowerCase();
+
+            switch (lowerCapsFirstWord) {
+                case "bye":
+                    Duke.isDone = true;
+                    return ui.goodbyeMessage();
+                case "list":
+                    return listTasks();
+                case "mark":
+                    return markTask(userInput);
+                case "unmark":
+                    return unmarkTask(userInput);
+                case "delete":
+                    return deleteTask(userInput);
+                case "todo":
+                    return addTodoTask(userInput);
+                case "deadline":
+                    return addDeadlineTask(userInput);
+                case "event":
+                    return addEventTask(userInput);
+                case "find":
+                    return findByKeyword(userInput);
+                default:
+                    throw new InvalidCommandException();
+            }
+        } catch (MissingInputException | InvalidCommandException | IndexOutOfBoundsException e) {
+            return e.getMessage();
+        } finally {
+            try {
+                storage.save(taskList.getAllTasks());
+            } catch (IOException e) {
+                return("Cannot save tasks.");
+            }
         }
     }
 
     /**
      * Displays the list of tasks saved.
-     *
-     * @param taskList The list of tasks.
-     * @param ui The Ui for displaying messages.
      */
-    private void listTasks(TaskList taskList, Ui ui) {
+    private String listTasks() {
         if (taskList.getSize() == 0) {
-            ui.showMessage("You have 0 task.");
+            return("You have 0 task.");
         } else {
-            System.out.println("Here are your tasks:"); // Not using ui.printLine() to prevent lines between the tasks
+            StringBuilder message = new StringBuilder();
+            message.append("Here are your tasks:\n");
             for (int i = 0; i < taskList.getSize(); i++) {
                 Task task = taskList.getTask(i);
-                System.out.println((i + 1) + "." + task.toString());
+                message.append((i + 1) + "." + task.toString() + "\n");
             }
-            ui.printLine();
+            return message.toString();
         }
     }
 
@@ -113,11 +104,9 @@ public class Parser {
      * Marks a task as done.
      *
      * @param userInput The user's input.
-     * @param taskList The list of tasks.
-     * @param ui The Ui for displaying messages.
      * @throws MissingInputException If the user input is missing required information.
      */
-    private void markTask(String userInput, TaskList taskList, Ui ui) throws MissingInputException {
+    private String markTask(String userInput) throws MissingInputException {
         String[] individualWords = userInput.split(" ");
         if (individualWords.length <= 1) {
             throw new MissingInputException("Task to mark cannot be empty!");
@@ -130,10 +119,9 @@ public class Parser {
         try {
             int taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
             Task task = taskList.getTask(taskNumber);
-            task.updateTaskStatus(true, "Task " + (taskNumber + 1) + " is already done!", "Great job! Task " + (taskNumber + 1) + " is done!");
-            ui.printLine();
+            return task.updateTaskStatus(true, "Task " + (taskNumber + 1) + " is already done!", "Great job! Task " + (taskNumber + 1) + " is done!\n");
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            ui.showMessage("Invalid task number.");
+            return("Invalid task number.");
         }
     }
 
@@ -141,11 +129,9 @@ public class Parser {
      * Marks a task as undone.
      *
      * @param userInput The user's input.
-     * @param taskList The list of tasks.
-     * @param ui The Ui for displaying messages.
      * @throws MissingInputException If the user input is missing required information.
      */
-    private void unmarkTask(String userInput, TaskList taskList, Ui ui) throws MissingInputException {
+    private String unmarkTask(String userInput) throws MissingInputException {
         String[] individualWords = userInput.split(" ");
         if (individualWords.length <= 1) {
             throw new MissingInputException("Task to unmark cannot be empty!");
@@ -158,10 +144,9 @@ public class Parser {
         try {
             int taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
             Task task = taskList.getTask(taskNumber);
-            task.updateTaskStatus(false, "Task " + (taskNumber + 1) + " is still incomplete.", "Okay, I've updated Task " + (taskNumber + 1) + " to be incomplete.");
-            ui.printLine();
+            return task.updateTaskStatus(false, "Task " + (taskNumber + 1) + " is still incomplete.", "Okay, I've updated Task " + (taskNumber + 1) + " to be incomplete.\n");
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            ui.showMessage("Invalid task number.");
+            return("Invalid task number.");
         }
     }
 
@@ -169,11 +154,9 @@ public class Parser {
      * Deletes a task from the list of tasks.
      *
      * @param userInput The user's input.
-     * @param taskList The list of tasks.
-     * @param ui The Ui for displaying messages.
      * @throws MissingInputException If the user input is missing required information.
      */
-    private void deleteTask(String userInput, TaskList taskList, Ui ui) throws MissingInputException {
+    private String deleteTask(String userInput) throws MissingInputException {
         String[] individualWords = userInput.split(" ");
         if (individualWords.length <= 1) {
             throw new MissingInputException("Task to be deleted cannot be empty!");
@@ -187,9 +170,13 @@ public class Parser {
             int taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
             Task deletedTask = taskList.getTask(taskNumber);
             taskList.deleteTask(taskNumber);
-            ui.showMessage("This task has been removed:\n  " + deletedTask + "\nYou have a total of " + taskList.getSize() + (taskList.getSize() == 1 ? " task.\n" : " tasks."));
+            return "This task has been removed:\n  " +
+                    deletedTask +
+                    "\nYou have a total of " +
+                    taskList.getSize() +
+                    (taskList.getSize() == 1 ? " task.\n" : " tasks.\n");
         } catch (NumberFormatException e) {
-            ui.showMessage("Invalid task number.");
+            return("Invalid task number.");
         }
     }
 
@@ -197,11 +184,9 @@ public class Parser {
      * Adds a ToDo task to the list of tasks.
      *
      * @param userInput The user's input.
-     * @param taskList The list of tasks.
-     * @param ui The Ui for displaying messages.
      * @throws MissingInputException If the user input is missing required information.
      */
-    private void addTodoTask(String userInput, TaskList taskList, Ui ui) throws MissingInputException {
+    private String addTodoTask(String userInput) throws MissingInputException {
         String[] individualWords = userInput.split(" ");
         if (individualWords.length <= 1) {
             throw new MissingInputException("The description of a todo cannot be empty!");
@@ -210,18 +195,20 @@ public class Parser {
         String description = userInput.substring(5).trim();
         ToDo task = new ToDo(description);
         taskList.addTask(task);
-        ui.showMessage("I've added this task:\n  " + task + "\nYou have a total of " + taskList.getSize() + (taskList.getSize() == 1 ? " task." : " tasks."));
+        return "I've added this task:\n  " +
+                task +
+                "\nYou have a total of " +
+                taskList.getSize() +
+                (taskList.getSize() == 1 ? " task." : " tasks.");
     }
 
     /**
      * Adds a Deadline task to the list of tasks.
      *
      * @param userInput The user's input.
-     * @param taskList The list of tasks.
-     * @param ui The Ui for displaying messages.
      * @throws MissingInputException If the user input is missing required information.
      */
-    private void addDeadlineTask(String userInput, TaskList taskList, Ui ui) throws MissingInputException {
+    private String addDeadlineTask(String userInput) throws MissingInputException {
         String[] individualWords = userInput.split(" ");
         if (individualWords.length <= 1) {
             throw new MissingInputException("You are missing one or some of these inputs - description/ by.");
@@ -236,9 +223,17 @@ public class Parser {
 
             if (task.dateTime != null) {
                 taskList.addTask(task);
-                ui.showMessage("I've added this task:\n  " + task + "\nYou have a total of " + taskList.getSize() + (taskList.getSize() == 1 ? " task." : " tasks."));
+                return "I've added this task:\n  " +
+                        task +
+                        "\nYou have a total of " +
+                        taskList.getSize() +
+                        (taskList.getSize() == 1 ? " task." : " tasks.");
             } else {
-                ui.printLine();
+                return "Please use the following formats:\n" +
+                        "deadline task /by yyyy-mm-dd hhmm\n" +
+                        "deadline task /by dd/mm/yyyy hhmm\n" +
+                        "deadline task /by yyyy-mm-dd\n" +
+                        "deadline task /by dd/mm/yyyy";
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new MissingInputException("You are missing one or some of these inputs - description/ by.");
@@ -249,11 +244,9 @@ public class Parser {
      * Adds an Event task to the list of tasks.
      *
      * @param userInput The user's input.
-     * @param taskList The list of tasks.
-     * @param ui The Ui for displaying messages.
      * @throws MissingInputException If the user input is missing required information.
      */
-    private void addEventTask(String userInput, TaskList taskList, Ui ui) throws MissingInputException {
+    private String addEventTask(String userInput) throws MissingInputException {
         String[] individualWords = userInput.split(" ");
         if (individualWords.length <= 1) {
             throw new MissingInputException("You are missing one or some of these inputs - description/ from/ to.");
@@ -269,12 +262,19 @@ public class Parser {
             Event task = new Event(description, from, to);
 
             if (task.fromDateTime != null && task.toDateTime != null) {
+                //If user sets to date to be before from date
+                if (task.fromDateTime.isAfter(task.toDateTime)) {
+                    return("To date cannot be before from date.");
+                }
                 taskList.addTask(task);
-                ui.showMessage("I've added this task:\n  " + task + "\nYou have a total of " + taskList.getSize() + (taskList.getSize() == 1 ? " task." : " tasks."));
+                return "I've added this task:\n  " + task + "\nYou have a total of " + taskList.getSize() + (taskList.getSize() == 1 ? " task.\n" : " tasks.\n");
             } else {
-                ui.printLine();
+                return "Please use the following formats:\n" +
+                        "event task /from yyyy-mm-dd hhmm /to yyyy-mm-dd hhmm\n" +
+                        "event task /from dd/mm/yyyy hhmm /to dd/mm/yyyy hhmm\n" +
+                        "event task /from yyyy-mm-dd /to yyyy-mm-dd\n" +
+                        "event task /from dd/mm/yyyy /to dd/mm/yyyy\n";
             }
-
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new MissingInputException("You are missing one or some of these inputs - description/ from/ to.");
         }
@@ -284,11 +284,9 @@ public class Parser {
      * Finds all tasks matching a specified keyword and displays the list of matching tasks.
      *
      * @param userInput The user's input.
-     * @param taskList The list of tasks.
-     * @param ui The Ui for displaying messages.
      * @throws MissingInputException If the user input is missing required information.
      */
-    private void findByKeyword (String userInput, TaskList taskList, Ui ui) throws MissingInputException {
+    private String findByKeyword (String userInput) throws MissingInputException {
         String[] individualWords = userInput.split(" ");
         if (individualWords.length <= 1) {
             throw new MissingInputException("Keyword cannot be empty.");
@@ -304,15 +302,16 @@ public class Parser {
             }
 
             if (matchingTasks.isEmpty()) {
-                ui.showMessage("No matching tasks found.");
+                return("No matching tasks found.");
             } else {
-                System.out.println("Here are the matching tasks in your list:");
+                StringBuilder message = new StringBuilder();
+                message.append("Here are the matching tasks in your list:\n");
                 for (int i = 0; i < matchingTasks.size(); i++) {
                     Task task = matchingTasks.get(i);
-                    System.out.println((i + 1) + "." + task.toString());
+                    message.append((i + 1) + "." + task.toString() + "\n");
                 }
-                ui.printLine();
                 matchingTasks.clear();
+                return message.toString();
             }
         }
     }

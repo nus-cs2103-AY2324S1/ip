@@ -1,9 +1,9 @@
 package duke;
 
-import duke.util.TaskList;
-import duke.util.Ui;
 import duke.util.Parser;
 import duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.Ui;
 
 import java.io.IOException;
 
@@ -15,37 +15,32 @@ import java.io.IOException;
  * @since 3 September 2023
  */
 public class Duke {
-
-    private Storage storage;
-    private TaskList taskList;
-    private Parser parser;
-    private Ui ui;
+    private static Storage storage;
+    private static TaskList taskList;
+    private static Parser parser;
+    private static Ui ui;
     public static boolean isDone = false;
 
     /**
      * Constructs a new instance of the task bot with the specified file path.
-     *
-     * @param filePath The file path that stores the task data in text format.
      */
-    public Duke(String filePath) {
+    public Duke() {
+        storage = new Storage("./data/duke.txt");
         ui = new Ui();
-        storage = new Storage(filePath);
         try {
             taskList = new TaskList(storage.load());
-            parser = new Parser();
+            parser = new Parser(taskList, ui, storage);
         } catch (IOException e) {
             System.err.println(e);
         }
     }
 
-    /**
-     * Runs the task bot, displaying a welcome message and processing user input.
-     */
-    public void run() {
-        ui.showWelcome();
-        while (!isDone) {
-            parser.parseUserInput(ui.getUserInput(), taskList, ui, storage);
-        }
+    public Ui getUi() {
+        return ui;
+    }
+
+    public static String getResponse(String userInput) {
+        return parser.parseUserInput(userInput);
     }
 
     /**
@@ -54,6 +49,9 @@ public class Duke {
      * @param args Not used.
      */
     public static void main(String[] args) {
-        new Duke("./data/duke.txt").run();
+        new Duke();
+        while (!isDone) {
+            System.out.println(getResponse(ui.getUserInput()));
+        }
     }
 }
