@@ -1,6 +1,8 @@
 package duke;
 
 
+import duke.uiux.Launcher;
+
 /**
  * Class to encapsulate the whole chatbot and its functionality
  */
@@ -28,8 +30,7 @@ public class Duke {
      * Runs the chatbot
      */
     public void run() {
-        ModelViewController mvc = new ModelViewController();
-        mvc.createWelcomeMessage();
+        this.ui.showWelcome();
         boolean hasCommands = true;
         while (hasCommands) {
             String input = this.ui.readCommand();
@@ -66,7 +67,7 @@ public class Duke {
 
 
     public static void main(String[] args) {
-        new Duke("./data/duke.txt").run();
+        Launcher.main(args);
     }
 
 }
