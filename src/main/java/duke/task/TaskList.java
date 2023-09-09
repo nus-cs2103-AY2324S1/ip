@@ -111,6 +111,7 @@ public class TaskList {
         try {
             Task task = this.taskList.get(index - 1);
             this.taskList.remove(index - 1);
+            assert !taskList.contains(task): "The task should be removed from taskList";
             return task;
         } catch (IndexOutOfBoundsException e) {
             throw new DukeNoTaskFoundException();
