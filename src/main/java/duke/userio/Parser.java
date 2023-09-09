@@ -110,14 +110,14 @@ public class Parser {
                 break;
             case "find":
                 String inputToFind = input.substring(6);
-                TaskList tempTL = new TaskList();
+                TaskList tempTl = new TaskList();
                 for (int i = 0; i < taskList.getSize(); i++) {
                     Task t = taskList.getTask(i);
                     if (t.containsString(inputToFind)) {
-                        tempTL.addTask(t);
+                        tempTl.addTask(t);
                     }
                 }
-                response = ui.findResponse(tempTL.outputNumberedList());
+                response = ui.findResponse(tempTl.outputNumberedList());
                 break;
             default:
                 throw new InvalidUserInputException();
