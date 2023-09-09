@@ -1,3 +1,5 @@
+package duke;
+
 //import java.io.BufferedReader;
 //import java.io.BufferedWriter;
 //import java.io.File;
@@ -7,10 +9,10 @@
 //import java.util.ArrayList;
 //import java.util.Scanner;
 //
-//public class Duke {
+//public class duke.Duke {
 //    private static final int MAX_TASKS = 100;
-//    private static ArrayList<Task> tasks = new ArrayList<>();
-//    // private static Task[] tasks = new Task[MAX_TASKS];
+//    private static ArrayList<duke.Task> tasks = new ArrayList<>();
+//    // private static duke.Task[] tasks = new duke.Task[MAX_TASKS];
 //    private static int taskCount= 0;
 //    private static final String DATA_FILE_PATH = "./docs/duke.txt";
 //    public enum TaskType {
@@ -28,7 +30,7 @@
 //
 //                switch (taskType) {
 //                    case "todo":
-//                        tasks.add(new Todo(taskDescription));
+//                        tasks.add(new duke.Todo(taskDescription));
 //                        taskCount++;
 //                        if (taskCount > 0) {
 //                            System.out.println("Got it. I've added this task:");
@@ -46,7 +48,7 @@
 //                            } else if (deadlineTime.trim().isEmpty()) {
 //                                System.out.println("Can you tell me when is your deadline??");
 //                            } else {
-//                                tasks.add(new Deadline(deadlineParts[0], deadlineParts[1]));
+//                                tasks.add(new duke.Deadline(deadlineParts[0], deadlineParts[1]));
 //                                taskCount++;
 //                            }
 //                            if (taskCount > 0) {
@@ -71,7 +73,7 @@
 //                            } else if (eventEndTime.trim().isEmpty()) {
 //                                System.out.println("When will the event end?");
 //                            } else {
-//                                tasks.add(new Event(eventParts[0], eventParts[1], eventParts[2]));
+//                                tasks.add(new duke.Event(eventParts[0], eventParts[1], eventParts[2]));
 //                                taskCount++;
 //                            }
 //                            if (taskCount > 0) {
@@ -107,7 +109,7 @@
 //        try {
 //            int index = Integer.parseInt(userCommand.split(" ")[1]) - 1;
 //            if (index >= 1 && index <= taskCount) {
-//                Task removedTask = tasks.remove(index);
+//                duke.Task removedTask = tasks.remove(index);
 //                taskCount--;
 //                System.out.println("OK, I've removed this task.");
 //            } else {
@@ -134,7 +136,7 @@
 //        try {
 //            int taskIndex = Integer.parseInt(userCommand.split(" ")[1]) - 1;
 //            if (isValidTaskIndex(taskIndex)) {
-//                Task taskToMark = tasks.get(taskIndex);
+//                duke.Task taskToMark = tasks.get(taskIndex);
 //                taskToMark.markAsDone();
 //                System.out.println("Nice! I've marked this task as done:\n  " + taskToMark);
 //            } else {
@@ -148,7 +150,7 @@
 //        try {
 //            int taskIndex = Integer.parseInt(userCommand.split(" ")[1]) - 1;
 //            if (isValidTaskIndex(taskIndex)) {
-//                Task taskToUnmark = tasks.get(taskIndex);
+//                duke.Task taskToUnmark = tasks.get(taskIndex);
 //                taskToUnmark.markAsNotDone();
 //                System.out.println("OK, I've marked this task as not done yet:\n  " + taskToUnmark);
 //            } else {
@@ -175,13 +177,13 @@
 //
 //                        switch (taskType) {
 //                            case TODO:
-//                                tasks.add(new Todo(taskDescription));
+//                                tasks.add(new duke.Todo(taskDescription));
 //                                break;
 //                            case DEADLINE:
-//                                tasks.add(new Deadline(taskDescription, taskTime1));
+//                                tasks.add(new duke.Deadline(taskDescription, taskTime1));
 //                                break;
 //                            case EVENT:
-//                                tasks.add(new Event(taskDescription, taskTime1, taskTime2));
+//                                tasks.add(new duke.Event(taskDescription, taskTime1, taskTime2));
 //                                break;
 //                            default:
 //                                System.out.println("Invalid task type: " + taskType);
@@ -205,7 +207,7 @@
 //        file.getParentFile().mkdirs();
 //
 //        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-//            for (Task task : tasks) {
+//            for (duke.Task task : tasks) {
 //                writer.write(task.toDataString());
 //                writer.newLine();
 //            }

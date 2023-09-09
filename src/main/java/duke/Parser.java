@@ -1,3 +1,5 @@
+package duke;
+
 public class Parser {
     public static Task parse(String userCommand) {
         String[] commandParts = userCommand.split(" ", 2);

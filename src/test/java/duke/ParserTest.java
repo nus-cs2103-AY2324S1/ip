@@ -1,3 +1,6 @@
+package duke;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,6 +12,6 @@ public class ParserTest {
         Task task = Parser.parse(userCommand);
 
         assertTrue(task instanceof Event);
-        assertEquals("Project meeting", ((Event) task).description);
+        Assertions.assertEquals("Project meeting", ((Event) task).description);
     }
 }
