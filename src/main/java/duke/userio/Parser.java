@@ -42,6 +42,7 @@ public class Parser {
         String response;
         int taskIndexHolder;
         String keyword = extractKeyword(input);
+
         switch (keyword) {
             case "bye":
                 botInUse = false;
@@ -122,6 +123,7 @@ public class Parser {
             default:
                 throw new InvalidUserInputException();
         }
+        assert response != null : "There should be responses produced no matter what input given";
         return response;
     }
 

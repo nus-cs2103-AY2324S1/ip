@@ -128,6 +128,7 @@ public class DateTimeDetector {
             } else {
                 d = parseDateOnly(date);
             }
+            assert d != null : "d be updated with parsed input date and not null";
             return d.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         } catch (DateTimeParseException e) {
             return date;
