@@ -1,15 +1,18 @@
 package alcazar;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class for file storage related functionality
+ */
 public class Storage {
     private final String filePath;
     Storage(String filePath) {
-        this.filePath =filePath;
+        this.filePath = filePath;
         try {
             printTasks();
         } catch (FileNotFoundException e) {
@@ -20,7 +23,7 @@ public class Storage {
     /**
      * Prints the contents of the file stored at filePath
      * @throws FileNotFoundException It is thrown in a situation where the file
-     * does not exist at the given filePath
+     *      does not exist at the given filePath
      */
     public void printTasks() throws FileNotFoundException {
         File f = new File(filePath);

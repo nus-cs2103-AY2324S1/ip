@@ -1,17 +1,15 @@
 package alcazar;
-
 /**
  * The class with the main method where all the functionality begins.
  */
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
-public class Duke {
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
+public class Duke extends Application {
 
     private Storage storage;
     private TaskList tasks;
@@ -22,6 +20,15 @@ public class Duke {
         storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
 
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 
     /**
@@ -62,6 +69,11 @@ public class Duke {
         ui.showExitMsg();
     }
 
+    /**
+     * Main Method
+     * @param args The standard args argument to main which
+     *             provides more readability to the user
+     */
     public static void main(String[] args) {
         Duke chatBot = new Duke("./src/main/java/data/tasks.txt");
         chatBot.run();

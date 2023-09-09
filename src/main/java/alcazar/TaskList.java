@@ -1,5 +1,9 @@
 package alcazar;
 import java.util.ArrayList;
+
+/**
+ * Class for the functionality related to storing the list of tasks
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
@@ -29,17 +33,23 @@ public class TaskList {
     public void add(Task t) {
         this.tasks.add(t);
     }
-    public void printEquals(String search) {
+
+    /**
+     * Prints the tasks containg String search
+     * @param search Phrase to equate the tasks against
+     * @return The tasks containing search
+     */
+    public String printEquals(String search) {
         String listedTasks = "";
-        for(int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).toString().contains(search)) {
                 listedTasks += (i + 1) + ". " + tasks.get(i).toString() + "\n";
             }
         }
         if (listedTasks.equals("")) {
-            System.out.println("Sorry no matching tasks.");
+            return "Sorry no matching tasks.";
         } else {
-            System.out.println(listedTasks);
+            return listedTasks;
         }
 
     }
@@ -49,7 +59,7 @@ public class TaskList {
      */
     public String getTasks() {
         String listedTasks = "";
-        for(int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             listedTasks += (i + 1) + ". " + tasks.get(i).toString() + "\n";
         }
         return listedTasks;
