@@ -48,7 +48,6 @@ public abstract class Task {
 
     /**
      * Returns the information associated with the task
-     * @return the string representation of the task description and its state of completion
      */
     @Override
     public String toString() {
