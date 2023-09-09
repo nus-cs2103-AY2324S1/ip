@@ -6,7 +6,6 @@ import java.time.format.DateTimeFormatter;
  * The Task class represents a task with a description, status, and type.
  */
 public class Task {
-    // inspired by partial solution on website
     protected String description;
     protected boolean isDone;
     protected TaskType taskType;
@@ -44,16 +43,6 @@ public class Task {
      */
     public void markAsUndone() {
         this.isDone = false;
-    }
-
-    /**
-     * Returns a string representation of the task.
-     *
-     * @return A string in the format "[X] description" if the task is done,
-     *         or "[ ] description" if the task is not done.
-     */
-    public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
     /**
@@ -99,5 +88,15 @@ public class Task {
         }
 
         return taskType + " || " + doneStatus + " || " + taskDescription + " || " + start + " || " + end;
+    }
+
+    /**
+     * Returns a string representation of the task.
+     *
+     * @return A string in the format "[X] description" if the task is done,
+     *         or "[ ] description" if the task is not done.
+     */
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 }

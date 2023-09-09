@@ -1,5 +1,7 @@
 package duke;
+
 import java.util.ArrayList;
+
 /**
  * The Parser class handles parsing of user commands and input for the Duke application.
  * It provides methods to recognize and process different types of commands and tasks.
@@ -27,16 +29,6 @@ public class Parser {
         return trimmedInput.startsWith("todo")
                 || trimmedInput.startsWith("event")
                 || trimmedInput.startsWith("deadline");
-    }
-
-    /**
-     * Checks if the input is a "bye" command.
-     *
-     * @param input The user input.
-     * @return True if the input is a "bye" command, false otherwise.
-     */
-    public static boolean isByeCommand(String input) {
-        return input.equals("bye");
     }
 
     /**
@@ -80,52 +72,65 @@ public class Parser {
     }
 
     /**
-     * Parses the user command and performs the corresponding action.
+     * Performs a corresponding action based on the user's input.
      *
      * @param input The user input.
      * @param tasks The list of tasks.
      * @param ui    The user interface.
-     * @return True if the application should continue running, false if the user wants to exit.
+     * @return A string of the task or task list to be displayed on the UI.
      * @throws DukeException If there is an error in processing the command.
      */
-    public static boolean isValidCommand(String input, TaskList tasks, Ui ui) throws DukeException {
+    public static String parseCommand(String input, TaskList tasks, Ui ui) throws DukeException {
+
+        if (!isValidCommand(input)) {
+            throw new DukeException("I'm sorry, but I don't know what that means :-(");
+        }
+
+        if (isListCommand(input)) {
+            return ui.showTaskList(tasks);
+        }
+
+        if (isFindCommand(input)) {
+            String keyword = input.replace("find", "").trim();
+            ArrayList<Task> matchingTasks = tasks.findTasksWithKeyword(keyword);
+            return ui.showMatchingTasks(matchingTasks);
+        }
+
+        if (isCreateTaskCommand(input)) {
+            Task newTask = parseStringToTask(input);
+            return tasks.addTask(newTask, ui);
+        }
 
         int taskIndex;
         if (isDeleteCommand(input)) {
-            taskIndex = Integer.parseInt(input.substring(7).trim()) - 1;
+            taskIndex = Integer.parseInt(input.replace("delete", "").trim()) - 1;
             if (taskIndex >= 0 && taskIndex < tasks.getSize()) {
-                tasks.removeTask(taskIndex);
+                return tasks.removeTask(taskIndex, ui);
             }
-            return true;
         } else if (isMarkCommand(input)) {
-            taskIndex = Integer.parseInt(input.substring(5).trim()) - 1;
+            taskIndex = Integer.parseInt(input.replace("mark", "").trim()) - 1;
             if (taskIndex >= 0 && taskIndex < tasks.getSize()) {
-                tasks.markTask(taskIndex);
+                return tasks.markTask(taskIndex, ui);
             }
-            return true;
         } else if (isUnmarkCommand(input)) {
-            taskIndex = Integer.parseInt(input.substring(7).trim()) - 1;
+            taskIndex = Integer.parseInt(input.replace("unmark", "").trim()) - 1;
             if (taskIndex >= 0 && taskIndex < tasks.getSize()) {
-                tasks.unmarkTask(taskIndex);
+                return tasks.unmarkTask(taskIndex, ui);
             }
-            return true;
         }
+        throw new DukeException("Valid command, but invalid task input :(");
+    }
 
-        if (isByeCommand(input)) {
-            return false;
-        } else if (isListCommand(input)) {
-            ui.showTaskList(tasks);
-        } else if (isCreateTaskCommand(input)) {
-            Task newTask = parseStringToTask(input);
-            tasks.addTask(newTask);
-        } else if (isFindCommand(input)) {
-            String keyword = input.substring(5).trim();
-            ArrayList<Task> matchingTasks = tasks.findTasksWithKeyword(keyword);
-            ui.showMatchingTasks(matchingTasks);
-        } else {
-            throw new DukeException("I'm sorry, but I don't know what that means :-(");
-        }
-        return true;
+    /**
+     * Checks if the command entered is a valid command.
+     *
+     * @param input The user input.
+     * @return True if command is recognisable, false if command is not recognisable.
+     */
+    public static boolean isValidCommand(String input) {
+        return isDeleteCommand(input) || isMarkCommand(input) || isUnmarkCommand(input)
+                || isListCommand(input) || isCreateTaskCommand(input)
+                || isFindCommand(input);
     }
 
     /**
@@ -145,7 +150,6 @@ public class Parser {
         String taskType = parts[0].trim();
         String taskStatus = parts[1].trim();
         String taskDescription = parts[2].trim();
-        System.out.println(taskDescription);
         String start = parts[3].trim();
         String end = parts[4].trim();
         Task task = null;
@@ -166,7 +170,7 @@ public class Parser {
                 task.isDone = false;
             }
         } catch (DukeException e) {
-            System.err.println(e.getMessage());
+
         }
         return task;
     }
