@@ -1,14 +1,37 @@
 package pardiyem.ui;
 
+import java.io.IOException;
 import java.util.Scanner;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import pardiyem.parser.Parser;
+import pardiyem.storage.Storage;
+import pardiyem.task.TaskList;
 
 public class Ui {
     static final String WELCOME = "Salve, I'm Pardi\nWhat can I do for you?";
     static final String BYE = "Ciao! See you again!";
-
     private final Scanner scanner;
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
-    public Ui() {
+    public Ui() throws IOException {
         scanner = new Scanner(System.in);
     }
 

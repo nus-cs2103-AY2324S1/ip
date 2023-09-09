@@ -36,8 +36,8 @@ public class ListCommand extends Command {
      * @param ui the Ui object to send the message to
      * @param storage the Storage object that will handle the saving to the data file
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showOutput(taskList.toString());
+    public String execute(TaskList taskList, Storage storage) {
+        return taskList.toString();
     };
 
     /**

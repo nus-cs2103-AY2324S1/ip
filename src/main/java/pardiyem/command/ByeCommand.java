@@ -39,8 +39,8 @@ public class ByeCommand extends Command {
      * @param ui the Ui object to send the message to
      * @param storage the Storage object that will handle the saving to the data file
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showOutput("Ciao! See you again!");
+    public String execute(TaskList taskList, Storage storage) {
+        return "Ciao! See you again!";
     };
 
     /**

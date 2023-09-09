@@ -33,9 +33,10 @@ public class DeleteCommand extends Command {
      * @param ui the Ui object to send the message to
      * @param storage the Storage object that will handle the saving to the data file
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
-        ui.showOutput(taskList.delete(desc));
+    public String execute(TaskList taskList, Storage storage) throws IOException {
+        String out = taskList.delete(desc);
         storage.save(taskList);
+        return out;
     }
 
     /**

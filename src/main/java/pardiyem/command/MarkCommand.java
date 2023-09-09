@@ -33,20 +33,21 @@ public class MarkCommand extends Command {
      * @param ui the Ui object to send the message to
      * @param storage the Storage object that will handle the saving to the data file
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, Storage storage) throws IOException {
         try {
             int i = Integer.parseInt(desc) - 1;
             if (i < 0 || i >= taskList.size()) {
                 throw new ArrayIndexOutOfBoundsException(
                     "Whoops, that number is not an index in the list. Please select a valid index");
             }
-            ui.showOutput(String.format("%s\n%s",
+            String out = String.format("%s\n%s",
                     taskList.getTask(i).markAsDone(),
-                    taskList.getTask(i).toString()));
+                    taskList.getTask(i).toString());
+            storage.save(taskList);
+            return out;
         } catch (NumberFormatException e) {
             throw new NumberFormatException("Whoops, you need to type in a valid integer");
         }
-        storage.save(taskList);
     };
 
     /**
