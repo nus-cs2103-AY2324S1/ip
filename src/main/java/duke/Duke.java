@@ -19,15 +19,17 @@ import javafx.stage.Stage;
  * @author Wu Jingya
  */
 public class Duke extends Application {
-    private static String name = "Moira";
+    private String name = "Moira";
     /** Whether the chatbot is currently accepting user input */
-    private static boolean isReceivingInput = false;
-    private static TaskList tasks;
-    private static Scanner scanner;
-    private static Storage storage;
-    private static Ui ui;
-    private static Parser parser;
+    private boolean isReceivingInput = false;
+    private TaskList tasks;
+    private Scanner scanner;
+    private Storage storage;
+    private Ui ui;
+    private Parser parser;
     private static String filePath = "./data/duke.txt";
+
+    public static Duke duke;
 
     /**
      * The main method.
@@ -36,14 +38,17 @@ public class Duke extends Application {
      * @param args The command line arguments.
      **/
     public static void main(String[] args) {
+        /*
         scanner = new Scanner(System.in);
         tasks = new TaskList();
         storage = new Storage(tasks, filePath);
         ui = new Ui(name);
         parser = new Parser(ui);
         run();
+         */
     }
 
+    /*
     private static void run() {
         isReceivingInput = true;
         ui.playGreeting();
@@ -54,11 +59,20 @@ public class Duke extends Application {
         exit();
         scanner.close();
     }
+     */
 
-    private static void exit() {
+    public Duke() {
+        scanner = new Scanner(System.in);
+        tasks = new TaskList();
+        storage = new Storage(tasks, filePath);
+        ui = new Ui(name);
+        parser = new Parser(ui);
+        Duke.duke = this;
+    }
+
+    private void exit() {
         isReceivingInput = false;
         storage.saveData();
-        ui.playGoodbye();
     }
 
     /**
@@ -66,7 +80,7 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Moira heard: " + input;
+        return parser.parse(input);
     }
 
     @Override
@@ -81,7 +95,7 @@ public class Duke extends Application {
     /**
      * Stops the chatbot from receiving user input.
      */
-    public static void stopReceivingInput() {
+    public void stopReceivingInput() {
         isReceivingInput = false;
     }
 
@@ -91,7 +105,7 @@ public class Duke extends Application {
      * @return The TaskList stored by the chatbot.
      * @see TaskList
      */
-    public static TaskList getTaskList() {
+    public TaskList getTaskList() {
         return tasks;
     }
 
@@ -108,11 +122,16 @@ public class Duke extends Application {
 
     //For testing purposes
     public static boolean getIsReceivingInput() {
-        return isReceivingInput;
+        return duke.isReceivingInput;
     }
 
     //For testing purposes
     public static void setIsReceivingInput(boolean isReceivingInput) {
-        Duke.isReceivingInput = isReceivingInput;
+        Duke.duke.isReceivingInput = isReceivingInput;
+    }
+
+    public void exitApplication() {
+        exit();
+        Launcher.exit();
     }
 }
