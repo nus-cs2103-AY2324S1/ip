@@ -27,7 +27,6 @@ public class TaskMarker implements Executable {
     public String execute() {
         tasks.mark(index);
         Task task = tasks.get(index);
-        return "Nice! I've marked this task as done:\n"
-            + task.toString();
+        return "Nice! I've marked this task as done:\n" + task.toString();
     }
 }

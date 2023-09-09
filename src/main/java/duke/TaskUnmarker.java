@@ -27,8 +27,6 @@ public class TaskUnmarker implements Executable {
     public String execute() {
         tasks.unmark(index);
         Task task = tasks.get(index);
-        return "OK, I've marked this task as not done yet:\n"
-            +
-            task.toString();
+        return "OK, I've marked this task as not done yet:\n" + task.toString();
     }
 }
