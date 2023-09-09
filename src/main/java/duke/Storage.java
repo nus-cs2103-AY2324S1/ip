@@ -18,7 +18,7 @@ public class Storage {
     private final String filepath;
 
     /**
-     * constructor for filepath
+     * Constructor for filepath
      * @param filepath key in where you want to store
      */
     public Storage(String filepath) {

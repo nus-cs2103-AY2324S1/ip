@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 public class MarkPattern {
     /**
      * Empty constructor to just initialise it
-     *
      */
     public MarkPattern() {
     }

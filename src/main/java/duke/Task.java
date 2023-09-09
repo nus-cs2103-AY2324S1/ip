@@ -7,7 +7,7 @@ import java.io.Serializable;
  *
  */
 public class Task implements Serializable {
-    public Boolean done;
+    public Boolean isDone;
     protected String name;
 
 
@@ -18,7 +18,7 @@ public class Task implements Serializable {
      */
     public Task(String name) {
         this.name = name;
-        this.done = false;
+        this.isDone = false;
     }
 
 
@@ -28,7 +28,7 @@ public class Task implements Serializable {
      * @return returns the display
      */
     public String display() {
-        if (done) {
+        if (isDone) {
             return "[X] " + this.name;
         }
         return "[] " + this.name;
