@@ -12,8 +12,10 @@ import javafx.stage.Stage;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
-
-    private Duke duke = new Duke();
+    protected static String tempFilePath = "data/temp.txt";
+    private Duke duke = new Duke(tempFilePath);
+    private TaskList tasks = duke.getTasks();
+    private Storage storage = duke.getStorage();
 
     @Override
     public void start(Stage stage) {
@@ -23,11 +25,12 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setTasks(tasks);
+            fxmlLoader.<MainWindow>getController().setStorage(storage);
+            fxmlLoader.<MainWindow>getController().showWelcomeMessage();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println(e.getMessage());
-            System.out.println("2");
         }
     }
 }

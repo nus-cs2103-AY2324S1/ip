@@ -10,7 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 
-
 /**
  * An example of a custom control using FXML.
  * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
@@ -33,11 +32,11 @@ public class DialogBox extends HBox {
         this.setStyle("-fx-background-color: lightgray;");
 
         dialog.setWrapText(true);
-        displayPicture.setFitWidth(100.0);
-        displayPicture.setFitHeight(100.0);
 
+        displayPicture.setFitWidth(80.0);
+        displayPicture.setFitHeight(80.0);
         // Clip the ImageView into a circle
-        Circle clipCircle = new Circle(50); // ImageView clipped to Circle of radius 50
+        Circle clipCircle = new Circle(40); // ImageView clipped to Circle of radius 50
         displayPicture.setClip(clipCircle);
         clipCircle.setCenterX(displayPicture.getFitWidth() / 2);
         clipCircle.setCenterY(displayPicture.getFitHeight() / 2);
@@ -45,7 +44,6 @@ public class DialogBox extends HBox {
         this.setAlignment(Pos.TOP_RIGHT);
         // Add padding between each DialogBox
         this.setPadding(new Insets(10));
-        // HBox.setMargin(this, new Insets(10));
 
         // Add padding between each ImageView and its Label
         Insets imageViewLabelPadding = new Insets(5);

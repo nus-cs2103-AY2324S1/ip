@@ -47,19 +47,21 @@ public class TaskList implements Serializable {
     /**
      * displays the list of Tasks
      */
-    public void displayList() {
-        System.out.println(indent + "Here are the tasks in your list:");
+    public String displayList() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(indent + "Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             int num = i + 1;
             Task curr = tasks.get(i);
-            System.out.println(indent + num + "." + curr.toString());
+            stringBuilder.append(indent + num + ". " + curr.toString() + "\n");
         }
+        return stringBuilder.toString();
     }
     /**
      * Displays the list of Tasks that description matches the user input
      * @param userInput the String that the user inputs to find similar Tasks
      */
-    public void displayMatchingList(String userInput) {
+    public String displayMatchingList(String userInput) {
         ArrayList<Task> temp = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
@@ -68,16 +70,18 @@ public class TaskList implements Serializable {
                 temp.add(task);
             }
         }
+        StringBuilder stringBuilder = new StringBuilder();
         if (temp.size() == 0) {
-            System.out.println(indent + "There are no matching tasks");
+            stringBuilder.append(indent + "There are no matching tasks\n");
         } else {
-            System.out.println(indent + "Here are the matching tasks in your list:");
+            stringBuilder.append(indent + "Here are the matching tasks in your list:\n");
             for (int i = 0; i < temp.size(); i++) {
                 int num = i + 1;
                 Task curr = temp.get(i);
-                System.out.println(indent + num + "." + curr.toString());
+                stringBuilder.append(indent + num + "." + curr.toString() + "\n");
             }
         }
+        return stringBuilder.toString();
     }
     /**
      * This method encapsulates the functionality of marking a task as completed or not
@@ -85,22 +89,23 @@ public class TaskList implements Serializable {
      * @param string the input string
      * @throws DukeException if input is invalid
      */
-    public void markDescription(String string) throws DukeException {
+    public String markDescription(String string) throws DukeException {
         String clean = string.replaceAll("\\D+", ""); //remove non-digits
         int pos = Integer.parseInt(clean) - 1;
         if (pos >= tasks.size()) {
             throw new DukeException("You are trying to access a Task that does not exist!");
         }
         Task curr = tasks.get(pos);
-
+        StringBuilder stringBuilder = new StringBuilder();
         if (string.contains("unmark")) {
             curr.markAsUnDone();
-            System.out.println(indent + "OK, I've marked this task as not done yet:");
+            stringBuilder.append(indent + "OK, I've marked this task as not done yet:\n");
         } else if (string.contains("mark")) {
             curr.markAsDone();
-            System.out.println(indent + "Nice! I've marked this task as done:");
+            stringBuilder.append(indent + "Nice! I've marked this task as done:\n");
         }
-        System.out.println(megaIndent + curr.getStatusIconWithBracket() + " " + curr.description);
+        stringBuilder.append(megaIndent + curr.getStatusIconWithBracket() + " " + curr.description + "\n");
+        return stringBuilder.toString();
     }
     /**
      * For deadline and event Tasks, obtains the description of the duke.Task (before the first slash)
@@ -182,7 +187,7 @@ public class TaskList implements Serializable {
      * @param letter the letter corresponding to the first letter of the duke.Task
      * @param string the string corresponding to the chunk of text after the word todo, deadline, or event
      */
-    public void addTask(String letter, String string) throws DukeException {
+    public String addTask(String letter, String string) throws DukeException {
         if (letter.equals("T")) {
             tasks.add(new ToDo(string));
         }
@@ -194,10 +199,11 @@ public class TaskList implements Serializable {
         }
 
         int tasksSize = tasks.size();
-        System.out.println(indent + "Got it. I've added this task:");
-        System.out.println(megaIndent + tasks.get(tasksSize - 1).toString());
-        System.out.println(indent + "Now you have " + tasksSize + " tasks in the list.");
-
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(indent + "Got it. I've added this task:\n");
+        stringBuilder.append(megaIndent + tasks.get(tasksSize - 1).toString() + "\n");
+        stringBuilder.append(indent + "Now you have " + tasksSize + " tasks in the list.\n");
+        return stringBuilder.toString();
     }
     /**
      * This method encapsulates deleting of a task from TaskArray
@@ -205,16 +211,18 @@ public class TaskList implements Serializable {
      *
      * @param string the input string
      */
-    public void deleteTask(String string) throws DukeException {
+    public String deleteTask(String string) throws DukeException {
         String clean = string.replaceAll("\\D+", ""); //remove non-digits
         int pos = Integer.parseInt(clean) - 1;
         if (pos >= tasks.size()) {
             throw new DukeException("You are trying to delete a Task that does not exist");
         } else {
-            System.out.println(indent + "Noted. I've removed this task:");
-            System.out.println(megaIndent + tasks.get(pos).toString());
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(indent + "Noted. I've removed this task:\n");
+            stringBuilder.append(megaIndent + tasks.get(pos).toString() + "\n");
             tasks.remove(pos);
-            System.out.println(indent + "Now you have " + tasks.size() + " tasks in the list.");
+            stringBuilder.append(indent + "Now you have " + tasks.size() + " tasks in the list.\n");
+            return stringBuilder.toString();
         }
     }
     /**

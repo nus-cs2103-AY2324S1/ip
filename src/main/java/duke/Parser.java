@@ -14,42 +14,66 @@ public class Parser {
      * @param userInput what the user types in to the console
      * @param tasks the duke.TaskList
      * @param storage the duke.Storage
-     * @throws DukeException from all the methods in duke.TaskList
      */
-    public static void parse(String userInput, TaskList tasks, Storage storage) throws DukeException {
+    public static String parse(String userInput, TaskList tasks, Storage storage) {
+        String output;
         if (userInput.equals("list")) {
-            tasks.displayList();
+            output = tasks.displayList();
         } else if (userInput.equals("bye")) {
             isExit = true;
-        } else if (userInput.contains("unmark")) {
-            tasks.markDescription(userInput);
+            output = "Thanks for coming!";
         } else if (userInput.contains("mark")) {
-            tasks.markDescription(userInput);
+            try {
+                output = tasks.markDescription(userInput);
+            } catch (DukeException e) {
+                return e.getMessage();
+            }
         } else if (userInput.contains("todo")) {
             if (userInput.length() <= 5) {
-                throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
+                //throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
+                output = "OOPS!!! The description of a todo cannot be empty.";
             } else {
-                tasks.addTask("T", userInput.substring(5));
+                try {
+                    output = tasks.addTask("T", userInput.substring(5));
+                } catch (DukeException e) {
+                    return e.getMessage();
+                }
             }
         } else if (userInput.contains("deadline")) {
             if (userInput.length() <= 9) {
-                throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
+                //throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
+                output = "OOPS!!! The description of a deadline cannot be empty.";
             } else {
-                tasks.addTask("D", userInput.substring(9));
+                try {
+                    output = tasks.addTask("D", userInput.substring(9));
+                } catch (DukeException e) {
+                    return e.getMessage();
+                }
             }
         } else if (userInput.contains("event")) {
             if (userInput.length() <= 6) {
-                throw new DukeException("OOPS!!! The description of an event cannot be empty.");
+                //throw new DukeException("OOPS!!! The description of an event cannot be empty.");
+                output = "OOPS!!! The description of an event cannot be empty.";
             } else {
-                tasks.addTask("E", userInput.substring(6));
+                try {
+                    output = tasks.addTask("E", userInput.substring(6));
+                } catch (DukeException e) {
+                    return e.getMessage();
+                }
             }
         } else if (userInput.contains("delete")) {
-            tasks.deleteTask(userInput);
+            try {
+                output = tasks.deleteTask(userInput);
+            } catch (DukeException e) {
+                return e.getMessage();
+            }
         } else if (userInput.contains("find")) {
-            tasks.displayMatchingList(userInput.substring(5));
+            output = tasks.displayMatchingList(userInput.substring(5));
         } else {
-            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            //throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            output = "OOPS!!! I'm sorry, but I don't know what that means :-(";
         }
         storage.updateFile(tasks);
+        return output;
     }
 }

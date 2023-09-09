@@ -23,7 +23,6 @@ import javafx.stage.Stage;
  * class where main is run
  */
 public class Duke extends Application implements Serializable {
-    protected static String indent = "   ";
     protected static String dukeFilePath = "data/duke.txt";
     protected static String tempFilePath = "data/temp.txt";
     private static Storage storage;
@@ -49,7 +48,6 @@ public class Duke extends Application implements Serializable {
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException | IOException | ClassNotFoundException e) {
-            //e.printStackTrace();
             Ui.printWithIndent("Hi! You do not have any tasks at the moment");
             createTxtFile();
             tasks = new TaskList();
@@ -126,21 +124,18 @@ public class Duke extends Application implements Serializable {
     private void handleUserInput() {
         String string = userInput.getText();
         Label userText = new Label(string);
-        Label dukeText = new Label((string));
+        Label dukeText = new Label(Parser.parse(string, tasks, storage));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke))
         );
         userInput.clear();
     }
-
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
+    public TaskList getTasks() {
+        return this.tasks;
+    }
+    public Storage getStorage() {
+        return this.storage;
     }
     /**
      * The exception caught above is likely the IOException thrown at duke.Storage.java line 11. Catching
@@ -164,19 +159,14 @@ public class Duke extends Application implements Serializable {
         Scanner scanner = new Scanner(System.in);
 
         while (!isExit) {
-            try {
-                String userInput = ui.readCommand(scanner);
-                ui.showLine();
-                Parser.parse(userInput, tasks, storage);
-                isExit = Parser.isExit();
-                if (isExit) {
-                    ui.showExit();
-                }
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
+            String userInput = ui.readCommand(scanner);
+            ui.showLine();
+            Parser.parse(userInput, tasks, storage);
+            isExit = Parser.isExit();
+            if (isExit) {
+                ui.showExit();
             }
+            ui.showLine();
         }
     }
     public static void main(String[] args) {
