@@ -10,9 +10,8 @@ import java.util.Scanner;
  */
 public class Parser {
 
-<<<<<<< HEAD
     /** Flag to control the main program loop. */
-    public static int run;
+    public static int run = 1;
 
     /**
      * Parses user input commands and executes corresponding actions
@@ -20,10 +19,6 @@ public class Parser {
      *
      * @param sc The `Scanner` object for reading user input.
      */
-=======
-    public static int run = 1;
-
->>>>>>> origin/branch-Level-9
     public static void parse(Scanner sc) {
         while (true) {
             try {

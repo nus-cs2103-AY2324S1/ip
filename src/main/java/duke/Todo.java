@@ -6,17 +6,13 @@ package duke;
  */
 public class Todo extends Task {
 
-<<<<<<< HEAD
     /**
      * Constructs a new `Todo` task with the given description and save status.
      *
      * @param task        The description of the to-do task.
      * @param isNotSaved  A boolean indicating whether the task needs to be saved.
      */
-    public Todo(String task, Boolean isNotSaved) {
-=======
     public Todo(String task, boolean isNotSaved) {
->>>>>>> origin/A-CodingStandard
         super(task, isNotSaved);
         if (isNotSaved) {
             saveToFile();

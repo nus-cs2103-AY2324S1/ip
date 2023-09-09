@@ -15,7 +15,6 @@ public class Event extends Task{
     private LocalDateTime from;
     private LocalDateTime to;
 
-<<<<<<< HEAD
     /**
      * Initializes a new `Event` object with the given task description, save status, start date/time, and end date/time.
      *
@@ -25,8 +24,6 @@ public class Event extends Task{
      * @param to The end date/time of the event in string format (dd/MM/yyyy HHmm).
      * @throws DukeException If the date/time format is invalid.
      */
-=======
->>>>>>> origin/A-CodingStandard
     public Event(String task, Boolean isNotSaved, String from, String to) throws DukeException {
         super(task, isNotSaved);
         this.fromStr = from;
@@ -36,12 +33,8 @@ public class Event extends Task{
             this.to = parseDateTime(to);
         } catch (Exception e) {
             throw new DukeException(Ui.horizontalLine
-<<<<<<< HEAD
-                    + "Invalid date format :< Please use dd/MM/yyyy\n" + Ui.horizontalLine);
-=======
                     + "Invalid date format :< Please use dd/MM/yyyy\n"
                     + Ui.horizontalLine);
->>>>>>> origin/A-CodingStandard
         }
 
         if (isNotSaved) {
@@ -61,8 +54,6 @@ public class Event extends Task{
         String formattedToDate = to.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         String formattedToTime = to.format(DateTimeFormatter.ofPattern("hh:mma"));
 
-        return "[E]" + super.toString() + " (from: " + formattedFromDate + " " + formattedFromTime
-                + " to: " + formattedToDate + " " + formattedToTime + ")";
         return "[E]" + super.toString() + " (from: " + formattedFromDate
                 + " " + formattedFromTime + " to: " + formattedToDate
                 + " " + formattedToTime + ")";

@@ -6,12 +6,9 @@ import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-<<<<<<< HEAD
 /**
  * The Task class represents a task in the Duke chatbot application.
  */
-=======
->>>>>>> origin/A-CodingStandard
 public class Task {
     private String task;
     private TaskStatus status;
@@ -23,8 +20,8 @@ public class Task {
     /**
      * Constructs a Task object with a task description and save status.
      *
-     * @param task        The description of the task.
-     * @param isNotSaved  A boolean indicating whether the task is saved.
+     * @param task       The description of the task.
+     * @param isNotSaved A boolean indicating whether the task is saved.
      */
     public Task(String task, Boolean isNotSaved) {
         this.task = task;
@@ -59,19 +56,11 @@ public class Task {
      * @param task The task description to add.
      */
     public void addTask(String task) {
-        if (!task.equals("")){
-<<<<<<< HEAD
+        if (!task.equals("")) {
             if (!task.isEmpty()) {
-                Duke.allTasks.add(this);
+                Duke.taskList.addTask(this);
                 counter++;
             }
-=======
-                if (!task.isEmpty()) {
-                    Duke.taskList.addTask(this);
-                    counter++;
-                }
-
->>>>>>> origin/branch-Level-9
         }
     }
 
@@ -119,30 +108,30 @@ public class Task {
      * @throws DukeException If the date and time string has an invalid format.
      */
     public LocalDateTime parseDateTime(String dateTimeString) throws DukeException {
-            // Split the input string into date and time parts
-            String[] parts = dateTimeString.split(" ", 2);
+        // Split the input string into date and time parts
+        String[] parts = dateTimeString.split(" ", 2);
 
-            // Check if there are exactly two parts (date and time)
-            if (parts.length != 2) {
-                throw new IllegalArgumentException("Invalid date/time format: "
-                        + dateTimeString);
-            }
+        // Check if there are exactly two parts (date and time)
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("Invalid date/time format: "
+                    + dateTimeString);
+        }
 
-            String datePart = parts[0];
-            String timePart = parts[1];
+        String datePart = parts[0];
+        String timePart = parts[1];
 
-            // Define a formatter for the date part, e.g., "dd/MM/yyyy"
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            // Parse the date part into a LocalDate object
-            LocalDate date = LocalDate.parse(datePart, dateFormatter);
+        // Define a formatter for the date part, e.g., "dd/MM/yyyy"
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        // Parse the date part into a LocalDate object
+        LocalDate date = LocalDate.parse(datePart, dateFormatter);
 
-            // Define a formatter for the time part, e.g., "HHmm"
-            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
-            // Parse the time part into a LocalTime object
-            LocalTime time = LocalTime.parse(timePart, timeFormatter);
+        // Define a formatter for the time part, e.g., "HHmm"
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
+        // Parse the time part into a LocalTime object
+        LocalTime time = LocalTime.parse(timePart, timeFormatter);
 
-            // Combine the date and time into a LocalDateTime object
-            return LocalDateTime.of(date, time);
+        // Combine the date and time into a LocalDateTime object
+        return LocalDateTime.of(date, time);
     }
 
     /**
@@ -150,9 +139,7 @@ public class Task {
      */
     public void printList() {
         System.out.println(Ui.horizontalLine + "Here are the tasks in your list:");
-        for (int i = 0; i < Duke.allTasks.size(); i++) {
-            Task task = Duke.allTasks.get(i);
-        for (int i = 0; i < Duke.taskList.getTasks().size(); i++) {
+        for (int i = 0; i < Duke.taskList.size(); i++) {
             Task task = Duke.taskList.getTasks().get(i);
             System.out.println((i + 1) + ". " + task.toString());
         }
@@ -186,19 +173,19 @@ public class Task {
      * @throws DukeException If the index is invalid.
      */
     public void mark(int i) throws DukeException {
-        if (i > Duke.allTasks.size() || i <= 0) {
-        if (i > Duke.taskList.getTasks().size() || i <= 0) {
-            throw new DukeException(Ui.horizontalLine + "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
+        if (i > Duke.taskList.size() || i <= 0) {
+            if (i > Duke.taskList.size() || i <= 0) {
+                throw new DukeException(Ui.horizontalLine + "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
+            }
+            Task markTask = Duke.taskList.getTasks().get(i - 1);
+            markTask.status = TaskStatus.DONE;
+
+            // Update the task description in the file
+            Storage.updateLineInFile(i, markTask.generateStr());
+
+            System.out.println(Ui.horizontalLine + "Nice! I've marked this task as done:\n"
+                    + markTask.toString() + "\n" + Ui.horizontalLine);
         }
-        Task markTask = Duke.allTasks.get(i - 1);
-        Task markTask = Duke.taskList.getTasks().get(i - 1);
-        markTask.status = TaskStatus.DONE;
-
-        // Update the task description in the file
-        Storage.updateLineInFile(i, markTask.generateStr());
-
-        System.out.println(Ui.horizontalLine + "Nice! I've marked this task as done:\n"
-                + markTask.toString() + "\n" + Ui.horizontalLine);
     }
 
     /**
@@ -208,24 +195,11 @@ public class Task {
         this.status = TaskStatus.DONE;
     }
 
-<<<<<<< HEAD
-    /**
-     * Marks a task as not done by index and updates it in the file.
-     *
-     * @param i The index of the task to mark as not done.
-     * @throws DukeException If the index is invalid.
-     */
-    public void unmark(int i) throws DukeException {
-        if (i > Duke.allTasks.size() || i <= 0) {
-            throw new DukeException(Ui.horizontalLine+ "OOPS!!! Invalid number :(\n"
-                    + Ui.horizontalLine);
-=======
     public void unmark() {
         this.status = TaskStatus.NOT_DONE;
     }
 
     public void delete() {
-        Duke.allTasks.remove(this); // Remove the task from the list
         Duke.taskList.deleteTask(this); // Remove the task from the list
     }
 
@@ -233,22 +207,17 @@ public class Task {
         return task.contains(keyword);
     }
 
-<<<<<<< HEAD
+    /**
+     * Marks a task as not done by index and updates it in the file.
+     *
+     * @param i The index of the task to mark as not done.
+     * @throws DukeException If the index is invalid.
+     */
     public void unmark(int i) throws DukeException {
-        if (i > Duke.allTasks.size() || i <= 0) {
+        if (i > Duke.taskList.getTasks().size() || i <= 0) {
             throw new DukeException(Ui.horizontalLine
                     + "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
->>>>>>> origin/A-CodingStandard
-=======
-
-
-
-    public void unmark(int i) throws DukeException {
-        if (i > Duke.taskList.size() || i <= 0) {
-            throw new DukeException(Ui.horizontalLine+ "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
->>>>>>> origin/branch-Level-9
         }
-        Task unmarkTask = Duke.allTasks.get(i - 1);
         Task unmarkTask = Duke.taskList.getTasks().get(i - 1);
         unmarkTask.status = TaskStatus.NOT_DONE;
         Storage.updateLineInFile(i, unmarkTask.generateStr());
@@ -264,25 +233,18 @@ public class Task {
      * @throws DukeException If the index is invalid.
      */
     public void delete(int i) throws DukeException {
-<<<<<<< HEAD
-        if (i > Duke.allTasks.size() || i <= 0) {
+        if (i > Duke.taskList.size() || i <= 0) {
             throw new DukeException(Ui.horizontalLine
                     + "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
-=======
-        if (i > Duke.taskList.size() || i <= 0) {
-            throw new DukeException(Ui.horizontalLine+ "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
->>>>>>> origin/branch-Level-9
         }
-        Task deleteTask = Duke.allTasks.get(i - 1);
         Task deleteTask = Duke.taskList.getTasks().get(i - 1);
         counter = counter - 1;
-        Duke.allTasks.remove(i - 1);
         Duke.taskList.deleteTask(i - 1);
         Storage.deleteLineFromFile(i);
         System.out.println(Ui.horizontalLine
                 + "Noted. I've removed this task:\n" + deleteTask.toString()
                 + "\n" + String.format("Now you have %d tasks in the list\n", counter)
-                + Ui.horizontalLine );
+                + Ui.horizontalLine);
     }
 
     /**
