@@ -43,13 +43,10 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         circle.setFill(new ImagePattern(img));
-        messageOutline.setPrefWidth(280);
-        messageOutline.prefHeightProperty().bind(dialog.heightProperty());
-        messageOutline.getStyleClass().clear();
         if (isUser) {
-            messageOutline.getStyleClass().add("blue-background");
+            dialog.getStyleClass().add("blue-background");
         } else {
-            messageOutline.getStyleClass().add("lavender-background");
+            dialog.getStyleClass().add("lavender-background");
         }
     }
 
@@ -64,12 +61,13 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img, true);
+        DialogBox db = new DialogBox(text, img, true);
+        db.flip();
+        return db;
     }
 
     public static DialogBox getCheemsDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img, false);
-        db.flip();
         return db;
     }
 }
