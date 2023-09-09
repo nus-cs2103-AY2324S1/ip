@@ -10,6 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -79,4 +81,5 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getTheaDialog(Ui.greet(), theaImage)
         );
     }
+
 }
