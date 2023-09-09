@@ -4,6 +4,11 @@ package duke.tasks;
  * A Task without any date/time attached to it.
  */
 public class ToDo extends Task {
+
+    // Template Strings
+    private static final String TODO_DISPLAY_TEMPLATE = "[T]%s";
+    private static final String TODO_EXPORT_TEMPLATE = "TODO || %s || %s || %s || %s";
+
     /**
      * Constructor for a ToDo task.
      *
@@ -20,7 +25,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[T]%s", super.toString());
+        return String.format(TODO_DISPLAY_TEMPLATE, super.toString());
     }
 
     /**
@@ -30,6 +35,6 @@ public class ToDo extends Task {
      */
     @Override
     public String export() {
-        return String.format("TODO || %s || %s || %s || %s", super.export(), "", "", "");
+        return String.format(TODO_EXPORT_TEMPLATE, super.export(), "", "", "");
     }
 }
