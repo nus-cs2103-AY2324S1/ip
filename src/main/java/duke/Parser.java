@@ -46,7 +46,9 @@ public class Parser {
                             }
                             continue;
                         } catch (NumberFormatException e) {
-                            Ui.showError(Ui.horizontalLine + "You did not enter a valid integer :(\n" + Ui.horizontalLine);
+                            Ui.showError(Ui.horizontalLine
+                                    + "You did not enter a valid integer :(\n"
+                                    + Ui.horizontalLine);
                             continue;
                         }
                     }
@@ -57,7 +59,9 @@ public class Parser {
                             taskInstance.delete(no);
                             continue;
                         } catch (NumberFormatException e) {
-                            Ui.showError(Ui.horizontalLine + "You did not enter a valid integer :(\n" + Ui.horizontalLine);
+                            Ui.showError(Ui.horizontalLine
+                                    + "You did not enter a valid integer :(\n"
+                                    + Ui.horizontalLine);
                             continue;
                         }
                     }
@@ -70,10 +74,9 @@ public class Parser {
                     else if (instruction.equals("deadline")) {
                         String[] taskAndDeadline = actualTask.split("/by");
                         if (taskAndDeadline.length == 1 || taskAndDeadline.length == 0) {
-                            throw new DukeException(Ui.horizontalLine + "OOPS!!! Invalid format for deadline :-(\n" + Ui.horizontalLine);
-                        }
-                        if (taskAndDeadline.length == 1 || taskAndDeadline.length == 0) {
-                            throw new DukeException(Ui.horizontalLine + "OOPS!!! Invalid format for deadline :-(\n" + Ui.horizontalLine);
+                            throw new DukeException(Ui.horizontalLine
+                                    + "OOPS!!! Invalid format for deadline :-(\n"
+                                    + Ui.horizontalLine);
                         }
                         String onlyTask = taskAndDeadline[0].trim(); // Trim to remove extra spaces
                         String by = taskAndDeadline[1].trim();// Trim to remove extra spaces
@@ -86,15 +89,21 @@ public class Parser {
                     else if (instruction.equals("event")) {
                         String[] taskAndToFrom = actualTask.split("/from");
                         if (taskAndToFrom.length == 1 || taskAndToFrom.length == 0) {
-                            throw new DukeException(Ui.horizontalLine + "OOPS!!! Invalid format for event :-(\n" + Ui.horizontalLine);
+                            throw new DukeException(Ui.horizontalLine
+                                    + "OOPS!!! Invalid format for event :-(\n"
+                                    + Ui.horizontalLine);
                         }
                         String onlyTask = taskAndToFrom[0].trim(); // Trim to remove extra spaces
                         if (onlyTask.isEmpty()) {
-                            throw new DukeException(Ui.horizontalLine + "OOPS!!! Invalid format for event :-(\n" + Ui.horizontalLine);
+                            throw new DukeException(Ui.horizontalLine
+                                    + "OOPS!!! Invalid format for event :-(\n"
+                                    + Ui.horizontalLine);
                         }
                         String[] ToFrom = taskAndToFrom[1].split("/to");
                         if (ToFrom.length == 1 || ToFrom.length == 0) {
-                            throw new DukeException(Ui.horizontalLine + "OOPS!!! Invalid format for event :-(\n" + Ui.horizontalLine);
+                            throw new DukeException(Ui.horizontalLine
+                                    + "OOPS!!! Invalid format for event :-(\n"
+                                    + Ui.horizontalLine);
                         }
                         String from = ToFrom[0].trim(); // Trim to remove extra spaces
                         String to = ToFrom[1].trim(); // Trim to remove extra spaces
@@ -108,13 +117,20 @@ public class Parser {
                         event.print();
                     }
                     else {
-                        throw new DukeException(Ui.horizontalLine + "OOPS!!! I'm sorry, but I don't know what that means :-(\n" + Ui.horizontalLine);
+                        throw new DukeException(Ui.horizontalLine
+                                + "OOPS!!! I'm sorry, but I don't know what that means :-(\n"
+                                + Ui.horizontalLine);
                     }
-                } else if (elements[0].equals("todo") || elements[0].equals("deadline") || elements[0].equals("event")) {
-                    throw new DukeException(Ui.horizontalLine + "OOPS!!! The description of a " + elements[0] + " cannot be empty.\n" + Ui.horizontalLine);
+                } else if (elements[0].equals("todo") || elements[0].equals("deadline")
+                        || elements[0].equals("event")) {
+                    throw new DukeException(Ui.horizontalLine
+                            + "OOPS!!! The description of a "
+                            + elements[0] + " cannot be empty.\n" + Ui.horizontalLine);
                 }
                 else {
-                    throw new DukeException(Ui.horizontalLine + "OOPS!!! I'm sorry, but I don't know what that means :-(\n" + Ui.horizontalLine);
+                    throw new DukeException(Ui.horizontalLine
+                            + "OOPS!!! I'm sorry, but I don't know what that means :-(\n"
+                            + Ui.horizontalLine);
                 }
             } catch (Exception e) {
                 Ui.showError(e.getMessage());

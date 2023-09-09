@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+<<<<<<< HEAD
 /**
  * The Task class represents a task in the Duke chatbot application.
  */
+=======
+>>>>>>> origin/A-CodingStandard
 public class Task {
     private String task;
     private TaskStatus status;
@@ -193,6 +196,7 @@ public class Task {
         this.status = TaskStatus.DONE;
     }
 
+<<<<<<< HEAD
     /**
      * Marks a task as not done by index and updates it in the file.
      *
@@ -203,6 +207,20 @@ public class Task {
         if (i > Duke.allTasks.size() || i <= 0) {
             throw new DukeException(Ui.horizontalLine+ "OOPS!!! Invalid number :(\n"
                     + Ui.horizontalLine);
+=======
+    public void unmark() {
+        this.status = TaskStatus.NOT_DONE;
+    }
+
+    public void delete() {
+        Duke.allTasks.remove(this); // Remove the task from the list
+    }
+
+    public void unmark(int i) throws DukeException {
+        if (i > Duke.allTasks.size() || i <= 0) {
+            throw new DukeException(Ui.horizontalLine
+                    + "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
+>>>>>>> origin/A-CodingStandard
         }
         Task unmarkTask = Duke.allTasks.get(i - 1);
         unmarkTask.status = TaskStatus.NOT_DONE;
@@ -220,14 +238,17 @@ public class Task {
      */
     public void delete(int i) throws DukeException {
         if (i > Duke.allTasks.size() || i <= 0) {
-            throw new DukeException(Ui.horizontalLine+ "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
+            throw new DukeException(Ui.horizontalLine
+                    + "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
         }
         Task deleteTask = Duke.allTasks.get(i - 1);
         counter = counter - 1;
         Duke.allTasks.remove(i - 1);
         Storage.deleteLineFromFile(i);
-        System.out.println(Ui.horizontalLine + "Noted. I've removed this task:\n" + deleteTask.toString()
-        + "\n" + String.format("Now you have %d tasks in the list\n", counter) + Ui.horizontalLine );
+        System.out.println(Ui.horizontalLine
+                + "Noted. I've removed this task:\n" + deleteTask.toString()
+                + "\n" + String.format("Now you have %d tasks in the list\n", counter)
+                + Ui.horizontalLine );
     }
 
     /**

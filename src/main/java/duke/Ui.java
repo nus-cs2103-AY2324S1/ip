@@ -25,7 +25,8 @@ public class Ui {
      * Displays a farewell message when the program exits.
      */
     public static void sayBye() {
-        System.out.println(horizontalLine+ "Bye. Hope to see you again soon!\n" + horizontalLine);
+        System.out.println(horizontalLine
+                + "Bye. Hope to see you again soon!\n" + horizontalLine);
     }
 
     /**

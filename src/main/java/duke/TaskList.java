@@ -65,7 +65,8 @@ public class TaskList {
      */
     public static boolean isTaskInAllTasks(String taskType, String taskDescription) {
         for (Task task : allTasks) {
-            if (task.getTask().equals(taskDescription) && task.getTaskType().equals(taskType)) {
+            if (task.getTask().equals(taskDescription)
+                    && task.getTaskType().equals(taskType)) {
                 return true;
             }
         }
