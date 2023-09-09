@@ -26,6 +26,7 @@ public class TaskList {
         if (taskNumber < tasks.size()) {
             Task toRemove = tasks.get(taskNumber);
             tasks.remove(taskNumber);
+            assert !tasks.contains(toRemove) : "DeleteTask did not delete task.";
             return toRemove;
         } else {
             throw new DukeException("☹ OOPS!!! The delete command needs to be followed by an existing task number.");
@@ -38,10 +39,10 @@ public class TaskList {
      * @throws DukeException if given task does not exist.
      */
     public Task markTask(int taskNumber) throws DukeException {
-        // Assumption: "mark" is not allowed as a task name & you can mark already done tasks.
-        // Issue: "mark" by itself crashes.
+        // Assumption: You can mark already done tasks.
         if (taskNumber < tasks.size()) {
             tasks.get(taskNumber).completeTask();
+            assert tasks.get(taskNumber).isDone : "markTask did not complete task.";
             return tasks.get(taskNumber);
         } else {
             throw new DukeException("☹ OOPS!!! The mark command needs to be followed by an existing task number.");
