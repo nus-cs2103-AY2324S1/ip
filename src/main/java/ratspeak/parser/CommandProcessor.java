@@ -61,7 +61,7 @@ public class CommandProcessor {
             }
 
             String taskName = splitCommand[1];
-            assert(!taskName.isEmpty());
+
             return process(commandType, taskName);
 
         } catch(DukeException e) {
