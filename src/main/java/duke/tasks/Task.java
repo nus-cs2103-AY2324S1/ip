@@ -15,7 +15,7 @@ public class Task {
     private static final String TASK_CHECKBOX_CHECKED = "X";
 
     // The description of the task.
-    protected final String description;
+    protected String description;
 
     // The status of the task. True if done, false if not done.
     protected boolean isDone = false;
@@ -89,5 +89,14 @@ public class Task {
         return String.format(TASK_EXPORT_TEMPLATE,
                 isDone ? TASK_CHECKBOX_CHECKED : TASK_CHECKBOX_UNCHECKED,
                 description);
+    }
+
+    /**
+     * Updates the task with the new description.
+     *
+     * @param newDescription The new description of the task.
+     */
+    public void updateDescription(String newDescription) {
+        this.description = newDescription;
     }
 }

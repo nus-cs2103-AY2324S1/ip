@@ -18,6 +18,7 @@ public class Parser {
         EVENT,
         DELETE,
         FIND,
+        EDIT,
         INVALID
     }
 

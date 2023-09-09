@@ -3,6 +3,7 @@ package duke.tasks;
 import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import duke.exceptions.DukeIOException;
@@ -45,6 +46,8 @@ public class TaskList {
     private static final String MESSAGE_LIST_TASKS_HEADER = "Here are the tasks in your list:";
     private static final String MESSAGE_TEMPLATE_EMPTY_TASKLIST = "%nYou have no tasks in your list.";
     private static final String TASK_DISPLAY_FORMAT_TEMPLATE = "%n%d.%s";
+    private static final String MESSAGE_TEMPLATE_TASK_UPDATED = "I've updated this task:%n%s";
+    private static final String MESSAGE_TASK_NOT_UPDATED = "Task was not updated.";
 
     // An ArrayList that stores the list of tasks.
     protected final ArrayList<Task> tasks;
@@ -268,6 +271,131 @@ public class TaskList {
                     isOrAre, foundTasks.size(), taskOrTasks, String.join("", foundTasks));
         }
     }
+
+    /**
+     * Edits a task in the TaskList.
+     *
+     * @param num The number of the task in the list to be edited.
+     * @param editCommand The edit command to be executed.
+     */
+    public String edit(int num, String editCommand) {
+        int index = num - 1;
+        if (index < 0 || index >= tasks.size()) {
+            throw new DukeIllegalArgumentException(ERROR_MESSAGE_INDEX_OUT_OF_BOUNDS);
+        }
+        Task editingTask = tasks.get(index);
+
+        String newDescription = null;
+        String newBy = null;
+        String newStartDateTime = null;
+        String newEndDateTime = null;
+
+        // Split the edit command into flags and values
+        List<List<String>> flagsAndValues = Arrays.stream(editCommand.split("((?=/[dbse] ))"))
+                .map(String::trim)
+                .filter(s -> s.matches("/[dbse] .*"))
+                .map(s -> List.of(s.substring(0, 2), s.substring(3)))
+                .collect(toList());
+
+        for (List<String> flagAndValue : flagsAndValues) {
+            String flag = flagAndValue.get(0);
+            String value = flagAndValue.get(1);
+
+            // Check which flag was found
+            if ("/d".equals(flag)) {
+                newDescription = value;
+            } else if ("/b".equals(flag)) {
+                newBy = value;
+            } else if ("/s".equals(flag)) {
+                newStartDateTime = value;
+            } else if ("/e".equals(flag)) {
+                newEndDateTime = value;
+            }
+        }
+
+        // Respond accordingly based on task type
+        if (editingTask instanceof ToDo) {
+            return updateTodoTask((ToDo) editingTask, newDescription);
+        }
+
+        if (editingTask instanceof Deadline) {
+            return updateDeadlineTask((Deadline) editingTask, newDescription, newBy);
+        }
+
+        if (editingTask instanceof Event) {
+            return updateEventTask((Event) editingTask, newDescription, newStartDateTime, newEndDateTime);
+        }
+
+        // Should not reach here.
+        throw new DukeIllegalArgumentException("Task type not recognised.");
+    }
+
+    /**
+     * Updates the description of a ToDo task.
+     *
+     * @param editingTask The ToDo task to be edited.
+     * @param newDescription The new description of the ToDo task.
+     * @return String message
+     */
+    private String updateTodoTask(ToDo editingTask, String newDescription) {
+        if (newDescription == null) {
+            return MESSAGE_TASK_NOT_UPDATED;
+        } else {
+            editingTask.updateDescription(newDescription);
+            this.exportData();
+            return String.format(MESSAGE_TEMPLATE_TASK_UPDATED, editingTask);
+        }
+    }
+
+    /**
+     * Updates the description and deadline of a Deadline task.
+     *
+     * @param editingTask The Deadline task to be edited.
+     * @param newDescription The new description of the Deadline task.
+     * @param newBy The new deadline of the Deadline task.
+     * @return String message
+     */
+    private String updateDeadlineTask(Deadline editingTask, String newDescription, String newBy) {
+        if (newDescription == null && newBy == null) {
+            return MESSAGE_TASK_NOT_UPDATED;
+        }
+        if (newDescription != null) {
+            editingTask.updateDescription(newDescription);
+        }
+        if (newBy != null) {
+            editingTask.updateDeadline(newBy);
+        }
+        this.exportData();
+        return String.format(MESSAGE_TEMPLATE_TASK_UPDATED, editingTask);
+    }
+
+    /**
+     * Updates the description, start and end date/time of an Event task.
+     *
+     * @param editingTask The Event task to be edited.
+     * @param newDescription The new description of the Event task.
+     * @param newStartDateTime The new start date/time of the Event task.
+     * @param newEndDateTime The new end date/time of the Event task.
+     * @return String message
+     */
+    private String updateEventTask(Event editingTask, String newDescription, String newStartDateTime,
+            String newEndDateTime) {
+        if (newDescription == null && newStartDateTime == null && newEndDateTime == null) {
+            return MESSAGE_TASK_NOT_UPDATED;
+        }
+        if (newDescription != null) {
+            editingTask.updateDescription(newDescription);
+        }
+        if (newStartDateTime != null) {
+            editingTask.updateStart(newStartDateTime);
+        }
+        if (newEndDateTime != null) {
+            editingTask.updateEnd(newEndDateTime);
+        }
+        this.exportData();
+        return String.format(MESSAGE_TEMPLATE_TASK_UPDATED, editingTask);
+    }
+
 
     /**
      * Returns the String representation of the TaskList.
