@@ -14,6 +14,7 @@ import dre.command.MarkCommand;
 import dre.command.UnmarkCommand;
 import dre.command.Command;
 import dre.command.ListCommand;
+import dre.command.FindCommand;
 import dre.exception.DreException;
 
 /**
