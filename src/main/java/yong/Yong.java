@@ -47,6 +47,7 @@ public class Yong {
             storage.saveFile();
             return outputString;
         } catch (DukeException e) {
+            System.out.println(e);
             return e.getMessage();
         }
     }

@@ -46,8 +46,6 @@ public class Parser {
         String check = parts[0];
         String numberString = parts.length > 1 ? parts[1] : "";
 
-        checkNumberInput(numberString);
-
         switch (check) {
         case "BYE":
             Command byeCommand = new ExitCommand(taskList);
@@ -59,12 +57,15 @@ public class Parser {
             Command listCommand = new ListCommand(taskList);
             return listCommand;
         case "MARK":
+            checkNumberInput(numberString);
             Command markCommand = new MarkCommand(taskList, numberString);
             return markCommand;
         case "UNMARK":
+            checkNumberInput(numberString);
             Command unmarkCommand = new UnmarkCommand(taskList, numberString);
             return unmarkCommand;
         case "DELETE":
+            checkNumberInput(numberString);
             Command deleteCommand = new DeleteCommand(taskList, numberString);
             return deleteCommand;
         case "TODO":
@@ -89,7 +90,7 @@ public class Parser {
             throw new DukeException("This is an invalid input");
         }
         Integer number = Integer.parseInt(s);
-        if (number >= taskList.size()) {
+        if (number > taskList.size()) {
             throw new DukeException("This is a bad number");
         }
     }
