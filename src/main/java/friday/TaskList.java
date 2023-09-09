@@ -12,41 +12,24 @@ public class TaskList {
         taskList.add(task);
     }
 
-    /**
-     * Mark a specific task in the list as done.
-     * @param taskNumber The index of the task to be marked as done.
-     */
-    public void mark(int taskNumber) {
+    public String mark(int taskNumber) {
         Task task = taskList.get(taskNumber);
         task.mark();
-        System.out.println(task.toString());
+        return task.toString();
     }
 
-    /**
-     * Mark a specific task in the list as not done.
-     * @param taskNumber The index of the task to be marked as not done.
-     */
-    public void unmark(int taskNumber) {
+    public String unmark(int taskNumber) {
         Task task = taskList.get(taskNumber);
         task.unmark();
-        System.out.println(task.toString());
+        return task.toString();
     }
 
-    /**
-     * Delete a specific task from the list.
-     * @param taskNumber The index of the task to be deleted.
-     */
-    public void delete(int taskNumber) {
+    public String delete(int taskNumber) {
         Task task = taskList.get(taskNumber);
         taskList.remove(taskNumber);
-        System.out.println("Noted. I've removed this task:\n" + task);
-        message();
+        return "I've removed this task:\n" + task + "\n" + message();
     }
 
-    /**
-     * Finds a list of tasks based on a keyword
-     * @param keyWord The keyword of the task to find.
-     */
     public TaskList findTasks(String keyWord) {
         TaskList result = new TaskList();
         for (int i = 0; i < taskList.size(); i++) {
@@ -58,19 +41,16 @@ public class TaskList {
         return result;
     }
 
-    /**
-     * Returns a string representation of the task list.
-     * @return A string representing all tasks in the list.
-     */
     @Override
     public String toString() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
-            result += (i + 1) + ". " + taskList.get(i) + "\n";
+            result.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
         }
-        return result;
+        return result.toString();
     }
-    public void message() {
-        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+
+    public String message() {
+        return "Now you have " + taskList.size() + " tasks in the list.";
     }
 }

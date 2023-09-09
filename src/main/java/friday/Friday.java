@@ -3,7 +3,6 @@ package friday;
 import java.util.Scanner;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.scene.image.Image;
 
 /**
  * Represents the main class for the Friday application.

@@ -31,19 +31,19 @@ public class Parser {
                 return "Here are the tasks in your list:\n" + taskList.toString();
             } else if (userInput.contains("unmark")) {
                 int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
-                taskList.unmark(taskNumber - 1);
+                String unmarkMessage = taskList.unmark(taskNumber - 1);
                 saveTasks(taskList.toString(), storage);
-                return "Nice! I've marked this task as not done yet:";
+                return "Nice! I've marked this task as not done yet: \n" + unmarkMessage;
             } else if (userInput.contains("mark")) {
                 int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
-                taskList.mark(taskNumber - 1);
+                String markMessage = taskList.mark(taskNumber - 1);
                 saveTasks(taskList.toString(), storage);
-                return "Nice! I've marked this task as done:";
+                return "Nice! I've marked this task as done:\n" + markMessage;
             } else if (userInput.contains("delete")) {
                 int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
-                taskList.delete(taskNumber - 1);
+                String deleteMessage = taskList.delete(taskNumber - 1);
                 saveTasks(taskList.toString(), storage);
-                return "Task deleted successfully!";
+                return "Task deleted successfully!\n" + deleteMessage;
             } else if (userInput.contains("find")) {
                 String[] findInput = userInput.split(" ", 2);
                 if (findInput.length < 2 || findInput[1].trim().isEmpty()) {
