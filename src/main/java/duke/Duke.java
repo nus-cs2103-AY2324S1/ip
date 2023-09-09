@@ -10,6 +10,7 @@ import java.util.Scanner;
  */
 public class Duke {
 
+<<<<<<< HEAD
     /**
      * The TaskList that stores the tasks in the application.
      */
@@ -34,6 +35,15 @@ public class Duke {
         Storage.loadTasksFromFile(taskList);
 
         // Create a scanner to read user input
+=======
+    public static TaskList taskList = new TaskList();;
+
+    public static void main(String[] args) throws DukeException {
+        Storage storage = new Storage();
+        Storage.createDataLocation();
+        storage.loadTasksFromFile(taskList);
+        List<Task> allTasks = taskList.getTasks();
+>>>>>>> origin/branch-Level-9
         Scanner sc = new Scanner(System.in);
 
         // Create a parser to process user commands

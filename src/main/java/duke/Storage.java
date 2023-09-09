@@ -50,6 +50,7 @@ public class Storage {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Loads tasks from a file and populates a given `TaskList` with the loaded tasks.
      * The file is read line by line, and tasks are parsed and added to the list.
@@ -59,6 +60,10 @@ public class Storage {
      * @param taskList The `TaskList` to populate with loaded tasks.
      */
     public static void loadTasksFromFile(TaskList taskList) {
+=======
+
+    public void loadTasksFromFile(TaskList taskList) {
+>>>>>>> origin/branch-Level-9
         List<Task> loadedTasks = new ArrayList<>(); // Create a temporary list
 
         try (Scanner scanner = new Scanner(new File(FILE_PATH))) {
@@ -72,7 +77,12 @@ public class Storage {
                 boolean isDone = Integer.parseInt(parts[1]) == 1;
                 String taskDescription = parts[2];
 
+<<<<<<< HEAD
                 if (!TaskList.isTaskInAllTasks(taskType, taskDescription)) {
+=======
+                // Check if the task is already in duke.Duke.allTasks
+                if (!Duke.taskList.isTaskInAllTasks(taskType, taskDescription)) { //rewrite method in duke.TaskList class
+>>>>>>> origin/branch-Level-9
                     Task task;
 
                     if (taskType.equals("T")) {
@@ -121,12 +131,16 @@ public class Storage {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Deletes a specific line from the file.
      * If an error occurs during deletion, an appropriate error message is displayed.
      *
      * @param lineNumber The line number to delete from the file.
      */
+=======
+
+>>>>>>> origin/branch-Level-9
     public static void deleteLineFromFile(int lineNumber) {
         try {
             File inputFile = new File(FILE_PATH);

@@ -10,6 +10,7 @@ import java.util.Scanner;
  */
 public class Parser {
 
+<<<<<<< HEAD
     /** Flag to control the main program loop. */
     public static int run;
 
@@ -19,6 +20,10 @@ public class Parser {
      *
      * @param sc The `Scanner` object for reading user input.
      */
+=======
+    public static int run = 1;
+
+>>>>>>> origin/branch-Level-9
     public static void parse(Scanner sc) {
         while (true) {
             try {
@@ -64,6 +69,11 @@ public class Parser {
                                     + Ui.horizontalLine);
                             continue;
                         }
+                    }
+                    if (instruction.equals("find")) {
+                        String keyword = elements[1];
+                        Ui.displaySearchResults(Duke.taskList, keyword);
+                        continue;
                     }
                     int firstSpaceIndex = task.indexOf(' ');
                     String actualTask = task.substring(firstSpaceIndex + 1);

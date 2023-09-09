@@ -60,10 +60,18 @@ public class Task {
      */
     public void addTask(String task) {
         if (!task.equals("")){
+<<<<<<< HEAD
             if (!task.isEmpty()) {
                 Duke.allTasks.add(this);
                 counter++;
             }
+=======
+                if (!task.isEmpty()) {
+                    Duke.taskList.addTask(this);
+                    counter++;
+                }
+
+>>>>>>> origin/branch-Level-9
         }
     }
 
@@ -144,6 +152,8 @@ public class Task {
         System.out.println(Ui.horizontalLine + "Here are the tasks in your list:");
         for (int i = 0; i < Duke.allTasks.size(); i++) {
             Task task = Duke.allTasks.get(i);
+        for (int i = 0; i < Duke.taskList.getTasks().size(); i++) {
+            Task task = Duke.taskList.getTasks().get(i);
             System.out.println((i + 1) + ". " + task.toString());
         }
         System.out.println(Ui.horizontalLine);
@@ -177,9 +187,11 @@ public class Task {
      */
     public void mark(int i) throws DukeException {
         if (i > Duke.allTasks.size() || i <= 0) {
+        if (i > Duke.taskList.getTasks().size() || i <= 0) {
             throw new DukeException(Ui.horizontalLine + "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
         }
         Task markTask = Duke.allTasks.get(i - 1);
+        Task markTask = Duke.taskList.getTasks().get(i - 1);
         markTask.status = TaskStatus.DONE;
 
         // Update the task description in the file
@@ -214,15 +226,30 @@ public class Task {
 
     public void delete() {
         Duke.allTasks.remove(this); // Remove the task from the list
+        Duke.taskList.deleteTask(this); // Remove the task from the list
     }
 
+    public boolean contains(String keyword) {
+        return task.contains(keyword);
+    }
+
+<<<<<<< HEAD
     public void unmark(int i) throws DukeException {
         if (i > Duke.allTasks.size() || i <= 0) {
             throw new DukeException(Ui.horizontalLine
                     + "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
 >>>>>>> origin/A-CodingStandard
+=======
+
+
+
+    public void unmark(int i) throws DukeException {
+        if (i > Duke.taskList.size() || i <= 0) {
+            throw new DukeException(Ui.horizontalLine+ "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
+>>>>>>> origin/branch-Level-9
         }
         Task unmarkTask = Duke.allTasks.get(i - 1);
+        Task unmarkTask = Duke.taskList.getTasks().get(i - 1);
         unmarkTask.status = TaskStatus.NOT_DONE;
         Storage.updateLineInFile(i, unmarkTask.generateStr());
         System.out.println(Ui.horizontalLine
@@ -237,13 +264,20 @@ public class Task {
      * @throws DukeException If the index is invalid.
      */
     public void delete(int i) throws DukeException {
+<<<<<<< HEAD
         if (i > Duke.allTasks.size() || i <= 0) {
             throw new DukeException(Ui.horizontalLine
                     + "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
+=======
+        if (i > Duke.taskList.size() || i <= 0) {
+            throw new DukeException(Ui.horizontalLine+ "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
+>>>>>>> origin/branch-Level-9
         }
         Task deleteTask = Duke.allTasks.get(i - 1);
+        Task deleteTask = Duke.taskList.getTasks().get(i - 1);
         counter = counter - 1;
         Duke.allTasks.remove(i - 1);
+        Duke.taskList.deleteTask(i - 1);
         Storage.deleteLineFromFile(i);
         System.out.println(Ui.horizontalLine
                 + "Noted. I've removed this task:\n" + deleteTask.toString()

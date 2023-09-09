@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class TaskList {
     private static List<Task> allTasks;
+    private List<Task> allTasks;
 
     /**
      * Constructs an empty `TaskList`.
@@ -47,15 +48,28 @@ public class TaskList {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Retrieves the list of tasks stored in the `TaskList`.
      *
      * @return A list of tasks.
      */
+=======
+    public void deleteTask(Task task) {
+        allTasks.remove(task);
+    }
+
+    public int size() {
+        return allTasks.size();
+    }
+
+
+>>>>>>> origin/branch-Level-9
     public List<Task> getTasks() {
         return allTasks;
     }
 
+<<<<<<< HEAD
     /**
      * Checks if a task with a specific task type and description exists in the `TaskList`.
      *
@@ -64,6 +78,9 @@ public class TaskList {
      * @return `true` if a matching task is found, `false` otherwise.
      */
     public static boolean isTaskInAllTasks(String taskType, String taskDescription) {
+=======
+    public boolean isTaskInAllTasks(String taskType, String taskDescription) {
+>>>>>>> origin/branch-Level-9
         for (Task task : allTasks) {
             if (task.getTask().equals(taskDescription)
                     && task.getTaskType().equals(taskType)) {
