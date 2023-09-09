@@ -7,6 +7,13 @@ import java.time.format.DateTimeFormatter;
  */
 public class Task {
 
+    // Template Strings
+    private static final String TASK_DISPLAY_TEMPLATE = "%s %s";
+    private static final String TASK_EXPORT_TEMPLATE = "%s || %s";
+    private static final String TASK_CHECKBOX_STYLE = "[%s]";
+    private static final String TASK_CHECKBOX_UNCHECKED = " ";
+    private static final String TASK_CHECKBOX_CHECKED = "X";
+
     // The description of the task.
     protected final String description;
 
@@ -48,7 +55,9 @@ public class Task {
      * @return String [ ] if not done, [X] if done.
      */
     private String getStatusCheckbox() {
-        return (isDone ? "[X]" : "[ ]");
+        return isDone
+                ? String.format(TASK_CHECKBOX_STYLE, TASK_CHECKBOX_CHECKED)
+                : String.format(TASK_CHECKBOX_STYLE, TASK_CHECKBOX_UNCHECKED);
     }
 
     /**
@@ -58,7 +67,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return getStatusCheckbox() + " " + description;
+        return String.format(TASK_DISPLAY_TEMPLATE, getStatusCheckbox(), description);
     }
 
     /**
@@ -77,8 +86,8 @@ public class Task {
      * @return String representation of the task to be saved.
      */
     public String export() {
-        return String.format("%s || %s",
-                isDone ? "X" : " ",
+        return String.format(TASK_EXPORT_TEMPLATE,
+                isDone ? TASK_CHECKBOX_CHECKED : TASK_CHECKBOX_UNCHECKED,
                 description);
     }
 }

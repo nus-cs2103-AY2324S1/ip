@@ -13,6 +13,11 @@ import duke.exceptions.DukeIOException;
  */
 public class Storage {
 
+    // Error message templates
+    private static final String ERROR_MESSAGE_TEMPLATE_CREATING_FILE = "Error creating file: %s";
+    private static final String ERROR_MESSAGE_TEMPLATE_READING_FILE = "Error reading from file: %s";
+    private static final String ERROR_MESSAGE_TEMPLATE_WRITING_TO_FILE = "Error writing to file: %s";
+
     // The path where the data is saved.
     private final Path pathToSaveFile;
 
@@ -30,7 +35,7 @@ public class Storage {
                 Files.createFile(pathToSaveFile);
             }
         } catch (IOException ioe) {
-            throw new DukeIOException("Error creating file: " + ioe.getMessage());
+            throw new DukeIOException(String.format(ERROR_MESSAGE_TEMPLATE_CREATING_FILE, ioe.getMessage()));
         }
     }
 
@@ -54,9 +59,8 @@ public class Storage {
 
             reader.close();
             return data.toString();
-
         } catch (IOException ioe) {
-            throw new DukeIOException("Error reading from file: " + ioe.getMessage());
+            throw new DukeIOException(String.format(ERROR_MESSAGE_TEMPLATE_READING_FILE, ioe.getMessage()));
         }
     }
 
@@ -70,7 +74,7 @@ public class Storage {
         try {
             Files.writeString(pathToSaveFile, data);
         } catch (IOException ioe) {
-            throw new DukeIOException("Error writing to file: " + ioe.getMessage());
+            throw new DukeIOException(String.format(ERROR_MESSAGE_TEMPLATE_WRITING_TO_FILE, ioe.getMessage()));
         }
     }
 }
