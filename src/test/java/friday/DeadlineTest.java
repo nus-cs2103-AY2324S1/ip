@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a test suite for the Deadline class in the Friday application.
+ */
 public class DeadlineTest {
 
     /**

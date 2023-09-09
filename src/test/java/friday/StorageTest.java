@@ -6,6 +6,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.File;
 
+/**
+ * Represents a test suite for the Storage class in the Friday application.
+ */
 public class StorageTest {
 
     private static final String TEST_FILE_PATH = "testData/testTasks.txt";
