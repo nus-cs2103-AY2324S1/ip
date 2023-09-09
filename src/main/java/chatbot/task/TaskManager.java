@@ -2,11 +2,13 @@ package chatbot.task;
 
 import chatbot.ChatbotException;
 import chatbot.storage.Storage;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The TaskManager class manages tasks, including adding, marking, unmarking, printing, and deleting tasks.
@@ -31,18 +33,14 @@ public class TaskManager {
      * @param t description of todo
      * @throws ChatbotException when the description is empty
      */
-    public void addTodo(String t) throws ChatbotException {
+    public String addTodo(String t) throws ChatbotException {
         if (t == null || t.trim().isEmpty()) {
             throw new ChatbotException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
         Task task = new Todos(t);
         tasks.add(task);
         storage.saveToFile(tasks);
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("     " + task.toString());
-        System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println("    ____________________________________________________________");
+        return "Got it. I've added this task:\n" + task.toString() + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
     /**
@@ -52,7 +50,7 @@ public class TaskManager {
      * @param date date
      * @throws ChatbotException when one of the param is empty
      */
-    public void addDeadlines(String t, String date) throws ChatbotException {
+    public String addDeadlines(String t, String date) throws ChatbotException {
         if (t == null || t.trim().isEmpty()) {
             throw new ChatbotException("☹ OOPS!!! The description of a deadlines cannot be empty.");
         } else if (date == null || date.trim().isEmpty()) {
@@ -65,13 +63,9 @@ public class TaskManager {
             Task task = new Deadlines(t, dateTime);
             tasks.add(task);
             storage.saveToFile(tasks);
-            System.out.println("    ____________________________________________________________");
-            System.out.println("     Got it. I've added this task:");
-            System.out.println("     " + task.toString());
-            System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
-            System.out.println("    ____________________________________________________________");
+            return "Got it. I've added this task:\n" + task.toString() + "\nNow you have " + tasks.size() + " tasks in the list.";
         } catch (DateTimeParseException e) {
-            System.out.println("    Invalid date/time format. Please enter in dd/MM/yyyy HHmm format.");
+           return "Invalid date/time format. Please enter in dd/MM/yyyy HHmm format.";
         }
     }
 
@@ -83,7 +77,7 @@ public class TaskManager {
      * @param end end date
      * @throws ChatbotException when one of the param is empty
      */
-    public void addEvents(String t, String start, String end) throws ChatbotException {
+    public String addEvents(String t, String start, String end) throws ChatbotException {
         if (t == null || t.trim().isEmpty()) {
             throw new ChatbotException("☹ OOPS!!! The description of a event cannot be empty.");
         } else if (start == null || start.trim().isEmpty()) {
@@ -99,15 +93,11 @@ public class TaskManager {
             Events newEvent = new Events(t, startDateTime, endDateTime);
             tasks.add(newEvent);
             storage.saveToFile(tasks);
-            System.out.println("    ____________________________________________________________");
-            System.out.println("    Got it. I've added this event:");
-            System.out.println("      " + newEvent);
-            System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
-            System.out.println("    ____________________________________________________________");
+
+            return "Got it. I've added this task:\n" + newEvent.toString() + "\nNow you have " + tasks.size() + " tasks in the list.";
+
         } catch (DateTimeParseException e) {
-            System.out.println("    ____________________________________________________________");
-            System.out.println("    Invalid date/time format. Please enter in dd/MM/yyyy HHmm format.");
-            System.out.println("    ____________________________________________________________");
+            return "Invalid date/time format. Please enter in dd/MM/yyyy HHmm format.";
         }
     }
 
@@ -116,18 +106,13 @@ public class TaskManager {
      *
      * @param index index of the task
      */
-    public void taskDone(int index) {
+    public String taskDone(int index) {
         try {
             tasks.markTaskDone(index);
             storage.saveToFile(tasks);
-            System.out.println("    ____________________________________________________________");
-            System.out.println("     Nice! I've marked this task as done:");
-            System.out.println("       " + tasks.getTask(index));
-            System.out.println("    ____________________________________________________________");
+           return "Nice! I've marked this task as done:\n" + tasks.getTask(index);
         } catch (NumberFormatException e) {
-            System.out.println("    ____________________________________________________________");
-            System.out.println("     Oops! Please enter a valid task number to mark.");
-            System.out.println("    ____________________________________________________________");
+            return "Oops! Please enter a valid task number to mark.";
         }
     }
 
@@ -136,18 +121,13 @@ public class TaskManager {
      *
      * @param index index of the task
      */
-    public void unMarktask(int index) {
+    public String unMarktask(int index) {
         try {
             tasks.unMarkTask(index);
             storage.saveToFile(tasks);
-            System.out.println("    ____________________________________________________________");
-            System.out.println("     OK, I've marked this task as not done yet:");
-            System.out.println("       " + tasks.getTask(index));
-            System.out.println("    ____________________________________________________________");
+           return "OK, I've marked this task as not done yet:\n" + tasks.getTask(index);
         } catch (NumberFormatException e) {
-            System.out.println("    ____________________________________________________________");
-            System.out.println("     Oops! Please enter a valid task number to unmark.");
-            System.out.println("    ____________________________________________________________");
+            return "Oops! Please enter a valid task number to unmark.";
         }
     }
 
@@ -161,18 +141,19 @@ public class TaskManager {
      * @param index index of the task
      * @throws ChatbotException when invalid index is given
      */
-    public void deleteTask(int index) throws ChatbotException {
+    public String deleteTask(int index) throws ChatbotException {
         try {
             Task removedTask = tasks.removeTask(index); // Subtracting 1 because ArrayList is 0-based.
             storage.saveToFile(tasks);
-            System.out.println("    ____________________________________________________________");
-            System.out.println("     Noted. I've removed this task:");
-            System.out.println("       " + removedTask);
-            System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
-            System.out.println("    ____________________________________________________________");
+
+            return "Noted. I've removed this task:\n" + removedTask + "Now you have " + tasks.size() + " tasks in the list.";
         } catch (IndexOutOfBoundsException e) {
             throw new ChatbotException("Please provide a valid task number to delete.");
         }
+    }
+
+    public String showFarewell() {
+        return "Bye. Hope to see you again soon!\n";
     }
 
     /**
@@ -193,24 +174,17 @@ public class TaskManager {
         }
     }
 
-    public void findTaskByKeyboard(String keyword) {
-        ArrayList<Task> list = new ArrayList<>();
+    public List<Task> findTaskByKeyboard(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks.getAllTasks()) {
             if (task.getDescription().contains(keyword)) {
-                list.add(task);
+                matchingTasks.add(task);
             }
         }
-        if (list.isEmpty()) {
-            System.out.println("    ____________________________________________________________");
-            System.out.println("    Oops! There is no task with this keyword.");
-            System.out.println("    ____________________________________________________________");
-        } else {
-            System.out.println("    ____________________________________________________________");
-            System.out.println("    Here are the matching tasks in your list:");
-            for (int i = 0; i < list.size(); i++) {
-                System.out.println("    " + (i + 1) + "." + list.get(i).toString());
-            }
-            System.out.println("    ____________________________________________________________");
-        }
+        return matchingTasks;
+    }
+
+    public List<Task> getAllTasks() {
+        return tasks.getAllTasks();
     }
 }

@@ -20,8 +20,8 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskManager taskManager, Ui ui) throws ChatbotException {
-        taskManager.taskDone(index);
+    public String execute(TaskManager taskManager) throws ChatbotException {
+           return taskManager.taskDone(index);
     }
 
     @Override

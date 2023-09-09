@@ -20,8 +20,8 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskManager taskManager, Ui ui) throws ChatbotException {
-        taskManager.unMarktask(index);
+    public String execute(TaskManager taskManager) throws ChatbotException {
+       return taskManager.unMarktask(index);
     }
 
     @Override
