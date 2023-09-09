@@ -50,10 +50,9 @@ public class Deadline extends Task {
     }
 
   @Override
-    public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), date != null ?
-                            getDate(date)
-                            : by
-                            );
-                        }
+  public String toString() {
+    return String.format("[D]%s (by: %s)", super.toString(), date != null
+                    ? getDate(date)
+                    : by);
+    }
 }
