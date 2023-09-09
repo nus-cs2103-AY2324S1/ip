@@ -29,9 +29,9 @@ public class AddCommand extends Command {
      * @param storage Storage class that deals with saving data.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);
-        ui.taskAdded(task, tasks);
         storage.saveTaskList(tasks);
+        return ui.taskAdded(task, tasks);
     }
 }

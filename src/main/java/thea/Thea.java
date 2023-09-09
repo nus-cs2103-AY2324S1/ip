@@ -2,12 +2,12 @@ package thea;
 
 /**
  * Thea is a chatbot that manages user tasks.
- * The name Thea comes from Alethea which means "truth".
  */
 public class Thea {
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
+    protected Storage storage;
+    protected TaskList tasks;
+    protected Ui ui;
+    protected Parser parser;
 
     /**
      * Constructs a new Thea object.
@@ -18,6 +18,7 @@ public class Thea {
     public Thea(String fileName) {
         this.ui = new Ui();
         this.storage = new Storage(fileName);
+        this.parser = new Parser();
         try {
             this.tasks = new TaskList(storage.retrieveTasks());
         } catch (FileCorruptedException e) {
@@ -30,7 +31,6 @@ public class Thea {
      * Contains logic the main logic of Thea that needs to be run.
      */
     public void run() {
-        ui.greet();
         boolean isExit = false;
         while (!isExit) {
             String fullCommand = ui.readNextLine();
@@ -48,7 +48,17 @@ public class Thea {
     /**
      * Starts the program.
      */
-    public static void main(String[] args) {
-        new Thea("thea.txt").run();
+//    public static void main(String[] args) {
+//        new Thea("thea.txt").run();
+//    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+
+    public String greetings() {
+        return ui.greet();
     }
 }
+

@@ -18,15 +18,15 @@ public class Ui {
     /**
      * Greets the user.
      */
-    public void greet() {
-        System.out.println("Hello! I'm Thea •ᴗ•\nHow can I help you?");
+    public static String greet() {
+        return ("Hello! I'm Thea\nHow can I help you?\n");
     }
 
     /**
      * Sends exiting message to the user.
      */
-    public void exit() {
-        System.out.println("I hope I made your day easier with my service. See you again! >ᴗ<");
+    public String exit() {
+        return ("I hope I made your day easier with my service. See you again! ><\n");
     }
 
     /**
@@ -34,8 +34,8 @@ public class Ui {
      *
      * @param task marked task.
      */
-    public void taskMarked(Task task) {
-        System.out.printf("Great job! ˊᗜˋ I've marked this task as done:\n  %s\n", task);
+    public String taskMarked(Task task) {
+        return ("Great job! I've marked this task as done:\n  " + task + "\n");
     }
 
     /**
@@ -43,8 +43,8 @@ public class Ui {
      *
      * @param task unmarked task.
      */
-    public void taskUnmarked(Task task) {
-        System.out.printf("Okay, I've marked this task as not done yet:\n  %s\n", task);
+    public String taskUnmarked(Task task) {
+        return ("Okay, I've marked this task as not done yet:\n  " + task + "\n");
     }
 
     /**
@@ -52,13 +52,15 @@ public class Ui {
      *
      * @param tasks current task list.
      */
-    public void printList(TaskList tasks) {
+    public String printList(TaskList tasks) {
         if (!tasks.isEmpty()) {
+            String output = "";
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.printf("%d. %s%n", i + 1, tasks.get(i));
+                output += (i + 1 + ". " + tasks.get(i) + "\n");
             }
+            return output;
         } else {
-            System.out.println("Yay! You have no tasks in your list.");
+            return ("Yay! You have no tasks in your list.");
         }
     }
 
@@ -68,8 +70,8 @@ public class Ui {
      * @param task added task.
      * @param tasks new task list.
      */
-    public void taskAdded(Task task, TaskList tasks) {
-        System.out.println("I have added the following task to your list:\n  "
+    public String taskAdded(Task task, TaskList tasks) {
+        return ("I have added the following task to your list:\n  "
                 + task.toString() + "\nNow you have " + tasks.size()
                 + (tasks.size() == 1 ? " task" : " tasks")
                 + " in the list. You can do this!");
@@ -80,8 +82,8 @@ public class Ui {
      *
      * @param errorMessage error message to be shown.
      */
-    public void showError(String errorMessage) {
-        System.out.println(errorMessage);
+    public String showError(String errorMessage) {
+        return (errorMessage);
     }
 
     /**
@@ -99,8 +101,8 @@ public class Ui {
      * @param task deleted task.
      * @param tasks old task list before deletion.
      */
-    public void taskDeleted(Task task, TaskList tasks) {
-        System.out.println("I have removed the following task to your list:\n  "
+    public String taskDeleted(Task task, TaskList tasks) {
+        return ("I have removed the following task to your list:\n  "
                 + task.toString() + "\nNow you have " + (tasks.size() - 1)
                 + ((tasks.size() - 1) == 1 ? " task" : " tasks")
                 + " in the list.");
@@ -111,14 +113,15 @@ public class Ui {
      *
      * @param relevantTasks list of the relevant tasks.
      */
-    public void relevantTasksFound(TaskList relevantTasks) {
+    public String relevantTasksFound(TaskList relevantTasks) {
         if (relevantTasks.isEmpty()) {
-            System.out.println("No matching task found. Maybe you have finished them?");
+            return ("No matching task found. Maybe you have finished them?\n");
         } else {
-            System.out.println("Here are the matching tasks on your list:");
+            String output = "Here are the matching tasks on your list:\n";
             for (int i = 0; i < relevantTasks.size(); i++) {
-                System.out.println((i + 1) + ". " + relevantTasks.get(i));
+                output += ((i + 1) + ". " + relevantTasks.get(i) + "\n");
             }
+            return output;
         }
     }
 }

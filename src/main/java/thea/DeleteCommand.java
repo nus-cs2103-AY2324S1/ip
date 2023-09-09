@@ -26,17 +26,19 @@ public class DeleteCommand extends Command {
      * @param storage Storage class that deals with saving data.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        String output;
         try {
             try {
-                ui.taskDeleted(tasks.get(this.index), tasks);
+                output = ui.taskDeleted(tasks.get(this.index), tasks);
             } catch (java.lang.IndexOutOfBoundsException e) {
                 throw new IndexOutOfBoundsException("There is currently no task " + (index + 1));
             }
             tasks.delete(this.index);
         } catch (IndexOutOfBoundsException e) {
-            ui.showError(e.getMessage());
+            return ui.showError(e.getMessage());
         }
         storage.saveTaskList(tasks);
+        return output;
     }
 }
