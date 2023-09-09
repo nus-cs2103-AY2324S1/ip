@@ -1,3 +1,5 @@
+package duke;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -8,7 +10,7 @@ public class Event extends Task{
     private LocalDateTime from;
     private LocalDateTime to;
 
-//    public Event(String task, Boolean isNotSaved, String from, String to) {
+//    public duke.Event(String task, Boolean isNotSaved, String from, String to) {
 //        super(task, isNotSaved);
 //        this.fromStr = from;
 //        this.toStr = to;
@@ -16,7 +18,7 @@ public class Event extends Task{
 //            this.from = parseDateTime(from);
 //            this.to = parseDateTime(to);
 //        } catch (Exception e) {
-//            System.out.println(Duke.horizontalLine + "Invalid date format :< Please use dd/MM/yyyy\n" + Duke.horizontalLine);
+//            System.out.println(duke.Duke.horizontalLine + "Invalid date format :< Please use dd/MM/yyyy\n" + duke.Duke.horizontalLine);
 //        }
 //
 //        if (isNotSaved) {
