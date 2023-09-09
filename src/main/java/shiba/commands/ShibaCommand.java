@@ -83,6 +83,7 @@ public abstract class ShibaCommand {
         Replier.printWithNoIndents("You now have " + tasks.size() + taskWord
                 + " in the list. Now gimme some treats.");
         Replier.reply();
+
         tasks.save();
     }
 }

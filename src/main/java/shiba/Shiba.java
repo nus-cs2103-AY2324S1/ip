@@ -18,11 +18,8 @@ public class Shiba {
         this.name = name;
         parser = new CommandParser(new FilePersistentTaskList(dataPath));
 
-        if (singleton == null) {
-            singleton = this;
-        } else {
-            System.out.println("Warning: Multiple instances of Shiba detected!");
-        }
+        assert singleton == null : "Multiple instances of Shiba detected!";
+        singleton = this;
     }
 
     public void start() {
@@ -39,9 +36,9 @@ public class Shiba {
      * @param input The user input.
      */
     public void processUserInput(String input) {
-        boolean quit = parser.processUserInput(input);
+        boolean isQuitRequested = parser.processUserInput(input);
         MainWindow mainWindow = MainWindow.getInstance();
-        if (quit && mainWindow != null) {
+        if (isQuitRequested && mainWindow != null) {
             stop();
             mainWindow.close();
         }

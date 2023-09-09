@@ -10,8 +10,8 @@ import shiba.ui.Replier;
  */
 public class PatCommand extends ShibaCommand {
     private static final Random random = new Random();
-    private static final String msg1 = "Woof! I'm so happy!";
-    private static final String msg2 = "<Happy Shiba noises>";
+    private static final String replyMsg1 = "Woof! I'm so happy!";
+    private static final String replyMsg2 = "<Happy Shiba noises>";
 
     /**
      * Constructor for PatCommand
@@ -27,7 +27,7 @@ public class PatCommand extends ShibaCommand {
      */
     @Override
     public void execute() {
-        Replier.printWithNoIndents(random.nextBoolean() ? msg1 : msg2);
+        Replier.printWithNoIndents(random.nextBoolean() ? replyMsg1 : replyMsg2);
         Replier.reply();
     }
 }
