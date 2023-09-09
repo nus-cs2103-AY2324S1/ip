@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+
 /**
  * Task is a class that represents a task that can be added for the chatbot to keep track of.
  * It also manages the list of tasks in a local database.
@@ -19,6 +21,14 @@ public abstract class Task {
      * @return The task information in the form of a string.
      */
     public abstract String toDatabaseRepresentation();
+
+    /**
+     * Returns the LocalDateTime that is used to chronologically order the task if it is present.
+     * @return
+     */
+    public LocalDateTime getDateTime() {
+        return LocalDateTime.MIN;
+    }
 
     public void markAsDone() {
         this.isDone = true;

@@ -25,6 +25,11 @@ public class Event extends Task {
     }
 
     @Override
+    public LocalDateTime getDateTime() {
+        return this.startTime;
+    }
+
+    @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)",
                 super.toString(), Storage.dateToString(startTime), Storage.dateToString(endTime));

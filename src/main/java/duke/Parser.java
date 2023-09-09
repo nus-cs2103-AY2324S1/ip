@@ -17,6 +17,7 @@ public class Parser {
         INVALID(""),
         BYE("bye"),
         LIST("list"),
+        SORT("sort"),
         MARK("mark"),
         UNMARK("unmark"),
         DELETE("delete"),
@@ -65,6 +66,9 @@ public class Parser {
             break;
         case LIST:
             dukeBot.tasks.listTasks();
+            break;
+        case SORT:
+            dukeBot.tasks.sortTasks();
             break;
         case MARK:
             dukeBot.tasks.markTask(Integer.parseInt(inputInfo));

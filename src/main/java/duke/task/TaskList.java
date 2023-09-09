@@ -4,6 +4,8 @@ import duke.Duke;
 import duke.Main;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * TaskList encapsulates a list of tasks as well as the various task related functions for Duke.
@@ -114,5 +116,20 @@ public class TaskList {
         }
 
         Main.outputDialog(res);
+    }
+
+    /**
+     * Sorts the tasks by chronological order.
+     */
+    public void sortTasks() {
+        Collections.sort(taskList, new Comparator<Task>() {
+            @Override
+            public int compare(Task o1, Task o2) {
+                return o1.getDateTime().compareTo(o2.getDateTime());
+            }
+        });
+
+        dukeBot.storage.writeToDatabase(taskList);
+        Main.outputDialog("Okay! Your tasks have been sorted.");
     }
 }
