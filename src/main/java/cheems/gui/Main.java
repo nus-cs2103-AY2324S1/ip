@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+
 /**
  * A GUI for Cheems using FXML.
  */
@@ -25,7 +26,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setCheems(cheems);
             stage.show();
-
+            stage.setTitle("Your Task Manager Cheems!");
             fxmlLoader.<MainWindow>getController().showWelcomeDialog();
         } catch (IOException e) {
             e.printStackTrace();

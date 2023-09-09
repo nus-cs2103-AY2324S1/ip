@@ -5,3 +5,4 @@
 0|DEADLINE|housework|2023-09-12
 0|EVENT|project meeting|2023-03-24|2023-05-19
 0|TODO|have  fun
+1|TODO|get dinner
