@@ -7,13 +7,18 @@ import duke.ui.Ui;
 
 import java.util.Scanner;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 /**
  * Personal assistant chatbot that can help you manage a task list.
  * This is the main class of the program.
  *
  * @author Wu Jingya
  */
-public class Duke {
+public class Duke extends Application {
     private static String name = "Moira";
     /** Whether the chatbot is currently accepting user input */
     private static boolean isReceivingInput = false;
@@ -54,6 +59,23 @@ public class Duke {
         isReceivingInput = false;
         storage.saveData();
         ui.playGoodbye();
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        return "Moira heard: " + input;
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 
     /**
