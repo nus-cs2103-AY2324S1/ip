@@ -62,7 +62,9 @@ public class Ui {
 
         return "Error loading tasks. Starting with an empty task list.";
     }
-
+    public String showTaggedTask(Task task) {
+        return "Tagged the following task: \n" + task;
+    }
     /**
      * Returns an error message.
      *

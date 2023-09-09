@@ -9,6 +9,7 @@ public class Task {
     private final String description;
     private boolean isDone;
     private final TaskType type;
+    private String tag;
 
     /**
      * Initializes a task with the specified description and type.
@@ -69,6 +70,13 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getTag() {
+        return this.tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
     /**
      * Gets the description
      */
@@ -83,7 +91,9 @@ public class Task {
      */
     @Override
     public String toString() {
-
-        return "[" + getStatusIcon() + "] " + description;
+        String result = "[" + getStatusIcon() + "] " + description;
+        result += " [" + this.tag + "]";
+        return result;
     }
+
 }

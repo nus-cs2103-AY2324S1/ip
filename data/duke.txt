@@ -1,8 +1,4 @@
-T # 0 # borrow book
-T # 1 # sdfsgf
-D # 0 # return book # 2019-09-09
-T # 0 # borrow book
-T # 0 # haha book
-T # 0 # makabaka book
-T # 0 # book hahaweafefa
-D # 0 # return book # 2012-10-12
+T # 0 # borrow book # TODO
+T # 1 # sdfsgf # TODO
+D # 0 # return book # 2019-09-09 # null
+E # 0 # project meeting # 2019-10-15 - 2012-10-30 # haha

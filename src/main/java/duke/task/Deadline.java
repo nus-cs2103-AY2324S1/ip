@@ -53,6 +53,7 @@ public class Deadline extends Task {
         }
     }
 
+
     public LocalDate getTime() {
 
         return this.deadlineTime;
@@ -66,4 +67,5 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + deadlineTime.format(OUTPUT_FORMATTER) + ")";
     }
+
 }

@@ -102,7 +102,17 @@ public class TaskList {
         tasks.remove(taskNum);
         return tem;
     }
-
+    /**
+     * Sets a tag for a task based on its index.
+     *
+     * @param taskIndex The index of the task in the list.
+     * @param tag The tag to be added to the task.
+     */
+    public void setTag(int taskIndex, String tag) {
+        if (validIndex(taskIndex)) {
+            tasks.get(taskIndex).setTag(tag);
+        }
+    }
     /**
      * Finds tasks by keyword and displays them using the UI.
      *

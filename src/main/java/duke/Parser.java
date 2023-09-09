@@ -7,6 +7,7 @@ import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnMarkCommand;
+import duke.command.AddTagCommand;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
@@ -55,6 +56,14 @@ public class Parser {
             return new DeleteCommand(Integer.parseInt(splits[1].trim()));
         case ("find"):
             return new FindCommand(splits[1].trim());
+        case ("tag"):
+            String[] parts = splits[1].split(" ", 2);
+            if (parts.length != 2) {
+                throw new DukeException("Please provide a valid task index and tag.");
+            }
+            int taskIndex = Integer.parseInt(parts[0].trim()) - 1;
+            String tag = parts[1].trim();
+            return new AddTagCommand(taskIndex, tag);
         default:
             throw new DukeException("☹ I'm sorry, but I don't know what that means :-(");
         }

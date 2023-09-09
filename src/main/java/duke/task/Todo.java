@@ -1,4 +1,5 @@
 package duke.task;
+
 /**
  * Represents a "to-do" type of task.
  */
@@ -24,6 +25,7 @@ public class Todo extends Task {
 
         super(name, TaskType.TODO, isDone);
     }
+
 
     /**
      * Returns the string representation of the "to-do" task.
