@@ -2,43 +2,40 @@ package duke.ui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.layout.HBox;
 
+import java.io.IOException;
+
 public class DialogBox extends HBox {
-
-    private Label text;
-    private ImageView displayPicture;
-
+    @FXML
+    private Label dialog;
+    @FXML
     private Ellipse imageClip;
 
-    private DialogBox(Label l, ImageView iv) {
-        text = l;
-        displayPicture = iv;
-        imageClip = new Ellipse();
+    private DialogBox(String text, Image img) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        text.setWrapText(true);
-        displayPicture.setFitHeight(100.0);
-        displayPicture.setFitWidth(100.0);
+        dialog.setText(text);
 
-        imageClip.setCenterX(50);
-        imageClip.setCenterY(50);
-        imageClip.setRadiusX(40);
-        imageClip.setRadiusY(50);
-        imageClip.setSmooth(true);
-
-        displayPicture.setClip(imageClip);
-
-        this.setSpacing(5.0);
-        this.setPadding(new Insets(5, 5, 5, 5));
-        this.setAlignment(Pos.CENTER_RIGHT);
-        this.getChildren().addAll(text, displayPicture);
+        imageClip.setFill(new ImagePattern(img));
     }
 
     private void flip() {
@@ -48,12 +45,12 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
-    public static DialogBox getUserDialog(Label l, ImageView iv) {
-        return new DialogBox(l, iv);
+    public static DialogBox getUserDialog(String text, Image iv) {
+        return new DialogBox(text, iv);
     }
 
-    public static DialogBox getDukeDialog(Label l, ImageView iv) {
-        DialogBox db = new DialogBox(l, iv);
+    public static DialogBox getDukeDialog(String text, Image iv) {
+        var db = new DialogBox(text, iv);
         db.flip();
         return db;
     }

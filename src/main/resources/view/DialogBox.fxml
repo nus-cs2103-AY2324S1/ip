@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Ellipse?>
+<?import javafx.scene.text.Font?>
+
+<fx:root alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialog" alignment="CENTER_RIGHT" text="Label" wrapText="true">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <font>
+            <Font name="SansSerif Regular" size="12.0" />
+         </font>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <padding>
+            <Insets right="5.0" />
+         </padding></Label>
+      <Ellipse fx:id="imageClip" centerX="50.0" centerY="50.0" fill="DODGERBLUE" radiusX="40.0" radiusY="50.0" stroke="BLACK" strokeType="INSIDE">
+         <HBox.margin>
+            <Insets right="5.0" />
+         </HBox.margin>
+      </Ellipse>
+    </children>
+    <padding>
+        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+    </padding>
+</fx:root>
