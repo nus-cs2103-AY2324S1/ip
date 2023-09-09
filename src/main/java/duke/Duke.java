@@ -14,9 +14,18 @@ import javafx.fxml.FXML;
  * Creates a Duke object.
  */
 public class Duke {
-    private Scanner scanner = new Scanner(System.in);
-    private Storage storage = new Storage();
-    private TaskList tasks = new TaskList();
+    private Storage storage;
+    private TaskList tasks;
+
+    public Duke() {
+        this.storage = new Storage();
+        try {
+            this.tasks = new TaskList(storage.loadTasksFromFile());
+        } catch (DukeException e) {
+            this.tasks = new TaskList();
+
+        }
+    }
 
     /**
      * Runs the Duke chatbot.
@@ -24,7 +33,7 @@ public class Duke {
     public String run(String userInput) throws DukeException {
         String message = "";
         //Load tasks from file
-        this.storage.loadTasksFromFile(tasks.getTasks());
+
         //Read user input
         Parser parser = new Parser(userInput);
         String userCommand = parser.inputCommand();
@@ -54,18 +63,14 @@ public class Duke {
             message = "Now you have " + tasks.getSize() + " tasks in the list.";
         } else if (userCommand.equals("FIND")) {
             List<Task> matchingTasks = this.tasks.findTasksByKeyword(parser.getStringKeyword());
-
+            message = "Here are the matching tasks in your list:\n" + matchingTasks;
         } else if (userCommand.equals("BYE")) {
             message = "Bye. Hope to see you again soon!";
         } else {
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
-//        this.storage.saveTasksToFile(this.tasks.getTasks());
-//            } catch (DukeException e) {
-//                message = "☹ OOPS!!! " + e.getMessage();
-//            }
+        this.storage.saveTasksToFile(this.tasks.getTasks());
 
-//        this.ui.printFarewell();
         return message;
     }
 
