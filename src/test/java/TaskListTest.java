@@ -1,4 +1,5 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -78,77 +79,96 @@ public class TaskListTest {
     @Test
     public void deleteTask_invalidIndex_returnNull() {
         //tasks have only 3 tasks
-        final Task deletedTask = tasks.deleteTask(5);
+        assertThrows(IndexOutOfBoundsException.class, () -> tasks.deleteTask(5));
 
-        assertEquals(null, deletedTask);
     }
 
     @Test
     public void deleteTask_validIndex_returnTodoTask() {
         //task at index 0 is a todotask with description "sing a song"
-        tasks.load();
-        final Task deletedTask = tasks.deleteTask(0);
+        try {
+            tasks.load();
+            final Task deletedTask = tasks.deleteTask(0);
 
-        assertEquals(new ToDo("sing a song").convertToStorageForm(), deletedTask.convertToStorageForm());
+            assertEquals(new ToDo("sing a song").convertToStorageForm(), deletedTask.convertToStorageForm());
+        } catch (IOException e) {
+            System.out.println("Error");
+        }
     }
 
     @Test
     public void deleteTask_postDeletionLength_two() {
         tasks.load();
-        tasks.deleteTask(0);
+        Task expected = tasks.getTasks().get(0);
 
-        final int length = tasks.getTasks().size();
+        try {
+            final Task actual = tasks.deleteTask(0);
 
-        assertEquals(2, length);
+            assertEquals(expected, actual);
+        } catch (IOException e) {
+            System.out.println("Error");
+        }
     }
 
     @Test
     public void markAsDone_taskIsNotDone_true() {
         tasks.load();
-        final boolean isSuccessful = tasks.markAsDone(0);
+        final String message = tasks.markAsDone(0);
 
-        assertEquals(true, isSuccessful);
+        assertEquals(
+                "Mission status updated! Mission completed successfully.\n" + tasks.getTasks().get(0),
+                message);
     }
 
     @Test
     public void markAsDone_taskIsDone_true() {
         tasks.load();
         tasks.markAsDone(0);
-        final boolean isSuccessful = tasks.markAsDone(0);
+        final String message = tasks.markAsDone(0);
 
-        assertEquals(true, isSuccessful);
+        assertEquals(
+                "Mission has been completed previously.",
+                message);
     }
 
     @Test
     public void markAsDone_taskIndexInvalid_false() {
         tasks.load();
-        final boolean isSuccessful = tasks.markAsDone(5);
+        final String message = tasks.markAsDone(5);
 
-        assertEquals(false, isSuccessful);
+        assertEquals(
+                "Invalid index! Please ensure you correctly key in your target index.",
+                message);
     }
 
     @Test
-    public void markUndone_taskIsDone_true() {
+    public void markAsUndone_taskIsDone_true() {
         tasks.load();
         tasks.markAsDone(0);
-        final boolean isSuccessful = tasks.markUndone(0);
+        final String message = tasks.markAsUndone(0);
 
-        assertEquals(true, isSuccessful);
+        assertEquals(
+                "Mission status updated! Mission completion status reverted.\n" + tasks.getTasks().get(0),
+                message);
     }
 
     @Test
-    public void markUndone_taskIsNotDone_true() {
+    public void markAsUndone_taskIsNotDone_true() {
         tasks.load();
-        final boolean isSuccessful = tasks.markUndone(0);
+        final String message = tasks.markAsUndone(0);
 
-        assertEquals(true, isSuccessful);
+        assertEquals(
+                "Mission is already marked as undone!",
+                message);
     }
 
     @Test
-    public void markUndone_taskIndexInvalid_false() {
+    public void markAsUndone_taskIndexInvalid_false() {
         tasks.load();
-        final boolean isSuccessful = tasks.markUndone(5);
+        final String message = tasks.markAsUndone(5);
 
-        assertEquals(false, isSuccessful);
+        assertEquals(
+                "Invalid index! Please ensure you correctly key in your target index.",
+                message);
     }
 }

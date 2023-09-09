@@ -50,46 +50,35 @@ public class TaskList {
      * Deletes the task at the given index of the list.
      *
      * @param taskIndex is null if encounter an exception.
+     * @return Task that was deleted from the list.
+     * @throws IndexOutOfBoundsException when taskIndex is invalid.
+     * @throws IOException when the program is unable to write to the saved file.
      */
-    public Task deleteTask(int taskIndex) {
-        try {
-            Task task = tasks.remove(taskIndex);
-            storage.updateData(tasks, false);
+    public Task deleteTask(int taskIndex) throws
+            IndexOutOfBoundsException, IOException {
 
-            System.out.println("Noted. I have removed the following mission:");
-            System.out.println(task);
+        Task task = tasks.remove(taskIndex);
+        storage.updateData(tasks, false);
 
-            return task;
-
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid index! Please ensure you correctly key in your target index.");
-        } catch (IOException e) {
-            System.out.println("Unable to update file.");
-        }
-
-        return null;
+        return task;
     }
 
     /**
      * Adds the given task into the list of tasks.
      *
-     * @param task
+     * @param task to be added.
+     * @return String denoting status of the operation.
      */
-    public boolean addTask(Task task) {
+    public String addTask(Task task) {
         if (task != null && tasks.add(task)) {
-            System.out.println("added in mission:\n" + task);
-
             try {
                 storage.updateData(tasks, true);
+                return "added in mission:\n" + task;
             } catch (IOException e) {
-                System.out.println("Error writing to file.");
+                return "Error writing to file.";
             }
-
-            return true;
         } else {
-            System.out.println("System is unable to accommodate the new mission");
-
-            return false;
+            return "System is unable to accommodate the new mission";
         }
     }
 
@@ -97,63 +86,55 @@ public class TaskList {
      * Marks the task at the given index as done.
      *
      * @param taskIndex is the index of the task to be marked.
+     * @return String indicating the status from this operation.
      */
-    public boolean markAsDone(int taskIndex) {
+    public String markAsDone(int taskIndex) {
         try {
             Task task = tasks.get(taskIndex);
 
             if (task.isDone()) {
                 //Events.Task already marked as done
-                System.out.println("Mission has been completed previously.");
-                return true;
+                return "Mission has been completed previously.";
             }
 
             task.updateCompletionStatus();
+            storage.updateData(tasks, false);
 
-            System.out.println("Mission status updated! Mission completed successfully.");
-            System.out.println(task);
-
-            return storage.updateData(tasks, false);
+            return "Mission status updated! Mission completed successfully.\n" + task;
 
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid index! Please ensure you correctly key in your target index.");
+            return "Invalid index! Please ensure you correctly key in your target index.";
         } catch (IOException e) {
-            System.out.println("Unable to update file.");
+            return "Unable to update file.";
         }
-
-        return false;
     }
 
     /**
      * Marks the task at the given index as undone.
      *
      * @param taskIndex is the index of the task to be unmarked.
+     * @return String indicating the status from this operation.
      */
-    public boolean markUndone(int taskIndex) {
+    public String markAsUndone(int taskIndex) {
         try {
             Task task = tasks.get(taskIndex);
 
             if (!(task.isDone())) {
                 //task already marked as undone
-                System.out.println("Mission is already marked as undone!");
-                return true;
+                return "Mission is already marked as undone!";
             }
 
             task.updateCompletionStatus();
+            storage.updateData(tasks, false);
 
-            System.out.println("Mission status updated! Mission completion status reverted.");
-            System.out.println(task);
-
-            return storage.updateData(tasks, false);
+            return "Mission status updated! Mission completion status reverted.\n" + task;
 
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid index! Please ensure you correctly key in your target index.");
+            return "Invalid index! Please ensure you correctly key in your target index.";
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Unable to update file.");
+            return "Unable to update file.";
         }
-
-        return false;
     }
 
     /**

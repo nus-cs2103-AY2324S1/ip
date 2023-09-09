@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import tasks.Task;
 
@@ -9,44 +8,32 @@ import tasks.Task;
  * @author Sebastian Tay
  */
 public class Ui {
-    private Scanner sc;
-
-    public Ui(Scanner sc) {
-        this.sc = sc;
-    }
-
-    /**
-     * Retrieves input from the user in the command line.
-     *
-     * @return
-     */
-    public String getInput() {
-        return sc.nextLine();
-    }
 
     /**
      * Greets the user.
+     *
+     * @return String containing the welcome message.
      */
-    public void welcome() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Veda initialised. How may I help you?");
-        System.out.println("____________________________________________________________");
+    public String getWelcomeMessage() {
+        return "Veda initialised. How may I help you?";
     }
 
     /**
-     * Terminates the ui and closes the scanner.
+     * Bids goodbye to the user.
+     *
+     * @return String containing exit message
      */
-    public void exit() {
-        System.out.println("Terminating reader.");
-        sc.close();
-        System.out.println("Bye. All the best for your mission!");
+    public String getExitMessage() {
+        return "Bye. All the best for your mission!";
     }
 
     /**
      * Informs user that command is unrecognised.
+     *
+     * @return String informing user that their input is not recognised.
      */
-    public void displayUnrecognisedInput() {
-        System.out.println("Unrecognised command.");
+    public String getUnrecognisedInputMessage() {
+        return "Unrecognised command.";
     }
 
 
@@ -54,24 +41,35 @@ public class Ui {
      * List out the missions in tasks.
      *
      * @param tasks contains the missions to be listed.
+     * @return a String containing the list of missions.
      */
-    public void displayList(ArrayList<Task> tasks) {
-        System.out.println("Missions:");
+    public String getListOfMissions(ArrayList<Task> tasks) {
+        String list = "Missions: \n";
 
-        tasks.forEach(task -> System.out.println((tasks.indexOf(task) + 1) + "." + task));
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            list += ((tasks.indexOf(task) + 1) + "." + task + "\n");
+        }
 
+        return list;
     }
 
     /**
      * List out the missions in tasks with the message at the top.
      *
-     * @param tasks
-     * @param message
+     * @param tasks contains the missions to be listed.
+     * @param message stating what keyword is being searched for.
+     * @return String containing the list of missions
      */
-    public void displayList(ArrayList<Task> tasks, String message) {
-        System.out.println(message);
+    public String getListOfMissions(ArrayList<Task> tasks, String message) {
+        String list = message + "\n";
 
-        tasks.forEach(task -> System.out.println((tasks.indexOf(task) + 1) + "." + task));
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            list += ((tasks.indexOf(task) + 1) + "." + task + "\n");
+        }
+
+        return list;
 
     }
 }
