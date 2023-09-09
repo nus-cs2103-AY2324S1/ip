@@ -12,7 +12,7 @@ import duke.task.TaskList;
  * Represents a command to mark a task as done.
  */
 public class MarkCommand extends Command {
-    private int taskIndex;
+    private final int taskIndex;
 
     /**
      * Constructs a MarkCommand with the provided task index.
@@ -25,6 +25,9 @@ public class MarkCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert taskList != null;
+        assert ui != null;
+        assert storage != null;
         try {
             if (taskIndex < 0 || taskIndex >= taskList.getLength()) {
                 throw new InvalidTaskIndexException(taskIndex + 1);
@@ -39,10 +42,5 @@ public class MarkCommand extends Command {
         } catch (IOException e) {
             return ui.showSavingError();
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

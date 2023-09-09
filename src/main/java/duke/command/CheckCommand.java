@@ -28,6 +28,9 @@ public class CheckCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert taskList != null;
+        assert ui != null;
+        assert storage != null;
         try {
             if (dateToCheck.trim().isEmpty()) {
                 throw new EmptyDescriptionException("date");
@@ -44,16 +47,10 @@ public class CheckCommand extends Command {
             }
 
             return ui.showTasksOnDate(date, matchingTasks);
-
         } catch (EmptyDescriptionException e) {
             return ui.showDukeException(e);
         } catch (DateTimeParseException e) {
             return ui.showInvalidDateFormat();
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

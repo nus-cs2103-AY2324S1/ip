@@ -25,14 +25,12 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        assert taskList != null;
+        assert ui != null;
+        assert storage != null;
         Predicate<Task> containsKeyword = task -> task.getDescription().contains(keyword);
         TaskList matchingTasks = taskList.filter(containsKeyword);
 
         return ui.showMatchingTasks(matchingTasks);
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

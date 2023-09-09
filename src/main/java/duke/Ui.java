@@ -195,8 +195,10 @@ public class Ui {
                 + "6. unmark <task_index>: Mark a task as not done.\n"
                 + "7. delete <task_index>: Delete a task.\n"
                 + "8. find <keyword>: Find tasks by keyword.\n"
-                + "9. help: Show this help message.\n"
-                + "10. bye: Exit the application.";
+                + "9. check <date>: List all tasks on the date.\n"
+                + "10. today: List all tasks for today.\n"
+                + "11. help: Show this help message.\n"
+                + "12. bye: Exit the application.";
         return message;
     }
 
@@ -206,40 +208,35 @@ public class Ui {
      * @param e The Duke exception to display.
      */
     public String showDukeException(DukeException e) {
-        String message = e.getMessage();
-        return message;
+        return e.getMessage();
     }
 
     /**
      * Shows user an error message for invalid date-time format.
      */
     public String showInvalidDateTimeFormat() {
-        String message = "Please enter the time in the format of <d/M/yyyy HHmm>!";
-        return message;
+        return "Please enter the time in the format of <d/M/yyyy HHmm>!";
     }
 
     /**
      * Shows user an error message for invalid date format.
      */
     public String showInvalidDateFormat() {
-        String message = "Please enter the date in the format of <d/M/yyyy>!";
-        return message;
+        return "Please enter the date in the format of <d/M/yyyy>!";
     }
 
     /**
      * Shows user an error message for saving tasks to data file.
      */
     public String showSavingError() {
-        String message = "Error saving tasks to the data file.";
-        return message;
+        return "Error saving tasks to the data file.";
     }
 
     /**
      * Shows user an error message for array index out of bounds.
      */
     public String showArrayIndexOutOfBoundsException() {
-        String message = "☹ OOPS!!! Please provide a valid task number.";
-        return message;
+        return "☹ OOPS!!! Please provide a valid task number.";
     }
 
     /**

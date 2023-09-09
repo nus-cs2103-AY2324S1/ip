@@ -29,6 +29,9 @@ public class AddDeadlineCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert taskList != null;
+        assert ui != null;
+        assert storage != null;
         try {
             if (description.trim().isEmpty()) {
                 throw new EmptyDescriptionException("deadline");
@@ -37,16 +40,10 @@ public class AddDeadlineCommand extends Command {
             Deadline newDeadline = new Deadline(description, dateTime);
             taskList.addTask(newDeadline);
             return ui.showAdd(newDeadline, taskList.getLength());
-
         } catch (EmptyDescriptionException e) {
             return ui.showDukeException(e);
         } catch (DateTimeParseException e) {
             return ui.showInvalidDateTimeFormat();
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }
