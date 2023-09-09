@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 
 /**
- * Prints messages to interact with user.
+ * Return strings containing messages to interact with user.
  *
  * @author Qin Yan Er
  */
@@ -16,9 +16,9 @@ public class Ui {
     public Ui() {}
 
     /**
-     * Returns the welcome message when program just started running.
+     * Generates the welcome message when program is first started.
      *
-     * @return a String showing the welcome message
+     * @return A String showing the welcome message
      */
     public String showIntro() {
         String s = "Hello! I'm duke.Duke.\nWhat can I do for you?";
@@ -26,15 +26,9 @@ public class Ui {
     }
 
     /**
-     * Prints when program is unable to load tasks from file.
-     */
-    public String showLoadingError() {
-        String s = "Loading Error";
-        return s;
-    }
-
-    /**
-     * Prints when user exits the program.
+     * Generates a goodbye message.
+     *
+     * @return A string showing the goodbye message.
      */
     public String showBye() {
         String s = "Bye. Hope to see you again soon!";
@@ -42,10 +36,11 @@ public class Ui {
     }
 
     /**
-     * Prints the task to be removed and how many tasks are left in the list.
+     * Generates a message when a task is removed, indicating the removed task and the updated task count.
      *
-     * @param list the list of tasks.
-     * @param removedTask the task to be removed.
+     * @param list The list of tasks.
+     * @param removedTask The task to be removed.
+     * @return A String message indicating the removal and the updated task count.
      */
     public String removeTask(TaskList list, Task removedTask) {
         assert list != null : "Task list cannot be empty.";
@@ -57,9 +52,10 @@ public class Ui {
     }
 
     /**
-     * Prints when users asks for the list of tasks.
+     * Generates a message when the user requests to list all tasks.
      *
-     * @param list the list of tasks.
+     * @param list The list of tasks.
+     * @return A String message listing all tasks or indicating that there are no tasks.
      */
     public String printList(TaskList list) {
         assert list != null : "Task list cannot be empty.";
@@ -78,6 +74,12 @@ public class Ui {
         return stringBuilder.toString();
     }
 
+    /**
+     * Generates a message when the user requests to list matching tasks.
+     *
+     * @param matchingTasks The list of matching tasks.
+     * @return A String message listing matching tasks.
+     */
     public String printMatchingTasks(ArrayList<Task> matchingTasks) {
         assert matchingTasks != null : "matchingTasks list cannot be empty.";
 
@@ -92,10 +94,11 @@ public class Ui {
     }
 
     /**
-     * Prints when user marks a task as done.
+     * Generates a message when a task is marked as done.
      *
-     * @param list the list of tasks.
-     * @param index the task number to be marked as done.
+     * @param list The list of tasks.
+     * @param index The task index to be marked as done.
+     * @return A String message indicating the task was marked as done.
      */
     public String mark(TaskList list, int index) {
         assert list != null : "Task list cannot be empty.";
@@ -106,10 +109,11 @@ public class Ui {
     }
 
     /**
-     * Prints when user unmarks a done task back to not done yet.
+     * Generates a message when a task is unmarked.
      *
-     * @param list the list of tasks.
-     * @param index the task number to be unmarked.
+     * @param list The list of tasks.
+     * @param index The task index to be unmarked.
+     * @return A String message indicating the task was unmarked.
      */
     public String unMark(TaskList list, int index) {
         assert list != null : "Task list cannot be empty.";
@@ -120,10 +124,11 @@ public class Ui {
     }
 
     /**
-     * Prints when user wants to add a todo to the task list.
+     * Generates a message when the user wants to add a "todo" to the task list.
      *
-     * @param list the list of tasks.
-     * @param newTodo the new todo to be added.
+     * @param list The list of tasks.
+     * @param newTodo The new todo task to be added.
+     * @return A String message indicating the addition of the new todo task.
      */
     public String addTodo(TaskList list, Todo newTodo) {
         assert list != null : "Task list cannot be empty.";
@@ -135,10 +140,11 @@ public class Ui {
     }
 
     /**
-     * Prints when user wants to add a deadline to task list.
+     * Generates a message when the user wants to add a "deadline" to the task list.
      *
-     * @param list the list of tasks.
-     * @param newDeadline the new deadline to be added.
+     * @param list The list of tasks.
+     * @param newDeadline The new deadline task to be added.
+     * @return A String message indicating the addition of the new deadline task.
      */
     public String addDeadline(TaskList list, Deadline newDeadline) {
         assert list != null : "Task list cannot be empty.";
@@ -150,10 +156,11 @@ public class Ui {
     }
 
     /**
-     * Prints when user wants to add an event to task list.
+     * Generates a message when the user wants to add an "event" to the task list.
      *
-     * @param list the list of tasks.
-     * @param newEvent the new event to be added.
+     * @param list The list of tasks.
+     * @param newEvent The new event task to be added.
+     * @return A String message indicating the addition of the new event task.
      */
     public String addEvent(TaskList list, Event newEvent) {
         assert list != null : "Task list cannot be empty.";

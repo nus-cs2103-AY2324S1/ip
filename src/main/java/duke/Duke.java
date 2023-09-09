@@ -1,12 +1,5 @@
 package duke;
 
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import javafx.scene.image.Image;
-
 /**
  * A chatbot that helps a person to keep track of a list of tasks.
  *
@@ -22,7 +15,6 @@ public class Duke {
 
     /**
      * Creates a new duke.Duke instance.
-     *
      */
     public Duke() {
         ui = new Ui();
@@ -37,8 +29,10 @@ public class Duke {
 
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generates a response to user input.
+     *
+     * @param input The user's input command.
+     * @return A string containing the response to the user's input.
      */
     public String getResponse(String input) {
         try {
@@ -49,7 +43,4 @@ public class Duke {
             return e.getMessage();
         }
     }
-
-
-
 }

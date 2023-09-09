@@ -1,8 +1,5 @@
 package duke;
 
-import duke.DukeException;
-import duke.Task;
-
 import java.util.ArrayList;
 
 /**
@@ -71,6 +68,12 @@ public class TaskList {
         return list.size();
     }
 
+    /**
+     * Finds tasks in the task list that contain the specified keyword in their descriptions.
+     *
+     * @param keyword The keyword to search for within task descriptions.
+     * @return An ArrayList of tasks that contain the keyword in their descriptions.
+     */
     public ArrayList<Task> find(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
 

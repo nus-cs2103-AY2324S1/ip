@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  * @author Qin Yan Er
  */
 public class Deadline extends Task {
-    protected String by;
+    protected String dueDate;
     protected String[] parts;
     protected String date;
     protected String time;
@@ -19,18 +19,18 @@ public class Deadline extends Task {
      * Creates a new Deadline instance.
      *
      * @param description The description of the task.
-     * @param by The deadline of the task.
+     * @param dueDate The deadline of the task.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String dueDate) {
         super(description);
-        this.by = by;
+        this.dueDate = dueDate;
     }
 
     /**
      * Extracts and processes the date and time from the 'by' string.
      */
     public void dateTime() {
-        parts = this.by.split("/");
+        parts = this.dueDate.split("/");
         String day;
         String month;
         String year;
@@ -69,7 +69,7 @@ public class Deadline extends Task {
      */
     @Override
     public String saveTask() {
-        return "D" + " | " + super.saveTask() + " | " + this.by;
+        return "D" + " | " + super.saveTask() + " | " + this.dueDate;
     }
 
     /**
@@ -82,7 +82,7 @@ public class Deadline extends Task {
         dateTime();
 
         if (parts.length == 1) {
-            return "[D]" + super.toString() + " (by: " + by + ")";
+            return "[D]" + super.toString() + " (by: " + dueDate + ")";
         } else {
             LocalDate deadline = LocalDate.parse(date);
             if (time == null) {
