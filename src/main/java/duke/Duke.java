@@ -38,17 +38,17 @@ public class Duke {
                 return Ui.listTasks(tasks.getTasks());
             }
             case "delete" -> {
-                Task taskDeleted = tasks.deleteTask(Parser.taskNumber(input));
+                Task taskDeleted = tasks.deleteTask(Parser.getTaskNumber(input));
                 Storage.writeToDisk(tasks.getTasks());
                 return Ui.deleteTask(taskDeleted) + Ui.listTasks(tasks.getTasks());
             }
             case "mark" -> {
-                Task taskMarked = tasks.markTask(Parser.taskNumber(input));
+                Task taskMarked = tasks.markTask(Parser.getTaskNumber(input));
                 Storage.writeToDisk(tasks.getTasks());
                 return Ui.markTask(taskMarked) + Ui.listTasks(tasks.getTasks());
             }
             case "task" -> {
-                tasks.addTask(Parser.newTask(input));
+                tasks.addTask(Parser.createNewTask(input));
                 Storage.writeToDisk(tasks.getTasks());
                 return Ui.listTasks(tasks.getTasks());
             }
