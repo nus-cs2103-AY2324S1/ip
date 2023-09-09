@@ -9,6 +9,6 @@ public class Help extends Command {
     }
 
     public String execute() {
-        return this.ui.help();
+        return ui.help();
     }
 }

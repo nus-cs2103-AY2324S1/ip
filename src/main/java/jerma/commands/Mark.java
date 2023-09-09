@@ -9,11 +9,11 @@ public class Mark extends Command {
 
     public Mark(Ui ui, TaskList tasks, int index) {
         super(ui, tasks);
-        this.task = this.tasks.get(index - 1);
+        task = tasks.get(index - 1);
     }
 
     public String execute() {
-        this.task.setDone();
-        return this.ui.markTask(this.task);
+        task.setDone();
+        return ui.markTask(task);
     }
 }

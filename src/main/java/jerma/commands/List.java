@@ -9,6 +9,6 @@ public class List extends Command {
     }
 
     public String execute() {
-        return this.ui.listTasks(this.tasks);
+        return ui.listTasks(this.tasks);
     }
 }

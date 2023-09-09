@@ -15,23 +15,23 @@ public class Jerma {
     private Boolean[] running;
 
     public Jerma() {
-        this.ui = new Ui();
-        this.running = new Boolean[] { true };
+        ui = new Ui();
+        running = new Boolean[] { true };
     }
 
     public String load() {
         try {
-            this.tasks = Storage.load();
+            tasks = Storage.load();
             return "Task list has been loaded";
         } catch (IOException e) {
-            return this.ui.error("Save file not found");
+            return ui.error("Save file not found");
         } catch (UnsupportedOperationException e) {
-            return this.ui.error("Corrupted save file");
+            return ui.error("Corrupted save file");
         }
     }
 
     public String hello() {
-        return this.ui.hello();
+        return ui.hello();
     }
 
     /**
@@ -40,8 +40,7 @@ public class Jerma {
      */
     public String getResponse(String input) {
         try {
-            Command command = Parser.parse(input, this.ui, this.tasks,
-                    this.running);
+            Command command = Parser.parse(input, ui, tasks, running);
             return command.execute();
         } catch (IndexOutOfBoundsException e) {
             return ui.error("Invalid arguments. Try again!");

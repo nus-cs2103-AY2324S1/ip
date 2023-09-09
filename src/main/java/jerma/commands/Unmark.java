@@ -9,11 +9,11 @@ public class Unmark extends Command {
 
     public Unmark(Ui ui, TaskList tasks, int index) {
         super(ui, tasks);
-        this.task = this.tasks.get(index - 1);
+        task = tasks.get(index - 1);
     }
 
     public String execute() {
-        this.task.setUndone();
-        return this.ui.unmarkTask(this.task);
+        task.setUndone();
+        return ui.unmarkTask(task);
     }
 }

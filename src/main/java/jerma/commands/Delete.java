@@ -9,11 +9,11 @@ public class Delete extends Command {
 
     public Delete(Ui ui, TaskList tasks, int index) {
         super(ui, tasks);
-        this.task = tasks.get(index - 1);
+        task = tasks.get(index - 1);
     }
 
     public String execute() {
-        this.tasks.remove(this.task);
-        return this.ui.deleteTask(this.task, tasks.size());
+        tasks.remove(task);
+        return ui.deleteTask(task, tasks.size());
     }
 }
