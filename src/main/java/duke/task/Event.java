@@ -80,8 +80,8 @@ public class Event extends Task {
      * @inheritDoc
      */
     @Override
-    public String toUpdateString(int i) {
-        return "E/@/" + i + "/@/" + this.getName() + "/@/" + this.start + "/@/" + this.end;
+    public String toUpdateString(int newStatus) {
+        return "E/@/" + newStatus + "/@/" + this.getName() + "/@/" + this.start + "/@/" + this.end;
     }
 }
 

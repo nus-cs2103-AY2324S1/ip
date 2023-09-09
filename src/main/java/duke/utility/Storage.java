@@ -54,11 +54,12 @@ public class Storage {
      * Updates the status of a task saved in the text file.
      *
      * @param task Task saved in the text file.
-     * @param i Status to update the task to. 0 for false, 1 for true.
+     * @param newStatus Status to update the task to.
+     *     0 for false, 1 for true.
      */
-    public void updateTask(Task task, int i) {
+    public void updateTask(Task task, int newStatus) {
         String oldTask = task.toStoreString();
-        String newTask = task.toUpdateString(i);
+        String newTask = task.toUpdateString(newStatus);
 
         File fileToUpdate = new File(this.pathString);
         String oldContent = "";
@@ -165,33 +166,33 @@ public class Storage {
                 // reads text file line by line
                 String[] keyword = sc.nextLine().split("/@/");
                 switch (keyword[0]) {
-                    case "T":
-                        // line is a To-Do Task
-                        boolean tStatus = keyword[1].equals("1");
-                        list.addTask(new ToDo(tStatus, keyword[2]));
-                        break;
-                    case "D":
-                        // line is a Deadline Task
-                        boolean dStatus = keyword[1].equals("1");
-                        list.addTask(new Deadline(
-                                dStatus,
-                                keyword[2],
-                                LocalDateTime.parse(keyword[3])
-                        ));
-                        break;
-                    case "E":
-                        // line is an Event Task
-                        boolean eStatus = keyword[1].equals("1");
-                        list.addTask(new Event(
-                                eStatus,
-                                keyword[2],
-                                LocalDateTime.parse(keyword[3]),
-                                LocalDateTime.parse(keyword[4])
-                        ));
-                        break;
-                    default:
-                        System.out.println("error");
-                        break;
+                case "T":
+                    // line is a To-Do Task
+                    boolean tStatus = keyword[1].equals("1");
+                    list.addTask(new ToDo(tStatus, keyword[2]));
+                    break;
+                case "D":
+                    // line is a Deadline Task
+                    boolean dStatus = keyword[1].equals("1");
+                    list.addTask(new Deadline(
+                            dStatus,
+                            keyword[2],
+                            LocalDateTime.parse(keyword[3])
+                    ));
+                    break;
+                case "E":
+                    // line is an Event Task
+                    boolean eStatus = keyword[1].equals("1");
+                    list.addTask(new Event(
+                            eStatus,
+                            keyword[2],
+                            LocalDateTime.parse(keyword[3]),
+                            LocalDateTime.parse(keyword[4])
+                    ));
+                    break;
+                default:
+                    System.out.println("error");
+                    break;
                 }
             }
         } catch (IOException e) {

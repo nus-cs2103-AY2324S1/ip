@@ -50,7 +50,7 @@ public class Command {
      *
      * @param input User's input from the keyboard.
      * @return A system message to inform user of successful execution or
-     * error message to inform user of failed execution
+     *     error message to inform user of failed execution
      */
     public String handleToDo(String input) {
         try {
@@ -79,7 +79,7 @@ public class Command {
      *
      * @param input User's input from the keyboard.
      * @return A system message to inform user of successful execution or
-     * error message to inform user of failed execution
+     *     error message to inform user of failed execution
      */
     // Add deadline task
     public String handleDeadline(String input) {
@@ -109,7 +109,7 @@ public class Command {
      *
      * @param input User's input from the keyboard.
      * @return A system message to inform user of successful execution or
-     * error message to inform user of failed execution
+     *     error message to inform user of failed execution
      */
     public String handleEvent(String input) {
         try {
@@ -221,7 +221,7 @@ public class Command {
      *
      * @param input User's input from the keyboard.
      * @return All tasks that matches the keyword in String format if search is successful, otherwise,
-     * prints a failed search message.
+     *     prints a failed search message.
      */
     public String handleFind(String input) {
         try {

@@ -70,5 +70,5 @@ public abstract class Task {
      *
      * @return Updated string to be stored in backend.
      */
-    public abstract String toUpdateString(int i);
+    public abstract String toUpdateString(int newStatus);
 }

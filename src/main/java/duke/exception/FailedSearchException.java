@@ -2,7 +2,8 @@ package duke.exception;
 
 /**
  * FailedSearchException class inherits from DukeException class.
- * It encapsulates the error message to be displayed when no task matches the keyword that the user has input.
+ * It encapsulates the error message to be displayed
+ * when no task matches the keyword that the user has input.
  *
  * @author ruo-x
  */

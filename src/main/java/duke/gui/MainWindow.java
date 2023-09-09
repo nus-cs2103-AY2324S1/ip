@@ -1,5 +1,8 @@
 package duke.gui;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import duke.Bobi;
 import duke.utility.Ui;
 import javafx.application.Platform;
@@ -10,9 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * MainWindow class is a controller for MainWindow.

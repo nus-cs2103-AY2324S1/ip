@@ -67,7 +67,7 @@ public class Deadline extends Task {
      * @inheritDoc
      */
     @Override
-    public String toUpdateString(int i) {
-        return "D/@/" + i + "/@/" + this.getName() + "/@/" + this.deadline;
+    public String toUpdateString(int newStatus) {
+        return "D/@/" + newStatus + "/@/" + this.getName() + "/@/" + this.deadline;
     }
 }

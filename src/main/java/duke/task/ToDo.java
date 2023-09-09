@@ -47,7 +47,7 @@ public class ToDo extends Task {
      * @inheritDoc
      */
     @Override
-    public String toUpdateString(int i) {
-        return "T/@/" + i + "/@/" + this.getName();
+    public String toUpdateString(int newStatus) {
+        return "T/@/" + newStatus + "/@/" + this.getName();
     }
 }
