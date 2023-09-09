@@ -8,25 +8,10 @@ public class InvalidTaskException extends Exception {
     /**
      * Instantiates a new Invalid task exception.
      *
-     * @param message the message
+     * @param message The exception message.
      */
     public InvalidTaskException(String message) {
         super(message);
-    }
-
-    /**
-     * The type Invalid command exception.
-     */
-    public static class InvalidCommandException extends InvalidTaskException {
-
-        /**
-         * Instantiates a new Invalid command exception.
-         */
-        public InvalidCommandException() {
-            super("Command given is in an invalid format. "
-                    + "Please ensure that the format is as follows:\n "
-                    + "<command> <task name> <additional inputs>");
-        }
     }
 
     /**
@@ -36,12 +21,13 @@ public class InvalidTaskException extends Exception {
 
         /**
          * Instantiates a new Invalid to do exception.
+         *
+         * @param message The exception message.
          */
-        public InvalidToDoException() {
-            super(
-                    "ToDo is in an invalid format. "
-                            + "Please ensure that the format is as follows:\n "
-                            + "todo <task name>");
+        public InvalidToDoException(String message) {
+            super(message
+                    + "Please ensure that the format is as follows:\n "
+                    + "todo <task name>");
         }
     }
 
@@ -52,12 +38,13 @@ public class InvalidTaskException extends Exception {
 
         /**
          * Instantiates a new Invalid deadline exception.
+         *
+         * @param message The exception message.
          */
-        public InvalidDeadlineException() {
-            super(
-                    "Deadline is in an invalid format. "
-                            + "Please ensure that the format is as follows:\n "
-                            + "deadline <task name> /by <datetime>");
+        public InvalidDeadlineException(String message) {
+            super(message
+                    + "Please ensure that the format is as follows:\n "
+                    + "deadline <task name> /by <yyyy-MM-dd HH:mm>");
         }
     }
 
@@ -68,12 +55,13 @@ public class InvalidTaskException extends Exception {
 
         /**
          * Instantiates a new Invalid event exception.
+         *
+         * @param message The exception message.
          */
-        public InvalidEventException() {
-            super(
-                    "Event is in an invalid format. "
-                            + "Please ensure that the format is as follows:\n "
-                            + "event <task name> /from <datetime> /to <datetime>");
+        public InvalidEventException(String message) {
+            super(message
+                    + "Please ensure that the format is as follows:\n "
+                    + "event <task name> /from <yyyy-MM-dd HH:mm> /to <yyyy-MM-dd HH:mm>");
         }
     }
 }

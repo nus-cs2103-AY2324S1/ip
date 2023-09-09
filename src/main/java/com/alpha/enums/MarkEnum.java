@@ -20,12 +20,8 @@ public enum MarkEnum {
         this.mark = mark;
     }
 
-    /**
-     * Gets the mark of the task representing whether the task is completed or not.
-     *
-     * @return Mark of the task.
-     */
-    public String getMark() {
+    @Override
+    public String toString() {
         return this.mark;
     }
 }

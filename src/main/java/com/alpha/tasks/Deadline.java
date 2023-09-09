@@ -3,47 +3,40 @@ package com.alpha.tasks;
 import java.time.LocalDateTime;
 
 import com.alpha.enums.TagEnum;
-import com.alpha.utils.Parser;
+import com.alpha.utils.DateTimeParser;
 
 /**
- * The type Deadline.
+ * The Deadline task.
  */
 public class Deadline extends Task {
 
     private final LocalDateTime end;
 
     /**
-     * Instantiates a new Deadline.
+     * Instantiates a new Deadline task.
      *
-     * @param name Name of the task.
-     * @param end  End datetime of the task.
+     * @param name The name of the task.
+     * @param end  The end datetime as a LocalDateTime object.
      */
-    public Deadline(String name, String end) {
+    public Deadline(String name, LocalDateTime end) {
         super(name);
         this.setTag(TagEnum.DEADLINE);
-        this.end = Parser.parseDateTimeString(end);
+        this.end = end;
     }
 
-    /**
-     * Gets the end datetime of the task to display.
-     *
-     * @return End datetime of the task in display format.
-     */
-    public String getEndToDisplay() {
-        return Parser.parseDateTimeObjectToDisplay(end);
-    }
-
-    /**
-     * Gets the end datetime of the task to storage.
-     *
-     * @return End datetime of the task in storage format.
-     */
-    public String getEndToStore() {
-        return Parser.parseDateTimeObjectToStore(end);
+    @Override
+    public String toStorageString() {
+        return "deadline "
+                + getName()
+                + " /by "
+                + DateTimeParser.parseDateTimeObjectToStore(end);
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (by: " + getEndToDisplay() + ")";
+        return super.toString()
+                + " (by: "
+                + DateTimeParser.parseDateTimeObjectToDisplay(end)
+                + ")";
     }
 }

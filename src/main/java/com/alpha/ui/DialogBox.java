@@ -9,8 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * The type Dialog box. The code was from the SE-Education JavaFx tutorial part 3:
- * https://se-education.org/guides/tutorials/javaFxPart3.html
+ * The Dialog box class.
  */
 public class DialogBox extends HBox {
 
@@ -20,8 +19,8 @@ public class DialogBox extends HBox {
     /**
      * Instantiates a new Dialog box.
      *
-     * @param l  the l
-     * @param iv the iv
+     * @param l  The label.
+     * @param iv The image view.
      */
     public DialogBox(Label l, ImageView iv) {
         text = l;
@@ -36,24 +35,24 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Gets user dialog.
+     * Gets user dialog box.
      *
-     * @param l  the l
-     * @param iv the iv
-     * @return the user dialog
+     * @param l  The label.
+     * @param iv The image view.
+     * @return The user dialog box.
      */
     public static DialogBox getUserDialog(Label l, ImageView iv) {
         return new DialogBox(l, iv);
     }
 
     /**
-     * Gets duke dialog.
+     * Gets alpha dialog box.
      *
-     * @param l  the l
-     * @param iv the iv
-     * @return the duke dialog
+     * @param l  The label.
+     * @param iv The image view.
+     * @return The alpha dialog box.
      */
-    public static DialogBox getDukeDialog(Label l, ImageView iv) {
+    public static DialogBox getAlphaDialog(Label l, ImageView iv) {
         var db = new DialogBox(l, iv);
         db.flip();
         return db;

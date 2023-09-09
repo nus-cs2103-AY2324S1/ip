@@ -1,55 +1,45 @@
 package com.alpha.commands;
 
-import com.alpha.storage.Storage;
 import com.alpha.tasks.TaskList;
-import com.alpha.ui.Ui;
 
 /**
- * The type Command representing commands from user input.
+ * The type Command.
  */
 public abstract class Command {
 
-    private String args;
+    private final TaskList taskList;
 
     /**
      * Instantiates a new Command.
+     *
+     * @param taskList The task list.
      */
-    public Command() {
+    public Command(TaskList taskList) {
+        this.taskList = taskList;
     }
 
     /**
-     * Instantiates a new Command with arguments.
+     * Gets task list size.
      *
-     * @param args The arguments of the Command.
+     * @return The size of the task list.
      */
-    public Command(String args) {
-        this.args = args;
+    public int getTaskListSize() {
+        return taskList.getSize();
     }
 
     /**
-     * Returns the arguments of the Command.
+     * Gets task list.
      *
-     * @return the args
+     * @return the task list
      */
-    public String getArgs() {
-        return args;
+    public TaskList getTaskList() {
+        return taskList;
     }
 
     /**
-     * Executes the commands.
+     * Execute the command.
      *
-     * @param taskList   Task list of the application.
-     * @param ui      Ui of the application.
-     * @param storage Storage functionality of the application.
+     * @return the string
      */
-    public abstract String execute(TaskList taskList, Ui ui, Storage storage);
-
-    /**
-     * Returns whether the Command is an Exit Command. False by default.
-     *
-     * @return boolean of whether the Command is an Exit Command.
-     */
-    public boolean isExit() {
-        return false;
-    }
+    public abstract String execute();
 }

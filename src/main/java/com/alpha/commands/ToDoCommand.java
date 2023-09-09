@@ -1,41 +1,31 @@
 package com.alpha.commands;
 
-import com.alpha.exceptions.InvalidTaskException.InvalidToDoException;
-import com.alpha.storage.Storage;
 import com.alpha.tasks.Task;
 import com.alpha.tasks.TaskList;
 import com.alpha.tasks.ToDo;
-import com.alpha.ui.Ui;
-import com.alpha.utils.Parser;
 
 /**
  * The type To do command.
  */
 public class ToDoCommand extends Command {
 
+    private final Task task;
+
     /**
      * Instantiates a new To do command.
      *
-     * @param args The arguments of the Command.
+     * @param name    The name of the task.
+     * @param taskList The task list.
      */
-    public ToDoCommand(String args) {
-        super(args);
+    public ToDoCommand(String name, TaskList taskList) {
+        super(taskList);
+        task = new ToDo(name);
     }
 
-    /**
-     * Executes the commands.
-     *
-     * @param taskList   Task list of the application.
-     * @param ui      Ui of the application.
-     * @param storage Storage functionality of the application.
-     */
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
-        try {
-            Task task = new ToDo(Parser.getToDoName(getArgs()));
-            taskList.addTask(task);
-            return ui.addTask(task, taskList);
-        } catch (InvalidToDoException e) {
-            return e.getMessage();
-        }
+    @Override
+    public String execute() {
+        getTaskList().addTask(task);
+        return "Got it. I've added this task:\n" + task + "\n"
+                + "Now you have " + super.getTaskListSize() + " tasks in the list.\n";
     }
 }

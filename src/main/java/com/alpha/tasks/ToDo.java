@@ -10,10 +10,15 @@ public class ToDo extends Task {
     /**
      * Instantiates a new To do.
      *
-     * @param name Name of the task.
+     * @param name The name of the task.
      */
     public ToDo(String name) {
         super(name);
         this.setTag(TagEnum.TODO);
+    }
+
+    @Override
+    public String toStorageString() {
+        return "todo " + getName();
     }
 }

@@ -8,100 +8,68 @@ import java.util.Scanner;
 
 import com.alpha.commands.Command;
 import com.alpha.enums.MarkEnum;
+import com.alpha.exceptions.InvalidDateTimeException;
 import com.alpha.exceptions.InvalidTaskException;
-import com.alpha.tasks.Deadline;
-import com.alpha.tasks.Event;
 import com.alpha.tasks.Task;
 import com.alpha.tasks.TaskList;
-import com.alpha.ui.Ui;
-import com.alpha.utils.Parser;
+import com.alpha.utils.TaskParser;
 
 /**
- * The type Storage.
+ * The Storage class.
  */
 public class Storage {
 
     private final File file;
 
     /**
-     * Instantiates a new Storage.
+     * Instantiates a new Storage object.
      *
-     * @param filePath File path of the local storage file.
-     * @throws IOException If there is an IO exception.
+     * @param filePath File path to the local storage file.
+     * @throws IOException The io exception.
      */
     public Storage(String filePath) throws IOException {
         file = new File(filePath);
-        createFile();
-    }
-
-    private void createFile() throws IOException {
         file.getParentFile().mkdirs();
         file.createNewFile();
     }
 
     /**
-     * Load the task list from local storage.
+     * Load task list from the local storage file.
      *
-     * @return Local storage task list.
-     * @throws FileNotFoundException If the file cannot be found.
-     * @throws InvalidTaskException  If the task is invalid.
+     * @return The task list.
+     * @throws FileNotFoundException    The file not found exception.
+     * @throws InvalidTaskException     The invalid task exception.
+     * @throws InvalidDateTimeException The invalid date time exception.
      */
-    public TaskList load() throws FileNotFoundException, InvalidTaskException {
+    public TaskList load() throws FileNotFoundException, InvalidTaskException, InvalidDateTimeException {
         Scanner sc = new Scanner(file);
         TaskList taskList = new TaskList();
-        Ui ui = new Ui();
-        int count = 1;
         while (sc.hasNextLine()) {
-            String input = sc.nextLine();
-            Command command = Parser.parse(input);
-            if (command == null) {
-                continue;
-            }
-            command.execute(taskList, ui, this);
-            if (Integer.parseInt(sc.nextLine()) == 1) {
-                taskList.markTask(count++);
-            }
+            Command command = TaskParser.parse(sc.nextLine(), taskList);
+            command.execute();
         }
         return taskList;
     }
 
     /**
-     * Save the task list to local storage.
+     * Save the current task list into the local storage file.
      *
-     * @param taskList Task list of the application.
-     * @throws IOException If there is an IO exception.
+     * @param taskList The task list.
+     * @throws IOException The io exception.
      */
     public void save(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(file);
-        boolean first = true;
+        int count = 1;
         for (Task task : taskList.getTasks()) {
             StringBuilder row = new StringBuilder();
-            if (!first) {
-                row.append("\n");
-            }
-            if (first) {
-                first = false;
-            }
-            row.append(task.getTagName());
-            row.append(" ");
-            row.append(task.getName());
-            if (task instanceof Deadline) {
-                row.append(" /by ");
-                Deadline deadline = (Deadline) task;
-                row.append(deadline.getEndToStore());
-            } else if (task instanceof Event) {
-                row.append(" /from ");
-                Event event = (Event) task;
-                row.append(event.getStartToStore());
-                row.append(" /to ");
-                row.append(event.getEndToStore());
-            }
+            row.append(task.toStorageString());
             if (task.getMark() == MarkEnum.DONE) {
-                row.append("\n1");
-            } else {
-                row.append("\n0");
+                row.append("\nmark ");
+                row.append(count);
             }
+            row.append("\n");
             fw.write(row.toString());
+            ++count;
         }
         fw.close();
     }

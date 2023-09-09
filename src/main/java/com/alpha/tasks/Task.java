@@ -7,7 +7,7 @@ import com.alpha.enums.TagEnum;
 /**
  * The type Task.
  */
-public class Task {
+public abstract class Task {
 
     private final String name;
     private TagEnum tag;
@@ -16,7 +16,7 @@ public class Task {
     /**
      * Instantiates a new Task.
      *
-     * @param name Name of the task.
+     * @param name the name
      */
     public Task(String name) {
         this.tag = TagEnum.EMPTY;
@@ -25,42 +25,25 @@ public class Task {
     }
 
     /**
-     * Gets the tag representing the task.
+     * Returns the task as a string to be stored in the local storage file.
      *
-     * @return Tag representing the task.
+     * @return The string representation of the task.
      */
-    public TagEnum getTag() {
-        return tag;
-    }
+    public abstract String toStorageString();
 
     /**
-     * Sets the tag representing the task.
+     * Sets the tag of the task.
      *
-     * @param tag Tag representing the task.
+     * @param tag The tag of the task.
      */
     public void setTag(TagEnum tag) {
         this.tag = tag;
     }
 
     /**
-     * Gets the full tag name of the task.
-     *
-     * @return Full tag name of the task.
-     */
-    public String getTagName() {
-        if (tag == TagEnum.TODO) {
-            return "todo";
-        } else if (tag == TagEnum.DEADLINE) {
-            return "deadline";
-        } else {
-            return "event";
-        }
-    }
-
-    /**
      * Gets the mark of the task.
      *
-     * @return Mark of the task.
+     * @return The mark of the task.
      */
     public MarkEnum getMark() {
         return mark;
@@ -69,33 +52,27 @@ public class Task {
     /**
      * Sets the mark of the task.
      *
-     * @param mark Mark of the task.
+     * @param mark The mark of the task.
      */
     public void setMark(MarkEnum mark) {
         this.mark = mark;
     }
 
     /**
-     * Gets name of the task.
+     * Gets the name of the task.
      *
-     * @return Name of the task.
+     * @return The name of the task.
      */
     public String getName() {
         return name;
     }
 
-    /**
-     * Wrap string with [].
-     *
-     * @param text Text to be wrapped.
-     * @return Wrapped string.
-     */
-    public String wrap(String text) {
+    private String wrap(String text) {
         return "[" + text + "]";
     }
 
     @Override
     public String toString() {
-        return wrap(this.tag.getTag()) + wrap(this.mark.getMark()) + " " + this.name;
+        return wrap(this.tag.toString()) + wrap(this.mark.toString()) + " " + this.name;
     }
 }

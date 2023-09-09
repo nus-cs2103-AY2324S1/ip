@@ -1,14 +1,14 @@
 import javafx.application.Application;
 
 /**
- * A launcher class to workaround classpath issues.
+ * The Launcher class.
  */
 public class Launcher {
 
     /**
      * The entry point of application.
      *
-     * @param args the input arguments
+     * @param args The input arguments.
      */
     public static void main(String[] args) {
         Application.launch(Alpha.class, args);

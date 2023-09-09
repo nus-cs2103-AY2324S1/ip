@@ -3,10 +3,10 @@ package com.alpha.tasks;
 import java.time.LocalDateTime;
 
 import com.alpha.enums.TagEnum;
-import com.alpha.utils.Parser;
+import com.alpha.utils.DateTimeParser;
 
 /**
- * The type Event.
+ * The Event task..
  */
 public class Event extends Task {
 
@@ -15,57 +15,36 @@ public class Event extends Task {
     private final LocalDateTime end;
 
     /**
-     * Instantiates a new Event.
+     * Instantiates a new Event task.
      *
-     * @param name  Name of the task.
-     * @param start Start datetime of the task.
-     * @param end   End datetime of the task.
+     * @param name  The name of the task.
+     * @param start The start datetime as a LocalDateTime object.
+     * @param end   The end datetime as a LocalDateTime object.
      */
-    public Event(String name, String start, String end) {
+    public Event(String name, LocalDateTime start, LocalDateTime end) {
         super(name);
         this.setTag(TagEnum.EVENT);
-        this.start = Parser.parseDateTimeString(start);
-        this.end = Parser.parseDateTimeString(end);
+        this.start = start;
+        this.end = end;
     }
 
-    /**
-     * Gets the start datetime of the task to display.
-     *
-     * @return Start datetime of the task in display format.
-     */
-    public String getStartToDisplay() {
-        return Parser.parseDateTimeObjectToDisplay(start);
-    }
-
-    /**
-     * Gets the start datetime of the task to store.
-     *
-     * @return Start datetime of the task in storage format.
-     */
-    public String getStartToStore() {
-        return Parser.parseDateTimeObjectToStore(start);
-    }
-
-    /**
-     * Gets the end datetime of the task to display.
-     *
-     * @return End datetime of the task in display format.
-     */
-    public String getEndToDisplay() {
-        return Parser.parseDateTimeObjectToDisplay(end);
-    }
-
-    /**
-     * Gets the end datetime of the task to store.
-     *
-     * @return end datetime of the task in storage format.
-     */
-    public String getEndToStore() {
-        return Parser.parseDateTimeObjectToStore(end);
+    @Override
+    public String toStorageString() {
+        return "event "
+                + getName()
+                + " /from "
+                + DateTimeParser.parseDateTimeObjectToStore(start)
+                + " /to "
+                + DateTimeParser.parseDateTimeObjectToStore(end);
     }
 
     @Override
     public String toString() {
-        return super.toString() + "(from: " + getStartToDisplay() + " to: " + getEndToDisplay() + ")";
+        return super.toString()
+                + "(from: "
+                + DateTimeParser.parseDateTimeObjectToDisplay(start)
+                + " to: "
+                + DateTimeParser.parseDateTimeObjectToDisplay(end)
+                + ")";
     }
 }
