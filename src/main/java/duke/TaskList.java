@@ -99,7 +99,20 @@ public class TaskList {
      * @return a string message indicating that the task is added.
      */
     public String addTask(Task task) {
+        int startOfDescriptionIndex = 7;
+        if (this.containsTask(task)) {
+            return this.ui.duplicateTaskMessage(task, startOfDescriptionIndex);
+        }
         this.tasks.add(task);
-        return this.ui.addTaskMessage(task, this.tasks.size());
+        return this.ui.addTaskMessage(task, this.tasks.size(), startOfDescriptionIndex);
+    }
+
+    private boolean containsTask(Task task) {
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if (this.tasks.get(i).equals(task)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
