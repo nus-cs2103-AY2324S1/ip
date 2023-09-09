@@ -133,7 +133,7 @@ public class Parser {
 
     }
     /**
-     * Dheck if the input is a valid Date.
+     * Check if the input is a valid Date.
      * valid date format: dd/MM/yyyy HHmm
      *
      * @param input of String type
