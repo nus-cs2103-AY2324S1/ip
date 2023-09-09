@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 import duke.Duke;
 import duke.ui.MainWindow;
 import javafx.application.Application;
@@ -6,8 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
+/**
+ * The main entry class to launch the duke GUI.
+ */
 public class Main extends Application {
 
     private Duke duke = new Duke();

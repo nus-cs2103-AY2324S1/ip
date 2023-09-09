@@ -13,10 +13,10 @@ import duke.ui.ChatView;
  */
 public class Duke {
 
+    private boolean isEnd = false;
+
     private CommandParser cp;
     private ChatRecord chatRecord;
-
-    public static boolean IS_END = false;
 
     public static void main(String[] args) {
         ChatView chatView = new ChatView();
@@ -35,6 +35,11 @@ public class Duke {
         } while (!ByeCommand.isBye(cmd));
     }
 
+    /**
+     * Initialises the Duke program.
+     *
+     * @return the greeting string.
+     */
     public String init() {
         cp = new CommandParser();
         chatRecord = new ChatRecord();
@@ -42,14 +47,24 @@ public class Duke {
         return "KnowledgeYuan, at your service!\nWhat can I do for you today?";
     }
 
+    /**
+     * Returns a response from Duke from a given input.
+     *
+     * @param input the user input.
+     * @return the response from duke.
+     */
     public String getResponse(String input) {
         Command cmd = cp.parseCommand((input));
         if (ByeCommand.isBye(cmd)) {
-            IS_END = true;
+            isEnd = true;
         }
         cmd.init(chatRecord);
         String out = cmd.execute();
         return out;
+    }
+
+    public boolean getTermination() {
+        return isEnd;
     }
 
 }
