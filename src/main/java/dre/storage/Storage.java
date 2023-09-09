@@ -8,14 +8,27 @@ import dre.parser.Parser;
 import dre.task.TaskList;
 import dre.exception.DreException;
 
+/**
+ * Manages loading and saving of tasks to a file.
+ */
 public class Storage {
 
     private final String dataFilePath;
 
+    /**
+     * Creates a new storage manager.
+     *
+     * @param filePath The path to the file for saving/loading tasks.
+     */
     public Storage(String filePath) {
         this.dataFilePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @return A list of tasks loaded from the file.
+     */
     public List<Task> load() {
         List<Task> list = new ArrayList<>();
         try {
@@ -37,6 +50,11 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Saves the given list of tasks to the file.
+     *
+     * @param taskList The list of tasks to save.
+     */
     public void save(TaskList taskList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(dataFilePath))) {
             for (int i = 0; i < taskList.size(); i++) {
