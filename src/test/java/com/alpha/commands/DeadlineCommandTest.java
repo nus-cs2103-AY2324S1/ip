@@ -2,29 +2,31 @@ package com.alpha.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.Test;
 
-import com.alpha.enums.MarkEnum;
-import com.alpha.enums.TagEnum;
 import com.alpha.tasks.TaskList;
-import com.alpha.ui.Ui;
+import com.alpha.utils.DateTimeParser;
 
 public class DeadlineCommandTest {
+
     @Test
     public void testExecute() {
-        String task = "deadline";
         String taskName = "read book";
         String deadlineEnd = "2023-07-22 23:44";
-        String userInput = task + " " + taskName + " /by " + deadlineEnd;
-        DeadlineCommand command = new DeadlineCommand(userInput);
+        LocalDateTime parsedDeadlineEnd = DateTimeParser.parseDateTimeString(deadlineEnd);
         TaskList taskList = new TaskList();
-        Ui ui = new Ui();
+        DeadlineCommand command = new DeadlineCommand(taskName, parsedDeadlineEnd, taskList);
+        String expectedResult =
+                String.format("Got it. I've added this task:\n"
+                                + "[D][ ] %s (by: %s)\n"
+                                + "Now you have 1 tasks in the list.\n",
+                        taskName,
+                        DateTimeParser.parseDateTimeObjectToDisplay(parsedDeadlineEnd));
 
-        command.execute(taskList, ui, null);
+        String result = command.execute();
 
-        assertEquals(1, taskList.getSize());
-        assertEquals(taskName, taskList.getTasks().get(0).getName());
-        assertEquals(TagEnum.DEADLINE, taskList.getTasks().get(0).getTag());
-        assertEquals(MarkEnum.NOTDONE, taskList.getTasks().get(0).getMark());
+        assertEquals(expectedResult, result);
     }
 }

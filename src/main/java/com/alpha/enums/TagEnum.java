@@ -27,12 +27,8 @@ public enum TagEnum {
         this.tag = tag;
     }
 
-    /**
-     * Gets the tag of the task representing the type of task.
-     *
-     * @return Tag of the task.
-     */
-    public String getTag() {
+    @Override
+    public String toString() {
         return this.tag;
     }
 }
