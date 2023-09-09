@@ -107,8 +107,6 @@ public class TaskList {
                 + removedTask.toString()
                 + "\nNow you have " + tasklist.size()
                 + " tasks in the list.\n");
-
-
     }
 
     /**
@@ -135,7 +133,7 @@ public class TaskList {
      * @return string of all the task in the ArrayList of tasks
      */
     public String listContent() {
-        String listOfContents = "";
+        String listOfContents = "Sure, here are the list of tasks:\n";
         if (tasklist.isEmpty()) {
             return ("Oops! It seems you do not have anything in your task list");
         }

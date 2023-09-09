@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 public class CommandProcessor {
     private final TaskList tasks;
-    private static final String[] VALIDCOMMANDS = {"mark", "unmark", "list", "todo"
+    private static final String[] VALID_COMMANDS = {"mark", "unmark", "list", "todo"
             , "event", "deadline", "delete", "find"};
 
     private static final Storage storage = new Storage();
@@ -29,7 +29,7 @@ public class CommandProcessor {
     private String[] parseCommand(String command) throws DukeException {
         String [] splitCommand = command.split(" ", 2);
         String commandType = splitCommand[0];
-        if (!Arrays.asList(VALIDCOMMANDS).contains(commandType)) {
+        if (!Arrays.asList(VALID_COMMANDS).contains(commandType)) {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(\n");
         }
         if (splitCommand.length != 2 && !commandType.equals("list")) {
@@ -41,10 +41,7 @@ public class CommandProcessor {
         if (commandDescription.isEmpty()) {
             throw new DukeException("OOPS!!! The description of a " + commandType + " cannot be empty.\n");
         }
-
         return splitCommand;
-
-
     }
 
 
@@ -55,55 +52,55 @@ public class CommandProcessor {
      * @return the string that is the output string for the command given.
      */
     public String processCommand(String command) {
-
         try {
-
             String [] splitCommand = parseCommand(command);
             String commandType = splitCommand[0];
-
             // print the list of tasks
             if (commandType.equals("list")) {
                 return this.tasks.listContent();
             }
 
             String taskName = splitCommand[1];
-
-
-            switch (commandType) {
-            case "mark":
-                return tasks.mark(taskName);
-            case "unmark":
-                return tasks.unMark(taskName);
-
-            case "delete":
-                return tasks.delete(taskName);
-
-            case "find":
-                return tasks.find(taskName);
-
-            case "todo":
-                Task task = new Todo(taskName);
-                storage.writeToFile(task.storageText());
-                return tasks.addToList(task);
-
-            case "deadline":
-                task = new Deadline(taskName);
-                storage.writeToFile(task.storageText());
-                return tasks.addToList(task);
-
-
-            case "event":
-                task = new Event(taskName);
-                storage.writeToFile(task.storageText());
-                return tasks.addToList(task);
-            }
+            assert(!taskName.isEmpty());
+            return process(commandType, taskName);
 
         } catch(DukeException e) {
             return (e.getMessage());
         }
+    }
 
-        return ("OOPS!! This is out of my job scope...\n");
+    private String process(String commandType, String taskName) throws DukeException {
+        switch (commandType) {
+        case "mark":
+            return tasks.mark(taskName);
+        case "unmark":
+            return tasks.unMark(taskName);
 
+        case "delete":
+            return tasks.delete(taskName);
+
+        case "find":
+            return tasks.find(taskName);
+
+        case "todo":
+            Task task = new Todo(taskName);
+            storage.writeToFile(task.storageText());
+            return tasks.addToList(task);
+
+        case "deadline":
+            task = new Deadline(taskName);
+            storage.writeToFile(task.storageText());
+            return tasks.addToList(task);
+
+        case "event":
+            task = new Event(taskName);
+            storage.writeToFile(task.storageText());
+            return tasks.addToList(task);
+
+        default:
+            return "Please enter a valid command from this list: "
+                    + Arrays.toString(VALID_COMMANDS) + "\n";
+        }
 
     }
 }

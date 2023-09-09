@@ -28,19 +28,21 @@ public class Event extends Task {
             throw new DukeException("Please enter valid Event (make sure to start /from)");
         }
 
+        if (taskSplit[1].trim().isEmpty()) {
+            throw new DukeException("Please enter valid Event (make sure to enter valid format)");
+        }
+
         String taskTimeRange = taskSplit[1];
         String [] parseTimeRange = taskTimeRange.split("/to", 2);
 
         if (parseTimeRange.length != 2) {
-            throw new DukeException("Please enter valid Event (make sure to have /by to clarify the end date)");
+            throw new DukeException("Please enter valid Event (make sure to have /to to clarify the end date)");
         }
         if (parseTimeRange[1].trim().isEmpty()) {
             throw new DukeException("Please enter valid end date");
         }
 
-        String eventInfoString = taskSplit[0];
-
-        return new String[] {eventInfoString, parseTimeRange[0].trim(), parseTimeRange[1].trim()};
+        return new String[] {taskName, parseTimeRange[0].trim(), parseTimeRange[1].trim()};
     }
 
     /**
