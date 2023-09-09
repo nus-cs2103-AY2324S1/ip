@@ -1,9 +1,6 @@
 package joi.parser;
 
-import joi.utils.Task;
-import joi.utils.Event;
-import joi.utils.Deadline;
-import joi.utils.ToDo;
+import joi.utils.*;
 
 public class TaskParser {
     public TaskParser() {
@@ -38,5 +35,9 @@ public class TaskParser {
             System.out.println("invalid file format");
             return null;
         }
+    }
+
+    public static Command parseUserCommand(String input) {
+        return new Command(input);
     }
 }

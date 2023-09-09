@@ -11,13 +11,15 @@ import joi.utils.Task;
 
 import joi.parser.TaskParser;
 
+import joi.ui.Ui;
+
 public class TaskLoader {
     private static final String FILEPATH = "./duke.txt";
 
     public TaskLoader() {
     }
 
-    public static TaskList loadTasks() throws IOException {
+    public TaskList loadTasks(Ui ui) throws IOException {
         File file = new File(FILEPATH);
         TaskList taskList = new TaskList();
 
@@ -28,10 +30,13 @@ public class TaskLoader {
             while ((line = reader.readLine()) != null) {
                 // parse line and insert into taskList
                 Task task = TaskParser.readTasksFromFile(line);
+                if (task == null) {
+                    continue;
+                }
                 taskList.addTask(task);
             }
 
-            taskList.listTasks();
+            taskList.listTasks(ui);
         } else {
             System.out.println("Start Joi without task file...");
         }
@@ -39,7 +44,7 @@ public class TaskLoader {
         return taskList;
     }
 
-    public static void storeTasks(TaskList cur) throws IOException {
+    public void storeTasks(TaskList cur) throws IOException {
         try (FileWriter writer = new FileWriter(FILEPATH)) {
             for (int i = 0; i < cur.size(); i++) {
                 Task task = cur.get(i);
