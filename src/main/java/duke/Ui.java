@@ -29,12 +29,8 @@ public class Ui {
      * @return The formatted output for when a task is added
      */
     public static String getTaskAddingMessage(Task task, int taskListSize) {
-        return "Got it. I've added this task:\n"
-                + "  "
-                + task
-                + "\nNow you have "
-                + taskListSize
-                + " tasks in the list.";
+        return String.format("Got it. I've added this task:\n  %s\nNow you have"
+                + " %d tasks in the list.", task, taskListSize);
     }
 
     /**
@@ -45,10 +41,8 @@ public class Ui {
      * @return The formatted output for when a task is deleted.
      */
     public static String getTaskDeletingMessage(Task task, int taskListSize) {
-        return String.format("Noted. I've removed this task:\n"
-                + "  "
-                + task
-                + "\nNow you have %d tasks in the list.", taskListSize);
+        return String.format("Noted. I've removed this task:\n  %s\nNow you have"
+                + " %d tasks in the list.", task, taskListSize);
     }
 
     /**
