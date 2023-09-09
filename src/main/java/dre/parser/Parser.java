@@ -16,8 +16,17 @@ import dre.command.Command;
 import dre.command.ListCommand;
 import dre.exception.DreException;
 
+/**
+ * Represents a parser that makes sense of user input commands.
+ */
 public class Parser {
-    //may return a null.
+
+    /**
+     * Parses a given line and returns a Task object.
+     *
+     * @param line The string representation of the task.
+     * @return The corresponding Task object, or null if invalid line.
+     */
     public static Task parseTask(String line) {
         String type = line.substring(0, 1);
         boolean isDone = line.charAt(2) == 'X';
@@ -50,11 +59,24 @@ public class Parser {
         return task; //instead of adding to list, just return the dre.task.
     }
 
+    /**
+     * Parses a date string into a LocalDate object.
+     *
+     * @param dateString The date in "yyyy-MM-dd" format.
+     * @return The LocalDate representation of the dateString.
+     */
     private static LocalDate parseDate(String dateString) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return LocalDate.parse(dateString, inputFormatter);
     }
 
+    /**
+     * Parses the user input to determine which command to execute.
+     *
+     * @param input The raw user input string.
+     * @return The corresponding Command object.
+     * @throws DreException If the input command is unknown or invalid.
+     */
     public static Command parse(String input) throws DreException {
         String[] words = input.split(" ", 2);
         String commandWord = words[0];
