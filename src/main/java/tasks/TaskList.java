@@ -10,6 +10,9 @@ public class TaskList extends ArrayList<Task> {
         super();
     }
 
+    /**
+     * Prints the list of tasks in the TaskList.
+     */
     public void printList() {
         System.out.println(Ui.LINE);
         System.out.println("Here are the tasks in your list:");
@@ -19,6 +22,13 @@ public class TaskList extends ArrayList<Task> {
         System.out.println(Ui.LINE);
     }
 
+    /**
+     * Marks a task as done.
+     * @param index The index of the task to be marked as done.
+     * @param storage The Storage object to write to.
+     * @param isFromDatabase A boolean to indicate if the task is from the database.
+     * @throws DukeException If the index is out of bounds.
+     */
     public void markAsDone(Integer index, Storage storage, boolean... isFromDatabase) throws DukeException{   
 
         if (isFromDatabase.length > 0 && isFromDatabase[0]) {
@@ -50,6 +60,12 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
+    /**
+     * Marks a task as undone.
+     * @param index The index of the task to be marked as undone.
+     * @param storage The Storage object to write to.
+     * @param isFromDatabase A boolean to indicate if the task is from the database.
+     */
     public void markAsUndone(int index, Storage storage, boolean... isFromDatabase) {
         
         if (isFromDatabase.length > 0 && isFromDatabase[0]) {
@@ -71,6 +87,12 @@ public class TaskList extends ArrayList<Task> {
         System.out.println(Ui.LINE);
     }
 
+    /**
+     * Deletes a task from the TaskList.
+     * @param index The index of the task to be deleted.
+     * @param storage The Storage object to write to.
+     * @param isFromDatabase A boolean to indicate if the task is from the database.
+     */
     public void deleteTask(int index, Storage storage, boolean... isFromDatabase) {
         if (isFromDatabase.length > 0 && isFromDatabase[0]) {
             this.remove(index - 1);
@@ -92,6 +114,7 @@ public class TaskList extends ArrayList<Task> {
         }
         System.out.println(Ui.LINE);
     }
+
 
     public void addTask(Task task, Storage storage, boolean... isFromDatabase) {
         if (isFromDatabase.length > 0 && isFromDatabase[0]) {
