@@ -7,11 +7,10 @@ public class DukeException extends Exception {
     /**
      * Constructs a new DukeException with the specified error message.
      *
-     * @param errorMessage The specific error message for this exception.
+     * @param errorMessages The specific error message for this exception.
      */
-    public DukeException(String errorMessage) {
-
-        super(errorMessage);
+    public DukeException(String... errorMessages) {
+        super(String.join(", ", errorMessages));
     }
 
     /**

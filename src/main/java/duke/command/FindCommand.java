@@ -1,10 +1,12 @@
 package duke.command;
+import java.io.IOException;
 
+import duke.TaskList;
 import duke.storage.Storage;
 import duke.ui.Ui;
-import duke.TaskList;
 
-import java.io.IOException;
+
+
 
 /**
  * Represents a command to search and display tasks that contain a specific keyword.
@@ -31,7 +33,7 @@ public class FindCommand extends Command {
      * @throws IOException If there's an issue with input or output operations.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        tasks.findTasks(keyword, ui);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+        return tasks.findTasks(keyword, ui);
     }
 }

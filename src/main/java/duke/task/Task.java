@@ -6,9 +6,9 @@ package duke.task;
  * Represents a general task. It can be extended by other specific task types.
  */
 public class Task {
-    public String description;
-    public boolean isDone;
-    public TaskType type;
+    private final String description;
+    private boolean isDone;
+    private final TaskType type;
 
     /**
      * Initializes a task with the specified description and type.
@@ -21,9 +21,13 @@ public class Task {
         this.isDone = false;
         this.type = type;
     }
-
+    public String getTaskDescription() {
+        return this.description;
+    }
+    public boolean getIsDone() {
+        return this.isDone;
+    }
     public TaskType getType() {
-
         return this.type;
     }
     /**
@@ -35,8 +39,8 @@ public class Task {
      */
     public Task(String description, TaskType type, Boolean isDone) {
         this.description = description;
-        this.isDone = isDone;
         this.type = type;
+        this.isDone = isDone;
     }
 
     /**

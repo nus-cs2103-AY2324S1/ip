@@ -1,9 +1,13 @@
 package duke.command;
-import duke.storage.Storage;
-import duke.ui.Ui;
+import java.io.IOException;
+
 import duke.DukeException;
 import duke.TaskList;
-import java.io.IOException;
+import duke.storage.Storage;
+import duke.ui.Ui;
+
+
+
 
 /**
  * Represents an abstract command to be executed in the Duke program.
@@ -25,7 +29,7 @@ public abstract class Command {
      * @throws IOException   If there's an error accessing or modifying the storage.
      * @throws DukeException If there are issues executing the command.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, DukeException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, DukeException;
 
     /**
      * Determines if Duke should continue listening for commands or terminate.

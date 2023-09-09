@@ -1,9 +1,12 @@
 package duke.command;
+import java.io.IOException;
+
+import duke.TaskList;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.ui.Ui;
-import duke.TaskList;
-import java.io.IOException;
+
+
 
 /**
  * Represents an add command.
@@ -47,9 +50,9 @@ public class AddCommand extends Command {
      * @throws IOException If there's an error saving the tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         tasks.addTask(task);
         storage.save(tasks);
-        ui.showAddedTask(task);
+        return ui.showAddedTask(task);
     }
 }
