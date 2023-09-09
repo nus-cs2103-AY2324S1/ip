@@ -5,9 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The `Storage` class handles file input and output operations for Duke task data.
+ * It is responsible for creating data storage, loading tasks from a file,
+ * saving tasks to a file, deleting a specific line from the file,
+ * and updating a specific line in the file.
+ */
 public class Storage {
     private static final String FILE_PATH = "src/main/data/duke.txt";
 
+    /**
+     * Creates the data storage directory and file if they do not exist.
+     * If the directory or file creation fails, appropriate error messages are displayed.
+     */
     public static void createDataLocation() {
         File dir = new File("src/main/data");
 
@@ -37,7 +47,14 @@ public class Storage {
         }
     }
 
-
+    /**
+     * Loads tasks from a file and populates a given `TaskList` with the loaded tasks.
+     * The file is read line by line, and tasks are parsed and added to the list.
+     * If the file is not found or an error occurs during loading,
+     * appropriate error messages are displayed.
+     *
+     * @param taskList The `TaskList` to populate with loaded tasks.
+     */
     public static void loadTasksFromFile(TaskList taskList) {
         List<Task> loadedTasks = new ArrayList<>(); // Create a temporary list
 
@@ -86,6 +103,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves a task to the file by appending it as a new line.
+     * If an error occurs during saving, an appropriate error message is displayed.
+     *
+     * @param task The task to save to the file.
+     */
     public static void saveTaskToFile(String task) {
         try (FileWriter fw = new FileWriter(FILE_PATH, true);
              BufferedWriter bw = new BufferedWriter(fw);
@@ -96,6 +119,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes a specific line from the file.
+     * If an error occurs during deletion, an appropriate error message is displayed.
+     *
+     * @param lineNumber The line number to delete from the file.
+     */
     public static void deleteLineFromFile(int lineNumber) {
         try {
             File inputFile = new File(FILE_PATH);
@@ -116,10 +145,6 @@ public class Storage {
 
                 writer.write(currentLine);
                 writer.newLine();
-//                if (lineCounter != lineNumber - 1) {
-//                    // Add a newline character if it's not the last line
-//                    writer.newLine();
-//                }
             }
 
             writer.close();
@@ -135,6 +160,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates a specific line in the file with new content.
+     * If an error occurs during updating, an appropriate error message is displayed.
+     *
+     * @param lineNumber     The line number to update in the file.
+     * @param updatedContent The new content to replace the line with.
+     */
     public static void updateLineInFile(int lineNumber, String updatedContent) {
         try (RandomAccessFile file = new RandomAccessFile(FILE_PATH, "rw")) {
             long position = 0;
