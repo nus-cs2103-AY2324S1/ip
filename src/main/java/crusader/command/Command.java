@@ -1,8 +1,8 @@
 package crusader.command;
 
-import crusader.exception.CrusaderException;
 import crusader.TaskList;
 import crusader.Ui;
+import crusader.exception.CrusaderException;
 
 /**
  * A command, representing a singular action in the bot

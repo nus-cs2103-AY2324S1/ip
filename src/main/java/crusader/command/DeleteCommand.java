@@ -1,9 +1,9 @@
 package crusader.command;
 
-import crusader.exception.CrusaderException;
-import crusader.task.Task;
 import crusader.TaskList;
 import crusader.Ui;
+import crusader.exception.CrusaderException;
+import crusader.task.Task;
 
 /**
  * Command used to delete tasks from the bot.

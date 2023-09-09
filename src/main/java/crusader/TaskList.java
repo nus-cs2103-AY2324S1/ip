@@ -1,12 +1,11 @@
 package crusader;
 
-import crusader.exception.CrusaderException;
-import crusader.exception.CrusaderNoSuchTaskException;
-
-import crusader.task.Task;
-
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
+import crusader.exception.CrusaderException;
+import crusader.exception.CrusaderNoSuchTaskException;
+import crusader.task.Task;
 
 /**
  * A set of tasks to do
