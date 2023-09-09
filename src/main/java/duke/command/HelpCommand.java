@@ -12,9 +12,4 @@ public class HelpCommand extends Command {
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         return ui.showListOfCommands();
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

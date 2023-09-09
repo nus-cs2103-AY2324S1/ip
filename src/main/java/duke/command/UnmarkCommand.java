@@ -8,7 +8,6 @@ import duke.exception.InvalidTaskIndexException;
 import duke.task.Task;
 import duke.task.TaskList;
 
-
 /**
  * Represents a command to mark a task as not done.
  */
@@ -42,10 +41,5 @@ public class UnmarkCommand extends Command {
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             return ui.showArrayIndexOutOfBoundsException();
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

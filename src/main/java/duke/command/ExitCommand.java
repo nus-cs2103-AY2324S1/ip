@@ -20,9 +20,4 @@ public class ExitCommand extends Command {
             return ui.showSavingError();
         }
     }
-
-    @Override
-    public boolean isExit() {
-        return true;
-    }
 }

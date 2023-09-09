@@ -48,7 +48,6 @@ public class Duke {
 
             Command command = Parser.parseUserInput(userInput);
             return command.execute(taskList, ui, storage);
-
         } catch (DukeException e) {
             return ui.showDukeException(e);
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {

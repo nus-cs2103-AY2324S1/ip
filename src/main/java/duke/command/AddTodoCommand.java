@@ -35,9 +35,4 @@ public class AddTodoCommand extends Command {
             return ui.showDukeException(e);
         }
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

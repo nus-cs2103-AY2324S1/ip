@@ -27,9 +27,4 @@ public class TodayCommand extends Command {
 
         return ui.showTasksForToday(today, matchingTasks);
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }
