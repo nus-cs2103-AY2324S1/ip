@@ -38,119 +38,108 @@ public class Parser {
      *
      * @param userInput The user input string.
      */
-    public void parse(String userInput) {
+    public String parse(String userInput) {
         String[] words = userInput.split(" ");
         if (words == null || words.length < 1) {
-            handleInvalidInput();
-            return;
+            return handleInvalidInput();
         }
         String prefix = words[0];
 
         switch (prefix) {
         case "bye":
-            handleExit(userInput);
-            break;
+            return handleExit(userInput);
         case "list":
-            handleList(userInput);
-            break;
+            return handleList(userInput);
         case "unmark":
             //Fallthrough
         case "mark":
-            handleMarkOrUnmark(userInput);
-            break;
+            return handleMarkOrUnmark(userInput);
         case "todo":
-            handleAddToDoTask(userInput);
-            break;
+            return handleAddToDoTask(userInput);
         case "deadline":
-            handleAddDeadlineTask(userInput);
-            break;
+            return handleAddDeadlineTask(userInput);
         case "event":
-            handleAddEventTask(userInput);
-            break;
+            return handleAddEventTask(userInput);
         case "delete":
-            handleDeleteTask(userInput);
-            break;
+            return handleDeleteTask(userInput);
         case "find":
-            handleFind(userInput);
-            break;
+            return handleFind(userInput);
         default:
-            handleInvalidInput();
-            break;
+            return handleInvalidInput();
         }
     }
 
-    private void handleExit(String userInput) {
+    private String handleExit(String userInput) {
         String[] wordsInInput = userInput.split(" ");
         if (wordsInInput.length > 1) {
-            handleInvalidInput();
+            return handleInvalidInput();
         } else {
-            Duke.stopReceivingInput();
+            new Thread(() -> Duke.duke.exitApplication()).start();
+            return ui.playGoodbye();
         }
     }
 
-    private void handleList(String userInput) {
+    private String handleList(String userInput) {
         String[] wordsInInput = userInput.split(" ");
         if (wordsInInput.length > 1) {
-            handleInvalidInput();
+            return handleInvalidInput();
         } else {
-            ui.printTaskList(Duke.getTaskList());
+            return ui.printTaskList(Duke.duke.getTaskList());
         }
     }
 
-    private void handleMarkOrUnmark(String userInput) {
+    private String handleMarkOrUnmark(String userInput) {
         String[] wordsInInput = userInput.split(" ");
         if (wordsInInput.length > 2) {
-            handleInvalidInput();
+            return handleInvalidInput();
         } else {
             try {
-                TaskList taskList = Duke.getTaskList();
+                TaskList taskList = Duke.duke.getTaskList();
                 int index = Integer.parseInt(wordsInInput[1]) - 1;
                 if (wordsInInput[0].equals("mark")) {
                     taskList.markTaskAsDone(index, true);
-                    ui.playTaskComplete(taskList.getTaskAsString(index));
+                    return ui.playTaskComplete(taskList.getTaskAsString(index));
                 } else if (wordsInInput[0].equals("unmark")) {
                     taskList.markTaskAsDone(index, false);
-                    ui.playTaskIncomplete(taskList.getTaskAsString(index));
+                    return ui.playTaskIncomplete(taskList.getTaskAsString(index));
                 }
+                return handleInvalidInput();
             } catch (NumberFormatException e) {
-                ui.playExceptionMessage(Ui.ExceptionMessage.MarkCommand_NumberFormatException);
+                return ui.playExceptionMessage(Ui.ExceptionMessage.MarkCommand_NumberFormatException);
             } catch (IndexOutOfBoundsException e) {
-                ui.playExceptionMessage(Ui.ExceptionMessage.TaskList_IndexOutOfBoundsException);
+                return ui.playExceptionMessage(Ui.ExceptionMessage.TaskList_IndexOutOfBoundsException);
             }
         }
     }
 
-    private void handleAddToDoTask(String userInput) {
+    private String handleAddToDoTask(String userInput) {
         if (!userInput.startsWith("todo ")) {
-            handleInvalidInput();
-            return;
+            return handleInvalidInput();
         }
 
         String taskDescription = userInput.substring(5);
         if (!taskDescription.isBlank()) {
             ToDoTask newToDoTask = new ToDoTask(taskDescription);
-            handleAddTask(newToDoTask);
+            return handleAddTask(newToDoTask);
         } else {
-            ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_MissingDescription);
+            return ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_MissingDescription);
         }
     }
 
-    private void handleAddDeadlineTask(String userInput) {
+    private String handleAddDeadlineTask(String userInput) {
         if (!userInput.startsWith("deadline ")) {
-            handleInvalidInput();
-            return;
+            return handleInvalidInput();
         }
 
         String taskDescriptionAndDeadline = userInput.substring(9);
         if (!taskDescriptionAndDeadline.isBlank()) {
             String[] taskDescriptionSections = taskDescriptionAndDeadline.split(" /");
             if (taskDescriptionSections.length != 2) {
-                handleInvalidInput();
+                return handleInvalidInput();
             } else {
                 String taskDescription = taskDescriptionSections[0];
                 if (taskDescription.isBlank()) {
-                    ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_MissingDescription);
-                    return;
+                    return ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_MissingDescription);
                 }
                 String taskDeadlineSegment = taskDescriptionSections[1];
                 if (taskDeadlineSegment.startsWith("by ")) {
@@ -160,38 +149,36 @@ public class Parser {
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                             LocalDateTime deadline = LocalDateTime.parse(taskDeadline, formatter);
                             DeadlineTask newDeadlineTask = new DeadlineTask(taskDescription, deadline);
-                            handleAddTask(newDeadlineTask);
+                            return handleAddTask(newDeadlineTask);
                         } catch (DateTimeParseException e){
-                            ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_DateTimeParseException);
+                            return ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_DateTimeParseException);
                         }
                     } else {
-                        ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_MissingDeadline);
+                        return ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_MissingDeadline);
                     }
                 } else {
-                    handleInvalidInput();
+                    return handleInvalidInput();
                 }
             }
         } else {
-            handleInvalidInput();
+            return handleInvalidInput();
         }
     }
 
-    private void handleAddEventTask(String userInput) {
+    private String handleAddEventTask(String userInput) {
         if (!userInput.startsWith("event ")) {
-            handleInvalidInput();
-            return;
+            return handleInvalidInput();
         }
 
         String taskDescriptionAndDuration = userInput.substring(6);
         if (!taskDescriptionAndDuration.isBlank()) {
             String[] taskDescriptionSections = taskDescriptionAndDuration.split(" /");
             if (taskDescriptionSections.length != 3) {
-                handleInvalidInput();
+                return handleInvalidInput();
             } else {
                 String taskDescription = taskDescriptionSections[0];
                 if (taskDescription.isBlank()) {
-                    ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_MissingDescription);
-                    return;
+                    return ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_MissingDescription);
                 }
                 String taskFromSegment = taskDescriptionSections[1];
                 String taskToSegment = taskDescriptionSections[2];
@@ -204,62 +191,62 @@ public class Parser {
                             LocalDateTime from = LocalDateTime.parse(taskFrom, formatter);
                             LocalDateTime to = LocalDateTime.parse(taskTo, formatter);
                             EventTask newEventTask = new EventTask(taskDescription, from, to);
-                            handleAddTask(newEventTask);
+                            return handleAddTask(newEventTask);
                         } catch (DateTimeParseException e){
-                            ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_DateTimeParseException);
+                            return ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_DateTimeParseException);
                         }
                     } else {
-                        ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_MissingStartEndDate);
+                        return ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_MissingStartEndDate);
                     }
                 } else {
-                    handleInvalidInput();
+                    return handleInvalidInput();
                 }
             }
         } else {
-            handleInvalidInput();
+            return handleInvalidInput();
         }
     }
 
-    private void handleAddTask(Task newTask) {
-        Duke.getTaskList().addTask(newTask);
-        ui.playAddTask(newTask.toString(), Duke.getTaskList().getTaskCount());
+    private String handleAddTask(Task newTask) {
+        Duke.duke.getTaskList().addTask(newTask);
+        return ui.playAddTask(newTask.toString(), Duke.duke.getTaskList().getTaskCount());
     }
 
-    private void handleDeleteTask(String userInput) {
+    private String handleDeleteTask(String userInput) {
         String[] wordsInInput = userInput.split(" ");
         if (wordsInInput.length > 2) {
-            handleInvalidInput();
+            return handleInvalidInput();
         } else {
             try {
-                TaskList taskList = Duke.getTaskList();
+                TaskList taskList = Duke.duke.getTaskList();
                 int index = Integer.parseInt(wordsInInput[1]) - 1;
                 if (wordsInInput[0].equals("delete")) {
                     Task deletedTask = taskList.getTask(index);
                     taskList.removeTask(index);
-                    ui.playRemoveTask(deletedTask.toString(), taskList.getTaskCount());
+                    return ui.playRemoveTask(deletedTask.toString(), taskList.getTaskCount());
                 } else {
-                    handleInvalidInput();
+                    return handleInvalidInput();
                 }
             } catch (NumberFormatException e) {
-                ui.playExceptionMessage(Ui.ExceptionMessage.DeleteCommand_NumberFormatException);
+                return ui.playExceptionMessage(Ui.ExceptionMessage.DeleteCommand_NumberFormatException);
             } catch (IndexOutOfBoundsException e) {
-                ui.playExceptionMessage(Ui.ExceptionMessage.TaskList_IndexOutOfBoundsException);
+                return ui.playExceptionMessage(Ui.ExceptionMessage.TaskList_IndexOutOfBoundsException);
             }
         }
     }
 
-    private void handleFind(String userInput) {
+    private String handleFind(String userInput) {
         String[] wordsInInput = userInput.split(" ");
         if (wordsInInput.length != 2) {
-            handleInvalidInput();
+            return handleInvalidInput();
         } else {
-            TaskList tasks = Duke.getTaskList();
+            TaskList tasks = Duke.duke.getTaskList();
             TaskList matchingTasks = tasks.findTasksByKeyword(wordsInInput[1]);
-            ui.printKeywordSearchResults(matchingTasks);
+            return ui.printKeywordSearchResults(matchingTasks);
         }
     }
 
-    private void handleInvalidInput() {
-        ui.playExceptionMessage(Ui.ExceptionMessage.InvalidInput);
+    private String handleInvalidInput() {
+        return ui.playExceptionMessage(Ui.ExceptionMessage.InvalidInput);
     }
 }

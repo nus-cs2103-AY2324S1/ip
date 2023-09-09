@@ -32,12 +32,14 @@ public class TaskList {
     /**
      * Prints the entire TaskList to console as a numbered list.
      */
-    public void printTasksAsList() {
+    public String printTasksAsList() {
+        String str = "";
         int index = 1;
         for (Task task : tasks) {
-            System.out.println(index + "." + task.toString());
+            str += index + "." + task.toString() + "\n";
             index++;
         }
+        return str;
     }
 
     /**
