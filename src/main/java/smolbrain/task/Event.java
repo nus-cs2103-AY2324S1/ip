@@ -47,7 +47,7 @@ public class Event extends Task {
     @Override
     public String encode() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        return "E" + getStatusNumber() + super.description + " /from " + this.from.format(formatter)
-                + " /to " + this.to.format(formatter);
+        return "E" + getStatusNumber() + super.priorityLevel + super.description
+                + " /from " + this.from.format(formatter) + " /to " + this.to.format(formatter);
     }
 }

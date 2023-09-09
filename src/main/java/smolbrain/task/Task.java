@@ -9,6 +9,8 @@ public class Task {
     protected String description;
     /** Whether task is done */
     protected boolean isDone;
+    /** Task priority level **/
+    protected int priorityLevel = 0;
 
     /**
      * Creates a task with specified description.
@@ -52,6 +54,14 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Sets the priority level of this task.
+     *
+     * @param level Priority level for this task.
+     */
+    public void setPriorityLevel(int level) {
+        this.priorityLevel = level;
+    }
 
     /**
      * Checks if task description contains the keyword.
@@ -79,7 +89,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s] %s", getStatusIcon(), description);
+        return String.format("[%s][%d] %s", getStatusIcon(), priorityLevel, description);
     }
 
 }

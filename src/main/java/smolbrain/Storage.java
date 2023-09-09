@@ -1,5 +1,7 @@
 package smolbrain;
 
+import static java.lang.Integer.parseInt;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -79,7 +81,8 @@ public class Storage {
             for (int i = 0; i < strings.size(); i++) {
                 String type = strings.get(i).substring(0, 1);
                 String marked = strings.get(i).substring(1, 2);
-                String remain = strings.get(i).substring(2);
+                int priorityLevel = parseInt(strings.get(i).substring(2, 3));
+                String remain = strings.get(i).substring(3);
                 String txt = "";
 
                 switch (type) {
@@ -105,6 +108,7 @@ public class Storage {
                     if (marked.equals("1")) {
                         task.mark();
                     }
+                    task.setPriorityLevel(priorityLevel);
                 } catch (InvalidNumberException | InvalidRangeException | MissingTimeException
                          | InvalidDateTimeException | MissingDescriptionException e) {
                     ui.showError(e);
