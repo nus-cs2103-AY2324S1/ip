@@ -20,8 +20,9 @@ public class FindTaskCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, UserInterface ui, Storage storage) {
+    public String execute(TaskList taskList, UserInterface ui, Storage storage) {
         String result = taskList.getTaskQueryResult(this.queryString);
         ui.showMessagePerLine(result);
+        return result;
     }
 }

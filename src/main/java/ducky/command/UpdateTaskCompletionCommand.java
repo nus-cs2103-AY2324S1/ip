@@ -27,13 +27,15 @@ public class UpdateTaskCompletionCommand extends Command {
     /**
      * Updates the completion status of the task, saves the state to file system,
      * then reflects changes to user interface.
+     *
      * @param taskList TaskList of Ducky chatbot instance.
-     * @param ui UserInterface of Ducky chatbot instance.
-     * @param storage Storage module of Ducky chatbot instance.
+     * @param ui       UserInterface of Ducky chatbot instance.
+     * @param storage  Storage module of Ducky chatbot instance.
+     * @return
      * @throws DuckyException If exceptions specific to Ducky are raised.
      */
     @Override
-    public void execute(TaskList taskList, UserInterface ui, Storage storage) throws DuckyException {
+    public String execute(TaskList taskList, UserInterface ui, Storage storage) throws DuckyException {
         int updateIndex = this.inputIndex - 1;
         if (this.isCompleted) {
             Task changedTask = taskList.markTaskAsComplete(updateIndex);
@@ -50,5 +52,6 @@ public class UpdateTaskCompletionCommand extends Command {
                     changedTask.toString()
             );
         }
+        return null;
     }
 }

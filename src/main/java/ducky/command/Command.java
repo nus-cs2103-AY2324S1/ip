@@ -20,10 +20,12 @@ public abstract class Command {
 
     /**
      * Executes the current command.
+     *
      * @param taskList TaskList of Ducky chatbot instance.
-     * @param ui UserInterface of Ducky chatbot instance.
-     * @param storage Storage module of Ducky chatbot instance.
+     * @param ui       UserInterface of Ducky chatbot instance.
+     * @param storage  Storage module of Ducky chatbot instance.
+     * @return
      * @throws DuckyException If exceptions specific to Ducky are raised.
      */
-    public abstract void execute(TaskList taskList, UserInterface ui, Storage storage) throws DuckyException;
+    public abstract String execute(TaskList taskList, UserInterface ui, Storage storage) throws DuckyException;
 }

@@ -21,12 +21,15 @@ public class ExitCommand extends Command {
 
     /**
      * Prints farewell message from user interface.
+     *
      * @param taskList TaskList of Ducky chatbot instance.
-     * @param ui UserInterface of Ducky chatbot instance.
-     * @param storage Storage module of Ducky chatbot instance.
+     * @param ui       UserInterface of Ducky chatbot instance.
+     * @param storage  Storage module of Ducky chatbot instance.
+     * @return
      */
     @Override
-    public void execute(TaskList taskList, UserInterface ui, Storage storage) {
+    public String execute(TaskList taskList, UserInterface ui, Storage storage) {
         ui.showFarewell();
+        return null;
     }
 }

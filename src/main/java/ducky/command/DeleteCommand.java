@@ -24,13 +24,15 @@ public class DeleteCommand extends Command {
     /**
      * Deletes the task with the given index from task list, saves state to file system,
      * then reflects changes to user interface.
+     *
      * @param taskList TaskList of Ducky chatbot instance.
-     * @param ui UserInterface of Ducky chatbot instance.
-     * @param storage Storage module of Ducky chatbot instance.
+     * @param ui       UserInterface of Ducky chatbot instance.
+     * @param storage  Storage module of Ducky chatbot instance.
+     * @return
      * @throws DuckyException If exceptions specific to Ducky are raised.
      */
     @Override
-    public void execute(TaskList taskList, UserInterface ui, Storage storage) throws DuckyException {
+    public String execute(TaskList taskList, UserInterface ui, Storage storage) throws DuckyException {
         int deleteIndex = this.inputIndex - 1;
         Task deletedTask = taskList.deleteTask(deleteIndex);
         storage.save(taskList);
@@ -39,5 +41,6 @@ public class DeleteCommand extends Command {
                 deletedTask.toString(),
                 taskList.getListLengthStatus()
         );
+        return null;
     }
 }

@@ -1,10 +1,9 @@
 package ducky;
 
+import java.util.Scanner;
+
 import ducky.command.Command;
 import ducky.util.Parser;
-
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 /**
  * Represents a Ducky chatbot instance.
@@ -24,6 +23,15 @@ public class Ducky {
         this.storage = new Storage(filePath);
         this.taskList = new TaskList();
         this.ui = new UserInterface(sc);
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(this.taskList, this.ui, this.storage);
+        } catch (DuckyException e) {
+            return e.getMessage();
+        }
     }
 
     /**
