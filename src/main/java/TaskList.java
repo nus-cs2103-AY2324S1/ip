@@ -32,7 +32,7 @@ public class TaskList {
     }
 
     public void deleteTask(int num) {
-        Task re = tasks.remove(num - 1);
+        Task re = tasks.remove(num);
         this.storage.rewriteFile(tasks);
         Ui.deleteTask(re, tasks);
     }
