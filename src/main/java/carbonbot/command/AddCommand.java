@@ -27,6 +27,7 @@ public class AddCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         // Add the task to the TaskList
         tasks.add(this.task);
+        assert(tasks.get(tasks.size()) == this.task);
 
         ui.showMessage("Got it. I've added this task:");
         ui.showMessage(this.task.toString());
