@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-
 import java.util.Scanner;
 
 public class Ui {
@@ -32,7 +31,7 @@ public class Ui {
      * @param filePath  The file path.
      * @return  A TaskList containing the loaded tasks.
      */
-    public TaskList loadTasks (String filePath) {
+    public TaskList loadTasks(String filePath) {
         TaskList tasks = new TaskList();
         File file = new File(filePath);
 
@@ -83,7 +82,7 @@ public class Ui {
      * @param storage      The storage object to save tasks.
      * @return      True if the program should exit.
      */
-    public boolean handleCommand (String userCommand, TaskList tasks, Storage storage) {
+    public boolean handleCommand(String userCommand, TaskList tasks, Storage storage) {
         try {
             String[] parts = userCommand.split(" ", 2);
             String commandType = parts[0].toLowerCase();
@@ -158,7 +157,7 @@ public class Ui {
      *
      * @param errorCommand  The error message.
      */
-    public void showError (String errorCommand) {
+    public void showError(String errorCommand) {
         System.out.println(errorCommand);
     }
 
@@ -168,7 +167,7 @@ public class Ui {
      * @param task  The task that we added.
      * @param taskCount  The current number of tasks in the list.
      */
-    public void showTaskAdded (Task task, int taskCount) {
+    public void showTaskAdded(Task task, int taskCount) {
         System.out.println("Got it. I've added this task:");
         System.out.println(" " + task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
@@ -179,7 +178,7 @@ public class Ui {
      *
      * @param taskCount  The current number of tasks in the list.
      */
-    public void showTaskDeleted (int taskCount) {
+    public void showTaskDeleted(int taskCount) {
         System.out.println("OK, I've removed this task.");
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
@@ -189,7 +188,7 @@ public class Ui {
      *
      * @param taskList  The task list.
      */
-    public void showTaskList (TaskList taskList) {
+    public void showTaskList(TaskList taskList) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
             System.out.println((i + 1) + ". " + taskList.getTask(i));
@@ -201,7 +200,7 @@ public class Ui {
      *
      * @param task  The task that was marked as done.
      */
-    public void showTaskMarkedAsDone (Task task) {
+    public void showTaskMarkedAsDone(Task task) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + task);
     }
@@ -211,7 +210,7 @@ public class Ui {
      *
      * @param task  The task that was marked as not done.
      */
-    public void showTaskMarkedAsNotDone (Task task) {
+    public void showTaskMarkedAsNotDone(Task task) {
         System.out.println("Noted, I've marked this task as not done yet:");
         System.out.println("  " + task);
     }

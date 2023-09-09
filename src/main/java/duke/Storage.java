@@ -13,7 +13,7 @@ public class Storage {
      *
      * @param filePath  The file path where the task data will be saved.
      */
-    public Storage (String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
@@ -29,7 +29,7 @@ public class Storage {
      *
      * @param tasks  The taskList containing tasks to be saved.
      */
-    public void saveTasks (TaskList tasks) {
+    public void saveTasks(TaskList tasks) {
         File file = new File(filePath);
         file.getParentFile().mkdirs();
 

@@ -3,7 +3,6 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.Locale;
 
 /**
@@ -19,7 +18,7 @@ public class Deadline extends Task {
      * @param description   The description of the task.
      * @param deadlineString  The deadline date string in "yyyy-MM-dd format.
      */
-    public Deadline (String description, String deadlineString) {
+    public Deadline(String description, String deadlineString) {
         super(description);
         this.deadline = parseDeadline(deadlineString);
     }
@@ -30,9 +29,9 @@ public class Deadline extends Task {
      * @param deadlineString  The deadline date string in "yyyy-MM-dd" format.
      * @return The parsed deadline date as a LocalDate object, or null if parsing fails.
      */
-    private LocalDate parseDeadline (String deadlineString) {
+    private LocalDate parseDeadline(String deadlineString) {
         try {
-            if (!deadlineString.isEmpty()) {
+            if(!deadlineString.isEmpty()) {
                 return LocalDate.parse(deadlineString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             }
         } catch (DateTimeParseException e) {
@@ -40,16 +39,14 @@ public class Deadline extends Task {
         }
         return null;
     }
-
-    private String formatDeadline (LocalDate deadlineDate) {
+    private String formatDeadline(LocalDate deadlineDate) {
         if (deadlineDate == null) {
             return "Invalid date.";
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
         return deadlineDate.format(formatter);
     }
-
-    private String saveFormatDeadline (LocalDate deadlineDate) {
+    private String saveFormatDeadline(LocalDate deadlineDate) {
         if (deadlineDate == null) {
             return "";
         }
