@@ -53,11 +53,13 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() throws InterruptedException {
         String input = userInput.getText();
         String response = getResponse(input, this.taskList, this.storage);
+        assert !response.isBlank() : "fatal error occurred";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+        assert userInput.getText().isBlank() : "something went wrong";
         if (response.equals(Ui.closing)) {
             System.exit(0);
         }
