@@ -69,6 +69,7 @@ public class TaskList {
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
         System.out.printf("Now you have %d tasks in the list.\n", taskList.size());
+        assert !taskList.isEmpty();
     }
 
     /**

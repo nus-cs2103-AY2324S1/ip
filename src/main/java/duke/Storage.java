@@ -74,7 +74,7 @@ public class Storage {
             String taskType = matcher.group(1);
             matcher.find();
             boolean isTaskComplete = Objects.equals(matcher.group(1), "X");
-            Task newTask = null;
+            Task newTask;
             String[] taskInfoSplit = data.split("]");
             String taskInfo = taskInfoSplit[taskInfoSplit.length - 1].trim();
 
@@ -92,7 +92,6 @@ public class Storage {
                 throw new UnknownCommandException();
             }
             if (isTaskComplete) {
-                assert newTask != null;
                 newTask.mark();
             }
             taskData.add(newTask);
