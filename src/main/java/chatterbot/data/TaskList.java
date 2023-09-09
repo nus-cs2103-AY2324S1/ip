@@ -13,7 +13,7 @@ public class TaskList {
     protected static ArrayList<Task> list;
 
     public TaskList(ArrayList<Task> list) {
-        TaskList.list = list;
+        this.list = list;
     }
 
     /**
@@ -22,7 +22,7 @@ public class TaskList {
      */
     public static void initiateTaskList(Storage storage) {
         try {
-            Storage.copyFileContents("data/ChatterBot.txt");
+            storage.copyFileContents("data/ChatterBot.txt");
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
