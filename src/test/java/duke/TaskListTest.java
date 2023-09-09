@@ -1,10 +1,13 @@
 package duke;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+
 
 public class TaskListTest {
     @Test
@@ -16,19 +19,6 @@ public class TaskListTest {
 
         assertEquals(1, taskList.num());
     }
-
-//    @Test
-//    public void testDeleteTask() {
-//        ArrayList<Task> tasks = new ArrayList<Task>();
-//        TaskList taskList = new TaskList(tasks);
-//        ToDo todo = new ToDo("Buy groceries");
-//        taskList.add(todo);
-//
-//        int initialSize = taskList.num();
-//        taskList.delete("delete 1", 1, null);
-//
-//        assertEquals(initialSize - 1, taskList.num());
-//    }
 
     @Test
     public void testListTasksEmpty() {
