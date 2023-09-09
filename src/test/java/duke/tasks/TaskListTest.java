@@ -1,24 +1,27 @@
 package duke.tasks;
 
-import duke.exception.DukeException;
-import duke.storage.Storage;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import duke.exception.DukeException;
+import duke.storage.Storage;
+
+
 
 public class TaskListTest {
-    public static final String INDENTATION = "    ";
-
 
     @Test
     public void testAddToDoSuccess() {
         Storage storage = new Storage("data/test.txt");
         TaskList testList = new TaskList(new ArrayList<>(), storage);
         String actual = testList.handleToDo("test desc");
-        String expected = "Got it. I've added this task:\n" + "[T][ ] test desc" + "\nNow you have " +
-                1 + " tasks in the list.";
+        String expected = "Got it. I've added this task:\n" + "[T][ ] test desc" + "\nNow you have "
+                + 1 + " tasks in the list.";
         assertEquals(expected, actual);
     }
 
@@ -32,8 +35,9 @@ public class TaskListTest {
         } catch (DukeException e) {
             fail("Did not add Deadline successfully");
         }
-        String expected = "Got it. I've added this task:\n" + "[D][ ] boo (by: 22 October 2001 11:12)" + "\nNow you have " +
-                1 + " tasks in the list.";
+        String expected = "Got it. I've added this task:\n"
+                + "[D][ ] boo (by: 22 October 2001 11:12)" + "\nNow you have "
+                + 1 + " tasks in the list.";
         assertEquals(expected, actual);
     }
 
@@ -58,7 +62,8 @@ public class TaskListTest {
         } catch (DukeException e) {
             fail("Did not add Event successfully");
         }
-        String expected = "Got it. I've added this task:\n" + "[E][ ] boo (from: 22 October 2001 11:12 to: 22 November 2001 11:12)"
+        String expected = "Got it. I've added this task:\n"
+                + "[E][ ] boo (from: 22 October 2001 11:12 to: 22 November 2001 11:12)"
                 + "\nNow you have " + 1 + " tasks in the list.";
         assertEquals(expected, actual);
     }
