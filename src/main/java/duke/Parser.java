@@ -29,12 +29,13 @@ public class Parser {
 
     /**
      * Adds a Task object to the specified list of tasks.
-     * @param tsk The type of task to be added.
+     * @param task The type of task to be added.
      * @param input The user input.
+     * @return The method is returning a string of the task to be added.
      * @throws DukeException If the user input is invalid.
      */
-    private static String addTask(TaskType tsk, String input) throws DukeException {
-        switch (tsk) {
+    private static String addTask(TaskType task, String input) throws DukeException {
+        switch (task) {
         case TODO:
             try {
                 String todoDescription = input.substring(5);
@@ -79,6 +80,7 @@ public class Parser {
      * Modifies a Task object in the specified list of tasks.
      * @param mod The type of modification to be made.
      * @param input The user input.
+     * @return The method is returning a string of the task to be modified.
      * @throws DukeException If the user input is invalid.
      */
     private static String modifyTask(ModifyTask mod, String input) throws DukeException {
@@ -119,6 +121,7 @@ public class Parser {
     /**
      * Parses the user input and calls the appropriate method.
      * @param input The user input.
+     * @return The method is returning a string of the output after typing the command.
      */
     public static String parseCommands(String input) {
         if (input.equals("list")) {

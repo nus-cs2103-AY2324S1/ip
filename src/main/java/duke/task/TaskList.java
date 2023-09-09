@@ -25,6 +25,7 @@ public class TaskList {
     /**
      * Adds a Task object to the specified list of tasks.
      * @param task The list of tasks.
+     * @return This method returns the string to show that the task has been added.
      */
     public String addTask(Task task) {
         this.tasks.add(task);
@@ -35,7 +36,7 @@ public class TaskList {
     /**
      * Deletes a Task object from the specified list of tasks.
      * @param taskNumber The index of the task to be deleted.
-     * @throws DukeException If the task number is invalid.
+     * @return This method returns the string to show that the task has been deleted.
      */
     public String deleteTask(int taskNumber) {
         if (taskNumber > tasks.size() || taskNumber < 1) {
@@ -49,6 +50,7 @@ public class TaskList {
 
     /**
      * Returns the list of tasks.
+     * @return This method returns a list of the tasks.
      */
     public String listAllTasks() {
         return Ui.listAllTasks(tasks);
@@ -57,6 +59,7 @@ public class TaskList {
     /**
      * Returns the list of tasks that contain the specified keyword.
      * @param taskNumber The keyword to be searched.
+     * @return This method returns the string after marking the task.
      */
     public String markTaskAsDone(int taskNumber) {
         if (taskNumber > this.tasks.size() || taskNumber < 1) {
@@ -72,6 +75,7 @@ public class TaskList {
     /**
      * Returns the list of tasks that contain the specified keyword.
      * @param taskNumber The keyword to be searched.
+     * @return This method returns the string after un-marking the task.
      */
     public String markTaskAsUndone(int taskNumber) {
         if (taskNumber > this.tasks.size() || taskNumber < 1) {
@@ -86,6 +90,7 @@ public class TaskList {
     /**
      * Returns the list of tasks that contain the specified keyword.
      * @param keyword The keyword to be searched.
+     * @return This method returns the string to find the task with the keyword.
      */
     public String findTasks(String keyword) {
         ArrayList<Task> foundTasks = new ArrayList<Task>();

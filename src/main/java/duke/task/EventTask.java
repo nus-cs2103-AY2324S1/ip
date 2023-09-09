@@ -3,7 +3,13 @@ package duke.task;
  * Represents a task that has a specific start and end date.
  */
 public class EventTask extends Task {
+    /**
+     * Represents a string of fromDate.
+     */
     private String fromDate;
+    /**
+     * Represents a string of toDate.
+     */
     private String toDate;
 
     /**
