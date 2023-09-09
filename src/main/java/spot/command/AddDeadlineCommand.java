@@ -23,6 +23,7 @@ public class AddDeadlineCommand extends Command {
      * @param deadline Due date of the deadline.
      */
     public AddDeadlineCommand(String description, LocalDate deadline) {
+        assert !description.isEmpty();
         this.description = description;
         this.deadline = deadline;
     }

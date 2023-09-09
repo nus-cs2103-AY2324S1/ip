@@ -25,6 +25,7 @@ public class Spot {
         } catch (SpotException e) {
             tasks = new TaskList();
         }
+        assert tasks != null;
     }
 
     /**

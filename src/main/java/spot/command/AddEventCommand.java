@@ -24,6 +24,8 @@ public class AddEventCommand extends Command {
      * @param end End date of the event.
      */
     public AddEventCommand(String description, LocalDate start, LocalDate end) {
+        assert !description.isEmpty();
+        assert !start.isAfter(end);
         this.description = description;
         this.start = start;
         this.end = end;
