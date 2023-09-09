@@ -20,6 +20,7 @@ public class MarkCommand extends Command {
     public MarkCommand(TaskList taskList, String numberString) {
         super(taskList);
         this.numberString = numberString;
+        assert (!numberString.equals(""));
     }
 
     /**

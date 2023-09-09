@@ -57,12 +57,15 @@ public class Parser {
             Command listCommand = new ListCommand(taskList);
             return listCommand;
         case "MARK":
+            checkNumberInput(numberString);
             Command markCommand = new MarkCommand(taskList, numberString);
             return markCommand;
         case "UNMARK":
+            checkNumberInput(numberString);
             Command unmarkCommand = new UnmarkCommand(taskList, numberString);
             return unmarkCommand;
         case "DELETE":
+            checkNumberInput(numberString);
             Command deleteCommand = new DeleteCommand(taskList, numberString);
             return deleteCommand;
         case "TODO":
@@ -82,4 +85,13 @@ public class Parser {
         }
     }
 
+    private void checkNumberInput(String s) throws DukeException {
+        if (s.equals("")) {
+            throw new DukeException("This is an invalid input");
+        }
+        Integer number = Integer.parseInt(s);
+        if (number > taskList.size()) {
+            throw new DukeException("This is a bad number");
+        }
+    }
 }

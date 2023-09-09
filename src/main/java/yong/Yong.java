@@ -25,32 +25,9 @@ public class Yong {
         this.taskList = new TaskList();
         this.storage = new Storage(taskList);
         storage.readFile();
+        assert (this.taskList instanceof TaskList);
     }
 
-    //    public static void run() {
-    //        UI ui = new UI();
-    //        ui.showWelcome();
-    //        TaskList taskList = new TaskList();
-    //        Storage storage = new Storage(taskList);
-    //        storage.readFile();
-    //        boolean isExit = false;
-    //        while (!isExit) {
-    //            try {
-    //                String fullCommand = ui.readCommand();
-    //                ui.showLine(); // show the divider line ("_______")
-    //                Parser parser = new Parser(taskList);
-    //                Command c = parser.parse(fullCommand);
-    //                c.execute();
-    //                storage.saveFile();
-    //                isExit = c.isExit();
-    //            } catch (DukeException e) {
-    //                ui.showError(e.getMessage());
-    //            } finally {
-    //                ui.showLine();
-    //            }
-    //        }
-    //
-    //    }
 
     /**
      * Returns String response of chatbot
@@ -66,9 +43,11 @@ public class Yong {
                 isExit = true;
             }
             String outputString = c.execute();
+            assert (!outputString.isEmpty());
             storage.saveFile();
             return outputString;
         } catch (DukeException e) {
+            System.out.println(e);
             return e.getMessage();
         }
     }
