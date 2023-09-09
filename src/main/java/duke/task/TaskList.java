@@ -1,6 +1,7 @@
 package duke.task;
 import duke.DukeException;
 import duke.task.Task;
+import duke.ui.Ui;
 
 import java.util.ArrayList;
 
@@ -33,81 +34,47 @@ public class TaskList {
 	}
 
 	/**
-	 * List all task in taskList in numbered format.
+	 * shows all tasks in the list
+	 * @param ui outputs task list to user
 	 */
-	public void list() {
-		String lst = "";
+	public String list(Ui ui) {
 		StringBuilder br = new StringBuilder();
 		for (int i = 0; i < taskList.size(); i++) {
-			// int idx = i + 1;
 			br.append(i + 1).append(". ");
 			br.append((taskList.get(i)).toString()).append("\n");
 		}
-		String echo = String.format("____________________________________________________________\n"
-				+ "Here are the task in your list:\n"
-				+ "%s"
-				+ "____________________________________________________________", br.toString());
-		System.out.println(echo);
+		return ui.showList(br);
 	}
 
 	/**
 	 * Marks task.
 	 * @param toMark Whether to mark Task as done or not.
-	 * @param idx Index of task to be marked, starting from 0.
+	 * @param pos Position of task to be marked, starting from 1.
 	 * @throws DukeException If unable to mark task at specified idx.
 	 */
-	public void toMark(Boolean toMark, int idx) throws DukeException {
-		if (idx + 1 > taskList.size()) {
+	public void toMark(Boolean toMark, int pos, Ui ui) throws DukeException {
+		if (pos > taskList.size()) {
 			throw new DukeException("Trying to mark or unmark something beyond the list");
 		}
 
-		Task t = taskList.get(idx);
+		Task task = taskList.get(pos - 1);
 		if (toMark) {
-			t.markAsDone();
-			String echo = String.format("____________________________________________________________\n" +
-					"Nice! I've marked this task as done:\n" +
-					t.toString() + "\n" +
-					"____________________________________________________________");
-			System.out.println(echo);
+			task.markAsDone();
 		} else {
-			taskList.get(idx).unMark();
-			String echo = String.format("____________________________________________________________\n" +
-					"Nice! I've marked this task as not done yet:\n" +
-					t.toString() + "\n" +
-					"____________________________________________________________");
-			System.out.println(echo);
+			task.unMark();
 		}
 	}
-
 	/**
-	 * Adds task and prints String represntation of what was done.
-	 * @param task Represents the Task to be added to taskList.
+	 * Returns number of tasks remaining after deletion
+	 * @return number task remaining after deletion
 	 */
-	public void addTask(Task task) {
-		this.taskList.add(task);
-		Task t = taskList.get(taskList.size() - 1);
-		String echo = String.format("____________________________________________________________\n" +
-				"Got it. I've added this task:\n" +
-				"%s\n" +
-				"Now you have %s tasks in the list\n" +
-				"____________________________________________________________", t.toString(), taskList.size());
-		System.out.println(echo);
+
+	public String getRemaining() {
+		return Integer.toString(taskList.size() - 1);
 	}
 
-	/**
-	 * Deletes task from the taskList.
-	 * @param pos Position of Task in the taskList to be deleted.
-	 */
-	public void delete(int pos) {
-		Task t = taskList.get(pos - 1);
-		String remaining = Integer.toString(taskList.size() - 1);
-		taskList.remove(pos);
-		String echo = String.format("____________________________________________________________\n" +
-				"Noted. I've removed this task:\n" +
-				"%s\n" +
-				"Now you have %s tasks in the list.\n" +
-				"____________________________________________________________", t.toString(), remaining);
-		System.out.println(echo);
+	public String getSize() {
+		return Integer.toString(taskList.size());
 	}
 
 	/**
@@ -115,11 +82,17 @@ public class TaskList {
  	 * @param i Index of Task in taskList that we are interested in.
 	 * @return String representation of Task.
 	 */
-	public String getTask(int i) {
-		return taskList.get(i).toString();
+	public Task getTask(int i) {
+		return taskList.get(i);
 	}
 
-	public void findTask(String keyWord) {
+	/**
+	 * Finds task by keyword in task list
+	 * @param keyWord word we are searching task by
+	 * @return String representation of task which we output to user later on
+	 */
+
+	public StringBuilder findTask(String keyWord) {
 		int count = 1;
 		StringBuilder br = new StringBuilder();
 		for (Task t: taskList) {
@@ -131,6 +104,6 @@ public class TaskList {
 			}
 			count++;
 		}
-		System.out.println(br.toString());
+		return br;
 	}
 }

@@ -19,16 +19,20 @@ public class AddCommand extends Command {
 	 * Ui displays adding to user.
 	 * Output of task is stored in Storage which writes to a text file.
 	 * @param taskList list of tasks to execute.
-	 * @param u displays execution of adding.
+	 * @param ui displays execution of adding.
 	 * @param storage can write tasks to store on the text file.
 	 */
 	@Override
-	public void execute(TaskList taskList, Ui u, Storage storage) {
-		taskList.addTask(task);
+	public String execute(TaskList taskList, Ui ui, Storage storage) {
 		try {
-			storage.writeFile(task);
+			storage.addToFile(task);
+			System.out.println(
+					ui.showAddTask(task, taskList.getSize())
+			);
+			return ui.showAddTask(task, taskList.getSize());
 		} catch (IOException e) {
-			System.out.println("Fail to write to file\n" + e.getMessage());
+			return "Fail to write to file\n";
+//			System.out.println("Fail to write to file\n" + e.getMessage());
 		}
 	}
 

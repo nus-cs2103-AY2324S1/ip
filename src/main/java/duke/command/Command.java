@@ -11,11 +11,11 @@ public abstract class Command {
 	// only inheritors can use
 	/**
 	 /**
-	 * Type of Comomand execution depends on the implementation.
+	 * Type of Command execution depends on the implementation.
 	 * @param taskList list of tasks to execute Command on.
 	 * @param u displays execution of Command.
 	 * @param storage can write tasks to store to text file depending on Command type.
 	 */
-	public abstract void execute(TaskList taskList, Ui u, Storage storage);
+	public abstract String execute(TaskList taskList, Ui u, Storage storage);
 
 }

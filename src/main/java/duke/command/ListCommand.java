@@ -11,11 +11,12 @@ public class ListCommand extends Command {
 	 * Ui displays listing to user.
 	 * Storage does not store anything in this case.
 	 * @param taskList list of tasks to execute.
-	 * @param u displays listing of task in taskList.
+	 * @param ui displays listing of task in taskList.
 	 * @param storage can write tasks to store on the text file.
 	 */
 	@Override
-	public void execute(TaskList taskList, Ui u, Storage storage) {
-		taskList.list();
+	public String execute(TaskList taskList, Ui ui, Storage storage) {
+		System.out.println(taskList.list(ui));
+		return taskList.list(ui);
 	}
 }

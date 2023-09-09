@@ -5,7 +5,7 @@ package duke.task;
  * Contains a description of what is to be done.
  */
 public class ToDo extends Task {
-	public ToDo(String description) {
+	public ToDo(String description){
 		super(description);
 	}
 
@@ -32,6 +32,10 @@ public class ToDo extends Task {
 	public String toString() {
 		return "[T]" + super.toString();
 	}
+
+	/**
+	 * @return Icon of ToDo
+	 */
 
 	public String getIcon() {
 		return "[D]" + super.getTask();

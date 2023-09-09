@@ -15,12 +15,14 @@ public class FindCommand extends Command {
 	}
 	/**
 	 * Finds the Tasks that contains keywords and prints thenm in a list
-	 * @param t list of Task.
-	 * @param u Ui to interact with User.
-	 * @param s Storage to store Task.
+	 * @param taskList list of Task.
+	 * @param ui Ui to interact with User.
+	 * @param storage Storage to store Task.
 	 */
 	@Override
-	public void execute(TaskList t, Ui u, Storage s) {
-		t.findTask(this.keyWord);
+	public String execute(TaskList taskList, Ui ui, Storage storage) {
+		StringBuilder br = taskList.findTask(this.keyWord);
+		System.out.println(ui.showFindTask(br));
+		return ui.showFindTask(br);
 	}
 }

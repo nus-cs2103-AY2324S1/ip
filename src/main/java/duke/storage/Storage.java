@@ -31,8 +31,8 @@ public class Storage {
 	 * @param task Thing to be done.
 	 * @throws IOException If unable to write file.
 	 */
-	public void writeFile(Task task) throws IOException {
-
+	public void addToFile(Task task) throws IOException {
+		taskList.add(task);
 		try {
 			FileWriter fw = new FileWriter(filePath, true);
 				fw.write(task.writeToFile());
@@ -78,34 +78,73 @@ public class Storage {
 			String s = str[i].trim();
 			str[i] = s;
 		}
-		StringBuilder br = new StringBuilder();
-		String taskType = str[0];
-		String isDone = str[1];
-		switch(taskType) {
-			case "T":
-				taskList.add(new ToDo(str[2]));
-				break;
-			case "D":
-				LocalDateTime startTime = LocalDateTime.parse(str[3]);
-				taskList.add(new DeadLine(str[2], startTime));
-				// t.add(new Deadline(str[2], str[3]));
-				break;
-			case "E":
-				LocalDateTime start = LocalDateTime.parse(str[3]);
-				LocalDateTime end = LocalDateTime.parse(str[4]);
-				taskList.add(new Event(str[2], start, end));
-				break;
-			default:
-				throw new IOException("read fail");
+		if (str.length % 3 == 0 && str.length != 0) {
+			StringBuilder br = new StringBuilder();
+			String taskType = str[0];
+			boolean isDone = Integer.parseInt(str[1]) == 1;
+			switch(taskType) {
+				case "T":
+					ToDo toDo = new ToDo(str[2]);
+					if (isDone) {
+						toDo.markAsDone();
+					}
+					taskList.add(toDo);
+					break;
+				case "D":
+					LocalDateTime startTime = LocalDateTime.parse(str[3]);
+					DeadLine deadLine = new DeadLine(str[2], startTime);
+					if (isDone) {
+						deadLine.markAsDone();
+					}
+					taskList.add(deadLine);
+					break;
+				case "E":
+					LocalDateTime start = LocalDateTime.parse(str[3]);
+					LocalDateTime end = LocalDateTime.parse(str[4]);
+					Event event = new Event(str[2], start, end);
+					if (isDone) {
+						event.markAsDone();
+					}
+					taskList.add(event);
+					break;
+				default:
+					throw new IOException("read fail");
+			}
 		}
 	}
+
 
 	/**
 	 * Deletes tasks from taskList.
 	 * @param i Position of tasks to be deleted.
 	 */
-	public void deleteTask(int i) {
+	public void deleteFromFile(int i) {
 		taskList.remove(i - 1);
+		try {
+			FileWriter fw = new FileWriter(filePath, true);
+			for (Task task: taskList) {
+				fw.write(task.writeToFile());
+				fw.write("\n");
+			}
+			fw.close();
+		} catch (IOException e) {
+			System.out.println("Delete fail " + e.getMessage());
+		}
+	}
+
+	public void updateMarkInFile() {
+		try {
+			FileWriter fw = new FileWriter(filePath);
+			StringBuilder br = new StringBuilder();
+			for (Task task: taskList) {
+				System.out.println(task.writeToFile());
+				br.append(task.writeToFile()).append("\n");
+			}
+			fw.write(br.toString());
+			fw.close();
+		} catch (IOException e) {
+			System.out.println("Updating fail " + e.getMessage());
+		}
 	}
 
 }
