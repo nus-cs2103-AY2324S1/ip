@@ -43,6 +43,8 @@ public class TaskList {
      * @param i The index of the task in the list (1-based indexing).
      */
     public void markTask(int i) {
+        assert i <= taskList.size();
+
         taskList.get(i - 1).markAsDone();
 
         Main.outputDialog("Nice! I've marked this task as done:");
@@ -57,6 +59,8 @@ public class TaskList {
      * @param i The index of the task in the list (1-based indexing).
      */
     public void unmarkTask(int i) {
+        assert i <= taskList.size();
+
         taskList.get(i - 1).markAsUndone();
         Main.outputDialog("OK, I've marked this task as not done yet:");
         Main.outputDialog(taskList.get(i - 1).toString());
@@ -70,6 +74,8 @@ public class TaskList {
      * @param i The index of the task in the list (1-based indexing).
      */
     public void deleteTask(int i) {
+        assert i <= taskList.size();
+
         Task removedTask = taskList.remove(i - 1);
 
         Main.outputDialog("Noted. I've removed this task:");
