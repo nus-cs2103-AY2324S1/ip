@@ -32,6 +32,7 @@ public class Duke {
             storage = new Storage("./data/duke.txt");
             tasks = new TaskList(storage.loadTasks());
         } catch (IOException ie) {
+            ui.showError("An error occurred while initializing the storage: " + ie.getMessage());
             System.exit(0);
         } catch (DukeException de) {
             ui.showLoadingError();

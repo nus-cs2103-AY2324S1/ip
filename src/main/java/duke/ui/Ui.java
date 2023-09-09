@@ -12,6 +12,8 @@ import duke.task.Task;
 public class Ui {
     private Scanner scanner;
 
+    private static final String LINE = "______________________________";
+
     /**
      * Constructor for Ui class. Initializes the Scanner object.
      */
@@ -30,10 +32,10 @@ public class Ui {
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
         return "Hello from\n" + logo
-                + "_____________________________________\n"
+                + LINE + "\n"
                 + "Hello! I 'm Jarvis.\n"
                 + "What can I do for you?\n"
-                + "_____________________________________\n";
+                + LINE + "\n";
     }
 
     /**
@@ -50,7 +52,7 @@ public class Ui {
      * Returns a line to format the UI.
      */
     public String showLine() {
-        return "______________________________";
+        return LINE;
     }
 
     /**

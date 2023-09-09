@@ -26,7 +26,8 @@ public class Parser {
         assert fullCommand != null : "Provided command string should not be null!";
         String[] splits = fullCommand.split(" ", 2);
         assert splits.length > 0 : "Command split array should have at least one element!";
-        switch (splits[0].trim()) {
+        String command = splits[0].trim();
+        switch (command) {
         case ("bye"):
             return new ExitCommand();
         case ("list"):
