@@ -36,6 +36,7 @@ public class DeleteCommand extends ShibaCommand {
         Replier.printWithNoIndents("You now have " + tasks.size() + taskWord
                 + " in the list. Some headpats please?");
         Replier.reply();
+
         tasks.save();
     }
 }
