@@ -4,10 +4,12 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.LinkedList;
 
 /**
  * A GUI for Duke using FXML.
@@ -25,8 +27,8 @@ public class Main extends Application {
 
       Scene scene = new Scene(ap);
       Font.loadFont(getClass().getResourceAsStream("/styles/RobotoMono.ttf"), 16);
-
       scene.getStylesheets().add(Main.class.getResource("/styles/application.css").toExternalForm());
+
       stage.setTitle("Duke");
       stage.setScene(scene);
       stage.show();
