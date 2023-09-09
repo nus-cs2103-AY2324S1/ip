@@ -1,3 +1,5 @@
+package CR7;
+
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -11,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private CR7 cr7 = new CR7("src/main/data/CR7.txt");
+    private CR7 cr7 = new CR7("src/main/data/CR7.CR7.txt");
 
     @Override
     public void start(Stage stage) {

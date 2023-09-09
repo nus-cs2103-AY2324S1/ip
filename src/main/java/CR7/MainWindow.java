@@ -1,3 +1,6 @@
+package CR7;
+
+import CR7.CR7;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -6,8 +9,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
+
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * Controller for CR7.MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -23,14 +29,29 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/kana.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/westbrickk.jpg"));
+    private boolean isWelcomeMessageSent = false; // Flag to track if welcome message has been sent
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        sendWelcomeMessage();
     }
 
     public void setDuke(CR7 d) {
         cr7 = d;
+    }
+
+    /**
+     * Creates and sends the welcome message if it hasn't been sent yet.
+     */
+    private void sendWelcomeMessage() {
+        if (!isWelcomeMessageSent) {
+            String welcomeMsg = "Welcome to the chat! Type 'bye' to exit.\n";
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getDukeDialog(welcomeMsg, dukeImage)
+            );
+            isWelcomeMessageSent = true; // Set the flag to true
+        }
     }
 
     /**
@@ -45,7 +66,12 @@ public class MainWindow extends AnchorPane {
             dialogContainer.getChildren().addAll(
                     DialogBox.getDukeDialog(exitMsg, dukeImage)
             );
-            Platform.exit();
+            // Create a PauseTransition to delay the application exit
+            PauseTransition delay = new PauseTransition(Duration.seconds(2)); // Adjust the duration as needed
+            delay.setOnFinished(event -> {
+                Platform.exit(); // Exit the application after the delay
+            });
+            delay.play();
         }
         String response = cr7.getResponse(input);
         dialogContainer.getChildren().addAll(

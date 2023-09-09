@@ -18,7 +18,7 @@ public class Ui {
      * Displays a welcome message to the user.
      */
     public String showWelcome() {
-        return "Hello! I'm CR7\n" + "What can I do for you?\n";
+        return "Hello! I'm CR7.CR7\n" + "What can I do for you?\n";
     }
 
     /**

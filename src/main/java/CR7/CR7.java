@@ -1,24 +1,13 @@
+package CR7;
+
 import commands.*;
 import functions.*;
-
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- * The main class for running the CR7 task management application.
+ * The main class for running the CR7.CR7 task management application.
  */
 public class CR7 {
 
@@ -27,7 +16,7 @@ public class CR7 {
     private TaskList tasks;
 
     /**
-     * Runs the CR7 application by displaying a welcome message, processing user commands,
+     * Runs the CR7.CR7 application by displaying a welcome message, processing user commands,
      * and executing corresponding actions.
      */
     public void run() {
@@ -35,7 +24,7 @@ public class CR7 {
     }
 
     /**
-     * Constructs a CR7 object with the provided file path for data storage.
+     * Constructs a CR7.CR7 object with the provided file path for data storage.
      *
      * @param filePath The file path for storing task data.
      */
@@ -55,12 +44,12 @@ public class CR7 {
     }
 
     /**
-     * The main method to start the CR7 application.
+     * The main method to start the CR7.CR7 application.
      *
      * @param args The command-line arguments (not used in this context).
      */
     public static void main(String[] args) {
-        new CR7("src/main/data/CR7.txt").run();
+        new CR7("src/main/data/CR7.CR7.txt").run();
     }
 
     /**

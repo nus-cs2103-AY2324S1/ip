@@ -1,3 +1,5 @@
+package CR7;
+
 import javafx.application.Application;
 
 /**
