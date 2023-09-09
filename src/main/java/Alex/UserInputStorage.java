@@ -10,8 +10,16 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * A class that is used to deal with user data storage. For example, storing all the task(s) in TaskList into
+ * the file Alex.txt after every termination of the chatbot execution. Similarly, restore all the task(s) in
+ * Alex.txt into TaskList every time when the user run the chatbot.
+ */
 public class UserInputStorage {
 
+    /**
+     * A constant that is used to represent time format throughout this program. The time format is yyyy-MM-dd HHmm.
+     */
     public static final DateTimeFormatter TIMEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     public static void printFileContent() {
@@ -30,6 +38,10 @@ public class UserInputStorage {
         }
     }
 
+    /**
+     * A static method that is used to store all the task(s) in TaskList to the file Alex.txt
+     * after every termination of the Alex bot execution.
+     */
     public static void storeToFile() {
         try {
             FileWriter fw = new FileWriter("data/Alex.txt");
@@ -62,6 +74,10 @@ public class UserInputStorage {
         }
     }
 
+    /**
+     * A static method that is used to load all the user data (task) from the file Alex.txt into TaskList
+     * every time the user start running Alex bot.
+     */
     public static void loadUserDateFromFile() {
         try {
             File userDataFile = new File("data/Alex.txt");

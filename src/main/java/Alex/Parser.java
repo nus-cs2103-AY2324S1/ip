@@ -1,6 +1,16 @@
 package Alex;
 
+/**
+ * A class that represents "user command parser" to parse the user input command string.
+ */
 public class Parser {
+    /**
+     * A static method that is used to parse the user input command string and return the corresponding
+     * command instance.
+     *
+     * @param command user input command string.
+     * @return the corresponding command instance representing the command specified by user.
+     */
     public static Command parse(String command) {
         int commandLength = command.length();
         Command c;
