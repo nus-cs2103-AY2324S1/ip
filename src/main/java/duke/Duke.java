@@ -52,24 +52,8 @@ public class Duke extends Application {
         this.ui = new Ui();
         this.storage = new Storage(filepath);
         this.parser = new Parser(ui, taskList, botInUse, storage);
-    }
 
-    /**
-     * Runs the Duke bot.
-     */
-    public void run() {
         storage.loadFileToTaskManager(taskList);
-        ui.greetings();
-        Scanner sc = new Scanner(System.in);
-        while (botInUse) {
-            String input = sc.nextLine();
-            try {
-                parser.listen(input);
-            } catch (InvalidUserInputException e) {
-                ui.invalidInputRes();
-            }
-            botInUse = parser.updateBotUsage();
-        }
     }
 
     @Override
@@ -132,13 +116,6 @@ public class Duke extends Application {
         });
 
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-//        sendButton.setOnMouseClicked((event) -> {
-//            handleUserInput();
-//        });
-//
-//        userInput.setOnAction((event) -> {
-//            handleUserInput();
-//        });
     }
 
     /**
@@ -156,19 +133,26 @@ public class Duke extends Application {
 
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns response based on user's input and also check if input invokes bot to shut down afterwards.
+     * @param input Represents user's input.
+     * @return A String response for the chatbot to reply to user.
      */
     String getResponse(String input) {
         try {
-            return parser.listen(input);
+            String response = parser.listen(input);
+            botInUse = parser.updateBotUsage();
+            return response;
         } catch (InvalidUserInputException e) {
             return ui.invalidInputRes();
         }
     }
 
-
-    public static void main(String[] args) {
-        new Duke().run();
+    /**
+     * Returns if the bot is in use.
+     * @return Boolean to represent if bot is in use.
+     */
+    public boolean isBotInUse() {
+        return botInUse;
     }
+
 }
