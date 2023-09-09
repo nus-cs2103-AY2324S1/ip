@@ -29,6 +29,8 @@ public class DialogBox extends HBox {
     @FXML
     private Pane messageOutline;
 
+    //@@author wanghejin-reused
+    //Reused from peer shishirbychapur(github username) with minor modifications
     private DialogBox(String text, Image img, boolean isUser) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));

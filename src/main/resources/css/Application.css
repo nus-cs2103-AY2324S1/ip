@@ -1,12 +1,11 @@
 .text-area {
-    -fx-border-color: #2e333d;
-    -fx-text-fill: #ffffff;
-    -fx-control-inner-background: #2e333d;
+    -fx-border-color: #f6f7f2;
     -fx-border-radius: 20;
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
     -fx-text-box-border: transparent;
-    -fx-background-color: #2e333d;
+    -fx-background-color: beige;
+
 }
 
 .chat {
@@ -21,13 +20,12 @@
 .message-text {
     -fx-border-radius: 20;
     -fx-background-color: #ffffff;
-    -fx-border-color: "#2e333d";
+    -fx-border-color: "#f6f7f2";
 }
 
 
 .scroll-pane {
-    -fx-background: #202329;
-    -fx-border-color: #202329;
+    -fx-background: #f7f7f2;
 }
 
 .blue-background {
@@ -60,11 +58,7 @@
 
 }
 
-.scroll-bar .increment-arrow,
-.scroll-bar .decrement-arrow {
-    -fx-shape : " ";
-    -fx-padding :0.15em 0.0;
-}
+
 
 .scroll-bar:vertical .increment-arrow,
 .scroll-bar:vertical .decrement-arrow {
@@ -73,7 +67,7 @@
 }
 
 .scroll-bar:vertical .thumb {
-    -fx-background-color : #ffffff;
+    -fx-background-color : #c1c0b9;
     -fx-background-insets : 2.0, 0.0, 0.0;
     -fx-background-radius : 2.0em;
 }

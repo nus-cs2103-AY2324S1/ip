@@ -15,13 +15,10 @@
                    AnchorPane.bottomAnchor="1.0" />
         <Button fx:id="sendButton" layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput"
                 prefHeight="41.0" prefWidth="76.0" text="Send" />
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0"
-                    vvalue="1.0">
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="557.0" prefWidth="400.0"
+                    styleClass="chat" stylesheets="@../css/Application.css">
             <content>
-                <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" />
-            </content>
-        </ScrollPane>
+                <VBox fx:id="dialogContainer" prefHeight="314.0" prefWidth="324.0" />
+            </content></ScrollPane>
     </children>
 </AnchorPane>
-
-
