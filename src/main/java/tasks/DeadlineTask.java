@@ -23,6 +23,7 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String desc, LocalDateTime deadline, int isMarked) {
         super(desc);
+        assert deadline != null : "Deadline should not be null.";
         this.deadline = deadline;
         if (isMarked == 1) {
             this.isDone = true;

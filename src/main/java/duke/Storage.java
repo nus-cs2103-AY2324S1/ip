@@ -22,6 +22,7 @@ public class Storage {
      * @param filename Name of file to read or write task data to or from.
      */
     public Storage(String filename) {
+        assert !filename.equals("") : "File name should not be empty.";
         this.FILENAME = filename;
     }
 

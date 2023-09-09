@@ -26,6 +26,8 @@ public class EventTask extends Task {
      */
     public EventTask(String desc, LocalDateTime start, LocalDateTime end, int isMarked) {
         super(desc);
+        assert start != null : "Start should not be null.";
+        assert end != null : "End should not be null.";
         this.start = start;
         this.end = end;
         if (isMarked == 1) {
