@@ -6,8 +6,8 @@ package thea;
  * This class has data on the keyword.
  * This class is a subclass of the abstract class Command with abstract method execute.
  */
-public class FindCommand extends Command{
-    String keyword;
+public class FindCommand extends Command {
+    private final String keyword;
 
     /**
      * Constructs a new FindCommand object.

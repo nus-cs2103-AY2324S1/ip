@@ -3,18 +3,16 @@ package thea;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.Files;
-
 import java.util.ArrayList;
 
 /**
  * Represents a class that deals with saving and loading data.
  */
 public class Storage {
-    String fileName;
+    private final String fileName;
 
     /**
      * Constructs a new Storage object.
@@ -28,11 +26,10 @@ public class Storage {
     /**
      * Loads data from file.
      *
-     * @return a past saved task list from last time use
-     * of program if present, an empty task list if no past data found.
+     * @return a past saved task list from last time use of program,an empty task list if not present.
      * @throws FileCorruptedException when the data is not in expected format.
      */
-    public ArrayList<Task> retrieveTasks() throws FileCorruptedException{
+    public ArrayList<Task> retrieveTasks() throws FileCorruptedException {
         String currentDir = System.getProperty("user.dir");
         Path dataDirPath = Paths.get(currentDir, "data");
         Path path = Paths.get(currentDir, "data", this.fileName);
@@ -54,7 +51,7 @@ public class Storage {
                 } else if (splitLine[0].equals("D")) {
                     task = new Deadline(splitLine[2], splitLine[3]);
                 } else if (splitLine[0].equals("E")) {
-                    task = new Event(splitLine[2],splitLine[3], splitLine[4]);
+                    task = new Event(splitLine[2], splitLine[3], splitLine[4]);
                 } else {
                     throw new FileCorruptedException("Unexpected File Format Found. File might be corrupted.");
                 }
@@ -79,9 +76,9 @@ public class Storage {
      */
     public void saveTaskList(TaskList tasks) {
         String currentDir = System.getProperty("user.dir");
-        Path dataDirPath =Paths.get(currentDir, "data");
+        Path dataDirPath = Paths.get(currentDir, "data");
         Path path = Paths.get(currentDir, "data", this.fileName);
-        if(!Files.exists(dataDirPath)) {
+        if (!Files.exists(dataDirPath)) {
             try {
                 Files.createDirectories(dataDirPath);
             } catch (IOException e) {

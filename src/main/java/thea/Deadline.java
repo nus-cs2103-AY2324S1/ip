@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
  * This class has dueDate which is the characteristic of a Deadline task.
  * This class is a subclass of the abstract class Task.
  */
-public class Deadline extends Task{
-    LocalDateTime dueDate;
+public class Deadline extends Task {
+    private final LocalDateTime dueDate;
 
     /**
      * Constructs a new Deadline object.

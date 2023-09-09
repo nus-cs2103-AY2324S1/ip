@@ -5,8 +5,8 @@ package thea;
  * This class has a description and an indicator of whether the task is done.
  */
 public class Task {
-    boolean isDone;
-    final String taskName;
+    protected boolean isDone;
+    protected final String taskName;
 
     /**
      * Constructs a new Task object.

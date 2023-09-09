@@ -6,7 +6,7 @@ package thea;
  * This class is a subclass of the abstract class Command with abstract method execute.
  */
 public class DeleteCommand extends Command {
-    int index;
+    private int index;
 
     /**
      * Constructs a new DeleteCommand object.
@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
         try {
             try {
                 ui.taskDeleted(tasks.get(this.index), tasks);
-            } catch (java.lang.IndexOutOfBoundsException e){
+            } catch (java.lang.IndexOutOfBoundsException e) {
                 throw new IndexOutOfBoundsException("There is currently no task " + (index + 1));
             }
             tasks.delete(this.index);

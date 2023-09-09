@@ -3,7 +3,7 @@ package thea;
 /**
  * Represents an exception to use when users input date and time in wrong formats.
  */
-public class WrongDateTimeFormatException extends Exception{
+public class WrongDateTimeFormatException extends Exception {
 
     /**
      * Constructs a new WrongDateTimeFormatException object.

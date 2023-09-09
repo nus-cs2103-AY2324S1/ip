@@ -6,7 +6,7 @@ package thea;
  * This class is a subclass of the abstract class Command with abstract method execute.
  */
 public class UnmarkCommand extends Command {
-    int index;
+    private final int index;
 
     /**
      * Constructs a new UnmarkCommand object.
