@@ -4,7 +4,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.TaskList;
 import duke.task.ToDo;
-
+import duke.task.Task;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -69,6 +69,68 @@ public class Storage {
     }
 
     /**
+     * Gets type of task from a line extracted from task file.
+     * @param line Line containing task details.
+     * @return Type of the task represented by line.
+     */
+    public String getTaskType(String line) {
+        String[] lineSplit = line.split("\\[");
+        return lineSplit[1].substring(0, 1);
+    }
+
+    /**
+     * Gets mark status of task from a line extracted from task file.
+     * @param line Line containing task details.
+     * @return Boolean representing whether the task is marked.
+     */
+    public boolean getMarkStatus(String line) {
+        String[] lineSplit = line.split("\\[");
+        return lineSplit[2].charAt(0) == 'X';
+    }
+
+    /**
+     * Gets task details of task from a line extracted from task file.
+     * @param line Line containing task details.
+     * @return Details of the tasks.
+     */
+    public String getTaskDetails(String line) {
+        String[] lineSplit = line.split("\\[");
+        return  lineSplit[2].split("] ")[1];
+    }
+
+    /**
+     * Produces a deadline task based on the taskDetails and mark status input.
+     * @param taskDetails Details of task extracted from task file.
+     * @param markStatus Mark status of task extracted from task file.
+     * @return A deadline task aligned with taskDetails and mark status.
+     */
+    public Deadline produceDeadlineTask(String taskDetails, boolean markStatus) {
+        String[] taskDetailsSplit = taskDetails.split(" \\(by: ");
+        String description = taskDetailsSplit[0];
+        String by = taskDetailsSplit[1].substring(0, taskDetailsSplit[1].length() - 1);
+        return new Deadline(description, markStatus, by);
+    }
+
+    /**
+     * Produces an event task based on the taskDetails and mark status input.
+     * @param taskDetails Details of task extracted from task file.
+     * @param markStatus Mark status of task extracted from task file.
+     * @return An event task aligned with taskDetails and mark status.
+     */
+    public Event produceEventTask(String taskDetails, boolean markStatus) {
+        // Extract description from task details
+        String[] taskDetailsSplit = taskDetails.split(" \\(from: ");
+        String description = taskDetailsSplit[0];
+
+        // Split details into from and to
+        String[] taskDetailsSplit2 = taskDetailsSplit[1].split(" to: ");
+        String from = taskDetailsSplit2[0];
+        String to = taskDetailsSplit2[1]
+                .substring(0, taskDetailsSplit[1].split(" to: ")[1].length() - 1);
+        return new Event(description, markStatus, from, to);
+    }
+
+    /**
      * Load content of task file into TaskList. This will populate the TaskList with the necessary Task objects.
      * @param taskList TaskList to store the tasks in the task file.
      */
@@ -77,38 +139,26 @@ public class Storage {
             String savedText = readFile();
             Scanner scanner = new Scanner(savedText);
             while (scanner.hasNextLine()) {
+
                 String line = scanner.nextLine();
-                // line = "A. [B][C] Details" where A is index of task, B is type of task, C is mark status
-                String[] lineSplit = line.split("\\[");
-                int taskIndex = Integer.parseInt(lineSplit[0].split("\\.")[0]);
-                String taskType = lineSplit[1].substring(0 , 1);
-                boolean markStatus = lineSplit[2].charAt(0) == 'X';
-                String taskDetails = lineSplit[2].split("] ")[1];
-                if (taskType.equals("T")) {
-                    // create to do task
-                    ToDo td = new ToDo(taskDetails, markStatus);
-                    taskList.addTask(td);
-                } else if (taskType.equals("D")) {
-                    // create deadline task
-                    String[] taskDetailsSplit = taskDetails.split(" \\(by: ");
-                    String description = taskDetailsSplit[0];
-                    String by = taskDetailsSplit[1].substring(0, taskDetailsSplit[1].length() - 1);
-                    Deadline d = new Deadline(description, markStatus, by);
-                    taskList.addTask(d);
-                } else if (taskType.equals("E")) {
-                    // Extract description from task details
-                    String[] taskDetailsSplit = taskDetails.split(" \\(from: ");
-                    String description = taskDetailsSplit[0];
+                // line is represented as: "A. [B][C] Details" where A is index of task, B is type of task, C is mark status
+                String taskType = getTaskType(line);
+                boolean markStatus = getMarkStatus(line);
+                String taskDetails = getTaskDetails(line);
+                Task taskToAdd = null;
 
-                    // Split details into from and to
-                    String[] taskDetailsSplit2 = taskDetailsSplit[1].split(" to: ");
-                    String from = taskDetailsSplit2[0];
-                    String to = taskDetailsSplit2[1]
-                                .substring(0, taskDetailsSplit[1].split(" to: ")[1].length() - 1);
-                    Event e = new Event(description, markStatus, from, to);
-                    taskList.addTask(e);
+                switch (taskType) {
+                    case "T":
+                        taskToAdd = new ToDo(taskDetails, markStatus);
+                        break;
+                    case "D":
+                        taskToAdd = produceDeadlineTask(taskDetails, markStatus);
+                        break;
+                    case "E":
+                        taskToAdd = produceEventTask(taskDetails, markStatus);
+                        break;
                 }
-
+                taskList.addTask(taskToAdd);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

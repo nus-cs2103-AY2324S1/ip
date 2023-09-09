@@ -113,7 +113,7 @@ public class Parser {
                 TaskList tempTL = new TaskList();
                 for (int i = 0; i < taskList.getSize(); i++) {
                     Task t = taskList.getTask(i);
-                    if (t.containString(inputToFind)) {
+                    if (t.containsString(inputToFind)) {
                         tempTL.addTask(t);
                     }
                 }

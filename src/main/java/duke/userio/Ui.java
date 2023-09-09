@@ -1,6 +1,10 @@
 package duke.userio;
 
-import duke.task.*;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.ToDo;
+import duke.task.Deadline;
+import duke.task.Event;
 
 /**
  * Class to generate appropriate responses.
@@ -89,7 +93,7 @@ public class Ui {
     }
 
     /**
-     * Informs that a Event task has been added and the total number of tasks in the list.
+     * Informs that an Event task has been added and the total number of tasks in the list.
      * @param eventTask Event task to be added.
      * @param taskList TaskList containing Event task.
      */
