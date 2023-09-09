@@ -54,6 +54,8 @@ public class TaskList {
      * @throws DukeException If the index is invalid.
      */
     public Task deleteTask(int index) throws DukeException {
+        assert index >= 0 : "Index should be non-negative";
+
         if (index < 0 || index >= tasks.size()) {
             throw new DukeException("Invalid task number. Please provide a valid task number.");
         }
@@ -66,6 +68,8 @@ public class TaskList {
      * @param index The index of the task to be marked as done.
      */
     public void markTaskAsDone(int index) {
+        assert index >= 0 : "Index should be non-negative";
+
         tasks.get(index).markAsDone();
     }
 
@@ -75,6 +79,8 @@ public class TaskList {
      * @param index The index of the task to be marked as not done.
      */
     public void markTaskAsUndone(int index) {
+        assert index >= 0 : "Index should be non-negative";
+
         tasks.get(index).markAsNotDone();
     }
 
@@ -86,6 +92,8 @@ public class TaskList {
      * @throws DukeException If the index is invalid.
      */
     public Task get(int index) throws DukeException {
+        assert index >= 0 : "Index should be non-negative";
+
         if (index < 0 || index >= tasks.size()) {
             throw new DukeException("Invalid task number. Please provide a valid task number.");
         }

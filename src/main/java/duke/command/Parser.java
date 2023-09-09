@@ -23,6 +23,9 @@ public class Parser {
      */
     public static Command parse(String fullCommand) throws DukeException {
 
+        // Add assertions to check assumptions about the input
+        assert fullCommand != null : "Command should not be null";
+
         String[] commandParts = fullCommand.split(" ", 2);
         String commandTypeStr = commandParts[0].toLowerCase();
 
@@ -62,11 +65,17 @@ public class Parser {
         case LIST:
             return new ListCommand();
         case MARK:
-            return new MarkAsDoneCommand(Integer.parseInt(commandParts[1]));
+            int index = Integer.parseInt(commandParts[1]);
+            assert index >= 0 : "Index should be non-negative";
+            return new MarkAsDoneCommand(index);
         case UNMARK:
-            return new MarkAsUndoneCommand(Integer.parseInt(commandParts[1]));
+            int number = Integer.parseInt(commandParts[1]);
+            assert number >= 0 : "Index should be non-negative";
+            return new MarkAsUndoneCommand(number);
         case DELETE:
-            return new DeleteCommand(Integer.parseInt(commandParts[1]));
+            int taskIndex = Integer.parseInt(commandParts[1]);
+            assert taskIndex >= 0 : "Index should be non-negative";
+            return new DeleteCommand(taskIndex);
         case FIND:
             return new FindCommand(commandParts[1]);
         case BYE:

@@ -36,10 +36,10 @@ public class MainWindow extends AnchorPane {
     private Duke duke;
 
     /** The user's avatar image. */
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image userImage;
 
     /** Duke's avatar image. */
-    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image dukeImage;
 
     /**
      * Initializes the `MainWindow` controller after the FXML has been loaded.
@@ -48,6 +48,23 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
+        // Add assertions to check assumptions about UI components
+        assert scrollPane != null : "ScrollPane should not be null";
+        assert dialogContainer != null : "DialogContainer should not be null";
+        assert userInput != null : "UserInput should not be null";
+        assert sendButton != null : "SendButton should not be null";
+
+        String dukeImagePath = "/images/DaDuke.png";
+        String userImagePath = "/images/DaUser.png";
+
+        // Use assertions to check for valid image paths
+        assert getClass().getResource(dukeImagePath) != null : "Duke image path is invalid: " + dukeImagePath;
+        assert getClass().getResource(userImagePath) != null : "User image path is invalid: " + userImagePath;
+
+        // Load the images
+        userImage = new Image(getClass().getResourceAsStream(userImagePath));
+        dukeImage = new Image(getClass().getResourceAsStream(dukeImagePath));
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
