@@ -16,6 +16,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
         System.out.println("Hello from\n" + logo);
+        System.out.println("Hello from Branch-Level-7\n");
         System.out.println("_____________________________________\n");
         System.out.println("Hello! I 'm Jarvis.\n");
         System.out.println("What can I do for you?\n");
