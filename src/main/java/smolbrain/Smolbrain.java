@@ -3,6 +3,7 @@ package smolbrain;
 import smolbrain.command.Command;
 import smolbrain.exception.InvalidDateTimeException;
 import smolbrain.exception.InvalidNumberException;
+import smolbrain.exception.InvalidPriorityException;
 import smolbrain.exception.InvalidRangeException;
 import smolbrain.exception.MissingDescriptionException;
 import smolbrain.exception.MissingKeywordException;
@@ -47,7 +48,8 @@ public class Smolbrain {
 
             c.execute(tasks, ui, storage);
         } catch (InvalidRangeException | MissingDescriptionException | MissingTimeException
-                 | InvalidNumberException | InvalidDateTimeException | MissingKeywordException e) {
+                 | InvalidNumberException | InvalidDateTimeException | MissingKeywordException
+                 | InvalidPriorityException e) {
             ui.showError(e);
         }
     }

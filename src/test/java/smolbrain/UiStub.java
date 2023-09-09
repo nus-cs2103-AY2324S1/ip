@@ -10,7 +10,7 @@ public class UiStub {
     }
 
     public String showError(Exception e) {
-        return "☹ OOPS!!! " + e;
+        return "OOPS!!! " + e;
     }
 
     public String showMessage(String s) {

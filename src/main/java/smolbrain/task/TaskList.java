@@ -58,6 +58,15 @@ public class TaskList {
     }
 
     /**
+     * Sets the priority the given task in tasklist.
+     * @param id Id of task to set priority.
+     * @param level Priority level to set.
+     */
+    public void setTaskPriority(int id, int level) {
+        tasklist.get(id).setPriorityLevel(level);
+    }
+
+    /**
      * Returns the number of tasks in tasklist.
      *
      * @return Number of tasks in tasklist.

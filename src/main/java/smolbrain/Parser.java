@@ -12,9 +12,11 @@ import smolbrain.command.FindCommand;
 import smolbrain.command.InvalidCommand;
 import smolbrain.command.ListCommand;
 import smolbrain.command.MarkCommand;
+import smolbrain.command.PriorityCommand;
 import smolbrain.command.UnmarkCommand;
 import smolbrain.exception.InvalidDateTimeException;
 import smolbrain.exception.InvalidNumberException;
+import smolbrain.exception.InvalidPriorityException;
 import smolbrain.exception.InvalidRangeException;
 import smolbrain.exception.MissingDescriptionException;
 import smolbrain.exception.MissingKeywordException;
@@ -38,7 +40,6 @@ public class Parser {
      * Creates a parser.
      */
     public Parser() {
-
     }
 
     /**
@@ -245,6 +246,38 @@ public class Parser {
     }
 
     /**
+     * Parses a priority command.
+     *
+     * @param words Array of strings that was split by spaces.
+     * @return Priority command.
+     * @throws InvalidNumberException If the provided number cannot be parsed.
+     * @throws InvalidPriorityException If the provided priority level is out of range.
+     */
+    public static Command parsePriority(String[] words) throws InvalidNumberException, InvalidPriorityException {
+        if (words.length < 2) {
+            throw new InvalidNumberException("select the task");
+        } else if (words.length < 3) {
+            throw new InvalidNumberException("set as priority level");
+        }
+        int id;
+        int level;
+        try {
+            id = Integer.parseInt(words[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new InvalidNumberException("select the task");
+        }
+        try {
+            level = Integer.parseInt(words[2]);
+            if (!(level >= 0 && level <= 3)) {
+                throw new InvalidPriorityException();
+            }
+        } catch (NumberFormatException e) {
+            throw new InvalidNumberException("set as priority level");
+        }
+        return new PriorityCommand(id, level);
+    }
+
+    /**
      * Parses the given input by the user including passing it into its separate parse functions.
      *
      * @param input String of command.
@@ -253,11 +286,13 @@ public class Parser {
      * @throws MissingTimeException If there was no time provided.
      * @throws InvalidDateTimeException If the provided date or time was invalid.
      * @throws InvalidNumberException If the provided number cannot be parsed.
+     * @throws InvalidPriorityException If the provided priority level is invalid.
      * @throws InvalidRangeException If the provided number is out of range.
      * @throws MissingKeywordException If no keyword was provided.
      */
     public static Command parse(String input) throws MissingDescriptionException, MissingTimeException,
-            InvalidDateTimeException, InvalidNumberException, InvalidRangeException, MissingKeywordException {
+            InvalidDateTimeException, InvalidNumberException, InvalidRangeException, MissingKeywordException,
+            InvalidPriorityException {
 
         String[] words = input.split(" ");
 
@@ -288,6 +323,9 @@ public class Parser {
 
         case "find":
             return parseFind(words);
+
+        case "priority":
+            return parsePriority(words);
 
         default:
             return new InvalidCommand();
