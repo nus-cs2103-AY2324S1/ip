@@ -4,10 +4,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    protected Duke duke;
-
-    public Task(Duke duke, String description) {
-        this.duke = duke;
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }

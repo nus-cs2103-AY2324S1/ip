@@ -1,13 +1,9 @@
 package duke;
 
 public class Ui {
-    private Duke duke;
-    public Ui(Duke duke) {
-        this.duke = duke;
-    }
 
     public String echo(String promptText, TaskList tasks) throws DukeException {
-        Parser parser = new Parser(duke, tasks);
+        Parser parser = new Parser(tasks);
         if (promptText.equals("bye")) {
             return exit();
         }

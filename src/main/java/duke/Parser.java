@@ -4,13 +4,10 @@ import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 public class Parser {
-
-    protected Duke duke;
     TaskList taskList;
     private static final Pattern DATE_PATTERN_DASH = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
     private static final Pattern DATE_PATTERN_SLASH = Pattern.compile("^\\d{1,2}/\\d{1,2}/\\d{4} .*\\d{4}$");
-    public Parser(Duke duke, TaskList taskList) {
-        this.duke = duke;
+    public Parser(TaskList taskList) {
         this.taskList = taskList;
     }
 
@@ -23,7 +20,7 @@ public class Parser {
         String returnString = "";
         if (promptText.startsWith("todo")) {
             try {
-                Task todo = new Todo(duke, promptText.substring(5));
+                Task todo = new Todo(promptText.substring(5));
                 String returnStatement = taskList.add(todo, true);
                 taskList.writeToFile();
                 returnString = returnStatement;
@@ -38,7 +35,7 @@ public class Parser {
                 String date = parts[1].substring(3);
                 if (DATE_PATTERN_DASH.matcher(date).matches()) {
                     String[] dateParts = date.split("-");
-                    Task deadline = new Deadline(duke, parts[0].substring(9),
+                    Task deadline = new Deadline(parts[0].substring(9),
                             LocalDate.of(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[2])));
                     returnString = taskList.add(deadline, true);
                 }
@@ -47,12 +44,12 @@ public class Parser {
                     int day = dateParts[0].length() == 1 ? Integer.valueOf("0" + dateParts[0]) : Integer.valueOf(dateParts[0]);
                     int month = dateParts[1].length() == 1 ? Integer.valueOf("0" + dateParts[1]) : Integer.valueOf(dateParts[1]);
                     String[] yearParts = dateParts[2].split(" ");
-                    Task deadline = new Deadline(duke, parts[0].substring(9),
+                    Task deadline = new Deadline(parts[0].substring(9),
                             LocalDate.of(Integer.valueOf(yearParts[0]), month, day));
                     returnString = taskList.add(deadline, true);
                 }
                 else {
-                    Task deadline = new Deadline(duke, parts[0].substring(9), parts[1].substring(2));
+                    Task deadline = new Deadline(parts[0].substring(9), parts[1].substring(2));
                     returnString = taskList.add(deadline, true);
                 }
                 taskList.writeToFile();
@@ -73,7 +70,7 @@ public class Parser {
                         DATE_PATTERN_DASH.matcher(endDate).matches()) {
                     String[] startDateParts = startDate.split("-");
                     String[] endDateParts = endDate.split("-");
-                    Task event = new Event(duke, parts[0].substring(6),
+                    Task event = new Event(parts[0].substring(6),
                             LocalDate.of(Integer.parseInt(startDateParts[0]),
                             Integer.parseInt(startDateParts[1]), Integer.parseInt(startDateParts[2])),
                             LocalDate.of(Integer.parseInt(endDateParts[0]), Integer.parseInt(endDateParts[1]),
@@ -93,11 +90,11 @@ public class Parser {
                             Integer.valueOf(endDateParts[1]);
                     String[] startYearParts = startDateParts[2].split(" ");
                     String[] endYearParts = endDateParts[2].split(" ");
-                    Task event = new Event(duke, parts[0].substring(6), LocalDate.of(Integer.valueOf(startYearParts[0]),
+                    Task event = new Event(parts[0].substring(6), LocalDate.of(Integer.valueOf(startYearParts[0]),
                             startMonth, startDay), LocalDate.of(Integer.valueOf(endYearParts[0]), endMonth, endDay));
                     returnString = taskList.add(event, true);
                 } else {
-                    Task event = new Event(duke, parts[0].substring(6), startDate, endDate);
+                    Task event = new Event(parts[0].substring(6), startDate, endDate);
                     returnString = taskList.add(event, true);
                 }
                 taskList.writeToFile();

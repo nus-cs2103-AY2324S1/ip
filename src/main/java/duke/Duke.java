@@ -10,8 +10,8 @@ public class Duke {
      * @throws DukeException    The exception to be thrown.
      */
     public Duke(String filePath) throws DukeException {
-        ui = new Ui(this);
-        storage = new Storage(this, filePath);
+        ui = new Ui();
+        storage = new Storage(filePath);
         try {
             tasks = storage.load();
         } catch (DukeException e) {
