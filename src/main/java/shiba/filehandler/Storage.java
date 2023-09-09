@@ -39,6 +39,7 @@ public class Storage {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             }
+            assert file.exists();
         } catch (IOException e) {
             throw new ShibaException("Error creating save file!");
         }

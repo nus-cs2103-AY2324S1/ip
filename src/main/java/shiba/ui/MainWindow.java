@@ -60,11 +60,8 @@ public class MainWindow extends Application {
 
         primaryStage.show();
 
-        if (singleton == null) {
-            singleton = this;
-        } else {
-            System.out.println("Warning: Multiple instances of MainWindow detected!");
-        }
+        assert singleton == null : "Multiple instances of MainWindow detected!";
+        singleton = this;
 
         Shiba.getInstance().start();
     }
