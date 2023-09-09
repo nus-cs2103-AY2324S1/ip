@@ -11,7 +11,7 @@ import smolbrain.task.TaskList;
 public class MarkCommand implements Command {
 
     private int id;
-    private boolean loading;
+    private boolean isLoading;
 
     /**
      * Creates the command.
@@ -44,7 +44,7 @@ public class MarkCommand implements Command {
      */
     @Override
     public void setLoading() {
-        this.loading = true;
+        this.isLoading = true;
     }
 
 }

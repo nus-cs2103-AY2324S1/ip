@@ -10,7 +10,7 @@ import smolbrain.task.TaskList;
 public class FindCommand implements Command {
 
     private String keyword;
-    private boolean loading;
+    private boolean isLoading;
 
     /**
      * Creates the command.
@@ -39,7 +39,7 @@ public class FindCommand implements Command {
      */
     @Override
     public void setLoading() {
-        this.loading = true;
+        this.isLoading = true;
     }
 
 }
