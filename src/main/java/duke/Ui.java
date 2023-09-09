@@ -11,6 +11,7 @@ public class Ui {
     private static String indent = "   ";
     private static String horizontalLines = indent + "__________________________________________";
     private static String dukeFilePath = "data/duke.txt";
+    private static String tempFilePath = "data/temp.txt";
     private String name = "zac";
 
     /**
@@ -27,16 +28,6 @@ public class Ui {
             return ""; // or throw an exception, print an error message, etc.
         }
     }
-
-    /**
-     * Prints the error
-     *
-     * @param error some stuff
-     */
-    public void showError(String error) {
-        System.out.println(indent + error);
-    }
-
     /**
      * Displays a horizontal line
      */
@@ -79,11 +70,14 @@ public class Ui {
      * @throws FileNotFoundException if the file at this filePath is not found (though I'm not sure
      *     when this will happen)
      */
-    private static void printFileContents(String filePath) throws FileNotFoundException {
+    public static String printFileContents(String filePath) throws FileNotFoundException {
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Hi, I am Zac!\nHere are the tasks in your list:\n");
         while (s.hasNext()) {
-            System.out.println(s.nextLine());
+            stringBuilder.append(s.nextLine() + "\n");
         }
+        return stringBuilder.toString();
     }
 }

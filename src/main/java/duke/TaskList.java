@@ -1,8 +1,5 @@
 package duke;
 import java.io.Serializable;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -47,19 +44,21 @@ public class TaskList implements Serializable {
     /**
      * displays the list of Tasks
      */
-    public void displayList() {
-        System.out.println(indent + "Here are the tasks in your list:");
+    public String displayList() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(indent + "Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             int num = i + 1;
             Task curr = tasks.get(i);
-            System.out.println(indent + num + "." + curr.toString());
+            stringBuilder.append(indent + num + ". " + curr.toString() + "\n");
         }
+        return stringBuilder.toString();
     }
     /**
      * Displays the list of Tasks that description matches the user input
      * @param userInput the String that the user inputs to find similar Tasks
      */
-    public void displayMatchingList(String userInput) {
+    public String displayMatchingList(String userInput) {
         ArrayList<Task> temp = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
@@ -68,16 +67,42 @@ public class TaskList implements Serializable {
                 temp.add(task);
             }
         }
+        StringBuilder stringBuilder = new StringBuilder();
         if (temp.size() == 0) {
-            System.out.println(indent + "There are no matching tasks");
+            stringBuilder.append(indent + "There are no matching tasks\n");
         } else {
-            System.out.println(indent + "Here are the matching tasks in your list:");
+            stringBuilder.append(indent + "Here are the matching tasks in your list:\n");
             for (int i = 0; i < temp.size(); i++) {
                 int num = i + 1;
                 Task curr = temp.get(i);
-                System.out.println(indent + num + "." + curr.toString());
+                stringBuilder.append(indent + num + "." + curr.toString() + "\n");
             }
         }
+        return stringBuilder.toString();
+    }
+    /**
+     * For an input such as 'todo borrow book', letter is 'T' and string is 'borrow book'
+     *
+     * @param letter the letter corresponding to the first letter of the duke.Task
+     * @param string the string corresponding to the chunk of text after the word todo, deadline, or event
+     */
+    public String addTask(String letter, String string) throws DukeException {
+        if (letter.equals("T")) {
+            tasks.add(ToDo.newToDo(string));
+        }
+        if (letter.equals("D")) {
+            tasks.add(Deadline.newDeadline(getDescription(string), getBy(string)));
+        }
+        if (letter.equals("E")) {
+            tasks.add(Event.newEvent(getDescription(string), getFrom(string), getTo(string)));
+        }
+
+        int tasksSize = tasks.size();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(indent + "Got it. I've added this task:\n");
+        stringBuilder.append(megaIndent + tasks.get(tasksSize - 1).toString() + "\n");
+        stringBuilder.append(indent + "Now you have " + tasksSize + " tasks in the list.\n");
+        return stringBuilder.toString();
     }
     /**
      * This method encapsulates the functionality of marking a task as completed or not
@@ -85,22 +110,23 @@ public class TaskList implements Serializable {
      * @param string the input string
      * @throws DukeException if input is invalid
      */
-    public void markDescription(String string) throws DukeException {
+    public String markDescription(String string) throws DukeException {
         String clean = string.replaceAll("\\D+", ""); //remove non-digits
         int pos = Integer.parseInt(clean) - 1;
         if (pos >= tasks.size()) {
             throw new DukeException("You are trying to access a Task that does not exist!");
         }
         Task curr = tasks.get(pos);
-
+        StringBuilder stringBuilder = new StringBuilder();
         if (string.contains("unmark")) {
             curr.markAsUnDone();
-            System.out.println(indent + "OK, I've marked this task as not done yet:");
+            stringBuilder.append(indent + "OK, I've marked this task as not done yet:\n");
         } else if (string.contains("mark")) {
             curr.markAsDone();
-            System.out.println(indent + "Nice! I've marked this task as done:");
+            stringBuilder.append(indent + "Nice! I've marked this task as done:\n");
         }
-        System.out.println(megaIndent + curr.getStatusIconWithBracket() + " " + curr.description);
+        stringBuilder.append(megaIndent + curr.getStatusIconWithBracket() + " " + curr.description + "\n");
+        return stringBuilder.toString();
     }
     /**
      * For deadline and event Tasks, obtains the description of the duke.Task (before the first slash)
@@ -131,8 +157,7 @@ public class TaskList implements Serializable {
     public static String getBy(String string) throws DukeException {
         String slash = "/";
         int first = string.indexOf(slash);
-        int second = first + 3;
-        if (first == -1 || !string.substring(first, second).equals("/by")) {
+        if (first == -1 || !string.substring(first + 1, first + 3).contains("by")) {
             throw new DukeException("You need to add a by timing!");
         }
         return string.substring(first + 4); // returns "Sunday"
@@ -177,168 +202,24 @@ public class TaskList implements Serializable {
         return string.substring(secondSlash + 4);
     }
     /**
-     * For an input such as 'todo borrow book', letter is 'T' and string is 'borrow book'
-     *
-     * @param letter the letter corresponding to the first letter of the duke.Task
-     * @param string the string corresponding to the chunk of text after the word todo, deadline, or event
-     */
-    public void addTask(String letter, String string) throws DukeException {
-        if (letter.equals("T")) {
-            tasks.add(new ToDo(string));
-        }
-        if (letter.equals("D")) {
-            tasks.add(new Deadline(getDescription(string), convertToLocalDateTime(getBy(string))));
-        }
-        if (letter.equals("E")) {
-            tasks.add(new Event(getDescription(string), getFrom(string), getTo(string)));
-        }
-
-        int tasksSize = tasks.size();
-        System.out.println(indent + "Got it. I've added this task:");
-        System.out.println(megaIndent + tasks.get(tasksSize - 1).toString());
-        System.out.println(indent + "Now you have " + tasksSize + " tasks in the list.");
-
-    }
-    /**
      * This method encapsulates deleting of a task from TaskArray
      * For example, the input 'delete 3' will delete the duke.Task at position 2 of TaskArray
      *
      * @param string the input string
      */
-    public void deleteTask(String string) throws DukeException {
+    public String deleteTask(String string) throws DukeException {
         String clean = string.replaceAll("\\D+", ""); //remove non-digits
         int pos = Integer.parseInt(clean) - 1;
         if (pos >= tasks.size()) {
             throw new DukeException("You are trying to delete a Task that does not exist");
         } else {
-            System.out.println(indent + "Noted. I've removed this task:");
-            System.out.println(megaIndent + tasks.get(pos).toString());
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(indent + "Noted. I've removed this task:\n");
+            stringBuilder.append(megaIndent + tasks.get(pos).toString() + "\n");
             tasks.remove(pos);
-            System.out.println(indent + "Now you have " + tasks.size() + " tasks in the list.");
+            stringBuilder.append(indent + "Now you have " + tasks.size() + " tasks in the list.\n");
+            return stringBuilder.toString();
         }
     }
-    /**
-     * A function that takes in the by part of a duke.Deadline duke.Task, and converts it to a LocalDateTime
-     * For example, the input 'Sunday 1700' will return the corresponding LocalDateTime
-     *
-     * @param string the by part of the duke.Deadline duke.Task
-     * @return the LocalDateTime corresponding to the duke.Deadline
-     * @throws DukeException if a specific time in 24hr format is not put
-     */
-    public static LocalDateTime convertToLocalDateTime(String string) throws DukeException {
-        if (string.indexOf('/') != -1) {
-            if (string.lastIndexOf('/') + 5 == string.length()) { // "2/12/2019 1800"
-                throw new DukeException("put in a time pls");
-            }
-            LocalDateTime dateTime = parseDateTime(string, '/');
-            return dateTime;
-        } else if (string.indexOf('-') != -1) { //
-            if (string.lastIndexOf('-') + 3 == string.length()) { // "2019-10-15 1800"
-                throw new DukeException("put in a time pls");
-            }
-            LocalDateTime dateTime = parseDateTime(string, '-');
-            return dateTime;
-        } else { // "Mon 1800"
-            // problem 1: date does not overflow to next month
-            // problem 2: it goes backwards in day
-            String[] parts = string.split(" ");
-            if (parts.length == 1) {
-                throw new DukeException("put in a time pls");
-            }
-            String dayPart = parts[0];
-            String timePart = parts[1];
 
-            int year = LocalDate.now().getYear();
-            int month = LocalDate.now().getMonth().getValue();
-            int daysToAdd = -LocalDateTime.now().getDayOfWeek().compareTo(getDayOfWeek(dayPart.toUpperCase()));
-            int date = LocalDate.now().getDayOfMonth() + daysToAdd;
-
-            int hour = Integer.parseInt(timePart.substring(0, 2));
-            int minute = Integer.parseInt(timePart.substring(2, 4));
-
-            LocalDate temp = LocalDate.of(year, month, 1);
-            // temp LocalDate to obtain the maximum no. of days in that month
-            int maxDaysOfMonth = temp.lengthOfMonth();
-
-            if (date > maxDaysOfMonth) {
-                // Date overflows, adjust LocalDateTime to the next month
-                return LocalDateTime.of(year, month + 1, date - maxDaysOfMonth, hour, minute);
-            } else {
-                return LocalDateTime.of(year, month, date, hour, minute);
-            }
-        }
-    }
-    /**
-     * A function that helps convert a string to a LocalDateTime
-     *
-     * @param input the by part of the duke.Deadline duke.Task, e.g. "2/12/2019 1800"
-     * @param c whether the duke.Deadline is put in a '-' format or '/' format
-     * @return a LocalDateTime
-     * @throws DukeException if a specific time in 24hr format is not put
-     */
-    public static LocalDateTime parseDateTime(String input, char c) throws DukeException {
-        String[] parts = input.split(" ");
-        if (parts.length != 2) {
-            throw new DukeException("put in a time pls");
-        }
-
-        String datePart = parts[0];
-        String timePart = parts[1];
-
-        String[] dateComponents;
-        if (c == '/') {
-            dateComponents = datePart.split("/");
-        } else {
-            // c == '-'
-            dateComponents = datePart.split("-");
-        }
-
-        if (dateComponents.length != 3) {
-            throw new IllegalArgumentException("Invalid date format");
-        }
-
-        int date = Integer.parseInt(dateComponents[0]);
-        int month = Integer.parseInt(dateComponents[1]);
-        int year = Integer.parseInt(dateComponents[2]);
-        int hour = Integer.parseInt(timePart.substring(0, 2));
-        int minute = Integer.parseInt(timePart.substring(2, 4));
-
-        return LocalDateTime.of(year, month, date, hour, minute);
-    }
-
-    /**
-     * A function that takes in a user input that is the day of the week and returns the
-     * corresponding DayOfWeek
-     *
-     * @param string the user input that is a day of the week, e.g. "sun", "Tuesday", "Mon"
-     * @return the DayOfWeek as an enum
-     */
-    public static DayOfWeek getDayOfWeek(String string) {
-        DayOfWeek result;
-        String day = string.substring(0, 3);
-        switch(day) {
-        case "MON":
-            result = DayOfWeek.MONDAY;
-            break;
-        case "TUE":
-            result = DayOfWeek.TUESDAY;
-            break;
-        case "WED":
-            result = DayOfWeek.WEDNESDAY;
-            break;
-        case "THU":
-            result = DayOfWeek.THURSDAY;
-            break;
-        case "FRI":
-            result = DayOfWeek.FRIDAY;
-            break;
-        case "SAT":
-            result = DayOfWeek.SATURDAY;
-            break;
-        default:
-            // case "SUN"
-            result = DayOfWeek.SUNDAY;
-        }
-        return result;
-    }
 }

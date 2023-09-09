@@ -20,3 +20,6 @@ data/duke.txt
 data/temp.txt
 
 Duke-v0.1.jar
+
+*.class
+styles.css
