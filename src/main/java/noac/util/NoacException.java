@@ -1,4 +1,4 @@
-package noac;
+package noac.util;
 
 /**
  * Exception class for specific error for the Noac chatbot

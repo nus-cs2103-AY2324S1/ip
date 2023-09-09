@@ -1,8 +1,8 @@
 package noac.command;
 
-import noac.Storage;
-import noac.TaskList;
-import noac.Ui;
+import noac.util.Storage;
+import noac.util.TaskList;
+import noac.util.Ui;
 import noac.task.Event;
 
 import java.time.LocalDateTime;
@@ -37,14 +37,14 @@ public class EventCommand extends Command {
      * @param storage Storage class meant for saving to file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
 
         Event e = new Event(this.description, this.from, this.to);
 
         tasks.addTask(e);
 
-        ui.showAddTask(e, tasks.size());
-
         storage.save(tasks);
+
+        return ui.showAddTask(e, tasks.size());
     }
 }

@@ -1,8 +1,8 @@
 package noac.command;
 
-import noac.Storage;
-import noac.TaskList;
-import noac.Ui;
+import noac.util.Storage;
+import noac.util.TaskList;
+import noac.util.Ui;
 import noac.task.Todo;
 
 /**
@@ -29,14 +29,14 @@ public class TodoCommand extends Command {
      * @param storage Storage class meant for saving to file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage){
+    public String execute(TaskList tasks, Ui ui, Storage storage){
 
         Todo t = new Todo(this.description);
 
         tasks.addTask(t);
 
-        ui.showAddTask(t, tasks.size());
-
         storage.save(tasks);
+
+        return ui.showAddTask(t, tasks.size());
     }
 }

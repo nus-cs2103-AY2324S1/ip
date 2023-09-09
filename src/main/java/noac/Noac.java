@@ -1,15 +1,22 @@
 package noac;
 
 import noac.command.Command;
+import noac.util.*;
+
 
 /**
  * Main class of the Noac Chatbot.
  */
-public class Noac {
+public class Noac{
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
+
+    public Noac() {
+        this("data/tasks.txt");
+    }
 
     /**
      * Initialise the storage, tasklist and ui objects.
@@ -27,32 +34,22 @@ public class Noac {
         }
     }
 
+
     /**
-     * Function to start the chatbot, run the loop and handle exits.
+     * Retrives the response for the user input.
+     *
+     * @param input String input given by user.
+     * @return Reply given back to user.
      */
-    public void run() {
-        ui.showWelcomeMessage();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (NoacException e) {
-                ui.showErrorMessage(e);
-            }
+    public String getResponse(String input){
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
+        } catch (NoacException e) {
+            return ui.showErrorMessage(e);
         }
     }
 
-    /**
-     * Main function where the program runs.
-     *
-     * @param args input for main.
-     */
-    public static void main(String[] args) {
-        new Noac("data/tasks.txt").run();
-    }
 
 }
 

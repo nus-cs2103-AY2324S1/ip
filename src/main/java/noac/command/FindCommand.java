@@ -1,9 +1,9 @@
 package noac.command;
 
-import noac.NoacException;
-import noac.Storage;
-import noac.TaskList;
-import noac.Ui;
+import noac.util.NoacException;
+import noac.util.Storage;
+import noac.util.TaskList;
+import noac.util.Ui;
 import noac.task.Task;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class FindCommand extends Command{
      * @param storage Storage class meant for saving to file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NoacException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NoacException {
 
         ArrayList<Task> returnTasks = new ArrayList<>();
 
@@ -42,7 +42,6 @@ public class FindCommand extends Command{
             }
         }
 
-        ui.showFind(returnTasks);
-
+        return ui.showFind(returnTasks);
     }
 }

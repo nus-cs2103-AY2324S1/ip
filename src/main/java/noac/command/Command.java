@@ -1,9 +1,9 @@
 package noac.command;
 
-import noac.NoacException;
-import noac.Storage;
-import noac.TaskList;
-import noac.Ui;
+import noac.util.NoacException;
+import noac.util.Storage;
+import noac.util.TaskList;
+import noac.util.Ui;
 
 /**
  * Abstract class for all commands to extend from which includes the abstract
@@ -21,7 +21,7 @@ public abstract class Command {
      * @param storage Storage class meant for saving to file.
      * @throws NoacException For any errors that needs to be displayed to user.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws NoacException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws NoacException;
 
     /**
      * Determine if command is bye or not.

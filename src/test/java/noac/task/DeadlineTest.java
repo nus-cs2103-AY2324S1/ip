@@ -1,6 +1,6 @@
 package noac.task;
 
-import noac.Parser;
+import noac.util.Parser;
 import org.junit.jupiter.api.Test;
 
 

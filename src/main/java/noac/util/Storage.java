@@ -1,4 +1,4 @@
-package noac;
+package noac.util;
 
 import noac.task.Deadline;
 import noac.task.Event;
@@ -55,7 +55,7 @@ public class Storage {
                     switch (taskType) {
                     case "T":
                         if (fileLineInput.length != 3) {
-                            throw new NoacException("☹ OOPS!!! Corrupted Save file");
+                            throw new NoacException("OOPS!!! Corrupted Save file");
                         }
 
                         Todo todo = new Todo(fileLineInput[2]);
@@ -69,14 +69,14 @@ public class Storage {
 
                     case "D":
                         if (fileLineInput.length != 4) {
-                            throw new NoacException("☹ OOPS!!! Corrupted Save file");
+                            throw new NoacException("OOPS!!! Corrupted Save file");
                         }
 
                         Deadline deadline;
                         try {
                             deadline = new Deadline(fileLineInput[2], Parser.parseDate(fileLineInput[3]));
                         } catch (DateTimeParseException e) {
-                            throw new NoacException("☹ OOPS!!! Corrupted Save file");
+                            throw new NoacException("OOPS!!! Corrupted Save file");
                         }
 
                         if (fileLineInput[1].equals("1")) {
@@ -89,14 +89,14 @@ public class Storage {
 
                     case "E":
                         if (fileLineInput.length != 5) {
-                            throw new NoacException("☹ OOPS!!! Corrupted Save file");
+                            throw new NoacException("OOPS!!! Corrupted Save file");
                         }
 
                         Event event;
                         try{
                             event = new Event(fileLineInput[2],Parser.parseDate(fileLineInput[3]) , Parser.parseDate(fileLineInput[4]));
                         } catch (DateTimeParseException e) {
-                            throw new NoacException("☹ OOPS!!! Corrupted Save file");
+                            throw new NoacException("OOPS!!! Corrupted Save file");
                         }
 
                         if (fileLineInput[1].equals("1")) {
@@ -108,12 +108,12 @@ public class Storage {
                         break;
 
                     default:
-                        throw new NoacException("☹ OOPS!!! Corrupted Save file");
+                        throw new NoacException("OOPS!!! Corrupted Save file");
                     }
                 }
             }
         } catch (IOException e) {
-            throw new NoacException("☹ OOPS!!! Corrupted Save file");
+            throw new NoacException("OOPS!!! Corrupted Save file");
         }
 
         return returnList;

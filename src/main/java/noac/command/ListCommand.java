@@ -1,8 +1,8 @@
 package noac.command;
 
-import noac.Storage;
-import noac.TaskList;
-import noac.Ui;
+import noac.util.Storage;
+import noac.util.TaskList;
+import noac.util.Ui;
 
 /**
  * For executing the list command.
@@ -17,7 +17,7 @@ public class ListCommand extends Command {
      * @param storage Storage class meant for saving to file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showList(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showList(tasks);
     }
 }

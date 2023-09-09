@@ -1,9 +1,9 @@
 package noac.command;
 
-import noac.NoacException;
-import noac.Storage;
-import noac.TaskList;
-import noac.Ui;
+import noac.util.NoacException;
+import noac.util.Storage;
+import noac.util.TaskList;
+import noac.util.Ui;
 
 /**
  * For executing the bye command.
@@ -21,8 +21,8 @@ public class ExitCommand extends Command {
      * @throws NoacException For any errors that needs to be displayed to user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NoacException {
-        ui.showByeMessage();
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NoacException {
+        return ui.showByeMessage();
     }
 
     /**

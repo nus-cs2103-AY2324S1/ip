@@ -1,4 +1,4 @@
-package noac;
+package noac.util;
 
 import noac.command.*;
 
@@ -36,9 +36,9 @@ public class Parser {
         case "unmark":
 
             if (userInputArr.length > 2 || userInputArr.length <= 1) {
-                throw new NoacException("☹ OOPS!!! Please enter in the format mark [TASK_NUMBER] e.g. mark 1");
+                throw new NoacException("OOPS!!! Please enter in the format mark [TASK_NUMBER] e.g. mark 1");
             } else if (!userInputArr[1].matches("\\d+")) {
-                throw new NoacException("☹ OOPS!!! Please enter in the format mark [TASK_NUMBER] e.g. mark 1");
+                throw new NoacException("OOPS!!! Please enter in the format mark [TASK_NUMBER] e.g. mark 1");
             }
 
             int taskNo = Integer.parseInt(userInputArr[1]) - 1;
@@ -60,7 +60,7 @@ public class Parser {
                 returnCommand = new TodoCommand(description);
 
             } else {
-                throw new NoacException("☹ OOPS!!! The description of a todo cannot be empty.");
+                throw new NoacException("OOPS!!! The description of a todo cannot be empty.");
             }
 
             break;
@@ -85,11 +85,11 @@ public class Parser {
             }
 
             if (!afterBy) {
-                throw new NoacException("☹ OOPS!!! The input must contain the command /by");
+                throw new NoacException("OOPS!!! The input must contain the command /by");
             }
 
             if (by.length() == 0 || description.length() == 0) {
-                throw new NoacException("☹ OOPS!!! The description and by of a deadline cannot \n     be empty");
+                throw new NoacException("OOPS!!! The description and by of a deadline cannot \n     be empty");
             }
 
             by = by.substring(0, by.length() - 1);
@@ -127,10 +127,10 @@ public class Parser {
             }
 
             if (!status.equals("to")) {
-                throw new NoacException("☹ OOPS!!! The input must contain the command /from and /to \n     in this order");
+                throw new NoacException("OOPS!!! The input must contain the command /from and /to \n     in this order");
             }
             if (descript.length() == 0 || from.length() == 0 || to.length() == 0) {
-                throw new NoacException("☹ OOPS!!! The description, from and to of a event cannot \n     be empty!");
+                throw new NoacException("OOPS!!! The description, from and to of a event cannot \n     be empty!");
             }
 
             from = from.substring(0, from.length() - 1);
@@ -144,11 +144,11 @@ public class Parser {
         case "delete":
 
             if(userInputArr.length > 2 || userInputArr.length <= 1) {
-                throw new NoacException("☹ OOPS!!! Please enter in the format delete [TASK_NUMBER] e.g. delete 1");
+                throw new NoacException("OOPS!!! Please enter in the format delete [TASK_NUMBER] e.g. delete 1");
 
             } else if (!userInputArr[1].matches("\\d+")) {
 
-                throw new NoacException("☹ OOPS!!! Please enter in the format delete [TASK_NUMBER] e.g. delete 1");
+                throw new NoacException("OOPS!!! Please enter in the format delete [TASK_NUMBER] e.g. delete 1");
             }
 
             int taskNo2 = Integer.parseInt(userInputArr[1]) - 1;
@@ -161,13 +161,13 @@ public class Parser {
             LocalDate localDate;
 
             if (userInputArr.length != 2) {
-                throw new NoacException("☹ OOPS!!! Please input date in this format yyyy-MM-dd");
+                throw new NoacException("OOPS!!! Please input date in this format yyyy-MM-dd");
             }
             try {
                 localDate = LocalDate.parse(userInputArr[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
             } catch (DateTimeParseException exception) {
-                throw new NoacException("☹ OOPS!!! Please input date in this format yyyy-MM-dd");
+                throw new NoacException("OOPS!!! Please input date in this format yyyy-MM-dd");
             }
 
             returnCommand = new OnCommand(localDate);
@@ -191,7 +191,7 @@ public class Parser {
             break;
 
         default:
-            throw new NoacException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new NoacException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
 
         return returnCommand;

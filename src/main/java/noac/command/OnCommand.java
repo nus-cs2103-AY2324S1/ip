@@ -1,8 +1,8 @@
 package noac.command;
 
-import noac.Storage;
-import noac.TaskList;
-import noac.Ui;
+import noac.util.Storage;
+import noac.util.TaskList;
+import noac.util.Ui;
 import noac.task.Deadline;
 import noac.task.Event;
 import noac.task.Task;
@@ -36,7 +36,7 @@ public class OnCommand extends Command {
      * @param storage Storage class meant for saving to file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
 
         ArrayList<Task> taskArrayList = new ArrayList<>();
 
@@ -56,6 +56,6 @@ public class OnCommand extends Command {
             }
         }
 
-        ui.showOnDate(taskArrayList);
+        return ui.showTasksOnDate(taskArrayList);
     }
 }

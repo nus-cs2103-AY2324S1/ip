@@ -1,4 +1,4 @@
-package noac;
+package noac.util;
 
 import noac.task.Task;
 

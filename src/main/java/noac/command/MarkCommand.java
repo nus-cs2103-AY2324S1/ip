@@ -1,9 +1,9 @@
 package noac.command;
 
-import noac.NoacException;
-import noac.Storage;
-import noac.TaskList;
-import noac.Ui;
+import noac.util.NoacException;
+import noac.util.Storage;
+import noac.util.TaskList;
+import noac.util.Ui;
 
 /**
  * For executing the mark/unmark command.
@@ -33,10 +33,10 @@ public class MarkCommand extends Command {
      * @throws NoacException For any errors that needs to be displayed to user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NoacException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NoacException {
 
         if (taskIndex + 1 > tasks.size() || taskIndex < 0) {
-            throw new NoacException("☹ OOPS!!! Please enter a task in your list!");
+            throw new NoacException("OOPS!!! Please enter a task in your list!");
         }
 
         if (isMark) {
@@ -45,7 +45,8 @@ public class MarkCommand extends Command {
             tasks.getTask(this.taskIndex).unmarkAsDone();
         }
 
-        ui.showMarkOrUnmark(tasks.getTask(this.taskIndex), this.isMark);
         storage.save(tasks);
+
+        return ui.showMarkOrUnmark(tasks.getTask(this.taskIndex), this.isMark);
     }
 }

@@ -1,8 +1,8 @@
 package noac.command;
 
-import noac.Storage;
-import noac.TaskList;
-import noac.Ui;
+import noac.util.Storage;
+import noac.util.TaskList;
+import noac.util.Ui;
 import noac.task.Deadline;
 
 import java.time.LocalDateTime;
@@ -34,14 +34,14 @@ public class DeadlineCommand extends Command {
      * @param storage Storage class meant for saving to file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage){
+    public String execute(TaskList tasks, Ui ui, Storage storage){
 
         Deadline d = new Deadline(this.description, this.by);
 
         tasks.addTask(d);
 
-        ui.showAddTask(d, tasks.size());
-
         storage.save(tasks);
+
+        return ui.showAddTask(d, tasks.size());
     }
 }
