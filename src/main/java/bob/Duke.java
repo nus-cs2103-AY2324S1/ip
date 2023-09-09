@@ -8,13 +8,13 @@ import bob.storage.Storage;
 import bob.ui.Ui;
 
 public class Duke {
-    Ui ui;
-    Parser parser;
-    Storage storage;
-    TaskList list;
+    private Ui ui;
+    private Parser parser;
+    private Storage storage;
+    private TaskList list;
     public static void main(String[] args) {
         Ui ui = new Ui();
-        Parser parser = new  Parser();
+        Parser parser = new Parser();
         Storage storage = new Storage();
         TaskList list = new TaskList(storage.getFile());
 
@@ -45,7 +45,7 @@ public class Duke {
 
     public void init() {
         this.ui = new Ui();
-        this.parser = new  Parser();
+        this.parser = new Parser();
         this.storage = new Storage();
         this.list = new TaskList(storage.getFile());
 
