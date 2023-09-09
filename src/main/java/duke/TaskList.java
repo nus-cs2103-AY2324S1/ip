@@ -53,10 +53,10 @@ public class TaskList {
      * @throws TaskNotFoundException If task does not exist.
      */
     public void unmarkTask(int taskId) throws TaskNotFoundException {
-        Task unmarkTask = getTask(taskId);
-        unmarkTask.unMark();
+        Task task = getTask(taskId);
+        task.unMark();
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(unmarkTask);
+        System.out.println(task);
     }
 
     /**
@@ -79,7 +79,7 @@ public class TaskList {
      * @throws TaskNotFoundException If task does not exist.
      */
     public void deleteTask(int taskId) throws TaskNotFoundException {
-        if (taskId >= taskList.size()) {
+        if (taskId >= taskList.size() || taskId < 1) {
             throw new TaskNotFoundException();
         }
         Task removedTask = taskList.remove(taskId);

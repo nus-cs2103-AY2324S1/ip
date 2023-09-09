@@ -69,11 +69,11 @@ public class Storage {
         Scanner myReader = new Scanner(file);
         while (myReader.hasNextLine()) {
             String data = myReader.nextLine();
-            Matcher m = Pattern.compile("\\[(.*?)]").matcher(data);
-            m.find();
-            String taskType = m.group(1);
-            m.find();
-            String taskComplete = m.group(1);
+            Matcher matcher = Pattern.compile("\\[(.*?)]").matcher(data);
+            matcher.find();
+            String taskType = matcher.group(1);
+            matcher.find();
+            boolean isTaskComplete = Objects.equals(matcher.group(1), "X");
             Task newTask;
             String[] taskInfoSplit = data.split("]");
             String taskInfo = taskInfoSplit[taskInfoSplit.length - 1].trim();
@@ -91,7 +91,7 @@ public class Storage {
             default:
                 throw new UnknownCommandException();
             }
-            if (Objects.equals(taskComplete, "X")) {
+            if (isTaskComplete) {
                 newTask.mark();
             }
             taskData.add(newTask);
