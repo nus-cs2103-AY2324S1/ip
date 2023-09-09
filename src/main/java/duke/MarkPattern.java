@@ -26,6 +26,7 @@ public class MarkPattern {
 
         if (matcher.find()) {
             String num = matcher.group(1);
+            assert num != null : "missing num in matcher";
             return Integer.parseInt(num) - 1;
         } else {
             return -1;

@@ -28,6 +28,7 @@ public class Task implements Serializable {
      * @return returns the display
      */
     public String display() {
+        assert done != null : "done is not initialised";
         if (done) {
             return "[X] " + this.name;
         }
