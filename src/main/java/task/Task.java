@@ -9,7 +9,8 @@ enum TaskType {
 
 /**
  * Represents an abstract Task class with a type, name, and completion status.
- * The Task class serves as a template for different types of tasks such as TODO, DEADLINE, and EVENT.
+ * The Task class serves as a template for different types
+ * of tasks such as TODO, DEADLINE, and EVENT.
  */
 public abstract class Task {
     private String taskName;

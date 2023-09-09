@@ -1,8 +1,11 @@
 package command;
 
 import storage.Storage;
+
 import task.Task;
+
 import tasklist.TaskList;
+
 import ui.Ui;
 
 /**
@@ -12,8 +15,8 @@ import ui.Ui;
  */
 public class UnmarkCommand extends Command {
 
-    // The number of the task to be mark as undone from the task list.
-    int taskNumber;
+    /** Number of the task to be mark as undone from the task list */
+    private int taskNumber;
 
     /**
      * Creates a new unmark command with the specified number for the task to be marked undone.
@@ -26,12 +29,14 @@ public class UnmarkCommand extends Command {
 
     /**
      * Executes the unmark command.
-     * This method retrieves the task to be marked undone using the number, marks the task from the task list as undonoe,
+     * This method retrieves the task to be marked undone using the number,
+     * marks the task from the task list as undone,
      * and invokes UI to display the unmark task message.
      *
      * @param tasks The list of tasks on which the command will operate on.
      * @param ui The UI which is used during the command execution to show the unmark task text.
-     * @param storage The storage where tasks are stored and retrieved from, currently not utilized in this method but can be extended to use in the future.
+     * @param storage The storage where tasks are stored and retrieved from, currently
+     *                not utilized in this method but can be extended to use in the future.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

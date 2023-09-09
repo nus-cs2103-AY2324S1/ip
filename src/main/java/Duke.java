@@ -1,7 +1,11 @@
 import command.Command;
+
 import parser.Parser;
+
 import storage.Storage;
+
 import tasklist.TaskList;
+
 import ui.Ui;
 
 import java.io.*;
@@ -11,7 +15,6 @@ import java.io.*;
  * It is the main class that contains the methods to run the chatbot.
  */
 public class Duke {
-
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -40,12 +43,13 @@ public class Duke {
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
+
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
+                Command command = Parser.parse(fullCommand);
+                command.execute(tasks, ui, storage);
+                isExit = command.isExit();
             } catch (Exception e) {
                 ui.showError(e.getMessage());
             }

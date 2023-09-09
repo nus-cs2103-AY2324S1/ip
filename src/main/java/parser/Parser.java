@@ -24,46 +24,50 @@ import java.util.List;
  * Parser class handles the interpretation of user input into commands that can be executed.
  */
 public class Parser {
+    // A List containing possible formats of date and time.
+    private static final List<String> DATE_STRING_FORMATS = Arrays.asList(
+            "yyyy-MM-dd HH:mm",
+            "dd/MM/yyyy HH:mm",
+            "MM-dd-yyyy HH:mm"
+            // Add other formats here
+    );
 
     /**
-     * Parses the user input and returns a Command object representing the user's intended action.
+     * Parses the user input and returns a Command object
+     * representing the user's intended action.
      *
      * @param input The full input string entered by the user.
      * @return A Command object representing the action to be taken.
      */
     public static Command parse(String input) {
-        String commandWord = input.split(" ")[0].toLowerCase(); // Extract the first word (the command word)
+        // Extracts the first word (the command word) from the input
+        String commandWord = input.split(" ")[0].toLowerCase();
 
         switch (commandWord) {
-            case "bye" :
+            case "bye":
                 return new ByeCommand();
-            case "list" :
+                // Fallthrough
+            case "list":
                 return new ListCommand();
-            case "todo" :
+                // Fallthrough
+            case "todo":
                 try {
                     String taskName = input.split(" ", 2)[1];
-                    //add item into list
                     ToDo task = new ToDo(taskName);
                     return new AddCommand(task);
                 } catch(ArrayIndexOutOfBoundsException e) {
-                    return new ErrorCommand("☹ OOPS!!! The description of a todo cannot be empty.");
+                    return new ErrorCommand(
+                            "☹ OOPS!!! The description of a todo cannot be empty.");
                 }
-            case "deadline" :
+                // Fallthrough
+            case "deadline":
                 try {
                     String taskName = input.split(" /by ", 2)[0].split(" ", 2)[1];
-
-                    // ArrayList containing possible formats of Date and Time.
-                    List<String> formatStrings = Arrays.asList(
-                            "yyyy-MM-dd HH:mm",
-                            "dd/MM/yyyy HH:mm",
-                            "MM-dd-yyyy HH:mm"
-                            // Add other formats here
-                    );
                     String dateInput = input.split(" /by ", 2)[1];
                     String dueDate = null;
 
                     // Try parsing with different formats
-                    for (String formatString : formatStrings) {
+                    for (String formatString : DATE_STRING_FORMATS) {
                         try {
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatString);
                             LocalDateTime dateTime = LocalDateTime.parse(dateInput, formatter);
@@ -76,44 +80,44 @@ public class Parser {
 
                     // if the input fits none of the format, throw DateTimeParseException
                     if (dueDate == null) {
-                        throw new DateTimeParseException("Invalid date/time format", dateInput, 0);
+                        throw new DateTimeParseException(
+                                "Invalid date/time format", dateInput, 0);
                     }
 
-                    // add item into list
                     Deadline task = new Deadline(taskName, dueDate);
                     return new AddCommand(task);
                 } catch ( ArrayIndexOutOfBoundsException e) {
                     if (input.split(" ").length == 1) {
-                        return new ErrorCommand("☹ OOPS!!! The description of a deadline cannot be empty");
+                        return new ErrorCommand(
+                                "☹ OOPS!!! The description of a deadline cannot be empty");
                     } else {
-                        return new ErrorCommand("☹ OOPS!!! The description of a deadline does not have \"/by\" specified");
+                        return new ErrorCommand(
+                                "☹ OOPS!!! The description of a deadline "
+                                        + "does not have \"/by\" specified");
                     }
                 } catch (DateTimeParseException e) {
-                    return new ErrorCommand("☹ OOPS!!! The format of deadline is wrong, please write it in the correct format");
+                    return new ErrorCommand(
+                            "☹ OOPS!!! The format of deadline is wrong, "
+                                    + "please write it in the correct format");
                 }
-            case "event" :
+                // Fallthrough
+            case "event":
                 try {
-
                     String taskName = input.split(" /from | /to ", 3)[0].split(" ", 2)[1];
                     String startDateInput = input.split(" /from | /to ", 3)[1];
                     String dueDateInput = input.split(" /from | /to ", 3)[2];
-
-                    // ArrayList containing possible formats of Date and Time.
-                    List<String> formatStrings = Arrays.asList(
-                            "yyyy-MM-dd HH:mm",
-                            "dd/MM/yyyy HH:mm",
-                            "MM-dd-yyyy HH:mm"
-                            // Add other formats here
-                    );
                     LocalDateTime startDateTime = null;
-                    String startDate = null;
+                    LocalDateTime dueDateTime = null;
+                    String startDateString = null;
+                    String dueDateString = null;
 
                     // Try parsing with different formats for starting date and time input.
-                    for (String formatString : formatStrings) {
+                    for (String formatString : DATE_STRING_FORMATS) {
                         try {
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatString);
+                            DateTimeFormatter formatter = DateTimeFormatter
+                                    .ofPattern(formatString);
                             startDateTime = LocalDateTime.parse(startDateInput, formatter);
-                            startDate = startDateTime.format(formatter);
+                            startDateString = startDateTime.format(formatter);
                             break;  // Stop at the first successful parse
                         } catch (DateTimeParseException e) {
                             // Ignore the exception and try the next format
@@ -121,18 +125,17 @@ public class Parser {
                     }
 
                     // if the input fits none of the format, throw DateTimeParseException
-                    if (startDate == null) {
-                        throw new DateTimeParseException("Invalid date/time format", startDate, 0);
+                    if (startDateString == null) {
+                        throw new DateTimeParseException(
+                                "Invalid date/time format", startDateString, 0);
                     }
-                    LocalDateTime dueDateTime = null;
-                    String dueDate = null;
 
                     // Try parsing with different formats for due date and time input.
-                    for (String formatString : formatStrings) {
+                    for (String formatString : DATE_STRING_FORMATS) {
                         try {
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatString);
                             dueDateTime = LocalDateTime.parse(dueDateInput, formatter);
-                            dueDate = dueDateTime.format(formatter);
+                            dueDateString = dueDateTime.format(formatter);
                             break;  // Stop at the first successful parse
                         } catch (DateTimeParseException e) {
                             // Ignore the exception and try the next format
@@ -140,8 +143,9 @@ public class Parser {
                     }
 
                     // if the input fits none of the format, throw DateTimeParseException
-                    if (dueDate == null) {
-                        throw new DateTimeParseException("Invalid date/time format", dueDateInput, 0);
+                    if (dueDateString == null) {
+                        throw new DateTimeParseException(
+                                "Invalid date/time format", dueDateInput, 0);
                     }
 
                     // check if start date is before due date.
@@ -149,47 +153,63 @@ public class Parser {
                         throw new IllegalArgumentException();
                     }
 
-                    // add item into list
-                    Event task = new Event(taskName, startDate, dueDate);
+                    Event task = new Event(taskName, startDateString, dueDateString);
                     return new AddCommand(task);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     if (input.split(" ").length == 1) {
-                        return new ErrorCommand("☹ OOPS!!! The description of a event cannot be empty");
+                        return new ErrorCommand(
+                                "☹ OOPS!!! The description of a event cannot be empty");
                     } else {
-                        return new ErrorCommand("☹ OOPS!!! The format of starting date or due date is wrong, please write it in the format correct format");
+                        return new ErrorCommand(
+                                "☹ OOPS!!! The format of starting date or due date is wrong,"
+                                        + " please write it in the format correct format");
                     }
                 } catch (DateTimeParseException e) {
-                    return new ErrorCommand("☹ OOPS!!! The format of starting date or due date is wrong, please write it in the format correct format");
+                    return new ErrorCommand(
+                            "☹ OOPS!!! The format of starting date or due date is wrong,"
+                                    + " please write it in the format correct format");
                 } catch (IllegalArgumentException e) {
-                    return new ErrorCommand("☹ OOPS!!! The starting date cannot be later than the due date.");
+                    return new ErrorCommand(
+                            "☹ OOPS!!! The starting date "
+                                    + "cannot be later than the due date.");
                 }
+                // Fallthrough
             case "delete" :
                 try {
                     int taskNumber = Integer.parseInt(input.split(" ")[1]);
                     return new DeleteCommand(taskNumber);
                 } catch (IndexOutOfBoundsException e) {
-                    return new ErrorCommand("☹ OOPS!!! The task number you entered for deleting is not in the list.");
+                    return new ErrorCommand(
+                            "☹ OOPS!!! The task number you entered "
+                                    + "for deleting is not in the list.");
                 } catch (NumberFormatException e) {
-                    return new ErrorCommand("☹ OOPS!!! The task number you entered for deleting is invalid. Please enter a number.");
+                    return new ErrorCommand("☹ OOPS!!! The task number you entered "
+                            + "for deleting is invalid. Please enter a number.");
                 }
+                // Fallthrough
             case "mark" :
                 try {
                     int taskNumber = Integer.parseInt(input.split(" ")[1]);
                     return new MarkCommand(taskNumber);
                 } catch (IndexOutOfBoundsException e) {
-                    return new ErrorCommand("☹ OOPS!!! The task number you entered for marking is not in the list.");
+                    return new ErrorCommand(
+                            "☹ OOPS!!! The task number you "
+                                    + "entered for marking is not in the list.");
                 }
+                // Fallthrough
             case "unmark" :
                 try {
                     int taskNumber = Integer.parseInt(input.split(" ")[1]);
                     return new UnmarkCommand(taskNumber);
                 } catch (IndexOutOfBoundsException e) {
-                    return new ErrorCommand("☹ OOPS!!! The task number you entered for marking is not in the list.");
+                    return new ErrorCommand(
+                            "☹ OOPS!!! The task number you "
+                                    + "entered for marking is not in the list.");
                 }
+                // Fallthrough
             default:
-                return new ErrorCommand("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-
-
+                return new ErrorCommand(
+                        "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }

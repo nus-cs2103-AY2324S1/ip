@@ -1,8 +1,11 @@
 package command;
 
 import storage.Storage;
+
 import task.Task;
+
 import tasklist.TaskList;
+
 import ui.Ui;
 
 /**
@@ -12,7 +15,7 @@ import ui.Ui;
  */
 public class MarkCommand extends Command {
 
-    // The number of the task to be mark as done from the task list.
+    /** Number of the task to be mark as done from the task list */
     private int taskNumber;
 
     /**
@@ -26,12 +29,14 @@ public class MarkCommand extends Command {
 
     /**
      * Executes the mark command.
-     * This method retrieves the task to be marked using the number, marks the task from the task list,
+     * This method retrieves the task to be marked using the number,
+     * marks the task from the task list,
      * and invokes UI to display the mark task message.
      *
      * @param tasks The list of tasks on which the command will operate on.
      * @param ui The UI which is used during the command execution to show the mark task text.
-     * @param storage The storage where tasks are stored and retrieved from, currently not utilized in this method but can be extended to use in the future.
+     * @param storage The storage where tasks are stored and retrieved from, currently
+     *                not utilized in this method but can be extended to use in the future.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
