@@ -8,7 +8,7 @@ import duke.TaskList;
  * Command to mark a task as done.
  */
 public class MarkCommand extends Command {
-    private int markIdx;
+    private final int markIdx;
 
     public MarkCommand(int markIdx) {
         this.markIdx = markIdx;

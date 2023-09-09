@@ -9,7 +9,7 @@ import duke.Ui;
  * Command to add a task into the task list.
  */
 public class TaskCommand extends Command {
-    private Task task;
+    private final Task task;
 
     public TaskCommand(Task task) {
         this.task = task;

@@ -60,6 +60,10 @@ public class Parser {
         }
         if (dataArr[1].equals("1")) {
             t.markDone();
+        } else if (dataArr[0].equals("0")) {
+            t.unMarkDone();
+        } else {
+            throw new IncompleteDescriptionException();
         }
         return t;
     }
