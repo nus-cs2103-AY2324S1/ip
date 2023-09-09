@@ -2,6 +2,8 @@ package joi.utils;
 
 import java.util.ArrayList;
 
+import joi.ui.Ui;
+
 public class TaskList {
     private final ArrayList<Task> taskList;
 
@@ -9,12 +11,12 @@ public class TaskList {
         this.taskList = new ArrayList<>();
     }
 
-    public void listTasks() {
-        System.out.println("Here are the tasks in your list:");
+    public void listTasks(Ui ui) {
+        ui.printToScreen("Here are the tasks in your list:");
         for (int i = 0; i < this.taskList.size(); i++) {
-            System.out.println((i+1) + ". " + this.taskList.get(i));
+            ui.printToScreen((i+1) + ". " + this.taskList.get(i));
         }
-        System.out.println();
+        ui.printToScreen("");
     }
 
     public void markAsDone(int taskIdx) {
@@ -22,10 +24,10 @@ public class TaskList {
             this.taskList.get(taskIdx).setDone();
         }
     }
-    public void markAsDoneVerbose(int taskIdx) {
+    public void markAsDoneVerbose(int taskIdx, Ui ui) {
         markAsDone(taskIdx);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this.taskList.get(taskIdx) + "\n");
+        ui.printToScreen("Nice! I've marked this task as done:");
+        ui.printToScreen(this.taskList.get(taskIdx) + "\n");
     }
 
     public void unmarkAsDone(int taskIdx) {
@@ -33,11 +35,11 @@ public class TaskList {
             this.taskList.get(taskIdx).setNotDone();
         }
     }
-    public void unmarkAsDoneVerbose(int taskIdx) {
+    public void unmarkAsDoneVerbose(int taskIdx, Ui ui) {
         unmarkAsDone(taskIdx);
 
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(this.taskList.get(taskIdx) + "\n");
+        ui.printToScreen("OK, I've marked this task as not done yet:");
+        ui.printToScreen(this.taskList.get(taskIdx) + "\n");
     }
 
     public void addTask(Task newTask) {
