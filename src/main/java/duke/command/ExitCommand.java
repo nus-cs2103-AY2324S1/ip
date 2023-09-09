@@ -9,11 +9,17 @@ import duke.ui.Ui;
  */
 public class ExitCommand extends Command {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isExit() {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         storage.saveData(taskList);

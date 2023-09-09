@@ -19,8 +19,6 @@ public class Duke {
 
     /**
      * Constructor for Duke, which instantiates the ui, storage and taskList.
-     *
-     * @param filePath The specified filePath of the database.
      */
     public Duke() {
         this.ui = new Ui();

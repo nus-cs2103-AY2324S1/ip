@@ -28,11 +28,17 @@ public class EventCommand extends Command {
         this.to = to;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isExit() {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         return ui.showEventMessage(taskList.addEvent(this.description, this.from, this.to), taskList.getSize());

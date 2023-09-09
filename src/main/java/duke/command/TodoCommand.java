@@ -20,11 +20,17 @@ public class TodoCommand extends Command {
         this.description = description;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isExit() {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         return ui.showTodoMessage(taskList.addTodo(this.description), taskList.getSize());

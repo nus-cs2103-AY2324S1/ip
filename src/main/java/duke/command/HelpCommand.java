@@ -9,11 +9,17 @@ import duke.ui.Ui;
  */
 public class HelpCommand extends Command {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isExit() {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         return ui.showHelpMessage();

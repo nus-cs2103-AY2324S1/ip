@@ -107,7 +107,6 @@ public class TaskList {
      * @return The deleted task.
      * @throws DukeNoTaskFoundException If the task is not found at the specified index.
      */
-
     public Task delete(int index) throws DukeNoTaskFoundException {
         try {
             Task task = this.taskList.get(index - 1);

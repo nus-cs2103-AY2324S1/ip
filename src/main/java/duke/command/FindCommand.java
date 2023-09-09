@@ -20,11 +20,17 @@ public class FindCommand extends Command {
         this.target = target;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isExit() {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         return ui.showFilteredTasks(taskList.find(this.target));

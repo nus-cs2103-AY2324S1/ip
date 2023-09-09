@@ -14,6 +14,7 @@ public class Ui {
      * Displays a message to the user with a framed border.
      *
      * @param messages The messages to be displayed.
+     * @return A formatted message.
      */
     public String showToUser(String... messages) {
         String result = "";
@@ -25,6 +26,8 @@ public class Ui {
 
     /**
      * Displays an exit message to the user.
+     *
+     * @return A farewell message.
      */
     public String showExitMessage() {
         return showToUser(
@@ -34,6 +37,8 @@ public class Ui {
 
     /**
      * Displays a help message to the user, listing available commands.
+     *
+     * @return A list of available commands.
      */
     public String showHelpMessage() {
         return showToUser(
@@ -56,6 +61,7 @@ public class Ui {
      *
      * @param task The Todo task added.
      * @param size The updated size of the TaskList.
+     * @return A confirmation message.
      */
     public String showTodoMessage(Task task, int size) {
         return showToUser(
@@ -70,6 +76,7 @@ public class Ui {
      *
      * @param task The Deadline task added.
      * @param size The updated size of the TaskList.
+     * @return A confirmation message.
      */
     public String showDeadlineMessage(Task task, int size) {
         return showToUser(
@@ -80,10 +87,11 @@ public class Ui {
     }
 
     /**
-     * Displays a message indicating the successful addition of a Event task.
+     * Displays a message indicating the successful addition of an Event task.
      *
      * @param task The Event task added.
      * @param size The updated size of the TaskList.
+     * @return A confirmation message.
      */
     public String showEventMessage(Task task, int size) {
         return showToUser(
@@ -97,6 +105,7 @@ public class Ui {
      * Displays a message indicating the task is marked done.
      *
      * @param task The task that was marked done.
+     * @return A confirmation message.
      */
     public String showMarkMessage(Task task) {
         return showToUser(
@@ -109,6 +118,7 @@ public class Ui {
      * Displays a message indicating the task is marked undone.
      *
      * @param task The task that was marked undone.
+     * @return A confirmation message.
      */
     public String showUnmarkMessage(Task task) {
         return showToUser(
@@ -122,6 +132,7 @@ public class Ui {
      *
      * @param task The task that was deleted.
      * @param size The updated size of the TaskList.
+     * @return A confirmation message.
      */
     public String showDeleteMessage(Task task, int size) {
         return showToUser(
@@ -135,6 +146,7 @@ public class Ui {
      * Displays a message of the taskList indexed starting from 1.
      *
      * @param taskList The TaskList to display.
+     * @return A list of tasks.
      */
     public String showListMessage(ArrayList<Task> taskList) {
         ArrayList<String> msg = new ArrayList<>();
@@ -155,6 +167,7 @@ public class Ui {
      * Displays an error message to the user.
      *
      * @param e The DukeException representing the error.
+     * @return An error message.
      */
     public String showError(DukeException e) {
         return showToUser(
@@ -166,6 +179,7 @@ public class Ui {
      * Displays a message of the filtered taskList indexed starting from 1.
      *
      * @param filteredTasks The filtered TaskList to display.
+     * @return A list of filtered tasks.
      */
     public String showFilteredTasks(ArrayList<Task> filteredTasks) {
         ArrayList<String> msg = new ArrayList<>();

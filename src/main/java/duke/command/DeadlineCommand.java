@@ -26,11 +26,17 @@ public class DeadlineCommand extends Command {
         this.by = by;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isExit() {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         return ui.showDeadlineMessage(taskList.addDeadline(this.description, this.by), taskList.getSize());

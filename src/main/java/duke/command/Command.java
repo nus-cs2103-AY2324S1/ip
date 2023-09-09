@@ -9,7 +9,6 @@ import duke.ui.Ui;
  */
 public abstract class Command {
 
-
     /**
      * Checks if executing this command should exit the Duke application.
      *
@@ -23,6 +22,7 @@ public abstract class Command {
      * @param taskList The list of tasks managed by Duke.
      * @param ui       The user interface for displaying messages.
      * @param storage  The storage component for saving and loading tasks.
+     * @return A message resulting from the command execution.
      */
     public abstract String execute(TaskList taskList, Ui ui, Storage storage);
 }
