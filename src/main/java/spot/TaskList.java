@@ -53,10 +53,10 @@ public class TaskList {
     /**
      * Adds new ToDo object to the TaskList.
      *
-     * @param description Description of the new Todo.
+     * @param description Description of the new ToDo.
      * @return The ToDo added to the TaskList.
      */
-    public ToDo addTodo(String description) {
+    public ToDo addToDo(String description) {
         ToDo newTask = new ToDo(description);
         tasks.add(newTask);
         return newTask;

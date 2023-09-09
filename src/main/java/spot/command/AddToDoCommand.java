@@ -18,6 +18,7 @@ public class AddToDoCommand extends Command {
      * @param description Description of the ToDo.
      */
     public AddToDoCommand(String description) {
+        assert !description.isEmpty();
         this.description = description;
     }
 
@@ -31,7 +32,7 @@ public class AddToDoCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SpotException {
-        ToDo t = tasks.addTodo(description);
+        ToDo t = tasks.addToDo(description);
         ui.setAdd(tasks, t);
     }
 

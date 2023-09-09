@@ -46,7 +46,10 @@ public class Parser {
             if (input.length() <= 5) {
                 throw new SpotException("Spot needs more details than that!");
             }
-            String keyword = input.substring(5);
+            String keyword = input.substring(5).trim();
+            if (keyword.isEmpty()) {
+                throw new SpotException("Spot doesn't know what keyword you're searching for!");
+            }
             return new FindCommand(keyword);
         } else if (input.startsWith("mark")) {
             if (input.length() <= 5) {
@@ -105,6 +108,10 @@ public class Parser {
             String description = keywords[0].trim();
             LocalDate start = Parser.parseDate(keywords[1].trim());
             LocalDate end = Parser.parseDate(keywords[2].trim());
+            if (start.isAfter(end)) {
+                throw new SpotException("Spot thinks the start date of your event" +
+                        "cannot be after the end date!");
+            }
             return new AddEventCommand(description, start, end);
         } else if (input.startsWith("bye")) {
             return new ExitCommand();
