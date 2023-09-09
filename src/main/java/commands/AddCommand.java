@@ -10,10 +10,11 @@ import tasks.ToDo;
 
 import java.util.Arrays;
 
+
+
 /**
  * Command to add a task
  */
-
 public class AddCommand extends Command {
 
     /**
@@ -34,8 +35,8 @@ public class AddCommand extends Command {
     public void execute(TaskList<Task> tasks, Ui ui, boolean marked, boolean load) throws DukeException {
         if ((Arrays.asList("todo", "deadline", "event").contains(ui.get(0)))
                 && ui.length() == 1) {
-            System.out.println(ui.showLine() + "\n" +
-                    "☹ OOPS!!! The description of a todo cannot be empty.\n"
+            System.out.println(ui.showLine() + "\n"
+                    + "☹ OOPS!!! The description of a todo cannot be empty.\n"
                     + ui.showLine());
             throw new DukeException();
         }
@@ -55,8 +56,8 @@ public class AddCommand extends Command {
                     System.out.println(job.addTask(tasks.size()));
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println(ui.showLine() + "\n" +
-                        "☹ OOPS!!! I'm sorry, the format entered was incorrect :-(\n"
+                System.out.println(ui.showLine() + "\n"
+                        + "☹ OOPS!!! I'm sorry, the format entered was incorrect :-(\n"
                         + ui.showLine());
                 throw new DukeException();
             }
@@ -69,15 +70,15 @@ public class AddCommand extends Command {
                     System.out.println(job.addTask(tasks.size()));
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println(ui.showLine() + "\n" +
-                        "☹ OOPS!!! I'm sorry, the format entered was incorrect :-(\n"
+                System.out.println(ui.showLine() + "\n"
+                        + "☹ OOPS!!! I'm sorry, the format entered was incorrect :-(\n"
                         + ui.showLine());
                 throw new DukeException();
             }
             break;
         default:
-            System.out.println(ui.showLine() + "\n" +
-                    "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n"
+            System.out.println(ui.showLine() + "\n"
+                    + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n"
                     + ui.showLine());
             throw new DukeException();
         }
