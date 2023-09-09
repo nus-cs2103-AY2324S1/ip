@@ -1,13 +1,13 @@
 package nexus;
 
+import java.io.File;
+import java.util.Scanner;
+
 import nexus.components.Parser;
 import nexus.components.Storage;
 import nexus.components.Ui;
 import nexus.exceptions.InvalidInputException;
 import nexus.task.TaskList;
-
-import java.io.File;
-import java.util.Scanner;
 
 /**
  * The main class for Nexus ChatBot.

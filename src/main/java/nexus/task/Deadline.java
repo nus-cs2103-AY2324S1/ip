@@ -32,7 +32,7 @@ public class Deadline extends Task {
     public String toStorageString() {
         String done = this.isDone ? "1" : "0";
         String endDateTimeString = this.endDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-        return String.join("|","D", done, this.description, endDateTimeString);
+        return String.join("|", "D", done, this.description, endDateTimeString);
     }
 }
 

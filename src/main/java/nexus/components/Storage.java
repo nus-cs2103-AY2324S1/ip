@@ -1,19 +1,19 @@
 package nexus.components;
 
-import nexus.task.Deadline;
-import nexus.task.Event;
-import nexus.task.Task;
-import nexus.task.Todo;
-
-import java.io.BufferedWriter;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
+
+import nexus.task.Deadline;
+import nexus.task.Event;
+import nexus.task.Task;
+import nexus.task.Todo;
 
 /**
  * Manages saving and loading of data.
@@ -91,6 +91,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Edit the stored tasks.
+     *
+     * @param action String that represents action.
+     * @param index Index of task to be edited.
+     */
     public void editTask(String action, int index) {
         File fileToEdit = new File(this.path);
 
@@ -114,6 +120,8 @@ public class Storage {
                         break;
                     case "delete":
                         break;
+                    default:
+                        throw new RuntimeException();
                     }
                 } else {
                     updatedContent.append(line).append("\n");

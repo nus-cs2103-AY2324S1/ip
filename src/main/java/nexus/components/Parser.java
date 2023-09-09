@@ -1,5 +1,8 @@
 package nexus.components;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import nexus.exceptions.InvalidInputException;
 import nexus.task.Deadline;
 import nexus.task.Event;
@@ -7,9 +10,9 @@ import nexus.task.Task;
 import nexus.task.TaskList;
 import nexus.task.Todo;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
+/**
+ * Handles all the user input.
+ */
 public class Parser {
     private static void parseMark(TaskList list, String[] data, Storage storage, Ui ui)
             throws InvalidInputException {
@@ -136,13 +139,30 @@ public class Parser {
         storage.saveTask(event);
     }
 
-    public static void parseFind(TaskList list, String[] data, Ui ui) throws InvalidInputException {
+    /**
+     * Handle find command.
+     *
+     * @param list TaskList.
+     * @param data String[].
+     * @param ui Ui.
+     */
+    public static void parseFind(TaskList list, String[] data, Ui ui) {
         data[0] = "";
         String keyword = String.join(" ", data).trim();
         System.out.println(keyword);
         ui.printFind(keyword, list);
     }
 
+    /**
+     * Handles the user command.
+     *
+     * @param ui Ui.
+     * @param storage Storage.
+     * @param list TaskList.
+     * @param input User input string.
+     * @return Returns a boolean indicating whether to end the chat.
+     * @throws InvalidInputException Invalid input.
+     */
     public static boolean parseInput(Ui ui, Storage storage, TaskList list, String input)
             throws InvalidInputException {
         String[] data = input.split(" ");

@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * The Event class that inherits from Task.
  */
-public class Event extends Task{
+public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
