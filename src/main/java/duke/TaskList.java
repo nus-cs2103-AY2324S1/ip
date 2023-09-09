@@ -45,7 +45,10 @@ public class TaskList {
    * @param task the task to be added
    */
   public void addTask(Task task, Pane pane, Image dukeImage) {
+    int prevSize = tasks.size();
     tasks.add(task);
+    assert prevSize + 1 == tasks.size();
+
     String displayMsg = String.format("Got it. I've added this task:\n"+
             "    %s\n" +
             "Now you have %s tasks in the list.", task.toString(), tasks.size());
@@ -67,7 +70,10 @@ public class TaskList {
       }
       int i = Integer.parseInt(index, 10) - 1;
 
+      int prevSize = tasks.size();
       Task task = tasks.remove(i);
+      assert prevSize - 1 == tasks.size();
+
       String displayMsg = String.format("Noted. I've removed this task:\n " +
               "    %s\n" +
               "Now you have %s tasks in the list.", task.toString(), tasks.size());
@@ -92,7 +98,11 @@ public class TaskList {
       }
       int i = Integer.parseInt(index, 10) - 1;
       Task task = tasks.get(i);
+
+      boolean prevState = task.isCompleted();
       task.markCompleted();
+      assert prevState != task.isCompleted();
+
       String displayMsg = String.format("Nice! I've marked this task as done:\n " +
               "    %s", task.toString());
       pane.getChildren().add(DialogBox.getDukeDialog(displayMsg, dukeImage));
@@ -117,7 +127,11 @@ public class TaskList {
 
       int i = Integer.parseInt(index, 10) - 1;
       Task task = tasks.get(i);
+
+      boolean prevState = task.isCompleted();
       task.markNotCompleted();
+      assert prevState != task.isCompleted();
+
       String displayMsg = String.format("OK, I've marked this task as not done yet:\n " +
               "    %s", task.toString());
       pane.getChildren().add(DialogBox.getDukeDialog(displayMsg, dukeImage));
@@ -152,4 +166,5 @@ public class TaskList {
     pane.getChildren().add(DialogBox.getDukeDialog(displayMsg.toString(), dukeImage));
     return match;
   }
+
 }
