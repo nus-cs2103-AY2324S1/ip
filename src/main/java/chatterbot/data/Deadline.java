@@ -43,7 +43,7 @@ public class Deadline extends Task {
      * @return String This is the formatted line to add to the ChatterBot.txt file.
      */
     @Override
-    public String forFile() {
+    public String formatForFile() {
         return "deadline " + this.description + " /by " + by;
     }
 }

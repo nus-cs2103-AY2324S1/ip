@@ -32,7 +32,7 @@ public class Event extends Task {
      * @return String This is the formatted line to add to the ChatterBot.txt file.
      */
     @Override
-    public String forFile() {
+    public String formatForFile() {
         return "event " + this.description + "/from " + this.from + "/to " + this.to;
     }
 }
