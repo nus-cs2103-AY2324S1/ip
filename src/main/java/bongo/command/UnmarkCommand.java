@@ -21,6 +21,7 @@ public class UnmarkCommand extends Command {
         if (command.length <= 1) {
             throw new BongoException("Please include the task index.");
         }
+        assert command.length == 2 : "Please use the command like this: unmark [task number]";
         this.taskIndex = Integer.parseInt(command[1]) - 1;
     }
 
