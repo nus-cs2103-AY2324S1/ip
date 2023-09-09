@@ -16,11 +16,11 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + "(from: " + from + "to: " + to + ")";
     }
 
     @Override
     public String forFile() {
-        return "event " + this.description + " /from " + this.from + " /to " + this.to;
+        return "event " + this.description + "/from " + this.from + "/to " + this.to;
     }
 }

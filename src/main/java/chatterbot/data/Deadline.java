@@ -27,6 +27,6 @@ public class Deadline extends Task {
 
     @Override
     public String forFile() {
-        return "deadline " + this.description + " /by " + modifyBy(by);
+        return "deadline " + this.description + " /by " + by;
     }
 }
