@@ -8,13 +8,13 @@ import java.io.IOException;
 public class Storage {
     private String filePath;
 
-    public Storage(String filePath) {
+    public Storage (String filePath) {
         this.filePath = filePath;
     }
     public enum TaskType {
         TODO, DEADLINE, EVENT
     }
-    public void saveTasks(TaskList tasks) {
+    public void saveTasks (TaskList tasks) {
         File file = new File(filePath);
         file.getParentFile().mkdirs();
 
