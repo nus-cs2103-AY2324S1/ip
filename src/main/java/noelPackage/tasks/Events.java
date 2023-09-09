@@ -1,4 +1,4 @@
-package noel.tasks;
+package noelPackage.tasks;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -33,7 +33,7 @@ public class Events extends Task {
         this.endTime = endTime;
         String startDateTime = formatDate(this.startDate) + " " + formatTime(this.startTime);
         String endDateTime = formatDate(this.endDate) + " " + formatTime(this.endTime);
-        this.dateString = " (from: " + startDateTime + " to: " + endDateTime + ")";
+        this.dateString = "(from: " + startDateTime + " to: " + endDateTime + ")";
     }
 
     @Override

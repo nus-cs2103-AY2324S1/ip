@@ -1,6 +1,6 @@
-package noel.helper;
+package noelPackage.helper;
 
-import noel.tasks.Task;
+import noelPackage.tasks.Task;
 
 public class Parser {
 

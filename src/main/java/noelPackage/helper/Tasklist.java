@@ -1,10 +1,10 @@
-package noel.helper;
+package noelPackage.helper;
 
-import noel.exceptions.NoelException;
-import noel.tasks.Deadlines;
-import noel.tasks.Events;
-import noel.tasks.Task;
-import noel.tasks.ToDos;
+import noelPackage.exceptions.NoelException;
+import noelPackage.tasks.Deadlines;
+import noelPackage.tasks.Events;
+import noelPackage.tasks.Task;
+import noelPackage.tasks.ToDos;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -225,6 +225,7 @@ public class Tasklist {
         for (Task t:taskList) {
             linesToAppend.add(t.toFileString());
         }
+        System.out.println(linesToAppend.subList(0, linesToAppend.size()));
         return linesToAppend.subList(0, linesToAppend.size());
     }
 

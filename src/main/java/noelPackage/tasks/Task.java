@@ -1,4 +1,4 @@
-package noel.tasks;
+package noelPackage.tasks;
 
 public class Task {
 

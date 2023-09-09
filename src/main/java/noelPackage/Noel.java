@@ -1,10 +1,10 @@
-package noel;
+package noelPackage;
 
-import noel.exceptions.NoelException;
-import noel.helper.Parser;
-import noel.helper.Storage;
-import noel.helper.Tasklist;
-import noel.helper.Ui;
+import noelPackage.exceptions.NoelException;
+import noelPackage.helper.Parser;
+import noelPackage.helper.Storage;
+import noelPackage.helper.Tasklist;
+import noelPackage.helper.Ui;
 
 public class Noel {
 
@@ -14,11 +14,12 @@ public class Noel {
     private Tasklist tasks;
     private final Parser parser;
 
+
     public Noel(String filePath) {
-        ui = new Ui();
+        this.ui = new Ui();
         Storage storage = new Storage(filePath);
         try {
-            tasks = new Tasklist(storage.load());
+            tasks = new Tasklist(storage.loadFile());
         } catch (NoelException e) {
             ui.showLoadingError();
             tasks = new Tasklist();

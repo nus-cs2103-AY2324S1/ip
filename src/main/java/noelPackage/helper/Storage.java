@@ -1,4 +1,4 @@
-package noel.helper;
+package noelPackage.helper;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,7 +16,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public String load() {
+    public String loadFile() {
         return checkFile();
     }
 
