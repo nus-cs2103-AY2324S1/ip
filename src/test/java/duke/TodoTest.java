@@ -1,7 +1,8 @@
 package duke;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
 
 
 public class TodoTest {
@@ -12,7 +13,7 @@ public class TodoTest {
         task2.mark();
         assertEquals("T | 0 | task1",
                 task1.generateStr(), "Generate str of uncompleted task");
-        assertEquals("T | 1 | task2", task2.generateStr(),"Generate str of completed task" );
+        assertEquals("T | 1 | task2", task2.generateStr(), "Generate str of completed task");
     }
 
     @Test
@@ -22,7 +23,7 @@ public class TodoTest {
         task2.mark();
         assertEquals("[T][ ] task1",
                 task1.toString(), "To String of uncompleted task");
-        assertEquals("[T][X] task2", task2.toString(),"To String of completed task" );
+        assertEquals("[T][X] task2", task2.toString(), "To String of completed task");
     }
 
 }
