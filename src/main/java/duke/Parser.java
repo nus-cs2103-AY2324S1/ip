@@ -126,33 +126,32 @@ public class Parser {
     public static String parseCommands(String input) {
         if (input.equals("list")) {
             return tasks.listAllTasks();
-        } else {
-            String[] inputSplit = input.split(" ");
-            try {
-                switch (inputSplit[0]) {
-                case ("todo"):
-                    return addTask(TaskType.TODO, input);
-                case ("deadline"):
-                    return addTask(TaskType.DEADLINE, input);
-                case ("event"):
-                    return addTask(TaskType.EVENT, input);
-                case ("mark"):
-                    return modifyTask(ModifyTask.MARK, input);
-                case ("unmark"):
-                    return modifyTask(ModifyTask.UNMARK, input);
-                case ("delete"):
-                    return modifyTask(ModifyTask.DELETE, input);
-                case("find"):
-                    return tasks.findTasks(inputSplit[1]);
-                case("bye"):
-                    System.exit(0);
-                    return Ui.exit();
-                default:
-                    return Ui.returnErrorString(new DukeException("I'm sorry, but I don't know what that means :-("));
-                }
-            } catch (DukeException e) {
-                return Ui.returnErrorString(e);
+        }
+        String[] inputSplit = input.split(" ");
+        try {
+            switch (inputSplit[0]) {
+            case ("todo"):
+                return addTask(TaskType.TODO, input);
+            case ("deadline"):
+                return addTask(TaskType.DEADLINE, input);
+            case ("event"):
+                return addTask(TaskType.EVENT, input);
+            case ("mark"):
+                return modifyTask(ModifyTask.MARK, input);
+            case ("unmark"):
+                return modifyTask(ModifyTask.UNMARK, input);
+            case ("delete"):
+                return modifyTask(ModifyTask.DELETE, input);
+            case("find"):
+                return tasks.findTasks(inputSplit[1]);
+            case("bye"):
+                System.exit(0);
+                return Ui.exit();
+            default:
+                return Ui.returnErrorString(new DukeException("I'm sorry, but I don't know what that means :-("));
             }
+        } catch (DukeException e) {
+            return Ui.returnErrorString(e);
         }
     }
 }
