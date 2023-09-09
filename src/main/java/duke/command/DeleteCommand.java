@@ -28,6 +28,6 @@ public class DeleteCommand extends Command {
     public String execute(TaskList tasks, UI ui, Storage storage) throws IOException {
         Task t = tasks.delete(index);
         storage.rewrite(tasks);
-        return(ui.showDeleteMessage(t, tasks.getSize()));
+        return (ui.showDeleteMessage(t, tasks.getSize()));
     }
 }

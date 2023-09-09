@@ -36,15 +36,12 @@ public class Deadline extends Task {
             throw new EmptyDescriptionException();
         } else if (!items[1].startsWith("by ")) {
             throw new UnknownCommandException();
-        } else {
-            if (items[1].length() == 3) {
-                throw new EmptyDescriptionException();
-            } else {
-                LocalDate date = LocalDate.parse(items[1].substring(3));
-                this.description = items[0];
-                this.by = date;
-            }
+        } else if (items[1].length() == 3) {
+            throw new EmptyDescriptionException();
         }
+        LocalDate date = LocalDate.parse(items[1].substring(3));
+        this.description = items[0];
+        this.by = date;
     }
 
     @Override
