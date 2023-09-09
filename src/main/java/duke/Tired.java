@@ -1,27 +1,21 @@
 package duke;
+import javafx.application.Platform;
 
 enum TaskType {
     TODO, DEADLINE, EVENT
 }
 
-/**
- * The Tired class launches the Tired chatbot.
- * It serves as the entry point for the application.
- *
- */
 public class Tired {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
     /**
-     * Constructs a Tired chatbot with the specified file name for task data storage.
-     *
-     * @param fileName The name of the file where task data is stored.
+     * Constructs a `Tired` chatbot object.
      */
-    public Tired(String fileName) {
+    public Tired() {
         ui = new Ui();
-        storage = new Storage(fileName);
+        storage = new Storage("duke.txt");
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
@@ -31,32 +25,20 @@ public class Tired {
     }
 
     /**
-     * Runs the Tired chatbot, displaying a welcome message and entering a main execution loop.
-     * The chatbot continuously reads user commands, processes them, and provides responses.
-     */
-    public void run() {
-        ui.showWelcomeMessage();
-        boolean isActive = true;
-        while (isActive) {
-            System.out.println("____________________________________________________________");
-            String input = ui.readCommand().trim();
-            try {
-                isActive = Parser.isValidCommand(input, tasks, ui);
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            }
-            storage.saveToFile(tasks);
-        }
-        ui.showGoodbyeMessage();
-    }
-
-    /**
-     * The main method that launches the Tired chatbot.
+     * Processes the user's input and returns a response.
      *
-     * @param args Refers to command-line arguments.
+     * @param input The user's input command.
+     * @return The response message generated based on the input.
      */
-    public static void main(String[] args) {
-        String fileName = "duke.txt";
-        new Tired(fileName).run();
+    String getResponse(String input) {
+        if (input.trim().equals("bye")) {
+//            Platform.exit();
+            return ui.showGoodbyeMessage();
+        }
+        try {
+            return Parser.parseCommand(input, tasks, ui);
+        } catch (DukeException e) {
+            return ui.showError(e.getMessage());
+        }
     }
 }

@@ -27,51 +27,59 @@ public class TaskList {
     /**
      * Adds a task to the task list and displays a confirmation message.
      *
-     * @param task The task to be added to the list.
+     * @param task The task to be added.
+     * @param ui The user interface object.
+     * @return A confirmation message for adding the task.
      */
-    public void addTask(Task task) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
+    public String addTask(Task task, Ui ui) {
         tasks.add(task);
-        System.out.println("Now you have " + getSize() + " task(s) in the list.");
+        return ui.showAddTask(task, tasks.size());
     }
 
     /**
      * Removes a task from the task list by its index and displays a confirmation message.
      *
      * @param index The index of the task to be removed.
+     * @param ui The user interface object.
+     * @return A confirmation message for removing the task.
      */
-    public void removeTask(int index) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(tasks.get(index).toString());
+    public String removeTask(int index, Ui ui) {
+        Task removedTask = tasks.get(index);
         tasks.remove(index);
-        System.out.println("Now you have " + getSize() + " task(s) in the list.");
+        return ui.showDeletedTask(removedTask, tasks.size());
     }
 
     /**
      * Marks a task as done by its index and displays a confirmation message.
      *
-     * @param taskIndex The index of the task to be marked as done.
+     * @param index The index of the task to be marked as done.
+     * @param ui The user interface object.
+     * @return A confirmation message for marking the task as done.
      */
-    public void markTask(int taskIndex) {
-        tasks.get(taskIndex).markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks.get(taskIndex).toString());
-        System.out.println("Now you have " + getSize() + " task(s) in the list.");
+    public String markTask(int index, Ui ui) {
+        Task markedTask = tasks.get(index);
+        markedTask.markAsDone();
+        return ui.showDone(markedTask);
     }
 
     /**
      * Marks a task as not done by its index and displays a confirmation message.
      *
-     * @param taskIndex The index of the task to be marked as not done.
+     * @param index The index of the task to be marked as not done.
+     * @param ui The user interface object.
+     * @return A confirmation message for marking the task as not done.
      */
-    public void unmarkTask(int taskIndex) {
-        tasks.get(taskIndex).markAsUndone();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(tasks.get(taskIndex).toString());
-        System.out.println("Now you have " + getSize() + " task(s) in the list.");
+    public String unmarkTask(int index, Ui ui) {
+        Task unmarkedTask = tasks.get(index);
+        unmarkedTask.markAsUndone();
+        return ui.showUndone(unmarkedTask);
     }
 
+    /**
+     * Calculates the size of the task list
+     *
+     * @return The size of the task list.
+     */
     public int getSize() {
         return tasks.size();
     }
@@ -91,6 +99,12 @@ public class TaskList {
         return stringBuilder.toString();
     }
 
+    /**
+     * Finds and returns tasks containing the specified keyword in their descriptions.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return An ArrayList of tasks that match the keyword.
+     */
     public ArrayList<Task> findTasksWithKeyword(String keyword) {
         ArrayList<Task> filteredTasks = new ArrayList<>();
         for (Task task : tasks) {
