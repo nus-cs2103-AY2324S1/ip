@@ -24,22 +24,18 @@ public class Ui {
     }
 
     /**
-     * Plays the chatbot's greeting message.
+     * Gets the chatbot's greeting message.
      */
-    public void playGreeting() {
-        System.out.println(SPACER);
-        System.out.println("Howdy, I'm " + botName + ", your friendly personal assistant!");
-        System.out.println("What can I do for you today?");
-        System.out.println(SPACER);
+    public String playGreeting() {
+        return "Howdy, I'm " + botName + ", your friendly personal assistant!\n"
+                + "What can I do for you today?";
     }
 
     /**
      * Plays the chatbot's goodbye message.
      */
-    public void playGoodbye() {
-        System.out.println(SPACER);
-        System.out.println("See ya later, alligator! I'm waiting here if you need anything :>");
-        System.out.println(SPACER);
+    public String playGoodbye() {
+        return "See ya later, alligator! I'm waiting here if you need anything :>";
     }
 
     /**
@@ -47,11 +43,9 @@ public class Ui {
      *
      * @param taskDescription The description of the Task marked.
      */
-    public void playTaskComplete(String taskDescription) {
-        System.out.println(SPACER);
-        System.out.println("Good job on completing this task! You are an awesome possum!!");
-        System.out.println(taskDescription);
-        System.out.println(SPACER);
+    public String playTaskComplete(String taskDescription) {
+        return "Good job on completing this task! You are an awesome possum!!\n"
+                + taskDescription;
     }
 
     /**
@@ -59,11 +53,9 @@ public class Ui {
      *
      * @param taskDescription The description of the Task unmarked.
      */
-    public void playTaskIncomplete(String taskDescription) {
-        System.out.println(SPACER);
-        System.out.println("Man, you've got this extra thing to do now...");
-        System.out.println(taskDescription);
-        System.out.println(SPACER);
+    public String playTaskIncomplete(String taskDescription) {
+        return "Man, you've got this extra thing to do now...\n"
+                + taskDescription;
     }
 
     /**
@@ -72,12 +64,10 @@ public class Ui {
      * @param taskDescription The description of the Task removed.
      * @param taskCount The total number of Tasks in the TaskList after removal.
      */
-    public void playRemoveTask(String taskDescription, int taskCount) {
-        System.out.println(SPACER);
-        System.out.println("Guess you've got one less thing to do now.");
-        System.out.println(taskDescription);
-        System.out.println("Get going! You have " + taskCount + " tasks on record!!");
-        System.out.println(SPACER);
+    public String playRemoveTask(String taskDescription, int taskCount) {
+        return "Guess you've got one less thing to do now.\n"
+                + taskDescription + "\n"
+                + "Get going! You have " + taskCount + " tasks on record!!";
     }
 
     /**
@@ -86,12 +76,10 @@ public class Ui {
      * @param taskDescription The description of the Task added.
      * @param taskCount The total number of Tasks in the TaskList after addition.
      */
-    public void playAddTask(String taskDescription, int taskCount) {
-        System.out.println(SPACER);
-        System.out.println("Okay, so here is the new thing to keep you occupied:");
-        System.out.println(taskDescription);
-        System.out.println("Get going! You have " + taskCount + " tasks on record!!");
-        System.out.println(SPACER);
+    public String playAddTask(String taskDescription, int taskCount) {
+        return "Okay, so here is the new thing to keep you occupied:\n"
+                + taskDescription + "\n"
+                + "Get going! You have " + taskCount + " tasks on record!!";
     }
 
     /**
@@ -99,11 +87,9 @@ public class Ui {
      *
      * @param taskList The TaskList to be printed.
      */
-    public void printTaskList(TaskList taskList) {
-        System.out.println(SPACER);
-        System.out.println("Hey buddy, here's the stuff you need to do:");
-        taskList.printTasksAsList();
-        System.out.println(SPACER);
+    public String printTaskList(TaskList taskList) {
+        return "Hey buddy, here's the stuff you need to do:\n"
+                + taskList.printTasksAsList();
     }
 
 
@@ -112,11 +98,9 @@ public class Ui {
      *
      * @param searchResults The TaskList containing the search results.
      */
-    public void printKeywordSearchResults(TaskList searchResults) {
-        System.out.println(SPACER);
-        System.out.println("Alright buddy, here are the matching tasks I dug up:");
-        searchResults.printTasksAsList();
-        System.out.println(SPACER);
+    public String printKeywordSearchResults(TaskList searchResults) {
+        return "Alright buddy, here are the matching tasks I dug up:\n"
+                + searchResults.printTasksAsList();
     }
 
     /**
@@ -124,10 +108,8 @@ public class Ui {
      *
      * @param exceptionMessage The ExceptionMessage to be shown.
      */
-    public void playExceptionMessage(ExceptionMessage exceptionMessage) {
-        System.out.println(SPACER);
-        System.out.println(exceptionMessage.message);
-        System.out.println(SPACER);
+    public String playExceptionMessage(ExceptionMessage exceptionMessage) {
+        return exceptionMessage.message;
     }
 
     public enum ExceptionMessage {
