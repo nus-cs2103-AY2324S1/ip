@@ -19,6 +19,7 @@ public class Parser {
         DELETE,
         FIND,
         EDIT,
+        HELP,
         INVALID
     }
 
