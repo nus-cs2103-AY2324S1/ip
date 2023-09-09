@@ -1,5 +1,6 @@
 package com.alpha.commands;
 
+import com.alpha.exceptions.InvalidTaskException.DuplicateTaskException;
 import com.alpha.tasks.Task;
 import com.alpha.tasks.TaskList;
 import com.alpha.tasks.ToDo;
@@ -17,8 +18,13 @@ public class ToDoCommand extends Command {
      * @param name    The name of the task.
      * @param taskList The task list.
      */
-    public ToDoCommand(String name, TaskList taskList) {
+    public ToDoCommand(String name, TaskList taskList) throws DuplicateTaskException {
         super(taskList);
+        for (Task currentTasks : taskList.getTasks()) {
+            if (currentTasks.getName().equals(name)) {
+                throw new DuplicateTaskException();
+            }
+        }
         task = new ToDo(name);
     }
 

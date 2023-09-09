@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import com.alpha.exceptions.InvalidTaskException.DuplicateTaskException;
 import com.alpha.tasks.TaskList;
 
 class UnmarkCommandTest {
@@ -12,8 +13,14 @@ class UnmarkCommandTest {
     void testExecute() {
         String taskName = "read book";
         TaskList taskList = new TaskList();
-        ToDoCommand toDoCommand = new ToDoCommand(taskName, taskList);
+        ToDoCommand toDoCommand = null;
+        try {
+            toDoCommand = new ToDoCommand(taskName, taskList);
+        } catch (DuplicateTaskException e) {
+            throw new RuntimeException(e);
+        }
         toDoCommand.execute();
+
         MarkCommand markCommand = new MarkCommand(1, taskList);
         markCommand.execute();
         UnmarkCommand unmarkCommand = new UnmarkCommand(1, taskList);
