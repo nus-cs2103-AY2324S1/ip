@@ -23,10 +23,10 @@ public class Event extends Task {
      */
     public static Event initializeFromInput(String input) throws EmptyDescriptionException {
         try {
-            String processed = input.split("event")[1];
-            String description = processed.split("/from")[0].strip();
-            String from = processed.split("/from")[1].split("/to")[0].strip();
-            String to = processed.split("/to")[1].strip();
+            String splitInput = input.split("event")[1];
+            String description = splitInput.split("/from")[0].strip();
+            String from = splitInput.split("/from")[1].split("/to")[0].strip();
+            String to = splitInput.split("/to")[1].strip();
             return new Event(description, from, to);
         } catch (Exception e) {
             throw new EmptyDescriptionException("event", "event project meeting /from Mon 2pm /to 4pm");
