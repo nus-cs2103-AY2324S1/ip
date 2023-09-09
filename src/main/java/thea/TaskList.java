@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Represents a list of current tasks.
  */
 public class TaskList {
-    ArrayList<Task> taskArrayList;
+    private ArrayList<Task> taskArrayList;
 
     /**
      * Constructs a new empty TaskList object.
@@ -37,7 +37,7 @@ public class TaskList {
      * @param index index.
      * @return task of the specified index.
      */
-    public Task get(int index)  {
+    public Task get(int index) {
         return this.taskArrayList.get(index);
     }
 
@@ -112,7 +112,7 @@ public class TaskList {
         for (int i = 0; i < this.size(); i++) {
             if (this.get(i).getTaskName().contains(keyword)) {
                 relevantTasks.add(this.get(i));
-            };
+            }
         }
         return relevantTasks;
     }

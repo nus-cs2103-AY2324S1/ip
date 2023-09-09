@@ -9,8 +9,8 @@ import java.time.format.DateTimeFormatter;
  * This class is a subclass of the abstract class Task.
  */
 public class Event extends Task {
-    LocalDateTime from;
-    LocalDateTime to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     /**
      * Constructs a new Event object.
@@ -59,7 +59,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("[E][%s] %s (from: %s to: %s)",
-                (super.isDone ? "X" : " "), super.taskName,
+                super.isDone ? "X" : " ", super.taskName,
                 this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")),
                 this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")));
     }

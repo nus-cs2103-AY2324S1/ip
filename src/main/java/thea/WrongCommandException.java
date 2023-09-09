@@ -4,7 +4,7 @@ package thea;
  * Represents an exception to use when users writes a wrong command (first word of input).
  */
 
-public class WrongCommandException extends Exception{
+public class WrongCommandException extends Exception {
 
     /**
      * Constructs a new WrongCommandException object.

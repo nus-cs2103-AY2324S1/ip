@@ -1,9 +1,8 @@
 package thea;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
-
-import java.time.LocalDateTime;
 
 /**
  * Represents a Parser that translates the user input from String to Command class.
@@ -11,17 +10,15 @@ import java.time.LocalDateTime;
  */
 public class Parser {
 
+
     /**
      * Translates the user input as Command class.
      *
      * @param fullCommand user input in String.
      * @return executable Command class.
-     * @throws EmptyDescriptionException if user tries
-     * to add a new task with no description.
-     * @throws WrongCommandException if user write the
-     * wrong command (first word input).
-     * @throws WrongDateTimeFormatException if the inputted
-     * date time fails to follow the expected date time format.
+     * @throws EmptyDescriptionException if user tries to add a new task with no description.
+     * @throws WrongCommandException if user write the wrong command (first word input).
+     * @throws WrongDateTimeFormatException if the inputted date time fails to follow the expected date time format.
      */
     public static Command parse(String fullCommand) throws EmptyDescriptionException,
             WrongCommandException, WrongDateTimeFormatException {
@@ -68,8 +65,8 @@ public class Parser {
                             Integer.parseInt(timeHourMinute[0]),
                             Integer.parseInt(timeHourMinute[1]));
                 } catch (Exception e) {
-                    throw new WrongDateTimeFormatException("I cannot understand your due date '^' " +
-                            "Please write your due date in format yyyy-MM-dd HH:mm");
+                    throw new WrongDateTimeFormatException("I cannot understand your due date '^' "
+                            + "Please write your due date in format yyyy-MM-dd HH:mm");
                 }
                 Deadline deadline = new Deadline(nameAndTime[0], nameAndTime[1]);
                 return new AddCommand("D", deadline);
@@ -98,8 +95,8 @@ public class Parser {
                             Integer.parseInt(timeHourMinuteTo[0]),
                             Integer.parseInt(timeHourMinuteTo[1]));
                 } catch (Exception e) {
-                    throw new WrongDateTimeFormatException("I cannot understand your date and time '^' " +
-                            "Please write your event date and time in format yyyy-MM-dd HH:mm");
+                    throw new WrongDateTimeFormatException("I cannot understand your date and time '^' "
+                            + "Please write your event date and time in format yyyy-MM-dd HH:mm");
                 }
                 Event event = new Event(nameAndTime[0], nameAndTime[1], nameAndTime[2]);
                 return new AddCommand("E", event);

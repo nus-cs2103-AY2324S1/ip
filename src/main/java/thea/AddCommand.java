@@ -6,8 +6,8 @@ package thea;
  * This class is a subclass of the abstract class Command with abstract method execute.
  */
 public class AddCommand extends Command {
-    String taskType;
-    Task task;
+    private String taskType;
+    private Task task;
 
     /**
      * Constructs a new AddCommand object.

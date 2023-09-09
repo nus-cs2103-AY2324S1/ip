@@ -37,7 +37,7 @@ public class Thea {
             try {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
-                isExit = c.isExit;
+                isExit = c.getIsExit();
             } catch (EmptyDescriptionException | WrongCommandException
                      | WrongDateTimeFormatException e) {
                 ui.showError(e.getMessage());

@@ -3,7 +3,7 @@ package thea;
 /**
  * Represents an exception to use when users try to change a task that does not exist.
  */
-public class IndexOutOfBoundsException extends Exception{
+public class IndexOutOfBoundsException extends Exception {
     /**
      * Constructs a new IndexOutOfBoundsException object.
      *

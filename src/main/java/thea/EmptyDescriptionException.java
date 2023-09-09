@@ -3,7 +3,7 @@ package thea;
 /**
  * Represents an exception to use when users do not write description of tasks.
  */
-public class EmptyDescriptionException extends Exception{
+public class EmptyDescriptionException extends Exception {
     /**
      * Constructs a new EmptyDescriptionException object.
      *

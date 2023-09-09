@@ -6,7 +6,7 @@ package thea;
  * commands with specified execute method behaviours.
  */
 public abstract class Command {
-    boolean isExit;
+    private final boolean isExit;
 
     /**
      * Constructs a new Command object.
@@ -16,6 +16,10 @@ public abstract class Command {
      */
     public Command(boolean isExit) {
         this.isExit = isExit;
+    }
+
+    public boolean getIsExit() {
+        return this.isExit;
     }
 
     /**
