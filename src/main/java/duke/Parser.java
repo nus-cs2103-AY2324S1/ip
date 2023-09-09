@@ -7,7 +7,7 @@ public class Parser {
      * @param userCommand  The user command.
      * @return  A Task object.
      */
-    public static Task parse(String userCommand) {
+    public static Task parse (String userCommand) {
         String[] commandParts = userCommand.split(" ", 2);
         String taskType = commandParts[0].toLowerCase();
 

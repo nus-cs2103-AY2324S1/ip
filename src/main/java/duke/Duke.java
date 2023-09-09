@@ -258,7 +258,7 @@ public class Duke {
      *
      * @param args  Command-line arguments (not used).
      */
-    public static void main(String[] args) {
+    public static void main (String[] args) {
         ui.showWelcome();
 
         try {
@@ -269,7 +269,7 @@ public class Duke {
 
         boolean isExit = false;
 
-        while(!isExit) {
+        while (!isExit) {
             String userCommand = ui.readCommand();
             isExit = ui.handleCommand(userCommand, tasks, storage);
         }

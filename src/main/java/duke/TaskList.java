@@ -56,7 +56,7 @@ public class TaskList {
      * @param index  The index of the task.
      * @return  The task at the specified index.
      */
-    public Task getTask(int index) {
+    public Task getTask (int index) {
         return tasks.get(index);
     }
 
@@ -65,9 +65,9 @@ public class TaskList {
      *
      * @param index  The index of the task.
      */
-    public void markTaskAsDone(int index) {
-    Task task = tasks.get(index);
-    task.markAsDone();
+    public void markTaskAsDone (int index) {
+        Task task = tasks.get(index);
+        task.markAsDone();
     }
 
     /**
@@ -75,7 +75,7 @@ public class TaskList {
      *
      * @param index  The index of the task.
      */
-    public void markTaskAsNotDone(int index) {
+    public void markTaskAsNotDone (int index) {
         Task task = tasks.get(index);
         task.markAsNotDone();
     }
