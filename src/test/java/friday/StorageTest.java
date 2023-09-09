@@ -1,10 +1,10 @@
 package friday;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.File;
+import org.junit.jupiter.api.Test;
 
 public class StorageTest {
 
@@ -35,12 +35,17 @@ public class StorageTest {
         }
 
         String content = contentBuilder.toString();
-        assertEquals(sampleTaskList, content);
+        assert sampleTaskList.equals(content) : "Mismatch between saved content and expected content.";
 
         // Cleanup
         File file = new File(TEST_FILE_PATH);
         if (file.exists()) {
             file.delete();
         }
+    }
+
+    public static void main(String[] args) throws IOException {
+        StorageTest test = new StorageTest();
+        test.testSaveFile();
     }
 }
