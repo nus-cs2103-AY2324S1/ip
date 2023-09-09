@@ -30,10 +30,13 @@ public class Storage {
     public ArrayList<Task> load() throws NoTasksStoredException {
         ArrayList<Task> storedTasks = new ArrayList<>();
         File dataFolder = new File(this.dataFolderName);
+
         if (!dataFolder.exists()) {
             dataFolder.mkdirs();
         }
+
         File file = new File(dataFolder, this.fileName);
+
         if (file.exists()) {
             try {
                 BufferedReader reader = new BufferedReader(new FileReader(file));

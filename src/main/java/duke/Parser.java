@@ -14,9 +14,11 @@ public class Parser {
     public String parseFindDescription(String userInput) {
         String[] userInputSegmented = userInput.split(" ");
         StringBuilder description = new StringBuilder();
+
         for (int i = 1; i < userInputSegmented.length; i++) {
             description.append(userInputSegmented[i] + " ");
         }
+
         return description.toString();
     }
 
@@ -52,6 +54,7 @@ public class Parser {
      */
     public Task parseAddTaskInput(String userInput, String actionWord) throws InvalidTaskException {
         String[] userInputSegmented = userInput.split(" ");
+
         if (userInputSegmented.length == 1) {
             throw new InvalidTaskException("ERROR: The description of a " + userInputSegmented[0]
                     + " cannot be empty.");
@@ -72,6 +75,7 @@ public class Parser {
     private Deadline parseDeadlineInput(String[] userInputSegmented) {
         int startIndex = 0;
         assert Arrays.asList(userInputSegmented).contains("/by");
+
         while (true) {
             startIndex++;
             if (userInputSegmented[startIndex].equals("/by")) {
@@ -88,6 +92,7 @@ public class Parser {
     private Event parseEventInput(String[] userInputSegmented) {
         int fromIndex = 0;
         int toIndex = 0;
+
         while (fromIndex < userInputSegmented.length) {
             fromIndex++;
             toIndex++;
@@ -97,6 +102,7 @@ public class Parser {
                 break;
             }
         }
+
         while (toIndex < userInputSegmented.length) {
             toIndex++;
             if (userInputSegmented[toIndex].equals("/to")) {
