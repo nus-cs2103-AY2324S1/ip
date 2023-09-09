@@ -7,8 +7,20 @@ import chatterbot.data.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents the interpretation of entered user inputs.
+ */
 public class Parser {
 
+    /**
+     * Evaluates entered user inputs and calls the corresponding method.
+     * @param userMessage This is the entered user input.
+     * @param ui This is what will be returned to the user.
+     * @param list This is the current task list.
+     * @param storage This is where the file and list contents are edited.
+     * @param file This is the file path to retrieve the .txt file
+     * @param taskList This is the list of tasks that have been added.
+     */
     public static void evaluateCommand(String userMessage, Ui ui, ArrayList<Task> list, Storage storage, String file, TaskList taskList) {
         if (userMessage.toLowerCase().equals("bye")) {
             ui.showGoodbyeMessage();
@@ -93,6 +105,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns whether an entered string is an integer.
+     * @param str This is the entered string.
+     * @return boolean This is representative of whether the string is an integer or not.
+     */
     public static boolean isInteger(String str) {
         try {
             Integer.parseInt(str);

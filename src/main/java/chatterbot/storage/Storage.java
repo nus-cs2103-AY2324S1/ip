@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents where the file and list contents are edited.
+ */
 public class Storage {
 
     private String filePath;
@@ -22,6 +25,11 @@ public class Storage {
         this.list = list;
     }
 
+    /**
+     * Initiates the list with entered user inputs that have been stored in the .txt file.
+     * @param filePath This is the file path to the .txt file
+     * @throws FileNotFoundException If the file cannot be found.
+     */
     public static void copyFileContents(String filePath) throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
@@ -48,12 +56,24 @@ public class Storage {
         s.close();
     }
 
+    /**
+     * Removes the current .txt file content by overwriting it.
+     * @param filePath This is the file path to the .txt file.
+     * @param textToWrite This is what will be written in the .txt file.
+     * @throws IOException If there is an error reading or writing to the file.
+     */
     public static void writeToFile(String filePath, String textToWrite) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToWrite);
         fw.close();
     }
 
+    /**
+     * Adds to the current .txt file content.
+     * @param filePath This is the file path to the .txt file.
+     * @param textToAppend This is what will be added to the .txt file.
+     * @throws IOException If there is an error reading or writing to the file.
+     */
     public static void appendToFile(String filePath, String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         fw.write(textToAppend + System.lineSeparator());
