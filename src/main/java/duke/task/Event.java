@@ -1,4 +1,7 @@
 package duke.task;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -56,9 +59,17 @@ public class Event extends Task {
     public Event(String description, String time, Boolean isDone) throws DukeException {
         super(description, TaskType.EVENT, isDone);
         try {
-            String[] splits = time.split("-");
-            this.e_start = LocalDate.parse(splits[0].trim(), FORMATTER);
-            this.e_end = LocalDate.parse(splits[1].trim(), FORMATTER);
+            List<LocalDate> dates = Arrays.stream(time.split("-"))
+                    .map(String::trim)
+                    .map(dateStr -> LocalDate.parse(dateStr, FORMATTER))
+                    .collect(Collectors.toList());
+
+            if (dates.size() != 2) {
+                throw new DukeException("Invalid date format. Expected start-end format.");
+            }
+
+            this.e_start = dates.get(0);
+            this.e_end = dates.get(1);
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid time format.");
         }
