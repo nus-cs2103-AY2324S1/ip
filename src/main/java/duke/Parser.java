@@ -1,6 +1,7 @@
 package duke;
 
 import duke.exception.UnknownCommandException;
+import duke.freetimefinder.FreeTimeFinder;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -62,6 +63,9 @@ public class Parser {
             break;
         case "find":
             tasks.findTask(userIn[1]);
+            break;
+        case "free":
+            FreeTimeFinder.findFreeTime(tasks);
             break;
         default:
             throw new UnknownCommandException();

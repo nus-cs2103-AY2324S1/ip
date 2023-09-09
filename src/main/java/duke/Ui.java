@@ -1,6 +1,7 @@
 package duke;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Ui {
@@ -20,6 +21,16 @@ public class Ui {
      */
     public static String outputDate(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    }
+
+    /**
+     * Converts LocalDateTime to String format.
+     *
+     * @param date LocalDateTime to be converted.
+     * @return String representation of given date.
+     */
+    public static String outputDateTime(LocalDateTime date) {
+        return date.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
     }
 
     /**

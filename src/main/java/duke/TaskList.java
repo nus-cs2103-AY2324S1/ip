@@ -1,9 +1,12 @@
 package duke;
 
 import duke.exception.TaskNotFoundException;
+import duke.task.Event;
 import duke.task.Task;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks.
@@ -134,5 +137,17 @@ public class TaskList {
             throw new TaskNotFoundException();
         }
         return taskList.get(taskId);
+    }
+
+    /**
+     * Returns all the events in the task list.
+     *
+     * @return list of all the events.
+     */
+    public List<Event> getEvents() {
+        return taskList.stream()
+                .filter(el -> el instanceof Event) // consider only the one you want
+                .map(el -> (Event) el) // cast them
+                .collect(Collectors.toList());
     }
 }
