@@ -32,8 +32,8 @@ public class Duke extends Application {
     private Scene scene;
 
 
-    private Image user = new Image(this.getClass().getResourceAsStream("/image/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/image/DaDuke.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/image/DaUser.png"));
+    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/image/DaDuke.png"));
 
     public static void main(String[] args) {
         ChatView chatView = new ChatView();
@@ -76,7 +76,7 @@ public class Duke extends Application {
 
         mainLayout.setPrefSize(400.0, 600.0);
 
-        scrollPane.setPrefSize(385, 555);
+        scrollPane.setPrefSize(385, 545);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
@@ -117,8 +117,8 @@ public class Duke extends Application {
         Label userText = new Label(inputField.getText());
         Label dukeText = new Label(getResponse(inputField.getText()));
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(duke))
+                DialogBox.getUserDialog(userText, new ImageView(userImage)),
+                DialogBox.getDukeDialog(dukeText, new ImageView(dukeImage))
         );
         inputField.clear();
     }
