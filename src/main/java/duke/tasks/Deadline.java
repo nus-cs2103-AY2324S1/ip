@@ -10,6 +10,15 @@ import duke.exceptions.DukeIllegalArgumentException;
  */
 public class Deadline extends Task {
 
+    // Error messages
+    private static final String ERROR_MESSAGE_INVALID_DEADLINE_FORMAT =
+            "The deadline of a Deadline task must follow the format yyyy-MM-dd HH:mm.";
+
+    // Template Strings
+    private static final String DEADLINE_DISPLAY_TEMPLATE = "[D]%s (by: %s)";
+    private static final String DEADLINE_EXPORT_TEMPLATE = "DEADLINE || %s || %s || %s || %s";
+
+
     // The deadline of the Deadline task, stored as a LocalDateTime Object.
     protected final LocalDateTime by;
 
@@ -25,8 +34,7 @@ public class Deadline extends Task {
         try {
             this.by = LocalDateTime.parse(by, parseFormatter);
         } catch (DateTimeParseException e) {
-            throw new DukeIllegalArgumentException(
-                    "The deadline of a Deadline task must follow the format yyyy-MM-dd HH:mm.");
+            throw new DukeIllegalArgumentException(ERROR_MESSAGE_INVALID_DEADLINE_FORMAT);
         }
     }
 
@@ -37,7 +45,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), this.by.format(printFormatter));
+        return String.format(DEADLINE_DISPLAY_TEMPLATE, super.toString(), this.by.format(printFormatter));
     }
 
     /**
@@ -47,7 +55,6 @@ public class Deadline extends Task {
      */
     @Override
     public String export() {
-        return String.format("DEADLINE || %s || %s || %s || %s", super.export(),
-                this.by.format(parseFormatter), "", "");
+        return String.format(DEADLINE_EXPORT_TEMPLATE, super.export(), this.by.format(parseFormatter), "", "");
     }
 }

@@ -1,6 +1,9 @@
 package duke.tasks;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import duke.exceptions.DukeIOException;
 import duke.exceptions.DukeIllegalArgumentException;
@@ -10,15 +13,38 @@ import duke.storage.Storage;
  * A list of tasks.
  */
 public class TaskList {
+
     // Error messages
     private static final String ERROR_MESSAGE_INDEX_OUT_OF_BOUNDS =
             "The task number is out of range. Use \"list\" to see your tasks.";
+    private static final String ERROR_MESSAGE_TEMPLATE_EMPTY_DESCRIPTION =
+            "The description of a %s task cannot be blank.";
+    private static final String ERROR_MESSAGE_TEMPLATE_VOWEL_EMPTY_DESCRIPTION =
+            "The description of an %s task cannot be blank.";
+    private static final String ERROR_MESSAGE_EMPTY_DEADLINE =
+            "The date/time of a Deadline task cannot be blank.";
+    private static final String ERROR_MESSAGE_TEMPLATE_EMPTY_EVENT_DATE_TIME =
+            "The %s date/time of an Event task cannot be blank.";
+
+    private static final String ERROR_MESSAGE_ADD_TODO_WRONG_TASK_TYPE =
+            "Only ToDo tasks can be added with just a description.";
+    private static final String ERROR_MESSAGE_ADD_DEADLINE_WRONG_TASK_TYPE =
+            "Only Deadline tasks can be added with a description and deadline.";
+    private static final String ERROR_MESSAGE_ADD_EVENT_WRONG_TASK_TYPE =
+            "Only Event tasks can be added with a description, start and end date/time.";
 
     // Message Templates
-    private static final String ADD_TASK_TEMPLATE =
+    private static final String MESSAGE_ADD_TASK_TEMPLATE =
             "Got it. I've added this task:%n%s%nNow you have %d %s in the list.";
-    private static final String DELETE_TASK_TEMPLATE =
+    private static final String MESSAGE_DELETE_TASK_TEMPLATE =
             "Noted. I've removed this task:%n%s%nNow you have %d %s in the list.";
+    private static final String MESSAGE_MARK_TASK_TEMPLATE = "Nice! I've marked this task as done:%n%s";
+    private static final String MESSAGE_UNMARK_TASK_TEMPLATE = "OK, I've marked this task as not done yet:%n%s";
+    private static final String MESSAGE_TEMPLATE_FOUND_TASKS = "Here %s the %d matching %s in your list:%s";
+    private static final String MESSAGE_TEMPLATE_NO_FOUND_TASKS = "There are no matching tasks in your list.";
+    private static final String MESSAGE_LIST_TASKS_HEADER = "Here are the tasks in your list:";
+    private static final String MESSAGE_TEMPLATE_EMPTY_TASKLIST = "%nYou have no tasks in your list.";
+    private static final String TASK_DISPLAY_FORMAT_TEMPLATE = "%n%d.%s";
 
     // An ArrayList that stores the list of tasks.
     protected final ArrayList<Task> tasks;
@@ -79,21 +105,21 @@ public class TaskList {
             Task toDoTask = new ToDo(description);
             this.tasks.add(toDoTask);
             this.exportData();
-            output = String.format(ADD_TASK_TEMPLATE,
+            output = String.format(MESSAGE_ADD_TASK_TEMPLATE,
                     toDoTask, this.tasks.size(), formatTaskPlurality());
             break;
         case DEADLINE:
             Task deadlineTask = new Deadline(description, by);
             this.tasks.add(deadlineTask);
             this.exportData();
-            output = String.format(ADD_TASK_TEMPLATE,
+            output = String.format(MESSAGE_ADD_TASK_TEMPLATE,
                     deadlineTask, this.tasks.size(), formatTaskPlurality());
             break;
         case EVENT:
             Task eventTask = new Event(description, start, end);
             this.tasks.add(eventTask);
             this.exportData();
-            output = String.format(ADD_TASK_TEMPLATE,
+            output = String.format(MESSAGE_ADD_TASK_TEMPLATE,
                     eventTask, this.tasks.size(), formatTaskPlurality());
             break;
         default:
@@ -105,16 +131,17 @@ public class TaskList {
     /**
      * Adds a task with description to the TaskList. Used for ToDo tasks.
      *
-     * @param taskType The type of task to add.
+     * @param taskType The type of task to add. Must be TODO.
      * @param description The description of the task to add.
      * @return String message
      */
     public String add(TaskType taskType, String description) throws DukeIllegalArgumentException {
         if (description.isBlank()) {
-            throw new DukeIllegalArgumentException("The description of a ToDo task cannot be blank.");
+            throw new DukeIllegalArgumentException(
+                    String.format(ERROR_MESSAGE_TEMPLATE_EMPTY_DESCRIPTION, "ToDo"));
         }
         if (taskType != TaskType.TODO) {
-            throw new DukeIllegalArgumentException("Only ToDo tasks can be added with just a description.");
+            throw new DukeIllegalArgumentException(ERROR_MESSAGE_ADD_TODO_WRONG_TASK_TYPE);
         }
         return this.add(taskType, description, "", "", "");
     }
@@ -122,21 +149,21 @@ public class TaskList {
     /**
      * Adds a task with description and deadline to the TaskList. Used for Deadline tasks.
      *
-     * @param taskType The type of task to add.
+     * @param taskType The type of task to add. Must be DEADLINE.
      * @param description The description of the task to add.
      * @param by The deadline of the task to add.
      * @return String message
      */
     public String add(TaskType taskType, String description, String by) throws DukeIllegalArgumentException {
         if (description.isBlank()) {
-            throw new DukeIllegalArgumentException("The description of a Deadline task cannot be blank.");
+            throw new DukeIllegalArgumentException(
+                    String.format(ERROR_MESSAGE_TEMPLATE_EMPTY_DESCRIPTION, "Deadline"));
         }
         if (by.isBlank()) {
-            throw new DukeIllegalArgumentException("The date/time of a Deadline task cannot be blank.");
+            throw new DukeIllegalArgumentException(ERROR_MESSAGE_EMPTY_DEADLINE);
         }
         if (taskType != TaskType.DEADLINE) {
-            throw new DukeIllegalArgumentException(
-                    "Only Deadline tasks can be added with a description and deadline.");
+            throw new DukeIllegalArgumentException(ERROR_MESSAGE_ADD_DEADLINE_WRONG_TASK_TYPE);
         }
         return this.add(taskType, description, by, "", "");
     }
@@ -144,7 +171,7 @@ public class TaskList {
     /**
      * Adds a task with description, start and end date/time to the TaskList. Used for Event tasks.
      *
-     * @param taskType The type of task to add.
+     * @param taskType The type of task to add. Must be EVENT.
      * @param description The description of the task to add.
      * @param start The start date/time of the task to add.
      * @param end The end date/time of the task to add.
@@ -153,17 +180,19 @@ public class TaskList {
     public String add(TaskType taskType, String description, String start, String end)
             throws DukeIllegalArgumentException {
         if (description.isBlank()) {
-            throw new DukeIllegalArgumentException("The description of an Event task cannot be blank.");
+            throw new DukeIllegalArgumentException(
+                    String.format(ERROR_MESSAGE_TEMPLATE_VOWEL_EMPTY_DESCRIPTION, "Event"));
         }
         if (start.isBlank()) {
-            throw new DukeIllegalArgumentException("The start date/time of an Event task cannot be blank.");
+            throw new DukeIllegalArgumentException(
+                    String.format(ERROR_MESSAGE_TEMPLATE_EMPTY_EVENT_DATE_TIME, "start"));
         }
         if (end.isBlank()) {
-            throw new DukeIllegalArgumentException("The end date/time of an Event task cannot be blank.");
+            throw new DukeIllegalArgumentException(
+                    String.format(ERROR_MESSAGE_TEMPLATE_EMPTY_EVENT_DATE_TIME, "end"));
         }
         if (taskType != TaskType.EVENT) {
-            throw new DukeIllegalArgumentException(
-                    "Only Event tasks can be added with a description, start and end date/time.");
+            throw new DukeIllegalArgumentException(ERROR_MESSAGE_ADD_EVENT_WRONG_TASK_TYPE);
         }
         return this.add(taskType, description, "", start, end);
     }
@@ -182,7 +211,7 @@ public class TaskList {
         }
         this.tasks.get(index).markAsDone();
         this.exportData();
-        return String.format("Nice! I've marked this task as done:%n%s", this.tasks.get(index).toString());
+        return String.format(MESSAGE_MARK_TASK_TEMPLATE, this.tasks.get(index).toString());
     }
 
     /**
@@ -199,7 +228,7 @@ public class TaskList {
         }
         this.tasks.get(index).unmarkAsDone();
         this.exportData();
-        return String.format("OK, I've marked this task as not done yet:%n%s", this.tasks.get(index).toString());
+        return String.format(MESSAGE_UNMARK_TASK_TEMPLATE, this.tasks.get(index).toString());
     }
 
     /**
@@ -215,7 +244,7 @@ public class TaskList {
         }
         Task task = tasks.remove(index);
         this.exportData();
-        return String.format(DELETE_TASK_TEMPLATE, task, this.tasks.size(), formatTaskPlurality());
+        return String.format(MESSAGE_DELETE_TASK_TEMPLATE, task, this.tasks.size(), formatTaskPlurality());
     }
 
     /**
@@ -225,21 +254,18 @@ public class TaskList {
      * @return The String representation of the tasks that contain the keyword in the description.
      */
     public String find(String keyword) {
-        StringBuilder sb = new StringBuilder();
-        int count = 0;
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            if (task.hasKeywordInDescription(keyword)) {
-                count++;
-                sb.append(String.format("%n%d.%s", i + 1, task));
-            }
-        }
-        if (count == 0) {
-            return "There are no matching tasks in your list.";
+        List<String> foundTasks = tasks.stream()
+                .filter(task -> task.hasKeywordInDescription(keyword))
+                .map(task -> String.format(TASK_DISPLAY_FORMAT_TEMPLATE, tasks.indexOf(task) + 1, task))
+                .collect(toList());
+
+        if (foundTasks.isEmpty()) {
+            return MESSAGE_TEMPLATE_NO_FOUND_TASKS;
         } else {
-            String isOrAre = count == 1 ? "is" : "are";
-            String taskOrTasks = count == 1 ? "task" : "tasks";
-            return String.format("Here %s the %d matching %s in your list:%s", isOrAre, count, taskOrTasks, sb);
+            String isOrAre = foundTasks.size() == 1 ? "is" : "are";
+            String taskOrTasks = foundTasks.size() == 1 ? "task" : "tasks";
+            return String.format(MESSAGE_TEMPLATE_FOUND_TASKS,
+                    isOrAre, foundTasks.size(), taskOrTasks, String.join("", foundTasks));
         }
     }
 
@@ -251,13 +277,13 @@ public class TaskList {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Here are the tasks in your list:");
+        sb.append(MESSAGE_LIST_TASKS_HEADER);
         if (tasks.isEmpty()) {
-            sb.append(String.format("%nYou have no tasks in your list."));
+            sb.append(String.format(MESSAGE_TEMPLATE_EMPTY_TASKLIST));
         } else {
-            for (int i = 0; i < tasks.size(); i++) {
-                sb.append(String.format("%n%d.%s", i + 1, tasks.get(i)));
-            }
+            tasks.stream()
+                    .map(task -> String.format(TASK_DISPLAY_FORMAT_TEMPLATE, tasks.indexOf(task) + 1, task))
+                    .forEach(sb::append);
         }
         return sb.toString();
     }
@@ -271,10 +297,10 @@ public class TaskList {
      */
     private void exportData() throws DukeIOException {
         StringBuilder sb = new StringBuilder();
-        for (Task task : tasks) {
-            // \n is used here instead of %n to preserve save file formatting
-            sb.append(task.export()).append("\n");
-        }
+        tasks.stream()
+                .map(Task::export)
+                // \n is used here instead of %n to preserve save file formatting
+                .forEach(task -> sb.append(task).append("\n"));
         taskStorage.save(sb.toString());
     }
 

@@ -21,11 +21,11 @@ public class Parser {
         INVALID
     }
 
-    // The command from the user input.
+    // The parsed command from the user input.
     private final Command command;
-    // The arguments from the user input.
+    // The parsed arguments from the user input.
     private final String argument;
-    // The invalid command from the user input.
+    // The invalid command from the user input. Used to display error message.
     private String invalidCommand = "";
 
     /**

@@ -12,14 +12,31 @@ import duke.ui.Launcher;
  * Duke, the chatbot.
  */
 public class Duke {
+
     // Error messages
     private static final String ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER =
             "Please enter a valid task number. You entered: \"%s\"";
     private static final String ERROR_MESSAGE_TEMPLATE_UNKNOWN_COMMAND =
             "I'm sorry, but I don't know what \"%s\" means.";
+    private static final String ERROR_MESSAGE_DEADLINE_MISSING_DEADLINE =
+            "Deadline Task is missing a \"/by\" field.";
+    private static final String ERROR_MESSAGE_DEADLINE_MISSING_PARAMS =
+            "Deadline Task is missing a description and/or date/time.";
+    private static final String ERROR_MESSAGE_EVENT_MISSING_START_END =
+            "Event Task is missing \"/from\" and/or \"/to\" fields.";
+    private static final String ERROR_MESSAGE_FIND_MISSING_SEARCH_TERM =
+            "Find command is missing a search term.";
+    private static final String ERROR_MESSAGE_TEMPLATE_EXCEPTIONS = "[ERROR] %s";
+
+    // Messages
+    private static final String MESSAGE_ALREADY_ENDED_CHAT = "Max has left the chat!";
+    private static final String MESSAGE_GREET_USER = "Hello! I'm Max!%nWhat can I do for you?";
+    private static final String MESSAGE_GOODBYE = "Bye. Hope to see you again soon!";
+
 
     // Store list of tasks
     private static final TaskList list = new TaskList("tasks.txt");
+
     // Check if chat has ended
     private static boolean hasEndedChat = false;
 
@@ -30,7 +47,7 @@ public class Duke {
      */
     private static String endChat() {
         hasEndedChat = true;
-        return "Bye. Hope to see you again soon!";
+        return MESSAGE_GOODBYE;
     }
 
     /**
@@ -131,62 +148,140 @@ public class Duke {
             output = listTasks();
             break;
         case MARK:
-            try {
-                output = markTaskAsDone(Integer.parseInt(argument));
-            } catch (NumberFormatException e) {
-                throw new DukeIllegalArgumentException(
-                        String.format(ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER, argument));
-            }
+            output = executeMarkTask(argument);
             break;
         case UNMARK:
-            try {
-                output = unmarkTaskAsDone(Integer.parseInt(argument));
-            } catch (NumberFormatException e) {
-                throw new DukeIllegalArgumentException(
-                        String.format(ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER, argument));
-            }
+            output = executeUnmarkTask(argument);
             break;
         case TODO:
             output = addToDoTask(argument);
             break;
         case DEADLINE:
-            if (!argument.contains(" /by ")) {
-                throw new DukeIllegalArgumentException("Deadline Task is missing a \"/by\" field.");
-            }
-            String[] deadlineArgs = argument.split(" /by ");
-            if (deadlineArgs.length != 2) {
-                throw new DukeIllegalArgumentException("Deadline Task is missing a description and/or date/time.");
-            }
-            output = addDeadlineTask(deadlineArgs[0], deadlineArgs[1]);
+            output = executeAddDeadlineTask(argument);
             break;
         case EVENT:
-            if (!argument.contains(" /from ") || !argument.contains(" /to ")) {
-                throw new DukeIllegalArgumentException("Event Task is missing \"/from\" and/or \"/to\" fields.");
-            }
-            String[] eventArgs = argument.split(" /from ");
-            String[] eventTimes = eventArgs[1].split(" /to ");
-            output = addEventTask(eventArgs[0], eventTimes[0], eventTimes[1]);
+            output = executeAddEventTask(argument);
             break;
         case DELETE:
-            try {
-                output = deleteTask(Integer.parseInt(argument));
-            } catch (NumberFormatException e) {
-                throw new DukeIllegalArgumentException(
-                        String.format(ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER, argument));
-            }
+            output = executeDeleteTask(argument);
             break;
         case FIND:
-            if (argument.isBlank()) {
-                throw new DukeIllegalArgumentException("Find command is missing a search term.");
-            } else {
-                output = (list.find(argument));
-            }
+            output = executeFindTask(argument);
             break;
         case INVALID:
             throw new DukeUnknownCommandException(String.format(
                     ERROR_MESSAGE_TEMPLATE_UNKNOWN_COMMAND, parsedCommand.getInvalidCommand()));
         default:
             break;
+        }
+        return output;
+    }
+
+    /**
+     * Try to mark a task as done.
+     *
+     * @param argument The task number, as a String.
+     * @return Output of the mark command.
+     * @throws DukeIllegalArgumentException If the task number is not an integer.
+     */
+    private static String executeMarkTask(String argument) throws DukeIllegalArgumentException {
+        String output;
+        try {
+            output = markTaskAsDone(Integer.parseInt(argument));
+        } catch (NumberFormatException e) {
+            throw new DukeIllegalArgumentException(
+                    String.format(ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER, argument));
+        }
+        return output;
+    }
+
+    /**
+     * Try to unmark a task as done.
+     *
+     * @param argument The task number, as a String.
+     * @return Output of the unmark command.
+     * @throws DukeIllegalArgumentException If the task number is not an integer.
+     */
+    private static String executeUnmarkTask(String argument) throws DukeIllegalArgumentException {
+        String output;
+        try {
+            output = unmarkTaskAsDone(Integer.parseInt(argument));
+        } catch (NumberFormatException e) {
+            throw new DukeIllegalArgumentException(
+                    String.format(ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER, argument));
+        }
+        return output;
+    }
+
+    /**
+     * Try to add a Deadline task.
+     *
+     * @param argument The description and date/time of the Deadline task.
+     * @return Output of the add Deadline command.
+     * @throws DukeIllegalArgumentException If the argument has missing parameters.
+     */
+    private static String executeAddDeadlineTask(String argument) throws DukeIllegalArgumentException {
+        String output;
+        if (!argument.contains(" /by ")) {
+            throw new DukeIllegalArgumentException(ERROR_MESSAGE_DEADLINE_MISSING_DEADLINE);
+        }
+        String[] deadlineArgs = argument.split(" /by ");
+        if (deadlineArgs.length != 2) {
+            throw new DukeIllegalArgumentException(ERROR_MESSAGE_DEADLINE_MISSING_PARAMS);
+        }
+        output = addDeadlineTask(deadlineArgs[0], deadlineArgs[1]);
+        return output;
+    }
+
+    /**
+     * Try to add an Event task.
+     *
+     * @param argument The description, start date/time and end date/time of the Event task.
+     * @return Output of the add Event command.
+     * @throws DukeIllegalArgumentException If the argument has missing parameters.
+     */
+    private static String executeAddEventTask(String argument) throws DukeIllegalArgumentException {
+        String output;
+        if (!argument.contains(" /from ") || !argument.contains(" /to ")) {
+            throw new DukeIllegalArgumentException(ERROR_MESSAGE_EVENT_MISSING_START_END);
+        }
+        String[] eventArgs = argument.split(" /from ");
+        String[] eventTimes = eventArgs[1].split(" /to ");
+        output = addEventTask(eventArgs[0], eventTimes[0], eventTimes[1]);
+        return output;
+    }
+
+    /**
+     * Try to delete a task.
+     *
+     * @param argument The task number, as a String.
+     * @return Output of the delete command.
+     * @throws DukeIllegalArgumentException If the task number is not an integer.
+     */
+    private static String executeDeleteTask(String argument) throws DukeIllegalArgumentException {
+        String output;
+        try {
+            output = deleteTask(Integer.parseInt(argument));
+        } catch (NumberFormatException e) {
+            throw new DukeIllegalArgumentException(
+                    String.format(ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER, argument));
+        }
+        return output;
+    }
+
+    /**
+     * Try to find a task.
+     *
+     * @param argument The search term.
+     * @return Output of the find command.
+     * @throws DukeIllegalArgumentException If the search term is missing.
+     */
+    private static String executeFindTask(String argument) throws DukeIllegalArgumentException {
+        String output;
+        if (argument.isBlank()) {
+            throw new DukeIllegalArgumentException(ERROR_MESSAGE_FIND_MISSING_SEARCH_TERM);
+        } else {
+            output = (list.find(argument));
         }
         return output;
     }
@@ -210,10 +305,10 @@ public class Duke {
             try {
                 return executeCommand(parsedCommand);
             } catch (DukeException e) {
-                return String.format("[ERROR] %s", e.getMessage());
+                return String.format(ERROR_MESSAGE_TEMPLATE_EXCEPTIONS, e.getMessage());
             }
         } else {
-            return "Max has left the chat!";
+            return MESSAGE_ALREADY_ENDED_CHAT;
         }
     }
 
@@ -223,7 +318,7 @@ public class Duke {
      * @return String containing Duke's greeting.
      */
     public String greet() {
-        return String.format("Hello! I'm Max!%nWhat can I do for you?");
+        return String.format(MESSAGE_GREET_USER);
     }
 
 }
