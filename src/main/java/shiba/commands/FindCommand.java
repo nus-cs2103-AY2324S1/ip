@@ -42,7 +42,7 @@ public class FindCommand extends ShibaCommand {
         } else {
             Replier.printWithNoIndents("Woof! Here are the tasks containing the keyword!");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                Replier.printWithNoIndents((i + 1) + ". " + matchingTasks.get(i));
+                Replier.printWithOneIndent((i + 1) + ". " + matchingTasks.get(i));
             }
         }
         Replier.reply();

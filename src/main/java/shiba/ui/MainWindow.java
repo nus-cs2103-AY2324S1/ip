@@ -46,12 +46,13 @@ public class MainWindow extends Application {
         userInput = new CommandInput();
         root.getChildren().add(userInput);
 
-        primaryStage.getScene().setOnKeyPressed(new KeyInputHandler(this::sendInput));
-        timer = new Timer();
-
         // Send button
         Button sendButton = new SendButton((event -> sendInput()));
         root.getChildren().add(sendButton);
+
+        // Setup key input handler, timer
+        primaryStage.getScene().setOnKeyPressed(new KeyInputHandler(this::sendInput));
+        timer = new Timer();
 
         primaryStage.setTitle(Shiba.getInstance().getName());
         primaryStage.setResizable(false);
@@ -107,6 +108,7 @@ public class MainWindow extends Application {
             return;
         }
         userInput.clear();
+
         ArrayList<DialogNode.SubNode> textNodes = new ArrayList<>();
         textNodes.add(new DialogNode.SubNode(1, input));
         dialogBox.addDialogNode(new DialogNode(true, textNodes));

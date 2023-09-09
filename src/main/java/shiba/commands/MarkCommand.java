@@ -28,8 +28,8 @@ public class MarkCommand extends ShibaCommand {
     @Override
     public void execute() throws ShibaException {
         int taskNumber = checkTaskNumber(params);
-
         ShibaTask task = tasks.get(taskNumber - 1);
+
         boolean res = task.markDone();
         if (res) {
             Replier.printWithNoIndents("Woof! I've marked this task as done:");
@@ -38,6 +38,7 @@ public class MarkCommand extends ShibaCommand {
         }
         Replier.printWithOneIndent(task.toString());
         Replier.reply();
+
         tasks.save();
     }
 }
