@@ -37,7 +37,7 @@ public class Buddy {
 
     }
 
-    public static void main(String[] args) throws BuddyException {
+    public static void main(String[] args) {
         new Buddy().run();
     }
 }
