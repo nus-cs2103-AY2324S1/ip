@@ -14,4 +14,5 @@ public abstract class Message {
     public static final String FIND_TASKS = "Here are the matching tasks in your list:\n";
     public static final String INVALID_COMMAND = "I'm sorry, but I don't know what that means :-(";
     public static final String TASK_STATUS = "\nNow you have %d tasks in the list.";
+    public static final String TAG_TASK = "Got it. I've tagged this task:\n";
 }

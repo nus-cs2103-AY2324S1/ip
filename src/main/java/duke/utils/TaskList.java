@@ -146,6 +146,16 @@ public class TaskList {
         return new TaskList(filteredTasks);
     }
 
+    public Task tagTask(int taskNumber, String... tags) throws DukeException {
+        try {
+            Task task = tasks.get(taskNumber - 1);
+            task.addTags(tags);
+            return task;
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeMissingTaskException();
+        }
+    }
+
     /**
      * Returns the list of tasks that contains the keyword.
      * @return The list of tasks that contains the keyword.

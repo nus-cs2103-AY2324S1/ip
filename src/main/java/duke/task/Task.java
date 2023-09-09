@@ -1,11 +1,16 @@
 package duke.task;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Represents a task that has a deadline.
  */
 public class Task {
     private final String description;
     private boolean isDone;
+    private List<String> tags;
 
     /**
      * Creates a Task object.
@@ -14,6 +19,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.tags = new ArrayList<>();
     }
 
     /**
@@ -42,13 +48,25 @@ public class Task {
         this.isDone = false;
     }
 
+    public void addTags(String... tags) {
+        this.tags.addAll(Arrays.asList(tags));
+    }
+
+    public String tagsToString() {
+        StringBuilder tagsString = new StringBuilder();
+        for (String tag : this.tags) {
+            tagsString.append("#").append(tag).append(" ");
+        }
+        return tagsString.toString();
+    }
+
     /**
      * Returns the description of the task.
      * @return The description of the task.
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return "[" + getStatusIcon() + "] " + description + "\n" + tagsToString();
     }
 
     /**
@@ -56,7 +74,8 @@ public class Task {
      * @return The description of the task that is to be saved by Storage.
      */
     public String toSaveString() {
-        return String.format("%s|%s", isDone ? "1" : "0", description);
+        System.out.printf("%s|%s|%s%n", isDone ? "1" : "0", description, tagsToString());
+        return String.format("%s|%s|%s", isDone ? "1" : "0", description, tagsToString());
     }
 
 }

@@ -1,6 +1,7 @@
 package duke.common;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 import duke.DukeException;
 import duke.task.Deadline;
@@ -73,5 +74,9 @@ public class Command {
     public String handleFindTask(TaskList tasks, String... keywords) {
         TaskList matchingTasks = tasks.filterTasks(keywords);
         return Message.FIND_TASKS + matchingTasks;
+    }
+    public String handleTagTask(TaskList tasks, int taskNumber, String... tags) throws DukeException {
+        Task task = tasks.tagTask(taskNumber, tags);
+        return Message.TAG_TASK + task;
     }
 }
