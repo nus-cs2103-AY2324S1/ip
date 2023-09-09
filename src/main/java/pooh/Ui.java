@@ -7,7 +7,7 @@ public class Ui {
      *
      * @return The exit message.
      */
-    public String getExitMsg() {
+    public String getExitMessage() {
         return "How lucky I am to have something that makes saying goodbye so hard. Bye!";
     }
 
@@ -27,7 +27,7 @@ public class Ui {
      * @param taskList The list of tasks.
      * @return A formatted string representation of tasks.
      */
-    public String getTasksMsg(TaskList taskList) {
+    public String getTasksMessage(TaskList taskList) {
         StringBuilder todoListString = new StringBuilder();
         for (int i = 0; i < taskList.getSize(); i++) {
             String task;
@@ -47,7 +47,7 @@ public class Ui {
      * @param taskList The TaskList containing tasks that match the keyword.
      * @return A formatted string representation of matching tasks.
      */
-    public String getKeywordTasksMsg(TaskList taskList) {
+    public String getKeywordTasksMessage(TaskList taskList) {
         StringBuilder todoListString = new StringBuilder();
         for (int i = 0; i < taskList.getSize(); i++) {
             String task;
@@ -66,7 +66,7 @@ public class Ui {
      *
      * @return Message indicating no matching tasks found.
      */
-    public String getNoKeywordTasksFoundMsg() {
+    public String getNoKeywordTasksFoundMessage() {
         return "No matching tasks found.";
     }
 
@@ -76,7 +76,7 @@ public class Ui {
      * @param task The task that has been marked as done.
      * @return Message indicating task marked as done.
      */
-    public String getTaskDoneMsg(Task task) {
+    public String getTaskDoneMessage(Task task) {
         return "Nice! I've marked this task as done:\n      " + task;
     }
 
@@ -86,7 +86,7 @@ public class Ui {
      * @param task The task that has been marked as not done.
      * @return Message indicating task marked as not done.
      */
-    public String getTaskUndoneMsg(Task task) {
+    public String getTaskUndoneMessage(Task task) {
         return "OK, I've marked this task as not done yet:\n      " + task;
     }
 
@@ -97,7 +97,7 @@ public class Ui {
      * @param task     The task that has been added.
      * @return Message indicating task added.
      */
-    public String getAddTaskMsg(TaskList taskList, Task task) {
+    public String getAddTaskMessage(TaskList taskList, Task task) {
         return String.format("      Got it. I've added this task:\n          %s\n      Now you have " +
                 "%d tasks in the list", task, taskList.getSize());
     }
@@ -109,7 +109,7 @@ public class Ui {
      * @param task     The task that has been removed.
      * @return Message indicating task removed.
      */
-    public String getDeleteTaskMsg(TaskList taskList, Task task) {
+    public String getDeleteTaskMessage(TaskList taskList, Task task) {
         return String.format("Noted. I've removed this task:\n          %s\n      Now you have" +
                 " %d tasks in the list", task, taskList.getSize());
     }

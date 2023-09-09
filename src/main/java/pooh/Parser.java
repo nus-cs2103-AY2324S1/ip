@@ -24,24 +24,24 @@ public class Parser {
             UnrecognizedCommandException, InvalidTaskException, WriteTasksException {
         String userAction = userInput.split(" ")[0];
         if (userAction.equalsIgnoreCase("list")) {
-            return ui.getTasksMsg(taskList);
+            return ui.getTasksMessage(taskList);
         } else {
             switch (userAction.toLowerCase()) {
             case "bye":
                 taskStorage.writeTask(taskList);
-                return ui.getExitMsg();
+                return ui.getExitMessage();
             case "mark":
                 int markIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 Task markTask = taskList.getTask(markIndex);
                 markTask.markAsDone();
                 taskStorage.writeTask(taskList);
-                return ui.getTaskDoneMsg(markTask);
+                return ui.getTaskDoneMessage(markTask);
             case "unmark":
                 int unmarkIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 Task unmarkTask = taskList.getTask(unmarkIndex);
                 unmarkTask.markAsUndone();
                 taskStorage.writeTask(taskList);
-                return ui.getTaskUndoneMsg(unmarkTask);
+                return ui.getTaskUndoneMessage(unmarkTask);
             case "todo":
             case "event":
             case "deadline":
@@ -49,7 +49,7 @@ public class Parser {
                     TaskList.addTask(taskList, userAction, userInput);
                     Task task = taskList.getTask(taskList.getSize() - 1);
                     taskStorage.writeTask(taskList);
-                    return ui.getAddTaskMsg(taskList, task);
+                    return ui.getAddTaskMessage(taskList, task);
                 } catch (EmptyTaskDescriptorsException ex) {
                     return ui.respond(ex.toString());
                 }
@@ -58,14 +58,14 @@ public class Parser {
                 Task task = taskList.getTask(delIndex);
                 TaskList.deleteTask(taskList, delIndex);
                 taskStorage.writeTask(taskList);
-                return ui.getDeleteTaskMsg(taskList, task);
+                return ui.getDeleteTaskMessage(taskList, task);
             case "find":
                 String keyword = userInput.split(" ")[1];
                 TaskList keywordTaskList = taskList.getTasksWithKeyword(keyword);
                 if (keywordTaskList.getSize() >= 1) {
-                    return ui.getKeywordTasksMsg(keywordTaskList);
+                    return ui.getKeywordTasksMessage(keywordTaskList);
                 } else {
-                    return ui.getNoKeywordTasksFoundMsg();
+                    return ui.getNoKeywordTasksFoundMessage();
                 }
             default:
                 throw new UnrecognizedCommandException();
