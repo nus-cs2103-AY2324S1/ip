@@ -22,6 +22,8 @@ public class Storage {
      * @param filePath The file path where the list of tasks are stored in.
      */
     public Storage(String filePath) {
+        assert filePath != null && !filePath.isEmpty() : "File path cannot be null or empty.";
+
         this.filePath = filePath;
     }
 

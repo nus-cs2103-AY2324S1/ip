@@ -43,6 +43,9 @@ public class Ui {
      * @return A String message indicating the removal and the updated task count.
      */
     public String removeTask(TaskList list, Task removedTask) {
+        assert list != null : "Task list cannot be empty.";
+        assert removedTask != null : "Removed task cannot be null.";
+
         String s = "Noted. I've removed this task:\n" + removedTask.toString() +
                 "\nNow you have " + list.getSize() + " tasks in the list.";
         return s;
@@ -55,6 +58,8 @@ public class Ui {
      * @return A String message listing all tasks or indicating that there are no tasks.
      */
     public String printList(TaskList list) {
+        assert list != null : "Task list cannot be empty.";
+
         StringBuilder stringBuilder = new StringBuilder();
 
         if (list.getSize() == 0) {
@@ -76,6 +81,8 @@ public class Ui {
      * @return A String message listing matching tasks.
      */
     public String printMatchingTasks(ArrayList<Task> matchingTasks) {
+        assert matchingTasks != null : "matchingTasks list cannot be empty.";
+
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Here are the matching tasks in your list:\n");
 
@@ -90,11 +97,14 @@ public class Ui {
      * Generates a message when a task is marked as done.
      *
      * @param list The list of tasks.
-     * @param number The task number that was marked as done.
+     * @param index The task index to be marked as done.
      * @return A String message indicating the task was marked as done.
      */
-    public String mark(TaskList list, int number) {
-        String s = "Nice! I've marked this task as done:\n" + list.getTask(number).toString();
+    public String mark(TaskList list, int index) {
+        assert list != null : "Task list cannot be empty.";
+        assert index >= 0 && index < list.getSize() : "Task index is out of bounds";
+
+        String s = "Nice! I've marked this task as done:\n" + list.getTask(index).toString();
         return s;
     }
 
@@ -102,11 +112,14 @@ public class Ui {
      * Generates a message when a task is unmarked.
      *
      * @param list The list of tasks.
-     * @param number The task number that was unmarked.
+     * @param index The task index to be unmarked.
      * @return A String message indicating the task was unmarked.
      */
-    public String unMark(TaskList list, int number) {
-        String s = "OK, I've marked this task as not done yet:\n" + list.getTask(number).toString();
+    public String unMark(TaskList list, int index) {
+        assert list != null : "Task list cannot be empty.";
+        assert index >= 0 && index < list.getSize() : "Task index is out of bounds";
+
+        String s = "OK, I've marked this task as not done yet:\n" + list.getTask(index).toString();
         return s;
     }
 
@@ -118,6 +131,9 @@ public class Ui {
      * @return A String message indicating the addition of the new todo task.
      */
     public String addTodo(TaskList list, Todo newTodo) {
+        assert list != null : "Task list cannot be empty.";
+        assert newTodo != null : "New todo cannot be null.";
+
         String s = "Got it. I've added this task:\n" + newTodo.toString() +
                 "\nNow you have " + list.getSize() + " tasks in the list.";
         return s;
@@ -131,6 +147,9 @@ public class Ui {
      * @return A String message indicating the addition of the new deadline task.
      */
     public String addDeadline(TaskList list, Deadline newDeadline) {
+        assert list != null : "Task list cannot be empty.";
+        assert newDeadline != null : "New deadline cannot be null.";
+
         String s = "Got it. I've added this task:\n" + newDeadline.toString() +
                 "\nNow you have " + list.getSize() + " tasks in the list.";
         return s;
@@ -144,6 +163,9 @@ public class Ui {
      * @return A String message indicating the addition of the new event task.
      */
     public String addEvent(TaskList list, Event newEvent) {
+        assert list != null : "Task list cannot be empty.";
+        assert newEvent != null : "New event cannot be null.";
+
         String s = "Got it. I've added this task:\n" + newEvent.toString() +
                 "\nNow you have " + list.getSize() + " tasks in the list.";
         return s;

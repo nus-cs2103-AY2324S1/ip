@@ -36,9 +36,8 @@ public class Duke {
      */
     public String getResponse(String input) {
         try {
-            if (input.isEmpty()) {
-                throw new DukeException("OOPS!!! The description cannot be empty.");
-            }
+            assert !input.isEmpty() : "Input cannot be empty.";
+
             return Parser.parse(input, tasks, storage, ui);
         } catch (DukeException e) {
             return e.getMessage();

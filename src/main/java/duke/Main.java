@@ -23,6 +23,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            assert duke != null : "Duke instance is null.";
+
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
