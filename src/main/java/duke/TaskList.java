@@ -24,7 +24,6 @@ public class TaskList {
      * @param tasks An ArrayList of tasks.
      */
     public TaskList(ArrayList<Task> tasks) {
-
         this.tasks = tasks;
     }
 
