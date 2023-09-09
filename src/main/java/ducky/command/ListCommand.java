@@ -17,13 +17,11 @@ public class ListCommand extends Command {
      * Prints each task on each line as their printable form on the user interface.
      *
      * @param taskList TaskList of Ducky chatbot instance.
-     * @param ui       UserInterface of Ducky chatbot instance.
      * @param storage  Storage module of Ducky chatbot instance.
-     * @return
+     * @return String containing all existing tasks.
      */
     @Override
-    public String execute(TaskList taskList, UserInterface ui, Storage storage) {
-        ui.showMessagePerLine(taskList.getPrintableList());
-        return null;
+    public String execute(TaskList taskList, Storage storage) {
+        return taskList.getPrintableList();
     }
 }

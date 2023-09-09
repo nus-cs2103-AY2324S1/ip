@@ -25,21 +25,18 @@ public class DeleteCommand extends Command {
      * then reflects changes to user interface.
      *
      * @param taskList TaskList of Ducky chatbot instance.
-     * @param ui       UserInterface of Ducky chatbot instance.
      * @param storage  Storage module of Ducky chatbot instance.
-     * @return
+     * @return String confirming the operation and the deleted task.
      * @throws DuckyException If exceptions specific to Ducky are raised.
      */
     @Override
-    public String execute(TaskList taskList, UserInterface ui, Storage storage) throws DuckyException {
+    public String execute(TaskList taskList, Storage storage) throws DuckyException {
         int deleteIndex = this.inputIndex - 1;
         Task deletedTask = taskList.deleteTask(deleteIndex);
         storage.save(taskList);
-        ui.showMessagePerLine(
-                "Okay! I've removed this task:",
-                deletedTask.toString(),
-                taskList.getListLengthStatus()
-        );
-        return null;
+        return String.format("%s\n%s\n%s\n",
+                "Okay! I've added this task:",
+                deletedTask,
+                taskList.getListLengthStatus());
     }
 }
