@@ -5,12 +5,21 @@ import java.time.format.DateTimeFormatter;
 //CHECKSTYLE.OFF: MissingJavadocMethodCheck
 //CHECKSTYLE.OFF: MissingJavadocType
 public abstract class Task {
+    public enum TaskPriority {
+        HIGH,
+        NORMAL,
+        LOW,
+        UNASSIGNED;
+    }
     protected String description;
     protected boolean isDone;
+
+    protected TaskPriority priority;
     public Task(String description) {
         assert description != null : "Description cannot be null";
         this.description = description;
         this.isDone = false;
+        this.priority = TaskPriority.UNASSIGNED;
     }
 
     /**
@@ -36,6 +45,20 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public String getPriorityStatus() {
+        if (priority == TaskPriority.HIGH) {
+            return "High";
+        } else if (priority == TaskPriority.NORMAL) {
+            return "Mid";
+        } else if (priority == TaskPriority.LOW) {
+            return "Low";
+        } else if (priority == TaskPriority.UNASSIGNED) {
+            return "None";
+        } else {
+            return " ";
+        }
+    }
+
     public String getDescription() {
         return description;
     }
@@ -47,7 +70,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return "[" + getStatusIcon() + "] " + "[" + getPriorityStatus() + "] " + description;
     }
 
     /**
@@ -57,10 +80,34 @@ public abstract class Task {
      */
     public String status() {
         String done = isDone ? "1" : "0";
-        return done + "|" + description;
+        String priorityStatus = priority == TaskPriority.HIGH ? "3"
+                : priority == TaskPriority.NORMAL ? "2" : priority == TaskPriority.LOW ? "1"
+                : priority == TaskPriority.UNASSIGNED ? "0"
+                : "Error";
+        return done + "|" + priorityStatus + "|" + description;
     }
 
     public abstract String save();
+
+    protected void setPriority(String number) throws DukeException {
+        switch (number) {
+        case "0":
+            this.priority = TaskPriority.UNASSIGNED;
+            break;
+        case "1":
+            this.priority = TaskPriority.LOW;
+            break;
+        case "2":
+            this.priority = TaskPriority.NORMAL;
+            break;
+        case "3":
+            this.priority = TaskPriority.HIGH;
+            break;
+        default:
+            throw new DukeException("Invalid priority level: " + number);
+        }
+    }
+
 
     /**
      * Return the task by reading the detail of the task from the file
@@ -68,43 +115,48 @@ public abstract class Task {
      * @param taskString the description of the task from the file
      * @return the task fitting the description
      */
-    public static Task fromString(String taskString) {
+    public static Task fromString(String taskString) throws DukeException {
         String[] parts = taskString.split("\\|");
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
+        String priorityNumber = parts[2];
 
         assert type.equals("T") || type.equals("D") || type.equals("E") : "Invalid task type: " + type;
         switch (type) {
         case "T":
-            Task task = new ToDo(parts[2]);
+            Task task = new ToDo(parts[3]);
             if (isDone) {
                 task.markAsDone();
             }
+            task.setPriority(priorityNumber);
             return task;
         case "D":
-            String byString = parts[3].trim(); // Extract deadline
+            String byString = parts[4].trim(); // Extract deadline
             if (byString.contains(" ")) {
                 Task deadline = getTask(byString, parts);
                 if (isDone) {
                     deadline.markAsDone();
                 }
+                deadline.setPriority(priorityNumber);
                 return deadline;
 
             } else {
                 LocalDate byDate = LocalDate.parse(byString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                Task deadline = new Deadline(parts[2], byDate, null);
+                Task deadline = new Deadline(parts[3], byDate, null);
                 if (isDone) {
                     deadline.markAsDone();
                 }
+                deadline.setPriority(priorityNumber);
                 return deadline;
             }
 
         case "E":
-            String fromString = parts[3]; // Extract start date
+            String fromString = parts[4]; // Extract start date
             Task event = getEvent(fromString, parts);
             if (isDone) {
                 event.markAsDone();
             }
+            event.setPriority(priorityNumber);
             return event;
         default:
             throw new IllegalArgumentException("Unknown task type: " + type);
@@ -113,9 +165,9 @@ public abstract class Task {
 
     private static Task getEvent(String fromString, String[] parts) {
         LocalDate fromDate = LocalDate.parse(fromString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String toString = parts[4]; // Extract end date
+        String toString = parts[5]; // Extract end date
         LocalDate toDate = LocalDate.parse(toString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        Task event = new Events(parts[2], fromDate, toDate);
+        Task event = new Events(parts[3], fromDate, toDate);
         return event;
     }
 
@@ -128,7 +180,7 @@ public abstract class Task {
 
         d1 = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         t1 = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HHmm"));
-        Task deadline = new Deadline(parts[2], d1, t1);
+        Task deadline = new Deadline(parts[3], d1, t1);
         return deadline;
     }
 }

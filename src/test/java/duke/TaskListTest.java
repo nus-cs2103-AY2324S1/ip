@@ -40,8 +40,8 @@ public class TaskListTest {
         taskList.add(new Deadline("Read book", LocalDate.parse("2023-08-20"), null));
 
         ArrayList<String> expectedMessages = new ArrayList<>();
-        expectedMessages.add("1. [T][ ] Buy groceries");
-        expectedMessages.add("2. [D][ ] Read book (by: Aug 20 2023)");
+        expectedMessages.add("1. [T][ ] [None] Buy groceries");
+        expectedMessages.add("2. [D][ ] [None] Read book (by: Aug 20 2023)");
 
         ArrayList<String> actualMessages = taskList.listTasks();
 

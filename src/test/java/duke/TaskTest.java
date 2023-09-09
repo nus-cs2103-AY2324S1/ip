@@ -9,7 +9,7 @@ public class TaskTest {
     public void testMarkAsDone() {
         Task task = new ToDo("Buy groceries");
         task.markAsDone();
-        assertEquals("[T][X] Buy groceries", task.toString());
+        assertEquals("[T][X] [None] Buy groceries", task.toString());
     }
 
     @Test
@@ -18,6 +18,6 @@ public class TaskTest {
         task.markAsDone();
 
         task.markAsNotDone();
-        assertEquals("[T][ ] Read a book", task.toString());
+        assertEquals("[T][ ] [None] Read a book", task.toString());
     }
 }

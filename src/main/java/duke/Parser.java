@@ -37,12 +37,16 @@ public class Parser {
             list.unmark(input, number);
         } else if (input.startsWith("delete")) {
             number = list.delete(input, number, ui);
+        } else if (input.startsWith("setPriority")) {
+            ui.print(list.setPriority(input, number));
         } else if (input.equalsIgnoreCase("todo")) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         } else if (input.equalsIgnoreCase("deadline")) {
             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
         } else if (input.equalsIgnoreCase("event")) {
             throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+        } else if (input.equalsIgnoreCase("setPriority")) {
+            throw new DukeException("☹ OOPS!!! Please state which task you wish to set the event for");
         } else if (input.equalsIgnoreCase("find")) {
             throw new DukeException("☹ OOPS!!! The description of find cannot be empty.");
         } else if (input.startsWith("find")) {

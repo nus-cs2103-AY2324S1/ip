@@ -96,6 +96,26 @@ public class Launcher {
             }
         }
 
+        public String setPriority(String input, int number) {
+            try {
+                String[] words = input.split("\\s+");
+                int taskIndex = Integer.parseInt(words[1]) - 1;
+                String taskPriority = words[2];
+
+                if (taskIndex >= 0 && taskIndex < number) {
+                    Task item = tasks.get(taskIndex);
+                    item.setPriority(taskPriority);
+                    return ("OK, I've set the priority for this task: \n" + item.toString());
+                } else {
+                    return ("You have chosen an invalid task");
+                }
+            } catch (NumberFormatException e) {
+                return ("Invalid input. Please provide a valid task number.");
+            } catch (DukeException e) {
+                return ("Invalid priority level");
+            }
+        }
+
         /**
          * Remove the task from the list
          *
