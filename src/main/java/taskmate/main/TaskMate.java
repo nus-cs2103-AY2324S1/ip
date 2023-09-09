@@ -108,4 +108,9 @@ public class TaskMate {
             }
         }
     }
+
+    public String getResponse(String userInput) {
+        return "I am TaskMate. Heard: " + userInput; // todo
+    }
+
 }
