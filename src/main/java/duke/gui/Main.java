@@ -1,29 +1,32 @@
-package duke.GUI;
+package duke.gui;
 
 import duke.Duke;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.util.Duration;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
+/**
+ * The main window of the GUI Chat bot.
+ */
 public class Main extends Application {
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
 
-    private String MESSAGE = " Hello! I'm ChatBot\n" + " What can I do for you?\n";
+    private String message = " Hello! I'm ChatBot\n" + " What can I do for you?\n";
     private Button sendButton;
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/siri.png"));
@@ -63,7 +66,7 @@ public class Main extends Application {
 
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(new Label(MESSAGE), new ImageView(chat)));
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(new Label(message), new ImageView(chat)));
 
         userInput.setPrefWidth(325.0);
 

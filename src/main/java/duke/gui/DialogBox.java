@@ -1,4 +1,4 @@
-package duke.GUI;
+package duke.gui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,11 +12,20 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
+/**
+ * The dialog box of the GUI Chat bot.
+ */
 public class DialogBox extends HBox {
 
     private Label text;
     private ImageView displayPicture;
 
+    /**
+     * Constructs a dialog box with the specified parameters.
+     * @param l The text by the user or the bot.
+     * @param iv The profile image of the user or the bot.
+     * @param isUser to determine if the dialog is from the user or the bot.
+     */
     public DialogBox(Label l, ImageView iv, boolean isUser) {
         text = l;
         displayPicture = iv;
@@ -37,17 +46,17 @@ public class DialogBox extends HBox {
 
         this.setAlignment(Pos.TOP_RIGHT);
 
-        int spacing = 10; // Adjust the spacing value as needed
+        int spacing = 10;
         setPadding(new Insets(spacing, spacing, spacing, spacing));
 
-        if(!isUser) {
+        if (!isUser) {
             HBox imageTextHBox = new HBox();
-            imageTextHBox.setSpacing(10); // Adjust the spacing value between image and text
+            imageTextHBox.setSpacing(10);
             imageTextHBox.getChildren().addAll(displayPicture, text);
             this.getChildren().addAll(imageTextHBox);
         } else {
             HBox imageTextHBox = new HBox();
-            imageTextHBox.setSpacing(10); // Adjust the spacing value between image and text
+            imageTextHBox.setSpacing(10);
             imageTextHBox.getChildren().addAll(text, displayPicture);
             this.getChildren().addAll(imageTextHBox);
         }

@@ -3,7 +3,6 @@ package duke;
 import java.util.Scanner;
 
 import duke.command.Command;
-import duke.command.ExitCommand;
 import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;

@@ -5,9 +5,12 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents an invalid command.
+ */
 public class InvalidCommand extends Command {
 
-    Exception e;
+    private Exception e;
     public InvalidCommand(Exception e) {
         this.e = e;
     }

@@ -50,9 +50,10 @@ public class Task {
     }
 
     /**
+     * Checks whether or not the list of tasks cntain the specific keyword.
      *
-     * @param keyword the keyword to be searched in the list of tasks
-     * @return boolean depending on if the keyword exists
+     * @param keyword the keyword to be searched in the list of tasks.
+     * @return boolean depending on if the keyword exists.
      */
     public boolean contains(String keyword) {
         return this.description.contains(keyword);

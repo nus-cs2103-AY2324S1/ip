@@ -1,6 +1,5 @@
 package duke.ui;
 
-import duke.exception.DukeException;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -84,7 +83,7 @@ public class Ui {
      * @return the list of tasks.
      */
     public String listOfTasks(TaskList tasksList, int count) {
-        if(tasksList.getTaskCount() == 0) {
+        if (tasksList.getTaskCount() == 0) {
             return "You currently have no tasks!";
         }
         String output = "";
@@ -111,7 +110,7 @@ public class Ui {
      * @return the tasks found with the specific keyword.
      */
     public String printFoundTasks(TaskList findTasks) {
-        if(findTasks.getTaskCount() == 0) {
+        if (findTasks.getTaskCount() == 0) {
             return "Sorry, there are no tasks with that keyword!";
         }
         String output = "";

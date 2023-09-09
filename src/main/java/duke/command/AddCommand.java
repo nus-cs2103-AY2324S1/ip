@@ -36,7 +36,7 @@ public class AddCommand extends Command {
         if (command.equalsIgnoreCase("todo")) {
             return ui.errorPrint(new DukeException("OOPS! The description of a todo cannot be empty."));
         } else if (command.equalsIgnoreCase("deadline")) {
-           return ui.errorPrint(new DukeException("OOPS! The description of a deadline cannot be empty."));
+            return ui.errorPrint(new DukeException("OOPS! The description of a deadline cannot be empty."));
         } else if (command.equalsIgnoreCase("event")) {
             return ui.errorPrint(new DukeException("OOPS! The description of an event cannot be empty."));
         }
