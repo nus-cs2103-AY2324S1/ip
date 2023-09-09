@@ -68,4 +68,14 @@ public class TaskList {
             throw new TaskNumberException(String.valueOf(taskNumber));
         }
     }
+
+    /**
+     * Returns whether the task list contains the given task.
+     *
+     * @param task The task to be queried.
+     * @return True if the task list contains the task else false.
+     */
+    public boolean containsTask(Task task) {
+        return tasks.contains(task);
+    }
 }

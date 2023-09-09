@@ -51,4 +51,13 @@ public class Event extends Task {
     public String composeToFileString() {
         return String.format("E|%s|%s|%s", super.composeToFileString(), this.from.toString(), this.to.toString());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Event) {
+            Event event = (Event) obj;
+            return this.from.equals(event.from) && this.to.equals(event.to) && super.equals(obj);
+        }
+        return false;
+    }
 }

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import didier.Storage;
 import didier.TaskList;
 import didier.exception.DidierException;
+import didier.exception.DuplicateTaskException;
 import didier.task.Deadline;
 import didier.task.Event;
 import didier.task.Task;
@@ -45,6 +46,9 @@ public class AddCommand extends Command {
             task = new Deadline(this.description, this.by);
         } else {
             task = new ToDo(this.description);
+        }
+        if (taskList.containsTask(task)) {
+            throw new DuplicateTaskException();
         }
         taskList.addTask(task);
         storage.saveTasks(taskList);
