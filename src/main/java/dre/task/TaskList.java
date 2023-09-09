@@ -2,6 +2,7 @@ package dre.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import dre.exception.DreException;
 
 public class TaskList {
@@ -63,6 +64,13 @@ public class TaskList {
 
     public void addTask(Task task) {
         tasks.add(task);
+    }
+
+    public TaskList findTasksByKeyword(String keyword) {
+        List<Task> foundTasks = this.tasks.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .collect(Collectors.toList());
+        return new TaskList(foundTasks);
     }
 
     public int size() {
