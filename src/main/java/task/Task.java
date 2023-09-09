@@ -4,17 +4,23 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a task that can be completed and described.
+ * Represents an abstract task that can be completed and described.
+ * This serves as the base class for other specific task types.
  */
 public abstract class Task implements Completable, Describable {
+    /** The name or description of the task. */
     protected String taskName;
+
+    /** The completion status of the task. */
     protected boolean completed;
+
+    /** The type of the task, e.g., TODO, DEADLINE, EVENT. */
     protected TaskType taskType;
 
     /**
-     * Creates a new task with the given type and name.
+     * Constructs a Task object with the given task type and name.
      *
-     * @param taskType The type of the task (e.g., TODO, DEADLINE, EVENT).
+     * @param taskType The type of the task.
      * @param taskName The name or description of the task.
      */
     public Task(String taskType, String taskName) {
@@ -24,7 +30,7 @@ public abstract class Task implements Completable, Describable {
     }
 
     /**
-     * Gets the description of the task.
+     * Retrieves the description of the task.
      *
      * @return The description of the task.
      */
@@ -34,10 +40,11 @@ public abstract class Task implements Completable, Describable {
     }
 
     /**
-     * Checks if the task is completed.
+     * Checks the completion status of the task.
      *
-     * @return True if the task is completed, false otherwise.
+     * @return True if the task is completed; false otherwise.
      */
+    @Override
     public boolean isCompleted() {
         return completed;
     }
@@ -45,6 +52,7 @@ public abstract class Task implements Completable, Describable {
     /**
      * Marks the task as completed.
      */
+    @Override
     public void setCompleted() {
         completed = true;
     }
@@ -52,12 +60,13 @@ public abstract class Task implements Completable, Describable {
     /**
      * Marks the task as not completed.
      */
+    @Override
     public void setNotCompleted() {
         completed = false;
     }
 
     /**
-     * Gets the type of the task.
+     * Retrieves the type of the task.
      *
      * @return The type of the task.
      */
@@ -66,17 +75,17 @@ public abstract class Task implements Completable, Describable {
     }
 
     /**
-     * Converts the task to a string representation for saving to a file.
+     * Represents the task in a string format suitable for file storage.
      *
-     * @return A string representation of the task for saving to a file.
+     * @return A formatted string representing the task for file purposes.
      */
     public abstract String toFileString();
 
     /**
-     * Creates a task object from its string representation as stored in a file.
+     * Constructs a Task object from its string representation intended for file storage.
      *
-     * @param fileString The string representation of the task as stored in a file.
-     * @return A task.Task object created from the file string, or null if parsing fails.
+     * @param fileString The formatted string representing the task.
+     * @return A Task object derived from the string, or null if the parsing fails.
      */
     public static Task fromFileString(String fileString) {
         String[] parts = fileString.split("\\|");
@@ -110,19 +119,19 @@ public abstract class Task implements Completable, Describable {
     }
 
     /**
-     * Parses a date and time string into a LocalDateTime object.
+     * Converts a date and time string into its LocalDateTime representation.
      *
-     * @param dateTimeString The date and time string to be parsed.
-     * @return A LocalDateTime object representing the parsed date and time.
+     * @param dateTimeString The formatted date-time string.
+     * @return A LocalDateTime object derived from the string.
      */
     private static LocalDateTime parseDateTime(String dateTimeString) {
         return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     /**
-     * Generates a string representation of the task.
+     * Provides a formatted string representation of the task, displaying its completion status.
      *
-     * @return A string representation of the task, including its completion status.
+     * @return A string detailing the task and its completion status.
      */
     @Override
     public String toString() {

@@ -1,7 +1,11 @@
 package task;
 
 /**
+<<<<<<< HEAD
  * Represents the type of task.
+=======
+ * Enumerates the different types of tasks.
+>>>>>>> branch-A-JavaDoc
  */
 public enum TaskType {
     /**
@@ -10,12 +14,12 @@ public enum TaskType {
     TODO,
 
     /**
-     * Represents a task.Deadline task.
+     * Represents a Deadline task.
      */
     DEADLINE,
 
     /**
-     * Represents an task.Event task.
+     * Represents an Event task.
      */
     EVENT
 }
