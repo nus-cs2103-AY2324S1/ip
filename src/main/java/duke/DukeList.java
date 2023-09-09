@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.io.IOException;
 
 /**
- * DukeList stores tasks given by users when communicating with the main Duke chatbot.
+ * DukeList stores tasks given by users to the main Duke chatbot.
  */
 public class DukeList {
     //The ArrayList used to store all tasks accordingly.

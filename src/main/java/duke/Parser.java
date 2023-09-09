@@ -24,10 +24,7 @@ public class Parser {
     }
 
     /**
-     * Helps to parse and manage the user's inputs. "list" shows the current list, "mark / unmark"
-     * helps to mark or unmark the specific task in the list, and todo/deadline/event
-     * adds todo/deadline/event tasks respectively.
-     *
+     * Helps to parse and manage the user's inputs.
      * @param tally takes in the input string.
      */
     public void messageHandler(String tally) {
