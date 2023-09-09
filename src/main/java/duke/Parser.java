@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Parser {
 
-    enum ParserOutput {DELETE, MARK, UNMARK, APPEND, LIST, ECHO, EXIT, FIND}
+    enum ParserOutput {DELETE, MARK, UNMARK, APPEND, LIST, ECHO, SAVE, FIND}
     enum TaskType {TODO, EVENT, DEADLINE, GENERIC}
 
     /**
@@ -32,8 +32,8 @@ public class Parser {
         if (input.startsWith("echo")) {
             return ParserOutput.ECHO;
         }
-        if (input.startsWith("bye")) {
-            return ParserOutput.EXIT;
+        if (input.startsWith("save")) {
+            return ParserOutput.SAVE;
         }
         if (input.startsWith("find")) {
             return ParserOutput.FIND;
