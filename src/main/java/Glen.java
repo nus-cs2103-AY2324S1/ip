@@ -41,6 +41,8 @@ public class Glen {
                         } else {
                             System.out.println(HORLINE + "\u2639 OOPS!!! Please select a valid item to mark/unmark.\n" + HORLINE);
                         }   
+                    } else if (firstWord.equals("find")) {
+                        System.out.println(tasks.find(end));
                     } else if (firstWord.equals("deadline")) {
                         try {
                             int separatorIndex = end.indexOf("/by");
