@@ -95,7 +95,7 @@ public class Parser {
         if (isMissingDescription) {
             throw new ElementMissingException("description");
         }
-        return options[1];
+        return options[1].split("\\\\", 2)[0];
     }
 
     private static LocalDate getDeadlineBy(String[] options) throws ElementMissingException, DateFormatException {
