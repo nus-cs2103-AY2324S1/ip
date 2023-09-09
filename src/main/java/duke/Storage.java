@@ -90,6 +90,8 @@ public class Storage {
      * @param taskList The list containing the tasks to be saved.
      */
     public void writeToDatabase(ArrayList<Task> taskList) {
+        assert databaseExist();
+
         try {
             FileWriter writer = new FileWriter(DATABASE_PATH.toString(), false);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
