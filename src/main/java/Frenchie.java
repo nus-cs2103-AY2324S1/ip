@@ -1,4 +1,6 @@
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Frenchie {
@@ -36,6 +38,54 @@ public class Frenchie {
     public void deleteTask(int index) {
         tasks.remove(index);
     }
+
+    public void saveTasksToFile() {
+        try (PrintWriter writer = new PrintWriter("frenchie.txt")) {
+            for (Task task : this.tasks) {
+                writer.println(task.toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void readTasksFromFile() {
+        String filepath = "./frenchie.txt";
+        try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
+            String input;
+            while ((input = reader.readLine()) != null) {
+                String taskType = Character.toString(input.charAt(1));
+                String taskStatus = Character.toString(input.charAt(4));
+                String taskDetails = input.substring(7);
+                if (taskType.equals("T")) {
+                    ToDo currentTask = new ToDo(taskDetails);
+                    if (taskStatus.equals("X")) {
+                        currentTask.mark_as_completed();
+                    }
+                    this.addTask(currentTask);
+                } else if (taskType.equals("D")) {
+                    String taskName = taskDetails.split("\\(")[0].trim();
+                    String deadline = taskDetails.split("\\(")[1].split("\\)")[0];
+                    Deadline currentTask = new Deadline(taskName, deadline);
+                    if (taskStatus.equals("X")) {
+                        currentTask.mark_as_completed();
+                    }
+                    this.addTask(currentTask);
+                } else if (taskType.equals("E")) {
+                    String taskName = taskDetails.split("\\(")[0].trim();
+                    String startTime = taskDetails.split("\\(")[1].split("to")[0].trim();
+                    String endTime = "to" + Arrays.toString(taskDetails.split("\\(")[1].split("to")[1].split("\\)"));
+                    Event currentTask = new Event(taskName, startTime, endTime);
+                    if (taskStatus.equals("X")) {
+                        currentTask.mark_as_completed();
+                    }
+                    this.addTask(currentTask);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args) {
         /*String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -44,6 +94,7 @@ public class Frenchie {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo); */
         Frenchie frenchie = new Frenchie();
+        frenchie.readTasksFromFile();
         String skeleton = "____________________________________________________________\n" +
                 " Hello! I'm Frenchie\n" +
                 " What can I do for you?\n" +
@@ -100,7 +151,7 @@ public class Frenchie {
                                 "____________________________________________________________");
                     } else {
                         if (taskType.equals("todo")) {
-                            String taskName = input.split("todo")[1];
+                            String taskName = input.split("todo")[1].trim();
                             ToDo currentTask = new ToDo(taskName);
                             frenchie.addTask(currentTask);
                             System.out.println("____________________________________________________________\n" +
@@ -136,6 +187,7 @@ public class Frenchie {
                                 "OOPS!!! I'm sorry but I don't know what that means! :-(\n" +
                                 "____________________________________________________________");
                     }
+                frenchie.saveTasksToFile();
                 } catch (FrenchieException e) {
                     System.err.println(e.getMessage());
                 }
