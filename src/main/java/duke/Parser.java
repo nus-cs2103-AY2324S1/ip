@@ -37,12 +37,13 @@ public class Parser {
      * Returns the number associated with a delete or mark command.
      * number is reduced by 1 since user will write with 1-indexing while
      * taskList is 0-indexed.
-     * Not to be used for other types of command.
+     * Not to be used for other types of commands.
      * @param response the string the user put in.
      * @return task number.
      */
     public static int taskNumber(String response) {
         String[] array = response.split(" ");
+        assert array.length > 1 : "taskNumber used on array without split.";
         String lastVal = array[array.length - 1];
         return parseInt(lastVal) - 1;
     }
@@ -157,7 +158,14 @@ public class Parser {
         }
         return null;
     }
+
+    /**
+     * Used to parse the keyword used in the find command.
+     * @param response Command the user put in.
+     * @return The keyword user is searching for.
+     */
     public static String findKeyword(String response) {
+        assert response.startsWith("find") : "findKeyword used on command that does not start with find";
         return response.substring(5);
     }
 }
