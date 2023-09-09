@@ -99,7 +99,10 @@ public class TaskList {
         if (position < 0 || position > tasks.size()) {
             throw new SpotException("Spot thinks that task doesn't exist!");
         }
-        tasks.get(position - 1).markAsDone(ui);
+        Task task = tasks.get(position - 1);
+        task.markAsDone();
+        ui.setMessage("Wow! Spot has marked this task as done!");
+        ui.setMessage("  " + task);
     }
 
     /**
@@ -112,7 +115,10 @@ public class TaskList {
         if (position < 0 || position > tasks.size()) {
             throw new SpotException("Spot thinks that task doesn't exist!");
         }
-        tasks.get(position - 1).markAsNotDone(ui);
+        Task task = tasks.get(position - 1);
+        task.markAsNotDone();
+        ui.setMessage("Spot will mark this task as not done yet then!");
+        ui.setMessage("  " + task);
     }
 
     /**
@@ -125,8 +131,8 @@ public class TaskList {
         if (position < 0 || position > tasks.size()) {
             throw new SpotException("Spot thinks that task doesn't exist!");
         }
-        Task toRemove = tasks.remove(position - 1);
-        ui.setMessage("Spot has removed this task: " + "\n" + toRemove.toString());
+        Task task = tasks.remove(position - 1);
+        ui.setMessage("Spot has removed this task: " + "\n" + task);
         ui.setMessage("Tasks in list: " + tasks.size());
     }
 
@@ -142,7 +148,7 @@ public class TaskList {
             ui.setMessage("Spot's got a list of your tasks, here!");
             for (int i = 0; i < tasks.size(); i++) {
                 int position = i + 1;
-                ui.setMessage(position + ". " + tasks.get(i).toString());
+                ui.setMessage(position + ". " + tasks.get(i));
             }
         }
     }
@@ -166,7 +172,7 @@ public class TaskList {
                 }
             }
             if (position <= 1) {
-                ui.setMessage("Spot says you don't have any tasks on " + date + "!\n");
+                ui.setMessage("Spot thinks you don't have any tasks on " + date + "!\n");
             }
         }
     }

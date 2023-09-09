@@ -13,16 +13,16 @@ import spot.exception.SpotException;
 
 public class ParserTest {
     @Test
-    public void parseDate_invalidDeleteCommand_exceptionThrown() {
+    public void parseDeleteCommand_invalidDeleteCommand_exceptionThrown() {
         try {
-            assertEquals(new ExitCommand(), Parser.parseCommand("delete "));
+            assertEquals(new ExitCommand(), Parser.parseCommand("delete"));
             fail();
         } catch (SpotException e) {
-            assertEquals("Spot needs more details than that!", e.getMessage());
+            assertEquals("Spot doesn't know which task to delete!", e.getMessage());
         }
     }
     @Test
-    public void parseCommand_invalidListTasksOnCommand_exceptionThrown() {
+    public void parseListTasksOnCommand_invalidListTasksOnCommand_exceptionThrown() {
         try {
             assertEquals(new ListTasksOnCommand(LocalDate.of(2000, 12, 31)),
                     Parser.parseCommand("list tasks on 32-12-2000"));

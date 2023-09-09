@@ -33,55 +33,161 @@ public class Parser {
      */
     public static Command parseCommand(String input) throws SpotException {
         if (input.startsWith("list tasks on")) {
-            if (input.length() <= 14) {
-                throw new SpotException("Spot thinks you might've "
-                        + "forgotten to add a date!");
-            }
-            String d = input.substring(14);
-            LocalDate date = Parser.parseDate(d);
-            return new ListTasksOnCommand(date);
+            return parseListTasksOnCommand(input);
         } else if (input.startsWith("list")) {
             return new ListCommand();
         } else if (input.startsWith("find")) {
-            if (input.length() <= 5) {
-                throw new SpotException("Spot needs more details than that!");
-            }
-            String keyword = input.substring(5).trim();
+            return parseFindCommand(input);
+        } else if (input.startsWith("mark")) {
+            return parseMarkCommand(input);
+        } else if (input.startsWith("unmark")) {
+            return parseUnmarkCommand(input);
+        } else if (input.startsWith("delete")) {
+            return parseDeleteCommand(input);
+        } else if (input.startsWith("todo")) {
+            return parseAddToDoCommand(input);
+        } else if (input.startsWith("deadline")) {
+            return parseAddDeadlineCommand(input);
+        } else if (input.startsWith("event")) {
+            return parseAddEventCommand(input);
+        } else if (input.startsWith("bye")) {
+            return new ExitCommand();
+        } else {
+            throw new SpotException("Spot doesn't know what command that is!");
+        }
+    }
+
+    /**
+     * Returns ListTasksOnCommand corresponding to the specified input string.
+     *
+     * @param input Input string to be parsed.
+     * @return Resulting ListTasksOnCommand.
+     * @throws SpotException  If input string is invalid.
+     */
+    public static Command parseListTasksOnCommand(String input) throws SpotException {
+        String minimumInput = "list tasks on";
+        int minimumInputLength = minimumInput.length();
+        try {
+            String d = input.substring(minimumInputLength).trim();
+            LocalDate date = Parser.parseDate(d);
+            return new ListTasksOnCommand(date);
+        } catch (IndexOutOfBoundsException e) {
+            throw new SpotException("Spot thinks you might've "
+                    + "forgotten to add a date!");
+        }
+    }
+
+    /**
+     * Returns FindCommand corresponding to the specified input string.
+     *
+     * @param input Input string to be parsed.
+     * @return Resulting FindCommand.
+     * @throws SpotException  If input string is invalid.
+     */
+    public static Command parseFindCommand(String input) throws SpotException {
+        String minimumInput = "find";
+        int minimumInputLength = minimumInput.length();
+        try {
+            String keyword = input.substring(minimumInputLength).trim();
             if (keyword.isEmpty()) {
                 throw new SpotException("Spot doesn't know what keyword you're searching for!");
             }
             return new FindCommand(keyword);
-        } else if (input.startsWith("mark")) {
-            if (input.length() <= 5) {
-                throw new SpotException("Spot needs more details than that!");
-            }
-            int position = Integer.parseInt(input.substring(5));
+        } catch (IndexOutOfBoundsException e) {
+            throw new SpotException("Spot doesn't know what keyword you're searching for!");
+        }
+    }
+
+    /**
+     * Returns MarkCommand corresponding to the specified input string.
+     *
+     * @param input Input string to be parsed.
+     * @return Resulting MarkCommand.
+     * @throws SpotException  If input string is invalid.
+     */
+    public static Command parseMarkCommand(String input) throws SpotException {
+        String minimumInput = "mark";
+        int minimumInputLength = minimumInput.length();
+        try {
+            int position = Integer.parseInt(input.substring(minimumInputLength).trim());
             return new MarkCommand(position);
-        } else if (input.startsWith("unmark")) {
-            if (input.length() <= 7) {
-                throw new SpotException("Spot needs more details than that!");
-            }
-            int position = Integer.parseInt(input.substring(7));
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw new SpotException("Spot doesn't know which task to mark as done!");
+        }
+    }
+
+    /**
+     * Returns UnmarkCommand corresponding to the specified input string.
+     *
+     * @param input Input string to be parsed.
+     * @return Resulting UnmarkCommand.
+     * @throws SpotException  If input string is invalid.
+     */
+    public static Command parseUnmarkCommand(String input) throws SpotException {
+        String minimumInput = "unmark";
+        int minimumInputLength = minimumInput.length();
+        try {
+            int position = Integer.parseInt(input.substring(minimumInputLength).trim());
             return new UnmarkCommand(position);
-        } else if (input.startsWith("delete")) {
-            if (input.length() <= 7) {
-                throw new SpotException("Spot needs more details than that!");
-            }
-            int position = Integer.parseInt(input.substring(7));
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw new SpotException("Spot doesn't know which task to mark as not done!");
+        }
+    }
+
+    /**
+     * Returns DeleteCommand corresponding to the specified input string.
+     *
+     * @param input Input string to be parsed.
+     * @return Resulting DeleteCommand.
+     * @throws SpotException  If input string is invalid.
+     */
+    public static Command parseDeleteCommand(String input) throws SpotException {
+        String minimumInput = "delete";
+        int minimumInputLength = minimumInput.length();
+        try {
+            int position = Integer.parseInt(input.substring(minimumInputLength).trim());
             return new DeleteCommand(position);
-        } else if (input.startsWith("todo")) {
-            if (input.length() <= 5) {
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw new SpotException("Spot doesn't know which task to delete!");
+        }
+    }
+
+    /**
+     * Returns AddToDoCommand corresponding to the specified input string.
+     *
+     * @param input Input string to be parsed.
+     * @return Resulting AddToDoCommand.
+     * @throws SpotException  If input string is invalid.
+     */
+    public static Command parseAddToDoCommand(String input) throws SpotException {
+        String minimumInput = "todo";
+        int minimumInputLength = minimumInput.length();
+        try {
+            String description = input.substring(minimumInputLength).trim();
+            if (description.isEmpty()) {
                 throw new SpotException("Spot wonders if you've "
                         + "forgotten the description?");
             }
-            String description = input.substring(5).trim();
             return new AddToDoCommand(description);
-        } else if (input.startsWith("deadline")) {
-            if (input.length() <= 9) {
-                throw new SpotException("Spot needs more details than that!");
-            }
-            String[] keywords = input.substring(9).trim().split("/by");
-            if (keywords.length == 0 || keywords[0].trim().isEmpty()) {
+        } catch (IndexOutOfBoundsException e) {
+            throw new SpotException("Spot wonders if you've "
+                    + "forgotten the description?");
+        }
+    }
+
+    /**
+     * Returns AddDeadlineCommand corresponding to the specified input string.
+     *
+     * @param input Input string to be parsed.
+     * @return Resulting AddDeadlineCommand.
+     * @throws SpotException  If input string is invalid.
+     */
+    public static Command parseAddDeadlineCommand(String input) throws SpotException {
+        String minimumInput = "deadline";
+        int minimumInputLength = minimumInput.length();
+        try {
+            String[] keywords = input.substring(minimumInputLength).trim().split("/by");
+            if (keywords.length == 0 || keywords[0].isEmpty()) {
                 throw new SpotException("Spot wonders if you've "
                         + "forgotten the description?");
             }
@@ -91,17 +197,29 @@ public class Parser {
             String description = keywords[0].trim();
             LocalDate deadline = Parser.parseDate(keywords[1].trim());
             return new AddDeadlineCommand(description, deadline);
-        } else if (input.startsWith("event")) {
-            if (input.length() <= 6) {
-                throw new SpotException("Spot needs more details than that!");
-            }
-            String[] keywords = input.substring(6).trim().split("/from|/to");
-            if (keywords.length == 0 || keywords[0].trim().isEmpty()) {
+        } catch (IndexOutOfBoundsException e) {
+            throw new SpotException("Spot needs more details than that!");
+        }
+    }
+
+    /**
+     * Returns AddEventCommand corresponding to the specified input string.
+     *
+     * @param input Input string to be parsed.
+     * @return Resulting AddEventCommand.
+     * @throws SpotException  If input string is invalid.
+     */
+    public static Command parseAddEventCommand(String input) throws SpotException {
+        String minimumInput = "event";
+        int minimumInputLength = minimumInput.length();
+        try {
+            String[] keywords = input.substring(minimumInputLength).trim().split("/from|/to");
+            if (keywords.length == 0 || keywords[0].isEmpty()) {
                 throw new SpotException("Spot wonders if you've "
                         + "forgotten the description?");
             }
-            if (keywords.length < 3 || keywords[1].trim().isEmpty()
-                    || keywords[2].trim().isEmpty()) {
+            if (keywords.length < 3 || keywords[1].isBlank()
+                    || keywords[2].isEmpty()) {
                 throw new SpotException("Spot can't find a start time"
                         + " and/or an end time!");
             }
@@ -109,14 +227,12 @@ public class Parser {
             LocalDate start = Parser.parseDate(keywords[1].trim());
             LocalDate end = Parser.parseDate(keywords[2].trim());
             if (start.isAfter(end)) {
-                throw new SpotException("Spot thinks the start date of your event" +
-                        "cannot be after the end date!");
+                throw new SpotException("Spot thinks the start date of your event"
+                        + "cannot be after the end date!");
             }
             return new AddEventCommand(description, start, end);
-        } else if (input.startsWith("bye")) {
-            return new ExitCommand();
-        } else {
-            throw new SpotException("Spot doesn't know what command that is!");
+        } catch (IndexOutOfBoundsException e) {
+            throw new SpotException("Spot needs more details than that!");
         }
     }
 

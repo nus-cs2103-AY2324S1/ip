@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -35,10 +34,12 @@ public class Storage {
             if (!directory.exists()) {
                 directory.mkdir();
             }
+            assert directory.exists();
             File file = new File(FULL_PATH);
             if (!file.exists()) {
                 file.createNewFile();
             }
+            assert file.exists();
             this.storage = file;
         } catch (IOException e) {
             throw new SpotException(e.getMessage());
@@ -58,32 +59,19 @@ public class Storage {
             while (fileScanner.hasNextLine()) {
                 String task = fileScanner.nextLine();
                 String[] keywords = task.trim().split("\\Q | \\E");
-                if (keywords[0].equals("T")) {
-                    if (keywords[1].equals("X")) {
-                        tasks.add(new ToDo(keywords[2], true));
-                    } else {
-                        tasks.add(new ToDo(keywords[2], false));
-                    }
-                } else if (keywords[0].equals("D")) {
-                    LocalDate deadline = LocalDate.parse(keywords[3],
-                            DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                    if (keywords[1].equals("X")) {
-                        tasks.add(new Deadline(keywords[2], true,
-                                deadline));
-                    } else {
-                        tasks.add(new Deadline(keywords[2], false,
-                                deadline));
-                    }
+                String taskType = keywords[0];
+                boolean isDone = keywords[1].equals("X");
+                if (taskType.equals("T")) {
+                    tasks.add(new ToDo(keywords[2], isDone));
+                } else if (taskType.equals("D")) {
+                    LocalDate deadline = Parser.parseDate(keywords[3]);
+                    tasks.add(new Deadline(keywords[2], isDone, deadline));
+                } else if (taskType.equals("E")) {
+                    LocalDate start = Parser.parseDate(keywords[3]);
+                    LocalDate end = Parser.parseDate(keywords[4]);
+                    tasks.add(new Event(keywords[2], isDone, start, end));
                 } else {
-                    LocalDate start = LocalDate.parse(keywords[3],
-                            DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                    LocalDate end = LocalDate.parse(keywords[4],
-                            DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                    if (keywords[1].equals("X")) {
-                        tasks.add(new Event(keywords[2], true, start, end));
-                    } else {
-                        tasks.add(new Event(keywords[2], false, start, end));
-                    }
+                    throw new SpotException("The data file is corrupted!");
                 }
             }
             fileScanner.close();
