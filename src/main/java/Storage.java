@@ -1,15 +1,16 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import java.util.Locale;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -47,7 +48,7 @@ public class Storage {
     }
 
 
-    public void addToFile(ArrayList<Task> list) throws DukeException {
+    public void addOneLineToFile(ArrayList<Task> list) throws DukeException {
         try {
             FileWriter fw = new FileWriter(filePath, true);
             if (list.size() == 1) {
