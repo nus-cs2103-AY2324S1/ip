@@ -91,6 +91,12 @@ public class TaskList {
     private String add(TaskType taskType, String description, String by, String start, String end)
             throws DukeIllegalArgumentException {
 
+        assert taskType != null : "taskType parameter should not be null.";
+        assert description != null : "description parameter should not be null.";
+        assert by != null : "by parameter should not be null.";
+        assert start != null : "start parameter should not be null.";
+        assert end != null : "end parameter should not be null.";
+
         // Avoids early return statements in switch statement.
         String output = "";
 
@@ -329,5 +335,6 @@ public class TaskList {
                 this.mark(this.tasks.size());
             }
         }
+        assert this.tasks.size() == exportedTasks.length : "The number of tasks should be the same.";
     }
 }

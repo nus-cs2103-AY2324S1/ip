@@ -46,6 +46,7 @@ public class Storage {
      * @throws DukeIOException If there is an error reading from the file.
      */
     public String load() throws DukeIOException {
+        assert Files.exists(pathToSaveFile) : "Save File should exist at this point.";
         try {
             BufferedReader reader = Files.newBufferedReader(pathToSaveFile, StandardCharsets.UTF_8);
             StringBuilder data = new StringBuilder();
@@ -71,6 +72,7 @@ public class Storage {
      * @throws DukeIOException If there is an error writing to the file.
      */
     public void save(String data) throws DukeIOException {
+        assert Files.exists(pathToSaveFile) : "Save File should exist at this point.";
         try {
             Files.writeString(pathToSaveFile, data);
         } catch (IOException ioe) {
