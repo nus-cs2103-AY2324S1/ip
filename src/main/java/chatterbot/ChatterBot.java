@@ -14,8 +14,8 @@ import java.util.Scanner;
  * Represents the chatbot that is able to maintain a list of tasks.
  */
 public class ChatterBot {
-    public static ArrayList<Task> list = new ArrayList<>();
-    public static String file = "data/ChatterBot.txt";
+    protected static ArrayList<Task> list = new ArrayList<>();
+    protected static String file = "data/ChatterBot.txt";
 
     /**
      * This is the main method which executes the ChatterBot program.

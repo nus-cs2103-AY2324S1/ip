@@ -5,12 +5,10 @@ package chatterbot.data;
  */
 public class Todo extends Task {
 
-    protected String by;
-
     public Todo(String description) {
         super(description);
         if (description.isEmpty()) {
-            throw new IllegalArgumentException("OOPS!!! Invalid input! No ttask description.");
+            throw new IllegalArgumentException("OOPS!!! Invalid input! No task description.");
         }
     }
 
@@ -28,7 +26,7 @@ public class Todo extends Task {
      * @return String This is the formatted line to add to the ChatterBot.txt file.
      */
     @Override
-    public String forFile() {
+    public String formatForFile() {
         return "todo " + this.description;
     }
 }

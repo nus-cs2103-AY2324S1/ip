@@ -21,7 +21,10 @@ public class Parser {
      * @param file This is the file path to retrieve the .txt file
      * @param taskList This is the list of tasks that have been added.
      */
-    public static void evaluateCommand(String userMessage, Ui ui, ArrayList<Task> list, Storage storage, String file, TaskList taskList) {
+
+    public static void evaluateCommand(String userMessage, Ui ui, ArrayList<Task> list, Storage storage, String file,
+                                       TaskList taskList) {
+
         if (userMessage.toLowerCase().equals("bye")) {
             ui.showGoodbyeMessage();
             return;
@@ -29,11 +32,11 @@ public class Parser {
             ui.showTaskList();
         } else if (userMessage.startsWith("mark") && isInteger(userMessage.substring(5))) {
             String toMark = userMessage.substring(5);
-            list.get(Integer.parseInt(toMark) - 1).markAsDone();
+            list.get(Integer.parseInt(toMark) - 1).setDone();
             ui.showMarked(toMark);
         } else if (userMessage.startsWith("unmark")) {
             String toUnmark = userMessage.substring(7);
-            list.get(Integer.parseInt(toUnmark) - 1).markAsUndone();
+            list.get(Integer.parseInt(toUnmark) - 1).setUndone();
             ui.showUnmarked(toUnmark);
         } else {
             if (userMessage.startsWith("deadline")) {
@@ -118,5 +121,4 @@ public class Parser {
             return false;
         }
     }
-
 }

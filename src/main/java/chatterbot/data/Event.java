@@ -13,13 +13,14 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
         if (description.isEmpty()) {
-            throw new IllegalArgumentException("OOPS!!! Invalid input! No ttask description.");
+            throw new IllegalArgumentException("OOPS!!! Invalid input! No task description.");
         }
     }
 
     /**
      * Returns the description, start and end time of the event task.
-     * @return String This is the event description, start and end time in the format it will be displayed in, in the list.
+     * @return String This is the event description, start and end time in the format it will be displayed in,
+     *     in the list.
      */
     @Override
     public String toString() {

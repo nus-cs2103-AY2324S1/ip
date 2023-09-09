@@ -8,7 +8,11 @@ import chatterbot.data.Todo;
 import java.util.ArrayList;
 
 /**
+<<<<<<< HEAD
  * Determines what will be returned to the user.
+=======
+ * Decides what will be returned to the user.
+>>>>>>> branch-A-CodingStandard
  */
 public class Ui {
 
@@ -49,7 +53,8 @@ public class Ui {
      * @param toMark This is the task that will be marked.
      */
     public static void showMarked(String toMark) {
-        System.out.println("Nice! I've marked this task as done:\n" + "[X] " + list.get(Integer.parseInt(toMark) - 1).description);
+        System.out.println("Nice! I've marked this task as done:\n" + "[X] "
+                + list.get(Integer.parseInt(toMark) - 1).description);
     }
 
     /**
@@ -57,16 +62,18 @@ public class Ui {
      * @param toUnmark This is the task that will be unmarked.
      */
     public static void showUnmarked(String toUnmark) {
-        System.out.println("OK, I've marked this task as not done yet:\n" + "[ ] " + list.get(Integer.parseInt(toUnmark) - 1).description);
+        System.out.println("OK, I've marked this task as not done yet:\n" + "[ ] "
+                + list.get(Integer.parseInt(toUnmark) - 1).description);
     }
 
     /**
      * Prints a success message to let the user know the deadline task was added successfully,
      * and the number of tasks they currently have.
-     * @param d This is the description and deadliine of the added deadline task.
+     * @param d This is the description and deadline of the added deadline task.
      */
     public static void showAddedDeadline(Deadline d) {
-        System.out.println("Got it. I've added this task:\n" + d.toString() + "\nNow you have " + list.size() + " tasks in the list.");
+        System.out.println("Got it. I've added this task:\n" + d.toString() + "\nNow you have " + list.size()
+                + " tasks in the list.");
     }
 
     /**
@@ -75,7 +82,8 @@ public class Ui {
      * @param td This is the description of the added todo task.
      */
     public static void showAddedTodo(Todo td) {
-        System.out.println("Got it. I've added this task:\n" + td.toString() + "\nNow you have " + list.size() + " tasks in the list.");
+        System.out.println("Got it. I've added this task:\n" + td.toString() + "\nNow you have " + list.size()
+                + " tasks in the list.");
     }
 
     /**
@@ -84,7 +92,8 @@ public class Ui {
      * @param e This is the description, start and end time of the added event task.
      */
     public static void showAddedEvent(Event e) {
-        System.out.println("Got it. I've added this task:\n" + e.toString() + "\nNow you have " + list.size() + " tasks in the list.");
+        System.out.println("Got it. I've added this task:\n" + e.toString() + "\nNow you have " + list.size()
+                + " tasks in the list.");
     }
 
     /**
@@ -92,7 +101,9 @@ public class Ui {
      * @param userMessage This is the task in the user input that will be deleted.
      */
     public static void showDeleted(String userMessage) {
-        System.out.println("Noted. I've removed this task:\n" + list.get((Integer.parseInt(userMessage.substring(7)))-1) + "\nNow you have " + (list.size() - 1) + " tasks in the list.");
+        System.out.println("Noted. I've removed this task:\n"
+                + list.get((Integer.parseInt(userMessage.substring(7)))-1) + "\nNow you have "
+                + (list.size() - 1) + " tasks in the list.");
     }
 
     /**

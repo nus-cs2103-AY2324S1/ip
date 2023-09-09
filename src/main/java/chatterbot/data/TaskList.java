@@ -8,9 +8,9 @@ import java.util.ArrayList;
 /**
  * Represents a list of tasks that have been added.
  */
-    public class TaskList {
+public class TaskList {
 
-    private static ArrayList<Task> list;
+    protected static ArrayList<Task> list;
 
     public TaskList(ArrayList<Task> list) {
         this.list = list;
@@ -36,7 +36,7 @@ import java.util.ArrayList;
     public static String convertToString(ArrayList<Task> list) {
         StringBuilder stringBuilder = new StringBuilder();
         for (Task task : list) {
-            stringBuilder.append(task.forFile()).append(System.lineSeparator());
+            stringBuilder.append(task.formatForFile()).append(System.lineSeparator());
         }
         return stringBuilder.toString();
     }

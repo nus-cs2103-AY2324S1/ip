@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 todo submit this
 todo eat bugs
 todo my assignments
 event this /from today /to tomrrow
 event go home /from all day /to everyday
+=======
+todo watch movies
+event party /from today /to tomorrow
+deadline this assignment /by 2023-09-18
+>>>>>>> branch-A-CodingStandard

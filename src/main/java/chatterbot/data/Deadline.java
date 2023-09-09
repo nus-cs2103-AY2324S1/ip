@@ -14,7 +14,7 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
         if (description.isEmpty()) {
-            throw new IllegalArgumentException("OOPS!!! Invalid input! No ttask description.");
+            throw new IllegalArgumentException("OOPS!!! Invalid input! No task description.");
         }
     }
 
@@ -28,7 +28,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns the modified version of the deadline in a MMM d yyyy format.
+     * Returns the modified version of the deadline in an MMM d yyyy format.
+>>>>>>> branch-A-CodingStandard
      * @param by This is the deadline.
      * @return String This is the formatted deadline.
      */

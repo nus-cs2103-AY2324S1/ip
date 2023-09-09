@@ -23,14 +23,14 @@ public class Task {
     /**
      * This method marks the task as done, denoted by [X].
      */
-    public void markAsDone() {
+    public void setDone() {
         isDone = true;
     }
 
     /**
      * This method marks the task as undone, denoted by [ ].
      */
-    public void markAsUndone() {
+    public void setUndone() {
         isDone = false;
     }
 
@@ -46,7 +46,7 @@ public class Task {
      * Returns the input for the Chatterbot.txt file in the same format as was entered by the user.
      * @return String This is the formatted line to add to the ChatterBot.txt file.
      */
-    public String forFile() {
+    public String formatForFile() {
         return "task " + this.description;
     }
 }
