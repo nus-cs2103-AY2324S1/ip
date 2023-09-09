@@ -30,6 +30,8 @@ public abstract class Task {
 
   public abstract String saveData();
 
+  public abstract Task clone();
+
   /**
    * Marks the task as completed
    */

@@ -8,5 +8,5 @@ import javafx.scene.layout.Pane;
  */
 public interface Action {
 
-  public void execute(TaskList taskList, Storage storage, Pane vbox) throws WrongIndexException, EmptyBodyException, InvalidDateException;
+  public void execute(TaskList taskList, Storage storage, Pane vbox) throws DukeException;
 }

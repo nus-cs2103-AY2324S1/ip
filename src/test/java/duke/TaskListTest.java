@@ -90,4 +90,65 @@ public class TaskListTest {
     TaskList taskList = new TaskList(lists);
     assertTrue(taskList.findTasks("name1 ", vbox, dukeImage));
   }
+
+  @Test
+  void undoTask_InvalidIndex_Exception() throws UndoException {
+    LinkedList<Task> lists = new LinkedList<>();
+    TaskList taskList = new TaskList(lists);
+    VBox vbox = new VBox();
+    taskList.addTask(new ToDoTask("1"), vbox, dukeImage);
+    taskList.addTask(new ToDoTask("2"), vbox, dukeImage);
+    taskList.addTask(new ToDoTask("3"), vbox, dukeImage);
+
+    UndoException e1 = (assertThrows(UndoException.class, () -> {
+      taskList.undo(String.valueOf(4), vbox, dukeImage);
+    }));
+    assertEquals(e1.toString(), "You have made 3 new changes in this session, pls enter a value between 0 and 3");
+  }
+
+  @Test
+  void undoTask_InvalidIndexAfterValidUndo_Exception() throws UndoException {
+    LinkedList<Task> lists = new LinkedList<>();
+    TaskList taskList = new TaskList(lists);
+    VBox vbox = new VBox();
+    taskList.addTask(new ToDoTask("1"), vbox, dukeImage);
+    taskList.addTask(new ToDoTask("2"), vbox, dukeImage);
+    taskList.addTask(new ToDoTask("3"), vbox, dukeImage);
+
+    taskList.undo(String.valueOf(2), vbox, dukeImage);
+
+    UndoException e1 = (assertThrows(UndoException.class, () -> {
+      taskList.undo(String.valueOf(2), vbox, dukeImage);
+    }));
+    assertEquals(e1.toString(), "You have made 1 new changes in this session, pls enter a value between 0 and 1");
+
+  }
+
+  @Test
+  void undoTask_ValidIndex_Pass() throws UndoException {
+    LinkedList<Task> lists = new LinkedList<>();
+    TaskList taskList = new TaskList(lists);
+    VBox vbox = new VBox();
+    taskList.addTask(new ToDoTask("1"), vbox, dukeImage);
+    taskList.addTask(new ToDoTask("2"), vbox, dukeImage);
+    taskList.addTask(new ToDoTask("3"), vbox, dukeImage);
+
+    assertTrue(taskList.undo(String.valueOf(1), vbox, dukeImage));
+    assertTrue(taskList.undo(String.valueOf(1), vbox, dukeImage));
+    assertTrue(taskList.undo(String.valueOf(1), vbox, dukeImage));
+  }
+
+  @Test
+  void undoTask_NegativeIndex_Exception() throws UndoException {
+    LinkedList<Task> lists = new LinkedList<>();
+    TaskList taskList = new TaskList(lists);
+    VBox vbox = new VBox();
+
+    UndoException e2 = (assertThrows(UndoException.class, () -> {
+      taskList.undo(String.valueOf(3), vbox, dukeImage);
+    }));
+    assertEquals(e2.toString(), "You have made 0 new changes in this session, pls enter a value between 0 and 0");
+  }
+
+
 }

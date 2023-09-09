@@ -53,6 +53,11 @@ public class EventTask extends Task {
             + this.startDate.format(this.saveFormatter) + delimiter + this.endDate.format(this.saveFormatter);
   }
 
+  @Override
+  public Task clone() {
+    return new EventTask(taskName(), startDate, endDate, isCompleted());
+  }
+
   /**
    *  Returns a string representation of the object.
    *

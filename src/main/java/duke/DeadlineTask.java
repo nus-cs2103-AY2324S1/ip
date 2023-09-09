@@ -49,6 +49,11 @@ public class DeadlineTask extends Task {
             + delimiter + this.endDate.format(this.saveFormatter);
   }
 
+  @Override
+  public Task clone() {
+    return new DeadlineTask(taskName(), endDate, isCompleted());
+  }
+
   /**
    * Returns a string representation of the object.
    *

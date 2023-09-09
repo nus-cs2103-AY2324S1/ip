@@ -121,6 +121,11 @@ public class CommandParser {
       return (taskList, storage, pane) -> {
         taskList.findTasks(expr, pane, dukeImage);
       };
+    } else if (words[0].equals("undo") && words.length == 2) {
+      return (taskList, storage, pane) -> {
+        taskList.undo(words[1], pane, dukeImage);
+        storage.saveFile(taskList);
+      };
     } else {
       throw new InvalidCommandException();
     }

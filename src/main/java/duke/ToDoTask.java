@@ -35,6 +35,11 @@ public class ToDoTask  extends Task {
     return "todo" + delimiter + isCompleted + delimiter + taskName() + delimiter;
   }
 
+  @Override
+  public Task clone() {
+    return new ToDoTask(taskName(), isCompleted());
+  }
+
   /**
    * Returns a string representation of the object.
    *

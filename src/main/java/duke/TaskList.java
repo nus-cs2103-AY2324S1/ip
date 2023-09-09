@@ -3,6 +3,7 @@ package duke;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import java.util.LinkedList;
+import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +13,8 @@ import java.util.regex.Pattern;
 public class TaskList {
 
   private LinkedList<Task> tasks = new LinkedList<>();
+
+  private Stack<LinkedList<Task>> prevChanges = new Stack<>();
 
   /**
    * Creates a new TaskList with the given list.
@@ -24,6 +27,15 @@ public class TaskList {
   public LinkedList<Task> getTaskList() {
     return this.tasks;
   }
+
+  private void addPrevChanges() {
+    LinkedList<Task> newTasks = new LinkedList<>();
+    for (Task task : tasks) {
+      newTasks.add(task.clone());
+    }
+    prevChanges.add(newTasks);
+  }
+
 
 
   /**
@@ -45,6 +57,7 @@ public class TaskList {
    * @param task the task to be added
    */
   public void addTask(Task task, Pane pane, Image dukeImage) {
+    addPrevChanges();
     int prevSize = tasks.size();
     tasks.add(task);
     assert prevSize + 1 == tasks.size();
@@ -70,6 +83,7 @@ public class TaskList {
       }
       int i = Integer.parseInt(index, 10) - 1;
 
+      addPrevChanges();
       int prevSize = tasks.size();
       Task task = tasks.remove(i);
       assert prevSize - 1 == tasks.size();
@@ -97,6 +111,7 @@ public class TaskList {
         throw new WrongIndexException();
       }
       int i = Integer.parseInt(index, 10) - 1;
+      addPrevChanges();
       Task task = tasks.get(i);
 
       boolean prevState = task.isCompleted();
@@ -126,6 +141,7 @@ public class TaskList {
       }
 
       int i = Integer.parseInt(index, 10) - 1;
+      addPrevChanges();
       Task task = tasks.get(i);
 
       boolean prevState = task.isCompleted();
@@ -167,4 +183,24 @@ public class TaskList {
     return match;
   }
 
+  public boolean undo(String index, Pane pane, Image dukeImage) throws UndoException {
+    try {
+      String regex = "\\d+";
+      if (!index.matches(regex) || Integer.parseInt(index, 10) < 0
+              || Integer.parseInt(index, 10) > prevChanges.size()) {
+        throw new UndoException(prevChanges.size());
+      }
+
+      int i = Integer.parseInt(index, 10);
+      for (int j = 0; j < i; j += 1) {
+        tasks = prevChanges.pop();
+      }
+
+      String displayMsg = "I have undo " + index + " latest changes made to the list in this session.";
+      pane.getChildren().add(DialogBox.getDukeDialog(displayMsg, dukeImage));
+      return true;
+    } catch (NumberFormatException e) {
+      throw new UndoException(prevChanges.size());
+    }
+  }
 }
