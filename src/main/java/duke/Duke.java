@@ -1,7 +1,5 @@
 package duke;
 
-import java.util.Scanner;
-
 //CHECKSTYLE.OFF: MissingJavadocMethodCheck
 //CHECKSTYLE.OFF: MissingJavadocType
 public class Duke {
@@ -28,28 +26,6 @@ public class Duke {
         this.gui = gui;
     }
 
-    /**
-     * Runs the chatbot by initiating the scanner and parser
-     */
-    public void run() {
-        ui.showWelcomeMessage();
-
-        Scanner in = new Scanner(System.in);
-        while (true) {
-            try {
-                String input = in.nextLine();
-                int number = tasks.num();
-                Parser.parseInput(input, tasks, number, filePath, ui, storage);
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        new Duke("./duke.txt").run();
-    }
-
     public void getDukeResponse(String userInput) {
         try {
             int number = tasks.num();
@@ -57,15 +33,5 @@ public class Duke {
         } catch (DukeException e) {
             gui.printError(e.getMessage());
         }
-    }
-
-
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
     }
 }

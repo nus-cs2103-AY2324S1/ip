@@ -71,11 +71,10 @@ public abstract class Task {
         String[] parts = taskString.split("\\|");
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
-        String description = parts[2];
 
         switch (type) {
         case "T":
-            Task task = new ToDo(description);
+            Task task = new ToDo(parts[2]);
             if (isDone) {
                 task.markAsDone();
             }
@@ -83,15 +82,7 @@ public abstract class Task {
         case "D":
             String byString = parts[3].trim(); // Extract deadline
             if (byString.contains(" ")) {
-                String[] part = byString.split(" ");
-                String dateString = part[0];
-                String timeString = part[1];
-                LocalDate d1;
-                LocalTime t1;
-
-                d1 = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                t1 = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HHmm"));
-                Task deadline = new Deadline(description, d1, t1);
+                Task deadline = getTask(byString, parts);
                 if (isDone) {
                     deadline.markAsDone();
                 }
@@ -99,7 +90,7 @@ public abstract class Task {
 
             } else {
                 LocalDate byDate = LocalDate.parse(byString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                Task deadline = new Deadline(description, byDate, null);
+                Task deadline = new Deadline(parts[2], byDate, null);
                 if (isDone) {
                     deadline.markAsDone();
                 }
@@ -108,10 +99,7 @@ public abstract class Task {
 
         case "E":
             String fromString = parts[3]; // Extract start date
-            LocalDate fromDate = LocalDate.parse(fromString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            String toString = parts[4]; // Extract end date
-            LocalDate toDate = LocalDate.parse(toString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            Task event = new Events(description, fromDate, toDate);
+            Task event = getEvent(fromString, parts);
             if (isDone) {
                 event.markAsDone();
             }
@@ -119,5 +107,26 @@ public abstract class Task {
         default:
             throw new IllegalArgumentException("Unknown task type: " + type);
         }
+    }
+
+    private static Task getEvent(String fromString, String[] parts) {
+        LocalDate fromDate = LocalDate.parse(fromString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String toString = parts[4]; // Extract end date
+        LocalDate toDate = LocalDate.parse(toString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        Task event = new Events(parts[2], fromDate, toDate);
+        return event;
+    }
+
+    private static Task getTask(String byString, String[] parts) {
+        String[] part = byString.split(" ");
+        String dateString = part[0];
+        String timeString = part[1];
+        LocalDate d1;
+        LocalTime t1;
+
+        d1 = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        t1 = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HHmm"));
+        Task deadline = new Deadline(parts[2], d1, t1);
+        return deadline;
     }
 }
