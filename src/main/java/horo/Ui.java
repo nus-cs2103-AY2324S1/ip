@@ -15,25 +15,37 @@ public class Ui {
     horoOutput(getWelcome());
   }
 
+  /**
+   * Displays the string given as emitted from user.
+   * 
+   * @param output The string to display
+   */
   public void userOutput(String output) {
     dialogContainer.getChildren().addAll(
         DialogBox.getUserDialog(output, user));
   }
 
+  /**
+   * Displays the string given as emitted from the program.
+   * 
+   * @param output The string to display
+   */
   public void horoOutput(String output) {
     dialogContainer.getChildren().addAll(
         DialogBox.getDukeDialog(output, user));
   }
 
   private String getWelcome() {
-    String logo = " _    _ \n"
+    String logo = ""
+        + " _    _ \n"
         + "| |  | |\n"
         + "| |__| | ___  _ __ ___\n"
         + "|  __  |/ _ \\| '__/ _ \\\n"
         + "| |  | | (_) | | | (_) |\n"
         + "|_|  |_|\\___/|_|  \\___/\n";
 
-    String introduction = "Hello! I'm Horo\n"
+    String introduction = ""
+        + "Hello! I'm Horo\n"
         + "What can I do for you?\n"
         + "Usage: \n"
         + " todo <description>\n"

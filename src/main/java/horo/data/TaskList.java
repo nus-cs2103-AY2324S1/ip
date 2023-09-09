@@ -81,8 +81,4 @@ public class TaskList {
   public ArrayList<Task> getTasks() {
     return taskList;
   }
-
-  public void showTasks() {
-
-  }
 }

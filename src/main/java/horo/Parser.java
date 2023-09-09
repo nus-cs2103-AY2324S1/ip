@@ -23,6 +23,9 @@ import horo.data.Todo;
  */
 public abstract class Parser {
 
+  /**
+   * Pattern to check availiable commands
+   */
   private static final Pattern commandPattern = Pattern
       .compile("^(deadline|todo|event|bye|mark|unmark|list|delete|find)");
 
