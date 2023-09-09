@@ -11,9 +11,9 @@ import java.time.format.DateTimeParseException;
  * deadlineString and deadlineDateTime to represent the deadline of the task.
  * </p>
  */
-public class Deadline extends Task {
-    private final String deadlineString;
-    private final LocalDate deadlineDateTime;
+public class Deadline extends TimeSensitiveTask {
+    private String deadlineString;
+    private LocalDate deadlineDateTime;
 
     /**
      * Constructs a new Deadline object with a description and a deadline.
@@ -85,6 +85,17 @@ public class Deadline extends Task {
         } catch (DateTimeParseException ex) {
             return null;
         }
+    }
+
+    /**
+     * Update the deadline of a task.
+     *
+     * @param deadlineString The new deadline in string format.
+     */
+    @Override
+    public void postpone(String deadlineString) {
+        this.deadlineString = deadlineString;
+        this.deadlineDateTime = parseDateTime(deadlineString);
     }
 
     /**
