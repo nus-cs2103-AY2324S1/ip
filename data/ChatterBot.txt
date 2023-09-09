@@ -1,6 +1,5 @@
 todo eat bugs
 event this /from today /to tomrrow
 event go home /from all day /to everyday
-todo watch movies
 deadline this assignment /by 2023-09-18
 event eat egg party /from tdy /to tmr

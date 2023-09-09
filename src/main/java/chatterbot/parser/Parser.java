@@ -38,6 +38,9 @@ public class Parser {
             String toUnmark = userMessage.substring(7);
             list.get(Integer.parseInt(toUnmark) - 1).setUndone();
             ui.showUnmarked(toUnmark);
+        } else if (userMessage.startsWith("find")) {
+            String toFind = userMessage.substring(5);
+            ui.showFoundTasks(toFind);
         } else {
             if (userMessage.startsWith("deadline")) {
                 try {

@@ -29,7 +29,6 @@ public class Deadline extends Task {
 
     /**
      * Returns the modified version of the deadline in an MMM d yyyy format.
->>>>>>> branch-A-CodingStandard
      * @param by This is the deadline.
      * @return String This is the formatted deadline.
      */

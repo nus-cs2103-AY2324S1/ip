@@ -10,10 +10,10 @@ public class EventTest {
     @Test
     public void event_description_addedToList() {
         // entered event will be added successfully
-        assertEquals("[E][ ] birthday party (from: today to: tomorrow)", new Event("birthday party","today", "tomorrow").toString());
+        assertEquals("[E][ ] birthday party (from: today to: tomorrow)", new Event("birthday party ","today ", "tomorrow").toString());
 
         // entered event will be added successfully
-        assertEquals("[E][ ] training (from: morning to: evening)", new Event("training", "morning", "evening").toString());
+        assertEquals("[E][ ] training (from: morning to: evening)", new Event("training ", "morning ", "evening").toString());
     }
 
     @Test

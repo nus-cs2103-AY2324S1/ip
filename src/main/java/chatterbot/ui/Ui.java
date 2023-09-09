@@ -49,6 +49,28 @@ public class Ui {
     }
 
     /**
+     * Prints the tasks in list format that contain the entered keyword.
+     * @param toFind This is the entered keyword.
+     */
+    public static void showFoundTasks(String toFind) {
+        ArrayList<Task> foundTasksArray = new ArrayList<Task>();
+        for (Task t : list) {
+            if (t.description.contains(toFind)) {
+                foundTasksArray.add(t);
+            }
+        }
+        if (foundTasksArray.isEmpty()) {
+            System.out.println("No matching tasks!");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (Task t : foundTasksArray) {
+                System.out.println((foundTasksArray.indexOf(t) + 1) + ". "
+                        + t.toString());
+            }
+        }
+    }
+
+    /**
      * Prints a success message to let the user know the task was marked successfully.
      * @param toMark This is the task that will be marked.
      */
