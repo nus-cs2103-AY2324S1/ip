@@ -30,6 +30,11 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Returns the String description of a task suitable for file storage.
+     *
+     * @return the task String
+     */
     public String dataString() {
         if (this.isdone()) {
             return "T : 1 : " + this.getname() + ":" + this.by;

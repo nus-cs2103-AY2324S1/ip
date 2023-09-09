@@ -9,6 +9,8 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
 
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -125,6 +127,10 @@ public class Parser {
             } catch (NumberFormatException e) {
                 ui.validNumberMessage();
             }
+        } else if (userinput.length() >= 6 && userinput.substring(0, 5).equalsIgnoreCase("find ")) {
+            ui.findmsg();
+            ui.printList(tasks.contains(userinput.substring(5)));
+
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

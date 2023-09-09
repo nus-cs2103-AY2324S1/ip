@@ -4,3 +4,4 @@ E : 0 : project meeting : 2023-08-06 : 2023-08-06
 T : 1 : join sports club
 T : 0 : join sports club
 T : 0 :  u
+T : 0 :  me
