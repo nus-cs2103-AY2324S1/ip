@@ -1,16 +1,16 @@
-package ducky.command;
+package com.ducky.command;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import ducky.DuckyException;
-import ducky.Storage;
-import ducky.TaskList;
-import ducky.task.DeadlineTask;
-import ducky.task.EventTask;
-import ducky.task.TaskType;
-import ducky.task.TodoTask;
-import ducky.util.Parser;
+import com.ducky.logic.Storage;
+import com.ducky.logic.TaskList;
+import com.ducky.logic.DuckyException;
+import com.ducky.task.DeadlineTask;
+import com.ducky.task.EventTask;
+import com.ducky.task.TaskType;
+import com.ducky.task.TodoTask;
+import com.ducky.util.Parser;
 
 /**
  * Represents a command that adds a task to Ducky's task list.

@@ -1,6 +1,6 @@
-package ducky.command;
+package com.ducky.command;
 
-import ducky.DuckyException;
+import com.ducky.logic.DuckyException;
 
 /**
  * An exception thrown when input that cannot be recognised as a command is given.

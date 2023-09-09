@@ -1,9 +1,7 @@
-package ducky;
+package com.ducky.logic;
 
-import java.util.Scanner;
-
-import ducky.command.Command;
-import ducky.util.Parser;
+import com.ducky.command.Command;
+import com.ducky.util.Parser;
 
 /**
  * Represents a Ducky chatbot instance.

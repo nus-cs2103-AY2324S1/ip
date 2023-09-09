@@ -1,4 +1,4 @@
-package ducky.task;
+package com.ducky.task;
 
 public enum TaskType {
     TODO,

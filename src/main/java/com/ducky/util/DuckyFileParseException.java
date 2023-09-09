@@ -1,6 +1,6 @@
-package ducky.util;
+package com.ducky.util;
 
-import ducky.DuckyException;
+import com.ducky.logic.DuckyException;
 
 public class DuckyFileParseException extends DuckyException {
 

@@ -1,7 +1,7 @@
-package ducky;
+package com.ducky.logic;
 
-import ducky.command.DuckyInvalidTaskIndexException;
-import ducky.task.Task;
+import com.ducky.command.DuckyInvalidTaskIndexException;
+import com.ducky.task.Task;
 
 import java.util.ArrayList;
 

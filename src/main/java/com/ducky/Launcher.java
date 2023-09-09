@@ -1,4 +1,4 @@
-package ducky;
+package com.ducky;
 
 import javafx.application.Application;
 

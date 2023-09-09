@@ -1,5 +1,6 @@
-package ducky;
+package com.ducky.component;
 
+import com.ducky.logic.Ducky;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;

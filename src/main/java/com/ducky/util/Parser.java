@@ -1,19 +1,19 @@
-package ducky.util;
+package com.ducky.util;
 
-import ducky.command.AddTaskCommand;
-import ducky.command.Command;
-import ducky.command.DeleteCommand;
-import ducky.command.DuckyInvalidCommandException;
-import ducky.command.DuckyInvalidCommandFormatException;
-import ducky.command.ExitCommand;
-import ducky.command.FindTaskCommand;
-import ducky.command.ListCommand;
-import ducky.command.UpdateTaskCompletionCommand;
-import ducky.task.DeadlineTask;
-import ducky.task.EventTask;
-import ducky.task.Task;
-import ducky.task.TaskType;
-import ducky.task.TodoTask;
+import com.ducky.command.AddTaskCommand;
+import com.ducky.command.Command;
+import com.ducky.command.DuckyInvalidCommandException;
+import com.ducky.command.DuckyInvalidCommandFormatException;
+import com.ducky.command.ExitCommand;
+import com.ducky.command.FindTaskCommand;
+import com.ducky.command.ListCommand;
+import com.ducky.command.UpdateTaskCompletionCommand;
+import com.ducky.command.DeleteCommand;
+import com.ducky.task.DeadlineTask;
+import com.ducky.task.EventTask;
+import com.ducky.task.Task;
+import com.ducky.task.TaskType;
+import com.ducky.task.TodoTask;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

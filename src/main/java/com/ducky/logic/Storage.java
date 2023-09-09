@@ -1,8 +1,8 @@
-package ducky;
+package com.ducky.logic;
 
-import ducky.task.Task;
-import ducky.util.DuckyFileParseException;
-import ducky.util.Parser;
+import com.ducky.task.Task;
+import com.ducky.util.DuckyFileParseException;
+import com.ducky.util.Parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;

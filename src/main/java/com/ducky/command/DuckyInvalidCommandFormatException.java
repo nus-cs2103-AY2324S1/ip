@@ -1,6 +1,6 @@
-package ducky.command;
+package com.ducky.command;
 
-import ducky.DuckyException;
+import com.ducky.logic.DuckyException;
 
 /**
  * An exception thrown when a command is not in the correct format.

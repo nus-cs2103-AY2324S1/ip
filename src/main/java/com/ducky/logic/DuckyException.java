@@ -1,4 +1,4 @@
-package ducky;
+package com.ducky.logic;
 
 /**
  * An exception thrown by Ducky.

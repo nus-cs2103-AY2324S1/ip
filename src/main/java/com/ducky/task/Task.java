@@ -1,4 +1,4 @@
-package ducky.task;
+package com.ducky.task;
 
 /**
  * Represents a task stored in Ducky chatbot memory.

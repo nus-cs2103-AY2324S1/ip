@@ -1,7 +1,7 @@
-package ducky.command;
+package com.ducky.command;
 
-import ducky.Storage;
-import ducky.TaskList;
+import com.ducky.logic.Storage;
+import com.ducky.logic.TaskList;
 
 /**
  * Represents a command that lists all tasks in Ducky's task list.

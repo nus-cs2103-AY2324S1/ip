@@ -1,9 +1,9 @@
-package ducky.command;
+package com.ducky.command;
 
-import ducky.DuckyException;
-import ducky.Storage;
-import ducky.TaskList;
-import ducky.task.Task;
+import com.ducky.logic.Storage;
+import com.ducky.logic.TaskList;
+import com.ducky.logic.DuckyException;
+import com.ducky.task.Task;
 
 /**
  * Represents a command that changes completion status of a task in Ducky's task list.

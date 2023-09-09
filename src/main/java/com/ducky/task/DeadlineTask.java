@@ -1,4 +1,4 @@
-package ducky.task;
+package com.ducky.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

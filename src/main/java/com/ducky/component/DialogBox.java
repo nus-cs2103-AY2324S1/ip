@@ -1,4 +1,4 @@
-package ducky;
+package com.ducky.component;
 
 import java.io.IOException;
 import java.util.Collections;

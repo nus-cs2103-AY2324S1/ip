@@ -1,8 +1,8 @@
-package ducky.command;
+package com.ducky.command;
 
-import ducky.DuckyException;
-import ducky.Storage;
-import ducky.TaskList;
+import com.ducky.logic.Storage;
+import com.ducky.logic.TaskList;
+import com.ducky.logic.DuckyException;
 
 /**
  * Represents a command to Ducky chatbot.
