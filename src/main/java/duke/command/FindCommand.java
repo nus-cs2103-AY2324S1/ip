@@ -30,10 +30,11 @@ public class FindCommand extends Command {
      * @param taskList the task list to find tasks in
      * @param ui       the user interface to print messages to the user
      * @param storage  the storage
+     * @return
      * @throws DukeException if no tasks are found
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        taskList.findTask(commandBody, ui);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        return taskList.findTask(commandBody, ui);
     }
 }

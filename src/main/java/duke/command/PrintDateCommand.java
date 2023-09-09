@@ -8,6 +8,8 @@ import duke.Ui;
 import duke.exception.DukeException;
 import duke.exception.PrintDateException;
 
+import java.time.LocalDate;
+
 /**
  * Represents a print date command. A <code>PrintDateCommand</code> object
  * corresponds to an executable command that prints out all tasks that
@@ -31,13 +33,14 @@ public class PrintDateCommand extends Command {
      * Prints out all tasks that are happening on a certain date.
      *
      * @param taskList The task list that contains the tasks.
-     * @param ui The user interface to print out the tasks.
-     * @param storage The storage.
+     * @param ui       The user interface to print out the tasks.
+     * @param storage  The storage.
+     * @return
      * @throws DukeException If the command is invalid, or if there is
-     *             nothing in the list or if nothing is happening on that date.
+     *                       nothing in the list or if nothing is happening on that date.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         String err = "OOPS!!! The command for print_date task is invalid.";
         String[] printTask = commandBody.split(" /on ");
         if (printTask.length != 2) {
@@ -47,6 +50,9 @@ public class PrintDateCommand extends Command {
             throw new PrintDateException(err);
         }
 
-        taskList.printDateTask(Keyword.valueOf(printTask[0].toUpperCase()), Time.parseDate(printTask[1]), ui);
+        return taskList.printDateTask(
+                Keyword.valueOf(printTask[0].toUpperCase()),
+                Time.parseDate(printTask[1]),
+                ui);
     }
 }

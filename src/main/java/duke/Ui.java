@@ -11,7 +11,6 @@ import duke.task.Task;
  */
 public class Ui {
 
-    protected static final String INDENT = "     ";
     protected static final String NAME = "404";
     private static final String NAME_ART =
               "               _                _               _                      \n"
@@ -25,44 +24,22 @@ public class Ui {
             + "                    \\ \\ \\   \\ \\ \\___\\ \\ \\            \\ \\ \\ \n"
             + "                     \\ \\_\\   \\ \\/____\\ \\ \\            \\ \\_\\ \n"
             + "                      \\/_/    \\_________\\/             \\/_/";
-    private Scanner sc;
 
 
     /**
      * Shows the welcome message to the user.
      */
-    public void showWelcome() {
-        String greeting = String.format("%sHello! I'm %s\n%sWhat can I do for you?",
-                INDENT, NAME, INDENT);
-        System.out.println(NAME_ART);
-        showLine();
-        System.out.println(greeting);
-        showLine();
-        System.out.println();
+    public String showWelcome() {
+        return String.format("%s\nHello! I'm %s\nWhat can I do for you?",
+                NAME_ART, NAME);
     }
 
     /**
      * Shows the loading error message to the user, when the file loads unsuccessfully.
      */
-    public void showLoadingError() {
-        String goneWrongMessage =
-                String.format("%sOOPS!!!Something terrible happened to the data file.\n"
-                              + "%sDon't worry I will clean up the mess!", INDENT, INDENT);
-        showLine();
-        System.out.println(goneWrongMessage);
-        showLine();
-    }
-
-    /**
-     * Reads the user input for commands.
-     *
-     * @return the user input.
-     */
-    public String readCommand() {
-        if (this.sc == null) {
-            this.sc = new Scanner(System.in);
-        }
-        return sc.nextLine();
+    public String showLoadingError() {
+        return "OOPS!!!Something terrible happened to the data file.\n"
+               + "Don't worry I will clean up the mess!";
     }
 
     /**
@@ -70,26 +47,16 @@ public class Ui {
      *
      * @param message the error message.
      */
-    public void showError(String message) {
-        System.out.printf("%s%s\n", INDENT, message);
+    public String showError(String message) {
+        return String.format("%s\n", message);
     }
 
     /**
      * Shows the exit message to the user.
      * Closes the scanner.
      */
-    public void showExit() {
-        sc.close();
-        System.out.printf("%sBye. Hope to see you again soon!%n", INDENT);
-    }
-
-    /**
-     * Shows the line to separate each command and respond to the user.
-     */
-    public void showLine() {
-        String line = "    ____________________________________________________________\n"
-                + "   /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/";
-        System.out.println(line);
+    public String showExit() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -99,11 +66,11 @@ public class Ui {
      * @param task the task to be added.
      * @param taskListSize the number of tasks in the task list.
      */
-    public void showAddTask(Task task, int taskListSize) {
-        System.out.printf("%sGot it. I've added this task:\n"
-                          + "%s  %s\n"
-                          + "%sNow you have %d tasks in the list.\n",
-                INDENT, INDENT, task, INDENT, taskListSize);
+    public String showAddTask(Task task, int taskListSize) {
+        return String.format("Got it. I've added this task:\n"
+                           + "  %s\n"
+                           + "Now you have %d tasks in the list.\n",
+                task, taskListSize);
     }
 
     /**
@@ -113,11 +80,11 @@ public class Ui {
      * @param removedTask the task to be deleted.
      * @param taskListSize the number of tasks in the task list.
      */
-    public void showDeleteTask(Task removedTask, int taskListSize) {
-        System.out.printf("%sNoted. I've removed this task:%n"
-                          + "%s  %s\n"
-                          + "%sNow you have %d tasks in the list.%n",
-                INDENT, INDENT, removedTask, INDENT, taskListSize);
+    public String showDeleteTask(Task removedTask, int taskListSize) {
+        return String.format("Noted. I've removed this task:%n"
+                           + "  %s\n"
+                           + "Now you have %d tasks in the list.%n",
+                                removedTask, taskListSize);
     }
 
     /**
@@ -126,12 +93,11 @@ public class Ui {
      * @param isMark whether to mark or unmark the task.
      * @param task the task to be marked.
      */
-    public void showMarkTask(boolean isMark, String task) {
+    public String showMarkTask(boolean isMark, String task) {
         String message = isMark
                 ? "Nice! I've marked this task as done:"
                 : "OK, I've marked this task as not done yet:";
-        System.out.printf("%s%s\n%s  %s\n", INDENT,
-                message, INDENT, task);
+        return String.format("%s\n  %s\n", message, task);
     }
 
     /**
@@ -139,8 +105,8 @@ public class Ui {
      *
      * @param keyword the keyword of the command.
      */
-    public void showManipulateAllTask(String keyword) {
-        System.out.printf("%sNoted. I will %s all tasks.\n", INDENT, keyword);
+    public String showManipulateAllTask(String keyword) {
+        return String.format("Noted. I will %s all tasks.\n", keyword);
     }
 
     /**
@@ -149,12 +115,13 @@ public class Ui {
      *
      * @param tasks the string representation of the tasks in the task list.
      */
-    public void showListTask(String[] tasks) {
-        System.out.printf("%sHere are the tasks in your list:\n", INDENT);
+    public String showListTask(String[] tasks) {
+        StringBuilder strBuilder = new StringBuilder();
+        strBuilder.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.length; i++) {
-            System.out.printf("%s%d.%s\n", INDENT,
-                    i + 1, tasks[i]);
+            strBuilder.append(String.format("%d.%s\n", i + 1, tasks[i]));
         }
+        return strBuilder.toString();
     }
 
     /**
@@ -164,12 +131,14 @@ public class Ui {
      * @param tasksOnDate the string representation of the tasks happening on the specified date.
      * @param date the String representation of the specified date.
      */
-    public void showPrintDateTask(String[] tasksOnDate, String date) {
-        System.out.printf("%sHere are the %d tasks happening on %s:\n",
-                INDENT, tasksOnDate.length, date);
+    public String showPrintDateTask(String[] tasksOnDate, String date) {
+        StringBuilder strBuilder = new StringBuilder();
+        strBuilder.append(String.format("Here are the %d tasks happening on %s:\n",
+                tasksOnDate.length, date));
         for (String task : tasksOnDate) {
-            System.out.printf("%s  %s\n", INDENT, task);
+            strBuilder.append(String.format("  %s\n", task));
         }
+        return strBuilder.toString();
     }
 
     /**
@@ -181,11 +150,13 @@ public class Ui {
      * @param indices the array containing string representation for the
      *                indices of the tasks in tasksFound.
      */
-    public void showFindTask(String[] tasksFound, String[] indices) {
-        System.out.printf("%sHere are the matching tasks in your list:\n", INDENT);
+    public String showFindTask(String[] tasksFound, String[] indices) {
+        StringBuilder strBuilder = new StringBuilder();
+        strBuilder.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasksFound.length; i++) {
-            System.out.printf("%s%s.%s\n", INDENT, indices[i], tasksFound[i]);
+            strBuilder.append(String.format("%s.%s\n", indices[i], tasksFound[i]));
         }
+        return strBuilder.toString();
     }
 
     /**
@@ -197,6 +168,6 @@ public class Ui {
      * @return the connected string.
      */
     public static String connectTwoLine(String lineOne, String lineTwo) {
-        return String.format("%s\n%s%s", lineOne, INDENT, lineTwo);
+        return String.format("%s\n%s", lineOne, lineTwo);
     }
 }

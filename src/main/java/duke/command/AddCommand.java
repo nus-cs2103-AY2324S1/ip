@@ -39,12 +39,13 @@ public class AddCommand extends Command {
      * Executes the command to add a task to the task list.
      *
      * @param taskList the task list to which the task is added
-     * @param ui the user interface to print messages to the user
-     * @param storage the storage to save the task list to
+     * @param ui       the user interface to print messages to the user
+     * @param storage  the storage to save the task list to
+     * @return
      * @throws DukeException if the command is invalid
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         Task task;
         String err = String.format("OOPS!!! The command for %s task is invalid.", key.getKeyword());
         switch(key) {
@@ -72,7 +73,8 @@ public class AddCommand extends Command {
             task = new Event(eventTask[0], Time.parseDateTime(dates[0]), Time.parseDateTime(dates[1]));
             break;
         }
-        taskList.addTask(task, ui);
+        String respond = taskList.addTask(task, ui);
         storage.appendFile(task.fileFormat());
+        return respond;
     }
 }

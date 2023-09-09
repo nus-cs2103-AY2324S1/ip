@@ -33,12 +33,13 @@ public class MarkCommand extends Command {
      * Executes the command to mark or unmark a task.
      *
      * @param taskList the task list to be manipulated
-     * @param ui the ui to interact with the user
-     * @param storage the storage to save the task list
+     * @param ui       the ui to interact with the user
+     * @param storage  the storage to save the task list
+     * @return
      * @throws DukeException if the command is invalid
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         String err = String.format("OOPS!!! The command for %s task is invalid.", key.getKeyword());
         int taskNum;
         try {
@@ -47,12 +48,13 @@ public class MarkCommand extends Command {
             } else {
                 taskList.manipulateAllTask(key, ui);
                 storage.changeFile(key, -1);
-                return;
+                return ui.showManipulateAllTask(key.getKeyword());
             }
         } catch (NumberFormatException e) {
             throw new ManipulateException(err, key.getKeyword());
         }
-        taskList.markTask(taskNum - 1, key, ui);
+        String respond = taskList.markTask(taskNum - 1, key, ui);
         storage.changeFile(key, taskNum - 1);
+        return respond;
     }
 }

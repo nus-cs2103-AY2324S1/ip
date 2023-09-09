@@ -10,51 +10,52 @@ import duke.task.Task;
 public class UiStub extends Ui {
 
     @Override
-    public void showWelcome() {
-    }
-
-    @Override
-    public void showLoadingError() {
-    }
-
-    @Override
-    public String readCommand() {
+    public String showWelcome() {
         return "";
     }
 
     @Override
-    public void showError(String message) {
+    public String showLoadingError() {
+        return "";
     }
 
     @Override
-    public void showExit() {
+    public String showError(String message) {
+        return "";
     }
 
     @Override
-    public void showLine() {
+    public String showExit() {
+        return "";
     }
 
     @Override
-    public void showAddTask(Task task, int taskListSize) {
+    public String showAddTask(Task task, int taskListSize) {
+        return "";
     }
 
     @Override
-    public void showDeleteTask(Task removedTask, int taskListSize) {
+    public String showDeleteTask(Task removedTask, int taskListSize) {
+        return "";
     }
 
     @Override
-    public void showMarkTask(boolean isMark, String task) {
+    public String showMarkTask(boolean isMark, String task) {
+        return "";
     }
 
     @Override
-    public void showManipulateAllTask(String keyword) {
+    public String showManipulateAllTask(String keyword) {
+        return "";
     }
 
     @Override
-    public void showListTask(String[] tasks) {
+    public String showListTask(String[] tasks) {
+        return "";
     }
 
     @Override
-    public void showPrintDateTask(String[] tasksOnDate, String date) {
+    public String showPrintDateTask(String[] tasksOnDate, String date) {
+        return "";
     }
 }

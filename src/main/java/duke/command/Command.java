@@ -34,9 +34,10 @@ public abstract class Command {
      * Executes the command.
      *
      * @param taskList The task list.
-     * @param ui The user interface.
-     * @param storage The storage.
+     * @param ui       The user interface.
+     * @param storage  The storage.
+     * @return
      * @throws DukeException If an error occurs during execution.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 }

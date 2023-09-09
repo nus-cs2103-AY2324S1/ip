@@ -11,54 +11,37 @@ public class Duke {
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
+    private static final String FOLD_PATH = "./data";
+    private static final String FILE_NAME = "duke.txt";
 
-    /**
-     * Constructs a Duke object.
-     *
-     * @param foldPath The path of the folder to store the data file.
-     * @param fileName The name of the data file.
-     */
-    public Duke(String foldPath, String fileName) {
-        this.storage = new Storage(foldPath, fileName);
+    public Duke() {
+    }
+
+    public String initialize() {
+        this.storage = new Storage(FOLD_PATH, FILE_NAME);
         this.ui = new Ui();
         try {
             this.taskList = new TaskList(storage.load());
+            return ui.showWelcome();
         } catch (DukeException e) {
-            ui.showLoadingError();
             storage.createFile();
             taskList = new TaskList();
+            return ui.showLoadingError();
         }
     }
 
     /**
-     * Runs the chatbot.
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    public void start() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(taskList, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-                System.out.println();
-            }
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            String response = c.execute(taskList, ui, storage);
+            return response;
+            //isExit = c.isExit();
+        } catch (DukeException e) {
+            return ui.showError(e.getMessage());
         }
-    }
-
-    /**
-     * Runs the chatbot.
-     *
-     * @param args The command line arguments passed in.
-     */
-    public static void main(String[] args) {
-        Duke robot404 = new Duke("./data", "duke.txt");
-        robot404.start();
     }
 }

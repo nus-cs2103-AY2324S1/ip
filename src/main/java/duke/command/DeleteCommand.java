@@ -29,12 +29,13 @@ public class DeleteCommand extends Command {
      * Executes the command to delete a task.
      *
      * @param taskList the task list to which the task is added
-     * @param ui the user interface to print messages to the user
-     * @param storage the storage to save the task list to
+     * @param ui       the user interface to print messages to the user
+     * @param storage  the storage to save the task list to
+     * @return
      * @throws DukeException if the command is invalid
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         String err = "OOPS!!! The command for delete task is invalid.";
         int taskNum;
         try {
@@ -43,12 +44,13 @@ public class DeleteCommand extends Command {
             } else {
                 taskList.manipulateAllTask(Keyword.DELETE, ui);
                 storage.changeFile(Keyword.DELETE, -1);
-                return;
+                return ui.showManipulateAllTask(Keyword.DELETE.getKeyword());
             }
         } catch (NumberFormatException e) {
-            throw new ManipulateException(err, "delete");
+            throw new ManipulateException(err, Keyword.DELETE.getKeyword());
         }
-        taskList.deleteTask(taskNum - 1, ui);
+        String respond = taskList.deleteTask(taskNum - 1, ui);
         storage.changeFile(Keyword.DELETE, taskNum - 1);
+        return respond;
     }
 }

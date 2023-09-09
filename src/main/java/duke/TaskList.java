@@ -37,19 +37,18 @@ public class TaskList {
      * @param task the task to be added
      * @param ui the ui to show the added task message to the user
      */
-    public void addTask(Task task, Ui ui) {
+    public String addTask(Task task, Ui ui) {
         taskList.add(task);
-        ui.showAddTask(task, taskList.size());
+        return ui.showAddTask(task, taskList.size());
     }
 
     /**
      * Lists all the tasks in the {@code TaskList}.
      * If the list is empty, an exception is thrown.
      *
-     * @param ui the ui to show the list of tasks to the user
      * @throws DukeException if the list is empty
      */
-    public void listTask(Ui ui) throws DukeException {
+    public String listTask(Ui ui) throws DukeException {
         if (taskList.isEmpty()) {
             throw new DukeException("OOPS!!! There is nothing in the list, yet!");
         }
@@ -57,20 +56,21 @@ public class TaskList {
         for (int i = 0; i < tasks.length; i++) {
             tasks[i] = taskList.get(i).toString();
         }
-        ui.showListTask(tasks);
+        return ui.showListTask(tasks);
     }
 
     /**
      * Prints all the tasks that are on the given date.
      * If the list is empty, an exception is thrown.
      *
-     * @param key the keyword to determine the type of task
+     * @param key  the keyword to determine the type of task
      * @param date the date to be checked
-     * @param ui the ui to show the list of tasks on the given date to the user
+     * @param ui   the ui to show the list of tasks on the given date to the user
+     * @return
      * @throws DukeException if the list is empty, or the keyword is invalid
-     *           or there is no task on the given date
+     *                       or there is no task on the given date
      */
-    public void printDateTask(Keyword key, LocalDate date, Ui ui) throws DukeException {
+    public String printDateTask(Keyword key, LocalDate date, Ui ui) throws DukeException {
         if (taskList.isEmpty()) {
             throw new DukeException("OOPS!!! There is nothing in the list, yet!");
         }
@@ -82,8 +82,9 @@ public class TaskList {
                 }
             }
             if (!tasksOnDate.isEmpty()) {
-                ui.showPrintDateTask(tasksOnDate.toArray(new String[0]),
-                        date.format(Time.DATE_DISPLAY_FORMATTER));
+                return ui.showPrintDateTask(tasksOnDate.toArray(new String[0]),
+                                            date.format(Time.DATE_DISPLAY_FORMATTER));
+
             } else {
                 throw new DukeException(String.format("OOPS!!! There is nothing happening on %s.",
                         date.format(Time.DATE_DISPLAY_FORMATTER)));
@@ -101,13 +102,15 @@ public class TaskList {
      * @param ui the ui to show the deleted task message to the user
      * @throws DukeException if the index is invalid
      */
-    public void deleteTask(int index, Ui ui) throws DukeException {
+    public String deleteTask(int index, Ui ui) throws DukeException {
         if (index >= taskList.size() || index < 0) {
-            listTask(ui);
-            throw new DukeException(String.format("OOPS!!! There is no task %d to delete", index + 1));
+            StringBuilder errBuilder = new StringBuilder();
+            errBuilder.append(listTask(ui));
+            errBuilder.append(String.format("OOPS!!! There is no task %d to delete", index + 1));
+            throw new DukeException(errBuilder.toString());
         }
         Task removedTask = taskList.remove(index);
-        ui.showDeleteTask(removedTask, taskList.size());
+        return ui.showDeleteTask(removedTask, taskList.size());
     }
 
     /**
@@ -119,7 +122,7 @@ public class TaskList {
      * @param ui the ui to show the marked or unmarked task message to the user
      * @throws DukeException if the index is invalid or the keyword is invalid
      */
-    public void markTask(int index, Keyword key, Ui ui) throws DukeException {
+    public String markTask(int index, Keyword key, Ui ui) throws DukeException {
         switch (key) {
         case MARK:
         case UNMARK:
@@ -129,12 +132,13 @@ public class TaskList {
         }
         boolean isMark = key.equals(Keyword.MARK);
         if (index >= taskList.size() || index < 0) {
-            String err = String.format("OOPS!!! There is no task %d to %s",
-                     index + 1, key.getKeyword());
-            listTask(ui);
-            throw new DukeException(err);
+            StringBuilder errBuilder = new StringBuilder();
+            errBuilder.append(String.format("OOPS!!! There is no task %d to %s",
+                     index + 1, key.getKeyword()));
+            errBuilder.append(listTask(ui));
+            throw new DukeException(errBuilder.toString());
         }
-        ui.showMarkTask(isMark, taskList.get(index).mark(isMark));
+        return ui.showMarkTask(isMark, taskList.get(index).mark(isMark));
     }
 
     /**
@@ -144,7 +148,7 @@ public class TaskList {
      * @param ui the ui to show the found tasks message to the user
      * @throws DukeException if the list is empty or the task is not found
      */
-    public void findTask(String taskKey, Ui ui) throws DukeException {
+    public String findTask(String taskKey, Ui ui) throws DukeException {
         if (taskList.isEmpty()) {
             throw new DukeException("OOPS!!! There is nothing in the list, yet!");
         }
@@ -162,7 +166,8 @@ public class TaskList {
             throw new DukeException(String.format(
                     "OOPS!!! There is no task with %s.", taskKey));
         }
-        ui.showFindTask(tasksFound.toArray(new String[0]), taskIndexFound.toArray(new String[0]));
+        return ui.showFindTask(tasksFound.toArray(new String[0]),
+                               taskIndexFound.toArray(new String[0]));
     }
 
     /**
@@ -187,6 +192,5 @@ public class TaskList {
         } else {
             throw new DukeException("OOPS!!! This is not a valid command.");
         }
-        ui.showManipulateAllTask(key.getKeyword());
     }
 }
