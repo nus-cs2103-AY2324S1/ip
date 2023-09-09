@@ -7,7 +7,6 @@ import martin.task.TaskList;
 
 import java.util.ArrayList;
 
-import martin.commands.ByeCommand;
 import martin.commands.ListCommand;
 import martin.commands.MarkCommand;
 import martin.commands.TodoCommand;
@@ -45,8 +44,6 @@ public class Parser {
         ArrayList<Task> tasks = taskList.getTasks();
 
         switch (command) {
-            case "bye":
-                return new ByeCommand();
             case "list":
                 return new ListCommand(tasks);
             case "delete":

@@ -6,5 +6,5 @@ public interface Command {
     /**
      * Executes the specific command.
      */
-    void execute() throws MartinException;
+    String execute() throws MartinException;
 }

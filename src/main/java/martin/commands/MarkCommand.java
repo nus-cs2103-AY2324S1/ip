@@ -1,6 +1,5 @@
 package martin.commands;
 
-import martin.Ui;
 import martin.exceptions.InvalidTaskNumberException;
 import martin.exceptions.MartinException;
 import martin.exceptions.TaskAlreadyDoneException;
@@ -10,21 +9,20 @@ import java.util.ArrayList;
 
 public class MarkCommand implements Command {
 
-    private Ui ui;
     private String command;
     private ArrayList<Task> tasks;
 
     public MarkCommand(String command, ArrayList<Task> tasks) {
-        this.ui = new Ui();
         this.command = command;
         this.tasks = tasks;
     }
 
     /**
     * Marks the task at the specified index as done.
+    * @return String A message indicating the task has been marked as done or an error message.
     */
     @Override
-    public void execute() throws MartinException {
+    public String execute() throws MartinException {
         try {
             int taskNo = Integer.parseInt(command.split(" ")[1]);
             if (taskNo <= 0 || taskNo > tasks.size()) {
@@ -37,9 +35,9 @@ public class MarkCommand implements Command {
             }
 
             task.markAsDone();
-            ui.printMessage("Nice! I've marked this task as done:\n       " + task);
+            return "Nice! I've marked this task as done:\n       " + task;
         } catch (Exception e) {
-            ui.printMessage(e.getMessage());
+            return e.getMessage();
         }
     }
 }

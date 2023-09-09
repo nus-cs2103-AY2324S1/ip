@@ -1,6 +1,5 @@
 package martin.commands;
 
-import martin.Ui;
 import martin.exceptions.EmptyTaskDescriptionException;
 import martin.exceptions.MartinException;
 import martin.task.Event;
@@ -10,21 +9,20 @@ import java.util.ArrayList;
 
 public class EventCommand implements Command {
 
-    private Ui ui;
     private String command;
     private ArrayList<Task> tasks;
 
     public EventCommand(String command, ArrayList<Task> tasks) {
-        this.ui = new Ui();
         this.command = command;
         this.tasks = tasks;
     }
 
     /**
     * Adds a new Event task to the task list.
+    * @return String A confirmation message of the added event.
     */
     @Override
-    public void execute() throws MartinException {
+    public String execute() throws MartinException {
         if (command.length() <= 5) {
             throw new EmptyTaskDescriptionException("☹ OOPS!!! The description of an event cannot be empty.");
         }
@@ -36,6 +34,6 @@ public class EventCommand implements Command {
         }
 
         tasks.add(new Event(parts[0], timeParts[0], timeParts[1]));
-        ui.printMessage("Got it. I've added this task:\n       " + tasks.get(tasks.size() - 1) + "\n     Now you have " + tasks.size() + " tasks in the list.");
+        return "Got it. I've added this task:\n       " + tasks.get(tasks.size() - 1) + "\n     Now you have " + tasks.size() + " tasks in the list.";
     }
 }

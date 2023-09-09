@@ -13,59 +13,48 @@ import martin.task.Task;
 public class Storage {
 
     private String filePath;
-    private Ui ui;
 
     public Storage(String filePath) {
         this.filePath = filePath;
-        this.ui = new Ui();
     }
 
     /**
      * Saves the given list of tasks to the file.
      *
      * @param tasks the list of tasks to save.
+     * @throws IOException if there's any issue with writing to the file.
      */
-    public void saveToFile(List<Task> tasks) {
+    public void saveToFile(List<Task> tasks) throws IOException {
         List<String> lines = new ArrayList<>();
         for (Task task : tasks) {
-            lines.add(task.toFileFormat()); 
+            lines.add(task.toFileFormat());
         }
         
         Path path = Paths.get(filePath);
-        try {
-            if (!Files.exists(path)) {
-                Files.createDirectories(path.getParent());
-                Files.createFile(path);
-            }
-            Files.write(path, lines, StandardOpenOption.TRUNCATE_EXISTING);
-        } catch (IOException e) {
-            ui.printMessage("Error saving tasks to file.");
+        if (!Files.exists(path)) {
+            Files.createDirectories(path.getParent());
+            Files.createFile(path);
         }
+        Files.write(path, lines, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     /**
      * Loads tasks from the file.
      *
      * @return a list of tasks loaded from the file.
+     * @throws IOException if there's any issue with reading from the file.
+     * @throws IllegalArgumentException if there's a format issue with the data.
      */
-    public ArrayList<Task> loadFromFile() {
+    public ArrayList<Task> loadFromFile() throws IOException, IllegalArgumentException {
         Path path = Paths.get(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
 
         if (Files.exists(path)) {
-            try {
-                List<String> lines = Files.readAllLines(path);
-                for (String line : lines) {
-                    if (line.trim().isEmpty()) 
-                        continue;
-                    try {
-                        tasks.add(Task.fromFileFormat(line));
-                    } catch (IllegalArgumentException e) {
-                        ui.printMessage("Data file might be corrupted. (i.e., content not in expected format.)");
-                    }
-                }
-            } catch (IOException e) {
-                ui.printMessage("Error reading tasks from file.");
+            List<String> lines = Files.readAllLines(path);
+            for (String line : lines) {
+                if (line.trim().isEmpty()) 
+                    continue;
+                tasks.add(Task.fromFileFormat(line));
             }
         }
 

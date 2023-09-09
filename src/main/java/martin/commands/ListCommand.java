@@ -1,29 +1,29 @@
 package martin.commands;
 
-import martin.Ui;
 import martin.task.Task;
 
 import java.util.ArrayList;
 
 public class ListCommand implements Command {
 
-    private Ui ui;
     private ArrayList<Task> tasks;
 
     public ListCommand(ArrayList<Task> tasks) {
-        this.ui = new Ui();
         this.tasks = tasks;
     }
 
     /**
-    * Prints all tasks currently in the list.
+    * Lists all tasks currently in the list.
+    * @return String The list of all tasks.
     */
     @Override
-    public void execute() {
-        ui.showLine();
+    public String execute() {
+        StringBuilder result = new StringBuilder();
+        
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("     " + (i + 1) + ". " + tasks.get(i));
+            result.append((i + 1) + ". " + tasks.get(i)).append("\n");
         }
-        ui.showLine();
+
+        return result.toString().trim();
     }
 }
