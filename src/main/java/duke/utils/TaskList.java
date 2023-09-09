@@ -158,4 +158,13 @@ public class TaskList {
         }
         return matchingTasks;
     }
+    @Override
+    public String toString() {
+        StringBuilder message = new StringBuilder();
+        int i = 1;
+        for (Task task : toDoList) {
+            message.append("\t").append(i++).append(". ").append(task).append("\n");
+        }
+        return message.toString();
+    }
 }

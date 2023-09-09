@@ -4,81 +4,77 @@ import duke.task.Task;
 import duke.utils.Parser;
 import duke.utils.Storage;
 import duke.utils.TaskList;
-import duke.utils.Ui;
 
 import java.util.List;
 import java.util.Scanner;
+
+import javafx.fxml.FXML;
 
 /**
  * Creates a Duke object.
  */
 public class Duke {
     private Scanner scanner = new Scanner(System.in);
-    private Ui ui = new Ui();
     private Storage storage = new Storage();
     private TaskList tasks = new TaskList();
 
     /**
      * Runs the Duke chatbot.
      */
-    public void run () {
+    public String run(String userInput) throws DukeException {
+        String message = "";
         //Load tasks from file
         this.storage.loadTasksFromFile(tasks.getTasks());
-        //Greeting
-        this.ui.printGreeting();
-        //Processing user commands
-        while (true) {
-            //Read user input
-            String userInput = scanner.nextLine();
-            Parser parser = new Parser(userInput);
-            //Check for exit command first
-            if (userInput.equalsIgnoreCase("bye")) {
-                break;
-            }
+        //Read user input
+        Parser parser = new Parser(userInput);
+        String userCommand = parser.inputCommand();
+        System.out.println(userCommand);
+        if (userCommand.equals("LIST")) {
+            message = "Here are the tasks in your List:\n" + tasks.toString();
+        } else if (userCommand.equals("MARK")) {
+            Task task = this.tasks.markTaskDone(parser.getTaskNumber());
+            message = "Nice! I've marked this task as done:\n" + task;
+        } else if (userCommand.equals("UNMARK")) {
+            Task task = this.tasks.unmarkTask(parser.getTaskNumber());
+            message = "OK, I've marked this task as not done yet:\n" + task;
+        } else if (userCommand.equals("TODO")) {
+            Task task = this.tasks.addTodoTask(parser.getTodoDescription());
+            message = "Got it. I've added this task:\n " + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+        } else if (userCommand.equals("DEADLINE")) {
+            String[] descriptionAndDateTime = parser.getDeadlineDescription();
+            Task task = this.tasks.addDeadlineTask(descriptionAndDateTime[0], parser.getDateTime(descriptionAndDateTime[1]));
+            message = "Got it. I've added this task:\n " + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+        } else if (userCommand.equals("EVENT")) {
+            String[] deadlineDescription = parser.getEventDescription();
+            Task task = this.tasks.addEventTask(deadlineDescription[0], parser.getDateTime(deadlineDescription[1]),
+                parser.getDateTime(deadlineDescription[2]));
+            message = "Got it. I've added this task:\n " + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+        } else if (userCommand.equals("DELETE")) {
+            Task task = this.tasks.deleteTask(parser.getTaskNumber());
+            message = "Now you have " + tasks.getSize() + " tasks in the list.";
+        } else if (userCommand.equals("FIND")) {
+            List<Task> matchingTasks = this.tasks.findTasksByKeyword(parser.getStringKeyword());
 
-            try {
-                String userCommand = parser.inputCommand();
-                if (userCommand.equals("LIST")) {
-                    this.ui.printList(tasks.getTasks());
-                } else if (userCommand.equals("MARK")) {
-                    Task task = this.tasks.markTaskDone(parser.getTaskNumber());
-                    System.out.println("Nice! I've marked this task as done:\n" + task);
-                } else if (userCommand.equals("UNMARK")) {
-                    Task task = this.tasks.unmarkTask(parser.getTaskNumber());
-                    System.out.println("OK, I've marked this task as not done yet:\n" + task);
-                } else if (userCommand.equals("TODO")) {
-                    Task task = this.tasks.addTodoTask(parser.getTodoDescription());
-                    System.out.println("Got it. I've added this task:\n " + task);
-                    System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
-                } else if (userCommand.equals("DEADLINE")) {
-                    String[] descriptionAndDateTime = parser.getDeadlineDescription();
-                    Task task = this.tasks.addDeadlineTask(descriptionAndDateTime[0], parser.getDateTime(descriptionAndDateTime[1]));
-                    System.out.println("Got it. I've added this task:\n " + task);
-                    System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
-                } else if (userCommand.equals("EVENT")) {
-                    String[] deadlineDescription = parser.getEventDescription();
-                    Task task = this.tasks.addEventTask(deadlineDescription[0], parser.getDateTime(deadlineDescription[1]),
-                        parser.getDateTime(deadlineDescription[2]));
-                    System.out.println("Got it. I've added this task:\n " + task);
-                    System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
-                } else if (userCommand.equals("DELETE")) {
-                    Task task = this.tasks.deleteTask(parser.getTaskNumber());
-                    System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
-                    this.ui.printList(tasks.getTasks());
-                } else if (userCommand.equals("FIND")){
-                    List<Task> matchingTasks = this.tasks.findTasksByKeyword(parser.getStringKeyword());
-                    this.ui.printList(matchingTasks);
-                } else {
-                    throw new DukeException("I'm sorry, but I don't know what that means :-(");
-                }
-                this.storage.saveTasksToFile(this.tasks.getTasks());
-            } catch (DukeException e) {
-                System.out.println("☹ OOPS!!! " + e.getMessage());
-            }
+        } else if (userCommand.equals("BYE")) {
+            message = "Bye. Hope to see you again soon!";
+        } else {
+            throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
-        this.ui.printFarewell();
+//        this.storage.saveTasksToFile(this.tasks.getTasks());
+//            } catch (DukeException e) {
+//                message = "☹ OOPS!!! " + e.getMessage();
+//            }
+
+//        this.ui.printFarewell();
+        return message;
     }
-    public static void main(String[] args) {
-        new Duke().run();
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    @FXML
+    String getResponse(String input) throws DukeException {
+        return run(input);
     }
 }
