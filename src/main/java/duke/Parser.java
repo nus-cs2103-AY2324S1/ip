@@ -54,6 +54,16 @@ public class Parser {
 
     }
 
+    /**
+     * Parses the "delete" command and removes a task from the task list by its index.
+     *
+     * @param command The "delete" command to be parsed and executed.
+     * @param list Contains the list of tasks.
+     * @param storage Saves tasks into a file and loads tasks from the file.
+     * @param ui Displays messages to interact with the user.
+     * @return A string containing the response to the "delete" command.
+     * @throws DukeException If there is an error in parsing the "delete" command.
+     */
     public static String parseDelete(String command, TaskList list, Storage storage, Ui ui) throws DukeException {
         String[] sub = command.split(" ");
 
@@ -73,6 +83,16 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the "find" command and searches for tasks containing a specific keyword.
+     *
+     * @param command The "find" command to be parsed and executed.
+     * @param list Contains the list of tasks.
+     * @param storage Saves tasks into a file and loads tasks from the file.
+     * @param ui Displays messages to interact with the user.
+     * @return A string containing the response to the "find" command.
+     * @throws DukeException If there is an error in parsing the "find" command.
+     */
     public static String parseFind(String command, TaskList list, Storage storage, Ui ui) throws DukeException {
         String keyword = command.substring(5).trim();
         ArrayList<Task> matchingTasks = list.find(keyword);
@@ -80,6 +100,16 @@ public class Parser {
         return ui.printMatchingTasks(matchingTasks);
     }
 
+    /**
+     * Parses the "mark" command and marks a task as done by its index.
+     *
+     * @param command The "mark" command to be parsed and executed.
+     * @param list Contains the list of tasks.
+     * @param storage Saves tasks into a file and loads tasks from the file.
+     * @param ui Displays messages to interact with the user.
+     * @return A string containing the response to the "mark" command.
+     * @throws DukeException If there is an error in parsing the "mark" command.
+     */
     public static String parseMark(String command, TaskList list, Storage storage, Ui ui) throws DukeException {
         String[] sub = command.split(" ");
 
@@ -99,6 +129,16 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the "unmark" command and marks a task as not done by its index.
+     *
+     * @param command The "unmark" command to be parsed and executed.
+     * @param list Contains the list of tasks.
+     * @param storage Saves tasks into a file and loads tasks from the file.
+     * @param ui Displays messages to interact with the user.
+     * @return A string containing the response to the "unmark" command.
+     * @throws DukeException If there is an error in parsing the "unmark" command.
+     */
     public static String parseUnmark(String command, TaskList list, Storage storage, Ui ui) throws DukeException {
         String[] sub = command.split(" ");
 
@@ -118,6 +158,16 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the "todo" command and adds a new "Todo" task to the task list.
+     *
+     * @param command The "todo" command to be parsed and executed.
+     * @param list Contains the list of tasks.
+     * @param storage Saves tasks into a file and loads tasks from the file.
+     * @param ui Displays messages to interact with the user.
+     * @return A string containing the response to the "todo" command.
+     * @throws DukeException If there is an error in parsing the "todo" command.
+     */
     public static String parseTodo(String command, TaskList list, Storage storage, Ui ui) throws DukeException {
         String todo = command.substring(4).trim();
         if (todo.isEmpty()) {
@@ -131,6 +181,16 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the "deadline" command and adds a new "Deadline" task to the task list.
+     *
+     * @param command The "deadline" command to be parsed and executed.
+     * @param list Contains the list of tasks.
+     * @param storage Saves tasks into a file and loads tasks from the file.
+     * @param ui Displays messages to interact with the user.
+     * @return A string containing the response to the "deadline" command.
+     * @throws DukeException If there is an error in parsing the "deadline" command.
+     */
     public static String parseDeadline(String command, TaskList list, Storage storage, Ui ui) throws DukeException {
         String deadline = command.substring(8).trim();
 
@@ -156,6 +216,16 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the "event" command and adds a new "Event" task to the task list.
+     *
+     * @param command The "event" command to be parsed and executed.
+     * @param list Contains the list of tasks.
+     * @param storage Saves tasks into a file and loads tasks from the file.
+     * @param ui Displays messages to interact with the user.
+     * @return A string containing the response to the "event" command.
+     * @throws DukeException If there is an error in parsing the "event" command.
+     */
     public static String parseEvent(String command, TaskList list, Storage storage, Ui ui) throws DukeException {
         String event = command.substring(5).trim();
 
