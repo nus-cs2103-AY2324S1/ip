@@ -27,22 +27,18 @@ public class Roo {
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(storage);
         this.ui = new Ui(tasks);
-    }
-
-    public String greet() {
-        return this.ui.greet();
+        this.storage.initialise(tasks);
     }
 
     /**
      * Starts the Roo application. Initializes the task list, greets the user, and handles user commands.
      */
     public String run(String input) {
-        this.storage.initialise(tasks);
+
         Commands c;
-        while (true) {
-            c = Parse.parse(input);
-            try {
-                switch (c) {
+        c = Parse.parse(input);
+        try {
+            switch (c) {
                 case LIST:
                     return this.ui.list();
 
@@ -130,13 +126,13 @@ public class Roo {
                 default:
                     return "I dunno what u mean!!!\n";
 
-                }
-
-            } catch (RooException exception) {
-                System.err.println(exception.getMessage());
             }
+
+        } catch (RooException exception) {
+            return exception.getMessage();
         }
     }
+
 
 
     /**

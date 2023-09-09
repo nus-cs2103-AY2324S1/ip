@@ -144,7 +144,7 @@ public class TaskList {
                 Task dt = data.get(i);
                 str.append((i + 1)).append(". ").append(dt.toString()).append("\n");
             }
-            return str.toString() + ": " + data.size();
+            return str.toString();
         }
     }
 
