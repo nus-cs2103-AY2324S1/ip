@@ -24,9 +24,7 @@ public class Parser {
                 task = new ToDo(todoInfo[2]);
                 break;
             case "D":
-                System.out.println(line);
                 String[] deadlineInfo = line.split("\\|");
-                System.out.println(Arrays.toString(deadlineInfo));
                 description = deadlineInfo[2].trim();
                 LocalDate byDate = parseDate(deadlineInfo[3].trim());
                 task = new Deadline(description, byDate);
@@ -62,17 +60,17 @@ public class Parser {
                 return new ListCommand();
             case "mark":
                 if (words.length < 2) {
-                    throw new DreException("Please specify the dre.task index to mark.");
+                    throw new DreException("Please specify the task index to mark.");
                 }
                 return new MarkCommand(Integer.parseInt(words[1].trim()));
             case "unmark":
                 if (words.length < 2) {
-                    throw new DreException("Please specify the dre.task index to unmark.");
+                    throw new DreException("Please specify the task index to unmark.");
                 }
                 return new UnmarkCommand(Integer.parseInt(words[1].trim()));
             case "delete":
                 if (words.length < 2) {
-                    throw new DreException("Please specify the dre.task index to delete.");
+                    throw new DreException("Please specify the task index to delete.");
                 }
                 return new DeleteCommand(Integer.parseInt(words[1].trim()));
             case "todo":

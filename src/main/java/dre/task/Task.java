@@ -3,16 +3,15 @@ package dre.task;
 import java.time.LocalDate;
 
 public class Task {
-    private String task;
+    private String description;
     private boolean done;
-    private LocalDate deadlineDate;
 
     public Task() {
-        task = "default";
+        description = "default";
         done = false;
     }
     public Task(String newTask){
-        task = newTask;
+        description = newTask;
         done = false;
     }
 
@@ -33,11 +32,11 @@ public class Task {
     }
 
     public String fileSaveFormat() {
-        return getStatusIcon() + "|" + task;
+        return getStatusIcon() + "|" + description;
     }
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + task;
+        return "[" + getStatusIcon() + "] " + description;
     }
 }
