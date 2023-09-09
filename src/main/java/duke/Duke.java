@@ -19,7 +19,7 @@ import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.ui.Ui;
-import duke.list.FunnyList;
+import duke.list.TaskList;
 
 /**
  * Main class for the Duke application.
@@ -28,7 +28,7 @@ import duke.list.FunnyList;
  */
 public class Duke {
     private Storage storage;
-    private FunnyList tasks;
+    private TaskList tasks;
     private Ui ui;
     private boolean isFreshList = false;
 
@@ -43,11 +43,11 @@ public class Duke {
         this.ui = new Ui();
         this.storage = new Storage("./tasks.txt");
         try {
-            this.tasks = new FunnyList(storage.load());
+            this.tasks = new TaskList(storage.load());
         } catch (DukeException e) {
             ui.showLoadingError();
             isFreshList = true;
-            this.tasks = new FunnyList();
+            this.tasks = new TaskList();
         }
     }
 

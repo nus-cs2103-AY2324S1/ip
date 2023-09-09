@@ -2,7 +2,7 @@ package duke.ui;
 
 import duke.exception.DukeException;
 import duke.task.Task;
-import duke.list.FunnyList;
+import duke.list.TaskList;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -69,7 +69,7 @@ public class Ui {
      * @param taskList The FunnyList containing the tasks.
      * @return Message containing the details on the addition of task
      */
-    public String showTaskAdded(Task task, FunnyList taskList) {
+    public String showTaskAdded(Task task, TaskList taskList) {
         return "Got it. I've added this task:\n"
                 + "\t" + task + "\n"
                 + "Now you have " + String.valueOf(taskList.size()) + " tasks in the list";
@@ -125,7 +125,7 @@ public class Ui {
      * @param taskList The FunnyList containing the tasks to be displayed.
      * @return A String containing the details of each items in the list
      */
-    public String showItems(FunnyList taskList) {
+    public String showItems(TaskList taskList) {
         StringBuilder listString = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
             listString.append((i + 1) + ". " + taskList.get(i) + "\n");
@@ -140,7 +140,7 @@ public class Ui {
      * @param task The task to be marked as incomplete.
      * @return Message containing the details on the deletion of the task
      */
-    public String showDeleteMessage(Task task, FunnyList taskList) {
+    public String showDeleteMessage(Task task, TaskList taskList) {
         return "Noted. I've removed this duke.task:\n"
                 + "\t" + task + "\n"
                 + "Now you have " + taskList.size() + " tasks in the list";

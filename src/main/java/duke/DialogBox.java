@@ -44,16 +44,12 @@ public class DialogBox extends HBox {
         CornerRadii cornerRadii = new CornerRadii(10);
         Insets insets = new Insets(10, 0, 10, 0);
 
-        // Set background color with rounded corners
         setBackground(new Background(new BackgroundFill(Color.LIGHTCORAL, cornerRadii, insets)));
 
-//        HBox content = new HBox(dialog, displayPicture);
-//        content.setPadding(new Insets(10, 20, 10, 20));
 
         dialog.setText(text);
         displayPicture.setImage(img);
         dialog.setPadding(new Insets(10, 20, 10, 20)); // top, right, bottom, left
-//        getChildren().add(content);
     }
 
     /**

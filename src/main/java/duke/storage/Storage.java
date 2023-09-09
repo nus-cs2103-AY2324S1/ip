@@ -11,7 +11,7 @@ import duke.task.Task;
 import duke.task.ToDo;
 import duke.task.Deadline;
 import duke.task.Event;
-import duke.list.FunnyList;
+import duke.list.TaskList;
 import duke.exception.DukeException;
 
 /**
@@ -70,7 +70,7 @@ public class Storage {
      * @param taskList The FunnyList containing the tasks to be written.
      * @throws DukeException If there is an issue writing the data.
      */
-    public void write(FunnyList taskList) throws DukeException {
+    public void write(TaskList taskList) throws DukeException {
         try {
             FileWriter fw = new FileWriter(this.data);
             for (int i = 0; i < taskList.size(); i++) {

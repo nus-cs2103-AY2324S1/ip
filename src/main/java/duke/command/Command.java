@@ -2,7 +2,7 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.ui.Ui;
-import duke.list.FunnyList;
+import duke.list.TaskList;
 import duke.storage.Storage;
 
 /**
@@ -21,7 +21,7 @@ public abstract class Command {
      * @param storage The storage manager for data management.
      * @throws DukeException If there is an issue executing the command.
      */
-    public abstract String execute(FunnyList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 
     /**
      * Checks if the command triggers an exit from the application.
