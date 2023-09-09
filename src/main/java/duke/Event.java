@@ -35,6 +35,8 @@ public class Event extends Task {
      */
     public String display() {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        assert start != null : "missing start date";
+        assert end != null : "missing end date";
         if (isDone) {
             return "[E][X] " + this.name + " (From: "
                     + start.format(outputFormatter) + " To: " + end.format(outputFormatter) + ")";

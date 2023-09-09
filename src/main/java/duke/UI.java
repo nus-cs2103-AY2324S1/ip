@@ -24,6 +24,7 @@ public class UI {
      */
     public void run(TaskList items, Storage load, Parser parser) {
         this.scanner = new Scanner(System.in);
+        assert scanner != null;
         stuff = scanner.nextLine();
         while (!stuff.equalsIgnoreCase("bye")) {
             items = parser.parse(stuff, items);

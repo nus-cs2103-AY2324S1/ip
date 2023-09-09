@@ -30,6 +30,7 @@ public class TaskList {
      * @return returns that task
      */
     public Task get(int i) {
+        assert items.get(i) instanceof Task : "corrupted tasklist";
         return items.get(i);
     }
 
