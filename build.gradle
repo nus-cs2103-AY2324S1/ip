@@ -12,7 +12,7 @@ checkstyle {
 
 javafx {
     version = "20.0.1"
-    modules = [ 'javafx.controls' ]
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 repositories {
