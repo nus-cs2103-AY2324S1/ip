@@ -19,7 +19,7 @@ repositories {
     mavenCentral()
 }
 
-mainClassName = 'duke.Yong'
+mainClassName = 'yong.Launcher'
 
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
@@ -56,7 +56,7 @@ test {
 }
 
 application {
-    mainClass.set("duke.Yong")
+    mainClass.set("yong.Launcher")
 }
 
 shadowJar {
