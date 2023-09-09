@@ -24,6 +24,10 @@ public class Ui {
         return input;
     }
 
+    public String getResponse(String input) {
+        return "Bob heard: " + input;
+    }
+
     /**
      * Prints welcome statements then returns a String that is based on the user's input.
      *

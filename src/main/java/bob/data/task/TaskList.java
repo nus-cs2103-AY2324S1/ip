@@ -73,22 +73,20 @@ public class TaskList {
      * @param input The input string for the command.
      * @throws DukeException If an EventTask is instantiated with invalid dates.
      */
-    public void executeCommand(Parser.Command command, String input) throws DukeException {
+    public String executeCommand(Parser.Command command, String input) throws DukeException {
         switch (command) {
         case MARK:
-            this.setTaskComplete(input);
-            break;
+            return this.setTaskComplete(input);
         case UNMARK:
-            this.setTaskIncomplete(input);
-            break;
+            return this.setTaskIncomplete(input);
         case DELETE:
-            this.deleteTask(input);
-            break;
+            return this.deleteTask(input);
         case TODO:
         case DEADLINE:
         case EVENT:
-            this.addTask(command, input);
-            break;
+            return this.addTask(command, input);
+        default:
+            return "Unknown command";
         }
     }
 
@@ -113,7 +111,7 @@ public class TaskList {
      * @param input The input needed for the instantiation of the Task.
      * @throws DukeException If the EventTask is instantiated with invalid dates.
      */
-    public void addTask(Parser.Command command, String input) throws DukeException {
+    public String addTask(Parser.Command command, String input) throws DukeException {
         Task taskToAdd;
         String[] inputArr;
 
@@ -138,9 +136,10 @@ public class TaskList {
             throw new DukeException("No such command found.");
         }
         this.tasks.add(taskToAdd);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(taskToAdd);
-        System.out.println("Now you have " + this.tasks.size() + " task(s) in the list.");
+        String output = "Got it. I've added this task:\n" +
+                taskToAdd + "\n" +
+                "Now you have " + this.tasks.size() + " task(s) in the list.";
+        return output;
     }
 
     /**
@@ -160,13 +159,13 @@ public class TaskList {
      *
      * @param input The input string containing the index of the task.
      */
-    public void setTaskComplete(String input) {
+    public String setTaskComplete(String input) {
         String[] inputSplit = input.split(" ");
         int taskNo = Integer.parseInt(inputSplit[1]) - 1;
         Task task = this.tasks.get(taskNo);
         task.setDone();
-        System.out.println("OK, I've marked this task as done:");
-        System.out.println(task);
+        String output = "OK, I've marked this task as done:\n" + task;
+        return output;
     }
 
     /**
@@ -186,13 +185,13 @@ public class TaskList {
      *
      * @param input The input string containing the index of the task.
      */
-    public void setTaskIncomplete(String input) {
+    public String setTaskIncomplete(String input) {
         String[] inputSplit = input.split(" ");
         int taskNo = Integer.parseInt(inputSplit[1]) - 1;
         Task task = this.tasks.get(taskNo);
         task.setNotDone();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task);
+        String output = "OK, I've marked this task as not done yet:\n" + task;
+        return output;
     }
 
     /**
@@ -223,14 +222,15 @@ public class TaskList {
      *
      * @param input The input string containing the index of the task to be removed.
      */
-    public void deleteTask(String input) {
+    public String deleteTask(String input) {
         String[] inputSplit = input.split(" ");
         int taskNo = Integer.parseInt(inputSplit[1]) - 1;
         Task task = this.tasks.get(taskNo);
         this.tasks.remove(taskNo);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + this.tasks.size() + " task(s) in the list.");
+        String output = "Noted. I've removed this task:\n" +
+                task + "\n" +
+                "Now you have " + this.tasks.size() + " task(s) in the list.";
+        return output;
     }
 
     /**

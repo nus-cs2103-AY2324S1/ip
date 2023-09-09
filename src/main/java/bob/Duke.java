@@ -7,18 +7,18 @@ import bob.parser.Parser.Command;
 import bob.storage.Storage;
 import bob.ui.Ui;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
-
 public class Duke {
+    Ui ui;
+    Parser parser;
+    Storage storage;
+    TaskList list;
     public static void main(String[] args) {
         Ui ui = new Ui();
+        Parser parser = new  Parser();
         Storage storage = new Storage();
         TaskList list = new TaskList(storage.getFile());
+
         list.open();
-        Parser parser = new Parser();
 
         String input = ui.getFirstInput();
 
@@ -43,7 +43,38 @@ public class Duke {
         }
     }
 
+    public void init() {
+        this.ui = new Ui();
+        this.parser = new  Parser();
+        this.storage = new Storage();
+        this.list = new TaskList(storage.getFile());
+
+        list.open();
+    }
+
+    public void end() {
+        this.list.close();
+    }
+
     public String getResponse(String input) {
-        return "Bob heard: " + input;
+        this.init();
+        String response;
+        try {
+            Command command = parser.parse(input);
+            if (command == Parser.Command.BYE) {
+                response = "Bye. Hope to see you again soon!";
+            } else if (command == Parser.Command.LIST) {
+                response = this.list.toString();
+            } else if (command == Parser.Command.FIND) {
+                response = this.list.find(input);
+            } else {
+                response = this.list.executeCommand(command, input);
+            }
+        } catch (DukeException e) {
+            System.out.println(e);
+            return "That didn't work as expected.";
+        }
+        this.end();
+        return response;
     }
 }
