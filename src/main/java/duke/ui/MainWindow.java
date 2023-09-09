@@ -65,6 +65,9 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = duke.getResponse(input);
 
+        assert input != null : "Input should not be null.";
+        assert response != null : "Response should not be null.";
+
         // Makes the dialog boxes responsive to the size of the text.
         // This ensures that text is not clipped by the dialog boxes.
         // Solution inspired by https://stackoverflow.com/a/42601328
