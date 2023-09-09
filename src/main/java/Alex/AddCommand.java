@@ -4,15 +4,30 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+/**
+ * A class that extends from Command class. It represents a command that is trying to add task to the TaskList.
+ * The instance(s) of this class can be a command trying to add a todo task, deadline task and event task.
+ */
 public class AddCommand extends Command {
     private String command;
     private Add addType;
 
+    /**
+     * The constructor of AddCommand when an user input string and addType is passed.
+     *
+     * @param command The user input string.
+     * @param addType The type of add command which consist of "TODO", "DEADLINE" and "EVENT".
+     */
     public AddCommand(String command, Add addType) {
         this.command = command;
         this.addType = addType;
     }
 
+    /**
+     * Override the method from the abstract Command class.
+     * The execute method of AddCommand class is to actually add the task specified by user to the TaskList.
+     */
     @Override
     public void execute() {
         switch(this.addType) {

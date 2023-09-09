@@ -1,4 +1,3 @@
 T read book 0
 T return book 0
-D return book /by 2023-09-06 2359 0
-T gym 0
+D return book /by 2023-09-06 2359 1
