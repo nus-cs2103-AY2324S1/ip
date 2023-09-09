@@ -1,5 +1,6 @@
 package command;
 
+import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 import exception.EmptyInputException;
@@ -10,16 +11,18 @@ import exception.EmptyInputException;
 public class FindCommand extends Command {
     private TaskList taskList;
     private Ui ui;
-    public FindCommand(TaskList taskList, Ui ui) {
-        super(taskList, ui);
+    private Storage storage;
+
+    public FindCommand(TaskList taskList, Ui ui, Storage storage) {
+        super(taskList, ui, storage);
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui) throws EmptyInputException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws EmptyInputException {
         String input = ui.getInput();
         if (input.split(" ").length > 1) {
             String keyword = input.split(" ")[1];
-            taskList.findTask(keyword);
+            return ui.printFindTask(taskList, keyword);
         } else {
             throw new EmptyInputException("find");
         }

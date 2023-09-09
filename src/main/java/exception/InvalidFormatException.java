@@ -22,7 +22,6 @@ public class InvalidFormatException extends DukeException {
     @Override
     public String getMessage() {
         return "☹ OOPS!!! The format of the " + this.message + " is incorrect :(((\n"
-                + "Please add a \"" + this.subMessage + "\" keyword in"
-                + "\n-----------------------------------------------------------------";
+                + "Please add a \"" + this.subMessage + "\" keyword in";
     }
 }

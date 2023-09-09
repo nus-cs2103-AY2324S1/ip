@@ -22,18 +22,17 @@ public class TaskList {
     /**
      * To print out all the tasks in the user's list of tasks.
      */
-    public void listTasks() {
+    public String listTasks() {
         if (taskList.isEmpty()) {
-            System.out.println("There are currently no tasks in your list"
-                    + Ui.SEPARATOR);
+            return "There are currently no tasks in your list.";
         } else {
             int i = 1;
-            System.out.println("Here are the tasks in your list: ");
+            String listMessage = "Here are the tasks in your list: \n";
             for (Task t : this.taskList) {
-                System.out.println(i + ". " + t.toString());
+                listMessage += i + ". " + t.toString() + "\n";
                 i++;
             }
-            System.out.println(Ui.SEPARATOR);
+            return listMessage;
         }
     }
 
@@ -42,12 +41,10 @@ public class TaskList {
      *
      * @param num The index of the task which is to be mark as completed.
      */
-    public void markTask(int num) {
+    public String markTask(int num) {
         Task t = taskList.get(num - 1);
         t.markDone();
-        System.out.println("Nice! I've marked this task as done: \n"
-                + t
-                + Ui.SEPARATOR);
+        return "Nice! I've marked this task as done: \n" + t;
     }
 
     /**
@@ -55,12 +52,10 @@ public class TaskList {
      *
      * @param num The index of the task which is to be mark as incomplete.
      */
-    public void unmarkTask(int num) {
+    public String unmarkTask(int num) {
         Task t = taskList.get(num - 1);
         t.markUndone();
-        System.out.println("Nice! I've un-marked this task: \n"
-                + t
-                + Ui.SEPARATOR);
+        return "Nice! I've un-marked this task: \n" + t;
     }
 
     /**
@@ -68,12 +63,11 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         this.taskList.add(task);
-        System.out.println("Got it. Task successfully added: \n"
+        return "Got it. Task successfully added: \n"
                 + task.toString()
-                + "\nNow you have " + taskList.size() + " tasks in the list."
-                + Ui.SEPARATOR);
+                + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
     /**
@@ -81,33 +75,32 @@ public class TaskList {
      *
      * @param num The index of the task to be deleted.
      */
-    public void deleteTask(int num) {
+    public String deleteTask(int num) {
         Task deletedTask = taskList.remove(num - 1);
-        System.out.println("Noted. I've removed this task: \n"
+        return "Noted. I've removed this task: \n"
                 + deletedTask.toString()
-                + "\nNow you have " + taskList.size() + " tasks in the list."
-                + Ui.SEPARATOR);
+                + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
     /**
-     * Finds the task in the list of tasks with the given keyword.
+     * Finds the tasks in the list of tasks with the given keyword.
      *
      * @param keyword The keyword the user wants to search for in the tasks.
      */
-    public void findTask(String keyword) {
+    public String findTask(String keyword) {
         if (taskList.isEmpty()) {
-            System.out.println("You have no tasks in your list yet :O");
+            return "You have no tasks in your list yet :O";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            String findMessage = "Here are the matching tasks in your list: \n";
             int i = 1;
             for (Task t : this.taskList) {
                 String taskString = t.toString();
                 if (taskString.contains(keyword)) {
-                    System.out.println(i + ". " + taskString);
+                    findMessage += i + ". " + taskString + "\n";
                     i++;
                 }
             }
-            System.out.println(Ui.SEPARATOR);
+            return findMessage;
         }
     }
 

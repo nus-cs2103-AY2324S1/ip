@@ -38,8 +38,8 @@ public class Storage {
     public void writeTasks(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(filePath);
-            for (Task t : taskList.getTaskList()) {
-                fw.write(t.toString() + "\n");
+            for (Task task : taskList.getTaskList()) {
+                fw.write(task.toString() + "\n");
             }
             fw.close();
         } catch (IOException e) {

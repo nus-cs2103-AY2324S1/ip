@@ -1,5 +1,6 @@
 package command;
 
+import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 import exception.EmptyInputException;
@@ -11,6 +12,7 @@ import task.Todo;
 public class TodoCommand extends Command {
     private TaskList taskList;
     private Ui ui;
+    private Storage storage;
 
     /**
      * The constructor of TodoCommand.
@@ -18,17 +20,19 @@ public class TodoCommand extends Command {
      * @param taskList The task list which the command would modify when tasked.
      * @param ui The ui of the chatbot to get the input of the user.
      */
-    public TodoCommand(TaskList taskList, Ui ui) {
-        super(taskList, ui);
+    public TodoCommand(TaskList taskList, Ui ui, Storage storage) {
+        super(taskList, ui, storage);
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui) throws EmptyInputException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws EmptyInputException {
         String input = ui.getInput();
         if (input.split(" ").length > 1) {
             String description = input.split(" ", 2)[1];
-            Todo t = new Todo(description);
-            taskList.addTask(t);
+            Todo todo = new Todo(description);
+            String str = ui.printAddTask(taskList, todo);
+            storage.writeTasks(taskList);
+            return str;
         } else {
             throw new EmptyInputException("a todo");
         }

@@ -19,7 +19,6 @@ public class InvalidDateTimeException extends DukeException {
     @Override
     public String getMessage() {
         return "☹ OOPS!!! The date/time format of the "
-                + this.message + " is incorrect :((("
-                + "\n-----------------------------------------------------------------";
+                + this.message + " is incorrect :(((";
     }
 }

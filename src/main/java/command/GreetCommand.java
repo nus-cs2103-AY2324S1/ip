@@ -5,32 +5,26 @@ import duke.TaskList;
 import duke.Ui;
 
 /**
- * The Command which indicates the user wishes to mark a specific task in the
- * task list as incomplete.
+ * The Command to indicate that the user wishes to exit the chatbot.
  */
-public class UnmarkCommand extends Command {
+public class GreetCommand extends Command {
     private TaskList taskList;
     private Ui ui;
     private Storage storage;
 
     /**
-     * The constructor of UnmarkCommand.
+     * The constructor of GreetCommand.
      *
      * @param taskList The task list which the command would modify when tasked.
      * @param ui The ui of the chatbot to get the input of the user.
      */
-    public UnmarkCommand(TaskList taskList, Ui ui, Storage storage) {
+    public GreetCommand(TaskList taskList, Ui ui, Storage storage) {
         super(taskList, ui, storage);
     }
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        String input = ui.getInput();
-        String indexString = input.split(" ")[1];
-        int num = Integer.valueOf(indexString);
-        String str = ui.printUnmarkedTask(taskList, num);
-        storage.writeTasks(taskList);
-        return str;
+        return ui.printWelcome();
     }
 
     @Override

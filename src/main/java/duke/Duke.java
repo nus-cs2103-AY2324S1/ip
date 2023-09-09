@@ -20,6 +20,7 @@ public class Duke {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
+    private Parser parser;
 
     /**
      * The constructor of Duke.
@@ -30,6 +31,8 @@ public class Duke {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.taskList = new TaskList(storage.load());
+        this.parser = new Parser(this.taskList, this.ui, this.storage);
+
     }
 
     /**
@@ -37,21 +40,36 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Paimon heard: " + input;
+        String response;
+        ui.readCommand(input);
+        Command c = parser.parse(input);
+        try {
+            response = c.execute(taskList, ui, storage);
+        } catch (EmptyInputException e) {
+            response = e.getMessage();
+        } catch (EmptyDateTimeException e) {
+            response = e.getMessage();
+        } catch (InvalidFormatException e) {
+            response = e.getMessage();
+        } catch (InvalidCommandException e) {
+            response = e.getMessage();
+        } catch (InvalidDateTimeException e) {
+            response = e.getMessage();
+        } catch (DukeException e) {
+            response = e.getMessage();
+        }
+        return response;
     }
 
-    /**
-     * The method to run the chatbot program.
-     */
+    /*
     public void run() {
-        ui.showWelcome();
+        // ui.printWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
-                Parser parser = new Parser(this.taskList, this.ui);
                 String fullCommand = ui.readCommand();
                 Command c = parser.parse(fullCommand);
-                c.execute(taskList, ui);
+                c.execute(taskList, ui, storage);
                 isExit = c.isExit();
             } catch (EmptyInputException e) {
                 System.out.println(e.getMessage());
@@ -74,5 +92,6 @@ public class Duke {
             }
         }
     }
+    */
 }
 

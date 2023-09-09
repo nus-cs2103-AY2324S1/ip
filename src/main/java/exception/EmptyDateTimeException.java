@@ -18,7 +18,6 @@ public class EmptyDateTimeException extends DukeException {
 
     @Override
     public String getMessage() {
-        return "☹ OOPS!!! The date/time of the " + this.message + " cannot be empty."
-                + "\n-----------------------------------------------------------------";
+        return "☹ OOPS!!! The date/time of the " + this.message + " cannot be empty.";
     }
 }

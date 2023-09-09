@@ -1,5 +1,6 @@
 package command;
 
+import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
@@ -9,6 +10,7 @@ import duke.Ui;
 public class MarkCommand extends Command {
     private TaskList taskList;
     private Ui ui;
+    private Storage storage;
 
     /**
      * The constructor of MarkCommand.
@@ -16,16 +18,18 @@ public class MarkCommand extends Command {
      * @param taskList The task list which the command would modify when tasked.
      * @param ui The ui of the chatbot to get the input of the user.
      */
-    public MarkCommand(TaskList taskList, Ui ui) {
-        super(taskList, ui);
+    public MarkCommand(TaskList taskList, Ui ui, Storage storage) {
+        super(taskList, ui, storage);
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         String input = ui.getInput();
         String indexString = input.split(" ")[1];
         int num = Integer.valueOf(indexString);
-        taskList.markTask(num);
+        String str = ui.printMarkedTask(taskList, num);
+        storage.writeTasks(taskList);
+        return str;
     }
 
     @Override
