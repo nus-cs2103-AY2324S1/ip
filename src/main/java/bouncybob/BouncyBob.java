@@ -102,6 +102,7 @@ public class BouncyBob {
             } else if (userInput.equals("list")) {
                 Ui.printDatabase(taskList);  // Adjusted for ArrayList
             } else if (parts[0].equals("find")) {
+                // find
                 String subString = Parser.removeAction(parts);
                 TaskList subTaskList = taskList.getSubTaskList(subString);
                 Ui.printDatabase(subTaskList);
