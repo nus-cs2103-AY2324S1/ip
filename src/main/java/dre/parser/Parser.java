@@ -2,6 +2,8 @@ package dre.parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import dre.task.*;
 import dre.command.*;
 import dre.exception.DreException;
@@ -74,7 +76,42 @@ public class Parser {
                     throw new DreException("The description of a todo cannot be empty.");
                 }
                 return new AddCommand(new ToDo(words[1].trim()));
-            // ... other commands like deadline, event etc.
+            case "deadline":
+                if (words.length < 2 || words[1].trim().isEmpty()) {
+                    throw new DreException("The description of a deadline cannot be empty.");
+                }
+                String[] deadlineParts = words[1].split("/by", 2);
+                if (deadlineParts.length < 2) {
+                    throw new DreException("Please specify the date using /by.");
+                }
+                LocalDate byDate;
+                try {
+                    byDate = LocalDate.parse(deadlineParts[1].trim());
+                } catch (DateTimeParseException e) {
+                    throw new DreException("Please use the correct date format: YYYY-MM-DD.");
+                }
+                return new AddCommand(new Deadline(deadlineParts[0].trim(), byDate));
+            case "event":
+                if (words.length < 2 || words[1].trim().isEmpty()) {
+                    throw new DreException("The description of an event cannot be empty.");
+                }
+                String[] eventParts = words[1].split("/from | /to ", 3);
+                if (eventParts.length < 3) {
+                    throw new DreException("Please specify the date range using /from and /to.");
+                }
+                LocalDate fromDate, toDate;
+                try {
+                    fromDate = LocalDate.parse(eventParts[1].trim());
+                    toDate = LocalDate.parse(eventParts[2].trim());
+                } catch (DateTimeParseException e) {
+                    throw new DreException("Please use the correct date format: YYYY-MM-DD.");
+                }
+                return new AddCommand(new Event(eventParts[0].trim(), fromDate, toDate));
+            case "find":
+                if (words.length < 2 || words[1].isEmpty()) {
+                    throw new DreException("The search keyword cannot be empty.");
+                }
+                return new FindCommand(words[1]);
             default:
                 throw new DreException("I'm sorry, but I don't know what that means :-(");
         }

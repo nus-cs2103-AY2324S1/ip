@@ -60,6 +60,17 @@ public class Ui {
         System.out.println(task);
     }
 
+    public void showFoundTasks(TaskList tasks) throws DreException {
+        if (tasks.size() < 1) {
+            System.out.println("Sorry, no tasks match that description.");
+            return;
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 1; i <= tasks.size(); i++) {
+            System.out.println((i) + "." + tasks.getTask(i));
+        }
+    }
+
     public String readCommand() {
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();
