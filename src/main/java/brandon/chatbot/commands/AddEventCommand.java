@@ -3,6 +3,9 @@ package brandon.chatbot.commands;
 import brandon.chatbot.common.DukeException;
 import brandon.chatbot.tasks.Event;
 
+/**
+ * Represents a command that adds event to the task list.
+ */
 public class AddEventCommand extends Command {
     public static final String ADD_SUCCESS = "ok... I'm adding..";
     private Event toAdd;

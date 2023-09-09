@@ -16,9 +16,9 @@ import brandon.chatbot.tasks.TaskList;
  */
 public class TextUi {
     private static final String DIVIDER = "--------------------------------";
+    private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
     private final Scanner in;
     private final PrintStream out;
-    private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
 
     /**
      * Assigns input and output streams to the constructor below.

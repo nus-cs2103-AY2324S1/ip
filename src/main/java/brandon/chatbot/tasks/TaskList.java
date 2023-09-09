@@ -1,6 +1,5 @@
 package brandon.chatbot.tasks;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import brandon.chatbot.common.DukeIndexOutOfBoundsException;
