@@ -19,8 +19,8 @@ public class Event extends Task {
         String taskType = parts[0].trim();
         String isCompleted = parts[1].trim();
         String taskName = parts[2].trim();
-        String from = parts[4].trim();
-        String to = parts[5].trim();
+        String from = parts[3].trim();
+        String to = parts[4].trim();
 
         Event event = new Event(taskName, parseDateTime(from), parseDateTime(to));
 
@@ -41,7 +41,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-
         String fromFormat = from.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a"));
         String toFormat = to.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a"));
         return "[E] " + super.toString()
@@ -52,5 +51,10 @@ public class Event extends Task {
 
     private static LocalDateTime parseDateTime(String dateTimeString) {
         return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+    }
+
+    @Override
+    public String toFileString() {
+        return TaskType.EVENT.toString() + " | " + (isCompleted() ? "1" : "0") + " | " + getDescription() + " | " + getFrom().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | " + getTo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 }

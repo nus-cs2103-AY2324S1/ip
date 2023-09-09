@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task that can be completed and described.
  */
-public class Task implements Completable, Describable {
+public abstract class Task implements Completable, Describable {
     protected String taskName;
     protected boolean completed;
     protected TaskType taskType;
@@ -70,20 +70,7 @@ public class Task implements Completable, Describable {
      *
      * @return A string representation of the task for saving to a file.
      */
-    public String toFileString() {
-        String taskTypeString = taskType.toString();
-        if (taskType == TaskType.TODO) {
-            return taskTypeString + " | " + (completed ? "1" : "0") + " | " + taskName;
-        } else if (taskType == TaskType.DEADLINE) {
-            Deadline deadline = (Deadline) this;
-            return taskTypeString + " | " + (completed ? "1" : "0") + " | " + taskName + " | " + deadline.getBy().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-        } else if (taskType == TaskType.EVENT) {
-            Event event = (Event) this;
-            return taskTypeString + " | " + (completed ? "1" : "0") + " | " + taskName + " | " + event.getFrom().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | " + event.getTo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-        } else {
-            return "";
-        }
-    }
+    public abstract String toFileString();
 
     /**
      * Creates a task object from its string representation as stored in a file.

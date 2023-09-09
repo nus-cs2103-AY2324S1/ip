@@ -1,7 +1,5 @@
 package task;
 
-import task.Task;
-
 /**
  * Represents a To-Do task.
  */
@@ -24,5 +22,10 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return "[T] " + super.toString();
+    }
+
+    @Override
+    public String toFileString() {
+        return TaskType.TODO.toString() + " | " + (isCompleted() ? "1" : "0") + " | " + getDescription();
     }
 }
