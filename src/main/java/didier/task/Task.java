@@ -74,18 +74,20 @@ public abstract class Task {
     public static Task parseFileString(String fileString) throws FileCorruptedException {
         try {
             String[] task = fileString.split("\\|");
-            if (task[0].equals("T")) {
+            switch (task[0]) {
+            case "T":
                 return new ToDo(task[2], Integer.parseInt(task[1]) != 0);
-            } else if (task[0].equals("D")) {
+            case "D":
                 return new Deadline(task[2], LocalDate.parse(task[3]), Integer.parseInt(task[1]) != 0);
-            } else if (task[0].equals("E")) {
+            case "E":
                 return new Event(task[2], LocalDate.parse(task[3]),
                         LocalDate.parse(task[4]), Integer.parseInt(task[1]) != 0);
+            default:
+                throw new FileCorruptedException();
             }
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
             throw new FileCorruptedException();
         }
-        throw new FileCorruptedException();
     }
 
     /**
