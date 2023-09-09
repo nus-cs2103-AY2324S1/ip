@@ -13,8 +13,6 @@ public class Parser {
     private TaskList taskList;
     /** Storage associated to parser. */
     private Storage storage;
-    /** Status of parser. */
-    private boolean isListening = true;
 
     /**
      * Initialises Parser object.
@@ -29,56 +27,40 @@ public class Parser {
     /**
      * Listen to user input and execute the corresponding command.
      */
-    public void listen() {
-        Scanner inputScanner = new Scanner(System.in);
-        while (isListening) {
-            try {
-                String command = inputScanner.next();
-                switch (command) {
-                case "bye":
-                    isListening = false;
-                    Ui.sayGoodbye();
-                    break;
-                case "list":
-                    Ui.printListMsg(this.taskList);
-                    break;
-                case "mark":
-                    taskList.mark(inputScanner.nextInt());
-                    break;
-                case "unmark":
-                    taskList.unmark(inputScanner.nextInt());
-                    break;
-                case "delete":
-                    taskList.deleteTask(inputScanner.nextInt());
-                    break;
-                case "todo":
-                    String todo = inputScanner.nextLine();
-                    taskList.addTask(todo, TaskType.TODO, false);
-                    Ui.printAddMsg(taskList.getTaskList());
-                    storage.saveTasks(taskList.getTaskList());
-                    break;
-                case "deadline":
-                    String deadline = inputScanner.nextLine();
-                    taskList.addTask(deadline, TaskType.DEADLINE, false);
-                    Ui.printAddMsg(taskList.getTaskList());
-                    storage.saveTasks(taskList.getTaskList());
-                    break;
-                case "event":
-                    String event = inputScanner.nextLine();
-                    taskList.addTask(event, TaskType.EVENT, false);
-                    Ui.printAddMsg(taskList.getTaskList());
-                    storage.saveTasks(taskList.getTaskList());
-                    break;
-                case "find":
-                    String searchString = inputScanner.nextLine();
-                    Ui.printFindMsg(taskList, searchString);
-                    break;
-                default:
-                    throw new GlubException("OOPS!! I'm sorry, but I don't know what that means :-(\n");
-                }
-            } catch (GlubException ex) {
-                Ui.printError(ex.getMessage());
+    public String parse(String input) throws GlubException {
+        String[] parsedCommand = input.split(" ", 2);
+        String command = parsedCommand[0];
+            switch (command) {
+            case "bye":
+                return Ui.sayGoodbye();
+            case "list":
+                return Ui.printListMsg(this.taskList);
+            case "mark":
+                return taskList.mark(Integer.parseInt(parsedCommand[1]));
+            case "unmark":
+                return taskList.unmark(Integer.parseInt(parsedCommand[1]));
+            case "delete":
+                return taskList.deleteTask(Integer.parseInt(parsedCommand[1]));
+            case "todo":
+                String todo = parsedCommand[1];
+                taskList.addTask(todo, TaskType.TODO, false);
+                storage.saveTasks(taskList.getTaskList());
+                return Ui.printAddMsg(taskList.getTaskList());
+            case "deadline":
+                String deadline = parsedCommand[1];
+                taskList.addTask(deadline, TaskType.DEADLINE, false);
+                storage.saveTasks(taskList.getTaskList());
+                return Ui.printAddMsg(taskList.getTaskList());
+            case "event":
+                String event = parsedCommand[1];
+                taskList.addTask(event, TaskType.EVENT, false);
+                storage.saveTasks(taskList.getTaskList());
+                return Ui.printAddMsg(taskList.getTaskList());
+            case "find":
+                String searchString = parsedCommand[1];
+                return Ui.printFindMsg(taskList, searchString);
+            default:
+                throw new GlubException("OOPS!! I'm sorry, but I don't know what that means :-(\n");
             }
         }
     }
-}

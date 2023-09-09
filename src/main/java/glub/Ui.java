@@ -19,33 +19,26 @@ public class Ui {
     /**
      * Displays welcome message.
      */
-    public static void greet() {
-        printHorizontalLine();
-        System.out.println("Hello! I'm Glub!");
-        System.out.println("What can I do for you?");
-        printHorizontalLine();
+    public static String greet() {
+        return "Hello! I'm Glub!\n" + "What can I do for you?";
     }
 
     /**
      * Displays farewell message.
      */
-    public static void sayGoodbye() {
-        printHorizontalLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        printHorizontalLine();
+    public static String sayGoodbye() {
+        return "Bye! Hope to see you again soon!";
     }
 
     /**
      * Displays message indicating that a task has been added to the task list.
      * @param taskList Task list which task has been added to.
      */
-    public static void printAddMsg(ArrayList<Task> taskList) {
+    public static String printAddMsg(ArrayList<Task> taskList) {
         int size = taskList.size();
-        printHorizontalLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.printf(" \t%s%n", taskList.get(size - 1));
-        System.out.printf("Now you have %d %s in the list.%n", size, size == 1 ? "task" : "tasks");
-        printHorizontalLine();
+        return "Got it. I've added this task:\n"
+                + String.format(" \t%s%n", taskList.get(size - 1))
+                + String.format("Now you have %d %s in the list.", size, size == 1 ? "task" : "tasks");
     }
 
     /**
@@ -53,45 +46,35 @@ public class Ui {
      * @param taskList Task list which task has been deleted from.
      * @param deleted Task that has been deleted.
      */
-    public static void printDeleteMsg(ArrayList<Task> taskList, Task deleted) {
+    public static String printDeleteMsg(ArrayList<Task> taskList, Task deleted) {
         int size = taskList.size();
-        printHorizontalLine();
-        System.out.println("Noted. I've removed this task:");
-        System.out.printf("\t%s%n", deleted);
-        System.out.printf("Now you have %d %s in the list.%n", size, size == 1 ? "task" : "tasks");
-        printHorizontalLine();
+        return "Noted. I've removed this task:\n"
+                + String.format("\t%s%n", deleted)
+                + String.format("Now you have %d %s in the list.", size, size == 1 ? "task" : "tasks");
     }
 
     /**
      * Displays all tasks in the task list.
      * @param taskList Task list containing all the tasks.
      */
-    public static void printListMsg(TaskList taskList) {
-        printHorizontalLine();
-        System.out.println("Here are the tasks in your list:");
-        System.out.println(taskList.showList());
-        printHorizontalLine();
+    public static String printListMsg(TaskList taskList) {
+        return "Here are the tasks in your list:\n" + taskList.showList();
     }
 
     /**
      * Displays message indicating that a task has been marked.
      * @param task Task that has been marked.
      */
-    public static void printMarkMsg(Task task) {
-        printHorizontalLine();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.printf("\t%s%n", task);
-        printHorizontalLine();
+    public static String printMarkMsg(Task task) {
+        return "Nice! I've marked this task as done:\n" + String.format("\t%s", task);
     }
+
     /**
      * Displays message indicating that a task has been unmarked.
      * @param task Task that has been unmarked.
      */
-    public static void printUnmarkMsg(Task task) {
-        printHorizontalLine();
-        System.out.println("Ok, I've marked this task as not done yet:");
-        System.out.printf("\t%s%n", task);
-        printHorizontalLine();
+    public static String printUnmarkMsg(Task task) {
+        return "Ok, I've marked this task as not done yet:\n" + String.format("\t%s", task);
     }
 
     /**
@@ -99,24 +82,21 @@ public class Ui {
      * @param taskList List of tasks to be searched.
      * @param searchString String tasks should match.
      */
-    public static void printFindMsg(TaskList taskList, String searchString) {
-        printHorizontalLine();
+    public static String printFindMsg(TaskList taskList, String searchString) {
         String displayedTasks = taskList.findTasks(searchString);
         if (displayedTasks.equals("")) {
-            System.out.println("Oops, no tasks match your search :-(");
+            return "Oops, no tasks match your search :-(";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
-            System.out.println(displayedTasks);
+            return "Here are the matching tasks in your list:\n" + displayedTasks;
         }
-        printHorizontalLine();
     }
 
     /**
      * Displays error message.
      * @param msg Message to be displayed.
      */
-    public static void printError(String msg) {
-        System.err.println(msg);
+    public static String printError(String msg) {
+        return msg;
     }
 
 

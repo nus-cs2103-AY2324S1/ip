@@ -25,22 +25,15 @@ public class Glub {
         this.parser = new Parser(taskList, storage);
     }
 
-    /**
-     * Start the application by beginning to listen to user inputs.
-     */
-    public void run() {
-        parser.listen();
-    }
 
-    /**
-     * The main method to launch the Glub application.
-     *
-     * @param args Not used.
-     */
-    public static void main(String[] args) {
-        Glub glub = new Glub(new Storage("tasks.txt"));
-        Ui.greet();
-        glub.run();
+    public String getResponse(String userInput) {
+        String response;
+        try {
+            response = this.parser.parse(userInput);
+        } catch (GlubException e) {
+            response = Ui.printError(e.getMessage());
+        }
+        return response;
     }
 
 }

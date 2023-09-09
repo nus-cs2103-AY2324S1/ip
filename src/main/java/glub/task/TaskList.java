@@ -117,14 +117,15 @@ public class TaskList {
      * @param taskNum Index of task to be deleted.
      * @throws GlubException If taskNum indicated is invalid.
      */
-    public void deleteTask(int taskNum) throws GlubException {
+    public String deleteTask(int taskNum) throws GlubException {
+        Task deleted;
         try {
-            Task deleted = taskList.remove(taskNum - 1);
-            Ui.printDeleteMsg(taskList, deleted);
+            deleted = taskList.remove(taskNum - 1);
         } catch (IndexOutOfBoundsException ex) {
             throw new GlubException(String.format("OOPS!! Task %d does not exist!\n", taskNum));
         }
         storage.saveTasks(this.taskList);
+        return Ui.printDeleteMsg(taskList, deleted);
     }
 
     /**
@@ -143,22 +144,22 @@ public class TaskList {
      * Marks a task from the task list.
      * @param taskNum Index of task to be marked.
      */
-    public void mark(int taskNum) {
+    public String mark(int taskNum) {
         Task task = taskList.get(taskNum - 1);
         task.setDone();
-        Ui.printMarkMsg(task);
         storage.saveTasks(this.taskList);
+        return Ui.printMarkMsg(task);
     }
 
     /**
      * Unmarks a task from the task list.
      * @param taskNum Index of task to be unmarked.
      */
-    public void unmark(int taskNum) {
+    public String unmark(int taskNum) {
         Task task = taskList.get(taskNum - 1);
         task.setUndone();
-        Ui.printUnmarkMsg(task);
         storage.saveTasks(this.taskList);
+        return Ui.printUnmarkMsg(task);
     }
 
     /**
