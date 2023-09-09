@@ -9,9 +9,9 @@ import dre.command.Command;
 
 public class Dre {
 
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     public Dre(String filePath) {
         ui = new Ui();
