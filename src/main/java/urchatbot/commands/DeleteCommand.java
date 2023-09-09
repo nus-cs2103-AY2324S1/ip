@@ -20,18 +20,19 @@ public class DeleteCommand extends Command {
         this.taskNumber = taskNumber;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws URChatBotException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws URChatBotException {
         if (tasks.getSize() < 1 || tasks.getSize() <= taskNumber) {
             throw new URChatBotException("OOPS!!! No task to delete!");
         }
         String deletedTask = tasks.getTasks().get(taskNumber).toString();
-        int taskSize = tasks.getSize() - 1;
-        if (taskSize == 1 || taskSize == 0) {
-            ui.showDeleteMessage(deletedTask, taskSize);
-        } else {
-            ui.showDeleteMessagePlural(deletedTask, taskSize);
-        }
         tasks.deleteTask(taskNumber);
         Storage.save(tasks);
+        int taskSize = tasks.getSize();
+        if (taskSize == 1 || taskSize == 0) {
+            return ui.showDeleteMessage(deletedTask, taskSize);
+        } else {
+            return ui.showDeleteMessagePlural(deletedTask, taskSize);
+        }
+
     }
 }

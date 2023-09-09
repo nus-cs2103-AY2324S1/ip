@@ -22,13 +22,8 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws URChatBotException {
-        ui.showFindMessage();
-
-        for (int i = 0; i < tasks.getTasks().size(); i++) {
-            if (tasks.getTasks().get(i).toString().contains(searchWord)) {
-                System.out.println(i + 1 + "." + tasks.getTasks().get(i).toString());
-            }
-        }
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws URChatBotException {
+        return ui.showFindMessage(tasks, searchWord);
     }
+
 }

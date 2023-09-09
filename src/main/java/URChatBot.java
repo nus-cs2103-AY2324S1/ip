@@ -1,9 +1,4 @@
-package urchatbot;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
 import urchatbot.commands.Command;
 import urchatbot.exception.URChatBotException;
@@ -21,8 +16,9 @@ public class URChatBot{
     private TaskList tasks;
     private Ui ui;
 
+
     /**
-     * Constructs the urchatbot.URChatBot class.
+     * Constructs the URChatBot class.
      *
      * @param filePath Path to store users' tasklist.
      */
@@ -57,10 +53,17 @@ public class URChatBot{
             }
         }
     }
-
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
+        } catch (URChatBotException e) {
+            return e.getMessage();
+        }
+    }
 
     /**
-     * Instantiates a urchatbot.URChatBot.
+     * Instantiates a URChatBot.
      *
      * @param args Arguments.
      */

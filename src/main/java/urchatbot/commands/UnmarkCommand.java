@@ -23,7 +23,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws URChatBotException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws URChatBotException {
         if (tasks.getSize() < 1 || tasks.getSize() <= taskNumber) {
             throw new URChatBotException("OOPS!!! No task to mark!");
         }
@@ -31,6 +31,6 @@ public class UnmarkCommand extends Command {
         unmarkedTask.markAsUnDone();
         Storage.save(tasks);
         String taskName = unmarkedTask.toString();
-        ui.showUnmarkMessage(taskName);
+        return ui.showUnmarkMessage(taskName);
     }
 }

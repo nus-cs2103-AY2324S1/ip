@@ -1,4 +1,4 @@
-Hello! I'm urchatbot.URChatBot.
+Hello! I'm URChatBot.
 What can I do for you?
          _____   _____
 | | | | /  ___| |   ) |

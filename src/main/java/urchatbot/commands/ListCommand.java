@@ -17,11 +17,8 @@ public class ListCommand extends Command {
         super(taskDescription);
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showListMessage();
-        for (int i = 0; i < tasks.getTasks().size(); i++) {
-            System.out.println(i + 1 + "." + tasks.getTasks().get(i).toString());
-        }
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showListMessage(tasks);
     }
 
 }

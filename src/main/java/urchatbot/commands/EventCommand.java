@@ -34,15 +34,15 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task newTask = new Event(getTaskDescription(), false, from, to);
         tasks.addTask(newTask);
         Storage.save(tasks);
         int taskSize = tasks.getSize();
         if (taskSize == 1 || taskSize == 0) {
-            ui.showEventMessage(newTask.toString(), taskSize);
+            return ui.showEventMessage(newTask.toString(), taskSize);
         } else {
-            ui.showEventMessagePlural(newTask.toString(), taskSize);
+            return ui.showEventMessagePlural(newTask.toString(), taskSize);
         }
     }
 

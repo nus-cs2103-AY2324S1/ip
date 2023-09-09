@@ -38,7 +38,7 @@ public class Command {
      * @param ui User interface.
      * @param storage Storage.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws URChatBotException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws URChatBotException {
         throw new UnsupportedOperationException("This method is to be implemented by child classes");
     }
 }

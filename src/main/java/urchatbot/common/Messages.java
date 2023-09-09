@@ -5,12 +5,12 @@ package urchatbot.common;
  */
 public class Messages {
     public static final String LOGO =
-            "         _____   _____\n"
-                    + "| | | | /  ___| |   ) |\n"
-                    + "| | | | | |     | ___ /\n"
-                    + "| |_| | | |___  |   ) \\\n"
-                    + "\\___,_| \\_____| |_____|\n";
-    public static final String MESSAGE_WELCOME = "Hello! I'm urchatbot.URChatBot.\nWhat can I do for you?\n" + LOGO;
+            "             ____   _____\n"
+                    + "|   | |  |  /  ___|  |   )   |\n"
+                    + "|   | |  |  | |        | ___ /\n"
+                    + "|   |_| |  | |___    |   )  \\\n"
+                    + "\\___,_|  \\_____| |_____|\n";
+    public static final String MESSAGE_WELCOME = "Hello! I'm URChatBot.\nWhat can I do for you?\n" + LOGO;
     public static final String MESSAGE_GOODBYE = "Bye. Hope to see you again soon!";
     public static final String MESSAGE_LIST = "Here are the tasks in your list: ";
     public static final String MESSAGE_CLEAR = "All tasks are cleared";

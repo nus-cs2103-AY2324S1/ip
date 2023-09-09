@@ -21,7 +21,7 @@ public class PrintCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws URChatBotException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws URChatBotException {
         int count = 0;
         for (int i = 0; i < tasks.getTasks().size(); i++) {
             if (tasks.getTasks().get(i).toString().contains(formattedDate)) {
@@ -30,9 +30,9 @@ public class PrintCommand extends Command {
             }
         }
         if (count <= 1) {
-            ui.showPrintMessage(count, formattedDate);
+            return ui.showPrintMessage(count, formattedDate);
         } else {
-            ui.showPrintMessagePlural(count, formattedDate);
+            return ui.showPrintMessagePlural(count, formattedDate);
         }
     }
 }

@@ -28,15 +28,15 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task newTask = new Deadline(getTaskDescription(), false, by);
         tasks.addTask(newTask);
         Storage.save(tasks);
         int taskSize = tasks.getSize();
         if (taskSize == 1 || taskSize == 0) {
-            ui.showDeadlineMessage(newTask.toString(), taskSize);
+            return ui.showDeadlineMessage(newTask.toString(), taskSize);
         } else {
-            ui.showDeadlineMessagePlural(newTask.toString(), taskSize);
+            return ui.showDeadlineMessagePlural(newTask.toString(), taskSize);
         }
     }
 }

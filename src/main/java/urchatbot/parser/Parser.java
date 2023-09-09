@@ -71,11 +71,11 @@ public class Parser {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime d = LocalDateTime.parse(time, formatter);
-            return d.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+            return d.format(DateTimeFormatter.ofPattern("dd MM yyyy HH:mm"));
         } catch (DateTimeParseException e) {
             try {
                 LocalDate d = LocalDate.parse(time);
-                return d.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                return d.format(DateTimeFormatter.ofPattern("dd MM yyyy"));
             } catch (DateTimeParseException err) {
                 try {
                     LocalTime t = LocalTime.parse(time);

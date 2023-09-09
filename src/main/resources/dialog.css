@@ -1,0 +1,9 @@
+.dialog-image {
+    -fx-background-radius: 50%;
+    -fx-background-insets: 5px; /* Margin around the circle */
+}
+
+/* Add margins around the text */
+.dialog-label {
+    -fx-padding: 5px; /* Adjust as needed */
+}

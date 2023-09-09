@@ -22,7 +22,7 @@ public class MarkCommand extends Command {
         this.taskNumber = taskNumber;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws URChatBotException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws URChatBotException {
         if (tasks.getSize() < 1 || tasks.getSize() <= taskNumber) {
             throw new URChatBotException("OOPS!!! No task to mark!");
         }
@@ -30,6 +30,6 @@ public class MarkCommand extends Command {
         markedTask.markAsDone();
         Storage.save(tasks);
         String taskName = markedTask.toString();
-        ui.showMarkMessage(taskName);
+        return ui.showMarkMessage(taskName);
     }
 }

@@ -20,15 +20,15 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task newTask = new ToDo(getTaskDescription(), false);
         tasks.addTask(newTask);
         Storage.save(tasks);
         int taskSize = tasks.getSize();
         if (taskSize == 1 || taskSize == 0) {
-            ui.showTodoMessage(newTask.toString(), taskSize);
+            return ui.showTodoMessage(newTask.toString(), taskSize);
         } else {
-            ui.showTodoMessagePlural(newTask.toString(), taskSize);
+            return ui.showTodoMessagePlural(newTask.toString(), taskSize);
         }
     }
 }

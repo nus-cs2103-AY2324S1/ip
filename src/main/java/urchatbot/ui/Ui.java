@@ -22,6 +22,7 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 import urchatbot.exception.URChatBotException;
+import urchatbot.taskList.TaskList;
 
 
 /**
@@ -30,7 +31,6 @@ import urchatbot.exception.URChatBotException;
 public class Ui {
     private final Scanner in;
     private final PrintStream out;
-    private int taskNumber;
 
     /**
      * Construct the Ui class.
@@ -53,8 +53,8 @@ public class Ui {
     /**
      * Generates and prints the welcome message upon the start of the application.
      */
-    public void showWelcome() {
-        System.out.println(MESSAGE_WELCOME);
+    public String showWelcome() {
+        return MESSAGE_WELCOME;
     }
 
     /**
@@ -79,7 +79,6 @@ public class Ui {
      * Ignores empty, pure whitespace, and comment lines.
      */
     public String readCommand() throws URChatBotException {
-        out.println("Enter command: ");
         String fullInputLine = in.nextLine();
 
         if (shouldIgnore(fullInputLine)) {
@@ -88,132 +87,148 @@ public class Ui {
             return fullInputLine;
         }
     }
+
     /**
      * Shows goodbye message for ExitCommand.
      */
-    public void showByeMessage() {
-        System.out.println(MESSAGE_GOODBYE);
+    public String showByeMessage() {
+        return MESSAGE_GOODBYE;
     }
     /**
      * Shows cleared message for ClearCommand.
      */
-    public void showClearMessage() {
-        System.out.println(MESSAGE_CLEAR);
+    public String showClearMessage() {
+        return MESSAGE_CLEAR;
     }
     /**
      * Shows list message for ListCommand.
      */
-    public void showListMessage() {
-        out.println(MESSAGE_LIST);
+    public String showListMessage(TaskList tasks) {
+        StringBuilder listTasks = new StringBuilder();
+
+        for (int i = 0; i < tasks.getTasks().size(); i++) {
+            listTasks.append("\n").append(i + 1).append(".").append(tasks.getTasks().get(i).toString());
+        }
+
+        return MESSAGE_LIST + listTasks.toString();
     }
     /**
      * Shows print message for PrintCommand.
      */
-    public void showPrintMessage(int count, String formattedDate) {
-        out.println(MESSAGE_PRINT + count
+    public String showPrintMessage(int count, String formattedDate) {
+        return (MESSAGE_PRINT + count
                 + MESSAGE_PRINT_TWO + formattedDate);
     }
     /**
      * Shows print message for PrintCommand if there are more than 1 task to print.
      */
-    public void showPrintMessagePlural(int count, String formattedDate) {
-        out.println(MESSAGE_PRINT + count
+    public String showPrintMessagePlural(int count, String formattedDate) {
+        return (MESSAGE_PRINT + count
                 + MESSAGE_PRINT_TWO_PLURAL + formattedDate);
     }
     /**
      * Shows find message for FindCommand.
      */
-    public void showFindMessage() {
-        out.println(MESSAGE_FIND);
+    public String showFindMessage(TaskList tasks, String searchWord) {
+        StringBuilder foundTasks = new StringBuilder();
+
+        for (int i = 0; i < tasks.getTasks().size(); i++) {
+            if (tasks.getTasks().get(i).toString().contains(searchWord)) {
+                foundTasks.append("\n").append(i + 1).append(".")
+                        .append(tasks.getTasks().get(i).toString());
+            }
+        }
+
+        return MESSAGE_FIND + foundTasks.toString();
     }
 
     /**
      * Shows mark message for MarkCommand.
      */
-    public void showMarkMessage(String taskName) {
-        out.println(MESSAGE_MARK + taskName);
+    public String showMarkMessage(String taskName) {
+        return (MESSAGE_MARK + taskName);
     }
     /**
      * Shows unmark message for UnmarkCommand.
      */
-    public void showUnmarkMessage(String taskName) {
-        out.println(MESSAGE_UNMARK + taskName);
+    public String showUnmarkMessage(String taskName) {
+        return (MESSAGE_UNMARK + taskName);
     }
     /**
      * Shows delete message for DeleteCommand.
      */
-    public void showDeleteMessage(String deletedTask, int taskSize) {
-        out.println(MESSAGE_DELETE + deletedTask + MESSAGE_NOW_YOU_HAVE
+    public String showDeleteMessage(String deletedTask, int taskSize) {
+        return (MESSAGE_DELETE + deletedTask + MESSAGE_NOW_YOU_HAVE
                 + taskSize + MESSAGE_TASK_IN_THE_LIST);
     }
 
     /**
      * Shows delete message for DeleteCommand if there are more 1 task in tasklist.
      */
-    public void showDeleteMessagePlural(String deletedTask, int taskSize) {
-        out.println(MESSAGE_ADD + deletedTask + MESSAGE_NOW_YOU_HAVE
+    public String showDeleteMessagePlural(String deletedTask, int taskSize) {
+        return (MESSAGE_ADD + deletedTask + MESSAGE_NOW_YOU_HAVE
                 + taskSize + MESSAGE_MESSAGE_TASK_IN_THE_LIST_PLURAL);
     }
     /**
      * Shows todo task message for TodoCommand.
      */
-    public void showTodoMessage(String taskDescription, int taskSize) {
-        out.println(MESSAGE_ADD + taskDescription + MESSAGE_NOW_YOU_HAVE
+    public String showTodoMessage(String taskDescription, int taskSize) {
+        return (MESSAGE_ADD + taskDescription + MESSAGE_NOW_YOU_HAVE
                 + taskSize + MESSAGE_TASK_IN_THE_LIST);
     }
     /**
      * Shows todo task message for TodoCommand if there are more 1 task in tasklist.
      */
-    public void showTodoMessagePlural(String taskDescription, int taskSize) {
-        out.println(MESSAGE_ADD + taskDescription + MESSAGE_NOW_YOU_HAVE
+    public String showTodoMessagePlural(String taskDescription, int taskSize) {
+        return (MESSAGE_ADD + taskDescription + MESSAGE_NOW_YOU_HAVE
                 + taskSize + MESSAGE_MESSAGE_TASK_IN_THE_LIST_PLURAL);
     }
 
     /**
      * Shows deadline task message for DeadlineCommand.
      */
-    public void showDeadlineMessage(String taskDescription, int taskSize) {
-        out.println(MESSAGE_ADD + taskDescription + MESSAGE_NOW_YOU_HAVE
+    public String showDeadlineMessage(String taskDescription, int taskSize) {
+        return (MESSAGE_ADD + taskDescription + MESSAGE_NOW_YOU_HAVE
                 + taskSize + MESSAGE_TASK_IN_THE_LIST);
     }
     /**
      * Shows deadline task message for DeadlineCommand if there are more 1 task in tasklist.
      */
-    public void showDeadlineMessagePlural(String taskDescription, int taskSize) {
-        out.println(MESSAGE_ADD + taskDescription + MESSAGE_NOW_YOU_HAVE
+    public String showDeadlineMessagePlural(String taskDescription, int taskSize) {
+        return (MESSAGE_ADD + taskDescription + MESSAGE_NOW_YOU_HAVE
                 + taskSize + MESSAGE_MESSAGE_TASK_IN_THE_LIST_PLURAL);
     }
     /**
      * Shows event task message for EventCommand.
      */
-    public void showEventMessage(String taskDescription, int taskSize) {
-        out.println(MESSAGE_ADD + taskDescription + MESSAGE_NOW_YOU_HAVE
+    public String showEventMessage(String taskDescription, int taskSize) {
+        return (MESSAGE_ADD + taskDescription + MESSAGE_NOW_YOU_HAVE
                 + taskSize + MESSAGE_TASK_IN_THE_LIST);
     }
     /**
      * Shows event task message for EventCommand if there are more 1 task in tasklist.
      */
-    public void showEventMessagePlural(String taskDescription, int taskSize) {
-        out.println(MESSAGE_ADD + taskDescription + MESSAGE_NOW_YOU_HAVE
+    public String showEventMessagePlural(String taskDescription, int taskSize) {
+        return (MESSAGE_ADD + taskDescription + MESSAGE_NOW_YOU_HAVE
                 + taskSize + MESSAGE_MESSAGE_TASK_IN_THE_LIST_PLURAL);
     }
 
     /**
      * Shows dot line.
      */
-    public void showLine() {
-        out.println("_______________________________");
+    public String showLine() {
+        return ("_______________________________");
     }
     /**
      * Shows loading error message.
      */
-    public void showLoadingError() {
-        out.println(MESSAGE_LOADING_ERROR);
+    public String showLoadingError() {
+        return MESSAGE_LOADING_ERROR;
     }
     /**
      * Shows error message.
      */
-    public void showError(String errorMessage) {
-        out.println("Error: " + errorMessage);
+    public String showError(String errorMessage) {
+        return "Error: " + errorMessage;
     }
 }

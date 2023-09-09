@@ -22,7 +22,7 @@ public class ExitCommand extends Command {
         return true;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showByeMessage();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showByeMessage();
     }
 }

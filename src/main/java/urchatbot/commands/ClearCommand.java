@@ -17,9 +17,9 @@ public class ClearCommand extends Command {
         super(taskDescription);
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.clearTask();
         Storage.save(tasks);
-        ui.showClearMessage();
+        return ui.showClearMessage();
     }
 }
