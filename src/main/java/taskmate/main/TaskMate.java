@@ -108,4 +108,38 @@ public class TaskMate {
             }
         }
     }
+
+    public String getGreetReponse() {
+        ui.greetUser();
+        return ui.popStoredMessage();
+    }
+
+    public String getResponse(String userInput) {
+
+        // Parse user input
+        try {
+            Command command = Parser.parse(userInput);
+            command.execute(tasks, ui, storage);
+        } catch (InvalidCommandTypeException e) {
+            ui.printInvalidCommandTypeExceptionResponse();
+        } catch (InvalidDescriptionException e) {
+            ui.printInvalidCommandTypeExceptionResponse(); // todo: Add new message for chatbot
+        } catch (EmptyByException e) {
+            ui.printEmptyByExceptionResponse();
+        } catch (InvalidByException e) {
+            ui.printInvalidByExceptionResponse();
+        } catch (InvalidToException e) {
+            ui.printInvalidToExceptionResponse();
+        } catch (EmptyToException e) {
+            ui.printEmptyToExceptionResponse();
+        } catch (InvalidFromException e) {
+            ui.printInvalidFromExceptionResponse();
+        } catch (EmptyFromException e) {
+            ui.printEmptyFromExceptionResponse();
+        } catch (NotAnIntegerException e) {
+            ui.printNotAnIntegerExceptionResponse();
+        }
+        return ui.popStoredMessage();
+    }
+
 }
