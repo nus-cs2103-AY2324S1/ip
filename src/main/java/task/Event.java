@@ -16,7 +16,6 @@ public class Event extends Task {
 
     public static Event fromFileString(String fileString) {
         String[] parts = fileString.split("\\|");
-        String taskType = parts[0].trim();
         String isCompleted = parts[1].trim();
         String taskName = parts[2].trim();
         String from = parts[3].trim();
@@ -55,6 +54,6 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        return TaskType.EVENT.toString() + " | " + (isCompleted() ? "1" : "0") + " | " + getDescription() + " | " + getFrom().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | " + getTo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return TaskType.EVENT + " | " + (isCompleted() ? "1" : "0") + " | " + getDescription() + " | " + getFrom().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | " + getTo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 }

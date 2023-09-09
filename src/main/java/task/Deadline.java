@@ -24,6 +24,6 @@ public class Deadline extends Task {
 
     @Override
     public String toFileString() {
-        return TaskType.DEADLINE.toString() + " | " + (isCompleted() ? "1" : "0") + " | " + getDescription() + " | " + getBy().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return TaskType.DEADLINE + " | " + (isCompleted() ? "1" : "0") + " | " + getDescription() + " | " + getBy().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 }

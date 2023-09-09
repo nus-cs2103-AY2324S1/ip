@@ -1,7 +1,7 @@
 package task;
 
 /**
- * Represents the type of a task.
+ * Represents the type of task.
  */
 public enum TaskType {
     /**

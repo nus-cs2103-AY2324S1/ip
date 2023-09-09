@@ -13,7 +13,7 @@ import ui.Ui;
 public class AddTodo extends AddCommand {
 
     /**
-     * Initializes an command.AddTodo command with the specified input.
+     * Initializes a command.AddTodo command with the specified input.
      *
      * @param input The user input for creating the To-Do task.
      */

@@ -1,7 +1,5 @@
 package task;
 
-import task.Task;
-
 import java.util.ArrayList;
 
 /**
@@ -9,7 +7,7 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     /**
      * Creates an empty task list.

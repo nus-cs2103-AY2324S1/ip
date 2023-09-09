@@ -1,15 +1,15 @@
 package ui;
 
-import java.util.Scanner;
-
 import task.Task;
+
+import java.util.Scanner;
 
 /**
  * Represents the user interface of the Duke application.
  */
 public class Ui {
 
-    private Scanner scanner;
+    private final Scanner scanner;
 
     /**
      * Creates a new user interface instance.

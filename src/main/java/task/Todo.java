@@ -26,6 +26,6 @@ public class Todo extends Task {
 
     @Override
     public String toFileString() {
-        return TaskType.TODO.toString() + " | " + (isCompleted() ? "1" : "0") + " | " + getDescription();
+        return TaskType.TODO + " | " + (isCompleted() ? "1" : "0") + " | " + getDescription();
     }
 }
