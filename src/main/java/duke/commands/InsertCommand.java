@@ -6,7 +6,6 @@ import java.time.format.DateTimeParseException;
 import duke.Messages;
 import duke.Parser;
 import duke.TaskList;
-import duke.Ui;
 import duke.exceptions.InsufficientArgumentsException;
 import duke.tasks.Task;
 
@@ -19,10 +18,10 @@ public class InsertCommand implements Command {
      *
      * @param input    The user input of the item to add.
      * @param taskList The application's task list.
-     * @param ui       The UI of the application.
+     * @return The string output of the command's execution.
      */
     @Override
-    public void run(String input, TaskList taskList, Ui ui) {
+    public String run(String input, TaskList taskList) {
         String[] args = input.split(" ", 2);
         String taskType = args[0];
         String taskInput = args.length > 1 ? args[1] : "";
@@ -31,10 +30,10 @@ public class InsertCommand implements Command {
             Task task = Parser.createTask(taskType, taskInput);
             taskList.insertTask(task);
             int taskCount = taskList.getTaskCount();
-            ui.displayMessage(String.format(Messages.INSERT_MESSAGE, task, taskCount,
-                    taskCount == 1 ? "task" : "tasks"));
+            return String.format(Messages.INSERT_MESSAGE, task, taskCount, taskCount == 1 ? "task"
+                    : "tasks");
         } catch (InsufficientArgumentsException | DateTimeParseException | IOException e) {
-            ui.displayError(e.getMessage());
+            return e.getMessage();
         }
     }
 }

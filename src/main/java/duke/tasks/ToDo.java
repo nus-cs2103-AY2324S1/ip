@@ -4,9 +4,8 @@ package duke.tasks;
  * Represents a task with a description.
  */
 public class ToDo extends Task {
-
     /**
-     * Creates a new {@code ToDo} instance
+     * Creates a new {@code ToDo} instance.
      *
      * @param description The description of the to-do.
      * @param isDone      The indication of the event being to-do.
