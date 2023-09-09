@@ -24,6 +24,7 @@ public class Parser {
     public static void parseInput(String input, Launcher.TaskList list, int number,
                                   String filePath, Gui ui, Storage storage) throws DukeException {
 
+        assert input != null : "input should not be empty";
         if (input.equalsIgnoreCase("bye")) {
             ui.showGoodbyeMessage();
             storage.saveTasksToFile(list.task());
