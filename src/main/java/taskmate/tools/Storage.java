@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Storage {
 
@@ -28,9 +29,25 @@ public class Storage {
     }
 
     public void writeToFile(String text) throws IOException {
+        try {
+            Files.createDirectories(Paths.get(getDirectoryPath(saveFilePath)));
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+        }
         FileWriter fw = new FileWriter(saveFilePath);
         fw.write(text);
         fw.close();
+    }
+
+    static String getDirectoryPath(String filePath) {
+        Path path = Paths.get(filePath);
+        Path directoryPath = path.getParent();
+
+        if (directoryPath != null) {
+            return directoryPath.toString();
+        } else {
+            return null;
+        }
     }
 
 
