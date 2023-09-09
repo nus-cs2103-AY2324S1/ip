@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("taskmate.main.TaskMate")
+    mainClass.set("taskmate.Launcher")
 }
 
 shadowJar {
