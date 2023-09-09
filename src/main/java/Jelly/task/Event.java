@@ -1,10 +1,9 @@
 package Jelly.task;
 
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,7 +80,7 @@ public class Event extends Task {
             try {
                 return LocalDate.parse(date, formats.get(i));
             } catch (DateTimeParseException e) {
-
+                System.out.println(e.getMessage());
             }
         }
         return null;
@@ -104,7 +103,7 @@ public class Event extends Task {
             try {
                 return LocalDateTime.parse(dateTime, formats.get(i));
             } catch (DateTimeParseException e) {
-
+                System.out.println(e.getMessage());
             }
         }
         return null;

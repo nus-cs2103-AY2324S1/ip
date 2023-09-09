@@ -1,15 +1,6 @@
 package Jelly.main;
 
-import Jelly.commands.ByeCommand;
-import Jelly.commands.Command;
-import Jelly.commands.DeadlineCommand;
-import Jelly.commands.DeleteCommand;
-import Jelly.commands.EventCommand;
-import Jelly.commands.ListCommand;
-import Jelly.commands.MarkCommand;
-import Jelly.commands.ToDoCommand;
-import Jelly.commands.UnmarkCommand;
-
+import Jelly.commands.*;
 import Jelly.exceptions.JellyBlankMessageException;
 import Jelly.exceptions.JellyException;
 import Jelly.exceptions.JellyUnknownCommandException;
@@ -26,8 +17,7 @@ public class Parser {
      * @return An instance of Command that matches the user's input.
      * @throws JellyException If the input is invalid.
      */
-    public static Command parse(String command) throws JellyException  {
-
+    public static Command parse(String command) throws JellyException {
         try {
             String[] stringArray = command.split(" ");
 

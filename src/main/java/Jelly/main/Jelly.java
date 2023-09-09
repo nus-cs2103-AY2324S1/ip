@@ -6,15 +6,15 @@ import Jelly.commands.Command;
 import Jelly.exceptions.JellyException;
 
 /**
- * The main class which is responsible in running the Jelly chat bot.
+ * The main class which is responsible in running the Jelly chatbot.
  */
 public class Jelly {
     private static final String FILE_PATH = "./taskData/jelly.txt";
     private final Scanner scanner = new Scanner(System.in);
 
     private TaskList taskList;
-    private Ui ui;
-    private Storage storage;
+    private final Ui ui;
+    private final Storage storage;
 
     /**
      * Constructor for an instance of Jelly.
@@ -22,7 +22,7 @@ public class Jelly {
      * @param filePath The file path used when saving or starting up the bot. Contains a list of tasks(if any).
      * @throws JellyException If there are any errors while starting up Jelly.
      */
-    private Jelly(String filePath) throws JellyException {
+    private Jelly(String filePath) {
         this.storage = new Storage(filePath);
         this.ui = new Ui();
 
@@ -60,6 +60,7 @@ public class Jelly {
                 c.execute(taskList, ui, storage);
                 isRunning = c.isRunning();
             } catch (JellyException e) {
+                System.out.println(e.getMessage());
             }
         }
     }

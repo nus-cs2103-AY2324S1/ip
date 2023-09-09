@@ -15,7 +15,7 @@ public class Todo extends Task {
     }
 
     /**
-     * String representation of a to do task.
+     * String representation of to do task.
      *
      * @return A string with label [T] for to do, and the toString of Task.
      */
