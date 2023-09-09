@@ -42,7 +42,7 @@ public class Duke {
             }
 
             // Check if is duke.commands.ExitCommand
-            if (c.isExit()) {
+            if (c.willExit()) {
                 return "";
             }
 

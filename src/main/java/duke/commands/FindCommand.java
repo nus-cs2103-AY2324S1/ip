@@ -26,15 +26,15 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(Tasks tasks, Ui ui, Storage storage, boolean isRestoring) {
-        List<Task> res = new ArrayList<>();
+        List<Task> foundTasks = new ArrayList<>();
         for (Task task: tasks.getAll()) {
             if (task.getDescription().contains(this.target)) {
-                res.add(task);
+                foundTasks.add(task);
             }
         }
         String output = "";
-        if (res.size() > 0) {
-            output += ui.showTasks(res, true);
+        if (foundTasks.size() > 0) {
+            output += ui.showTasks(foundTasks, true);
         } else {
             output += ui.showNoTasks();
         }

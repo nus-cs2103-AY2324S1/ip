@@ -125,8 +125,8 @@ public class Parser {
      */
     protected static String[] parseText(String text) {
         String[] words = text.trim().split(" ");
-        String[] remaining = Arrays.copyOfRange(words, 1, words.length);
-        String restOfText = String.join(" ", remaining);
+        String[] remainingWords = Arrays.copyOfRange(words, 1, words.length);
+        String restOfText = String.join(" ", remainingWords);
 
         return new String[] {words[0], restOfText};
     }
