@@ -29,6 +29,7 @@ public class Storage {
      * @param ui Ui object used for this application.
      */
     public Storage(String filePath, Ui ui) {
+        assert !filePath.equals("") : "No file path was provided for data storage";
         this.filePath = filePath;
         this.ui = ui;
     }
