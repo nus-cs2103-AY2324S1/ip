@@ -17,15 +17,15 @@ All you need to do is
 And its **FREE**
 
 Features:
-[x] Todos
-[x] Deadlines
-[x] Events
-[x] delete
-[x] list
-[x] find
-[x] load and update file
-[ ] Graphical User Interface (GUI)
-[x] Be cool af
+- [x] Todos
+- [x] Deadlines
+- [x] Events
+- [x] delete
+- [x] list
+- [x] find
+- [x] load and update file
+- [ ] Graphical User Interface (GUI)
+- [x] Be cool af
 
 If you Java programmer, you can use it to practice Java too. Here's the 'main' method :electron: :
 ```java
