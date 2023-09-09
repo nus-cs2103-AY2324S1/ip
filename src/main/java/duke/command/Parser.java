@@ -30,6 +30,7 @@ public class Parser {
         String commandTypeStr = commandParts[0].toLowerCase();
 
         CommandType commandType;
+
         try {
             commandType = CommandType.valueOf(commandTypeStr.toUpperCase());
         } catch (IllegalArgumentException e) {

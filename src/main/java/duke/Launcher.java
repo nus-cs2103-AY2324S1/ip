@@ -3,11 +3,8 @@ package duke;
 import javafx.application.Application;
 
 /**
- * The Launcher class serves as the entry point for the Duke application.
- * It uses JavaFX's Application.launch method to launch the application by
- * starting the Main class.
- * This class is primarily used to work around classpath issues that can
- * occur when launching JavaFX applications.
+ * The Launcher class is responsible for starting the Duke chatbot application.
+ * It initiates the application's main entry point, the 'Main' class.
  */
 public class Launcher {
 
