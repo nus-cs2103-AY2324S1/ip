@@ -136,14 +136,16 @@ public class TaskList {
 
         for (int i = 0; i < taskList.size(); i++) {
             Task currentTask = taskList.get(i);
-            if (currentTask.getDescription().contains(lookupString)) {
-                if (i != 0) {
-                    outputString = outputString.concat("\n" + (i + 1) + ": " + currentTask);
-                } else {
-                    outputString = outputString.concat((i + 1) + ": " + currentTask);
-                }
+            if (!currentTask.getDescription().contains(lookupString)) {
+                continue;
+            }
+            if (i != 0) {
+                outputString = outputString.concat("\n" + (i + 1) + ": " + currentTask);
+            } else {
+                outputString = outputString.concat((i + 1) + ": " + currentTask);
             }
         }
+
 
         return outputString;
 

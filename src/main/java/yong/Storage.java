@@ -59,14 +59,15 @@ public class Storage {
             if (dataFile.exists() && (!dataFile.isDirectory())) {
                 FileInputStream dataFileStream = new FileInputStream(dataFile);
                 ObjectInputStream objectStream = new ObjectInputStream(dataFileStream);
+
                 this.taskList.set((ArrayList<Task>) objectStream.readObject());
+
                 objectStream.close();
             } else {
                 Path parentDir = Paths.get(FILE_PATH).getParent();
                 Files.createDirectories(parentDir);
             }
         } catch (IOException e) {
-            System.out.println(e);
             System.out.println("File is not found! But this shouldn't happen LOL");
         } catch (Exception e) {
             System.out.println("There is an error occurring, " + e.getMessage());
