@@ -30,6 +30,11 @@ public class Duke {
                     case "todo":
                         tasks.add(new Todo(taskDescription));
                         taskCount++;
+                        if (taskCount > 0) {
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println(" " + tasks.get(taskCount - 1));
+                            System.out.println("Now you have " + taskCount + " tasks in the list.");
+                        }
                         break;
                     case "deadline":
                         String[] deadlineParts = taskDescription.split(" /by ");
@@ -43,6 +48,11 @@ public class Duke {
                             } else {
                                 tasks.add(new Deadline(deadlineParts[0], deadlineParts[1]));
                                 taskCount++;
+                            }
+                            if (taskCount > 0) {
+                                System.out.println("Got it. I've added this task:");
+                                System.out.println(" " + tasks.get(taskCount - 1));
+                                System.out.println("Now you have " + taskCount + " tasks in the list.");
                             }
                         } else {
                             System.out.println("Invalid deadline format.");
@@ -64,6 +74,11 @@ public class Duke {
                                 tasks.add(new Event(eventParts[0], eventParts[1], eventParts[2]));
                                 taskCount++;
                             }
+                            if (taskCount > 0) {
+                                System.out.println("Got it. I've added this task:");
+                                System.out.println(" " + tasks.get(taskCount - 1));
+                                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                            }
                         } else {
                             System.out.println("Invalid event format.");
                         }
@@ -73,11 +88,6 @@ public class Duke {
                         break;
                 }
 
-                if (taskCount > 0) {
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(" " + tasks.get(taskCount - 1));
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
-                }
             } else {
                 if (parts[0].equalsIgnoreCase("todo")) {
                     System.out.println("What you want to do?");
