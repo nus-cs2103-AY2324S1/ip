@@ -81,6 +81,10 @@ public class TaskList {
      * @param ui Ui manager of chatbot.
      */
     public void displayTasks(Ui ui) {
+        if (tasklist.size() == 0) {
+            ui.showMessage("You have no tasks currently.");
+            return;
+        }
         String message = "Here are the tasks in your list: \n";
         for (int i = 0; i < tasklist.size(); i++) {
             message += (i + 1) + ". " + tasklist.get(i) + "\n";
