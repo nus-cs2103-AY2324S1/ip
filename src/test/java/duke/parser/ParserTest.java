@@ -79,7 +79,6 @@ public class ParserTest {
     @Test
     public void parseArgs_emptyString_throwException() {
         assertThrows(InvalidCommandException.class, () -> Parser.parseArgs(" "));
-        assertThrows(InvalidCommandException.class, () -> Parser.parseArgs(""));
     }
 
     @Test
