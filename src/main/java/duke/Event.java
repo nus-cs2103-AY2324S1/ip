@@ -13,10 +13,13 @@ public class Event extends Task {
      * @param from the from part of the Event time component
      * @param to the by part of the Event time component
      */
-    public Event(String description, String from, String to) {
+    private Event(String description, String from, String to) {
         super(description);
         this.from = from;
         this.to = to;
+    }
+    public static Event newEvent(String description, String from, String to) {
+        return new Event(description, from, to);
     }
     @Override
     public String toString() {

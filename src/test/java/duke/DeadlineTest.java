@@ -20,18 +20,18 @@ public class DeadlineTest {
      * Tests the toString method for a Deadline object
      */
     @Test
-    public void testToString() {
-        assertEquals("[D][ ] return book (by: Sep 3 2023 5:00PM)",
-                new Deadline("return book ", date).toString());
+    public void toString_deadline_success() throws DukeException {
+        assertEquals("[D][ ] return book (by: Sep 10 2023 5:00PM)",
+                Deadline.newDeadline("return book ", "Sun 1700").toString());
     }
 
     /**
      * Tests the toFileString method for a Deadline object
      */
     @Test
-    public void testToFileString() {
-        assertEquals("D | O | return book | Sep 3 2023 5:00PM",
-                new Deadline("return book ", date).toFileString());
+    public void toFileString_deadline_success() throws DukeException {
+        assertEquals("D | O | return book | Sep 10 2023 5:00PM",
+                Deadline.newDeadline("return book ", "Sun 1700").toFileString());
     }
 
 }

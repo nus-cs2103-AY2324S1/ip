@@ -21,9 +21,5 @@ data/temp.txt
 
 Duke-v0.1.jar
 
-build.gradle
-config/
-gradle/
-gradlew
-gradlew.bat
 *.class
+styles.css

@@ -125,9 +125,10 @@ public class Duke extends Application implements Serializable {
         String string = userInput.getText();
         Label userText = new Label(string);
         Label dukeText = new Label(Parser.parse(string, tasks, storage));
+        DialogBox userDialog = DialogBox.getUserDialog(userText, new ImageView(user));
+        DialogBox dukeDialog = DialogBox.getDukeDialog(dukeText, new ImageView(duke));
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+                userDialog, dukeDialog
         );
         userInput.clear();
     }
