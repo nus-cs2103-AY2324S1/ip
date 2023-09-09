@@ -1,5 +1,7 @@
 package crusader;
 
+import java.text.ParseException;
+
 import crusader.command.AddTaskCommand;
 import crusader.command.ByeCommand;
 import crusader.command.Command;
@@ -7,16 +9,13 @@ import crusader.command.DeleteCommand;
 import crusader.command.FindCommand;
 import crusader.command.ListCommand;
 import crusader.command.MarkCommand;
-
 import crusader.exception.CrusaderDateFormatException;
 import crusader.exception.CrusaderException;
 import crusader.exception.CrusaderParseException;
-
 import crusader.task.Deadline;
 import crusader.task.Event;
 import crusader.task.Todo;
 
-import java.text.ParseException;
 
 /**
  * A set of tools used to parse user input
@@ -117,7 +116,7 @@ public class Parser {
         if (toPosition < 0) {
             throw new CrusaderParseException("An event must have /to parameter!");
         }
-        if (toPosition <= fromPosition ) {
+        if (toPosition <= fromPosition) {
             throw new CrusaderParseException("/to should be in front of /from!");
         }
         if (fromPosition < 7) {

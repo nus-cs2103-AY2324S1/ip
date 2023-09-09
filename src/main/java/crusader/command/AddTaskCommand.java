@@ -1,8 +1,8 @@
 package crusader.command;
 
-import crusader.task.Task;
 import crusader.TaskList;
 import crusader.Ui;
+import crusader.task.Task;
 
 /**
  * Command used to add a task of any type to the bot.

@@ -1,23 +1,20 @@
 package crusader;
 
-import crusader.exception.CrusaderException;
-import crusader.exception.CrusaderMissingSaveFileException;
-import crusader.exception.CrusaderParseException;
-
-import crusader.task.Deadline;
-import crusader.task.Event;
-import crusader.task.Task;
-import crusader.task.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import java.text.ParseException;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import crusader.exception.CrusaderException;
+import crusader.exception.CrusaderMissingSaveFileException;
+import crusader.exception.CrusaderParseException;
+import crusader.task.Deadline;
+import crusader.task.Event;
+import crusader.task.Task;
+import crusader.task.Todo;
 
 /**
  * The component of the bot responsible for loading and saving data to disk
