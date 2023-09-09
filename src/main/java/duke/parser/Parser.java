@@ -27,6 +27,20 @@ import duke.exception.DukeInvalidDateFormatException;
  */
 public class Parser {
 
+    final static String DB_PATTERN = "\\[([A-Z])\\]\\[(.)\\] (.+?)(?: \\(by: (.+?)\\)| \\(from: (.+?) to: (.+?)\\))?";
+    final static String BYE_PATTERN = "(?i)bye";
+    final static String LIST_PATTERN = "(?i)list";
+    final static String HELP_PATTERN = "(?i)help";
+    final static String TODO_PATTERN = "(?i)todo (.+)";
+    final static String DEADLINE_PATTERN = "(?i)deadline (.+) /by (.+)";
+    final static String EVENT_PATTERN = "(?i)event (.+) /from (.+) /to (.+)";
+    final static String MARK_PATTERN = "(?i)mark (\\d+)";
+    final static String UNMARK_PATTERN = "(?i)unmark (\\d+)";
+    final static String DELETE_PATTERN = "(?i)delete (\\d+)";
+    final static String FIND_PATTERN = "(?i)find ([a-zA-Z0-9]+)";
+    final static String[] PATTERNS = {BYE_PATTERN, LIST_PATTERN, HELP_PATTERN, TODO_PATTERN, DEADLINE_PATTERN,
+            EVENT_PATTERN, MARK_PATTERN, UNMARK_PATTERN, DELETE_PATTERN, FIND_PATTERN};
+
     /**
      * Parses a database entry and extracts relevant information.
      *
@@ -36,25 +50,132 @@ public class Parser {
      */
     public static ArrayList<String> parseDatabaseEntry(String entry) throws DukeDatabaseInvalidEntryException {
         ArrayList<String> elements = new ArrayList<>();
-        Pattern pattern = Pattern.compile(
-                "\\[([A-Z])\\]\\[(.)\\] (.+?)(?: \\(by: (.+?)\\)| \\(from: (.+?) to: (.+?)\\))?");
+        Pattern pattern = Pattern.compile(DB_PATTERN);
         Matcher matcher = pattern.matcher(entry);
 
-        if (matcher.matches()) {
-            elements.add(matcher.group(1));
-            elements.add(matcher.group(2));
-            elements.add(matcher.group(3));
-            if (matcher.group(4) != null) {
-                elements.add(matcher.group(4));
-            } else if (matcher.group(5) != null && matcher.group(6) != null) {
-                elements.add(matcher.group(5));
-                elements.add(matcher.group(6));
-            }
-        } else {
+        if (!matcher.matches()) {
             throw new DukeDatabaseInvalidEntryException();
         }
 
+        for (int i = 1; i <= 6; i ++) {
+            if (matcher.group(i) != null) {
+                elements.add(matcher.group(i));
+            }
+        }
+
         return elements;
+    }
+
+    /**
+     * Parses a TODO command and extracts the description.
+     *
+     * @param matcher The Matcher object containing the parsed input.
+     * @return A TodoCommand object with the extracted description.
+     */
+    private static TodoCommand parseTodoCommand(Matcher matcher) {
+        String description = matcher.group(1);
+        return new TodoCommand(description);
+    }
+
+    /**
+     * Parses a DEADLINE command and extracts the description and deadline date.
+     *
+     * @param matcher The Matcher object containing the parsed input.
+     * @return A DeadlineCommand object with the extracted description and deadline date.
+     * @throws DukeInvalidDateFormatException If the date format is invalid.
+     */
+    private static DeadlineCommand parseDeadlineCommand(Matcher matcher) throws DukeInvalidDateFormatException {
+        try {
+            String description = matcher.group(1);
+            LocalDate by = LocalDate.parse(matcher.group(2));
+            return new DeadlineCommand(description, by);
+        } catch (DateTimeParseException e) {
+            throw new DukeInvalidDateFormatException();
+        }
+    }
+
+    /**
+     * Parses an EVENT command and extracts the description, start date, and end date.
+     *
+     * @param matcher The Matcher object containing the parsed input.
+     * @return An EventCommand object with the extracted information.
+     * @throws DukeInvalidDateFormatException If the date format is invalid.
+     * @throws DukeEndDateBeforeStartDateException If the end date is before the start date.
+     */
+    private static EventCommand parseEventCommand(Matcher matcher)
+            throws DukeInvalidDateFormatException, DukeEndDateBeforeStartDateException {
+        try {
+            String description = matcher.group(1);
+            LocalDate from = LocalDate.parse(matcher.group(2));
+            LocalDate to = LocalDate.parse(matcher.group(3));
+
+            if (to.isBefore(from)) {
+                throw new DukeEndDateBeforeStartDateException();
+            }
+
+            return new EventCommand(description, from, to);
+        } catch (DateTimeParseException e) {
+            throw new DukeInvalidDateFormatException();
+        }
+    }
+
+    /**
+     * Parses a MARK command and extracts the task index.
+     *
+     * @param matcher The Matcher object containing the parsed input.
+     * @return A MarkCommand object with the extracted task index.
+     * @throws DukeInvalidArgumentException If the task index is invalid.
+     */
+    private static MarkCommand parseMarkCommand(Matcher matcher) throws DukeInvalidArgumentException {
+        try {
+            int index = Integer.parseInt(matcher.group(1));
+            return new MarkCommand(index);
+        } catch (NumberFormatException e) {
+            throw new DukeInvalidArgumentException();
+        }
+    }
+
+    /**
+     * Parses an UNMARK command and extracts the task index.
+     *
+     * @param matcher The Matcher object containing the parsed input.
+     * @return An UnmarkCommand object with the extracted task index.
+     * @throws DukeInvalidArgumentException If the task index is invalid.
+     */
+    private static UnmarkCommand parseUnmarkCommand(Matcher matcher) throws DukeInvalidArgumentException {
+        try {
+            int index = Integer.parseInt(matcher.group(1));
+            return new UnmarkCommand(index);
+        } catch (NumberFormatException e) {
+            throw new DukeInvalidArgumentException();
+        }
+    }
+
+    /**
+     * Parses a DELETE command and extracts the task index.
+     *
+     * @param matcher The Matcher object containing the parsed input.
+     * @return A DeleteCommand object with the extracted task index.
+     * @throws DukeInvalidArgumentException If the task index is invalid.
+     */
+    private static DeleteCommand parseDeleteCommand(Matcher matcher) throws DukeInvalidArgumentException {
+        try {
+            int index = Integer.parseInt(matcher.group(1));
+            return new DeleteCommand(index);
+        } catch (NumberFormatException e) {
+            throw new DukeInvalidArgumentException();
+        }
+    }
+
+    /**
+     * Parses a FIND command and extracts the search keyword.
+     *
+     * @param matcher The Matcher object containing the parsed input.
+     * @return A FindCommand object with the extracted search keyword.
+     */
+    private static FindCommand parseFindCommand(Matcher matcher) {
+        String keyword = matcher.group(1);
+        return new FindCommand(keyword);
     }
 
     /**
@@ -68,99 +189,35 @@ public class Parser {
      */
     public static Command parseUserInput(String input) throws DukeInvalidArgumentException,
             DukeInvalidDateFormatException, DukeEndDateBeforeStartDateException {
-        String byePattern = "bye";
-        String listPattern = "list";
-        String helpPattern = "help";
-        String todoPattern = "(?i)todo (.+)";
-        String deadlinePattern = "(?i)deadline (.+) /by (.+)";
-        String eventPattern = "(?i)event (.+) /from (.+) /to (.+)";
-        String markPattern = "(?i)mark (\\d+)";
-        String unmarkPattern = "(?i)unmark (\\d+)";
-        String deletePattern = "(?i)delete (\\d+)";
-        String findPattern = "(?i)find ([a-zA-Z0-9]+)";
-
-        if (input.matches("(?i)" + byePattern)) {
-            return new ExitCommand();
-        } else if (input.matches("(?i)" + listPattern)) {
-            return new ListCommand();
-        } else if (input.matches("(?i)" + helpPattern)) {
-            return new HelpCommand();
-        } else {
-            Matcher matcher;
-
-            matcher = Pattern.compile(todoPattern).matcher(input);
-            if (matcher.matches()) {
-                String description = matcher.group(1);
-                return new TodoCommand(description);
+        for (String pattern : PATTERNS) {
+            Matcher matcher = Pattern.compile(pattern).matcher(input);
+            if (!matcher.matches()) {
+                continue;
             }
-
-            matcher = Pattern.compile(deadlinePattern).matcher(input);
-            if (matcher.matches()) {
-                String description = matcher.group(1);
-                LocalDate by;
-                try {
-                    by = LocalDate.parse(matcher.group(2));
-                } catch (DateTimeParseException e) {
-                    throw new DukeInvalidDateFormatException();
-                }
-                return new DeadlineCommand(description, by);
-            }
-
-            matcher = Pattern.compile(eventPattern).matcher(input);
-            if (matcher.matches()) {
-                String description = matcher.group(1);
-                LocalDate from;
-                LocalDate to;
-                try {
-                    from = LocalDate.parse(matcher.group(2));
-                    to = LocalDate.parse(matcher.group(3));
-                    if (to.isBefore(from)) {
-                        throw new DukeEndDateBeforeStartDateException();
-                    }
-                } catch (DateTimeParseException e) {
-                    throw new DukeInvalidDateFormatException();
-                }
-                return new EventCommand(description, from, to);
-            }
-
-            matcher = Pattern.compile(markPattern).matcher(input);
-            if (matcher.matches()) {
-                int index;
-                try {
-                    index = Integer.parseInt(matcher.group(1));
-                } catch (NumberFormatException e) {
-                    throw new DukeInvalidArgumentException();
-                }
-                return new MarkCommand(index);
-            }
-
-            matcher = Pattern.compile(unmarkPattern).matcher(input);
-            if (matcher.matches()) {
-                int index;
-                try {
-                    index = Integer.parseInt(matcher.group(1));
-                } catch (NumberFormatException e) {
-                    throw new DukeInvalidArgumentException();
-                }
-                return new UnmarkCommand(index);
-            }
-
-            matcher = Pattern.compile(deletePattern).matcher(input);
-            if (matcher.matches()) {
-                int index;
-                try {
-                    index = Integer.parseInt(matcher.group(1));
-                } catch (NumberFormatException e) {
-                    throw new DukeInvalidArgumentException();
-                }
-                return new DeleteCommand(index);
-            }
-
-            matcher = Pattern.compile(findPattern).matcher(input);
-            if (matcher.matches()) {
-                return new FindCommand(matcher.group(1));
+            if (pattern.equals(BYE_PATTERN)) {
+                return new ExitCommand();
+            } else if (pattern.equals(LIST_PATTERN)) {
+                return new ListCommand();
+            } else if (pattern.equals(HELP_PATTERN)) {
+                return new HelpCommand();
+            } else if (pattern.equals(TODO_PATTERN)) {
+                return parseTodoCommand(matcher);
+            } else if (pattern.equals(DEADLINE_PATTERN)) {
+                return parseDeadlineCommand(matcher);
+            } else if (pattern.equals(EVENT_PATTERN)) {
+                return parseEventCommand(matcher);
+            } else if (pattern.equals(MARK_PATTERN)) {
+                return parseMarkCommand(matcher);
+            } else if (pattern.equals(UNMARK_PATTERN)) {
+                return parseUnmarkCommand(matcher);
+            } else if (pattern.equals(DELETE_PATTERN)) {
+                return parseDeleteCommand(matcher);
+            } else if (pattern.equals(FIND_PATTERN)) {
+                return parseFindCommand(matcher);
             }
         }
+
         throw new DukeInvalidArgumentException();
     }
+
 }
