@@ -12,7 +12,7 @@ public abstract class Task implements Serializable {
     private boolean taskStatus;
 
     /**Instantiates an instance of a task.
-     * @param taskname takes in the name of the task.*/
+     * @param taskName takes in the name of the task.*/
     public Task(String taskName) {
         this.taskName = taskName;
         this.taskStatus = false;
