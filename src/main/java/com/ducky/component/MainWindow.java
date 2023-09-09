@@ -26,7 +26,7 @@ public class MainWindow extends AnchorPane {
     private Ducky ducky;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Duke.png"));
+    private Image duckyImage = new Image(this.getClass().getResourceAsStream("/images/Ducky.png"));
 
     @FXML
     public void initialize() {
@@ -47,7 +47,7 @@ public class MainWindow extends AnchorPane {
         String response = ducky.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDuckyDialog(response, dukeImage)
+                DialogBox.getDuckyDialog(response, duckyImage)
         );
         userInput.clear();
     }
