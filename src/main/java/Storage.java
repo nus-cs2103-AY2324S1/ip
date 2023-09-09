@@ -2,7 +2,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Storage {
@@ -34,9 +37,12 @@ public class Storage {
         if (taskType.equals("T")) {
             return new ToDo(description, isComplete);
         } else if (taskType.equals("D")) {
-            return new Deadline(description, isComplete, input.split(" \\| ")[3]);
+            LocalDate d = LocalDate.parse(input.split(" \\| ")[3], DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH));
+            return new Deadline(description, isComplete, d);
         } else {
-            return new Event(description, isComplete, input.split(" \\| ")[3], input.split(" \\| ")[4]);
+            LocalDate start = LocalDate.parse(input.split(" \\| ")[3], DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH));
+            LocalDate end = LocalDate.parse(input.split(" \\| ")[4], DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH));
+            return new Event(description, isComplete, start, end);
         }
     }
 
