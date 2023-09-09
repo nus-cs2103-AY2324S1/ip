@@ -2,7 +2,9 @@ package duke.ui;
 
 import duke.Duke;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -15,6 +17,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 public class MainWindow extends AnchorPane {
+    @FXML
+    private AnchorPane anchorPane;
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -31,6 +35,13 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        anchorPane.widthProperty().addListener((observable, oldValue, newValue) -> {
+//            ObservableList<Node> allChildren = dialogContainer.getChildren();
+//            for (Node child : allChildren) {
+//                child.
+//            }
+            dialogContainer.setPrefWidth(newValue.doubleValue() - 12);
+        });
     }
 
     public void setDuke(Duke d) {
