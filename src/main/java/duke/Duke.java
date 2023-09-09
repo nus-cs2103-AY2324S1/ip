@@ -36,7 +36,12 @@ public class Duke {
         return parser.readInput(input);
     }
 
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    /**
+     * Helper function to execute the {@code TASK} command.
+     *
+     * @param res     StringBuilder to be returned in {@code executeCommand}.
+     * @param details Details of task.
+     */
     public void executeTask(StringBuilder res, String details) {
         if (tasks.checkDuplicates(details)) {
             res.append(ui.getDuplicateTasksMessage(details));
@@ -46,7 +51,12 @@ public class Duke {
         }
     }
 
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    /**
+     * Helper function to execute the {@code TODO} command.
+     *
+     * @param res     StringBuilder to be returned in {@code executeCommand}.
+     * @param details Details of TODO.
+     */
     public void executeTodo(StringBuilder res, String details) {
         if (tasks.checkDuplicates(details)) {
             res.append(ui.getDuplicateTasksMessage(details));
@@ -56,7 +66,12 @@ public class Duke {
         }
     }
 
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    /**
+     * Helper function to execute the {@code DEADLINE} command.
+     *
+     * @param res     StringBuilder to be returned in {@code executeCommand}.
+     * @param details Details of deadline.
+     */
     public void executeDeadline(StringBuilder res, String details, LocalDateTime dueDateTime) {
         if (tasks.checkDuplicates(details)) {
             res.append(ui.getDuplicateTasksMessage(details));
@@ -68,7 +83,12 @@ public class Duke {
         }
     }
 
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    /**
+     * Helper function to execute the {@code EVENT} command.
+     *
+     * @param res     StringBuilder to be returned in {@code executeCommand}.
+     * @param details Details of event.
+     */
     public void executeEvent(StringBuilder res, String details, LocalDateTime startDateTime,
                              LocalDateTime endDateTime) {
         if (tasks.checkDuplicates(details)) {
@@ -83,7 +103,11 @@ public class Duke {
         }
     }
 
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    /**
+     * Helper function to execute the {@code LIST} command.
+     *
+     * @param res StringBuilder to be returned in {@code executeCommand}.
+     */
     public void executeList(StringBuilder res) {
         int numOfTasks = tasks.getNumOfTasks();
         int numOfCompletedTasks = tasks.getNumOfCompletedTasks();
@@ -96,7 +120,12 @@ public class Duke {
         }
     }
 
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    /**
+     * Helper function to execute the {@code MARK} command.
+     *
+     * @param res        StringBuilder to be returned in {@code executeCommand}.
+     * @param taskNumber Index of task to be marked.
+     */
     public void executeMark(StringBuilder res, int taskNumber) {
         if (markAsComplete(taskNumber)) {
             res.append(ui.getMarkMessage(Parser.Command.MARK, taskNumber));
@@ -105,7 +134,12 @@ public class Duke {
         }
     }
 
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    /**
+     * Helper function to execute the {@code UNMARK} command.
+     *
+     * @param res        StringBuilder to be returned in {@code executeCommand}.
+     * @param taskNumber Index of task to be unmarked.
+     */
     public void executeUnmark(StringBuilder res, int taskNumber) {
         if (markAsIncomplete(taskNumber)) {
             res.append(ui.getMarkMessage(Parser.Command.UNMARK, taskNumber));
@@ -114,14 +148,24 @@ public class Duke {
         }
     }
 
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    /**
+     * Helper function to execute the {@code DELETE} command.
+     *
+     * @param res        StringBuilder to be returned in {@code executeCommand}.
+     * @param taskNumber Index of task to be deleted.
+     */
     public void executeDelete(StringBuilder res, int taskNumber) {
         Task task = tasks.get(taskNumber - 1);
         tasks.remove(task);
         res.append(ui.getTaskDeletedMessage(tasks, taskNumber));
     }
 
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    /**
+     * Helper function to execute the {@code SEARCH} command.
+     *
+     * @param res     StringBuilder to be returned in {@code executeCommand}.
+     * @param keyword Keyword to be searched.
+     */
     public void executeSearch(StringBuilder res, String keyword) {
         ArrayList<Task> matchingTasks = getMatchingTasks(keyword);
         if (matchingTasks.isEmpty()) {
@@ -198,7 +242,15 @@ public class Duke {
         return endTime.isAfter(startTime);
     }
 
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    /**
+     * Driver function to execute commands once all operations are complete.
+     *
+     * @param command        Command to be executed.
+     * @param message        Message that is passed from the {@code Parser}.
+     * @param localDateTimes Variable number of {@code LocalDateTime}s to account for the parameters
+     *                       of commands.
+     * @return Output of Duke as a String.
+     */
     public String executeCommand(Parser.Command command, String message,
                                  LocalDateTime... localDateTimes) {
         StringBuilder res = new StringBuilder();

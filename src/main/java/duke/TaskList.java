@@ -99,8 +99,7 @@ public class TaskList {
      * given details.
      *
      * @param details Details to be checked.
-     * @return {@code true} iff there exists a {@code Task} with the given details;
-     * false otherwise.
+     * @return {@code true} iff there exists a {@code Task} with the given details; false otherwise.
      */
     public boolean checkDuplicates(String details) {
         for (Task t : tasks) {

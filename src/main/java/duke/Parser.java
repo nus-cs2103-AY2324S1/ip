@@ -102,7 +102,11 @@ public class Parser {
         }
     }
 
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    /**
+     * Enqueues the necessary operations of the command into the LinkedList.
+     *
+     * @param command Command to be initialised.
+     */
     public void initialiseCommand(Command command) {
         switch (command) {
         case TASK, TODO -> operations.add(DETAILS);
@@ -125,7 +129,13 @@ public class Parser {
         }
     }
 
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    /**
+     * Executes the necessary operation.
+     *
+     * @param command   Current command in execution.
+     * @param operation Current operation in execution.
+     * @return Output of Duke as a String.
+     */
     public String executeOperation(Command command, Operation operation) {
         switch (operation) {
         case DETAILS -> {
@@ -159,7 +169,15 @@ public class Parser {
         }
     }
 
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+
+    /**
+     * Checks and handles invalid user inputs.
+     *
+     * @param command   Current command in execution.
+     * @param operation Current operation in execution.
+     * @param input     The user input.
+     * @return Error message as a String, to be output by Duke; {@code null} if no errors are detected.
+     */
     public String checkOperation(Command command, Operation operation, String input) {
         if (input.isBlank()) {
             return ui.getEmptyInputMessage(command);
@@ -196,6 +214,12 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Helper function to execute {@code Command}s which are subclasses of {@code Task}.
+     *
+     * @param command {@code Command} corresponding to a subclass of {@code Task}.
+     * @return The appropriate {@code executeCommand} function.
+     */
     public String taskExecutionHelper(Command command) {
         if (localDates.isEmpty() || localTimes.isEmpty()) {
             return duke.executeCommand(command, storedDetails);
@@ -226,7 +250,10 @@ public class Parser {
         return null;
     }
 
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+
+    /**
+     * Resets all pointers, local parameters and arrays upon completion of a command.
+     */
     public void resetCommandInExecution() {
         this.commandInExecution = Command.NONE;
         this.operationInExecution = Operation.NONE;
