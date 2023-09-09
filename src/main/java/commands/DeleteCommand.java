@@ -34,10 +34,10 @@ public class DeleteCommand extends Command {
      * @param storage  The storage component for reading or writing data.
      */
     @Override
-    public void runCommand(TaskList taskList, Ui ui, Storage storage) {
+    public String runCommand(TaskList taskList, Ui ui, Storage storage) {
         Task task = taskList.get(taskNumber - 1);
         taskList.delete(taskNumber - 1);
         int len = taskList.len();
-        ui.showDeleteMessage(task, len);
+        return ui.showDeleteMessage(task, len);
     }
 }

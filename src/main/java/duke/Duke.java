@@ -2,14 +2,6 @@ package duke;
 
 import commands.Command;
 import exceptions.JamesBondException;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import parser.Parser;
 import storage.Storage;
 import tasks.TaskList;
@@ -20,17 +12,11 @@ import ui.Ui;
  * The `Duke` class is the main class for the Duke task management application.
  * It handles the initialization of various components and the execution of the application.
  */
-public class Duke extends Application {
+public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-
     /**
      * Constructs a `Duke` object with the specified file path for data storage.
      *
@@ -49,25 +35,6 @@ public class Duke extends Application {
         }
     }
 
-    @Override
-    public void start(Stage stage) {
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
-        userInput = new TextField();
-        sendButton = new Button("Send");
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        scene = new Scene(mainLayout);
-
-        stage.setScene(scene);
-        stage.show();
-    }
-
-
     /**
      * Runs the Duke application.
      * It displays a welcome message and continuously reads user input, parsing and executing commands
@@ -83,12 +50,13 @@ public class Duke extends Application {
     }
 
     /**
-     * The main method to start the Duke application.
-     * It creates an instance of `Duke` and runs the application.
-     *
-     * @param args Command-line arguments (not used in this application).
+     * * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    public static void main(String[] args) {
-        new Duke("/Users/jamesbond/ip/data/jamesbond.txt").run();
+    String getResponse(String input) {
+        Command c = Parser.parseCommand(input);
+        return c.runCommand(tasks, ui, storage);
     }
+
+
 }

@@ -59,10 +59,12 @@ public class Ui {
      *
      * @param tasks The task list to be displayed.
      */
-    public void listout(TaskList tasks) {
+    public String listout(TaskList tasks) {
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < tasks.len(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i).toString());
+            stringBuilder.append((i + 1) + "." + tasks.get(i).toString() + "\n");
         }
+        return stringBuilder.toString();
     }
 
     /**
@@ -88,8 +90,8 @@ public class Ui {
      *
      * @param error The error message to be displayed.
      */
-    public void showErrorMessage(String error) {
-        out.println(error);
+    public String showErrorMessage(String error) {
+        return error;
     }
 
     /**
@@ -98,10 +100,10 @@ public class Ui {
      * @param tasks   The task list to be saved.
      * @param storage The storage object for saving tasks to a file.
      */
-    public void exit(TaskList tasks, Storage storage) {
-        out.println("Bye. Till the next time.");
+    public String exit(TaskList tasks, Storage storage) {
         storage.saveTasksToFile(tasks);
         System.exit(0);
+        return "Bye. Till the next time.";
     }
 
     /**
@@ -110,8 +112,8 @@ public class Ui {
      * @param task   The task that was removed.
      * @param remain The remaining number of tasks.
      */
-    public void showDeleteMessage(Task task, int remain) {
-        out.println("REMOVED FOR YOU:)\n" + task.toString() + "\n Now you have:" + remain + " tasks left.");
+    public String showDeleteMessage(Task task, int remain) {
+        return "REMOVED FOR YOU:)\n" + task.toString() + "\n Now you have:" + remain + " tasks left.";
     }
 
     /**
@@ -119,8 +121,8 @@ public class Ui {
      *
      * @param task The task that was marked as done.
      */
-    public void markMessage(Task task) {
-        out.println("you're done. DONEEE");
+    public String markMessage(Task task) {
+        return ("you're done. DONEEE");
     }
 
     /**
@@ -128,8 +130,8 @@ public class Ui {
      *
      * @param task The task that was marked as undone.
      */
-    public void unmarkMessage(Task task) {
-        out.println("Done. Stop being lazy.\n" + task.toString());
+    public String unmarkMessage(Task task) {
+        return "Done. Stop being lazy.\n" + task.toString();
     }
 
     /**
@@ -137,8 +139,8 @@ public class Ui {
      *
      * @param task The event task that was added.
      */
-    public void eventMessage(Task task) {
-        out.println("ADDED event FOR YOU!!!!\n" + task.toString());
+    public String eventMessage(Task task) {
+        return "ADDED event FOR YOU!!!!\n" + task.toString();
     }
 
     /**
@@ -146,8 +148,8 @@ public class Ui {
      *
      * @param task The deadline task that was added.
      */
-    public void deadlineMessage(Task task) {
-        out.println("ADDED deadline FOR YOU!!!!\n" + task.toString());
+    public String deadlineMessage(Task task) {
+        return ("ADDED deadline FOR YOU!!!!\n" + task.toString());
     }
 
     /**
@@ -155,9 +157,8 @@ public class Ui {
      *
      * @param tasks The tasks to search from.
      */
-    public void showSearchResults(TaskList tasks) {
-        out.println("HERE ARE YOUR MATCHES:");
-        listout(tasks);
+    public String showSearchResults(TaskList tasks) {
+        return "HERE ARE YOUR MATCHES:" + listout(tasks);
     }
 
     /**
@@ -165,7 +166,7 @@ public class Ui {
      *
      * @param task The todo task that was added.
      */
-    public void todoMessage(Task task) {
-        out.println("ADDED todo FOR YOU!!!!\n" + task.toString());
+    public String todoMessage(Task task) {
+        return ("ADDED todo FOR YOU!!!!\n" + task.toString());
     }
 }

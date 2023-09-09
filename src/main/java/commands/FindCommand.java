@@ -37,7 +37,7 @@ public class FindCommand extends Command {
      * @param storage  The Storage used to potentially store the search results.
      */
     @Override
-    public void runCommand(TaskList taskList, Ui ui, Storage storage) {
+    public String runCommand(TaskList taskList, Ui ui, Storage storage) {
         // Create a new TaskList to store search results
         TaskList results = new TaskList();
 
@@ -47,9 +47,8 @@ public class FindCommand extends Command {
                 results.add(task);
             }
         }
-
         // Display the search results using the provided Ui
-        ui.showSearchResults(results);
+        return ui.showSearchResults(results);
     }
 }
 

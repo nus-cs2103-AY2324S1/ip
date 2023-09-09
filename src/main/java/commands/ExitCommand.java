@@ -15,7 +15,7 @@ public class ExitCommand extends Command {
      * @param storage  The storage component (not used in this command).
      */
     @Override
-    public void runCommand(TaskList taskList, Ui ui, Storage storage) {
-        ui.exit(taskList, storage);
+    public String runCommand(TaskList taskList, Ui ui, Storage storage) {
+        return ui.exit(taskList, storage);
     }
 }

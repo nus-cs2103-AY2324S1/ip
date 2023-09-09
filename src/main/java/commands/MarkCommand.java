@@ -31,9 +31,9 @@ public class MarkCommand extends Command {
      * @param storage The storage component (not used in this command).
      */
     @Override
-    public void runCommand(TaskList tasks, Ui ui, Storage storage) {
+    public String runCommand(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.get(taskNumber - 1);
         task.markAsDone();
-        ui.markMessage(task);
+        return ui.markMessage(task);
     }
 }

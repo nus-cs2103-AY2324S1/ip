@@ -17,8 +17,8 @@ public class ListoutCommand extends Command {
      * @param storage The storage component (not used in this command).
      */
     @Override
-    public void runCommand(TaskList tasks, Ui ui, Storage storage) {
-        ui.listout(tasks);
+    public String runCommand(TaskList tasks, Ui ui, Storage storage) {
+        return ui.listout(tasks);
     }
 }
 

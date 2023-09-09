@@ -28,8 +28,8 @@ public class IncorrectCommand extends Command {
      * @param storage  The storage component (not used in this command).
      */
     @Override
-    public void runCommand(TaskList taskList, Ui ui, Storage storage) {
-        ui.showErrorMessage(this.messageToUser);
+    public String runCommand(TaskList taskList, Ui ui, Storage storage) {
+        return ui.showErrorMessage(this.messageToUser);
     }
 }
 

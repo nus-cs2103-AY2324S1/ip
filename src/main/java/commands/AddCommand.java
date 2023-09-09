@@ -67,26 +67,23 @@ public class AddCommand extends Command {
      * @param storage The storage for saving task data.
      */
     @Override
-    public void runCommand(TaskList tasks, Ui ui, Storage storage) {
+    public String runCommand(TaskList tasks, Ui ui, Storage storage) {
         Task task = null;
         switch (this.type) {
         case "todo":
             task = new ToDo(this.description);
             tasks.add(task);
-            ui.todoMessage(task);
-            break;
+            return ui.todoMessage(task);
         case "deadline":
             task = new Deadline(this.description, this.to);
             tasks.add(task);
-            ui.deadlineMessage(task);
-            break;
+            return ui.deadlineMessage(task);
         case "event":
             task = new Event(this.description, this.from, this.to);
             tasks.add(task);
-            ui.eventMessage(task);
-            break;
+            return ui.eventMessage(task);
         default:
-            ui.showErrorMessage("idk what u saying.");
+            return ui.showErrorMessage("idk what u saying.");
         }
     }
 }
