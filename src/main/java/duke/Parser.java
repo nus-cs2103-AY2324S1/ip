@@ -26,6 +26,7 @@ public class Parser {
      * @throws DateTimeParseException To be handled in parseUserInput().
      */
     public static LocalDateTime parseDate(String dateString) throws DateTimeParseException {
+        assert dateString != null : "String to be parsed into date cannot be null";
         return LocalDateTime.parse(dateString, DATE_FORMAT);
     }
 
@@ -36,6 +37,7 @@ public class Parser {
      * @return String in the DATE_FORMAT form.
      */
     public static String formatDate(LocalDateTime dateTime) {
+        assert dateTime != null : "LocalDateTime object to be formatted cannot be null";
         return dateTime.format(DATE_FORMAT);
     }
 

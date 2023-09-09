@@ -17,6 +17,8 @@ public class Ui {
     public static void taskOutput(Task task, Action action, int size) {
         String taskMessage = "I've %s the following task as requested:\n       %s\n"
                 + "There are currently %d tasks in your list.";
+        assert task != null : "Task cannot be an empty object";
+        assert size >= 0 : "Task list must have at least 0 tasks";
         if (action == Action.ADD) {
             Ui.setOutMessage(String.format(taskMessage, "added", task.toString(), size));
         } else if (action == Action.REMOVE) {
