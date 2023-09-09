@@ -10,8 +10,8 @@ import duke.task.Task;
  * @author Donovan Chan Jia Jun
  */
 public class Ui {
-    private final String chatbotName = "notDuke";
-    private final String intro = "Hello! I'm " + this.chatbotName + "\n"
+    private final String CHATBOTNAME = "notDuke";
+    private final String intro = "Hello! I'm " + this.CHATBOTNAME + "\n"
             + "What can I do for you?";
     private final String EXITMESSAGE = "Bye. Hope to see you again soon!";
 
@@ -118,7 +118,7 @@ public class Ui {
         int size = arrList.size();
         String msg = "";
         if (size > 0) {
-            msg += "Here are the amtching tasks in your list:\n";
+            msg += "Here are the matching tasks in your list:\n";
             for (int i = 1; i <= size; i++) {
                 msg += String.format("%d.%s\n", i, arrList.get(i - 1).toString());
             }

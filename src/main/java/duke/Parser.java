@@ -98,6 +98,9 @@ public class Parser {
      * @param storage Storage that can be written to or read from
      */
     public static String parse(String input, Ui ui, TaskList taskList, Storage storage) {
+        assert taskList != null : "Should not parse without a taskList!";
+        assert storage != null : "Should not parse without a storage!";
+        assert ui != null : "Should not parse without a ui!";
         // Splits the input based on whitespaces.
         String command = input.split("\\s+")[0];
         String message = "";
@@ -139,7 +142,7 @@ public class Parser {
             }
         }
         storage.updateTasks(taskList);
+        assert message.equals("") : "Message returned should never be nothing!";
         return message;
     }
-
 }

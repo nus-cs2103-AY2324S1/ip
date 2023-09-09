@@ -63,7 +63,7 @@ public class Storage {
         ArrayList<Task> arrList = new ArrayList<>();
         while (storageScanner.hasNext()) {
             String item = storageScanner.nextLine();
-            if (item != "") {
+            if (!item.equals("")) {
                 // process the item
                 // T|1|read book
                 String[] itemParts = item.split("\\|");
@@ -89,6 +89,7 @@ public class Storage {
             }
         }
         storageScanner.close();
+        assert arrList != null : "Array list read from storage can be empty but NOT NULL!";
         return arrList;
     }
 
