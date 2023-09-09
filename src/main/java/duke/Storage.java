@@ -8,13 +8,36 @@ import java.io.IOException;
 public class Storage {
     private String filePath;
 
+<<<<<<< HEAD
     public Storage (String filePath) {
+=======
+    /**
+     * Constructs a Storage object.
+     *
+     * @param filePath  The file path where the task data will be saved.
+     */
+    public Storage(String filePath) {
+>>>>>>> branch-A-JavaDoc
         this.filePath = filePath;
     }
+
+    /**
+     * Enum representing the task types.
+     */
     public enum TaskType {
         TODO, DEADLINE, EVENT
     }
+<<<<<<< HEAD
     public void saveTasks (TaskList tasks) {
+=======
+
+    /**
+     * Saves the tasks from the TaskList to the file path.
+     *
+     * @param tasks  The taskList containing tasks to be saved.
+     */
+    public void saveTasks(TaskList tasks) {
+>>>>>>> branch-A-JavaDoc
         File file = new File(filePath);
         file.getParentFile().mkdirs();
 

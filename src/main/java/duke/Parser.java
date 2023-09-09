@@ -1,7 +1,17 @@
 package duke;
 
 public class Parser {
+<<<<<<< HEAD
     public static Task parse (String userCommand) {
+=======
+    /**
+     * Parses a user command and creates a task object.
+     *
+     * @param userCommand  The user command.
+     * @return  A Task object.
+     */
+    public static Task parse(String userCommand) {
+>>>>>>> branch-A-JavaDoc
         String[] commandParts = userCommand.split(" ", 2);
         String taskType = commandParts[0].toLowerCase();
 

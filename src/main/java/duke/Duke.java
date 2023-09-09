@@ -253,7 +253,16 @@ public class Duke {
     private static Ui ui = new Ui();
     private static Storage storage = new Storage("./docs/duke.txt");
 
+<<<<<<< HEAD
     public static void main (String[] args) {
+=======
+    /**
+     * The main entry point of the Duke program.
+     *
+     * @param args  Command-line arguments (not used).
+     */
+    public static void main(String[] args) {
+>>>>>>> branch-A-JavaDoc
         ui.showWelcome();
 
         try {
