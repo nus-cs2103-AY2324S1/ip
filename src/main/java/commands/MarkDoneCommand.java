@@ -1,4 +1,8 @@
-package fishron;
+package commands;
+
+import storage.Storage;
+import tasks.TaskList;
+import ui.Ui;
 
 /**
  * Represents a command to mark a task as done.
@@ -22,10 +26,11 @@ public class MarkDoneCommand extends Command {
      * @param taskList The list of tasks.
      * @param ui       The user interface to display messages.
      * @param storage  The storage to save the task list.
+     * @return A message indicating the task was successfully marked.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.markAsDone(taskNum);
-        ui.showDoneTask(taskList.getTask(taskNum));
+        return ui.showDoneTask(taskList.getTask(taskNum));
     }
 }

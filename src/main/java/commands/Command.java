@@ -1,4 +1,8 @@
-package fishron;
+package commands;
+
+import storage.Storage;
+import tasks.TaskList;
+import ui.Ui;
 
 /**
  * Represents a command that can be executed.
@@ -26,9 +30,7 @@ public abstract class Command {
      * @param ui       The user interface to interact with the user.
      * @param storage  The storage to read from or write to.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage)  {
-        // This method is overridden by concrete command classes.
-    }
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage);
 
     /**
      * Checks if this command is an exit command.

@@ -1,4 +1,8 @@
-package fishron;
+package commands;
+
+import storage.Storage;
+import tasks.TaskList;
+import ui.Ui;
 
 /**
  * Represents a command to unmark a task as done in the task list.
@@ -23,10 +27,11 @@ public class UnmarkCommand extends Command {
      * @param taskList The list of tasks.
      * @param ui       The user interface to display messages.
      * @param storage  The storage to save the task list.
+     * @return A message indicating the task was successfully unmarked.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.markAsUndone(taskNum);
-        ui.showUnmarkTask(taskList.getTask(taskNum));
+        return ui.showUnmarkTask(taskList.getTask(taskNum));
     }
 }

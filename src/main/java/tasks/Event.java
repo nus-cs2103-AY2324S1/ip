@@ -1,8 +1,11 @@
-package fishron;
+package tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import exceptions.FishronException;
+
 
 /**
  * Represents an event task.
@@ -36,8 +39,9 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + super.toFileString() + " | " + from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")) + " | " +
-                to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+        return "E | " + super.toFileString() + " | " + from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"))
+                + " | "
+                + to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
     }
 
     /**
@@ -47,7 +51,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma")) + " to: " +
-                to.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma")) + ")";
+        return "[E]" + super.toString()
+                + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma")) + " to: "
+                + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma")) + ")";
     }
 }

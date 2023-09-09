@@ -1,4 +1,19 @@
-package fishron;
+package parser;
+
+import commands.AddCommand;
+import commands.Command;
+import commands.DeleteCommand;
+import commands.ExitCommand;
+import commands.FindCommand;
+import commands.ListCommand;
+import commands.MarkDoneCommand;
+import commands.UnmarkCommand;
+import commands.UnsureCommand;
+import exceptions.FishronException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.TaskList;
+import tasks.ToDo;
 
 /**
  * The Parser class is responsible for parsing user input and converting it into executable commands.
@@ -30,15 +45,18 @@ public class Parser {
             return new FindCommand(keyword);
 
         } else if (input.toLowerCase().startsWith("mark")) {
-            int taskIndex = Integer.parseInt(input.split(" ")[1]);
+            String[] parts = input.split("mark");
+            int taskIndex = Integer.parseInt(parts[1].trim());
             return new MarkDoneCommand(taskIndex);
 
         } else if (input.toLowerCase().startsWith("unmark")) {
-            int taskIndex = Integer.parseInt(input.split(" ")[1]);
+            String[] parts = input.split("unmark");
+            int taskIndex = Integer.parseInt(parts[1].trim());
             return new UnmarkCommand(taskIndex);
 
         } else if (input.toLowerCase().startsWith("delete")) {
-            int taskIndex = Integer.parseInt(input.split(" ")[1]);
+            String[] parts = input.split("delete");
+            int taskIndex = Integer.parseInt(parts[1].trim());
             return new DeleteCommand(taskIndex);
 
         } else if (input.toLowerCase().startsWith("todo")) {
@@ -54,10 +72,9 @@ public class Parser {
             return new AddCommand(parseEvent(parts[0].split("event")[1].trim(), parts[1].trim(), parts[2].trim()));
 
         } else {
-            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            return new UnsureCommand();
         }
 
-        return new ListCommand();
     }
 
     /**
@@ -86,9 +103,32 @@ public class Parser {
             throw new FishronException("☹ OOPS!!! Please provide a task to be unmarked.");
         }
 
-        if (command.toLowerCase().startsWith("mark") || command.toLowerCase().startsWith("unmark") ||
-        command.toLowerCase().startsWith("delete")) {
-            String taskIndexPart = command.split(" ")[1].trim();
+        if (command.toLowerCase().startsWith("mark")) {
+            String taskIndexPart = command.split("mark")[1].trim();
+            try {
+                Integer.parseInt(taskIndexPart);
+            } catch (NumberFormatException e) {
+                throw new FishronException("☹ OOPS!!! Please provide a valid task index.");
+            }
+            if (Integer.parseInt(taskIndexPart) < 1 || Integer.parseInt(taskIndexPart) > taskList.getSize()) {
+                throw new FishronException("☹ OOPS!!! Please provide a valid task index.");
+            }
+        }
+
+        if (command.toLowerCase().startsWith("unmark")) {
+            String taskIndexPart = command.split("unmark")[1].trim();
+            try {
+                Integer.parseInt(taskIndexPart);
+            } catch (NumberFormatException e) {
+                throw new FishronException("☹ OOPS!!! Please provide a valid task index.");
+            }
+            if (Integer.parseInt(taskIndexPart) < 1 || Integer.parseInt(taskIndexPart) > taskList.getSize()) {
+                throw new FishronException("☹ OOPS!!! Please provide a valid task index.");
+            }
+        }
+
+        if (command.toLowerCase().startsWith("delete")) {
+            String taskIndexPart = command.split("delete")[1].trim();
             try {
                 Integer.parseInt(taskIndexPart);
             } catch (NumberFormatException e) {
@@ -116,8 +156,8 @@ public class Parser {
             }
         }
 
-        if (command.toLowerCase().startsWith("deadline") &&
-                (command.split("/by").length != 2 || command.split("/by")[1].trim().isEmpty())) {
+        if (command.toLowerCase().startsWith("deadline")
+                && (command.split("/by").length != 2 || command.split("/by")[1].trim().isEmpty())) {
             throw new FishronException("☹ OOPS!!! Please provide a valid deadline format.");
         }
 
@@ -134,9 +174,9 @@ public class Parser {
             }
         }
 
-        if (command.toLowerCase().startsWith("event") &&
-                (command.split("/from|/to").length != 3 || command.split("/from|/to")[1].trim().isEmpty() ||
-                        command.split("/from|/to")[2].trim().isEmpty())) {
+        if (command.toLowerCase().startsWith("event")
+                && (command.split("/from|/to").length != 3 || command.split("/from|/to")[1].trim().isEmpty()
+                        || command.split("/from|/to")[2].trim().isEmpty())) {
 
             throw new FishronException("☹ OOPS!!! Please provide a valid event format.");
         }

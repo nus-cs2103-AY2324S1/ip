@@ -1,4 +1,4 @@
-package fishron;
+package tasks;
 
 import java.util.ArrayList;
 
@@ -40,7 +40,7 @@ public class TaskList {
      * @param index The index of the task to be deleted.
      */
     public void deleteTask(int index) {
-        this.taskList.remove(index);
+        this.taskList.remove(index - 1);
     }
 
     /**

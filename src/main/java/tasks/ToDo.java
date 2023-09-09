@@ -1,4 +1,4 @@
-package fishron;
+package tasks;
 
 /**
  * Represents a ToDo task.
