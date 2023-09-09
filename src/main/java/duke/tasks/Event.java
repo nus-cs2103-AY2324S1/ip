@@ -10,6 +10,14 @@ import duke.exceptions.DukeIllegalArgumentException;
  */
 public class Event extends Task {
 
+    // Error messages
+    private static final String ERROR_MESSAGE_INVALID_DATE_FORMAT =
+            "The start and end date/time of an Event task must follow the format yyyy-MM-dd HH:mm.";
+
+    // Template Strings
+    private static final String EVENT_DISPLAY_TEMPLATE = "[E]%s (from: %s to: %s)";
+    private static final String EVENT_EXPORT_TEMPLATE = "EVENT || %s || %s || %s || %s";
+
     // The start and end date/time of the Event task, stored as LocalDateTime Objects.
     protected final LocalDateTime start;
     protected final LocalDateTime end;
@@ -28,8 +36,7 @@ public class Event extends Task {
             this.start = LocalDateTime.parse(start, parseFormatter);
             this.end = LocalDateTime.parse(end, parseFormatter);
         } catch (DateTimeParseException e) {
-            throw new DukeIllegalArgumentException(
-                    "The start and end date/time of an Event task must follow the format yyyy-MM-dd HH:mm.");
+            throw new DukeIllegalArgumentException(ERROR_MESSAGE_INVALID_DATE_FORMAT);
         }
     }
 
@@ -40,8 +47,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(),
-                this.start.format(printFormatter), this.end.format(printFormatter));
+        return String.format(EVENT_DISPLAY_TEMPLATE,
+                super.toString(), this.start.format(printFormatter), this.end.format(printFormatter));
     }
 
     /**
@@ -51,7 +58,7 @@ public class Event extends Task {
      */
     @Override
     public String export() {
-        return String.format("EVENT || %s || %s || %s || %s", super.export(), "",
-                this.start.format(parseFormatter), this.end.format(parseFormatter));
+        return String.format(EVENT_EXPORT_TEMPLATE,
+                super.export(), "", this.start.format(parseFormatter), this.end.format(parseFormatter));
     }
 }
