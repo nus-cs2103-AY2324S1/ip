@@ -1,6 +1,9 @@
 package duke.ui;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import duke.exception.DukeException;
 import duke.task.Task;
@@ -149,19 +152,17 @@ public class Ui {
      * @return A list of tasks.
      */
     public String showListMessage(ArrayList<Task> taskList) {
-        ArrayList<String> msg = new ArrayList<>();
-        int num = 1;
-        for (Task task : taskList) {
-            msg.add(num + ": " + task);
-            num++;
-        }
-        if (taskList.size() == 0) {
+        List<String> msg = IntStream.range(0, taskList.size())
+                .mapToObj(i -> (i + 1) + ": " + taskList.get(i).toString())
+                .collect(Collectors.toList());
+
+        if (taskList.isEmpty()) {
             msg.add("You have no task currently.");
         }
-        return showToUser(
-                msg.toArray(new String[0])
-        );
+
+        return showToUser(msg.toArray(new String[0]));
     }
+
 
     /**
      * Displays an error message to the user.
@@ -182,15 +183,14 @@ public class Ui {
      * @return A list of filtered tasks.
      */
     public String showFilteredTasks(ArrayList<Task> filteredTasks) {
-        ArrayList<String> msg = new ArrayList<>();
-        int num = 1;
-        for (Task task : filteredTasks) {
-            msg.add(num + ": " + task);
-            num++;
-        }
-        if (filteredTasks.size() == 0) {
+        List<String> msg = IntStream.range(0, filteredTasks.size())
+                .mapToObj(i -> (i + 1) + ": " + filteredTasks.get(i).toString())
+                .collect(Collectors.toList());
+
+        if (msg.isEmpty()) {
             msg.add("You have no matching task.");
         }
+
         return showToUser(
                 msg.toArray(new String[0])
         );

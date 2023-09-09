@@ -2,6 +2,7 @@ package duke.task;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import duke.exception.DukeNoTaskFoundException;
 
@@ -125,14 +126,11 @@ public class TaskList {
      * @return An ArrayList of tasks that match the search criteria.
      */
     public ArrayList<Task> find(String target) {
-        ArrayList<Task> filteredTask = new ArrayList<>();
-        for (Task task : this.taskList) {
-            if (task.getDescription().contains(target)) {
-                filteredTask.add(task);
-            }
-        }
-        return filteredTask;
+        return this.taskList.stream()
+                .filter(task -> task.getDescription().contains(target))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
+
 
     /**
      * Retrieves the number of tasks in the task list.
@@ -149,10 +147,8 @@ public class TaskList {
      * @return An ArrayList of strings representing the tasks in the task list.
      */
     public ArrayList<String> stringify() {
-        ArrayList<String> stringList = new ArrayList<>();
-        for (Task task : this.taskList) {
-            stringList.add(task.toString());
-        }
-        return stringList;
+        return this.taskList.stream()
+                .map(Task::toString)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }
