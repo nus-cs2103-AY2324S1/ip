@@ -26,9 +26,15 @@ public class AddCommand extends Command {
 
     @Override
     public String execute(Tasks tasks, Ui ui, Storage storage, boolean isRestoring) {
+        // Check for duplicated task
+        for (Task task: tasks.getAll()) {
+            if (task.equals(this.task)) {
+                return ui.showDuplicateTask();
+            }
+        }
+
         tasks.add(this.task);
         storage.save(tasks);
-
         String output = "";
         if (!isRestoring) {
             output += ui.showAddTask(this.task, tasks.size());

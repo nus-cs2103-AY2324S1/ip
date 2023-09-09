@@ -38,6 +38,13 @@ public class Ui {
     }
 
     /**
+     * Returns message after adding a duplicated task to Tasks.
+     */
+    public String showDuplicateTask() {
+        return "Oops you have already added this task. Cannot add the same task twice!\n";
+    }
+
+    /**
      * Returns message with no tasks.
      */
     public String showNoTasks() {
