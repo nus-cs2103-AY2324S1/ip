@@ -23,7 +23,33 @@ public class Ui {
     /**
      * Shows goodbye message.
      */
-    public static String showGoodbyeMessage() { return ("Bye!"); }
+    public static String showGoodbyeMessage() {
+        return ("Bye!");
+    }
+
+    /**
+     * Shows help message.
+     */
+    public static String showHelpMessage() {
+        String startingLine = "Hello, I'm iP, please use one of the following commands:";
+        String byeInfo = "bye: Prints a goodbye message.";
+        String helpInfo = "help: Prints the list of commands.";
+        String listInfo = "list: Prints the list of tasks you have.";
+        String deleteInfo = "delete <task_no>: Delete the task given by the task number.";
+        String markInfo = "mark <task_no>: Marks the task given by the task number as complete.";
+        String todoInfo = "todo <title>: Creates a todo task.";
+        String deadlineInfo = "deadline <title> /by <deadline>: Creates a deadline task with a optional deadline";
+        String eventInfo = "deadline <title> /from <time> /to <time>: "
+                + "Creates a event task with a optional from time and to time.";
+        String findInfo = "find <keyword>: Finds all tasks that match the keyword provided.";
+        String[] allInfo = {startingLine, byeInfo, helpInfo, listInfo, deleteInfo, markInfo,
+                            todoInfo, deadlineInfo, eventInfo, findInfo};
+        StringBuilder response = new StringBuilder();
+        for (String infoLine : allInfo) {
+            response.append(infoLine).append("\n");
+        }
+        return response.toString();
+    }
 
     /**
      * Shows a list of tasks.

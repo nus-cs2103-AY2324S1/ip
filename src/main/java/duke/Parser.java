@@ -22,6 +22,8 @@ public class Parser {
     public static String parseCommandType(String response) throws DukeException {
         if (Objects.equals(response, "bye")) {
             return "bye";
+        } else if (Objects.equals(response, "help")) {
+            return "help";
         } else if (Objects.equals(response, "list")) {
             return "list";
         } else if (response.startsWith("delete")) {

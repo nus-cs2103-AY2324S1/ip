@@ -34,6 +34,9 @@ public class Duke {
             case "bye" -> {
                 return Ui.showGoodbyeMessage();
             }
+            case "help" -> {
+                return Ui.showHelpMessage();
+            }
             case "list" -> {
                 return Ui.listTasks(tasks.getTasks());
             }
