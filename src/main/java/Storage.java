@@ -51,7 +51,7 @@ public class Storage {
                 String taskDescription = parts[2];
 
                 // Check if the task is already in Duke.allTasks
-                if (!isTaskInAllTasks(taskType, taskDescription)) { //rewrite method in TaskList class
+                if (!TaskList.isTaskInAllTasks(taskType, taskDescription)) { //rewrite method in TaskList class
                     Task task;
 
                     if (taskType.equals("T")) {
