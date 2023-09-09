@@ -15,6 +15,11 @@ public class Main extends Application {
 
     private Duke duke = new Duke();
 
+    /**
+     * Starts the Duke GUI application by loading the main FXML layout and setting up the primary stage.
+     *
+     * @param stage The primary stage for this application.
+     */
     @Override
     public void start(Stage stage) {
         try {

@@ -16,6 +16,8 @@ public class Parser {
      * @param list Contains the list of tasks.
      * @param storage Saves tasks into file and load tasks from the file.
      * @param ui Displays messages to interact with user.
+     * @return A string containing the response to the command.
+     * @throws DukeException If there is an error in parsing the command.
      */
     public static String parse(String command, TaskList list, Storage storage, Ui ui) throws DukeException {
         if (command.equalsIgnoreCase("bye")) {
@@ -31,7 +33,6 @@ public class Parser {
                     Task removedTask = list.delete(number);
                     storage.save(list);
 
-                    // print
                     return ui.removeTask(list, removedTask);
                 } else {
                     throw new DukeException("OOPS!!! The task you entered is not in the list");
@@ -39,18 +40,16 @@ public class Parser {
             } else {
                 throw new DukeException("OOPS!!! Please fill in the task I need to delete");
             }
-            // list tasks
+
         } else if (command.equalsIgnoreCase("list")) {
             return ui.printList(list);
 
-            // find task
         } else if (command.toLowerCase().startsWith("find")) {
             String keyword = command.substring(5).trim();
             ArrayList<Task> matchingTasks = list.find(keyword);
 
             return ui.printMatchingTasks(matchingTasks);
 
-            // mark task as done
         } else if (command.toLowerCase().startsWith("mark")) {
             String[] sub = command.split(" ");
 
@@ -61,7 +60,6 @@ public class Parser {
                     list.getTask(number).markAsDone();
                     storage.save(list);
 
-                    // print
                     return ui.mark(list, number);
                 } else {
                     throw new DukeException("OOPS!!! The task you entered is not in the list");
@@ -70,7 +68,6 @@ public class Parser {
                 throw new DukeException("OOPS!!! Please fill in the task I need to mark");
             }
 
-            // unmark task
         } else if (command.toLowerCase().startsWith("unmark")) {
             String[] sub = command.split(" ");
 
@@ -81,7 +78,6 @@ public class Parser {
                     list.getTask(number).markAsNotDone();
                     storage.save(list);
 
-                    // print
                     return ui.unMark(list, number);
                 } else {
                     throw new DukeException("OOPS!!! The task you entered is not in the list");
@@ -90,7 +86,6 @@ public class Parser {
                 throw new DukeException("OOPS!!! Please fill in the task I need to unmark");
             }
 
-            // add todo
         } else if (command.toLowerCase().startsWith("todo")) {
             String todo = command.substring(4).trim();
             if (todo.isEmpty()) {
@@ -104,7 +99,6 @@ public class Parser {
                 return ui.addTodo(list, newTodo);
             }
 
-            // add deadline
         } else if (command.toLowerCase().startsWith("deadline")) {
             String deadline = command.substring(8).trim();
 
@@ -130,7 +124,6 @@ public class Parser {
                 }
             }
 
-            // add event
         } else if (command.toLowerCase().startsWith("event")) {
             String event = command.substring(5).trim();
 
@@ -155,7 +148,6 @@ public class Parser {
                         list.add(newEvent);
                         storage.save(list);
 
-                        // print
                         return ui.addEvent(list, newEvent);
                     } else {
                         throw new DukeException("OOPS!!! Please fill in the time the event ends");
