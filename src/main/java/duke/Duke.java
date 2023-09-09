@@ -36,23 +36,6 @@ public class Duke {
     }
 
     /**
-     * Run the Duke chatbot.
-     */
-    private void run() {
-        ui.printGreeting(this.name);
-        while (!ui.isExit()) {
-            ui.handleUserInput(this.tasks);
-        }
-    }
-
-    public static void main(String[] args) {
-
-        Duke chatBot = new Duke();
-        chatBot.run();
-        chatBot.exit();
-    }
-
-    /**
      * save the current TaskList to duke.txt file
      */
     private void exit() {
@@ -63,9 +46,6 @@ public class Duke {
         }
     }
 
-    public String getGreeting() {
-        return ui.printGreeting(name);
-    }
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
@@ -75,7 +55,7 @@ public class Duke {
             String result = Parser.replyUser(input, tasks, this.ui);
             storage.save(tasks.getTasks());
             return result;
-        } catch (DukeException e){
+        } catch (DukeException e) {
             return ui.showErrorMsg(e);
         }
     }
