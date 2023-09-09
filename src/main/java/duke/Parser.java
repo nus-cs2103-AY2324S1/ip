@@ -29,7 +29,7 @@ public class Parser {
      * @param command The user's input command.
      * @return True if the command was successfully parsed and executed, false otherwise.
      */
-    public boolean parseCommand(String command) {
+    public String parseCommand(String command) {
         Commands cmd = Commands.invalid;
         for (Commands c : Commands.values()) {
             if (command.startsWith(c.toString())) {
@@ -38,16 +38,16 @@ public class Parser {
         }
         if (cmd.equals(Commands.bye)) {
             ui.byeMessage();
-            return false;
+            return "Bye. Hope to see you again soon!";
         } else if (cmd.equals(Commands.list)) {
             ui.showTasks(taskList);
-            return true;
+            return taskList.toString();
         } else if (cmd.equals(Commands.mark)) {
             try {
                 int id = Integer.parseInt(command.split(" ")[1]);
                 taskList.markTaskAsDone(id - 1);
                 ui.markedMessage(taskList.getTask(id - 1));
-                return true;
+                return taskList.getTask(id - 1).toString();
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("To mark a task you need to include the index");
             }
@@ -56,7 +56,7 @@ public class Parser {
                 int id = Integer.parseInt(command.split(" ")[1]);
                 taskList.markTaskAsUnDone(id - 1);
                 ui.unmarkedMessage(taskList.getTask(id - 1));
-                return true;
+                return taskList.getTask(id - 1).toString();
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("To unmark a task you need to include the index");
             }
@@ -66,8 +66,7 @@ public class Parser {
                 Todo todo = new Todo(description);
                 taskList.addTask(todo);
                 ui.addTaskMessage(todo, taskList.numOfTasks());
-                //writer.write(todo.getDescription().concat("\n"));
-                return true;
+                return todo.toString();
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
             }
@@ -79,8 +78,7 @@ public class Parser {
                 Deadline deadline = new Deadline(description, by.trim());
                 taskList.addTask(deadline);
                 ui.addTaskMessage(deadline, taskList.numOfTasks());
-                //writer.write(deadline.getDescription().concat("\n"));
-                return true;
+                return deadline.toString();
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
             }
@@ -95,16 +93,16 @@ public class Parser {
                 Event event = new Event(description, from, to);
                 taskList.addTask(event);
                 ui.addTaskMessage(event, taskList.numOfTasks());
-                //writer.write(event.getDescription().concat("\n"));
-                return true;
+                return event.toString();
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
             }
         } else if (cmd.equals(Commands.delete)) {
             try {
                 int id = Integer.parseInt(command.split(" ")[1]);
+                Task task = taskList.getTask(id - 1);
                 taskList.deleteTask(id - 1);
-                return true;
+                return task.toString();
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("To delete a task you have to include the index");
             }
@@ -113,13 +111,13 @@ public class Parser {
                 String keyword= command.split(" ")[1];
                 TaskList matchingTasks = taskList.findTask(keyword);
                 ui.findTaskMessage(matchingTasks, keyword);
-                return true;
+                return matchingTasks.toString();
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("To search for a task you need to include a keyword");
             }
         } else {
             System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-        return false;
+        return "";
     }
 }
