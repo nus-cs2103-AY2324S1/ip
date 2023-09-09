@@ -32,39 +32,45 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns Duke's response to the user's input.
+     * @param input a string representation of the user's input.
+     * @return a string message representing Duke's response.
      */
     public String getResponse(String input) {
         try {
             String actionWord = this.parser.parseActionWord(input);
-            if (actionWord.equals("bye")) {
+            int taskNumber = -1;
+            switch (actionWord) {
+            case "bye":
                 this.taskList.save(this.storage);
                 Platform.exit();
-            } else if (actionWord.equals("list")) {
+                break;
+            case "list":
                 return this.taskList.listTasks();
-            } else if (actionWord.equals("mark")) {
-                int taskNumber = this.parser.parseTaskNumber(input);
+            case "mark":
+                taskNumber = this.parser.parseTaskNumber(input);
                 return this.taskList.markTaskAsDone(taskNumber);
-            } else if (actionWord.equals("unmark")) {
-                int taskNumber = this.parser.parseTaskNumber(input);
+            case "unmark":
+                taskNumber = this.parser.parseTaskNumber(input);
                 return this.taskList.unmarkTask(taskNumber);
-            } else if (actionWord.equals("delete")) {
-                int taskNumber = this.parser.parseTaskNumber(input);
+            case "delete":
+                taskNumber = this.parser.parseTaskNumber(input);
                 return this.taskList.deleteTask(taskNumber);
-            } else if (actionWord.equals("find")) {
+            case "find":
                 String description = this.parser.parseFindDescription(input);
                 return this.taskList.filterTasks(description);
-            } else if (Arrays.stream(this.specialTasksKeywords).anyMatch(
-                    keyword -> keyword.toString().toLowerCase().equals(actionWord))) {
-                try {
-                    Task task = this.parser.parseAddTaskInput(input, actionWord);
-                    return this.taskList.addTask(task);
-                } catch (InvalidTaskException e) {
-                    System.out.println(e.getMessage());
+            default:
+                if (Arrays.stream(this.specialTasksKeywords)
+                        .anyMatch(keyword -> keyword.toString().toLowerCase().equals(actionWord))) {
+                    try {
+                        Task task = this.parser.parseAddTaskInput(input, actionWord);
+                        return this.taskList.addTask(task);
+                    } catch (InvalidTaskException e) {
+                        System.out.println(e.getMessage());
+                    }
+                } else {
+                    throw new InvalidInputException("ERROR: Invalid input");
                 }
-            } else {
-                throw new InvalidInputException("ERROR: Invalid input");
             }
         } catch (InvalidInputException e) {
             return "INVALID INPUT";

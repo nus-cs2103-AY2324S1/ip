@@ -57,6 +57,10 @@ checkstyle {
     toolVersion = '10.2'
 }
 
+run {
+    enableAssertions = true
+}
+
 tasks.build.dependsOn shadowJar
 
 shadowJar {

@@ -22,12 +22,14 @@ public class Event extends Task {
 
     /**
      * Returns a string description which contains the starting and ending time of the event.
-     * @return a string representation of the event.
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        assert this.from != null;
+        assert this.to != null;
+        String startingDate = this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String endingDate = this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), startingDate, endingDate);
     }
 
     /**
@@ -35,7 +37,8 @@ public class Event extends Task {
      * @return the string representation of the event saved onto the local hard disk.
      */
     public String saveTask() {
-        return "E|" + (this.isDone() ? "X|" : " |") + this.getDescription() + "|" + this.from + "|" + this.to;
+        String isDoneMarker = this.isDone() ? "X" : " ";
+        return String.format("E|%s|%s|%s|%s", isDoneMarker, this.getDescription(), this.from, this.to);
     }
 
 }

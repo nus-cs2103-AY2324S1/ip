@@ -71,7 +71,8 @@ public class Parser {
 
     private Deadline parseDeadlineInput(String[] userInputSegmented) {
         int startIndex = 0;
-        while (startIndex < userInputSegmented.length) {
+        assert Arrays.asList(userInputSegmented).contains("/by");
+        while (true) {
             startIndex++;
             if (userInputSegmented[startIndex].equals("/by")) {
                 startIndex++;

@@ -13,7 +13,6 @@ public class Todo extends Task {
 
     /**
      * Returns the information associated with the _todo task.
-     * @return the string representation of the task description and its state of completion.
      */
     @Override
     public String toString() {
