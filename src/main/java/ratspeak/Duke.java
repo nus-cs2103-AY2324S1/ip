@@ -18,7 +18,6 @@ public class Duke {
         ui.greeting();
 
         while (true) {
-            // getting the input command
             String command = inputReceiver.getInput();
 
             //break out of the loop when it is "bye"
@@ -26,7 +25,7 @@ public class Duke {
                 ui.message("Bye!!! Hope to see you again!\n");
                 break;
             }
-            // process the command
+
             ui.message(commandProcessor.processCommand(command));
         }
 
