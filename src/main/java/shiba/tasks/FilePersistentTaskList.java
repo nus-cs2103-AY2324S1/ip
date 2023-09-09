@@ -2,6 +2,7 @@ package shiba.tasks;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import shiba.exceptions.ShibaException;
 import shiba.filehandler.Storage;
@@ -74,12 +75,6 @@ public class FilePersistentTaskList implements PersistentTaskList {
      */
     @Override
     public List<ShibaTask> findTasksWithKeyword(String keyword) {
-        ArrayList<ShibaTask> matchingTasks = new ArrayList<>();
-        for (ShibaTask task : tasks) {
-            if (task.containsKeyword(keyword)) {
-                matchingTasks.add(task);
-            }
-        }
-        return matchingTasks;
+        return tasks.stream().filter(task -> task.containsKeyword(keyword)).collect(Collectors.toList());
     }
 }
