@@ -18,10 +18,10 @@ import emiya.emiyaexception.WrongDateFormatException;
 public class DateHandler {
     /**
      * A static method that builds up the necessary String needed to instantiate the necessary
-     * LocalDateTime object.
+     *     LocalDateTime object.
      * @param strFormat The String input collected from the user
      * @return A LocalDateTime object that contains information about the date and time
-     * specified by the user.
+     *     specified by the user.
      * @throws WrongDateFormatException If the date given by the user is in the wrong format.
      * @throws InvalidDateException If the date given by the user is invalid.
      */

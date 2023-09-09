@@ -1,9 +1,11 @@
 package emiya.emiyaexception;
 
-public class EmptyUnmarkException extends EmiyaException{
+/**
+ * An exception that is thrown when the unmark command is used by the user
+ * without providing an index for the list.
+ */
+public class EmptyUnmarkException extends EmiyaException {
     public EmptyUnmarkException() {
-        super("-----------------------------------------\n" +
-                "Please give a list index for unmark operations!\n"
-                + "-----------------------------------------\n");
+        super("Please give a list index for unmark operations!\n");
     }
 }

@@ -1,9 +1,11 @@
 package emiya.emiyaexception;
 
-public class EmptyMarkException extends EmiyaException{
+/**
+ * An exception that is thrown when the mark command is used by the user
+ * without providing an index for the list.
+ */
+public class EmptyMarkException extends EmiyaException {
     public EmptyMarkException() {
-        super("-----------------------------------------\n" +
-                "Please give a list index for mark operations!\n"
-                + "-----------------------------------------\n");
+        super("Please give a list index for mark operations!\n");
     }
 }

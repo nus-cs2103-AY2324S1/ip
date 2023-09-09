@@ -1,11 +1,11 @@
 package emiya.emiyaexception;
 
-public class EmptyFindException extends EmiyaException{
-
+/**
+ * An exception that is thrown when the find command is used by the user without providing a word to find.
+ */
+public class EmptyFindException extends EmiyaException {
     public EmptyFindException() {
-        super("-----------------------------------------\n" +
-                "Oh no! Find tasks cannot be empty! Please try again!\n"
-                + "-----------------------------------------\n");
+        super("Oh no! Find tasks cannot be empty! Please try again!\n");
     }
 
 }

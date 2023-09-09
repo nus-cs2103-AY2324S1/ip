@@ -1,5 +1,8 @@
 package emiya.task;
 
+/**
+ * A class representing the Todo tasks that the user can create.
+ */
 public class ToDo extends Task {
     public ToDo(boolean isCompleted, String nameOfTask) {
         super(isCompleted, nameOfTask);

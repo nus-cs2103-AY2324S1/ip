@@ -36,7 +36,8 @@ public class Parser {
         String[] partsOfInput = input.split("\\s+", 2);
 
         // if input is a single word AND it is not a keyword, throw UnknownCommandException
-        if (partsOfInput.length < 2 && !enumContainsKeyword(partsOfInput[0].toUpperCase())) {
+        if (!partsOfInput[0].equals("list") && partsOfInput.length < 2
+                && !enumContainsKeyword(partsOfInput[0].toUpperCase())) {
             throw new UnknownCommandException();
         }
 
@@ -64,7 +65,7 @@ public class Parser {
      * @param taskDetails A String that contains details about the deadline task, such as when the
      *                    task has to be finished by.
      * @return A String array that contains the input from the user parsed into sections
-     * that can be understood by the rest of the program.
+     *     that can be understood by the rest of the program.
      * @throws NoByException When the user does not use the keyword /by in his input.
      */
     public String[] parseForDeadline(String taskDetails) throws NoByException {
@@ -82,7 +83,7 @@ public class Parser {
      * @param taskDetails A String that contains details about the deadline task, such as when the
      *                    event starts and when it ends.
      * @return A String array that contains the input from the user parsed into sections
-     * that can be understood by the rest of the program.
+     *     that can be understood by the rest of the program.
      * @throws NoToException When the user does not use the keyword /to in his input.
      * @throws NoFromException When the user does not use the keyword /from in his input.
      */
