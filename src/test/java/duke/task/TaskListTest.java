@@ -31,7 +31,7 @@ public class TaskListTest {
 
         // Check the new task is added to the end
         assertEquals(4, taskList.getLength());
-        assertEquals(task, taskList.getTask(3));
+        assertEquals(task, taskList.getTaskAtIndex(3));
     }
 
     @Test
@@ -64,14 +64,14 @@ public class TaskListTest {
 
     @Test
     public void getTask_validInput_success() {
-        Task task = taskList.getTask(1);
+        Task task = taskList.getTaskAtIndex(1);
         assertEquals("Deadline Task", task.description);
     }
 
     @Test
     public void getTask_invalidIndex_failure() {
         assertThrows(IndexOutOfBoundsException.class, () -> {
-            taskList.getTask(10);
+            taskList.getTaskAtIndex(10);
         });
     }
 

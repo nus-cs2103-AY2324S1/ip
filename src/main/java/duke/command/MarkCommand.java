@@ -30,7 +30,7 @@ public class MarkCommand extends Command {
                 throw new InvalidTaskIndexException(taskIndex + 1);
             }
 
-            Task task = taskList.getTask(taskIndex);
+            Task task = taskList.getTaskAtIndex(taskIndex);
             task.markAsDone();
             storage.saveData(taskList);
             return ui.showDone(task);

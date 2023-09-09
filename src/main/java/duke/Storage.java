@@ -129,7 +129,7 @@ public class Storage {
         FileWriter fw = new FileWriter(filePath);
 
         for (int i = 0; i < taskList.getLength(); i++) {
-            Task task = taskList.getTask(i);
+            Task task = taskList.getTaskAtIndex(i);
             String line = task.toFileString();
             fw.write(line + System.lineSeparator());
         }
