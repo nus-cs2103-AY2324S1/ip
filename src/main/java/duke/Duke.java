@@ -29,10 +29,9 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Passes the user input to the {@code Parser} that returns the required response.
      */
-    String getResponse(String input) throws IOException {
+    public String getResponse(String input) throws IOException {
         return parser.readInput(input);
     }
 
@@ -221,11 +220,10 @@ public class Duke {
     }
 
     /**
-     * Checks if the input {@code LocalDateTime} is at or after the current system time.
+     * Checks if the input {@code LocalDateTime} is at or after the current time.
      *
      * @param dateTime {@code LocalDateTime} of the {@code Task}.
-     * @return {@code true} if the {@code LocalDateTime} is at or after the current system time;
-     * {@code false} otherwise.
+     * @return {@code true} if the {@code LocalDateTime} is at or after the current time; {@code false} otherwise.
      */
     public boolean checkStartDateTime(LocalDateTime dateTime) {
         return dateTime.isAfter(LocalDateTime.now());
