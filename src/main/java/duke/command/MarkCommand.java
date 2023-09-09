@@ -6,6 +6,7 @@ import duke.storage.Storage;
 
 /**
  * Command to Mark or Unmark task in the taskList.
+ * pos is position of task in taskList starting from 1
  */
 public class MarkCommand extends Command {
 	private final boolean toMark;
@@ -19,15 +20,18 @@ public class MarkCommand extends Command {
 	 * Executes the Mark command which Marks or Unmarks a task from taskList.
 	 * Ui displays Marking or Unmarks to user.
 	 * @param taskList list of tasks to mark.
-	 * @param u displays execution of Marking or Unmarking.
+	 * @param ui displays execution of Marking or Unmarking.
 	 * @param storage can write tasks to store on the text file.
 	 */
 	@Override
-	public void execute(TaskList taskList, Ui u, Storage storage) {
+	public String execute(TaskList taskList, Ui ui, Storage storage) {
 		try {
-			taskList.toMark(toMark, pos);
+			taskList.toMark(toMark, pos, ui);
+			storage.updateMarkInFile();
+			System.out.println(ui.showMark(taskList.getTask(pos - 1)));
+			return ui.showMark(taskList.getTask(pos - 1));
 		} catch (DukeException e) {
-			System.out.println(e.getMessage());
+			return e.getMessage();
 		}
 	}
 }

@@ -275,7 +275,7 @@ public class Parser {
 			default:
 				throw new DukeException("Invalid command that do not match any known command");
 		}
-		throw new DukeException("Invalid command does not match any known command");
+		throw new DukeException("Invalid command does not match any");
 	}
 }
 

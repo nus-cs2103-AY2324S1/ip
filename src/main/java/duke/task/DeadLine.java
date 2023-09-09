@@ -46,6 +46,10 @@ public class DeadLine extends Task {
 		String timeDate = time[1] + " " + time[0];
 		return "[D]" + super.toString() + " (by: " + timeDate + ")";
 	}
+
+	/**
+	 * @return Icon of DeadLine
+	 */
 	public String getIcon() {
 		return "[D]" + super.getTask();
 	}

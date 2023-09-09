@@ -52,6 +52,10 @@ public class Event extends Task {
 		return "[E]" + super.toString() + " (from: " + startDate + " to: " + endDate + ")";
 	}
 
+	/**
+	 * @return Icon of Task
+	 */
+
 	public String getIcon() {
 		return "[E]" + super.getTask();
 	}

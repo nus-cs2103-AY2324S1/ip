@@ -5,6 +5,12 @@ import duke.storage.Storage;
 import duke.command.Command;
 import duke.parser.Parser;
 
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+
 import java.io.IOException;
 
 /**
@@ -18,12 +24,14 @@ public class Duke {
     private TaskList tasks;
     private final Storage storage;
 
+
+
     /**
      * Constructs a new ChatBot to chat with.
-     * @param name Name of the ChatBot
+     * Default name of the ChatBot is Duke
      */
-    public Duke(String name) {
-        this.ui = new Ui(name);
+    public Duke() {
+        this.ui = new Ui("Duke");
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.readFile());
@@ -56,6 +64,33 @@ public class Duke {
      * @param args Main method to run ChatBot.
      */
     public static void main(String[] args) {
-        new Duke(filePath).run();
+		// filepath was here
+        new Duke().run();
     }
+
+    /**
+     * Get a response from interacting with GUI
+     * @param input the input user gives
+     * @return String representing response of ChatBot
+     */
+
+	public String getResponse(String input) {
+        StringBuilder br = new StringBuilder();
+        try {
+                br.append(input);
+                br.append("\n");
+                br.append(ui.getLine());
+                Command c = Parser.parse(input);
+                br.append(c.execute(tasks, ui, storage));
+                return br.toString();
+        } catch (DukeException e) {
+            return e.getMessage();
+        } finally {
+            br.append(ui.getLine());
+            return br.toString();
+        }
+	}
+
+
+
 }
