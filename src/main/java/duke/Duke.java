@@ -1,7 +1,5 @@
 package duke;
 
-import java.util.Scanner;
-
 //CHECKSTYLE.OFF: MissingJavadocMethodCheck
 //CHECKSTYLE.OFF: MissingJavadocType
 public class Duke {

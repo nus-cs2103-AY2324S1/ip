@@ -10,7 +10,6 @@ import java.time.format.DateTimeFormatter;
  * Class that is responsible for handling the input of the user
  */
 public class Parser {
-
     /**
      * Read the input from the user and carry out the required action for Gui
      *
@@ -60,22 +59,7 @@ public class Parser {
             // Implement deadline logic here
             int byIndex = input.indexOf("/by");
             if (byIndex != -1) {
-                LocalDate d1;
-                LocalTime t1 = null;
-                Deadline deadline;
-                String task = input.substring(9, byIndex).trim(); // Task description
-                String date = input.substring(byIndex + 3).trim(); // Deadline day
-                if (date.contains(" ")) {
-                    String[] parts = date.split(" ");
-                    String dateString = parts[0];
-                    String timeString = parts[1];
-                    d1 = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                    t1 = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HHmm"));
-                    deadline = new Deadline(task, d1, t1);
-                } else {
-                    d1 = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                    deadline = new Deadline(task, d1, t1);
-                }
+                Deadline deadline = getDeadline(input, byIndex);
                 list.add(deadline);
                 number++;
                 ui.print("Got it. I've added this task:\n" + deadline.toString()
@@ -84,17 +68,10 @@ public class Parser {
                 throw new DukeException("Invalid input format.");
             }
         } else if (input.startsWith("event")) {
-            // Implement event logic here
             int fromIndex = input.indexOf("/from");
             int toIndex = input.indexOf("/to");
             if (fromIndex != -1 && toIndex != -1) {
-                String task = input.substring(6, fromIndex).trim(); // Task description
-                String startDate = input.substring(fromIndex + 6, toIndex).trim(); // Start date
-                String endDate = input.substring(toIndex + 4).trim(); // End date
-                LocalDate d1 = LocalDate.parse(startDate);
-                LocalDate d2 = LocalDate.parse(endDate);
-
-                Events event = new Events(task, d1, d2);
+                Events event = getEvent(input, fromIndex, toIndex);
                 list.add(event);
                 number++;
                 ui.print("Got it. I've added this task:\n" + event.toString()
@@ -105,6 +82,37 @@ public class Parser {
         } else {
             ui.print("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+    }
+
+    private static Deadline getDeadline(String input, int byIndex) {
+        LocalDate d1;
+        LocalTime t1 = null;
+        Deadline deadline;
+        String task = input.substring(9, byIndex).trim(); // Task description
+        String date = input.substring(byIndex + 3).trim(); // Deadline day
+        if (date.contains(" ")) {
+            String[] parts = date.split(" ");
+            String dateString = parts[0];
+            String timeString = parts[1];
+            d1 = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            t1 = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HHmm"));
+            deadline = new Deadline(task, d1, t1);
+        } else {
+            d1 = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            deadline = new Deadline(task, d1, t1);
+        }
+        return deadline;
+    }
+
+    private static Events getEvent(String input, int fromIndex, int toIndex) {
+        String task = input.substring(6, fromIndex).trim(); // Task description
+        String startDate = input.substring(fromIndex + 6, toIndex).trim(); // Start date
+        String endDate = input.substring(toIndex + 4).trim(); // End date
+        LocalDate d1 = LocalDate.parse(startDate);
+        LocalDate d2 = LocalDate.parse(endDate);
+
+        Events event = new Events(task, d1, d2);
+        return event;
     }
 }
 
