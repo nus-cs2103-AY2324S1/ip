@@ -96,6 +96,10 @@ public class Duke {
             message = command.handleFindTask(tasks, parser.getSearchTerms());
             break;
         }
+        case "TAG": {
+            message = command.handleTagTask(tasks, parser.getTaskNumber(), parser.getTags());
+            break;
+        }
         default:
             throw new DukeInvalidCommandException();
         }

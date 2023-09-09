@@ -148,6 +148,23 @@ public class TaskList {
 
     /**
      * Returns the list of tasks that contains the keyword.
+     * @param taskNumber The task number of the task to be tagged.
+     * @param tags The tags to be added.
+     * @return The list of tasks that contains the keyword.
+     * @throws DukeException If the task number is not an integer or if the task number is out of bounds.
+     */
+    public Task tagTask(int taskNumber, String... tags) throws DukeException {
+        try {
+            Task task = tasks.get(taskNumber - 1);
+            task.addTags(tags);
+            return task;
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeMissingTaskException();
+        }
+    }
+
+    /**
+     * Returns the list of tasks that contains the keyword.
      * @return The list of tasks that contains the keyword.
      */
     @Override
