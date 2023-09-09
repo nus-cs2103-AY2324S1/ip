@@ -16,9 +16,6 @@ public class TaskList {
         this.storage = storage;
     }
 
-    public boolean isEmpty() {
-        return tasks.isEmpty();
-    }
     public void listTasks() {
         Ui.listTasks(this.tasks);
     }
