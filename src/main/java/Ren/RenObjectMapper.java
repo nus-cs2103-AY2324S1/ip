@@ -74,6 +74,7 @@ public final class RenObjectMapper {
             }
 
             Path cachePath = Path.of(cacheFileAddress);
+            assert java.nio.file.Files.exists(cachePath) : "Cache file should exist";
             File myObj = cachePath.toFile();
             Scanner sc = new Scanner(myObj);
             String json = sc.nextLine();
