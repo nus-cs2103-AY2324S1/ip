@@ -10,22 +10,13 @@ import java.util.Scanner;
 public class Ui {
     private Scanner scanner;
 
-<<<<<<< HEAD
-=======
     /**
      * Constructs a Ui object.
      */
->>>>>>> branch-A-JavaDoc
     public Ui() {
         scanner = new Scanner(System.in);
     }
 
-<<<<<<< HEAD
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-    public TaskList loadTasks (String filePath) {
-=======
     /**
      * Reads a user command.
      *
@@ -42,7 +33,6 @@ public class Ui {
      * @return  A TaskList containing the loaded tasks.
      */
     public TaskList loadTasks(String filePath) {
->>>>>>> branch-A-JavaDoc
         TaskList tasks = new TaskList();
         File file = new File(filePath);
 
@@ -85,9 +75,6 @@ public class Ui {
         return tasks;
     }
 
-<<<<<<< HEAD
-    public boolean handleCommand (String userCommand, TaskList tasks, Storage storage) {
-=======
     /**
      * Handles user commands.
      *
@@ -97,7 +84,6 @@ public class Ui {
      * @return      True if the program should exit.
      */
     public boolean handleCommand(String userCommand, TaskList tasks, Storage storage) {
->>>>>>> branch-A-JavaDoc
         try {
             String[] parts = userCommand.split(" ", 2);
             String commandType = parts[0].toLowerCase();
@@ -167,23 +153,13 @@ public class Ui {
         return false;
     }
 
-<<<<<<< HEAD
-=======
     /**
      * Displays a welcome message.
      */
->>>>>>> branch-A-JavaDoc
     public void showWelcome() {
         System.out.println("Hi, I'm BiuBiu.\nWhat can I do for you?");
     }
 
-<<<<<<< HEAD
-    public void showError (String errorCommand) {
-        System.out.println(errorCommand);
-    }
-
-    public void showTaskAdded (Task task, int taskCount) {
-=======
     /**
      * Displays an error message.
      *
@@ -199,67 +175,50 @@ public class Ui {
      * @param task  The task that we added.
      * @param taskCount  The current number of tasks in the list.
      */
-    public void showTaskAdded(Task task, int taskCount) {
->>>>>>> branch-A-JavaDoc
+    public void showTaskAdded (Task task, int taskCount) {
         System.out.println("Got it. I've added this task:");
         System.out.println(" " + task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
-<<<<<<< HEAD
-    public void showTaskDeleted (int taskCount) {
-=======
     /**
      * Displays a message confirming the deletion of a task.
      *
      * @param taskCount  The current number of tasks in the list.
      */
-    public void showTaskDeleted(int taskCount) {
->>>>>>> branch-A-JavaDoc
+    public void showTaskDeleted (int taskCount) {
         System.out.println("OK, I've removed this task.");
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
-<<<<<<< HEAD
-    public void showTaskList (TaskList taskList) {
-=======
     /**
      * Displays the list of tasks.
      *
      * @param taskList  The task list.
      */
-    public void showTaskList(TaskList taskList) {
->>>>>>> branch-A-JavaDoc
+    public void showTaskList (TaskList taskList) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
             System.out.println((i + 1) + ". " + taskList.getTask(i));
         }
     }
 
-<<<<<<< HEAD
-    public void showTaskMarkedAsDone (Task task) {
-=======
     /**
      * Displays a message confirming that a task has been marked as done.
      *
      * @param task  The task that was marked as done.
      */
-    public void showTaskMarkedAsDone(Task task) {
->>>>>>> branch-A-JavaDoc
+    public void showTaskMarkedAsDone (Task task) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + task);
     }
 
-<<<<<<< HEAD
-    public void showTaskMarkedAsNotDone (Task task) {
-=======
     /**
      * Displays a message confirming that a task has been marked as not done.
      *
      * @param task  The task that was marked as not done.
      */
-    public void showTaskMarkedAsNotDone(Task task) {
->>>>>>> branch-A-JavaDoc
+    public void showTaskMarkedAsNotDone (Task task) {
         System.out.println("Noted, I've marked this task as not done yet:");
         System.out.println("  " + task);
     }
@@ -271,9 +230,6 @@ public class Ui {
         System.out.println("Error loading tasks from file.");
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     /**
      * Displays tasks tha match the keyword.
      *
@@ -289,12 +245,10 @@ public class Ui {
         }
 
     }
->>>>>>> branch-Level-9
-=======
+
     /**
      * Displays an exit message.
      */
->>>>>>> branch-A-JavaDoc
     public void showExit() {
         System.out.println("Bye. Have a great day!");
     }
