@@ -19,7 +19,7 @@ public class TaskList {
      */
     public TaskList() {
         db = new Storage("data/duke.ser");
-        assert db != null: "New Storage object must be created";
+        assert db != null : "New Storage object must be created";
         this.tasks = db.loadTask();
     }
 
