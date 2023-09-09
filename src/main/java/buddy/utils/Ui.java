@@ -29,9 +29,13 @@ public class Ui {
         System.out.println(message);
     }
     public void printList(ArrayList<Task> list) {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < list.size(); i++) {
-            System.out.printf("%d. %s\n", i + 1, list.get(i));
+        if (list.isEmpty()) {
+            System.out.println("There are currently no tasks in your list.");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < list.size(); i++) {
+                System.out.printf("%d. %s\n", i + 1, list.get(i));
+            }
         }
     }
 
