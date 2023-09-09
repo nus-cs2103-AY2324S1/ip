@@ -8,7 +8,6 @@ import com.ducky.command.Command;
 import com.ducky.command.DeleteCommand;
 import com.ducky.command.DuckyInvalidCommandException;
 import com.ducky.command.DuckyInvalidCommandFormatException;
-import com.ducky.command.ExitCommand;
 import com.ducky.command.FindTaskCommand;
 import com.ducky.command.ListCommand;
 import com.ducky.command.UpdateTaskCompletionCommand;
@@ -41,8 +40,6 @@ public class Parser {
         String argumentString = (parts.length > 1) ? parts[1].trim() : "";
 
         switch (commandType) {
-        case "bye":
-            return new ExitCommand();
         case "list":
             return new ListCommand();
         case "find":
