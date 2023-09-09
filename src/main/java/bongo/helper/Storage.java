@@ -6,8 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.*;
-import java.time.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -63,22 +62,22 @@ public class Storage {
                 arr[i] = arr[i].trim();
             }
             boolean isTaskMarkedDone = arr[1].equals("1");
-            LocalDateTime datetime;
+            LocalDateTime dateTime;
             switch (arr[0]) {
             case "T":
                 loadedTasks.add(new Todo(arr[2], isTaskMarkedDone));
                 break;
             case "D":
-                datetime = DateHelper.convertStringToDateTime(arr[3]);
-                if (DateHelper.hasTaskExpired(datetime)) {
+                dateTime = DateHelper.convertStringToDateTime(arr[3]);
+                if (DateHelper.hasTaskExpired(dateTime)) {
                     expiredTaskNumbers.add(numOfTasks);
                 } else {
                     loadedTasks.add(new Deadline(arr[2], isTaskMarkedDone, DateHelper.convertStringToDateTime(arr[3])));
                 }
                 break;
             case "E":
-                datetime = DateHelper.convertStringToDateTime(arr[4]);
-                if (DateHelper.hasTaskExpired(datetime)) {
+                dateTime = DateHelper.convertStringToDateTime(arr[4]);
+                if (DateHelper.hasTaskExpired(dateTime)) {
                     expiredTaskNumbers.add(numOfTasks);
                 } else {
                     loadedTasks.add(new Event(arr[2], isTaskMarkedDone, DateHelper.convertStringToDateTime(arr[3]),
@@ -102,13 +101,15 @@ public class Storage {
         File file = new File(this.pathname);
         String directoryPath = file.getParent();
         File directory = new File(directoryPath);
-        if (!directory.exists()) {
+        boolean isDirectoryInvalid = !directory.exists();
+        boolean isFileInvalid = !file.exists();
+        if (isDirectoryInvalid) {
             boolean isDirectoryCreated = directory.mkdirs();
             if (isDirectoryCreated) {
                 System.out.println("Directory created: " + directoryPath);
             }
         }
-        if (!file.exists()) {
+        if (isFileInvalid) {
             try {
                 boolean isFileCreated = file.createNewFile();
                 if (isFileCreated) {
@@ -130,7 +131,8 @@ public class Storage {
             File file = new File(this.pathname);
             FileWriter fw = new FileWriter(this.pathname, true);
             String newLine = newTask.generateStringForTextFile();
-            if (file.length() != 0) {
+            boolean isBeyondFirstLine = file.length() != 0;
+            if (isBeyondFirstLine) {
                 fw.write(String.format("\n%s", newLine));
             } else {
                 fw.write(newLine);
