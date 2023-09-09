@@ -9,7 +9,7 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    private Scanner scanner;
+    private final Scanner scanner;
 
     /**
      * Creates a new user interface instance.
