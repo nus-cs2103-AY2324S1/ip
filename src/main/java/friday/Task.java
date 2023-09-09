@@ -7,13 +7,19 @@ public class Task {
     protected String name;
     protected boolean isDone;
 
+    /**
+     * Constructs a new Task with the specified name.
+     *
+     * @param name The name or description of the task.
+     */
     public Task(String name) {
         this.name = name;
         this.isDone = false;
     }
 
     /**
-     * Returns a status icon based on whether the task is done.
+     * Marks a status icon based on whether the task is done.
+     *
      * @return A string representing the status icon.
      */
     public String getStatusIcon() {
@@ -21,14 +27,14 @@ public class Task {
     }
 
     /**
-     * Mark the task as done.
+     * Marks the task as done.
      */
     public void mark() {
         this.isDone = true;
     }
 
     /**
-     * Mark the task as not done.
+     * Marks the task as not done.
      */
     public void unmark() {
         this.isDone = false;
@@ -41,6 +47,7 @@ public class Task {
 
     /**
      * Checks if keyword is contained in task description.
+     *
      * @param keyWord The keyword to check for.
      * @return whether the keyword is in task.
      */
