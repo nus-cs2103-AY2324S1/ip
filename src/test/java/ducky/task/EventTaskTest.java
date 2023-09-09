@@ -1,5 +1,6 @@
 package ducky.task;
 
+import com.ducky.task.EventTask;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
