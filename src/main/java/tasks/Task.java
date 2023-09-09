@@ -25,6 +25,9 @@ public abstract class Task {
     /** Method signature for abstract method getTextFormattedString */
     protected abstract String getTextFormattedString();
 
+    /** Method signature for abstract method checkIfTaskDueToday */
+    public abstract boolean checkIfTaskDueToday();
+
     /**
      * Returns string representation of completion status.
      *

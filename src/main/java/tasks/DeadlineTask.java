@@ -1,5 +1,6 @@
 package tasks;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -28,6 +29,13 @@ public class DeadlineTask extends Task {
         if (isMarked == 1) {
             this.isDone = true;
         }
+    }
+
+    @Override
+    public boolean checkIfTaskDueToday() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate taskDate = this.deadline.toLocalDate();
+        return currentDate.equals(taskDate);
     }
 
     @Override

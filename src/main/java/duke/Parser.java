@@ -42,6 +42,8 @@ public class Parser {
         switch(command) {
         case "list":
             return Duke.listTasks();
+        case "stats":
+            return Duke.getTaskStats();
         case "find":
             return parseFilter(userInput);
         case "mark":
