@@ -53,4 +53,10 @@ public class Ui {
         System.out.println(output);
         return output;
     }
+
+    public String help() {
+        String output = "Command list: \n todo [description] \n deadline [description] /by [deadline] \n event [description] /from [start] /to [end] \n list \n mark [index] \n unmark [index] \n delete [index] \n find [keyword] \n bye";
+        System.out.println(output);
+        return output;
+    }
 }
