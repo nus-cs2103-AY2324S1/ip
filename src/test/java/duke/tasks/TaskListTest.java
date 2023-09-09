@@ -216,4 +216,156 @@ public class TaskListTest {
                         + "3.[E][X] booking (from: Sat 26 Aug 2023 23:59 to: Sun 27 Aug 2023 23:59)"),
                 taskList.find("book"));
     }
+
+    @Test
+    public void edit_todo() {
+        TaskList taskList = makeTestEditTaskList();
+
+        taskList.edit(1, "/a aaa /c ccc /f fff /g ggg /h hhh /i iii /j jjj /k kkk /l lll /m mmm "
+                        + "/n nnn /o ooo /p ppp /q qqq /r rrr /t ttt /u uuu /v vvv /w www /x xxx /y yyy /z zzz");
+        assertEquals(String.format(listHeader
+                        + "1.[T][X] t1"
+                        + "%n2.[T][ ] t2"
+                        + "%n3.[D][X] d1 (by: Sun 01 Jan 2023 11:11)"
+                        + "%n4.[D][ ] d2 (by: Thu 02 Feb 2023 22:22)"
+                        + "%n5.[E][X] e1 (from: Fri 03 Mar 2023 11:11 to: Fri 03 Mar 2023 22:22)"
+                        + "%n6.[E][ ] e2 (from: Tue 04 Apr 2023 11:11 to: Tue 04 Apr 2023 22:22)"),
+                taskList.toString());
+
+        taskList.edit(1, "/d success /b extra1 /s extra2 /e extra3");
+        assertEquals(String.format(listHeader
+                        + "1.[T][X] success"
+                        + "%n2.[T][ ] t2"
+                        + "%n3.[D][X] d1 (by: Sun 01 Jan 2023 11:11)"
+                        + "%n4.[D][ ] d2 (by: Thu 02 Feb 2023 22:22)"
+                        + "%n5.[E][X] e1 (from: Fri 03 Mar 2023 11:11 to: Fri 03 Mar 2023 22:22)"
+                        + "%n6.[E][ ] e2 (from: Tue 04 Apr 2023 11:11 to: Tue 04 Apr 2023 22:22)"),
+                taskList.toString());
+
+        taskList.edit(2, "/d success /a 2 /b extra1 /s extra2 /e extra3");
+        assertEquals(String.format(listHeader
+                        + "1.[T][X] success"
+                        + "%n2.[T][ ] success /a 2"
+                        + "%n3.[D][X] d1 (by: Sun 01 Jan 2023 11:11)"
+                        + "%n4.[D][ ] d2 (by: Thu 02 Feb 2023 22:22)"
+                        + "%n5.[E][X] e1 (from: Fri 03 Mar 2023 11:11 to: Fri 03 Mar 2023 22:22)"
+                        + "%n6.[E][ ] e2 (from: Tue 04 Apr 2023 11:11 to: Tue 04 Apr 2023 22:22)"),
+                taskList.toString());
+    }
+
+    @Test
+    public void edit_deadline() {
+        TaskList taskList = makeTestEditTaskList();
+
+        taskList.edit(3, "/a aaa /c ccc /f fff /g ggg /h hhh /i iii /j jjj /k kkk /l lll /m mmm "
+                + "/n nnn /o ooo /p ppp /q qqq /r rrr /t ttt /u uuu /v vvv /w www /x xxx /y yyy /z zzz");
+        assertEquals(String.format(listHeader
+                        + "1.[T][X] t1"
+                        + "%n2.[T][ ] t2"
+                        + "%n3.[D][X] d1 (by: Sun 01 Jan 2023 11:11)"
+                        + "%n4.[D][ ] d2 (by: Thu 02 Feb 2023 22:22)"
+                        + "%n5.[E][X] e1 (from: Fri 03 Mar 2023 11:11 to: Fri 03 Mar 2023 22:22)"
+                        + "%n6.[E][ ] e2 (from: Tue 04 Apr 2023 11:11 to: Tue 04 Apr 2023 22:22)"),
+                taskList.toString());
+
+        taskList.edit(3, "/d success /b 2023-01-02 12:34 /s extra2 /e extra3");
+        assertEquals(String.format(listHeader
+                        + "1.[T][X] t1"
+                        + "%n2.[T][ ] t2"
+                        + "%n3.[D][X] success (by: Mon 02 Jan 2023 12:34)"
+                        + "%n4.[D][ ] d2 (by: Thu 02 Feb 2023 22:22)"
+                        + "%n5.[E][X] e1 (from: Fri 03 Mar 2023 11:11 to: Fri 03 Mar 2023 22:22)"
+                        + "%n6.[E][ ] e2 (from: Tue 04 Apr 2023 11:11 to: Tue 04 Apr 2023 22:22)"),
+                taskList.toString());
+
+        taskList.edit(4, "/d success /a 2 /s extra2 /e extra3");
+        assertEquals(String.format(listHeader
+                        + "1.[T][X] t1"
+                        + "%n2.[T][ ] t2"
+                        + "%n3.[D][X] success (by: Mon 02 Jan 2023 12:34)"
+                        + "%n4.[D][ ] success /a 2 (by: Thu 02 Feb 2023 22:22)"
+                        + "%n5.[E][X] e1 (from: Fri 03 Mar 2023 11:11 to: Fri 03 Mar 2023 22:22)"
+                        + "%n6.[E][ ] e2 (from: Tue 04 Apr 2023 11:11 to: Tue 04 Apr 2023 22:22)"),
+                taskList.toString());
+
+        taskList.edit(4, "/b 2023-02-03 23:45 /s extra2 /e extra3");
+        assertEquals(String.format(listHeader
+                        + "1.[T][X] t1"
+                        + "%n2.[T][ ] t2"
+                        + "%n3.[D][X] success (by: Mon 02 Jan 2023 12:34)"
+                        + "%n4.[D][ ] success /a 2 (by: Fri 03 Feb 2023 23:45)"
+                        + "%n5.[E][X] e1 (from: Fri 03 Mar 2023 11:11 to: Fri 03 Mar 2023 22:22)"
+                        + "%n6.[E][ ] e2 (from: Tue 04 Apr 2023 11:11 to: Tue 04 Apr 2023 22:22)"),
+                taskList.toString());
+    }
+
+    @Test
+    public void edit_event() {
+        TaskList taskList = makeTestEditTaskList();
+
+        taskList.edit(5, "/a aaa /c ccc /f fff /g ggg /h hhh /i iii /j jjj /k kkk /l lll /m mmm "
+                + "/n nnn /o ooo /p ppp /q qqq /r rrr /t ttt /u uuu /v vvv /w www /x xxx /y yyy /z zzz");
+        assertEquals(String.format(listHeader
+                        + "1.[T][X] t1"
+                        + "%n2.[T][ ] t2"
+                        + "%n3.[D][X] d1 (by: Sun 01 Jan 2023 11:11)"
+                        + "%n4.[D][ ] d2 (by: Thu 02 Feb 2023 22:22)"
+                        + "%n5.[E][X] e1 (from: Fri 03 Mar 2023 11:11 to: Fri 03 Mar 2023 22:22)"
+                        + "%n6.[E][ ] e2 (from: Tue 04 Apr 2023 11:11 to: Tue 04 Apr 2023 22:22)"),
+                taskList.toString());
+
+        taskList.edit(5, "/d success /b extra1 /s 2023-03-04 12:34 /e 2023-03-04 23:45");
+        assertEquals(String.format(listHeader
+                        + "1.[T][X] t1"
+                        + "%n2.[T][ ] t2"
+                        + "%n3.[D][X] d1 (by: Sun 01 Jan 2023 11:11)"
+                        + "%n4.[D][ ] d2 (by: Thu 02 Feb 2023 22:22)"
+                        + "%n5.[E][X] success (from: Sat 04 Mar 2023 12:34 to: Sat 04 Mar 2023 23:45)"
+                        + "%n6.[E][ ] e2 (from: Tue 04 Apr 2023 11:11 to: Tue 04 Apr 2023 22:22)"),
+                taskList.toString());
+
+        taskList.edit(6, "/d success /a 2");
+        assertEquals(String.format(listHeader
+                        + "1.[T][X] t1"
+                        + "%n2.[T][ ] t2"
+                        + "%n3.[D][X] d1 (by: Sun 01 Jan 2023 11:11)"
+                        + "%n4.[D][ ] d2 (by: Thu 02 Feb 2023 22:22)"
+                        + "%n5.[E][X] success (from: Sat 04 Mar 2023 12:34 to: Sat 04 Mar 2023 23:45)"
+                        + "%n6.[E][ ] success /a 2 (from: Tue 04 Apr 2023 11:11 to: Tue 04 Apr 2023 22:22)"),
+                taskList.toString());
+
+        taskList.edit(6, "/s 2023-04-05 00:00");
+        assertEquals(String.format(listHeader
+                        + "1.[T][X] t1"
+                        + "%n2.[T][ ] t2"
+                        + "%n3.[D][X] d1 (by: Sun 01 Jan 2023 11:11)"
+                        + "%n4.[D][ ] d2 (by: Thu 02 Feb 2023 22:22)"
+                        + "%n5.[E][X] success (from: Sat 04 Mar 2023 12:34 to: Sat 04 Mar 2023 23:45)"
+                        + "%n6.[E][ ] success /a 2 (from: Wed 05 Apr 2023 00:00 to: Tue 04 Apr 2023 22:22)"),
+                taskList.toString());
+
+        taskList.edit(6, "/e 2023-04-05 00:01");
+        assertEquals(String.format(listHeader
+                        + "1.[T][X] t1"
+                        + "%n2.[T][ ] t2"
+                        + "%n3.[D][X] d1 (by: Sun 01 Jan 2023 11:11)"
+                        + "%n4.[D][ ] d2 (by: Thu 02 Feb 2023 22:22)"
+                        + "%n5.[E][X] success (from: Sat 04 Mar 2023 12:34 to: Sat 04 Mar 2023 23:45)"
+                        + "%n6.[E][ ] success /a 2 (from: Wed 05 Apr 2023 00:00 to: Wed 05 Apr 2023 00:01)"),
+                taskList.toString());
+    }
+
+    // Used to make a standard tasklist to test edit() on
+    private static TaskList makeTestEditTaskList() {
+        String fileName = "test_edit.txt";
+        Storage storage = new Storage(fileName);
+        String data = "TODO || X || t1 || || ||\n"
+                + "TODO ||   || t2 || || ||\n"
+                + "DEADLINE || X || d1 || 2023-01-01 11:11 || ||\n"
+                + "DEADLINE ||  || d2 || 2023-02-02 22:22 || ||\n"
+                + "EVENT || X || e1 ||  || 2023-03-03 11:11 || 2023-03-03 22:22\n"
+                + "EVENT ||  || e2 ||  || 2023-04-04 11:11 || 2023-04-04 22:22\n";
+        storage.save(data);
+        return new TaskList(fileName);
+    }
 }

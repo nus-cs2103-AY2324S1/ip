@@ -60,28 +60,6 @@ public class Duke {
     }
 
     /**
-     * Marks a task as done.
-     *
-     * @param num The number of the task to be marked as done.
-     * @return String containing the task that was marked as done.
-     * @throws DukeIllegalArgumentException If the task number is out of range of the list.
-     */
-    private static String markTaskAsDone(int num) throws DukeIllegalArgumentException {
-        return list.mark(num);
-    }
-
-    /**
-     * Marks a task as undone.
-     *
-     * @param num The number of the task to be marked as undone.
-     * @return String containing the task that was marked as undone.
-     * @throws DukeIllegalArgumentException If the task number is out of range of the list.
-     */
-    private static String unmarkTaskAsDone(int num) throws DukeIllegalArgumentException {
-        return list.unmark(num);
-    }
-
-    /**
      * Adds a ToDo task to the list.
      *
      * @param description The description of the ToDo task.
@@ -113,17 +91,6 @@ public class Duke {
     private static String addEventTask(String description, String start, String end)
             throws DukeIllegalArgumentException {
         return list.add(TaskType.EVENT, description, start, end);
-    }
-
-    /**
-     * Deletes a task from the list.
-     *
-     * @param num The number of the task to be deleted.
-     * @return String containing the task that was deleted.
-     * @throws DukeIllegalArgumentException If the task number is out of range of the list.
-     */
-    private static String deleteTask(int num) throws DukeIllegalArgumentException {
-        return list.delete(num);
     }
 
     /**
@@ -168,6 +135,9 @@ public class Duke {
         case FIND:
             output = executeFindTask(argument);
             break;
+        case EDIT:
+            output = executeEditTask(argument);
+            break;
         case INVALID:
             throw new DukeUnknownCommandException(String.format(
                     ERROR_MESSAGE_TEMPLATE_UNKNOWN_COMMAND, parsedCommand.getInvalidCommand()));
@@ -187,7 +157,7 @@ public class Duke {
     private static String executeMarkTask(String argument) throws DukeIllegalArgumentException {
         String output;
         try {
-            output = markTaskAsDone(Integer.parseInt(argument));
+            output = list.mark(Integer.parseInt(argument));
         } catch (NumberFormatException e) {
             throw new DukeIllegalArgumentException(
                     String.format(ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER, argument));
@@ -205,7 +175,7 @@ public class Duke {
     private static String executeUnmarkTask(String argument) throws DukeIllegalArgumentException {
         String output;
         try {
-            output = unmarkTaskAsDone(Integer.parseInt(argument));
+            output = list.unmark(Integer.parseInt(argument));
         } catch (NumberFormatException e) {
             throw new DukeIllegalArgumentException(
                     String.format(ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER, argument));
@@ -261,7 +231,7 @@ public class Duke {
     private static String executeDeleteTask(String argument) throws DukeIllegalArgumentException {
         String output;
         try {
-            output = deleteTask(Integer.parseInt(argument));
+            output = list.delete(Integer.parseInt(argument));
         } catch (NumberFormatException e) {
             throw new DukeIllegalArgumentException(
                     String.format(ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER, argument));
@@ -281,7 +251,29 @@ public class Duke {
         if (argument.isBlank()) {
             throw new DukeIllegalArgumentException(ERROR_MESSAGE_FIND_MISSING_SEARCH_TERM);
         } else {
-            output = (list.find(argument));
+            output = list.find(argument);
+        }
+        return output;
+    }
+
+    /**
+     * Try to edit a task.
+     */
+    private static String executeEditTask(String argument) throws DukeIllegalArgumentException {
+        String output;
+        if (argument.isBlank()) {
+            throw new DukeIllegalArgumentException(ERROR_MESSAGE_FIND_MISSING_SEARCH_TERM);
+        } else {
+            try {
+                String[] splitArgs = argument.split(" ", 2);
+                if (splitArgs.length != 2) {
+                    throw new DukeIllegalArgumentException(ERROR_MESSAGE_FIND_MISSING_SEARCH_TERM);
+                }
+                output = list.edit(Integer.parseInt(splitArgs[0]), splitArgs[1]);
+            } catch (NumberFormatException e) {
+                throw new DukeIllegalArgumentException(
+                        String.format(ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER, argument));
+            }
         }
         return output;
     }

@@ -20,7 +20,7 @@ public class Deadline extends Task {
 
 
     // The deadline of the Deadline task, stored as a LocalDateTime Object.
-    protected final LocalDateTime by;
+    protected LocalDateTime by;
 
     /**
      * Constructor for a Deadline task.
@@ -31,11 +31,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) throws DukeIllegalArgumentException {
         super(description);
-        try {
-            this.by = LocalDateTime.parse(by, parseFormatter);
-        } catch (DateTimeParseException e) {
-            throw new DukeIllegalArgumentException(ERROR_MESSAGE_INVALID_DEADLINE_FORMAT);
-        }
+        this.updateDeadline(by);
     }
 
     /**
@@ -56,5 +52,19 @@ public class Deadline extends Task {
     @Override
     public String export() {
         return String.format(DEADLINE_EXPORT_TEMPLATE, super.export(), this.by.format(parseFormatter), "", "");
+    }
+
+    /**
+     * Updates the deadline of the task.
+     *
+     * @param newDeadline The new deadline of the task.
+     * @throws DukeIllegalArgumentException If the deadline does not follow the format yyyy-MM-dd HH:mm.
+     */
+    public void updateDeadline(String newDeadline) throws DukeIllegalArgumentException {
+        try {
+            this.by = LocalDateTime.parse(newDeadline, parseFormatter);
+        } catch (DateTimeParseException e) {
+            throw new DukeIllegalArgumentException(ERROR_MESSAGE_INVALID_DEADLINE_FORMAT);
+        }
     }
 }
