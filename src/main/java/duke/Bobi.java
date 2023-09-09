@@ -35,8 +35,39 @@ public class Bobi {
     }
 
     /**
+     * Returns Bobi's response to user's inputs.
+     *
+     * @param input User's input
+     * @return Bobi's response
+     */
+    public String getResponse(String input) {
+        if (input.equalsIgnoreCase("bye")) {
+            return Ui.exit();
+        } else if (input.equalsIgnoreCase("list")) {
+            return ui.listTasks();
+        } else if (input.startsWith("mark")) {
+            return command.handleMark(input);
+        } else if (input.startsWith("unmark")) {
+            return command.handleUnMark(input);
+        } else if (input.startsWith("todo")) {
+            return command.handleToDo(input);
+        } else if (input.startsWith("deadline")) {
+            return command.handleDeadline(input);
+        } else if (input.startsWith("event")) {
+            return command.handleEvent(input);
+        } else if (input.startsWith("delete")) {
+            return command.handleDelete(input);
+        } else if (input.startsWith("find")) {
+            return command.handleFind(input);
+        } else if (input.length() == 0) {
+            return Ui.printError(new EmptyCommandException());
+        } else {
+            return Ui.printError(new InvalidCommandException());
+        }
+    }
+
+    /**
      * Runs Bobi.
-     * Directs Bobi to perform certain actions based on the user's input.
      */
     public void run() {
         System.out.println(Ui.greeting());
@@ -44,40 +75,9 @@ public class Bobi {
         String answer = ui.getInput();
 
         // Listens to user commands and perform the relevant functions
-        while (true) {
-            if (answer.equalsIgnoreCase("bye")) {
-                break;
-            } else if (answer.equalsIgnoreCase("list")) {
-                System.out.println(ui.listTasks());
-                answer = ui.getInput();
-            } else if (answer.startsWith("mark")) {
-                System.out.println(command.handleMark(answer));
-                answer = ui.getInput();
-            } else if (answer.startsWith("unmark")) {
-                System.out.println(command.handleUnMark(answer));
-                answer = ui.getInput();
-            } else if (answer.startsWith("todo")) {
-                System.out.println(command.handleToDo(answer));
-                answer = ui.getInput();
-            } else if (answer.startsWith("deadline")) {
-                System.out.println(command.handleDeadline(answer));
-                answer = ui.getInput();
-            } else if (answer.startsWith("event")) {
-                System.out.println(command.handleEvent(answer));
-                answer = ui.getInput();
-            } else if (answer.startsWith("delete")) {
-                System.out.println(command.handleDelete(answer));
-                answer = ui.getInput();
-            } else if (answer.startsWith("find")) {
-                System.out.println(command.handleFind(answer));
-                answer = ui.getInput();
-            } else if (answer.length() == 0) {
-                System.out.println(Ui.printError(new EmptyCommandException()));
-                answer = ui.getInput();
-            } else {
-                System.out.println(Ui.printError(new InvalidCommandException()));
-                answer = ui.getInput();
-            }
+        while (!answer.equalsIgnoreCase("bye")) {
+            System.out.println(this.getResponse(answer));
+            answer = ui.getInput();
         }
         System.out.println(Ui.exit());
         ui.stopScanner();

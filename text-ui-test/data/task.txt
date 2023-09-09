@@ -1,3 +1,7 @@
-D/@/1/@/homework /@/2023-11-01T18:00
-E/@/0/@/book fair /@/2023-10-01T12:00/@/2023-10-01T18:00
-T/@/1/@/return book
+T/@/0/@/eat chocolate
+T/@/0/@/dance class
+D/@/0/@/run 100km /@/2023-10-01T18:00
+T/@/0/@/say hi
+T/@/0/@/say bye
+E/@/0/@/halloween party /@/2023-10-01T18:00/@/2023-10-02T08:00
+T/@/0/@/dance

@@ -11,7 +11,7 @@ import duke.task.Task;
  * @author ruo-x
  */
 public class Ui {
-    private static final String SEPARATOR = "____________________________________________________________\n";
+    private static final String SEPARATOR = "_______________________________________________________________________\n";
     private static final String GREETING = "Hello! I'm Bobi >.<, what can I do for you?\n";
     private static final String EXIT = "Bye! Hope you have a good day today :)\n";
     private static final String ADD_TASK = "New task added to your list:\n";
