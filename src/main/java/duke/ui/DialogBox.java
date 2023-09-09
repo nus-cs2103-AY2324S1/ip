@@ -1,22 +1,23 @@
 package duke.ui;
 
+import java.io.IOException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Ellipse;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Ellipse;
 
-import java.io.IOException;
-
+/**
+ * The dialog box controller class for duke GUI.
+ * Displays the input from the player and response from duke.
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;

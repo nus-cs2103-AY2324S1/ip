@@ -1,10 +1,12 @@
 package duke.ui;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.TimeUnit;
+
 import duke.Duke;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -12,10 +14,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-import java.util.concurrent.TimeUnit;
-
+/**
+ * The main display window for duke GUI.
+ */
 public class MainWindow extends AnchorPane {
     @FXML
     private AnchorPane anchorPane;
@@ -32,14 +33,13 @@ public class MainWindow extends AnchorPane {
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/image/DaUser.png"));
     private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/image/DaDuke.png"));
 
+    /**
+     * Initialises the duke GUI.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         anchorPane.widthProperty().addListener((observable, oldValue, newValue) -> {
-//            ObservableList<Node> allChildren = dialogContainer.getChildren();
-//            for (Node child : allChildren) {
-//                child.
-//            }
             dialogContainer.setPrefWidth(newValue.doubleValue() - 12);
         });
     }
@@ -57,7 +57,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         inputField.clear();
-        if (Duke.IS_END) {
+        if (duke.getTermination()) {
             exitApp();
         }
     }
