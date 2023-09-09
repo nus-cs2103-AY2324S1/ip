@@ -23,6 +23,9 @@ public class AddTodoCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert taskList != null;
+        assert ui != null;
+        assert storage != null;
         try {
             if (description.trim().isEmpty()) {
                 throw new EmptyDescriptionException("todo");

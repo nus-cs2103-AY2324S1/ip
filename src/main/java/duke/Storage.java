@@ -38,6 +38,7 @@ public class Storage {
      * @throws DukeDatabaseException If there is a problem with creating the database.
      */
     public ArrayList<Task> loadData() throws DukeDatabaseException {
+        assert filePath != null;
         ArrayList<Task> loadedTasks = new ArrayList<>();
         File file = new File(this.filePath);
         boolean isFileCreated = false;
@@ -95,25 +96,25 @@ public class Storage {
      * @return The corresponding Task object read from the file.
      */
     private Task readEntry(String entry) {
-        String[] parts = entry.split(" \\| ");
+        String[] entryParts = entry.split(" \\| ");
         Task taskToAdd = null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-        switch (parts[0]) {
+        switch (entryParts[0]) {
         case "T":
-            taskToAdd = new Todo(parts[2]);
+            taskToAdd = new Todo(entryParts[2]);
             break;
         case "D":
-            taskToAdd = new Deadline(parts[2], LocalDateTime.parse(parts[3], formatter));
+            taskToAdd = new Deadline(entryParts[2], LocalDateTime.parse(entryParts[3], formatter));
             break;
         case "E":
-            taskToAdd = new Event(parts[2], LocalDateTime.parse(parts[3], formatter));
+            taskToAdd = new Event(entryParts[2], LocalDateTime.parse(entryParts[3], formatter));
             break;
         default:
             break;
         }
 
-        if (parts[1].equals("1")) {
+        if (entryParts[1].equals("1")) {
             taskToAdd.markAsDone();
         }
         return taskToAdd;

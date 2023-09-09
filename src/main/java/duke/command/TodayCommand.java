@@ -15,6 +15,9 @@ public class TodayCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert taskList != null;
+        assert ui != null;
+        assert storage != null;
         LocalDate today = LocalDate.now();
         ArrayList<Task> matchingTasks = new ArrayList<>();
 
