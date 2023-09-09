@@ -1,6 +1,9 @@
 package duke.tasks;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import duke.exceptions.DukeIOException;
 import duke.exceptions.DukeIllegalArgumentException;
@@ -35,10 +38,8 @@ public class TaskList {
             "Got it. I've added this task:%n%s%nNow you have %d %s in the list.";
     private static final String MESSAGE_DELETE_TASK_TEMPLATE =
             "Noted. I've removed this task:%n%s%nNow you have %d %s in the list.";
-    private static final String MESSAGE_MARK_TASK_TEMPLATE =
-            "Nice! I've marked this task as done:%n%s";
-    private static final String MESSAGE_UNMARK_TASK_TEMPLATE =
-            "OK, I've marked this task as not done yet:%n%s";
+    private static final String MESSAGE_MARK_TASK_TEMPLATE = "Nice! I've marked this task as done:%n%s";
+    private static final String MESSAGE_UNMARK_TASK_TEMPLATE = "OK, I've marked this task as not done yet:%n%s";
     private static final String MESSAGE_TEMPLATE_FOUND_TASKS = "Here %s the %d matching %s in your list:%s";
     private static final String MESSAGE_TEMPLATE_NO_FOUND_TASKS = "There are no matching tasks in your list.";
     private static final String MESSAGE_LIST_TASKS_HEADER = "Here are the tasks in your list:";
@@ -142,7 +143,7 @@ public class TaskList {
     /**
      * Adds a task with description and deadline to the TaskList. Used for Deadline tasks.
      *
-     * @param taskType The type of task to add.
+     * @param taskType The type of task to add. Must be DEADLINE.
      * @param description The description of the task to add.
      * @param by The deadline of the task to add.
      * @return String message
@@ -164,7 +165,7 @@ public class TaskList {
     /**
      * Adds a task with description, start and end date/time to the TaskList. Used for Event tasks.
      *
-     * @param taskType The type of task to add.
+     * @param taskType The type of task to add. Must be EVENT.
      * @param description The description of the task to add.
      * @param start The start date/time of the task to add.
      * @param end The end date/time of the task to add.
@@ -247,21 +248,18 @@ public class TaskList {
      * @return The String representation of the tasks that contain the keyword in the description.
      */
     public String find(String keyword) {
-        StringBuilder sb = new StringBuilder();
-        int count = 0;
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            if (task.hasKeywordInDescription(keyword)) {
-                count++;
-                sb.append(String.format(TASK_DISPLAY_FORMAT_TEMPLATE, i + 1, task));
-            }
-        }
-        if (count == 0) {
+        List<String> foundTasks = tasks.stream()
+                .filter(task -> task.hasKeywordInDescription(keyword))
+                .map(task -> String.format(TASK_DISPLAY_FORMAT_TEMPLATE, tasks.indexOf(task) + 1, task))
+                .collect(toList());
+
+        if (foundTasks.isEmpty()) {
             return MESSAGE_TEMPLATE_NO_FOUND_TASKS;
         } else {
-            String isOrAre = count == 1 ? "is" : "are";
-            String taskOrTasks = count == 1 ? "task" : "tasks";
-            return String.format(MESSAGE_TEMPLATE_FOUND_TASKS, isOrAre, count, taskOrTasks, sb);
+            String isOrAre = foundTasks.size() == 1 ? "is" : "are";
+            String taskOrTasks = foundTasks.size() == 1 ? "task" : "tasks";
+            return String.format(MESSAGE_TEMPLATE_FOUND_TASKS,
+                    isOrAre, foundTasks.size(), taskOrTasks, String.join("", foundTasks));
         }
     }
 
@@ -277,9 +275,9 @@ public class TaskList {
         if (tasks.isEmpty()) {
             sb.append(String.format(MESSAGE_TEMPLATE_EMPTY_TASKLIST));
         } else {
-            for (int i = 0; i < tasks.size(); i++) {
-                sb.append(String.format(TASK_DISPLAY_FORMAT_TEMPLATE, i + 1, tasks.get(i)));
-            }
+            tasks.stream()
+                    .map(task -> String.format(TASK_DISPLAY_FORMAT_TEMPLATE, tasks.indexOf(task) + 1, task))
+                    .forEach(sb::append);
         }
         return sb.toString();
     }
@@ -293,10 +291,10 @@ public class TaskList {
      */
     private void exportData() throws DukeIOException {
         StringBuilder sb = new StringBuilder();
-        for (Task task : tasks) {
-            // \n is used here instead of %n to preserve save file formatting
-            sb.append(task.export()).append("\n");
-        }
+        tasks.stream()
+                .map(Task::export)
+                // \n is used here instead of %n to preserve save file formatting
+                .forEach(task -> sb.append(task).append("\n"));
         taskStorage.save(sb.toString());
     }
 
