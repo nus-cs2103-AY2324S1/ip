@@ -1,9 +1,9 @@
 package duke.command;
 
-import duke.error.DukeException;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import duke.error.DukeException;
 
 /**
  * Represents a set of parameters associated with a command. Parameters are stored as key-value pairs.
@@ -93,8 +93,7 @@ public class Params {
     /**
      * Returns a string representation of the parameters.
      *
-     * @return A string representing the parameters in the format "paramName1: paramValue1, paramName2: paramValue2,
-     * ..."
+     * @return A string representing the parameters in the format "paramName1: paramValue1, ...
      */
     @Override
     public String toString() {

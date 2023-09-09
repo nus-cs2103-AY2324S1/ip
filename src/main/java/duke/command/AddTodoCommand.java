@@ -7,7 +7,7 @@ import duke.task.Todo;
  * Represents a command to add a task.
  */
 public class AddTodoCommand extends AddCommand {
-    private final static String USAGE_TEXT = "todo <desc> | t <desc>";
+    private static final String USAGE_TEXT = "todo <desc> | t <desc>";
 
     /**
      * Constructs a AddTodoCommand with the specified parameters.

@@ -3,7 +3,6 @@ package duke.command;
 import duke.error.DukeException;
 import duke.lib.Storage;
 import duke.lib.UI;
-import duke.parser.Validate;
 import duke.task.TaskList;
 
 /**

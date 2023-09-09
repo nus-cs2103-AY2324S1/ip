@@ -8,7 +8,7 @@ import duke.task.Event;
  * Represents a command to add a task.
  */
 public class AddEventCommand extends AddCommand {
-    private final static String USAGE_TEXT = "event <desc> /from <date time> /to <date time>"
+    private static final String USAGE_TEXT = "event <desc> /from <date time> /to <date time>"
         + "\n\t\te <desc> /from <date time> /to <date time>";
 
     /**

@@ -8,7 +8,7 @@ import duke.task.Deadline;
  * Represents a command to add a task.
  */
 public class AddDeadlineCommand extends AddCommand {
-    private final static String USAGE_TEXT = "deadline <desc> /by <date time>"
+    private static final String USAGE_TEXT = "deadline <desc> /by <date time>"
         + "\n\t\td <desc> /by <date time>";
 
     /**

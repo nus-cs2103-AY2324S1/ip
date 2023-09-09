@@ -1,15 +1,17 @@
 package duke.parser;
 
-import duke.command.*;
+import duke.command.AddDeadlineCommand;
+import duke.command.AddEventCommand;
+import duke.command.AddTodoCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.Params;
+import duke.command.UnmarkCommand;
 import duke.error.DukeException;
-import duke.lib.UI;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Todo;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Parses user input commands and creates corresponding Command objects.
