@@ -49,7 +49,7 @@ public class Duke {
 
     /**
      * Parses and manages the user's inputs using the parser.
-     * @param tally takes in the input string.
+     * @param message takes in the input string.
      */
     public void messageHandler(String message) {
         this.parser.messageHandler(message);

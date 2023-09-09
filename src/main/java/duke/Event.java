@@ -14,8 +14,8 @@ public class Event extends Task {
      * Instantiates an instance of the Event task class.
      *
      * @param classname name of the event.
-     * @param start the starting time of the event task.
-     * @param end the ending time of the event task.
+     * @param startTime the starting time of the event task.
+     * @param endTime the ending time of the event task.
      */
     public Event(String classname, String startTime, String endTime) {
         super(classname);
