@@ -1,7 +1,5 @@
 package duke.exceptions;
 
-import duke.Ui;
-
 public class IncompleteDescriptionException extends Exception {
     @Override
     public String toString() {

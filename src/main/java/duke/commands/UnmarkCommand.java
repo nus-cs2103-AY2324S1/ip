@@ -8,7 +8,7 @@ import duke.TaskList;
  * Command to unmark a task in the task list.
  */
 public class UnmarkCommand extends Command {
-    private int unmarkIdx;
+    private final int unmarkIdx;
 
     public UnmarkCommand(int unmarkIdx) {
         this.unmarkIdx = unmarkIdx;

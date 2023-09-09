@@ -34,6 +34,7 @@ public class Storage {
             if (!new File("data").isFile()) {
                 new File("data").mkdir();
             }
+
             Scanner fileReader = new Scanner(this.file);
             while (fileReader.hasNext()) {
                 taskList.addTask(Parser.dataToTask(fileReader.nextLine()));
@@ -54,9 +55,11 @@ public class Storage {
         try {
             FileWriter writer = new FileWriter(this.file.getAbsoluteFile());
             String newTaskData = "";
+
             for (int i = 0; i < taskList.size(); i++) {
                 newTaskData += taskList.getTask(i).compressData() + "\n";
             }
+
             writer.write(newTaskData);
             writer.close();
         } catch (IOException ex) {

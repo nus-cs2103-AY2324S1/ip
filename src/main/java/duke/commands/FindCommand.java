@@ -9,7 +9,7 @@ import duke.Ui;
  * Command to find a task from a given string prefix.
  */
 public class FindCommand extends Command {
-    private String prefix;
+    private final String prefix;
 
     public FindCommand(String prefix) {
         this.prefix = prefix;
