@@ -20,8 +20,8 @@ public class Ui {
     }
 
     /**
-     * Print the message that is created by processing the command given
-     * @param commandMessage
+     * print the message that is created by processing the command given
+     * @param commandMessage the command output to the user
      */
     public void message(String commandMessage) {
         System.out.println(ANSWER_BORDER);

@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents a deadline object.
- * It has an end date and time.
+ * represents a deadline object.
+ * it has an end date and time.
  */
 public class Deadline extends Task {
     private final LocalDate deadlineDate;
@@ -35,7 +35,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Initialize Deadline object that models a deadline
+     * initialize Deadline object that models a deadline
      * @param task the deadline task name with a "/by" separating the description and the deadline
      * @throws DukeException If the description or deadline is empty or there is no "/by" or
      * the datetime format is wrong (not YYYY-MM-DD)
@@ -56,7 +56,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns new Deadline object that is marked
+     * returns new Deadline object that is marked
      * @return Deadline object that is marked
      */
     @Override
@@ -65,7 +65,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns new Deadline object that is unmarked
+     * returns new Deadline object that is unmarked
      * @return Deadline object that is unmarked
      */
     @Override
@@ -74,7 +74,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns format of string to be stored in hard disk
+     * returns format of string to be stored in hard disk
      * @return string
      */
     @Override

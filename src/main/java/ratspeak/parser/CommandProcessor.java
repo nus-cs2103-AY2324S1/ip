@@ -1,5 +1,6 @@
 package ratspeak.parser;
 
+import ratspeak.InputReceiver;
 import ratspeak.exception.DukeException;
 import ratspeak.data.TaskList;
 import ratspeak.storage.Storage;
@@ -12,7 +13,7 @@ import java.util.Arrays;
 
 public class CommandProcessor {
     private final TaskList tasks;
-    private static final String[] VALID_COMMANDS = {"mark", "unmark", "list", "todo"
+    private static final String[] VALID_COMMANDS = {"bye", "mark", "unmark", "list", "todo"
             , "event", "deadline", "delete", "find"};
 
     private static final Storage storage = new Storage();
@@ -26,81 +27,81 @@ public class CommandProcessor {
     }
 
 
-    private String[] parseCommand(String command) throws DukeException {
+    private String parseCommand(String command) throws DukeException {
         String [] splitCommand = command.split(" ", 2);
         String commandType = splitCommand[0];
         if (!Arrays.asList(VALID_COMMANDS).contains(commandType)) {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(\n");
         }
-        if (splitCommand.length != 2 && !commandType.equals("list")) {
+
+        return commandType;
+    }
+
+    private String parseInformation(String command) throws DukeException {
+        String [] splitCommand = command.split(" ", 2);
+        String commandType = splitCommand[0];
+
+        if (commandType.equals("list")) {
+            return "";
+        }
+
+        if (splitCommand.length != 2) {
             throw new DukeException("OOPS!!! The description of a " + commandType + " cannot be empty.\n");
         }
 
-        String commandDescription = splitCommand[0].trim();
+        String commandDescription = splitCommand[1].trim();
 
         if (commandDescription.isEmpty()) {
             throw new DukeException("OOPS!!! The description of a " + commandType + " cannot be empty.\n");
         }
-        return splitCommand;
+        return commandDescription;
     }
 
 
     /**
      * Returns a string that is the output for the command given.
      * Process mark, unmark, delete, find, event, todo, deadline
-     * @param command the command given by the user
      * @return the string that is the output string for the command given.
      */
     public String processCommand(String command) {
         try {
-            String [] splitCommand = parseCommand(command);
-            String commandType = splitCommand[0];
-            // print the list of tasks
-            if (commandType.equals("list")) {
-                return this.tasks.listContent();
-            }
-
-            String taskName = splitCommand[1];
-
-            return process(commandType, taskName);
+            String commandType = parseCommand(command);
+            String commandDescription = parseInformation(command);
+            return process(commandType, commandDescription);
 
         } catch(DukeException e) {
             return (e.getMessage());
         }
     }
 
+
     private String process(String commandType, String taskName) throws DukeException {
         switch (commandType) {
+        case "list":
+            return this.tasks.listContent();
         case "mark":
             return tasks.mark(taskName);
         case "unmark":
             return tasks.unMark(taskName);
-
         case "delete":
             return tasks.delete(taskName);
-
         case "find":
             return tasks.find(taskName);
-
         case "todo":
-            Task task = new Todo(taskName);
-            storage.writeToFile(task.storageText());
-            return tasks.addToList(task);
-
+            Task todoTask = new Todo(taskName);
+            storage.writeToFile(todoTask.storageText());
+            return tasks.addToList(todoTask);
         case "deadline":
-            task = new Deadline(taskName);
-            storage.writeToFile(task.storageText());
-            return tasks.addToList(task);
-
+            Task deadlineTask = new Deadline(taskName);
+            storage.writeToFile(deadlineTask.storageText());
+            return tasks.addToList(deadlineTask);
         case "event":
-            task = new Event(taskName);
-            storage.writeToFile(task.storageText());
-            return tasks.addToList(task);
-
+            Task eventTask = new Event(taskName);
+            storage.writeToFile(eventTask.storageText());
+            return tasks.addToList(eventTask);
         default:
             return "Please enter a valid command from this list: "
                     + Arrays.toString(VALID_COMMANDS) + "\n";
         }
-
     }
 }

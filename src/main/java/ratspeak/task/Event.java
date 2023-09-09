@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents an event.
+ * represents an event.
  * It has a start date and end date.
  */
 public class Event extends Task {
@@ -46,7 +46,7 @@ public class Event extends Task {
     }
 
     /**
-     * Initialize Event object that models an event
+     * initialize Event object that models an event
      * @param task the deadline task name with a "/from" and "/to" separating the description and the start and end date
      * @throws DukeException If the description, start date or end date is empty or there is no "/from" or "/to"
      * the datetime format is wrong (not YYYY-MM-DD)
@@ -69,7 +69,7 @@ public class Event extends Task {
     }
 
     /**
-     * Returns new Event object that is marked
+     * returns new Event object that is marked
      * @return Event object that is marked
      */
     @Override
@@ -78,7 +78,7 @@ public class Event extends Task {
     }
 
     /**
-     * Returns new Event object that is unmarked
+     * returns new Event object that is unmarked
      * @return Event object that is unmarked
      */
     @Override
@@ -87,7 +87,7 @@ public class Event extends Task {
     }
 
     /**
-     * Returns format of string to be stored in hard disk
+     * returns format of string to be stored in hard disk
      * @return string
      */
     @Override
