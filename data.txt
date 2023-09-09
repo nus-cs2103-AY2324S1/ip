@@ -1,5 +1,1 @@
-T | 0 | read book
-D | 0 | eat | 2020-12-30 10:40
-E | 0 | play | 2020-12-12 12:12 | 2020-12-12 12:12
-T | 0 | eat
-T | 0 | go
+T | 0 | read fianccial stuff on seedly

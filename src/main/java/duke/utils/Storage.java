@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -39,7 +40,8 @@ public class Storage {
      * Loads tasks from a data file into a list.
      * @param toDoList The list where loaded tasks will be added.
      */
-    public void loadTasksFromFile(List<Task> toDoList) {
+    public List<Task> loadTasksFromFile() throws DukeException {
+        List<Task> tasks = new ArrayList<>();
         try {
             File file = new File(DATA_FILE_PATH);
             if (file.exists()) {
@@ -47,14 +49,13 @@ public class Storage {
                 while (scanner.hasNextLine()) {
                     String taskData = scanner.nextLine();
                     Task task = Task.createTaskFromData(taskData);
-                    if (task != null) {
-                        toDoList.add(task);
-                    }
+                    tasks.add(task);
                 }
                 scanner.close();
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Error loading tasks from file: " + e.getMessage());
+            throw new DukeException(e.getMessage());
         }
+        return tasks;
     }
 }
