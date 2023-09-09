@@ -18,5 +18,5 @@ public abstract class Command {
 
     public abstract boolean isExit();
 
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws IOException;
+    public abstract String execute(TaskList taskList, Storage storage) throws IOException;
 }

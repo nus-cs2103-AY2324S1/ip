@@ -60,11 +60,11 @@ public class AddCommand extends Command {
      * @param storage the Storage object that will handle the saving to the data file
      * @throws IOException if the Storage object fails to write to the data file
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, Storage storage) throws IOException {
         taskList.add(toAdd);
-        ui.showOutput(String.format("Got it. I've added this task:\n%s\nNow you have %d task(s) in the list",
-                toAdd.toString(), taskList.size()));
         storage.save(taskList);
+        return String.format("Got it. I've added this task:\n%s\nNow you have %d task(s) in the list",
+                toAdd.toString(), taskList.size());
     };
 
     /**

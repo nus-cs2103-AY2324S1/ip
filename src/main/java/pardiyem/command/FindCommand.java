@@ -14,7 +14,7 @@ public class FindCommand extends Command {
         return false;
     }
 
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         TaskList out = new TaskList();
 
         for (int i = 0; i < taskList.size(); i++) {
@@ -24,7 +24,7 @@ public class FindCommand extends Command {
            }
         }
 
-        ui.showOutput(out.toString());
+        return out.toString();
     }
 
     @Override
