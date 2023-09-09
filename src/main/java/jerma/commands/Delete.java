@@ -9,6 +9,7 @@ public class Delete extends Command {
 
     public Delete(Ui ui, TaskList tasks, int index) {
         super(ui, tasks);
+        assert index > 0 || index <= tasks.size() : "Index out of range";
         task = tasks.get(index - 1);
     }
 
