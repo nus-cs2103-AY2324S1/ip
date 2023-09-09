@@ -110,6 +110,13 @@ public class Ui {
                     showTaskDeleted(tasks.size());
                     storage.saveTasks(tasks);
                     break;
+                case "find":
+                    if (parts.length == 1) {
+                        System.out.println("Please specify a keywork to search for.");
+                    } else {
+                        showFindCommand(parts[1], tasks);
+                    }
+                    break;
                 default:
                     showError("Invalid command format.");
             }
@@ -150,6 +157,22 @@ public class Ui {
 
     public void showLoadingError() {
         System.out.println("Error loading tasks from file.");
+    }
+
+    /**
+     * Displays tasks tha match the keyword.
+     *
+     * @param keyword  The keyword to search for the matching task.
+     * @param tasks  The list of tasks to search within.
+     */
+    public void showFindCommand (String keyword, TaskList tasks) {
+        TaskList matchingTasks = tasks.findTasksByKeyword(keyword);
+
+        System.out.println("Here are the matching tasks: ");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + "." + matchingTasks.getTask(i));
+        }
+
     }
     public void showExit() {
         System.out.println("Bye. Have a great day!");
