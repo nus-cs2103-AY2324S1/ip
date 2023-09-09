@@ -26,13 +26,15 @@ public class MarkCommand extends Command {
      * @param storage Storage class that deals with saving data.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        String output = "";
         try {
             tasks.mark(this.index);
-            ui.taskMarked(tasks.get(this.index));
+            output += ui.taskMarked(tasks.get(this.index));
         } catch (IndexOutOfBoundsException e) {
-            ui.showError(e.getMessage());
+            output += ui.showError(e.getMessage());
         }
         storage.saveTaskList(tasks);
+        return output;
     }
 }

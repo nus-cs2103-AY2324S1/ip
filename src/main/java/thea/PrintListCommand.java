@@ -21,7 +21,7 @@ public class PrintListCommand extends Command {
      * @param storage Storage class that deals with saving data.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printList(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.printList(tasks);
     }
 }
