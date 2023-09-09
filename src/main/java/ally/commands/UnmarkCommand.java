@@ -28,14 +28,13 @@ public class UnmarkCommand extends Commands {
      * @param storage
      */
     @Override
-    public void run(AllyList allyList, Ui ui, Storage storage) {
+    public String run(AllyList allyList, Ui ui, Storage storage) {
         try {
             Task task = allyList.getTask(index);
-            allyList.unMarkDone(index);
-            ui.showNotMarked(task);
             storage.appendToFile(task);
+            return ui.showNotMarked(task);
         } catch (AllyException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 

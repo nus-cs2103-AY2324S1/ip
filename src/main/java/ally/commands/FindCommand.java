@@ -20,14 +20,14 @@ public class FindCommand extends Commands {
     }
 
     @Override
-    public void run(AllyList allyList, Ui ui, Storage storage) {
+    public String run(AllyList allyList, Ui ui, Storage storage) {
         ArrayList<Task> matchTasks = new ArrayList<>(100);
         for (int i = 0, len = allyList.getSize(); i < len; i++) {
             if (allyList.getTask(i).getDescription().contains(this.description)) {
                 matchTasks.add(allyList.getTask(i));
             }
         }
-        ui.showMatchingTask(matchTasks);
+        return ui.showMatchingTask(matchTasks);
     }
 
     @Override

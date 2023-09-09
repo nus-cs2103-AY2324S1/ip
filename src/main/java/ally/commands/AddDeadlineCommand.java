@@ -34,14 +34,14 @@ public class AddDeadlineCommand extends Commands {
      * @throws AllyException
      */
     @Override
-    public void run(AllyList allyList, Ui ui, Storage storage) throws AllyException {
+    public String run(AllyList allyList, Ui ui, Storage storage) throws AllyException {
         try {
             Deadline ddline = new Deadline(description, by);
             allyList.addElements(ddline);
             storage.appendToFile(ddline);
-            allyList.printNewList(ddline);
+            return allyList.printNewList(ddline);
         } catch (AllyException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 

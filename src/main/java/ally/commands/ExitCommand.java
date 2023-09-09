@@ -18,11 +18,11 @@ public class ExitCommand extends Commands {
      * @param storage
      */
     @Override
-    public void run(AllyList allyList, Ui ui, Storage storage) {
+    public String run(AllyList allyList, Ui ui, Storage storage) {
         try {
-            ui.bye();
+            return ui.bye();
         } catch (AllyException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 

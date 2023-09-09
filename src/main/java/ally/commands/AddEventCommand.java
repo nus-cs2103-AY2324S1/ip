@@ -39,14 +39,14 @@ public class AddEventCommand extends Commands {
      * @throws AllyException
      */
     @Override
-    public void run(AllyList allyList, Ui ui, Storage storage) throws AllyException {
+    public String run(AllyList allyList, Ui ui, Storage storage) throws AllyException {
         try {
             Event event = new Event(description, from, to);
             allyList.addElements(event);
             storage.appendToFile(event);
-            allyList.printNewList(event);
+            return allyList.printNewList(event);
         } catch (AllyException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 

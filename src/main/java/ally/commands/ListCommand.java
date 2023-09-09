@@ -19,8 +19,8 @@ public class ListCommand extends Commands {
      * @throws AllyException
      */
     @Override
-    public void run(AllyList allyList, Ui ui, Storage storage) throws AllyException {
-        ui.showList(allyList);
+    public String run(AllyList allyList, Ui ui, Storage storage) throws AllyException {
+        return ui.showList(allyList);
     }
 
     @Override

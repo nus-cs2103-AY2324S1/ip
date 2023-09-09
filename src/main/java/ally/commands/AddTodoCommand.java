@@ -32,14 +32,14 @@ public class AddTodoCommand extends Commands {
      * @throws AllyException
      */
     @Override
-    public void run(AllyList allyList, Ui ui, Storage storage) throws AllyException {
+    public String run(AllyList allyList, Ui ui, Storage storage) throws AllyException {
         try {
             Todo todo = new Todo(description);
             allyList.addElements(todo);
             storage.appendToFile(todo);
-            allyList.printNewList(todo);
+            return allyList.printNewList(todo);
         } catch (AllyException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 

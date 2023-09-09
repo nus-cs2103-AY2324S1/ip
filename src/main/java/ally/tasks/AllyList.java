@@ -53,19 +53,23 @@ public class AllyList {
 
     /**
      * Prints the task added to the list.
+     *
      * @param task
+     * @return
      */
-    public void printNewList(Task task) {
-        System.out.println("Got it. I've added this task:\n");
-        System.out.println("\t" + task.toString());
-        System.out.println("Now you have " + arr.size() + " tasks in the list.");
-
+    public String printNewList(Task task) {
+        String str1 = "Got it. I've added this task:\n";
+        String str2 = "\t" + task.toString();
+        String str3 = "Now you have " + arr.size() + " tasks in the list.";
+        return str1 + str2 + str3;
     }
 
 
     /**
      * Function to delete a task from the list or array.
+     *
      * @param index
+     * @return
      * @throws AllyException
      */
     public void deleteElement(int index) throws AllyException {

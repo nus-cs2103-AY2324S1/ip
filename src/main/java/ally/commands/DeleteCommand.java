@@ -4,6 +4,7 @@ import ally.Storage;
 import ally.Ui;
 import ally.exceptions.AllyException;
 import ally.tasks.AllyList;
+import ally.tasks.Task;
 
 /**
  * DeleteCommand inherits from Commands.
@@ -30,12 +31,13 @@ public class DeleteCommand extends Commands {
      * @param storage
      */
     @Override
-    public void run(AllyList allyList, Ui ui, Storage storage) {
+    public String run(AllyList allyList, Ui ui, Storage storage) {
         try {
-            ui.showDelete(allyList.getTask(index), allyList.getSize() - 1);
+            Task deletedTask = allyList.getTask(index);
             allyList.deleteElement(index);
+            return ui.showDelete(deletedTask, allyList.getSize());
         } catch (AllyException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 

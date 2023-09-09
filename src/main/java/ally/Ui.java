@@ -36,7 +36,7 @@ public class Ui {
     /**
      * Function that provides the starting message and greeting.
      */
-    public void start() {
+    public static void start() {
         showLine();
         System.out.println(GREETING);
         showLine();
@@ -45,11 +45,14 @@ public class Ui {
     /**
      * Function that provides the bye message when the user
      * ends the chatbot.
+     *
+     * @return
      */
-    public void bye() throws AllyException {
-        System.out.println(LINE);
-        System.out.println(BYE);
-        System.out.println(LINE);
+    public String bye() throws AllyException {
+//        System.out.println(LINE);
+//        System.out.println(BYE);
+//        System.out.println(LINE);
+        return "bye";
     }
 
     /**
@@ -57,11 +60,13 @@ public class Ui {
      *
      * @param allyList
      */
-    public void showList(AllyList allyList) {
+    public String showList(AllyList allyList) {
+        StringBuilder stringBuilder = new StringBuilder();
         System.out.println("Here are the tasks in your list:\n");
         for (int i = 0, len = allyList.getSize(); i < len; i++) {
-            System.out.println((i + 1) + ". " + allyList.getTask(i).toString());
+            stringBuilder.append(i + 1).append(". ").append(allyList.getTask(i).toString());
         }
+        return stringBuilder.toString();
     }
 
     /**
@@ -69,11 +74,13 @@ public class Ui {
      *
      * @param task
      * @param total
+     * @return
      */
-    public void showDelete(Task task, int total) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("\t" + task);
-        System.out.println("Now you have " + total + " tasks in the list.");
+    public String showDelete(Task task, int total) {
+        String str1 = "Noted. I've removed this task:";
+        String str2 = "\t" + task;
+        String str3 = "Now you have " + total + " tasks in the list.";
+        return str1 + str2 + str3;
     }
 
     /**
@@ -81,21 +88,24 @@ public class Ui {
      *
      * @param task
      */
-    public void showMarked(Task task) {
+    public String showMarked(Task task) {
         task.setMarkDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("\t" + task);
+        String str1 = "\n Nice! I've marked this task as done:";
+        String str2 = "\t" + task;
+        return str1 + str2;
     }
 
     /**
      * Marks the task as not done and prints to inform the user the task is not done.
      *
      * @param task
+     * @return
      */
-    public void showNotMarked(Task task) {
+    public String showNotMarked(Task task) {
         task.setMarkNotDone();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("\t" + task);
+        String str1 = "\nOK, I've marked this task as not done yet:";
+        String str2 = "\t" + task;
+        return str1 + str2;
     }
 
     /**
@@ -112,19 +122,22 @@ public class Ui {
      *
      * @param message
      */
-    public void showError(String message) {
-        System.out.println(message);
+    public String showError(String message) {
+        return message;
     }
 
     /**
      * Shows the matching tasks.
      *
      * @param tasks ArrayList
+     * @return
      */
-    public void showMatchingTask(ArrayList<Task> tasks) {
+    public String showMatchingTask(ArrayList<Task> tasks) {
+        StringBuilder stringBuilder = new StringBuilder();
         System.out.println("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + tasks.get(i));
+            stringBuilder.append("/n").append(i + 1).append(". ").append(tasks.get(i));
         }
+        return stringBuilder.toString();
     }
 }
