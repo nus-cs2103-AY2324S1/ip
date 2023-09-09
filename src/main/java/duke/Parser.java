@@ -2,9 +2,23 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * The `Parser` class is responsible for parsing user commands
+ * and executing corresponding actions. It interprets user input
+ * and performs operations such as adding tasks, marking tasks as done,
+ * deleting tasks, listing tasks, and handling various exceptions.
+ */
 public class Parser {
 
+    /** Flag to control the main program loop. */
     public static int run;
+
+    /**
+     * Parses user input commands and executes corresponding actions
+     * until the "bye" command is given.
+     *
+     * @param sc The `Scanner` object for reading user input.
+     */
     public static void parse(Scanner sc) {
         while (true) {
             try {
