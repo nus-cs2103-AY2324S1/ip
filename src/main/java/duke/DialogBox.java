@@ -32,7 +32,6 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
-    private void color
 
     public static DialogBox getUserDialog(Label l, ImageView iv) {
         return new DialogBox(l, iv);
