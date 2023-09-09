@@ -5,7 +5,7 @@ package task;
  */
 public class Task {
     public static final String DIVIDER = "%!%";
-    private String name;
+    private final String name;
     private boolean isComplete;
 
     /**

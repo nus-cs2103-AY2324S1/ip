@@ -11,7 +11,6 @@ import java.util.Scanner;
  */
 public class Storage {
     private File storage;
-    private Scanner storageScanner;
 
     public Storage() {
     }
@@ -56,7 +55,7 @@ public class Storage {
      */
     public ArrayList<String> loadFromDisk() throws IOException {
         ArrayList<String> result = new ArrayList<>();
-        storageScanner = new Scanner(storage);
+        Scanner storageScanner = new Scanner(storage);
         while (storageScanner.hasNextLine()) {
             result.add(storageScanner.nextLine());
         }

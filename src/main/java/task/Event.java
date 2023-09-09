@@ -6,8 +6,8 @@ import java.time.format.DateTimeFormatter;
  * Represents an extension of a task, containing a start and end time in terms of LocalDate.
  */
 public class Event extends Task {
-    private LocalDate timeStart;
-    private LocalDate timeEnd;
+    private final LocalDate timeStart;
+    private final LocalDate timeEnd;
 
     /**
      * This is the constructor for an Event.

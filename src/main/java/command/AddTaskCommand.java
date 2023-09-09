@@ -9,7 +9,7 @@ import task.Task;
 /**
  * AddTaskCommand represents a command that adds a task to the list.
  */
-public class AddTaskCommand implements Commandable {
+public class AddTaskCommand implements Executable {
     private Task task;
 
     /**
@@ -27,6 +27,7 @@ public class AddTaskCommand implements Commandable {
      * @return false, since the execution does not end the bot.
      * @throws FailureInExecuteException when there is a failure in writing to the list or its associated file.
      */
+    @Override
     public boolean execute(TaskList list, UserInterface ui) throws FailureInExecuteException {
         try {
             list.addTask(task);

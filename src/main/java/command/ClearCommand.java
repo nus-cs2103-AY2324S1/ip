@@ -5,7 +5,7 @@ import duke.TaskList;
 import duke.UserInterface;
 import dukeexception.FailureInExecuteException;
 
-public class ClearCommand implements Commandable {
+public class ClearCommand implements Executable {
 
     @Override
     public boolean execute(TaskList list, UserInterface ui) throws FailureInExecuteException {

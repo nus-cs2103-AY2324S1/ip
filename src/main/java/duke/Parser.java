@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import command.AddTaskCommand;
 import command.ClearCommand;
-import command.Commandable;
+import command.Executable;
 import command.DeleteCommand;
 import command.FindCommand;
 import command.HelpCommand;
@@ -26,7 +26,7 @@ import task.ToDo;
  */
 
 public class Parser {
-    private HashMap<String, Commandable> stringToCommand;
+    private final HashMap<String, Executable> stringToCommand;
 
     /**
      * Initializes the parser.
@@ -55,10 +55,11 @@ public class Parser {
      * @return the command that the string represents.
      * @throws InvalidCommandException if the command cannot be identified.
      * @throws InvalidVarException if the command is identifiable but the parameters are incorrect.
+     * TODO Split up this method.
      */
-    public Commandable parse(String input) throws InvalidCommandException, InvalidVarException {
+    public Executable parse(String input) throws InvalidCommandException, InvalidVarException {
         String commandIdentifier = input.split(" ")[0];
-        Commandable command = stringToCommand.get(commandIdentifier);
+        Executable command = stringToCommand.get(commandIdentifier);
         if (command instanceof ShutdownCommand
             || command instanceof HelpCommand
             || command instanceof ListCommand

@@ -9,7 +9,7 @@ import dukeexception.FailureInExecuteException;
 /**
  * Represents a deletion command of a particular task.
  */
-public class DeleteCommand implements Commandable {
+public class DeleteCommand implements Executable {
     private int index;
     public void setDelete(int index) {
         this.index = index;
@@ -23,6 +23,7 @@ public class DeleteCommand implements Commandable {
      * @throws FailureInExecuteException when there is a failure in writing to the list or its associated file,
      *     and when the index does not exist in the list.
      */
+    @Override
     public boolean execute(TaskList list, UserInterface ui) throws FailureInExecuteException {
         try {
             if (!list.removeTask(index)) {

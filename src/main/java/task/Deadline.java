@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
  * Represents an extension of a task, containing a deadline in terms of LocalDate.
  */
 public class Deadline extends Task {
-    private LocalDate deadline;
+    private final LocalDate deadline;
 
     /**
      * This is the constructor for a deadline.

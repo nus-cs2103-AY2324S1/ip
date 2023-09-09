@@ -18,7 +18,7 @@ public class TaskList {
     private ArrayList<Task> taskList;
     private int counter;
 
-    private Storage storage;
+    private final Storage storage;
 
     /**
      * Initializes a tasklist, with its associated file.
@@ -155,11 +155,11 @@ public class TaskList {
         if (counter == -1) {
             return ("No list, silly!");
         } else {
-            String res = "Here's the list so far.";
+            StringBuilder res = new StringBuilder("Here's the list so far.");
             for (int i = 0; i < counter + 1; i++) {
-                res += ("\n" + (i + 1) + ". " + taskList.get(i));
+                res.append("\n").append(i + 1).append(". ").append(taskList.get(i));
             }
-            return res;
+            return res.toString();
         }
     }
 }

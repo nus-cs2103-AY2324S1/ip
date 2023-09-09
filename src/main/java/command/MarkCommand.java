@@ -9,8 +9,8 @@ import dukeexception.FailureInExecuteException;
 /**
  * Represents the marking or unmarking of a certain task.
  */
-public class MarkCommand implements Commandable {
-    private boolean isToBeMarked;
+public class MarkCommand implements Executable {
+    private final boolean isToBeMarked;
     private int targetIndex;
 
     public MarkCommand(boolean isToBeMarked) {
@@ -28,6 +28,7 @@ public class MarkCommand implements Commandable {
      * @return false, since the execution does not end the bot.
      * @throws FailureInExecuteException when there is a failure in marking the task, or the task does not exist.
      */
+    @Override
     public boolean execute(TaskList list, UserInterface ui) throws FailureInExecuteException {
         try {
             if (!list.setMark(targetIndex, isToBeMarked)) {
