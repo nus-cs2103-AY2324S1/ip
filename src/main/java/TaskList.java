@@ -119,6 +119,29 @@ public class TaskList {
     }
 
     /**
+     * Finds all the tasks that contain the keyword.
+     * 
+     * @param keyword   Keyword to be searched for.
+     * @return String that lists all the tasks that contain the keyword.
+     */
+    String find(String keyword) {
+        String temp = "Here are the matching tasks in your list:\n";
+        int count = 0;
+        for(int i = 0; i < tasks.size(); i++) {
+            Task tempTask = tasks.get(i);
+            if (tempTask.getDescription().contains(keyword)) {
+                temp += String.valueOf(i + 1) + "." + tempTask.toString() + "\n";
+                count++;
+            }
+        }
+        if (count == 0) {
+            return HORLINE + "No matching tasks found.\n" + HORLINE;
+        } else {
+            return HORLINE + temp + HORLINE;
+        }
+    }
+
+    /**
      * Lists all the tasks in the list of tasks.
      * 
      * @return String that lists all the tasks.
