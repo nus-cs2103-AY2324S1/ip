@@ -18,10 +18,10 @@ public class Ui {
     private static final String unmarkDescription = "unmark - Mark a task as incomplete" + "\n";
     private static final String deleteDescription = "delete - Delete a task" + "\n";
     private static final String byeDescription = "bye - Exit the program" + "\n";
-    private static final String findDescription = "find - Find all tasks containing a given keyword" + "\n";
+    private static final String searchDescription = "search - Find all tasks containing a given keyword" + "\n";
     private static final String commands = taskDescription + todoDescription + deadlineDescription
         + eventDescription + listDescription + markDescription + unmarkDescription
-        + deleteDescription + byeDescription + findDescription;
+        + deleteDescription + byeDescription + searchDescription;
 
     public Ui() {
     }
@@ -41,15 +41,6 @@ public class Ui {
         String intro1 = String.format("I'm %s. Nice to meet you." + "\n", name);
         String intro2 = "I support the following commands:" + "\n";
         return intro1 + intro2 + commands;
-    }
-
-    /**
-     * Prints the statements when a user operation is over.
-     */
-    public String getEndOfOperationMessage() {
-        String msg1 = "Anything else you want me to do?" + "\n";
-        String msg2 = "Just so you know, you can input commands to view the commands again.";
-        return msg1 + msg2;
     }
 
     public String getInvalidInputMessage(String message) {
@@ -75,10 +66,9 @@ public class Ui {
         return result.toString();
     }
 
-    public String getEmptyInputMessage(Parser.Command command, Parser.Operation operation) {
+    public String getEmptyInputMessage(Parser.Command command) {
         String taskType = command.toString().toLowerCase();
-        String inputType = operation.toString().toLowerCase();
-        return String.format("The %s %s cannot be empty.%n", taskType, inputType);
+        return String.format("The %s input cannot be empty.%n", taskType);
     }
 
     public String getDuplicateTasksMessage(String message) {
@@ -102,10 +92,13 @@ public class Ui {
         return String.format("Invalid %s format. Please try again.", inputType);
     }
 
-    public String getConfirmationMessage(Parser.Command command) {
+    public String getConfirmationMessage(Parser.Command command, TaskList taskList) {
+        StringBuilder sb = new StringBuilder();
         String operation = command.toString().toLowerCase();
-        return String.format("Please input the task number you wish to %s.%n",
-            operation);
+        sb.append(String.format("Please input the task number you wish to %s.%n",
+            operation));
+        sb.append(getTasksInList(taskList));
+        return sb.toString();
     }
 
     public String getRequestFailedMessage(String reason) {

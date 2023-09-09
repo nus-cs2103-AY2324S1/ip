@@ -220,12 +220,11 @@ public class Duke {
             int taskNumber = Integer.parseInt(message);
             executeDelete(res, taskNumber);
         }
-        case SEARCH -> executeSearch(res, message);
+        case FIND, SEARCH -> executeSearch(res, message);
         case COMMANDS -> res.append(ui.getCommands());
         default -> {
         }
         }
-        res.append(ui.getEndOfOperationMessage());
         parser.resetCommandInExecution();
         return res.toString();
     }

@@ -24,6 +24,7 @@ public class Parser {
     private final Duke duke;
     private final TaskList tasks;
     private final Storage storage;
+    private String storedDetails;
     private final ArrayList<LocalDate> localDates = new ArrayList<>();
     private final ArrayList<LocalTime> localTimes = new ArrayList<>();
     private Command commandInExecution = Command.NONE;
@@ -34,10 +35,13 @@ public class Parser {
      * Enumeration of all possible user commands.
      */
     public enum Command {
-        TASK, TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, COMMANDS, SEARCH, NONE
+        TASK, TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, COMMANDS, FIND, SEARCH, NONE
     }
 
-    @SuppressWarnings("checkstyle:MissingJavadocType")
+
+    /**
+     * Enumeration of all possible operations on the commands.
+     */
     public enum Operation {
         DETAILS, DATE, TIME, CONFIRM, KEYWORD, NONE
     }
@@ -86,19 +90,10 @@ public class Parser {
             return errorMessage;
         }
         if (operations.isEmpty()) {
-            if (localDates.isEmpty() || localTimes.isEmpty()) {
-                return duke.executeCommand(commandInExecution, message);
-            }
-            int size = Math.min(localDates.size(), localTimes.size());
-            ArrayList<LocalDateTime> localDateTimes = new ArrayList<>();
-            for (int i = 0; i < size; i++) {
-                localDateTimes.add(LocalDateTime.of(localDates.get(i), localTimes.get(i)));
-            }
-            if (size == 1) {
-                return duke.executeCommand(commandInExecution, message, localDateTimes.get(0));
+            if (storedDetails != null) {
+                return taskExecutionHelper(commandInExecution);
             } else {
-                return duke.executeCommand(commandInExecution, message, localDateTimes.get(0),
-                    localDateTimes.get(1));
+                return duke.executeCommand(commandInExecution, message);
             }
         } else {
             Operation operation = operations.poll();
@@ -124,7 +119,7 @@ public class Parser {
             operations.addLast(TIME);
         }
         case MARK, UNMARK, DELETE -> operations.addLast(CONFIRM);
-        case SEARCH -> operations.addLast(KEYWORD);
+        case FIND, SEARCH -> operations.addLast(KEYWORD);
         default -> {
         }
         }
@@ -149,7 +144,7 @@ public class Parser {
                 resetCommandInExecution();
                 return ui.getTasksEmptyMessage(command);
             }
-            return ui.getConfirmationMessage(command);
+            return ui.getConfirmationMessage(command, tasks);
         }
         case KEYWORD -> {
             if (tasks.isEmpty()) {
@@ -166,47 +161,63 @@ public class Parser {
 
     @SuppressWarnings("checkstyle:MissingJavadocMethod")
     public String checkOperation(Command command, Operation operation, String input) {
-        String msg = null;
+        if (input.isBlank()) {
+            return ui.getEmptyInputMessage(command);
+        }
         switch (operation) {
+        case DETAILS -> storedDetails = input;
         case DATE -> {
             try {
                 localDates.add(LocalDate.parse(input));
             } catch (DateTimeParseException e) {
-                msg = ui.getInvalidFormatMessage(operation);
+                return ui.getInvalidFormatMessage(operation);
             }
         }
         case TIME -> {
             try {
                 localTimes.add(LocalTime.parse(input));
             } catch (DateTimeParseException e) {
-                msg = ui.getInvalidFormatMessage(operation);
+                return ui.getInvalidFormatMessage(operation);
             }
         }
         case CONFIRM -> {
             try {
                 int taskNumber = Integer.parseInt(input);
                 if (taskNumber > tasks.getNumOfTasks() || taskNumber < 1) {
-                    msg = ui.getRequestFailedMessage("task number");
+                    return ui.getRequestFailedMessage("task number");
                 }
             } catch (NumberFormatException e) {
-                msg = ui.getRequestFailedMessage("input");
+                return ui.getRequestFailedMessage("input");
             }
         }
         default -> {
         }
         }
-        if (msg == null && input.isBlank()) {
-            msg = ui.getEmptyInputMessage(command, operation);
+        return null;
+    }
+
+    public String taskExecutionHelper(Command command) {
+        if (localDates.isEmpty() || localTimes.isEmpty()) {
+            return duke.executeCommand(command, storedDetails);
         }
-        return msg;
+        int size = Math.min(localDates.size(), localTimes.size());
+        ArrayList<LocalDateTime> localDateTimes = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            localDateTimes.add(LocalDateTime.of(localDates.get(i), localTimes.get(i)));
+        }
+        if (size == 1) {
+            return duke.executeCommand(command, storedDetails, localDateTimes.get(0));
+        } else {
+            return duke.executeCommand(command, storedDetails, localDateTimes.get(0),
+                localDateTimes.get(1));
+        }
     }
 
     public String getDateTimeType(Command command) {
         if (command == DEADLINE) {
             return "due";
         } else if (command == Command.EVENT) {
-            int prog = operations.size();
-            if (prog >= 3) {
+            if (localDates.isEmpty() || localTimes.isEmpty()) {
                 return "start";
             } else {
                 return "end";
@@ -219,6 +230,7 @@ public class Parser {
     public void resetCommandInExecution() {
         this.commandInExecution = Command.NONE;
         this.operationInExecution = Operation.NONE;
+        this.storedDetails = null;
         this.localDates.clear();
         this.localTimes.clear();
         this.operations.clear();
