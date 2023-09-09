@@ -47,16 +47,10 @@ public class CheckCommand extends Command {
             }
 
             return ui.showTasksOnDate(date, matchingTasks);
-
         } catch (EmptyDescriptionException e) {
             return ui.showDukeException(e);
         } catch (DateTimeParseException e) {
             return ui.showInvalidDateFormat();
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

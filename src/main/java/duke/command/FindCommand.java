@@ -38,9 +38,4 @@ public class FindCommand extends Command {
 
         return ui.showMatchingTasks(matchingTasks);
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

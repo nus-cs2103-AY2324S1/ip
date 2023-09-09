@@ -16,9 +16,4 @@ public class ListCommand extends Command {
         assert storage != null;
         return ui.showList(taskList);
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

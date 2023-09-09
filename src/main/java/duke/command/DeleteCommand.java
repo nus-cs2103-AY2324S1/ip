@@ -10,7 +10,7 @@ import duke.task.TaskList;
  * Represents a command to delete a task from the task list.
  */
 public class DeleteCommand extends Command {
-    private int taskIndex;
+    private final int taskIndex;
 
     /**
      * Constructs a DeleteCommand with the provided task index.
@@ -34,16 +34,10 @@ public class DeleteCommand extends Command {
             Task removedTask = taskList.getTask(taskIndex);
             taskList.deleteTask(taskIndex);
             return ui.showDelete(removedTask, taskList.getLength());
-
         } catch (InvalidTaskIndexException e) {
             return ui.showDukeException(e);
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             return ui.showArrayIndexOutOfBoundsException();
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

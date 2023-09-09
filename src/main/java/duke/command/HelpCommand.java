@@ -15,9 +15,4 @@ public class HelpCommand extends Command {
         assert storage != null;
         return ui.showListOfCommands();
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

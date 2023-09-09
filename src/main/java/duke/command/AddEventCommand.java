@@ -40,16 +40,10 @@ public class AddEventCommand extends Command {
             Event newEvent = new Event(description, dateTime);
             taskList.addTask(newEvent);
             return ui.showAdd(newEvent, taskList.getLength());
-
         } catch (EmptyDescriptionException e) {
             return ui.showDukeException(e);
         } catch (DateTimeParseException e) {
             return ui.showInvalidDateTimeFormat();
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }
