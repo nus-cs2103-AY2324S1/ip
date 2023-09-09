@@ -24,15 +24,13 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Tony.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/jarvis.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/Tony.png"));
+    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/jarvis.png"));
 
     @FXML
     public void initialize() {
 
-        dialogContainer.heightProperty().addListener((observable) -> {
-            scrollPane.setVvalue(1.0);
-        });
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
     public void setDuke(Duke d) {
@@ -50,6 +48,10 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert duke != null : "Duke should be initialized before handling user input!";
+        assert userInput != null : "userInput should be initialized!";
+        assert dialogContainer != null : "dialogContainer should be initialized!";
+
         String input = userInput.getText();
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(

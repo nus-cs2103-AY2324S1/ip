@@ -2,6 +2,7 @@ package duke.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Locale;
 
 import duke.DukeException;
 
@@ -12,9 +13,10 @@ import duke.DukeException;
  */
 public class Event extends Task {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
-    private LocalDate e_start;
-    private LocalDate e_end;
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy",
+            Locale.ENGLISH);
+    private final LocalDate e_start;
+    private final LocalDate e_end;
 
 
     public LocalDate getE_start() {
@@ -40,6 +42,7 @@ public class Event extends Task {
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid time format.");
         }
+        assert !this.e_start.isAfter(this.e_end) : "Event start date should not be after end date!";
     }
 
     /**

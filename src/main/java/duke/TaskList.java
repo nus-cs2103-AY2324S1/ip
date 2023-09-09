@@ -28,13 +28,16 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    private boolean validIndex(int index) {
+        return index >= 0 && index < tasks.size();
+    }
     /**
      * Marks a task as done.
      *
      * @param taskIndex The index of the task in the list.
      */
     public void mark(int taskIndex) {
-
+        assert validIndex(taskIndex) : "Provided task index is out of range!";
         tasks.get(taskIndex).mark();
     }
 
