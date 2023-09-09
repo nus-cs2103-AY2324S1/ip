@@ -1,6 +1,7 @@
 package bongo.command;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import bongo.helper.BongoException;
 import bongo.helper.Storage;
@@ -37,14 +38,11 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws BongoException {
-        ArrayList<Task> filteredTaskList = new ArrayList<>();
-        ArrayList<Task> allTasks = tasks.getAllTasks();
-        for (Task currentTask : allTasks) {
-            if (currentTask.getDescription().contains(searchParam)) {
-                filteredTaskList.add(currentTask);
-            }
-        }
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        ArrayList<Task> filteredTaskList = tasks.getAllTasks().stream()
+                .filter(currentTask -> currentTask.getDescription().contains(searchParam))
+                .collect(Collectors.toCollection(ArrayList::new));
+
         return ui.showSearchedTasks(filteredTaskList);
     }
 }
