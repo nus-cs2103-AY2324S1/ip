@@ -25,6 +25,22 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+        createFileIfNotExists();
+    }
+
+    /**
+     * Checks if the duke.txt file exists, and if not, creates an empty one.
+     */
+    private void createFileIfNotExists() {
+        try {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            // Handle the exception, e.g., log an error message
+            System.err.println("Error creating the file: " + e.getMessage());
+        }
     }
 
     /**
@@ -40,13 +56,12 @@ public class Storage {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                if (!line.isEmpty()) {
-                    Task task = Task.createTaskFromFormattedString(line);
-                    if (task != null) {
-                        tasks.add(task);
-                    }
-                } else {
+                if (line.isEmpty()) {
                     break;
+                }
+                Task task = Task.createTaskFromFormattedString(line);
+                if (task != null) {
+                    tasks.add(task);
                 }
             }
             scanner.close();
