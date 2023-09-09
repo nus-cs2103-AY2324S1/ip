@@ -39,6 +39,7 @@ public class Deadline extends Task {
         } else if (items[1].length() == 3) {
             throw new EmptyDescriptionException();
         }
+        assert items.length > 1 : "Items should be longer than 1";
         LocalDate date = LocalDate.parse(items[1].substring(3));
         this.description = items[0];
         this.by = date;

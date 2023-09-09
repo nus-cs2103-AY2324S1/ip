@@ -38,6 +38,7 @@ public class Event extends Task {
         if (!hasCorrectStarting) {
             throw new UnknownCommandException();
         }
+        assert items.length == 3 : "Should only have 3 items in total";
         // Assigns parameters
         this.description = items[0];
         this.start = items[1].substring(5);
