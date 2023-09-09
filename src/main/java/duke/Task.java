@@ -173,19 +173,17 @@ public class Task {
      * @throws DukeException If the index is invalid.
      */
     public void mark(int i) throws DukeException {
-        if (i > Duke.taskList.size() || i <= 0) {
-            if (i > Duke.taskList.size() || i <= 0) {
-                throw new DukeException(Ui.horizontalLine + "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
-            }
-            Task markTask = Duke.taskList.getTasks().get(i - 1);
-            markTask.status = TaskStatus.DONE;
-
-            // Update the task description in the file
-            Storage.updateLineInFile(i, markTask.generateStr());
-
-            System.out.println(Ui.horizontalLine + "Nice! I've marked this task as done:\n"
-                    + markTask.toString() + "\n" + Ui.horizontalLine);
+        if (i > Duke.taskList.getTasks().size() || i <= 0) {
+            throw new DukeException(Ui.horizontalLine + "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
         }
+        Task markTask = Duke.taskList.getTasks().get(i - 1);
+        markTask.status = TaskStatus.DONE;
+
+        // Update the task description in the file
+        Storage.updateLineInFile(i, markTask.generateStr());
+
+        System.out.println(Ui.horizontalLine + "Nice! I've marked this task as done:\n"
+                + markTask.toString() + "\n" + Ui.horizontalLine);
     }
 
     /**

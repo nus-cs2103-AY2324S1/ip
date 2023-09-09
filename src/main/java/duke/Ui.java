@@ -53,7 +53,8 @@ public class Ui {
     public static void displaySearchResults(TaskList taskList, String keyword) {
         List<Task> allTasks = taskList.getTasks();
         if (allTasks.isEmpty()) {
-            System.out.println("You have no tasks in your list.\n");
+            System.out.println(horizontalLine + "You have no tasks in your list.\n"
+                    + horizontalLine);
             return;
         }
 
@@ -65,7 +66,9 @@ public class Ui {
         }
 
         if (filteredList.getTasks().isEmpty()) {
-            System.out.println("You have no matching tasks in your list.\n");
+            System.out.println(horizontalLine
+                    + "You have no matching tasks in your list.\n"
+                    + horizontalLine);
             return;
         }
 

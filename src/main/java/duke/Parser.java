@@ -76,6 +76,7 @@ public class Parser {
                         Todo todo = new Todo(actualTask, true);
                         todo.print();
                     }
+
                     else if (instruction.equals("deadline")) {
                         String[] taskAndDeadline = actualTask.split("/by");
                         if (taskAndDeadline.length == 1 || taskAndDeadline.length == 0) {

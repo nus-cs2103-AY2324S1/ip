@@ -63,8 +63,6 @@ public class Event extends Task{
      * Prints a confirmation message after adding the `Event` task.
      */
     public void print() {
-        System.out.println(Ui.horizontalLine + "Got it. I've added this task:\n " + this.toString()+ "\n"
-                + "Now you have " + Task.getCounter() + " tasks in the list\n" + Ui.horizontalLine);
         System.out.println(Ui.horizontalLine + "Got it. I've added this task:\n "
                 + this.toString()+ "\n" + "Now you have "
                 + Task.getCounter() + " tasks in the list\n" + Ui.horizontalLine);

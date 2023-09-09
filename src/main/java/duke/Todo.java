@@ -33,8 +33,6 @@ public class Todo extends Task {
      * Prints a message indicating that the to-do task has been added.
      */
     public void print() {
-        System.out.println(Ui.horizontalLine + "Got it. I've added this task:\n " + this.toString()+ "\n"
-        + "Now you have " + Task.getCounter() + " tasks in the list\n" + Ui.horizontalLine);
         System.out.println(Ui.horizontalLine + "Got it. I've added this task:\n "
                 + this.toString()+ "\n" + "Now you have "
                 + Task.getCounter() + " tasks in the list\n" + Ui.horizontalLine);
