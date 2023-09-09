@@ -1,5 +1,6 @@
-package gbot;
-
+import gbot.StorageStub;
+import gbot.TaskList;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -10,7 +11,7 @@ public class TaskListTest {
     @Test
     public void mark_invalidTaskIndex_taskExceptionThrown () {
         try {
-            assertEquals("", new TaskList(new StorageStub()).markTask(1));
+            Assertions.assertEquals("", new TaskList(new StorageStub()).markTask(1));
             fail();
         } catch (TaskException e) {
             assertEquals("Invalid task provided.", e.getMessage());

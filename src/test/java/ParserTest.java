@@ -1,5 +1,6 @@
-package gbot;
-
+import gbot.Parser;
+import gbot.TaskList;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -11,7 +12,7 @@ import exceptions.EventException;
 public class ParserTest {
     @Test
     public void emptyCommandTest() {
-        assertEquals("Please enter a command.", Parser.parse("", new TaskList()));
+        Assertions.assertEquals("Please enter a command.", Parser.parse("", new TaskList()));
     }
     @Test
     public void parse_invalidCommand_errorMessageShown() {
