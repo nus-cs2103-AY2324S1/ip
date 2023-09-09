@@ -119,6 +119,15 @@ public class Duke {
     }
 
     /**
+     * Gives statistics of tasks in task list.
+     *
+     * @return String of statistics of tasks in task list.
+     */
+    public static String getTaskStats() {
+        return Duke.taskList.getTaskStats();
+    }
+
+    /**
      * Gets the response string to be printed to the user after processing user input.
      *
      * @param userInput User input.

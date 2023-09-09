@@ -19,6 +19,11 @@ public class TodoTask extends Task {
     }
 
     @Override
+    public boolean checkIfTaskDueToday() {
+        return false;
+    }
+
+    @Override
     protected String getTextFormattedString() {
         return String.format("T|%d|%s", this.isDone ? 1 : 0, this.desc);
     }

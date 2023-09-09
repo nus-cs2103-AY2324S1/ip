@@ -1,6 +1,7 @@
 package tasks;
 
 import java.lang.StringBuilder;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -171,6 +172,42 @@ public class TaskList {
             str.append(i + ". " + filteredTasks.get(i - 1).toString() + "\n");
         }
         return str.toString();
+    }
+
+    /**
+     * Gives details of tasks.
+     * Specifically, number of completed and incomplete tasks,
+     * and deadline and event tasks due today.
+     *
+     * @return Details of tasks.
+     */
+    public String getTaskStats() {
+        long numOfCompletedTasks = this.tasks.stream()
+                .filter(task -> task.isDone)
+                .count();
+        long numOfIncompleteTasks = this.tasks.size() - numOfCompletedTasks;
+        StringBuilder deadlineTasksDueToday = new StringBuilder();
+        StringBuilder eventTasksDueToday = new StringBuilder();
+
+        for (Task task : this.tasks) {
+            if (!task.checkIfTaskDueToday() || task.isDone) {
+                continue;
+            }
+            if (task instanceof DeadlineTask) {
+                deadlineTasksDueToday.append(task + "\n");
+            }
+            if (task instanceof EventTask) {
+                eventTasksDueToday.append(task + "\n");
+            }
+        }
+        return String.format("Number of completed tasks: %d\n\n"
+                + "Number of incomplete tasks: %d\n\n"
+                + "Deadline tasks due today: \n%s\n\n"
+                + "Event tasks due today: \n%s",
+                numOfCompletedTasks,
+                numOfIncompleteTasks,
+                deadlineTasksDueToday,
+                eventTasksDueToday);
     }
 
     /**
