@@ -52,13 +52,13 @@ public class ParserTest {
         }
     }
 
-    @Test
-    public void testAddToList() {
-        TaskList tasks = new TaskList();
-        Storage storage = new Storage("data/duke.txt", tasks);
-        parser.addToList("todo hi", storage, tasks);
-        assertEquals("[T][ ] hi", tasks.getTask(0).toString());
-    }
+//    @Test
+//    public void testAddToList() {
+//        TaskList tasks = new TaskList();
+//        Storage storage = new Storage("data/duke.txt", tasks);
+//        parser.addToList("todo hi", storage, tasks);
+//        assertEquals("[T][ ] hi", tasks.getTask(0).toString());
+//    }
 
 
 

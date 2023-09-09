@@ -1,4 +1,6 @@
 T | 0 | hi
-T | 0 | run with friends
-T | 0 | fun
-D | X | read book | 2023-08-08 2300
+T | X | run with friends
+D | 0 | read book | 2023-08-08 2300
+E | X | read | 2023-08-08 1800 | 2023-08-08 2000
+D | 0 | read | 2023-08-08 1800
+T | 0 | smth

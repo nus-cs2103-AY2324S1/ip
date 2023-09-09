@@ -1,5 +1,10 @@
 package duke;
 
+import duke.Command.Command;
+import duke.Exception.DukeException;
+
+import java.io.IOException;
+import java.time.DateTimeException;
 import java.util.Scanner;
 
 /**
@@ -11,7 +16,7 @@ public class Duke {
         Ui ui = new Ui();
         TaskList tasks = new TaskList();
         Storage storage = new Storage("data/duke.txt", tasks);
-        boolean isRunning = true;
+        boolean isExit = false;
         Parser parser = new Parser();
 
         try {
@@ -22,13 +27,19 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in);
         ui.printWelcomeMessage();
-        while (isRunning) {
+        while (!isExit) {
             String input = scanner.nextLine();
-            if (input.equals("bye")) {
-                ui.printGoodByeMessage();
-                break;
+            try {
+                Command command = parser.addToList(input, storage, tasks);
+                command.execute(ui, storage, tasks);
+                isExit = command.isExit();
+
+            } catch (DukeException i) {
+                ui.printError(i.getMessage());
+            } catch (IOException | DateTimeException | NumberFormatException e) {
+                parser.handleException(e);
             }
-            parser.addToList(input, storage, tasks);
         }
     }
 }
+
