@@ -1,8 +1,10 @@
-package duke;
+package javafx;
 
 import java.io.IOException;
 import java.util.Objects;
 
+import duke.Duke;
+import duke.Ui;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -31,7 +33,9 @@ public class MainWindow extends AnchorPane {
     private final Image dukeImage = new Image(
         Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
 
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    /**
+     * Initializes the JavaFX user interface.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
