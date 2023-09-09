@@ -110,7 +110,8 @@ public class Parser {
                 response = ui.taskDeleted(toBeRemoved, taskList);
                 break;
             case "find":
-                String inputToFind = input.substring(6);
+                String inputToFind = input.substring(5);
+                System.out.println(inputToFind);
                 TaskList tempTl = new TaskList();
                 for (int i = 0; i < taskList.getSize(); i++) {
                     Task t = taskList.getTask(i);
@@ -120,6 +121,20 @@ public class Parser {
                 }
                 response = ui.findResponse(tempTl.outputNumberedList());
                 break;
+            case "update":
+                try {
+                    String substringAfterUpdate = input.substring(7);
+                    int taskIndex = Integer.parseInt(substringAfterUpdate.split(" ")[0]) - 1;
+                    String componentToUpdate = substringAfterUpdate.split(" ")[1];
+                    String contentForUpdate = substringAfterUpdate.split(" ")[2];
+                    taskList.updateTask(taskIndex, componentToUpdate, contentForUpdate);
+                    String updatedList = taskList.outputNumberedList();
+                    response = ui.updateResponse(updatedList);
+                    break;
+                } catch (Exception e) {
+                    response = ui.updateFailedResponse();
+                }
+                break;
             default:
                 throw new InvalidUserInputException();
         }
@@ -127,6 +142,11 @@ public class Parser {
         return response;
     }
 
+    /**
+     * Returns the keyword of user's input.
+     * @param input user's input.
+     * @return Keyword of user's input.
+     */
     private String extractKeyword(String input) {
         return input.split(" ")[0];
     }
