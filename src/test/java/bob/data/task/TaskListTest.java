@@ -1,9 +1,4 @@
-package data.task;
-
-import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.io.FileNotFoundException;
+package bob.data.task;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;

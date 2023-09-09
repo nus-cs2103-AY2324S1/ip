@@ -1,4 +1,4 @@
-package data.task;
+package bob.data.task;
 
 public abstract class Task {
     /** The description of the task. */

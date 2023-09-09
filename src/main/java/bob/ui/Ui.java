@@ -1,4 +1,4 @@
-package ui;
+package bob.ui;
 
 import java.util.Scanner;
 
@@ -22,6 +22,10 @@ public class Ui {
     public String getInput() {
         String input = scanner.nextLine();
         return input;
+    }
+
+    public String getResponse(String input) {
+        return "Bob heard: " + input;
     }
 
     /**
