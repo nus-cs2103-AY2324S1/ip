@@ -107,7 +107,7 @@ public class TaskList {
    * @param index the position of the tasks to be unmarked
    * @throws WrongIndexException when index is out of bounds, or too big to parse
    */
-  public void unmarkedTask(String index, Pane pane, Image dukeImage) throws WrongIndexException {
+  public void unmarkTask(String index, Pane pane, Image dukeImage) throws WrongIndexException {
     try {
       String regex = "\\d+";
       if (!index.matches(regex) || Integer.parseInt(index, 10) - 1 < 0

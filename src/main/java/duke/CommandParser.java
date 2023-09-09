@@ -11,7 +11,6 @@ public class CommandParser {
   /**
    * Creates a parser to parse input commands
    */
-  public CommandParser() {}
 
   private TimeParser parser = new TimeParser();
 
@@ -93,8 +92,8 @@ public class CommandParser {
         Platform.exit();
       };
     } else if (words[0].equals("list") && words.length == 1) {
-      return (taskList, Storage, vBox) -> {
-        taskList.listTasks(vBox, dukeImage);
+      return (taskList, storage, pane) -> {
+        taskList.listTasks(pane, dukeImage);
       };
     } else if (words[0].equals("delete") && words.length == 2) {
       return (taskList, storage, pane) -> {
@@ -108,7 +107,7 @@ public class CommandParser {
       };
     } else if (words[0].equals("unmark") && words.length == 2) {
       return (taskList, storage, pane) -> {
-        taskList.unmarkedTask(words[1], pane, dukeImage);
+        taskList.unmarkTask(words[1], pane, dukeImage);
         storage.saveFile(taskList);
       };
     } else if ((words[0].equals("deadline") || words[0].equals("todo") || words[0].equals("event"))) {

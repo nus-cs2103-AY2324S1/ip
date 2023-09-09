@@ -8,7 +8,7 @@ public class WrongIndexException extends DukeException {
   /**
    * Creates a WrongIndexException.
    */
-  WrongIndexException() {
+  public WrongIndexException() {
     super("    Enter a valid index");
   }
 }
