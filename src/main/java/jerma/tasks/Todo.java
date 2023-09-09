@@ -8,7 +8,7 @@ public class Todo extends Task {
      */
     public Todo(String description) {
         super(description);
-        this.symbol = "T";
+        symbol = "T";
     }
 
     /**
@@ -18,7 +18,7 @@ public class Todo extends Task {
      */
     @Override
     public String save() {
-        return String.format("%s|%s", this.symbol, super.save());
+        return String.format("%s|%s", symbol, super.save());
     }
 
     /**
@@ -28,6 +28,6 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s]%s", this.symbol, super.toString());
+        return String.format("[%s]%s", symbol, super.toString());
     }
 }

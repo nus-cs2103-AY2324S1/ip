@@ -12,21 +12,21 @@ public abstract class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        isDone = false;
     }
 
     /**
      * Sets task to done
      */
     public void setDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     /**
      * Sets task to undone
      */
     public void setUndone() {
-        this.isDone = false;
+        isDone = false;
     }
 
     private String getStatusIcon() {
@@ -39,8 +39,7 @@ public abstract class Task {
      * @return String representation of Task for saving purposes
      */
     public String save() {
-        return String.format("%d|%s", this.isDone.compareTo(false),
-                this.description);
+        return String.format("%d|%s", isDone.compareTo(false), description);
     };
 
     /**
@@ -50,6 +49,6 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s] %s", this.getStatusIcon(), this.description);
+        return String.format("[%s] %s", getStatusIcon(), description);
     }
 }

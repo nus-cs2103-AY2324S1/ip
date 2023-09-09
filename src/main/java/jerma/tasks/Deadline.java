@@ -26,7 +26,7 @@ public class Deadline extends Task {
      */
     @Override
     public String save() {
-        return String.format("%s|%s|%s", this.symbol, super.save(), this.by);
+        return String.format("%s|%s|%s", symbol, super.save(), by);
     }
 
     /**
@@ -36,7 +36,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s]%s (by %s)", this.symbol, super.toString(),
-                this.by);
+        return String.format("[%s]%s (by %s)", symbol, super.toString(), by);
     }
 }
