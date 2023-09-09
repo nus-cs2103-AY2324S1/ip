@@ -29,18 +29,19 @@ public class Event extends Task {
      */
     public Event(String commands) throws UnknownCommandException {
         String[] items = commands.split(" /");
-        if (items.length == 3) {
-            assert items.length == 3 : "Should only have 3 items in total";
-            if (items[1].startsWith("from ") && items[2].startsWith("to ")) {
-                this.description = items[0];
-                this.start = items[1].substring(5);
-                this.end = items[2].substring(3);
-            } else {
-                throw new UnknownCommandException();
-            }
-        } else {
+        // Checks for correct parameters
+        boolean isCorrectLength = items.length == 3;
+        if (!isCorrectLength) {
             throw new UnknownCommandException();
         }
+        boolean hasCorrectStarting = items[1].startsWith("from ") && items[2].startsWith("to ");
+        if (!hasCorrectStarting) {
+            throw new UnknownCommandException();
+        }
+        // Assigns parameters
+        this.description = items[0];
+        this.start = items[1].substring(5);
+        this.end = items[2].substring(3);
     }
 
     @Override
