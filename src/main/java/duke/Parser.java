@@ -39,18 +39,21 @@ public class Parser {
             } else {
                 throw new DukeException("OOPS!!! Please fill in the task I need to delete");
             }
-            // list tasks
         } else if (command.equalsIgnoreCase("list")) {
             return ui.printList(list);
 
-            // find task
         } else if (command.toLowerCase().startsWith("find")) {
+            if (command.length() <= 5) {
+                throw new DukeException("OOPS!!! Please enter a keyword to search for.");
+            }
+
             String keyword = command.substring(5).trim();
+            assert !keyword.isEmpty() : "Keyword not entered";
+
             ArrayList<Task> matchingTasks = list.find(keyword);
 
             return ui.printMatchingTasks(matchingTasks);
 
-            // mark task as done
         } else if (command.toLowerCase().startsWith("mark")) {
             String[] sub = command.split(" ");
 

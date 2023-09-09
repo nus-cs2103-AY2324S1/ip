@@ -40,6 +40,8 @@ public class MainWindow extends AnchorPane {
     }
 
     public void setDuke(Duke d) {
+        assert d != null : "Duke instance cannot be null.";
+
         duke = d;
     }
 
@@ -50,6 +52,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        assert input != null && !input.isEmpty() : "User input cannot be null or empty.";
+
         String response = duke.getResponse(input);
 
         if (response.equalsIgnoreCase("Bye. Hope to see you again soon!")) {
@@ -63,9 +67,5 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
 
-
-
     }
-
-
 }
