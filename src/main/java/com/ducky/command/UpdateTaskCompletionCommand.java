@@ -1,8 +1,8 @@
 package com.ducky.command;
 
+import com.ducky.logic.DuckyException;
 import com.ducky.logic.Storage;
 import com.ducky.logic.TaskList;
-import com.ducky.logic.DuckyException;
 import com.ducky.task.Task;
 
 /**
@@ -29,7 +29,7 @@ public class UpdateTaskCompletionCommand extends Command {
      *
      * @param taskList TaskList of Ducky chatbot instance.
      * @param storage  Storage module of Ducky chatbot instance.
-     * @return
+     * @return String confirming the operation and the updated task.
      * @throws DuckyException If exceptions specific to Ducky are raised.
      */
     @Override

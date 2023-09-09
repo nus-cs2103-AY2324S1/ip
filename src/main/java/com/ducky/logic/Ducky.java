@@ -18,6 +18,8 @@ public class Ducky {
     public Ducky(String filePath) {
         this.storage = new Storage(filePath);
         this.taskList = new TaskList();
+
+        this.storage.load(this.taskList);
     }
 
     public String getResponse(String input) {

@@ -1,14 +1,14 @@
 package com.ducky.logic;
 
-import com.ducky.task.Task;
-import com.ducky.util.DuckyFileParseException;
-import com.ducky.util.Parser;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import com.ducky.task.Task;
+import com.ducky.util.DuckyFileParseException;
+import com.ducky.util.Parser;
 
 /**
  * Storage module that handles file I/O for Ducky chatbot.

@@ -18,6 +18,13 @@ public class FindTaskCommand extends Command {
         this.queryString = queryString;
     }
 
+    /**
+     * Returns query results with each task on each line as their printable form as a string.
+     *
+     * @param taskList TaskList of Ducky chatbot instance.
+     * @param storage  Storage module of Ducky chatbot instance.
+     * @return String containing all tasks in query result.
+     */
     @Override
     public String execute(TaskList taskList, Storage storage) {
         return taskList.getTaskQueryResult(this.queryString);

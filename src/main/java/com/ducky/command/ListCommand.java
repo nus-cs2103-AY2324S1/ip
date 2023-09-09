@@ -14,7 +14,7 @@ public class ListCommand extends Command {
     public ListCommand() {}
 
     /**
-     * Prints each task on each line as their printable form on the user interface.
+     * Returns each task on each line as their printable form as a string.
      *
      * @param taskList TaskList of Ducky chatbot instance.
      * @param storage  Storage module of Ducky chatbot instance.

@@ -1,22 +1,22 @@
 package com.ducky.util;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import com.ducky.command.AddTaskCommand;
 import com.ducky.command.Command;
+import com.ducky.command.DeleteCommand;
 import com.ducky.command.DuckyInvalidCommandException;
 import com.ducky.command.DuckyInvalidCommandFormatException;
 import com.ducky.command.ExitCommand;
 import com.ducky.command.FindTaskCommand;
 import com.ducky.command.ListCommand;
 import com.ducky.command.UpdateTaskCompletionCommand;
-import com.ducky.command.DeleteCommand;
 import com.ducky.task.DeadlineTask;
 import com.ducky.task.EventTask;
 import com.ducky.task.Task;
 import com.ducky.task.TaskType;
 import com.ducky.task.TodoTask;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents a Parser used for parsing commands and dates.
@@ -79,8 +79,8 @@ public class Parser {
             // Check if there are 2 arguments
             if (deadlineParts.length < 2) {
                 throw new DuckyInvalidCommandFormatException(
-                        "A description and deadline (in yyyy-mm-dd format) " +
-                                "is required for creating a deadline."
+                        "A description and deadline (in yyyy-mm-dd format) "
+                                + "is required for creating a deadline."
                 );
             }
             // Check both arguments are not empty
@@ -88,8 +88,8 @@ public class Parser {
                 deadlineParts[i] = deadlineParts[i].trim();
                 if (deadlineParts[i].isEmpty()) {
                     throw new DuckyInvalidCommandFormatException(
-                            "A description and deadline (in yyyy-mm-dd format) " +
-                                    "is required for creating a deadline."
+                            "A description and deadline (in yyyy-mm-dd format) "
+                                    + "is required for creating a deadline."
                     );
                 }
             }
@@ -135,6 +135,13 @@ public class Parser {
         return LocalDate.parse(date);
     }
 
+    /**
+     * Parses the given Task string (in saved format) and returns it as a Task.
+     * @param line Task string in saved format
+     * @return Task representation of the saved task.
+     * @throws DateTimeParseException If the task includes an invalid date format.
+     * @throws DuckyFileParseException If the string is detected as corrupted.
+     */
     public static Task parseSavedTask(String line) throws DateTimeParseException, DuckyFileParseException {
         String[] lineParts = line.trim().split(" \\| ");
         if (lineParts.length < 3) {

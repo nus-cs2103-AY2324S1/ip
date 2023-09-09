@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.ducky.component.MainWindow;
 import com.ducky.logic.Ducky;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

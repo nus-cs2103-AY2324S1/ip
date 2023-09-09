@@ -1,9 +1,9 @@
 package com.ducky.logic;
 
+import java.util.ArrayList;
+
 import com.ducky.command.DuckyInvalidTaskIndexException;
 import com.ducky.task.Task;
-
-import java.util.ArrayList;
 
 /**
  * Represents a list of tasks.
