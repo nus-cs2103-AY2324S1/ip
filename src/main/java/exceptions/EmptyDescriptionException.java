@@ -1,4 +1,6 @@
-package duke;
+package exceptions;
+
+import exceptions.DukeException;
 
 public class EmptyDescriptionException extends DukeException {
     public EmptyDescriptionException() {

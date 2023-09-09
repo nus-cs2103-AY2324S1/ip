@@ -1,5 +1,10 @@
 package duke;
 
+import exceptions.DukeException;
+import exceptions.EmptyDescriptionException;
+import exceptions.OutOfRangeException;
+import exceptions.UnknownCommandException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
