@@ -135,4 +135,62 @@ public class Parser {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
+
+    public String parseString(String userinput) throws DukeException {
+        if (userinput.equalsIgnoreCase("list")) {
+            return ui.printListString(tasks.list());
+        } else if (userinput.length() >= 6 && userinput.substring(0, 5).equalsIgnoreCase("mark ")) {
+            try {
+                int taskno = Integer.parseInt(userinput.substring(5));
+                if (taskno <= tasks.list().size()) {
+                    Task task = tasks.list().get(taskno - 1);
+                    task.setdone();
+                    return ui.markedMessageString(task);
+                } else {
+                    return ui.invalidMarkString();
+                }
+            } catch (NumberFormatException e) {
+                return ui.invalidMarkString();
+            }
+        } else if (userinput.length() >= 4 && userinput.substring(0, 4).equalsIgnoreCase("todo")) {
+
+            ToDo todo = new ToDo(userinput.substring(4));
+            tasks.list().add(todo);
+            storage.updateFile(tasks.list());
+            return ui.addedMessageString(todo) + "%n" + ui.listMessageString(tasks.list());
+
+        } else if (userinput.length() >= 8 && userinput.substring(0, 8).equalsIgnoreCase("deadline")) {
+            String[] segments = userinput.split(" /by ");
+            Deadline deadline = new Deadline(segments[0].substring(8), segments[1]);
+            tasks.list().add(deadline);
+            storage.updateFile(tasks.list());
+            return ui.addedMessageString(deadline) + "%n" + ui.listMessageString(tasks.list());
+        } else if (userinput.length() >= 7 && userinput.substring(0, 6).equalsIgnoreCase("event ")) {
+            String[] segments1 = userinput.split(" /from ");
+            String from = segments1[1].split(" /to ")[0];
+            String[] segments2 = segments1[1].split(" /to ");
+            Event event = new Event(segments1[0].substring(5), from, segments2[1]);
+            tasks.list().add(event);
+            storage.updateFile(tasks.list());
+            return (ui.addedMessageString(event) + "%n" + ui.listMessageString(tasks.list()));
+        } else if (userinput.length() >= 8 && userinput.substring(0, 7).equalsIgnoreCase("delete ")) {
+            try {
+                int taskno = Integer.parseInt(userinput.substring(7));
+                if (taskno <= tasks.list().size()) {
+                    Task task = tasks.list().get(taskno - 1);
+                    tasks.list().remove(taskno - 1);
+                    return ui.removedMessageString(task) + "%n" + ui.listMessageString(tasks.list());
+                } else {
+                    return ui.validNumberMessageString();
+                }
+            } catch (NumberFormatException e) {
+                return ui.validNumberMessageString();
+            }
+        } else if (userinput.length() >= 6 && userinput.substring(0, 5).equalsIgnoreCase("find ")) {
+            return ui.findmsgString() + "%n" + ui.printListString(tasks.contains(userinput.substring(5)));
+
+        } else {
+            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+    }
 }

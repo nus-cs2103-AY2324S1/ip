@@ -95,4 +95,82 @@ public class Ui {
     public void findmsg() {
         System.out.println("Here are the matching tasks in your list:");
     }
+
+    public String introMessageString() {
+        return ("Hello! I'm IPSVIJAYKUMARAAKOODAIRRUKALAM" + "%n" + "What can I do for you?");
+    }
+
+    /**
+     * Displays the contents in the TaskList list.
+     *
+     * @param list the list
+     */
+    public String printListString(ArrayList<Task> list) {
+        String out = "";
+        for (int i = 0; i < list.size(); i++) {
+            out += i + 1 + "." + list.get(i) + "%n";
+        }
+        return out;
+    }
+
+    /**
+     * Displays the message when a Task is marked as done by user.
+     *
+     * @param task the task
+     */
+    public String markedMessageString(Task task) {
+        return ("Nice! I've marked this task as done:" + "%n" + "  " + task);
+    }
+
+    /**
+     * Displays the message when the user does not type in what Task is to be marked.
+     */
+    public String invalidMarkString() {
+        return "Enter a valid number to mark";
+    }
+
+    /**
+     * Displays the message when a Task is successfully added to the TaskList list.
+     *
+     * @param task the task
+     */
+    public String addedMessageString(Task task) {
+        return ("Got it. I've added this task:" + "%n" + "  " + task.toString());
+    }
+
+    /**
+     * Displays the number of tasks in the list.
+     *
+     * @param list the list
+     */
+    public String listMessageString(ArrayList<Task> list)  {
+        return ("Now you have "  + list.size() + " tasks in the list.");
+    }
+
+    /**
+     * Displays the message when a Task is successfully removed from the TaskList list.
+     *
+     * @param task the task
+     */
+    public String removedMessageString(Task task) {
+        return ("Noted. I've removed this task:" + "%n" + "  " + task);
+    }
+
+    /**
+     * Displays the message when the user does not type in what Task is to be marked.
+     */
+    public String validNumberMessageString() {
+        return "Enter a valid number to mark";
+    }
+
+    /**
+     * Displays the goodbye message when the program is about to terminate expectedly.
+     */
+    public String byeMessageString() {
+        return "Bye. Hope to see you again soon!";
+    }
+
+    public String findmsgString() {
+        return "Here are the matching tasks in your list:";
+    }
 }
