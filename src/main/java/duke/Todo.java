@@ -1,7 +1,5 @@
 package duke;
 
-import duke.Task;
-
 /**
  * Represents a task that the user needs to do.
  *

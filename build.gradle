@@ -52,10 +52,10 @@ test {
 }
 
 application {
-    mainClass.set("Launcher")
+    mainClass.set("duke.Launcher")
 }
 
-mainClassName = 'Launcher'
+mainClassName = 'duke.Launcher'
 
 shadowJar {
     archiveFileName = 'duke.jar'

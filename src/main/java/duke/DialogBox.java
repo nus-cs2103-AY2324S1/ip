@@ -13,7 +13,9 @@ import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
 
-
+/**
+ * A dialog box in the user interface that displays both user and Duke's messages.
+ */
 public class DialogBox extends HBox {
 
     @FXML
@@ -21,6 +23,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Creates a new DialogBox instance.
+     *
+     * @param text The text message to be displayed in the dialog box.
+     * @param image THe image to be displayed alongside the text message.
+     */
     public DialogBox(String text, Image image) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -45,10 +53,23 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
+    /**
+     * Creates a user dialog box with the specified text and image.
+     *
+     * @param text The text message to be displayed in the dialog box.
+     * @param image The image to be displayed alongside the text message.
+     * @return A new DialogBox instance with the specified text and image.
+     */
     public static DialogBox getUserDialog(String text, Image image) {
         return new DialogBox(text, image);
     }
 
+    /**
+     * Creates a Duke dialog box with the specified text and image.
+     * @param text The text message to be displayed in the dialog box.
+     * @param image The image to be displayed alongside the text message.
+     * @return A new DialogBox instance with the specified text and image.
+     */
     public static DialogBox getDukeDialog(String text, Image image) {
         var db = new DialogBox(text, image);
         db.flip();
