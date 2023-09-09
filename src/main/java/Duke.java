@@ -1,6 +1,4 @@
 import commands.Command;
-import functional.*;
-import tasks.Task;
 
 
 /**
@@ -9,9 +7,9 @@ import tasks.Task;
  * list, and manage tasks.
  */
 public class Duke {
-    private Storage storage;
-    private TaskList<Task> tasks;
-    private Ui ui;
+    private functional.Storage storage;
+    private functional.TaskList<tasks.Task> tasks;
+    private functional.Ui ui;
     private String filePath;
 
     /**
@@ -20,14 +18,14 @@ public class Duke {
      * @param filePath The file path to store task data.
      */
     public Duke(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
+        ui = new functional.Ui();
+        storage = new functional.Storage(filePath);
         this.filePath = filePath;
         try {
-            tasks = new TaskList<Task>(storage.load());
-        } catch (DukeException e) {
+            tasks = new functional.TaskList<tasks.Task>(storage.load());
+        } catch (functional.DukeException e) {
             ui.showLoadingError();
-            tasks = new TaskList<Task>();
+            tasks = new functional.TaskList<tasks.Task>();
         }
     }
 
@@ -44,10 +42,10 @@ public class Duke {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
-                Command c = Parser.parse(fullCommand);
+                Command c = functional.Parser.parse(fullCommand);
                 c.execute(tasks, ui, false, false);
                 hasExit = c.hasExit();
-            } catch (DukeException e) {
+            } catch (functional.DukeException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
