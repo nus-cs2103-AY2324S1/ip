@@ -26,12 +26,35 @@ public class Duke {
             "Event Task is missing \"/from\" and/or \"/to\" fields.";
     private static final String ERROR_MESSAGE_FIND_MISSING_SEARCH_TERM =
             "Find command is missing a search term.";
-    private static final String ERROR_MESSAGE_TEMPLATE_EXCEPTIONS = "[ERROR] %s";
+    private static final String ERROR_MESSAGE_TEMPLATE_EXCEPTIONS =
+            "[ERROR] %s%nType `help` for a list of commands.";
 
     // Messages
     private static final String MESSAGE_ALREADY_ENDED_CHAT = "Max has left the chat!";
-    private static final String MESSAGE_GREET_USER = "Hello! I'm Max!%nWhat can I do for you?";
+    private static final String MESSAGE_GREET_USER =
+            "Hello! I'm Max!%nWhat can I do for you?%nType `help` to get started.";
     private static final String MESSAGE_GOODBYE = "Bye. Hope to see you again soon!";
+    private static final String MESSAGE_TEMPLATE_HELP_DATETIME_FORMAT =
+            "The date/time format must be yyyy-MM-dd HH:mm.%n";
+    private static final String MESSAGE_TEMPLATE_HELP_MESSAGE =
+        "Here are the commands supported by Max:%n"
+        + "`bye` - Ends the chat.%n%n"
+        + "`list` - Shows you all your tasks.%n%n"
+        + "`mark <task number>` - Marks the task as completed.%n%n"
+        + "`unmark <task number>` - Marks the task as incomplete.%n%n"
+        + "`todo <description>` - Creates a new ToDo task with description.%n%n"
+        + "`deadline <description> /by <date/time>` - Creates a new Deadline task with description and deadline.%n"
+        + MESSAGE_TEMPLATE_HELP_DATETIME_FORMAT
+        + "%n`event <description> /from <start date/time> /to <end date/time>` - Creates a new Event task with "
+        + "description, start date/time and end date/time.%n"
+        + MESSAGE_TEMPLATE_HELP_DATETIME_FORMAT
+        + "%n`delete <task number>` - Removes the task from your list.%n%n"
+        + "`find <search term>` - Find tasks in your list that contains the search term in the description.%n%n"
+        + "`edit <task number> [/d <new description>] [/b <deadline date/time>] [/s <start date/time>] "
+        + "[/e <end date/time>]` - Updates the corresponding fields in the specified task.%n"
+        + MESSAGE_TEMPLATE_HELP_DATETIME_FORMAT
+        + "You can any number of fields to update and in any order.%n%n"
+        + "`help` - Shows this help message.";
 
 
     // Store list of tasks
@@ -137,6 +160,9 @@ public class Duke {
             break;
         case EDIT:
             output = executeEditTask(argument);
+            break;
+        case HELP:
+            output = String.format(MESSAGE_TEMPLATE_HELP_MESSAGE);
             break;
         case INVALID:
             throw new DukeUnknownCommandException(String.format(
