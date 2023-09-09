@@ -1,19 +1,22 @@
 package duke.task;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks.
  */
 public class TaskList {
-    private ArrayList<Task> taskList = new ArrayList<>();
+    private List<Task> taskList = new ArrayList<>();
 
     /**
      * Constructs a task list with existing tasks.
      *
      * @param tasks The initial list of tasks to populate the task list.
      */
-    public TaskList(ArrayList<Task> tasks) {
+    public TaskList(List<Task> tasks) {
         this.taskList.addAll(tasks);
     }
 
@@ -41,9 +44,32 @@ public class TaskList {
      * @param taskIndex The index of the task to be retrieved.
      * @return The task at the specified index.
      */
-    public Task getTask(int taskIndex) {
+    public Task getTaskAtIndex(int taskIndex) {
         return this.taskList.get(taskIndex);
     }
+
+    /**
+     * Retrieves all tasks from the task list.
+     *
+     * @return the list of tasks from the task list.
+     */
+    public List<Task> getTaskList() {
+        return this.taskList;
+    }
+
+    /**
+     * Filters the TaskList based on the provided condition.
+     *
+     * @param condition The condition to filter the TaskList with.
+     * @return A new TaskList containing only tasks that satisfy the condition.
+     */
+    public TaskList filter(Predicate<Task> condition) {
+        List<Task> filteredTasks = taskList.stream()
+                .filter(condition)
+                .collect(Collectors.toList());
+        return new TaskList(filteredTasks);
+    }
+
 
     /**
      * Returns the number of tasks in the TaskList.

@@ -40,7 +40,7 @@ public class CheckCommand extends Command {
             ArrayList<Task> matchingTasks = new ArrayList<>();
 
             for (int i = 0; i < taskList.getLength(); i++) {
-                Task task = taskList.getTask(i);
+                Task task = taskList.getTaskAtIndex(i);
                 if (task.isOnDate(date)) {
                     matchingTasks.add(task);
                 }

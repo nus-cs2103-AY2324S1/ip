@@ -3,7 +3,10 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import duke.exception.DukeException;
 import duke.task.Task;
@@ -45,13 +48,14 @@ public class Ui {
      */
     public String showList(TaskList taskList) {
         StringBuilder message = new StringBuilder();
-        if (taskList.isEmpty()) {
+        List<Task> tasks = taskList.getTaskList();
+        if (tasks.isEmpty()) {
             message.append("There are no tasks in your list.");
         } else {
-            message.append("Here are the tasks in your list:");
-            for (int i = 0; i < taskList.getLength(); i++) {
-                message.append("\n").append(i + 1).append(". ").append(taskList.getTask(i));
-            }
+            String taskListMessage = IntStream.range(0, tasks.size())
+                    .mapToObj(index -> (index + 1) + ". " + tasks.get(index))
+                    .collect(Collectors.joining("\n"));
+            message.append("Here are the tasks in your list:\n").append(taskListMessage);
         }
         appendMessage(message.toString());
         return message.toString();
@@ -111,13 +115,15 @@ public class Ui {
         StringBuilder message = new StringBuilder();
         message.append("Tasks on ").append(date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))).append(":");
         boolean hasTask = !matchingTasks.isEmpty();
-        int taskNumber = 1;
+
+        List<String> taskMessages = matchingTasks.stream()
+                .map(task -> task.toString())
+                .toList();
 
         if (hasTask) {
-            for (Task task : matchingTasks) {
-                message.append("\n").append(taskNumber).append(". ").append(task);
-                taskNumber++;
-            }
+            IntStream.range(0, taskMessages.size())
+                    .mapToObj(index -> (index + 1) + ". " + taskMessages.get(index))
+                    .forEach(taskMessage -> message.append("\n").append(taskMessage));
         } else {
             message.append("\nYay! You have no tasks on ")
                     .append(date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))).append(" :D");
@@ -138,13 +144,16 @@ public class Ui {
         message.append("Tasks for today (")
                 .append(today.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))).append("):");
         boolean hasTask = !matchingTasks.isEmpty();
-        int taskNumber = 1;
+
+        List<String> taskMessages = matchingTasks.stream()
+                .map(task -> task.toString())
+                .collect(Collectors.toList());
+
 
         if (hasTask) {
-            for (Task task : matchingTasks) {
-                message.append("\n").append(taskNumber).append(". ").append(task);
-                taskNumber++;
-            }
+            IntStream.range(0, taskMessages.size())
+                    .mapToObj(index -> (index + 1) + ". " + taskMessages.get(index))
+                    .forEach(taskMessage -> message.append("\n").append(taskMessage));
         } else {
             message.append("\nYay! You have no tasks today :D");
         }
@@ -158,15 +167,16 @@ public class Ui {
      *
      * @param matchingTasks An ArrayList of tasks that match the search criteria.
      */
-    public String showMatchingTasks(ArrayList<Task> matchingTasks) {
+    public String showMatchingTasks(TaskList matchingTasks) {
         StringBuilder message = new StringBuilder();
-        if (matchingTasks.isEmpty()) {
+        List<Task> tasks = matchingTasks.getTaskList();
+        if (tasks.isEmpty()) {
             message.append("There are no matching tasks in your list.");
         } else {
-            message.append("Here are the matching tasks in your list:");
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                message.append("\n").append(i + 1).append(". ").append(matchingTasks.get(i));
-            }
+            String matchingTasksMessage = IntStream.range(0, tasks.size())
+                    .mapToObj(index -> (index + 1) + ". " + tasks.get(index))
+                    .collect(Collectors.joining("\n"));
+            message.append("Here are the tasks in your list:\n").append(matchingTasksMessage);
         }
         appendMessage(message.toString());
         return message.toString();
