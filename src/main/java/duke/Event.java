@@ -33,7 +33,7 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the information associated with the event to be stored on local hard disk.
+     * Returns the information associated with the event to be stored on the local hard disk.
      * @return the string representation of the event saved onto the local hard disk.
      */
     public String saveTask() {
