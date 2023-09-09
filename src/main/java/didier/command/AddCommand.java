@@ -52,12 +52,14 @@ public class AddCommand extends Command {
 
     @Override
     public String getBotOutput(TaskList taskList, Storage storage) {
-        String outputText = "";
-        if (task != null) {
-            outputText += "Okay! I've added your task:";
-            outputText += String.format("\n%s", task.toString());
-            outputText += String.format("\nThere are now %d tasks in your list", taskList.getSize());
+        if (task == null) {
+            // command has not yet been executed so there is no bot output
+            return "";
         }
+        String outputText = "";
+        outputText += "Okay! I've added your task:";
+        outputText += String.format("\n%s", task.toString());
+        outputText += String.format("\nThere are now %d tasks in your list", taskList.getSize());
         return outputText;
     }
 
