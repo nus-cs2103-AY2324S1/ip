@@ -65,7 +65,7 @@ public class Ui {
     /**
      * Prints a success message to let the user know the deadline task was added successfully,
      * and the number of tasks they currently have.
-     * @param d This is the description and deadliine of the added deadline task.
+     * @param d This is the description and deadline of the added deadline task.
      */
     public static void showAddedDeadline(Deadline d) {
         System.out.println("Got it. I've added this task:\n" + d.toString() + "\nNow you have " + list.size()

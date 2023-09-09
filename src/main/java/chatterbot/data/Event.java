@@ -13,7 +13,7 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
         if (description.isEmpty()) {
-            throw new IllegalArgumentException("OOPS!!! Invalid input! No ttask description.");
+            throw new IllegalArgumentException("OOPS!!! Invalid input! No task description.");
         }
     }
 
