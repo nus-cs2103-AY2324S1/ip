@@ -10,7 +10,7 @@ import smolbrain.task.TaskList;
  */
 public class InvalidCommand implements Command {
 
-    private boolean loading;
+    private boolean isLoading;
 
     /**
      * Creates an invalid command.
@@ -36,7 +36,7 @@ public class InvalidCommand implements Command {
      */
     @Override
     public void setLoading() {
-        this.loading = true;
+        this.isLoading = true;
     }
 
 }

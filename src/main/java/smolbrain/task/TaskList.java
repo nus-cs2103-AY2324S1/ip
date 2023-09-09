@@ -97,13 +97,13 @@ public class TaskList {
         try {
             if (tasklist.size() == 0) {
                 storage.writeToFile("");
-            } else {
-                for (int i = 0; i < tasklist.size(); i++) {
-                    if (i == 0) {
-                        storage.writeToFile(tasklist.get(i).encode());
-                    } else {
-                        storage.appendToFile(System.lineSeparator() + tasklist.get(i).encode());
-                    }
+                return;
+            }
+            for (int i = 0; i < tasklist.size(); i++) {
+                if (i == 0) {
+                    storage.writeToFile(tasklist.get(i).encode());
+                } else {
+                    storage.appendToFile(System.lineSeparator() + tasklist.get(i).encode());
                 }
             }
         } catch (IOException e) {
@@ -118,13 +118,16 @@ public class TaskList {
      * @param ui Ui manager of chatbot.
      */
     public void findTasks(String keyword, Ui ui) {
-        if (tasklist.size() > 0) {
-            for (int i = 0; i < tasklist.size(); i++) {
-                if (tasklist.get(i).contain(keyword)) {
-                    ui.showMessage((i + 1) + ". " + tasklist.get(i));
-                }
+        if (tasklist.size() <= 0) {
+            return;
+        }
+        String message = "";
+        for (int i = 0; i < tasklist.size(); i++) {
+            if (tasklist.get(i).contain(keyword)) {
+                message += ((i + 1) + ". " + tasklist.get(i) + "\n");
             }
         }
+        ui.showMessage(message);
     }
 
 }
