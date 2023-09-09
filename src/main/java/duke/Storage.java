@@ -42,7 +42,7 @@ public class Storage {
      * @param tasks The list of tasks.
      */
     public void saveTask(ArrayList<Task> tasks) {
-        assert tasks != null: "Task to be saved is not empty; content is provided";
+        assert tasks != null : "Task to be saved is not empty; content is provided";
         try {
             FileOutputStream fos = new FileOutputStream(this.filePath);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
