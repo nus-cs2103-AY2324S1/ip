@@ -27,18 +27,8 @@ public class ListCommand extends Command {
      * @throws DukeException If there is an error generated while command is run.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, DataStorage store) throws DukeException {
-        ui.showList(tasks.getTaskList());
-    }
-
-    /**
-     * Checks if the application should exit.
-     *
-     * @return false
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+    public String execute(TaskList tasks, Ui ui, DataStorage store) throws DukeException {
+        return ui.showList(tasks.getTaskList());
     }
 
 }

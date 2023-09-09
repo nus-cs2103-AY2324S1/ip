@@ -32,19 +32,9 @@ public class FindCommand extends Command {
      * @throws DukeException If there is an error generated while command is run.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, DataStorage store) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, DataStorage store) throws DukeException {
         ArrayList<Task> filteredTasks = tasks.find(this.keyword);
-        ui.showFindCommandList(filteredTasks, this.keyword);
-    }
-
-    /**
-     * Checks if the application should exit.
-     *
-     * @return false
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        return ui.showFindCommandList(filteredTasks, this.keyword);
     }
 
 }

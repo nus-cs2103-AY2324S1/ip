@@ -30,18 +30,9 @@ public class UnmarkCommand extends Command {
      * @throws DukeException If there is an error generated while command is run.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, DataStorage store) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, DataStorage store) throws DukeException {
         tasks.unmark(this.taskIndex);
-        ui.showUnmark(tasks.getTask(this.taskIndex));
+        return ui.showUnmark(tasks.getTask(this.taskIndex));
     }
 
-    /**
-     * Checks if the application should exit.
-     *
-     * @return false
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

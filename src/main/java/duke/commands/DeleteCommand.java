@@ -4,6 +4,7 @@ import duke.DataStorage;
 import duke.DukeException;
 import duke.TaskList;
 import duke.Ui;
+import duke.tasks.Task;
 
 /**
  * Represents a command to delete a task.
@@ -29,18 +30,10 @@ public class DeleteCommand extends Command {
      * @throws DukeException If there is an error generated while command is run.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, DataStorage store) throws DukeException {
-        ui.showDelete(tasks.getTask(this.taskIndex), (tasks.getLength() - 1));
+    public String execute(TaskList tasks, Ui ui, DataStorage store) throws DukeException {
+        Task displayTask = tasks.getTask(this.taskIndex);
         tasks.delete(this.taskIndex);
+        return ui.showDelete(displayTask, (tasks.getLength() - 1));
     }
 
-    /**
-     * Checks if the application should exit.
-     *
-     * @return false
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

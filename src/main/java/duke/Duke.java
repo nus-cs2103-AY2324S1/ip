@@ -4,6 +4,8 @@ import java.time.format.DateTimeParseException;
 
 import duke.commands.Command;
 
+
+
 /**
  * Main class of the application.
  */
@@ -27,32 +29,25 @@ public class Duke {
     /**
      * Reads and executes commands.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
-                Command c = Parser.parse(fullCommand, tasks);
-                c.execute(tasks, ui, store);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e);
-            } catch (DateTimeParseException e) {
-                ui.showDateTimeParseError();
-            } finally {
-                ui.showLine();
-            }
-        }
+    public String run() {
+        return ui.showWelcome();
     }
 
     /**
-     * Runs application.
-     *
-     * @param args (not used)
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    public static void main(String[] args) {
-        new Duke().run();
+    public String getResponse(String input) {
+        Command c = null;
+        try {
+            c = Parser.parse(input, tasks);
+            return c.execute(tasks, ui, store);
+        } catch (DukeException e) {
+            return ui.showError(e);
+        } catch (DateTimeParseException e) {
+            return ui.showDateTimeParseError();
+        }
     }
 }
+
+

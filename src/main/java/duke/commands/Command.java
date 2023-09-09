@@ -18,15 +18,6 @@ public abstract class Command {
      * @param store The DDataStorage handling data.
      * @throws DukeException If there is an error generated while command is run.
      */
-    public abstract void execute(TaskList tasks, Ui ui, DataStorage store) throws DukeException;
-
-    /**
-     * Checks if the application should exit.
-     *
-     * @return false
-     */
-    public boolean isExit() {
-        return false;
-    }
+    public abstract String execute(TaskList tasks, Ui ui, DataStorage store) throws DukeException;
 
 }
