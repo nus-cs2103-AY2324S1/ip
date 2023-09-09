@@ -1,5 +1,6 @@
 package pooh;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,5 +124,25 @@ public class TaskList {
             }
         }
         return new TaskList(keywordTasks);
+    }
+
+    /**
+     * Postpones a time-sensitive task to a new specified deadline.
+     *
+     * @param postponeIndex  The index of the task to be postponed.
+     * @param deadlineString The new deadline to which the task should be postponed.
+     * @return The postponed task.
+     * @throws InvalidTaskException          If the provided index does not correspond to a valid task.
+     * @throws NotTimeSensitiveTaskException If the task at the given index is not time-sensitive.
+     */
+    public Task postponeTimeSensitiveTask(int postponeIndex, String deadlineString) throws InvalidTaskException,
+            NotTimeSensitiveTaskException {
+        Task task = getTask(postponeIndex);
+        if (!(task instanceof TimeSensitiveTask)) {
+            throw new NotTimeSensitiveTaskException();
+        }
+        TimeSensitiveTask postponedTask = (TimeSensitiveTask) task;
+        postponedTask.postpone(deadlineString);
+        return postponedTask;
     }
 }

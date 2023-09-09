@@ -67,6 +67,16 @@ public class Parser {
                 } else {
                     return ui.getNoKeywordTasksFoundMessage();
                 }
+            case "postpone":
+                try {
+                    int postponeIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    String deadlineString = userInput.split(" ")[2];
+                    Task postponedTask = taskList.postponeTimeSensitiveTask(postponeIndex, deadlineString);
+                    taskStorage.writeTask(taskList);
+                    return ui.getPostponeTaskMessage(postponedTask);
+                } catch (NotTimeSensitiveTaskException ex) {
+                    return ui.getUnableToPostponeTaskMessage();
+                }
             default:
                 throw new UnrecognizedCommandException();
             }

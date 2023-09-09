@@ -114,4 +114,22 @@ public class Ui {
                 " %d tasks in the list", task, taskList.getSize());
     }
 
+    /**
+     * Generates a message indicating that a task has been postponed.
+     *
+     * @param postponedTask The task that has been postponed.
+     * @return A string message indicating the postponed task.
+     */
+    public String getPostponeTaskMessage(Task postponedTask) {
+        return "OK, I have postponed this task:\n      " + postponedTask;
+    }
+
+    /**
+     * Generates a message indicating that a task cannot be postponed.
+     *
+     * @return A string message indicating the inability to postpone the task.
+     */
+    public String getUnableToPostponeTaskMessage() {
+        return "Task selected is not time-sensitive! Please select carefully!";
+    }
 }
