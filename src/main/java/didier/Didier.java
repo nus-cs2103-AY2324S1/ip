@@ -22,6 +22,7 @@ public class Didier {
     public Didier(String directoryPath, String fileName) {
         storage = new Storage(directoryPath, fileName);
         taskList = storage.getTasks();
+        assert taskList != null : "The task list of the Didier object storage is null";
         isActive = true;
     }
 
@@ -34,6 +35,7 @@ public class Didier {
     public String getResponse(String commandString) {
         try {
             Command command = Parser.parseCommand(commandString);
+            assert command != null : "Parser returns a null command object";
             if (command.isExit()) {
                 isActive = false;
             }
