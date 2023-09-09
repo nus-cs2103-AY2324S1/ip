@@ -1,5 +1,5 @@
 package Alex;
-public class UnknownCommand extends Command{
+public class UnknownCommand extends Command {
     private String command;
 
     public UnknownCommand (String command) {

@@ -1,6 +1,6 @@
 package Alex;
 
-public class EditCommand extends Command{
+public class EditCommand extends Command {
     private String command;
     private Edit editType;
     public EditCommand(String command, Edit editType) {

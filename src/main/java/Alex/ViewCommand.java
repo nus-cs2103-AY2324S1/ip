@@ -2,7 +2,7 @@ package Alex;
 
 import java.time.format.DateTimeParseException;
 
-public class ViewCommand extends Command{
+public class ViewCommand extends Command {
     private String command;
     private View viewType;
 
