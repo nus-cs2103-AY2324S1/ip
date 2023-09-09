@@ -79,7 +79,7 @@ public abstract class Task {
      * @param word String repreentingt the name substring they are looking for
      * @return {@code true} if word is a substring of the name
      */
-    public Boolean containName(String word) {
+    public Boolean containsName(String word) {
         return this.name.contains(word);
     }
 

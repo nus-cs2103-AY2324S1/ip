@@ -89,7 +89,7 @@ public class TaskList {
      * @return ArrayList of tasks that corresponds to the word input
      */
     public ArrayList<Task> find(String word) {
-        Predicate<Task> findName = task -> task.containName(word);
+        Predicate<Task> findName = task -> task.containsName(word);
         ArrayList<Task> tempList = new ArrayList<>();
         for (Task task : this.arrList) {
             if (findName.test(task)) {
