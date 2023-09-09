@@ -23,18 +23,19 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Storage storage) {
-        this.printCommand(taskList);
+    public String execute(TaskList taskList, Storage storage) {
+        TaskList temp = taskList;
         taskList.removeTask(this.index - 1);
         storage.writeData(taskList.convertToFileContent());
+        return this.printCommand(temp);
     }
 
     @Override
-    public void printCommand(TaskList taskList) {
+    public String printCommand(TaskList taskList) {
         Task temp = taskList.getTask(this.index - 1);
-        System.out.println("JonBird:\n\tNoted. I've removed this task:");
-        System.out.println("\t\t" + temp.printTask());
-        System.out.println("\tNow you have " + (taskList.size() - 1) + " tasks in the list.");
+        return "JonBird:\n\tNoted. I've removed this task:\n"
+                + "\t\t" + temp.printTask()
+                + "\n\tNow you have " + (taskList.size() - 1) + " tasks in the list.";
     }
 
     @Override
