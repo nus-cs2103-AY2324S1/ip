@@ -1,8 +1,10 @@
 package duke.parser;
 
-import duke.commands.Command;
+import duke.commands.*;
 import duke.exceptions.*;
 import duke.tasks.*;
+import duke.storage.Storage;
+import duke.ui.Ui;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,10 +22,30 @@ public class Parser {
      * @param str The user input string.
      * @return The parsed command.
      */
-    public static Command getCommand(String str) {
+    public static Command getCommand(String str, Storage storage, TaskList taskList, Ui ui) {
         String command_word = str.split(" ")[0];
-        Command command = Command.valueOf(command_word.toUpperCase());
-        return command;
+        switch (command_word) {
+        case "list":
+            return new ListCommand();
+        case "mark":
+            return new MarkCommand(str);
+        case "unmark":
+            return new UnmarkCommand(str);
+        case "todo":
+            return new ToDoCommand(str);
+        case "deadline":
+            return new DeadlineCommand(str);
+        case "event":
+            return new EventCommand(str);
+        case "delete":
+            return new DeleteCommand(str);
+        case "find":
+            return new FindCommand(str);
+        case "bye":
+            return new ByeCommand();
+        default:
+            return new InvalidCommand();
+        }
     }
 
     /**
@@ -42,15 +64,30 @@ public class Parser {
             if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
                 throw new InvalidTaskIndexException("Invalid Task Index.");
             }
-            Command command = getCommand(str);
-            switch (command) {
-            case MARK:
-                tasks.markTaskAsDone(taskIndex);
-                break;
-            case UNMARK:
-                tasks.markTaskAsUndone(taskIndex);
-                break;
+            tasks.markTaskAsDone(taskIndex);
+            return taskIndex;
+        } else {
+            throw new MissingTaskIndexException("Task Index Missing.");
+        }
+    }
+
+    /**
+     * Parses a user input string to get the index of a task to unmark.
+     *
+     * @param str    The user input string.
+     * @param tasks  The list of tasks.
+     * @return The index of the task that was marked as undone.
+     * @throws InvalidTaskIndexException   If the task index is invalid.
+     * @throws MissingTaskIndexException  If the task index is missing.
+     */
+    public static int taskToUnmark(String str, TaskList tasks)
+            throws InvalidTaskIndexException, MissingTaskIndexException {
+        if (str.split(" ").length == 2) {
+            int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
+            if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
+                throw new InvalidTaskIndexException("Invalid Task Index.");
             }
+            tasks.markTaskAsUndone(taskIndex);
             return taskIndex;
         } else {
             throw new MissingTaskIndexException("Task Index Missing.");
@@ -108,18 +145,17 @@ public class Parser {
      * @throws InvalidDescriptionException If the task description is invalid.
      * @throws InvalidDateTimeException    If the task date and time are invalid.
      */
-    public static Task parseStringToTask(String str)
+    public static Task parseStringToTask(String str, String commandWord)
             throws InvalidDescriptionException, InvalidDateTimeException {
-        Command command = getCommand(str);
-        switch(command) {
-        case TODO:
+        switch(commandWord) {
+        case "todo":
             if (str.split(" ").length > 1) {
                 ToDo todo = new ToDo(str.split(" ")[1]);
                 return todo;
             } else {
                 throw new InvalidDescriptionException("Invalid description.");
             }
-        case DEADLINE:
+        case "deadline":
             if (str.split(" ").length > 3) {
                 String fullTaskDescription = str.split(" ", 2)[1];
                 String description = fullTaskDescription.split(" /by ")[0];
@@ -136,7 +172,7 @@ public class Parser {
             } else {
                 throw new InvalidDescriptionException("Invalid description.");
             }
-        case EVENT:
+        case "event":
             if (str.split(" ").length > 4) {
                 String fullTaskDescription = str.split(" ", 2)[1];
                 String description = fullTaskDescription.split(" /from ")[0];
