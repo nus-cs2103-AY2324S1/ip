@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.filemanagement.DateTimeDetector;
+import duke.userio.InvalidUserInputException;
 
 /**
  * Represents a task that is an Event.
@@ -29,8 +30,14 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Updates attribute with input content if it has the input attribute.
+     * @param attributeToUpdate Attribute to be updated.
+     * @param contentToUpdate Content to overwrite current attribute's value.
+     * @throws InvalidUserInputException If attributeToUpdate is any of attributes of an Event task.
+     */
     @Override
-    public void update(String attributeToUpdate, String contentToUpdate) {
+    public void update(String attributeToUpdate, String contentToUpdate) throws InvalidUserInputException {
         switch (attributeToUpdate) {
             case "description":
                 this.description = contentToUpdate;
@@ -38,6 +45,8 @@ public class Event extends Task {
                 this.from = contentToUpdate;
             case "to":
                 this.to = contentToUpdate;
+            default:
+                throw new InvalidUserInputException();
         }
     }
 

@@ -133,6 +133,24 @@ public class Ui {
     }
 
     /**
+     * Informs user update is successful and show the updated task list.
+     * @param taskList Updated task list.
+     * @return String to notify update success and updated task list.
+     */
+    public String updateResponse(String taskList) {
+        return ("Update successful! This is the updated task list:\n" + taskList);
+    }
+
+    public String updateFailedResponse() {
+        return ("Update was unsuccessful :( Please return in this format:\n" +
+                "update {task index in task list} {attribute of task} {content to update with} while ensuring the task" +
+                " has the necessary attribute (See end of message) \n" +
+                "For example: update 1 from 10/10/2023 , update 3 description Wash dishes\n\n" +
+                "ToDo: description\n" +
+                "Deadline: description, by\n" +
+                "Event: description, from, to");
+    }
+    /**
      * Informs user the given input does not work.
      */
     public String invalidInputRes() {

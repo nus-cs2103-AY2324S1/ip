@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.userio.InvalidUserInputException;
+
 import java.util.Objects;
 
 /**
@@ -60,10 +62,13 @@ public class Task {
      * Updates attribute with input content if it has the input attribute.
      * @param attributeToUpdate Attribute to be updated.
      * @param contentToUpdate Content to overwrite current attribute's value.
+     * @throws InvalidUserInputException If attributeToUpdate is not description.
      */
-    public void update(String attributeToUpdate, String contentToUpdate) {
+    public void update(String attributeToUpdate, String contentToUpdate) throws InvalidUserInputException {
         if (Objects.equals(attributeToUpdate, "description")) {
             this.description = contentToUpdate ;
+        } else {
+            throw new InvalidUserInputException();
         }
     }
 
