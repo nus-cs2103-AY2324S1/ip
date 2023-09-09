@@ -1,35 +1,28 @@
-package duke;
+package duke.ui;
 
+import duke.TaskList;
 import duke.task.Task;
 
 /**
  * The Ui class is responsible for user interaction and displaying messages to the user.
  */
 public class Ui{
-    String name = "Harry Potter";
-    String question = "Introducing the Wizarding World Organizer: Your Trusted Guide" +
+    static String hello = "Hello muggle! I'm " + "Harry Potter" + "\n" + "Introducing the Wizarding World Organizer: Your Trusted Guide" +
             " to Efficient & Effective Magical Planning";
-    String hello = "Hello muggle! I'm " + name + "\n" + question;
-    String bye = "\t" + "Expelliarmus! Hope to see you again muggle! :D";
-
-    /**
-     * Default constructor to initialize the Ui class.
-     */
-    public Ui() {
-    }
+    static String bye = "\t" + "Expelliarmus! Hope to see you again muggle! :D";
 
     /**
      * Displays a welcome message to the user.
      */
-    public void printHello() {
-        System.out.println(hello);
+    public static String printHello() {
+        return hello;
     }
 
     /**
      * Displays a goodbye essage to the user.
      */
-    public void printBye() {
-        System.out.println(bye);
+    public static String printBye() {
+        return bye;
     }
 
     /**
@@ -37,10 +30,10 @@ public class Ui{
      *
      * @param done The task that was marked as done.
      */
-    public void printDone(Task done) {
-        System.out.println("\t" + "Nice! I've marked this task " +
+    public static String printDone(Task done) {
+        return "\t" + "Nice! I've marked this task " +
                 "as done:" + "\n" +
-                "\t " + done.taskString());
+                "\t " + done.taskString();
     }
 
     /**
@@ -48,10 +41,10 @@ public class Ui{
      *
      * @param notDone The task that was marked as not done.
      */
-    public void printNotDone(Task notDone) {
-        System.out.println("\t" + "OK, I've marked this task " +
+    public static String printNotDone(Task notDone) {
+        return "\t" + "OK, I've marked this task " +
                 "as not done yet:" + "\n" + "\t" + " " +
-                notDone.taskString());
+                notDone.taskString();
     }
 
     /**
@@ -60,9 +53,9 @@ public class Ui{
      * @param toBeDeleted The task that was deleted.
      * @param tasks       The task list.
      */
-    public void printDelete(Task toBeDeleted, TaskList tasks) {
-        System.out.println("\tNoted. I've removed this task:\n\t " + toBeDeleted.taskString()
-                + "\n\tNow you have " + tasks.getSize() + " tasks in the list.");
+    public static String printDelete(Task toBeDeleted, TaskList tasks) {
+        return "\tNoted. I've removed this task:\n\t " + toBeDeleted.taskString()
+                + "\n\tNow you have " + tasks.getSize() + " tasks in the list.";
     }
 
     /**
@@ -71,14 +64,13 @@ public class Ui{
      * @param task  The task that was added.
      * @param tasks The task list.
      */
-    public void printAddTask(Task task, TaskList tasks) {
+    public static String printAddTask(Task task, TaskList tasks) {
         int len = tasks.getSize();
         String output = "\tGot it. I've added this task:\n\t\t"
                 + task.taskString();
         String listLength = len == 1 ? "Now you have " + len + " task in the list." :
                 "Now you have " + len + " tasks in the list.";
-        System.out.println(output
-                + "\n\t" + listLength);
+        return output + "\n\t" + listLength;
     }
 
 
@@ -87,32 +79,31 @@ public class Ui{
      *
      * @param message The custom exception message.
      */
-    public void printException(String message) {
-        System.out.println(message);
+    public static String printException(String message) {
+        return message;
     }
 
     /**
      * Prints a default exception message for EventDateTime Exception.
      */
-    public void printException() {
-        System.out.println("Accio error! I don't understand what the input means D:" +
+    public static String printException() {
+        return"Accio error! I don't understand what the input means D:" +
                 " Please input a valid date in the format yyyy-MM-dd HHmm " +
-                "(the time in the 24-hour format).");
+                "(the time in the 24-hour format).";
     }
 
     /**
      * Lists the tasks in the task list.
      * @param tasks The task list to be printed.
      */
-    public void listTasks(TaskList tasks) {
+    public static String listTasks(TaskList tasks) {
+        String answer = "\tHere are the tasks in your list:";
         int i = 1;
-        System.out.print("\tHere are the tasks in your list:");
         for (int j = 0; j < tasks.getSize(); j++) {
-            System.out.println();
-            System.out.print("\t" + i + "." + tasks.getTask(j).taskString());
+            answer += "\n\t" + i + "." + tasks.getTask(j).taskString();
             i++;
         }
-        System.out.println();
+        return answer;
     }
 
     /**
@@ -120,14 +111,14 @@ public class Ui{
      * containing tasks with matching keywords
      * @param tasks The task list to be printed.
      */
-    public void printMatchingTasks(TaskList tasks){
+    public static String printMatchingTasks(TaskList tasks){
+        String answer = "\tHere are the tasks in your list:";
         int i = 1;
-        System.out.print("\tHere are the tasks in your list:");
         for (int j = 0; j < tasks.getSize(); j++) {
-            System.out.println();
-            System.out.print("\t" + i + "." + tasks.getTask(j).taskString());
+            answer += "\n\t" + i + "." + tasks.getTask(j).taskString();
             i++;
         }
-        System.out.println();
+        return answer;
     }
+
 }

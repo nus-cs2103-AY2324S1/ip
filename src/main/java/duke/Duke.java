@@ -1,5 +1,7 @@
 package duke;
 
+import duke.ui.Ui;
+
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
@@ -9,25 +11,29 @@ import java.util.Scanner;
  * dates and times for events and deadlines.
  */
 
-public class Duke {
-    public static void main(String[] args) {
-        Storage storage = new Storage();
-        Ui ui = new Ui();
-        ui.printHello();
+public class Duke{
+    TaskList tasks = Storage.loadTasks("src/data/Duke.txt");
+    public void dukeInteraction() {
+        Ui.printHello();
         Scanner scanner = new Scanner(System.in);
         String str = scanner.nextLine();
-        Parser parser = new Parser();
-        TaskList tasks = storage.loadTasks("src/data/Duke.txt");
         while (!str.equals("bye")) {
-            parser.chat(str, tasks);
+            Parser.chat(str, tasks);
             str = scanner.nextLine();
         } try {
-            storage.saveTasks("src/data/Duke.txt", tasks);
+            Storage.saveTasks("src/data/Duke.txt", tasks);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         scanner.close();
-        ui.printBye();
+        Ui.printBye();
+    }
+    public static void main(String[] args) {
+        Duke duke = new Duke();
+        duke.dukeInteraction();
+    }
+    public String getResponse(String input) {
+        return Parser.chat(input, tasks);
     }
 }
 

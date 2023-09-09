@@ -4,10 +4,9 @@ import duke.exception.DeadlineCommandUseException;
 import duke.exception.EventCommandUseException;
 import duke.exception.InvalidInputException;
 import duke.exception.ToDoCommandUseException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
+import duke.task.*;
+import duke.ui.Ui;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -30,10 +29,12 @@ public class Parser {
      * @param str    The user input string.
      * @param tasks  The task list to which tasks are added or manipulated.
      */
-    public void chat(String str, TaskList tasks) {
+    public static String chat(String str, TaskList tasks) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        Ui ui = new Ui();
         try {
+            if (str.equals("bye")) {
+                return Ui.printBye();
+            }
             if (!str.equals("list")) {
                 if (str.startsWith("mark ")) {
                     String num = str.substring(5);
@@ -44,7 +45,7 @@ public class Parser {
                     int index = number - 1; //index for task list
                     tasks.markDone(index);
                     Task done = tasks.getTask(index);
-                    ui.printDone(done);
+                    return Ui.printDone(done);
                 } else if (str.startsWith("unmark ")) {
                     String num = str.substring(7);
                     int number = Integer.valueOf(num);
@@ -54,7 +55,7 @@ public class Parser {
                     int index = number - 1; //index for task list
                     tasks.markNotDone(index);
                     Task notDone = tasks.getTask(index);
-                    ui.printNotDone(notDone);
+                    return Ui.printNotDone(notDone);
 
                 } else if (str.startsWith("delete ")) {
                     String num = str.substring(7);
@@ -64,7 +65,7 @@ public class Parser {
                     }
                     int index = number - 1;
                     Task toBeDeleted = tasks.removeTask(index);
-                    ui.printDelete(toBeDeleted, tasks);
+                    return Ui.printDelete(toBeDeleted, tasks);
 
                 } else if (str.startsWith("find ")) {
                     String keyword = str.substring(5);
@@ -74,7 +75,7 @@ public class Parser {
                             matchingTasks.addTask(tasks.getTask(i));
                         }
                     }
-                    ui.printMatchingTasks(matchingTasks);
+                    return Ui.printMatchingTasks(matchingTasks);
                 } else {
                     if (str.startsWith("todo")) {
                         String todo = str.substring(4);
@@ -87,7 +88,7 @@ public class Parser {
                         String string = str.substring(5);
                         Task task = new ToDo(string);
                         tasks.addTask(task);
-                        ui.printAddTask(task, tasks);
+                        return Ui.printAddTask(task, tasks);
                     } else if (str.startsWith("deadline")) {
                         if (!str.contains("/by ")) {
                             throw new DeadlineCommandUseException(str); //needs to check for /by
@@ -101,7 +102,7 @@ public class Parser {
                             String workToDo = str.substring(9, index - 1);
                             Task task = new Deadline(workToDo, LocalDateTime.parse(deadline, formatter));
                             tasks.addTask(task);
-                            ui.printAddTask(task, tasks);
+                            return Ui.printAddTask(task, tasks);
                         }
                     } else if (str.startsWith("event")) {
                         if (!str.contains("/from")) {
@@ -128,7 +129,7 @@ public class Parser {
                                 Task task = new Event(workToDo, LocalDateTime.parse(fromWhen, formatter),
                                         LocalDateTime.parse(toWhen, formatter));
                                 tasks.addTask(task);
-                                ui.printAddTask(task, tasks);
+                                return Ui.printAddTask(task, tasks);
                             }
                         }
                     } else {
@@ -136,14 +137,14 @@ public class Parser {
                     }
                 }
             } else {
-                ui.listTasks(tasks);
+                return Ui.listTasks(tasks);
             }
         } catch (java.time.format.DateTimeParseException e) {
             //detect inputs that don't follow the yyyy-MM-dd HHmm format
-            ui.printException();
+            return Ui.printException();
         } catch (InvalidInputException | EventCommandUseException |
                  DeadlineCommandUseException | ToDoCommandUseException e) {
-            ui.printException(e.getMessage());
+            return Ui.printException(e.getMessage());
         }
     }
 }

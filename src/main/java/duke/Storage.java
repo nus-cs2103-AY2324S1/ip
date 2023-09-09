@@ -27,7 +27,7 @@ public class Storage{
      * @param tasks    The task list to be saved.
      * @throws FileNotFoundException If the specified file is not found.
      */
-    public void saveTasks(String filePath, TaskList tasks) throws FileNotFoundException{
+    public static void saveTasks(String filePath, TaskList tasks) throws FileNotFoundException{
         try {
             createDirectoryIfNotExists(filePath);
 
@@ -50,7 +50,7 @@ public class Storage{
      * @param task The task to be formatted.
      * @return A formatted string representation of the task.
      */
-    String formatTaskData(Task task) {
+    static String formatTaskData(Task task) {
         // Customize this method based on your Task class structure.
         String str = task.saveTaskString();
         return str;
@@ -60,7 +60,7 @@ public class Storage{
      * @param filePath The path to the file from which tasks will be loaded.
      * @return A TaskList containing the loaded tasks.
      */
-    public TaskList loadTasks(String filePath) {
+    public static TaskList loadTasks(String filePath) {
         TaskList taskList = new TaskList();
         try {
             createDirectoryIfNotExists(filePath);
@@ -102,7 +102,7 @@ public class Storage{
      * @param filePath The path to the file to be created.
      * @throws IOException If an error occurs during directory or file creation.
      */
-    private void createDirectoryIfNotExists(String filePath) throws IOException {
+    private static void createDirectoryIfNotExists(String filePath) throws IOException {
         Path path = FileSystems.getDefault().getPath(filePath);
         Path parentDir = path.getParent();
 

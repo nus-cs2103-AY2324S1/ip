@@ -2,6 +2,7 @@ package duke.task;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import org.junit.jupiter.api.Assertions;
 
 /**
  * This class contains JUnit test cases to verify the functionality of the Deadline class.
@@ -10,27 +11,31 @@ import java.time.format.DateTimeFormatter;
  */
 public class DeadlineTest {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    Deadline test = new Deadline("assignment submission", LocalDateTime.parse("2023-09-11 2359", formatter));
     @Test
     void testTaskString() {
-        assert test.taskString().equals("[D][ ] assignment submission (by: Sep 11 2023 2359)");
+        Deadline test = new Deadline("assignment submission", LocalDateTime.parse("2023-01-11 2359", formatter));
+        Assertions.assertEquals(test.taskString(), "[D][ ] assignment submission (by: Jan 11 2023 2359)");
     }
 
     @Test
     void testMarkAsDone() {
+        Deadline test = new Deadline("assignment submission", LocalDateTime.parse("2023-01-11 2359", formatter));
         test.markAsDone();
-        assert test.taskString().equals("[D][X] assignment submission (by: Sep 11 2023 2359)");
+        Assertions.assertEquals(test.taskString(), "[D][X] assignment submission (by: Jan 11 2023 2359)");
     }
 
     @Test
     void testNotMarkAsDone() {
+        Deadline test = new Deadline("assignment submission", LocalDateTime.parse("2023-01-11 2359", formatter));
+        test.markAsDone();
         test.markAsNotDone();
-        assert test.taskString().equals("[D][ ] assignment submission (by: Sep 11 2023 2359)");
+        Assertions.assertEquals(test.taskString(), "[D][ ] assignment submission (by: Jan 11 2023 2359)");
     }
 
     @Test
     void testGetTask() {
-        assert test.getTask().equals("assignment submission");
+        Deadline test = new Deadline("assignment submission", LocalDateTime.parse("2023-09-11 2359", formatter));
+        assert test.getTask().trim().equals("assignment submission");
     }
 
 }
