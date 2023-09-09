@@ -30,7 +30,7 @@ public class Parser {
                             }
                             continue;
                         } catch (NumberFormatException e) {
-                            System.err.println(Ui.horizontalLine + "You did not enter a valid integer :(\n" + Ui.horizontalLine);
+                            Ui.showError(Ui.horizontalLine + "You did not enter a valid integer :(\n" + Ui.horizontalLine);
                             continue;
                         }
                     }
@@ -41,7 +41,7 @@ public class Parser {
                             taskInstance.delete(no);
                             continue;
                         } catch (NumberFormatException e) {
-                            System.err.println(Ui.horizontalLine + "You did not enter a valid integer :(\n" + Ui.horizontalLine);
+                            Ui.showError(Ui.horizontalLine + "You did not enter a valid integer :(\n" + Ui.horizontalLine);
                             continue;
                         }
                     }
@@ -101,7 +101,7 @@ public class Parser {
                     throw new DukeException(Ui.horizontalLine + "OOPS!!! I'm sorry, but I don't know what that means :-(\n" + Ui.horizontalLine);
                 }
             } catch (Exception e) {
-                System.err.println(e.getMessage());
+                Ui.showError(e.getMessage());
             }
         }
     }

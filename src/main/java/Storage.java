@@ -19,7 +19,7 @@ public class Storage {
             }
         }
 
-        File db = new File(Duke.FILE_PATH);
+        File db = new File(FILE_PATH);
 
         // Check if the file exists; if not, create it
         if (!db.exists()) {
@@ -36,7 +36,7 @@ public class Storage {
     }
 
 
-    public static void loadTasksFromFile(ArrayList<Task> allTasks) {
+    public static void loadTasksFromFile(TaskList taskList) {
         List<Task> loadedTasks = new ArrayList<>(); // Create a temporary list
 
         try (Scanner scanner = new Scanner(new File(FILE_PATH))) {
@@ -75,12 +75,22 @@ public class Storage {
                 }
             }
 
-            allTasks.clear();
-            allTasks.addAll(loadedTasks);
+            taskList.getTasks().clear();
+            taskList.getTasks().addAll(loadedTasks);
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());
         } catch (DukeException e) {
 
+        }
+    }
+
+    public static void saveTaskToFile(String task) {
+        try (FileWriter fw = new FileWriter(FILE_PATH, true);
+             BufferedWriter bw = new BufferedWriter(fw);
+             PrintWriter out = new PrintWriter(bw)) {
+            out.println(task);
+        } catch (IOException e) {
+            System.err.println("Error saving task to file: " + e.getMessage());
         }
     }
 
@@ -103,10 +113,11 @@ public class Storage {
                 }
 
                 writer.write(currentLine);
-                if (lineCounter != lineNumber - 1) {
-                    // Add a newline character if it's not the last line
-                    writer.newLine();
-                }
+                writer.newLine();
+//                if (lineCounter != lineNumber - 1) {
+//                    // Add a newline character if it's not the last line
+//                    writer.newLine();
+//                }
             }
 
             writer.close();

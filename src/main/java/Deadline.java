@@ -13,7 +13,7 @@ public class Deadline extends Task {
             this.byStr = by;
 
         } catch (Exception e) {
-            throw new DukeException(Duke.horizontalLine + "Invalid date format :< Please use dd/MM/yyyy\n" + Duke.horizontalLine);
+            throw new DukeException(Ui.horizontalLine + "Invalid date format :< Please use dd/MM/yyyy\n" + Ui.horizontalLine);
         }
         if (isNotSaved) {
             saveToFile();
@@ -29,8 +29,8 @@ public class Deadline extends Task {
     }
 
     public void print() {
-        System.out.println(Duke.horizontalLine + "Got it. I've added this task:\n " + this.toString()+ "\n"
-                + "Now you have " + Task.getCounter() + " tasks in the list\n" + Duke.horizontalLine);
+        System.out.println(Ui.horizontalLine + "Got it. I've added this task:\n " + this.toString()+ "\n"
+                + "Now you have " + Task.getCounter() + " tasks in the list\n" + Ui.horizontalLine);
     }
 
     public String generateStr() {
@@ -41,7 +41,7 @@ public class Deadline extends Task {
     @Override
     public void saveToFile() {
         if (isNotSaved) {
-            Duke.saveTaskToFile(generateStr());
+            Storage.saveTaskToFile(generateStr());
         }
     }
 
