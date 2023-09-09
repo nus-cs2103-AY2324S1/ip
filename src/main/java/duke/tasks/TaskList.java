@@ -1,6 +1,9 @@
 package duke.tasks;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import duke.exceptions.DukeIOException;
 import duke.exceptions.DukeIllegalArgumentException;
@@ -219,21 +222,18 @@ public class TaskList {
      * @return The String representation of the tasks that contain the keyword in the description.
      */
     public String find(String keyword) {
-        StringBuilder sb = new StringBuilder();
-        int count = 0;
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            if (task.hasKeywordInDescription(keyword)) {
-                count++;
-                sb.append(String.format("%n%d.%s", i + 1, task));
-            }
-        }
-        if (count == 0) {
+        List<String> foundTasks = tasks.stream()
+                .filter(task -> task.hasKeywordInDescription(keyword))
+                .map(task -> String.format("%n%d.%s", tasks.indexOf(task) + 1, task))
+                .collect(toList());
+
+        if (foundTasks.isEmpty()) {
             return "There are no matching tasks in your list.";
         } else {
-            String isOrAre = count == 1 ? "is" : "are";
-            String taskOrTasks = count == 1 ? "task" : "tasks";
-            return String.format("Here %s the %d matching %s in your list:%s", isOrAre, count, taskOrTasks, sb);
+            String isOrAre = foundTasks.size() == 1 ? "is" : "are";
+            String taskOrTasks = foundTasks.size() == 1 ? "task" : "tasks";
+            return String.format("Here %s the %d matching %s in your list:%s",
+                    isOrAre, foundTasks.size(), taskOrTasks, String.join("", foundTasks));
         }
     }
 
@@ -249,9 +249,9 @@ public class TaskList {
         if (tasks.isEmpty()) {
             sb.append(String.format("%nYou have no tasks in your list."));
         } else {
-            for (int i = 0; i < tasks.size(); i++) {
-                sb.append(String.format("%n%d.%s", i + 1, tasks.get(i)));
-            }
+            tasks.stream()
+                    .map(task -> String.format("%n%d.%s", tasks.indexOf(task) + 1, task))
+                    .forEach(sb::append);
         }
         return sb.toString();
     }
@@ -265,10 +265,10 @@ public class TaskList {
      */
     private void exportData() throws DukeIOException {
         StringBuilder sb = new StringBuilder();
-        for (Task task : tasks) {
-            // \n is used here instead of %n to preserve save file formatting
-            sb.append(task.export()).append("\n");
-        }
+        tasks.stream()
+                .map(Task::export)
+                // \n is used here instead of %n to preserve save file formatting
+                .forEach(task -> sb.append(task).append("\n"));
         taskStorage.save(sb.toString());
     }
 
