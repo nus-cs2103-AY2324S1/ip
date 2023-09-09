@@ -46,17 +46,9 @@ public class Thea {
     }
 
     /**
-     * Starts the program.
-     */
-//    public static void main(String[] args) {
-//        new Thea("thea.txt").run();
-//    }
-
-    /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-
     public String greetings() {
         return ui.greet();
     }
