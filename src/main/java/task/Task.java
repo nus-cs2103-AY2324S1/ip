@@ -58,4 +58,8 @@ public abstract class Task {
     public void unmarkDone() {
         this.isDone = false;
     }
+
+    public boolean findKeyWord(String keyWord) {
+        return this.taskName.contains(keyWord);
+    }
 }

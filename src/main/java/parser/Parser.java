@@ -1,13 +1,6 @@
 package parser;
 
-import command.AddCommand;
-import command.ByeCommand;
-import command.Command;
-import command.DeleteCommand;
-import command.ErrorCommand;
-import command.ListCommand;
-import command.MarkCommand;
-import command.UnmarkCommand;
+import command.*;
 
 import task.Deadline;
 import task.Event;
@@ -206,10 +199,16 @@ public class Parser {
                             "☹ OOPS!!! The task number you "
                                     + "entered for marking is not in the list.");
                 }
+            case "find" :
+                try {
+                    String keyWord = input.split(" ",2)[1];
+                    return new FindCommand(keyWord);
+                } catch (IndexOutOfBoundsException e) {
+                    return new ErrorCommand("☹ OOPS!!! You did not specify your key word you are finding for.");
+                }
                 // Fallthrough
             default:
-                return new ErrorCommand(
-                        "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                return new ErrorCommand("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }

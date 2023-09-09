@@ -135,5 +135,36 @@ public class Ui {
         System.out.println("Now you have " + size + " tasks in the list.");
         System.out.println(SPACE);
     }
+
+    /**
+     * Displays the tasks within the taskList that contains the key word.
+     * If there isn't any task that contains the key word, display an error message.
+     *
+     * @param tasks The task list we are finding the key word from.
+     * @param keyWord The key word that we are searching for in the task list.
+     */
+    public void showFindText(TaskList tasks, String keyWord) {
+        boolean isKeyWordFound = false;
+        int counter = 1;
+        System.out.println(SPACE);
+
+        // iterate through taskList to check if they contain the keyWord. If yes, print them.
+        for (int i = 0; i < tasks.size(); i++) {
+            int currentNumber = i + 1;
+            Task task = tasks.get(currentNumber);
+            boolean hasKeyWord = task.findKeyWord(keyWord);
+
+            if (hasKeyWord) {
+                isKeyWordFound = true;
+                System.out.println(counter + ". " + task.toString());
+                counter = counter + 1;
+            }
+        }
+
+        if (!isKeyWordFound) {
+            System.out.println("☹ OOPS!!! The key word you are finding for is not present.");
+        }
+        System.out.println(SPACE);
+    }
 }
 
