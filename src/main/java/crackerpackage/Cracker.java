@@ -59,7 +59,7 @@ public class Cracker {
                     list.markUndone(Parser.parseIndex(input));
                     return reply.modifyTaskReply(list.getTask(Parser.parseIndex(input)));
                 case DELETE:
-                    String cachedReply = reply.deleteTaskReply(list.getTask(Parser.parseIndex(input)), list.size());
+                    String cachedReply = reply.deleteTaskReply(list.getTask(Parser.parseIndex(input)), list.size() - 1);
                     list.deleteTask(Parser.parseIndex(input));
                     return cachedReply;
                 case TASK:
