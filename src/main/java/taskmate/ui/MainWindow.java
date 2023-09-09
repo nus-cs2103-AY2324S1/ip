@@ -51,5 +51,6 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getTaskMateDialog(response, dukeImage)
         );
         userInput.clear();
+        // TODO: if response == bye message, system.exit(0)
     }
 }

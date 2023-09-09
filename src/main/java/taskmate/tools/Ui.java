@@ -9,10 +9,21 @@ public class Ui {
     static String HORIZONTAL_LINE = "--------------------";
     String chatbotName;
     Scanner sc;
+    String storedMessage;
 
     public Ui(String chatbotName) {
         this.chatbotName = chatbotName;
         this.sc = new Scanner(System.in);
+    }
+
+    public void setStoredMessage(String s) {
+        this.storedMessage = s;
+    }
+
+    public String popStoredMessage() {
+        String s = this.storedMessage;
+        this.storedMessage = null;
+        return s;
     }
 
     public String nextLine() {
@@ -37,6 +48,8 @@ public class Ui {
         System.out.println(text);
         System.out.println(HORIZONTAL_LINE);
         System.out.println();
+
+        this.setStoredMessage(text);
     }
 
     public void printAllTasks(TaskList tasks) {

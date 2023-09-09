@@ -110,7 +110,31 @@ public class TaskMate {
     }
 
     public String getResponse(String userInput) {
-        return "I am TaskMate. Heard: " + userInput; // todo
+
+        // Parse user input
+        try {
+            Command command = Parser.parse(userInput);
+            command.execute(tasks, ui, storage);
+        } catch (InvalidCommandTypeException e) {
+            ui.printInvalidCommandTypeExceptionResponse();
+        } catch (InvalidDescriptionException e) {
+            ui.printInvalidCommandTypeExceptionResponse(); // todo: Add new message for chatbot
+        } catch (EmptyByException e) {
+            ui.printEmptyByExceptionResponse();
+        } catch (InvalidByException e) {
+            ui.printInvalidByExceptionResponse();
+        } catch (InvalidToException e) {
+            ui.printInvalidToExceptionResponse();
+        } catch (EmptyToException e) {
+            ui.printEmptyToExceptionResponse();
+        } catch (InvalidFromException e) {
+            ui.printInvalidFromExceptionResponse();
+        } catch (EmptyFromException e) {
+            ui.printEmptyFromExceptionResponse();
+        } catch (NotAnIntegerException e) {
+            ui.printNotAnIntegerExceptionResponse();
+        }
+        return ui.popStoredMessage();
     }
 
 }
