@@ -45,6 +45,10 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+        // Add assertions to check assumptions about the provided parameters
+        assert text != null : "Text should not be null";
+        assert img != null : "Image should not be null";
+
         dialog.setText(text);
         displayPicture.setImage(img);
     }
