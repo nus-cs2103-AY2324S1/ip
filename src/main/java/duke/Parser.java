@@ -1,10 +1,8 @@
 package duke;
 
 
-
 /**
  * This is the class to parse stuff
- *
  */
 public class Parser {
     private MarkPattern check = new MarkPattern();
@@ -12,7 +10,6 @@ public class Parser {
 
     /**
      * The constructor to init
-     *
      */
     public Parser() {
     }
@@ -23,6 +20,7 @@ public class Parser {
 
     /**
      * method to update the text to return
+     *
      * @param text the text to add to the reply
      */
     public void update(String text) {
@@ -32,6 +30,7 @@ public class Parser {
 
     /**
      * Enter your things to parse here
+     *
      * @param stuff your parse items
      * @param items your tasklist
      * @return returns the modified tasklist
@@ -39,28 +38,24 @@ public class Parser {
     public TaskList parse(String stuff, TaskList items) {
 
         if (stuff.equalsIgnoreCase("list")) {
-
-            for (int i = 0; i < items.size(); i++) {
+            for (int i = 0; i < items.getSize(); i++) {
                 update((i + 1) + ". " + items.get(i).display());
             }
-
         } else if (check.unmark(stuff) != -1) {
-            items.get(check.unmark(stuff)).done = false;
+            items.get(check.unmark(stuff)).isDone = false;
             update("Gg, not done with " + items.get(check.unmark(stuff)).display());
         } else if (check.mark(stuff) != -1) {
-            items.get(check.mark(stuff)).done = true;
+            items.get(check.mark(stuff)).isDone = true;
             update("Yay, done with " + items.get(check.mark(stuff)).display());
         } else if (check.del(stuff) != -1) {
             update("Deleted: " + items.remove(check.del(stuff)).display());
         } else if (check.find1(stuff) != null) {
-            for (int i = 0; i < items.size(); i++) {
+            for (int i = 0; i < items.getSize(); i++) {
                 if (items.get(i).display().contains(check.find1(stuff))) {
                     update((i + 1) + ". " + items.get(i).display());
                 }
             }
-        }
-
-        else {
+        } else {
             if (stuff.trim().toLowerCase().startsWith("todo")) {
                 if (stuff.trim().substring(4).trim().length() == 0) {
                     update("Why empty???");

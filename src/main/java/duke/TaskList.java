@@ -20,7 +20,7 @@ public class TaskList {
      * gives size
      * @return size
      */
-    public int size() {
+    public int getSize() {
         return items.size();
     }
 

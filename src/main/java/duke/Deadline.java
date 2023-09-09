@@ -36,7 +36,7 @@ public class Deadline extends Task {
      */
     public String display() {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        if (done) {
+        if (isDone) {
             return "[D][X] " + this.name + " (Due By: " + by.format(outputFormatter) + ")";
         }
         return "[D][] " + this.name + " (Due By: " + by.format(outputFormatter) + ")";

@@ -21,7 +21,7 @@ public class ToDo extends Task {
      * @return the default display
      */
     public String display() {
-        if (done) {
+        if (isDone) {
             return "[T][X] " + this.name;
         }
         return "[T][] " + this.name;

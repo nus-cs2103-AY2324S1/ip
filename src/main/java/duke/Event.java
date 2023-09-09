@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * This class represents an event
- *
  */
 public class Event extends Task {
     private LocalDate start;
@@ -14,9 +13,9 @@ public class Event extends Task {
     /**
      * Default constructor to store start and end
      *
-     * @param name of the task
+     * @param name  of the task
      * @param start start date
-     * @param end end date
+     * @param end   end date
      */
     public Event(String name, String start, String end) {
         super(name);
@@ -38,11 +37,11 @@ public class Event extends Task {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         assert start != null : "missing start date";
         assert end != null : "missing end date";
-        if (done) {
-            return "[E][X] " + this.name + " (From: " +
-                    start.format(outputFormatter) + " To: " + end.format(outputFormatter) + ")";
+        if (isDone) {
+            return "[E][X] " + this.name + " (From: "
+                    + start.format(outputFormatter) + " To: " + end.format(outputFormatter) + ")";
         }
-        return "[E][] " + this.name + " (From: " +
-                start.format(outputFormatter) + " To: " + end.format(outputFormatter) + ")";
+        return "[E][] " + this.name + " (From: "
+                + start.format(outputFormatter) + " To: " + end.format(outputFormatter) + ")";
     }
 }

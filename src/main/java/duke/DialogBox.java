@@ -18,7 +18,8 @@ public class DialogBox extends HBox {
 
     /**
      * Constructor for dialog box
-     * @param l the label
+     *
+     * @param l  the label
      * @param iv the imageview to take in
      */
     public DialogBox(Label l, ImageView iv) {
@@ -32,6 +33,7 @@ public class DialogBox extends HBox {
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(text, displayPicture);
     }
+
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
