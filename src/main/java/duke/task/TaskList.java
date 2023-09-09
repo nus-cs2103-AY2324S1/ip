@@ -2,7 +2,6 @@ package duke.task;
 
 import duke.Duke;
 import duke.Main;
-import duke.Ui;
 
 import java.util.ArrayList;
 
@@ -99,6 +98,7 @@ public class TaskList {
 
     /**
      * Prints all tasks with names strictly containing a keyword.
+     *
      * @param key The keyword.
      */
     public void findTasks(String key) {

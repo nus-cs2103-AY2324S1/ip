@@ -18,7 +18,7 @@ public class Deadline extends Task {
     @Override
     public String toDatabaseRepresentation() {
         return String.format("D | %s | %s | %s",
-            isDone() ? 1 : 0, getTaskName(), Storage.dateToDatabaseRepresentation(this.deadline));
+                isDone() ? 1 : 0, getTaskName(), Storage.dateToDatabaseRepresentation(this.deadline));
     }
 
     @Override

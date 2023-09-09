@@ -64,7 +64,8 @@ public class Main extends Application {
 
     /**
      * Outputs a string into the GUI.
-     * @param text The text to be outputted.
+     *
+     * @param text   The text to be outputted.
      * @param isUser Decides whether the output is to be printed on the LHS or RHS.
      */
     public static void outputDialog(String text, boolean isUser) {
@@ -74,6 +75,7 @@ public class Main extends Application {
 
     /**
      * Outputs a string into the GUI. The source is assumed to be Duke.
+     *
      * @param text The text to be outputted.
      */
     public static void outputDialog(String text) {
