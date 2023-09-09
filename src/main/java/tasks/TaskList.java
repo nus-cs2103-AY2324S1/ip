@@ -1,30 +1,12 @@
 package tasks;
 
-import exceptions.JamesBondException;
-import tasks.ToDo;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-
-
-import exceptions.JamesBondException;
-import tasks.ToDo;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
 /**
  * The `TaskList` class represents a collection of tasks. It provides methods for managing tasks
  * such as adding, deleting, retrieving, and finding tasks.
  */
 public class TaskList {
-    ArrayList<Task> toDos;
+    private ArrayList<Task> toDos;
 
     /**
      * Constructs a `TaskList` object with an initial capacity of 100 tasks.

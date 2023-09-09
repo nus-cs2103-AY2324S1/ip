@@ -1,10 +1,7 @@
 package storage;
-
-import static org.junit.jupiter.api.Assertions.*;
+//CHECKSTYLE.OFF: CustomImportOrder
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import storage.Storage;
-import tasks.Deadline;
 import tasks.Task;
 import tasks.TaskList;
 import tasks.ToDo;
@@ -12,8 +9,10 @@ import tasks.ToDo;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.LocalDateTime;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+//CHECKSTYLE.ON: CustomImportOrder
 
 public class StorageTest {
 

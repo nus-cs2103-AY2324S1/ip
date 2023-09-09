@@ -4,9 +4,11 @@ import storage.Storage;
 import tasks.Task;
 import tasks.TaskList;
 
+//CHECKSTYLE.OFF: CustomImportOrder
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
+//CHECKSTYLE.ON: CustomImportOrder
 
 /**
  * The `Ui` class handles user interface interactions and provides methods for displaying messages
@@ -144,7 +146,7 @@ public class Ui {
      *
      * @param task The deadline task that was added.
      */
-    public void DeadlineMessage(Task task) {
+    public void deadlineMessage(Task task) {
         out.println("ADDED deadline FOR YOU!!!!\n" + task.toString());
     }
 

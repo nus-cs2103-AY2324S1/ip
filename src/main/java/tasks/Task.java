@@ -10,7 +10,7 @@ import java.util.Locale;
 public class Task {
     protected String text;
     protected boolean isDone;
-    DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d-MMMM-yyyy h:mma", Locale.ENGLISH);
+    protected DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d-MMMM-yyyy h:mma", Locale.ENGLISH);
 
     /**
      * Constructs a `Task` object with the specified description.

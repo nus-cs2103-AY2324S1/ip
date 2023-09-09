@@ -1,12 +1,15 @@
 package parser;
+
 import commands.Command;
+//CHECKSTYLE.OFF: CustomImportOrder
+import commands.IncorrectCommand;
+import commands.ListoutCommand;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import commands.*;
-
+//CHECKSTYLE.ON: CustomImportOrder
 public class ParserTest {
     @Test
-    void list_wrongInput_incorrectCommand_listoutCommand() {
+    void listIncorrectCommandListoutCommand() {
         Command com = Parser.parseCommand("listout ");
         assertTrue(com instanceof IncorrectCommand);
     }

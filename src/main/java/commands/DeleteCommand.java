@@ -1,6 +1,5 @@
 package commands;
 
-import exceptions.JamesBondException;
 import storage.Storage;
 import tasks.Task;
 import tasks.TaskList;
@@ -15,7 +14,7 @@ public class DeleteCommand extends Command {
     /**
      * The task number to be deleted.
      */
-    int taskNumber;
+    private int taskNumber;
 
     /**
      * Constructs a DeleteCommand object with the task number to be deleted.

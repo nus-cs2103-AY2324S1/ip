@@ -1,21 +1,35 @@
 package duke;
 
+import commands.Command;
 import exceptions.JamesBondException;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import parser.Parser;
 import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
-import commands.*;
+
 
 /**
  * The `Duke` class is the main class for the Duke task management application.
  * It handles the initialization of various components and the execution of the application.
  */
-public class Duke {
+public class Duke extends Application {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
 
     /**
      * Constructs a `Duke` object with the specified file path for data storage.
@@ -34,6 +48,25 @@ public class Duke {
             tasks = new TaskList();
         }
     }
+
+    @Override
+    public void start(Stage stage) {
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
+
+        userInput = new TextField();
+        sendButton = new Button("Send");
+
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+
+        scene = new Scene(mainLayout);
+
+        stage.setScene(scene);
+        stage.show();
+    }
+
 
     /**
      * Runs the Duke application.

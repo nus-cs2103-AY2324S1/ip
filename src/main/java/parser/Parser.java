@@ -1,14 +1,23 @@
 package parser;
 
-import commands.*;
+import commands.AddCommand;
+import commands.Command;
+import commands.DeleteCommand;
+import commands.ExitCommand;
+import commands.FindCommand;
+import commands.IncorrectCommand;
+import commands.ListoutCommand;
+import commands.MarkCommand;
+import commands.UnmarkCommand;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
-
+//CHECKSTYLE.OFF: CustomImportOrder
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+//CHECKSTYLE.ON: CustomImportOrder
 /**
  * The `Parser` class provides methods for parsing user input and converting it into commands or tasks.
  * It also includes a method for parsing task data from a save file format.
@@ -25,35 +34,35 @@ public class Parser {
         String[] split = input.split(" ", 2);
         Command c = null;
         switch (split[0]) {
-            case "bye":
-                c = checkExit(split);
-                break;
-            case "todo":
-                c = checkTodo(split);
-                break;
-            case "event":
-                c = checkEvent(split);
-                break;
-            case "deadline":
-                c = checkDeadline(split);
-                break;
-            case "unmark":
-                c = checkUnmark(split);
-                break;
-            case "mark":
-                c = checkMark(split);
-                break;
-            case "delete":
-                c = checkDelete(split);
-                break;
-            case "find":
-                c = checkFind(split);
-                break;
-            case "listout":
-                c = checkListout(split);
-                break;
-            default:
-                c = new IncorrectCommand("idk what u saying BRO.");
+        case "bye":
+            c = checkExit(split);
+            break;
+        case "todo":
+            c = checkTodo(split);
+            break;
+        case "event":
+            c = checkEvent(split);
+            break;
+        case "deadline":
+            c = checkDeadline(split);
+            break;
+        case "unmark":
+            c = checkUnmark(split);
+            break;
+        case "mark":
+            c = checkMark(split);
+            break;
+        case "delete":
+            c = checkDelete(split);
+            break;
+        case "find":
+            c = checkFind(split);
+            break;
+        case "listout":
+            c = checkListout(split);
+            break;
+        default:
+            c = new IncorrectCommand("idk what u saying BRO.");
 
         }
         return c;
@@ -70,7 +79,7 @@ public class Parser {
      * @return A Command object representing the processed command.
      */
     private static Command checkFind(String[] split) {
-        if(split.length == 1 || split[1].isEmpty()){
+        if (split.length == 1 || split[1].isEmpty()) {
             return new IncorrectCommand("enter a reasonable search word please");
         } else {
 
@@ -179,7 +188,8 @@ public class Parser {
             String[] task = split[1].split(" /from ", 2);
             String[] from = task[1].split(" /to ", 2);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            return new AddCommand(task[0], LocalDateTime.parse(from[0], formatter), LocalDateTime.parse(from[1], formatter));
+            return new AddCommand(task[0],
+                    LocalDateTime.parse(from[0], formatter), LocalDateTime.parse(from[1], formatter));
         } catch (DateTimeParseException e) {
             return new IncorrectCommand("Enter in format yyyy-mm-dd 24:00");
         }
@@ -257,7 +267,8 @@ public class Parser {
             String[] timeline = date.split("-", 2);
             String from = timeline[0];
             String to = timeline[1];
-            Task task = new Event(description, LocalDateTime.parse(from, formatter), LocalDateTime.parse(to, formatter));
+            Task task = new Event(description,
+                    LocalDateTime.parse(from, formatter), LocalDateTime.parse(to, formatter));
             task.setStatus(isDone);
             return task;
         }

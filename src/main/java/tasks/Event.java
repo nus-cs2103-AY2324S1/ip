@@ -1,7 +1,4 @@
 package tasks;
-
-import tasks.Task;
-
 import java.time.LocalDateTime;
 
 /**
@@ -42,7 +39,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(outputFormatter) + " to: " + to.format(outputFormatter) + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(outputFormatter) + " to: "
+                + to.format(outputFormatter) + ")";
     }
 }
 

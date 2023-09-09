@@ -1,11 +1,16 @@
 package commands;
+
 import storage.Storage;
 import tasks.Deadline;
+import tasks.Event;
 import tasks.Task;
+import tasks.TaskList;
 import tasks.ToDo;
-import tasks.*;
 import ui.Ui;
+
+//CHECKSTYLE.OFF: CustomImportOrder
 import java.time.LocalDateTime;
+//CHECKSTYLE.ON: CustomImportOrder
 /**
  * The {@code AddCommand} class represents a command to add tasks to a task list.
  * It can handle different types of tasks, including ToDo, Deadline, and Event tasks.
@@ -65,21 +70,23 @@ public class AddCommand extends Command {
     public void runCommand(TaskList tasks, Ui ui, Storage storage) {
         Task task = null;
         switch (this.type) {
-            case "todo":
-                task = new ToDo(this.description);
-                tasks.add(task);
-                ui.todoMessage(task);
-                break;
-            case "deadline":
-                task = new Deadline(this.description, this.to);
-                tasks.add(task);
-                ui.DeadlineMessage(task);
-                break;
-            case "event":
-                task = new Event(this.description, this.from, this.to);
-                tasks.add(task);
-                ui.eventMessage(task);
-                break;
+        case "todo":
+            task = new ToDo(this.description);
+            tasks.add(task);
+            ui.todoMessage(task);
+            break;
+        case "deadline":
+            task = new Deadline(this.description, this.to);
+            tasks.add(task);
+            ui.deadlineMessage(task);
+            break;
+        case "event":
+            task = new Event(this.description, this.from, this.to);
+            tasks.add(task);
+            ui.eventMessage(task);
+            break;
+        default:
+            ui.showErrorMessage("idk what u saying.");
         }
     }
 }
