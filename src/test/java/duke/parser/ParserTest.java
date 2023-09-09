@@ -1,10 +1,13 @@
 package duke.parser;
 
-import duke.ui.Ui;
-import duke.exception.DukeException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import duke.exception.DukeException;
+
 
 public class ParserTest {
     @Test
@@ -18,7 +21,7 @@ public class ParserTest {
         }
 
         String expected = "boo";
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -33,7 +36,7 @@ public class ParserTest {
 
         String expectedName = "boo";
         String expectedBy = "2001-12-10 11:11";
-        assertEquals(expectedName ,actual[0]);
+        assertEquals(expectedName, actual[0]);
         assertEquals(expectedBy, actual[1]);
     }
 
@@ -43,8 +46,8 @@ public class ParserTest {
         Exception exception = assertThrows(DukeException.class, () -> {
             parseLine.parseDeadlineArguments();
         });
-        String expected = "Hey, the Deadline given is Invalid! " +
-                "Make sure that you follow this format:\n" + " 'taskDescription /by yyyy-mm-dd hh:mm'";
+        String expected = "Hey, the Deadline given is Invalid! "
+                + "Make sure that you follow this format:\n" + " 'taskDescription /by yyyy-mm-dd hh:mm'";
         assertEquals(expected, exception.getMessage());
     }
 
@@ -61,7 +64,7 @@ public class ParserTest {
         String expectedName = "boo";
         String expectedFrom = "2001-12-10 11:11";
         String expectedTo = "2001-12-10 11:12";
-        assertEquals(expectedName ,actual[0]);
+        assertEquals(expectedName, actual[0]);
         assertEquals(expectedFrom, actual[1]);
         assertEquals(expectedTo, actual[2]);
     }
@@ -72,8 +75,8 @@ public class ParserTest {
         Exception exception = assertThrows(DukeException.class, () -> {
             parseLine.parseEventArguments();
         });
-        String expected = "Hey, the Event given is Invalid!" +
-                " Make sure that you follow this format:\n"
+        String expected = "Hey, the Event given is Invalid!"
+                + " Make sure that you follow this format:\n"
                 + " 'eventDescription /from yyyy-mm-dd hh:mm /to yyyy-mm-dd hh:mm'";
         assertEquals(expected, exception.getMessage());
     }
