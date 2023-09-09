@@ -5,6 +5,7 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.scene.layout.Region;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+
 
 /**
  * The main class for the Ding Chatbot application.
@@ -41,11 +43,13 @@ public class Duke extends Application {
      * @param userInput The user's input.
      * @return The chatbot's response.
      */
+
     public String getResponse(String userInput) {
         String output;
         Command command = Parser.getCommand(userInput, storage, tasks, ui);
         output = command.execute(storage, tasks, ui);
         return output;
+
     }
 
     private ScrollPane scrollPane;

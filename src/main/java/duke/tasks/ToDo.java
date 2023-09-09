@@ -4,7 +4,7 @@ package duke.tasks;
  * Represents a to-do task without any specific time constraints.
  * This class extends the duke.tasks.Task class and represents a simple to-do item.
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
     /**
      * Constructs a duke.tasks.ToDo object with the given description.
      *

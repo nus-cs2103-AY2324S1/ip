@@ -1,14 +1,22 @@
 package duke.parser;
 
-import duke.commands.*;
-import duke.exceptions.*;
-import duke.tasks.*;
-import duke.storage.Storage;
-import duke.ui.Ui;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+
+import duke.commands.Command;
+import duke.exceptions.InvalidDateTimeException;
+import duke.exceptions.InvalidDescriptionException;
+import duke.exceptions.InvalidKeywordException;
+import duke.exceptions.InvalidTaskIndexException;
+import duke.exceptions.MissingTaskIndexException;
+import duke.storage.Storage;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.tasks.ToDo;
+import duke.ui.Ui;
 
 /**
  * The duke.parser.Parser class is responsible for parsing user input and
@@ -121,20 +129,17 @@ public class Parser {
      * @throws MissingTaskIndexException  If the task index is missing.
      */
     public static Task taskToDelete(String str, TaskList tasks)
-            throws InvalidTaskIndexException, MissingTaskIndexException{
-        if (str.split(" ").length == 2) {
-            int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
-            if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
-                throw new InvalidTaskIndexException("Invalid Task Index.");
-            }
-            Task toRemove = tasks.getTask(taskIndex);
-            tasks.deleteTask(taskIndex);
-            return toRemove;
-
-        } else {
+            throws InvalidTaskIndexException, MissingTaskIndexException {
+        if (str.split(" ").length != 2) {
             throw new MissingTaskIndexException("Task Index Missing.");
         }
-
+        int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
+        if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
+            throw new InvalidTaskIndexException("Invalid Task Index.");
+        }
+        Task toRemove = tasks.getTask(taskIndex);
+        tasks.deleteTask(taskIndex);
+        return toRemove;
     }
 
     /**

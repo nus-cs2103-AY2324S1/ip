@@ -1,9 +1,5 @@
 package duke.storage;
 
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.TaskList;
-import duke.tasks.ToDo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -11,6 +7,13 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Scanner;
+
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.TaskList;
+import duke.tasks.ToDo;
+
+
 
 /**
  * Manages the storage of tasks in a txt file.
@@ -44,7 +47,7 @@ public class Storage {
                 writer.write(tasks.getTask(i) + System.lineSeparator());
             }
             writer.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             System.out.println(e);
         }
@@ -54,7 +57,7 @@ public class Storage {
      * Sets up the tasks by reading from the storage file or creating a new one if it doesn't exist.
      *
      * @return A duke.tasks.TaskList containing the tasks read from the storage file, or an empty
-     * duke.tasks.TaskList if the file is new.
+     *     duke.tasks.TaskList if the file is new.
      */
     private TaskList setupTasks() {
         TaskList tasks = new TaskList();
@@ -64,9 +67,7 @@ public class Storage {
                 directory.mkdir();
             }
             File taskFile = new File(filePath);
-            if (taskFile.createNewFile()) {
-                //new file created
-            } else {
+            if (!taskFile.createNewFile()) {
                 tasks = getTasks();
             }
 
@@ -126,9 +127,9 @@ public class Storage {
                     }
                     taskList.addTask(taskE);
                     break;
-
+                default:
+                    break;
                 }
-
             }
             scanner.close();
         } catch (FileNotFoundException e) {
