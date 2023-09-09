@@ -5,9 +5,17 @@ import buddy.utils.BuddyException;
 import buddy.utils.Storage;
 import buddy.utils.Ui;
 
+/**
+ * The class represents the command for marking a task in the task list as not done.
+ */
 public class MarkAsUndoneCommand extends Command {
     private int index;
 
+    /**
+     * The constructor for a MarkAsUndoneCommand.
+     *
+     * @param index The zero-based index of the task.
+     */
     public MarkAsUndoneCommand(int index) {
         this.index = index - 1;
     }

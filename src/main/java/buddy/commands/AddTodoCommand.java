@@ -6,9 +6,17 @@ import buddy.utils.BuddyException;
 import buddy.utils.Storage;
 import buddy.utils.Ui;
 
+/**
+ * The class represents the command for adding a Todo into the task list.
+ */
 public class AddTodoCommand extends Command {
     private String description;
 
+    /**
+     * The constructor for an AddTodoCommand.
+     *
+     * @param description The description of the todo.
+     */
     public AddTodoCommand(String description) {
         this.description = description;
     }

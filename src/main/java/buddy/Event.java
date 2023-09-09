@@ -3,10 +3,20 @@ package buddy;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an event task with a start and end date.
+ */
 public class Event extends Task {
     protected LocalDate start;
     protected LocalDate end;
 
+    /**
+     * The constructor for an event task.
+     * @param description The description of the event task
+     * @param start The start date for the event task
+     * @param end The end date for the event task
+     * @param isDone The status of the event task
+     */
     public Event(String description, LocalDate start, LocalDate end, boolean isDone) {
         super(description, isDone);
         this.start = start;
