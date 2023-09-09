@@ -1,9 +1,11 @@
 package components;
+
 import commands.Command;
 import commands.DeadlineCommand;
 import commands.DeleteCommand;
 import commands.EventCommand;
 import commands.ExitCommand;
+import commands.FindCommand;
 import commands.MarkAsDoneCommand;
 import commands.MarkAsUndoneCommand;
 import commands.ShowCommand;
@@ -76,6 +78,9 @@ public class Parser {
 
         case "delete":
             return new DeleteCommand(Integer.parseInt(fullCommand.substring(7)));
+
+        case "find":
+            return new FindCommand(fullCommand.substring(5));
 
         default:
             return new UnknownCommand();
