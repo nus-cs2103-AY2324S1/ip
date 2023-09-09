@@ -28,7 +28,7 @@ public class Storage {
 
     public Storage(String filePath) {
         this.DATABASE_PATH = java.nio.file.Paths.get(
-            System.getProperty("user.dir"), filePath);
+                System.getProperty("user.dir"), filePath);
 
         if (!databaseExist()) {
             createDatabase();
@@ -111,17 +111,17 @@ public class Storage {
             String[] taskInfo = line.split(" \\| ");
 
             switch (taskInfo[0]) {
-                case "T":
-                    newTask = new Todo(taskInfo[2]);
-                    break;
-                case "D":
-                    newTask = new Deadline(taskInfo[2], taskInfo[3]);
-                    break;
-                case "E":
-                    newTask = new Event(taskInfo[2], taskInfo[3], taskInfo[4]);
-                    break;
-                default:
-                    throw new DukeException("Database is corrupted.");
+            case "T":
+                newTask = new Todo(taskInfo[2]);
+                break;
+            case "D":
+                newTask = new Deadline(taskInfo[2], taskInfo[3]);
+                break;
+            case "E":
+                newTask = new Event(taskInfo[2], taskInfo[3], taskInfo[4]);
+                break;
+            default:
+                throw new DukeException("Database is corrupted.");
             }
 
             if (taskInfo[1].equals("1")) {
