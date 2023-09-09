@@ -2,7 +2,7 @@ package mainDuke;
 
 import java.util.ArrayList;
 
-import mainDuke.StageStuff.DialogBox;
+import mainDuke.stageStuff.DialogBox;
 import mainDuke.exceptions.DukeException;
 import mainDuke.exceptions.TaskParseException;
 import mainDuke.task.Task;

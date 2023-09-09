@@ -12,7 +12,7 @@ public class Ui {
     /**
      * Scanner to read input.
      */
-    private static final Scanner sc = new Scanner(System.in);
+    private static final Scanner SC = new Scanner(System.in);
 
     /**
      * Read and returns command.
@@ -20,7 +20,7 @@ public class Ui {
      * @return String of user input.
      */
     public static String readCommand() {
-        return sc.nextLine();
+        return SC.nextLine();
     }
 
     /**

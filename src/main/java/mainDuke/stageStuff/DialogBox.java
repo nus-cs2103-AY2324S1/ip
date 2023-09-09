@@ -1,4 +1,4 @@
-package mainDuke.StageStuff;
+package mainDuke.stageStuff;
 
 import java.io.IOException;
 import java.util.Collections;
