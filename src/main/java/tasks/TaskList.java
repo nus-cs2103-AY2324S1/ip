@@ -32,6 +32,7 @@ public class TaskList {
      * @return A todo task.
      */
     public Task addTodo(String desc, int isMarked) {
+        assert isMarked == 0 || isMarked == 1 : "isMarked must be 0 or 1.";
         Task task = new TodoTask(desc, isMarked);
         this.tasks.add(task);
         return task;
@@ -48,6 +49,7 @@ public class TaskList {
      */
     public Task addDeadline(String desc, String deadline, int isMarked)
             throws DateTimeParseException {
+        assert isMarked == 0 || isMarked == 1 : "isMarked must be 0 or 1.";
         LocalDateTime dateTime = LocalDateTime.parse(deadline, DATETIME_FORMAT);
         Task task = new DeadlineTask(desc, dateTime, isMarked);
         this.tasks.add(task);
@@ -66,6 +68,7 @@ public class TaskList {
      */
     public Task addEvent(String desc, String start, String end, int isMarked)
             throws DateTimeParseException {
+        assert isMarked == 0 || isMarked == 1 : "isMarked must be 0 or 1.";
         LocalDateTime dateTimeStart = LocalDateTime.parse(start, DATETIME_FORMAT);
         LocalDateTime dateTimeEnd = LocalDateTime.parse(end, DATETIME_FORMAT);
         Task task = new EventTask(desc, dateTimeStart, dateTimeEnd, isMarked);
