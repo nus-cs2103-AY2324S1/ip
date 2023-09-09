@@ -47,6 +47,7 @@ public class TaskList {
      * @return task
      */
     public Task getTasks(int i) {
+        assert i >= 0 && i < this.getSize();
         return this.tasks.get(i);
     }
 
@@ -56,6 +57,7 @@ public class TaskList {
      * @param task new Task
      */
     public void addTask(Task task) {
+        assert task != null;
         this.tasks.add(task);
     }
 
@@ -68,6 +70,7 @@ public class TaskList {
      * @throws DukeException if index is invalid
      */
     public Task removeTask(int i) throws DukeException {
+        assert i >= 0 && i < this.getSize();
         if (i < this.tasks.size()) {
             return this.tasks.remove(i);
         } else {
@@ -91,6 +94,7 @@ public class TaskList {
      * @throws DukeException if i is invalid
      */
     public void markTaskDone(int i) throws DukeException {
+        assert i >= 0 && i < this.getSize();
         if (i < this.tasks.size()) {
             this.tasks.get(i).markAsDone();
         } else {
@@ -105,6 +109,7 @@ public class TaskList {
      * @throws DukeException if i is invalid
      */
     public void markTaskUndone(int i) throws DukeException {
+        assert i >= 0 && i < this.getSize();
         if (i < this.tasks.size()) {
             this.tasks.get(i).markAsUndone();
         } else {
@@ -113,6 +118,7 @@ public class TaskList {
     }
 
     public TaskList findTasks(String desc) {
+        assert !desc.isBlank();
         TaskList returnList = new TaskList();
         for (Task i : this.tasks) {
             if (i.getDescription().contains(desc)) {
