@@ -1,4 +1,4 @@
 T | 1 | buy gift for mom
 D | 0 | cs2103 ip | 2023-09-03 23:59
-E | 1 | career fair | 2023-08-29 13:00 | 2023-08-30 17:00
 T | 0 | sweep the floor
+E | 1 | career fair for engineering | 2023-09-12 13:00 | 2023-09-13 17:00
