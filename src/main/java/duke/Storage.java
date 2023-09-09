@@ -25,7 +25,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
-
+        assert !this.filePath.equals("") : "Filepath is not empty since it should be stored in data folder";
         File file = new File(filePath);
         if (!file.exists()) {
             try {
@@ -42,6 +42,7 @@ public class Storage {
      * @param tasks The list of tasks.
      */
     public void saveTask(ArrayList<Task> tasks) {
+        assert tasks != null: "Task to be saved is not empty; content is provided";
         try {
             FileOutputStream fos = new FileOutputStream(this.filePath);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
