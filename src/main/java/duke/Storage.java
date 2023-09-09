@@ -7,9 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/** CLass which deals with loading tasks from the file and saving tasks in the file. */
+/** Class which deals with loading tasks from the file and saving tasks in the file. */
 public class Storage {
-
     private String dataFolderName;
     private String fileName;
 
@@ -106,6 +105,7 @@ public class Storage {
      */
     public void save(ArrayList<Task> tasks) {
         try {
+            System.out.println(this.dataFolderName + "/" + this.fileName);
             FileWriter writer = new FileWriter(this.dataFolderName + "/" + this.fileName);
             for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.get(i);

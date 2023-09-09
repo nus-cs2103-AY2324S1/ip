@@ -5,7 +5,7 @@ import java.util.Arrays;
 import javafx.application.Platform;
 
 
-/** Chatbot to assist individuals in keeping track of pending tasks */
+/** Chatbot to assist individuals in keeping track of pending tasks. */
 public class Duke {
 
     private enum SpecialTaskKeyword {

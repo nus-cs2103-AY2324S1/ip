@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.11'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'checkstyle'
 }
@@ -43,13 +44,20 @@ test {
     }
 }
 
+javafx {
+    version = '17'
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("duke.Launcher")
 }
 
 checkstyle {
     toolVersion = '10.2'
 }
+
+tasks.build.dependsOn shadowJar
 
 shadowJar {
     archiveBaseName = "duke"
