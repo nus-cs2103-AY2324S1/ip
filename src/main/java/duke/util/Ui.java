@@ -9,10 +9,11 @@ import java.util.Scanner;
  * @since 3 September 2023
  */
 public class Ui {
+    //public static final String HORIZONTAL_LINE = "___________________________________________________________________";
     private Scanner scanner;
 
     /**
-     * Constructs a Ui and initializes the scanner for user input.
+     * Constructs an Ui and initializes the scanner for user input.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);
@@ -21,29 +22,16 @@ public class Ui {
     /**
      * Displays a welcome message.
      */
-    public void showWelcome() {
-        System.out.println("Hi! I'm TaskMate.\n"
-                + "What can I do for you today?");
-        printLine();
+    public String welcomeMessage() {
+        return "Hi! I'm TaskMate.\nWhat can I do for you today?";
     }
 
     /**
      * Displays a goodbye message and closes the scanner.
      */
-    public void showGoodbye() {
-        System.out.println("Goodbye! See you next time!");
-        printLine();
+    public String goodbyeMessage() {
         scanner.close();
-    }
-
-    /**
-     * Displays a message and then prints a line.
-     *
-     * @param message The message to be displayed.
-     */
-    public void showMessage(String message) {
-        System.out.println(message);
-        printLine();
+        return "Goodbye! See you next time!";
     }
 
     /**
@@ -54,12 +42,5 @@ public class Ui {
     public String getUserInput() {
         System.out.println("Enter command: ");
         return this.scanner.nextLine();
-    }
-
-    /**
-     * Prints a horizontal line to separate printed messages.
-     */
-    public void printLine() {
-        System.out.println("___________________________________________________________________");
     }
 }

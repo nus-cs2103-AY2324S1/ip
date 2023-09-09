@@ -1,5 +1,6 @@
 package duke.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -12,7 +13,6 @@ import java.time.format.DateTimeParseException;
  * @since 3 September 2023
  */
 public class Event extends Task {
-
     public LocalDateTime fromDateTime;
     public LocalDateTime toDateTime;
 
@@ -28,19 +28,25 @@ public class Event extends Task {
 
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .parseCaseInsensitive()
-                .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))
+                .appendOptional(DateTimeFormatter.ofPattern("yyyy-M-d HHmm"))
                 .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"))
+                .appendOptional(DateTimeFormatter.ofPattern("yyyy-M-d"))
+                .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy"))
                 .toFormatter();
 
         try {
+            //try parse date and time
             this.fromDateTime = LocalDateTime.parse(from, formatter);
             this.toDateTime = LocalDateTime.parse(to, formatter);
         } catch (DateTimeParseException e) {
-            this.fromDateTime = null;
-            this.toDateTime = null;
-            System.out.println("Please use the following formats:\n"
-                    + "event task /from yyyy-mm-dd hhmm /to yyyy-mm-dd hhmm\n"
-                    + "deadline task /from dd/mm/yyyy hhmm /to dd/mm/yyyy hhmm");
+            try {
+                //try parse by just date
+                this.fromDateTime = LocalDate.parse(from, formatter).atStartOfDay();
+                this.toDateTime = LocalDate.parse(to, formatter).atStartOfDay();
+            } catch (DateTimeParseException ex) {
+                this.fromDateTime = null;
+                this.toDateTime = null;
+            }
         }
     }
 

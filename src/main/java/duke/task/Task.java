@@ -22,7 +22,6 @@ public abstract class Task {
 
     /**
      * Gets the type of the task.
-     *
      * Subclasses must implement this method to specify the type of the task.
      *
      * @return The type of the task.
@@ -31,7 +30,6 @@ public abstract class Task {
 
     /**
      * Converts the task to a string format for storing in a file.
-     *
      * Subclasses must implement this method to specify the string representation of the task when saving it to a file.
      *
      * @return A string representation of the task for file storage.
@@ -73,13 +71,15 @@ public abstract class Task {
      * @param doneMessage The message to display when the task is done.
      * @param undoneMessage The message to display when the task is undone.
      */
-    public void updateTaskStatus(boolean expectedStatus, String doneMessage, String undoneMessage) {
+    public String updateTaskStatus(boolean expectedStatus, String doneMessage, String undoneMessage) {
+        StringBuilder message = new StringBuilder();
         if (isDone == expectedStatus) {
-            System.out.println(doneMessage);
+            message.append(doneMessage);
         } else {
             isDone = expectedStatus;
-            System.out.println(undoneMessage);
+            message.append(undoneMessage);
         }
+        return message.toString();
     }
 
     public boolean containsKeyword(String keyword) {

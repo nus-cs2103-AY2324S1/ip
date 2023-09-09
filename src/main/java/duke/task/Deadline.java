@@ -1,5 +1,6 @@
 package duke.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -26,17 +27,20 @@ public class Deadline extends Task {
 
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .parseCaseInsensitive()
-                .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))
+                .appendOptional(DateTimeFormatter.ofPattern("yyyy-M-d HHmm"))
                 .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"))
+                .appendOptional(DateTimeFormatter.ofPattern("yyyy-M-d"))
+                .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy"))
                 .toFormatter();
 
         try {
             this.dateTime = LocalDateTime.parse(by, formatter);
         } catch (DateTimeParseException e) {
-            this.dateTime = null;
-            System.out.println("Please use the following formats:\n"
-                    + "deadline task /by yyyy-mm-dd hhmm\n"
-                    + "deadline task /by dd/mm/yyyy hhmm");
+            try {
+                this.dateTime = LocalDate.parse(by, formatter).atStartOfDay();
+            } catch (DateTimeParseException ex) {
+                this.dateTime = null;
+            }
         }
     }
 
