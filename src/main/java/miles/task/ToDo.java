@@ -6,13 +6,16 @@ package miles.task;
 public class ToDo extends Task {
     private static String noDescErrorMsg = "OOPS!!! The description of a todo cannot be empty.";
 
+    /**
+     * Constructor to create a new todo task.
+     * @param task the task
+     */
     public ToDo(String task) {
         super(formatToDoString(task));
     }
 
-    /*
+    /**
      * Formats the task string by slicing it to remove the "todo " part.
-     * 
      * @param taskString the string that contains the task
      * @return           the clean version of the task string
      */
@@ -31,12 +34,11 @@ public class ToDo extends Task {
 
     /**
      * Represents a string to be saved in the text file, specifically for a todo.
-     * 
      * @return a string that is to be saved in the text file
     */
     @Override
     public String saveStringToFile() {
-        return "T" + super.saveStringToFile(); 
+        return "T" + super.saveStringToFile();
     }
 
     @Override

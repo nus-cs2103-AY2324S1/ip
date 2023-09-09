@@ -8,6 +8,10 @@ import miles.task.Event;
 public class AddEventCommand extends Command {
     private String input;
 
+    /**
+     * Constructor to create a new event command.
+     * @param input user input
+     */
     public AddEventCommand(String input) {
         this.input = input;
     }
