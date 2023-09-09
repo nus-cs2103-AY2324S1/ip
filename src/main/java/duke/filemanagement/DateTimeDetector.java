@@ -22,71 +22,115 @@ public class DateTimeDetector {
     public DateTimeDetector() {}
 
     /**
+     * Checks if date includes time.
+     * @param date Date to be checked.
+     * @return Boolean that represents if date includes time.
+     */
+    boolean includeTime(String date) {
+        return date.contains(" ");
+    }
+
+    /**
+     * Checks if time is in 12h format.
+     * @param date Date with time to be checked.
+     * @return Boolean that represents if time is in 12h format.
+     */
+    boolean is12hFormat(String date) {
+        return date.contains(":");
+    }
+
+    /**
+     * Checks if date is split with dash.
+     * @param date Date to be checked.
+     * @return Boolean that represents if date is split with dash.
+     */
+    boolean isDateSplitWithDash(String date) {
+        return date.contains("-");
+    }
+
+    /**
+     * Checks if date starts with year.
+     * @param date Date to be checked.
+     * @return Boolean that represents if date starts with year.
+     */
+    boolean doesDateStartWithYear(String date) {
+        int len = date.split("-")[0].length();
+        return len == 4;
+    }
+
+    /**
+     * Parses a date that includes time.
+     * @param date Date to be parsed.
+     * @return LocalDate that represents parsed date.
+     * @throws DateTimeParseException The date given does not follow any of the formats.
+     */
+    public LocalDate parseDateWithTime(String date) throws DateTimeParseException {
+        if (is12hFormat(date)) {
+            if (isDateSplitWithDash(date)) {
+                if (doesDateStartWithYear(date)) {
+                    // date is yyyy-MM-dd hh:mm
+                    return LocalDate.parse(date, t112h);
+                } else {
+                    // date is dd-MMM-yyyy hh:mm
+                    return LocalDate.parse(date, t212h);
+                }
+            } else {
+                // date is dd/MM/yyyy hh:mm
+                return LocalDate.parse(date, t312h);
+            }
+        } else {
+            if (isDateSplitWithDash(date)) {
+                if (doesDateStartWithYear(date)) {
+                    // date is yyyy-MM-dd HHmm
+                    return LocalDate.parse(date, t124h);
+                } else {
+                    // date is dd-MMM-yyyy HHmm
+                    return LocalDate.parse(date, t224h);
+                }
+            } else {
+                // date is dd/MM/yyyy HHmm
+                return LocalDate.parse(date, t324h);
+            }
+        }
+    }
+
+    /**
+     * Parses a date that does not have time.
+     * @param date Date to be parsed.
+     * @return LocalDate that represents parsed date.
+     * @throws DateTimeParseException The date given does not follow any of the formats.
+     */
+    public LocalDate parseDateOnly(String date) throws DateTimeParseException {
+        if (isDateSplitWithDash(date)) {
+            if (doesDateStartWithYear(date)) {
+                // Case 1: Date is in yyyy-MM-dd
+                return LocalDate.parse(date, d1);
+            } else {
+                // Case 2: Date is dd-MMM-yyyy
+                return LocalDate.parse(date, d2);
+            }
+        } else {
+            // Case 3: Date is dd/MM/yyyy
+            return LocalDate.parse(date, d3);
+        }
+    }
+
+    /**
      * Format the input date.
      * @param date Date to be formatted.
      * @return Formatted date.
      */
     public String format(String date) {
         LocalDate d;
-        if (date.contains(" ")) {
-            // date and time given
-            try {
-                if (date.contains(":")) {
-                    // time is 12h format
-                    if (date.contains("-")) {
-                        int len = date.split("-")[0].length();
-                        if (len == 4) {
-                            // date is yyyy-MM-dd hh:mm
-                            d = LocalDate.parse(date, t112h);
-                        } else {
-                            // date is dd-MMM-yyyy hh:mm
-                            d = LocalDate.parse(date, t212h);
-                        }
-                    } else {
-                        // date is dd/MM/yyyy hh:mm
-                        d = LocalDate.parse(date, t312h);
-                    }
-                } else {
-                    // time is 24h format
-                    if (date.contains("-")) {
-                        int len = date.split("-")[0].length();
-                        if (len == 4) {
-                            // date is yyyy-MM-dd HHmm
-                            d = LocalDate.parse(date, t124h);
-                        } else {
-                            // date is dd-MMM-yyyy HHmm
-                            d = LocalDate.parse(date, t224h);
-                        }
-                    } else {
-                        // date is dd/MM/yyyy HHmm
-                        d = LocalDate.parse(date, t324h);
-                    }
-                }
-                return d.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-            } catch (DateTimeParseException e) {
-                return date;
+        try {
+            if (includeTime(date)) {
+                d = parseDateWithTime(date);
+            } else {
+                d = parseDateOnly(date);
             }
-
-        } else {
-            // only date given
-            try {
-                if (date.contains("-")) {
-                    int len = date.split("-")[0].length();
-                    if (len == 4) {
-                        // Case 1: Date is in yyyy-MM-dd
-                        d = LocalDate.parse(date, d1);
-                    } else {
-                        // Case 2: Date is dd-MMM-yyyy
-                        d = LocalDate.parse(date, d2);
-                    }
-                } else {
-                    // Case 3: Date is dd/MM/yyyy
-                    d = LocalDate.parse(date, d3);
-                }
-                return d.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-            } catch (DateTimeParseException e) {
-                return date;
-            }
+            return d.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        } catch (DateTimeParseException e) {
+            return date;
         }
     }
 }

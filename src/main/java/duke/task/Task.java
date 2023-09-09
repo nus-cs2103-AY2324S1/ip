@@ -45,7 +45,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public boolean containString(String string) {
+    public boolean containsString(String string) {
         return this.description.contains(string);
     }
 
