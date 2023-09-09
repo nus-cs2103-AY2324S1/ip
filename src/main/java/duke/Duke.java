@@ -160,7 +160,11 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            return parser.listen(input);
+        } catch (InvalidUserInputException e) {
+            return ui.invalidInputRes();
+        }
     }
 
 

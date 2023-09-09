@@ -38,34 +38,34 @@ public class Parser {
      * @param input User input.
      * @throws InvalidUserInputException User input does not generate any specific response.
      */
-    public void listen(String input) throws InvalidUserInputException {
+    public String listen(String input) throws InvalidUserInputException {
         if (input.equals("bye")) {
             botInUse = false;
-            ui.bye();
+            return ui.bye();
         } else if (input.equals("list")) {
             String outputList = taskList.outputNumberedList();
-            ui.list(outputList);
+            return ui.list(outputList);
         } else if (input.contains("unmark")) {
             int a = Integer.parseInt(input.substring(7));
             Task t = taskList.getTask(a - 1);
             t.markAsUndone();
-            ui.unmarkTask(t);
             updateSaveFile();
+            return ui.unmarkTask(t);
         } else if (input.contains("mark")) {
             int a = Integer.parseInt(input.substring(5));
             Task t = taskList.getTask(a - 1);
             t.markAsDone();
-            ui.markTask(t);
             updateSaveFile();
+            return ui.markTask(t);
         } else if (input.contains("todo")) {
             try {
                 String toDoDescription = input.split("todo ")[1];
                 ToDo toDoTask = new ToDo(toDoDescription);
                 taskList.addTask(toDoTask);
-                ui.toDoAdded(toDoTask, taskList);
                 updateSaveFile();
+                return ui.toDoAdded(toDoTask, taskList);
             } catch (ArrayIndexOutOfBoundsException e) {
-                ui.toDoMissingContent();
+                return ui.toDoMissingContent();
             }
         } else if (input.contains("deadline")) {
             try {
@@ -73,10 +73,10 @@ public class Parser {
                 String deadlineDescription = input.split("deadline ")[1].split(" /by")[0];
                 Deadline deadlineTask = new Deadline(deadlineDescription, by);
                 taskList.addTask(deadlineTask);
-                ui.deadlineAdded(deadlineTask, taskList);
                 updateSaveFile();
+                return ui.deadlineAdded(deadlineTask, taskList);
             } catch (ArrayIndexOutOfBoundsException e) {
-                ui.deadlineMissingContent();
+                return ui.deadlineMissingContent();
             }
         } else if (input.contains("event")) {
             try {
@@ -85,17 +85,17 @@ public class Parser {
                 String eventDescription = input.split("event ")[1].split(" /from")[0];
                 Event eventTask = new Event(eventDescription, from, to);
                 taskList.addTask(eventTask);
-                ui.eventAdded(eventTask, taskList);
                 updateSaveFile();
+                return ui.eventAdded(eventTask, taskList);
             } catch (ArrayIndexOutOfBoundsException e) {
-                ui.eventMissingContent();
+                return ui.eventMissingContent();
             }
         } else if (input.contains("delete")) {
             int a = Integer.parseInt(input.substring(7));
             Task toBeRemoved = taskList.getTask(a - 1);
             taskList.deleteTask(a - 1);
-            ui.taskDeleted(toBeRemoved, taskList);
             updateSaveFile();
+            return ui.taskDeleted(toBeRemoved, taskList);
         } else if (input.contains("find")) {
             String inputToFind = input.substring(6);
             TaskList tempTL = new TaskList();
@@ -105,7 +105,7 @@ public class Parser {
                     tempTL.addTask(t);
                 }
             }
-            ui.findResponse(tempTL.outputNumberedList());
+            return ui.findResponse(tempTL.outputNumberedList());
         } else {
             throw new InvalidUserInputException();
         }
@@ -113,7 +113,7 @@ public class Parser {
 
     /**
      * Updates bot usage.
-     * @return
+     * @return A boolean to state whether bot is in use.
      */
     public boolean updateBotUsage() {
         return botInUse;
