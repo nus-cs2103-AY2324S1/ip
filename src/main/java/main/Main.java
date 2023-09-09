@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import main.Duke;
 import gui.MainWindow;
+import storage.Storage;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,9 +18,11 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private Duke duke = new Duke();
+    private Storage storage;
 
     @Override
     public void start(Stage stage) {
+        duke.initialiseFile();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();

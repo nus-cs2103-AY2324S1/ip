@@ -1,10 +1,12 @@
 package actions;
 
+import ui.Ui;
 import tasks.Task;
 
 import java.util.ArrayList;
 
 public class TaskList {
+    private Ui ui;
     private ArrayList<Task> taskArrayList;
     String line = "~~*~~*~~*~~*~~*~~*~~*~~*~~*~~\n";
     public TaskList(ArrayList<Task> taskArrayList){
@@ -36,23 +38,6 @@ public class TaskList {
         return null;
     }
 
-    /**
-     * Prints out the whole list of tasks
-     */
-    public void chadListTask() {
-        if (taskArrayList.size() == 0) {
-            System.out.println("Your task list is EMPTY!");
-        } else {
-            System.out.println(line);
-            System.out.println("Your outstanding tasks are...");
-            for (int i = 0; i < taskArrayList.size(); i++) {
-                System.out.println("Task " + (i + 1) + ") "
-                        + taskArrayList.get(i));
-            }
-            System.out.println("\n" + "Get to work NOW!\n");
-            System.out.println(line);
-        }
-    }
 
     /**
      * Marks a task as completed
@@ -81,17 +66,24 @@ public class TaskList {
             }
         }
         if (matched.isEmpty()) {
-            System.out.println(line);
-            System.out.println("There are no matching tasks!");
-            System.out.println(line);
+            ui.chadMatchNotFoundOutput();
         } else {
-            System.out.println(line);
-            System.out.println("Here are the matching tasks:");
-            for (int i = 0; i < matched.size(); i ++) {
-                System.out.println(matched.get(i).toString());
+            ui.chadMatchFoundOutput(matched);
+
+        }
+    }
+    public String displayChadFindTask(String keyword) {
+        ArrayList<Task> matched = new ArrayList<>();
+        for (Task task : taskArrayList) {
+            if (task.name.contains(keyword)) {
+                matched.add(task);
             }
-            System.out.println("Total of " + matched.size() + " matched tasks");
-            System.out.println(line);
+        }
+        if (matched.isEmpty()) {
+            return ui.displayChadMatchNotFoundOutput();
+        } else {
+            return ui.displayChadMatchFoundOutput(matched);
+
         }
     }
 
