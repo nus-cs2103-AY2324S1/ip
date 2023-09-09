@@ -1,9 +1,9 @@
-package fishron;
+package exceptions;
 
 /**
  * Custom exception class for the Fishron application.
  */
-class FishronException extends Exception {
+public class FishronException extends Exception {
     /**
      * Constructs a new FishronException with the specified detail message.
      *

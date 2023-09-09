@@ -1,4 +1,8 @@
-package fishron;
+package commands;
+
+import storage.Storage;
+import tasks.TaskList;
+import ui.Ui;
 
 /**
  * Represents a command to exit the application.
@@ -18,10 +22,11 @@ public class ExitCommand extends Command {
      * @param taskList The list of tasks.
      * @param ui       The user interface to display messages.
      * @param storage  The storage to save the task list.
+     * @return A goodbye message.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         storage.saveTasksToFile(taskList.getList());
-        ui.showGoodbyeMessage();
+        return ui.showGoodbyeMessage();
     }
 }

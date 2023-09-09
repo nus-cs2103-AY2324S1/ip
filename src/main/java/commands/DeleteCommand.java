@@ -1,4 +1,9 @@
-package fishron;
+package commands;
+
+import storage.Storage;
+import tasks.Task;
+import tasks.TaskList;
+import ui.Ui;
 
 /**
  * Represents a command to delete a task.
@@ -22,10 +27,12 @@ public class DeleteCommand extends Command {
      * @param taskList The task list to which the task will be deleted.
      * @param ui       The user interface to display messages.
      * @param storage  The storage to save the task list.
+     * @return A message indicating the task was successfully deleted.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        Task deleted = taskList.getTask(taskNum);
         taskList.deleteTask(taskNum);
-        ui.showTaskDeleted(taskList, taskList.getTask(taskNum));
+        return ui.showTaskDeleted(taskList, deleted);
     }
 }

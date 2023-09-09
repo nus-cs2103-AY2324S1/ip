@@ -1,4 +1,9 @@
-package fishron;
+package commands;
+
+import storage.Storage;
+import tasks.Task;
+import tasks.TaskList;
+import ui.Ui;
 
 /**
  * Represents a command to add a task to the task list.
@@ -26,10 +31,11 @@ public class AddCommand extends Command {
      * @param taskList The task list to which the task will be added.
      * @param ui       The user interface to display messages.
      * @param storage  The storage to save the task list.
+     * @return A message indicating the task was successfully added.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.addTask(task);
-        ui.showTaskAdded(taskList);
+        return ui.showTaskAdded(taskList);
     }
 }

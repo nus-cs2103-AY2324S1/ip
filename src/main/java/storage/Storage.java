@@ -1,10 +1,15 @@
-package fishron;
-
+package storage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import exceptions.FishronException;
+import parser.Parser;
+import tasks.Task;
+import tasks.TaskList;
+
 
 /**
  * The Storage class handles loading and saving tasks to/from a file.
