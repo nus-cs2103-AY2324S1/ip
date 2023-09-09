@@ -21,6 +21,11 @@ public abstract class Command {
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DreException;
 
+    /**
+     * Indicates whether this command causes the application to exit.
+     *
+     * @return false by default; should be overridden by commands that cause exit.
+     */
     public boolean isExit() {
         return false;
     }
