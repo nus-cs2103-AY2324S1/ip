@@ -81,6 +81,7 @@ public class Bongo {
         } catch (BongoException e) {
             response = e.getMessage();
         }
+        assert response != null : "A response should be printed to the user.";
         return response;
     }
 

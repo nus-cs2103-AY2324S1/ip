@@ -17,9 +17,10 @@ public class FindCommand extends Command {
 
     /**
      * A constructor for a FindCommand, with a searchInput.
-     * @param searchInput
+     * @param searchInput The search parameter input.
      */
     public FindCommand(String[] searchInput) throws BongoException {
+        assert searchInput.length > 0 : "Command should not be empty.";
         this.searchInput = searchInput;
         this.validateSearchInput();
     }
