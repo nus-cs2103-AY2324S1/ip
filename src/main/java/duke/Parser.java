@@ -22,7 +22,6 @@ import duke.exception.DukeException;
 import duke.exception.InvalidFormatException;
 import duke.exception.UnknownCommandException;
 
-
 /**
  * Represents the parser for user input.
  */
