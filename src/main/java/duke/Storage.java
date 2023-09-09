@@ -1,5 +1,6 @@
 package duke;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -65,8 +66,9 @@ public class Storage {
                 }
                 taskArray.add(savedTask);
             }
-        } catch (IOException fe) {
+        } catch (Exception e) {
             System.out.println("File not found, creating new text file...");
+            new File("./data/duke.txt");
         }
     }
 

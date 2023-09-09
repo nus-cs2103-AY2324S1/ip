@@ -78,7 +78,7 @@ public class Duke extends Application {
         stage.show();
 
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("CENATOR");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -126,7 +126,7 @@ public class Duke extends Application {
      */
     private void handleUserInput() {
         String userText = userInput.getText();
-        String dukeText = getResponse(userInput.getText());
+        String dukeText = processText(userText);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, user),
                 DialogBox.getDukeDialog(dukeText, duke)
@@ -135,33 +135,66 @@ public class Duke extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Performs requisite functions by the bot and return a message
+     * showing the current status of the chatbot
+     *
+     * @param input Input by the user
+     * @return The message the chatbot will send
      */
-    public String getResponse(String input) {
-        return "JOHNATHAN heard: " + input;
+    public static String processText(String input) {
+        switch (Parser.parseInput(input)) {
+        case MARK:
+            return mark(input);
+        case UNMARK:
+            return unmark(input);
+        case DELETE:
+            return delete(input);
+        case LIST:
+            return list();
+        case ECHO:
+            return echo(input);
+        case SAVE:
+            return save();
+        case FIND:
+            return find(input);
+        case APPEND:
+            Parser.TaskType type = Parser.parseTask(input);
+            switch (type) {
+            case TODO:
+                return appendToDo(input);
+            case EVENT:
+                return appendEvent(input);
+            case DEADLINE:
+                return appendDeadline(input);
+            case GENERIC:
+                return append(new Task(input));
+            }
+        }
+        return "how did you get here?";
     }
 
     /**
      * Sends a greeting message on startup of the chatbot.
      */
-    private static void greet() {
-        System.out.print(horizontalLine +
-                "YOU DIDN'T SEE\n" +
+    private static String greet() {
+        return "YOU DIDN'T SEE\n" +
                 name +
-                "COMING DID YOU!?\n" +
-                horizontalLine);
+                "COMING DID YOU!?\n";
     }
 
     /**
      * Sends a departing message on chatbot shutdown.
      */
-    private static void exit() {
-        System.out.print(horizontalLine +
-                "NOW GET OUTTA HERE!\n" +
-                "RESPECTFULLY,\n" +
-                name +
-                horizontalLine);
+    private static String save() {
+        String out = "NOW GET OUTTA HERE!\n";
+        try {
+            taskStorage.write();
+            out = "SAVED\n" + out;
+        } catch (IOException e) {
+            out = "Couldn't write to file, WHATEVER.\n" + out;
+        } finally {
+            return out;
+        }
     }
 
     /**
@@ -169,17 +202,15 @@ public class Duke extends Application {
      *
      * @param input the user's text input
      */
-    private static void echo(String input) {
-        System.out.print(horizontalLine + input + "\n" + horizontalLine);
+    private static String echo(String input) {
+        return input;
     }
 
     /**
      * Lists all tasks in the task array
      */
-    private static void list() {
-        System.out.print(horizontalLine);
-        System.out.print(taskStorage.list());
-        System.out.print(horizontalLine);
+    private static String list() {
+        return taskStorage.list();
     }
 
     /**
@@ -187,9 +218,11 @@ public class Duke extends Application {
      *
      * @param task The task inputted by the user
      */
-    private static void append(Task task) {
+    private static String append(Task task) {
         taskStorage.appendTask(task);
-        System.out.print(horizontalLine + "YOU WANT TO " + task + "?\nSURE, WHATEVER.\n" + horizontalLine);
+        return "YOU WANT TO " +
+                task +
+                "?\nSURE, WHATEVER.\n";
     }
 
     /**
@@ -198,14 +231,12 @@ public class Duke extends Application {
      *
      * @param task description of task
      */
-    private static void appendToDo(String task) {
+    private static String appendToDo(String task) {
         try {
-            append(new ToDo(Parser.parseToDo(task)));
+            return append(new ToDo(Parser.parseToDo(task)));
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.print(horizontalLine +
-                    "WRONG FORMAT FOOL!!! IT'S:\n" +
-                    "todo {task}\n" +
-                    horizontalLine);
+            return "WRONG FORMAT FOOL!!! IT'S:\n" +
+                    "todo {task}\n";
         }
     }
 
@@ -215,18 +246,15 @@ public class Duke extends Application {
      *
      * @param task description of task with 'by' time
      */
-    private static void appendDeadline(String task) {
+    private static String appendDeadline(String task) {
         try {
             String[] parsedDeadline = Parser.parseDeadline(task);
-            append(new Deadline(parsedDeadline[0], parsedDeadline[1]));
+            return append(new Deadline(parsedDeadline[0], parsedDeadline[1]));
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.print(horizontalLine +
-                    "WRONG FORMAT FOOL!!! IT'S:\n" +
-                    "deadline {task} /by {time}\n" +
-                    horizontalLine);
+            return "WRONG FORMAT FOOL!!! IT'S:\n" +
+                    "deadline {task} /by {time}\n";
         } catch (DateTimeParseException e) {
-            System.out.print(horizontalLine + "Date format should be yyyy-mm-dd\n"
-                    + horizontalLine);
+            return "Date format should be yyyy-mm-dd\n";
         }
     }
 
@@ -236,18 +264,15 @@ public class Duke extends Application {
      *
      * @param task description of task with 'from' time and 'to' time
      */
-    private static void appendEvent(String task) {
+    private static String appendEvent(String task) {
         try {
             String[] parsedEvent = Parser.parseEvent(task);
-            append(new Event(parsedEvent[0], parsedEvent[1], parsedEvent[2]));
+            return append(new Event(parsedEvent[0], parsedEvent[1], parsedEvent[2]));
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.print(horizontalLine +
-                    "WRONG FORMAT FOOL!!! IT'S:\n" +
-                    "event {task} /from {time} /to {time}\n" +
-                    horizontalLine);
+            return "WRONG FORMAT FOOL!!! IT'S:\n" +
+                    "event {task} /from {time} /to {time}\n";
         } catch (DateTimeParseException e) {
-            System.out.print(horizontalLine + "Date format should be yyyy-mm-dd\n"
-                    + horizontalLine);
+            return "Date format should be yyyy-mm-dd\n";
         }
     }
     /**
@@ -255,24 +280,22 @@ public class Duke extends Application {
      *
      * @param toMark
      */
-    private static void mark(String toMark) {
+    private static String mark(String toMark) {
         System.out.print(horizontalLine);
         try {
             Task task = taskStorage.get(Parser.parseMark(toMark));
             if (task == null) throw new NullPointerException();
             if (task.isDone) throw new IllegalArgumentException();
             task.markAsDone();
-            System.out.println("MARKED:\n" + task);
+            return "MARKED:\n" + task;
         } catch (NumberFormatException e) {
-            System.out.print("NOT A NUMBER IDIOT!!!\n");
+            return "NOT A NUMBER IDIOT!!!";
         } catch (NullPointerException e) {
-            System.out.print("NOTHING THERE IDIOT!!!\n");
+            return "NOTHING THERE IDIOT!!!";
         } catch (IndexOutOfBoundsException e) {
-            System.out.print("NOTHING THERE IDIOT!!!\n");
+            return "NOTHING THERE IDIOT!!!";
         } catch (IllegalArgumentException e) {
-            System.out.print("ALREADY DONE BRO!\n");
-        } finally {
-            System.out.print(horizontalLine);
+            return "ALREADY DONE BRO!";
         }
     }
 
@@ -281,24 +304,22 @@ public class Duke extends Application {
      *
      * @param toUnmark the task to be unmarked
      */
-    private static void unmark(String toUnmark) {
+    private static String unmark(String toUnmark) {
         System.out.print(horizontalLine);
         try {
             Task task = taskStorage.get(Parser.parseUnmark(toUnmark));
             if (task == null) throw new NullPointerException();
             if (!task.isDone) throw new IllegalArgumentException();
             task.markAsUndone();
-            System.out.println("UNMARKED:\n" + task);
+            return "UNMARKED:\n" + task;
         } catch (NumberFormatException e) {
-            System.out.print("NOT A NUMBER IDIOT!!!\n");
+            return "NOT A NUMBER IDIOT!!!";
         } catch (NullPointerException e) {
-            System.out.print("NOTHING THERE IDIOT!!!\n");
+            return "NOTHING THERE IDIOT!!!";
         } catch (IndexOutOfBoundsException e) {
-            System.out.print("NOTHING THERE IDIOT!!!\n");
+            return "NOTHING THERE IDIOT!!!";
         } catch (IllegalArgumentException e) {
-            System.out.print("ALREADY UNDONE BRO!\n");
-        } finally {
-            System.out.print(horizontalLine);
+            return "ALREADY UNDONE BRO!";
         }
     }
 
@@ -306,20 +327,19 @@ public class Duke extends Application {
      * Attempts to delete a task from the task array
      * @param toDelete
      */
-    private static void delete(String toDelete) {
+    private static String delete(String toDelete) {
         System.out.print(horizontalLine);
         try {
             int index = Parser.parseDelete(toDelete);
-            System.out.print("YOU SEE THIS?\n" +
-                    taskStorage.get(index) +
-                    "\nNOW YOU DON'T\n");
+            Task deletedTask = taskStorage.get(index);
             taskStorage.delete(index);
+            return "YOU SEE THIS?\n" +
+                    deletedTask +
+                    "\nNOW YOU DON'T";
         } catch (NumberFormatException e) {
-            System.out.print("NOT A NUMBER IDIOT!!!\n");
+            return "NOT A NUMBER IDIOT!!!";
         } catch (IndexOutOfBoundsException e) {
-            System.out.print("YOU WANT ME TO DELETE THE AIR???\n");
-        } finally {
-            System.out.print(horizontalLine);
+            return "YOU WANT ME TO DELETE THE AIR???";
         }
     }
 
@@ -328,63 +348,8 @@ public class Duke extends Application {
      *
      * @param search a keyphrase used to check with the database of tasks
      */
-    public static void find(String search) {
-        System.out.print(horizontalLine);
-        System.out.print("THIS WHAT YOU'RE LOOKING FOR?\n");
-        System.out.print(taskStorage.find(Parser.parseFind(search)));
-        System.out.print(horizontalLine);
-    }
-
-    public static void main(String[] args) throws IOException {
-        greet();
-        Scanner textInput = new Scanner(System.in);
-        Status botStatus = Status.RUNNING;
-
-
-        while (botStatus == Status.RUNNING) {
-            String nextLine = textInput.nextLine();
-            Parser.ParserOutput signal = Parser.parseInput(nextLine);
-            switch (signal) {
-            case MARK:
-                mark(nextLine);
-                continue;
-            case UNMARK:
-                unmark(nextLine);
-                continue;
-            case DELETE:
-                delete(nextLine);
-                continue;
-            case LIST:
-                list();
-                continue;
-            case ECHO:
-                echo(nextLine);
-                continue;
-            case EXIT:
-                botStatus = Status.STOPPING;
-                continue;
-            case FIND:
-                find(nextLine);
-                continue;
-            case APPEND:
-                Parser.TaskType type = Parser.parseTask(nextLine);
-                switch (type) {
-                case TODO:
-                    appendToDo(nextLine);
-                    continue;
-                case EVENT:
-                    appendEvent(nextLine);
-                    continue;
-                case DEADLINE:
-                    appendDeadline(nextLine);
-                    continue;
-                case GENERIC:
-                    append(new Task(nextLine));
-                }
-            }
-        }
-
-        taskStorage.write();
-        exit();
+    public static String find(String search) {
+        return "THIS WHAT YOU'RE LOOKING FOR?\n" +
+                taskStorage.find(Parser.parseFind(search));
     }
 }
