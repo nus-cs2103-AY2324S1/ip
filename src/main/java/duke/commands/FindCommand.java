@@ -26,6 +26,8 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(Tasks tasks, Ui ui, Storage storage, boolean isRestoring) {
+        assert !this.target.equals("") : "target string to find shouldn't be empty!";
+
         List<Task> foundTasks = new ArrayList<>();
         for (Task task: tasks.getAll()) {
             if (task.getDescription().contains(this.target)) {

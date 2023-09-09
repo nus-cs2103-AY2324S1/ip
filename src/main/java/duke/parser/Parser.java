@@ -139,6 +139,7 @@ public class Parser {
      * @throws DukeException if an invalid string of number is provided
      */
     protected static int parseArgs(String args) throws DukeException {
+        assert !args.equals("") : "arguments shouldn't be empty string!";
         try {
             return Integer.parseInt(args);
         } catch (NumberFormatException ex) {
