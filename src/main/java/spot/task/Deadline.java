@@ -40,7 +40,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: "
-                + this.deadline.format(DateTimeFormatter.ofPattern("dd MMM yyy")) + ")";
+                + this.deadline.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ")";
     }
 
     /**
@@ -52,7 +52,7 @@ public class Deadline extends Task {
     @Override
     public String toLine() {
         return " D | " + super.toLine() + " | "
-                + this.deadline.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                + this.deadline.format(DateTimeFormatter.ofPattern("dd-MM-uuuu"));
     }
 
     /**

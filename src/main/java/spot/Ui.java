@@ -9,8 +9,8 @@ import spot.task.Task;
  */
 public class Ui {
 
-    private static final String GOODBYE_MESSAGE = "Spot's going to take a nap now. Goodnight!";
-    private static final String NEW_TASK_MESSAGE = "Spot will add this new task to your list: \n";
+    public static final String GOODBYE_MESSAGE = "Spot's going to take a nap now. Goodnight!";
+    public static final String NEW_TASK_MESSAGE = "Spot will add this new task to your list: \n";
     private StringBuilder output;
 
     /**

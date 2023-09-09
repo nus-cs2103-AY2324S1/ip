@@ -45,9 +45,10 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: "
-                + this.start.format(DateTimeFormatter.ofPattern("dd MMM yyy"))
-                + " to: " + this.end.format(DateTimeFormatter.ofPattern("dd MMM yyy")) + ")";
+        return "[E]" + super.toString()
+                + " (from: "
+                + this.start.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
+                + " to: " + this.end.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ")";
     }
 
     /**
@@ -59,8 +60,8 @@ public class Event extends Task {
     @Override
     public String toLine() {
         return " E | " + super.toLine() + " | "
-                + this.start.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " | "
-                + this.end.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                + this.start.format(DateTimeFormatter.ofPattern("dd-MM-uuuu")) + " | "
+                + this.end.format(DateTimeFormatter.ofPattern("dd-MM-uuuu"));
     }
 
     /**
@@ -71,7 +72,6 @@ public class Event extends Task {
      */
     @Override
     public boolean fallsOn(LocalDate date) {
-        return (date.isAfter(this.start) && date.isBefore(this.end))
-                || date.isEqual(this.start) || date.isEqual(this.end);
+        return !date.isAfter(this.end) && !date.isBefore(this.start);
     }
 }
