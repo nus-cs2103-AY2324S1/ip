@@ -32,7 +32,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
-
+    enableAssertions = true
     testLogging {
         events "passed", "skipped", "failed"
 
@@ -44,6 +44,7 @@ test {
     }
 }
 
+
 application {
     mainClass.set("friday.Launcher")
 }
@@ -53,7 +54,6 @@ shadowJar {
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
-
 
 checkstyle {
     toolVersion = '10.2'
