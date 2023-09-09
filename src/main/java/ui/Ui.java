@@ -1,8 +1,8 @@
 package ui;
 
-import java.util.Scanner;
-
 import task.Task;
+
+import java.util.Scanner;
 
 /**
  * Represents the user interface of the Duke application.
@@ -52,6 +52,7 @@ public class Ui {
         System.out.println("mark [task number] - Marks a task as completed");
         System.out.println("unmark [task number] - Marks a task as incomplete");
         System.out.println("delete [task number] - Deletes a task");
+        System.out.println("find - Find a task by searching for a keyword");
         System.out.println("help - Shows command guide");
         System.out.println("bye - Exits Duke");
     }
@@ -98,6 +99,13 @@ public class Ui {
      */
     public void showEmptyTaskList() {
         System.out.println(">  You have no tasks :)");
+    }
+
+    /**
+     * Displays a message indicating an empty search result.
+     */
+    public void showNotFound() {
+        System.out.println(">  None of the existing tasks match your search :(");
     }
 
     /**

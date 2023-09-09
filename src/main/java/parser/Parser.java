@@ -58,6 +58,8 @@ public class Parser {
             }
             int i = Integer.parseInt(fullCommand.substring(7).trim());
             return new DeleteCommand(i);
+        } else if (fullCommand.toLowerCase().startsWith("find")) {
+            return new FindCommand(fullCommand);
         } else if (fullCommand.toLowerCase().startsWith("help")) {
             return new HelpCommand();
         } else {
