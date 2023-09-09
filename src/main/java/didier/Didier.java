@@ -34,7 +34,7 @@ public class Didier {
      */
     public String getResponse(String commandString) {
         try {
-            Command command = Parser.parse(commandString);
+            Command command = Parser.parseCommand(commandString);
             assert command != null : "Parser returns a null command object";
             if (command.isExit()) {
                 isActive = false;
