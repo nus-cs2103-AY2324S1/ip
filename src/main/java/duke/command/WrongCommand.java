@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.list.FunnyList;
+import duke.list.TaskList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
@@ -12,7 +12,7 @@ public class WrongCommand extends Command {
      * @return The task that was marked as not completed.
      */
     @Override
-    public String execute(FunnyList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         return ui.showInvalidInput();
     }
 }

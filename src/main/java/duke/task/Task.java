@@ -52,7 +52,7 @@ public abstract class Task {
      *
      * @return The completed task.
      */
-    public Task completeTask() {
+    public Task markTask() {
         this.isDone = true;
         return this;
     }
@@ -62,7 +62,7 @@ public abstract class Task {
      *
      * @return The task that was marked as not completed.
      */
-    public Task undoTask() {
+    public Task unmarkTask() {
         this.isDone = false;
         return this;
     }

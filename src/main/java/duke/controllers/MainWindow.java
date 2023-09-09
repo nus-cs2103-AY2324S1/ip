@@ -49,7 +49,7 @@ public class MainWindow extends AnchorPane {
         duke = d;
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(duke.getInitialMessage(), dukeImage));
-        dialogContainer.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
+        dialogContainer.setBackground(new Background(new BackgroundFill(Color.LIGHTPINK, null, null)));
     }
 
     private void initiateDelayedExit() {

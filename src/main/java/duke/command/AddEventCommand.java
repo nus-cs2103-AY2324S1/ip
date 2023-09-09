@@ -3,7 +3,7 @@ package duke.command;
 import duke.exception.DukeException;
 import duke.task.Event;
 import duke.ui.Ui;
-import duke.list.FunnyList;
+import duke.list.TaskList;
 import duke.storage.Storage;
 
 /**
@@ -34,7 +34,7 @@ public class AddEventCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public String execute(FunnyList taskList, Ui ui, Storage storage) throws DukeException  {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException  {
         Event task = new Event(this.taskDescription, false, this.from, this.to);
         taskList.add(task);
         storage.write(taskList);

@@ -10,7 +10,7 @@ import duke.task.Task;
  * This class manages a list of tasks and provides methods for adding, retrieving,
  * completing, undoing, and deleting tasks.
  */
-public class FunnyList {
+public class TaskList {
 
     private ArrayList<Task> taskList;
 
@@ -19,14 +19,14 @@ public class FunnyList {
      *
      * @param taskList The initial list of tasks.
     */
-    public FunnyList(ArrayList<Task> taskList) {
+    public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
 
     /**
      * Constructs an empty FunnyList.
      */
-    public FunnyList() {
+    public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
@@ -45,11 +45,11 @@ public class FunnyList {
      * @return The completed task.
      * @throws DukeException If the index is out of bounds.
      */
-    public Task completeTask(int index) throws DukeException {
+    public Task markTask(int index) throws DukeException {
         if (index < 1 || index > this.taskList.size()) {
             throw new DukeException("Index does not exist");
         }
-        return this.taskList.get(index - 1).completeTask();
+        return this.taskList.get(index - 1).markTask();
     }
 
     /**
@@ -59,11 +59,11 @@ public class FunnyList {
      * @return The task that was undone.
      * @throws DukeException If the index is out of bounds.
      */
-    public Task undoTask(int index) throws DukeException {
+    public Task unmarkTask(int index) throws DukeException {
         if (index < 1 || index > this.taskList.size()) {
             throw new DukeException("Index does not exist");
         }
-        return this.taskList.get(index - 1).undoTask();
+        return this.taskList.get(index - 1).unmarkTask();
     }
 
     /**
