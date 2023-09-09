@@ -69,6 +69,7 @@ public class TaskList {
      */
     public String mark(String taskNumber) throws DukeException {
         int taskIndex = getTaskIndex(taskNumber);
+        assert(taskIndex < tasklist.size());
         Task markedTask = this.tasklist.get(taskIndex).done();
         tasklist.set(taskIndex, markedTask);
         STORAGE.writeAllToFile(tasklist);
