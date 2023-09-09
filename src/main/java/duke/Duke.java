@@ -17,7 +17,6 @@ public class Duke {
         if (allTasks.size() == 0) {
             parser.run = 1;
         }
-        String task = "";
         ui.greet();
         System.out.flush();
         parser.parse(sc);

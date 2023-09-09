@@ -16,7 +16,8 @@ public class Storage {
             if (dir.mkdirs()) {
                 System.out.println("Directory created: " + dir.getAbsolutePath());
             } else {
-                System.err.println("Failed to create directory: " + dir.getAbsolutePath());
+                System.err.println("Failed to create directory: "
+                        + dir.getAbsolutePath());
                 return;
             }
         }
@@ -27,9 +28,11 @@ public class Storage {
         if (!db.exists()) {
             try {
                 if (db.createNewFile()) {
-                    System.out.println("File created: " + db.getAbsolutePath());
+                    System.out.println("File created: "
+                            + db.getAbsolutePath());
                 } else {
-                    System.err.println("Failed to create file: " + db.getAbsolutePath());
+                    System.err.println("Failed to create file: "
+                            + db.getAbsolutePath());
                 }
             } catch (IOException e) {
                 System.out.println("Error when creating the data storage!");
@@ -52,8 +55,7 @@ public class Storage {
                 boolean isDone = Integer.parseInt(parts[1]) == 1;
                 String taskDescription = parts[2];
 
-                // Check if the task is already in duke.Duke.allTasks
-                if (!TaskList.isTaskInAllTasks(taskType, taskDescription)) { //rewrite method in duke.TaskList class
+                if (!TaskList.isTaskInAllTasks(taskType, taskDescription)) {
                     Task task;
 
                     if (taskType.equals("T")) {
@@ -116,10 +118,6 @@ public class Storage {
 
                 writer.write(currentLine);
                 writer.newLine();
-//                if (lineCounter != lineNumber - 1) {
-//                    // Add a newline character if it's not the last line
-//                    writer.newLine();
-//                }
             }
 
             writer.close();

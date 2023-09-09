@@ -2,7 +2,7 @@ package duke;
 
 public class Todo extends Task {
 
-    public Todo(String task, Boolean isNotSaved) {
+    public Todo(String task, boolean isNotSaved) {
         super(task, isNotSaved);
         if (isNotSaved) {
             saveToFile();
@@ -15,8 +15,9 @@ public class Todo extends Task {
     }
 
     public void print() {
-        System.out.println(Ui.horizontalLine + "Got it. I've added this task:\n " + this.toString()+ "\n"
-        + "Now you have " + Task.getCounter() + " tasks in the list\n" + Ui.horizontalLine);
+        System.out.println(Ui.horizontalLine + "Got it. I've added this task:\n "
+                + this.toString()+ "\n" + "Now you have "
+                + Task.getCounter() + " tasks in the list\n" + Ui.horizontalLine);
     }
 
     public String generateStr() {

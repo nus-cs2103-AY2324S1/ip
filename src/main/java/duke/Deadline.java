@@ -15,7 +15,9 @@ public class Deadline extends Task {
             this.byStr = by;
 
         } catch (Exception e) {
-            throw new DukeException(Ui.horizontalLine + "Invalid date format :< Please use dd/MM/yyyy\n" + Ui.horizontalLine);
+            throw new DukeException(Ui.horizontalLine
+                    + "Invalid date format :< Please use dd/MM/yyyy\n"
+                    + Ui.horizontalLine);
         }
         if (isNotSaved) {
             saveToFile();
@@ -25,14 +27,16 @@ public class Deadline extends Task {
 
     public String toString() {
         // Format LocalDateTime as a string in your desired output format
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a");
+        DateTimeFormatter outputFormatter = DateTimeFormatter
+                .ofPattern("MMM dd yyyy h:mm a");
         String formattedDateTime = by.format(outputFormatter);
         return "[D]" + super.toString() + " (by: " + formattedDateTime + ")";
     }
 
     public void print() {
-        System.out.println(Ui.horizontalLine + "Got it. I've added this task:\n " + this.toString()+ "\n"
-                + "Now you have " + Task.getCounter() + " tasks in the list\n" + Ui.horizontalLine);
+        System.out.println(Ui.horizontalLine + "Got it. I've added this task:\n "
+                + this.toString()+ "\n" + "Now you have "
+                + Task.getCounter() + " tasks in the list\n" + Ui.horizontalLine);
     }
 
     public String generateStr() {
