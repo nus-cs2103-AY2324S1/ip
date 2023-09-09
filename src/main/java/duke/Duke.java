@@ -38,11 +38,10 @@ public class Duke {
      * Runs the chatbot until "bye" is entered.
      */
     public void run() {
-        ui.intromsg();
-
+        ui.introMessage();
         Scanner scan = new Scanner(System.in);
-
         String userinput = scan.nextLine();
+
         while (!userinput.equalsIgnoreCase("bye")) {
             try {
                 parser.parse(userinput);
@@ -51,7 +50,8 @@ public class Duke {
             }
             userinput = scan.nextLine();
         }
-        ui.byemsg();
+
+        ui.byeMessage();
     }
 
     /**
@@ -61,7 +61,7 @@ public class Duke {
      * @param splitter the regex for splitting
      * @throws DukeException cannot split exception
      */
-    public static void cansplit(String input, String splitter) throws DukeException {
+    public static void canSplit(String input, String splitter) throws DukeException {
         if (input.split(splitter).length == 1) {
             throw new DukeException("☹ OOPS!!!");
         }

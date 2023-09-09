@@ -47,8 +47,7 @@ public class Storage {
      *
      * @param list the list
      */
-    public void updatefile(ArrayList<Task> list) {
-
+    public void updateFile(ArrayList<Task> list) {
         try(FileWriter fw = new FileWriter(file, true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter out = new PrintWriter(bw))

@@ -16,7 +16,7 @@ public class Ui {
     /**
      * Displays the welcome message.
      */
-    public void intromsg() {
+    public void introMessage() {
         System.out.println("Hello! I'm IPSVIJAYKUMARAAKOODAIRRUKALAM");
         System.out.println("What can I do for you?");
     }
@@ -26,7 +26,7 @@ public class Ui {
      *
      * @param list the list
      */
-    public void listlist(ArrayList<Task> list) {
+    public void printList(ArrayList<Task> list) {
         for (int i = 0; i < list.size(); i++) {
             System.out.println(i + 1 + "." + list.get(i));
         }
@@ -37,7 +37,7 @@ public class Ui {
      *
      * @param task the task
      */
-    public void markedmsg(Task task) {
+    public void markedMessage(Task task) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + task);
     }
@@ -45,7 +45,7 @@ public class Ui {
     /**
      * Displays the message when the user does not type in what Task is to be marked.
      */
-    public void invalidmark() {
+    public void invalidMark() {
         System.out.println("Enter a valid number to mark");
     }
 
@@ -54,7 +54,7 @@ public class Ui {
      *
      * @param task the task
      */
-    public void addedmsg(Task task) {
+    public void addedMessage(Task task) {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task.toString());
     }
@@ -64,7 +64,7 @@ public class Ui {
      *
      * @param list the list
      */
-    public void listmsg(ArrayList<Task> list)  {
+    public void listMessage(ArrayList<Task> list)  {
         System.out.println("Now you have "  + list.size() + " tasks in the list.");
     }
 
@@ -73,7 +73,7 @@ public class Ui {
      *
      * @param task the task
      */
-    public void removedmsg(Task task) {
+    public void removedMessage(Task task) {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task);
     }
@@ -81,14 +81,14 @@ public class Ui {
     /**
      * Displays the message when the user does not type in what Task is to be marked.
      */
-    public void validnumbermsg() {
+    public void validNumberMessage() {
         System.out.println("Enter a valid number to mark");
     }
 
     /**
      * Displays the goodbye message when the program is about to terminate expectedly.
      */
-    public void byemsg() {
+    public void byeMessage() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 }

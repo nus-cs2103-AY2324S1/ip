@@ -13,7 +13,7 @@ import java.util.Scanner;
  * The type Task list.
  */
 public class TaskList {
-    private ArrayList<Task> tasklist;
+    private ArrayList<Task> taskList;
 
     /**
      * Instantiates a new Task list, given a file to read from.
@@ -22,13 +22,13 @@ public class TaskList {
      * @throws DukeException the duke exception if file is somehow not found
      */
     TaskList(File file) throws DukeException {
-        this.tasklist = new ArrayList<Task>();
+        this.taskList = new ArrayList<Task>();
         try {
             Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
                 String data = reader.nextLine();
                 try {
-                    tasklist.add(Parser.ParseFileInfo(data));
+                    taskList.add(Parser.parseFileInfo(data));
                 } catch (DukeException e) {
                     System.out.println(e);
                 }
@@ -42,7 +42,7 @@ public class TaskList {
      * Instantiates a new Task list.
      */
     TaskList() {
-        this.tasklist = new ArrayList<Task>();
+        this.taskList = new ArrayList<Task>();
     }
 
     /**
@@ -51,6 +51,6 @@ public class TaskList {
      * @return the array list with Tasks.
      */
     public ArrayList<Task> list() {
-        return tasklist;
+        return taskList;
     }
 }
