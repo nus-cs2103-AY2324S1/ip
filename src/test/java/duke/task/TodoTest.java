@@ -1,13 +1,13 @@
 package duke.task;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class TodoTest {
     @Test
-    public void testStringConversion(){
-        assertEquals("[T][ ] read books",new Todo("read books").toString());
+    public void testStringConversion() {
+        assertEquals("[T][ ] read books", new Todo("read books").toString());
     }
 
     @Test
