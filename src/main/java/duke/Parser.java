@@ -4,7 +4,8 @@ import java.util.Scanner;
 
 public class Parser {
 
-    public static int run;
+    public static int run = 1;
+
     public static void parse(Scanner sc) {
         while (true) {
             try {
@@ -46,6 +47,11 @@ public class Parser {
                             Ui.showError(Ui.horizontalLine + "You did not enter a valid integer :(\n" + Ui.horizontalLine);
                             continue;
                         }
+                    }
+                    if (instruction.equals("find")) {
+                        String keyword = elements[1];
+                        Ui.displaySearchResults(Duke.taskList, keyword);
+                        continue;
                     }
                     int firstSpaceIndex = task.indexOf(' ');
                     String actualTask = task.substring(firstSpaceIndex + 1);

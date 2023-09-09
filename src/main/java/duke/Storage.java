@@ -38,7 +38,7 @@ public class Storage {
     }
 
 
-    public static void loadTasksFromFile(TaskList taskList) {
+    public void loadTasksFromFile(TaskList taskList) {
         List<Task> loadedTasks = new ArrayList<>(); // Create a temporary list
 
         try (Scanner scanner = new Scanner(new File(FILE_PATH))) {
@@ -53,7 +53,7 @@ public class Storage {
                 String taskDescription = parts[2];
 
                 // Check if the task is already in duke.Duke.allTasks
-                if (!TaskList.isTaskInAllTasks(taskType, taskDescription)) { //rewrite method in duke.TaskList class
+                if (!Duke.taskList.isTaskInAllTasks(taskType, taskDescription)) { //rewrite method in duke.TaskList class
                     Task task;
 
                     if (taskType.equals("T")) {
@@ -95,6 +95,7 @@ public class Storage {
             System.err.println("Error saving task to file: " + e.getMessage());
         }
     }
+
 
     public static void deleteLineFromFile(int lineNumber) {
         try {

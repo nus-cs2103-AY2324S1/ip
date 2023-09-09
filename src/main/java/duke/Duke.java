@@ -5,12 +5,13 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static TaskList taskList = new TaskList();
-    static List<Task> allTasks = taskList.getTasks();
+    public static TaskList taskList = new TaskList();;
 
     public static void main(String[] args) throws DukeException {
+        Storage storage = new Storage();
         Storage.createDataLocation();
-        Storage.loadTasksFromFile(taskList);
+        storage.loadTasksFromFile(taskList);
+        List<Task> allTasks = taskList.getTasks();
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser();
         Ui ui = new Ui();
