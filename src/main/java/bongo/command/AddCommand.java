@@ -26,6 +26,7 @@ public class AddCommand extends Command {
      * @throws BongoException If there is a problem when initializing task.
      */
     public AddCommand(String[] command) throws BongoException {
+        assert command.length > 0 : "Command should not be empty.";
         this.command = command;
         this.initialiseTask();
     }
@@ -46,6 +47,7 @@ public class AddCommand extends Command {
             if (command.length <= 1) {
                 throw new BongoException("Please include the description of your todo.");
             }
+            assert command[1] != null : "Todo description is missing";
             this.newTask = new Todo(taskInput);
             break;
         case "deadline":
@@ -59,10 +61,10 @@ public class AddCommand extends Command {
             if (index == -1) {
                 throw new BongoException("Please include the datetime of your deadline.");
             }
-            String deadlineDesc = taskInput.substring(0, index - 1);
+            String deadlineDescription = taskInput.substring(0, index - 1);
             String deadlineStr = taskInput.substring(index + 4);
             LocalDateTime deadline = DateHelper.convertStringToDateTime(deadlineStr);
-            this.newTask = new Deadline(deadlineDesc, deadline);
+            this.newTask = new Deadline(deadlineDescription, deadline);
             break;
         case "event":
             if (command.length <= 1) {
@@ -76,12 +78,12 @@ public class AddCommand extends Command {
             if (fromIndex == -1 || toIndex == -1) {
                 throw new BongoException("Please include the to and from datetime of the event.");
             }
-            String eventDesc = taskInput.substring(0, fromIndex - 1);
+            String eventDescription = taskInput.substring(0, fromIndex - 1);
             String eventFrom = taskInput.substring(fromIndex + 6, toIndex - 1);
             String eventTo = taskInput.substring(toIndex + 4);
             LocalDateTime from = DateHelper.convertStringToDateTime(eventFrom);
             LocalDateTime to = DateHelper.convertStringToDateTime(eventTo);
-            this.newTask = new Event(eventDesc, from, to);
+            this.newTask = new Event(eventDescription, from, to);
             break;
         default:
             throw new BongoException();
