@@ -18,7 +18,6 @@ public class EventTest {
 
     @Test
     public void event_empty_exceptionThrown() {
-        // exception will be thrown
         assertThrows(IllegalArgumentException.class, () -> {
             new Event("", "", "");
         });

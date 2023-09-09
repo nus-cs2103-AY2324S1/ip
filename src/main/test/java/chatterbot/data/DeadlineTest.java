@@ -18,7 +18,6 @@ public class DeadlineTest {
 
     @Test
     public void deadline_empty_exceptionThrown() {
-        // exception will be thrown
         assertThrows(IllegalArgumentException.class, () -> {
             new Deadline("", "");
         });
