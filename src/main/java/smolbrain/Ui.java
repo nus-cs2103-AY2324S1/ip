@@ -17,6 +17,7 @@ public class Ui {
      */
     public Ui(MainWindow mainwindow) {
         sc = new Scanner(System.in);
+        assert mainwindow != null : "No mainwindow was found";
         this.mainwindow = mainwindow;
     }
 
