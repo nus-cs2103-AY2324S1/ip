@@ -1,10 +1,10 @@
-package duke.task;
+package mainDuke.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import duke.exceptions.DukeException;
+import mainDuke.exceptions.DukeException;
 
 /**
  * Represents a Task of Event type, has a <code>to</code> and <code>from</code>
@@ -12,22 +12,22 @@ import duke.exceptions.DukeException;
  */
 public class Event extends Task {
     /**
-     * when the event starts
+     * When the event starts.
      */
     private final LocalDate from;
     /**
-     * when the event ends
+     * When the event ends.
      */
     private final LocalDate to;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
 
     /**
-     * constructor for Event, returns an Event
-     * @param done whether the event is done or over
+     * Constructor for Event, returns an Event.
+     * @param done whether the event is done or over.
      * @param desc name of the event, when is it from, indicated by /from and when is it to
-     *        , indicated by <code>to</code>. Both must be in YYYY-MM-DD format
+     *        , indicated by <code>to</code>. Both must be in YYYY-MM-DD format.
      * @throws DukeException throws an error if the date is unable to be parsed, likely due
-     *       to wrong format
+     *       to wrong format.
      */
     public Event(boolean done, String desc) throws DukeException {
         super(done, desc.substring(6, desc.indexOf("/from")));
@@ -48,22 +48,22 @@ public class Event extends Task {
     }
 
     /**
-     * getter for from date
-     * @return LocalDate from
+     * Getter for from date.
+     * @return LocalDate from.
      */
     public LocalDate getFrom() {
         return this.from;
     }
     /**
-     * getter for to date
-     * @return LocalDate to
+     * Getter for to date.
+     * @return LocalDate to.
      */
     public LocalDate getTo() {
         return this.to;
     }
     /**
-     * String representation of Event, including task type, if task is done, from and to date, and task name
-     * @return String representation of Deadline
+     * String representation of Event, including task type, if task is done, from and to date, and task name.
+     * @return String representation of Deadline.
      */
     @Override
     public String toString() {

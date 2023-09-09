@@ -1,25 +1,25 @@
-package duke.task;
+package mainDuke.task;
 
-import duke.exceptions.DukeException;
+import mainDuke.exceptions.DukeException;
 
 /**
- * Represents a Task, a supertype of Event, Deadline and Todo
+ * Represents a Task, a supertype of Event, Deadline and Todo.
  * <code>isDone</code> shows whether the task is completed
  */
 public abstract class Task {
     /**
-     * name of task
+     * Name of task
      */
     private final String description;
     /**
-     * whether the task is done
+     * Whether the task is done.
      */
     private boolean isDone;
     /**
-     * constructor, should not be used because this is an abstract class. For initialising description
-     * and isDone only
-     * @param done whether the task is done
-     * @param description name of task
+     * Constructor, should not be used because this is an abstract class. For initialising description
+     * and isDone only.
+     * @param done whether the task is done.
+     * @param description name of task.
      */
     public Task(boolean done, String description) {
         this.description = description;
@@ -27,15 +27,15 @@ public abstract class Task {
     }
 
     /**
-     * getter for boolean isDone
-     * @return boolean isDone
+     * Getter for boolean isDone.
+     * @return boolean isDone.
      */
     public boolean getisDone() {
         return this.isDone;
     }
 
     /**
-     * getter for descriptions
+     * Getter for descriptions
      * @return
      */
     public String getDescription() {
@@ -43,8 +43,8 @@ public abstract class Task {
     }
 
     /**
-     * marks the task as done, if it is undone
-     * @throws DukeException if task is already done
+     * Marks the task as done, if it is undone.
+     * @throws DukeException if task is already done.
      */
     public String mark() throws DukeException {
         if (this.isDone) {
@@ -55,8 +55,8 @@ public abstract class Task {
     }
 
     /**
-     * unmarks the task as undone, if it is done
-     * @throws DukeException if task is still undone
+     * Unmarks the task as undone, if it is done.
+     * @throws DukeException if task is still undone.
      */
     public String unmark() throws DukeException {
         if (!this.isDone) {
@@ -66,15 +66,15 @@ public abstract class Task {
         return "OK, I've marked this task as not done yet:\n" + toString();
     }
     /**
-     * get String representation of whether the task is done
-     * @return <code>"X"</code> for done, " " for undone
+     * Get String representation of whether the task is done.
+     * @return <code>"X"</code> for done, " " for undone.
      */
     private String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
     /**
-     * String representation of task, including whether the task is done
-     * @return string representation of task
+     * String representation of task, including whether the task is done.
+     * @return string representation of task.
      */
     @Override
     public String toString() {
@@ -82,15 +82,17 @@ public abstract class Task {
     }
 
     /**
-     * converts hard drive's String format of a task into an actual task item
-     * @param text String from hard drive
-     * @return task item
-     * @throws DukeException if string cannot be recognised and cannot be parsed into a task
+     * Converts hard drive's String format of a task into an actual task item.
+     * @param text String from hard drive.
+     * @return task item.
+     * @throws DukeException if string cannot be recognised and cannot be parsed into a task.
      */
     public static Task parse(String text) throws DukeException {
         String[] parts = text.split("\\|");
         String first = parts[0];
         Task task;
+        assert parts[1].equals("1") | parts[1].equals("0") : "isDone indicator should be either"
+                + "1 or 0";
         boolean done = parts[1].equals("1"); // 1 = done, 0 = undone
         String description = parts[2];
         switch (first) {

@@ -1,47 +1,47 @@
-package duke;
+package mainDuke;
 
-import duke.exceptions.DukeException;
-import duke.exceptions.TaskParseException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import mainDuke.exceptions.DukeException;
+import mainDuke.exceptions.TaskParseException;
+import mainDuke.task.Deadline;
+import mainDuke.task.Event;
+import mainDuke.task.Task;
+import mainDuke.task.Todo;
 
 /**
- * parser to make sense of user commands, parsing from command to action
+ * Parser to make sense of user commands, parsing from command to action
  */
 public class Parser {
     /**
-     * if command is delete, use this method to get the index of task user wants to delete
-     * @param text original command
-     * @return Integer representing the index of task to be deleted
+     * If command is delete, use this method to get the index of task user wants to delete.
+     * @param text original command.
+     * @return Integer representing the index of task to be deleted.
      */
     public static Integer getDeleteIndex(String text) {
         return Integer.parseInt(text.split(" ")[1]) - 1;
     }
 
     /**
-     *  if command is mark, use this method to get the index of task user wants to mark
-     *  @param text original command
-     *  @return Integer representing the index of task to be marked
+     *  If command is mark, use this method to get the index of task user wants to mark.
+     *  @param text original command.
+     *  @return Integer representing the index of task to be marked.
      */
     public static Integer getMarkIndex(String text) {
         return Integer.parseInt(text.split(" ")[1]) - 1;
     }
     /**
-     *  if command is unmark, use this method to get the index of task user wants to unmark
-     *  @param text original command
-     *  @return Integer representing the index of task to be unmarked
+     *  If command is unmark, use this method to get the index of task user wants to unmark.
+     *  @param text original command.
+     *  @return Integer representing the index of task to be unmarked.
      */
     public static Integer getUnmarkIndex(String text) {
         return Integer.parseInt(text.split(" ")[1]) - 1;
     }
 
     /**
-     * given a TaskType, parses a text into a task of that type
-     * @param text original user input
-     * @param type type of task that user specified
-     * @return task constructed according to user input
+     * Given a TaskType, parses a text into a task of that type.
+     * @param text original user input.
+     * @param type type of task that user specified.
+     * @return task constructed according to user input.
      */
     public static Task parseTask(String text, Duke.TaskType type) throws DukeException {
         switch (type) {
@@ -73,11 +73,11 @@ public class Parser {
     }
 
     /**
-     * make sense of what TaskType the user is trying to create from the first word of their input
-     * @param text user input
-     * @return TaskType according to user input
-     * @throws DukeException Some components of the command may be missing for certain tasks
-     * @throws TaskParseException unable to understand what TaskType the user is trying to create
+     * Make sense of what TaskType the user is trying to create from the first word of their input.
+     * @param text user input.
+     * @return TaskType according to user input.
+     * @throws DukeException Some components of the command may be missing for certain tasks.
+     * @throws TaskParseException unable to understand what TaskType the user is trying to create.
      */
     public static Duke.TaskType parseType(String text) throws DukeException, TaskParseException {
         String[] textParts = text.split(" ");

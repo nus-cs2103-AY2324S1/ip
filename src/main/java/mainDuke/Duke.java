@@ -1,10 +1,11 @@
-package duke;
+package mainDuke;
 
 import java.util.ArrayList;
 
-import duke.exceptions.DukeException;
-import duke.exceptions.TaskParseException;
-import duke.task.Task;
+import mainDuke.StageStuff.DialogBox;
+import mainDuke.exceptions.DukeException;
+import mainDuke.exceptions.TaskParseException;
+import mainDuke.task.Task;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -13,18 +14,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * main program, responsible for running everything and connecting components together
+ * Main program, responsible for running everything and connecting components together.
  */
 public class Duke extends Application {
     /**
-     * types of task
+     * Types of task.
      */
     public enum TaskType {
         BYE,
@@ -119,7 +119,7 @@ public class Duke extends Application {
 
     /**
      * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
+     * @param text String containing text to add.
      * @return a label with the specified text that has word wrap enabled.
      */
     private Label getDialogLabel(String text) {
@@ -145,7 +145,7 @@ public class Duke extends Application {
     }
 
 
-    String getResponse(String input) {
+    public String getResponse(String input) {
         try {
             TaskType taskType = Parser.parseType(input);
             switch (taskType) {
@@ -168,7 +168,6 @@ public class Duke extends Application {
             case EVENT:
                 Task nextTask = Parser.parseTask(input, taskType);
                 return TaskList.addTask(nextTask);
-
 
             case DELETE: {
                 return TaskList.deleteTask(Parser.getDeleteIndex(input));

@@ -1,4 +1,4 @@
-package duke;
+package mainDuke;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -10,24 +10,24 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import duke.exceptions.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import mainDuke.exceptions.DukeException;
+import mainDuke.task.Deadline;
+import mainDuke.task.Event;
+import mainDuke.task.Task;
+import mainDuke.task.Todo;
 
 /**
- * Saves and loads tasks to hard drive in String form
+ * Saves and loads tasks to hard drive in String form.
  */
 class Storage {
     /**
-     * name of file and path which the data is to be stored
+     * Name of file and path which the data is to be stored.
      */
     static final String FILE_NAME = "./data/duke.txt";
 
     /**
-     * check if file that is to be written to and loaded from exists, if
-     * it does not, create one
+     * Check if file that is to be written to and loaded from exists, if
+     * it does not, create one.
      */
     static void checkFileExists() {
         Path path = Paths.get(FILE_NAME);
@@ -44,8 +44,8 @@ class Storage {
     }
 
     /**
-     * wipes file and save tasks given in param to hard drive
-     * @param tasks ArrayList of tasks to be saved
+     * Wipes file and save tasks given in param to hard drive.
+     * @param tasks ArrayList of tasks to be saved.
      */
     public static void saveTask(ArrayList<Task> tasks) {
         checkFileExists();
@@ -82,9 +82,9 @@ class Storage {
     }
 
     /**
-     * loads task from hard drive and returns it
-     * @return ArrayList of tasks
-     * @throws DukeException if there are no tasks in the hard drive
+     * Loads task from hard drive and returns it.
+     * @return ArrayList of tasks.
+     * @throws DukeException if there are no tasks in the hard drive.
      */
     public static ArrayList<Task> loadTasks() throws DukeException {
         checkFileExists();

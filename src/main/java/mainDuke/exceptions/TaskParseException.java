@@ -1,4 +1,4 @@
-package duke.exceptions;
+package mainDuke.exceptions;
 
 /**
  * Represents a parsing error between String and Task

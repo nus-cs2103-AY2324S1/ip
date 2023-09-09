@@ -1,15 +1,15 @@
-package duke;
+package mainDuke;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import duke.exceptions.DukeException;
-import duke.exceptions.TaskParseException;
-import duke.task.Deadline;
-import duke.task.Task;
-import duke.task.Todo;
+import mainDuke.exceptions.DukeException;
+import mainDuke.exceptions.TaskParseException;
+import mainDuke.task.Deadline;
+import mainDuke.task.Task;
+import mainDuke.task.Todo;
 
 
 public class DukeTest {

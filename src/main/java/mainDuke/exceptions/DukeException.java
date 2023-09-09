@@ -1,4 +1,4 @@
-package duke.exceptions;
+package mainDuke.exceptions;
 
 /**
  * Represents a Duke exclusive error, not including parsing between String and Task

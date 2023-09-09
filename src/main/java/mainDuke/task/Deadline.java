@@ -1,10 +1,10 @@
-package duke.task;
+package mainDuke.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import duke.exceptions.DukeException;
+import mainDuke.exceptions.DukeException;
 
 /**
  * Represents a Task of Deadline type, has a <code>by</code> that indicates when the task should be done
@@ -12,13 +12,13 @@ import duke.exceptions.DukeException;
  */
 public class Deadline extends Task {
     /**
-     * indicates when the task should be done
+     * Indicates when the task should be done.
      */
     private final LocalDate by;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
 
     /**
-     * Constructor, returns a <code>Deadline</code> instance
+     * Constructor, returns a <code>Deadline</code> instance.
      * @param done whether the task is done or not
      * @param desc description or name of the task, and when the task must be done by, in
      *            "YYYY-MM-DD" format
@@ -35,7 +35,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * getter for <code>by</code>
+     * Getter for <code>by</code>.
      * @return LocalDate by
      */
     public LocalDate getBy() {
@@ -43,7 +43,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * String representation of Deadline, including task type, if task is done, by date and task name
+     * String representation of Deadline, including task type, if task is done, by date and task name.
      * @return String representation of Deadline
      */
     @Override

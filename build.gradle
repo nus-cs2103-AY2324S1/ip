@@ -45,18 +45,23 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("Mainduke.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "launch"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    from(sourceSets.main.resources) {
+        include 'images/**'
+    }
 }
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
+
 
 checkstyle {
     toolVersion = '10.2'

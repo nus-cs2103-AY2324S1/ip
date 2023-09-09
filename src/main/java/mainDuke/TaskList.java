@@ -1,29 +1,29 @@
-package duke;
+package mainDuke;
 
 import java.util.ArrayList;
 
-import duke.exceptions.DukeException;
-import duke.task.Task;
+import mainDuke.exceptions.DukeException;
+import mainDuke.task.Task;
 
 /**
- * contains the list of tasks, and provides methods to edit the list and interact with storage/hard drive
+ * Contains the list of tasks, and provides methods to edit the list and interact with storage/hard drive.
  */
 public class TaskList {
     /**
-     * ArrayList of tasks
+     * ArrayList of tasks.
      */
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     /**
-     * saves current tasks to hard drive
+     * Saves current tasks to hard drive.
      */
     public static void saveList() {
         Storage.saveTask(tasks);
     }
 
     /**
-     * loads tasks from hard drive into tasks, prints a message if there
-     * are no tasks found
+     * Loads tasks from hard drive into tasks, prints a message if there
+     * are no tasks found.
      */
     public static void updateFromStorage() {
         try {
@@ -34,9 +34,9 @@ public class TaskList {
     }
 
     /**
-     * prints the list of task in their string format,
-     * each task starts on a new line
-     * @throws DukeException if there are no tasks in the list
+     * Prints the list of task in their string format,
+     * each task starts on a new line.
+     * @throws DukeException if there are no tasks in the list.
      */
     public static String getListAsString() throws DukeException {
         if (tasks.size() == 0) {
@@ -52,8 +52,8 @@ public class TaskList {
     }
 
     /**
-     * add a task to the current list
-     * @param task task to be added
+     * Add a task to the current list.
+     * @param task task to be added.
      */
     public static String addTask(Task task) {
         tasks.add(task);
@@ -62,9 +62,9 @@ public class TaskList {
     }
 
     /**
-     * deletes a task from the list
-     * @param i index of task which is to be deleted
-     * @throws DukeException if index is out of range or there are no tasks to delete
+     * Deletes a task from the list.
+     * @param i index of task which is to be deleted.
+     * @throws DukeException if index is out of range or there are no tasks to delete.
      */
     public static String deleteTask(int i) throws DukeException {
         if (tasks.size() <= 0) {
@@ -78,9 +78,9 @@ public class TaskList {
     }
 
     /**
-     * marks a task at an index as done
-     * @param i index of task to be marked as done
-     * @throws DukeException if task is already done
+     * Marks a task at an index as done.
+     * @param i index of task to be marked as done.
+     * @throws DukeException if task is already done.
      */
     public static String markTask(int i) throws DukeException {
         return tasks.get(i).mark();

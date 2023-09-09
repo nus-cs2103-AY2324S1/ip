@@ -1,14 +1,14 @@
-package duke;
+package mainDuke.StageStuff;
 
+import mainDuke.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.image.ImageView;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -42,12 +42,13 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String userInputText = userInput.getText();
-        Label input = new Label(userInputText);
-        Label response = new Label(duke.getResponse(userInputText));
+        String input = userInput.getText();
+        String response = duke.getResponse(input);
+        assert input != null : "input should not be null";
+        assert response != null : "response should not be null";
         dialogContainer.getChildren().addAll(
-                DialogBoxOld.getUserDialog(input, new ImageView(userImage)),
-                DialogBoxOld.getDukeDialog(response, new ImageView(dukeImage))
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
     }

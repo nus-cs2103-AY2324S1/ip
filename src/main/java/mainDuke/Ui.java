@@ -1,37 +1,38 @@
-package duke;
+package mainDuke;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import duke.exceptions.DukeException;
+import mainDuke.exceptions.DukeException;
 
 /**
- * responsible for printing messages and recieving commands
+ * Responsible for printing messages and receiving commands.
  */
 public class Ui {
     /**
-     * scanner to read input
+     * Scanner to read input.
      */
     private static final Scanner sc = new Scanner(System.in);
 
     /**
-     * read and returns command
-     * @return String of user input
+     * Read and returns command.
+     *
+     * @return String of user input.
      */
     public static String readCommand() {
         return sc.nextLine();
     }
 
     /**
-     * prints a message to the user
-     * @param message String message to be printed
+     * Prints a message to the user.
+     * @param message String message to be printed.
      */
     public static void print(String message) {
         System.out.println(message);
     }
 
     /**
-     * greeting to be printed at start of program
+     * Greeting to be printed at start of program.
      */
     public static void printGreeting() {
         String name = "Chaty";
@@ -41,8 +42,8 @@ public class Ui {
     }
 
     /**
-     * prints an arraylist, a new line for each object in the list
-     * @param list list of objects to be printed
+     * Prints an arraylist, a new line for each object in the list.
+     * @param list list of objects to be printed.
      */
     public static void printArrayList(ArrayList list) {
         for (int i = 0; i < list.size(); i++) {
