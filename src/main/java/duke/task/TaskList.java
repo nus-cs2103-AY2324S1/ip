@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.userio.InvalidUserInputException;
+
 import java.util.LinkedList;
 
 /**
@@ -61,5 +63,17 @@ public class TaskList {
                     .append("\n");
         }
         return str.toString();
+    }
+
+    /**
+     * Updates the task based on the given inputs.
+     * @param taskIndex Index of task to be updated.
+     * @param attributeToUpdate Attribute of task to update.
+     * @param contentToUpdate Content to update the attribute of task with.
+     * @throws InvalidUserInputException If the attributeToUpdate does not match any of the task's attribute.
+     */
+    public void updateTask(int taskIndex, String attributeToUpdate, String contentToUpdate) throws InvalidUserInputException {
+        Task taskToUpdate = this.getTask(taskIndex);
+        taskToUpdate.update(attributeToUpdate, contentToUpdate);
     }
 }
