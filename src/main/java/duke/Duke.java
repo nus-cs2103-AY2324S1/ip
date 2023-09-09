@@ -27,7 +27,7 @@ public class Duke {
     }
 
     /**
-     * Handler method for GUI application to respond to user input
+     * Handler method for GUI application to respond to user input.
      *
      * @param input the input passed by user from the GUI
      * @return string response for the user input

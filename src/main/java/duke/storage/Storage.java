@@ -52,22 +52,7 @@ public class Storage {
             }
 
         } catch (FileNotFoundException ex) {
-            ui.showErrorFileNotFound();
-            try {
-                String[] filepathSplit = this.filepath.split("/");
-                String fileLocation = String.join("/", Arrays.copyOfRange(filepathSplit, 0, filepathSplit.length - 1));
-                System.out.println(fileLocation);
-                File dir = new File(fileLocation);
-                if (!dir.exists()) {
-                    dir.mkdirs();
-                }
-
-                myObj.createNewFile();
-            } catch (IOException e) {
-                ui.showErrorLoadingFile();
-                ui.showError(e.getMessage());
-                System.exit(1);
-            }
+            this.handleFileNotFound(myObj);
         } catch (DukeException ex) {
             ui.showErrorLoadingFile();
             ui.showError(ex.getMessage());
@@ -110,6 +95,29 @@ public class Storage {
             myWriter.close();
         } catch (IOException ex) {
             System.out.println("    Error saving to file");
+            System.exit(1);
+        }
+    }
+
+    /**
+     * Create the File when a FileNotFound exception is thrown.
+     *
+     * @param myObj the file object to create
+     */
+    private void handleFileNotFound(File myObj) {
+        ui.showErrorFileNotFound();
+        try {
+            String[] filepathSplit = this.filepath.split("/");
+            String fileLocation = String.join("/", Arrays.copyOfRange(filepathSplit, 0, filepathSplit.length - 1));
+            File dir = new File(fileLocation);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            myObj.createNewFile();
+        } catch (IOException e) {
+            ui.showErrorLoadingFile();
+            ui.showError(e.getMessage());
             System.exit(1);
         }
     }
