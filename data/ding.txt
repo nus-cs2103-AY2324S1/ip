@@ -1,15 +1,1 @@
-<<<<<<< HEAD
-[T][ ] b
-[T][ ] d
-=======
-[T][X] b
-[T][ ] a
-[E][ ] sleep (from: 2023-09-02 22:00 to: 2023-09-03 06:30)
-[T][ ] x
-[T][ ] baby
-[T][ ] back
-[T][ ] sleep
-[T][ ] hi
-[T][ ] hi
-[T][ ] hi
->>>>>>> branch-A-CheckStyle
+[T][X] ab

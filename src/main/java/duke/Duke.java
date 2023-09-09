@@ -5,18 +5,19 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.layout.Region;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
+
+
 
 
 /**
@@ -27,6 +28,13 @@ public class Duke extends Application {
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/dauser.jpeg"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/daduke.jpeg"));
 
     /**
      * Constructs a new instance of the duke.Duke class.
@@ -52,13 +60,7 @@ public class Duke extends Application {
 
     }
 
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/dauser.jpeg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/daduke.jpeg"));
+
 
     @Override
     public void start(Stage stage) {

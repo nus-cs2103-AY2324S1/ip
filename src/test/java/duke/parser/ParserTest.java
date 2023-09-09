@@ -8,8 +8,6 @@ import java.time.LocalTime;
 
 import org.junit.jupiter.api.Test;
 
-import duke.exceptions.InvalidDateTimeException;
-import duke.exceptions.InvalidDescriptionException;
 import duke.tasks.Deadline;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
@@ -27,8 +25,8 @@ public class ParserTest {
             Task deadline = Parser.parseStringToTask("deadline Assignment 0 /by 2023-09-04 23:59", "deadline");
             assertEquals(new Deadline("Assignment 0", LocalDate.parse("2023-09-04"),
                     LocalTime.parse("23:59")).toString(), deadline.toString());
-        } catch (InvalidDescriptionException e) {
-        } catch (InvalidDateTimeException e) {
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 

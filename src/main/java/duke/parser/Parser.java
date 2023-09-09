@@ -4,7 +4,17 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
+import duke.commands.ByeCommand;
 import duke.commands.Command;
+import duke.commands.DeadlineCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.EventCommand;
+import duke.commands.FindCommand;
+import duke.commands.InvalidCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkCommand;
+import duke.commands.ToDoCommand;
+import duke.commands.UnmarkCommand;
 import duke.exceptions.InvalidDateTimeException;
 import duke.exceptions.InvalidDescriptionException;
 import duke.exceptions.InvalidKeywordException;
@@ -31,8 +41,8 @@ public class Parser {
      * @return The parsed command.
      */
     public static Command getCommand(String str, Storage storage, TaskList taskList, Ui ui) {
-        String command_word = str.split(" ")[0];
-        switch (command_word) {
+        String commandWord = str.split(" ")[0];
+        switch (commandWord) {
         case "list":
             return new ListCommand();
         case "mark":

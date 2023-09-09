@@ -16,8 +16,8 @@ public class Ui {
      * @return       The reply message.
      */
     public static String addTaskReply(String str, TaskList tasks) {
-        return String.format("Ding: What does '%s' mean? I'll just add it anyway.\n " +
-                "You have like %d tasks now", str, tasks.getSize());
+        return String.format("Ding: What does '%s' mean? I'll just add it anyway.\n "
+                + "You have like %d tasks now", str, tasks.getSize());
     }
 
     /**
@@ -28,8 +28,8 @@ public class Ui {
      * @return          The reply message.
      */
     public static String markTaskReply(int taskIndex, TaskList tasks) {
-        return String.format("Ding: Okay, I marked this task as done, " +
-                    "but I have no idea what that means:\n %s", tasks.getTask(taskIndex));
+        return String.format("Ding: Okay, I marked this task as done, "
+                    + "but I have no idea what that means:\n %s", tasks.getTask(taskIndex));
     }
 
     /**
@@ -40,8 +40,8 @@ public class Ui {
      * @return          The reply message.
      */
     public static String unmarkTaskReply(int taskIndex, TaskList tasks) {
-        return String.format("Ding: Okay, I marked this task as undone, " +
-                "but I have no idea what that means:\n %s", tasks.getTask(taskIndex));
+        return String.format("Ding: Okay, I marked this task as undone, "
+                + "but I have no idea what that means:\n %s", tasks.getTask(taskIndex));
     }
 
     /**
@@ -64,9 +64,9 @@ public class Ui {
      * @return The exit reply message.
      */
     public static String exitReply() {
-        return "____________________________________________________________\n" +
-                "Ding: Bye. Hopefully I get to see you again soon!\n" +
-                "____________________________________________________________";
+        return "____________________________________________________________\n"
+                + "Ding: Bye. Hopefully I get to see you again soon!\n"
+                + "____________________________________________________________";
     }
 
     /**
@@ -88,8 +88,8 @@ public class Ui {
      * @return      The reply message containing the task list.
      */
     public static String printListReply(TaskList tasks) {
-        return String.format("Ding: These are your tasks... " +
-                "If I remember correctly:\n%s\n", tasks);
+        return String.format("Ding: These are your tasks... "
+                + "If I remember correctly:\n%s\n", tasks);
     }
 
     /**
@@ -100,8 +100,8 @@ public class Ui {
      * @return      The reply message containing the found tasks.
      */
     public static String findTaskReply(String str, TaskList tasks) {
-        return String.format("I will help you %s\n", str) +
-                printListReply(tasks);
+        return String.format("I will help you %s\n", str)
+                + printListReply(tasks);
     }
 
     /**
@@ -140,8 +140,8 @@ public class Ui {
         if (tasks.getSize() > 0) {
             startOfReply += String.format("Ding: Please input a task number from 1 to %d", tasks.getSize());
         } else {
-            startOfReply += "Ding: You have nothing in your task list... " +
-                    "What are you even trying to get me to do?";
+            startOfReply += "Ding: You have nothing in your task list... "
+                    + "What are you even trying to get me to do?";
         }
         return startOfReply;
     }

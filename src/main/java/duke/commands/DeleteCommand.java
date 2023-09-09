@@ -2,10 +2,11 @@ package duke.commands;
 
 import duke.exceptions.InvalidTaskIndexException;
 import duke.exceptions.MissingTaskIndexException;
+import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
-import duke.parser.Parser;
+
 
 /**
  * Represents a command to delete a task from the task list.
