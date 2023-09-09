@@ -31,7 +31,7 @@ public class Event extends Task{
             this.from = parseDateTime(from);
             this.to = parseDateTime(to);
         } catch (Exception e) {
-            throw new DukeException(Duke.horizontalLine + "Invalid date format :< Please use dd/MM/yyyy\n" + Duke.horizontalLine);
+            throw new DukeException(Ui.horizontalLine + "Invalid date format :< Please use dd/MM/yyyy\n" + Ui.horizontalLine);
         }
 
         if (isNotSaved) {
@@ -53,8 +53,8 @@ public class Event extends Task{
 
 
     public void print() {
-        System.out.println(Duke.horizontalLine + "Got it. I've added this task:\n " + this.toString()+ "\n"
-                + "Now you have " + Task.getCounter() + " tasks in the list\n" + Duke.horizontalLine);
+        System.out.println(Ui.horizontalLine + "Got it. I've added this task:\n " + this.toString()+ "\n"
+                + "Now you have " + Task.getCounter() + " tasks in the list\n" + Ui.horizontalLine);
     }
 
     public String generateStr() {
@@ -64,7 +64,7 @@ public class Event extends Task{
 
     @Override
     public void saveToFile() {
-        Duke.saveTaskToFile(generateStr());
+        Storage.saveTaskToFile(generateStr());
     }
 
 }
