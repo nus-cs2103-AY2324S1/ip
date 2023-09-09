@@ -8,6 +8,7 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
     public Task(String description) {
+        assert description != null : "Description cannot be null";
         this.description = description;
         this.isDone = false;
     }
@@ -73,6 +74,7 @@ public abstract class Task {
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
 
+        assert type.equals("T") || type.equals("D") || type.equals("E") : "Invalid task type: " + type;
         switch (type) {
         case "T":
             Task task = new ToDo(description);

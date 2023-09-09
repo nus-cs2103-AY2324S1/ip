@@ -58,6 +58,7 @@ public class Storage {
     public void saveTasksToFile(ArrayList<Task> list) throws DukeException {
         try {
             FileWriter fw = new FileWriter(filePath);
+            assert fw != null : "FileWriter should not be null";
             for (Task task : list) {
                 fw.write(task.save());
                 fw.write(System.lineSeparator());
