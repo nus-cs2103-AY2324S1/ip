@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.util.Objects;
+
 /**
  * A general task that has description and status whether it is completed.
  */
@@ -45,8 +47,24 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Tells if task's description contains input string
+     * @param string String to be looked for in task's description
+     * @return Boolean to indicate if the task's description contains input string
+     */
     public boolean containsString(String string) {
         return this.description.contains(string);
+    }
+
+    /**
+     * Updates attribute with input content if it has the input attribute.
+     * @param attributeToUpdate Attribute to be updated.
+     * @param contentToUpdate Content to overwrite current attribute's value.
+     */
+    public void update(String attributeToUpdate, String contentToUpdate) {
+        if (Objects.equals(attributeToUpdate, "description")) {
+            this.description = contentToUpdate ;
+        }
     }
 
     /**

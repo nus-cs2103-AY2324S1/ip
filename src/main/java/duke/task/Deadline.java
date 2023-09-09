@@ -27,6 +27,16 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    @Override
+    public void update(String attributeToUpdate, String contentToUpdate) {
+        switch (attributeToUpdate) {
+            case "description":
+                this.description = contentToUpdate;
+            case "by":
+                this.by = contentToUpdate;
+        }
+    }
+
 
     /**
      * Prints out the description of the task and its status.
