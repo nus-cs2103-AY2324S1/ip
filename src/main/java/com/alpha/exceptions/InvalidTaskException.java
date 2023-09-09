@@ -64,4 +64,13 @@ public class InvalidTaskException extends Exception {
                     + "event <task name> /from <yyyy-MM-dd HH:mm> /to <yyyy-MM-dd HH:mm>");
         }
     }
+
+    /**
+     * The type Duplicate task exception.
+     */
+    public static class DuplicateTaskException extends InvalidTaskException {
+        public DuplicateTaskException() {
+            super("Task is already in the list.");
+        }
+    }
 }

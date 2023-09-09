@@ -2,6 +2,7 @@ package com.alpha.commands;
 
 import java.time.LocalDateTime;
 
+import com.alpha.exceptions.InvalidTaskException.DuplicateTaskException;
 import com.alpha.tasks.Deadline;
 import com.alpha.tasks.Task;
 import com.alpha.tasks.TaskList;
@@ -20,8 +21,13 @@ public class DeadlineCommand extends Command {
      * @param end      The end datetime as a LocalDateTime object.
      * @param taskList The task list.
      */
-    public DeadlineCommand(String name, LocalDateTime end, TaskList taskList) {
+    public DeadlineCommand(String name, LocalDateTime end, TaskList taskList) throws DuplicateTaskException {
         super(taskList);
+        for (Task currentTasks : taskList.getTasks()) {
+            if (currentTasks.getName().equals(name)) {
+                throw new DuplicateTaskException();
+            }
+        }
         task = new Deadline(name, end);
     }
 
