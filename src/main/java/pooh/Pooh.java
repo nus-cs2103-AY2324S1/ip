@@ -26,6 +26,8 @@ public class Pooh {
      */
     public Pooh(String filePath) {
 
+        assert !filePath.isEmpty() : "filePath cannot be empty";
+
         cmdParser = new Parser();
         taskStorage = new Storage(filePath);
         ui = new Ui();
