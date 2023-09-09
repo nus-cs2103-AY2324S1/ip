@@ -40,6 +40,11 @@ public class Smolbrain {
     public void process(String input) {
         try {
             Command c = Parser.parse(input);
+
+            assert tasks != null : "No tasklist found for chatbot";
+            assert ui != null : "No Ui found for chatbot";
+            assert storage != null : "No storage found for chatbot";
+
             c.execute(tasks, ui, storage);
         } catch (InvalidRangeException | MissingDescriptionException | MissingTimeException
                  | InvalidNumberException | InvalidDateTimeException | MissingKeywordException e) {

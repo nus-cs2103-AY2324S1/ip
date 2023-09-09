@@ -22,6 +22,7 @@ public class Event extends Task {
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
+        assert !description.equals("") : "Description of event cannot possibly be empty";
         this.from = from;
         this.to = to;
     }

@@ -25,7 +25,7 @@ public class MainWindow extends AnchorPane {
     private Smolbrain smolbrain;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/bot.png"));
+    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/bot.png"));
 
     /**
      * Constructor for this class.
@@ -78,7 +78,7 @@ public class MainWindow extends AnchorPane {
      */
     public void displayBotText(String input) {
         dialogContainer.getChildren().addAll(
-            BotDialog.getDialog(input, dukeImage)
+            BotDialog.getDialog(input, botImage)
         );
     }
 
