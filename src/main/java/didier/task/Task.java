@@ -2,7 +2,6 @@ package didier.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
 
 import didier.exception.FileCorruptedException;
 
@@ -83,7 +82,7 @@ public abstract class Task {
                 return new ToDo(taskDescription, taskIsDone);
             case "D":
                 LocalDate by = LocalDate.parse(taskDetails[3]);
-                return new Deadline(taskDescription,  by, taskIsDone);
+                return new Deadline(taskDescription, by, taskIsDone);
             case "E":
                 LocalDate from = LocalDate.parse(taskDetails[3]);
                 LocalDate to = LocalDate.parse(taskDetails[4]);

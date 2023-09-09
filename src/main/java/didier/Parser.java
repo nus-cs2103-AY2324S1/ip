@@ -30,71 +30,133 @@ public class Parser {
      * @return The corresponding Command object.
      * @throws DidierException If the user command is invalid in any way.
      */
-    public static Command parse(String commandString) throws DidierException {
+    public static Command parseCommand(String commandString) throws DidierException {
         String[] options = commandString.split(" ", 2);
         CommandType commandType = CommandType.textToCommand(options[0]);
         switch (commandType) {
         case LIST:
-            return new ListCommand();
+            return parseListCommand();
         case MARK:
+            return parseMarkCommand(options);
         case UNMARK:
-            try {
-                return new MarkCommand(commandType.equals(CommandType.MARK), Integer.parseInt(options[1]));
-            } catch (NumberFormatException e) {
-                throw new TaskNumberException(options[1]);
-            }
+            return parseUnmarkCommand(options);
         case DELETE:
-            try {
-                return new DeleteCommand(Integer.parseInt(options[1]));
-            } catch (NumberFormatException e) {
-                throw new TaskNumberException(options[1]);
-            }
+            return parseDeleteCommand(options);
         case TODO:
+            return parseTodoCommand(options);
         case DEADLINE:
+            return parseDeadlineCommand(options);
         case EVENT:
-            if (options.length == 1 || options[1].isBlank()) {
-                throw new ElementMissingException("description");
-            }
-            if (options[0].equals("todo")) {
-                return new AddCommand(options[1], null, null, null);
-            } else if (options[0].equals("deadline")) {
-                String[] deadlineCommand = options[1].split("\\\\by ", 2);
-                if (deadlineCommand.length == 1 || deadlineCommand[1].isBlank()) {
-                    throw new ElementMissingException("deadline");
-                } else {
-                    try {
-                        return new AddCommand(deadlineCommand[0], LocalDate.parse(deadlineCommand[1].trim()),
-                                null, null);
-                    } catch (DateTimeParseException e) {
-                        throw new DateFormatException();
-                    }
-                }
-            } else {
-                String[] fromCommand = options[1].split("\\\\from ", 2);
-                if (fromCommand.length == 1 || fromCommand[1].isBlank()) {
-                    throw new ElementMissingException("start date");
-                }
-                String[] toCommand = fromCommand[1].split("\\\\to ", 2);
-                if (toCommand.length == 1 || toCommand[1].isBlank()) {
-                    throw new ElementMissingException("end date");
-                } else {
-                    try {
-                        return new AddCommand(fromCommand[0], null, LocalDate.parse(toCommand[0].trim()),
-                                LocalDate.parse(toCommand[1].trim()));
-                    } catch (DateTimeParseException e) {
-                        throw new DateFormatException();
-                    }
-                }
-            }
+            return parseEventCommand(options);
         case FIND:
-            if (options.length == 1 || options[1].isBlank()) {
-                throw new ElementMissingException("keyword");
-            }
-            return new FindCommand(options[1]);
+            return parseFindCommand(options);
         case BYE:
-            return new ExitCommand();
+            return parseExitCommand();
         default:
             throw new InvalidCommandException(options[0]);
+        }
+    }
+
+    private static ListCommand parseListCommand() {
+        return new ListCommand();
+    }
+
+    private static ExitCommand parseExitCommand() {
+        return new ExitCommand();
+    }
+
+    private static FindCommand parseFindCommand(String[] options) throws ElementMissingException {
+        boolean isMissingKeyword = options.length == 1 || options[1].isBlank();
+        if (isMissingKeyword) {
+            throw new ElementMissingException("keyword");
+        }
+        return new FindCommand(options[1]);
+    }
+
+    private static AddCommand parseTodoCommand(String[] options) throws ElementMissingException, DateFormatException {
+        return new AddCommand(getTaskDescription(options), null, null, null);
+    }
+    private static AddCommand parseDeadlineCommand(String[] options)
+            throws ElementMissingException, DateFormatException {
+        String[] deadlineCommand = options[1].split("\\\\by ", 2);
+        return new AddCommand(getTaskDescription(options), getDeadlineBy(options), null, null);
+    }
+    private static AddCommand parseEventCommand(String[] options) throws ElementMissingException, DateFormatException {
+        String description = getTaskDescription(options);
+        LocalDate[] eventTimes = getEventTimes(options);
+        assert eventTimes.length == 2 : "There are too many or too few event times, there should only be a from and to";
+        LocalDate from = eventTimes[0];
+        LocalDate to = eventTimes[1];
+        return new AddCommand(getTaskDescription(options), null, from, to);
+    }
+
+    private static String getTaskDescription(String[] options) throws ElementMissingException {
+        boolean isMissingDescription = options.length == 1 || options[1].isBlank();
+        if (isMissingDescription) {
+            throw new ElementMissingException("description");
+        }
+        return options[1];
+    }
+
+    private static LocalDate getDeadlineBy(String[] options) throws ElementMissingException, DateFormatException {
+        String[] deadlineCommand = options[1].split("\\\\by ", 2);
+        if (deadlineCommand.length == 1 || deadlineCommand[1].isBlank()) {
+            throw new ElementMissingException("deadline");
+        }
+        try {
+            return LocalDate.parse(deadlineCommand[1].trim());
+        } catch (DateTimeParseException e) {
+            throw new DateFormatException();
+        }
+    }
+
+    private static LocalDate[] getEventTimes(String[] options) throws ElementMissingException, DateFormatException {
+        String[] fromCommand = options[1].split("\\\\from ", 2);
+        if (fromCommand.length == 1 || fromCommand[1].isBlank()) {
+            throw new ElementMissingException("start date");
+        }
+        String[] toCommand = fromCommand[1].split("\\\\to ", 2);
+        if (toCommand.length == 1 || toCommand[1].isBlank()) {
+            throw new ElementMissingException("end date");
+        }
+        try {
+            return new LocalDate[]{LocalDate.parse(toCommand[0].trim()), LocalDate.parse(toCommand[1].trim())};
+        } catch (DateTimeParseException e) {
+            throw new DateFormatException();
+        }
+    }
+
+    private static DeleteCommand parseDeleteCommand(String[] options)
+            throws TaskNumberException, ElementMissingException {
+        if (options.length == 1) {
+            throw new ElementMissingException("task number");
+        }
+        try {
+            int taskNumber = Integer.parseInt(options[1]);
+            return new DeleteCommand(taskNumber);
+        } catch (NumberFormatException e) {
+            throw new TaskNumberException(options[1]);
+        }
+    }
+
+    private static MarkCommand parseMarkCommand(String[] options) throws TaskNumberException, ElementMissingException {
+        return new MarkCommand(true, getMarkTaskNumber(options));
+    }
+
+    private static MarkCommand parseUnmarkCommand(String[] options)
+            throws TaskNumberException, ElementMissingException {
+        return new MarkCommand(false, getMarkTaskNumber(options));
+    }
+
+    private static int getMarkTaskNumber(String[] options) throws TaskNumberException, ElementMissingException {
+        if (options.length == 1) {
+            throw new ElementMissingException("task number");
+        }
+        try {
+            int taskNumber = Integer.parseInt(options[1]);
+            return taskNumber;
+        } catch (NumberFormatException e) {
+            throw new TaskNumberException(options[1]);
         }
     }
 

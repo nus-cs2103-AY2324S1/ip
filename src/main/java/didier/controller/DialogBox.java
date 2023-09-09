@@ -30,6 +30,8 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     private DialogBox(String text, Image image) {
+
+        // load ui from fxml
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -38,10 +40,15 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // set properties of label node
         dialog.setText(text);
         dialog.setFont(new Font(14.0));
+
+        // set properties of imageview node
         displayPicture.setImage(image);
 
+        // set background color of dialog box
         this.setBackground(new Background(new BackgroundFill(Color.LIGHTCYAN, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 

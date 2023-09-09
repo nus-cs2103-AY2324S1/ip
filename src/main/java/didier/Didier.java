@@ -33,7 +33,7 @@ public class Didier {
      */
     public String getResponse(String commandString) {
         try {
-            Command command = Parser.parse(commandString);
+            Command command = Parser.parseCommand(commandString);
             if (command.isExit()) {
                 isActive = false;
             }
