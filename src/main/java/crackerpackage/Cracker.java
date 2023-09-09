@@ -2,6 +2,16 @@ package crackerpackage;
 
 import java.io.IOException;
 import java.util.Scanner;
+import javafx.application.Application;
+import javafx.fxml.*;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+
 
 import crackerpackage.tasks.Task;
 import exceptions.EmptyDescriptionException;
@@ -19,7 +29,9 @@ public class Cracker {
 
     private TodoList list = null;
     private Reply reply = new Reply();
-    private Storage storage;
+    private Storage storage = new Storage("./data/list.txt");;
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/chuck2.jpg"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/chuck1.jpg"));
 
     /**
      * The types of operations supported by the chatbot.
@@ -35,85 +47,61 @@ public class Cracker {
         FIND
     }
 
-    /**
-     * Starts up the bot.
-     */
-    public void startService() {
-        boolean talking = true;
-        storage = new Storage("./data/list.txt");
-        list = storage.load();
-        Scanner sc = new Scanner(System.in);
-        reply.echo("What can I do for you?");
-        while (talking) {
-            Type t = null;
+    public String getResponse(String input) {
+        try {
+            Type command = Parser.parseCommand(input);
 
-            String input = sc.nextLine();
-
-
-
-            try {
-                Type command = Parser.parseCommand(input);
-
-                switch (command) {
+            switch (command) {
                 case MARK:
                     list.markDone(Parser.parseIndex(input));
-                    reply.modifyTaskReply(list.getTask(Parser.parseIndex(input)));
-                    break;
+                    return reply.modifyTaskReply(list.getTask(Parser.parseIndex(input)));
                 case UNMARK:
                     list.markUndone(Parser.parseIndex(input));
-                    reply.modifyTaskReply(list.getTask(Parser.parseIndex(input)));
-                    break;
+                    return reply.modifyTaskReply(list.getTask(Parser.parseIndex(input)));
                 case DELETE:
-                    reply.deleteTaskReply(list.getTask(Parser.parseIndex(input)), list.size());
+                    String cachedReply = reply.deleteTaskReply(list.getTask(Parser.parseIndex(input)), list.size() - 1);
                     list.deleteTask(Parser.parseIndex(input));
-                    break;
+                    return cachedReply;
                 case TASK:
                     Task newTask = Parser.parseTask(input);
                     list.store(newTask);
-                    reply.storeTaskReply(newTask, list.size());
-                    break;
+                    return reply.storeTaskReply(newTask, list.size());
                 case UNKNOWN:
                     try {
                         throw new UnknownCommandException();
                     } catch (UnknownCommandException e) {
-                        reply.echo(e.toString());
+                        return e.toString();
                     }
-                    break;
                 case LIST:
-                    reply.iterate(list);
-                    break;
+                    return reply.iterate(list);
                 case FIND:
-                    reply.findTaskReply(list.filter(Parser.parseKeyword(input)));
-                    break;
+                    return reply.findTaskReply(list.filter(Parser.parseKeyword(input)));
                 case QUIT:
-                    sc.close();
-                    talking = false;
                     try {
                         storage.save(list);
+                        return "Bye! Your tasks have been saved!";
                     } catch (IOException e) {
-                        System.out.println("Something wrong happened when saving your tasks");
+                        return "Something wrong happened when saving your tasks";
                     }
-                    break;
                 default:
-                    break;
+                    return "";
 
-                }
-
-            } catch (EmptyDescriptionException e) {
-                reply.echo(e.toString());
-            } catch (IndexOutOfBoundsException e) {
-                reply.echo("The index you provided does not exist");
-            } catch (IllegalFormatException e) {
-                reply.echo(e.toString());
             }
 
-
-
-
+        } catch (EmptyDescriptionException e) {
+            return e.toString();
+        } catch (IndexOutOfBoundsException e) {
+            return "The index you provided does not exist";
+        } catch (IllegalFormatException e) {
+            return e.toString();
         }
-        reply.echo("Bye. Hope to see you again soon!");
+    }
 
-
+    /**
+     * Starts up the bot.
+     */
+    public void startService() {
+        list = storage.load();
     }
 
     public static void main(String[] args) {
