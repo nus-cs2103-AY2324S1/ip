@@ -25,6 +25,20 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Deadline)) {
+            return false;
+        }
+        Deadline task = (Deadline) obj;
+        int indexOfTaskDescription = 7;
+        if (this.toString().substring(indexOfTaskDescription).equals(
+                task.toString().substring(indexOfTaskDescription))) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Returns the information associated with the deadline to be stored on local hard disk.
      * @return the string representation of the deadline saved onto the local hard disk.

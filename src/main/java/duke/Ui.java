@@ -79,11 +79,15 @@ public class Ui {
      * @param numOfTasks the number of tasks now stored in Duke.
      * @return a string message indicating that the task is added and the number of tasks stored.
      */
-    public String addTaskMessage(Task task, int numOfTasks) {
+    public String addTaskMessage(Task task, int numOfTasks, int startOfDescriptionIndex) {
         StringBuilder sb = new StringBuilder();
         sb.append("Got it. I've added this task:\n");
-        sb.append(String.format("%s\n", task));
+        sb.append(String.format("%s\n", task.toString().substring(startOfDescriptionIndex)));
         sb.append(String.format("Now you have %d tasks in the list.%n", numOfTasks));
         return sb.toString();
+    }
+
+    public String duplicateTaskMessage(Task task, int startOfDescriptionIndex) {
+        return String.format("%s is already added before!", task.toString().substring(startOfDescriptionIndex));
     }
 }

@@ -32,6 +32,20 @@ public class Event extends Task {
         return String.format("[E]%s (from: %s to: %s)", super.toString(), startingDate, endingDate);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Event)) {
+            return false;
+        }
+        Event task = (Event) obj;
+        int indexOfTaskDescription = 7;
+        if (this.toString().substring(indexOfTaskDescription).equals(
+                task.toString().substring(indexOfTaskDescription))) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Returns the information associated with the event to be stored on the local hard disk.
      * @return the string representation of the event saved onto the local hard disk.
