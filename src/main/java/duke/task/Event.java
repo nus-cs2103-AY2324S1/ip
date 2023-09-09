@@ -15,8 +15,8 @@ public class Event extends Task {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy",
             Locale.ENGLISH);
-    private final LocalDate e_start;
-    private final LocalDate e_end;
+    private LocalDate e_start;
+    private LocalDate e_end;
 
 
     public LocalDate getE_start() {
@@ -42,7 +42,6 @@ public class Event extends Task {
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid time format.");
         }
-        assert !this.e_start.isAfter(this.e_end) : "Event start date should not be after end date!";
     }
 
     /**

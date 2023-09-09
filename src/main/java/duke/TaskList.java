@@ -14,6 +14,7 @@ public class TaskList {
      * Initializes an empty task list.
      */
     public TaskList() {
+
         tasks = new ArrayList<>();
     }
 
@@ -27,16 +28,13 @@ public class TaskList {
         this.tasks = tasks;
     }
 
-    private boolean validIndex(int index) {
-        return index >= 0 && index < tasks.size();
-    }
     /**
      * Marks a task as done.
      *
      * @param taskIndex The index of the task in the list.
      */
     public void mark(int taskIndex) {
-        assert validIndex(taskIndex) : "Provided task index is out of range!";
+
         tasks.get(taskIndex).mark();
     }
 
@@ -47,7 +45,7 @@ public class TaskList {
      * @return The Task object at the given index.
      */
     public Task getTask(int taskIndex) {
-        assert validIndex(taskIndex) : "Provided task index is out of range!";
+
         return tasks.get(taskIndex);
     }
 
@@ -77,7 +75,7 @@ public class TaskList {
      * @param taskIndex The index of the task in the list.
      */
     public void unmark(int taskIndex) {
-        assert validIndex(taskIndex) : "Provided task index is out of range!";
+
         tasks.get(taskIndex).unmark();
     }
 
@@ -98,7 +96,6 @@ public class TaskList {
      * @return The Task object that was removed.
      */
     public Task deleteTask(int taskNum) {
-        assert validIndex(taskNum) : "Provided task index is out of range!";
         Task tem = tasks.get(taskNum);
         tasks.remove(taskNum);
         return tem;

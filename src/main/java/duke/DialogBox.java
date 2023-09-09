@@ -39,8 +39,6 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
-        assert dialog != null : "Dialog label should be properly initialized!";
-        assert displayPicture != null : "Display picture should be properly initialized!";
         double radius = 25.0;
         Circle clip = new Circle(radius, radius, radius);
         displayPicture.setClip(clip);

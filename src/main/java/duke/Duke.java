@@ -26,8 +26,6 @@ public class Duke {
      */
     public Duke() {
         ui = new Ui();
-        assert ui != null : "UI should be properly initialized!";
-
         try {
             storage = new Storage("./data/duke.txt");
             tasks = new TaskList(storage.loadTasks());
@@ -37,8 +35,6 @@ public class Duke {
             ui.showLoadingError();
             tasks = new TaskList();
         }
-
-        assert tasks != null : "Tasks should be properly initialized!";
     }
 
 

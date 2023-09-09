@@ -42,7 +42,6 @@ public class Ui {
      * @return A string representing the user's command.
      */
     public String readCommand() {
-        assert scanner != null : "Scanner should be initialized before reading a command!";
         return scanner.nextLine();
     }
 
@@ -57,7 +56,6 @@ public class Ui {
      * Returns an error message when there's an issue loading tasks.
      */
     public String showLoadingError() {
-
         return "Error loading tasks. Starting with an empty task list.";
     }
 
@@ -111,8 +109,6 @@ public class Ui {
      * @param tasks List of matched tasks.
      */
     public String showFoundTasks(ArrayList<Task> tasks) {
-        assert tasks != null : "List of tasks should not be null!";
-
         StringBuilder result = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             result.append((i + 1)).append(".").append(tasks.get(i).toString()).append("\n");

@@ -23,9 +23,7 @@ public class Parser {
      * @throws DukeException If the command is unrecognized or invalid.
      */
     public static Command parse(String fullCommand) throws DukeException {
-        assert fullCommand != null : "Provided command string should not be null!";
         String[] splits = fullCommand.split(" ", 2);
-        assert splits.length > 0 : "Command split array should have at least one element!";
         switch (splits[0].trim()) {
         case ("bye"):
             return new ExitCommand();
