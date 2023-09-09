@@ -18,11 +18,11 @@ public class Bye extends Command {
         try {
             Storage.save(tasks);
         } catch (IOException e) {
-            this.ui.error("Filepath issue");
+            ui.error("Filepath issue");
         } catch (Exception e) {
-            this.ui.error("Failed to save");
+            ui.error("Failed to save");
         }
-        this.running[0] = false;
-        return this.ui.bye();
+        running[0] = false;
+        return ui.bye();
     }
 }

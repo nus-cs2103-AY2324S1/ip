@@ -19,7 +19,7 @@ public class Find extends Command {
                 results.add(task);
             }
         }
-        return this.ui.listTasks(results);
+        return ui.listTasks(results);
     }
 
 }
