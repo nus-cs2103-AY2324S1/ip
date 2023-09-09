@@ -47,7 +47,8 @@ public class TaskList {
     private static final String MESSAGE_TEMPLATE_EMPTY_TASKLIST = "%nYou have no tasks in your list.";
     private static final String TASK_DISPLAY_FORMAT_TEMPLATE = "%n%d.%s";
     private static final String MESSAGE_TEMPLATE_TASK_UPDATED = "I've updated this task:%n%s";
-    private static final String MESSAGE_TASK_NOT_UPDATED = "Task was not updated.";
+    private static final String MESSAGE_TASK_NOT_UPDATED =
+            "No parameters were supplied, so I did not update the task.";
 
     // An ArrayList that stores the list of tasks.
     protected final ArrayList<Task> tasks;
@@ -291,7 +292,7 @@ public class TaskList {
         String newEndDateTime = null;
 
         // Split the edit command into flags and values
-        List<List<String>> flagsAndValues = Arrays.stream(editCommand.split("((?=/[dbse] ))"))
+        List<List<String>> flagsAndValues = Arrays.stream(editCommand.split(" ((?=/[dbse] ))"))
                 .map(String::trim)
                 .filter(s -> s.matches("/[dbse] .*"))
                 .map(s -> List.of(s.substring(0, 2), s.substring(3)))
@@ -311,6 +312,11 @@ public class TaskList {
             } else if ("/e".equals(flag)) {
                 newEndDateTime = value;
             }
+        }
+
+        // Check if any parameters were supplied
+        if (newDescription == null && newBy == null && newStartDateTime == null && newEndDateTime == null) {
+            return MESSAGE_TASK_NOT_UPDATED;
         }
 
         // Respond accordingly based on task type

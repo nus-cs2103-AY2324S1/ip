@@ -223,6 +223,8 @@ public class TaskListTest {
 
         taskList.edit(1, "/a aaa /c ccc /f fff /g ggg /h hhh /i iii /j jjj /k kkk /l lll /m mmm "
                         + "/n nnn /o ooo /p ppp /q qqq /r rrr /t ttt /u uuu /v vvv /w www /x xxx /y yyy /z zzz");
+        taskList.edit(1, "aaa/d failure");
+        taskList.edit(1, "/dfailures");
         assertEquals(String.format(listHeader
                         + "1.[T][X] t1"
                         + "%n2.[T][ ] t2"
@@ -259,6 +261,10 @@ public class TaskListTest {
 
         taskList.edit(3, "/a aaa /c ccc /f fff /g ggg /h hhh /i iii /j jjj /k kkk /l lll /m mmm "
                 + "/n nnn /o ooo /p ppp /q qqq /r rrr /t ttt /u uuu /v vvv /w www /x xxx /y yyy /z zzz");
+        taskList.edit(3, "aaa/d failure");
+        taskList.edit(3, "/dfailures");
+        taskList.edit(3, "/dfailure/bi");
+        taskList.edit(3, "d//bi");
         assertEquals(String.format(listHeader
                         + "1.[T][X] t1"
                         + "%n2.[T][ ] t2"
@@ -305,6 +311,12 @@ public class TaskListTest {
 
         taskList.edit(5, "/a aaa /c ccc /f fff /g ggg /h hhh /i iii /j jjj /k kkk /l lll /m mmm "
                 + "/n nnn /o ooo /p ppp /q qqq /r rrr /t ttt /u uuu /v vvv /w www /x xxx /y yyy /z zzz");
+        taskList.edit(5, "aaa/d failure");
+        taskList.edit(5, "/dfailures");
+        taskList.edit(5, "/dfailure/si");
+        taskList.edit(5, "d//si");
+        taskList.edit(5, "stop/efsdhk");
+        taskList.edit(5, "f/d/f/ef/s/b");
         assertEquals(String.format(listHeader
                         + "1.[T][X] t1"
                         + "%n2.[T][ ] t2"

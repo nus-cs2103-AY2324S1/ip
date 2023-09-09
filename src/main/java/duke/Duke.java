@@ -26,6 +26,8 @@ public class Duke {
             "Event Task is missing \"/from\" and/or \"/to\" fields.";
     private static final String ERROR_MESSAGE_FIND_MISSING_SEARCH_TERM =
             "Find command is missing a search term.";
+    private static final String ERROR_MESSAGE_EDIT_MISSING_PARAMS =
+            "Edit command is missing a task number and/or fields to update.";
     private static final String ERROR_MESSAGE_TEMPLATE_EXCEPTIONS =
             "[ERROR] %s%nType `help` for a list of commands.";
 
@@ -288,13 +290,13 @@ public class Duke {
     private static String executeEditTask(String argument) throws DukeIllegalArgumentException {
         String output;
         if (argument.isBlank()) {
-            throw new DukeIllegalArgumentException(ERROR_MESSAGE_FIND_MISSING_SEARCH_TERM);
+            throw new DukeIllegalArgumentException(ERROR_MESSAGE_EDIT_MISSING_PARAMS);
         } else {
+            String[] splitArgs = argument.split(" ", 2);
+            if (splitArgs.length != 2) {
+                throw new DukeIllegalArgumentException(ERROR_MESSAGE_EDIT_MISSING_PARAMS);
+            }
             try {
-                String[] splitArgs = argument.split(" ", 2);
-                if (splitArgs.length != 2) {
-                    throw new DukeIllegalArgumentException(ERROR_MESSAGE_FIND_MISSING_SEARCH_TERM);
-                }
                 output = list.edit(Integer.parseInt(splitArgs[0]), splitArgs[1]);
             } catch (NumberFormatException e) {
                 throw new DukeIllegalArgumentException(
