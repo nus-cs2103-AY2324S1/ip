@@ -20,6 +20,7 @@ public class UnmarkCommand extends Command {
     public UnmarkCommand(TaskList taskList, String numberString) {
         super(taskList);
         this.numberString = numberString;
+        assert (!numberString.equals(""));
     }
 
     /**

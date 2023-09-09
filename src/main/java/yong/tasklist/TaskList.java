@@ -67,7 +67,13 @@ public class TaskList {
             throw new DukeException("Wrong Param");
         }
 
+        int previousSize = taskList.size();
+
         Task task = taskList.remove(number - 1);
+
+        int nextSize = taskList.size();
+
+        assert(previousSize > nextSize);
 
         return task;
     }
@@ -78,7 +84,13 @@ public class TaskList {
      * @param task Task object to be added.
      */
     public void add(Task task) {
+        int previousSize = taskList.size();
+
         taskList.add(task);
+
+        int newSize = taskList.size();
+
+        assert(previousSize < newSize);
     }
 
     /**
@@ -135,5 +147,13 @@ public class TaskList {
 
         return outputString;
 
+    }
+
+    /**
+     * Returns the size of the tasklist
+     * @return size of the tasklist
+     */
+    public int size() {
+        return this.taskList.size();
     }
 }

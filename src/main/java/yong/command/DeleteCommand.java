@@ -20,6 +20,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(TaskList taskList, String numberString) {
         super(taskList);
         this.numberString = numberString;
+        assert (!numberString.equals(""));
 
     }
 

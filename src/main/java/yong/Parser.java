@@ -46,6 +46,8 @@ public class Parser {
         String check = parts[0];
         String numberString = parts.length > 1 ? parts[1] : "";
 
+        checkNumberInput(numberString);
+
         switch (check) {
         case "BYE":
             Command byeCommand = new ExitCommand(taskList);
@@ -82,4 +84,13 @@ public class Parser {
         }
     }
 
+    private void checkNumberInput(String s) throws DukeException {
+        if (s.equals("")) {
+            throw new DukeException("This is an invalid input");
+        }
+        Integer number = Integer.parseInt(s);
+        if (number >= taskList.size()) {
+            throw new DukeException("This is a bad number");
+        }
+    }
 }
