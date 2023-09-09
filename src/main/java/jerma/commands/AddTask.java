@@ -13,7 +13,7 @@ public class AddTask extends Command {
     }
 
     public String execute() {
-        this.tasks.add(this.task);
-        return this.ui.newTask(this.task);
+        tasks.add(task);
+        return ui.newTask(task);
     }
 }

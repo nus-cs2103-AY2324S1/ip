@@ -10,11 +10,11 @@ public class Delete extends Command {
     public Delete(Ui ui, TaskList tasks, int index) {
         super(ui, tasks);
         assert index > 0 || index <= tasks.size() : "Index out of range";
-        this.task = tasks.get(index - 1);
+        task = tasks.get(index - 1);
     }
 
     public String execute() {
-        this.tasks.remove(this.task);
-        return this.ui.deleteTask(this.task, tasks.size());
+        tasks.remove(task);
+        return ui.deleteTask(task, tasks.size());
     }
 }

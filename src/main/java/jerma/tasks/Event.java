@@ -28,8 +28,7 @@ public class Event extends Task {
      */
     @Override
     public String save() {
-        return String.format("%s|%s|%s|%s", this.symbol, super.save(),
-                this.from, this.to);
+        return String.format("%s|%s|%s|%s", symbol, super.save(), from, to);
     }
 
     /**
@@ -39,7 +38,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s]%s (%s to %s)", this.symbol, super.toString(),
-                this.from, this.to);
+        return String.format("[%s]%s (%s to %s)", symbol, super.toString(),
+                from, to);
     }
 }
