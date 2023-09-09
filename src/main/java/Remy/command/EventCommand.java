@@ -34,10 +34,6 @@ public class EventCommand extends Command {
         }
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 
     /**
      * Creates new Event and adds it to the TaskList.
@@ -47,10 +43,10 @@ public class EventCommand extends Command {
      * @throws ChatbotException if error while saving.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws ChatbotException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws ChatbotException {
         Event temp = new Event(this.eventName, this.startDate, this.endDate);
         taskList.add(temp);
         storage.save(taskList);
-        Ui.printAddedTask(temp, taskList.size());
+        return Ui.getAddedTaskMessage(temp, taskList.size());
     }
 }

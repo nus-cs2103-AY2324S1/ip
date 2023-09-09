@@ -32,11 +32,6 @@ public class TodoCommand extends Command {
 
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
     /**
      * Creates a Todo instance and adds it to the TaskList.
      *
@@ -46,10 +41,10 @@ public class TodoCommand extends Command {
      * @throws ChatbotException
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws ChatbotException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws ChatbotException {
         Todo temp = new Todo(this.taskName);
         taskList.add(temp);
         storage.save(taskList);
-        Ui.printAddedTask(temp, taskList.size());
+        return Ui.getAddedTaskMessage(temp, taskList.size());
     }
 }

@@ -32,16 +32,12 @@ public class FindCommand extends Command {
         }
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
     /**
      * Prints out the list of matching Tasks.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws ChatbotException {
-        Ui.printSearchResults(taskList.findMatchingTasks(this.searchString));
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws ChatbotException {
+        String searchResults = taskList.findMatchingTasks(this.searchString);
+        return "Here are the matching tasks in your list: \n" + searchResults;
     }
 }

@@ -37,11 +37,6 @@ public class MarkCommand extends Command {
         }
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
     /**
      * Marks the previously indicated Task as completed.
      * @param taskList The TaskList to be acted on.
@@ -50,14 +45,14 @@ public class MarkCommand extends Command {
      * @throws ChatbotException if given index does not match any Task on the TaskList.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws ChatbotException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws ChatbotException {
         if (this.index >= taskList.size()) {
             throw new ChatbotException("Your Task list don't have this number lah.");
         }
         taskList.get(index).markAsDone();
         String content = "Done. You happy?\n" + taskList.get(index).toString();
         storage.save(taskList);
-        Ui.printShortSandwich(content);
+        return content;
     }
 
 }

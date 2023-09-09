@@ -45,10 +45,6 @@ public class DeadlineCommand extends Command {
         }
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 
     /**
      * Creates a new Deadline object and adds it to the TaskList.
@@ -58,12 +54,12 @@ public class DeadlineCommand extends Command {
      * @throws ChatbotException if the time information is in the wrong format.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws ChatbotException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws ChatbotException {
         try {
             Deadline temp = new Deadline(this.taskName, this.dueDate);
             taskList.add(temp);
             storage.save(taskList);
-            Ui.printAddedTask(temp, taskList.size());
+            return Ui.getAddedTaskMessage(temp, taskList.size());
         } catch (DateTimeParseException e) {
             throw new ChatbotException("You don't know how to write the time isit?: " + e.getMessage());
         }

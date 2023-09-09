@@ -35,11 +35,15 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws ChatbotException {
-        String task = taskList.get(this.index).toString();
-        taskList.remove(this.index);
-        String content = "Done. Can you don't be so troublesome?\n" + task;
-        storage.save(taskList);
-        Ui.printShortSandwich(content);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws ChatbotException {
+        try {
+            String task = taskList.get(this.index).toString();
+            taskList.remove(this.index);
+            String content = "Done. Can you don't be so troublesome?\n" + task;
+            storage.save(taskList);
+            return content;
+        } catch (ChatbotException e) {
+            return "Cannot execute delete command: " + e.getMessage();
+        }
     }
 }
