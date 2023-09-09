@@ -11,6 +11,9 @@ import java.util.Objects;
  * Processes the string the user put in.
  */
 public class Parser {
+    static final char TODO_CHAR = 't';
+    static final char DEADLINE_CHAR = 'd';
+    static final char EVENT_CHAR = 'e';
     /**
      * Returns the type of task.
      * @param response the string the user put in.
@@ -38,125 +41,112 @@ public class Parser {
      * number is reduced by 1 since user will write with 1-indexing while
      * taskList is 0-indexed.
      * Not to be used for other types of command.
-     * @param response the string the user put in.
-     * @return task number.
+     * @param response The string the user put in.
+     * @return Task number.
      */
-    public static int taskNumber(String response) {
+    public static int getTaskNumber(String response) {
         String[] array = response.split(" ");
         String lastVal = array[array.length - 1];
         return parseInt(lastVal) - 1;
     }
 
     /**
-     * Returns the task given in a command.
-     * @param response the string the user put in.
-     * @return the task.
+     * Creates and returns the task given in a command.
+     * @param response The string the user put in.
+     * @return The task.
      * @throws DukeException if incomplete task or not a task.
      */
-    public static Task newTask(String response) throws DukeException {
+    public static Task createNewTask(String response) throws DukeException {
         String[] array = response.split(" ");
-        StringBuilder title = new StringBuilder();
-        String mode = "title";
         if (response.startsWith("todo")) {
-            for (String command : array) {
-                if (Objects.equals(command, "todo")) {
-                    continue;
-                }
-                if (!title.isEmpty()) {
-                    title.append(" ");
-                }
-                title.append(command);
-            }
-            if (!title.isEmpty()) {
-                return new Todo(title.toString());
-            } else {
-                throw new DukeException("☹ OOPS!!! The title of a todo cannot be empty.");
-            }
+            String title = parseInfo(array, TODO_CHAR)[0];
+            return new Todo(title);
         } else if (response.startsWith("deadline")) {
-            StringBuilder deadline = new StringBuilder();
-            for (String command : array) {
-                if (Objects.equals(command, "deadline")) {
-                    continue;
-                }
-                if (Objects.equals(command, "/by")) {
-                    mode = "deadline";
-                    continue;
-                }
-                if (Objects.equals(mode, "title")) {
-                    if (!title.isEmpty()) {
-                        title.append(" ");
-                    }
-                    title.append(command);
-                } else {
-                    if (!deadline.isEmpty()) {
-                        deadline.append(" ");
-                    }
-                    deadline.append(command);
-                }
-            }
+            String[] receivedInfo = parseInfo(array, DEADLINE_CHAR);
+            String title = receivedInfo[0];
+            String deadline = receivedInfo[1];
             if (!title.isEmpty()) {
-                try {
-                    LocalDate fromDate = LocalDate.parse(deadline);
-                    deadline = new StringBuilder(fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
-                    return new Deadline(title.toString(), deadline.toString());
-                } catch (DateTimeException e) {
-                    return new Deadline(title.toString(), deadline.toString());
-                }
+                return new Deadline(title, parseTime(deadline));
             } else {
                 throw new DukeException("☹ OOPS!!! The title cannot be empty.");
             }
         } else if (response.startsWith("event")) {
-            StringBuilder from = new StringBuilder();
-            StringBuilder to = new StringBuilder();
-            for (String command : array) {
-                if (Objects.equals(command, "event")) {
-                    continue;
-                }
-                if (Objects.equals(command, "/from")) {
-                    mode = "from";
-                    continue;
-                }
-                if (Objects.equals(command, "/to")) {
-                    mode = "to";
-                    continue;
-                }
-                if (Objects.equals(mode, "title")) {
-                    if (!title.isEmpty()) {
-                        title.append(" ");
-                    }
-                    title.append(command);
-                } else if (Objects.equals(mode, "from")) {
-                    if (!from.isEmpty()) {
-                        from.append(" ");
-                    }
-                    from.append(command);
-                } else {
-                    if (!to.isEmpty()) {
-                        to.append(" ");
-                    }
-                    to.append(command);
-                }
-            }
+            String[] receivedInfo = parseInfo(array, EVENT_CHAR);
+            String title = receivedInfo[0];
+            String from = receivedInfo[1];
+            String to = receivedInfo[2];
             if (!title.isEmpty()) {
-                try {
-                    LocalDate fromDate = LocalDate.parse(from);
-                    from = new StringBuilder(fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
-                } catch (DateTimeException ignored) {
-                    from = from;
-                }
-                try {
-                    LocalDate fromDate = LocalDate.parse(to);
-                    to = new StringBuilder(fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
-                } catch (DateTimeException e) {
-                    to = to;
-                }
-                return new Event(title.toString(), from.toString(), to.toString());
+                return new Event(title, parseTime(from), parseTime(to));
             } else {
                 throw new DukeException("☹ OOPS!!! The title cannot be empty.");
             }
         }
         return null;
     }
+
+    @SuppressWarnings("checkstyle:MissingSwitchDefault")
+    private static String[] parseInfo(String[] responseArray, char taskType) throws DukeException {
+        String mode = "title";
+        StringBuilder title = new StringBuilder();
+        StringBuilder deadline = new StringBuilder();
+        StringBuilder from = new StringBuilder();
+        StringBuilder to = new StringBuilder();
+        for (String command : responseArray) {
+            if (Objects.equals(command, "todo") && taskType == TODO_CHAR) {
+                continue;
+            }
+            if (Objects.equals(command, "deadline") && taskType == DEADLINE_CHAR) {
+                continue;
+            }
+            if (Objects.equals(command, "event") && taskType == EVENT_CHAR) {
+                continue;
+            }
+            if (Objects.equals(command, "/by") && taskType == DEADLINE_CHAR) {
+                mode = "deadline";
+                continue;
+            }
+            if (Objects.equals(command, "/from") && taskType == DEADLINE_CHAR) {
+                mode = "from";
+                continue;
+            }
+            if (Objects.equals(command, "/to") && taskType == DEADLINE_CHAR) {
+                mode = "to";
+                continue;
+            }
+            switch (mode) {
+            case "title" -> addToString(title, command);
+            case "deadline" -> addToString(deadline, command);
+            case "from" -> addToString(from, command);
+            case "to" -> addToString(to, command);
+            default -> throw new DukeException("Invalid mode.");
+            }
+        }
+
+        if (taskType == TODO_CHAR) {
+            return new String[] {title.toString()};
+        } else if (taskType == DEADLINE_CHAR) {
+            return new String[] {title.toString(), deadline.toString()};
+        } else {
+            return new String[] {title.toString(), deadline.toString(), to.toString()};
+        }
+    }
+
+    private static void addToString(StringBuilder original, String stringToAdd) {
+        if (!original.isEmpty()) {
+            original.append(" ");
+        }
+        original.append(stringToAdd);
+    }
+
+    private static String parseTime(String potentialTime) {
+        try {
+            LocalDate fromDate = LocalDate.parse(potentialTime);
+            return fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        } catch (DateTimeException e) {
+            return potentialTime;
+        }
+    }
+
     public static String findKeyword(String response) {
         return response.substring(5);
     }

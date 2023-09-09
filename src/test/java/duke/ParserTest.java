@@ -16,7 +16,7 @@ public class ParserTest {
     @Test
     public void newTask_missingToFromEvent_nullReturned() {
         try {
-            Task test = Parser.newTask("event 1 /from 2");
+            Task test = Parser.createNewTask("event 1 /from 2");
             assert test != null;
             assertEquals("[E][ ] 1 (from: 2 to: )", test.toString());
         } catch (Exception e) {
