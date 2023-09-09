@@ -16,12 +16,14 @@ public class Event extends Task {
     @Override
     public String fileSaveFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return "E|" + super.fileSaveFormat() + "|" + from.format(formatter) + "|" + to.format(formatter);
+        return "E|" + super.fileSaveFormat() + "|" +
+                from.format(formatter) + "|" + to.format(formatter);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + formatDate(from) + " to: " + formatDate(to) + ")";
+        return "[E]" + super.toString() +
+                " (from: " + formatDate(from) + " to: " + formatDate(to) + ")";
     }
 
     private String formatDate(LocalDate date) {

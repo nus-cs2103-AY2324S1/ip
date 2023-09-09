@@ -32,7 +32,9 @@ public class Storage {
                 System.out.println("No saved tasks found.");
             }
         } catch (IOException | SecurityException e) {
-//            throw new DukeException("Error loading tasks from the file.");
+            System.out.println("Error saving tasks to the file.");
+            throw new RuntimeException(
+                    "This should never happen, I know this file exists", e);
         }
         return list;
     }
@@ -40,12 +42,15 @@ public class Storage {
     public void save(TaskList taskList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(dataFilePath))) {
             for (int i = 0; i < taskList.size(); i++) {
-                Task task = taskList.getTask(i + 1); // since getTask uses an index starting from 1
+                // since getTask uses an index starting from 1
+                Task task = taskList.getTask(i + 1);
                 writer.write(task.fileSaveFormat());
                 writer.newLine();
             }
         } catch (IOException | DreException e) {
             System.out.println("Error saving tasks to the file.");
+            throw new RuntimeException(
+                    "This should never happen, I know this file exists", e);
         }
     }
 }

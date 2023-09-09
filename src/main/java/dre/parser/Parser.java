@@ -2,8 +2,17 @@ package dre.parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import dre.task.*;
-import dre.command.*;
+import dre.task.Task;
+import dre.task.ToDo;
+import dre.task.Event;
+import dre.task.Deadline;
+import dre.command.AddCommand;
+import dre.command.DeleteCommand;
+import dre.command.ExitCommand;
+import dre.command.MarkCommand;
+import dre.command.UnmarkCommand;
+import dre.command.Command;
+import dre.command.ListCommand;
 import dre.exception.DreException;
 
 public class Parser {
@@ -41,12 +50,12 @@ public class Parser {
     }
 
     private static LocalDate parseDate(String dateString) {
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // adjust format
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return LocalDate.parse(dateString, inputFormatter);
     }
 
     public static Command parse(String input) throws DreException {
-        String[] words = input.split(" ", 2);  // split dre.command from the rest of the input
+        String[] words = input.split(" ", 2);
         String commandWord = words[0];
 
         switch (commandWord) {

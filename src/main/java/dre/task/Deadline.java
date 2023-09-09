@@ -13,7 +13,8 @@ public class Deadline extends Task {
 
     @Override
     public String fileSaveFormat() {
-        return "D|" + super.fileSaveFormat() + "|" + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return "D|" + super.fileSaveFormat() + "|" +
+                by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     @Override
