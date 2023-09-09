@@ -8,6 +8,12 @@ public class Parser {
     private MarkPattern check = new MarkPattern();
     private String reply = "";
 
+    private String help1 = "Hi, welcome to the help page!\n" +
+            "Commands: list, find, mark, unmark, delete\n" +
+            "Tasks: todo, deadline, event\n" +
+            "For further questions, message the author on github :)";
+
+
     /**
      * The constructor to init
      */
@@ -41,6 +47,8 @@ public class Parser {
             for (int i = 0; i < items.getSize(); i++) {
                 update((i + 1) + ". " + items.get(i).display());
             }
+        } else if(stuff.equalsIgnoreCase("help")) {
+            update(help1);
         } else if (check.unmark(stuff) != -1) {
             items.get(check.unmark(stuff)).isDone = false;
             update("Gg, not done with " + items.get(check.unmark(stuff)).display());
