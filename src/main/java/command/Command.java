@@ -31,6 +31,7 @@ public abstract class Command {
      *
      * @param taskList The task list which the command adds the task into if asked.
      * @param ui The ui of the chatbot to read the input of the user.
+     * @return The response of paimonbot when a specific command is given.
      * @throws Exception
      */
     public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;

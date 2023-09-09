@@ -7,14 +7,11 @@ import exception.EmptyInputException;
 import exception.InvalidCommandException;
 import exception.InvalidDateTimeException;
 import exception.InvalidFormatException;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
-
 
 /**
  * Duke is the chatbot program.
+ *
+ * @author fry
  */
 public class Duke {
     private Storage storage;
@@ -36,8 +33,10 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generate a response to user input.
+     *
+     * @param input The input of the user.
+     * @return The response of paimonbot.
      */
     public String getResponse(String input) {
         String response;
@@ -60,38 +59,5 @@ public class Duke {
         }
         return response;
     }
-
-    /*
-    public void run() {
-        // ui.printWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = parser.parse(fullCommand);
-                c.execute(taskList, ui, storage);
-                isExit = c.isExit();
-            } catch (EmptyInputException e) {
-                System.out.println(e.getMessage());
-            } catch (EmptyDateTimeException e) {
-                System.out.println(e.getMessage());
-            } catch (InvalidFormatException e) {
-                System.out.println(e.getMessage());
-            } catch (InvalidCommandException e) {
-                System.out.println(e.getMessage());
-            } catch (InvalidDateTimeException e) {
-                System.out.println(e.getMessage());
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            } catch (Exception e) {
-                System.out.println("☹ OOPS!!! Something went wrong D:"
-                        + Ui.SEPARATOR);
-                e.printStackTrace();
-            } finally {
-                storage.writeTasks(taskList);
-            }
-        }
-    }
-    */
 }
 

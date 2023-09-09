@@ -55,7 +55,7 @@ public class DeadlineCommand extends Command {
                 return str;
             }
         } catch (DateTimeParseException e) {
-        throw new InvalidDateTimeException("deadline");
+            throw new InvalidDateTimeException("deadline");
         }
     }
 

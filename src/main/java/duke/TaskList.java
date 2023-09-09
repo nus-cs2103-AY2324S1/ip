@@ -40,6 +40,7 @@ public class TaskList {
      * Marks the specific task in the user's list of tasks as completed.
      *
      * @param num The index of the task which is to be mark as completed.
+     * @return The message of paimonbot to indicate the task is marked.
      */
     public String markTask(int num) {
         Task t = taskList.get(num - 1);
@@ -51,6 +52,7 @@ public class TaskList {
      * Marks the specific task in the user's list of tasks as incomplete.
      *
      * @param num The index of the task which is to be mark as incomplete.
+     * @return The message of paimonbot to indicate the task is unmarked.
      */
     public String unmarkTask(int num) {
         Task t = taskList.get(num - 1);
@@ -62,6 +64,7 @@ public class TaskList {
      * Adds the task into the user's list of tasks.
      *
      * @param task The task to be added.
+     * @return The message of paimonbot to indicate a task is added.
      */
     public String addTask(Task task) {
         this.taskList.add(task);
@@ -74,6 +77,7 @@ public class TaskList {
      * Deletes the specific task from the user's list of tasks.
      *
      * @param num The index of the task to be deleted.
+     * @return The message of paimonbot to indicate the task is deleted.
      */
     public String deleteTask(int num) {
         Task deletedTask = taskList.remove(num - 1);
@@ -86,6 +90,7 @@ public class TaskList {
      * Finds the tasks in the list of tasks with the given keyword.
      *
      * @param keyword The keyword the user wants to search for in the tasks.
+     * @return The message of paimonbot to indicate the tasks with the keyword given.
      */
     public String findTask(String keyword) {
         if (taskList.isEmpty()) {
