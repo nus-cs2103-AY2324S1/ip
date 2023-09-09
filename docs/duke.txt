@@ -1,4 +1,3 @@
 TODO | read book
-DEADLINE | return book | 2023-06-12
-EVENT | project meeting | 2022-05-10 1400 | 2022-05-10 1600
-
+DEADLINE | project | 2022-10-10
+EVENT | meet | 2023-06-12 1400 | 2023-06-12 1600
