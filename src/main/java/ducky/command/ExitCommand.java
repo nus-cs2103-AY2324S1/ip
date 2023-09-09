@@ -2,7 +2,6 @@ package ducky.command;
 
 import ducky.Storage;
 import ducky.TaskList;
-import ducky.UserInterface;
 
 /**
  * Represents a command that exits Ducky.

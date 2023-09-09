@@ -2,7 +2,6 @@ package ducky.command;
 
 import ducky.Storage;
 import ducky.TaskList;
-import ducky.UserInterface;
 
 /**
  * Represents a command that lists all tasks in Ducky's task list.

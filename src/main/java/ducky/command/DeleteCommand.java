@@ -3,7 +3,6 @@ package ducky.command;
 import ducky.DuckyException;
 import ducky.Storage;
 import ducky.TaskList;
-import ducky.UserInterface;
 import ducky.task.Task;
 
 /**

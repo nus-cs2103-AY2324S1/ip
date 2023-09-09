@@ -3,7 +3,6 @@ package ducky.command;
 import ducky.DuckyException;
 import ducky.Storage;
 import ducky.TaskList;
-import ducky.UserInterface;
 
 /**
  * Represents a command to Ducky chatbot.
@@ -27,5 +26,5 @@ public abstract class Command {
      * @return
      * @throws DuckyException If exceptions specific to Ducky are raised.
      */
-    public abstract String execute(TaskList taskList, UserInterface ui, Storage storage) throws DuckyException;
+    public abstract String execute(TaskList taskList, Storage storage) throws DuckyException;
 }
