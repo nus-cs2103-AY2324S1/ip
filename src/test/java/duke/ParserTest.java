@@ -1,17 +1,15 @@
 package duke.main;
 
-import duke.command.AddCommand;
-import duke.exception.DukeException;
-import duke.main.Parser;
-import duke.main.Storage;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import duke.task.TaskList;
-import duke.task.Todos;
+import org.junit.jupiter.api.Test;
+
+import duke.command.AddCommand;
+import duke.exception.DukeException;
 import duke.task.Deadlines;
 import duke.task.Events;
-
+import duke.task.TaskList;
+import duke.task.Todos;
 
 public class ParserTest {
     @Test

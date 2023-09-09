@@ -21,7 +21,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         TaskList tempList = new TaskList();
         for (Task task : taskList.getTaskList()) {
             String description = task.getDescription().toLowerCase();
@@ -29,16 +29,16 @@ public class FindCommand extends Command {
                 tempList.addTask(task);
             }
         }
-        this.printCommand(tempList);
+        return this.printCommand(tempList);
     }
 
     @Override
-    public void printCommand(TaskList filteredTaskList) {
-        System.out.println("JonBird:");
-        System.out.println("\tHere are the tasks in your list:");
+    public String printCommand(TaskList filteredTaskList) {
+        String result = "JonBird:\n\tHere are the tasks in your list:";
         for (int i = 0; i < filteredTaskList.size(); i++) {
-            System.out.println("\t\t" + (i + 1) + ". " + filteredTaskList.getTask(i).printTask());
+            result += "\n\t\t" + (i + 1) + ". " + filteredTaskList.getTask(i).printTask();
         }
+        return result;
     }
     @Override
     public boolean isContinue() {

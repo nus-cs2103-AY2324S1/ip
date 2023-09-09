@@ -23,16 +23,16 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         taskList.getTask(this.index - 1).markAsDone();
-        this.printCommand(taskList);
         storage.writeData(taskList.convertToFileContent());
+        return this.printCommand(taskList);
     }
 
     @Override
-    public void printCommand(TaskList taskList) {
-        System.out.println("JonBird:\n\tNice! I've marked this task as done:");
-        System.out.println("\t\t" + taskList.getTask(this.index - 1).printTask());
+    public String printCommand(TaskList taskList) {
+        return "JonBird:\n\tNice! I've marked this task as done:"
+                + "\n\t\t" + taskList.getTask(this.index - 1).printTask();
     }
 
     @Override

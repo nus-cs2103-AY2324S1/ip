@@ -14,13 +14,13 @@ public abstract class Command {
      * @param storage The storage responsible for saving and load the taskList
      *                into a file.
      */
-    public abstract void execute(TaskList taskList, Storage storage);
+    public abstract String execute(TaskList taskList, Storage storage);
 
     /**
      * Prints the actions taken by the command based on user input.
      * @param taskList The list of tasks under the user.
      */
-    public abstract void printCommand(TaskList taskList);
+    public abstract String printCommand(TaskList taskList);
 
     /**
      * Returns true or false based on whether the command will cause the program

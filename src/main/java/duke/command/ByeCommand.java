@@ -8,13 +8,13 @@ import duke.task.TaskList;
  */
 public class ByeCommand extends Command {
     @Override
-    public void execute(TaskList taskList, Storage storage) {
-        this.printCommand(taskList);
+    public String execute(TaskList taskList, Storage storage) {
+        return this.printCommand(taskList);
     }
 
     @Override
-    public void printCommand(TaskList taskList) {
-        System.out.println("JonBird:\n\tBye. Hope to see you again soon!");
+    public String printCommand(TaskList taskList) {
+        return "JonBird:\n\tBye. Hope to see you again soon!";
     }
 
     @Override
