@@ -158,6 +158,8 @@ public class Storage {
                         taskToAdd = produceEventTask(taskDetails, markStatus);
                         break;
                 }
+                assert taskToAdd != null : "taskToAdd should be updated to a Task from null if a line is scanned in " +
+                        "task file";
                 taskList.addTask(taskToAdd);
             }
         } catch (FileNotFoundException e) {
