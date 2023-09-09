@@ -144,48 +144,57 @@ public class Parser {
      * @throws DukeException If the task is not in the correct format.
      */
     public Task parseTask(String line) throws DukeException {
-        String[] split = line.split("\\|");
-        String type = split[0];
-        boolean isDone = split[1].equals("1");
-        String description = split[2];
-        String[] tags = split[split.length - 1].split(" ");
-        for (int i = 0; i < tags.length; i++) {
-            tags[i] = tags[i].replace("#", "");
-        }
-        Task task = null;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        try {
+            String[] split = line.split("\\|");
+            String type = split[0];
+            boolean isDone = split[1].equals("1");
+            String description = split[2];
+            String tags = split[3];
+            
+            Task task = null;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-        switch (type) {
-        case "T": {
-            task = new Todo(description);
-            task.addTags(tags);
-            if (isDone) {
-                task.markAsDone();
+            switch (type) {
+            case "T": {
+                task = new Todo(description);
+                if (tags.length() > 0) {
+                    task.addTags(tags.split(" "));
+                }
+                if (isDone) {
+                    task.markAsDone();
+                }
+                break;
             }
-            break;
-        }
-        case "D": {
-            LocalDateTime by = LocalDateTime.parse(split[3], formatter);
-            task = new Deadline(description, by);
-            task.addTags(tags);
-            if (isDone) {
-                task.markAsDone();
+            case "D": {
+                LocalDateTime by = LocalDateTime.parse(split[4], formatter);
+                task = new Deadline(description, by);
+                if (tags.length() > 0) {
+                    task.addTags(tags.split(" "));
+                }
+                if (isDone) {
+                    task.markAsDone();
+                }
+                break;
             }
-            break;
-        }
-        case "E": {
-            LocalDateTime start = LocalDateTime.parse(split[3], formatter);
-            LocalDateTime end = LocalDateTime.parse(split[4], formatter);
-            task = new Event(description, start, end);
-            task.addTags(tags);
-            if (isDone) {
-                task.markAsDone();
+            case "E": {
+                LocalDateTime start = LocalDateTime.parse(split[4], formatter);
+                LocalDateTime end = LocalDateTime.parse(split[5], formatter);
+                task = new Event(description, start, end);
+                if (tags.length() > 0) {
+                    task.addTags(tags.split(" "));
+                }
+                if (isDone) {
+                    task.markAsDone();
+                }
+                break;
             }
-            break;
+            default:
+                throw new DukeInvalidCommandException();
+            }
+            return task;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException();
         }
-        default:
-            throw new DukeInvalidCommandException();
-        }
-        return task;
+
     }
 }

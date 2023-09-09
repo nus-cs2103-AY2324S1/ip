@@ -10,7 +10,7 @@ import java.util.List;
 public class Task {
     private final String description;
     private boolean isDone;
-    private List<String> tags;
+    private final List<String> tags;
 
     /**
      * Creates a Task object.
@@ -48,12 +48,23 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Add tags to the task.
+     * @param tags The tags to be added.
+     */
     public void addTags(String... tags) {
+        if (tags.length == 0) {
+            return;
+        }
         this.tags.addAll(Arrays.asList(tags));
     }
 
+    /**
+     * Returns the description of the task that is to be saved by Storage.
+     * @return The description of the task that is to be saved by Storage.
+     */
     public String tagsToString() {
-        StringBuilder tagsString = new StringBuilder();
+        StringBuilder tagsString = new StringBuilder(" ");
         for (String tag : this.tags) {
             tagsString.append("#").append(tag).append(" ");
         }
@@ -66,7 +77,10 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description + "\n" + tagsToString();
+        if (tags.size() > 0) {
+            return "[" + getStatusIcon() + "] " + description + "\n" + tagsToString();
+        }
+        return "[" + getStatusIcon() + "] " + description;
     }
 
     /**
@@ -74,8 +88,11 @@ public class Task {
      * @return The description of the task that is to be saved by Storage.
      */
     public String toSaveString() {
-        System.out.printf("%s|%s|%s%n", isDone ? "1" : "0", description, tagsToString());
-        return String.format("%s|%s|%s", isDone ? "1" : "0", description, tagsToString());
+        StringBuilder tagsString = new StringBuilder();
+        for (String tag : this.tags) {
+            tagsString.append(tag).append(" ");
+        }
+        return String.format("%s|%s|%s", isDone ? "1" : "0", description, tagsString.toString());
     }
 
 }

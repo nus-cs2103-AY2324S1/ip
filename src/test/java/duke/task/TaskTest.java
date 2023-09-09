@@ -40,10 +40,10 @@ public class TaskTest {
     @Test
     public void toSaveString_success() {
         Task task = new Task("test");
-        assertEquals(task.toSaveString(), "0|test");
+        assertEquals(task.toSaveString(), "0|test|");
         task.markAsDone();
-        assertEquals(task.toSaveString(), "1|test");
+        assertEquals(task.toSaveString(), "1|test|");
         task.markAsUndone();
-        assertEquals(task.toSaveString(), "0|test");
+        assertEquals(task.toSaveString(), "0|test|");
     }
 }
