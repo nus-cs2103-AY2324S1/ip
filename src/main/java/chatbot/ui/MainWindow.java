@@ -3,13 +3,12 @@ package chatbot.ui;
 import chatbot.ChatBot;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -25,8 +24,8 @@ public class MainWindow extends AnchorPane {
 
     private ChatBot chatBot;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Bobby Wasabi.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpeg"));
+    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/Bobby Wasabi.jpeg"));
 
     @FXML
     public void initialize() {
@@ -35,6 +34,15 @@ public class MainWindow extends AnchorPane {
 
     public void setChatBot(ChatBot c) {
         chatBot = c;
+        startChat();
+    }
+
+    @FXML
+    private void startChat() {
+        String response = "Hello I am Bobby Wasabi, what can I do for you?";
+        dialogContainer.getChildren().addAll(
+                DialogBox.getChatBotDialog(response, botImage)
+        );
     }
 
     /**
@@ -43,11 +51,11 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        Label input = new Label(userInput.getText());
-        Label response = new Label(chatBot.getResponse(userInput.getText()));
+        String input = userInput.getText();
+        String response =chatBot.getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, new ImageView(userImage)),
-                DialogBox.getDukeDialog(response, new ImageView(dukeImage))
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getChatBotDialog(response, botImage)
         );
         userInput.clear();
     }

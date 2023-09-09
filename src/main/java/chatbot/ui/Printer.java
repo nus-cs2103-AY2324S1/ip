@@ -1,20 +1,12 @@
 package chatbot.ui;
 
-import java.util.Scanner;
-
 /**
- * Class representing a UI which reads inputs from users
- * and prints outputs depending on the command or error.
+ * Class representing a Printer that prints outputs 
+ * depending on the command or error.
  *
  * @author Owen Yeo
  */
 public class Printer {
-
-    //Scanner used to see user input
-    private static final Scanner sc = new Scanner(System.in);
-
-    //String representing a border.
-    private static final String BORDER = "____________________________________________________________\n";
 
     /**
      * Prints the inputs out for the user.
@@ -44,15 +36,6 @@ public class Printer {
      */
     public String bye() {
         return "Bye. Have a bad day you doofus.";
-    }
-
-    /**
-     * Reads the input from the users
-     * 
-     * @return String representing input
-     */
-    public String readInput() {
-        return sc.nextLine();
     }
 
     /**
