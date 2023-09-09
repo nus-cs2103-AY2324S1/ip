@@ -11,6 +11,13 @@ public class Event extends Task {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
+    /**
+     * Initializes a new Event task.
+     *
+     * @param description       The description of the event task.
+     * @param startDateTimeString  The start date and time of the event in the format of "yyyy-MM-dd HHmm".
+     * @param endDateTimeString   The end date and time of the event in the format of "yyyy-MM-dd HHmm".
+     */
     public Event(String description, String startDateTimeString, String endDateTimeString) {
         super(description);
         this.startTime = parseDateTime(startDateTimeString);
@@ -41,11 +48,23 @@ public class Event extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return dateTime.format(formatter);
     }
+
+    /**
+     * Converts the event task to a formatted string.
+     *
+     * @return  A string representation of the event task.
+     */
     @Override
     public String toDataString() {
 
         return "EVENT | " + super.toDataString() + " | " + saveFormatDateTime(startTime) + " | " + saveFormatDateTime(endTime);
     }
+
+    /**
+     * Converts the event task to a string representation for displaying.
+     *
+     * @return A string representation of the event task.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + formatDateTime(startTime) + " to: " + formatDateTime(endTime) + ")";
