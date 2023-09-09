@@ -117,6 +117,7 @@ public class Storage {
         } catch (FileNotFoundException e) {
             try {
                 f.createNewFile();
+                ui.showMessage("Welcome new user!!!");
             } catch (IOException e1) {
                 ui.showError(e1);
             }
