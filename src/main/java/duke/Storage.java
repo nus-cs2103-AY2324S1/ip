@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,8 +52,8 @@ public class Storage {
                 boolean isDone = Integer.parseInt(parts[1]) == 1;
                 String taskDescription = parts[2];
 
-                // Check if the task is already in Duke.allTasks
-                if (!TaskList.isTaskInAllTasks(taskType, taskDescription)) { //rewrite method in TaskList class
+                // Check if the task is already in duke.Duke.allTasks
+                if (!TaskList.isTaskInAllTasks(taskType, taskDescription)) { //rewrite method in duke.TaskList class
                     Task task;
 
                     if (taskType.equals("T")) {
