@@ -1,10 +1,14 @@
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Duke {
 
@@ -63,9 +67,9 @@ public class Duke {
                     System.out.println("____________________________________________________________");
                     addToFile(list);
                 } else if (command.startsWith("deadline")) {
-                    String deadline = command.split(" /by ", 2)[1];
+                    LocalDate deadline = LocalDate.parse(command.split(" /by ", 2)[1]);
                     String name = command.split(" /by ", 2)[0].split(" ", 2)[1];
-                    Deadline newDeadline = new Deadline(deadline, name);
+                    Deadline newDeadline = new Deadline(name, deadline);
                     list.add(newDeadline);
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it. I've added this task:");
@@ -74,9 +78,9 @@ public class Duke {
                     System.out.println("____________________________________________________________");
                     addToFile(list);
                 } else if (command.startsWith("event")) {
-                    String startTime = command.split(" /from ", 2)[1]
-                            .split(" /to ", 2)[0];
-                    String endTime = command.split(" /to ", 2)[1];
+                    LocalDate startTime = LocalDate.parse(command.split(" /from ", 2)[1]
+                            .split(" /to ", 2)[0]);
+                    LocalDate endTime = LocalDate.parse(command.split(" /to ", 2)[1]);
                     String name = command.split(" /from ", 2)[0].split(" ", 2)[1];
                     Event newEvent = new Event(name, startTime, endTime);
                     list.add(newEvent);
@@ -133,9 +137,12 @@ public class Duke {
         if (taskType.equals("T")) {
             return new ToDo(description, isComplete);
         } else if (taskType.equals("D")) {
-            return new Deadline(description, isComplete, input.split(" \\| ")[3]);
+            LocalDate d = LocalDate.parse(input.split(" \\| ")[3], DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH));
+            return new Deadline(description, isComplete, d);
         } else {
-            return new Event(description, isComplete, input.split(" \\| ")[3], input.split(" \\| ")[4]);
+            LocalDate start = LocalDate.parse(input.split(" \\| ")[3], DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH));
+            LocalDate end = LocalDate.parse(input.split(" \\| ")[4], DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH));
+            return new Event(description, isComplete, start, end);
         }
     }
 

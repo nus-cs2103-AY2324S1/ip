@@ -1,13 +1,17 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 public class Event extends Task{
-    private String startTime;
-    private String endTime;
-    public Event(String description, String startTime, String endTime) {
+    private LocalDate startTime;
+    private LocalDate endTime;
+    public Event(String description, LocalDate startTime, LocalDate endTime) {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    public Event(String description, boolean isDone, String startTime, String endTime) {
+    public Event(String description, boolean isDone, LocalDate startTime, LocalDate endTime) {
         super(description, isDone);
         this.startTime = startTime;
         this.endTime = endTime;
@@ -15,11 +19,13 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+        return "[E]" + super.toString() + " (from: " + startTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH))
+                + " to: " + endTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH)) + ")";
     }
 
     @Override
     public String toTxt() {
-        return "E | " + super.toTxt() + " | " + this.startTime + " | " + this.endTime;
+        return "E | " + super.toTxt() + " | " + this.startTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH))
+                + " | " + this.endTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH));
     }
 }
