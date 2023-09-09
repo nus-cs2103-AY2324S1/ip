@@ -11,8 +11,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 
 /**
  * An example of a custom control using FXML.
@@ -23,9 +25,13 @@ public class DialogBox extends HBox {
     @FXML
     private Label dialog;
     @FXML
-    private ImageView displayPicture;
+    private Circle circle;
+    @FXML
+    private Pane messageOutline;
 
-    private DialogBox(String text, Image img) {
+    //@@author wanghejin-reused
+    //Reused from peer shishirbychapur(github username) with minor modifications
+    private DialogBox(String text, Image img, boolean isUser) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -36,7 +42,12 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        displayPicture.setImage(img);
+        circle.setFill(new ImagePattern(img));
+        if (isUser) {
+            dialog.getStyleClass().add("blue-background");
+        } else {
+            dialog.getStyleClass().add("lavender-background");
+        }
     }
 
     /**
@@ -50,12 +61,13 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img, true);
+        db.flip();
+        return db;
     }
 
     public static DialogBox getCheemsDialog(String text, Image img) {
-        DialogBox db = new DialogBox(text, img);
-        db.flip();
+        DialogBox db = new DialogBox(text, img, false);
         return db;
     }
 }

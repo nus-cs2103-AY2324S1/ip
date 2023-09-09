@@ -8,9 +8,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -27,8 +30,8 @@ public class MainWindow extends AnchorPane {
 
     private Cheems cheems;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/samoyed.png"));
-    private Image cheemsImage = new Image(this.getClass().getResourceAsStream("/images/cheems.jpg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/tutu.png"));
+    private Image cheemsImage = new Image(this.getClass().getResourceAsStream("/images/caigou.png"));
 
     @FXML
     public void initialize() {
@@ -44,6 +47,17 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getCheemsDialog(welcomeMsg, cheemsImage)
         );
+    }
+
+    /**
+     * Handles the event where the user presses the "Enter" key.
+     * @param event Event triggering the function call.
+     */
+    @FXML
+    public void onEnter(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            this.handleUserInput();
+        }
     }
 
     /**

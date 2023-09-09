@@ -2,18 +2,27 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.VBox?>
+
 <fx:root alignment="TOP_RIGHT" maxHeight="Infinity" maxWidth="1.7976931348623157E308" prefWidth="400.0"
-         type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <Label fx:id="dialog" text="Label with long text that should wrap to the next line when needed." wrapText="true" />
-        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
-    </children>
+         type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <padding>
-        <javafx.geometry.Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+        <Insets bottom="15.0" left="10.0" right="10.0" top="15.0"/>
     </padding>
+    <Circle fx:id="circle" fill="#007df2" radius="23.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+        <HBox.margin>
+            <Insets left="10.0" right="10.0"/>
+        </HBox.margin>
+    </Circle>
+    <Label fx:id="dialog" prefWidth="350.0" text="Label with long text that should wrap to the next line when needed." wrapText="true">
+        <font>
+            <Font name="Segoe UI" size="14.0"/>
+        </font>
+        <padding>
+            <Insets bottom="15" top="15" left="20" right="20" />
+        </padding>
+    </Label>
 </fx:root>
-
