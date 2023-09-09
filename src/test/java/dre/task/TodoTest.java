@@ -17,7 +17,7 @@ public class TodoTest {
     public void testFileSaveFormat2() {
         //test space trim
         ToDo testDeadline = new ToDo("    extra spaces");
-        assertEquals(testDeadline.fileSaveFormat(), "T| |extra spaces");
+        assertEquals(testDeadline.fileSaveFormat(), "T| |    extra spaces");
     }
 
     @Test

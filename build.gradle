@@ -29,9 +29,12 @@ test {
 
 application {
     mainClass.set("dre.Dre")
+    mainClassName = 'dre.Dre'
 }
 
+
 shadowJar {
+    mainClassName = 'dre.Dre'
     archiveBaseName = "dre"
     archiveFileName = "dre.jar"
     archiveClassifier = null

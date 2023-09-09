@@ -7,9 +7,6 @@ import dre.task.*;
 import dre.command.*;
 import dre.exception.DreException;
 
-
-
-
 public class Parser {
     //may return a null.
     public static Task parseTask(String line) {
