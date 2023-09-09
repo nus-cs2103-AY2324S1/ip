@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import duke.task.DeadlineTask;
 import duke.task.EventTask;
+import duke.task.RecurringTask;
 import duke.task.TaskList;
 import duke.task.TodoTask;
 import duke.ui.Ui;
@@ -19,7 +20,7 @@ public class Parser {
 
     /** Represents the type of task. */
     private enum TaskType {
-        TODO, DEADLINE, EVENT
+        TODO, DEADLINE, EVENT, RECURRING
     }
 
     /** Represents the type of modification to be made. */
@@ -70,7 +71,17 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 return Ui.returnErrorString(new DukeException("The date of an event cannot be empty."));
             }
-
+        case RECURRING:
+            try {
+                String recurringDescription = input.substring(10);
+                String[] eventSplit = recurringDescription.split("/time");
+                RecurringTask recurringTask = new RecurringTask(eventSplit[0], eventSplit[1]);
+                return tasks.addTask(recurringTask);
+            } catch (StringIndexOutOfBoundsException e) {
+                return Ui.returnErrorString(new DukeException("The description of the task cannot be empty."));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return Ui.returnErrorString(new DukeException("The time of the recurring task cannot be empty."));
+            }
         default:
             return Ui.returnErrorString(new DukeException("I'm sorry, but I don't know what that means :-("));
         }
@@ -136,6 +147,8 @@ public class Parser {
                 return addTask(TaskType.DEADLINE, input);
             case ("event"):
                 return addTask(TaskType.EVENT, input);
+            case ("recurring"):
+                return addTask(TaskType.RECURRING, input);
             case ("mark"):
                 return modifyTask(ModifyTask.MARK, input);
             case ("unmark"):

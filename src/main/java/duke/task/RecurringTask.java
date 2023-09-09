@@ -32,7 +32,7 @@ public class RecurringTask extends Task {
     public String toString() {
         LocalDate curDate = LocalDate.now();
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime desiredTime = LocalTime.parse(this.time, timeFormatter);
+        LocalTime desiredTime = LocalTime.parse(this.time.trim(), timeFormatter);
         LocalDateTime modDate = curDate.atTime(desiredTime);
         return "[R]" + super.toString() + "(Due :" + modDate.toString() + ")";
     }
