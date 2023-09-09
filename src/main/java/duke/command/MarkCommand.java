@@ -12,12 +12,12 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
         try {
             Task task = tasks.get(taskNumber - 1); // arrays are 0-based, so subtract 1
             task.markAsDone();
             storage.saveTasks(tasks); // Save the updated tasks to file
-            ui.showTaskMarked(task);
+            return ui.showTaskMarked(task);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Invalid task number.");
         }

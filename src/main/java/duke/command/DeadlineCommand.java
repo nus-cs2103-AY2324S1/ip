@@ -17,7 +17,7 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
         if (description.isEmpty() || by.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The description or deadline of a task cannot be empty.");
         }
@@ -29,11 +29,12 @@ public class DeadlineCommand extends Command {
             newDeadline = new Deadline(description, dateTime);
             tasks.add(newDeadline);
             storage.saveTasks(tasks); // Save the updated tasks to file
-            ui.showAddedTask(newDeadline, tasks.size());
+            return ui.showAddedTask(newDeadline, tasks.size()); // Return the message about the added task
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid date-time format! Please use d/M/yyyy HHmm format.");
         } catch (IOException e) {
-            ui.showSavingError(e.getMessage());
+            return ui.showSavingError(e.getMessage()); // Return the error message
         }
     }
+
 }

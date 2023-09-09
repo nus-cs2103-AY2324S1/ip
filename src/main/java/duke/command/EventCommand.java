@@ -19,7 +19,7 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
         if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The description, start, or end time of an event cannot be empty.");
         }
@@ -32,11 +32,11 @@ public class EventCommand extends Command {
             newEvent = new Event(description, dateTimeFrom, dateTimeTo);
             tasks.add(newEvent);
             storage.saveTasks(tasks); // Save the updated tasks to file
-            ui.showAddedTask(newEvent, tasks.size());
+            return ui.showAddedTask(newEvent, tasks.size());
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid date-time format! Please use d/M/yyyy HHmm format.");
         } catch (IOException e) {
-            ui.showSavingError(e.getMessage());
+            return ui.showSavingError(e.getMessage());
         }
     }
 }

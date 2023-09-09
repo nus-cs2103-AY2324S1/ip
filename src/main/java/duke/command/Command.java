@@ -23,5 +23,5 @@ public abstract class Command {
      * @throws DukeException If there's a problem specific to Duke's operation.
      * @throws IOException   If there's a problem accessing or modifying the data file.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException;
 }

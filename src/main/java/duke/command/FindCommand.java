@@ -30,8 +30,8 @@ public class FindCommand extends Command {
      * @throws DukeException If any issue occurs while processing.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         ArrayList<Task> matchingTasks = tasks.findTasksByKeyword(keyword);
-        ui.showMatchingTasks(matchingTasks);
+        return ui.showMatchingTasks(matchingTasks);
     }
 }
