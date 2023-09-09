@@ -118,7 +118,7 @@ public class Ui {
 
         List<String> taskMessages = matchingTasks.stream()
                 .map(task -> task.toString())
-                .toList();
+                .collect(Collectors.toList());
 
         if (hasTask) {
             IntStream.range(0, taskMessages.size())
