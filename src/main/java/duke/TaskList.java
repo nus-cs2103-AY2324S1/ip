@@ -40,4 +40,20 @@ public class TaskList {
         Task task = tasks.get(index);
         task.markAsNotDone();
     }
+
+    /**
+     * Finds the tasks that match the keyword.
+     *
+     * @param keyword  The keywords used to search matching tasks.
+     * @return  Tasks that match the keyword.
+     */
+    public TaskList findTasksByKeyword (String keyword) {
+        TaskList matchingTasks = new TaskList();
+        for (Task task : tasks) {
+            if (task.description.toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.addTask(task);
+            }
+        }
+        return matchingTasks;
+    }
 }
