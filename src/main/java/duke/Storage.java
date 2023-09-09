@@ -57,53 +57,13 @@ public class Storage {
         if (taskType == 'T') {
             theTask = new Todo(taskName);
         } else if (taskType == 'D') {
-            StringBuilder deadline = new StringBuilder();
-            String mode = "none";
-            for (String command : splitTask) {
-                if (Objects.equals(command, "(by:")) {
-                    mode = "by";
-                    continue;
-                }
-                if (Objects.equals(mode, "by")) {
-                    if (deadline.length() != 0) {
-                        deadline.append(" ");
-                    }
-                    deadline.append(command);
-                }
-            }
-            if (deadline.length() != 0) {
-                deadline.deleteCharAt(deadline.length() - 1); // Remove last ).
-            }
-            theTask = new Deadline(taskName, deadline.toString());
+            String deadline = parseDeadlineTask(splitTask);
+            theTask = new Deadline(taskName, deadline);
         } else if (taskType == 'E') {
-            StringBuilder from = new StringBuilder();
-            StringBuilder to = new StringBuilder();
-            String mode = "none";
-            for (String command : splitTask) {
-                if (Objects.equals(command, "(from:")) {
-                    mode = "from";
-                    continue;
-                }
-                if (Objects.equals(command, "to:")) {
-                    mode = "to";
-                    continue;
-                }
-                if (Objects.equals(mode, "from")) {
-                    if (from.length() != 0) {
-                        from.append(" ");
-                    }
-                    from.append(command);
-                } else if (Objects.equals(mode, "to")) {
-                    if (to.length() != 0) {
-                        to.append(" ");
-                    }
-                    to.append(command);
-                }
-            }
-            if (to.length() != 0) {
-                to.deleteCharAt(to.length() - 1); // Remove last ).
-            }
-            theTask = new Event(taskName, from.toString(), to.toString());
+            String[] receivedInfo = parseEventTask(splitTask);
+            String from = receivedInfo[0];
+            String to = receivedInfo[1];
+            theTask = new Event(taskName, from, to);
         } else {
             throw new DukeException("Input file corrupted.");
         }
@@ -113,6 +73,56 @@ public class Storage {
         return theTask;
     }
 
+    private String parseDeadlineTask(String[] splitTask) {
+        StringBuilder deadline = new StringBuilder();
+        String mode = "none";
+        for (String command : splitTask) {
+            if (Objects.equals(command, "(by:")) {
+                mode = "by";
+                continue;
+            }
+            if (Objects.equals(mode, "by")) {
+                if (!deadline.isEmpty()) {
+                    deadline.append(" ");
+                }
+                deadline.append(command);
+            }
+        }
+        if (!deadline.isEmpty()) {
+            deadline.deleteCharAt(deadline.length() - 1); // Remove last ).
+        }
+        return deadline.toString();
+    }
+    private String[] parseEventTask(String[] splitTask) {
+        StringBuilder from = new StringBuilder();
+        StringBuilder to = new StringBuilder();
+        String mode = "none";
+        for (String command : splitTask) {
+            if (Objects.equals(command, "(from:")) {
+                mode = "from";
+                continue;
+            }
+            if (Objects.equals(command, "to:")) {
+                mode = "to";
+                continue;
+            }
+            if (Objects.equals(mode, "from")) {
+                if (!from.isEmpty()) {
+                    from.append(" ");
+                }
+                from.append(command);
+            } else if (Objects.equals(mode, "to")) {
+                if (!to.isEmpty()) {
+                    to.append(" ");
+                }
+                to.append(command);
+            }
+        }
+        if (!to.isEmpty()) {
+            to.deleteCharAt(to.length() - 1); // Remove last ).
+        }
+        return new String[]{from.toString(), to.toString()};
+    }
     /**
      * Prepares a list of tasks from a data file.
      * @return The tasks represented by the line from the data file.
