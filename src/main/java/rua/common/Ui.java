@@ -4,6 +4,14 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+
 public class Ui {
     private final Scanner in;
     private final PrintStream out;
@@ -18,28 +26,26 @@ public class Ui {
     }
 
     public void showLine() {
-        out.println("____________________________________________________________");
+        StringLogger.append("____________________________________________________________");
     }
 
     public void showWelcome() {
-        String greeting = "____________________________________________________________\n"
+        StringLogger.append("____________________________________________________________\n"
                 + " Hello! I'm Rua, your ChatBot\n"
                 + " What can I do for you?\n"
-                + "____________________________________________________________";
-        out.println(greeting);
+                + "____________________________________________________________");
     }
 
     public void showGoodbye() {
-        String goodbye = " Bye. Hope to see you again soon!";
-        out.println(goodbye);
+        StringLogger.append(" Bye. Hope to see you again soon!\n");
     }
 
     public void showMessage(String str) {
-        out.println(str);
+       StringLogger.append(str);
     }
 
     public void showError(String errorMessage) {
-        out.println("You get an error: " + errorMessage);
+        StringLogger.append("You get an error: " + errorMessage + "\n");
     }
 
     public void showLoadingError() {
