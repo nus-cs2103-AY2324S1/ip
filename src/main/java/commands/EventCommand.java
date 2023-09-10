@@ -16,7 +16,7 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         try {
             int fromDateStartIdx = secondHalfInput.indexOf("/from") + 6;
             int toDateStartIdx = secondHalfInput.indexOf("/to") + 4;
@@ -29,14 +29,15 @@ public class EventCommand extends Command {
             LocalDateTime fromDate = parseDateTime(fromDateString);
             LocalDateTime toDate = parseDateTime(toDateString);
             if (fromDate == null || toDate == null) {
-                return;
+                return "Please input a date in the correct format.";
             }
             Event newEvent = new Event(eventDescription, fromDate, toDate);
             taskList.add(newEvent);
-            System.out.println("Added: " + newEvent.getTaskAsString());
+            String message = "Added: " + newEvent.getTaskAsString();
+            return message;
         } catch (Exception e) {
-            System.out.println("Sorry, I did not understand that. Please enter in the following format: \n" +
-                    "event {description} /from {start datetime} /to {end datetime}.");
+            return "Sorry, I did not understand that. Please enter in the following format: \n" +
+                    "event {description} /from {start datetime} /to {end datetime}.";
         }
     }
 }

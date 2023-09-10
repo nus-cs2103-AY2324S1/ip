@@ -14,7 +14,7 @@ public class FindCommand extends Command{
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         TaskList matchingTasks = new TaskList();
 
         for (Task task: this.taskList.getTaskList()) {
@@ -23,11 +23,14 @@ public class FindCommand extends Command{
             }
         }
 
-        System.out.println("____________________________________________________________");
-        System.out.println("Here are the matching tasks in your list:");
+        String message = "";
+        message += "____________________________________________________________\n";
+        message += "Here are the matching tasks in your list:\n";
         ListCommand command = new ListCommand(matchingTasks);
-        command.execute();
-        System.out.println("____________________________________________________________");
+        String listCommandResult = command.execute();
+        message = message + listCommandResult + "\n";
+        message += "____________________________________________________________";
+        return message;
     }
 
 }

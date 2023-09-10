@@ -13,17 +13,19 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         try {
             int targetTaskIdx = Integer.parseInt(this.inputArray[1]) -1;
             Task task = this.taskList.get(targetTaskIdx);
             task.markAsDone();
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(task.getTaskAsString());
+            String message = "";
+            message += "Nice! I've marked this task as done:\n";
+            message += task.getTaskAsString();
+            return message;
         } catch (NumberFormatException e) {
-            System.out.println("Invalid number provided. Please provide in the form of 'mark {task number}'. Eg: 'mark 1' to mark task 1.");
+            return "Invalid number provided. Please provide in the form of 'mark {task number}'. Eg: 'mark 1' to mark task 1.";
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid task number provided. Please provide in the form of 'mark {task number}'. Eg: 'mark 1' to mark task 1.");
+            return "Invalid task number provided. Please provide in the form of 'mark {task number}'. Eg: 'mark 1' to mark task 1.";
         }
     }
 }

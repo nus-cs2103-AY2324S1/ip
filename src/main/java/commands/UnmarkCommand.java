@@ -14,17 +14,18 @@ public class UnmarkCommand extends Command{
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         try {
             int targetTaskIdx = Integer.parseInt(this.inputArray[1]) -1;
             Task task = this.taskList.get(targetTaskIdx);
             task.markAsUndone();
-            System.out.println("Ok! I've marked this task as not done yet:");
-            System.out.println(task.getTaskAsString());
+            String message = "Ok! I've marked this task as not done yet: \n";
+            message += task.getTaskAsString();
+            return message;
         } catch (NumberFormatException e) {
-            System.out.println("Invalid number provided. Please provide in the form of 'unmark {task number}'. Eg: 'unmark 1' to unmark task 1.");
+            return "Invalid number provided. Please provide in the form of 'unmark {task number}'. Eg: 'unmark 1' to unmark task 1.";
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid task number provided. Please provide in the form of 'unmark {task number}'. Eg: 'unmark 1' to unmark task 1.");
+            return "Invalid task number provided. Please provide in the form of 'unmark {task number}'. Eg: 'unmark 1' to unmark task 1.";
         }
     }
 }

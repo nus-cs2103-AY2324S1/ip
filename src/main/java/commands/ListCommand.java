@@ -12,10 +12,12 @@ public class ListCommand extends Command{
     }
 
     @Override
-    public void execute() {
+    public String execute() {
+        String message = "";
         for (int i=0; i<taskList.size(); i++) {
-            String message = String.format("%d. %s", i+1, taskList.get(i).getTaskAsString());
-            System.out.println(message);
+            message += String.format("%d. %s", i+1, taskList.get(i).getTaskAsString());
+            message += "\n";
         };
+        return message;
     }
 }

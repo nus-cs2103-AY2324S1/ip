@@ -15,7 +15,7 @@ public class DeadlineCommand extends Command{
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         try {
             String[] deadlineInputArray = this.secondHalfInput.split("/");
             String deadlineDescription = deadlineInputArray[0].substring(0,deadlineInputArray[0].length()-1);
@@ -23,15 +23,16 @@ public class DeadlineCommand extends Command{
 
             LocalDateTime deadlineDate = parseDateTime(deadlineDateString);
             if (deadlineDate == null) {
-                return;
+                return "Error in parsing date.";
             }
 
             Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate);
             this.taskList.add(newDeadline);
-            System.out.println("Added: " + newDeadline.getTaskAsString());
+            String message = "Added: " + newDeadline.getTaskAsString();
+            return message;
         } catch (Exception e ) {
-            System.out.println("Sorry, I did not understand that. Please enter in the following format: \n" +
-                    "deadline {description} /by {deadline}.");
+            return "Sorry, I did not understand that. Please enter in the following format: \n" +
+                    "deadline {description} /by {deadline}.";
         }
     }
 }

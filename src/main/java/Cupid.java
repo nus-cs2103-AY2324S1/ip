@@ -43,7 +43,8 @@ public class Cupid {
                 break;
             }
             Parser parser = new Parser(input, this.taskList);
-            parser.parse();
+            String result = parser.parse();
+            System.out.println(result);
 
             try {
                 this.storage.save(this.taskList);

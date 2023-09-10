@@ -14,13 +14,13 @@ public class ToDoCommand extends Command{
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         if (this.description.strip().isEmpty() || this.description.matches("todo")) {
-            System.out.println("OOPS! The description of a todo cannot be empty.");
-            return;
+            return "OOPS! The description of a todo cannot be empty.";
+
         }
         ToDo newTodo = new ToDo(this.description);
         this.taskList.add(newTodo);
-        System.out.println("Added: " + newTodo.getTaskAsString());
+        return "I have added the following: \n" + newTodo.getTaskAsString();
     }
 }

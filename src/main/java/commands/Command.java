@@ -13,7 +13,9 @@ public abstract class Command {
      * Executes the command given.
      *
      */
-    public void execute() {};
+    public String execute() {
+        return null;
+    };
 
     public LocalDateTime parseDateTime(String dateTimeString) {
         String[] possibleFormats = {"yyyy-MM-dd HHmm", "yyyy/MM/dd HHmm","dd-MM-yyyy HHmm","dd/MM/yyyy HHmm",

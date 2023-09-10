@@ -30,7 +30,7 @@ public class Parser {
         this.taskList = taskList;
     }
 
-    public void parse() {
+    public String parse() {
         String[] inputArray = input.split(" ");
 
         try {
@@ -74,16 +74,25 @@ public class Parser {
             default:
                 break;
             }
-            command.execute();
+            String result = command.execute();
+            return result;
         } catch (IllegalArgumentException e) {
             // If task inserted not an ENUM
-            System.out.println("Oops!!! I'm sorry but I don't know what that means :-(");
-            System.out.println("Please use one of the following commands: list, mark, unmark," +
-                    " delete, todo, deadline, event, bye");
+            String illegalArgumentResult = "";
+            illegalArgumentResult += "Oops!!! I'm sorry but I don't know what that means :-( \n";
+            illegalArgumentResult += "Please use one of the following commands: list, mark, unmark," +
+                    " delete, todo, deadline, event, bye";
+            return illegalArgumentResult;
+
         } catch (NullPointerException e) {
-            System.out.println("Oh no, you have entered an invalid statement.");
-            System.out.println("Please use one of the following commands: list, mark, unmark," +
-                    " delete, todo, deadline, event, bye");
+            String nullPointerResult = "";
+            nullPointerResult += "Oh no, you have entered an invalid statement. \n";
+            nullPointerResult += "Please use one of the following commands: list, mark, unmark," +
+                    " delete, todo, deadline, event, bye";
+            return nullPointerResult;
+        } catch (Exception e) {
+            return "Please use one of the following commands: list, mark, unmark," +
+                    " delete, todo, deadline, event, bye";
         }
     }
 
