@@ -4,6 +4,7 @@ package carbonbot.task;
  * Represents task without any date/time attached to it
  */
 public class Todo extends Task {
+    private static final String TASK_ICON = "[T]";
 
     /**
      * Constructs a Todo task with the provided description.
@@ -16,11 +17,13 @@ public class Todo extends Task {
 
     @Override
     public String serialize() {
-        return String.format("T | %d | %s", super.isDone ? 1 : 0, super.description);
+        return String.format("T | %d | %s",
+                super.isDone ? 1 : 0,
+                super.description);
     }
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return TASK_ICON + super.toString();
     }
 }

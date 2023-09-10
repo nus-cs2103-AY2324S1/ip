@@ -4,8 +4,11 @@ package carbonbot.task;
  * This abstract class is the superclass of all classes representing a task.
  */
 public abstract class Task {
+    private static final String DONE_ICON = "[X]";
+    private static final String UNDONE_ICON = "[ ]";
     protected String description;
     protected boolean isDone;
+
 
     /**
      * Constructs a task that has a completion status
@@ -18,8 +21,7 @@ public abstract class Task {
     }
 
     private String getStatusIcon() {
-        // mark done task with X
-        return (isDone ? "[X]" : "[ ]");
+        return (isDone ? DONE_ICON : UNDONE_ICON);
     }
 
     /**
@@ -37,11 +39,12 @@ public abstract class Task {
     }
 
     /**
-     * Serializes the task in a file friendly format
+     * Serializes the task in a file friendly format.
      *
      * @return String representation of the task
      */
     public abstract String serialize();
+
 
     public String getDescription() {
         return description;
