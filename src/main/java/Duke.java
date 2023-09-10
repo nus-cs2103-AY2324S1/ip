@@ -1,3 +1,5 @@
+package duke;
+
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.parser.Parser;
@@ -49,9 +51,34 @@ public class Duke {
                 this.ui.showLine();
             }
         }
-
     }
 
+    /**
+     * Returns the response of our input.
+     *
+     * @param input the inputted text in the gui.
+     * @return the response of our input.
+     */
+    public String getResponse(String input) {
+        try {
+            this.ui.showLine();
+            Command c = Parser.parse(input);
+            String message = c.execute(this.tasks, this.ui, this.storage);
+            this.storage.writeFile(this.tasks);
+            return message;
+        } catch (DukeException var7) {
+            return this.ui.showError(var7.getMessage());
+        }
+    }
+
+    /**
+     * Returns the welcome message of our bot.
+     *
+     * @return the welcoming message of our bot.
+     */
+    public String getIntroduction() {
+        return this.ui.showWelcome();
+    }
     /**
      * Starts the duke chatBot.
      *

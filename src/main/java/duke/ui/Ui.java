@@ -20,19 +20,21 @@ public class Ui {
     }
 
     /**
-     * Print the welcome message.
+     * Prints and returns the welcome message.
      *
      */
-    public void showWelcome() {
-        String introduction = "____________________________________________________________\n"
-                + " Hello! I'm FootyCouch\n"
-                + " What can I do for you?\n"
-                + "____________________________________________________________";
+    public String showWelcome() {
+
+        String introduction = " Hello! I'm FootyCouch\n"
+                + " What can I do for you?\n";
+        showLine();
         System.out.println(introduction);
+        showLine();
+        return introduction;
     }
 
     /**
-     * Print the dash line.
+     * Prints the dash line.
      *
      */
     public void showLine() {
@@ -40,82 +42,90 @@ public class Ui {
     }
 
     /**
-     * Print the error message.
+     * Prints and returns the error message.
      *
      */
-    public void showError(String message) {
+    public String showError(String message) {
         System.out.println(" ☹ OOPS!!! " + message);
+        return " OOPS!!! " + message;
     }
 
     /**
-     * Print the successful add message.
+     * Prints and returns the successful add message.
      *
      * @param task the specific task that will be added.
      * @param tasks the list of tasks.
      */
-    public void printAdd(Task task, TaskList tasks) {
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + tasks.length() + " tasks in the list.");
+    public String showAdd(Task task, TaskList tasks) {
+        String message = " Got it. I've added this task:\n" + "   " + task + "\n"
+                        + " Now you have " + tasks.length() + " tasks in the list.";
+        System.out.println(message);
+        return message;
     }
 
     /**
-     * Print the successful delete message.
+     * Prints and returns the successful delete message.
      *
      * @param task the specific task that will be deleted.
      * @param tasks the list of tasks.
      */
-    public void printDelete(Task task, TaskList tasks) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("   " + task);
-        System.out.println("Now you have " + tasks.length() + " tasks in the list.");
+    public String showDelete(Task task, TaskList tasks) {
+        String message = "Noted. I've removed this task:\n" + "   " + task + "\n"
+                        + "Now you have " + tasks.length() + " tasks in the list.";
+        System.out.println(message);
+        return message;
     }
 
     /**
-     * Print the exit message.
+     * Prints and returns the exit message.
      *
      */
-    public void printExit() {
+    public String showExit() {
         System.out.println(" Bye. Hope to see you again soon!");
+        return " Bye. Hope to see you again soon!";
     }
 
     /**
-     * Print the successful mark message.
+     * Prints and returns the successful mark message.
      *
      * @param task the specific task that will be marked.
      */
-    public void printMark(Task task) {
-        System.out.println(" Nice! I've marked this task as done:");
-        System.out.println("   " + task);
+    public String showMark(Task task) {
+        String message = " Nice! I've marked this task as done:\n" + "   " + task;
+        System.out.println(message);
+        return message;
     }
 
     /**
-     * Print the successful unmark message.
+     * Prints and returns the successful unmark message.
      *
      * @param task the specific task that will be unmarked.
      */
-    public void printUnmark(Task task) {
-        System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.println("   " + task);
+    public String showUnmark(Task task) {
+        String message = " OK, I've marked this task as not done yet:" + "   " + task;
+        System.out.println(message);
+        return message;
     }
 
     /**
-     * Print the successful find message.
+     * Prints and returns the successful find message.
      *
      * @param tasks the list of filtered tasks that will be printed.
      */
-    public void printFind(TaskList tasks) {
-        System.out.println("Here are the matching tasks in your list:");
-        System.out.println(tasks);
+    public String showFind(TaskList tasks) {
+        String message = "Here are the matching tasks in your list:\n" + tasks;
+        System.out.println(message);
+        return message;
     }
 
     /**
-     * Print the list message.
+     * Prints and returns the list message.
      *
      * @param tasks the list of all tasks.
      */
-    public void printList(TaskList tasks) {
+    public String showList(TaskList tasks) {
         System.out.println(tasks);
+        return tasks.toString();
     }
 
     /**
