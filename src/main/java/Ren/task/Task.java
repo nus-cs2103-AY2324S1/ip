@@ -42,6 +42,12 @@ public class Task {
         return this.isDone;
     }
 
+    /**
+     * Returns true if task description contains query
+     *
+     * @param query query to search for
+     * @return true if task description contains query
+     */
     public boolean queryInDescription(String query) {
         return this.description.contains(query);
     }

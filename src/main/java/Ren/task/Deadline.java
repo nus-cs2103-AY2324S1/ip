@@ -16,7 +16,7 @@ public class Deadline extends Task {
     @JsonProperty("deadline")
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
-    private final java.time.LocalDate DEADLINE;
+    private java.time.LocalDate deadline;
 
     public String getDescription() {
         return this.description;
@@ -31,31 +31,31 @@ public class Deadline extends Task {
     }
 
     public java.time.LocalDate getDeadline() {
-        return this.DEADLINE;
+        return this.deadline;
     }
 
 
-    public Deadline(String deadlineDesc, boolean isDone, TaskType taskType, java.time.LocalDate deadline) {
+    public Deadline(String deadlineDesc, boolean isDone, ren.task.Task.TaskType taskType, java.time.LocalDate deadline) {
         super(deadlineDesc, isDone);
-        this.DEADLINE = deadline;
-        this.taskType = TaskType.DEADLINE;
+        this.deadline = deadline;
+        this.taskType = ren.task.Task.TaskType.DEADLINE;
     }
 
     public Deadline(String deadlineDesc, boolean isDone, java.time.LocalDate deadline) {
         super(deadlineDesc, isDone);
-        this.DEADLINE = deadline;
-        this.taskType = TaskType.DEADLINE;
+        this.deadline = deadline;
+        this.taskType = ren.task.Task.TaskType.DEADLINE;
     }
 
     public Deadline() {
         super();
-        this.DEADLINE = java.time.LocalDate.now();
-        this.taskType = TaskType.DEADLINE;
+        this.deadline = java.time.LocalDate.now();
+        this.taskType = ren.task.Task.TaskType.DEADLINE;
     }
 
     @Override
     public String toString() {
         return "[D]" + super.toString()
-                + "by: " + this.DEADLINE.format(java.time.format.DateTimeFormatter.ofPattern("MMM d yyyy"));
+                + "by: " + this.deadline.format(java.time.format.DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 }

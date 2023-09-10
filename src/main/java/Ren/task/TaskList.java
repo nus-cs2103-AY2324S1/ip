@@ -22,6 +22,72 @@ public class TaskList {
     }
 
     /**
+     * Adds ren.task.ToDo into ren.task.TaskList.
+     *
+     * @param commandArr array of the command split by whitespace
+     */
+    public void addTodoTask(String[] commandArr) throws ren.InsufficientArgumentsException {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 1; i < commandArr.length; i++) {
+            builder.append(commandArr[i]).append(" ");
+        }
+
+        String todoDesc = builder.toString();
+        this.tasks.add(new ToDo(todoDesc, false));
+    }
+
+    /**
+     * Adds ren.task.Deadline into ren.task.TaskList.
+     *
+     * @param commandArr array of the command split by whitespace
+     */
+    public void addDeadlineTask(String[] commandArr) throws ren.InsufficientArgumentsException {
+        StringBuilder builder = new StringBuilder();
+        String deadlineDesc = "";
+        for (int i = 1; i < commandArr.length; i++) {
+            if (commandArr[i].equals("/by")) {
+                deadlineDesc = builder.toString();
+                builder = new StringBuilder();
+                continue;
+            }
+            builder.append(commandArr[i]).append(" ");
+        }
+
+        String deadlineString = builder.toString();
+        deadlineString = deadlineString.trim();
+        LocalDate deadline = LocalDate.parse(deadlineString);
+        this.tasks.add(new Deadline(deadlineDesc, false, deadline));
+    }
+
+    /**
+     * Adds ren.task.Event into ren.task.TaskList.
+     *
+     * @param commandArr array of the command split by whitespace
+     */
+    public void addEventTask(String[] commandArr) throws ren.InsufficientArgumentsException {
+        StringBuilder builder = new StringBuilder();
+        String eventDesc = "";
+        String startTime = "";
+
+        for (int i = 1; i < commandArr.length; i++) {
+            if (commandArr[i].equals("/from")) {
+                eventDesc = builder.toString();
+                builder = new StringBuilder();
+                continue;
+            } else if (commandArr[i].equals("/to")) {
+                startTime = builder.toString();
+                builder = new StringBuilder();
+                continue;
+            }
+
+            builder.append(commandArr[i]).append(" ");
+        }
+
+        String endTime = builder.toString();
+        this.tasks.add(new Event(eventDesc, false, startTime, endTime));
+    }
+
+    /**
      * Adds ren.task.Task into ren.task.TaskList.
      *
      * @param commandArr array of the command split by whitespace
@@ -34,50 +100,11 @@ public class TaskList {
 
 
         if (commandArr[0].equals("todo")) {
-            StringBuilder builder = new StringBuilder();
-            for (int i = 1; i < commandArr.length; i++) {
-                builder.append(commandArr[i]).append(" ");
-            }
-
-            String todoDesc = builder.toString();
-            this.tasks.add(new ToDo(todoDesc, false));
+            addTodoTask(commandArr);
         } else if (commandArr[0].equals("deadline")) {
-            StringBuilder builder = new StringBuilder();
-            String deadlineDesc = "";
-            for (int i = 1; i < commandArr.length; i++) {
-                if (commandArr[i].equals("/by")) {
-                    deadlineDesc = builder.toString();
-                    builder = new StringBuilder();
-                    continue;
-                }
-                builder.append(commandArr[i]).append(" ");
-            }
-
-            String deadlineString = builder.toString();
-            deadlineString = deadlineString.trim();
-            LocalDate deadline = LocalDate.parse(deadlineString);
-            this.tasks.add(new Deadline(deadlineDesc, false, deadline));
-        } else {
-            StringBuilder builder = new StringBuilder();
-            String eventDesc = "";
-            String startTime = "";
-
-            for (int i = 1; i < commandArr.length; i++) {
-                if (commandArr[i].equals("/from")) {
-                    eventDesc = builder.toString();
-                    builder = new StringBuilder();
-                    continue;
-                } else if (commandArr[i].equals("/to")) {
-                    startTime = builder.toString();
-                    builder = new StringBuilder();
-                    continue;
-                }
-
-                builder.append(commandArr[i]).append(" ");
-            }
-
-            String endTime = builder.toString();
-            this.tasks.add(new Event(eventDesc, false, startTime, endTime));
+            addDeadlineTask(commandArr);
+        } else if (commandArr[0].equals("event")) {
+            addEventTask(commandArr);
         }
 
         RenObjectMapper.storeIntoHarddisk(this);
@@ -136,6 +163,8 @@ public class TaskList {
     /**
      * Lists out the string representation of Tasks in the order they were added
      * into the ren.task.TaskList. List is 1-indexed
+     *
+     * @param query the query to be matched
      */
     public void listMatchingTasks(String query) {
         this.tasks.stream()
@@ -154,7 +183,7 @@ public class TaskList {
                 .filter(task -> task.queryInDescription(query))
                 .collect(java.util.stream.Collectors.toCollection(ArrayList::new));
     }
-    
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
