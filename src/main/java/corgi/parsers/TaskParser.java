@@ -69,6 +69,8 @@ public class TaskParser extends Parser<Task> {
                 throw new InvalidParsingFormatException("Wrong format for date!");
             }
 
+            assert by != null : "LocalDate object cannot be null";
+
             task = new Deadline(status, desc, by);
 
             break;
@@ -87,11 +89,16 @@ public class TaskParser extends Parser<Task> {
                 throw new InvalidParsingFormatException("Wrong format for date!");
             }
 
+            assert from != null : "LocalDate object cannot be null";
+            assert to != null : "LocalDate object cannot be null";
+
             task = new Event(status, desc, from, to);
             break;
         default:
             throw new InvalidParsingTypeException("Invalid task type!");
         }
+
+        assert task != null : "Task object cannot be null.";
 
         return task;
     }

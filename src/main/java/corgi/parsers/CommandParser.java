@@ -167,6 +167,8 @@ public class CommandParser extends Parser<Command> {
             throw new InvalidCommandFormatException("Invalid date format!");
         }
 
+        assert target != null : "Target date cannot be null.";
+
         return new FindTasksOnDateCommand(target);
     }
 
@@ -190,6 +192,8 @@ public class CommandParser extends Parser<Command> {
         String taskInfo = inputs[1];
 
         Task target = new ToDo(taskInfo);
+
+        assert target != null : "New Todo task cannot be null.";
 
         return new AddTaskCommand(target);
     }
@@ -222,7 +226,11 @@ public class CommandParser extends Parser<Command> {
                     + commandFormat);
         }
 
+        assert by != null : "Date cannot be null.";
+
         Task target = new Deadline(deadlineDesc, by);
+
+        assert target != null : "New Deadline task cannot be null.";
 
         return new AddTaskCommand(target);
     }
@@ -270,7 +278,12 @@ public class CommandParser extends Parser<Command> {
                     + commandFormat);
         }
 
+        assert from != null : "Date cannot be null.";
+        assert to != null : "Date cannot be null.";
+
         Task target = new Event(eventDesc, from, to);
+
+        assert target != null : "New Event task cannot be null.";
 
         return new AddTaskCommand(target);
     }
