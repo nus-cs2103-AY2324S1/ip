@@ -1,5 +1,8 @@
 package components;
 
+/**
+ * Represents an exception specific to the Duke application.
+ */
 public class DukeException extends Exception {
 
     /**
