@@ -82,20 +82,11 @@ public class Storage {
      * @throws DukeException Error saving file.
      */
     public void saveTaskToFile(String task) throws DukeException {
-        String fileName = filePath;
-        Path filePath = Paths.get(fileName);
-
         try {
-            if (!Files.exists(filePath.getParent())) {
-                Files.createDirectories(filePath.getParent());
-            }
-            if (!Files.exists(filePath)) {
-                Files.createFile(filePath);
-            } else {
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-                    writer.newLine();
-                    writer.write(task);
-                }
+            checkDataFile();
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+                writer.newLine();
+                writer.write(task);
             }
         } catch (Exception e) {
             throw new DukeException(e.getMessage());
@@ -108,12 +99,12 @@ public class Storage {
      * @throws DukeException Error modifying file.
      */
     public void deleteTaskFromFile(Integer taskNumber) throws DukeException {
-        String fileName = filePath;
         List<String> lines = new ArrayList<>();
         String currentLine;
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
             Integer lineNumber = 1;
+            // Copies tasks that are not to be deleted out to temporary list.
             while ((currentLine = reader.readLine()) != null) {
                 if (!lineNumber.equals(taskNumber)) {
                     lines.add(currentLine);
@@ -121,7 +112,8 @@ public class Storage {
                 lineNumber++;
             }
 
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+            // Writes tasks from temporary list into txt file.
             for (String line : lines) {
                 writer.write(line);
                 writer.newLine();
@@ -134,58 +126,70 @@ public class Storage {
 
     /**
      * Load tasks from file into list.
+     *
      * @param list List for file to populate.
-     * @return List of tasks from file.
      * @throws DukeException Error reading from file.
      */
-    public List<Task> loadTasksFromFile(List<Task> list) throws DukeException {
-        String fileName = filePath;
-        Path filePath = Paths.get(fileName);
-
+    public void loadTasksFromFile(List<Task> list) throws DukeException {
         try {
-            if (!Files.exists(filePath.getParent())) {
-                Files.createDirectories(filePath.getParent());
+            checkDataFile();
+            BufferedReader fileReader = new BufferedReader(new FileReader(filePath));
+            String line;
+            while ((line = fileReader.readLine()) != null) {
+                processTaskIntoList(line, list);
             }
-            if (!Files.exists(filePath)) {
-                Files.createFile(filePath);
-            } else {
-                BufferedReader fileReader = new BufferedReader(new FileReader(fileName));
-                String line;
-                while ((line = fileReader.readLine()) != null) {
-                    String[] formattedLine = line.split(" \\| ");
-                    switch (formattedLine[0]) {
-                    case "T": {
-                        Task task = new Todo(formattedLine[2]);
-                        if (formattedLine[1].equals("1")) {
-                            task.setDone();
-                        }
-                        list.add(task);
-                        break;
-                    }
-                    case "D": {
-                        Task task = new Deadline(formattedLine[2], formattedLine[3]);
-                        if (formattedLine[1].equals("1")) {
-                            task.setDone();
-                        }
-                        list.add(task);
-                        break;
-                    }
-                    case "E": {
-                        Task task = new Event(formattedLine[2], formattedLine[3], formattedLine[4]);
-                        if (formattedLine[1].equals("1")) {
-                            task.setDone();
-                        }
-                        list.add(task);
-                        break;
-                    }
-                    default: break;
-                    }
-                }
-                fileReader.close();
-            }
+            fileReader.close();
         } catch (Exception e) {
             throw new DukeException(e.getMessage());
         }
-        return list;
+    }
+
+    /**
+     * Processes each task in data txt file format into application's TaskList.
+     * @param taskLine Task in data txt file.
+     * @param list Application's TaskList.
+     * @throws DukeException Error instantiating Task object.
+     */
+    public void processTaskIntoList(String taskLine, List<Task> list) throws DukeException {
+        String[] formattedLine = taskLine.split(" \\| ");
+        switch (formattedLine[0]) {
+        case "T": {
+            Task task = new Todo(formattedLine[2]);
+            if (formattedLine[1].equals("1")) {
+                task.setDone();
+            }
+            list.add(task);
+            break;
+        }
+        case "D": {
+            Task task = new Deadline(formattedLine[2], formattedLine[3]);
+            if (formattedLine[1].equals("1")) {
+                task.setDone();
+            }
+            list.add(task);
+            break;
+        }
+        case "E": {
+            Task task = new Event(formattedLine[2], formattedLine[3], formattedLine[4]);
+            if (formattedLine[1].equals("1")) {
+                task.setDone();
+            }
+            list.add(task);
+            break;
+        }
+        default: break;
+        }
+    }
+
+    public void checkDataFile() throws Exception {
+        String fileName = filePath;
+        Path filePath = Paths.get(fileName);
+
+        if (!Files.exists(filePath.getParent())) {
+            Files.createDirectories(filePath.getParent());
+        }
+        if (!Files.exists(filePath)) {
+            Files.createFile(filePath);
+        }
     }
 }

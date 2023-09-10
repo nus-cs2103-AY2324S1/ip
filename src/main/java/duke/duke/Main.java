@@ -17,12 +17,6 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private Duke duke = new Duke();
-    private DialogContainer dialogContainer;
-    private final Image dukeImage = new Image(
-            Objects.requireNonNull(
-                    this.getClass().getResourceAsStream("/images/captamerica.jpeg")
-            )
-    );
 
     /**
      * Starts the Duke bot application.
@@ -38,6 +32,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+
             fxmlLoader.<duke.controller.MainWindow>getController().setDuke(duke);
             fxmlLoader.<duke.controller.MainWindow>getController().showWelcomeMessage();
             fxmlLoader.<duke.controller.MainWindow>getController().loadTasksFromFile();
