@@ -15,7 +15,7 @@ public class ToDoCommand extends TaskCommand {
     private Map<String, Object> inputs;
 
     /**
-     * Constructor for ToDoCommand.
+     * Constructs ToDoCommand.
      *
      * @param args The arguments entered by the user.
      */

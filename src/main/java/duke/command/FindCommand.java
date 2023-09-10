@@ -17,7 +17,7 @@ import duke.ui.Ui;
 public class FindCommand extends Command {
 
     /**
-     * Constructor for ListCommand.
+     * Constructs ListCommand.
      *
      * @param args The arguments entered by the user.
      */

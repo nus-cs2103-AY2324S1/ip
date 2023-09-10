@@ -11,7 +11,7 @@ public abstract class Argument implements CommandElement {
     private String text;
 
     /**
-     * Constructor for Argument.
+     * Constructs Argument.
      *
      * @param text The name of the input field.
      */

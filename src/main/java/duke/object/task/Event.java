@@ -17,7 +17,7 @@ public class Event extends Task {
     protected LocalDate to;
 
     /**
-     * Constructor for Event.
+     * Constructs Event.
      *
      * @param description The user's description of the task.
      * @param from The start date of the task.

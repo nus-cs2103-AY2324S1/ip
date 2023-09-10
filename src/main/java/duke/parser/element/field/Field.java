@@ -10,7 +10,7 @@ public class Field implements CommandElement {
     private String text;
 
     /**
-     * Constructor for Field.
+     * Constructs Field.
      *
      * @param text The text represented by the field.
      */

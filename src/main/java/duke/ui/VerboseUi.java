@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class VerboseUi extends Ui {
 
     /**
-     * Constructor for VerboseUi.
+     * Constructs VerboseUi.
      *
      * @param name Name used when greeting users.
      */

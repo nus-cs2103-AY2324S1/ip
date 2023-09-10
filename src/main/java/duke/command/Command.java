@@ -22,7 +22,7 @@ public abstract class Command {
     protected Map<String, Object> args;
 
     /**
-     * Constructor for command.
+     * Constructs command.
      *
      * @param commandName The name of the command.
      * @param args The arguments entered by the user.
@@ -95,7 +95,7 @@ public abstract class Command {
     }
 
     /**
-     * Get command to act.
+     * Gets command to act.
      *
      * @param tasks The list of tasks to act on.
      * @param ui The Ui to interact with the user.

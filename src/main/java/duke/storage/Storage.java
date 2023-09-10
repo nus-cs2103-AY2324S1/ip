@@ -22,7 +22,7 @@ public class Storage {
     private Ui display;
 
     /**
-     * Constructor for storage object.
+     * Constructs Storage.
      *
      * @param display The UI to inform user of any failures.
      */

@@ -17,7 +17,7 @@ import duke.ui.Ui;
 public class QueueCommand extends Command {
 
     /**
-     * Constructor for QueueCommand.
+     * Constructs QueueCommand.
      *
      * @param args The arguments entered by the user.
      */

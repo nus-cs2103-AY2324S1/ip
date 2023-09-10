@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class SilentUi extends Ui {
 
     /**
-     * Constructor for SilentUi.
+     * Constructs SilentUi.
      *
      * @param sc The scanner from which input is read.
      */

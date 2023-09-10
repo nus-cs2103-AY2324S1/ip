@@ -6,7 +6,7 @@ package duke.exception;
 public class DateRangeException extends DukeException {
 
     /**
-     * Constructor for DateRangeException.
+     * Constructs DateRangeException.
      */
     public DateRangeException() {
         super("☹ OOPS!!! End date cannot be before start date.");

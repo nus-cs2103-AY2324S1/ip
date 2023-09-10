@@ -11,7 +11,7 @@ import duke.command.task.ToDoCommand;
 public class ToDo extends Task {
 
     /**
-     * Constructor for ToDo.
+     * Constructs ToDo.
      *
      * @param description The user's description of the task.
      */

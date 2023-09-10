@@ -17,7 +17,7 @@ import duke.parser.element.field.Field;
 public class EventCommand extends TaskCommand {
 
     /**
-     * Constructor for EventCommand.
+     * Constructs EventCommand.
      *
      * @param args The arguments entered by the user.
      */

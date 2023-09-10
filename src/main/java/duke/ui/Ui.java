@@ -15,7 +15,7 @@ public abstract class Ui {
     protected String msg;
 
     /**
-     * Constructor for Ui.
+     * Constructs Ui.
      *
      * @param sc The scanner from which inputs are read.
      */
@@ -25,14 +25,14 @@ public abstract class Ui {
     }
 
     /**
-     * Method to set display message.
+     * Sets display message.
      *
      * @param msg Message to be displayed.
      */
     public abstract void print(String msg);
 
     /**
-     * Shared default message for counting tasks.
+     * Returns shared default message for counting tasks.
      *
      * @param n Number of tasks.
      * @return The default message for that number of tasks.
@@ -81,7 +81,9 @@ public abstract class Ui {
      * @return Message to be displayed.
      */
     public String flush() {
-        return this.msg;
+        String op = this.msg;
+        this.msg = "";
+        return op;
     }
 
     /**
@@ -94,7 +96,7 @@ public abstract class Ui {
     }
 
     /**
-     * Stop monitoring input.
+     * Stops monitoring input.
      */
     public void close() {
         sc.close();

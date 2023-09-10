@@ -16,7 +16,7 @@ import duke.ui.Ui;
 public class RemoveCommand extends Command {
 
     /**
-     * Constructor for RemoveCommand.
+     * Constructs RemoveCommand.
      *
      * @param args The arguments entered by the user.
      */

@@ -8,7 +8,7 @@ import duke.exception.EmptyArgException;
 public class StringArgument extends Argument {
 
     /**
-     * Constructor for StringArgument.
+     * Constructs StringArgument.
      *
      * @param text The name of the input field.
      */

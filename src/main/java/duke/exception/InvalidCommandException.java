@@ -6,7 +6,7 @@ package duke.exception;
 public class InvalidCommandException extends DukeException {
 
     /**
-     * Constructor for InvalidCommandException.
+     * Constructs InvalidCommandException.
      *
      * @param cmd The invalid command entered.
      */

@@ -15,7 +15,7 @@ import duke.ui.Ui;
 public abstract class TaskCommand extends Command {
 
     /**
-     * Constructor for TaskCommand.
+     * Constructs TaskCommand.
      *
      * @param commandName The name of the command.
      * @param args The arguments entered by the user.

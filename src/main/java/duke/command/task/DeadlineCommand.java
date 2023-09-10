@@ -16,7 +16,7 @@ import duke.parser.element.field.Field;
 public class DeadlineCommand extends TaskCommand {
 
     /**
-     * Constructor for DeadlineCommand.
+     * Constructs DeadlineCommand.
      *
      * @param args The arguments entered by the user.
      */

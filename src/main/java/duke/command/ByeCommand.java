@@ -15,7 +15,7 @@ import javafx.application.Platform;
 public class ByeCommand extends Command {
 
     /**
-     * Constructor for ByeCommand.
+     * Constructs ByeCommand.
      *
      * @param args The arguments entered by the user.
      */

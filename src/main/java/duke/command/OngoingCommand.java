@@ -19,7 +19,7 @@ import duke.ui.Ui;
 public class OngoingCommand extends Command {
 
     /**
-     * Constructor for OngoingCommand.
+     * Constructs OngoingCommand.
      *
      * @param args The arguments entered by the user.
      */

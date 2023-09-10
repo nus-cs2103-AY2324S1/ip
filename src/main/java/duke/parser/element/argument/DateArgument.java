@@ -11,7 +11,7 @@ import duke.exception.InvalidDateException;
 public class DateArgument extends Argument {
 
     /**
-     * Constructor for DateArgument.
+     * Constructs DateArgument.
      *
      * @param text The name of the input field.
      */

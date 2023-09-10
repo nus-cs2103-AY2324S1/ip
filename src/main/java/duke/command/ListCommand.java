@@ -14,7 +14,7 @@ import duke.ui.Ui;
 public class ListCommand extends Command {
 
     /**
-     * Constructor for ListCommand.
+     * Constructs ListCommand.
      *
      * @param args The arguments entered by the user.
      */

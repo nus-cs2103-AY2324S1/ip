@@ -8,7 +8,7 @@ import duke.ui.Ui;
 public class OutOfBoundsException extends DukeException {
 
     /**
-     * Constructor for OutOfBoundsException.
+     * Constructs OutOfBoundsException.
      *
      * @param index The index input.
      * @param taskCount The current number of tasks.

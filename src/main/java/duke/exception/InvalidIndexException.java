@@ -6,7 +6,7 @@ package duke.exception;
 public class InvalidIndexException extends DukeException {
 
     /**
-     * Constructor for InvalidIndexException.
+     * Constructs InvalidIndexException.
      */
     public InvalidIndexException() {
         super("☹ OOPS!!! Please enter a valid positive integer for the index.");

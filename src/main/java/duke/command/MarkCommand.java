@@ -16,7 +16,7 @@ import duke.ui.Ui;
 public class MarkCommand extends Command {
 
     /**
-     * Constructor for MarkCommand.
+     * Constructs MarkCommand.
      *
      * @param args The arguments entered by the user.
      */

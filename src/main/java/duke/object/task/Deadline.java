@@ -16,7 +16,7 @@ public class Deadline extends Task implements Comparable<Deadline> {
     protected LocalDate by;
 
     /**
-     * Constructor for Deadline.
+     * Constructs Deadline.
      *
      * @param description The user's description of the task.
      * @param by The end date of the task.

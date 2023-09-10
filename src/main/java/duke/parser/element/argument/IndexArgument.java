@@ -8,7 +8,7 @@ import duke.exception.InvalidIndexException;
 public class IndexArgument extends Argument {
 
     /**
-     * Constructor for IndexArgument.
+     * Constructs IndexArgument.
      *
      * @param text The name of the input field.
      */

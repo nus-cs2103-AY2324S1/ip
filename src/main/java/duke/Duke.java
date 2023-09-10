@@ -19,7 +19,7 @@ public class Duke {
     private Ui ui;
 
     /**
-     * Constructor for Duke.
+     * Constructs Duke.
      *
      * @param name Name of the bot.
      */

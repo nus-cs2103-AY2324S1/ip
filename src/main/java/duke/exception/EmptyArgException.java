@@ -6,7 +6,7 @@ package duke.exception;
 public class EmptyArgException extends DukeException {
 
     /**
-     * Constructor for EmptyArgException.
+     * Constructs EmptyArgException.
      *
      * @param arg The name of the argument in question.
      */

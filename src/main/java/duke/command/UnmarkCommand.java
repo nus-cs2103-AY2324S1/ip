@@ -16,7 +16,7 @@ import duke.ui.Ui;
 public class UnmarkCommand extends Command {
 
     /**
-     * Constructor for UnmarkCommand.
+     * Constructs UnmarkCommand.
      *
      * @param args The arguments entered by the user.
      */
