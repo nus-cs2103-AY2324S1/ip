@@ -12,6 +12,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class Task implements Serializable {
     protected String description;
+
+    protected LocalDateTime createdDate;
     protected boolean isDone;
 
     /**
@@ -21,6 +23,7 @@ public class Task implements Serializable {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.createdDate = LocalDateTime.now();
     }
 
     /**
@@ -94,4 +97,12 @@ public class Task implements Serializable {
     public String getDescription() {
         return this.description;
     }
+
+    /**
+     * Method to return the date of the object
+     * @return Comparison LocalDateTime object
+     */
+    public LocalDateTime getCompareDate() {
+        return createdDate;
+    };
 }

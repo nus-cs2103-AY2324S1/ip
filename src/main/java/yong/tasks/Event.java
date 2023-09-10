@@ -34,4 +34,8 @@ public class Event extends Task {
                 + printDateTime(this.to) + ")";
         return ret;
     }
+
+    public LocalDateTime getCompareDate() {
+        return from;
+    }
 }

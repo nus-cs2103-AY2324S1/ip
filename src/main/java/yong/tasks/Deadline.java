@@ -28,4 +28,12 @@ public class Deadline extends Task {
 
         return ret;
     }
+
+    /**
+     * Getter method for the dueby date
+     * @return LocalDatetime object dueby time
+     */
+    public LocalDateTime getCompareDate() {
+        return dueBy;
+    }
 }
