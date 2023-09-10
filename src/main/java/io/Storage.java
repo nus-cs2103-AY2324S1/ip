@@ -100,6 +100,7 @@ public class Storage {
             for (int i = 0; i < taskList.size(); i++) {
                 fw.write(taskList.get(i).toFileString() + "\n");
             }
+            taskList.getTasks
             fw.close();
         } catch (IOException e) {
             throw new DukeException("Saving failed: " + e.getMessage());
