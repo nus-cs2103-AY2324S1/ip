@@ -1,5 +1,8 @@
 package duke.commands;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import duke.exceptions.DukeInvalidCommandException;
 
 /**
@@ -16,6 +19,19 @@ public enum CommandType {
     UNMARK_TASK("unmark"),
     DELETE_TASK("delete"),
     FIND_TASK("find");
+
+    /** Shorter aliases for ease of use */
+    private static final Map<String, CommandType> commandMap = new HashMap<>(Map.of(
+            "exit", EXIT,
+            "q", EXIT,
+            "ls", LIST_TASKS,
+            "td", ADD_TODO,
+            "dl", ADD_DEADLINE,
+            "ev", ADD_EVENT,
+            "m", MARK_TASK,
+            "u", UNMARK_TASK,
+            "rm", DELETE_TASK,
+            "f", FIND_TASK));
 
     /** The string representation of the command. */
     private final String value;
@@ -37,6 +53,10 @@ public enum CommandType {
      * @throws DukeInvalidCommandException If the command does not exist.
      */
     public static CommandType fromString(String value) throws DukeInvalidCommandException {
+        if (commandMap.containsKey(value)) {
+            return commandMap.get(value);
+        }
+
         for (CommandType command : CommandType.values()) {
             if (command.value.equalsIgnoreCase(value)) {
                 return command;
