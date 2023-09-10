@@ -1,8 +1,5 @@
 package duke.utils;
 
-import duke.DukeException;
-import duke.task.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,6 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import duke.DukeException;
+import duke.task.Task;
+
 
 /**
  * The `Storage` class handles reading and writing tasks to a data file.
@@ -19,6 +20,7 @@ public class Storage {
 
     /**
      * Saves a list of tasks to a data file.
+     *
      * @param toDoList The list of tasks to be saved.
      * @throws DukeException If an error occurs during file writing.
      */
@@ -37,8 +39,10 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from a data file into a list.
-     * @param toDoList The list where loaded tasks will be added.
+     * Loads a list of tasks from a data file.
+     *
+     * @return A List of Task objects loaded from the data file.
+     * @throws DukeException If there is an error reading the data file or creating tasks from the data.
      */
     public List<Task> loadTasksFromFile() throws DukeException {
         List<Task> tasks = new ArrayList<>();

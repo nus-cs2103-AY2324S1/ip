@@ -1,13 +1,11 @@
 package duke;
 
+import java.util.List;
+
 import duke.task.Task;
 import duke.utils.Parser;
 import duke.utils.Storage;
 import duke.utils.TaskList;
-
-import java.util.List;
-import java.util.Scanner;
-
 import javafx.fxml.FXML;
 
 /**
@@ -17,6 +15,11 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Constructs a new Duke object.
+     * This constructor initializes a new instance of the Duke class. The Duke object is typically used to
+     * manage and interact with tasks in a task management application.
+     */
     public Duke() {
         this.storage = new Storage();
         try {
@@ -48,16 +51,20 @@ public class Duke {
             message = "OK, I've marked this task as not done yet:\n" + task;
         } else if (userCommand.equals("TODO")) {
             Task task = this.tasks.addTodoTask(parser.getTodoDescription());
-            message = "Got it. I've added this task:\n " + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+            message = "Got it. I've added this task:\n "
+                    + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
         } else if (userCommand.equals("DEADLINE")) {
             String[] descriptionAndDateTime = parser.getDeadlineDescription();
-            Task task = this.tasks.addDeadlineTask(descriptionAndDateTime[0], parser.getDateTime(descriptionAndDateTime[1]));
-            message = "Got it. I've added this task:\n " + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+            Task task = this.tasks.addDeadlineTask(descriptionAndDateTime[0],
+                    parser.getDateTime(descriptionAndDateTime[1]));
+            message = "Got it. I've added this task:\n "
+                    + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
         } else if (userCommand.equals("EVENT")) {
             String[] deadlineDescription = parser.getEventDescription();
             Task task = this.tasks.addEventTask(deadlineDescription[0], parser.getDateTime(deadlineDescription[1]),
                 parser.getDateTime(deadlineDescription[2]));
-            message = "Got it. I've added this task:\n " + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+            message = "Got it. I've added this task:\n "
+                    + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
         } else if (userCommand.equals("DELETE")) {
             Task task = this.tasks.deleteTask(parser.getTaskNumber());
             message = "Now you have " + tasks.getSize() + " tasks in the list.";

@@ -12,6 +12,7 @@ public class Deadline extends Task {
 
     /**
      * Constructs a new `Deadline` task with the given description and deadline date and time.
+     *
      * @param description The description of the deadline task.
      * @param by The deadline date and time of the task.
      */
@@ -22,26 +23,29 @@ public class Deadline extends Task {
 
     /**
      * Returns a string representation of the deadline task for display to the user.
+     *
      * @return A formatted string containing the task type, status, description, and deadline.
      */
     @Override
-    public String toString () {
+    public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return "[D]" + super.toString() + " (by: " + by.format(formatter) + ")";
     }
 
     /**
      * Converts the deadline task to a string representation for saving to a file.
+     *
      * @return A formatted string representing the task type, status, description, and deadline.
      */
     @Override
     public String toFileString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return "D"+ " | " + super.toFileString() + " | " + by.format(formatter);
+        return "D" + " | " + super.toFileString() + " | " + by.format(formatter);
     }
 
     /**
      * Creates a `Deadline` task object from a data string. Used for deserialization.
+     *
      * @param taskData The data string containing deadline task information.
      * @return A `Deadline` task object created from the data string, or `null` if the data is incomplete or invalid.
      */

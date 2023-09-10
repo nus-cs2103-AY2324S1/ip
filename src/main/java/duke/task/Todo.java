@@ -7,6 +7,7 @@ package duke.task;
 public class Todo extends Task {
     /**
      * Constructs a new `Todo` task with the given description.
+     *
      * @param description The description of the todo task.
      */
     public Todo(String description) {
@@ -15,6 +16,7 @@ public class Todo extends Task {
 
     /**
      * Returns a string representation of the todo task for display to the user.
+     *
      * @return A formatted string containing the task type and description.
      */
     @Override
@@ -24,6 +26,7 @@ public class Todo extends Task {
 
     /**
      * Converts the todo task to a string representation for saving to a file.
+     *
      * @return A formatted string representing the task type and description.
      */
     @Override
@@ -34,6 +37,7 @@ public class Todo extends Task {
 
     /**
      * Creates a `Todo` task object from a data string. Used for deserialization.
+     *
      * @param taskData The data string containing todo task information.
      * @return A `Todo` task object created from the data string, or `null` if the data is incomplete or invalid.
      */

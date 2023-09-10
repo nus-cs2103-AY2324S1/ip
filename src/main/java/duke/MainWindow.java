@@ -36,17 +36,20 @@ public class MainWindow extends AnchorPane {
         duke = d;
     }
 
+    /**
+     * Displays a greeting message with a logo and initial introduction in a dialog box.
+     */
     public void greet() {
         String logo =
-                "  ____       _       ____        _      \n" +
-                " / __\"| uU  /\"\\  uU |  _\"\\ u U  /\"\\  u  \n" +
-                "<\\___ \\/  \\/ _ \\/  \\| |_) |/  \\/ _ \\/   \n" +
-                " u___) |  / ___ \\   |  _ <    / ___ \\   \n" +
-                " |____/>>/_/   \\_\\  |_| \\_\\  /_/   \\_\\  \n" +
-                "  )(  (__)\\\\    >>  //   \\\\_  \\\\    >>  \n" +
-                " (__)    (__)  (__)(__)  (__)(__)  (__) \n";
+                "  ____       _       ____        _      \n"
+                + " / __\"| uU  /\"\\  uU |  _\"\\ u U  /\"\\  u  \n"
+                + "<\\___ \\/  \\/ _ \\/  \\| |_) |/  \\/ _ \\/   \n"
+                + " u___) |  / ___ \\   |  _ <    / ___ \\   \n"
+                + " |____/>>/_/   \\_\\  |_| \\_\\  /_/   \\_\\  \n"
+                + "  )(  (__)\\\\    >>  //   \\\\_  \\\\    >>  \n"
+                + " (__)    (__)  (__)(__)  (__)(__)  (__) \n";
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(logo + "Hello! I'm Sara\n" + "What can I do for you?", userImage)
+                DialogBox.getDukeDialog(logo + "Hello! I'm Sara\n" + "What can I do for you?", dukeImage)
         );
     }
 
