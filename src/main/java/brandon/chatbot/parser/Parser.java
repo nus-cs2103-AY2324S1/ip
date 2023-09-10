@@ -21,7 +21,7 @@ import brandon.chatbot.common.DukeException;
  */
 public class Parser {
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    public static final Pattern TODO_FIND_ARGS_FORMAT = Pattern.compile("(?<name>\\S+)");
+    public static final Pattern TODO_FIND_ARGS_FORMAT = Pattern.compile("(?<name>.*)");
     public static final Pattern DEADLINE_ARGS_FORMAT = Pattern.compile("(?<name>[^/]+)/by(?<deadline>[^/]+)");
     public static final Pattern EVENT_ARGS_FORMAT = Pattern.compile("(?<name>[^/]+)"
             + "/from(?<from>[^/]+)"
@@ -41,7 +41,7 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord").toLowerCase();
         final String arguments = matcher.group("arguments");
-
+        System.out.println(commandWord);
         switch (commandWord) {
         case "find":
             return prepareFind(arguments);
@@ -88,7 +88,9 @@ public class Parser {
             return new UnknownCommand();
         }
         try {
-            return new AddTodoCommand(matcher.group("name"));
+            String grp = matcher.group("name");
+            System.out.println(grp);
+            return new AddTodoCommand(grp);
         } catch (DukeException e) {
             return new UnknownCommand();
         }

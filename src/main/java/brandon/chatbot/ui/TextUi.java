@@ -55,10 +55,12 @@ public class TextUi {
      *
      * @param messages the user wants to show to user.
      */
-    public void showToUser(String... messages) {
+    public String showToUser(String... messages) {
+        String output = "";
         for (String m : messages) {
-            out.println(m);
+            output += m + "\n";
         }
+        return output;
     }
 
     /**
@@ -76,16 +78,16 @@ public class TextUi {
         showToUser(DIVIDER);
     }
 
-    private void showTasks(TaskList tasks) {
+    public String showTasks(TaskList tasks) {
         final ArrayList<String> formattedTasks = new ArrayList<>();
         for (Task t : tasks.getList()) {
             formattedTasks.add(t.getStatus());
         }
-        showToUserAsIndexedList(formattedTasks);
+        return showToUserAsIndexedList(formattedTasks);
     }
 
-    private void showToUserAsIndexedList(List<String> list) {
-        showToUser(getIndexedListForViewing(list));
+    private String showToUserAsIndexedList(List<String> list) {
+        return showToUser(getIndexedListForViewing(list));
     }
 
     private static String getIndexedListForViewing(List<String> listItems) {

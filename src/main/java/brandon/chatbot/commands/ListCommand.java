@@ -1,5 +1,6 @@
 package brandon.chatbot.commands;
 
+import brandon.chatbot.ui.TextUi;
 /**
  * Represents a command that lists the tasks in TaskList.
  */
@@ -9,6 +10,6 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        return new CommandResult(LIST_SUCCESS, tasks);
+        return new CommandResult(new TextUi().showTasks(tasks));
     }
 }
