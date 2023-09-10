@@ -1,38 +1,54 @@
 package bob.command;
 
 import bob.exception.BobException;
+import bob.exception.BobInvalidTaskNumberException;
 import bob.storage.StorageFile;
 import bob.task.Task;
 import bob.task.TaskList;
 import bob.ui.TextGenerator;
 
+import java.util.ArrayList;
+
 /**
  * The MarkCommand encapsulates logic to be executed to modify the
- * completion status of a specific task.
+ * completion status of one or multiple tasks.
  */
 public class MarkCommand extends Command {
-    private int taskNumber;
+    private ArrayList<Integer> taskNumbers;
     private boolean isDone;
-    private Task task;
+    private TaskList changedTasks;
 
     /**
-     * Constructor of the MarkCommand Class.
+     * Constructor for the MarkMultipleCommand class.
      *
-     * @param taskNumber Index of task to mark/unmark
-     * @param isDone Completion status of task
+     * @param taskNumbers List of task numbers representing task to be mark/unmark
+     * @param isDone Completion status of the tasks
      */
-    public MarkCommand(int taskNumber, boolean isDone) {
-        this.taskNumber = taskNumber;
+    public MarkCommand(ArrayList<Integer> taskNumbers, boolean isDone) {
+        this.taskNumbers = taskNumbers;
         this.isDone = isDone;
+        this.changedTasks = new TaskList();
     }
 
     @Override
     public void execute(TaskList taskList, StorageFile storageFile) throws BobException {
-        this.task = taskList.getTask(taskNumber - 1);
-        if (isDone) {
-            task.markAsDone();
-        } else {
-            task.unmarkTask();
+        try {
+            for (Integer i: taskNumbers) {
+                Task currTask = taskList.getTask(i - 1);
+            }
+        } catch (BobInvalidTaskNumberException e) {
+            String message = "One of the tasks you are trying to mark/unmark is non-existent!\n";
+            String recommendation = "Use the command: \"list\" to find out what tasks you have.";
+            throw new BobInvalidTaskNumberException(message + recommendation);
+        }
+        for (Integer i: taskNumbers) {
+            Task currTask = taskList.getTask(i - 1);
+            if (isDone) {
+                currTask.markAsDone();
+            } else {
+                currTask.unmarkTask();
+            }
+            changedTasks.addTask(currTask);
         }
         storageFile.saveTasks(taskList);
     }
@@ -43,11 +59,11 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public String getOutputMessage() {
+    public String getOutputMessage() throws BobException {
         if (isDone) {
-            return TextGenerator.getMarkMessage(this.task);
+            return TextGenerator.getMarkMultipleMessage(changedTasks);
         } else {
-            return TextGenerator.getUnmarkMessage(this.task);
+            return TextGenerator.getUnmarkMultipleMessage(changedTasks);
         }
     }
 }

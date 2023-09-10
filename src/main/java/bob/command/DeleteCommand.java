@@ -1,32 +1,48 @@
 package bob.command;
 
 import bob.exception.BobException;
+import bob.exception.BobInvalidTaskNumberException;
 import bob.storage.StorageFile;
 import bob.task.Task;
 import bob.task.TaskList;
 import bob.ui.TextGenerator;
+
+import java.util.ArrayList;
 
 /**
  * The DeleteCommand class encapsulates logic that can be executed
  * to delete tasks from the current task list.
  */
 public class DeleteCommand extends Command {
-    private int taskNumber;
-    private Task task;
+    private ArrayList<Integer> taskNumbers;
+    private TaskList deletedTasks;
 
     /**
-     * Constructor of the DeleteCommand Class.
+     * Constructor for the DeleteCommand Class.
      *
-     * @param taskNumber Index of task to be deleted from current list of tasks
+     * @param taskNumbers Task number of tasks to be deleted
      */
-    public DeleteCommand(int taskNumber) {
-        this.taskNumber = taskNumber;
+    public DeleteCommand(ArrayList<Integer> taskNumbers) {
+        this.taskNumbers = taskNumbers;
+        this.deletedTasks = new TaskList();
     }
 
     @Override
     public void execute(TaskList taskList, StorageFile storageFile) throws BobException {
-        this.task = taskList.getTask(taskNumber - 1);
-        taskList.deleteTask(taskNumber);
+        try {
+            for (Integer i: taskNumbers) {
+                taskList.getTask(i - 1);
+            }
+        } catch (BobInvalidTaskNumberException e) {
+            String message = "One of the tasks you are trying to delete is non-existent!\n";
+            String recommendation = "Use the command: \"list\" to find out what tasks you have.";
+            throw new BobInvalidTaskNumberException(message + recommendation);
+        }
+        for (Integer i : taskNumbers) {
+            Task currTask = taskList.getTask(i - 1);
+            deletedTasks.addTask(currTask);
+            taskList.deleteTask(i);
+        }
         storageFile.saveTasks(taskList);
     }
 
@@ -36,7 +52,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public String getOutputMessage() {
-        return TextGenerator.getDeleteMessage(task);
+    public String getOutputMessage() throws BobException {
+        return TextGenerator.getDeleteMultipleMessage(deletedTasks);
     }
 }
