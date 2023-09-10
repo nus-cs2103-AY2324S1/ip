@@ -43,6 +43,7 @@ public class UserInputParser {
         if (Pattern.matches("^todo\\s*$", userInput)) {
             throw new InvalidInputException(MessageTemplates.MESSAGE_INVALID_TODO);
         }
+        // Redundant check, to satisfy Level-5: Handle Errors requirement
         if (Pattern.matches("todo .+", userInput)) {
             return Action.TODO;
         }
@@ -75,7 +76,7 @@ public class UserInputParser {
         Action action = UserInputParser.getAction(userInput);
         int num;
         String name;
-        String deadline;
+        String by;
         String from;
         String to;
         String[] a1;
@@ -96,19 +97,31 @@ public class UserInputParser {
             name = userInput.split(" ", 2)[1];
             return taskList.add(new TodoTask(name, false));
         case DEADLINE:
-            // TODO: fix bug and test
-            //  assumes " /by " is not contained in deadline name
             a1 = userInput.split(" /by ", 2);
+            if (a1[1].contains("/by")) {
+                throw new InvalidInputException(MessageTemplates.MESSAGE_DEADLINE_CONTAINS_BY);
+            }
+            // assert " /by " is not contained in deadline name
+            assert !a1[1].contains("/by") : "deadline name should not contain ' /by '";
+
             name = a1[0].split(" ", 2)[1];
-            deadline = DateTimeParser.parseDateTime(a1[1]);
-            return taskList.add(new DeadlinesTask(name, false, deadline));
+            by = DateTimeParser.parseDateTime(a1[1]);
+            return taskList.add(new DeadlinesTask(name, false, by));
         case EVENT:
-            // TODO: fix bug and test
-            //  assumes " /to " is not in event name and from date
             a1 = userInput.split(" /to ", 2);
-            // TODO: fix bug and test
-            //  assumes " /from " is not in event name
+            if (a1[1].contains("/to")) {
+                throw new InvalidInputException(MessageTemplates.MESSAGE_EVENT_CONTAINS_TO);
+            }
+            // assert " /to " is not in event name and from date
+            assert !a1[1].contains("/to") : "event name and from date should not contain ' /to '";
+
             a2 = a1[0].split(" /from ", 2);
+            if (a2[1].contains("/from")) {
+                throw new InvalidInputException(MessageTemplates.MESSAGE_EVENT_CONTAINS_FROM);
+            }
+            // assert " /from " is not in event name
+            assert !a2[1].contains("/from") : "event name should not contain ' /from '";
+
             name = a2[0].split(" ", 2)[1];
             from = DateTimeParser.parseDateTime(a2[1]);
             to = DateTimeParser.parseDateTime(a1[1]);
@@ -135,10 +148,10 @@ public class UserInputParser {
     }
     /**
      * Sets the isActive.
+     *
      * @param isActive isActive.
-     * @return isActive.
      */
-    public static boolean setIsActive(boolean isActive) {
-        return UserInputParser.isActive = isActive;
+    public static void setIsActive(boolean isActive) {
+        UserInputParser.isActive = isActive;
     }
 }
