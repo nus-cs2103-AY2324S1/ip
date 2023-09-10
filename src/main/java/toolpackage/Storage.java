@@ -11,10 +11,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -51,9 +49,7 @@ public class Storage {
             File newFile = new File(this.file.getPath());
             return newFile.createNewFile();
         } catch (IOException e) {
-            byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
-            String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
-            throw new DukeException(emoji + " OOPS!!! There was an error saving data into storage.");
+            throw new DukeException(" OOPS!!! There was an error saving data into storage.");
         }
     }
 
@@ -71,9 +67,7 @@ public class Storage {
             fileWriter.close();
             return true;
         } catch (IOException | DukeException e) {
-            byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
-            String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
-            throw new DukeException(emoji + " OOPS!!! There was an error saving data into storage.");
+            throw new DukeException(" OOPS!!! There was an error saving data into storage.");
         }
     }
 
@@ -84,7 +78,7 @@ public class Storage {
      * @throws DukeException if there is a missing file or corrupt data.
      */
     public ArrayList<Task> load() throws DukeException {
-        ArrayList<Task> listOfTasks = new ArrayList<>();;
+        ArrayList<Task> listOfTasks = new ArrayList<>();
         Scanner data;
         try {
             data = new Scanner(this.file);
@@ -101,9 +95,7 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException | DukeException e) {
-            byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
-            String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
-            throw new DukeException(emoji + " OOPS!!! There was an error loading data from the storage.");
+            throw new DukeException(" OOPS!!! There was an error loading data from the storage.");
         }
         data.close();
         return listOfTasks;

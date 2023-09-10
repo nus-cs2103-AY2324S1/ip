@@ -1,7 +1,5 @@
 package taskpackage;
 
-import java.nio.charset.Charset;
-
 import dukepackage.DukeException;
 
 import toolpackage.Ui;
@@ -28,9 +26,7 @@ public class Task {
 
         // Throws error if there is no task description.
         if (task.isEmpty()) {
-            byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
-            String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
-            throw new DukeException(emoji + " OOPS!!! Task description should not be empty.");
+            throw new DukeException(" OOPS!!! Task description should not be empty.");
         }
 
         this.task = task;

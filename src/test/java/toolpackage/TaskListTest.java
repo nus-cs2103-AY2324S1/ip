@@ -10,8 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.nio.charset.Charset;
-
 public class TaskListTest {
 
     @Test
@@ -41,10 +39,7 @@ public class TaskListTest {
             tasks.addItem(new Deadlines("Deadline 1", "by 2023-08-31", "0"), ui);
             tasks.addItem(new Events("Event 1", "from 2023-08-30", "to 2023-08-31", "0"), ui);
 
-            
-            byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
-            String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
-            assertEquals(String.format(emoji + " OOPS!!! Please indicate an appropriate index within the list range."),
+            assertEquals(String.format(" OOPS!!! Please indicate an appropriate index within the list range."),
                     tasks.toggleDone("5", "unmark", ui));
         } catch (DukeException e) {
             System.out.println(e.getMessage());
@@ -80,9 +75,7 @@ public class TaskListTest {
             tasks.addItem(new Deadlines("Deadline 1", "by 2023-08-31", "0"), ui);
             tasks.addItem(new Events("Event 1", "from 2023-08-30", "to 2023-08-31", "0"), ui);
 
-            byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
-            String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
-            assertEquals(String.format(emoji + " OOPS!!! Please indicate an appropriate index within the list range."),
+            assertEquals(String.format(" OOPS!!! Please indicate an appropriate index within the list range."),
                     tasks.removeItem("0", ui));
         } catch (DukeException e) {
             System.out.println(e.getMessage());
