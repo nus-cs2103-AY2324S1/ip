@@ -4,34 +4,70 @@ import java.util.ArrayList;
 
 import buddy.utils.BuddyException;
 
+/**
+ * The TaskList class contains the task list and its related operations.
+ * @author Lim Jin Yin
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
     private final String filePath = "./data/tasks.txt";
 
+    /**
+     * The constructor for an empty TaskList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * The constructor for a (non-empty) TaskList.
+     *
+     * @param tasks The arraylist of tasks.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Returns the specific task in this TaskList.
+     *
+     * @param taskIndex The zero-based index of the task.
+     * @return Returns the task with the specified index.
+     */
     public Task getTask(int taskIndex) {
         return tasks.get(taskIndex);
     }
 
+    /**
+     * Returns the list of tasks in this TaskList.
+     *
+     * @return Returns an arraylist of tasks.
+     */
     public ArrayList<Task> getAllTasks() {
         return tasks;
     }
 
+    /**
+     * Returns the number of tasks in this TaskList.
+     * @return Returns the size of the list.
+     */
     public int getSize() {
         return tasks.size();
     }
 
+    /**
+     * Adds a new task of type Task to this TaskList.
+     * @param task The task that is added to the list.
+     */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Removes the specified task from the task list.
+     * @param taskIndex The zero-based index of the task.
+     * @throws BuddyException If taskIndex is invalid.
+     */
     public void deleteTask(int taskIndex) throws BuddyException {
         if (tasks.size() == 0 ) {
             System.out.println("There are no tasks in your list to delete.");
@@ -42,6 +78,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks the specified task in the task list as done.
+     * @param taskIndex The zero-based index of the task.
+     * @throws BuddyException If taskIndex is invalid.
+     */
     public void markAsDone(int taskIndex) throws BuddyException {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             tasks.get(taskIndex).markTaskAsDone();
@@ -52,6 +93,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks the specified task in the task list as not done.
+     * @param taskIndex The zero-based index of the task.
+     * @throws BuddyException If taskIndex is invalid.
+     */
     public void markAsNotDone(int taskIndex) throws BuddyException {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             tasks.get(taskIndex).markTaskAsUndone();

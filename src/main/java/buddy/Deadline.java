@@ -3,9 +3,18 @@ package buddy;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a deadline task with a deadline date.
+ */
 public class Deadline extends Task {
     protected LocalDate by;
 
+    /**
+     * The constructor for a deadline task.
+     * @param description The description of the deadline task
+     * @param by The deadline date for the deadline task
+     * @param isDone The status of the deadline task
+     */
     public Deadline(String description, LocalDate by, boolean isDone) {
         super(description, isDone);
         this.by = by;
