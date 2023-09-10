@@ -1,3 +1,10 @@
+package tasket.storage;
+
+import tasket.exception.TasketException;
+import tasket.data.TaskList;
+import tasket.parser.Parser;
+import tasket.task.Task;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -6,8 +13,8 @@ import java.util.Scanner;
 
 public class Storage {
 
-    private String filePath;
-    private File dataFile;
+    private final String filePath;
+    private final File dataFile;
 
     public Storage(String filePath) {
         this.filePath = filePath;

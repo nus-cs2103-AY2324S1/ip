@@ -1,9 +1,15 @@
-public class UnmarkCommand extends Command {
+package tasket.command;
 
-    public UnmarkCommand(String arguments) {
-        super(arguments);
+import tasket.storage.Storage;
+import tasket.data.TaskList;
+import tasket.exception.TasketException;
+import tasket.ui.Ui;
+
+public class DeleteCommand extends Command {
+
+    public DeleteCommand(String command) {
+        super(command);
     }
-
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws TasketException {
         if (commandDescription.isEmpty()) {
@@ -19,8 +25,8 @@ public class UnmarkCommand extends Command {
                 throw new TasketException("The task index cannot exceed the list");
             }
 
-            taskList.unmark(i - 1);
-            ui.showUnmarkedTask(taskList.getTaskString(i - 1));
+            String deletedTaskString = taskList.remove(i - 1).toString();
+            ui.showDeletedTask(deletedTaskString, taskList.size());
             storage.rewriteSaveFile(taskList);
         } catch (NumberFormatException e) {
             throw new TasketException("The task index must be a number");
