@@ -36,56 +36,82 @@ public class Parser {
         // Splits based on white spaces, identifies based on the relevant /...
         String[] arrStrings = input.split("\\s+");
         String command = arrStrings[0];
-        String name = "";
         if (command.equals("deadline")) {
-            String deadline = "";
-            boolean completedName = false;
-            for (int i = 1; i < arrStrings.length; i++) {
-                if (arrStrings[i].equals("/by")) {
-                    completedName = true;
-                    continue;
-                }
-                if (completedName) {
-                    deadline += arrStrings[i] + " ";
-                } else {
-                    name += arrStrings[i] + " ";
-                }
-            }
-            if (!completedName) {
-                throw new Exception("Invalid deadline task!");
-            }
-            return new Deadline(name.substring(0, name.length() - 1), deadline.substring(0, deadline.length() - 1));
+            return createDeadline(arrStrings);
         } else if (command.equals("todo")) {
-            if (arrStrings.length == 1) {
-                throw new Exception("OOPS!!! The description of a todo cannot be empty.");
-            }
-            for (int i = 1; i < arrStrings.length; i++) {
-                name += arrStrings[i] + " ";
-            }
-            return new Todo(name.substring(0, name.length() - 1));
+            return createTodo(arrStrings);
         } else if (command.equals("event")) {
-            String from = "";
-            String to = "";
-            boolean completedName = false;
-            boolean completedFrom = false;
-            for (int i = 1; i < arrStrings.length; i++) {
-                if (arrStrings[i].equals("/from")) {
-                    completedName = true;
-                } else if (arrStrings[i].equals("/to")) {
-                    completedFrom = true;
-                } else if (!completedFrom && completedName) {
-                    from += arrStrings[i] + " ";
-                } else if (completedFrom && completedName) {
-                    to += arrStrings[i] + " ";
-                } else {
-                    name += arrStrings[i] + " ";
-                }
-            }
-            return new Event(name.substring(0, name.length() - 1), from.substring(0, from.length() - 1),
-                    to.substring(0, to.length() - 1));
+            return createEvent(arrStrings);
         } else {
             throw new Exception("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+    }
+
+    private static Event createEvent(String[] arrStrings) {
+        String name = "";
+        String from = "";
+        String to = "";
+        boolean completedName = false;
+        boolean completedFrom = false;
+        for (int i = 1; i < arrStrings.length; i++) {
+            if (arrStrings[i].equals("/from")) {
+                completedName = true;
+            } else if (arrStrings[i].equals("/to")) {
+                completedFrom = true;
+            } else if (!completedFrom && completedName) {
+                from += arrStrings[i] + " ";
+            } else if (completedFrom && completedName) {
+                to += arrStrings[i] + " ";
+            } else {
+                name += arrStrings[i] + " ";
+            }
+        }
+        name = name.substring(0, name.length() - 1);
+        from = from.substring(0, from.length() - 1);
+        to = to.substring(0, to.length() - 1);
+        return new Event(name, from, to);
+    }
+
+    private static Todo createTodo(String[] arrStrings) throws Exception {
+        String name = "";
+        if (arrStrings.length == 1) {
+            throw new Exception("OOPS!!! The description of a todo cannot be empty.");
+        }
+        for (int i = 1; i < arrStrings.length; i++) {
+            name += arrStrings[i] + " ";
+        }
+        name = name.substring(0, name.length() - 1);
+        return new Todo(name);
+    }
+
+    /**
+     * Create a new Deadline object based on the String input which has been split into parts.
+     *
+     * @param arrStrings Array of String which has been split from the user input
+     * @return new Deadline Object
+     * @throws Exception When the user did not input any name for the task
+     */
+    private static Deadline createDeadline(String[] arrStrings) throws Exception {
+        String name = "";
+        String deadline = "";
+        boolean completedName = false;
+        for (int i = 1; i < arrStrings.length; i++) {
+            if (arrStrings[i].equals("/by")) {
+                completedName = true;
+                continue;
+            }
+            if (completedName) {
+                deadline += arrStrings[i] + " ";
+                continue;
+            }
+            name += arrStrings[i] + " ";
+        }
+        if (!completedName) {
+            throw new Exception("Invalid deadline task!");
+        }
+        name = name.substring(0, name.length() - 1);
+        deadline = deadline.substring(0, deadline.length() - 1);
+        return new Deadline(name, deadline);
     }
 
     /**
@@ -103,46 +129,82 @@ public class Parser {
         assert ui != null : "Should not parse without a ui!";
         // Splits the input based on whitespaces.
         String command = input.split("\\s+")[0];
-        String message = "";
-        int choice = -1;
+        String responseMessage = getResponseMessage(input, ui, taskList, command);
+        storage.updateTasks(taskList);
+        assert responseMessage.equals("") : "Message returned should never be nothing!";
+        return responseMessage;
+    }
+
+    private static String getResponseMessage(String input, Ui ui, TaskList taskList, String command) {
+        String responseMessage = "";
         switch (command) {
         case "list":
-            message = ui.listTask(taskList);
+            responseMessage = ui.listTask(taskList);
             break;
         case "mark":
-            choice = Integer.parseInt(input.split("\\s+")[1]);
-            taskList.mark(choice);
-            message = ui.displayMarkTask(taskList, choice);
+            responseMessage = markTask(input, ui, taskList);
             break;
         case "unmark":
-            choice = Integer.parseInt(input.split("\\s+")[1]);
-            taskList.unmark(choice);
-            message = ui.displayUnmarkTask(taskList, choice);
+            responseMessage = unmarkTask(input, ui, taskList);
             break;
         case "delete":
-            choice = Integer.parseInt(input.split("\\s+")[1]);
-            Task removedTask = taskList.delete(choice);
-            message = ui.displayDeleteTask(removedTask, taskList);
+            responseMessage = deleteTask(input, ui, taskList);
             break;
         case "find":
-            String word = input.split("\\s+")[1];
-            ArrayList<Task> matchingList = taskList.find(word);
-            message = ui.displayMatchingTask(matchingList);
+            responseMessage = findTask(input, ui, taskList);
             break;
         default:
-            Task task = null;
             try {
-                task = createTask(input);
+                Task task = createTask(input);
+                if (task != null) {
+                    taskList.add(task);
+                    responseMessage = ui.displayAddTask(task, taskList);
+                }
             } catch (Exception e) {
-                message = ui.showExceptionError(e);
-            }
-            if (task != null) {
-                taskList.add(task);
-                message = ui.displayAddTask(task, taskList);
+                responseMessage = ui.showExceptionError(e);
             }
         }
-        storage.updateTasks(taskList);
-        assert message.equals("") : "Message returned should never be nothing!";
-        return message;
+        return responseMessage;
+    }
+
+    private static String findTask(String input, Ui ui, TaskList taskList) {
+        String responseMessage;
+        String word = input.split("\\s+")[1];
+        ArrayList<Task> matchingList = taskList.find(word);
+        responseMessage = ui.displayMatchingTask(matchingList);
+        return responseMessage;
+    }
+
+    private static String markTask(String input, Ui ui, TaskList taskList) {
+        String responseMessage;
+        int choice;
+        choice = getChoice(input);
+        taskList.mark(choice);
+        responseMessage = ui.displayMarkTask(taskList, choice);
+        return responseMessage;
+    }
+
+    private static String unmarkTask(String input, Ui ui, TaskList taskList) {
+        String responseMessage;
+        int choice;
+        choice = getChoice(input);
+        taskList.unmark(choice);
+        responseMessage = ui.displayUnmarkTask(taskList, choice);
+        return responseMessage;
+    }
+
+    private static String deleteTask(String input, Ui ui, TaskList taskList) {
+        String responseMessage;
+        int choice;
+        choice = getChoice(input);
+        Task removedTask = taskList.delete(choice);
+        responseMessage = ui.displayDeleteTask(removedTask, taskList);
+        return responseMessage;
+    }
+
+    private static int getChoice(String input) {
+        int choice;
+        choice = Integer.parseInt(input.split("\\s+")[1]);
+        return choice;
     }
 }

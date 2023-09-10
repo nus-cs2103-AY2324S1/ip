@@ -31,16 +31,17 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Obtains the response by notDuke based on the user input.
+     *
+     * @param input The string that the user has entered
      */
     public String getResponse(String input) {
-        if (Parser.parsable(input)) {
-            if (this.outputPath.equals("")) {
-                this.ui.emptyFilePath();
-            }
-            return Parser.parse(input, ui, this.tasks, this.data);
+        if (!Parser.parsable(input)) {
+            return this.ui.exit();
         }
-        return this.ui.exit();
+        if (this.outputPath.equals("")) {
+            this.ui.emptyFilePath();
+        }
+        return Parser.parse(input, ui, this.tasks, this.data);
     }
 }
