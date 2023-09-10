@@ -3,9 +3,8 @@ package potato.command;
 import potato.*;
 
 public class ExitCommand extends Command{
-    public ExitCommand(String input) {
+    public ExitCommand() {
         super.isExit = true;
-        super.input = input;
     }
 
     @Override
