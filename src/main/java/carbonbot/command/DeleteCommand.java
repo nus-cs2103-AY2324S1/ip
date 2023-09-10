@@ -4,6 +4,7 @@ import carbonbot.Storage;
 import carbonbot.TaskList;
 import carbonbot.Ui;
 import carbonbot.exception.CarbonException;
+import carbonbot.exception.CarbonInvalidIndexException;
 import carbonbot.task.Task;
 
 /**
@@ -27,12 +28,11 @@ public class DeleteCommand extends Command {
             Task task = tasks.get(taskIdx);
             tasks.delete(taskIdx);
 
-            ui.showMessage("Noted. I've removed this task:");
-            ui.showMessage(task.toString());
-            ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
+            ui.bufferMessage("Noted. I've removed this task:");
+            ui.bufferMessage(task.toString());
+            ui.bufferMessage("Now you have " + tasks.size() + " tasks in the list.");
         } catch (IndexOutOfBoundsException ie) {
-            throw new CarbonException("Index provided was out-of-bounds. Use the index"
-                    + " number labelled for the task in the command 'list'!");
+            throw new CarbonInvalidIndexException();
         }
 
         storage.saveTasks(tasks);

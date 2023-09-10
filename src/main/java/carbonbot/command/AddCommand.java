@@ -26,9 +26,9 @@ public class AddCommand extends Command {
         // Add the task to the TaskList
         tasks.add(this.task);
 
-        ui.showMessage("Got it. I've added this task:");
-        ui.showMessage(this.task.toString());
-        ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
+        ui.bufferMessage("Got it. I've added this task:");
+        ui.bufferMessage(this.task.toString());
+        ui.bufferMessage("Now you have " + tasks.size() + " tasks in the list.");
 
         storage.saveTasks(tasks);
     }

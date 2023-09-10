@@ -1,5 +1,7 @@
 package carbonbot.control;
 
+import java.util.Objects;
+
 import carbonbot.CarbonBot;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -9,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -24,8 +28,10 @@ public class MainWindow extends AnchorPane {
 
     private CarbonBot carbonbot;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image carbonImage = new Image(this.getClass().getResourceAsStream("/images/carbonbot.png"));
+    private final Image userImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/user.png")));
+    private final Image carbonImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/carbonbot.png")));
 
     /**
      * Initializes the MainWindow and adds a greeting message by the bot.
@@ -33,9 +39,15 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        String greetingMessage = "Hello! I am CarbonBot.\nWhat can I do for you?";
+    }
+
+    /**
+     * Adds a message by the CarbonBot.
+     * @param message Message to be displayed
+     */
+    public void addCarbonDialog(String message) {
         dialogContainer.getChildren().addAll(
-                DialogBox.getCarbonDialog(greetingMessage, carbonImage)
+                DialogBox.getCarbonDialog(message, carbonImage)
         );
     }
 

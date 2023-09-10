@@ -13,7 +13,6 @@ import javafx.stage.Stage;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
-    private final CarbonBot carbonBot = new CarbonBot();
 
     @Override
     public void start(Stage stage) {
@@ -23,7 +22,10 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("CarbonBot");
+
+            CarbonBot carbonBot = new CarbonBot(fxmlLoader.<MainWindow>getController());
             fxmlLoader.<MainWindow>getController().setBot(carbonBot);
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

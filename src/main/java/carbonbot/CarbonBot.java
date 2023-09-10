@@ -1,6 +1,7 @@
 package carbonbot;
 
 import carbonbot.command.Command;
+import carbonbot.control.MainWindow;
 import carbonbot.exception.CarbonException;
 import carbonbot.exception.CarbonSerializationException;
 import carbonbot.exception.CarbonStorageException;
@@ -10,15 +11,18 @@ import carbonbot.exception.CarbonStorageException;
  */
 
 public class CarbonBot {
+    private static final String DEFAULT_DATA_FILE_PATH = "./data/tasks.txt";
     private final String saveFilePath;
     private final Ui ui;
     private final Storage storage;
     private boolean shouldExit = false;
     private TaskList tasks;
 
-
-    public CarbonBot() {
-        this("./data/tasks.txt");
+    /**
+     * Constructs a CarbonBot object that will read and write its data to the default file path.
+     */
+    public CarbonBot(MainWindow mainWindow) {
+        this(DEFAULT_DATA_FILE_PATH, mainWindow);
     }
 
     /**
@@ -26,9 +30,9 @@ public class CarbonBot {
      *
      * @param filePath Path to save file
      */
-    public CarbonBot(String filePath) {
+    public CarbonBot(String filePath, MainWindow mainWindow) {
         this.saveFilePath = filePath;
-        this.ui = new Ui();
+        this.ui = new Ui(mainWindow);
         this.storage = new Storage(filePath);
 
         try {
@@ -37,36 +41,8 @@ public class CarbonBot {
             this.ui.showLoadingError();
             this.tasks = new TaskList();
         }
-    }
 
-
-    /**
-     * Executes CarbonBot to start running
-     */
-    public void run() {
         this.ui.showGreetings();
-        boolean isExit = false;
-        while (!isExit) {
-            String input = this.ui.getNextInput();
-
-            // Ignore if the input was empty
-            if (input.isBlank()) {
-                continue;
-            }
-
-            try {
-                ui.printDivider();
-                Command c = Parser.parse(input);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-                continue;
-
-            } catch (CarbonException e) {
-                ui.showMessage(e.getMessage());
-            } finally {
-                ui.printDivider();
-            }
-        }
     }
 
     /**
@@ -89,9 +65,7 @@ public class CarbonBot {
                 this.shouldExit = true;
             }
         } catch (CarbonException e) {
-            ui.showMessage(e.getMessage());
-        } finally {
-            //ui.printDivider();
+            ui.bufferMessage(e.getMessage());
         }
 
         return ui.flushBuffer();
