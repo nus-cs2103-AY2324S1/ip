@@ -54,10 +54,10 @@ public class CommandParser extends Parser<Command> {
             command = newListCommand(inputs);
             break;
         case MARK:
-            command = newMarkCommand(inputs, true);
+            command = newMarkCommand(inputs);
             break;
         case UNMARK:
-            command = newMarkCommand(inputs, false);
+            command = newUnMarkCommand(inputs);
             break;
         case TODO:
             command = newAddCommand(inputs, cmd);
@@ -100,19 +100,39 @@ public class CommandParser extends Parser<Command> {
         return new ListTasksCommand();
     }
 
-    private Command newMarkCommand(String[] inputs, boolean status) throws InvalidCommandFormatException {
+    private Command newMarkCommand(String[] inputs) throws InvalidCommandFormatException {
+        CommandType commandType = CommandType.MARK;
+        String commandFormat = commandType.getCommandFormat();
+
         if (inputs.length == 1) {
             throw new InvalidCommandFormatException("No argument is provided!" + "\nFormat: "
-                    + (status ? CommandType.MARK.getCommandFormat() : CommandType.UNMARK.getCommandFormat()));
+                    + commandFormat);
         }
 
         try {
             int index = Integer.parseInt(inputs[1]) - 1;
-            return new MarkTaskCommand(index, status,
-                    status ? CommandType.MARK : CommandType.UNMARK);
+            return new MarkTaskCommand(index, true, commandType);
         } catch (NumberFormatException e) {
             throw new InvalidCommandFormatException("Please provide a valid task number!" + "\nFormat: "
-                    + (status ? CommandType.MARK.getCommandFormat() : CommandType.UNMARK.getCommandFormat()));
+                    + commandFormat);
+        }
+    }
+
+    private Command newUnMarkCommand(String[] inputs) throws InvalidCommandFormatException {
+        CommandType commandType = CommandType.UNMARK;
+        String commandFormat = commandType.getCommandFormat();
+
+        if (inputs.length == 1) {
+            throw new InvalidCommandFormatException("No argument is provided!" + "\nFormat: "
+                    + commandFormat);
+        }
+
+        try {
+            int index = Integer.parseInt(inputs[1]) - 1;
+            return new MarkTaskCommand(index, true, commandType);
+        } catch (NumberFormatException e) {
+            throw new InvalidCommandFormatException("Please provide a valid task number!" + "\nFormat: "
+                    + commandFormat);
         }
     }
 
