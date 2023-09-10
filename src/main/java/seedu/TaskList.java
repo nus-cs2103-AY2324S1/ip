@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 
 public class TaskList {
 
+    private static final String DELIMITER = "|";
+    private static final String EMPTY = "";
     private List<Task> lists = new ArrayList<>();
     public TaskList(List<Task> t) {
         this.lists = t;
@@ -17,7 +19,7 @@ public class TaskList {
     /**
      * Add a tasks in the lists of tasks
      *
-     * @param task the Task class that is to be added
+     * @param t task the Task class that is to be added
      */
     public void add(Task t) throws Exception {
         try {
@@ -87,9 +89,10 @@ public class TaskList {
         for (int i = 0; i < tasks.getLen(); i++) {
             if (tasks.get(i) != null) {
                 Task t = tasks.get(i);
-                String start = !t.start.isEmpty() ? t.start + "|" : "";
-                String end = !t.end.isEmpty()?  t.end + "|" : "";
-                arrays.add(t.category.toString() + "|" + (t.isDone ? "true" : "false") + "|" + t.title + "|" + end + start);
+                String start = !t.start.isEmpty() ? t.start + DELIMITER : EMPTY;
+                String end = !t.end.isEmpty()?  t.end + DELIMITER : EMPTY;
+                arrays.add(t.category.toString() + DELIMITER + (t.isDone ? "true" : "false")
+                        + DELIMITER + t.title + DELIMITER + end + start);
 
             }
             ;

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class Ui {
     private Scanner sc;
-    private boolean on;
     private final PrintStream out;
     public Ui() {
         this.sc = new Scanner(System.in);
@@ -60,16 +59,6 @@ public class Ui {
         return m;
     }
 
-    /**
-     * Returns the command that is entered by the user
-     *
-     * @return string of comman (full line) entered by the user
-     */
-
-    public String getUserCommand() {
-        out.println("Enter your input : ");
-        return sc.nextLine();
-    }
 
     /**
      * Removes a task from the lists of tasks
@@ -80,8 +69,7 @@ public class Ui {
     public String removeTask(Task t, int currentLength) {
         StringBuilder s = new StringBuilder();
         s.append("Noted. I've removed this task: \n");
-        s.append(t.toString() + "\n");
-        s.append("Now you have " + currentLength + " tasks left. \n");
+        s.append(t.toString() + "\n" + "Now you have " + currentLength + " tasks left. \n");
         return s.toString();
     }
 
