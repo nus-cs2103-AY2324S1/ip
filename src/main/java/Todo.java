@@ -34,7 +34,7 @@ public class Todo extends Task {
     @Override
     public void serialize(JsonGenerator jsonGenerator, SerializerProvider serializer) throws IOException {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeStringField("Type", "Task");
+        jsonGenerator.writeStringField("type", "todo");
         jsonGenerator.writeStringField("name", super.getName());
         jsonGenerator.writeBooleanField("isCompleted", super.isCompleted());
         jsonGenerator.writeEndObject();

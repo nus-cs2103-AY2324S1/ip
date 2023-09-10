@@ -36,7 +36,7 @@ public class Deadline extends Task {
     @Override
     public void serialize(JsonGenerator jsonGenerator, SerializerProvider serializer) throws IOException {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeStringField("Type", "Task");
+        jsonGenerator.writeStringField("type", "deadline");
         jsonGenerator.writeStringField("name", super.getName());
         jsonGenerator.writeBooleanField("isCompleted", super.isCompleted());
         jsonGenerator.writeStringField("deadline", deadline);

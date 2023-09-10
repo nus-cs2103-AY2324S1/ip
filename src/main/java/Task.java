@@ -67,7 +67,7 @@ public class Task {
      */
     public void serialize(JsonGenerator jsonGenerator, SerializerProvider serializer) throws IOException {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeStringField("Type", "Task");
+        jsonGenerator.writeStringField("type", "task");
         jsonGenerator.writeStringField("name", name);
         jsonGenerator.writeBooleanField("isCompleted", isCompleted);
         jsonGenerator.writeEndObject();
