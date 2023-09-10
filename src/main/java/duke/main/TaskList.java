@@ -23,13 +23,25 @@ public class TaskList {
      * @param task
      */
     public void add(Task task) throws DukeDuplicatedTaskException {
-        long duplicate = tasks.stream()
-                                .filter(taskInList -> taskInList.toString().equals(task.toString()))
-                                .count();
-        if (duplicate > 0) {
+        if (duplicateExist(task)) {
             throw new DukeDuplicatedTaskException();
         }
         tasks.add(task);
+    }
+
+    /**
+     * Checks if the task entered is duplicated.
+     * @param task
+     * @return
+     */
+    public boolean duplicateExist(Task task) {
+        long duplicate = tasks.stream()
+                .filter(taskInList -> taskInList.toString().equals(task.toString()))
+                .count();
+        if (duplicate > 0) {
+            return true;
+        }
+        return false;
     }
 
     /**
