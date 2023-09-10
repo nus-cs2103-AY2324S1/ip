@@ -43,13 +43,13 @@ public class Task {
     }
 
     /**
-     * Returns true if task description contains query
+     * Returns true if task description contains query (case insensitive)
      *
      * @param query query to search for
      * @return true if task description contains query
      */
     public boolean queryInDescription(String query) {
-        return this.description.contains(query);
+        return this.description.toLowerCase().contains(query.toLowerCase());
     }
 
     @Override
