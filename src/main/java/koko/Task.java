@@ -50,6 +50,15 @@ public abstract class Task {
     }
 
     /**
+     * Returns the name of the task.
+     *
+     * @return The name of the task.
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
      * Returns a string representation of the task to be displayed in a Todo List.
      *
      * @return A string representation of the task.

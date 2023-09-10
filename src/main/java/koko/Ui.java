@@ -74,5 +74,13 @@ public class Ui {
         printFormatted("Loaded tasks from file:\n" + taskList.toStringForUi());
     }
 
+    /**
+     * Displays a list of tasks that match a keyword.
+     * @param matchingTasks The list of tasks that match a keyword.
+     */
+    public void showMatchingTasks(TaskList matchingTasks) {
+        printFormatted("Here are the matching tasks in your list:\n" + matchingTasks.toStringForUi());
+    }
+
 
 }
