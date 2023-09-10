@@ -1,11 +1,63 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
+    private static final String FILE_PATH = "../data/Duke.txt";
+
+    private static ArrayList<Task> loadTasks() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            File f = new File(FILE_PATH);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String data = s.nextLine();
+                String[] splitVariables = data.split(" \\| ");
+                String taskType = splitVariables[0];
+                String taskDescription = splitVariables[1];
+                boolean taskIsDone = Boolean.parseBoolean(splitVariables[2]);
+                switch (taskType) {
+                    case "E":
+                        String taskFrom = splitVariables[3];
+                        String taskTo = splitVariables[4];
+                        tasks.add(new Event(taskDescription, taskFrom, taskTo, taskIsDone));
+                        break;
+                    case "D":
+                        String taskBy = splitVariables[3];
+                        tasks.add(new Deadline(taskDescription, taskBy, taskIsDone));
+                        break;
+                    case "T":
+                        tasks.add(new Todo(taskDescription, taskIsDone));
+                }
+            }
+            s.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found. No existing tasks.");
+        }
+
+        return tasks;
+    }
+
+    private static void saveTasks(ArrayList<Task> tasks) {
+        try {
+            FileWriter fw = new FileWriter(FILE_PATH);
+            for (Task task : tasks) {
+                String taskData = task.parse();
+                fw.write(taskData + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Save tasks failed.");
+        }
+    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean isRunning = true;
-        int taskCount = 0;
-        ArrayList<Task> tasks = new ArrayList<>();
+
+        ArrayList<Task> tasks = loadTasks();
+        int taskCount = tasks.size();
 //        Task[] tasks =  new Task[100];
         System.out.println("Hello! I'm Chatty\nWhat can I do for you?");
         System.out.println("____________________________________________________________");
@@ -14,6 +66,7 @@ public class Duke {
                 String userInput = scanner.nextLine();
                 System.out.println("____________________________________________________________");
                 if (userInput.equals("bye")) {
+                    saveTasks(tasks);
                     System.out.println("Bye. Hope to see you again soon!");
                     isRunning = false;
                 } else if (userInput.equals("list")){
