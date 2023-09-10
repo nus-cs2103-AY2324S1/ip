@@ -13,6 +13,9 @@ import javafx.scene.layout.VBox;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Represents the main window of the application.
+ */
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -36,11 +39,18 @@ public class MainWindow extends AnchorPane {
             )
     );
 
+    /**
+     * Initializes the main window.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the Duke instance for this main window.
+     * @param d The duke instance.
+     */
     public void setDuke(Duke d) {
         duke = d;
     }
@@ -60,6 +70,9 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Displays the welcome message in the main window.
+     */
     @FXML
     public void showWelcomeMessage() {
         String message = duke.ui.showWelcomeMessage();
@@ -68,10 +81,13 @@ public class MainWindow extends AnchorPane {
         );
     }
 
+    /**
+     * Loads tasks from text file.
+     */
     @FXML
     public void loadTasksFromFile() {
         try {
-            List<Task> list = duke.taskList.getList();
+            List<Task> list = duke.getTaskList().getList();
             duke.storage.loadTasksFromFile(list);
         } catch (Exception e) {
             dialogContainer.getChildren().add(

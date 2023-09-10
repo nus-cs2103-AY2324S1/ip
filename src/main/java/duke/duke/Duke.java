@@ -1,5 +1,6 @@
 package duke.duke;
 
+import duke.controller.Launcher;
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -16,7 +17,7 @@ public class Duke {
 
     public final Storage storage;
     public final Ui ui;
-    public TaskList taskList;
+    private TaskList taskList;
 
     /**
      * Constructs the Duke bot instance.
@@ -27,6 +28,9 @@ public class Duke {
         taskList = new TaskList(100);
     }
 
+    public TaskList getTaskList() {
+        return this.taskList;
+    }
 
     /**
      * Gets the response of the duke bot generated based on user input.
@@ -111,7 +115,7 @@ public class Duke {
 //     * @param args The command-line arguments (not used in this context).
 //     */
 //    public static void main(String[] args) {
-//        new Duke("./data/tasks.txt").run();
+//        new Launcher().main(null);
 //    }
 
 }

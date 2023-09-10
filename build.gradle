@@ -3,9 +3,10 @@ plugins {
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
-mainClassName = 'duke.duke.Duke'
+mainClassName = 'duke.controller.Launcher'
 
 repositories {
     mavenCentral()
@@ -46,12 +47,17 @@ test {
 }
 
 application {
-    mainClass.set("duke.duke.Duke")
+    mainClass.set("duke.controller.Launcher")
+}
+
+javafx {
+    version = "20"
+    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics' ]
 }
 
 shadowJar {
-    archiveFileName = "duke.jar"
-    archiveBaseName = "duke"
+    archiveFileName = "dukeGUI.jar"
+    archiveBaseName = "dukeGUI"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

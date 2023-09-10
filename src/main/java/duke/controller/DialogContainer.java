@@ -1,10 +1,12 @@
 package duke.controller;
 
-import duke.controller.DialogBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
+/**
+ * Represents the dialog container containing all the messages.
+ */
 public class DialogContainer extends VBox {
 
     /**
