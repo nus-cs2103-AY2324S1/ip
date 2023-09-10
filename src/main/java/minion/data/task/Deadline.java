@@ -4,7 +4,7 @@ package minion.data.task;
  * Represents a deadline task.
  */
 public class Deadline extends Task {
-    protected String datetime;
+    private String datetime;
 
     /**
      * Creates a deadline object. This is the main constructor of the minion.data.task.Deadline class.
@@ -33,7 +33,7 @@ public class Deadline extends Task {
      */
     @Override
     public boolean contains(String query) {
-        return this.description.contains(query) || this.datetime.contains(query);
+        return description.contains(query) || datetime.contains(query);
     }
 
     /**
@@ -42,7 +42,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.datetime + ")";
+        return "[D]" + super.toString() + " (by: " + datetime + ")";
     }
 
     /**
@@ -51,7 +51,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toStringStorage() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + this.datetime;
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + datetime;
     }
 
     /**
@@ -65,6 +65,6 @@ public class Deadline extends Task {
             return false;
         }
         Deadline t = (Deadline) o;
-        return this.description.equals(t.description) && this.isDone == t.isDone && this.datetime.equals(t.datetime);
+        return description.equals(t.description) && isDone == t.isDone && datetime.equals(t.datetime);
     }
 }
