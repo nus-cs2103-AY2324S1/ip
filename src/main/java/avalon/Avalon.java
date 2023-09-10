@@ -1,9 +1,14 @@
 package avalon;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 /**
  * The main class for the Duke ChatBot (Avalon).
  */
-public class Avalon {
+public class Avalon extends Application{
 
     private Ui ui;
     private Storage storage;
@@ -11,12 +16,10 @@ public class Avalon {
 
     /**
      * Constructs an Avalon instance with the specified file path for task storage.
-     *
-     * @param filePath The path to the file used for storing tasks.
      */
-    public Avalon(String filePath) {
+    public Avalon() {
         this.ui = new Ui();
-        this.storage = new Storage(filePath);
+        this.storage = new Storage("src/main/data/Avalon.txt");
         this.tasks = new TaskList();
         storage.loadTasks(this.tasks);
     }
@@ -145,6 +148,15 @@ public class Avalon {
      */
     public static void main(String[] args) {
         // Create an instance of Avalon and start the application
-        new Avalon("src/main/data/Avalon.txt").run();
+        new Avalon().run();
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 }
