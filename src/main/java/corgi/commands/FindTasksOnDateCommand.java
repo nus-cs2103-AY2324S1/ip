@@ -34,6 +34,7 @@ public class FindTasksOnDateCommand extends Command {
         super(false, CommandType.DATE);
         this.target = target;
 
+        // Define a predicate to filter tasks based on whether they are happening on the target date.
         this.predicate = t -> {
             if (t instanceof Deadline) {
                 Deadline d = (Deadline) t;
