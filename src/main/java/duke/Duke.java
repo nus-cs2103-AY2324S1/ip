@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 import java.io.IOException;
 
+/**
+ * Encapsulates the chat bot.
+ */
 public class Duke {
 
     private Storage storage;
@@ -24,6 +27,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the program.
+     */
     public void run() {
         Ui.welcomeMessage();
         Scanner userInput = new Scanner(System.in);

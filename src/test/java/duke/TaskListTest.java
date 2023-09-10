@@ -6,7 +6,14 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests TaskList class.
+ */
 public class TaskListTest {
+
+    /**
+     * Tests addTask function.
+     */
     @Test
     public void addTask() {
         Task t = new Task("test");
