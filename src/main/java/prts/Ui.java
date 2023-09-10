@@ -26,14 +26,6 @@ public class Ui {
     }
 
     /**
-     * Reads in the next line of user input.
-     * @return The raw user input, as a string.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
-    /**
      * Lists the current Tasks stored in the TaskList.
      * @param tasks The current state of the TaskList.
      */

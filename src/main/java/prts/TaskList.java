@@ -1,11 +1,11 @@
 package prts;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 import prts.task.AlreadyMarkedException;
 import prts.task.AlreadyUnmarkedException;
 import prts.task.Task;
-
-import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * Represents the list of Tasks the user has added in PRTS, and manages all modifications to this list.
@@ -90,9 +90,9 @@ public class TaskList implements Serializable {
                 try {
                     task.markDone();
                 } catch (AlreadyMarkedException ignored) {
-                    // AlreadyMarkedExceptions here can be safely ignored.
-                    // We don't want to display a bunch of exceptions if the list already has many
-                    // marked tasks.
+                    /*All AlreadyMarkedExceptions here can be safely ignored, as they are custom
+                    exceptions used to indicate to the user that they're marking a marked task.
+                    We don't want to display a bunch of exceptions in this case.*/
                 }
             }
             return "All done.";
@@ -128,9 +128,9 @@ public class TaskList implements Serializable {
                 try {
                     task.markUndone();
                 } catch (AlreadyUnmarkedException ignored) {
-                    // AlreadyUnmarkedExceptions here can be safely ignored.
-                    // We don't want to display a bunch of exceptions if the list already has many
-                    // unmarked tasks.
+                    /*All AlreadyUnmarkedExceptions here can be safely ignored, as they are custom
+                    exceptions used to indicate to the user that they're unmarking an unmarked task.
+                    We don't want to display a bunch of exceptions in this case.*/
                 }
             }
             return "All undone.";
@@ -197,20 +197,15 @@ public class TaskList implements Serializable {
      */
     public String find(String searchTerm) {
         assert searchTerm != null : "The search term should not be null!";
-
         StringBuilder stringBuilder = new StringBuilder();
-
         for (Task task : tasks) {
-
-            if (task.contains(searchTerm)) {
-                stringBuilder.append(task.toString());
-                stringBuilder.append("\n");
+            if (!task.contains(searchTerm)) {
+                continue;
             }
-
+            stringBuilder.append(task.toString());
+            stringBuilder.append("\n");
         }
-
         return stringBuilder.toString();
-
     }
 
 }
