@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import duke.exceptions.DukeException;
 import duke.exceptions.DukeIoException;
@@ -83,6 +84,7 @@ public class Storage {
      * @throws DukeException If there is an error saving tasks to the save file.
      */
     public void save(TaskList tasklist) throws DukeException {
+        assert Files.exists(Paths.get(this.path)) : "Save file should exist before saving tasks to file.";
         try {
             String content = "";
             FileWriter fileWriter = new FileWriter(path, false);
