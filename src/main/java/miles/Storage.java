@@ -51,12 +51,10 @@ public class Storage {
             File directory = new File(this.directoryPath);
             File newFile = new File(this.filePath);
 
-            // check if directory exists
             if (!directory.exists()) {
                 directory.mkdirs();
             }
 
-            // check if file exists
             if (!newFile.exists()) {
                 newFile.createNewFile();
                 System.out.println("created a new file");
@@ -121,6 +119,7 @@ public class Storage {
             for (int i = 0; i < n; i += 1) {
                 Task currentTask = taskList.getTask(i);
                 String s = currentTask.saveStringToFile();
+
                 bufferedWriter.write(s);
                 bufferedWriter.newLine();
             }
