@@ -46,11 +46,10 @@ public class MarkCommand extends Command {
             }
 
             String result = tasks.getTasks().stream()
-                    .map(task -> "     " + tasks.indexOf(task) + ". " + task + "\n")
+                    .map(task -> tasks.indexOf(task) + ". " + task + "\n")
                     .collect(Collectors.joining());
-            System.out.println(notify);
             storage.save(tasks);
-            ui.showList(result);
+            ui.showMarkedList(notify, result);
         } catch (IndexOutOfBoundsException e) {
             throw new KieraException("your task number is not in the task list!");
         }

@@ -16,6 +16,11 @@ public class Task {
     private LocalTime startTime;
     private LocalTime endTime;
 
+    /**
+     * Constructor for Task.
+     *
+     * @param description Title of task based on user input.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;

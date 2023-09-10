@@ -3,6 +3,8 @@ package kiera;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import kiera.task.Task;
 import kiera.tasktype.TaskType;
 
@@ -11,15 +13,27 @@ import kiera.tasktype.TaskType;
  */
 public class Ui {
     private final String line = "   --------------------------------------------------------------";
+    private VBox dialogBox;
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/xbot.png"));
+    private Image kiera = new Image(this.getClass().getResourceAsStream("/images/orange.png"));
 
-    public Ui() {
+    /**
+     * Constructor for Ui.
+     * @param dialogBox Box displaying user input or bot response.
+     */
+    public Ui(VBox dialogBox) {
+        this.dialogBox = dialogBox;
+        showHello();
     }
 
     /**
      * Shows an error message indicating that tasks cannot be loaded.
      */
     public void showLoadingError() {
-        System.out.println("tasks cannot be loaded; starting with an empty list!");
+        String output = "tasks cannot be loaded; starting with an empty list!";
+        dialogBox.getChildren().addAll(DialogBox.getKieraDialog(
+                output,
+                kiera));
     }
 
     /**
@@ -28,51 +42,40 @@ public class Ui {
      * @param e Error message to be displayed.
      */
     public void showError(String e) {
-        System.out.println(e);
-    }
-
-    /**
-     * Displays a horizontal line separator.
-     */
-    public void showLine() {
-        System.out.println(line);
+        dialogBox.getChildren().addAll(DialogBox.getKieraDialog(
+                e,
+                kiera));
     }
 
     /**
      * Displays a welcome message when the application starts.
      */
     public void showHello() {
-        System.out.println(line
-                + "\n"
-                + "    "
-                + "hi, it's kiera.\n"
-                + "    "
-                + "what do you need?\n"
-                + line);
+        String output = "hi, it's kiera.\n"
+                + "what do you need?";
+        dialogBox.getChildren().addAll(DialogBox.getKieraDialog(
+                output,
+                kiera));
     }
 
     /**
      * Displays a farewell message when the user exits the application.
      */
     public void showBye() {
-        System.out.println(line
-                + "\n"
-                + "    "
-                + "muaks! <3\n"
-                + line);
+        String output = "muaks! <3";
+        dialogBox.getChildren().addAll(DialogBox.getKieraDialog(
+                output,
+                kiera));
     }
 
     /**
-     * Reads a command from the user.
-     *
-     * @return The command entered by the user as a string.
+     * Shows user input.
+     * @param command Command that user inputs into the application.
      */
-    public String readCommand() {
-        Scanner in = new Scanner(System.in);
-        if (in.hasNext()) {
-            return in.nextLine();
-        }
-        return "sorry, i didn't quite catch that.";
+    public void showUserCommand(String command) {
+        dialogBox.getChildren().addAll(DialogBox.getUserDialog(
+                command,
+                user));
     }
 
     /**
@@ -84,17 +87,18 @@ public class Ui {
      */
     public void showAddNotice(Task task, TaskType t, int listSize) {
         String plural = listSize == 1 ? "task" : "tasks";
-        System.out.println("    "
-                + "alright, one "
+        String output = "alright, one "
                 + t
                 + " has been added: \n"
-                + "      "
                 + task
-                + "\n    "
+                + "\n"
                 + listSize
                 + " more "
                 + plural
-                + " to go!");
+                + " to go!";
+        dialogBox.getChildren().addAll(DialogBox.getKieraDialog(
+                output,
+                kiera));
     }
 
     /**
@@ -105,15 +109,16 @@ public class Ui {
      */
     public void showDeleteNotice(Task task, int listSize) {
         String plural = listSize == 1 ? "task" : "tasks";
-        System.out.println("    "
-                + "alright, this task is gone: \n"
-                + "      "
+        String output = "alright, this task is gone: \n"
                 + task
-                + "\n    "
+                + "\n"
                 + listSize
                 + " more "
                 + plural
-                + " left!");
+                + " left!";
+        dialogBox.getChildren().addAll(DialogBox.getKieraDialog(
+                output,
+                kiera));
     }
 
     /**
@@ -127,8 +132,7 @@ public class Ui {
     public void showFilteredByDateNotice(LocalDate d, TaskType t, String content, int listSize) {
         String plural = listSize == 1 ? " " : "s ";
         String verb = listSize == 1 ? "is " : "are ";
-        System.out.println("    "
-                + "there "
+        String output = "there "
                 + verb
                 + listSize
                 + " "
@@ -137,9 +141,10 @@ public class Ui {
                 + "due on "
                 + d
                 + ":\n"
-                + content
-                + "    "
-        );
+                + content;
+        dialogBox.getChildren().addAll(DialogBox.getKieraDialog(
+                output,
+                kiera));
     }
 
     /**
@@ -152,8 +157,7 @@ public class Ui {
     public void showFilteredByKeywordNotice(String desc, String content, int listSize) {
         String plural = listSize == 1 ? " " : "s ";
         String verb = listSize == 1 ? "is " : "are ";
-        System.out.println("    "
-                + "there "
+        String output = "there "
                 + verb
                 + listSize
                 + " task"
@@ -161,9 +165,10 @@ public class Ui {
                 + "that matches your keyword ("
                 + desc
                 + "):\n"
-                + content
-                + "    "
-        );
+                + content;
+        dialogBox.getChildren().addAll(DialogBox.getKieraDialog(
+                output,
+                kiera));
     }
     /**
      * Displays a list of tasks to the user.
@@ -171,6 +176,21 @@ public class Ui {
      * @param content Content of the task list to be displayed.
      */
     public void showList(String content) {
-        System.out.println("    you need to get these done:\n" + content.stripTrailing());
+        String output = "you need to get these done:\n" + content;
+        dialogBox.getChildren().addAll(DialogBox.getKieraDialog(
+                output,
+                kiera));
+    }
+
+    /**
+     * Displays a list of tasks to the user after a mark or unmark command.
+     *
+     * @param content Content to be displayed.
+     */
+    public void showMarkedList(String notify, String content) {
+        String output = notify + "\n" + "here's what you have to do now:\n" + content;
+        dialogBox.getChildren().addAll(DialogBox.getKieraDialog(
+                output,
+                kiera));
     }
 }

@@ -83,7 +83,7 @@ public class Parser {
             return new AddCommand(TaskType.EVENT, desc);
         }
 
-        throw new KieraException("    invalid input, i don't understand...");
+        throw new KieraException("invalid input, i don't understand...");
 
     }
 

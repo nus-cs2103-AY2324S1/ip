@@ -19,16 +19,13 @@ public class Event extends Task {
         try {
             setStartEnd(input);
         } catch (IndexOutOfBoundsException e) {
-            throw new KieraException("     "
-                    + "invalid input! "
+            throw new KieraException("invalid input! "
                     + "write your event in the form: (title) /from yyyy-mm-dd 0000 /to 2359)");
         } catch (NullPointerException e) {
-            throw new KieraException("     "
-                    + "invalid input! "
+            throw new KieraException("invalid input! "
                     + "write when your event starts and ends in the form: /from yyyy-mm-dd 0000 /to 2359)");
         } catch (DateTimeException e) {
-            throw new KieraException("     "
-                    + "invalid input! "
+            throw new KieraException("invalid input! "
                     + "fill in the date in the format: /from yyyy-mm-dd 0000 /to 2359!");
         }
     }
@@ -68,8 +65,8 @@ public class Event extends Task {
                 + "["
                 + this.getStatusIcon()
                 + "] "
-                + this.getDescription()
-                + " (from "
+                + this.getDescription().stripTrailing()
+                + "    (from "
                 + this.getDateString()
                 + ")";
     }

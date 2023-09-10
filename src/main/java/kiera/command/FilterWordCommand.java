@@ -18,11 +18,11 @@ public class FilterWordCommand extends Command {
         ArrayList<Task> filtered;
         filtered = tasks.filterByKeyword(this.getDescription());
         if (filtered.isEmpty()) {
-            System.out.println("    no task matches the keyword: " + this.getDescription());
+            System.out.println("no task matches the keyword: " + this.getDescription());
             return;
         }
         String content = filtered.stream()
-                .map(task -> "     " + tasks.indexOf(task) + ". " + task + "\n")
+                .map(task -> tasks.indexOf(task) + ". " + task + "\n")
                 .collect(Collectors.joining())
                 .stripTrailing();
         ui.showFilteredByKeywordNotice(this.getDescription(), content, filtered.size());

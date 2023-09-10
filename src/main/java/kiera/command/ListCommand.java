@@ -22,7 +22,7 @@ public class ListCommand extends Command {
             System.out.println("nothing for you to do yet!");
         }
         String result = tasks.getTasks().stream()
-                .map(task -> "     " + tasks.indexOf(task) + ". " + task + "\n")
+                .map(task -> tasks.indexOf(task) + ". " + task + "\n")
                 .collect(Collectors.joining());
         ui.showList(result);
     }

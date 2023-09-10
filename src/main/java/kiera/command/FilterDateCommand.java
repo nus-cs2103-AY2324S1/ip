@@ -49,7 +49,7 @@ public class FilterDateCommand extends Command {
             return;
         }
         String content = filtered.stream()
-                .map(task -> "     " + tasks.indexOf(task) + ". " + task + "\n")
+                .map(task -> tasks.indexOf(task) + ". " + task + "\n")
                 .collect(Collectors.joining())
                 .stripTrailing();
         ui.showFilteredByDateNotice(d, t, content, filtered.size());
