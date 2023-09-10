@@ -4,9 +4,11 @@ import pau.task.Task;
 import pau.task.TaskList;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 /**
@@ -35,6 +37,9 @@ public class Storage {
      */
     public TaskList loadTasks() {
         try {
+            Path path = Paths.get(filepath);
+            Files.createDirectory(path);
+
             File toLoad = new File(filepath);
             Scanner scan = new Scanner(toLoad);
             TaskList list = new TaskList();
@@ -43,8 +48,7 @@ public class Storage {
                 list.createTask(input);
             }
             return list;
-        } catch (FileNotFoundException e) {
-            System.out.println("is this your first time with pau?");
+        } catch (IOException e) {
         }
         return new TaskList();
     }

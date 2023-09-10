@@ -1,5 +1,2 @@
-E | 0 | soc bash  |  friday 6pm  |  10pm
-T | 0 | sleep 
-T | 0 | eat breakfast
-T | 0 | read book
-T | 0 | return book
+T | 0 | dance
+E | 0 | wed lunch  |  11am  |  12pm
