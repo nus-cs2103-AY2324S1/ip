@@ -113,6 +113,9 @@ public class TaskList {
         }
         String type = splitCommand[0];
         String taskDetails = splitCommand[1];
+        if (taskDetails.trim().isEmpty()) {
+            throw new InvalidArgumentException("☹ OOPS!!! The description cannot be empty.");
+        }
         TaskType taskType;
         try {
             taskType = TaskType.valueOf(type.toUpperCase());
@@ -149,6 +152,7 @@ public class TaskList {
             throw new IllegalTaskIndexException();
         }
         output.append(Ui.getMarkAsDoneMessage(tasks, index));
+        assert tasks.get(index - 1).isDone : "Task should be marked as done";
         try {
             storage.save(tasks);
         } catch (IOException e) {
@@ -170,6 +174,7 @@ public class TaskList {
             throw new IllegalTaskIndexException();
         }
         output.append(Ui.getMarkAsUndoneMessage(tasks, index));
+        assert !tasks.get(index - 1).isDone : "Task should be marked as done";
         try {
             storage.save(tasks);
         } catch (IOException e) {

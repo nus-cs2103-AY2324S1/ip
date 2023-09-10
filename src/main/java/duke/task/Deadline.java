@@ -17,6 +17,7 @@ public class Deadline extends Task {
      * @param dateTime The date and time of the deadline.
      */
     public Deadline(String description, LocalDateTime dateTime) {
+        assert description != null && !description.trim().isEmpty() : "description should not be null";
         super.description = description;
         this.dateTime = dateTime;
     }
