@@ -1,12 +1,9 @@
 package jarvis;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
-import jarvis.tasks.Deadline;
-import jarvis.tasks.Event;
-import jarvis.tasks.Task;
-import jarvis.tasks.Todo;
 
 import jarvis.commands.ByeCommand;
 import jarvis.commands.Command;
@@ -18,13 +15,13 @@ import jarvis.commands.ListCommand;
 import jarvis.commands.MarkCommand;
 import jarvis.commands.TodoCommand;
 import jarvis.commands.UnmarkCommand;
-
 import jarvis.exceptions.InvalidCommandException;
 import jarvis.exceptions.InvalidDateTimeFormatException;
 import jarvis.exceptions.InvalidTaskFormatException;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import jarvis.tasks.Deadline;
+import jarvis.tasks.Event;
+import jarvis.tasks.Task;
+import jarvis.tasks.Todo;
 
 /**
  * The Parser class is responsible for parsing user input and converting it into executable commands and tasks.

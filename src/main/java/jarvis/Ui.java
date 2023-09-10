@@ -8,25 +8,25 @@ import jarvis.tasks.Task;
  * The user interface class responsible for displaying information to the user on the CLI.
  */
 public class Ui {
+
+
     /**
      * ASCII Art Generated from <a href="http://patorjk.com/software/taag/">...</a>
      */
-    private static final String LOGO = 
-    "    ██  █████  ██████  ██    ██ ██ ███████ \n" +
-    "    ██ ██   ██ ██   ██ ██    ██ ██ ██      \n" +
-    "    ██ ███████ ██████  ██    ██ ██ ███████ \n" +
-    "██  ██ ██   ██ ██   ██  ██  ██  ██      ██\n" +
-    "█████  ██   ██ ██   ██   ████   ██ ███████ \n";
+    private static final String LOGO =
+    "\t    ██  █████  ██████  ██    ██ ██ ███████ \n" +
+    "\t    ██ ██   ██ ██   ██ ██    ██ ██ ██      \n" +
+    "\t    ██ ███████ ██████  ██    ██ ██ ███████ \n" +
+    "\t██  ██ ██   ██ ██   ██  ██  ██  ██      ██\n" +
+    "\t█████  ██   ██ ██   ██   ████   ██ ███████ \n";
+
 
     public static final String DATE_TIME_FORMAT = "MMM dd yyyy HHmm";
 
     public void printIntro() {
         breakLine();
         System.out.println("    Hi Master! I'm your personal assistant: JARVIS! \n" +
-                            "\n" +
-                            LOGO +
-                            "\n" +
-                            "    How can I serve you today? \n");
+                "\n" + LOGO + "\n" + "    How can I serve you today? \n");
         breakLine();
     }
 
@@ -48,7 +48,7 @@ public class Ui {
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             System.out.println("    " + (i + 1) + ". " +
-                                task.toString());
+                    task.toString());
         }
         breakLine();
     }
