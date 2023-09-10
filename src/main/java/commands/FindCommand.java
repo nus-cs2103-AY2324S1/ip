@@ -7,8 +7,8 @@ import tasks.TaskList;
  * Represents a type of command that can be read by the chatbot.
  */
 public class FindCommand extends Command {
+
     private final String keyWord;
-    private String tasksList;
 
     /**
      * FindCommand constructor that takes in a String.
@@ -24,10 +24,9 @@ public class FindCommand extends Command {
      * @param dF The file to be edited on.
      */
     @Override
-    public void execute(TaskList tasks, DataFile dF) {
+    public String execute(TaskList tasks, DataFile dF) {
         StringBuilder sB = new StringBuilder();
         sB.append("Here are the matching tasks from you list:");
-        System.out.println(this);
         for (int i = 0; i < tasks.getSize(); i++) {
             if (tasks.getTask(i).getDesc().contains(keyWord)) {
                 String tmp = i + 1 + "." + tasks.getTask(i);
@@ -35,15 +34,6 @@ public class FindCommand extends Command {
                 sB.append(System.lineSeparator()).append(tmp);
             }
         }
-        tasksList = sB.toString();
-    }
-
-    /**
-     * Returns the string representation of find command.
-     * @return String representation of find command.
-     */
-    @Override
-    public String toString() {
-        return tasksList;
+        return sB.toString();
     }
 }

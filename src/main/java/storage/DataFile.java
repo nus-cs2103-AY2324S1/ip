@@ -51,6 +51,7 @@ public class DataFile {
         } else {
             file = localFile;
         }
+        assert file.exists();
     }
 
     /**
@@ -77,7 +78,9 @@ public class DataFile {
             custom.append("E").append(div).append(eve.getDesc()).append(div)
                     .append(eve.getFrom()).append(div).append(eve.getTo()).append(div)
                     .append(eve.getStatus().equals("X") ? 1 : 0)
-                    .append(System.lineSeparator());;
+                    .append(System.lineSeparator());
+        } else {
+            assert false;
         }
         fW.write(custom.toString());
         fW.close();
@@ -108,6 +111,7 @@ public class DataFile {
         FileWriter fW = new FileWriter(filePath + "/" + fileName);
         fW.write(oldContent.toString());
         fW.close();
+        assert !oldContent.toString().isEmpty();
     }
     /**
      * Deletes a task from the file at line n.
@@ -162,6 +166,8 @@ public class DataFile {
                 int secLine = sub.indexOf(div, firstLine) + div.length();
                 String to = sub.substring(secLine, sub.indexOf(div, secLine));
                 task = new Event(desc, LocalDateTime.parse(from), LocalDateTime.parse(to));
+            } else {
+                assert false;
             }
             // check if task is completed
             if (line.charAt(line.length() - 1) == '1') {

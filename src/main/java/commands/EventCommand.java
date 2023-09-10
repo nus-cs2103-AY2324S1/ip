@@ -16,8 +16,6 @@ import tasks.TaskList;
 public class EventCommand extends Command {
 
     private final ArrayList<String> texts;
-    private Task task;
-    private int size;
 
     /**
      * EventCommand constructor that takes in an ArrayList.
@@ -33,27 +31,25 @@ public class EventCommand extends Command {
      * @param dF The file to be edited on.
      */
     @Override
-    public void execute(TaskList tasks , DataFile dF) {
+    public String execute(TaskList tasks , DataFile dF) {
         CustomDate cD = new CustomDate();
         Task event = new Event(texts.get(0),
                 cD.strToDateTime(texts.get(1)), cD.strToDateTime(texts.get(2)));
         tasks.addTask(event);
-        task = event;
-        size = tasks.getSize();
-        System.out.println(this);
         try {
             dF.writeToFile(event);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        assert !texts.isEmpty();
+        return cmdToString(event.toString(), tasks.getSize());
     }
 
     /**
      * Returns the string representation of event command.
      * @return String representation of event command.
      */
-    @Override
-    public String toString() {
+    public String cmdToString(String task, int size) {
         return "Got it. I've added this task:\n" + task
                 + "\nNow you have " + size + " tasks in the list.";
     }

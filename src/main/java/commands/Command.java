@@ -13,7 +13,7 @@ public abstract class Command {
      * @param tasks List of tasks.
      * @param dF The file to be edited on.
      */
-    public abstract void execute(TaskList tasks , DataFile dF);
+    public abstract String execute(TaskList tasks , DataFile dF);
 
     /**
      * Returns a boolean depending the command.

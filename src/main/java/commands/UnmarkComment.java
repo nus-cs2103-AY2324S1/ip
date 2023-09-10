@@ -14,7 +14,6 @@ import tasks.TaskList;
 public class UnmarkComment extends Command {
 
     private final int index;
-    private Task task;
 
     /**
      * DeleteCommand constructor that takes in an int.
@@ -30,27 +29,25 @@ public class UnmarkComment extends Command {
      * @param dF The file to be edited on.
      */
     @Override
-    public void execute(TaskList tasks, DataFile dF) throws DukeException {
+    public String execute(TaskList tasks, DataFile dF) throws DukeException {
         if (tasks.isTaskListEmpty()) {
             throw new DukeException("List is empty, nothing to unmark");
         }
         Task selTask = tasks.getTask(index);
         selTask.taskNotCompleted();
-        task = selTask;
-        System.out.println(this);
         try {
             dF.editFileAtLineN(index, '0');
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        return cmdToString(selTask.toString());
     }
 
     /**
      * Returns the string representation of unmark command.
      * @return String representation of unmark command.
      */
-    @Override
-    public String toString() {
+    public String cmdToString(String task) {
         return "OK, I've marked this task as not done yet:\n" + task;
     }
 }
