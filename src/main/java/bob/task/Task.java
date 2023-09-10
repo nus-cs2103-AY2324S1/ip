@@ -7,14 +7,28 @@ public class Task {
 
     protected String name;
     protected boolean done;
+    protected Priority priority;
 
     protected Task(String name) {
         this.name = name;
         this.done = false;
+        this.priority = Priority.mid;
     }
     
     public String getName() {
         return this.name;
+    }
+
+    public Priority getPriority() {
+        return this.priority;
+    }
+
+    public String priorityToString() {
+        return this.priority.equals(Priority.high)
+                ? "[High]"
+                : this.priority.equals(Priority.mid)
+                ? "[Mid]"
+                : "[Low]";
     }
 
     public void setDoneOrNot(boolean doneOrNot) {
@@ -23,7 +37,7 @@ public class Task {
 
     /**
      * Parses Task from string to Task object
-     * @param description is in the form e.g. "event | 0 | read book | 2pm | 4pm"
+     * @param description is in the form e.g. "event | 0 | high | read book | 2pm | 4pm"
      * @return Task object
      * @throws IndexOutOfBoundsException when parsing fails, indicates corrupt file.
      */
