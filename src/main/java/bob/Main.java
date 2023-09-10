@@ -16,9 +16,17 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        try {
+
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             fxmlLoader.setRoot(new AnchorPane());
+
+            setStage(fxmlLoader, stage);
+            stage.show();
+            fxmlLoader.<MainWindow>getController().greetUser();
+    }
+
+    private void setStage(FXMLLoader fxmlLoader, Stage stage) {
+        try {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
@@ -28,9 +36,6 @@ public class Main extends Application {
             stage.setMinWidth(400.0);
 
             fxmlLoader.<MainWindow>getController().setBob(bob);
-            stage.show();
-            fxmlLoader.<MainWindow>getController().greetUser();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
