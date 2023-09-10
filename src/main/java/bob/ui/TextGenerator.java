@@ -86,4 +86,9 @@ public class TextGenerator {
         String message = "No worries bud! I unmarked all the following tasks for you:\n";
         return message + getRawList(taskList);
     }
+
+    public static String getDeleteMultipleMessage(TaskList taskList) throws BobInvalidTaskNumberException {
+        String message = "Out of sight, out of mind! Let these tasks be gone:\n";
+        return message + getRawList(taskList);
+    }
 }

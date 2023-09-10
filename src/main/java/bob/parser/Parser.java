@@ -56,6 +56,8 @@ public class Parser {
         case MARKM:
         case UNMARKM:
             return Parser.parseMarkMultipleCommand(commandType, argument);
+        case DELETEM:
+            return Parser.parseMultipleDeleteCommand(argument);
         case INVALID:
             throw new BobInvalidCommandException("I'm sorry! I don't understand the command :(");
         default:
@@ -146,6 +148,24 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new BobInvalidTaskNumberException("The delete command needs to be followed up "
                     + "by an integer number!\n");
+        }
+    }
+
+    private static Command parseMultipleDeleteCommand(String argument) throws BobInvalidTaskNumberException {
+        if (argument.isBlank()) {
+            throw new BobInvalidTaskNumberException("Give me multiple task numbers to delete!");
+        }
+        try {
+            ArrayList<Integer> taskNumbers = new ArrayList<>();
+            String[] argumentSplit = argument.split(" ");
+            for (String s: argumentSplit) {
+                Integer taskNumber = Integer.parseInt(s);
+                taskNumbers.add(taskNumber);
+            }
+            return new DeleteMultipleCommand(taskNumbers);
+        } catch (NumberFormatException e) {
+            throw new BobInvalidTaskNumberException("The delete command needs to be followed up "
+                    + "by multiple equally spaced integer numbers!\n");
         }
     }
 
