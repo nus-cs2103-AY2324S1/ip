@@ -69,7 +69,7 @@ public class TaskList {
      *
      * @param num Index of task to be fetched
      * @return The task at the given index
-     * @throws BobInvalidTaskNumberException if index provided is out of bounds
+     * @throws BobInvalidTaskNumberException If index provided is out of bounds
      */
     public Task getTask(int num) throws BobInvalidTaskNumberException {
         try {
