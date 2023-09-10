@@ -1,3 +1,7 @@
+package tasket.data;
+
+import tasket.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
