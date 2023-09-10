@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 
 import dot.errors.DotException;
+import dot.errors.TaskError;
 import dot.storage.Storage;
 import dot.ui.Ui;
 
@@ -79,18 +80,42 @@ public class TaskList {
      * @param newTask         New task to add.
      * @param handleDotOutput This is the consumer used to display any output
      *                        due the execution of the command to the GUI.
+     * @return 1-based position of added task.
      */
-    public void addTask(Task newTask, Consumer<String> handleDotOutput) {
-        if (this.tasks.size() >= this.maxSize) {
-            handleDotOutput.accept(Ui.wrapStringWithHorizontalRules(
-                    String.format("Your task list has reached the limit of %d tasks. "
-                            + "Please remove some tasks to proceed.", this.maxSize)));
-            return;
+    public int addTask(Task newTask, Consumer<String> handleDotOutput) throws DotException {
+        if (tasks.size() >= maxSize) {
+            throw new DotException(String.format("Your task list as max. size of %d", maxSize),
+                    TaskError.ERR_TASKLIST_FULL);
         }
-        this.tasks.add(newTask);
+        tasks.add(newTask);
         handleDotOutput.accept(Ui.wrapStringWithHorizontalRules(
                 String.format("Got it. I've added this task:\n"
-                        + "  %s\nNow you have %d tasks in the list.", newTask, this.tasks.size())));
+                        + "  %s\nNow you have %d tasks in the list.", newTask, tasks.size())));
+        return tasks.size();
+    }
+
+    /**
+     * Adds a deleted task back to the TaskList, through an UndoCommand.
+     *
+     * @param deletedTask       This is the task to be re-instated.
+     * @param handleDotOutput   This is the consumer used to display any output
+     *                          due to the execution of the command to the GUI.
+     * @param zeroBasedPosition This is the 0-based position of the task.
+     * @throws DotException On detected error.
+     */
+    public void addTaskToSpecificPosition(Task deletedTask,
+                                          Consumer<String> handleDotOutput,
+                                          int zeroBasedPosition) throws DotException {
+        // From deleteTask: (!(position >= 0 && position < this.tasks.size()))
+        assert !(zeroBasedPosition < 0 || zeroBasedPosition > tasks.size());
+        if (tasks.size() >= maxSize) {
+            throw new DotException(String.format("Your task list as max. size of %d", maxSize),
+                    TaskError.ERR_TASKLIST_FULL);
+        }
+        tasks.add(zeroBasedPosition, deletedTask);
+        handleDotOutput.accept(Ui.wrapStringWithHorizontalRules(
+                String.format("I've added this task back:\n"
+                        + "  %s\nNow you have %d tasks in the list.", deletedTask, tasks.size())));
     }
 
     /**
@@ -118,11 +143,12 @@ public class TaskList {
      * @param handleDotOutput This is the consumer used to display any output
      *                        due the execution of the command to the GUI.
      */
-    public void setTaskComplete(int position, boolean isCompleted, Consumer<String> handleDotOutput) {
+    public void setTaskComplete(int position,
+                                boolean isCompleted, Consumer<String> handleDotOutput) throws DotException {
         if (position >= 0 && position < this.tasks.size()) {
             this.tasks.get(position).setComplete(isCompleted, handleDotOutput);
         } else {
-            handleDotOutput.accept(Ui.wrapStringWithHorizontalRules("Invalid position."));
+            throw new DotException("Entered: " + position, TaskError.ERR_INVALID_POSITION);
         }
     }
 
@@ -133,15 +159,16 @@ public class TaskList {
      *                        as shown in ListCommand.
      * @param handleDotOutput This is the consumer used to display any output
      *                        due the execution of the command to the GUI.
+     * @return Removed Task.
      */
-    public void deleteTask(int position, Consumer<String> handleDotOutput) {
+    public Task deleteTask(int position, Consumer<String> handleDotOutput) throws DotException {
         if (!(position >= 0 && position < this.tasks.size())) {
-            handleDotOutput.accept(Ui.wrapStringWithHorizontalRules("Invalid position."));
-            return;
+            throw new DotException("Entered: " + position, TaskError.ERR_INVALID_POSITION);
         }
         Task removedTask = this.tasks.remove(position);
         handleDotOutput.accept(Ui.wrapStringWithHorizontalRules(
                 String.format("Task \"%s\" removed successfully!", removedTask)));
+        return removedTask;
     }
 
     /**

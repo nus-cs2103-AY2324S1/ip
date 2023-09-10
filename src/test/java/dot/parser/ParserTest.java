@@ -12,7 +12,8 @@ import dot.tasks.TaskList;
 
 public class ParserTest {
 
-    private final Consumer<String> consumerStub = (s) -> {};
+    private final Consumer<String> consumerStub = (s) -> {
+    };
 
     @Test
     public void parseInputToCommand_validTodoCommand_success() {
@@ -20,7 +21,7 @@ public class ParserTest {
             Storage storage = new Storage("./data/junit-test-data.txt");
             TaskList dotTaskList = TaskList.getNewTaskList(100, storage);
             Command cmd = Parser.parseInputToCommand("todo "
-                    + " send email", dotTaskList);
+                    + " send email", dotTaskList, null);
             cmd.execute(consumerStub);
         } catch (DotException e) {
             Assertions.fail();
@@ -33,7 +34,7 @@ public class ParserTest {
             Storage storage = new Storage("./data/junit-test-data.txt");
             TaskList dotTaskList = TaskList.getNewTaskList(100, storage);
             Command cmd = Parser.parseInputToCommand("deadline cs2103t "
-                    + "ip /by 30/8/2023 2359", dotTaskList);
+                    + "ip /by 30/8/2023 2359", dotTaskList, null);
             cmd.execute(consumerStub);
         } catch (DotException e) {
             Assertions.fail();
@@ -47,7 +48,7 @@ public class ParserTest {
             TaskList dotTaskList = TaskList.getNewTaskList(100, storage);
             Command cmd = Parser.parseInputToCommand("event carnival "
                             + "/from 12/3/2022 1800 /to 12/4/2022 1600",
-                    dotTaskList);
+                    dotTaskList, null);
             cmd.execute(consumerStub);
         } catch (DotException e) {
             Assertions.fail();
@@ -60,7 +61,7 @@ public class ParserTest {
             Storage storage = new Storage("./data/junit-test-data.txt");
             TaskList dotTaskList = TaskList.getNewTaskList(100, storage);
             Command cmd = Parser.parseInputToCommand("deadline cs2103t "
-                    + "ip /by", dotTaskList);
+                    + "ip /by", dotTaskList, null);
             cmd.execute(consumerStub);
         } catch (DotException e) {
             Assertions.assertEquals("No deadline description given.",

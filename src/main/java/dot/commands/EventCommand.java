@@ -10,12 +10,17 @@ import dot.tasks.TaskList;
 /**
  * Command to create an event.
  */
-public class EventCommand extends Command {
+public class EventCommand extends Command implements Undoable {
 
     private final String description;
     private final String start;
     private final String end;
     private final TaskList dotTaskList;
+
+    /**
+     * For the undo method.
+     */
+    private int oneBasedInsertIndex;
 
     /**
      * Constructor for EventCommand.
@@ -43,8 +48,31 @@ public class EventCommand extends Command {
     @Override
     public void execute(Consumer<String> handleDotOutput) throws DotException {
         Task newEventTask = new Event(this.description, this.start, this.end);
-        dotTaskList.addTask(newEventTask, handleDotOutput);
+        oneBasedInsertIndex = dotTaskList.addTask(newEventTask, handleDotOutput);
         dotTaskList.saveTaskListToStorage();
+    }
+
+    /**
+     * Undoes the creation of Event.
+     *
+     * @param handleDotOutput This is the consumer used to display any output
+     *                        due the execution of the command to the GUI.
+     * @throws DotException On detected error.
+     */
+    @Override
+    public void undo(Consumer<String> handleDotOutput) throws DotException {
+        Command deleteCommand = new DeleteCommand(oneBasedInsertIndex, dotTaskList);
+        deleteCommand.execute(handleDotOutput);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return true to indicate that this is an Undoable Command.
+     */
+    @Override
+    public boolean isUndoable() {
+        return true;
     }
 
 }

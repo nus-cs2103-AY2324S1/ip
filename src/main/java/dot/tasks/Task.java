@@ -3,6 +3,8 @@ package dot.tasks;
 import java.time.LocalDateTime;
 import java.util.function.Consumer;
 
+import dot.errors.DotException;
+import dot.errors.TaskError;
 import dot.ui.Ui;
 
 /**
@@ -66,12 +68,12 @@ public abstract class Task {
      * @param handleDotOutput This is the consumer used to display any output
      *                        due the execution of the command to the GUI.
      */
-    public void setComplete(boolean isCompleted, Consumer<String> handleDotOutput) {
+    public void setComplete(boolean isCompleted, Consumer<String> handleDotOutput)
+            throws DotException {
         if (this.isCompleted == isCompleted) {
             // Already marked / unmarked
-            handleDotOutput.accept(Ui.wrapStringWithHorizontalRules(this.isCompleted
-                    ? "Already marked done."
-                    : "Already unmarked."));
+            throw new DotException(this.isCompleted ? "Use unmark instead." : "Use mark instead",
+                    this.isCompleted ? TaskError.ERR_ALREADY_MARKED : TaskError.ERR_ALREADY_UNMARKED);
         } else {
             this.isCompleted = isCompleted;
             handleDotOutput.accept(Ui.getDisplayMarkOrUnmarkMessage(this.isCompleted, this.toString()));
