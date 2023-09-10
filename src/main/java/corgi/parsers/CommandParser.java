@@ -60,13 +60,13 @@ public class CommandParser extends Parser<Command> {
             command = newUnMarkCommand(inputs);
             break;
         case TODO:
-            command = newAddCommand(inputs, cmd);
+            command = newAddTodoCommand(inputs);
             break;
         case DEADLINE:
-            command = newAddCommand(inputs, cmd);
+            command = newAddDeadlineCommand(inputs);
             break;
         case EVENT:
-            command = newAddCommand(inputs, cmd);
+            command = newAddEventCommand(inputs);
             break;
         case DELETE:
             command = newDeleteCommand(inputs);
@@ -181,79 +181,97 @@ public class CommandParser extends Parser<Command> {
         return new FindTasksContainKeywordCommand(keyword);
     }
 
-    private Command newAddCommand(String[] inputs, CommandType type) throws InvalidCommandFormatException {
+    private Command newAddTodoCommand(String[] inputs) throws InvalidCommandFormatException {
         if (inputs.length == 1) {
             throw new InvalidCommandFormatException("No argument is provided!" + "\nFormat: "
-                    + type.getCommandFormat());
+                    + CommandType.TODO.getCommandFormat());
         }
 
         String taskInfo = inputs[1];
 
-        if (type == CommandType.TODO) {
-            Task target = new ToDo(taskInfo);
+        Task target = new ToDo(taskInfo);
 
-            return new AddTaskCommand(target, CommandType.TODO);
+        return new AddTaskCommand(target, CommandType.TODO);
+    }
 
-        } else if (type == CommandType.DEADLINE) {
-            // todo: check number of /by
-            String[] deadlineInfos = taskInfo.split(" /by ");
+    private Command newAddDeadlineCommand(String[] inputs) throws InvalidCommandFormatException {
+        String commandFormat = CommandType.DEADLINE.getCommandFormat();
 
-            if (deadlineInfos.length == 1) {
-                throw new InvalidCommandFormatException("Missing deadline!" + "\nFormat: "
-                        + type.getCommandFormat());
-            }
-
-            String deadlineDesc = deadlineInfos[0];
-            LocalDate by = null;
-
-            try {
-                by = LocalDate.parse(deadlineInfos[1], Task.DATE_INPUT_FORMATTER);
-            } catch (DateTimeParseException e) {
-                throw new InvalidCommandFormatException("Invalid date format!" + "\nFormat: "
-                        + type.getCommandFormat());
-            }
-
-            Task target = new Deadline(deadlineDesc, by);
-
-            return new AddTaskCommand(target, CommandType.DEADLINE);
-
-        } else {
-            // todo: check number of /from, /to, check order
-            String[] eventInfos = taskInfo.split(" /from ");
-
-            if (eventInfos.length < 2) {
-                throw new InvalidCommandFormatException("Missing /from argument." + "\nFormat: "
-                        + type.getCommandFormat());
-            } else if (eventInfos.length > 2) {
-                throw new InvalidCommandFormatException("Only one /from argument is needed." + "\nFormat: "
-                        + type.getCommandFormat());
-            }
-
-            String eventDesc = eventInfos[0];
-            String[] eventDuration = eventInfos[1].split(" /to ");
-
-            if (eventDuration.length < 2) {
-                throw new InvalidCommandFormatException("Missing /to argument!" + "\nFormat: "
-                        + type.getCommandFormat());
-            } else if (eventDuration.length > 2) {
-                throw new InvalidCommandFormatException("Only one /to argument is needed." + "\nFormat: "
-                        + type.getCommandFormat());
-            }
-
-            LocalDate from = null;
-            LocalDate to = null;
-
-            try {
-                from = LocalDate.parse(eventDuration[0], Task.DATE_INPUT_FORMATTER);
-                to = LocalDate.parse(eventDuration[1], Task.DATE_INPUT_FORMATTER);
-            } catch (DateTimeParseException e) {
-                throw new InvalidCommandFormatException("Invalid date format!" + "\nFormat: "
-                        + type.getCommandFormat());
-            }
-
-            Task target = new Event(eventDesc, from, to);
-
-            return new AddTaskCommand(target, CommandType.EVENT);
+        if (inputs.length == 1) {
+            throw new InvalidCommandFormatException("No argument is provided!" + "\nFormat: "
+                    + commandFormat);
         }
+
+        String taskInfo = inputs[1];
+
+        // todo: check number of /by
+        String[] deadlineInfos = taskInfo.split(" /by ");
+
+        if (deadlineInfos.length == 1) {
+            throw new InvalidCommandFormatException("Missing deadline!" + "\nFormat: "
+                    + commandFormat);
+        }
+
+        String deadlineDesc = deadlineInfos[0];
+        LocalDate by = null;
+
+        try {
+            by = LocalDate.parse(deadlineInfos[1], Task.DATE_INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new InvalidCommandFormatException("Invalid date format!" + "\nFormat: "
+                    + commandFormat);
+        }
+
+        Task target = new Deadline(deadlineDesc, by);
+
+        return new AddTaskCommand(target, CommandType.DEADLINE);
+    }
+
+    private Command newAddEventCommand(String[] inputs) throws InvalidCommandFormatException {
+        String commandFormat = CommandType.EVENT.getCommandFormat();
+        
+        if (inputs.length == 1) {
+            throw new InvalidCommandFormatException("No argument is provided!" + "\nFormat: "
+                    + commandFormat);
+        }
+
+        String taskInfo = inputs[1];
+
+        // todo: check number of /from, /to, check order
+        String[] eventInfos = taskInfo.split(" /from ");
+
+        if (eventInfos.length < 2) {
+            throw new InvalidCommandFormatException("Missing /from argument." + "\nFormat: "
+                    + commandFormat);
+        } else if (eventInfos.length > 2) {
+            throw new InvalidCommandFormatException("Only one /from argument is needed." + "\nFormat: "
+                    + commandFormat);
+        }
+
+        String eventDesc = eventInfos[0];
+        String[] eventDuration = eventInfos[1].split(" /to ");
+
+        if (eventDuration.length < 2) {
+            throw new InvalidCommandFormatException("Missing /to argument!" + "\nFormat: "
+                    + commandFormat);
+        } else if (eventDuration.length > 2) {
+            throw new InvalidCommandFormatException("Only one /to argument is needed." + "\nFormat: "
+                    + commandFormat);
+        }
+
+        LocalDate from = null;
+        LocalDate to = null;
+
+        try {
+            from = LocalDate.parse(eventDuration[0], Task.DATE_INPUT_FORMATTER);
+            to = LocalDate.parse(eventDuration[1], Task.DATE_INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new InvalidCommandFormatException("Invalid date format!" + "\nFormat: "
+                    + commandFormat);
+        }
+
+        Task target = new Event(eventDesc, from, to);
+
+        return new AddTaskCommand(target, CommandType.EVENT);
     }
 }
