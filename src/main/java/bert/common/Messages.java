@@ -1,3 +1,5 @@
+package bert.common;
+
 /**
  * Container for user visible messages.
  */

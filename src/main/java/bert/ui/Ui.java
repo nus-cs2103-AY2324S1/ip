@@ -1,3 +1,7 @@
+package bert.ui;
+
+import bert.common.Messages;
+
 import java.util.Scanner;
 
 public class Ui {
