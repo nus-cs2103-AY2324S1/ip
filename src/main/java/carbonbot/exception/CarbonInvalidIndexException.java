@@ -9,7 +9,7 @@ public class CarbonInvalidIndexException extends CarbonException {
      * Constructs a CarbonInvalidIndexException.
      */
     public CarbonInvalidIndexException() {
-        super("The index provided was out of bounds. "
+        super("The task list does not contain the given index. "
                 + "Enter a valid task index by checking the task list.");
     }
 }

@@ -12,6 +12,7 @@ import carbonbot.command.FindCommand;
 import carbonbot.command.ListCommand;
 import carbonbot.command.MarkCommand;
 import carbonbot.exception.CarbonException;
+import carbonbot.exception.CarbonInputParseException;
 import carbonbot.task.Deadline;
 import carbonbot.task.Event;
 import carbonbot.task.Todo;
@@ -20,6 +21,16 @@ import carbonbot.task.Todo;
  * The Parser class helps to parse user input strings to return the appropriate Command.
  */
 public class Parser {
+    private static final String BYE_COMMAND = "bye";
+    private static final String LIST_COMMAND = "list";
+    private static final String TODO_COMMAND = "todo";
+    private static final String DEADLINE_COMMAND = "deadline";
+    private static final String EVENT_COMMAND = "event";
+    private static final String MARK_COMMAND = "mark";
+    private static final String UNMARK_COMMAND = "unmark";
+    private static final String DELETE_COMMAND = "delete";
+    private static final String FIND_COMMAND = "find";
+
     /**
      * Parses the user input and returns the corresponding Command to be executed
      *
@@ -30,91 +41,100 @@ public class Parser {
         String commandType = fullCommand.split(" ")[0];
 
         switch (commandType) {
-        case "bye":
+        case BYE_COMMAND:
             return new ExitCommand();
-        case "list":
+        case LIST_COMMAND:
             return new ListCommand();
-        case "todo":
-            // Get all the characters after todo as the description
-            String desc = fullCommand.substring("todo".length()).trim();
-
-            // Validates if the description is empty (or only whitespaces)
-            if (desc.isBlank()) {
-                throw new CarbonException(":( OOPS!!! The description of a todo cannot be empty.");
-            } else {
-                return new AddCommand(new Todo(desc));
-            }
-        case "deadline":
-            // deadline: Adds a deadline Task to the list
-
-            int indexOfBy = fullCommand.indexOf("/by");
-            // Validates the existence of /by syntax
-            if (indexOfBy == -1) {
-                throw new CarbonException(":( OOPS!!! Please specify the deadline using /by.");
-            }
-
-            desc = fullCommand.substring("deadline".length(), indexOfBy).trim();
-            String by = fullCommand.substring(indexOfBy + "/by".length()).trim();
-            if (desc.isBlank()) {
-                throw new CarbonException(":( OOPS!!! The description of a deadline cannot be empty.");
-            }
-            if (by.isBlank()) {
-                throw new CarbonException(":( OOPS!!! The 'by' of a deadline cannot be empty.");
-            }
-
-            try {
-                LocalDateTime byDt = parseDateTimeString(by);
-                return new AddCommand(new Deadline(desc, byDt));
-            } catch (DateTimeParseException ex) {
-                throw new CarbonException(":( OOPS!!! The 'by' datetime was not in a valid format."
-                        + " Example of valid datetime: 26/12/2019 1800");
-            }
-        case "event":
-            //event: Adds a event Task to the list
-
-            int indexOfFrom = fullCommand.indexOf("/from");
-            int indexOfTo = fullCommand.indexOf("/to");
-            if (indexOfFrom == -1 || indexOfTo == -1) {
-                throw new CarbonException(":( OOPS!!! Please specify the start and end of the"
-                        + " event using /from and /to.");
-            }
-            if (indexOfFrom > indexOfTo) {
-                throw new CarbonException(":( OOPS!!! Please specify the /from before the /to!");
-            }
-
-            desc = fullCommand.substring("event ".length(), indexOfFrom).trim();
-            String from = fullCommand.substring(indexOfFrom + "/from".length(), indexOfTo).trim();
-            String to = fullCommand.substring(indexOfTo + "/to".length()).trim();
-
-            if (desc.isBlank()) {
-                throw new CarbonException(":( OOPS!!! The description of an event cannot be empty.");
-            }
-            if (from.isBlank()) {
-                throw new CarbonException(":( OOPS!!! The 'from' of an event cannot be empty.");
-            }
-            if (to.isBlank()) {
-                throw new CarbonException(":( OOPS!!! The 'to' of an event cannot be empty.");
-            }
-            try {
-                LocalDateTime fromDt = parseDateTimeString(from);
-                LocalDateTime toDt = parseDateTimeString(to);
-                return new AddCommand(new Event(desc, fromDt, toDt));
-            } catch (DateTimeParseException ex) {
-                throw new CarbonException(":( OOPS!!! The given datetime was not in a valid format."
-                        + " Example of valid datetime: 26/12/2019 1800");
-            }
-        case "mark":
+        case TODO_COMMAND:
+            return parseTodoCommand(fullCommand);
+        case DEADLINE_COMMAND:
+            return parseDeadlineCommand(fullCommand);
+        case EVENT_COMMAND:
+            return parseEventCommand(fullCommand);
+        case MARK_COMMAND:
             return new MarkCommand(getIntegerArgument(fullCommand), true);
-        case "unmark":
+        case UNMARK_COMMAND:
             return new MarkCommand(getIntegerArgument(fullCommand), false);
-        case "delete":
+        case DELETE_COMMAND:
             return new DeleteCommand(getIntegerArgument(fullCommand));
-        case "find":
-            String keyword = fullCommand.substring("find".length()).trim();
-            return new FindCommand(keyword);
+        case FIND_COMMAND:
+            return parseFindCommand(fullCommand);
         default:
-            throw new CarbonException(":( OOPS!!! I'm sorry, but I don't know what that means :-("
+            throw new CarbonInputParseException(":( OOPS!!! I'm sorry, but I don't know what that means :-("
                     + "\nMy supported commands are: list, mark, unmark, todo, deadline, event, find, bye.");
+        }
+    }
+
+    private static Command parseFindCommand(String fullCommand) {
+        String keyword = fullCommand.substring(FIND_COMMAND.length()).trim();
+        return new FindCommand(keyword);
+    }
+
+    private static Command parseTodoCommand(String fullCommand) throws CarbonInputParseException {
+        String description = fullCommand.substring(TODO_COMMAND.length()).trim();
+        if (description.isBlank()) {
+            throw new CarbonInputParseException("The description cannot be empty.");
+        }
+        return new AddCommand(new Todo(description));
+    }
+
+    private static Command parseDeadlineCommand(String fullCommand) throws CarbonInputParseException {
+        int indexOfBy = fullCommand.indexOf("/by");
+
+        // Validates the existence of /by syntax
+        if (indexOfBy == -1) {
+            throw new CarbonInputParseException("Please specify the deadline using /by.");
+        }
+
+        String description = fullCommand.substring(DEADLINE_COMMAND.length(), indexOfBy).trim();
+        String by = fullCommand.substring(indexOfBy + "/by".length()).trim();
+        if (description.isBlank()) {
+            throw new CarbonInputParseException("The description cannot be empty.");
+        }
+        if (by.isBlank()) {
+            throw new CarbonInputParseException("The due date must be specified using /by.");
+        }
+
+        try {
+            LocalDateTime byDt = parseDateTimeString(by);
+            return new AddCommand(new Deadline(description, byDt));
+        } catch (DateTimeParseException ex) {
+            throw new CarbonInputParseException("The datetime was not in a valid format."
+                    + " Example of valid datetime: 26/12/2019 1800");
+        }
+    }
+
+    private static Command parseEventCommand(String fullCommand) throws CarbonInputParseException {
+        int indexOfFrom = fullCommand.indexOf("/from");
+        int indexOfTo = fullCommand.indexOf("/to");
+        if (indexOfFrom == -1 || indexOfTo == -1) {
+            throw new CarbonInputParseException("Please specify the start and end of the"
+                    + " event using /from and /to.");
+        }
+        if (indexOfFrom > indexOfTo) {
+            throw new CarbonInputParseException("Please specify the /from before the /to!");
+        }
+
+        String description = fullCommand.substring(EVENT_COMMAND.length(), indexOfFrom).trim();
+        String from = fullCommand.substring(indexOfFrom + "/from".length(), indexOfTo).trim();
+        String to = fullCommand.substring(indexOfTo + "/to".length()).trim();
+
+        if (description.isBlank()) {
+            throw new CarbonInputParseException("The description cannot be empty.");
+        }
+        if (from.isBlank()) {
+            throw new CarbonInputParseException("The 'from' of an event cannot be empty.");
+        }
+        if (to.isBlank()) {
+            throw new CarbonInputParseException("The 'to' of an event cannot be empty.");
+        }
+        try {
+            LocalDateTime fromDt = parseDateTimeString(from);
+            LocalDateTime toDt = parseDateTimeString(to);
+            return new AddCommand(new Event(description, fromDt, toDt));
+        } catch (DateTimeParseException ex) {
+            throw new CarbonInputParseException("The given datetime was not in a valid format."
+                    + " Example of valid datetime: 26/12/2019 1800");
         }
     }
 
