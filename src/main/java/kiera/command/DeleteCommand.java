@@ -7,7 +7,7 @@ import kiera.exception.KieraException;
 import kiera.task.Task;
 
 /**
- * Represents a command for deleting a tasl from tha taskList.
+ * Represents a command for deleting a task from the taskList.
  */
 public class DeleteCommand extends Command {
     public DeleteCommand(String desc) {
