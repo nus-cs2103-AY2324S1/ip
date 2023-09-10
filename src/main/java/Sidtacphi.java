@@ -1,6 +1,9 @@
 import java.util.Objects;
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Sidtacphi is the main class for the Sidtacphi bot.
@@ -19,7 +22,10 @@ public class Sidtacphi {
      * @param args
      */
     public static void main(String[] args) {
+        readJson();
         startBot();
+        saveAsJson();
+        stopBot();
     }
 
     /**
@@ -68,7 +74,6 @@ public class Sidtacphi {
             try {
                 input = scan.nextLine().trim();
                 if (Objects.equals(input, "bye")) {
-                    stopBot();
                     break;
                 } else if (Objects.equals(input, "list")) {
                     showTaskList();
@@ -169,12 +174,12 @@ public class Sidtacphi {
     /**
      * Marks/Unmarks the task given.
      * 
-     * @param toMark to mark the task as done when true, and to unmark when false
+     * @param isToMark to mark the task as done when true, and to unmark when false
      * @param input 
      */
-    private static void markTaskAs(boolean toMark, String input) throws SidException {
+    private static void markTaskAs(boolean isToMark, String input) throws SidException {
         
-        if (!toMark) {
+        if (!isToMark) {
             if (input.length() < 7) {
                 throw new SidInvalidFormatException("Please input the task ID number to unmark.");
             } else if (input.charAt(6) != ' ') {
@@ -235,7 +240,7 @@ public class Sidtacphi {
      * 
      * @param input
      */
-    public static void deleteTask(String input) throws SidException {
+    private static void deleteTask(String input) throws SidException {
         if (input.length() < 7) {
             throw new SidInvalidFormatException("Please input the task ID number to delete.");
         } else if (input.charAt(6) != ' ') {
@@ -251,5 +256,29 @@ public class Sidtacphi {
         taskList.remove(taskId - 1);
         System.out.println("\nSidtacphi: Removed \"" + task + "\".");
         System.out.println("Sidtacphi: You now have " + taskList.size() + " tasks in your list.");
+    }
+
+    /**
+     * Save current taskList as a json file.
+     */
+    private static void saveAsJson() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            System.out.println("saving json...");
+        } catch (IOException e) {
+            System.out.print(e);
+        }
+    }
+
+    /**
+     * Read json file and save to taskList.
+     */
+    private static void readJson() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            System.out.println("reading json...");
+        } catch (IOException e) {
+            new File("tasks.json");
+        }
     }
 }
