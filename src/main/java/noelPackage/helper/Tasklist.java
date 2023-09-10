@@ -15,11 +15,22 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Manages a list of tasks with functionalities to add, update, and remove tasks.
+ */
 public class Tasklist {
 
+    /** The actual list that holds tasks. */
     private final ArrayList<Task> taskList;
-    static String addedMessageStart = "Got it. I've added this task:";
 
+    /** Message displayed when a task is added. */
+    static String ADDED_MESSAGE_START = "Got it. I've added this task:";
+
+    /**
+     * Constructs a Tasklist from a serialized list of tasks.
+     * @param listOfTasks The serialized list of tasks.
+     * @throws NoelException If the list of tasks is null.
+     */
     public Tasklist(String listOfTasks) throws NoelException {
         if (listOfTasks == null) {
             throw new NoelException("No content in file!");
@@ -29,19 +40,33 @@ public class Tasklist {
         }
     }
 
+    /**
+     * Default constructor that initializes an empty task list.
+     */
     public Tasklist() {
         taskList = new ArrayList<>();
     }
 
+    /**
+     * Checks if the task list is full.
+     * @return True if the list is full, otherwise false.
+     */
     public boolean checkFull() {
         int maxSize = 100;
         return taskList.size() == maxSize;
     }
 
+    /** Checks if the task list is empty.
+     * @return True if the list is empty, otherwise false.
+     */
     public boolean checkEmpty() {
         return taskList.size() == 0;
     }
 
+    /**
+     * Updates the task list based on a serialized string representation.
+     * @param content The serialized string.
+     */
     public void updateTaskList(String content) {
         String[] listOfStrings = content.split("\n");
         System.out.println(Arrays.toString(listOfStrings));
@@ -94,6 +119,11 @@ public class Tasklist {
         }
     }
 
+    /**
+     * Parses a date string into a LocalDate object.
+     * @param endDate The date string to parse.
+     * @return The parsed LocalDate object.
+     */
     public LocalDate dateFormat(String endDate) {
         LocalDate date;
         System.out.println(endDate);
@@ -113,6 +143,11 @@ public class Tasklist {
         return null;
     }
 
+    /**
+     * Parses a time string into a LocalTime object.
+     * @param date The time string to parse.
+     * @return The parsed LocalTime object.
+     */
     public LocalTime timeFormat(String date) {
         LocalTime time = null;
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -129,11 +164,21 @@ public class Tasklist {
         return time;
     }
 
+    /**
+     * Prints a message enclosed in a fixed design.
+     * @param message The message to print.
+     */
     public static void printFunction(String message){
         String filler = "____________________________________________________________";
         System.out.println(filler + "\n" + message + "\n" + filler);
     }
 
+    /**
+     * Adds an event task to the task list.
+     * @param task The task description.
+     * @param startDate The start date of the event.
+     * @param endDate The end date of the event.
+     */
     public void addEvent(String task, String startDate, String endDate) {
 
         LocalDate startDateFormat = dateFormat(startDate);
@@ -160,10 +205,15 @@ public class Tasklist {
         taskList.add(taskToAdd);
 
         String addedMessageEnd = "Now you have " + taskList.size() + " tasks in the list.";
-        String updateAdd = addedMessageStart + "\n" +  taskToAdd + "\n" + addedMessageEnd;
+        String updateAdd = ADDED_MESSAGE_START + "\n" +  taskToAdd + "\n" + addedMessageEnd;
         printFunction(updateAdd);
     }
 
+    /**
+     * Adds a deadline task to the task list.
+     * @param task The task description.
+     * @param endDate The end date of the deadline.
+     */
     public void addDeadline(String task, String endDate) {
 
         LocalDate date = dateFormat(endDate);
@@ -187,10 +237,14 @@ public class Tasklist {
         taskList.add(taskToAdd);
 
         String addedMessageEnd = "Now you have " + taskList.size() + " tasks in the list.";
-        String updateAdd = addedMessageStart + "\n" +  taskToAdd + "\n" + addedMessageEnd;
+        String updateAdd = ADDED_MESSAGE_START + "\n" +  taskToAdd + "\n" + addedMessageEnd;
         printFunction(updateAdd);
     }
 
+    /**
+     * Adds a To-Do task to the task list.
+     * @param task The task description.
+     */
     public void addToDo(String task) {
 
         Task taskToAdd = new ToDos(task);
@@ -202,10 +256,13 @@ public class Tasklist {
         taskList.add(taskToAdd);
 
         String addedMessageEnd = "Now you have " + taskList.size() + " tasks in the list.";
-        String updateAdd = addedMessageStart + "\n" +  taskToAdd + "\n" + addedMessageEnd;
+        String updateAdd = ADDED_MESSAGE_START + "\n" +  taskToAdd + "\n" + addedMessageEnd;
         printFunction(updateAdd);
     }
 
+    /**
+     * Prints the current task list to the console.
+     */
     public void printTaskList(){
         if (checkEmpty()) {
             System.out.println("List is empty!");
@@ -220,6 +277,10 @@ public class Tasklist {
         }
     }
 
+    /**
+     * Returns the task list as a List of Strings suitable for file storage.
+     * @return List of strings representing tasks for storage.
+     */
     public List<String> getTaskAsList() {
         List<String> linesToAppend = new ArrayList<>();
         for (Task t:taskList) {
@@ -229,23 +290,44 @@ public class Tasklist {
         return linesToAppend.subList(0, linesToAppend.size());
     }
 
+    /**
+     * Marks a task as done.
+     * @param index The index of the task to mark as done.
+     */
     public void markAsDone(int index) {
         taskList.get(index).markAsDone();
     }
 
+    /**
+     * Marks a task as undone.
+     * @param index The index of the task to mark as undone.
+     */
     public void unMark(int index) {
-        taskList.get(index).unMark();
+        taskList.get(index).markAsUnDone();
     }
 
+    /**
+     * Removes a task from the list.
+     * @param index The index of the task to remove.
+     */
     public void remove(int index) {
         taskList.remove(index);
     }
 
-    public int size() {
+    /**
+     * Returns the size of the task list.
+     * @return The size of the task list.
+     */
+    public int getSize() {
         return taskList.size();
     }
 
-    public Task get(int index) {
+    /**
+     * Returns the task at the specified index.
+     * @param index The index of the task to retrieve.
+     * @return The task at the specified index.
+     */
+    public Task getTask(int index) {
         return taskList.get(index);
     }
 }
