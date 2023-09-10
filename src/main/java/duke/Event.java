@@ -5,9 +5,9 @@ package duke;
  * ends at a specific date/time
  */
 public class Event extends Task {
+    public static final int NAME_OFFSET = 6;
+
     private String taskName;
-    private String startTime;
-    private String endTime;
     private DateTime start;
     private DateTime end;
 
@@ -19,8 +19,6 @@ public class Event extends Task {
     public Event(String taskName, DateTime start, DateTime end) {
         super(taskName);
         this.taskName = taskName;
-        this.startTime = start.getDateTime();
-        this.endTime = end.getDateTime();
         this.start = start;
         this.end = end;
     }
@@ -28,9 +26,9 @@ public class Event extends Task {
     /**
      * Constructor for creating an Event based on whether its done or not
      * @param taskName  name of task.
-     * @param isDone    whether the task is done or not
-     * @param start    the start time of the event
-     * @param end    the end time of the event
+     * @param isDone whether the task is done or not
+     * @param start the start time of the event
+     * @param end the end time of the event
      */
     public Event(String taskName, boolean isDone, DateTime start, DateTime end) {
         super(taskName);
@@ -38,8 +36,6 @@ public class Event extends Task {
             super.quietlyCompleteTask();
         }
         this.taskName = taskName;
-        this.startTime = start.getDateTime();
-        this.endTime = end.getDateTime();
         this.start = start;
         this.end = end;
     }
@@ -57,16 +53,12 @@ public class Event extends Task {
                     "Use the /from command in 'event <event_name> /from <start> /to <end>'");
         }
         try {
-            String taskNameEvent = segmentedViaFrom[0].substring(Parser.EVENTOFFSET);
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new WrongInputException("Task name cannot be blank", "Enter a non-blank name");
-        }
-        String taskNameEvent = segmentedViaFrom[0].substring(Parser.EVENTOFFSET);
-        String[] segmentedViaTo = segmentedViaFrom[1].split(" /to ");
-        if (segmentedViaTo.length < 2) {
-            throw new WrongInputException("/to command is required",
-                    "Use the /to command in 'event <event_name> /from <start> /to <end>'");
-        } else {
+            String taskNameEvent = segmentedViaFrom[0].substring(NAME_OFFSET);
+            String[] segmentedViaTo = segmentedViaFrom[1].split(" /to ");
+            if (segmentedViaTo.length < 2) {
+                throw new WrongInputException("/to command is required",
+                        "Use the /to command in 'event <event_name> /from <start> /to <end>'");
+            }
             String start = segmentedViaTo[0];
             String end = segmentedViaTo[1];
             if (taskNameEvent.trim().isEmpty()) {
@@ -74,7 +66,6 @@ public class Event extends Task {
             } else if (start.trim().isEmpty()) {
                 throw new WrongInputException("/from <content>, content cannot be blank",
                         "Enter non-blank text after /from ");
-
             } else if (end.trim().isEmpty()) {
                 throw new WrongInputException("/to <content>, content cannot be blank", "Enter text after /to ");
             } else if (!DateTimeParser.isValidDateTime(start)) {
@@ -84,7 +75,27 @@ public class Event extends Task {
                 throw new WrongInputException("Invalid date and time format for /to <datetime>",
                         DateTimeParser.getValidDateTimeFormat());
             }
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new WrongInputException("Task name cannot be blank", "Enter a non-blank name");
         }
+    }
+
+    /**
+     * Creates an Event task from the user's input
+     * @param input the user's input
+     * @return  an Event task
+     * @throws WrongInputException  if the input is invalid
+     */
+    public static Task createTaskFromInput(String input) throws WrongInputException {
+        String[] segmentedViaFrom = input.split(" /from ");
+        String taskNameEvent = segmentedViaFrom[0].substring(NAME_OFFSET);
+        String[] segmentedViaTo = segmentedViaFrom[1].split(" /to ");
+        String start = segmentedViaTo[0];
+        DateTime startDateTime = DateTime.createDateTime(start);
+        String end = segmentedViaTo[1];
+        DateTime endDateTime = DateTime.createDateTime(end);
+        Task event = new Event(taskNameEvent, startDateTime, endDateTime);
+        return event;
     }
 
     /**

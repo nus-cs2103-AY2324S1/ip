@@ -4,7 +4,9 @@ package duke;
  * ToDos encapsulates a task without any date or timeline attached to it
  */
 public class ToDos extends Task {
+    public static final int NAME_OFFSET = 5;
     private String taskName;
+
 
     /**
      * Constructor for creating a To-Do Task
@@ -39,6 +41,18 @@ public class ToDos extends Task {
         if (splitString.length < 2) {
             throw new WrongInputException("Cannot be blank", "Enter a non-blank To-Do task");
         }
+    }
+
+    /**
+     * Creates a To-Do task from the user's input
+     * @param input the user's input
+     * @return  a To-Do task
+     * @throws WrongInputException  if the input is invalid
+     */
+    public static Task createTaskFromInput(String input) throws WrongInputException {
+        String taskName = input.substring(NAME_OFFSET);
+        Task toDo = new ToDos(taskName);
+        return toDo;
     }
 
     /**

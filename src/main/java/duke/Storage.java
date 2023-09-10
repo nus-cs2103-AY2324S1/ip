@@ -1,10 +1,8 @@
 package duke;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 
 
 /**
@@ -13,16 +11,14 @@ import java.util.Scanner;
 public class Storage {
     public static final String FILESEPERATORCHARACTER = " | ";
     private final String filePath;
-    private final File file;
 
     /**
      * Constructor for creating a Storage object
-     * @param filePath  the path of the file
-     * @param file  the file
+     *
+     * @param filePath the path of the file
      */
-    private Storage(String filePath, File file) {
+    private Storage(String filePath) {
         this.filePath = filePath;
-        this.file = file;
     }
 
     /**
@@ -31,15 +27,14 @@ public class Storage {
      * @return Storage containing the file path and file
      */
     public static Storage createStorage(String filePath) {
-        if (isValidFile(filePath)) {
-            System.out.println("File detected, loading file");
-            return new Storage(filePath, new File(filePath));
-        } else {
+        if (!isValidFile(filePath)) {
             System.out.println("File not detected, creating file");
             createDirectory("./data");
             File file = createFile(filePath);
-            return new Storage(filePath, file);
+            return new Storage(filePath);
         }
+        System.out.println("File detected, loading file");
+        return new Storage(filePath);
     }
 
     /**
@@ -60,13 +55,12 @@ public class Storage {
         File directory = new File(directoryPath);
         if (directory.exists() && directory.isDirectory()) {
             System.out.println("Directory already exists");
-        } else {
-            if (directory.mkdir()) {
-                System.out.println("Directory has been created");
-            } else {
-                System.out.println("Directory could not be created");
-            }
+            return;
+        } else if (directory.mkdir()) {
+            System.out.println("Directory has been created");
+            return;
         }
+        System.out.println("Directory could not be created");
     }
 
     /**
@@ -84,20 +78,6 @@ public class Storage {
             System.out.println("File could not be created");
         }
         return file;
-    }
-
-    /**
-     * Reads the file in the Storage object and prints out its data
-     * @throws FileNotFoundException
-     */
-    public void readFile() throws FileNotFoundException {
-        File file = new File(filePath);
-        Scanner scanner = new Scanner(file);
-        while (scanner.hasNextLine()) {
-            String data = scanner.nextLine();
-            System.out.println(data);
-        }
-        scanner.close();
     }
 
     /**

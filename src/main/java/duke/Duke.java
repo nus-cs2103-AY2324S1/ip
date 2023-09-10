@@ -22,7 +22,7 @@ public class Duke {
         this.storage = Storage.createStorage(filePath);
         this.taskList = new TaskList(filePath);
         this.ui = new Ui();
-        this.searchEngine = new SearchEngine(this.ui);
+        this.searchEngine = new SearchEngine();
         this.parser = new Parser(this.taskList, this.storage, this.ui, this.searchEngine);
     }
 
