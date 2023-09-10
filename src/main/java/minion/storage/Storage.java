@@ -32,7 +32,7 @@ public class Storage {
      */
     private void createFile(File file) throws IOException {
         file.getParentFile().mkdirs();
-        assert file.getParentFile().exists() : "Parent file not created";
+        assert file.getParentFile().exists() : "Parent directory not created";
         file.createNewFile();
         assert file.exists() : "File not created";
     }

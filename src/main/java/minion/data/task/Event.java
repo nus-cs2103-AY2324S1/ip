@@ -4,8 +4,8 @@ package minion.data.task;
  * Represents an minion.data.task.Event, a task that start at a specific date/time and ends at a specific date/time.
  */
 public class Event extends Task {
-    protected String start;
-    protected String end;
+    private String start;
+    private String end;
 
     /**
      * Creates an event object. This is the main constructor of the minion.data.task.Event class.
@@ -37,7 +37,7 @@ public class Event extends Task {
      */
     @Override
     public boolean contains(String query) {
-        return this.description.contains(query) || this.start.contains(query) || this.end.contains(query);
+        return description.contains(query) || start.contains(query) || end.contains(query);
     }
 
     /**
@@ -69,7 +69,7 @@ public class Event extends Task {
             return false;
         }
         Event t = (Event) o;
-        return this.description.equals(t.description) && this.isDone == t.isDone
-                && this.start.equals(t.start) && this.end.equals(t.end);
+        return description.equals(t.description) && isDone == t.isDone
+                && start.equals(t.start) && end.equals(t.end);
     }
 }

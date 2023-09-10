@@ -147,36 +147,13 @@ public class CommandParser {
         if (arr.length < 2 || arr[1].isEmpty()) {
             throw new ParserException(Messages.MESSAGE_DEADLINE_DESCRIPTION_ERROR);
         }
-        String[] strs = arr[1].split("/by");
-        String description;
-        switch (strs.length) {
-        // nothing to left and right
-        case 0:
-            throw new ParserException(Messages.MESSAGE_DEADLINE_DESCRIPTION_ERROR);
-        //something to left, nothing to the right
-        case 1:
-            description = strs[0].trim();
-            if (description.isEmpty()) {
-                throw new ParserException(Messages.MESSAGE_DEADLINE_DESCRIPTION_ERROR);
-            }
-            throw new ParserException(Messages.MESSAGE_DEADLINE_BY_ERROR);
-        case 2:
-            description = strs[0].trim();
-            String by = strs[1].trim();
-            if (description.isEmpty()) {
-                throw new ParserException(Messages.MESSAGE_DEADLINE_DESCRIPTION_ERROR);
-            }
-            if (by.isEmpty()) {
-                throw new ParserException(Messages.MESSAGE_DEADLINE_BY_ERROR);
-            }
-            String datetime = DatetimeParser.parseDatetime(by.split(" "));
-            return new DeadlineCommand(new Deadline(description, datetime));
-
-        default:
-            assert false : "the parsed strings array can only have length 0, 1 or 2.";
-            break;
-        }
-        return null;
+        String[] unparsedStrs = arr[1].split("/by");
+        String[] parsedStrs = parseLeftRight(unparsedStrs, Messages.MESSAGE_DEADLINE_DESCRIPTION_ERROR,
+            Messages.MESSAGE_DEADLINE_BY_ERROR);
+        String description = parsedStrs[0];
+        String by = parsedStrs[1];
+        String datetime = DatetimeParser.parseDatetime(by.split(" "));
+        return new DeadlineCommand(new Deadline(description, datetime));
     }
 
     /**
@@ -189,61 +166,55 @@ public class CommandParser {
         if (arr.length < 2 || arr[1].isEmpty()) {
             throw new ParserException(Messages.MESSAGE_EVENT_DESCRIPTION_ERROR);
         }
-        String[] strs = arr[1].split("/from");
-        String description = null;
+        String[] unparsedStrs1 = arr[1].split("/from");
+        String[] parsedStrs1 = parseLeftRight(unparsedStrs1, Messages.MESSAGE_EVENT_DESCRIPTION_ERROR,
+            Messages.MESSAGE_EVENT_FROM_ERROR);
+        String description = parsedStrs1[0];
+        String[] unparsedStrs2 = parsedStrs1[1].split("/to");
+        String[] parsedStrs2 = parseLeftRight(unparsedStrs2 , Messages.MESSAGE_EVENT_FROM_ERROR,
+            Messages.MESSAGE_EVENT_TO_ERROR);
+        String from = parsedStrs2[0];
+        String to = parsedStrs2[1];
+        String fromDatetime = DatetimeParser.parseDatetime(from.split(" "));
+        String toDatetime = DatetimeParser.parseDatetime(to.split(" "));
+        return new EventCommand(new Event(description, fromDatetime, toDatetime));
+    }
+
+    /**
+     * Parses an array of strings into their constituent parts.
+     * @param strs the array of strings to parse.
+     * @param missingLeftMessage the error message shown if the left part is missing.
+     * @param missingRightMessage the error message shown if the right part is missing.
+     * @return an array of parsed strings if both left and right parts are present.
+     * @throws ParserException if either the left or right part is missing.
+     */
+    private static String[] parseLeftRight(String[] strs, String missingLeftMessage, String missingRightMessage)
+            throws ParserException {
+        String left;
+        String right;
         switch (strs.length) {
         // nothing to left and right
         case 0:
-            throw new ParserException(Messages.MESSAGE_EVENT_DESCRIPTION_ERROR);
+            throw new ParserException(missingLeftMessage);
+        //something to left, nothing to the right
         case 1:
-            description = strs[0].trim();
-            if (description.isEmpty()) {
-                throw new ParserException(Messages.MESSAGE_EVENT_DESCRIPTION_ERROR);
+            left = strs[0].trim();
+            if (left.isEmpty()) {
+                throw new ParserException(missingLeftMessage);
             }
-            throw new ParserException(Messages.MESSAGE_EVENT_FROM_ERROR);
+            throw new ParserException(missingRightMessage);
         case 2:
-            description = strs[0].trim();
-            String dates = strs[1].trim();
-            if (description.isEmpty()) {
-                throw new ParserException(Messages.MESSAGE_EVENT_DESCRIPTION_ERROR);
+            left = strs[0].trim();
+            right = strs[1].trim();
+            if (left.isEmpty()) {
+                throw new ParserException(missingLeftMessage);
             }
-            if (dates.isEmpty()) {
-                throw new ParserException(Messages.MESSAGE_EVENT_FROM_ERROR);
+            if (right.isEmpty()) {
+                throw new ParserException(missingRightMessage);
             }
-            strs = strs[1].split("/to");
-            break;
-
+            return new String[]{left, right};
         default:
-            assert false : "the parsed strings array can only have length 0, 1 or 2.";
-            break;
-        }
-        String from;
-        String to;
-        switch (strs.length) {
-        // nothing to left and right
-        case 0:
-            throw new ParserException(Messages.MESSAGE_EVENT_FROM_ERROR);
-        case 1:
-            from = strs[0].trim();
-            if (from.isEmpty()) {
-                throw new ParserException(Messages.MESSAGE_EVENT_FROM_ERROR);
-            }
-            throw new ParserException(Messages.MESSAGE_EVENT_TO_ERROR);
-        case 2:
-            from = strs[0].trim();
-            to = strs[1].trim();
-            if (from.isEmpty()) {
-                throw new ParserException(Messages.MESSAGE_EVENT_FROM_ERROR);
-            }
-            if (to.isEmpty()) {
-                throw new ParserException(Messages.MESSAGE_EVENT_TO_ERROR);
-            }
-            String fromDatetime = DatetimeParser.parseDatetime(from.split(" "));
-            String toDatetime = DatetimeParser.parseDatetime(to.split(" "));
-            return new EventCommand(new Event(description, fromDatetime, toDatetime));
-
-        default:
-            assert false : "the parsed strings array can only have length 0, 1 or 2.";
+            assert false : "the input strings array can only have length 0, 1 or 2.";
             break;
         }
         return null;
@@ -257,7 +228,7 @@ public class CommandParser {
      */
     private static Command prepareFind(String[] arr) throws ParserException {
         if (arr.length < 2 || arr[1].isEmpty()) {
-            throw new ParserException("Find needs to have an argument. Try again.");
+            throw new ParserException(Messages.MESSAGE_FIND_MISSING_ARG);
         }
         return new FindCommand(arr[1].trim());
     }
