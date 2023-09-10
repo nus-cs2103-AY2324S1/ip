@@ -27,8 +27,10 @@ public class FindTasksContainKeywordCommand extends Command {
      * @param target The target keyword.
      */
     public FindTasksContainKeywordCommand(String target) {
-        super(false, CommandType.FIND);
+        super(false);
         this.target = target;
+
+        // Define a predicate to filter tasks based on whether they contain the keyword.
         this.predicate = t -> t.contains(target);
     }
 
@@ -47,9 +49,9 @@ public class FindTasksContainKeywordCommand extends Command {
         TaskList tasksContainKeyword = list.filter(predicate);
 
         if (tasksContainKeyword.isEmpty()) {
-            return renderer.showNoTaskContainsKeyword(this.target);
+            return renderer.showKeywordNotFound(this.target);
         } else {
-            return renderer.showTasksContainKeyword(this.target, tasksContainKeyword.toString());
+            return renderer.showTasksWithKeyword(this.target, tasksContainKeyword.toString());
         }
     }
 }

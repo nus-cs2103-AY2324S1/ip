@@ -50,10 +50,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.CENTER_LEFT);
     }
 
+    /**
+     * Creates a user dialog box with the given text and image.
+     *
+     * @param text The text to be displayed in the dialog box.
+     * @param img  The image to be associated with the dialog box.
+     * @return A user dialog box containing the specified text and image.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates a Corgi dialog box with the given text and image.
+     *
+     * @param text The text to be displayed in the dialog box.
+     * @param img  The image to be associated with the dialog box.
+     * @return A Corgi dialog box containing the specified text and image.
+     */
     public static DialogBox getCorgiDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

@@ -22,7 +22,7 @@ public class DeleteTaskCommand extends Command {
      * @param targetIdx The index of the task to be deleted.
      */
     public DeleteTaskCommand(int targetIdx) {
-        super(false, CommandType.DELETE);
+        super(false);
         this.targetIdx = targetIdx;
     }
 

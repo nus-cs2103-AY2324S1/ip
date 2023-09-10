@@ -29,8 +29,8 @@ public class MarkTaskCommand extends Command {
      * @param status The new status of the task (true for done, false for undone).
      * @param type The type of command (CommandType.MARK_DONE or CommandType.MARK_UNDONE).
      */
-    public MarkTaskCommand(int index, boolean status, CommandType type) {
-        super(false, type);
+    public MarkTaskCommand(int index, boolean status) {
+        super(false);
         this.index = index;
         this.status = status;
     }

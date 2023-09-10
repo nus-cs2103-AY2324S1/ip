@@ -31,9 +31,12 @@ public class ToDo extends Task {
      */
     @Override
     public String toStorableString() {
-        String[] infos = {"T", this.status ? "1" : "0", this.desc};
+        String statusStr = this.status ? "1" : "0";
 
-        return String.join(TaskParser.SEPARATOR, infos);
+        String[] infos = {"T", statusStr, this.desc};
+        String combinedInfos = String.join(TaskParser.SEPARATOR, infos);
+
+        return combinedInfos;
     }
 
     /**

@@ -15,19 +15,13 @@ public abstract class Command {
     private boolean isExit;
 
     /**
-     * The type of command.
-     */
-    private CommandType type;
-
-    /**
      * Initializes a new Command instance with the specified exit flag and command type.
      *
      * @param isExit The flag indicating whether this command should exit the application.
      * @param type The type of command.
      */
-    public Command(boolean isExit, CommandType type) {
+    public Command(boolean isExit) {
         this.isExit = isExit;
-        this.type = type;
     }
 
     /**
@@ -49,14 +43,5 @@ public abstract class Command {
      */
     public boolean isExit() {
         return this.isExit;
-    }
-
-    /**
-     * Gets the type of this command.
-     *
-     * @return The type of command.
-     */
-    public CommandType getCommandType() {
-        return this.type;
     }
 }

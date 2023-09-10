@@ -133,7 +133,7 @@ public class TextRenderer {
      *
      * @param keyword The target keyword.
      */
-    public String showNoTaskContainsKeyword(String keyword) {
+    public String showKeywordNotFound(String keyword) {
         return returnMessage("No task containing keyword \"" + keyword + "\".");
     }
 
@@ -143,7 +143,7 @@ public class TextRenderer {
      * @param keyword The target keyword.
      * @param tasksContainKeyword The tasks containing the target keyword.
      */
-    public String showTasksContainKeyword(String keyword, String tasksContainKeyword) {
+    public String showTasksWithKeyword(String keyword, String tasksContainKeyword) {
         return returnMessage(
                 "Here are the tasks containing keyword \"" + keyword + "\":",
                 tasksContainKeyword);
@@ -191,7 +191,7 @@ public class TextRenderer {
     /**
      * Display a mesage indicating there is no task in the list.
      */
-    public String showNoTaskInList() {
+    public String showNoTaskFound() {
         return returnMessage("If you haven't noticed, there's nothing here! No task to be found.");
     }
 

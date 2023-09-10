@@ -27,16 +27,9 @@ public class AddTaskCommand extends Command {
      * @param target The task to be added.
      * @param type The type of command (CommandType.TODO, CommandType.DEADLINE, or CommandType.EVENT).
      */
-    public AddTaskCommand(Task target, CommandType type) {
-        super(false, type);
+    public AddTaskCommand(Task target) {
+        super(false);
         this.target = target;
-        if (type == CommandType.TODO) {
-            this.taskType = "todo";
-        } else if (type == CommandType.DEADLINE) {
-            this.taskType = "deadline";
-        } else {
-            this.taskType = "event";
-        }
     }
 
     /**

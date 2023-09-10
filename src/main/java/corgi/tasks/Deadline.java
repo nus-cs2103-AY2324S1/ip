@@ -50,9 +50,13 @@ public class Deadline extends Task {
      */
     @Override
     public String toStorableString() {
-        String[] infos = {"D", this.status ? "1" : "0", this.desc, this.by.format(Task.DATE_INPUT_FORMATTER)};
+        String statusStr = this.status ? "1" : "0";
+        String formattedBy = this.by.format(Task.DATE_INPUT_FORMATTER);
 
-        return String.join(TaskParser.SEPARATOR, infos);
+        String[] infos = {"D", statusStr, this.desc, formattedBy};
+        String combinedInfos = String.join(TaskParser.SEPARATOR, infos);
+
+        return combinedInfos;
     }
 
     /**
@@ -62,6 +66,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by.format(Task.DATE_OUTPUT_FORMATTER) + ")";
+        String deadline = "(by: " + this.by.format(Task.DATE_OUTPUT_FORMATTER) + ")";
+
+        return "[D]" + super.toString() + " " + deadline;
     }
 }
