@@ -1,6 +1,5 @@
 package CR7;
 
-import CR7.CR7;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -27,8 +26,12 @@ public class MainWindow extends AnchorPane {
 
     private CR7 cr7;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/kana.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/westbrickk.jpg"));
+    private String userImagePath = "/images/dillonbrooks.jpg";
+
+    private String dukeImagePath = "/images/ronaldosiu.jpg";
+
+    private Image userImage = new Image(this.getClass().getResourceAsStream(userImagePath));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream(dukeImagePath));
     private boolean isWelcomeMessageSent = false; // Flag to track if welcome message has been sent
 
     @FXML
