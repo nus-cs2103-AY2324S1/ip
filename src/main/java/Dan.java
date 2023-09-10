@@ -98,12 +98,13 @@ public class Dan {
     }
 
     private static void deleteTask(int i) {
-        Task removedTask = tasks.remove(i);
+        Task removedTask = tasks.remove(i-1);
         System.out.println(
                 greets +
                         " 好啦，帮你擦掉了一条任务哦：\n " + removedTask +
                         "\n 现在还剩下" + tasks.size() + "项任务哦！\n"
         );
+        save();
     }
 
     public static void addTask(String text)
@@ -132,7 +133,7 @@ public class Dan {
         String description;
         switch (id) {
             case 1:
-                description = texts[1].substring(5);
+                description = texts[0].substring(5);
                 newTask = new ToDo(description);
                 break;
             case 2:
@@ -210,8 +211,8 @@ public class Dan {
             if (f.exists()) {
                 readFile(f);
             } else {
-                System.out.println(new File("./data").mkdir());
-                System.out.println(new File("./data/dan.txt").createNewFile());
+                new File("./data").mkdir();
+                new File("./data/dan.txt").createNewFile();
             }
         }  catch (IOException e) {
             e.printStackTrace();
