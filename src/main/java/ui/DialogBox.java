@@ -38,22 +38,8 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        name.setText(user(u));
-        dialog.setText(l);
-        if (u == 0) {
-            dialog.setStyle("-fx-background-color: #c2dadf;"
-                    + "-fx-padding: 10px;" + "-fx-background-radius: 20px;");
-        } else {
-            dialog.setStyle("-fx-background-color: #f9c9c4;"
-                    + "-fx-padding: 10px;" + "-fx-background-radius: 20px;");
-        }
-        Rectangle clip = new Rectangle(
-                displayPicture.getFitWidth(), displayPicture.getFitWidth()
-        );
-        clip.setArcHeight(200);
-        clip.setArcWidth(200);
-        displayPicture.setClip(clip);
-        displayPicture.setImage(iv);
+        customUserHeader(iv, u);
+        customTextDisplay(l, u);
     }
 
     /**
@@ -66,6 +52,28 @@ public class DialogBox extends HBox {
             return "You";
         } else {
             return "Mr Red";
+        }
+    }
+
+    private void customUserHeader(Image iv, int u) {
+        name.setText(user(u));
+        Rectangle clip = new Rectangle(
+                displayPicture.getFitWidth(), displayPicture.getFitWidth()
+        );
+        clip.setArcHeight(200);
+        clip.setArcWidth(200);
+        displayPicture.setClip(clip);
+        displayPicture.setImage(iv);
+    }
+
+    private void customTextDisplay(String l, int u) {
+        dialog.setText(l);
+        if (u == 0) {
+            dialog.setStyle("-fx-background-color: #c2dadf;"
+                    + "-fx-padding: 10px;" + "-fx-background-radius: 20px;");
+        } else {
+            dialog.setStyle("-fx-background-color: #f9c9c4;"
+                    + "-fx-padding: 10px;" + "-fx-background-radius: 20px;");
         }
     }
 }

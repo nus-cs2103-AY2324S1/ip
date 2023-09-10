@@ -45,6 +45,7 @@ public class UnmarkComment extends Command {
 
     /**
      * Returns the string representation of unmark command.
+     * @param task String representation of Task.
      * @return String representation of unmark command.
      */
     public String cmdToString(String task) {

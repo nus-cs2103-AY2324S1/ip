@@ -46,9 +46,10 @@ public class DeadlineCommand extends Command {
 
     /**
      * Returns the string representation of deadline command.
+     * @param task String representation of Task.
+     * @param size Size of the taskList.
      * @return String representation of deadline command.
      */
-
     public String cmdToString(String task, int size) {
         return "Got it. I've added this task:\n" + task
                 + "\nNow you have " + size + " tasks in the list.";

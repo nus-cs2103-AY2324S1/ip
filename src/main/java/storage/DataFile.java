@@ -21,7 +21,7 @@ public class DataFile {
 
     private final String filePath;
     private final String fileName;
-    private final File file;
+    private File file;
 
     /**
      * DateFile constructor that takes in String, String.
@@ -31,26 +31,7 @@ public class DataFile {
     public DataFile(String filePath, String fileName) {
         this.fileName = fileName;
         this.filePath = filePath;
-        File directory = new File(filePath);
-        File localFile = new File(filePath + "/" + fileName);
-        if (!directory.exists()) {
-            directory.mkdir();
-            try {
-                new FileWriter(filePath + "/" + fileName);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-            file = new File(filePath + "/" + fileName);
-        } else if (!localFile.exists()) {
-            try {
-                new FileWriter(filePath + "/" + fileName);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-            file = new File(filePath + "/" + fileName);
-        } else {
-            file = localFile;
-        }
+        createDirectoryNFileIfFileDoNotExists();
         assert file.exists();
     }
 
@@ -113,6 +94,7 @@ public class DataFile {
         fW.close();
         assert !oldContent.toString().isEmpty();
     }
+
     /**
      * Deletes a task from the file at line n.
      * @param n The line to be deleted.
@@ -134,6 +116,7 @@ public class DataFile {
         fW.write(oldContent.toString());
         fW.close();
     }
+
     /**
      * Read the data from the file and convert it to list of Tasks object.
      * @return List of Tasks in ArrayList.
@@ -181,4 +164,30 @@ public class DataFile {
         return tasks;
     }
 
+    /**
+     * Checks if file or directory exists. If it does not
+     * exist, makes a new file or directory.
+     */
+    private void createDirectoryNFileIfFileDoNotExists() {
+        File directory = new File(filePath);
+        File localFile = new File(filePath + "/" + fileName);
+        if (!directory.exists()) {
+            directory.mkdir();
+            try {
+                new FileWriter(filePath + "/" + fileName);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+            file = new File(filePath + "/" + fileName);
+        } else if (!localFile.exists()) {
+            try {
+                new FileWriter(filePath + "/" + fileName);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+            file = new File(filePath + "/" + fileName);
+        } else {
+            file = localFile;
+        }
+    }
 }

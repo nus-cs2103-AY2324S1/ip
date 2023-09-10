@@ -13,6 +13,7 @@ import ui.MainWindow;
  * Starts up the GUI of the app.
  */
 public class Main extends Application {
+
     private final String filePath = "./data/";
     private final String fileName = "trying.txt";
     private final Duke duke = new Duke(filePath, fileName);

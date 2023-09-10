@@ -23,7 +23,7 @@ public class Parser {
 
     private String type = "";
 
-    private enum command {
+    private enum Commands {
         bye("bye"),
         list("list"),
         mark("mark"),
@@ -36,7 +36,7 @@ public class Parser {
 
         private final String command;
 
-        command(String command) {
+        Commands(String command) {
             this.command = command;
         }
 
@@ -67,22 +67,22 @@ public class Parser {
      * @throws DukeException If user typed invalid commands.
      */
     public Command getCommand(String input) throws DukeException {
-        if (input.equals(command.bye.toString())) {
+        if (input.equals(Commands.bye.toString())) {
             return new ByeCommand();
 
-        } else if (input.equals(command.list.toString())) {
+        } else if (input.equals(Commands.list.toString())) {
             return new ListCommand();
 
-        } else if (input.contains(command.unmark.toString())) {
+        } else if (input.contains(Commands.unmark.toString())) {
             int selected = Integer.parseInt(input.substring(7)) - 1;
             return new UnmarkComment(selected);
 
-        } else if (input.contains(command.mark.toString())) {
+        } else if (input.contains(Commands.mark.toString())) {
             int selected = Integer.parseInt(input.substring(5)) - 1;
             return new MarkCommand(selected);
 
-        } else if (input.contains(command.deadline.toString())) {
-            if (input.equals(command.deadline.toString())) {
+        } else if (input.contains(Commands.deadline.toString())) {
+            if (input.equals(Commands.deadline.toString())) {
                 throw new DukeException("Empty deadline");
             }
             if (input.charAt(8) != ' ') {
@@ -95,8 +95,8 @@ public class Parser {
             ArrayList<String> texts = parser.convertTaskInput(input);
             return new DeadlineCommand(texts);
 
-        } else if (input.contains(command.event.toString())) {
-            if (input.equals(command.event.toString())) {
+        } else if (input.contains(Commands.event.toString())) {
+            if (input.equals(Commands.event.toString())) {
                 throw new DukeException("Empty event");
             }
             if (input.charAt(5) != ' ') {
@@ -109,8 +109,8 @@ public class Parser {
             ArrayList<String> texts = parser.convertTaskInput(input);
             return new EventCommand(texts);
 
-        } else if (input.contains(command.todo.toString())) {
-            if (input.equals(command.todo.toString())) {
+        } else if (input.contains(Commands.todo.toString())) {
+            if (input.equals(Commands.todo.toString())) {
                 throw new DukeException("Empty todo");
             }
             if (input.charAt(4) != ' ') {
@@ -120,11 +120,12 @@ public class Parser {
             ArrayList<String> texts = parser.convertTaskInput(input);
             return new TodoCommand(texts);
 
-        } else if (input.contains(command.delete.toString())) {
+        } else if (input.contains(Commands.delete.toString())) {
             int selected = Integer.parseInt(input.substring(input.indexOf("delete") + 7)) - 1;
             return new DeleteCommand(selected);
-        } else if (input.contains(command.find.toString())) {
-            if (input.equals(command.find.toString())) {
+
+        } else if (input.contains(Commands.find.toString())) {
+            if (input.equals(Commands.find.toString())) {
                 throw new DukeException("find cannot be empty");
             }
             if (input.charAt(4) != ' ') {
@@ -133,6 +134,7 @@ public class Parser {
             Parser parser = new Parser("P");
             ArrayList<String> texts = parser.convertTaskInput(input);
             return new FindCommand(texts.get(0));
+
         } else {
             throw new DukeException("Invalid command");
         }

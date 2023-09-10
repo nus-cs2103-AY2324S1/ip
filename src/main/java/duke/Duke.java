@@ -3,6 +3,8 @@ package duke;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import commands.Command;
+import parser.Parser;
 import storage.DataFile;
 import tasks.Task;
 import tasks.TaskList;
@@ -32,11 +34,13 @@ public class Duke {
         }
     }
 
-    public DataFile getDataFile() {
-        return dataFile;
-    }
-
-    public TaskList getTaskList() {
-        return taskList;
+    /**
+     * Returns the intended response after reading the command.
+     * @param input User's input
+     * @return Returns the intended response after reading the command.
+     */
+    public String response(String input) {
+        Command c = new Parser().getCommand(input);
+        return c.execute(taskList, dataFile);
     }
 }
