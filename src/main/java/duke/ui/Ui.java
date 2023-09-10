@@ -7,8 +7,8 @@ import duke.task.Task;
  * The Ui class is responsible for user interaction and displaying messages to the user.
  */
 public class Ui{
-    static String hello = "Hello muggle! I'm " + "Harry Potter" + "\n" + "Introducing the Wizarding World Organizer: Your Trusted Guide" +
-            " to Efficient & Effective Magical Planning";
+    static String hello = "Hello muggle! I'm " + "Harry Potter!" + "\n" + "Introducing the Wizarding World Organizer: Your Trusted Guide" +
+            " to Efficient & Effective Magical Planning!";
     static String bye = "\t" + "Expelliarmus! Hope to see you again muggle! :D";
 
     /**
