@@ -1,6 +1,7 @@
 package duke.tasks;
 
 import java.util.ArrayList;
+
 import duke.exception.InvalidIndexException;
 
 /**
@@ -72,7 +73,13 @@ public class TaskList {
         }
         return output.toString();
     }
-
+    /**
+     * Marks a task as done based on its index.
+     *
+     * @param index Index of the task to be marked as done.
+     * @return Confirmation message indicating task status change to done.
+     * @throws InvalidIndexException If the provided index is out of bounds.
+     */
     public String markTask(int index) throws InvalidIndexException {
         validateIndex(index);
 
@@ -81,6 +88,13 @@ public class TaskList {
         return String.format("Nice! I've marked this task as done:\n\t%s\n", curr);
     }
 
+    /**
+     * Marks a task as not done based on its index.
+     *
+     * @param index Index of the task to be marked as not done.
+     * @return Confirmation message indicating task status change to not done.
+     * @throws InvalidIndexException If the provided index is out of bounds.
+     */
     public String unmarkTask(int index) throws InvalidIndexException {
         validateIndex(index);
 
@@ -98,6 +112,12 @@ public class TaskList {
         return new ArrayList<>(store);
     }
 
+    /**
+     * Searches and provides tasks containing the specified keyword.
+     *
+     * @param keyword Keyword to search for in task descriptions.
+     * @return Formatted string of matching tasks.
+     */
     public String findTasks(String keyword) {
         StringBuilder output = new StringBuilder("Here are the matching tasks in your list:\n");
         boolean found = false;
