@@ -16,6 +16,5 @@ public class FindCommand extends Command {
         } catch (Exception e) {
             return ui.stringFormat(new String[] {"Missing keyword!"});
         }
-
     }
 }

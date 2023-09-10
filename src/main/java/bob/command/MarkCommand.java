@@ -10,7 +10,6 @@ public class MarkCommand extends Command {
 
     public MarkCommand(String input) {
         super.input = input;
-        super.isExit = false;
     }
 
     /**

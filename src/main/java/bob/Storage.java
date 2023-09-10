@@ -30,6 +30,7 @@ public class Storage {
 
         if (!file.createNewFile()) { // if file already exists
             // read from file
+            assert file != null;
             Scanner sc = new Scanner(file);
             try {
                 while (sc.hasNext()) {
@@ -40,6 +41,7 @@ public class Storage {
                 file.createNewFile();
             }
         }
+
         return lst;
     }
 
@@ -53,6 +55,7 @@ public class Storage {
         String lstString = "";
 
         for (Task tsk : lst) {
+            assert !tsk.toTxt().equals("");
             lstString += tsk.toTxt() + "\n";
         }
 

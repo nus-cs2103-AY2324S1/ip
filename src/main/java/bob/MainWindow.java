@@ -28,7 +28,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        // dialogContainer.getChildren().add(DialogBox.getBobDialog(bob.greet(), bobImage));
     }
 
     public void setBob(Bob b) {

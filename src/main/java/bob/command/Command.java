@@ -10,12 +10,7 @@ public abstract class Command {
 
     protected String input;
 
-    protected boolean isExit;
-
     public abstract String execute(TaskList tasks, Ui ui, Storage storage);
-    public boolean isExit() {
-        return this.isExit;
-    }
 }
 
 
