@@ -1,8 +1,11 @@
-package duke;
+package duke.ui;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
+import duke.Duke;
+import duke.ui.DukeDialog;
+import duke.ui.UserDialog;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -36,7 +39,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("Hello! I'm TopG\n"
+                DukeDialog.getDukeDialog("Hello! I'm TopG\n"
                         + "What can I do for you?\n"
                         + "Type 'help' to view available commands",
                         dukeImage)
@@ -56,8 +59,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                UserDialog.getUserDialog(input, userImage),
+                DukeDialog.getDukeDialog(response, dukeImage)
         );
 
         // Closes the GUI
