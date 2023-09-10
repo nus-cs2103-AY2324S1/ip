@@ -35,10 +35,7 @@ public class MarkCommand extends Command {
                 throw new MissingIndexException();
             }
 
-            boolean doneOrNot = true;
-            if (input.contains("unmark")) {
-                doneOrNot = false;
-            }
+            boolean doneOrNot = !input.contains("unmark");
 
             String display = ui.stringFormat(tasks.markDoneOrNot(index, doneOrNot));
             storage.write(tasks.lst);
