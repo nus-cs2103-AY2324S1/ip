@@ -20,29 +20,24 @@ public class Ui {
      */
     public String printList(TaskList storedTasks, boolean isListCommand) {
         int len = storedTasks.getLength();
-        String printedList = "";
 
-        if (isListCommand) {
-            if (len == 0) {
-                return "No tasks found!";
-            }
+        String successfulListMessage = isListCommand
+                ? "Okay! Here's the full list of your added tasks:\n"
+                : "Here's the list of matching tasks I found:\n";
 
-            printedList = "Okay! Here's the full list of your added tasks:\n";
-            for (int i = 1; i < len + 1; i++) {
-                printedList += i + ". " + storedTasks.getTask(i - 1) + "\n";
-            }
-        } else {
-            if (len == 0) {
-                return "No matching tasks found :(";
-            }
+        String unsuccessfulListMessage = isListCommand
+                ? "No tasks found! :("
+                : "No matching tasks found! :(";
 
-            printedList = "Here's the list of matching tasks I found:\n";
-            for (int i = 1; i < len + 1; i++) {
-                printedList += i + ". " + storedTasks.getTask(i - 1) + "\n";
-            }
+        if (len == 0) {
+            return unsuccessfulListMessage;
         }
 
-        return printedList;
+        for (int i = 1; i < len + 1; i++) {
+            successfulListMessage += i + ". " + storedTasks.getTask(i - 1) + "\n";
+        }
+
+        return successfulListMessage;
     }
 
     /**
