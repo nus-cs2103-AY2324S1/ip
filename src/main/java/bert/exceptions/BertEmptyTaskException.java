@@ -1,3 +1,5 @@
+package bert.exceptions;
+
 /**
  * Represents an exception that is thrown when an empty task description is passed.
  */

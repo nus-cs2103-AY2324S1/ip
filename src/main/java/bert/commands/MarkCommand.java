@@ -1,3 +1,10 @@
+package bert.commands;
+
+import bert.storage.Storage;
+import bert.tasks.Task;
+import bert.tasks.TaskList;
+import bert.ui.Ui;
+
 public class MarkCommand extends Command {
     public static final String COMMAND_WORD = "mark";
     private static final String MESSAGE = "Nice! I've marked this task as done:\n  %1$s";

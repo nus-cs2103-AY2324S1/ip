@@ -1,3 +1,12 @@
+package bert;
+
+import bert.commands.Command;
+import bert.exceptions.BertException;
+import bert.parser.Parser;
+import bert.storage.Storage;
+import bert.tasks.TaskList;
+import bert.ui.Ui;
+
 import java.io.FileNotFoundException;
 
 /**

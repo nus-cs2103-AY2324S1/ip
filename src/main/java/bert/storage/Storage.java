@@ -1,3 +1,11 @@
+package bert.storage;
+
+import bert.tasks.Deadline;
+import bert.tasks.Event;
+import bert.tasks.Task;
+import bert.tasks.TaskList;
+import bert.tasks.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,7 +22,7 @@ public class Storage {
     }
 
     /**
-     * Saves the task list into data/bert.txt.
+     * Saves the task list into data/tasks.txt.
      *
      * @param tasks The task list to be saved
      */
@@ -41,7 +49,7 @@ public class Storage {
     }
 
     /**
-     * Checks if data/bert.txt exists. If the directory or the file does not exist,
+     * Checks if data/tasks.txt exists. If the directory or the file does not exist,
      * creates the directory and the file.
      *
      * @throws IOException This exception is thrown when an error occurs while creating

@@ -1,3 +1,10 @@
+package bert.commands;
+
+import bert.storage.Storage;
+import bert.tasks.Task;
+import bert.tasks.TaskList;
+import bert.ui.Ui;
+
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
     private static final String MESSAGE =

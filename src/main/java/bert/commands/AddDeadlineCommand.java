@@ -1,3 +1,7 @@
+package bert.commands;
+
+import bert.tasks.Deadline;
+
 import java.time.LocalDate;
 
 public class AddDeadlineCommand extends AddCommand {

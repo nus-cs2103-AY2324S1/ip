@@ -1,3 +1,10 @@
+package bert.commands;
+
+import bert.storage.Storage;
+import bert.tasks.Task;
+import bert.tasks.TaskList;
+import bert.ui.Ui;
+
 public class AddCommand extends Command {
     private static final String MESSAGE =
             "Got it. I've added this task:\n  %1$s\nNow you have %2$d tasks in the list.";

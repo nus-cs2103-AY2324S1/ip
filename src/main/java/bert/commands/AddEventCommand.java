@@ -1,3 +1,7 @@
+package bert.commands;
+
+import bert.tasks.Event;
+
 import java.time.LocalDate;
 
 public class AddEventCommand extends AddCommand {
