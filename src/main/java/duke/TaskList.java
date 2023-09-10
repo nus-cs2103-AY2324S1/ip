@@ -44,6 +44,8 @@ public class TaskList {
      * @return Returns the task with that index.
      */
     public Task get(int index) {
+        assert index >= 0 && index < tasks.size() : "index should be between 0 and size of task list - 1";
+
         return tasks.get(index);
     }
 
@@ -53,6 +55,8 @@ public class TaskList {
      * @param index The zero-based index of the task.
      */
     public void markTask(int index) {
+        assert index >= 0 && index < tasks.size() : "index should be between 0 and size of task list - 1";
+
         tasks.get(index).markDone();
     }
 
@@ -62,6 +66,8 @@ public class TaskList {
      * @param index The zero-based index of the task.
      */
     public void unmarkTask(int index) {
+        assert index >= 0 && index < tasks.size() : "index should be between 0 and size of task list - 1";
+
         tasks.get(index).markNotDone();
     }
 
@@ -71,6 +77,8 @@ public class TaskList {
      * @param task The task being added.
      */
     public void add(Task task) {
+        assert task != null : "task should not be a null";
+
         tasks.add(task);
     }
 
@@ -80,6 +88,8 @@ public class TaskList {
      * @param index The zero-based index of the task.
      */
     public void delete(int index) {
+        assert index >= 0 && index < tasks.size() : "index should be between 0 and size of task list - 1";
+
         tasks.remove(index);
     }
 
@@ -97,6 +107,8 @@ public class TaskList {
      *
      */
     public TaskList find(String keyword) {
+        assert !keyword.isBlank() : "keyword should not be blank";
+
         TaskList filteredTasks = new TaskList();
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).toString().contains(keyword)) {

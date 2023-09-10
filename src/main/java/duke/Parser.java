@@ -30,6 +30,8 @@ public class Parser {
      * @throws DukeException On input error.
      */
     public static Command parse(String input, int size) throws DukeException {
+        assert size >= 0 : "size of task list should be more than equal to 0";
+
         if (input.equals("bye")) {
             return new ExitCommand();
         } else if (input.equals("list")) {
@@ -100,6 +102,8 @@ public class Parser {
      * @throws DukeException On input error.
      */
     private static void checkRange(String number, int size) throws DukeException {
+        assert size >= 0 : "size of task list should be more than equal to 0";
+
         if (number.isBlank()) {
             throw new DukeException("Boop Beep OOPS! Please make sure that the index of the task is not empty.");
         } else {
@@ -161,6 +165,8 @@ public class Parser {
      * @throws DukeException On format error of String date.
      */
     private static void checkDate(String date) throws DukeException {
+        assert !date.isBlank() : "date should not be blank";
+
         try {
             LocalDate d = LocalDate.parse(date);
         } catch (DateTimeParseException e) {
@@ -175,6 +181,8 @@ public class Parser {
      * @throws DukeException When keyword is blank.
      */
     private static void checkFind(String keyword) throws DukeException {
+        assert !keyword.isBlank() : "keyword should not be blank";
+
         if (keyword.isBlank()) {
             throw new DukeException("Boop Beep OOPS! Please check that you have entered a keyword.");
         }
