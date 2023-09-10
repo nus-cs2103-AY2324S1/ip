@@ -1,5 +1,4 @@
 import java.io.*;
-import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -9,10 +8,10 @@ public class Dan {
     private static MyList tasks = new MyList(100);
     private final static String[] commands = new String[] {
             "toDo [TASK]",
-            "deadline [TASK] /by [DEADLINE]",
-            "event [TASK] /from [START_TIME] /to [END_TIME]",
-            "list", "bye",
-            "mark [TASK_ID]", "unmark [TASK_ID]"
+            "deadline [TASK] /by [DEADLINE(YYYY-MM-DD)]",
+            "event [TASK] /from [START_TIME(YYYY-MM-DD)] /to [END_TIME(YYYY-MM-DD)]",
+            "mark [TASK_ID]", "unmark [TASK_ID]",
+            "list", "bye"
     };
     private final static String savePath = "./data/dan.txt";
 
