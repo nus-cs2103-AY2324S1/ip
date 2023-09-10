@@ -1,16 +1,18 @@
 todo read book
 todo borrow book
 todo
-deadline return book /by Sunday
-deadline finish project /by Monday
+deadline return book /by 2023-08-01
+deadline finish project /by 2023-08-02
+deadline bad date format /by 2023-13-13
 deadline asd asd
 delete 2
-event project meeting /from Mon 2pm /to 4pm
-event this should fail /from Mon 2pm
-event this should fail too /to Mon 2pm
+event project meeting /from 2020-01-23 /to 2020-12-12
+event this should fail /from 2023-08-01
+event this should fail too /to 2023-08-01
 mark 3
 delete 3
-event family gathering /from Fri 6pm /to 8pm
+event family gathering /from Fri 2023-08-01 /to 2023-08-05
+event bad date format /from Fri 6pm /to 10pm
 list
 mark 2
 mark 50
@@ -24,8 +26,8 @@ unmark 900
 unmark 5
 list
 todo watch movie
-deadline prepare slides /by Tuesday
-event conference /from Wed 10am /to 12pm
+deadline prepare slides /by 2023-09-09
+event conference /from 2023-08-02 /to 2023-08-02
 list
 mark 8
 mark 9

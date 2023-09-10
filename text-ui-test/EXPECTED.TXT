@@ -1,9 +1,9 @@
     ____________________________________________________________
+     Error: Previous data file not found, starting from fresh task list.
+    ____________________________________________________________
+    ____________________________________________________________
      Hello! I'm Koko
      What can I do for you?
-    ____________________________________________________________
-    ____________________________________________________________
-     Previous data file not found, starting from fresh task list.
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
@@ -16,145 +16,142 @@
       Now you have 2 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
-     Description for todo cannot be empty.
+     Error: Description for todo cannot be empty.
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
-       [D][ ] return book  (by: Sunday)
+       [D][ ] return book (by: Aug 01 2023)
       Now you have 3 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
-       [D][ ] finish project  (by: Monday)
+       [D][ ] finish project (by: Aug 02 2023)
       Now you have 4 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
-     Missing '/by' or date for deadline.
+     Error: Deadline /by date should be in yyyy-mm-dd format (e.g. 2023-08-25)
+    ____________________________________________________________
+    ____________________________________________________________
+     Error: Missing '/by' or date for deadline.
     ____________________________________________________________
     ____________________________________________________________
      Noted. I've removed this task:
        [T][ ] borrow book
-     Now you have 3 tasks in the list.
+      Now you have 3 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
-       [E][ ] project meeting  (from: Mon 2pm to: 4pm)
+       [E][ ] project meeting (from: Jan 23 2020 to: Dec 12 2020)
       Now you have 4 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
-     Missing '/to' or end date for event.
+     Error: Missing '/to' or end date for event.
     ____________________________________________________________
     ____________________________________________________________
-     Missing '/from' or start date for event.
+     Error: Missing '/from' or start date for event.
     ____________________________________________________________
     ____________________________________________________________
      Nice! I've marked this task as done:
-     [D][X] finish project  (by: Monday)
+       [D][X] finish project (by: Aug 02 2023)
     ____________________________________________________________
     ____________________________________________________________
      Noted. I've removed this task:
-       [D][X] finish project  (by: Monday)
-     Now you have 3 tasks in the list.
+       [D][X] finish project (by: Aug 02 2023)
+      Now you have 3 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
-     Got it. I've added this task:
-       [E][ ] family gathering  (from: Fri 6pm to: 8pm)
-      Now you have 4 tasks in the list.
+     Error: Event /from or /to dates should be in yyyy-mm-dd format (e.g. 2023-08-25)
+    ____________________________________________________________
+    ____________________________________________________________
+     Error: Event /from or /to dates should be in yyyy-mm-dd format (e.g. 2023-08-25)
     ____________________________________________________________
     ____________________________________________________________
      1. [T][ ] read book
-     2. [D][ ] return book  (by: Sunday)
-     3. [E][ ] project meeting  (from: Mon 2pm to: 4pm)
-     4. [E][ ] family gathering  (from: Fri 6pm to: 8pm)
+     2. [D][ ] return book (by: Aug 01 2023)
+     3. [E][ ] project meeting (from: Jan 23 2020 to: Dec 12 2020)
     ____________________________________________________________
     ____________________________________________________________
      Nice! I've marked this task as done:
-     [D][X] return book  (by: Sunday)
+       [D][X] return book (by: Aug 01 2023)
     ____________________________________________________________
     ____________________________________________________________
-     Invalid task number.
-    ____________________________________________________________
-    ____________________________________________________________
-     Nice! I've marked this task as done:
-     [T][X] read book
+     Error: Invalid task number.
     ____________________________________________________________
     ____________________________________________________________
      Nice! I've marked this task as done:
-     [E][X] family gathering  (from: Fri 6pm to: 8pm)
+       [T][X] read book
+    ____________________________________________________________
+    ____________________________________________________________
+     Error: Invalid task number.
     ____________________________________________________________
     ____________________________________________________________
      1. [T][X] read book
-     2. [D][X] return book  (by: Sunday)
-     3. [E][ ] project meeting  (from: Mon 2pm to: 4pm)
-     4. [E][X] family gathering  (from: Fri 6pm to: 8pm)
+     2. [D][X] return book (by: Aug 01 2023)
+     3. [E][ ] project meeting (from: Jan 23 2020 to: Dec 12 2020)
     ____________________________________________________________
     ____________________________________________________________
      Nice! I've marked this task as done:
-     [D][X] return book  (by: Sunday)
+       [D][X] return book (by: Aug 01 2023)
     ____________________________________________________________
     ____________________________________________________________
-     Invalid task number.
+     Error: Invalid task number.
     ____________________________________________________________
     ____________________________________________________________
-     OK! I've marked this task as not done yet:
-     [E][ ] family gathering  (from: Fri 6pm to: 8pm)
+     Error: Invalid task number.
     ____________________________________________________________
     ____________________________________________________________
-     Invalid task number.
+     Error: Invalid task number.
     ____________________________________________________________
     ____________________________________________________________
-     Invalid task number.
+     Error: Invalid task number.
     ____________________________________________________________
     ____________________________________________________________
      1. [T][X] read book
-     2. [D][X] return book  (by: Sunday)
-     3. [E][ ] project meeting  (from: Mon 2pm to: 4pm)
-     4. [E][ ] family gathering  (from: Fri 6pm to: 8pm)
+     2. [D][X] return book (by: Aug 01 2023)
+     3. [E][ ] project meeting (from: Jan 23 2020 to: Dec 12 2020)
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
        [T][ ] watch movie
+      Now you have 4 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+       [D][ ] prepare slides (by: Sep 09 2023)
       Now you have 5 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
-       [D][ ] prepare slides  (by: Tuesday)
+       [E][ ] conference (from: Aug 02 2023 to: Aug 02 2023)
       Now you have 6 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
-     Got it. I've added this task:
-       [E][ ] conference  (from: Wed 10am to: 12pm)
-      Now you have 7 tasks in the list.
+     1. [T][X] read book
+     2. [D][X] return book (by: Aug 01 2023)
+     3. [E][ ] project meeting (from: Jan 23 2020 to: Dec 12 2020)
+     4. [T][ ] watch movie
+     5. [D][ ] prepare slides (by: Sep 09 2023)
+     6. [E][ ] conference (from: Aug 02 2023 to: Aug 02 2023)
+    ____________________________________________________________
+    ____________________________________________________________
+     Error: Invalid task number.
+    ____________________________________________________________
+    ____________________________________________________________
+     Error: Invalid task number.
     ____________________________________________________________
     ____________________________________________________________
      1. [T][X] read book
-     2. [D][X] return book  (by: Sunday)
-     3. [E][ ] project meeting  (from: Mon 2pm to: 4pm)
-     4. [E][ ] family gathering  (from: Fri 6pm to: 8pm)
-     5. [T][ ] watch movie
-     6. [D][ ] prepare slides  (by: Tuesday)
-     7. [E][ ] conference  (from: Wed 10am to: 12pm)
+     2. [D][X] return book (by: Aug 01 2023)
+     3. [E][ ] project meeting (from: Jan 23 2020 to: Dec 12 2020)
+     4. [T][ ] watch movie
+     5. [D][ ] prepare slides (by: Sep 09 2023)
+     6. [E][ ] conference (from: Aug 02 2023 to: Aug 02 2023)
     ____________________________________________________________
     ____________________________________________________________
-     Invalid task number.
+     Error: Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event
     ____________________________________________________________
     ____________________________________________________________
-     Invalid task number.
-    ____________________________________________________________
-    ____________________________________________________________
-     1. [T][X] read book
-     2. [D][X] return book  (by: Sunday)
-     3. [E][ ] project meeting  (from: Mon 2pm to: 4pm)
-     4. [E][ ] family gathering  (from: Fri 6pm to: 8pm)
-     5. [T][ ] watch movie
-     6. [D][ ] prepare slides  (by: Tuesday)
-     7. [E][ ] conference  (from: Wed 10am to: 12pm)
-    ____________________________________________________________
-    ____________________________________________________________
-     Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event
-    ____________________________________________________________
-    ____________________________________________________________
-     Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event
+     Error: Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event
     ____________________________________________________________
     ____________________________________________________________
      Bye. Hope to see you again soon!

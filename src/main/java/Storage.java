@@ -5,26 +5,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileUtils {
+public class Storage {
 
-    private static final String FILE_PATH = "./data/duke.txt";
+    private final String filePath;
 
-    public static void saveTasksToFile(ArrayList<Task> tasksToSave) throws IOException {
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public void saveTasksToFile(TaskList taskListToSave) throws IOException {
         File directory = new File("./data");
         if (!directory.exists()) {
             directory.mkdir();
         }
 
-        FileWriter fw = new FileWriter(FILE_PATH);
-        for (Task task : tasksToSave) {
-            fw.write(task.toFileFormat() + "\n");
-        }
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(taskListToSave.toStringForFile());
         fw.close();
 
     }
 
-    public static ArrayList<Task> loadTasksFromFile() throws FileNotFoundException, DukeException {
-        File file = new File(FILE_PATH);
+    public TaskList loadTasksFromFile() throws FileNotFoundException, DukeException {
+        File file = new File(filePath);
 
         Scanner scanner = new Scanner(file);
 
@@ -43,7 +45,6 @@ public class FileUtils {
                 throw new DukeException("Error while parsing data file -- possibly corrupt? File will be overwritten if you proceed.");
             }
         }
-        return result;
+        return new TaskList(result);
     }
-
 }

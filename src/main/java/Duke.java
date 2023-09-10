@@ -1,113 +1,81 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Duke {
 
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String CHATBOT_NAME = "Koko";
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private final Ui ui;
+    private final Storage storage;
+    private final Parser parser;
 
-    private static void printFormatted(String originalMessage) {
-        String indentedMessage = Arrays.stream(originalMessage.split("\n"))
-                .map(line -> "     " + line)
-                .collect(Collectors.joining("\n"));
+    private TaskList taskList;
 
-        String formattedMessage = String.format("    %s\n%s\n    %s",
-                HORIZONTAL_LINE, indentedMessage, HORIZONTAL_LINE);
 
-        System.out.println(formattedMessage);
-    }
+    public Duke(String filePath) {
+        ui = new Ui(CHATBOT_NAME);
+        storage = new Storage(filePath);
+        parser = new Parser();
 
-    private static void greet() {
-        Duke.printFormatted("Hello! I'm " + CHATBOT_NAME + "\nWhat can I do for you?");
-    }
-
-    private static void exit() {
-        Duke.printFormatted("Bye. Hope to see you again soon!");
-    }
-
-    private static void printTaskAddedMessage(Task task) {
-        Duke.printFormatted(String.format("Got it. I've added this task:\n  %s\n Now you have %d %s in the list.",
-                task.toString(), Duke.tasks.size(), (Duke.tasks.size() == 1 ? "task" : "tasks")));
-    }
-
-    private static void parseInput(String input) {
         try {
-            if (input.contains("|")) {
-                throw new DukeException("Input cannot contain pipe (|) character!");
-            }
-            String[] parts = input.split(" ", 2);
-            String command = parts[0];
-            String remaining = parts.length > 1 ? parts[1] : "";
+            taskList = storage.loadTasksFromFile();
+            ui.showLoadedTasks(taskList);
+        } catch (FileNotFoundException fileNotFoundException) {
+            ui.printErrorMessage("Previous data file not found, starting from fresh task list.");
+            taskList = new TaskList();
+        } catch (DukeException dukeException) {
+            ui.printErrorMessage(dukeException.getMessage());
+            taskList = new TaskList();
+        }
+    }
 
-            if (remaining.isEmpty()) {
-                switch (command) {
-                    case "mark":
-                    case "unmark":
-                        throw new DukeException("Please specify a task number.");
-                    case "todo":
-                        throw new DukeException("Description for todo cannot be empty.");
-                    case "deadline":
-                        throw new DukeException("Description and date for deadline cannot be empty.");
-                    case "event":
-                        throw new DukeException("Description, start date, and end date for event cannot be empty.");
-                }
+    public static void main(String[] args) {
+        new Duke("data/duke.txt").run();
+    }
+
+    public void handleInputAndDispatch(String input) {
+        try {
+            if (parser.hasInvalidCharacters(input)) {
+                throw new DukeException("Input cannot contain the character '|'");
             }
 
-            switch (command) {
-                case "list":
-                    String result = IntStream.range(0, tasks.size())
-                            .mapToObj(i -> (i + 1) + ". " + tasks.get(i))
-                            .collect(Collectors.joining("\n"));
-                    Duke.printFormatted(result);
+            Command commandType = parser.parseCommandType(input);
+            String remaining = parser.parseRemainingArgs(commandType, input);
+
+            switch (commandType) {
+                case LIST:
+                    ui.printTaskList(taskList);
                     break;
-                case "mark":
+                case MARK:
                     int markIndex = Integer.parseInt(remaining) - 1;
-                    if (markIndex < 0 || markIndex >= tasks.size()) {
-                        throw new DukeException("Invalid task number.");
-                    }
-                    Task markTarget = tasks.get(markIndex);
-                    markTarget.markAsDone();
-                    Duke.printFormatted("Nice! I've marked this task as done:\n" + markTarget);
+                    Task markedTask = taskList.markTaskAtIndex(markIndex);
+                    ui.printTaskMarkedMessage(markedTask);
                     break;
-                case "unmark":
+                case UNMARK:
                     int unmarkIndex = Integer.parseInt(remaining) - 1;
-                    if (unmarkIndex < 0 || unmarkIndex >= tasks.size()) {
-                        throw new DukeException("Invalid task number.");
-                    }
-                    Task unmarkTarget = tasks.get(unmarkIndex);
-                    unmarkTarget.markAsUndone();
-                    Duke.printFormatted("OK! I've marked this task as not done yet:\n" + unmarkTarget);
+                    Task unmarkedTask = taskList.unmarkTaskAtIndex(unmarkIndex);
+                    ui.printTaskUnmarkedMessage(unmarkedTask);
                     break;
-                case "delete":
-                    int deleteIndex = Integer.parseInt(remaining) - 1;
-                    if (deleteIndex < 0 || deleteIndex >= tasks.size()) {
-                        throw new DukeException("Invalid task number.");
-                    }
-                    Task toDelete = tasks.remove(deleteIndex);
-                    Duke.printFormatted("Noted. I've removed this task:\n  " + toDelete.toString() +
-                            "\nNow you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
+                case DELETE:
+                    Task deletedTask = taskList.deleteTaskAtIndex(Integer.parseInt(remaining) - 1);
+                    ui.printTaskDeletedMessage(deletedTask, taskList.size());
                     break;
-                case "todo":
-                    Todo newTodo = Todo.createFromCommandString(remaining);
-                    tasks.add(newTodo);
-                    printTaskAddedMessage(newTodo);
+                case TODO:
+                    Parser.ParsedTodoArgs parsedTodoArgs = parser.parseTodoString(remaining);
+                    Todo newTodo = new Todo(parsedTodoArgs.taskName);
+                    taskList.addTask(newTodo);
+                    ui.printTaskAddedMessage(newTodo, taskList.size());
                     break;
-                case "deadline":
-                    Deadline newDeadline = Deadline.createFromCommandString(remaining);
-                    tasks.add(newDeadline);
-                    printTaskAddedMessage(newDeadline);
+                case DEADLINE:
+                    Parser.ParsedDeadlineArgs parsedDeadlineArgs = parser.parseDeadlineString(remaining);
+                    Deadline newDeadline = new Deadline(parsedDeadlineArgs.taskName, parsedDeadlineArgs.byDate);
+                    taskList.addTask(newDeadline);
+                    ui.printTaskAddedMessage(newDeadline, taskList.size());
                     break;
-                case "event":
-                    Event newEvent = Event.createFromCommandString(remaining);
-                    tasks.add(newEvent);
-                    printTaskAddedMessage(newEvent);
+                case EVENT:
+                    Parser.ParsedEventArgs parsedEventArgs = parser.parseEventString(remaining);
+                    Event newEvent = new Event(parsedEventArgs.taskName, parsedEventArgs.startDate, parsedEventArgs.endDate);
+                    taskList.addTask(newEvent);
+                    ui.printTaskAddedMessage(newEvent, taskList.size());
                     break;
                 default:
                     throw new DukeException("Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event");
@@ -115,39 +83,25 @@ public class Duke {
 
             // All valid commands except for `list` will result in the task list changing, so we should trigger
             // a disk write to save the updated task list.
-            if (!command.equals("list")) {
+            if (!commandType.equals(Command.LIST)) {
                 try {
-                    FileUtils.saveTasksToFile(tasks);
+                    storage.saveTasksToFile(taskList);
                 } catch (IOException ioException) {
                     throw new DukeException("Error while saving task list to file!");
                 }
             }
 
         } catch (NumberFormatException e) {
-            Duke.printFormatted("Please enter a valid task number.");
+            ui.printErrorMessage("Please enter a valid task number.");
         } catch (DukeException e) {
-            Duke.printFormatted(e.getMessage());
+            ui.printErrorMessage(e.getMessage());
         }
-
     }
 
-    public static void main(String[] args) {
-        Duke.greet();
-        try {
-            tasks = FileUtils.loadTasksFromFile();
-        } catch (FileNotFoundException fileNotFoundException) {
-            Duke.printFormatted("Previous data file not found, starting from fresh task list.");
-            tasks = new ArrayList<>();
-        } catch (DukeException dukeException) {
-            Duke.printFormatted(dukeException.getMessage());
-            tasks = new ArrayList<>();
-        }
-
-        Scanner scanner = new Scanner(System.in);
-        Stream.generate(scanner::nextLine)
-                .takeWhile(input -> !input.equals("bye"))
-                .forEach(Duke::parseInput);
-
-        Duke.exit();
+    public void run() {
+        ui.greet();
+        ui.startUserInputLoop(this::handleInputAndDispatch);
+        ui.exit();
     }
+
 }
