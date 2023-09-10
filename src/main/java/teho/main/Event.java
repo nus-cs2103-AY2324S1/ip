@@ -12,14 +12,18 @@ public class Event extends Task {
 
     /**
      * Constructs new Event task with description, beginning date of event and
-     * end date of event.
+     * end date of event. The beginning date of event should be before or equal
+     * to the end date of event.
      *
      * @param description Description of task with a specific time frame.
      * @param fromDate Beginning date of the task with a specific time frame.
-     *  @param toDate End date of the task with a specific time frame.
+     * @param toDate End date of the task with a specific time frame.
      */
     public Event(String description, LocalDate fromDate, LocalDate toDate) {
         super(description);
+        if (fromDate.isAfter(toDate)) {
+            throw new IllegalArgumentException("The from date cannot be after the to date!");
+        }
         this.fromDate = fromDate;
         this.toDate = toDate;
     }
