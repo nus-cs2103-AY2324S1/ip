@@ -23,15 +23,16 @@ public class TaskList {
      *
      * @param index ArrayList index of task to be modified.
      * @param isCompleted New status of task.
+     * @return Chatbot output after setting status.
      */
-    public void changeStatusByIndex(int index, boolean isCompleted) {
+    public String setStatusByIndex(int index, boolean isCompleted) {
         try {
             assert index >= 0 : "Index cannot be < 0";
             Task pendingTask = taskList.get(index);
             pendingTask.isDone = isCompleted;
-            Ui.setOutMessage("Task updated as requested:\n       " + pendingTask);
+            return "Task updated as requested:\n       " + pendingTask;
         } catch (IndexOutOfBoundsException e) { // When index falls outside ArrayList.
-            Ui.setOutMessage("I can't modify a task that doesn't exist...\n     Try a number from the list");
+            return "I can't modify a task that doesn't exist...\n     Try a number from the list";
         }
     }
 

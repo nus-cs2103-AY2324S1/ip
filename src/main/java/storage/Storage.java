@@ -8,9 +8,9 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 
 import duke.Parser;
-import duke.Ui;
 import taskutil.Deadline;
 import taskutil.Event;
+import taskutil.Task;
 import taskutil.TaskList;
 import taskutil.Todo;
 
@@ -89,27 +89,24 @@ public class Storage {
                 boolean isDone = splitInput[1].equals("X");
 
                 // Data is in format [type, isDone, title, from/by, to], from/by/to are only present depending on type.
+                Task currentTask;
                 switch(splitInput[0]) {
                 case "T":
-                    Todo todo = new Todo(splitInput[2]);
-                    todo.changeStatus(isDone);
-                    taskList.addTask(todo, false);
+                    currentTask = new Todo(splitInput[2]);
                     break;
                 case "D":
-                    Deadline deadline = new Deadline(splitInput[2], Parser.parseDate(splitInput[3]));
-                    deadline.changeStatus(isDone);
-                    taskList.addTask(deadline, false);
+                    currentTask = new Deadline(splitInput[2], Parser.parseDate(splitInput[3]));
                     break;
                 case "E":
                     LocalDateTime start = Parser.parseDate(splitInput[3]);
                     LocalDateTime end = Parser.parseDate(splitInput[4]);
-                    Event event = new Event(splitInput[2], start, end);
-                    event.changeStatus(isDone);
-                    taskList.addTask(event, false);
+                    currentTask = new Event(splitInput[2], start, end);
                     break;
                 default:
                     return String.format("Unknown symbol [%s] detected", splitInput[0]);
                 }
+                currentTask.setStatus(isDone);
+                taskList.addTask(currentTask, false);
             }
         } catch (ArrayIndexOutOfBoundsException e) { // File formatted with wrong no. of " | " dividers for task types.
             return "There seems to be a problem with reading in data from:\n      [" + fileLocation
