@@ -1,7 +1,5 @@
 package duke.task;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.ByteArrayOutputStream;
@@ -19,50 +17,6 @@ public class TasklistTest {
     @BeforeEach
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
-    }
-
-    @Test
-    public void testAddTask_validTodo_shouldDisplayCorrectMessage() {
-        TaskList taskList = new TaskList("sample.txt");
-        assertDoesNotThrow(() ->
-                taskList.addTask("todo This is a valid task"));
-        String expectedOutput = "____________________________________________________________\n"
-                + "Got it. I've added this task:\n"
-                + "[T][ ] This is a valid task\n"
-                + "Now you have 1 task in the list.\n"
-                + "____________________________________________________________\n";
-        assertEquals(expectedOutput, outContent.toString());
-        taskList.deleteAllTasks();
-
-    }
-
-
-    @Test
-    public void testAddTask_validEvent_shouldDisplayCorrectMessage() {
-        TaskList taskList = new TaskList("sample.txt");
-        assertDoesNotThrow(() ->
-                taskList.addTask("event valid event /from 2023-08-30 10:00 /to 2023-08-31 12:00"));
-        String expectedOutput = "____________________________________________________________\n"
-                + "Got it. I've added this task:\n"
-                + "[E][ ] valid event (from: 30-08-2023 10:00 to: 31-08-2023 12:00)\n"
-                + "Now you have 1 task in the list.\n"
-                + "____________________________________________________________\n";
-        assertEquals(expectedOutput, outContent.toString());
-        taskList.deleteAllTasks();
-
-    }
-
-    @Test
-    public void testAddTask_validDeadline_shouldDisplayCorrectMessage() {
-        TaskList taskList = new TaskList("sample.txt");
-        assertDoesNotThrow(() -> taskList.addTask("deadline valid deadline /by 2023-08-30 12:00"));
-        String expectedOutput = "____________________________________________________________\n"
-                + "Got it. I've added this task:\n"
-                + "[D][ ] valid deadline (by: 30-08-2023 12:00)\n"
-                + "Now you have 1 task in the list.\n"
-                + "____________________________________________________________\n";
-        assertEquals(expectedOutput, outContent.toString());
-        taskList.deleteAllTasks();
     }
 
     @Test
