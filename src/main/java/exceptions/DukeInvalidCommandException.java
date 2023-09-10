@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * The `DukeInvalidCommandException` class represents a custom exception specific to the Duke application.
+ * The `DukeInvalidCommandException` class represents a custom exception specific to the Woof application.
  * It is used to indicate that an invalid command has been encountered.
  */
 public class DukeInvalidCommandException extends DukeException {

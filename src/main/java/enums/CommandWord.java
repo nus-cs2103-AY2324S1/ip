@@ -1,7 +1,7 @@
 package enums;
 
 /**
- * The `CommandWord` enum represents the possible command words used in the Duke application.
+ * The `CommandWord` enum represents the possible command words used in the Woof application.
  */
 public enum CommandWord {
     BYE("bye"),

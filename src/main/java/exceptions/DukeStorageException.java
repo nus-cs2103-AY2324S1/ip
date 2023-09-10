@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * The `DukeStorageException` class represents a custom exception specific to the Duke application.
+ * The `DukeStorageException` class represents a custom exception specific to the Woof application.
  * It is used to indicate exceptions related to storage operations,
  * such as reading from or writing to storage.
  */

@@ -11,7 +11,7 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-import duke.Duke;
+import woof.Woof;
 
 /**
  * The `LocalDateAdapter` class is a Gson adapter for serializing and deserializing `LocalDate` objects.
@@ -34,7 +34,7 @@ public class LocalDateAdapter implements JsonSerializer<LocalDate>, JsonDeserial
                 JsonDeserializationContext context
     ) throws JsonParseException {
         String dateStr = json.getAsString();
-        return LocalDate.parse(dateStr, Duke.getDateTimeFormatter());
+        return LocalDate.parse(dateStr, Woof.getDateTimeFormatter());
     }
 
     /**
@@ -47,6 +47,6 @@ public class LocalDateAdapter implements JsonSerializer<LocalDate>, JsonDeserial
      */
     @Override
     public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(Duke.getDateTimeFormatter().format(src));
+        return new JsonPrimitive(Woof.getDateTimeFormatter().format(src));
     }
 }

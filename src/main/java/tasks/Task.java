@@ -3,10 +3,11 @@ package tasks;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-import duke.Duke;
+import woof.Woof;
+import woofwoof.WoofWoof;
 
 /**
- * The `Task` class represents a task in the Duke application.
+ * The `Task` class represents a task in the Woof application.
  */
 public abstract class Task {
     /**
@@ -25,12 +26,16 @@ public abstract class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
-        this.description = description.trim();
+        this.description = WoofWoof.wrapText(description, '\n' + getTabSpace(), 39);
         this.isDone = false;
     }
 
+    public static String getTabSpace() {
+        return " ".repeat(12);
+    }
+
     public DateTimeFormatter getDateTimeformatter() {
-        return Duke.getDateTimeFormatter();
+        return Woof.getDateTimeFormatter();
     }
 
     /**

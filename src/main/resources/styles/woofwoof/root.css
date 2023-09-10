@@ -1,0 +1,7 @@
+.root {
+    -fx-pref-height: 800px;
+    -fx-pref-width: 800px;
+    -fx-background: #AFBAEA;
+    -fx-font-size: 12pt;
+    -fx-font-family: "Sono";
+}

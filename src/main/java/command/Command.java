@@ -3,10 +3,10 @@ package command;
 
 import java.time.format.DateTimeFormatter;
 
-import duke.Duke;
 import enums.CommandWord;
 import parser.Parser;
 import tasks.TaskList;
+import woof.Woof;
 
 /**
  * The `Command` class is an abstract class representing a command in the application.
@@ -33,10 +33,15 @@ public abstract class Command {
      *
      * @param taskList The task list to perform the command on.
      */
-    public abstract void execute(TaskList taskList);
+    public abstract String execute(TaskList taskList);
 
-    public DateTimeFormatter getDateTimeformatter() {
-        return Duke.getDateTimeFormatter();
+    /**
+     * Gets the DateTimeFormatter used for formatting dates and times in the application.
+     *
+     * @return The DateTimeFormatter instance for formatting dates and times.
+     */
+    public DateTimeFormatter getDateTimeFormatter() {
+        return Woof.getDateTimeFormatter();
     }
 
     /**
@@ -55,5 +60,15 @@ public abstract class Command {
      */
     public boolean isByeCommand() {
         return CommandWord.commandWordToValueMap(Parser.getArgs(rawCommand)[0]).equals(CommandWord.BYE);
+    }
+
+    /**
+     * Checks if there is an error based on the validation result.
+     *
+     * @param validationError The validation error message.
+     * @return True if there is an error (validationError is not empty), false otherwise.
+     */
+    protected boolean isValidationError(String validationError) {
+        return !validationError.isEmpty();
     }
 }

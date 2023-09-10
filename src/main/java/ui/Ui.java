@@ -3,8 +3,8 @@ package ui;
 import java.util.Scanner;
 
 /**
- * The `Ui` class provides user interface-related functionality for the Duke application.
- * It includes methods for displaying messages, getting user input, and printing divider lines.
+ * The `Ui` class provides user interface-related functionality for the Woof application.
+ * It includes methods for generating and returning messages, getting user input, and printing divider lines.
  */
 public class Ui {
 
@@ -18,51 +18,67 @@ public class Ui {
     }
 
     /**
-     * Displays a welcome message when the Duke application starts.
+     * Generates and returns a welcome message when the Woof application starts.
+     *
+     * @return A welcome message.
      */
-    public static void helloWorld() {
-        System.out.println("Hello! I'm Jing Sheng");
-        System.out.println("What can I do for you?");
+    public static String getHelloWorldMessage() {
+        return "Woof Woof! I'm Doggo\nWhat can I do for you?";
     }
 
     /**
-     * Retrieves user input using a specified `Scanner` object and displays a user prompt.
+     * Retrieves user input using a specified `Scanner` object and returns a user prompt.
      *
      * @param scanner The `Scanner` object for reading user input.
-     * @return The user's input as a `String`.
+     * @return A user prompt.
      */
     public static String getUserInput(Scanner scanner) {
-        printDividerLine();
-        System.out.print("You: ");
         return scanner.nextLine();
     }
 
     /**
-     * Displays a message prompt for the bot's responses.
+     * Generates and returns a title header for the bot's responses.
+     *
+     * @return A message prompt for the bot.
      */
-    public static void getBotMessage() {
-        printDividerLine();
-        System.out.println("Bot: ");
+    public static String getBotTitle() {
+        return getDividerLine() + "\nDoggo: ";
     }
 
     /**
-     * Displays a farewell message when the user exits the Duke application.
+     * Generates and returns a title header for the user's responses.
+     *
+     * @return A message prompt for the bot.
      */
-    public static void showByeUser() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public static String getUserTitle() {
+        return getDividerLine() + "\nYou: ";
     }
 
     /**
-     * Displays a message for cases when the bot is unable to understand the user's input.
+     * Returns a farewell message when the user exits the Woof application.
+     *
+     * @return A farewell message.
      */
-    public static void showConfused() {
-        System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+    public static String getByeUserMessage() {
+        return "Bye. Hope to see you again soon!\n"
+                + "Closing Woof Woof...\n";
     }
 
     /**
-     * Prints a horizontal divider line to separate messages in the chat window.
+     * Returns a message for cases when the bot is unable to understand the user's input.
+     *
+     * @return A message indicating confusion.
      */
-    public static void printDividerLine() {
-        System.out.println("═".repeat(getChatWidth()));
+    public static String getConfusedMessage() {
+        return "OOPS!!! I'm sorry, but I don't know what that means :-(\n";
+    }
+
+    /**
+     * Generates and returns a horizontal divider line as a string to separate messages in the chat window.
+     *
+     * @return A string representing a horizontal divider line.
+     */
+    public static String getDividerLine() {
+        return "═".repeat(getChatWidth());
     }
 }

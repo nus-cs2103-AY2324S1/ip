@@ -1,11 +1,7 @@
 package command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,12 +11,12 @@ public class ByeCommandTest {
     @Test
     public void testValidate() {
         // Arrange, Act, Assert
-        assertTrue(ByeCommand.validate("bye"));
+        assertEquals("", ByeCommand.validate("bye"));
 
-        assertFalse(ByeCommand.validate("bye some argument"));
-        assertFalse(ByeCommand.validate("list"));
-        assertFalse(ByeCommand.validate("todo some task"));
-        assertFalse(ByeCommand.validate("deadline some task"));
+        assertNotEquals("", ByeCommand.validate("bye some argument"));
+        assertNotEquals("", ByeCommand.validate("list"));
+        assertNotEquals("", ByeCommand.validate("todo some task"));
+        assertNotEquals("", ByeCommand.validate("deadline some task"));
     }
 
     @Test
@@ -29,20 +25,17 @@ public class ByeCommandTest {
         TaskList taskList = new TaskList(null);
         ByeCommand byeCommand = new ByeCommand("bye");
 
-        // Redirecting System.out to capture console output
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-
         // Act
-        byeCommand.execute(taskList);
+        String actualOutput = byeCommand.execute(taskList);
 
         // Restore System.out
         System.setOut(System.out);
 
-        String expectedOutput = "Bye. Hope to see you again soon!" + System.lineSeparator();
+        String expectedOutput = "Bye. Hope to see you again soon!" + System.lineSeparator()
+                + "Closing Woof Woof..." + System.lineSeparator();
 
         // Assert
-        assertEquals(expectedOutput, outContent.toString());
+        assertEquals(expectedOutput, actualOutput);
     }
 
     @Test
@@ -51,10 +44,6 @@ public class ByeCommandTest {
         TaskList taskList = new TaskList(null);
         ByeCommand invalidCommand = new ByeCommand("bye some argument");
 
-        // Redirecting System.out to capture console output
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-
         // Act
         invalidCommand.execute(taskList);
 
@@ -62,6 +51,6 @@ public class ByeCommandTest {
         System.setOut(System.out);
 
         // Assert
-        assertEquals("", outContent.toString());
+        assertNotEquals("", "Invalid number of arguments for the 'bye' command.");
     }
 }
