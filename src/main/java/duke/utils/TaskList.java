@@ -1,14 +1,14 @@
 package duke.utils;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import duke.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The `TaskList` class represents a list of tasks and provides methods for managing tasks within the list.
@@ -18,6 +18,7 @@ public class TaskList {
 
     /**
      * Constructs a `TaskList` with an existing list of tasks.
+     *
      * @param toDoList The list of tasks to initialize the `TaskList`.
      */
     public TaskList(List<Task> toDoList) {
@@ -33,6 +34,7 @@ public class TaskList {
 
     /**
      * Retrieves the list of tasks contained in the `TaskList`.
+     *
      * @return The list of tasks.
      */
     public List<Task> getTasks() {
@@ -41,6 +43,7 @@ public class TaskList {
 
     /**
      * Retrieves the number of tasks in the `TaskList`.
+     *
      * @return The number of tasks in the list.
      */
     public int getSize() {
@@ -49,6 +52,7 @@ public class TaskList {
 
     /**
      * Marks a task as done based on its index in the list.
+     *
      * @param taskIndex The index of the task to mark as done.
      * @return The task that was marked as done.
      * @throws DukeException If the task index is invalid.
@@ -67,6 +71,7 @@ public class TaskList {
 
     /**
      * Unmarks a task as done based on its index in the list.
+     *
      * @param taskIndex The index of the task to unmark as done.
      * @return The task that was unmarked as done.
      * @throws DukeException If the task index is invalid.
@@ -85,6 +90,7 @@ public class TaskList {
 
     /**
      * Adds a new todo task to the list.
+     *
      * @param todoDescription The description of the todo task.
      * @return The newly added todo task.
      * @throws DukeException If there is an issue adding the task.
@@ -97,6 +103,7 @@ public class TaskList {
 
     /**
      * Adds a new deadline task to the list.
+     *
      * @param description The description of the deadline task.
      * @param dateTime The deadline date and time of the task.
      * @return The newly added deadline task.
@@ -110,13 +117,18 @@ public class TaskList {
 
     /**
      * Adds a new event task to the list.
+     *
      * @param description The description of the event task.
      * @param fromDatetime The starting date and time of the event.
      * @param toDateTime The ending date and time of the event.
      * @return The newly added event task.
      * @throws DukeException If there is an issue adding the task.
      */
-    public Task addEventTask(String description, LocalDateTime fromDatetime, LocalDateTime toDateTime) throws DukeException {
+    public Task addEventTask(
+            String description,
+            LocalDateTime fromDatetime,
+            LocalDateTime toDateTime
+    ) throws DukeException {
         Task newTask = new Event(description, fromDatetime, toDateTime);
         toDoList.add(newTask);
         return newTask;
@@ -124,6 +136,7 @@ public class TaskList {
 
     /**
      * Deletes a task from the list based on its index.
+     *
      * @param taskNumber The index of the task to be deleted.
      * @return The task that was deleted.
      * @throws DukeException If the task index is invalid.
@@ -142,6 +155,7 @@ public class TaskList {
 
     /**
      * Searches for tasks in a to-do list based on a specified keyword in their descriptions.
+     *
      * @param keyword The keyword to search for within task descriptions.
      * @return A list of tasks that contain the specified keyword in their descriptions.
      */

@@ -1,1 +1,2 @@
 T | 0 | read fianccial stuff on seedly
+T | 0 | g

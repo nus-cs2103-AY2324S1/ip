@@ -13,6 +13,7 @@ public class Event extends Task {
 
     /**
      * Constructs a new `Event` task with the given description, start date and time, and end date and time.
+     *
      * @param description The description of the event task.
      * @param from The start date and time of the event.
      * @param to The end date and time of the event.
@@ -25,16 +26,18 @@ public class Event extends Task {
 
     /**
      * Returns a string representation of the event task for display to the user.
+     *
      * @return A formatted string containing the task type, status, description, start date, and end date.
      */
     @Override
-    public String toString () {
+    public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return "[E]" + super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
     }
 
     /**
      * Converts the event task to a string representation for saving to a file.
+     *
      * @return A formatted string representing the task type, status, description, start date, and end date.
      */
     @Override
@@ -45,6 +48,7 @@ public class Event extends Task {
 
     /**
      * Creates an `Event` task object from a data string. Used for deserialization.
+     *
      * @param taskData The data string containing event task information.
      * @return An `Event` task object created from the data string, or `null` if the data is incomplete or invalid.
      */
