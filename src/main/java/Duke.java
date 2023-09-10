@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
@@ -98,21 +99,50 @@ public class Duke {
                     System.out.println("Got it. I've added this task:");
                     String description = userInput.substring(9, userInput.indexOf("/by")).trim();
                     String by = userInput.substring(userInput.indexOf("/by") + 4).trim();
-                    Task newDeadline = new Deadline(description, by);
-                    tasks.add(newDeadline);
-                    taskCount++;
-                    System.out.println(newDeadline.toString());
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    //format to correct local datetime format (from DateTimeParser)
+//                    try {
+//                        by = DateTimeParser.toLocalDateTimeString(by);
+//                    } catch (DateTimeParseException e) {
+//                        System.out.println("DateTime input not valid, please try again.");
+//                        //skip to next iteration of loop, which gets next line of user input
+//                        continue;
+//                    }
+                    try {
+                        Task newDeadline = new Deadline(description, by);
+                        tasks.add(newDeadline);
+                        taskCount++;
+                        System.out.println(newDeadline.toString());
+                        System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    } catch (DateTimeParseException e) {
+                        System.out.println("DateTime input not valid, please try again.");
+                        //skip to next iteration of loop, which gets next line of user input
+                        continue;
+                    }
                 } else if (userInput.startsWith("event ")) {
                     System.out.println("Got it. I've added this task:");
                     String description = userInput.substring(6, userInput.indexOf("/from")).trim();
                     String from = userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to")).trim();
                     String to = userInput.substring(userInput.indexOf("/to") + 4).trim();
-                    Task newEvent = new Event(description, from, to);
-                    tasks.add(newEvent);
-                    taskCount++;
-                    System.out.println(newEvent.toString());
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    //format to correct local datetime format (from DateTimeParser)
+//                    try {
+//                        from = DateTimeParser.toLocalDateTimeString(from);
+//                        to = DateTimeParser.toLocalDateTimeString(to);
+//                    } catch (DateTimeParseException e ) {
+//                        System.out.println("DateTime input not valid, please try again.");
+//                        //skip to next iteration of loop, which gets next line of user input
+//                        continue;
+//                    }
+                    try {
+                        Task newEvent = new Event(description, from, to);
+                        tasks.add(newEvent);
+                        taskCount++;
+                        System.out.println(newEvent.toString());
+                        System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    } catch (DateTimeParseException e) {
+                        System.out.println("DateTime input not valid, please try again.");
+                        //skip to next iteration of loop, which gets next line of user input
+                        continue;
+                    }
                 } else if (userInput.startsWith("delete ")) {
                     System.out.println("Noted. I've removed this task:");
                     int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
