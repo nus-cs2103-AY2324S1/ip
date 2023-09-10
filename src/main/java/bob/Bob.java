@@ -1,7 +1,5 @@
 package bob;
 import java.io.IOException;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 import bob.command.Command;
 
@@ -30,27 +28,6 @@ public class Bob {
         }
     }
 
-    public void run() {
-        Scanner sc = new Scanner(System.in);
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String nextLine = sc.nextLine();
-                if (nextLine.isEmpty()) {
-                    throw new NoSuchElementException();
-                }
-
-                Command c = Parser.parse(nextLine);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-
-            } catch (NoSuchElementException e) {
-                ui.stringFormat(new String[]{"Write something!"});
-            }
-        }
-    }
-
     public String greet() {
         return ui.greet();
     }
@@ -59,6 +36,7 @@ public class Bob {
         if (input.equals("")) {
             return ui.stringFormat(new String[]{"Write something!"});
         }
+
         Command c = Parser.parse(input);
         return c.execute(tasks, ui, storage);
     }

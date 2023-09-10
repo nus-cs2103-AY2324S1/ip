@@ -57,6 +57,7 @@ public class TaskList {
         }
 
         String taskDetails = task[1];
+        assert taskDetails != null;
 
         if (taskType.equals(TaskType.deadline)) {
             return new Deadline(taskDetails);
@@ -76,9 +77,12 @@ public class TaskList {
     public String[] addToList(String description) {
         try {
             Task taskObj = generateTask(description);
+            assert taskObj != null;
+
             lst.add(taskObj);
             return new String[]{"New task added: ", "\t" + taskObj.toString(),
                 "You now have " + lst.size() + (lst.size() == 1 ? " task!" : " tasks!")};
+
         } catch (WrongInputException e) {
             return new String[]{e.message};
         } catch (MissingTaskException e) {
@@ -95,6 +99,7 @@ public class TaskList {
      * @return display of lst
      */
     public String[] displayList() {
+        assert lst != null;
 
         if (lst.isEmpty()) {
             return new String[] { "You currently have no tasks." };
