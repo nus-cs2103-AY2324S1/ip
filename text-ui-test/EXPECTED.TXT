@@ -45,6 +45,11 @@
       Now you have 4 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
+     Here are the matching tasks in your list:
+     1. [D][ ] finish project (by: Aug 02 2023)
+     2. [E][ ] project meeting (from: Jan 23 2020 to: Dec 12 2020)
+    ____________________________________________________________
+    ____________________________________________________________
      Error: Missing '/to' or end date for event.
     ____________________________________________________________
     ____________________________________________________________
@@ -53,6 +58,9 @@
     ____________________________________________________________
      Nice! I've marked this task as done:
        [D][X] finish project (by: Aug 02 2023)
+    ____________________________________________________________
+    ____________________________________________________________
+     Error: Please specify a search term.
     ____________________________________________________________
     ____________________________________________________________
      Noted. I've removed this task:
@@ -148,10 +156,10 @@
      6. [E][ ] conference (from: Aug 02 2023 to: Aug 02 2023)
     ____________________________________________________________
     ____________________________________________________________
-     Error: Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event
+     Error: Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event, find
     ____________________________________________________________
     ____________________________________________________________
-     Error: Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event
+     Error: Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event, find
     ____________________________________________________________
     ____________________________________________________________
      Bye. Hope to see you again soon!
