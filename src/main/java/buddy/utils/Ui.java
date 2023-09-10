@@ -82,6 +82,11 @@ public class Ui {
         System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
     }
 
+    /**
+     * Prints the list of tasks filtered using keywords.
+     *
+     * @param list The array list of tasks obtained after filtering by keyword.
+     */
     public void printFilteredList(ArrayList<Task> list) {
         if (list.isEmpty()) {
             System.out.println("Sorry, no results found.");
