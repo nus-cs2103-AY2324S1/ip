@@ -99,4 +99,13 @@ public class Ui {
         return s.toString();
     }
 
+    public String showMassDeleteSuccess(ArrayList<Task> tasks) {
+        StringBuilder s = new StringBuilder();
+        s.append("Successfully deleted these tasks : \n");
+        for(Task task : tasks) {
+            s.append(task.getStatus() + " \n");
+        }
+        return s.toString();
+    }
+
 }

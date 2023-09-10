@@ -93,7 +93,6 @@ public class TaskList {
                 String end = !t.end.isEmpty()?  t.end + DELIMITER : EMPTY;
                 arrays.add(t.category.toString() + DELIMITER + (t.isDone ? "true" : "false")
                         + DELIMITER + t.title + DELIMITER + end + start);
-
             }
             ;
         }
@@ -134,6 +133,17 @@ public class TaskList {
             Task now = lists.get(index);
             this.lists.remove(now);
             return now;
+        } catch(Exception e) {
+            throw new Exception("Something wrong with the given input");
+        }
+    }
+
+    public ArrayList<Task> specificRemove(ArrayList<Task> tasks) throws Exception {
+        try {
+            for(Task task : tasks) {
+                this.lists.remove(task);
+            }
+            return tasks;
         } catch(Exception e) {
             throw new Exception("Something wrong with the given input");
         }
