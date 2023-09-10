@@ -1,6 +1,8 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import duke.task.Task;
 
@@ -29,6 +31,8 @@ public class TaskList {
      */
     public void add(Task t) {
         this.storage.add(t);
+        // Sorts the storage based on the description.
+        Collections.sort(this.storage);
     }
 
     /** Displays Items in TaskList */
