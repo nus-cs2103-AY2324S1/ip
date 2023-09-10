@@ -47,6 +47,9 @@ public class Duke {
 
     /**
      * Handles the Chatbot Response.
+     *
+     * @param input The raw String data.
+     * @return The String response of the command.
      */
     public String getResponse(String input) {
 
@@ -85,6 +88,13 @@ public class Duke {
             case FIND:
                 String findQuery = parseLine.parseFindQuery();
                 return tasks.findTasks(findQuery).formatList();
+            case EDIT:
+                String[] editArgs = parseLine.parseEditArguments();
+                for (String item : editArgs) {
+                    System.out.println(item);
+                }
+                return tasks.editTask(editArgs[0], editArgs[1], editArgs[2]);
+
             default:
                 return INVALID_ERROR_MESSAGE;
             }

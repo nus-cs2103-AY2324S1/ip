@@ -40,6 +40,7 @@ public class ParserTest {
         assertEquals(expectedBy, actual[1]);
     }
 
+
     @Test
     public void testParseDeadlineError() {
         Parser parseLine = new Parser("deadline boo");
@@ -47,7 +48,7 @@ public class ParserTest {
             parseLine.parseDeadlineArguments();
         });
         String expected = "Hey, the Deadline given is Invalid! "
-                + "Make sure that you follow this format:\n" + " 'taskDescription /by yyyy-mm-dd hh:mm'";
+                + "Make sure that you follow this format:\n" + " 'taskDescription /by yyyy-mm-dd HH:mm'";
         assertEquals(expected, exception.getMessage());
     }
 
@@ -77,8 +78,88 @@ public class ParserTest {
         });
         String expected = "Hey, the Event given is Invalid!"
                 + " Make sure that you follow this format:\n"
-                + " 'eventDescription /from yyyy-mm-dd hh:mm /to yyyy-mm-dd hh:mm'";
+                + " 'eventDescription /from yyyy-mm-dd HH:mm /to yyyy-mm-dd HH:mm'";
         assertEquals(expected, exception.getMessage());
+    }
+
+    @Test
+    public void parseEditToDoSuccess() {
+        Parser parseLine = new Parser("edit 5 /desc boo");
+        String[] actual = {};
+        try {
+            actual = parseLine.parseEditArguments();
+        } catch (DukeException e) {
+            fail("parse failure");
+        }
+
+        String expectedIndex = "5";
+        String expectedDesc = "boo";
+        assertEquals(expectedIndex, actual[0]);
+        assertEquals(expectedDesc, actual[2]);
+    }
+
+    @Test
+    public void parseEditDeadlineDescSuccess() {
+        Parser parseLine = new Parser("edit 5 /desc boo");
+        String[] actual = {};
+        try {
+            actual = parseLine.parseEditArguments();
+        } catch (DukeException e) {
+            fail("parse failure");
+        }
+
+        String expectedIndex = "5";
+        String expectedDesc = "boo";
+        assertEquals(expectedIndex, actual[0]);
+        assertEquals(expectedDesc, actual[2]);
+    }
+
+    @Test
+    public void parseEditDeadlineBySuccess() {
+        Parser parseLine = new Parser("edit 5 /by 2001-12-10 11:11");
+        String[] actual = {};
+        try {
+            actual = parseLine.parseEditArguments();
+        } catch (DukeException e) {
+            fail("parse failure");
+        }
+
+        String expectedIndex = "5";
+        String expectedBy = "2001-12-10 11:11";
+        assertEquals(expectedIndex, actual[0]);
+        assertEquals(expectedBy, actual[2]);
+    }
+
+    @Test
+    public void parseEditEventFromSuccess() {
+        Parser parseLine = new Parser("edit 5 /from 2001-12-10 11:11");
+        String[] actual = {};
+        try {
+            actual = parseLine.parseEditArguments();
+        } catch (DukeException e) {
+            fail("parse failure");
+        }
+
+        String expectedIndex = "5";
+        String expectedFrom = "2001-12-10 11:11";
+        assertEquals(expectedIndex, actual[0]);
+        assertEquals(expectedFrom, actual[2]);
+    }
+
+    @Test
+    public void parseEditEventToSuccess() {
+        Parser parseLine = new Parser("edit 5 /to 2001-12-10 11:11");
+        String[] actual = {};
+        try {
+            actual = parseLine.parseEditArguments();
+        } catch (DukeException e) {
+            fail("parse failure");
+        }
+
+        String expectedIndex = "5";
+        String expectedTo = "2001-12-10 11:11";
+        assertEquals(expectedIndex, actual[0]);
+        assertEquals(expectedTo, actual[2]);
     }
 
 }

@@ -58,6 +58,16 @@ public class Task {
     }
 
     /**
+     * Updates the Description of the Task.
+     *
+     * @param newDesc The new description of the task.
+     */
+    public void updateDesc(String newDesc) {
+        System.out.println(newDesc);
+        this.description = newDesc;
+    }
+
+    /**
      * Returns the Formatted String of the Task to be saved into Storage.
      *
      * @return Formatted String representation of the task.

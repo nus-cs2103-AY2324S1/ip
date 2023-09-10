@@ -31,7 +31,7 @@ public class Deadline extends Task {
      * Constructor for a Deadline task.
      *
      * @param description The description of the Deadline task.
-     * @param date        The deadline of the Deadline task. Must follow the format yyyy-MM-dd hh:mm.
+     * @param date        The deadline of the Deadline task. Must follow the format yyyy-MM-dd HH:mm.
      * @throws DukeException If the deadline does not follow the format yyyy-MM-dd HH:mm.
      */
     public Deadline(String description, String date) throws DukeException {
@@ -41,9 +41,18 @@ public class Deadline extends Task {
             LocalDateTime d1 = LocalDateTime.parse(date, inputFormatter);
             by = d1.format(outputFormatter);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Deadline time must be in this format: yyyy-mm-dd hh:mm");
+            throw new DukeException("Deadline time must be in this format: yyyy-mm-dd HH:mm");
         }
 
+    }
+
+    public void updateDeadline(String newDate) throws DukeException {
+        try {
+            LocalDateTime d1 = LocalDateTime.parse(newDate, inputFormatter);
+            by = d1.format(outputFormatter);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Deadline time must be in this format: yyyy-mm-dd HH:mm");
+        }
     }
 
     /**
