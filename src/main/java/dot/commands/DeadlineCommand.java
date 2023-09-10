@@ -10,16 +10,20 @@ import dot.tasks.TaskList;
 /**
  * Command to add a Deadline task to dotTaskList.
  */
-public class DeadlineCommand extends Command {
+public class DeadlineCommand extends Command implements Undoable {
+
+    private final TaskList dotTaskList;
 
     private final String description;
-
     /**
      * Deadline as String as this is still the command layer.
      */
     private final String deadline;
 
-    private final TaskList dotTaskList;
+    /**
+     * For the undo method.
+     */
+    private int oneBasedInsertIndex;
 
     /**
      * Constructor for DeadlineCommand.
@@ -44,8 +48,31 @@ public class DeadlineCommand extends Command {
     @Override
     public void execute(Consumer<String> handleDotOutput) throws DotException {
         Task newDeadlineTask = new Deadline(this.description, this.deadline);
-        dotTaskList.addTask(newDeadlineTask, handleDotOutput);
+        oneBasedInsertIndex = dotTaskList.addTask(newDeadlineTask, handleDotOutput);
         dotTaskList.saveTaskListToStorage();
+    }
+
+    /**
+     * Undo the creation of Deadline.
+     *
+     * @param handleDotOutput This is the consumer used to display any output
+     *                        due the execution of the command to the GUI.
+     * @throws DotException On detected error.
+     */
+    @Override
+    public void undo(Consumer<String> handleDotOutput) throws DotException {
+        Command deleteCommand = new DeleteCommand(oneBasedInsertIndex, dotTaskList);
+        deleteCommand.execute(handleDotOutput);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return true to indicate that this is an Undoable Command.
+     */
+    @Override
+    public boolean isUndoable() {
+        return true;
     }
 
 }

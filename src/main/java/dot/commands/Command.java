@@ -28,4 +28,23 @@ public abstract class Command {
         return false;
     }
 
+    /**
+     * Returns false for non-Undoable commands.
+     *
+     * @return false unless overridden.
+     */
+    public boolean isUndoable() {
+        return false;
+    }
+
+    /**
+     * Returns true if Command is Undo command.
+     * Used to reset potentialCommandToRollback.
+     *
+     * @return false unless overridden.
+     */
+    public boolean isUndoCommand() {
+        return false;
+    }
+
 }

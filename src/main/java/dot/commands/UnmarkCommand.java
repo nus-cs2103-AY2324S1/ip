@@ -8,8 +8,9 @@ import dot.tasks.TaskList;
 /**
  * Command to unmark a task, given its position on the list.
  */
-public class UnmarkCommand extends Command {
+public class UnmarkCommand extends Command implements Undoable {
 
+    // Also utilised by undo
     private final int position;
 
     private final TaskList dotTaskList;
@@ -36,6 +37,29 @@ public class UnmarkCommand extends Command {
     public void execute(Consumer<String> handleDotOutput) throws DotException {
         dotTaskList.setTaskComplete(position - 1, false, handleDotOutput);
         dotTaskList.saveTaskListToStorage();
+    }
+
+    /**
+     * Undoes the un-marking of given task.
+     *
+     * @param handleDotOutput This is the consumer used to display any output
+     *                        due the execution of the command to the GUI.
+     * @throws DotException On detected error.
+     */
+    @Override
+    public void undo(Consumer<String> handleDotOutput) throws DotException {
+        Command markCommand = new MarkCommand(position, dotTaskList);
+        markCommand.execute(handleDotOutput);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return true to indicate that this is an Undoable Command.
+     */
+    @Override
+    public boolean isUndoable() {
+        return true;
     }
 
 }

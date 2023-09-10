@@ -3,16 +3,23 @@ package dot.commands;
 import java.util.function.Consumer;
 
 import dot.errors.DotException;
+import dot.tasks.Task;
 import dot.tasks.TaskList;
 
 /**
  * Command to delete a task based on position in list.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends Command implements Undoable {
 
     private final int position;
 
     private final TaskList dotTaskList;
+
+    /**
+     * For the undo method.
+     */
+    private Task deletedTask;
+    private int zeroBasedDeletePosition;
 
     /**
      * Constructor for DeleteCommand.
@@ -34,8 +41,31 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(Consumer<String> handleDotOutput) throws DotException {
-        dotTaskList.deleteTask(position - 1, handleDotOutput);
+        deletedTask = dotTaskList.deleteTask(position - 1, handleDotOutput);
+        // We can assume that position is within range here [0, tasks.size()]
+        zeroBasedDeletePosition = position - 1;
         dotTaskList.saveTaskListToStorage();
     }
 
+    /**
+     * Undoes the deletion of the latest Task.
+     *
+     * @param handleDotOutput This is the consumer used to display any output
+     *                        due the execution of the command to the GUI.
+     * @throws DotException On detected error.
+     */
+    @Override
+    public void undo(Consumer<String> handleDotOutput) throws DotException {
+        dotTaskList.addTaskToSpecificPosition(deletedTask, handleDotOutput, zeroBasedDeletePosition);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return true to indicate that this is an Undoable Command.
+     */
+    @Override
+    public boolean isUndoable() {
+        return true;
+    }
 }

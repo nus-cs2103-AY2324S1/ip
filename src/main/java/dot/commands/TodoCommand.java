@@ -10,11 +10,16 @@ import dot.tasks.Todo;
 /**
  * Command to add a Deadline task to dotTaskList.
  */
-public class TodoCommand extends Command {
+public class TodoCommand extends Command implements Undoable {
 
     private final String description;
 
     private final TaskList dotTaskList;
+
+    /**
+     * For the undo method.
+     */
+    private int oneBasedInsertIndex;
 
     /**
      * Constructor for TodoCommand.
@@ -38,8 +43,31 @@ public class TodoCommand extends Command {
     @Override
     public void execute(Consumer<String> handleDotOutput) throws DotException {
         Task newTodoTask = new Todo(this.description);
-        dotTaskList.addTask(newTodoTask, handleDotOutput);
+        oneBasedInsertIndex = dotTaskList.addTask(newTodoTask, handleDotOutput);
         dotTaskList.saveTaskListToStorage();
+    }
+
+    /**
+     * Undo the creation of Todo.
+     *
+     * @param handleDotOutput This is the consumer used to display any output
+     *                        due the execution of the command to the GUI.
+     * @throws DotException On detected error.
+     */
+    @Override
+    public void undo(Consumer<String> handleDotOutput) throws DotException {
+        Command deleteCommand = new DeleteCommand(oneBasedInsertIndex, dotTaskList);
+        deleteCommand.execute(handleDotOutput);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return true to indicate that this is an Undoable Command.
+     */
+    @Override
+    public boolean isUndoable() {
+        return true;
     }
 
 }
