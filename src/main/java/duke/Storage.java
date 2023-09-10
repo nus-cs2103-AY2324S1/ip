@@ -33,22 +33,28 @@ public class Storage {
      */
     public File createOutputFile() {
         File filePointer = new File(this.outputPath);
-        if (!filePointer.exists()) {
-            File directory = new File(new File(this.outputPath).getParent());
-            // create directory if it doesn't exist
-            if (!directory.exists()) {
-                boolean result = directory.mkdirs();
-            }
-            try {
-                // create file in that directory
-                if (!filePointer.createNewFile()) {
-                    throw new FileNotFoundException();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if (filePointer.exists()) {
+            return filePointer;
         }
+        createOutputDirFile(filePointer);
         return filePointer;
+    }
+
+    /**
+     * Creates the output directory and file if they do not exist.
+     *
+     * @param filePointer Pointer to the preferred output location
+     */
+    private void createOutputDirFile(File filePointer) {
+        File directory = new File(new File(this.outputPath).getParent());
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        try {
+            filePointer.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -61,35 +67,54 @@ public class Storage {
         File filePointer = this.createOutputFile();
         Scanner storageScanner = new Scanner(filePointer);
         ArrayList<Task> arrList = new ArrayList<>();
+        loadStorageByLine(storageScanner, arrList);
+        storageScanner.close();
+        return arrList;
+    }
+
+    /**
+     * Reads and insert task into the array list line by line from storage.
+     *
+     * @param storageScanner Scanner that reads in input line by line
+     * @param arrList Array list to insert tasks into
+     */
+    private static void loadStorageByLine(Scanner storageScanner, ArrayList<Task> arrList) {
         while (storageScanner.hasNext()) {
             String item = storageScanner.nextLine();
             if (item != "") {
-                // process the item
                 // T|1|read book
                 String[] itemParts = item.split("\\|");
-                boolean itemComplete = itemParts[1].equals("0");
-                String name = itemParts[2];
-                switch (itemParts[0]) {
-                case "T":
-                    arrList.add(new Todo(name, itemComplete));
-                    break;
-                case "D":
-                    String deadline = itemParts[3];
-                    arrList.add(new Deadline(name, deadline, itemComplete));
-                    break;
-                case "E":
-                    System.out.println(item);
-                    String from = itemParts[3];
-                    String to = itemParts[4];
-                    arrList.add(new Event(name, from, to, itemComplete));
-                    break;
-                default:
-                    System.out.println("Error when reading file");
-                }
+                insertTask(arrList, itemParts);
             }
         }
-        storageScanner.close();
-        return arrList;
+    }
+
+    /**
+     * Creates respective tasks based on the user input split into parts.
+     *
+     * @param arrList arraylist to add the task to
+     * @param itemParts Parts of the String representation of task in the storage
+     */
+    private static void insertTask(ArrayList<Task> arrList, String[] itemParts) {
+        boolean itemComplete = itemParts[1].equals("0");
+        String name = itemParts[2];
+
+        switch (itemParts[0]) {
+        case "T":
+            arrList.add(new Todo(name, itemComplete));
+            break;
+        case "D":
+            String deadline = itemParts[3];
+            arrList.add(new Deadline(name, deadline, itemComplete));
+            break;
+        case "E":
+            String from = itemParts[3];
+            String to = itemParts[4];
+            arrList.add(new Event(name, from, to, itemComplete));
+            break;
+        default:
+            System.out.println("Error when reading file");
+        }
     }
 
     /**
