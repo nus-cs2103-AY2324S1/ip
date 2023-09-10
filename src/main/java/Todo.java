@@ -1,10 +1,14 @@
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.SerializerProvider;
+
 /**
  * Todo is the main class for Todo task used by the Sidtacphi bot.
  *
  * @author Yu Lexuan
  */
 public class Todo extends Task {
-
     /**
      * Constructor for the Todo class.
      * 
@@ -22,5 +26,17 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return "[T] " + super.toString();     
+    }
+
+    /**
+     * Seralizes Todo to be stored in Json format.
+     */
+    @Override
+    public void serialize(JsonGenerator jsonGenerator, SerializerProvider serializer) throws IOException {
+        jsonGenerator.writeStartObject();
+        jsonGenerator.writeStringField("Type", "Task");
+        jsonGenerator.writeStringField("name", super.getName());
+        jsonGenerator.writeBooleanField("isCompleted", super.isCompleted());
+        jsonGenerator.writeEndObject();
     }
 }

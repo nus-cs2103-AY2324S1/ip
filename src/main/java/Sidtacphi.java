@@ -3,7 +3,11 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
 /**
  * Sidtacphi is the main class for the Sidtacphi bot.
@@ -263,8 +267,13 @@ public class Sidtacphi {
      */
     private static void saveAsJson() {
         ObjectMapper mapper = new ObjectMapper();
+        SimpleModule module = 
+           new SimpleModule("TaskSerializer", new Version(1, 0, 0, null, null, null));
+        module.addSerializer(Task.class, new TaskSerializer());
+        mapper.registerModule(module);
         try {
             System.out.println("saving json...");
+            mapper.writeValue(new File("tasks.json"), taskList);
         } catch (IOException e) {
             System.out.print(e);
         }
@@ -277,7 +286,9 @@ public class Sidtacphi {
         ObjectMapper mapper = new ObjectMapper();
         try {
             System.out.println("reading json...");
+            taskList.addAll(mapper.readValue(new File("tasks.json"), new TypeReference<List<Task>>(){}));
         } catch (IOException e) {
+            System.out.println(e);
             new File("tasks.json");
         }
     }

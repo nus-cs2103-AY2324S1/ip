@@ -1,3 +1,8 @@
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.SerializerProvider;
+
 /**
  * Event is the main class for Event task used by the Sidtacphi bot.
  *
@@ -26,5 +31,19 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E] " + super.toString() + " (from: " + start + ", to: " + end + ")";     
+    }
+
+    /**
+     * Seralizes Event to be stored in Json format.
+     */
+    @Override
+    public void serialize(JsonGenerator jsonGenerator, SerializerProvider serializer) throws IOException {
+        jsonGenerator.writeStartObject();
+        jsonGenerator.writeStringField("Type", "Task");
+        jsonGenerator.writeStringField("name", super.getName());
+        jsonGenerator.writeBooleanField("isCompleted", super.isCompleted());
+        jsonGenerator.writeStringField("start", start);
+        jsonGenerator.writeStringField("end", end);
+        jsonGenerator.writeEndObject();
     }
 }
