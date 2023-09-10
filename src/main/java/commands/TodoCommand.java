@@ -15,8 +15,6 @@ import tasks.Todo;
 public class TodoCommand extends Command {
 
     private final ArrayList<String> texts;
-    private Task task;
-    private int size;
 
     /**
      * TodoCommand constructor that takes in an ArrayList.
@@ -32,25 +30,23 @@ public class TodoCommand extends Command {
      * @param dF The file to be edited on.
      */
     @Override
-    public void execute(TaskList tasks, DataFile dF) {
+    public String execute(TaskList tasks, DataFile dF) {
         Task todo = new Todo(texts.get(0));
         tasks.addTask(todo);
-        task = todo;
-        size = tasks.getSize();
-        System.out.println(this);
         try {
             dF.writeToFile(todo);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        assert !texts.isEmpty();
+        return cmdToString(todo.toString(), tasks.getSize());
     }
 
     /**
      * Returns the string representation of todo command.
      * @return String representation of todo command.
      */
-    @Override
-    public String toString() {
+    public String cmdToString(String task, int size) {
         return "Got it. I've added this task:\n" + task
                 + "\nNow you have " + size + " tasks in the list.";
     }

@@ -148,7 +148,7 @@ public class Parser {
         ArrayList<String> texts = new ArrayList<>();
         switch (type) {
         case "E": {
-            if (input.indexOf("/by") - 1 < 6) {
+            if (input.indexOf("/from") - 1 < 6) {
                 throw new DukeException("Your Event name is blank");
             }
             String desc = input.substring(6, input.indexOf("/from") - 1);
@@ -188,7 +188,11 @@ public class Parser {
             texts.add(keyWord);
             break;
         }
+        default: {
+            assert false : type;
         }
+        }
+        assert 0 != texts.size();
         return texts;
     }
 

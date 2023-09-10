@@ -16,8 +16,6 @@ import tasks.TaskList;
 public class DeadlineCommand extends Command {
 
     private final ArrayList<String> texts;
-    private Task task;
-    private int size;
 
     /**
      * DeadlineCommand constructor that takes in an ArrayList.
@@ -33,26 +31,25 @@ public class DeadlineCommand extends Command {
      * @param dF The file to be edited on.
      */
     @Override
-    public void execute(TaskList tasks , DataFile dF) {
+    public String execute(TaskList tasks , DataFile dF) {
         CustomDate cD = new CustomDate();
         Task dL = new Deadline(texts.get(0), cD.strToDateTime(texts.get(1)));
         tasks.addTask(dL);
-        task = dL;
-        size = tasks.getSize();
-        System.out.println(this);
         try {
             dF.writeToFile(dL);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        assert !texts.isEmpty();
+        return cmdToString(dL.toString(), tasks.getSize());
     }
 
     /**
      * Returns the string representation of deadline command.
      * @return String representation of deadline command.
      */
-    @Override
-    public String toString() {
+
+    public String cmdToString(String task, int size) {
         return "Got it. I've added this task:\n" + task
                 + "\nNow you have " + size + " tasks in the list.";
     }
