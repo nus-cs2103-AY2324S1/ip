@@ -65,6 +65,9 @@ public class Parser {
         } else if (commandType.equals(CommandType.DELETE)) {
             int taskIndex = Integer.parseInt(words[1]);
             return new DeleteCommand(taskIndex);
+        } else if (commandType.equals(CommandType.FIND)) {
+            String keyword = fullCommand.replaceFirst("find ", "").trim();
+            return new FindCommand(keyword);
         } else if (commandType.equals(CommandType.TODO)) {
             String[] parts = fullCommand.split(" ", 2);
             if (parts.length < 2 || parts[1].isEmpty()) {

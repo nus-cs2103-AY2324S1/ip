@@ -82,6 +82,17 @@ public class Ui {
         System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
     }
 
+    public void printFilteredList(ArrayList<Task> list) {
+        if (list.isEmpty()) {
+            System.out.println("Sorry, no results found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < list.size(); i++) {
+                System.out.printf("%d. %s\n", i + 1, list.get(i));
+            }
+        }
+    }
+
     public String readCommand() {
         return sc.nextLine();
     }
