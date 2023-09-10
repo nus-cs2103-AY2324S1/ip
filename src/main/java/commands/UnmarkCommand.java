@@ -21,11 +21,12 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks) {
+    public String execute(TaskList tasks) {
         try {
-            tasks.unmarkTaskDone(taskNumber);
+            return tasks.unmarkTaskDone(taskNumber);
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
+            return e.getMessage();
         }
     }
 }

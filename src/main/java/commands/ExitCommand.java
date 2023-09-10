@@ -8,11 +8,11 @@ import tasks.TaskList;
 public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";
-    public static final String MESSAGE = "Exiting program...";
+    public static final String MESSAGE = "Bye my yeezy. Yeezup #GODDID";
 
     @Override
-    public void execute(TaskList tasks) {
-        System.out.println(MESSAGE);
+    public String execute(TaskList tasks) {
+        return MESSAGE;
     }
 
     /**

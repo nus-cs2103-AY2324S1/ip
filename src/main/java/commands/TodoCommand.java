@@ -21,7 +21,7 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks) {
-        tasks.addTodoTask(description);
+    public String execute(TaskList tasks) {
+        return tasks.addTodoTask(description);
     }
 }

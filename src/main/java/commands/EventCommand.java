@@ -27,7 +27,7 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks) {
-        tasks.addEventTask(description, start, end);
+    public String execute(TaskList tasks) {
+        return tasks.addEventTask(description, start, end);
     }
 }

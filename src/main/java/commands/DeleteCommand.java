@@ -20,7 +20,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks) {
-        tasks.deleteTask(taskNumber);
+    public String execute(TaskList tasks) {
+        return tasks.deleteTask(taskNumber);
     }
 }
