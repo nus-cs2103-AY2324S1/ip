@@ -147,4 +147,61 @@ public class TaskList {
             throw new InvalidIndexException();
         }
     }
+    /**
+     * Updates the attributes of a task in the task list based on the provided index.
+     * <p>
+     * The method supports updating the description for all task types. For {@code Event} tasks,
+     * the 'from' and 'to' attributes can be updated. For {@code Deadline} tasks, the 'by' attribute
+     * can be updated. Only the provided attributes are updated, while the others remain unchanged.
+     * </p>
+     *
+     * @param index Index of the task in the task list to be updated.
+     * @param newDescription New description for the task. If {@code null}, description remains unchanged.
+     * @param newFrom New starting time/date for an {@code Event} task. If {@code null} or if task is not an event,
+     *               remains unchanged.
+     * @param newTo New ending time/date for an {@code Event} task. If {@code null} or if task is not an event,
+     *             remains unchanged.
+     * @param newBy New due date for a {@code Deadline} task. If {@code null} or if task is not a deadline,
+     *             remains unchanged.
+     * @return A confirmation message indicating the updated task details.
+     * @throws InvalidIndexException If the provided index is out of the range of the task list.
+     */
+    public String updateTask(int index, String newDescription, String newFrom, String newTo, String newBy)
+            throws InvalidIndexException {
+        validateIndex(index);
+        Task task = store.get(index - 1);
+
+        if (newDescription != null) {
+            task.setDescription(newDescription);
+        }
+
+        if (task instanceof Event) {
+            Event eventTask = (Event) task;
+            if (newFrom != null) {
+                eventTask.setFrom(newFrom);
+            }
+            if (newTo != null) {
+                eventTask.setTo(newTo);
+            }
+        } else if (task instanceof Deadline) {
+            Deadline deadlineTask = (Deadline) task;
+            if (newBy != null) {
+                deadlineTask.setBy(newBy);
+            }
+        }
+
+        return "Updated task:\n\t" + task;
+    }
+
+    /**
+     * Validates the provided index for array list access.
+     *
+     * @param index The index to validate.
+     * @throws InvalidIndexException If the index is out of bounds.
+     */
+    private void validateIndex(int index) throws InvalidIndexException {
+        if (index <= 0 || index > store.size()) {
+            throw new InvalidIndexException();
+        }
+    }
 }
