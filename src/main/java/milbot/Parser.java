@@ -1,6 +1,11 @@
 package milbot;
 
-import taskclasses.*;
+import extensions.Tag;
+import extensions.TagList;
+import taskclasses.Deadline;
+import taskclasses.Event;
+import taskclasses.Todo;
+import taskclasses.Task;
 import exception.EmptyFindQueryException;
 import exception.EmptyTaskException;
 import exception.InvalidDeadlineException;
@@ -15,12 +20,14 @@ public class Parser {
     private TaskList taskList;
     private Ui ui;
     private Storage storage;
+    private TagList tagList;
 
 
-    public Parser(TaskList taskList, Ui ui, Storage storage) {
+    public Parser(TaskList taskList, Ui ui, Storage storage, TagList tagList) {
         this.taskList = taskList;
         this.ui = ui;
         this.storage = storage;
+        this.tagList = tagList;
     }
     /**
      * Parses the user input and performs corresponding actions based on the input.
@@ -41,16 +48,30 @@ public class Parser {
             return executeDeadlineCommand(input);
         } else if (input.startsWith("event")) {
             return executeEventCommand(input);
-        } else if (input.startsWith("delete")) {
-            return executeDeleteCommand(input);
+        }  else if(input.startsWith("add tag")) {
+            return executeAddTagCommand(input);
+        } else if(input.startsWith("delete tag")) {
+            return executeRemoveTagCommand(input);
+        } else if(input.equals("tags")) {
+            return executeTagListCommand();
+        } else if(input.startsWith("tag")) {
+            return executeTagCommand(input);
+        } else if(input.startsWith("untag")) {
+            return executeUntagCommand(input);
+        } else if(input.startsWith("find by tag")) {
+            return ui.printUnknownMessage();
+            //return executeFindByTagCommand(input);
         } else if(input.startsWith("find")) {
             return executeFindCommand(input);
+        } else if (input.startsWith("delete")) {
+            return executeDeleteCommand(input);
         }
         return ui.printUnknownMessage();
     }
 
     public String executeByeCommand() {
         storage.saveTasksToFile(taskList);
+        storage.saveTagsToFile(tagList);
         return ui.printGoodbyeMessage();
     }
 
@@ -193,5 +214,44 @@ public class Parser {
             }
         }
         return ui.printSearchResult(tasksResult);
+    }
+
+
+    public String executeAddTagCommand(String input) {
+        String tagName = input.split("#")[1];
+        Tag tag = new Tag(tagName);
+        tagList.addTag(tag);
+        return ui.printNewTag(tagList, tag);
+    }
+
+    public String executeRemoveTagCommand(String input) {
+        int index = Integer.parseInt(input.split(" ")[2]) - 1;
+        Tag tag = tagList.getTag(index);
+        tagList.removeTag(index);
+        return ui.printRemoveTag(tag, tagList);
+    }
+
+    public String executeTagListCommand() {
+        return ui.printTagList(tagList);
+    }
+
+    public String executeTagCommand(String input) {
+        int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+        String tagName = input.split("#")[1];
+        Tag tag = new Tag(tagName);
+        Task task = taskList.getTask(taskIndex);
+        if(tagList.containTag(tagName)) {
+            task.tagTask(tag);
+            return ui.printTagTask(task);
+        }
+
+        return "Tag task failed";
+    }
+
+    public String executeUntagCommand(String input) {
+        int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+        Task task = taskList.getTask(taskIndex);
+        task.untagTask();
+        return ui.printUntagTask(task);
     }
 }

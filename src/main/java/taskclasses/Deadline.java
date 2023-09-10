@@ -1,5 +1,7 @@
 package taskclasses;
 
+import extensions.Tag;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -28,8 +30,8 @@ public class Deadline extends Task {
      * @param isDone      The completion status of the task.
      * @param by          The due date of the task.
      */
-    public Deadline(String description, boolean isDone, LocalDate by) {
-        super(description, isDone);
+    public Deadline(String description, boolean isDone, LocalDate by, Tag tag) {
+        super(description, isDone, tag);
         this.by = by.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
     @Override

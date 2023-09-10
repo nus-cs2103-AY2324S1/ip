@@ -1,5 +1,7 @@
 package taskclasses;
 
+import extensions.Tag;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -11,8 +13,8 @@ public class Event extends Task {
         this.from = from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         this.to = to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
-    public Event(String description, boolean isDone, LocalDate from, LocalDate to) {
-        super(description, isDone);
+    public Event(String description, boolean isDone, LocalDate from, LocalDate to, Tag tag) {
+        super(description, isDone, tag);
         this.from = from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         this.to = to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }

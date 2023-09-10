@@ -1,5 +1,6 @@
 package taskclasses;
 
+import extensions.Tag;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -9,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class Task {
     private String description;
     private boolean isDone;
-
+    private Tag tag;
     /**
      * Constructs a Task with the given description and sets the completion status to false.
      *
@@ -27,10 +28,11 @@ public class Task {
      * @param description The description of the task.
      * @param isDone      The completion status of the task.
      */
-    public Task(String description, boolean isDone) {
+    public Task(String description, boolean isDone, Tag tag) {
         assert description != null : "Task description should not be null";
         this.description = description;
         this.isDone = isDone;
+        this.tag = tag;
     }
 
     /**
@@ -48,21 +50,30 @@ public class Task {
         String description = parts[2].trim();
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM d yyyy");
 
+        int dateIndex = 3;
+        Tag tag = null;
+
+        if(parts.length > 3 && parts[3].contains("#")) {
+            dateIndex = 4;
+            String tagData = parts[3].split("#")[1].trim();
+            tag = new Tag(tagData);
+        }
+
         if (type.equals("T")) {
-            return new Todo(description);
+            return new Todo(description, isDone, tag);
         } else if (type.equals("D")) {
-            LocalDate by = LocalDate.parse(parts[3].trim(), inputFormatter);
-            return new Deadline(description, isDone, by);
+            LocalDate by = LocalDate.parse(parts[dateIndex].trim(), inputFormatter);
+            return new Deadline(description, isDone, by, tag);
         } else if (type.equals("E")) {
 
-            String[] dates = parts[3].split(" - ");
+            String[] dates = parts[dateIndex].split(" - ");
 
             String fromDateString = dates[0];
             String toDateString = dates[1];
 
             LocalDate from = LocalDate.parse(fromDateString, inputFormatter);
             LocalDate to = LocalDate.parse(toDateString, inputFormatter);
-            return new Event(description, isDone, from, to);
+            return new Event(description, isDone, from, to, tag);
         } else {
             return null; // Unknown task type
         }
@@ -89,10 +100,28 @@ public class Task {
      */
     public String formatToFile() {
         String status = isDone ? "1" : "0";
+        if(this.tag != null) {
+            return status + " | " + description + " | " + this.tag;
+        }
         return status + " | " + description;
+    }
+    public void tagTask(Tag tag) {
+        if(this.tag == null) {
+            this.tag = tag;
+        }
+    }
+
+    public void untagTask() {
+        if(this.tag != null) {
+            this.tag = null;
+        }
     }
     @Override
     public String toString() {
-        return String.format("[%s] %s", this.getStatusIcon(), this.description);
+        if (this.tag != null) {
+            return String.format("[%s] %s %s", this.getStatusIcon(), this.description, this.tag.toString());
+        } else {
+            return String.format("[%s] %s", this.getStatusIcon(), this.description);
+        }
     }
 }

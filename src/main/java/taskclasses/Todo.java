@@ -1,5 +1,7 @@
 package taskclasses;
 
+import extensions.Tag;
+
 /**
  * Represents a task of type "Todo" that can be completed.
  */
@@ -11,6 +13,10 @@ public class Todo extends Task {
      */
     public Todo(String description) {
         super(description);
+    }
+
+    public Todo(String description, boolean isDone, Tag tag) {
+        super(description, isDone, tag);
     }
     @Override
     public String formatToFile() {

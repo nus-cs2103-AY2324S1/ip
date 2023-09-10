@@ -1,5 +1,7 @@
 package milbot;
 
+import extensions.Tag;
+import extensions.TagList;
 import taskclasses.Task;
 import taskclasses.Deadline;
 import taskclasses.Event;
@@ -62,7 +64,6 @@ public class Ui {
             i++;
         }
         return taskListMessage;
-
     }
 
 
@@ -131,5 +132,36 @@ public class Ui {
         }
 
         return searchResult;
+    }
+
+    public String printNewTag(TagList tagList, Tag tag) {
+        String newTagMessage = "Got it. I've added this tag:\n" +
+                "  " + tag + "\n" +
+                "Now you have " + tagList.getSize() + " tags.\n";
+
+        return newTagMessage;
+    }
+
+    public String printRemoveTag(Tag tag, TagList tagList) {
+        return "Noted. I've removed this tag:\n" + tag + "\n" +
+                "Now you have " + tagList.getSize() + " tags.";
+    }
+
+    public String printTagList(TagList tagList) {
+        String taskListMessage = "Here are the tags you have:\n";
+        int i = 1;
+        for (Tag tag : tagList.getTagList()) {
+            taskListMessage += String.format("%d. %s\n", i, tag.toString());
+            i++;
+        }
+        return taskListMessage;
+
+    }
+
+    public String printTagTask(Task task) {
+        return "Nice! I've tagged this task:\n" + task.toString();
+    }
+    public String printUntagTask(Task task) {
+        return "Nice! I've untagged this task:\n" + task;
     }
 }
