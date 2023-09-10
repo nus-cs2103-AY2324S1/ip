@@ -125,7 +125,6 @@ public class Parser {
      */
     private String handleMarkCommand(String input) throws DukeException {
         String[] parsedString = input.split(" ");
-
         if (parsedString.length != 2) {
             throw new DukeInvalidCommandException("mark");
         }
@@ -151,7 +150,6 @@ public class Parser {
      */
     private String handleUnmarkCommand(String input) throws DukeException {
         String[] parsedString = input.split(" ");
-
         if (parsedString.length != 2) {
             throw new DukeInvalidCommandException("unmark");
         }
@@ -295,13 +293,16 @@ public class Parser {
         }
     }
 
+
     /**
      * Adds a new todo task to the task list and storage.
      *
      * @param input   The description of the todo task.
      * @param isDone  The completion status of the task.
+     * @return A message indicating the success of adding the todo task.
      */
     public String addTodo(String input, boolean isDone) {
+        assert input != null && !input.trim().isEmpty() : "Task description cannot be empty";
         Todo newTask = new Todo(input, isDone);
         String newTaskString = newTask.fileFormat();
 
@@ -320,9 +321,11 @@ public class Parser {
      *
      * @param input   The description of the deadline task.
      * @param isDone  The completion status of the task.
-     * @param by The deadline in LocalDateTime format of that task.
+     * @param by The deadline of the task.
+     * @return A message indicating the success of adding the deadline task.
      */
     public String addDeadline(String input, boolean isDone, LocalDateTime by) {
+        assert input != null && !input.trim().isEmpty() : "Task description cannot be empty";
         Deadline newTask = new Deadline(input, isDone, by);
         String newTaskString = newTask.fileFormat();
 
@@ -343,8 +346,10 @@ public class Parser {
      * @param isDone  The completion status of the task.
      * @param start The start time of the event.
      * @param end The end time of the event.
+     * @return A message indicating the success of adding the event task.
      */
     public String addEvent(String input, boolean isDone, String start, String end) {
+        assert input != null && !input.trim().isEmpty() : "Task description cannot be empty";
         Event newTask = new Event(input, isDone, start, end);
         String newTaskString = newTask.fileFormat();
 
@@ -359,7 +364,9 @@ public class Parser {
     }
 
     /**
-     * Prints the list of tasks.
+     * Prints the list of tasks in the task list.
+     *
+     * @return A String containing the list of tasks.
      */
     public String printList() {
         String taskList = "Here are the tasks in your list:\n";
@@ -374,6 +381,7 @@ public class Parser {
      *
      * @param task The task to be marked as done.
      * @param num  The index of the task in the list.
+     * @return A message indicating the success of marking the task as done.
      */
     public String markCompletion(Task task, int num) {
         if (task.getStatusIcon().equals("X")) {
@@ -397,6 +405,7 @@ public class Parser {
      *
      * @param task The task to be marked as not done.
      * @param num  The index of the task in the list.
+     * @return A message indicating the success of marking the task as not done.
      */
     public String unmarkCompletion(Task task, int num) {
         if (task.getStatusIcon().equals(" ")) {
@@ -418,6 +427,7 @@ public class Parser {
      * Deletes a task from the task list and updates the storage.
      *
      * @param num The index of the task in the task list to be deleted.
+     * @return A message indicating the success of deleting the task.
      */
     public String deleteTask(Integer num) {
         String message = "Noted. I've removed this task:\n";
@@ -433,6 +443,7 @@ public class Parser {
      * Finds tasks that match a specified keyword and displays them.
      *
      * @param keyword The keyword to search for in task descriptions.
+     * @return A String containing the list of matching tasks.
      */
     private String findTasks(String keyword) {
         List<Task> matchingTasks = lst.findTasksByKeyword(keyword);
