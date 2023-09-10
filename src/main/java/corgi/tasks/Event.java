@@ -45,8 +45,11 @@ public class Event extends Task {
      * @return True if the task's event duration includes the target date, false otherwise.
      */
     public boolean isHappeningOnDate(LocalDate targetDate) {
-        return targetDate.isEqual(this.from) || targetDate.isEqual(this.to)
-                || (targetDate.isAfter(this.from) && targetDate.isBefore(this.to));
+        boolean isOnStartDate = targetDate.isEqual(this.from);
+        boolean isOnEndDate = targetDate.isEqual(this.to);
+        boolean isWithinEventDateRange = (targetDate.isAfter(this.from) && targetDate.isBefore(this.to));
+
+        return isOnStartDate || isOnEndDate || isWithinEventDateRange;
     }
 
     /**
@@ -56,10 +59,14 @@ public class Event extends Task {
      */
     @Override
     public String toStorableString() {
-        String[] infos = {"E", this.status ? "1" : "0", this.desc,
-                this.from.format(Task.DATE_INPUT_FORMATTER), this.to.format(Task.DATE_INPUT_FORMATTER)};
+        String statusStr = this.status ? "1" : "0";
+        String formattedFrom = this.from.format(Task.DATE_INPUT_FORMATTER);
+        String formattedTo = this.to.format(Task.DATE_INPUT_FORMATTER);
 
-        return String.join(TaskParser.SEPARATOR, infos);
+        String[] infos = {"E", statusStr, this.desc, formattedFrom, formattedTo};
+        String combinedInfos = String.join(TaskParser.SEPARATOR, infos);
+
+        return combinedInfos;
     }
 
     /**
@@ -69,7 +76,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from.format(DATE_OUTPUT_FORMATTER)
+        String dateRange = "(from: " + this.from.format(DATE_OUTPUT_FORMATTER)
                 + " to: " + this.to.format(DATE_OUTPUT_FORMATTER) + ")";
+        return "[E]" + super.toString() + " " + dateRange;
     }
 }
