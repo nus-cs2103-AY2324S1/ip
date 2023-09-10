@@ -55,6 +55,10 @@ public class TaskList {
      */
     public static Task createTask(String input, Commands command, int isDone)
             throws DukeException, DateTimeParseException {
+
+        assert command != null: "No command received";
+        assert !input.isEmpty() : "Wrong command provided";
+
         try {
             switch (command) {
             case TODO:
@@ -97,6 +101,9 @@ public class TaskList {
      *     a list of description to be read by the user.
      */
     public List<String> getTasksDes(int typeOfDes) {
+
+        assert typeOfDes != 0 || typeOfDes != 1: "Type of description required not recognised";
+
         List<String> output = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             if (typeOfDes == 0) {
@@ -120,6 +127,9 @@ public class TaskList {
      *     if task cannot be found in the task list.
      */
     public String changeTaskCompletion(String input, Commands command) throws DukeException {
+
+        assert command != null: "No command received";
+
         try {
             int taskNum = Integer.valueOf(input.split(" ")[1]);
             Task task = tasks.get(taskNum - 1);
