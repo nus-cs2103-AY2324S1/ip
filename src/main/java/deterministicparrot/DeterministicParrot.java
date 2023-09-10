@@ -2,49 +2,34 @@ package deterministicparrot;
 
 
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.*;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
-
 
 /**
  * Main class for the Deterministic Parrot task management application.
  */
-public class DeterministicParrot{
-    //static variable storing the path to data file
-
-    //init by setting input and output
+public class DeterministicParrot {
     private Ui ui = new Ui();
     private TaskList taskList;
     private Parser parser = new Parser();
     private Storage storage = new Storage();
     private boolean endParrot = false;
 
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/parrot2.jpeg"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/parrot.png"));
-
     /**
      * Constructs a DeterministicParrot object.
      * Initializes the task list and sets up command handlers.
      */
     public DeterministicParrot() {
+        this.taskList = new TaskList();
+        this.initCommandHandlers();
+    }
+    /**
+     * Constructs a DeterministicParrot object.
+     * Initializes the task list and sets up command handlers.
+     */
+    public DeterministicParrot(Scanner s, StringWriter sw) {
+        this.ui = new Ui(s, sw);
         this.taskList = new TaskList();
         this.initCommandHandlers();
     }
@@ -291,8 +276,18 @@ public class DeterministicParrot{
      * Replace this stub with your completed method.
      */
     String getResponse(String input) {
-        return "Parrot heard: " + input;
+        this.ui.printDash();
+        try {
+            this.parser.handleCommand(input);
+        } catch (Exception e) {
+            this.ui.printError(e);
+        }
+        this.ui.printDash();
+        String output = this.ui.flushWriter();
+        System.out.println(output);
+        return output;
     }
+
     /**
      * Main method to start the Deterministic Parrot application.
      *
@@ -300,6 +295,7 @@ public class DeterministicParrot{
      */
     public static void main(String[] args) {
         DeterministicParrot parrot = new DeterministicParrot();
+        System.out.println(parrot.getResponse("list"));
         parrot.poll();
     }
 }

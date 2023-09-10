@@ -7,12 +7,17 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Scanner;
+
 /**
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
 
-    private DeterministicParrot duke = new DeterministicParrot();
+    private StringWriter stringWriter = new StringWriter();
+    private DeterministicParrot duke = new DeterministicParrot(new Scanner(System.in), stringWriter);
 
     @Override
     public void start(Stage stage) {

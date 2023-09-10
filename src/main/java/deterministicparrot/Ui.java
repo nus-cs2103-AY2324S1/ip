@@ -1,6 +1,8 @@
 package deterministicparrot;
 
 import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -9,17 +11,19 @@ import java.util.Scanner;
  */
 public class Ui {
     private Scanner s;
+    private StringWriter sw;
     private PrintWriter pw;
 
     /**
      * Constructs a Ui instance with the provided Scanner and PrintWriter.
      *
-     * @param s The Scanner to read input from the user.
+     * @param s  The Scanner to read input from the user.
      * @param pw The PrintWriter to output messages to the user.
      */
-    public Ui(Scanner s, PrintWriter pw) {
+    public Ui(Scanner s, StringWriter sw) {
         this.s = s;
-        this.pw = pw;
+        this.sw = sw;
+        this.pw = new PrintWriter(sw, false);
     }
 
     /**
@@ -88,5 +92,16 @@ public class Ui {
      */
     public void printDash() {
         this.pw.println("    ____________________________________________________________");
+    }
+
+    public void inputText(String str) {
+        this.s = new Scanner(str); //bad and not performant, but works
+    }
+
+    public String flushWriter() {
+        String ans = this.sw.toString();
+        System.out.println(ans);
+        this.sw.getBuffer().setLength(0);
+        return ans;
     }
 }
