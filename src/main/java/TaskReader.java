@@ -1,29 +1,29 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
 public class TaskReader {
-    public static ArrayList<Tasks> readTasksFromFile(String filename) {
-        ArrayList<Tasks> tasksList = new ArrayList<>();
+    public static TaskList readTasksFromFile(String filename) {
+        TaskList tasks = new TaskList();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                Tasks task = parseTaskFromLine(line);
+                Task task = parseTaskFromLine(line);
                 if (task != null) {
-                    tasksList.add(task);
+                    tasks.addTaskFromStorage(task);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return tasksList;
+        return tasks;
     }
 
-    private static Tasks parseTaskFromLine(String line) {
+    private static Task parseTaskFromLine(String line) {
         // Parse a task from a line of text
         if (line.startsWith("[T]")) {
             String description = line.substring(6).trim(); // Remove "[T][ ]" and leading spaces
@@ -33,8 +33,12 @@ public class TaskReader {
             // Parse Deadline task
             String description = line.substring(6, line.indexOf("(by:")).trim();
             boolean isMarked = line.charAt(4) == 'X';
-            LocalDate deadline = LocalDate.parse(extractDeadline(line));
+            String dateSubstring = extractDeadline(line);
+            String formattedDate = DateConverter.convertDate(dateSubstring);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            LocalDate deadline = LocalDate.parse(formattedDate, formatter);
             return new Deadline(description, isMarked, deadline);
+
         } else if (line.startsWith("[E]")) {
             // Parse Event task
             String description = line.substring(6, line.indexOf("(from:")).trim();
