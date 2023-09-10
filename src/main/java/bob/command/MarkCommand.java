@@ -5,8 +5,6 @@ import bob.storage.StorageFile;
 import bob.task.Task;
 import bob.task.TaskList;
 import bob.ui.TextGenerator;
-import bob.ui.TextUi;
-import org.w3c.dom.Text;
 
 /**
  * The MarkCommand encapsulates logic to be executed to modify the
@@ -45,7 +43,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public String getOutputMessage() throws BobException {
+    public String getOutputMessage() {
         if (isDone) {
             return TextGenerator.getMarkMessage(this.task);
         } else {

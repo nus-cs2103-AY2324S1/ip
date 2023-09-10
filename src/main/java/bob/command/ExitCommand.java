@@ -4,7 +4,6 @@ import bob.exception.BobException;
 import bob.storage.StorageFile;
 import bob.task.TaskList;
 import bob.ui.TextGenerator;
-import bob.ui.TextUi;
 
 /**
  * The ExitCommand encapsulates logic to be executed when

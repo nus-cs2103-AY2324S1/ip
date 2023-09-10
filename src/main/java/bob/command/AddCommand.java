@@ -10,7 +10,6 @@ import bob.task.Task;
 import bob.task.TaskList;
 import bob.task.Todo;
 import bob.ui.TextGenerator;
-import bob.ui.TextUi;
 
 
 /**
@@ -59,6 +58,7 @@ public class AddCommand extends Command {
             task = new Event(this.description, this.startDate, this.endDate);
             break;
         default:
+            assert false : "Incorrect CommandType enum has been passed into a AddCommand instance";
         }
         taskList.addTask(task);
         storageFile.saveTasks(taskList);

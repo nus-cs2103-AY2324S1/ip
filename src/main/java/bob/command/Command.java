@@ -17,7 +17,6 @@ public abstract class Command {
      *
      * @param taskList Current list of tasks
      * @param storageFile Storage file reader and writer
-     * @param ui User Interface reader and writer
      * @throws BobException if the command is constructed with invalid arguments
      */
     public abstract void execute(TaskList taskList, StorageFile storageFile) throws BobException;
