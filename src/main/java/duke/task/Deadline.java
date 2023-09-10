@@ -22,6 +22,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
+        assert (by != null) : "By time of deadline task cannot be null.";
         String byFormatted = by.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         return "[D]" + super.toString() + " (by: " + byFormatted + ")";
     }
