@@ -13,6 +13,8 @@ import bob.command.MarkCommand;
 public class Parser {
 
     public static Command parse(String nextLine) {
+        assert !nextLine.equals("");
+
         if (nextLine.equals("list")) {
             return new DisplayCommand();
         } else if (nextLine.contains("mark")) { // if command is to mark or unmark

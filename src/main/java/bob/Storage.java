@@ -32,6 +32,7 @@ public class Storage {
             // do nothing, as a new file is created. list remains empty
         } else {
             // read from file
+            assert file != null;
             Scanner sc = new Scanner(file);
             try {
                 while (sc.hasNext()) {
@@ -42,6 +43,7 @@ public class Storage {
                 file.createNewFile();
             }
         }
+
         return lst;
     }
 
@@ -55,6 +57,7 @@ public class Storage {
         String lstString = "";
 
         for (Task tsk : lst) {
+            assert !tsk.toTxt().equals("");
             lstString += tsk.toTxt() + "\n";
         }
 

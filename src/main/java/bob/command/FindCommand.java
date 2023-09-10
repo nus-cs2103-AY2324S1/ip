@@ -8,6 +8,7 @@ public class FindCommand extends Command {
     public FindCommand(String input) {
         super.input = input;
     }
+
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             String keyword = input.split(" ")[1];
@@ -15,6 +16,5 @@ public class FindCommand extends Command {
         } catch (Exception e) {
             return ui.stringFormat(new String[] {"Missing keyword!"});
         }
-
     }
 }
