@@ -45,6 +45,8 @@ public class TaskList {
      * @throws MilesException when task number does not exist
      */
     public Task deleteTask(int taskNum) throws MilesException {
+        assert taskNum >= 0 && taskNum < this.taskList.size()
+                : "Task number should be above 0 and below the size of the task list.";
         if (taskNum <= 0 || taskNum > this.taskList.size()) {
             throw new MilesException("No such task to delete!");
         }
@@ -92,6 +94,8 @@ public class TaskList {
      * @param taskNum the task number to be marked as done
      */
     public void markTaskAsDone(int taskNum) {
+        assert taskNum > 0 && taskNum <= this.taskList.size()
+                : "Task number should be above 0 and below the size of the task list.";
         if (taskNum <= 0 || taskNum > this.taskList.size()) {
             ui.printInvalidTaskNumber(taskNum);
             return;
@@ -109,6 +113,8 @@ public class TaskList {
      * @param taskNum the task number to be marked as undone
      */
     public void markTaskAsUndone(int taskNum) {
+        assert taskNum > 0 && taskNum <= this.taskList.size()
+                : "Task number should be above 0 and below the size of the task list.";
         if (taskNum <= 0 || taskNum > taskList.size()) {
             ui.printInvalidTaskNumber(taskNum);
             return;

@@ -7,12 +7,16 @@ import miles.TaskList;
 public class MarkCommand extends Command {
     private String input;
 
+    /**
+     * Constructor to create a new mark command.
+     * @param input user input
+     */
     public MarkCommand(String input) {
         this.input = input;
     }
 
     /**
-     * Return task number from user input.
+     * Returns task number from user input.
      * 
      * @param input user input
      * @return      task number 
