@@ -49,6 +49,7 @@ public class Ui {
                 s.append((curr++) + ". " + t.getStatus() + "\n");
             }
         }
+        assert curr >= tasks.getLen() : "Something wrong with the task length";
         return s.toString();
     }
 

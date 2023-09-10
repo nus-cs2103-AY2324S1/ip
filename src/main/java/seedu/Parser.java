@@ -7,8 +7,10 @@ public class Parser {
     public static Command parse(String command, Ui ui, Storage storage, TaskList tasks) {
         
         if(command.equals("bye")) {
+            assert command != "bye" : " Command should be a bye";
             return new Command(command, ui, storage, tasks);
         } else if (command.equals("list")) {
+            assert command != "list" : " Command should be a list";
             return new Command(command, ui, storage, tasks);
         } else if (command.startsWith("delete ")) {
             String[] s = command.split(" ");

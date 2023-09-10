@@ -92,7 +92,7 @@ public class Task {
     /**
      * Sets the description of the task
      *
-     * @param the text description of the task
+     * @param d the text description of the task
      */
     public void setDescription(String desc) {
         this.description = desc;
@@ -105,6 +105,7 @@ public class Task {
      */
     public String mark() {
         this.isDone = true;
+        assert this.isDone == true : "Something wrong with marking";
         return "["+ this.getStatusIcon() + "] " + this.description;
     }
 
