@@ -6,82 +6,42 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
+    protected Ui ui;
+    protected Storage storage;
+    protected TaskList tasks;
     private static final String FILE_PATH = "../data/Duke.txt";
 
-    private static ArrayList<Task> loadTasks() {
-        ArrayList<Task> tasks = new ArrayList<>();
-        try {
-            File f = new File(FILE_PATH);
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                String data = s.nextLine();
-                String[] splitVariables = data.split(" \\| ");
-                String taskType = splitVariables[0];
-                String taskDescription = splitVariables[1];
-                boolean taskIsDone = Boolean.parseBoolean(splitVariables[2]);
-                switch (taskType) {
-                    case "E":
-                        String taskFrom = splitVariables[3];
-                        String taskTo = splitVariables[4];
-                        tasks.add(new Event(taskDescription, taskFrom, taskTo, taskIsDone));
-                        break;
-                    case "D":
-                        String taskBy = splitVariables[3];
-                        tasks.add(new Deadline(taskDescription, taskBy, taskIsDone));
-                        break;
-                    case "T":
-                        tasks.add(new Todo(taskDescription, taskIsDone));
-                }
-            }
-            s.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found. No existing tasks.");
-        }
-
-        return tasks;
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        tasks = new TaskList(storage.loadTasks());
     }
 
-    private static void saveTasks(ArrayList<Task> tasks) {
-        try {
-            FileWriter fw = new FileWriter(FILE_PATH);
-            for (Task task : tasks) {
-                String taskData = task.parse();
-                fw.write(taskData + "\n");
-            }
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Save tasks failed.");
-        }
-    }
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    public void run() {
+        Scanner scanner = ui.getScanner();
         boolean isRunning = true;
 
-        ArrayList<Task> tasks = loadTasks();
         int taskCount = tasks.size();
-//        Task[] tasks =  new Task[100];
-        System.out.println("Hello! I'm Chatty\nWhat can I do for you?");
-        System.out.println("____________________________________________________________");
+        System.out.println(ui.helloMessage());
+        System.out.println(ui.lineBreak());
+
         while (isRunning) {
             try {
-                String userInput = scanner.nextLine();
-                System.out.println("____________________________________________________________");
+                String userInput = ui.getUserInput();
+                System.out.println(ui.lineBreak());
                 if (userInput.equals("bye")) {
-                    saveTasks(tasks);
-                    System.out.println("Bye. Hope to see you again soon!");
+                    storage.saveTasks(tasks);
+                    System.out.println(ui.goodbyeMessage());
                     isRunning = false;
                 } else if (userInput.equals("list")){
-                    System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println(i + 1 + "." + tasks.get(i));
-                    }
+                    System.out.println(tasks.printTasks());
                 } else if (userInput.startsWith("mark ")) {
-                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(ui.markTaskDone());
                     int taskIndex = Integer.parseInt(userInput.substring(5)) - 1;
                     tasks.get(taskIndex).switchCheck();
                     System.out.println(tasks.get(taskIndex).toString());
                 } else if (userInput.startsWith("unmark ")) {
-                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println(ui.unmarkTaskDone());
                     int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
                     tasks.get(taskIndex).switchCheck();
                     System.out.println(tasks.get(taskIndex).toString());
@@ -90,66 +50,49 @@ public class Duke {
                         throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
                     }
                     Task newToDo = new Todo(userInput.substring(5));
-                    System.out.println("Got it. I've added this task:");
+                    System.out.println(ui.addTask());
                     tasks.add(new Todo(userInput));
                     taskCount++;
                     System.out.println(newToDo.toString());
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println(tasks.printTaskCount());
                 } else if (userInput.startsWith("deadline ")) {
-                    System.out.println("Got it. I've added this task:");
+                    System.out.println(ui.addTask());
                     String description = userInput.substring(9, userInput.indexOf("/by")).trim();
                     String by = userInput.substring(userInput.indexOf("/by") + 4).trim();
-                    //format to correct local datetime format (from DateTimeParser)
-//                    try {
-//                        by = DateTimeParser.toLocalDateTimeString(by);
-//                    } catch (DateTimeParseException e) {
-//                        System.out.println("DateTime input not valid, please try again.");
-//                        //skip to next iteration of loop, which gets next line of user input
-//                        continue;
-//                    }
                     try {
                         Task newDeadline = new Deadline(description, by);
                         tasks.add(newDeadline);
                         taskCount++;
                         System.out.println(newDeadline.toString());
-                        System.out.println("Now you have " + taskCount + " tasks in the list.");
+                        System.out.println(tasks.printTaskCount());
                     } catch (DateTimeParseException e) {
-                        System.out.println("DateTime input not valid, please try again.");
+                        System.out.println(ui.dateTimeParseExceptionMessage());
                         //skip to next iteration of loop, which gets next line of user input
                         continue;
                     }
                 } else if (userInput.startsWith("event ")) {
-                    System.out.println("Got it. I've added this task:");
+                    System.out.println(ui.addTask());
                     String description = userInput.substring(6, userInput.indexOf("/from")).trim();
                     String from = userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to")).trim();
                     String to = userInput.substring(userInput.indexOf("/to") + 4).trim();
-                    //format to correct local datetime format (from DateTimeParser)
-//                    try {
-//                        from = DateTimeParser.toLocalDateTimeString(from);
-//                        to = DateTimeParser.toLocalDateTimeString(to);
-//                    } catch (DateTimeParseException e ) {
-//                        System.out.println("DateTime input not valid, please try again.");
-//                        //skip to next iteration of loop, which gets next line of user input
-//                        continue;
-//                    }
                     try {
                         Task newEvent = new Event(description, from, to);
                         tasks.add(newEvent);
                         taskCount++;
                         System.out.println(newEvent.toString());
-                        System.out.println("Now you have " + taskCount + " tasks in the list.");
+                        System.out.println(tasks.printTaskCount());
                     } catch (DateTimeParseException e) {
-                        System.out.println("DateTime input not valid, please try again.");
+                        System.out.println(ui.dateTimeParseExceptionMessage());
                         //skip to next iteration of loop, which gets next line of user input
                         continue;
                     }
                 } else if (userInput.startsWith("delete ")) {
-                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(ui.removeTask());
                     int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
                     System.out.println(tasks.get(taskIndex));
                     tasks.remove(taskIndex);
                     taskCount--;
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println(tasks.printTaskCount());
                 } else {
                     throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
@@ -157,8 +100,13 @@ public class Duke {
                 // Handle Duke-specific exceptions with meaningful error messages
                 System.out.println(e.getMessage());
             }
-            System.out.println("____________________________________________________________");
+            System.out.println(ui.lineBreak());
         }
-        scanner.close();
+        ui.closeScanner();
     }
+    public static void main(String[] args) {
+        new Duke(FILE_PATH).run();
+    }
+
+
 }
