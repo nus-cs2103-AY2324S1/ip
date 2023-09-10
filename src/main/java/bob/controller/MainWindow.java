@@ -47,6 +47,10 @@ public class MainWindow extends AnchorPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        assert userInput != null : "User input has not been loaded properly from fxml file";
+        assert sendButton != null : "Send button picture has not been loaded properly from fxml file";
+        assert scrollPane != null : "Scroll pane has not been loaded properly from fxml file";
+        assert dialogContainer != null : "Dialog Container picture has not been loaded properly from fxml file";
     }
 
     public void setBob(Bob b) {

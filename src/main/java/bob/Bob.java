@@ -32,6 +32,7 @@ public class Bob {
         isActive = true;
         try {
             taskList = storageFile.loadTasks();
+            assert taskList != null : "A null value has been returned when loading task list";
         } catch (BobException e) {
             textUi.printErrorMessage(e);
             taskList = new TaskList();
@@ -48,6 +49,7 @@ public class Bob {
         isActive = true;
         try {
             taskList = storageFile.loadTasks();
+            assert taskList != null : "A null value has been returned when loading task list";
         } catch (BobException e) {
             textUi.printErrorMessage(e);
             taskList = new TaskList();
@@ -65,6 +67,7 @@ public class Bob {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
+            assert c != null : "Parser has returned a null value instead of a Command instance";
             c.execute(taskList, storageFile);
             if (c.isExit()) {
                 isActive = false;
