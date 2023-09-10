@@ -1,5 +1,6 @@
 package roo;
 
+import roo.commands.*;
 import roo.task.Deadline;
 import roo.task.Event;
 import roo.task.Task;
@@ -52,32 +53,30 @@ public class Parse {
      * @return The Commands enum representing the detected command.
      */
     public static Commands parse(String input) {
-        Commands c;
         if (input.equals("list")) {
-            c = Commands.LIST;
+            return new List();
         } else if (input.startsWith("unmark")) {
-            c = Commands.UNMARK;
+            return new Unmark(input);
         } else if (input.startsWith("mark")) {
-            c = Commands.MARK;
+            return new Mark(input);
         } else if (input.startsWith("delete") || input.startsWith("remove")) {
-            c = Commands.DELETE;
+            return new Delete(input);
         } else if (input.startsWith("todo")) {
-            c = Commands.TODO;
+            return new TodoCommand(input);
         } else if (input.startsWith("deadline")) {
-            c = Commands.DEADLINE;
+            return new DeadlineCommand(input);
         } else if (input.startsWith("event")) {
-            c = Commands.EVENT;
+            return new EventCommand(input);
         } else if (input.startsWith("check")) {
-            c = Commands.DATE;
+            return new ListDate(input);
         } else if (input.startsWith("clear")) {
-            c = Commands.CLEAR;
+            return new Clear();
         } else if (input.startsWith("find")) {
-            c = Commands.FIND;
+            return new Find(input);
         } else if (input.startsWith("end") || input.startsWith("bye")) {
-            c = Commands.END;
+            return new End();
         } else {
-            c = Commands.UNKNOWN;
+            return new Unknown();
         }
-        return c;
     }
 }
