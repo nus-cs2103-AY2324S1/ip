@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Ren {
     private static RenObjectMapper objectMapper = new RenObjectMapper();
-    private static TaskList tasks = objectMapper.retrieveFromHarddisk();
+    private static TaskList tasks = RenObjectMapper.retrieveFromHarddisk();
     ;
 
     /**
