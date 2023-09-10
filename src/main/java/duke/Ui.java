@@ -38,7 +38,7 @@ public class Ui {
     }
 
     /**
-     * Prints all tasks in task list.
+     * Prints matching tasks in task list.
      *
      * @param tasks The task list.
      */
