@@ -1,17 +1,17 @@
 package duke;
 
-import java.util.ArrayList;
 import java.io.IOException;
+import java.util.ArrayList;
+
 
 /**
- * DukeList stores tasks given by users to the main Duke chatbot.
+ * DukeList stores tasks given by users to the main Dukebot.
  */
 public class DukeList {
     //The ArrayList used to store all tasks accordingly.
     private ArrayList<Task> tasks;
     //The path directory to test.s
-    private String path ;
-
+    private String path;
     //The DataSaver class used to transmit and store information during the use of the Duke class
     private DataSaver middleman;
 
