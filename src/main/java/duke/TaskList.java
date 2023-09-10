@@ -9,7 +9,6 @@ import java.util.Scanner;
  * Class to encapsulate the list of tasks
  */
 public class TaskList {
-    private File textFile;
     private ArrayList<Task> taskList;
 
     /**
@@ -17,7 +16,6 @@ public class TaskList {
      * @param filePath
      */
     public TaskList(String filePath) {
-        this.textFile = textFile;
         this.createTaskList(filePath);
     }
 
@@ -165,8 +163,5 @@ public class TaskList {
     public int length() {
         return this.taskList.size();
     }
-
-
-
 
 }
