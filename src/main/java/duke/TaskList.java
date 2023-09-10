@@ -22,8 +22,8 @@ public class TaskList {
     /**
      * Lists all tasks in the task list.
      */
-    public void listTasks() {
-        Ui.listTasks(this.tasks);
+    public String listTasks() {
+         return Ui.listTasks(this.tasks);
     }
 
     /**
@@ -31,10 +31,10 @@ public class TaskList {
      *
      * @param t The task to be added.
      */
-    public void addTask(Task t) {
+    public String addTask(Task t) {
         this.tasks.add(t);
-        Ui.addTask(t, this.tasks);
         this.storage.addTheLastTaskToFile(this.tasks);
+        return Ui.addTask(t, this.tasks);
     }
 
     /**
@@ -42,10 +42,10 @@ public class TaskList {
      *
      * @param num The position starts from 0.
      */
-    public void deleteTask(int num) {
+    public String deleteTask(int num) {
         Task re = tasks.remove(num);
         this.storage.rewriteFile(tasks);
-        Ui.deleteTask(re, tasks);
+        return Ui.deleteTask(re, tasks);
     }
 
     /**
@@ -53,11 +53,11 @@ public class TaskList {
      *
      * @param num The position starts from 0.
      */
-    public void markTask(int num) {
+    public String markTask(int num) {
         Task t = tasks.get(num);
         t.markAsDone();
-        Ui.markTask(t);
         this.storage.rewriteFile(tasks);
+        return Ui.markTask(t);
     }
 
     /**
@@ -65,13 +65,13 @@ public class TaskList {
      *
      * @param keyword The keyword.
      */
-    public void findTask(String keyword) {
+    public String findTask(String keyword) {
         ArrayList<Task> result = new ArrayList<>();
         for (int i = 0; i < this.tasks.size(); i++) {
             if (tasks.get(i).toString().contains(keyword)) {
                 result.add(tasks.get(i));
             }
         }
-        Ui.listMatchingTasks(result);
+        return Ui.listMatchingTasks(result);
     }
 }

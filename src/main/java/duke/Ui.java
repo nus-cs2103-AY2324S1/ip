@@ -6,18 +6,13 @@ import java.util.ArrayList;
  * Encapsulates ui for chat bot.
  */
 public class Ui {
-    private static void printSeparationLine() {
-        System.out.println("____________________________________________________________");
-    }
 
     /**
      * Prints welcome message.
      */
-    public static void welcomeMessage() {
-        Ui.printSeparationLine();
-        System.out.println(" Hello! I'm Jarvis");
-        System.out.println(" What can I do for you?");
-        Ui.printSeparationLine();
+    public static String welcomeMessage() {
+        return " Hello! I'm Jarvis\n"
+                + " What can I do for you?";
     }
 
     /**
@@ -25,16 +20,15 @@ public class Ui {
      *
      * @param tasks The task list.
      */
-    public static void listTasks(ArrayList<Task> tasks) {
-        Ui.printSeparationLine();
-        System.out.println(" Here are the tasks in your list:");
+    public static String listTasks(ArrayList<Task> tasks) {
+        String result = " Here are the tasks in your list:";
         int counter = 0;
         while (counter != tasks.size()) {
             counter++;
-            System.out.println(" " + counter + "."
-                    + tasks.get(counter - 1).toString());
+            result += "\n" + " " + counter + "."
+                    + tasks.get(counter - 1).toString();
         }
-        Ui.printSeparationLine();
+        return result;
     }
 
     /**
@@ -42,16 +36,15 @@ public class Ui {
      *
      * @param tasks The task list.
      */
-    public static void listMatchingTasks(ArrayList<Task> tasks) {
-        Ui.printSeparationLine();
-        System.out.println(" Here are the matching tasks in your list:");
+    public static String listMatchingTasks(ArrayList<Task> tasks) {
+        String result = " Here are the matching tasks in your list:";
         int counter = 0;
         while (counter != tasks.size()) {
             counter++;
-            System.out.println(" " + counter + "."
-                    + tasks.get(counter - 1).toString());
+            result += "\n" + " " + counter + "."
+                    + tasks.get(counter - 1).toString();
         }
-        Ui.printSeparationLine();
+        return result;
     }
 
     /**
@@ -59,11 +52,9 @@ public class Ui {
      *
      * @param t The task marked.
      */
-    public static void markTask(Task t) {
-        Ui.printSeparationLine();
-        System.out.println(" Nice! I've marked this task as done:");
-        System.out.println("  " + t.toString());
-        Ui.printSeparationLine();
+    public static String markTask(Task t) {
+        return " Nice! I've marked this task as done:\n"
+                + "  " + t.toString();
     }
 
     /**
@@ -72,12 +63,10 @@ public class Ui {
      * @param t The task added.
      * @param taskList The task list of the task.
      */
-    public static void addTask(Task t, ArrayList<Task> taskList) {
-        Ui.printSeparationLine();
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + t.toString());
-        System.out.println(" Now you have " + taskList.size() + " tasks in the list.");
-        Ui.printSeparationLine();
+    public static String addTask(Task t, ArrayList<Task> taskList) {
+        return " Got it. I've added this task:\n"
+                + "   " + t.toString() + "\n"
+                + " Now you have " + taskList.size() + " tasks in the list.";
     }
 
     /**
@@ -86,12 +75,10 @@ public class Ui {
      * @param t The task deleted.
      * @param taskList The task list of the task.
      */
-    public static void deleteTask(Task t, ArrayList<Task> taskList) {
-        Ui.printSeparationLine();
-        System.out.println(" Noted. I've removed this task:");
-        System.out.println("   " + t.toString());
-        System.out.println(" Now you have " + taskList.size() + " tasks in the list.");
-        Ui.printSeparationLine();
+    public static String deleteTask(Task t, ArrayList<Task> taskList) {
+        return " Noted. I've removed this task:\n"
+                + "   " + t.toString() +"\n"
+                + " Now you have " + taskList.size() + " tasks in the list.";
     }
 
     /**
@@ -99,18 +86,14 @@ public class Ui {
      *
      * @param e The exception printed.
      */
-    public static void printException(DukeException e) {
-        Ui.printSeparationLine();
-        System.out.println(" " + e.getMessage());
-        Ui.printSeparationLine();
+    public static String printException(DukeException e) {
+        return " " + e.getMessage();
     }
 
     /**
      * Prints farewell message.
      */
-    public static void farewellMessage() {
-        Ui.printSeparationLine();
-        System.out.println(" Bye. Hope to see you again soon!");
-        Ui.printSeparationLine();
+    public static String farewellMessage() {
+        return " Bye. Hope to see you again soon!";
     }
 }

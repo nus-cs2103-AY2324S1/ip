@@ -1,8 +1,14 @@
 package duke;
 
-import java.util.Scanner;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * Encapsulates the chat bot.
@@ -12,6 +18,10 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
+    public Duke() {
+        this("data/tasks.txt");
+    }
 
     public Duke(String filePath) {
         ui = new Ui();
@@ -46,4 +56,16 @@ public class Duke {
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }
+
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    protected String getResponse(String input) {
+        Parser parser = new Parser(input, this.storage, this.tasks);
+        String response = parser.parse();
+        return response;
+    }
+
 }
