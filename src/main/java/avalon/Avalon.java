@@ -11,12 +11,10 @@ public class Avalon {
 
     /**
      * Constructs an Avalon instance with the specified file path for task storage.
-     *
-     * @param filePath The path to the file used for storing tasks.
      */
-    public Avalon(String filePath) {
+    public Avalon() {
         this.ui = new Ui();
-        this.storage = new Storage(filePath);
+        this.storage = new Storage("src/main/data/Avalon.txt");
         this.tasks = new TaskList();
         storage.loadTasks(this.tasks);
     }
@@ -145,6 +143,10 @@ public class Avalon {
      */
     public static void main(String[] args) {
         // Create an instance of Avalon and start the application
-        new Avalon("src/main/data/Avalon.txt").run();
+        new Avalon().run();
+    }
+
+    public String getResponse(String input) {
+        return "Arthur reiterates: " + input;
     }
 }
