@@ -4,3 +4,5 @@
 [T][ ] siuuu
 [T][ ] swim
 [E][ ] jump (from: Oct 10 2000 09:00 PM to: Oct 10 2000 10:00 PM)
+[T][ ] drink
+[F][ ] jump (for: 2 hours)

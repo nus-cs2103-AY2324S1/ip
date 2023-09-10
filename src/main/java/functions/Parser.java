@@ -98,6 +98,20 @@ public class Parser {
                     return new AddCommand(desc);
                 }
 
+            case "fixed":
+                if (input.length() <= 6) {
+                    return new ErrorCommand("The description of a task cannot be empty.\n");
+                } else {
+                    int y = input.indexOf("/for ");
+                    if (y == -1) {
+                        return new ErrorCommand("Please enter the duration of the task in the correct format.\n");
+                    } else {
+                        String desc = input.substring(6, y - 1);
+                        String duration = input.substring(y + 5);
+                        return new AddCommand(desc, duration);
+                    }
+                }
+
             case "deadline":
                 if (input.length() <= 9) {
                     return new ErrorCommand("The description of a task cannot be empty.\n");

@@ -1,9 +1,6 @@
 package functions;
 
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.ToDo;
+import tasks.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -44,25 +41,20 @@ public class TaskList {
      * @param input The input string representing the task details.
      */
     private void loadTask(String input) {
+        Task t = null;
         if (input.startsWith("[D]")) {
             int y = input.indexOf("(by: ");
             String desc = input.substring(7, y - 1);
             int end = input.indexOf(")");
             String by = input.substring(y + 5, end);
             LocalDateTime date = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
-            Task t = new Deadline(desc, date);
-            tasks.add(t);
-            if (input.substring(3, 5).equals("[X]")) {
-                t.markAsDone();
-            }
-        } else if (input.startsWith("[T]")) {
+            t = new Deadline(desc, date);
+        }
+        if (input.startsWith("[T]")) {
             String desc = input.substring(7);
-            Task t = new ToDo(desc);
-            tasks.add(t);
-            if (input.substring(3, 5).equals("[X]")) {
-                t.markAsDone();
-            }
-        } else if (input.startsWith("[E]")) {
+            t = new ToDo(desc);
+        }
+        if (input.startsWith("[E]")) {
             int fromIndex = input.indexOf("(from: ");
             int toIndex = input.indexOf("to: ");
             String desc = input.substring(7, input.indexOf("(") - 1);
@@ -70,11 +62,18 @@ public class TaskList {
             String e = input.substring(toIndex + 4, input.indexOf(")")).trim();
             LocalDateTime start = LocalDateTime.parse(s, DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
             LocalDateTime end = LocalDateTime.parse(e, DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
-            Task t = new Event(desc, start, end);
-            tasks.add(t);
-            if (input.substring(3, 5).equals("[X]")) {
-                t.markAsDone();
-            }
+            t = new Event(desc, start, end);
+        }
+        if (input.startsWith("[F]")) {
+            int y = input.indexOf("(for: ");
+            String desc = input.substring(7, y - 1);
+            int d = input.indexOf(")");
+            String duration = input.substring(y + 6, d);
+            t = new FixedDuration(desc, duration);
+        }
+        tasks.add(t);
+        if (input.substring(3, 5).equals("[X]")) {
+            t.markAsDone();
         }
     }
 
@@ -86,14 +85,17 @@ public class TaskList {
      * @param second The second LocalDateTime parameter (end date for event).
      * @return The created Task object.
      */
-    public Task createTask(String desc, LocalDateTime first, LocalDateTime second) {
+    public Task createTask(String desc, String duration, LocalDateTime first, LocalDateTime second) {
         Task t = null;
-        if (first == null && second == null) {
-            t = new ToDo(desc);
-        } else if (second == null) {
-            t = new Deadline(desc, first);
-        } else {
+        t = new ToDo(desc);
+        if (duration != null) {
+            t = new FixedDuration(desc, duration);
+        }
+        if (second != null) {
             t = new Event(desc, first, second);
+        }
+        if (first != null) {
+            t = new Deadline(desc, first);
         }
         this.tasks.add(t);
         return t;

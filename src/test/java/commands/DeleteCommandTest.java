@@ -13,9 +13,9 @@ public class DeleteCommandTest {
     public void testExecute() {
         // Create a TaskList with some tasks for testing
         TaskList tasks = new TaskList();
-        tasks.createTask("Task 1", null, null);
-        tasks.createTask("Task 2", null, null);
-        tasks.createTask("Task 3", null, null);
+        tasks.createTask("Task 1", null, null, null);
+        tasks.createTask("Task 2", null, null, null);
+        tasks.createTask("Task 3", null, null, null);
 
         Ui ui = new Ui();
         Storage storage = new Storage("data.txt");

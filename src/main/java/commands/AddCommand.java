@@ -11,6 +11,7 @@ import tasks.*;
 public class AddCommand extends Command {
 
     protected String desc;
+    protected String duration;
     protected LocalDateTime first;
     protected LocalDateTime second;
 
@@ -21,6 +22,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String desc) {
         this.desc = desc;
+        this.duration = null;
         this.first = null;
         this.second = null;
     }
@@ -33,7 +35,21 @@ public class AddCommand extends Command {
      */
     public AddCommand(String desc, LocalDateTime date) {
         this.desc = desc;
+        this.duration = null;
         this.first = date;
+        this.second = null;
+    }
+
+    /**
+     * Constructs an AddCommand with a description and a specific duration.
+     *
+     * @param desc The description of the task to be added.
+     * @param duration The specific duration of the task.
+     */
+    public AddCommand(String desc, String duration) {
+        this.desc = desc;
+        this.duration = duration;
+        this.first = null;
         this.second = null;
     }
 
@@ -46,6 +62,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String desc, LocalDateTime start, LocalDateTime end) {
         this.desc = desc;
+        this.duration = null;
         this.first = start;
         this.second = end;
     }
@@ -59,7 +76,7 @@ public class AddCommand extends Command {
      * @throws IOException If an I/O error occurs while interacting with storage.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        Task t = tasks.createTask(this.desc, this.first, this.second);
+        Task t = tasks.createTask(this.desc, this.duration, this.first, this.second);
         storage.saveFiles(tasks.showList());
         return ui.showTaskMsg(t, tasks);
     }
