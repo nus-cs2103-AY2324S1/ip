@@ -1,5 +1,19 @@
 import commands.Command;
 import commands.ExitCommand;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+
 import parser.Parser;
 import storage.Storage;
 import tasks.TaskList;
@@ -12,57 +26,39 @@ import ui.Ui;
  */
 public class Duke {
 
-    public static final String VERSION = "OwO Bot ─ a CS2103T iP ─ Week 3 Update";
+    public static final String VERSION = "NotCrazy ─ a CS2103T iP ─ Week 4 Update";
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/joemama.jpeg"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/kanye.jpeg"));
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+
     /**
      * Constructs a new Duke object, along with a Storage object and an Ui object.
      */
     public Duke() {
+
         storage = new Storage();
-        ui = new Ui();
-    }
-
-    /**
-     * Runs the logic of the Duke application.
-     */
-    public void run() {
-
         this.tasks = new TaskList(storage.load());
 
-        ui.printWelcomeMessage(VERSION);
-        ui.printInstructions();
-
-        runCommandLoop();
-
-        storage.save(tasks.getTaskList());
-
-        ui.printExitMessage();
-
     }
 
     /**
-     * Main method of the Duke application.
-     *
-     * @param args
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    public static void main(String[] args) {
-        new Duke().run();
-    }
-
-    /**
-     * Runs the main loop of the Duke application.
-     */
-    public void runCommandLoop() {
+    public String getResponse(String input) {
         Command c;
         Parser parser = new Parser();
-        do {
-            String userInput = ui.getUserCommand();
-            c = parser.parse(userInput);
-            c.execute(tasks);
-        } while (!ExitCommand.isExit(c));
+        c = parser.parse(input);
+
+        String response = c.execute(tasks);
+        storage.save(tasks.getTaskList());
+        return response;
     }
 }
+
+
+

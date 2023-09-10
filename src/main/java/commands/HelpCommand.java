@@ -11,7 +11,7 @@ public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
 
     @Override
-    public void execute(TaskList tasks) {
-        System.out.println(MESSAGE_INSTRUCTIONS);
+    public String execute(TaskList tasks) {
+        return MESSAGE_INSTRUCTIONS;
     }
 }

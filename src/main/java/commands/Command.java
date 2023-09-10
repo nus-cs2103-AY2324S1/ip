@@ -13,7 +13,7 @@ public class Command {
      *
      * @param tasks A TaskList object containing all tasks in the task list.
      */
-    public void execute(TaskList tasks) {
-        return;
+    public String execute(TaskList tasks) {
+        return "done";
     }
 }

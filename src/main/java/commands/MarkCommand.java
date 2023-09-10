@@ -20,11 +20,12 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks) {
+    public String execute(TaskList tasks) {
         try {
-            tasks.markTaskDone(taskNumber);
+            return tasks.markTaskDone(taskNumber);
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
+            return e.getMessage();
         }
     }
 }

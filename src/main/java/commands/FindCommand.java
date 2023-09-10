@@ -16,12 +16,15 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks) {
+    public String execute(TaskList tasks) {
         ArrayList<Task> filteredTaskList = tasks.findByKeyword(keyword);
 
-        System.out.println("Here are the matching tasks in your list:");
+        String message = "";
+        message += "Here are the matching tasks in your list:\n";
         for (Task task: filteredTaskList) {
-            System.out.println(task.toString());
+            message += task.toString() + "\n";
         }
-    }
+
+        return message;
+     }
 }
