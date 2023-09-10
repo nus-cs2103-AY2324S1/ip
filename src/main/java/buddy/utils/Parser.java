@@ -4,16 +4,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-<<<<<<< HEAD
-import buddy.*;
-import buddy.commands.*;
-
-/**
- * The Parser class deals with making sense of the user command.
- *
- * @author Lim Jin Yin
- */
-=======
 import buddy.TaskList;
 import buddy.commands.AddDeadlineCommand;
 import buddy.commands.AddEventCommand;
@@ -26,7 +16,12 @@ import buddy.commands.ListCommand;
 import buddy.commands.MarkAsDoneCommand;
 import buddy.commands.MarkAsUndoneCommand;
 
->>>>>>> branch-A-CodingStandard
+/**
+ * The Parser class deals with making sense of the user command.
+ *
+ * @author Lim Jin Yin
+ */
+
 public class Parser {
 
     // returns date in format MMM d yyyy
