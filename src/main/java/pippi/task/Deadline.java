@@ -28,6 +28,6 @@ public class Deadline extends Task {
     @Override
     public String toMemory() {
         return "D " + super.getStatus()
-            + super.getDescription() + " | " + due.format(DateFormatter.format);
+            + super.getDescription() + " | " + due.format(DateFormatter.FORMAT);
     }
 }
