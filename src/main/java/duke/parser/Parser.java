@@ -28,7 +28,6 @@ public class Parser {
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     /**
@@ -110,7 +109,6 @@ public class Parser {
             throw new DukeException("Hey, the Deadline given is Invalid! "
                     + "Make sure that you follow this format:\n" + " 'taskDescription /by yyyy-mm-dd hh:mm'");
         }
-
         return arr;
     }
 

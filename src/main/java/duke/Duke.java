@@ -29,11 +29,20 @@ public class Duke {
      */
     private TaskList tasks;
 
-
     /**
      * Boolean value to check if the chat has ended.
      */
     private boolean isChatEnd = false;
+
+    /**
+     * The Message to display when the Chat is Ended.
+     */
+    private static final String END_CHAT_MESSAGE = "Chat has ended! Please Exit.";
+
+    /**
+     * The Error Message to display when Invalid command is given.
+     */
+    private static final String INVALID_ERROR_MESSAGE = "I don't understand what you're saying.";
 
     /**
      * Handles the Chatbot Response.
@@ -41,21 +50,21 @@ public class Duke {
     public String getResponse(String input) {
 
         if (isChatEnd) {
-            return "Chat has ended! Please Exit.";
+            return END_CHAT_MESSAGE;
         }
 
         Parser parseLine = new Parser(input);
         Command command = parseLine.getCommand();
 
         if (command == null) {
-            return "I don't understand what you're saying.";
+            return INVALID_ERROR_MESSAGE;
         }
 
         try {
             switch (command) {
             case BYE:
                 isChatEnd = true;
-                return "Chat has ended! Please Exit.";
+                return END_CHAT_MESSAGE;
             case LIST:
                 return tasks.formatList();
             case MARK:
@@ -76,7 +85,7 @@ public class Duke {
                 String findQuery = parseLine.parseFindQuery();
                 return tasks.findTasks(findQuery).formatList();
             default:
-                return "I don't understand what you're saying.";
+                return INVALID_ERROR_MESSAGE;
             }
         } catch (DukeException e) {
             return e.getMessage();
@@ -92,7 +101,6 @@ public class Duke {
         try {
             tasks = new TaskList(storage.load(), storage);
         } catch (DukeException e) {
-            System.out.println("--- No Data Stored ---");
             tasks = new TaskList(new ArrayList<>(), storage);
         }
     }
