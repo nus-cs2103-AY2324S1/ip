@@ -3,6 +3,7 @@ package toolpackage;
 import dukepackage.DukeException;
 
 import taskpackage.Task;
+import taskpackage.ToDos;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -130,5 +131,24 @@ public class TaskList {
             }
         }
         return ui.printMatchingTasks(matchingTasks);
+    }
+
+    /**
+     * Reminds users the tasks that are due in 10 days or less.
+     *
+     * @param ui UI to print tasks that are due soon.
+     * @return String Reply to user with list of tasks due soon.
+     */
+    public String provideReminders(Ui ui) {
+        ArrayList<Task> urgentTasks = new ArrayList<>();
+        for (Task task : listOfTasks) {
+            if (task instanceof ToDos) {
+                continue;
+            }
+            if (task.checkDeadline()) {
+                urgentTasks.add(task);
+            }
+        }
+        return ui.printUrgentTasks(urgentTasks);
     }
 }

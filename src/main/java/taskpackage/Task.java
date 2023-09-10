@@ -81,4 +81,14 @@ public class Task {
     public boolean matchKeyword(String word) {
         return this.task.contains(word);
     }
+
+    /**
+     * Checks whether the due date of the event is
+     * due in 10 days or less.
+     *
+     * @return boolean Indicator whether task is due soon.
+     */
+    public boolean checkDeadline() {
+        return false;
+    }
 }

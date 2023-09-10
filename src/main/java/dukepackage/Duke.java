@@ -54,4 +54,8 @@ public class Duke {
             return e.getMessage();
         }
     }
+
+    public String getReminders() {
+        return this.tasks.provideReminders(ui);
+    }
 }

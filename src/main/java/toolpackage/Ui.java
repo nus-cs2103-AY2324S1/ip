@@ -93,4 +93,18 @@ public class Ui {
         }
         return matchingTasks;
     }
+
+    /**
+     * Prints out the list of tasks that are due in 10 days or less.
+     *
+     * @param listOfTasks List of tasks to print.
+     * @return String Representation of list of tasks to print.
+     */
+    public String printUrgentTasks(ArrayList<Task> listOfTasks) {
+        String urgentTasks = "Here are the tasks in your list DUE SOON:\n";
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            urgentTasks += String.format("%d.%s%n", i + 1, listOfTasks.get(i).printTask());
+        }
+        return urgentTasks;
+    }
 }
