@@ -11,8 +11,8 @@ import shiba.parsers.SpaceSeparatedValuesParser;
  * Represents a task that starts at a specific datetime and ends at a specific datetime.
  */
 public class EventTask extends ShibaTask {
-    private static final Pattern option1Regex = Pattern.compile("(.+?) /from (.+?) /to (.+)");
-    private static final Pattern option2Regex = Pattern.compile("(.+?) /to (.+?) /from (.+)");
+    private static final Pattern OPTION_1_REGEX = Pattern.compile("(.+?) /from (.+?) /to (.+)");
+    private static final Pattern OPTION_2_REGEX = Pattern.compile("(.+?) /to (.+?) /from (.+)");
 
     private final DateOptionalTime startTime;
     private final DateOptionalTime endTime;
@@ -62,12 +62,12 @@ public class EventTask extends ShibaTask {
             throw new InvalidCommandException("Event name should not be empty!");
         }
 
-        Matcher matcher1 = option1Regex.matcher(cmdSplit[1]);
+        Matcher matcher1 = OPTION_1_REGEX.matcher(cmdSplit[1]);
         if (matcher1.find()) {
             return new EventTask(matcher1.group(1), matcher1.group(2), matcher1.group(3));
         }
 
-        Matcher matcher2 = option2Regex.matcher(cmdSplit[1]);
+        Matcher matcher2 = OPTION_2_REGEX.matcher(cmdSplit[1]);
         if (matcher2.find()) {
             return new EventTask(matcher2.group(1), matcher2.group(3), matcher2.group(2));
         }
