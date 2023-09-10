@@ -20,6 +20,7 @@ public class AddDeadlineCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         Deadline newDeadline = new Deadline(input);
         storage.saveWhenAddTask(newDeadline, taskList);
+        
         int n = taskList.getSize();
         ui.printAddedTask(newDeadline, n);
     }

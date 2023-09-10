@@ -37,7 +37,7 @@ public abstract class Task {
      * Checks if a task has no description by checking if the strings are equal.
      * @param taskType  the type of task (e.g. "deadline")
      * @param task      the command inputted by the user
-     * @return          a boolean that indicates whether the task has no description
+     * @return          true if task has no description
      */
     public static boolean checkTaskNoDescription(String taskType, String task) {
         return taskType.equals(task);
