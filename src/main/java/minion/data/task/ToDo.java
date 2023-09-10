@@ -29,7 +29,7 @@ public class ToDo extends Task {
      */
     @Override
     public boolean contains(String query) {
-        return this.description.contains(query);
+        return description.contains(query);
     }
 
     /**
@@ -61,6 +61,6 @@ public class ToDo extends Task {
             return false;
         }
         ToDo t = (ToDo) o;
-        return this.description.equals(t.description) && this.isDone == t.isDone;
+        return description.equals(t.description) && isDone == t.isDone;
     }
 }
