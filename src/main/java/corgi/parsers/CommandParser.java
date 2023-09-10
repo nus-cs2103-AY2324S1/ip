@@ -147,6 +147,8 @@ public class CommandParser extends Parser<Command> {
             throw new InvalidCommandFormatException("Invalid date format!");
         }
 
+        assert target != null : "Target date cannot be null.";
+
         return new FindTasksOnDateCommand(target);
     }
 
@@ -172,6 +174,8 @@ public class CommandParser extends Parser<Command> {
         if (type == CommandType.TODO) {
             Task target = new ToDo(taskInfo);
 
+            assert target != null : "New Todo task cannot be null.";
+
             return new AddTaskCommand(target, CommandType.TODO);
 
         } else if (type == CommandType.DEADLINE) {
@@ -179,7 +183,7 @@ public class CommandParser extends Parser<Command> {
             String[] deadlineInfos = taskInfo.split(" /by ");
 
             if (deadlineInfos.length == 1) {
-                throw new InvalidCommandFormatException("Missing deadline!" + "\nFormat: "
+                throw new InvalidCommandFormatException("Invalid format!" + "\nFormat: "
                         + type.getCommandFormat());
             }
 
@@ -193,7 +197,11 @@ public class CommandParser extends Parser<Command> {
                         + type.getCommandFormat());
             }
 
+            assert by != null : "Date cannot be null.";
+
             Task target = new Deadline(deadlineDesc, by);
+
+            assert target != null : "New Deadline task cannot be null.";
 
             return new AddTaskCommand(target, CommandType.DEADLINE);
 
@@ -231,7 +239,12 @@ public class CommandParser extends Parser<Command> {
                         + type.getCommandFormat());
             }
 
+            assert from != null : "Date cannot be null.";
+            assert to != null : "Date cannot be null.";
+
             Task target = new Event(eventDesc, from, to);
+
+            assert target != null : "New Event task cannot be null.";
 
             return new AddTaskCommand(target, CommandType.EVENT);
         }
