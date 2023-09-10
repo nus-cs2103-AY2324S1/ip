@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * the collection that contains the list of Tasks
  */
 public class TaskList implements Serializable {
-    private static String indent = "   ";
+    private static String indent = "";
     private static String megaIndent = "     ";
     private ArrayList<Task> tasks;
     public TaskList() {

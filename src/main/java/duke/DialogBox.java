@@ -29,7 +29,7 @@ public class DialogBox extends HBox {
         displayPicture = iv;
 
         // Set the background color using CSS style
-        this.setStyle("-fx-background-color: lightgray;");
+        //this.setStyle("-fx-background-color: lightgray;");
 
         dialog.setWrapText(true);
 
