@@ -1,3 +1,5 @@
+package koko;
+
 public enum Command {
     LIST,
     MARK,
