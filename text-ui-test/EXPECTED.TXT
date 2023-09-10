@@ -6,7 +6,7 @@ ____________________________________________________________
 OOPS!!! I'm sorry, but I don't know what that means :-(
 ____________________________________________________________
 ____________________________________________________________
-OOPS!!! The description of a todo cannot be empty.
+OOPS!!! The description of todo cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
@@ -14,10 +14,10 @@ Got it. I've added this task:
 Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-OOPS!!! The description of a deadline cannot be empty.
+OOPS!!! The description of deadline cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
-OOPS!!! The by of a deadline cannot be empty.
+OOPS!!! The by of deadline cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
@@ -25,13 +25,13 @@ Got it. I've added this task:
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-OOPS!!! The description of an event cannot be empty.
+OOPS!!! The description of event cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
-OOPS!!! The from of an event cannot be empty.
+OOPS!!! The from of event cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
-OOPS!!! The to of an event cannot be empty.
+OOPS!!! The to of event cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:

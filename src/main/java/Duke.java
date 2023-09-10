@@ -12,6 +12,10 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 
+    private static void raiseMissingValueError(String value, String command) {
+        Duke.display(String.format("OOPS!!! The %s of %s cannot be empty.", value, command));
+    }
+
     private static void greet() {
         Duke.display("Hello! I'm Tackie", "What can I do for you?");
     }
@@ -88,73 +92,65 @@ public class Duke {
                 break;
 
             case "mark":
-                try {
-                    taskIndex = Integer.parseInt(inputParts[1]) - 1;
-                } catch (ArrayIndexOutOfBoundsException error) {
-                    Duke.display("OOPS!!! The index of mark cannot be empty.");
+                if (inputParts.length == 1) {
+                    raiseMissingValueError("index", "mark");
                     break;
                 }
+                taskIndex = Integer.parseInt(inputParts[1]) - 1;
                 Duke.mark(taskIndex);
                 break;
 
             case "unmark":
-                try {
-                    taskIndex = Integer.parseInt(inputParts[1]) - 1;
-                } catch (ArrayIndexOutOfBoundsException error) {
-                    Duke.display("OOPS!!! The index of unmark cannot be empty.");
+                if (inputParts.length == 1) {
+                    raiseMissingValueError("index", "unmark");
                     break;
                 }
+                taskIndex = Integer.parseInt(inputParts[1]) - 1;
                 Duke.unmark(taskIndex);
                 break;
 
             case "todo":
-                try {
-                    description = inputParts[1];
-                } catch (ArrayIndexOutOfBoundsException error) {
-                    Duke.display("OOPS!!! The description of a todo cannot be empty.");
+                if (inputParts.length == 1) {
+                    raiseMissingValueError("description", "todo");
                     break;
                 }
+                description = inputParts[1];
                 Duke.todo(description);
                 break;
 
             case "deadline":
-                try {
-                    inputParts = inputParts[1].split(" /by ", 2);
-                } catch (ArrayIndexOutOfBoundsException error) {
-                    Duke.display("OOPS!!! The description of a deadline cannot be empty.");
+                if (inputParts.length == 1) {
+                    raiseMissingValueError("description", "deadline");
                     break;
                 }
+                inputParts = inputParts[1].split(" /by ", 2);
                 description = inputParts[0];
-                try {
-                    by = inputParts[1];
-                } catch (ArrayIndexOutOfBoundsException error) {
-                    Duke.display("OOPS!!! The by of a deadline cannot be empty.");
+                if (inputParts.length == 1) {
+                    raiseMissingValueError("by", "deadline");
                     break;
                 }
+                by = inputParts[1];
                 Duke.deadline(description, by);
                 break;
 
             case "event":
-                try {
-                    inputParts = inputParts[1].split(" /from ", 2);
-                } catch (ArrayIndexOutOfBoundsException error) {
-                    Duke.display("OOPS!!! The description of an event cannot be empty.");
+                if (inputParts.length == 1) {
+                    raiseMissingValueError("description", "event");
                     break;
                 }
+                inputParts = inputParts[1].split(" /from ", 2);
                 description = inputParts[0];
-                try {
-                    inputParts = inputParts[1].split(" /to ", 2);
-                } catch (ArrayIndexOutOfBoundsException error) {
-                    Duke.display("OOPS!!! The from of an event cannot be empty.");
+                if (inputParts.length == 1) {
+                    raiseMissingValueError("from", "event");
                     break;
                 }
+                inputParts = inputParts[1].split(" /to ", 2);
                 from = inputParts[0];
-                try {
-                    to = inputParts[1];
-                } catch (ArrayIndexOutOfBoundsException error) {
-                    Duke.display("OOPS!!! The to of an event cannot be empty.");
+                if (inputParts.length == 1) {
+                    raiseMissingValueError("to", "event");
                     break;
                 }
+                to = inputParts[1];
                 Duke.event(description, from, to);
                 break;
 
