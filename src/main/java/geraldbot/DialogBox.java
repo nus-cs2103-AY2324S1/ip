@@ -41,6 +41,9 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+        dialog.setMaxHeight(Double.MAX_VALUE);
+        setMaxHeight(Double.MAX_VALUE);
+
         dialog.setText(text);
         displayPicture.setImage(img);
     }

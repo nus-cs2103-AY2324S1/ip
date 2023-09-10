@@ -3,9 +3,11 @@ package geraldbot;
 import java.util.ArrayList;
 
 import geraldbot.exception.DukeException;
+import geraldbot.person.Person;
 import geraldbot.task.Task;
+import geraldbot.util.ContactStorage;
 import geraldbot.util.Parser;
-import geraldbot.util.Storage;
+import geraldbot.util.TaskStorage;
 
 /**
  * The main class that represents the Duke chatbot application.
@@ -19,9 +21,11 @@ public class Duke {
      * Reads task data from storage and initializes the task list.
      */
     public Duke() {
-        Storage storage = new Storage("./data/data.txt");
-        ArrayList<Task> taskList = storage.read();
-        this.parser = new Parser(storage, taskList);
+        TaskStorage taskStorage = new TaskStorage("./data/data.txt");
+        ContactStorage contactStorage = new ContactStorage("./data/contacts.txt");
+        ArrayList<Task> taskList = taskStorage.read();
+        ArrayList<Person> contactList = contactStorage.read();
+        this.parser = new Parser(taskStorage, contactStorage, taskList, contactList);
     }
 
     /**

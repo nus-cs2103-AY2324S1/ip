@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import geraldbot.exception.DukeInvalidCommandException;
+import geraldbot.person.Person;
 import geraldbot.task.Deadline;
 import geraldbot.task.Event;
 import geraldbot.task.Task;
@@ -19,9 +20,11 @@ public class ParserTest {
 
     @Test
     public void parse_todoCommand_successfullyAdded() {
-        Storage storage = new Storage("testData/testStorageData.txt");
+        TaskStorage taskStorage = new TaskStorage("testData/testStorageData.txt");
+        ContactStorage contactStorage = new ContactStorage("testData/testContactStorageData.txt");
         ArrayList<Task> taskList = new ArrayList<>();
-        Parser parser = new Parser(storage, taskList);
+        ArrayList<Person> contactList = new ArrayList<>();
+        Parser parser = new Parser(taskStorage, contactStorage, taskList, contactList);
 
         String input = "todo Buy groceries";
         assertDoesNotThrow(() -> parser.parse(input));
@@ -32,9 +35,11 @@ public class ParserTest {
 
     @Test
     public void parse_deadlineCommand_successfullyAdded() {
-        Storage storage = new Storage("testData/testStorageData.txt");
+        TaskStorage taskStorage = new TaskStorage("testData/testStorageData.txt");
+        ContactStorage contactStorage = new ContactStorage("testData/testContactStorageData.txt");
         ArrayList<Task> taskList = new ArrayList<>();
-        Parser parser = new Parser(storage, taskList);
+        ArrayList<Person> contactList = new ArrayList<>();
+        Parser parser = new Parser(taskStorage, contactStorage, taskList, contactList);
 
         String input = "deadline Submit report /by 16/03/2020 1800";
         assertDoesNotThrow(() -> parser.parse(input));
@@ -45,9 +50,11 @@ public class ParserTest {
 
     @Test
     public void parse_eventCommand_successfullyAdded() {
-        Storage storage = new Storage("testData/testStorageData.txt");
+        TaskStorage taskStorage = new TaskStorage("testData/testStorageData.txt");
+        ContactStorage contactStorage = new ContactStorage("testData/testContactStorageData.txt");
         ArrayList<Task> taskList = new ArrayList<>();
-        Parser parser = new Parser(storage, taskList);
+        ArrayList<Person> contactList = new ArrayList<>();
+        Parser parser = new Parser(taskStorage, contactStorage, taskList, contactList);
 
         String input = "event Team meeting /Monday 2pm/ 4pm";
         assertDoesNotThrow(() -> parser.parse(input));
@@ -58,9 +65,11 @@ public class ParserTest {
 
     @Test
     public void parse_invalidCommand_exceptionThrown() {
-        Storage storage = new Storage("testData/testStorageData.txt");
+        TaskStorage taskStorage = new TaskStorage("testData/testStorageData.txt");
+        ContactStorage contactStorage = new ContactStorage("testData/testContactStorageData.txt");
         ArrayList<Task> taskList = new ArrayList<>();
-        Parser parser = new Parser(storage, taskList);
+        ArrayList<Person> contactList = new ArrayList<>();
+        Parser parser = new Parser(taskStorage, contactStorage, taskList, contactList);
 
         String input = "invalid_command";
         assertThrows(DukeInvalidCommandException.class, () -> parser.parse(input));
@@ -68,9 +77,11 @@ public class ParserTest {
 
     @Test
     public void parse_emptyDescription_exceptionThrown() {
-        Storage storage = new Storage("testData/testStorageData.txt");
+        TaskStorage taskStorage = new TaskStorage("testData/testStorageData.txt");
+        ContactStorage contactStorage = new ContactStorage("testData/testContactStorageData.txt");
         ArrayList<Task> taskList = new ArrayList<>();
-        Parser parser = new Parser(storage, taskList);
+        ArrayList<Person> contactList = new ArrayList<>();
+        Parser parser = new Parser(taskStorage, contactStorage, taskList, contactList);
 
         String input = "todo ";
         assertThrows(DukeInvalidCommandException.class, () -> parser.parse(input));

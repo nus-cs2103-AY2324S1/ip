@@ -14,17 +14,17 @@ import geraldbot.task.Task;
 import geraldbot.task.Todo;
 
 /**
- * Handles reading and writing tasks to the storage file.
+ * Handles reading and writing tasks to the task storage file.
  */
-public class Storage {
+public class TaskStorage {
     private File file;
 
     /**
      * Constructor for Storage.
      *
-     * @param path The path to the storage file.
+     * @param path The path to the task storage file.
      */
-    public Storage(String path) {
+    public TaskStorage(String path) {
         this.file = new File(path);
 
         if (!file.exists()) {

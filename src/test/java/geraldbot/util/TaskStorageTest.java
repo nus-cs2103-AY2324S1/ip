@@ -17,18 +17,18 @@ import geraldbot.task.Task;
 import geraldbot.task.Todo;
 
 
-public class StorageTest {
+public class TaskStorageTest {
 
     @Test
     public void read_emptyFile_emptyTaskList() {
-        Storage storage = initializeStorage();
-        ArrayList<Task> taskList = storage.read();
+        TaskStorage taskStorage = initializeStorage();
+        ArrayList<Task> taskList = taskStorage.read();
         assertTrue(taskList.isEmpty());
     }
 
     @Test
     public void read_existingFile_correctTaskList() {
-        Storage storage = initializeStorage();
+        TaskStorage taskStorage = initializeStorage();
 
         ArrayList<String> testData = new ArrayList<>();
         testData.add("T | 1 | Buy groceries");
@@ -36,12 +36,12 @@ public class StorageTest {
         testData.add("E | 0 | Team meeting | 2023-08-27T14:00-16:00");
 
         try {
-            StorageTest.writeTestDataToFile(storage, testData);
+            TaskStorageTest.writeTestDataToFile(taskStorage, testData);
         } catch (IOException e) {
             fail("Failed to write test data to file");
         }
 
-        ArrayList<Task> taskList = storage.read();
+        ArrayList<Task> taskList = taskStorage.read();
         assertEquals(3, taskList.size());
         assertTrue(taskList.get(0) instanceof Todo);
         assertTrue(taskList.get(1) instanceof Deadline);
@@ -50,7 +50,7 @@ public class StorageTest {
 
     @Test
     public void addTask_validTask_successfullyAdded() {
-        Storage storage = initializeStorage();
+        TaskStorage storage = initializeStorage();
 
         Task newTask = new Todo("Read a book", false);
         String fileFormat = newTask.fileFormat();
@@ -63,28 +63,28 @@ public class StorageTest {
 
     @Test
     public void updateTask_validIndex_updatedSuccessfully() {
-        Storage storage = initializeStorage();
+        TaskStorage taskStorage = initializeStorage();
 
         ArrayList<String> testData = new ArrayList<>();
         testData.add("T | 0 | Buy groceries");
 
         try {
-            StorageTest.writeTestDataToFile(storage, testData);
+            TaskStorageTest.writeTestDataToFile(taskStorage, testData);
         } catch (IOException e) {
             fail("Failed to write test data to file");
         }
 
         String updatedTaskFileFormat = "T | 1 | Buy groceries";
-        storage.updateTask(0, updatedTaskFileFormat);
+        taskStorage.updateTask(0, updatedTaskFileFormat);
 
-        ArrayList<Task> taskList = storage.read();
+        ArrayList<Task> taskList = taskStorage.read();
         assertEquals(1, taskList.size());
         assertEquals("X", taskList.get(0).getStatusIcon());
     }
 
-    private Storage initializeStorage() {
+    private TaskStorage initializeStorage() {
         String testFilePath = "./testData/testStorageData.txt";
-        Storage storage = new Storage(testFilePath);
+        TaskStorage storage = new TaskStorage(testFilePath);
         File file = storage.getFile();
         try {
             FileWriter fw = new FileWriter(file);
@@ -97,8 +97,8 @@ public class StorageTest {
         return storage;
     }
 
-    private static void writeTestDataToFile(Storage storage, ArrayList<String> testData) throws IOException {
-        File testFile = new File(storage.getFile().getPath());
+    private static void writeTestDataToFile(TaskStorage taskStorage, ArrayList<String> testData) throws IOException {
+        File testFile = new File(taskStorage.getFile().getPath());
         if (!testFile.exists()) {
             testFile.getParentFile().mkdirs();
             testFile.createNewFile();
