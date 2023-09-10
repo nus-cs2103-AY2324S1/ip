@@ -104,4 +104,8 @@ public class CommandProcessor {
                     + Arrays.toString(VALID_COMMANDS) + "\n";
         }
     }
+
+    public String initialReminder() {
+        return this.tasks.listUrgentTask();
+    }
 }

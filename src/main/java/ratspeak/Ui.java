@@ -1,14 +1,16 @@
 package ratspeak;
 
 public class Ui {
-    private static final String ANSWER_BORDER = "=========================================";
+    private static final String ANSWER_BORDER = "==========================================================";
     private static final String BOT_NAME = "RatSpeak";
 
     /**
      * print greetings in the command line
      */
-    public void greeting() {
-        System.out.println("Hello from " + BOT_NAME + "\nWhat can I do for you?\n" + ANSWER_BORDER);
+    public void greeting(String additionalInformation) {
+        System.out.println("Hello from " + BOT_NAME + "\nWhat can I do for you?\n");
+        System.out.println(additionalInformation);
+        System.out.println(ANSWER_BORDER);
     }
 
     /**

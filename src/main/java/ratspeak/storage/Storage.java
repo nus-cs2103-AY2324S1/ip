@@ -26,16 +26,26 @@ public class Storage {
      * @throws DukeException if file is corrupted
      */
     public void writeToFile(String textToAdd) throws DukeException {
-        try {
+        createDataFile();
+        updateFile(textToAdd);
+    }
+
+    private void createDataFile() throws DukeException {
+        try{
             File theDir = new File(DIRECTORY_PATH);
             if (!theDir.exists()) {
                 theDir.mkdirs();
                 File dataFile = new File(DATA_FILE_PATH);
                 dataFile.createNewFile();
             }
+        } catch (IOException e) {
+            throw new DukeException(e.getMessage());
+        }
+    }
 
+    private void updateFile(String textToAdd) throws DukeException {
+        try {
             File file = new File(DATA_FILE_PATH);
-
             FileWriter fw = new FileWriter(DATA_FILE_PATH, true);
             if (file.length() != 0) {
                 fw.write(System.lineSeparator());
@@ -48,6 +58,47 @@ public class Storage {
         }
     }
 
+    private ArrayList<Task> addInfoFromFileToTaskList() throws DukeException {
+        try {
+            File dataFile = new File(DATA_FILE_PATH);
+            Scanner sc = new Scanner(dataFile);
+            ArrayList<Task> tasks = new ArrayList<Task>();
+            while (sc.hasNext()) {
+                String taskInfo = sc.nextLine();
+                processLine(tasks, taskInfo);
+            }
+            return tasks;
+        } catch (Exception e) {
+            throw new DukeException(e.getMessage());
+        }
+    }
+
+    private void processLine(ArrayList<Task> tasks, String taskInfo) throws DukeException {
+        String taskName = taskInfo.substring(7);
+        boolean marked = taskInfo.charAt(4) == 'X';
+
+        if (taskInfo.charAt(1) == 'T') {
+            Task todoTask = new Todo(taskName);
+            if (marked) {
+                todoTask = todoTask.done();
+            }
+            tasks.add(todoTask);
+        } else if (taskInfo.charAt(1) == 'D') {
+            Task deadlineTask = new Deadline(taskName);
+
+            if (marked) {
+                deadlineTask = deadlineTask.done();
+            }
+            tasks.add(deadlineTask);
+        } else if (taskInfo.charAt(1) == 'E') {
+            Task eventTask = new Event(taskName);
+            if (marked) {
+                eventTask = eventTask.done();
+            }
+            tasks.add(eventTask);
+        }
+    }
+
     /**
      * reads from duke.txt file and store the information as task into an array list of tasks.
      * method uses a scanner to read from duke.txt file, then adds the description into the task object.
@@ -56,45 +107,13 @@ public class Storage {
      */
     public ArrayList<Task> loadFromFile() {
         try {
-            File dataFile = new File(DATA_FILE_PATH);
-            if (dataFile.exists()) {
-                Scanner sc = new Scanner(dataFile);
-                ArrayList<Task> tasks = new ArrayList<Task>();
-                while (sc.hasNext()) {
-                    String taskInfo = sc.nextLine();
-                    String taskName = taskInfo.substring(7);
-                    boolean marked = taskInfo.charAt(4) == 'X';
-
-                    if (taskInfo.charAt(1) == 'T') {
-                        Task task = new Todo(taskName);
-                        if (marked) {
-                            task = task.done();
-                        }
-                        tasks.add(task);
-                    } else if (taskInfo.charAt(1) == 'D') {
-                        Task task = new Deadline(taskName);
-                        if (marked) {
-                            task = task.done();
-                        }
-                        tasks.add(task);
-                    } else if (taskInfo.charAt(1) == 'E') {
-                        Task task = new Event(taskName);
-                        if (marked) {
-                            task = task.done();
-                        }
-                        tasks.add(task);
-                    }
-                }
-                sc.close();
-
-                return tasks;
-            }
-            return new ArrayList<Task>();
-        } catch(Exception e) {
+            createDataFile();
+            return addInfoFromFileToTaskList();
+        } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
-
         return new ArrayList<Task>();
+
     }
 
     /**
@@ -103,18 +122,22 @@ public class Storage {
      * @throws DukeException if file is corrupted
      */
     public void writeAllToFile(ArrayList<Task> tasklist) throws DukeException {
+        createDataFile();
+        removeInfo();
+
+        for (int i = 0; i < tasklist.size(); i++) {
+            writeToFile(tasklist.get(i).storageText());
+        }
+    }
+
+    private void removeInfo() throws DukeException {
         try {
             File file = new File(DATA_FILE_PATH);
             FileWriter writer = new FileWriter(file);
             writer.write("");
             writer.close();
-
-            for (int i = 0; i < tasklist.size(); i++) {
-                writeToFile(tasklist.get(i).storageText());
-            }
         } catch(IOException e) {
             throw new DukeException(e.getMessage());
         }
-
     }
 }

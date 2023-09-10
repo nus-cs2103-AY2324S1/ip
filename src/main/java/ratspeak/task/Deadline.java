@@ -2,6 +2,7 @@ package ratspeak.task;
 
 import ratspeak.exception.DukeException;
 
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -14,24 +15,34 @@ public class Deadline extends Task {
     private final LocalDate deadlineDate;
 
 
-    private static String[] parseDeadline(String task) throws DukeException {
-        String [] taskSplit = task.split("/by", 2);
+    private static String parseDeadlineTaskName(String task) throws DukeException {
+        String[] taskSplit = task.split("/by", 2);
         String taskName = taskSplit[0].trim();
 
         if (taskName.isEmpty()) {
-            throw new DukeException("Please enter task name");
+            throw new DukeException("Please enter task name\n");
         }
 
+        return taskName;
+    }
+
+    private static LocalDate parseDeadline(String task) throws DukeException {
+        String[] taskSplit = task.split("/by", 2);
+
         if (taskSplit.length != 2) {
-            throw new DukeException("Please enter valid deadline (make sure to start /by)");
+            throw new DukeException("Please enter valid deadline (make sure to start /by)\n");
         }
 
         String dueDate = taskSplit[1].trim();
         if (dueDate.isEmpty()) {
-            throw new DukeException("Please enter valid deadline: Do not leave it empty");
+            throw new DukeException("Please enter valid deadline: Do not leave it empty\n");
         }
 
-        return new String[] {taskSplit[0], dueDate};
+        try {
+            return LocalDate.parse(dueDate);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("wrong date time format: Use YYYY-MM-DD\n");
+        }
     }
 
     /**
@@ -41,17 +52,13 @@ public class Deadline extends Task {
      * the datetime format is wrong (not YYYY-MM-DD)
      */
     public Deadline(String task) throws DukeException {
-        super(parseDeadline(task)[0]);
-        try {
-            this.deadlineDate = LocalDate.parse(parseDeadline(task)[1]);
-        } catch (DateTimeParseException e) {
-            throw new DukeException("wrong date time format: Use YYYY-MM-DD\n");
-        }
+        super(parseDeadlineTaskName(task), parseDeadline(task));
+        this.deadlineDate = parseDeadline(task);
 
     }
 
     private Deadline(String task, boolean isDone, LocalDate deadlineDate) {
-        super(task, isDone);
+        super(task, deadlineDate, isDone);
         this.deadlineDate = deadlineDate;
     }
 
@@ -82,7 +89,6 @@ public class Deadline extends Task {
         String end = deadlineDate.toString();
         return "[D]" + super.toString() + "/by " + end;
     }
-
 
     @Override
     public String toString() {

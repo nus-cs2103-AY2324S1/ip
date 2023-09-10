@@ -3,6 +3,8 @@ package ratspeak.task;
 
 import ratspeak.exception.DukeException;
 
+import java.time.LocalDate;
+
 /**
  * Represents a todo task.
  */
@@ -10,7 +12,7 @@ public class Todo extends Task {
     private static String parseTodo(String task) throws DukeException {
         String todoTask = task.trim();
         if (todoTask.isEmpty()) {
-            throw new DukeException("Please enter valid todo: Do not leave it empty");
+            throw new DukeException("Please enter valid todo: Do not leave it empty\n");
         }
         return todoTask;
     }
@@ -21,11 +23,11 @@ public class Todo extends Task {
      * @throws DukeException if description is empty
      */
     public Todo(String task) throws DukeException {
-        super(parseTodo(task));
+        super(parseTodo(task), LocalDate.now().plusYears(1000));
     }
 
     private Todo(String task, boolean isDone) {
-        super(task, isDone);
+        super(task, LocalDate.now().plusYears(1000), isDone);
     }
 
     /**

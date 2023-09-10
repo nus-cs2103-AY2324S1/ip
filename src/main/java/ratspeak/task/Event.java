@@ -2,6 +2,7 @@ package ratspeak.task;
 
 import ratspeak.exception.DukeException;
 
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -15,34 +16,47 @@ public class Event extends Task {
     private final LocalDate startDate;
 
 
-    private static String[] parseEvent(String task) throws DukeException {
-        // index 0: task name, index 1: task time range
+    private static String parseTaskName(String task) throws DukeException {
+
         String [] taskSplit = task.split("/from", 2);
         String taskName = taskSplit[0].trim();
 
         if (taskName.isEmpty()) {
-            throw new DukeException("Please enter task name");
+            throw new DukeException("Please enter task name\n");
         }
 
+        return taskName;
+    }
+
+    private static LocalDate parseStartDate(String task) throws DukeException {
+        String [] taskSplit = task.split("/from", 2);
         if (taskSplit.length != 2) {
-            throw new DukeException("Please enter valid Event (make sure to start /from)");
+            throw new DukeException("Please enter valid Event (make sure to start /from)\n");
         }
-
-        if (taskSplit[1].trim().isEmpty()) {
-            throw new DukeException("Please enter valid Event (make sure to enter valid format)");
+        String taskTimeRange = taskSplit[1].trim();
+        if (taskTimeRange.isEmpty()) {
+            throw new DukeException("Please enter valid Event (make sure to enter valid format)\n");
         }
-
-        String taskTimeRange = taskSplit[1];
         String [] parseTimeRange = taskTimeRange.split("/to", 2);
-
-        if (parseTimeRange.length != 2) {
-            throw new DukeException("Please enter valid Event (make sure to have /to to clarify the end date)");
+        try {
+            return LocalDate.parse(parseTimeRange[0].trim());
+        } catch (DateTimeParseException e) {
+            throw new DukeException("wrong date time format for start date: Use YYYY-MM-DD\n");
         }
-        if (parseTimeRange[1].trim().isEmpty()) {
-            throw new DukeException("Please enter valid end date");
-        }
+    }
 
-        return new String[] {taskName, parseTimeRange[0].trim(), parseTimeRange[1].trim()};
+
+    private static LocalDate parseEndDate(String task) throws DukeException {
+        parseTaskName(task);
+        parseStartDate(task);
+        String [] taskSplit = task.split("/from", 2);
+        String taskTimeRange = taskSplit[1].trim();
+        String [] parseTimeRange = taskTimeRange.split("/to", 2);
+        try {
+            return LocalDate.parse(parseTimeRange[1].trim());
+        } catch (DateTimeParseException e) {
+            throw new DukeException("wrong date time format for end date: Use YYYY-MM-DD\n");
+        }
     }
 
     /**
@@ -52,21 +66,18 @@ public class Event extends Task {
      * the datetime format is wrong (not YYYY-MM-DD)
      */
     public Event(String task) throws DukeException {
-        super(parseEvent(task)[0]);
-        try {
-            this.deadlineDate = LocalDate.parse(parseEvent(task)[2]);
-            this.startDate = LocalDate.parse(parseEvent(task)[1]);
-        } catch (DateTimeParseException e) {
-            throw new DukeException("wrong date time format: Use YYYY-MM-DD\n");
-        }
+        super(parseTaskName(task), parseEndDate(task));
+        this.deadlineDate = parseEndDate(task);
+        this.startDate = parseStartDate(task);
 
     }
 
     private Event(String task, boolean isDone, LocalDate deadlineDate, LocalDate startDate) {
-        super(task, isDone);
+        super(task, deadlineDate, isDone);
         this.deadlineDate = deadlineDate;
         this.startDate = startDate;
     }
+
 
     /**
      * returns new Event object that is marked

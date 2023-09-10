@@ -142,7 +142,17 @@ public class TaskList {
         for (int i = 0; i < tasklist.size(); i++) {
             listOfContents = listOfContents + ((i + 1) + ": " + tasklist.get(i).toString() + "\n");
         }
-        return listOfContents;
+        return listOfContents + listUrgentTask();
+    }
+
+    public String listUrgentTask() {
+        String urgentTasks = "\nHere are the urgent task to be done within the week:\n";
+        for (int j = 0; j < tasklist.size(); j++) {
+            if (tasklist.get(j).isUrgent()) {
+                urgentTasks = urgentTasks + ((j + 1) + ": " + tasklist.get(j).toString() + "\n");
+            }
+        }
+        return urgentTasks;
     }
 
 }

@@ -15,14 +15,14 @@ public class Duke {
     }
 
     public void run() {
-        ui.greeting();
+        ui.greeting(commandProcessor.initialReminder());
 
         while (true) {
             String command = inputReceiver.getInput();
 
             //break out of the loop when it is "bye"
             if (command.equals("bye")) {
-                ui.message("Bye!!! Hope to see you again!\n");
+                ui.bye();
                 break;
             }
 
