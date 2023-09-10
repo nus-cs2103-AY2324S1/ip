@@ -1,5 +1,8 @@
 package koko;
 
+/**
+ * Represents a generic Task with a name and completion status.
+ */
 public abstract class Task {
     protected String name;
     protected boolean isDone;
@@ -14,6 +17,12 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Generates a Task object from its file representation.
+     * @param line The line from the file representing a Task.
+     * @return A Task object.
+     * @throws DukeException If the line is in an invalid format.
+     */
     public static Task fromFileFormat(String line) throws DukeException {
         String[] parts = line.split("\\|", -1); // -1 to keep trailing empty strings
         if (parts.length < 3) {
@@ -33,6 +42,10 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Returns the file representation of the task.
+     * @return A string representing the task in the file format.
+     */
     public abstract String toFileFormat();
 
     /**

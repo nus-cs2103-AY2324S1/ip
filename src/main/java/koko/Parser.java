@@ -3,16 +3,26 @@ package koko;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Handles parsing of user commands and input validation.
+ */
 public class Parser {
 
-    public Parser() {
-
-    }
-
+    /**
+     * Checks if input string contains any invalid characters.
+     * @param input The input string from the user.
+     * @return True if it contains invalid characters, false otherwise.
+     */
     public boolean hasInvalidCharacters(String input) {
         return input.contains("|");
     }
 
+    /**
+     * Parses the type of command from the input string.
+     * @param input The input string from the user.
+     * @return A Command enum representing the type of command.
+     * @throws DukeException If the input is invalid or empty.
+     */
     public Command parseCommandType(String input) throws DukeException {
         if (input == null || input.trim().isEmpty()) {
             throw new DukeException("Command input cannot be null or empty. Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event");
@@ -29,6 +39,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts the remaining arguments from the user input after the command.
+     * @param commandType The type of command.
+     * @param input The full user input string.
+     * @return The remaining arguments as a string.
+     * @throws DukeException If the remaining arguments are not provided or invalid.
+     */
     public String parseRemainingArgs(Command commandType, String input) throws DukeException {
         String[] parts = input.split(" ", 2);
         String remaining = parts.length > 1 ? parts[1] : "";
@@ -48,6 +65,12 @@ public class Parser {
         return remaining;
     }
 
+    /**
+     * Parses the remaining arguments for a deadline command.
+     * @param remaining The remaining arguments after the command.
+     * @return A ParsedDeadlineArgs object containing the task name and due date.
+     * @throws DukeException If the remaining arguments are invalid.
+     */
     public ParsedDeadlineArgs parseDeadlineString(String remaining) throws DukeException {
         String[] parts = remaining.split("/by ", 2);
         if (parts.length < 2) {
@@ -62,6 +85,12 @@ public class Parser {
         return new ParsedDeadlineArgs(parts[0].trim(), byDate);
     }
 
+    /**
+     * Parses the remaining arguments for an event command.
+     * @param remaining The remaining arguments after the command.
+     * @return A ParsedEventArgs object containing the task name, start date, and end date.
+     * @throws DukeException If the remaining arguments are invalid.
+     */
     public ParsedEventArgs parseEventString(String remaining) throws DukeException {
         String[] splitByTo = remaining.split("/to ", 2);
         if (splitByTo.length < 2) {
@@ -83,6 +112,12 @@ public class Parser {
         return new ParsedEventArgs(splitByFrom[0].trim(), startDate, endDate);
     }
 
+    /**
+     * Parses the remaining arguments for a todo command.
+     * @param remaining The remaining arguments after the command.
+     * @return A ParsedTodoArgs object containing the task name.
+     * @throws DukeException If the remaining arguments are invalid.
+     */
     public ParsedTodoArgs parseTodoString(String remaining) throws DukeException {
         if (remaining.isEmpty()) {
             throw new DukeException("Description for todo cannot be empty.");
@@ -90,6 +125,9 @@ public class Parser {
         return new ParsedTodoArgs(remaining);
     }
 
+    /**
+     * Wrapper class for command arguments.
+     */
     public static abstract class ParsedTaskArgs {
         public final String taskName;
 
@@ -98,6 +136,9 @@ public class Parser {
         }
     }
 
+    /**
+     * Represents the arguments for a deadline command.
+     */
     public static class ParsedDeadlineArgs extends ParsedTaskArgs {
         public final LocalDate byDate;
 
@@ -107,6 +148,9 @@ public class Parser {
         }
     }
 
+    /**
+     * Represents the arguments for an event command.
+     */
     public static class ParsedEventArgs extends ParsedTaskArgs {
         public final LocalDate startDate;
         public final LocalDate endDate;
@@ -118,6 +162,9 @@ public class Parser {
         }
     }
 
+    /**
+     * Represents the arguments for a todo command.
+     */
     public static class ParsedTodoArgs extends ParsedTaskArgs {
 
         public ParsedTodoArgs(String taskName) {

@@ -3,6 +3,10 @@ package koko;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * Represents the main driver class of the Koko chatbot application.
+ * Initializes and manages the user interface, storage, parser, and task list.
+ */
 public class Duke {
 
     private static final String CHATBOT_NAME = "Koko";
@@ -12,7 +16,11 @@ public class Duke {
 
     private TaskList taskList;
 
-
+    /**
+     * Constructs a Duke instance with the specified file path for task storage.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Duke(String filePath) {
         ui = new Ui(CHATBOT_NAME);
         storage = new Storage(filePath);
@@ -30,10 +38,20 @@ public class Duke {
         }
     }
 
+    /**
+     * Main method for running the Duke chatbot.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();
     }
 
+    /**
+     * Handles user input, parses it and dispatches the command to perform the appropriate actions.
+     *
+     * @param input The raw input string from the user.
+     */
     public void handleInputAndDispatch(String input) {
         try {
             if (parser.hasInvalidCharacters(input)) {
@@ -100,6 +118,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Initiates the main execution loop for the chatbot.
+     * Greets the user and starts the input loop until the user chooses to exit.
+     */
     public void run() {
         ui.greet();
         ui.startUserInputLoop(this::handleInputAndDispatch);
