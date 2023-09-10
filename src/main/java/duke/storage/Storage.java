@@ -57,6 +57,7 @@ public class Storage {
         } catch (FileNotFoundException e) {
             ui = new SilentUi(new Scanner(System.in));
         }
+        assert ui != null;
         try {
             while (ui.hasNext()) {
                 String saved = ui.readCommand();
@@ -80,6 +81,7 @@ public class Storage {
      * @param tasks TaskList to be saved.
      */
     public void save(TaskList tasks) {
+        assert dataFaile.exists();
         try {
             FileWriter writer = new FileWriter(dataFile, false);
             for (int i = 0; i < tasks.size(); i++) {

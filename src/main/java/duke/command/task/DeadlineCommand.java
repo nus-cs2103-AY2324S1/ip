@@ -38,6 +38,8 @@ public class DeadlineCommand extends TaskCommand {
      */
     @Override
     protected Deadline makeTask() {
+        assert this.args.get("description") instanceof String;
+        assert this.args.get("by") instanceof LocalDate;
         return new Deadline((String) this.args.get("description"), (LocalDate) this.args.get("by"));
     }
 

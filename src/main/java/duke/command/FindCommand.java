@@ -38,6 +38,7 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert this.args.get("key") instanceof String;
         String key = (String) this.args.get("key");
         List<Task> filteredTasks = new ArrayList<>();
         for (Task task : tasks) {

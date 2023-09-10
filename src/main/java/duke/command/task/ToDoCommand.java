@@ -36,6 +36,7 @@ public class ToDoCommand extends TaskCommand {
      */
     @Override
     protected ToDo makeTask() {
+        assert this.args.get("description") instanceof String;
         return new ToDo((String) this.args.get("description"));
     }
 
