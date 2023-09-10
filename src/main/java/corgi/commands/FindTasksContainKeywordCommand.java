@@ -27,7 +27,7 @@ public class FindTasksContainKeywordCommand extends Command {
      * @param target The target keyword.
      */
     public FindTasksContainKeywordCommand(String target) {
-        super(false, CommandType.FIND);
+        super(false);
         this.target = target;
 
         // Define a predicate to filter tasks based on whether they contain the keyword.

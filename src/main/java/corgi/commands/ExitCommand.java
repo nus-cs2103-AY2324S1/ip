@@ -15,7 +15,7 @@ public class ExitCommand extends Command {
      * Initializes a new ExitCommand instance.
      */
     public ExitCommand() {
-        super(true, CommandType.BYE);
+        super(true);
     }
 
     /**

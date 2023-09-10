@@ -111,7 +111,7 @@ public class CommandParser extends Parser<Command> {
 
         try {
             int index = Integer.parseInt(inputs[1]) - 1;
-            return new MarkTaskCommand(index, true, commandType);
+            return new MarkTaskCommand(index, true);
         } catch (NumberFormatException e) {
             throw new InvalidCommandFormatException("Please provide a valid task number!" + "\nFormat: "
                     + commandFormat);
@@ -129,7 +129,7 @@ public class CommandParser extends Parser<Command> {
 
         try {
             int index = Integer.parseInt(inputs[1]) - 1;
-            return new MarkTaskCommand(index, true, commandType);
+            return new MarkTaskCommand(index, true);
         } catch (NumberFormatException e) {
             throw new InvalidCommandFormatException("Please provide a valid task number!" + "\nFormat: "
                     + commandFormat);
@@ -191,7 +191,7 @@ public class CommandParser extends Parser<Command> {
 
         Task target = new ToDo(taskInfo);
 
-        return new AddTaskCommand(target, CommandType.TODO);
+        return new AddTaskCommand(target);
     }
 
     private Command newAddDeadlineCommand(String[] inputs) throws InvalidCommandFormatException {
@@ -224,7 +224,7 @@ public class CommandParser extends Parser<Command> {
 
         Task target = new Deadline(deadlineDesc, by);
 
-        return new AddTaskCommand(target, CommandType.DEADLINE);
+        return new AddTaskCommand(target);
     }
 
     private Command newAddEventCommand(String[] inputs) throws InvalidCommandFormatException {
@@ -272,6 +272,6 @@ public class CommandParser extends Parser<Command> {
 
         Task target = new Event(eventDesc, from, to);
 
-        return new AddTaskCommand(target, CommandType.EVENT);
+        return new AddTaskCommand(target);
     }
 }

@@ -14,7 +14,7 @@ public class ListTasksCommand extends Command {
      * Initializes a new ListTasksCommand instance.
      */
     public ListTasksCommand() {
-        super(false, CommandType.LIST);
+        super(false);
     }
 
     /**
