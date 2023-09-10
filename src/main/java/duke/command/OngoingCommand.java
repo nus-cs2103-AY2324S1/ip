@@ -40,6 +40,7 @@ public class OngoingCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert this.args.get("date") instanceof LocalDate;
         LocalDate date = (LocalDate) this.args.get("date");
         List<Task> filteredEvents = new ArrayList<>();
         for (Task task : tasks) {

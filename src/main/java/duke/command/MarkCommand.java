@@ -37,6 +37,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        assert this.args.get("index") instanceof Integer;
         int idx = (int) ((Integer) this.args.get("index"));
         tasks.mark(idx);
         ui.print(String.format("Nice! I've marked this task as done:\n  %s", tasks.access(idx).toString()));

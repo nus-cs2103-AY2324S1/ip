@@ -40,6 +40,9 @@ public class EventCommand extends TaskCommand {
      */
     @Override
     protected Event makeTask() throws DateRangeException {
+        assert this.args.get("description") instanceof String;
+        assert this.args.get("from") instanceof LocalDate;
+        assert this.args.get("to") instanceof LocalDate;
         return new Event((String) this.args.get("description"),
             (LocalDate) this.args.get("from"), (LocalDate) this.args.get("to"));
     }
