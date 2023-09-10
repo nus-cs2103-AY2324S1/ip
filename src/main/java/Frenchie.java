@@ -2,6 +2,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Frenchie {
     public ArrayList<Task> tasks;
@@ -65,17 +67,27 @@ public class Frenchie {
                     this.addTask(currentTask);
                 } else if (taskType.equals("D")) {
                     String taskName = taskDetails.split("\\(")[0].trim();
-                    String deadline = taskDetails.split("\\(")[1].split("\\)")[0];
-                    Deadline currentTask = new Deadline(taskName, deadline);
+                    String deadline = taskDetails.split("\\(by: ")[1].split("\\)")[0];
+                    DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                    LocalDateTime storedDeadline = LocalDateTime.parse(deadline, inputFormatter);
+                    DateTimeFormatter desiredFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                    String constructorDeadline = storedDeadline.format(desiredFormatter);
+                    Deadline currentTask = new Deadline(taskName, constructorDeadline);
                     if (taskStatus.equals("X")) {
                         currentTask.mark_as_completed();
                     }
                     this.addTask(currentTask);
                 } else if (taskType.equals("E")) {
                     String taskName = taskDetails.split("\\(")[0].trim();
-                    String startTime = taskDetails.split("\\(")[1].split("to")[0].trim();
-                    String endTime = "to" + Arrays.toString(taskDetails.split("\\(")[1].split("to")[1].split("\\)"));
-                    Event currentTask = new Event(taskName, startTime, endTime);
+                    String startTime = taskDetails.split("\\(")[1].split("from: ")[1].split(" to")[0];
+                    String endTime = taskDetails.split("\\(")[1].split("to: ")[1].split("\\)")[0];
+                    DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                    LocalDateTime storedStartTime = LocalDateTime.parse(startTime, inputFormatter);
+                    LocalDateTime storedEndTime = LocalDateTime.parse(endTime, inputFormatter);
+                    DateTimeFormatter desiredFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                    String constructorStartTime = storedStartTime.format(desiredFormatter);
+                    String constructorEndTime = storedEndTime.format(desiredFormatter);
+                    Event currentTask = new Event(taskName, constructorStartTime, constructorEndTime);
                     if (taskStatus.equals("X")) {
                         currentTask.mark_as_completed();
                     }
@@ -160,8 +172,8 @@ public class Frenchie {
                                     "Now you have " + frenchie.getNumOfTasks() + " tasks in the list.\n" +
                                     "____________________________________________________________");
                         } else if (taskType.equals("deadline")) {
-                            String taskName = input.split("/")[0].split("deadline")[1].trim();
-                            String deadline = input.split("/")[1].replace("by ", "by: ");
+                            String taskName = input.split("/by")[0].split("deadline")[1].trim();
+                            String deadline = input.split("/by")[1].trim();
                             Deadline currentTask = new Deadline(taskName, deadline);
                             frenchie.addTask(currentTask);
                             System.out.println("____________________________________________________________\n" +
@@ -171,8 +183,8 @@ public class Frenchie {
                                     "____________________________________________________________");
                         } else {
                             String taskName = input.split("/")[0].split("event")[1].trim();
-                            String startTime = input.split("/")[1].replace("from ", "from: ");
-                            String endTime = input.split("/")[2].replace("to ", "to: ");
+                            String startTime = input.split("/from")[1].split("/to")[0].trim();
+                            String endTime = input.split("/from")[1].split("/to")[1].trim();
                             Event currentTask = new Event(taskName, startTime, endTime);
                             frenchie.addTask(currentTask);
                             System.out.println("____________________________________________________________\n" +
