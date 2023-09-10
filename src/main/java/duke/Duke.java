@@ -33,9 +33,8 @@ public class Duke {
      * @return Chatbot response to be displayed on GUI.
      */
     public String getResponse(String input) {
-        Parser.parseCommand(input, taskList);
+        String output = Parser.parseCommand(input, taskList);
         storage.writeToFile(taskList);
-        return Ui.getOutMessage();
+        return output;
     }
-
 }
