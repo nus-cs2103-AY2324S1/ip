@@ -59,7 +59,7 @@ public class Storage {
             writeToFile(filePath, "");
             if (tasks.size() > 0) {
                 for (int i = 0; i < tasks.size(); i++) {
-                    addToFile(filePath, tasks.get(i).addDataFormat() + "\n");
+                    addToFile(filePath, tasks.get(i).addDataFormat());
                 }
             }
         } catch (IOException e) {
@@ -97,14 +97,17 @@ public class Storage {
             try {
                 scanner = new Scanner(dataFile);
                 while (scanner.hasNextLine()) {
+                    System.out.println("checking line by line");
                     String[] input = scanner.nextLine().split(" \\| ");
                     String taskType = input[0];
+                    System.out.println(taskType);
                     switch(taskType) {
                     case "T":
                         boolean isDoneT = checkDone(input[1]);
                         String descriptionT = input[2];
                         Task toAddTaskT = new Todo(descriptionT, isDoneT);
                         tasks.add(toAddTaskT);
+                        System.out.println("Added" + descriptionT);
                         break;
                     case "D":
                         boolean isDoneD = checkDone(input[1]);
@@ -113,6 +116,7 @@ public class Storage {
                         try {
                             Task toAddTaskD = new Deadline(descriptionD, by, isDoneD);
                             tasks.add(toAddTaskD);
+                            System.out.println("Added" + descriptionD);
                         } catch (InvalidDeadlineException e) {
                             System.out.println(e.getMessage());
                         }
@@ -125,15 +129,18 @@ public class Storage {
                         try {
                             Task toAddTaskE = new Event(descriptionE, fromE, toE, isDoneE);
                             tasks.add(toAddTaskE);
+                            System.out.println("Added" + descriptionE);
                         } catch (InvalidEventException e) {
                             System.out.println(e.getMessage());
                         }
                         break;
                     default:
+                        System.out.println("zhewei!!!");
                         throw new LemonException("Failure to load file!");
                     }
                 }
             } catch (FileNotFoundException e) {
+                System.out.println("File not foudn grrr");
                 throw new LemonException("Storage file not available!");
             }
         }

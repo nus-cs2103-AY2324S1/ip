@@ -21,16 +21,18 @@ public class Ui {
 
     /**
      * Displays a welcome message when the application starts.
+     * @return String of the welcome message
      */
-    public void welcomeMessage() {
-        System.out.println("Hello! I'm Lemon!" + "\nWhat can I do for you?");
+    public String welcomeMessage() {
+        return ("Hello! I'm Lemon!" + System.lineSeparator() + "What can I do for you?");
     }
 
     /**
      * Displays an error message when there is an issue loading the storage file with tasks.
+     * @return String of the error message.
      */
-    public void showLoadingError() {
-        System.out.println("Error loading storage file!");
+    public String showLoadingError() {
+        return("Error loading storage file!");
     }
 
     /**
@@ -38,10 +40,13 @@ public class Ui {
      *
      * @param toMarkTask The task that was marked as done.
      * @param tasks The TaskList object containing the task list.
+     * @return String of the message to display indicating task is completed.
      */
-    public void markPrint(String toMarkTask, TaskList tasks) {
-        System.out.println("Nice! I've marked this task as done:\n " + toMarkTask + "\n");
-        System.out.println("Now you have " + tasks.getTasksSize() + " tasks in the list.\n");
+    public String markPrint(String toMarkTask, TaskList tasks) {
+        String output = "";
+        output += ("Nice! I've marked this task as done: " + System.lineSeparator() + toMarkTask + "\n");
+        output += ("Now you have " + tasks.getTasksSize() + " tasks in the list.\n");
+        return output;
     }
 
     /**
@@ -49,10 +54,13 @@ public class Ui {
      *
      * @param toUnmarkTask The task that was marked as undone.
      * @param tasks The TaskList object containing the task list.
+     *
      */
-    public void unmarkPrint(String toUnmarkTask, TaskList tasks) {
-        System.out.println("OK, I've marked this task as not done yet:\n " + toUnmarkTask + "\n");
-        System.out.println("Now you have " + tasks.getTasksSize() + " tasks in the list.\n");
+    public String unmarkPrint(String toUnmarkTask, TaskList tasks) {
+        String output = "";
+        output += ("OK, I've marked this task as not done yet: " + System.lineSeparator() + toUnmarkTask + "\n");
+        output += ("Now you have " + tasks.getTasksSize() + " tasks in the list.\n");
+        return output;
     }
 
     /**
@@ -61,9 +69,11 @@ public class Ui {
      * @param toDeleteTask The task that was deleted.
      * @param tasks The TaskList object containing the task list without the deleted task.
      */
-    public void deletePrint(String toDeleteTask, TaskList tasks) {
-        System.out.println("Noted. I've removed this task:\n" + toDeleteTask);
-        System.out.println("Now you have " + tasks.getTasksSize() + " tasks in the list.\n");
+    public String deletePrint(String toDeleteTask, TaskList tasks) {
+        String output = "";
+        output += ("Noted. I've removed this task:" + System.lineSeparator() + toDeleteTask + System.lineSeparator());
+        output += ("Now you have " + tasks.getTasksSize() + " tasks in the list.\n");
+        return output;
     }
 
     /**
@@ -72,44 +82,53 @@ public class Ui {
      * @param toAddTask The task that was added.
      * @param tasks The TaskList object containing the task list with the added task.
      */
-    public void addTasks(String toAddTask, TaskList tasks) {
-        System.out.println("Got it. I've added this task: " + toAddTask);
-        System.out.println("Now you have " + tasks.getTasksSize() + " tasks in the list.\n");
+    public String addTasks(String toAddTask, TaskList tasks) {
+        String output = "";
+        output += ("Got it. I've added this task: " + toAddTask);
+        output += System.lineSeparator();
+        output += ("Now you have " + tasks.getTasksSize() + " tasks in the list." + System.lineSeparator());
+        return output;
     }
 
     /**
      * Lists all tasks in the task list.
      *
      * @param tasks The TaskList object containing the task list.
+     * @return String of all the tasks in the TaskList.
      */
-    public void listAll(TaskList tasks) throws InvalidTaskIndexException {
+    public String listAll(TaskList tasks) throws InvalidTaskIndexException {
+        String output = "";
         try {
             for (int i = 0; i < tasks.getTasksSize(); i++) {
-                System.out.println(i + 1 + ". " + tasks.getTask(i).toString());
+                output += (i + 1 + ". " + tasks.getTask(i).toString() + System.lineSeparator());
             }
-            System.out.println("\n");
+            output += System.lineSeparator();
+            return output;
         } catch (InvalidTaskIndexException e) {
             throw new InvalidTaskIndexException("Invalid task index");
         }
     }
 
     /**
-     * Lists all tasks in the task list.
+     * Lists all tasks that matches the keyword in the task list.
      *
      * @param tasks The TaskList object containing the task list.
+     * @return String of the list of tasks which matches the keyword.
      */
-    public void listMatching(ArrayList<Task> tasks) {
+    public String listMatching(ArrayList<Task> tasks) {
+        String output = "";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(i + 1 + ". " + tasks.get(i).toString());
+            output += (i + 1 + ". " + tasks.get(i).toString() + System.lineSeparator());
         }
-        System.out.println("\n");
+        output += System.lineSeparator();
+        return output;
     }
 
     /**
      * Displays a farewell message when the user exits the application.
      */
-    public void bye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String bye() {
+        return ("Bye. Hope to see you again soon!");
     }
 
 }
