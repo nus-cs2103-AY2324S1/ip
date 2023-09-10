@@ -9,19 +9,9 @@ import duke.exceptions.DukeException;
  */
 public class Ui {
 
-    private String greeting = "Hello! I'm Toothless.\n"
-            + "What can I do for you today?\n"
-            + "---------------------------------";
     private String farewell = "Goodbye. Hope to see you soon!\n"
             + "---------------------------------";
     private String addTask = "A new task has been added!\n ";
-
-    /**
-     * Greets the user.
-     */
-    public String greet() {
-        return greeting;
-    }
 
     /**
      * Bids farewell to the user.
@@ -89,20 +79,4 @@ public class Ui {
             return output;
         }
     }
-
-    /**
-     * Confirms that the status of a task has changed.
-     * @param status The current status of the task.
-     */
-    public String showStatusChanged(String status) {
-        return status;
-    }
-
-    /**
-     * Separates the commands and output.
-     */
-    public void separator() {
-        System.out.println("---------------------------------");
-    }
-
 }

@@ -13,14 +13,6 @@ import java.util.Scanner;
 public class Storage {
 
     private final String path = "toothless.txt";
-    private File tempFile;
-
-    /**
-     * Constructor for a locally saved file.
-     */
-    public Storage() {
-        this.tempFile = null;
-    }
 
     /**
      * Reads the previously saved list of tasks and returns it in a list of task descriptions.

@@ -45,6 +45,7 @@ public class Duke {
             case DEADLINE:
             case EVENT:
                 Task t = TaskList.createTask(input, command, 0);
+                assert t != null : "Task was not created";
                 tasks.addTask(t);
                 output = ui.showTaskAdded(t.getTask());
                 break;
@@ -61,7 +62,7 @@ public class Duke {
             case UNMARK:
             case MARK:
                 String completionStatus = tasks.changeTaskCompletion(input, command);
-                output = ui.showStatusChanged(completionStatus);
+                output = completionStatus;
                 break;
 
             case FIND:
@@ -71,12 +72,12 @@ public class Duke {
 
             case DELETE:
                 String deleteStatus = tasks.deleteTask(input);
-                output = ui.showStatusChanged(deleteStatus);
+                output = deleteStatus;
                 break;
 
             case BYE:
                 String savedStatus = storage.saveToDisk(tasks.getTasksDes(0));
-                output = savedStatus + "\n" + ui.showStatusChanged(savedStatus);
+                output = savedStatus + "\n" + ui.farewell();
                 break;
 
             case UNKNOWN:
@@ -91,6 +92,7 @@ public class Duke {
             output = ui.showGeneralError();
         }
 
+        assert !output.isEmpty() : "No output received";
         return output;
     }
 }
