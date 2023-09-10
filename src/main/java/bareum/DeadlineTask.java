@@ -11,7 +11,7 @@ public class DeadlineTask extends Task {
     /**
      * Due date of the deadline.
      */
-    private LocalDate dueDate;
+    LocalDate dueDate;
 
     /**
      * Creates a new deadline using the input completion status, description and due date.
@@ -22,6 +22,7 @@ public class DeadlineTask extends Task {
     private DeadlineTask(boolean isDone, String description, LocalDate dueDate) {
         super(isDone, description);
         this.dueDate = dueDate;
+        this.isDone = false;
     }
 
     /**
@@ -37,8 +38,8 @@ public class DeadlineTask extends Task {
             dueDate = LocalDate.parse(dueDateStr);
         } catch (DateTimeParseException e) {
             System.out.println(e.getMessage());
-            throw new BareumException("Oops! Please enter the due date in YYYY-MM-DD :(\n"
-                    + "Correct format: deadline <description> /by <due date in YYYY-MM-DD>");
+            throw new BareumException("Oops! Please enter the due date in YYYY-MM-DD :(\n" +
+                    "Correct format: deadline <description> /by <due date in YYYY-MM-DD>");
         }
         return new DeadlineTask(false, description, dueDate);
     }
@@ -61,7 +62,7 @@ public class DeadlineTask extends Task {
     public String toString() {
         String dueDate = this.dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
 
-        return "[D][" + this.getStatusIcon() + "] " + this.getDescription()
+        return "[D][" + this.getStatusIcon() + "] " + this.description
                 + "(by: " + dueDate + ")";
     }
 
@@ -71,7 +72,7 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toSavedString() {
-        String done = this.getIsDone() ? "1" : "0";
-        return "D|" + done + "|" + this.getDescription() + "|" + dueDate + "\n";
+        String done = isDone ? "1" : "0";
+        return "D|" + done + "|" + this.description + "|" + dueDate +"\n";
     }
 }

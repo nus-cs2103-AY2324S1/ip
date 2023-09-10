@@ -1,10 +1,10 @@
 package bareum;
 
+import bareum.commands.Command;
 import bareum.commands.AddDeadlineCommand;
 import bareum.commands.AddEventCommand;
 import bareum.commands.AddTodoCommand;
 import bareum.commands.ByeCommand;
-import bareum.commands.Command;
 import bareum.commands.DeleteCommand;
 import bareum.commands.FindCommand;
 import bareum.commands.IncorrectCommand;
@@ -16,6 +16,10 @@ import bareum.commands.UnmarkCommand;
  * This class implements the parser which deals with interpreting the user input.
  */
 public class Parser {
+    public Parser() {
+
+    }
+
     /**
      * Parse the user input and create the corresponding command to execute.
      * @param input Details of task user inputs
@@ -34,7 +38,7 @@ public class Parser {
         } else if (commandInputs[0].equals("mark")) {
             if (commandInputs.length == 1) {
                 throw new BareumException("Oops! Please give the index of the task you would like to mark.\n"
-                        + "Correct format: mark <index>");
+                        + "\nCorrect format: mark <index>");
             }
             int inputIndex;
             try {
@@ -42,7 +46,7 @@ public class Parser {
             } catch (NumberFormatException e) {
                 System.out.println(e.getMessage());
                 throw new BareumException("Oops! Please give an integer as the index of the task"
-                        + "you would like to delete.\nCorrect format: delete <index>");
+                        + "you would like to delete.\n\nCorrect format: delete <index>");
             }
             int index = inputIndex - 1;
             cmd = new MarkCommand(index);
@@ -50,7 +54,7 @@ public class Parser {
         } else if (commandInputs[0].equals("unmark")) {
             if (commandInputs.length == 1) {
                 throw new BareumException("Oops! Please give the index of the task you would like to unmark.\n"
-                        + "Correct format: unmark <index>");
+                        + "\nCorrect format: unmark <index>");
             }
             int inputIndex;
             try {
@@ -58,7 +62,7 @@ public class Parser {
             } catch (NumberFormatException e) {
                 System.out.println(e.getMessage());
                 throw new BareumException("Oops! Please give an integer as the index of the task"
-                        + "you would like to delete.\nCorrect format: delete <index>");
+                        + "you would like to delete.\n\nCorrect format: delete <index>");
             }
             int index = inputIndex - 1;
             cmd = new UnmarkCommand(index);
@@ -66,7 +70,7 @@ public class Parser {
         } else if (commandInputs[0].equals("delete")) {
             if (commandInputs.length == 1) {
                 throw new BareumException("Oops! Please give the index of the task you would like to delete.\n"
-                        + "Correct format: delete <index>");
+                        + "\nCorrect format: delete <index>");
             }
 
             int inputIndex;
@@ -75,7 +79,7 @@ public class Parser {
             } catch (NumberFormatException e) {
                 System.out.println(e.getMessage());
                 throw new BareumException("Oops! Please give an integer as the index of the task"
-                        + "you would like to delete.\nCorrect format: delete <index>");
+                        + "you would like to delete.\n\nCorrect format: delete <index>");
             }
             int index = inputIndex - 1;
             cmd = new DeleteCommand(index);
@@ -83,7 +87,7 @@ public class Parser {
         } else if (commandInputs[0].equals("find")) {
             if (commandInputs.length == 1) {
                 throw new BareumException("Oops! Please give the keyword you would like to search for.\n"
-                        + "Correct format: find <keyword>");
+                        + "\nCorrect format: find <keyword>");
             }
 
             cmd = new FindCommand(commandInputs[1]);
@@ -91,11 +95,11 @@ public class Parser {
         } else if (commandInputs[0].equals("todo")) {
             if (commandInputs.length == 1) {
                 throw new BareumException("Oops! Please include the description of your todo :(\n"
-                        + "Correct format: todo <description>");
+                        + "\nCorrect format: todo <description>");
             }
             cmd = new AddTodoCommand(commandInputs[1]);
 
-        } else if (commandInputs[0].equals("deadline")) {
+        } else if (commandInputs[0].equals("deadline")){
             if (commandInputs.length == 1) {
                 throw new BareumException("Oops! The details of your deadline are missing :(\n"
                         + "\nCorrect format: deadline <description> /by <due date in YYYY-MM-DD>");

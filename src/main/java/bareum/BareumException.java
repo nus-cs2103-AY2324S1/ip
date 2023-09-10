@@ -9,6 +9,6 @@ public class BareumException extends Exception {
      * @param message The details of the exception.
      */
     public BareumException(String message) {
-        super("Bareum: " + message);
+        super(message);
     }
 }

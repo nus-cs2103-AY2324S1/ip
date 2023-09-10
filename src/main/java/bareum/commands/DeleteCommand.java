@@ -24,18 +24,19 @@ public class DeleteCommand extends Command {
 
     /**
      * Delete the task at the corresponding index.
+     *
      * @param ui Lets the user know if the deletion was successful.
      * @param storage Saves the remaining tasks to the hard disk.
      * @param taskList Task list to delete the task from.
+     * @return Response to user input.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) {
+    public String execute(Ui ui, Storage storage, TaskList taskList) {
         String deletedTask = taskList.get(index).toString();
         taskList.delete(index);
         storage.saveAllTasks(taskList);
-        // exception for if index doesn't exist
 
-        Ui.reply("Okay, I've deleted this task from the list:\n" + deletedTask
-                + "\nYou now have " + taskList.size() + " tasks in your list.");
+        return "Okay, I've deleted this task from the list:\n" + deletedTask
+                + "\nYou now have " + taskList.size() + " tasks in your list.";
     }
 }

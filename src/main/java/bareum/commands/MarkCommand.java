@@ -24,15 +24,17 @@ public class MarkCommand extends Command {
 
     /**
      * Marks the task at the corresponding index as completed.
+     *
      * @param ui Lets the user know if the marking as completed was successful.
      * @param storage Saves the updated task to the hard disk.
      * @param taskList Task list to retrieve the task from.
+     * @return
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) {
+    public String execute(Ui ui, Storage storage, TaskList taskList) {
         taskList.markAsDone(index);
         storage.saveAllTasks(taskList);
 
-        Ui.reply("Well done! I've marked this task as done:\n" + taskList.get(index).toString());
+        return "Well done! I've marked this task as done:\n" + taskList.get(index).toString();
     }
 }

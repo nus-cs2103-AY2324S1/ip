@@ -19,7 +19,7 @@ public class TodoTask extends Task {
      * @return New uncompleted todo with the corresponding description.
      * @throws BareumException If description is empty.
      */
-    public static TodoTask makeTodo(String description) throws BareumException {
+    static public TodoTask makeTodo(String description) throws BareumException {
         if (description.length() == 0) {
             throw new BareumException("Todo description cannot be empty.");
         }
@@ -32,7 +32,7 @@ public class TodoTask extends Task {
      * @param taskInputs Type, completion status, description and due date of the saved task.
      * @return New todo with the corresponding description.
      */
-    public static TodoTask makeTodo(String[] taskInputs) {
+    static public TodoTask makeTodo(String[] taskInputs) {
         boolean isDone = taskInputs[0].equals("1");
 
         return new TodoTask(isDone, taskInputs[2]);
@@ -40,7 +40,7 @@ public class TodoTask extends Task {
 
     @Override
     public String toString() {
-        return "[T][" + this.getStatusIcon() + "] " + this.getDescription();
+        return "[T][" + this.getStatusIcon() + "] " + this.description;
     }
 
     /**
@@ -49,7 +49,7 @@ public class TodoTask extends Task {
      */
     @Override
     public String toSavedString() {
-        String done = this.getIsDone() ? "1" : "0";
-        return "T|" + done + "|" + this.getDescription() + "\n";
+        String done = isDone ? "1" : "0";
+        return "T|" + done + "|" + this.description + "\n";
     }
 }

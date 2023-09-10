@@ -2,12 +2,14 @@ package bareum;
 
 import bareum.commands.ByeCommand;
 import bareum.commands.Command;
+import javafx.stage.Stage;
 
 /**
  *  This class implements the Bareum chatbot which keeps track of tasks to do.
  */
 
 public class Bareum {
+    private Stage stage;
     /**
      * The object that loads and saves tasks into the file
      */
@@ -23,45 +25,30 @@ public class Bareum {
 
     /**
      * Creates a new instance of Bareum.
-     * @param filePath File path to the file that previously saved tasks will be retrieved from.
+     * @param stage Stage for GUI.
      */
-    public Bareum(String filePath) {
-        this.storage = new Storage(filePath);
+    public Bareum(Stage stage) {
+        this.stage = stage;
+        this.storage = new Storage("./data/storedTasks.txt");
         this.taskList = new TaskList();
+        storage.loadSavedTaskList(taskList);
         this.ui = new Ui();
     }
 
     /**
      * Run the instance of Bareum and get user input until the user uses the 'bye' command.
      */
-    public void run() {
-        boolean isExit = false;
+    public String run(String input) {
+        try {
+            Command cmd = Parser.parse(input);
+            String response = cmd.execute(ui, storage, taskList);
 
-        storage.loadSavedTaskList(taskList);
-        ui.showWelcomeMessage();
-
-        while (!isExit) {
-            try {
-                ui.showLine();
-                String input = ui.getUserInput();
-
-                Command cmd = Parser.parse(input);
-                cmd.execute(ui, storage, taskList);
-                if (cmd instanceof ByeCommand) {
-                    isExit = true;
-                }
-            } catch (BareumException e) {
-                System.out.println(e.getMessage());
+            if (cmd instanceof ByeCommand) {
+                stage.close();
             }
+            return response;
+        } catch (BareumException e) {
+            return e.getMessage();
         }
-    }
-
-    /**
-     * Starts the program and creates an instance of Bareum to run.
-     *
-     * @param args Command line arguments which are not currently used.
-     */
-    public static void main(String[] args) {
-        new Bareum("./data/storedTasks.txt").run();
     }
 }

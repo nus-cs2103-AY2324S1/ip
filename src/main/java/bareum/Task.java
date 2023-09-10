@@ -7,11 +7,11 @@ public class Task {
     /**
      * Description of the task.
      */
-    private String description;
+    String description;
     /**
      * Completion status of the task.
      */
-    private boolean isDone;
+    boolean isDone;
 
     /**
      * Create a new task with the corresponding completion status and description.
@@ -43,10 +43,6 @@ public class Task {
      */
     public String getStatusIcon() {
         return isDone ? "X" : " ";
-    }
-
-    public boolean getIsDone() {
-        return isDone;
     }
 
     public String getDescription() {

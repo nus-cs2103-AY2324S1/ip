@@ -43,15 +43,15 @@ public class Storage {
         this.storedTasks = storedTasks;
 
         StringBuilder savedTasks = new StringBuilder();
-        int currChar;
+        int currCharAsciiCode;
 
         try {
             FileReader fr = new FileReader(storedTasks);
-            while ((currChar = fr.read()) != -1) {
-                savedTasks.append((char) currChar);
+            while ((currCharAsciiCode = fr.read()) != -1) {
+                savedTasks.append((char) currCharAsciiCode);
             }
 
-            String[] allTaskInputs = savedTasks.toString().split("\n");
+            String[] allTaskInputs = savedTasks.toString(). split("\n");
             for (int i = 0; i < allTaskInputs.length; i++) {
                 String[] taskInputs = allTaskInputs[i].split("\\|");
                 if (taskInputs[0].equals("T")) {
