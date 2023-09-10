@@ -29,7 +29,13 @@ public enum TaskError {
     ERR_USING_FIND("..o.o..beep..Error using command 'find', "
             + "use: \"find <query>\""),
     ERR_READING_FXML("..o.o..beep..There seems to be an error loading your messages."
-            + " Restart the app is this persists, or file a bug report.");
+            + " Restart the app is this persists, or file a bug report."),
+    ERR_TASKLIST_FULL("..o.o..beep..Your task list has reached its limit. "
+            + "Remove some tasks to continue."),
+    ERR_INVALID_POSITION("..o.o..beep..Invalid position!"),
+    ERR_NO_UNDO_FOUND("..o.o..beep..Nothing to undo."),
+    ERR_ALREADY_MARKED("..o.o..beep..Task already marked."),
+    ERR_ALREADY_UNMARKED("..o.o..beep..Task already unmarked.");
 
 
     private final String errorMessage;
@@ -45,7 +51,7 @@ public enum TaskError {
      * @param e This is the DotException (or any other exception),
      *          which is passed along with the TaskError enum, to be
      *          handled.
-     * @return  Full error message.
+     * @return Full error message.
      */
     public String getFullErrorMessage(Exception e) {
         if (e instanceof NumberFormatException) {
