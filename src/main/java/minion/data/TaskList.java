@@ -2,6 +2,7 @@ package minion.data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import minion.common.Messages;
 import minion.data.exception.IllegalValueException;
@@ -95,14 +96,12 @@ public class TaskList {
      * @return a TaskList containing tasks that match the query.
      */
     public TaskList search(String query) {
-        TaskList results = new TaskList();
-        for (Task task: tasks) {
-            if (task.contains(query)) {
-                results.add(task);
-            }
-        }
-        return results;
+        List<Task> filteredTasks = tasks.stream()
+                                        .filter(task -> task.contains(query))
+                                        .collect(Collectors.toList());
+        return new TaskList(filteredTasks);
     }
+
 
     /**
      * Returns the size of the TaskList.

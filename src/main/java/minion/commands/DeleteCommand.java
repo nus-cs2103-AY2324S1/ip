@@ -53,6 +53,6 @@ public class DeleteCommand extends Command {
             return false;
         }
         DeleteCommand c = (DeleteCommand) o;
-        return this.taskIdx == c.taskIdx;
+        return taskIdx == c.taskIdx;
     }
 }

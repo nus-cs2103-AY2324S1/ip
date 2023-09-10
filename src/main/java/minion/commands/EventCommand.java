@@ -52,6 +52,6 @@ public class EventCommand extends Command {
             return false;
         }
         EventCommand c = (EventCommand) o;
-        return this.event.equals(c.event);
+        return event.equals(c.event);
     }
 }
