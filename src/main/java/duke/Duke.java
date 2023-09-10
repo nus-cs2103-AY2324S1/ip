@@ -1,12 +1,5 @@
 package duke;
 
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
-
 import java.io.IOException;
 import java.util.Scanner;
 

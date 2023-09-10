@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Ui {
 
     /**
-     * Prints welcome message.
+     * Returns welcome message.
      */
     public static String welcomeMessage() {
         return " Hello! I'm Jarvis\n"
@@ -16,7 +16,7 @@ public class Ui {
     }
 
     /**
-     * Prints all tasks in task list.
+     * Returns all tasks in task list.
      *
      * @param tasks The task list.
      */
@@ -32,7 +32,7 @@ public class Ui {
     }
 
     /**
-     * Prints matching tasks in task list.
+     * Returns matching tasks in task list.
      *
      * @param tasks The task list.
      */
@@ -48,7 +48,7 @@ public class Ui {
     }
 
     /**
-     * Prints message for marking a task.
+     * Returns message for marking a task.
      *
      * @param t The task marked.
      */
@@ -58,7 +58,7 @@ public class Ui {
     }
 
     /**
-     * Prints the message for adding a task.
+     * Returns the message for adding a task.
      *
      * @param t The task added.
      * @param taskList The task list of the task.
@@ -70,7 +70,7 @@ public class Ui {
     }
 
     /**
-     * Prints the message for deleting a task.
+     * Returns the message for deleting a task.
      *
      * @param t The task deleted.
      * @param taskList The task list of the task.
@@ -82,7 +82,7 @@ public class Ui {
     }
 
     /**
-     * Prints the exception message.
+     * Returns the exception message.
      *
      * @param e The exception printed.
      */
@@ -91,7 +91,7 @@ public class Ui {
     }
 
     /**
-     * Prints farewell message.
+     * Returns farewell message.
      */
     public static String farewellMessage() {
         return " Bye. Hope to see you again soon!";

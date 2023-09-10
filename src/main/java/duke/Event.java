@@ -22,6 +22,9 @@ public class Event extends Task{
         this.endTime = endTime;
     }
 
+    /**
+     * Returns a String representation for the task for output.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: "
