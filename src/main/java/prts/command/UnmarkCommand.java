@@ -28,6 +28,7 @@ public class UnmarkCommand extends Command {
      * @param tasks The list of tasks currently stored.
      * @param ui The UI object stored by PRTS.
      * @param storage The Storage object stored by PRTS.
+     * @return The string to be displayed to the user upon successful execution.
      * @throws OutOfRangeException If the index provided is out of range of the TaskList.
      * @throws AlreadyUnmarkedException If the Task indicated by the provided index is already marked
      *         as not yet complete.
@@ -35,9 +36,10 @@ public class UnmarkCommand extends Command {
      *         after the Task is unmarked.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AlreadyUnmarkedException,
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws AlreadyUnmarkedException,
             OutOfRangeException, SaveToFileException {
-        ui.displayMessage(tasks.unmark(index));
+        String ret = tasks.unmark(index);
         storage.save(tasks);
+        return ret;
     }
 }

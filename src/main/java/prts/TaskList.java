@@ -1,11 +1,11 @@
 package prts;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
 import prts.task.AlreadyMarkedException;
 import prts.task.AlreadyUnmarkedException;
 import prts.task.Task;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Represents the list of Tasks the user has added in PRTS, and manages all modifications to this list.

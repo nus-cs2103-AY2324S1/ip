@@ -28,6 +28,7 @@ public class MarkCommand extends Command {
      * @param tasks The list of tasks currently stored.
      * @param ui The UI object stored by PRTS.
      * @param storage The Storage object stored by PRTS.
+     * @return The string to be displayed to the user upon successful execution.
      * @throws OutOfRangeException If the index provided is out of range of the TaskList.
      * @throws AlreadyMarkedException If the Task indicated by the provided index is already marked
      *         as complete.
@@ -35,10 +36,11 @@ public class MarkCommand extends Command {
      *         after the marking of the Task.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws OutOfRangeException,
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws OutOfRangeException,
             AlreadyMarkedException, SaveToFileException {
-        ui.displayMessage(tasks.mark(index));
+        String ret = tasks.mark(index);
         storage.save(tasks);
+        return ret;
     }
 
 }

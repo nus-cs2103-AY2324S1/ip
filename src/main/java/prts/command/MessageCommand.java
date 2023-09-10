@@ -24,10 +24,11 @@ public class MessageCommand extends Command {
      * @param tasks The list of tasks currently stored.
      * @param ui The UI object stored by PRTS.
      * @param storage The Storage object stored by PRTS.
+     * @return The string to be displayed to the user upon successful execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.displayMessage(message);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return message;
     }
 
 }

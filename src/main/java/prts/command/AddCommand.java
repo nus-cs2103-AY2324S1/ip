@@ -24,15 +24,18 @@ public class AddCommand extends Command {
 
     /**
      * Executes the addition of the Task to the TaskList.
-     * @param tasks The list of tasks currently stored.
-     * @param ui The UI object stored by PRTS.
+     *
+     * @param tasks   The list of tasks currently stored.
+     * @param ui      The UI object stored by PRTS.
      * @param storage The Storage object stored by PRTS.
+     * @return The string to be displayed to the user upon successful execution.
      * @throws SaveToFileException If the Storage object fails to save the state of the TaskList
-     *         after the addition of the Task.
+     *                             after the addition of the Task.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SaveToFileException {
-        ui.displayMessage(tasks.add(taskToAdd));
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws SaveToFileException {
+        String ret = tasks.add(taskToAdd);
         storage.save(tasks);
+        return ret;
     }
 }
