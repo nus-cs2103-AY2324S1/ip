@@ -117,6 +117,21 @@ public class TaskList implements Iterable<Task> {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Checks whether a task exist in the task list.
+     *
+     * @param description the exact description of the task to be identified.
+     * @return boolean on whether the task is found.
+     */
+    public boolean isInTaskList(String description) {
+        for (Task task : this.tasks) {
+            if (task.getDescription().equals(description)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     @Override
     public Iterator<Task> iterator() {
