@@ -11,18 +11,18 @@ import exceptions.DukeException;
 public class DeadlineTask extends Task {
 
     /** Datetime of deadline of task */
-    protected LocalDateTime by;
+    protected LocalDateTime byDateTime;
 
     /**
      * Constructor for DeadlineTask.
      * @param description
-     * @param by
+     * @param byDateTime
      * @throws DukeException
      */
-    public DeadlineTask(String description, String by) throws DukeException {
+    public DeadlineTask(String description, String byDateTime) throws DukeException {
         super(description);
         try {
-            this.by = LocalDateTime.parse(by, Task.getDateFormat());
+            this.byDateTime = LocalDateTime.parse(byDateTime, Task.getDateFormat());
         } catch (DateTimeException e) {
             throw new DukeException("Date should follow the format d/M/yyyy HHmm");
         }
@@ -41,15 +41,15 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by.format(Task.getDateFormatOutput()) + ")";
+        return "[D]" + super.toString() + " (by: " + this.byDateTime.format(Task.getDateFormatOutput()) + ")";
     }
 
     /**
      * Returns the string representation of the deadline task to be saved in a file.
-     * @return LocalDateTime by
+     * @return LocalDateTime byDateTime
      */
-    public LocalDateTime getBy() {
-        return this.by;
+    public LocalDateTime getByDateTime() {
+        return this.byDateTime;
     }
 
     /**
@@ -57,15 +57,16 @@ public class DeadlineTask extends Task {
      * @param by
      */
     public void setBy(LocalDateTime by) {
-        this.by = by;
+        this.byDateTime = by;
     }
 
     /**
      * Returns the string representation of the deadline task to be saved in a file.
      * @return String
      */
+    @Override
     public String toFileString() {
-        return "D | " + super.getStatusIcon() + " | " + getDescription() + " | " + by.format(Task.getDateFormat());
+        return "D | " + super.getStatusIcon() + " | " + getDescription() + " | " + byDateTime.format(Task.getDateFormat());
     }
 
     /**
@@ -73,12 +74,13 @@ public class DeadlineTask extends Task {
      * @param fileString
      * @throws DukeException
      */
+    @Override
     public void fromFileString(String fileString) throws DukeException {
         String[] fileStringArray = fileString.split(" \\| ");
         this.setStatusIcon(fileStringArray[1]);
         this.setDescription(fileStringArray[2]);
         try {
-            this.by = LocalDateTime.parse(fileStringArray[3], Task.getDateFormat());
+            this.byDateTime = LocalDateTime.parse(fileStringArray[3], Task.getDateFormat());
         } catch (DateTimeException e) {
             throw new DukeException("Date should follow the format d/M/yyyy HHmm");
         }

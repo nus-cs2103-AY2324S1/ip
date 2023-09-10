@@ -1,4 +1,5 @@
 package commands;
+
 import exceptions.DukeException;
 import io.Storage;
 import tasks.DeadlineTask;
@@ -11,13 +12,13 @@ import ui.Ui;
 /**
  * Represents a command to add a task to the list of tasks.
  */
-public class AddCommand extends Command {
+public class AddTaskCommand extends Command {
 
     /**
      * Constructor for AddCommand
      * @param command The command to be executed
      */
-    public AddCommand(String command) {
+    public AddTaskCommand(String command) {
         super(command);
     }
 
@@ -37,6 +38,7 @@ public class AddCommand extends Command {
      * @param storage The Storage object that handles the saving and loading of tasks
      * @throws DukeException If the command is invalid
      */
+    @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         String input = getCommand();
         String[] inputArray = input.split(" ");
