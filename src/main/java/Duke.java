@@ -5,19 +5,19 @@ public class Duke {
     private static Task[] tasks = new Task[100];
     private static int taskAmount = 0;
 
+    private static void display(String... text) {
+        System.out.println("____________________________________________________________");
+        for (String i : text)
+            System.out.println(i);
+        System.out.println("____________________________________________________________");
+    }
+
     private static void greet() {
-        String greetings = "____________________________________________________________\n" +
-                " Hello! I'm Tackie\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________\n";
-        System.out.println(greetings);
+        Duke.display("Hello! I'm Tackie", "What can I do for you?");
     }
 
     private static void farewell() {
-        String farewell = "____________________________________________________________\n" +
-                " Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________";
-        System.out.println(farewell);
+        Duke.display("Bye. Hope to see you again soon!");
     }
 
     private static void list(){
@@ -31,28 +31,20 @@ public class Duke {
 
     private static void mark(int taskIndex){
         Task targetTask = Duke.tasks[taskIndex];
-        System.out.println("____________________________________________________________");
-        System.out.println("Nice! I've marked this task as done:");
         targetTask.markStatus();
-        System.out.println(targetTask);
-        System.out.println("____________________________________________________________");
+        Duke.display("Nice! I've marked this task as done:", targetTask.toString());
     }
 
     private static void unmark(int taskIndex){
         Task targetTask = Duke.tasks[taskIndex];
-        System.out.println("____________________________________________________________");
-        System.out.println("OK, I've marked this task as not done yet:");
         targetTask.unmarkStatus();
-        System.out.println(targetTask);
-        System.out.println("____________________________________________________________");
+        Duke.display("OK, I've marked this task as not done yet:", targetTask.toString());
     }
 
     private static void printAddTaskInfo(Task task){
-        System.out.println("____________________________________________________________");
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + Duke.taskAmount + " tasks in the list.");
-        System.out.println("____________________________________________________________");
+        Duke.display("Got it. I've added this task:",
+                task.toString(),
+                "Now you have " + Duke.taskAmount + " tasks in the list.");
     }
 
     private static void todo(String description){
@@ -79,53 +71,95 @@ public class Duke {
     public static void main(String[] args) {
         Duke.greet();
 
+        String[] inputParts;
         int taskIndex;
         String description;
+        String by;
+        String from;
+        String to;
 
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
         while (!userInput.equals("bye")) {
-            String[] inputParts = userInput.split(" ", 2);
+            inputParts = userInput.split(" ", 2);
             switch (inputParts[0]) {
             case "list":
                 Duke.list();
                 break;
 
             case "mark":
-                taskIndex = Integer.parseInt(inputParts[1]) - 1;
+                try {
+                    taskIndex = Integer.parseInt(inputParts[1]) - 1;
+                } catch (ArrayIndexOutOfBoundsException error) {
+                    Duke.display("OOPS!!! The index of mark cannot be empty.");
+                    break;
+                }
                 Duke.mark(taskIndex);
                 break;
 
             case "unmark":
-                taskIndex = Integer.parseInt(inputParts[1]) - 1;
+                try {
+                    taskIndex = Integer.parseInt(inputParts[1]) - 1;
+                } catch (ArrayIndexOutOfBoundsException error) {
+                    Duke.display("OOPS!!! The index of unmark cannot be empty.");
+                    break;
+                }
                 Duke.unmark(taskIndex);
                 break;
 
             case "todo":
-                description = inputParts[1];
+                try {
+                    description = inputParts[1];
+                } catch (ArrayIndexOutOfBoundsException error) {
+                    Duke.display("OOPS!!! The description of a todo cannot be empty.");
+                    break;
+                }
                 Duke.todo(description);
                 break;
 
             case "deadline":
-                inputParts = inputParts[1].split(" /by ", 2);
+                try {
+                    inputParts = inputParts[1].split(" /by ", 2);
+                } catch (ArrayIndexOutOfBoundsException error) {
+                    Duke.display("OOPS!!! The description of a deadline cannot be empty.");
+                    break;
+                }
                 description = inputParts[0];
-                String by = inputParts[1];
+                try {
+                    by = inputParts[1];
+                } catch (ArrayIndexOutOfBoundsException error) {
+                    Duke.display("OOPS!!! The by of a deadline cannot be empty.");
+                    break;
+                }
                 Duke.deadline(description, by);
                 break;
 
             case "event":
-                inputParts = inputParts[1].split(" /from ", 2);
+                try {
+                    inputParts = inputParts[1].split(" /from ", 2);
+                } catch (ArrayIndexOutOfBoundsException error) {
+                    Duke.display("OOPS!!! The description of an event cannot be empty.");
+                    break;
+                }
                 description = inputParts[0];
-                inputParts = inputParts[1].split(" /to ", 2);
-                String from = inputParts[0];
-                String to = inputParts[1];
+                try {
+                    inputParts = inputParts[1].split(" /to ", 2);
+                } catch (ArrayIndexOutOfBoundsException error) {
+                    Duke.display("OOPS!!! The from of an event cannot be empty.");
+                    break;
+                }
+                from = inputParts[0];
+                try {
+                    to = inputParts[1];
+                } catch (ArrayIndexOutOfBoundsException error) {
+                    Duke.display("OOPS!!! The to of an event cannot be empty.");
+                    break;
+                }
                 Duke.event(description, from, to);
                 break;
 
             default:
-                System.out.println("____________________________________________________________");
-                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
-                System.out.println("____________________________________________________________");
+                Duke.display("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
             userInput = scanner.nextLine();
         }
