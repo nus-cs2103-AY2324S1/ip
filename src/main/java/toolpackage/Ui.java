@@ -73,6 +73,7 @@ public class Ui {
      * @return String Reply to user that task has been marked as complete or incomplete.
      */
     public String toggleDone(Task task, String keyword) {
+        assert keyword.equals("mark") || keyword.equals("unmark") : "Incorrect keyword.";
         if (keyword.equals("mark")) {
             return String.format("Nice! I've marked this task as done:%n %s%n", task.printTask());
         } else {
@@ -88,6 +89,7 @@ public class Ui {
      * @return String Reply to user that task has been deleted.
      */
     public String removeItem(Task task, int size) {
+        assert size >= 0 : "Incorrect size.";
         return String.format("Noted. I've removed this task:%n %s%nNow you have %d tasks in the list.%n",
                 task.printTask(), size);
     }
@@ -100,6 +102,7 @@ public class Ui {
      * @return String Reply to user on task that was added.
      */
     public String addItem(Task task, int size) {
+        assert size >= 0 : "Incorrect size.";
         return String.format("Got it. I've added this task:%n %s%nNow you have %d tasks in the list.%n",
                 task.printTask(), size);
     }

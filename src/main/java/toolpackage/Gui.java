@@ -46,6 +46,7 @@ public class Gui {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = duke.getResponse(input);
+        assert !response.equals("") : "Response should not be empty.";
         if (response.equals("bye")) {
             dialogContainer.getChildren().addAll(
                     DialogBox.getDukeDialog("Bye. Hope to see you again soon!", DUKE_IMAGE)
