@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+/**
+ * Encapsulates events which are Tasks with start and end.
+ */
 public class Event extends Task{
     private LocalDate startTime;
     private LocalDate endTime;
@@ -25,6 +28,9 @@ public class Event extends Task{
                 + " to: " + endTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH)) + ")";
     }
 
+    /**
+     * Returns a String representation of the task for storage.
+     */
     @Override
     public String toTxt() {
         return "E | " + super.toTxt() + " | " + this.startTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH))
