@@ -58,7 +58,7 @@ public class Duke {
             } catch (InvalidInputException e) {
                 System.out.println(this.ui.getError(e.getMessage()));
             } catch (InvalidCommandException e) {
-                System.out.println(this.ui.getMenu());
+                System.out.println(this.ui.getInvalidCommandMessage());
             } catch (InvalidIndexException e) {
                 System.out.println(this.ui.getInvalidIndexError());
             } catch (IOException e) {
@@ -82,7 +82,7 @@ public class Duke {
         } catch (InvalidInputException e) {
             return this.ui.getError(e.getMessage());
         } catch (InvalidCommandException e) {
-            return this.ui.getMenu();
+            return this.ui.getInvalidCommandMessage();
         } catch (InvalidIndexException e) {
             return this.ui.getInvalidIndexError();
         } catch (IOException e) {
