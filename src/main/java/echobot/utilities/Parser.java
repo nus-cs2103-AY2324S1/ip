@@ -85,7 +85,7 @@ public class Parser {
                     throw new InvalidCommandException("No such command exists");
             }
         } catch (DukeException e) {
-            output = e.getMessage() + "\nPlease be careful next time";
+            output = e.getMessage() + "\nPlease try again";
         }
         return output;
     }
