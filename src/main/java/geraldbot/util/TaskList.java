@@ -10,7 +10,7 @@ import geraldbot.task.Task;
  * Represents a list of tasks.
  */
 public class TaskList {
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
 
     /**
      * Constructs a TaskList with the given list of tasks.
@@ -19,6 +19,7 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
+        assert this.taskList != null : "Task list cannot be null.";
     }
 
     /**
@@ -27,6 +28,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void add(Task task) {
+        assert task != null : "Task to be added cannot be null.";
         this.taskList.add(task);
     }
 
@@ -37,8 +39,8 @@ public class TaskList {
      * @return The removed task.
      */
     public Task remove(int idx) {
-        Task removedTask = this.taskList.remove(idx);
-        return removedTask;
+        assert idx >= 0 && idx < taskList.size() : "Invalid task index.";
+        return this.taskList.remove(idx);
     }
 
     /**
@@ -48,8 +50,8 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task get(int idx) {
-        Task selectedTask = this.taskList.get(idx);
-        return selectedTask;
+        assert idx >= 0 && idx < taskList.size() : "Invalid task index.";
+        return this.taskList.get(idx);
     }
 
     /**
@@ -68,6 +70,7 @@ public class TaskList {
      * @return A list of tasks matching the keyword.
      */
     public List<Task> findTasksByKeyword(String keyword) {
+        assert keyword != null : "Keyword for task search cannot be null.";
         return taskList.stream()
                 .filter(task -> task.getDescription().contains(keyword))
                 .collect(Collectors.toList());
