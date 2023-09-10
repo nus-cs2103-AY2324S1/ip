@@ -7,6 +7,7 @@ import duke.exception.InvalidCommandException;
 import duke.exception.InvalidIndexException;
 import duke.exception.InvalidInputException;
 import duke.message.ByeMessage;
+import duke.message.MenuMessage;
 import duke.message.Message;
 import duke.task.DeadlinesTask;
 import duke.task.EventsTask;
@@ -58,6 +59,9 @@ public class UserInputParser {
         }
         if (Pattern.matches("find .+", userInput)) {
             return Action.FIND;
+        }
+        if (userInput.equals("/help")) {
+            return Action.HELP;
         }
         throw new InvalidCommandException();
     }
@@ -131,6 +135,8 @@ public class UserInputParser {
         case FIND:
             name = userInput.split(" ", 2)[1];
             return taskList.find(name);
+        case HELP:
+            return new MenuMessage();
         default:
             throw new InvalidCommandException();
         }

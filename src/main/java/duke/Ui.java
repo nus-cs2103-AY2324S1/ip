@@ -1,7 +1,7 @@
 package duke;
 
 import duke.message.ErrorMessage;
-import duke.message.MenuMessage;
+import duke.message.InvalidCommandMessage;
 import duke.message.WelcomeMessage;
 import duke.templates.MessageTemplates;
 
@@ -24,8 +24,8 @@ public class Ui {
     /**
      * Returns the menu.
      */
-    public String getMenu() {
-        return new MenuMessage().send();
+    public String getInvalidCommandMessage() {
+        return new InvalidCommandMessage().send();
     }
     /**
      * Returns an invalid index error.

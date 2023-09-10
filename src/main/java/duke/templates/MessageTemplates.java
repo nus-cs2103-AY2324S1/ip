@@ -8,8 +8,8 @@ public class MessageTemplates {
 
     // menu
     public static final String[] MESSAGE_MENU = new String[] {
-        MessageTemplates.MESSAGE_INVALID_COMMAND,
-        "Here are the list of commands:",
+        "Commands:",
+        "/help: show this menu",
         "list: shows list of tasks",
         "mark {task number}: mark task as done",
         "unmark {task number}: unmark task as not done",
@@ -31,7 +31,8 @@ public class MessageTemplates {
             "☹ OOPS!!! The name of event cannot contain ' /from '";
     public static final String MESSAGE_INVALID_DATETIME = "Invalid DateTime format. Example: 2023-01-01 1200";
     public static final String MESSAGE_INVALID_EVENT_PERIOD = "Invalid event duration. /from must be before /to";
-    public static final String MESSAGE_INVALID_COMMAND = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n";
+    public static final String MESSAGE_INVALID_COMMAND =
+            "☹ OOPS!!! I'm sorry, but I don't know what that means.\nType /help to see the list of commands.";
     public static final String MESSAGE_INVALID_INDEX = "Task number does not exist!";
     public static final String MESSAGE_FILE_NOT_FOUND = "File not found at data/duke.txt. Creating a new file.";
     public static final String MESSAGE_SAVE_DATA_ERROR = "Unable to save data to file.";
