@@ -5,6 +5,7 @@ import dukepackage.DukeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Represents a task with a start and end
@@ -74,5 +75,15 @@ public class Events extends Task {
     @Override
     public String addToStorage() {
         return String.format("E %s%s%n", super.addToStorage(), this.addDetailsToStorage());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean checkDeadline() {
+        LocalDate currentDate = LocalDate.now();
+        long difference = ChronoUnit.DAYS.between(currentDate, this.to);
+        return difference <= 10;
     }
 }

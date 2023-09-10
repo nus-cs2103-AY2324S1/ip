@@ -26,13 +26,14 @@ public class Gui {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("Hello! I'm ChampionSOS\nWhat can I do for you?",
-                        DUKE_IMAGE));
     }
 
     public void setDuke(Duke d) {
         duke = d;
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog("Hello! I'm ChampionSOS\nWhat can I do for you?", DUKE_IMAGE),
+                DialogBox.getDukeDialog(this.duke.getReminders(), DUKE_IMAGE)
+        );
     }
 
     /**

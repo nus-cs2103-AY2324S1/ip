@@ -44,6 +44,8 @@ public class Parser {
             return tasks.removeItem(task, ui);
         } else if (command.equals("find")) {
             return tasks.findTasks(task, ui);
+        } else if (command.equals("remind")) {
+            return tasks.provideReminders(ui);
         } else if (command.equals("todo")) {
             return tasks.addItem(new ToDos(task, "0"), ui);
         } else if (command.equals("deadline")) {
