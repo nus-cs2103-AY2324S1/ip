@@ -24,26 +24,26 @@ public class Ui {
     /**
      * Returns the menu.
      */
-    public String showMenu() {
+    public String getMenu() {
         return new MenuMessage().send();
     }
     /**
      * Returns an invalid index error.
      */
-    public String showInvalidIndexError() {
+    public String getInvalidIndexError() {
         return new ErrorMessage(MessageTemplates.MESSAGE_INVALID_INDEX).send();
     }
     /**
      * Returns a save data error.
      */
-    public String showSaveDataError() {
+    public String getSaveDataError() {
         return new ErrorMessage(MessageTemplates.MESSAGE_SAVE_DATA_ERROR).send();
     }
     /**
      * Returns an error message.
      * @param message Error message.
      */
-    public String showError(String message) {
+    public String getError(String message) {
         return new ErrorMessage(message).send();
     }
 }

@@ -30,7 +30,7 @@ public class Duke {
         try {
             this.tasks = new TaskList(storage.loadFile());
         } catch (IOException e) {
-            System.out.println(this.ui.showError(e.getMessage()));
+            System.out.println(this.ui.getError(e.getMessage()));
             System.out.println(this.ui.getLine());
             this.tasks = new TaskList();
         }
@@ -56,13 +56,13 @@ public class Duke {
                 System.out.println(message.send());
                 this.storage.writeToFile(this.tasks);
             } catch (InvalidInputException e) {
-                System.out.println(this.ui.showError(e.getMessage()));
+                System.out.println(this.ui.getError(e.getMessage()));
             } catch (InvalidCommandException e) {
-                System.out.println(this.ui.showMenu());
+                System.out.println(this.ui.getMenu());
             } catch (InvalidIndexException e) {
-                System.out.println(this.ui.showInvalidIndexError());
+                System.out.println(this.ui.getInvalidIndexError());
             } catch (IOException e) {
-                System.out.println(this.ui.showSaveDataError());
+                System.out.println(this.ui.getSaveDataError());
             } finally {
                 System.out.println(this.ui.getLine());
             }
@@ -80,13 +80,13 @@ public class Duke {
             this.storage.writeToFile(this.tasks);
             return message.send();
         } catch (InvalidInputException e) {
-            return this.ui.showError(e.getMessage());
+            return this.ui.getError(e.getMessage());
         } catch (InvalidCommandException e) {
-            return this.ui.showMenu();
+            return this.ui.getMenu();
         } catch (InvalidIndexException e) {
-            return this.ui.showInvalidIndexError();
+            return this.ui.getInvalidIndexError();
         } catch (IOException e) {
-            return this.ui.showSaveDataError();
+            return this.ui.getSaveDataError();
         }
     }
 }

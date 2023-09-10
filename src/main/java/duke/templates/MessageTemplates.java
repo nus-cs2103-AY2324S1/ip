@@ -22,11 +22,17 @@ public class MessageTemplates {
     };
 
     // errors
+    public static final String MESSAGE_INVALID_TODO = "☹ OOPS!!! The description of a todo cannot be empty.";
+    public static final String MESSAGE_DEADLINE_CONTAINS_BY =
+            "☹ OOPS!!! The name of a deadline cannot contain ' /by '";
+    public static final String MESSAGE_EVENT_CONTAINS_TO =
+            "☹ OOPS!!! The name of event and from date cannot contain ' /to '";
+    public static final String MESSAGE_EVENT_CONTAINS_FROM =
+            "☹ OOPS!!! The name of event cannot contain ' /from '";
     public static final String MESSAGE_INVALID_DATETIME = "Invalid DateTime format. Example: 2023-01-01 1200";
     public static final String MESSAGE_INVALID_EVENT_PERIOD = "Invalid event duration. /from must be before /to";
-    public static final String MESSAGE_INVALID_TODO = "☹ OOPS!!! The description of a todo cannot be empty.";
     public static final String MESSAGE_INVALID_COMMAND = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n";
-    public static final String MESSAGE_INVALID_INDEX = "Task number is not in range!";
+    public static final String MESSAGE_INVALID_INDEX = "Task number does not exist!";
     public static final String MESSAGE_FILE_NOT_FOUND = "File not found at data/duke.txt. Creating a new file.";
     public static final String MESSAGE_SAVE_DATA_ERROR = "Unable to save data to file.";
 
