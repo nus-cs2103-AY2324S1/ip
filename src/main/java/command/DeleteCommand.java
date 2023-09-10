@@ -41,7 +41,7 @@ public class DeleteCommand extends Command {
 
         return taskList.validateTaskIndex(args[1]);
     }
-  
+
     /**
      * Executes the "delete" command. It parses the command, validates it, and deletes
      * the specified task from the task list if the command is valid.

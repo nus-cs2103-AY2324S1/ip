@@ -6,7 +6,8 @@ import tasks.TaskList;
 
 /**
  * The `UnmarkCommand` class represents a command to unmark a task as done.
- * When executed, it parses the command, validates it, and marks the specified task as undone in the task list if the command is valid.
+ * When executed, it parses the command, validates it, and marks the specified task as
+ * undone in the task list if the command is valid.
  */
 public class UnmarkCommand extends Command {
 
@@ -41,7 +42,8 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Executes the "unmark" command. It parses the command, validates it, and marks the specified task as undone in the task list if the command is valid.
+     * Executes the "unmark" command. It parses the command, validates it, and marks the specified task as
+     * undone in the task list if the command is valid.
      *
      * @param taskList The task list in which the task is marked as undone.
      */

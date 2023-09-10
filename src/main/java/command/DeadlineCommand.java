@@ -1,12 +1,12 @@
 package command;
 
+import java.time.LocalDate;
+
 import duke.Duke;
 import enums.CommandWord;
 import parser.Parser;
 import tasks.DeadlineTask;
 import tasks.TaskList;
-
-import java.time.LocalDate;
 
 /**
  * The `DeadlineCommand` class represents a command to create a new deadline task.
@@ -47,7 +47,7 @@ public class DeadlineCommand extends Command {
 
         return Duke.validateDateTime(args[3]);
     }
-  
+
     /**
      * Executes the "deadline" command. It parses the command, validates it, and adds a new
      * deadline task to the task list if the command is valid.
@@ -61,7 +61,7 @@ public class DeadlineCommand extends Command {
         }
         String[] args = Parser.getArgs(rawCommand);
         String description = args[1];
-        LocalDate endDate = LocalDate.parse(args[3], super.DATE_FORMATTER);
+        LocalDate endDate = LocalDate.parse(args[3], super.getDateTimeformatter());
         taskList.addTask(new DeadlineTask(description, endDate));
     }
 }

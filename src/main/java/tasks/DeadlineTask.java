@@ -1,10 +1,9 @@
 package tasks;
 
-import duke.Duke;
-import enums.TaskType;
-
 import java.time.LocalDate;
 import java.util.Objects;
+
+import enums.TaskType;
 
 /**
  * The `DeadlineTask` class represents a task with a specific deadline in the Duke application.
@@ -33,14 +32,13 @@ public class DeadlineTask extends Task {
      * @return A string representation of the deadline date.
      */
     public String getDeadline() {
-        return String.format(" (by: %s)", endDate.format(Duke.DATETIME_FORMATTER));
+        return String.format(" (by: %s)", endDate.format(super.getDateTimeformatter()));
     }
 
     /**
      * Generates a string representation of the `DeadlineTask`.
      *
-     * @return A string representation of the task, including its
-     * symbol, description, and deadline.
+     * @return A string representation of the task, including its symbol, description, and deadline.
      */
     @Override
     public String toString() {

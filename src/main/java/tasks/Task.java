@@ -1,6 +1,9 @@
 package tasks;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+
+import duke.Duke;
 
 /**
  * The `Task` class represents a task in the Duke application.
@@ -24,6 +27,10 @@ public abstract class Task {
     public Task(String description) {
         this.description = description.trim();
         this.isDone = false;
+    }
+
+    public DateTimeFormatter getDateTimeformatter() {
+        return Duke.getDateTimeFormatter();
     }
 
     /**

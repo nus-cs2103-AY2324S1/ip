@@ -1,13 +1,15 @@
 package command;
 
-import org.junit.jupiter.api.Test;
-import tasks.TaskList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
+import tasks.TaskList;
 public class ByeCommandTest {
 
     @Test
@@ -22,7 +24,7 @@ public class ByeCommandTest {
     }
 
     @Test
-    public void testExecute_ShowsByeMessage() {
+    public void testExecuteShowsByeMessage() {
         // Arrange
         TaskList taskList = new TaskList(null);
         ByeCommand byeCommand = new ByeCommand("bye");
@@ -44,7 +46,7 @@ public class ByeCommandTest {
     }
 
     @Test
-    public void testExecute_NoMessageDisplayedIfValidationFails() {
+    public void testExecuteNoMessageDisplayedIfValidationFails() {
         // Arrange
         TaskList taskList = new TaskList(null);
         ByeCommand invalidCommand = new ByeCommand("bye some argument");

@@ -23,7 +23,7 @@ public class TodoCommand extends Command {
         super(rawCommand);
         this.valid = validate(rawCommand);
     }
-  
+
     /**
      * Validates the "todo" command.
      * It checks if the command is correctly formatted.
@@ -37,11 +37,7 @@ public class TodoCommand extends Command {
             return false;
         }
 
-        if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.TODO)) {
-            return false;
-        }
-
-        return true;
+        return CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.TODO);
     }
 
     /**

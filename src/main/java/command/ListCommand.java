@@ -34,7 +34,7 @@ public class ListCommand extends Command {
 
         return CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.LIST);
     }
-  
+
     /**
      * Executes the "list" command. It validates the command and displays
      * a list of all tasks in the task list.

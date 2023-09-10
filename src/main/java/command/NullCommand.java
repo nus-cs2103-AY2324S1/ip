@@ -20,7 +20,7 @@ public class NullCommand extends Command {
         super(rawCommand);
     }
 
-  /**
+    /**
      * Validates the "null" command.
      * It checks if the command is correctly formatted.
      *
@@ -32,7 +32,7 @@ public class NullCommand extends Command {
 
         return CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.NULL_COMMAND);
     }
-  
+
     /**
      * Executes the "null" command. It validates the command and displays
      * a "confused" message to the user if the command is not recognized or valid.
