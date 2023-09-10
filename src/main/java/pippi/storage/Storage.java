@@ -1,5 +1,10 @@
 package pippi.storage;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import pippi.parser.DateFormatter;
 import pippi.task.Deadline;
@@ -7,11 +12,7 @@ import pippi.task.Event;
 import pippi.task.Task;
 import pippi.task.ToDo;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
+
 public class Storage {
     private static final String filePath = "./data/Pippi.txt";
 
@@ -27,37 +28,39 @@ public class Storage {
             BufferedReader br = new BufferedReader(fr);
             String line;
             while ((line = br.readLine()) != null) {
-                String[] parts =line.split("\\s*\\|\\s*");
+                String[] parts = line.split("\\s*\\|\\s*");
                 if (parts.length == 0) {
                     continue;
                 }
                 String type = parts[0];
                 String status = parts[1];
                 switch (type) {
-                    case "T":
-                        ToDo t = new ToDo(parts[2]);
-                        if (status.equals("1")) {
-                            t.mark();
-                        }
-                        tasks.add(t);
-                        break;
-                    case "D":
-                        Deadline d = new Deadline(parts[2],
-                                DateFormatter.convertToLocalDate(parts[3].trim()));
-                        if (status.equals("1")) {
-                            d.mark();
-                        }
-                        tasks.add(d);
-                        break;
-                    case "E":
-                        String start = parts[3].split("to ")[0];
-                        String end = parts[3].split("to ")[1];
-                        Event e = new Event(parts[2], start, end);
-                        if (status.equals("1")) {
-                            e.mark();
-                        }
-                        tasks.add(e);
-                        break;
+                case "T":
+                    ToDo t = new ToDo(parts[2]);
+                    if (status.equals("1")) {
+                        t.mark();
+                    }
+                    tasks.add(t);
+                    break;
+                case "D":
+                    Deadline d = new Deadline(parts[2],
+                            DateFormatter.convertToLocalDate(parts[3].trim()));
+                    if (status.equals("1")) {
+                        d.mark();
+                    }
+                    tasks.add(d);
+                    break;
+                case "E":
+                    String start = parts[3].split("to ")[0];
+                    String end = parts[3].split("to ")[1];
+                    Event e = new Event(parts[2], start, end);
+                    if (status.equals("1")) {
+                        e.mark();
+                    }
+                    tasks.add(e);
+                    break;
+                default:
+                    System.out.println("Data read is in wrong format");
                 }
             }
             // FileReader will open that file from that

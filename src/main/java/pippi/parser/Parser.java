@@ -1,6 +1,8 @@
 package pippi.parser;
 
-import pippi.*;
+import java.util.ArrayList;
+
+import pippi.PippiException;
 import pippi.storage.Storage;
 import pippi.task.Deadline;
 import pippi.task.Event;
@@ -8,7 +10,6 @@ import pippi.task.Task;
 import pippi.task.ToDo;
 import pippi.ui.Ui;
 
-import java.util.ArrayList;
 public class Parser {
 
     public static String reply(String userMessage, ArrayList<Task> tasks) {
@@ -29,8 +30,8 @@ public class Parser {
                 ToDo td = new ToDo(input[1]);
                 tasks.add(td);
                 Storage.update(tasks);
-                output = Ui.wrapText("Got it. I've added this task:\n" + td.toString() +
-                        "\nNow you have " + tasks.size() + " tasks in the list.");
+                output = Ui.wrapText("Got it. I've added this task:\n" + td.toString()
+                        + "\nNow you have " + tasks.size() + " tasks in the list.");
                 break;
             case "deadline":
                 if (input.length < 2 || input[1].trim().isEmpty()) {
@@ -50,8 +51,8 @@ public class Parser {
                 Deadline dl = new Deadline(title, DateFormatter.convertToLocalDate(due));
                 tasks.add(dl);
                 Storage.update(tasks);
-                output = Ui.wrapText("Got it. I've added this task:\n" + dl.toString() +
-                        "\nNow you have " + tasks.size() + " tasks in the list.");
+                output = Ui.wrapText("Got it. I've added this task:\n" + dl.toString()
+                        + "\nNow you have " + tasks.size() + " tasks in the list.");
                 break;
             case "event":
                 if (input.length < 2 || input[1].trim().isEmpty()) {
@@ -75,8 +76,8 @@ public class Parser {
                 Event event = new Event(evTitle, start, end);
                 tasks.add(event);
                 Storage.update(tasks);
-                output = Ui.wrapText("Got it. I've added this task:\n" + event.toString() +
-                        "\nNow you have " + tasks.size() + " tasks in the list.");
+                output = Ui.wrapText("Got it. I've added this task:\n" + event.toString()
+                        + "\nNow you have " + tasks.size() + " tasks in the list.");
                 break;
             case "list":
                 String all = "";
@@ -89,15 +90,15 @@ public class Parser {
             case "mark":
                 int idx = Integer.parseInt(input[1]) - 1;
                 tasks.get(idx).mark();
-                output = Ui.wrapText("Nice I've marked this task as done:\n" +
-                        tasks.get(idx).toString());
+                output = Ui.wrapText("Nice I've marked this task as done:\n"
+                        + tasks.get(idx).toString());
                 Storage.update(tasks);
                 break;
             case "unmark":
                 int id = Integer.parseInt(input[1]) - 1;
                 tasks.get(id).unmark();
-                output = Ui.wrapText("OK, I've marked this task as not done yet:\n" +
-                        tasks.get(id).toString());
+                output = Ui.wrapText("OK, I've marked this task as not done yet:\n"
+                        + tasks.get(id).toString());
                 Storage.update(tasks);
                 break;
             case "find":
@@ -108,16 +109,16 @@ public class Parser {
                     Task curr = tasks.get(i);
                     if (curr.getDescription().contains(keyword)) {
                         found = found + String.valueOf(count) + "." + curr.toString() + "\n";
-                        count ++;
+                        count++;
                     }
                 }
                 output = Ui.wrapText("Here are the matching tasks in your list:\n" + found);
                 break;
             case "delete":
                 int i = Integer.parseInt(input[1]) - 1;
-                output = Ui.wrapText("Noted. I've removed this task:\n" +
-                        tasks.get(i).toString() +
-                        "\nNow you have " + (tasks.size() - 1) + " tasks in the list.");
+                output = Ui.wrapText("Noted. I've removed this task:\n"
+                        + tasks.get(i).toString()
+                        + "\nNow you have " + (tasks.size() - 1) + " tasks in the list.");
                 tasks.remove(i);
                 Storage.update(tasks);
                 break;

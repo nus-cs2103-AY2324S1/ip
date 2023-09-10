@@ -23,5 +23,7 @@ public class Event extends Task {
      * @return Event string representation
      */
     @Override
-    public String toMemory() { return "E " + super.getStatus() + super.getDescription() + " | " + start + "to " + end; }
+    public String toMemory() {
+        return "E " + super.getStatus() + super.getDescription() + " | " + start + "to " + end;
+    }
 }
