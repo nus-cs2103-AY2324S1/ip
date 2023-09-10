@@ -20,12 +20,12 @@ public abstract class Command {
     public abstract boolean isExit();
 
     /**
-     * Executes the Command.
+     * Executes the Command and returns the message.
      *
      * @param tasks The list of tasks.
      * @param ui The Ui that used as user interface.
      * @param storage The Storage that used to store, read and write data.
      * @throws DukeException If there are an invalid Input.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 }

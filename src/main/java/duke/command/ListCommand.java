@@ -12,15 +12,15 @@ import duke.ui.Ui;
 public class ListCommand extends Command {
 
     /**
-     * Executes the ListCommand.
+     * Executes the ListCommand and returns the message.
      *
      * @param tasks The list of tasks.
      * @param ui The Ui that used as user interface.
      * @param storage The Storage that used to store, read and write data.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printList(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showList(tasks);
     }
 
     /**

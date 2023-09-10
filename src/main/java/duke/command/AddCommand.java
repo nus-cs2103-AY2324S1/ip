@@ -27,7 +27,7 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Executes the AddCommand.
+     * Executes the AddCommand and returns the message.
      *
      * @param tasks The list of tasks.
      * @param ui The Ui that used as user interface.
@@ -35,7 +35,7 @@ public class AddCommand extends Command {
      * @throws DukeException If there are an invalid Input.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         int index = description.indexOf(" ");
         String taskDescription = description.substring(index + 1);
         if (index == -1) {
@@ -72,7 +72,7 @@ public class AddCommand extends Command {
         } else {
             throw new InvalidInputException("I'm sorry, but I don't know what that means :-(");
         }
-        ui.printAdd(tasks.getTask(tasks.length() - 1), tasks);
+        return ui.showAdd(tasks.getTask(tasks.length() - 1), tasks);
     }
 
     /**

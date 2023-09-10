@@ -16,7 +16,7 @@ import duke.task.Todo;
  * @author Angky Akdi Frandy Putrakelana
  */
 public class Storage {
-    private final File CURRENT_FILE;
+    private final File FILE;
 
     /**
      * Construct a storage and make a new file if no file exists yet.
@@ -29,9 +29,9 @@ public class Storage {
             if (!directory.exists()) {
                 directory.mkdir();
             }
-            this.CURRENT_FILE = new File("./data/duke");
-            if (!CURRENT_FILE.exists()) {
-                this.CURRENT_FILE.createNewFile();
+            this.FILE = new File("./data/duke");
+            if (!FILE.exists()) {
+                this.FILE.createNewFile();
             }
         } catch (Exception e) {
             throw new DukeException("Cannot Make File :'(");
@@ -47,7 +47,7 @@ public class Storage {
     public TaskList load() throws DukeException {
         TaskList taskList = new TaskList();
         try {
-            Scanner sc = new Scanner(CURRENT_FILE);
+            Scanner sc = new Scanner(FILE);
             while (sc.hasNextLine()) {
                 String input = sc.nextLine();
                 String type = input.substring(0, 1);
@@ -79,7 +79,7 @@ public class Storage {
      */
     public void writeFile(TaskList tasks) throws DukeException {
         try {
-            FileWriter fileWriter = new FileWriter(this.CURRENT_FILE);
+            FileWriter fileWriter = new FileWriter(this.FILE);
             for (int i = 0; i < tasks.length(); i++) {
                 fileWriter.write(tasks.getTaskInput(i) + "\n");
             }

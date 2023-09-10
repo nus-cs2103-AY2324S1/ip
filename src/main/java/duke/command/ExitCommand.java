@@ -12,15 +12,15 @@ import duke.ui.Ui;
 public class ExitCommand extends Command {
 
     /**
-     * Executes the ExitCommand.
+     * Executes the ExitCommand and returns the message.
      *
      * @param tasks The list of tasks.
      * @param ui The Ui that used as user interface.
      * @param storage The Storage that used to store, read and write data.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printExit();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showExit();
     }
 
     /**
