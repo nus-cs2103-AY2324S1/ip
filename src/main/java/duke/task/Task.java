@@ -7,7 +7,7 @@ package duke.task;
  * @author Zi Xiang
  * @version CS2103 AY23/24 Sem 1
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
     protected String description;
     protected boolean isDone;
 
@@ -69,4 +69,9 @@ public abstract class Task {
     }
 
     public abstract String showFileRepresentation();
+
+    @Override
+    public int compareTo(Task t) {
+        return this.description.compareTo(t.description);
+    }
 }
