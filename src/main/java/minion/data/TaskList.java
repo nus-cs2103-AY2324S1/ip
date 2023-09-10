@@ -55,6 +55,7 @@ public class TaskList {
      */
     public Task markTask(int taskIdx) throws IllegalValueException {
         checkIndex(taskIdx);
+        assert taskIdx >= 0 && taskIdx < tasks.size() : "invalid task index";
         Task currTask = tasks.get(taskIdx);
         currTask.setDone();
         return currTask;
@@ -68,6 +69,7 @@ public class TaskList {
      */
     public Task unmarkTask(int taskIdx) throws IllegalValueException {
         checkIndex(taskIdx);
+        assert taskIdx >= 0 && taskIdx < tasks.size() : "invalid task index";
         Task currTask = tasks.get(taskIdx);
         currTask.setUndone();
         return currTask;
@@ -81,6 +83,7 @@ public class TaskList {
      */
     public Task deleteTask(int taskIdx) throws IllegalValueException {
         checkIndex(taskIdx);
+        assert taskIdx >= 0 && taskIdx < tasks.size() : "invalid task index";
         Task currTask = tasks.get(taskIdx);
         tasks.remove(taskIdx);
         return currTask;

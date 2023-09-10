@@ -35,7 +35,7 @@ public class DatetimeParser {
 
     /**
      * Parses the given datetime.
-     * @param arr An array of strings of datetime.
+     * @param arr An array of two strings, one date and one time.
      * @return parsed datetime
      * @throws IllegalValueException when illegal value(s) are given for date/time.
      */

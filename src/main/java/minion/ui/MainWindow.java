@@ -68,6 +68,7 @@ public class MainWindow extends AnchorPane {
         } catch (IOException | MinionException e) {
             response = e.getMessage();
         } finally {
+            assert response != null : "No response from chatbot";
             dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, minionImage)

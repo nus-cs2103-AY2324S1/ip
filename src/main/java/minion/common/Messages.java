@@ -4,10 +4,15 @@ package minion.common;
  * Represents the messages that the chatbot displays to the user.
  */
 public class Messages {
+    // General messages
     public static final String MESSAGE_GOODBYE = "Bye. Hope to see you again soon!";
     public static final String MESSAGE_WELCOME = "Hello! I'm Minion!\n" + "What can I do for you?";
+
+    // File error
     public static final String MESSAGE_FILE_NOT_FOUND = "Unable to locate the file at /data/tasks.txt. "
             + "Creating a new one now.";
+
+    // Command errors
     public static final String MESSAGE_MISSING_COMMAND = ":( OOPS!!! I'm sorry, please input a legit command. :-(";
     public static final String MESSAGE_NO_UNDERSTAND = ":( OOPS!!! I'm sorry, but I don't know what that means :-(";
     public static final String MESSAGE_TODO_DESCRIPTION_ERROR = ":( OOPS!!! The description of a todo cannot be empty.";
