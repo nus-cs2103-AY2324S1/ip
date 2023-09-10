@@ -1,3 +1,2 @@
 T | 0 | thing
 E | 0 | thing2 | now | later
-D | 0 | return book | 2019-12-02T18:00
