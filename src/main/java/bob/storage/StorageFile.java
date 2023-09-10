@@ -68,7 +68,7 @@ public class StorageFile {
                 if (currentLine.isBlank()) {
                     continue;
                 }
-                Task task = Parser.parseStoredTask(fileScanner.nextLine());
+                Task task = Parser.parseStoredTask(currentLine);
                 loadedTasks.add(task);
             }
             fileScanner.close();
