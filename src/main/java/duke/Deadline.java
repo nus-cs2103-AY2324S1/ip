@@ -23,7 +23,8 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: "
-                + this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH)) + ")";
+                + this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH))
+                + ")";
     }
 
     /**
@@ -32,6 +33,7 @@ public class Deadline extends Task {
     @Override
     public String toTxt() {
         return "D | " + super.toTxt()
-                + " | " + this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH));
+                + " | "
+                + this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH));
     }
 }
