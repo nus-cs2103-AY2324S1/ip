@@ -46,7 +46,7 @@ public class Parser {
      * @param ui the Ui object that deals with user input & output messages to users.
      * @throws LemonException thrown when commands are invalid.
      */
-    public static void parseTasks(String input, TaskList tasks, Storage tasksData, Ui ui) throws LemonException {
+    public static String parseTasks(String input, TaskList tasks, Storage tasksData, Ui ui) throws LemonException {
         System.out.println("input is: " + input);
         if (!input.equals("bye")) {
             String commandType = input.split(" ")[0].toUpperCase();
@@ -55,17 +55,18 @@ public class Parser {
                 switch (command) {
                 case LIST:
                     if (tasks.getTasksSize() < 1) {
+                        System.out.println("No tasks??" );
                         throw new NoTasksException("");
                     }
-                    ui.listAll(tasks);
-                    break;
+                    return ui.listAll(tasks);
+
                 case MARK:
                     try {
                         int indexToMark = Integer.valueOf(input.split(" ")[1]);
                         String taskDescription = tasks.markTask(indexToMark - 1);
                         tasksData.saveTasks(tasks.getTaskList());
-                        ui.markPrint(taskDescription, tasks);
-                        break;
+                        return ui.markPrint(taskDescription, tasks);
+
                     } catch (IndexOutOfBoundsException e) {
                         throw new InvalidTaskIndexException("");
                     }
@@ -74,8 +75,8 @@ public class Parser {
                         int indexToUnmark = Integer.valueOf(input.split(" ")[1]);
                         String unmarkTaskDescription = tasks.unmarkTask(indexToUnmark - 1);
                         tasksData.saveTasks(tasks.getTaskList());
-                        ui.unmarkPrint(unmarkTaskDescription, tasks);
-                        break;
+                        return ui.unmarkPrint(unmarkTaskDescription, tasks);
+
                     } catch (IndexOutOfBoundsException e) {
                         throw new InvalidTaskIndexException("");
                     }
@@ -87,8 +88,8 @@ public class Parser {
                     String taskDescription = taskSplit[1];
                     String taskDescriptionTodo = tasks.addTasks(new Todo(taskDescription));
                     tasksData.saveTasks(tasks.getTaskList());
-                    ui.addTasks(taskDescriptionTodo, tasks);
-                    break;
+                    return ui.addTasks(taskDescriptionTodo, tasks);
+
                 case DEADLINE:
                     String task = input.split(" ", 2)[1];
                     String[] getDeadlineArray = task.split("/by ", 2);
@@ -100,8 +101,8 @@ public class Parser {
                     Task newDeadlineTask = new Deadline(taskDesc, by);
                     String taskDescriptionDeadline = tasks.addTasks(newDeadlineTask);
                     tasksData.saveTasks(tasks.getTaskList());
-                    ui.addTasks(taskDescriptionDeadline, tasks);
-                    break;
+                    return ui.addTasks(taskDescriptionDeadline, tasks);
+
                 case EVENT:
                     String inputTask = input.split(" ", 2)[1];
                     String[] getEventFromArray = inputTask.split("/from ", 2);
@@ -118,19 +119,19 @@ public class Parser {
                     Task newEventTask = new Event(taskDetails, from, to);
                     String taskDescriptionEvent = tasks.addTasks(newEventTask);
                     tasksData.saveTasks(tasks.getTaskList());
-                    ui.addTasks(taskDescriptionEvent, tasks);
-                    break;
+                    return ui.addTasks(taskDescriptionEvent, tasks);
+
                 case DELETE:
                     int inputDelete = Integer.valueOf(input.split(" ", 2)[1]) - 1;
                     try {
                         Task taskToDelete = tasks.getTask(inputDelete);
                         String taskDescriptionDelete = tasks.deleteTask(taskToDelete);
                         tasksData.saveTasks(tasks.getTaskList());
-                        ui.deletePrint(taskDescriptionDelete, tasks);
+                        return ui.deletePrint(taskDescriptionDelete, tasks);
                     } catch (IndexOutOfBoundsException e) {
                         throw new InvalidTaskIndexException("");
                     }
-                    break;
+
                 case FIND:
                     String[] commandSplit = input.split(" ", 2);
                     if (commandSplit.length < 2) {
@@ -141,8 +142,8 @@ public class Parser {
                     if (matchingTasks.size() == 0) {
                         throw new KeywordNotFoundException("No Tasks found!");
                     }
-                    ui.listMatching(matchingTasks);
-                    break;
+                    return ui.listMatching(matchingTasks);
+
                 default:
                     throw new InvalidTaskException(" " + input + " ");
                 }
@@ -150,5 +151,6 @@ public class Parser {
                 throw new InvalidTaskException(" " + input + " ");
             }
         }
+        return ui.bye();
     }
 }
