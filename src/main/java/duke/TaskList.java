@@ -59,4 +59,19 @@ public class TaskList {
         Ui.markTask(t);
         this.storage.rewriteFile(tasks);
     }
+
+    /**
+     * Searches Tasks using keyword.
+     *
+     * @param keyword The keyword.
+     */
+    public void searchTask(String keyword) {
+        ArrayList<Task> result = new ArrayList<>();
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if (tasks.get(i).toString().contains(keyword)) {
+                result.add(tasks.get(i));
+            }
+        }
+        Ui.listMatchingTasks(result);
+    }
 }

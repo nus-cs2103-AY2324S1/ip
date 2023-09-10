@@ -49,6 +49,8 @@ public class Parser {
             } else if (command.startsWith("bye")) {
                 this.isEnd = true;
                 Ui.farewellMessage();
+            } else if (command.startsWith("find")) {
+                String keyword = command.split(" ", 2)[1];
             } else {
                 throw new DukeException(" OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

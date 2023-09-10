@@ -31,7 +31,25 @@ public class Ui {
         int counter = 0;
         while (counter != tasks.size()) {
             counter++;
-            System.out.println(" " + counter + "." + tasks.get(counter - 1).toString());
+            System.out.println(" " + counter + "."
+                    + tasks.get(counter - 1).toString());
+        }
+        Ui.printSeparationLine();
+    }
+
+    /**
+     * Prints all tasks in task list.
+     *
+     * @param tasks The task list.
+     */
+    public static void listMatchingTasks(ArrayList<Task> tasks) {
+        Ui.printSeparationLine();
+        System.out.println(" Here are the matching tasks in your list:");
+        int counter = 0;
+        while (counter != tasks.size()) {
+            counter++;
+            System.out.println(" " + counter + "."
+                    + tasks.get(counter - 1).toString());
         }
         Ui.printSeparationLine();
     }
