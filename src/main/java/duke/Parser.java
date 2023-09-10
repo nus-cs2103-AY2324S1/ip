@@ -83,8 +83,8 @@ public class Parser {
                 this.ui.showSearchResult(searchResult);
                 break;
             default:
-                System.out.println("Bot is broken, restart the entire programme");
-                break;
+                // WHY: If it has reach the default statement, the command is not valid, program should be stopped
+                assert false : "Invalid command";
             }
         } catch (NullPointerException e) {
             // If we mark a task number outside the range
