@@ -1,8 +1,10 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import duke.task.Task;
+import duke.task.TaskCategoryComparator;
 
 /**
  * The TaskList class contains the task list and the related operations.
@@ -104,7 +106,6 @@ public class TaskList {
 
     /**
      * Finds tasks in the task list containing the keyword.
-     *
      */
     public TaskList find(String keyword) {
         assert !keyword.isBlank() : "keyword should not be blank";
@@ -119,5 +120,18 @@ public class TaskList {
             }
         }
         return filteredTasks;
+    }
+
+    /**
+     * Sorts the task list by the type of category.
+     *
+     * @return Returns a task list sorted by the category of tasks.
+     */
+    public TaskList sortByCategory() {
+        ArrayList<Task> newTasks = tasks;
+        TaskCategoryComparator taskComparator = new TaskCategoryComparator();
+        Collections.sort(newTasks, taskComparator);
+        TaskList sortedTaskList = new TaskList(newTasks);
+        return sortedTaskList;
     }
 }

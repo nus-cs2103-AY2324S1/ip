@@ -3,16 +3,7 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import duke.command.AddDeadlineCommand;
-import duke.command.AddEventCommand;
-import duke.command.AddToDoCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.ExitCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.MarkDoneCommand;
-import duke.command.UnmarkDoneCommand;
+import duke.command.*;
 import duke.exception.DukeException;
 
 /**
@@ -89,6 +80,8 @@ public class Parser {
             String keyword = input.replaceFirst("find", "").trim();
             checkFind(keyword);
             return new FindCommand(keyword);
+        } else if (input.equals("sort")) {
+            return new SortCategoryCommand();
         } else {
             throw new DukeException("Boop Beep OOPS! I'm sorry, but I don't know what that means :(");
         }

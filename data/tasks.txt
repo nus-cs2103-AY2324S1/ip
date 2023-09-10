@@ -2,3 +2,4 @@
 [D] [ ] return book (by: Jun 06 2023)
 [E] [X] orientation week (from: Jul 31 2023 to: Aug 04 2023)
 [T] [ ] Book driving lesson
+[D] [ ] complete week 5 iP (by: Sep 15 2023)
