@@ -46,6 +46,12 @@ public class Deadline extends Task {
 
     }
 
+    /**
+     * Updates the due date of the Deadline Task.
+     *
+     * @param newDate The new due date.
+     * @throws DukeException If the deadline does not follow the format yyyy-MM-dd HH:mm.
+     */
     public void updateDeadline(String newDate) throws DukeException {
         try {
             LocalDateTime d1 = LocalDateTime.parse(newDate, inputFormatter);

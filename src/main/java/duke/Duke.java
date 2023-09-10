@@ -26,6 +26,16 @@ public class Duke {
     private static Storage storage;
 
     /**
+     * The Message to display when the Chat is Ended.
+     */
+    private static final String END_CHAT_MESSAGE = "Chat has ended! Please Exit.";
+
+    /**
+     * The Error Message to display when Invalid command is given.
+     */
+    private static final String INVALID_ERROR_MESSAGE = "I don't understand what you're saying.";
+
+    /**
      * The task list that is used to store the user's tasks.
      */
     private TaskList tasks;
@@ -35,15 +45,6 @@ public class Duke {
      */
     private boolean isChatEnd = false;
 
-    /**
-     * The Message to display when the Chat is Ended.
-     */
-    private static final String END_CHAT_MESSAGE = "Chat has ended! Please Exit.";
-
-    /**
-     * The Error Message to display when Invalid command is given.
-     */
-    private static final String INVALID_ERROR_MESSAGE = "I don't understand what you're saying.";
 
     /**
      * Handles the Chatbot Response.
@@ -107,7 +108,7 @@ public class Duke {
      * Runs the Chatbot program.
      */
     public void run() {
-        assert !isChatEnd: "Chat should not be Ended when first run!";
+        assert !isChatEnd : "Chat should not be Ended when first run!";
         storage = new Storage(FILE_PATH);
 
         try {
