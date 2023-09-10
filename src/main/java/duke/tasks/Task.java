@@ -32,6 +32,7 @@ public abstract class Task {
      * @param input The description of the task.
      */
     public Task(String input) {
+        assert input != null && input != "" : "Description of a task should not be empty.";
         this.description = input;
         this.isDone = false;
     }
