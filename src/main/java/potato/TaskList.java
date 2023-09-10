@@ -1,9 +1,9 @@
 package potato;
 
-import potato.task.*;
-
 import java.io.IOException;
 import java.util.ArrayList;
+
+import potato.task.*;
 
 public class TaskList {
     private static ArrayList<Task> tasks;
@@ -48,10 +48,11 @@ public class TaskList {
 
         int count = 0;
         for (Task t : tasks) {
-            if (t == null) break;
+            if (t == null) {
+                break;
+            }
             count++;
-            System.out.println(String.valueOf(count) + "." +
-                    t.toString());
+            System.out.println(String.valueOf(count) + "." + t.toString());
         }
     }
 
@@ -64,8 +65,7 @@ public class TaskList {
             for (Task t : tasks) {
                 if (t.getDescription().contains(s)) {
                     count++;
-                    System.out.println(String.valueOf(count) + "." +
-                            t.toString());
+                    System.out.println(String.valueOf(count) + "." + t.toString());
                 }
             }
             System.out.println("Ok that's all I found...");

@@ -2,7 +2,7 @@ package potato.task;
 
 import potato.*;
 public class Event extends Task {
-    private static String LINE = "-----------------------------------------\n";
+    private static final String LINE = "-----------------------------------------\n";
     protected DateTime start;
     protected DateTime end;
     protected String from;

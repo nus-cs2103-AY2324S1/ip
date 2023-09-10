@@ -1,11 +1,12 @@
 package potato;
 
-import potato.task.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import potato.task.*;
 
 public class Storage {
     private String path;

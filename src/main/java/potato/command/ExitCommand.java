@@ -2,7 +2,7 @@ package potato.command;
 
 import potato.*;
 
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
     public ExitCommand() {
         super.isExit = true;
     }
