@@ -98,6 +98,7 @@ public class Storage {
             }
             FileWriter fw = new FileWriter(filepath);
             for (int i = 0; i < taskList.size(); i++) {
+                assert file.exists() : "file does not exist";
                 fw.write(taskList.get(i).toFileString() + "\n");
             }
             fw.close();
