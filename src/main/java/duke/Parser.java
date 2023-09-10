@@ -2,6 +2,9 @@ package duke;
 
 import java.time.LocalDate;
 
+/**
+ * Parses the user input.
+ */
 public class Parser {
     private String command;
     private Storage storage;
@@ -14,6 +17,9 @@ public class Parser {
         this.taskList = taskList;
     }
 
+    /**
+     * Parses the user input and initiate following operations.
+     */
     public void parse() {
         try{
             if (command.startsWith("list")) {
@@ -51,6 +57,9 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns if the parser is ended.
+     */
     public boolean isEnd() {
         return this.isEnd;
     }

@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Encapsulates todos which are Tasks.
+ */
 public class ToDo extends Task {
     public ToDo(String description) {
         super(description);
@@ -14,6 +17,9 @@ public class ToDo extends Task {
         return "[T]" + super.toString();
     }
 
+    /**
+     * Returns a String representation of the task for storage.
+     */
     @Override
     public String toTxt() {
         return "T | " + super.toTxt();

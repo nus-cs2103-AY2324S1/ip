@@ -1,9 +1,17 @@
 package duke;
 
+/**
+ * Encapsulates tasks for the chatbot.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructs a new Task object.
+     *
+     * @param description Description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -14,10 +22,17 @@ public class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Gets the status Icon of the Task.
+     */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        // X for done task
+        return (isDone ? "X" : " ");
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
@@ -27,6 +42,9 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    /**
+     * Returns a String representation of the task for storage.
+     */
     public String toTxt() {
         return (this.isDone ? "1" : "0") + " | " + this.description;
     }
