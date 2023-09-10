@@ -4,6 +4,9 @@ import miles.Storage;
 import miles.TaskList;
 import miles.Ui;
 
+/**
+ * Represents a find task command.
+ */
 public class FindCommand extends Command {
     private String keyword;
 

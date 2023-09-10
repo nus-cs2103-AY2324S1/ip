@@ -21,6 +21,12 @@ public class AddDeadlineCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             Deadline newDeadline = new Deadline(input);
+            
+            if (taskList.isTaskInList(newDeadline)) {
+                ui.printDuplicateTask(newDeadline);
+                return;
+            }
+
             storage.saveWhenAddTask(newDeadline, taskList);
         
             int n = taskList.getSize();

@@ -1,9 +1,12 @@
 package miles.command;
 
-import miles.Ui;
 import miles.Storage;
 import miles.TaskList;
+import miles.Ui;
 
+/**
+ * Represents a mark task as done command.
+ */
 public class MarkCommand extends Command {
     private String input;
 
@@ -17,9 +20,8 @@ public class MarkCommand extends Command {
 
     /**
      * Returns task number from user input.
-     * 
      * @param input user input
-     * @return      task number 
+     * @return      task number
      */
     public int getTaskNumber(String input) {
         return super.getTaskNumber("mark", input);

@@ -119,6 +119,26 @@ public class TaskList {
     }
 
     /**
+     * Checks if a task is in the task list.
+     * @param task the task to be checked
+     * @return     true if task is in the task list, false otherwise
+     */
+    public boolean isTaskInList(Task task) {
+        int n = this.getSize();
+
+        for (int i = 0; i < n; i += 1) {
+            Task currentTask = this.getTask(i);
+            String currentTaskString = currentTask.toString();
+
+            if (currentTaskString.equals(task.toString())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Prints every task in the task list that contains the keyword.
      * @param keyword the keyword that each task must contain
      */
