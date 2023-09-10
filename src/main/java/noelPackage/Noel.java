@@ -42,7 +42,7 @@ public class Noel {
         printFunction(HELLO_MSG);
         String nextLine = chatHelper();
         int commandOption = parser.parseCommand(nextLine);
-        while (commandOption != 1) {
+        while (commandOption != -1) {
             nextLine = ui.getNextLine();
             commandOption = parser.parseCommand(nextLine);
         }
