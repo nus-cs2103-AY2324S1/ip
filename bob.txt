@@ -1,4 +1,2 @@
-todo | 0 | read
-todo | 0 | read book
-todo | 1 | die
-todo | 0 | readdd
+todo | 0 | mid | read
+deadline | 0 | low | die | 2022-12-12

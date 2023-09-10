@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import bob.exception.InvalidPriorityException;
 import bob.exception.MissingDatesException;
 
 public class Event extends Task {
@@ -12,12 +13,14 @@ public class Event extends Task {
 
     /**
      * Event constructor
-     * @param description in the form e.g."travelling /from 2022-01-01 /to 2023-01-01"
+     * @param description in the form e.g."p/mid travelling /from 2022-01-01 /to 2023-01-01"
      * @throws MissingDatesException
      * @throws DateTimeParseException
      */
-    public Event(String description) throws MissingDatesException, DateTimeParseException {
-        super(description.split(" /from ")[0]);
+    public Event(String description)
+            throws MissingDatesException, InvalidPriorityException, IndexOutOfBoundsException {
+
+        super(description.split(" /from ")[0].split(" ")[1]);
 
         try {
             this.start = LocalDate.parse(description.split(" /from ")[1].split(" /to ")[0]);
@@ -25,11 +28,19 @@ public class Event extends Task {
         } catch (Exception e) {
             throw new MissingDatesException();
         }
+
+        try {
+            String priority = description.split(" /by ")[0].split(" ")[0].split("/")[1];
+            super.priority = Enum.valueOf(Priority.class, priority);
+        } catch (Exception e) {
+            throw new InvalidPriorityException();
+        }
     }
 
-    public Event(String name, boolean done, String start, String end) {
+    public Event(String name, boolean done, String start, String end, String priority) {
         super(name);
         super.done = done;
+        super.priority = Enum.valueOf(Priority.class, priority);
         this.start = LocalDate.parse(start);
         this.end = LocalDate.parse(end);
     }
@@ -41,26 +52,29 @@ public class Event extends Task {
     @Override
     public String toString() {
         String done = this.done ? "[X]" : "[ ]";
-        return "[E]" + done + " " + this.name
+        return "[E]" + done + " "
+                + super.priorityToString()
+                + this.name
                 + " (from: " + this.start.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
                 + " to: " + this.end.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 
     /**
      * Parses string into an Event object
-     * @param str is in the form e.g. "0 | read book | 2pm | 4pm"
+     * @param str is in the form e.g. "0 | high | read book | 2pm | 4pm"
      * @return Event object
      * @throws IndexOutOfBoundsException when parsing fails, as string split does not occur correctly.
      */
     public static Event parseEvent(String str) throws IndexOutOfBoundsException {
-        String[] strSplit = str.split(" \\| ", 4);
+        String[] strSplit = str.split(" \\| ", 5);
 
         boolean isDone = strSplit[0].equals("1");
-        String name = strSplit[1];
-        String start = strSplit[2];
-        String end = strSplit[3];
+        String priority = strSplit[1];
+        String name = strSplit[2];
+        String start = strSplit[3];
+        String end = strSplit[4];
 
-        return new Event(name, isDone, start, end);
+        return new Event(name, isDone, start, end, priority);
     }
 
     /**
@@ -70,7 +84,10 @@ public class Event extends Task {
     @Override
     public String toTxt() {
         String separation = " | ";
-        return "event" + separation + (done ? 1 : 0) + separation
-                + super.name + separation + start + separation + end;
+        return "event" + separation
+                + (done ? 1 : 0) + separation
+                + super.priority + separation
+                + super.name + separation
+                + start + separation + end;
     }
 }

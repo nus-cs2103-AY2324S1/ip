@@ -6,14 +6,11 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import bob.exception.InvalidPriorityException;
 import bob.exception.MissingDatesException;
 import bob.exception.MissingTaskException;
 import bob.exception.WrongInputException;
-import bob.task.Deadline;
-import bob.task.Event;
-import bob.task.Task;
-import bob.task.TaskType;
-import bob.task.Todo;
+import bob.task.*;
 
 /**
  * Contains list of tasks, and operations that alter it.
@@ -32,7 +29,7 @@ public class TaskList {
     /**
      * Generates the appropriate type of Task based on user input
      * Throws exceptions due to incorrect user input
-     * @param description is of the form e.g. "event read /from 2pm /to 4pm"
+     * @param description is of the form e.g. "event p/high read /from 2pm /to 4pm"
      * @return the relevant Task
      * @throws WrongInputException for unrecognised input.
      * @throws MissingTaskException when task name is missing.
@@ -40,7 +37,7 @@ public class TaskList {
      */
     public Task generateTask(String description)
             throws WrongInputException, MissingTaskException,
-            MissingDatesException, DateTimeParseException {
+            MissingDatesException, DateTimeParseException, InvalidPriorityException, IndexOutOfBoundsException {
 
         // Split by the first " " into type, and task details
         String[] task = description.split(" ", 2);
@@ -71,7 +68,7 @@ public class TaskList {
     /**
      * Adds a Task to lst. Writes modified lst to bob.txt.
      * Handles exceptions that occur due to wrong input/ missing requirements
-     * @param description is of the form e.g. "event read /from 2pm /to 4pm"
+     * @param description is of the form e.g. "event p/low read /from 2pm /to 4pm"
      * @return message for adding a Task
      */
     public String[] addToList(String description) {
@@ -91,6 +88,10 @@ public class TaskList {
             return new String[]{e.message};
         } catch (DateTimeParseException e) {
             return new String[]{"Please input valid date!"};
+        } catch (InvalidPriorityException e) {
+            return new String[]{e.message};
+        } catch (IndexOutOfBoundsException e) {
+            return new String[]{"Please input valid priority! E.g. todo p/high read"};
         }
     }
 
@@ -98,20 +99,43 @@ public class TaskList {
      * Prints out the Tasks on lst.
      * @return display of lst
      */
-    public String[] displayList() {
+    public String[] displayList(String priority) {
         assert lst != null;
 
-        if (lst.isEmpty()) {
-            return new String[] { "You currently have no tasks." };
+        List<String> tasksFound;
+        String message;
+
+        if (priority.equals("")) {
+            tasksFound = lst.stream().map(Object::toString).collect(Collectors.toList());
+            message = "Here are all your tasks! You can also filter by priority (e.g. list p/high)";
+        } else {
+            try {
+                Priority p = Enum.valueOf(Priority.class, priority);
+                tasksFound = getTasksWithPriority(p);
+                message = "Here are your tasks of " + priority + " priority!";
+            } catch (Exception e) {
+                return new String[] { "Please input valid priority! E.g. list p/high" };
+            }
         }
 
-        List<String> tasks = IntStream.range(1, lst.size() + 1)
-                .mapToObj(i -> i + ". " + lst.get(--i).toString())
+        if (tasksFound.isEmpty()) {
+            return new String[] { "No tasks found." };
+        }
+
+        List<String> tasks = IntStream.range(1, tasksFound.size() + 1)
+                .mapToObj(i -> i + ". " + tasksFound.get(--i))
                 .collect(Collectors.toList());
 
-        tasks.add(0, "Here are your tasks!");
+        tasks.add(0, message);
 
         return tasks.toArray(new String[0]);
+    }
+
+    private List<String> getTasksWithPriority(Priority p) {
+        return lst.stream()
+                .filter(tsk -> tsk.getPriority().equals(p))
+                .map(Object::toString)
+                .collect(Collectors.toList());
     }
 
     /**
