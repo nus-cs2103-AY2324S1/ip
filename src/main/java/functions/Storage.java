@@ -19,7 +19,7 @@ public class Storage {
         return load.load();
     }
 
-    public void save(TaskList taskList) throws IOException {
+    public void save(TaskList taskList) {
         Save save = new Save(taskList, this.filePath);
     }
 }

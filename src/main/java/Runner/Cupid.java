@@ -1,3 +1,5 @@
+package Runner;
+
 import functions.Parser;
 import functions.Storage;
 import functions.TaskList;
@@ -13,7 +15,7 @@ public class Cupid {
     private TaskList taskList;
     private Ui ui;
 
-    public Cupid(String saveFilePath) throws IOException {
+    public Cupid(String saveFilePath) {
         this.saveFilePath = saveFilePath;
         this.ui = new Ui();
         this.taskList = null;
@@ -46,14 +48,20 @@ public class Cupid {
             String result = parser.parse();
             System.out.println(result);
 
-            try {
-                this.storage.save(this.taskList);
-            } catch (IOException e) {
-                System.out.println(e);
-                System.out.println("Save unsuccessful");
-            }
+            this.storage.save(this.taskList);
         }
         ui.goodbye();
+    }
+
+    public String getResponse(String input) {
+        if (input.toLowerCase().equals("bye")) {
+            return ui.goodbye();
+        }
+        Parser parser = new Parser(input, this.taskList);
+        String result = parser.parse();
+
+        this.storage.save(this.taskList);
+        return result;
     }
 
     public static void main(String[] args) throws IOException {

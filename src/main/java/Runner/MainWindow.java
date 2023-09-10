@@ -1,4 +1,4 @@
-package functions;
+package Runner;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -30,8 +30,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Duke d) {
-        this.duke = d;
+    public void setDuke(Cupid cupid) {
+        this.cupid = cupid;
     }
 
     /**
@@ -41,7 +41,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = cupid.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)

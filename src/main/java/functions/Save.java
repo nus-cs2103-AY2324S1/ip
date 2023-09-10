@@ -20,45 +20,50 @@ public class Save {
      * @param taskList  a task list to store tasks
      * @param saveFilePath file path of saved file
      */
-    public Save(TaskList taskList, String saveFilePath) throws IOException {
+    public Save(TaskList taskList, String saveFilePath) {
         this.taskList = taskList;
         this.saveFilePath = saveFilePath;
         saveFile();
         };
 
-    public void saveFile() throws IOException {
+    public void saveFile() {
 
-        File f = new File(saveFilePath);
-        if (!f.exists()) {
-            FileWriter fw = new FileWriter(saveFilePath, true);
-            fw.write("");
-            fw.close();
-        }
+        try {
 
-        if (taskList.size() == 0) {
-            FileWriter fw = new FileWriter(tempFilePath, true);
-            fw.write("");
-            fw.close();
-        }
-
-
-        for (int i=0; i<taskList.size(); i++) {
-            String message = String.format("%s", taskList.get(i).getTaskAsString());
-            try {
-                addFileContents(tempFilePath, message);
-                // System.out.println(message + " added ");  // For debugging
-            } catch (IOException e) {
-                System.out.println("Something went wrong");
+            File f = new File(saveFilePath);
+            if (!f.exists()) {
+                FileWriter fw = new FileWriter(saveFilePath, true);
+                fw.write("");
+                fw.close();
             }
-        };
 
-        Files.copy( Paths.get(tempFilePath), Paths.get(saveFilePath), StandardCopyOption.REPLACE_EXISTING);
-        Files.delete(Paths.get(tempFilePath));
+            if (taskList.size() == 0) {
+                FileWriter fw = new FileWriter(tempFilePath, true);
+                fw.write("");
+                fw.close();
+            }
+
+
+            for (int i = 0; i < taskList.size(); i++) {
+                String message = String.format("%s", taskList.get(i).getTaskAsString());
+                addFileContents(tempFilePath, message);
+            }
+            ;
+
+            Files.copy(Paths.get(tempFilePath), Paths.get(saveFilePath), StandardCopyOption.REPLACE_EXISTING);
+            Files.delete(Paths.get(tempFilePath));
+        } catch (IOException e) {
+            System.out.println("Error in saving");
+        }
     }
 
-    public static void addFileContents(String filePath, String contents) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
-        fw.write(contents + "\n");
-        fw.close();
+    public static void addFileContents(String filePath, String contents) {
+        try {
+            FileWriter fw = new FileWriter(filePath, true);
+            fw.write(contents + "\n");
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Unable to create file. Please try again later.");
+        }
     }
 }

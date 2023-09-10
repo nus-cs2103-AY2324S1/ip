@@ -15,12 +15,14 @@ public class Ui {
     }
 
     public void hello() {
-        System.out.println("Hello, I'm Cupid.");
+        System.out.println("Hello, I'm Runner.Cupid.");
         System.out.println("What can I do for you?");
     }
-    public void goodbye() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+    public String goodbye() {
+        String message = "";
+        message += "____________________________________________________________\n";
+        message += "Bye. Hope to see you again soon!\n";
+        message += "____________________________________________________________";
+        return message;
     }
 }
