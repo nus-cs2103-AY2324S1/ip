@@ -12,7 +12,6 @@ import tasks.TaskList;
  */
 public class MarkCommand extends Command {
 
-    private Task task;
     private final int index;
 
     /**
@@ -29,27 +28,25 @@ public class MarkCommand extends Command {
      * @param dF The file to be edited on.
      */
     @Override
-    public void execute(TaskList tasks, DataFile dF) throws DukeException {
+    public String execute(TaskList tasks, DataFile dF) throws DukeException {
         if (tasks.isTaskListEmpty()) {
             throw new DukeException("List is empty, nothing to mark");
         }
         Task task = tasks.getTask(index);
         task.taskCompleted();
-        this.task = task;
-        System.out.println(this);
         try {
             dF.editFileAtLineN(index, '1');
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        return cmdToString(task.toString());
     }
 
     /**
      * Returns the string representation of mark command.
      * @return String representation of mark command.
      */
-    @Override
-    public String toString() {
+    public String cmdToString(String task) {
         return "Nice! I've marked this task as done:\n" + task;
     }
 }

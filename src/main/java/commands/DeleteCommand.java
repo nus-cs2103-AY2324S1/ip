@@ -14,8 +14,6 @@ import tasks.TaskList;
 public class DeleteCommand extends Command {
 
     private final int index;
-    private int size = -1;
-    private Task task;
 
     /**
      * DeleteCommand constructor that takes in an int.
@@ -31,29 +29,24 @@ public class DeleteCommand extends Command {
      * @param dF The file to be edited on.
      */
     @Override
-    public void execute(TaskList tasks, DataFile dF) throws DukeException {
+    public String execute(TaskList tasks, DataFile dF) throws DukeException {
         if (tasks.isTaskListEmpty()) {
-            throw new DukeException("List is already empty, nothing to catch");
+            throw new DukeException("List is already empty, nothing to delete");
         }
         Task task = tasks.remTask(index);
-        size = tasks.getSize();
-        this.task = task;
-        System.out.println("Noted. I've removed this task:\n" + task
-                + "\nNow you have " + tasks.getSize() + " tasks in the list.");
         try {
             dF.deleteTaskFromFile(index);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
+        return cmdToString(task.toString(), tasks.getSize());
     }
 
     /**
      * Returns the string representation of delete command.
      * @return String representation of delete command.
      */
-    @Override
-    public String toString() {
+    public String cmdToString(String task, int size) {
         return "Noted. I've removed this task:\n" + task
                 + "\nNow you have " + size + " tasks in the list.";
     }

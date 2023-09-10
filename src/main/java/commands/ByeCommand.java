@@ -14,8 +14,8 @@ public class ByeCommand extends Command {
      * @param dF The file to be edited on.
      */
     @Override
-    public void execute(TaskList tasks, DataFile dF) {
-        System.out.println(this);
+    public String execute(TaskList tasks, DataFile dF) {
+        return this.toString();
     }
 
     /**

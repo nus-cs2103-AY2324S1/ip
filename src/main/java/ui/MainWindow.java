@@ -28,8 +28,8 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/blue.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/red.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/blue.png"));
+    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/red.png"));
 
     @FXML
     public void initialize() {
@@ -60,9 +60,9 @@ public class MainWindow extends AnchorPane {
         try {
             String command = userInput.getText();
             Command c = new Parser().getCommand(command);
-            c.execute(duke.getTaskList(), duke.getDataFile());
+            String result = c.execute(duke.getTaskList(), duke.getDataFile());
             String input = userInput.getText();
-            String response = getResponse(c.toString());
+            String response = getResponse(result);
             dialogContainer.getChildren().addAll(
                     new DialogBox(input, userImage, 0),
                     new DialogBox(response, dukeImage, 1)
