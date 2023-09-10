@@ -23,7 +23,8 @@ You can use it for:
 - [x] _anything, really_
 
 If you are a Java programmer, you can use it to practice Java too. Here's the main method:
-```public class Main {
+```java
+public class Main {
     public static void main(String[] args) {
         Application.launch(MainApp.class, args);
     }
