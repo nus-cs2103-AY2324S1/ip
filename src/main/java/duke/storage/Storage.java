@@ -32,10 +32,12 @@ public class Storage {
         try {
             f.createNewFile();
             Scanner s = new Scanner(f);
+
             while (s.hasNext()) {
                 String task = s.nextLine().trim();
                 output.add(task);
             }
+
             return output;
         } catch (IOException e) {
             return output;
@@ -61,10 +63,12 @@ public class Storage {
     public String saveToDisk(List<String> tasks) {
         try {
             FileWriter fw = new FileWriter(path);
+
             String input = "";
             for (int i = 0; i < tasks.size(); i++) {
                 input = input + tasks.get(i) + "\n";
             }
+
             writeToFile(fw, input);
             return "Tasks saved successfully";
         } catch (IOException e) {

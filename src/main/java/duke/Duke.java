@@ -29,9 +29,11 @@ public class Duke {
         this.storage = new Storage();
         this.tasks = new TaskList(storage.readFile());
     }
+
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns the response to the user's input
+     * @param input The user's input
+     * @return Toothless' response
      */
     public String getResponse(String input) {
 
@@ -61,7 +63,7 @@ public class Duke {
             case UNMARK:
             case MARK:
                 String completionStatus = tasks.changeTaskCompletion(input, command);
-                output = ui.showStatusChanged(completionStatus);
+                output = completionStatus;
                 break;
 
             case FIND:
@@ -71,12 +73,12 @@ public class Duke {
 
             case DELETE:
                 String deleteStatus = tasks.deleteTask(input);
-                output = ui.showStatusChanged(deleteStatus);
+                output = deleteStatus;
                 break;
 
             case BYE:
                 String savedStatus = storage.saveToDisk(tasks.getTasksDes(0));
-                output = savedStatus + "\n" + ui.showStatusChanged(savedStatus);
+                output = savedStatus + "\n" + ui.farewell();
                 break;
 
             case UNKNOWN:
