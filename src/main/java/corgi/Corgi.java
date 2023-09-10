@@ -44,13 +44,13 @@ public class Corgi {
      * Starts the chatbot - Corgi.
      */
     public String getResponse(String input) {
-        assert !input.equals("") : "Input cannot be empty"; 
+        assert !input.equals("") : "Input cannot be empty";
 
         Command cmd = null;
 
         try {
             cmd = new CommandParser().parse(input);
-            assert cmd != null: "Command returned from parser cannot be null";
+            assert cmd != null : "Command returned from parser cannot be null";
             return cmd.execute(this.tasks, this.renderer, this.storage);
         } catch (InvalidCommandFormatException e) {
             return this.renderer.showError(e.getClass().getSimpleName(), e.getMessage());
