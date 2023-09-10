@@ -1,6 +1,7 @@
 package bob.command;
 
 import bob.exception.BobException;
+import bob.exception.BobInvalidTaskNumberException;
 import bob.storage.StorageFile;
 import bob.task.Task;
 import bob.task.TaskList;
@@ -29,7 +30,15 @@ public class DeleteMultipleCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, StorageFile storageFile) throws BobException {
-        //Guard Clause?
+        try {
+            for (Integer i: taskNumbers) {
+                taskList.getTask(i - 1);
+            }
+        } catch (BobInvalidTaskNumberException e) {
+            String message = "One of the tasks you are trying to delete is non-existent!\n";
+            String recommendation = "Use the command: \"list\" to find out what tasks you have.";
+            throw new BobInvalidTaskNumberException(message + recommendation);
+        }
         for (Integer i : taskNumbers) {
             Task currTask = taskList.getTask(i - 1);
             deletedTasks.addTask(currTask);
