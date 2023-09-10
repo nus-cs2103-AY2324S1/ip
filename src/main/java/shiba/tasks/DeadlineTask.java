@@ -11,7 +11,7 @@ import shiba.parsers.SpaceSeparatedValuesParser;
  * Represents a task with a datetime deadline.
  */
 public class DeadlineTask extends ShibaTask {
-    private static final Pattern deadlineRegex = Pattern.compile("(.+?) /by (.+)");
+    private static final Pattern DEADLINE_REGEX = Pattern.compile("(.+?) /by (.+)");
 
     private final DateOptionalTime deadline;
 
@@ -56,7 +56,7 @@ public class DeadlineTask extends ShibaTask {
             throw new InvalidCommandException("Deadline name should not be empty!");
         }
 
-        Matcher matcher1 = deadlineRegex.matcher(cmdSplit[1]);
+        Matcher matcher1 = DEADLINE_REGEX.matcher(cmdSplit[1]);
         if (matcher1.find()) {
             return new DeadlineTask(matcher1.group(1), matcher1.group(2));
         }

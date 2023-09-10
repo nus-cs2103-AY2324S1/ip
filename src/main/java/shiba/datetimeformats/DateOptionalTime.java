@@ -11,8 +11,8 @@ import shiba.exceptions.InvalidCommandException;
  * Represents a date with an optional time.
  */
 public class DateOptionalTime {
-    private static final String dateDisplayFormat = "d LLL yyyy";
-    private static final String dateTimeDisplayFormat = "d LLL yyyy h:mma";
+    private static final String DATE_DISPLAY_FORMAT = "d LLL yyyy";
+    private static final String DATE_TIME_DISPLAY_FORMAT = "d LLL yyyy h:mma";
 
     private LocalDate date;
     private LocalDateTime dateTime;
@@ -58,9 +58,9 @@ public class DateOptionalTime {
      */
     public String getDisplayRepr() {
         if (dateTime != null) {
-            return dateTime.format(DateTimeFormatter.ofPattern(dateTimeDisplayFormat));
+            return dateTime.format(DateTimeFormatter.ofPattern(DATE_TIME_DISPLAY_FORMAT));
         }
-        return date.format(DateTimeFormatter.ofPattern(dateDisplayFormat));
+        return date.format(DateTimeFormatter.ofPattern(DATE_DISPLAY_FORMAT));
     }
 
     /**
