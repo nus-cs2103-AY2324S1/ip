@@ -15,9 +15,6 @@ public class Ui {
             + "Type 'help' to access the help menu!\n"
             + "What can I do(t) for you?";
 
-
-    private static final String GOODBYE_MESSAGE = "Bye! DOnT forget to finish your tasks!\n";
-
     private static final String HELP_MESSAGE = "Welcome to the help menu, DonT worry ^o^!\n"
             + "<datetime> format for deadline/events: dd/MM/yyyy hhmm (e.g. 13/01/2020 1800)\n"
             + "<date> format for whatsgoingon: dd/MM/yyyy (e.g. 13/01/2020)\n\n"
@@ -30,7 +27,8 @@ public class Ui {
             + "mark <taskNo> - Check off task based on no. on the list\n"
             + "delete <taskNo> - Delete task based on no. on the list\n"
             + "whatsgoingon <date> - See what deadlines/events are ongoing for given date\n"
-            + "find <query> - List out all tasks that fit <query>"
+            + "find <query> - List out all tasks that fit <query>\n"
+            + "undo - To undo the latest single undoable command, if not undone yet\n"
             + "help - access this help menu\n"
             + "bye - close Dot";
 
@@ -50,15 +48,6 @@ public class Ui {
      */
     public static String getHelpMessage() {
         return wrapStringWithHorizontalRules(HELP_MESSAGE);
-    }
-
-    /**
-     * Displays the exit message for the user.
-     *
-     * @return The goodbye message as String.
-     */
-    public static String getGoodbyeMessage() {
-        return wrapStringWithHorizontalRules(GOODBYE_MESSAGE);
     }
 
     /**
