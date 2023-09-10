@@ -12,10 +12,10 @@ public class DeleteCommand extends Command {
 
     /**
      * Constructor for DeleteCommand.
-     * @param command
+     * @param fullCommand
      */
-    public DeleteCommand(String command) {
-        super(command);
+    public DeleteCommand(String fullCommand) {
+        super(fullCommand);
     }
 
     /**
@@ -28,10 +28,9 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {
-            int taskId = Integer.parseInt(this.getCommand().substring(7)) - 1;
-            // assert delete in command
-            assert this.getCommand().substring(0, 6).equals("delete") : "delete not in command";
-            ui.showTaskDeleted(taskList.get(taskId), taskList.size());
+            int taskId = Integer.parseInt(getFullCommand().substring(7)) - 1;
+            assert getFullCommand().substring(0, 6).equals("delete") : "delete not in command";
+            ui.showTaskDeleted(taskList.getTask(taskId), taskList.size());
             taskList.delete(taskId);
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a valid task number.");

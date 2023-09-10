@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 public class DeadlineTaskTest {
+    /**
+     * Test for fromFileStringTest method for DeadlineTask.
+     */
     @Test
     public void fromFileStringTest() {
         DeadlineTask deadlineTask = new DeadlineTask();
@@ -16,6 +19,9 @@ public class DeadlineTaskTest {
         assertEquals("[D][ ] return book (by: Dec 02 2019 1800)", deadlineTask.toString());
     }
 
+    /**
+     * Test for toFileString method for DeadlineTask.
+     */
     @Test
     public void toFileStringTest() {
         DeadlineTask deadlineTask = new DeadlineTask();

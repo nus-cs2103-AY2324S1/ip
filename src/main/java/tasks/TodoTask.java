@@ -6,7 +6,7 @@ package tasks;
 public class TodoTask extends Task {
     /**
      * Constructor for TodoTask.
-     * @param description
+     * @param description Description of the task
      */
     public TodoTask(String description) {
         super(description);
@@ -35,12 +35,12 @@ public class TodoTask extends Task {
 
     /**
      * Convert from a string to a todo task.
-     * @param fileString
+     * @param fileString Stored list in String format within the file
      */
     @Override
     public void fromFileString(String fileString) {
         String[] fileStringArray = fileString.split(" \\| ");
-        this.setStatusIcon(fileStringArray[1]);
-        this.setDescription(fileStringArray[2]);
+        setStatusIcon(fileStringArray[1]);
+        setDescription(fileStringArray[2]);
     }
 }

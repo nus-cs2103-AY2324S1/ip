@@ -26,12 +26,12 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        String input = getCommand();
+        String input = getFullCommand();
         String[] inputArray = input.split(" ");
         String keyword = inputArray[1];
         String output = "";
         for (int i = 0; i < taskList.size(); i++) {
-            Task task = taskList.get(i);
+            Task task = taskList.getTask(i);
             if (task.getDescription().contains(keyword)) {
                 output += (i + 1) + ". " + task.toString() + "\n";
             }

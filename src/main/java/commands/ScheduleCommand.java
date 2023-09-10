@@ -24,10 +24,10 @@ public class ScheduleCommand extends Command {
 
     /**
      * Constructor for ScheduleCommand.
-     * @param command
+     * @param fullCommand
      */
-    public ScheduleCommand(String command) {
-        super(command);
+    public ScheduleCommand(String fullCommand) {
+        super(fullCommand);
     }
 
 
@@ -40,7 +40,7 @@ public class ScheduleCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        String input = getCommand();
+        String input = getFullCommand();
         LocalDate queryDateTime;
         System.out.println(input.substring(9));
         try {
@@ -49,10 +49,10 @@ public class ScheduleCommand extends Command {
             throw new DukeException("Date should follow the format d/M/yyyy");
         }
         for (int i = 0; i < taskList.size(); i++) {
-            Task task = taskList.get(i);
+            Task task = taskList.getTask(i);
             if (task instanceof DeadlineTask) {
                 DeadlineTask deadline = (DeadlineTask) task;
-                if (deadline.getBy().toLocalDate().equals(queryDateTime)) {
+                if (deadline.getByDateTime().toLocalDate().equals(queryDateTime)) {
                     output += (i + 1) + ". " + deadline.toString() + "\n";
                 }
             } else if (task instanceof EventTask) {

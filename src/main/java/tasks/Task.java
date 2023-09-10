@@ -38,7 +38,7 @@ public abstract class Task {
 
     /**
      * Sets the status of the task.
-     * @param statusIcon
+     * @param statusIcon "X" if task is done, " " if task is not done
      */
     public void setStatusIcon(String statusIcon) {
         this.isDone = statusIcon.equals("X");
@@ -76,10 +76,6 @@ public abstract class Task {
         isDone = false;
     }
 
-    /**
-     * Returns the string representation of the task for output.
-     * @return String
-     */
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
@@ -87,13 +83,13 @@ public abstract class Task {
 
     /**
      * Returns the string representation of the task to be saved in a file.
-     * @return String
+     * @return String representation of the task
      */
     public abstract String toFileString();
 
     /**
      * Convert from a string to a task.
-     * @param fileString
+     * @param fileString Stored list in String format within the file
      * @throws DukeException
      */
     public abstract void fromFileString(String fileString) throws DukeException;

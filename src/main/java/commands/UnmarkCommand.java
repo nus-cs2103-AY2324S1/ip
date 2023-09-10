@@ -11,10 +11,10 @@ import ui.Ui;
 public class UnmarkCommand extends Command {
     /**
      * Constructor for UnmarkCommand.
-     * @param command
+     * @param fullCommand  The command to be executed
      */
-    public UnmarkCommand(String command) {
-        super(command);
+    public UnmarkCommand(String fullCommand) {
+        super(fullCommand);
     }
 
     /**
@@ -26,9 +26,9 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {
-            int taskId = Integer.parseInt(this.getCommand().substring(7)) - 1;
+            int taskId = Integer.parseInt(getFullCommand().substring(7)) - 1;
             taskList.unmark(taskId);
-            ui.showTaskUnmarked(taskList.get(taskId));
+            ui.showTaskUnmarked(taskList.getTask(taskId));
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a valid task number.");
         } catch (IndexOutOfBoundsException e) {

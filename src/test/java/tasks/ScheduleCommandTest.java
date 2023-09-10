@@ -9,6 +9,10 @@ import exceptions.DukeException;
 import io.Storage;
 import ui.Ui;
 public class ScheduleCommandTest {
+    /**
+     * Test for execute method for ScheduleCommand.
+     * @throws DukeException
+     */
     @Test
     public void executeTest() throws DukeException {
         TaskList taskList = new TaskList();

@@ -16,10 +16,10 @@ public class AddTaskCommand extends Command {
 
     /**
      * Constructor for AddCommand
-     * @param command The command to be executed
+     * @param fullCommand The command to be executed
      */
-    public AddTaskCommand(String command) {
-        super(command);
+    public AddTaskCommand(String fullCommand) {
+        super(fullCommand);
     }
 
     /**
@@ -40,7 +40,7 @@ public class AddTaskCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        String input = getCommand();
+        String input = getFullCommand();
         String[] inputArray = input.split(" ");
         String taskType = inputArray[0];
         String[] inputSplit;

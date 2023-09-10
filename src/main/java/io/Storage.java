@@ -37,7 +37,6 @@ public class Storage {
         ArrayList<Task> userTasks = new ArrayList<Task>();
         String fileString = "";
         try {
-            // check if file exists
             File file = new File(filepath);
             if (!file.exists()) {
                 throw new DukeException("File does not exist.");
