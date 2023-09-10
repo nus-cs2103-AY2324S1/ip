@@ -64,6 +64,14 @@ public class TaskList {
         taskList.forEach(c);
     }
 
+    /**
+     * Gets the size of the task list.
+     * @return The size of the task list.
+     */
+    public int size() {
+        return taskList.size();
+    }
+
     @Override
     public String toString() {
         String result = "";

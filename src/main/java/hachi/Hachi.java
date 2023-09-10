@@ -228,4 +228,148 @@ public class Hachi {
         }
     }
 
+    public String getInputResponse(String input) throws HachiException {
+        TaskList taskList = storage.getTaskList();
+        Command cmd = Parser.parse(input);
+        String command = cmd.getCommand();
+        String[] arguments = cmd.getArguments();
+
+        // main logic
+        try {
+            switch (command) {
+            case ByeCommand.COMMAND_WORD:
+                Parser.checkArgumentLength(ByeCommand.COMMAND_WORD, arguments.length);
+                return "Bye. Hope to see you again soon!";
+            case ListCommand.COMMAND_WORD:
+                Parser.checkArgumentLength(ListCommand.COMMAND_WORD, arguments.length);
+                return taskList.toString();
+            case MarkCommand.COMMAND_WORD:
+                Parser.checkArgumentLength(MarkCommand.COMMAND_WORD, arguments.length);
+                try {
+                    int i = Parser.parseTaskNumber(arguments[0], taskList.size());
+                    Task t = taskList.mark(i);
+                    storage.updateTaskFile(taskList);
+                    return "Nice! I've marked this task as done\n   " + t;
+                } catch (NumberFormatException e) {
+                    throw new InvalidArgumentException(MarkCommand.COMMAND_WORD);
+                }
+            case UnmarkCommand.COMMAND_WORD:
+                Parser.checkArgumentLength(UnmarkCommand.COMMAND_WORD, arguments.length);
+                try {
+                    int i = Parser.parseTaskNumber(arguments[0], taskList.size());
+                    Task t = taskList.unmark(i);
+                    storage.updateTaskFile(taskList);
+                    return "OK, I've marked this task as not done yet:\n   " + t;
+                } catch (NumberFormatException e) {
+                    throw new InvalidArgumentException(UnmarkCommand.COMMAND_WORD);
+                }
+            case DeleteCommand.COMMAND_WORD:
+                Parser.checkArgumentLength(DeleteCommand.COMMAND_WORD, arguments.length);
+                try {
+                    int i = Parser.parseTaskNumber(arguments[0], taskList.size());
+                    Task t = taskList.remove(i);
+                    storage.updateTaskFile(taskList);
+                    return "Noted. I've removed this task:\n   " + t
+                            + String.format("\nNow you have %d tasks in the list.", taskList.size());
+                } catch (NumberFormatException e) {
+                    throw new InvalidArgumentException(DeleteCommand.COMMAND_WORD);
+                }
+            case TodoCommand.COMMAND_WORD:
+                Parser.checkArgumentLength(TodoCommand.COMMAND_WORD, arguments.length);
+                Todo td = new Todo(Parser.parseTaskArguments(TodoCommand.COMMAND_WORD, arguments));
+                taskList.add(td);
+                storage.updateTaskFile(taskList);
+                return "Got it. I've added this task:\n   " + td
+                        + String.format("\nNow you have %d tasks in the list.", taskList.size());
+            case DeadlineCommand.COMMAND_WORD:
+                Parser.checkArgumentLength(DeadlineCommand.COMMAND_WORD, arguments.length);
+                int byIndex = Parser.getWordIndex("/by", arguments);
+                if (byIndex == -1) {
+                    throw new NoDeadlineException();
+                }
+                if (byIndex == arguments.length - 1) {
+                    throw new EmptyDeadlineException("deadline");
+                }
+                String deadlineTask = String.join(" ",
+                        Arrays.copyOfRange(arguments, 0, byIndex));
+                String deadlineDate = String.join(" ",
+                        Arrays.copyOfRange(arguments, byIndex + 1, arguments.length));
+                try {
+                    Deadline dl = new Deadline(deadlineTask, LocalDate.parse(deadlineDate));
+                    taskList.add(dl);
+                    storage.updateTaskFile(taskList);
+                    return "Got it. I've added this task:\n   " + dl
+                            + String.format("\nNow you have %d tasks in the list.", taskList.size());
+                } catch (DateTimeParseException e) {
+                    throw new DateFormatWrongException(deadlineDate);
+                }
+            case EventCommand.COMMAND_WORD:
+                Parser.checkArgumentLength(EventCommand.COMMAND_WORD, arguments.length);
+                int fromIndex = Parser.getWordIndex("/from", arguments);
+                int toIndex = Parser.getWordIndex("/to", arguments);
+                if (fromIndex == -1 && toIndex == -1) {
+                    throw new EventDateException("/from and /to");
+                } else if (toIndex == -1) {
+                    throw new EventDateException("/to");
+                } else if (fromIndex == -1) {
+                    throw new EventDateException("/from");
+                } else {
+                    String eventTask = String.join(" ",
+                            Arrays.copyOfRange(arguments, 0, fromIndex));
+                    String eventStartDate = String.join(" ",
+                            Arrays.copyOfRange(arguments, fromIndex + 1, toIndex));
+                    String eventEndDate = String.join(" ",
+                            Arrays.copyOfRange(arguments, toIndex + 1, arguments.length));
+                    if (eventTask.equals("")) {
+                        throw new EmptyTaskException("event");
+                    } else if (eventStartDate.equals("") && eventEndDate.equals("")) {
+                        throw new EventDateException("start date and end date");
+                    } else if (eventEndDate.equals("")) {
+                        throw new EventDateException("end date");
+                    } else if (eventStartDate.equals("")) {
+                        throw new EventDateException("start date");
+                    }
+                    try {
+                        Event ev = new Event(eventTask, LocalDate.parse(eventStartDate),
+                                LocalDate.parse(eventEndDate));
+                        taskList.add(ev);
+                        storage.updateTaskFile(taskList);
+                        return "Got it. I've added this task:\n   " + ev
+                                + String.format("\nNow you have %d tasks in the list.", taskList.size());
+                    } catch (DateTimeParseException e) {
+                        throw new DateFormatWrongException(eventStartDate + ", " + eventEndDate);
+                    }
+                }
+            case SearchdateCommand.COMMAND_WORD:
+                Parser.checkArgumentLength(SearchdateCommand.COMMAND_WORD, arguments.length);
+                LocalDate searchDate = LocalDate.parse(arguments[0]);
+                ArrayList<Task> filteredDates = new ArrayList<>();
+                taskList.iter(task -> {
+                    if (task.isDateWithinRange(searchDate)) {
+                        filteredDates.add(task);
+                    }
+                });
+                return new TaskList(filteredDates).toString();
+            case FindCommand.COMMAND_WORD:
+                Parser.checkArgumentLength(FindCommand.COMMAND_WORD, arguments.length);
+                String str = Parser.parseTaskArguments(FindCommand.COMMAND_WORD, arguments);
+                ArrayList<Task> filteredTasks = new ArrayList<>();
+                taskList.iter(task -> {
+                    if (task.isStringWithinTaskName(str)) {
+                        filteredTasks.add(task);
+                    }
+                });
+                if (filteredTasks.isEmpty()) {
+                    return "No tasks found! Maybe try changing your search terms.";
+                } else {
+                    return new TaskList(filteredTasks).toString();
+                }
+            default:
+                throw new InvalidCommandException(command);
+            }
+        } catch (HachiException e) {
+            return e.getMessage();
+        }
+    }
+
 }
