@@ -39,7 +39,6 @@ public class Duke {
         if (!Parser.parsable(input)) {
             return this.ui.exit();
         }
-
         if (this.outputPath.equals("")) {
             this.ui.emptyFilePath();
         }

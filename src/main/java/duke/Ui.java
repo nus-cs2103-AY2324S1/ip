@@ -10,8 +10,8 @@ import duke.task.Task;
  * @author Donovan Chan Jia Jun
  */
 public class Ui {
-    private final String chatbotName = "notDuke";
-    private final String intro = "Hello! I'm " + this.chatbotName + "\n"
+    private final String CHATBOTNAME = "notDuke";
+    private final String intro = "Hello! I'm " + this.CHATBOTNAME + "\n"
             + "What can I do for you?";
     private final String EXITMESSAGE = "Bye. Hope to see you again soon!";
 

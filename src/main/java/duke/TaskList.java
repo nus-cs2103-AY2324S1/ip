@@ -13,10 +13,6 @@ import duke.task.Task;
 public class TaskList {
     private ArrayList<Task> arrList;
 
-    public TaskList() {
-        this.arrList = new ArrayList<>();
-    }
-
     /**
      * Constructs TaskList instance to store list of Task.
      *
