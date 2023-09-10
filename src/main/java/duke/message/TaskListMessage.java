@@ -24,13 +24,13 @@ public class TaskListMessage extends Message {
      * @return String representation of TaskListMessage.
      */
     private String[] formatList(ArrayList<Task> list) {
-        String[] ls = new String[list.size()];
+        String[] tasks = new String[list.size()];
         int index = 1;
         for (Task item: list) {
-            ls[index - 1] = String.format("%d. %s", index, item.toString());
+            tasks[index - 1] = String.format("%d. %s", index, item.toString());
             index++;
         }
-        return ls;
+        return tasks;
     }
 
     /**

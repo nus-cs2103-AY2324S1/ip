@@ -35,8 +35,8 @@ public class TaskList {
      * Checks whether index is valid.
      * @return true if index is valid.
      */
-    private boolean isValidIndex(int index) {
-        return 0 <= index && index < list.size();
+    private boolean isNotValidIndex(int index) {
+        return 0 > index || index >= list.size();
     }
 
     /**
@@ -57,7 +57,7 @@ public class TaskList {
      */
     public DeleteTaskMessage delete(int num) throws InvalidIndexException {
         int index = num - 1;
-        if (!isValidIndex(index)) {
+        if (isNotValidIndex(index)) {
             throw new InvalidIndexException();
         }
         Task task = this.list.remove(index);
@@ -80,7 +80,7 @@ public class TaskList {
      */
     public MarkTaskMessage markTask(int num) throws InvalidIndexException {
         int index = num - 1;
-        if (!isValidIndex(index)) {
+        if (isNotValidIndex(index)) {
             throw new InvalidIndexException();
         }
         Task task = this.list.get(index);
@@ -95,7 +95,7 @@ public class TaskList {
      */
     public UnmarkTaskMessage unmarkTask(int num) throws InvalidIndexException {
         int index = num - 1;
-        if (!isValidIndex(index)) {
+        if (isNotValidIndex(index)) {
             throw new InvalidIndexException();
         }
         Task task = this.list.get(index);

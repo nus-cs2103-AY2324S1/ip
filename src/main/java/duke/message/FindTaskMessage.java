@@ -25,14 +25,14 @@ public class FindTaskMessage extends Message {
      * @return String representation of FindTaskMessage.
      */
     private String[] formatList(ArrayList<Task> list) {
-        String[] ls = new String[list.size() + 1];
-        ls[0] = MessageTemplates.MESSAGE_FOUND_TASKS;
+        String[] tasks = new String[list.size() + 1];
+        tasks[0] = MessageTemplates.MESSAGE_FOUND_TASKS;
         int index = 1;
         for (Task item: list) {
-            ls[index] = String.format("%d. %s", index, item.toString());
+            tasks[index] = String.format("%d. %s", index, item.toString());
             index++;
         }
-        return ls;
+        return tasks;
     }
     /**
      * Returns String representation of FindTaskMessage.
