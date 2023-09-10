@@ -1,0 +1,18 @@
+clear
+todo borrow book
+todo drink water
+event book fair /from 29-08-2023 12:34 /to 30-08-2023 12:00
+deadline study CS2013T /by 28-08-2023 12:44
+list
+mark 1
+mark 3
+unmark 3
+mark 2
+list
+event 123456 /from 29-08-2023 13:56 /to 30-08-2023 00:00
+delete 1
+deadline return book /by 29-08-2023 12:44
+mark 5
+check 29-08-2023
+list
+end
