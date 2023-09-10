@@ -1,5 +1,4 @@
 import java.io.*;
-import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -9,10 +8,10 @@ public class Dan {
     private static MyList tasks = new MyList(100);
     private final static String[] commands = new String[] {
             "toDo [TASK]",
-            "deadline [TASK] /by [DEADLINE]",
-            "event [TASK] /from [START_TIME] /to [END_TIME]",
-            "list", "bye",
-            "mark [TASK_ID]", "unmark [TASK_ID]"
+            "deadline [TASK] /by [DEADLINE(YYYY-MM-DD)]",
+            "event [TASK] /from [START_TIME(YYYY-MM-DD)] /to [END_TIME(YYYY-MM-DD)]",
+            "mark [TASK_ID]", "unmark [TASK_ID]",
+            "list", "bye"
     };
     private final static String savePath = "./data/dan.txt";
 
@@ -99,12 +98,13 @@ public class Dan {
     }
 
     private static void deleteTask(int i) {
-        Task removedTask = tasks.remove(i);
+        Task removedTask = tasks.remove(i-1);
         System.out.println(
                 greets +
                         " 好啦，帮你擦掉了一条任务哦：\n " + removedTask +
                         "\n 现在还剩下" + tasks.size() + "项任务哦！\n"
         );
+        save();
     }
 
     public static void addTask(String text)
@@ -133,7 +133,7 @@ public class Dan {
         String description;
         switch (id) {
             case 1:
-                description = texts[1].substring(5);
+                description = texts[0].substring(5);
                 newTask = new ToDo(description);
                 break;
             case 2:
@@ -211,8 +211,8 @@ public class Dan {
             if (f.exists()) {
                 readFile(f);
             } else {
-                System.out.println(new File("./data").mkdir());
-                System.out.println(new File("./data/dan.txt").createNewFile());
+                new File("./data").mkdir();
+                new File("./data/dan.txt").createNewFile();
             }
         }  catch (IOException e) {
             e.printStackTrace();
