@@ -34,8 +34,8 @@ public class TaskList {
      * @param storage  The Storage of the Chatbot.
      */
     public TaskList(ArrayList<Task> taskList, Storage storage) {
-        assert taskList != null: "TaskList should be initialised!";
-        assert storage != null: "Storage should be initialised!";
+        assert taskList != null : "TaskList should be initialised!";
+        assert storage != null : "Storage should be initialised!";
         this.taskList = taskList;
         this.storage = storage;
     }
@@ -183,6 +183,49 @@ public class TaskList {
             }
         }
         return new TaskList(buffer, storage);
+    }
+
+    /**
+     * Edits the selected task.
+     *
+     * @param strIndex The Index of the Task in the Task List.
+     * @param editType The type of Edit to be made. ("/desc", "/by", "/from", "/to")
+     * @param editData The new data.
+     * @return The Success output as a String.
+     * @throws DukeException If Task Index provided is invalid or command parameters are invalid.
+     */
+    public String editTask(String strIndex, String editType, String editData) throws DukeException {
+        Task selectedTask;
+        try {
+            int index = Integer.parseInt(strIndex) - 1;
+            if (index > taskList.size() - 1 || index < 0) {
+                throw new DukeException(INVALID_INDEX_MESSAGE);
+            }
+            selectedTask = taskList.get(index);
+        } catch (NumberFormatException e) {
+            throw new DukeException(INVALID_INDEX_MESSAGE);
+        }
+
+        if (selectedTask == null) {
+            throw new DukeException("No Task Selected!");
+        }
+
+        if (editType.equals("/desc")) {
+            selectedTask.updateDesc(editData);
+        } else if (editType.equals("/by") && selectedTask instanceof Deadline) {
+            Deadline buffer = (Deadline) selectedTask;
+            buffer.updateDeadline(editData);
+        } else if (editType.equals("/from") && selectedTask instanceof Event) {
+            Event buffer = (Event) selectedTask;
+            buffer.updateStart(editData);
+        } else if (editType.equals("/to") && selectedTask instanceof Event) {
+            Event buffer = (Event) selectedTask;
+            buffer.updateEnd(editData);
+        } else {
+            throw new DukeException("Invalid Edit Command!\nMake sure that the Task is of the correct type!");
+        }
+
+        return formatMessage("updated", selectedTask, taskList.size());
     }
 
     /**

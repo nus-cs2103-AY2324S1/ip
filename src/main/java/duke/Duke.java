@@ -26,16 +26,6 @@ public class Duke {
     private static Storage storage;
 
     /**
-     * The task list that is used to store the user's tasks.
-     */
-    private TaskList tasks;
-
-    /**
-     * Boolean value to check if the chat has ended.
-     */
-    private boolean isChatEnd = false;
-
-    /**
      * The Message to display when the Chat is Ended.
      */
     private static final String END_CHAT_MESSAGE = "Chat has ended! Please Exit.";
@@ -46,7 +36,21 @@ public class Duke {
     private static final String INVALID_ERROR_MESSAGE = "I don't understand what you're saying.";
 
     /**
+     * The task list that is used to store the user's tasks.
+     */
+    private TaskList tasks;
+
+    /**
+     * Boolean value to check if the chat has ended.
+     */
+    private boolean isChatEnd = false;
+
+
+    /**
      * Handles the Chatbot Response.
+     *
+     * @param input The raw String data.
+     * @return The String response of the command.
      */
     public String getResponse(String input) {
 
@@ -85,6 +89,13 @@ public class Duke {
             case FIND:
                 String findQuery = parseLine.parseFindQuery();
                 return tasks.findTasks(findQuery).formatList();
+            case EDIT:
+                String[] editArgs = parseLine.parseEditArguments();
+                for (String item : editArgs) {
+                    System.out.println(item);
+                }
+                return tasks.editTask(editArgs[0], editArgs[1], editArgs[2]);
+
             default:
                 return INVALID_ERROR_MESSAGE;
             }
@@ -97,7 +108,7 @@ public class Duke {
      * Runs the Chatbot program.
      */
     public void run() {
-        assert !isChatEnd: "Chat should not be Ended when first run!";
+        assert !isChatEnd : "Chat should not be Ended when first run!";
         storage = new Storage(FILE_PATH);
 
         try {

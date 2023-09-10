@@ -20,7 +20,7 @@ public class TaskListTest {
         Storage storage = new Storage("data/test.txt");
         TaskList testList = new TaskList(new ArrayList<>(), storage);
         String actual = testList.handleToDo("test desc");
-        String expected = "Got it. I've added this task:\n" + "[T][ ] test desc" + "\nNow you have "
+        String expected = "Noted. I've added this task:\n" + "[T][ ] test desc" + "\nNow you have "
                 + 1 + " tasks in the list.";
         assertEquals(expected, actual);
     }
@@ -35,7 +35,7 @@ public class TaskListTest {
         } catch (DukeException e) {
             fail("Did not add Deadline successfully");
         }
-        String expected = "Got it. I've added this task:\n"
+        String expected = "Noted. I've added this task:\n"
                 + "[D][ ] boo (by: 22 October 2001 11:12)" + "\nNow you have "
                 + 1 + " tasks in the list.";
         assertEquals(expected, actual);
@@ -48,7 +48,7 @@ public class TaskListTest {
         Exception exception = assertThrows(DukeException.class, () -> {
             testList.handleDeadline("boo", "2001-10-22");
         });
-        String expected = "Deadline time must be in this format: yyyy-mm-dd hh:mm";
+        String expected = "Deadline time must be in this format: yyyy-mm-dd HH:mm";
         assertEquals(expected, exception.getMessage());
     }
 
@@ -62,7 +62,7 @@ public class TaskListTest {
         } catch (DukeException e) {
             fail("Did not add Event successfully");
         }
-        String expected = "Got it. I've added this task:\n"
+        String expected = "Noted. I've added this task:\n"
                 + "[E][ ] boo (from: 22 October 2001 11:12 to: 22 November 2001 11:12)"
                 + "\nNow you have " + 1 + " tasks in the list.";
         assertEquals(expected, actual);

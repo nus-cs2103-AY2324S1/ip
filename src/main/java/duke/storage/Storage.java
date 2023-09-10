@@ -47,7 +47,7 @@ public class Storage {
      * @param filePath The file path of the data file to write and read from.
      */
     public Storage(String filePath) {
-        assert filePath.length() != 0: "File Path should be specified!";
+        assert filePath.length() != 0 : "File Path should be specified!";
         this.filePath = filePath;
     }
 

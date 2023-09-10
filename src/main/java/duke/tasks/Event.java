@@ -51,7 +51,37 @@ public class Event extends Task {
         } catch (DateTimeParseException e) {
             throw new DukeException("Event times must be in this format: yyyy-mm-dd HH:mm");
         }
+    }
 
+    /**
+     * Updates the start time of the Event task.
+     *
+     * @param newDate The new start time of the Event task.
+     * @throws DukeException If the start time does not follow the format yyyy-MM-dd HH:mm.
+     */
+    public void updateStart(String newDate) throws DukeException {
+        try {
+            LocalDateTime d1 = LocalDateTime.parse(newDate, inputFormatter);
+            start = d1.format(outputFormatter);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Event Start time must be in this format: yyyy-mm-dd HH:mm");
+        }
+    }
+
+
+    /**
+     * Updates the end time of the Event task.
+     *
+     * @param newDate The new end time of the Event task.
+     * @throws DukeException If the end time does not follow the format yyyy-MM-dd HH:mm.
+     */
+    public void updateEnd(String newDate) throws DukeException {
+        try {
+            LocalDateTime d1 = LocalDateTime.parse(newDate, inputFormatter);
+            end = d1.format(outputFormatter);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Event End time must be in this format: yyyy-mm-dd HH:mm");
+        }
     }
 
     /**
