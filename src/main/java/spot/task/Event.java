@@ -1,5 +1,7 @@
 package spot.task;
 
+import spot.exception.SpotException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -73,5 +75,35 @@ public class Event extends Task {
     @Override
     public boolean fallsOn(LocalDate date) {
         return !date.isAfter(this.end) && !date.isBefore(this.start);
+    }
+
+    /**
+     * Updates the Event object's deadline.
+     *
+     * @param deadline Updated deadline.
+     * @throws SpotException If the task has no deadline field.
+     */
+    public void updateDeadline(LocalDate deadline) throws SpotException {
+        throw new SpotException("Spot thinks this task doesn't have a deadline!");
+    }
+
+    /**
+     * Updates the Event object's start date.
+     *
+     * @param start Updated start date.
+     * @throws SpotException If the task has no start date field.
+     */
+    public void updateStart(LocalDate start) throws SpotException {
+        this.start = start;
+    }
+
+    /**
+     * Updates the Event object's end date.
+     *
+     * @param end Updated end date.
+     * @throws SpotException If the task has no end date field.
+     */
+    public void updateEnd(LocalDate end) throws SpotException {
+        this.end = end;
     }
 }

@@ -1,5 +1,7 @@
 package spot.task;
 
+import spot.exception.SpotException;
+
 import java.time.LocalDate;
 
 /**
@@ -88,4 +90,37 @@ public abstract class Task {
     public boolean descriptionContains(String keyword) {
         return description.contains(keyword);
     }
+
+    /**
+     * Updates the task's description.
+     *
+     * @param description Updated description.
+     */
+    public void updateDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Updates the task's deadline.
+     *
+     * @param deadline Updated deadline.
+     * @throws SpotException If the task has no deadline field.
+     */
+    public abstract void updateDeadline(LocalDate deadline) throws SpotException;
+
+    /**
+     * Updates the task's start date.
+     *
+     * @param start Updated start date.
+     * @throws SpotException If the task has no start date field.
+     */
+    public abstract void updateStart(LocalDate start) throws SpotException;
+
+    /**
+     * Updates the task's end date.
+     *
+     * @param end Updated end date.
+     * @throws SpotException If the task has no end date field.
+     */
+    public abstract void updateEnd(LocalDate end) throws SpotException;
 }

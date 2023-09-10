@@ -137,6 +137,69 @@ public class TaskList {
     }
 
     /**
+     * Updates the description of the Task at the specified position.
+     *
+     * @param position Specified position.
+     * @throws SpotException  If the task at the specified position does not exist.
+     */
+    public void updateTaskDescription(Ui ui, int position, String description) throws SpotException {
+        if (position < 0 || position > tasks.size()) {
+            throw new SpotException("Spot thinks that task doesn't exist!");
+        }
+        Task task = tasks.get(position - 1);
+        task.updateDescription(description);
+        ui.setMessage("Spot has updated this task's description: " + "\n" + task);
+    }
+
+    /**
+     * Updates the deadline of the Task at the specified position.
+     *
+     * @param position Specified position.
+     * @throws SpotException  If the task at the specified position does not exist
+     *     or does not have a deadline.
+     */
+    public void updateTaskDeadline(Ui ui, int position, LocalDate deadline) throws SpotException {
+        if (position < 0 || position > tasks.size()) {
+            throw new SpotException("Spot thinks that task doesn't exist!");
+        }
+        Task task = tasks.get(position - 1);
+        task.updateDeadline(deadline);
+        ui.setMessage("Spot has updated this task's deadline: " + "\n" + task);
+    }
+
+    /**
+     * Updates the start date of the Task at the specified position.
+     *
+     * @param position Specified position.
+     * @throws SpotException  If the task at the specified position does not exist
+     *     or does not have a start date.
+     */
+    public void updateTaskStart(Ui ui, int position, LocalDate start) throws SpotException {
+        if (position < 0 || position > tasks.size()) {
+            throw new SpotException("Spot thinks that task doesn't exist!");
+        }
+        Task task = tasks.get(position - 1);
+        task.updateStart(start);
+        ui.setMessage("Spot has updated this task's start date: " + "\n" + task);
+    }
+
+    /**
+     * Updates the end date of the Task at the specified position.
+     *
+     * @param position Specified position.
+     * @throws SpotException  If the task at the specified position does not exist
+     *     or does not have a end date.
+     */
+    public void updateTaskEnd(Ui ui, int position, LocalDate end) throws SpotException {
+        if (position < 0 || position > tasks.size()) {
+            throw new SpotException("Spot thinks that task doesn't exist!");
+        }
+        Task task = tasks.get(position - 1);
+        task.updateEnd(end);
+        ui.setMessage("Spot has updated this task's end date: " + "\n" + task);
+    }
+
+    /**
      * Lists all tasks in the current TaskList.
      *
      * @param ui Current Ui object.

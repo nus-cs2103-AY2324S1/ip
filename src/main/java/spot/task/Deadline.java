@@ -1,5 +1,7 @@
 package spot.task;
 
+import spot.exception.SpotException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -64,5 +66,35 @@ public class Deadline extends Task {
     @Override
     public boolean fallsOn(LocalDate date) {
         return date.isEqual(this.deadline);
+    }
+
+    /**
+     * Updates the Deadline object's deadline.
+     *
+     * @param deadline Updated deadline.
+     * @throws SpotException If the task has no deadline field.
+     */
+    public void updateDeadline(LocalDate deadline) throws SpotException {
+        this.deadline = deadline;
+    }
+
+    /**
+     * Updates the Deadline object's start date.
+     *
+     * @param start Updated start date.
+     * @throws SpotException If the task has no start date field.
+     */
+    public void updateStart(LocalDate start) throws SpotException {
+        throw new SpotException("Spot thinks this task doesn't have a start date!");
+    }
+
+    /**
+     * Updates the Deadline object's end date.
+     *
+     * @param end Updated end date.
+     * @throws SpotException If the task has no end date field.
+     */
+    public void updateEnd(LocalDate end) throws SpotException {
+        throw new SpotException("Spot thinks this task doesn't have an end date!");
     }
 }
