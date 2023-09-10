@@ -1,0 +1,13 @@
+todo study cs2103
+deadline quiz for cs2100 /by Friday
+event IG Fair 2023 /from 24 Aug 8pm /to 11pm
+list
+mark 2
+mark 1
+mark 3
+list
+unmark 1
+unmark 2
+unmark 3
+list
+bye
