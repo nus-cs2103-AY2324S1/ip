@@ -45,12 +45,10 @@ public class Task {
     }
 
     /**
-     * Checks whether a task is completed and return a nX if done
+     * Checks whether a task is completed and return an X if done
      * @return String X if done, a blank space string if not
      */
-    // Note that this is credited from the website partial solution
     public String getStatusIcon() {
-
         return (isDone ? "X" : " "); // mark done task with X
     }
 
@@ -89,7 +87,7 @@ public class Task {
 
     /**
      * Returns the task name
-     * @return
+     * @return  a string containing the task name
      */
     public String getTaskName() {
         return this.taskName;

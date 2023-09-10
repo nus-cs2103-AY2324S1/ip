@@ -7,16 +7,14 @@ import java.time.format.DateTimeFormatter;
  * This class is used to represent the date and time of a task.
  */
 public class DateTime {
-    private String inputDateTime;
-
     private LocalDateTime dateTime;
 
     /**
      * Constructor for creating a DateTime object
+     *
      * @param dateTime the date and time in string format
      */
-    private DateTime(String inputDateTime, LocalDateTime dateTime) {
-        this.inputDateTime = inputDateTime;
+    private DateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -27,12 +25,11 @@ public class DateTime {
      * @throws WrongInputException
      */
     public static DateTime createDateTime(String input) throws WrongInputException {
-        if (DateTimeParser.isValidDateTime(input)) {
-            return new DateTime(input, DateTimeParser.createLocalDateTime(input));
-        } else {
+        if (!DateTimeParser.isValidDateTime(input)) {
             throw new WrongInputException("Invalid date and time format",
                     "Please enter a valid date and time format");
         }
+        return new DateTime(DateTimeParser.createLocalDateTime(input));
     }
 
     /**
@@ -42,9 +39,10 @@ public class DateTime {
      */
     public static DateTime createDateTimeFromStorage(String input) {
         try {
-            return new DateTime(input, DateTimeParser.createLocalDateTime(input));
+            return new DateTime(DateTimeParser.createLocalDateTime(input));
         } catch (WrongInputException e) {
-            System.out.println("Unable to create DateTime object from storage" + e.toString());
+            assert false : "Unable to create DateTime object from storage, file is likely corrupted";
+            // Safe to return null here as the assert statement will terminate the program
             return null;
         }
     }
