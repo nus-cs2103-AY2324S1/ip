@@ -5,7 +5,11 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import duke.command.FirstWord;
-import duke.exception.*;
+import duke.exception.DukeEmptyToDoException;
+import duke.exception.DukeException;
+import duke.exception.DukeInvalidDateFormatException;
+import duke.exception.DukeInvalidMarkUnmarkArgument;
+import duke.exception.DukeUnknownCommandException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -140,6 +144,7 @@ public class Parser {
      * @param index
      */
     private String delete(int index) {
+        assert tasks.size() > 0 : "You have no task to delete.";
         Task removedTask = tasks.remove(index);
         String removeNofi = String.format("  Noted. I've removed this task:");
         String removedDetail = String.format("  %s", removedTask.toString());
@@ -155,6 +160,7 @@ public class Parser {
      * @param task
      */
     private String addTask(Task task) {
+        assert task != null;
         tasks.add(task);
         storage.save();
 
@@ -169,6 +175,7 @@ public class Parser {
     }
 
     private String find(String reply) {
+        assert tasks.size() > 0 : "Your task list is empty.";
         String keyword = reply.replace("find ", "");
         String findNofi = String.format("  Here are the matching tasks in your list:");
         String matchingTasks = tasks.find(keyword);
