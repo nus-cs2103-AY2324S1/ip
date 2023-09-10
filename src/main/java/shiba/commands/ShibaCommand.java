@@ -25,7 +25,8 @@ public abstract class ShibaCommand {
         DELETE,
         FIND,
         PAT,
-        BELLYRUB
+        BELLYRUB,
+        HELP
     }
 
     protected final PersistentTaskList tasks;
