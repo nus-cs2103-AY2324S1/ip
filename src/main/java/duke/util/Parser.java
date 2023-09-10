@@ -56,7 +56,8 @@ public class Parser {
     public String[] parseInputDetailsDeadline() throws DukeException {
         assert (inputDetails != null) : "Input details cannot be null.";
         String[] deadlineInfo = inputDetails.split(" /by ");
-        if (deadlineInfo.length < 2) {
+        boolean invalidDeadlineInfo = deadlineInfo.length < 2;
+        if (invalidDeadlineInfo) {
             throw new DukeException(
                     "☹ OOPS!!! Missing description or deadline of deadline task. "
                             + "Valid Input Syntax: deadline desc /by date"
@@ -73,7 +74,8 @@ public class Parser {
     public String[] parseInputDetailsEvent() throws DukeException {
         assert (inputDetails != null) : "Input details cannot be null.";
         String[] eventInfo = inputDetails.split(" /from | /to ");
-        if (eventInfo.length < 3) {
+        boolean invalidEventInfo = eventInfo.length < 3;
+        if (invalidEventInfo) {
             throw new DukeException(
                     "☹ OOPS!!! Missing description, start time or end time of deadline task. "
                             +
@@ -87,7 +89,7 @@ public class Parser {
      * Checks if input details are present.
      * @return True if input details are present.
      */
-    public boolean checkInputDetailsPresent() {
-        return inputDetails != null;
+    public boolean checkInputDetailsAbsent() {
+        return inputDetails == null;
     }
 }

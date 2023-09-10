@@ -18,19 +18,4 @@ public class DialogContainer extends VBox {
         this.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
-    /**
-     * Add a single dialog box.
-     * @param dialogBox Dialog box to be added.
-     */
-    public void addDialogBox(DialogBox dialogBox) {
-        this.getChildren().add(dialogBox);
-    }
-
-    /**
-     * Add multiple dialog boxes.
-     * @param dialogBoxes Dialog boxes to be added.
-     */
-    public void addDialogBoxes(DialogBox ... dialogBoxes) {
-        this.getChildren().addAll(dialogBoxes);
-    }
 }

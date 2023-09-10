@@ -30,6 +30,11 @@ public class TaskList {
         assert (list != null) : "List of tasks must be instantiated.";
         return this.list;
     }
+
+    /**
+     * Checks if list of tasks is empty.
+     * @return True if list is empty.
+     */
     public boolean isEmpty() {
         assert (list != null) : "List of tasks must be instantiated.";
         return (list.size() == 0);
@@ -57,7 +62,12 @@ public class TaskList {
      */
     public Task getTask(Integer taskNumber) throws DukeException {
         assert (list != null) : "List of tasks must be instantiated.";
-        if (taskNumber > list.size() || taskNumber < 1) {
+
+        boolean taskExceedListSize = taskNumber > list.size();
+        boolean taskSmallerThanOne = taskNumber < 1;
+        boolean invalidTaskNumber = taskExceedListSize || taskSmallerThanOne;
+
+        if (invalidTaskNumber) {
             throw new DukeException("Invalid task number");
         } else {
             return list.get(taskNumber - 1);
@@ -71,14 +81,18 @@ public class TaskList {
      */
     public String removeTask(Integer taskNumber) throws DukeException {
         assert (list != null) : "List of tasks must be instantiated.";
-        if (taskNumber > list.size() || taskNumber < 1) {
+
+        boolean taskExceedListSize = taskNumber > list.size();
+        boolean taskSmallerThanOne = taskNumber < 1;
+        boolean invalidTaskNumber = taskExceedListSize || taskSmallerThanOne;
+
+        if (invalidTaskNumber) {
             throw new DukeException("Invalid task number");
         } else {
             Task task = list.remove(taskNumber - 1);
-            String output = String.format("Noted. I've removed this task:\n"
+            return String.format("Noted. I've removed this task:\n"
                     + "%s\n" + "Now you have %d tasks in the list.\n",
                     task, list.size());
-            return output;
         }
     }
 
@@ -89,10 +103,9 @@ public class TaskList {
     public String addTask(Task task) {
         assert (list != null) : "List of tasks must be instantiated.";
         list.add(task);
-        String output = String.format("Got it. I've added this task:\n"
+        return String.format("Got it. I've added this task:\n"
                 + "%s\n" + "Now you have %d tasks in the list.\n",
                 task, list.size());
-        return output;
     }
 
     /**
@@ -110,9 +123,8 @@ public class TaskList {
         if (tasks.isEmpty()) {
             return ("There are no matching tasks in your list.");
         } else {
-            String output = String.format("Here are the matching tasks in your list: \n"
+            return String.format("Here are the matching tasks in your list: \n"
                     + tasks.showList());
-            return output;
         }
     }
 }

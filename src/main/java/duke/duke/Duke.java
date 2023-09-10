@@ -1,6 +1,5 @@
 package duke.duke;
 
-import duke.controller.Launcher;
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -46,7 +45,7 @@ public class Duke {
             case "list":
                 return (taskList.showList());
             case "mark": {
-                if (!parser.checkInputDetailsPresent()) {
+                if (parser.checkInputDetailsAbsent()) {
                     throw new DukeException("The task number to mark cannot be empty.");
                 }
                 int taskNumber = Integer.parseInt(inputDetails);
@@ -54,7 +53,7 @@ public class Duke {
                 return (task.setDone());
             }
             case "unmark": {
-                if (!parser.checkInputDetailsPresent()) {
+                if (parser.checkInputDetailsAbsent()) {
                     throw new DukeException("The task number to unmark cannot be empty.");
                 }
                 int taskNumber = Integer.parseInt(inputDetails);
@@ -62,7 +61,7 @@ public class Duke {
                 return (task.unsetDone());
             }
             case "todo": {
-                if (!parser.checkInputDetailsPresent()) {
+                if (parser.checkInputDetailsAbsent()) {
                     throw new DukeException("☹ OOPS!!! The description of a todo task cannot be empty.");
                 }
                 Task task = new Todo(inputDetails);
@@ -87,7 +86,7 @@ public class Duke {
                 return (taskList.addTask(task));
             }
             case "delete": {
-                if (!parser.checkInputDetailsPresent()) {
+                if (parser.checkInputDetailsAbsent()) {
                     throw new DukeException("The task number to delete cannot be empty.");
                 }
                 int taskNumber = Integer.parseInt(inputDetails);
@@ -95,7 +94,7 @@ public class Duke {
                 return (taskList.removeTask(taskNumber));
             }
             case "find": {
-                if (!parser.checkInputDetailsPresent()) {
+                if (parser.checkInputDetailsAbsent()) {
                     throw new DukeException("The keyword to find cannot be empty");
                 }
                 return (taskList.findTasks(inputDetails));
