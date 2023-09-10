@@ -105,7 +105,7 @@ public class Duke {
                 ui.showMatchingTasks(matchingTasks);
                 break;
             default:
-                throw new DukeException("Each message should start with one of the following commands:"
+                throw new DukeException("Each message should start with one of the following commands: "
                         + "list, mark, unmark, todo, deadline, event, find");
             }
 

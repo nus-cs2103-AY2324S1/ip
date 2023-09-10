@@ -26,7 +26,7 @@ public class Parser {
     public Command parseCommandType(String input) throws DukeException {
         if (input == null || input.trim().isEmpty()) {
             throw new DukeException("Command input cannot be null or empty."
-                    + "Each message should start with one of the following commands:"
+                    + "Each message should start with one of the following commands: "
                     + "list, mark, unmark, todo, deadline, event, find");
         }
 
@@ -35,7 +35,7 @@ public class Parser {
             String command = parts[0];
             return Command.valueOf(command.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new DukeException("Each message should start with one of the following commands:"
+            throw new DukeException("Each message should start with one of the following commands: "
                     + "list, mark, unmark, todo, deadline, event, find");
         } catch (Exception e) {
             throw new DukeException("Unexpected error while parsing command: " + e.getMessage());
