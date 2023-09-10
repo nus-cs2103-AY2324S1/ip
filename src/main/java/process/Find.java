@@ -14,6 +14,7 @@ public class Find implements SimpleProcess {
 
     @Override
     public String processInput(String input) {
+        assert input.toLowerCase().startsWith("find") : "user input does not start with the correct word";
         try {
             String argument = CommandParser.getCommandArguments(input);
 

@@ -20,6 +20,7 @@ public class ToDo implements ComplexProcess {
 
     @Override
     public String processInput(String input) {
+        assert input.toLowerCase().equals("todo") : "user input does not start with the correct word";
         isComplete = true;
         return tasks.addTask(new task.ToDo(input));
     }

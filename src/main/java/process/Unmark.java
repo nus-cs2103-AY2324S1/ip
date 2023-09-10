@@ -13,6 +13,7 @@ public class Unmark implements SimpleProcess {
 
     @Override
     public String processInput(String input) {
+        assert input.toLowerCase().startsWith("unmark") : "user input does not start with the correct word";
         try {
             String number = CommandParser.getCommandArguments(input);
             return tasks.unmarkDone(Integer.parseInt(number));

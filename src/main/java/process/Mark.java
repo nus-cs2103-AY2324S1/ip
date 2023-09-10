@@ -13,6 +13,7 @@ public class Mark implements SimpleProcess {
 
     @Override
     public String processInput(String input) {
+        assert input.toLowerCase().startsWith("mark") : "user input does not start with the correct word";
         try {
             String number = CommandParser.getCommandArguments(input);
             return tasks.markDone(Integer.parseInt(number));

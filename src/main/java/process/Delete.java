@@ -12,6 +12,7 @@ public class Delete implements SimpleProcess {
     private TaskList tasks = TaskList.init();
     @Override
     public String processInput(String input) {
+        assert input.toLowerCase().startsWith("delete") : "user input does not start with the correct word";
         try {
             String number = CommandParser.getCommandArguments(input);
             return tasks.deleteTask(Integer.parseInt(number));

@@ -20,6 +20,7 @@ public class CommandParser {
             MissingArgumentException,
             InvalidCommandException {
 
+        assert input != null : "string input is null";
         String firstWord = getFirstWord(input);
         Command command;
 

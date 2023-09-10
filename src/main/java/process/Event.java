@@ -19,6 +19,7 @@ public class Event implements ComplexProcess {
 
     @Override
     public String processInput(String input) {
+        assert input.toLowerCase().equals("event") : "user input does not start with the correct word";
         if (name == null) {
             name = input;
             return "Now indicate the start date.";
