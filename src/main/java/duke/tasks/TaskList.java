@@ -1,6 +1,9 @@
 package duke.tasks;
 
 import java.util.ArrayList;
+import java.util.function.IntPredicate;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import duke.exceptions.DukeInvalidArgumentException;
 import duke.ui.CliUi;
@@ -180,13 +183,14 @@ public class TaskList {
      *         query.
      */
     public ArrayList<Integer> findTasks(String query) {
-        ArrayList<Integer> result = new ArrayList<>();
         String loweredQuery = query.toLowerCase();
-        for (int i = 0; i < this.tasks.size(); i++) {
-            if (this.tasks.get(i).getDescription().toLowerCase().contains(loweredQuery)) {
-                result.add(i);
-            }
-        }
-        return result;
+
+        IntPredicate indexContainsLoweredQuery = i -> this.tasks.get(i)
+                .getDescription().toLowerCase().contains(loweredQuery);
+
+        return IntStream.range(0, this.tasks.size())
+                .filter(indexContainsLoweredQuery)
+                .boxed()
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }
