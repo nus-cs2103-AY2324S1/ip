@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 public class Storage {
     /** The file that the storage will be dealing with. */
-    private File taskFile = null;
+    private File taskFile;
 
     /**
      * Constructs a new Storage that deals with the file at the corresponding path.
