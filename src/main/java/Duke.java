@@ -1,9 +1,9 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
-    private static Task[] tasks = new Task[100];
-    private static int taskAmount = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     private static void display(String... text) {
         System.out.println("____________________________________________________________");
@@ -27,48 +27,44 @@ public class Duke {
     private static void list(){
         System.out.println("____________________________________________________________");
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < Duke.taskAmount; i++) {
-            System.out.println((i + 1) + "." + Duke.tasks[i]);
+        for (int i = 0; i < Duke.tasks.size(); i++) {
+            System.out.println((i + 1) + "." + Duke.tasks.get(i));
         }
         System.out.println("____________________________________________________________");
     }
 
     private static void mark(int taskIndex){
-        Task targetTask = Duke.tasks[taskIndex];
+        Task targetTask = Duke.tasks.get(taskIndex);
         targetTask.markStatus();
         Duke.display("Nice! I've marked this task as done:", targetTask.toString());
     }
 
     private static void unmark(int taskIndex){
-        Task targetTask = Duke.tasks[taskIndex];
+        Task targetTask = Duke.tasks.get(taskIndex);
         targetTask.unmarkStatus();
         Duke.display("OK, I've marked this task as not done yet:", targetTask.toString());
     }
 
     private static void printAddTaskInfo(Task task){
-        Duke.display("Got it. I've added this task:",
-                task.toString(),
-                "Now you have " + Duke.taskAmount + " tasks in the list.");
+        Duke.display("Got it. I've added this task:", task.toString(),
+                "Now you have " + Duke.tasks.size() + " tasks in the list.");
     }
 
-    private static void todo(String description){
+    private static void addTodo(String description){
         Todo newTask = new Todo(description);
-        Duke.tasks[Duke.taskAmount] = newTask;
-        Duke.taskAmount += 1;
+        Duke.tasks.add(newTask);
         Duke.printAddTaskInfo(newTask);
     }
 
-    private static void deadline(String description, String by){
+    private static void addDeadline(String description, String by){
         Deadline newTask = new Deadline(description, by);
-        Duke.tasks[Duke.taskAmount] = newTask;
-        Duke.taskAmount += 1;
+        Duke.tasks.add(newTask);
         Duke.printAddTaskInfo(newTask);
     }
 
-    private static void event(String description, String from, String to){
+    private static void addEvent(String description, String from, String to){
         Event newTask = new Event(description, from, to);
-        Duke.tasks[Duke.taskAmount] = newTask;
-        Duke.taskAmount += 1;
+        Duke.tasks.add(newTask);
         Duke.printAddTaskInfo(newTask);
     }
 
@@ -81,6 +77,7 @@ public class Duke {
         String by;
         String from;
         String to;
+        Task deletedTask;
 
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
@@ -109,13 +106,28 @@ public class Duke {
                 Duke.unmark(taskIndex);
                 break;
 
+            case "delete":
+                if (inputParts.length == 1) {
+                    raiseMissingValueError("index", "delete");
+                    break;
+                }
+                taskIndex = Integer.parseInt(inputParts[1]) - 1;
+                if (taskIndex < 0 || taskIndex >= Duke.tasks.size()) {
+                    Duke.display("OOPS!!! The task index is invalid.");
+                } else {
+                    deletedTask = Duke.tasks.remove(taskIndex);
+                    Duke.display("Noted. I've removed this task:", deletedTask.toString(),
+                            "Now you have " + Duke.tasks.size() + " tasks in the list.");
+                }
+                break;
+
             case "todo":
                 if (inputParts.length == 1) {
                     raiseMissingValueError("description", "todo");
                     break;
                 }
                 description = inputParts[1];
-                Duke.todo(description);
+                Duke.addTodo(description);
                 break;
 
             case "deadline":
@@ -130,7 +142,7 @@ public class Duke {
                     break;
                 }
                 by = inputParts[1];
-                Duke.deadline(description, by);
+                Duke.addDeadline(description, by);
                 break;
 
             case "event":
@@ -151,7 +163,7 @@ public class Duke {
                     break;
                 }
                 to = inputParts[1];
-                Duke.event(description, from, to);
+                Duke.addEvent(description, from, to);
                 break;
 
             default:
