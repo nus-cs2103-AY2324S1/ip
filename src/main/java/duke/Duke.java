@@ -54,6 +54,7 @@ public class Duke {
      */
     public boolean handleInput(String input) throws DukeException {
         Parser parser = Parser.from(input);
+        assert parser != null : "The variable 'parser' is null";
 
         Task task;
         switch (parser.getCommand()) {
