@@ -48,6 +48,7 @@ public class Parser {
             return tasks.addItem(new ToDos(task, "0"), ui);
         } else if (command.equals("deadline")) {
             parsedCommand = task.split("/");
+            assert parsedCommand.length >= 1 : "Incomplete deadline details.";
             if (parsedCommand.length == 1) {
                 throw new DukeException(" OOPS!!! There are missing deadline details.");
             } else {
@@ -55,6 +56,7 @@ public class Parser {
             }
         } else if (command.equals("event")) {
             parsedCommand = task.split("/");
+            assert parsedCommand.length >= 1 : "Incomplete event details.";
             if (parsedCommand.length <= 2) {
                 throw new DukeException(" OOPS!!! There are missing event details.");
             } else {

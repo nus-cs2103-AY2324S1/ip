@@ -54,6 +54,7 @@ public class Task {
      * @return String Indicate whether task has been marked as complete or incomplete.
      */
     public String toggleDone(String keyword, Ui ui) {
+        assert keyword.equals("mark") || keyword.equals("unmark") : "Incorrect keyword.";
         this.isDone = keyword.equals("mark");
         return ui.toggleDone(this, keyword);
     }

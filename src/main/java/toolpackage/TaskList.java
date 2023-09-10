@@ -71,6 +71,7 @@ public class TaskList {
      * @return String Indicate whether toggling was successful.
      */
     public String toggleDone(String id, String keyword, Ui ui) {
+        assert keyword.equals("mark") || keyword.equals("unmark") : "Incorrect keyword.";
         try {
             return this.listOfTasks.get(Integer.parseInt(id) - 1).toggleDone(keyword, ui);
         } catch (NumberFormatException e) {
