@@ -34,6 +34,8 @@ public class Uke {
      * @param path File path to the text file which stores task information.
      */
     public Uke(String path) {
+        assert path != null;
+
         this.ui = new Ui();
         this.storage = new Storage(path);
 
@@ -84,9 +86,9 @@ public class Uke {
     }
 
     /**
-     * Stops the Uke chatbot.
+     * Exits the Uke chatbot.
      */
-    public String handleExit() throws Exception {
+    public String handleExit() throws UkeException {
         storage.update(tasks);
         return ui.printExit();
     }
