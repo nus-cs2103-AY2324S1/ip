@@ -1,26 +1,30 @@
+package Duke;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import tasks.Deadline;
 import tasks.Event;
 import tasks.ToDo;
 import tasks.Task;
 
 /**
- * The Storage class is responsible for reading and writing tasks to/from a file.
+ * The Duke.Storage class is responsible for reading and writing tasks to/from a file.
  * It provides methods to write a list of tasks to a file and load tasks from a file.
  */
 public class Storage {
     protected String filePath;
 
     /**
-     * Constructs a new Storage instance with the specified file path.
+     * Constructs a new Duke.Storage instance with the specified file path.
      *
      * @param filePath The path to the file where tasks will be stored.
      */
+
     public Storage(String filePath) {
         this.filePath = filePath;
     }
