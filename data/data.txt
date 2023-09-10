@@ -1,4 +1,8 @@
-[E] | [X] | hw  | Dec 13 2023 0100 - Dec 13 2023 0100
+[T] | [ ] | nothing
 [T] | [X] | ur mom
-[D] | [ ] | ur mom  | tomorrow
-[D] | [ ] | tomorrow  | ur mom
+[T] | [ ] | ur mom
+[T] | [ ] | ur mom
+[D] | [ ] | ur mom  | Jun 19 2003 0800
+[T] | [ ] | ur mom
+[T] | [ ] | ur mom
+[T] | [ ] | ur mom
