@@ -1,7 +1,5 @@
 package duke.utils;
 
-import java.util.Scanner;
-
 /**
  * The Input class is responsible for handling user input and executing commands
  * in the Duke application.
@@ -9,7 +7,6 @@ import java.util.Scanner;
 public class Input {
     private static final String FILE_PATH = "./data/duke.csv";
     private static final String FOLDER_PATH = "./data";
-    private static Scanner scanner = new Scanner(System.in);
     private Storage storage;
     private TaskList tasks;
     private String input;
@@ -27,8 +24,8 @@ public class Input {
      *
      * @return The response generated after executing the user's command.
      */
-    protected Response command() {
-        this.input = Input.scanner.nextLine();
+    protected Response command(String input) {
+        this.input = input;
         return executeCommand();
     }
 
