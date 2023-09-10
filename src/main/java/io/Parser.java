@@ -25,6 +25,7 @@ public class Parser {
      */
     public static Command parse(String fullCommand) {
         String[] commandArray = fullCommand.split(" ");
+        assert commandArray.length > 0 : "commandArray should not be empty";
         String commandType = commandArray[0];
         Command command;
         switch (commandType) {

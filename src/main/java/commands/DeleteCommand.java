@@ -28,6 +28,8 @@ public class DeleteCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {
             int taskId = Integer.parseInt(this.getCommand().substring(7)) - 1;
+            // assert delete in command
+            assert this.getCommand().substring(0, 6).equals("delete") : "delete not in command";
             ui.showTaskDeleted(taskList.get(taskId), taskList.size());
             taskList.delete(taskId);
         } catch (NumberFormatException e) {
