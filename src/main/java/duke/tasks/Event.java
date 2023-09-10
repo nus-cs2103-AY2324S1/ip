@@ -60,4 +60,16 @@ public class Event extends Task {
     public String getTo() {
         return this.to;
     }
+    /**
+     * Modifies the from of this task.
+     */
+    public void setFrom(String newFrom) {
+        this.from = newFrom;
+    }
+    /**
+     * Modifies the to of this task.
+     */
+    public void setTo(String newTo) {
+        this.to = newTo;
+    }
 }

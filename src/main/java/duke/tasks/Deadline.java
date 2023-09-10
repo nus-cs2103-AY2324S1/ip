@@ -48,4 +48,10 @@ public class Deadline extends Task {
     public String getBy() {
         return this.by;
     }
+    /**
+     * Modifies the by of this task.
+     */
+    public void setBy(String newBy) {
+        this.by = newBy;
+    }
 }

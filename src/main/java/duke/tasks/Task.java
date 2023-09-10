@@ -114,4 +114,10 @@ public class Task {
     public boolean isDone() {
         return this.done;
     }
+    /**
+     * Modifies the description of this task.
+     */
+    public void setDescription(String newDescription) {
+        this.description = newDescription;
+    }
 }
