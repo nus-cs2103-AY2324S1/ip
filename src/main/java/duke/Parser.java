@@ -99,8 +99,14 @@ public class Parser {
      * @param line The input line.
      */
     public void parseFromFile(String line) {
+        assert tasks != null : "No existing list";
         String[] strings = line.split(" / ");
+        assert strings.length >= 3 : "Wrong format in file";
         String typeOfTask = strings[0];
+
+        assert typeOfTask.equals("[T]") || typeOfTask.equals("[D]") || typeOfTask.equals("[E]") : "Wrong format for task in file";
+        assert strings[1].equals("1") || strings[1].equals("0") : "Wrong boolean format in file";
+
         boolean isDone = strings[1].equals("1");
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm");
         Task t;
@@ -151,6 +157,8 @@ public class Parser {
      * Returns a string containing the tasks in the TaskList.
      */
     private String printList() {
+        assert tasks != null : "No existing list";
+        assert ui != null : "No existing ui";
         if (tasks.isEmpty()) {
             return ui.sendMessage("list is empty :(");
         } else {
@@ -169,6 +177,7 @@ public class Parser {
      * @return Returns the message from Duke.
      */
     private String addTodo(String details) {
+        assert tasks != null : "No existing list";
         if (details == null || details.trim().isEmpty()) {
             throw new LackDescriptionException("todo");
         }
@@ -184,6 +193,7 @@ public class Parser {
      * @return Returns the message from Duke.
      */
     private String addDeadline(String details) {
+        assert tasks != null : "No existing list";
         if (details == null || details.trim().isEmpty() || details.trim().startsWith("/by")) {
             throw new LackDescriptionException("deadline");
         }
@@ -220,6 +230,7 @@ public class Parser {
      * @return Returns the message from Duke.
      */
     private String addEvent(String details) {
+        assert tasks != null : "No existing list";
         if (details == null || details.trim().isEmpty() || details.trim().startsWith("/from") || details.trim().startsWith("/to")) {
             throw new LackDescriptionException("event");
         }
@@ -280,6 +291,8 @@ public class Parser {
     }
 
     private String confirmAddedTask(String x) {
+        assert tasks != null : "No existing list";
+        assert ui != null : "No existing ui";
         return String.join("", ui.sendMessage("Added to list: " + x) + "\n", ui.sendMessage("Now you have " + tasks.size()));
     }
 
@@ -290,6 +303,9 @@ public class Parser {
      * @return Returns the message from Duke.
      */
     private String markDone(String details) {
+        assert tasks != null : "No existing list";
+        assert ui != null : "No existing ui";
+
         if (details == null || details.trim().isEmpty()) {
             throw new InvalidMarkingException("Missing index");
         }
@@ -318,6 +334,9 @@ public class Parser {
      * @return Returns the message from Duke.
      */
     private String markUndone(String details) {
+        assert tasks != null : "No existing list";
+        assert ui != null : "No existing ui";
+
         if (details == null || details.trim().isEmpty()) {
             throw new InvalidMarkingException("Missing index");
         }
@@ -346,6 +365,8 @@ public class Parser {
      * @return Returns the message from Duke.
      */
     private String delete(String details) {
+        assert tasks != null : "No existing list";
+
         if (details == null || details.trim().isEmpty()) {
             throw new InvalidMarkingException("Missing index");
         }
@@ -378,6 +399,9 @@ public class Parser {
      * @return Matched tasks.
      */
     private String findTask(String x) {
+        assert tasks != null : "No existing list";
+        assert ui != null : "No existing ui";
+
         if (x == null || x.trim().isEmpty()) {
             throw new InvalidFindingException("Missing keyword");
         }

@@ -43,6 +43,7 @@ public class Deadline extends Task {
      */
     @Override
     public String convertToString() {
+        assert this.endDate != null : "End date should not be empty";
         return "[D] " + super.convertToString() + " (by: "
                 + this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                 + this.convertEndTimeToString() + ")";
@@ -61,6 +62,7 @@ public class Deadline extends Task {
      */
     @Override
     public String convertToStringInFile() {
+        assert this.endDate != null : "End date should not be empty";
         return "[D] /" + super.convertToStringInFile() + " / " + this.endDate
                 + this.convertEndTimeToStringInFile();
     }
