@@ -6,6 +6,7 @@ public class Duke {
     private static final String CHATBOT_NAME = "Koko";
     private final Ui ui;
     private final Storage storage;
+    private final Parser parser;
 
     private TaskList taskList;
 
@@ -13,65 +14,66 @@ public class Duke {
     public Duke(String filePath) {
         ui = new Ui(CHATBOT_NAME);
         storage = new Storage(filePath);
+        parser = new Parser();
+
+        try {
+            taskList = storage.loadTasksFromFile();
+            ui.showLoadedTasks(taskList);
+        } catch (FileNotFoundException fileNotFoundException) {
+            ui.printErrorMessage("Previous data file not found, starting from fresh task list.");
+            taskList = new TaskList();
+        } catch (DukeException dukeException) {
+            ui.printErrorMessage(dukeException.getMessage());
+            taskList = new TaskList();
+        }
     }
 
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();
     }
 
-    public void parseInput(String input) {
+    public void handleInputAndDispatch(String input) {
         try {
-            if (input.contains("|")) {
-                throw new DukeException("Input cannot contain pipe (|) character!");
-            }
-            String[] parts = input.split(" ", 2);
-            String command = parts[0];
-            String remaining = parts.length > 1 ? parts[1] : "";
-
-            if (remaining.isEmpty()) {
-                switch (command) {
-                    case "mark":
-                    case "unmark":
-                        throw new DukeException("Please specify a task number.");
-                    case "todo":
-                        throw new DukeException("Description for todo cannot be empty.");
-                    case "deadline":
-                        throw new DukeException("Description and date for deadline cannot be empty.");
-                    case "event":
-                        throw new DukeException("Description, start date, and end date for event cannot be empty.");
-                }
+            if (parser.hasInvalidCharacters(input)) {
+                throw new DukeException("Input cannot contain the character '|'");
             }
 
-            switch (command) {
-                case "list":
+            Command commandType = parser.parseCommandType(input);
+            String remaining = parser.parseRemainingArgs(commandType, input);
+
+            switch (commandType) {
+                case LIST:
                     ui.printTaskList(taskList);
                     break;
-                case "mark":
+                case MARK:
                     int markIndex = Integer.parseInt(remaining) - 1;
                     Task markedTask = taskList.markTaskAtIndex(markIndex);
                     ui.printTaskMarkedMessage(markedTask);
                     break;
-                case "unmark":
+                case UNMARK:
                     int unmarkIndex = Integer.parseInt(remaining) - 1;
                     Task unmarkedTask = taskList.unmarkTaskAtIndex(unmarkIndex);
                     ui.printTaskUnmarkedMessage(unmarkedTask);
                     break;
-                case "delete":
+                case DELETE:
                     Task deletedTask = taskList.deleteTaskAtIndex(Integer.parseInt(remaining) - 1);
                     ui.printTaskDeletedMessage(deletedTask, taskList.size());
                     break;
-                case "todo":
-                    Todo newTodo = Todo.createFromCommandString(remaining);
+                case TODO:
+                    Parser.ParsedTodoArgs parsedTodoArgs = parser.parseTodoString(remaining);
+                    Todo newTodo = new Todo(parsedTodoArgs.taskName);
                     taskList.addTask(newTodo);
                     ui.printTaskAddedMessage(newTodo, taskList.size());
                     break;
-                case "deadline":
-                    Deadline newDeadline = Deadline.createFromCommandString(remaining);
+                case DEADLINE:
+                    Parser.ParsedDeadlineArgs parsedDeadlineArgs = parser.parseDeadlineString(remaining);
+                    Deadline newDeadline = new Deadline(parsedDeadlineArgs.taskName, parsedDeadlineArgs.byDate);
                     taskList.addTask(newDeadline);
                     ui.printTaskAddedMessage(newDeadline, taskList.size());
                     break;
-                case "event":
-                    Event newEvent = Event.createFromCommandString(remaining);
+                case EVENT:
+                    Parser.ParsedEventArgs parsedEventArgs = parser.parseEventString(remaining);
+                    Event newEvent = new Event(parsedEventArgs.taskName, parsedEventArgs.startDate, parsedEventArgs.endDate);
                     taskList.addTask(newEvent);
                     ui.printTaskAddedMessage(newEvent, taskList.size());
                     break;
@@ -81,7 +83,7 @@ public class Duke {
 
             // All valid commands except for `list` will result in the task list changing, so we should trigger
             // a disk write to save the updated task list.
-            if (!command.equals("list")) {
+            if (!commandType.equals(Command.LIST)) {
                 try {
                     storage.saveTasksToFile(taskList);
                 } catch (IOException ioException) {
@@ -94,24 +96,11 @@ public class Duke {
         } catch (DukeException e) {
             ui.printErrorMessage(e.getMessage());
         }
-
     }
 
     public void run() {
         ui.greet();
-
-        try {
-            taskList = storage.loadTasksFromFile();
-            ui.showLoadedTasks(taskList);
-        } catch (FileNotFoundException fileNotFoundException) {
-            ui.printErrorMessage("Previous data file not found, starting from fresh task list.");
-            taskList = new TaskList();
-        } catch (DukeException dukeException) {
-            ui.printErrorMessage(dukeException.getMessage());
-            taskList = new TaskList();
-        }
-
-        ui.startUserInputLoop(this::parseInput);
+        ui.startUserInputLoop(this::handleInputAndDispatch);
         ui.exit();
     }
 

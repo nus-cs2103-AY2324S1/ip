@@ -12,30 +12,9 @@ public class Deadline extends Task {
      * @param name The name of the deadline.
      * @param by   The due date of the deadline.
      */
-    private Deadline(String name, LocalDate by) {
+    public Deadline(String name, LocalDate by) {
         super(name);
         this.by = by;
-    }
-
-    /**
-     * Parses the command string to create a Deadline instance.
-     *
-     * @param input The command string.
-     * @return A new Deadline instance.
-     * @throws DukeException If the input format is invalid.
-     */
-    public static Deadline createFromCommandString(String input) throws DukeException {
-        String[] parts = input.split("/by ", 2);
-        if (parts.length < 2) {
-            throw new DukeException("Missing '/by' or date for deadline.");
-        }
-        LocalDate byDate;
-        try {
-            byDate = LocalDate.parse(parts[1].trim());
-        } catch (DateTimeParseException dateTimeParseException) {
-            throw new DukeException("Deadline /by date should be in yyyy-mm-dd format (e.g. 2023-08-25)");
-        }
-        return new Deadline(parts[0].trim(), byDate);
     }
 
     public static Deadline fromFileFormat(String[] parts) throws DukeException {

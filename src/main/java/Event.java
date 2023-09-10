@@ -14,38 +14,10 @@ public class Event extends Task {
      * @param startDate The start time of the event.
      * @param endDate   The end time of the event.
      */
-    private Event(String name, LocalDate startDate, LocalDate endDate) {
+    public Event(String name, LocalDate startDate, LocalDate endDate) {
         super(name);
         this.startDate = startDate;
         this.endDate = endDate;
-    }
-
-    /**
-     * Parses the command string to create an Event instance.
-     *
-     * @param input The command string.
-     * @return A new Event instance.
-     * @throws DukeException If the input format is invalid.
-     */
-    public static Event createFromCommandString(String input) throws DukeException {
-        String[] splitByTo = input.split("/to ", 2);
-        if (splitByTo.length < 2) {
-            throw new DukeException("Missing '/to' or end date for event.");
-        }
-        String[] splitByFrom = splitByTo[0].split("/from ", 2);
-        if (splitByFrom.length < 2) {
-            throw new DukeException("Missing '/from' or start date for event.");
-        }
-        LocalDate startDate;
-        LocalDate endDate;
-        try {
-            startDate = LocalDate.parse(splitByFrom[1].trim());
-            endDate = LocalDate.parse(splitByTo[1].trim());
-        } catch (DateTimeParseException dateTimeParseException) {
-            throw new DukeException("Event /from or /to dates should be in yyyy-mm-dd format (e.g. 2023-08-25)");
-        }
-
-        return new Event(splitByFrom[0], startDate, endDate);
     }
 
     public static Event fromFileFormat(String[] parts) throws DukeException {
