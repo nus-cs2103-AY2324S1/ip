@@ -1,8 +1,9 @@
 package carbonbot;
 
-import java.io.IOException;
-
 import carbonbot.command.Command;
+import carbonbot.exception.CarbonException;
+import carbonbot.exception.CarbonSerializationException;
+import carbonbot.exception.CarbonStorageException;
 
 /**
  * CarbonBot is a simple chatbot that helps to keep track of various things such as tasks.
@@ -31,12 +32,13 @@ public class CarbonBot {
         this.storage = new Storage(filePath);
 
         try {
-            this.tasks = new TaskList(storage.load());
-        } catch (IOException | DukeException ex) {
+            this.tasks = storage.getTasks();
+        } catch (CarbonStorageException | CarbonSerializationException ex) {
             this.ui.showLoadingError();
             this.tasks = new TaskList();
         }
     }
+
 
     /**
      * Executes CarbonBot to start running
@@ -59,7 +61,7 @@ public class CarbonBot {
                 isExit = c.isExit();
                 continue;
 
-            } catch (DukeException e) {
+            } catch (CarbonException e) {
                 ui.showMessage(e.getMessage());
             } finally {
                 ui.printDivider();
@@ -86,7 +88,7 @@ public class CarbonBot {
             if (c.isExit()) {
                 this.shouldExit = true;
             }
-        } catch (DukeException e) {
+        } catch (CarbonException e) {
             ui.showMessage(e.getMessage());
         } finally {
             //ui.printDivider();

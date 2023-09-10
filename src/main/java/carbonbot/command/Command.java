@@ -1,9 +1,9 @@
 package carbonbot.command;
 
-import carbonbot.DukeException;
 import carbonbot.Storage;
 import carbonbot.TaskList;
 import carbonbot.Ui;
+import carbonbot.exception.CarbonException;
 
 /**
  * This abstract class is the superclass of all classes representing a command that CarbonBot supports.
@@ -42,7 +42,7 @@ public abstract class Command {
      * @param tasks   Task List
      * @param ui      UI
      * @param storage Storage
-     * @throws DukeException Any error that occurs due to the command
+     * @throws CarbonException Any error that occurs due to the command
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws CarbonException;
 }

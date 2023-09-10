@@ -1,11 +1,9 @@
 package carbonbot.command;
 
-import java.io.IOException;
-
-import carbonbot.DukeException;
 import carbonbot.Storage;
 import carbonbot.TaskList;
 import carbonbot.Ui;
+import carbonbot.exception.CarbonStorageException;
 import carbonbot.task.Task;
 
 /**
@@ -24,7 +22,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws CarbonStorageException {
         // Add the task to the TaskList
         tasks.add(this.task);
 
@@ -32,12 +30,6 @@ public class AddCommand extends Command {
         ui.showMessage(this.task.toString());
         ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
 
-        // Save the TaskList to Storage
-        try {
-            storage.write(tasks.serialize());
-        } catch (IOException ex) {
-            throw new DukeException("I/O Error: Failed to write to storage. "
-                    + ex.getMessage());
-        }
+        storage.saveTasks(tasks);
     }
 }

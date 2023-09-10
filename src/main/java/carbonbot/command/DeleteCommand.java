@@ -1,11 +1,9 @@
 package carbonbot.command;
 
-import java.io.IOException;
-
-import carbonbot.DukeException;
 import carbonbot.Storage;
 import carbonbot.TaskList;
 import carbonbot.Ui;
+import carbonbot.exception.CarbonException;
 import carbonbot.task.Task;
 
 /**
@@ -24,7 +22,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws CarbonException {
         try {
             Task task = tasks.get(taskIdx);
             tasks.delete(taskIdx);
@@ -33,15 +31,10 @@ public class DeleteCommand extends Command {
             ui.showMessage(task.toString());
             ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
         } catch (IndexOutOfBoundsException ie) {
-            throw new DukeException("Index provided was out-of-bounds. Use the index"
+            throw new CarbonException("Index provided was out-of-bounds. Use the index"
                     + " number labelled for the task in the command 'list'!");
         }
 
-        try {
-            storage.write(tasks.serialize());
-        } catch (IOException ex) {
-            throw new DukeException("I/O Error: Failed to write to storage. "
-                    + ex.getMessage());
-        }
+        storage.saveTasks(tasks);
     }
 }
