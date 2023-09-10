@@ -42,6 +42,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = prts.getResponse(input);
+        assert response != null : "PRTS cannot have a null response!";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, docImage),
                 DialogBox.getPrtsDialog(response, prtsImage)
