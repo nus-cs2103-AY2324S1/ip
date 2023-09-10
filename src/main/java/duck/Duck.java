@@ -7,13 +7,21 @@ import duck.command.Command;
 import duck.task.Task;
 import duck.task.TaskList;
 
+import duck.ui.Ui;
+
 /**
- *  Represents the Duck chatbot.
+ * Represents the Duck chatbot.
  */
 public class Duck {
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
+
+    private static final String DEFAULT_FILE_PATH = "data/tasks.txt";
+
+    public Duck() {
+        this(DEFAULT_FILE_PATH);
+    }
 
     /**
      * Initialises the Duck chatbot and attempts to load tasks from storage.
@@ -43,7 +51,7 @@ public class Duck {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
+                System.out.println(c.execute(tasks, ui, storage));
                 isExit = c.isExit();
             } catch (DuckException e) {
                 ui.showErrorMessage(e);
@@ -54,6 +62,22 @@ public class Duck {
     }
 
     public static void main(String[] args) {
-        new Duck("data/tasks.txt").run();
+        new Duck(DEFAULT_FILE_PATH).run();
+    }
+
+    /**
+     * Generates a response to user input.
+     * 
+     * @param input The user input.
+     * @return String The response to the user input.
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input.trim());
+            String reply = c.execute(tasks, ui, storage);
+            return reply;
+        } catch (DuckException e) {
+            return e.getMessage();
+        }
     }
 }
