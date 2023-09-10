@@ -51,6 +51,7 @@ public class Parser {
                 Ui.farewellMessage();
             } else if (command.startsWith("find")) {
                 String keyword = command.split(" ", 2)[1];
+                this.taskList.findTask(keyword);
             } else {
                 throw new DukeException(" OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

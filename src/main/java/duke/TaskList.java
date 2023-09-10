@@ -61,11 +61,11 @@ public class TaskList {
     }
 
     /**
-     * Searches Tasks using keyword.
+     * Searches all Tasks with the keyword.
      *
      * @param keyword The keyword.
      */
-    public void searchTask(String keyword) {
+    public void findTask(String keyword) {
         ArrayList<Task> result = new ArrayList<>();
         for (int i = 0; i < this.tasks.size(); i++) {
             if (tasks.get(i).toString().contains(keyword)) {
