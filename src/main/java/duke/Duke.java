@@ -1,27 +1,21 @@
 package duke;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Scanner;
+
 import command.Command;
 import parser.Parser;
 import storage.TaskFileHandler;
 import tasks.TaskList;
 import ui.Ui;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
-
 /**
  * The `Duke` class is the main class for the Duke application.
  * It handles user interactions and the core functionality of the application.
  */
 public class Duke {
-
-    /**
-     * The date-time formatter used for parsing and formatting dates.
-     */
-    public final static DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
-
     /**
      * The main entry point for the Duke application.
      *
@@ -57,10 +51,17 @@ public class Duke {
      */
     public static boolean validateDateTime(String string) {
         try {
-            LocalDate.parse(string, DATETIME_FORMATTER);
+            LocalDate.parse(string, getDateTimeFormatter());
         } catch (DateTimeParseException e) {
             return false;
         }
         return true;
+    }
+
+    /**
+     * The getter for the datetime formatter used for parsing and formatting dates.
+     */
+    public static DateTimeFormatter getDateTimeFormatter() {
+        return DateTimeFormatter.ISO_LOCAL_DATE;
     }
 }

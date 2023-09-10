@@ -1,7 +1,8 @@
 package tasks;
 
-import enums.TaskType;
 import java.util.Objects;
+
+import enums.TaskType;
 
 /**
  * The `TodoTask` class represents a "Todo" task in the Duke application.
@@ -20,8 +21,7 @@ public class TodoTask extends Task {
     /**
      * Generates a string representation of the `TodoTask`.
      *
-     * @return A string representation of the "Todo" task,
-     * including its status icon and description.
+     * @return A string representation of the "Todo" task, including its status icon and description.
      */
     public String toString() {
         return TaskType.TODO.toSymbol() + super.toString();

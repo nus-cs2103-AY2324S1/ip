@@ -1,28 +1,22 @@
 package command;
 
+
+import java.time.format.DateTimeFormatter;
+
 import duke.Duke;
 import enums.CommandWord;
 import parser.Parser;
 import tasks.TaskList;
-
-import java.time.format.DateTimeFormatter;
 
 /**
  * The `Command` class is an abstract class representing a command in the application.
  * All specific command classes should inherit from this class and implement the `execute` method.
  */
 public abstract class Command {
-
     /**
      * The raw command entered by the user.
      */
     private final String rawCommand;
-
-    /**
-     * The date-time formatter used for parsing dates and times.
-     * This formatter is shared among command subclasses.
-     */
-    protected final DateTimeFormatter DATE_FORMATTER = Duke.DATETIME_FORMATTER;
 
     /**
      * Constructs a new `Command` with the specified raw command string.
@@ -40,6 +34,10 @@ public abstract class Command {
      * @param taskList The task list to perform the command on.
      */
     public abstract void execute(TaskList taskList);
+
+    public DateTimeFormatter getDateTimeformatter() {
+        return Duke.getDateTimeFormatter();
+    }
 
     /**
      * Gets the raw command entered by the user.

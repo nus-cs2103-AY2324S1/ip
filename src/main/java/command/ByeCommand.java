@@ -35,7 +35,7 @@ public class ByeCommand extends Command {
 
         return CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.BYE);
     }
-  
+
     /**
      * Executes the "bye" command. It shows the bye message to the user.
      *

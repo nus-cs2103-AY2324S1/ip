@@ -1,18 +1,21 @@
 package command;
 
-import duke.Duke;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import tasks.EventTask;
-import tasks.Task;
-import tasks.TaskList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import duke.Duke;
+import tasks.EventTask;
+import tasks.Task;
+import tasks.TaskList;
 
 public class EventCommandTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -42,15 +45,15 @@ public class EventCommandTest {
     }
 
     @Test
-    public void testExecute_CreateTask() {
+    public void testExecuteCreateTask() {
         // Arrange
         TaskList taskList = new TaskList(null);
         EventCommand eventCommand = new EventCommand("event TaskName /from 2023-01-01 /to 2023-12-31");
 
         // Act
         eventCommand.execute(taskList);
-        LocalDate startDate = LocalDate.parse("2023-01-01", Duke.DATETIME_FORMATTER);
-        LocalDate endDate = LocalDate.parse("2023-12-31", Duke.DATETIME_FORMATTER);
+        LocalDate startDate = LocalDate.parse("2023-01-01", Duke.getDateTimeFormatter());
+        LocalDate endDate = LocalDate.parse("2023-12-31", Duke.getDateTimeFormatter());
         EventTask expectedTask = new EventTask("TaskName", startDate, endDate);
 
         // Assert
@@ -59,7 +62,7 @@ public class EventCommandTest {
     }
 
     @Test
-    public void testExecute_NoTaskCreatedIfValidationFail() {
+    public void testExecuteNoTaskCreatedIfValidationFail() {
         // Arrange
         TaskList taskList = new TaskList(null);
         EventCommand invalidCommand = new EventCommand("event");

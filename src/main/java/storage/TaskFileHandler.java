@@ -1,16 +1,18 @@
 package storage;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import exceptions.DukeStorageException;
-import tasks.Task;
-import tasks.TaskList;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import exceptions.DukeStorageException;
+import tasks.Task;
+import tasks.TaskList;
+
 
 /**
  * The `TaskFileHandler` class is responsible for reading and writing tasks to a JSON file.

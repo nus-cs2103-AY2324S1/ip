@@ -1,16 +1,19 @@
 package command;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import tasks.TaskList;
-import tasks.TodoTask;
-import tasks.Task;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import tasks.Task;
+import tasks.TaskList;
+import tasks.TodoTask;
+
 
 public class MarkCommandTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -46,7 +49,7 @@ public class MarkCommandTest {
     }
 
     @Test
-    public void testExecute_MarksTaskAsDone() {
+    public void testExecuteMarksTaskAsDone() {
         // Arrange
         TaskList taskList = new TaskList(null);
         taskList.addTask(new TodoTask("Task 1"));
@@ -63,7 +66,7 @@ public class MarkCommandTest {
     }
 
     @Test
-    public void testExecute_NoTaskMarkedIfValidationFails() {
+    public void testExecuteNoTaskMarkedIfValidationFails() {
         // Arrange
         TaskList taskList = new TaskList(null);
         taskList.addTask(new TodoTask("Task 1"));

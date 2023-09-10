@@ -1,15 +1,19 @@
 package command;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import tasks.TaskList;
-import tasks.TodoTask;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import tasks.TaskList;
+import tasks.TodoTask;
+
 
 public class TodoCommandTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -37,7 +41,7 @@ public class TodoCommandTest {
     }
 
     @Test
-    public void testExecute_CreateTask() {
+    public void testExecuteCreateTask() {
         // Arrange
         TaskList taskList = new TaskList(null);
         TodoCommand todoCommand = new TodoCommand("todo TaskName");
@@ -52,7 +56,7 @@ public class TodoCommandTest {
     }
 
     @Test
-    public void testExecute_NoTaskCreatedIfValidationFail() {
+    public void testExecuteNoTaskCreatedIfValidationFail() {
         // Arrange
         TaskList taskList = new TaskList(null);
         TodoCommand invalidCommand = new TodoCommand("todo");

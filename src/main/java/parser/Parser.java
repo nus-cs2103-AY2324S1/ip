@@ -1,9 +1,19 @@
 package parser;
 
-import command.*;
-import enums.CommandWord;
-
 import java.util.ArrayList;
+
+import command.ByeCommand;
+import command.Command;
+import command.DeadlineCommand;
+import command.DeleteCommand;
+import command.EventCommand;
+import command.FindCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.NullCommand;
+import command.TodoCommand;
+import command.UnmarkCommand;
+import enums.CommandWord;
 
 /**
  * The `Parser` class is responsible for parsing user commands and creating corresponding `Command` objects.
@@ -17,26 +27,26 @@ public class Parser {
      */
     public static Command parse(String rawCommand) {
         switch (CommandWord.commandWordToValueMap(getArgs(rawCommand)[0])) {
-            case BYE:
-                return new ByeCommand(rawCommand);
-            case FIND:
-                return new FindCommand(rawCommand);
-            case LIST:
-                return new ListCommand(rawCommand);
-            case MARK:
-                return new MarkCommand(rawCommand);
-            case UNMARK:
-                return new UnmarkCommand(rawCommand);
-            case DELETE:
-                return new DeleteCommand(rawCommand);
-            case TODO:
-                return new TodoCommand(rawCommand);
-            case DEADLINE:
-                return new DeadlineCommand(rawCommand);
-            case EVENT:
-                return new EventCommand(rawCommand);
-            default:
-                return new NullCommand(rawCommand);
+        case BYE:
+            return new ByeCommand(rawCommand);
+        case FIND:
+            return new FindCommand(rawCommand);
+        case LIST:
+            return new ListCommand(rawCommand);
+        case MARK:
+            return new MarkCommand(rawCommand);
+        case UNMARK:
+            return new UnmarkCommand(rawCommand);
+        case DELETE:
+            return new DeleteCommand(rawCommand);
+        case TODO:
+            return new TodoCommand(rawCommand);
+        case DEADLINE:
+            return new DeadlineCommand(rawCommand);
+        case EVENT:
+            return new EventCommand(rawCommand);
+        default:
+            return new NullCommand(rawCommand);
         }
     }
 

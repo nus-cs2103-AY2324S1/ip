@@ -1,16 +1,23 @@
 package command;
 
-import duke.Duke;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import tasks.*;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import duke.Duke;
+import tasks.DeadlineTask;
+import tasks.EventTask;
+import tasks.Task;
+import tasks.TaskList;
+import tasks.TodoTask;
 
 public class DeleteCommandTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -31,8 +38,8 @@ public class DeleteCommandTest {
     @Test
     public void testValidate() {
         //Arrange
-        LocalDate startDate = LocalDate.parse("2023-01-01", Duke.DATETIME_FORMATTER);
-        LocalDate endDate = LocalDate.parse("2023-12-31", Duke.DATETIME_FORMATTER);
+        LocalDate startDate = LocalDate.parse("2023-01-01", Duke.getDateTimeFormatter());
+        LocalDate endDate = LocalDate.parse("2023-12-31", Duke.getDateTimeFormatter());
         Task task1 = new TodoTask("some task 1");
         Task task2 = new DeadlineTask("some task 2", endDate);
         Task task3 = new EventTask("some task 2", startDate, endDate);
@@ -49,7 +56,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void testExecute_DeleteTask() {
+    public void testExecuteDeleteTask() {
         // Arrange
         DeleteCommand deleteCommand = new DeleteCommand("delete 1");
         Task task1 = new TodoTask("some task 1");
@@ -63,7 +70,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void testExecute_NoTaskDeletedIfValidationFails() {
+    public void testExecuteNoTaskDeletedIfValidationFails() {
         // Arrange
         TaskList taskList = new TaskList(null);
         taskList.addTask(new TodoTask("Task 1"));
