@@ -38,7 +38,9 @@ public class TaskList {
      * @return Confirmation message indicating task addition.
      */
     public String addTask(Task task) {
+        int initialSize = store.size();
         store.add(task);
+        assert store.size() == initialSize + 1 : "Task addition failed!";
         String output = "";
         output += "Got it. I've added this task:\n";
         output += "\t" + task + "\n";
@@ -54,11 +56,13 @@ public class TaskList {
      * @throws InvalidIndexException If the provided index is out of bounds.
      */
     public String deleteTask(int index) throws InvalidIndexException {
+        int initialSize = store.size();
         if (index > store.size()) {
             throw new InvalidIndexException();
         }
         Task task = store.get(index - 1);
         store.remove(index - 1);
+        assert store.size() == initialSize - 1 : "Task deletion failed!";
         String output = "";
         output += "Noted. I've removed this task:\n";
         output += "\t" + task + "\n";

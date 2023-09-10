@@ -39,6 +39,8 @@ public class Duke {
         storage = new Storage();
         ArrayList<Task> tasks = storage.load();
         this.tasks = new TaskList(tasks);
+
+        assert this.tasks != null : "Tasks should be initialized!";
     }
 
     public static void main(String[] args) {
