@@ -81,10 +81,14 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = robert.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getRobertDialog(response, robertImage)
-        );
+
+        if (!response.isEmpty()) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getRobertDialog(response, robertImage)
+            );
+        }
+
         if (!this.robert.isRunning()) {
             userInput.setVisible(false);
             new Thread(() -> {

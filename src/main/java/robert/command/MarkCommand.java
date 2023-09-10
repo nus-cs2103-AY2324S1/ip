@@ -21,6 +21,8 @@ public class MarkCommand extends Command {
      * @param markIndex the index of task to be marked.
      */
     public MarkCommand(int markIndex) {
+        assert markIndex >= 0 : "Index of task should never be negative";
+
         this.markIndex = markIndex;
     }
 

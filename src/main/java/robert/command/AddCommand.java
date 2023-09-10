@@ -29,6 +29,8 @@ public class AddCommand extends Command {
      * @param description the description of the task.
      */
     public AddCommand(String description) {
+        assert !description.isEmpty() : "Description must not be empty";
+
         this.task = new ToDo(description);
     }
 
@@ -42,6 +44,8 @@ public class AddCommand extends Command {
      * @throws RobertException if the toDate comes before the fromDate.
      */
     public AddCommand(String description, LocalDate fromDate, LocalDate toDate) throws RobertException {
+        assert !description.isEmpty() : "Description must not be empty";
+
         this.task = new Event(description, fromDate, toDate);
     }
 
@@ -53,6 +57,8 @@ public class AddCommand extends Command {
      * @param byDate the date where the task is due.
      */
     public AddCommand(String description, LocalDate byDate) {
+        assert !description.isEmpty() : "Description must not be empty";
+
         this.task = new Deadline(description, byDate);
     }
 
