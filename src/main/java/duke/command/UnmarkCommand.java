@@ -43,12 +43,4 @@ public class UnmarkCommand extends Command {
         ui.print(String.format("OK, I've marked this task as not done yet:\n  %s", tasks.access(idx).toString()));
     }
 
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
 }

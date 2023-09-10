@@ -7,8 +7,6 @@ import java.util.Scanner;
  */
 public class VerboseUi extends Ui {
 
-    private String name;
-
     /**
      * Constructor for VerboseUi.
      *
@@ -16,15 +14,6 @@ public class VerboseUi extends Ui {
      */
     public VerboseUi(String name) {
         super(new Scanner(System.in));
-        this.name = name;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public void greet() {
-        print(String.format("Hello! I'm %s\nWhat can I do for you?", name));
     }
 
     /**

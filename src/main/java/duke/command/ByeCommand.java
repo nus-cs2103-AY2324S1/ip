@@ -7,6 +7,7 @@ import duke.object.TaskList;
 import duke.parser.element.CommandElement;
 import duke.storage.Storage;
 import duke.ui.Ui;
+import javafx.application.Platform;
 
 /**
  * Command to terminate the program.
@@ -35,15 +36,7 @@ public class ByeCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        storage.save(tasks);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public boolean isExit() {
-        return true;
+        Platform.exit();
     }
 
 }

@@ -43,12 +43,4 @@ public class MarkCommand extends Command {
         ui.print(String.format("Nice! I've marked this task as done:\n  %s", tasks.access(idx).toString()));
     }
 
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
 }

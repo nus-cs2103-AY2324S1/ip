@@ -37,12 +37,4 @@ public abstract class TaskCommand extends Command {
                 tasks.access(tasks.size()).toString(), ui.getTaskCount(tasks.size())));
     }
 
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
 }

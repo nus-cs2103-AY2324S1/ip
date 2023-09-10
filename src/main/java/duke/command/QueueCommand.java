@@ -47,12 +47,4 @@ public class QueueCommand extends Command {
         ui.print(String.format("Here is the queue of deadlines:\n%s", ui.stringifyList(deadlines)));
     }
 
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
 }

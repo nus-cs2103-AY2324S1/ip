@@ -52,12 +52,4 @@ public class OngoingCommand extends Command {
                 ui.stringifyDate(date), ui.stringifyList(filteredEvents)));
     }
 
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
 }
