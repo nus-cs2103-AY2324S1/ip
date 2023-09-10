@@ -1,16 +1,17 @@
 package command;
 
+import java.time.LocalDate;
+
 import duke.Duke;
 import enums.CommandWord;
 import parser.Parser;
 import tasks.EventTask;
 import tasks.TaskList;
 
-import java.time.LocalDate;
-
 /**
  * The `EventCommand` class represents a command to create a new event task.
- * When executed, it parses the command, validates it, and adds a new event task to the task list if the command is valid.
+ * When executed, it parses the command, validates it, and adds a
+ * new event task to the task list if the command is valid.
  */
 public class EventCommand extends Command {
 
@@ -55,7 +56,7 @@ public class EventCommand extends Command {
 
         return Duke.validateDateTime(args[5]);
     }
-  
+
     /**
      * Executes the "event" command. It parses the command, validates it, and adds a new
      * event task to the task list if the command is valid.
@@ -69,8 +70,8 @@ public class EventCommand extends Command {
         }
         String[] args = Parser.getArgs(rawCommand);
         String description = args[1];
-        LocalDate startDate = LocalDate.parse(args[3], super.DATE_FORMATTER);
-        LocalDate endDate = LocalDate.parse(args[5], super.DATE_FORMATTER);
+        LocalDate startDate = LocalDate.parse(args[3], super.getDateTimeformatter());
+        LocalDate endDate = LocalDate.parse(args[5], super.getDateTimeformatter());
         taskList.addTask(new EventTask(description, startDate, endDate));
     }
 }

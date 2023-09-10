@@ -40,7 +40,7 @@ public class MarkCommand extends Command {
 
         return taskList.validateTaskIndex(args[1]);
     }
-  
+
     /**
      * Executes the "mark" command. It parses the command, validates it, and marks
      * the specified task as done in the task list if the command is valid.

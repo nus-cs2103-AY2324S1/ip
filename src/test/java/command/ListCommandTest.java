@@ -1,19 +1,22 @@
 package command;
 
-import duke.Duke;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import tasks.TaskList;
-import tasks.TodoTask;
-import tasks.DeadlineTask;
-import tasks.EventTask;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import duke.Duke;
+import tasks.DeadlineTask;
+import tasks.EventTask;
+import tasks.TaskList;
+import tasks.TodoTask;
 
 public class ListCommandTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -44,21 +47,21 @@ public class ListCommandTest {
     }
 
     @Test
-    public void testExecute_ListsTasks() {
+    public void testExecuteListsTasks() {
         // Arrange
         TaskList taskList = new TaskList(null);
-        LocalDate startDate = LocalDate.parse("2023-01-01", Duke.DATETIME_FORMATTER);
-        LocalDate endDate = LocalDate.parse("2023-12-31", Duke.DATETIME_FORMATTER);
+        LocalDate startDate = LocalDate.parse("2023-01-01", Duke.getDateTimeFormatter());
+        LocalDate endDate = LocalDate.parse("2023-12-31", Duke.getDateTimeFormatter());
         taskList.addTask(new TodoTask("Task 1"));
         taskList.addTask(new DeadlineTask("Task 2", endDate));
         taskList.addTask(new EventTask("Task 3", startDate, endDate));
 
         ListCommand listCommand = new ListCommand("list");
-        String expectedOutput = "Here are the tasks in your list:" +System.lineSeparator() +
-                "  1. [T][ ] Task 1" +System.lineSeparator() +
-                "  2. [D][ ] Task 2 (by: 2023-12-31)" +System.lineSeparator() +
-                "  3. [E][ ] Task 3 (from: 2023-01-01 to 2023-12-31)" +System.lineSeparator() +
-                "You have 3 tasks in the task list." + System.lineSeparator();
+        String expectedOutput = "Here are the tasks in your list:" + System.lineSeparator()
+                + "  1. [T][ ] Task 1" + System.lineSeparator()
+                + "  2. [D][ ] Task 2 (by: 2023-12-31)" + System.lineSeparator()
+                + "  3. [E][ ] Task 3 (from: 2023-01-01 to 2023-12-31)" + System.lineSeparator()
+                + "You have 3 tasks in the task list." + System.lineSeparator();
 
         // Redirecting System.out to capture console output
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -75,12 +78,12 @@ public class ListCommandTest {
     }
 
     @Test
-    public void testExecute_ListsNoTasks() {
+    public void testExecuteListsNoTasks() {
         // Arrange
         TaskList taskList = new TaskList(null);
         ListCommand listCommand = new ListCommand("list");
-        String expectedOutput = "Here are the tasks in your list:" + System.lineSeparator() +
-                "You have 0 tasks in the task list." + System.lineSeparator();
+        String expectedOutput = "Here are the tasks in your list:" + System.lineSeparator()
+                + "You have 0 tasks in the task list." + System.lineSeparator();
 
         // Redirecting System.out to capture console output
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();

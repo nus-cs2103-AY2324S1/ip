@@ -1,10 +1,9 @@
 package tasks;
 
-import duke.Duke;
-import enums.TaskType;
-
 import java.time.LocalDate;
 import java.util.Objects;
+
+import enums.TaskType;
 
 /**
  * The `EventTask` class represents an event task with a specific start and end date in the Duke application.
@@ -41,15 +40,14 @@ public class EventTask extends Task {
      */
     public String getEventRange() {
         return String.format(" (from: %s to %s)",
-                startDate.format(Duke.DATETIME_FORMATTER),
-                endDate.format(Duke.DATETIME_FORMATTER));
+                startDate.format(super.getDateTimeformatter()),
+                endDate.format(super.getDateTimeformatter()));
     }
 
     /**
      * Generates a string representation of the `EventTask`.
      *
-     * @return A string representation of the task, including its
-     * symbol, description, and event date range.
+     * @return A string representation of the task, including its symbol, description, and event date range.
      */
     @Override
     public String toString() {

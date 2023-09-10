@@ -1,18 +1,21 @@
 package command;
 
-import duke.Duke;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import tasks.DeadlineTask;
-import tasks.Task;
-import tasks.TaskList;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import duke.Duke;
+import tasks.DeadlineTask;
+import tasks.Task;
+import tasks.TaskList;
 
 public class DeadlineCommandTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -41,10 +44,10 @@ public class DeadlineCommandTest {
     }
 
     @Test
-    public void testExecute_CreateTask() {
+    public void testExecuteCreateTask() {
         // Arrange
         DeadlineCommand deadlineCommand = new DeadlineCommand("deadline some task /by 2023-12-31");
-        LocalDate endDate = LocalDate.parse("2023-12-31", Duke.DATETIME_FORMATTER);
+        LocalDate endDate = LocalDate.parse("2023-12-31", Duke.getDateTimeFormatter());
         Task expectedTask = new DeadlineTask("some task", endDate);
         TaskList taskList = new TaskList(null);
 
@@ -57,7 +60,7 @@ public class DeadlineCommandTest {
     }
 
     @Test
-    public void testExecute_NoTaskCreatedIfValidationFail() {
+    public void testExecuteNoTaskCreatedIfValidationFail() {
         // Arrange
         TaskList taskList = new TaskList(null);
         TodoCommand invalidCommand = new TodoCommand("dealine");

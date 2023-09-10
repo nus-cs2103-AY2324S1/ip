@@ -1,18 +1,22 @@
 package command;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import tasks.DeadlineTask;
-import tasks.EventTask;
-import tasks.TaskList;
-import tasks.TodoTask;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import tasks.DeadlineTask;
+import tasks.EventTask;
+import tasks.TaskList;
+import tasks.TodoTask;
+
 
 public class FindCommandTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -42,7 +46,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void testExecute_FindsMatchingTasks() {
+    public void testExecuteFindsMatchingTasks() {
         // Arrange
         TaskList taskList = new TaskList(null);
         LocalDate startDate = LocalDate.parse("2023-01-01");
@@ -52,9 +56,10 @@ public class FindCommandTest {
         taskList.addTask(new EventTask("Task 3", startDate, endDate));
 
         FindCommand findCommand = new FindCommand("find Task 2");
-        String expectedOutput = "Here are the matching tasks in your list:" + System.lineSeparator() +
-                "  2. [D][ ] Task 2 (by: 2023-12-31)" + System.lineSeparator() +
-                "You have 3 tasks in the task list." + System.lineSeparator();
+        String expectedOutput = "Here are the matching tasks in your list:"
+                + System.lineSeparator()
+                + "  2. [D][ ] Task 2 (by: 2023-12-31)" + System.lineSeparator()
+                + "You have 3 tasks in the task list." + System.lineSeparator();
 
         // Redirecting System.out to capture console output
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -71,7 +76,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void testExecute_NoMatchingTasks() {
+    public void testExecuteNoMatchingTasks() {
         // Arrange
         TaskList taskList = new TaskList(null);
         taskList.addTask(new TodoTask("Task 1"));
@@ -79,9 +84,9 @@ public class FindCommandTest {
         taskList.addTask(new EventTask("Task 3", LocalDate.parse("2023-01-01"), LocalDate.parse("2023-12-31")));
 
         FindCommand findCommand = new FindCommand("find NonExistentTask");
-        String expectedOutput = "Here are the matching tasks in your list:" + System.lineSeparator() +
-                "No tasks matched your keyword!" + System.lineSeparator() +
-                "You have 3 tasks in the task list." + System.lineSeparator();
+        String expectedOutput = "Here are the matching tasks in your list:" + System.lineSeparator()
+               + "No tasks matched your keyword!" + System.lineSeparator()
+               + "You have 3 tasks in the task list." + System.lineSeparator();
 
         // Redirecting System.out to capture console output
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
