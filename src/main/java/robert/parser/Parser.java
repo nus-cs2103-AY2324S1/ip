@@ -3,16 +3,7 @@ package robert.parser;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
-import robert.command.AddCommand;
-import robert.command.ClearCommand;
-import robert.command.Command;
-import robert.command.DeleteCommand;
-import robert.command.ExitCommand;
-import robert.command.FilterCommand;
-import robert.command.FindCommand;
-import robert.command.ListCommand;
-import robert.command.MarkCommand;
-import robert.command.UnmarkCommand;
+import robert.command.*;
 import robert.exception.RobertException;
 
 /**
@@ -30,6 +21,9 @@ public class Parser {
      * @throws RobertException if the line of command is of wrong format.
      */
     public static Command parse(String fullCommand) throws RobertException {
+        if (fullCommand.isEmpty()) {
+            return new BlankCommand();
+        }
 
         String[] splitCommand = fullCommand.split(" ", 2);
 
