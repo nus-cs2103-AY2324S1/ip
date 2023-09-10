@@ -72,9 +72,8 @@ public class TaskList {
      * @return Formatted string of all tasks.
      */
     public String listTasks() {
-        System.out.println("Here are the tasks in your list:");
         int counter = 1;
-        String output = "";
+        String output = "Here are the tasks in your list:\n";
         for (Task task: store) {
             output += counter + "." + task + "\n";
             counter++;
