@@ -28,8 +28,8 @@ public class Ui {
      * Prints a line separator to the console.
      */
     public void linePrint() {
-        System.out.print("   _________________________________________" +
-                "________________________________________\n");
+        System.out.print("   _________________________________________"
+                + "________________________________________\n");
 
     }
 
@@ -84,9 +84,9 @@ public class Ui {
      */
     public void showMarkMessage(TaskList tasks, int taskIndex) {
         linePrint();
-        System.out.println("   Very well. I have marked this task as accomplished:\n  " + "  " +
-                tasks.get(taskIndex).getStatusIcon() + " " +
-                tasks.get(taskIndex).description);
+        System.out.println("   Very well. I have marked this task as accomplished:\n  " + "  "
+                + tasks.get(taskIndex).getStatusIcon() + " "
+                + tasks.get(taskIndex).description);
         linePrint();
     }
 
@@ -98,9 +98,9 @@ public class Ui {
      */
     public void showUnmarkMessage(TaskList tasks, int taskIndex) {
         linePrint();
-        System.out.println("   By the heavens! I have declared this task as yet to be completed:\n  " +
-                "  " + tasks.get(taskIndex).getStatusIcon() +
-                " " + tasks.get(taskIndex).description);
+        System.out.println("   By the heavens! I have declared this task as yet to be completed:\n  "
+                + "  " + tasks.get(taskIndex).getStatusIcon()
+                + " " + tasks.get(taskIndex).description);
         linePrint();
     }
 
@@ -111,8 +111,8 @@ public class Ui {
      */
     public void showAddTaskMessage(TaskList tasks) {
         linePrint();
-        System.out.println("   Understood. I have included this quest:\n  " +
-                "  " + tasks.get(tasks.size() - 1));
+        System.out.println("   Understood. I have included this quest:\n  "
+                + "  " + tasks.get(tasks.size() - 1));
         System.out.println("   Now you have " + tasks.size() + " task(s) in the list.");
         linePrint();
     }

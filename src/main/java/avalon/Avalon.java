@@ -76,7 +76,8 @@ public class Avalon {
                 case "deadline":
                     parts = userInput.substring(9).split(" /by ");
                     if (parts.length != 2) {
-                        throw new IllegalArgumentException("Please provide a description and a deadline       (use /by).");
+                        throw new IllegalArgumentException("Please provide a description and a deadline "
+                                + "(use /by).");
                     }
                     description = parts[0];
                     String by = parts[1];
@@ -88,7 +89,8 @@ public class Avalon {
                 case "event":
                     parts = userInput.substring(6).split(" /from | /to ");
                     if (parts.length != 3) {
-                        throw new IllegalArgumentException("Please provide a description, a starting time,     and an ending time (use /from and /to).");
+                        throw new IllegalArgumentException("Please provide a description, a starting time, "
+                                + "and an ending time (use /from and /to).");
                     }
                     description = parts[0];
                     String from = parts[1];
@@ -106,6 +108,7 @@ public class Avalon {
                     } else {
                         throw new IllegalArgumentException("Invalid task number to be deleted.");
                     }
+                    break;
                 case "find":
                     String keyword = userInput.substring(5).trim();
                     findTasksByKeyword(keyword);
@@ -121,7 +124,8 @@ public class Avalon {
     }
 
     /**
-     * Searches for tasks containing the specified keyword in their descriptions and displays the matching tasks.
+     * Searches for tasks containing the specified keyword in their descriptions
+     * and displays the matching tasks.
      *
      * @param keyword The keyword to search for in task descriptions.
      */
@@ -137,7 +141,8 @@ public class Avalon {
         ui.showFindMessage(matchingTasks);
     }
 
-    /** The entry point of the Avalon application.
+    /**
+     * The entry point of the Avalon application.
      *
      * @param args The command-line arguments (not used in this application).
      */

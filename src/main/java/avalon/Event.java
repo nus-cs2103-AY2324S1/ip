@@ -3,7 +3,8 @@ package avalon;
 import java.time.LocalDateTime;
 
 /**
- * Represents an event task, which is a type of task with a description, completion status, and start and end timestamps.
+ * Represents an event task, which is a type of task with a description, completion status,
+ * and start and end timestamps.
  */
 public class Event extends Task {
 
@@ -18,7 +19,8 @@ public class Event extends Task {
     protected LocalDateTime to;
 
     /**
-     * Creates a new event task with the given description, start timestamp, and end timestamp, and sets its initial completion status to false.
+     * Creates a new event task with the given description, start timestamp,
+     * and end timestamp, and sets its initial completion status to false.
      *
      * @param description The description of the event task.
      * @param from The start timestamp in string format (to be parsed into a LocalDateTime).
@@ -31,7 +33,8 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the event task, including its status icon, description, start timestamp, and end timestamp.
+     * Returns a string representation of the event task, including its status icon,
+     * description, start timestamp, and end timestamp.
      *
      * @return A string representation of the event task.
      */
