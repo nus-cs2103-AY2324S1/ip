@@ -1,7 +1,5 @@
 package toolpackage;
 
-import java.nio.charset.Charset;
-
 import dukepackage.DukeException;
 
 import taskpackage.Deadlines;
