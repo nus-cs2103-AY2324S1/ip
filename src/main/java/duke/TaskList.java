@@ -9,15 +9,13 @@ import java.util.Scanner;
  * Class to encapsulate the list of tasks
  */
 public class TaskList {
-    private File textFile;
     private ArrayList<Task> taskList;
 
     /**
      * Constructor for TaskList
-     * @param filePath
+     * @param filePath  the path of the file
      */
     public TaskList(String filePath) {
-        this.textFile = textFile;
         this.createTaskList(filePath);
     }
 
