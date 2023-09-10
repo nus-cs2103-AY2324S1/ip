@@ -76,4 +76,14 @@ public class TextGenerator {
         }
         return result.toString();
     }
+
+    public static String getMarkMultipleMessage(TaskList taskList) throws BobInvalidTaskNumberException {
+        String message = "Nice one bud! I have marked all the following tasks as done:\n";
+        return message + getRawList(taskList);
+    }
+
+    public static String getUnmarkMultipleMessage(TaskList taskList) throws BobInvalidTaskNumberException {
+        String message = "No worries bud! I unmarked all the following tasks for you:\n";
+        return message + getRawList(taskList);
+    }
 }

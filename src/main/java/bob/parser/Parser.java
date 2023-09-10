@@ -1,12 +1,6 @@
 package bob.parser;
 
-import bob.command.AddCommand;
-import bob.command.Command;
-import bob.command.DeleteCommand;
-import bob.command.ExitCommand;
-import bob.command.FindCommand;
-import bob.command.ListCommand;
-import bob.command.MarkCommand;
+import bob.command.*;
 import bob.enums.CommandType;
 import bob.exception.BobCorruptFileException;
 import bob.exception.BobException;
@@ -17,6 +11,8 @@ import bob.task.Deadline;
 import bob.task.Event;
 import bob.task.Task;
 import bob.task.Todo;
+
+import java.util.ArrayList;
 
 /**
  * Processes user input or save files to executable commands.
@@ -57,6 +53,9 @@ public class Parser {
             return Parser.parseDeleteCommand(argument);
         case FIND:
             return Parser.parseFindCommand(argument);
+        case MARKM:
+        case UNMARKM:
+            return Parser.parseMarkMultipleCommand(commandType, argument);
         case INVALID:
             throw new BobInvalidCommandException("I'm sorry! I don't understand the command :(");
         default:
@@ -74,6 +73,25 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new BobInvalidTaskNumberException("The mark/unmark command "
                     + "needs to be followed up by an integer number!\n");
+        }
+    }
+
+    private static Command parseMarkMultipleCommand(CommandType commandType, String argument)
+            throws BobInvalidTaskNumberException {
+        if (argument.isBlank()) {
+            throw new BobInvalidTaskNumberException("Give me multiple task numbers to mark/unmark as done!");
+        }
+        try {
+            ArrayList<Integer> taskNumbers = new ArrayList<Integer>();
+            String[] argumentSplit = argument.split(" ");
+            for (String s : argumentSplit) {
+                Integer taskNumber = Integer.parseInt(s);
+                taskNumbers.add(taskNumber);
+            }
+            return new MarkMultipleCommand(taskNumbers, commandType == CommandType.MARKM);
+        } catch (NumberFormatException e) {
+            throw new BobInvalidTaskNumberException("The mark/unmark multiple command "
+                    + "needs to be followed up by spaced integer numbers!\n");
         }
     }
 
