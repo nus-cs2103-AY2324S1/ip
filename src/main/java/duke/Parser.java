@@ -138,7 +138,11 @@ public class Parser {
      * @throws DukeException On input error.
      */
     private static void checkDeadline(String[] deadlineString) throws DukeException {
-        if (deadlineString.length != 2 || deadlineString[0].isBlank() || deadlineString[1].isBlank()) {
+        boolean isNotLengthTwo = deadlineString.length != 2;
+        boolean isDescriptionBlank = deadlineString[0].isBlank();
+        boolean isDateBlank = deadlineString[1].isBlank();
+
+        if (isNotLengthTwo || isDescriptionBlank || isDateBlank) {
             throw new DukeException("Boop Beep OOPS! Please make sure that"
                     + " the description and date of the deadline is not empty.");
         }
@@ -151,8 +155,12 @@ public class Parser {
      * @throws DukeException On input error.
      */
     private static void checkEvent(String[] eventString) throws DukeException {
-        if (eventString.length != 3 || eventString[0].isBlank() || eventString[1].isBlank()
-                || eventString[2].isBlank()) {
+        boolean isNotLengthThree = eventString.length != 3;
+        boolean isDescriptionBlank = eventString[0].isBlank();
+        boolean isFromDateBlank = eventString[1].isBlank();
+        boolean isToDateBlank = eventString[2].isBlank();
+
+        if (isNotLengthThree || isDescriptionBlank || isFromDateBlank || isToDateBlank) {
             throw new DukeException("Boop Beep OOPS! Please make sure that"
                     + " the description and dates of the event is not empty.");
         }
