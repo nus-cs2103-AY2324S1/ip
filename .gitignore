@@ -3,12 +3,13 @@
 /out/
 /*.iml
 
+# VSCode files
+/.vscode/
+
 # Gradle build files
 /.gradle/
 /build/
 src/main/resources/docs/
-*.jar
-!gradle/wrapper/gradle-wrapper.jar
 
 # MacOS custom attributes files created by Finder
 .DS_Store

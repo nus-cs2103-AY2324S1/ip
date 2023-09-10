@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -30,7 +31,7 @@ test {
 }
 
 application {
-    mainClass.set("jarvis.Main")
+    mainClass.set("jarvis.Jarvis")
 }
 
 shadowJar {
@@ -40,6 +41,10 @@ shadowJar {
     dependsOn("distZip", "distTar")
 }
 
-run{
+run {
     standardInput = System.in
+}
+
+checkstyle {
+    toolVersion = '10.2'
 }
