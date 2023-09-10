@@ -15,10 +15,6 @@ public class DateHelper {
     public static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(datePattern, Locale.ENGLISH);
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(dateTimePattern);
 
-    public static boolean hasTaskExpired(LocalDateTime datetime) {
-        return datetime.isBefore(LocalDateTime.now());
-    }
-
     /**
      * Helper method to convert LocalDateTime object into a datetime string.
      * @param datetime Datetime string.

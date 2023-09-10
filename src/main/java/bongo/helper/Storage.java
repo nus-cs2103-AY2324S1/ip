@@ -69,15 +69,17 @@ public class Storage {
                 break;
             case "D":
                 dateTime = DateHelper.convertStringToDateTime(arr[3]);
-                if (DateHelper.hasTaskExpired(dateTime)) {
+                if (dateTime.isBefore(LocalDateTime.now())) {
                     expiredTaskNumbers.add(numOfTasks);
                 } else {
                     loadedTasks.add(new Deadline(arr[2], isTaskMarkedDone, DateHelper.convertStringToDateTime(arr[3])));
                 }
                 break;
             case "E":
-                dateTime = DateHelper.convertStringToDateTime(arr[4]);
-                if (DateHelper.hasTaskExpired(dateTime)) {
+                LocalDateTime currentDateTime = LocalDateTime.now();
+                LocalDateTime fromDateTime = DateHelper.convertStringToDateTime(arr[3]);
+                LocalDateTime toDateTime = DateHelper.convertStringToDateTime(arr[4]);
+                if (currentDateTime.isBefore(fromDateTime) || currentDateTime.isAfter(toDateTime)) {
                     expiredTaskNumbers.add(numOfTasks);
                 } else {
                     loadedTasks.add(new Event(arr[2], isTaskMarkedDone, DateHelper.convertStringToDateTime(arr[3]),

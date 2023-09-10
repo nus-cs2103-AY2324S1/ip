@@ -49,7 +49,7 @@ public abstract class Task {
      * @param date The scheduled date.
      * @return Whether task is scheduled for the date.
      */
-    public boolean isTaskScheduledForDate(String date) {
+    public boolean isTaskScheduledForDate(LocalDate date) {
         return false;
     }
 

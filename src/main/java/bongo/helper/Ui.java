@@ -1,5 +1,7 @@
 package bongo.helper;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -92,6 +94,21 @@ public class Ui {
         String tasksList = " Here are the matching tasks in your list:\n"
                 + allTasks;
         return tasksList.trim();
+    }
+
+    /**
+     * Shows list of tasks scheduled on a particular date.
+     *
+     * @param tasks All user tasks scheduled on a particular date.
+     */
+    public String showScheduledTasks(ArrayList<Task> tasks, LocalDate scheduleDate) {
+        StringBuilder allTasks = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            allTasks.append(String.format(" %d. %s\n", i + 1, tasks.get(i)));
+        }
+        String scheduledTasks = String.format(" Here are the tasks scheduled on %s\n",
+                DateTimeFormatter.ofPattern("MMM d, yyyy").format(scheduleDate)) + allTasks;
+        return scheduledTasks.trim();
     }
 
     /**

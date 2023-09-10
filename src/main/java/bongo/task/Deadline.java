@@ -53,10 +53,9 @@ public class Deadline extends Task {
     }
 
     @Override
-    public boolean isTaskScheduledForDate(String date) {
+    public boolean isTaskScheduledForDate(LocalDate date) {
         LocalDate deadlineDate = this.deadline.toLocalDate();
-        LocalDate dateToCheck = LocalDate.parse(date, DateHelper.dateFormatter);
-        return deadlineDate.equals(dateToCheck);
+        return deadlineDate.equals(date);
     }
 
     @Override
