@@ -39,42 +39,36 @@ public class Parser {
 
         String commandType = splitCommand[0];
 
-        if (commandType.equals("list")) {
+        switch (commandType) {
+        case "list":
             if (splitCommand.length > 1) {
                 throw new RobertException("Unnecessary parameters added.\n"
                         + "Type 'list' if you intend to list your tasks.");
             }
-
             return new ListCommand();
-        }
 
-        if (commandType.equals("bye")) {
+        case "bye":
             if (splitCommand.length > 1) {
                 throw new RobertException("Additional parameters added.\n"
                         + "Did you intend to exit? If not, be careful!");
             }
-
             return new ExitCommand();
-        }
 
-        if (commandType.equals("mark")) {
+        case "mark":
             if (splitCommand.length == 1) {
                 throw new RobertException("The index used to mark a task cannot be empty.\n"
                         + "Please add an index.");
             }
 
-
             try {
                 int markIndex = Integer.parseInt(splitCommand[1]) - 1;
                 return new MarkCommand(markIndex);
-
             } catch (NumberFormatException e) {
                 throw new RobertException("Cannot convert given index as integer.\n"
                         + "Please use proper integer as the index!");
             }
-        }
 
-        if (commandType.equals("unmark")) {
+        case "unmark":
             if (splitCommand.length == 1) {
                 throw new RobertException("The index used to unmark a task cannot be empty.\n"
                         + "Please add an index.");
@@ -83,35 +77,31 @@ public class Parser {
             try {
                 int unmarkIndex = Integer.parseInt(splitCommand[1]) - 1;
                 return new UnmarkCommand(unmarkIndex);
-
             } catch (NumberFormatException e) {
                 throw new RobertException("Cannot convert given index as integer.\n"
                         + "Please use proper integer as the index!");
             }
-        }
 
-        if (commandType.equals("todo")) {
+        case "todo":
             if (splitCommand.length == 1) {
                 throw new RobertException("The description of a todo cannot be empty.\n"
                         + "Please add a description to your todo task.");
             }
-
             return new AddCommand(splitCommand[1]);
-        }
 
-        if (commandType.equals("event")) {
+        case "event":
             if (splitCommand.length == 1) {
                 throw new RobertException("The description of an event cannot be empty.\n"
                         + "Please add a description to your event task.");
             }
 
-            String parameters = splitCommand[1];
-            if (!parameters.contains("/from") || !parameters.contains("/to")) {
+            String undividedEventParameters = splitCommand[1];
+            if (!undividedEventParameters.contains("/from") || !undividedEventParameters.contains("/to")) {
                 throw new RobertException("The event's start and/or end time is/are not specified properly.\n"
                         + "Please make sure '/from' and '/to' are properly indicated.");
             }
 
-            String[] eventParameters = parameters.split(" /from ");
+            String[] eventParameters = undividedEventParameters.split(" /from ");
             if (eventParameters.length < 2) {
                 throw new RobertException("There are parameters missing.\n"
                         + "Please make sure you have both the task description and the due date entered.");
@@ -133,21 +123,20 @@ public class Parser {
                 throw new RobertException("Date provided does not match format.\n"
                         + "Please write your date in the format of 'YYYY-MM-DD'.");
             }
-        }
 
-        if (commandType.equals("deadline")) {
+        case "deadline":
             if (splitCommand.length == 1) {
                 throw new RobertException("The description of a deadline cannot be empty.\n"
                         + "Please add a description to your deadline task.");
             }
 
-            String parameters = splitCommand[1];
-            if (!parameters.contains("/by")) {
+            String undividedDeadlineParameters = splitCommand[1];
+            if (!undividedDeadlineParameters.contains("/by")) {
                 throw new RobertException("The deadline's due date is not specified properly.\n"
                         + "Please make sure '/by' is properly indicated.");
             }
 
-            String[] deadlineParameters = parameters.split(" /by ");
+            String[] deadlineParameters = undividedDeadlineParameters.split(" /by ");
 
             if (deadlineParameters.length < 2) {
                 throw new RobertException("There are parameters missing.\n"
@@ -159,14 +148,12 @@ public class Parser {
             try {
                 LocalDate byDate = LocalDate.parse(deadlineParameters[1]);
                 return new AddCommand(deadlineDescription, byDate);
-
             } catch (DateTimeException e) {
                 throw new RobertException("Date provided does not match format.\n"
                         + "Please write your date in the format of 'YYYY-MM-DD'.");
             }
-        }
 
-        if (commandType.equals("delete")) {
+        case "delete":
             if (splitCommand.length == 1) {
                 throw new RobertException("The index used to delete a task cannot be empty.\n"
                         + "Please add an index.");
@@ -179,13 +166,11 @@ public class Parser {
                 throw new RobertException("Cannot convert given index as integer.\n"
                         + "Please use proper integer as the index!");
             }
-        }
 
-        if (commandType.equals("clear")) {
+        case "clear":
             return new ClearCommand();
-        }
 
-        if (commandType.equals("filter")) {
+        case "filter":
             if (splitCommand.length == 1) {
                 throw new RobertException("The date of the tasks is not indicated.\n"
                         + "Please add a date in the format 'YYYY-MM-DD'.");
@@ -194,22 +179,20 @@ public class Parser {
             try {
                 LocalDate date = LocalDate.parse(splitCommand[1]);
                 return new FilterCommand(date);
-
             } catch (DateTimeException e) {
                 throw new RobertException("Date provided does not match format.\n"
                         + "Please write your date in the format of 'YYYY-MM-DD'.");
             }
-        }
 
-        if (commandType.equals("find")) {
+        case "find":
             if (splitCommand.length == 1) {
                 throw new RobertException("The keyword is not indicated.\n"
                         + "Please add a keyword so that I can find relevant tasks.");
             }
-
             return new FindCommand(splitCommand[1]);
-        }
 
-        throw new RobertException("I'm sorry, but I don't know what that command means :(");
+        default:
+            throw new RobertException("I'm sorry, but I don't know what that command means :(");
+        }
     }
 }

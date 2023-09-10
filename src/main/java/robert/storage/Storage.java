@@ -99,7 +99,7 @@ public class Storage {
      * @param tasks a TaskList that contains all tasks that are currently recorded by Robert.
      * @throws RobertException if there is an issue saving the tasks into the hard disk.
      */
-    public void save(TaskList tasks) throws RobertException {
+    public void saveToDisk(TaskList tasks) throws RobertException {
         try {
             FileWriter fw = new FileWriter(this.tasksFile.toString(), false);
             for (Task task : tasks) {

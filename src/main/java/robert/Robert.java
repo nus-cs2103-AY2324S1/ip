@@ -58,7 +58,7 @@ public class Robert {
         try {
             Command c = Parser.parse(userInput);
             outputMessage = c.execute(this.tasks, this.storage);
-            this.storage.save(this.tasks);
+            this.storage.saveToDisk(this.tasks);
             this.isRunning = !c.isExit();
         } catch (RobertException e) {
             outputMessage = e.toString();
