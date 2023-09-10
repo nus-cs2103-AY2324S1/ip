@@ -1,3 +1,2 @@
 todo | 0 | mid | read
 deadline | 0 | low | die | 2022-12-12
-todo | 0 | high | die

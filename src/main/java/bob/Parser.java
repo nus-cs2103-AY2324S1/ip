@@ -15,8 +15,8 @@ public class Parser {
     public static Command parse(String nextLine) {
         assert !nextLine.equals("");
 
-        if (nextLine.equals("list")) {
-            return new DisplayCommand();
+        if (nextLine.contains("list")) {
+            return new DisplayCommand(nextLine);
         } else if (nextLine.contains("mark")) { // if command is to mark or unmark
             return new MarkCommand(nextLine);
         } else if (nextLine.contains("delete")) {

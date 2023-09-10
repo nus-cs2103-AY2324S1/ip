@@ -5,7 +5,8 @@ import bob.Ui;
 
 public class DisplayCommand extends Command {
 
-    public DisplayCommand() {
+    public DisplayCommand(String input) {
+        super.input = input;
     }
 
     /**
@@ -15,6 +16,15 @@ public class DisplayCommand extends Command {
      * @param storage from Bob class
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return ui.stringFormat(tasks.displayList());
+        String[] strSplit = input.split(" ");
+        String priority = "";
+        try {
+            if (strSplit.length > 0) {
+                priority = strSplit[1].split("/")[1];
+            }
+            return ui.stringFormat(tasks.displayList(priority));
+        } catch (Exception e) {
+            return ui.stringFormat(tasks.displayList(priority));
+        }
     }
 }

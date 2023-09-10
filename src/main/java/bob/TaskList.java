@@ -10,11 +10,7 @@ import bob.exception.InvalidPriorityException;
 import bob.exception.MissingDatesException;
 import bob.exception.MissingTaskException;
 import bob.exception.WrongInputException;
-import bob.task.Deadline;
-import bob.task.Event;
-import bob.task.Task;
-import bob.task.TaskType;
-import bob.task.Todo;
+import bob.task.*;
 
 /**
  * Contains list of tasks, and operations that alter it.
@@ -95,7 +91,7 @@ public class TaskList {
         } catch (InvalidPriorityException e) {
             return new String[]{e.message};
         } catch (IndexOutOfBoundsException e) {
-            return new String[]{"Please input valid priority!"};
+            return new String[]{"Please input valid priority! E.g. todo p/high read"};
         }
     }
 
@@ -103,20 +99,43 @@ public class TaskList {
      * Prints out the Tasks on lst.
      * @return display of lst
      */
-    public String[] displayList() {
+    public String[] displayList(String priority) {
         assert lst != null;
 
-        if (lst.isEmpty()) {
-            return new String[] { "You currently have no tasks." };
+        List<String> tasksFound;
+        String message;
+
+        if (priority.equals("")) {
+            tasksFound = lst.stream().map(Object::toString).collect(Collectors.toList());
+            message = "Here are all your tasks! You can also filter by priority (e.g. list p/high)";
+        } else {
+            try {
+                Priority p = Enum.valueOf(Priority.class, priority);
+                tasksFound = getTasksWithPriority(p);
+                message = "Here are your tasks of " + priority + " priority!";
+            } catch (Exception e) {
+                return new String[] { "Please input valid priority! E.g. list p/high" };
+            }
         }
 
-        List<String> tasks = IntStream.range(1, lst.size() + 1)
-                .mapToObj(i -> i + ". " + lst.get(--i).toString())
+        if (tasksFound.isEmpty()) {
+            return new String[] { "No tasks found." };
+        }
+
+        List<String> tasks = IntStream.range(1, tasksFound.size() + 1)
+                .mapToObj(i -> i + ". " + tasksFound.get(--i))
                 .collect(Collectors.toList());
 
-        tasks.add(0, "Here are your tasks!");
+        tasks.add(0, message);
 
         return tasks.toArray(new String[0]);
+    }
+
+    private List<String> getTasksWithPriority(Priority p) {
+        return lst.stream()
+                .filter(tsk -> tsk.getPriority().equals(p))
+                .map(Object::toString)
+                .collect(Collectors.toList());
     }
 
     /**
