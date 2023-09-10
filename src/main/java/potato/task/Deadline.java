@@ -3,7 +3,7 @@ package potato.task;
 import potato.*;
 
 public class Deadline extends Task {
-    private static String LINE = "-----------------------------------------\n";
+    private static final String LINE = "-----------------------------------------\n";
     protected DateTime deadline;
 
     protected String by;

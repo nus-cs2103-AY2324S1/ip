@@ -1,10 +1,10 @@
 package potato;
 
-import potato.command.*;
 import java.io.IOException;
 
+import potato.command.*;
+
 public class Potato {
-    private static String LINE = "-----------------------------------------\n";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;

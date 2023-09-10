@@ -35,20 +35,20 @@ public class Task {
         System.out.println(parts[2]);
 
         switch (parts[0]) {
-            case "T":
-                System.out.println("its todo");
-                return Todo.todoParse(parts[2], parts[1]);
-            case "D":
-                // empty deadline
-                // no by
-                return Deadline.deadlineSavedParse(parts);
-            case "E":
-                // empty event
-                // no from
-                // no to
-                return Event.eventSavedParse(parts);
-            default:
-                return null;
+        case "T":
+            System.out.println("its todo");
+            return Todo.todoParse(parts[2], parts[1]);
+        case "D":
+            // empty deadline
+            // no by
+            return Deadline.deadlineSavedParse(parts);
+        case "E":
+            // empty event
+            // no from
+            // no to
+            return Event.eventSavedParse(parts);
+        default:
+            return null;
         }
     }
 

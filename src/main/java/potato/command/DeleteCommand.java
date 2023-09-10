@@ -1,9 +1,10 @@
 package potato.command;
 
-import potato.*;
 import java.io.IOException;
 
-public class DeleteCommand extends Command{
+import potato.*;
+
+public class DeleteCommand extends Command {
     public DeleteCommand(String input) {
         super.isExit = false;
         super.input = input;

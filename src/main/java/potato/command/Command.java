@@ -1,11 +1,12 @@
 package potato.command;
 
-import potato.*;
 import java.io.IOException;
 
+import potato.*;
+
 public abstract class Command {
-    boolean isExit;
-    String input;
+    protected boolean isExit;
+    protected String input;
 
     public boolean isExit() {
         return isExit;

@@ -3,7 +3,7 @@ package potato;
 import java.util.Scanner;
 
 public class Ui {
-    Scanner scanner;
+    private Scanner scanner;
     public Ui() {
         scanner = new Scanner(System.in);
     }

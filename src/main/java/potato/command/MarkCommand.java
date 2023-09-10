@@ -1,9 +1,10 @@
 package potato.command;
 
-import potato.*;
 import java.io.IOException;
 
-public class MarkCommand extends Command{
+import potato.*;
+
+public class MarkCommand extends Command {
     public MarkCommand(String input) {
         super.isExit = false;
         super.input = input;
