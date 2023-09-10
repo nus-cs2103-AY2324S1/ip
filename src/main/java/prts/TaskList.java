@@ -28,6 +28,7 @@ public class TaskList implements Serializable {
      *         execution.
      */
     public String add(Task task) {
+        assert task != null : "Task cannot be null!";
         tasks.add(task);
         return task.getAddMessage() + "\n" + task;
     }
@@ -195,6 +196,7 @@ public class TaskList implements Serializable {
      * @return A list of the tasks that contain the search term.
      */
     public String find(String searchTerm) {
+        assert searchTerm != null : "The search term should not be null!";
 
         StringBuilder stringBuilder = new StringBuilder();
 
