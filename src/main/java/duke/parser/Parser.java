@@ -27,19 +27,19 @@ import duke.exception.DukeInvalidDateFormatException;
  */
 public class Parser {
 
-    final static String DB_PATTERN = "\\[([A-Z])\\]\\[(.)\\] (.+?)(?: \\(by: (.+?)\\)| \\(from: (.+?) to: (.+?)\\))?";
-    final static String BYE_PATTERN = "(?i)bye";
-    final static String LIST_PATTERN = "(?i)list";
-    final static String HELP_PATTERN = "(?i)help";
-    final static String TODO_PATTERN = "(?i)todo (.+)";
-    final static String DEADLINE_PATTERN = "(?i)deadline (.+) /by (.+)";
-    final static String EVENT_PATTERN = "(?i)event (.+) /from (.+) /to (.+)";
-    final static String MARK_PATTERN = "(?i)mark (\\d+)";
-    final static String UNMARK_PATTERN = "(?i)unmark (\\d+)";
-    final static String DELETE_PATTERN = "(?i)delete (\\d+)";
-    final static String FIND_PATTERN = "(?i)find ([a-zA-Z0-9]+)";
-    final static String[] PATTERNS = {BYE_PATTERN, LIST_PATTERN, HELP_PATTERN, TODO_PATTERN, DEADLINE_PATTERN,
-            EVENT_PATTERN, MARK_PATTERN, UNMARK_PATTERN, DELETE_PATTERN, FIND_PATTERN};
+    static final String DB_PATTERN = "\\[([A-Z])\\]\\[(.)\\] (.+?)(?: \\(by: (.+?)\\)| \\(from: (.+?) to: (.+?)\\))?";
+    static final String BYE_PATTERN = "(?i)bye";
+    static final String LIST_PATTERN = "(?i)list";
+    static final String HELP_PATTERN = "(?i)help";
+    static final String TODO_PATTERN = "(?i)todo (.+)";
+    static final String DEADLINE_PATTERN = "(?i)deadline (.+) /by (.+)";
+    static final String EVENT_PATTERN = "(?i)event (.+) /from (.+) /to (.+)";
+    static final String MARK_PATTERN = "(?i)mark (\\d+)";
+    static final String UNMARK_PATTERN = "(?i)unmark (\\d+)";
+    static final String DELETE_PATTERN = "(?i)delete (\\d+)";
+    static final String FIND_PATTERN = "(?i)find ([a-zA-Z0-9]+)";
+    static final String[] PATTERNS = new String[]{BYE_PATTERN, LIST_PATTERN, HELP_PATTERN, TODO_PATTERN,
+        DEADLINE_PATTERN, EVENT_PATTERN, MARK_PATTERN, UNMARK_PATTERN, DELETE_PATTERN, FIND_PATTERN};
 
     /**
      * Parses a database entry and extracts relevant information.
@@ -57,7 +57,7 @@ public class Parser {
             throw new DukeDatabaseInvalidEntryException();
         }
 
-        for (int i = 1; i <= 6; i ++) {
+        for (int i = 1; i <= 6; i++) {
             if (matcher.group(i) != null) {
                 elements.add(matcher.group(i));
             }
