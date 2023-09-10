@@ -8,6 +8,8 @@ import java.util.Scanner;
  * user input and outputting to the user.
  */
 public class Ui {
+    private static final String DOTTED_LINE = "____________________________________________________________";
+
     protected final String name;
 
     private final Scanner scanner;
@@ -25,10 +27,10 @@ public class Ui {
      * Initialise UI. Prints banner.
      */
     public void init() {
-        System.out.println("____________________________________________________________");
+        System.out.println(Ui.DOTTED_LINE);
         System.out.printf("Hello! I'm %s\n", this.name);
         System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
+        System.out.println(Ui.DOTTED_LINE);
     }
 
     /**
@@ -53,9 +55,9 @@ public class Ui {
      * Prints exit message to user.
      */
     public void exit() {
-        System.out.println("____________________________________________________________");
+        System.out.println(Ui.DOTTED_LINE);
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+        System.out.println(Ui.DOTTED_LINE);
     }
 
     /**
