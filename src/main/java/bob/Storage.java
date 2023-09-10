@@ -28,9 +28,7 @@ public class Storage {
         File file = new File(dataPath);
         ArrayList<Task> lst = new ArrayList<>();
 
-        if (file.createNewFile()) { // if file do not exist
-            // do nothing, as a new file is created. list remains empty
-        } else {
+        if (!file.createNewFile()) { // if file already exists
             // read from file
             assert file != null;
             Scanner sc = new Scanner(file);
