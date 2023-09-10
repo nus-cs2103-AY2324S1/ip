@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.time.LocalDate;
 
 public class TaskReader {
@@ -14,7 +13,7 @@ public class TaskReader {
             while ((line = reader.readLine()) != null) {
                 Task task = parseTaskFromLine(line);
                 if (task != null) {
-                    tasks.addTask(task);
+                    tasks.addTaskFromStorage(task);
                 }
             }
         } catch (IOException e) {
@@ -34,16 +33,12 @@ public class TaskReader {
             // Parse Deadline task
             String description = line.substring(6, line.indexOf("(by:")).trim();
             boolean isMarked = line.charAt(4) == 'X';
-            int startIndex = line.indexOf("(by: "); // Find the starting index of "(by: "
-            int endIndex = line.indexOf(")", startIndex); // Find the ending index of ")"
+            String dateSubstring = extractDeadline(line);
+            String formattedDate = DateConverter.convertDate(dateSubstring);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            LocalDate deadline = LocalDate.parse(formattedDate, formatter);
+            return new Deadline(description, isMarked, deadline);
 
-            if (startIndex != -1 && endIndex != -1) {
-                String dateSubstring = line.substring(startIndex + 5, endIndex);
-                String formattedDate = DateConverter.convertDate(dateSubstring);
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-                LocalDate deadline = LocalDate.parse(formattedDate, formatter);
-                return new Deadline(description, isMarked, deadline);
-            }
         } else if (line.startsWith("[E]")) {
             // Parse Event task
             String description = line.substring(6, line.indexOf("(from:")).trim();

@@ -14,6 +14,10 @@ public class TaskList {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
+    public void addTaskFromStorage(Task task) {
+        tasks.add(task);
+    }
+
     public boolean isEmpty() {
         return tasks.isEmpty();
     }
