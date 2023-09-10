@@ -10,8 +10,6 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    private Scanner input = new Scanner(System.in);
-
     /**
      * Prints the list of tasks in the TaskList given.
      *

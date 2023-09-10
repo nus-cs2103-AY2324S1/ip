@@ -1,5 +1,6 @@
 package uke;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -36,8 +37,9 @@ public class MainWindow extends AnchorPane {
         );
     }
 
-    public void setDuke(Uke d) {
-        uke = d;
+    public void setDuke(Uke u) {
+        assert u != null;
+        uke = u;
     }
 
     /**
