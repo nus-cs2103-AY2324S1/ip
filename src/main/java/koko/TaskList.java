@@ -79,8 +79,20 @@ public class TaskList {
     }
 
     /**
+     * Returns a new TaskList containing tasks that match the given keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return A new TaskList containing tasks that match the given keyword.
+     */
+    public TaskList findTasksFromKeyword(String keyword) {
+        ArrayList<Task> result = tasks.stream()
+                .filter(task -> task.getName().contains(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
+        return new TaskList(result);
+    }
+
+    /**
      * Returns the size of the list of tasks.
-     * @return The size of the list of tasks.
      */
     public int size() {
         return tasks.size();

@@ -27,7 +27,7 @@ public class Parser {
         if (input == null || input.trim().isEmpty()) {
             throw new DukeException("Command input cannot be null or empty."
                     + "Each message should start with one of the following commands:"
-                    + "list, mark, unmark, todo, deadline, event");
+                    + "list, mark, unmark, todo, deadline, event, find");
         }
 
         try {
@@ -36,7 +36,7 @@ public class Parser {
             return Command.valueOf(command.toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new DukeException("Each message should start with one of the following commands:"
-                    + "list, mark, unmark, todo, deadline, event");
+                    + "list, mark, unmark, todo, deadline, event, find");
         } catch (Exception e) {
             throw new DukeException("Unexpected error while parsing command: " + e.getMessage());
         }
@@ -63,6 +63,8 @@ public class Parser {
                 throw new DukeException("Description and date for deadline cannot be empty.");
             case EVENT:
                 throw new DukeException("Description, start date, and end date for event cannot be empty.");
+            case FIND:
+                throw new DukeException("Please specify a search term.");
             }
         }
         return remaining;

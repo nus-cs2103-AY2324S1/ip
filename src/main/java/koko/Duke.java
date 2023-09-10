@@ -99,9 +99,14 @@ public class Duke {
                 taskList.addTask(newEvent);
                 ui.printTaskAddedMessage(newEvent, taskList.size());
                 break;
+            case FIND:
+                String searchTerm = remaining.trim();
+                TaskList matchingTasks = taskList.findTasksFromKeyword(searchTerm);
+                ui.showMatchingTasks(matchingTasks);
+                break;
             default:
                 throw new DukeException("Each message should start with one of the following commands:"
-                        + "list, mark, unmark, todo, deadline, event");
+                        + "list, mark, unmark, todo, deadline, event, find");
             }
 
             // All valid commands except for `list` will result in the task list changing, so we should trigger
