@@ -2,6 +2,9 @@ package duke;
 
 import java.time.LocalDate;
 
+/**
+ * Parses the user input.
+ */
 public class Parser {
     private String command;
     private Storage storage;
@@ -14,6 +17,9 @@ public class Parser {
         this.taskList = taskList;
     }
 
+    /**
+     * Parses the user input and initiate following operations.
+     */
     public void parse() {
         try{
             if (command.startsWith("list")) {
@@ -43,6 +49,8 @@ public class Parser {
             } else if (command.startsWith("bye")) {
                 this.isEnd = true;
                 Ui.farewellMessage();
+            } else if (command.startsWith("find")) {
+                String keyword = command.split(" ", 2)[1];
             } else {
                 throw new DukeException(" OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
@@ -51,6 +59,9 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns if the parser is ended.
+     */
     public boolean isEnd() {
         return this.isEnd;
     }
