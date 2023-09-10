@@ -1,12 +1,12 @@
 package buddy.commands;
 
+import java.time.LocalDate;
+
 import buddy.Deadline;
 import buddy.TaskList;
 import buddy.utils.BuddyException;
 import buddy.utils.Storage;
 import buddy.utils.Ui;
-
-import java.time.LocalDate;
 
 public class AddDeadlineCommand extends Command {
     private String description;

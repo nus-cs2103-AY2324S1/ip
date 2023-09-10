@@ -1,10 +1,10 @@
 package buddy.utils;
 
-import buddy.Task;
-import buddy.TaskList;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import buddy.Task;
+import buddy.TaskList;
 
 public class Ui {
     private final String name = "Task Buddy";
