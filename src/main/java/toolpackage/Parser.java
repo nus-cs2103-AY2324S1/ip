@@ -50,6 +50,7 @@ public class Parser {
             return tasks.addItem(new ToDos(task, "0"), ui);
         } else if (command.equals("deadline")) {
             parsedCommand = task.split("/");
+            assert parsedCommand.length >= 1 : "Incomplete deadline details.";
             if (parsedCommand.length == 1) {
                 byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
                 String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
@@ -59,6 +60,7 @@ public class Parser {
             }
         } else if (command.equals("event")) {
             parsedCommand = task.split("/");
+            assert parsedCommand.length >= 1 : "Incomplete event details.";
             if (parsedCommand.length <= 2) {
                 byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
                 String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
