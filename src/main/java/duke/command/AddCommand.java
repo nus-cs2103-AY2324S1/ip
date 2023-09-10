@@ -27,7 +27,7 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Executes the AddCommand.
+     * Executes the AddCommand and returns the message.
      *
      * @param tasks The list of tasks.
      * @param ui The Ui that used as user interface.

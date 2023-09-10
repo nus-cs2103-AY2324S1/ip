@@ -27,7 +27,7 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Executes the MarkCommand.
+     * Executes the MarkCommand and returns the message.
      *
      * @param tasks The list of tasks.
      * @param ui The Ui that used as user interface.
@@ -49,7 +49,7 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Check if it is an ExitCommand
+     * Check if it is an ExitCommand.
      *
      * @return a boolean that represent whether this is an ExitCommand or not.
      */

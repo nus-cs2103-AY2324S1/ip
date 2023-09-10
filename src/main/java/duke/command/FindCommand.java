@@ -22,7 +22,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Executes the FindCommand.
+     * Executes the FindCommand and returns the message.
      *
      * @param tasks The list of tasks.
      * @param ui The Ui that used as user interface.

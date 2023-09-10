@@ -12,7 +12,7 @@ import duke.ui.Ui;
 public class ListCommand extends Command {
 
     /**
-     * Executes the ListCommand.
+     * Executes the ListCommand and returns the message.
      *
      * @param tasks The list of tasks.
      * @param ui The Ui that used as user interface.

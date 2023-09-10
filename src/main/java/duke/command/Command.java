@@ -20,7 +20,7 @@ public abstract class Command {
     public abstract boolean isExit();
 
     /**
-     * Executes the Command.
+     * Executes the Command and returns the message.
      *
      * @param tasks The list of tasks.
      * @param ui The Ui that used as user interface.
