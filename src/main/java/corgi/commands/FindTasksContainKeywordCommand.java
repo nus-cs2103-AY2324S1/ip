@@ -47,9 +47,9 @@ public class FindTasksContainKeywordCommand extends Command {
         TaskList tasksContainKeyword = list.filter(predicate);
 
         if (tasksContainKeyword.isEmpty()) {
-            return renderer.showNoTaskContainsKeyword(this.target);
+            return renderer.showKeywordNotFound(this.target);
         } else {
-            return renderer.showTasksContainKeyword(this.target, tasksContainKeyword.toString());
+            return renderer.showTasksWithKeyword(this.target, tasksContainKeyword.toString());
         }
     }
 }

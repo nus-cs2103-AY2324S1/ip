@@ -28,7 +28,7 @@ public class ListTasksCommand extends Command {
     @Override
     public String execute(TaskList list, TextRenderer renderer, Storage<Task> storage) {
         if (list.isEmpty()) {
-            return renderer.showNoTaskInList();
+            return renderer.showNoTaskFound();
         } else {
             return renderer.showTaskList(list.toString());
         }
