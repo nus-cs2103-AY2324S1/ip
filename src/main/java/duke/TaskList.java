@@ -15,6 +15,8 @@ public class TaskList {
     /**
      * Constructor for TaskList.
      */
+
+
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
@@ -73,18 +75,21 @@ public class TaskList {
     /**
      * Prints the TaskList.
      */
-    public void printTasks() {
+    public String printTasks() {
+        StringBuilder message = new StringBuilder();
         try {
-            System.out.println("\tHere are the tasks in your list:");
+            message.append("\tHere are the tasks in your list:").append("\n");;
             if (tasks.size() == 0) {
                 throw new DukeException("\t Seems like you have no tasks at the moment :) ");
 
             }
             for (int i = 1; i <= tasks.size(); i++) {
-                System.out.println("\t" + i + ". " + tasks.get(i - 1).toString());
+                message.append("\t" + i + ". " + tasks.get(i - 1).toString());
             }
         } catch (DukeException e) {
             e.printMessage();
         }
+        return message.toString();
     }
+
 }

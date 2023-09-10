@@ -39,8 +39,8 @@ public class Storage {
      * @throws IOException
      */
 
-    @SuppressWarnings("checkstyle:MissingSwitchDefault")
-    public void saveTasks() throws IOException {
+    @SuppressWarnings({"checkstyle:MissingSwitchDefault", "CheckStyle"})
+    public TaskList saveTasks() throws IOException {
         try {
             if (!Files.isDirectory(Paths.get("data/"))) {
                 Files.createDirectories(Paths.get("data/"));
@@ -50,10 +50,13 @@ public class Storage {
                 Files.createFile(Paths.get("data/duke.txt"));
                 System.out.println("New file created");
             }
+            if (Files.exists(Paths.get("data/duke.txt"))) {
+                System.out.println("File exists");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Scanner scanner = new Scanner(new File(filepath));
+        Scanner scanner = new Scanner(new File("data/duke.txt"));
         while (scanner.hasNext()) {
             String[] split = scanner.nextLine().split("\\|");
             for (int i = 0; i < split.length; i++) {
@@ -77,6 +80,7 @@ public class Storage {
             }
 
         }
+        return tasks;
     }
 
     /**

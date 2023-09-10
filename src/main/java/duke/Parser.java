@@ -2,15 +2,19 @@ package duke;
 
 import java.io.IOException;
 import java.time.DateTimeException;
-import java.util.List;
 
-import duke.Command.*;
+import duke.Command.ByeCommand;
+import duke.Command.Command;
+import duke.Command.DeadlineCommand;
+import duke.Command.DeleteCommand;
+import duke.Command.EventCommand;
+import duke.Command.FindCommand;
+import duke.Command.ListCommand;
+import duke.Command.MarkCommand;
+import duke.Command.ToDoCommand;
+import duke.Command.UnmarkCommand;
 import duke.Exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
 import duke.task.Task;
-import duke.task.ToDo;
-
 
 
 /**
@@ -109,7 +113,7 @@ public class Parser {
 
         } else if (input.startsWith("event")) {
             if (input.trim().length() <= 5) {
-                throw new DukeException("\t Sorry! The description of a todo cannot be empty :(");
+                throw new DukeException("\t Sorry! The description of a event cannot be empty :(");
             }
             if (!input.contains("/from")) {
                 throw new DukeException("\t Hey bud! Please include when the event is!"
@@ -138,18 +142,18 @@ public class Parser {
      *
      * @param e Exception that is being handled.
      */
-    public static void handleException(Exception e) {
+    public static String handleException(Exception e) {
         if (e instanceof DukeException) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         } else if (e instanceof DateTimeException) {
-            System.out.println("\tPlease put a valid date and time in the format YYYY-MM-DD HHMM."
-                    + "\n\tFor example: 2023-08-08 1800");
+           return "\tPlease put a valid date and time in the format YYYY-MM-DD HHMM."
+                    + "\n\tFor example: 2023-08-08 1800";
         } else if (e instanceof IOException) {
-            System.out.println("\tAn error occurred while performing a file operation: " + e.getMessage());
+            return "\tAn error occurred while performing a file operation: " + e.getMessage();
         } else if (e instanceof NumberFormatException ) {
-            System.out.println("\tYou can only perform this action on an integer!");
+            return "\tYou can only perform this action on an integer!";
         } else {
-            System.out.println("\tAn unexpected error occurred: " + e.getMessage());
+            return "\tAn unexpected error occurred: " + e.getMessage();
         }
     }
 }

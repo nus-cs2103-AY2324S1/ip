@@ -1,16 +1,17 @@
 package duke.Command;
 
+import java.io.IOException;
+
 import duke.Exception.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
-import java.io.IOException;
 
 public class WelcomeCommand extends Command {
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws DukeException, IOException {
-        ui.printWelcomeMessage();
+    public String execute(Ui ui, Storage storage, TaskList tasks) throws DukeException, IOException {
+        return ui.printWelcomeMessage();
     }
 
     @Override

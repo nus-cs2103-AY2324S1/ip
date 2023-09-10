@@ -1,11 +1,11 @@
 package duke.Command;
 
+import java.io.IOException;
+
 import duke.Exception.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-
-import java.io.IOException;
 
 public class UnmarkCommand extends Command {
     private int index;
@@ -15,10 +15,10 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws DukeException, IOException {
+    public String execute(Ui ui, Storage storage, TaskList tasks) throws DukeException, IOException {
         tasks.markTaskAsNotDone(index);
         storage.writeTasksToFile(tasks);
-        ui.printMarkTasksAsNotDone(index, tasks);
+        return ui.printMarkTasksAsNotDone(index, tasks);
     }
 
     @Override

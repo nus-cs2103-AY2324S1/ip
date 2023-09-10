@@ -1,14 +1,15 @@
 package duke.Command;
 
+import java.io.IOException;
+
 import duke.Exception.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 import duke.task.Task;
 
-import java.io.IOException;
 
-public class DeleteCommand extends Command  {
+public class DeleteCommand extends Command {
     private Task element;
     private int index;
     public DeleteCommand(Task element, int index) {
@@ -17,16 +18,15 @@ public class DeleteCommand extends Command  {
     }
 
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws DukeException, IOException {
+    public String execute(Ui ui, Storage storage, TaskList tasks) throws DukeException, IOException {
         tasks.deleteTask(index);
         storage.writeTasksToFile(tasks);
-        ui.printDeleteTasks(tasks, element);
+        return ui.printDeleteTasks(tasks, element);
     }
 
     @Override
     public boolean isExit() {
         return false;
     }
-
 
 }

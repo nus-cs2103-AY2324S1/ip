@@ -1,23 +1,32 @@
+
 package duke;
+
+import java.io.IOException;
+import java.time.DateTimeException;
+import java.util.Date;
+import java.util.Scanner;
 
 import duke.Command.Command;
 import duke.Exception.DukeException;
 
-import java.io.IOException;
-import java.time.DateTimeException;
-import java.util.Scanner;
+
 
 /**
  * Main class of the chatbot.
  */
 public class Duke {
+    private static Ui ui;
+    private static Storage storage;
+    private TaskList tasks;
+    private Parser parser;
 
     public static void main(String[] args) {
-        Ui ui = new Ui();
+        ui = new Ui();
         TaskList tasks = new TaskList();
         Storage storage = new Storage("data/duke.txt", tasks);
-        boolean isExit = false;
+        boolean isRunning = true;
         Parser parser = new Parser();
+        boolean isExit = false;
 
         try {
             storage.saveTasks();
@@ -33,20 +42,16 @@ public class Duke {
                 Command command = parser.addToList(input, storage, tasks);
                 command.execute(ui, storage, tasks);
                 isExit = command.isExit();
-
-            } catch (DukeException i) {
-                ui.printError(i.getMessage());
+            } catch (DukeException e) {
+                ui.printError(e.getMessage());
             } catch (IOException | DateTimeException | NumberFormatException e) {
                 parser.handleException(e);
             }
         }
     }
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
+
+
     public String getResponse(String input) {
         return "Duke heard: " + input;
     }
 }
-

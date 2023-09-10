@@ -1,5 +1,7 @@
 package duke.Command;
 
+import java.io.IOException;
+
 import duke.Exception.DukeException;
 import duke.Storage;
 import duke.TaskList;
@@ -8,7 +10,6 @@ import duke.task.Task;
 import duke.task.ToDo;
 
 
-import java.io.IOException;
 
 public class ToDoCommand extends Command {
     private String description;
@@ -17,11 +18,11 @@ public class ToDoCommand extends Command {
         this.description = description;
     }
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws DukeException, IOException {
+    public String execute(Ui ui, Storage storage, TaskList tasks) throws DukeException, IOException {
         Task task = new ToDo(description);
         tasks.addTask(task);
         storage.writeTasksToFile(tasks);
-        ui.printAddTaskToList(tasks, task);
+        return ui.printAddTaskToList(tasks, task);
     }
     @Override
     public boolean isExit() {

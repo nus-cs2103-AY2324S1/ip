@@ -1,14 +1,14 @@
 package duke.Command;
 
-import duke.Exception.DukeException;
+import java.io.IOException;
+
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 
-import java.io.IOException;
+
 
 public class EventCommand extends Command {
     private String description;
@@ -20,11 +20,11 @@ public class EventCommand extends Command {
         this.to = to;
     }
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws IOException {
+    public String execute(Ui ui, Storage storage, TaskList tasks) throws IOException {
         Task task = new Event(description, from, to);
         tasks.addTask(task);
         storage.writeTasksToFile(tasks);
-        ui.printAddTaskToList(tasks, task);
+        return ui.printAddTaskToList(tasks, task);
     }
 
     @Override

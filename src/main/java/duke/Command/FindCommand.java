@@ -1,12 +1,13 @@
 package duke.Command;
 
+import java.io.IOException;
+
 import duke.Exception.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 import duke.task.Task;
 
-import java.io.IOException;
 
 public class FindCommand extends Command {
     private String keyword;
@@ -16,7 +17,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws DukeException, IOException {
+    public String execute(Ui ui, Storage storage, TaskList tasks) throws DukeException, IOException {
 
         TaskList foundTasks = new TaskList();
         for (int i = 0; i < tasks.getSize(); i++) {
@@ -27,9 +28,9 @@ public class FindCommand extends Command {
         }
 
         if (foundTasks.getSize() > 0) {
-            ui.printFindTask(foundTasks);
+            return ui.printFindTask(foundTasks);
         } else {
-            System.out.println("\tNo tasks found containing the keyword: " + keyword);
+            return "\tNo tasks found containing the keyword: " + keyword;
         }
 
     }
