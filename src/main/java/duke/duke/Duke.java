@@ -108,14 +108,4 @@ public class Duke {
         }
     }
 
-//    /**
-//     * The main method to run the duke.duke.Duke program, a task management application.
-//     * It reads user input and performs various tasks based on the input commands.
-//     *
-//     * @param args The command-line arguments (not used in this context).
-//     */
-//    public static void main(String[] args) {
-//        new Launcher().main(null);
-//    }
-
 }

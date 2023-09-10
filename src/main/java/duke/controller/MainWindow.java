@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -76,6 +77,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void showWelcomeMessage() {
         String message = duke.ui.showWelcomeMessage();
+        assert message.equals("Hello! I'm Victor\n"
+                + "What can I do for you?\n----------\n") : "Welcome message is wrong";
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(message, dukeImage)
         );
@@ -88,6 +91,8 @@ public class MainWindow extends AnchorPane {
     public void loadTasksFromFile() {
         try {
             List<Task> list = duke.getTaskList().getList();
+            assert list.equals(new ArrayList<Task>(100))
+                    : "List of tasks should be empty";
             duke.storage.loadTasksFromFile(list);
         } catch (Exception e) {
             dialogContainer.getChildren().add(

@@ -33,7 +33,9 @@ public class Event extends Task {
 
     @Override
     public String toString() {
+        assert (from != null) : "From time of event task cannot be empty.";
         String fromFormatted = from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        assert (to != null) : "To time of event task cannot be empty.";
         String toFormatted = to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         return "[E]" + super.toString() + " (from: " + fromFormatted + " to: " + toFormatted + ")";
     }

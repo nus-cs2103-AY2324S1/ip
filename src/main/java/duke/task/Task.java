@@ -42,10 +42,12 @@ public class Task {
                 + "%s\n" + "----------\n", this);
     }
     public boolean match(String keyword) {
+        assert (description != null) : "Task description cannot be null.";
         return description.contains(keyword);
     }
     @Override
     public String toString() {
+        assert (description != null) : "Task description cannot be null.";
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
 }

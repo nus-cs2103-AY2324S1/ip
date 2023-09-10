@@ -24,11 +24,11 @@ public class Parser {
 
     /**
      * Parses the command into type of command and input details.
-     * @param command User's command.
+     * @param input User's command.
      * @return Array of type of command and input details.
      */
-    public String[] parseCommand(String command) {
-        return command.split(" ", 2);
+    public String[] parseCommand(String input) {
+        return input.split(" ", 2);
     }
 
     /**
@@ -36,6 +36,7 @@ public class Parser {
      * @return User's command.
      */
     public String getCommand() {
+        assert (command != null) : "Command cannot be null.";
         return this.command;
     }
 
@@ -53,6 +54,7 @@ public class Parser {
      * @throws DukeException Missing description or deadline.
      */
     public String[] parseInputDetailsDeadline() throws DukeException {
+        assert (inputDetails != null) : "Input details cannot be null.";
         String[] deadlineInfo = inputDetails.split(" /by ");
         if (deadlineInfo.length < 2) {
             throw new DukeException(
@@ -69,6 +71,7 @@ public class Parser {
      * @throws DukeException Missing description or start or end date.
      */
     public String[] parseInputDetailsEvent() throws DukeException {
+        assert (inputDetails != null) : "Input details cannot be null.";
         String[] eventInfo = inputDetails.split(" /from | /to ");
         if (eventInfo.length < 3) {
             throw new DukeException(
