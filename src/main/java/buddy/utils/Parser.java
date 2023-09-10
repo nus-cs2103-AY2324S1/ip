@@ -12,6 +12,7 @@ import buddy.commands.Command;
 import buddy.commands.CommandType;
 import buddy.commands.DeleteCommand;
 import buddy.commands.ExitCommand;
+import buddy.commands.FindCommand;
 import buddy.commands.ListCommand;
 import buddy.commands.MarkAsDoneCommand;
 import buddy.commands.MarkAsUndoneCommand;
