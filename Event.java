@@ -1,19 +1,18 @@
-public class Event extends Task {
-    protected String from;
-    protected String to;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, int id, String from, String to) {
-        super(description, id);
-        this.from = from;
-        this.to = to;
+public class Event extends Task {
+
+    public Event(String description, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
+        super(description, fromDateTime);
+        this.dateTime = toDateTime;
     }
 
     @Override
     public String toString() {
         String status = "[" + getStatusIcon() + "] ";
-        return String.valueOf(this.id) + ". " + "[E]" + status + this.description +
-                " (from: " + from + " to: " + to + ")";
+        return " " + "[E]" + status + description +
+                " (from: " + dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) +
+                " to: " + dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
-
-
 }

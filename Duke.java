@@ -1,13 +1,15 @@
-import javax.management.InstanceNotFoundException;
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.util.regex.Pattern;
+
 public class Duke {
     private String name = "Lakinta";
     private Scanner scanner = new Scanner(System.in);
-    private ArrayList<String> tasks = new ArrayList<>();
     private ArrayList<Task> taskArrayList = new ArrayList<>();
-    private int count = 1;
     private final String filePath = "./data/duke.txt";
 
     public Duke() {
@@ -15,44 +17,12 @@ public class Duke {
         loadTasksFromFile();
     }
 
-
     public void greeting() {
-        System.out.println("Hello! I'm " + name +
-                "\nWhat can I do for you?");
+        System.out.println("Hello! I'm " + name + "\nWhat can I do for you?");
     }
 
     public void exit() {
         System.out.println("Bye. Hope to see you again soon!");
-    }
-
-    public void echo() {
-        while (true) {
-            String response = scanner.nextLine();
-            if (response.equals("bye")) {
-                exit();
-                break;
-            } else {
-                System.out.println(response);
-            }
-        }
-        scanner.close();
-    }
-
-    public void addTask() {
-        while (true) {
-            String response = scanner.nextLine();
-            if (response.equals("bye")) {
-                exit();
-                break;
-            } else if (response.equals("list")) {
-                tasks.forEach(x -> System.out.println(x));
-            } else {
-                tasks.add(String.valueOf(count) + ". " + response);
-                count++;
-                System.out.println("added: " + response);
-            }
-        }
-        scanner.close();
     }
 
     public void chat() {
@@ -64,91 +34,171 @@ public class Duke {
                 break;
             } else if (response.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
-                taskArrayList.forEach(x -> System.out.println(x.toString()));
+                listTasks();
             } else if (response.length() > 5 && response.startsWith("mark ")) {
-                int id = Integer.valueOf(response.substring(5));
-                taskArrayList.get(id - 1).markAsDone();
+                int id = Integer.parseInt(response.substring(5));
+                String message = markTaskAsDone(id);
+                System.out.println(message);
             } else if (response.length() > 7 && response.startsWith("unmark ")) {
-                int id = Integer.valueOf(response.substring(7));
-                taskArrayList.get(id - 1).markAsUndone();
+                int id = Integer.parseInt(response.substring(7));
+                String message = unmarkTask(id);
+                System.out.println(message);
+            } else if (response.startsWith("todo ") && response.length() > 5) {
+                String description = response.substring(5);
+                String message = addTodoTask(description);
+                System.out.println(message);
+            } else if (response.startsWith("event ") && response.length() > 6) {
+                String[] parts = response.split("/at", 2);
+                if (parts.length == 2) {
+                    String description = parts[0].substring(6).trim();
+                    String dateTimeString = parts[1].trim();
+                    String message = addEventTask(description, dateTimeString);
+                    System.out.println(message);
+                } else {
+                    System.out.println("Invalid event format. Use 'event <description> /at <datetime>'.");
+                }
+            } else if (response.startsWith("deadline ") && response.length() > 9) {
+                String[] parts = response.split("/by", 2);
+                if (parts.length == 2) {
+                    String description = parts[0].substring(9).trim();
+                    String dateTimeString = parts[1].trim();
+                    String message = addDeadlineTask(description, dateTimeString);
+                    System.out.println(message);
+                } else {
+                    String message = "Invalid deadline format. Use 'deadline <description> /by <datetime>'.";
+                    System.out.println(message);
+                }
+            } else if (response.startsWith("delete ") && response.length() > 7) {
+                int id = Integer.parseInt(response.substring(7));
+                String message = deleteTask(id);
+                System.out.println(message);
             } else {
-                taskArrayList.add(new Task(response, count));
-                count++;
-                System.out.println("added: " + response);
+                System.out.println("I'm sorry, I don't understand that command.");
             }
         }
         scanner.close();
+        saveTasksToFile();
     }
 
-    public void setTasks() {
-        while (true) {
-            String response = scanner.nextLine();
-            try {
-                if (response.equals("bye")) {
-                    exit();
-                    break;
-                } else if (response.equals("list")) {
-                    System.out.println("Here are the tasks in your list:");
-                    taskArrayList.forEach(x -> System.out.println(x.toString()));
-                } else if (response.length() > 5 && response.startsWith("mark ")) {
-                    int id = Integer.valueOf(response.substring(5));
-                    taskArrayList.get(id - 1).markAsDone();
-                } else if (response.length() > 7 && response.startsWith("unmark ")) {
-                    int id = Integer.valueOf(response.substring(7));
-                    taskArrayList.get(id - 1).markAsUndone();
-                } else if (response.startsWith("todo ") && response.length() > 5) {
-                    String description = response.substring(5);
-                    ToDo task = new ToDo(description, count);
-                    taskArrayList.add(task);
-                    task.addTask(description);
-                    count++;
-                    System.out.println("Now you have " + String.valueOf(taskArrayList.size()) + " tasks in the list.");
-                } else if (response.startsWith("event ") && response.length() > 6) {
-                    String description = response.substring(6, response.indexOf("/from")).trim();
-                    String from = response.substring(response.indexOf("/from") + 6, response.indexOf("/to")).trim();
-                    String to = response.substring(response.indexOf("/to") + 4).trim();
-                    Event task = new Event(description, count, from, to);
-                    taskArrayList.add(task);
-                    task.addTask(description);
-                    count++;
-                    System.out.println("Now you have " + String.valueOf(taskArrayList.size()) + " tasks in the list.");
-                } else if (response.startsWith("deadline ") && response.length() > 9) {
-                    String description = response.substring(9, response.indexOf("/by")).trim();
-                    String by = response.substring(response.indexOf("/by") + 4).trim();
-                    Deadline task = new Deadline(description, count, by);
-                    taskArrayList.add(task);
-                    task.addTask(description);
-                    count++;
-                    System.out.println("Now you have " + String.valueOf(taskArrayList.size()) + " tasks in the list.");
-                } else if (response.startsWith("delete ") && response.length() > 7) {
-                    int id = Integer.valueOf(response.substring(7));
-                    Task task = taskArrayList.get(id - 1);
-                    taskArrayList.remove(id - 1);
-                    System.out.println("Noted. I've removed this task:");
-                    System.out.println(task.toString().substring(2));
-                    System.out.println("Now you have " + String.valueOf(taskArrayList.size()) + " tasks in the list.");
-                    for (int i = id; i < taskArrayList.size() - 1; i++) {
-                        Task temp = taskArrayList.get(i - 1);
-                        temp = new Task(temp.description, i - 2);
-                    }
-                }
-                else {
-                    //taskArrayList.add(new Task(response, count));
-
-                    CustomException exception = new CustomException();
-                    throw exception;
-                }
-            } catch (CustomException exception) {
-                System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
-            } catch (StringIndexOutOfBoundsException exception) {
-                System.out.println("☹ OOPS!!! The description lacks details.");
-            }
+    private void listTasks() {
+        for (int i = 0; i < taskArrayList.size(); i++) {
+            Task task = taskArrayList.get(i);
+            System.out.println((i + 1) + ". " + task.toString());
         }
-        scanner.close();
     }
 
+    private String markTaskAsDone(int id) {
+        if (id >= 1 && id <= taskArrayList.size()) {
+            Task task = taskArrayList.get(id - 1);
+            if (!task.isDone) {
+                task.markAsDone();
+                return "Nice! I've marked this task as done:\n" + task.toString();
+            } else {
+                return "This task is already marked as done:\n" + task.toString();
+            }
+        } else {
+            return "Invalid task number. Please enter a valid task number.";
+        }
+    }
 
+    private String unmarkTask(int id) {
+        if (id >= 1 && id <= taskArrayList.size()) {
+            Task task = taskArrayList.get(id - 1);
+            if (task.isDone) {
+                task.markAsUndone();
+                return "OK, I've marked this task as not done yet:\n" + task.toString();
+            } else {
+                return "This task is already marked as not done:\n" + task.toString();
+            }
+        } else {
+            return "Invalid task number. Please enter a valid task number.";
+        }
+    }
 
+    private String addTodoTask(String description) {
+        taskArrayList.add(new ToDo(description));
+        return "Got it. I've added this task:\n" + taskArrayList.get(taskArrayList.size() - 1).toString()
+                + "\nNow you have " + taskArrayList.size() + " tasks in the list.";
+    }
+
+    private String addEventTask(String description, String dateTimeString) {
+        LocalDateTime dateTime = parseCustomDateTime(dateTimeString);
+        if (dateTime != null) {
+            taskArrayList.add(new Event(description, dateTime, null)); // Pass null for the end date/time
+            return "Got it. I've added this task:\n" + taskArrayList.get(taskArrayList.size() - 1).toString()
+                    + "\nNow you have " + taskArrayList.size() + " tasks in the list.";
+        } else {
+            return "Invalid date format. Please use yyyy-MM-dd HH:mm.";
+        }
+    }
+
+    private String addDeadlineTask(String description, String dateTimeString) {
+        LocalDateTime dateTime = parseCustomDateTime(dateTimeString);
+        LocalDate date = parseCustomDate(dateTimeString);
+
+        if (dateTime != null || date != null) {
+            if (dateTime != null) {
+                taskArrayList.add(new Deadline(description, dateTime));
+            } else {
+                // If dateTime is null, use the date parsed from the input
+                taskArrayList.add(new Deadline(description, date));
+            }
+
+            return "Got it. I've added this task:\n" + taskArrayList.get(taskArrayList.size() - 1).toString()
+                    + "\nNow you have " + taskArrayList.size() + " tasks in the list.";
+        } else {
+            return "Invalid date format. Please use dd/MM/yyyy HHmm or yyyy-MM-dd.";
+        }
+    }
+
+    private LocalDateTime parseCustomDateTime(String dateTimeString) {
+        // Try parsing with "dd/MM/yyyy HHmm" format
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        try {
+            return LocalDateTime.parse(dateTimeString, formatter1);
+        } catch (Exception e) {
+            // Parsing with the first format failed, try the second format below
+        }
+
+        // Try parsing with "yyyy-MM-dd" format
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            LocalDate date = LocalDate.parse(dateTimeString, formatter2);
+            return date.atStartOfDay();
+        } catch (Exception e) {
+            // Both parsing attempts failed
+            return null;
+        }
+    }
+
+    private LocalDate parseCustomDate(String dateString) {
+        // Try parsing with "dd/MM/yyyy" format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        try {
+            return LocalDate.parse(dateString, formatter);
+        } catch (Exception e) {
+            // Parsing with the first format failed, try the second format below
+        }
+
+        // Try parsing with "yyyy-MM-dd" format
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            return LocalDate.parse(dateString, formatter2);
+        } catch (Exception e) {
+            // Both parsing attempts failed
+            return null;
+        }
+    }
+
+    private String deleteTask(int id) {
+        if (id >= 1 && id <= taskArrayList.size()) {
+            Task task = taskArrayList.remove(id - 1);
+            return "Noted. I've removed this task:\n" + task.toString()
+                    + "\nNow you have " + taskArrayList.size() + " tasks in the list.";
+        } else {
+            return "Invalid task number. Please enter a valid task number.";
+        }
+    }
 
     private void saveTasksToFile() {
         File file = new File(filePath);
@@ -199,18 +249,9 @@ public class Duke {
 
 
     public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
         Duke myBot = new Duke();
         myBot.greeting();
-        //myBot.echo();
-        //myBot.addTask();
-        //myBot.chat();
-        myBot.setTasks();
-        myBot.saveTasksToFile();
+        myBot.chat();
     }
 }
+
