@@ -173,6 +173,7 @@ public class CommandParser {
             return new DeadlineCommand(new Deadline(description, datetime));
 
         default:
+            assert false : "the parsed strings array can only have length 0, 1 or 2.";
             break;
         }
         return null;
@@ -213,6 +214,7 @@ public class CommandParser {
             break;
 
         default:
+            assert false : "the parsed strings array can only have length 0, 1 or 2.";
             break;
         }
         String from;
@@ -241,6 +243,7 @@ public class CommandParser {
             return new EventCommand(new Event(description, fromDatetime, toDatetime));
 
         default:
+            assert false : "the parsed strings array can only have length 0, 1 or 2.";
             break;
         }
         return null;

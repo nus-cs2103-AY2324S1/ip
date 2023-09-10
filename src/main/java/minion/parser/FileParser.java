@@ -30,7 +30,6 @@ public class FileParser {
             String[] arr = str.split(FILE_DELIMITER);
             boolean isDone = arr[1].equals("1");
             String description = arr[2];
-
             switch (arr[0]) {
             case "T":
                 tasks.add(new ToDo(description, isDone));
@@ -48,6 +47,7 @@ public class FileParser {
                 break;
 
             default:
+                assert false : "invalid identifier!";
                 break;
             }
         }

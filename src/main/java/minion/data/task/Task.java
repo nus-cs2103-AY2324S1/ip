@@ -4,6 +4,7 @@ package minion.data.task;
  * Represents a task created by the user.
  */
 public abstract class Task {
+    private static final String TICK_SYMBOL = "\u2713";
     protected String description;
     protected boolean isDone;
 
@@ -21,7 +22,7 @@ public abstract class Task {
      * @return the status icon.
      */
     protected String getStatusIcon() {
-        return isDone ? "✓" : "X";
+        return isDone ? TICK_SYMBOL : "X";
     }
 
     /**

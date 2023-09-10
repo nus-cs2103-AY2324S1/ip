@@ -1,12 +1,12 @@
 package minion.data.task;
 
 /**
- * Represents a minion.data.task.ToDo task.
+ * Represents a ToDo task.
  */
 public class ToDo extends Task {
 
     /**
-     * Creates a minion.data.task.ToDo object. This is the main constructor of the minion.data.task.ToDo task.
+     * Creates a ToDo object. This is the main constructor of the minion.data.task.ToDo task.
      * @param description Description of Todo.
      * @param isDone Whether minion.data.task.ToDo is done.
      */
@@ -15,7 +15,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Creates a minion.data.task.ToDo object. This calls the main constructor when the default for isDone is false.
+     * Creates a ToDo object. This calls the main constructor when the default for isDone is false.
      * @param description Description of minion.data.task.ToDo.
      */
     public ToDo(String description) {
@@ -33,8 +33,8 @@ public class ToDo extends Task {
     }
 
     /**
-     * Returns the string representation of the minion.data.task.ToDo task.
-     * @return string representation of the minion.data.task.ToDo task.
+     * Returns the string representation of the ToDo task.
+     * @return string representation of the ToDo task.
      */
     @Override
     public String toString() {
@@ -42,8 +42,8 @@ public class ToDo extends Task {
     }
 
     /**
-     * Returns a string representation of minion.data.task.ToDo to be used in storage.
-     * @return string representation of minion.data.task.ToDo for storage.
+     * Returns a string representation of ToDo for storage.
+     * @return string representation of ToDo for storage.
      */
     @Override
     public String toStringStorage() {
