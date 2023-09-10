@@ -29,6 +29,42 @@ public class Event extends Task {
     }
 
     /**
+     * Gets the start time of the event.
+     *
+     * @return The start time of the event.
+     */
+    public LocalDateTime getFrom() {
+        return from;
+    }
+
+    /**
+     * Gets the end time of the event.
+     *
+     * @return The end time of the event.
+     */
+    public LocalDateTime getTo() {
+        return to;
+    }
+
+    /**
+     * Checks if another task is a duplicate of this event.
+     *
+     * @param otherTask The other task to compare with.
+     * @return true if the tasks are duplicates, false otherwise.
+     */
+    @Override
+    public boolean isDuplicate(Task otherTask) {
+        if (otherTask instanceof Event) {
+            Event otherEvent = (Event) otherTask;
+            boolean isSameStartTime = areEqualIgnoringSeconds(this.getFrom(), otherEvent.getFrom());
+            boolean isSameEndTime = areEqualIgnoringSeconds(this.getTo(), otherEvent.getTo());
+            boolean isSameDescription = this.getDescription().equals(otherEvent.getDescription());
+            return isSameStartTime && isSameEndTime && isSameDescription;
+        }
+        return false;
+    }
+
+    /**
      * Returns a string representation of the Event object.
      *
      * @return A string representation of the Event object.

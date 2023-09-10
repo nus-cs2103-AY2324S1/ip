@@ -24,6 +24,32 @@ public class Deadline extends Task {
     }
 
     /**
+     * Gets the deadline of the task.
+     *
+     * @return The deadline of the task.
+     */
+    public LocalDateTime getBy() {
+        return by;
+    }
+
+    /**
+     * Checks if another task is a duplicate of this deadline.
+     *
+     * @param otherTask The other task to compare with.
+     * @return true if the tasks are duplicates, false otherwise.
+     */
+    @Override
+    public boolean isDuplicate(Task otherTask) {
+        if (otherTask instanceof Deadline) {
+            Deadline otherDeadline = (Deadline) otherTask;
+            boolean isSameEndTime = areEqualIgnoringSeconds(this.getBy(), otherDeadline.getBy());
+            boolean isSameDescription = this.getDescription().equals(otherDeadline.getDescription());
+            return isSameEndTime && isSameDescription;
+        }
+        return false;
+    }
+
+    /**
      * Returns a string representation of the Deadline object.
      *
      * @return A string representation of the Deadline object.

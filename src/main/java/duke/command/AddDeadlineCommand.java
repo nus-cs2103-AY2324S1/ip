@@ -39,11 +39,20 @@ public class AddDeadlineCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        // Create the task first
+        Deadline deadline = new Deadline(description, by);
+
         if (description.isEmpty() || by.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The format of a deadline should be: "
                     + "deadline DESCRIPTION /by DATE");
         }
-        tasks.addTask(new Deadline(description, by));
+
+        // Check for duplicates before adding the task.
+        if (storage.isDuplicateTask(tasks.getTasks(), deadline)) {
+            throw new DukeException("This task already exists.");
+        }
+
+        tasks.addTask(deadline);
         ui.showTaskAddedMessage(tasks);
     }
 

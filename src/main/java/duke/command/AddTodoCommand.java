@@ -34,10 +34,19 @@ public class AddTodoCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        // Create the task first.
+        ToDo todo = new ToDo(description);
+
         if (description.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
-        tasks.addTask(new ToDo(description));
+
+        // Check for duplicates before adding the task.
+        if (storage.isDuplicateTask(tasks.getTasks(), todo)) {
+            throw new DukeException("This task already exists.");
+        }
+
+        tasks.addTask(todo);
         ui.showTaskAddedMessage(tasks);
     }
 

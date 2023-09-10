@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a task with a description and completion status.
  */
@@ -20,6 +22,31 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    /**
+     * Checks if another task is a duplicate of this task.
+     * This method can be overridden by subclasses to provide
+     * custom duplication checking logic.
+     *
+     * @param otherTask The other task to compare with.
+     * @return true if the tasks are duplicates, false otherwise.
+     */
+    public boolean isDuplicate(Task otherTask) {
+        // Default implementation, can be overridden by subclasses
+        return false;
+    }
+
+    /**
+     * Checks if two LocalDateTime objects are equal,
+     * ignoring the seconds component.
+     *
+     * @param dateTimeOne The first LocalDateTime.
+     * @param dateTimeTwo The second LocalDateTime.
+     * @return true if the DateTimes are equal (ignoring seconds), false otherwise.
+     */
+    protected static boolean areEqualIgnoringSeconds(LocalDateTime dateTimeOne, LocalDateTime dateTimeTwo) {
+        return dateTimeOne.withSecond(0).equals(dateTimeTwo.withSecond(0));
     }
 
     /**

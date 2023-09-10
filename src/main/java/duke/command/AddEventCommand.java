@@ -44,11 +44,20 @@ public class AddEventCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        // Create the task first
+        Event event = new Event(description, from, to);
+
         if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The format of an event should be: "
                     + "event DESCRIPTION /from DATE /to DATE");
         }
-        tasks.addTask(new Event(description, from, to));
+
+        // Check for duplicates before adding the task.
+        if (storage.isDuplicateTask(tasks.getTasks(), event)) {
+            throw new DukeException("This task already exists.");
+        }
+
+        tasks.addTask(event);
         ui.showTaskAddedMessage(tasks);
     }
 

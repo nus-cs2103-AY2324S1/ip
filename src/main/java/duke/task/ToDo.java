@@ -16,6 +16,21 @@ public class ToDo extends Task {
     }
 
     /**
+     * Checks if another task is a duplicate of this todo task.
+     *
+     * @param otherTask The other task to compare with.
+     * @return true if the tasks are duplicates, false otherwise.
+     */
+    @Override
+    public boolean isDuplicate(Task otherTask) {
+        if (otherTask instanceof ToDo) {
+            ToDo otherToDo = (ToDo) otherTask;
+            return this.getDescription().equals(otherToDo.getDescription());
+        }
+        return false;
+    }
+
+    /**
      * Returns a string representation of the ToDo object.
      *
      * @return A string representation of the ToDo object.

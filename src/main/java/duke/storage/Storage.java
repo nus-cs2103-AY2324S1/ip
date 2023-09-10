@@ -60,7 +60,7 @@ public class Storage {
                     break;
                 }
                 Task task = Task.createTaskFromFormattedString(line);
-                if (task != null) {
+                if (task != null && !isDuplicateTask(tasks, task)) {
                     tasks.add(task);
                 }
             }
@@ -69,6 +69,22 @@ public class Storage {
             throw new DukeException("Error loading tasks from file.");
         }
         return tasks;
+    }
+
+    /**
+     * Checks if a given task is a duplicate of any task in the list.
+     *
+     * @param tasks The list of tasks to check against.
+     * @param task  The task to check for duplication.
+     * @return true if the task is a duplicate, false otherwise.
+     */
+    public boolean isDuplicateTask(ArrayList<Task> tasks, Task task) {
+        for (Task t : tasks) {
+            if (t.isDuplicate(task)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
