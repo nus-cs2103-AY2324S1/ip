@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 import duke.exception.DukeException;
-import duke.exception.DukeInvalidSavedToFileLineType;
+import duke.exception.DukeInvalidSavedToFileLineTypeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -71,9 +71,9 @@ public class Storage {
      * Reads from disc and constructs task string to store in list.
      * @param line
      * @return task string
-     * @throws DukeInvalidSavedToFileLineType
+     * @throws DukeInvalidSavedToFileLineTypeException
      */
-    private Task fileToTask(String line) throws DukeInvalidSavedToFileLineType {
+    private Task fileToTask(String line) throws DukeInvalidSavedToFileLineTypeException {
         String[] savedToFileLine = line.split(" \\| ");
         String type = savedToFileLine[0];
 
@@ -91,7 +91,7 @@ public class Storage {
             String to = range.substring(range.indexOf("to ")).replace("to ", "");
             return Event.create(status, description, from, to);
         default:
-            throw new DukeInvalidSavedToFileLineType();
+            throw new DukeInvalidSavedToFileLineTypeException();
         }
     }
 
