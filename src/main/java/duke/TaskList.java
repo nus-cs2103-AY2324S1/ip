@@ -1,7 +1,5 @@
 package duke;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.List;
 
 /** Abstraction of a list that can store Tasks */
@@ -26,6 +24,7 @@ public class TaskList {
      * */
     public String mark(int index) {
         try {
+            assert 0 <= index && index < this.list.size() : "Task must exist in the list";
             return this.list.get(index).markAsDone();
         } catch (IndexOutOfBoundsException error) {
             throw new IllegalArgumentException("OOPS!!! I could not find any task in that position.");
@@ -39,6 +38,7 @@ public class TaskList {
      */
     public String unmark(int index) {
         try {
+            assert 0 <= index && index < this.list.size() : "Task must exist in the list";
             return this.list.get(index).markAsUndone();
         } catch (IndexOutOfBoundsException error) {
             throw new IllegalArgumentException("OOPS!!! I could not find any task in that position.");
@@ -60,6 +60,7 @@ public class TaskList {
      * @param index Position of the task that is to be removed.
      */
     public void delete(int index) {
+        assert !this.list.isEmpty() : "Cannot delete from empty list";
         this.list.remove(index);
     }
 
@@ -70,6 +71,7 @@ public class TaskList {
      * @return The task at the index position.
      */
     public Task retrieve(int index) {
+        assert 0 <= index && index < this.list.size() : "Task must exist in the list";
         return this.list.get(index);
     }
 
@@ -87,7 +89,8 @@ public class TaskList {
         StringBuilder printedList = new StringBuilder("Here are the tasks in your list:\n");
         for (int index = 0; index < this.list.size(); index++) {
             Task item = this.list.get(index);
-            printedList.append((index + 1) + ". " + item.toString() + "\n");
+            String description = (index + 1) + ". " + item.toString() + "\n";
+            printedList.append(description);
         }
         return printedList.toString();
     }
@@ -101,7 +104,7 @@ public class TaskList {
         StringBuilder reply = new StringBuilder("Here are the matching tasks in your list:\n");
         this.list.stream()
                 .filter(task -> task.description.contains(filterWord))
-                .forEach(task -> reply.append(task.toString() + "\n"));
+                .forEach(task -> reply.append(task + "\n"));
         return reply.toString();
     }
 }
