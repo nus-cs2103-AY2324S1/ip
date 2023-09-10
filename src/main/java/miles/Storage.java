@@ -28,7 +28,7 @@ public class Storage {
     public Storage(String filePath, String directoryPath) {
         this.filePath = filePath;
         this.directoryPath = directoryPath;
-        this.ui = new Ui();
+        ui = new Ui();
     }
 
     /**
@@ -46,7 +46,7 @@ public class Storage {
      * @returns TaskList   a TaskList object containing the tasks from the file
      * @throws IOException if there is an error creating the file
      */
-    public TaskList loadFile() {
+    public TaskList loadFile() throws MilesException {
         try {
             File directory = new File(this.directoryPath);
             File newFile = new File(this.filePath);
@@ -100,7 +100,10 @@ public class Storage {
             return taskList;
 
         } catch (IOException e) {
-            this.ui.printErrorMsg(e.getMessage());
+            ui.printErrorMsg(e.getMessage());
+            return new TaskList();
+        } catch (MilesException e) {
+            ui.printErrorMsg(e.getMessage());
             return new TaskList();
         }
     }

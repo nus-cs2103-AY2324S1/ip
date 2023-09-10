@@ -5,9 +5,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import miles.MilesException;
+
 public class EventTest {
     @Test
-    public void testSplitEventString() {
+    public void testSplitEventString() throws MilesException{
         String testString = "event project meeting /from 2019-10-15 1800 /to 2019-10-15 2000";
         String[] arr = Event.splitEventString(testString);
         assertEquals("project meeting", arr[0].trim());
@@ -16,10 +18,10 @@ public class EventTest {
     }
 
     @Test
-    public void emptyEvent() throws IllegalArgumentException {
+    public void emptyEvent() throws MilesException {
         String testString = "event";
 
-        IllegalArgumentException expectedException = assertThrows(IllegalArgumentException.class, 
+        MilesException expectedException = assertThrows(MilesException.class, 
             () -> {
                 Event.splitEventString(testString);
             });
@@ -30,10 +32,10 @@ public class EventTest {
     }
 
     @Test 
-    public void missingDescription() throws IllegalArgumentException {
+    public void missingDescription() throws MilesException {
         String testString = "event /from 2019-10-15 1800 /to";
 
-        IllegalArgumentException expectedException = assertThrows(IllegalArgumentException.class, 
+        MilesException expectedException = assertThrows(MilesException.class, 
             () -> {
                 Event.splitEventString(testString);
             });
@@ -44,10 +46,10 @@ public class EventTest {
     }
 
     @Test 
-    public void missingFrom() throws IllegalArgumentException {
+    public void missingFrom() throws MilesException {
         String testString = "event project meeting /to 2019-10-15 2000";
 
-        IllegalArgumentException expectedException = assertThrows(IllegalArgumentException.class, 
+        MilesException expectedException = assertThrows(MilesException.class, 
             () -> {
                 Event.splitEventString(testString);
             });
@@ -58,10 +60,10 @@ public class EventTest {
     }
 
     @Test
-    public void missingTo() throws IllegalArgumentException {
+    public void missingTo() throws MilesException {
         String testString = "event project meeting /from 2019-10-15 1800";
         
-        IllegalArgumentException expectedException = assertThrows(IllegalArgumentException.class, 
+        MilesException expectedException = assertThrows(MilesException.class, 
             () -> {
                 Event.splitEventString(testString);
             });
@@ -72,7 +74,7 @@ public class EventTest {
     }
 
     @Test
-    public void testSaveStringToFile() {
+    public void testSaveStringToFile() throws MilesException {
         String testString = "event project meeting /from 2019-10-15 1800 /to 2019-10-15 2000";
         Event event = new Event(testString);
         String expected = "E | [ ] | project meeting | 2019-10-15 1800 | 2019-10-15 2000";
@@ -80,7 +82,7 @@ public class EventTest {
     }
 
     @Test
-    public void testStringToSaveMarked() {
+    public void testStringToSaveMarked() throws MilesException {
         String testString = "event project meeting /from 2019-10-15 1800 /to 2019-10-15 2000";
         Event event = new Event(testString);
         event.markAsDone();

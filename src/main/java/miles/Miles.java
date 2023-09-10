@@ -24,7 +24,12 @@ public class Miles {
         this.filePath = filePath;
         this.ui = new Ui();
         this.storage = new Storage(this.filePath, directoryPath);
-        this.taskList = this.storage.loadFile();
+        try {
+            this.taskList = this.storage.loadFile();
+        } catch (MilesException e) {
+            this.ui.printErrorMsg(e.getMessage());
+            this.taskList = new TaskList();
+        }
     }
 
     /**

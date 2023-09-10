@@ -1,5 +1,6 @@
 package miles.command;
 
+import miles.MilesException;
 import miles.Storage;
 import miles.TaskList;
 import miles.Ui;
@@ -21,9 +22,13 @@ public class AddToDoCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ToDo newToDo = new ToDo(input);
-        storage.saveWhenAddTask(newToDo, taskList);
-        int n = taskList.getSize();
-        ui.printAddedTask(newToDo, n);
+        try {
+            ToDo newToDo = new ToDo(input);
+            storage.saveWhenAddTask(newToDo, taskList);
+            int n = taskList.getSize();
+            ui.printAddedTask(newToDo, n);
+        } catch (MilesException e) {
+            ui.printErrorMsg(e.getMessage());
+        }
     }
 }

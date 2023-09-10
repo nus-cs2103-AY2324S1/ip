@@ -2,6 +2,8 @@ package miles.task;
 
 import java.time.LocalDateTime;
 
+import miles.MilesException;
+
 /**
  * Represents a task that starts at a specific time and ends at a specific time.
  */
@@ -14,11 +16,11 @@ public class Event extends Task {
      * Constructor to create a new event task when given a task string.
      * @param task  the task
      */
-    public Event(String task) {
+    public Event(String task) throws MilesException {
         // this constructor is for creating a task with the "event" command
         super(getTask(task));
-        this.startTime = this.convertToDateTime(this.getStartTime(task));
-        this.endTime = this.convertToDateTime(getEndTime(task));
+        startTime = this.convertToDateTime(this.getStartTime(task));
+        endTime = this.convertToDateTime(getEndTime(task));
     }
 
     /**
@@ -41,34 +43,34 @@ public class Event extends Task {
      * @param taskString the string that contains the task, start time and end time
      * @return           an array of 3 strings
      */
-    public static String[] splitEventString(String taskString) {
+    public static String[] splitEventString(String taskString) throws MilesException {
         if (checkTaskNoDescription(taskString, "event")) {
-            throw new IllegalArgumentException(noDescErrorMsg);
+            throw new MilesException(noDescErrorMsg);
         }
 
-        String removeCmd = taskString.substring(6);
-        if (checkAllWhiteSpace(removeCmd)) {
-            throw new IllegalArgumentException(noDescErrorMsg);
+        String withoutCommand = taskString.substring(6);
+        if (checkAllWhiteSpace(withoutCommand)) {
+            throw new MilesException(noDescErrorMsg);
         }
 
-        String[] arr1 = removeCmd.split("/from");
-        if (arr1.length == 1) {
-            throw new IllegalArgumentException("Invalid event format: missing /from");
+        String[] eventParts = withoutCommand.split("/from");
+        if (eventParts.length == 1) {
+            throw new MilesException("Invalid event format: missing /from");
         } 
 
-        if (checkAllWhiteSpace(arr1[0])) {
-            throw new IllegalArgumentException(noDescErrorMsg);
+        if (checkAllWhiteSpace(eventParts[0])) {
+            throw new MilesException(noDescErrorMsg);
         }
         
-        // we still need to split the 2nd element because it contains both the start and end time
-        String secondPart = arr1[1];
-        String[] arr2 = secondPart.split("/to");
+        // need to split the 2nd element as it contains both the start and end time
+        String timePart = eventParts[1];
+        String[] timeParts = timePart.split("/to");
 
-        if (arr2.length == 1) {
-            throw new IllegalArgumentException("Invalid event format: missing /to");
+        if (timeParts.length == 1) {
+            throw new MilesException("Invalid event format: missing /to");
         }
 
-        String[] output = {arr1[0], arr2[0], arr2[1]};
+        String[] output = {eventParts[0], timeParts[0], timeParts[1]};
         return output;
     }
 
@@ -78,15 +80,15 @@ public class Event extends Task {
      * @param taskString the input string that starts with "event"
      * @return           the task
      */
-    public static String getTask(String taskString) {
+    public static String getTask(String taskString) throws MilesException {
         String[] strings = splitEventString(taskString);
         assert strings.length == 3: "The array should have 3 elements.";
         String task = strings[0];
 
         if (checkAllWhiteSpace(task)) {
-            throw new IllegalArgumentException(noDescErrorMsg);
+            throw new MilesException(noDescErrorMsg);
         }
-        // remove the whitespace in front 
+
         return task.trim();
     }
 
@@ -96,13 +98,13 @@ public class Event extends Task {
      * @param taskString the input string that starts with "event"
      * @return           the start time
      */
-    public String getStartTime(String taskString) {
+    public String getStartTime(String taskString) throws MilesException {
         String[] strings = splitEventString(taskString);
         assert strings.length == 3: "The array should have 3 elements.";
         String startTime = strings[1];
 
         if (checkAllWhiteSpace(startTime)) {
-            throw new IllegalArgumentException("OOPS!!! The start time of a event cannot be empty.");
+            throw new MilesException("OOPS!!! The start time of a event cannot be empty.");
         }
 
         return startTime.trim();
@@ -114,13 +116,13 @@ public class Event extends Task {
      * @param taskString the input string that starts with "event"
      * @return           the end time
      */
-    public String getEndTime(String taskString) {
+    public String getEndTime(String taskString) throws MilesException {
         String[] strings = splitEventString(taskString);
         assert strings.length == 3: "The array should have 3 elements.";
         String endTime = strings[2];
 
         if (checkAllWhiteSpace(endTime)) {
-            throw new IllegalArgumentException("OOPS!!! The end time of a event cannot be empty.");
+            throw new MilesException("OOPS!!! The end time of a event cannot be empty.");
         }
 
         return endTime.trim();
@@ -132,7 +134,7 @@ public class Event extends Task {
      * @return the start time to be displayed in the UI
      */
     public String displayStartTime() {
-        return this.displayTime(this.startTime);
+        return this.displayTime(startTime);
     }
 
     /**
@@ -142,7 +144,7 @@ public class Event extends Task {
      * @return string representing the start time to be saved in the text file
      */
     public String saveStartTime() {
-        return this.saveTime(this.startTime);
+        return this.saveTime(startTime);
     }
 
     /**
@@ -151,7 +153,7 @@ public class Event extends Task {
      * @return the end time to be displayed in the UI
      */
     public String displayEndTime() {
-        return this.displayTime(this.endTime);
+        return this.displayTime(endTime);
     }
 
     /**
@@ -161,7 +163,7 @@ public class Event extends Task {
      * @return string representing the end time to be saved in the text file
      */
     public String saveEndTime() {
-        return this.saveTime(this.endTime);
+        return this.saveTime(endTime);
     }
 
     /**

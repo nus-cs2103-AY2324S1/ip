@@ -1,5 +1,6 @@
 package miles.command;
 
+import miles.MilesException;
 import miles.Storage;
 import miles.TaskList;
 import miles.Ui;
@@ -18,9 +19,14 @@ public class AddEventCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        Event newEvent = new Event(this.input);
-        storage.saveWhenAddTask(newEvent, taskList);
-        int n = taskList.getSize();
-        ui.printAddedTask(newEvent, n);
+        try {
+            Event newEvent = new Event(this.input);
+            storage.saveWhenAddTask(newEvent, taskList);
+
+            int n = taskList.getSize();
+            ui.printAddedTask(newEvent, n);
+        } catch (MilesException e) {
+            ui.printErrorMsg(e.getMessage());
+        }
     }
 }

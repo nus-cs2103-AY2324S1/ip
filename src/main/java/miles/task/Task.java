@@ -7,30 +7,30 @@ import java.time.format.DateTimeFormatter;
  * Represents a general task.
  */
 public abstract class Task {
-    private boolean isDone;
     private String task;
+    private boolean isDone;
 
     /**
      * Constructor to create a new task.
      * @param task the task
      */
     public Task(String task) {
-        this.isDone = false;
         this.task = task;
+        isDone = false;
     }
 
     /**
      * Marks the current task as done.
      */
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     /**
      * Marks the current task as undone.
      */
     public void markAsUndone() {
-        this.isDone = false;
+        isDone = false;
     }
 
     /**

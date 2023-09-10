@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StorageTest {
     @Test 
-    public void testLoadFile() {
+    public void testLoadFile() throws MilesException {
         String directoryPath = "./data";
         String filePath = "./data/test1.txt";
         Storage storage = new Storage(filePath, directoryPath);
@@ -34,7 +34,7 @@ public class StorageTest {
     }
 
     @Test 
-    public void emptyFile() {
+    public void emptyFile() throws MilesException {
         String directoryPath = "";
         String filePath = "";
         Storage storage = new Storage(filePath, directoryPath);
@@ -44,7 +44,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testSaveFile() {
+    public void testSaveFile() throws MilesException {
         String directoryPath = "./data";
         String filePath = "./data/test2.txt";
         Storage storage = new Storage(filePath, directoryPath);
@@ -58,11 +58,7 @@ public class StorageTest {
         assertEquals(task1.toString(), taskList2.getTask(0).toString());
 
         // to clean up the file for future tests
-        try {
-            taskList2.deleteTask(0);
-            storage.saveFile(taskList2);
-        } catch (MilesException e) {
-            System.out.println(e.getMessage());
-        } 
+        taskList2 = new TaskList();
+        storage.saveFile(taskList2);  
     }
 }

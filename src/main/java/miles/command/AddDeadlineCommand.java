@@ -1,5 +1,6 @@
 package miles.command;
 
+import miles.MilesException;
 import miles.Storage;
 import miles.TaskList;
 import miles.Ui;
@@ -18,10 +19,14 @@ public class AddDeadlineCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        Deadline newDeadline = new Deadline(input);
-        storage.saveWhenAddTask(newDeadline, taskList);
+        try {
+            Deadline newDeadline = new Deadline(input);
+            storage.saveWhenAddTask(newDeadline, taskList);
         
-        int n = taskList.getSize();
-        ui.printAddedTask(newDeadline, n);
+            int n = taskList.getSize();
+            ui.printAddedTask(newDeadline, n);
+        } catch (MilesException e) {
+            ui.printErrorMsg(e.getMessage());
+        }
     }
 }

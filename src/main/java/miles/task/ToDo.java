@@ -1,5 +1,7 @@
 package miles.task;
 
+import miles.MilesException;
+
 /**
  * Represents a todo task that has no dates involved.
  */
@@ -10,23 +12,24 @@ public class ToDo extends Task {
      * Constructor to create a new todo task.
      * @param task the task
      */
-    public ToDo(String task) {
+    public ToDo(String task) throws MilesException {
         super(formatToDoString(task));
     }
 
     /**
      * Formats the task string by slicing it to remove the "todo " part.
-     * @param taskString the string that contains the task
-     * @return           the clean version of the task string
+     * @param taskString      the string that contains the task
+     * @return                the clean version of the task string
+     * @throws MilesException when the task string has no description
      */
-    public static String formatToDoString(String taskString) {
+    public static String formatToDoString(String taskString) throws MilesException {
         if (checkTaskNoDescription(taskString, "todo")) {
-            throw new IllegalArgumentException(noDescErrorMsg);
+            throw new MilesException(noDescErrorMsg);
         }
 
         String output = taskString.substring(5);
         if (checkAllWhiteSpace(output)) {
-            throw new IllegalArgumentException(noDescErrorMsg);
+            throw new MilesException(noDescErrorMsg);
         }
         
         return output.trim();
