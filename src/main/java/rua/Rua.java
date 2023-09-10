@@ -16,23 +16,25 @@ import javafx.stage.Stage;
 import rua.command.Command;
 import rua.common.Parser;
 import rua.common.Storage;
+import rua.common.StringLogger;
 import rua.common.Ui;
 import rua.task.TaskList;
 
-public class Rua extends Application {
+public class Rua {
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaRua.png"));
     private final Storage storage;
     private final Ui ui;
     private TaskList tasks;
 
     public Rua() {
         ui = new Ui();
-        storage = new Storage("");
+        storage = new Storage("src/main/data/tasks.txt");
         try {
             tasks = new TaskList(storage.load());
             ui.showMessage("Load successfully. Now you have " + tasks.getTasks().size()
@@ -64,7 +66,6 @@ public class Rua extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args);
         new Rua("src/main/data/tasks.txt").run();
     }
 
@@ -77,8 +78,8 @@ public class Rua extends Application {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
                 Command c = Parser.parse(fullCommand);
+                ui.showLine(); // show the divider line ("_______")
                 tasks = c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (Exception e) {
@@ -89,9 +90,23 @@ public class Rua extends Application {
         }
     }
 
-    @Override
-    public void start(Stage stage) {
-        ui.start(stage);
-
+    public Ui getUi() {
+        return ui;
     }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        StringLogger.clear();
+        try {
+            Command c = Parser.parse(input);
+            tasks = c.execute(tasks, ui, storage);
+        } catch (Exception e) {
+            ui.showError(e.toString());
+        }
+        return StringLogger.getLog();
+    }
+
 }
