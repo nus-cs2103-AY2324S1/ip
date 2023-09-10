@@ -145,6 +145,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes expired tasks from the text file.
+     *
+     * @param expiredTaskNumbers List of expired tasks.
+     */
     public void deleteExpiredTasks(ArrayList<Integer> expiredTaskNumbers) {
         try {
             File file = new File(this.pathname);

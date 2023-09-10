@@ -1,11 +1,13 @@
 package bongo.task;
 
-import bongo.helper.BongoException;
-import bongo.helper.Parser;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import bongo.helper.BongoException;
+import bongo.helper.Parser;
+
 public class TodoTest {
     @Test
     public void testTodoString() {

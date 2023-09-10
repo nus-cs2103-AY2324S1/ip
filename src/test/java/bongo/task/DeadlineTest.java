@@ -1,12 +1,14 @@
 package bongo.task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
 import bongo.helper.BongoException;
 import bongo.helper.DateHelper;
 import bongo.helper.Parser;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DeadlineTest {
     @Test
