@@ -21,6 +21,8 @@ public class TaskList {
 
     /**
      * Lists all tasks in the task list.
+     *
+     * @return The message for listing.
      */
     public String listTasks() {
          return Ui.listTasks(this.tasks);
@@ -30,6 +32,7 @@ public class TaskList {
      * Adds one task to the task list.
      *
      * @param t The task to be added.
+     * @return The message for adding.
      */
     public String addTask(Task t) {
         this.tasks.add(t);
@@ -41,6 +44,7 @@ public class TaskList {
      * Deletes the task at the specified position in the task list.
      *
      * @param num The position starts from 0.
+     * @return The message for deleting.
      */
     public String deleteTask(int num) {
         Task re = tasks.remove(num);
@@ -52,6 +56,7 @@ public class TaskList {
      * Marks the task at the specified position in the task list.
      *
      * @param num The position starts from 0.
+     * @return The message for marking.
      */
     public String markTask(int num) {
         Task t = tasks.get(num);
@@ -64,6 +69,7 @@ public class TaskList {
      * Searches all Tasks with the keyword.
      *
      * @param keyword The keyword.
+     * @return The message for searching results.
      */
     public String findTask(String keyword) {
         ArrayList<Task> result = new ArrayList<>();

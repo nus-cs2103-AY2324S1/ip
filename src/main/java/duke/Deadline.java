@@ -20,6 +20,9 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Returns a String representation for the task for output.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: "

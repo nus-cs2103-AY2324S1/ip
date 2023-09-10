@@ -4,11 +4,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import java.util.Locale;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -22,7 +22,8 @@ public class Storage {
     }
 
     /**
-     * Loads the task list with file.
+     * Loads the task list with file. Initializes the file
+     * when necessary.
      *
      * @return The task list.
      * @throws IOException If unable to gain input from file.

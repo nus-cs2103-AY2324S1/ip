@@ -19,6 +19,8 @@ public class Parser {
 
     /**
      * Parses the user input and initiate following operations.
+     *
+     * @return The resulting message.
      */
     public String parse() {
         try{

@@ -37,6 +37,9 @@ public class Task {
         this.isDone = true;
     }
 
+    /**
+     * Returns a String representation for the task for output.
+     */
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
