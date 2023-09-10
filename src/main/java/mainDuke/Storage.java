@@ -28,8 +28,9 @@ class Storage {
     /**
      * Check if file that is to be written to and loaded from exists, if
      * it does not, create one.
+     * @return true if file was found at first, else false.
      */
-    static void checkFileExists() {
+    static boolean fileExists() {
         Path path = Paths.get(FILE_NAME);
         try {
             if (!Files.exists(path)) {
@@ -37,10 +38,12 @@ class Storage {
                 Path dirPath = Paths.get("./data");
                 Files.createDirectories(dirPath);
                 File file = new File(FILE_NAME);
+                return false;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return true;
     }
 
     /**
@@ -48,21 +51,20 @@ class Storage {
      * @param tasks ArrayList of tasks to be saved.
      */
     public static void saveTask(ArrayList<Task> tasks) {
-        checkFileExists();
+        fileExists();
         try (FileWriter fileWriter = new FileWriter(FILE_NAME)) {
             for (Task task : tasks) {
                 String text = "";
+                String desc = task.getTags() + " " + task.getDescription();
                 if (task instanceof Todo) {
                     String done = task.getisDone()
                             ? "1"
                             : "0";
-                    String desc = task.getDescription();
                     text = "T|" + done + "|" + desc;
                 } else if (task instanceof Event) {
                     String done = task.getisDone()
                             ? "1"
                             : "0";
-                    String desc = task.getDescription();
                     LocalDate from = ((Event) task).getFrom();
                     LocalDate to = ((Event) task).getTo();
                     text = "E|" + done + "|" + desc + "|" + from + "|" + to;
@@ -70,7 +72,6 @@ class Storage {
                     String done = task.getisDone()
                             ? "1"
                             : "0";
-                    String desc = task.getDescription();
                     LocalDate by = ((Deadline) task).getBy();
                     text = "D|" + done + "|" + desc + "|" + by;
                 }
@@ -87,7 +88,7 @@ class Storage {
      * @throws DukeException if there are no tasks in the hard drive.
      */
     public static ArrayList<Task> loadTasks() throws DukeException {
-        checkFileExists();
+        fileExists();
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             Scanner sc = new Scanner(new File(FILE_NAME));

@@ -25,12 +25,13 @@ public class TaskList {
      * Loads tasks from hard drive into tasks, prints a message if there
      * are no tasks found.
      */
-    public static void updateFromStorage() {
+    public static String updateFromStorage() {
         try {
             tasks = Storage.loadTasks();
         } catch (DukeException e) {
-            Ui.print("No tasks found in storage, starting new list");
+            return ("No tasks found in storage, starting new list\n");
         }
+        return "";
     }
 
     /**
@@ -42,10 +43,9 @@ public class TaskList {
         if (tasks.size() == 0) {
             throw new DukeException("There are no tasks yet");
         }
-
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            String str = (i + 1) + "." + tasks.get(i);
+            String str = (i + 1) + "." + tasks.get(i).toString();
             stringBuilder.append(str).append("\n");
         }
         return stringBuilder.toString();

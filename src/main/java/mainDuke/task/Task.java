@@ -1,12 +1,16 @@
 package mainDuke.task;
 
+import java.util.ArrayList;
+
 import mainDuke.exceptions.DukeException;
+
 
 /**
  * Represents a Task, a supertype of Event, Deadline and Todo.
  * <code>isDone</code> shows whether the task is completed
  */
 public abstract class Task {
+    private ArrayList tags;
     /**
      * Name of task
      */
@@ -22,8 +26,10 @@ public abstract class Task {
      * @param description name of task.
      */
     public Task(boolean done, String description) {
-        this.description = description;
         this.isDone = done;
+        this.tags = new ArrayList<>();
+        String updatedDesc = addAndFilterTags(description);
+        this.description = updatedDesc;
     }
 
     /**
@@ -78,7 +84,14 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return ("[" + this.getStatusIcon() + "] " + this.description);
+        String tagString = "";
+        if (tags.size() > 0) {
+            tagString = "\n  Tags : ";
+            for (int i = 0; i < tags.size(); i++) {
+                tagString = tagString + tags.get(i) + " ";
+            }
+        }
+        return ("[" + this.getStatusIcon() + "] " + this.description + tagString);
     }
 
     /**
@@ -94,7 +107,9 @@ public abstract class Task {
         assert parts[1].equals("1") | parts[1].equals("0") : "isDone indicator should be either"
                 + "1 or 0";
         boolean done = parts[1].equals("1"); // 1 = done, 0 = undone
+
         String description = parts[2];
+        System.out.println("desc : " + description);
         switch (first) {
         case "T":
             task = new Todo(done, "todo " + description);
@@ -114,6 +129,40 @@ public abstract class Task {
         default:
             throw new DukeException("Unable to parse from hard drive");
         }
+        System.out.println("here : " + task);
         return task;
+    }
+
+    /**
+     * Adds tags to task from input string, then returns the description with tags filtered out.
+     * @param text original description.
+     * @return description with tags filtered out.
+     */
+    private String addAndFilterTags(String text) {
+        String[] words = text.split("\\s+"); // Assumes words are separated by spaces
+
+        StringBuilder filteredText = new StringBuilder();
+        // Check for words starting with "#"
+        for (String word : words) {
+            if (word.startsWith("#")) {
+                tags.add(word);
+            } else {
+                filteredText.append(word);
+            }
+        }
+
+        return filteredText.toString();
+    }
+
+    /**
+     * returns tags in string form.
+     * @return tags in string form, #tag1 #tag2 etc.
+     */
+    public String getTags() {
+        StringBuilder text = new StringBuilder();
+        for (int i = 0; i < tags.size(); i++) {
+            text.append(" " + tags.get(i));
+        }
+        return text.toString();
     }
 }
