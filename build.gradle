@@ -62,4 +62,4 @@ checkstyle {
     toolVersion = '10.2'
 }
 
-mainClassName = 'robert.Robert'
+mainClassName = 'robert.Launcher'
