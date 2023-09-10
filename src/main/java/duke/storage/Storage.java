@@ -31,15 +31,18 @@ public class Storage {
     public Storage(String path) throws DukeException {
         this.path = path;
         File file = new File(path);
-        if (!file.exists()) {
-            CliUi.printlns(new String[] { "...No saved tasks found.", "Creating new save file for you..." });
-            try {
-                file.getParentFile().mkdirs();
-                FileWriter writer = new FileWriter(file);
-                writer.close();
-            } catch (IOException e) {
-                throw new DukeIoException("Error creating save file: " + e);
-            }
+
+        if (file.exists()) {
+            return;
+        }
+
+        CliUi.printlns(new String[] { "...No saved tasks found.", "Creating new save file for you..." });
+        try {
+            file.getParentFile().mkdirs();
+            FileWriter writer = new FileWriter(file);
+            writer.close();
+        } catch (IOException e) {
+            throw new DukeIoException("Error creating save file: " + e);
         }
     }
 
@@ -50,7 +53,7 @@ public class Storage {
      * @throws DukeException If there is an error loading tasks from the save file.
      */
     public void load(TaskList tasklist) throws DukeException {
-        try {
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             boolean isEmpty = Files.size(Path.of(path)) == 0;
             if (isEmpty) {
                 CliUi.println("Save file empty, you're good to go.");
@@ -58,7 +61,6 @@ public class Storage {
             }
 
             CliUi.println("Found some old tasks, replaying some commands...");
-            BufferedReader reader = new BufferedReader(new FileReader(path));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] args = line.split("\\|\\|");
@@ -69,7 +71,6 @@ public class Storage {
                     tasklist.markTaskDone(tasklist.size());
                 }
             }
-            reader.close();
         } catch (IOException e) {
             throw new DukeIoException("Error loading tasks from save file: " + e);
         }

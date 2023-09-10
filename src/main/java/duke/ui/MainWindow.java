@@ -95,10 +95,15 @@ public class MainWindow extends AnchorPane {
         this.showDukeDialog(response);
         userInput.clear();
 
-        if (command != null && command.getCommandType() == CommandType.EXIT) {
-            this.duke.exit();
-            ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-            executor.schedule(() -> System.exit(0), 1, TimeUnit.SECONDS);
+        boolean userSaidBye = command != null && command.getCommandType() == CommandType.EXIT;
+        if (userSaidBye) {
+            exitDukeAfterDelay(1);
         }
+    }
+
+    private void exitDukeAfterDelay(int numSeconds) {
+        this.duke.exit();
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+        executor.schedule(() -> System.exit(0), numSeconds, TimeUnit.SECONDS);
     }
 }
