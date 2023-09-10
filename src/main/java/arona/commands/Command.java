@@ -24,6 +24,8 @@ public abstract class Command {
 
     /**
      * Executes the command, performing the specific action associated with the command type.
+     *
+     * @return A string message indicating the message in the GUI.
      */
-    public abstract void execute();
+    public abstract String execute();
 }

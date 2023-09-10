@@ -30,15 +30,16 @@ public class UnMarkCommand extends Command {
     /**
      * Executes the unmark command by unmarking the specified task in the task list,
      * updating its status in storage, and displaying the result to the user.
+     *
+     * @return A string message indicating the message in the GUI.
      */
     @Override
-    public void execute() {
+    public String execute() {
         if (taskIndex < 0 || taskIndex >= taskList.getTasks().size()) {
-            ui.showTaskDoesNotExist(taskIndex);
-            return;
+            return ui.showTaskDoesNotExist();
         }
         taskList.getTasks().get(taskIndex).unMark();
         storage.updateTaskStatusAsUnmarked(taskIndex);
-        ui.showTaskUnmarked(taskList.getTasks().get(taskIndex));
+        return ui.showTaskUnmarked(taskList.getTasks().get(taskIndex));
     }
 }

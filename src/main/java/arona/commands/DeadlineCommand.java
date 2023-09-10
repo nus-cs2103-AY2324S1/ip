@@ -37,11 +37,13 @@ public class DeadlineCommand extends Command {
     /**
      * Executes the "Deadline" command by creating a new deadline task, adding it to the task list,
      * saving it to storage, and displaying a confirmation message to the user interface.
+     *
+     * @return A string message indicating the message in the GUI.
      */
     @Override
-    public void execute() {
+    public String execute() {
         taskList.getTasks().add(deadlineTask);
         storage.saveTask(deadlineTask);
-        ui.showTaskAdded(deadlineTask, taskList.getTasks().size());
+        return ui.showTaskAdded(deadlineTask, taskList.getTasks().size());
     }
 }

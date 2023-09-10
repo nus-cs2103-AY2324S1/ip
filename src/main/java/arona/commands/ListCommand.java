@@ -23,9 +23,11 @@ public class ListCommand extends Command {
     /**
      * Executes the "List" command by displaying the list of tasks to the user
      * interface.
+     *
+     * @return A string message indicating the message in the GUI.
      */
     @Override
-    public void execute() {
-        ui.showTaskList(taskList);
+    public String execute() {
+        return ui.showTaskList(taskList);
     }
 }

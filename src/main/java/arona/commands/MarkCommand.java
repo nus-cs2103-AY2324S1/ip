@@ -32,15 +32,16 @@ public class MarkCommand extends Command {
      * Executes the "Mark" command by marking the specified task as done, updating
      * its status in storage, and displaying a confirmation message to the user.
      * If the task index is out of bounds, an error message is shown.
+     *
+     * @return A string message indicating the message in the GUI.
      */
     @Override
-    public void execute() {
+    public String execute() {
         if (taskIndex < 0 || taskIndex >= taskList.getTasks().size()) {
-            ui.showTaskDoesNotExist(taskIndex);
-            return;
+            return ui.showTaskDoesNotExist();
         }
         taskList.getTasks().get(taskIndex).mark();
         storage.updateTaskStatusAsMarked(taskIndex);
-        ui.showTaskMarkedAsDone(taskList.getTasks().get(taskIndex));
+        return ui.showTaskMarkedAsDone(taskList.getTasks().get(taskIndex));
     }
 }

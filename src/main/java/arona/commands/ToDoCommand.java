@@ -33,11 +33,13 @@ public class ToDoCommand extends Command {
      * Executes the "To-Do" command by creating a new To-Do task with the specified
      * description, adding it to the task list, saving it in storage, and displaying
      * a confirmation message to the user.
+     *
+     * @return A string message indicating the message in the GUI.
      */
     @Override
-    public void execute() {
+    public String execute() {
         taskList.getTasks().add(todoTask);
         storage.saveTask(todoTask);
-        ui.showTaskAdded(todoTask, taskList.getTasks().size());
+        return ui.showTaskAdded(todoTask, taskList.getTasks().size());
     }
 }
