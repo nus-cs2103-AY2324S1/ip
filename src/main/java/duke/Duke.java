@@ -7,13 +7,13 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.ui.Ui;
 import duke.ui.VerboseUi;
-import javafx.application.Platform;
 
 /**
  * The main chatbot.
  */
 public class Duke {
 
+    private String name;
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -24,6 +24,7 @@ public class Duke {
      * @param name Name of the bot.
      */
     public Duke(String name) {
+        this.name = name;
         this.ui = new VerboseUi(name);
         this.storage = new Storage(this.ui);
         this.tasks = this.storage.loadTasks();
@@ -35,8 +36,7 @@ public class Duke {
      * @return Default greeting message.
      */
     public String greet() {
-        ui.greet();
-        return ui.flush();
+        return String.format("Hello! I'm %s\nWhat can I do for you?", name);
     }
 
     /**
@@ -46,16 +46,11 @@ public class Duke {
      * @return Response by chatbot.
      */
     public String getResponse(String input) {
-        boolean isExit = false;
         try {
             Command cmd = Parser.parse(input);
             cmd.execute(tasks, ui, storage);
-            isExit = cmd.isExit();
         } catch (DukeException e) {
             ui.print(e.getMessage());
-        }
-        if (isExit) {
-            Platform.exit();
         }
         return ui.flush();
     }

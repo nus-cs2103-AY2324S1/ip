@@ -48,12 +48,4 @@ public class FindCommand extends Command {
         ui.print(String.format("Here are the relevant tasks:\n%s", ui.stringifyList(filteredTasks)));
     }
 
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
 }

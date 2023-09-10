@@ -38,12 +38,4 @@ public class ListCommand extends Command {
         ui.print(String.format("Here are the tasks in your list:\n%s", ui.stringifyList(tasks)));
     }
 
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
 }

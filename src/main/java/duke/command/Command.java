@@ -104,11 +104,4 @@ public abstract class Command {
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 
-    /**
-     * Returns whether the command is to terminate the program.
-     *
-     * @return Whether the command is to terminate the program.
-     */
-    public abstract boolean isExit();
-
 }

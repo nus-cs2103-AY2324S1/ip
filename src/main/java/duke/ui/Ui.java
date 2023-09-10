@@ -32,11 +32,6 @@ public abstract class Ui {
     public abstract void print(String msg);
 
     /**
-     * Display default greeting.
-     */
-    public abstract void greet();
-
-    /**
      * Shared default message for counting tasks.
      *
      * @param n Number of tasks.

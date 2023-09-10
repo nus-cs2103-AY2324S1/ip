@@ -42,12 +42,4 @@ public class RemoveCommand extends Command {
                 tasks.delete(idx).toString(), ui.getTaskCount(tasks.size())));
     }
 
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
 }
