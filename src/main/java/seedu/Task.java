@@ -22,8 +22,6 @@ public class Task {
                 this.title = splitWord[1].trim();
                 this.description = splitWord[0].trim() + " " + title;
             } catch(Exception e) {
-                System.out.println("OOPS!!! The description of a todo cannot be empty.");
-                System.out.println("This is not in the correct format");
                 throw new IllegalArgumentException("Please correct the format");
             }
         } else if (category.equals("deadline")) {
@@ -45,10 +43,7 @@ public class Task {
                     this.end = formattedDate;
                     this.description = splitWord[0] + "("+ formattedDate + ")";
                 }
-
             } catch(Exception e) {
-                System.out.println("OOPS!!! The description of a deadline cannot be empty.");
-                System.out.println("This is not in the correct format");
                 throw new IllegalArgumentException("Please correct the format");
             }
 
@@ -61,8 +56,6 @@ public class Task {
                 this.end = splitWord[2].trim();
                 this.description = title + "(From : " + start + " To : " + end + ")";
             } catch(Exception e) {
-                System.out.println("OOPS!!! The description of a event cannot be empty.");
-                System.out.println("This is not in the correct format");
                 throw new IllegalArgumentException("Please correct the format");
             }
         } else {
