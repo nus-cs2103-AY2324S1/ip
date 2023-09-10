@@ -3,7 +3,7 @@ package duke;
 import taskutil.Task;
 
 /**
- * Contains methods to format text output for chatbot.
+ * Contains methods to format text output when chatbot adds/deletes a task.
  */
 public class Ui {
 
@@ -18,23 +18,28 @@ public class Ui {
         String taskMessage = "I've %s the following task as requested:\n       %s\n"
                 + "There are currently %d tasks in your list.";
         if (action == Action.ADD) {
-            Ui.setOutMessage(String.format(taskMessage, "added", task.toString(), size));
+            outMessage = String.format(taskMessage, "added", task.toString(), size);
         } else if (action == Action.REMOVE) {
-            Ui.setOutMessage(String.format(taskMessage, "removed", task.toString(), size));
+            outMessage = String.format(taskMessage, "removed", task.toString(), size);
         }
     }
 
+    /**
+     * Returns chatbot output after adding task.
+     *
+     * @return Chatbot output.
+     */
     public static String getOutMessage() {
-        return Ui.outMessage;
+        return outMessage;
     }
 
     /**
-     * Updates chatbot output.
+     * Sets chatbout output after adding task.
      *
-     * @param message Updated message to be displayed to user.
+     * @param outMessage Message to be output.
      */
-    public static void setOutMessage(String message) {
-        outMessage = message;
+    public static void setOutMessage(String outMessage) {
+        Ui.outMessage = outMessage;
     }
 
     /**

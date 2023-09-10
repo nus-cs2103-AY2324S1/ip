@@ -16,8 +16,8 @@ public class TaskTest {
 
     @Test
     public void changeStatus_toString_correctStatus() {
-        task2.changeStatus(true);
-        task3.changeStatus(true);
+        task2.setStatus(true);
+        task3.setStatus(true);
         Assertions.assertEquals("[T][ ] Buy food", task1.toString());
         Assertions.assertEquals("[D][X] Finish homework (by: 12 Apr 2020, 03:30 PM)", task2.toString());
         Assertions.assertEquals("[E][X] Japan trip (from: 12 Apr 2020, 03:30 PM to: 12 Apr 2020, 03:30 PM)",

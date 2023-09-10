@@ -29,7 +29,7 @@ public class TaskListTest {
     @Test
     public void changeStatus_listToStringData_correctOutput() {
         TaskList tasks = new TaskList();
-        task1.changeStatus(true);
+        task1.setStatus(true);
         tasks.addTask(task1, false);
         tasks.addTask(task2, false);
         tasks.addTask(task3, false);

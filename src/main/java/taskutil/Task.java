@@ -37,7 +37,7 @@ public class Task {
      *
      * @param isCompleted New status of task.
      */
-    public void changeStatus(boolean isCompleted) {
+    public void setStatus(boolean isCompleted) {
         this.isDone = isCompleted;
     }
 
