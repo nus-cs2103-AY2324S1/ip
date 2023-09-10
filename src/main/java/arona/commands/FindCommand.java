@@ -26,11 +26,13 @@ public class FindCommand extends Command {
 
     /**
      * Executes the FindCommand to search for tasks containing the specified keyword.
+     *
+     * @return A string message indicating the message in the GUI.
      */
     @Override
-    public void execute() {
+    public String execute() {
         TaskList result = filterTasksByKeyword(taskList, keyWord);
-        ui.showSearchResult(result);
+        return ui.showSearchResult(result);
     }
 
     /**

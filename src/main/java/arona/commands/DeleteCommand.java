@@ -32,16 +32,17 @@ public class DeleteCommand extends Command {
     /**
      * Executes the "Delete" command by removing the specified task from the task list,
      * deleting it from storage, and displaying a confirmation message to the user interface.
+     *
+     * @return A string message indicating the message in the GUI.
      */
     @Override
-    public void execute() {
+    public String execute() {
         if (taskIndex < 0 || taskIndex >= taskList.getTasks().size()) {
-            ui.showTaskDoesNotExist(taskIndex);
-            return;
+            return ui.showTaskDoesNotExist();
         }
         Task task = taskList.getTasks().get(taskIndex);
         taskList.getTasks().remove(taskIndex);
         storage.deleteTask(taskIndex);
-        ui.showTaskRemoved(task, taskList.getTasks().size());
+        return ui.showTaskRemoved(task, taskList.getTasks().size());
     }
 }

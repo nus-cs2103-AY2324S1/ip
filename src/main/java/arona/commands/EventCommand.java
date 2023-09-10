@@ -34,11 +34,13 @@ public class EventCommand extends Command {
     /**
      * Executes the "Event" command by adding the event task to the task list,
      * saving it to storage, and displaying a confirmation message to the user interface.
+     *
+     * @return A string message indicating the message in the GUI.
      */
     @Override
-    public void execute() {
+    public String execute() {
         taskList.getTasks().add(eventTask);
         storage.saveTask(eventTask);
-        ui.showTaskAdded(eventTask, taskList.getTasks().size());
+        return ui.showTaskAdded(eventTask, taskList.getTasks().size());
     }
 }
