@@ -1,7 +1,7 @@
 package enums;
 
 /**
- * The `TaskType` enum represents the different types of tasks in the Duke application.
+ * The `TaskType` enum represents the different types of tasks in the Woof application.
  */
 public enum TaskType {
     TODO("[T]"),

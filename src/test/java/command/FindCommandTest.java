@@ -1,8 +1,7 @@
 package command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -37,12 +36,12 @@ public class FindCommandTest {
     @Test
     public void testValidate() {
         // Arrange, Act, Assert
-        assertTrue(FindCommand.validate("find keyword"));
-        assertTrue(FindCommand.validate("find keyword extra argument"));
+        assertEquals("", FindCommand.validate("find keyword"));
+        assertEquals("", FindCommand.validate("find keyword extra argument"));
 
-        assertFalse(FindCommand.validate("/find keyword"));
-        assertFalse(FindCommand.validate("find"));
-        assertFalse(FindCommand.validate("list keyword"));
+        assertNotEquals("", FindCommand.validate("/find keyword"));
+        assertNotEquals("", FindCommand.validate("find"));
+        assertNotEquals("", FindCommand.validate("list keyword"));
     }
 
     @Test
@@ -56,23 +55,16 @@ public class FindCommandTest {
         taskList.addTask(new EventTask("Task 3", startDate, endDate));
 
         FindCommand findCommand = new FindCommand("find Task 2");
-        String expectedOutput = "Here are the matching tasks in your list:"
-                + System.lineSeparator()
-                + "  2. [D][ ] Task 2 (by: 2023-12-31)" + System.lineSeparator()
+        String expectedOutput = "Here are the matching tasks in your list:" + System.lineSeparator()
+                + "  2. [D][ ] Task 2" + System.lineSeparator()
+                + "            ~By: 2023-12-31" + System.lineSeparator()
                 + "You have 3 tasks in the task list." + System.lineSeparator();
 
-        // Redirecting System.out to capture console output
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-
         // Act
-        findCommand.execute(taskList);
-
-        // Restore System.out
-        System.setOut(System.out);
+        String actualOutput = findCommand.execute(taskList);
 
         // Assert
-        assertEquals(expectedOutput, outContent.toString());
+        assertEquals(expectedOutput, actualOutput);
     }
 
     @Test
@@ -88,17 +80,10 @@ public class FindCommandTest {
                + "No tasks matched your keyword!" + System.lineSeparator()
                + "You have 3 tasks in the task list." + System.lineSeparator();
 
-        // Redirecting System.out to capture console output
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-
         // Act
-        findCommand.execute(taskList);
-
-        // Restore System.out
-        System.setOut(System.out);
+        String actualOutput = findCommand.execute(taskList);
 
         // Assert
-        assertEquals(expectedOutput, outContent.toString());
+        assertEquals(expectedOutput, actualOutput);
     }
 }

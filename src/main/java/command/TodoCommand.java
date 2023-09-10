@@ -11,9 +11,6 @@ import tasks.TodoTask;
  * a new todo task to the task list if the command is valid.
  */
 public class TodoCommand extends Command {
-    private final boolean valid;
-    private String description;
-
     /**
      * Constructs a new `TodoCommand` with the specified raw command string.
      *
@@ -21,7 +18,6 @@ public class TodoCommand extends Command {
      */
     public TodoCommand(String rawCommand) {
         super(rawCommand);
-        this.valid = validate(rawCommand);
     }
 
     /**
@@ -29,27 +25,19 @@ public class TodoCommand extends Command {
      * It checks if the command is correctly formatted.
      *
      * @param rawCommand The raw command string.
-     * @return `true` if the command is valid, `false` otherwise.
+     * @return An empty string if the command is valid, or an error message if it's invalid.
      */
-    public static boolean validate(String rawCommand) {
+    public static String validate(String rawCommand) {
         String[] args = Parser.getArgs(rawCommand);
         if (args.length != 2) {
-            return false;
+            return "Invalid number of arguments for todo command.";
         }
 
-        return CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.TODO);
-    }
-
-    /**
-     * Deconstructs the command to extract the description.
-     *
-     * @param rawCommand The raw command string.
-     */
-    private void deconstruct(String rawCommand) {
-        if (!this.valid) {
-            return;
+        if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.TODO)) {
+            return "Invalid command word for todo command.";
         }
-        this.description = Parser.getArgs(rawCommand)[1];
+
+        return ""; // Return an empty string if the command is valid
     }
 
     /**
@@ -58,11 +46,15 @@ public class TodoCommand extends Command {
      *
      * @param taskList The task list to which the todo task is added.
      */
-    public void execute(TaskList taskList) {
-        if (!this.valid) {
-            return;
+    public String execute(TaskList taskList) {
+        String rawCommand = super.getRawCommand();
+        String validationError = validate(rawCommand);
+        if (isValidationError(validationError)) {
+            return validationError;
         }
-        this.deconstruct(super.getRawCommand());
-        taskList.addTask(new TodoTask(this.description));
+
+        String[] args = Parser.getArgs(rawCommand);
+        String description = args[1];
+        return taskList.addTask(new TodoTask(description));
     }
 }

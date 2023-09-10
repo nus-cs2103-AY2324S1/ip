@@ -26,21 +26,28 @@ public class DeleteCommand extends Command {
      *
      * @param rawCommand The raw command string.
      * @param taskList   The task list against which to validate the task index.
-     * @return `true` if the command is valid, `false` otherwise.
+     * @return An empty string if the command is valid, or an error message if it's invalid.
      */
-    public static boolean validate(String rawCommand, TaskList taskList) {
+    public static String validate(String rawCommand, TaskList taskList) {
         String[] args = Parser.getArgs(rawCommand);
 
         if (args.length != 2) {
-            return false;
+            return "Invalid number of arguments for delete command.";
         }
 
         if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.DELETE)) {
-            return false;
+            return "Invalid command word for delete command.";
         }
 
-        return taskList.validateTaskIndex(args[1]);
+        String taskListValidationError = taskList.validateTaskIndex(args[1]);
+        if (taskList.isValidationError(taskListValidationError)) {
+            return taskListValidationError;
+        }
+
+
+        return ""; // Return an empty string if the command is valid
     }
+
 
     /**
      * Executes the "delete" command. It parses the command, validates it, and deletes
@@ -48,12 +55,16 @@ public class DeleteCommand extends Command {
      *
      * @param taskList The task list from which the task is deleted.
      */
-    public void execute(TaskList taskList) {
+    public String execute(TaskList taskList) {
         String rawCommand = super.getRawCommand();
-        if (!validate(rawCommand, taskList)) {
-            return;
+        String validationError = validate(rawCommand, taskList);
+
+        if (isValidationError(validationError)) {
+            return validationError; // Return the error message
         }
+
         String[] args = Parser.getArgs(rawCommand);
-        taskList.deleteTask(args[1]);
+        return taskList.deleteTask(args[1]);
     }
+
 }

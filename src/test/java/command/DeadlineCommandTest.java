@@ -1,53 +1,34 @@
 package command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.time.LocalDate;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import duke.Duke;
 import tasks.DeadlineTask;
 import tasks.Task;
 import tasks.TaskList;
+import woof.Woof;
 
 public class DeadlineCommandTest {
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
-
-    @BeforeEach
-    public void setUpStreams() {
-        // Redirect System.out to the ByteArrayOutputStream
-        System.setOut(new PrintStream(outContent));
-    }
-
-    @AfterEach
-    public void restoreStreams() {
-        // Restore the original System.out
-        System.setOut(originalOut);
-    }
     @Test
     public void testValidate() {
         // Arrange, Act, Assert
-        assertTrue(DeadlineCommand.validate("deadline study /by 2023-01-01"));
-        assertTrue(DeadlineCommand.validate("deadline       study /by 2023-01-01"));
+        assertEquals("", DeadlineCommand.validate("deadline study /by 2023-01-01"));
+        assertEquals("", DeadlineCommand.validate("deadline       study /by 2023-01-01"));
 
-        assertFalse(DeadlineCommand.validate("deadline"));
-        assertFalse(DeadlineCommand.validate("deadline study /by 2023/01/01"));
-        assertFalse(DeadlineCommand.validate("deadline /by 2023/01/01"));
+        assertNotEquals("", DeadlineCommand.validate("deadline"));
+        assertNotEquals("", DeadlineCommand.validate("deadline study /by 2023/01/01"));
+        assertNotEquals("", DeadlineCommand.validate("deadline /by 2023/01/01"));
     }
 
     @Test
     public void testExecuteCreateTask() {
         // Arrange
         DeadlineCommand deadlineCommand = new DeadlineCommand("deadline some task /by 2023-12-31");
-        LocalDate endDate = LocalDate.parse("2023-12-31", Duke.getDateTimeFormatter());
+        LocalDate endDate = LocalDate.parse("2023-12-31", Woof.getDateTimeFormatter());
         Task expectedTask = new DeadlineTask("some task", endDate);
         TaskList taskList = new TaskList(null);
 

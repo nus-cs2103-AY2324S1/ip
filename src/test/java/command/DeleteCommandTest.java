@@ -1,8 +1,7 @@
 package command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -12,12 +11,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import duke.Duke;
 import tasks.DeadlineTask;
 import tasks.EventTask;
 import tasks.Task;
 import tasks.TaskList;
 import tasks.TodoTask;
+import woof.Woof;
 
 public class DeleteCommandTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -38,21 +37,21 @@ public class DeleteCommandTest {
     @Test
     public void testValidate() {
         //Arrange
-        LocalDate startDate = LocalDate.parse("2023-01-01", Duke.getDateTimeFormatter());
-        LocalDate endDate = LocalDate.parse("2023-12-31", Duke.getDateTimeFormatter());
+        LocalDate startDate = LocalDate.parse("2023-01-01", Woof.getDateTimeFormatter());
+        LocalDate endDate = LocalDate.parse("2023-12-31", Woof.getDateTimeFormatter());
         Task task1 = new TodoTask("some task 1");
         Task task2 = new DeadlineTask("some task 2", endDate);
         Task task3 = new EventTask("some task 2", startDate, endDate);
         TaskList taskList = new TaskList(new Task[]{task1, task2, task3});
 
         // Act, Assert
-        assertTrue(DeleteCommand.validate("delete 1", taskList));
-        assertTrue(DeleteCommand.validate("delete 2", taskList));
+        assertEquals("", DeleteCommand.validate("delete 1", taskList));
+        assertEquals("", DeleteCommand.validate("delete 2", taskList));
 
-        assertFalse(DeleteCommand.validate("delete", taskList));
-        assertFalse(DeleteCommand.validate("delete a", taskList));
-        assertFalse(DeleteCommand.validate("delete 0", taskList));
-        assertFalse(DeleteCommand.validate("delete 4", taskList));
+        assertNotEquals("", DeleteCommand.validate("delete", taskList));
+        assertNotEquals("", DeleteCommand.validate("delete a", taskList));
+        assertNotEquals("", DeleteCommand.validate("delete 0", taskList));
+        assertNotEquals("", DeleteCommand.validate("delete 4", taskList));
     }
 
     @Test

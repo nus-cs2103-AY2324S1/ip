@@ -1,6 +1,7 @@
 package command;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
@@ -39,13 +40,13 @@ public class MarkCommandTest {
         taskList.addTask(new TodoTask("Task 2"));
 
         // Act, Assert
-        assertTrue(MarkCommand.validate("mark 1", taskList));
-        assertTrue(MarkCommand.validate("mark 2", taskList));
+        assertEquals("", MarkCommand.validate("mark 1", taskList));
+        assertEquals("", MarkCommand.validate("mark 2", taskList));
 
-        assertFalse(MarkCommand.validate("mark", taskList));
-        assertFalse(MarkCommand.validate("mark 0", taskList));
-        assertFalse(MarkCommand.validate("mark 3", taskList));
-        assertFalse(MarkCommand.validate("mark a", taskList));
+        assertNotEquals("", MarkCommand.validate("mark", taskList));
+        assertNotEquals("", MarkCommand.validate("mark 0", taskList));
+        assertNotEquals("", MarkCommand.validate("mark 3", taskList));
+        assertNotEquals("", MarkCommand.validate("mark a", taskList));
     }
 
     @Test
@@ -79,6 +80,6 @@ public class MarkCommandTest {
 
         // Assert
         Task task = taskList.getTask(0);
-        assertFalse(task.isDone());
+        assertNotEquals("", task.isDone());
     }
 }

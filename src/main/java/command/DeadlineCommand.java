@@ -2,11 +2,11 @@ package command;
 
 import java.time.LocalDate;
 
-import duke.Duke;
 import enums.CommandWord;
 import parser.Parser;
 import tasks.DeadlineTask;
 import tasks.TaskList;
+import woof.Woof;
 
 /**
  * The `DeadlineCommand` class represents a command to create a new deadline task.
@@ -28,25 +28,30 @@ public class DeadlineCommand extends Command {
      * It checks if the command is correctly formatted.
      *
      * @param rawCommand The raw command string.
-     * @return `true` if the command is valid, `false` otherwise.
+     * @return an empty string if the command is valid, or an error message if it's invalid.
      */
-    public static boolean validate(String rawCommand) {
+    public static String validate(String rawCommand) {
         String[] args = Parser.getArgs(rawCommand);
 
         if (args.length != 4) {
-            return false;
+            return "Invalid number of arguments for deadline command.";
         }
 
         if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.DEADLINE)) {
-            return false;
+            return "Invalid command word for deadline command.";
         }
 
         if (!CommandWord.commandWordToValueMap(args[2]).equals(CommandWord.BY)) {
-            return false;
+            return "Invalid subcommand '/by' for deadline command.";
         }
 
-        return Duke.validateDateTime(args[3]);
+        if (!Woof.validateDateTime(args[3])) {
+            return "Invalid date/time format for the '/by' field.";
+        }
+
+        return ""; // Return an empty string if the command is valid
     }
+
 
     /**
      * Executes the "deadline" command. It parses the command, validates it, and adds a new
@@ -54,14 +59,18 @@ public class DeadlineCommand extends Command {
      *
      * @param taskList The task list to which the deadline task is added.
      */
-    public void execute(TaskList taskList) {
+    public String execute(TaskList taskList) {
         String rawCommand = super.getRawCommand();
-        if (!validate(rawCommand)) {
-            return;
+        String validationError = validate(rawCommand);
+
+        if (!validationError.isEmpty()) {
+            return validationError; // Return the error message
         }
+
         String[] args = Parser.getArgs(rawCommand);
         String description = args[1];
-        LocalDate endDate = LocalDate.parse(args[3], super.getDateTimeformatter());
-        taskList.addTask(new DeadlineTask(description, endDate));
+        LocalDate endDate = LocalDate.parse(args[3], super.getDateTimeFormatter());
+        return taskList.addTask(new DeadlineTask(description, endDate));
     }
+
 }

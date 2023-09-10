@@ -32,7 +32,7 @@ This project is a Java application that aims to provide a user-friendly task man
 6. **Enjoy**: Duke is very fun.
 
    ```shell
-   java -jar duke.jar
+   java -jar woof.jar
 
 ## Installation Option 2
 
@@ -43,7 +43,7 @@ This project is a Java application that aims to provide a user-friendly task man
 
 ## Todo List
 
-- [x] Task 1 : Get duke
+- [x] Task 1 : Get woof
 - [ ] Task 2 : Experiment with it
 - [ ] Task 3 : Profit ???
 - [ ] Task 4 : ~~Cry~~

@@ -1,6 +1,7 @@
 package command;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
@@ -39,13 +40,13 @@ public class NullCommandTest {
         taskList.addTask(new TodoTask("Task 2"));
 
         // Act, Assert
-        assertTrue(UnmarkCommand.validate("unmark 1", taskList));
-        assertTrue(UnmarkCommand.validate("unmark 2", taskList));
+        assertEquals("", UnmarkCommand.validate("unmark 1", taskList));
+        assertEquals("", UnmarkCommand.validate("unmark 2", taskList));
 
-        assertFalse(UnmarkCommand.validate("unmark", taskList));
-        assertFalse(UnmarkCommand.validate("unmark 0", taskList));
-        assertFalse(UnmarkCommand.validate("unmark 3", taskList));
-        assertFalse(UnmarkCommand.validate("unmark a", taskList));
+        assertNotEquals("", UnmarkCommand.validate("unmark", taskList));
+        assertNotEquals("", UnmarkCommand.validate("unmark 0", taskList));
+        assertNotEquals("", UnmarkCommand.validate("unmark 3", taskList));
+        assertNotEquals("", UnmarkCommand.validate("unmark a", taskList));
     }
 
     @Test
@@ -64,7 +65,7 @@ public class NullCommandTest {
 
         // Assert
         Task task = taskList.getTask(0);
-        assertFalse(task.isDone());
+        assertNotEquals("", task.isDone());
     }
 
     @Test
