@@ -10,6 +10,12 @@ import duke.storage.Storage;
  * Represents a Task List to store User's Tasks.
  */
 public class TaskList {
+
+    /**
+     * The Message to display when Invalid Index is given.
+     */
+    private static final String INVALID_INDEX_MESSAGE = "Invalid Task Index provided!";
+
     /**
      * The ArrayList to represent the Task List.
      */
@@ -66,7 +72,7 @@ public class TaskList {
             String buffer = "";
 
             if (index > taskList.size() - 1 || index < 0) {
-                throw new DukeException("Invalid Task Index provided!");
+                throw new DukeException(INVALID_INDEX_MESSAGE);
             }
             Task selectedTask = taskList.get(index);
             if (status.equals("mark")) {
@@ -79,8 +85,21 @@ public class TaskList {
             this.saveList();
             return buffer;
         } catch (NumberFormatException e) {
-            throw new DukeException("Invalid Task Index provided!");
+            throw new DukeException(INVALID_INDEX_MESSAGE);
         }
+    }
+
+    /**
+     * Formats the return Message for deleting and adding Tasks.
+     *
+     * @param status The action type of the Message.
+     * @param task The task to be added or removed.
+     * @param size The size of the taskList.
+     * @return The formatted String Message.
+     */
+    private String formatMessage(String status, Task task, Integer size) {
+        return "Noted. I've " + status + " this task:\n" + task + "\nNow you have "
+                + size + " tasks in the list.";
     }
 
     /**
@@ -95,15 +114,13 @@ public class TaskList {
             int index = Integer.parseInt(commandNum) - 1;
 
             if (index > taskList.size() - 1 || index < 0) {
-                throw new DukeException("Invalid Task Index provided!");
+                throw new DukeException(INVALID_INDEX_MESSAGE);
             }
             Task selectedTask = taskList.remove(index);
             this.saveList();
-            return "Noted. I've removed this task:\n" + selectedTask + "\nNow you have "
-                    + taskList.size() + " tasks in the list.";
-
+            return formatMessage("removed", selectedTask, taskList.size());
         } catch (NumberFormatException e) {
-            throw new DukeException("Invalid Task Index provided!");
+            throw new DukeException(INVALID_INDEX_MESSAGE);
         }
     }
 
@@ -117,8 +134,7 @@ public class TaskList {
         ToDo item = new ToDo(task);
         taskList.add(item);
         this.saveList();
-        return "Got it. I've added this task:\n" + item + "\nNow you have "
-                + taskList.size() + " tasks in the list.";
+        return formatMessage("added", item, taskList.size());
     }
 
     /**
@@ -134,8 +150,7 @@ public class TaskList {
         Deadline item = new Deadline(desc, by);
         taskList.add(item);
         this.saveList();
-        return "Got it. I've added this task:\n" + item + "\nNow you have "
-                + taskList.size() + " tasks in the list.";
+        return formatMessage("added", item, taskList.size());
     }
 
     /**
@@ -151,8 +166,7 @@ public class TaskList {
         Event item = new Event(desc, start, end);
         taskList.add(item);
         this.saveList();
-        return "Got it. I've added this task:\n" + item + "\nNow you have "
-                + taskList.size() + " tasks in the list.";
+        return formatMessage("added", item, taskList.size());
     }
 
     /**
