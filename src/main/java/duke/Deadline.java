@@ -88,7 +88,8 @@ public class Deadline extends Task {
     @Override
     public String convertToSaveFormat() {
         return "D" + Storage.FILESEPERATORCHARACTER + this.isDone() + Storage.FILESEPERATORCHARACTER + this.taskName
-                + Storage.FILESEPERATORCHARACTER + this.dateTime.toString();
+                + Storage.FILESEPERATORCHARACTER + this.dateTime.toString()
+                + Storage.FILESEPERATORCHARACTER + this.saveTagFormat();
     }
 
     @Override

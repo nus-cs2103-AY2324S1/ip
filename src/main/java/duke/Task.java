@@ -1,13 +1,22 @@
 package duke;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 /**
  * Task represents a task given by a user's input
  * It contains details of a task
  */
 
+@SuppressWarnings("checkstyle:Regexp")
 public class Task {
 
     private String taskName;
     private boolean isDone;
+
+    private Set<String> tags;
 
     /**
      * Constructor for creating a task
@@ -16,6 +25,7 @@ public class Task {
     public Task(String taskName) {
         this.taskName = taskName;
         this.isDone = false;
+        this.tags = new HashSet<>();
     }
 
     /**
@@ -91,6 +101,49 @@ public class Task {
      */
     public String getTaskName() {
         return this.taskName;
+    }
+    /**
+     * Attach a tag to a task
+     * @param tag the tag to be attached
+     */
+    public void addTag(String tag) {
+        this.tags.add(tag);
+    }
+    /**
+     * Remove a tag from a task
+     * @param tag the tag to be removed
+     */
+    public void removeTag(String tag) {
+        this.tags.remove(tag);
+    }
+
+    /**
+     * Converts the tags of a task into a string that can be saved
+     * @return  a string that can be saved
+     */
+    public String saveTagFormat() {
+        String tagsString = String.join(", ", this.tags);
+        return tagsString;
+    }
+
+    /**
+     * Loads the tags of a task
+     */
+    public void loadTags(String savedTags) {
+        String[] tags = savedTags.split(", ");
+        List<String> tagsList = Arrays.asList(tags);
+        Set<String> tagsSet = new HashSet<>(tagsList);
+        this.tags = tagsSet;
+    }
+
+    /**
+     * Prints the tags of a task
+     * @return  a string containing the tags of a task
+     */
+    public String printTags() {
+        String tagsString = String.join(", ", this.tags);
+        System.out.println("Tags: " + tagsString);
+        return tagsString;
     }
 
     @Override

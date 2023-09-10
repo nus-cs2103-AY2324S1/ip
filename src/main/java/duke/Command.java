@@ -11,6 +11,7 @@ public enum Command {
     TODO,
     DEADLINE,
     EVENT,
+    TAG,
     DELETE,
     FIND;
 
@@ -19,7 +20,7 @@ public enum Command {
      */
     public static final String[] VALID_COMMANDS = {"list", "bye", "todo <task_name>",
         "deadline <task_name> /by <deadline>", "event <task_name> /from <start-time> /to <end-time>",
-        "mark <number>", "unmark <number>", "delete <number>", "find <keyword>"
+        "mark <number>", "unmark <number>", "delete <number>", "find <keyword>", "tag <number> <tag>",
     };
 
     /**
@@ -50,6 +51,8 @@ public enum Command {
             return Command.DELETE;
         } else if (commandWord.startsWith("find")) {
             return Command.FIND;
+        } else if (commandWord.startsWith("tag")) {
+            return Command.TAG;
         }
         throw new InvalidInputException();
     }

@@ -106,7 +106,7 @@ public class Event extends Task {
     public String convertToSaveFormat() {
         return "E" + Storage.FILESEPERATORCHARACTER + this.isDone() + Storage.FILESEPERATORCHARACTER + this.taskName
                 + Storage.FILESEPERATORCHARACTER + this.end.toString() + Storage.FILESEPERATORCHARACTER
-                + this.start.toString();
+                + this.start.toString() + Storage.FILESEPERATORCHARACTER + this.saveTagFormat();
     }
 
     @Override

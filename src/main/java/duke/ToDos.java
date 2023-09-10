@@ -61,7 +61,8 @@ public class ToDos extends Task {
      */
     @Override
     public String convertToSaveFormat() {
-        return "T" + Storage.FILESEPERATORCHARACTER + this.isDone() + Storage.FILESEPERATORCHARACTER + this.taskName;
+        return "T" + Storage.FILESEPERATORCHARACTER + this.isDone() + Storage.FILESEPERATORCHARACTER + this.taskName
+                + Storage.FILESEPERATORCHARACTER + this.saveTagFormat();
     }
 
     @Override

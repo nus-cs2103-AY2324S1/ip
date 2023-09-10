@@ -82,6 +82,11 @@ public class Parser {
                 TaskList searchResult = this.searchEngine.search(keyword);
                 this.ui.showSearchResult(searchResult);
                 break;
+            case TAG:
+                int taskNumberTag = Integer.parseInt(splitStringByBlanks[1]);
+                String tag = splitStringByBlanks[2];
+                this.taskList.updateTags(taskNumberTag - 1, tag, storage);
+                break;
             default:
                 // WHY: If it has reach the default statement, the command is not valid, program should be stopped
                 assert false : "Invalid command";

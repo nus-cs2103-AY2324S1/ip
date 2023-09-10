@@ -58,7 +58,10 @@ public class TaskList {
 
         switch (taskType) {
         case "T":
-            return new ToDos(taskName, taskStatus);
+            String tags = splitString[3];
+            Task toDo = new ToDos(taskName, taskStatus);
+            toDo.loadTags(tags);
+            return toDo;
         case "D":
             String deadline = splitString[3];
             DateTime deadlineDateTime = DateTime.createDateTimeFromStorage(deadline);
@@ -66,7 +69,10 @@ public class TaskList {
                 throw new WrongInputException("Stored deadline is invalid / corrupted",
                         "Please clear the folder and restart the program");
             }
-            return new Deadline(taskName, taskStatus, deadlineDateTime);
+            String tagsDeadline = splitString[4];
+            Task deadlineTask = new Deadline(taskName, taskStatus, deadlineDateTime);
+            deadlineTask.loadTags(tagsDeadline);
+            return deadlineTask;
         case "E":
             String to = splitString[3];
             String from = splitString[4];
@@ -76,7 +82,10 @@ public class TaskList {
                 throw new WrongInputException("Stored event is invalid / corrupted",
                         "Please clear the folder and restart the program");
             }
-            return new Event(taskName, taskStatus, fromDateTime, toDateTime);
+            String tagsEvent = splitString[5];
+            Task event = new Event(taskName, taskStatus, fromDateTime, toDateTime);
+            event.loadTags(tagsEvent);
+            return event;
         default:
             // If it has reach the default statement, the taskType is not valid, program should be stopped
             assert false : "Invalid task type";
@@ -153,13 +162,26 @@ public class TaskList {
 
     /**
      * Generates a new task list after a task has been added or deleted
-     * @param storage   the storage object that is used to write to the file
+     * @param storage  the storage object that is used to write to the file
      */
     private void generateNewTaskList(Storage storage) {
         storage.clearFile();
         for (Task task : this.taskList) {
             storage.writeToFile(task.convertToSaveFormat());
         }
+    }
+
+    /**
+     * Returns the taskList
+     * @param index the index of the task in the taskList
+     * @param tag the tag to be added
+     * @param storage  the storage object that is used to write to the file
+     */
+    public void updateTags(int index, String tag, Storage storage) {
+        Task task = this.taskList.get(index);
+        task.addTag(tag);
+        task.printTags();
+        this.generateNewTaskList(storage);
     }
 
     /**
