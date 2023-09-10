@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import dot.Dot;
 import dot.commands.Command;
+import dot.commands.Undoable;
 import dot.errors.DotException;
 import dot.parser.Parser;
 import dot.ui.Ui;
@@ -35,9 +36,11 @@ import javafx.util.Duration;
  */
 public class MainWindow extends AnchorPane {
 
+    private final Dot dot;
+
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private final Image dotImage = new Image(this.getClass().getResourceAsStream("/images/Dot.png"));
-    private final Dot dot;
+
     private final Runnable handleExitApp;
     @FXML
     private TextField inputTextField;
@@ -51,6 +54,12 @@ public class MainWindow extends AnchorPane {
     private Rectangle errorRectangle;
     @FXML
     private Label errorMessage;
+
+    /**
+     * For undoable commands, in the upper logic of command execution
+     * and exception handling.
+     */
+    private Undoable potentialCommandToRollback;
 
     /**
      * Constructor for MainWindow.
@@ -166,11 +175,25 @@ public class MainWindow extends AnchorPane {
 
         try {
             Command cmd = Parser.parseInputToCommand(userMessage,
-                    dot.getDotTaskList());
+                    dot.getDotTaskList(), potentialCommandToRollback);
             if (cmd.isTerminateCommand()) {
                 handleExitApp.run();
             } else {
                 cmd.execute(this::handleDotOutput);
+            }
+
+            // After execution of Undo command, set commandToRollback to null
+            // such that if Undo is attempted again, there will be no command
+            // to undo
+            if (cmd.isUndoCommand()) {
+                potentialCommandToRollback = null;
+            }
+
+            // If command is Undoable, set it to latest commandToRollback
+            if (cmd.isUndoable()) {
+                // If Command overrides, isUndoable to return true
+                // it must extend Undoable. RTT of cmd <: Undoable
+                potentialCommandToRollback = (Undoable) cmd;
             }
         } catch (DotException e) {
             // We can call handleErrorMessage here alternatively

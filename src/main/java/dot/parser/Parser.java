@@ -14,6 +14,8 @@ import dot.commands.HelpCommand;
 import dot.commands.ListCommand;
 import dot.commands.MarkCommand;
 import dot.commands.TodoCommand;
+import dot.commands.UndoCommand;
+import dot.commands.Undoable;
 import dot.commands.UnmarkCommand;
 import dot.commands.WhatsgoingonCommand;
 import dot.errors.DotException;
@@ -71,7 +73,9 @@ public class Parser {
      * @return The appropriate Command.
      * @throws DotException On detected error.
      */
-    public static Command parseInputToCommand(String input, TaskList dotTaskList) throws DotException {
+    public static Command parseInputToCommand(String input,
+                                              TaskList dotTaskList,
+                                              Undoable undoable) throws DotException {
         switch (input.strip()) {
         case "bye":
             return new ByeCommand(); // no break due to return
@@ -80,6 +84,8 @@ public class Parser {
         case "list":
         case "ls":
             return new ListCommand(dotTaskList); // no break due to return
+        case "undo":
+            return new UndoCommand(undoable); // no break due to return
         default:
             if (Validation.isValidCommand(input, "mark")) {
                 return getMarkCommand(input, dotTaskList);
