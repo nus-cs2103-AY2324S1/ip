@@ -4,7 +4,6 @@ import java.util.Map;
 
 import duke.core.DukeException;
 import duke.core.Storage;
-import duke.core.Ui;
 import duke.task.TaskList;
 
 /**
@@ -38,9 +37,8 @@ public abstract class Command {
      * Executes the command.
      *
      * @param tasks TaskList to be used by the command.
-     * @param ui Ui to be used by the command.
      * @param storage Storage to be used by the command.
      * @throws DukeException If an error occurs during execution of command.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Storage storage) throws DukeException;
 }

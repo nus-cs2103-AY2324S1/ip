@@ -4,12 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAccessor;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import duke.core.DukeException;
 import duke.core.Parser;
 import duke.core.Storage;
-import duke.core.Ui;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -50,7 +48,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
         Task taskToAdd = null;
 
         try {
@@ -132,13 +130,14 @@ public class AddCommand extends Command {
 
             // Exit early and do not print anything if the command is silent
             if (super.getParameterMap().containsKey("silent")) {
-                return;
+                return null;
             }
 
-            Ui.respond(Stream.of("Got it. I've added this task:",
-                    String.format("  %s", taskToAdd.toString()),
-                    String.format("Now you have %d tasks in the list.", tasks.size())));
-            tasks.storeTasks();
+            StringBuilder response = new StringBuilder("Got it. I've added this task:\n");
+            response.append(String.format("  %s\n", taskToAdd.toString()));
+            response.append(String.format("Now you have %d tasks in the list.", tasks.size()));
+
+            return response.toString();
         } catch (DukeException e) {
             throw e;
         }

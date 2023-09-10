@@ -1,10 +1,9 @@
 package duke.command;
 
 import java.util.Map;
-import java.util.stream.Stream;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import duke.core.Storage;
-import duke.core.Ui;
 import duke.task.TaskList;
 
 /**
@@ -22,13 +21,17 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         if (tasks.size() == 0) {
-            Ui.respond("There are no tasks to list.");
-            return;
+            return "There are no tasks to list.";
         }
 
-        Stream<String> taskDetails = tasks.getTasks().map(task -> task.toString());
-        Ui.respond(taskDetails);
+        AtomicInteger count = new AtomicInteger(1);
+        StringBuilder response = new StringBuilder();
+        response.append("Here are the tasks in your list:\n");
+        tasks.getTasks().map(task -> String.format("%d. %s\n", count.getAndIncrement(), task.toString()))
+                .forEach(task -> response.append(task));
+
+        return response.toString();
     }
 }

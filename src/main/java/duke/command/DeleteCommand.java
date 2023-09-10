@@ -1,11 +1,10 @@
 package duke.command;
 
 import java.util.Map;
-import java.util.stream.Stream;
 
 import duke.core.DukeException;
 import duke.core.Storage;
-import duke.core.Ui;
+import duke.task.Task;
 import duke.task.TaskList;
 
 /**
@@ -23,7 +22,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
         if (tasks.size() == 0) {
             throw new DukeException("There are no tasks added. Please add a task first.");
         }
@@ -37,7 +36,7 @@ public class DeleteCommand extends Command {
             int taskIndex = Integer.parseInt(taskIndexString) - 1;
 
             if (taskIndex < 0) {
-                throw new DukeException("Task number cannot be negative.\n     "
+                throw new DukeException("Task number cannot be negative.\n"
                         + "Please retry with a valid task number.");
             }
 
@@ -47,16 +46,14 @@ public class DeleteCommand extends Command {
                         tasks.size()));
             }
 
-            String deletedTaskInfo = tasks.deleteTask(taskIndex);
+            Task deletedTask = tasks.deleteTask(taskIndex);
+            tasks.storeTasks(storage);
 
-            if (deletedTaskInfo == null) {
-                return;
-            }
+            StringBuilder response = new StringBuilder("Noted. I've removed this task:\n");
+            response.append(String.format("  %s\n", deletedTask.toString()));
+            response.append(String.format("Now you have %d tasks in the list.", tasks.size()));
 
-            Ui.respond(Stream.of("Noted. I've removed this task:",
-                    String.format("  %s", deletedTaskInfo),
-                    String.format("Now you have %d tasks in the list.", tasks.size())));
-            tasks.storeTasks();
+            return response.toString();
         } catch (NumberFormatException e) {
             throw new DukeException(String.format("Task number provided \"%s\" is not a number.\n     "
                     + "Please retry with a valid task number.", taskIndexString));

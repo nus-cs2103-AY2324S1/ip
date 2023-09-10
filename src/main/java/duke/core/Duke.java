@@ -1,7 +1,5 @@
 package duke.core;
 
-import java.util.stream.Stream;
-
 import duke.command.Command;
 import duke.task.TaskList;
 
@@ -9,43 +7,47 @@ import duke.task.TaskList;
  * Main class for the program.
  */
 public class Duke {
-    private static boolean isExit = false;
+    private Storage storage;
+    private TaskList tasks;
 
-    private static Storage storage;
-    private static TaskList tasks;
-    private static Ui ui;
+    /**
+     * Constructor for Duke.
+     */
+    public Duke() {
+        this("./data/");
+    }
 
-    public static void main(String[] args) {
+    /**
+     * Constructor for Duke.
+     *
+     * @param baseDirectory Base directory for the program.
+     */
+    public Duke(String baseDirectory) {
         try {
-            Stream<String> taskDataStream = Storage.readFile("tasks.txt");
-            Duke.tasks = new TaskList(taskDataStream);
-
-            if (tasks.hasLoadingError()) {
-                Ui.showLoadingError();
-            }
-
+            storage = new Storage(baseDirectory);
+            tasks = new TaskList(storage.readFile("tasks.txt"));
         } catch (DukeException e) {
-            Ui.respond(e);
+            // TODO: Handle error
         }
+    }
 
-        Ui.showGreetMessage();
+    /**
+     * Returns the response to the user input.
+     *
+     * @param input User input.
+     * @return Response to the user input.
+     */
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parseCommand(input);
 
-        while (!isExit) {
-            try {
-                Command command = Ui.readCommand();
-
-                if (command == null) {
-                    Ui.showInputArrow();
-                    continue;
-                }
-
-                command.execute(tasks, ui, storage);
-                Duke.isExit = command.isExit();
-            } catch (DukeException e) {
-                Ui.respond(e);
+            if (command == null) {
+                return "Please enter a valid command.";
             }
-        }
 
-        Ui.showExitMessage();
+            return command.execute(tasks, storage);
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
     }
 }
