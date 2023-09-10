@@ -16,6 +16,8 @@ public class Event extends Task {
      */
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
+        assert from.isBefore(to) || from.isEqual(to)
+                : "The first date should not be later than the second date";
         this.from = from;
         this.to = to;
     }

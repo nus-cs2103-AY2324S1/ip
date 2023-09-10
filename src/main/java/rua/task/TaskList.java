@@ -61,6 +61,7 @@ public class TaskList {
      * @return The new TaskList object after removing the task.
      */
     public TaskList delete(int index) {
+        assert index <= tasks.size() : "Task list now does not have enough tasks";
         ArrayList<Task> currentTasks = this.tasks;
         currentTasks.remove(index - 1);
         return update(currentTasks);
@@ -73,6 +74,7 @@ public class TaskList {
      * @return The new TaskList object after marking the task.
      */
     public TaskList mark(int index) {
+        assert index <= tasks.size() : "Task list now does not have enough tasks";
         ArrayList<Task> currentTasks = this.tasks;
         Task target = currentTasks.get(index - 1);
         currentTasks.set(index - 1, target.setMarked());
@@ -86,6 +88,7 @@ public class TaskList {
      * @return The new TaskList object after unmarking the task.
      */
     public TaskList unmark(int index) {
+        assert index <= tasks.size() : "Task list now does not have enough tasks";
         ArrayList<Task> currentTasks = this.tasks;
         Task target = currentTasks.get(index - 1);
         currentTasks.set(index - 1, target.setUnmarked());
