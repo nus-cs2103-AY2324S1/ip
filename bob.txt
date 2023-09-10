@@ -1,1 +1,4 @@
 todo | 0 | read
+todo | 0 | read book
+todo | 1 | die
+todo | 0 | readdd

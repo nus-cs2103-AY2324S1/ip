@@ -1,6 +1,10 @@
 package bob;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import bob.exception.MissingDatesException;
 import bob.exception.MissingTaskException;
@@ -97,18 +101,17 @@ public class TaskList {
     public String[] displayList() {
         assert lst != null;
 
-        String[] tasks = new String[lst.size() + 1];
-
         if (lst.isEmpty()) {
-            tasks[0] = "You currently have no tasks.";
-        } else {
-            tasks[0] = "Here are your tasks!";
+            return new String[] { "You currently have no tasks." };
         }
 
-        for (int i = 0; i < lst.size(); i++) {
-            tasks[i + 1] = (i + 1) + ". " + lst.get(i).toString();
-        }
-        return tasks;
+        List<String> tasks = IntStream.range(1, lst.size() + 1)
+                .mapToObj(i -> i + ". " + lst.get(--i).toString())
+                .collect(Collectors.toList());
+
+        tasks.add(0, "Here are your tasks!");
+
+        return tasks.toArray(new String[0]);
     }
 
     /**
@@ -138,17 +141,22 @@ public class TaskList {
     }
 
     public String[] findTasks(String keyword) {
-        ArrayList<String> tasksFound = new ArrayList<>();
-        tasksFound.add("Here are the matching tasks: ");
 
-        int found = 0;
-        for (Task tsk : lst) {
-            if (tsk.getName().contains(keyword)) {
-                found++;
-                tasksFound.add(found + ". " + tsk.toString());
-            }
-        }
-        return found > 0
+        List<String> tasksStream = lst.stream()
+                .filter(tsk -> tsk.getName()
+                .contains(keyword))
+                .map(Object::toString)
+                .collect(Collectors.toList());
+
+        Stream<Integer> indexStream = IntStream.range(0, tasksStream.size()).boxed();
+
+        List<String> tasksFound = indexStream
+                .map(i -> (++i) + ". " + tasksStream.get(--i))
+                .collect(Collectors.toList());
+
+        tasksFound.add(0, "Here are the matching tasks: ");
+
+        return tasksFound.size() > 1
                 ? tasksFound.toArray(new String[0])
                 : new String[]{"There are no matching tasks..."};
     }
