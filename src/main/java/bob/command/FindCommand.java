@@ -5,7 +5,6 @@ import bob.exception.BobInvalidTaskNumberException;
 import bob.storage.StorageFile;
 import bob.task.TaskList;
 import bob.ui.TextGenerator;
-import bob.ui.TextUi;
 
 /**
  * The FindCommand Class encapsulates logic that can be executed
@@ -21,7 +20,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, StorageFile storageFile) throws BobException {
+    public void execute(TaskList taskList, StorageFile storageFile) {
         filteredTaskList = taskList.keywordFilter(keyword);
     }
 

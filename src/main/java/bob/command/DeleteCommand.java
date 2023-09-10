@@ -5,7 +5,6 @@ import bob.storage.StorageFile;
 import bob.task.Task;
 import bob.task.TaskList;
 import bob.ui.TextGenerator;
-import bob.ui.TextUi;
 
 /**
  * The DeleteCommand class encapsulates logic that can be executed

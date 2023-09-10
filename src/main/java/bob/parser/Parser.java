@@ -23,7 +23,6 @@ import bob.task.Todo;
  */
 public class Parser {
 
-
     /**
      * Returns an instance of a Command with specific user input to be executed.
      *

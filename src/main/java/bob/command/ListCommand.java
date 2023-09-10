@@ -4,7 +4,6 @@ import bob.exception.BobException;
 import bob.storage.StorageFile;
 import bob.task.TaskList;
 import bob.ui.TextGenerator;
-import bob.ui.TextUi;
 
 /**
  * The ListCommand encapsulates logic to be executed to print out
@@ -13,7 +12,7 @@ import bob.ui.TextUi;
 public class ListCommand extends Command {
     private TaskList taskList;
     @Override
-    public void execute(TaskList taskList, StorageFile storageFile) throws BobException {
+    public void execute(TaskList taskList, StorageFile storageFile) {
         this.taskList = taskList;
     }
 

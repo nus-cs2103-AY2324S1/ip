@@ -33,7 +33,8 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        assert dialog != null : "Dialog has not been loaded properly from fxml file";
+        assert displayPicture != null : "Display picture has not been loaded properly from fxml file";
         dialog.setText(text);
         displayPicture.setImage(img);
     }
