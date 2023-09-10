@@ -12,7 +12,7 @@ public class Deadline extends Task{
     }
 
     @Override
-    public String exportSaveFormat() {
-        return String.format("D | %s | %s", super.exportSaveFormat(), this.by);
+    public String toSaveString() {
+        return String.format("D | %s | %s", super.toSaveString(), this.by);
     }
 }

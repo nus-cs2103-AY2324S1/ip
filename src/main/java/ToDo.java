@@ -10,7 +10,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String exportSaveFormat() {
-        return String.format("T | %s", super.exportSaveFormat());
+    public String toSaveString() {
+        return String.format("T | %s", super.toSaveString());
     }
 }

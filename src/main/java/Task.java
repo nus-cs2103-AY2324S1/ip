@@ -28,7 +28,7 @@ public class Task {
         return String.format("[%s] %s", getStatusIcon(), this.description);
     }
 
-    public String exportSaveFormat() {
+    public String toSaveString() {
         return String.format("%s | %s", getSaveStatusIcon(), this.description);
     }
 }

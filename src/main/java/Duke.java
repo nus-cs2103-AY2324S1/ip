@@ -21,6 +21,10 @@ public class Duke {
     private static File dataFile = new File(PATH_FILE);
     private static File dataFolder = new File(PATH_FOLDER);
 
+    private Ui ui;
+    private Storage storage;
+    private TaskList taskList;
+
     public static void showSeparationLine() {
         System.out.println(INDENTATION + SEPARATION_LINE);
     }
@@ -69,7 +73,7 @@ public class Duke {
 
         try {
             fw = new FileWriter(dataFile, true);
-            fw.write(task.exportSaveFormat() + System.lineSeparator());
+            fw.write(task.toSaveString() + System.lineSeparator());
             tasks.add(task);
 
             System.out.println(INDENTATION + "Got it, I've added this task:" + System.lineSeparator()
@@ -218,7 +222,7 @@ public class Duke {
             fw.write("");
 
             for (Task task : tasks) {
-                fw.append(task.exportSaveFormat()).append(System.lineSeparator());
+                fw.append(task.toSaveString()).append(System.lineSeparator());
             }
         } catch (IOException e) {
             throw new TasketException("IO Error");
@@ -323,36 +327,33 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
         try {
-            dataFolder.mkdir();
-            dataFile.createNewFile();
-
-            retrieveSavedTasks();
-
-            showGreetingText();
-
-            while (!prompt.equals("bye")) {
-                try {
-                    System.out.println();
-                    prompt = sc.nextLine();
-                    showSeparationLine();
-
-                    parseInput(prompt.trim());
-                } catch (TasketException exception) {
-                    showErrorText(exception.getMessage());
-                }
-            }
-
-        } catch (IOException exception) {
-            showErrorText("IO Error");
-        } catch (TasketException exception) {
-            showErrorText(exception.getMessage());
-        } finally {
-            sc.close();
+            taskList = new TaskList(storage.load());
+        } catch (TasketException e) {
+            ui.showError(e.getMessage());
+            taskList = new TaskList();
         }
+    }
 
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                Command c = Parser.parseInput(fullCommand);
+                c.execute(taskList, ui, storage);
+                isExit = c.isExit();
+            } catch (TasketException e) {
+                ui.showError(e.getMessage());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new Duke("data/tasks.txt").run();
     }
 }

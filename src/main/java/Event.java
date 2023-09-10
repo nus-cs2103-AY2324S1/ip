@@ -14,7 +14,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String exportSaveFormat() {
-        return String.format("E | %s | %s | %s", super.exportSaveFormat(), this.from, this.to);
+    public String toSaveString() {
+        return String.format("E | %s | %s | %s", super.toSaveString(), this.from, this.to);
     }
 }
