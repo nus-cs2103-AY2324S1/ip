@@ -22,8 +22,8 @@ public class MarkCommand implements Command {
     }
 
     @Override
-    public void execute(TaskListStorage taskListStorage) throws InvalidIndexException {
-        taskListStorage.markAsDone(index);
+    public String execute(TaskListStorage taskListStorage) throws InvalidIndexException {
+        return taskListStorage.markAsDone(index);
     }
 
 }

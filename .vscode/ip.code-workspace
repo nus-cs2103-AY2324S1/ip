@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "automatic",
+		"java.format.settings.url": "eclipse-formatter.xml",
+		"java.checkstyle.configuration": "${workspaceFolder}\\config\\checkstyle\\checkstyle.xml",
+		"java.checkstyle.properties": {
+			"config_loc": "${workspaceFolder}\\config\\checkstyle",
+		},
+		"java.checkstyle.version": "10.12.3",
+		"java.completion.importOrder": [
+			"#",
+			"java",
+			"javax",
+			"org",
+			"com",
+			""
+		],
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": true,
+		},
+		"files.insertFinalNewline": true,
+	}
+}

@@ -13,6 +13,7 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
+import duke.ui.Ui;
 
 /**
  * The TaskListStorage class stores an arraylist of tasks.
@@ -79,7 +80,7 @@ public class TaskListStorage {
             String[] taskInfo = line.split(" \\| ");
             String taskType = taskInfo[0];
             boolean isDone = taskInfo[1].equals("1");
-            String taskDescription = taskInfo[2].replace("\\|", "|"); //Unescape
+            String taskDescription = taskInfo[2].replace("\\|", "|"); // Unescape
             try {
                 switch (taskType) {
                 case "T":
@@ -131,12 +132,12 @@ public class TaskListStorage {
     /**
      * Prints the list of tasks.
      */
-    public void printList() {
-        String s = "";
+    public String printList() {
+        String outputString = "";
         for (int i = 0; i < taskList.size(); i++) {
-            s += (i + 1) + ". " + taskList.get(i) + "\n";
+            outputString += (i + 1) + ". " + taskList.get(i) + "\n";
         }
-        Ui.printInLine(s);
+        return outputString;
     }
 
     /**
@@ -145,7 +146,7 @@ public class TaskListStorage {
      * @param index The index of the task to mark as done.
      * @throws InvalidIndexException If the index is invalid.
      */
-    public void markAsDone(int index) throws InvalidIndexException {
+    public String markAsDone(int index) throws InvalidIndexException {
         if (index >= taskList.size() || index < 0) {
             throw new InvalidIndexException("Cannot mark task, task list of size " + taskList.size()
                     + " does not contain a task at index " + index);
@@ -154,7 +155,7 @@ public class TaskListStorage {
         writeTaskListToFile(taskList, filepath);
         String outputString = "Nice! I've marked this task as done:\n" + Ui.TAB
                 + taskList.get(index).toString();
-        Ui.printInLine(outputString);
+        return outputString;
     }
 
     /**
@@ -163,7 +164,7 @@ public class TaskListStorage {
      * @param index The index of the task to mark as undone.
      * @throws InvalidIndexException If the index is invalid.
      */
-    public void markAsUndone(int index) throws InvalidIndexException {
+    public String markAsUndone(int index) throws InvalidIndexException {
         if (index >= taskList.size() || index < 0) {
             throw new InvalidIndexException("Cannot mark task, task list of size " + taskList.size()
                     + " does not contain a task at index " + index);
@@ -172,21 +173,22 @@ public class TaskListStorage {
         writeTaskListToFile(taskList, filepath);
         String outputString = "Ok! I've marked this task as not done yet:\n" + Ui.TAB
                 + taskList.get(index).toString();
-        Ui.printInLine(outputString);
+        return outputString;
     }
 
     /**
      * Adds a todo task to the list of tasks.
      *
      * @param todo The todo task to add.
+     * @return
      * @throws MissingDescriptionException If the description is missing.
      */
-    public void addTodo(Todo todo) throws MissingDescriptionException {
+    public String addTodo(Todo todo) throws MissingDescriptionException {
         taskList.add(todo);
         writeTaskListToFile(taskList, filepath);
         String outputString = "Got it. I've added this task:\n" + Ui.TAB + taskList.get(taskList.size() - 1)
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
-        Ui.printInLine(outputString);
+        return outputString;
     }
 
     /**
@@ -194,14 +196,15 @@ public class TaskListStorage {
      *
      * @param deadline The deadline task to add.
      * @throws MissingDescriptionException If the description is missing.
-     * @throws IncorrectCommandFormatException If the command is in the wrong format.
+     * @throws IncorrectCommandFormatException If the command is in the wrong
+     *             format.
      */
-    public void addDeadline(Deadline deadline) throws MissingDescriptionException, IncorrectCommandFormatException {
+    public String addDeadline(Deadline deadline) throws MissingDescriptionException, IncorrectCommandFormatException {
         taskList.add(deadline);
         writeTaskListToFile(taskList, filepath);
         String outputString = "Got it. I've added this task:\n" + Ui.TAB + taskList.get(taskList.size() - 1)
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
-        Ui.printInLine(outputString);
+        return outputString;
     }
 
     /**
@@ -209,14 +212,15 @@ public class TaskListStorage {
      *
      * @param event The event task to add.
      * @throws MissingDescriptionException If the description is missing.
-     * @throws IncorrectCommandFormatException If the command is in the wrong format.
+     * @throws IncorrectCommandFormatException If the command is in the wrong
+     *             format.
      */
-    public void addEvent(Event event) throws MissingDescriptionException, IncorrectCommandFormatException {
+    public String addEvent(Event event) throws MissingDescriptionException, IncorrectCommandFormatException {
         taskList.add(event);
         writeTaskListToFile(taskList, filepath);
         String outputString = "Got it. I've added this task:\n" + Ui.TAB + taskList.get(taskList.size() - 1)
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
-        Ui.printInLine(outputString);
+        return outputString;
     }
 
     /**
@@ -225,7 +229,7 @@ public class TaskListStorage {
      * @param index The index of the task to delete.
      * @throws InvalidIndexException If the index is invalid.
      */
-    public void deleteTask(int index) throws InvalidIndexException {
+    public String deleteTask(int index) throws InvalidIndexException {
         if (index >= taskList.size() || index < 0) {
             throw new InvalidIndexException("Cannot delete task, task list of size " + taskList.size()
                     + " does not contain a task at index " + index);
@@ -233,16 +237,17 @@ public class TaskListStorage {
         Task task = taskList.get(index);
         taskList.remove(index);
         writeTaskListToFile(taskList, filepath);
-        String outpuString = "Noted. I've removed this task:\n" + task.toString()
+        String outputString = "Noted. I've removed this task:\n" + task.toString()
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
-        Ui.printInLine(outpuString);
+        return outputString;
     }
 
     /**
      * Finds and printstasks that contain the keyword in their description
+     *
      * @param keyword
      */
-    public void findTasks(String keyword) {
+    public String findTasks(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : taskList) {
             if (task.getDescription().matches(".*\\b" + keyword + "\\b.*")) {
@@ -253,6 +258,6 @@ public class TaskListStorage {
         for (int i = 0; i < matchingTasks.size(); i++) {
             outputString += (i + 1) + ". " + matchingTasks.get(i) + "\n";
         }
-        Ui.printInLine(outputString);
+        return outputString;
     }
 }

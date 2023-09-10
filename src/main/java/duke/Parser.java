@@ -63,7 +63,7 @@ public class Parser {
          * @param commandString the string representation of the command
          * @return the command with the specified string representation
          */
-        public static Commands valueOfLabel(String commandString) {
+        public static Commands getLabel(String commandString) {
             for (Commands commands : values()) {
                 if (commands.commandString.equals(commandString)) {
                     return commands;
@@ -85,6 +85,7 @@ public class Parser {
 
     /**
      * Parses the user input into a Command object.
+     * It does this by running the unique parser for the command.
      *
      * @param input the user input
      * @return the Command object
@@ -100,7 +101,7 @@ public class Parser {
         String commandName = input.trim().split(" ")[0];
 
         try {
-            Commands commandType = Commands.valueOfLabel(commandName);
+            Commands commandType = Commands.getLabel(commandName);
             CommandParser parser = commandType.getParser();
             return parser.parse(input);
         } catch (IllegalArgumentException | NullPointerException e) {
