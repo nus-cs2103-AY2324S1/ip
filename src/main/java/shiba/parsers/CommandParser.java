@@ -5,6 +5,7 @@ import shiba.commands.DeadlineCommand;
 import shiba.commands.DeleteCommand;
 import shiba.commands.EventCommand;
 import shiba.commands.FindCommand;
+import shiba.commands.HelpCommand;
 import shiba.commands.ListCommand;
 import shiba.commands.MarkCommand;
 import shiba.commands.PatCommand;
@@ -70,6 +71,9 @@ public class CommandParser {
                 break;
             case BELLYRUB:
                 shibaCommand = new BellyRubCommand(tasks);
+                break;
+            case HELP:
+                shibaCommand = new HelpCommand(tasks, input);
                 break;
             case BYE:
                 return true;
