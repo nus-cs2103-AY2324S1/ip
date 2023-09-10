@@ -1,4 +1,4 @@
-package duke.Utils;
+package duke.utils;
 
 import java.util.Scanner;
 
@@ -21,7 +21,7 @@ public class Input {
         this.storage = new Storage(Input.FILE_PATH, Input.FOLDER_PATH);
         this.tasks = new TaskList(this.storage.load());
     }
-    
+
     /**
      * Reads a command from the user via the console input.
      *
@@ -51,3 +51,4 @@ public class Input {
         }
     }
 }
+

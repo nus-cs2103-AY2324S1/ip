@@ -1,14 +1,12 @@
-package duke.Utils;
+package duke.utils;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * The Storage class is responsible for reading and writing data to/from storage files

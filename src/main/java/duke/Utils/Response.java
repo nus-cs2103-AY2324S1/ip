@@ -1,4 +1,4 @@
-package duke.Utils;
+package duke.utils;
 
 import java.util.List;
 
@@ -7,11 +7,11 @@ import java.util.List;
  * to provide feedback to the user.
  */
 public class Response {
-    private String messageOutput;
-    private static final String LINE = "    ____________________________________________________________\n";
-    private static final String TAB = "    ";
     protected static final Response GREETINGS = Response.greeting();
     protected static final Response TERMINATE = Response.terminate();
+    private static final String LINE = "    ____________________________________________________________\n";
+    private static final String TAB = "    ";
+    private String messageOutput;
 
     private Response() {
         this.messageOutput = "";

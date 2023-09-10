@@ -1,4 +1,4 @@
-package duke.Utils;
+package duke.utils;
 
 /**
  * The Session class represents a user session in the Duke application.
@@ -25,7 +25,7 @@ public class Session {
             print(this.response);
         }
     }
-    
+
     /**
      * Prints a response to the console.
      *

@@ -1,4 +1,4 @@
-package duke.Utils;
+package duke.utils;
 
 /**
  * The CommandNotFoundException class represents an exception that is thrown when

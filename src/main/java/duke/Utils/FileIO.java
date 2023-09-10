@@ -1,11 +1,10 @@
-package duke.Utils;
-
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.ArrayList;
-import java.util.regex.Pattern;
+package duke.utils;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * The FileIO class provides utility methods for reading and writing data to/from files
@@ -17,9 +16,9 @@ public class FileIO {
     private static final Pattern DATE_REGEX = Pattern.compile(
         "^"
         + "("
-        + "((2000|2400|2800|(19|2[0-9])(0[48]|[2468][048]|[13579][26]))-02-29)" 
+        + "((2000|2400|2800|(19|2[0-9])(0[48]|[2468][048]|[13579][26]))-02-29)"
         + "|(((19|2[0-9])[0-9]{2})-02-(0[1-9]|1[0-9]|2[0-8]))"
-        + "|(((19|2[0-9])[0-9]{2})-(0[13578]|10|12)-(0[1-9]|[12][0-9]|3[01]))" 
+        + "|(((19|2[0-9])[0-9]{2})-(0[13578]|10|12)-(0[1-9]|[12][0-9]|3[01]))"
         + "|(((19|2[0-9])[0-9]{2})-(0[469]|11)-(0[1-9]|[12][0-9]|30))"
         + ")"
         + "\\s"
@@ -38,7 +37,7 @@ public class FileIO {
             .map(Object::toString)
             .collect(Collectors.joining(FileIO.DELIMITER));
     }
-    
+
     /**
      * Reads a list of CSV lines and converts them into a list of Task objects.
      *
@@ -68,7 +67,7 @@ public class FileIO {
         }
         return tasks;
     }
-    
+
     /**
      * Asserts that the number of parameters in an argument array matches the expected number
      * based on the Task type.
@@ -143,7 +142,7 @@ public class FileIO {
             throw new InvalidFileDataException();
         }
         String[] timeSplit = input.split(" ");
-        CharSequence timeSequence = 
+        CharSequence timeSequence =
             timeSplit[0]
             + "T"
             + timeSplit[1]

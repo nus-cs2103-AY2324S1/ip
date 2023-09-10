@@ -1,4 +1,4 @@
-package duke.Utils;
+package duke.utils;
 
 import java.util.ArrayList;
 
@@ -66,7 +66,7 @@ public class TaskList {
         }
         return csv;
     }
-    
+
     /**
      * Executes a user command and returns a response.
      *
@@ -84,14 +84,14 @@ public class TaskList {
             break;
         case DEADLINE:
             task = new Deadline(
-                Command.assertString(input, command), 
+                Command.assertString(input, command),
                 Command.assertDateTime(input, "by")
             );
             break;
         case EVENT:
             task = new Event(
-                Command.assertString(input, command), 
-                Command.assertDateTime(input, "from"), 
+                Command.assertString(input, command),
+                Command.assertDateTime(input, "from"),
                 Command.assertDateTime(input, "to")
             );
             break;

@@ -1,17 +1,16 @@
-package duke.Utils;
-
-import org.junit.jupiter.api.Test;
+package duke.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 
-public class CommandTest {
+import org.junit.jupiter.api.Test;
 
+public class CommandTest {
     public final String testCommand = "test";
     @Test
-    public void CommandValidStringTest() {
+    public void commandValidStringTest() {
         String[] validString = { "/test 12345 6789", "/test []\\-=;':<>?." };
         String[] actualString = { "12345 6789", "[]\\-=;':<>?." };
 
@@ -21,7 +20,7 @@ public class CommandTest {
     }
 
     @Test
-    public void CommandInvalidStringTest() {
+    public void commandInvalidStringTest() {
         String[] invalidString = { "/test", "/test " };
 
         for (String string : invalidString) {
@@ -30,7 +29,7 @@ public class CommandTest {
     }
 
     @Test
-    public void CommandValidIntegerTest() {
+    public void commandValidIntegerTest() {
         String[] validInteger = { "/test 99999999", "/test 123", "/test 0" , "/test -99999999" };
         int[] testInt = { 99999999, 123, 0, -99999999 };
         for (int i = 0; i < validInteger.length; i++) {
@@ -39,7 +38,7 @@ public class CommandTest {
     }
 
     @Test
-    public void CommandInvalidIntegerTest() {
+    public void commandInvalidIntegerTest() {
         String[] invalidInteger = { "/test", "/test 123 456", "/test 123.456", "/test 123]456", "/test asdgd qwe gew" };
 
         for (String string : invalidInteger) {
@@ -48,16 +47,16 @@ public class CommandTest {
     }
 
     @Test
-    public void CommandValidDateTimeTest() {
-        String[] validDateTimeInput = { 
-            "test 2022-09-07 12:34", 
-            "test 1999-07-22 23:59", 
+    public void commandValidDateTimeTest() {
+        String[] validDateTimeInput = {
+            "test 2022-09-07 12:34",
+            "test 1999-07-22 23:59",
             "test 2040-12-31 00:00"
-          };
+        };
 
-        String[] validDateTimeString = { 
-            "2022-09-07T12:34:00", 
-            "1999-07-22T23:59:00", 
+        String[] validDateTimeString = {
+            "2022-09-07T12:34:00",
+            "1999-07-22T23:59:00",
             "2040-12-31T00:00:00"
         };
 
@@ -66,21 +65,21 @@ public class CommandTest {
                 Command.assertDateTime(validDateTimeInput[i], testCommand)
                     .isEqual(LocalDateTime.parse(validDateTimeString[i])),
                 true
-              );
+            );
         }
     }
 
     @Test
-    public void CommandInvalidDateTimeTest() {
-        String[] invalidDateTimeInput = { 
-            "test 2022-09-07 1234", 
-            "test 1999/07/22 23:59", 
-            "test 00:00 2022-09-07", 
+    public void commandInvalidDateTimeTest() {
+        String[] invalidDateTimeInput = {
+            "test 2022-09-07 1234",
+            "test 1999/07/22 23:59",
+            "test 00:00 2022-09-07",
             "test 2022-13-01 00:00",
             "test 2022-04-31 00:00",
             "test 2022-05-32 00:00",
             "test 2022-09-07 24:00",
-            "test 2022-09-07 12:60" 
+            "test 2022-09-07 12:60"
         };
 
         for (String string : invalidDateTimeInput) {

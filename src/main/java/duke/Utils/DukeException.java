@@ -1,4 +1,4 @@
-package duke.Utils;
+package duke.utils;
 
 /**
  * The DukeException class is a custom runtime exception class for handling exceptions

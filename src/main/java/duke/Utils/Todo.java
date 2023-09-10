@@ -1,7 +1,7 @@
-package duke.Utils;
+package duke.utils;
 
 /**
- * The Todo class represents a task of type "Todo" in the Duke application.
+ * The ToDo class represents a task of type "Todo" in the Duke application.
  * It extends the Task class and provides specific functionality for Todo tasks.
  */
 public class Todo extends Task {
