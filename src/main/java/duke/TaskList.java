@@ -111,7 +111,10 @@ public class TaskList {
 
         TaskList filteredTasks = new TaskList();
         for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).toString().contains(keyword)) {
+            String taskStringLower = tasks.get(i).toString().toLowerCase();
+            String keywordLower = keyword.toLowerCase();
+
+            if (taskStringLower.contains(keywordLower)) {
                 filteredTasks.add(tasks.get(i));
             }
         }
