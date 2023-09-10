@@ -63,11 +63,10 @@ public class Event extends Task {
     }
 
     @Override
-    public boolean isTaskScheduledForDate(String date) {
+    public boolean isTaskScheduledForDate(LocalDate date) {
         LocalDate fromDate = this.from.toLocalDate();
         LocalDate toDate = this.to.toLocalDate();
-        LocalDate dateToCheck = LocalDate.parse(date, DateHelper.dateFormatter);
-        return !(dateToCheck.isBefore(fromDate) || dateToCheck.isAfter(toDate));
+        return !(date.isBefore(fromDate) || date.isAfter(toDate));
     }
 
     @Override

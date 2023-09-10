@@ -7,6 +7,7 @@ import bongo.command.ExitCommand;
 import bongo.command.FindCommand;
 import bongo.command.ListCommand;
 import bongo.command.MarkCommand;
+import bongo.command.ScheduleCommand;
 import bongo.command.UnmarkCommand;
 
 /**
@@ -42,6 +43,8 @@ public class Parser {
             return new AddCommand(input);
         case "find":
             return new FindCommand(input);
+        case "schedule":
+            return new ScheduleCommand(input);
         default:
             throw new BongoException();
         }
