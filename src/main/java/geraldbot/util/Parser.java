@@ -22,7 +22,7 @@ import geraldbot.task.Todo;
 public class Parser {
     private final Storage storage;
 
-    private final TaskList lst;
+    private final TaskList taskList;
 
     private final Ui ui;
 
@@ -47,7 +47,7 @@ public class Parser {
      */
     public Parser(Storage storage, ArrayList<Task> taskList) {
         this.storage = storage;
-        this.lst = new TaskList(taskList);
+        this.taskList = new TaskList(taskList);
         this.ui = new Ui();
     }
 
@@ -131,13 +131,13 @@ public class Parser {
 
         try {
             int num = Integer.parseInt(parsedString[1]);
-            if (num > lst.size() || num <= 0) {
-                throw new DukeInvalidIndexException(lst.size());
+            if (num > taskList.size() || num <= 0) {
+                throw new DukeInvalidIndexException(taskList.size());
             }
-            Task selectedTask = lst.get(num - 1);
+            Task selectedTask = taskList.get(num - 1);
             return this.markCompletion(selectedTask, num);
         } catch (NumberFormatException e) {
-            throw new DukeInvalidIndexException(lst.size());
+            throw new DukeInvalidIndexException(taskList.size());
         }
     }
 
@@ -156,13 +156,13 @@ public class Parser {
 
         try {
             int num = Integer.parseInt(parsedString[1]);
-            if (num > lst.size() || num <= 0) {
-                throw new DukeInvalidIndexException(lst.size());
+            if (num > taskList.size() || num <= 0) {
+                throw new DukeInvalidIndexException(taskList.size());
             }
-            Task selectedTask = lst.get(num - 1);
+            Task selectedTask = taskList.get(num - 1);
             return this.unmarkCompletion(selectedTask, num);
         } catch (NumberFormatException e) {
-            throw new DukeInvalidIndexException(lst.size());
+            throw new DukeInvalidIndexException(taskList.size());
         }
     }
 
@@ -182,12 +182,12 @@ public class Parser {
 
         try {
             int num = Integer.parseInt(parsedString[1]);
-            if (num > lst.size() || num <= 0) {
-                throw new DukeInvalidIndexException(lst.size());
+            if (num > taskList.size() || num <= 0) {
+                throw new DukeInvalidIndexException(taskList.size());
             }
             return this.deleteTask(num);
         } catch (NumberFormatException e) {
-            throw new DukeInvalidIndexException(lst.size());
+            throw new DukeInvalidIndexException(taskList.size());
         }
     }
 
@@ -309,10 +309,10 @@ public class Parser {
         String message = "Got it. I've added this task:\n";
         message += "\t" + newTask;
 
-        lst.add(newTask);
+        taskList.add(newTask);
         storage.addTask(newTaskString);
 
-        message += "\nNow you have " + lst.size() + " tasks in the list.";
+        message += "\nNow you have " + taskList.size() + " tasks in the list.";
         return message;
     }
 
@@ -321,21 +321,21 @@ public class Parser {
      *
      * @param input   The description of the deadline task.
      * @param isDone  The completion status of the task.
-     * @param by The deadline of the task.
+     * @param endTime The deadline of the task.
      * @return A message indicating the success of adding the deadline task.
      */
-    public String addDeadline(String input, boolean isDone, LocalDateTime by) {
+    public String addDeadline(String input, boolean isDone, LocalDateTime endTime) {
         assert input != null && !input.trim().isEmpty() : "Task description cannot be empty";
-        Deadline newTask = new Deadline(input, isDone, by);
+        Deadline newTask = new Deadline(input, isDone, endTime);
         String newTaskString = newTask.fileFormat();
 
         String message = "Got it. I've added this task:\n";
         message += "\t" + newTask;
 
-        lst.add(newTask);
+        taskList.add(newTask);
         storage.addTask(newTaskString);
 
-        message += "\nNow you have " + lst.size() + " tasks in the list.";
+        message += "\nNow you have " + taskList.size() + " tasks in the list.";
         return message;
     }
 
@@ -344,22 +344,22 @@ public class Parser {
      *
      * @param input   The description of the event task.
      * @param isDone  The completion status of the task.
-     * @param start The start time of the event.
-     * @param end The end time of the event.
+     * @param startTime The start time of the event.
+     * @param endTime The end time of the event.
      * @return A message indicating the success of adding the event task.
      */
-    public String addEvent(String input, boolean isDone, String start, String end) {
+    public String addEvent(String input, boolean isDone, String startTime, String endTime) {
         assert input != null && !input.trim().isEmpty() : "Task description cannot be empty";
-        Event newTask = new Event(input, isDone, start, end);
+        Event newTask = new Event(input, isDone, startTime, endTime);
         String newTaskString = newTask.fileFormat();
 
         String message = "Got it. I've added this task:\n";
         message += "\t" + newTask;
 
-        lst.add(newTask);
+        taskList.add(newTask);
         storage.addTask(newTaskString);
 
-        message += "\nNow you have " + lst.size() + " tasks in the list.";
+        message += "\nNow you have " + taskList.size() + " tasks in the list.";
         return message;
     }
 
@@ -369,21 +369,21 @@ public class Parser {
      * @return A String containing the list of tasks.
      */
     public String printList() {
-        String taskList = "Here are the tasks in your list:\n";
-        for (int i = 0; i < lst.size(); i++) {
-            taskList += (i + 1) + ". " + lst.get(i).toString() + "\n";
+        String listString = "Here are the tasks in your list:\n";
+        for (int i = 0; i < taskList.size(); i++) {
+            listString += (i + 1) + ". " + taskList.get(i).toString() + "\n";
         }
-        return taskList;
+        return listString;
     }
 
     /**
      * Marks a task as done and updates the storage.
      *
      * @param task The task to be marked as done.
-     * @param num  The index of the task in the list.
+     * @param taskIdx  The index of the task in the list.
      * @return A message indicating the success of marking the task as done.
      */
-    public String markCompletion(Task task, int num) {
+    public String markCompletion(Task task, int taskIdx) {
         if (task.getStatusIcon().equals("X")) {
             String message = "Nice! I've marked this task as done:\n";
             message += "\t" + task;
@@ -393,7 +393,7 @@ public class Parser {
 
             task.toggleCompletion();
             String updatedTaskString = task.fileFormat();
-            this.storage.updateTask(num - 1, updatedTaskString);
+            this.storage.updateTask(taskIdx - 1, updatedTaskString);
 
             message += "\t" + task;
             return message;
@@ -404,10 +404,10 @@ public class Parser {
      * Removes the completion status of a task and updates the storage.
      *
      * @param task The task to be marked as not done.
-     * @param num  The index of the task in the list.
+     * @param taskIdx  The index of the task in the list.
      * @return A message indicating the success of marking the task as not done.
      */
-    public String unmarkCompletion(Task task, int num) {
+    public String unmarkCompletion(Task task, int taskIdx) {
         if (task.getStatusIcon().equals(" ")) {
             String message = "OK, I've marked this task as not done yet:\n";
             message += "\t" + task;
@@ -416,7 +416,7 @@ public class Parser {
             String message = "OK, I've marked this task as not done yet:\n";
             task.toggleCompletion();
             String updatedTaskString = task.fileFormat();
-            this.storage.updateTask(num - 1, updatedTaskString);
+            this.storage.updateTask(taskIdx - 1, updatedTaskString);
 
             message += "\t" + task;
             return message;
@@ -426,16 +426,16 @@ public class Parser {
     /**
      * Deletes a task from the task list and updates the storage.
      *
-     * @param num The index of the task in the task list to be deleted.
+     * @param taskIdx The index of the task in the task list to be deleted.
      * @return A message indicating the success of deleting the task.
      */
-    public String deleteTask(Integer num) {
+    public String deleteTask(Integer taskIdx) {
         String message = "Noted. I've removed this task:\n";
-        Task selectedTask = lst.remove(num - 1);
-        this.storage.updateTask(num - 1, null);
+        Task selectedTask = taskList.remove(taskIdx - 1);
+        this.storage.updateTask(taskIdx - 1, null);
 
         message += "\t" + selectedTask;
-        message += "\nNow you have " + lst.size() + " tasks in the list.";
+        message += "\nNow you have " + taskList.size() + " tasks in the list.";
         return message;
     }
 
@@ -446,12 +446,12 @@ public class Parser {
      * @return A String containing the list of matching tasks.
      */
     private String findTasks(String keyword) {
-        List<Task> matchingTasks = lst.findTasksByKeyword(keyword);
+        List<Task> matchingTasks = taskList.findTasksByKeyword(keyword);
 
-        String taskList = "";
+        String listString = "";
         for (int i = 0; i < matchingTasks.size(); i++) {
-            taskList += (i + 1) + ". " + matchingTasks.get(i).toString() + "\n";
+            listString += (i + 1) + ". " + matchingTasks.get(i).toString() + "\n";
         }
-        return taskList;
+        return listString;
     }
 }
