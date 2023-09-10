@@ -7,6 +7,7 @@ import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
+import javafx.application.Platform;
 
 /**
  * Duke is a Chatbot that helps you keep track of your tasks.
@@ -50,7 +51,7 @@ public class Duke {
     public String getResponse(String input) {
 
         if (isChatEnd) {
-            return END_CHAT_MESSAGE;
+            Platform.exit();
         }
 
         Parser parseLine = new Parser(input);
@@ -96,6 +97,7 @@ public class Duke {
      * Runs the Chatbot program.
      */
     public void run() {
+        assert !isChatEnd: "Chat should not be Ended when first run!";
         storage = new Storage(FILE_PATH);
 
         try {

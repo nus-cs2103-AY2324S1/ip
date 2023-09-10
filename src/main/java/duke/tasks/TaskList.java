@@ -34,6 +34,8 @@ public class TaskList {
      * @param storage  The Storage of the Chatbot.
      */
     public TaskList(ArrayList<Task> taskList, Storage storage) {
+        assert taskList != null: "TaskList should be initialised!";
+        assert storage != null: "Storage should be initialised!";
         this.taskList = taskList;
         this.storage = storage;
     }
