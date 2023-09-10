@@ -127,14 +127,16 @@ public class Avalon {
      * Searches for tasks containing the specified keyword in their descriptions
      * and displays the matching tasks.
      *
-     * @param keyword The keyword to search for in task descriptions.
+     * @param keywords The keywords to search for in task descriptions.
      */
-    private void findTasksByKeyword(String keyword) {
+    private void findTasksByKeyword(String... keywords) {
         TaskList matchingTasks = new TaskList();
 
-        for (Task task : tasks.tasks()) {
-            if (task.description.contains(keyword)) {
-                matchingTasks.addTask(task);
+        for (String keyword : keywords) {
+            for (Task task : tasks.tasks()) {
+                if (task.description.contains(keyword)) {
+                    matchingTasks.addTask(task);
+                }
             }
         }
 
