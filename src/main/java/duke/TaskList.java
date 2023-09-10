@@ -98,7 +98,7 @@ public class TaskList {
      */
     public List<Task> findTasks(String search) {
         return this.tasks.stream()
-                .filter(t -> t.getTaskName().contains(search))
+                .filter(t -> t.getTaskName().toLowerCase().contains(search.toLowerCase()))
                 .collect(Collectors.toList());
     }
 
