@@ -72,5 +72,11 @@ public class Ui {
         printFormatted(String.format("Error: %s", errorMessage));
     }
 
+    public void showLoadedTasks(ArrayList<Task> tasks) {
+        printFormatted("Loaded tasks from file:\n" + IntStream.range(0, tasks.size())
+                .mapToObj(i -> (i + 1) + ". " + tasks.get(i))
+                .collect(Collectors.joining("\n")));
+    }
+
 
 }

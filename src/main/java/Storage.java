@@ -5,17 +5,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileUtils {
+public class Storage {
 
-    private static final String FILE_PATH = "./data/duke.txt";
+    private final String filePath;
 
-    public static void saveTasksToFile(ArrayList<Task> tasksToSave) throws IOException {
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public void saveTasksToFile(ArrayList<Task> tasksToSave) throws IOException {
         File directory = new File("./data");
         if (!directory.exists()) {
             directory.mkdir();
         }
 
-        FileWriter fw = new FileWriter(FILE_PATH);
+        FileWriter fw = new FileWriter(filePath);
         for (Task task : tasksToSave) {
             fw.write(task.toFileFormat() + "\n");
         }
@@ -23,8 +27,8 @@ public class FileUtils {
 
     }
 
-    public static ArrayList<Task> loadTasksFromFile() throws FileNotFoundException, DukeException {
-        File file = new File(FILE_PATH);
+    public ArrayList<Task> loadTasksFromFile() throws FileNotFoundException, DukeException {
+        File file = new File(filePath);
 
         Scanner scanner = new Scanner(file);
 
@@ -45,5 +49,4 @@ public class FileUtils {
         }
         return result;
     }
-
 }

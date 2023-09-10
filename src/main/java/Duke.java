@@ -7,9 +7,12 @@ public class Duke {
     private static final String CHATBOT_NAME = "Koko";
     private static ArrayList<Task> tasks = new ArrayList<>();
     private final Ui ui;
+    private final Storage storage;
+
 
     public Duke(String filePath) {
         ui = new Ui(CHATBOT_NAME);
+        storage = new Storage(filePath);
     }
 
     public static void main(String[] args) {
@@ -92,7 +95,7 @@ public class Duke {
             // a disk write to save the updated task list.
             if (!command.equals("list")) {
                 try {
-                    FileUtils.saveTasksToFile(tasks);
+                    storage.saveTasksToFile(tasks);
                 } catch (IOException ioException) {
                     throw new DukeException("Error while saving task list to file!");
                 }
@@ -110,7 +113,8 @@ public class Duke {
         ui.greet();
 
         try {
-            tasks = FileUtils.loadTasksFromFile();
+            tasks = storage.loadTasksFromFile();
+            ui.showLoadedTasks(tasks);
         } catch (FileNotFoundException fileNotFoundException) {
             ui.printErrorMessage("Previous data file not found, starting from fresh task list.");
             tasks = new ArrayList<>();
