@@ -113,7 +113,6 @@ public class Storage {
         List<String> lines = new ArrayList<>();
         String currentLine;
         try {
-
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             Integer lineNumber = 1;
             while ((currentLine = reader.readLine()) != null) {
