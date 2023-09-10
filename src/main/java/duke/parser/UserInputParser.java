@@ -25,7 +25,7 @@ public class UserInputParser {
      * @param userInput User input.
      * @return Action of the user input.
      * @throws InvalidInputException If user input is invalid.
-     * @throws InvalidCommandException If user input is invalid.
+     * @throws InvalidCommandException If command is invalid.
      */
     private static Action getAction(String userInput) throws InvalidInputException, InvalidCommandException {
         if (userInput.equals("bye")) {
@@ -40,10 +40,10 @@ public class UserInputParser {
         if (Pattern.matches("unmark \\d+", userInput)) {
             return Action.UNMARK;
         }
+        // Redundant check, to satisfy Level-5: Handle Errors requirement
         if (Pattern.matches("^todo\\s*$", userInput)) {
             throw new InvalidInputException(MessageTemplates.MESSAGE_INVALID_TODO);
         }
-        // Redundant check, to satisfy Level-5: Handle Errors requirement
         if (Pattern.matches("todo .+", userInput)) {
             return Action.TODO;
         }
@@ -76,11 +76,6 @@ public class UserInputParser {
         Action action = UserInputParser.getAction(userInput);
         int num;
         String name;
-        String by;
-        String from;
-        String to;
-        String[] a1;
-        String[] a2;
         switch (action) {
         case BYE:
             isActive = false;
@@ -94,37 +89,38 @@ public class UserInputParser {
             num = Integer.parseInt(userInput.split(" ", 2)[1]);
             return taskList.unmarkTask(num);
         case TODO:
-            name = userInput.split(" ", 2)[1];
+            name = userInput.split(" ", 2)[1]; // separate command from name
             return taskList.add(new TodoTask(name, false));
         case DEADLINE:
-            a1 = userInput.split(" /by ", 2);
-            if (a1[1].contains("/by")) {
+            String[] nameAndDeadline = userInput.split(" /by ", 2);
+
+            if (nameAndDeadline[1].contains("/by")) {
                 throw new InvalidInputException(MessageTemplates.MESSAGE_DEADLINE_CONTAINS_BY);
             }
-            // assert " /by " is not contained in deadline name
-            assert !a1[1].contains("/by") : "deadline name should not contain ' /by '";
+            assert !nameAndDeadline[1].contains("/by") : "deadline name should not contain ' /by '";
 
-            name = a1[0].split(" ", 2)[1];
-            by = DateTimeParser.parseDateTime(a1[1]);
+            name = nameAndDeadline[0].split(" ", 2)[1]; // separate command from name
+            String by = DateTimeParser.parseDateTime(nameAndDeadline[1]);
             return taskList.add(new DeadlinesTask(name, false, by));
         case EVENT:
-            a1 = userInput.split(" /to ", 2);
-            if (a1[1].contains("/to")) {
+            String[] nameFromAndTo = userInput.split(" /to ", 2);
+
+            if (nameFromAndTo[1].contains("/to")) {
                 throw new InvalidInputException(MessageTemplates.MESSAGE_EVENT_CONTAINS_TO);
             }
-            // assert " /to " is not in event name and from date
-            assert !a1[1].contains("/to") : "event name and from date should not contain ' /to '";
+            assert !nameFromAndTo[1].contains("/to") : "event name and from date should not contain ' /to '";
 
-            a2 = a1[0].split(" /from ", 2);
-            if (a2[1].contains("/from")) {
+            String[] nameAndFrom = nameFromAndTo[0].split(" /from ", 2);
+
+            if (nameAndFrom[1].contains("/from")) {
                 throw new InvalidInputException(MessageTemplates.MESSAGE_EVENT_CONTAINS_FROM);
             }
-            // assert " /from " is not in event name
-            assert !a2[1].contains("/from") : "event name should not contain ' /from '";
+            assert !nameAndFrom[1].contains("/from") : "event name should not contain ' /from '";
 
-            name = a2[0].split(" ", 2)[1];
-            from = DateTimeParser.parseDateTime(a2[1]);
-            to = DateTimeParser.parseDateTime(a1[1]);
+            name = nameAndFrom[0].split(" ", 2)[1]; // separate command from name
+            String from = DateTimeParser.parseDateTime(nameAndFrom[1]);
+            String to = DateTimeParser.parseDateTime(nameFromAndTo[1]);
+
             if (!DateTimeParser.isValidPeriod(from, to)) {
                 throw new InvalidInputException(MessageTemplates.MESSAGE_INVALID_EVENT_PERIOD);
             }
