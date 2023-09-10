@@ -1,6 +1,7 @@
 package nexus;
 
 import java.io.File;
+import java.util.Objects;
 import java.util.Scanner;
 
 import nexus.components.Parser;
@@ -45,29 +46,36 @@ public class Nexus {
      * Start the bot.
      */
     public void run() {
-        ui.printWelcome();
+        System.out.println(ui.showWelcome());
         // Show current tasks
-        ui.printList(this.list);
+        System.out.println(ui.showList(this.list));
 
         Scanner scanner = new Scanner(System.in);
         boolean isExit = false;
         while (!isExit) {
             try {
                 String input = scanner.nextLine();
-                isExit = Parser.parseInput(ui, storage, this.list, input);
+                String response = Parser.parseInput(ui, storage, this.list, input);
+                if (Objects.equals(response, "bye")) {
+                    isExit = true;
+                }
             } catch (InvalidInputException e) {
                 System.out.println(e.getMessage());
             }
         }
         scanner.close();
-        ui.printBye();
+        System.out.println(ui.showBye());
     }
 
     /**
      * Generate response to user.
      */
     public String getResponse(String input) {
-        return "Nexus heard: " + input;
+        try {
+            return Parser.parseInput(ui, storage, this.list, input);
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        }
     }
 
     public static void main(String[] args) {

@@ -14,17 +14,17 @@ import nexus.task.Todo;
  * Handles all the user input.
  */
 public class Parser {
-    private static void parseMark(TaskList list, String[] data, Storage storage, Ui ui)
+    private static String parseMark(TaskList list, String[] data, Storage storage, Ui ui)
             throws InvalidInputException {
         if (data.length == 1) {
             throw new InvalidInputException("Task index must be specified");
         }
         int index = Integer.parseInt(data[1]) - 1;
         list.get(index).setDone();
-        ui.printMark(list.get(index));
         storage.editTask("mark", index);
+        return ui.showMark(list.get(index));
     }
-    private static void parseUnmark(TaskList list, String[] data, Storage storage, Ui ui)
+    private static String parseUnmark(TaskList list, String[] data, Storage storage, Ui ui)
             throws InvalidInputException {
         if (data.length == 1) {
             throw new InvalidInputException("Task index must be specified");
@@ -33,10 +33,10 @@ public class Parser {
         list.get(index).setUndone();
 
         System.out.println(list.get(index));
-        ui.printUnmark(list.get(index));
         storage.editTask("unmark", index);
+        return ui.printUnmark(list.get(index));
     }
-    private static void parseDelete(TaskList list, String[] data, Storage storage, Ui ui)
+    private static String parseDelete(TaskList list, String[] data, Storage storage, Ui ui)
             throws InvalidInputException {
         if (data.length == 1) {
             throw new InvalidInputException("Task index must be specified");
@@ -44,10 +44,10 @@ public class Parser {
         int index = Integer.parseInt(data[1]) - 1;
         Task deleted = list.get(index);
         list.remove(index);
-        ui.printDelete(deleted, list);
         storage.editTask("delete", index);
+        return ui.showDelete(deleted, list);
     }
-    private static void parseTodo(TaskList list, String[] data, Storage storage, Ui ui)
+    private static String parseTodo(TaskList list, String[] data, Storage storage, Ui ui)
             throws InvalidInputException {
         StringBuilder builder = new StringBuilder();
         if (data.length == 1) {
@@ -59,10 +59,10 @@ public class Parser {
         String desc = builder.toString().trim();
         Todo todo = new Todo(desc);
         list.add(todo);
-        ui.printAdd(todo, list);
         storage.saveTask(todo);
+        return ui.showAdd(todo, list);
     }
-    private static void parseDeadline(TaskList list, String[] data, Storage storage, Ui ui)
+    private static String parseDeadline(TaskList list, String[] data, Storage storage, Ui ui)
             throws InvalidInputException {
         StringBuilder builder = new StringBuilder();
         if (data.length == 1) {
@@ -90,15 +90,11 @@ public class Parser {
         LocalDateTime dateTime = Parser.parseDatetime(endDateTimeString);
         Deadline deadline = new Deadline(desc, dateTime);
         list.add(deadline);
-        ui.printAdd(deadline, list);
         storage.saveTask(deadline);
+        return ui.showAdd(deadline, list);
     }
 
-    public static LocalDateTime parseDatetime(String endDateTimeString) {
-        return LocalDateTime.parse(endDateTimeString, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-    }
-
-    private static void parseEvent(TaskList list, String[] data, Storage storage, Ui ui)
+    private static String parseEvent(TaskList list, String[] data, Storage storage, Ui ui)
             throws InvalidInputException {
         StringBuilder builder = new StringBuilder();
         if (data.length == 1) {
@@ -135,8 +131,8 @@ public class Parser {
         String end = builder.toString().trim();
         Event event = new Event(desc, Parser.parseDatetime(start), Parser.parseDatetime(end));
         list.add(event);
-        ui.printAdd(event, list);
         storage.saveTask(event);
+        return ui.showAdd(event, list);
     }
 
     /**
@@ -146,11 +142,11 @@ public class Parser {
      * @param data String[].
      * @param ui Ui.
      */
-    public static void parseFind(TaskList list, String[] data, Ui ui) {
+    public static String parseFind(TaskList list, String[] data, Ui ui) {
         data[0] = "";
         String keyword = String.join(" ", data).trim();
         System.out.println(keyword);
-        ui.printFind(keyword, list);
+        return ui.showFind(keyword, list);
     }
 
     /**
@@ -160,43 +156,38 @@ public class Parser {
      * @param storage Storage.
      * @param list TaskList.
      * @param input User input string.
-     * @return Returns a boolean indicating whether to end the chat.
+     * @return Response string.
      * @throws InvalidInputException Invalid input.
      */
-    public static boolean parseInput(Ui ui, Storage storage, TaskList list, String input)
+    public static String parseInput(Ui ui, Storage storage, TaskList list, String input)
             throws InvalidInputException {
         String[] data = input.split(" ");
 
         switch (data[0]) {
         case "bye":
-            return true;
+            return "bye";
         case "list":
-            ui.printList(list);
-            break;
+            return ui.showList(list);
         case "find":
-            Parser.parseFind(list, data, ui);
-            break;
+            return Parser.parseFind(list, data, ui);
         case "mark":
-            Parser.parseMark(list, data, storage, ui);
-            break;
+            return Parser.parseMark(list, data, storage, ui);
         case "unmark":
-            Parser.parseUnmark(list, data, storage, ui);
-            break;
+            return Parser.parseUnmark(list, data, storage, ui);
         case "todo":
-            Parser.parseTodo(list, data, storage, ui);
-            break;
+            return Parser.parseTodo(list, data, storage, ui);
         case "deadline":
-            Parser.parseDeadline(list, data, storage, ui);
-            break;
+            return Parser.parseDeadline(list, data, storage, ui);
         case "event":
-            Parser.parseEvent(list, data, storage, ui);
-            break;
+            return Parser.parseEvent(list, data, storage, ui);
         case "delete":
-            Parser.parseDelete(list, data, storage, ui);
-            break;
+            return Parser.parseDelete(list, data, storage, ui);
         default:
             throw new InvalidInputException("I don't understand. Please check your input again.");
         }
-        return false;
+    }
+
+    public static LocalDateTime parseDatetime(String endDateTimeString) {
+        return LocalDateTime.parse(endDateTimeString, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
     }
 }
