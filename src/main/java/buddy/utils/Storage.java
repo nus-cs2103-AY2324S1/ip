@@ -1,6 +1,10 @@
 package buddy.utils;
 
 import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -13,6 +17,13 @@ import buddy.*;
  *
  * @author Lim Jin Yin
  */
+import buddy.Deadline;
+import buddy.Event;
+import buddy.Task;
+import buddy.TaskList;
+import buddy.Todo;
+
+
 public class Storage {
     private String filePath = "./data/tasks.txt";
 
@@ -96,6 +107,28 @@ public class Storage {
                 LocalDate endDate = LocalDate.parse(end, formatter);
                 tasks.addTask(new Event(description, startDate, endDate, isDone));
                 break;
+        case "T":
+            tasks.addTask(new Todo(description, isDone));
+            break;
+
+        case "D":
+            String by = parts[3];
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate deadlineBy = LocalDate.parse(by, formatter);
+            tasks.addTask(new Deadline(description, deadlineBy, isDone));
+            break;
+
+        case "E":
+            String start = parts[3];
+            String end = parts[4];
+            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate startDate = LocalDate.parse(start, formatter);
+            LocalDate endDate = LocalDate.parse(end, formatter);
+            tasks.addTask(new Event(description, startDate, endDate, isDone));
+            break;
+
+        default:
+            throw new BuddyException("Unexpected value: " + taskType);
         }
 
         return tasks;

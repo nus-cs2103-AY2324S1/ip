@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+<<<<<<< HEAD
 import buddy.*;
 import buddy.commands.*;
 
@@ -12,6 +13,20 @@ import buddy.commands.*;
  *
  * @author Lim Jin Yin
  */
+=======
+import buddy.TaskList;
+import buddy.commands.AddDeadlineCommand;
+import buddy.commands.AddEventCommand;
+import buddy.commands.AddTodoCommand;
+import buddy.commands.Command;
+import buddy.commands.CommandType;
+import buddy.commands.DeleteCommand;
+import buddy.commands.ExitCommand;
+import buddy.commands.ListCommand;
+import buddy.commands.MarkAsDoneCommand;
+import buddy.commands.MarkAsUndoneCommand;
+
+>>>>>>> branch-A-CodingStandard
 public class Parser {
 
     // returns date in format MMM d yyyy

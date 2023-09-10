@@ -6,11 +6,14 @@ import java.util.Scanner;
 import buddy.Task;
 import buddy.TaskList;
 
+<<<<<<< HEAD
 /**
  * The Ui class deals with the interactions with the user.
  *
  * @author Lim JIn Yin
  */
+=======
+>>>>>>> branch-A-CodingStandard
 public class Ui {
     private final String name = "Task Buddy";
     private Scanner sc;
