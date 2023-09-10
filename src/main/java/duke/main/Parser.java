@@ -146,6 +146,7 @@ public class Parser {
      * @param index
      */
     private String delete(int index) {
+        assert tasks.size() > 0 : "You have no task to delete.";
         Task removedTask = tasks.remove(index);
         storage.save();
 
@@ -158,6 +159,7 @@ public class Parser {
      * @param task
      */
     private String addTask(Task task) {
+        assert task != null;
         tasks.add(task);
         storage.save();
 
@@ -166,6 +168,7 @@ public class Parser {
     }
 
     private String find(String reply) {
+        assert tasks.size() > 0 : "Your task list is empty.";
         String keyword = reply.replace("find ", "");
         String guiTalk = ui.findString(tasks.find(keyword));
         return guiTalk;
