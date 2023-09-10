@@ -1,21 +1,12 @@
 todo borrow book
-
 deadline return book /by Sunday
-
 event project meeting /from Mon 2pm /to 4pm
-
 list
-
 mark 1
-
 mark 3
-
 unmark 3
-
 unmark 2
-
 list
-
 deadline do homework /by no idea :-p
-
+delete 3
 Bye

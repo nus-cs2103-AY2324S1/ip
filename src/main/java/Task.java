@@ -31,10 +31,17 @@ public class Task {
     public String toString() {
         return getStatusIcon() + this.description;
     }
+    public String saveToString() {
+        return this.description + "," + (isDone ? 1 : 0);
+    }
 
     // Constructor
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
 }

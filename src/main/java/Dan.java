@@ -1,7 +1,8 @@
+import java.io.*;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Scanner;
 
-enum TASK_TYPE {TODO, DEADLINE, EVENT}
 public class Dan {
 
     private final static String greets = "\nDan: \n";
@@ -13,6 +14,7 @@ public class Dan {
             "list", "bye",
             "mark [TASK_ID]", "unmark [TASK_ID]"
     };
+    private final static String savePath = "./data/dan.txt";
 
 
     public static void main(String[] args) {
@@ -29,37 +31,37 @@ public class Dan {
         String command;
         a: while (true) {
             try {
-            text = new Scanner(System.in).nextLine();
-            texts = text.split(" ");
-            command = texts[0].toLowerCase();
-            switch (command) {
-                case "bye":
-                    break a;
-                case "list":
-                    list();
-                    break;
-                case "mark":
-                    if (!mark(texts[1]))
-                        continue;
-                    break;
-                case "unmark":
-                    if (!unmark(texts[1]))
-                        continue;
-                    break;
-                case "todo":
-                    addTask(text, TASK_TYPE.TODO);
-                    break;
-                case "deadline":
-                    addTask(text, TASK_TYPE.DEADLINE);
-                    break;
-                case "event":
-                    addTask(text, TASK_TYPE.EVENT);
-                    break;
-                case "delete":
-                    deleteTask(Integer.parseInt(texts[1]));
-                    break;
-                default:
-                    throw new DanException("Incorrect command");
+                text = new Scanner(System.in).nextLine();
+                texts = text.split(" ");
+                command = texts[0].toLowerCase();
+                switch (command) {
+                    case "bye":
+                        break a;
+                    case "list":
+                        list();
+                        break;
+                    case "mark":
+                        if (!mark(texts[1]))
+                            continue;
+                        break;
+                    case "unmark":
+                        if (!unmark(texts[1]))
+                            continue;
+                        break;
+                    case "todo":
+                        addTask(text, 1);
+                        break;
+                    case "deadline":
+                        addTask(text, 2);
+                        break;
+                    case "event":
+                        addTask(text, 3);
+                        break;
+                    case "delete":
+                        deleteTask(Integer.parseInt(texts[1]));
+                        break;
+                    default:
+                        throw new DanException("Incorrect command");
                 }
             } catch (Exception e) {
                 if (e instanceof DanException ) {
@@ -74,16 +76,55 @@ public class Dan {
         }
     }
 
+
+    public static Writer writer = null;
+
+    private static void save() {
+        try {
+            new File(savePath).delete();
+            new File(savePath).createNewFile();
+            writer = new BufferedWriter(new FileWriter(savePath));
+            for (int i = 0; i < tasks.size(); i++) {
+                writer.write(tasks.get(i).saveToString() + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                writer.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     private static void deleteTask(int i) {
         Task removedTask = tasks.remove(i);
         System.out.println(
                 greets +
-                " 好啦，帮你擦掉了一条任务哦：\n " + removedTask +
-                "\n 现在还剩下" + tasks.size() + "项任务哦！\n"
+                        " 好啦，帮你擦掉了一条任务哦：\n " + removedTask +
+                        "\n 现在还剩下" + tasks.size() + "项任务哦！\n"
         );
     }
 
-    public static void addTask(String text, TASK_TYPE id) throws IndexOutOfBoundsException {
+    public static void addTask(String text)
+            throws IndexOutOfBoundsException, NumberFormatException, NullPointerException {
+        String[] task = text.split(",");
+        Task t = null;
+        int isDone = Integer.parseInt(task[2]);
+        switch (task[0]) {
+            case "toDo":
+                t = new ToDo(task[1], isDone); break;
+            case "deadline":
+                t = new Deadline(task[1], isDone, task[3]); break;
+            case "event":
+                t = new Event(task[1], isDone, task[3], task[4]); break;
+        }
+        tasks.add(t);
+    }
+
+    public static void addTask(String text, int id)
+            throws IndexOutOfBoundsException {
         String[] texts = text.split("/");
         for (int i = 0; i < texts.length; i++) {
             texts[i] = texts[i].trim();
@@ -91,16 +132,16 @@ public class Dan {
         Task newTask = null;
         String description;
         switch (id) {
-            case 1 :
-                description = texts[0].substring(5);
+            case 1:
+                description = texts[1].substring(5);
                 newTask = new ToDo(description);
                 break;
-            case 2 :
+            case 2:
                 description = texts[0].substring(9);
                 String deadline = texts[1].substring(3);
                 newTask = new Deadline(description, deadline);
                 break;
-            case 3 :
+            case 3:
                 description = texts[0].substring(5);
                 String start = texts[1].substring(5);
                 String end = texts[2].substring(3);
@@ -110,9 +151,11 @@ public class Dan {
         tasks.add(newTask);
         System.out.println(
                 greets + " 新任务：\n " + newTask +
-                "!\n 现在有" + tasks.size() + "项任务哦！\n"
+                        "!\n 现在有" + tasks.size() + "项任务哦！\n"
         );
+        save();
     }
+
 
     private static boolean mark(String taskId) {
         Task currTask = markTask(taskId, 0);
@@ -146,6 +189,7 @@ public class Dan {
         if (!succ) {
             return null;
         }
+        save();
         return currTask;
     }
 
@@ -159,14 +203,36 @@ public class Dan {
     public static void hello() {
         System.out.println(
                 greets +
-                " 我是小丹！\n" +
-                " 有什么可以要帮忙可以跟我说！\n"
+                        " 我是小丹！\n" +
+                        " 有什么可以要帮忙可以跟我说！\n"
         );
+        File f = new File(savePath);
+        try {
+            if (f.exists()) {
+                readFile(f);
+            } else {
+                System.out.println(new File("./data").mkdir());
+                System.out.println(new File("./data/dan.txt").createNewFile());
+            }
+        }  catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+    private static void readFile(File f) throws IOException {
+        Scanner sc = new Scanner(f);
+        String text;
+        while (sc.hasNext()) {
+            text = sc.nextLine();
+            addTask(text);
+        }
+        sc.close();
+    }
+
     public static void goodbye() {
         System.out.println(
                 greets +
-                " 拜拜啦！下次见！\n"
+                        " 拜拜啦！下次见！\n"
         );
     }
 }

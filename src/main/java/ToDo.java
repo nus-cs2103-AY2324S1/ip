@@ -9,8 +9,17 @@ public class ToDo extends Task {
         return "[T]" + super.toString();
     }
 
+    @Override
+    public String saveToString() {
+        return "toDo," + super.saveToString();
+    }
+
     // Constructor
     public ToDo(String description) {
         super(description);
+    }
+
+    public ToDo(String des, int mark) {
+        super(des, mark != 0);
     }
 }
