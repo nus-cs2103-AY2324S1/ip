@@ -108,13 +108,8 @@ public class TaskList {
      * @return FindTaskMessage.
      */
     public FindTaskMessage find(String keyword) {
-        // TODO: use stream for this
         ArrayList<Task> result = new ArrayList<>();
-        for (Task t: this.list) {
-            if (t.containsKeyword(keyword)) {
-                result.add(t);
-            }
-        }
+        this.list.stream().filter(task -> task.containsKeyword(keyword)).forEach(result::add);
         return new FindTaskMessage(result);
     }
 
