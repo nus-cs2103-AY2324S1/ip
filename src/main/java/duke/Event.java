@@ -24,8 +24,10 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH))
-                + " to: " + endTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH)) + ")";
+        return "[E]" + super.toString() + " (from: "
+                + startTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH))
+                + " to: "
+                + endTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH)) + ")";
     }
 
     /**
@@ -33,7 +35,8 @@ public class Event extends Task{
      */
     @Override
     public String toTxt() {
-        return "E | " + super.toTxt() + " | " + this.startTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH))
+        return "E | " + super.toTxt() + " | "
+                + this.startTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH))
                 + " | " + this.endTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH));
     }
 }
