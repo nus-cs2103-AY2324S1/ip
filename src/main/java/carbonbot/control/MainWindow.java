@@ -25,7 +25,7 @@ public class MainWindow extends AnchorPane {
     private CarbonBot carbonbot;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/carbonbot.png"));
+    private Image carbonImage = new Image(this.getClass().getResourceAsStream("/images/carbonbot.png"));
 
     /**
      * Initializes the MainWindow and adds a greeting message by the bot.
@@ -35,7 +35,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         String greetingMessage = "Hello! I am CarbonBot.\nWhat can I do for you?";
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(greetingMessage, dukeImage)
+                DialogBox.getCarbonDialog(greetingMessage, carbonImage)
         );
     }
 
@@ -44,8 +44,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing CarbonBot's reply and then appends them
+     * to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
@@ -53,7 +53,7 @@ public class MainWindow extends AnchorPane {
         String response = carbonbot.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getCarbonDialog(response, carbonImage)
         );
         userInput.clear();
 
