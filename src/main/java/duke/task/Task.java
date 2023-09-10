@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Task {
     protected DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-    private boolean status;
+    private boolean isDone;
     private String taskContent;
 
     /**
@@ -15,27 +15,27 @@ public class Task {
      * @param reply
      */
     public Task(String reply) {
-        this.status = false;
+        this.isDone = false;
         this.taskContent = reply;
     }
 
     /**
-     * Marks task status as done.
+     * Marks task isDone as done.
      */
     public void mark() {
-        status = true;
+        isDone = true;
     }
 
     /**
-     * Marks task status as not done.
+     * Marks task isDone as not done.
      */
     public void unmark() {
-        status = false;
+        isDone = false;
     }
 
     @Override
     public String toString() {
-        if (status) {
+        if (isDone) {
             return String.format("[X] %s", taskContent);
         } else {
             return String.format("[ ] %s", taskContent);
@@ -55,6 +55,6 @@ public class Task {
      * @return
      */
     public String saveToFileLine() {
-        return String.format("%s | %s", status ? "1" : "0", taskContent);
+        return String.format("%s | %s", isDone ? "1" : "0", taskContent);
     }
 }

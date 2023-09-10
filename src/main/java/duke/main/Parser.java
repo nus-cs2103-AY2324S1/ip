@@ -5,7 +5,11 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import duke.command.FirstWord;
-import duke.exception.*;
+import duke.exception.DukeEmptyToDoException;
+import duke.exception.DukeException;
+import duke.exception.DukeInvalidDateFormatException;
+import duke.exception.DukeInvalidMarkUnmarkArgumentException;
+import duke.exception.DukeUnknownCommandException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -18,6 +22,7 @@ public class Parser {
     private Scanner sc;
     private Storage storage;
     private TaskList tasks;
+    private Ui ui;
 
     /**
      * Constructs a Parser object.
@@ -28,6 +33,7 @@ public class Parser {
         this.tasks = tasks;
         this.sc = new Scanner(System.in);
         this.storage = storage;
+        this.ui = new Ui();
     }
 
     /**
@@ -36,7 +42,7 @@ public class Parser {
     private String listOutTasks() {
         String tasksList = "";
         for (int i = 0; i < tasks.size(); i++) {
-            tasksList += String.format("%d. %s\n", i + 1, tasks.get(i).toString().trim());
+            tasksList += ui.listOutTasksString(i + 1, tasks.get(i).toString().trim());
         }
 
         String guiTalk = tasksList;
@@ -47,7 +53,7 @@ public class Parser {
      * Exits chatbot.
      */
     private String exit() {
-        String guiTalk = "  Bye~ Hope to see you again soon! >w<";
+        String guiTalk = ui.exitString();
         return guiTalk;
     }
 
@@ -55,14 +61,14 @@ public class Parser {
      * Marks task as done.
      * @param index
      */
-    private String mark(int index) throws DukeInvalidMarkUnmarkArgument {
+    private String mark(int index) throws DukeInvalidMarkUnmarkArgumentException {
         try {
             Task task = tasks.get(index);
             task.mark();
-            String guiTalk = String.format("  Nice! I've marked this task as done:\n  %s", task.toString());
+            String guiTalk = ui.markString(task.toString());
             return guiTalk;
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeInvalidMarkUnmarkArgument();
+            throw new DukeInvalidMarkUnmarkArgumentException();
         }
     }
 
@@ -70,14 +76,14 @@ public class Parser {
      * Marks task as not done.
      * @param index
      */
-    private String unmark(int index) throws DukeInvalidMarkUnmarkArgument {
+    private String unmark(int index) throws DukeInvalidMarkUnmarkArgumentException {
         try {
             Task task = tasks.get(index);
             task.unmark();
-            String guiTalk = String.format("  Ok, I've marked this task as not done yet:\n  %s", task.toString());
+            String guiTalk = ui.unmarkString(task.toString());
             return guiTalk;
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeInvalidMarkUnmarkArgument();
+            throw new DukeInvalidMarkUnmarkArgumentException();
         }
     }
 
@@ -141,12 +147,9 @@ public class Parser {
      */
     private String delete(int index) {
         Task removedTask = tasks.remove(index);
-        String removeNofi = String.format("  Noted. I've removed this task:");
-        String removedDetail = String.format("  %s", removedTask.toString());
-        String taskCount = String.format("  Now you have %d task(s) in the list.", tasks.size());
         storage.save();
 
-        String guiTalk = String.format("%s\n%s\n%s", removeNofi, removedDetail, taskCount);
+        String guiTalk = ui.deleteString(removedTask.toString(), tasks.size());
         return guiTalk;
     }
 
@@ -158,21 +161,13 @@ public class Parser {
         tasks.add(task);
         storage.save();
 
-        String addNofi = String.format("  Got it. I've added this task:");
-        String addedDetail = String.format("  %s", task.toString());
-        String taskCount = String.format("  Now you have %d task(s) in the list.", tasks.size());
-
-        String guiTalk = String.format("%s\n%s\n%s", addNofi, addedDetail, taskCount);
-
+        String guiTalk = ui.addTaskString(task.toString(), tasks.size());
         return guiTalk;
-
     }
 
     private String find(String reply) {
         String keyword = reply.replace("find ", "");
-        String findNofi = String.format("  Here are the matching tasks in your list:");
-        String matchingTasks = tasks.find(keyword);
-        String guiTalk = String.format("%s\n%s", findNofi, matchingTasks);
+        String guiTalk = ui.findString(tasks.find(keyword));
         return guiTalk;
     }
 
