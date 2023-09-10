@@ -58,5 +58,4 @@ public class Cupid {
     public static void main(String[] args) throws IOException {
         new Cupid("cupid.txt").run();
     }
-
 }
