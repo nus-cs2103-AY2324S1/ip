@@ -21,6 +21,8 @@ public class UnmarkCommand extends Command {
      * @param unmarkIndex the index of task to be unmarked.
      */
     public UnmarkCommand(int unmarkIndex) {
+        assert unmarkIndex >= 0 : "Index of task should never be negative";
+
         this.unmarkIndex = unmarkIndex;
     }
 
@@ -35,7 +37,7 @@ public class UnmarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Storage storage) throws RobertException {
         tasks.unmarkTask(this.unmarkIndex);
-        return "Ok, I've marked this task as not done yet:\n  "
+        return "Ok, I've unmarked this task as not done yet:\n  "
                 + tasks.getTask(this.unmarkIndex);
     }
 }

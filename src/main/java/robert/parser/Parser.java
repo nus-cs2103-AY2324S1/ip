@@ -4,6 +4,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 
 import robert.command.AddCommand;
+import robert.command.BlankCommand;
 import robert.command.ClearCommand;
 import robert.command.Command;
 import robert.command.DeleteCommand;
@@ -30,6 +31,9 @@ public class Parser {
      * @throws RobertException if the line of command is of wrong format.
      */
     public static Command parse(String fullCommand) throws RobertException {
+        if (fullCommand.isEmpty()) {
+            return new BlankCommand();
+        }
 
         String[] splitCommand = fullCommand.split(" ", 2);
 
