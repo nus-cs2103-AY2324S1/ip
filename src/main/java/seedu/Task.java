@@ -85,7 +85,7 @@ public class Task {
     /**
      * Sets the description of the task
      *
-     * @param d the text description of the task
+     * @param desc the text description of the task
      */
     public void setDescription(String desc) {
         this.description = desc;

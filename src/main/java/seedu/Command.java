@@ -33,7 +33,7 @@ public class Command {
                 s.add(this.ui.showByeMessage());
                 this.storage.save(this.tasks);
             } else if (command.equals("list")) {
-                s.add(this.ui.showTask(tasks));
+                s.add(this.ui.showTask(this.tasks));
             } else if (command.equals("delete")) {
                 Task removed = this.tasks.remove(this.index);
                 s.add(this.ui.removeTask(removed, this.tasks.getLen()));
@@ -44,6 +44,11 @@ public class Command {
                 String keyword = command.substring(4).trim();
                 ArrayList<Task> foundWords = this.tasks.find(keyword);
                 s.add(this.ui.showFoundWords(foundWords));
+            } else if (command.startsWith("remove")) {
+                String keyword = command.substring(6).trim();
+                ArrayList<Task> foundTasks = this.tasks.find(keyword);
+                ArrayList<Task> removedTasks = this.tasks.specificRemove(foundTasks);
+                s.add(this.ui.showMassDeleteSuccess(removedTasks));
             } else {
                 Task curr = new Task(command.substring(command.indexOf(" ")),
                         command.substring(0, command.indexOf(" ")));

@@ -21,6 +21,8 @@ public class Parser {
             return new Command("mark", ui, storage, tasks, current);
         } else if (command.startsWith("find ")) {
             return new Command(command, ui, storage, tasks);
+        } else if (command.startsWith("remove ")) {
+            return new Command(command, ui, storage, tasks);
         } else {
             return new Command(command, ui, storage, tasks);
         }
