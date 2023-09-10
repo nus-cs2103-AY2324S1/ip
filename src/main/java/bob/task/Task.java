@@ -28,6 +28,7 @@ public class Task {
      * @throws IndexOutOfBoundsException when parsing fails, indicates corrupt file.
      */
     public static Task parse(String description) throws IndexOutOfBoundsException {
+        assert description.contains("|");
         String[] split = description.split(" \\| ", 2);
 
         String type = split[0];

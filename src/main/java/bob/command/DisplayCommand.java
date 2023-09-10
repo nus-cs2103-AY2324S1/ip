@@ -6,7 +6,6 @@ import bob.Ui;
 public class DisplayCommand extends Command {
 
     public DisplayCommand() {
-        super.isExit = false;
     }
 
     /**
