@@ -5,11 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import duke.command.FirstWord;
-import duke.exception.DukeEmptyToDoException;
-import duke.exception.DukeException;
-import duke.exception.DukeInvalidDateFormatException;
-import duke.exception.DukeInvalidMarkUnmarkArgumentException;
-import duke.exception.DukeUnknownCommandException;
+import duke.exception.*;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -158,13 +154,16 @@ public class Parser {
      * Constructs message for adding task.
      * @param task
      */
-    private String addTask(Task task) {
+    private String addTask(Task task) throws DukeException {
         assert task != null;
-        tasks.add(task);
-        storage.save();
-
-        String guiTalk = ui.addTaskString(task.toString(), tasks.size());
-        return guiTalk;
+        try {
+            tasks.add(task);
+            storage.save();
+            String guiTalk = ui.addTaskString(task.toString(), tasks.size());
+            return guiTalk;
+        } catch (DukeDuplicatedTaskException e) {
+            throw new DukeDuplicatedTaskException();
+        }
     }
 
     private String find(String reply) {

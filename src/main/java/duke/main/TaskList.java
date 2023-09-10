@@ -2,6 +2,7 @@ package duke.main;
 
 import java.util.ArrayList;
 
+import duke.exception.DukeDuplicatedTaskException;
 import duke.task.Task;
 
 /**
@@ -21,7 +22,13 @@ public class TaskList {
      * Adds a task into TaskList.
      * @param task
      */
-    public void add(Task task) {
+    public void add(Task task) throws DukeDuplicatedTaskException {
+        long duplicate = tasks.stream()
+                                .filter(taskInList -> taskInList.toString().equals(task.toString()))
+                                .count();
+        if (duplicate > 0) {
+            throw new DukeDuplicatedTaskException();
+        }
         tasks.add(task);
     }
 
