@@ -6,6 +6,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import pippi.ui.Ui;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -19,11 +21,12 @@ public class MainWindow extends AnchorPane {
 
     private Pippi pippi;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
-    private Image pippiImage = new Image(this.getClass().getResourceAsStream("/images/DaPippi.jpg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser-removebg.png"));
+    private Image pippiImage = new Image(this.getClass().getResourceAsStream("/images/DaPippi-removebg.png"));
 
     @FXML
     public void initialize() {
+        dialogContainer.getChildren().add(DialogBox.getPippiDialog(Ui.helloMessage(), pippiImage));
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
