@@ -32,13 +32,15 @@ public class AddDeadlineCommand extends Command {
 
     /**
      * Create a new deadline with the corresponding description and due date.
-     * @param ui Lets the user know if the creation of the deadline was successful.
-     * @param storage Saves the deadline to the hard disk after creating it.
+     *
+     * @param ui       Lets the user know if the creation of the deadline was successful.
+     * @param storage  Saves the deadline to the hard disk after creating it.
      * @param taskList Task list to add the deadline to.
+     * @return Response to user input.
      * @throws BareumException If due date is not in YYYY-MM-DD format.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) throws BareumException {
+    public String execute(Ui ui, Storage storage, TaskList taskList) throws BareumException {
         try {
             DeadlineTask task = DeadlineTask.makeDeadline(this.description, this.dueDate);
             taskList.addTask(task);
@@ -46,9 +48,9 @@ public class AddDeadlineCommand extends Command {
 
             String added = "I have added this task:\n" + task + "\nYou now have "
                     + taskList.size() + " task(s) in your list.";
-            Ui.reply(added);
+            return added;
         } catch (BareumException e) {
-            Ui.reply(e.getMessage());
+            return e.getMessage();
         }
     }
 }

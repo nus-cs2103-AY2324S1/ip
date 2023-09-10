@@ -23,15 +23,17 @@ public class UnmarkCommand extends Command {
 
     /**
      * Marks the task at the corresponding index as uncompleted.
+     *
      * @param ui Lets the user know if the marking as uncompleted was successful.
      * @param storage Saves the updated task to the hard disk.
      * @param taskList Task list to retrieve the task from.
+     * @return Response to user input.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) {
+    public String execute(Ui ui, Storage storage, TaskList taskList) {
         taskList.unmarkAsDone(index);
         storage.saveAllTasks(taskList);
 
-        Ui.reply("Okay, I've marked this task as not done yet:\n" + taskList.get(index).toString());
+        return "Okay, I've marked this task as not done yet:\n" + taskList.get(index).toString();
     }
 }

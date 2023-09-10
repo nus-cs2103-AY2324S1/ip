@@ -1,9 +1,9 @@
 package bareum.commands;
 
 import bareum.BareumException;
+import bareum.TodoTask;
 import bareum.Storage;
 import bareum.TaskList;
-import bareum.TodoTask;
 import bareum.Ui;
 
 /**
@@ -13,7 +13,7 @@ public class AddTodoCommand extends Command {
     /**
      * Description of the todo.
      */
-    private String description;
+    String description;
 
     /**
      * Create a new instance of a command that creates a todo with the corresponding description when executed.
@@ -25,12 +25,14 @@ public class AddTodoCommand extends Command {
 
     /**
      * Create a new todo with the corresponding description.
+     *
      * @param ui Lets the user know if the creation of the todo was successful.
      * @param storage Saves the event to the hard disk after creating it.
      * @param taskList Task list to add the event to.
+     * @return  Response to user input.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) {
+    public String execute(Ui ui, Storage storage, TaskList taskList) {
         try {
             TodoTask task = TodoTask.makeTodo(description);
             taskList.addTask(task);
@@ -38,10 +40,10 @@ public class AddTodoCommand extends Command {
 
             String added = "I have added this task:\n" + task + "\nYou now have "
                     + taskList.size() + " task(s) in your list.";
-            Ui.reply(added);
+            return added;
         } catch (BareumException e) {
-            Ui.reply("Oops! The description of a todo cannot be empty.\n"
-                    + "Correct format: todo <description>");
+            return "Oops! The description of a todo cannot be empty.\n" +
+                    "Correct format: todo <description>";
         }
     }
 }

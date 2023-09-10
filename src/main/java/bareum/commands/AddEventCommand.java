@@ -37,18 +37,20 @@ public class AddEventCommand extends Command {
 
     /**
      * Create a new event with the corresponding description and start and end date and time.
+     *
      * @param ui Lets the user know if the creation of the event was successful.
      * @param storage Saves the event to the hard disk after creating it.
      * @param taskList Task list to add the event to.
+     * @return Response to user input.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) {
+    public String execute(Ui ui, Storage storage, TaskList taskList) {
         EventTask task = EventTask.makeEvent(this.description, this.startDateTime, this.endDateTime);
         taskList.addTask(task);
         storage.saveNewTask(task);
 
         String added = "I have added this task:\n" + task + "\nYou now have "
                 + taskList.size() + " task(s) in your list.";
-        Ui.reply(added);
+        return added;
     }
 }

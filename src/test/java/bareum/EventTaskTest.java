@@ -1,9 +1,8 @@
 package bareum;
 
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import org.junit.jupiter.api.Test;
 
 public class EventTaskTest {
     @Test
@@ -11,7 +10,7 @@ public class EventTaskTest {
         EventTask task = EventTask.makeEvent("project meeting", "Mon 2pm", "4pm");
         assertNotNull(task);
         assertEquals("project meeting", task.getDescription());
-        assertEquals("Mon 2pm", task.getStartDateTime());
+        assertEquals("Mon 2pm", task.getStartDateTime() );
         assertEquals("4pm", task.getEndDateTime());
     }
 
@@ -22,7 +21,7 @@ public class EventTaskTest {
         EventTask task = EventTask.makeEvent(taskInputs);
         assertNotNull(task);
         assertEquals("project meeting", task.getDescription());
-        assertEquals("Mon 2pm", task.getStartDateTime());
+        assertEquals("Mon 2pm", task.getStartDateTime() );
         assertEquals("4pm", task.getEndDateTime());
     }
 }

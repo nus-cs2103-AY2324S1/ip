@@ -13,15 +13,18 @@ public class ListCommand extends Command {
 
     /**
      * List all the tasks in the task list.
+     *
      * @param ui Lists all the tasks in the task list.
      * @param storage Storage is not used in this method.
      * @param taskList Task list to list tasks from.
+     * @return Response to user input.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) {
-        Ui.reply("Here are your current tasks!");
+    public String execute(Ui ui, Storage storage, TaskList taskList) {
+        String response = "Here are your current tasks!\n";
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + taskList.get(i).toString());
+            response += (i + 1) + ". " + taskList.get(i).toString() + "\n";
         }
+        return response;
     }
 }

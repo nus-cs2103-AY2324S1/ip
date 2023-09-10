@@ -20,8 +20,8 @@ public class ByeCommand extends Command {
      * @param taskList Task list to save the tasks from.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) {
+    public String execute(Ui ui, Storage storage, TaskList taskList) {
         storage.saveAllTasks(taskList);
-        ui.showGoodbyeMessage();
+        return Ui.getGoodbyeMessage();
     }
 }
