@@ -19,5 +19,7 @@ public class ToDo extends Task {
      * @return ToDo string representation
      */
     @Override
-    public String toMemory() { return "T " + super.getStatus() + super.getDescription(); }
+    public String toMemory() {
+        return "T " + super.getStatus() + super.getDescription();
+    }
 }

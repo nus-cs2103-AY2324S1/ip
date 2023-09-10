@@ -1,8 +1,10 @@
 package pippi.task;
 
+import java.time.LocalDate;
+
 import pippi.parser.DateFormatter;
 
-import java.time.LocalDate;
+
 public class Deadline extends Task {
     private LocalDate due;
     public Deadline(String desc, LocalDate due) {
@@ -24,6 +26,8 @@ public class Deadline extends Task {
      * @return Deadline string representation
      */
     @Override
-    public String toMemory() { return "D " + super.getStatus() + super.getDescription() + " | " + due.format(DateFormatter.format); }
-
+    public String toMemory() {
+        return "D " + super.getStatus()
+            + super.getDescription() + " | " + due.format(DateFormatter.format);
+    }
 }

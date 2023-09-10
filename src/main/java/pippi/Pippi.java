@@ -1,17 +1,13 @@
 package pippi;
 
+import java.util.ArrayList;
+
 import pippi.parser.Parser;
 import pippi.storage.Storage;
 import pippi.task.Task;
-import pippi.ui.Ui;
 
-import java.util.Scanner;
-import java.util.ArrayList;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
+
 
 public class Pippi {
     // private static boolean inPokeball = false;
@@ -28,10 +24,6 @@ public class Pippi {
     public String getResponse(String userInput) {
         return Parser.reply(userInput, tasks);
     }
-
-    /**
-     * Initiates the program's start and working flow
-     */
 
     /*
     public void start() {
