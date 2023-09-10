@@ -29,18 +29,16 @@ public class CR7 {
      * @param filePath The file path for storing task data.
      */
     public CR7(String filePath) {
+        assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty!";
         ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.loadFiles());
+            assert tasks != null : "Tasks should be initialized!";
         } catch (FileNotFoundException e) {
             ui.showErrorMsg("Error: Task data file not found.");
             tasks = new TaskList();
         }
-    }
-
-    public CR7() {
-        ui = new Ui();
     }
 
     /**
@@ -58,6 +56,7 @@ public class CR7 {
      */
     public String getResponse(String input) {
         try {
+            assert input != null && !input.trim().isEmpty() : "Input should not be null or empty!";
             Command c = Parser.parse(input);
             String response = c.execute(tasks, ui, storage);
             return "Cristiano Ronaldo will always be the GOAT. And here is why: \n" + response;

@@ -63,39 +63,46 @@ public class Parser {
      * @return A Command object representing the parsed command.
      */
     public static Command parse(String input) {
-        if (input.equals("bye")) {
-            return new ExitCommand();
-        }
-        if (input.equals("list")) {
-            return new ListCommand();
-        } else {
-            String[] words = input.split(" ");
-            String first = words[0];
-            if (first.equals("delete")) {
+        assert input != null && input.length() == 0 : "String should not be null or empty";
+        String[] words = input.split(" ");
+        String first = words[0];
+
+        switch (first) {
+            case "bye":
+                return new ExitCommand();
+
+            case "list":
+                return new ListCommand();
+
+            case "delete":
                 int s = Integer.valueOf(words[1]);
                 return new DeleteCommand(s);
-            } else if (first.equals("mark")) {
-                int s = Integer.valueOf(words[1]);
-                return new MarkCommand(s);
-            } else if (first.equals("unmark")) {
-                int s = Integer.valueOf(words[1]);
-                return new UnmarkCommand(s);
-            } else if (first.equals("find")) {
+
+            case "mark":
+                int sMark = Integer.valueOf(words[1]);
+                return new MarkCommand(sMark);
+
+            case "unmark":
+                int sUnmark = Integer.valueOf(words[1]);
+                return new UnmarkCommand(sUnmark);
+
+            case "find":
                 String search = words[1];
                 return new SearchCommand(search);
-            } else if (first.equals("todo")) {
+
+            case "todo":
                 if (input.length() <= 5) {
                     return new ErrorCommand("The description of a task cannot be empty.\n");
                 } else {
                     String desc = input.substring(5);
                     return new AddCommand(desc);
                 }
-            } else if (first.equals("deadline")) {
+
+            case "deadline":
                 if (input.length() <= 9) {
                     return new ErrorCommand("The description of a task cannot be empty.\n");
                 } else {
                     int y = input.indexOf("/by ");
-                    Task t = null;
                     if (y == -1) {
                         return new ErrorCommand("Please enter the deadline of the task in the correct format.\n");
                     } else {
@@ -108,20 +115,20 @@ public class Parser {
                         return new AddCommand(desc, date);
                     }
                 }
-            } else if (first.equals("event")) {
+
+            case "event":
                 if (input.length() <= 6) {
                     return new ErrorCommand("The description of a task cannot be empty.\n");
                 } else {
                     int fromIndex = input.indexOf("/from ");
                     int toIndex = input.indexOf("/to ");
                     if (fromIndex == -1 || toIndex == -1) {
-                        return new ErrorCommand("Please enter the start and end time" +
-                                " of the task in the correct format.\n");
+                        return new ErrorCommand("Please enter the start and end time of the task in the correct format.\n");
                     } else {
                         String desc = input.substring(6, input.indexOf("/") - 1);
-                        String s = input.substring(fromIndex + 6, toIndex).trim();
+                        String y = input.substring(fromIndex + 6, toIndex).trim();
                         String e = input.substring(toIndex + 4).trim();
-                        LocalDateTime start = parseDate(s);
+                        LocalDateTime start = parseDate(y);
                         LocalDateTime end = parseDate(e);
                         if (start == null || end == null) {
                             return new ErrorCommand("PLease enter the date and time in the correct format. \n");
@@ -129,9 +136,9 @@ public class Parser {
                         return new AddCommand(desc, start, end);
                     }
                 }
-            } else {
+
+            default:
                 return new ErrorCommand("I'm sorry, but I don't know what that means :(\n");
-            }
         }
     }
 }
