@@ -2,7 +2,6 @@ package taskpackage;
 
 import dukepackage.DukeException;
 
-import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -30,13 +29,9 @@ public class Deadlines extends Task {
         try {
             this.by = LocalDate.parse(details.substring(3));
         } catch (DateTimeParseException e) {
-            byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
-            String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
-            throw new DukeException(emoji + " OOPS!!! Please use the proper format for the deadline (YYYY-MM-DD).");
+            throw new DukeException(" OOPS!!! Please use the proper format for the deadline (YYYY-MM-DD).");
         } catch (IndexOutOfBoundsException e) {
-            byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
-            String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
-            throw new DukeException(emoji + " OOPS!!! There are missing details for the deadline.");
+            throw new DukeException(" OOPS!!! There are missing details for the deadline.");
         }
     }
 

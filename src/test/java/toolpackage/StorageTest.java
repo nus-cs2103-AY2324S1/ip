@@ -7,7 +7,6 @@ import taskpackage.Events;
 import taskpackage.ToDos;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -91,9 +90,7 @@ public class StorageTest {
             tasks.addItem(new Deadlines("Deadline 1", "by 203-08-31", "0"), ui);
             tasks.addItem(new Events("Event 1", "from 2023-08-30", "to 2023-08-31", "0"), ui);
         } catch (DukeException e) {
-            byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
-            String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
-            assertEquals(emoji + " OOPS!!! Please use the proper format for the deadline (YYYY-MM-DD).", e.getMessage());
+            assertEquals(" OOPS!!! Please use the proper format for the deadline (YYYY-MM-DD).", e.getMessage());
         } finally {
             try {
                 Files.deleteIfExists(Paths.get("./testing/duke.txt"));

@@ -3,7 +3,6 @@ package toolpackage;
 import taskpackage.Task;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Represents the ui of the Duke bot.
@@ -13,25 +12,9 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    private static final String TEXT_GREETING = "Hello! I'm ChampionSOS\nWhat can I do for you?";
-    private static final String TEXT_GOODBYE = "Bye. Hope to see you again soon!";
     private static final String TEXT_NO_DATA = "No existing data found. New file created!";
 
     public Ui() {
-    }
-
-    /**
-     * Prints greeting message to user.
-     */
-    public void showWelcome() {
-        System.out.println(Ui.TEXT_GREETING);
-    }
-
-    /**
-     * Prints goodbye message to user.
-     */
-    public void showBye() {
-        System.out.println(Ui.TEXT_GOODBYE);
     }
 
     /**
@@ -39,16 +22,6 @@ public class Ui {
      */
     public void showLoadingError() {
         System.out.println(Ui.TEXT_NO_DATA);
-    }
-
-    /**
-     * Reads and returns the inputs by users.
-     *
-     * @param inputs Commands given by user.
-     * @return String
-     */
-    public String readCommands(Scanner inputs) {
-        return inputs.nextLine();
     }
 
     /**

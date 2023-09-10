@@ -6,7 +6,6 @@ import taskpackage.Task;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 /**
@@ -48,7 +47,7 @@ public class TaskList {
             }
             return true;
         } catch (IOException e) {
-            throw new DukeException("☹ OOPS!!! There was an error saving data into storage.");
+            throw new DukeException(" OOPS!!! There was an error saving data into storage.");
         }
     }
 
@@ -76,18 +75,12 @@ public class TaskList {
             return this.listOfTasks.get(Integer.parseInt(id) - 1).toggleDone(keyword, ui);
         } catch (NumberFormatException e) {
             if (keyword.equals("mark")) {
-                byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
-                String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
-                return emoji + " OOPS!!! Please indicate the task to mark in numbers.";
+                return " OOPS!!! Please indicate the task to mark in numbers.";
             } else {
-                byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
-                String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
-                return emoji + " OOPS!!! Please indicate the task to unmark in numbers.";
+                return " OOPS!!! Please indicate the task to unmark in numbers.";
             }
         } catch (IndexOutOfBoundsException e) {
-            byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
-            String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
-            return emoji + " OOPS!!! Please indicate an appropriate index within the list range.";
+            return " OOPS!!! Please indicate an appropriate index within the list range.";
         }
     }
 
@@ -103,13 +96,9 @@ public class TaskList {
             Task task = this.listOfTasks.remove(Integer.parseInt(id) - 1);
             return ui.removeItem(task, this.listOfTasks.size());
         } catch (NumberFormatException e) {
-            byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
-            String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
-            return emoji + " OOPS!!! Please indicate the task to delete in numbers.";
+            return " OOPS!!! Please indicate the task to delete in numbers.";
         } catch (IndexOutOfBoundsException e) {
-            byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
-            String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
-            return emoji + " OOPS!!! Please indicate an appropriate index within the list range.";
+            return " OOPS!!! Please indicate an appropriate index within the list range.";
         }
     }
 

@@ -1,7 +1,5 @@
 package dukepackage;
 
-import java.util.Scanner;
-
 import toolpackage.Parser;
 import toolpackage.Storage;
 import toolpackage.TaskList;
@@ -40,32 +38,6 @@ public class Duke {
     }
 
     /**
-     * Runs a loop to listen for commands by user.
-     * This function is used for the CLI UI.
-     */
-    private void run() {
-        this.ui.showWelcome();
-        Scanner inputs = new Scanner(System.in);
-
-        String response;
-        while (true) {
-            String command = this.ui.readCommands(inputs);
-            try {
-                response = Parser.parse(command, this.tasks, this.ui);
-                this.storage.saveStorage(this.tasks);
-                if (response.equals("bye")) {
-                    break;
-                }
-                System.out.println(response);
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        inputs.close();
-        this.ui.showBye();
-    }
-
-    /**
      * Parses the input by user and returns a response.
      * Also saves list of tasks into the storage file.
      * This function is used for the JavaFX GUI.
@@ -81,9 +53,5 @@ public class Duke {
         } catch (DukeException e) {
             return e.getMessage();
         }
-    }
-
-    public static void main(String[] args) {
-        new Duke("./data/tasks.txt").run();
     }
 }

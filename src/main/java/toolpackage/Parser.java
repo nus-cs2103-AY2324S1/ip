@@ -51,25 +51,19 @@ public class Parser {
         } else if (command.equals("deadline")) {
             parsedCommand = task.split("/");
             if (parsedCommand.length == 1) {
-                byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
-                String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
-                throw new DukeException(emoji + " OOPS!!! There are missing deadline details.");
+                throw new DukeException(" OOPS!!! There are missing deadline details.");
             } else {
                 return tasks.addItem(new Deadlines(parsedCommand[0], parsedCommand[1], "0"), ui);
             }
         } else if (command.equals("event")) {
             parsedCommand = task.split("/");
             if (parsedCommand.length <= 2) {
-                byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
-                String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
-                throw new DukeException(emoji + " OOPS!!! There are missing event details.");
+                throw new DukeException(" OOPS!!! There are missing event details.");
             } else {
                 return tasks.addItem(new Events(parsedCommand[0], parsedCommand[1], parsedCommand[2], "0"), ui);
             }
         } else {
-            byte[] emojiByteCode = new byte[]{(byte)0xF0, (byte)0x9F, (byte)0x98, (byte)0xB1};
-            String emoji = new String(emojiByteCode, Charset.forName("UTF-8"));
-            throw new DukeException(emoji + " OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeException(" OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }
