@@ -2,9 +2,8 @@ package duck.command;
 
 import duck.DuckException;
 import duck.Storage;
-import duck.Ui;
-
 import duck.task.TaskList;
+import duck.ui.Ui;
 
 /**
  * Represents an executable command which unmarks a task as done.
@@ -22,9 +21,10 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
         tasks.unmark(index);
-        ui.showUnmarkTaskMessage(tasks.getTask(index));
         storage.updateTasks(tasks);
+        return "OK, I've unmarked this task: \n"
+                + tasks.getTask(index);
     }
 }

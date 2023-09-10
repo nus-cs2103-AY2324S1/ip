@@ -2,10 +2,9 @@ package duck.command;
 
 import duck.DuckException;
 import duck.Storage;
-import duck.Ui;
-
 import duck.task.Task;
 import duck.task.TaskList;
+import duck.ui.Ui;
 
 /**
  * Represents an executable command which adds a task.
@@ -23,9 +22,11 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
         tasks.add(newTask);
-        ui.showAddTaskMessage(newTask, tasks.getTaskCount());
         storage.addTask(newTask);
+        return "Got it. I've added this task: \n"
+                + newTask + "\n"
+                + "Now you have " + tasks.getTaskCount() + " task(s) in the list.";
     }
 }

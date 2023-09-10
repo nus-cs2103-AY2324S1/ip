@@ -1,8 +1,9 @@
-package duck;
+package duck.ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duck.DuckException;
 import duck.task.Task;
 import duck.task.TaskList;
 

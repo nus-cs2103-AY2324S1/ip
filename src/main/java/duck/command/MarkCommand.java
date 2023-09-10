@@ -2,9 +2,8 @@ package duck.command;
 
 import duck.DuckException;
 import duck.Storage;
-import duck.Ui;
-
 import duck.task.TaskList;
+import duck.ui.Ui;
 
 /**
  * Represents an executable command which marks a task as done.
@@ -22,9 +21,10 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
         tasks.mark(index);
-        ui.showMarkTaskMessage(tasks.getTask(index));
         storage.updateTasks(tasks);
+        return "Nice! I've marked this task as done: \n"
+                + tasks.getTask(index);
     }
 }

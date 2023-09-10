@@ -2,10 +2,9 @@ package duck.command;
 
 import duck.DuckException;
 import duck.Storage;
-import duck.Ui;
-
 import duck.task.Task;
 import duck.task.TaskList;
+import duck.ui.Ui;
 
 /**
  * Represents an executable command which deletes a task.
@@ -23,10 +22,12 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
         Task tmpTask = tasks.getTask(index);
         tasks.delete(index);
-        ui.showDeleteTaskMessage(tmpTask, tasks.getTaskCount());
         storage.deleteTask(index);
+        return "Noted. I've removed this task: \n"
+                + tmpTask + "\n"
+                + "Now you have " + tasks.getTaskCount() + " task(s) in the list.";
     }
 }
