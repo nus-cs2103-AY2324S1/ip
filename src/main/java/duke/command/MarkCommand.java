@@ -35,16 +35,16 @@ public class MarkCommand extends Command {
      * @throws DukeException If there are an invalid Input.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (taskIndex < 0 || taskIndex >= tasks.length()) {
             throw new TaskNotFoundException("Task Not Found :'(");
         }
         if (isMarked) {
             tasks.mark(taskIndex);
-            ui.printMark(tasks.getTask(taskIndex));
+            return ui.showMark(tasks.getTask(taskIndex));
         } else {
             tasks.unmark(taskIndex);
-            ui.printUnmark(tasks.getTask(taskIndex));
+            return ui.showUnmark(tasks.getTask(taskIndex));
         }
     }
 

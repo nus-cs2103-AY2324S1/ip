@@ -27,5 +27,5 @@ public abstract class Command {
      * @param storage The Storage that used to store, read and write data.
      * @throws DukeException If there are an invalid Input.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 }

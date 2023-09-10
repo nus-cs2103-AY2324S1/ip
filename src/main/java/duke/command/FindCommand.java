@@ -29,14 +29,14 @@ public class FindCommand extends Command {
      * @param storage The Storage that used to store, read and write data.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         TaskList taskList = new TaskList();
         for (int i = 0; i < tasks.length(); i++) {
             if (tasks.getTask(i).contains(keyword)) {
                 taskList.add(tasks.getTask(i));
             }
         }
-        ui.printFind(tasks);
+        return ui.showFind(taskList);
     }
 
     /**
