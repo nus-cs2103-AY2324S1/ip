@@ -15,7 +15,6 @@ import java.nio.file.Paths;
  */
 public class Storage {
 
-    private Path filePath;
     private File saveFile;
 
     /**
@@ -28,19 +27,21 @@ public class Storage {
      */
     public Storage(String fileName, String[] directories) {
 
-        filePath = Path.of(System.getProperty("user.dir"));
+        Path fileDirectoryPath = Path.of(System.getProperty("user.dir"));
+        File saveFileDirectory;
 
         for (String directory : directories) {
-            filePath = Paths.get(filePath.toString(), directory);
-            saveFile = new File(filePath.toUri());
-            if (!saveFile.exists()) {
-                if (saveFile.mkdir()) {
-                    System.out.println("Directory " + filePath.toString() + " created.");
-                }
+            fileDirectoryPath = Paths.get(fileDirectoryPath.toString(), directory);
+            saveFileDirectory = new File(fileDirectoryPath.toUri());
+            if (saveFileDirectory.exists()) {
+                continue;
+            }
+            if (saveFileDirectory.mkdir()) {
+                System.out.println("Directory " + fileDirectoryPath.toString() + " created.");
             }
         }
 
-        filePath = Paths.get(filePath.toString(), fileName);
+        Path filePath = Paths.get(fileDirectoryPath.toString(), fileName);
         saveFile = new File(filePath.toUri());
         if (!saveFile.exists()) {
             try {

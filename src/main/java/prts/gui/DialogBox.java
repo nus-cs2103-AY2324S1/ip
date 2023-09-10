@@ -1,4 +1,7 @@
-package prts;
+package prts.gui;
+
+import java.io.IOException;
+import java.util.Collections;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,8 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-import java.io.IOException;
-import java.util.Collections;
 
 /**
  * An example of a custom control using FXML.
@@ -49,10 +50,22 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates a dialog box for the user.
+     * @param text The user input.
+     * @param img The user image.
+     * @return The dialog box to be added to the scene.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates a dialog box for PRTS.
+     * @param text PRTS' response.
+     * @param img PRTS' image.
+     * @return The dialog box to be added to the scene.
+     */
     public static DialogBox getPrtsDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

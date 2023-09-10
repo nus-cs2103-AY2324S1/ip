@@ -1,4 +1,4 @@
-package prts;
+package prts.gui;
 
 import javafx.application.Application;
 
