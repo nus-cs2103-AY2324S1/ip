@@ -10,7 +10,10 @@ import ren.task.TaskList;
 import ren.task.ToDo;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -36,15 +39,18 @@ public final class RenObjectMapper {
     public static void storeIntoHarddisk(TaskList taskList) {
         try {
             String home = System.getProperty("user.home");
-            java.nio.file.Path path = java.nio.file.Paths.get(home, "src", "main", "resources", "cacheTaskList.txt");
+            Path path = Paths.get(home, "src", "main", "resources", "cacheTaskList.txt");
             String json = objectMapper.writeValueAsString(taskList);
-            boolean directoryExists = java.nio.file.Files.exists(path);
+            boolean directoryExists = Files.exists(path);
             if (!directoryExists) {
                 System.out.println("Creating directory: " + path);
-                java.nio.file.Files.createDirectories(path.getParent());
-                java.nio.file.Files.createFile(path);
+                Files.createDirectories(path.getParent());
+                Files.createFile(path);
             }
-            java.io.FileWriter myWriter = new java.io.FileWriter(path.toString());
+            FileWriter myWriter = new FileWriter(path.toString());
+            if (json == null || json.isEmpty()) {
+                throw new NullPointerException("JSON string is null or empty");
+            }
             myWriter.write(json);
             myWriter.close();
         } catch (JsonProcessingException e) {
@@ -65,16 +71,16 @@ public final class RenObjectMapper {
         TaskList taskList = null;
         try {
             String home = System.getProperty("user.home");
-            java.nio.file.Path path = java.nio.file.Paths.get(home, "src", "main", "resources", "cacheTaskList.txt");
-            boolean directoryExists = java.nio.file.Files.exists(path);
+            Path path = Paths.get(home, "src", "main", "resources", "cacheTaskList.txt");
+            boolean directoryExists = Files.exists(path);
             if (!directoryExists) {
                 System.out.println("Creating directory: " + path);
-                java.nio.file.Files.createDirectories(path.getParent());
-                java.nio.file.Files.createFile(path);
+                Files.createDirectories(path.getParent());
+                Files.createFile(path);
             }
 
             Path cachePath = Path.of(cacheFileAddress);
-            assert java.nio.file.Files.exists(cachePath) : "Cache file should exist";
+            assert Files.exists(cachePath) : "Cache file should exist";
             File myObj = cachePath.toFile();
             Scanner sc = new Scanner(myObj);
             String json = sc.nextLine();

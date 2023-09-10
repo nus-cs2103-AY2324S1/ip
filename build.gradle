@@ -50,7 +50,7 @@ test {
 }
 
 application {
-    mainClass.set("ren.Ren")
+    mainClass.set("ren.Launcher")
 }
 
 shadowJar {
