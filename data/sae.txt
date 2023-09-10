@@ -1,0 +1,3 @@
+T | 0 | sleep
+D | 0 | sleep | 1 January 2003 11pm
+E | 0 | sleep at home | 10pm | 6am
