@@ -237,7 +237,7 @@ public class CommandParser extends Parser<Command> {
 
     private Command newAddEventCommand(String[] inputs) throws InvalidCommandFormatException {
         String commandFormat = CommandType.EVENT.getCommandFormat();
-        
+
         if (inputs.length == 1) {
             throw new InvalidCommandFormatException("No argument is provided!" + "\nFormat: "
                     + commandFormat);
