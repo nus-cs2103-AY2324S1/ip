@@ -1,43 +1,22 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Duke {
 
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String CHATBOT_NAME = "Koko";
     private static ArrayList<Task> tasks = new ArrayList<>();
+    private final Ui ui;
 
-    private static void printFormatted(String originalMessage) {
-        String indentedMessage = Arrays.stream(originalMessage.split("\n"))
-                .map(line -> "     " + line)
-                .collect(Collectors.joining("\n"));
-
-        String formattedMessage = String.format("    %s\n%s\n    %s",
-                HORIZONTAL_LINE, indentedMessage, HORIZONTAL_LINE);
-
-        System.out.println(formattedMessage);
+    public Duke(String filePath) {
+        ui = new Ui(CHATBOT_NAME);
     }
 
-    private static void greet() {
-        Duke.printFormatted("Hello! I'm " + CHATBOT_NAME + "\nWhat can I do for you?");
+    public static void main(String[] args) {
+        new Duke("data/tasks.txt").run();
     }
 
-    private static void exit() {
-        Duke.printFormatted("Bye. Hope to see you again soon!");
-    }
-
-    private static void printTaskAddedMessage(Task task) {
-        Duke.printFormatted(String.format("Got it. I've added this task:\n  %s\n Now you have %d %s in the list.",
-                task.toString(), Duke.tasks.size(), (Duke.tasks.size() == 1 ? "task" : "tasks")));
-    }
-
-    private static void parseInput(String input) {
+    public void parseInput(String input) {
         try {
             if (input.contains("|")) {
                 throw new DukeException("Input cannot contain pipe (|) character!");
@@ -62,10 +41,7 @@ public class Duke {
 
             switch (command) {
                 case "list":
-                    String result = IntStream.range(0, tasks.size())
-                            .mapToObj(i -> (i + 1) + ". " + tasks.get(i))
-                            .collect(Collectors.joining("\n"));
-                    Duke.printFormatted(result);
+                    ui.printTaskList(tasks);
                     break;
                 case "mark":
                     int markIndex = Integer.parseInt(remaining) - 1;
@@ -74,7 +50,7 @@ public class Duke {
                     }
                     Task markTarget = tasks.get(markIndex);
                     markTarget.markAsDone();
-                    Duke.printFormatted("Nice! I've marked this task as done:\n" + markTarget);
+                    ui.printTaskMarkedMessage(markTarget);
                     break;
                 case "unmark":
                     int unmarkIndex = Integer.parseInt(remaining) - 1;
@@ -83,7 +59,7 @@ public class Duke {
                     }
                     Task unmarkTarget = tasks.get(unmarkIndex);
                     unmarkTarget.markAsUndone();
-                    Duke.printFormatted("OK! I've marked this task as not done yet:\n" + unmarkTarget);
+                    ui.printTaskUnmarkedMessage(unmarkTarget);
                     break;
                 case "delete":
                     int deleteIndex = Integer.parseInt(remaining) - 1;
@@ -91,23 +67,22 @@ public class Duke {
                         throw new DukeException("Invalid task number.");
                     }
                     Task toDelete = tasks.remove(deleteIndex);
-                    Duke.printFormatted("Noted. I've removed this task:\n  " + toDelete.toString() +
-                            "\nNow you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
+                    ui.printTaskDeletedMessage(toDelete, tasks.size());
                     break;
                 case "todo":
                     Todo newTodo = Todo.createFromCommandString(remaining);
                     tasks.add(newTodo);
-                    printTaskAddedMessage(newTodo);
+                    ui.printTaskAddedMessage(newTodo, tasks.size());
                     break;
                 case "deadline":
                     Deadline newDeadline = Deadline.createFromCommandString(remaining);
                     tasks.add(newDeadline);
-                    printTaskAddedMessage(newDeadline);
+                    ui.printTaskAddedMessage(newDeadline, tasks.size());
                     break;
                 case "event":
                     Event newEvent = Event.createFromCommandString(remaining);
                     tasks.add(newEvent);
-                    printTaskAddedMessage(newEvent);
+                    ui.printTaskAddedMessage(newEvent, tasks.size());
                     break;
                 default:
                     throw new DukeException("Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event");
@@ -124,30 +99,28 @@ public class Duke {
             }
 
         } catch (NumberFormatException e) {
-            Duke.printFormatted("Please enter a valid task number.");
+            ui.printErrorMessage("Please enter a valid task number.");
         } catch (DukeException e) {
-            Duke.printFormatted(e.getMessage());
+            ui.printErrorMessage(e.getMessage());
         }
 
     }
 
-    public static void main(String[] args) {
-        Duke.greet();
+    public void run() {
+        ui.greet();
+
         try {
             tasks = FileUtils.loadTasksFromFile();
         } catch (FileNotFoundException fileNotFoundException) {
-            Duke.printFormatted("Previous data file not found, starting from fresh task list.");
+            ui.printErrorMessage("Previous data file not found, starting from fresh task list.");
             tasks = new ArrayList<>();
         } catch (DukeException dukeException) {
-            Duke.printFormatted(dukeException.getMessage());
+            ui.printErrorMessage(dukeException.getMessage());
             tasks = new ArrayList<>();
         }
 
-        Scanner scanner = new Scanner(System.in);
-        Stream.generate(scanner::nextLine)
-                .takeWhile(input -> !input.equals("bye"))
-                .forEach(Duke::parseInput);
-
-        Duke.exit();
+        ui.startUserInputLoop(this::parseInput);
+        ui.exit();
     }
+
 }
