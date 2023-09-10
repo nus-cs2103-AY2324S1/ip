@@ -22,7 +22,7 @@ public class Jarvis {
      */
     public Jarvis() {
         taskList = new TaskList();
-         ui = new Ui();
+        ui = new Ui();
         storage = new Storage();
         taskList.setTasks(storage.loadTasks());
     }

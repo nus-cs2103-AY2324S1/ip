@@ -1,0 +1,6 @@
+T | 0 | Todo 1
+E | 1 | Meeting 1 | Nov 12 2022 1600 | Nov 12 2022 1800
+D | 0 | return book | Sep 04 2023 2200
+T | 0 | send book back
+T | 1 | Show ip
+T | 0 | Complete Lab 2

@@ -1,17 +1,36 @@
-// package jarvis;
+package jarvis;
 
-// import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-// import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
-// public class JarvisTest {
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-//     public void dummyTest() {
-//         assertEquals(2, 2);
-//     }
+public class JarvisTest {
 
-//     @Test
-//     public void anotherDummyTest() {
-//         assertEquals(3, 2);
-//     }
-// }
+    private Jarvis jarvis;
+
+    @BeforeEach
+    public void setUp() {
+        this.jarvis = new Jarvis();
+    }
+
+    @Test
+    public void testInitialization() {
+        assertNotNull(jarvis);
+    }
+
+    @Test
+    public void testStart() {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        jarvis.start();
+
+        String output = outputStream.toString();
+        assertTrue(output.contains("Hi Master! I'm your personal assistant: JARVIS!"));
+    }
+}

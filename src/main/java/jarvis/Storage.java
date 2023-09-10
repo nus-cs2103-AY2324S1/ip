@@ -2,11 +2,11 @@ package jarvis;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.ArrayList;
 
 import jarvis.exceptions.InvalidTaskFormatException;
@@ -16,7 +16,19 @@ import jarvis.tasks.Task;
  * Storage class is responsible for storing and loading tasks from file destination.
  */
 public class Storage {
+    private static final String FILE_DIR = "./jarvis/data";
     private static final String FILE_PATH = "./jarvis/data/jarvis.txt";
+
+    /**
+     *
+     */
+    public Storage() {
+        File fileDir = new File(FILE_DIR);
+        if (!fileDir.exists()) {
+            fileDir.mkdirs();
+        }
+        File file = new File(FILE_PATH);
+    }
 
     /**
      * Saves a list of tasks to the file destination.
@@ -24,7 +36,8 @@ public class Storage {
      * @param tasks An ArrayList of task to be saved.
      */
     public void saveTasks(ArrayList<Task> tasks) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
             for (Task task : tasks) {
                 writer.write(task.toString());
                 writer.newLine();

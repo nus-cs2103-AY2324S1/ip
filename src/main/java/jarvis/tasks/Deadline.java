@@ -16,8 +16,8 @@ public class Deadline extends Task {
         super(title, isCompleted);
         this.dueDateTime = dueDateTime;
     }
-    
-     /**
+
+    /**
      * Overrides the toString method to provide a custom string representation of the Deadline task.
      *
      * @return A string representation of the Deadline task.
