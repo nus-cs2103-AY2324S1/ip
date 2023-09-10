@@ -10,6 +10,7 @@ import geraldbot.exception.DukeException;
 import geraldbot.exception.DukeInvalidCommandException;
 import geraldbot.exception.DukeInvalidDateException;
 import geraldbot.exception.DukeInvalidIndexException;
+import geraldbot.person.Person;
 import geraldbot.task.Deadline;
 import geraldbot.task.Event;
 import geraldbot.task.Task;
@@ -20,9 +21,11 @@ import geraldbot.task.Todo;
  * based on the parsed commands. It interacts with the Storage and TaskList classes to manage tasks.
  */
 public class Parser {
-    private final Storage storage;
-
+    private final TaskStorage taskStorage;
+    private final ContactStorage contactStorage;
     private final TaskList taskList;
+
+    private final ContactList contactList;
 
     private final Ui ui;
 
@@ -36,23 +39,29 @@ public class Parser {
         TODO,
         DEADLINE,
         EVENT,
+        CONTACT,
         INVALID
     }
 
     /**
      * Initializes a new Parser instance with the provided storage and task list.
      *
-     * @param storage   The storage instance used for reading and writing tasks.
+     * @param taskStorage   The storage instance used for reading and writing tasks.
+     * @param contactStorage The storage instance used for reading and writing contacts.
      * @param taskList  The task list containing the tasks to be processed.
+     * @param contactList The contact list containing the contacts to be processed.
      */
-    public Parser(Storage storage, ArrayList<Task> taskList) {
-        this.storage = storage;
+    public Parser(TaskStorage taskStorage, ContactStorage contactStorage,
+                  ArrayList<Task> taskList, ArrayList<Person> contactList) {
+        this.taskStorage = taskStorage;
+        this.contactStorage = contactStorage;
         this.taskList = new TaskList(taskList);
+        this.contactList = new ContactList(contactList);
         this.ui = new Ui();
     }
 
     /**
-     * Parses the user input and executes the corresponding actions.
+     * Parses the user input and executes the corresponding actions for both tasks and contacts.
      *
      * @param input The user input to be parsed and processed.
      * @return A String message containing the result of the executed action.
@@ -80,7 +89,10 @@ public class Parser {
             return handleDeadlineCommand(input);
         case EVENT:
             return handleEventCommand(input);
+        case CONTACT:
+            return handleContactCommand(input);
         case INVALID:
+            throw new DukeInvalidCommandException();
         default:
             throw new DukeInvalidCommandException();
         }
@@ -111,9 +123,144 @@ public class Parser {
             return Command.DEADLINE;
         } else if (input.startsWith("event")) {
             return Command.EVENT;
+        } else if (input.startsWith("contact")) {
+            return Command.CONTACT;
         } else {
             return Command.INVALID;
         }
+    }
+
+    /**
+     * Handles the "contact" command to perform contact-related actions.
+     *
+     * @param input The user input for the "contact" command.
+     * @return A message indicating the result of the contact-related action.
+     * @throws DukeException If there is an issue with the input or contact command.
+     */
+    private String handleContactCommand(String input) throws DukeException {
+        if (input.startsWith("contact add")) {
+            return handleAddPerson(input);
+        } else if (input.startsWith("contact remove")) {
+            return handleRemovePerson(input);
+        } else if (input.equals("contact list")) {
+            return handleListContacts();
+        } else {
+            throw new DukeInvalidCommandException();
+        }
+    }
+
+    /**
+     * Parses the "contact add" command to add a new person to the contact list and storage.
+     *
+     * @param input The user input for the "contact add" command.
+     * @return A message indicating the success of adding the person.
+     * @throws DukeException If there is an issue with the input or person information.
+     */
+    private String handleAddPerson(String input) throws DukeException {
+        String[] parsedString = input.split(" ", 3);
+
+        if (parsedString.length != 3 || !parsedString[1].equals("add")) {
+            throw new DukeInvalidCommandException("contact add");
+        }
+
+        String personInfo = parsedString[2];
+        String[] personData = personInfo.split("/");
+
+        if (personData.length != 3) {
+            throw new DukeInvalidCommandException("contact add");
+        }
+
+        String name = personData[0].trim();
+        String phone = personData[1].trim();
+        String email = personData[2].trim();
+
+        if (name.isEmpty() || phone.isEmpty() || email.isEmpty()) {
+            throw new DukeInvalidCommandException("contact add");
+        }
+
+        return this.addPerson(name, phone, email);
+    }
+
+    /**
+     * Parses the "contact remove" command to remove a person from the contact list and storage.
+     *
+     * @param input The user input for the "contact remove" command.
+     * @return A message indicating the success of removing the person.
+     * @throws DukeException If there is an issue with the input or person index.
+     */
+    private String handleRemovePerson(String input) throws DukeException {
+        String[] parsedString = input.split(" ", 3);
+
+        if (parsedString.length != 3 || !parsedString[1].equals("remove")) {
+            throw new DukeInvalidCommandException("contact remove");
+        }
+
+        try {
+            int index = Integer.parseInt(parsedString[2].trim());
+
+            if (index <= 0 || index > contactList.size()) {
+                throw new DukeInvalidIndexException(contactList.size());
+            }
+
+            return this.removePerson(index);
+        } catch (NumberFormatException e) {
+            throw new DukeInvalidIndexException(contactList.size());
+        }
+    }
+
+    /**
+     * Adds a new person (contact) to the contact list and storage.
+     *
+     * @param name  The name of the person (contact).
+     * @param phone The phone number of the person (contact).
+     * @param email The email address of the person (contact).
+     * @return A message indicating the success of adding the person.
+     */
+    public String addPerson(String name, String phone, String email) {
+        assert name != null && !name.trim().isEmpty() : "Person name cannot be empty";
+        assert phone != null && !phone.trim().isEmpty() : "Person phone cannot be empty";
+        assert email != null && !email.trim().isEmpty() : "Person email cannot be empty";
+
+        Person newPerson = new Person(name, phone, email);
+        String newPersonString = newPerson.fileFormat();
+
+        String message = "Got it. I've added this person to your contacts:\n";
+        message += newPerson;
+
+        contactList.add(newPerson);
+        contactStorage.addPerson(newPersonString);
+
+        message += "\nNow you have " + contactList.size() + " contacts in the list.";
+        return message;
+    }
+
+    /**
+     * Removes a person (contact) from the contact list and storage.
+     *
+     * @param index The index of the person (contact) to be removed.
+     * @return A message indicating the success of removing the person.
+     */
+    public String removePerson(int index) {
+        String message = "Noted. I've removed this person from your contacts:\n";
+        Person removedPerson = contactList.remove(index - 1);
+        contactStorage.updatePerson(index - 1, null);
+
+        message += removedPerson;
+        message += "\nNow you have " + contactList.size() + " contacts in the list.";
+        return message;
+    }
+
+    /**
+     * Handles the "contact list" command to list all contacts in the contact list.
+     *
+     * @return A message containing the list of contacts.
+     */
+    private String handleListContacts() {
+        StringBuilder listString = new StringBuilder("Here are your contacts:\n");
+        for (int i = 0; i < contactList.size(); i++) {
+            listString.append(i + 1).append(". ").append(contactList.get(i)).append("\n");
+        }
+        return listString.toString();
     }
 
     /**
@@ -310,7 +457,7 @@ public class Parser {
         message += "\t" + newTask;
 
         taskList.add(newTask);
-        storage.addTask(newTaskString);
+        taskStorage.addTask(newTaskString);
 
         message += "\nNow you have " + taskList.size() + " tasks in the list.";
         return message;
@@ -333,7 +480,7 @@ public class Parser {
         message += "\t" + newTask;
 
         taskList.add(newTask);
-        storage.addTask(newTaskString);
+        taskStorage.addTask(newTaskString);
 
         message += "\nNow you have " + taskList.size() + " tasks in the list.";
         return message;
@@ -357,7 +504,7 @@ public class Parser {
         message += "\t" + newTask;
 
         taskList.add(newTask);
-        storage.addTask(newTaskString);
+        taskStorage.addTask(newTaskString);
 
         message += "\nNow you have " + taskList.size() + " tasks in the list.";
         return message;
@@ -393,7 +540,7 @@ public class Parser {
 
             task.toggleCompletion();
             String updatedTaskString = task.fileFormat();
-            this.storage.updateTask(taskIdx - 1, updatedTaskString);
+            this.taskStorage.updateTask(taskIdx - 1, updatedTaskString);
 
             message += "\t" + task;
             return message;
@@ -416,7 +563,7 @@ public class Parser {
             String message = "OK, I've marked this task as not done yet:\n";
             task.toggleCompletion();
             String updatedTaskString = task.fileFormat();
-            this.storage.updateTask(taskIdx - 1, updatedTaskString);
+            this.taskStorage.updateTask(taskIdx - 1, updatedTaskString);
 
             message += "\t" + task;
             return message;
@@ -432,7 +579,7 @@ public class Parser {
     public String deleteTask(Integer taskIdx) {
         String message = "Noted. I've removed this task:\n";
         Task selectedTask = taskList.remove(taskIdx - 1);
-        this.storage.updateTask(taskIdx - 1, null);
+        this.taskStorage.updateTask(taskIdx - 1, null);
 
         message += "\t" + selectedTask;
         message += "\nNow you have " + taskList.size() + " tasks in the list.";
