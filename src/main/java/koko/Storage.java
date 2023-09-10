@@ -44,7 +44,8 @@ public class Storage {
             } catch (DukeException dukeException) {
                 throw dukeException;
             } catch (Exception e) {
-                throw new DukeException("Error while parsing data file -- possibly corrupt? File will be overwritten if you proceed.");
+                throw new DukeException("Error while parsing data file -- possibly corrupt?"
+                        + "File will be overwritten if you proceed.");
             }
         }
         return new TaskList(result);
