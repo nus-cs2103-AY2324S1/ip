@@ -54,6 +54,6 @@ public class UnmarkCommand extends Command {
             return false;
         }
         UnmarkCommand c = (UnmarkCommand) o;
-        return this.taskIdx == c.taskIdx;
+        return taskIdx == c.taskIdx;
     }
 }

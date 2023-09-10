@@ -52,6 +52,6 @@ public class DeadlineCommand extends Command {
             return false;
         }
         DeadlineCommand c = (DeadlineCommand) o;
-        return this.deadline.equals(c.deadline);
+        return deadline.equals(c.deadline);
     }
 }

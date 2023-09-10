@@ -53,6 +53,6 @@ public class MarkCommand extends Command {
             return false;
         }
         MarkCommand c = (MarkCommand) o;
-        return this.taskIdx == c.taskIdx;
+        return taskIdx == c.taskIdx;
     }
 }

@@ -52,6 +52,6 @@ public class ToDoCommand extends Command {
             return false;
         }
         ToDoCommand c = (ToDoCommand) o;
-        return this.toDo.equals(c.toDo);
+        return toDo.equals(c.toDo);
     }
 }
