@@ -51,7 +51,7 @@ public abstract class Command {
      * Returns the command.
      * @return fullCommand
      */
-    public String getCommand() {
+    public String getFullCommand() {
         return this.fullCommand;
     }
 

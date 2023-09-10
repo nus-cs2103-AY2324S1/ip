@@ -19,7 +19,7 @@ public class TaskList {
     }
     /**
      * Constructor for TaskList.
-     * @param userTasks
+     * @param userTasks List of tasks.
      */
     public TaskList(ArrayList<Task> userTasks) {
         this.userTasks = userTasks;
@@ -27,15 +27,14 @@ public class TaskList {
 
     /**
      * Returns the list of tasks.
-     * @param userTasks
+     * @return userTasks List of tasks.
      */
     public ArrayList<Task> getTasks() {
         return this.userTasks;
     }
-    
     /**
      * Set the list of tasks.
-     * @param userTasks
+     * @param userTasks List of tasks.
      */
     public void setTasks(ArrayList<Task> userTasks) {
         this.userTasks = userTasks;
@@ -43,7 +42,7 @@ public class TaskList {
 
     /**
      * Adds a task to list.
-     * @param task
+     * @param task Task to be added.
      */
     public void add(Task task) {
         this.userTasks.add(task);
@@ -52,7 +51,7 @@ public class TaskList {
 
     /**
      * Deletes a task from list.
-     * @param taskId
+     * @param taskId TaskID to be deleted.
      */
     public void delete(int taskId) {
         this.userTasks.remove(taskId);
@@ -67,7 +66,7 @@ public class TaskList {
 
     /**
      * Marks a task as done.
-     * @param taskId
+     * @param taskId TaskID to be marked.
      * @throws DukeException
      */
     public void mark(int taskId) throws DukeException {
@@ -76,7 +75,7 @@ public class TaskList {
 
     /**
      * Marks a task as undone.
-     * @param taskId
+     * @param taskId TaskID to be unmarked.
      * @throws DukeException
      */
     public void unmark(int taskId) throws DukeException {
@@ -85,10 +84,10 @@ public class TaskList {
 
     /**
      * Returns the specified task.
-     * @param taskID
-     * @return Task task
+     * @param taskID TaskID to be returned.
+     * @return Specified task
      */
-    public Task get(int taskID) {
+    public Task getTask(int taskID) {
         return this.userTasks.get(taskID);
     }
 
@@ -100,10 +99,6 @@ public class TaskList {
         return this.userTasks.size();
     }
 
-    /**
-     * Returns the string representation of the list of tasks.
-     * @return String
-     */
     @Override
     public String toString() {
         String output = "";

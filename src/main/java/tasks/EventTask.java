@@ -66,8 +66,9 @@ public class EventTask extends Task {
     }
     /**
      * Convert the event task to a string to be saved in a file.
-     * @return String
+     * @return String representation of the event task
      */
+    @Override
     public String toFileString() {
         return "E | " + super.getStatusIcon() + " | " + getDescription() + " | "
                 + startDate.format(Task.getDateFormat()) + " | " + endDate.format(Task.getDateFormat());
@@ -75,13 +76,14 @@ public class EventTask extends Task {
 
     /**
      * Convert from a string to a event task.
-     * @param fileString
+     * @param fileString Stored list in String format within the file
      * @throws DukeException
      */
+    @Override
     public void fromFileString(String fileString) throws DukeException {
         String[] fileStringArray = fileString.split(" \\| ");
-        this.setStatusIcon(fileStringArray[1]);
-        this.setDescription(fileStringArray[2]);
+        setStatusIcon(fileStringArray[1]);
+        setDescription(fileStringArray[2]);
         try {
             this.startDate = LocalDateTime.parse(fileStringArray[3], Task.getDateFormat());
             this.endDate = LocalDateTime.parse(fileStringArray[4], Task.getDateFormat());

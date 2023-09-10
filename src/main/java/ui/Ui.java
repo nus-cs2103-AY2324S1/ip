@@ -51,14 +51,14 @@ public class Ui {
     }
 
     /**
-     * Shows the error message.
+     * Add the error message to responses.
      */
     public void showError(String errorMessage) {
         responses.add(errorMessage);
     }
 
     /**
-     * Shows the task added message.
+     * Add the task added message to responses.
      */
     public void showTaskAdded(Task task, int taskCount) {
         responses.add("Got it. I've added this task:");
@@ -67,7 +67,7 @@ public class Ui {
     }
 
     /**
-     * Shows the task deleted message.
+     * Add the task deleted message to responses.
      */
     public void showTaskDeleted(Task task, int taskCount) {
         responses.add("Noted. I've removed this task:");
@@ -76,7 +76,7 @@ public class Ui {
     }
 
     /**
-     * Shows the schedule on specific date.
+     * Add the schedule on specific date message to responses.
      */
     public void showSchedule(String output) {
         if (output.equals("")) {
@@ -88,7 +88,7 @@ public class Ui {
     }
 
     /**
-     * Shows the list of tasks.
+     * Add the list of tasks to responses.
      */
     public void showList(TaskList userTasks) {
         if (userTasks.size() == 0) {
@@ -100,21 +100,21 @@ public class Ui {
     }
 
     /**
-     * Shows the goodbye message.
+     * Add the goodbye message to responses.
      */
     public void showGoodbye() {
         responses.add("Bye. Hope to see you again soon!");
     }
 
     /**
-     * Shows the invalid command message.
+     * Add the invalid command message to responses.
      */
     public void showInvalidCommandMessage() {
         responses.add("Command is invalid. Please try again.");
     }
 
     /**
-     * Shows the task marked message.
+     * Add the task marked message to responses.
      */
     public void showTaskMarked(Task task) {
         responses.add("Nice! I've marked this task as done:");
@@ -122,7 +122,7 @@ public class Ui {
     }
 
     /**
-     * Shows the task unmarked message.
+     * Add the task unmarked message to responses.
      */
     public void showTaskUnmarked(Task task) {
         responses.add("Nice! I've marked this task as undone:");
@@ -130,28 +130,33 @@ public class Ui {
     }
 
     /**
-     * Shows the tasklist saved message.
+     * Add the tasklist saved message to responses.
      */
     public void showSave() {
         responses.add("Tasks saved to file.");
     }
 
     /**
-     * Shows the tasklist loaded message.
+     * Add the tasklist loaded message to responses.
      */
     public void showLoad() {
         responses.add("Tasks loaded from file.");
     }
 
     /**
-     * Shows the tasklist.
+     * Add the tasklist to responses.
      * @param output The list of matching tasks.
      */
     public void showFind(String output) {
         responses.add("Here are the matching tasks in your list:");
         responses.add(output);
     }
-
+    /**
+     * Combines the stored responses and prestring into a string for output, then
+     * clears the stored responses.
+     * @param preStrings The prestring to be added to the output.
+     * @return output String to be printed as a response to user.
+     */
     public String getOutput(String... preStrings) {
         //convert output to string
         String output = "";

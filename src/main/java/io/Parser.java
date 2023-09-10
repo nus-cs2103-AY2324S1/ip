@@ -1,6 +1,6 @@
 package io;
 
-import commands.AddCommand;
+import commands.AddTaskCommand;
 import commands.Command;
 import commands.DeleteCommand;
 import commands.ExitCommand;
@@ -48,13 +48,13 @@ public class Parser {
             command = new UnmarkCommand(fullCommand);
             break;
         case "todo":
-            command = new AddCommand(fullCommand);
+            command = new AddTaskCommand(fullCommand);
             break;
         case "deadline":
-            command = new AddCommand(fullCommand);
+            command = new AddTaskCommand(fullCommand);
             break;
         case "event":
-            command = new AddCommand(fullCommand);
+            command = new AddTaskCommand(fullCommand);
             break;
         case "delete":
             command = new DeleteCommand(fullCommand);
