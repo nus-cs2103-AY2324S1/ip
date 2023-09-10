@@ -97,10 +97,13 @@ public class Storage {
                 System.out.println("File created: " + file.getName());
             }
             FileWriter fw = new FileWriter(filepath);
-            for (int i = 0; i < taskList.size(); i++) {
-                assert file.exists() : "file does not exist";
-                fw.write(taskList.get(i).toFileString() + "\n");
-            }
+            taskList.getTasks().forEach(task -> {
+                try {
+                    fw.write(task.toFileString() + "\n");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
             fw.close();
         } catch (IOException e) {
             throw new DukeException("Saving failed: " + e.getMessage());
