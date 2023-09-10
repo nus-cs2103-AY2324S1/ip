@@ -1,12 +1,17 @@
 package buddy.utils;
 
-import buddy.*;
-import buddy.commands.*;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import buddy.*;
+import buddy.commands.*;
+
+/**
+ * The Parser class deals with making sense of the user command.
+ *
+ * @author Lim Jin Yin
+ */
 public class Parser {
 
     // returns date in format MMM d yyyy
@@ -24,6 +29,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses through user command and make sense of it.
+     *
+     * @param fullCommand The command given by the user.
+     * @param tasks The current task list.
+     * @return Command The respective command based on user input.
+     * @throws BuddyException On invalid input.
+     */
     public static Command parse(String fullCommand, TaskList tasks) throws BuddyException {
         String[] words = fullCommand.split(" ");
 

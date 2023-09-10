@@ -1,43 +1,35 @@
 package buddy.utils;
 
-import buddy.*;
-
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 
+import buddy.*;
+
+/**
+ * The Storage class deals with loading tasks from the file and saving tasks to the file.
+ *
+ * @author Lim Jin Yin
+ */
 public class Storage {
     private String filePath = "./data/tasks.txt";
 
+    /**
+     * This is the constructor for a Storage.
+     *
+     * @param filePath The string representation of the file path.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public String getFilePath() {
-        return this.filePath;
-    }
-//    public TaskList readFile() { // load tasks
-//        try {
-//            File file = new File(filePath);
-//            if (file.exists()) {
-//                BufferedReader reader = new BufferedReader(new FileReader(file));
-//                String line;
-//                TaskList taskList = new TaskList();
-//                while ((line = reader.readLine()) != null) {
-//                    taskList = parseTask(line);
-//                }
-//                reader.close();
-//                return taskList;
-//            }
-//        } catch (IOException | BuddyException e) {
-//            System.out.println("Error loading tasks from file: " + e.getMessage());
-//        }
-//        return new TaskList();
-//    }
-
+    /**
+     * Loads the list of tasks by reading the file.
+     *
+     * @return Returns an array list of tasks.
+     */
     public ArrayList<Task> readFile() {
         File file = new File(filePath);
         ArrayList<Task> taskList = new ArrayList<>();
@@ -58,6 +50,11 @@ public class Storage {
 
     }
 
+    /**
+     * Saves changes made to the task list by writing to the file.
+     *
+     * @param tasks The array list of tasks.
+     */
     public void writeToFile(ArrayList<Task> tasks) { // save tasks
         try {
             FileWriter fileWriter = new FileWriter(filePath);
