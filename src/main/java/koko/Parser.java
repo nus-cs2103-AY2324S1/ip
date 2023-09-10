@@ -25,7 +25,9 @@ public class Parser {
      */
     public Command parseCommandType(String input) throws DukeException {
         if (input == null || input.trim().isEmpty()) {
-            throw new DukeException("Command input cannot be null or empty. Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event");
+            throw new DukeException("Command input cannot be null or empty."
+                    + "Each message should start with one of the following commands:"
+                    + "list, mark, unmark, todo, deadline, event");
         }
 
         try {
@@ -33,7 +35,8 @@ public class Parser {
             String command = parts[0];
             return Command.valueOf(command.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new DukeException("Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event");
+            throw new DukeException("Each message should start with one of the following commands:"
+                    + "list, mark, unmark, todo, deadline, event");
         } catch (Exception e) {
             throw new DukeException("Unexpected error while parsing command: " + e.getMessage());
         }
@@ -51,15 +54,15 @@ public class Parser {
         String remaining = parts.length > 1 ? parts[1] : "";
         if (remaining.isEmpty()) {
             switch (commandType) {
-                case MARK:
-                case UNMARK:
-                    throw new DukeException("Please specify a task number.");
-                case TODO:
-                    throw new DukeException("Description for todo cannot be empty.");
-                case DEADLINE:
-                    throw new DukeException("Description and date for deadline cannot be empty.");
-                case EVENT:
-                    throw new DukeException("Description, start date, and end date for event cannot be empty.");
+            case MARK: // Fallthrough
+            case UNMARK:
+                throw new DukeException("Please specify a task number.");
+            case TODO:
+                throw new DukeException("Description for todo cannot be empty.");
+            case DEADLINE:
+                throw new DukeException("Description and date for deadline cannot be empty.");
+            case EVENT:
+                throw new DukeException("Description, start date, and end date for event cannot be empty.");
             }
         }
         return remaining;

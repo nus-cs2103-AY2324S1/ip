@@ -31,14 +31,14 @@ public abstract class Task {
 
         String taskType = parts[0].trim();
         switch (taskType) {
-            case "T":
-                return Todo.fromFileFormat(parts);
-            case "D":
-                return Deadline.fromFileFormat(parts);
-            case "E":
-                return Event.fromFileFormat(parts);
-            default:
-                return null;
+        case "T":
+            return Todo.fromFileFormat(parts);
+        case "D":
+            return Deadline.fromFileFormat(parts);
+        case "E":
+            return Event.fromFileFormat(parts);
+        default:
+            return null;
         }
     }
 
