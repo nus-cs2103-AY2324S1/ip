@@ -1,5 +1,7 @@
 package jarvis;
 
+import java.util.Scanner;
+
 import jarvis.commands.Command;
 import jarvis.exceptions.JarvisException;
 import jarvis.tasks.TaskList;
@@ -43,6 +45,23 @@ public class Jarvis {
             command.execute(taskList, ui, storage);
         } catch (JarvisException e) {
             ui.printError(e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        Jarvis jarvis = new Jarvis();
+        jarvis.start();
+
+        Scanner scanner = new Scanner(System.in);
+        String userInput;
+
+        try {
+            while (true) {
+                userInput = scanner.nextLine();
+                jarvis.respond(userInput);
+            }
+        } finally {
+            scanner.close();
         }
     }
 }

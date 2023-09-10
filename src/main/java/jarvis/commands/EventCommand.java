@@ -40,8 +40,7 @@ public class EventCommand implements Command {
         int indexOfFrom = userInput.indexOf("from");
         int indexOfTo = userInput.indexOf("to");
 
-        if (indexOfFrom != 1 && indexOfFrom <= userInput.length() ||
-                indexOfTo != 1 && indexOfTo <= userInput.length()) {
+        if (indexOfFrom != 1 || indexOfTo != 1 && indexOfFrom < indexOfTo) {
             try {
                 String taskTitle = userInput.substring(6, indexOfFrom).trim();
                 String fromDateTime = userInput.substring(indexOfFrom + 4, indexOfTo).trim();

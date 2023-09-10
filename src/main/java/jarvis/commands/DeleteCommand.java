@@ -28,8 +28,8 @@ public class DeleteCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidIndexException {
-        String[] userInputSpilt = userInput.split(" ");
-        int index = Integer.parseInt(userInputSpilt[1]);
+        String[] splitUserInput = userInput.split(" ");
+        int index = Integer.parseInt(splitUserInput[1]);
 
         if (index >= 1 && index <= taskList.getTaskCount()) {
             Task removedTask = taskList.deleteTask(index - 1);

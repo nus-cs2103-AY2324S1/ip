@@ -12,7 +12,7 @@ public class Deadline extends Task {
 
     private LocalDateTime dueDateTime;
 
-    public Deadline(String title, LocalDateTime dueDate, boolean isCompleted) {
+    public Deadline(String title, LocalDateTime dueDateTime, boolean isCompleted) {
         super(title, isCompleted);
         this.dueDateTime = dueDateTime;
     }

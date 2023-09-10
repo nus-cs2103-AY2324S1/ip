@@ -27,8 +27,8 @@ public class UnmarkCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidIndexException {
-        String[] userInputSpilt = userInput.split(" ");
-        int index = Integer.parseInt(userInputSpilt[1]);
+        String[] splitUserInput = userInput.split(" ");
+        int index = Integer.parseInt(splitUserInput[1]);
 
         if (userInput.length() <= 4) {
             ui.printResponse("Master, please indicate which task you wish to mark DONE?\n" +

@@ -38,25 +38,25 @@ public class Parser {
      * @throws InvalidCommandException If the input is an invalid command.
      */
     public static Command parseCommand(final String userInput) throws InvalidCommandException {
-        String[] userInputSpilt = userInput.split(" ");
+        String[] splitUserInput = userInput.split(" ");
 
         if (userInput.equalsIgnoreCase("bye")) {
             return new ByeCommand();
         } else if (userInput.equalsIgnoreCase("list")) {
             return new ListCommand();
-        } else if (userInputSpilt[0].startsWith("mark")) {
+        } else if (splitUserInput[0].startsWith("mark")) {
             return new MarkCommand(userInput);
-        } else if (userInputSpilt[0].equalsIgnoreCase("unmark")) {
+        } else if (splitUserInput[0].equalsIgnoreCase("unmark")) {
             return new UnmarkCommand(userInput);
-        } else if (userInputSpilt[0].equalsIgnoreCase("delete")) {
+        } else if (splitUserInput[0].equalsIgnoreCase("delete")) {
             return new DeleteCommand(userInput);
-        } else if (userInputSpilt[0].equalsIgnoreCase("find")) {
+        } else if (splitUserInput[0].equalsIgnoreCase("find")) {
             return new FindCommand(userInput);
-        } else if (userInputSpilt[0].equalsIgnoreCase("todo")) {
+        } else if (splitUserInput[0].equalsIgnoreCase("todo")) {
             return new TodoCommand(userInput);
-        } else if (userInputSpilt[0].equalsIgnoreCase("deadline")) {
+        } else if (splitUserInput[0].equalsIgnoreCase("deadline")) {
             return new DeadlineCommand(userInput);
-        } else if (userInputSpilt[0].equalsIgnoreCase("event")) {
+        } else if (splitUserInput[0].equalsIgnoreCase("event")) {
             return new EventCommand(userInput);
         } else {
             throw new InvalidCommandException(null);
@@ -105,21 +105,21 @@ public class Parser {
      */
     public static Task parseStringToTask(final String line) throws InvalidTaskFormatException {
         try {
-            String[] lineSplit = line.split("\\|");
-            String taskType = lineSplit[0].trim();
-            boolean isCompleted = Integer.parseInt(lineSplit[1].trim()) == 1;
-            String taskDetails = lineSplit[2].trim();
+            String[] splitLine = line.split("\\|");
+            String taskType = splitLine[0].trim();
+            boolean isCompleted = Integer.parseInt(splitLine[1].trim()) == 1;
+            String taskDetails = splitLine[2].trim();
 
             switch (taskType) {
             case "T":
                 return new Todo(taskDetails, isCompleted);
             case "D":
-                String deadlineByString = lineSplit[3].trim();
+                String deadlineByString = splitLine[3].trim();
                 LocalDateTime formattedDeadlineBy = parseDateTime(deadlineByString);
                 return new Deadline(taskDetails, formattedDeadlineBy, isCompleted);
             case "E":
-                String fromTime = lineSplit[3].trim();
-                String toTime = lineSplit[4].trim();
+                String fromTime = splitLine[3].trim();
+                String toTime = splitLine[4].trim();
                 LocalDateTime formattedFromTime = parseDateTime(fromTime);
                 LocalDateTime formattedToTime = parseDateTime(toTime);
                 return new Event(taskDetails, formattedFromTime, formattedToTime, isCompleted);

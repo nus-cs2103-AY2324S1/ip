@@ -45,7 +45,7 @@ public class FindCommand implements Command {
                 foundTasks.add(task);
             }
         }
-        if (foundTasks.size() == 0) {
+        if (foundTasks.isEmpty()) {
             ui.printResponse("No matching task is found, Master. Please check your spelling or use another word");
         } else {
             ui.printTasks(foundTasks);

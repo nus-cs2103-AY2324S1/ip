@@ -84,18 +84,4 @@ public class Task {
     public String toString() {
         return getStatusIcon() + getTitle();
     }
-
-    /**
-     * Returns true if the task title contains the keyword provided by the user.
-     * 
-     * @param keyword The keyword the user wish to search for.
-     * @return True if the task title contains the keyword, false otherwise.
-     */
-    public boolean contains(String keyword) {
-        if (title.contains(keyword)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }
