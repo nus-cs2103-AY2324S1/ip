@@ -1,10 +1,8 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+package chatty;
+
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
-import java.util.ArrayList;
+
 public class Duke {
     protected Ui ui;
     protected Storage storage;
