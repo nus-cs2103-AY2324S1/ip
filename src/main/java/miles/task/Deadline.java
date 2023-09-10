@@ -9,17 +9,26 @@ public class Deadline extends Task {
     private LocalDateTime deadline;
     private static String NO_DESC_ERROR_MSG = "OOPS!!! The description of a deadline cannot be empty.";
 
+    /**
+     * Constructor to create a new deadline task when given a task string.
+     * @param task     the task
+     */
     public Deadline(String task) {
         super(getTask(task));
         this.deadline = this.convertToDateTime(this.getDeadline(task));
     }
 
+    /**
+     * Constructor to create a new deadline task when specifically given a deadline string.
+     * @param task    the task
+     * @param deadline the deadline
+     */
     public Deadline(String task, String deadline) {
         super(task);
         this.deadline = this.convertToDateTime(deadline);
     }
 
-    /*
+    /**
      * Returns an array of 2 elements, the first element is the task, the second is the deadline. 
      * Worth noting that the task and deadline strings here still have whitespaces that need to be
      * trimmed for use.
@@ -54,6 +63,7 @@ public class Deadline extends Task {
      */
     public static String getTask(String taskString) {
         String[] strings = splitDeadlineString(taskString);
+        assert strings.length == 2: "The array should have 2 elements.";
         String task = strings[0];
 
         if (checkAllWhiteSpace(task)) {
@@ -71,6 +81,7 @@ public class Deadline extends Task {
      */
     public String getDeadline(String taskString) {
         String[] strings = splitDeadlineString(taskString);
+        assert strings.length == 2: "The array should have 2 elements.";
         String deadline = strings[1];
 
         if (checkAllWhiteSpace(deadline)) {

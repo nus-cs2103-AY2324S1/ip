@@ -8,6 +8,10 @@ import miles.task.Deadline;
 public class AddDeadlineCommand extends Command {
     private String input;
 
+    /**
+     * Constructor to create a new deadline command.
+     * @param input user input
+     */
     public AddDeadlineCommand(String input) {
         this.input = input;
     }

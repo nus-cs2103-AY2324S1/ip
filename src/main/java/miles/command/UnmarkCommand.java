@@ -7,12 +7,16 @@ import miles.Ui;
 public class UnmarkCommand extends Command {
     private String input;
 
+    /**
+     * Constructor to create a new unmark command.
+     * @param input user input
+     */
     public UnmarkCommand(String input) {
         this.input = input;
     }
 
     /**
-     * Return task number from user input.
+     * Returns task number from user input.
      * 
      * @param input user input
      * @return      task number 

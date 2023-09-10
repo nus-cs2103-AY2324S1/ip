@@ -10,6 +10,10 @@ public class Event extends Task {
     private LocalDateTime endTime;
     private static String noDescErrorMsg = "OOPS!!! The description of a event cannot be empty.";
 
+    /**
+     * Constructor to create a new event task when given a task string.
+     * @param task  the task
+     */
     public Event(String task) {
         // this constructor is for creating a task with the "event" command
         super(getTask(task));
@@ -17,6 +21,12 @@ public class Event extends Task {
         this.endTime = this.convertToDateTime(getEndTime(task));
     }
 
+    /**
+     * Constructor to create a new event task when specifically given a start time and end time.
+     * @param task      the task
+     * @param startTime the start time
+     * @param endTime   the end time
+     */
     public Event(String task, String startTime, String endTime) {
         // this constructor is for loading the file
         super(task);
@@ -28,7 +38,6 @@ public class Event extends Task {
      * Splits a string into an array of 3 elements, the first element is the task, second is 
      * the start time, third is the end time. Worth noting that the task, start time and end time 
      * strings here are not trimmed yet (i.e. they still have leading or trailing whitespaces).
-     * 
      * @param taskString the string that contains the task, start time and end time
      * @return           an array of 3 strings
      */
@@ -71,6 +80,7 @@ public class Event extends Task {
      */
     public static String getTask(String taskString) {
         String[] strings = splitEventString(taskString);
+        assert strings.length == 3: "The array should have 3 elements.";
         String task = strings[0];
 
         if (checkAllWhiteSpace(task)) {
@@ -88,6 +98,7 @@ public class Event extends Task {
      */
     public String getStartTime(String taskString) {
         String[] strings = splitEventString(taskString);
+        assert strings.length == 3: "The array should have 3 elements.";
         String startTime = strings[1];
 
         if (checkAllWhiteSpace(startTime)) {
@@ -105,6 +116,7 @@ public class Event extends Task {
      */
     public String getEndTime(String taskString) {
         String[] strings = splitEventString(taskString);
+        assert strings.length == 3: "The array should have 3 elements.";
         String endTime = strings[2];
 
         if (checkAllWhiteSpace(endTime)) {

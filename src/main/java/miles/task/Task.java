@@ -3,13 +3,17 @@ package miles.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/*
+/**
  * Represents a general task.
  */
 public abstract class Task {
     private boolean isDone;
     private String task;
 
+    /**
+     * Constructor to create a new task.
+     * @param task the task
+     */
     public Task(String task) {
         this.isDone = false;
         this.task = task;
@@ -31,7 +35,6 @@ public abstract class Task {
 
     /**
      * Checks if a task has no description by checking if the strings are equal.
-     * 
      * @param taskType  the type of task (e.g. "deadline")
      * @param task      the command inputted by the user
      * @return          a boolean that indicates whether the task has no description
@@ -42,7 +45,6 @@ public abstract class Task {
 
     /**
      * Checks if a given string is all whitespace.
-     * 
      * @param s string to be checked
      * @return  boolean that indicates whether the string is all whitespace
      */
@@ -57,7 +59,6 @@ public abstract class Task {
 
     /**
      * Provides a string that contains the status and task to be saved in a file.
-     * 
      * @return string that contains the status and task to be saved in a file
      */
     public String saveStringToFile() {
@@ -67,7 +68,6 @@ public abstract class Task {
 
     /**
      * Converts a string to a LocalDateTime object. This is for the deadline and event classes.
-     * 
      * @param s the string inputted by the user in the format "2019-10-15 1800"
      * @return  LocalDateTime object
      */
@@ -78,7 +78,6 @@ public abstract class Task {
 
     /**
      * Returns a string to be saved in the text file.
-     * 
      * @return a string to be saved in the text file
      */
     public String saveTime(LocalDateTime time) {
@@ -88,7 +87,6 @@ public abstract class Task {
 
     /**
      * Returns a string representing the time to be displayed in the UI.
-     * 
      * @return string representing the time to be displayed in the UI
      */
     public String displayTime(LocalDateTime time) {

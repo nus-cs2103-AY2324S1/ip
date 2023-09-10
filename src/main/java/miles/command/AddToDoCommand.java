@@ -11,6 +11,10 @@ import miles.task.ToDo;
 public class AddToDoCommand extends Command {
     private String input;
 
+    /**
+     * Constructor to create a new todo command.
+     * @param input user input
+     */
     public AddToDoCommand(String input) {
         this.input = input;
     }
