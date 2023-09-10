@@ -1,12 +1,13 @@
 package potato;
 
 import potato.task.*;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
-    private static String LINE = "-----------------------------------------\n";
     private static ArrayList<Task> tasks;
+
     public TaskList() {
         tasks = new ArrayList<>();
     }
@@ -43,14 +44,31 @@ public class TaskList {
     }
 
     public void list() {
-        int count = 0;
         System.out.println("Ok look all you want but they literally won't do themselves?");
 
+        int count = 0;
         for (Task t : tasks) {
             if (t == null) break;
             count++;
             System.out.println(String.valueOf(count) + "." +
                     t.toString());
+        }
+    }
+
+    public void find(String input) throws IOException {
+        String s = input.substring(5);
+        if (tasks.size() == 0) {
+            System.out.println("Nope nothing here...Input tasks first!");
+        } else {
+            int count = 0;
+            for (Task t : tasks) {
+                if (t.getDescription().contains(s)) {
+                    count++;
+                    System.out.println(String.valueOf(count) + "." +
+                            t.toString());
+                }
+            }
+            System.out.println("Ok that's all I found...");
         }
     }
 

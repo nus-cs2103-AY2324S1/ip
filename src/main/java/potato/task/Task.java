@@ -3,7 +3,6 @@ package potato.task;
 public class Task {
     protected String description;
     protected boolean isDone;
-    private static String LINE = "-----------------------------------------\n";
 
     public Task(String description, boolean isDone) {
         this.description = description;
@@ -59,6 +58,10 @@ public class Task {
 
     public void setStatus(boolean bool) {
         isDone = bool;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public String toSave() {
