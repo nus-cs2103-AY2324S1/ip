@@ -12,7 +12,7 @@ public class ModelViewController {
      * Constructor for ModelViewController.
      */
     public ModelViewController() {
-        // Make sense to not take in a Duke object since we will only have 1 chat bot
+        // Only 1 duke object is created in the whole program, with hard coded file path
         this.chatBot = new Duke("./data/duke.txt");
     }
 
@@ -28,7 +28,7 @@ public class ModelViewController {
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(consoleOutputStream));
 
-        // Run the chatbot and get all printed responses
+        // Run chat bot for each input
         chatBot.run(input);
 
         // Restore original system.out
@@ -47,7 +47,8 @@ public class ModelViewController {
      * @return  a response object that stores the welcome message.
      */
     public Response createWelcomeMessage() {
-        Response response = new Response(chatBot.craftWelcome());
+        String welcomeMessage = chatBot.craftWelcome();
+        Response response = new Response(welcomeMessage);
         return response;
     }
 }

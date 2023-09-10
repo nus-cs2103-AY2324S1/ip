@@ -25,8 +25,8 @@ public enum Command {
     /**
      * This method is used to get the command from the user's input
      * @param input the user's input
-     * @return  the command
-     * @throws InvalidInputException    if the input is invalid
+     * @return the command
+     * @throws InvalidInputException if the input is invalid
      */
     public static Command getCommand(String input) throws InvalidInputException {
         String[] inputtedWords = input.split(" ");
@@ -50,9 +50,8 @@ public enum Command {
             return Command.DELETE;
         } else if (commandWord.startsWith("find")) {
             return Command.FIND;
-        } else {
-            throw new InvalidInputException();
         }
+        throw new InvalidInputException();
     }
 
 }

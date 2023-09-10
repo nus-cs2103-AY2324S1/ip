@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * A custom OutputStream that redirects its output to a StringBuilder.
+ * A custom OutputStream that redirects its output to a StringBuilder
  */
 public class ConsoleOutputStream extends OutputStream {
 
@@ -12,7 +12,7 @@ public class ConsoleOutputStream extends OutputStream {
 
     /**
      * Writes the specified byte to this output stream.
-     * @param b  the byte to be written.
+     * @param b the byte to be written.
      * @throws IOException
      */
     @Override
@@ -22,17 +22,10 @@ public class ConsoleOutputStream extends OutputStream {
 
     /**
      * Returns the content of the OutputStream as a String.
-     * @return  the content of the OutputStream as a String.
+     * @return the content of the OutputStream as a String.
      */
     public String getContent() {
         return content.toString();
-    }
-
-    /**
-     * Clears the content of the OutputStream.
-     */
-    public void clearContent() {
-        content.setLength(0);
     }
 
 }
