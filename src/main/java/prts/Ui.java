@@ -30,6 +30,7 @@ public class Ui {
      * @param tasks The current state of the TaskList.
      */
     public String listTasks(TaskList tasks) {
+        assert tasks != null : "The tasklist cannot be null!";
 
         return "Here are your tasks for today." + tasks + "You now have "
                 + tasks.getSize() + " tasks in your list.";
