@@ -62,20 +62,16 @@ public class Ui {
         printFormatted(String.format("Nice! I've unmarked this task as done:\n  %s", task.toString()));
     }
 
-    public void printTaskList(ArrayList<Task> tasks) {
-        printFormatted(IntStream.range(0, tasks.size())
-                .mapToObj(i -> (i + 1) + ". " + tasks.get(i))
-                .collect(Collectors.joining("\n")));
+    public void printTaskList(TaskList taskList) {
+        printFormatted(taskList.toStringForUi());
     }
 
     public void printErrorMessage(String errorMessage) {
         printFormatted(String.format("Error: %s", errorMessage));
     }
 
-    public void showLoadedTasks(ArrayList<Task> tasks) {
-        printFormatted("Loaded tasks from file:\n" + IntStream.range(0, tasks.size())
-                .mapToObj(i -> (i + 1) + ". " + tasks.get(i))
-                .collect(Collectors.joining("\n")));
+    public void showLoadedTasks(TaskList taskList) {
+        printFormatted("Loaded tasks from file:\n" + taskList.toStringForUi());
     }
 
 

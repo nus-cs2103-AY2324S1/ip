@@ -1,13 +1,13 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Duke {
 
     private static final String CHATBOT_NAME = "Koko";
-    private static ArrayList<Task> tasks = new ArrayList<>();
     private final Ui ui;
     private final Storage storage;
+
+    private TaskList taskList;
 
 
     public Duke(String filePath) {
@@ -16,7 +16,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+        new Duke("data/duke.txt").run();
     }
 
     public void parseInput(String input) {
@@ -44,48 +44,36 @@ public class Duke {
 
             switch (command) {
                 case "list":
-                    ui.printTaskList(tasks);
+                    ui.printTaskList(taskList);
                     break;
                 case "mark":
                     int markIndex = Integer.parseInt(remaining) - 1;
-                    if (markIndex < 0 || markIndex >= tasks.size()) {
-                        throw new DukeException("Invalid task number.");
-                    }
-                    Task markTarget = tasks.get(markIndex);
-                    markTarget.markAsDone();
-                    ui.printTaskMarkedMessage(markTarget);
+                    Task markedTask = taskList.markTaskAtIndex(markIndex);
+                    ui.printTaskMarkedMessage(markedTask);
                     break;
                 case "unmark":
                     int unmarkIndex = Integer.parseInt(remaining) - 1;
-                    if (unmarkIndex < 0 || unmarkIndex >= tasks.size()) {
-                        throw new DukeException("Invalid task number.");
-                    }
-                    Task unmarkTarget = tasks.get(unmarkIndex);
-                    unmarkTarget.markAsUndone();
-                    ui.printTaskUnmarkedMessage(unmarkTarget);
+                    Task unmarkedTask = taskList.unmarkTaskAtIndex(unmarkIndex);
+                    ui.printTaskUnmarkedMessage(unmarkedTask);
                     break;
                 case "delete":
-                    int deleteIndex = Integer.parseInt(remaining) - 1;
-                    if (deleteIndex < 0 || deleteIndex >= tasks.size()) {
-                        throw new DukeException("Invalid task number.");
-                    }
-                    Task toDelete = tasks.remove(deleteIndex);
-                    ui.printTaskDeletedMessage(toDelete, tasks.size());
+                    Task deletedTask = taskList.deleteTaskAtIndex(Integer.parseInt(remaining) - 1);
+                    ui.printTaskDeletedMessage(deletedTask, taskList.size());
                     break;
                 case "todo":
                     Todo newTodo = Todo.createFromCommandString(remaining);
-                    tasks.add(newTodo);
-                    ui.printTaskAddedMessage(newTodo, tasks.size());
+                    taskList.addTask(newTodo);
+                    ui.printTaskAddedMessage(newTodo, taskList.size());
                     break;
                 case "deadline":
                     Deadline newDeadline = Deadline.createFromCommandString(remaining);
-                    tasks.add(newDeadline);
-                    ui.printTaskAddedMessage(newDeadline, tasks.size());
+                    taskList.addTask(newDeadline);
+                    ui.printTaskAddedMessage(newDeadline, taskList.size());
                     break;
                 case "event":
                     Event newEvent = Event.createFromCommandString(remaining);
-                    tasks.add(newEvent);
-                    ui.printTaskAddedMessage(newEvent, tasks.size());
+                    taskList.addTask(newEvent);
+                    ui.printTaskAddedMessage(newEvent, taskList.size());
                     break;
                 default:
                     throw new DukeException("Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event");
@@ -95,7 +83,7 @@ public class Duke {
             // a disk write to save the updated task list.
             if (!command.equals("list")) {
                 try {
-                    storage.saveTasksToFile(tasks);
+                    storage.saveTasksToFile(taskList);
                 } catch (IOException ioException) {
                     throw new DukeException("Error while saving task list to file!");
                 }
@@ -113,14 +101,14 @@ public class Duke {
         ui.greet();
 
         try {
-            tasks = storage.loadTasksFromFile();
-            ui.showLoadedTasks(tasks);
+            taskList = storage.loadTasksFromFile();
+            ui.showLoadedTasks(taskList);
         } catch (FileNotFoundException fileNotFoundException) {
             ui.printErrorMessage("Previous data file not found, starting from fresh task list.");
-            tasks = new ArrayList<>();
+            taskList = new TaskList();
         } catch (DukeException dukeException) {
             ui.printErrorMessage(dukeException.getMessage());
-            tasks = new ArrayList<>();
+            taskList = new TaskList();
         }
 
         ui.startUserInputLoop(this::parseInput);

@@ -13,21 +13,19 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public void saveTasksToFile(ArrayList<Task> tasksToSave) throws IOException {
+    public void saveTasksToFile(TaskList taskListToSave) throws IOException {
         File directory = new File("./data");
         if (!directory.exists()) {
             directory.mkdir();
         }
 
         FileWriter fw = new FileWriter(filePath);
-        for (Task task : tasksToSave) {
-            fw.write(task.toFileFormat() + "\n");
-        }
+        fw.write(taskListToSave.toStringForFile());
         fw.close();
 
     }
 
-    public ArrayList<Task> loadTasksFromFile() throws FileNotFoundException, DukeException {
+    public TaskList loadTasksFromFile() throws FileNotFoundException, DukeException {
         File file = new File(filePath);
 
         Scanner scanner = new Scanner(file);
@@ -47,6 +45,6 @@ public class Storage {
                 throw new DukeException("Error while parsing data file -- possibly corrupt? File will be overwritten if you proceed.");
             }
         }
-        return result;
+        return new TaskList(result);
     }
 }
