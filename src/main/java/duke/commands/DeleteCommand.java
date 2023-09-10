@@ -22,8 +22,8 @@ public class DeleteCommand implements Command {
     }
 
     @Override
-    public void execute(TaskListStorage taskListStorage) throws InvalidIndexException {
-        taskListStorage.deleteTask(index);
+    public String execute(TaskListStorage taskListStorage) throws InvalidIndexException {
+        return taskListStorage.deleteTask(index);
     }
 
 }

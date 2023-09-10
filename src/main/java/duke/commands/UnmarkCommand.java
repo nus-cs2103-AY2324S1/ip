@@ -22,8 +22,8 @@ public class UnmarkCommand implements Command {
     }
 
     @Override
-    public void execute(TaskListStorage taskListStorage) throws InvalidIndexException {
-        taskListStorage.markAsUndone(index);
+    public String execute(TaskListStorage taskListStorage) throws InvalidIndexException {
+        return taskListStorage.markAsUndone(index);
     }
 
 }

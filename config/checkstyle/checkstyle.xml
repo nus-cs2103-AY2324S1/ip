@@ -34,6 +34,12 @@
     <property name="max" value="120"/>
   </module>
 
+  <module name="SuppressWithPlainTextCommentFilter">
+    <property name="offCommentFormat" value="// CHECKSTYLE\.OFF\: ([\w\|]+)"/>
+    <property name="onCommentFormat" value="// CHECKSTYLE\.ON\: ([\w\|]+)"/>
+    <property name="checkFormat" value="$1"/>
+  </module>
+
   <!-- All Java AST specific tests live under TreeWalker module. -->
   <module name="TreeWalker">
 

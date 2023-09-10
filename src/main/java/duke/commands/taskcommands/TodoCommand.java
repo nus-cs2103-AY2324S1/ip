@@ -22,7 +22,7 @@ public class TodoCommand extends TaskCommand {
     }
 
     @Override
-    public void execute(TaskListStorage taskListStorage) throws MissingDescriptionException {
-        taskListStorage.addTodo(new Todo(this.description));
+    public String execute(TaskListStorage taskListStorage) throws MissingDescriptionException {
+        return taskListStorage.addTodo(new Todo(this.description));
     }
 }

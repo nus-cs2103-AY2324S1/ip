@@ -22,9 +22,9 @@ public class FindCommand implements Command {
     }
 
     @Override
-    public void execute(TaskListStorage taskListStorage)
+    public String execute(TaskListStorage taskListStorage)
             throws InvalidIndexException, MissingDescriptionException, IncorrectCommandFormatException {
-        taskListStorage.findTasks(keyword);
+        return taskListStorage.findTasks(keyword);
     }
 
 }

@@ -16,12 +16,13 @@ public class DeadlineCommandParser extends CommandParser {
     /**
      * Creates a DeadlineCommandParser object.
      */
-    //CHECKSTYLE.OFF: LineLength
+    // CHECKSTYLE.OFF: LineLength
     public DeadlineCommandParser() {
         super("deadline",
                 "^(?<command>deadline)(?: ((?!/by)(?<description>.*?))?(?<by> /by.*?)?(?<byTime>\\d{4}-\\d{1,2}-\\d{1,2})?)?$");
     }
     //CHECKSTYLE.ON: LineLength
+
 
     @Override
     protected void validate(Matcher matcher)

@@ -16,7 +16,7 @@ public class EventCommandParser extends CommandParser {
     /**
      * Creates a EventCommandParser object.
      */
-    //CHECKSTYLE.OFF: LineLength
+    // CHECKSTYLE.OFF: LineLength
     public EventCommandParser() {
         super("event",
                 "^(?<command>event)(?: (?<description>.*?)?(?<from> /from.*?)?(?<fromTime>\\d{4}-\\d{1,2}-\\d{1,2})?(?<to> /to.*?)?(?<toTime>\\d{4}-\\d{1,2}-\\d{1,2})?)?$");

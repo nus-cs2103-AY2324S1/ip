@@ -32,10 +32,10 @@ public class DeadlineCommand extends TaskCommand {
     }
 
     @Override
-    public void execute(TaskListStorage taskListStorage)
+    public String execute(TaskListStorage taskListStorage)
             throws MissingDescriptionException, IncorrectCommandFormatException {
         // Actual logic for handling the "deadline" command
-        taskListStorage.addDeadline(new Deadline(this.description, deadline));
+        return taskListStorage.addDeadline(new Deadline(this.description, deadline));
     }
 
     /**
