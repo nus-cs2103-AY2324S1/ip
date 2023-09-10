@@ -33,6 +33,8 @@ public class TaskList {
             while (scanner.hasNextLine()) {
                 String data = scanner.nextLine();
                 Task task = TaskList.parseTask(data);
+                // We need to return a task after parsing, if it is null, it means that the task is corrupted
+                assert task != null : "Task is null";
                 this.taskList.add(task);
             }
             scanner.close();
@@ -50,6 +52,8 @@ public class TaskList {
      */
     public static Task parseTask(String storedTextLine) throws WrongInputException {
         String[] splitString = storedTextLine.split(" \\| ");
+        // The assumption is that the stored task has a task type, task status and task name minimally
+        assert splitString.length >= 3 : "Stored task is invalid / corrupted";
         String taskType = splitString[0];
         boolean taskStatus = Boolean.parseBoolean(splitString[1]);
         String taskName = splitString[2];
@@ -76,8 +80,10 @@ public class TaskList {
             }
             return new Event(taskName, taskStatus, fromDateTime, toDateTime);
         default:
-            return null;
+            // If it has reach the default statement, the taskType is not valid, program should be stopped
+            assert false : "Invalid task type";
         }
+        return null;
     }
 
     /**

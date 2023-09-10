@@ -45,12 +45,9 @@ public class Parser {
             case LIST:
                 this.ui.list(this.taskList);
                 break;
-            case UNMARK:
-                // Order matters, if we check for marks first, unmark falls under mark loop
-                // Split the string based on spaces
-                // The input after the mark word should be task no (which should be index 1)
+            case UNMARK: // Order matters, if we check for marks first, UNMARK falls under mark loop
                 int taskNumberUnmark = Integer.parseInt(splitString[1]);
-                // The above should throw a NumberFormatException
+                // The above should throw a NumberFormatException if not the right number
                 this.taskList.unmarkTask(taskNumberUnmark - 1, storage);
                 break;
             case MARK:
@@ -108,8 +105,8 @@ public class Parser {
                 this.ui.showSearchResult(searchResult);
                 break;
             default:
-                System.out.println("Bot is broken, restart the entire programme");
-                break;
+                // WHY: If it has reach the default statement, the command is not valid, program should be stopped
+                assert false : "Invalid command";
             }
         } catch (NullPointerException e) {
             // If we mark a task number outside the range

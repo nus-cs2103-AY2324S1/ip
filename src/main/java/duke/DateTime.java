@@ -44,7 +44,8 @@ public class DateTime {
         try {
             return new DateTime(input, DateTimeParser.createLocalDateTime(input));
         } catch (WrongInputException e) {
-            System.out.println("Unable to create DateTime object from storage" + e.toString());
+            assert false : "Unable to create DateTime object from storage, file is likely corrupted";
+            // Safe to return null here as the assert statement will terminate the program
             return null;
         }
     }
