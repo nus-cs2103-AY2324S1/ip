@@ -129,21 +129,32 @@ public class TaskList {
      * Declares number of tasks in TaskList.
      */
     public String declareNumOfTasks() {
+        assert this.tasks.size() >= 0;
         return String.format("%d tasks in the list\n", tasks.size());
     }
 
+    /**
+     * Lists out the string representation of Tasks in the order they were added
+     * into the ren.task.TaskList. List is 1-indexed
+     */
     public void listMatchingTasks(String query) {
         this.tasks.stream()
                 .filter(task -> task.queryInDescription(query))
                 .forEach(task -> System.out.printf("%d %s\n%n", this.tasks.indexOf(task) + 1, task));
     }
 
+    /**
+     * Returns a list of tasks that match the query
+     *
+     * @param query the query to be matched
+     * @return a list of tasks that match the query
+     */
     public List filterToListOfMatchingTasks(String query) {
         return this.tasks.stream()
                 .filter(task -> task.queryInDescription(query))
                 .collect(java.util.stream.Collectors.toCollection(ArrayList::new));
     }
-
+    
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
