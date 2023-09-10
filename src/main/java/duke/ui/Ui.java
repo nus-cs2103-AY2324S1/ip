@@ -57,7 +57,8 @@ public class Ui {
         output.append("Noted. I've removed this duke.task:\n");
         output.append(tasks.get(index - 1) + "\n");
         String placeholder = tasks.size() == 1 ? "task" : "tasks";
-        output.append("Now you have " + tasks.size() + " " + placeholder + " in the list.\n");
+        int remainingTasks = tasks.size() - 1;
+        output.append("Now you have " + remainingTasks + " " + placeholder + " in the list.\n");
         output.append(getDottedLine());
         return output.toString();
     }

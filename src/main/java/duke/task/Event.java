@@ -19,6 +19,7 @@ public class Event extends Task {
      * @param endDateTime The endDateTime of the event.
      */
     public Event(String description, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        assert description != null && !description.trim().isEmpty() : "description should not be null";
         super.description = description;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
