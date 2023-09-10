@@ -151,12 +151,11 @@ public class Ui {
         responses.add("Here are the matching tasks in your list:");
         responses.add(output);
     }
-
     /**
-     * Combines the stored responses and prestring into a string for output, then 
+     * Combines the stored responses and prestring into a string for output, then
      * clears the stored responses.
      * @param preStrings The prestring to be added to the output.
-     * @return
+     * @return output String to be printed as a response to user.
      */
     public String getOutput(String... preStrings) {
         //convert output to string

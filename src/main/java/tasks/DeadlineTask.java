@@ -62,7 +62,8 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toFileString() {
-        return "D | " + super.getStatusIcon() + " | " + getDescription() + " | " + byDateTime.format(Task.getDateFormat());
+        return "D | " + super.getStatusIcon() + " | " + getDescription() + " | "
+                + byDateTime.format(Task.getDateFormat());
     }
 
     /**

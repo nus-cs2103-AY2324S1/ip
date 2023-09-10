@@ -27,12 +27,11 @@ public class TaskList {
 
     /**
      * Returns the list of tasks.
-     * @param userTasks List of tasks.
+     * @return userTasks List of tasks.
      */
     public ArrayList<Task> getTasks() {
         return this.userTasks;
     }
-    
     /**
      * Set the list of tasks.
      * @param userTasks List of tasks.
