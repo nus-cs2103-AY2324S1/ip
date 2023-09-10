@@ -35,23 +35,23 @@ public class TaskList {
     /**
      * Removes and returns the task at the specified index.
      *
-     * @param idx The index of the task to be removed.
+     * @param taskIdx The index of the task to be removed.
      * @return The removed task.
      */
-    public Task remove(int idx) {
-        assert idx >= 0 && idx < taskList.size() : "Invalid task index.";
-        return this.taskList.remove(idx);
+    public Task remove(int taskIdx) {
+        assert taskIdx >= 0 && taskIdx < taskList.size() : "Invalid task index.";
+        return this.taskList.remove(taskIdx);
     }
 
     /**
      * Returns the task at the specified index.
      *
-     * @param idx The index of the task to be retrieved.
+     * @param taskIdx The index of the task to be retrieved.
      * @return The task at the specified index.
      */
-    public Task get(int idx) {
-        assert idx >= 0 && idx < taskList.size() : "Invalid task index.";
-        return this.taskList.get(idx);
+    public Task get(int taskIdx) {
+        assert taskIdx >= 0 && taskIdx < taskList.size() : "Invalid task index.";
+        return this.taskList.get(taskIdx);
     }
 
     /**

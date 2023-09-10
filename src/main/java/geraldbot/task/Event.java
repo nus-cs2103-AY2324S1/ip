@@ -5,21 +5,21 @@ package geraldbot.task;
  */
 public class Event extends Task {
 
-    protected String start;
-    protected String end;
+    protected String startTime;
+    protected String endTime;
 
     /**
      * Constructs an `Event` task with the specified description, completion status, start time, and end time.
      *
      * @param description The description of the task.
      * @param isDone      The completion status of the task.
-     * @param start       The start time of the event.
-     * @param end         The end time of the event.
+     * @param startTime       The start time of the event.
+     * @param endTime         The end time of the event.
      */
-    public Event(String description, boolean isDone, String start, String end) {
+    public Event(String description, boolean isDone, String startTime, String endTime) {
         super(description, isDone);
-        this.start = start;
-        this.end = end;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     /**
@@ -29,7 +29,7 @@ public class Event extends Task {
      */
     @Override
     public String fileFormat() {
-        return "E " + super.fileFormat() + " | " + this.start + "-" + this.end;
+        return "E " + super.fileFormat() + " | " + this.startTime + "-" + this.endTime;
     }
 
     /**
@@ -39,6 +39,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " " + "to: " + end + ")";
+        return "[E]" + super.toString() + " (from: " + startTime + " " + "to: " + endTime + ")";
     }
 }

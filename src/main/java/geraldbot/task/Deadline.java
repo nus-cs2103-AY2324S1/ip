@@ -8,18 +8,18 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    protected LocalDateTime by;
+    protected LocalDateTime endTime;
 
     /**
      * Constructs a `Deadline` task with the specified description, completion status, and deadline.
      *
      * @param description The description of the task.
      * @param isDone      The completion status of the task.
-     * @param by          The deadline of the task.
+     * @param endTime          The deadline of the task.
      */
-    public Deadline(String description, boolean isDone, LocalDateTime by) {
+    public Deadline(String description, boolean isDone, LocalDateTime endTime) {
         super(description, isDone);
-        this.by = by;
+        this.endTime = endTime;
     }
 
     /**
@@ -29,7 +29,7 @@ public class Deadline extends Task {
      */
     @Override
     public String fileFormat() {
-        return "D " + super.fileFormat() + " | " + this.by;
+        return "D " + super.fileFormat() + " | " + this.endTime;
     }
 
     /**
@@ -39,7 +39,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        String formattedBy = by.format(DateTimeFormatter.ofPattern("d MMMM yyyy, h:mma"));
+        String formattedBy = endTime.format(DateTimeFormatter.ofPattern("d MMMM yyyy, h:mma"));
         return "[D]" + super.toString() + " (by: " + formattedBy + ")";
     }
 }
