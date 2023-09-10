@@ -96,6 +96,21 @@ public class TaskList {
     }
 
     /**
+     * Checks if there is a duplicate existing task.
+     *
+     * @param task Task to check with in the taskList
+     * @return booleam, true if there is a equal task is found, else false
+     */
+    public boolean isDuplicateTask(Task task) {
+        for (Task existingTask : this.arrList) {
+            if (existingTask.equals(task)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
     * Returns the String representation of the selected Task choice that is shown when listed.
     *
     * @param choice int representing the choice of task to represent from tasklist (Note that choice starts from 1)

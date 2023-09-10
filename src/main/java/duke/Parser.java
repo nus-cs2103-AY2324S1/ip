@@ -156,9 +156,12 @@ public class Parser {
         default:
             try {
                 Task task = createTask(input);
-                if (task != null) {
+                boolean isDuplicate = taskList.isDuplicateTask(task);
+                if (task != null && !isDuplicate) {
                     taskList.add(task);
                     responseMessage = ui.displayAddTask(task, taskList);
+                } else {
+                    responseMessage = ui.displayDuplicateTask();
                 }
             } catch (Exception e) {
                 responseMessage = ui.showExceptionError(e);

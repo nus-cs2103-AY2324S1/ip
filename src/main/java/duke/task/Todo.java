@@ -27,8 +27,11 @@ public class Todo extends Task {
         if (this == o) {
             return true;
         }
-        Todo task = (Todo) o;
-        return super.getName().equals(task.getName());
+        if (o instanceof Todo) {
+            Todo task = (Todo) o;
+            return super.getName().equals(task.getName());
+        }
+        return false;
     }
 
     /**

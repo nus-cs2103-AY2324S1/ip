@@ -57,9 +57,12 @@ public class Event extends Task {
         if (this == task) {
             return true;
         }
-        Event eventTask = (Event) task;
-        return this.to.equals(eventTask.getTo()) && this.getName().equals(eventTask.getName())
-                && this.from.equals(eventTask.getFrom());
+        if (task instanceof Event) {
+            Event eventTask = (Event) task;
+            return this.to.equals(eventTask.getTo()) && this.getName().equals(eventTask.getName())
+                    && this.from.equals(eventTask.getFrom());
+        }
+        return false;
     }
 
     /**

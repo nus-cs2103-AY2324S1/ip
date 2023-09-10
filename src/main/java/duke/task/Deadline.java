@@ -21,15 +21,7 @@ public class Deadline extends Task {
      */
     public Deadline(String name, String deadline) {
         super(name);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        try {
-            LocalDateTime dateTime = LocalDateTime.parse(deadline, formatter);
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d MMM yyyy");
-            deadline = dateTime.format(outputFormatter);
-        } catch (DateTimeParseException e) {
-            this.deadline = deadline;
-        }
-        this.deadline = deadline;
+        this.deadline = Deadline.processStringDeadline(deadline);
     }
 
     /**
@@ -41,15 +33,19 @@ public class Deadline extends Task {
      */
     public Deadline(String name, String deadline, boolean isComplete) {
         super(name, isComplete);
+        this.deadline = Deadline.processStringDeadline(deadline);
+    }
+
+    private static String processStringDeadline(String deadline) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         try {
             LocalDateTime dateTime = LocalDateTime.parse(deadline, formatter);
             DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d MMM yyyy");
             deadline = dateTime.format(outputFormatter);
         } catch (DateTimeParseException e) {
-            this.deadline = deadline;
+            return deadline;
         }
-        this.deadline = deadline;
+        return deadline;
     }
 
     /**

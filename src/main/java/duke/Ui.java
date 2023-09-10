@@ -10,10 +10,7 @@ import duke.task.Task;
  * @author Donovan Chan Jia Jun
  */
 public class Ui {
-    private final String CHATBOTNAME = "notDuke";
-    private final String intro = "Hello! I'm " + this.CHATBOTNAME + "\n"
-            + "What can I do for you?";
-    private final String EXITMESSAGE = "Bye. Hope to see you again soon!";
+    private final String EXIT_MESSAGE = "Bye. Hope to see you again soon!";
 
     /**
      * UI constructor.
@@ -42,7 +39,7 @@ public class Ui {
      * Prints out the exit message when user exits the program.
      */
     public String exit() {
-        return this.EXITMESSAGE;
+        return this.EXIT_MESSAGE;
     }
 
     /**
@@ -124,5 +121,15 @@ public class Ui {
             }
         }
         return msg;
+    }
+
+    /**
+     * Returns a string to tell user that the duplicate task is rejected.
+     *
+     * @return String response message to duplicate task
+     */
+    public String displayDuplicateTask() {
+        String responseMessage = "This is a duplicate task!\nTask was not added";
+        return responseMessage;
     }
 }
