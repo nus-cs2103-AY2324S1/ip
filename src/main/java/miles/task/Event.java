@@ -8,9 +8,9 @@ import miles.MilesException;
  * Represents a task that starts at a specific time and ends at a specific time.
  */
 public class Event extends Task {
+    private static String noDescErrorMsg = "OOPS!!! The description of a event cannot be empty.";
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private static String noDescErrorMsg = "OOPS!!! The description of a event cannot be empty.";
 
     /**
      * Constructor to create a new event task when given a task string.
@@ -37,8 +37,8 @@ public class Event extends Task {
     }
 
     /**
-     * Splits a string into an array of 3 elements, the first element is the task, second is 
-     * the start time, third is the end time. Worth noting that the task, start time and end time 
+     * Splits a string into an array of 3 elements, the first element is the task, second is
+     * the start time, third is the end time. Worth noting that the task, start time and end time
      * strings here are not trimmed yet (i.e. they still have leading or trailing whitespaces).
      * @param taskString the string that contains the task, start time and end time
      * @return           an array of 3 strings
@@ -76,13 +76,12 @@ public class Event extends Task {
 
     /**
      * Returns the task from a input string that starts with "event".
-     * 
      * @param taskString the input string that starts with "event"
      * @return           the task
      */
     public static String getTask(String taskString) throws MilesException {
         String[] strings = splitEventString(taskString);
-        assert strings.length == 3: "The array should have 3 elements.";
+        assert strings.length == 3 : "The array should have 3 elements.";
         String task = strings[0];
 
         if (checkAllWhiteSpace(task)) {
@@ -94,7 +93,6 @@ public class Event extends Task {
 
     /**
      * Returns the start time from a input string that starts with "event".
-     * 
      * @param taskString the input string that starts with "event"
      * @return           the start time
      */
@@ -112,13 +110,12 @@ public class Event extends Task {
 
     /**
      * Returns the end time from a input string that starts with "event".
-     * 
      * @param taskString the input string that starts with "event"
      * @return           the end time
      */
     public String getEndTime(String taskString) throws MilesException {
         String[] strings = splitEventString(taskString);
-        assert strings.length == 3: "The array should have 3 elements.";
+        assert strings.length == 3 : "The array should have 3 elements.";
         String endTime = strings[2];
 
         if (checkAllWhiteSpace(endTime)) {
@@ -130,7 +127,6 @@ public class Event extends Task {
 
     /**
      * Returns a string representing the start time to be displayed in the user interface.
-     * 
      * @return the start time to be displayed in the UI
      */
     public String displayStartTime() {
@@ -138,9 +134,8 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representing the start time which would form a part of the string to be 
+     * Returns a string representing the start time which would form a part of the string to be
      * saved in the text file.
-     * 
      * @return string representing the start time to be saved in the text file
      */
     public String saveStartTime() {
@@ -149,7 +144,6 @@ public class Event extends Task {
 
     /**
      * Returns a string representing the end time to be displayed in the user interface.
-     * 
      * @return the end time to be displayed in the UI
      */
     public String displayEndTime() {
@@ -157,9 +151,8 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representing the end time which would form a part of the string to be saved 
+     * Returns a string representing the end time which would form a part of the string to be saved
      * in the text file.
-     * 
      * @return string representing the end time to be saved in the text file
      */
     public String saveEndTime() {
@@ -168,18 +161,17 @@ public class Event extends Task {
 
     /**
      * Returns a string to be saved in the text file, specifically for an event.
-     * 
      * @return a string to be saved in the text file
      */
     @Override
     public String saveStringToFile() {
-        return "E" + super.saveStringToFile() + " | " + this.saveStartTime() + " | " + 
-            this.saveEndTime(); 
+        return "E" + super.saveStringToFile() + " | " + this.saveStartTime() + " | "
+                + this.saveEndTime();
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.displayStartTime() + " to: " + 
-            this.displayEndTime() + ")";
+        return "[E]" + super.toString() + " (from: " + this.displayStartTime() + " to: "
+                + this.displayEndTime() + ")";
     }
 }

@@ -6,7 +6,7 @@ import miles.Ui;
 import miles.task.Task;
 
 /**
- * Represents a delete command.
+ * Represents a delete task command.
  */
 public class DeleteCommand extends Command {
     private String input;

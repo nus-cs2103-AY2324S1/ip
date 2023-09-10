@@ -8,7 +8,6 @@ import miles.task.Task;
 public class Ui {
     /**
      * Adds indentation to the string given and prints it out.
-     * 
      * @params s the string to be indented
      */
     public void display(String s) {
@@ -25,7 +24,6 @@ public class Ui {
 
     /**
      * Prints the task that was just added.
-     * 
      * @param task the task that was just added
      * @param n    the number of tasks currently in the list
      */
@@ -37,7 +35,6 @@ public class Ui {
 
     /**
      * Prints the task that was just deleted.
-     * 
      * @param task the task that was just deleted
      * @param n    the number of tasks currently in the list
      */
@@ -48,8 +45,15 @@ public class Ui {
     }
 
     /**
+     * Prints a message when user inputs a duplicate task.
+     * @param task
+     */
+    public void printDuplicateTask(Task task) {
+        display("Brother, you already have this task in your list. Don't give yourself extra work man.");
+    }
+
+    /**
      * Prints the error message when an exception is raised.
-     * 
      * @param errorMsg error message to be printed
      */
     public void printErrorMsg(String errorMsg) {
@@ -58,7 +62,6 @@ public class Ui {
 
     /**
      * Prints the error message when the task number is invalid.
-     * 
      * @param number the task number that is invalid
      */
     public void printInvalidTaskNumber(int number) {

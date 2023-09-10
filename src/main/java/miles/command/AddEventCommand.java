@@ -21,6 +21,12 @@ public class AddEventCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             Event newEvent = new Event(this.input);
+
+            if (taskList.isTaskInList(newEvent)) {
+                ui.printDuplicateTask(newEvent);
+                return;
+            }
+
             storage.saveWhenAddTask(newEvent, taskList);
 
             int n = taskList.getSize();

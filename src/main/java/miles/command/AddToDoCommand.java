@@ -24,6 +24,12 @@ public class AddToDoCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             ToDo newToDo = new ToDo(input);
+
+            if (taskList.isTaskInList(newToDo)) {
+                ui.printDuplicateTask(newToDo);
+                return;
+            }
+
             storage.saveWhenAddTask(newToDo, taskList);
             int n = taskList.getSize();
             ui.printAddedTask(newToDo, n);

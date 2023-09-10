@@ -4,6 +4,9 @@ import miles.Storage;
 import miles.TaskList;
 import miles.Ui;
 
+/**
+ * Represents a unmark task command.
+ */
 public class UnmarkCommand extends Command {
     private String input;
 
@@ -17,7 +20,6 @@ public class UnmarkCommand extends Command {
 
     /**
      * Returns task number from user input.
-     * 
      * @param input user input
      * @return      task number 
      */
