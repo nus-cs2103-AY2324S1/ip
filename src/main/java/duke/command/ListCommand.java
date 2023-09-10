@@ -6,7 +6,7 @@ import java.util.Map;
 import duke.object.TaskList;
 import duke.parser.element.CommandElement;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.util.Formatter;
 
 /**
  * Command to list all current tasks.
@@ -34,8 +34,8 @@ public class ListCommand extends Command {
      * @inheritdoc
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.print(String.format("Here are the tasks in your list:\n%s", ui.stringifyList(tasks)));
+    public String execute(TaskList tasks, Storage storage) {
+        return String.format("Here are the tasks in your list:\n%s", Formatter.stringifyList(tasks));
     }
 
 }

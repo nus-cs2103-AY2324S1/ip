@@ -1,6 +1,6 @@
 package duke.controller;
 
-import duke.Duke;
+import duke.ui.DialogBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -61,4 +62,5 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
     }
+
 }

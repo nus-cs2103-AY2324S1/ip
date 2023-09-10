@@ -10,8 +10,6 @@ import duke.command.Command;
 import duke.exception.DukeException;
 import duke.object.TaskList;
 import duke.parser.Parser;
-import duke.ui.SilentUi;
-import duke.ui.Ui;
 
 /**
  * Writes data to and retrieves data from storage file.
@@ -19,15 +17,11 @@ import duke.ui.Ui;
 public class Storage {
 
     private File dataFile;
-    private Ui display;
 
     /**
      * Constructs Storage.
-     *
-     * @param display The UI to inform user of any failures.
      */
-    public Storage(Ui display) {
-        this.display = display;
+    public Storage() {
         this.dataFile = new File(String.join(File.separator, ".", "duke_data", "data.txt"));
         makeFile(this.dataFile);
     }
@@ -40,7 +34,7 @@ public class Storage {
         try {
             file.createNewFile();
         } catch (IOException e) {
-            display.print("Failed to create data file.");
+            assert false;
         }
     }
 
@@ -51,27 +45,25 @@ public class Storage {
      */
     public TaskList loadTasks() {
         TaskList tasks = new TaskList();
-        Ui ui;
+        Scanner sc;
         try {
-            ui = new SilentUi(new Scanner(dataFile));
+            sc = new Scanner(dataFile);
         } catch (FileNotFoundException e) {
-            ui = new SilentUi(new Scanner(System.in));
+            sc = new Scanner(System.in);
         }
-        assert ui != null;
+        assert sc != null;
         try {
-            while (ui.hasNext()) {
-                String saved = ui.readCommand();
+            while (sc.hasNext()) {
+                String saved = sc.nextLine().replaceAll("\n", "").trim();
                 if (saved.equals("")) {
                     continue;
                 }
                 Command cmd = Parser.parse(saved);
-                cmd.execute(tasks, ui, this);
+                cmd.execute(tasks, this);
             }
         } catch (DukeException e) {
-            display.print("Data file is corrupted. Starting from a clear state...");
             tasks.clear();
         }
-        ui.close();
         return tasks;
     }
 
@@ -81,7 +73,7 @@ public class Storage {
      * @param tasks TaskList to be saved.
      */
     public void save(TaskList tasks) {
-        assert dataFaile.exists();
+        assert dataFile.exists();
         try {
             FileWriter writer = new FileWriter(dataFile, false);
             for (int i = 0; i < tasks.size(); i++) {
@@ -90,7 +82,7 @@ public class Storage {
             writer.flush();
             writer.close();
         } catch (IOException e) {
-            display.print("Failed to save data file.");
+            assert false;
         }
     }
 

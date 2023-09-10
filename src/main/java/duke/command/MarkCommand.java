@@ -8,7 +8,6 @@ import duke.object.TaskList;
 import duke.parser.element.CommandElement;
 import duke.parser.element.argument.IndexArgument;
 import duke.storage.Storage;
-import duke.ui.Ui;
 
 /**
  * Command to mark a task as complete.
@@ -36,11 +35,11 @@ public class MarkCommand extends Command {
      * @inheritdoc
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
         assert this.args.get("index") instanceof Integer;
         int idx = (int) ((Integer) this.args.get("index"));
         tasks.mark(idx);
-        ui.print(String.format("Nice! I've marked this task as done:\n  %s", tasks.access(idx).toString()));
+        return String.format("Nice! I've marked this task as done:\n  %s", tasks.access(idx).toString());
     }
 
 }

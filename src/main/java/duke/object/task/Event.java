@@ -6,8 +6,7 @@ import java.util.Map;
 
 import duke.command.task.EventCommand;
 import duke.exception.DateRangeException;
-import duke.ui.Ui;
-
+import duke.util.Formatter;
 /**
  * Task with a start and end date.
  */
@@ -39,7 +38,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(),
-                Ui.stringifyDate(this.from), Ui.stringifyDate(this.to));
+                Formatter.stringifyDate(this.from), Formatter.stringifyDate(this.to));
     }
 
     /**

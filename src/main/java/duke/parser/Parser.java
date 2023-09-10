@@ -50,7 +50,7 @@ public class Parser {
      * @throws DukeException When the input is not formatted correctly.
      */
     public static Command parse(String input) throws DukeException {
-        String[] commandParts = input.split(" ", 2);
+        String[] commandParts = input.replaceAll("\n", "").trim().split(" ", 2);
         String commandName = commandParts[0];
         String commandArgs = commandParts.length > 1 ? commandParts[1] : "";
         Map<String, Object> args = new HashMap<>();

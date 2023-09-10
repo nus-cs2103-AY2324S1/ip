@@ -1,12 +1,10 @@
-package duke;
+package duke.controller;
 
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.object.TaskList;
 import duke.parser.Parser;
 import duke.storage.Storage;
-import duke.ui.Ui;
-import duke.ui.VerboseUi;
 
 /**
  * The main chatbot.
@@ -16,7 +14,6 @@ public class Duke {
     private String name;
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
 
     /**
      * Constructs Duke.
@@ -25,8 +22,7 @@ public class Duke {
      */
     public Duke(String name) {
         this.name = name;
-        this.ui = new VerboseUi(name);
-        this.storage = new Storage(this.ui);
+        this.storage = new Storage();
         this.tasks = this.storage.loadTasks();
     }
 
@@ -48,11 +44,10 @@ public class Duke {
     public String getResponse(String input) {
         try {
             Command cmd = Parser.parse(input);
-            cmd.execute(tasks, ui, storage);
+            return cmd.execute(tasks, storage);
         } catch (DukeException e) {
-            ui.print(e.getMessage());
+            return e.getMessage();
         }
-        return ui.flush();
     }
 
     /**

@@ -6,7 +6,7 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.Map;
 
 import duke.command.task.DeadlineCommand;
-import duke.ui.Ui;
+import duke.util.Formatter;
 
 /**
  * Task with an end date.
@@ -31,7 +31,7 @@ public class Deadline extends Task implements Comparable<Deadline> {
      */
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), Ui.stringifyDate(this.by));
+        return String.format("[D]%s (by: %s)", super.toString(), Formatter.stringifyDate(this.by));
     }
 
     /**

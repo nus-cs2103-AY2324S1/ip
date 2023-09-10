@@ -6,7 +6,6 @@ import java.util.Map;
 import duke.object.TaskList;
 import duke.parser.element.CommandElement;
 import duke.storage.Storage;
-import duke.ui.Ui;
 import javafx.application.Platform;
 
 /**
@@ -35,8 +34,9 @@ public class ByeCommand extends Command {
      * @inheritdoc
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         Platform.exit();
+        return "";
     }
 
 }

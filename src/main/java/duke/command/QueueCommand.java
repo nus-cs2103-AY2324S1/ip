@@ -9,7 +9,7 @@ import duke.object.task.Deadline;
 import duke.object.task.Task;
 import duke.parser.element.CommandElement;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.util.Formatter;
 
 /**
  * Command to list all deadlines in sorted order.
@@ -37,14 +37,14 @@ public class QueueCommand extends Command {
      * @inheritdoc
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         List<Deadline> deadlines = new ArrayList<>();
         for (Task task : tasks) {
             if (task instanceof Deadline) {
                 deadlines.add((Deadline) task);
             }
         }
-        ui.print(String.format("Here is the queue of deadlines:\n%s", ui.stringifyList(deadlines)));
+        return String.format("Here is the queue of deadlines:\n%s", Formatter.stringifyList(deadlines));
     }
 
 }

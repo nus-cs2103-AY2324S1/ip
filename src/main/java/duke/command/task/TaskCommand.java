@@ -7,7 +7,7 @@ import duke.exception.DukeException;
 import duke.object.TaskList;
 import duke.object.task.Task;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.util.Formatter;
 
 /**
  * Command to add a new task.
@@ -30,11 +30,11 @@ public abstract class TaskCommand extends Command {
      * @inheritdoc
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
         Task newTask = this.makeTask();
         tasks.add(newTask);
-        ui.print(String.format("Got it. I've added this task:\n  %s\n%s",
-                tasks.access(tasks.size()).toString(), ui.getTaskCount(tasks.size())));
+        return String.format("Got it. I've added this task:\n  %s\n%s",
+                tasks.access(tasks.size()).toString(), Formatter.getTaskCount(tasks.size()));
     }
 
 }

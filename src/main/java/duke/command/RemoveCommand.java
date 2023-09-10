@@ -8,7 +8,7 @@ import duke.object.TaskList;
 import duke.parser.element.CommandElement;
 import duke.parser.element.argument.IndexArgument;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.util.Formatter;
 
 /**
  * Command to remove an task from the list.
@@ -36,11 +36,11 @@ public class RemoveCommand extends Command {
      * @inheritdoc
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
         assert this.args.get("index") instanceof Integer;
         int idx = (int) ((Integer) this.args.get("index"));
-        ui.print(String.format("Noted. I've removed this task:\n    %s\n%s",
-                tasks.delete(idx).toString(), ui.getTaskCount(tasks.size())));
+        return String.format("Noted. I've removed this task:\n    %s\n%s",
+                tasks.delete(idx).toString(), Formatter.getTaskCount(tasks.size()));
     }
 
 }

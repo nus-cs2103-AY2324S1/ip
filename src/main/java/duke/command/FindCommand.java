@@ -9,7 +9,7 @@ import duke.object.task.Task;
 import duke.parser.element.CommandElement;
 import duke.parser.element.argument.StringArgument;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.util.Formatter;
 
 /**
  * Command to find all relevant tasks.
@@ -37,7 +37,7 @@ public class FindCommand extends Command {
      * @inheritdoc
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         assert this.args.get("key") instanceof String;
         String key = (String) this.args.get("key");
         List<Task> filteredTasks = new ArrayList<>();
@@ -46,7 +46,7 @@ public class FindCommand extends Command {
                 filteredTasks.add(task);
             }
         }
-        ui.print(String.format("Here are the relevant tasks:\n%s", ui.stringifyList(filteredTasks)));
+        return String.format("Here are the relevant tasks:\n%s", Formatter.stringifyList(filteredTasks));
     }
 
 }

@@ -11,7 +11,6 @@ import duke.object.TaskList;
 import duke.parser.element.CommandElement;
 import duke.parser.element.argument.Argument;
 import duke.storage.Storage;
-import duke.ui.Ui;
 
 /**
  * Actionable representing a command input by the user.
@@ -98,10 +97,10 @@ public abstract class Command {
      * Gets command to act.
      *
      * @param tasks The list of tasks to act on.
-     * @param ui The Ui to interact with the user.
      * @param storage The Storage to update data.
+     * @return Message for the user.
      * @throws DukeException When the execution fails.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Storage storage) throws DukeException;
 
 }

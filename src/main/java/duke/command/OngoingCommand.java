@@ -11,7 +11,7 @@ import duke.object.task.Task;
 import duke.parser.element.CommandElement;
 import duke.parser.element.argument.DateArgument;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.util.Formatter;
 
 /**
  * Command to list all events on a given date.
@@ -39,7 +39,7 @@ public class OngoingCommand extends Command {
      * @inheritdoc
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         assert this.args.get("date") instanceof LocalDate;
         LocalDate date = (LocalDate) this.args.get("date");
         List<Task> filteredEvents = new ArrayList<>();
@@ -48,8 +48,8 @@ public class OngoingCommand extends Command {
                 filteredEvents.add(task);
             }
         }
-        ui.print(String.format("Here are the ongoing events on %s:\n%s",
-                ui.stringifyDate(date), ui.stringifyList(filteredEvents)));
+        return String.format("Here are the ongoing events on %s:\n%s",
+                Formatter.stringifyDate(date), Formatter.stringifyList(filteredEvents));
     }
 
 }
