@@ -1,5 +1,6 @@
 package bongo.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -43,12 +44,22 @@ public abstract class Task {
     }
 
     /**
+     * Checks if task is scheduled on a particular date.
+     *
+     * @param date The scheduled date.
+     * @return Whether task is scheduled for the date.
+     */
+    public boolean isTaskScheduledForDate(String date) {
+        return false;
+    }
+
+    /**
      * Converts datetime into formatted string.
      *
      * @param datetime Datetime of Task.
      * @return Returns formatted datetime string.
      */
-    public String generateDateString(LocalDateTime datetime) {
+    public String generateDateTimeString(LocalDateTime datetime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMM d, yyyy hh:mm a");
         return formatter.format(datetime);
     }

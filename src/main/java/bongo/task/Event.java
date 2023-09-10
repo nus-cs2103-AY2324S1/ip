@@ -1,5 +1,6 @@
 package bongo.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import bongo.helper.BongoException;
@@ -62,6 +63,14 @@ public class Event extends Task {
     }
 
     @Override
+    public boolean isTaskScheduledForDate(String date) {
+        LocalDate fromDate = this.from.toLocalDate();
+        LocalDate toDate = this.to.toLocalDate();
+        LocalDate dateToCheck = LocalDate.parse(date, DateHelper.dateFormatter);
+        return !(dateToCheck.isBefore(fromDate) || dateToCheck.isAfter(toDate));
+    }
+
+    @Override
     public String generateStringForTextFile() throws BongoException {
         String isTaskMarkedDone = this.isDone ? "1" : "0";
         return String.join(" | ", "E", isTaskMarkedDone, this.description,
@@ -71,6 +80,6 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + String.format(" (from: %s to: %s)",
-                super.generateDateString(from), super.generateDateString(to));
+                super.generateDateTimeString(from), super.generateDateTimeString(to));
     }
 }
