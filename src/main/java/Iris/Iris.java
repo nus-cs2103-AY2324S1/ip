@@ -8,17 +8,27 @@ import java.util.Scanner;
 public class Iris {
     private final Storage taskStorage;
     private final Parser commandParser;
-    private ToDoList toDoList;  // Remove static modifier
+    private ToDoList toDoList;
 
     /**
      * Constructor for the Iris class.
      *
      * @param filePath The file path for storing task data.
      */
+
+
     public Iris(String filePath) {
         commandParser = new Parser();
         taskStorage = new Storage(filePath);
         toDoList = new ToDoList(taskStorage.loadTask());
+    }
+
+    public Iris() {
+        this("iris.txt");
+    }
+
+    public String getResponse(String input) {
+        return "Iris heard: " + input;
     }
 
     /**
