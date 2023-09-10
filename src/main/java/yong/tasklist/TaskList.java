@@ -1,10 +1,14 @@
 package yong.tasklist;
 
+import yong.tasks.Deadline;
+import yong.tasks.Event;
 import yong.tasks.Task;
 
 import yong.exception.DukeException;
+import yong.tasks.ToDo;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Represents the list of tasks in the chatbot.
@@ -157,5 +161,123 @@ public class TaskList {
      */
     public int size() {
         return this.taskList.size();
+    }
+
+    public void sort(String sortTaskType, String sortBy) {
+        sortBy = sortBy.toUpperCase();
+        sortTaskType = sortTaskType.toUpperCase();
+
+        switch (sortTaskType) {
+        case "TODO":
+            sortToDo(sortBy);
+            break;
+        case "DEADLINE":
+            sortDeadline(sortBy);
+            break;
+        case "EVENT":
+            sortEvent(sortBy);
+            break;
+        case "ALL":
+            sortAll(sortBy);
+
+        }
+
+    }
+
+    public void sortToDo(String sortBy) {
+        ArrayList<Task> arrayToSort = new ArrayList<>();
+        for (int i = 0; i < taskList.size(); i++) {
+            Task currTask = taskList.get(i);
+            if (currTask instanceof ToDo) {
+                arrayToSort.add(currTask);
+            }
+        }
+
+        for (int i = 0; i < arrayToSort.size(); i++) {
+            Task currTask = arrayToSort.get(i);
+            taskList.remove(currTask);
+        }
+
+        switch (sortBy) {
+        case "ALPHABETICALLY":
+            arrayToSort.sort(Comparator.comparing(Task::getDescription));
+            break;
+        case "CHRONOLOGICALLY":
+            arrayToSort.sort(Comparator.comparing(Task::getCompareDate));
+        default:
+
+        }
+
+        arrayToSort.addAll(taskList);
+        taskList = arrayToSort;
+    }
+
+    private void sortDeadline(String sortBy) {
+        ArrayList<Task> arrayToSort = new ArrayList<>();
+        for (int i = 0; i < taskList.size(); i++) {
+            Task currTask = taskList.get(i);
+            if (currTask instanceof Deadline) {
+                arrayToSort.add(currTask);
+            }
+        }
+
+        for (int i = 0; i < arrayToSort.size(); i++) {
+            Task currTask = arrayToSort.get(i);
+            taskList.remove(currTask);
+        }
+
+        switch (sortBy) {
+        case "ALPHABETICALLY":
+            arrayToSort.sort(Comparator.comparing(Task::getDescription));
+            break;
+        case "CHRONOLOGICALLY":
+            arrayToSort.sort(Comparator.comparing(Task::getCompareDate));
+        default:
+
+        }
+
+        arrayToSort.addAll(taskList);
+        taskList = arrayToSort;
+    }
+
+    private void sortEvent(String sortBy) {
+        ArrayList<Task> arrayToSort = new ArrayList<>();
+        for (int i = 0; i < taskList.size(); i++) {
+            Task currTask = taskList.get(i);
+            if (currTask instanceof Event) {
+                arrayToSort.add(currTask);
+            }
+        }
+
+        for (int i = 0; i < arrayToSort.size(); i++) {
+            Task currTask = arrayToSort.get(i);
+            taskList.remove(currTask);
+        }
+
+        switch (sortBy) {
+        case "ALPHABETICALLY":
+            arrayToSort.sort(Comparator.comparing(Task::getDescription));
+            break;
+        case "CHRONOLOGICALLY":
+            arrayToSort.sort(Comparator.comparing(Task::getCompareDate));
+        default:
+
+        }
+
+        arrayToSort.addAll(taskList);
+        taskList = arrayToSort;
+    }
+
+    private void sortAll(String sortBy) {
+
+        switch (sortBy) {
+        case "ALPHABETICALLY":
+            taskList.sort(Comparator.comparing(Task::getDescription));
+            break;
+        case "CHRONOLOGICALLY":
+            taskList.sort(Comparator.comparing(Task::getCompareDate));
+        default:
+
+        }
     }
 }

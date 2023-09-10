@@ -4,34 +4,39 @@ import yong.exception.DukeException;
 import yong.tasklist.TaskList;
 
 /**
- * Represents the actions needed if the user inputs a find Command
+ * Represents the actions needed if the user inputs Sort command
  */
-public class FindCommand extends Command {
+public class SortCommand extends Command {
 
     private String inp;
 
     /**
-     * Constructor for the Find command.
+     * Constructor for the Sort command.
      *
      * @param taskList TaskList object being used to maintain the list of tasks in the chatbot.
      * @param inp      Line of input from the CLI
      */
-    public FindCommand(TaskList taskList, String inp) {
+    public SortCommand(TaskList taskList, String inp) {
         super(taskList);
         this.inp = inp;
     }
 
     /**
      * Method to be executed when this command is called.
-     * Prints out the tasks that contain the keyword.
+     * Sort functionalities supports: Chronologically, Alphabetically
+     * E.g. sort deadlines chronologically, sort all alphabetically
+     * Sorts the list according to the input field
      */
     @Override
     public String execute() {
         try {
-            String[] parts = inp.split(" ", 2);
-            String lookupString = parts[1];
+            String[] parts = inp.split(" ", 3);
+            String sortTaskType = parts[1];
+            String sortBy = parts[2];
 
-            outputString = taskList.find(lookupString);
+            taskList.sort(sortTaskType, sortBy);
+
+            outputString = "The array has been sorted " + sortBy;
 
             return outputString;
         } catch (Exception e) {

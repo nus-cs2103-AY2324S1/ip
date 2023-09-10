@@ -11,6 +11,7 @@ import yong.command.StartCommand;
 import yong.command.ToDoCommand;
 import yong.command.FindCommand;
 import yong.command.UnmarkCommand;
+import yong.command.SortCommand;
 
 
 import yong.exception.DukeException;
@@ -80,6 +81,9 @@ public class Parser {
         case "FIND":
             Command findCommand = new FindCommand(taskList, inp);
             return findCommand;
+        case "SORT":
+            Command sortCommand = new SortCommand(taskList, inp);
+            return sortCommand;
         default:
             throw new DukeException("I do not know what you are saying.");
         }
