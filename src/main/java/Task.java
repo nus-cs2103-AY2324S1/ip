@@ -1,9 +1,13 @@
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.SerializerProvider;
+
 /**
  * Task is the main class for tasks used by the Sidtacphi bot.
  */
 public class Task {
     private String name = "";
-    private boolean completed = false;
+    private boolean isCompleted = false;
 
     /**
      * Constructor for the Task class.
@@ -21,7 +25,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        if (completed) {
+        if (isCompleted) {
             return "[X] " + name;
         } else {
             return "[ ] " + name;     
@@ -39,20 +43,31 @@ public class Task {
      * @return Completed state of the task
      */
     public boolean isCompleted() {
-        return completed;
+        return isCompleted;
     }
 
     /**
      * Marks the task as completed.
      */
     public void mark() {
-        completed = true;
+        isCompleted = true;
     }
 
     /**
      * Marks the task as uncompleted.
      */
     public void unmark() {
-        completed = false;
+        isCompleted = false;
+    }
+
+    /**
+     * Seralizes Task to be stored in Json format.
+     */
+    public void serialize(JsonGenerator jsonGenerator, SerializerProvider serializer) throws IOException {
+        jsonGenerator.writeStartObject();
+        jsonGenerator.writeStringField("type", "task");
+        jsonGenerator.writeStringField("name", name);
+        jsonGenerator.writeBooleanField("isCompleted", isCompleted);
+        jsonGenerator.writeEndObject();
     }
 }

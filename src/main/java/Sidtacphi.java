@@ -1,12 +1,19 @@
 import java.util.Objects;
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import com.fasterxml.jackson.core.Version;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 /**
  * Sidtacphi is the main class for the Sidtacphi bot.
  */
 public class Sidtacphi {
-    private static ArrayList<Task> taskList = new ArrayList<>();
+    private static List<Task> taskList = new ArrayList<>();
     enum TaskType {
         TODO,
         EVENT,
@@ -19,7 +26,10 @@ public class Sidtacphi {
      * @param args
      */
     public static void main(String[] args) {
+        readJson();
         startBot();
+        saveAsJson();
+        stopBot();
     }
 
     /**
@@ -68,7 +78,6 @@ public class Sidtacphi {
             try {
                 input = scan.nextLine().trim();
                 if (Objects.equals(input, "bye")) {
-                    stopBot();
                     break;
                 } else if (Objects.equals(input, "list")) {
                     showTaskList();
@@ -106,55 +115,55 @@ public class Sidtacphi {
     private static void addTask(TaskType taskType, String input) throws SidException {
         String[] inputArgs;
         switch (taskType) {
-            case TODO:
-                if (input.length() < 5) {
-                    throw new SidInvalidFormatException("Please input a name for your Todo task.");
-                } else if (input.charAt(4) == ' ') {
-                    taskList.add(new Todo(input.substring(5)));
-                } else {
-                    throw new SidException("\"" + input + "\" is not a valid command.");
-                }
-                break;
-            case EVENT:
-                if (input.length() < 6) {
-                    throw new SidInvalidFormatException("Please input a name for your Event" 
-                    + "task, along with a start and end time.");
-                } else if (input.charAt(5) == ' ') {
-                    inputArgs = input.substring(6).split("\\s*/from\\s*");
-                    if (inputArgs.length == 2) { 
-                        String[] startAndEnd = inputArgs[1].split("\\s*/to\\s*");
-                        if (startAndEnd.length == 2) {
-                            taskList.add(new Event(inputArgs[0], startAndEnd[0], startAndEnd[1]));
-                        } else {
-                            throw new SidInvalidFormatException("Please put in the starting and ending time " 
-                            + "using \"/from <time>\" followed by \"/to <time>\" for Event tasks.");
-                        }
+        case TODO:
+            if (input.length() < 5) {
+                throw new SidInvalidFormatException("Please input a name for your Todo task.");
+            } else if (input.charAt(4) == ' ') {
+                taskList.add(new Todo(input.substring(5)));
+            } else {
+                throw new SidException("\"" + input + "\" is not a valid command.");
+            }
+            break;
+        case EVENT:
+            if (input.length() < 6) {
+                throw new SidInvalidFormatException("Please input a name for your Event" 
+                + "task, along with a start and end time.");
+            } else if (input.charAt(5) == ' ') {
+                inputArgs = input.substring(6).split("\\s*/from\\s*");
+                if (inputArgs.length == 2) { 
+                    String[] startAndEnd = inputArgs[1].split("\\s*/to\\s*");
+                    if (startAndEnd.length == 2) {
+                        taskList.add(new Event(inputArgs[0], startAndEnd[0], startAndEnd[1]));
                     } else {
                         throw new SidInvalidFormatException("Please put in the starting and ending time " 
                         + "using \"/from <time>\" followed by \"/to <time>\" for Event tasks.");
                     }
                 } else {
-                    throw new SidException("\"" + input + "\" is not a valid command.");
+                    throw new SidInvalidFormatException("Please put in the starting and ending time " 
+                    + "using \"/from <time>\" followed by \"/to <time>\" for Event tasks.");
                 }
-                break;
-            case DEADLINE:
-                if (input.length() < 9) {
-                    throw new SidInvalidFormatException("Please input a name for your Event" 
-                    + "task, along with a start and end time.");
-                } else if (input.charAt(8) == ' ') {
-                    inputArgs = input.substring(9).split("\\s*/by\\s*");
-                    if (inputArgs.length == 2) { 
-                        taskList.add(new Deadline(inputArgs[0], inputArgs[1]));
-                    } else if (inputArgs.length == 1) {
-                        throw new SidInvalidFormatException("Please write in the deadline" 
-                        + "using \"/by <time>\" for Deadline tasks. ");
-                    } else {
-                        throw new SidInvalidFormatException("Please do not write in more than 1 deadline. ");
-                    }
+            } else {
+                throw new SidException("\"" + input + "\" is not a valid command.");
+            }
+            break;
+        case DEADLINE:
+            if (input.length() < 9) {
+                throw new SidInvalidFormatException("Please input a name for your Event" 
+                + "task, along with a start and end time.");
+            } else if (input.charAt(8) == ' ') {
+                inputArgs = input.substring(9).split("\\s*/by\\s*");
+                if (inputArgs.length == 2) { 
+                    taskList.add(new Deadline(inputArgs[0], inputArgs[1]));
+                } else if (inputArgs.length == 1) {
+                    throw new SidInvalidFormatException("Please write in the deadline" 
+                    + "using \"/by <time>\" for Deadline tasks. ");
                 } else {
-                    throw new SidException("\"" + input + "\" is not a valid command.");
+                    throw new SidInvalidFormatException("Please do not write in more than 1 deadline. ");
                 }
-                break;
+            } else {
+                throw new SidException("\"" + input + "\" is not a valid command.");
+            }
+            break;
         }
         
         System.out.println("\nSidtacphi: I have added \"" + taskList.get(taskList.size() - 1) + "\".");
@@ -169,12 +178,12 @@ public class Sidtacphi {
     /**
      * Marks/Unmarks the task given.
      * 
-     * @param toMark to mark the task as done when true, and to unmark when false
+     * @param isToMark to mark the task as done when true, and to unmark when false
      * @param input 
      */
-    private static void markTaskAs(boolean toMark, String input) throws SidException {
+    private static void markTaskAs(boolean isToMark, String input) throws SidException {
         
-        if (!toMark) {
+        if (!isToMark) {
             if (input.length() < 7) {
                 throw new SidInvalidFormatException("Please input the task ID number to unmark.");
             } else if (input.charAt(6) != ' ') {
@@ -235,7 +244,7 @@ public class Sidtacphi {
      * 
      * @param input
      */
-    public static void deleteTask(String input) throws SidException {
+    private static void deleteTask(String input) throws SidException {
         if (input.length() < 7) {
             throw new SidInvalidFormatException("Please input the task ID number to delete.");
         } else if (input.charAt(6) != ' ') {
@@ -251,5 +260,39 @@ public class Sidtacphi {
         taskList.remove(taskId - 1);
         System.out.println("\nSidtacphi: Removed \"" + task + "\".");
         System.out.println("Sidtacphi: You now have " + taskList.size() + " tasks in your list.");
+    }
+
+    /**
+     * Save current taskList as a json file.
+     */
+    private static void saveAsJson() {
+        ObjectMapper mapper = new ObjectMapper();
+        SimpleModule module = 
+           new SimpleModule("TaskSerializer", new Version(1, 0, 0, null, null, null));
+        module.addSerializer(Task.class, new TaskSerializer());
+        mapper.registerModule(module);
+        try {
+            System.out.println("saving json...");
+            mapper.writeValue(new File("tasks.json"), taskList);
+        } catch (IOException e) {
+            System.out.print(e);
+        }
+    }
+
+    /**
+     * Read json file and save to taskList.
+     */
+    private static void readJson() {
+        ObjectMapper mapper = new ObjectMapper();
+        SimpleModule module =
+            new SimpleModule("TaskDeserializer", new Version(1, 0, 0, null, null, null));
+        module.addDeserializer(Task.class, new TaskDeserializer());
+        mapper.registerModule(module);
+
+        try {
+            taskList = mapper.readValue(new File("tasks.json"), new TypeReference<ArrayList<Task>>(){});
+        } catch (IOException e) {
+            new File("tasks.json");
+        }
     }
 }
