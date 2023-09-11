@@ -29,7 +29,6 @@ public class Deadline extends Task {
         } catch (Exception e) {
             this.alternateBy = by;
         }
-
     }
 
     /**
@@ -49,6 +48,7 @@ public class Deadline extends Task {
      * @return The storage string representation of the task.
      */
     public String toStorageString() {
-        return "D, " + this.isDone + ", " + this.description + ", " + this.alternateBy + convertDateToStorageString(this.by);
+        return "D, " + this.isDone + ", " + this.description + ", " + this.alternateBy
+                + convertDateToStorageString(this.by);
     }
 }
