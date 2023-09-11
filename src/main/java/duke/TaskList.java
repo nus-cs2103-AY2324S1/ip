@@ -86,6 +86,7 @@ public class TaskList {
             break;
 
         default:
+            assert false : "Task type should be checked by parser, no other tasks type should be allowed";
         }
 
         return "Got it. I've added this task:\n"
@@ -105,6 +106,8 @@ public class TaskList {
         if (!isValidIndex(ind)) {
             throw new InvalidIndexException();
         }
+
+        assert (ind >= 0 && ind < taskList.size()) : "Ind should be valid after checks";
 
         String editDesc = "";
 
@@ -126,6 +129,7 @@ public class TaskList {
             break;
 
         default:
+            assert false : "Task type should be checked by parser, no other tasks type should be allowed";
         }
 
         return editDesc;

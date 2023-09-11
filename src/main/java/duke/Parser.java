@@ -15,6 +15,21 @@ import command.ListCommand;
 import exception.DukeException;
 import exception.InvalidCommandException;
 
+enum Action {
+    BYE, LIST, MARK, UNMARK, DELETE, FIND, TODO, DEADLINE, EVENT, INVALID;
+
+    public static Action parseCommand(String command) {
+        for (Action action: Action.values()) {
+            if (command.toUpperCase().equals(action.toString())) {
+                return action;
+            }
+        }
+
+        return Action.INVALID;
+    }
+}
+
+
 /**
  * Parses user input.
  */
@@ -40,28 +55,33 @@ public class Parser {
         final Matcher matcher = BASIC_COMMAND.matcher(input.trim());
 
         if (!matcher.matches()) {
-            throw new InvalidCommandException("Invalid command.Command");
+            throw new InvalidCommandException("Invalid command");
         }
+
+        assert input.equals("") : "Command should not be empty after checks";
 
         final String command = matcher.group("command");
         final String argument = matcher.group("arguments").trim();
         final boolean validIndex = argument.matches("-?\\d+");
+        final Action action = Action.parseCommand(command);
 
-        switch(command) {
-        case "bye":
+        switch(action) {
+        case BYE:
             return new ByeCommand();
 
-        case "list":
+        case LIST:
             return new ListCommand();
 
-        case "mark":
+        case MARK:
             if (validIndex) {
+                assert !argument.equals("") : "Argument should not be empty after checks";
+
                 return new EditCommand("mark", Integer.parseInt(argument));
             } else {
                 throw new InvalidCommandException("Please input an integer to identify task");
             }
 
-        case "unmark":
+        case UNMARK:
             if (validIndex) {
                 return new EditCommand("unmark", Integer.parseInt(argument));
             } else {
@@ -69,14 +89,14 @@ public class Parser {
             }
 
 
-        case "delete":
+        case DELETE:
             if (validIndex) {
                 return new EditCommand("delete", Integer.parseInt(argument));
             } else {
                 throw new InvalidCommandException("Please input an integer to identify task");
             }
 
-        case "find":
+        case FIND:
             if (argument.equals("")) {
                 throw new InvalidCommandException("Please enter keyword to find task");
             }
@@ -84,14 +104,14 @@ public class Parser {
             return new FindCommand(argument);
 
 
-        case "todo":
+        case TODO:
             if (argument.equals("")) {
                 throw new InvalidCommandException("ToDo description cannot be empty");
             }
 
             return new AddCommand("todo", new String[]{argument});
 
-        case "deadline":
+        case DEADLINE:
             Matcher deadlineFormat = DEADLINE_FORMAT.matcher(argument);
             if (argument.equals("")) {
                 throw new InvalidCommandException("Deadline description cannot be empty");
@@ -102,13 +122,16 @@ public class Parser {
                 LocalDateTime d = parseDateTime(deadlineFormat.group(2));
                 String byDate = reformatDateTime(d);
 
+                assert byDate.matches(
+                        "^[A-Z][a-z]{2}\\s\\d{1,2}\\s\\d{4}\\s\\d{1,2}\\.\\d{2}[APap][Mm]$");
+
                 return new AddCommand("deadline", new String[]{desc, byDate});
             } else {
                 throw new InvalidCommandException("Invalid deadline command. "
                         + "Please include /by date in this format: yyyy-mm-dd HH:mm");
             }
 
-        case "event":
+        case EVENT:
             Matcher eventFormat = EVENT_FORMAT.matcher(argument);
             if (argument.equals("")) {
                 throw new InvalidCommandException("Event description cannot be empty");
@@ -127,6 +150,9 @@ public class Parser {
                 String fromDate = reformatDateTime(from);
                 String toDate = reformatDateTime(to);
 
+                assert fromDate.matches("^[A-Z][a-z]{2}\\s\\d{1,2}\\s\\d{4}\\s\\d{1,2}\\.\\d{2}[APap][Mm]$") &&
+                        toDate.matches("^[A-Z][a-z]{2}\\s\\d{1,2}\\s\\d{4}\\s\\d{1,2}\\.\\d{2}[APap][Mm]$");
+
                 return new AddCommand("event", new String[]{desc, fromDate, toDate});
             } else {
                 throw new InvalidCommandException("Invalid event command. "
@@ -136,7 +162,6 @@ public class Parser {
         default:
             throw new InvalidCommandException("Unknown/Invalid command given");
         }
-
     }
 
     /**
