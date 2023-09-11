@@ -1,13 +1,18 @@
 package duke.dukeexceptions;
 
 public class InvalidCommandException extends Exception {
-    private final String corruptInput;
-    public InvalidCommandException(String corruptInput) {
-        super("Command is of invalid format");
-        this.corruptInput = corruptInput;
+    private final String message;
+
+    public InvalidCommandException() {
+        super();
+        this.message = "";
+    }
+    public InvalidCommandException(String message) {
+        super();
+        this.message = message;
     }
 
-    public String getCorruptInput() {
-        return this.corruptInput;
+    public String getBotMessage() {
+        return this.message;
     }
 }

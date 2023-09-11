@@ -20,7 +20,7 @@ public class Parser {
         try {
             String command = input.split(" ")[0];
         } catch (IndexOutOfBoundsException exp) {
-            throw new InvalidCommandException(input);
+            throw new InvalidCommandException("ChadGPT: Please input a valid command.\n");
         }
 
         switch (input.split(" ")[0].toLowerCase()) {
@@ -41,7 +41,7 @@ public class Parser {
             case "event":
                 return new CreateEventCommand(input, false);
         }
-        throw new InvalidCommandException(input);
+        throw new InvalidCommandException("ChadGPT: Please input a valid command.\n");
     }
 
     public void passUserCommand(String input, TaskList tasklist) {
@@ -50,7 +50,7 @@ public class Parser {
             command.execute(tasklist);
             command.printChatbotLine();
         } catch (InvalidCommandException exp) {
-            //System.out.println("ChadGPT: Please ensure that you have entered a valid command.");
+            System.out.print(exp.getBotMessage());
         }
     }
 
