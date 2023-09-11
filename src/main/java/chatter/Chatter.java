@@ -44,9 +44,9 @@ public class Chatter {
             }
 
             try {
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
+                Command command = Parser.parse(fullCommand);
+                command.execute(tasks, ui, storage);
+                isExit = command.isExit();
             } catch (ChatterException e) {
                 System.out.println(e.getMessage());
             } catch (Exception e) {
