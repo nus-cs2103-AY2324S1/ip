@@ -60,6 +60,7 @@ public class MarkCommand extends Command {
                     : "Quack! you cant unmark something that isn't done yet!!";
         }
 
+        // Handles rewriting of all the tasks, returns error message if unsuccessful
         try {
             if (!storage.rewriteAll(taskList.getAllTask())) {
                 return ui.getUnexpectedErrorMessage("not all tasks were successfully written,"

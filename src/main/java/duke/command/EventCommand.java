@@ -52,10 +52,6 @@ public class EventCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
-        if (taskList.length() >= 100) {
-            throw new DukeBadInputException("quack cannot remember any more tasks!!");
-        }
-
         // Tries to write to storage and task list, error thrown otherwise
         Task newTask = new EventTask(this.from, this.to, this.desc);
         taskList.add(newTask);
