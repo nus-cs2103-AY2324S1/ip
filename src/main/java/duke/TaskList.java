@@ -93,6 +93,10 @@ public class TaskList {
     public String getTaskItemSaveString(int i) {
         return taskList.get(i).saveString();
     }
+    
+    public Boolean isEmpty() {
+        return taskList.isEmpty();
+    }
 
     /**
      * Deletes the task at the specified index.

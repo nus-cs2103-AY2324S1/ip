@@ -1,7 +1,7 @@
 T | 0 | coffee
-T | 0 | test /by 6pm
 D | 0 | hw | 1920-10-22
 T | 0 | task
 T | 0 | more tasks
-T | 0 | more tasks\n
 T | 0 | more more tasks
+T | 0 | eat popcorn
+E | 1 | CS2103T | 1pm | 2pm

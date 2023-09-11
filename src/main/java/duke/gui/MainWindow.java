@@ -51,12 +51,18 @@ public class MainWindow extends AnchorPane {
   private void handleUserInput() {
     String input = userInput.getText();
     String response = duke.getResponse(input);
-    System.out.println(input);
-    System.out.println(response);
+    
+    // Aligned with SLAP principle
+    printToTerminal(input, response);
     dialogContainer.getChildren().addAll(
         DialogBox.getUserDialog(input, userImage),
         DialogBox.getDukeDialog(response, dukeImage)
     );
     userInput.clear();
+  }
+
+  private void printToTerminal(String input, String response) {
+    System.out.println(input);
+    System.out.println(response);
   }
 }

@@ -37,6 +37,7 @@ public class Storage {
         // if directory doesn't exist, create directory 
         this.directory = new File(filePath.substring(0, filePath.lastIndexOf("/")));
         this.file = new File(filePath);
+        
         if (directory.exists() && file.exists()) {
             // load the data into taskList
             try {
@@ -70,6 +71,9 @@ public class Storage {
             }
         }
 
+        // save tasks to storage using filePath given
+        // Guard clause: if directory doesn't exist, create directory
+        // Guard clause: if file doesn't exist, create file
         try {
             FileWriter fWriter = new FileWriter(filePath);
             for (int i = 0; i < tasks.size(); i++) {
