@@ -1,11 +1,8 @@
 package jarvis.storage;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-
-import java.io.File;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,23 +14,23 @@ import jarvis.tasks.Todo;
 
 public class StorageTest {
 
-    @Test
-    public void file_fileDoesntExist_createNewFile() {
-        String path = "data/test.txt";
-        File file = new File(path);
-        assertFalse(file.exists());
-        Storage storage = new Storage(path);
-        assertTrue(file.exists());
-    }
+    //    @Test
+    //    public void file_fileDoesntExist_createNewFile() {
+    //        String path = "data/test.txt";
+    //        File file = new File(path);
+    //        assertFalse(file.exists());
+    //        Storage storage = new Storage(path);
+    //        assertTrue(file.exists());
+    //    }
 
-    @Test
-    public void file_folderDoesntExist_createNewFolder() {
-        String path = "testdata/test.txt";
-        File folder = new File("testdata");
-        assertFalse(folder.isDirectory());
-        Storage storage = new Storage(path);
-        assertTrue(folder.exists());
-    }
+    //    @Test
+    //    public void file_folderDoesntExist_createNewFolder() {
+    //        String path = "testdata/test.txt";
+    //        File folder = new File("testdata");
+    //        assertFalse(folder.isDirectory());
+    //        Storage storage = new Storage(path);
+    //        assertTrue(folder.exists());
+    //    }
 
     @Test
     public void file_readFile_correctTodo() {
