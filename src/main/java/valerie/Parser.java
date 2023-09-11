@@ -16,134 +16,37 @@ public class Parser {
      * @param taskList  The list of tasks to be manipulated.
      */
     public static ArrayList<String> parseUserInput(String userInput, TaskList taskList) {
-        if (userInput.equals("list")) {
-            // If user wants to check list
-            return Ui.showList(taskList);
+        String[] parts = userInput.split(" ");
+        String command = parts[0];
 
-        } else if (userInput.startsWith("mark")) {
-            // If user wants to mark something
-            String[] parts = userInput.split(" ");
-            if (parts.length == 2) {
-                try {
-                    int index = Integer.parseInt(parts[1]) - 1;
-                    return taskList.markTask(taskList.getTask(index));
-                } catch (NumberFormatException e) {
-                    return Ui.showError("Invalid task number");
-                }
-            } else {
-                // Invalid command format
-                return Ui.showError("Invalid command format");
-            }
+        switch (command) {
+            case "list":
+                return handleListCommand(taskList);
 
-        } else if (userInput.startsWith("unmark")) {
-            // If user wants to unmark something
-            String[] parts = userInput.split(" ");
-            if (parts.length == 2) {
-                try {
-                    int index = Integer.parseInt(parts[1]) - 1;
-                    return taskList.unmarkTask(taskList.getTask(index));
-                } catch (NumberFormatException e) {
-                    return Ui.showError("Invalid task number");
-                }
-            } else {
-                // Invalid command format
-                return Ui.showError("Invalid command format");
-            }
+            case "mark":
+                return handleMarkCommand(parts, taskList);
 
-        } else if (userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")) {
-            // User creates a task
-            Task newTask = null;
+            case "unmark":
+                return handleUnmarkCommand(parts, taskList);
 
-            if (userInput.startsWith("todo")) {
-                // If user wants to create a ToDos task
-                if (userInput.length() < 5) {
-                    // Incorrect input format for todos
-                    return Ui.showError("Incorrect input format for todo");
-                } else {
-                    String description = userInput.substring(5).trim();
-                    if (description.isBlank()) {
-                        // If there's do description
-                        return Ui.showError("The description of a todo cannot be empty");
-                    } else {
-                        newTask = new ToDos(description);
-                        return taskList.addTask(newTask);
-                    }
-                }
+            case "todo":
+                return handleTodoCommand(userInput, taskList);
 
-            } else if (userInput.startsWith("deadline")) {
-                // If user wants to create a Deadlines task
-                String[] parts = userInput.split("/by");
+            case "deadline":
+                return handleDeadlineCommand(userInput, taskList);
 
-                if (parts.length == 2) {
-                    // Makes sure deadline format is followed (e.g. there's /by)
-                    String description = parts[0].substring(9).trim();
-                    String by = parts[1].trim();
+            case "event":
+                return handleEventCommand(userInput, taskList);
 
-                    // Parse the date and time
-                    LocalDate deadlineDate = LocalDate.parse(by);
+            case "delete":
+                return handleDeleteCommand(parts, taskList);
 
-                    if (description.isBlank() || by.isBlank()) {
-                        // If description or by is empty
-                        return Ui.showError("The description or by of a deadline cannot be empty");
-                    } else {
-                        newTask = new Deadlines(description, deadlineDate);
-                        return taskList.addTask(newTask);
-                    }
-                } else {
-                    // Incorrect input format for deadline
-                    return Ui.showError("Incorrect input format for deadline");
-                }
+            case "find":
+                return handleFindCommand(userInput, taskList);
 
-            } else {
-                // If user wants to create an Events task
-                String[] parts = userInput.split("/from|/to");
-
-                if (parts.length == 3) {
-                    // Makes sure deadline format is followed (e.g. there's /from and /to)
-                    String description = parts[0].substring(6).trim();
-                    String from = parts[1].trim();
-                    String to = parts[2].trim();
-
-                    if (description.isBlank() || from.isBlank() || to.isBlank()) {
-                        // If description, from, or to is empty
-                        return Ui.showError("The description or from or to of an event cannot be empty");
-                    } else {
-                        newTask = new Events(description, from, to);
-                        return taskList.addTask(newTask);
-                    }
-                } else {
-                    // Incorrect input format for events
-                    return Ui.showError("Incorrect input format for event");
-                }
-            }
-
-            // If task is initialized
-            // return Ui.showAddedTask(newTask, taskList);
-
-        } else if (userInput.startsWith("delete")) {
-            // If user wants to delete a task
-            String[] parts = userInput.split(" ");
-            if (parts.length == 2) {
-                try {
-                    int index = Integer.parseInt(parts[1]) - 1;
-                    return taskList.deleteTask(taskList.getTask(index));
-                } catch (NumberFormatException e) {
-                    return Ui.showError("Invalid task number");
-                }
-            } else {
-                // Invalid command format
-                return Ui.showError("Invalid command format");
-            }
-
-        } else if (userInput.startsWith("find")) {
-            // If user wants to find a task
-            String keyword = userInput.substring(5).trim();
-            return taskList.findTasks(keyword);
-
-        } else {
-            return Ui.showError("I'm sorry, but I don't know what that means");
+            default:
+                return Ui.showError("I'm sorry, but I don't know what that means");
         }
-
     }
 
     /**
@@ -161,25 +64,25 @@ public class Parser {
         Task task = null;
 
         switch (type) {
-        case "T":
-            task = new ToDos(description);
-            break;
-        case "D":
-            String by = parts[3].trim();
+            case "T":
+                task = new ToDos(description);
+                break;
+            case "D":
+                String by = parts[3].trim();
 
-            // Parse the date and time
-            LocalDate deadlineDate = LocalDate.parse(by, DateTimeFormatter.ofPattern("MMM d yyyy"));
+                // Parse the date and time
+                LocalDate deadlineDate = LocalDate.parse(by, DateTimeFormatter.ofPattern("MMM d yyyy"));
 
-            task = new Deadlines(description, deadlineDate);
-            break;
-        case "E":
-            String from = parts[3].trim();
-            String to = parts[4].trim();
+                task = new Deadlines(description, deadlineDate);
+                break;
+            case "E":
+                String from = parts[3].trim();
+                String to = parts[4].trim();
 
-            task = new Events(description, from, to);
-            break;
-        default:
-            break;
+                task = new Events(description, from, to);
+                break;
+            default:
+                break;
         }
 
         if (task != null && isDone) {
@@ -187,5 +90,162 @@ public class Parser {
         }
 
         return task;
+    }
+
+    /**
+     * Handles the "list" command, displaying the list of tasks.
+     *
+     * @param taskList The TaskList containing the tasks.
+     * @return An ArrayList of strings representing the task list.
+     */
+    private static ArrayList<String> handleListCommand(TaskList taskList) {
+        return Ui.showList(taskList);
+    }
+
+    /**
+     * Handles the "mark" command, marking a task as done.
+     *
+     * @param parts    The array of command parts.
+     * @param taskList The TaskList containing the tasks.
+     * @return An ArrayList of strings with the result of the mark operation or an error message.
+     */
+    private static ArrayList<String> handleMarkCommand(String[] parts, TaskList taskList) {
+        if (parts.length != 2) {
+            return Ui.showError("Invalid command format");
+        }
+
+        try {
+            int index = Integer.parseInt(parts[1]) - 1;
+            return taskList.markTask(taskList.getTask(index));
+        } catch (NumberFormatException e) {
+            return Ui.showError("Invalid task number");
+        }
+    }
+
+    /**
+     * Handles the "unmark" command, unmarking a task as done.
+     *
+     * @param parts    The array of command parts.
+     * @param taskList The TaskList containing the tasks.
+     * @return An ArrayList of strings with the result of the unmark operation or an error message.
+     */
+    private static ArrayList<String> handleUnmarkCommand(String[] parts, TaskList taskList) {
+        if (parts.length != 2) {
+            return Ui.showError("Invalid command format");
+        }
+
+        try {
+            int index = Integer.parseInt(parts[1]) - 1;
+            return taskList.unmarkTask(taskList.getTask(index));
+        } catch (NumberFormatException e) {
+            return Ui.showError("Invalid task number");
+        }
+    }
+
+    /**
+     * Handles the "todos" command, adding a new ToDos task.
+     *
+     * @param userInput The user input.
+     * @param taskList  The TaskList containing the tasks.
+     * @return An ArrayList of strings with the result of adding the task or an error message.
+     */
+    private static ArrayList<String> handleTodoCommand(String userInput, TaskList taskList) {
+        if (userInput.length() < 5) {
+            // Incorrect input format for todos
+            return Ui.showError("Incorrect input format for todo");
+        }
+
+        String description = userInput.substring(5).trim();
+
+        if (description.isBlank()) {
+            return Ui.showError("The description of a todo cannot be empty");
+        }
+
+        Task newTask = new ToDos(description);
+        return taskList.addTask(newTask);
+    }
+
+    /**
+     * Handles the "deadline" command, adding a new Deadline task.
+     *
+     * @param userInput The user input.
+     * @param taskList  The TaskList containing the tasks.
+     * @return An ArrayList of strings with the result of adding the task or an error message.
+     */
+    private static ArrayList<String> handleDeadlineCommand(String userInput, TaskList taskList) {
+        String[] parts = userInput.split("/by");
+
+        if (parts.length != 2) {
+            return Ui.showError("Incorrect input format for deadline");
+        }
+
+        String description = parts[0].substring(9).trim();
+        String by = parts[1].trim();
+
+        if (description.isBlank() || by.isBlank()) {
+            return Ui.showError("The description or by of a deadline cannot be empty");
+        }
+
+        LocalDate deadlineDate = LocalDate.parse(by);
+        Task newTask = new Deadlines(description, deadlineDate);
+        return taskList.addTask(newTask);
+    }
+
+    /**
+     * Handles the "event" command, adding a new Event task.
+     *
+     * @param userInput The user input.
+     * @param taskList  The TaskList containing the tasks.
+     * @return An ArrayList of strings with the result of adding the task or an error message.
+     */
+    private static ArrayList<String> handleEventCommand(String userInput, TaskList taskList) {
+        String[] parts = userInput.split("/from|/to");
+
+        if (parts.length != 3) {
+            return Ui.showError("Incorrect input format for event");
+        }
+
+        String description = parts[0].substring(6).trim();
+        String from = parts[1].trim();
+        String to = parts[2].trim();
+
+        if (description.isBlank() || from.isBlank() || to.isBlank()) {
+            return Ui.showError("The description or from or to of an event cannot be empty");
+        }
+
+        Task newTask = new Events(description, from, to);
+        return taskList.addTask(newTask);
+    }
+
+    /**
+     * Handles the "delete" command, deleting a task.
+     *
+     * @param parts    The array of command parts.
+     * @param taskList The TaskList containing the tasks.
+     * @return An ArrayList of strings with the result of the delete operation or an error message.
+     */
+    private static ArrayList<String> handleDeleteCommand(String[] parts, TaskList taskList) {
+        if (parts.length != 2) {
+            return Ui.showError("Invalid command format");
+        }
+
+        try {
+            int index = Integer.parseInt(parts[1]) - 1;
+            return taskList.deleteTask(taskList.getTask(index));
+        } catch (NumberFormatException e) {
+            return Ui.showError("Invalid task number");
+        }
+    }
+
+    /**
+     * Handles the "find" command, searching for tasks containing a keyword.
+     *
+     * @param userInput The user input.
+     * @param taskList  The TaskList containing the tasks.
+     * @return An ArrayList of strings with the result of the find operation.
+     */
+    private static ArrayList<String> handleFindCommand(String userInput, TaskList taskList) {
+        String keyword = userInput.substring(5).trim();
+        return taskList.findTasks(keyword);
     }
 }
