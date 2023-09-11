@@ -100,7 +100,7 @@ public class Ui{
         String answer = "\tHere are the tasks in your list:";
         int i = 1;
         for (int j = 0; j < tasks.getSize(); j++) {
-            answer += "\n\t" + i + "." + tasks.getTask(j).taskString();
+            answer += "\n\t" + i + ". " + tasks.getTask(j).taskString();
             i++;
         }
         return answer;
@@ -115,7 +115,7 @@ public class Ui{
         String answer = "\tHere are the tasks in your list:";
         int i = 1;
         for (int j = 0; j < tasks.getSize(); j++) {
-            answer += "\n\t" + i + "." + tasks.getTask(j).taskString();
+            answer += "\n\t" + i + ". " + tasks.getTask(j).taskString();
             i++;
         }
         return answer;
