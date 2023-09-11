@@ -1,6 +1,8 @@
 package duke;
 
+import java.sql.Date;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task with a deadline.
@@ -22,12 +24,15 @@ public class Deadline extends Task {
 
     private String dateToString() {
         // desired format is MMM dd yyyy
-        return this.deadline.format(java.time.format.DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        // convert deadline to MMM dd yyyy
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        return this.deadline.format(formatter);
     }
 
     private String parseDate() {
         // convert deadline back to yyyy-mm-dd
-        return this.deadline.format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return this.deadline.format(formatter);
     }
 
     /**
