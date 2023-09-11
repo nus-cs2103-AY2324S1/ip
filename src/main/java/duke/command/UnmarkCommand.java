@@ -29,7 +29,7 @@ public class UnmarkCommand extends Command {
     public GobbleMessage execute(TaskList taskList, Storage storage) {
         taskList.unmarkTask(index);
         storage.saveListToDisk(taskList.getTasks());
-        return GobbleMessage.getDukeDialog("Nice! I've unmarked this task as undone:\n" + taskList.getTask(index),
+        return GobbleMessage.getGobbleDialog("Nice! I've unmarked this task as undone:\n" + taskList.getTask(index),
                 "Unmark");
 
     }

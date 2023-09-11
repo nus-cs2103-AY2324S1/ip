@@ -29,6 +29,6 @@ public class MarkCommand extends Command {
     public GobbleMessage execute(TaskList taskList, Storage storage) {
         taskList.markTask(index);
         storage.saveListToDisk(taskList.getTasks());
-        return GobbleMessage.getDukeDialog("Nice! I've marked this task as done:\n" + taskList.getTask(index), "Mark");
+        return GobbleMessage.getGobbleDialog("Nice! I've marked this task as done:\n" + taskList.getTask(index), "Mark");
     }
 }

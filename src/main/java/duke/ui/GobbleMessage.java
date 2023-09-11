@@ -3,6 +3,7 @@ package duke.ui;
 import java.io.IOException;
 import java.util.Collections;
 
+import duke.enums.UserType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,6 +11,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
@@ -20,9 +23,12 @@ public class GobbleMessage extends HBox {
     @FXML
     private Label message;
     @FXML
-    private Label from;
+    private ImageView profileImage;
 
-    private GobbleMessage(String text, String from) {
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpeg"));
+    private Image gobbleImage = new Image(this.getClass().getResourceAsStream("/images/system.jpg"));
+
+    private GobbleMessage(String text, UserType from) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -34,7 +40,7 @@ public class GobbleMessage extends HBox {
 
         this.message.setText(text);
         this.message.setMinHeight(Region.USE_PREF_SIZE);
-        this.from.setText(from);
+        this.profileImage.setImage(from == UserType.USER ? userImage : gobbleImage);
     }
 
     /**
@@ -60,7 +66,7 @@ public class GobbleMessage extends HBox {
      * @return a user styled dialog.
      */
     public static GobbleMessage getUserDialog(String text) {
-        GobbleMessage message = new GobbleMessage(text, "User");
+        GobbleMessage message = new GobbleMessage(text, UserType.USER);
         message.setUserStyles();
         message.flip();
         return message;
@@ -73,8 +79,8 @@ public class GobbleMessage extends HBox {
      * @param command command to be displayed.
      * @return a duke styled dialog.
      */
-    public static GobbleMessage getDukeDialog(String text, String command) {
-        GobbleMessage db = new GobbleMessage(text, command);
+    public static GobbleMessage getGobbleDialog(String text, String command) {
+        GobbleMessage db = new GobbleMessage(text, UserType.SYSTEM);
         return db;
     }
 }

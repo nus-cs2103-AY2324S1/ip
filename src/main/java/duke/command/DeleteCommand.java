@@ -33,7 +33,7 @@ public class DeleteCommand extends Command {
         Task task = taskList.getTask(index);
         taskList.deleteTask(index);
         storage.saveListToDisk(taskList.getTasks());
-        return GobbleMessage.getDukeDialog("Noted. I've removed this task:\n" + task + "\nNow you have "
+        return GobbleMessage.getGobbleDialog("Noted. I've removed this task:\n" + task + "\nNow you have "
                 + taskList.getSize() + " tasks in the list.", "Delete");
     }
 
