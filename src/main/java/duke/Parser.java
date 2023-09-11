@@ -33,11 +33,11 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "mark":
-            try {
-                return new MarkCommand(Integer.parseInt(details));
-            } catch (NumberFormatException e) {
-                throw new DukeException("Please enter a valid number...");
+            if (details.isEmpty()) {
+                throw new DukeException("The task number is missing!");
             }
+            assert Integer.parseInt(details) >= 0 : "Task number should be a non-negative integer";
+            return new MarkCommand(Integer.parseInt(details));
         case "find":
             return new FindCommand(details);
         case "todo":
@@ -70,11 +70,11 @@ public class Parser {
                 throw new DukeException("OOPS! The time format should be DD/MM/YYYY HHmm");
             }
         case "delete":
-            try {
-                return new DeleteCommand(Integer.parseInt(details));
-            } catch (NumberFormatException e) {
-                throw new DukeException("Please enter a valid number...");
+            if (details.isEmpty()) {
+                throw new DukeException("The task number is missing!");
             }
+            assert Integer.parseInt(details) >= 0 : "Task number should be a non-negative integer";
+            return new DeleteCommand(Integer.parseInt(details));
         default:
             throw new DukeException("I have no idea what that means...");
         }
