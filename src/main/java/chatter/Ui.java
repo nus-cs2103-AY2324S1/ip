@@ -13,7 +13,7 @@ import chatter.task.Task;
 public class Ui {
     private static final String DIVIDER = "-----------------------";
     /** Scanner object that takes in user inputs. */
-    private static final Scanner scanner = new Scanner(System.in);
+    private static final Scanner SCANNER = new Scanner(System.in);
 
     /**
      * Prints a welcome message when user starts the chatbot.
@@ -21,7 +21,7 @@ public class Ui {
      * @return Welcome message for the user.
      */
     public String showWelcome() {
-        return("Hello! I'm chatter.Chatter!\n" + "How can i help you today?\n");
+        return "Hello! I'm chatter.Chatter!\n" + "How can i help you today?\n";
     }
 
     /**
@@ -37,7 +37,7 @@ public class Ui {
      * @return Exit message for the user.
      */
     public String showExit() {
-        scanner.close();
+        SCANNER.close();
         return "Bye. Hope to see you again soon!";
     }
 
@@ -54,7 +54,7 @@ public class Ui {
      * @return A string of the raw user input.
      */
     public String readCommand() {
-        return scanner.nextLine();
+        return SCANNER.nextLine();
     }
 
     /**

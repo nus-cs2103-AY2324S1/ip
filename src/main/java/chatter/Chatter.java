@@ -17,6 +17,8 @@ public class Chatter {
 
     /**
      * A constructor for the chatter.Chatter class
+     *
+     * @param filepath Filepath to get the local data file from.
      */
     public Chatter(String filepath) {
         this.ui = new Ui();
@@ -69,9 +71,9 @@ public class Chatter {
         String response;
         try {
             response = Parser.parse(input).execute(tasks, ui, storage);
-        } catch(ChatterException e) {
+        } catch (ChatterException e) {
             response = e.getMessage();
-        } catch(Exception e) {
+        } catch (Exception e) {
             if (input.startsWith("deadline")) {
                 response = "Please enter a valid description or deadline.";
             } else {
