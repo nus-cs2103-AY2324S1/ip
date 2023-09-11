@@ -36,7 +36,7 @@ public class MarkCommand extends Command {
             Task task = tasks.getTask(taskNum);
             tasks.markTask(taskNum);
             store.save(tasks);
-            return ui.printMarkTask(taskNum, task);
+            return ui.printMarkTask(task);
         } catch (IOException e) {
             throw new DukeException(" umable to locate local file!");
         }

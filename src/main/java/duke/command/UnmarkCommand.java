@@ -37,7 +37,7 @@ public class UnmarkCommand extends Command {
             Task task = tasks.getTask(taskNum);
             tasks.unmarkTask(taskNum);
             store.save(tasks);
-            return ui.printUnmarkTask(taskNum, task);
+            return ui.printUnmarkTask(task);
         } catch (IOException e) {
             throw new DukeException(" unable to locate local file!");
         }
