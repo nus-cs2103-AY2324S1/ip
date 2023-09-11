@@ -37,6 +37,8 @@ public abstract class Parser {
    * @throws HoroException
    */
   public static Task parseDataString(String s) throws HoroException {
+    assert s != "";
+
     String[] arguments = s.split(",");
     Task t;
     switch (arguments[0]) {
