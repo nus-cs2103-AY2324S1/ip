@@ -30,24 +30,24 @@ public class Parser {
         String action = tokens[0].trim().toLowerCase();
 
         switch (action) {
-            case "list":
-                return generateListResponse(taskList);
-            case "delete":
-                return generateDeleteResponse(tokens, taskList);
-            case "mark":
-                return generateMarkResponse(tokens, taskList);
-            case "unmark":
-                return generateUnmarkResponse(tokens, taskList);
-            case "todo":
-                return generateTodoResponse(tokens, taskList);
-            case "deadline":
-                return generateDeadlineResponse(tokens, taskList);
-            case "event":
-                return generateEventResponse(tokens, taskList);
-            case "find":
-                return generateFindResponse(tokens, taskList);
-            default:
-                throw new DukeException("Sorry, I don't understand what that means.");
+        case "list":
+            return generateListResponse(taskList);
+        case "delete":
+            return generateDeleteResponse(tokens, taskList);
+        case "mark":
+            return generateMarkResponse(tokens, taskList);
+        case "unmark":
+            return generateUnmarkResponse(tokens, taskList);
+        case "todo":
+            return generateTodoResponse(tokens, taskList);
+        case "deadline":
+            return generateDeadlineResponse(tokens, taskList);
+        case "event":
+            return generateEventResponse(tokens, taskList);
+        case "find":
+            return generateFindResponse(tokens, taskList);
+        default:
+            throw new DukeException("Sorry, I don't understand what that means.");
         }
     }
 
