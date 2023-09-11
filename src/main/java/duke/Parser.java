@@ -47,7 +47,7 @@ public class Parser {
         final String argument = matcher.group("arguments").trim();
         final boolean validIndex = argument.matches("-?\\d+");
 
-        switch(command) {
+        switch (command) {
         case "bye":
             return new ByeCommand();
 
@@ -55,26 +55,25 @@ public class Parser {
             return new ListCommand();
 
         case "mark":
-            if (validIndex) {
-                return new EditCommand("mark", Integer.parseInt(argument));
-            } else {
+            if (!validIndex) {
                 throw new InvalidCommandException("Please input an integer to identify task");
             }
+
+            return new EditCommand("mark", Integer.parseInt(argument));
 
         case "unmark":
-            if (validIndex) {
-                return new EditCommand("unmark", Integer.parseInt(argument));
-            } else {
+            if (!validIndex) {
                 throw new InvalidCommandException("Please input an integer to identify task");
             }
 
+            return new EditCommand("unmark", Integer.parseInt(argument));
 
         case "delete":
-            if (validIndex) {
-                return new EditCommand("delete", Integer.parseInt(argument));
-            } else {
+            if (!validIndex) {
                 throw new InvalidCommandException("Please input an integer to identify task");
             }
+
+            return new EditCommand("delete", Integer.parseInt(argument));
 
         case "find":
             if (argument.equals("")) {
@@ -97,16 +96,19 @@ public class Parser {
                 throw new InvalidCommandException("Deadline description cannot be empty");
             }
 
-            if (deadlineFormat.matches()) {
-                String desc = deadlineFormat.group(1);
-                LocalDateTime d = parseDateTime(deadlineFormat.group(2));
-                String byDate = reformatDateTime(d);
-
-                return new AddCommand("deadline", new String[]{desc, byDate});
-            } else {
+            if (!deadlineFormat.matches()) {
                 throw new InvalidCommandException("Invalid deadline command. "
                         + "Please include /by date in this format: yyyy-mm-dd HH:mm");
             }
+
+            String deadLineDesc = deadlineFormat.group(1);
+            String dateInput = deadlineFormat.group(2);
+
+            LocalDateTime d = parseDateTime(dateInput);
+
+            String byDate = reformatDateTime(d);
+
+            return new AddCommand("deadline", new String[]{deadLineDesc, byDate});
 
         case "event":
             Matcher eventFormat = EVENT_FORMAT.matcher(argument);
@@ -114,24 +116,26 @@ public class Parser {
                 throw new InvalidCommandException("Event description cannot be empty");
             }
 
-            if (eventFormat.matches()) {
-                String desc = eventFormat.group(1);
-
-                LocalDateTime from = parseDateTime(eventFormat.group(2));
-                LocalDateTime to = parseDateTime(eventFormat.group(3));
-
-                if (from.isAfter(to)) {
-                    throw new InvalidCommandException("/from date should be before /to date given");
-                }
-
-                String fromDate = reformatDateTime(from);
-                String toDate = reformatDateTime(to);
-
-                return new AddCommand("event", new String[]{desc, fromDate, toDate});
-            } else {
+            if (!eventFormat.matches()) {
                 throw new InvalidCommandException("Invalid event command. "
                         + "Please include /from and /to dates in this format: yyyy-mm-dd HH:mm");
             }
+
+            String eventDesc = eventFormat.group(1);
+            String fromDateInput = eventFormat.group(2);
+            String toDateInput = eventFormat.group(3);
+
+            LocalDateTime from = parseDateTime(fromDateInput);
+            LocalDateTime to = parseDateTime(toDateInput);
+
+            if (from.isAfter(to)) {
+                throw new InvalidCommandException("/from date should be before /to date given");
+            }
+
+            String fromDate = reformatDateTime(from);
+            String toDate = reformatDateTime(to);
+
+            return new AddCommand("event", new String[]{eventDesc, fromDate, toDate});
 
         default:
             throw new InvalidCommandException("Unknown/Invalid command given");
