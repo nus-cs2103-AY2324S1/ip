@@ -38,7 +38,6 @@ public class ChatbotAlain extends Application {
     private Scene scene;
 
     private Ui ui;
-    private GUI_Ui guiUi;
     private Storage storage;
     private TaskList tasks;
     private TaskList listGui = new TaskList();
@@ -75,29 +74,138 @@ public class ChatbotAlain extends Application {
      * @throws AlainException If an exception occurs during the transformation.
      */
     public static String stringToTimeString(String inputTime) throws AlainException {
+        DateTimeFormatter inputPattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         if (Pattern.matches("\\d+-\\d+-\\d+", inputTime)) {
-            DateTimeFormatter inputPattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate date = LocalDate.from(LocalDate.parse(inputTime, inputPattern));
             DateTimeFormatter outputPattern = DateTimeFormatter.ofPattern("MMMM dd yyyy", Locale.ENGLISH);
             String transformedTime = date.format(outputPattern);
-            return transformedTime.toString();
+            return transformedTime;
         } else if (Pattern.matches("\\d+-\\d+-\\d+ .+", inputTime)) {
             String[] dateAndTime = inputTime.split(" ");
             String addMsg = "";
             for (int i = 1; i < dateAndTime.length; i++) {
                 addMsg += dateAndTime[i];
             }
-            DateTimeFormatter inputPattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate date = LocalDate.parse(dateAndTime[0], inputPattern);
 
             DateTimeFormatter outputPattern = DateTimeFormatter.ofPattern("MMMM dd yyyy", Locale.ENGLISH);
             String transformedTime = date.format(outputPattern);
             assert transformedTime != null : "Transformed time should not be null";
-            return transformedTime.toString() + " " + addMsg;
+            return transformedTime + " " + addMsg;
         } else if (inputTime.length() == 0) {
             throw new AlainException(" OOPS!!! The description of a alain.Task cannot be empty.");
         } else {
             return inputTime;
+        }
+    }
+
+    /**
+     * Processes the given command text, executing the appropriate action on the provided TaskList.
+     *
+     * @param list The TaskList on which the commands operate.
+     * @param text The text command to be processed.
+     * @return <code>true</code> if the application should continue processing commands;
+     *      <code>false</code> if the "bye" command was received.
+     * @throws AlainException If any user input error occurs, like invalid command or task details.
+     * @throws IOException If there's any error related to file operations when saving tasks or errors.
+     */
+    public static String proccessCommands(TaskList list, String text, Storage storage) {
+        try {
+            boolean isMatchMarkCommand = Pattern.matches("mark \\d+", text);
+            boolean isMatchUnmarkCommand = Pattern.matches("unmark \\d+", text);
+            boolean isDeadlineCommand = Pattern.matches("deadline .+", text);
+            boolean isToDoCommand = Pattern.matches("todo .+", text);
+            boolean isEventCommand = Pattern.matches("event .+", text);
+            boolean isDeleteCommand = Pattern.matches("delete .+", text);
+            boolean isFindCommand = Pattern.matches("find .+", text);
+            if (isFindCommand) {
+                String keyWord = text.substring(4);
+                TaskList tmpList = new TaskList();
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.getTask(i).descriptionContain(keyWord)) {
+                        tmpList.addTask(list.getTask(i));
+                    }
+                }
+                Ui.showListContainingKeyword(tmpList);
+                return GuiUi.showListContainingKeyword(tmpList);
+            }
+            if (isDeleteCommand) {
+                String numericPart = text.substring(7);
+                int pos = Integer.parseInt(numericPart) - 1;
+                if (pos >= 0 && pos < list.size()) {
+                    Task removedTask = list.removeTask(pos);
+                    Assertions.assertDelete(list, removedTask);
+                    Ui.showRemoveTask(removedTask, list);
+                    return GuiUi.showRemoveTask(removedTask, list);
+                } else {
+                    throw new AlainException("Invalid task index.");
+                }
+            }
+            if (isToDoCommand) {
+                String mission = text.substring(4);
+                if (mission.length() == 0) {
+                    throw new AlainException("The description of a Todo cannot be empty.");
+                }
+                ToDos newTodo = new ToDos(mission);
+                list.addTask(newTodo);
+                Assertions.assertNewTodo(list, newTodo);
+                Ui.showAddTask(list.getTask(list.size() - 1), list);
+                return GuiUi.showAddTask(list.getTask(list.size() - 1), list);
+            }
+            if (isDeadlineCommand) {
+                String mission = text.substring(8);
+                if (mission.length() == 0) {
+                    throw new AlainException("The description of a Deadline cannot be empty.");
+                }
+                String[] parts = mission.split("/by ");
+                if (parts.length != 2) {
+                    throw new AlainException("The description of a Deadline is invalid");
+                }
+                Deadlines newDeadline = new Deadlines(parts[0], stringToTimeString(parts[1]));
+                list.addTask(newDeadline);
+                Assertions.assertNewDeadline(list, newDeadline);
+                Ui.showAddTask(list.getTask(list.size() - 1), list);
+                return GuiUi.showAddTask(list.getTask(list.size() - 1), list);
+            }
+            if (isEventCommand) {
+                String mission = text.substring(5);
+                if (mission.length() == 0) {
+                    throw new AlainException("The description of a Event cannot be empty.");
+                }
+                String[] parts = mission.split("/");
+                if (parts.length != 3) {
+                    throw new AlainException("The description of a Event is invalid");
+                }
+                Events newEvent = new Events(parts[0],
+                        stringToTimeString(parts[1].substring(5)), stringToTimeString(parts[2].substring(3)));
+                list.addTask(newEvent);
+                Assertions.assertNewEvent(list, newEvent);
+                Ui.showAddTask(list.getTask(list.size() - 1), list);
+                return GuiUi.showAddTask(list.getTask(list.size() - 1), list);
+            }
+            if (text.equals("bye")) {
+                if (storage != null) {
+                    storage.sayBye();
+                }
+                return null;
+            } else if (isMatchMarkCommand) {
+                String numericPart = text.substring(5);
+                list.getTask(Integer.parseInt(numericPart) - 1).markAsDone();
+                Ui.showMarkTask(numericPart, list);
+                return GuiUi.showMarkTask(numericPart, list);
+            } else if (isMatchUnmarkCommand) {
+                String numericPart = text.substring(7);
+                list.getTask(Integer.parseInt(numericPart) - 1).markAsUndone();
+                Ui.showUnmarkTask(numericPart, list);
+                return GuiUi.showUnmarkTask(numericPart, list);
+            } else if (text.equals("list")) {
+                Ui.showList(list);
+                return GuiUi.showList(list);
+            }
+            throw new AlainException("I'm sorry, but I don't know what that means :-(");
+        } catch (AlainException e) {
+            Ui.showError(e.getMessage());
+            return GuiUi.showError(e.getMessage());
         }
     }
 
@@ -119,111 +227,21 @@ public class ChatbotAlain extends Application {
         }
         Scanner s = new Scanner(System.in);
         while (true) {
-            try {
-                String text = new String();
-                text = s.nextLine();
-                boolean isMatchMark = Pattern.matches("mark \\d+", text);
-                boolean isMatchUnmark = Pattern.matches("unmark \\d+", text);
-                boolean isDeadline = Pattern.matches("deadline .+", text);
-                boolean isToDo = Pattern.matches("todo .+", text);
-                boolean isEvent = Pattern.matches("event .+", text);
-                boolean isDelete = Pattern.matches("delete .+", text);
-                boolean isFind = Pattern.matches("find .+", text);
-                if (isFind) {
-                    String keyWord = text.substring(4);
-                    TaskList tmpList = new TaskList();
-                    for (int i = 0; i < list.size(); i++) {
-                        if (list.getTask(i).descriptionContain(keyWord)) {
-                            tmpList.addTask(list.getTask(i));
-                        }
-                    }
-                    ui.showListContainingKeyword(tmpList);
-                    continue;
-                }
-                if (isDelete) {
-                    String numericPart = text.substring(7);
-                    int pos = Integer.parseInt(numericPart) - 1;
-                    if (pos >= 0 && pos < list.size()) {
-                        Task removedTask = list.removeTask(pos);
-                        Assertions.assertDelete(list, removedTask);
-                        ui.showRemoveTask(removedTask, list);
-                    } else {
-                        throw new AlainException("Invalid task index.");
-                    }
-                    continue;
-                }
-                if (isToDo) {
-                    String mission = text.substring(4);
-                    if (mission.length() == 0) {
-                        throw new AlainException("The description of a Todo cannot be empty.");
-                    }
-                    ToDos newTodo = new ToDos(mission);
-                    list.addTask(newTodo);
-                    Assertions.assertNewTodo(list, newTodo);
-                    ui.showAddTask(list.getTask(list.size() - 1), list);
-                    continue;
-                }
-                if (isDeadline) {
-                    String mission = text.substring(8);
-                    if (mission.length() == 0) {
-                        throw new AlainException("The description of a Deadline cannot be empty.");
-                    }
-                    String[] parts = mission.split("/by ");
-                    if (parts.length != 2) {
-                        throw new AlainException("The description of a Deadline is invalid");
-                    }
-                    Deadlines newDeadline = new Deadlines(parts[0], stringToTimeString(parts[1]));
-                    list.addTask(newDeadline);
-                    Assertions.assertNewDeadline(list, newDeadline);
-                    ui.showAddTask(list.getTask(list.size() - 1), list);
-                    continue;
-                }
-                if (isEvent) {
-                    String mission = text.substring(5);
-                    if (mission.length() == 0) {
-                        throw new AlainException("The description of a Event cannot be empty.");
-                    }
-                    String[] parts = mission.split("/");
-                    if (parts.length != 3) {
-                        throw new AlainException("The description of a Event is invalid");
-                    }
-                    Events newEvent = new Events(parts[0],
-                            stringToTimeString(parts[1].substring(5)), stringToTimeString(parts[2].substring(3)));
-                    list.addTask(newEvent);
-                    Assertions.assertNewEvent(list, newEvent);
-                    ui.showAddTask(list.getTask(list.size() - 1), list);
-                    continue;
-                }
-                if (text.equals("bye")) {
-                    break;
-                } else if (isMatchMark) {
-                    String numericPart = text.substring(5);
-                    list.getTask(Integer.parseInt(numericPart) - 1).markAsDone();
-                    ui.showMarkTask(numericPart, list);
-                    continue;
-                } else if (isMatchUnmark) {
-                    String numericPart = text.substring(7);
-                    list.getTask(Integer.parseInt(numericPart) - 1).markAsUndone();
-                    ui.showUnmarkTask(numericPart, list);
-                    continue;
-                } else if (text.equals("list")) {
-                    ui.showList(list);
-                    continue;
-                }
-                throw new AlainException("I'm sorry, but I don't know what that means :-(");
-            } catch (AlainException e) {
-                ui.showError(e.getMessage());
-                storage.saveTasksToFile(null, "list.txt", true, e.getMessage());
+            String text = new String();
+            text = s.nextLine();
+            if (proccessCommands(list, text, storage) == null) {
+                break;
             }
         }
         s.close();
         try {
-            ui.showList(list);
+            Ui.showList(list);
             storage.saveTasksToFile(list, "list.txt", false, null);
         } catch (IOException e) {
-            ui.showError("Error saving tasks to file");
+            Ui.showError("Error saving tasks to file");
+            storage.saveTasksToFile(null, "list.txt", true, e.getMessage());
         } finally {
-            ui.showGoodbye();
+            Ui.showGoodbye();
         }
     }
 
@@ -294,6 +312,9 @@ public class ChatbotAlain extends Application {
 
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+
+        dialogContainer.getChildren()
+                .addAll(DialogBox.getDukeDialog(new Label(GuiUi.showWelcome()), new ImageView(duke)));
         //Step 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
             dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
@@ -349,93 +370,13 @@ public class ChatbotAlain extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        guiUi = new GUI_Ui();
         String ai = "Ai: \n";
-        try {
-            String text = new String();
-            text = input;
-            boolean isMatchMark = Pattern.matches("mark \\d+", text);
-            boolean isMatchUnmark = Pattern.matches("unmark \\d+", text);
-            boolean isDeadline = Pattern.matches("deadline .+", text);
-            boolean isToDo = Pattern.matches("todo .+", text);
-            boolean isEvent = Pattern.matches("event .+", text);
-            boolean isDelete = Pattern.matches("delete .+", text);
-            boolean isFind = Pattern.matches("find .+", text);
-            if (isFind) {
-                String keyWord = text.substring(4);
-                TaskList tmpList = new TaskList();
-                for (int i = 0; i < listGui.size(); i++) {
-                    if (listGui.getTask(i).descriptionContain(keyWord)) {
-                        tmpList.addTask(listGui.getTask(i));
-                    }
-                }
-                return ai + guiUi.showListContainingKeyword(tmpList);
-            }
-            if (isDelete) {
-                String numericPart = text.substring(7);
-                int pos = Integer.parseInt(numericPart) - 1;
-                if (pos >= 0 && pos < listGui.size()) {
-                    Task removedTask = listGui.removeTask(pos);
-                    return ai + guiUi.showRemoveTask(removedTask, listGui);
-                } else {
-                    throw new AlainException("Invalid task index.");
-                }
-            }
-            if (isToDo) {
-                String mission = text.substring(4);
-                if (mission.length() == 0) {
-                    throw new AlainException("The description of a Todo cannot be empty.");
-                }
-                ToDos newTodo = new ToDos(mission);
-                listGui.addTask(newTodo);
-                Assertions.assertNewTodo(listGui, newTodo);
-                return ai + guiUi.showAddTask(listGui.getTask(listGui.size() - 1), listGui);
-            }
-            if (isDeadline) {
-                String mission = text.substring(8);
-                if (mission.length() == 0) {
-                    throw new AlainException("The description of a Deadline cannot be empty.");
-                }
-                String[] parts = mission.split("/by ");
-                if (parts.length != 2) {
-                    throw new AlainException("The description of a Deadline is invalid");
-                }
-                Deadlines newDeadline = new Deadlines(parts[0], stringToTimeString(parts[1]));
-                listGui.addTask(newDeadline);
-                Assertions.assertNewDeadline(listGui, newDeadline);
-                return ai + guiUi.showAddTask(listGui.getTask(listGui.size() - 1), listGui);
-            }
-            if (isEvent) {
-                String mission = text.substring(5);
-                if (mission.length() == 0) {
-                    throw new AlainException("The description of a Event cannot be empty.");
-                }
-                String[] parts = mission.split("/");
-                if (parts.length != 3) {
-                    throw new AlainException("The description of a Event is invalid");
-                }
-                Events newEvent = new Events(parts[0],
-                        stringToTimeString(parts[1].substring(5)), stringToTimeString(parts[2].substring(3)));
-                listGui.addTask(newEvent);
-                Assertions.assertNewEvent(listGui, newEvent);
-                return ai + guiUi.showAddTask(listGui.getTask(listGui.size() - 1), listGui);
-            }
-            if (text.equals("bye")) {
-                return ai + guiUi.showGoodbye();
-            } else if (isMatchMark) {
-                String numericPart = text.substring(5);
-                listGui.getTask(Integer.parseInt(numericPart) - 1).markAsDone();
-                return ai + guiUi.showMarkTask(numericPart, listGui);
-            } else if (isMatchUnmark) {
-                String numericPart = text.substring(7);
-                listGui.getTask(Integer.parseInt(numericPart) - 1).markAsUndone();
-                return ai + guiUi.showUnmarkTask(numericPart, listGui);
-            } else if (text.equals("list")) {
-                return ai + guiUi.showList(listGui);
-            }
-            throw new AlainException("I'm sorry, but I don't know what that means :-(");
-        } catch (AlainException e) {
-            return ai + guiUi.showError(e.getMessage());
+        String text = input;
+        String chatOutput = proccessCommands(listGui, text, null);
+        if (chatOutput != null) {
+            return chatOutput;
+        } else {
+            return GuiUi.showList(listGui) + GuiUi.showGoodbye();
         }
     }
 }

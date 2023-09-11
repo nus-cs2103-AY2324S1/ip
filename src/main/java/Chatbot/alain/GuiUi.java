@@ -3,40 +3,40 @@ package chatbot.alain;
 /**
  * User interface class for displaying messages and interactions with the Alain chatbot.
  */
-public class GUI_Ui {
-    private String logo = "    _     __         _     _____   ___   __\n"
-            + "   / \\   | |        / \\   |_   _| | |\\\\  | |\n"
-            + "  / _ \\  | |       / _ \\    | |   | | \\\\ | |\n"
-            + " / /_\\_\\ | |____  / /_\\_\\  _| |_  | |  \\\\| |\n"
-            + "/_/   \\_\\|______|/ /   \\_\\|_____| |_|   \\__| \n";
+public class GuiUi {
+    private static String logo = "    _        _____ \n"
+            + "   / \\       |_   _| \n"
+            + "  / _ \\        | |   \n"
+            + " / /_\\ \\     _| |_  \n"
+            + "/_/    \\_\\ |____| \n";
 
     /**
      * Displays a line separator.
      */
-    public String showlines() {
+    public static String showlines() {
         return ("_______________________________________________\n");
     }
 
     /**
      * Displays a welcome message.
      */
-    public String showWelcome() {
+    public static String showWelcome() {
         String output = "";
-        output += this.showlines();
+        output += showlines();
         output += logo + "\n";
-        output += "Hello! I'm Alain\nWhat can I do for you?\n";
-        output += this.showlines();
+        output += "Hello! I'm Ai \nWhat can I do for you, Conan?\n";
+        output += showlines();
         return output;
     }
 
     /**
      * Displays a goodbye message.
      */
-    public String showGoodbye() {
+    public static String showGoodbye() {
         String output = "";
-        output += this.showlines();
-        output += "Bye. Hope to see you again soon!\n";
-        output += this.showlines();
+        output += showlines();
+        output += "Bye. Hope to see you again soon, Conan!\n";
+        output += showlines();
         return output;
     }
 
@@ -45,11 +45,11 @@ public class GUI_Ui {
      *
      * @param errorMessage The error message to display.
      */
-    public String showError(String errorMessage) {
+    public static String showError(String errorMessage) {
         String output = "";
-        output += this.showlines();
+        output += showlines();
         output += " OOPS!!! " + errorMessage + "\n";
-        output += this.showlines();
+        output += showlines();
         return output;
     }
 
@@ -58,14 +58,14 @@ public class GUI_Ui {
      *
      * @param list The list of tasks to display.
      */
-    public String showList(TaskList list) {
+    public static String showList(TaskList list) {
         String output = "";
-        output += this.showlines();
+        output += showlines();
         output += "Here are the tasks in your list:\n";
         for (int i = 0; i < list.size(); i++) {
             output += " " + (i + 1) + ". " + list.getTask(i) + "\n";
         }
-        output += this.showlines();
+        output += showlines();
         return output;
     }
 
@@ -74,14 +74,14 @@ public class GUI_Ui {
      *
      * @param list The list of tasks to display.
      */
-    public String showListContainingKeyword(TaskList list) {
+    public static String showListContainingKeyword(TaskList list) {
         String output = "";
-        output += this.showlines();
+        output += showlines();
         output += "Here are the matching tasks in your list:\n";
         for (int i = 0; i < list.size(); i++) {
             output += " " + (i + 1) + ". " + list.getTask(i) + "\n";
         }
-        output += this.showlines();
+        output += showlines();
         return output;
     }
 
@@ -91,13 +91,13 @@ public class GUI_Ui {
      * @param removedTask The task that was removed.
      * @param list The updated list of tasks.
      */
-    public String showRemoveTask(Task removedTask, TaskList list) {
+    public static String showRemoveTask(Task removedTask, TaskList list) {
         String output = "";
-        output += this.showlines();
+        output += showlines();
         output += " Noted. I've removed this task:\n"
                 + "   " + removedTask + "\n"
                 + " Now you have " + list.size() + " tasks in the list.\n";
-        output += this.showlines();
+        output += showlines();
         return output;
     }
 
@@ -107,13 +107,13 @@ public class GUI_Ui {
      * @param task The task that was added.
      * @param list The updated list of tasks.
      */
-    public String showAddTask(Task task, TaskList list) {
+    public static String showAddTask(Task task, TaskList list) {
         String output = "";
-        output += this.showlines();
+        output += showlines();
         output += " Got it. I've added this task:\n"
                 + "   " + task + "\n"
                 + " Now you have " + list.size() + " tasks in the list.\n";
-        output += this.showlines();
+        output += showlines();
         return output;
     }
 
@@ -123,12 +123,12 @@ public class GUI_Ui {
      * @param numericPart The numeric part of the user input.
      * @param list The updated list of tasks.
      */
-    public String showMarkTask(String numericPart, TaskList list) {
+    public static String showMarkTask(String numericPart, TaskList list) {
         String output = "";
-        output += this.showlines();
+        output += showlines();
         output += " Nice! I've marked this task as done:\n"
                 + "   " + list.getTask(Integer.parseInt(numericPart) - 1) + "\n";
-        output += this.showlines();
+        output += showlines();
         return output;
     }
 
@@ -138,12 +138,12 @@ public class GUI_Ui {
      * @param numericPart The numeric part of the user input.
      * @param list The updated list of tasks.
      */
-    public String showUnmarkTask(String numericPart, TaskList list) {
+    public static String showUnmarkTask(String numericPart, TaskList list) {
         String output = "";
-        output += this.showlines();
+        output += showlines();
         output += " Nice! I've marked this task as not done yet:\n"
                 + "   " + list.getTask(Integer.parseInt(numericPart) - 1) + "\n";
-        output += this.showlines();
+        output += showlines();
         return output;
     }
 }
