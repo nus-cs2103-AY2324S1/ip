@@ -11,6 +11,7 @@ import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.ToDoCommand;
 import duke.command.UnmarkCommand;
+
 import duke.exception.KoraException;
 
 /**
@@ -31,6 +32,7 @@ public class Parser {
      * @throws KoraException For invalid input.
      */
     public static Command parse(String userInput) throws KoraException {
+        assert !userInput.equals("") : "Input should not be empty.";
         String[] userInputArray = userInput.split("/");
         Command command;
         try {
