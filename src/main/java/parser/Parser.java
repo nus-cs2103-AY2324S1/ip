@@ -1,17 +1,10 @@
 package parser;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
-import commands.ByeCommand;
-import commands.Command;
-import commands.DeadlineCommand;
-import commands.DeleteCommand;
-import commands.EventCommand;
-import commands.FindCommand;
-import commands.ListCommand;
-import commands.MarkCommand;
-import commands.TodoCommand;
-import commands.UnmarkComment;
+import commands.*;
+import duke.CustomDate;
 import duke.Duke;
 import duke.DukeException;
 
@@ -25,26 +18,16 @@ public class Parser {
     private String type = "";
 
     private enum Commands {
-        bye("bye"),
-        list("list"),
-        mark("mark"),
-        unmark("unmark"),
-        deadline("deadline"),
-        event("event"),
-        todo("todo"),
-        delete("delete"),
-        find("find");
-
-        private final String command;
-
-        Commands(String command) {
-            this.command = command;
-        }
-
-        @Override
-        public String toString() {
-            return command;
-        }
+        bye,
+        list,
+        mark,
+        unmark,
+        deadline,
+        event,
+        todo,
+        delete,
+        find,
+        todotime;
     }
 
     /**
@@ -103,6 +86,9 @@ public class Parser {
         case find: {
             return parseFind(input);
         }
+        case todotime: {
+            return parseTodoTime(input);
+        }
         default: {
             assert false;
             throw new DukeException("Something went wrong here");
@@ -130,6 +116,9 @@ public class Parser {
         case "P": {
             return extractFind(input);
         }
+        case "TT": {
+            return extractTodoTime(input);
+        }
         default: {
             assert false : type;
             throw new DukeException("Something went wrong here");
@@ -156,7 +145,27 @@ public class Parser {
         return res;
     }
 
+    private ArrayList<String> extractTodoTime(String input) throws DukeException {
+        ArrayList<String> texts = new ArrayList<>();
+        if (input.indexOf("/for") - 1 < 8) {
+            throw new DukeException("Your TodoTime name is blank");
+        }
+        String desc = input.substring(8, input.indexOf("/for") - 1);
+        if (desc.isBlank() || desc.isEmpty()) {
+            throw new DukeException("Your Event name is blank");
+        }
+        texts.add(desc);
+        String duration = input.substring(input.indexOf("/for") + 5);
+        Pattern pattern = Pattern.compile("(\\d.)(hours\\b$)");
+        if (!pattern.matcher(duration).find()) {
+            throw new DukeException("Invalid format for duration");
+        }
+        texts.add(duration);
+        return texts;
+    }
+
     private ArrayList<String> extractEvent(String input) throws DukeException {
+        CustomDate cD = new CustomDate();
         ArrayList<String> texts = new ArrayList<>();
         if (input.indexOf("/from") - 1 < 6) {
             throw new DukeException("Your Event name is blank");
@@ -167,13 +176,20 @@ public class Parser {
         }
         texts.add(desc);
         String from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1);
+        if (!cD.checkFormat(input)) {
+            throw new DukeException("Invalid format for date time, its dd/mm/yyyy tttt");
+        }
         texts.add((from));
         String to = input.substring(input.indexOf("/to") + 4);
+        if (!cD.checkFormat(input)) {
+            throw new DukeException("Invalid format for date time, its dd/mm/yyyy tttt");
+        }
         texts.add(to);
         return texts;
     }
 
     private ArrayList<String> extractDeadline(String input) throws DukeException {
+        CustomDate cD = new CustomDate();
         ArrayList<String> texts = new ArrayList<>();
         if (input.indexOf("/by") - 1 < 9) {
             throw new DukeException("Your Deadline name is blank");
@@ -184,6 +200,9 @@ public class Parser {
         }
         texts.add(desc);
         String by = input.substring(input.indexOf("/by") + 4);
+        if (!cD.checkFormat(input)) {
+            throw new DukeException("Invalid format for date time, its dd/mm/yyyy tttt");
+        }
         texts.add(by);
         return texts;
     }
@@ -212,6 +231,10 @@ public class Parser {
         if (input.charAt(4) != ' ') {
             throw new DukeException("Invalid command");
         }
+        Pattern markFormat = Pattern.compile("mark \\d+");
+        if (!markFormat.matcher(input).find()) {
+            throw new DukeException("Invalid mark format");
+        }
         int selected = Integer.parseInt(input.substring(5)) - 1;
         return new MarkCommand(selected);
     }
@@ -223,6 +246,10 @@ public class Parser {
         if (input.charAt(6) != ' ') {
             throw new DukeException("Invalid command");
         }
+        Pattern unmarkFormat = Pattern.compile("unmark \\d+");
+        if (!unmarkFormat.matcher(input).find()) {
+            throw new DukeException("Invalid unmark format");
+        }
         int selected = Integer.parseInt(input.substring(7)) - 1;
         return new UnmarkComment(selected);
     }
@@ -233,6 +260,10 @@ public class Parser {
         }
         if (input.charAt(6) != ' ') {
             throw new DukeException("Invalid command");
+        }
+        Pattern delFormat = Pattern.compile("delete \\d+");
+        if (!delFormat.matcher(input).find()) {
+            throw new DukeException("Invalid delete format");
         }
         int selected = Integer.parseInt(input.substring(input.indexOf("delete") + 7)) - 1;
         return new DeleteCommand(selected);
@@ -290,6 +321,22 @@ public class Parser {
         Parser parser = new Parser("D");
         ArrayList<String> texts = parser.convertTaskInput(input);
         return new DeadlineCommand(texts);
+
+    }
+
+    private Command parseTodoTime(String input) throws DukeException {
+        if (input.equals(Commands.todotime.toString())) {
+            throw new DukeException("Empty TodoTime");
+        }
+        if (input.charAt(8) != ' ') {
+            throw new DukeException("Invalid command");
+        }
+        if (!input.contains("/for")) {
+            throw new DukeException("TodoTime does not contain /for");
+        }
+        Parser parser = new Parser("TT");
+        ArrayList<String> texts = parser.convertTaskInput(input);
+        return new TodoTimeCommand(texts);
 
     }
 
