@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.DukeException;
+import duke.note.Note;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -18,20 +19,22 @@ import duke.task.Todo;
  */
 public class Storage {
     private File dataFile;
-    private String filePath;
+    private File notesFile;
+    private String directoryPath;
 
     /**
      * Storage Constructor.
      *
-     * @param filePath Relative file path to data file.
+     * @param directoryPath Relative directory path.
      */
-    public Storage(String filePath) {
-        this.filePath = filePath;
-        this.dataFile = new File(filePath);
-        String directory = dataFile.getParent();
-        findDirectory(directory);
+    public Storage(String directoryPath) {
+        this.directoryPath = directoryPath;
+        findDirectory(this.directoryPath);
+        this.dataFile = new File(this.directoryPath, "/data.txt");
+        this.notesFile = new File(this.directoryPath, "/notes.txt");
         try {
             findFile(dataFile);
+            findFile(notesFile);
         } catch (IOException e) {
             throw new DukeException("Cannot find file.");
         }
@@ -74,7 +77,7 @@ public class Storage {
      *
      * @return ArrayList containing all the Tasks from the data file.
      */
-    public ArrayList<Task> load() {
+    public ArrayList<Task> loadData() {
         try {
             ArrayList<Task> storedList = new ArrayList<>();
             Scanner scanner = new Scanner(this.dataFile);
@@ -108,15 +111,49 @@ public class Storage {
     }
 
     /**
+     * Loads the information from the notesfile into an ArrayList.
+     *
+     * @return ArrayList containing all the Notes from the notes file.
+     */
+    public ArrayList<Note> loadNotes() {
+        try {
+            ArrayList<Note> notesList = new ArrayList<>();
+            Scanner scanner = new Scanner(this.notesFile);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Note note = new Note(line);
+                notesList.add(note);
+            }
+            return notesList;
+        } catch (FileNotFoundException e) {
+            throw new DukeException("Notes File Not Found.");
+        }
+    }
+
+    /**
      * Writes the tasks in the tasklist into the data file.
      *
      * @param tasks The tasklist.
      * @throws IOException Throws if FileWriter cannot be created.
      */
     public void writeTasksToFile(ArrayList<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(this.filePath);
+        FileWriter fw = new FileWriter(this.directoryPath + "/data.txt");
         for (Task task : tasks) {
             fw.write(task.writeToFile());
+        }
+        fw.close();
+    }
+
+    /**
+     * Writes the notes in the noteslist into the notes file.
+     *
+     * @param notes The noteslist.
+     * @throws IOException Throws if FileWriter cannot be created.
+     */
+    public void writeNotesToFile(ArrayList<Note> notes) throws IOException {
+        FileWriter fw = new FileWriter(this.directoryPath + "/notes.txt");
+        for (Note note : notes) {
+            fw.write(note.toString() + "\n");
         }
         fw.close();
     }

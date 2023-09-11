@@ -75,7 +75,7 @@ public class TaskList {
     /**
      * Prints all the tasks in the tasklist.
      */
-    public String print() {
+    public String printTasks() {
         String response = "Here are the tasks in your list: \n";
         for (int i = 0; i < tasklist.size(); i++) {
             int index = i + 1;
