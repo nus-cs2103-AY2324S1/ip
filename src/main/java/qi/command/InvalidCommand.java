@@ -20,7 +20,7 @@ public class InvalidCommand extends Command {
      * @param storage Storage updating data if necessary.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showInvalid();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showInvalid();
     }
 }

@@ -34,12 +34,12 @@ public class DeleteCommand extends Command {
      * @throws QiException If the file storing the data cannot be written.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws QiException {
-        ui.showTaskDeleted(this.taskId, tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws QiException {
         try {
             storage.update(tasks);
         } catch (IOException e) {
             throw new QiException("Cannot write to file!");
         }
+        return ui.showTaskDeleted(this.taskId, tasks);
     }
 }

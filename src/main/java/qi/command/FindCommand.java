@@ -28,7 +28,7 @@ public class FindCommand extends Command {
      * @param storage Storage updating data if necessary.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showMatching(tasks.matchingKeyWord(this.keyWord));
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showMatching(tasks.matchingKeyWord(this.keyWord));
     }
 }

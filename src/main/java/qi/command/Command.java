@@ -32,7 +32,7 @@ public abstract class Command {
      * @param storage Storage updating data if necessary.
      * @throws QiException If there are problems with accessing the data in the hard disk.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws QiException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws QiException;
 
     public boolean isExit() {
         return this.isExit;
