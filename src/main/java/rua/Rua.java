@@ -21,14 +21,7 @@ import rua.common.Ui;
 import rua.task.TaskList;
 
 public class Rua {
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaRua.png"));
-    private final Storage storage;
+     private final Storage storage;
     private final Ui ui;
     private TaskList tasks;
 
@@ -56,8 +49,9 @@ public class Rua {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-            ui.showMessage("Load successfully. Now you have " + tasks.getTasks().size()
-                    + " tasks in the list.\n");
+            final String loadSuccessfulMessage = "Load successfully. Now you have " + tasks.getTasks().size()
+                    + " tasks in the list.\n";
+            ui.showMessage(loadSuccessfulMessage);
             ui.showMessage(tasks.toString());
         } catch (Exception e) {
             ui.showLoadingError();

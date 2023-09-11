@@ -99,29 +99,27 @@ public class TaskList {
      * @return A String with information of all tasks happening on a given date.
      */
     public String searchByDate(LocalDate date) {
-        String res = "";
+        StringBuilder tasksOnThatDate = new StringBuilder();
         int index = 1;
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).isHappeningOnThatDate(date)) {
-                res = res + index
-                        + ": " + tasks.get(i).toString() + "\n";
+        for (Task task : tasks) {
+            if (task.isHappeningOnThatDate(date)) {
+                tasksOnThatDate.append(index).append(": ").append(task).append("\n");
                 index += 1;
             }
         }
-        return res;
+        return tasksOnThatDate.toString();
     }
 
     public String search(String keyword) {
-        String res= "";
+        StringBuilder targetTasks = new StringBuilder();
         int index = 1;
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
-                res = res + index
-                        + ": " + task.toString() + "\n";
+                targetTasks.append(index).append(": ").append(task).append("\n");
                 index += 1;
             }
         }
-        return res;
+        return targetTasks.toString();
     }
 
     /**
@@ -131,10 +129,10 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        String result = "Here are the tasks in your list:\n";
+        StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            result = result + (i + 1) + ": " + tasks.get(i).toString() + "\n";
+            result.append(i + 1).append(": ").append(tasks.get(i).toString()).append("\n");
         }
-        return result;
+        return result.toString();
     }
 }

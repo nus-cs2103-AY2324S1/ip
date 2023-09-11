@@ -1,6 +1,8 @@
 package rua.task;
 
 public class Todo extends Task {
+    private static final String TYPE = "T";
+
     /**
      * Constructs a Todo object (assuming unmarked).
      *
@@ -28,7 +30,7 @@ public class Todo extends Task {
      */
     @Override
     public String getType() {
-        return "T";
+        return TYPE;
     }
 
     /**

@@ -2,9 +2,13 @@ package rua.exception;
 
 public class InvalidTypeException extends Exception {
     private final String type;
+    private final String invalidTypeErrorMessage;
 
     public InvalidTypeException(String type) {
         this.type = type;
+        this.invalidTypeErrorMessage = " OOPS!!! I'm sorry, but type "
+                + type + " is not supported :-(\n";
+
     }
 
     /**
@@ -13,6 +17,6 @@ public class InvalidTypeException extends Exception {
      * @return The error message of this exception.
      */
     public String toString() {
-        return (" OOPS!!! I'm sorry, but type " + type + " is not supported :-(\n");
+        return invalidTypeErrorMessage;
     }
 }

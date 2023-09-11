@@ -8,6 +8,9 @@ public class MarkCommand implements Command {
     private final Boolean marked;
     private final int index;
 
+    private static final String MESSAGE_MARK = "Nice! I've marked this task as done:\n";
+    private static final String MESSAGE_UNMARK = "OK, I've marked this task as not done yet:\n";
+
     public MarkCommand(int index, Boolean marked) {
         this.index = index;
         this.marked = marked;
@@ -34,9 +37,9 @@ public class MarkCommand implements Command {
     @Override
     public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
         if (marked) {
-            ui.showMessage("Nice! I've marked this task as done:\n");
+            ui.showMessage(MESSAGE_MARK);
         } else {
-            ui.showMessage("OK, I've marked this task as not done yet:\n");
+            ui.showMessage(MESSAGE_UNMARK);
         }
         TaskList newTasks = marked ? tasks.mark(index) : tasks.unmark(index);
         ui.showMessage("    " + tasks.getTasks().get(index - 1));

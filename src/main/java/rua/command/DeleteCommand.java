@@ -31,11 +31,14 @@ public class DeleteCommand implements Command {
      */
     @Override
     public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
-        ui.showMessage(" Noted. I've removed this task:\n");
-        ui.showMessage("    " + tasks.getTasks().get(index - 1) + "\n");
+        final String removeTaskMessage = " Noted. I've removed this task:\n";
+        final String removingTaskInfo = "    " + tasks.getTasks().get(index - 1) + "\n";
         TaskList newTasks = tasks.delete(index);
-        ui.showMessage("Now you have " + tasks.getTasks().size()
-                + " tasks in the list.\n");
+        final String totalNumberTaskMessage = "Now you have " + tasks.getTasks().size()
+                + " tasks in the list.\n";
+        ui.showMessage(removeTaskMessage);
+        ui.showMessage(removingTaskInfo);
+        ui.showMessage(totalNumberTaskMessage);
         return newTasks;
     }
 

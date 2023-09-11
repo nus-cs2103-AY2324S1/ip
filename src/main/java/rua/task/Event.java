@@ -127,9 +127,11 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
+        final String fromDateString = this.from.format(DateTimeFormatter.ofPattern("MM dd yyyy"));
+        final String toDateString = this.to.format(DateTimeFormatter.ofPattern("MM dd yyyy"));
         return "[E]" + super.toString() + " (from: "
-                + this.from.format(DateTimeFormatter.ofPattern("MM dd yyyy"))
-                + " to: " + this.to.format(DateTimeFormatter.ofPattern("MM dd yyyy"))
+                + fromDateString
+                + " to: " + toDateString
                 + ")";
     }
 }
