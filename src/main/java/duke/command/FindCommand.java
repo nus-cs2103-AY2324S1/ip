@@ -40,6 +40,7 @@ public class FindCommand extends Command {
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
         ArrayList<Task> matches = new ArrayList<>();
         String find = this.query.toUpperCase();
+        assert find.isBlank() : "Find query should not be empty";
 
         // filter out relevant
         for (Task t : taskList.getAllTask()) {

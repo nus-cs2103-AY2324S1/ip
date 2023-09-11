@@ -43,6 +43,8 @@ public class DeleteCommand extends Command {
 
         // Check if able to remove
         Task removed = taskList.remove(index);
+        assert removed != null : "Task removed should not be null";
+
         try {
             if (!storage.rewriteAll(taskList.getAllTask())) {
                 return ui.getUnexpectedErrorMessage("not all tasks were successfully written,"

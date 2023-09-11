@@ -75,6 +75,8 @@ public class Storage {
             // handles file not existing
             Files.createFile(this.path);
         }
+
+        assert Files.exists(this.path) : "File should exist";
     }
 
     /**

@@ -184,12 +184,14 @@ public class Parser {
             LocalDateTime val = LocalDateTime.parse(value, Parser.PARSE_FORMAT);
             flagMap.put(splitInputs[flagIndex[i]], val);
         }
+
         // Check for a valid description
         desc = String.join(" ", Arrays.copyOfRange(splitInputs, 1, flagIndex[0]));
         if (desc.isBlank()) {
             throw new DukeBadInputException(
                     "Quack doesn't understand an empty description, please provide one!!");
         }
+
         return desc;
     }
 
