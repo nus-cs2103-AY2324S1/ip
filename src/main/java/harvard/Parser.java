@@ -12,6 +12,9 @@ public class Parser {
      * @throws DukeException If there is an error parsing the user input.
      */
     public static Command parse(String command) throws DukeException {
+        assert command != null : "command should not be null";
+        assert command.length() > 0 : "command should not be empty";
+
         if (command.equals("bye")) {
             return new ExitCommand();
         } else if (command.startsWith("todo")) {
