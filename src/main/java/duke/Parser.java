@@ -6,6 +6,7 @@ import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
 import duke.command.FindCommand;
+import duke.command.HelpCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.TodoCommand;
@@ -32,6 +33,8 @@ public class Parser {
             return new ExitCommand();
         case "LIST":
             return new ListCommand();
+        case "HELP":
+            return new HelpCommand();
         case "MARK":
             return new MarkCommand(getTaskNumber(userInput));
         case "UNMARK":
@@ -81,7 +84,7 @@ public class Parser {
         String by = userInput.split("/by")[1].trim();
 
         LocalDate byDate = parseDate(by);
-      
+
         String description = userInput.split("/by")[0].trim().split(" ", 2)[1];
 
         if (description.isEmpty()) {
