@@ -1,5 +1,7 @@
 package taskmate.ui;
 
+import java.util.Objects;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,8 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import taskmate.main.TaskMate;
-
-import java.util.Objects;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -26,8 +26,10 @@ public class MainWindow extends AnchorPane {
 
     private TaskMate t;
 
-    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
-    private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/DaUser.png")));
+    private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/DaDuke.png")));
 
     @FXML
     public void initialize() {
@@ -55,5 +57,4 @@ public class MainWindow extends AnchorPane {
             System.exit(0);
         }
     }
-
 }
