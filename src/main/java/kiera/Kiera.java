@@ -44,21 +44,3 @@ public class Kiera extends Application {
     }
 }
 
-//    public void run() {
-//        ui.showHello();
-//        boolean isExit = false;
-//        while (!isExit) {
-//            try {
-//                String fullCommand = ui.readCommand();
-//                ui.showLine();
-//                Command c = Parser.parse(fullCommand);
-//                c.execute(tasks, ui, storage);
-//                isExit = c.isExit();
-//            } catch (KieraException e) {
-//                ui.showError(e.toString());
-//            } finally {
-//                ui.showLine();
-//            }
-//        }
-//    }
-
