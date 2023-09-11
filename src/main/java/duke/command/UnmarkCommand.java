@@ -38,7 +38,7 @@ public class UnmarkCommand extends Command {
             assert taskNum < tasks.size() : "Size to unmark must be less than actual size of list";
             tasks.unmarkTask(taskNum);
             store.save(tasks);
-            return ui.printUnmarkTask(taskNum, task);
+            return ui.printUnmarkTask(task);
         } catch (IOException e) {
             throw new DukeException(" unable to locate local file!");
         }

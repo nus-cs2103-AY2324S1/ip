@@ -37,7 +37,7 @@ public class MarkCommand extends Command {
             assert taskNum < tasks.size() : "Size to mark must be less than actual size of list";
             tasks.markTask(taskNum);
             store.save(tasks);
-            return ui.printMarkTask(taskNum, task);
+            return ui.printMarkTask(task);
         } catch (IOException e) {
             throw new DukeException(" umable to locate local file!");
         }

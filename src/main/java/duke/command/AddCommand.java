@@ -31,7 +31,6 @@ public class AddCommand extends Command {
             assert firstIndexSpace != 0 : "add command should not have leading white space";
             String taskType = command.substring(0, firstIndexSpace);
             String taskName = command.substring(firstIndexSpace + 1);
-
             if (taskType.equals("event")) {
                 task = new Event(taskName.trim());
             } else if (taskType.equals("deadline")) {

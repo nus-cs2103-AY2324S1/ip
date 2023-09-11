@@ -97,7 +97,7 @@ public class TaskList {
         while (taskNumber < tasklist.size() + 1) {
             Task task = tasklist.get(taskNumber - 1);
             String txtformat = task.isCompleted() + "|" + task.toString() + "|" + task.getType() + "|"
-                    + task.getOgName() + "\n";
+                    + task.getOriginalName() + "\n";
             res += txtformat;
             taskNumber++;
         }

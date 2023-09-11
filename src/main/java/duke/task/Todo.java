@@ -11,7 +11,7 @@ public class Todo extends Task {
     public Todo(String name) throws DukeException {
         super(" " + name);
         super.setType("Todo");
-        super.setOgName(name);
+        super.setOriginalName(name);
         if (name.isEmpty()) {
             throw new DukeException(" No Description given!");
         }

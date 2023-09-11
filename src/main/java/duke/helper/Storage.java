@@ -16,8 +16,6 @@ import duke.task.Todo;
 /**
  * Storage is the local class that deals with the logic for storing and updating tasks data locally
  */
-
-
 public class Storage {
     /**
      * Storage is the local class that deals with the logic for storing tasks data locally

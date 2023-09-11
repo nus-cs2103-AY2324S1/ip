@@ -22,8 +22,8 @@ import javafx.scene.layout.VBox;
 
 
 public class MeowBot {
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     private final String FILE_NAME;
     private Storage storage;
     private TaskList tasks;
@@ -43,7 +43,6 @@ public class MeowBot {
      * @throws DukeException when generating the tasks back from the data file
      * @throws IOException when the data file cannot be found
      */
-
     public MeowBot(String file) throws DukeException, IOException {
         this.ui = new Ui();
         this.FILE_NAME = file;
@@ -96,7 +95,8 @@ public class MeowBot {
     public String getResponse(String input) {
         String response = "Invalid";
         try {
-            response = Parser.parse(input).execute(tasks, ui, storage);
+            Command c = Parser.parse(input);
+            response = c.execute(tasks, ui, storage);
         } catch (DukeException e) {
             response = e.toString();
         }

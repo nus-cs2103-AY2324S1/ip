@@ -24,7 +24,7 @@ public class Deadline extends Task {
         //consturctor will take in te "/by format also"
         super(name.substring(0 , name.indexOf("/") - 1));
         super.setType("Deadline");
-        super.setOgName(name);
+        super.setOriginalName(name);
         String d = name.substring(name.indexOf("/") + 4); // 2/12/2019 1800
         this.inputs = name.split("/");
         String[] dtime = d.split(" ");
