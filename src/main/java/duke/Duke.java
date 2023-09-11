@@ -177,9 +177,9 @@ public class Duke extends Application {
      * Sends a greeting message on startup of the chatbot.
      */
     private static String greet() {
-        return "YOU DIDN'T SEE\n" +
-                name +
-                "COMING DID YOU!?\n";
+        return "YOU DIDN'T SEE\n"
+                + name
+                + "COMING DID YOU!?\n";
     }
 
     /**
@@ -220,9 +220,9 @@ public class Duke extends Application {
      */
     private static String append(Task task) {
         taskStorage.appendTask(task);
-        return "YOU WANT TO " +
-                task +
-                "?\nSURE, WHATEVER.\n";
+        return "YOU WANT TO "
+                + task
+                + "?\nSURE, WHATEVER.\n";
     }
 
     /**
@@ -235,8 +235,8 @@ public class Duke extends Application {
         try {
             return append(new ToDo(Parser.parseToDo(task)));
         } catch (StringIndexOutOfBoundsException e) {
-            return "WRONG FORMAT FOOL!!! IT'S:\n" +
-                    "todo {task}\n";
+            return "WRONG FORMAT FOOL!!! IT'S:\n"
+                    + "todo {task}\n";
         }
     }
 
@@ -251,10 +251,10 @@ public class Duke extends Application {
             String[] parsedDeadline = Parser.parseDeadline(task);
             return append(new Deadline(parsedDeadline[0], parsedDeadline[1]));
         } catch (StringIndexOutOfBoundsException e) {
-            return "WRONG FORMAT FOOL!!! IT'S:\n" +
-                    "deadline {task} /by {time}\n";
+            return "WRONG FORMAT FOOL!!! IT'S:\n"
+                    + "deadline {task} /by {time}\n";
         } catch (DateTimeParseException e) {
-            return "Date format should be yyyy-mm-dd\n";
+            return "WHAT'S THIS DATE!? IT'S YYYY-MM-DD!!!\n";
         }
     }
 
@@ -269,23 +269,30 @@ public class Duke extends Application {
             String[] parsedEvent = Parser.parseEvent(task);
             return append(new Event(parsedEvent[0], parsedEvent[1], parsedEvent[2]));
         } catch (StringIndexOutOfBoundsException e) {
-            return "WRONG FORMAT FOOL!!! IT'S:\n" +
-                    "event {task} /from {time} /to {time}\n";
+            return "WRONG FORMAT FOOL!!! IT'S:\n"
+                    + "event {task} /from {time} /to {time}\n";
         } catch (DateTimeParseException e) {
-            return "Date format should be yyyy-mm-dd\n";
+            return "WHAT'S THIS DATE!? IT'S YYYY-MM-DD!!!\n";
         }
     }
     /**
      * Attempts to mark a task in the task array
      *
-     * @param toMark
+     * @param toMark the task to be marked
      */
     private static String mark(String toMark) {
         System.out.print(horizontalLine);
         try {
             Task task = taskStorage.get(Parser.parseMark(toMark));
-            if (task == null) throw new NullPointerException();
-            if (task.isDone) throw new IllegalArgumentException();
+
+            // Check that the task is actually in the list, and is already done
+            if (task == null) {
+                throw new NullPointerException();
+            }
+            if (task.isDone) {
+                throw new IllegalArgumentException();
+            }
+
             task.markAsDone();
             return "MARKED:\n" + task;
         } catch (NumberFormatException e) {
@@ -308,8 +315,15 @@ public class Duke extends Application {
         System.out.print(horizontalLine);
         try {
             Task task = taskStorage.get(Parser.parseUnmark(toUnmark));
-            if (task == null) throw new NullPointerException();
-            if (!task.isDone) throw new IllegalArgumentException();
+
+            // Check that the task is actually in the list, and isn't already done
+            if (task == null) {
+                throw new NullPointerException();
+            }
+            if (task.isDone) {
+                throw new IllegalArgumentException();
+            }
+
             task.markAsUndone();
             return "UNMARKED:\n" + task;
         } catch (NumberFormatException e) {
@@ -325,7 +339,8 @@ public class Duke extends Application {
 
     /**
      * Attempts to delete a task from the task array
-     * @param toDelete
+     *
+     * @param toDelete the task to be deleted
      */
     private static String delete(String toDelete) {
         System.out.print(horizontalLine);
@@ -333,9 +348,9 @@ public class Duke extends Application {
             int index = Parser.parseDelete(toDelete);
             Task deletedTask = taskStorage.get(index);
             taskStorage.delete(index);
-            return "YOU SEE THIS?\n" +
-                    deletedTask +
-                    "\nNOW YOU DON'T";
+            return "YOU SEE THIS?\n"
+                    + deletedTask
+                    + "\nNOW YOU DON'T";
         } catch (NumberFormatException e) {
             return "NOT A NUMBER IDIOT!!!";
         } catch (IndexOutOfBoundsException e) {
@@ -349,7 +364,7 @@ public class Duke extends Application {
      * @param search a keyphrase used to check with the database of tasks
      */
     public static String find(String search) {
-        return "THIS WHAT YOU'RE LOOKING FOR?\n" +
-                taskStorage.find(Parser.parseFind(search));
+        return "THIS WHAT YOU'RE LOOKING FOR?\n"
+                + taskStorage.find(Parser.parseFind(search));
     }
 }

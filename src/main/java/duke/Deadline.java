@@ -13,7 +13,7 @@ public class Deadline extends Task{
      * Create task based on description and deadline
      *
      * @param description The description of the task
-     * @param by duke.Deadline of task
+     * @param by Deadline of task
      */
     public Deadline(String description, String by) {
         super(description);
