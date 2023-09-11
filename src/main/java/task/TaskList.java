@@ -69,6 +69,7 @@ public class TaskList {
     /**
      * Returns a string representation of the task list
      */
+    @Override
     public String toString() {
         int index = 1;
         String res = "";
@@ -94,6 +95,7 @@ public class TaskList {
                 filteredTasks.add(task);
             }
         }
+        assert filteredTasks.size() <= this.getSize() : "Filtered task list should not be longer than original list";
         return filteredTasks;
     }
 }
