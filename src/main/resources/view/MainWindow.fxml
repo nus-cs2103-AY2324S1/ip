@@ -65,6 +65,26 @@
                           <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
                       </padding>
                   </javafx.scene.layout.HBox>
+                   <javafx.scene.layout.HBox maxHeight="1.7976931348623157E308" prefWidth="400.0">
+                       <children>
+                           <ImageView fx:id="displayPicture2" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                               <image>
+                                   <Image url="@../images/Quack.png" />
+                               </image>
+                               <HBox.margin>
+                                   <Insets left="10.0" />
+                               </HBox.margin>
+                           </ImageView>
+                           <Label fx:id="reminderList" maxWidth="250.0" minHeight="10.0" style="-fx-background-radius: 10; -fx-padding: 15; -fx-background-color: #FFFFFF;" text="Label" wrapText="true">
+                               <HBox.margin>
+                                   <Insets left="10.0" right="15.0" />
+                               </HBox.margin>
+                           </Label>
+                       </children>
+                       <padding>
+                           <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+                       </padding>
+                   </javafx.scene.layout.HBox>
                </children></VBox>
             </content>
         </ScrollPane>

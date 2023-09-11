@@ -26,6 +26,8 @@ public class MainWindow extends AnchorPane {
     private Label textBox;
     @FXML
     private Label textBoxList;
+    @FXML
+    private Label reminderList;
 
     private Duke duke;
 
@@ -38,6 +40,7 @@ public class MainWindow extends AnchorPane {
         this.textBox.setText(Ui.WELCOME_MESSAGE);
         this.textBoxList.setText("Quack Quack, you have not entered any tasks yet!\n"
                 + "Create new tasks with the todo, deadline or event command");
+        this.reminderList.setText("Quack has not found any deadlines or events today, you are a free quack!");
     }
 
     /**
@@ -47,6 +50,8 @@ public class MainWindow extends AnchorPane {
         this.duke = d;
         String text = this.duke.getResponse("list") + "\n" + this.duke.getStorageLoadErrorMessage();
         this.textBoxList.setText(text);
+        String reminders = this.duke.getResponse("reminder 1");
+        this.reminderList.setText(reminders);
     }
 
     /**

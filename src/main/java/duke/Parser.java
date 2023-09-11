@@ -15,6 +15,7 @@ import duke.command.FindCommand;
 import duke.command.HelpCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
+import duke.command.ReminderCommand;
 import duke.command.TodoCommand;
 import duke.command.UnrecognisedCommand;
 import duke.exception.DukeBadInputException;
@@ -61,6 +62,8 @@ public class Parser {
             return new MarkCommand(false, findIndex(splitInput));
         case "DELETE":
             return new DeleteCommand(findIndex(splitInput));
+        case "REMINDER":
+            return new ReminderCommand(findIndex(splitInput));
         case "FIND":
             if (splitInput.length < 2) {
                 throw new DukeBadInputException(
