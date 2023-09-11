@@ -1,5 +1,7 @@
 package qi.parser;
 
+import java.time.LocalDate;
+
 import qi.command.AddCommand;
 import qi.command.Command;
 import qi.command.DeleteCommand;
@@ -10,8 +12,6 @@ import qi.command.ListCommand;
 import qi.command.MarkCommand;
 import qi.command.UnmarkCommand;
 import qi.qiexception.QiException;
-
-import java.time.LocalDate;
 
 /**
  * Processes string input from users
