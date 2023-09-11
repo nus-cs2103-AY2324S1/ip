@@ -1,5 +1,6 @@
-package duke;
+package duke.helper;
 
+import duke.MeowBot;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;

@@ -47,8 +47,11 @@ test {
     }
 }
 
+mainClassName = 'duke.Main'
+
+
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("duke.Meowbot")
 }
 
 shadowJar {

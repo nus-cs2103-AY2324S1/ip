@@ -1,6 +1,5 @@
 package duke.helper;
 
-import duke.DialogBox;
 import duke.MeowBot;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -28,7 +27,7 @@ public class MainWindow extends AnchorPane {
 
     private Ui ui = new Ui();
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/stickerduke.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/sticker.png"));
 
     /**
