@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
 
-    LocalDate startDatetime;
-    LocalDate endDatetime;
+    private final LocalDate startDatetime;
+    private final LocalDate endDatetime;
 
     /**
      * Event constructor that allows the developer to specify the name of the task, a date that represents
@@ -87,10 +87,13 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E][" + (this.getIsDone() ? 'X' : ' ') + "] " + this.name + " (from: " + this.getStartDatetimeFormatted() + " to: " + this.getEndDatetimeFormatted() + ")";
+        return "[E][" + (this.getIsDone() ? 'X' : ' ') + "] " + this.name + " (from: "
+                + this.getStartDatetimeFormatted() + " to: " + this.getEndDatetimeFormatted() + ")";
     }
 
+    @Override
     public String formatTaskForSaving() {
-        return "[E][" + (this.getIsDone() ? 'X' : ' ') + "] " + this.name + " (from: " + this.getStartDatetime() + " to: " + this.getEndDatetime() + ")";
+        return "[E][" + (this.getIsDone() ? 'X' : ' ') + "] " + this.name + " (from: "
+                + this.getStartDatetime() + " to: " + this.getEndDatetime() + ")";
     }
 }
