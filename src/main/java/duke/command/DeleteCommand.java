@@ -33,6 +33,8 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Storage storage) throws DukeException {
+        assert taskToDeleteDetails != null : "Details of task to delete should not be null";
+
         int numOfTasksLeft;
         Task deletedTask;
         try {
@@ -42,6 +44,9 @@ public class DeleteCommand extends Command {
         } catch (DukeException e) {
             throw new DukeException(e.getMessage());
         }
+
+        assert deletedTask != null : "Deleted task should not be null";
+        assert numOfTasksLeft >= 0 : "Number of tasks left should not be negative";
 
         return Ui.printDeletedTask(deletedTask, numOfTasksLeft);
     }

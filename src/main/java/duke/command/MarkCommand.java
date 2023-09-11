@@ -44,6 +44,9 @@ public class MarkCommand extends Command {
         } catch (DukeException e) {
             throw new DukeException(e.getMessage());
         }
+
+        assert taskToChange != null : "Task to change should not be null";
+
         return Ui.printChangeTaskDoneStatus(taskToChange, this.toMark);
     }
 }

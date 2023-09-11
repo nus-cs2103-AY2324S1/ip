@@ -38,6 +38,9 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Storage storage) throws DukeException {
+        assert taskType != null : "Task type should not be null";
+        assert addCommandDetails != null : "Details of add command should not be null";
+
         Task addedTask;
         try {
             addedTask = taskList.addTask(this.taskType, this.addCommandDetails);
@@ -45,6 +48,8 @@ public class AddCommand extends Command {
         } catch (DukeException e) {
             throw new DukeException(e.getMessage());
         }
+
+        assert addedTask != null : "Added task should not be null";
 
         return Ui.printAddedTask(addedTask, taskList.getNumTasks());
     }
