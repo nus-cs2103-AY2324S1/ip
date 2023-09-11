@@ -1,6 +1,8 @@
 package chatbot.alain;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks.
@@ -87,5 +89,20 @@ public class TaskList {
      */
     public boolean contains(Task task) {
         return list.contains(task);
+    }
+
+    /**
+     * Sorts the tasks in the list based on their date values.
+     *
+     * The sorting is achieved by converting the date of each task to its respective value
+     * and then sorting the tasks in ascending order of these values. After sorting,
+     * the list is updated with the sorted tasks.
+     *
+     * @see Task#getDate()
+     */
+    public void sort() {
+        list = (ArrayList<Task>) list.stream()
+                .sorted(Comparator.comparing(Task::getDate))
+                .collect(Collectors.toList());
     }
 }
