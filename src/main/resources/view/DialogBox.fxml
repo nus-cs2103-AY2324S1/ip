@@ -5,10 +5,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_RIGHT" maxWidth="1.7976931348623157E308" prefWidth="400.0" style="-fx-spacing: 10; -fx-background-color: #212121;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" text="Label" wrapText="true" />
-        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-radius: 25;"/>
+        <Label fx:id="dialog" minHeight="-Infinity" style="-fx-background-color: #eaeaea; -fx-background-radius: 15; -fx-border-radius: 32;" text="Label" wrapText="true" HBox.hgrow="ALWAYS">
+            <padding>
+                <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
+            </padding>
+        </Label>
+        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);" />
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
