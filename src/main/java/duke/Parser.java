@@ -45,6 +45,7 @@ public class Parser {
             } else if (Objects.equals(action, "bye")) {
                 throw new Exception("Bye. Hope to see you again soon!");
             } else if (Objects.equals(action, "list")) {
+                assert(this.words.length == 1);
                 StringBuilder taskDetails = new StringBuilder();
                 for (int i = 0; i < tasks.userData.size(); i++) {
                     Task currentTask = tasks.userData.get(i);
@@ -74,6 +75,7 @@ public class Parser {
                 }
             } else if (Objects.equals(action, "find"))  {
                 String keyword = taskDescription;
+                assert(!Objects.equals(keyword, ""));
                 ArrayList<Task> filteredTasks = tasks.filter(keyword);
                 for (int i = 0; i < filteredTasks.size(); i++) {
                     Task currentTask = filteredTasks.get(i);
@@ -226,9 +228,13 @@ public class Parser {
         } else if (userCommand.length > 2) {
             throw new DukeException("OOPS!!! Please only provide one digit!");
         } else {
-            int digit = Integer.parseInt(userCommand[1]);
-            if (digit <= 0 || digit > tasks.userData.size()) {
-                throw new DukeException("The digit you provided is out of bounds!");
+            try {
+                int digit = Integer.parseInt(userCommand[1]);
+                if (digit <= 0 || digit > tasks.userData.size()) {
+                    throw new DukeException("The digit you provided is out of bounds!");
+                }
+            } catch (NumberFormatException e) {
+                throw new DukeException("Please enter a valid number.");
             }
         }
         return true;
