@@ -60,6 +60,7 @@ public class TaskList {
      * @return The task in the corresponding index.
      */
     public Task retrieveTask(int index) {
+        assert this.getSize() >= 1 : "There are currently no tasks";
         return tasks.get(index);
     }
 

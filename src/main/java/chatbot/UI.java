@@ -46,6 +46,7 @@ public class UI {
     public String printMarked(Task task) {
         // System.out.println(MESSAGE_MARK);
         // System.out.println(task);
+        assert task.isDone : "This task is still marked as not completed.";
         String toBePrinted = MESSAGE_MARK + "\n" + task;
         return toBePrinted;
     }
@@ -57,6 +58,7 @@ public class UI {
     public String printUnmarked(Task task) {
         // System.out.println(MESSAGE_UNMARK);
         // System.out.println(task);
+        assert !task.isDone : "This task is still marked as completed.";
         String toBePrinted = MESSAGE_UNMARK + "\n" + task;
         return toBePrinted;
     }

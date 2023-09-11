@@ -94,6 +94,7 @@ public class Parser {
             return ui.printStorageList(filteredList);
 
         } else {
+
             if (!(input.startsWith("todo") || input.startsWith("event") 
                     || input.startsWith("deadline"))) {
                 return ui.invalidInput();
@@ -151,6 +152,7 @@ public class Parser {
                 return ui.addTask(event, index);
             }
         }
+        assert false : "execution should never reach here";
         return "";
     }
 
