@@ -148,11 +148,6 @@ public class Parser {
 
     /**
      * Parses a string representation of a task and creates a Task object.
-     * This method takes a string representation of a task in a specific format
-     * and parses it to create a corresponding Task object. The input string is
-     * split using the "|" delimiter and the task type, status, description, and
-     * other relevant information are extracted to create the appropriate task.
-     * The created task object is then returned.
      *
      * @param line The string representation of a task to be parsed.
      * @return A Task object created from the parsed string representation.
