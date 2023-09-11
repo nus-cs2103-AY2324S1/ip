@@ -22,13 +22,16 @@ public class StorageTest {
     public void save_normalTaskArrayList_success(){
         ArrayList<Task> taskList = new ArrayList<>();
         taskList.add(new ToDo("borrow books"));
-        taskList.add(new Deadline("read books", LocalDateTime.of(2023, 8, 23, 18, 00)));
-        taskList.add(new Event("return books", "12/8/2023", "28/8/2023"));
+        taskList.add(new Deadline("read books",
+                        LocalDateTime.of(2023, 8, 23, 18, 00)));
+        taskList.add(new Event("return books",
+                        LocalDateTime.of(2023, 8, 23, 18, 00),
+                        LocalDateTime.of(2023, 8, 23, 18, 01)));
         new Storage("./data/duke.txt").save(taskList);
 
         String correctList = "1.[T][ ] borrow books \n" +
                 "2.[D][ ] read books (by: August 23 2023, 6:00 PM)\n" +
-                "3.[E][ ] return books (from: 12/8/2023 to: 28/8/2023)";
+                "3.[E][ ] return books (from: August 23 2023, 6:00 PM to: August 23 2023, 6:01 PM)";
 
         try {
             ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("./data/duke.txt"));
@@ -60,8 +63,11 @@ public class StorageTest {
     public void load_normalTaskArrayList_success(){
         ArrayList<Task> taskList = new ArrayList<>();
         taskList.add(new ToDo("borrow books"));
-        taskList.add(new Deadline("read books", LocalDateTime.of(2023, 8, 23, 18, 00)));
-        taskList.add(new Event("return books", "12/8/2023", "28/8/2023"));
+        taskList.add(new Deadline("read books",
+                        LocalDateTime.of(2023, 8, 23, 18, 00)));
+        taskList.add(new Event("return books",
+                        LocalDateTime.of(2023, 8, 23, 18, 00),
+                        LocalDateTime.of(2023, 8, 23, 18, 01)));
 
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("./data/duke.txt", false))) {
             outputStream.writeObject(taskList);
@@ -71,7 +77,7 @@ public class StorageTest {
 
         String correctList = "1.[T][ ] borrow books \n" +
                 "2.[D][ ] read books (by: August 23 2023, 6:00 PM)\n" +
-                "3.[E][ ] return books (from: 12/8/2023 to: 28/8/2023)";
+                "3.[E][ ] return books (from: August 23 2023, 6:00 PM to: August 23 2023, 6:01 PM)";
 
         try {
             ArrayList<Task> tasks = new Storage("./data/duke.txt").load();
