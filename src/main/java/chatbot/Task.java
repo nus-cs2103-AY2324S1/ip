@@ -43,7 +43,6 @@ public class Task {
     public String getExtras() {
         return "";
     }
-    
     /**
      * Marks the task as completed
      */

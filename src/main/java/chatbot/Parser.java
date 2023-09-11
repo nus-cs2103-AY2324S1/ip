@@ -24,11 +24,9 @@ public class Parser {
 
     // Purely for testing purposes.
     public Parser() {}
-
     /** 
      * Interprets the user string input and
      * returns a value based on the input.
-     * 
      * @param input The user input to be interpreted.
      * @return The value to determine if the program ends. 
      */
@@ -107,9 +105,9 @@ public class Parser {
 
                 }
 
-                String[] moreStrings = input.split(" ", 2);
+                String[] splitInput = input.split(" ", 2);
 
-                Task todo = new Todo(moreStrings[1]);
+                Task todo = new Todo(splitInput[1]);
                 taskHandler.add(todo);
                 int index = taskHandler.getSize();
 
@@ -122,10 +120,10 @@ public class Parser {
 
                 }
 
-                String[] moreStrings = input.split("/", 2);
-                String[] getDescription = moreStrings[0].split(" ", 2);
+                String[] splitInput = input.split("/", 2);
+                String[] getDescription = splitInput[0].split(" ", 2);
 
-                String returnBy = moreStrings[1].substring(3);
+                String returnBy = splitInput[1].substring(3);
 
                 Task deadline = new Deadline(getDescription[1], returnBy);
                 taskHandler.add(deadline);
@@ -140,13 +138,13 @@ public class Parser {
 
                 }
 
-                String[] moreStrings = input.split("/");
-                String[] pullStrings = moreStrings[0].split(" ", 2);
+                String[] splitInput = input.split("/");
+                String[] toGetDateTime = splitInput[0].split(" ", 2);
 
-                String from = moreStrings[1].substring(4);
-                String to = moreStrings[2].substring(2);
+                String from = splitInput[1].substring(4);
+                String to = splitInput[2].substring(2);
 
-                Task event = new Event(pullStrings[1], from, to);
+                Task event = new Event(toGetDateTime[1], from, to);
                 taskHandler.add(event);
                 int index = taskHandler.getSize();
 

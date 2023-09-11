@@ -21,11 +21,9 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
     }
-
     /** 
      * Checks if the file path exists and
      * prints the text document if it exists.
-     * 
      * @throws FileNotFoundException If file path is invalid.
      */
     public String load() {
@@ -45,11 +43,9 @@ public class Storage {
         }
         return outputStr;
     }
-
     /** 
      * Creates a new file in the specified path and
      * writes to the file.
-     * 
      * @throws IOException If the input/output is interrupted.
      */
     public void write(List<Task> taskForce) {

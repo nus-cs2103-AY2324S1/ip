@@ -18,7 +18,6 @@ public class TaskList {
 
     /**
      * The task is added to the list.
-     * 
      * @param task The task to be added.
      */
     public void add(Task task) {
@@ -27,7 +26,6 @@ public class TaskList {
 
     /**
      * The task is removed from the list.
-     * 
      * @param index The index of the task to be removed.
      */
     public void delete(int index) {
@@ -36,7 +34,6 @@ public class TaskList {
 
     /**
      * The task is marked and returned back.
-     * 
      * @param index The index of the task to be marked.
      * @return The task that was marked.
      */
@@ -48,7 +45,6 @@ public class TaskList {
 
     /**
      * The task is unmarked and returned back.
-     * 
      * @param index The index of the task to be unmarked.
      * @return The task that was unmarked.
      */
@@ -60,7 +56,6 @@ public class TaskList {
 
     /**
      * Retrieves the task in the list.
-     * 
      * @param index The index of the task.
      * @return The task in the corresponding index.
      */
@@ -84,7 +79,6 @@ public class TaskList {
 
     /**
      * Retrieves the filtered list according to the keyword.
-     * 
      * @param keyword The word to filter the list.
      * @return The filtered list.
      */
