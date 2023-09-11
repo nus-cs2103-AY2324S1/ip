@@ -28,6 +28,7 @@ public class AddCommand extends Command {
     public AddCommand(String command) throws DukeException {
         try {
             int firstIndexSpace = command.indexOf(" ");
+            assert firstIndexSpace != 0 : "add command should not have leading white space";
             String taskType = command.substring(0, firstIndexSpace);
             String taskName = command.substring(firstIndexSpace + 1);
             if (taskType.equals("event")) {
@@ -58,7 +59,7 @@ public class AddCommand extends Command {
             return ui.printAddTask(tasks.size(), task);
 
         } catch (IOException e) {
-            throw new DukeException(" umable to locate local file!");
+            throw new DukeException(" unable to locate local file!");
         }
 
     }

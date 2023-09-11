@@ -34,6 +34,7 @@ public class MarkCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
         try {
             Task task = tasks.getTask(taskNum);
+            assert taskNum < tasks.size() : "Size to mark must be less than actual size of list";
             tasks.markTask(taskNum);
             store.save(tasks);
             return ui.printMarkTask(task);
