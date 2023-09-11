@@ -106,6 +106,12 @@ public class TaskList {
         taskList.remove(taskIndex);
     }
 
+    /**
+     * Returns the task at the specified index.
+     * 
+     * @param taskIndex Index of the task of interest.
+     * @param priority Priority of the task.
+     */
     public void setPriority(int taskIndex, int priority) {
         taskList.get(taskIndex).setPriority(priority);
     }
