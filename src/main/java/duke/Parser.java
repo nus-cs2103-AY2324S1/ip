@@ -55,6 +55,7 @@ public class Parser {
         if (instruction == null) {
             throw new DukeException("Unrecognized instruction. Try again.");
         }
+
         switch (instruction) {
         case BYE:
             return new Instruction.Exit();
@@ -165,6 +166,7 @@ public class Parser {
             }
         default:
             //program will not reach here.
+            assert false;
             throw new DukeException("An unexpected error occurred. Try again.");
         }
     }
@@ -228,7 +230,8 @@ public class Parser {
             break;
         default:
             //program will not reach here.
-            return null;
+            assert false;
+            throw new DukeException("");
         }
 
         if (matcher.group(2).equals("X")) {
