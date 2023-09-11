@@ -45,7 +45,7 @@ public class MainWindow extends AnchorPane {
      */
     public void setDuke(Duke d) {
         this.duke = d;
-        String text = this.duke.getResponse("list") + "\n" + this.duke.getLoadStorageError();
+        String text = this.duke.getResponse("list") + "\n" + this.duke.getStorageLoadErrorMessage();
         this.textBoxList.setText(text);
     }
 

@@ -55,11 +55,11 @@ public class FindCommand extends Command {
         }
 
         // Returns the matches
-        String ret = "Quack has found " + matches.size() + " matching tasks in your list:";
+        StringBuilder ret = new StringBuilder("Quack has found " + matches.size() + " matching tasks in your list:");
         for (int i = 0; i < size; i++) {
-            ret += "\n" + (i + 1) + ". " + matches.get(i).toString();
+            ret.append("\n").append(i + 1).append(". ").append(matches.get(i).toString());
         }
-        return ret;
+        return ret.toString();
     }
 
     /**

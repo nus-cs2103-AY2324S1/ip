@@ -157,9 +157,8 @@ public class Parser {
     private static String findFlags(HashMap<String, LocalDateTime> flagMap,
             String[] splitInputs, String... flags)
             throws DukeBadInputException, DateTimeParseException {
-
         int[] flagIndex = Parser.find(splitInputs, flags);
-        String desc;
+        String description;
 
         for (int i = 0; i < flagIndex.length - 1; i++) {
             // Check for the presence of the flag
@@ -186,13 +185,13 @@ public class Parser {
         }
 
         // Check for a valid description
-        desc = String.join(" ", Arrays.copyOfRange(splitInputs, 1, flagIndex[0]));
-        if (desc.isBlank()) {
+        description = String.join(" ", Arrays.copyOfRange(splitInputs, 1, flagIndex[0]));
+        if (description.isBlank()) {
             throw new DukeBadInputException(
                     "Quack doesn't understand an empty description, please provide one!!");
         }
 
-        return desc;
+        return description;
     }
 
     /**
@@ -207,7 +206,7 @@ public class Parser {
     private static int[] find(String[] arr, String[] items) throws DukeBadInputException {
         int[] ret = new int[items.length + 1];
 
-        // initialise values, these values will contain the index
+        // initialise values to -1, these values will contain the index later
         for (int i = 0; i < items.length + 1; i++) {
             // set last item as the length to demarcate the end
             if (i == items.length) {
@@ -217,6 +216,7 @@ public class Parser {
             ret[i] = -1;
         }
 
+        // Algo to find the index of the flags
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < items.length; j++) {
                 if (arr[i].equals(items[j])) {

@@ -126,7 +126,7 @@ public class Storage {
                 StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
         boolean isSuccessful = true;
 
-        // rewrite for each
+        // rewrite for each tasks
         for (Task t : tasks) {
             try {
                 tmpWriter.write(t.getStored());

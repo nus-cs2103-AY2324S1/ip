@@ -15,7 +15,7 @@ public class Duke {
     /**
      * stores the error if there is during loading
      */
-    private String loadStorageError = "";
+    private String storageLoadErrorMessage = "";
     /**
      * Instance handling all the user interface
      */
@@ -42,22 +42,17 @@ public class Duke {
         try {
             this.storage = new Storage(storageFilePath);
         } catch (IOException e) {
-            this.loadStorageError += "\n" + this.ui.getErrorMessage(
+            this.storageLoadErrorMessage += "\n" + this.ui.getErrorMessage(
                     "has some internal problem and is unable to help you today, please contact quacks mum");
             this.storage = null;
         } catch (DukeBadInputException e) {
-            this.loadStorageError += "\n" + this.ui.getErrorMessage(storageFilePath
+            this.storageLoadErrorMessage += "\n" + this.ui.getErrorMessage(storageFilePath
                     + " is not a text file, please provide a file!");
             this.storage = null;
         }
 
         assert this.storage != null : "There should be an instance of storage,"
                 + " missing instance would mean a fatal error";
-
-        // read from storage, throws an error when unable to rewrite to the storage file
-        if (this.storage == null) {
-            return;
-        }
 
         this.taskList = new TaskList();
         try {
@@ -68,14 +63,14 @@ public class Duke {
             }
 
             // If not error free, returns error Message
-            this.loadStorageError += "\n" + this.ui.getUnexpectedErrorMessage("Some task are corrupted,"
+            this.storageLoadErrorMessage += "\n" + this.ui.getUnexpectedErrorMessage("Some task are corrupted,"
                     + " attempting to recover uncorrupted tasks");
             if (!this.storage.rewriteAll(this.taskList.getAllTask())) {
-                this.loadStorageError += "\n" + this.ui.getUnexpectedErrorMessage(
+                this.storageLoadErrorMessage += "\n" + this.ui.getUnexpectedErrorMessage(
                         "not all tasks were successfully written, please contact my mother :( ");
             }
         } catch (IOException e) {
-            this.loadStorageError += "\n"
+            this.storageLoadErrorMessage += "\n"
                     + this.ui.getUnexpectedErrorMessage("error when rewriting to storage: " + e.getMessage());
         }
     }
@@ -106,16 +101,9 @@ public class Duke {
     }
 
     /**
-     * Ensure that the files are written
-     */
-    public void close() {
-        this.storage.close();
-    }
-
-    /**
      * Getter for storage error string
      */
-    public String getLoadStorageError() {
-        return loadStorageError;
+    public String getStorageLoadErrorMessage() {
+        return storageLoadErrorMessage;
     }
 }

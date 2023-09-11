@@ -18,14 +18,11 @@ public abstract class Command {
      * @throws DukeBadInputException if the index given is not within range
      */
     public static void validateIndex(int index, int len) throws DukeBadInputException {
-
-        // validate input
         if (len == 0) {
             throw new DukeBadInputException(
                     "Quack currently has no task remembered and cannot execute your command, add one now??");
         }
 
-        // validate input
         if (index >= len) {
             throw new DukeBadInputException("Quack does not remember having a task: " + (index + 1)
                     + " Quack only remember till task " + (len));
