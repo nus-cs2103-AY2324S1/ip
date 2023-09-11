@@ -22,6 +22,14 @@ public class Storage {
      * Loads tasks from data file if it exists
      */
     public Storage() {
+        initializeDirectory();
+        processTextFile();
+    }
+
+    /**
+     * Get the directory of the chatbot's data file, or create a new directory if it doesn't exist.
+     */
+    private void initializeDirectory() {
         try {
             // Get directory of data
             Path path = Paths.get("./data");
@@ -39,7 +47,12 @@ public class Storage {
         } catch (IOException e) {
             System.err.println("Failed to create directory!" + e.getMessage());
         }
+    }
 
+    /**
+     * Extract the task data from the text file, or create a new text file if it doesn't exist.
+     */
+    private void processTextFile() {
         try {
             FileReader fr = new FileReader("./data/duke.txt");
             int c;
@@ -54,29 +67,42 @@ public class Storage {
             String[] taskList = new String[100];
             for (String task : savedTasks.split(";")) {
                 String[] taskDetails = task.split("/");
-                Task savedTask;
-                switch(taskDetails[0]) {
-                case "T":
-                    savedTask = new ToDo(taskDetails[2]);
-                    break;
-                case "D":
-                    savedTask = new Deadline(taskDetails[2], taskDetails[3]);
-                    break;
-                case "E":
-                    savedTask = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
-                    break;
-                default:
-                    savedTask = new Task(taskDetails[0]);
-                }
-                if (Integer.parseInt(taskDetails[1]) == 1) {
-                    savedTask.markAsDone();
-                }
-                taskArray.add(savedTask);
+                taskArray.add(textToTask(taskDetails));
             }
+
         } catch (Exception e) {
             // if the file is not found, create a new text file
             new File("./data/duke.txt");
         }
+    }
+
+    /**
+     * Parse a string array into a task
+     *
+     * @param taskDetails A string array containing information about the task (class, dates if applicable)
+     * @return A task containing add the information indicated by the text
+     */
+    private Task textToTask(String[] taskDetails) {
+        Task savedTask;
+
+        switch(taskDetails[0]) {
+            case "T":
+                savedTask = new ToDo(taskDetails[2]);
+                break;
+            case "D":
+                savedTask = new Deadline(taskDetails[2], taskDetails[3]);
+                break;
+            case "E":
+                savedTask = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
+                break;
+            default:
+                savedTask = new Task(taskDetails[0]);
+        }
+        if (Integer.parseInt(taskDetails[1]) == 1) {
+            savedTask.markAsDone();
+        }
+
+        return savedTask;
     }
 
     /**
@@ -100,7 +126,7 @@ public class Storage {
             if (task == null) break;
             out += count++ + ". " + task.toString() + "\n";
         }
-
+      
         // Assert there should be more tasks listed than the size of the task array
         assert (count <= taskArray.size() + 1);
 
@@ -133,8 +159,8 @@ public class Storage {
     /**
      * Gets the specified task
      *
-     * @param index array index of task
-     * @return the specified task
+     * @param index Array index of task
+     * @return The specified task
      */
     public Task get(int index) {
         return taskArray.get(index);
@@ -159,27 +185,39 @@ public class Storage {
     public void write() throws IOException {
         FileWriter fw = new FileWriter("./data/duke.txt");
         String out = "";
-
         for (Task taskToSave : taskArray) {
-            String taskType;
-            String taskAppendices = "";
-            if (taskToSave instanceof ToDo) {
-                taskType = "T/";
-                taskAppendices = "/" + taskToSave.description;
-            } else if (taskToSave instanceof Deadline) {
-                taskType = "D/";
-                taskAppendices = "/"  + taskToSave.description + "/" + ((Deadline) taskToSave).by;
-            } else if (taskToSave instanceof  Event) {
-                taskType = "E/";
-                taskAppendices = "/" + taskToSave.description + "/" +
-                        ((Event) taskToSave).from + "/" + ((Event) taskToSave).to;
-            } else {
-                taskType = taskToSave.description + "/";
-            }
-            out += taskType + (taskToSave.isDone ? 1 : 0) + taskAppendices + ";";
+            out += taskToText(taskToSave);
         }
 
         fw.write(out);
         fw.close();
+    }
+
+    /**
+     * Convert task information into parsable text
+     *
+     * @param taskToSave The Task to be converted into text
+     * @return String containing specific information about the task
+     */
+    private String taskToText(Task taskToSave) {
+        String taskType;
+        String taskAppendices = "";
+
+        // Parse based on class of task
+        if (taskToSave instanceof ToDo) {
+            taskType = "T/";
+            taskAppendices = "/" + taskToSave.description;
+        } else if (taskToSave instanceof Deadline) {
+            taskType = "D/";
+            taskAppendices = "/"  + taskToSave.description + "/" + ((Deadline) taskToSave).by;
+        } else if (taskToSave instanceof Event) {
+            taskType = "E/";
+            taskAppendices = "/" + taskToSave.description + "/" +
+                    ((Event) taskToSave).from + "/" + ((Event) taskToSave).to;
+        } else {
+            taskType = taskToSave.description + "/";
+        }
+
+        return taskType + (taskToSave.isDone ? 1 : 0) + taskAppendices + ";";
     }
 }

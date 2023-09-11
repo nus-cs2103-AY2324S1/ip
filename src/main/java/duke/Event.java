@@ -14,9 +14,9 @@ public class Event extends Task{
      * Create an duke.Event duke.Task based on description, start time and
      * end time
      *
-     * @param description
-     * @param from
-     * @param to
+     * @param description The description of the task
+     * @param from Start date of task
+     * @param to End date of task
      */
     public Event(String description, String from, String to) {
         super(description);
