@@ -16,9 +16,9 @@ public class TaskList {
     private final DateTimeFormatter inputFormatter;
 
     /**
-     * A constructor for the task list if an initial list exist
+     * A constructor for the task list if an initial list exist.
      *
-     * @param tasks the list of tasks
+     * @param tasks the list of tasks.
      */
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
@@ -26,7 +26,7 @@ public class TaskList {
     }
 
     /**
-     * A constructor for the task list if an initial list does not exist
+     * A constructor for the task list if an initial list does not exist.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -36,7 +36,7 @@ public class TaskList {
     /**
      * Returns the number of tasks in the list.
      *
-     * @return the number of tasks
+     * @return the number of tasks.
      */
     public int getNumberOfTasks() {
         return this.tasks.size();
@@ -45,7 +45,7 @@ public class TaskList {
     /**
      * Returns the list of tasks.
      *
-     * @return the list of tasks
+     * @return the list of tasks.
      */
     public List<Task> getTasks() {
         return this.tasks;
@@ -54,7 +54,7 @@ public class TaskList {
     /**
      * Returns a success message when a task has been successfully added.
      *
-     * @return the success message
+     * @return the success message.
      */
     public String printAddTaskSuccessMessage() {
         StringBuilder message = new StringBuilder();
@@ -71,7 +71,7 @@ public class TaskList {
     /**
      * Returns a success message when a task has been successfully deleted.
      *
-     * @return the success message
+     * @return the success message.
      */
     public String printRemoveTaskSuccessMessage(Task task) {
         StringBuilder message = new StringBuilder();
@@ -88,9 +88,9 @@ public class TaskList {
     /**
      * Takes in the task details and add the task to the list.
      *
-     * @param task the task description
-     * @param typeOfTask the type of the task to be added
-     * @throws DukeException if invalid or incorrect command
+     * @param task the task description.
+     * @param typeOfTask the type of the task to be added.
+     * @throws DukeException if invalid or incorrect command.
      */
     public String addTask(String[] task, String typeOfTask) throws DukeException {
         switch (typeOfTask) {
@@ -121,8 +121,8 @@ public class TaskList {
      * Takes in the command to delete a task
      * and remove the task from the list.
      *
-     * @param taskNumber the task number of the task
-     * @throws DukeException if invalid or incorrect command
+     * @param taskNumber the task number of the task.
+     * @throws DukeException if invalid or incorrect command.
      */
     public String removeTask(int taskNumber) throws DukeException {
         if (this.tasks.isEmpty()) {
@@ -140,11 +140,11 @@ public class TaskList {
     /**
      * Takes in the task command to mark or unmark
      * a task and mark the task as done or mark a task as
-     * not done
+     * not done.
      *
-     * @param taskNumber the task number of the task
-     * @param action to mark or unmark the task
-     * @throws DukeException if invalid or incorrect command
+     * @param taskNumber the task number of the task.
+     * @param action to mark or unmark the task.
+     * @throws DukeException if invalid or incorrect command.
      */
     public String markTask(int taskNumber, String action) throws DukeException {
         switch(action) {
@@ -181,9 +181,9 @@ public class TaskList {
 
     /**
      * Takes in the keyword and find the tasks that
-     * contains the keyword and print the tasks
+     * contains the keyword and print the tasks.
      *
-     * @param keyword the keyword to be searched
+     * @param keyword the keyword to be searched.
      */
     public String findTask(String keyword) {
         if (this.tasks.isEmpty()) {

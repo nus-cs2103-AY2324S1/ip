@@ -1,7 +1,7 @@
 package duke;
 
 /**
- * Represents the types of exceptions
+ * Represents the types of exceptions.
  */
 public enum ExceptionTypes {
     INVALIDCOMMANDEVENT("OOPS!!! Invalid command. The command for an event should be:\n"

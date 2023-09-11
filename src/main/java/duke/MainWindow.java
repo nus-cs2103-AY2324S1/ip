@@ -70,8 +70,8 @@ public class MainWindow extends AnchorPane {
     /**
      * Returns the response from duke.
      *
-     * @param input the user input
-     * @return the response from duke
+     * @param input the user input.
+     * @return the response from duke.
      */
     private String getResponse(String input) {
         return duke.reply(input, stage);

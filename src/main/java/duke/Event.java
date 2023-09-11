@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a task of type Event
+ * Represents a task of type Event.
  */
 public class Event extends Task {
 
@@ -13,11 +13,11 @@ public class Event extends Task {
     private final DateTimeFormatter formatter;
 
     /**
-     * A constructor for task of type Event
+     * A constructor for task of type Event.
      *
-     * @param description the task details
-     * @param from the start date/time for the task
-     * @param to the end date/time for the task
+     * @param description the task details.
+     * @param from the start date/time for the task.
+     * @param to the end date/time for the task.
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
@@ -29,9 +29,9 @@ public class Event extends Task {
     }
 
     /**
-     * Return the string representation of the task.
+     * Returns the string representation of the task.
      *
-     * @return the string representation
+     * @return the string representation.
      */
     @Override
     public String toString() {
@@ -40,9 +40,9 @@ public class Event extends Task {
     }
 
     /**
-     * Return the string representation of the task in file format.
+     * Returns the string representation of the task in file format.
      *
-     * @return the string representation in file format
+     * @return the string representation in file format.
      */
     @Override
     public String toFileFormat() {
@@ -51,9 +51,9 @@ public class Event extends Task {
     }
 
     /**
-     * Return the task type.
+     * Returns the task type.
      *
-     * @return the task type
+     * @return the task type.
      */
     @Override
     public String getTaskType() {

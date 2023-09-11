@@ -8,9 +8,9 @@ public abstract class Task {
     protected boolean isDone;
 
     /**
-     * A constructor for a task
+     * A constructor for a task.
      *
-     * @param description the task details
+     * @param description the task details.
      */
     public Task(String description) {
         this.description = description;
@@ -19,10 +19,10 @@ public abstract class Task {
     }
 
     /**
-     * Check if the task has been completed and
+     * Checks if the task has been completed and
      * return the status icon of the task.
      *
-     * @return the status icon of the task
+     * @return the status icon of the task.
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
@@ -39,9 +39,9 @@ public abstract class Task {
     }
 
     /**
-     * Return the string representation of the task.
+     * Returns the string representation of the task.
      *
-     * @return the string representation
+     * @return the string representation.
      */
     @Override
     public String toString() {
@@ -49,16 +49,16 @@ public abstract class Task {
     }
 
     /**
-     * Return the string representation of the task in file format.
+     * Returns the string representation of the task in file format.
      *
-     * @return the string representation in file format
+     * @return the string representation in file format.
      */
     abstract String toFileFormat();
 
     /**
-     * Return the type of the task.
+     * Returns the type of the task.
      *
-     * @return the type of the task
+     * @return the type of the task.
      */
     abstract String getTaskType();
 }
