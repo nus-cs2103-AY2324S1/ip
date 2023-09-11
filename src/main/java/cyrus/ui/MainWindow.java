@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 /**
  * Entry point for Cyrus Gui.
@@ -57,20 +58,19 @@ public class MainWindow extends AnchorPane {
         String userText = userInput.getText();
         ParseInfo parseInfo = cyrus.parseInput(userText);
         if (parseInfo.equals(ParseInfo.EMPTY)) {
-            putConversation(userText, "Missing input!");
+            putConversation(userText, "Missing input!", true);
             return;
         }
 
         String cyrusResponse = "";
         boolean isError = false;
-        // TODO: Permanently block empty inputs
         try {
             cyrusResponse = cyrus.dispatchAndExecute(parseInfo);
         } catch (CommandError e) {
             cyrusResponse = e.getMessage();
             isError = true;
         } finally {
-            putConversation(userText, cyrusResponse);
+            putConversation(userText, cyrusResponse, isError);
         }
         if (parseInfo.getCommandType() == CommandType.BYE) {
             Timer timer = new Timer();
@@ -83,10 +83,10 @@ public class MainWindow extends AnchorPane {
         }
     }
 
-    private void putConversation(String userText, String cyrusText) {
+    private void putConversation(String userText, String cyrusText, boolean isError) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDialog(userText, "User", userImage),
-                DialogBox.getDialog(cyrusText, "Cyrus", botImage)
+                DialogBox.getDialog(cyrusText, "Cyrus", botImage, isError ? Color.RED : Color.BLACK)
         );
         userInput.clear();
     }
