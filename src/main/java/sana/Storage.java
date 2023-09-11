@@ -18,7 +18,6 @@ public class Storage {
      * @param filePath specifies the path where the file to store tasks is saved.
      */
     public Storage(String filePath) {
-
         this.filePath = filePath;
         this.folderPath = String.valueOf(Paths.get(filePath).getParent());
     }
@@ -77,10 +76,8 @@ public class Storage {
 
     /**
      * Clears the contents of the specified file.
-     *
-     * @param filePath the path to the file to be cleared.
      */
-    public void clear(String filePath) {
+    public void clear() {
         File file = new File(filePath);
         file.delete();
     }

@@ -80,7 +80,8 @@ public class TaskList {
      * @param storage the Storage instance to use for updating tasks.
      */
     public void update(Storage storage) {
-        storage.clear("/Users/ariellacallista/Desktop/SanaTasks.txt");
+        storage.clear();
+        assert tasksList.size() > 0;
         for (Task task : tasksList) {
             storage.save(task);
         }

@@ -1,6 +1,5 @@
 T | 0 | eat
-T | 0 | yay it works!
-E | 0 | reunion | 2023-10-02 | 2023-10-05
 T | 0 | eat
-T | 0 | eat
-T | 0 | eat
+E | 0 | eat | 2020-01-01 | 2020-01-01
+T | 0 | bye
+T | 0 | delete
