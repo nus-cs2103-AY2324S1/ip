@@ -18,6 +18,10 @@ public class TaskList {
     String task;
     private static List<Task> list = new ArrayList<Task>();
 
+    public List<Task> getList() {
+        return this.list;
+    }
+
     /**
      * Trims leading and trailing spaces from a string.
      *
@@ -119,15 +123,16 @@ public class TaskList {
      * @throws Exception If an error occurs during execution.
      */
 
-    public void Answer() throws Exception{ // just a reader for additional files inputted by the users.
+    public String Answer(String input) throws Exception{ // just a reader for additional files inputted by the users.
         // my plan is to make sure every line inputted by the user, it is saved to the zenith.txt file directly.
         // But to show the users the list, need to first load the data to a class storage containing the copied
         // data of zenith.txt
         String zenithData = "src/main/java/data/zenith.txt";
-        Parser parser = new Parser(list);
-        //BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        //String str = reader.readLine();
-        //String arr[] = str.split(" ", 2);
+
+        Parser parser = new Parser(list, input);
+        // list is updated already but string in parser null
+
+
         String arr[];
         String onetwo = list.size() > 1? " tasks": " task";
         Ui ui = new Ui();
@@ -136,12 +141,15 @@ public class TaskList {
         if (parser.getStr().equals("bye")) {
             Ui bye = new Ui();
             bye.bye();
+            return ui.toString();
         }
         else if (parser.getStr().equals("list")) {
-            List();
-            ui.currentlist((list.size()), onetwo);
 
-            Answer();
+
+            ui.currentlist((list.size()), onetwo);
+            return List() + ui.toString();
+
+
         } else if (parser.getArr()[0].equals("delete")) {
             try {
                 arr = parser.getArr();
@@ -150,15 +158,15 @@ public class TaskList {
                 list.remove(Integer.parseInt(arr[1]) - 1);
                 ui.currentlist((list.size()), onetwo);
                 refreshData();
-                Answer();
+                return ui.toString();
             }
             catch(NumberFormatException e) {
-                ui.numExc();
-                Answer();
+                return ui.toString();
+
             }
             catch(IndexOutOfBoundsException e) {
-                ui.indexOut();
-                Answer();
+                return ui.toString();
+
             }
         }
         else if (parser.getArr()[0].equals("mark")) {
@@ -166,21 +174,24 @@ public class TaskList {
             try {
                 arr = parser.getArr();
                 ui.mark(list.size(), onetwo, list.get(Integer.parseInt(arr[1]) - 1).getDescription());
+
                 list.get(Integer.parseInt(arr[1]) - 1).getDescription();
                 //System.out.println("Noted. I've marked this task: ");
                 //System.out.println("    [X] " + list.get(Integer.parseInt(arr[1]) - 1).getDescription());
                 list.get(Integer.parseInt(arr[1]) - 1).finish();
                 //System.out.println("Now you have " + list.size() + onetwo +  " in the list");
                 refreshData();
-                Answer();
+                return ui.toString();
+
+
             }
             catch(NumberFormatException e) {
-                ui.numExc();
-                Answer();
+                return ui.toString();
+
             }
             catch(IndexOutOfBoundsException e) {
-                ui.indexOut();
-                Answer();
+                return ui.toString();
+
             }
 
         } else if (parser.getArr()[0].equals("unmark")) {
@@ -188,20 +199,24 @@ public class TaskList {
                 arr = parser.getArr();
                 list.get(Integer.parseInt(arr[1]) - 1).getDescription();
                 ui.unmark(list.size(), onetwo, list.get(Integer.parseInt(arr[1]) - 1).getDescription());
+
                 //System.out.println("OK, I've marked this task as not done yet: ");
                 //System.out.println("    [] " + list.get(Integer.parseInt(arr[1]) - 1).getDescription());
                 list.get(Integer.parseInt(arr[1]) - 1).unfinish();
                 //System.out.println("Now you have " + list.size() + onetwo +  " in the list");
-                Answer();
+
                 refreshData();
+                return ui.toString();
             }
             catch(NumberFormatException e) {
                 ui.numExc();
-                Answer();
+                return ui.toString();
+
             }
             catch(IndexOutOfBoundsException e) {
                 ui.indexOut();
-                Answer();
+                return ui.toString();
+
             }
         }
 
@@ -214,7 +229,7 @@ public class TaskList {
                 }
             }
             ui.matchingList(matchingList);
-            Answer();
+            return ui.toString();
 
         }
         else if (parser.getArr()[0].equals("event")) {
@@ -239,12 +254,14 @@ public class TaskList {
             Event event = new Event(content, from, secondTo);
             //System.out.println(event);
             ui.add(event, list.size(), onetwo);
+
             list.add(event);
             //System.out.println("Now you have " + list.size() + onetwo +  " in the list");
             //System.out.println("____________________________________________________________");
             appendToFile(zenithData, parser.getStr());
             refreshData();
-            Answer();
+            return ui.toString();
+
 
         } else if (parser.getArr()[0].equals("deadline")) {
             arr = parser.getArr();
@@ -262,12 +279,14 @@ public class TaskList {
             Deadline deadline = new Deadline(arr[1].substring(0, arr[1].indexOf("/by ")), secondBy);
             //System.out.println(deadline);
             ui.add(deadline, list.size(), onetwo);
+
             list.add(deadline);
             //System.out.println("Now you have " + list.size() + onetwo +  " in the list");
             //System.out.println("____________________________________________________________");
             //appendToFile(zenithData, str);
             refreshData();
-            Answer();
+            return ui.toString();
+
         }
         else if (parser.getArr()[0].equals("todo")){
             try {
@@ -278,14 +297,17 @@ public class TaskList {
                 //System.out.println(todo);
                 list.add(todo);
                 ui.add(todo, list.size(), onetwo);
+
                 //System.out.println("Now you have " + list.size() + onetwo +  " in the list");
                 //System.out.println("____________________________________________________________");
                 appendToFile(zenithData, parser.getStr());
                 refreshData();
-                Answer();
+                return ui.toString();
+
             } catch (ArrayIndexOutOfBoundsException e){
                 ui.specify();
-                Answer();
+                return ui.toString();
+
             }
         }
         else if(parser.getArr()[0].isEmpty()) {
@@ -295,18 +317,22 @@ public class TaskList {
             } catch(ArrayIndexOutOfBoundsException e) {
                 ui.blank();
                 //System.out.println("Don't just input blank space");
-                Answer();
+                return ui.toString();
             }
         } else { // not the correct format
             try {
                 throw new DukeException("");
             }
             catch (DukeException e) {
+
                 ui.format();
                 //System.out.println("Please input the correct format");
-                Answer();
+                return ui.toString();
             }
         }
+
+        return ui.toString();
+
 
 
     }
@@ -327,9 +353,10 @@ public class TaskList {
     /**
      * Displays the list of tasks to the user.
      */
-    public void List() {
+    public String List() {
         Ui ui = new Ui();
         ui.list(list);
+        return ui.toString();
     }
 
     /**
@@ -458,3 +485,7 @@ public class TaskList {
         StringToArray(getTask());
     }
 }
+
+/*
+
+ */
