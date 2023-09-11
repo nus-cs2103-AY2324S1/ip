@@ -14,8 +14,8 @@ public abstract class Command {
      * Executes the command. This method is abstract and must be implemented by
      * subclasses. By default, it throws a DukeException.
      *
-     * @param taskList list of tasks
-     * @param storage  storage
+     * @param taskList TaskList of tasks
+     * @param storage  Storage.
      * @throws DukeException if there is an error executing the command
      */
     public GobbleMessage execute(TaskList taskList, Storage storage) throws DukeException {

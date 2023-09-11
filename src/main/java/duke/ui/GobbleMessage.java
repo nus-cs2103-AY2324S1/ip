@@ -62,8 +62,8 @@ public class GobbleMessage extends HBox {
     /**
      * Returns a user styled dialog.
      *
-     * @param text text to be displayed.
-     * @return a user styled dialog.
+     * @param text Text to be displayed.
+     * @return GobbleMessage user styled dialog.
      */
     public static GobbleMessage getUserDialog(String text) {
         assert !text.isEmpty() : "text should not be empty";
@@ -77,10 +77,11 @@ public class GobbleMessage extends HBox {
      * Returns a duke styled dialog.
      *
      * @param text text to be displayed.
-     * @return a duke styled dialog.
+     * @return GobbleMessage system styled dialog.
      */
     public static GobbleMessage getGobbleDialog(String text) {
         assert text != null : "text should not be null";
-        return new GobbleMessage(text, UserType.SYSTEM);
+        GobbleMessage db = new GobbleMessage(text, UserType.SYSTEM);
+        return db;
     }
 }

@@ -11,11 +11,11 @@ public class ListCommand extends Command {
     /**
      * Displays the list of tasks.
      *
-     * @param taskList list of tasks
-     * @param storage  storage
+     * @param taskList TaskList list of tasks
+     * @param storage  Storage.
      */
     @Override
     public GobbleMessage execute(TaskList taskList, Storage storage) {
-        return GobbleMessage.getGobbleDialog(taskList.toString(), "List");
+        return GobbleMessage.getGobbleDialog(taskList.toString());
     }
 }

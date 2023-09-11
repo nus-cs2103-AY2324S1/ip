@@ -9,7 +9,7 @@ public class Launcher {
     /**
      * Launches the GUI.
      *
-     * @param args arguments.
+     * @param args Arguments.
      */
     public static void main(String[] args) {
         Application.launch(Main.class, args);

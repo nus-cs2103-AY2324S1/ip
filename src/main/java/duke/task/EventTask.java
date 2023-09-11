@@ -17,7 +17,7 @@ public class EventTask extends Task {
     /**
      * Constructor for duke.task.Task.
      *
-     * @param description of the task.
+     * @param description Description of the task.
      */
     public EventTask(String description, LocalDate from, LocalDate to) throws DukeException {
         super(description);
@@ -28,7 +28,7 @@ public class EventTask extends Task {
     /**
      * Returns the from date of the task.
      *
-     * @return from date of the task in a string format MMM dd yyyy.
+     * @return String representation from date of the task in a string format MMM dd yyyy.
      */
     public String getFrom() {
         // Format in MMM dd yyyy
@@ -38,7 +38,7 @@ public class EventTask extends Task {
     /**
      * Returns the to date of the task.
      *
-     * @return to date of the task in a string format MMM dd yyyy.
+     * @return String representation to date of the task in a string format MMM dd yyyy.
      */
     public String getTo() {
         return this.to.format(DateTimeFormatter.ofPattern(Task.DATE_FORMAT));

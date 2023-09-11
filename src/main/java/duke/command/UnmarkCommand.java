@@ -13,7 +13,7 @@ public class UnmarkCommand extends Command {
     /**
      * Constructor for UnmarkCommand.
      *
-     * @param index of the task to be unmarked.
+     * @param index Index of the task to be unmarked.
      */
     public UnmarkCommand(int index) {
         this.index = index;
@@ -22,15 +22,15 @@ public class UnmarkCommand extends Command {
     /**
      * Unmarks a task as done and displays it as undone.
      *
-     * @param taskList list of tasks
-     * @param storage  storage
+     * @param taskList TaskList list of tasks
+     * @param storage  Storage storage.
+     * @return GobbleMessage object containing the message to be displayed.
      */
     @Override
     public GobbleMessage execute(TaskList taskList, Storage storage) {
         taskList.unmarkTask(index);
         storage.saveListToDisk(taskList.getTasks());
-        return GobbleMessage.getGobbleDialog("Nice! I've unmarked this task as undone:\n" + taskList.getTask(index),
-                "Unmark");
+        return GobbleMessage.getGobbleDialog("Nice! I've unmarked this task as undone:\n" + taskList.getTask(index));
 
     }
 }

@@ -39,7 +39,7 @@ public class MainWindow extends AnchorPane {
     /**
      * Sets the duke instance.
      *
-     * @param d duke instance
+     * @param d Duke instance
      */
     public void setDuke(Duke d) {
         assert d != null : "Duke instance should not be null";
@@ -55,14 +55,12 @@ public class MainWindow extends AnchorPane {
         GobbleMessage userMessage = GobbleMessage.getUserDialog(input);
         try {
             Command command = Parser.parse(input);
-            GobbleMessage message = command.execute(duke.getTasks(), duke.getStorage());
-            assert message != null : "Message should not be null";
-
-            this.addMessages(userMessage, message);
-
-            if (input.equals("bye")) {
+            if (command.isExit()) {
                 System.exit(0);
             }
+            GobbleMessage message = command.execute(duke.getTasks(), duke.getStorage());
+            assert message != null : "Message should not be null";
+            this.addMessages(userMessage, message);
         } catch (DukeException e) {
             GobbleMessage error = GobbleMessage.getGobbleDialog(e.getMessage());
             this.addMessages(userMessage, error);
@@ -73,7 +71,7 @@ public class MainWindow extends AnchorPane {
     /**
      * Adds messages to the dialog container.
      *
-     * @param messages messages to be added.
+     * @param messages Messages to be added.
      */
     private void addMessages(GobbleMessage... messages) {
         assert messages != null : "Messages should not be null";

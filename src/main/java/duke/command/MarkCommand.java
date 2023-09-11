@@ -13,7 +13,7 @@ public class MarkCommand extends Command {
     /**
      * Constructor for MarkCommand.
      *
-     * @param index of the task to be marked.
+     * @param index Index of the task to be marked.
      */
     public MarkCommand(int index) {
         this.index = index;
@@ -22,13 +22,14 @@ public class MarkCommand extends Command {
     /**
      * Marks a task as done and displays it as done.
      *
-     * @param taskList list of tasks
-     * @param storage  storage
+     * @param taskList TaskList list of tasks.
+     * @param storage  Storage.
+     * @return GobbleMessage object containing the message to be displayed.
      */
     @Override
     public GobbleMessage execute(TaskList taskList, Storage storage) {
         taskList.markTask(index);
         storage.saveListToDisk(taskList.getTasks());
-        return GobbleMessage.getGobbleDialog("Nice! I've marked this task as done:\n" + taskList.getTask(index), "Mark");
+        return GobbleMessage.getGobbleDialog("Nice! I've marked this task as done:\n" + taskList.getTask(index));
     }
 }

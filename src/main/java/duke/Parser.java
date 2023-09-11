@@ -21,7 +21,7 @@ public class Parser {
     /**
      * Returns the Command from the user input.
      *
-     * @param userInput user input.
+     * @param userInput User input from the text box.
      * @return Command based on the user input.
      * @throws DukeException if user input gives an invalid command.
      */
@@ -42,10 +42,8 @@ public class Parser {
             return new TodoCommand(parseDeadline(userInput));
         case "EVENT":
             return new TodoCommand(parseEvent(userInput));
-
         case "FIND":
             return new FindCommand(getKeyword(userInput));
-
         case "DELETE":
             return new DeleteCommand(getTaskNumber(userInput));
         default:
@@ -81,12 +79,9 @@ public class Parser {
             throw new DukeException("☹ OOPS!!! The date of deadline cannot be empty.");
         }
         String by = userInput.split("/by")[1].trim();
-        LocalDate byDate;
-        try {
-            byDate = LocalDate.parse(by);
-        } catch (Exception e) {
-            throw new DukeException("Please enter a valid date in the format: yyyy-mm-dd");
-        }
+
+        LocalDate byDate = parseDate(by);
+      
         String description = userInput.split("/by")[0].trim().split(" ", 2)[1];
 
         if (description.isEmpty()) {
@@ -114,16 +109,8 @@ public class Parser {
         }
         String to = date.split("/to")[1].trim();
 
-        LocalDate fromDate;
-        LocalDate toDate;
-        try {
-            // convert date string in the format of yyyy-mm-dd to LocalDate object
-            fromDate = LocalDate.parse(from);
-            // convert LocalDate object to MMM dd yyyy format
-            toDate = LocalDate.parse(to);
-        } catch (Exception e) {
-            throw new DukeException("Please enter a valid date in the format: yyyy-mm-dd");
-        }
+        LocalDate fromDate = parseDate(from);
+        LocalDate toDate = parseDate(to);
 
         String description = userInput.split("/from")[0].trim().split(" ", 2)[1];
         if (description.isEmpty()) {
@@ -139,5 +126,20 @@ public class Parser {
         }
         assert userInput.split(" ").length >= 2 : "Task number cannot be empty";
         return Integer.parseInt(userInput.split(" ")[1]) - 1;
+    }
+
+    /**
+     * Parses the date string to LocalDate object.
+     *
+     * @param date date string in the format of yyyy-mm-dd.
+     * @return LocalDate object.
+     * @throws DukeException DukeException if the date string is not in the correct format.
+     */
+    private static LocalDate parseDate(String date) throws DukeException {
+        try {
+            return LocalDate.parse(date);
+        } catch (Exception e) {
+            throw new DukeException("Please enter a valid date in the format: yyyy-mm-dd");
+        }
     }
 }

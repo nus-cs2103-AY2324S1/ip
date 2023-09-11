@@ -14,8 +14,8 @@ public class DeadlineTask extends Task {
     /**
      * Constructor for DeadlineTask.
      *
-     * @param description of the task.
-     * @param by          deadline of the task.
+     * @param description Description of the task.
+     * @param by          By deadline of the task.
      */
     public DeadlineTask(String description, LocalDate by) {
         super(description);
@@ -30,7 +30,7 @@ public class DeadlineTask extends Task {
     /**
      * Returns the deadline of the task.
      *
-     * @return deadline of the task in the format of MMM dd yyyy.
+     * @return String deadline of the task in the format of MMM dd yyyy.
      */
     public String getBy() {
         return this.by.format(DateTimeFormatter.ofPattern(Task.DATE_FORMAT));
