@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks.
@@ -189,21 +190,21 @@ public class TaskList {
             return "There are no matching tasks in the list.";
         }
         int count = 1;
-        StringBuilder list = new StringBuilder();
-        for (Task task : this.tasks) {
-            if (task.toString().contains(keyword) || task.getTaskType().contains(keyword)) {
-                if (count == 1) {
-                    list.append("Here are the matching task(s) in your list:");
-                }
-                list.append(count);
-                list.append(". ");
-                list.append(task.toString());
-                count++;
-            }
-        }
-        if (count == 1) {
+        List<Task> newTasks = tasks.stream()
+                .filter(task -> task.toString().contains(keyword) || task.getTaskType().contains(keyword))
+                .collect(Collectors.toList());
+        if (newTasks.isEmpty()) {
             return "There are no matching tasks in the list.";
         }
-        return list.toString();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Here are the matching task(s) in your list:\n");
+        for (Task task : newTasks) {
+            stringBuilder.append(count);
+            stringBuilder.append(". ");
+            stringBuilder.append(task.toString());
+            stringBuilder.append("\n");
+            count++;
+        }
+        return stringBuilder.toString();
     }
 }
