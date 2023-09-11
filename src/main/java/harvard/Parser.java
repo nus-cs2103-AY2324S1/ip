@@ -36,7 +36,7 @@ public class Parser {
         } else if (command.startsWith("deadline")) {
             // Parse and return a DeadlineCommand
             if (command.length() < 9) {
-                throw new DukeException(DEADLINE_DESCRIPTION;
+                throw new DukeException(DEADLINE_DESCRIPTION);
             }
             if (!command.contains(" /by ")) {
                 throw new DukeException(DEADLINE_TIME);
@@ -119,6 +119,14 @@ public class Parser {
             }
             String keyword = split[1];
             return new FindCommand(keyword);
+        } else if (command.startsWith("clear")) {
+            // Parse and return a ClearAllCommand
+            String[] split = command.split(" ");
+            if (split.length != 2) {
+                throw new DukeException("☹ OOPS!!! The type must be specified.");
+            }
+            String type = split[1];
+            return new ClearAllCommand(type);
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
