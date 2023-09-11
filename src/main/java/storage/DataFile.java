@@ -8,10 +8,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import tasks.*;
 
 /**
  * Handles all the manipulation of the file that is stored
@@ -50,6 +47,8 @@ public class DataFile {
             encodedTask = encodeDeadline(div, task);
         } else if (task instanceof Event) {
             encodedTask = encodeEvent(div, task);
+        } else if (task instanceof TodoTime) {
+            encodedTask = encodedTodoTime(div, task);
         } else {
             assert false;
         }
@@ -125,6 +124,8 @@ public class DataFile {
                 task = decodeDeadline(line, div);
             } else if (line.charAt(0) == 'E') {
                 task = decodeEvent(line, div);
+            } else if (line.charAt(0) == 'L') {
+                task = decodeTodoTime(line, div);
             } else {
                 assert false;
             }
@@ -167,6 +168,14 @@ public class DataFile {
         }
     }
 
+    private Task decodeTodoTime(String line, String div) {
+        String sub = line.substring(div.length() + 1);
+        String desc = sub.substring(0, sub.indexOf(div));
+        int firstLine = sub.indexOf(div) + div.length();
+        String duration = sub.substring(firstLine, sub.indexOf(div, firstLine));
+        return new TodoTime(desc, duration);
+    }
+
     private Task decodeTodo(String line, String div) {
         String desc = line.substring(div.length() + 1, line.lastIndexOf(div));
         return new Todo(desc);
@@ -188,6 +197,16 @@ public class DataFile {
         int secLine = sub.indexOf(div, firstLine) + div.length();
         String to = sub.substring(secLine, sub.indexOf(div, secLine));
         return new Event(desc, LocalDateTime.parse(from), LocalDateTime.parse(to));
+    }
+
+    private String encodedTodoTime(String div, Task task) {
+        StringBuilder custom = new StringBuilder();
+        TodoTime tt = (TodoTime) task;
+        custom.append("L").append(div).append(tt.getDesc()).append(div)
+                .append(tt.getDuration()).append(div)
+                .append(tt.getStatus().equals("X") ? 1 : 0)
+                .append(System.lineSeparator());
+        return custom.toString();
     }
 
     private String encodeTodo(String div, Task task) {

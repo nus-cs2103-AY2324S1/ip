@@ -2,6 +2,7 @@ package duke;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import parser.Parser;
 
@@ -43,6 +44,11 @@ public class CustomDate {
      */
     public String formatTime(String str) {
         return str.substring(0, 2) + ":" + str.substring(2, 4);
+    }
+
+    public boolean checkFormat(String input) {
+        Pattern datePattern = Pattern.compile("^\\d{1,2}/\\d{1,2}/\\d{4} \\d{4}$");
+        return datePattern.matcher(input).find();
     }
 
 }
