@@ -26,6 +26,14 @@ public class AddEventCommand extends Command {
      */
     public AddEventCommand(String taskDescription, String from, String to) {
         this.taskDescription = taskDescription;
+        assert from.split(" ").length == 3 : "by String should contain should have 3 fields";
+        assert from.split(" ")[0].length() == 3 : "Month is represented as 3 letters";
+        assert from.split(" ")[1].length() <= 2 : "Date format should not have more than 2 characters";
+        assert from.split(" ")[2].length() == 4 : "Year format should have 4 characters";
+        assert to.split(" ").length == 3 : "by String should contain should have 3 fields";
+        assert to.split(" ")[0].length() == 3 : "Month is represented as 3 letters";
+        assert to.split(" ")[1].length() <= 2 : "Date format should not have more than 2 characters";
+        assert to.split(" ")[2].length() == 4 : "Year format should have 4 characters";
         this.from = from;
         this.to = to;
     }

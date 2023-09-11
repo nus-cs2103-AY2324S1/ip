@@ -21,6 +21,10 @@ public class Deadline extends Task {
      */
     public Deadline(String task, boolean isDone, String due) throws DateTimeException {
         super(task, isDone);
+        assert due.split(" ").length == 3 : "by String should contain should have 3 fields";
+        assert due.split(" ")[0].length() == 3 : "Month is represented as 3 letters";
+        assert due.split(" ")[1].length() <= 2 : "Date format should not have more than 2 characters";
+        assert due.split(" ")[2].length() == 4 : "Year format should have 4 characters";
         this.due = due;
     }
 

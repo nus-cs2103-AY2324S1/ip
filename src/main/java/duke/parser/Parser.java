@@ -44,6 +44,7 @@ public class Parser {
             if (eventData.length < 2) {
                 throw new DukeException("An event requires a /from (timedate) descriptor");
             }
+
             String[] period = eventData[1].split("/to ");
             if (period.length < 2) {
                 throw new DukeException("An event requires a /to (timedate) descriptor");
