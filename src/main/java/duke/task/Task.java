@@ -1,9 +1,17 @@
 package duke.task;
 
+/**
+ * Task class.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Task Constructor.
+     *
+     * @param description Description of task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -45,7 +53,7 @@ public abstract class Task {
      * @param target The String to be found.
      * @return True or False depending on whether the target is found.
      */
-    public boolean find(String target) {
+    public boolean isFound(String target) {
         return this.description.contains(target);
     }
 

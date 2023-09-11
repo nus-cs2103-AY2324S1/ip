@@ -1,19 +1,17 @@
 package duke.management;
 
+import java.util.ArrayList;
+
 import duke.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-import java.util.ArrayList;
-
+/**
+ * Provides parse method to execute different commands.
+ */
 public class Parser {
-    String result;
-
-    public Parser() {
-    }
-
     /**
      * Parses user input into the various commands.
      *
@@ -23,7 +21,8 @@ public class Parser {
      */
     public String parse(String command, TaskList tasks) {
         try {
-            String[] commandArr = command.split(" ",2);
+            String result;
+            String[] commandArr = command.split(" ", 2);
             switch (commandArr[0]) {
             case "find":
                 if (commandArr[1].isEmpty()) {
@@ -32,7 +31,7 @@ public class Parser {
                 ArrayList<Task> targetList = new ArrayList<>();
                 String target = commandArr[1];
                 for (Task task : tasks.getTasks()) {
-                    if (task.find(target)) {
+                    if (task.isFound(target)) {
                         targetList.add(task);
                     }
                 }
