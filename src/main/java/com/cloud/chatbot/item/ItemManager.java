@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.cloud.chatbot.annotations.Nullable;
 import com.cloud.chatbot.file.FileManager;
 
 
@@ -17,6 +19,56 @@ public class ItemManager {
     private FileManager fileManager = new FileManager();
     private List<Item> items = new ArrayList<>();
 
+    /**
+     * Initialises the ItemManager.
+     */
+    public ItemManager() {
+        @Nullable JSONObject jsonAll = this.fileManager.read();
+        if (jsonAll == null) {
+            return;
+        }
+
+        JSONArray array = jsonAll.getJSONArray("items");
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject jsonItem = array.getJSONObject(i);
+            this.importJson(jsonItem);
+        }
+    }
+
+    private void importJson(JSONObject json) {
+        String type = json.getString("type");
+        String description = json.getString("description");
+        boolean isComplete = json.getBoolean("isComplete");
+
+        Item item;
+        switch (type) {
+        case "T": {
+            item = new Task(description);
+            break;
+        }
+        case "D": {
+            String end = json.getString("timestampEnd");
+            item = new Deadline(description, end);
+            break;
+        }
+        case "E": {
+            String end = json.getString("timestampEnd");
+            String start = json.getString("timestampStart");
+            item = new Event(description, start, end);
+            break;
+        }
+        default:
+            System.err.println(
+                "ERR Could not import JSON item with unsupported type!"
+            );
+            System.err.println(json);
+            return;
+        }
+
+        item.setComplete(isComplete);
+        this.items.add(item);
+    }
+
     private void save() {
         List<JSONObject> jsons = items
                 .stream()
@@ -26,7 +78,7 @@ public class ItemManager {
         JSONObject json = new JSONObject();
         json.put("items", jsons);
 
-        this.fileManager.save(json);
+        this.fileManager.write(json);
     }
 
     /**
