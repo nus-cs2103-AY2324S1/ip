@@ -107,7 +107,7 @@ public class TehO  {
      *
      * @param userCommand User's command containing the task to be unmarked.
      */
-    public void unmarkTask(String userCommand) {
+    public String unmarkTask(String userCommand) {
         int taskNumber = parseInt(userCommand.split(" ")[1]) - 1; //counting from 0
         assert taskNumber >= 0 : "taskNumber should not be negative";
         Task task = this.taskList.getTask(taskNumber);
