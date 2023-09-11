@@ -1,6 +1,5 @@
 package duke.task;
 
-import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -38,6 +37,8 @@ public class TaskList {
      * @throws DukeException If the input type is invalid.
      */
     public Task addTask(String type, String description) throws DukeException {
+        assert type != null;
+        assert description != null;
         if (type.equals("todo")) {
             return addTodo(description, list);
         } else if (type.equals("deadline")) {
@@ -57,6 +58,7 @@ public class TaskList {
      * @throws DukeException If the description is empty.
      */
     public ToDo addTodo(String description, ArrayList<Task> list) throws DukeException {
+        assert list != null;
         if (description.isBlank()) {
             throw new DukeException("The description of a todo cannot be empty.");
         }
@@ -155,10 +157,7 @@ public class TaskList {
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter the number of the item you wish to delete");
         }
-
-
     }
-
     /**
      * Marks or unmarks a task at the specified position.
      *
@@ -190,7 +189,40 @@ public class TaskList {
             throw new DukeException("Please indicate which item you wish to mark");
         }
     }
-
+    /**
+     * Reads task information from a file and adds it to the task list.
+     *
+     * @param arr The array of task information from the file.
+     * @throws DukeException If there's a problem with the file or task data.
+     */
+    public void readListFromFile(String[] arr) throws DukeException {
+        if (arr.length != 3) {
+            throw new DukeException("There seems to be a problem with the save file!\n"
+                    + "Some of the tasks may be gone! Sorry!!\n");
+        }
+        String type = arr[0].strip();
+        String description = arr[2].strip();
+        String isMarked = arr[1].strip();
+        if (type.equals("T")) {
+            ToDo newTask = new ToDo(description);
+            newTask.markFromRead(isMarked);
+            list.add(newTask);
+        } else if (type.equals("D")) {
+            String[] deadline = description.stripTrailing().split("/by ", 2);
+            Deadline newTask = new Deadline(deadline[0], LocalDate.parse(deadline[1]));
+            newTask.markFromRead(isMarked);
+            list.add(newTask);
+        } else if (type.equals("E")) {
+            String[] event = description.stripTrailing().split("/from |/to ");
+            try {
+                Event newTask = new Event(event[0], LocalDate.parse(event[1]), LocalDate.parse(event[2]));
+                list.add(newTask);
+                newTask.markFromRead(isMarked);
+            } catch (DateTimeParseException e) {
+                throw new DukeException("There seems to be a problem with the save file!\n");
+            }
+        }
+    }
     /**
      * Finds tasks that match a specified keyword within the task list.
      *
@@ -213,8 +245,6 @@ public class TaskList {
 
         return resultList;
     }
-
-
     /**
      * Gets a task at the specified position.
      *
@@ -231,6 +261,7 @@ public class TaskList {
      * @return The ArrayList containing tasks.
      */
     public ArrayList<Task> getList() {
+        assert list != null;
         return this.list;
     }
 }

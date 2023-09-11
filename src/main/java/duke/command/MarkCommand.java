@@ -20,6 +20,8 @@ public class MarkCommand extends Command {
      * @param pos  The position of the task to be marked in the list.
      */
     public MarkCommand(String type, String pos) {
+        assert type != null;
+        assert pos != null;
         this.type = type;
         this.pos = pos;
     }
