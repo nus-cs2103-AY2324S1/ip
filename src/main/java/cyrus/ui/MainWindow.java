@@ -118,7 +118,9 @@ public class MainWindow extends AnchorPane {
         HashMap<LocalDate, Long> weeklyTasksCompletedDistribution = cyrus.getTaskList().getLatestWeekTaskDistribution();
         var lineChartData = new XYChart.Series<String, Long>();
         for (var entry : weeklyTasksCompletedDistribution.entrySet()) {
-            lineChartData.getData().add(new XYChart.Data<>(DateUtility.toInputFormat(entry.getKey()), entry.getValue()));
+            lineChartData.getData().add(
+                    new XYChart.Data<>(DateUtility.toInputFormat(entry.getKey()), entry.getValue())
+            );
         }
         if (weeklyTasksCompletedDistribution.size() > 0) {
             var sortedEntries = lineChartData
