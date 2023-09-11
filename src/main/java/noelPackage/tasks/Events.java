@@ -72,6 +72,6 @@ public class Events extends Task {
 
     @Override
     public String toString() {
-        return TASK_CHAR + super.toString() + this.dateString;
+        return TASK_CHAR + super.toString() + " " + this.dateString;
     }
 }

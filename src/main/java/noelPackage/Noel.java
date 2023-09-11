@@ -36,6 +36,8 @@ public class Noel {
      */
     private final Parser parser;
 
+    public static boolean updateFromFile = false;
+
     /**
      * Constructor for the Noel class.
      * Initializes the UI, loads tasks from storage, and sets up the parser.
@@ -46,13 +48,18 @@ public class Noel {
         this.ui = new Ui();
         Storage storage = new Storage(filePath);
         try {
+            System.out.println("Loading input from file...");
+            updateFromFile = true;
             tasks = new Tasklist(storage.loadFile());
+            System.out.println("File successfully loaded!");
         } catch (NoelException e) {
+            System.out.println("Error loading file!");
             ui.showLoadingError();
             tasks = new Tasklist();
         } finally {
             storage.updateFile();
             parser = new Parser(tasks, storage);
+            updateFromFile = false;
         }
     }
 

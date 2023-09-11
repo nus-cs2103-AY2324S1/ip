@@ -1,5 +1,9 @@
 package noelPackage.tasks;
 
+import noelPackage.Noel;
+
+import java.util.Objects;
+
 /**
  * Represents a Task.
  */
@@ -74,7 +78,9 @@ public class Task {
      */
     public void markAsDone() {
         this.isDone = true;
-        markPrintHelper(" Nice! I've marked this task as done:");
+        if (!Noel.updateFromFile) {
+            markPrintHelper(" Nice! I've marked this task as done:");
+        }
     }
 
     /**
@@ -82,7 +88,13 @@ public class Task {
      */
     public void markAsUnDone() {
         this.isDone = false;
-        markPrintHelper(" OK, I've marked this task as not done yet:");
+        if (!Noel.updateFromFile) {
+            markPrintHelper(" OK, I've marked this task as not done yet:");
+        }
+    }
+
+    public Boolean searchTaskName(String searchName) {
+        return Objects.equals(this.taskName, searchName);
     }
 
 }

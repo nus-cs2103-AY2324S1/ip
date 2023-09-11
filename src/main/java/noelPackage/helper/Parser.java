@@ -69,7 +69,7 @@ public class Parser {
             }
             case "todo":
                 result = nextLine.split("todo ");
-                if (result.length == 0) {
+                if (result.length == 1) {
                     System.out.println("OOPS!!! The description of a todo cannot be empty.");
                 } else {
                     tasks.addToDo(result[1]);
@@ -79,7 +79,7 @@ public class Parser {
 
             case "deadline":
                 result = nextLine.split("deadline ");
-                if (result.length == 0) {
+                if (result.length == 1) {
                     System.out.println("OOPS!!! The description of a deadline cannot be empty.");
                 } else {
                     String[] deadlineHelper = result[1].split(" /by ");
@@ -94,7 +94,7 @@ public class Parser {
 
             case "event":
                 result = nextLine.split("event ");
-                if (result.length == 0) {
+                if (result.length == 1) {
                     System.out.println("OOPS!!! The description of a event cannot be empty.");
                 } else {
                     String[] eventsHelper = result[1].split(" /from ");
@@ -115,7 +115,7 @@ public class Parser {
 
             case "delete":
                 result = nextLine.split("delete ");
-                if (result.length == 0) {
+                if (result.length == 1) {
                     System.out.println("OOPS!!! The description of a delete cannot be empty.");
                 } else {
                     int intToRemove = Integer.parseInt(result[1]) - 1;
@@ -128,6 +128,16 @@ public class Parser {
                     storage.writeToFile(tasks.getTaskAsList());
                     break;
                 }
+
+            case "find":
+                result = nextLine.split("find ");
+
+                if (result.length == 1) {
+                    System.out.println("No keyword given!");
+                } else {
+                    tasks.searchByKeyword(result[1]);
+                }
+                break;
 
             default:
                 System.out.println("Invalid Option!");

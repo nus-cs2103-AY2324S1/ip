@@ -1,5 +1,6 @@
 package noelPackage.helper;
 
+import noelPackage.Noel;
 import noelPackage.exceptions.NoelException;
 import noelPackage.tasks.Deadlines;
 import noelPackage.tasks.Events;
@@ -11,7 +12,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,6 +25,9 @@ public class Tasklist {
 
     /** Message displayed when a task is added. */
     static String ADDED_MESSAGE_START = "Got it. I've added this task:";
+
+    /** Message displayed when a search is done and tasks are found. */
+    String MATCHING_STRING = "Here are the matching tasks in your list:";
 
     /**
      * Constructs a Tasklist from a serialized list of tasks.
@@ -69,7 +72,7 @@ public class Tasklist {
      */
     public void updateTaskList(String content) {
         String[] listOfStrings = content.split("\n");
-        System.out.println(Arrays.toString(listOfStrings));
+
         for (String line : listOfStrings) {
             String[] values = line.split(" \\| ");
 
@@ -89,9 +92,11 @@ public class Tasklist {
                             addEvent(values[2], startDate, endDate);
                         } else {
                             System.out.println("Invalid line! Skipping line...");
+                            continue;
                         }
                     } else {
                         System.out.println("Invalid line! Skipping line...");
+                        continue;
                     }
 
                 } else if (Objects.equals(values[0], "T")) {
@@ -99,15 +104,18 @@ public class Tasklist {
                         addToDo(values[2]);
                     } else {
                         System.out.println("Invalid line! Skipping line...");
+                        continue;
                     }
                 } else if (Objects.equals(values[0], "D")) {
                     if (values.length == 4) {
                         addDeadline(values[2], values[3]);
                     } else {
                         System.out.println("Invalid line! Skipping line...");
+                        continue;
                     }
                 } else {
-                    System.out.println("Invalid line! Skipping line...");
+                    System.out.println("Invalid task! Skipping line...");
+                    continue;
                 }
 
                 if (Objects.equals(values[1], "1")) {
@@ -126,7 +134,6 @@ public class Tasklist {
      */
     public LocalDate dateFormat(String endDate) {
         LocalDate date;
-        System.out.println(endDate);
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         try {
@@ -206,7 +213,9 @@ public class Tasklist {
 
         String addedMessageEnd = "Now you have " + taskList.size() + " tasks in the list.";
         String updateAdd = ADDED_MESSAGE_START + "\n" +  taskToAdd + "\n" + addedMessageEnd;
-        printFunction(updateAdd);
+        if (!Noel.updateFromFile) {
+            printFunction(updateAdd);
+        }
     }
 
     /**
@@ -238,7 +247,9 @@ public class Tasklist {
 
         String addedMessageEnd = "Now you have " + taskList.size() + " tasks in the list.";
         String updateAdd = ADDED_MESSAGE_START + "\n" +  taskToAdd + "\n" + addedMessageEnd;
-        printFunction(updateAdd);
+        if (!Noel.updateFromFile) {
+            printFunction(updateAdd);
+        }
     }
 
     /**
@@ -257,7 +268,9 @@ public class Tasklist {
 
         String addedMessageEnd = "Now you have " + taskList.size() + " tasks in the list.";
         String updateAdd = ADDED_MESSAGE_START + "\n" +  taskToAdd + "\n" + addedMessageEnd;
-        printFunction(updateAdd);
+        if (!Noel.updateFromFile) {
+            printFunction(updateAdd);
+        }
     }
 
     /**
@@ -286,7 +299,6 @@ public class Tasklist {
         for (Task t:taskList) {
             linesToAppend.add(t.toFileString());
         }
-        System.out.println(linesToAppend.subList(0, linesToAppend.size()));
         return linesToAppend.subList(0, linesToAppend.size());
     }
 
@@ -329,5 +341,35 @@ public class Tasklist {
      */
     public Task getTask(int index) {
         return taskList.get(index);
+    }
+
+    public void searchByKeyword(String keyword) {
+        List<String> linesToAppend = new ArrayList<>();
+
+        for (Task t:taskList) {
+            if (t.searchTaskName(keyword)) {
+                linesToAppend.add(t.toString());
+            }
+        }
+        displayResult(linesToAppend.subList(0, linesToAppend.size()));
+    }
+
+    public void displayResult(List<String> listOfTasks) {
+        if (listOfTasks.size() == 0) {
+            System.out.println("No results with such keyword!");
+        } else {
+            int lastTask = listOfTasks.size();
+            StringBuilder result = new StringBuilder();
+            int i = 1;
+            for (String t: listOfTasks) {
+                if (i == lastTask) {
+                    result.append(i).append(".").append(t);
+                } else {
+                    result.append(i).append(".").append(t).append("\n");
+                }
+                i++;
+            }
+            printFunction(MATCHING_STRING + "\n" + result);
+        }
     }
 }
