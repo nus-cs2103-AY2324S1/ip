@@ -6,7 +6,6 @@ import java.util.Scanner;
 import duke.exceptions.DukeException;
 import duke.tasks.TaskList;
 
-
 /**
  * The main file that the application runs
  */
@@ -54,6 +53,7 @@ public class Duke {
         // setting up
         Scanner sc = new Scanner(System.in);
         String string = sc.nextLine();
+        assert string != null : "string should not be null";
         String commandType = "";
         String parserOutput = "";
 
@@ -84,6 +84,7 @@ public class Duke {
 
     public String getResponse(String input) {
         String output = "";
+        assert input != null : "input should not be null";
         if (tasks == null) {
             this.tasks = new TaskList();
         } else {

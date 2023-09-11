@@ -37,6 +37,10 @@ public class Parser {
             Storage storage)
             throws WrongMarkException,
             UnknownCommandException {
+        assert command != null : "command should not be null";
+        assert tasks != null : "taskList should not be null";
+        assert helper != null : "helper should not be null";
+        assert storage != null : "storage should not be null";
         String output = "";
         String[] splittedCommand = command.split(" ");
         String commandType = splittedCommand[0];
@@ -60,6 +64,7 @@ public class Parser {
             case "mark":
                 try {
                     int taskNumber = Integer.parseInt(splittedCommand[1]);
+                    assert taskNumber > 0 : "taskNumber should be more than 0";
                     Task task = tasks.get(taskNumber - 1);
                     if (!task.isItDone()) {
                         task.setAsDone();
