@@ -91,39 +91,34 @@ public class Parser {
             output += "Bye. Hope to see you again soon!";
             break;
         case "list":
-            output += "Here are the tasks in your list:\n";
-            output += tasks;
+            output += "Here are the tasks in your list:\n" + tasks;
             break;
         case "unmark":
             taskIdx = Integer.parseInt(inputParts[1]);
             tasks.unmarkTask(taskIdx - 1);
-            output += "OK! I've marked this task as not done yet:\n";
-            output += tasks.getTask(taskIdx - 1);
+            output += "OK! I've marked this task as not done yet:\n" + tasks.getTask(taskIdx - 1);
             break;
         case "mark":
             taskIdx = Integer.parseInt(inputParts[1]);
             tasks.markTask(taskIdx - 1);
-            output += "Nice! I've marked this task as done:\n";
-            output += tasks.getTask(taskIdx - 1);
+            output += "Nice! I've marked this task as done:\n" + tasks.getTask(taskIdx - 1);
             break;
         case "delete":
             taskIdx = Integer.parseInt(inputParts[1]);
+            output += "Noted. I've removed this task:\n" + tasks.getTask(taskIdx - 1)
+                    + "\nNow you have " + tasks.size() + " tasks in the list.";
             tasks.deleteTask(taskIdx - 1);
-            output += "Noted. I've removed this task:\n";
-            output += tasks.getTask(taskIdx - 1);
-            output += "\nNow you have " + tasks.size() + " tasks in the list.";
             break;
         case "find":
             String keyword = inputParts[1];
-            output += "Here are the matching tasks in your list:\n";
-            output += tasks.find(keyword);
+            output += "Here are the matching tasks in your list:\n" + tasks.find(keyword);
             break;
         default:
             try {
                 Task task = parseTask(input);
                 tasks.addTask(task);
-                output += "Got it. I've added this task:\n" + task + "\n" + line + "\n";
-                output += "Now you have " + tasks.size() + " tasks in the list.";
+                output += "Got it. I've added this task:\n" + task + "\n" + line + "\n"
+                        + "Now you have " + tasks.size() + " tasks in the list.";
             } catch (JamesException e) {
                 output += e.getMessage();
             }

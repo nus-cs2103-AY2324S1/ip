@@ -93,8 +93,10 @@ public class Storage {
         String description = s.substring(7);
         Task task = null;
         if (taskType == 'T') {
+            // example [T][X] read book
             task = new ToDoTask(description);
         } else if (taskType == 'D') {
+            // example [D][X] return book (by: Aug 06 2022 14:00)
             String[] params = description.split("\\(by: ");
             String time = params[1].substring(0, params[1].length() - 1);
             task = new DeadlineTask(params[0], time);
@@ -102,7 +104,8 @@ public class Storage {
             // example [E][ ] project meeting (from: Aug 06 2022 14:00 to: Aug 06 2022 18:00)
             String[] params = description.split("\\(from: ");
             String startTime = description.split("from: ")[1].split(" to: ")[0];
-            String endTime = description.split("to: ")[1].substring(0, description.split("to: ")[1].length() - 1);
+            String endTime = description.split("to: ")[1].substring(0,
+                    description.split("to: ")[1].length() - 1);
             task = new EventTask(params[0], startTime, endTime);
         }
         if (isDone) {
