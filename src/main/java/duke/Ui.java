@@ -57,6 +57,21 @@ public class Ui {
     }
 
     /**
+     * Shows the user the list of tasks name and their tags
+     * @param taskList  the list of tasks
+     */
+    public void showTags(TaskList taskList) {
+        System.out.println("Here are the tags in your list:");
+        for (int i = 0; i < taskList.length(); i++) {
+            Task task = taskList.getTaskObject(i);
+            String taskName = task.getTaskName();
+            String taskType = task.getTaskType();
+            String tags = task.saveTagFormat();
+            System.out.println(i + 1 + ". " + "[" + taskType + "] " + taskName + " | tags:  " + tags);
+        }
+    }
+
+    /**
      * Shows the user the error message when invalid command is given
      * @param input the user's input
      */

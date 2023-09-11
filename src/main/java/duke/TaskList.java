@@ -9,6 +9,9 @@ import java.util.Scanner;
  * Class to encapsulate the list of tasks
  */
 public class TaskList {
+    public static final int TODO_WITH_TAGS_LENGTH = 4;
+    public static final int DEADLINE_WITH_TAGS_LENGTH = 5;
+    public static final int EVENT_WITH_TAGS_LENGTH = 6;
     private ArrayList<Task> taskList;
 
     /**
@@ -55,11 +58,17 @@ public class TaskList {
         String taskType = splitString[0];
         boolean taskStatus = Boolean.parseBoolean(splitString[1]);
         String taskName = splitString[2];
+        boolean hasTags = TaskList.hasTags(taskType, splitString);
 
         switch (taskType) {
         case "T":
-            String tags = splitString[3];
             Task toDo = new ToDos(taskName, taskStatus);
+            if (!hasTags) {
+                return toDo;
+            } else if (hasEmptyTag(splitString[TODO_WITH_TAGS_LENGTH - 1])) {
+                return toDo;
+            }
+            String tags = splitString[3];
             toDo.loadTags(tags);
             return toDo;
         case "D":
@@ -69,8 +78,13 @@ public class TaskList {
                 throw new WrongInputException("Stored deadline is invalid / corrupted",
                         "Please clear the folder and restart the program");
             }
-            String tagsDeadline = splitString[4];
             Task deadlineTask = new Deadline(taskName, taskStatus, deadlineDateTime);
+            if (!hasTags) {
+                return deadlineTask;
+            } else if (hasEmptyTag(splitString[DEADLINE_WITH_TAGS_LENGTH - 1])) {
+                return deadlineTask;
+            }
+            String tagsDeadline = splitString[4];
             deadlineTask.loadTags(tagsDeadline);
             return deadlineTask;
         case "E":
@@ -82,8 +96,13 @@ public class TaskList {
                 throw new WrongInputException("Stored event is invalid / corrupted",
                         "Please clear the folder and restart the program");
             }
-            String tagsEvent = splitString[5];
             Task event = new Event(taskName, taskStatus, fromDateTime, toDateTime);
+            if (!hasTags) {
+                return event;
+            } else if (hasEmptyTag(splitString[EVENT_WITH_TAGS_LENGTH - 1])) {
+                return event;
+            }
+            String tagsEvent = splitString[5];
             event.loadTags(tagsEvent);
             return event;
         default:
@@ -91,6 +110,31 @@ public class TaskList {
             assert false : "Invalid task type";
         }
         return null;
+    }
+
+    /**
+     * Checks whether a task has tags
+     * @param taskType  the type of the task
+     * @param splitString  the string that has been split by the delimiter
+     * @return
+     */
+    public static boolean hasTags(String taskType, String[] splitString) {
+        switch (taskType) {
+        case "T":
+            return splitString.length == TODO_WITH_TAGS_LENGTH;
+        case "D":
+            return splitString.length == DEADLINE_WITH_TAGS_LENGTH;
+        case "E":
+            return splitString.length == EVENT_WITH_TAGS_LENGTH;
+        default:
+            // If it has reach the default statement, the taskType is not valid, program should be stopped
+            assert false : "Invalid task type";
+        }
+        return false;
+    }
+
+    public static boolean hasEmptyTag(String tag) {
+        return tag.trim().isEmpty();
     }
 
     /**
@@ -172,6 +216,19 @@ public class TaskList {
     }
 
     /**
+     * Removes a tag from a task in the taskList
+     * @param index the index of the task in the taskList
+     * @param tag  the tag to be removed
+     * @param storage  the storage object that is used to write to the file
+     */
+    public void removeTag(int index, String tag, Storage storage) {
+        Task task = this.taskList.get(index);
+        task.removeTag(tag);
+        task.printTags(index + 1);
+        this.generateNewTaskList(storage);
+    }
+
+    /**
      * Returns the taskList
      * @param index the index of the task in the taskList
      * @param tag the tag to be added
@@ -180,7 +237,7 @@ public class TaskList {
     public void updateTags(int index, String tag, Storage storage) {
         Task task = this.taskList.get(index);
         task.addTag(tag);
-        task.printTags();
+        task.printTags(index + 1);
         this.generateNewTaskList(storage);
     }
 

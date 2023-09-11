@@ -5,6 +5,7 @@ package duke;
  */
 public enum Command {
     LIST,
+    SHOWTAGS,
     MARK,
     UNMARK,
     BYE,
@@ -12,6 +13,7 @@ public enum Command {
     DEADLINE,
     EVENT,
     TAG,
+    REMOVETAG,
     DELETE,
     FIND;
 
@@ -21,6 +23,7 @@ public enum Command {
     public static final String[] VALID_COMMANDS = {"list", "bye", "todo <task_name>",
         "deadline <task_name> /by <deadline>", "event <task_name> /from <start-time> /to <end-time>",
         "mark <number>", "unmark <number>", "delete <number>", "find <keyword>", "tag <number> <tag>",
+        "showtags", "removetag <number> <tag>"
     };
 
     /**
@@ -53,6 +56,10 @@ public enum Command {
             return Command.FIND;
         } else if (commandWord.startsWith("tag")) {
             return Command.TAG;
+        } else if (commandWord.startsWith("showtags")) {
+            return Command.SHOWTAGS;
+        } else if (commandWord.startsWith("removetag")) {
+            return Command.REMOVETAG;
         }
         throw new InvalidInputException();
     }

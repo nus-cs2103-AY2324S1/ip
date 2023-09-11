@@ -40,6 +40,9 @@ public class Parser {
             case LIST:
                 this.ui.list(this.taskList);
                 break;
+            case SHOWTAGS:
+                this.ui.showTags(this.taskList);
+                break;
             case UNMARK: // Order matters, if we check for marks first, unmark falls under mark loop
                 // Throw NumberFormatException if not the right number
                 int taskNumberUnmark = Integer.parseInt(splitStringByBlanks[1]);
@@ -83,9 +86,16 @@ public class Parser {
                 this.ui.showSearchResult(searchResult);
                 break;
             case TAG:
+                Task.tagValidator(input);
                 int taskNumberTag = Integer.parseInt(splitStringByBlanks[1]);
                 String tag = splitStringByBlanks[2];
                 this.taskList.updateTags(taskNumberTag - 1, tag, storage);
+                break;
+            case REMOVETAG:
+                Task.tagValidator(input);
+                int taskNumberRemoveTag = Integer.parseInt(splitStringByBlanks[1]);
+                String tagToRemove = splitStringByBlanks[2];
+                this.taskList.removeTag(taskNumberRemoveTag - 1, tagToRemove, storage);
                 break;
             default:
                 // WHY: If it has reach the default statement, the command is not valid, program should be stopped

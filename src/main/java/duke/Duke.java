@@ -67,8 +67,7 @@ public class Duke {
 
 
     public static void main(String[] args) {
-        //Launcher.main(args);
-        new Duke("./data/duke.txt").run();
+        Launcher.main(args);
     }
 
 }

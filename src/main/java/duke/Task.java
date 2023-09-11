@@ -102,11 +102,37 @@ public class Task {
     public String getTaskName() {
         return this.taskName;
     }
+
+    /**
+     * Checks for the validity of a tag command
+     * @param input the user's string input
+     * @throws WrongInputException which informs the user of the error and actions to take
+     */
+    public static void tagValidator(String input) throws WrongInputException {
+        String[] splitString = input.split(" ");
+        if (splitString.length < 3) {
+            throw new WrongInputException("Invalid tag format",
+                    "please enter tag <number on list> <tag name with no space>");
+        }
+        if (splitString.length > 3) {
+            throw new WrongInputException("Invalid tag format",
+                    "please enter tag <number on list> <tag name with no space>");
+        }
+        String tag = splitString[2];
+        boolean isEmptyTag = tag.trim().isEmpty();
+        if (isEmptyTag) {
+            throw new WrongInputException("Tag cannot be blank", "please enter a non-blank tag");
+        }
+    }
     /**
      * Attach a tag to a task
      * @param tag the tag to be attached
      */
     public void addTag(String tag) {
+        if (this.tags.contains(tag)) {
+            System.out.println("Tag already exists");
+            return;
+        }
         this.tags.add(tag);
     }
     /**
@@ -140,10 +166,19 @@ public class Task {
      * Prints the tags of a task
      * @return  a string containing the tags of a task
      */
-    public String printTags() {
+    public String printTags(int listNumber) {
         String tagsString = String.join(", ", this.tags);
-        System.out.println("Tags: " + tagsString);
+        System.out.println(listNumber + ". " + "[" + this.getTaskType() + "] "
+                + this.taskName + " | Tags: " + tagsString);
         return tagsString;
+    }
+
+    /**
+     * Returns the task type
+     * @return  a string containing the task type
+     */
+    public String getTaskType() {
+        return "";
     }
 
     @Override

@@ -80,6 +80,14 @@ public class Deadline extends Task {
         Task deadlineTask = new Deadline(taskNameDeadline, deadlineDateTime);
         return deadlineTask;
     }
+    /**
+     * Checks the type of task, which is event
+     * @return  the type of task as a string
+     */
+    @Override
+    public String getTaskType() {
+        return "D";
+    }
 
     /**
      * Converts a Deadline task into a string that can be saved
