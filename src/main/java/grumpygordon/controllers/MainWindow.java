@@ -1,4 +1,4 @@
-package grumpygordon.ui.controllers;
+package grumpygordon.controllers;
 
 import grumpygordon.GrumpyGordon;
 import javafx.fxml.FXML;
