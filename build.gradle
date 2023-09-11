@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("sana.Sana")
+    mainClass.set("sana.Launcher")
 }
 
 shadowJar {
@@ -59,4 +59,5 @@ shadowJar {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }

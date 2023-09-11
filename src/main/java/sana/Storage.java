@@ -42,7 +42,11 @@ public class Storage {
         return tasks.toString();
     }
 
-
+    /**
+     * Saves a task to a specified file path.
+     *
+     * @param task The task to be saved.
+     */
     public void save(Task task) {
         File folder = new File(folderPath);
 
