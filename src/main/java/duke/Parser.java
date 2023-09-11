@@ -17,7 +17,9 @@ import command.UnmarkCommand;
  * Parses user input
  */
 public class Parser {
-    private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private static final String MISSING_INDEX_MESSAGE = "Invalid command! Please include the index of the task";
+    private static final String MISSING_DETAILS_MESSAGE = "Invalid command! Please include the details of the task";
 
     /**
      * Parses user input into command for execution.
@@ -52,6 +54,14 @@ public class Parser {
         }
     }
 
+    private static boolean isInvalidCommand(String[] details) {
+        return (details.length < 2 || details[1].trim().isEmpty());
+    }
+
+    private static boolean isMissingDescription(String[] details) {
+        return (details[0].split(" ", 2).length < 2);
+    }
+
     /**
      * Parses arguments in the context of the mark task command
      *
@@ -59,10 +69,8 @@ public class Parser {
      * @return the prepared command
      */
     private static MarkCommand prepareMark(String[] details) throws DukeException {
-        // user input only has the command eg "mark"
-        if (details.length < 2 || details[1].trim().isEmpty()) {
-            throw new DukeException("Invalid command! "
-                    + "Please include the index of the task you wish to mark");
+        if (isInvalidCommand(details)) {
+            throw new DukeException(MISSING_INDEX_MESSAGE);
         }
         int markTaskId = Integer.parseInt(details[1]) - 1;
         return new MarkCommand(markTaskId);
@@ -75,10 +83,8 @@ public class Parser {
      * @return the prepared command
      */
     private static UnmarkCommand prepareUnmark(String[] details) throws DukeException {
-        // user input only has the command eg "unmark"
-        if (details.length < 2 || details[1].trim().isEmpty()) {
-            throw new DukeException("Invalid command! "
-                    + "Please include the index of the task you wish to unmark");
+        if (isInvalidCommand(details)) {
+            throw new DukeException(MISSING_INDEX_MESSAGE);
         }
         int unmarkTaskId = Integer.parseInt(details[1]) - 1;
         return new UnmarkCommand(unmarkTaskId);
@@ -91,10 +97,8 @@ public class Parser {
      * @return the prepared command
      */
     private static DeleteCommand prepareDelete(String[] details) throws DukeException {
-        // user input only has the command eg "delete"
-        if (details.length < 2 || details[1].trim().isEmpty()) {
-            throw new DukeException("Invalid command! "
-                    + "Please include the index of the task you wish to delete");
+        if (isInvalidCommand(details)) {
+            throw new DukeException(MISSING_INDEX_MESSAGE);
         }
         int deleteTaskId = Integer.parseInt(details[1]) - 1;
         return new DeleteCommand(deleteTaskId);
@@ -107,9 +111,8 @@ public class Parser {
      * @return the prepared command
      */
     private static TodoCommand prepareTodo(String[] details) throws DukeException {
-        // user input only has the command eg "todo"
-        if (details.length < 2 || details[1].trim().isEmpty()) {
-            throw new DukeException("Invalid command! Please include details of this task");
+        if (isInvalidCommand(details)) {
+            throw new DukeException(MISSING_DETAILS_MESSAGE);
         }
         String todoDesc = details[1].trim();
         return new TodoCommand(todoDesc);
@@ -122,20 +125,17 @@ public class Parser {
      * @return the prepared command
      */
     private static DeadlineCommand prepareDeadline(String[] details) throws DukeException {
-        // user input only has the command eg "deadline"
-        if (details.length < 2 || details[1].trim().isEmpty()) {
-            throw new DukeException("Invalid command! Please include details of this task");
+        if (isInvalidCommand(details)) {
+            throw new DukeException(MISSING_DETAILS_MESSAGE);
         }
         String[] deadline = details[1].split("/by", 2);
-        // user input does not include /by
-        if (deadline.length < 2 || deadline[1].trim().isEmpty()) { // user input does not have /by
+        if (isInvalidCommand(deadline)) {
             throw new DukeException("Invalid command! Please include the deadline of this task");
         }
-        // user input is missing the description of the deadline
-        if (deadline[0].split(" ", 2).length < 2) {
-            throw new DukeException("Invalid command! Please include details of this task");
+        if (isMissingDescription(deadline)) {
+            throw new DukeException(MISSING_DETAILS_MESSAGE);
         }
-        LocalDateTime by = LocalDateTime.parse(deadline[1].trim(), inputFormatter);
+        LocalDateTime by = LocalDateTime.parse(deadline[1].trim(), INPUT_FORMATTER);
         return new DeadlineCommand(deadline[0].trim(), by);
     }
 
@@ -146,32 +146,27 @@ public class Parser {
      * @return the prepared command
      */
     private static EventCommand prepareEvent(String[] details) throws DukeException {
-        // user input only has the command eg "event"
-        if (details.length < 2 || details[1].trim().isEmpty()) {
-            throw new DukeException("Invalid command! Please include details of this task");
+        if (isInvalidCommand(details)) {
+            throw new DukeException(MISSING_DETAILS_MESSAGE);
         }
         String[] eventDetails = details[1].split("/from", 2);
-        // user input does not include /from
-        if (eventDetails.length < 2 || eventDetails[1].trim().isEmpty()) {
+        if (isInvalidCommand(eventDetails)) {
             throw new DukeException("Invalid command! Please include when the event starts");
         }
-        // user input does not include the description of the event
-        if (eventDetails[0].split(" ", 2).length < 2) {
-            throw new DukeException("Invalid command! Please include details of this task");
+        if (isMissingDescription(eventDetails)) {
+            throw new DukeException(MISSING_DETAILS_MESSAGE);
         }
         String[] eventTimings = eventDetails[1].split("/to", 2);
-        // user input does not include /to
-        if (eventTimings.length < 2 || eventTimings[1].trim().isEmpty()) {
+        if (isInvalidCommand(eventTimings)) {
             throw new DukeException("Invalid command! Please include when the event ends");
         }
-        LocalDateTime from = LocalDateTime.parse(eventTimings[0].trim(), inputFormatter);
-        LocalDateTime to = LocalDateTime.parse(eventTimings[1].trim(), inputFormatter);
+        LocalDateTime from = LocalDateTime.parse(eventTimings[0].trim(), INPUT_FORMATTER);
+        LocalDateTime to = LocalDateTime.parse(eventTimings[1].trim(), INPUT_FORMATTER);
         return new EventCommand(eventDetails[0].trim(), from, to);
     }
 
     private static FindCommand prepareFind(String[] details) throws DukeException {
-        // user input only has the command eg "event"
-        if (details.length < 2 || details[1].trim().isEmpty()) {
+        if (isInvalidCommand(details)) {
             throw new DukeException("Invalid command! Please include a search keyword");
         }
         return new FindCommand(details[1].trim());
