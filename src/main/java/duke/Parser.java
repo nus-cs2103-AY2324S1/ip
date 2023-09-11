@@ -7,42 +7,41 @@ public class Parser {
     //return "" to continue without action, any other command to fit
     private String command;
     private String[] parsedStr;
-
     /**
      * Parse the fullCommand and get the type of the command
      * @param fullCommmand everything the user entered in a line
      * @return type of the command
      */
     public String parseCommand(String fullCommmand) {
-        String parsed_str[] = fullCommmand.split("\\s+");
-        this.parsedStr = parsed_str;
-        if (parsed_str[0].equals("find")) {
+        String[] parsedStr = fullCommmand.split("\\s+");
+        this.parsedStr = parsedStr;
+        if (parsedStr[0].equals("find")) {
             this.command = "find";
             return "find";
-        } else if (parsed_str[0].equals("list")) {
-            if (parsed_str.length > 1) {
-                //error handling
+        } else if (parsedStr[0].equals("list")) {
+            if (parsedStr.length > 1) {
+                //error handlinrg
                 System.out.println("Do not input another argument beside list");
                 return "";
             }
             this.command = "list";
             return "list";
-        } else if (parsed_str[0].equals("mark")) {
-            if (parsed_str.length < 2) {
+        } else if (parsedStr[0].equals("mark")) {
+            if (parsedStr.length < 2) {
                 //error handling
                 System.out.println("Please specify the index of the task");
                 return "";
-            } else if (parsed_str.length > 2) {
+            } else if (parsedStr.length > 2) {
                 System.out.println("Extra argument detected!");
                 return "";
             }
             this.command = "mark";
             return "mark";
-        } else if (parsed_str[0].equals("unmark")) {
-            if (parsed_str.length < 2) {
+        } else if (parsedStr[0].equals("unmark")) {
+            if (parsedStr.length < 2) {
                 System.out.println("Please specify the index of the task");
                 return "";
-            } else if (parsed_str.length > 2) {
+            } else if (parsedStr.length > 2) {
                 System.out.println("Extra argument detected!");
                 return "";
             }
@@ -51,8 +50,8 @@ public class Parser {
         } else if (fullCommmand.equals("bye")) {
             this.command = "bye";
             return "bye";
-        } else if (parsed_str[0].equals("todo")) {
-            int size = parsed_str.length;
+        } else if (parsedStr[0].equals("todo")) {
+            int size = parsedStr.length;
             if (size < 2) {
                 //error handling
                 System.out.println("You do not specify the todo name");
@@ -60,13 +59,13 @@ public class Parser {
             }
             this.command = "todo";
             return "todo";
-        } else if (parsed_str[0].equals("deadline")) {
+        } else if (parsedStr[0].equals("deadline")) {
             this.command = "deadline";
             return "deadline";
-        } else if (parsed_str[0].equals("event")) {
+        } else if (parsedStr[0].equals("event")) {
             this.command = "event";
             return "event";
-        } else if (parsed_str[0].equals("delete")){
+        } else if (parsedStr[0].equals("delete")) {
             this.command = "delete";
             return "delete";
         }
@@ -106,6 +105,7 @@ public class Parser {
      */
     public Task parseToTask() {
         //rely on last method, last method must be called before this
+        assert (this.command.equals("todo"));
         if (this.command.equals("todo")) {
             int size = this.parsedStr.length;
             String description = "";
@@ -119,7 +119,7 @@ public class Parser {
             return new Todo(description);
         } else if (command.equals("deadline")) {
             boolean reached = false;
-            String by_date = "";
+            String byDate = "";
             String description = "";
             int length = parsedStr.length;
             for (int i = 1; i < length; i++) {
@@ -128,7 +128,7 @@ public class Parser {
                     continue;
                 }
                 if (reached == true) {
-                    by_date += parsedStr[i] + " ";
+                    byDate += parsedStr[i] + " ";
                 } else {
                     description += parsedStr[i] + " ";
                 }
@@ -137,11 +137,11 @@ public class Parser {
             if (description.equals("")) {
                 System.out.println("Please input the name of the deadline task");
                 return null;
-            } else if (by_date.equals("")) {
+            } else if (byDate.equals("")) {
                 System.out.println("Please specify when is the deadline");
                 return null;
             }
-            return new Deadline(description, by_date);
+            return new Deadline(description, byDate);
         } else if (command.equals("event")) {
             boolean reachFrom = false;
             boolean reachTo = false;
