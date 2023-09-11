@@ -1,9 +1,11 @@
-package duke.commands;
+package duke.command;
 
 import duke.DukeException;
-import duke.Task;
-import duke.TaskList;
-import duke.Ui;
+
+import duke.task.Task;
+import duke.task.TaskList;
+
+import duke.ui.Ui;
 
 import java.util.ArrayList;
 
@@ -19,7 +21,9 @@ public class FindCommand extends Command {
         if (this.description.isEmpty()) {
             throw new DukeException("So what exactly do you want to find?");
         }
+
         ArrayList<Task> list = tasks.findTasks(description);
+
         return Ui.findTasks(list);
     }
 }

@@ -1,8 +1,9 @@
-package duke.commands;
+package duke.command;
 
-import duke.Task;
-import duke.TaskList;
-import duke.Ui;
+import duke.task.Task;
+import duke.task.TaskList;
+
+import duke.ui.Ui;
 
 public class MarkCommand extends Command {
     private final int taskNum;
@@ -15,6 +16,7 @@ public class MarkCommand extends Command {
     public String execute(TaskList tasks) {
         Task task = tasks.get(taskNum - 1);
         tasks.markAsDone(this.taskNum - 1);
+
         return Ui.markAsDone(task);
     }
 }

@@ -1,5 +1,7 @@
 package duke;
 
+import duke.task.Task;
+
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,13 +26,16 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
         File file = new File(filePath);
-        if (!file.exists()) {
-            try {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println("Error while creating file: " + e.getMessage());
-            }
+
+        if (file.exists()) {
+            return;
+        }
+
+        try {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error while creating file: " + e.getMessage());
         }
     }
 
@@ -42,19 +47,19 @@ public class Storage {
      * @throws ClassNotFoundException If the class of a serialized object cannot be found.
      */
     public ArrayList<Task> load() throws IOException, ClassNotFoundException {
-        ObjectInputStream in = null;
+        ObjectInputStream objectInputStream = null;
         try {
-            FileInputStream fileIn = new FileInputStream(filePath);
-            in = new ObjectInputStream(fileIn);
-            // Suppress warning as deserialised object is of ArrayList<duke.Task>
+            FileInputStream fileInputStream = new FileInputStream(filePath);
+            objectInputStream = new ObjectInputStream(fileInputStream);
+            // Suppress warning as deserialised object is of ArrayList<duke.task.Task>
             @SuppressWarnings("unchecked")
-            ArrayList<Task> list = (ArrayList<Task>) in.readObject();
+            ArrayList<Task> list = (ArrayList<Task>) objectInputStream.readObject();
             return list;
         } catch (EOFException e) {
             return new ArrayList<Task>();
         } finally {
-            if (in != null) {
-                in.close();
+            if (objectInputStream != null) {
+                objectInputStream.close();
             }
         }
     }
@@ -66,14 +71,14 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the file.
      */
     public void saveToFile(ArrayList<Task> list) throws IOException{
-        ObjectOutputStream out = null;
+        ObjectOutputStream objectOutputStream = null;
         try {
-            FileOutputStream fileOut = new FileOutputStream(filePath);
-            out = new ObjectOutputStream(fileOut);
-            out.writeObject(list);
+            FileOutputStream fileOutputStream = new FileOutputStream(filePath);
+            objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(list);
         } finally {
-            if (out != null) {
-                out.close();
+            if (objectOutputStream != null) {
+                objectOutputStream.close();
             }
         }
     }

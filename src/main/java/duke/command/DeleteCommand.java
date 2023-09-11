@@ -1,8 +1,9 @@
-package duke.commands;
+package duke.command;
 
-import duke.Task;
-import duke.TaskList;
-import duke.Ui;
+import duke.task.Task;
+import duke.task.TaskList;
+
+import duke.ui.Ui;
 
 public class DeleteCommand extends Command {
     private final int taskNum;
@@ -16,6 +17,7 @@ public class DeleteCommand extends Command {
         Task task = tasks.get(taskNum - 1);
         tasks.deleteTask(this.taskNum - 1);
         String deleteMessage = Ui.deleteTask(task);
+
         return deleteMessage + "\n" + Ui.countTasks(tasks);
     }
 }
