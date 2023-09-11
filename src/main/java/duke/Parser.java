@@ -48,6 +48,7 @@ public class Parser {
             }
             return description;
         } else {
+            assert this.words.length > 1 && !this.words[1].contains("/by") : "Invalid user input";
             throw new DukeException(ExceptionTypes.INVALIDCOMMANDDEADLINE);
         }
     }
@@ -72,6 +73,8 @@ public class Parser {
             }
             return new String[]{description[0], interval[0], interval[1]};
         } else {
+            assert this.words.length > 1 && !this.words[1].contains("/from") && !this.words[1].contains("/to")
+                    : "Invalid user input";
             throw new DukeException(ExceptionTypes.INVALIDCOMMANDEVENT);
         }
     }
@@ -86,6 +89,7 @@ public class Parser {
         if (this.words.length == 1 || this.words[1].isBlank()) {
             throw new DukeException(ExceptionTypes.INCOMPLETETASKNUMBER);
         }
+        assert this.words.length > 1 : "Invalid user input";
         return Integer.parseInt(words[1]);
     }
 
@@ -93,6 +97,7 @@ public class Parser {
         if (this.words.length == 1 || this.words[1].isBlank()) {
             throw new DukeException(ExceptionTypes.EMPTYKEYWORD);
         }
+        assert this.words.length > 1 : "Invalid user input";
         return this.words[1];
     }
 }

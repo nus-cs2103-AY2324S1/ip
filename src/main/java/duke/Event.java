@@ -24,6 +24,8 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
         this.formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
+        assert this.from != null : "from should not be null";
+        assert this.to != null : "to should not be null";
     }
 
     /**
