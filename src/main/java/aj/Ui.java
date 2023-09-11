@@ -98,6 +98,7 @@ public class Ui {
             str = "No items yet, add something!!!\n";
         }
         for (int i = 1; i <= this.taskList.getSize(); i++) {
+            assert this.taskList.getSize() != 0 : "Tasklist size should be 0";
 //        System.out.println(i + "." + this.lst[i - 1]);
 //            System.out.println(i + "." + this.taskList.getTask(i - 1));
             str += i + "." + this.taskList.getTask(i - 1) + "\n";
