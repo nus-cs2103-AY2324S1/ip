@@ -93,6 +93,7 @@ public class TaskList {
     public String markAsDone(int number) {
         Task curr = tasks.get(number - 1);
         curr.markAsDone();
+        assert curr.getStatusIcon().equals("X") : "This task should be unmarked";
         return ui.mark();
     }
 
@@ -104,6 +105,7 @@ public class TaskList {
     public String unmarkAsDone(int number) {
         Task curr = tasks.get(number - 1);
         curr.unmarkAsDone();
+        assert curr.getStatusIcon().equals(" ") : "This task should be unmarked";
         return ui.unmark();
     }
 

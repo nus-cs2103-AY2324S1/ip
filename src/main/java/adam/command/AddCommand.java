@@ -41,6 +41,7 @@ public class AddCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui){
+        int length = tasks.getSize();
         String respond = "Something went wrong";
         if (tokens.length == 1) {
             throw new DescriptionException();
@@ -100,6 +101,7 @@ public class AddCommand implements Command {
         default:
             respond = "Wrong input";
         }
+        assert tasks.getSize() == length + 1 : "There should be a task added";
         tasks.save(storage);
         return respond;
     }

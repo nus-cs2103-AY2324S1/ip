@@ -34,6 +34,7 @@ public class EditCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui) {
+        int length = tasks.getSize();
         String respond = "Something went wrong";
         if (tokens.length != 2) {
             throw new NumberException();
@@ -48,12 +49,15 @@ public class EditCommand implements Command {
         switch (text) {
         case "mark":
             respond = tasks.markAsDone(number);
+            assert tasks.getSize() == length : "The size of the task should stay the same";
             break;
         case "unmark":
             respond = tasks.unmarkAsDone(number);
+            assert tasks.getSize() == length : "The size of the task should stay the same";
             break;
         case "delete":
             respond = tasks.deleteTask(number);
+            assert tasks.getSize() == length - 1 : "The size of the task should decrease";
             break;
         default:
             respond = "Wrong input";
