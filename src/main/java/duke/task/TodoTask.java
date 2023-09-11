@@ -45,4 +45,14 @@ public class TodoTask extends Task {
         return String.join(Task.SEP, new String[] { "TODO", this.getTask(), this.isComplete() ? "1" : "0" });
     }
 
+    /**
+     * returns the stored form of the task
+     *
+     * @param days - the range of days of task to be reminded
+     * @return true if this task need to be reminded
+     */
+    @Override
+    public boolean isRemind(int days) {
+        return false;
+    }
 }
