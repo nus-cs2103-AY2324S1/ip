@@ -3,6 +3,8 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import duke.util.Formatter;
+
 /**
  * Represents an event task, containing a description, from date and to date.
  */
@@ -30,7 +32,7 @@ public class Event extends Task {
      * @return The event, formatted as a String to be saved in the save file.
      */
     public String toSaveFormatString() {
-        return "E | " + this.getStatusNumber() + " | " + this.message + " | " + from + " | " + to;
+        return "E | " + getStatusNumber() + " | " + message + " | " + from + " | " + to;
     }
 
     /**
@@ -39,8 +41,8 @@ public class Event extends Task {
      * @return The event, formatted as a String for output in the application.
      */
     public String toString() {
-        return "[E]" + this.getStatusIcon() + " " + this.message
-                + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss"))
-                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss")) + ")";
+        return "[E]" + getStatusIcon() + " " + message
+                + " (from: " + Formatter.formatDateTime(from)
+                + " to: " + Formatter.formatDateTime(to) + ")";
     }
 }

@@ -20,7 +20,7 @@ public class Todo extends Task {
      * @return The to-do task, formatted as a String to be saved in the save file.
      */
     public String toSaveFormatString() {
-        return "T | " + this.getStatusNumber() + " | " + this.message;
+        return "T | " + getStatusNumber() + " | " + message;
     }
 
     /**
@@ -29,6 +29,6 @@ public class Todo extends Task {
      * @return The to-do task, formatted as a String for output in the application.
      */
     public String toString() {
-        return "[T]" + this.getStatusIcon() + " " + this.message;
+        return "[T]" + getStatusIcon() + " " + message;
     }
 }

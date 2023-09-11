@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.util.Formatter;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -27,7 +29,7 @@ public class Deadline extends Task {
      * @return The deadline, formatted as a String to be saved in the save file.
      */
     public String toSaveFormatString() {
-        return "D | " + this.getStatusNumber() + " | " + this.message + " | " + deadline;
+        return "D | " + getStatusNumber() + " | " + message + " | " + deadline;
     }
 
     /**
@@ -36,7 +38,7 @@ public class Deadline extends Task {
      * @return The deadline, formatted as a String for output in the application.
      */
     public String toString() {
-        return "[D]" + this.getStatusIcon() + " " + this.message
-                + " (by: " + deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss")) + ")";
+        return "[D]" + getStatusIcon() + " " + message
+                + " (by: " + Formatter.formatDateTime(deadline) + ")";
     }
 }
