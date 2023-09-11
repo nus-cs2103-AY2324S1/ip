@@ -12,6 +12,7 @@ import duke.management.TaskList;
 public class Duke {
     private TaskList tasks;
     private Storage storage;
+    private Parser parser;
 
     /**
      * Duke Constructor.
@@ -20,6 +21,7 @@ public class Duke {
      */
     public Duke(String filePath) {
         this.storage = new Storage(filePath);
+        this.parser = new Parser();
         try {
             this.tasks = new TaskList(storage.load());
         } catch (DukeException e) {
@@ -46,8 +48,8 @@ public class Duke {
      * @return Returns the bot's response in String representation.
      */
     public String getResponse(String input) {
-        Parser parser = new Parser();
-        String result = parser.parse(input, tasks);
+        assert !input.isEmpty() : "Input cannot be empty!";
+        String result = this.parser.parse(input, tasks);
         return result;
     }
 }
