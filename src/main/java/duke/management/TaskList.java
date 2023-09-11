@@ -1,10 +1,13 @@
 package duke.management;
 
+import java.util.ArrayList;
+
 import duke.DukeException;
 import duke.task.Task;
 
-import java.util.ArrayList;
-
+/**
+ * Contains an Arraylist of all tasks.
+ */
 public class TaskList {
     private final ArrayList<Task> tasklist;
 

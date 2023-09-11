@@ -1,15 +1,25 @@
 package duke.task;
 
-import duke.helper.DateHelper;
-import duke.DukeException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+import duke.DukeException;
+import duke.helper.DateHelper;
+
+/**
+ * Event task.
+ */
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
+    /**
+     * Event Constructor.
+     *
+     * @param description Description of the event.
+     * @param from Start of the event.
+     * @param to End of the event.
+     */
     public Event(String description, String from, String to) {
         super(description);
         try {

@@ -1,14 +1,23 @@
 package duke.task;
 
-import duke.helper.DateHelper;
-import duke.DukeException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+import duke.DukeException;
+import duke.helper.DateHelper;
+
+/**
+ * Deadline task.
+ */
 public class Deadline extends Task {
     protected LocalDateTime by;
 
+    /**
+     * Deadline Constructor.
+     *
+     * @param description Description of the task.
+     * @param by Deadline of the task.
+     */
     public Deadline(String description, String by) {
         super(description);
         try {
