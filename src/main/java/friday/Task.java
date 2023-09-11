@@ -4,16 +4,15 @@ package friday;
  * Represents a task in the Friday application.
  */
 public class Task extends Item {
-    protected String name;
     protected boolean isDone;
 
     /**
      * Constructs a new Task with the specified name.
      *
-     * @param name The name or description of the task.
+     * @param description The name or description of the task.
      */
-    public Task(String name) {
-        super(name);
+    public Task(String description) {
+        super(description);
         this.isDone = false;
     }
 
@@ -42,7 +41,7 @@ public class Task extends Item {
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + name;
+        return "[" + getStatusIcon() + "] " + itemName;
     }
 
     /**
@@ -52,8 +51,7 @@ public class Task extends Item {
      * @return whether the keyword is in task.
      */
     public boolean containsKeyWord(String keyWord) {
-        String lowerCaseName = this.name.toLowerCase();
+        String lowerCaseName = this.itemName.toLowerCase();
         return lowerCaseName.contains(keyWord.toLowerCase());
     }
 }
-
