@@ -69,4 +69,4 @@ X | D#1: Watch   L3   recording | BY 18 Jun '23, 11:59pm
 X | T#2: I tried to make an event but didn't specify flags.
   | D#3: another | BY 1 Jan '20, 6:01am
 
->>> 
+>>> \o

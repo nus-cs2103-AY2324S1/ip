@@ -2,19 +2,22 @@ package com.cloud.chatbot;
 
 import java.util.Scanner;
 
+import com.cloud.chatbot.command.Dispatcher;
 import com.cloud.chatbot.item.ItemManager;
 
 
 
 /**
- * The chatbot's main class.
+ * The bot's entry point.
  */
 public final class Cloud {
     private static final Scanner SCANNER = new Scanner(System.in);
-    private static final ItemManager ITEM_MANAGER = new ItemManager();
+
+    /** Manages the user's Items. */
+    public static final ItemManager ITEM_MANAGER = new ItemManager();
 
     /**
-     * The chatbot's main method.
+     * The bot's main loop.
      *
      * @param args Java arguments.
      */
@@ -24,7 +27,7 @@ public final class Cloud {
 
         while (Cloud.SCANNER.hasNextLine()) {
             String input = Cloud.SCANNER.nextLine();
-            Handler.handle(Cloud.ITEM_MANAGER, input);
+            Dispatcher.handle(input);
 
             Ui.inputMarker();
         }

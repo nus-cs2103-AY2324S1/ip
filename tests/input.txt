@@ -28,3 +28,4 @@ del 0
 yeet 1
 yeet 1
 l
+QUIT
