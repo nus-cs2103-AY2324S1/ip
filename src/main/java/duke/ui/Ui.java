@@ -125,4 +125,14 @@ public class Ui {
                 + "4. mark/unmark/delete (POSITION)";
         return msg;
     }
+    /**
+     * Displays message to the user, informing them that the input is invalid.
+     *
+     * @return The invalid input message.
+     */
+    public String showInvalidInput() {
+        String msg = "It looks like you have entered an invalid input!\n"
+                + "For a list of all the valid inputs type \"help\"";
+        return msg;
+    }
 }
