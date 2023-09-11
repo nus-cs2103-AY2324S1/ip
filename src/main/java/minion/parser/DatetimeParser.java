@@ -1,59 +1,57 @@
 package minion.parser;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import minion.common.Messages;
-import minion.data.exception.IllegalValueException;
+import minion.data.exception.MinionException;
 
 /**
  * Represents a datetime parser.
  */
 public class DatetimeParser {
-    /**
-     * Formats the given date.
-     * @param s Date to be formatted.
-     * @return parsed date in MMM d yyy format.
-     * @throws DateTimeParseException when unable to parse date.
-     */
-    private static String formatDate(String s) throws DateTimeParseException {
-        return LocalDate.parse(s, DateTimeFormatter.ofPattern("d/M/yyyy"))
-                .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-    }
+
+    private static final DateTimeFormatter FROM_DATETIME_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter TO_DATETIME_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
 
     /**
-     * Formats the given time.
-     * @param s Time to be formatted.
-     * @return parsed time in h:mm a format
-     * @throws DateTimeParseException when unable to parse time.
+     * Parses a datetime string into a LocalDateTime bassed on the FROM_DATETIME_FORMATTER.
+     * @param s datetime string
+     * @return parsed LocalDateTime
+     * @throws MinionException if fail to parse the datetime string.
      */
-    private static String formatTime(String s) throws DateTimeParseException {
-        return LocalTime.parse(s, DateTimeFormatter.ofPattern("HHmm")).format(DateTimeFormatter.ofPattern("h:mm a"));
-    }
-
-    /**
-     * Parses the given datetime.
-     * @param arr An array of two strings, one date and one time.
-     * @return parsed datetime
-     * @throws IllegalValueException when illegal value(s) are given for date/time.
-     */
-    public static String parseDatetime(String[] arr) throws IllegalValueException {
-        String datetime;
+    public static LocalDateTime parseFromDatetime(String s) throws MinionException {
         try {
-            datetime = formatDate(arr[0]);
+            return LocalDateTime.parse(s, FROM_DATETIME_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new IllegalValueException(Messages.MESSAGE_FAIL_PARSE_DATE);
+            throw new MinionException("Fail to parse datetime!");
         }
-        if (arr.length > 1) {
-            datetime += " ";
-            try {
-                datetime += formatTime(arr[1]);
-            } catch (DateTimeParseException e) {
-                throw new IllegalValueException(Messages.MESSAGE_FAIL_PARSE_TIME);
-            }
-        }
-        return datetime;
     }
+
+    /**
+     * Parses a datetime string into a LocalDateTime bassed on the TO_DATETIME_FORMATTER.
+     * @param s datetime string
+     * @return parsed LocalDateTime
+     * @throws MinionException if fail to parse the datetime string.
+     */
+    public static LocalDateTime parseToDatetime(String s) throws MinionException {
+        try {
+            return LocalDateTime.parse(s, TO_DATETIME_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new MinionException("Fail to parse datetime!");
+        }
+    }
+
+    /**
+     * Converts a LocalDateTime object into a string based on TO_DATETIME_FORMATTER.
+     * @param localDatetime LocalDateTime object to be parsed
+     * @return formatted datetime string
+     * @throws DateTimeException if unable to format datetime.
+     */
+    public static String convertFromDatetime(LocalDateTime localDatetime) throws DateTimeException {
+        return localDatetime.format(TO_DATETIME_FORMATTER);
+    }
+
+
 }

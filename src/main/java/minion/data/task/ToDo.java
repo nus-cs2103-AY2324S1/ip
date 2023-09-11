@@ -12,6 +12,7 @@ public class ToDo extends Task {
      */
     public ToDo(String description, boolean isDone) {
         super(description, isDone);
+        taskSymbol = TaskSymbol.TODO.getSymbol();
     }
 
     /**
@@ -38,7 +39,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[" + taskSymbol + "]" + super.toString();
     }
 
     /**
@@ -47,7 +48,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toStringStorage() {
-        return "T | " + (isDone ? "1" : "0") + " | " + description;
+        return taskSymbol + " | " + (isDone ? "1" : "0") + " | " + description;
     }
 
     /**

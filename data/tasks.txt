@@ -1,9 +1,11 @@
-E | 1 | party | Mar 3 2023 1:00 PM - Sep 5 2023 3:45 AM
-E | 1 | pizza party | Aug 3 2023 - Sep 3 2023 1:28 PM
-T | 0 | lol
-D | 1 | hiiii | Feb 8 2024
+D | 1 | coffee | Feb 2 2022 6:43 PM
+D | 0 | do project | Jun 3 2023 6:00 PM
 D | 0 | return book | Dec 3 2023 2:00 PM
+D | 0 | assignment1 | Apr 3 2025 6:32 AM
+E | 1 | party | Mar 3 2023 1:00 PM - Sep 5 2023 3:45 AM
+E | 1 | hi | Mar 8 2023 7:00 PM - Jul 4 2025 3:42 AM
+E | 0 | homework party | Aug 3 2023 4:30 PM - Aug 9 2023 5:00 PM
+T | 0 | lol
 T | 0 | hi
 T | 1 | lol
-T | 0 | buy book
 T | 1 | hi

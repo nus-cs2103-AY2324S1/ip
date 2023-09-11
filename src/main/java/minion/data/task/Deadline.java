@@ -1,10 +1,16 @@
 package minion.data.task;
 
+import java.time.LocalDateTime;
+
+import minion.parser.DatetimeParser;
+
 /**
  * Represents a deadline task.
  */
 public class Deadline extends Task {
-    private String datetime;
+
+    private LocalDateTime datetime;
+    private String datetimeString;
 
     /**
      * Creates a deadline object. This is the main constructor of the minion.data.task.Deadline class.
@@ -12,9 +18,11 @@ public class Deadline extends Task {
      * @param isDone Whether the deadline is done.
      * @param datetime Datetime of deadline.
      */
-    public Deadline(String description, boolean isDone, String datetime) {
+    public Deadline(String description, boolean isDone, LocalDateTime datetime) {
         super(description, isDone);
         this.datetime = datetime;
+        this.datetimeString = DatetimeParser.convertFromDatetime(datetime);
+        taskSymbol = TaskSymbol.DEADLINE.getSymbol();
     }
 
     /**
@@ -22,7 +30,7 @@ public class Deadline extends Task {
      * @param description Description of deadline.
      * @param datetime Datetime of deadline.
      */
-    public Deadline(String description, String datetime) {
+    public Deadline(String description, LocalDateTime datetime) {
         this(description, false, datetime);
     }
 
@@ -33,7 +41,7 @@ public class Deadline extends Task {
      */
     @Override
     public boolean contains(String query) {
-        return description.contains(query) || datetime.contains(query);
+        return description.contains(query) || datetimeString.contains(query);
     }
 
     /**
@@ -42,7 +50,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + datetime + ")";
+        return "[" + taskSymbol + "]" + super.toString() + " (by: " + datetimeString + ")";
     }
 
     /**
@@ -51,7 +59,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toStringStorage() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + datetime;
+        return taskSymbol + " | " + (isDone ? "1" : "0") + " | " + description + " | " + datetimeString;
     }
 
     /**
@@ -65,6 +73,15 @@ public class Deadline extends Task {
             return false;
         }
         Deadline t = (Deadline) o;
-        return description.equals(t.description) && isDone == t.isDone && datetime.equals(t.datetime);
+        return description.equals(t.description) && isDone == t.isDone && datetimeString.equals(t.datetimeString);
+    }
+
+    /**
+     * Compares two deadline objects based on their datetimes
+     * @param o the other deadline object
+     * @return an integer denoting the relative order of this task and the other task
+     */
+    public int compare(Deadline o) {
+        return datetime.compareTo(o.datetime);
     }
 }
