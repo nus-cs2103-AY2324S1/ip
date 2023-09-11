@@ -17,15 +17,6 @@ public class Duchess {
     private static TaskList storedTasks = new TaskList();
 
     /**
-     * Outputs the same string parameter that was passed in.
-     *
-     * @param s - the string to be echoed.
-     */
-    private static void echo(String s) {
-        Ui.duchessPrint(s);
-    }
-
-    /**
      * Prints all stored text.
      *
      * @param s - the string to be stored.
