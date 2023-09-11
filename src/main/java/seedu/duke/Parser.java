@@ -12,6 +12,8 @@ public class Parser {
     private TaskList tasks;
     private Ui ui;
 
+    private enum TaskType {LIST, TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, FIND};
+
     /**
      * Creates a Parser instance.
      *
@@ -33,134 +35,25 @@ public class Parser {
     public String parse(String cmd) {
         while (!cmd.equals("bye")) {
             try {
-                String type = cmd.split(" ", 2)[0];
+                System.out.println(TaskType.valueOf(getTaskType(cmd)));
+                TaskType taskType = TaskType.valueOf(getTaskType(cmd));
 
-                // If cmd is "list", list items and wait for next command
-                if (cmd.equals("list")) {
-                    return ui.printListItems(tasks);
-                } else if (type.equals("todo")) {
-                    // Check if description is empty
-                    if (descriptionIsEmpty(cmd)) {
-                        throw new InvalidDescriptionException("todo");
-                    }
-
-                    String taskName = cmd.split(" ", 2)[1];
-                    Task todo = new ToDo(taskName);
-                    tasks.addTask(todo);
-                    return ui.printAddTaskMessage(todo, tasks);
-                } else if (type.equals("deadline")) {
-                    System.out.println("I am in the deadline conditional");
-                    if (descriptionIsEmpty(cmd)) {
-                        throw new InvalidDescriptionException("deadline");
-                    }
-
-                    String taskWithDeadline = cmd.split(" ", 2)[1];
-
-                    if (hasNoDeadline(taskWithDeadline)) {
-                        throw new NoDeadlineException();
-                    }
-
-                    String taskName = taskWithDeadline.split("/", 2)[0];
-                    String deadlineDescription = taskWithDeadline.split("/", 2)[1];
-
-                    System.out.println("I am about to check the deadline");
-                    LocalDateTime dateTime = checkDeadline(deadlineDescription);
-                    System.out.println("I have obtained a deadline");
-                    if (dateTime == null) {
-                        throw new InvalidDeadlineException(deadlineDescription);
-                    }
-                    Task deadline = new Deadline(taskName, dateTime);
-                    tasks.addTask(deadline);
-                    return ui.printAddTaskMessage(deadline, tasks);
-                } else if (type.equals("event")) {
-                    if (descriptionIsEmpty(cmd)) {
-                        throw new InvalidDescriptionException("event");
-                    }
-
-                    String taskWithDuration = cmd.split(" ", 2)[1];
-                    String[] time = taskWithDuration.split("/");
-
-                    // Check if there is a valid duration
-                    if (time.length != 3) {
-                        throw new IncompleteDurationException();
-                    }
-
-                    String taskName = time[0];
-                    String starting = time[1];
-                    String ending = time[2];
-
-                    // Assumes that starting and ending both start with "from" and "to" respectively
-                    Task event = new Event(taskName, checkStarting(starting), checkEnding(ending));
-                    tasks.addTask(event);
-                    return ui.printAddTaskMessage(event, tasks);
-                } else if (type.equals("delete")) {
-                    if (descriptionIsEmpty(cmd)) {
-                        throw new InvalidDescriptionException("delete");
-                    }
-
-                    int taskNumber = -1;
-                    String integer = cmd.split(" ", 2)[1];
-
-                    try {
-                        taskNumber = Integer.parseInt(integer);
-                    } catch (Exception e) {
-                        throw new InvalidIntegerException();
-                    }
-
-                    if (!isValidTaskNumber(taskNumber)) {
-                        throw new InvalidTaskNumberException(taskNumber);
-                    }
-
-                    Task task = tasks.markOrDeleteTask(taskNumber - 1, "delete");
-                    return ui.printDeleteTaskMessage(task, new TaskList(storage.load()));
-                } else if (type.equals("mark")) {
-                    if (descriptionIsEmpty(cmd)) {
-                        throw new InvalidDescriptionException("mark");
-                    }
-
-                    int taskNumber = -1;
-                    String integer = cmd.split(" ", 2)[1];
-
-                    try {
-                        taskNumber = Integer.parseInt(integer);
-                    } catch (Exception e) {
-                        throw new InvalidIntegerException();
-                    }
-
-                    if (!isValidTaskNumber(taskNumber)) {
-                        throw new InvalidTaskNumberException(taskNumber);
-                    }
-
-                    Task task = tasks.markOrDeleteTask(taskNumber - 1, "mark");
-                    return ui.printMarkedTaskMessage(task);
-                } else if (type.equals("unmark")) {
-                    if (descriptionIsEmpty(cmd)) {
-                        throw new InvalidDescriptionException("unmark");
-                    }
-
-                    int taskNumber = -1;
-                    String integer = cmd.split(" ", 2)[1];
-
-                    try {
-                        taskNumber = Integer.parseInt(integer);
-                    } catch (Exception e) {
-                        throw new InvalidIntegerException();
-                    }
-
-                    if (!isValidTaskNumber(taskNumber)) {
-                        throw new InvalidTaskNumberException(taskNumber);
-                    }
-
-                    Task task = tasks.markOrDeleteTask(taskNumber - 1, "unmark");
-                    return ui.printUnmarkedTaskMessage(task);
-                } else if (type.equals("find")) {
-                    if (descriptionIsEmpty(cmd)) {
-                        throw new InvalidDescriptionException("find");
-                    }
-
-                    String keyword = cmd.split(" ", 2)[1];
-                    ArrayList<Task> results = tasks.find(keyword);
-                    return ui.printFindResults(results);
+                if (taskType == TaskType.LIST) {
+                    return getListItems();
+                } else if (taskType == TaskType.TODO) {
+                    return parseToDoCommand(cmd);
+                } else if (taskType == TaskType.DEADLINE) {
+                    return parseDeadlineCommand(cmd);
+                } else if (taskType == TaskType.EVENT) {
+                    return parseEventCommand(cmd);
+                } else if (taskType == TaskType.DELETE) {
+                    return parseDeleteCommand(cmd);
+                } else if (taskType == TaskType.MARK) {
+                    return parseMarkCommand(cmd);
+                } else if (taskType == TaskType.UNMARK) {
+                    return parseUnmarkCommand(cmd);
+                } else if (taskType == TaskType.FIND) {
+                    return parseFindCommand(cmd);
                 } else {  // If the inputted command is not valid, throw TaskTypeException
                     throw new TaskTypeException();
                 }
@@ -168,6 +61,248 @@ public class Parser {
                 return e.getMessage();
             }
         }
+        return exit();
+    }
+
+    /**
+     * Returns a string representing the first word of the user input in uppercase.
+     *
+     * @param cmd The user input.
+     * @return A string representing the first word of the user input in uppercase.
+     * @throws TaskTypeException if the user input is empty.
+     */
+    private String getTaskType(String cmd) throws TaskTypeException {
+        try {
+            return cmd.split(" ", 2)[0].toUpperCase();
+        } catch (Exception e) {
+            throw new TaskTypeException();
+        }
+    }
+
+    /**
+     * Returns a string containing the current tasks.
+     *
+     * @return A string containing the current tasks.
+     */
+    private String getListItems() {
+        return ui.printListItems(tasks);
+    }
+
+    /**
+     * Executes the code corresponding to a ToDo command.
+     *
+     * @param cmd The user input.
+     * @return A string containing the add task message.
+     * @throws InvalidDescriptionException When there is only one word in the user input.
+     */
+    private String parseToDoCommand(String cmd) throws InvalidDescriptionException {
+        // Check if description is empty
+        if (descriptionIsEmpty(cmd)) {
+            throw new InvalidDescriptionException("todo");
+        }
+
+        String taskName = cmd.split(" ", 2)[1];
+        Task todo = new ToDo(taskName);
+        tasks.addTask(todo);
+        return ui.printAddTaskMessage(todo, tasks);
+    }
+
+    /**
+     * Executes the code corresponding to a Deadline command.
+     *
+     * @param cmd The user input.
+     * @return A string containing the add task message.
+     * @throws InvalidDescriptionException When there is only one word in the user input.
+     * @throws NoDeadlineException When there is no deadline specified.
+     * @throws InvalidDeadlineException When the deadline specified is not in the correct format.
+     */
+    private String parseDeadlineCommand(String cmd) throws InvalidDescriptionException,
+                                                            NoDeadlineException,
+                                                            InvalidDeadlineException {
+        if (descriptionIsEmpty(cmd)) {
+            throw new InvalidDescriptionException("deadline");
+        }
+
+        String taskWithDeadline = cmd.split(" ", 2)[1];
+
+        if (hasNoDeadline(taskWithDeadline)) {
+            throw new NoDeadlineException();
+        }
+
+        String taskName = taskWithDeadline.split("/", 2)[0];
+        String deadlineDescription = taskWithDeadline.split("/", 2)[1];
+
+        System.out.println("I am about to check the deadline");
+        LocalDateTime dateTime = checkDeadline(deadlineDescription);
+        System.out.println("I have obtained a deadline");
+        if (dateTime == null) {
+            throw new InvalidDeadlineException(deadlineDescription);
+        }
+        Task deadline = new Deadline(taskName, dateTime);
+        tasks.addTask(deadline);
+        return ui.printAddTaskMessage(deadline, tasks);
+    }
+
+    /**
+     * Executes the code corresponding to a Deadline command.
+     *
+     * @param cmd The user input.
+     * @return A string containing the add task message.
+     * @throws InvalidDescriptionException When there is only one word in the user input.
+     * @throws IncompleteDurationException When the duration is not correctly specified.
+     */
+    private String parseEventCommand(String cmd) throws InvalidDescriptionException,
+                                                        IncompleteDurationException {
+        if (descriptionIsEmpty(cmd)) {
+            throw new InvalidDescriptionException("event");
+        }
+
+        String taskWithDuration = cmd.split(" ", 2)[1];
+        String[] time = taskWithDuration.split("/");
+
+        // Check if there is a valid duration
+        if (time.length != 3) {
+            throw new IncompleteDurationException();
+        }
+
+        String taskName = time[0];
+        String starting = time[1];
+        String ending = time[2];
+
+        // Assumes that starting and ending both start with "from" and "to" respectively
+        Task event = new Event(taskName, checkStarting(starting), checkEnding(ending));
+        tasks.addTask(event);
+        return ui.printAddTaskMessage(event, tasks);
+    }
+
+    /**
+     * Executes the code corresponding to a delete command.
+     *
+     * @param cmd The user input.
+     * @return A string containing the delete task message.
+     * @throws InvalidDescriptionException When there is only one word in the user input.
+     * @throws InvalidIntegerException When the argument specified is not an integer.
+     * @throws InvalidTaskNumberException When the integer specified is not a task number.
+     * @throws InvalidDataFormatException When the format duke.txt file is incorrect.
+     */
+    private String parseDeleteCommand(String cmd) throws InvalidDescriptionException,
+                                                            InvalidIntegerException,
+                                                            InvalidTaskNumberException,
+                                                            InvalidDataFormatException {
+        if (descriptionIsEmpty(cmd)) {
+            throw new InvalidDescriptionException("delete");
+        }
+
+        int taskNumber = -1;
+        String integer = cmd.split(" ", 2)[1];
+
+        try {
+            taskNumber = Integer.parseInt(integer);
+        } catch (Exception e) {
+            throw new InvalidIntegerException();
+        }
+
+        if (!isValidTaskNumber(taskNumber)) {
+            throw new InvalidTaskNumberException(taskNumber);
+        }
+
+        Task task = tasks.markOrDeleteTask(taskNumber - 1, "delete");
+        return ui.printDeleteTaskMessage(task, new TaskList(storage.load()));
+    }
+
+    /**
+     * Executes the code corresponding to a mark command.
+     *
+     * @param cmd The user input.
+     * @return A string containing the mark task message.
+     * @throws InvalidDescriptionException When there is only one word in the user input.
+     * @throws InvalidIntegerException When the argument specified is not an integer.
+     * @throws InvalidTaskNumberException When the integer specified is not a task number.
+     * @throws InvalidDataFormatException When the format duke.txt file is incorrect.
+     */
+    private String parseMarkCommand(String cmd) throws InvalidDescriptionException,
+                                                        InvalidIntegerException,
+                                                        InvalidTaskNumberException,
+                                                        InvalidDataFormatException {
+        if (descriptionIsEmpty(cmd)) {
+            throw new InvalidDescriptionException("mark");
+        }
+
+        int taskNumber = -1;
+        String integer = cmd.split(" ", 2)[1];
+
+        try {
+            taskNumber = Integer.parseInt(integer);
+        } catch (Exception e) {
+            throw new InvalidIntegerException();
+        }
+
+        if (!isValidTaskNumber(taskNumber)) {
+            throw new InvalidTaskNumberException(taskNumber);
+        }
+
+        Task task = tasks.markOrDeleteTask(taskNumber - 1, "mark");
+        return ui.printMarkedTaskMessage(task);
+    }
+
+    /**
+     * Executes the code corresponding to an unmark command.
+     *
+     * @param cmd The user input.
+     * @return A string containing the unmark task message.
+     * @throws InvalidDescriptionException When there is only one word in the user input.
+     * @throws InvalidIntegerException When the argument specified is not an integer.
+     * @throws InvalidTaskNumberException When the integer specified is not a task number.
+     * @throws InvalidDataFormatException When the format duke.txt file is incorrect.
+     */
+    private String parseUnmarkCommand(String cmd) throws InvalidDescriptionException,
+                                                            InvalidIntegerException,
+                                                            InvalidTaskNumberException,
+                                                            InvalidDataFormatException {
+        if (descriptionIsEmpty(cmd)) {
+            throw new InvalidDescriptionException("unmark");
+        }
+
+        int taskNumber = -1;
+        String integer = cmd.split(" ", 2)[1];
+
+        try {
+            taskNumber = Integer.parseInt(integer);
+        } catch (Exception e) {
+            throw new InvalidIntegerException();
+        }
+
+        if (!isValidTaskNumber(taskNumber)) {
+            throw new InvalidTaskNumberException(taskNumber);
+        }
+
+        Task task = tasks.markOrDeleteTask(taskNumber - 1, "unmark");
+        return ui.printUnmarkedTaskMessage(task);
+    }
+
+    /**
+     * Executes the code corresponding to a find command.
+     *
+     * @param cmd The user input.
+     * @return A string containing the found results.
+     * @throws InvalidDescriptionException When there is only one word in the user input.
+     */
+    private String parseFindCommand(String cmd) throws InvalidDescriptionException {
+        if (descriptionIsEmpty(cmd)) {
+            throw new InvalidDescriptionException("find");
+        }
+
+        String keyword = cmd.split(" ", 2)[1];
+        ArrayList<Task> results = tasks.find(keyword);
+        return ui.printFindResults(results);
+    }
+
+    /**
+     * Returns a string containing the exit message.
+     *
+     * @return A string containing the exit message.
+     */
+    private String exit() {
         return ui.printExit();
     }
 
