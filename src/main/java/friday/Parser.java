@@ -134,14 +134,30 @@ public class Parser {
      * @return The type of command as a string.
      */
     private CommandType getCommandType(String userInput) {
-        if (userInput.contains("list")) return CommandType.LIST;
-        if (userInput.contains("unmark")) return CommandType.UNMARK;
-        if (userInput.contains("mark")) return CommandType.MARK;
-        if (userInput.contains("delete")) return CommandType.DELETE;
-        if (userInput.contains("find")) return CommandType.FIND;
-        if (userInput.contains("todo")) return CommandType.TODO;
-        if (userInput.contains("deadline")) return CommandType.DEADLINE;
-        if (userInput.contains("event")) return CommandType.EVENT;
+        if (userInput.contains("list")) {
+            return CommandType.LIST;
+        }
+        else if (userInput.contains("unmark")) {
+            return CommandType.UNMARK;
+        }
+        else if (userInput.contains("mark")) {
+            return CommandType.MARK;
+        }
+        else if (userInput.contains("delete")) {
+            return CommandType.DELETE;
+        }
+        else if (userInput.contains("find")) {
+            return CommandType.FIND;
+        }
+        else if (userInput.contains("todo")) {
+            return CommandType.TODO;
+        }
+        else if (userInput.contains("deadline")) {
+            return CommandType.DEADLINE;
+        }
+        else if (userInput.contains("event")) {
+            return CommandType.EVENT;
+        }
         return CommandType.UNKNOWN;
     }
 

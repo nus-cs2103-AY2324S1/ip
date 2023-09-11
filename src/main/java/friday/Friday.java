@@ -1,9 +1,5 @@
 package friday;
 
-import java.util.Scanner;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-
 /**
  * Represents the main class for the Friday application.
  */
@@ -33,7 +29,6 @@ public class Friday {
      */
     public String getResponse(String input) {
         input = input.toLowerCase().trim();
-
 
         return parser.processUserCommand(input, taskList, storage);
     }

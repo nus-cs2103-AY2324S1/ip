@@ -39,8 +39,9 @@ public class Deadline extends Task {
                 deadline = LocalDate.parse(deadlineStr.trim(), formatter);
                 return deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
             } catch (DateTimeParseException e) {
+                System.out.println("Failed to parse date with unsupported pattern: " + pattern);
             }
-         }
+        }
         throw new DateTimeParseException("Unsupported date format: " + deadlineStr, deadlineStr, 0);
     }
 

@@ -1,5 +1,9 @@
 package friday;
 
+
+/**
+ * Represents a todo task in Friday.
+ */
 public class Todo extends Task {
 
     /**

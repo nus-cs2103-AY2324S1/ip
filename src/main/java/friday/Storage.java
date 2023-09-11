@@ -1,8 +1,8 @@
 package friday;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.File;
 
 /**
  * Represents a storage system to save and view tasks.
