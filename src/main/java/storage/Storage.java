@@ -3,7 +3,7 @@ package main.java.storage;
 import main.java.Deadline;
 import main.java.Event;
 import main.java.Task;
-import main.java.Todo;
+import main.java.ToDo;
 import main.java.tasklist.TaskList;
 
 import java.io.File;
@@ -78,7 +78,7 @@ public class Storage {
                 String description = task[2];
                 switch (task[0]) {
                 case ("T"):
-                    taskList.addTask(new Todo(description, taskBool));
+                    taskList.addTask(new ToDo(description, taskBool));
                     break;
                 case ("D"):
                     taskList.addTask(new Deadline(description, task[3], taskBool));

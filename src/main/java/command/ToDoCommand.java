@@ -1,15 +1,15 @@
 package main.java.command;
 
 import main.java.Task;
-import main.java.Todo;
+import main.java.ToDo;
 import main.java.tasklist.TaskList;
 import main.java.ui.Ui;
 
-public class TodoCommand extends Command {
+public class ToDoCommand extends Command {
     private Task task;
 
-    public TodoCommand(String description) {
-        this.task = new Todo(description);
+    public ToDoCommand(String description) {
+        this.task = new ToDo(description);
     }
     @Override
     public String execute(TaskList taskList, Ui ui) {
