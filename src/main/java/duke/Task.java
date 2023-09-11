@@ -6,6 +6,8 @@ package duke;
 public class Task {
     private String taskName;
     private boolean isDone;
+    private boolean prioritySet;
+    private int priority;
 
     /**
      * Constructs a Task object.
@@ -52,7 +54,13 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + (this.isDone ? "X" : " ") + "] " + this.taskName;
+        String priorityString = "";
+        // for each priority level, add an exclamation mark
+        for (int i = 0; i < this.priority; i++) {
+            priorityString += "!";
+        }
+
+        return "[" + (this.isDone ? "X" : " ") + "] " + this.taskName + priorityString;
     }
 
     /**
@@ -61,6 +69,11 @@ public class Task {
      */
     public String saveString() {
         return "";
+    }
+
+    public void setPriority(int priority) {
+        // if priority is already set, override existing priority
+        this.priority = priority;
     }
 
     /**

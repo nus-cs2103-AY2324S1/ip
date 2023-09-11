@@ -127,4 +127,10 @@ public class Ui {
                 + taskListSize + " " + taskWord + " in your list.";
     }
 
+    public String printPriorityMessage(String taskToString, int priority) {
+        System.out.println("Noted. I've set the priority of task " + (priority + 1) + " to " + priority + ":");
+        System.out.println("" + taskToString);
+        return "Noted. I've set the priority of task " + (priority + 1) + " to " + priority + ":\n" + taskToString;
+    }
+
 }
