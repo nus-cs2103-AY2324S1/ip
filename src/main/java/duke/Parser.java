@@ -16,17 +16,67 @@ import exception.DukeException;
 import exception.InvalidCommandException;
 
 /**
+ * The Action enum represents the various actions that can be performed by Duke.
+ */
+enum Action {
+    BYE, LIST, FIND, EDIT_TASK, ADD_TASK, INVALID;
+
+    public static Action parseCommand(String command) throws InvalidCommandException {
+
+        if (checkEditAction(command)) {
+            return EDIT_TASK;
+        } else if (checkAddAction(command)) {
+            return ADD_TASK;
+        } else {
+            Action[] values = Action.values();
+
+            for (int i = 0; i < 3; i++) {
+                if (command.toUpperCase().equals(values[i].toString())) {
+                    return values[i];
+                }
+            }
+
+            throw new InvalidCommandException("Invalid Command");
+        }
+    }
+
+
+    private static boolean checkAddAction(String command) {
+        final String[] addTypes = new String[]{"todo", "deadline", "event"};
+
+        for (String type : addTypes) {
+            if (command.equals(type)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static boolean checkEditAction(String command) {
+        final String[] editTypes = new String[]{"mark", "unmark", "delete"};
+
+        for (String type : editTypes) {
+            if (command.equals(type)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
+
+/**
  * Parses user input.
  */
 public class Parser {
     private static final Pattern BASIC_COMMAND = Pattern.compile("(?<command>\\S+)(?<arguments>.*)");
     private static final String DATE_PATTERN = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}";
+
     private static final Pattern DEADLINE_FORMAT = Pattern.compile(
             "(?<deadline>[^\"]+) /by (" + DATE_PATTERN + ")");
-
     private static final Pattern EVENT_FORMAT = Pattern.compile(
-            "(?<deadline>[^\"]+) /from (" + DATE_PATTERN + ")"
-                    + " /to (" + DATE_PATTERN + ")");
+            "(?<deadline>[^\"]+) /from (" + DATE_PATTERN + ")" + " /to (" + DATE_PATTERN + ")");
 
     /**
      * Parses user input and returns a command.Command. The command.Command can then be executed
@@ -47,100 +97,40 @@ public class Parser {
         final String argument = matcher.group("arguments").trim();
         final boolean validIndex = argument.matches("-?\\d+");
 
-        switch (command) {
-        case "bye":
+        Action action = Action.parseCommand(command);
+
+        switch (action) {
+        case BYE:
             return new ByeCommand();
 
-        case "list":
+        case LIST:
             return new ListCommand();
 
-        case "mark":
-            if (!validIndex) {
-                throw new InvalidCommandException("Please input an integer to identify task");
-            }
-
-            return new EditCommand("mark", Integer.parseInt(argument));
-
-        case "unmark":
-            if (!validIndex) {
-                throw new InvalidCommandException("Please input an integer to identify task");
-            }
-
-            return new EditCommand("unmark", Integer.parseInt(argument));
-
-        case "delete":
-            if (!validIndex) {
-                throw new InvalidCommandException("Please input an integer to identify task");
-            }
-
-            return new EditCommand("delete", Integer.parseInt(argument));
-
-        case "find":
+        case FIND:
             if (argument.equals("")) {
                 throw new InvalidCommandException("Please enter keyword to find task");
             }
 
             return new FindCommand(argument);
 
+        case EDIT_TASK:
+            if (!validIndex) {
+                throw new InvalidCommandException("Please input an integer to identify task");
+            }
 
-        case "todo":
+            return new EditCommand(command, Integer.parseInt(argument));
+
+        case ADD_TASK:
             if (argument.equals("")) {
-                throw new InvalidCommandException("ToDo description cannot be empty");
+                throw new InvalidCommandException("Task description cannot be empty");
             }
 
-            return new AddCommand("todo", new String[]{argument});
-
-        case "deadline":
-            Matcher deadlineFormat = DEADLINE_FORMAT.matcher(argument);
-            if (argument.equals("")) {
-                throw new InvalidCommandException("Deadline description cannot be empty");
-            }
-
-            if (!deadlineFormat.matches()) {
-                throw new InvalidCommandException("Invalid deadline command. "
-                        + "Please include /by date in this format: yyyy-mm-dd HH:mm");
-            }
-
-            String deadLineDesc = deadlineFormat.group(1);
-            String dateInput = deadlineFormat.group(2);
-
-            LocalDateTime d = parseDateTime(dateInput);
-
-            String byDate = reformatDateTime(d);
-
-            return new AddCommand("deadline", new String[]{deadLineDesc, byDate});
-
-        case "event":
-            Matcher eventFormat = EVENT_FORMAT.matcher(argument);
-            if (argument.equals("")) {
-                throw new InvalidCommandException("Event description cannot be empty");
-            }
-
-            if (!eventFormat.matches()) {
-                throw new InvalidCommandException("Invalid event command. "
-                        + "Please include /from and /to dates in this format: yyyy-mm-dd HH:mm");
-            }
-
-            String eventDesc = eventFormat.group(1);
-            String fromDateInput = eventFormat.group(2);
-            String toDateInput = eventFormat.group(3);
-
-            LocalDateTime from = parseDateTime(fromDateInput);
-            LocalDateTime to = parseDateTime(toDateInput);
-
-            if (from.isAfter(to)) {
-                throw new InvalidCommandException("/from date should be before /to date given");
-            }
-
-            String fromDate = reformatDateTime(from);
-            String toDate = reformatDateTime(to);
-
-            return new AddCommand("event", new String[]{eventDesc, fromDate, toDate});
+            String[] taskArgs = parseTaskArguments(command, argument);
+            return new AddCommand(command, taskArgs);
 
         default:
             throw new InvalidCommandException("Unknown/Invalid command given");
         }
-
     }
 
     /**
@@ -165,5 +155,65 @@ public class Parser {
         String[] dateTime = input.split(" ", 2);
         String dateTimeFormat = dateTime[0] + "T" + dateTime[1] + ":00";
         return LocalDateTime.parse(dateTimeFormat);
+    }
+
+    /**
+     * Returns the array of arguments required for task added. Task can be todo, deadline or event.
+     *
+     * @param taskType Type of task to be added to TaskList.
+     * @param argument Input arguments from user.
+     * @return The array of arguments required for task to be added.
+     * @throws InvalidCommandException Error thrown when user did not input correct arguments to add task.
+     */
+    private static String[] parseTaskArguments(String taskType, String argument) throws InvalidCommandException {
+
+        switch (taskType) {
+        case "todo":
+            return new String[]{argument};
+
+        case "deadline":
+            Matcher deadlineFormat = DEADLINE_FORMAT.matcher(argument);
+
+            if (!deadlineFormat.matches()) {
+                throw new InvalidCommandException("Invalid deadline command. "
+                        + "Please include /by date in this format: yyyy-mm-dd HH:mm");
+            }
+
+            String deadLineDesc = deadlineFormat.group(1);
+            String dateInput = deadlineFormat.group(2);
+
+            LocalDateTime d = parseDateTime(dateInput);
+
+            String byDate = reformatDateTime(d);
+
+            return new String[]{deadLineDesc, byDate};
+
+        case "event":
+            Matcher eventFormat = EVENT_FORMAT.matcher(argument);
+
+            if (!eventFormat.matches()) {
+                throw new InvalidCommandException("Invalid event command. "
+                        + "Please include /from and /to dates in this format: yyyy-mm-dd HH:mm");
+            }
+
+            String eventDesc = eventFormat.group(1);
+            String fromDateInput = eventFormat.group(2);
+            String toDateInput = eventFormat.group(3);
+
+            LocalDateTime from = parseDateTime(fromDateInput);
+            LocalDateTime to = parseDateTime(toDateInput);
+
+            if (from.isAfter(to)) {
+                throw new InvalidCommandException("/from date should be before /to date given");
+            }
+
+            String fromDate = reformatDateTime(from);
+            String toDate = reformatDateTime(to);
+
+            return new String[]{eventDesc, fromDate, toDate};
+
+        default:
+            throw new InvalidCommandException("Invalid task type");
+        }
     }
 }
