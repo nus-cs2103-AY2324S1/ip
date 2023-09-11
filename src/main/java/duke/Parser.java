@@ -4,15 +4,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 
-import command.AddTaskCommand;
-import command.ClearCommand;
+import command.AddTaskExecutable;
+import command.ClearExecutable;
+import command.DeleteExecutable;
 import command.Executable;
-import command.DeleteCommand;
-import command.FindCommand;
-import command.HelpCommand;
-import command.ListCommand;
-import command.MarkCommand;
-import command.ShutdownCommand;
+import command.FindExecutable;
+import command.HelpExecutable;
+import command.ListExecutable;
+import command.MarkExecutable;
+import command.ShutdownExecutable;
 import dukeexception.InvalidCommandException;
 import dukeexception.InvalidVarException;
 import task.Deadline;
@@ -36,17 +36,17 @@ public class Parser {
         init();
     }
     private void init() {
-        stringToCommand.put("bye", new ShutdownCommand());
-        stringToCommand.put("help", new HelpCommand());
-        stringToCommand.put("list", new ListCommand());
-        stringToCommand.put("todo", new AddTaskCommand());
-        stringToCommand.put("deadline", new AddTaskCommand());
-        stringToCommand.put("event", new AddTaskCommand());
-        stringToCommand.put("delete", new DeleteCommand());
-        stringToCommand.put("mark", new MarkCommand(true));
-        stringToCommand.put("unmark", new MarkCommand(false));
-        stringToCommand.put("find", new FindCommand());
-        stringToCommand.put("clear", new ClearCommand());
+        stringToCommand.put("bye", new ShutdownExecutable());
+        stringToCommand.put("help", new HelpExecutable());
+        stringToCommand.put("list", new ListExecutable());
+        stringToCommand.put("todo", new AddTaskExecutable());
+        stringToCommand.put("deadline", new AddTaskExecutable());
+        stringToCommand.put("event", new AddTaskExecutable());
+        stringToCommand.put("delete", new DeleteExecutable());
+        stringToCommand.put("mark", new MarkExecutable(true));
+        stringToCommand.put("unmark", new MarkExecutable(false));
+        stringToCommand.put("find", new FindExecutable());
+        stringToCommand.put("clear", new ClearExecutable());
     }
 
     /**
@@ -55,20 +55,20 @@ public class Parser {
      * @return the command that the string represents.
      * @throws InvalidCommandException if the command cannot be identified.
      * @throws InvalidVarException if the command is identifiable but the parameters are incorrect.
-     * TODO Split up this method.
      */
     public Executable parse(String input) throws InvalidCommandException, InvalidVarException {
+        // TODO Split up this method.
         String commandIdentifier = input.split(" ")[0];
         Executable command = stringToCommand.get(commandIdentifier);
-        if (command instanceof ShutdownCommand
-            || command instanceof HelpCommand
-            || command instanceof ListCommand
-            || command instanceof ClearCommand) {
+        if (command instanceof ShutdownExecutable
+            || command instanceof HelpExecutable
+            || command instanceof ListExecutable
+            || command instanceof ClearExecutable) {
             if (!input.equals(commandIdentifier)) {
                 throw new InvalidVarException("This command has no variables!");
             }
         }
-        if (command instanceof AddTaskCommand) {
+        if (command instanceof AddTaskExecutable) {
             if (input.equals(commandIdentifier)) {
                 throw new InvalidCommandException("No parameters");
             }
@@ -131,8 +131,8 @@ public class Parser {
             default:
                 throw new InvalidVarException("Blank parameters! This should never happen; "
                         + "likely a task type was added without its respective parser.");
-            } ((AddTaskCommand) command).setTask(taskToAdd);
-        } else if (command instanceof DeleteCommand) {
+            } ((AddTaskExecutable) command).setTask(taskToAdd);
+        } else if (command instanceof DeleteExecutable) {
             if (commandIdentifier.equals(input)) {
                 throw new InvalidCommandException("No parameter");
             }
@@ -142,8 +142,8 @@ public class Parser {
             } catch (Exception e) {
                 throw new InvalidVarException("Task number could not be read");
             } (
-                (DeleteCommand) command).setDelete(number);
-        } else if (command instanceof MarkCommand) {
+                (DeleteExecutable) command).setDelete(number);
+        } else if (command instanceof MarkExecutable) {
             if (commandIdentifier.equals(input)) {
                 throw new InvalidCommandException("No parameter");
             }
@@ -153,17 +153,16 @@ public class Parser {
             } catch (Exception e) {
                 throw new InvalidVarException("Task number could not be read");
             } (
-                (MarkCommand) command).setMark(number);
-        }
-        else if (command instanceof FindCommand) {
+                (MarkExecutable) command).setMark(number);
+        } else if (command instanceof FindExecutable) {
             if (input.length() < 6) {
                 throw new InvalidVarException("No keyword!");
             }
             String keyword = input.substring(5);
             if (keyword.isBlank()) {
                 throw new InvalidVarException("Blank keyword!");
-            }
-            ((FindCommand) command).setSearch(keyword);
+            } (
+                (FindExecutable) command).setSearch(keyword);
         } else if (command == null) {
             throw new InvalidCommandException("Unrecognized command");
         }

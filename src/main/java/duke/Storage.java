@@ -36,7 +36,7 @@ public class Storage {
 
     /**
      * Writes to the file given an input.
-     * @param list An ArrayList representing what we want to write to the disk.
+     * @param list An ArrayList representing what we want to write to the disk. (Can be empty.)
      * @throws IOException if we cannot write to the file.
      */
     public void writeToDisk(ArrayList<String> list) throws IOException {
@@ -50,7 +50,7 @@ public class Storage {
 
     /**
      * Produces an ArrayList of type String that represents the text file associated with this instance.
-     * @return ArrayList of type String that represents the text file associated with this instance.
+     * @return ArrayList of type String that represents the text file associated with this instance. (can be empty)
      * @throws IOException if we cannot read from the file.
      */
     public ArrayList<String> loadFromDisk() throws IOException {

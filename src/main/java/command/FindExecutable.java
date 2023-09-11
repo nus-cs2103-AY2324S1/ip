@@ -1,14 +1,19 @@
 package command;
 import java.util.ArrayList;
+
 import duke.TaskList;
 import duke.UserInterface;
 import dukeexception.FailureInExecuteException;
 import task.Task;
 
-public class FindCommand implements Executable {
+/**
+ * A command that asks to find tasks that match the keyword.
+ */
+public class FindExecutable implements Executable {
     private String keyword;
 
     public void setSearch(String keyword) {
+        assert (!keyword.isBlank());
         this.keyword = keyword;
     }
 

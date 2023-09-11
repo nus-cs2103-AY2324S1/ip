@@ -5,7 +5,7 @@ import duke.UserInterface;
 /**
  * Represents a call for the bot to be shut down, which will be interpreted by Duke.
  */
-public class ShutdownCommand implements Executable {
+public class ShutdownExecutable implements Executable {
     /**
      * Indicates that the bot is to be shut down.
      * @param list the list that contains the task. (not necessary)

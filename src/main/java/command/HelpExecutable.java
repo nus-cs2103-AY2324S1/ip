@@ -5,7 +5,7 @@ import duke.UserInterface;
 /**
  * Represents a command that prints a list of functions.
  */
-public class HelpCommand implements Executable {
+public class HelpExecutable implements Executable {
     /**
      * Provides a string for the interface to print, providing a list of helpful commands.
      * @param list the associated list(not needed).

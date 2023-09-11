@@ -5,20 +5,20 @@ import javafx.application.Application;
  * A launcher class to workaround classpath issues.
  */
 public class Launcher {
-    public static final String[] dukeArgs = {
+    public static final String[] DUKE_ARGS = {
         "./data/tasks.txt",
         "/images/DaUser.png",
         "/images/DaDuke.png",
-        " /$$              /$$                \n" +
-            "| $$              | $$                \n" +
-            "| $$ /$$   /$$| $$   /$$  /$$$$$$ \n" +
-            "| $$| $$    | $$| $$  /$$/ /$$__    $$\n" +
-            "| $$| $$    | $$| $$$$$$/ | $$$$$$$$\n" +
-            "| $$| $$    | $$| $$_  $$ | $$_____/\n" +
-            "| $$|  $$$$$$/| $$ \\  $$|  $$$$$$$\n" +
-            "|__/ \\______/ |__/  \\__/ \\_______/"
+        " /$$              /$$                \n"
+            + "| $$              | $$                \n"
+            + "| $$ /$$   /$$| $$   /$$  /$$$$$$ \n"
+            + "| $$| $$    | $$| $$  /$$/ /$$__    $$\n"
+            + "| $$| $$    | $$| $$$$$$/ | $$$$$$$$\n"
+            + "| $$| $$    | $$| $$_  $$ | $$_____/\n"
+            + "| $$|  $$$$$$/| $$ \\  $$|  $$$$$$$\n"
+            + "|__/ \\______/ |__/  \\__/ \\_______/"
     };
-        public static void main(String[] args) {
-            Application.launch(Duke.class, dukeArgs);
+    public static void main(String[] args) {
+        Application.launch(Duke.class, DUKE_ARGS);
     }
 }

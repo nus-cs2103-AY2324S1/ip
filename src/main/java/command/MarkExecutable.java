@@ -9,15 +9,16 @@ import dukeexception.FailureInExecuteException;
 /**
  * Represents the marking or unmarking of a certain task.
  */
-public class MarkCommand implements Executable {
+public class MarkExecutable implements Executable {
     private final boolean isToBeMarked;
     private int targetIndex;
 
-    public MarkCommand(boolean isToBeMarked) {
+    public MarkExecutable(boolean isToBeMarked) {
         this.isToBeMarked = isToBeMarked;
     }
 
     public void setMark(int targetIndex) {
+        assert targetIndex > 0;
         this.targetIndex = targetIndex;
     }
 

@@ -7,9 +7,9 @@ import duke.UserInterface;
 import dukeexception.FailureInExecuteException;
 import task.Task;
 /**
- * AddTaskCommand represents a command that adds a task to the list.
+ * AddTaskExecutable represents a command that adds a task to the list.
  */
-public class AddTaskCommand implements Executable {
+public class AddTaskExecutable implements Executable {
     private Task task;
 
     /**
@@ -17,6 +17,7 @@ public class AddTaskCommand implements Executable {
      * @param task the task to be added.
      */
     public void setTask(Task task) {
+        assert task != null;
         this.task = task;
     }
 

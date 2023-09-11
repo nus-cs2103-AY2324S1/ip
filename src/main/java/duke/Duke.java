@@ -1,14 +1,15 @@
 package duke;
 
 import java.io.IOException;
+
 import command.Executable;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.stage.Stage;
 import dukeexception.CorruptedFileException;
 import dukeexception.FailureInExecuteException;
 import dukeexception.InvalidCommandException;
 import dukeexception.InvalidVarException;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 /**
  * Duke represents a chatbot that parses user inputs and commands, stores tasks given to it in memory and on a file,
  * and provides a user interface for easier correspondence.
@@ -19,8 +20,8 @@ public class Duke extends Application {
     private final Parser parser;
     private final UserInterface ui;
     private String filePath;
-    String userImagePath;
-    String dukeImagePath;
+    private String userImagePath;
+    private String dukeImagePath;
     private String logo;
     /**
      * Creates a new Duke instance.
@@ -36,7 +37,6 @@ public class Duke extends Application {
     @Override
     public void start(Stage stage) {
         stage.setScene(ui.sceneMaker());
-
         //Step 2. Formatting the window to look as expected
         stage.setTitle("Luke");
         stage.setResizable(true);
@@ -80,43 +80,28 @@ public class Duke extends Application {
         list.loadFromDisk();
         ui.init(userImagePath, dukeImagePath);
     }
+
+    /**
+     * Shuts down duke, performing cleanup tasks along the way.
+     */
     public void closeDuke() {
         ui.output("Goodbye!");
         Platform.exit();
     }
-
     /**
      * Handler is called when a corrupted file is detected, allowing user to decide how to proceed, such as
      * clearing the file or shutting down.
      * @return whether the handler decides to call for a shutdown of the Duke instance.
-     * TODO: make this compatible with the new parsing format
      */
     public boolean corruptedFileHandle() {
         return true;
+        // TODO: make this compatible with the new parsing format
     }
-//        ui.output("File not properly formatted;\n"
-//                + "Clear corrupted file Y/N?");
-//        while (true) {
-//            String input = ui.input();
-//            ui.output(input);
-//            if (input.equals("Y")) {
-//                try {
-//                    storage.clear();
-//                    ui.output("File cleared.");
-//                } catch (IOException e) {
-//                    ui.output("Error in clearing! Shutting down.");
-//                    return true;
-//                }
-//                return false;
-//            } else if (input.equals("N")) {
-//                ui.output("Understood. Shutting down.");
-//                return true;
-//            } else {
-//                ui.output("Bad input. Input Y/N");
-//            }
-//        }
-//    }
 
+    /**
+     * Given a string input, the bot handles it and gives an appropriate reply.
+     * @param input the string to be parsed.
+     */
     public void handle(String input) {
         try {
             Executable command = parser.parse(input);

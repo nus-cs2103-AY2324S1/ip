@@ -16,8 +16,6 @@ import task.ToDo;
  */
 public class TaskList {
     private ArrayList<Task> taskList;
-    private int counter;
-
     private final Storage storage;
 
     /**
@@ -26,7 +24,6 @@ public class TaskList {
      */
     public TaskList(Storage storage) {
         taskList = new ArrayList<>();
-        counter = -1;
         this.storage = storage;
     }
 
@@ -37,7 +34,6 @@ public class TaskList {
      */
     public void loadFromDisk() throws IOException, CorruptedFileException {
         taskList = stringListToTaskList(storage.loadFromDisk());
-        counter = taskList.size() - 1;
     }
 
     /**
@@ -55,8 +51,8 @@ public class TaskList {
      * @throws IOException if we cannot write the task to disk.
      */
     public void addTask(Task task) throws IOException {
+        assert (task != null);
         taskList.add(task);
-        counter += 1;
         writeToDisk();
     }
 
@@ -67,27 +63,29 @@ public class TaskList {
      * @throws IOException if the index exists and was deleted, but we cannot write the change to disk.
      */
     public boolean removeTask(int index) throws IOException {
-        if (index > counter) {
+        if (index > taskList.size()) {
             return false;
         }
         taskList.remove(index);
-        counter -= 1;
         writeToDisk();
         return true;
     }
+
+    /**
+     * Clears the tasklist and saves that information to the disk.
+     * @throws IOException if the disk cannot be written to.
+     */
     public void clear() throws IOException {
         taskList.clear();
-        counter = -1;
         writeToDisk();
     }
     public boolean setMark(int targetIndex, boolean isToBeMarked) throws IOException {
-        if (targetIndex > counter || targetIndex < 0) {
+        if (targetIndex > taskList.size() || targetIndex < 0) {
             return false;
         }
         if (isToBeMarked) {
             taskList.get(targetIndex).markDone();
-        }
-        if (!isToBeMarked) {
+        } else {
             taskList.get(targetIndex).markUndone();
         }
         writeToDisk();
@@ -137,10 +135,15 @@ public class TaskList {
         return res;
     }
 
+    /**
+     * Finds any matching tasks that contain the keyword in their string representation.
+     * @param keyword the keyword that is to be searched for.
+     * @return an arrayList containing the tasks that contain the keywords (can be empty.)
+     */
     public ArrayList<Task> findTasksMatching(String keyword) {
         ArrayList<Task> res = new ArrayList<>();
         for (Task t: taskList) {
-            if (t.toString().contains(keyword)){
+            if (t.toString().contains(keyword)) {
                 res.add(t);
             }
         }
@@ -152,13 +155,14 @@ public class TaskList {
      * @return a string representation of the list.
      */
     public String listString() {
-        if (counter == -1) {
+        if (taskList.isEmpty()) {
             return ("No list, silly!");
         } else {
             StringBuilder res = new StringBuilder("Here's the list so far.");
-            for (int i = 0; i < counter + 1; i++) {
+            for (int i = 0; i < taskList.size(); i++) {
                 res.append("\n").append(i + 1).append(". ").append(taskList.get(i));
             }
+            assert !(res.toString().isBlank()); // Should not be blank if we passed the taskList.isEmpty() check.
             return res.toString();
         }
     }

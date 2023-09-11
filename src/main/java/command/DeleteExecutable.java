@@ -9,7 +9,7 @@ import dukeexception.FailureInExecuteException;
 /**
  * Represents a deletion command of a particular task.
  */
-public class DeleteCommand implements Executable {
+public class DeleteExecutable implements Executable {
     private int index;
     public void setDelete(int index) {
         this.index = index;
