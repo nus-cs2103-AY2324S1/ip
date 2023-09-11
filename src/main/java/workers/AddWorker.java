@@ -29,11 +29,11 @@ public class AddWorker extends TaskWorker {
             if (inputParts[0].equals("todo")) {
                 newTask = new Todo(description);
             } else if (inputParts[0].equals("deadline")) {
-                String[] commandParts = description.split("/by ", 2);
+                String[] commandParts = description.split(" /by ", 2);
                 newTask = new Deadline(commandParts[0], commandParts[1]);
             } else if (inputParts[0].equals("event")) {
-                String[] commandParts = description.split("/from ", 2);
-                String[] eventParts = commandParts[1].split("/to ");
+                String[] commandParts = description.split(" /from ", 2);
+                String[] eventParts = commandParts[1].split(" /to ");
                 newTask = new Event(commandParts[0], eventParts[0], eventParts[1]);
             } else {
                 throw new IrisException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");

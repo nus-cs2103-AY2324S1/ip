@@ -10,7 +10,6 @@ import tasks.Task;
  */
 public class Iris {
     private ArrayList<Task> taskList;
-    //private TaskExecutor executor = new TaskExecutor();
     private Parser parser = new Parser();
     private Storage storage = new Storage();
 
@@ -20,7 +19,7 @@ public class Iris {
 
     public String getResponse(String text) {
         String output = parser.parse(text, taskList);
-        storage.updateTasksFile(taskList);
+        storage.updateTasksToFile(taskList);
         return output;
     }
 }

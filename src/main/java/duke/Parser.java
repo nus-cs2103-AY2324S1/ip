@@ -27,28 +27,35 @@ public class Parser {
         String[] inputParts = input.split(" ", 2);
         String command = inputParts[0];
         TaskWorker worker;
+        String output;
 
         switch (command) {
         case "list":
             worker = new ListWorker();
-            return worker.work(taskList);
+            output = worker.work(taskList);
+            return output;
         case "mark":
             worker = new MarkWorker();
-            return worker.work(inputParts, taskList, true);
+            output = worker.work(inputParts, taskList, true);
+            return output;
         case "unmark":
             worker = new MarkWorker();
-            return worker.work(inputParts, taskList, false);
+            output = worker.work(inputParts, taskList, false);
+            return output;
         case "delete":
             worker = new DeleteWorker();
-            return worker.work(inputParts, taskList);
+            output = worker.work(inputParts, taskList);
+            return output;
         case "find":
             worker = new FindWorker();
-            return worker.work(inputParts, taskList);
+            output = worker.work(inputParts, taskList);
+            return output;
         case "bye":
             return "Bye. Hope to see you again soon!\n";
         default:
             worker = new AddWorker();
-            return worker.work(inputParts, taskList);
+            output = worker.work(inputParts, taskList);
+            return output;
         }
     }
 

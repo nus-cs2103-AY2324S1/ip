@@ -26,11 +26,12 @@ public class Deadline extends Task {
      * @return the deadline of this task.
      */
     public String getBy() {
-        return this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return this.by.toString();
     }
+
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + super.toString() + " " + "(by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -59,7 +60,7 @@ public class Storage {
      * This method updates the file by converting the Tasks into text.
      * @param taskList
      */
-    public void updateTasksFile(ArrayList<Task> taskList) {
+    public void updateTasksToFile(ArrayList<Task> taskList) {
         try {
             FileWriter writer = new FileWriter("duke.txt");
             for (Task task : taskList) {
@@ -69,11 +70,11 @@ public class Storage {
                             + " | " + done + " | " + task.getDescription() + "\n");
                 } else if (task instanceof Deadline) {
                     writer.write(task.getClass().getSimpleName().charAt(0)
-                            + " | " + done + " | " + task.getDescription() + "|"
+                            + " | " + done + " | " + task.getDescription() + " | "
                             + ((Deadline) task).getBy() + "\n");
                 } else {
                     writer.write(task.getClass().getSimpleName().charAt(0)
-                            + " | " + done + " | " + task.getDescription() + "|"
+                            + " | " + done + " | " + task.getDescription() + " | "
                             + ((Event) task).getFromTo() + "\n");
                 }
             }
