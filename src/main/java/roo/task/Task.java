@@ -13,24 +13,14 @@ public abstract class Task {
     private final String task;
 
     /**
-     * Constructs a Task object with the given description. The task is initialized as not finished.
-     * @param task The description of the task.
-     * @throws RooException If the task description is empty or consists only of spaces.
-     */
-    public Task(String task) throws RooException {
-        if (task.isEmpty() || task.equals(" ")) {
-            throw new RooException("Description is EMPTY!!!\n");
-        }
-        this.isFinish = false;
-        this.task = task;
-    }
-
-    /**
      * Constructs a Task object with the given description.
      * @param task   The description of the task.
      * @param isFinish The completion status of the task.
      */
     public Task(String task, boolean isFinish) throws RooException {
+        if (task.isEmpty() || task.equals(" ")) {
+            throw new RooException("Description is EMPTY!!!\n");
+        }
         this.isFinish = isFinish;
         this.task = task;
     }

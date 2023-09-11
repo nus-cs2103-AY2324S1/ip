@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import roo.RooException;
+import roo.*;
 
 /**
  * Represents a task with deadline.
@@ -19,21 +19,8 @@ public class Deadline extends Task {
      * @throws RooException If the date is empty or consists only of spaces.
      */
     public Deadline(String task, String date) throws RooException {
-        super(task);
-        if (date.isEmpty() || date.equals(" ")) {
-            throw new RooException("What is your DEADLINE???\n");
-        }
-        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
-        try {
-            this.date = LocalDateTime.parse(date, formatter1);
-        } catch (DateTimeParseException err1) {
-            try {
-                this.date = LocalDateTime.parse(date, formatter2);
-            } catch (DateTimeParseException err2) {
-                System.err.println("Please use this format for your time: dd-MM-yyyy HH:mm\n");
-            }
-        }
+        super(task, false);
+        this.check(task, date);
     }
 
     /**
@@ -45,6 +32,16 @@ public class Deadline extends Task {
      */
     public Deadline(String task, String date, boolean isFinish) throws RooException {
         super(task, isFinish);
+        this.check(task, date);
+    }
+
+    /**
+     * Checks the conditions of creating a Deadline Task with specific task details and date.
+     * @param task The description of the deadline task.
+     * @param date Deadline of the task with dd-MM-yyyy HH:mm format.
+     * @throws RooException If the date is empty or consists only of spaces.
+     */
+    private void check(String task, String date) throws RooException {
         if (date.isEmpty() || date.equals(" ")) {
             throw new RooException("What is your DEADLINE???\n");
         }
