@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -116,7 +115,7 @@ public class Storage {
             if (!fileExists) {
                 Files.createFile(filePath);
             } else {
-                ArrayList<String> lines = tasks.getSavedStrings();
+                List<String> lines = tasks.getSavedStrings();
                 Files.write(filePath, lines);
             }
         } catch (IOException e) {

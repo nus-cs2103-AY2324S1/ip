@@ -3,7 +3,7 @@ package duke.task;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -44,7 +44,7 @@ public class TaskListTest {
                 LocalDateTime.parse("2023-10-10T12:34:57")));
         tl.add(new Deadline("Fourth task", LocalDateTime.parse("2023-10-10T12:34:58")));
         tl.remove(2);
-        ArrayList<String> result = tl.getSavedStrings();
+        List<String> result = tl.getSavedStrings();
         assertEquals(result.get(0), "T | 0 | First task");
         assertEquals(result.get(1), "E | 0 | Third task | 2023-10-10T12:34:56 | 2023-10-10T12:34:57");
         assertEquals(result.get(2), "D | 0 | Fourth task | 2023-10-10T12:34:58");
@@ -78,7 +78,7 @@ public class TaskListTest {
         tl.add(new Deadline("Fourth task", LocalDateTime.parse("2023-10-10T12:34:58")));
         tl.remove(2);
         tl.markAsDone(3);
-        ArrayList<String> result = tl.getSavedStrings();
+        List<String> result = tl.getSavedStrings();
         assertEquals(result.get(0), "T | 0 | First task");
         assertEquals(result.get(1), "E | 0 | Third task | 2023-10-10T12:34:56 | 2023-10-10T12:34:57");
         assertEquals(result.get(2), "D | 1 | Fourth task | 2023-10-10T12:34:58");
@@ -98,7 +98,7 @@ public class TaskListTest {
         tl.markAsDone(3);
         tl.unmarkAsDone(2);
         tl.unmarkAsDone(3);
-        ArrayList<String> result = tl.getSavedStrings();
+        List<String> result = tl.getSavedStrings();
         assertEquals(result.get(0), "T | 1 | First task");
         assertEquals(result.get(1), "E | 0 | Third task | 2023-10-10T12:34:56 | 2023-10-10T12:34:57");
         assertEquals(result.get(2), "D | 0 | Fourth task | 2023-10-10T12:34:58");
