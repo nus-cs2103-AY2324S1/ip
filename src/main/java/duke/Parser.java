@@ -10,7 +10,7 @@ import java.util.List;
 public class Parser {
     private String str;
     private String arr[];
-    //BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); //try getting words from gui
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     List<Task> list;
 
     /**
@@ -19,22 +19,11 @@ public class Parser {
      * @param list The list of tasks.
      * @throws Exception If an error occurs while reading user input.
      */
-    public Parser(List<Task> list, String input) throws Exception {
+    public Parser(List<Task> list) throws Exception {
         this.list = list;
-        this.str = input;
-        this.arr = input.split(" ", 2);
-
-        //this.str = reader.readLine();
-        //this.arr = str.split(" ", 2);
+        this.str = reader.readLine();
+        this.arr = str.split(" ", 2);
     }
-
-    /*
-    public Parser(String string) {
-        this.str = string;
-        this.arr = string.split(" ", 2);
-    }
-    */
-
 
     /**
      * Gets the user input string.
