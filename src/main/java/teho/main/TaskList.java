@@ -54,6 +54,7 @@ public class TaskList {
      * @param taskNumber Index number of the corresponding task to be removed from list.
      */
     public void remove(int taskNumber) {
+        assert taskNumber >= 0 : "taskNumber should not be negative";
         this.taskList.remove(taskNumber);
     }
 }
