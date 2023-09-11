@@ -176,6 +176,9 @@ public class Ui {
         int index = 1;
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
+
+            assert task != null;
+
             if (task.isRelatedContent(keyword)) {
                 str.append(INDENTATION).append(index++).append(" ").append(task).append("\n");
             }

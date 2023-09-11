@@ -41,12 +41,16 @@ public class Storage {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
+        assert file.exists() : "Storage file does not exist";
+
         // scan for the storage file
         try {
             Scanner s = new Scanner(file);
             while (s.hasNext()) {
 
                 String curr = s.nextLine();
+                assert curr != null;
+
                 String[] segments = curr.split(" \\| ");
 
                 // check for the correct format - minimum 3 different segments
@@ -64,6 +68,9 @@ public class Storage {
                     tasks.add(new Deadline(segments[2], LocalDateTime.parse(segments[3]), isDone));
                 } else { // Duke.Tasks.Event task
                     String[] times = segments[3].split("--");
+
+                    assert times.length == 2 : "Format is not correct";
+
                     tasks.add(new Event(segments[2],
                             LocalDateTime.parse(times[0]),
                             LocalDateTime.parse(times[1]),
@@ -80,7 +87,7 @@ public class Storage {
                     System.out.println("Sorry, file does not exist. Creating now...");
                 }
             } catch (Exception error) {
-                System.out.println(error);
+                System.out.println(error.getMessage());
                 System.out.println("Error... Unable to create files");
             }
 
@@ -107,6 +114,9 @@ public class Storage {
      * @param text The text to be written to the storage file.
      */
     public void writeFile(String text) {
+
+        assert text != null : "Text to be written is null";
+
         try {
             FileWriter fw = new FileWriter(filePath, false);
             fw.write(text);

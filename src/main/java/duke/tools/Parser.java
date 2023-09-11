@@ -24,7 +24,15 @@ public class Parser {
      * Represents the different commands accepted by the chatbot.
      */
     public enum Operations {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, CHECK, FIND
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, CHECK, FIND;
+
+        static {
+            for (Operations op : values()) {
+                assert op.toString().equals(op.toString().toUpperCase()) :
+                        "Enum values must be in uppercase";
+            }
+        }
+
     }
 
     private static final DateTimeFormatter FORMATTER = new DateTimeFormatterBuilder()
@@ -43,8 +51,10 @@ public class Parser {
      * @throws UnknownCommandException If the command is not recognized.
      */
     public static Command parse(String fullCommand) throws UnknownCommandException {
+
         // Use Regex to extract the first word even with preceding whitespace
-        Operations command = Operations.valueOf(fullCommand.replaceAll("^\\W*\\b(\\w+).*", "$1").toUpperCase());
+        Operations command = Operations.valueOf(fullCommand
+                .replaceAll("^\\W*\\b(\\w+).*", "$1").toUpperCase());
 
         switch (command) {
         case TODO:
