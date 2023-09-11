@@ -23,7 +23,7 @@ import duke.ui.Ui;
  * loading tasks from the file.
  */
 public class Storage {
-    private final String filePath;
+    private final String FILE_PATH;
 
     /**
      * Constructs a Storage object.
@@ -31,7 +31,7 @@ public class Storage {
      * @param filePath The filepath of the file containing the tasks.
      */
     public Storage(String filePath) {
-        this.filePath = filePath;
+        FILE_PATH = filePath;
     }
 
     /**
@@ -41,7 +41,7 @@ public class Storage {
      * @param ui The user interface of the Duke application.
      */
     public void save(ArrayList<Task> tasks, Ui ui) {
-        File f = new File(this.filePath);
+        File f = new File(FILE_PATH);
 
         if (!f.exists()) {
             try {
@@ -55,7 +55,7 @@ public class Storage {
 
         try {
             // Write tasks into hard disk
-            FileWriter fileWriter = new FileWriter(this.filePath);
+            FileWriter fileWriter = new FileWriter(FILE_PATH);
             for (Task task : tasks) {
                 fileWriter.write(task.toFileFormat());
             }
@@ -66,7 +66,7 @@ public class Storage {
     }
 
     /**
-     * Loads the tasks from the file
+     * Loads the tasks from the file.
      *
      * @return The ArrayList of the tasks saved into the Duke application.
      * @throws DukeException If the task type in the file is invalid, or file is not found.
@@ -75,7 +75,7 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
 
         try {
-            File file = new File(filePath);
+            File file = new File(FILE_PATH);
             Scanner scanner = new Scanner(file);
 
             while (scanner.hasNextLine()) {
@@ -116,7 +116,7 @@ public class Storage {
             }
             scanner.close();
         } catch (DukeException | FileNotFoundException e) {
-            throw new DukeException("File not found: " + filePath);
+            throw new DukeException("File not found: " + FILE_PATH);
         }
 
         return tasks;
