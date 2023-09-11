@@ -51,52 +51,53 @@ public class Parser {
                     return DeleteCommand.execute(index - 1);
                 case "todo":
                     String restOfString = sc.nextLine();
-                    if (restOfString.length() != 0) {
-                        String taskName = restOfString;
-                        Task taskToAdd = new Todo(taskName);
-                        return AddCommand.execute(taskToAdd);
 
-                    } else {
+                    if (restOfString.length() == 0) {
                         throw new EmptyDescriptionException();
                     }
+
+                    String taskName = restOfString;
+                    Task taskToAdd = new Todo(taskName);
+                    return AddCommand.execute(taskToAdd);
                 case "deadline":
                     restOfString = sc.nextLine();
 
-                    if (restOfString.length() != 0) {
-                        int slashIndex = restOfString.indexOf("/by");
-                        if (slashIndex == -1) {
-                            throw new MissingByDateException();
-                        }
-                        String taskName = restOfString.substring(0, slashIndex - 1);
-                        String date = restOfString.substring(slashIndex + 4);
-                        LocalDate d = LocalDate.parse(date);
-                        Task taskToAdd = new Deadline(taskName, d);
-                        return AddCommand.execute(taskToAdd);
-                    } else {
+                    if (restOfString.length() == 0) {
                         throw new EmptyDescriptionException();
+
                     }
+                    int slashIndex = restOfString.indexOf("/by");
+                    if (slashIndex == -1) {
+                        throw new MissingByDateException();
+                    }
+                    taskName = restOfString.substring(0, slashIndex - 1);
+                    String date = restOfString.substring(slashIndex + 4);
+                    LocalDate d = LocalDate.parse(date);
+                    taskToAdd = new Deadline(taskName, d);
+                    return AddCommand.execute(taskToAdd);
                 case "event":
                     restOfString = sc.nextLine();
-                    if (restOfString.length() != 0) {
-                        int fromIndex = restOfString.indexOf("/from");
-                        int toIndex = restOfString.indexOf("/to");
-                        if (fromIndex == -1) {
-                            throw new MissingFromDateException();
-                        } else if (toIndex == -1) {
-                            throw new MissingToDateException();
-                        }
-
-                        String taskName = restOfString.substring(0, fromIndex - 1);
-                        String fromDate = restOfString.substring(fromIndex + 6, toIndex - 1);
-                        String toDate = restOfString.substring(toIndex + 4);
-
-                        LocalDate from = LocalDate.parse(fromDate);
-                        LocalDate to = LocalDate.parse(toDate);
-                        Task taskToAdd = new Event(taskName, from, to);
-                        return AddCommand.execute(taskToAdd);
-                    } else {
+                    if (restOfString.length() == 0) {
                         throw new EmptyDescriptionException();
                     }
+
+                    int fromIndex = restOfString.indexOf("/from");
+                    int toIndex = restOfString.indexOf("/to");
+
+                    if (fromIndex == -1) {
+                        throw new MissingFromDateException();
+                    } else if (toIndex == -1) {
+                        throw new MissingToDateException();
+                    }
+
+                    taskName = restOfString.substring(0, fromIndex - 1);
+                    String fromDate = restOfString.substring(fromIndex + 6, toIndex - 1);
+                    String toDate = restOfString.substring(toIndex + 4);
+
+                    LocalDate from = LocalDate.parse(fromDate);
+                    LocalDate to = LocalDate.parse(toDate);
+                    taskToAdd = new Event(taskName, from, to);
+                    return AddCommand.execute(taskToAdd);
                 case "clear":
                     return ClearCommand.execute();
                 case "find":
