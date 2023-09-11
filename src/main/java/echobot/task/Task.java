@@ -1,9 +1,8 @@
-package duke.task;
+package echobot.task;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import javax.swing.JTextArea;
 
 /**
  * Represents a task.
@@ -147,12 +146,20 @@ public class Task {
         return isDone;
     }
 
+//    /**
+//     * Displays the task information.
+//     *
+//     * @param chatArea JTextArea where the message will be displayed.
+//     */
+//    public void display(JTextArea chatArea) {
+//        chatArea.append("[" + getStatusIcon() + "] " + getDescription());
+//    }
     /**
      * Displays the task information.
      *
-     * @param chatArea JTextArea where the message will be displayed.
+     * @return The task details..
      */
-    public void display(JTextArea chatArea) {
-        chatArea.append("[" + getStatusIcon() + "] " + getDescription());
+    public String display() {
+        return "[" + getStatusIcon() + "] " + getDescription();
     }
 }

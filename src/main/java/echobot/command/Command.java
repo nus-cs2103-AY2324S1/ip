@@ -1,11 +1,12 @@
-package duke.command;
+package echobot.command;
 
 import java.util.ArrayList;
-import javax.swing.JTextArea;
 
-import duke.storage.Storage;
-import duke.task.Task;
-import duke.ui.Ui;
+import echobot.storage.Storage;
+import echobot.task.Task;
+import echobot.ui.Ui;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 
 /**
  * Provides a base structure for command implementations.
@@ -18,15 +19,15 @@ public abstract class Command {
         TODO, DEADLINE, EVENT
     }
 
-    /**
-     * Executes the command operation.
-     *
-     * @param tasks   The list of tasks.
-     * @param ui      The user interface.
-     * @param storage The data storage.
-     * @param chatArea JTextArea for displaying messages in the GUI.
-     */
-    public abstract void doCommand(ArrayList<Task> tasks, Ui ui, Storage storage, JTextArea chatArea);
+//    /**
+//     * Executes the command operation.
+//     *
+//     * @param tasks   The list of tasks.
+//     * @param ui      The user interface.
+//     * @param storage The data storage.
+//     * @param styledDocument JTextPane for displaying messages in the GUI.
+//     */
+    public abstract String doCommand(ArrayList<Task> tasks, Ui ui, Storage storage, Scene scene, VBox dialogContainer);
 
     /**
      * Extracts the task number from the user input.

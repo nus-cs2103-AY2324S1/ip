@@ -1,4 +1,4 @@
-package duke.command;
+package echobot.command;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,16 +6,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import javax.swing.JTextArea;
+import javax.swing.text.DefaultStyledDocument;
+import javax.swing.text.StyledDocument;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import duke.storage.Storage;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-import duke.ui.Ui;
+import echobot.storage.Storage;
+import echobot.task.Deadline;
+import echobot.task.Event;
+import echobot.task.Task;
+import echobot.task.Todo;
+import echobot.ui.Ui;
 
 public class MarkCommandTest {
     @Test
@@ -32,10 +34,16 @@ public class MarkCommandTest {
         tasks.add(task2);
         tasks.add(task3);
 
+
         MarkCommand markCommand = new MarkCommand(2);
-        markCommand.doCommand(tasks, new Ui(), new Storage("./data/dummy.txt"), new JTextArea());
+        String response = markCommand.doCommand(tasks, new Ui(), new Storage("./data/dummy.txt"), null, null);
 
         assertTrue(task2.isTaskDone());
+
+        // Verify the response message
+        String expectedResponse = "Nice! I've marked this task as done:\n";
+        expectedResponse += "[X] Finish homework (by: " + by.toString() + ")";
+        Assertions.assertEquals(expectedResponse, response);
     }
 
     @Test
@@ -53,8 +61,13 @@ public class MarkCommandTest {
         tasks.add(task3);
 
         MarkCommand markCommand = new MarkCommand(1);
-        markCommand.doCommand(tasks, new Ui(), new Storage("./data/dummy.txt"), new JTextArea());
+        String response = markCommand.doCommand(tasks, new Ui(), new Storage("./data/dummy.txt"), null, null);
 
         assertFalse(task3.isTaskDone());
+
+        // Verify the response message
+        String expectedResponse = "Nice! I've marked this task as done:\n";
+        expectedResponse += "[X] Buy groceries";
+        Assertions.assertEquals(expectedResponse, response);
     }
 }

@@ -1,8 +1,7 @@
-package duke.task;
+package echobot.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import javax.swing.JTextArea;
 
 /**
  * Represents a deadline task.
@@ -30,14 +29,14 @@ public class Deadline extends Task {
         return by;
     }
 
-    /**
-     * Converts the deadline task into a string and display it.
-     *
-     * @param chatArea JTextArea where the message will be displayed.
-     */
-    public void display(JTextArea chatArea) {
-        chatArea.append("[D]");
-        super.display(chatArea);
-        chatArea.append(" (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")\n");
+//    /**
+//     * Converts the deadline task into a string and display it.
+//     *
+//     * @param chatArea JTextArea where the message will be displayed.
+//     */
+    @Override
+    public String display() {
+        return "[D] " + super.display() + " (by: " +
+                by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

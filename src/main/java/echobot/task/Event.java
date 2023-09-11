@@ -1,8 +1,7 @@
-package duke.task;
+package echobot.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import javax.swing.JTextArea;
 
 /**
  * Represents an event task.
@@ -42,15 +41,15 @@ public class Event extends Task {
         return to;
     }
 
-    /**
-     * Converts the event task into a string and displays it in the given JTextArea.
-     *
-     * @param chatArea JTextArea where the message will be displayed.
-     */
-    public void display(JTextArea chatArea) {
-        chatArea.append("[E]");
-        super.display(chatArea);
-        chatArea.append(" (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a"))
-                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a")) + ")\n");
+//    /**
+//     * Converts the event task into a string and displays it in the given JTextArea.
+//     *
+//     * @param chatArea JTextArea where the message will be displayed.
+//     */
+    @Override
+    public String display() {
+        return "[E] " + super.display() + " (from: " +
+                from.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a")) + " to: " +
+                to.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a")) + ")";
     }
 }

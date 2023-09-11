@@ -1,17 +1,19 @@
-package duke.command;
+package echobot.command;
 
 import java.util.ArrayList;
-import javax.swing.JTextArea;
 
-import duke.storage.Storage;
-import duke.task.Task;
-import duke.ui.Ui;
+import echobot.storage.Storage;
+import echobot.task.Task;
+import echobot.ui.Ui;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 
 /**
  * Represents a command to find specific task based on the keyword
  */
 public class FindCommand extends Command {
     private final String keyword;
+    private String responseText;
 
     public FindCommand(String keyword) {
         this.keyword = keyword;
@@ -34,29 +36,28 @@ public class FindCommand extends Command {
         return matchingTasks;
     }
 
-    /**
-     * Executes the doCommand, searching for tasks.
-     *
-     * @param tasks   The list of tasks.
-     * @param ui      The user interface.
-     * @param storage The data storage.
-     * @param chatArea JTextArea for displaying messages in the GUI.
-     */
+
     @Override
-    public void doCommand(ArrayList<Task> tasks, Ui ui, Storage storage, JTextArea chatArea) {
+    public String doCommand(ArrayList<Task> tasks, Ui ui, Storage storage, Scene scene, VBox dialogContainer) {
         ArrayList<Task> matchingTasks = findTasks(tasks, keyword);
 
         if (!matchingTasks.isEmpty()) {
-            chatArea.append("Here are the matching tasks in your list:\n");
+            responseText = "Here are the matching tasks in your list:\n";
 
             for (int i = 0; i < matchingTasks.size(); i++) {
                 Task task = matchingTasks.get(i);
-                chatArea.append((i + 1) + ". ");
-                task.display(chatArea);
+                responseText += (i + 1) + ". " + task.display() + "\n";
             }
 
         } else {
-            chatArea.append("No tasks match the keyword: " + keyword + "\n");
+            responseText = "No tasks match the keyword: " + keyword + "\n";
+
         }
+
+        return responseText;
     }
+    public String getResponse() {
+        return responseText;
+    }
+
 }

@@ -1,4 +1,4 @@
-package duke.exception;
+package echobot.exception;
 
 /**
  * Represents an exception.
@@ -14,12 +14,4 @@ public class DukeException extends Exception {
         super(errorMsg);
     }
 
-//    /**
-//     * Returns the error message.
-//     *
-//     * @return The error message.
-//     */
-//    public String getErrorMessage() {
-//        return super.getMessage();
-//    }
 }
