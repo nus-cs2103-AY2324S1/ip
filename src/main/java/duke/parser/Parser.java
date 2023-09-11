@@ -32,7 +32,6 @@ public class Parser {
      * @throws KoraException For invalid input.
      */
     public static Command parse(String userInput) throws KoraException {
-        String line = "------------------------------" + "\n";
         assert !userInput.equals("") : "Input should not be empty.";
         String[] userInputArray = userInput.split("/");
         Command command;

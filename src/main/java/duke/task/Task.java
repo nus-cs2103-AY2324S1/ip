@@ -20,10 +20,8 @@ public class Task {
      * @param info String that contains details of the task.
      */
     public Task(String info) {
-        //num = index;
         details = info;
         isMarked = false;
-        //taskType = type;
     }
 
     /**
@@ -38,6 +36,7 @@ public class Task {
      * Marks the task to be done.
      */
     public void setMarked() {
+        assert !isMarked : "It is already done!";
         isMarked = true;
     }
 
@@ -45,6 +44,7 @@ public class Task {
      * Marks the task to be undone.
      */
     public void setUnmarked() {
+        assert isMarked : "It is undone!";
         isMarked = false;
     }
 

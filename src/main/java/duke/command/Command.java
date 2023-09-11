@@ -42,7 +42,7 @@ public abstract class Command {
      * Returns false for all the commands except ByeCommand.
      * @return Boolean.
      */
-    public boolean isExitYet() {
+    public boolean isExit() {
         return false;
     }
 }

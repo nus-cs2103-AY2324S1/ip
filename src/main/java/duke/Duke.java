@@ -63,7 +63,7 @@ public class Duke {
             if (command == null) {
                 isExit = false;
             } else {
-                isExit = command.isExitYet();
+                isExit = command.isExit();
             }
         }
         ui.closeScanner();
