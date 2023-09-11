@@ -37,5 +37,17 @@ public class Storage {
         file.write(taskList);
         file.close();
     }
+
+    /**
+     * Saves the provided note list to a file.
+     *
+     * @param noteList String representation of notes to be saved.
+     * @throws IOException If there's an error writing to the note file.
+     */
+    public void saveNoteFile(String noteList) throws IOException {
+        FileWriter file = new FileWriter(filePath);
+        file.write(noteList);
+        file.close();
+    }
 }
 
