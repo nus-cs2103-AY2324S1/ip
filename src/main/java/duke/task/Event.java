@@ -1,12 +1,12 @@
 package duke.task;
 
-import duke.exception.InvalidDateException;
-import duke.util.Storage;
-import duke.util.TaskList;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import duke.exception.InvalidDateException;
+import duke.util.Storage;
+import duke.util.TaskList;
 
 /**
  * Represents an Event task.
@@ -19,10 +19,10 @@ import java.time.format.DateTimeFormatter;
  * @author Freddy Chen You Ren
  */
 public class Event extends Task {
-
+    //60 underscores.
+    protected static final String HORIZONTAL_LINE = "    ____________________________________________________________";
     protected LocalDate startTime;
     protected LocalDate endTime;
-    protected static String HORIZONTAL_LINE = "    ____________________________________________________________"; //60 underscores.
 
     /**
      * Constructs a Event task with the given description, start date and end date.
@@ -64,7 +64,8 @@ public class Event extends Task {
      */
     public static String handleEventTask(String userInput) throws IOException {
         String[] details = userInput.split("/from | /to");
-        //details[0] contains "deadline" plus duke.task description, need to erase "deadline". details[1] contains String deadline timing
+        // details[0] contains "deadline" plus duke.task description, need to erase "deadline".
+        // details[1] contains String deadline timing
         StringBuilder message = new StringBuilder();
 
         if (details.length == 3) {
@@ -86,25 +87,25 @@ public class Event extends Task {
                     message.append("Got it, I've added this Task:\n");
                     message.append(String.format(" %s\n", eventTask));
                     message.append(String.format("Now you have %d task(s) in the list.\n", Storage.listOfTasks.size()));
-//                    System.out.println("     Got it. I've added this task:");
-//                    System.out.printf("       %s\n", eventTask.toString());
-//                    System.out.printf("     Now you have %d task(s) in the list.\n", Storage.listOfTasks.size());
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.printf("       %s\n", eventTask.toString());
+                    System.out.printf("     Now you have %d task(s) in the list.\n", Storage.listOfTasks.size());
                 } else {
                     throw new InvalidDateException();
                 }
             } catch (InvalidDateException e) {
                 message.append(e);
+                System.out.println(e.toString());
                 return message.toString();
-//                System.out.println(e.toString());
             }
 
         } else {
             message.append("Invalid Event Task input.\n"
                     + "Please input in the following format:\n"
                     + "event <Task Description> /from <start time> /to <end time>");
-//            System.out.println("     Invalid Event Task input.\n"
-//                    + "     Please input in the following format:\n"
-//                    + "     event <Task Description> /from <start time> /to <end time>");
+            System.out.println("     Invalid Event Task input.\n"
+                    + "     Please input in the following format:\n"
+                    + "     event <Task Description> /from <start time> /to <end time>");
         }
         return message.toString();
     }

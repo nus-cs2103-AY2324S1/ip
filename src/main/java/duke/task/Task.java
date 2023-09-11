@@ -11,8 +11,8 @@ package duke.task;
  * @author Freddy Chen You Ren
  */
 public class Task {
-    public String description;
     public boolean isDone;
+    protected String description;
 
     /**
      * Constructs a task with the given description.

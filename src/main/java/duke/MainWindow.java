@@ -1,5 +1,8 @@
 package duke;
 
+import java.io.IOException;
+import java.util.Objects;
+
 import duke.exception.EmptyDescriptionException;
 import duke.exception.InvalidCommandException;
 import javafx.fxml.FXML;
@@ -9,9 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
-import java.io.IOException;
-import java.util.Objects;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -28,8 +28,10 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
-    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/ElonMusk.jpeg")));
-    private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/BillGates.jpeg")));
+    private final Image userImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/ElonMusk.jpeg")));
+    private final Image dukeImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/BillGates.jpeg")));
 
     @FXML
     public void initialize() {

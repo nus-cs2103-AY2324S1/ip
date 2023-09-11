@@ -1,8 +1,6 @@
 package duke.util;
 
-import java.io.IOException;
 import java.util.Scanner;
-// Test merge branch for A-Packages
 
 /**
  * Represents a user interface for SeeWhyAre bot.
@@ -15,7 +13,8 @@ import java.util.Scanner;
  * @author Freddy Chen You Ren
  */
 public class Ui {
-    public String HORIZONTAL_LINE = "____________________________________________________________"; //60 underscores.
+    //60 underscores.
+    protected static final String HORIZONTAL_LINE = "____________________________________________________________";
     private Scanner scanner;
 
     /**
@@ -38,13 +37,12 @@ public class Ui {
         message.append(printHorizontalLine()).append("\nHello! I'm SeeWhyAre Bot!")
                 .append("\nWhat can I do for you?")
                 .append(printHorizontalLine());
+        System.out.println("\nStarting SeeWhyAre Bot...");
+        printHorizontalLine();
+        System.out.println("    Hello! I'm SeeWhyAre Bot!");
+        System.out.println("    What can I do for you?");
+        printHorizontalLine();
         return message.toString();
-
-//        System.out.println("\nStarting SeeWhyAre Bot...");
-//        printHorizontalLine();
-//        System.out.println("    Hello! I'm SeeWhyAre Bot!");
-//        System.out.println("    What can I do for you?");
-//        printHorizontalLine();
     }
 
     /**
@@ -65,13 +63,12 @@ public class Ui {
         message.append("\nYou are closing the SeeWhyAre chat bot.")
                 .append("\nBye bye. Please use me again soon!")
                         .append(printHorizontalLine());
+
+        printHorizontalLine();
+        System.out.println("    You are closing the SeeWhyAre chat bot.");
+        System.out.println("    Bye bye. Please use me again soon!");
+        printHorizontalLine();
         scanner.close();
         return message.toString();
-
-//        printHorizontalLine();
-//        System.out.println("    You are closing the SeeWhyAre chat bot.");
-//        System.out.println("    Bye bye. Please use me again soon!");
-//        printHorizontalLine();
-//        scanner.close();
     }
 }

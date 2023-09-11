@@ -1,9 +1,10 @@
 package duke.task;
 
-import duke.task.Deadline;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {
     @Test
@@ -14,7 +15,7 @@ public class DeadlineTest {
 
     @Test
     void testToString() {
-        Deadline deadline =  new Deadline("test deadline", LocalDate.parse("2023-08-30"));
+        Deadline deadline = new Deadline("test deadline", LocalDate.parse("2023-08-30"));
         assertEquals(deadline.toString(), "[D][ ] test deadline (by: Aug 30 2023)");
     }
 
