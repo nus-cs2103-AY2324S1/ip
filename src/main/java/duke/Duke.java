@@ -36,6 +36,7 @@ public class Duke {
      */
     public String getResponse(String input) {
         this.ui.clearOutput();
+        assert this.ui.getOutput().equals("") : "Output should be empty before processing input";
         Command command = Parser.processInputIntoCommand(input, this.ui);
         if (command != null) {
             command.execute(this.taskList, this.storage, this.ui);

@@ -50,6 +50,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
+        assert task != null : "Task should not be null";
         this.tasks.add(task);
     }
 
@@ -67,6 +68,7 @@ public class TaskList {
         }
 
         Task task = this.tasks.get(taskNumber - 1);
+        assert task != null : "Task should not be null";
         this.tasks.remove(task);
         storage.deleteTask(taskNumber, ui);
         ui.printMessage("Noted. I've removed this task:\n  " + task + "\nNow you have " + this.tasks.size()
@@ -107,6 +109,7 @@ public class TaskList {
         }
 
         Task task = this.tasks.get(taskNumber - 1);
+        assert task != null : "Task should not be null";
         task.markAsDone(true, ui);
         storage.modifyTask(taskNumber, task);
     }
@@ -125,6 +128,7 @@ public class TaskList {
         }
 
         Task task = this.tasks.get(taskNumber - 1);
+        assert task != null : "Task should not be null";
         task.unmarkAsDone(true);
         storage.modifyTask(taskNumber, task);
     }

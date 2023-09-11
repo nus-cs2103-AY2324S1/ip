@@ -70,6 +70,7 @@ public class Parser {
      * @throws DukeException If the description is empty.
      */
     public static String validateToDoCommand(String input) throws DukeException {
+        assert input != null : "Input should not be null";
         String[] inputArr = input.split(" ");
         if (inputArr.length == 1) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
@@ -85,6 +86,7 @@ public class Parser {
      * @throws DukeException If the format is invalid or the description is empty.
      */
     public static String validateDeadlineCommand(String input) throws DukeException {
+        assert input != null : "Input should not be null";
         String[] inputArr = input.split(" ");
         if (inputArr.length == 1) {
             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
@@ -117,6 +119,7 @@ public class Parser {
      * @throws DukeException If the format is invalid or the description is empty.
      */
     public static String validateEventCommand(String input) throws DukeException {
+        assert input != null : "Input should not be null";
         String[] inputArr = input.split(" ");
         if (inputArr.length == 1) {
             throw new DukeException("☹ OOPS!!! The description of a event cannot be empty.");
