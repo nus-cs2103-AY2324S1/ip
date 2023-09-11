@@ -2,7 +2,6 @@ package duke;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Duke {
     private Storage storage;
@@ -44,26 +43,6 @@ public class Duke {
             tasks = new TaskList(new ArrayList<>());
         }
     }
-
-//    public void run() {
-//        ui.textGenerator("Hello! I'm War Room.");
-//        ui.textGenerator("What can I do for you?");
-//        Scanner scanner = new Scanner(System.in);
-//        try {
-//            while (true) {
-//                String user_input = scanner.nextLine();
-//                Parser parser = new Parser(user_input);
-//                parser.validateParser(tasks);
-//                storage.save(filePath, tasks.userData);
-//            }
-//        } catch (Exception e) {
-//            scanner.close();
-//        }
-//    }
-
-//    public static void main(String[] args) throws IOException {
-//        new Duke("src/main/data/duke.txt").run();
-//    }
 
     /**
      * Returns a String object based on user's command to the DUKE chatbot

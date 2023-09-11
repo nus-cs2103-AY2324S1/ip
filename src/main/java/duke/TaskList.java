@@ -10,23 +10,29 @@ public class TaskList {
     }
 
     /**
-     * Appends newly created Task to the current ArrayList<Task> of the user
+     * Appends newly created Task to the current ArrayList<Task> of the user.
      *
-     * @param newTask Task Object. Could be Todo, Deadline or Event
+     * @param newTask Task Object. Could be Todo, Deadline or Event.
      */
     public void addTask(Task newTask) {
         this.userData.add(newTask);
     }
 
     /**
-     * Deletes a particular Task from the current ArrayList<Task> based on given index
+     * Deletes a particular Task from the current ArrayList<Task> based on given index.
      *
-     * @param referenceIndex position of the Task within the ArrayList
+     * @param referenceIndex position of the Task within the ArrayList.
      */
     public void deleteTask(int referenceIndex) {
         this.userData.remove(referenceIndex);
     }
 
+    /**
+     * Returns an Arraylist containing Task Objects that contain a specific keyword.
+     *
+     * @param keyword String representation of the filtering parameter.
+     * @return Arraylist containing filtered Task Objects
+     */
     public ArrayList<Task> filter(String keyword) {
         ArrayList<Task> filteredTask = new ArrayList<>();
         for (int i = 0; i < userData.size(); i++) {
