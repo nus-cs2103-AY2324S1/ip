@@ -8,6 +8,7 @@ import java.util.List;
 
 import minion.common.Messages;
 import minion.data.TaskList;
+import minion.data.exception.MinionException;
 import minion.data.task.Task;
 import minion.parser.FileParser;
 
@@ -43,7 +44,7 @@ public class Storage {
      * @return a list of tasks from the file.
      * @throws IOException when fail to create directory / file.
      */
-    public List<Task> load() throws IOException {
+    public List<Task> load() throws IOException, MinionException {
         File file = new File(filePath);
         if (!file.exists()) {
             createFile(file);

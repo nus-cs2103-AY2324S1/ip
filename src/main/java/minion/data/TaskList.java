@@ -1,6 +1,7 @@
 package minion.data;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -117,6 +118,7 @@ public class TaskList {
      */
     public String enumerateTasks() {
         StringBuilder sb = new StringBuilder();
+        Collections.sort(tasks);
         for (int i = 0; i < tasks.size(); i++) {
             sb.append("\n").append(i + 1).append(". ").append(tasks.get(i).toString());
         }

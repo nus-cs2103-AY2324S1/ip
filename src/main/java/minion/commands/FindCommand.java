@@ -30,6 +30,7 @@ public class FindCommand extends Command {
         if (tasksFound.size() == 0) {
             return new CommandResult(Messages.MESSAGE_TASK_NOT_FOUND);
         }
+
         return new CommandResult(tasksFound.toStringMatching());
     }
 }

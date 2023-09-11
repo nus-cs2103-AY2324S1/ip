@@ -1,5 +1,7 @@
 package minion.parser;
 
+import java.time.LocalDateTime;
+
 import minion.commands.Command;
 import minion.commands.DeadlineCommand;
 import minion.commands.DeleteCommand;
@@ -152,7 +154,7 @@ public class CommandParser {
             Messages.MESSAGE_DEADLINE_BY_ERROR);
         String description = parsedStrs[0];
         String by = parsedStrs[1];
-        String datetime = DatetimeParser.parseDatetime(by.split(" "));
+        LocalDateTime datetime = DatetimeParser.parseFromDatetime(by);
         return new DeadlineCommand(new Deadline(description, datetime));
     }
 
@@ -175,8 +177,8 @@ public class CommandParser {
             Messages.MESSAGE_EVENT_TO_ERROR);
         String from = parsedStrs2[0];
         String to = parsedStrs2[1];
-        String fromDatetime = DatetimeParser.parseDatetime(from.split(" "));
-        String toDatetime = DatetimeParser.parseDatetime(to.split(" "));
+        LocalDateTime fromDatetime = DatetimeParser.parseFromDatetime(from);
+        LocalDateTime toDatetime = DatetimeParser.parseFromDatetime(to);
         return new EventCommand(new Event(description, fromDatetime, toDatetime));
     }
 

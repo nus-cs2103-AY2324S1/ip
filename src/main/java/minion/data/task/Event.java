@@ -1,33 +1,42 @@
 package minion.data.task;
 
+import java.time.LocalDateTime;
+
+import minion.parser.DatetimeParser;
+
 /**
  * Represents an minion.data.task.Event, a task that start at a specific date/time and ends at a specific date/time.
  */
 public class Event extends Task {
-    private String start;
-    private String end;
+    private LocalDateTime startDatetime;
+    private LocalDateTime endDatetime;
+    private String startDatetimeString;
+    private String endDatetimeString;
 
     /**
      * Creates an event object. This is the main constructor of the minion.data.task.Event class.
      * @param description Description of the event.
      * @param isDone Whether the event has been done.
-     * @param start Start date/time of event.
-     * @param end End date/time of event.
+     * @param startDatetime Start date/time of event.
+     * @param endDatetime End date/time of event.
      */
-    public Event(String description, boolean isDone, String start, String end) {
+    public Event(String description, boolean isDone, LocalDateTime startDatetime, LocalDateTime endDatetime) {
         super(description, isDone);
-        this.start = start;
-        this.end = end;
+        this.startDatetime = startDatetime;
+        this.endDatetime = endDatetime;
+        this.startDatetimeString = DatetimeParser.convertFromDatetime(startDatetime);
+        this.endDatetimeString = DatetimeParser.convertFromDatetime(endDatetime);
+        taskSymbol = TaskSymbol.EVENT.getSymbol();
     }
 
     /**
      * Creates an event object. This calls the main constructor when the default for isDone is false.
      * @param description Description of the event.
-     * @param start Start date/time of event.
-     * @param end End date/time of event.
+     * @param startDatetime Start date/time of event.
+     * @param endDatetime End date/time of event.
      */
-    public Event(String description, String start, String end) {
-        this(description, false, start, end);
+    public Event(String description, LocalDateTime startDatetime, LocalDateTime endDatetime) {
+        this(description, false, startDatetime, endDatetime);
     }
 
     /**
@@ -37,7 +46,7 @@ public class Event extends Task {
      */
     @Override
     public boolean contains(String query) {
-        return description.contains(query) || start.contains(query) || end.contains(query);
+        return description.contains(query) || startDatetimeString.contains(query) || endDatetimeString.contains(query);
     }
 
     /**
@@ -46,7 +55,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+        return "[" + taskSymbol + "]" + super.toString() + " (from: " + startDatetimeString + " to: "
+            + endDatetimeString + ")";
     }
 
     /**
@@ -55,7 +65,8 @@ public class Event extends Task {
      */
     @Override
     public String toStringStorage() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + start + " - " + end;
+        return taskSymbol + " | " + (isDone ? "1" : "0") + " | " + description + " | " + startDatetimeString + " - "
+            + endDatetimeString;
     }
 
     /**
@@ -70,6 +81,19 @@ public class Event extends Task {
         }
         Event t = (Event) o;
         return description.equals(t.description) && isDone == t.isDone
-                && start.equals(t.start) && end.equals(t.end);
+                && startDatetimeString.equals(t.startDatetimeString) && endDatetimeString.equals(t.endDatetimeString);
+    }
+
+    /**
+     * Compares two event objects based on their datetimes
+     * @param e other event object
+     * @return an integer denoting the relative order of this task and the other task
+     */
+    public int compare(Event e) {
+        int a = startDatetime.compareTo(e.startDatetime);
+        if (a == 0) {
+            return endDatetime.compareTo(e.endDatetime);
+        }
+        return a;
     }
 }

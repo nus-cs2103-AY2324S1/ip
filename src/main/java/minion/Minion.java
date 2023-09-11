@@ -23,7 +23,7 @@ public class Minion {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (IOException e) {
+        } catch (IOException | MinionException e) {
             tasks = new TaskList();
         }
     }
