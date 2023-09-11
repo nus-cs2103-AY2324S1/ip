@@ -43,27 +43,17 @@ public class DataFile {
     public void writeToFile(Task task) throws IOException {
         FileWriter fW = new FileWriter(file, true);
         String div = "*|,";
-        StringBuilder custom = new StringBuilder();
+        String encodedTask = "";
         if (task instanceof Todo) {
-            Todo td = (Todo) task;
-            custom.append("T").append(div).append(td.getDesc()).append(div)
-                    .append(td.getStatus().equals("X") ? 1 : 0)
-                    .append(System.lineSeparator());
+            encodedTask = encodeTodo(div, task);
         } else if (task instanceof Deadline) {
-            Deadline dl = (Deadline) task;
-            custom.append("D").append(div).append(dl.getDesc()).append(div).append(dl.getBy()).append(div)
-                    .append(dl.getStatus().equals("X") ? 1 : 0)
-                    .append(System.lineSeparator());
+            encodedTask = encodeDeadline(div, task);
         } else if (task instanceof Event) {
-            Event eve = (Event) task;
-            custom.append("E").append(div).append(eve.getDesc()).append(div)
-                    .append(eve.getFrom()).append(div).append(eve.getTo()).append(div)
-                    .append(eve.getStatus().equals("X") ? 1 : 0)
-                    .append(System.lineSeparator());
+            encodedTask = encodeEvent(div, task);
         } else {
             assert false;
         }
-        fW.write(custom.toString());
+        fW.write(encodedTask);
         fW.close();
     }
 
@@ -128,27 +118,13 @@ public class DataFile {
         String line = reader.readLine();
         String div = "*|,";
         Task task = new Task("empty");
-
         while (line != null) {
             if (line.charAt(0) == 'T') {
-                String desc = line.substring(div.length() + 1, line.lastIndexOf(div));
-                task = new Todo(desc);
-
+                task = decodeTodo(line, div);
             } else if (line.charAt(0) == 'D') {
-                String sub = line.substring(div.length() + 1);
-                String desc = sub.substring(0, sub.indexOf(div));
-                int firstLine = sub.indexOf(div) + div.length();
-                String by = sub.substring(firstLine, sub.indexOf(div, firstLine));
-                task = new Deadline(desc, LocalDateTime.parse(by));
-
+                task = decodeDeadline(line, div);
             } else if (line.charAt(0) == 'E') {
-                String sub = line.substring(div.length() + 1);
-                String desc = sub.substring(0, sub.indexOf(div));
-                int firstLine = sub.indexOf(div) + div.length();
-                String from = sub.substring(firstLine, sub.indexOf(div, firstLine));
-                int secLine = sub.indexOf(div, firstLine) + div.length();
-                String to = sub.substring(secLine, sub.indexOf(div, secLine));
-                task = new Event(desc, LocalDateTime.parse(from), LocalDateTime.parse(to));
+                task = decodeEvent(line, div);
             } else {
                 assert false;
             }
@@ -190,4 +166,57 @@ public class DataFile {
             file = localFile;
         }
     }
+
+    private Task decodeTodo(String line, String div) {
+        String desc = line.substring(div.length() + 1, line.lastIndexOf(div));
+        return new Todo(desc);
+    }
+
+    private Task decodeDeadline(String line, String div) {
+        String sub = line.substring(div.length() + 1);
+        String desc = sub.substring(0, sub.indexOf(div));
+        int firstLine = sub.indexOf(div) + div.length();
+        String by = sub.substring(firstLine, sub.indexOf(div, firstLine));
+        return new Deadline(desc, LocalDateTime.parse(by));
+    }
+
+    private Task decodeEvent(String line, String div) {
+        String sub = line.substring(div.length() + 1);
+        String desc = sub.substring(0, sub.indexOf(div));
+        int firstLine = sub.indexOf(div) + div.length();
+        String from = sub.substring(firstLine, sub.indexOf(div, firstLine));
+        int secLine = sub.indexOf(div, firstLine) + div.length();
+        String to = sub.substring(secLine, sub.indexOf(div, secLine));
+        return new Event(desc, LocalDateTime.parse(from), LocalDateTime.parse(to));
+    }
+
+    private String encodeTodo(String div, Task task) {
+        StringBuilder custom = new StringBuilder();
+        Todo td = (Todo) task;
+        custom.append("T").append(div).append(td.getDesc()).append(div)
+                .append(td.getStatus().equals("X") ? 1 : 0)
+                .append(System.lineSeparator());
+        return custom.toString();
+    }
+
+    private String encodeDeadline(String div, Task task) {
+        StringBuilder custom = new StringBuilder();
+        Deadline dl = (Deadline) task;
+        custom.append("D").append(div).append(dl.getDesc()).append(div).append(dl.getBy()).append(div)
+                .append(dl.getStatus().equals("X") ? 1 : 0)
+                .append(System.lineSeparator());
+        return custom.toString();
+    }
+
+    private String encodeEvent(String div, Task task) {
+        StringBuilder custom = new StringBuilder();
+        Event eve = (Event) task;
+        custom.append("E").append(div).append(eve.getDesc()).append(div)
+                .append(eve.getFrom()).append(div).append(eve.getTo()).append(div)
+                .append(eve.getStatus().equals("X") ? 1 : 0)
+                .append(System.lineSeparator());
+        return custom.toString();
+    }
+
+
 }
