@@ -1,6 +1,5 @@
 package duke.task;
 
-import java.util.ArrayList;
 
 /**
  * Represents a ToDo task.

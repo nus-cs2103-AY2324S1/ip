@@ -22,7 +22,8 @@ import javafx.scene.text.Text;
 
 /**
  * Represents a custom JavaFX control for displaying dialog boxes.
- * Each dialog box consists of an ImageView to represent the speaker's face and a label containing text from the speaker.
+ * Each dialog box consists of an ImageView to represent the
+ * speaker's face and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
 
