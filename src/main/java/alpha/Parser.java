@@ -121,10 +121,13 @@ public class Parser {
      */
     public Command addEvent(String input) throws MissingInfoException, InvalidFormatException {
         String[] splitInput = input.split(" ");
+
         if (splitInput.length < 3) {
             throw new MissingInfoException("Missing Information!", TaskException.TaskType.EVENT);
         } else {
             String[] splitEvent = input.split("/");
+            assert splitEvent.length >= 3 : "Input should have at least 3 parts separated by '/'";
+
             if (splitEvent[1].startsWith("from") && splitEvent[2].startsWith("to")) {
                 Event event = Event.makeEvent(splitEvent[0].substring(6),
                         splitEvent[1].substring(5),
@@ -144,6 +147,8 @@ public class Parser {
      */
     public Command addToDo(String input) throws MissingInfoException {
         String[] splitInput = input.split(" ");
+        assert splitInput.length >= 1 : "Input should have at least 1 part";
+
         if (splitInput.length == 1) {
             throw new MissingInfoException("Missing Information!", TaskException.TaskType.TODO);
         } else {
@@ -160,12 +165,15 @@ public class Parser {
      */
     public Command addDeadline(String input) throws MissingInfoException, InvalidFormatException, DateTimeParseException {
         String[] splitInput = input.split(" ");
+        assert splitInput.length >= 1 : "Input should have at least 1 part";
+
         if (splitInput.length < 2) {
             throw new MissingInfoException("Missing Information!", TaskException.TaskType.DEADLINE);
         } else if (input.split("/by").length != 2) {
             throw new InvalidFormatException("Invalid Format!", TaskException.TaskType.DEADLINE);
         } else {
             String[] splitDeadline = input.split("/by");
+            assert splitDeadline.length == 2 : "Input should be split into exactly 2 parts by '/by'";
             Deadline deadline = Deadline.makeDeadline(splitDeadline[0].substring(9),
                     splitDeadline[1]);
             return new AddCommand(taskList, fileHandler, ui, deadline);
@@ -181,6 +189,7 @@ public class Parser {
      */
     public Command delete(String input) throws MissingIndexException, InvalidIndexException {
         String[] splitInput = input.split(" ");
+        assert splitInput.length >= 1 : "Input should have at least 1 part";
         if (splitInput.length == 1) {
             throw new MissingIndexException("Missing Index!");
         } else if (Integer.parseInt(splitInput[1]) > taskList.size()) {
@@ -199,6 +208,7 @@ public class Parser {
      */
     public Command check(String input) throws MissingIndexException, InvalidIndexException {
         String[] splitInput = input.split(" ");
+        assert splitInput.length >= 1 : "Input should have at least 1 part";
         if (splitInput.length == 1) {
             throw new MissingIndexException("Missing Index!");
         } else if (Integer.parseInt(splitInput[1]) > taskList.size() || splitInput.length > 2) {

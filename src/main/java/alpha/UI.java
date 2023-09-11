@@ -87,6 +87,7 @@ public class UI {
         if (size == 0) {
             res = "There are no tasks in your list.";
         } else {
+            assert taskList.size() > 0;
             res = "Here are the tasks in your list:\n";
             for (int i = 0; i < size; i++) {
                 int plusOne = i + 1; // Increment by one so starting display index is 1

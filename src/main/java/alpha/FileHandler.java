@@ -54,6 +54,7 @@ public class FileHandler {
         if (isCreated) {
             return taskList;
         }
+        assert alphaTxt != null;
         try {
             Scanner sc = new Scanner(alphaTxt);
             while (sc.hasNext()) {
@@ -133,6 +134,7 @@ public class FileHandler {
                 temp_index--;
                 curr = reader.readLine();
             }
+            assert curr.length() > 1;
             String[] currSplit = curr.split("\\|");
             if (check) {
                 currSplit[1] = "X";
@@ -150,6 +152,7 @@ public class FileHandler {
             writer.close();
             alphaTxt.delete();
             temp.renameTo(alphaTxt);
+            assert alphaTxt != null;
         } catch (IOException e) {
             System.out.println("There was an issue!");
         }
@@ -184,7 +187,7 @@ public class FileHandler {
             writer.close();
             alphaTxt.delete();
             temp.renameTo(alphaTxt);
-
+            assert alphaTxt != null;
         } catch (IOException e) {
             System.out.println("There was an error!");
         }

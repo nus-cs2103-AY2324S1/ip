@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass = "alpha.Alpha"
+    mainClass = "alpha.Launcher"
 }
 
 shadowJar {

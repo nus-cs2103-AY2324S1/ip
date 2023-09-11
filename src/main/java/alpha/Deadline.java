@@ -25,7 +25,7 @@ public class Deadline extends Task {
     }
 
     public static Deadline makeDeadline(String description, String by) throws InvalidFormatException,
-            DateTimeParseException{
+            DateTimeParseException {
             String trimmedDescription = description.trim();
             String trimmedBy = by.trim();
             if (trimmedDescription.length() == 0) {
