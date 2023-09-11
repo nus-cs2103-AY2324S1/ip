@@ -13,7 +13,7 @@ import yong.exception.DukeException;
  */
 public class EventCommand extends Command {
 
-    private String inp;
+    private String inputString;
 
     /**
      * Constructor for the event command.
@@ -23,7 +23,7 @@ public class EventCommand extends Command {
      */
     public EventCommand(TaskList taskList, String inp) {
         super(taskList);
-        this.inp = inp;
+        this.inputString = inp;
     }
 
     /**
@@ -33,7 +33,7 @@ public class EventCommand extends Command {
     @Override
     public String execute() {
         try {
-            String[] parts = inp.split("/", 3);
+            String[] parts = inputString.split("/", 3);
             String[] typeDescription = parts[0].split(" ", 2);
             String type = typeDescription[0];
             String description = typeDescription[1];

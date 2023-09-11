@@ -35,7 +35,7 @@ public class Storage {
 
 
     /**
-     * Saves the current history array to the file
+     * Saves the current history array to the file.
      */
     public void saveFile() {
         try {
@@ -51,7 +51,7 @@ public class Storage {
     }
 
     /**
-     * Reads the file to populate the history array
+     * Reads the file to populate the history array.
      */
     public void readFile() {
         try {

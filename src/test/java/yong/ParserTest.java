@@ -32,7 +32,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseTest() {
+    public void testParse_validInputs_success() {
         try {
             Command command = parser.parse("Hi");
             assertTrue(command instanceof StartCommand);
@@ -57,7 +57,7 @@ public class ParserTest {
     }
 
     @Test
-    public void invalidCommandTest() {
+    public void testParse_invalidInputs_exceptionThrown() {
         // Test invalid command
         try {
             Command command = parser.parse("INVALID");

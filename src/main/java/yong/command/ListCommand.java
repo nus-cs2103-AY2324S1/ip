@@ -7,7 +7,6 @@ import yong.tasklist.TaskList;
  */
 public class ListCommand extends Command {
 
-
     /**
      * Constructor for the list command.
      *

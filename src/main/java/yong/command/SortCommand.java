@@ -8,7 +8,7 @@ import yong.tasklist.TaskList;
  */
 public class SortCommand extends Command {
 
-    private String inp;
+    private String inputString;
 
     /**
      * Constructor for the Sort command.
@@ -18,7 +18,7 @@ public class SortCommand extends Command {
      */
     public SortCommand(TaskList taskList, String inp) {
         super(taskList);
-        this.inp = inp;
+        this.inputString = inp;
     }
 
     /**
@@ -30,7 +30,7 @@ public class SortCommand extends Command {
     @Override
     public String execute() {
         try {
-            String[] parts = inp.split(" ", 3);
+            String[] parts = inputString.split(" ", 3);
             String sortTaskType = parts[1];
             String sortBy = parts[2];
 

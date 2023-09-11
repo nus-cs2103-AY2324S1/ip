@@ -116,6 +116,7 @@ public class TaskList {
 
     /**
      * Returns the task list as an ArrayList object to be stored.
+     *
      * @return task list.
      */
     public ArrayList<Task> get() {
@@ -131,7 +132,8 @@ public class TaskList {
     }
 
     /**
-     * Returns a string for all the tasks in the taskList matching the lookupString
+     * Returns a string for all the tasks in the taskList matching the lookupString.
+     *
      * @param lookupString String that user wants to find within task description
      * @return a string for all the tasks in the taskList matching the lookupString
      */
@@ -156,13 +158,20 @@ public class TaskList {
     }
 
     /**
-     * Returns the size of the tasklist
+     * Returns the size of the tasklist.
+     *
      * @return size of the tasklist
      */
     public int size() {
         return this.taskList.size();
     }
 
+    /**
+     * Sorts taskList according to user specification.
+     *
+     * @param sortTaskType Task type to sort
+     * @param sortBy Sort method
+     */
     public void sort(String sortTaskType, String sortBy) {
         sortBy = sortBy.toUpperCase();
         sortTaskType = sortTaskType.toUpperCase();
@@ -184,6 +193,11 @@ public class TaskList {
 
     }
 
+    /**
+     * Sorts ToDo tasks only and adds them to front of taskList.
+     *
+     * @param sortBy sort method.
+     */
     public void sortToDo(String sortBy) {
         ArrayList<Task> arrayToSort = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {
@@ -212,6 +226,11 @@ public class TaskList {
         taskList = arrayToSort;
     }
 
+    /**
+     * Sorts Deadline tasks only and adds them to front of taskList.
+     *
+     * @param sortBy sort method.
+     */
     private void sortDeadline(String sortBy) {
         ArrayList<Task> arrayToSort = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {
@@ -240,6 +259,11 @@ public class TaskList {
         taskList = arrayToSort;
     }
 
+    /**
+     * Sorts Event tasks only and adds them to front of taskList.
+     *
+     * @param sortBy sort method.
+     */
     private void sortEvent(String sortBy) {
         ArrayList<Task> arrayToSort = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {
@@ -268,6 +292,11 @@ public class TaskList {
         taskList = arrayToSort;
     }
 
+    /**
+     * Sorts all tasks.
+     *
+     * @param sortBy sort method.
+     */
     private void sortAll(String sortBy) {
 
         switch (sortBy) {

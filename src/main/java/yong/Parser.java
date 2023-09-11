@@ -35,7 +35,7 @@ public class Parser {
     }
 
     /**
-     * Method to parse the string input of the chatbot and call the correct command.
+     * Parses the string input of the chatbot and call the correct command.
      *
      * @param inp Line of input from the CLI.
      * @return Command object that will be executed.

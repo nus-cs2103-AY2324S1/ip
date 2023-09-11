@@ -23,7 +23,7 @@ public abstract class Command {
 
     /**
      * Abstract method to be implemented for all commands.
-     * To be run when the command is entered by the user.
+     * Runs when the command is entered by the user.
      */
     public abstract String execute();
 

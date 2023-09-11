@@ -8,17 +8,17 @@ import yong.tasklist.TaskList;
  */
 public class FindCommand extends Command {
 
-    private String inp;
+    private String inputString;
 
     /**
      * Constructor for the Find command.
      *
      * @param taskList TaskList object being used to maintain the list of tasks in the chatbot.
-     * @param inp      Line of input from the CLI
+     * @param inp Line of input from the CLI
      */
     public FindCommand(TaskList taskList, String inp) {
         super(taskList);
-        this.inp = inp;
+        this.inputString = inp;
     }
 
     /**
@@ -28,7 +28,7 @@ public class FindCommand extends Command {
     @Override
     public String execute() {
         try {
-            String[] parts = inp.split(" ", 2);
+            String[] parts = inputString.split(" ", 2);
             String lookupString = parts[1];
 
             outputString = taskList.find(lookupString);

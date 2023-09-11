@@ -12,7 +12,7 @@ import yong.exception.DukeException;
  */
 public class ToDoCommand extends Command {
 
-    private String inp;
+    private String inputString;
 
     /**
      * Constructor for the todo command.
@@ -22,7 +22,7 @@ public class ToDoCommand extends Command {
      */
     public ToDoCommand(TaskList taskList, String inp) {
         super(taskList);
-        this.inp = inp;
+        this.inputString = inp;
     }
 
     /**
@@ -32,7 +32,7 @@ public class ToDoCommand extends Command {
     @Override
     public String execute() {
         try {
-            String[] typeDescription = inp.split(" ", 2);
+            String[] typeDescription = inputString.split(" ", 2);
             String type = typeDescription[0];
             String description = typeDescription[1];
 
