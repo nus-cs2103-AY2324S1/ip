@@ -50,6 +50,7 @@ public class CommandParser extends Parser<Command> {
         switch (cmd) {
         case UNDO:
             command = newUndoCommand(inputs);
+            break;
         case BYE:
             command = newExitCommand(inputs);
             break;
