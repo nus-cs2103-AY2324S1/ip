@@ -62,8 +62,9 @@ public class RatInput {
      * @return The response to the user input, returned by respective commands.
      */
     public String handleInput(String input) {
+        int COMMAND_START = 0;
         String[] inputArr = input.split(" ");
-        String command = inputArr[0];
+        String command = inputArr[COMMAND_START];
         switch (command) {
         case "bye":
             return new ExitCommand(this.ratTaskManager).getResponse();

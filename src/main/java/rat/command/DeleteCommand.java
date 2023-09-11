@@ -15,6 +15,11 @@ public class DeleteCommand extends RatCommand {
     private String input;
 
     /**
+     * The index of the first character of the parameters in the user input.
+     */
+    private final int DELETE_PARAMS_START = 7;
+
+    /**
      * Constructor for a DeleteCommand object.
      * @param ratTaskManager The RatTaskManager object used to store and process the user's tasks.
      * @param input The user input passed from RatInput that contains the index of the task to be deleted.
@@ -27,7 +32,7 @@ public class DeleteCommand extends RatCommand {
     @Override
     public String getResponse() {
         try {
-            String param = this.input.substring(7);
+            String param = this.input.substring(DELETE_PARAMS_START);
             if (param.equals("all")) {
                 return this.ratTaskManager.deleteAll();
             } else {
@@ -46,7 +51,7 @@ public class DeleteCommand extends RatCommand {
     @Override
     public void execute() {
         try {
-            String param = this.input.substring(7);
+            String param = this.input.substring(DELETE_PARAMS_START);
             if (param.equals("all")) {
                 this.ratTaskManager.deleteAll();
             } else {

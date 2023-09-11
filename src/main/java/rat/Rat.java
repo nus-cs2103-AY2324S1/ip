@@ -38,6 +38,11 @@ public class Rat {
     private static Scanner sc;
 
     /**
+     * The file path of the file to be read from and written to.
+     */
+    private static String filePath = "data/rat.txt";
+
+    /**
      * Constructor for a Rat object.
      */
     public Rat() {
@@ -50,7 +55,7 @@ public class Rat {
      */
     public static void initialise() {
         printWelcome();
-        ratStorage = new RatStorage("data/rat.txt");
+        ratStorage = new RatStorage(filePath);
         ratTaskManager = new RatTaskManager(ratStorage);
         sc = new Scanner(System.in);
         ratInput = new RatInput(sc, ratTaskManager);
@@ -65,6 +70,10 @@ public class Rat {
         return ratInput.handleInput(input);
     }
 
+    /**
+     * Returns the welcome message of Rat.
+     * @return The welcome message of Rat.
+     */
     public String getWelcome() {
         return "Hello! I'm Rat! What can I do for you? Type \"help\" to see a list of commands";
     }
