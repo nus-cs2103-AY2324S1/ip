@@ -66,6 +66,7 @@ public class TaskList {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
+                assert task != null : "Task should not be null";
                 matchingTasks.add(task);
             }
         }
