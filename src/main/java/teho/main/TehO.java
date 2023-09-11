@@ -94,6 +94,7 @@ public class TehO  {
         //note that split returns a String[]
         //parseInt returns the integer value which is represented by the argument
         int taskNumber = parseInt(userCommand.split(" ")[1]) - 1; //counting from 0
+        assert taskNumber >= 0 : "taskNumber should not be negative";
         Task task = this.taskList.getTask(taskNumber);
         task.markAsDone(taskNumber);
     }
@@ -105,6 +106,7 @@ public class TehO  {
      */
     public void unmarkTask(String userCommand) {
         int taskNumber = parseInt(userCommand.split(" ")[1]) - 1; //counting from 0
+        assert taskNumber >= 0 : "taskNumber should not be negative";
         Task task = this.taskList.getTask(taskNumber);
         task.markAsNotDone(taskNumber);
     }
@@ -179,6 +181,7 @@ public class TehO  {
      */
     public String delete(String userCommand) {
         int taskNumber = parseInt(userCommand.split(" ")[1]) - 1; //counting from 0
+        assert taskNumber >= 0 : "taskNumber should not be negative";
         Task task = this.taskList.getTask(taskNumber);
         this.taskList.remove(taskNumber);
         return ui.generateDeleteMessage(task, taskList);
