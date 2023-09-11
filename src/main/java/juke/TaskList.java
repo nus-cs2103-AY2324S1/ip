@@ -44,6 +44,15 @@ public class TaskList {
         return currTask;
     }
 
+    public Task addTag(int index, String tagName) throws JukeError {
+        if (index > tasks.size()) {
+            throw new JukeError("That task does not exist!");
+        }
+        Task currTask = tasks.get(index - 1);
+        currTask.addTag(tagName);
+        return currTask;
+    }
+
     public ArrayList<Task> find(String searchTerm) {
         ArrayList<Task> results = new ArrayList<>();
         for (Task task : tasks) {

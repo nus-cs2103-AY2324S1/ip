@@ -42,14 +42,38 @@ public class Storage {
     private Task parseOne(String data) {
         String[] parts = data.split("\\|");
         if (Objects.equals(parts[0], "T")) {
-            return new Todo(parts[2], parseIsDone(parts[1]));
+            Task newTask = new Todo(parts[2], parseIsDone(parts[1]));
+            if (Objects.equals(parts[3], "*")) {
+                return newTask;
+            }
+            String[] splitTags = parts[3].split(" ");
+            for (String tag : splitTags) {
+                newTask.addTag(tag);
+            }
+            return newTask;
         }
         if (Objects.equals(parts[0], "D")) {
-            return new Deadline(parts[2], parseIsDone(parts[1]), LocalDate.parse(parts[3]));
+            Task newTask = new Deadline(parts[2], parseIsDone(parts[1]), LocalDate.parse(parts[4]));
+            if (Objects.equals(parts[3], "*")) {
+                return newTask;
+            }
+            String[] splitTags = parts[3].split(" ");
+            for (String tag : splitTags) {
+                newTask.addTag(tag);
+            }
+            return newTask;
         }
         if (Objects.equals(parts[0], "E")) {
-            return new Event(parts[2], parseIsDone(parts[1]),
-                    LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
+            Task newTask = new Event(parts[2], parseIsDone(parts[1]),
+                    LocalDate.parse(parts[4]), LocalDate.parse(parts[5]));
+            if (Objects.equals(parts[3], "*")) {
+                return newTask;
+            }
+            String[] splitTags = parts[3].split(" ");
+            for (String tag : splitTags) {
+                newTask.addTag(tag);
+            }
+            return newTask;
         }
         return null;
     }
