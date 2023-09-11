@@ -7,6 +7,7 @@ package duke;
  */
 public class AddTask extends Command {
     private Task task;
+    private String notAddedProperly = "Task not added properly";
 
     /**
      * Constructor for an AddTask command
@@ -25,7 +26,7 @@ public class AddTask extends Command {
             int taskNumberBef = tasks.size();
             tasks.add(this.task);
             int taskNumberAft = tasks.size();
-            assert taskNumberAft == taskNumberBef + 1 : "Task not added properly";
+            assert taskNumberAft == taskNumberBef + 1 : this.notAddedProperly;
             storage.saveTasks(tasks);
             return ui.addedMessage(this.task, tasks);
         } catch (InvalidInputException e) {

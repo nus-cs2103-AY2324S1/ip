@@ -7,6 +7,7 @@ package duke;
  */
 public class DoneTask extends Command {
     private int taskDone;
+    private String notMarkedProperly = "Task is not marked completed properly";
 
     /**
      * Constructor for DoneTask
@@ -22,7 +23,7 @@ public class DoneTask extends Command {
             throw new InvalidInputException("OOPS!!! Too few tasks");
         }
         tasks.get(this.taskDone).setCompleted();
-        assert tasks.get(this.taskDone).getCheckbox().equals("[X] ") : "Task is not marked completed properly";
+        assert tasks.get(this.taskDone).getCheckbox().equals("[X] ") : this.notMarkedProperly;
         try {
             storage.saveTasks(tasks);
         } catch (InvalidInputException e) {

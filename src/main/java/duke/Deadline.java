@@ -21,6 +21,20 @@ public class Deadline extends Task {
         super(name);
         verifyDeadline(deadline);
     }
+
+    @Override
+    public void update(String changeDetails) throws InvalidInputException {
+        String[] details = changeDetails.split(" /by ");
+        String newName = details[0];
+        String newDeadline;
+        try {
+            newDeadline = details[1];
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidInputException("Please update with a valid deadline");
+        }
+        this.setName(newName);
+        verifyDeadline(newDeadline);
+    }
     /**
      * Parses the deadline if it is in correct format and ignores it otherwise
      * @param date Input date of the deadline

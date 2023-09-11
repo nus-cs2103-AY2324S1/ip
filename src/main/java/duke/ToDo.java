@@ -20,4 +20,8 @@ public class ToDo extends Task {
     public String newFormat() {
         return ToDo.SYMBOL + " | " + this.getInt() + " | " + this.getName();
     }
+    @Override
+    public void update(String changeDetails) throws InvalidInputException {
+        this.setName(changeDetails);
+    }
 }

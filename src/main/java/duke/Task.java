@@ -6,6 +6,8 @@ package duke;
 public class Task {
     private static final String DONECHECKBOX = "[X] ";
     private static final String UNDONECHECKBOX = "[ ] ";
+    private static final String completedNumber = "1";
+    private static final String unCompletedNumber = "0";
     private String name;
     private boolean isCompleted;
     public Task(String name) {
@@ -23,6 +25,13 @@ public class Task {
 
     public void setUncompleted() {
         this.isCompleted = false;
+    }
+
+    public void update(String details) throws InvalidInputException {
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -44,9 +53,9 @@ public class Task {
      */
     public String getInt() {
         if (this.isCompleted) {
-            return "1";
+            return Task.completedNumber;
         } else {
-            return "0";
+            return Task.unCompletedNumber;
         }
     }
 

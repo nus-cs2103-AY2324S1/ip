@@ -7,6 +7,7 @@ package duke;
  */
 public class DeleteTask extends Command {
     private int indexToDelete;
+    private String notDeletedProperly = "Task not deleted properly";
 
     /**
      * Constructor for DeleteTask
@@ -25,7 +26,7 @@ public class DeleteTask extends Command {
         tasks.remove(this.indexToDelete);
         int listSizeAft = tasks.size();
         //Ensures a change in size of list
-        assert listSizeBef == listSizeAft + 1 : "Task not deleted properly";
+        assert listSizeBef == listSizeAft + 1 : this.notDeletedProperly;
         try {
             storage.saveTasks(tasks);
         } catch (InvalidInputException e) {

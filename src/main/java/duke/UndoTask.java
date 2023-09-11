@@ -5,6 +5,7 @@ package duke;
  */
 public class UndoTask extends Command {
     private int taskToUndo;
+    private String notUnmarkedProperly = "Task not marked undone properly";
 
     /**
      * Constructor for UndoTask command
@@ -16,7 +17,7 @@ public class UndoTask extends Command {
     @Override
     public String execute(TaskList lst, Ui ui, Storage storage) {
         lst.get(taskToUndo).setUncompleted();
-        assert lst.get(taskToUndo).getCheckbox().equals("[ ] ") : "Task not marked undone properly";
+        assert lst.get(taskToUndo).getCheckbox().equals("[ ] ") : this.notUnmarkedProperly;
         try {
             storage.saveTasks(lst);
         } catch (InvalidInputException e) {

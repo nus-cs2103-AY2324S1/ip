@@ -106,4 +106,8 @@ public class Ui {
         }
         return s1;
     }
+
+    public String updatedMessage(TaskList list, int index) {
+        return "Task " + "\"" + list.get(index).getName() + "\"" + " has been updated successfully";
+    }
 }
