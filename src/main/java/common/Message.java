@@ -1,5 +1,10 @@
 package common;
 
+/**
+ * Utility class for getting the messages that Thorndike uses.
+ *
+ * @author Ho Khee Wei
+ */
 public abstract class Message {
 
     public static String MARK_NOT_DONE = "Meow! I've marked this task as not done yet:";

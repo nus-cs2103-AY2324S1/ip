@@ -50,10 +50,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Constructs the dialog box for the user's message.
+     *
+     * @param text Text to display in the diaglog box.
+     * @param img  The image of the user.
+     * @return the user diaglog box with the message and user's image.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Constructs the dialog box for Thorndike's message.
+     *
+     * @param text Text to display in the diaglog box.
+     * @param img  The image of the Thorndike.
+     * @return the Thorndike diaglog box with the message and Thorndike's image.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

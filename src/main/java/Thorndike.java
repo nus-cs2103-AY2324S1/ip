@@ -30,6 +30,13 @@ public class Thorndike {
         }
     }
 
+    /**
+     * Gets Thorndike's reponse to user's message.
+     * 
+     * @param input User's input
+     * @return Thorndike's response
+     * @throws ThorndikeException when the user input has issues.
+     */
     public String getResponse(String input) throws ThorndikeException {
         Command command = CommandParser.parse(input);
 
