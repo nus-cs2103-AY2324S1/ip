@@ -29,6 +29,7 @@ public class Ui {
 
     /**
      * Displays the task added and the current total number of tasks in the list.
+     *
      * @param task The task that was added.
      * @param numberOfTasks The number of tasks in the list currently.
      * @return The message displaying the added task and the total number of tasks as a string.

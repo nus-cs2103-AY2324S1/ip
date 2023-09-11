@@ -9,7 +9,7 @@ import duke.ui.Ui;
  * The AddCommand class represents a command to add a new task to the task list.
  */
 public class AddCommand extends Command {
-    private final Task task;
+    private final Task TASK;
 
     /**
      * Constructs an AddCommand object.
@@ -17,13 +17,13 @@ public class AddCommand extends Command {
      * @param task Task to be added into the task list.
      */
     public AddCommand(Task task) {
-        this.task = task;
+        TASK = task;
     }
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        taskList.add(this.task);
-        String message = ui.showAddedTask(this.task, taskList.getNumberOfTasks());
+        taskList.add(TASK);
+        String message = ui.showAddedTask(TASK, taskList.getNumberOfTasks());
         storage.save(taskList.getList(), ui);
         return message;
     }

@@ -10,12 +10,11 @@ import duke.ui.Ui;
 /**
  * Duke is a personal assistant chatbot that helps
  * to keep track of various tasks.
- *
  */
 public class Duke {
-    private final Storage storage;
+    private final Storage STORAGE;
     private TaskList tasks;
-    private final Ui ui;
+    private final Ui UI;
 
     /**
      * Constructs a Duke object.
@@ -23,12 +22,12 @@ public class Duke {
      * @param filePath The filepath for loading and saving the file.
      */
     public Duke(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
+        UI = new Ui();
+        STORAGE = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(STORAGE.load());
         } catch (DukeException e) {
-            ui.showErrorMessage(e.getMessage());
+            UI.showErrorMessage(e.getMessage());
             tasks = new TaskList();
         }
     }
@@ -39,7 +38,7 @@ public class Duke {
      * @return A welcome message to greet the user.
      */
     public String getGreetings() {
-        return ui.showWelcomeMessage();
+        return UI.showWelcomeMessage();
     }
 
     /**
@@ -52,9 +51,9 @@ public class Duke {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            return c.execute(tasks, ui, storage);
+            return c.execute(tasks, UI, STORAGE);
         } catch (DukeException e) {
-            return ui.showErrorMessage(e.getMessage());
+            return UI.showErrorMessage(e.getMessage());
         }
     }
 }
