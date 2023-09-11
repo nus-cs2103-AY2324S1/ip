@@ -1,4 +1,4 @@
-package grumpygordon.ui.controllers;
+package grumpygordon.controllers;
 
 import java.io.IOException;
 import java.util.Collections;
