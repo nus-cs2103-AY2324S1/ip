@@ -1,4 +1,4 @@
-package Eddie;
+package Eddie.Exceptions;
 
 /**
  * An exception which can be thrown by duke processes.

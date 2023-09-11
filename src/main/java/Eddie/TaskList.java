@@ -1,5 +1,7 @@
 package Eddie;
 
+import Eddie.Tasks.Task;
+
 import java.util.ArrayList;
 
 /**

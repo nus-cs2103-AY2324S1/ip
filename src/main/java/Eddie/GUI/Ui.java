@@ -1,4 +1,4 @@
-package Eddie;
+package Eddie.GUI;
 
 /**
  * Class which handles the user interface.

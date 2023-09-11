@@ -1,5 +1,12 @@
 package Eddie;
 
+import Eddie.Exceptions.*;
+import Eddie.GUI.Ui;
+import Eddie.Tasks.Deadline;
+import Eddie.Tasks.Event;
+import Eddie.Tasks.Task;
+import Eddie.Tasks.Todo;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -99,7 +106,7 @@ public class Parser {
             }
         }
     }
-    
+
 
     /**
      * Method to be used to start parsing of user input.

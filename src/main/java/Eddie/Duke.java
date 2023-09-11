@@ -1,5 +1,8 @@
 package Eddie;
 
+import Eddie.GUI.DialogBox;
+import Eddie.GUI.Ui;
+import Eddie.Tasks.Task;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

@@ -1,5 +1,10 @@
 package Eddie;
 
+import Eddie.Tasks.Deadline;
+import Eddie.Tasks.Event;
+import Eddie.Tasks.Task;
+import Eddie.Tasks.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

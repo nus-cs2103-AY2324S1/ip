@@ -1,4 +1,4 @@
-package Eddie;
+package Eddie.Tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a Deadline task.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     private LocalDate deadline;
 
     /**

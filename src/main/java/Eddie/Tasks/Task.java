@@ -1,4 +1,4 @@
-package Eddie;
+package Eddie.Tasks;
 
 /**
  * Represents a task which can be created and listed.
@@ -30,7 +30,7 @@ public class Task {
     }
 
     public String getType() {
-        return "Eddie.Task";
+        return "Eddie.Tasks.Task";
     }
 
     public String toString() {
