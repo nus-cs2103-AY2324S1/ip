@@ -1,13 +1,16 @@
 package kiera.command;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 import kiera.Storage;
 import kiera.TaskList;
 import kiera.Ui;
 import kiera.task.Task;
 
-import java.util.ArrayList;
-import java.util.stream.Collectors;
-
+/**
+ * Command that filters tasks based on keyword input.
+ */
 public class FilterWordCommand extends Command {
     public FilterWordCommand(String desc) {
         setDescription(desc);

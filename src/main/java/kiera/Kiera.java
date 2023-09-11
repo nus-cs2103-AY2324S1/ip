@@ -17,12 +17,6 @@ import javafx.stage.Stage;
  */
 public class Kiera extends Application {
 
-    protected static String filePath = "./data/storage.txt";
-    private Storage storage;
-    private Ui ui;
-    private TaskList tasks;
-
-
     /**
      * Constructor for Kiera.
      */
