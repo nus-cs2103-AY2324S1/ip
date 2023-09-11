@@ -3,6 +3,7 @@ package duke.management;
 import java.util.ArrayList;
 
 import duke.DukeException;
+import duke.note.Note;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -19,11 +20,21 @@ public class Parser {
      * @param tasks The list of all Tasks.
      * @return Bot's response in String.
      */
-    public String parse(String command, TaskList tasks) {
+    public String parse(String command, TaskList tasks, NotesList notes) {
         try {
             String result;
             String[] commandArr = command.split(" ", 2);
             switch (commandArr[0]) {
+            case "note":
+                if (commandArr[1].isEmpty()) {
+                    throw new DukeException(String.format(DukeException.NON_EMPTY, "NOTE"));
+                }
+                Note note = new Note(commandArr[1]);
+                notes.addNote(note);
+
+                return "added new note: " + note.toString();
+            case "notes":
+                return notes.printNotes();
             case "find":
                 if (commandArr[1].isEmpty()) {
                     throw new DukeException(String.format(DukeException.NON_EMPTY, "FIND"));
@@ -44,7 +55,7 @@ public class Parser {
 
                 return result;
             case "list":
-                return tasks.print();
+                return tasks.printTasks();
             case "mark":
                 int mIndex = command.charAt(5) - 49;
                 Task t = tasks.getTask(mIndex);

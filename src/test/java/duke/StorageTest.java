@@ -35,12 +35,12 @@ public class StorageTest {
         fileWriter.close();
 
         // Initialize the Storage object with the test file
-        storage = new Storage(testFilePath);
+//        storage = new Storage();
     }
 
     @Test
     public void testLoad() {
-        ArrayList<Task> loadedTasks = storage.load();
+        ArrayList<Task> loadedTasks = storage.loadData();
 
         Task todo = new Todo("Buy groceries");
         todo.markAsDone();
