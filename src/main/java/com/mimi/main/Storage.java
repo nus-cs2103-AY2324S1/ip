@@ -29,6 +29,8 @@ public class Storage {
     public void add(Task task) {
         this.previousCommands.add(task);
 
+        assert this.previousCommands.contains(task): "Task failed to be added!";
+
         ui.addTaskMessage(task, previousCommands.size());
     }
 
@@ -38,7 +40,10 @@ public class Storage {
      * @param task the Task to be added to the storage.
      */
     public void addWithoutPrinting(Task task) {
+
         this.previousCommands.add(task);
+
+        assert this.previousCommands.contains(task): "Task failed to be added!";
     }
 
     /**
@@ -76,6 +81,8 @@ public class Storage {
 
         task.toggleDone();
         ui.markTask(task);
+
+        assert task.getStatusIcon().equals("X"): "Not marked properly!";
     }
 
     /**
