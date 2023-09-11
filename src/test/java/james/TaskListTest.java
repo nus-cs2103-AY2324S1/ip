@@ -8,22 +8,23 @@ public class TaskListTest {
 
     @Test
     public void testAddTask() {
-        ToDoTask stub = new ToDoTask("stub");
+        String[] stubs = {"stub1", "stub2", "stub3"};
         TaskList taskList = new TaskList();
-        for (int i = 0; i < 10; i++) {
-            taskList.addTask(stub);
+        for (String stub : stubs) {
+            taskList.addTask(new ToDoTask(stub));
         }
-        assertEquals(taskList.size(), 10);
+        assertEquals(taskList.size(), stubs.length);
     }
 
     @Test
     public void testTaskString() {
-        ToDoTask stub = new ToDoTask("stub");
+        String[] stubs = {"stub1", "stub2", "stub3"};
         TaskList taskList = new TaskList();
-        for (int i = 0; i < 5; i++) {
-            taskList.addTask(stub);
+        for (String stub : stubs) {
+            taskList.addTask(new ToDoTask(stub));
         }
-        String expected = "1.[T][ ] stub\n2.[T][ ] stub\n3.[T][ ] stub\n4.[T][ ] stub\n5.[T][ ] stub";
-        assertEquals(taskList.toString(), expected);
+        for (int i = 0; i < stubs.length; i++) {
+            assertEquals(taskList.getTask(i).toString(), "[T][ ] " + stubs[i]);
+        }
     }
 }
