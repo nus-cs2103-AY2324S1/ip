@@ -1,7 +1,10 @@
 package corgi;
 
+import java.util.Stack;
+
 import corgi.commands.Command;
 import corgi.commands.CommandExecutionException;
+import corgi.commands.CommandType;
 import corgi.parsers.CommandParser;
 import corgi.parsers.InvalidCommandFormatException;
 import corgi.parsers.InvalidCommandTypeException;
@@ -10,6 +13,7 @@ import corgi.storage.Storage;
 import corgi.tasks.Task;
 import corgi.tasks.TaskList;
 import corgi.ui.TextRenderer;
+import javafx.util.Pair;
 
 
 /**
@@ -22,15 +26,17 @@ public class Corgi {
     private TaskList tasks;
     private Storage<Task> storage;
     private TextRenderer renderer;
+    private Stack<Pair<CommandType, TaskList>> history;
 
     /**
-     * Constructs new Corgi chatbot with an empty task list.
+     * Constructs new Corgi chatbot with an empty task list, 
+     * a text renderer, a storage and a history stack.
      */
     public Corgi() {
         this.renderer = new TextRenderer();
         this.storage = new Storage<>(new TaskParser(), "./data/tasks.txt");
         this.tasks = new TaskList(storage.load());
-
+        this.history = new Stack<>();
         // if (tasks.size() > 0) {
         //     this.renderer.showTasksLoaded(tasks.size());
         // }
