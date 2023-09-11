@@ -1,11 +1,11 @@
-package duke.commands;
+package duke.command;
 
-import duke.TaskList;
-import duke.Ui;
-import duke.ToDo;
-import duke.Task;
-import duke.Event;
-import duke.Deadline;
+import duke.task.TaskList;
+import duke.ui.Ui;
+import duke.task.ToDo;
+import duke.task.Task;
+import duke.task.Event;
+import duke.task.Deadline;
 import duke.DukeException;
 
 import java.time.LocalDateTime;
@@ -36,9 +36,17 @@ public class AddCommand extends Command {
         this.end = end;
     }
 
+    /**
+     * Executes the AddCommand, adding the specified task to the task list.
+     *
+     * @param tasks The task list to which the task will be added.
+     * @return A message indicating that the task has been added, along with the updated task count.
+     * @throws DukeException If an invalid command is encountered.
+     */
     @Override
     public String execute(TaskList tasks) throws DukeException {
         Task task;
+
         switch (this.type) {
         case "todo":
             task = new ToDo(this.description);
@@ -52,12 +60,10 @@ public class AddCommand extends Command {
         default:
             throw new DukeException("I have no idea what that means...");
         }
+
         tasks.addTask(task);
         String addMessage = Ui.addTask(task);
-        return addMessage + "\n" + Ui.countTasks(tasks);
-    }
 
-    private static LocalDateTime formatDateTime(String input) throws DateTimeParseException {
-        return LocalDateTime.parse(input, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+        return addMessage + "\n" + Ui.countTasks(tasks);
     }
 }

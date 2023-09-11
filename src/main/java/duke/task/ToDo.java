@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 /**
  * The ToDo class represents a task with no specific deadline or timing.
@@ -8,10 +8,10 @@ public class ToDo extends Task {
     /**
      * Constructs a ToDo object with the specified task description.
      *
-     * @param task The description of the to-do task.
+     * @param description The description of the to-do task.
      */
-    public ToDo(String task) {
-        super(task);
+    public ToDo(String description) {
+        super(description);
     }
 
     /**

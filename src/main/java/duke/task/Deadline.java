@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,17 +8,17 @@ import java.time.format.DateTimeFormatter;
  * It extends the Task class and adds functionality for handling deadlines.
  */
 public class Deadline extends Task {
-    protected LocalDateTime by;
+    protected LocalDateTime date;
 
     /**
      * Constructs a Deadline object with the specified task description and deadline.
      *
-     * @param task The description of the task to be added.
-     * @param by The deadline of the task as a LocalDateTime object.
+     * @param description The description of the task to be added.
+     * @param date The deadline of the task as a LocalDateTime object.
      */
-    public Deadline(String task, LocalDateTime by) {
-        super(task);
-        this.by = by;
+    public Deadline(String description, LocalDateTime date) {
+        super(description);
+        this.date = date;
     }
 
     /**
@@ -29,6 +29,6 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return String.format("[D]" + super.toString() + " (by: "
-                + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")");
+                + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")");
     }
 }

@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 import java.io.Serializable;
 
@@ -7,18 +7,19 @@ import java.io.Serializable;
  * It serves as the base class for different types of tasks in the Duke application.
  */
 public abstract class Task implements Serializable {
-    private String task;
+    private String description;
     private boolean isDone;
     private String icon = "[ ]";
 
     /**
      * Constructs a Task object with the specified task description.
      *
-     * @param task The description of the task.
+     * @param description The description of the task.
      */
-    public Task(String task) {
-        assert task != null && !task.equals("") : "Task details should not be empty";
-        this.task = task;
+    public Task(String description) {
+        assert description != null && !description.equals("") : "Task details should not be empty";
+
+        this.description = description;
         this.isDone = false;
     }
 
@@ -44,8 +45,8 @@ public abstract class Task implements Serializable {
      *
      * @return The task description.
      */
-    public String getTask() {
-        return this.task;
+    public String getTaskDescription() {
+        return this.description;
     }
 
     /**
@@ -55,6 +56,6 @@ public abstract class Task implements Serializable {
      */
     @Override
     public String toString() {
-        return this.icon + " " + this.task;
+        return this.icon + " " + this.description;
     }
 }

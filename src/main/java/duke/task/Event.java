@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,12 +14,12 @@ public class Event extends Task {
     /**
      * Constructs an Event object with the specified task description, start time, and end time.
      *
-     * @param task The description of the event task.
+     * @param description The description of the event task.
      * @param start The start time of the event as a LocalDateTime object.
      * @param end The end time of the event as a LocalDateTime object.
      */
-    public Event(String task, LocalDateTime start, LocalDateTime end) {
-        super(task);
+    public Event(String description, LocalDateTime start, LocalDateTime end) {
+        super(description);
         this.start = start;
         this.end = end;
     }
