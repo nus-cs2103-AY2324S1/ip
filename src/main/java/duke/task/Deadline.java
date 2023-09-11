@@ -1,10 +1,8 @@
 package duke.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-import duke.DukeException;
 
 /**
  * Represents a task with a deadline.
@@ -23,7 +21,6 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
     }
-
     /**
      * Returns a formatted string representation of the Deadline task.
      *
@@ -33,7 +30,6 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + "(by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
-
     /**
      * Returns a formatted string representation of the Deadline task for file storage.
      *
@@ -42,7 +38,6 @@ public class Deadline extends Task {
     public String toStringFile() {
         return "D | " + super.toStringFile() + "/by " + by;
     }
-
     /**
      * Returns the type of the task.
      *
@@ -51,21 +46,5 @@ public class Deadline extends Task {
     @Override
     public String getType() {
         return "Deadline";
-    }
-
-
-    /**
-     * Adds a Deadline task to the list based on the saved description and mark status.
-     *
-     * @param description The saved description of the task and its deadline.
-     * @param list        The ArrayList of tasks to add the saved task to.
-     * @param isMarked    The mark status of the saved task ("1" for marked, "0" for unmarked).
-     */
-    public static void addDeadlineFromFile(String description, ArrayList<Task> list, String isMarked) {
-        String[] deadline = description.stripTrailing().split("/by ", 2);
-
-        Deadline newTask = new Deadline(deadline[0], LocalDate.parse(deadline[1]));
-        newTask.markFromRead(isMarked);
-        list.add(newTask);
     }
 }

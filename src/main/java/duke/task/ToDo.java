@@ -2,8 +2,6 @@ package duke.task;
 
 import java.util.ArrayList;
 
-import duke.DukeException;
-
 /**
  * Represents a ToDo task.
  */
@@ -47,19 +45,6 @@ public class ToDo extends Task {
     public String getType() {
         return "TODO";
     }
-    /**
-     * Adds a ToDo task to the list of tasks from a file.
-     *
-     * @param description The description of the ToDo task.
-     * @param list The ArrayList to which the task will be added.
-     * @param isMarked The value indicating whether the task is marked.
-     */
-    public static void addToDoFromFile(String description, ArrayList<Task> list, String isMarked) {
-        ToDo newTask = new ToDo(description);
-        newTask.markFromRead(isMarked);
-        list.add(newTask);
-    }
-
     /**
      * Compares this ToDo task to another object for equality.
      *

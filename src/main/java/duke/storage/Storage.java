@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import duke.DukeException;
 import duke.task.Task;
+import duke.task.TaskList;
 
 /**
  * Represents a class for managing data storage and retrieval.
@@ -22,6 +23,7 @@ public class Storage {
      * @param filepath The path to the file where data will be stored.
      */
     public Storage(String filepath) {
+        assert filepath != null;
         this.filepath = filepath;
     }
 
@@ -31,19 +33,19 @@ public class Storage {
      * @return An ArrayList containing the loaded tasks.
      * @throws DukeException If there is an issue loading tasks from the file.
      */
-    public ArrayList<Task> load() throws DukeException {
-        ArrayList<Task> temp = new ArrayList<>();
+    public TaskList load() throws DukeException {
+        TaskList lst = new TaskList(new ArrayList<>());
         try (Scanner fileScanner = new Scanner(new File(this.filepath))) {
             while (fileScanner.hasNextLine()) {
                 String taskString = fileScanner.nextLine();
                 String[] arr = taskString.split("\\|");
-                Task.readListFromFile(arr, temp);
+                lst.readListFromFile(arr);
             }
         } catch (FileNotFoundException e) {
             throw new DukeException("Looks like this is your first time!\n"
                     + "Let's start with a new list!\n" + LINE);
         }
-        return temp;
+        return lst;
     }
 
     /**
@@ -51,7 +53,7 @@ public class Storage {
      *
      * @param list The ArrayList of tasks to be saved.
      */
-    public void saveDataToFile(ArrayList<Task> list) {
+    public void saveDataToFile(ArrayList<Task> list) throws DukeException {
         File folder = new File("./data/");
         if (!folder.exists()) {
             folder.mkdirs();
@@ -62,7 +64,7 @@ public class Storage {
             }
 
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            throw new DukeException(e.getMessage());
         }
     }
 }

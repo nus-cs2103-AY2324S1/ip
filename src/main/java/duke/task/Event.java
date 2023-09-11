@@ -5,8 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-import duke.DukeException;
-
 
 /**
  * Represents a task with a start and end date.
@@ -61,24 +59,6 @@ public class Event extends Task {
     public String getType() {
         return "Event";
     }
-    /**
-     * Adds an Event task to the list based on the saved description and mark status.
-     *
-     * @param description The saved description of the task and its start and end dates.
-     * @param list        The ArrayList of tasks to add the saved task to.
-     * @param isMarked    The mark status of the saved task ("1" for marked, "0" for unmarked).
-     */
-    public static void addEventFromFile(String description, ArrayList<Task> list, String isMarked) {
-        String[] event = description.stripTrailing().split("/from |/to ");
-        try {
-            Event newTask = new Event(event[0], LocalDate.parse(event[1]), LocalDate.parse(event[2]));
-            list.add(newTask);
-            newTask.markFromRead(isMarked);
-        } catch (DateTimeParseException e) {
-            System.out.println("Please enter a valid Date!");
-        }
-    }
-
     /**
      * Compares this Event task with another object for equality.
      *

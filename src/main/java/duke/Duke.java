@@ -22,13 +22,11 @@ public class Duke {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(storage.load().getList());
         } catch (DukeException e) {
             ui.showError(e.getMessage());
             tasks = new TaskList();
         }
-    }
-    public Duke() {
     }
     /**
      * You should have your own function to generate a response to user input.
@@ -42,33 +40,11 @@ public class Duke {
             return ui.showError(e.getMessage());
         }
     }
-
-    /**
-     * Runs the Duke application.
-     */
-    public void run() {
-        ui.showWelcome(tasks.getList());
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showDivider();
-                Command c = Parser.handleInput(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showDivider();
-            }
-        }
-    }
     /**
      * The main method to start the Duke application.
      *
      * @param args Command-line arguments.
      */
     public static void main(String[] args) {
-        //new Duke("./data/list.txt").run();
     }
 }

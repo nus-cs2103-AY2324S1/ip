@@ -2,6 +2,7 @@ package duke.ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import duke.task.Task;
 
 /**
@@ -9,15 +10,6 @@ import duke.task.Task;
  */
 public class Ui {
     private static final String DIVIDER = "___________________________________\n";
-    private Scanner scanner;
-
-    /**
-     * Constructs a Ui object and initializes the scanner for user input.
-     */
-    public Ui() {
-        this.scanner = new Scanner(System.in);
-    }
-
     /**
      * Displays a farewell message to the user upon exiting the application.
      *
@@ -26,25 +18,6 @@ public class Ui {
     public String showExit() {
         return "Bye";
     }
-
-    /**
-     * Displays a welcome message along with the existing task list or an empty list message.
-     *
-     * @param list The list of tasks.
-     */
-    public void showWelcome(ArrayList<Task> list) {
-        String msg = "Looks like you have been here before!\n";
-        if (list.isEmpty()) {
-            msg = "Looks like your list is empty!\nTime to add some new Tasks!\n";
-        }
-        String welcome = String.format("Hi, I'm Duke but BETTTERRRR!!!\n%s", msg);
-        System.out.println(welcome + DIVIDER);
-        if (!list.isEmpty()) {
-            showList(list);
-            showDivider();
-        }
-    }
-
     /**
      * Displays the standard divider line.
      *
@@ -139,25 +112,6 @@ public class Ui {
         }
         return msg;
     }
-
-    /**
-     * Reads and retrieves a user command from the console input.
-     *
-     * @return The user command.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
-    /**
-     * Displays an "invalid command" message to the user.
-     *
-     * @return The invalid command message.
-     */
-    public String invalidCommand() {
-        return "Oops! That does not seem to be a valid action!\n";
-    }
-
     /**
      * Displays a help message to the user, listing supported commands.
      *
