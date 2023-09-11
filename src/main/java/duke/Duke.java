@@ -132,6 +132,9 @@ public class Duke extends Application {
                 DialogBox.getDukeDialog(dukeText, duke)
         );
         userInput.clear();
+
+        // Assert there should be no text in the user's input field
+        assert (userInput.getText().equals(""));
     }
 
     /**
@@ -201,6 +204,7 @@ public class Duke extends Application {
      * Repeats the user's input
      *
      * @param input the user's text input
+     * @return the user's text input
      */
     private static String echo(String input) {
         return input;
@@ -208,6 +212,8 @@ public class Duke extends Application {
 
     /**
      * Lists all tasks in the task array
+     *
+     * @return the tasks in the task array formatted into a list
      */
     private static String list() {
         return taskStorage.list();
@@ -217,6 +223,7 @@ public class Duke extends Application {
      * Appends a task to the task array
      *
      * @param task The task inputted by the user
+     * @return a string indicating the task to be added
      */
     private static String append(Task task) {
         taskStorage.appendTask(task);
@@ -230,6 +237,7 @@ public class Duke extends Application {
      * then appends it to the task array
      *
      * @param task description of task
+     * @return a string indicating the task to be added or an error message
      */
     private static String appendToDo(String task) {
         try {
@@ -245,6 +253,7 @@ public class Duke extends Application {
      * then appends it to the task array
      *
      * @param task description of task with 'by' time
+     * @return a string indicating the task to be added or an error message
      */
     private static String appendDeadline(String task) {
         try {
@@ -263,6 +272,7 @@ public class Duke extends Application {
      * then appends it to the task array
      *
      * @param task description of task with 'from' time and 'to' time
+     * @return a string indicating the task to be added or an error message
      */
     private static String appendEvent(String task) {
         try {
@@ -279,6 +289,7 @@ public class Duke extends Application {
      * Attempts to mark a task in the task array
      *
      * @param toMark the task to be marked
+     * @return a message indicating the task to be marked or an error message
      */
     private static String mark(String toMark) {
         System.out.print(horizontalLine);
@@ -310,6 +321,7 @@ public class Duke extends Application {
      * Attempts to unmark a task in the task array
      *
      * @param toUnmark the task to be unmarked
+     * @return a message indicating the task to be unmarked or an error message
      */
     private static String unmark(String toUnmark) {
         System.out.print(horizontalLine);
@@ -341,6 +353,7 @@ public class Duke extends Application {
      * Attempts to delete a task from the task array
      *
      * @param toDelete the task to be deleted
+     * @return a message indicating the task to be deleted or an error message
      */
     private static String delete(String toDelete) {
         System.out.print(horizontalLine);
@@ -362,6 +375,7 @@ public class Duke extends Application {
      * List all tasks that have a specific keyphrase
      *
      * @param search a keyphrase used to check with the database of tasks
+     * @return all tasks that contain the keyword, formatted into a list
      */
     public static String find(String search) {
         return "THIS WHAT YOU'RE LOOKING FOR?\n"
