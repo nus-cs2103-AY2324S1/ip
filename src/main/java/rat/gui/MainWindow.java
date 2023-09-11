@@ -68,6 +68,7 @@ public class MainWindow extends AnchorPane {
      */
     public void setRat(Rat rat) {
         this.rat = rat;
+        assert(rat != null);
         dialogContainer.getChildren().addAll(
                 LeftDialogBox.getRatDialog(rat.getWelcome(), ratImage)
         );

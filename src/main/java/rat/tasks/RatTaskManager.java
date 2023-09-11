@@ -180,6 +180,7 @@ public class RatTaskManager {
             throw new IndexOutOfBoundsException("Task not found");
         }
         Task item = this.taskList.get(index - 1);
+        assert (item != null);
         item.markDone();
         String response = "Nice! I've marked this task as done: " + taskList.get(index - 1).toString();
         printWithLines(response);
@@ -198,6 +199,7 @@ public class RatTaskManager {
             throw new IndexOutOfBoundsException("Task not found");
         }
         Task item = this.taskList.get(index - 1);
+        assert(item != null);
         item.unmarkDone();
         String response = "Ok, I've marked this task as not done yet: " + taskList.get(index - 1).toString();
         printWithLines(response);
@@ -216,6 +218,7 @@ public class RatTaskManager {
             throw new IndexOutOfBoundsException("Task not found");
         }
         Task item = this.taskList.get(index - 1);
+        assert(item != null);
         this.taskList.remove(index - 1);
         String response = "Noted. I've removed this task:\n"
                 + item.toString()
