@@ -1,17 +1,17 @@
-package com.cloud.chatbot.todo;
+package com.cloud.chatbot.task;
 
 
 
 /**
- * Represents an event TODO, which has both a starting and ending timestamp.
+ * Represents an event work Item, which has both a starting and ending timestamp.
  */
 public class Event extends Deadline {
     private String timestampStart;
 
     /**
-     * @param description The TODO description.
-     * @param start The starting timestamp for the TODO.
-     * @param end The ending timestamp for the TODO.
+     * @param _description The Item description.
+     * @param start The starting timestamp.
+     * @param end The ending timestamp.
      */
     public Event(String _description, String start, String end) {
         super(_description, end);

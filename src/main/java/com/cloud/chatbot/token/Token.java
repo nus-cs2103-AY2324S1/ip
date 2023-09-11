@@ -1,9 +1,6 @@
 package com.cloud.chatbot.token;
 
-import java.util.List;
-
 import com.cloud.chatbot.annotations.Nullable;
-import com.cloud.chatbot.todo.Todo;
 
 
 
@@ -60,9 +57,9 @@ public final class Token {
     }
 
     /**
-     * Whether the token is a valid TODO number.
+     * Whether the token is a valid Item number.
      *
-     * @param count The current number of TODOs.
+     * @param count The current number of Items.
      */
     public boolean isValidNumber(int count) {
         if (!this.isInt()) return false;

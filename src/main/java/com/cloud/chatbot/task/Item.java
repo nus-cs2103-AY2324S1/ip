@@ -1,19 +1,19 @@
-package com.cloud.chatbot.todo;
+package com.cloud.chatbot.task;
 
 
 
 /**
- * Represents a TODO.
+ * A parent work Item class.
  */
-public class Todo {
+public abstract class Item {
     private boolean isComplete = false;
 
     private String description;
 
     /**
-     * @param description The TODO description.
+     * @param _description The Item description.
      */
-    public Todo(String _description) {
+    public Item(String _description) {
         this.description = _description;
     }
 
@@ -40,7 +40,7 @@ public class Todo {
     }
 
     /**
-     * Returns a string representing whether the TODO has been completed.
+     * Returns a string denoting whether the Item has been completed.
      */
     public String getCompletionString() {
         return this.isComplete ? "X" : " ";
@@ -51,9 +51,7 @@ public class Todo {
     }
 
     /**
-     * Returns a string representing the type of this TODO.
+     * Returns a string representing the type of this Item.
      */
-    public String getTypeString() {
-        return "T";
-    }
+    public abstract String getTypeString();
 }
