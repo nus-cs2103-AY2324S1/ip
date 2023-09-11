@@ -11,8 +11,8 @@ import duke.DukeException;
  * Represents a list of tasks with various operations.
  */
 public class TaskList {
+    private static final int MIN_LENGTH = 0;
     private ArrayList<Task> list;
-
     /**
      * Constructs a TaskList.
      *
@@ -78,7 +78,8 @@ public class TaskList {
         if (deadline[0].isEmpty()) {
             throw new DukeException("The description of a deadline cannot be empty.");
         }
-        if (deadline.length == 1) {
+        boolean isInvalidDeadline = deadline.length == 1;
+        if (isInvalidDeadline) {
             throw new DukeException("Please provide a valid deadline");
         }
 
@@ -107,7 +108,8 @@ public class TaskList {
         if (event[0].isEmpty()) {
             throw new DukeException("The description of an Event cannot be empty.");
         }
-        if (event.length < 3) {
+        boolean isInvalidDate = event.length < 3;
+        if (isInvalidDate) {
             throw new DukeException("Please provide a valid start and end date");
         }
 
@@ -140,7 +142,9 @@ public class TaskList {
         }
         try {
             int amt = Integer.parseInt(pos.strip()) - 1;
-            if (amt >= list.size() || amt < 0) {
+            boolean isLargerThanLimit = amt >= list.size();
+            boolean isSmallerThanMin = amt < MIN_LENGTH;
+            if (isLargerThanLimit || isSmallerThanMin) {
                 throw new DukeException("That's not a valid item!");
             }
 
@@ -169,7 +173,9 @@ public class TaskList {
         }
         try {
             int amt = Integer.parseInt(pos.strip()) - 1;
-            if (amt >= list.size() || amt < 0) {
+            boolean isLargerThanLimit = amt >= list.size();
+            boolean isSmallerThanMin = amt < MIN_LENGTH;
+            if (isLargerThanLimit || isSmallerThanMin) {
                 throw new DukeException("That's not a valid item!");
             }
             Task newTask = list.get(amt);
