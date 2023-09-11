@@ -38,7 +38,7 @@ public class Duke {
             storage = new Storage(filePath);
             taskList = new TaskList(storage.load());
         } catch (DukeException e) {
-            mainWindow.printMessage("Error loading duke.tasks from file: " + e.getMessage());
+            mainWindow.printMessage("Error loading tasks from file: " + e.getMessage());
         }
     }
 
