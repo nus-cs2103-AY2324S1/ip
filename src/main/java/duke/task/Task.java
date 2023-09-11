@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Implementation of the task logic
  */
-public class Task {
+public abstract class Task {
 
     /**
      * Formatter to output date time
@@ -74,9 +74,16 @@ public class Task {
      *
      * @return a string which duke Parser could Parse
      */
-    public String getStored() {
-        return "";
-    }
+    public abstract String getStored();
+
+    /**
+     * returns the stored form of the task
+     *
+     * @param days - the range of days of task to be reminded
+     * @return true if this task need to be reminded
+     */
+    public abstract boolean isRemind(int days);
+
 
     @Override
     public String toString() {

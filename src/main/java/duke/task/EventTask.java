@@ -1,5 +1,6 @@
 package duke.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -65,5 +66,18 @@ public class EventTask extends Task {
         return String.join(Task.SEP, new String[] { "EVENT", this.getTask(),
                 this.isComplete() ? "1" : "0",
                 this.from.toString(), this.to.toString() });
+    }
+
+    /**
+     * returns the stored form of the task
+     *
+     * @param days - the range of days of task to be reminded
+     * @return true if this task need to be reminded
+     */
+    @Override
+    public boolean isRemind(int days) {
+        LocalDate start = LocalDate.now();
+        LocalDate end = start.plusDays(days);
+        return this.from.isAfter(start.atStartOfDay()) && this.from.isBefore(end.atStartOfDay());
     }
 }
