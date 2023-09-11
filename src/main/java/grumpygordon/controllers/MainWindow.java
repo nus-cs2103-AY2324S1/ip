@@ -68,6 +68,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getGordonDialog(gordonText, gordonImage)
         );
         userInput.clear();
+        if (userText.equals("bye")) {
+            System.exit(0);
+        }
     }
 
     @FXML
