@@ -34,4 +34,31 @@ public class Event extends Task {
     public String newFormat() {
         return Event.SYMBOL + " | " + this.getInt() + " | " + this.getName() + " | " + this.getDetails();
     }
+    @Override
+    public void update(String details) throws InvalidInputException {
+        String[] eventDetails = details.split(" /from ");
+        String[] timings;
+        try {
+            timings = eventDetails[1].split(" /to ");
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidInputException("Please provide valid timings");
+        }
+        String newName;
+        String newStartTime;
+        String newEndTime;
+        try {
+            newName = eventDetails[0];
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidInputException("Please update with a new name");
+        }
+        try {
+            newStartTime = timings[0];
+            newEndTime = timings[1];
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidInputException("Please provide the timings to update with");
+        }
+        this.setName(newName);
+        this.startTime = newStartTime;
+        this.endTime = newEndTime;
+    }
 }

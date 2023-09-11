@@ -58,7 +58,12 @@ public class Parser {
             }
             String eventInfo = input.substring(6);
             String[] eventDetails = eventInfo.split(" /from ");
-            String[] timings = eventDetails[1].split(" /to ");
+            String[] timings;
+            try {
+                timings = eventDetails[1].split(" /to ");
+            } catch (IndexOutOfBoundsException e) {
+                throw new InvalidInputException("Please provide a valid timing");
+            }
             String startTime;
             String endTime;
             try {
@@ -81,6 +86,15 @@ public class Parser {
                 throw new InvalidInputException("OOPS!!! Please specify what you want to find");
             }
             return new FindTask(keyword);
+        case "update":
+            int indexToUpdate;
+            try {
+                indexToUpdate = Integer.valueOf(words[1]);
+            } catch (IndexOutOfBoundsException e) {
+                throw new InvalidInputException("OOPS!! Please specify what you want to update with");
+            }
+            String updateDetails = input.substring(9);
+            return new UpdateTask(indexToUpdate, updateDetails);
         default:
             throw new InvalidInputException("OOPS! I'm sorry I don't know what that means"
                     + "\nPlease insert a valid type first");
