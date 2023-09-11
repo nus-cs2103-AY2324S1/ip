@@ -26,7 +26,7 @@ public class Parser {
         } else if (userInput.startsWith("find")) {
             return "find";
         } else {
-            return "";
+            return "null";
         }
     }
 }

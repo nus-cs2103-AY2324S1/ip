@@ -126,6 +126,7 @@ public class Hong{
             String userInput = myObj.nextLine();
             Parser parser = new Parser();
             String parsedCommand = parser.parseCommand(userInput);
+            assert !parsedCommand.equals("") : "Parser is not working";
             switch (parsedCommand) {
             case "bye":
                 myObj.close();
