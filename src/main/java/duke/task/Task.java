@@ -1,5 +1,8 @@
 package duke.task;
 
+import duke.exception.DukeException;
+import duke.util.Storage;
+
 /**
  * Represents a task.
  */
@@ -54,9 +57,20 @@ public class Task {
         return description.contains(keyword);
     }
 
+    /**
+     * Reschedules a task.
+     * @param rescheduleDetails New timings for task to be rescheduled to.
+     * @return Response of task being rescheduled.
+     * @throws DukeException When wrong task type to reschedule.
+     */
+    public String reschedule(String rescheduleDetails, Storage storage) throws DukeException {
+        throw new DukeException("You cannot reschedule this task.");
+    }
+
     @Override
     public String toString() {
         assert (description != null) : "Task description cannot be null.";
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
+
 }

@@ -85,6 +85,16 @@ public class Parser {
         return eventInfo;
     }
 
+    public String[] parseRescheduleInfo() throws DukeException {
+        assert (inputDetails != null) : "Input details cannot be null.";
+        String[] rescheduleInfo = inputDetails.split(" ", 2);
+        boolean invalidRescheduleInfo = rescheduleInfo.length < 2;
+        if (invalidRescheduleInfo) {
+            throw new DukeException("☹ OOPS!!! Missing task, or new time details of rescheduling task.");
+        }
+        return rescheduleInfo;
+    }
+
     /**
      * Checks if input details are present.
      * @return True if input details are present.

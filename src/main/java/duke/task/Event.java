@@ -1,6 +1,8 @@
 package duke.task;
 
 import duke.exception.DukeException;
+import duke.util.Storage;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -30,6 +32,22 @@ public class Event extends Task {
         } catch (Exception e) {
             throw new DukeException(e.getMessage());
         }
+    }
+
+    public void updateTime(String from, String to) {
+        this.from = LocalDate.parse(from);
+        this.to = LocalDate.parse(to);
+    }
+
+    @Override
+    public String reschedule(String rescheduleDetails, Storage storage) throws DukeException {
+        String[] newTime = rescheduleDetails.split("/from | /to ");
+        if (newTime.length != 3) {
+            throw new DukeException("Valid Input Syntax: reschedule {taskNumber} /from {newTime} /to {newTime}");
+        }
+        updateTime(newTime[1], newTime[2]);
+        storage.saveTask(description, newTime[1], newTime[2]);
+        return "Rescheduled Task: " + this;
     }
 
     @Override
