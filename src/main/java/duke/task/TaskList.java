@@ -18,7 +18,7 @@ public class TaskList {
     /**
      * Constructor for TaskList.
      *
-     * @param list list of tasks to initialise the list with.
+     * @param list List of tasks to initialise the list with.
      */
     public TaskList(ArrayList<Task> list) {
         this.tasks = list;
@@ -27,7 +27,7 @@ public class TaskList {
     /**
      * Adds a task to the list.
      *
-     * @param task task to be added.
+     * @param task Task to be added.
      */
     public void addTask(Task task) {
         this.tasks.add(task);
@@ -36,7 +36,7 @@ public class TaskList {
     /**
      * Deletes a task from the list.
      *
-     * @param index index of the task to be deleted.
+     * @param index Index of the task to be deleted.
      */
     public void deleteTask(int index) {
         this.tasks.remove(index);
@@ -45,8 +45,8 @@ public class TaskList {
     /**
      * Gets a task from the list.
      *
-     * @param index index of the task to be retrieved.
-     * @return task at the specified index.
+     * @param index Index of the task to be retrieved.
+     * @return Task at the specified index.
      */
     public Task getTask(int index) {
         return this.tasks.get(index);
@@ -55,7 +55,7 @@ public class TaskList {
     /**
      * Marks a task as done.
      *
-     * @param index index of the task to be marked.
+     * @param index Index of the task to be marked.
      */
     public void markTask(int index) {
         this.tasks.get(index).mark();
@@ -64,7 +64,7 @@ public class TaskList {
     /**
      * Unmarks a task as done.
      *
-     * @param index index of the task to be unmarked.
+     * @param index Index of the task to be unmarked.
      */
     public void unmarkTask(int index) {
         this.tasks.get(index).unmark();
@@ -74,7 +74,7 @@ public class TaskList {
      * Returns an ArrayList of tasks that contains the keyword
      * being searched.
      *
-     * @param keyword keyword to be searched for in the description.
+     * @param keyword Keyword to be searched for in the description.
      * @return ArrayList of tasks that contains the keyword.
      */
     public ArrayList<Task> findTask(String keyword) {
@@ -90,7 +90,7 @@ public class TaskList {
     /**
      * Returns the size of the list.
      *
-     * @return size of the list.
+     * @return Int of the size of the list.
      */
     public int getSize() {
         return this.tasks.size();
@@ -99,7 +99,7 @@ public class TaskList {
     /**
      * Returns the tasks as an ArrayList.
      *
-     * @return tasks as an ArrayList.
+     * @return ArrayList of task list.
      */
     public ArrayList<Task> getTasks() {
         return this.tasks;
@@ -109,7 +109,7 @@ public class TaskList {
     /**
      * Returns the list as a string.
      *
-     * @return list as a string.
+     * @return String of the list.
      */
     @Override
     public String toString() {

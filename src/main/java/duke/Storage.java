@@ -23,7 +23,7 @@ public class Storage {
     /**
      * Constructor for Storage.
      *
-     * @param filePath path to duke.txt.
+     * @param filePath Path to duke.txt.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -32,7 +32,7 @@ public class Storage {
     /**
      * Saves list to disk in a formatted version.
      *
-     * @param taskList list of tasks.
+     * @param taskList TaskList is a list of tasks.
      */
     public void saveListToDisk(ArrayList<Task> taskList) {
         createFile(this.filePath);
@@ -53,7 +53,7 @@ public class Storage {
     /**
      * Creates a file if it does not exist.
      *
-     * @param path of the file to be created.
+     * @param path Path of the file to be created.
      */
     private void createFile(String path) {
         File file = new File(path);
@@ -71,8 +71,8 @@ public class Storage {
     /**
      * Loads list from disk and then converts it to tasks with their details.
      *
-     * @return list of tasks.
-     * @throws DukeException if error loading a file.
+     * @return ArrayList of tasks.
+     * @throws DukeException If error loading a file.
      */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> taskList = new ArrayList<>();
@@ -126,8 +126,8 @@ public class Storage {
     /**
      * Creates a DeadlineTask object based on the description and by string.
      *
-     * @param taskDescription of the task.
-     * @param by              deadline of the task.
+     * @param taskDescription TaskDescription of the task.
+     * @param by              By date of the task.
      * @return DeadlineTask object.
      * @throws DukeException if the date is not in the format of yyyy-mm-dd.
      */
@@ -139,9 +139,9 @@ public class Storage {
     /**
      * Creates an EventTask object based on the description, from and to string.
      *
-     * @param taskDescription of the task.
-     * @param from            start date of the task.
-     * @param to              end date of the task.
+     * @param taskDescription TaskDescription of the task.
+     * @param from            From date of the task.
+     * @param to              To date of the task.
      * @return EventTask object.
      * @throws DukeException if the date is not in the format of yyyy-mm-dd.
      */
@@ -154,8 +154,8 @@ public class Storage {
     /**
      * Parses the date string to LocalDate object.
      *
-     * @param date date string in the format of yyyy-mm-dd.
-     * @return LocalDate object.
+     * @param date Date string in the format of yyyy-mm-dd.
+     * @return LocalDate  of the date object.
      * @throws DukeException DukeException if the date is not in the format of yyyy-mm-dd.
      */
     private static LocalDate parseDate(String date) throws DukeException {

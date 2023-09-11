@@ -21,7 +21,7 @@ public class Parser {
     /**
      * Returns the Command from the user input.
      *
-     * @param userInput user input.
+     * @param userInput User input from the text box.
      * @return Command based on the user input.
      * @throws DukeException if user input gives an invalid command.
      */
