@@ -1,0 +1,3 @@
+[T][x] asdfghj
+[T][ ]  abcdefg
+[T][ ]  try
