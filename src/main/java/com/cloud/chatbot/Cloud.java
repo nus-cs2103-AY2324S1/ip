@@ -43,17 +43,17 @@ public final class Cloud {
             }
 
             Cloud.ITEM_MANAGER.add(item);
-            Cloud.say(item.toString(Cloud.ITEM_MANAGER.getCount()));
+            Ui.say(item.toString(Cloud.ITEM_MANAGER.getCount()));
             break;
         }
         case LIST: {
             if (Cloud.ITEM_MANAGER.getCount() <= 0) {
-                Cloud.say("Your item list is empty.");
+                Ui.say("Your item list is empty.");
                 break;
             }
 
             for (int number = 1; number <= Cloud.ITEM_MANAGER.getCount(); number++) {
-                Cloud.say(
+                Ui.say(
                     Cloud.ITEM_MANAGER.getString(number)
                 );
             }
@@ -66,7 +66,7 @@ public final class Cloud {
             }
 
             Cloud.ITEM_MANAGER.setComplete(number, true);
-            Cloud.say(
+            Ui.say(
                 Cloud.ITEM_MANAGER.getString(number)
             );
             break;
@@ -78,7 +78,7 @@ public final class Cloud {
             }
 
             Cloud.ITEM_MANAGER.setComplete(number, false);
-            Cloud.say(
+            Ui.say(
                 Cloud.ITEM_MANAGER.getString(number)
             );
             break;
@@ -90,17 +90,17 @@ public final class Cloud {
             }
 
             Item item = Cloud.ITEM_MANAGER.remove(number);
-            Cloud.say("Yeeted:");
-            Cloud.say(item.toString(number));
+            Ui.say("Yeeted:");
+            Ui.say(item.toString(number));
             break;
         }
         case EXIT: {
-            Cloud.say("\\o");
+            Ui.say("\\o");
             System.exit(0);
             break;
         }
         default: {
-            Cloud.say(
+            Ui.say(
                 String.format(
                     "\"%s\" is not a valid command.",
                     command
@@ -116,7 +116,7 @@ public final class Cloud {
         try {
             description = manager.getDetails();
         } catch (MissingInputException e) {
-            Cloud.say("Please enter a description for your item.");
+            Ui.say("Please enter a description for your item.");
             return null;
         }
 
@@ -139,7 +139,7 @@ public final class Cloud {
                 );
             }
         } catch (MissingFlagInputException e) {
-            Cloud.say(
+            Ui.say(
                 String.format(
                     "Please enter a description for the \"%s\" flag.",
                     e.getFlagText()
@@ -147,10 +147,10 @@ public final class Cloud {
             );
             return null;
         } catch (DateTimeParseException e) {
-            Cloud.say("Please use a valid timestamp format.");
+            Ui.say("Please use a valid timestamp format.");
             return null;
         } catch (IllegalTimestampException e) {
-            Cloud.say("Please enter a logical timestamp range.");
+            Ui.say("Please enter a logical timestamp range.");
             return null;
         }
 
@@ -164,7 +164,7 @@ public final class Cloud {
 
         Token numberToken = manager.getToken(1);
         if (!numberToken.isInt()) {
-            Cloud.say(
+            Ui.say(
                 String.format(
                     "\"%s\" is not a valid number.",
                     numberToken.toString()
@@ -174,7 +174,7 @@ public final class Cloud {
         }
 
         if (!numberToken.isValidNumber(Cloud.ITEM_MANAGER.getCount())) {
-            Cloud.say(
+            Ui.say(
                 String.format(
                     "Item #%d does not exist.",
                     numberToken.toInt()
@@ -186,28 +186,20 @@ public final class Cloud {
         return numberToken.toInt();
     }
 
-    private static void say(String text) {
-        System.out.println(text);
-    }
-
-    private static void inputMarker() {
-        System.out.print("\n>>> ");
-    }
-
     /**
      * The chatbot's main method.
      *
      * @param args Java arguments.
      */
     public static void main(String[] args) {
-        Cloud.say("Cloud online.");
-        Cloud.inputMarker();
+        Ui.say("Cloud online.");
+        Ui.inputMarker();
 
         while (Cloud.SCANNER.hasNextLine()) {
             String input = Cloud.SCANNER.nextLine();
             Cloud.handle(input);
 
-            Cloud.inputMarker();
+            Ui.inputMarker();
         }
     }
 }

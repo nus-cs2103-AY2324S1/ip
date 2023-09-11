@@ -8,20 +8,21 @@ import java.nio.file.Paths;
 
 import org.json.JSONObject;
 
+import com.cloud.chatbot.Ui;
 import com.cloud.chatbot.annotations.Nullable;
 
 
 
 /**
- * Handles reading from and writing to disk.
+ * Handles reading from and writing to file.
  */
-public final class FileManager {
+public final class FileStorage {
     private static final String RELATIVE_PATH = "./data/items.json";
 
     /**
-     * Initialises the FileManager.
+     * Initialises the FileStorage.
      */
-    public FileManager() {
+    public FileStorage() {
         // Create directories as needed
         File file = getFile();
         File folder = file.getParentFile();
@@ -29,11 +30,11 @@ public final class FileManager {
     }
 
     private File getFile() {
-        return Paths.get(FileManager.RELATIVE_PATH).toFile();
+        return Paths.get(FileStorage.RELATIVE_PATH).toFile();
     }
 
     /**
-     * Returns a JSON object by reading from disk.
+     * Returns a JSON object by reading from file.
      */
     public @Nullable JSONObject read() {
         String string;
@@ -48,7 +49,7 @@ public final class FileManager {
     }
 
     /**
-     * Writes the specified JSON object to disk.
+     * Writes the specified JSON object to file.
      *
      * @param json The JSON object to write.
      */
@@ -57,24 +58,30 @@ public final class FileManager {
         try {
             writer = new FileWriter(this.getFile());
         } catch (IOException e) {
-            System.err.println("ERR Could not create FileWriter!");
-            System.err.println(e);
+            Ui.error(
+                "Could not create FileWriter",
+                e
+            );
             return;
         }
 
         try {
             writer.write(json.toString(4));
         } catch (IOException e) {
-            System.err.println("ERR Could not write to file!");
-            System.err.println(e);
+            Ui.error(
+                "Could not write to file",
+                e
+            );
             return;
         }
 
         try {
             writer.close();
         } catch (IOException e) {
-            System.err.println("ERR Could not close FileWriter!");
-            System.err.println(e);
+            Ui.error(
+                "Could not close FileWriter",
+                e
+            );
             return;
         }
     }

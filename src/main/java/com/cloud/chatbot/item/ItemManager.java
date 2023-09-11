@@ -8,9 +8,10 @@ import java.util.stream.Collectors;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.cloud.chatbot.Ui;
 import com.cloud.chatbot.annotations.Nullable;
 import com.cloud.chatbot.exceptions.IllegalTimestampException;
-import com.cloud.chatbot.file.FileManager;
+import com.cloud.chatbot.file.FileStorage;
 import com.cloud.chatbot.file.Key;
 
 
@@ -19,7 +20,7 @@ import com.cloud.chatbot.file.Key;
  * Manages all Items while the bot is running.
  */
 public class ItemManager {
-    private FileManager fileManager = new FileManager();
+    private FileStorage fileManager = new FileStorage();
     private List<Item> items = new ArrayList<>();
 
     /**
@@ -70,21 +71,22 @@ public class ItemManager {
                     Instant.ofEpochMilli(endEpoch)
                 );
             } catch (IllegalTimestampException e) {
-                System.err.println(
-                    "ERR Could not import JSON event with illegal timestamp!"
+                Ui.error(
+                    "Could not import JSON event with illegal timestamp",
+                    json
                 );
-                System.err.println(json);
                 return;
             }
 
             break;
         }
-        default:
-            System.err.println(
-                "ERR Could not import JSON item with unsupported type!"
+        default: {
+            Ui.error(
+                "Could not import JSON item with unknown type",
+                json
             );
-            System.err.println(json);
             return;
+        }
         }
 
         item.setComplete(isComplete);
