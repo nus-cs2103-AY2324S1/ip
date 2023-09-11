@@ -105,10 +105,15 @@ public class Parser {
      * @return The type of note-related command as an enum.
      */
     private NoteCommandType getNoteCommandType(String userInput) {
-        if (userInput.startsWith("note list")) return NoteCommandType.LIST;
-        if (userInput.startsWith("note add")) return NoteCommandType.ADD;
-        if (userInput.startsWith("note delete")) return NoteCommandType.DELETE;
-        return NoteCommandType.UNKNOWN;
+        if (userInput.startsWith("note list")) {
+            return NoteCommandType.LIST;
+        } else if (userInput.startsWith("note add")) {
+            return NoteCommandType.ADD;
+        } else if (userInput.startsWith("note delete")) {
+            return NoteCommandType.DELETE;
+        } else {
+            return NoteCommandType.UNKNOWNNNOTECOMMAND;
+        }
     }
 
     /**
@@ -118,35 +123,30 @@ public class Parser {
      */
     private String handleNoteCommand(String userInput, NoteList noteList, Storage noteStorage) {
         NoteCommandType commandType = getNoteCommandType(userInput);
-
         switch (commandType) {
-            case LIST:
-                return "Here are the notes in your list:\n" + noteList.toString();
-
-            case ADD:
-                String[] addInputParts = userInput.split(" ");
-                if (addInputParts.length < 3) {
-                    return "Please provide content for the note.";
-                }
-                String noteContent = userInput.substring(9); // Adjust the substring index
-                Note note = new Note(noteContent);
-                noteList.add(note);
-                saveNotes(noteList.toString(), noteStorage);
-                return "Note added: " + note.toString();
-
-
-            case DELETE:
-                String[] deleteInputParts = userInput.split(" ");
-                if (deleteInputParts.length < 3) {
-                    return "Please provide a valid note number to delete.";
-                }
-                int deleteNoteNumber = Integer.parseInt(deleteInputParts[2]);
-                String deleteNoteMessage = noteList.delete(deleteNoteNumber - 1);
-                saveNotes(noteList.toString(), noteStorage);
-                return "Note deleted successfully!\n" + deleteNoteMessage;
-
-            default:
-                return "OOPS!!! I'm sorry, but I don't know what that means for notes :-(";
+        case LIST:
+            return "Here are the notes in your list:\n" + noteList.toString();
+        case ADD:
+            String[] addInputParts = userInput.split(" ");
+            if (addInputParts.length < 3) {
+                return "Please provide content for the note.";
+            }
+            String noteContent = userInput.substring(9); // Adjust the substring index
+            Note note = new Note(noteContent);
+            noteList.add(note);
+            saveNotes(noteList.toString(), noteStorage);
+            return "Note added: " + note.toString();
+        case DELETE:
+            String[] deleteInputParts = userInput.split(" ");
+            if (deleteInputParts.length < 3) {
+                return "Please provide a valid note number to delete.";
+            }
+            int deleteNoteNumber = Integer.parseInt(deleteInputParts[2]);
+            String deleteNoteMessage = noteList.delete(deleteNoteNumber - 1);
+            saveNotes(noteList.toString(), noteStorage);
+            return "Note deleted successfully!\n" + deleteNoteMessage;
+        default:
+            return "OOPS!!! I'm sorry, but I don't know what that means for notes :-(";
         }
     }
 
@@ -159,57 +159,62 @@ public class Parser {
      * @return A string response after processing the command.
      */
     private String handleTaskCommands(String userInput, TaskList taskList, Storage storage) {
-        CommandType commandType = getCommandType(userInput);
-
+        TaskCommandType commandType = getCommandType(userInput);
         switch (commandType) {
-            case LIST:
-                return "Here are the tasks in your list:\n" + taskList.toString();
+        case LIST:
+            return "Here are the tasks in your list:\n" + taskList.toString();
+        case UNMARK:
+            int unmarkTaskNumber = Integer.parseInt(userInput.split(" ")[1]);
+            String unmarkMessage = taskList.unmark(unmarkTaskNumber - 1);
+            saveTasks(taskList.toString(), storage);
+            return "Nice! I've marked this task as not done yet: \n" + unmarkMessage;
 
-            case UNMARK:
-                int unmarkTaskNumber = Integer.parseInt(userInput.split(" ")[1]);
-                String unmarkMessage = taskList.unmark(unmarkTaskNumber - 1);
-                saveTasks(taskList.toString(), storage);
-                return "Nice! I've marked this task as not done yet: \n" + unmarkMessage;
+        case MARK:
+            int markTaskNumber = Integer.parseInt(userInput.split(" ")[1]);
+            String markMessage = taskList.mark(markTaskNumber - 1);
+            saveTasks(taskList.toString(), storage);
+            return "Nice! I've marked this task as done:\n" + markMessage;
 
-            case MARK:
-                int markTaskNumber = Integer.parseInt(userInput.split(" ")[1]);
-                String markMessage = taskList.mark(markTaskNumber - 1);
-                saveTasks(taskList.toString(), storage);
-                return "Nice! I've marked this task as done:\n" + markMessage;
+        case DELETE:
+            int deleteTaskNumber = Integer.parseInt(userInput.split(" ")[1]);
+            String deleteMessage = taskList.delete(deleteTaskNumber - 1);
+            saveTasks(taskList.toString(), storage);
+            return "Task deleted successfully!\n" + deleteMessage;
 
-            case DELETE:
-                int deleteTaskNumber = Integer.parseInt(userInput.split(" ")[1]);
-                String deleteMessage = taskList.delete(deleteTaskNumber - 1);
-                saveTasks(taskList.toString(), storage);
-                return "Task deleted successfully!\n" + deleteMessage;
+        case FIND:
+            String[] findInput = userInput.split(" ", 2);
+            if (findInput.length < 2 || findInput[1].trim().isEmpty()) {
+                return "Oops! Please add a keyword to search for!";
+            }
+            TaskList result = taskList.findTasks(findInput[1]);
+            return "Here are the matching tasks in your list:\n" + result.toString();
 
-            case FIND:
-                String[] findInput = userInput.split(" ", 2);
-                if (findInput.length < 2 || findInput[1].trim().isEmpty()) {
-                    return "Oops! Please add a keyword to search for!";
-                }
-                TaskList result = taskList.findTasks(findInput[1]);
-                return "Here are the matching tasks in your list:\n" + result.toString();
+        case TODO:
+            return handleTodoCommand(userInput, taskList, storage);
 
-            case TODO:
-                return handleTodoCommand(userInput, taskList, storage);
+        case DEADLINE:
+            return handleDeadlineCommand(userInput, taskList, storage);
 
-            case DEADLINE:
-                return handleDeadlineCommand(userInput, taskList, storage);
+        case EVENT:
+            return handleEventCommand(userInput, taskList, storage);
 
-            case EVENT:
-                return handleEventCommand(userInput, taskList, storage);
-
-            default:
-                return "OOPS!!! I'm sorry, but I don't know what that means :-(";
+        default:
+            return "OOPS!!! I'm sorry, but I don't know what that means :-(";
         }
     }
 
+    /**
+     * Represents the types of commands specifically related to notes in the Friday application.
+     */
     public enum NoteCommandType {
-        LIST, ADD, DELETE, UNKNOWN
+        LIST, ADD, DELETE, UNKNOWNNNOTECOMMAND
     }
-    public enum CommandType {
-        UNMARK, MARK, DELETE, FIND, TODO, DEADLINE, EVENT, LIST, UNKNOWN, NOTE
+
+    /**
+     * Represents the types of commands in the Friday application.
+     */
+    public enum TaskCommandType {
+        UNMARK, MARK, DELETE, FIND, TODO, DEADLINE, EVENT, LIST, UNKNOWNTASKCOMMAND
     }
 
     /**
@@ -218,32 +223,26 @@ public class Parser {
      * @param userInput The command input by the user.
      * @return The type of command as a string.
      */
-    private CommandType getCommandType(String userInput) {
+    private TaskCommandType getCommandType(String userInput) {
         if (userInput.contains("list")) {
-            return CommandType.LIST;
+            return TaskCommandType.LIST;
+        } else if (userInput.contains("unmark")) {
+            return TaskCommandType.UNMARK;
+        } else if (userInput.contains("mark")) {
+            return TaskCommandType.MARK;
+        } else if (userInput.contains("delete")) {
+            return TaskCommandType.DELETE;
+        } else if (userInput.contains("find")) {
+            return TaskCommandType.FIND;
+        } else if (userInput.contains("todo")) {
+            return TaskCommandType.TODO;
+        } else if (userInput.contains("deadline")) {
+            return TaskCommandType.DEADLINE;
+        } else if (userInput.contains("event")) {
+            return TaskCommandType.EVENT;
+        } else {
+            return TaskCommandType.UNKNOWNTASKCOMMAND;
         }
-        else if (userInput.contains("unmark")) {
-            return CommandType.UNMARK;
-        }
-        else if (userInput.contains("mark")) {
-            return CommandType.MARK;
-        }
-        else if (userInput.contains("delete")) {
-            return CommandType.DELETE;
-        }
-        else if (userInput.contains("find")) {
-            return CommandType.FIND;
-        }
-        else if (userInput.contains("todo")) {
-            return CommandType.TODO;
-        }
-        else if (userInput.contains("deadline")) {
-            return CommandType.DEADLINE;
-        }
-        else if (userInput.contains("event")) {
-            return CommandType.EVENT;
-        }
-        return CommandType.UNKNOWN;
     }
 
     /**
@@ -301,7 +300,9 @@ public class Parser {
     private String handleEventCommand(String userInput, TaskList taskList, Storage storage) {
         String[] commandAndDetails = userInput.split(" ", 2);
         if (commandAndDetails.length < 2 || !userInput.contains("/from") || !userInput.contains("/to")) {
-            return "Incorrect format for 'event'. Expected format: event TASK_DESCRIPTION /from START_TIME /to END_TIME";
+            return "Incorrect format for 'event'. "
+                    +
+                    "Expected format: event TASK_DESCRIPTION /from START_TIME /to END_TIME";
         }
         String[] taskAndTimes = commandAndDetails[1].split(" /from | /to ", 3);
         if (taskAndTimes.length < 3) {

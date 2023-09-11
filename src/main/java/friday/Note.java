@@ -25,6 +25,6 @@ public class Note extends Item {
 
     @Override
     public String toString() {
-        return getContent();  // Return the content of the note
+        return getContent();
     }
 }
