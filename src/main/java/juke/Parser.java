@@ -5,6 +5,13 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The parser is in charge of understanding user input
+ * and calling the appropriate Juke method to handle that
+ * input.
+ *
+ * @author lshaoqin
+ */
 public class Parser {
     protected Juke juke;
     public Parser(Juke juke) {
