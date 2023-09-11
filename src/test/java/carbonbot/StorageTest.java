@@ -12,7 +12,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class StorageTest {
-    private static final String TEST_PATH = "/cs2103-tmp/test/tasks.txt";
+    private static final String TEST_PATH = "./cs2103-tmp/test/tasks.txt";
 
     @Test
     public void testWriteLoad() throws IOException {
