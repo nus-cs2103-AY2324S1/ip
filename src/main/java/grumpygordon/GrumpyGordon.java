@@ -7,7 +7,8 @@ import grumpygordon.exceptions.GrumpyGordonInvalidCommandException;
 import grumpygordon.parser.Parser;
 import grumpygordon.storage.Storage;
 import grumpygordon.tasks.TaskList;
-import grumpygordon.ui.Ui;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 /**
  * GrumpyGordon Chatbot
@@ -24,11 +25,6 @@ public class GrumpyGordon {
     private TaskList tasks;
 
     /**
-     * User interface for GrumpyGordon.
-     */
-    private Ui ui;
-
-    /**
      * Constructor for GrumpyGordon.
      * @throws GrumpyGordonException If GrumpyGordon fails to initialise
      */
@@ -39,7 +35,6 @@ public class GrumpyGordon {
         } catch (GrumpyGordonInitialisationException e) {
             this.tasks = new TaskList();
         }
-        this.ui = new Ui(tasks, storage);
     }
 
     /**
@@ -50,16 +45,17 @@ public class GrumpyGordon {
     public String getResponse(String userInput) {
         try {
             Command command = Parser.parseCommand(userInput, this.tasks);
-            return command.execute(tasks, this.ui, storage);
+            return command.execute(tasks, storage);
         } catch (GrumpyGordonInvalidCommandException e) {
             return e.getMessage();
         }
     }
 
     /**
-     * Runs GrumpyGordon.
+     * Main method for GrumpyGordon.
+     * @param args Command line arguments
      */
-    public void run() {
-        this.ui.run();
+    public static void main(String[] args) {
+        Application.launch(Main.class, args);
     }
 }

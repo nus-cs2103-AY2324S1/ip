@@ -2,7 +2,6 @@ package grumpygordon.commands;
 
 import grumpygordon.storage.Storage;
 import grumpygordon.tasks.TaskList;
-import grumpygordon.ui.Ui;
 
 /**
  * Represents a command to find tasks.
@@ -24,12 +23,11 @@ public class FindCommand extends Command {
     /**
      * Executes the command.
      * @param tasks The list of tasks
-     * @param ui The user interface
      * @param storage The storage
      * @return The output string
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         if (tasks.size() == 0) {
             return "There are no matching tasks in your list!";
         }

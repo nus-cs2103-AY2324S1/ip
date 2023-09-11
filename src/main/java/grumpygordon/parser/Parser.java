@@ -197,6 +197,7 @@ public class Parser {
             if (parts.length == 1) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for mark is incorrect.\n");
             }
+            assert parts.length > 1 : "parts.length should be more than 1";
             if (!Pattern.matches(MARK_REGEX, userInput)) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for mark is incorrect.\n");
             }
@@ -216,6 +217,7 @@ public class Parser {
             if (parts.length == 1) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for unmark is incorrect.\n");
             }
+            assert parts.length > 1 : "parts.length should be more than 1";
             if (!Pattern.matches(UNMARK_REGEX, userInput)) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for unmark is incorrect.\n");
             }
@@ -235,6 +237,7 @@ public class Parser {
             if (parts.length == 1) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for delete is incorrect.\n");
             }
+            assert parts.length > 1 : "parts.length should be more than 1";
             if (!Pattern.matches(DELETE_REGEX, userInput)) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for delete is incorrect.\n");
             }
@@ -254,6 +257,7 @@ public class Parser {
             if (parts.length == 1) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for find is incorrect.\n");
             }
+            assert parts.length > 1 : "parts.length should be more than 1";
             if (!Pattern.matches(FIND_REGEX, userInput)) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for find is incorrect.\n");
             }
@@ -263,6 +267,7 @@ public class Parser {
             if (parts.length == 1) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for todo is incorrect.\n");
             }
+            assert parts.length > 1 : "parts.length should be more than 1";
             String todoInfo = parts[1];
             if (todoInfo.isBlank()) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for todo is incorrect.\n");
@@ -272,6 +277,7 @@ public class Parser {
             if (parts.length == 1) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for deadline is incorrect.\n");
             }
+            assert parts.length > 1 : "parts.length should be more than 1";
             String deadlineInfo = parts[1];
             if (!Pattern.matches(DEADLINE_INFO_REGEX, deadlineInfo)) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for deadline is incorrect.\n");
@@ -286,6 +292,7 @@ public class Parser {
             if (parts.length == 1) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for event is incorrect.\n");
             }
+            assert parts.length > 1 : "parts.length should be more than 1";
             String eventInfo = parts[1];
             if (!Pattern.matches(EVENT_INFO_REGEX, eventInfo)) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for event is incorrect.\n");

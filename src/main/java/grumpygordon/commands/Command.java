@@ -2,7 +2,6 @@ package grumpygordon.commands;
 
 import grumpygordon.storage.Storage;
 import grumpygordon.tasks.TaskList;
-import grumpygordon.ui.Ui;
 
 /**
  * Represents a generic command for GrumpyGordon.
@@ -11,11 +10,10 @@ public abstract class Command {
     /**
      * Executes the command.
      * @param taskList The list of tasks
-     * @param ui The user interface
      * @param storage The storage
      * @return The output string
      */
-    public abstract String execute(TaskList taskList, Ui ui, Storage storage);
+    public abstract String execute(TaskList taskList, Storage storage);
 
     /**
      * Returns true if the command is an exit command.
