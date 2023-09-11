@@ -1,11 +1,11 @@
 package adam.command;
 
 import adam.Storage;
-import adam.Ui;
 import adam.TaskList;
+import adam.Ui;
 import adam.exception.DateException;
-import adam.exception.DescriptionException;
 import adam.exception.DeadlineException;
+import adam.exception.DescriptionException;
 import adam.exception.EventException;
 
 import java.time.LocalDate;
@@ -32,6 +32,55 @@ public class AddCommand implements Command {
         this.input = input;
     }
 
+    public String checkDeadline(TaskList tasks) {
+        String[] by = item.split(" /by ");
+        if (by.length == 0) {
+            throw new DescriptionException();
+        }
+        if (by[0].equals("")) {
+            throw new DescriptionException();
+        }
+        if (by.length != 2) {
+            throw new DeadlineException();
+        }
+        try {
+            LocalDate.parse(by[1]);
+        } catch (DateTimeParseException e) {
+            throw new DateException();
+        }
+        return  tasks.addDeadline(by[0], by[1]);
+    }
+
+    public String checkEvent(TaskList tasks) {
+        String[] divide1 = item.split(" /from ");
+        if (divide1.length == 0) {
+            throw new DescriptionException();
+        }
+        if (divide1[0].equals("")) {
+            throw new DescriptionException();
+        }
+        if (divide1.length != 2) {
+            throw new EventException();
+        }
+        String text = divide1[0];
+        String[] divide2 = divide1[1].split(" /to ");
+        if (divide2.length != 2) {
+            throw new EventException();
+        }
+        String from = divide2[0];
+        String to = divide2[1];
+        try {
+            LocalDate.parse(from);
+        } catch (DateTimeParseException e) {
+            throw new DateException();
+        }
+        try {
+            LocalDate.parse(to);
+        } catch (DateTimeParseException e) {
+            throw new DateException();
+        }
+        return tasks.addEvent(text, from, to);
+    }
     /**
      * Calls the right add method for each kinds of Task while also checking for input errors.
      *
@@ -50,52 +99,10 @@ public class AddCommand implements Command {
             respond = tasks.addTodo(item);
             break;
         case "deadline":
-            String[] by = item.split(" /by ");
-            if (by.length == 0) {
-                throw new DescriptionException();
-            }
-            if (by[0].equals("")) {
-                throw new DescriptionException();
-            }
-            if (by.length != 2) {
-                throw new DeadlineException();
-            }
-            try {
-                LocalDate.parse(by[1]);
-            } catch (DateTimeParseException e) {
-                throw new DateException();
-            }
-            respond = tasks.addDeadline(by[0], by[1]);
+            respond = checkDeadline(tasks);
             break;
         case "event":
-            String[] divide1 = item.split(" /from ");
-            if (divide1.length == 0) {
-                throw new DescriptionException();
-            }
-            if (divide1[0].equals("")) {
-                throw new DescriptionException();
-            }
-            if (divide1.length != 2) {
-                throw new EventException();
-            }
-            String text = divide1[0];
-            String[] divide2 = divide1[1].split(" /to ");
-            if (divide2.length != 2) {
-                throw new EventException();
-            }
-            String from = divide2[0];
-            String to = divide2[1];
-            try {
-                LocalDate.parse(from);
-            } catch (DateTimeParseException e) {
-                throw new DateException();
-            }
-            try {
-                LocalDate.parse(to);
-            } catch (DateTimeParseException e) {
-                throw new DateException();
-            }
-            respond = tasks.addEvent(text, from, to);
+            respond = checkEvent(tasks);
             break;
         default:
             respond = "Wrong input";
