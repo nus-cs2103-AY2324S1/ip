@@ -23,9 +23,19 @@ public class Task implements Serializable {
     public String getDescription() {
         return this.description;
     }
+
+    /**
+     * Marks the task as done.
+     * If the task is already marked as done, this method has no effect.
+     */
     public void mark() {
         this.isDone = true;
     }
+
+    /**
+     * Marks the task as not done.
+     * If the task is already marked as not done, this method has no effect.
+     */
     public void unmark() {
         this.isDone = false;
     }
