@@ -84,29 +84,42 @@ public class TaskHandler {
     }
 
     public String getResponse() {
+
+        String out = "Gomen Peko I don't understand";
+        ;
         try {
 
             switch (command) {
                 case ECHO:
-                    return echo();
+                    out = echo();
+                    break;
                 case LIST:
-                    return readArray();
+                    out = readArray();
+                    break;
                 case WRITE:
-                    return addToArray();
+                    out = addToArray();
+                    break;
                 case MARK:
-                    return mark(description);
+                    out = mark(description);
+                    break;
                 case UNMARK:
-                    return unmark(description);
+                    out = unmark(description);
+                    break;
                 case TODO:
-                    return todo(description);
+                    out = todo(description);
+                    break;
                 case DEADLINE:
-                    return deadline(description);
+                    out = deadline(description);
+                    break;
                 case EVENT:
-                    return Event(description);
+                    out = Event(description);
+                    break;
                 case FIND:
-                    return Find(description);
+                    out = Find(description);
+                    break;
                 case DELETE:
-                    return delete(description);
+                    out = delete(description);
+                    break;
                 case COPYPASTA:
                     try {
                         return StorageHandler.degen();
@@ -120,17 +133,19 @@ public class TaskHandler {
                     SaveHandler.saveTo();
                     return "";
                 default:
-                    return "Gomen Peko I don't understand";
-
+                    System.out.println(out);
+                    return out;
             }
         } catch (InvalidTaskException e) {
             System.out.println(e);
             return e.toString();
         } catch (NumberFormatException e) {
-            String out = ("That's not a number Bakatare!");
+            out = ("That's not a number Bakatare!");
 
             return out;
         }
+        System.out.println(out);
+        return out;
     }
 
     public boolean run() {

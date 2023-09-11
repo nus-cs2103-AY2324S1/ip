@@ -31,11 +31,11 @@ public class Peko extends Application implements EventHandler<ActionEvent> {
     private Image user = new Image(this.getClass().getResourceAsStream("/Pics/tumblr_cd531dc8ea0423c248426f9f8cf65f72_1a341469_1280.png"));
 
     public static void main(String[] args) {
-
-        Application.launch(GUIController.class, args);
+        //Application.launch(GUIController.class, args);
         new Peko().run();
+
     }
-    private void run() {
+    public void run() {
         Output.intro();
         while (true) {
             userInputHandler.newInput();
@@ -44,6 +44,7 @@ public class Peko extends Application implements EventHandler<ActionEvent> {
             }
             SaveHandler.saveTo();
         }
+        System.out.println("End");
         Output.exit();
 
     }
@@ -76,7 +77,7 @@ public class Peko extends Application implements EventHandler<ActionEvent> {
 
         stage.setScene(scene);
         stage.show();
-        stage.setTitle("Duke");
+        stage.setTitle("PekoBot");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -130,7 +131,10 @@ public class Peko extends Application implements EventHandler<ActionEvent> {
         return textToAdd;
     }
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
+        String text = userInput.getText();
+        Label userText = new Label(text);
+        userInputHandler.newInput(text);
+        userInputHandler.processInput();
         Label dukeText = new Label(getResponse(userInput.getText()));
         DialogBox userDB = DialogBox.getUserDialog(userText, new ImageView(user));
         DialogBox pekoDB = DialogBox.getPekoDialog(dukeText, new ImageView(peko));
