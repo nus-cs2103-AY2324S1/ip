@@ -21,6 +21,7 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
         this.formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
+        assert this.by != null : "by should not be null";
     }
 
     /**

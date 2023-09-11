@@ -86,6 +86,7 @@ public class Storage {
             }
             nextTask = reader.readLine();
         }
+        assert nextTask == null : "There are still tasks to be read";
         reader.close();
         return tasks;
     }

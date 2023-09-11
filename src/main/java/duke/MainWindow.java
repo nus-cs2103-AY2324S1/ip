@@ -48,6 +48,8 @@ public class MainWindow extends AnchorPane {
     public void setDuke(Duke d, Stage stage) {
         this.stage = stage;
         this.duke = d;
+        assert this.stage != null : "stage should not be null";
+        assert this.duke != null : "duke should not be null";
     }
 
     /**

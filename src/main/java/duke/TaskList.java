@@ -131,6 +131,7 @@ public class TaskList {
         if (taskNumber > this.tasks.size() || taskNumber <= 0) {
             throw new DukeException(ExceptionTypes.INVALIDTASKNUMBER);
         }
+        assert taskNumber > 0 && taskNumber <= this.tasks.size() : "Invalid task number";
         Task task = this.tasks.get(taskNumber - 1);
         this.tasks.remove(task);
         return printRemoveTaskSuccessMessage(task);
