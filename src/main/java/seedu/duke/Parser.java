@@ -59,6 +59,8 @@ public class Parser {
                 }
             } catch (DukeException e) {
                 return e.getMessage();
+            } catch (AssertionError e) {
+                return "Assertion failed: " + e.getMessage();
             }
         }
         return exit();
