@@ -92,6 +92,7 @@ public class Storage {
             file.getParentFile().mkdirs();
             // Creates the specified file at the file path
             file.createNewFile();
+            assert file.exists();
         }
 
         // Writes the data to the file

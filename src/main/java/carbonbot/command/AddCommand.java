@@ -25,6 +25,7 @@ public class AddCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws CarbonStorageException {
         // Add the task to the TaskList
         tasks.add(this.task);
+        assert(tasks.get(tasks.size()) == this.task);
 
         ui.bufferMessage("Got it. I've added this task:");
         ui.bufferMessage(this.task.toString());

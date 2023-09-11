@@ -34,6 +34,8 @@ public class MarkCommand extends Command {
             throw new CarbonInvalidIndexException();
         }
 
+        assert task != null;
+
         if (isMark) {
             ui.bufferMessage("Nice! I've marked this task as done:");
             task.markAsDone();
