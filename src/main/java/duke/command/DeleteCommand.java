@@ -30,6 +30,8 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        assert index < 0 : "Index cannot be negative";
+
         if (index >= taskList.size() || index < 0) {
             throw new DukeException("OOPS!!! Invalid index to be deleted!");
         } else {
