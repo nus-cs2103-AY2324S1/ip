@@ -85,7 +85,7 @@ public class Parser {
      * @return An Integer if parse was successful.
      * @throws DukeException If parse was unsuccessful.
      */
-    public static Integer parseIntger(String s) throws DukeException {
+    public static Integer parseInteger(String s) throws DukeException {
         Integer l;
         try {
             l = Integer.parseInt(s);
@@ -101,13 +101,13 @@ public class Parser {
      * @return An instance of Instruction.Mark.
      * @throws DukeException If parse was unsuccessful.
      */
-    public static Instruction markParser(Matcher matcher) throws DukeException {
+    public static Instruction parseMark(Matcher matcher) throws DukeException {
         if (matcher.group("description") == null) {
             throw new DukeException("Invalid format for mark. Try again.");
         } else if (matcher.group("description").isBlank()) {
             throw new DukeException("Description of deadline cannot be empty. Try again.");
         } else {
-            return new Instruction.Mark(Parser.parseIntger(matcher.group("description").trim()));
+            return new Instruction.Mark(Parser.parseInteger(matcher.group("description").trim()));
         }
     }
 
@@ -118,13 +118,13 @@ public class Parser {
      * @return An instance of Instruction.Unmark.
      * @throws DukeException If parse was unsuccessful.
      */
-    public static Instruction unmarkParser(Matcher matcher) throws DukeException {
+    public static Instruction parseUnmark(Matcher matcher) throws DukeException {
         if (matcher.group("description") == null) {
             throw new DukeException("Invalid format for unmark. Try again.");
         } else if (matcher.group("description").isBlank()) {
             throw new DukeException("Description of unmark cannot be empty. Try again.");
         } else {
-            return new Instruction.Mark(Parser.parseIntger(matcher.group("description").trim()));
+            return new Instruction.Mark(Parser.parseInteger(matcher.group("description").trim()));
         }
     }
 
@@ -135,13 +135,13 @@ public class Parser {
      * @return An instance of Instruction.Delete.
      * @throws DukeException If parse was unsuccessful.
      */
-    public static Instruction deleteParser(Matcher matcher) throws DukeException {
+    public static Instruction parseDelete(Matcher matcher) throws DukeException {
         if (matcher.group("description") == null) {
             throw new DukeException("Invalid format for delete. Try again.");
         } else if (matcher.group("description").isBlank()) {
             throw new DukeException("Description of delete cannot be empty. Try again.");
         } else {
-            return new Instruction.Mark(Parser.parseIntger(matcher.group("description").trim()));
+            return new Instruction.Mark(Parser.parseInteger(matcher.group("description").trim()));
         }
     }
 
@@ -152,7 +152,7 @@ public class Parser {
      * @return An instance of Instruction.Find.
      * @throws DukeException If parse was unsuccessful.
      */
-    public static Instruction findParser(Matcher matcher) throws DukeException {
+    public static Instruction parseFind(Matcher matcher) throws DukeException {
         if (matcher.group("description") == null) {
             throw new DukeException("Invalid format for find. Try again.");
         } else if (matcher.group("description").isBlank()) {
@@ -169,7 +169,7 @@ public class Parser {
      * @return An instance of Todo.
      * @throws DukeException If parse was unsuccessful.
      */
-    public static Task todoParser(Matcher matcher) throws DukeException {
+    public static Task parseTodo(Matcher matcher) throws DukeException {
         if (matcher.group("description") == null) {
             throw new DukeException("Invalid format for todo. Try again.");
         } else if (matcher.group("description").isBlank()) {
@@ -186,7 +186,7 @@ public class Parser {
      * @return An instance of Deadline.
      * @throws DukeException If parse was unsuccessful.
      */
-    public static Task deadlineParser(Matcher matcher, DateTimeFormatter d) throws DukeException {
+    public static Task parseDeadline(Matcher matcher, DateTimeFormatter d) throws DukeException {
         if (matcher.group("deadlineDescription") == null) {
             throw new DukeException("Invalid format for deadline. Try again.");
         } else if (matcher.group("deadlineDescription").isBlank()) {
@@ -208,7 +208,7 @@ public class Parser {
      * @return An instance of Event.
      * @throws DukeException If parse was unsuccessful.
      */
-    public static Task eventParser(Matcher matcher, DateTimeFormatter d) throws DukeException {
+    public static Task parseEvent(Matcher matcher, DateTimeFormatter d) throws DukeException {
         if (matcher.group("eventDescription") == null) {
             throw new DukeException("Invalid format for event. Try again.");
         } else if (matcher.group("eventDescription").isBlank()) {
@@ -244,18 +244,18 @@ public class Parser {
         case LIST:
             return new Instruction.List();
         case MARK:
-            return Parser.markParser(matcher);
+            return Parser.parseMark(matcher);
         case UNMARK:
-            return Parser.unmarkParser(matcher);
+            return Parser.parseUnmark(matcher);
         case DELETE:
-            return Parser.deleteParser(matcher);
+            return Parser.parseDelete(matcher);
         case FIND:
-            return Parser.findParser(matcher);
+            return Parser.parseFind(matcher);
         case TODO:
-            return new Instruction.Add(Parser.todoParser(matcher));
+            return new Instruction.Add(Parser.parseTodo(matcher));
         case DEADLINE:
         case EVENT:
-            return new Instruction.Add(Parser.eventParser(matcher, Parser.INPUT_FORMAT));
+            return new Instruction.Add(Parser.parseEvent(matcher, Parser.INPUT_FORMAT));
         default:
             //program will not reach here.
             throw new DukeException("An unexpected error occurred. Try again.");
@@ -277,13 +277,13 @@ public class Parser {
         InstructionEnum instruction = Parser.parseInstruction(matcher);
         switch (instruction) {
         case TODO:
-            task = Parser.todoParser(matcher);
+            task = Parser.parseTodo(matcher);
             break;
         case DEADLINE:
-            task = Parser.deadlineParser(matcher, Parser.OUTPUT_FORMAT);
+            task = Parser.parseDeadline(matcher, Parser.OUTPUT_FORMAT);
             break;
         case EVENT:
-            task = Parser.eventParser(matcher, Parser.OUTPUT_FORMAT);
+            task = Parser.parseEvent(matcher, Parser.OUTPUT_FORMAT);
             break;
         default:
             //program will not reach here.
