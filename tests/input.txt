@@ -2,15 +2,16 @@ wat how to use
 
 
 t
-TODO   Download  wk  3  files
-deadline   Watch   L3   recording   /by   Friday   2359
-event Project meeting /from Monday 3pm /To Monday 4:30pm
+TODO   Download  wk  3  files               
+deadline   Watch   L3   recording   /by   18 6 23 2359
+event Project meeting /from 11 9 23 1500 /To 11 9 23 1630
 deadline My deadline flag has no sub input /BY
 deadline /by The deadline has no description
 deadline  /by No description again
 deadline   /by No description yet again!
-e I tried to make an event by didn't specify flags.
+e I tried to make an event but didn't specify flags.
 EVENT This event has no proper from flag set /frOM   /to Far future.
+t This event has unparseable timestamps /from 123 /to 456
 list
 mark a
 MARK -7050
@@ -21,7 +22,7 @@ unmark 3
 un 3
 m 5
 m 4
-add another /by ???
+add another /by 1 1 20 601
 l
 del 0
 yeet 1

@@ -1,5 +1,6 @@
 package com.cloud.chatbot.item;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.cloud.chatbot.annotations.Nullable;
+import com.cloud.chatbot.exceptions.IllegalTimestampException;
 import com.cloud.chatbot.file.FileManager;
 import com.cloud.chatbot.file.Key;
 
@@ -50,14 +52,31 @@ public class ItemManager {
             break;
         }
         case DEADLINE: {
-            String end = json.getString(Key.END.string);
-            item = new Deadline(description, end);
+            long endEpoch = json.getLong(Key.END.string);
+            item = new Deadline(
+                description,
+                Instant.ofEpochMilli(endEpoch)
+            );
             break;
         }
         case EVENT: {
-            String start = json.getString(Key.START.string);
-            String end = json.getString(Key.END.string);
-            item = new Event(description, start, end);
+            long startEpoch = json.getLong(Key.START.string);
+            long endEpoch = json.getLong(Key.END.string);
+
+            try {
+                item = new Event(
+                    description,
+                    Instant.ofEpochMilli(startEpoch),
+                    Instant.ofEpochMilli(endEpoch)
+                );
+            } catch (IllegalTimestampException e) {
+                System.err.println(
+                    "ERR Could not import JSON event with illegal timestamp!"
+                );
+                System.err.println(json);
+                return;
+            }
+
             break;
         }
         default:

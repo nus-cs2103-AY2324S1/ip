@@ -10,8 +10,8 @@ public enum Key {
     DESCRIPTION("description"),
     IS_COMPLETE("isComplete"),
 
-    START("timestampStart"),
-    END("timestampEnd");
+    START("start"),
+    END("end");
 
     /** The key string. */
     public String string;
