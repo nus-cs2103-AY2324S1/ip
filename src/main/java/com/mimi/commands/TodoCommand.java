@@ -34,6 +34,7 @@ public class TodoCommand extends Command {
         storage.add(todo);
         readWriteData.write(todo);
 
+
     }
 
     /**

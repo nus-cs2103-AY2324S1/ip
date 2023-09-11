@@ -46,6 +46,8 @@ public class Mimi extends Application implements DataCallback {
 
         Command c = parser.parse();
 
+        assert c != null: "Command is null";
+
         c.execute();
         c.uiResponse(this.ui);
 
