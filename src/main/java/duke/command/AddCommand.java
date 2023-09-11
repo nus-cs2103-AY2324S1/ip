@@ -43,6 +43,10 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         assert type == 'T' || type == 'D' || type == 'E' : "Invalid task type";
+        executeAddTask(taskList, ui, storage);
+    }
+
+    private void executeAddTask(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         switch (type) {
         case 'T':
             AddToDo(taskList, ui, storage);
@@ -58,8 +62,12 @@ public class AddCommand extends Command {
         }
     }
 
-    private void AddEvent(TaskList taskList, Ui ui, Storage storage) {
+    private void AddEvent(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         Event eventTask = getEventTask();
+        boolean isDuplicate = taskList.contains(eventTask.toString());
+        if (isDuplicate) {
+            throw new DukeException("Error! You cannot have duplicate event task.");
+        }
         taskList.addTask(eventTask);
         displayAddedTaskMessage(taskList, ui, eventTask);
         storage.updateFileContents(taskList);
@@ -88,6 +96,10 @@ public class AddCommand extends Command {
 
     private void AddDeadLine(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         Deadline deadline = getDeadlineTask();
+        boolean isDuplicate = taskList.contains(deadline.toString());
+        if (isDuplicate) {
+            throw new DukeException("Error! You cannot have duplicate deadline task.");
+        }
         taskList.addTask(deadline);
         displayAddedTaskMessage(taskList, ui, deadline);
         storage.updateFileContents(taskList);
@@ -108,8 +120,12 @@ public class AddCommand extends Command {
         return deadline;
     }
 
-    private void AddToDo(TaskList taskList, Ui ui, Storage storage) {
+    private void AddToDo(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         Todo todo = getTodoTask();
+        boolean isDuplicate = taskList.contains(todo.toString());
+        if (isDuplicate) {
+            throw new DukeException("Error! You cannot have duplicate todo task.");
+        }
         taskList.addTask(todo);
         displayAddedTaskMessage(taskList, ui, todo);
         storage.updateFileContents(taskList);

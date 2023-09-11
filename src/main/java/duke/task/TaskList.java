@@ -89,4 +89,15 @@ public class TaskList {
     public Task get(int index) {
         return this.arrTask.get(index);
     }
+
+    public boolean contains(String taskString) {
+        boolean isContain = false;
+        for (int i = 0; i < arrTask.size(); i++) {
+            isContain = isContain || arrTask.get(i).toString().equals(taskString);
+            arrTask.get(i).isDone = !arrTask.get(i).isDone;
+            isContain = isContain || arrTask.get(i).toString().equals(taskString);
+            arrTask.get(i).isDone = !arrTask.get(i).isDone;
+        }
+        return isContain;
+    }
 }
