@@ -1,8 +1,8 @@
-package duke;
-
-import java.util.Scanner;
+package duke.ui;
 
 import duke.exceptions.DukeException;
+
+import java.util.Scanner;
 
 /**
  * Implementation for User Interface.
@@ -10,17 +10,21 @@ import duke.exceptions.DukeException;
 public class Ui {
 
     /**
-     * Displays greeting message.
+     * Returns greeting message.
+     *
+     * @return Greeting message.
      */
-    public void greet() {
-        display("Hello! I'm Max\n" + "What can I do for you?");
+    public static String greet() {
+        return "Hello! I'm Max\n" + "What can I do for you?";
     }
 
     /**
-     * Displays exit message.
+     * Returns exit message.
+     *
+     * @return Exit message.
      */
-    public void exit() {
-        display("Bye. Hope to see you again soon!");
+    public static String exit() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -29,7 +33,7 @@ public class Ui {
      * @return User input in String format.
      * @throws DukeException If any exception is encountered.
      */
-    public String getUserInput() throws DukeException {
+    public static String getUserInput() throws DukeException {
         Scanner sc = new Scanner(System.in);
         String userInput = sc.nextLine();
         return userInput;
