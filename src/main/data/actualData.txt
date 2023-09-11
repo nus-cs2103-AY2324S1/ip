@@ -1,3 +1,3 @@
-event project meeting /from Mon 2pm /to 4pm,true
-todo buy cat food,true
-todo haiz,true
+event project meeting /from Mon 2pm /to 4pm,false
+event yooo /from mon 2pm /to 3pm,true
+todo feed dog,false

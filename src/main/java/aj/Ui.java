@@ -8,7 +8,6 @@ public class Ui {
     TaskList taskList;
 
     public String horiLine() {
-//        System.out.println("---------------------");
         return "---------------------\n";
     }
 
@@ -21,11 +20,11 @@ public class Ui {
     }
 
     public String getHelpMessage() {
-        return "Here is a list of commands you can try:\n\n" + "list - To list your added tasks\n" + "mark - To mark " +
-                "a " + "task as completed\n" + "unmark - To unmark a tast\n" + "delete - To delete a task\n" + "find " +
-                "- To " + "find any keyword related to the task\n" + "todo - To create a 'Todo' task\n" + "deadline -" +
-                " To " + "craete" + " a 'deadline' task\n" + "event - To create an 'event' task\n\n\n\n" + "To get " +
-                "more " + "specific help for each command, type the command itself!!!\n";
+        return "Here is a list of commands you can try:\n\n" + "list - To list your added tasks\n" + "mark - To mark "
+                + "a " + "task as completed\n" + "unmark - To unmark a tast\n" + "delete - To delete a task\n" +
+                "find " + "- To " + "find any keyword related to the task\n" + "todo - To create a 'Todo' task\n" +
+                "deadline -" + " To " + "craete" + " a 'deadline' task\n" + "event - To create an 'event' " + "task\n"
+                + "\n\n\n" + "To get " + "more " + "specific help for each command, type the command itself!!!\n";
     }
 
     /**
@@ -35,8 +34,8 @@ public class Ui {
      * @throws EmptyDescriptionException If second part of user input does not exist.
      * @throws NoSuchCommandException    If command from user input does not exist.
      */
-    public void checkCommand(String cmd) throws EmptyDescriptionException,
-            NoSuchCommandException { // if no arguments, give help message
+    public void checkCommand(String cmd)
+            throws EmptyDescriptionException, NoSuchCommandException { // if no arguments, give help message
         String helpMessage;
         switch (cmd) {
         case "todo":
@@ -63,8 +62,7 @@ public class Ui {
         default:
             throw new NoSuchCommandException();
         }
-        throw new EmptyDescriptionException(cmd,
-                helpMessage);
+        throw new EmptyDescriptionException(cmd, helpMessage);
     }
 
     /**
@@ -87,8 +85,7 @@ public class Ui {
     public String printNumTask() {
 //        System.out.printf("Now you have %d tasks in the list.\n",
 //                this.taskList.getSize());
-        return String.format("Now you have %d tasks in the list.\n",
-                this.taskList.getSize());
+        return String.format("Now you have %d tasks in the list.\n", this.taskList.getSize());
     }
 
     /**
