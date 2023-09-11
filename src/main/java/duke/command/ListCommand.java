@@ -16,6 +16,6 @@ public class ListCommand extends Command {
      */
     @Override
     public GobbleMessage execute(TaskList taskList, Storage storage) {
-        return GobbleMessage.getDukeDialog(taskList.toString(), "List");
+        return GobbleMessage.getGobbleDialog(taskList.toString(), "List");
     }
 }

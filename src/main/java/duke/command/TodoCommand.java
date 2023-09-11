@@ -31,7 +31,7 @@ public class TodoCommand extends Command {
         taskList.addTask(task);
         storage.saveListToDisk(taskList.getTasks());
 
-        return GobbleMessage.getDukeDialog("Got it. I've added this task:\n" + task + "\nNow you have "
+        return GobbleMessage.getGobbleDialog("Got it. I've added this task:\n" + task + "\nNow you have "
                 + taskList.getSize() + " tasks in the list.", "Add");
     }
 }

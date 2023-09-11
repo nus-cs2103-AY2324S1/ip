@@ -16,7 +16,7 @@ public class ExitCommand extends Command {
      */
     @Override
     public GobbleMessage execute(TaskList taskList, Storage storage) {
-        return GobbleMessage.getDukeDialog("Bye. Hope to see you again soon!", "Exit");
+        return GobbleMessage.getGobbleDialog("Bye. Hope to see you again soon!", "Exit");
     }
 
     /**
