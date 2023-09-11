@@ -18,11 +18,16 @@ import duke.task.Todo;
  */
 public class Storage {
     private File dataFile;
-    private String filepath;
+    private String filePath;
 
-    public Storage(String filepath) {
-        this.filepath = filepath;
-        this.dataFile = new File(filepath);
+    /**
+     * Storage Constructor.
+     *
+     * @param filePath Relative file path to data file.
+     */
+    public Storage(String filePath) {
+        this.filePath = filePath;
+        this.dataFile = new File(filePath);
         String directory = dataFile.getParent();
         findDirectory(directory);
         try {
@@ -97,7 +102,7 @@ public class Storage {
                 }
             }
             return storedList;
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             throw new DukeException("Data File Not Found.");
         }
     }
@@ -109,7 +114,7 @@ public class Storage {
      * @throws IOException Throws if FileWriter cannot be created.
      */
     public void writeTasksToFile(ArrayList<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(this.filepath);
+        FileWriter fw = new FileWriter(this.filePath);
         for (Task task : tasks) {
             fw.write(task.writeToFile());
         }
