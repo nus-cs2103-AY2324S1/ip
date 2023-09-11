@@ -8,7 +8,8 @@ import java.time.format.DateTimeFormatter;
  * Inherits from the Task class.
  */
 public class Deadline extends Task {
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
+    private static final String DATE_FORMAT = "dd MMM yyyy";
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
     protected LocalDate by;
     /**
      * Constructs a Deadline object with the provided description and deadline date.

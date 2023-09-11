@@ -1,8 +1,6 @@
 package duke;
 
-
 import java.util.ArrayList;
-
 
 /**
  * The main class for the Duke application.
