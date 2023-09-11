@@ -11,14 +11,16 @@ import java.util.Scanner;
  */
 public class Storage {
     private String filePath;
-
+    private String folderPath;
     /**
      * Constructs a Storage object with the specified file path.
      *
      * @param filePath specifies the path where the file to store tasks is saved.
      */
     public Storage(String filePath) {
+
         this.filePath = filePath;
+        this.folderPath = String.valueOf(Paths.get(filePath).getParent());
     }
 
     /**
@@ -40,14 +42,8 @@ public class Storage {
         return tasks.toString();
     }
 
-    /**
-     * Saves a task to the specified file path.
-     *
-     * @param folderPath the path to the folder where the file will be stored.
-     * @param filePath the path to the file where the task will be saved.
-     * @param task the task to be saved.
-     */
-    public void save(String folderPath, String filePath, Task task) {
+
+    public void save(Task task) {
         File folder = new File(folderPath);
 
         // Check if folder exists, if not create one

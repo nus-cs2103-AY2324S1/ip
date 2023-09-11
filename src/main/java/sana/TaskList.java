@@ -82,8 +82,7 @@ public class TaskList {
     public void update(Storage storage) {
         storage.clear("/Users/ariellacallista/Desktop/SanaTasks.txt");
         for (Task task : tasksList) {
-            storage.save("/Users/ariellacallista/Desktop",
-                    "/Users/ariellacallista/Desktop/SanaTasks.txt", task);
+            storage.save(task);
         }
     }
 

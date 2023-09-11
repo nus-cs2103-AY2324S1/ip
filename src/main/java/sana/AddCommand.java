@@ -35,8 +35,7 @@ public class AddCommand extends Command {
             } else {
                 Task newTodo = new Todo(arguments, false);
                 tasks.add(newTodo);
-                storage.save("/Users/ariellacallista/Desktop",
-                        "/Users/ariellacallista/Desktop/SanaTasks.txt", newTodo);
+                storage.save(newTodo);
 
                 return ("Got it. I've added this task:\n" + newTodo + "\n"
                         + "Now you have " + tasks.size() + (tasks.size() <= 1 ? " task" : " tasks")
@@ -66,8 +65,7 @@ public class AddCommand extends Command {
                 Task newDeadline = new Deadline(desc, byDate, false);
 
                 tasks.add(newDeadline);
-                storage.save("/Users/ariellacallista/Desktop",
-                        "/Users/ariellacallista/Desktop/SanaTasks.txt", newDeadline);
+                storage.save(newDeadline);
                 return ("Got it. I've added this task:\n" + newDeadline + "\n"
                         + "Now you have " + tasks.size() + (tasks.size() <= 1 ? " task" : " tasks")
                         + " in the list\n");
@@ -110,8 +108,7 @@ public class AddCommand extends Command {
 
             if (newEvent != null) {
                 tasks.add(newEvent);
-                storage.save("/Users/ariellacallista/Desktop",
-                        "/Users/ariellacallista/Desktop/SanaTasks.txt", newEvent);
+                storage.save(newEvent);
                 return ("Got it. I've added this task:\n" + newEvent + "\n"
                         + "Now you have " + tasks.size() + (tasks.size() <= 1 ? " task" : " tasks")
                         + " in the list");

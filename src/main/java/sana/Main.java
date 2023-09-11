@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Sana sana = new Sana("/Users/ariellacallista/Desktop/SanaTasks.txt");
+    private Sana sana = new Sana("data/SanaTasks.txt");
 
     @Override
     public void start(Stage stage) {
