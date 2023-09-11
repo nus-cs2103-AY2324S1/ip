@@ -38,12 +38,7 @@ public class DialogBox extends HBox {
         text.setPadding(new Insets(5, 5, 5, 5));
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
-
-        double radius = Math.max(iv.getFitWidth() / 2, iv.getFitHeight() / 2);
-        double centerX = iv.getFitWidth() / 2 + 10;
-        double centerY = iv.getFitHeight() / 2;
-
-        Circle dpClip = new Circle(centerX, centerY, radius);
+        Circle dpClip = generateCircle(iv);
         displayPicture.setClip(dpClip);
         displayPicture.setX(10);
 
@@ -75,6 +70,13 @@ public class DialogBox extends HBox {
         var db = new DialogBox(l, iv, MeowBot.dialog.MEOWBOT);
         db.flip();
         return db;
+    }
+    private Circle generateCircle(ImageView iv) {
+        double radius = Math.max(iv.getFitWidth() / 2, iv.getFitHeight() / 2);
+        double centerX = iv.getFitWidth() / 2 + 10;
+        double centerY = iv.getFitHeight() / 2;
+        Circle dpClip = new Circle(centerX, centerY, radius);
+        return dpClip;
     }
 
 }

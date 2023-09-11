@@ -15,7 +15,7 @@ public class Task {
     private boolean completed;
     private final String name;
     private String type;
-    private String ogName;
+    private String originalName;
 
 
     /**
@@ -51,11 +51,11 @@ public class Task {
     public void setType(String type) {
         this.type = type;
     }
-    public void setOgName(String ogName) {
-        this.ogName = ogName;
+    public void setOriginalName(String ogName) {
+        this.originalName = ogName;
     }
-    public String getOgName() {
-        return this.ogName;
+    public String getOriginalName() {
+        return this.originalName;
     }
 
     /**

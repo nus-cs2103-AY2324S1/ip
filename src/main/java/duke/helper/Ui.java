@@ -70,11 +70,10 @@ public class Ui {
 
     /**
      * Prints out the successful output when a tas is marked
-     * @param taskNumber index of the task in TaskList currently
      * @param wantedTask task that has been marked
      */
 
-    public String printMarkTask(int taskNumber, Task wantedTask) {
+    public String printMarkTask(Task wantedTask) {
         wantedTask.markCompleted();
         String res = "";
         res += ("Nice! I've meowrked this task as done: \n");
@@ -84,10 +83,9 @@ public class Ui {
 
     /**
      * Prints out the successful output when a tas is unmarked
-     * @param taskNumber index of the task in TaskList currently
      * @param wantedTask task that has been unmarked
      */
-    public String printUnmarkTask(int taskNumber, Task wantedTask) {
+    public String printUnmarkTask(Task wantedTask) {
         wantedTask.markUncompleted();
         String res = "";
         res += ("Ok, get your task done soon, I'll be waiting!\n");
@@ -98,7 +96,7 @@ public class Ui {
     /**
      * Prints out the message when a task is deleted succesfully
      * @param length number of tasks in TaskList currently
-     * @param wantedTask Task that is be removed from Tasklist
+     * @param wantedTask Task that is to be removed from Tasklist
      */
     public String printDeleteTask(int length, Task wantedTask) {
         String res = "";

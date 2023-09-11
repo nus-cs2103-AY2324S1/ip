@@ -33,36 +33,31 @@ public class Parser {
      * @throws DukeException throws DukeException dependent on which command is parsed in
      */
     public static Command parse(String command) throws DukeException {
-        try {
-            Parser.getCommand(command);
-            if (command.equals("bye")) {
-                return new ExitCommand();
-            } else if (command.equals("list")) {
-                return new ListCommand();
+        Parser.getCommand(command);
+        if (command.equals("bye")) {
+            return new ExitCommand();
+        } else if (command.equals("list")) {
+            return new ListCommand();
 
-            } else if (command.startsWith("mark")) {
-                String tasknum = command.split(" ")[1];
-                return new MarkCommand(Integer.parseInt(tasknum) - 1);
+        } else if (command.startsWith("mark")) {
+            String tasknum = command.split(" ")[1];
+            return new MarkCommand(Integer.parseInt(tasknum) - 1);
 
-            } else if (command.startsWith("unmark")) {
-                String tasknum = command.split(" ")[1];
-                return new UnmarkCommand(Integer.parseInt(tasknum) - 1);
+        } else if (command.startsWith("unmark")) {
+            String tasknum = command.split(" ")[1];
+            return new UnmarkCommand(Integer.parseInt(tasknum) - 1);
 
-            } else if (command.startsWith("delete")) {
-                String tasknum = command.split(" ")[1];
-                return new DeleteCommand(Integer.parseInt(tasknum) - 1);
-            } else if (command.startsWith("find")) {
-                String keyword = command.split(" ")[1];
-                return new FindCommand(keyword);
-            } else {
-                if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")) {
-                    return new AddCommand(command);
-                }
-                // no proper keyword was given
+        } else if (command.startsWith("delete")) {
+            String tasknum = command.split(" ")[1];
+            return new DeleteCommand(Integer.parseInt(tasknum) - 1);
+        } else if (command.startsWith("find")) {
+            String keyword = command.split(" ")[1];
+            return new FindCommand(keyword);
+        } else {
+            if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")) {
+                return new AddCommand(command);
             }
-
-        } catch (DukeException e) {
-            throw e;
+            // no proper keyword was given
         }
         return null;
     }
