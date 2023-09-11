@@ -1,10 +1,10 @@
 package peko;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
+
+import peko.commands.Commands;
+import peko.memory.StorageHandler;
+import peko.tasks.TaskHandler;
+
 import java.util.Scanner;
 
 public class UserInputHandler {
@@ -25,6 +25,18 @@ public class UserInputHandler {
         Parser parser = new Parser(input);
         command = parser.getResponseValue();
         description = parser.getDescription();
+    }
+
+    public void newInput(String s) {
+        Parser parser = new Parser(s);
+        command = parser.getResponseValue();
+        description = parser.getDescription();
+
+    }
+
+    public String getResponse() {
+        TaskHandler taskHandler = new TaskHandler(command, description);
+        return taskHandler.getResponse();
     }
 
     public boolean processInput() {
