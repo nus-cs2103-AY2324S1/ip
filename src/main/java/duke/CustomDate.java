@@ -46,9 +46,9 @@ public class CustomDate {
         return str.substring(0, 2) + ":" + str.substring(2, 4);
     }
 
-    public boolean checkFormat(String input) {
+    public boolean isWrongFormat(String input) {
         Pattern datePattern = Pattern.compile("^\\d{1,2}/\\d{1,2}/\\d{4} \\d{4}$");
-        return datePattern.matcher(input).find();
+        return !datePattern.matcher(input).find();
     }
 
 }
