@@ -46,13 +46,11 @@ public class MeowBot {
         MEOWBOT
 
     }
-
     /**
      * @param file indicates the location of the file where data is stored
      * @throws DukeException when generating the tasks back from the data file
      * @throws IOException when the data file cannot be found
      */
-
     public MeowBot(String file) throws DukeException, IOException {
         this.ui = new Ui();
         this.FILE_NAME = file;
