@@ -8,7 +8,7 @@ import cyrus.tasks.Task;
  * Interface to allow different types of storage to be used.
  */
 public interface IStorage {
-    public List<Task> load();
+    List<Task> load();
 
-    public void save(List<Task> tasks);
+    void save(List<Task> tasks);
 }

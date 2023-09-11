@@ -15,11 +15,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 /**
  * Entry point for Cyrus Gui.
  */
 public class MainWindow extends AnchorPane {
+    private final Image userImage = new Image(
+            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png"))
+    );
+    private final Image botImage = new Image(
+            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png"))
+    );
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -28,9 +36,6 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
-    private Image user = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
-    private Image bot = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
 
     private Cyrus cyrus;
 
@@ -53,20 +58,19 @@ public class MainWindow extends AnchorPane {
         String userText = userInput.getText();
         ParseInfo parseInfo = cyrus.parseInput(userText);
         if (parseInfo.equals(ParseInfo.EMPTY)) {
-            putConversation(userText, "Missing input!");
+            putConversation(userText, "Missing input!", true);
             return;
         }
 
         String cyrusResponse = "";
         boolean isError = false;
-        // TODO: Permanently block empty inputs
         try {
             cyrusResponse = cyrus.dispatchAndExecute(parseInfo);
         } catch (CommandError e) {
             cyrusResponse = e.getMessage();
             isError = true;
         } finally {
-            putConversation(userText, cyrusResponse);
+            putConversation(userText, cyrusResponse, isError);
         }
         if (parseInfo.getCommandType() == CommandType.BYE) {
             Timer timer = new Timer();
@@ -79,10 +83,10 @@ public class MainWindow extends AnchorPane {
         }
     }
 
-    private void putConversation(String userText, String cyrusText) {
+    private void putConversation(String userText, String cyrusText, boolean isError) {
         dialogContainer.getChildren().addAll(
-                DialogBox.getDialog(userText, "User", user),
-                DialogBox.getDialog(cyrusText, "Cyrus", bot)
+                DialogBox.getDialog(userText, "User", userImage),
+                DialogBox.getDialog(cyrusText, "Cyrus", botImage, isError ? Color.RED : Color.BLACK)
         );
         userInput.clear();
     }

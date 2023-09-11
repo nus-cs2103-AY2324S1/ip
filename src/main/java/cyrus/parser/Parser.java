@@ -24,6 +24,11 @@ import cyrus.tasks.TaskList;
  */
 public class Parser {
     /**
+     * Character(s) that come before an option is given.
+     */
+    private static final String OPTION_LEAD = "/";
+
+    /**
      * Dispatches {@code Command} given a {@code taskList} and {@code parseInfo} about the incoming
      * string command.
      *
@@ -73,7 +78,7 @@ public class Parser {
         // Parse the argument first
         int i = 1;
         while (i < parts.length) {
-            if (parts[i].startsWith("/") && parts[i].length() != 1) {
+            if (isPartValidOption(parts[i])) {
                 break;
             }
             argumentParts.add(parts[i++]);
@@ -85,11 +90,11 @@ public class Parser {
         while (i < parts.length) {
             String key = "";
             List<String> acc = new ArrayList<>();
-            if (parts[i].startsWith("/") && parts[i].length() != 1) {
+            if (isPartValidOption(parts[i])) {
                 key = parts[i].substring(1);
             }
 
-            while (++i < parts.length && !(parts[i].startsWith("/") && parts[i].length() != 1)) {
+            while (++i < parts.length && !(isPartValidOption(parts[i]))) {
                 acc.add(parts[i]);
             }
 
@@ -97,5 +102,9 @@ public class Parser {
         }
 
         return new ParseInfo(CommandType.fromString(parts[0]), argument, options);
+    }
+
+    private boolean isPartValidOption(String part) {
+        return part.startsWith(OPTION_LEAD) && part.length() != 1;
     }
 }
