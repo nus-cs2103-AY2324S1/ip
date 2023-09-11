@@ -4,11 +4,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import kiera.command.Command;
 import kiera.exception.KieraException;
 
+/**
+ * Main window containing JavaFX components for the user interface and managing interactions.
+ */
 public class MainWindow {
 
     protected static String filePath = "./data/storage.txt";

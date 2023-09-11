@@ -17,12 +17,6 @@ import javafx.stage.Stage;
  */
 public class Kiera extends Application {
 
-    protected static String filePath = "./data/storage.txt";
-    private Storage storage;
-    private Ui ui;
-    private TaskList tasks;
-
-
     /**
      * Constructor for Kiera.
      */
@@ -43,22 +37,4 @@ public class Kiera extends Application {
         }
     }
 }
-
-//    public void run() {
-//        ui.showHello();
-//        boolean isExit = false;
-//        while (!isExit) {
-//            try {
-//                String fullCommand = ui.readCommand();
-//                ui.showLine();
-//                Command c = Parser.parse(fullCommand);
-//                c.execute(tasks, ui, storage);
-//                isExit = c.isExit();
-//            } catch (KieraException e) {
-//                ui.showError(e.toString());
-//            } finally {
-//                ui.showLine();
-//            }
-//        }
-//    }
 

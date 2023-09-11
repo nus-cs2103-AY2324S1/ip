@@ -11,7 +11,7 @@ import kiera.task.Task;
 import kiera.tasktype.TaskType;
 
 /**
- * Command that filters task based on input.
+ * Command that filters tasks based on date input.
  */
 public class FilterDateCommand extends Command {
 
