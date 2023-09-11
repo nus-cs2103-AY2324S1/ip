@@ -19,6 +19,9 @@ public class FindCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+
+        assert this.query != null;
+
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task t : tasks.getAllTasks()) {
             boolean isMatchingTask = t.toString().toLowerCase().contains(this.query);

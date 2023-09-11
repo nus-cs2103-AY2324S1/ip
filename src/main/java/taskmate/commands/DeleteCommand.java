@@ -39,6 +39,7 @@ public class DeleteCommand extends Command {
      * @param storage Storage object that saves undeleted tasks to the disk.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+
         try {
             Task taskToMark = tasks.getTask(this.deleteIndex);
             tasks.removeTask(this.deleteIndex);

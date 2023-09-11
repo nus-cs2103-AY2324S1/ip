@@ -36,6 +36,9 @@ public class TodoCommand extends AddCommand {
      * @param storage Storage object that saves undeleted tasks to the disk.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+
+        assert super.name != null;
+
         // 1. Create new to-do task
         Task newTodoTask = new Todo(name);
 
