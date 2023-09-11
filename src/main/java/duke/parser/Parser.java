@@ -14,6 +14,7 @@ public class Parser {
      * @return The command type of the given command.
      */
     public CommandType parseCommandType(String command) {
+        assert command != null : "Command should not be null";
         if (command.startsWith("list")) {
             return CommandType.LIST;
         } else if (command.startsWith("mark")) {
