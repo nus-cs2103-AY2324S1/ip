@@ -21,21 +21,32 @@ public class Deadline extends Task {
     public Deadline(String description, String deadline) throws DukeException {
         super(description, "D");
         this.deadline = deadline;
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        try {
-            if (deadline.contains(" ")) {
-                this.by = LocalDateTime.parse(deadline, dateTimeFormatter);
-            } else {
-                this.by = LocalDate.parse(deadline, dateFormatter);
-            }
-        } catch (DateTimeParseException e) {
-            throw new DukeException("Please check that the dates/times you provided are correct!");
-        }
+        this.by = processDateTime(this.deadline);
     }
 
     public String getDeadline() {
         return this.deadline;
+    }
+
+    /**
+     * Returns an appropriate LocalDateTime or LocalDate representation based on the user's provided datetime
+     *
+     * @param deadline String which user use to represent one's deadline [Either in YYY-MM-DD or YYYY-MM-DD HHMM format]
+     * @return Temporal Object containing the formatted LocalDateTime or LocalDate object
+     * @throws DukeException in the event deadline is not provided in the right format
+     */
+    public Temporal processDateTime(String deadline) throws DukeException {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        try {
+            if (deadline.contains(" ")) {
+                return LocalDateTime.parse(deadline, dateTimeFormatter);
+            } else {
+                return LocalDate.parse(deadline, dateFormatter);
+            }
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Please check that the dates/times you provided are correct!");
+        }
     }
 
     /**
@@ -50,8 +61,9 @@ public class Deadline extends Task {
             return ((LocalDate) this.by).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         } else if (this.by instanceof LocalDateTime) {
             return ((LocalDateTime) this.by).format(DateTimeFormatter.ofPattern("MMM d yyyy, ha"));
+        } else {
+            throw new UnsupportedOperationException("Unsupported Temporal type");
         }
-        throw new UnsupportedOperationException("Unsupported Temporal type");
     }
 
     @Override

@@ -1,6 +1,15 @@
 T|0|sleep
-T|1|sleep
 T|0|sleep
 T|0|sleep
 T|0|sleep
 T|0|sleep
+D|0|return book|2023-09-11
+T|0|cs2103
+T|0|sleep
+D|0|eat|2023-11-09
+T|0|sleep
+T|0|eat
+D|0|sleep|2023-09-11
+E|0|career fair|today|tmw
+T|0|dance
+T|0|dance

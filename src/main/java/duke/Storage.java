@@ -36,27 +36,39 @@ public class Storage {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String[] parts = s.nextLine().split("\\|");
-                String event = parts[0];
-                int mark = Integer.parseInt(parts[1]);
-                String description = parts[2];
-                if (Objects.equals(event, "T")) {
-                    Task newTask = new Todo(description);
-                    newTask.isDone = mark == 1;
-                    fileData.add(newTask);
-                } else if (Objects.equals(event, "D")) {
-                    Task newTask = new Deadline(description, parts[3]);
-                    newTask.isDone = mark == 1;
-                    fileData.add(newTask);
-                } else if (Objects.equals(event, "E")) {
-                    Task newTask = new Event(description, parts[3], parts[4]);
-                    newTask.isDone = mark == 1;
-                    fileData.add(newTask);
-                }
+                performAddTask(fileData, parts);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         return fileData;
+    }
+
+    /**
+     * Creates a new Task for every instance in the txt file and add to an Arraylist
+     *
+     * @param fileData ArrayList<Task> where each Task is an instance in the txt file
+     * @param parts Description of a particular task object
+     * @throws DukeException associated with deadline
+     */
+    public void performAddTask(ArrayList<Task> fileData, String[] parts) throws DukeException {
+        String event = parts[0];
+        int mark = Integer.parseInt(parts[1]);
+        boolean isCompleted = mark == 1;
+        String description = parts[2];
+        if (Objects.equals(event, "T")) {
+            Task newTask = new Todo(description);
+            newTask.isDone = isCompleted;
+            fileData.add(newTask);
+        } else if (Objects.equals(event, "D")) {
+            Task newTask = new Deadline(description, parts[3]);
+            newTask.isDone = isCompleted;
+            fileData.add(newTask);
+        } else if (Objects.equals(event, "E")) {
+            Task newTask = new Event(description, parts[3], parts[4]);
+            newTask.isDone = isCompleted;
+            fileData.add(newTask);
+        }
     }
 
     public void save(String filePath, ArrayList<Task> newTasks) throws IOException {
