@@ -1,14 +1,57 @@
 package taskmate.tools;
 
-import taskmate.commands.*;
-import taskmate.exceptions.*;
-import taskmate.main.TaskMate;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import taskmate.commands.Command;
+import taskmate.commands.DeadlineCommand;
+import taskmate.commands.DeleteCommand;
+import taskmate.commands.EventCommand;
+import taskmate.commands.ExitCommand;
+import taskmate.commands.FindCommand;
+import taskmate.commands.HelpCommand;
+import taskmate.commands.ListCommand;
+import taskmate.commands.MarkCommand;
+import taskmate.commands.TodoCommand;
+import taskmate.commands.UnmarkCommand;
+import taskmate.exceptions.EmptyByException;
+import taskmate.exceptions.EmptyDescriptionException;
+import taskmate.exceptions.EmptyFromException;
+import taskmate.exceptions.EmptyToException;
+import taskmate.exceptions.InvalidByException;
+import taskmate.exceptions.InvalidCommandTypeException;
+import taskmate.exceptions.InvalidFromException;
+import taskmate.exceptions.InvalidToException;
+import taskmate.exceptions.NotAnIntegerException;
+import taskmate.main.TaskMate;
+
+/**
+ * This Parser class contains static methods that parse the user's input and maps it to Command objects, if possible.
+ * Otherwise, in the case of invalid inputs, exceptions are thrown.
+ */
 public class Parser {
 
+    /**
+     * Reads the user input and returns a Command object that represents the input.
+     * @param userInput A String object passed by the user representing their command to the chatbot
+     * @return A Command object that represents the String command passed by the user
+     * @throws InvalidCommandTypeException Thrown when the user passes an unrecognized command
+     * @throws EmptyDescriptionException Thrown when the user does not provide a description for the command
+     * @throws EmptyByException Thrown when the user attempts to create a DeadlineCommand but does not specify the "by"
+     *                          clause
+     * @throws InvalidByException Thrown when the user attempts to create a DeadlineCommand but provides a "by" clause
+     *                          with incorrect formatting
+     * @throws InvalidToException Thrown when the user attempts to create a EventCommand but provides a "to" clause
+     *                           with incorrect formatting
+     * @throws EmptyToException Thrown when the user attempts to create a EventCommand but does not specify the "to"
+     *                          clause
+     * @throws InvalidFromException Thrown when the user attempts to create a EventCommand but provides a "from" clause
+     *                           with incorrect formatting
+     * @throws EmptyFromException Thrown when the user attempts to create a EventCommand but does not specify the "from"
+     *                          clause
+     * @throws NotAnIntegerException Thrown when the user attempts to create mark/unmark/delete commands but does not
+     *                              specify an integer as the second argument
+     */
     public static Command parse(String userInput) throws
             InvalidCommandTypeException, EmptyDescriptionException,
             EmptyByException, InvalidByException, InvalidToException,
@@ -19,43 +62,48 @@ public class Parser {
 
         String commandType = getCommandType(userInput);
         // bye
-        if (commandType.equals(TaskMate.COMMAND_TYPES.bye.toString())) {
+        if (commandType.equals(TaskMate.CommandTypes.bye.toString())) {
             return new ExitCommand();
         // help
-        } else if (commandType.equals(TaskMate.COMMAND_TYPES.help.toString())) {
+        } else if (commandType.equals(TaskMate.CommandTypes.help.toString())) {
             return new HelpCommand();
         // list
-        } else if (commandType.equals(TaskMate.COMMAND_TYPES.list.toString())) {
+        } else if (commandType.equals(TaskMate.CommandTypes.list.toString())) {
             return new ListCommand();
         // unmark i
-        } else if (commandType.equals(TaskMate.COMMAND_TYPES.unmark.toString())) {
+        } else if (commandType.equals(TaskMate.CommandTypes.unmark.toString())) {
             checkValidUnmarkCommand(userInput);
-            int indexToUnmark = Integer.parseInt(userInput.substring(TaskMate.COMMAND_TYPES.unmark.toString().length()).trim());
+            int indexToUnmark = Integer.parseInt(userInput.substring(TaskMate.CommandTypes.unmark.toString().length())
+                    .trim());
             indexToUnmark -= 1;
             return new UnmarkCommand(indexToUnmark);
         // mark i
-        } else if (commandType.equals(TaskMate.COMMAND_TYPES.mark.toString())) {
+        } else if (commandType.equals(TaskMate.CommandTypes.mark.toString())) {
             checkValidMarkCommand(userInput);
-            int indexToMark = Integer.parseInt(userInput.substring(TaskMate.COMMAND_TYPES.mark.toString().length()).trim());
+            int indexToMark = Integer.parseInt(userInput.substring(TaskMate.CommandTypes.mark.toString().length())
+                    .trim());
             indexToMark -= 1;
             return new MarkCommand(indexToMark);
         // to-do description
-        } else if (commandType.equals(TaskMate.COMMAND_TYPES.todo.toString())) {
+        } else if (commandType.equals(TaskMate.CommandTypes.todo.toString())) {
             checkValidTodoCommand(userInput);
-            return new TodoCommand(userInput.substring(TaskMate.COMMAND_TYPES.todo.toString().length()+1)); // +1 because we do not want the task name to start from the space character
+            return new TodoCommand(userInput.substring(TaskMate.CommandTypes.todo.toString()
+                    .length() + 1)); // +1 because we do not want the task name to start from the space character
         // deadline description /by date
-        } else if (commandType.equals(TaskMate.COMMAND_TYPES.deadline.toString())) {
+        } else if (commandType.equals(TaskMate.CommandTypes.deadline.toString())) {
             checkValidDeadlineCommand(userInput);
-            userInput = userInput.substring(TaskMate.COMMAND_TYPES.deadline.toString().length()+1); // +1 because we do not want the task name to start from the space character
+            userInput = userInput.substring(TaskMate.CommandTypes.deadline.toString()
+                    .length() + 1); // +1 because we do not want the task name to start from the space character
             String[] splitUserInput = userInput.split(" /");
             return new DeadlineCommand(
                     splitUserInput[0],
                     splitUserInput[1].replace("by ", "")
             );
         // event description /from date /to date
-        } else if (commandType.equals(TaskMate.COMMAND_TYPES.event.toString())) {
+        } else if (commandType.equals(TaskMate.CommandTypes.event.toString())) {
             checkValidEventCommand(userInput);
-            userInput = userInput.substring(TaskMate.COMMAND_TYPES.event.toString().length()+1); // +1 because we do not want the task name to start from the space character
+            userInput = userInput.substring(TaskMate.CommandTypes.event.toString()
+                    .length() + 1); // +1 because we do not want the task name to start from the space character
             String[] splitUserInput = userInput.split(" /");
             return new EventCommand(
                     splitUserInput[0],
@@ -63,14 +111,15 @@ public class Parser {
                     splitUserInput[2].replace("to ", "")
             );
         // delete i
-        } else if (commandType.equals(TaskMate.COMMAND_TYPES.delete.toString())) {
+        } else if (commandType.equals(TaskMate.CommandTypes.delete.toString())) {
             checkValidDeleteCommand(userInput);
-            int indexToDelete = Integer.parseInt(userInput.substring(TaskMate.COMMAND_TYPES.delete.toString().length()).trim());
+            int indexToDelete = Integer.parseInt(userInput.substring(TaskMate.CommandTypes.delete.toString().length())
+                    .trim());
             indexToDelete -= 1; // subtract 1 as the arraylist is zero-indexed
             return new DeleteCommand(indexToDelete);
-        } else if (commandType.equals(TaskMate.COMMAND_TYPES.find.toString())) {
+        } else if (commandType.equals(TaskMate.CommandTypes.find.toString())) {
             checkValidFindCommand(userInput);
-            String query = userInput.substring(TaskMate.COMMAND_TYPES.find.toString().length()).trim();
+            String query = userInput.substring(TaskMate.CommandTypes.find.toString().length()).trim();
             return new FindCommand(query);
         // Invalid input
         } else {
@@ -86,7 +135,7 @@ public class Parser {
 
         userInput = userInput.trim();
 
-        for (TaskMate.COMMAND_TYPES type : TaskMate.COMMAND_TYPES.values()) {
+        for (TaskMate.CommandTypes type : TaskMate.CommandTypes.values()) {
             String typeString = type.toString();
             if (userInput.startsWith(typeString)) {
                 return typeString;
@@ -97,20 +146,21 @@ public class Parser {
 
     static void checkValidTodoCommand(String userInput) throws InvalidCommandTypeException, EmptyDescriptionException {
         // Checks if "to-do" command is valid by checking if there is text coming after the word "to-do"
-        if (!userInput.startsWith(TaskMate.COMMAND_TYPES.todo.toString())) {
+        if (!userInput.startsWith(TaskMate.CommandTypes.todo.toString())) {
             throw new InvalidCommandTypeException();
-        } else if (userInput.substring(TaskMate.COMMAND_TYPES.todo.toString().length()).isEmpty()) {
+        } else if (userInput.substring(TaskMate.CommandTypes.todo.toString().length()).isEmpty()) {
             throw new EmptyDescriptionException();
         }
     }
 
-    static void checkValidDeadlineCommand(String userInput) throws InvalidCommandTypeException, EmptyDescriptionException, EmptyByException, InvalidByException {
+    static void checkValidDeadlineCommand(String userInput) throws InvalidCommandTypeException,
+            EmptyDescriptionException, EmptyByException, InvalidByException {
         // Checks if "deadline" command is valid by checking if there is text coming after the word "deadline"
         // Additionally, checks if there is a "/by " substring within userInput, and if the date after "/by " substring
         // can be parsed into a date
-        if (!userInput.startsWith(TaskMate.COMMAND_TYPES.deadline.toString())) {
+        if (!userInput.startsWith(TaskMate.CommandTypes.deadline.toString())) {
             throw new InvalidCommandTypeException();
-        } else if (userInput.substring(TaskMate.COMMAND_TYPES.deadline.toString().length()).isEmpty()) {
+        } else if (userInput.substring(TaskMate.CommandTypes.deadline.toString().length()).isEmpty()) {
             throw new EmptyDescriptionException();
         } else if (!userInput.contains("/by ")) {
             throw new EmptyByException();
@@ -125,7 +175,8 @@ public class Parser {
         }
     }
 
-    static void checkValidEventCommand(String userInput) throws InvalidCommandTypeException, EmptyDescriptionException, EmptyFromException, InvalidFromException, EmptyToException, InvalidToException {
+    static void checkValidEventCommand(String userInput) throws InvalidCommandTypeException, EmptyDescriptionException,
+            EmptyFromException, InvalidFromException, EmptyToException, InvalidToException {
         // Checks if "deadline" command is valid by checking if there is text coming after the word "deadline"
         // Additionally, checks if there are "/from " and "/to " substrings within userInput, and if the dates after
         // "/from " and "/to " substrings can be parsed into a date
@@ -133,9 +184,9 @@ public class Parser {
         String fromDelimiter = "/from ";
         String toDelimiter = "/to ";
 
-        if (!userInput.startsWith(TaskMate.COMMAND_TYPES.event.toString())) {
+        if (!userInput.startsWith(TaskMate.CommandTypes.event.toString())) {
             throw new InvalidCommandTypeException();
-        } else if (userInput.substring(TaskMate.COMMAND_TYPES.event.toString().length()).isEmpty()) {
+        } else if (userInput.substring(TaskMate.CommandTypes.event.toString().length()).isEmpty()) {
             throw new EmptyDescriptionException();
         } else if (!userInput.contains(fromDelimiter)) {
             throw new EmptyFromException();
@@ -145,7 +196,8 @@ public class Parser {
             // Testing from clause
             try {
                 System.out.println(userInput);
-                String fromInput = userInput.substring(userInput.indexOf(fromDelimiter) + fromDelimiter.length(), userInput.indexOf(toDelimiter)).trim();
+                String fromInput = userInput.substring(userInput.indexOf(fromDelimiter) + fromDelimiter.length(),
+                        userInput.indexOf(toDelimiter)).trim();
                 LocalDate.parse(fromInput);
             } catch (DateTimeParseException e) {
                 throw new InvalidFromException();
@@ -153,7 +205,8 @@ public class Parser {
 
             // Testing to clause
             try {
-                String toInput = userInput.substring(userInput.indexOf(toDelimiter) + toDelimiter.length()).trim();
+                String toInput = userInput.substring(userInput.indexOf(toDelimiter) + toDelimiter.length())
+                        .trim();
                 LocalDate.parse(toInput);
             } catch (DateTimeParseException e) {
                 throw new InvalidToException();
@@ -167,10 +220,10 @@ public class Parser {
         // followed by an integer
         // Note: Does not check if the integer is within the size of TaskList object
         String indexWithinList;
-        if (!userInput.startsWith(TaskMate.COMMAND_TYPES.mark.toString())) {
+        if (!userInput.startsWith(TaskMate.CommandTypes.mark.toString())) {
             throw new InvalidCommandTypeException();
         }
-        indexWithinList = userInput.substring(TaskMate.COMMAND_TYPES.mark.toString().length()).trim();
+        indexWithinList = userInput.substring(TaskMate.CommandTypes.mark.toString().length()).trim();
         if (!checkStringIsInteger(indexWithinList)) {
             throw new NotAnIntegerException();
         }
@@ -182,10 +235,10 @@ public class Parser {
         // followed by an integer
         // Note: Does not check if the integer is within the size of TaskList object
         String indexWithinList;
-        if (!userInput.startsWith(TaskMate.COMMAND_TYPES.unmark.toString())) {
+        if (!userInput.startsWith(TaskMate.CommandTypes.unmark.toString())) {
             throw new InvalidCommandTypeException();
         }
-        indexWithinList = userInput.substring(TaskMate.COMMAND_TYPES.unmark.toString().length()).trim();
+        indexWithinList = userInput.substring(TaskMate.CommandTypes.unmark.toString().length()).trim();
         if (!checkStringIsInteger(indexWithinList)) {
             throw new NotAnIntegerException();
         }
@@ -198,8 +251,8 @@ public class Parser {
         // Note: Does not check if the integer is within the size of TaskList object
         String indexWithinList;
 
-        if (userInput.startsWith(TaskMate.COMMAND_TYPES.delete.toString())) {
-            indexWithinList = userInput.substring(TaskMate.COMMAND_TYPES.delete.toString().length()).trim();
+        if (userInput.startsWith(TaskMate.CommandTypes.delete.toString())) {
+            indexWithinList = userInput.substring(TaskMate.CommandTypes.delete.toString().length()).trim();
         } else {
             throw new InvalidCommandTypeException();
         }
@@ -220,8 +273,8 @@ public class Parser {
     }
 
     static void checkValidFindCommand(String userInput) throws EmptyDescriptionException, InvalidCommandTypeException {
-        boolean isStartingWithFind = userInput.startsWith(TaskMate.COMMAND_TYPES.find + " ");
-        boolean hasEmptyQuery = userInput.substring(TaskMate.COMMAND_TYPES.find.toString().length()).trim().isEmpty();
+        boolean isStartingWithFind = userInput.startsWith(TaskMate.CommandTypes.find + " ");
+        boolean hasEmptyQuery = userInput.substring(TaskMate.CommandTypes.find.toString().length()).trim().isEmpty();
 
         if (!isStartingWithFind) {
             throw new InvalidCommandTypeException();

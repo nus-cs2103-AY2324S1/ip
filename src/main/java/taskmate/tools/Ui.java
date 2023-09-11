@@ -1,27 +1,49 @@
 package taskmate.tools;
 
-import taskmate.tools.tasks.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import taskmate.tools.tasks.Task;
 
+/**
+ * The Ui class deals with all interactions with the user. It contains methods to take in inputs from the user, as well
+ * as methods to print out replies to the user.
+ */
 public class Ui {
-    static String HORIZONTAL_LINE = "--------------------";
-    String chatbotName;
-    Scanner sc;
-    String storedMessage;
+    private static final String HORIZONTAL_LINE = "--------------------";
+    private final String chatbotName;
+    private final Scanner sc;
+    private String storedMessage;
 
+    /**
+     * A constructor for Ui objects that takes in the chatbot's name as one of its inputs. It is thus customizable to
+     * other chatbots with different names.
+     * Note: At initialization, a Scanner object is created to take in user input from System.in.
+     * @param chatbotName A String object that represents the name of the chatbot
+     */
     public Ui(String chatbotName) {
         this.chatbotName = chatbotName;
         this.sc = new Scanner(System.in);
     }
 
+    /**
+     * This method sets `storedMessage` to String `s`. It is only supposed to run after a message is popped using the
+     * `popStoredMessage` method, which sets `storedMessage` to null. If this condition is not adhered (ie. running
+     * `setStoredMessage` consecutively without running `popStoredMessage`, an AssertionError will be raised.
+     * @param s A String object that represents the last-printed item by the Ui object
+     */
     public void setStoredMessage(String s) {
         assert this.storedMessage == null;
         this.storedMessage = s;
     }
 
+    /**
+     * When the Ui object prints a reply, this reply is set to `storedMessage` via the setStoredMessage function. Since
+     * the GUI requires Strings to be passed in order to display them, this method is used to return the last-printed
+     * String.
+     * After retrieving the last-printed String, `storedMessage` is reset back to null.
+     * @return a String object representing the last-printed String by the Ui object to `System.out`
+     */
     public String popStoredMessage() {
         assert this.storedMessage != null;
         String s = this.storedMessage;
@@ -45,7 +67,12 @@ public class Ui {
         printMessage("Bye. Hope to see you again soon!");
     }
 
-    void printMessage(String text) {
+    /**
+     * This method prints out `text` in a formatted way, enveloping it with horizontal lines for aesthetic purposes. It
+     * prints the result out to `System.out`.
+     * @param text A String object representing the formatted reply by the chatbot
+     */
+    public void printMessage(String text) {
         // prints text with horizontal lines above and below it
         System.out.println(HORIZONTAL_LINE);
         System.out.println(text);
@@ -55,6 +82,11 @@ public class Ui {
         this.setStoredMessage(text);
     }
 
+    /**
+     * This method takes in a TaskList object as input and iterates through all the tasks in it, printing each one of
+     * them out sequentially.
+     * @param tasks A TaskList object that represents the undeleted tasks stored by the chatbot
+     */
     public void printAllTasks(TaskList tasks) {
         StringBuilder allTasksString = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.getAllTasks().size(); i++) {
@@ -64,6 +96,12 @@ public class Ui {
         printMessage(allTasksString.toString());
     }
 
+    /**
+     * This method is run only when the user inputs a "help" command, in which case, the instructions of how to use the
+     * chatbot is printed onto `System.out`. It takes in a String fileSavePath to print out the directory on the user's
+     * machine where their data will be stored.
+     * @param fileSavePath A String representing the (relative) file path to save the user's data
+     */
     public void printInputSpecifications(String fileSavePath) {
         String message = "Please enter your commands:\n";
         message += "Adding Tasks:\n";
@@ -90,8 +128,14 @@ public class Ui {
         printMessage("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
+    /**
+     * The chatbot's reply upon successful deletion of a task is printed out to `System.out`.
+     * @param taskToDelete A Task object representing the task the user intended to delete
+     * @param numTotalTasks An int variable that represents the number of remaining tasks after deleting the task
+     */
     public void printSuccessfulDeleteResponse(Task taskToDelete, int numTotalTasks) {
-        printMessage("Noted. I've removed this task:\n  " + taskToDelete.toString() + "\nNow you have " + numTotalTasks + " task(s) in the list.");
+        printMessage("Noted. I've removed this task:\n  " + taskToDelete.toString() + "\nNow you have "
+                + numTotalTasks + " task(s) in the list.");
     }
 
     public void printSuccessfulMarkResponse(Task taskToMark) {
@@ -102,8 +146,14 @@ public class Ui {
         printMessage("OK, I've marked this task as not done yet:\n" + taskToUnmark);
     }
 
+    /**
+     * The chatbot's reply upon successful addition of a task is printed out to `System.out`.
+     * @param newTask A Task object representing the task the user intended to add
+     * @param numTotalTasks An int variable that represents the number of remaining tasks after adding the task
+     */
     public void printSuccessfulAddTaskResponse(Task newTask, int numTotalTasks) {
-        printMessage("Got it. I've added this task:\n  " + newTask + "\nNow you have " + numTotalTasks + " task(s) in the list.");
+        printMessage("Got it. I've added this task:\n  " + newTask + "\nNow you have " + numTotalTasks
+                + " task(s) in the list.");
     }
 
     public void printInvalidMarkOrUnmarkResponse(int numTotalTasks) {
@@ -154,10 +204,10 @@ public class Ui {
         printMessage("☹ OOPS!!! No such task exists in your task list");
     }
 
+    /**
+     * Prints message for when the file exists in the user's data directory. However, no data is found there.
+     */
     public void printNoDataResponse() {
-        /*
-        Prints message for when the file exists in the user's data directory. However, no data is found there.
-         */
         printMessage("Datafile located. However, it is empty. Creating a new task list for you!");
     }
 
@@ -165,6 +215,11 @@ public class Ui {
         System.out.println("Failed to write to " + savePath);
     }
 
+    /**
+     * This method is run only when the user inputs a "find" command, in which case, this method prints the tasks that
+     * match the user's input query.
+     * @param matchingTasks An ArrayList object that stores the matching tasks to be printed out
+     */
     public void printMatchingTasks(ArrayList<Task> matchingTasks) {
         StringBuilder message = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < matchingTasks.size(); i++) {
