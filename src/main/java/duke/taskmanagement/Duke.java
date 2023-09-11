@@ -46,7 +46,6 @@ public class Duke {
 
     public String getResponse(String input) {
         String greetings = ui.greet();
-        //String cmd = this.ui.readInCmd();
         Parser parser = new Parser(this.ui, this.tasks);
         String str = parser.readCmd(this.tasks, input);
         return str;

@@ -1,8 +1,9 @@
 D | 1 | return book | Mar 23 2023
 D | 1 | assignment | Mar 23 2022
 E | 0 | project meeting | Mon 2pm | 4pm
-T | 0 | cook dinner
+T | 1 | cook dinner
 T | 0 | do laundry
 E | 0 | training | Wed 4pm | 7pm
 D | 0 | quiz | Sep 9 2023
+T | 0 | eat
 T | 0 | eat
