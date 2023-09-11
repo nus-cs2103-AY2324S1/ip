@@ -186,6 +186,11 @@ public class Penguin {
                     String match = spl[1];
                     memory.save(taskList);
                     return taskList.findInList(match);
+                case "schedule":
+                    spl = command.split(" ");
+                    String todayString = spl[1];
+                    memory.save(taskList);
+                    return taskList.findSchedule(todayString);
                 case "unknown":
                     throw new PenguinUnknownCommandException();
 

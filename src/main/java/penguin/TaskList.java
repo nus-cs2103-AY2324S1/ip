@@ -2,6 +2,8 @@ package penguin;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 /**
  * TaskList is a list of Tasks.
  *
@@ -45,6 +47,28 @@ public class TaskList {
             if (this.list.get(i-1).name.contains(match)) {
                 output += i + ".";
                 output += this.list.get(i-1).getDisplay() + "\n";
+            }
+        }
+        return output;
+    }
+
+    /**
+     * Returns information about all events occurring on the given date.
+     *
+     * @param todayString Date to search for, in YYYY-MM-DD format.
+     * @return Information about all events occurring on the given date, in user-output format.
+     */
+    public String findSchedule(String todayString) {
+        String output = "Honk, these are the events you have scheduled for this date...\n";
+        LocalDate today = LocalDate.parse(todayString);
+        for (int i=1; i<=this.list.size(); i++) {
+            if (this.list.get(i-1) instanceof Event) {
+                Event event = (Event) this.list.get(i-1);
+                if (event.from.compareTo(today) <= 0 && event.to.compareTo(today) >= 0) {
+                    output += i + ".";
+                    output += this.list.get(i-1).getDisplay() + "\n";
+                }
+
             }
         }
         return output;

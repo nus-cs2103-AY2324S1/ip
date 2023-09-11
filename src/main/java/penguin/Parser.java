@@ -29,7 +29,9 @@ public class Parser {
             return "delete";
         } else if (command.startsWith("find")) {
             return "find"; 
-        } else {
+        } else if (command.startsWith("schedule")) {
+            return "schedule";
+        }else {
             return "unknown";
         }
     }
