@@ -66,6 +66,27 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Checks if the current deadline is between the given LocalDateTime and X days after it.
+     *
+     * @param dateTime The LocalDateTime to start the range.
+     * @return true if the deadline is within the range, false otherwise.
+     */
+    public boolean withinDeadlineXDays(LocalDateTime dateTime, Integer daysAfter) {
+        LocalDateTime deadlineTime;
+        if (this.by instanceof LocalDate) {
+            deadlineTime = ((LocalDate) this.by).atTime(23, 59, 59);
+        } else if (this.by instanceof LocalDateTime) {
+            deadlineTime = (LocalDateTime) this.by;
+        } else {
+            throw new UnsupportedOperationException("Unsupported Temporal type");
+        }
+        LocalDateTime sevenDaysAfter = dateTime.plusDays(daysAfter);
+        boolean isAfterToday = deadlineTime.isEqual(dateTime) || deadlineTime.isAfter(dateTime);
+        boolean isBeforeDeadline = deadlineTime.isBefore(sevenDaysAfter);
+        return isAfterToday && isBeforeDeadline;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.generateNewDateString() + ")";

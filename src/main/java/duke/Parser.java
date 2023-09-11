@@ -1,5 +1,6 @@
 package duke;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -31,7 +32,7 @@ public class Parser {
         String action = this.words[0];
         String taskDescription = getTaskDescription(this.words);
         try {
-            if (Arrays.asList("todo", "deadline", "event", "list").contains(action)) {
+            if (Arrays.asList("todo", "deadline", "event", "list", "reminder").contains(action)) {
                 return handleTaskCreationCommands(action, tasks);
             } else if (Objects.equals(action, "mark")) {
                 if (validOthers(this.words, tasks)) {
@@ -103,6 +104,10 @@ public class Parser {
         } else if (Objects.equals(action, "list")) {
             assert(this.words.length == 1);
             return performValidListAction(tasks);
+        } else if (Objects.equals(action, "reminder")) {
+            if (isValidReminderCommand(this.words)) {
+                return performValidReminderAction(tasks);
+            }
         }
         throw new DukeException("Invalid");
     }
@@ -132,6 +137,28 @@ public class Parser {
         }
         tasks.addTask(newTask);
         return ui.addTaskText(newTask, tasks.userData.size());
+    }
+
+    /**
+     * Returns String representation of deadline tasks that are due within x number of days
+     *
+     * @param tasks Pre-existing TaskList object containing the user's tasks.
+     * @return String
+     */
+    public String performValidReminderAction(TaskList tasks) {
+        LocalDateTime currentTime = LocalDateTime.now();
+        StringBuilder taskDetails = new StringBuilder();
+        for (int i = 0; i < tasks.userData.size(); i++) {
+            Task currentTask = tasks.userData.get(i);
+            if (Objects.equals(currentTask.tag, "D")) {
+                Deadline task = (Deadline) currentTask;
+                Integer daysAfter = Integer.parseInt(this.words[1]);
+                if (task.withinDeadlineXDays(currentTime, daysAfter)) {
+                    taskDetails.append(ui.displayTaskInList(i, task)).append("\n");
+                }
+            }
+        }
+        return taskDetails.toString();
     }
 
     /**
@@ -236,6 +263,30 @@ public class Parser {
             String[] result = searchFromTo(userCommand, "/from", "/to");
             if (result[0].equals("") || result[1].equals("")) {
                 throw new DukeException("For Events, please provide a valid FROM/TO timeframe.");
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks if the user provided a valid Reminder command that comprises of at most length 2.
+     * Length 1 == Reminder command.
+     * Length 2 == Days ahead the user wants to view.
+     *
+     * @param userCommand Array of the particular user's command split by " ".
+     * @return Boolean. True if provided with appropriate command that follows the guidelines else False.
+     * @throws DukeException if user provides a non-digit as the 2nd command
+     */
+    public boolean isValidReminderCommand(String[] userCommand) throws DukeException {
+        if (userCommand.length <= 1) {
+            throw new DukeException("Please provide a digit representing the number of days ahead you wish to view deadlines for!");
+        } else if (userCommand.length > 2) {
+            throw new DukeException("Please do not provide too much digits");
+        } else {
+            try {
+                int digit = Integer.parseInt(userCommand[1]);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Please enter a valid number.");
             }
         }
         return true;
