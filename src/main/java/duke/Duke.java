@@ -9,11 +9,9 @@ import duke.util.Ui;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-//import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-//import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -60,9 +58,7 @@ public class Duke extends Application {
      */
     public Duke(String pathname) {
         Duke.ui = new Ui();
-        //Duke.ui.showWelcome();
         Duke.storage = new Storage(pathname);
-        //Duke.taskList = new TaskList(Duke.storage.loadData());
         if (Duke.storage.getHasFile()) {
             Duke.taskList = new TaskList(Duke.storage.loadData());
         } else {
@@ -120,7 +116,6 @@ public class Duke extends Application {
 
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();
-        //new Duke().run();
     }
 
     /**
