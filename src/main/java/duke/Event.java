@@ -38,7 +38,7 @@ public class Event extends Task {
      */
     @Override
     public String saveString() {
-        return "E | " + (this.getIsDone() ? "1" : "0") + " | " + this.getTaskName() + " | " + this.fromString + " | "
-                + this.toString;
+        return "E | " + (this.getIsDone() ? "1" : "0") + " | " + this.getTaskName() + " | " 
+                + this.fromString + " | " + this.toString;
     }
 }

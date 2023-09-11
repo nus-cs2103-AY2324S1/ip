@@ -69,6 +69,7 @@ public class Task {
      * @return Task object representing the data string.
      */
     public static Task parseTask(String data) {
+        // Format as follows.
         // T | 1 | read book
         // D | 0 | return book | 1920-01-01
         // E | 0 | project meeting | Aug 6th | Aug 8th
@@ -78,6 +79,7 @@ public class Task {
         // each task has at least 3 elements
         String taskName = dataArr[2];
         Task newTask;
+
         // todo
         if (taskType.equals("T")) {
             newTask = new ToDo(taskName);
@@ -85,12 +87,17 @@ public class Task {
         } else if (taskType.equals("D")) {
             newTask = new Deadline(taskName, dataArr[3]);
             // event
-        } else {
+        } else if (taskType.equals("E")) {
             newTask = new Event(taskName, dataArr[3], dataArr[4]);
+        } else {
+            // unknown task type
+            newTask = new Task(taskName);
         }
+
         if (isDone) {
             newTask.markAsDone();
         }
+
         return newTask;
     }
 }

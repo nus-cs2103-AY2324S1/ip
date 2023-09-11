@@ -53,6 +53,7 @@ public class Ui {
      * @param taskList String representation of the task list.
      */
     public String printTaskList(String taskList) {
+        assert taskList != null : "Task list cannot be null";
         System.out.println("Here are the tasks in your list:");
         System.out.println(taskList);
         return "Here are the tasks in your list:\n" + taskList;
@@ -63,13 +64,14 @@ public class Ui {
      * @param matchingTasks String representation of the matching tasks.
      */
     public String addTaskOutputText(Task newTask, int taskListSize) {
+        assert newTask != null : "Task cannot be null";
         System.out.println("Got it. I've added this task:");
         // can use -1 because we just added it
         System.out.println("" + newTask.toString());
         String taskWord = taskListSize == 1 ? "task" : "tasks";
         System.out.println("Now you have " + taskListSize + " " + taskWord + " in your list.");
-        return "Got it. I've added this task:\n" + newTask.toString() + "\nNow you have " + taskListSize
-                + " " + taskWord + " in your list.";
+        return "Got it. I've added this task:\n" + newTask.toString() + "\nNow you have " 
+                + taskListSize + " " + taskWord + " in your list.";
     }
 
     /**
