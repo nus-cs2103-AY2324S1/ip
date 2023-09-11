@@ -3,7 +3,6 @@ package grumpygordon.commands;
 import grumpygordon.storage.Storage;
 import grumpygordon.tasks.TaskList;
 import grumpygordon.tasks.Todo;
-import grumpygordon.ui.Ui;
 
 /**
  * Represents a command to add a todo task.
@@ -25,12 +24,11 @@ public class TodoCommand extends Command {
     /**
      * Executes the command.
      * @param tasks The list of tasks
-     * @param ui The user interface
      * @param storage The storage
      * @return The output string
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         tasks.addTask(new Todo(this.description, false));
         storage.saveTasks(tasks);
         return "Todo task added to list!\n" + tasks.getTask(tasks.size() - 1).toString();
