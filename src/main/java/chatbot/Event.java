@@ -23,12 +23,12 @@ public class Event extends Task {
 
     @Override
     public String getExtras() {
-        return "(from:" + from + " to:" + to + ")";
+        return " (from:" + from + " to:" + to + ")";
     }
 
     @Override
     public String toString() {
-        return getTypeIcon() + super.getStatusIcon() + 
-                    super.description + getExtras();
+        return getTypeIcon() + super.getStatusIcon()
+                   + super.description + getExtras();
     }
 }

@@ -39,10 +39,8 @@ public class UI {
     public String endProgram() {
         return MESSAGE_GOODBYE;
     }
-    
     /**
      * Prints the marked message and the String representation of the task.
-     * 
      * @param task The task to be printed
      */
     public String printMarked(Task task) {
@@ -54,7 +52,6 @@ public class UI {
 
     /**
      * Prints the unmarked message and the String representation of the task.
-     * 
      * @param task The task to be printed
      */
     public String printUnmarked(Task task) {
@@ -67,7 +64,6 @@ public class UI {
     /**
      * Prints the add message, the String representation of the task
      * and the size of the list.
-     * 
      * @param task The task to be printed
      * @param size The size of the modified list.
      */
@@ -81,9 +77,8 @@ public class UI {
     }
 
     /**
-     * Prints the delete message, the String representation of the task
+     * Prints the deleted message, the String representation of the task
      * and the size of the list.
-     * 
      *  @param task The task to be printed.
      *  @param size The size of the modified list.
      */
@@ -98,7 +93,6 @@ public class UI {
 
     /**
      * Prints every task to the user.
-     * 
      * @param tasks The list of tasks.
      */
     public String printStorageList(List<Task> tasks) {
@@ -113,7 +107,6 @@ public class UI {
 
     /**
      * Prints the error message for incomplete commands.
-     * 
      *  @param str The string to be printed.
      */
     public String printIncompleteCommand(String str) {
@@ -121,7 +114,7 @@ public class UI {
         return str;
     }
 
-     /**
+    /**
      * Prints the error message for invalid inputs.
      */
     public String invalidInput() {

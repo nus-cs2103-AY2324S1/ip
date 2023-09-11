@@ -29,15 +29,13 @@ public class Deadline extends Task {
 
         LocalDate localDate = LocalDate.parse(dateDetails[0]);
         time = " " + dateDetails[1];
-
-        return "(by: " 
-                    + localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) 
-                        + time + ")";
+        return "(by: " + localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                            + time + ")";
     }
 
     @Override
     public String toString() {
-        return getTypeIcon() + super.getStatusIcon() +
-                    super.description + getExtras();
+        return getTypeIcon() + super.getStatusIcon() 
+                    + super.description + getExtras();
     }
 }
