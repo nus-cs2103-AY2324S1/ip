@@ -23,6 +23,21 @@ public class Parser {
     }
 
     /**
+     * Saves notes to notes.txt.
+     * If an error occurs during save operation, an error message is printed.
+     *
+     * @param noteList The list of notes to save.
+     * @param storage  The storage object to save notes.
+     */
+    private void saveNotes(String noteList, Storage storage) {
+        try {
+            storage.saveNoteFile(noteList);
+        } catch (IOException e) {
+            System.out.println("SaveNote Error: " + e.getMessage());
+        }
+    }
+
+    /**
      * Processes user input and interacts with the TaskList to execute user commands.
      *
      * @param userInput The command input by the user.
@@ -30,7 +45,7 @@ public class Parser {
      * @param storage The storage object to save tasks.
      * @return A string response after processing the command.
      */
-    public String processUserCommand(String userInput, TaskList taskList, Storage storage) {
+    public String processTaskCommand(String userInput, TaskList taskList, Storage storage) {
         String generalCommandsFunctionResponse = handleGeneralCommands(userInput);
         if (generalCommandsFunctionResponse != null) {
             return generalCommandsFunctionResponse;
@@ -38,7 +53,23 @@ public class Parser {
         try {
             return handleTaskCommands(userInput, taskList, storage);
         } catch (Exception e) {
-            return "An error occurred: " + e.getMessage();
+            return "HandleTask error occurred: " + e.getMessage();
+        }
+    }
+
+    /**
+     * Processes user input and interacts with the TaskList to execute user commands.
+     *
+     * @param userInput The command input by the user.
+     * @param noteList The list of tasks.
+     * @param storage The storage object to save tasks.
+     * @return A string response after processing the command.
+     */
+    public String processNoteCommand(String userInput, NoteList noteList, Storage storage) {
+        try {
+            return handleNoteCommand(userInput, noteList, storage);
+        } catch (Exception e) {
+            return "HandleNote error occurred: " + e.getMessage();
         }
     }
 
@@ -66,6 +97,57 @@ public class Parser {
         }
 
         return null;
+    }
+
+    /**
+     * Determines the type of note-related command based on the user input.
+     * @param userInput The user's input string.
+     * @return The type of note-related command as an enum.
+     */
+    private NoteCommandType getNoteCommandType(String userInput) {
+        if (userInput.startsWith("note list")) return NoteCommandType.LIST;
+        if (userInput.startsWith("note add")) return NoteCommandType.ADD;
+        if (userInput.startsWith("note delete")) return NoteCommandType.DELETE;
+        return NoteCommandType.UNKNOWN;
+    }
+
+    /**
+     * Handles user commands related to notes.
+     * @param userInput The user's input string.
+     * @return A response string for note-related commands.
+     */
+    private String handleNoteCommand(String userInput, NoteList noteList, Storage noteStorage) {
+        NoteCommandType commandType = getNoteCommandType(userInput);
+
+        switch (commandType) {
+            case LIST:
+                return "Here are the notes in your list:\n" + noteList.toString();
+
+            case ADD:
+                String[] addInputParts = userInput.split(" ");
+                if (addInputParts.length < 3) {
+                    return "Please provide content for the note.";
+                }
+                String noteContent = userInput.substring(9); // Adjust the substring index
+                Note note = new Note(noteContent);
+                noteList.add(note);
+                saveNotes(noteList.toString(), noteStorage);
+                return "Note added: " + note.toString();
+
+
+            case DELETE:
+                String[] deleteInputParts = userInput.split(" ");
+                if (deleteInputParts.length < 3) {
+                    return "Please provide a valid note number to delete.";
+                }
+                int deleteNoteNumber = Integer.parseInt(deleteInputParts[2]);
+                String deleteNoteMessage = noteList.delete(deleteNoteNumber - 1);
+                saveNotes(noteList.toString(), noteStorage);
+                return "Note deleted successfully!\n" + deleteNoteMessage;
+
+            default:
+                return "OOPS!!! I'm sorry, but I don't know what that means for notes :-(";
+        }
     }
 
     /**
@@ -123,8 +205,11 @@ public class Parser {
         }
     }
 
+    public enum NoteCommandType {
+        LIST, ADD, DELETE, UNKNOWN
+    }
     public enum CommandType {
-        UNMARK, MARK, DELETE, FIND, TODO, DEADLINE, EVENT, LIST, UNKNOWN
+        UNMARK, MARK, DELETE, FIND, TODO, DEADLINE, EVENT, LIST, UNKNOWN, NOTE
     }
 
     /**

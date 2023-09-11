@@ -3,7 +3,7 @@ package friday;
 /**
  * Represents a task in the Friday application.
  */
-public class Task {
+public class Task extends Item {
     protected String name;
     protected boolean isDone;
 
@@ -13,7 +13,7 @@ public class Task {
      * @param name The name or description of the task.
      */
     public Task(String name) {
-        this.name = name;
+        super(name);
         this.isDone = false;
     }
 
@@ -56,3 +56,4 @@ public class Task {
         return lowerCaseName.contains(keyWord.toLowerCase());
     }
 }
+

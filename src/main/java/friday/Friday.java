@@ -5,7 +5,9 @@ package friday;
  */
 public class Friday {
     private TaskList taskList;
-    private Storage storage;
+    private NoteList noteList;
+    private Storage noteStorage;
+    private Storage taskStorage;
     private Parser parser;
 
     /**
@@ -14,7 +16,9 @@ public class Friday {
      */
     public Friday() {
         this.taskList = new TaskList();
-        this.storage = new Storage("data/tasks.txt");
+        this.noteList = new NoteList();
+        this.taskStorage = new Storage("data/tasks.txt");
+        this.noteStorage = new Storage("data/notes.txt");
         this.parser = new Parser();
     }
 
@@ -28,8 +32,13 @@ public class Friday {
      * @return A response string.
      */
     public String getResponse(String input) {
-        input = input.toLowerCase().trim();
-
-        return parser.processUserCommand(input, taskList, storage);
+        String lowercaseInput = input.toLowerCase().trim();
+        if (lowercaseInput.startsWith("note ")) {
+            // Handle notes
+            return parser.processNoteCommand(input, noteList, noteStorage);
+        } else {
+            // Handle tasks
+            return parser.processTaskCommand(input, taskList, taskStorage);
+        }
     }
 }
