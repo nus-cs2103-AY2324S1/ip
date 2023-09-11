@@ -1,17 +1,14 @@
 package taskmate.commands;
 
+import taskmate.tools.Storage;
 import taskmate.tools.TaskList;
 import taskmate.tools.Ui;
-import taskmate.tools.Storage;
 
 /**
  * The HelpCommand class is a child class of the Command class. It represents the `help` command which allows the user
  * to view the list of available commands and how each command should be formatted.
  */
 public class HelpCommand extends Command {
-
-    String commandType;
-    boolean isExit;
 
     /**
      * HelpCommand constructor that allows the user to create a `help` command that guides them to use TaskMate.

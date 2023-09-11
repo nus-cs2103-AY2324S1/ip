@@ -7,19 +7,18 @@ import taskmate.tools.Ui;
 import taskmate.tools.tasks.Task;
 
 /**
- * The DeleteCommand class is a child class of the Command class. It represents the `delete <deleteIndex>` command which
+ * The DeleteCommand class is a child class of the Command class. It represents the "delete `deleteIndex`" command which
  * deletes tasks from the task list.
  */
 public class DeleteCommand extends Command {
-    String commandType;
-    boolean isExit;
-    int deleteIndex;
+
+    private final int deleteIndex;
 
     /**
      * DeleteCommand constructor that allows the developer to specify the index of the task to be removed.
      *
-     * @param deleteIndex the index of the task to be removed from the task list. This index is 1-based, which means
-     * the deleteIndex starts from 1 to the number of tasks available, rather than starting from 0.
+     * @param deleteIndex the index of the task to be removed from the task list. This index is 1-based, which means the
+     *                    deleteIndex starts from 1 to the number of tasks available, rather than starting from 0.
      */
     public DeleteCommand(int deleteIndex) {
         this.commandType = "Delete";

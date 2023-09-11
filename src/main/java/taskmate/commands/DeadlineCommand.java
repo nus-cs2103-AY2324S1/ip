@@ -1,21 +1,20 @@
 package taskmate.commands;
 
+import java.time.LocalDate;
+
 import taskmate.tools.Storage;
 import taskmate.tools.TaskList;
 import taskmate.tools.Ui;
 import taskmate.tools.tasks.Deadline;
 import taskmate.tools.tasks.Task;
 
-import java.time.LocalDate;
-
 /**
  * The DeadlineCommand class is the child class of the AddCommand class. It represents a "deadline" tasks given by the
- * user in the following form: "deadline <name> /by <date>".
+ * user in the following form: "deadline `name` /by `date`".
  */
 public class DeadlineCommand extends AddCommand {
-    String commandType;
-    boolean isExit;
-    LocalDate by;
+
+    private final LocalDate by;
 
     /**
      * DeadlineCommand constructor that allows the developer to specify the name of the task, and a date that represents
@@ -34,8 +33,8 @@ public class DeadlineCommand extends AddCommand {
 
     /**
      * Executes the `deadline` command by the user by creating a new Deadline instance and adding it into the user's
-     * task list, which is a TaskList instance `tasks`. Upon successful execution, a success message is printed by the `ui`
-     * instance to inform the user about the successful execution.
+     * task list, which is a TaskList instance `tasks`. Upon successful execution, a success message is printed by the
+     * `ui` instance to inform the user about the successful execution.
      *
      * @param tasks TaskList object that stores the list of undeleted tasks defined by the user.
      * @param ui Ui object that deals with taking in user input and printing messages out to the user.
@@ -53,4 +52,5 @@ public class DeadlineCommand extends AddCommand {
         // 3. Print successful task added message
         ui.printSuccessfulAddTaskResponse(newDeadlineTask, tasks.getNumTotalTasks());
     }
+
 }

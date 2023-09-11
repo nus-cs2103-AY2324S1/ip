@@ -1,19 +1,16 @@
 package taskmate.commands;
 
+import taskmate.tools.Storage;
 import taskmate.tools.TaskList;
 import taskmate.tools.Ui;
-import taskmate.tools.Storage;
 import taskmate.tools.tasks.Task;
 import taskmate.tools.tasks.Todo;
 
 /**
  * The TodoCommand class is the child class of the AddCommand class. It represents a "todo" tasks given by the user in
- * the following form: "todo <name>".
+ * the following form: "todo `name`".
  */
 public class TodoCommand extends AddCommand {
-
-    String commandType;
-    boolean isExit;
 
     /**
      * TodoCommand constructor that allows the developer to specify the name of the task.

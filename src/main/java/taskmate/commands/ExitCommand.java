@@ -1,18 +1,16 @@
 package taskmate.commands;
 
+import java.io.IOException;
+
 import taskmate.tools.Storage;
 import taskmate.tools.TaskList;
 import taskmate.tools.Ui;
-
-import java.io.IOException;
 
 /**
  * The ExitCommand class is a child class of the Command class. It represents the `bye` command which stops the
  * application and saves the undeleted tasks to the disk.
  */
 public class ExitCommand extends Command {
-
-    String commandType;
 
     /**
      * ExitCommand constructor that allows the user to stop the application and save the undeleted tasks to the

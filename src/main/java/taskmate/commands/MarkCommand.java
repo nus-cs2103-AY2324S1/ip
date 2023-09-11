@@ -1,25 +1,24 @@
 package taskmate.commands;
 
 import taskmate.exceptions.TaskNotFoundException;
+import taskmate.tools.Storage;
 import taskmate.tools.TaskList;
 import taskmate.tools.Ui;
-import taskmate.tools.Storage;
 import taskmate.tools.tasks.Task;
 
 /**
- * The MarkCommand class is a child class of the Command class. It represents the `mark <markIndex>` command which
+ * The MarkCommand class is a child class of the Command class. It represents the "mark `markIndex`" command which
  * marks tasks in the task list as completed.
  */
 public class MarkCommand extends Command {
-    String commandType;
-    boolean isExit;
-    int markIndex;
+
+    private final int markIndex;
 
     /**
      * MarkCommand constructor that allows the developer to specify the index of the task to be marked as completed.
      *
      * @param markIndex the index of the task to be marked from the task list. This index is 1-based, which means
-     * the markIndex starts from 1 to the number of tasks available, rather than starting from 0.
+     *                  the markIndex starts from 1 to the number of tasks available, rather than starting from 0.
      */
     public MarkCommand(int markIndex) {
         this.commandType = "Mark";
