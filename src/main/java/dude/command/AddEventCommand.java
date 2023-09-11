@@ -1,3 +1,10 @@
+package dude.command;
+
+import dude.Storage;
+import dude.TaskList;
+import dude.Ui;
+import dude.task.Event;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 

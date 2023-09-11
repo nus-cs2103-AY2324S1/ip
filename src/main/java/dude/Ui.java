@@ -1,4 +1,8 @@
+package dude;
+
 // deals with interactions with the user
+import dude.task.Task;
+
 import java.util.Scanner;
 public class Ui {
     Scanner sc;
@@ -54,11 +58,7 @@ public class Ui {
         System.out.println(" OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
     public void showError(String message) {
-
     }
-
-
-
 
     public void showLoadingError() {
     }

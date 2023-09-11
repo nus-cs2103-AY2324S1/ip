@@ -1,3 +1,4 @@
+package dude;
 public class DudeException extends Exception {
     DudeException(String message) {
         super(message);
