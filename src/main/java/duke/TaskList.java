@@ -105,4 +105,8 @@ public class TaskList {
     public void deleteTask(int taskIndex) {
         taskList.remove(taskIndex);
     }
+
+    public void setPriority(int taskIndex, int priority) {
+        taskList.get(taskIndex).setPriority(priority);
+    }
 }

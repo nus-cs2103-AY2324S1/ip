@@ -155,6 +155,19 @@ public class Duke {
                 }
             }
             return ui.printTaskList(outputString);
+
+        case "priority":
+            // the format will be priority <index> <priority>
+            // priority is an integer
+            // index is an integer
+            // priority is between 1 and 5
+            // index is between 1 and taskList.size()
+            String[] inputArr = inputString.split(" ");
+            int priority = Integer.parseInt(inputArr[2]);
+            taskIndex = Integer.parseInt(inputArr[1]) - 1;
+            tasks.setPriority(taskIndex, priority);
+            return ui.printPriorityMessage(tasks.taskToString(taskIndex), priority);
+
         default:
             return ui.showErrorMessage(
                     "\t☹ OOPS!!! I'm sorry, but I don't know what that means. Try again using either mark <index>,"
