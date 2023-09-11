@@ -48,6 +48,8 @@ class Duke {
         CommandType commandType = getCommandType(commandStr);
 
         switch (commandType) {
+            case BYE:
+                break;
             case LIST:
                 listTasks(tasks);
                 break;
@@ -175,6 +177,6 @@ class UnknownCommandException extends Exception {
 }
 
 enum CommandType {
-    LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND, UNKNOWN
+    LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND, BYE, UNKNOWN
 }
 
