@@ -28,6 +28,7 @@ public class TaskList {
      * The list of tasks is represented as an ArrayList.
      */
     public TaskList(List<Task> tasks) {
+        assert tasks != null : "List of tasks should not be null";
         this.tasks = tasks;
     }
 
@@ -37,6 +38,7 @@ public class TaskList {
      * @param task The task to be added to the list of tasks.
      */
     public void add(Task task) {
+        assert task != null : "Task should not be null";
         tasks.add(task);
     }
 

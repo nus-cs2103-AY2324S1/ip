@@ -50,6 +50,7 @@ public class Duke {
         } catch (DukeException e) {
             ui.printErrorMessage(e);
         }
+        assert false : "Response should not be null";
         return "Duke heard: " + input;
     }
 
@@ -114,6 +115,7 @@ public class Duke {
             ui.printFarewellMessage();
             return ui.displayFarewellMessage();
         default:
+            assert false : "Command type should not be null";
             return "";
         }
     }
@@ -146,6 +148,7 @@ public class Duke {
         } catch (DukeException e) {
             ui.printErrorMessage(e);
         }
+        assert false : "Task should not be null";
         return null;
     }
 
@@ -163,6 +166,7 @@ public class Duke {
         } catch (DukeException e) {
             ui.printErrorMessage(e);
         }
+        assert false : "Task should not be null";
         return null;
     }
 
@@ -178,6 +182,7 @@ public class Duke {
         } catch (DukeException e) {
             ui.printErrorMessage(e);
         }
+        assert false : "Task should not be null";
         return null;
     }
 }

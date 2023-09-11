@@ -48,7 +48,7 @@ public class Storage {
         } else if (task.startsWith("E")) {
             newTask = Event.createEventFromStorage(task);
         }
-
+        assert newTask != null : "Task should not be null";
         return newTask;
     }
 
@@ -80,6 +80,7 @@ public class Storage {
      * @throws DukeException If there is an error writing to duke.txt.
      */
     public void write(List<Task> tasks) throws DukeException {
+        assert tasks != null : "Tasks should not be null";
         try {
             FileWriter fw = new FileWriter(file);
             for (Task task : tasks) {
@@ -98,6 +99,7 @@ public class Storage {
      * @throws DukeException If there is an error writing to duke.txt.
      */
     public void write(Task newTask) throws DukeException {
+        assert newTask != null : "Task should not be null";
         try {
             FileWriter fw = new FileWriter(file, true);
             fw.write(newTask.toStorageString() + "\n");

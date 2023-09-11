@@ -64,6 +64,8 @@ public class Ui {
      * @param tasks The updated list of tasks
      */
     public void printAddedTaskConfirmation(Task task, TaskList tasks) {
+        assert task != null : "Task should not be null";
+        assert tasks != null : "List of tasks should not be null";
         System.out.println(LINE);
         System.out.println("Got it. I've added this task: ");
         System.out.println("  " + task);
@@ -79,6 +81,8 @@ public class Ui {
      * @return The confirmation message as a String.
      */
     public String displayAddedTaskConfirmation(Task task, TaskList tasks) {
+        assert task != null : "Task should not be null";
+        assert tasks != null : "List of tasks should not be null";
         return "Got it. I've added this task: \n" + "  " + task + "\n" + "Now you have " + tasks.size()
                 + " tasks in the list.";
     }
@@ -90,6 +94,8 @@ public class Ui {
      * @param tasks The updated list of tasks
      */
     public void printDeletedTaskConfirmation(Task task, TaskList tasks) {
+        assert task != null : "Task should not be null";
+        assert tasks != null : "List of tasks should not be null";
         System.out.println(LINE);
         System.out.println("Noted. I've removed this task: ");
         System.out.println("  " + task);
@@ -105,6 +111,8 @@ public class Ui {
      * @return The confirmation message as a String.
      */
     public String displayDeletedTaskConfirmation(Task task, TaskList tasks) {
+        assert task != null : "Task should not be null";
+        assert tasks != null : "List of tasks should not be null";
         return "Noted. I've removed this task: \n" + "  " + task + "\n" + "Now you have " + tasks.size()
                 + " tasks in the list.";
     }
@@ -115,6 +123,7 @@ public class Ui {
      * @param task The marked task
      */
     public void printMarkedTaskConfirmation(Task task) {
+        assert task != null : "Task should not be null";
         System.out.println(LINE);
         System.out.println("Nice! I've marked this task as done: ");
         System.out.println("  " + task);
@@ -122,6 +131,7 @@ public class Ui {
     }
 
     public String displayMarkedTaskConfirmation(Task task) {
+        assert task != null : "Task should not be null";
         return "Nice! I've marked this task as done: \n" + "  " + task;
     }
 
@@ -152,6 +162,7 @@ public class Ui {
      * @param tasks The list of tasks.
      */
     public void printList(List<Task> tasks) {
+        assert tasks != null : "List of tasks should not be null";
         System.out.println(LINE);
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i));
@@ -166,6 +177,7 @@ public class Ui {
      * @return The list of tasks as a String.
      */
     public String displayList(List<Task> tasks) {
+        assert tasks != null : "List of tasks should not be null";
         String result = "";
         for (int i = 0; i < tasks.size(); i++) {
             result += (i + 1) + ". " + tasks.get(i) + "\n";
