@@ -124,7 +124,7 @@ public class Parser {
         } else if (matcher.group("description").isBlank()) {
             throw new DukeException("Description of unmark cannot be empty. Try again.");
         } else {
-            return new Instruction.Mark(Parser.parseInteger(matcher.group("description").trim()));
+            return new Instruction.Unmark(Parser.parseInteger(matcher.group("description").trim()));
         }
     }
 
@@ -141,7 +141,7 @@ public class Parser {
         } else if (matcher.group("description").isBlank()) {
             throw new DukeException("Description of delete cannot be empty. Try again.");
         } else {
-            return new Instruction.Mark(Parser.parseInteger(matcher.group("description").trim()));
+            return new Instruction.Delete(Parser.parseInteger(matcher.group("description").trim()));
         }
     }
 
