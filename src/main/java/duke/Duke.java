@@ -39,7 +39,7 @@ public class Duke extends Application {
         stage.setScene(ui.sceneMaker());
         //Step 2. Formatting the window to look as expected
         stage.setTitle("Luke");
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
         stage.show();

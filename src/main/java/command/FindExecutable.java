@@ -13,7 +13,7 @@ public class FindExecutable implements Executable {
     private String keyword;
 
     public void setSearch(String keyword) {
-        assert (!keyword.isBlank());
+        assert (!keyword.isBlank()); // Parser should pass a valid keyword only.
         this.keyword = keyword;
     }
 

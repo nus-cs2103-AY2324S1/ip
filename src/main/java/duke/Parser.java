@@ -43,6 +43,8 @@ public class Parser {
         stringToCommand.put("deadline", new AddTaskExecutable());
         stringToCommand.put("event", new AddTaskExecutable());
         stringToCommand.put("delete", new DeleteExecutable());
+
+
         stringToCommand.put("mark", new MarkExecutable(true));
         stringToCommand.put("unmark", new MarkExecutable(false));
         stringToCommand.put("find", new FindExecutable());
