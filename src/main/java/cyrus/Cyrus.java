@@ -48,4 +48,8 @@ public class Cyrus {
                         .collect(Collectors.toList());
         return String.join("\n", text);
     }
+
+    public TaskList getTaskList() {
+        return taskList;
+    }
 }

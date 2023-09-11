@@ -1,5 +1,7 @@
 package cyrus.ui;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -8,7 +10,11 @@ import cyrus.Cyrus;
 import cyrus.commands.CommandError;
 import cyrus.commands.CommandType;
 import cyrus.parser.ParseInfo;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -16,6 +22,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * Entry point for Cyrus Gui.
@@ -71,6 +79,10 @@ public class MainWindow extends AnchorPane {
             isError = true;
         } finally {
             putConversation(userText, cyrusResponse, isError);
+            if (parseInfo.getCommandType().equals(CommandType.VIEW_STATISTICS)) {
+                // Open the statistics dashboard
+                openStatisticsDashboard();
+            }
         }
         if (parseInfo.getCommandType() == CommandType.BYE) {
             Timer timer = new Timer();
@@ -89,5 +101,29 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDialog(cyrusText, "Cyrus", botImage, isError ? Color.RED : Color.BLACK)
         );
         userInput.clear();
+    }
+
+    private void openStatisticsDashboard() {
+        HashMap<String, Long> todoCount = cyrus.getTaskList().getTaskDistribution();
+        var pieChartData = FXCollections.<PieChart.Data>observableArrayList();
+        for (var entry : todoCount.entrySet()) {
+            pieChartData.add(new PieChart.Data(entry.getKey(), entry.getValue()));
+        }
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/StatisticsDashboard.fxml"));
+            fxmlLoader.setController(new StatisticsDashboard(pieChartData));
+            VBox window = fxmlLoader.load();
+            Scene scene = new Scene(window);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Statistics Dashboard");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.setAlwaysOnTop(true);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

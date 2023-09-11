@@ -1,5 +1,6 @@
 package cyrus.tasks;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -84,6 +85,17 @@ public class TaskList {
      */
     public Task getTask(int index) {
         return this.tasks.get(index);
+    }
+
+    public HashMap<String, Long> getTaskDistribution() {
+        HashMap<String, Long> distribution = new HashMap<>();
+        long todoCount = tasks.stream().filter(task -> task instanceof ToDo).count();
+        long deadlineCount = tasks.stream().filter(task -> task instanceof Deadline).count();
+        long eventCount = tasks.stream().filter(task -> task instanceof Event).count();
+        distribution.put("To-Do", todoCount);
+        distribution.put("Deadline", deadlineCount);
+        distribution.put("Event", eventCount);
+        return distribution;
     }
 
     @Override
