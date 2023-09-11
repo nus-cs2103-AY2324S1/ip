@@ -56,6 +56,8 @@ public enum CommandType {
             return DATE;
         case "find":
             return FIND;
+        case "undo":
+            return UNDO;
         default:
             throw new InvalidCommandException();
         }
