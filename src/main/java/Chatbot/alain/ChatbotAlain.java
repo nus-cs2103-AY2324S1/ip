@@ -73,29 +73,35 @@ public class ChatbotAlain extends Application {
      * @return The transformed time string.
      * @throws AlainException If an exception occurs during the transformation.
      */
-    public static String stringToTimeString(String inputTime) throws AlainException {
-        DateTimeFormatter inputPattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        if (Pattern.matches("\\d+-\\d+-\\d+", inputTime)) {
-            LocalDate date = LocalDate.from(LocalDate.parse(inputTime, inputPattern));
-            DateTimeFormatter outputPattern = DateTimeFormatter.ofPattern("MMMM dd yyyy", Locale.ENGLISH);
-            String transformedTime = date.format(outputPattern);
-            return transformedTime;
-        } else if (Pattern.matches("\\d+-\\d+-\\d+ .+", inputTime)) {
-            String[] dateAndTime = inputTime.split(" ");
-            String addMsg = "";
-            for (int i = 1; i < dateAndTime.length; i++) {
-                addMsg += dateAndTime[i];
+    public static String stringToTimeString(Task task, String inputTime, boolean isBy) {
+        try {
+            DateTimeFormatter inputPattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            if (Pattern.matches("\\d+-\\d+-\\d+", inputTime)) {
+                LocalDate date = LocalDate.from(LocalDate.parse(inputTime, inputPattern));
+                task.setTime(date, isBy);
+                DateTimeFormatter outputPattern = DateTimeFormatter.ofPattern("MMMM dd yyyy", Locale.ENGLISH);
+                String transformedTime = date.format(outputPattern);
+                return transformedTime;
+            } else if (Pattern.matches("\\d+-\\d+-\\d+ .+", inputTime)) {
+                String[] dateAndTime = inputTime.split(" ");
+                String addMsg = "";
+                for (int i = 1; i < dateAndTime.length; i++) {
+                    addMsg += dateAndTime[i];
+                }
+                LocalDate date = LocalDate.parse(dateAndTime[0], inputPattern);
+                task.setTime(date, isBy);
+                DateTimeFormatter outputPattern = DateTimeFormatter.ofPattern("MMMM dd yyyy", Locale.ENGLISH);
+                String transformedTime = date.format(outputPattern);
+                assert transformedTime != null : "Transformed time should not be null";
+                return transformedTime + " " + addMsg;
+            } else if (inputTime.length() == 0) {
+                throw new AlainException(" OOPS!!! The description of a alain.Task cannot be empty.");
+            } else {
+                return inputTime;
             }
-            LocalDate date = LocalDate.parse(dateAndTime[0], inputPattern);
-
-            DateTimeFormatter outputPattern = DateTimeFormatter.ofPattern("MMMM dd yyyy", Locale.ENGLISH);
-            String transformedTime = date.format(outputPattern);
-            assert transformedTime != null : "Transformed time should not be null";
-            return transformedTime + " " + addMsg;
-        } else if (inputTime.length() == 0) {
-            throw new AlainException(" OOPS!!! The description of a alain.Task cannot be empty.");
-        } else {
-            return inputTime;
+        } catch (AlainException e) {
+            Ui.showError(e.getMessage());
+            return null;
         }
     }
 
@@ -161,7 +167,7 @@ public class ChatbotAlain extends Application {
                 if (parts.length != 2) {
                     throw new AlainException("The description of a Deadline is invalid");
                 }
-                Deadlines newDeadline = new Deadlines(parts[0], stringToTimeString(parts[1]));
+                Deadlines newDeadline = new Deadlines(parts[0], parts[1]);
                 list.addTask(newDeadline);
                 Assertions.assertNewDeadline(list, newDeadline);
                 Ui.showAddTask(list.getTask(list.size() - 1), list);
@@ -177,7 +183,7 @@ public class ChatbotAlain extends Application {
                     throw new AlainException("The description of a Event is invalid");
                 }
                 Events newEvent = new Events(parts[0],
-                        stringToTimeString(parts[1].substring(5)), stringToTimeString(parts[2].substring(3)));
+                        parts[1].substring(5), parts[2].substring(3));
                 list.addTask(newEvent);
                 Assertions.assertNewEvent(list, newEvent);
                 Ui.showAddTask(list.getTask(list.size() - 1), list);
@@ -199,6 +205,7 @@ public class ChatbotAlain extends Application {
                 Ui.showUnmarkTask(numericPart, list);
                 return GuiUi.showUnmarkTask(numericPart, list);
             } else if (text.equals("list")) {
+                list.sort();
                 Ui.showList(list);
                 return GuiUi.showList(list);
             }

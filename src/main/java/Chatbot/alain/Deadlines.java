@@ -1,5 +1,7 @@
 package chatbot.alain;
 
+import java.time.LocalDate;
+
 /**
  * Represents a task with a specific deadline.
  */
@@ -8,7 +10,8 @@ public class Deadlines extends Task {
     /**
      * The deadline time associated with the task.
      */
-    protected String byTime;
+    protected String byTimeString;
+    protected LocalDate byTime;
 
     /**
      * Constructs a Deadline task.
@@ -18,7 +21,10 @@ public class Deadlines extends Task {
      */
     public Deadlines(String description, String by) {
         super(description);
-        this.byTime = by;
+        this.byTimeString = ChatbotAlain.stringToTimeString(this, by, true);
+        if (byTime == null) {
+            byTime = LocalDate.MAX;
+        }
     }
 
     /**
@@ -28,6 +34,14 @@ public class Deadlines extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + byTime + ")";
+        return "[D]" + super.toString() + " (by: " + byTimeString + ")";
+    }
+    @Override
+    public void setTime(LocalDate date, boolean by) {
+        this.byTime = date;
+    }
+    @Override
+    public LocalDate getDate() {
+        return this.byTime;
     }
 }

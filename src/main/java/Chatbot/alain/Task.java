@@ -1,9 +1,10 @@
 package chatbot.alain;
 
+import java.time.LocalDate;
 /**
  * Represents a task with a name and completion status.
  */
-public class Task {
+public abstract class Task {
     protected String name;
     protected boolean isDone;
 
@@ -62,4 +63,6 @@ public class Task {
     public String toString() {
         return this.getStatusIcon() + " " + this.name;
     }
+    public abstract void setTime(LocalDate date, boolean by);
+    public abstract LocalDate getDate();
 }
