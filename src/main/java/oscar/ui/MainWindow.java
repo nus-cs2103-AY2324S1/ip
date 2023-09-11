@@ -16,8 +16,6 @@ import oscar.Oscar;
  */
 public class MainWindow extends AnchorPane {
     @FXML
-    private Button sendButton;
-    @FXML
     private ScrollPane scrollPane;
     @FXML
     private VBox dialogContainer;

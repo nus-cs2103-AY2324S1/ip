@@ -35,6 +35,8 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws OscarException {
+        assert tasks != null;
+        assert storage != null;
         String[] validatedDetails = validate();
         String description = validatedDetails[0];
         String deadline = validatedDetails[1];

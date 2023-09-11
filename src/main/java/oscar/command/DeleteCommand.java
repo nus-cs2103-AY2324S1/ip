@@ -30,6 +30,8 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws OscarException {
+        assert tasks != null;
+        assert storage != null;
         int index = validateInt(details, tasks);
         String currentTask = tasks.delete(index);
         storage.save(tasks);

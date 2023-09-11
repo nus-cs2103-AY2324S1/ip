@@ -28,6 +28,7 @@ public class TaskList {
      * @throws OscarException Unable to load object input stream.
      */
     public TaskList(ObjectInputStream stream) throws OscarException {
+        assert stream != null;
         this.taskList = load(stream);
     }
 

@@ -32,6 +32,8 @@ public class TodoCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws OscarException {
+        assert tasks != null;
+        assert storage != null;
         validate();
         Task newTodo = new Todo(details);
         tasks.add(newTodo);

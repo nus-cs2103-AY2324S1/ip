@@ -30,6 +30,7 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws OscarException {
+        assert tasks != null;
         validate();
         return tasks.find(keyword);
     }
