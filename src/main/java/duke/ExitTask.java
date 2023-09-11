@@ -20,7 +20,7 @@ public class ExitTask extends Command {
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
-        } else if (obj == null || this == null) {
+        } else if (obj == null) {
             return false;
         } else {
             return obj instanceof ExitTask;

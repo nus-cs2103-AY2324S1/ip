@@ -27,12 +27,12 @@ public class Ui {
      * @return String instance of all tasks in the TaskList
      */
     public String listMessage(TaskList lst) {
-        String output = "Here are the tasks in your list: ";
+        StringBuilder output = new StringBuilder("Here are the tasks in your list: ");
         for (int i = 0; i < lst.size(); i++) {
             Task task = lst.get(i);
-            output = output + "\n" + String.valueOf(i + 1) + "." + task.toString();
+            output.append("\n").append(String.valueOf(i + 1)).append(".").append(task.toString());
         }
-        return output;
+        return output.toString();
     }
     public String exitMessage() {
         return "Bye. Hope to see you again soon!";

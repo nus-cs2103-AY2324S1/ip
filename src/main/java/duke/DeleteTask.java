@@ -24,6 +24,7 @@ public class DeleteTask extends Command {
         Task tsk = tasks.get(this.indexToDelete);
         tasks.remove(this.indexToDelete);
         int listSizeAft = tasks.size();
+        //Ensures a change in size of list
         assert listSizeBef == listSizeAft + 1 : "Task not deleted properly";
         try {
             storage.saveTasks(tasks);
@@ -42,7 +43,7 @@ public class DeleteTask extends Command {
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
-        } else if (this == null || obj == null) {
+        } else if (obj == null) {
             return false;
         } else {
             if (obj instanceof DeleteTask) {
