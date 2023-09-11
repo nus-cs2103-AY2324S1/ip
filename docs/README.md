@@ -1,29 +1,31 @@
-# User Guide
+## DukePro
+> "Your mind is for having ideas, not holding them." - David Allen [(Source)](https://dansilvestre.com/productivity-quotes)
 
-## Features 
+DukePro frees your mind of having to remember things you need to do. It's,
+- text-based
+- easy to learn
+- ~~FAST~~ SUPER FAST to use
 
-### Feature-ABC
+All you need to do is,
+1. download it from [here]().
+2. double-click it.
+3. add your tasks.
+4. let it manage your tasks for you 😄 
 
-Description of the feature.
+And it is **FREE**!
 
-### Feature-XYZ
+Features:
+- [x] Managing Tasks
+- [x] Managing deadlines
+- [x] Searching Tasks
+- [ ] GUI (coming soon)
 
-Description of the feature.
+If you are a Java programmer, you can use it to practice Java too. Here's the `main` method:
 
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
+```java
+public class Main {
+    public static void main(String[] args) {
+        Application.launch(MainApp.class, args);
+    }
+}
 ```
