@@ -41,6 +41,8 @@ public class Task {
 
     @Override
     public String toString() {
+        assert (taskDescription != null) : "The task description for a Task cannot be null.";
+
         String markedIcon = getMarkedIcon();
 
         return "[" + markedIcon + "] " + this.taskDescription;
