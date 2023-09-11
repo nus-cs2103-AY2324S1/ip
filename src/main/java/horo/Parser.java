@@ -58,6 +58,13 @@ public abstract class Parser {
     return t;
   }
 
+  /**
+   * Returns the Command associated with the string the user inputs
+   * 
+   * @param input Input string from user
+   * @return Command
+   * @throws HoroException
+   */
   public static Command parse(String input) throws HoroException {
     Matcher m = commandPattern.matcher(input);
 
