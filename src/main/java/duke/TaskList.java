@@ -38,16 +38,21 @@ public class TaskList {
     /**
      * Prints the contents of the task list.
      */
-    public void printFileContents() {
+    public String printFileContents() {
         try {
             Scanner s = new Scanner(taskList);
+            StringBuilder stringBuilder = new StringBuilder();
+
             while (s.hasNext()) {
-                System.out.println(s.nextLine());
+                stringBuilder.append(s.nextLine()).append(System.lineSeparator());
             }
+
+            return stringBuilder.toString();
         } catch (FileNotFoundException e) {
-            System.out.println("Error: There are no items in the list!");
+            return "Error: There are no items in the list!";
         }
     }
+
 
     /**
      * Writes the task list contents to the file.
@@ -94,12 +99,12 @@ public class TaskList {
      */
     public static String displayList(ArrayList<Task> tasks) {
         String res = Ui.line + "\n";
-            for (int i = 0; i < tasks.size(); i++) {
-                Task task = tasks.get(i);
-                int index = i + 1;
-                res = res + index +task.getTask() + "\n";
-            }
-            res += Ui.line;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            int index = i + 1;
+            res = res + index + task.getTask() + "\n";
+        }
+        res += Ui.line;
         return res;
     }
 
@@ -108,10 +113,10 @@ public class TaskList {
      *
      * @param input The string representation of the index of the task to be deleted.
      */
-    public void delete(String input) {
+    public String delete(String input) {
         int taskIndex = Integer.parseInt(input.substring(7)) - 1;
         try {
-            if (taskIndex > taskCount || taskIndex <= 0) {
+            if (taskIndex >= taskCount || taskIndex < 0) {
                 throw new DukeException("Error: Invalid Task Index!");
             } else {
                 int remainingTasks = taskCount - 1;
@@ -123,11 +128,11 @@ public class TaskList {
                 if (taskCount > 0) {
                     taskCount--;
                 }
-                System.out.println(response);
                 writeToFile();
+                return response;
             }
         } catch (DukeException exception) {
-            System.out.println(Ui.line + exception.getMessage() + "\n" + Ui.line);
+            return Ui.line + exception.getMessage() + "\n" + Ui.line;
         }
     }
 
@@ -136,19 +141,23 @@ public class TaskList {
      *
      * @param input The string representation of the index of the task to be marked completed.
      */
-    public void mark(String input) {
+    public String mark(String input) {
         int taskIndex = Integer.parseInt(input.substring(5)) - 1;
         try {
-            if (taskIndex > taskCount || taskIndex < 0) {
+            if (taskIndex >= taskCount || taskIndex < 0) {
                 throw new DukeException("Error: Invalid Task Index!");
             } else if (tasks.get(taskIndex).isMarked()) {
                 throw new DukeException("Error: Task is already completed!");
             } else {
                 tasks.get(taskIndex).mark();
                 writeToFile();
+                String response = Ui.line + "Great job! You've completed the following task:"
+                        + "\n" + tasks.get(taskIndex).toString()
+                        + "\n" + Ui.line;
+                return response;
             }
         } catch (DukeException exception) {
-            System.out.println(Ui.line + exception.getMessage() + "\n" + Ui.line);
+            return Ui.line + exception.getMessage() + "\n" + Ui.line;
         }
     }
 
@@ -157,23 +166,28 @@ public class TaskList {
      *
      * @param input The string representation of the index of the task to be unmarked as deleted.
      */
-    public void unMark(String input) {
+    public String unMark(String input) {
         int taskIndex = Integer.parseInt(input.substring(7)) - 1;
         try {
-            if (taskIndex > taskCount || taskIndex < 0) {
+            if (taskIndex >= taskCount || taskIndex < 0) {
                 throw new DukeException("Error: Invalid Task Index!");
             } else if (!tasks.get(taskIndex).isMarked()) {
                 throw new DukeException("Error: Task is already marked as incomplete!");
             } else {
                 tasks.get(taskIndex).unMark();
                 writeToFile();
+                String response = Ui.line + "You've marked the following task as incomplete:"
+                        + "\n" + tasks.get(taskIndex).toString()
+                        + "\n" + Ui.line;
+                return response;
             }
         } catch (DukeException exception) {
-            System.out.println(Ui.line + exception.getMessage() + "\n" + Ui.line);
+            return Ui.line + exception.getMessage() + "\n" + Ui.line;
         }
     }
 
-    public void addToList(Task task, int taskId) {
+
+    public String addToList(Task task, int taskId) {
         int numTasks = taskCount + 1;
         String response = Ui.line + "Got it! I've added this task:"
                 + "\n" + task.toString() + "\n"
@@ -184,7 +198,7 @@ public class TaskList {
             taskCount++;
         }
         writeToFile();
-        System.out.println(response);
+        return response;
     }
 
     /**
@@ -192,10 +206,10 @@ public class TaskList {
      *
      * @param input  The string representation of the todo task.
      */
-    public void handleTodo(String input) {
+    public String handleTodo(String input) {
         String nameOfTask = input.substring(5);
         ToDo task = new ToDo(nameOfTask);
-        addToList(task, taskCount);
+        return addToList(task, taskCount);
     }
 
     /**
@@ -203,15 +217,15 @@ public class TaskList {
      *
      * @param input The string representation of the todo task and deadline.
      */
-    public void handleDeadline(String input) {
+    public String handleDeadline(String input) {
         String[] parts = input.split("/by ");
         String nameOfTask = parts[0].trim().substring(9);
         try {
             LocalDate deadline = LocalDate.parse(parts[1].trim());
             Deadline task = new Deadline(nameOfTask, deadline);
-            addToList(task, taskCount);
+            return addToList(task, taskCount);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid Date Format! Follow: YYYY-MM-DD");
+            return "Invalid Date Format! Follow: YYYY-MM-DD";
         }
     }
 
@@ -220,7 +234,7 @@ public class TaskList {
      *
      * @param input The string representation of the event, start time, and end time.
      */
-    public void handleEvent(String input) {
+    public String handleEvent(String input) {
         String[] taskAndTime = input.split("/from ");
         String[] fromAndTo = taskAndTime[1].split("/to ");
         try {
@@ -228,13 +242,13 @@ public class TaskList {
             LocalDate end = LocalDate.parse(fromAndTo[1].trim());
             String nameOfTask = taskAndTime[0].trim().substring(6);
             Event task = new Event(nameOfTask, start, end);
-            addToList(task, taskCount);
+            return addToList(task, taskCount);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid Date Format! Follow: YYYY-MM-DD");
+            return "Invalid Date Format! Follow: YYYY-MM-DD";
         }
     }
 
-    public void handleFind(String input) {
+    public String handleFind(String input) {
         ArrayList<Task> findTasks = new ArrayList<>();
         String itemToFind = input.substring(5);
         for (Task value : tasks) {
@@ -243,6 +257,6 @@ public class TaskList {
                 findTasks.add(value);
             }
         }
-        System.out.println(displayList(findTasks));
+        return displayList(findTasks);
     }
 }
