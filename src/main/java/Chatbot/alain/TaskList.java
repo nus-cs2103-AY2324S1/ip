@@ -78,4 +78,14 @@ public class TaskList {
     public int size() {
         return list.size();
     }
+
+    /**
+     * Checks if the task is present in the list.
+     *
+     * @param task The task to be checked.
+     * @return true if the task is found in the list, false otherwise.
+     */
+    public boolean contains(Task task) {
+        return list.contains(task);
+    }
 }

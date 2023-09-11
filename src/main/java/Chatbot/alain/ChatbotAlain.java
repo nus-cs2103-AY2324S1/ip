@@ -22,6 +22,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+
+
 /**
  * Represents the main class for the Alain chatbot.
  */
@@ -39,6 +41,7 @@ public class ChatbotAlain extends Application {
     private GUI_Ui guiUi;
     private Storage storage;
     private TaskList tasks;
+    private TaskList listGui = new TaskList();
 
     /**
      * Default Constructor for ChatbotAlain
@@ -89,6 +92,7 @@ public class ChatbotAlain extends Application {
 
             DateTimeFormatter outputPattern = DateTimeFormatter.ofPattern("MMMM dd yyyy", Locale.ENGLISH);
             String transformedTime = date.format(outputPattern);
+            assert transformedTime != null : "Transformed time should not be null";
             return transformedTime.toString() + " " + addMsg;
         } else if (inputTime.length() == 0) {
             throw new AlainException(" OOPS!!! The description of a alain.Task cannot be empty.");
@@ -141,6 +145,7 @@ public class ChatbotAlain extends Application {
                     int pos = Integer.parseInt(numericPart) - 1;
                     if (pos >= 0 && pos < list.size()) {
                         Task removedTask = list.removeTask(pos);
+                        Assertions.assertDelete(list, removedTask);
                         ui.showRemoveTask(removedTask, list);
                     } else {
                         throw new AlainException("Invalid task index.");
@@ -152,7 +157,9 @@ public class ChatbotAlain extends Application {
                     if (mission.length() == 0) {
                         throw new AlainException("The description of a Todo cannot be empty.");
                     }
-                    list.addTask(new ToDos(mission));
+                    ToDos newTodo = new ToDos(mission);
+                    list.addTask(newTodo);
+                    Assertions.assertNewTodo(list, newTodo);
                     ui.showAddTask(list.getTask(list.size() - 1), list);
                     continue;
                 }
@@ -165,7 +172,9 @@ public class ChatbotAlain extends Application {
                     if (parts.length != 2) {
                         throw new AlainException("The description of a Deadline is invalid");
                     }
-                    list.addTask(new Deadlines(parts[0], stringToTimeString(parts[1])));
+                    Deadlines newDeadline = new Deadlines(parts[0], stringToTimeString(parts[1]));
+                    list.addTask(newDeadline);
+                    Assertions.assertNewDeadline(list, newDeadline);
                     ui.showAddTask(list.getTask(list.size() - 1), list);
                     continue;
                 }
@@ -178,8 +187,10 @@ public class ChatbotAlain extends Application {
                     if (parts.length != 3) {
                         throw new AlainException("The description of a Event is invalid");
                     }
-                    list.addTask(new Events(parts[0],
-                            stringToTimeString(parts[1].substring(5)), stringToTimeString(parts[2].substring(3))));
+                    Events newEvent = new Events(parts[0],
+                            stringToTimeString(parts[1].substring(5)), stringToTimeString(parts[2].substring(3)));
+                    list.addTask(newEvent);
+                    Assertions.assertNewEvent(list, newEvent);
                     ui.showAddTask(list.getTask(list.size() - 1), list);
                     continue;
                 }
@@ -237,7 +248,7 @@ public class ChatbotAlain extends Application {
      *
      * @param stage The primary stage of the application where all UI components are placed.
      */
-    @Override
+
     public void start(Stage stage) {
         // Step 1 code here
         scrollPane = new ScrollPane();
@@ -337,7 +348,6 @@ public class ChatbotAlain extends Application {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private TaskList listGui = new TaskList();
     private String getResponse(String input) {
         guiUi = new GUI_Ui();
         String ai = "Ai: \n";
@@ -376,7 +386,9 @@ public class ChatbotAlain extends Application {
                 if (mission.length() == 0) {
                     throw new AlainException("The description of a Todo cannot be empty.");
                 }
-                listGui.addTask(new ToDos(mission));
+                ToDos newTodo = new ToDos(mission);
+                listGui.addTask(newTodo);
+                Assertions.assertNewTodo(listGui, newTodo);
                 return ai + guiUi.showAddTask(listGui.getTask(listGui.size() - 1), listGui);
             }
             if (isDeadline) {
@@ -388,7 +400,9 @@ public class ChatbotAlain extends Application {
                 if (parts.length != 2) {
                     throw new AlainException("The description of a Deadline is invalid");
                 }
-                listGui.addTask(new Deadlines(parts[0], stringToTimeString(parts[1])));
+                Deadlines newDeadline = new Deadlines(parts[0], stringToTimeString(parts[1]));
+                listGui.addTask(newDeadline);
+                Assertions.assertNewDeadline(listGui, newDeadline);
                 return ai + guiUi.showAddTask(listGui.getTask(listGui.size() - 1), listGui);
             }
             if (isEvent) {
@@ -400,8 +414,10 @@ public class ChatbotAlain extends Application {
                 if (parts.length != 3) {
                     throw new AlainException("The description of a Event is invalid");
                 }
-                listGui.addTask(new Events(parts[0],
-                        stringToTimeString(parts[1].substring(5)), stringToTimeString(parts[2].substring(3))));
+                Events newEvent = new Events(parts[0],
+                        stringToTimeString(parts[1].substring(5)), stringToTimeString(parts[2].substring(3)));
+                listGui.addTask(newEvent);
+                Assertions.assertNewEvent(listGui, newEvent);
                 return ai + guiUi.showAddTask(listGui.getTask(listGui.size() - 1), listGui);
             }
             if (text.equals("bye")) {
@@ -420,7 +436,6 @@ public class ChatbotAlain extends Application {
             throw new AlainException("I'm sorry, but I don't know what that means :-(");
         } catch (AlainException e) {
             return ai + guiUi.showError(e.getMessage());
-            //storage.saveTasksToFile(null, "list.txt", true, e.getMessage());
         }
     }
 }
