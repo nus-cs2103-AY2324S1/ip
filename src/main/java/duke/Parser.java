@@ -141,6 +141,7 @@ public class Parser {
      * @throws DukeException If there's an issue with the user input or task operations.
      */
     public static String parseInput(String userInput, TaskList tasks, Ui ui) throws DukeException {
+        assert userInput.isEmpty(): "User input should not be empty";
         String[] words = userInput.split(" ");
         if (words.length == 2) {
             if (isMarkCommand(words[0])) {
@@ -166,13 +167,14 @@ public class Parser {
         } else if (isFindCommand(userInput)) {
             String keyword = userInput.replaceFirst("find", "").trim();
             if (keyword.isEmpty()) {
-                throw new InvalidInputException("OOPS!!! I'm sorry, please provide a keyword to search.");
+                throw new InvalidInputException("☹ OOPS!!! I'm sorry, please provide a keyword to search.");
             }
+            assert !keyword.isEmpty() : "Keyword should not be empty";
             return tasks.findTasks(keyword);
         } else if (isValidCommand(userInput)) {
             return tasks.addTask(userInput);
         } else {
-            throw new InvalidInputException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new InvalidInputException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }
