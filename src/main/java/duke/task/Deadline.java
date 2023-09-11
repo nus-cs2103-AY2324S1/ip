@@ -1,9 +1,8 @@
 package duke.task;
 
-import duke.util.Formatter;
-
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+import duke.util.Formatter;
 
 /**
  * Represents a deadline task, containing a description and a deadline.

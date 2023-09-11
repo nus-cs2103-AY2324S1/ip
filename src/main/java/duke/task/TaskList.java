@@ -1,6 +1,9 @@
 package duke.task;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Represents a list of tasks (todos/deadlines/events).
@@ -8,13 +11,21 @@ import java.util.ArrayList;
 public class TaskList {
 
     /** The list of tasks present in the TaskList. */
-    private ArrayList<Task> tasks;
+    private List<Task> tasks;
 
     /**
      * Creates a new empty TaskList.
      */
     public TaskList() {
-        this.tasks = new ArrayList<>();
+        tasks = new ArrayList<>();
+    }
+
+    /**
+     * Creates a new TaskList with existing data from a Stream of tasks.
+     * @param taskStream The Stream of tasks to add to the TaskList.
+     */
+    public TaskList(Stream<Task> taskStream) {
+        tasks = taskStream.collect(Collectors.toList());
     }
 
     /**
@@ -56,17 +67,16 @@ public class TaskList {
     }
 
     /**
-     * Gets the alternate String representation of every Task within the TaskList (to be saved) and stores them into an
-     * ArrayList, in order.
+     * Gets the alternate String representation of every Task within the TaskList (to be saved) and stores them into a
+     * List, in order.
      *
-     * @return The ArrayList containing all the save-file String representation of the Tasks within the TaskList.
+     * @return The List containing all the save-file String representation of the Tasks within the TaskList.
      */
-    public ArrayList<String> getSavedStrings() {
-        ArrayList<String> lines = new ArrayList<>();
-        for (Task task : tasks) {
-            lines.add(task.toSaveFormatString());
-        }
-        return lines;
+    public List<String> getSavedStrings() {
+        return tasks
+                .stream()
+                .map(Task::toSaveFormatString)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -95,12 +105,8 @@ public class TaskList {
      *         matching tasks are found.
      */
     public TaskList find(String findStr) {
-        TaskList foundTasks = new TaskList();
-        for (Task task : tasks) {
-            if (task.contains(findStr)) {
-                foundTasks.add(task);
-            }
-        }
-        return foundTasks;
+        return new TaskList(tasks
+                .stream()
+                .filter(task -> task.contains(findStr)));
     }
 }
