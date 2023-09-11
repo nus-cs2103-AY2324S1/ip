@@ -95,6 +95,7 @@ public class Parser {
                 return result + "Now you have " + tasks.getSize() + " tasks in the list.";
             case "delete":
                 int deleteIndex = command.charAt(7) - 49;
+                System.out.println(deleteIndex);
                 Task deleted = tasks.deleteTask(deleteIndex);
                 result = "Noted. I've removed the task: \n" + deleted.toString() + "\n";
                 return result + "Now you have " + tasks.getSize() + " tasks in the list.";
