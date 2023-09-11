@@ -45,6 +45,8 @@ public class Duke {
         String nextTask = input;
         CommandEnum taskEnum = CommandEnum.assignEnum(nextTask);
 
+        assert (taskEnum != null) : "The enum returned cannot be null even if it is invalid.";
+
         switch (taskEnum) {
         case LIST:
             return this.tasks.printTasks();

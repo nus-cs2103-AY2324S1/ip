@@ -37,6 +37,9 @@ public class TaskList {
      */
     public String printTasks() {
         String output = "Here are the tasks in your list:\n";
+
+        assert (tasks != null) : "A TaskList must be instantiated even if there are no outstanding tasks.";
+
         for (int i = 0; i < tasks.size(); i++) {
             int index = i + 1;
 
@@ -72,6 +75,8 @@ public class TaskList {
      * Handles the adding of a Todo task.
      */
     protected String handleTodo(String task) throws DukeException {
+        assert (task != null) : "A valid todo command must be passed in.";
+
         String[] preprocessedTask = this.parser.parseNewTaskByType(task);
 
         if (preprocessedTask.length <= 1) {
@@ -88,6 +93,8 @@ public class TaskList {
      * Handles the adding of a Deadline task.
      */
     protected String handleDeadline(String task) throws DukeException {
+        assert (task != null) : "A valid deadline command must be passed in.";
+
         String[] temp = this.parser.parseNewTaskByType(task);
 
         if (temp.length <= 1) {
@@ -118,6 +125,8 @@ public class TaskList {
      * Handles the adding of an Event task.
      */
     protected String handleEvent(String task) throws DukeException {
+        assert (task != null) : "A valid event command must be passed in.";
+
         String[] temp = this.parser.parseNewTaskByType(task);
 
         if (temp.length <= 1) {
@@ -143,6 +152,8 @@ public class TaskList {
      * Handles the deletion of a task.
      */
     public String handleDelete(String nextTask) throws DukeException {
+        assert (nextTask != null) : "A valid delete command must be passed in.";
+
         String[] split = nextTask.split(" ");
 
         if (split.length <= 1) {
@@ -177,6 +188,8 @@ public class TaskList {
      * Handles the marking of a task.
      */
     public String handleMark(String nextTask) throws DukeException {
+        assert (nextTask != null) : "A valid mark command must be passed in.";
+
         String[] split = nextTask.split(" ");
 
         if (split.length <= 1) {
@@ -229,6 +242,8 @@ public class TaskList {
      * Finds the specified task.
      */
     public String find(String task) throws DukeException {
+        assert (task != null) : "A valid find command must be passed in.";
+
         String[] split = task.split("find ");
 
         if (split.length <= 1) {

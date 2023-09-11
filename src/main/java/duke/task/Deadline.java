@@ -29,6 +29,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
+        assert (deadline != null) : "The deadline of a Deadline task cannot be null.";
+
         return "[D]" + super.toString() + " (by: " + this.getFormattedDeadline() + ")";
     }
 }

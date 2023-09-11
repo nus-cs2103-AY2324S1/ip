@@ -29,6 +29,9 @@ public class Event extends Task {
 
     @Override
     public String toString() {
+        assert (start != null) : "The start date and time of an Event task cannot be null.";
+        assert (end != null) : "The end date and time of an Event task cannot be null.";
+
         return "[E]" + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
     }
 }
