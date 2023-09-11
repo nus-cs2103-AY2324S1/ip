@@ -1,6 +1,7 @@
 package corgi.commands;
 
 import java.time.LocalDate;
+import java.util.Stack;
 import java.util.function.Predicate;
 
 import corgi.storage.Storage;
@@ -9,6 +10,7 @@ import corgi.tasks.Event;
 import corgi.tasks.Task;
 import corgi.tasks.TaskList;
 import corgi.ui.TextRenderer;
+import javafx.util.Pair;
 
 /**
  * Represents a command to find tasks on a specific date in the task list.
@@ -54,9 +56,12 @@ public class FindTasksOnDateCommand extends Command {
      * @param list The task list to filter.
      * @param renderer The text renderer to return formatted message.
      * @param storage The storage for saving and loading tasks (not used in this command).
+     * @param history The history stack to store the states.
+     * @return A string message indicating the result of the command execution.
      */
     @Override
-    public String execute(TaskList list, TextRenderer renderer, Storage<Task> storage) {
+    public String execute(
+            TaskList list, TextRenderer renderer, Storage<Task> storage, Stack<Pair<Command, TaskList>> history) {
         TaskList tasksOnDate = list.filter(predicate);
 
         String outputDate = this.target.format(Task.DATE_OUTPUT_FORMATTER);

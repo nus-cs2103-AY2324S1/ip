@@ -1,11 +1,14 @@
 package corgi.commands;
 
+import java.util.Stack;
+
 import corgi.storage.Storage;
 import corgi.tasks.Task;
 import corgi.tasks.TaskList;
 import corgi.tasks.TaskListIndexOutOfBoundsException;
 import corgi.tasks.TaskStatusException;
 import corgi.ui.TextRenderer;
+import javafx.util.Pair;
 
 /**
  * Represents a command to mark a task as done or undone in the task list.
@@ -45,11 +48,16 @@ public class MarkTaskCommand extends Command {
      * @throws CommandExecutionException If an error occurs during command execution.
      */
     @Override
-    public String execute(TaskList list, TextRenderer renderer, Storage<Task> storage)
+    public String execute(
+            TaskList list, TextRenderer renderer, Storage<Task> storage, Stack<Pair<Command, TaskList>> history)
             throws CommandExecutionException {
         try {
             list.mark(this.index, this.status);
             storage.save(list);
+
+            Pair<Command, TaskList> currState = new Pair<>(this, list);
+            history.push(currState);
+
             if (status) {
                 return renderer.showTaskDone(list.getTaskInfo(this.index));
             } else {

@@ -1,9 +1,12 @@
 package corgi.commands;
 
+import java.util.Stack;
+
 import corgi.storage.Storage;
 import corgi.tasks.Task;
 import corgi.tasks.TaskList;
 import corgi.ui.TextRenderer;
+import javafx.util.Pair;
 
 /**
  * An abstract class to represent command.
@@ -31,9 +34,12 @@ public abstract class Command {
      * @param list The task list to perform the command action on.
      * @param renderer The text renderer to return formatted message.
      * @param storage The storage for saving and loading tasks (if applicable).
+     * @param history The history stack to store the states.
      * @throws CommandExecutionException If an error occurs during command execution.
+     * @return A string message indicating the result of the command execution.
      */
-    public abstract String execute(TaskList list, TextRenderer renderer, Storage<Task> storage)
+    public abstract String execute(
+            TaskList list, TextRenderer renderer, Storage<Task> storage, Stack<Pair<Command, TaskList>> history)
             throws CommandExecutionException;
 
     /**
