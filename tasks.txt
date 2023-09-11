@@ -4,4 +4,3 @@ deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
 deadline return pencil /by 2019-10-12 18:00
 find return
-bye
