@@ -33,6 +33,7 @@ public class CmdUnmark extends Command {
     @Override
     public String execute(TaskList taskList) {
         taskList.markNotDone(index);
+        assert !taskList.getTask(index).isDone() : "Task is not unmarked";
         Storage.writeToFile(taskList);
         return (StringUtility.joinLines(Message.MARK_NOT_DONE, taskList.getTask(index).toString()));
     }
