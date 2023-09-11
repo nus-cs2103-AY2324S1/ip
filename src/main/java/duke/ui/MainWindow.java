@@ -32,7 +32,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         this.scrollPane.vvalueProperty().bind(this.dialogContainer.heightProperty());
-        this.addMessages(GobbleMessage.getGobbleDialog("Hello! I'm Gobble\nWhat can I do for you?", "Gobble"));
+        this.addMessages(GobbleMessage.getGobbleDialog("Hello! I'm Gobble\nWhat can I do for you?"));
     }
 
     /**
@@ -61,7 +61,7 @@ public class MainWindow extends AnchorPane {
                 System.exit(0);
             }
         } catch (DukeException e) {
-            GobbleMessage error = GobbleMessage.getGobbleDialog(e.getMessage(), "Error");
+            GobbleMessage error = GobbleMessage.getGobbleDialog(e.getMessage());
             this.addMessages(userMessage, error);
         }
         userInput.clear();
