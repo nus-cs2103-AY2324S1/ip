@@ -5,6 +5,7 @@ import taskmate.tools.tasks.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class Ui {
     static String HORIZONTAL_LINE = "--------------------";
     String chatbotName;
@@ -17,10 +18,12 @@ public class Ui {
     }
 
     public void setStoredMessage(String s) {
+        assert this.storedMessage == null;
         this.storedMessage = s;
     }
 
     public String popStoredMessage() {
+        assert this.storedMessage != null;
         String s = this.storedMessage;
         this.storedMessage = null;
         return s;
@@ -53,12 +56,12 @@ public class Ui {
     }
 
     public void printAllTasks(TaskList tasks) {
-        String allTasksString = "Here are the tasks in your list:\n";
+        StringBuilder allTasksString = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.getAllTasks().size(); i++) {
             Task newTask = tasks.getAllTasks().get(i);
-            allTasksString += (i + 1) + "." + newTask.toString() + "\n";
+            allTasksString.append((i + 1)).append(".").append(newTask.toString()).append("\n");
         }
-        printMessage(allTasksString);
+        printMessage(allTasksString.toString());
     }
 
     public void printInputSpecifications(String fileSavePath) {
@@ -163,11 +166,11 @@ public class Ui {
     }
 
     public void printMatchingTasks(ArrayList<Task> matchingTasks) {
-        String message = "Here are the matching tasks in your list:\n";
+        StringBuilder message = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < matchingTasks.size(); i++) {
             Task newTask = matchingTasks.get(i);
-            message += (i + 1) + "." + newTask.toString() + "\n";
+            message.append((i + 1)).append(".").append(newTask.toString()).append("\n");
         }
-        printMessage(message);
+        printMessage(message.toString());
     }
 }
