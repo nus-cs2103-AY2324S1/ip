@@ -12,9 +12,6 @@ public abstract class Item {
 
     private String description;
 
-    /**
-     * @param _description The Item description.
-     */
     public Item(String _description) {
         this.description = _description;
     }

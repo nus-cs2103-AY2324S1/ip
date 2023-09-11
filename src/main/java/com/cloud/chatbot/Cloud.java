@@ -51,8 +51,9 @@ public final class Cloud {
             }
 
             for (int number = 1; number <= Cloud.ITEM_MANAGER.getCount(); number++) {
-                Item item = Cloud.ITEM_MANAGER.get(number);
-                Cloud.say(item.toString(number));
+                Cloud.say(
+                    Cloud.ITEM_MANAGER.getString(number)
+                );
             }
             break;
         }
@@ -62,9 +63,10 @@ public final class Cloud {
                 break;
             }
 
-            Item item = Cloud.ITEM_MANAGER.get(number);
-            item.setComplete(true);
-            Cloud.say(item.toString(number));
+            Cloud.ITEM_MANAGER.setComplete(number, true);
+            Cloud.say(
+                Cloud.ITEM_MANAGER.getString(number)
+            );
             break;
         }
         case UNMARK: {
@@ -73,9 +75,10 @@ public final class Cloud {
                 break;
             }
 
-            Item item = Cloud.ITEM_MANAGER.get(number);
-            item.setComplete(false);
-            Cloud.say(item.toString(number));
+            Cloud.ITEM_MANAGER.setComplete(number, false);
+            Cloud.say(
+                Cloud.ITEM_MANAGER.getString(number)
+            );
             break;
         }
         case DELETE: {
