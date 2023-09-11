@@ -47,7 +47,7 @@ public class ParserTest {
             Parser.parse(invalidInput);
             fail();
         } catch (DukeException e) {
-            assertEquals("Invalid command! Please include the index of the task you wish to mark",
+            assertEquals("Invalid command! Please include the index of the task",
                     e.getMessage());
         }
     }
@@ -71,7 +71,7 @@ public class ParserTest {
             Parser.parse(invalidInput);
             fail();
         } catch (DukeException e) {
-            assertEquals("Invalid command! Please include the index of the task you wish to unmark",
+            assertEquals("Invalid command! Please include the index of the task",
                     e.getMessage());
         }
     }
@@ -95,7 +95,7 @@ public class ParserTest {
             Parser.parse(invalidInput);
             fail();
         } catch (DukeException e) {
-            assertEquals("Invalid command! Please include the index of the task you wish to delete",
+            assertEquals("Invalid command! Please include the index of the task",
                     e.getMessage());
         }
     }
@@ -119,7 +119,7 @@ public class ParserTest {
             Parser.parse(invalidInput);
             fail();
         } catch (DukeException e) {
-            assertEquals("Invalid command! Please include details of this task", e.getMessage());
+            assertEquals("Invalid command! Please include the details of the task", e.getMessage());
         }
     }
 
@@ -142,7 +142,7 @@ public class ParserTest {
             Parser.parse(invalidInput);
             fail();
         } catch (DukeException e) {
-            assertEquals("Invalid command! Please include details of this task", e.getMessage());
+            assertEquals("Invalid command! Please include the details of the task", e.getMessage());
         }
     }
 
@@ -176,7 +176,7 @@ public class ParserTest {
             Parser.parse(invalidInput);
             fail();
         } catch (DukeException e) {
-            assertEquals("Invalid command! Please include details of this task", e.getMessage());
+            assertEquals("Invalid command! Please include the details of the task", e.getMessage());
         }
     }
 
