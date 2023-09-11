@@ -20,6 +20,13 @@ import javafx.scene.layout.VBox;
  * Entry point for Cyrus Gui.
  */
 public class MainWindow extends AnchorPane {
+    private final Image userImage = new Image(
+            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png"))
+    );
+    private final Image botImage = new Image(
+            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png"))
+    );
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -28,9 +35,6 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
-    private Image user = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
-    private Image bot = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
 
     private Cyrus cyrus;
 
@@ -81,8 +85,8 @@ public class MainWindow extends AnchorPane {
 
     private void putConversation(String userText, String cyrusText) {
         dialogContainer.getChildren().addAll(
-                DialogBox.getDialog(userText, "User", user),
-                DialogBox.getDialog(cyrusText, "Cyrus", bot)
+                DialogBox.getDialog(userText, "User", userImage),
+                DialogBox.getDialog(cyrusText, "Cyrus", botImage)
         );
         userInput.clear();
     }
