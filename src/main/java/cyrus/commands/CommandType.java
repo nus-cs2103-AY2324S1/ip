@@ -12,6 +12,7 @@ public enum CommandType {
     DELETE_TASK,
     LIST_TASKS,
     MARK_TASK,
+    VIEW_STATISTICS,
     UNMARK_TASK,
     UNKNOWN;
 
@@ -41,6 +42,8 @@ public enum CommandType {
             return UNMARK_TASK;
         case "find":
             return FIND_TASK;
+        case "statistics":
+            return VIEW_STATISTICS;
         default:
             return UNKNOWN;
         }
