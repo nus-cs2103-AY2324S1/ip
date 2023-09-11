@@ -21,9 +21,9 @@ public class Delete implements SimpleProcess {
         } catch (InvalidCommandException e) {
             return e.toString();
         } catch (NumberFormatException e) {
-            return " Strictly type 1 number only";
+            return "Strictly type 1 number only";
         } catch (IndexOutOfBoundsException e) {
-            return " Index number does not exist in our list";
+            return "Index number does not exist in our list";
         }
     }
 }

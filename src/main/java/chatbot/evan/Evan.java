@@ -25,43 +25,42 @@ public class Evan {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        if (process == null) {
-            if (input.equals(Command.BYE.getCommand())) {
-                return "Bye. Hope to see you again soon!";
-            } else if (input.equals(Command.LIST.getCommand())) {
-                return tasks.printTasks();
-            } else if (input.equals(Command.TODO.getCommand())) {
-                process = new ToDo();
-                return process.start();
-            } else if (input.equals(Command.DEADLINE.getCommand())) {
-                process = new Deadline();
-                return process.start();
-            } else if (input.equals(Command.EVENT.getCommand())) {
-                process = new Event();
-                return process.start();
-            } else if (input.startsWith(Command.DELETE.getCommand())) {
-                SimpleProcess simpleProcess = new Delete();
-                return simpleProcess.processInput(input);
-            } else if (input.startsWith(Command.MARK.getCommand())) {
-                SimpleProcess simpleProcess = new Mark();
-                return simpleProcess.processInput(input);
-            } else if (input.startsWith(Command.UNMARK.getCommand())) {
-                SimpleProcess simpleProcess = new Unmark();
-                return simpleProcess.processInput(input);
-            } else if (input.startsWith(Command.FIND.getCommand())) {
-                SimpleProcess simpleProcess = new Find();
-                return simpleProcess.processInput(input);
-            } else {
-                InvalidCommandException e = new InvalidCommandException();
-                return e.toString();
-            }
-        } else {
+        if (process != null) {
             String response = process.processInput(input);
             if (process.isComplete()) {
                 process = null;
             }
             return response;
+        }
 
+        if (input.equals(Command.BYE.getCommand())) {
+            return "Bye. Hope to see you again soon!";
+        } else if (input.equals(Command.LIST.getCommand())) {
+            return tasks.printTasks();
+        } else if (input.equals(Command.TODO.getCommand())) {
+            process = new ToDo();
+            return process.start();
+        } else if (input.equals(Command.DEADLINE.getCommand())) {
+            process = new Deadline();
+            return process.start();
+        } else if (input.equals(Command.EVENT.getCommand())) {
+            process = new Event();
+            return process.start();
+        } else if (input.startsWith(Command.DELETE.getCommand())) {
+            SimpleProcess simpleProcess = new Delete();
+            return simpleProcess.processInput(input);
+        } else if (input.startsWith(Command.MARK.getCommand())) {
+            SimpleProcess simpleProcess = new Mark();
+            return simpleProcess.processInput(input);
+        } else if (input.startsWith(Command.UNMARK.getCommand())) {
+            SimpleProcess simpleProcess = new Unmark();
+            return simpleProcess.processInput(input);
+        } else if (input.startsWith(Command.FIND.getCommand())) {
+            SimpleProcess simpleProcess = new Find();
+            return simpleProcess.processInput(input);
+        } else {
+            InvalidCommandException e = new InvalidCommandException();
+            return e.toString();
         }
     }
 

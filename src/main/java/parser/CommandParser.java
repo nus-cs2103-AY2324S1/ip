@@ -21,30 +21,21 @@ public class CommandParser {
             InvalidCommandException {
 
         assert input != null : "string input is null";
-        String firstWord = getFirstWord(input);
-        Command command;
 
-        try {
-            command = Command.valueOf(firstWord.toUpperCase());
-        } catch (IllegalArgumentException e) {
+        String firstWord = getFirstWord(input);
+
+        //ensure first word is a valid command
+        if (!isValidCommand(firstWord)) {
             throw new InvalidCommandException();
         }
 
-        String args = input.substring(command.getCommandStringLength());
+        //ensure that arguments exist
+        String args = input.substring(firstWord.length());
         if (args.isBlank()) {
-            switch (command) {
-            case MARK:
-                throw new MissingArgumentException("task index number");
-            case UNMARK:
-                throw new MissingArgumentException("task index number");
-            case DELETE:
-                throw new MissingArgumentException("task index number");
-            default:
-                throw new InvalidCommandException();
-            }
-        } else {
-            return args.substring(1);
+            throw new MissingArgumentException();
         }
+
+        return args.substring(1);
     }
 
     /**
@@ -59,5 +50,14 @@ public class CommandParser {
             return input;
         }
         return input.substring(0, spaceIndex);
+    }
+
+    private static boolean isValidCommand(String word) {
+        try {
+            Command.valueOf(word.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+        return true;
     }
 }
