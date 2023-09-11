@@ -1,20 +1,36 @@
 package taskmate.main;
 
+import java.io.IOException;
+
 import taskmate.commands.Command;
-import taskmate.exceptions.*;
+import taskmate.exceptions.EmptyByException;
+import taskmate.exceptions.EmptyFromException;
+import taskmate.exceptions.EmptyToException;
+import taskmate.exceptions.InvalidByException;
+import taskmate.exceptions.InvalidCommandTypeException;
+import taskmate.exceptions.InvalidDescriptionException;
+import taskmate.exceptions.InvalidFromException;
+import taskmate.exceptions.InvalidToException;
+import taskmate.exceptions.NoDataException;
+import taskmate.exceptions.NotAnIntegerException;
 import taskmate.tools.Parser;
 import taskmate.tools.Storage;
 import taskmate.tools.TaskList;
 import taskmate.tools.Ui;
 
-import java.io.IOException;
 
+/**
+ * TaskMate is the class whose objects represent task-tracking applications
+ */
 public class TaskMate {
 
-    static String CHATBOT_NAME = "TaskMate";
-    static String DEFAULT_SAVE_TASK_FILE_PATH = "./data/saved_tasks.txt";
+    private static final String CHATBOT_NAME = "TaskMate";
+    private static final String DEFAULT_SAVE_TASK_FILE_PATH = "./data/saved_tasks.txt";
 
-    public enum COMMAND_TYPES {
+    /**
+     * An enum that represents the different command types which TaskMate supports
+     */
+    public enum CommandTypes {
         list, bye, todo, deadline, event, mark, unmark, delete, help, find
     }
 
@@ -42,6 +58,10 @@ public class TaskMate {
         new TaskMate().run();
     }
 
+    /**
+     * Starts up TaskMate by greeting user and waiting for user command.
+     * The method does not terminate until the user command "bye" is entered.
+     */
     public void run() {
 
         // Greets user
@@ -92,6 +112,11 @@ public class TaskMate {
         }
     }
 
+    /**
+     * Parses and executes the user's input and returns a String object that is TaskMate's reply to that user input.
+     * @param userInput A String that represents the user's command
+     * @return A String that represents TaskMate's reply to the user's command
+     */
     public String getResponse(String userInput) {
 
         // Parse user input
