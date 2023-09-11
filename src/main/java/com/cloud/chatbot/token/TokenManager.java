@@ -50,7 +50,7 @@ public abstract class TokenManager {
     }
 
     /**
-     * Returns the first token as a String.
+     * Returns the first token as a string.
      *
      * @throws MissingInputException If there is no first token.
      */
@@ -63,7 +63,7 @@ public abstract class TokenManager {
     }
 
     /**
-     * Returns all tokens except the first as a rejoined String.
+     * Returns all tokens except the first as a rejoined string.
      *
      * @throws MissingInputException If there are no relevant tokens to join.
      */

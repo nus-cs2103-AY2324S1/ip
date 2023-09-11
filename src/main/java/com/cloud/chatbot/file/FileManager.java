@@ -36,9 +36,6 @@ public final class FileManager {
      * Returns a JSON object by reading from disk.
      */
     public @Nullable JSONObject read() {
-        //TODO fix tests lib
-        //TODO neater err print?
-        //TODO enum for item type, for json keys
         String string;
         try {
             string = Files.readString(this.getFile().toPath());

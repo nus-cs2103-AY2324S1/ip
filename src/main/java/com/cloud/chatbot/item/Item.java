@@ -2,6 +2,8 @@ package com.cloud.chatbot.item;
 
 import org.json.JSONObject;
 
+import com.cloud.chatbot.file.Key;
+
 
 
 /**
@@ -28,9 +30,9 @@ public abstract class Item {
 
     protected JSONObject getBasicJson() {
         JSONObject json = new JSONObject();
-        json.put("type", this.getTypeString());
-        json.put("description", this.getDescription());
-        json.put("isComplete", this.isComplete());
+        json.put(Key.TYPE.string, this.getTypeString());
+        json.put(Key.DESCRIPTION.string, this.getDescription());
+        json.put(Key.IS_COMPLETE.string, this.isComplete());
         return json;
     }
 

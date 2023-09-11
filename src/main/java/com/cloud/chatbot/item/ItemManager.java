@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import com.cloud.chatbot.annotations.Nullable;
 import com.cloud.chatbot.file.FileManager;
+import com.cloud.chatbot.file.Key;
 
 
 
@@ -36,24 +37,26 @@ public class ItemManager {
     }
 
     private void importJson(JSONObject json) {
-        String type = json.getString("type");
-        String description = json.getString("description");
-        boolean isComplete = json.getBoolean("isComplete");
+        ItemType type = ItemType.fromString(
+            json.getString(Key.TYPE.string)
+        );
+        String description = json.getString(Key.DESCRIPTION.string);
+        boolean isComplete = json.getBoolean(Key.IS_COMPLETE.string);
 
         Item item;
         switch (type) {
-        case "T": {
+        case TASK: {
             item = new Task(description);
             break;
         }
-        case "D": {
-            String end = json.getString("timestampEnd");
+        case DEADLINE: {
+            String end = json.getString(Key.END.string);
             item = new Deadline(description, end);
             break;
         }
-        case "E": {
-            String end = json.getString("timestampEnd");
-            String start = json.getString("timestampStart");
+        case EVENT: {
+            String start = json.getString(Key.START.string);
+            String end = json.getString(Key.END.string);
             item = new Event(description, start, end);
             break;
         }
@@ -93,7 +96,7 @@ public class ItemManager {
     }
 
     /**
-     * Returns the String representation for the Item of the specified number.
+     * Returns the string representation for the Item of the specified number.
      *
      * @param int The Item's number.
      */

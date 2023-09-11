@@ -8,7 +8,7 @@ import com.cloud.chatbot.annotations.Nullable;
  * Represents a single word of user input.
  */
 public final class Token {
-    /** The prefix for flags */
+    /** The prefix for flags. */
     public static final String PREFIX_FLAG = "/";
 
     private String token;

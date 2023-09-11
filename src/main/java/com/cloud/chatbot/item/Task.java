@@ -17,7 +17,7 @@ public class Task extends Item {
 
     @Override
     public String getTypeString() {
-        return "T";
+        return ItemType.TASK.string;
     }
 
     @Override

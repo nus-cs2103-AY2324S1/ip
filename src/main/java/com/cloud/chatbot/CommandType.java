@@ -15,11 +15,11 @@ public enum CommandType {
     UNKNOWN;
 
     /**
-     * Returns the matching command type for the specified command.
+     * Returns the matching CommandType for the specified command.
      *
      * @param command The command.
      */
-    public static CommandType stringToCommandType(String command) {
+    public static CommandType fromString(String command) {
         switch (command) {
         case "todo":
         case "t":

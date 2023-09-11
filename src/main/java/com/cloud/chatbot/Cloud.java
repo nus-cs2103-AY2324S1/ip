@@ -33,7 +33,7 @@ public final class Cloud {
             return;
         }
 
-        switch (CommandType.stringToCommandType(command)) {
+        switch (CommandType.fromString(command)) {
         case ADD: {
             @Nullable Item item = Cloud.createItem(commandManager);
             if (item == null) {
@@ -97,7 +97,6 @@ public final class Cloud {
             System.exit(0);
             break;
         }
-        case UNKNOWN:
         default: {
             Cloud.say(
                 String.format(
