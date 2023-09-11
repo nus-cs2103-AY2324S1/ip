@@ -36,7 +36,7 @@ public class Parser {
         } else if (command.startsWith("deadline")) {
             // Parse and return a DeadlineCommand
             if (command.length() < 9) {
-                throw new DukeException(DEADLINE_DESCRIPTION;
+                throw new DukeException(DEADLINE_DESCRIPTION);
             }
             if (!command.contains(" /by ")) {
                 throw new DukeException(DEADLINE_TIME);
