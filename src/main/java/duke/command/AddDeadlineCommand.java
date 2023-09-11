@@ -23,6 +23,10 @@ public class AddDeadlineCommand extends Command {
      * @param by The due date of the deadline task.
      */
     public AddDeadlineCommand(String taskDescription, String by) {
+        assert by.split(" ").length == 3 : "by String should contain should have 3 fields";
+        assert by.split(" ")[0].length() == 3 : "Month is represented as 3 letters";
+        assert by.split(" ")[1].length() <= 2 : "Date format should not have more than 2 characters";
+        assert by.split(" ")[2].length() == 4 : "Year format should have 4 characters";
         this.taskDescription = taskDescription;
         this.by = by;
     }
