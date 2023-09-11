@@ -48,7 +48,7 @@ public class Nexus {
     public void run() {
         System.out.println(ui.showWelcome());
         // Show current tasks
-        System.out.println(ui.showList(this.list));
+        this.getResponse("list");
 
         Scanner scanner = new Scanner(System.in);
         boolean isExit = false;

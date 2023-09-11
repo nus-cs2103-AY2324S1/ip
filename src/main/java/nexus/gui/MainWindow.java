@@ -5,7 +5,10 @@ import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import nexus.Nexus;
+
+import java.util.Objects;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
