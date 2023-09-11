@@ -109,11 +109,6 @@ public class TaskMate {
         }
     }
 
-    public String getGreetReponse() {
-        ui.greetUser();
-        return ui.popStoredMessage();
-    }
-
     public String getResponse(String userInput) {
 
         // Parse user input
