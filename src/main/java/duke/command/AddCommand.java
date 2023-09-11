@@ -42,6 +42,7 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        assert type == 'T' || type == 'D' || type == 'E' : "Invalid task type";
         switch (type) {
         case 'T':
             AddToDo(taskList, ui, storage);

@@ -26,6 +26,12 @@ public class Parser {
      * @throws DukeException If there's an error while parsing the user input or generating a Command.
      */
     public static Command parse(String userInput) throws DukeException {
+      
+      assert userInput != null && !userInput.isEmpty() : "User input cannot be null or empty";
+      assert userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")
+                || userInput.startsWith("list") || userInput.startsWith("bye") || userInput.startsWith("help")
+                || userInput.startsWith("mark") || userInput.startsWith("unmark") || userInput.startsWith("delete")
+                || userInput.startsWith("find") : "Invalid command format";
         boolean isByePhrase = userInput.equals("bye");
         boolean isHelpPhrase = userInput.equals("help");
         boolean isListPhrase = userInput.equals("list");
