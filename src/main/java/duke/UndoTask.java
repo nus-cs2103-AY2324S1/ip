@@ -16,6 +16,7 @@ public class UndoTask extends Command {
     @Override
     public String execute(TaskList lst, Ui ui, Storage storage) {
         lst.get(taskToUndo).setUncompleted();
+        assert lst.get(taskToUndo).getCheckbox().equals("[ ] ") : "Task not marked undone properly";
         try {
             storage.saveTasks(lst);
         } catch (InvalidInputException e) {

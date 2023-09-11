@@ -22,6 +22,7 @@ public class DoneTask extends Command {
             throw new InvalidInputException("OOPS!!! Too few tasks");
         }
         tasks.get(this.taskDone).setCompleted();
+        assert tasks.get(this.taskDone).getCheckbox().equals("[X] ") : "Task is not marked completed properly";
         try {
             storage.saveTasks(tasks);
         } catch (InvalidInputException e) {

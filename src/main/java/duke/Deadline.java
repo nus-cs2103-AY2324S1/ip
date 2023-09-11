@@ -26,7 +26,7 @@ public class Deadline extends Task {
      * @param date Input date of the deadline
      */
     public void verifyDeadline(String date) {
-        //pretty hard coded here, i think can be improved later eg if 1 d provided
+        //Hardcoded, can be improved later
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         try {
