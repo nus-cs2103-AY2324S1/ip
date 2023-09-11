@@ -64,6 +64,7 @@ public class Deadline extends Task {
     @Override
     public String writeFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+
         return String.format("%s (by: %s)", this.taskName(), this.deadlineTime.format(formatter));
     }
 }
