@@ -53,6 +53,10 @@ public class Storage {
         try {
             File file = new File(filePath);
             System.out.println("Loading tasks...");
+            if (file.exists()) {
+                file.getParentFile().mkdirs();
+                System.out.println("No existing duke.txt found. File created!");
+            }
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
             while ((line = reader.readLine()) != null) {
@@ -62,8 +66,8 @@ public class Storage {
             }
             reader.close();
         } catch (FileNotFoundException e) {
-            File file = new File(filePath);
-            file.getParentFile().mkdirs();
+            System.out.println("An error has occured during file creation. Plese check duke.txt in the data folder");
+            System.exit(1);
         } catch (IOException e) {
             System.out.println("An error has occured during file loading. Plese check duke.txt in the data folder");
             System.exit(1);
