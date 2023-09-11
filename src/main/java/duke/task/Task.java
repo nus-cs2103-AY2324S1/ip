@@ -22,6 +22,7 @@ public abstract class Task {
      * Changes the boolean value of isDone to true.
      */
     public void markAsDone() {
+        assert !isDone : "The task is already done!";
         isDone = true;
     }
 
@@ -29,6 +30,7 @@ public abstract class Task {
      * Changes the boolean value of isDone to false.
      */
     public void markAsUndone() {
+        assert isDone : "The task is still undone!";
         isDone = false;
     }
 

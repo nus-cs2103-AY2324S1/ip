@@ -9,9 +9,11 @@ import java.io.IOException;
 public class Duke {
     private TaskList tasks;
     private Storage storage;
+    private Parser parser;
 
     public Duke(String filepath) {
         this.storage = new Storage(filepath);
+        this.parser = new Parser();
         try {
             this.tasks = new TaskList(storage.load());
         } catch (DukeException e) {
@@ -36,8 +38,8 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        Parser parser = new Parser();
-        String result = parser.parse(input, tasks);
+        assert !input.isEmpty() : "Input cannot be empty!";
+        String result = this.parser.parse(input, tasks);
         return result;
     }
 }
