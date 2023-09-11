@@ -33,12 +33,16 @@ public class Parser {
     public String parse(String cmd) {
         while (!cmd.equals("bye")) {
             try {
+                assert !cmd.equals("bye");
                 String type = cmd.split(" ", 2)[0];
+                System.out.println(type);
 
                 // If cmd is "list", list items and wait for next command
                 if (cmd.equals("list")) {
+                    assert type.equals("list");
                     return ui.printListItems(tasks);
                 } else if (type.equals("todo")) {
+                    assert type.equals("todo");
                     // Check if description is empty
                     if (descriptionIsEmpty(cmd)) {
                         throw new InvalidDescriptionException("todo");
@@ -49,6 +53,7 @@ public class Parser {
                     tasks.addTask(todo);
                     return ui.printAddTaskMessage(todo, tasks);
                 } else if (type.equals("deadline")) {
+                    assert type.equals("deadline");
                     System.out.println("I am in the deadline conditional");
                     if (descriptionIsEmpty(cmd)) {
                         throw new InvalidDescriptionException("deadline");
@@ -73,6 +78,7 @@ public class Parser {
                     tasks.addTask(deadline);
                     return ui.printAddTaskMessage(deadline, tasks);
                 } else if (type.equals("event")) {
+                    assert type.equals("event");
                     if (descriptionIsEmpty(cmd)) {
                         throw new InvalidDescriptionException("event");
                     }
@@ -94,6 +100,7 @@ public class Parser {
                     tasks.addTask(event);
                     return ui.printAddTaskMessage(event, tasks);
                 } else if (type.equals("delete")) {
+                    assert type.equals("delete");
                     if (descriptionIsEmpty(cmd)) {
                         throw new InvalidDescriptionException("delete");
                     }
@@ -114,6 +121,7 @@ public class Parser {
                     Task task = tasks.markOrDeleteTask(taskNumber - 1, "delete");
                     return ui.printDeleteTaskMessage(task, new TaskList(storage.load()));
                 } else if (type.equals("mark")) {
+                    assert type.equals("mark");
                     if (descriptionIsEmpty(cmd)) {
                         throw new InvalidDescriptionException("mark");
                     }
@@ -134,6 +142,7 @@ public class Parser {
                     Task task = tasks.markOrDeleteTask(taskNumber - 1, "mark");
                     return ui.printMarkedTaskMessage(task);
                 } else if (type.equals("unmark")) {
+                    assert type.equals("unmark");
                     if (descriptionIsEmpty(cmd)) {
                         throw new InvalidDescriptionException("unmark");
                     }
@@ -154,6 +163,7 @@ public class Parser {
                     Task task = tasks.markOrDeleteTask(taskNumber - 1, "unmark");
                     return ui.printUnmarkedTaskMessage(task);
                 } else if (type.equals("find")) {
+                    assert type.equals("find");
                     if (descriptionIsEmpty(cmd)) {
                         throw new InvalidDescriptionException("find");
                     }
@@ -166,6 +176,8 @@ public class Parser {
                 }
             } catch (DukeException e) {
                 return e.getMessage();
+            } catch (AssertionError e) {
+                return "Assertion failed: " + e.getMessage();
             }
         }
         return ui.printExit();
