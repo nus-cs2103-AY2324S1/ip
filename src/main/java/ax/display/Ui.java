@@ -101,13 +101,13 @@ public class Ui {
      * @param str the string that you want to search by
      */
     public static String listTheListString(String str) {
-        String res = "";
+        StringBuilder res = new StringBuilder();
         for (int i = 1; i < TaskList.getListItems().size() + 1; i++) {
             if (TaskList.getListItems().get(i - 1).toString().contains(str)) {
                 System.out.printf("%d. %s%n", i, TaskList.getListItems().get(i - 1));
-                res += String.format("%d. %s%n", i, TaskList.getListItems().get(i - 1)) + "\n";
+                res.append(String.format("%d. %s%n", i, TaskList.getListItems().get(i - 1))).append("\n");
             }
         }
-        return res;
+        return res.toString();
     }
 }
