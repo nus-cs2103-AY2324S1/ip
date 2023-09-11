@@ -22,7 +22,7 @@ public class Parser {
      * @throws DukeException If there is an invalid input message causing an error in parsing the MarkCommand.
      */
     private static MarkCommand parseMarkCommand(String message) throws DukeException {
-        // good place for an assert statement
+        assert message.startsWith("mark") : message;
         if (message.length() <= 5) {
             throw new DukeException("You need to specify the index of the task to mark.");
         }
@@ -41,7 +41,7 @@ public class Parser {
      * @throws DukeException If there is an invalid input message causing an error in parsing the UnmarkCommand.
      */
     private static UnmarkCommand parseUnmarkCommand(String message) throws DukeException {
-        // good place for an assert statement
+        assert message.startsWith("unmark") : message;
         if (message.length() <= 7) {
             throw new DukeException("You need to specify the index of the task to unmark.");
         }
@@ -60,7 +60,7 @@ public class Parser {
      * @throws DukeException If there is an invalid input message causing an error in parsing the FindCommand.
      */
     private static FindCommand parseFindCommand(String message) throws DukeException {
-        // good place for an assert statement
+        assert message.startsWith("find") : message;
         if (message.length() <= 5) {
             throw new DukeException("You need to specify the keyword to find the tasks.");
         }
@@ -75,7 +75,7 @@ public class Parser {
      * @throws DukeException If there is an invalid input message causing an error in parsing the DeleteCommand.
      */
     private static DeleteCommand parseDeleteCommand(String message) throws DukeException {
-        // good place for an assert statement
+        assert message.startsWith("delete") : message;
         if (message.length() <= 7) {
             throw new DukeException("You need to specify the index of the task to delete.");
         }
@@ -94,7 +94,7 @@ public class Parser {
      * @throws DukeException If there is an invalid input message causing an error in parsing the AddCommand.
      */
     private static AddCommand parseTodoCommand(String message) throws DukeException {
-        // good place for an assert statement
+        assert message.startsWith("todo") : message;
         if (message.length() <= 5) {
             throw new DukeException("The description of a todo cannot be empty.");
         }
@@ -109,7 +109,7 @@ public class Parser {
      * @throws DukeException If there is an invalid input message causing an error in parsing the AddCommand.
      */
     private static AddCommand parseDeadlineCommand(String message) throws DukeException {
-        // good place for an assert statement
+        assert message.startsWith("deadline") : message;
         if (message.length() <= 9) {
             throw new DukeException("The description of a deadline cannot be empty.");
         }
@@ -128,7 +128,7 @@ public class Parser {
      * @throws DukeException If there is an invalid input message causing an error in parsing the AddCommand.
      */
     private static AddCommand parseEventCommand(String message) throws DukeException {
-        // good place for an assert statement
+        assert message.startsWith("event") : message;
         if (message.length() <= 6) {
             throw new DukeException("The description of an event cannot be empty.");
         }
