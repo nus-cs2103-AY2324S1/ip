@@ -42,6 +42,7 @@ public class Storage {
      * @throws ClassNotFoundException If the class of a serialized object cannot be found.
      */
     public ArrayList<Task> load() throws IOException, ClassNotFoundException {
+        assert !this.filePath.equals("") : "File path should exist";
         ObjectInputStream in = null;
         try {
             FileInputStream fileIn = new FileInputStream(filePath);
@@ -65,7 +66,8 @@ public class Storage {
      * @param list The ArrayList of Task objects to be saved to the file.
      * @throws IOException If an I/O error occurs while writing to the file.
      */
-    public void saveToFile(ArrayList<Task> list) throws IOException{
+    public void saveToFile(ArrayList<Task> list) throws IOException {
+        assert !this.filePath.equals("") : "File path should exist before saving tasks to file";
         ObjectOutputStream out = null;
         try {
             FileOutputStream fileOut = new FileOutputStream(filePath);
