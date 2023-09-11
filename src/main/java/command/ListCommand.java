@@ -18,6 +18,9 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return "Here are the tasks in your list:\n" + tasks;
+        assert tasks.getSize() >= 0 : "Size of task list should be more than or equal to 0";
+        return tasks.getSize() == 0
+                ? "You have no tasks\n"
+                : "Here are the tasks in your list:\n" + tasks;
     }
 }

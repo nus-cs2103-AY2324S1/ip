@@ -47,7 +47,9 @@ public class EventCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         Event event = new Event(this.description, this.from, this.to);
+        int originalSize = tasks.getSize();
         tasks.addTask(event);
+        assert tasks.getSize() == originalSize + 1 : "Task was not properly added to the list";
         storage.writeToFile(tasks.getList());
         String response = MESSAGE_SUCCESS + event
                 + "\nNow you have " + tasks.getSize() + " tasks in the list";

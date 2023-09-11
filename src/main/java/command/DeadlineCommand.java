@@ -42,7 +42,9 @@ public class DeadlineCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         Deadline deadline = new Deadline(this.description, this.by);
+        int originalSize = tasks.getSize();
         tasks.addTask(deadline);
+        assert tasks.getSize() == originalSize + 1 : "Task was not properly added to the list";
         storage.writeToFile(tasks.getList());
         String response = MESSAGE_SUCCESS + deadline
                 + "\nNow you have " + tasks.getSize() + " tasks in the list";

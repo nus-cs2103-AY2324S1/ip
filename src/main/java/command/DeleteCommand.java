@@ -33,7 +33,9 @@ public class DeleteCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (this.index >= 0 && this.index < tasks.getSize()) {
             Task task = tasks.getTask(this.index);
+            int originalSize = tasks.getSize();
             tasks.deleteTask(task);
+            assert tasks.getSize() == originalSize - 1 : "Task was not properly added to the list";
             storage.writeToFile(tasks.getList());
             String response = MESSAGE_SUCCESS + task.toString()
                     + "\nNow you have " + tasks.getSize() + " tasks in the list";

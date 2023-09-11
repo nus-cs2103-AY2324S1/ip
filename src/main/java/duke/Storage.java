@@ -42,10 +42,11 @@ public class Storage {
             StringBuilder result = new StringBuilder();
             for (Task task : tasks) {
                 String str = String.format("%s | %s | %s\n", task.getType(),
-                        task.isDone() ? 1 : 0, task.getDetails());
+                        task.isDone() ? 1 : 0, task.formatForFileWriting());
                 result.append(str);
             }
             FileWriter fw = new FileWriter(this.filePath);
+            assert file.exists() : "File should be created if it does not exist";
             fw.write(result.toString());
             fw.close();
         } catch (IOException e) {
@@ -71,6 +72,10 @@ public class Storage {
             scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String[] line = scanner.nextLine().split("\\s*\\|\\s*");
+                if (line.length < 3) {
+                    throw new DukeException("Invalid format found in ./data/tasks.txt,"
+                            + " please ensure data is in correct format");
+                }
                 String taskType = line[0];
                 boolean isDone = line[1].equals("1");
                 String description = line[2];
