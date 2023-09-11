@@ -36,6 +36,7 @@ public class Task {
      * Marks the task to be done.
      */
     public void setMarked() {
+        assert !isMarked : "It is already done!";
         isMarked = true;
     }
 
@@ -43,6 +44,7 @@ public class Task {
      * Marks the task to be undone.
      */
     public void setUnmarked() {
+        assert isMarked : "It is undone!";
         isMarked = false;
     }
 
