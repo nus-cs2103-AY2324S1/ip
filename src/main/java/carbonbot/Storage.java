@@ -50,6 +50,7 @@ public class Storage {
         if (!file.exists()) {
             file.getParentFile().mkdirs();
             file.createNewFile();
+            assert file.exists();
         }
 
         // Writes the data to the file

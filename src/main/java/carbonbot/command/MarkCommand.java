@@ -36,6 +36,8 @@ public class MarkCommand extends Command {
                     + " number labelled for the task in the command 'list'!");
         }
 
+        assert task != null;
+
         if (isMark) {
             ui.showMessage("Nice! I've marked this task as done:");
             task.markAsDone();

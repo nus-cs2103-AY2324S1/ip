@@ -42,6 +42,11 @@ public class CarbonBot {
      * Executes CarbonBot to start running
      */
     public void run() {
+        // Assert the necessary components are initialized
+        assert tasks != null;
+        assert ui != null;
+        assert storage != null;
+
         this.ui.showGreetings();
         boolean isExit = false;
         while (!isExit) {
