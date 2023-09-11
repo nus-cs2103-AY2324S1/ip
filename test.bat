@@ -8,7 +8,7 @@ rmdir /S /Q .\bin\
 mkdir .\bin\
 
 @REM Compile
-javac .\src\com\cloud\chatbot\*.java -cp .\src\ -Xlint:none -d .\bin\
+javac .\src\main\java\com\cloud\chatbot\*.java -cp .\src\main\java\ -Xlint:none -d .\bin\
 IF ERRORLEVEL 1 (
     echo:
     echo ^>^>^> javac failed
