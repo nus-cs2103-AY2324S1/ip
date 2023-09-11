@@ -14,6 +14,10 @@ public class TehO  {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
+    static final int TODO_SIZE = 4;
+    static final int DEADLINE_SIZE = 8;
+    static final int EVENT_SIZE = 5;
+    static final int FIND_SIZE = 4;
 
     /**
      * Constructs a TehO instance with string representation of a file path
@@ -35,11 +39,9 @@ public class TehO  {
             } else if (userCommand.equals("list")) {
                 returnMessage = ui.generateList(taskList);
             } else if (userCommand.startsWith("mark")) {
-                markTask(userCommand);
-                returnMessage = ui.generateUnmarkTaskMessage(taskList.getTask(parseInt(userCommand.split(" ")[1]) - 1));;
+                returnMessage = markTask(userCommand);
             } else if (userCommand.startsWith("unmark")) {
-                unmarkTask(userCommand);
-                returnMessage = ui.generateMarkTaskMessage(taskList.getTask(parseInt(userCommand.split(" ")[1]) - 1));
+                returnMessage = unmarkTask(userCommand);
             } else if (userCommand.startsWith("todo")) {
                 returnMessage = addToDo(userCommand);
             } else if (userCommand.startsWith("deadline")) {
@@ -90,13 +92,14 @@ public class TehO  {
      *
      * @param userCommand User's command containing the task to be marked.
      */
-    public void markTask(String userCommand) {
+    public String markTask(String userCommand) {
         //note that split returns a String[]
         //parseInt returns the integer value which is represented by the argument
         int taskNumber = parseInt(userCommand.split(" ")[1]) - 1; //counting from 0
         assert taskNumber >= 0 : "taskNumber should not be negative";
         Task task = this.taskList.getTask(taskNumber);
         task.markAsDone(taskNumber);
+        return ui.generateMarkTaskMessage(task);
     }
 
     /**
@@ -109,6 +112,7 @@ public class TehO  {
         assert taskNumber >= 0 : "taskNumber should not be negative";
         Task task = this.taskList.getTask(taskNumber);
         task.markAsNotDone(taskNumber);
+        return ui.generateUnmarkTaskMessage(task);
     }
 
     /**
@@ -118,10 +122,10 @@ public class TehO  {
      */
     public String addToDo(String userCommand) {
         try {
-            if (userCommand.length() < 5) {
+            if (userCommand.length() <= TODO_SIZE) {
                 throw new EmptyToDoDescriptionException();
             }
-            String command = userCommand.substring(5); //"todo " 5 index
+            String command = userCommand.substring(TODO_SIZE + 1); //"todo "
             Task task = new ToDo(command);
             this.taskList.add(task);
             return ui.generateAddToDoMessage(task, taskList);
@@ -137,13 +141,13 @@ public class TehO  {
      */
     public  String addDeadline(String userCommand) {
         try {
-            if (userCommand.length() < 9) {
+            if (userCommand.length() <= DEADLINE_SIZE) {
                 throw new EmptyDeadlineDescriptionException();
             }
-            String commandWithDate = userCommand.substring(9); //"deadline " 9 index
-            String cDeadline = commandWithDate.split(" /by ")[0]; //just description
-            LocalDate byDate = LocalDate.parse(commandWithDate.split(" /by ")[1]); //just byDate
-            Task task = new Deadline(cDeadline, byDate);
+            String commandWithDate = userCommand.substring(DEADLINE_SIZE + 1); //"deadline "
+            String description = commandWithDate.split(" /by ")[0];
+            LocalDate byDate = LocalDate.parse(commandWithDate.split(" /by ")[1]);
+            Task task = new Deadline(description, byDate);
             this.taskList.add(task);
             return ui.generateAddDeadlineMessage(task, taskList);
         } catch (EmptyDeadlineDescriptionException e) {
@@ -158,19 +162,21 @@ public class TehO  {
      */
     public String addEvent(String userCommand) {
         try {
-            if (userCommand.length() < 6) {
+            if (userCommand.length() <= EVENT_SIZE) {
                 throw new EmptyEventDescriptionException();
             }
-            String commandWithDate = userCommand.substring(6); //"todo " 6 index
-            String cEvent = commandWithDate.split(" /from ")[0]; //just description
-            String dates = commandWithDate.split(" /from ")[1]; //bothDates
-            LocalDate fromDate = LocalDate.parse(dates.split(" /to ")[0]); //just fromDate
-            LocalDate toDate = LocalDate.parse(dates.split(" /to ")[1]); //just toDate
-            Task task = new Event(cEvent, fromDate, toDate);
+            String commandWithDate = userCommand.substring(EVENT_SIZE + 1); //"event "
+            String description = commandWithDate.split(" /from ")[0];
+            String dates = commandWithDate.split(" /from ")[1]; //fromDate and toDate
+            LocalDate fromDate = LocalDate.parse(dates.split(" /to ")[0]);
+            LocalDate toDate = LocalDate.parse(dates.split(" /to ")[1]);
+            Task task = new Event(description, fromDate, toDate);
             this.taskList.add(task);
             return ui.generateAddEventMessage(task, taskList);
         } catch (EmptyEventDescriptionException e) {
             return e.toString();
+        } catch (IllegalArgumentException e) {
+            return "The from date cannot be after the to date!";
         }
     }
 
@@ -189,10 +195,10 @@ public class TehO  {
 
     public String find(String userCommand) {
         try {
-            if (userCommand.length() < 5) {
+            if (userCommand.length() <= FIND_SIZE) {
                 throw new EmptyFindDescriptionException();
             }
-            String toMatch = userCommand.substring(5); //"deadline " 9 index
+            String toMatch = userCommand.substring(FIND_SIZE + 1);
             return ui.generateFindMessage(toMatch, taskList);
         } catch (EmptyFindDescriptionException e) {
             return e.toString();
