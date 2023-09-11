@@ -39,12 +39,14 @@ public class Storage {
                 }
                 file.createNewFile();
             }
+
             StringBuilder result = new StringBuilder();
             for (Task task : tasks) {
                 String str = String.format("%s | %s | %s\n", task.getType(),
                         task.isDone() ? 1 : 0, task.formatForFileWriting());
                 result.append(str);
             }
+
             FileWriter fw = new FileWriter(this.filePath);
             assert file.exists() : "File should be created if it does not exist";
             fw.write(result.toString());
@@ -69,6 +71,7 @@ public class Storage {
             if (!file.exists()) {
                 return tasks;
             }
+
             scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String[] line = scanner.nextLine().split("\\s*\\|\\s*");
