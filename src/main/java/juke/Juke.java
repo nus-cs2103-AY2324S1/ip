@@ -19,7 +19,6 @@ public class Juke {
 
     private Application main;
 
-    private boolean isEnded;
     public Juke(String filePath, Application main) {
         ui = new Ui();
         parser = new Parser(this);
@@ -73,18 +72,21 @@ public class Juke {
     public String unmark(int index) throws JukeError {
         Task currTask = tasks.markAsUndone(index);
         storage.updateAll(tasks.getTasks());
+        assert !currTask.isDone : "Task should be marked as undone";
         return ui.unmark(currTask);
     }
 
     public String mark(int index) throws JukeError {
         Task currTask = tasks.markAsDone(index);
         storage.updateAll(tasks.getTasks());
+        assert currTask.isDone  : "Task should be marked as done";
         return ui.mark(currTask);
     }
 
     public String delete(int index) throws JukeError {
         Task currTask = tasks.delete(index);
         storage.updateAll(tasks.getTasks());
+        assert !tasks.getTasks().contains(currTask) : "Task should be successfully deleted from tasklist";
         return ui.delete(currTask, tasks.getSize());
     }
 
@@ -97,6 +99,7 @@ public class Juke {
         Task newTask = new Todo(desc);
         tasks.add(newTask);
         storage.write(newTask);
+        assert tasks.getTasks().contains(newTask) : "Task should be successfully entered into tasklist";
         return ui.createTask(newTask, tasks.getSize());
     }
 
@@ -104,6 +107,7 @@ public class Juke {
         Task newTask = new Deadline(desc, by);
         tasks.add(newTask);
         storage.write(newTask);
+        assert tasks.getTasks().contains(newTask) : "Task should be successfully entered into tasklist";
         return ui.createTask(newTask, tasks.getSize());
     }
 
@@ -111,6 +115,7 @@ public class Juke {
         Task newTask = new Event(desc, start, end);
         tasks.add(newTask);
         storage.write(newTask);
+        assert tasks.getTasks().contains(newTask) : "Task should be successfully entered into tasklist";
         return ui.createTask(newTask, tasks.getSize());
     }
 }
