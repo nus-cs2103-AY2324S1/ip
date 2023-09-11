@@ -1,6 +1,7 @@
 package instructionstuff;
 
-import java.util.ArrayList;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import duke.DukeException;
 import storagestuff.Storage;
@@ -26,6 +27,18 @@ public abstract class Instruction {
      */
     public abstract void execute(Storage storage, TaskList taskList, MainWindow mainWindow) throws DukeException;
 
+
+    /**
+     * Reduces the given stream to String.
+     *
+     * @param s The stream to reduce.
+     * @return Returns a string which contains all the strings in the stream.
+     */
+    public static String reduceStreamToString(Stream<String> s) {
+        Object[] a = s.toArray();
+        return IntStream.range(0, a.length).mapToObj(x -> String.format("%d) %s\n", x + 1, a[x]))
+                .reduce((x, y) -> x + y).orElse("");
+    }
 
     /**
      * A class which represents instructions for adding task to list.
@@ -190,11 +203,7 @@ public abstract class Instruction {
          */
         @Override
         public void execute(Storage storage, TaskList taskList, MainWindow mainWindow) throws DukeException {
-            String[] t = taskList.getTasks();
-            String s = "Here are the tasks in your list:\n";
-            for (int i = 0; i < t.length; i++) {
-                s = s + (i + 1) + ". " + t[i] + "\n";
-            }
+            String s = Instruction.reduceStreamToString(taskList.getTasks());
             mainWindow.setMessage(s);
         }
     }
@@ -225,11 +234,7 @@ public abstract class Instruction {
          */
         @Override
         public void execute(Storage storage, TaskList taskList, MainWindow mainWindow) throws DukeException {
-            ArrayList<String> foundTasks = taskList.findTasks(this.keyWord);
-            String s = "Here are the matching tasks in your list:\n";
-            for (int i = 0; i < foundTasks.size(); i++) {
-                s = s + (i + 1) + ". " + foundTasks.get(i).toString() + "\n";
-            }
+            String s = Instruction.reduceStreamToString(taskList.findTasks(this.keyWord));
             mainWindow.setMessage(s);
         }
     }
@@ -249,8 +254,7 @@ public abstract class Instruction {
          */
         @Override
         public void execute(Storage storage, TaskList taskList, MainWindow mainWindow) throws DukeException {
-            String[] s = taskList.getTasks();
-            storage.store(s);
+            storage.store(reduceStreamToString(taskList.getTasks()));
             mainWindow.setMessage("Bye. Hope to see you again soon.");
         }
     }

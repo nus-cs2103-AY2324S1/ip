@@ -1,6 +1,7 @@
 package taskstuff;
 
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 import duke.DukeException;
 
@@ -43,16 +44,12 @@ public class TaskList {
     }
 
     /**
-     * Returns an array of string describing the tasks present in tasks ArrayList.
+     * Returns a Stream of String describing the tasks present in tasks ArrayList.
      *
-     * @return Returns an array of string describing this taskList.
+     * @return Returns a Stream of String describing this taskList.
      */
-    public String[] getTasks() {
-        String[] s = new String[this.tasks.size()];
-        for (int i = 0; i < tasks.size(); i++) {
-            s[i] = tasks.get(i).toString();
-        }
-        return s;
+    public Stream<String> getTasks() {
+        return this.tasks.stream().map(Task::toString);
     }
 
     /**
@@ -124,18 +121,12 @@ public class TaskList {
     }
 
     /**
-     * Returns an arrayList containing name of tasks which contain keyword.
+     * Returns a Stream of String containing name of tasks which contain keyword.
      *
      * @param s The keyword to match in task's name;
-     * @return Returns an array List containing tasks whose names contain the keyword.
+     * @return Returns a Stream of String containing tasks whose names contain the keyword.
      */
-    public ArrayList<String> findTasks(String s) {
-        ArrayList<String> foundTasks = new ArrayList<String>();
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).hasKeyWord(s)) {
-                foundTasks.add(tasks.get(i).toString());
-            }
-        }
-        return foundTasks;
+    public Stream<String> findTasks(String s) {
+        return this.tasks.stream().filter(x -> x.hasKeyWord(s)).map(Task::toString);
     }
 }
