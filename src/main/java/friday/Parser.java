@@ -1,5 +1,7 @@
 package friday;
 
+import java.time.format.DateTimeParseException;
+
 import java.io.IOException;
 
 /**
@@ -272,7 +274,7 @@ public class Parser {
      * @param storage The storage object to save tasks.
      * @return A string response after processing the command.
      */
-    private String handleDeadlineCommand(String userInput, TaskList taskList, Storage storage) {
+    private String handleDeadlineCommand(String userInput, TaskList taskList, Storage storage)  {
         String[] commandAndDetails = userInput.split(" ", 2);
         if (commandAndDetails.length < 2 || !userInput.contains("/by")) {
             return "Incorrect format for 'deadline'. Here is a sample:\ndeadline return book /by Sunday";
@@ -283,11 +285,21 @@ public class Parser {
         }
         String taskDescription = taskAndDate[0];
         String deadlineDate = taskAndDate[1];
-        Deadline deadline = new Deadline(taskDescription, deadlineDate);
+
+        Deadline deadline;
+        try {
+            deadline = new Deadline(taskDescription, deadlineDate);
+        } catch (DateTimeParseException e) {
+            return "Invalid date format provided for deadline. "
+                    +
+                    "Supported formats: M/d/yyyy, MM-dd-yyyy, yyyy/MM/dd";
+        }
+
         taskList.add(deadline);
         saveTasks(taskList.toString(), storage);
         return "added: " + deadline.toString();
     }
+
 
     /**
      * Handles the 'event' command.

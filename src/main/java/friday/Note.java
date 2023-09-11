@@ -20,7 +20,7 @@ public class Note extends Item {
      * @return The content of the note.
      */
     public String getContent() {
-        return this.name;
+        return this.itemName;
     }
 
     @Override
