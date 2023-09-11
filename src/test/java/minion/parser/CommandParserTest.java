@@ -25,8 +25,13 @@ public class CommandParserTest {
 
     @Test
     public void parse_deadline_success() throws MinionException {
-        assertEquals(new DeadlineCommand(new Deadline("return book", "Dec 3 2023 2:00 PM")),
-                CommandParser.parse("deadline return book /by 3/12/2023 1400"));
+        assertEquals(new DeadlineCommand(
+                        new Deadline(
+                            "return book",
+                            DatetimeParser.parseToDatetime("Dec 3 2023 2:00 PM"))
+                        ),
+                    CommandParser.parse("deadline return book /by 3/12/2023 1400")
+        );
     }
 
     @Test
@@ -36,15 +41,20 @@ public class CommandParserTest {
             assertEquals(null, CommandParser.parse("deadline return book /by 3 Dec 2023 1400"));
             fail();
         } catch (MinionException e) {
-            assertEquals(Messages.MESSAGE_FAIL_PARSE_DATE, e.getMessage());
+            assertEquals(Messages.MESSAGE_FAIL_PARSE_DATETIME, e.getMessage());
         }
     }
 
     @Test
     public void parse_event_success() throws MinionException {
-        assertEquals(new EventCommand(new Event("pool party", "Dec 3 2023 2:00 PM", "Dec 4 "
-                + "2023 2:30 AM")), CommandParser.parse("event pool party /from 3/12/2023 1400 /to 4/12/2023 "
-                        + "0230"));
+        assertEquals(new EventCommand(
+                        new Event(
+                            "pool party",
+                            DatetimeParser.parseToDatetime("Dec 3 2023 2:00 PM"),
+                            DatetimeParser.parseToDatetime("Dec 4 2023 2:30 AM"))
+                        ),
+                    CommandParser.parse("event pool party /from 3/12/2023 1400 /to 4/12/2023 0230")
+        );
     }
 
     @Test

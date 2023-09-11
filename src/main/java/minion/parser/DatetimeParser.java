@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import minion.common.Messages;
 import minion.data.exception.MinionException;
 
 /**
@@ -25,7 +26,7 @@ public class DatetimeParser {
         try {
             return LocalDateTime.parse(s, FROM_DATETIME_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new MinionException("Fail to parse datetime!");
+            throw new MinionException(Messages.MESSAGE_FAIL_PARSE_DATETIME);
         }
     }
 
@@ -39,7 +40,7 @@ public class DatetimeParser {
         try {
             return LocalDateTime.parse(s, TO_DATETIME_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new MinionException("Fail to parse datetime!");
+            throw new MinionException(Messages.MESSAGE_FAIL_PARSE_DATETIME);
         }
     }
 

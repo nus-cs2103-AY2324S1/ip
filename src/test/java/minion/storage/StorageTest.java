@@ -14,9 +14,11 @@ import org.junit.jupiter.api.Test;
 
 import minion.common.Messages;
 import minion.data.TaskList;
+import minion.data.exception.MinionException;
 import minion.data.task.Deadline;
 import minion.data.task.Event;
 import minion.data.task.ToDo;
+import minion.parser.DatetimeParser;
 
 
 public class StorageTest {
@@ -26,11 +28,12 @@ public class StorageTest {
     private Storage storage;
 
     @BeforeEach
-    public void setUp() throws IOException {
+    public void setUp() throws IOException, MinionException {
         tasks = new TaskList();
         tasks.add(new ToDo("buy book"));
-        tasks.add(new Deadline("return book", "Dec 3 2023 2:00 PM"));
-        tasks.add(new Event("pool party", "Dec 3 2023 2:00 PM", "Dec 4 2023 2:30 AM"));
+        tasks.add(new Deadline("return book", DatetimeParser.parseToDatetime("Dec 3 2023 2:00 PM")));
+        tasks.add(new Event("pool party", DatetimeParser.parseToDatetime("Dec 3 2023 2:00 PM"),
+            DatetimeParser.parseToDatetime("Dec 4 2023 2:30 AM")));
         File file = new File(TEST_DATADIR_VALID);
         file.getParentFile().mkdirs();
         file.createNewFile();
@@ -40,13 +43,13 @@ public class StorageTest {
     }
 
     @Test
-    public void load_fileFound_success() throws IOException {
+    public void load_fileFound_success() throws IOException, MinionException {
         storage = new Storage(TEST_DATADIR_VALID);
         assertEquals(tasks.toString(), new TaskList(storage.load()).toString());
     }
 
     @Test
-    public void load_fileNotFound_fail() {
+    public void load_fileNotFound_fail() throws MinionException {
         storage = new Storage(TEST_DATADIR_INVALID);
         try {
             assertEquals(null, storage.load());

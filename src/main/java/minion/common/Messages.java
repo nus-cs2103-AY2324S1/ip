@@ -32,8 +32,8 @@ public class Messages {
     public static final String MESSAGE_EVENT_TO_ERROR = ":( OOPS!!! The to date of an event cannot be empty.";
 
     // parse failures
-    public static final String MESSAGE_FAIL_PARSE_DATE = "Unable to parse date. Ensure it is of the form dd/mm/yyyy!";
-    public static final String MESSAGE_FAIL_PARSE_TIME = "Unable to parse time. Ensure it is form HHmm!";
+    public static final String MESSAGE_FAIL_PARSE_DATETIME = "Unable to parse date. Ensure it is of the form "
+            + "dd/mm/yyyy HHmm!";
 
     // task related error
     public static final String MESSAGE_INVALID_TASK_INDEX = ":( OOPS!!! Please enter a valid task number.";
