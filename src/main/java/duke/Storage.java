@@ -20,7 +20,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         //fix hard coded part later
-       this.filePath = filePath;
+        this.filePath = filePath;
     }
 
     /**
@@ -38,7 +38,7 @@ public class Storage {
             try {
                 List<String> lines = Files.readAllLines(path);
                 for (String line : lines) {
-                    String parsed_str[] = line.split("\\s\\|\\s");
+                    String[] parsed_str = line.split("\\s\\|\\s");
                     if (parsed_str[0].equals("T")) {
                         int size = parsed_str.length;
                         Boolean done = parsed_str[1] == "1" ? true : false;
@@ -99,7 +99,6 @@ public class Storage {
             }
         }
         try (FileWriter filewriter = new FileWriter(this.filePath)) {
-            //might need a fix for above, todo
             int size = tasks.getSize();
             for (int i = 0; i < size; i++) {
                 Task curr = tasks.getTask(i);
