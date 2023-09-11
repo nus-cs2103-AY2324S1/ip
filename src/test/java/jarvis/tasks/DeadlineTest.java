@@ -1,11 +1,11 @@
 package jarvis.tasks;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {
     @Test
@@ -14,8 +14,8 @@ public class DeadlineTest {
         LocalDateTime by = LocalDateTime.parse("21/08/02 1900", formatter);
         Task task = new Deadline("Finish HW", by, false);
         task.completeTask(true);
-        assertEquals("[Deadline] [X] Finish HW" +
-                " (by: Aug 21 2002 07:00 PM)", task.toString());
+        assertEquals("[Deadline] [X] Finish HW"
+                + " (by: Aug 21 2002 07:00 PM)", task.toString());
     }
 
     @Test
@@ -23,7 +23,7 @@ public class DeadlineTest {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HHmm");
         LocalDateTime by = LocalDateTime.parse("21/08/02 1900", formatter);
         Task task = new Deadline("Finish HW", by, false);
-        assertEquals("D | O | Finish HW | " +
-                "Aug 21 2002 07:00 PM", task.toFile());
+        assertEquals("D | O | Finish HW | "
+                + "Aug 21 2002 07:00 PM", task.toFile());
     }
 }

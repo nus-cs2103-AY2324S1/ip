@@ -1,20 +1,19 @@
 package jarvis.storage;
 
-import jarvis.exceptions.DukeException;
-import org.junit.jupiter.api.Test;
-
-import java.io.File;
-
-import jarvis.tasks.Task;
-import jarvis.tasks.Todo;
-import jarvis.tasks.Deadline;
-import jarvis.tasks.Event;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.io.File;
+
+import org.junit.jupiter.api.Test;
+
+import jarvis.exceptions.DukeException;
+import jarvis.tasks.Deadline;
+import jarvis.tasks.Event;
+import jarvis.tasks.Task;
+import jarvis.tasks.Todo;
 
 public class StorageTest {
 
@@ -65,7 +64,8 @@ public class StorageTest {
         String path = "testdata/tasks.txt";
         Storage storage = new Storage(path);
         try {
-            Task t = storage.stringToTask("E | O | give CS2103T test | Aug 27 2023 07:00 PM - Aug 27 2023 08:00 PM");
+            Task t = storage.stringToTask("E | O | give CS2103T test | Aug 27 2023 07:00 PM - "
+                    + "Aug 27 2023 08:00 PM");
             assertTrue(t instanceof Event);
         } catch (DukeException e) {
             fail();
@@ -76,7 +76,8 @@ public class StorageTest {
     public void file_readFile_incorrectEvent() {
         String path = "testdata/tasks.txt";
         Storage storage = new Storage(path);
-        assertThrows(DukeException.class, () -> storage.stringToTask("E | XCP | | Aug 27 2023 07:00 PM - Aug 27 2023 08:00 PM"));
+        assertThrows(DukeException.class, () -> storage.stringToTask("E | XCP | | Aug 27 2023 07:00 PM "
+                + "- Aug 27 2023 08:00 PM"));
     }
 
     @Test

@@ -1,14 +1,14 @@
 package jarvis.parser;
 
-import jarvis.commands.AddCommand;
-import jarvis.commands.IncorrectCommand;
-import jarvis.commands.ListCommand;
-import jarvis.commands.ExitCommand;
-import jarvis.commands.Command;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import jarvis.commands.AddCommand;
+import jarvis.commands.Command;
+import jarvis.commands.ExitCommand;
+import jarvis.commands.IncorrectCommand;
+import jarvis.commands.ListCommand;
 
 public class ParserTest {
 
