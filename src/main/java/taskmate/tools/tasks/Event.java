@@ -22,6 +22,8 @@ public class Event extends Task {
      */
     public Event(String name, String startDatetime, String endDatetime) {
         super(name);
+        assert startDatetime != null;
+        assert endDatetime != null;
         this.startDatetime = LocalDate.parse(startDatetime);
         this.endDatetime = LocalDate.parse(endDatetime);
     }
@@ -37,6 +39,8 @@ public class Event extends Task {
      */
     public Event(String name, LocalDate startDatetime, LocalDate endDatetime) {
         super(name);
+        assert startDatetime != null;
+        assert endDatetime != null;
         this.startDatetime = startDatetime;
         this.endDatetime = endDatetime;
     }
@@ -54,24 +58,10 @@ public class Event extends Task {
      */
     public Event(String name, String startDatetime, String endDatetime, boolean isDone) {
         super(name, isDone);
+        assert startDatetime != null;
+        assert endDatetime != null;
         this.startDatetime = LocalDate.parse(startDatetime);
         this.endDatetime = LocalDate.parse(endDatetime);
-    }
-
-    /**
-     * Event constructor that allows the developer to specify the name of the task, a date that represents
-     * the date that this task starts, a date that represents the date that this task ends, and a boolean that
-     * represents if the task has been completed. These dates must be `LocalDate` instances.
-     *
-     * @param name the name of the event task.
-     * @param startDatetime the date that the event task starts.
-     * @param endDatetime the date that the event task ends.
-     * @param isDone a boolean variable that represents if the task has been completed.
-     */
-    Event(String name, LocalDate startDatetime, LocalDate endDatetime, boolean isDone) {
-        super(name, isDone);
-        this.startDatetime = startDatetime;
-        this.endDatetime = endDatetime;
     }
 
     @Override
