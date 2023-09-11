@@ -79,24 +79,29 @@ public class RatTaskManager {
      * Reads the data from the local storage file and adds it to the taskList.
      */
     protected void getDataFromFile() {
+        int TASK_SYMBOL = 0;
+        int TASK_STATUS = 1;
+        int TASK_NAME = 2;
+        int FIRST_TIME = 3;
+        int SECOND_TIME = 4;
         String[] data = storage.readFile().split("\n");
         for (String s : data) {
             String[] taskData = s.split(", ");
-            switch (taskData[0]) {
+            switch (taskData[TASK_SYMBOL]) {
             case "T":
-                this.taskList.add(new ToDo(taskData[2]));
+                this.taskList.add(new ToDo(taskData[TASK_NAME]));
                 break;
             case "D":
-                this.taskList.add(new Deadline(LocalDateTime.parse(taskData[3]), taskData[2]));
+                this.taskList.add(new Deadline(LocalDateTime.parse(taskData[FIRST_TIME]), taskData[TASK_NAME]));
                 break;
             case "E":
-                this.taskList.add(new Event(LocalDateTime.parse(taskData[3]),
-                        LocalDateTime.parse(taskData[4]), taskData[2]));
+                this.taskList.add(new Event(LocalDateTime.parse(taskData[FIRST_TIME]),
+                        LocalDateTime.parse(taskData[SECOND_TIME]), taskData[TASK_NAME]));
                 break;
             default:
                 break;
             }
-            if (taskData[1].equals("1")) {
+            if (taskData[TASK_STATUS].equals("1")) {
                 this.markItemDone(this.taskList.size());
             }
         }

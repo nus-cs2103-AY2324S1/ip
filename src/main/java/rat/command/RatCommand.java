@@ -26,7 +26,8 @@ public abstract class RatCommand {
     }
 
     /**
-     * Executes the command.
+     * Executes the command which modifies the task list.
+     * Able to create, delete, and update tasks.
      */
     public abstract void execute();
 
