@@ -1,11 +1,11 @@
 package qi.command;
 
+import java.io.IOException;
+
 import qi.qiexception.QiException;
 import qi.storage.Storage;
 import qi.tasklist.TaskList;
 import qi.ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents the process of marking a task in the list as done.

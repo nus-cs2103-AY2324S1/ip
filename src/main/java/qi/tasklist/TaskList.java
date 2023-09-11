@@ -1,8 +1,8 @@
 package qi.tasklist;
 
-import qi.task.Task;
-
 import java.util.ArrayList;
+
+import qi.task.Task;
 
 /**
  * Represents the list of task.

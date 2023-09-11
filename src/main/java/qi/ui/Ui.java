@@ -1,9 +1,9 @@
 package qi.ui;
 
+import java.util.Scanner;
+
 import qi.task.Task;
 import qi.tasklist.TaskList;
-
-import java.util.Scanner;
 
 /**
  * Represents the interactions of the chatbot with users.
@@ -48,7 +48,7 @@ public class Ui {
     public void showTaskAdded(Task task, TaskList list) {
         System.out.println("     Got it. I've added this task:");
         System.out.println("      " + task);
-        System.out.println("     Now you have " + list.size() +  " tasks in the list.");
+        System.out.println("     Now you have " + list.size() + " tasks in the list.");
     }
 
     /**

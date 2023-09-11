@@ -1,5 +1,8 @@
 package qi.command;
 
+import java.io.IOException;
+import java.time.LocalDate;
+
 import qi.qiexception.QiException;
 import qi.storage.Storage;
 import qi.task.Deadline;
@@ -8,9 +11,6 @@ import qi.task.Task;
 import qi.task.Todo;
 import qi.tasklist.TaskList;
 import qi.ui.Ui;
-
-import java.io.IOException;
-import java.time.LocalDate;
 
 /**
  * Represents the execution of adding a task into the list.
@@ -64,7 +64,7 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws QiException {
         tasks.addTask(this.task);
-        ui.showTaskAdded(this.task ,tasks);
+        ui.showTaskAdded(this.task, tasks);
         try {
             storage.update(tasks);
         } catch (IOException e) {
