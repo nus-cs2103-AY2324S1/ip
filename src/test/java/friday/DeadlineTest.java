@@ -1,6 +1,7 @@
 package friday;
 
 import java.time.format.DateTimeParseException;
+
 import org.junit.jupiter.api.Test;
 
 
@@ -16,15 +17,18 @@ public class DeadlineTest {
     public void testValidDateFormats() {
         // Test the first valid pattern "M/d/yyyy"
         Deadline deadline1 = new Deadline("Test Task", "1/12/2019");
-        assert "[D][ ] Test Task (by: Jan 12 2019)".equals(deadline1.toString()) : "Mismatch in expected output for date format M/d/yyyy";
+        assert "[D][ ] Test Task (by: Jan 12 2019)".equals(deadline1.toString())
+                : "Mismatch in expected output for date format M/d/yyyy";
 
         // Test the second valid pattern "MM-dd-yyyy"
         Deadline deadline2 = new Deadline("Test Task", "01-12-2019");
-        assert "[D][ ] Test Task (by: Jan 12 2019)".equals(deadline2.toString()) : "Mismatch in expected output for date format MM-dd-yyyy";
+        assert "[D][ ] Test Task (by: Jan 12 2019)".equals(deadline2.toString())
+                : "Mismatch in expected output for date format MM-dd-yyyy";
 
         // Test the third valid pattern "yyyy/MM/dd"
         Deadline deadline3 = new Deadline("Test Task", "2019/01/12");
-        assert "[D][ ] Test Task (by: Jan 12 2019)".equals(deadline3.toString()) : "Mismatch in expected output for date format yyyy/MM/dd";
+        assert "[D][ ] Test Task (by: Jan 12 2019)".equals(deadline3.toString())
+                : "Mismatch in expected output for date format yyyy/MM/dd";
     }
 
     /**
@@ -37,7 +41,8 @@ public class DeadlineTest {
             deadline.toString();
             assert false : "Expected DateTimeParseException but no exception was thrown.";
         } catch (DateTimeParseException e) {
-            assert e.getMessage().contains("Unsupported date format: 12/2019") : "Unexpected error message: " + e.getMessage();
+            assert e.getMessage().contains("Unsupported date format: 12/2019")
+                    : "Unexpected error message: " + e.getMessage();
         }
     }
 
