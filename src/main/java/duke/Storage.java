@@ -26,6 +26,10 @@ public class Storage {
             // Get directory of data
             Path path = Paths.get("./data");
 
+            // Assert that the file is located in the correct file hierarchy, and the file has the correct name
+            assert (path.getParent().getParent() == null);
+            assert (path.getName(1).toString().equals("data"));
+
             // Make new directory if it doesn't exist
             if (!Files.exists(path)) {
                 Files.createDirectories(path);
@@ -40,9 +44,12 @@ public class Storage {
             FileReader fr = new FileReader("./data/duke.txt");
             int c;
             String savedTasks = "";
-            while ((c=fr.read()) != -1) {
+            while ((c = fr.read()) != -1) {
                 savedTasks += (char) c;
             }
+
+            // Assert that fr.read is equals -1, meaning all characters of the text file is read
+            assert (fr.read() == -1);
 
             String[] taskList = new String[100];
             for (String task : savedTasks.split(";")) {
@@ -67,7 +74,7 @@ public class Storage {
                 taskArray.add(savedTask);
             }
         } catch (Exception e) {
-            System.out.println("File not found, creating new text file...");
+            // if the file is not found, create a new text file
             new File("./data/duke.txt");
         }
     }
@@ -93,6 +100,10 @@ public class Storage {
             if (task == null) break;
             out += count++ + ". " + task.toString() + "\n";
         }
+
+        // Assert there should be more tasks listed than the size of the task array
+        assert (count <= taskArray.size() + 1);
+
         return out;
     }
 
@@ -112,6 +123,10 @@ public class Storage {
                 continue;
             out += count++ + ". " + task.toString() + "\n";
         }
+
+        // Assert there should be more tasks listed than the size of the task array
+        assert (count <= taskArray.size() + 1);
+
         return out;
     }
 
@@ -131,6 +146,10 @@ public class Storage {
      * @param index array index of task
      */
     public void delete(int index) throws NumberFormatException, IndexOutOfBoundsException {
+
+        // Assert that the task being deleted cannot be null
+        assert (taskArray.get(index) != null);
+
         taskArray.remove(index);
     }
 
