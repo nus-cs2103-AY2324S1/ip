@@ -1,26 +1,34 @@
 package com.cloud.chatbot.item;
 
+import java.time.Instant;
+
 import org.json.JSONObject;
 
+import com.cloud.chatbot.DateConverter;
+import com.cloud.chatbot.exceptions.IllegalTimestampException;
 import com.cloud.chatbot.file.Key;
 
 
 
 /**
- * Represents an event work Item, which has both a starting and ending timestamp.
+ * Represents an event work Item, which has both a start and end Instant.
  */
 public class Event extends Deadline {
-    private String timestampStart;
+    private Instant start;
 
     /**
      * @param _description The Item description.
-     * @param start The starting timestamp.
-     * @param end The ending timestamp.
+     * @param _start The start Instant.
+     * @param _end The end Instant.
      */
-    public Event(String _description, String start, String end) {
-        super(_description, end);
+    public Event(String _description, Instant _start, Instant _end) throws IllegalTimestampException {
+        super(_description, _end);
 
-        this.timestampStart = start;
+        if (_end.isBefore(_start)) {
+            throw new IllegalTimestampException();
+        }
+
+        this.start = _start;
     }
 
     @Override
@@ -28,8 +36,8 @@ public class Event extends Deadline {
         return String.format(
             "%s | FROM %s | TO %s",
             this.getBasicString(number),
-            this.getStart(),
-            this.getEnd()
+            DateConverter.instantToPrettyTimestamp(this.getStart()),
+            DateConverter.instantToPrettyTimestamp(this.getEnd())
         );
     }
 
@@ -41,12 +49,18 @@ public class Event extends Deadline {
     @Override
     public JSONObject export() {
         JSONObject json = this.getBasicJson();
-        json.put(Key.START.string, this.getStart());
-        json.put(Key.END.string, this.getEnd());
+        json.put(
+            Key.START.string,
+            this.getStart().toEpochMilli()
+        );
+        json.put(
+            Key.END.string,
+            this.getEnd().toEpochMilli()
+        );
         return json;
     }
 
-    public String getStart() {
-        return this.timestampStart;
+    public Instant getStart() {
+        return this.start;
     }
 }

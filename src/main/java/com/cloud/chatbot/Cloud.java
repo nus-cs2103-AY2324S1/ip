@@ -1,8 +1,10 @@
 package com.cloud.chatbot;
 
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import com.cloud.chatbot.annotations.Nullable;
+import com.cloud.chatbot.exceptions.IllegalTimestampException;
 import com.cloud.chatbot.exceptions.MissingFlagInputException;
 import com.cloud.chatbot.exceptions.MissingInputException;
 import com.cloud.chatbot.item.Deadline;
@@ -124,10 +126,17 @@ public final class Cloud {
 
         try {
             if (managerBy != null) {
-                return new Deadline(description, managerBy.getSubInput());
+                return new Deadline(
+                    description,
+                    DateConverter.timestampToInstant(managerBy.getSubInput())
+                );
             }
             if (managerFrom != null && managerTo != null) {
-                return new Event(description, managerFrom.getSubInput(), managerTo.getSubInput());
+                return new Event(
+                    description,
+                    DateConverter.timestampToInstant(managerFrom.getSubInput()),
+                    DateConverter.timestampToInstant(managerTo.getSubInput())
+                );
             }
         } catch (MissingFlagInputException e) {
             Cloud.say(
@@ -136,6 +145,12 @@ public final class Cloud {
                     e.getFlagText()
                 )
             );
+            return null;
+        } catch (DateTimeParseException e) {
+            Cloud.say("Please use a valid timestamp format.");
+            return null;
+        } catch (IllegalTimestampException e) {
+            Cloud.say("Please enter a logical timestamp range.");
             return null;
         }
 

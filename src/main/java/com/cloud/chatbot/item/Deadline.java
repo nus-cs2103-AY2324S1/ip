@@ -1,25 +1,28 @@
 package com.cloud.chatbot.item;
 
+import java.time.Instant;
+
 import org.json.JSONObject;
 
+import com.cloud.chatbot.DateConverter;
 import com.cloud.chatbot.file.Key;
 
 
 
 /**
- * Represents a deadline work Item, which has an ending timestamp.
+ * Represents a deadline work Item, which has an end Instant.
  */
 public class Deadline extends Item {
-    private String timestampEnd;
+    private Instant end;
 
     /**
      * @param _description The Item description.
-     * @param end The ending timestamp.
+     * @param _end The end Instant.
      */
-    public Deadline(String _description, String end) {
+    public Deadline(String _description, Instant _end) {
         super(_description);
 
-        this.timestampEnd = end;
+        this.end = _end;
     }
 
     @Override
@@ -27,7 +30,7 @@ public class Deadline extends Item {
         return String.format(
             "%s | BY %s",
             this.getBasicString(number),
-            this.getEnd()
+            DateConverter.instantToPrettyTimestamp(this.getEnd())
         );
     }
 
@@ -39,11 +42,14 @@ public class Deadline extends Item {
     @Override
     public JSONObject export() {
         JSONObject json = this.getBasicJson();
-        json.put(Key.END.string, this.getEnd());
+        json.put(
+            Key.END.string,
+            this.getEnd().toEpochMilli()
+        );
         return json;
     }
 
-    public String getEnd() {
-        return this.timestampEnd;
+    public Instant getEnd() {
+        return this.end;
     }
 }
