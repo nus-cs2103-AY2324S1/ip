@@ -25,8 +25,8 @@ public class GobbleMessage extends HBox {
     @FXML
     private ImageView profileImage;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpeg"));
-    private Image gobbleImage = new Image(this.getClass().getResourceAsStream("/images/system.jpg"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpeg"));
+    private final Image gobbleImage = new Image(this.getClass().getResourceAsStream("/images/system.jpg"));
 
     private GobbleMessage(String text, UserType from) {
         try {
@@ -66,6 +66,7 @@ public class GobbleMessage extends HBox {
      * @return GobbleMessage user styled dialog.
      */
     public static GobbleMessage getUserDialog(String text) {
+        assert !text.isEmpty() : "text should not be empty";
         GobbleMessage message = new GobbleMessage(text, UserType.USER);
         message.setUserStyles();
         message.flip();
@@ -79,6 +80,7 @@ public class GobbleMessage extends HBox {
      * @return GobbleMessage system styled dialog.
      */
     public static GobbleMessage getGobbleDialog(String text) {
+        assert text != null : "text should not be null";
         GobbleMessage db = new GobbleMessage(text, UserType.SYSTEM);
         return db;
     }
