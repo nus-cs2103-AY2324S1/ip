@@ -92,6 +92,7 @@ public class Storage {
      * @throws KoraException When the type of task is not valid.
      */
     public Task checkTask(String[] array) throws KoraException {
+        assert array.length >= 2 : "The command is too short.";
         Task currentTask;
         if (array[0].contains("E")) {
             currentTask = new Event(array[2], array[3], array[4]);
