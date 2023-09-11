@@ -31,22 +31,17 @@ public class Duke {
     Duke () {
         tasks = new TaskList(this.ui, storage.loadData(), storage);
     }
-    public void run() {
-        ui.greet();
-        tasks = new TaskList(this.ui, storage.loadData(), storage);
-        String cmd = this.ui.readInCmd();
-        Parser parser = new Parser(this.ui, this.tasks);
-        parser.readCmd(this.tasks, cmd);
-    }
 
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-
     public String getResponse(String input) {
         String greetings = ui.greet();
+        assert greetings == "Hello! I'm JJ\n" +
+                "What can I do for you?\n" + "\n" : "greeting should contain default greet";
         Parser parser = new Parser(this.ui, this.tasks);
+        assert parser != null : "parser should not be null at any point";
         String str = parser.readCmd(this.tasks, input);
         return str;
     }
