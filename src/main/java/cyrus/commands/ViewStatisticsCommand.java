@@ -19,6 +19,12 @@ public class ViewStatisticsCommand extends Command {
 
     @Override
     public String[] execute() throws CommandError {
-        return new String[0];
+        if (this.taskList.size() == 0) {
+            throw new CommandError("You do not have any tasks to view the statistics of!");
+        }
+
+        return new String[]{
+            "Pulling up your latest statistics!",
+        };
     }
 }
