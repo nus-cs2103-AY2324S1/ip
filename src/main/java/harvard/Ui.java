@@ -94,6 +94,10 @@ public class Ui {
         return result;
     }
 
+    public String showClearAll(String type) {
+        return "Noted. I've removed all " + type + " tasks.";
+    }
+
     /**
      * Displays the error message.
      * @param e

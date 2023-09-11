@@ -73,4 +73,18 @@ public class TaskList {
         return new TaskList(matchingTasks);
     }
 
+    /**
+     * Clears all tasks of a certain type.
+     * @param type The type of task to be cleared.
+     */
+    public void clearAll(String type) {
+        TaskList clearedTasks = new TaskList();
+        for (Task task : tasks) {
+            if (!task.getType().equals(type)) {
+                clearedTasks.add(task);
+            }
+        }
+        this.tasks = clearedTasks.tasks;
+    }
+
 }

@@ -100,6 +100,10 @@ public abstract class Task {
         return task;
     }
 
+    public String getType() {
+        return type;
+    }
+
     /**
      * Returns the string representation of the task.
      * @return The string representation of the task.
