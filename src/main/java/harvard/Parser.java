@@ -4,6 +4,11 @@ package harvard;
  * Represents a parser that parses user input.
  */
 public class Parser {
+    public static final String EVENT_TIME = "☹ OOPS!!! The event time must be specified.";
+    public static final String EVENT_DESCRIPTION = "☹ OOPS!!! The description of an event cannot be empty.";
+    public static final String DEADLINE_TIME = "☹ OOPS!!! The deadline must be specified.";
+    public static final String DEADLINE_DESCRIPTION = "☹ OOPS!!! The description of a deadline cannot be empty.";
+    public static final String TODO_DESCRIPTION = "☹ OOPS!!! The description of a todo cannot be empty.";
     /**
      * Parses the user input.
      *
@@ -17,63 +22,63 @@ public class Parser {
         } else if (command.startsWith("todo")) {
             // Parse and return a TodoCommand
             if (command.length() < 5) {
-                throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                throw new DukeException(TODO_DESCRIPTION);
             }
             String description = command.substring(5);
             if (description.isEmpty()) {
-                throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                throw new DukeException(TODO_DESCRIPTION);
             }
             Todo todo = new Todo(description);
             return new AddCommand(todo);
         } else if (command.startsWith("deadline")) {
             // Parse and return a DeadlineCommand
             if (command.length() < 9) {
-                throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                throw new DukeException(DEADLINE_DESCRIPTION;
             }
             if (!command.contains(" /by ")) {
-                throw new DukeException("☹ OOPS!!! The deadline must be specified.");
+                throw new DukeException(DEADLINE_TIME);
             }
             String[] split = command.split(" /by ");
             if (split[0].length() < 9) {
-                throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                throw new DukeException(DEADLINE_DESCRIPTION);
             }
             if (split.length != 2) {
-                throw new DukeException("☹ OOPS!!! The deadline must be specified.");
+                throw new DukeException(DEADLINE_TIME);
             }
             String description = split[0].substring(9);
             if (description.isEmpty()) {
-                throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                throw new DukeException(DEADLINE_DESCRIPTION);
             }
             String by = split[1];
             if (by.isEmpty()) {
-                throw new DukeException("☹ OOPS!!! The deadline must be specified.");
+                throw new DukeException(DEADLINE_TIME);
             }
             Deadline deadline = new Deadline(description, by);
             return new AddCommand(deadline);
         } else if (command.startsWith("event")) {
             // Parse and return an EventCommand
             if (command.length() < 6) {
-                throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+                throw new DukeException(EVENT_DESCRIPTION);
             }
             if (!command.contains(" /from ") || !command.contains(" /to ")) {
-                throw new DukeException("☹ OOPS!!! The event time must be specified.");
+                throw new DukeException(EVENT_TIME);
             }
             String[] split = command.split("/from ");
             if (split[0].length() < 6) {
-                throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+                throw new DukeException(EVENT_DESCRIPTION);
             }
             String[] split2 = split[1].split(" /to ");
             if (split2.length != 2) {
-                throw new DukeException("☹ OOPS!!! The event time must be specified.");
+                throw new DukeException(EVENT_TIME);
             }
             String description = split[0].substring(6);
             if (description.isEmpty()) {
-                throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+                throw new DukeException(EVENT_DESCRIPTION);
             }
             String from = split2[0];
             String to = split2[1];
             if (from.isEmpty() || to.isEmpty()) {
-                throw new DukeException("☹ OOPS!!! The event time must be specified.");
+                throw new DukeException(EVENT_TIME);
             }
             if (from.equals(to)) {
                 throw new DukeException("☹ OOPS!!! The event start time and end time cannot be the same.");
