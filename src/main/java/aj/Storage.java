@@ -46,18 +46,23 @@ public class Storage {
                 String remaining = strScanner.nextLine();
                 boolean isMark = Boolean.parseBoolean(parsedValues[1]);
                 Task task;
-                if (command.equals("todo")) {
+                switch (command) {
+                case "todo":
 //                    task = new aj.Todo(remaining.substring(1), isMark);
                     task = this.parser.getTodoTask(remaining,
                             isMark);
-                } else if (command.equals("deadline")) {
+                    break;
+                case "deadline":
                     task = this.parser.getDeadlineTask(remaining,
                             isMark);
-                } else if (command.equals("event")) {
+                    break;
+                case "event":
                     task = this.parser.getEventTask(remaining,
                             isMark);
-                } else {
+                    break;
+                default:
                     task = null;
+                    break;
                 }
                 taskList.add(task);
             }

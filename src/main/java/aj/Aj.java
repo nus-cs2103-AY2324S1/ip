@@ -71,7 +71,7 @@ public class Aj extends Application {
             String descString = cmdAndDesc[1];
             switch (cmdString) {
             case "mark": {
-                int idx = Integer.parseInt(descString.substring(1)) - 1; // this idx is idx of tasklst
+                int idx = Integer.parseInt(descString.substring(1)) - 1; // this idx is idx of tasklist
                 this.ui.checkIndex(idx);
                 Task taskToMark = this.taskList.getTask(idx);
                 outMsg.append(this.ui.horiLine());
@@ -79,6 +79,7 @@ public class Aj extends Application {
                     outMsg.append("You have already marked it!!!\n");
                 } else {
                     taskToMark.toggleComplete();
+                    assert taskToMark.isCompleted() : "taskToMark should be marked but it is not";
                     this.storage.updateData(idx,
                             true);
                     outMsg.append("Nice! I've marked this task as done:\n");
@@ -95,6 +96,7 @@ public class Aj extends Application {
                     outMsg.append("Task is already unmarked!!!\n");
                 } else {
                     taskToUnmark.toggleComplete();
+                    assert !taskToUnmark.isCompleted() : "taskToUnmark should be unmarked but it is not";
                     this.storage.updateData(idx,
                             false);
                     outMsg.append("OK, I've marked this task as not done yet:\n");
@@ -110,7 +112,7 @@ public class Aj extends Application {
                 Task removedTask = this.taskList.getTask(idx);
                 this.taskList.removeTask(idx);
                 this.storage.deleteData(idx);
-                outMsg.append(removedTask);
+                outMsg.append(removedTask).append("\n");
                 outMsg.append(this.ui.printNumTask());
                 break;
             }
@@ -137,7 +139,7 @@ public class Aj extends Application {
                 this.storage.addData(cmdString + descString + ",false");
                 this.taskList.addTask(task);
                 outMsg.append("Got it. I've added this task:\n");
-                outMsg.append(task + "\n");
+                outMsg.append(task).append("\n");
                 outMsg.append(this.ui.printNumTask());
             }
         }
