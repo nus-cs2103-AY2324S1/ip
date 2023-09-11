@@ -1,3 +1,4 @@
 0 | return book | 2001-10-29
 1 |  read book
 0 |  return book
+1 | burn books | 2023-09-11 | 2034-09-11
