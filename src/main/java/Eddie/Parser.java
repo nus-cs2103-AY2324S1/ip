@@ -1,5 +1,6 @@
 package Eddie;
 
+import Eddie.Commands.*;
 import Eddie.Exceptions.*;
 import Eddie.GUI.Ui;
 import Eddie.Tasks.Deadline;
@@ -26,9 +27,9 @@ public class Parser {
 
             switch (command) {
                 case "bye":
-                    return Duke.exit();
+                    return ExitCommand.execute();
                 case "list":
-                    return Duke.list();
+                    return ListCommand.execute();
                 case "mark":
                     int taskNum = sc.nextInt();
                     Task task = TaskList.get(taskNum - 1);
@@ -47,13 +48,13 @@ public class Parser {
                     return Ui.unmark(taskNum);
                 case "delete":
                     int index = sc.nextInt();
-                    return Duke.delete(index - 1);
+                    return DeleteCommand.execute(index - 1);
                 case "todo":
                     String restOfString = sc.nextLine();
                     if (restOfString.length() != 0) {
                         String taskName = restOfString;
                         Task taskToAdd = new Todo(taskName);
-                        return Duke.add(taskToAdd);
+                        return AddCommand.execute(taskToAdd);
 
                     } else {
                         throw new EmptyDescriptionException();
@@ -70,7 +71,7 @@ public class Parser {
                         String date = restOfString.substring(slashIndex + 4);
                         LocalDate d = LocalDate.parse(date);
                         Task taskToAdd = new Deadline(taskName, d);
-                        return Duke.add(taskToAdd);
+                        return AddCommand.execute(taskToAdd);
                     } else {
                         throw new EmptyDescriptionException();
                     }
@@ -92,15 +93,15 @@ public class Parser {
                         LocalDate from = LocalDate.parse(fromDate);
                         LocalDate to = LocalDate.parse(toDate);
                         Task taskToAdd = new Event(taskName, from, to);
-                        return Duke.add(taskToAdd);
+                        return AddCommand.execute(taskToAdd);
                     } else {
                         throw new EmptyDescriptionException();
                     }
                 case "clear":
-                    return Duke.clear();
+                    return ClearCommand.execute();
                 case "find":
                     restOfString = sc.next();
-                    return Duke.find(restOfString);
+                    return FindCommand.execute(restOfString);
                 default:
                     throw new NoSuchCommandException();
             }
