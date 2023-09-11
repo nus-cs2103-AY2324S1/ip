@@ -2,3 +2,5 @@ T,false,read book
 E,false,project meeting,2019-10-15 16:00,2019-10-15 20:00
 T,false,join sports club
 E,false,Birthday party,2023-08-30 15:00,2023-08-30 18:00
+D,0,do ip,2023-10-19 19:00
+D,0,watch lecture,2023-09-13 17:00

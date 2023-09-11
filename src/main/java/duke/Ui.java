@@ -1,6 +1,9 @@
 package duke;
 
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Represents the user interface for interacting with the chatbot.
@@ -33,8 +36,34 @@ public class Ui {
         // Assertion: The taskList should not be null.
         assert taskList != null : "TaskList is null.";
 
-        for (int i = 0; i < taskList.getTotalTasks(); i++) {
-            todolistoutput.append(i + 1).append(". ").append(taskList.getTasks().get(i)).append("\n");
+        ArrayList<Task> tasks = taskList.getTasks();
+
+        // Add a section for upcoming deadlines
+        todolistoutput.append("Upcoming Deadlines:\n");
+
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                LocalDate currentDate = LocalDate.now();
+                LocalDate taskDate = deadline.getDate();
+
+                // Check if currentDate and taskDate are not null
+                System.out.println(taskDate);
+                if (currentDate != null && taskDate != null) {
+                    long daysUntilDeadline = ChronoUnit.DAYS.between(currentDate, taskDate);
+
+                    // Display the task name and days until the deadline
+                    todolistoutput.append(daysUntilDeadline).append(" days left - ").append(deadline.getDescription())
+                            .append('\n');
+                }
+            }
+        }
+
+        // Add a separator between upcoming deadlines and the existing task list
+        todolistoutput.append("\nTask List:\n");
+
+        for (int i = 0; i < tasks.size(); i++) {
+            todolistoutput.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
         }
 
         // Assertion: The output should not be null.

@@ -15,11 +15,15 @@ public class Deadline extends Task {
         this.byDateTimeString = byDateAndTime;
     }
 
+    public LocalDate getDate() {
+        return this.byDate;
+    }
+
     public boolean isValidDate(String dateTimeString) {
         try {
             String[] parts = dateTimeString.split(" ");
             LocalDate.parse(parts[0], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            LocalTime.parse(parts[1], DateTimeFormatter.ofPattern("HHmm"));
+            LocalTime.parse(parts[1], DateTimeFormatter.ofPattern("HH:mm"));
             return true;
         } catch (Exception e) {
             return false;
@@ -30,7 +34,7 @@ public class Deadline extends Task {
         if (isValidDate(dateTime)) {
             String[] parts = dateTime.split(" ");
             byDate = LocalDate.parse(parts[0], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            byTime = LocalTime.parse(parts[1], DateTimeFormatter.ofPattern("HHmm"));
+            byTime = LocalTime.parse(parts[1], DateTimeFormatter.ofPattern("HH:mm"));
         }
 
     }
@@ -38,8 +42,8 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         if (byDate != null) {
-            return "[D]" + super.toString() + " (by: " + byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                    + " " + byTime.format(DateTimeFormatter.ofPattern("h:mm a")) + ")";
+            return "[D]" + super.toString() + " (by: " + byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                    + " " + byTime.format(DateTimeFormatter.ofPattern("HH:mm")) + ")";
         } else {
             return "[D]" + super.toString() + " (by: " + byDateTimeString + ")";
         }
