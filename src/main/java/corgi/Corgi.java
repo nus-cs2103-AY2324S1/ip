@@ -4,7 +4,6 @@ import java.util.Stack;
 
 import corgi.commands.Command;
 import corgi.commands.CommandExecutionException;
-import corgi.commands.CommandType;
 import corgi.parsers.CommandParser;
 import corgi.parsers.InvalidCommandFormatException;
 import corgi.parsers.InvalidCommandTypeException;
