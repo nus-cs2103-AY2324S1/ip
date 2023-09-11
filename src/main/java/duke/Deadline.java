@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    private final LocalDateTime by;
+    private LocalDateTime by;
     private final DateTimeFormatter formatter;
 
     /**
@@ -52,6 +52,28 @@ public class Deadline extends Task {
     @Override
     public String getTaskType() {
         return "deadline";
+    }
+
+    @Override
+    public void updateTask(String description) throws DukeException {
+        throw new DukeException(ExceptionTypes.INCOMPLETEUPDATEDETAILS);
+    }
+
+    /**
+     * Updates the task with the new deadline.
+     *
+     * @param description the new task details.
+     * @param by the new deadline.
+     */
+    @Override
+    public void updateTask(String description, LocalDateTime by) {
+        this.description = description;
+        this.by = by;
+    }
+
+    @Override
+    public void updateTask(String description, LocalDateTime from, LocalDateTime to) throws DukeException {
+        throw new DukeException(ExceptionTypes.INCOMPLETEUPDATEDETAILS);
     }
 }
 

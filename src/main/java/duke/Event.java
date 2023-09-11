@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
 
-    private final LocalDateTime from;
-    private final LocalDateTime to;
+    private LocalDateTime from;
+    private LocalDateTime to;
     private final DateTimeFormatter formatter;
 
     /**
@@ -58,5 +58,29 @@ public class Event extends Task {
     @Override
     public String getTaskType() {
         return "event";
+    }
+
+    @Override
+    public void updateTask(String description) throws DukeException {
+        throw new DukeException(ExceptionTypes.INCOMPLETEUPDATEDETAILS);
+    }
+
+    @Override
+    public void updateTask(String description, LocalDateTime by) throws DukeException {
+        throw new DukeException(ExceptionTypes.INCOMPLETEUPDATEDETAILS);
+    }
+
+    /**
+     * Updates the event task.
+     *
+     * @param description the task details.
+     * @param from the start date/time for the task.
+     * @param to the end date/time for the task.
+     */
+    @Override
+    public void updateTask(String description, LocalDateTime from, LocalDateTime to) {
+        this.description = description;
+        this.from = from;
+        this.to = to;
     }
 }

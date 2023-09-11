@@ -21,7 +21,8 @@ public enum ExceptionTypes {
     UNMARKEMPTYLIST("Add task to start marking task as not done!"),
     DELETEEMPTYLIST("Add task to start deleting!"),
     INVALIDCOMMAND("OOPS!!! I'm sorry, but I don't know what that means :-("),
-    EMPTYKEYWORD("OOPS!!! Please enter something to search.");
+    EMPTYKEYWORD("OOPS!!! Please enter something to search."),
+    INCOMPLETEUPDATEDETAILS("OOPS!!! Please enter the task number and the new task details.\n");
 
     private final String errormessage;
 

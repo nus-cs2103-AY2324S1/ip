@@ -1,5 +1,7 @@
 package duke;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a task
  */
@@ -61,4 +63,31 @@ public abstract class Task {
      * @return the type of the task.
      */
     abstract String getTaskType();
+
+    /**
+     * Updates the todo task.
+     *
+     * @param description the task details.
+     * @throws DukeException if invalid or incorrect command.
+     */
+    public abstract void updateTask(String description) throws DukeException;
+
+    /**
+     * Updates the deadline task.
+     *
+     * @param description the task details.
+     * @param by the deadline for the task.
+     * @throws DukeException if invalid or incorrect command.
+     */
+    public abstract void updateTask(String description, LocalDateTime by) throws DukeException;
+
+    /**
+     * Updates the event task.
+     *
+     * @param description the task details.
+     * @param from the start date/time for the task.
+     * @param to the end date/time for the task.
+     * @throws DukeException if invalid or incorrect command.
+     */
+    public abstract void updateTask(String description, LocalDateTime from, LocalDateTime to) throws DukeException;
 }

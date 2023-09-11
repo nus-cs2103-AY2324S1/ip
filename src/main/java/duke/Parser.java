@@ -29,7 +29,7 @@ public class Parser {
         if (this.words.length == 1 || this.words[1].isBlank()) {
             throw new DukeException(ExceptionTypes.INCOMPLETECOMMANDTODO);
         }
-        return this.words;
+        return new String[]{this.words[1]};
     }
 
     /**
@@ -90,6 +90,10 @@ public class Parser {
             throw new DukeException(ExceptionTypes.INCOMPLETETASKNUMBER);
         }
         assert this.words.length > 1 : "Invalid user input";
+        if (words[1].contains(" ")) {
+            String[] taskNumber = words[1].split(" ");
+            return Integer.parseInt(taskNumber[0]);
+        }
         return Integer.parseInt(words[1]);
     }
 

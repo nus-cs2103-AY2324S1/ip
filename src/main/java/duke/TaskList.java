@@ -104,7 +104,7 @@ public class TaskList {
             }
             return printAddTaskSuccessMessage();
         case "todo":
-            this.tasks.add(new Todo(task[1]));
+            this.tasks.add(new Todo(task[0]));
             return printAddTaskSuccessMessage();
         case "deadline":
             try {
@@ -207,5 +207,40 @@ public class TaskList {
             count++;
         }
         return stringBuilder.toString();
+    }
+
+    /**
+     * Takes in the task details and task number
+     * and update the task.
+     *
+     * @param task the task details.
+     * @param taskNumber the task number.
+     * @throws DukeException if invalid or incorrect command.
+     */
+    public String updateTask(String[] task, int taskNumber) throws DukeException {
+        Task oldTask = this.tasks.get(taskNumber - 1);
+        String taskType = oldTask.getTaskType();
+        switch (taskType) {
+        case "event":
+            try {
+                oldTask.updateTask(task[0], LocalDateTime.parse(task[1], this.inputFormatter),
+                        LocalDateTime.parse(task[2], this.inputFormatter));
+            } catch (DateTimeParseException exception) {
+                return "Invalid start and end date/time. The format should be yyyy-mm-dd hh:mm";
+            }
+            return "Task updated successfully";
+        case "todo":
+            oldTask.updateTask(task[0]);
+            return "Task updated successfully";
+        case "deadline":
+            try {
+                oldTask.updateTask(task[0], LocalDateTime.parse(task[1], this.inputFormatter));
+            } catch (DateTimeParseException exception) {
+                return "Invalid start and end date/time. The format should be yyyy-mm-dd hh:mm";
+            }
+            return "Task updated successfully";
+        default:
+            throw new DukeException(ExceptionTypes.INVALIDCOMMAND);
+        }
     }
 }

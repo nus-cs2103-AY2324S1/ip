@@ -107,6 +107,34 @@ public class Duke {
             } catch (DukeException exception) {
                 return exception.getMessage();
             }
+        // Update a task
+        case "update":
+            try {
+                int taskNumber = parser.getTaskNumber();
+                Task task = this.tasks.getTasks().get(taskNumber - 1);
+                String taskType = task.getTaskType();
+                String[] description;
+                switch (taskType) {
+                case "event":
+                    description = parser.getEventTask();
+                    break;
+                case "deadline":
+                    description = parser.getDeadlineTask();
+                    break;
+                case "todo":
+                    description = parser.getTodoTask();
+                    break;
+                default:
+                    throw new DukeException(ExceptionTypes.INVALIDCOMMAND);
+                }
+                if (description.length == 1 || description[1].isBlank()) {
+                    throw new DukeException(ExceptionTypes.INCOMPLETEUPDATEDETAILS);
+                }
+                description[0] = description[0].split(" ", 2)[1];
+                return this.tasks.updateTask(description, taskNumber);
+            } catch (DukeException exception) {
+                return exception.getMessage();
+            }
         // Invalid command
         default:
             return this.ui.printAllCommands();

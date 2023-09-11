@@ -1,5 +1,7 @@
 package duke;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a task of type todo
  */
@@ -42,5 +44,25 @@ public class Todo extends Task {
     @Override
     public String getTaskType() {
         return "todo";
+    }
+
+    /**
+     * Updates the task with the new description.
+     *
+     * @param description the new description.
+     */
+    @Override
+    public void updateTask(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public void updateTask(String description, LocalDateTime by) throws DukeException {
+        throw new DukeException(ExceptionTypes.INCOMPLETEUPDATEDETAILS);
+    }
+
+    @Override
+    public void updateTask(String description, LocalDateTime from, LocalDateTime to) throws DukeException {
+        throw new DukeException(ExceptionTypes.INCOMPLETEUPDATEDETAILS);
     }
 }
