@@ -64,7 +64,7 @@ public abstract class Task {
 
 
     public boolean hasKeyWord(String s) {
-        return this.description.contains(s);
+        return this.description.toLowerCase().contains(s.toLowerCase());
     }
 }
 
