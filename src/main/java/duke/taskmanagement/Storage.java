@@ -1,16 +1,17 @@
 package duke.taskmanagement;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileWriter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
-
     private String filePath;
-    private List<Task> ls = new ArrayList<>();
+    private List<Task> listOfTask = new ArrayList<>();
 
     /**
      * Constructor for Storage class.
@@ -58,7 +59,6 @@ public class Storage {
                 String[] parts = line.split(" \\| ");
                 String type = parts[0];
                 boolean isDone = parts[1].equals("1");
-                //System.out.println(isDone);
                 String description = parts[2];
                 Task task;
 
@@ -74,13 +74,13 @@ public class Storage {
                 } else {
                     continue;
                 }
-                ls.add(task);
+                listOfTask.add(task);
             }
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return ls;
+        return listOfTask;
     }
 
     /**

@@ -1,23 +1,24 @@
 package duke.taskmanagement;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class TaskList {
     final String PATH = "/Users/jjtiong/Desktop/ip/data/duke.txt";
-    private List<Task> ls = new ArrayList<>();
+    private List<Task> listOfTasks = new ArrayList<>();
     private Storage storage;
     private Ui ui;
 
     /**
      * Constructor for TaskList class
      * @param ui The Ui object
-     * @param ls The list of task
+     * @param list The list of task
      * @param storage The Storage object
      */
-    public TaskList(Ui ui, List<Task> ls, Storage storage) {
+    public TaskList(Ui ui, List<Task> list, Storage storage) {
         this.ui = ui;
-        this.ls = ls;
+        this.listOfTasks = list;
         this.storage = storage;
     }
 
@@ -28,9 +29,9 @@ public class TaskList {
      *              text file and list.
      */
     public String deleteTask(int index) {
-        Task task = ls.get(index - 1);
-        ls.remove(index - 1);
-        int size = ls.size();
+        Task task = listOfTasks.get(index - 1);
+        listOfTasks.remove(index - 1);
+        int size = listOfTasks.size();
         storage.deleteLine(index);
         return ui.printRemoveTask(task.toString(), size);
     }
@@ -42,8 +43,8 @@ public class TaskList {
      *              text file and list.
      */
     public String addToDoTask(Task task) {
-        ls.add(task);
-        int size = ls.size();
+        listOfTasks.add(task);
+        int size = listOfTasks.size();
         storage.writeToFile_exceptionThrown(PATH, task.saveToFileString());
         return ui.printAddTask(task.toString(), size);
     }
@@ -55,8 +56,8 @@ public class TaskList {
      *              text file and list.
      */
     public String addDeadlineTask(Task task) {
-        ls.add(task);
-        int size = ls.size();
+        listOfTasks.add(task);
+        int size = listOfTasks.size();
         storage.writeToFile_exceptionThrown(PATH, task.saveToFileString());
         return ui.printAddTask(task.toString(), size);
 
@@ -69,11 +70,10 @@ public class TaskList {
      *              text file and list.
      */
     public String addEventTask(Task task) {
-        ls.add(task);
-        int size = ls.size();
+        listOfTasks.add(task);
+        int size = listOfTasks.size();
         storage.writeToFile_exceptionThrown(PATH, task.saveToFileString());
         return ui.printAddTask(task.toString(), size);
-
     }
 
     /**
@@ -82,13 +82,12 @@ public class TaskList {
      * @param index The index of task to mark as undone.
      */
     public String unmark(int index) {
-        Task task = ls.get(index - 1);
-        ls.remove(index - 1);
+        Task task = listOfTasks.get(index - 1);
+        listOfTasks.remove(index - 1);
         task.unmark();
-        ls.add(index-1, task);
+        listOfTasks.add(index-1, task);
         storage.changeToUnDone(index);
         return ui.printMarkUndone(task.toString());
-
     }
 
     /**
@@ -97,17 +96,17 @@ public class TaskList {
      * @param index The index of task to mark as done.
      */
     public String mark(int index) {
-        Task task = ls.get(index-1);
-        ls.remove(index-1);
+        Task task = listOfTasks.get(index-1);
+        listOfTasks.remove(index-1);
         task.markAsDone();
-        ls.add(index-1, task);
+        listOfTasks.add(index-1, task);
         storage.changeToDone(index);
         return ui.printMarkDone(task.toString());
     }
 
     public List<Task> find(String str) {
         List<Task> tmpList = new ArrayList<>();
-        tmpList = ls;
+        tmpList = listOfTasks;
         tmpList = tmpList.stream().filter(string -> string.contains(str)).collect(Collectors.toList());
         return tmpList;
     }
@@ -117,7 +116,7 @@ public class TaskList {
      * @return A list of task.
      */
     public List<Task> getList() {
-        return this.ls;
+        return this.listOfTasks;
     }
 
     /**
@@ -125,7 +124,6 @@ public class TaskList {
      * @return The size of the list of task.
      */
     public int getListSize() {
-        return this.ls.size();
+        return this.listOfTasks.size();
     }
-
 }

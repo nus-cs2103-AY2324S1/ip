@@ -1,4 +1,5 @@
 package duke.taskmanagement;
+
 import java.io.IOException;
 import java.util.Collections;
 import javafx.collections.FXCollections;
@@ -37,7 +38,6 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         dialog.setText(text);
         displayPicture.setImage(img);
     }

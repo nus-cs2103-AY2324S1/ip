@@ -1,16 +1,17 @@
 package duke.taskmanagement;
+
 public class Event extends Task {
     protected String from;
     protected String till;
-
 
     public Event(String description, String from, String till, boolean isDone) {
         super(description, isDone);
         this.from = from;
         this.till = till;
     }
+
     /**
-     * Return the status icon of whether the task is done or nor
+     * Return the status icon of whether the task is done or not
      * @return A string that represent of status of the task, [X] if done,
      * [ ] if not done.
      */
