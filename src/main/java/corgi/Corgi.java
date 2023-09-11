@@ -26,7 +26,7 @@ public class Corgi {
     private TaskList tasks;
     private Storage<Task> storage;
     private TextRenderer renderer;
-    private Stack<Pair<CommandType, TaskList>> history;
+    private Stack<Pair<Command, TaskList>> history;
 
     /**
      * Constructs new Corgi chatbot with an empty task list, 
@@ -57,7 +57,7 @@ public class Corgi {
         try {
             cmd = new CommandParser().parse(input);
             assert cmd != null : "Command returned from parser cannot be null";
-            return cmd.execute(this.tasks, this.renderer, this.storage);
+            return cmd.execute(this.tasks, this.renderer, this.storage, this.history);
         } catch (InvalidCommandFormatException e) {
             return this.renderer.showError(e.getClass().getSimpleName(), e.getMessage());
         } catch (InvalidCommandTypeException e) {
