@@ -58,6 +58,7 @@ public class James {
      * @return The output from the bot.
      */
     public String processInput(String input) {
+        assert input != null : "input should not be null";
         String output = this.ui.processInput(this.tasks, input);
         if (output == "Bye. Hope to see you again soon!") {
             try {

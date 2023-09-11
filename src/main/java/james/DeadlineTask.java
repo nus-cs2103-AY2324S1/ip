@@ -22,6 +22,7 @@ public class DeadlineTask extends Task {
 
     public DeadlineTask(String description, String timeInput) {
         super(description);
+        assert timeInput != null : "timeInput should not be null";
         String[] possibleFormats = {
             "yyyy-MM-dd HH:mm",
             "yyyy/MM/dd HH:mm",

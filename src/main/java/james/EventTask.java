@@ -23,6 +23,8 @@ public class EventTask extends Task {
      */
     public EventTask(String description, String startTimeInput, String endTimeInput) {
         super(description);
+        assert startTimeInput != null : "startTimeInput should not be null";
+        assert endTimeInput != null : "endTimeInput should not be null";
         String[] possibleFormats = {
             "yyyy-MM-dd HH:mm",
             "yyyy/MM/dd HH:mm",
