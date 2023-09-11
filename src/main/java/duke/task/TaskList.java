@@ -141,8 +141,10 @@ public class TaskList {
             } else if (result.length == 1) {
                 throw new EmptyDescriptionException("todo");
             }
+            int initialLen = getLength();
             Todo todo = new Todo(command.substring(5));
             addTask(todo);
+            assert getLength() == initialLen + 1 : "Number of tasks is incorrect after adding a todo.";
             return Duke.getUi().printAddTask(todo, getLength());
         } catch (NoSpaceAfterException | EmptyDescriptionException e) {
             return e.getMessage();
@@ -175,9 +177,11 @@ public class TaskList {
             } else if (!command.contains("/by ")) {
                 throw new NoSpaceAfterException("/by");
             }
+            int initialLen = getLength();
             Deadline deadline = new Deadline(command.substring(9, command.indexOf("/") - 1),
                     command.substring(command.indexOf("/by") + 4));
             addTask(deadline);
+            assert getLength() == initialLen + 1 : "Number of tasks is incorrect after adding a deadline.";
             return Duke.getUi().printAddTask(deadline, getLength());
         } catch (DateTimeParseException e) {
             return Duke.getUi().printDateTimeParseException();
@@ -221,10 +225,12 @@ public class TaskList {
             } else if (!command.contains("/to ")) {
                 throw new NoSpaceAfterException("/to");
             }
+            int initialLen = getLength();
             Event event = new Event(command.substring(6, command.indexOf("/") - 1),
                     command.substring(command.indexOf("/from") + 6, command.indexOf("/to") - 1),
                     command.substring(command.indexOf("/to") + 4));
             addTask(event);
+            assert getLength() == initialLen + 1 : "Number of tasks is incorrect after adding an event.";
             return Duke.getUi().printAddTask(event, getLength());
         } catch (DateTimeParseException e) {
             return Duke.getUi().printDateTimeParseException();
@@ -249,7 +255,9 @@ public class TaskList {
             }
             int idx = Character.getNumericValue(command.charAt(7));
             Task t = getTask(idx - 1);
+            int initialLen = getLength();
             deleteTask(idx - 1);
+            assert getLength() == initialLen - 1 : "Number of tasks is incorrect after deleting a task.";
             return Duke.getUi().printDeleteTask(t, getLength());
         } catch (IndexOutOfBoundsException e) {
             return Duke.getUi().printIndexOutOfBoundsException(getList());
