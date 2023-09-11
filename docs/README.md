@@ -71,3 +71,13 @@ Ask Penguin to search for a task with the specified keyword in its task name.
 
 Format: `find <KEYWORD>`
 
+### Display schedule
+
+Penguin can display events occurring on a specified date. 
+
+#### `schedule` - Display events occurring on a specified date. 
+
+Ask Penguin to display all events occurring on the specified date. 
+
+Format: `schedule <DATE IN YYYY-MM-DD FORMAT>`
+
