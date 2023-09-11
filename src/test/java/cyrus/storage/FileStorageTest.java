@@ -1,7 +1,6 @@
 package cyrus.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,8 +10,10 @@ import java.lang.reflect.Modifier;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.GsonBuilder;
@@ -24,6 +25,12 @@ import cyrus.tasks.Task;
 import cyrus.tasks.ToDo;
 
 public class FileStorageTest {
+    @Test
+    public void testEmptyFilePath() {
+        Assertions.assertThrows(AssertionError.class, () -> new FileStorage("   "));
+        Assertions.assertThrows(AssertionError.class, () -> new FileStorage(""));
+    }
+
     @Test
     public void testLoadFileCreation() {
         FileStorage storage = new FileStorage("test_data/test.json");
@@ -89,5 +96,41 @@ public class FileStorageTest {
         }
 
         testFile.delete();
+    }
+
+    @Test
+    public void testLoadWithInvalidData() throws IOException {
+        var gson = new GsonBuilder()
+                .excludeFieldsWithModifiers(Modifier.TRANSIENT)
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                .create();
+
+        File testFile = new File("test_data/test.json");
+        testFile.getParentFile().mkdirs();
+        testFile.createNewFile();
+        List<MalformedData> malformed = Arrays.asList(
+                new MalformedData("Peter"),
+                new MalformedData("Bad")
+        );
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("test_data/test.json"))) {
+            gson.toJson(malformed, bw);
+        } catch (IOException e) {
+            return;
+        }
+
+        FileStorage fs = new FileStorage("test_data/test.json");
+
+        assertThrows(AssertionError.class, fs::load);
+
+        testFile.delete();
+    }
+
+    private static class MalformedData {
+        private final String name;
+
+        public MalformedData(String name) {
+            this.name = name;
+        }
     }
 }
