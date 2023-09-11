@@ -40,16 +40,21 @@ public class FileStorage implements IStorage {
                     .create();
     private final String dataFilePath;
 
+    /**
+     * Constructs {@code FileStorage} instance given file path to read and write to.
+     *
+     * @param dataFilePath file path to read/write data to/from.
+     */
     public FileStorage(String dataFilePath) {
+        assert !dataFilePath.trim().equals("") : "Data file path cannot be empty";
         this.dataFilePath = dataFilePath;
     }
 
     /**
      * Loads a list of {@code Task} from a file, determined by {@code dataFilePath}.
      *
-     * @return list of {@code Task} from file
-     * @throws IllegalStateException if task format is invalid as that means that the data file
-     *                               should be purged and retried
+     * @return list of {@code Task} from file.
+     * @throws AssertionError if task format is invalid.
      */
     // TODO: Figure out a better way to handle file IO errors in the code
     // Potentially just delete and re-create a blank file (but that means any existing data is
@@ -137,11 +142,7 @@ public class FileStorage implements IStorage {
         String[] mandatoryKeys = {"type", "status", "name"};
         Consumer<String[]> checkKeys = (keys) -> {
             for (String key : keys) {
-                if (!map.containsKey(key)) {
-                    throw new IllegalStateException(
-                            String.format("All entries in data.json must contain \"%s\" field", key)
-                    );
-                }
+                assert map.containsKey(key) : String.format("All entries in data.json must contain \"%s\" field", key);
             }
         };
         checkKeys.accept(mandatoryKeys);
