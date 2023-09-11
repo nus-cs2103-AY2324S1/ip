@@ -25,5 +25,4 @@ public abstract class Item {
         String lowerCaseName = this.itemName.toLowerCase();
         return lowerCaseName.contains(keyWord.toLowerCase());
     }
-
 }

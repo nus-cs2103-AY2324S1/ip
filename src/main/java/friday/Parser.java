@@ -1,8 +1,7 @@
 package friday;
 
-import java.time.format.DateTimeParseException;
-
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 /**
  * The Parser class is responsible for interpreting user input and executing the corresponding commands.
@@ -274,7 +273,7 @@ public class Parser {
      * @param storage The storage object to save tasks.
      * @return A string response after processing the command.
      */
-    private String handleDeadlineCommand(String userInput, TaskList taskList, Storage storage)  {
+    private String handleDeadlineCommand(String userInput, TaskList taskList, Storage storage) {
         String[] commandAndDetails = userInput.split(" ", 2);
         if (commandAndDetails.length < 2 || !userInput.contains("/by")) {
             return "Incorrect format for 'deadline'. Here is a sample:\ndeadline return book /by Sunday";
