@@ -3,6 +3,7 @@ package duke.task;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -290,6 +291,16 @@ public class TaskList {
         } catch (NoSpaceAfterException | EmptyKeywordException e) {
             return e.getMessage();
         }
+    }
+
+    /**
+     * Sorts the tasks.
+     *
+     * @return The sorted list of tasks.
+     */
+    public String sort() {
+        Collections.sort(getList());
+        return Duke.getUi().printSortedTasks(getList());
     }
 
     /**

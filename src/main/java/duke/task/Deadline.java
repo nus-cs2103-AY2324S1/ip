@@ -21,7 +21,7 @@ public class Deadline extends Task {
      * @param by The deadline of the deadline.
      */
     public Deadline(String description, String by) {
-        super(description);
+        super(description, by);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.by = LocalDateTime.parse(by, formatter);
     }
@@ -34,7 +34,7 @@ public class Deadline extends Task {
      * @param by The deadline of the deadline.
      */
     public Deadline(String description, boolean isDone, String by) {
-        super(description, isDone);
+        super(description, by, isDone);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.by = LocalDateTime.parse(by, formatter);
     }

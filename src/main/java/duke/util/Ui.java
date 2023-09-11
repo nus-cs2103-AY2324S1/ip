@@ -118,6 +118,20 @@ public class Ui {
     }
 
     /**
+     * Returns the task list sorted by date.
+     *
+     * @param list The array list of tasks sorted by date.
+     * @return The task list sorted by date.
+     */
+    public String printSortedTasks(ArrayList<Task> list) {
+        StringBuilder tasks = new StringBuilder("Here are the tasks in your list sorted by date:");
+        for (int i = 0; i < list.size(); i++) {
+            tasks.append("\n ").append(i + 1).append(".").append(list.get(i).toString());
+        }
+        return tasks.toString();
+    }
+
+    /**
      * Returns the error message when an IndexOutOfBoundsException occurs.
      *
      * @param list The array list of tasks.

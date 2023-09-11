@@ -25,7 +25,7 @@ public class Event extends Task {
      * @param to The end date/time of the event.
      */
     public Event(String description, String from, String to) {
-        super(description);
+        super(description, from);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.from = LocalDateTime.parse(from, formatter);
         this.to = LocalDateTime.parse(to, formatter);
@@ -40,7 +40,7 @@ public class Event extends Task {
      * @param to The end date/time of the event.
      */
     public Event(String description, boolean isDone, String from, String to) {
-        super(description, isDone);
+        super(description, from, isDone);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.from = LocalDateTime.parse(from, formatter);
         this.to = LocalDateTime.parse(to, formatter);

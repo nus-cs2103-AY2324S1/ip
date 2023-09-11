@@ -14,7 +14,7 @@ public class Todo extends Task {
      * @param description The description of the todo.
      */
     public Todo(String description) {
-        super(description);
+        super(description, null);
     }
 
     /**
@@ -24,7 +24,7 @@ public class Todo extends Task {
      * @param isDone The status of the todo.
      */
     public Todo(String description, boolean isDone) {
-        super(description, isDone);
+        super(description, null, isDone);
     }
 
     /**
