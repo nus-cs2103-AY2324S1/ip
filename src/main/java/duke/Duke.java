@@ -1,8 +1,6 @@
 package duke;
 
-
 import java.util.ArrayList;
-
 
 /**
  * The main class for the Duke application.
@@ -15,6 +13,6 @@ public class Duke {
 
     public String getResponse(String input) throws DukeException {
         index = taskList.size();
-        return Parser.parse(taskList, index, ui, storage, input);
+        return Parser.parse(taskList, index, storage, input);
     }
 }
