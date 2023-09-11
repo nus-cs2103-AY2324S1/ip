@@ -38,11 +38,7 @@ public class TodoCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
-        if (taskList.length() >= 100) {
-            throw new DukeBadInputException("quack cannot remember any more tasks!!");
-        }
-
-        // add task to storage and task list, throws error if not successful
+        // Add task to storage and task list, throws error if not successful
         Task newTask = new TodoTask(desc);
         taskList.add(newTask);
         if (!storage.writeToFile(newTask.getStored())) {

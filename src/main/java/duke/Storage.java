@@ -64,17 +64,19 @@ public class Storage {
             throw new DukeBadInputException(this.path.toString());
         }
 
-        if (!Files.exists(this.path)) {
-            // Handles folder not existing
-            for (int i = 1; i < this.storageFilePath.length; i++) {
-                Path tmp = Paths.get(home, Arrays.copyOfRange(this.storageFilePath, 0, i));
-                if (!Files.exists(tmp)) {
-                    Files.createDirectories(tmp);
-                }
-            }
-            // handles file not existing
-            Files.createFile(this.path);
+        if (Files.exists(this.path)) {
+            return;
         }
+
+        // Handles folder not existing
+        for (int i = 1; i < this.storageFilePath.length; i++) {
+            Path tmp = Paths.get(home, Arrays.copyOfRange(this.storageFilePath, 0, i));
+            if (!Files.exists(tmp)) {
+                Files.createDirectories(tmp);
+            }
+        }
+        // handles file not existing
+        Files.createFile(this.path);
     }
 
     /**
@@ -117,6 +119,8 @@ public class Storage {
      */
     public boolean rewriteAll(Task[] tasks) throws IOException {
         this.writer.flush();
+
+        // create new writer to overwrite existing data
         BufferedWriter tmpWriter = Files.newBufferedWriter(this.path,
                 StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
         boolean isSuccessful = true;

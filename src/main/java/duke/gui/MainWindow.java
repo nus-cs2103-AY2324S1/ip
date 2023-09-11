@@ -44,8 +44,9 @@ public class MainWindow extends AnchorPane {
      * set the current duke instance and also update the current tasks stored
      */
     public void setDuke(Duke d) {
-        duke = d;
-        this.textBoxList.setText(this.duke.getResponse("list"));
+        this.duke = d;
+        String text = this.duke.getResponse("list") + "\n" + this.duke.getLoadStorageError();
+        this.textBoxList.setText(text);
     }
 
     /**

@@ -52,6 +52,8 @@ public class FindCommand extends Command {
         if (size == 0) {
             return "Quack has not found any task matching " + this.query + ", did you spell it correctly?";
         }
+
+        // Returns the matches
         String ret = "Quack has found " + matches.size() + " matching tasks in your list:";
         for (int i = 0; i < size; i++) {
             ret += "\n" + (i + 1) + ". " + matches.get(i).toString();
