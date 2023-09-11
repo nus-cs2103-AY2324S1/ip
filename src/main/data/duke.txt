@@ -1,0 +1,16 @@
+true | haha | TODO 
+false | ahah | TODO 
+false | hahahaa | TODO 
+false | ahahha | TODO 
+false | sadasda | TODO 
+false | sadasda | TODO 
+false | sadasda | TODO 
+false | sadasda | TODO 
+false | sadasda | TODO 
+false | haha | TODO 
+false | haha | TODO 
+false | kms | TODO 
+false | kms | TODO 
+true | haha | TODO 
+false | haha | TODO 
+false | /from 2023-12-12 | 2024-12-12 | DEADLINE

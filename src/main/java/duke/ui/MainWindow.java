@@ -31,8 +31,8 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
-
         this.scrollPane.vvalueProperty().bind(this.dialogContainer.heightProperty());
+        this.addMessages(GobbleMessage.getDukeDialog("Hello! I'm Gobble\nWhat can I do for you?", "Gobble"));
     }
 
     /**
