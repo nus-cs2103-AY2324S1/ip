@@ -131,7 +131,7 @@ public class Parser {
         Matcher m = Utility.parseRegex(s, "^find( [A-Za-z0-9_ ]+)?$");
 
         if (m.group(1) == null) {
-            throw new DuchessException("(´；ω；`) Sorry, I don't know which task to delete... ;-;");
+            throw new DuchessException("(´；ω；`) Sorry, I don't know what to search for... ;-;");
         }
 
         return m.group(1).trim();

@@ -27,6 +27,7 @@ public class Duchess {
             Ui.duchessPrint(String.format("%d: %s", index + 1, Duchess.storedTasks.getTask(index).toString()));
         });
     }
+
     /**
      * Marks a task.
      *
@@ -61,9 +62,9 @@ public class Duchess {
     }
 
     /**
-     * Unmarks a task.
+     * Deletes a task.
      *
-     * @param i - the index of the task to be unmarked.
+     * @param i - the index of the task to be deleted.
      */
     private static void deleteTask(int index) {
         if (index < 0 || index >= Duchess.storedTasks.size()) {
@@ -84,6 +85,8 @@ public class Duchess {
      * @param event - the Event object to be added
      */
     private static void addTask(Task task) {
+        assert task != null : "Task is null";
+
         Duchess.storedTasks.addTask(task);
 
         Ui.duchessPrint("Added successfully!! d(*⌒▽⌒*)b");
@@ -98,6 +101,8 @@ public class Duchess {
      * @param searchString - the term to search for.
      */
     private static void searchTasks(String searchString) {
+        assert searchString != null : "Search string is null";
+
         TaskList newTaskList = Duchess.storedTasks.filterReplaceNull((Task t) -> t.getName().contains(searchString));
 
         Ui.duchessPrint("Here are the things I found!! ヽ(^o^)丿");
@@ -166,7 +171,7 @@ public class Duchess {
                 continue;
             }
 
-            // Check if this command is an unmarked task command.
+            // Check if this command is a delete task command.
             if (Parser.isDeleteTaskCommand(userInput)) {
                 try {
                     int index = Parser.parseDeleteTaskCommand(userInput);
@@ -180,7 +185,7 @@ public class Duchess {
                 continue;
             }
 
-            // Check if this command is an unmarked task command.
+            // Check if this command is a search task command.
             if (Parser.isSearchTaskCommand(userInput)) {
                 try {
                     String searchQuery = Parser.parseSearchTaskCommand(userInput);
@@ -219,7 +224,7 @@ public class Duchess {
                 continue;
             }
 
-            // Check if this command is a Event command.
+            // Check if this command is an Event command.
             if (Parser.isEventCommand(userInput)) {
                 try {
                     Event event = Parser.parseEventCommand(userInput);
