@@ -202,4 +202,8 @@ public class TextRenderer {
     public String showTaskList(String taskList) {
         return taskList;
     }
+
+    public String showUndoSucceed(String commandDesc) {
+        return returnMessage("Undo successful: " + commandDesc);
+    }
 }
