@@ -36,7 +36,11 @@ public class FindCommand extends Command {
         if (foundTasks.getSize() > 0) {
             responseBuilder.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < foundTasks.getSize(); i++) {
-                responseBuilder.append(i + 1).append(". ").append(foundTasks.getTaskString(i + 1)).append("\n");
+                responseBuilder
+                        .append(i + 1)
+                        .append(". ")
+                        .append(foundTasks.getTaskString(i + 1))
+                        .append("\n");
             }
         } else {
             responseBuilder.append("There are no tasks with the given keyword!");

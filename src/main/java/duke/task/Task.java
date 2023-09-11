@@ -17,7 +17,7 @@ public abstract class Task {
      */
     public Task(String message) {
         this.message = message;
-        this.isDone = false;
+        isDone = false;
     }
 
     /**
@@ -42,14 +42,14 @@ public abstract class Task {
      * Marks the given task as done.
      */
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     /**
      * Marks the given task as undone.
      */
     public void unmarkAsDone() {
-        this.isDone = false;
+        isDone = false;
     }
 
     /**
@@ -59,7 +59,7 @@ public abstract class Task {
      * @return true if Task message contains the substring; false otherwise
      */
     public boolean contains(String substring) {
-        return this.message.contains(substring);
+        return message.contains(substring);
     }
 
     public abstract String toSaveFormatString();
