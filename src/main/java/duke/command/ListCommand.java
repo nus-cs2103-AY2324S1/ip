@@ -26,6 +26,8 @@ public class ListCommand extends Command {
             return "Quack Quack, you have not entered any tasks yet!\n"
                     + "Create new tasks with the todo, deadline or event command";
         }
+
+        // Concatenate all the required Strings
         StringBuilder ret = new StringBuilder("Quack Quack, here are the tasks in quack's memory:");
         for (int i = 0; i < taskList.length(); i++) {
             ret.append("\n ").append(i + 1).append(". ").append(taskList.get(i));

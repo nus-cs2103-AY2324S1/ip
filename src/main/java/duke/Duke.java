@@ -13,6 +13,10 @@ import javafx.application.Application;
 public class Duke {
 
     /**
+     * stores the error if there is during loading
+     */
+    private String loadStorageError = "";
+    /**
      * Instance handling all the user interface
      */
     private Ui ui;
@@ -38,11 +42,12 @@ public class Duke {
         try {
             this.storage = new Storage(storageFilePath);
         } catch (IOException e) {
-            this.ui.getErrorMessage(
+            this.loadStorageError += "\n" + this.ui.getErrorMessage(
                     "has some internal problem and is unable to help you today, please contact quacks mum");
             this.storage = null;
         } catch (DukeBadInputException e) {
-            this.ui.getErrorMessage(storageFilePath + " is not a text file, please provide a file!");
+            this.loadStorageError += "\n" + this.ui.getErrorMessage(storageFilePath
+                    + " is not a text file, please provide a file!");
             this.storage = null;
         }
 
@@ -50,21 +55,28 @@ public class Duke {
                 + " missing instance would mean a fatal error";
 
         // read from storage, throws an error when unable to rewrite to the storage file
-        if (this.storage != null) {
-            this.taskList = new TaskList();
-            try {
-                // check for corrupted files
-                if (this.taskList.loadTasks(this.storage.readFile())) {
-                    this.ui.getUnexpectedErrorMessage("Some task are corrupted,"
-                            + " attempting to recover uncorrupted tasks");
-                    if (!this.storage.rewriteAll(this.taskList.getAllTask())) {
-                        this.ui.getUnexpectedErrorMessage(
-                                "not all tasks were successfully written, please contact my mother :( ");
-                    }
-                }
-            } catch (IOException e) {
-                this.ui.getUnexpectedErrorMessage("error when rewriting to storage: " + e.getMessage());
+        if (this.storage == null) {
+            return;
+        }
+
+        this.taskList = new TaskList();
+        try {
+            // check for corrupted files
+            // return if error free
+            if (!this.taskList.loadTasks(this.storage.readFile())) {
+                return;
             }
+
+            // If not error free, returns error Message
+            this.loadStorageError += "\n" + this.ui.getUnexpectedErrorMessage("Some task are corrupted,"
+                    + " attempting to recover uncorrupted tasks");
+            if (!this.storage.rewriteAll(this.taskList.getAllTask())) {
+                this.loadStorageError += "\n" + this.ui.getUnexpectedErrorMessage(
+                        "not all tasks were successfully written, please contact my mother :( ");
+            }
+        } catch (IOException e) {
+            this.loadStorageError += "\n"
+                    + this.ui.getUnexpectedErrorMessage("error when rewriting to storage: " + e.getMessage());
         }
     }
 
@@ -98,5 +110,12 @@ public class Duke {
      */
     public void close() {
         this.storage.close();
+    }
+
+    /**
+     * Getter for storage error string
+     */
+    public String getLoadStorageError() {
+        return loadStorageError;
     }
 }

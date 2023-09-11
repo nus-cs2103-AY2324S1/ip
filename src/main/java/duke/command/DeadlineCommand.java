@@ -46,10 +46,6 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
-        if (taskList.length() >= 100) {
-            throw new DukeBadInputException("quack cannot remember any more tasks!!");
-        }
-
         // tries to add task to storage and task list, exception thrown otherwise
         Task newTask = new DeadlineTask(this.by, this.desc);
         taskList.add(newTask);
