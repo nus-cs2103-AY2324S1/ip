@@ -1,4 +1,5 @@
-T | 0 | chicken rice | 
-D | 0 | nasi lemak | 2023-09-22T09:00
+T | 1 | chicken rice | 
+D | 1 | nasi lemak | 2023-09-22T09:00
 E | 1 | rotisserie chicken | 2021-03-22T09:00--2023-04-23T12:00
-T | 0 | thank god | 
+T | 1 | love you shishir | 
+T | 1 | ryan | 

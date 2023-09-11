@@ -22,7 +22,6 @@ public class Duke {
      */
     public Duke() {
         ui = new Ui();
-        ui = new Ui();
         this.storage = new Storage("data/duke.txt");
 
         try {
