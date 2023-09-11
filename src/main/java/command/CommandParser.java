@@ -35,6 +35,7 @@ public abstract class CommandParser {
         String[] argList = input.split(" /");
         String description = StringUtility.removeFirstWord(input.split(" /")[0]);
         Map<String, String> arguments = new HashMap<>();
+
         for (String arg : argList) {
             String option = StringUtility.getFirstWord(arg);
             String value = StringUtility.removeFirstWord(arg);

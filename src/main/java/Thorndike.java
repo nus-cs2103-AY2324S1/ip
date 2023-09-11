@@ -20,6 +20,8 @@ public class Thorndike {
      * Constructs a Thorndike chatbot and initializes necessary components.
      * It sets up the user interface, task list, and handles potential file I/O
      * exceptions.
+     *
+     * @author Ho Khee Wei
      */
     public Thorndike() {
         try {
@@ -32,7 +34,7 @@ public class Thorndike {
 
     /**
      * Gets Thorndike's reponse to user's message.
-     * 
+     *
      * @param input User's input
      * @return Thorndike's response
      * @throws ThorndikeException when the user input has issues.

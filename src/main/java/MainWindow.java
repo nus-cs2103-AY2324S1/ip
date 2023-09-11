@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
  * Represents the main graphical user interface window of the application.
  * It includes a chat dialog interface where the user can interact with the
  * Thorndike chatbot.
- * 
+ *
  * @author Ho Khee Wei
  */
 public class MainWindow extends AnchorPane {
