@@ -3,7 +3,7 @@ package roo.commands;
 import roo.TaskList;
 import roo.Ui;
 
-public class Delete extends Commands {
+public class Delete extends Command {
     private String input;
 
     public Delete(String input) {

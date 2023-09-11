@@ -5,7 +5,7 @@ import roo.Ui;
 import roo.RooException;
 import roo.task.Todo;
 
-public class TodoCommand extends Commands {
+public class TodoCommand extends Command {
     private String input;
 
     public TodoCommand(String input) {

@@ -5,7 +5,7 @@ import roo.Ui;
 import roo.RooException;
 import roo.task.*;
 
-public class DeadlineCommand extends Commands {
+public class DeadlineCommand extends Command {
     private String input;
 
     public DeadlineCommand(String input) {

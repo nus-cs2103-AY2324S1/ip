@@ -1,4 +1,0 @@
-[T][x] asdfg
-[T][ ] werty
-[T][ ] qwertyui
-[T][ ] abcdefg

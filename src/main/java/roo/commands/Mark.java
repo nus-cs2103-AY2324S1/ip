@@ -3,7 +3,7 @@ package roo.commands;
 import roo.TaskList;
 import roo.Ui;
 
-public class Mark extends Commands {
+public class Mark extends Command {
     private String input;
 
     public Mark(String input) {

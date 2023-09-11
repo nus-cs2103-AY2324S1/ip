@@ -3,7 +3,7 @@ package roo.commands;
 import roo.TaskList;
 import roo.Ui;
 
-public class Unmark extends Commands {
+public class Unmark extends Command {
     private String input;
 
     public Unmark(String input) {

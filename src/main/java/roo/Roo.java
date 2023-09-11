@@ -1,12 +1,6 @@
 package roo;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import roo.commands.*;
-import roo.task.Deadline;
-import roo.task.Event;
-import roo.task.Todo;
+import roo.commands.Command;
 
 /**
  * The main class for the Roo application, which is a tasks management program.
@@ -16,9 +10,6 @@ public class Roo {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
-    public Roo() {
-    }
 
     /**
      * Constructs a Roo object with the specified file path.
@@ -35,9 +26,7 @@ public class Roo {
      * Starts the Roo application. Initializes the task list, greets the user, and handles user commands.
      */
     public String run(String input) {
-
-        Commands c;
-        c = Parse.parse(input);
+        Command c = Parse.parse(input);
         return c.execute(this.ui, this.tasks);
     }
 

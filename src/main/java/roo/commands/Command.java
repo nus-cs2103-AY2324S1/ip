@@ -6,6 +6,6 @@ import roo.Ui;
 /**
  * Represents the commands available in the Roo application.
  */
-public abstract class Commands {
+public abstract class Command {
     public abstract String execute(Ui ui, TaskList tasks);
 }

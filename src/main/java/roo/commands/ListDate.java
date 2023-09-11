@@ -5,7 +5,7 @@ import roo.Ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-public class ListDate extends Commands {
+public class ListDate extends Command {
     private String input;
 
     public ListDate(String input) {

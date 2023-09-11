@@ -5,7 +5,7 @@ import roo.Ui;
 import roo.RooException;
 import roo.task.*;
 
-public class EventCommand extends Commands {
+public class EventCommand extends Command {
     private String input;
 
     public EventCommand(String input) {

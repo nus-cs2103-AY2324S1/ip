@@ -3,7 +3,7 @@ package roo.commands;
 import roo.TaskList;
 import roo.Ui;
 
-public class Find extends Commands {
+public class Find extends Command {
     private String input;
 
     public Find(String input) {

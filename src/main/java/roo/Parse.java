@@ -50,9 +50,9 @@ public class Parse {
     /**
      * Parses a user input string and determines the corresponding command.
      * @param input The user input string.
-     * @return The Commands enum representing the detected command.
+     * @return The Command enum representing the detected command.
      */
-    public static Commands parse(String input) {
+    public static Command parse(String input) {
         if (input.equals("list")) {
             return new List();
         } else if (input.startsWith("unmark")) {
