@@ -1,7 +1,5 @@
 package duke;
 
-import java.util.concurrent.TimeUnit;
-
 import duke.command.Command;
 import duke.parser.Parser;
 import duke.storage.Storage;
@@ -38,15 +36,24 @@ public class Duke {
         try {
             Command c = Parser.parse(input);
             c.execute(tasks, ui, storage);
-            if (c.isExit()) {
-                Platform.exit();
-            } else {
-                return ui.displayMessage();
-            }
+            if (commandIsExit(c)) return ui.displayMessage();
         } catch (DukeException e) {
-            ui.sendMessage(e.getMessage());
-            return ui.displayMessage();
+            return getExceptionString(e);
         }
         return input;
+    }
+
+    private String getExceptionString(DukeException e) {
+        ui.sendMessage(e.getMessage());
+        return ui.displayMessage();
+    }
+
+    private boolean commandIsExit(Command c) {
+        if (c.isExit()) {
+            Platform.exit();
+        } else {
+            return true;
+        }
+        return false;
     }
 }

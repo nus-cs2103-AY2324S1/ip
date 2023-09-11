@@ -46,53 +46,76 @@ public class Storage {
      */
     public ArrayList<Task> load() throws DukeException {
         File f = new File(this.filePath);
-        try {
-            readFile(f);
-            Scanner s = new Scanner(f);
-            ArrayList<Task> taskArr = new ArrayList<>();
+        return loadTasks(f);
+    }
 
-            while (s.hasNext()) {
-                String str = s.nextLine();
-                String[] task = str.split(" \\| ");
-                switch (task[0]) {
-                case "T":
-                    Todo todo = new Todo(task[2]);
-                    if (task[1].equals("1")) {
-                        todo.markAsDone();
-                    }
-                    taskArr.add(todo);
-                    break;
-                case "D":
-                    Deadline deadline;
-                    try {
-                        DateTimeFormatter altInputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                        LocalDateTime byDateTime = LocalDateTime.parse(task[3], altInputFormatter);
-                        deadline = new Deadline(task[2], byDateTime);
-                        if (task[1].equals("1")) {
-                            deadline.markAsDone();
-                        }
-                        taskArr.add(deadline);
-                    } catch (DateTimeParseException e) {
-                        System.out.println("Invalid Date Time: " + e.getMessage());
-                    }
-                    break;
-                case "E":
-                    String[] time = task[3].split(" to ");
-                    Event eventTask = new Event(task[2],
-                            LocalDateTime.parse(time[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                            LocalDateTime.parse(time[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
-                    if (task[1].equals("1")) {
-                        eventTask.markAsDone();
-                    }
-                    taskArr.add(eventTask);
-                    break;
-                default:
-                }
-            }
-            return taskArr;
+    private ArrayList<Task> loadTasks(File f) throws DukeException {
+        try {
+            return processFile(f);
         } catch (IOException e) {
             throw new DukeException(e.getMessage());
         }
+    }
+
+    private ArrayList<Task> processFile(File f) throws IOException {
+        readFile(f);
+        Scanner s = new Scanner(f);
+        ArrayList<Task> taskArr = new ArrayList<>();
+
+        while (s.hasNext()) {
+            String str = s.nextLine();
+            String[] task = str.split(" \\| ");
+            String taskId = task[0]; // T or D or E
+            String taskDescription = task[2];
+            boolean isMark = task[1].equals("1");
+            switch (taskId) {
+            case "T":
+                processTodo(taskArr, taskDescription, isMark);
+                break;
+            case "D":
+                processDeadline(taskArr, task, taskDescription, isMark);
+                break;
+            case "E":
+                processEvent(taskArr, task, taskDescription, isMark);
+                break;
+            default:
+            }
+        }
+        return taskArr;
+    }
+
+    private static void processEvent(ArrayList<Task> taskArr, String[] task, String taskDescription, boolean isMark) {
+        String[] time = task[3].split(" to ");
+        Event eventTask = new Event(taskDescription,
+                LocalDateTime.parse(time[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                LocalDateTime.parse(time[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        if (isMark) {
+            eventTask.markAsDone();
+        }
+        taskArr.add(eventTask);
+    }
+
+    private static void processDeadline(ArrayList<Task> taskArr, String[] task, String taskDescription, boolean isMark) {
+        Deadline deadline;
+        try {
+            DateTimeFormatter altInputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime byDateTime = LocalDateTime.parse(task[3], altInputFormatter);
+            deadline = new Deadline(taskDescription, byDateTime);
+            if (isMark) {
+                deadline.markAsDone();
+            }
+            taskArr.add(deadline);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid Date Time: " + e.getMessage());
+        }
+    }
+
+    private static void processTodo(ArrayList<Task> taskArr, String taskDescription, boolean isMark) {
+        Todo todo = new Todo(taskDescription);
+        if (isMark) {
+            todo.markAsDone();
+        }
+        taskArr.add(todo);
     }
 
     /**
@@ -102,48 +125,73 @@ public class Storage {
      */
     public void updateFileContents(TaskList taskList) {
         try {
-            FileWriter file = new FileWriter(filePath);
-            file.write("");
-            FileWriter fw = new FileWriter(filePath);
-            for (int i = 0; i < taskList.size(); i++) {
-                Task task = taskList.get(i);
-                if (task instanceof Todo) {
-                    String taskType = task.toString().substring(1, 2); // Extract "T"
-                    String taskStatus = task.toString().substring(4, 5);
-                    String description = task.toString().substring(7);
-                    String convertedTask = taskType + " | " + (taskStatus.equals(" ") ? "0" : "1") + " | "
-                            + description;
-                    fw.write(convertedTask + "\n");
-                } else if (task instanceof Deadline) {
-                    String originalTask = task.writeFileString();
-                    String taskType = originalTask.substring(1, 2); // Extract "D"
-                    String taskStatus = originalTask.substring(4, 5); // Extract "X"
-                    String description = originalTask.substring(7, originalTask.indexOf(" (by:"));
-                    String date = originalTask.substring(originalTask.indexOf("(by: ") + 5,
-                            originalTask.indexOf(")"));
-
-                    String convertedTask = taskType + " | " + (taskStatus.equals("X") ? "1" : "0") + " | "
-                            + description + " | " + date;
-                    fw.write(convertedTask + "\n");
-                } else if (task instanceof Event) {
-                    String originalTask = task.writeFileString();
-                    String taskType = originalTask.substring(1, 2); // Extract "E"
-                    String taskStatus = originalTask.substring(4, 5); // Extract " "
-                    String description = originalTask.substring(7, originalTask.indexOf(" (from:"));
-                    String startTime = originalTask.substring(originalTask.indexOf("(from: ") + 7,
-                            originalTask.indexOf(" to:"));
-                    String endTime = originalTask.substring(originalTask.indexOf("to: ") + 4,
-                            originalTask.indexOf(")"));
-                    String convertedTask = taskType + " | " + (taskStatus.equals(" ") ? "0" : "1") + " | "
-                            + description + " | " + startTime + " to " + endTime;
-                    fw.write(convertedTask + "\n");
-                }
-            }
+            FileWriter fw = initialiseFileWriter();
+            processFileContent(taskList, fw);
             fw.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    private static void processFileContent(TaskList taskList, FileWriter fw) throws IOException {
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
+            processIndividualTask(fw, task);
+        }
+    }
+
+    private static void processIndividualTask(FileWriter fw, Task task) throws IOException {
+        if (task instanceof Todo) {
+            loadTodoTask(fw, task);
+        } else if (task instanceof Deadline) {
+            loadDeadlineTask(fw, task);
+        } else if (task instanceof Event) {
+            loadEventTask(fw, task);
+        }
+    }
+
+    private static void loadEventTask(FileWriter fw, Task task) throws IOException {
+        String originalTask = task.writeFileString();
+        String taskType = originalTask.substring(1, 2); // Extract "E"
+        String taskStatus = originalTask.substring(4, 5); // Extract " "
+        String description = originalTask.substring(7, originalTask.indexOf(" (from:"));
+        String startTime = originalTask.substring(originalTask.indexOf("(from: ") + 7,
+                originalTask.indexOf(" to:"));
+        String endTime = originalTask.substring(originalTask.indexOf("to: ") + 4,
+                originalTask.indexOf(")"));
+        String convertedTask = taskType + " | " + (taskStatus.equals(" ") ? "0" : "1") + " | "
+                + description + " | " + startTime + " to " + endTime;
+        fw.write(convertedTask + "\n");
+    }
+
+    private static void loadDeadlineTask(FileWriter fw, Task task) throws IOException {
+        String originalTask = task.writeFileString();
+        String taskType = originalTask.substring(1, 2); // Extract "D"
+        String taskStatus = originalTask.substring(4, 5); // Extract "X"
+        String description = originalTask.substring(7, originalTask.indexOf(" (by:"));
+        String date = originalTask.substring(originalTask.indexOf("(by: ") + 5,
+                originalTask.indexOf(")"));
+
+        String convertedTask = taskType + " | " + (taskStatus.equals("X") ? "1" : "0") + " | "
+                + description + " | " + date;
+        fw.write(convertedTask + "\n");
+    }
+
+    private static void loadTodoTask(FileWriter fw, Task task) throws IOException {
+        String taskType = task.toString().substring(1, 2); // Extract "T"
+        String taskStatus = task.toString().substring(4, 5);
+        String description = task.toString().substring(7);
+        String convertedTask = taskType + " | " + (taskStatus.equals(" ") ? "0" : "1") + " | "
+                + description;
+        fw.write(convertedTask + "\n");
+    }
+
+    private FileWriter initialiseFileWriter() throws IOException {
+        FileWriter file = new FileWriter(filePath);
+        file.write("");
+        FileWriter fw = new FileWriter(filePath);
+        return fw;
     }
 
 }

@@ -30,14 +30,25 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        markTask(taskList, ui, storage);
+    }
+
+    private void markTask(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (index >= taskList.size() || index < 0) {
-            throw new DukeException("OOPS!!! Invalid task to be marked!");
-        } else {
-            taskList.mark(index);
-            ui.sendMessage("OK, I've marked this task as done yet:\n\t\t"
-                    + taskList.getPrint(index));
-            storage.updateFileContents(taskList);
+            displayInvalidMarkException();
         }
+        mark(taskList, ui, storage);
+    }
+
+    private static void displayInvalidMarkException() throws DukeException {
+        throw new DukeException("OOPS!!! Invalid task to be marked!");
+    }
+
+    private void mark(TaskList taskList, Ui ui, Storage storage) {
+        taskList.mark(index);
+        ui.sendMessage("OK, I've marked this task as done yet:\n\t\t"
+                + taskList.getPrint(index));
+        storage.updateFileContents(taskList);
     }
 
     /**

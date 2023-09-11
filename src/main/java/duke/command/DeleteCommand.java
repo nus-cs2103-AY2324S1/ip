@@ -30,16 +30,31 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        deleteTask(taskList, ui, storage);
+    }
+
+    private void deleteTask(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (index >= taskList.size() || index < 0) {
-            throw new DukeException("OOPS!!! Invalid index to be deleted!");
-        } else {
-            String deletedTask = taskList.getPrint(index);
-            taskList.deleteTask(index);
-            ui.sendMessage("Noted. I've removed this task:\n\t\t"
-                    + deletedTask
-                    + "\n\tNow you have " + taskList.size() + " tasks in the list.");
-            storage.updateFileContents(taskList);
+            displayInvalidDeleteException();
         }
+        delete(taskList, ui, storage);
+    }
+
+    private static void displayInvalidDeleteException() throws DukeException {
+        throw new DukeException("OOPS!!! Invalid index to be deleted!");
+    }
+
+    private void delete(TaskList taskList, Ui ui, Storage storage) {
+        String deletedTask = taskList.getPrint(index);
+        taskList.deleteTask(index);
+        displayDeletedTaskMessage(taskList, ui, deletedTask);
+        storage.updateFileContents(taskList);
+    }
+
+    private static void displayDeletedTaskMessage(TaskList taskList, Ui ui, String deletedTask) {
+        ui.sendMessage("Noted. I've removed this task:\n\t\t"
+                + deletedTask
+                + "\n\tNow you have " + taskList.size() + " tasks in the list.");
     }
 
     /**

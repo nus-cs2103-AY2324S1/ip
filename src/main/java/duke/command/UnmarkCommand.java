@@ -30,14 +30,25 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        unmarkTask(taskList, ui, storage);
+    }
+
+    private void unmarkTask(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (index >= taskList.size() || index < 0) {
-            throw new DukeException("OOPS!!! Invalid task to be unmarked!");
-        } else {
-            taskList.unmark(index);
-            ui.sendMessage("OK, I've marked this task as not done yet:\n\t\t"
-                    + taskList.getPrint(index));
-            storage.updateFileContents(taskList);
+            displayInvalidUnmarkException();
         }
+        unmark(taskList, ui, storage);
+    }
+
+    private void unmark(TaskList taskList, Ui ui, Storage storage) {
+        taskList.unmark(index);
+        ui.sendMessage("OK, I've marked this task as not done yet:\n\t\t"
+                + taskList.getPrint(index));
+        storage.updateFileContents(taskList);
+    }
+
+    private static void displayInvalidUnmarkException() throws DukeException {
+        throw new DukeException("OOPS!!! Invalid task to be unmarked!");
     }
 
     /**
