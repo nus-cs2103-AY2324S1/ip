@@ -1,6 +1,8 @@
 package duke.command;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import duke.Storage;
 import duke.TaskList;
@@ -38,15 +40,12 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
-        ArrayList<Task> matches = new ArrayList<>();
         String find = this.query.toUpperCase();
 
-        // Filter out relevant
-        for (Task t : taskList.getAllTask()) {
-            if (t.getTask().toUpperCase().contains(find)) {
-                matches.add(t);
-            }
-        }
+        // filter out relevant
+        List<Task> matches = Arrays.stream(taskList.getAllTask())
+                .filter(task -> task.getTask().toUpperCase().contains(find))
+                .collect(Collectors.toList());
 
         // Handles no matches
         int size = matches.size();
