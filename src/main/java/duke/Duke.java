@@ -35,6 +35,10 @@ public class Duke extends Application {
         Storage storage = new Storage("src/main/java/duke/data/duke.txt");
         TaskList taskList = new TaskList();
 
+        // Assertion: The storage and taskList objects should not be null.
+        assert storage != null : "Storage is null.";
+        assert taskList != null : "TaskList is null.";
+
         Ui.getGreeting();
 
         ArrayList<Task> loadedTasks = storage.loadTasks();
@@ -97,6 +101,10 @@ public class Duke extends Application {
                 HBox userMessage = new HBox(userLogoImageView, userLabel);
                 HBox botMessage = new HBox(botLabel, botLogoImageView);
 
+                // Assertion: The userMessage and botMessage should not be null.
+                assert userMessage != null : "User message is null.";
+                assert botMessage != null : "Bot message is null.";
+
                 userMessage.setAlignment(Pos.CENTER_LEFT);
                 botMessage.setAlignment(Pos.CENTER_RIGHT);
 
@@ -145,4 +153,7 @@ public class Duke extends Application {
 
     }
 
+    public static void main(String[] args) {
+        launch(args);
+    }
 }

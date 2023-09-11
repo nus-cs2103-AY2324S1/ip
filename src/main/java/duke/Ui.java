@@ -29,9 +29,17 @@ public class Ui {
      */
     public static String getList(TaskList taskList) {
         StringBuilder todolistoutput = new StringBuilder();
+
+        // Assertion: The taskList should not be null.
+        assert taskList != null : "TaskList is null.";
+
         for (int i = 0; i < taskList.getTotalTasks(); i++) {
             todolistoutput.append(i + 1).append(". ").append(taskList.getTasks().get(i)).append("\n");
         }
+
+        // Assertion: The output should not be null.
+        assert todolistoutput.toString() != null : "List output is null.";
+
         return todolistoutput.toString();
     }
 
@@ -42,6 +50,9 @@ public class Ui {
      * @return A message indicating the task has been marked as done.
      */
     public static String getMarkedAsDone(Task task) {
+        // Assertion: The task should not be null.
+        assert task != null : "Task is null.";
+
         return "Nice! I've marked this task as done:\n" + task;
     }
 
@@ -52,6 +63,9 @@ public class Ui {
      * @return A message indicating the task has been marked as not done.
      */
     public static String getUnmarked(Task task) {
+        // Assertion: The task should not be null.
+        assert task != null : "Task is null.";
+
         return "OK, I've marked this task as not done yet:\n" + task + "\n";
     }
 
@@ -63,6 +77,10 @@ public class Ui {
      * @return A message indicating the task has been removed.
      */
     public static String getRemoved(Task task, int totalTasks) {
+        // Assertions: The task and totalTasks should not be null.
+        assert task != null : "Task is null.";
+        assert totalTasks >= 0 : "TotalTasks is negative.";
+
         return "Noted. I've removed this task:\n" + task + "\n" +
                 "Now you have " + totalTasks + " tasks in the list.";
     }
@@ -74,6 +92,9 @@ public class Ui {
      * @return An error message.
      */
     public static String getError(String errorMessage) {
+        // Assertion: The errorMessage should not be null.
+        assert errorMessage != null : "Error message is null.";
+
         return errorMessage;
     }
 
@@ -85,6 +106,10 @@ public class Ui {
      * @return A confirmation message.
      */
     public static String getAddConfirmation(Task task, int totalTasks) {
+        // Assertions: The task and totalTasks should not be null.
+        assert task != null : "Task is null.";
+        assert totalTasks >= 0 : "TotalTasks is negative.";
+
         return "Got it. I've added this task:\n" + task + "\n" +
                 "Now you have " + totalTasks + " tasks in the list.";
     }
@@ -106,10 +131,18 @@ public class Ui {
      */
     public static String getMatchingTasks(ArrayList<Task> matchingTasks) {
         StringBuilder matchingTasksOutput = new StringBuilder();
+
+        // Assertion: The matchingTasks should not be null.
+        assert matchingTasks != null : "Matching tasks list is null.";
+
         matchingTasksOutput.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < matchingTasks.size(); i++) {
             matchingTasksOutput.append(i + 1).append(". ").append(matchingTasks.get(i)).append("\n");
         }
+
+        // Assertion: The output should not be null.
+        assert matchingTasksOutput.toString() != null : "Matching tasks output is null.";
+
         return matchingTasksOutput.toString();
     }
 }
