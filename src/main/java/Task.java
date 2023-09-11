@@ -20,11 +20,11 @@ public abstract class Task {
      * Constructs a new Task with the given description and specified completion status.
      *
      * @param description The description of the task.
-     * @param bool      The completion status of the task (true if done, false if not done).
+     * @param isDone      The completion status of the task (true if done, false if not done).
      */
-    public Task(String description, Boolean bool) {
+    public Task(String description, Boolean isDone) {
         this.description = description;
-        this.isDone = bool;
+        this.isDone = isDone;
     }
     /**
      * Returns a string representation of the task's completion status icon.
