@@ -258,6 +258,7 @@ public class Parser {
             return new Instruction.Add(Parser.parseEvent(matcher, Parser.INPUT_FORMAT));
         default:
             //program will not reach here.
+            assert false;
             throw new DukeException("An unexpected error occurred. Try again.");
         }
     }
@@ -287,7 +288,8 @@ public class Parser {
             break;
         default:
             //program will not reach here.
-            return null;
+            assert false;
+            throw new DukeException("");
         }
 
         if (matcher.group("status").equals("X")) {

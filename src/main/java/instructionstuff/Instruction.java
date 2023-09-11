@@ -107,6 +107,7 @@ public abstract class Instruction {
         @Override
         public void execute(Storage storage, TaskList taskList, MainWindow mainWindow) throws DukeException {
             taskList.markTask(this.index);
+            assert index >= 1 && index <= taskList.getSize();
             String s = "Nice! I've marked this task as done:\n " + taskList.getTask(index);
             mainWindow.setMessage(s);
         }
@@ -144,6 +145,7 @@ public abstract class Instruction {
         @Override
         public void execute(Storage storage, TaskList taskList, MainWindow mainWindow) throws DukeException {
             taskList.unmarkTask(this.index);
+            assert index >= 1 && index <= taskList.getSize();
             String s = "Nice! I've marked this task as not done:\n " + taskList.getTask(index);
             mainWindow.setMessage(s);
         }
@@ -181,6 +183,7 @@ public abstract class Instruction {
         @Override
         public void execute(Storage storage, TaskList taskList, MainWindow mainWindow) throws DukeException {
             String task = taskList.deleteTask(this.index);
+            assert index >= 1 && index <= taskList.getSize() + 1;
             String s = "Noted. I've removed this task from the list\n " + task;
             s = s + "\nNow you have " + taskList.getSize() + " tasks in the list.";
             mainWindow.setMessage(s);
