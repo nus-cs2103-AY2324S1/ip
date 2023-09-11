@@ -9,7 +9,11 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
 
-    public static Command parse(String userInput) throws InvalidCommandTypeException, EmptyDescriptionException, EmptyByException, InvalidByException, InvalidToException, EmptyToException, InvalidFromException, EmptyFromException, NotAnIntegerException {
+    public static Command parse(String userInput) throws
+            InvalidCommandTypeException, EmptyDescriptionException,
+            EmptyByException, InvalidByException, InvalidToException,
+            EmptyToException, InvalidFromException, EmptyFromException,
+            NotAnIntegerException {
 
         String commandType = getCommandType(userInput);
         // bye
@@ -77,6 +81,9 @@ public class Parser {
     static String getCommandType(String userInput) throws InvalidCommandTypeException {
         // Returns the type of command input by the user
         // Possible values: "to\-do", "deadline", "event", "bye", "list", "mark", "unmark", "find"
+
+        userInput = userInput.trim();
+
         for (TaskMate.COMMAND_TYPES type : TaskMate.COMMAND_TYPES.values()) {
             String typeString = type.toString();
             if (userInput.startsWith(typeString)) {
