@@ -52,6 +52,8 @@ public class TehO  {
                 returnMessage = delete(userCommand);
             } else if (userCommand.startsWith("find")){
                 returnMessage = find(userCommand);
+            } else if (userCommand.startsWith("sortAlphabetically")){
+                returnMessage = ui.sortListAlphabetically(taskList);
             } else {
                 try {
                     throw new InvalidCommandException();

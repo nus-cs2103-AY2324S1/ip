@@ -1,5 +1,7 @@
 package teho.main;
-import java.lang.StringBuilder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Collections;
 /**
  * Deals with interactions with the user through generating messages.
  */
@@ -33,6 +35,19 @@ public class Ui {
         String str = "Here are the tasks in your list:\n";
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
+            str += (i + 1) + ". " + task.toString() + "\n";;
+        }
+        return str;
+    }
+
+    public static String sortListAlphabetically(TaskList taskList) {
+        List<Task> duplicatedList = taskList.duplicateList(taskList);
+        Collections.sort(duplicatedList, (s, t) -> {
+            return s.getDescription().compareTo(t.getDescription());
+        });
+        String str = "Here are the tasks in your list in alphabetical order:\n";
+        for (int i = 0; i < duplicatedList.size(); i++) {
+            Task task = duplicatedList.get(i);
             str += (i + 1) + ". " + task.toString() + "\n";;
         }
         return str;

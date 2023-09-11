@@ -3,6 +3,8 @@ package teho.main;
 import teho.main.Task;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Represents list of tasks.
@@ -57,4 +59,9 @@ public class TaskList {
         assert taskNumber >= 0 : "taskNumber should not be negative";
         this.taskList.remove(taskNumber);
     }
+
+public static List<Task> duplicateList(TaskList taskList) {
+    List<Task> duplicatedList = new ArrayList<>(taskList.taskList);
+    return duplicatedList;
+}
 }

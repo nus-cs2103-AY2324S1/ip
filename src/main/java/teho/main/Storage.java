@@ -22,10 +22,6 @@ public class Storage {
      *                 to save and load task into and from.
      */
     public Storage(String filePath) {
-        // Expression1 is a boolean expression.
-        // When the system runs the assertion,
-        // it evaluates Expression1 and if it is false
-        // throws an AssertionError with no detail message.
         assert filePath != null: "Path of file should not be a null";
         this.filePath = filePath;
     }
@@ -38,8 +34,6 @@ public class Storage {
     public static void saveTasks(TaskList taskList) {
         assert taskList != null: "taskList should not be a null";
         try {
-            //Solution below inspired by https://www.geeksforgeeks.org/io-bufferedwriter-class-methods-java/
-            //changing according to notes
             FileWriter fw = new FileWriter(filePath);
             for (int i = 0; i < taskList.getSize(); i++) {
                 Task task = taskList.getTask(i);

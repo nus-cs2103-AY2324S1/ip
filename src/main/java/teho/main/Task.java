@@ -31,7 +31,7 @@ public abstract class Task {
      * @return Status icon of task ("X" if task is done, " " if task is undone).
      */
     public String getStatusIcon() {
-        return "[" + (isDone ? "X" : " ") + "]";
+        return "[" + (isDone ? "X" : "  ") + "]";
     }
 
     /**
@@ -60,6 +60,10 @@ public abstract class Task {
      */
     public void markAsNotDone(int task) {
         this.isDone = false;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public abstract String fileString();
