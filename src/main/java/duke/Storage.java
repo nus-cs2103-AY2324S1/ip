@@ -132,14 +132,7 @@ public class Storage {
      * @throws DukeException if the date is not in the format of yyyy-mm-dd.
      */
     private DeadlineTask createDeadlineTask(String taskDescription, String by) throws DukeException {
-        LocalDate byDate;
-
-        try {
-            byDate = LocalDate.parse(by);
-        } catch (Exception e) {
-            throw new DukeException("Please enter a valid date in the format: yyyy-mm-dd");
-        }
-
+        LocalDate byDate = parseDate(by);
         return new DeadlineTask(taskDescription, byDate);
     }
 
@@ -153,18 +146,23 @@ public class Storage {
      * @throws DukeException if the date is not in the format of yyyy-mm-dd.
      */
     private EventTask createEventTask(String taskDescription, String from, String to) throws DukeException {
-        LocalDate fromDate;
-        LocalDate toDate;
+        LocalDate fromDate = parseDate(from);
+        LocalDate toDate = parseDate(to);
+        return new EventTask(taskDescription, fromDate, toDate);
+    }
 
+    /**
+     * Parses the date string to LocalDate object.
+     *
+     * @param date date string in the format of yyyy-mm-dd.
+     * @return LocalDate object.
+     * @throws DukeException DukeException if the date is not in the format of yyyy-mm-dd.
+     */
+    private static LocalDate parseDate(String date) throws DukeException {
         try {
-            // convert date string in the format of yyyy-mm-dd to LocalDate object
-            fromDate = LocalDate.parse(from);
-            // convert LocalDate object to MMM dd yyyy format
-            toDate = LocalDate.parse(to);
+            return LocalDate.parse(date);
         } catch (Exception e) {
             throw new DukeException("Please enter a valid date in the format: yyyy-mm-dd");
         }
-
-        return new EventTask(taskDescription, fromDate, toDate);
     }
 }
