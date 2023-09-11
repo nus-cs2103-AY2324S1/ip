@@ -11,6 +11,7 @@ public class Storage {
     String saveFilePath;
 
     public Storage(String filePath) {
+        assert filePath != null;
         this.saveFilePath = filePath;
     }
 
@@ -29,6 +30,9 @@ public class Storage {
     }
 
     public void writeToFile(String text) throws IOException {
+
+        assert saveFilePath != null;
+
         try {
             Files.createDirectories(Paths.get(getDirectoryPath(saveFilePath)));
         } catch (Exception e) {
