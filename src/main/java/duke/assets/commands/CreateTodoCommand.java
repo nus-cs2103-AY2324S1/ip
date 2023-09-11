@@ -41,7 +41,6 @@ public class CreateTodoCommand extends CommandAbstract {
 
     @Override
     public void printChatbotLine() {
-        System.out.print("ChadGPT: No problem! Just remember to do your task before the deadline ;).\n" +
-                HORIZONTAL);
+        System.out.print("ChadGPT: No problem! Just remember to do your task before the deadline ;).\n");
     }
 }

@@ -18,7 +18,7 @@ public abstract class CommandAbstract {
         if (isValid(tasklist)) {
             completeOperation(tasklist);
         } else {
-            throw new InvalidCommandException(this.input);
+            throw new InvalidCommandException();
         }
     }
 

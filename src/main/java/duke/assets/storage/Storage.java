@@ -24,6 +24,7 @@ public class Storage {
             PrintWriter pw = new PrintWriter(fw);
             pw.print(tasklist.saveToFileFormat());
             pw.close();
+            System.out.println("ChadGPT: Bye! See you again!");
         } catch (IOException IOExcept) {
             System.out.println("ChadGPT: Unfortunately there was an unexpected error when reading your data file.");
             IOExcept.printStackTrace();
