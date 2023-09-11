@@ -42,7 +42,7 @@ public class Storage {
             StringBuilder result = new StringBuilder();
             for (Task task : tasks) {
                 String str = String.format("%s | %s | %s\n", task.getType(),
-                        task.isDone() ? 1 : 0, task.getDetails());
+                        task.isDone() ? 1 : 0, task.formatForFileWriting());
                 result.append(str);
             }
             FileWriter fw = new FileWriter(this.filePath);

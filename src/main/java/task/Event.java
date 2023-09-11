@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
 
+    public static final String TASK_TYPE = "E";
+
     /** Starting date/time of the event */
     protected LocalDateTime from;
 
@@ -25,16 +27,16 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+        this.taskType = TASK_TYPE;
     }
 
-    @Override
-    public String getType() {
-        return "E";
-    }
-
-    @Override
-    public String getDetails() {
-        return super.getDetails() + " | " + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"))
+    /**
+     * Formats the task into a string to be written to the storage file
+     *
+     * @return string to be written to the storage file
+     */
+    public String formatForFileWriting() {
+        return this.getDescription() + " | " + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"))
                 + " | " + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
     }
 

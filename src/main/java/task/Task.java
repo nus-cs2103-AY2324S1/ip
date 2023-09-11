@@ -8,6 +8,8 @@ public class Task {
     /** Description of the task */
     protected String description;
 
+    protected String taskType;
+
     /** True if the task is done, false otherwise */
     protected boolean isDone;
 
@@ -19,6 +21,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.taskType = " ";
     }
 
     /**
@@ -47,15 +50,15 @@ public class Task {
     }
 
     public String getType() {
-        return " ";
+        return this.taskType;
     }
 
     public String getDescription() {
         return this.description;
     }
 
-    public String getDetails() {
-        return this.description;
+    public String formatForFileWriting() {
+        return "";
     }
 
     /**

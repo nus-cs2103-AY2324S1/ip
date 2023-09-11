@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
+    public static final String TASK_TYPE = "D";
+
     /** Deadline that the task is to be done by */
     protected LocalDateTime by;
 
@@ -20,16 +22,16 @@ public class Deadline extends Task {
     public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
+        this.taskType = TASK_TYPE;
     }
 
-    @Override
-    public String getType() {
-        return "D";
-    }
-
-    @Override
-    public String getDetails() {
-        return super.getDetails() + " | " + this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+    /**
+     * Formats the task into a string to be written to the storage file
+     *
+     * @return string to be written to the storage file
+     */
+    public String formatForFileWriting() {
+        return this.getDescription() + " | " + this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
     }
 
     /**
