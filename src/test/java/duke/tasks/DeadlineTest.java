@@ -1,18 +1,21 @@
 package duke.tasks;
-import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
+
 public class DeadlineTest {
-    
+
     @Test
     public void toStorageString_stringRepresentation_success() {
-        Deadline deadline = new Deadline ("read book", "23 Aug 2020 2359");
+        Deadline deadline = new Deadline("read book", "23 Aug 2020 2359");
         assertEquals("D | 0 | read book | 23 Aug 2020 2359", deadline.toStorageString());
     }
 
     @Test
     public void toString_stringRepresentation_success() {
-        Deadline deadline = new Deadline ("read book", "23 Aug 2020 2359");
+        Deadline deadline = new Deadline("read book", "23 Aug 2020 2359");
         assertEquals("[D][ ] read book (by: 23-59-2020 23:59)", deadline.toString());
     }
 

@@ -1,19 +1,20 @@
 package duke.tasks;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class ToDoTest {
 
     @Test
     public void toStorageString_stringRepresentation_success() {
-        ToDo todo = new ToDo ("read book");
+        ToDo todo = new ToDo("read book");
         assertEquals("T | 0 | read book", todo.toStorageString());
     }
 
     @Test
     public void toString_stringRepresentation_success() {
-        ToDo todo = new ToDo ("read book");
+        ToDo todo = new ToDo("read book");
         assertEquals("[T][ ] read book", todo.toString());
     }
 

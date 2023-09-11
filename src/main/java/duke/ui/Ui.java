@@ -130,6 +130,12 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Returns confirmation when user successfully marks task as done.
+     *
+     * @param task The marked task
+     * @return The confirmation message as a String.
+     */
     public String displayMarkedTaskConfirmation(Task task) {
         assert task != null : "Task should not be null";
         return "Nice! I've marked this task as done: \n" + "  " + task;
