@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import juke.commons.classes.JukeObject;
+import juke.commons.enums.SortOrderEnum;
+import juke.commons.enums.SortTypeEnum;
 import juke.commons.utils.StringUtils;
 import juke.exceptions.JukeStateException;
 import juke.exceptions.arguments.JukeIllegalArgumentException;
@@ -162,6 +164,29 @@ public class TaskList extends JukeObject {
         }
 
         return wordMatches;
+    }
+
+    /**
+     * Sorts the tasks in the {@code TaskList} by the specified {@code SortOrderEnum} and {@code SortTypeEnum}.
+     *
+     * @param sortOrder {@code SortOrderEnum} enum that describes the order of sorting
+     * @param sortType {@code SortTypeEnum} enum that describes the type of sorting
+     */
+    public final void sort(SortOrderEnum sortOrder, SortTypeEnum sortType) {
+        // stores the original copy of the tasks for error recovery
+        List<JukeTask> originalTasks = new LinkedList<>(this.tasks);
+
+        try {
+            this.tasks.sort((task1, task2) -> task1.sortBy(task2, sortOrder, sortType));
+        } catch (IllegalArgumentException | UnsupportedOperationException | ClassCastException ex) {
+            // if there is an error, revert the changes
+            this.tasks.clear();
+            this.tasks.addAll(originalTasks);
+            throw new JukeIllegalArgumentException("Oh no! I cannot sort the list!");
+        } finally {
+            // save any changes made to the task list
+            this.storage.write(this.tasks);
+        }
     }
 
     /**

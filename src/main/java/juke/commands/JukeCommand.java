@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.regex.Pattern;
 
 import juke.commons.classes.JukeObject;
+import juke.commons.enums.SortOrderEnum;
+import juke.commons.enums.SortTypeEnum;
 import juke.exceptions.JukeException;
 import juke.exceptions.arguments.JukeIllegalArgumentException;
 import juke.exceptions.arguments.JukeIllegalCommandArgumentException;
@@ -69,6 +71,8 @@ public abstract class JukeCommand extends JukeObject {
             return JukeCommand.event(args, taskList);
         case "find":
             return JukeCommand.find(args, taskList);
+        case "sort":
+            return JukeCommand.sort(args, taskList);
         default:
             // exits the switch and throws an exception in the proceeding line
             throw new JukeIllegalArgumentException("Oh no! I do not understand that command!");
@@ -247,6 +251,33 @@ public abstract class JukeCommand extends JukeObject {
 
         String newFindArgs = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
         return new JukeFindTaskCommand(taskList, newFindArgs);
+    }
+
+    private static JukeSortListCommand sort(String[] args, TaskList taskList) {
+        if (args.length == 1) {
+            throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your sort command!",
+                                                          "sort [a/asc/ascending | "
+                                                                  + "d/desc/descending] "
+                                                                  + "[d/desc/description | "
+                                                                  + "dl/deadline | "
+                                                                  + "s/startstart date | "
+                                                                  + "e/end/end date]");
+        }
+
+        try {
+            String newSortArgs = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
+            SortOrderEnum sortOrder = SortOrderEnum.ofOrder(args[1].toLowerCase());
+            SortTypeEnum sortType = SortTypeEnum.ofType(newSortArgs.toLowerCase());
+            return new JukeSortListCommand(sortOrder, sortType, taskList);
+        } catch (IllegalArgumentException ex) {
+            throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your sort command!",
+                                                          "sort [a/asc/ascending | "
+                                                                  + "d/desc/descending] "
+                                                                  + "[d/desc/description | "
+                                                                  + "dl/deadline | "
+                                                                  + "s/startstart date | "
+                                                                  + "e/end/end date]");
+        }
     }
 
     /**
