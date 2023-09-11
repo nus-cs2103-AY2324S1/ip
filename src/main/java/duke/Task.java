@@ -71,6 +71,10 @@ public class Task {
         return "";
     }
 
+    /**
+     * Sets the priority of the task.
+     * @param priority Priority of the task.
+     */
     public void setPriority(int priority) {
         // if priority is already set, override existing priority
         this.priority = priority;

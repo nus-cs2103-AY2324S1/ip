@@ -127,6 +127,13 @@ public class Ui {
                 + taskListSize + " " + taskWord + " in your list.";
     }
 
+    /**
+     * Prints the message when a task is found to console.
+     * 
+     * @param taskToString String representation of the task.
+     * @param priority Priority of the task based on console input.
+     * @return String String representation of the task that is found.
+     */
     public String printPriorityMessage(String taskToString, int priority) {
         System.out.println("Noted. I've set the priority of task " + (priority + 1) + " to " + priority + ":");
         System.out.println("" + taskToString);
