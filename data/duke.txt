@@ -1,11 +1,8 @@
-T | 1 | eat
-E | 1 | project meeting | Mon 2pm | 4pm
-D | 1 | do homework | 2020-02-20
-D | 0 | assignment | Mar 23 2022
-T | 0 | play game
-D | 0 | submission | Feb 23 2022
-T | 0 | copy homework
-D | 0 | sing | Mar 29 2022
+D | 1 | return book | Mar 23 2023
+D | 1 | assignment | Mar 23 2022
+E | 0 | project meeting | Mon 2pm | 4pm
+T | 0 | cook dinner
+T | 0 | do laundry
+E | 0 | training | Wed 4pm | 7pm
+D | 0 | quiz | Sep 9 2023
 T | 0 | eat
-T | 0 | hi
-T | 0 | hi

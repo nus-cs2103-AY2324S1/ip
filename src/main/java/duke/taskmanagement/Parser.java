@@ -23,28 +23,22 @@ public class Parser {
      * @param ls The tasklist object to handle the tasks.
      * @param cmd The string input by user.
      */
-    public void readCmd(TaskList ls, String cmd) {
-        while (true) {
+    public String readCmd(TaskList ls, String cmd) {
             if (cmd.equals("bye")) {
                 ui.closeScanner();
-                ui.bye();
-                System.exit(0);
+                return ui.bye();
             } else if (cmd.equals("list")) {
                 int size = ls.getListSize();
-                ui.printList(size, ls.getList());
-                cmd = ui.readInCmd();
+                return ui.printList(size, ls.getList());
             } else if (cmd.contains("unmark")) {
                 int index = Integer.parseInt(cmd.substring(7, 8));
-                ls.unmark(index);
-                cmd = ui.readInCmd();
+                return ls.unmark(index);
             } else if (cmd.contains("mark")) {
                 int index = Integer.parseInt(cmd.substring(5, 6));
-                ls.mark(index);
-                cmd = ui.readInCmd();
+                return ls.mark(index);
             } else if (cmd.contains("delete")) {
                 int index = Integer.parseInt(cmd.substring(7, 8));
-                ls.deleteTask(index);
-                cmd = ui.readInCmd();
+                return ls.deleteTask(index);
             } else if (cmd.contains("deadline")) {
                 String[] parts = cmd.split("/by");
                 if (parts.length == 2) {
@@ -53,23 +47,21 @@ public class Parser {
                     LocalDate d1 = LocalDate.parse(deadline);
                     String formattedDate = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
                     Task task = new Deadline(description, formattedDate, false);
-                    ls.addDeadlineTask(task);
+                    return ls.addDeadlineTask(task);
                 } else {
                     DukeException exp = new DukeException("deadline");
-                    System.out.println(exp.toString());
+                    return exp.toString();
                 }
-                cmd = ui.readInCmd();
             } else if (cmd.contains("todo")){
                 String[] parts = cmd.split(" ", 2);
                 if (parts.length == 2) {
                     String desc = parts[1].trim();
                     Task task = new ToDo(desc, false);
-                    ls.addToDoTask(task);
+                    return ls.addToDoTask(task);
                 } else {
                     DukeException exp = new DukeException("todo");
-                    System.out.println(exp.toString());
+                    return exp.toString();
                 }
-                cmd = ui.readInCmd();
             } else if (cmd.contains("event")) {
                 String[] parts = cmd.split("/from");
                 if (parts.length == 2) {
@@ -79,23 +71,18 @@ public class Parser {
                     String from = restParts[0].trim();
                     String till = restParts[1].trim();
                     Task task = new Event(desc, from, till, false);
-                    ls.addEventTask(task);
+                    return ls.addEventTask(task);
                 } else {
                     DukeException exp = new DukeException("event");
-                    System.out.println(exp.toString());
+                    return exp.toString();
                 }
-                cmd = ui.readInCmd();
             } else if (cmd.contains("find")) {
                 String[] parts = cmd.split(" ");
                 String keyword = parts[1];
-                ui.printFilterList(ls.find(keyword));
-                cmd = ui.readInCmd();
+                return ui.printFilterList(ls.find(keyword));
             } else {
                 DukeException exp = new DukeException("");
-                System.out.println(exp.nothing());
-                cmd = ui.readInCmd();
+                return exp.nothing();
             }
-        }
-
     }
 }

@@ -27,12 +27,12 @@ public class TaskList {
      * @param index The index of task to delete in both
      *              text file and list.
      */
-    public void deleteTask(int index) {
+    public String deleteTask(int index) {
         Task task = ls.get(index - 1);
         ls.remove(index - 1);
         int size = ls.size();
-        ui.printRemoveTask(task.toString(), size);
         storage.deleteLine(index);
+        return ui.printRemoveTask(task.toString(), size);
     }
 
     /**
@@ -41,11 +41,11 @@ public class TaskList {
      * @param task The todo task to add in both
      *              text file and list.
      */
-    public void addToDoTask(Task task) {
+    public String addToDoTask(Task task) {
         ls.add(task);
         int size = ls.size();
-        ui.printAddTask(task.toString(), size);
         storage.writeToFile_exceptionThrown(PATH, task.saveToFileString());
+        return ui.printAddTask(task.toString(), size);
     }
 
     /**
@@ -54,11 +54,12 @@ public class TaskList {
      * @param task The deadline task to add in both
      *              text file and list.
      */
-    public void addDeadlineTask(Task task) {
+    public String addDeadlineTask(Task task) {
         ls.add(task);
         int size = ls.size();
-        ui.printAddTask(task.toString(), size);
         storage.writeToFile_exceptionThrown(PATH, task.saveToFileString());
+        return ui.printAddTask(task.toString(), size);
+
     }
 
     /**
@@ -67,11 +68,12 @@ public class TaskList {
      * @param task The event task to add in both
      *              text file and list.
      */
-    public void addEventTask(Task task) {
+    public String addEventTask(Task task) {
         ls.add(task);
         int size = ls.size();
-        ui.printAddTask(task.toString(), size);
         storage.writeToFile_exceptionThrown(PATH, task.saveToFileString());
+        return ui.printAddTask(task.toString(), size);
+
     }
 
     /**
@@ -79,13 +81,14 @@ public class TaskList {
      * both text file and list.
      * @param index The index of task to mark as undone.
      */
-    public void unmark(int index) {
+    public String unmark(int index) {
         Task task = ls.get(index - 1);
         ls.remove(index - 1);
         task.unmark();
         ls.add(index-1, task);
-        ui.printMarkUndone(task.toString());
         storage.changeToUnDone(index);
+        return ui.printMarkUndone(task.toString());
+
     }
 
     /**
@@ -93,13 +96,13 @@ public class TaskList {
      * both text file and list.
      * @param index The index of task to mark as done.
      */
-    public void mark(int index) {
+    public String mark(int index) {
         Task task = ls.get(index-1);
         ls.remove(index-1);
         task.markAsDone();
         ls.add(index-1, task);
-        ui.printMarkDone(task.toString());
         storage.changeToDone(index);
+        return ui.printMarkDone(task.toString());
     }
 
     public List<Task> find(String str) {

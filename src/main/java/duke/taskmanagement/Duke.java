@@ -27,6 +27,10 @@ public class Duke {
     private Ui ui = new Ui();
     private TaskList tasks;
     private Storage storage = new Storage(PATH);
+
+    Duke () {
+        tasks = new TaskList(this.ui, storage.loadData(), storage);
+    }
     public void run() {
         ui.greet();
         tasks = new TaskList(this.ui, storage.loadData(), storage);
@@ -39,16 +43,16 @@ public class Duke {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
+
     public String getResponse(String input) {
-        ui.greet();
-        tasks = new TaskList(this.ui, storage.loadData(), storage);
-        String cmd = this.ui.readInCmd();
+        String greetings = ui.greet();
+        //String cmd = this.ui.readInCmd();
         Parser parser = new Parser(this.ui, this.tasks);
-        parser.readCmd(this.tasks, input);
-        return "Duke heard: " + input;
+        String str = parser.readCmd(this.tasks, input);
+        return str;
     }
+
     public static void main(String[] args) {
-        //new Duke().run();
         Launcher.main(args);
     }
 }
