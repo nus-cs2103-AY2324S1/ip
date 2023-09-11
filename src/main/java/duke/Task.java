@@ -48,7 +48,7 @@ public class Task {
     }
 
     /**
-     * Overides toString method from Object
+     * Overrides toString method from Object
      * returns a String representation of the task.
      *
      * @return The String representation of the task

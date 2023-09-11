@@ -20,7 +20,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Overides toString method from duke.Task
+     * Overrides toString method from duke.Task
      * returns a String representation of duke.Deadline task.
      *
      * @return The String representation of duke.Deadline task

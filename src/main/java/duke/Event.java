@@ -23,7 +23,7 @@ public class Event extends Task {
     }
 
     /**
-     * Overides toString method from duke.Task
+     * Overrides toString method from duke.Task
      * returns a String representation of duke.Event task.
      *
      * @return The String representation of duke.Event task

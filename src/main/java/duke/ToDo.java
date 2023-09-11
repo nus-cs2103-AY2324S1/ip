@@ -15,7 +15,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Overides toString method from duke.Task
+     * Overrides toString method from duke.Task
      * returns a String representation of duke.ToDo task.
      *
      * @return The String representation of duke.ToDo task
