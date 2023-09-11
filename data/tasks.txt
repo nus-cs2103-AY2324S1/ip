@@ -1,1 +1,2 @@
-T | 0 | borrow book
+E | 0 | marathon | 2023-10-25 | 2023-10-25
+D | 0 | submission | 2001-10-15

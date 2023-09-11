@@ -69,6 +69,9 @@ public class Duke {
                 return (taskList.addTask(task));
             }
             case "deadline": {
+                if (parser.checkInputDetailsAbsent()) {
+                    throw new DukeException("☹ OOPS!!! The info of a deadline task cannot be empty.");
+                }
                 String[] deadlineInfo = parser.parseInputDetailsDeadline();
                 String description = deadlineInfo[0];
                 String deadline = deadlineInfo[1];
@@ -77,6 +80,9 @@ public class Duke {
                 return (taskList.addTask(task));
             }
             case "event": {
+                if (parser.checkInputDetailsAbsent()) {
+                    throw new DukeException("☹ OOPS!!! The info of a event task cannot be empty.");
+                }
                 String[] eventInfo = parser.parseInputDetailsEvent();
                 String description = eventInfo[0];
                 String from = eventInfo[1];
@@ -98,6 +104,17 @@ public class Duke {
                     throw new DukeException("The keyword to find cannot be empty");
                 }
                 return (taskList.findTasks(inputDetails));
+            }
+            case "reschedule": {
+                if (parser.checkInputDetailsAbsent()) {
+                    throw new DukeException("☹ OOPS!!! The info of task to reschedule cannot be empty.");
+                }
+                String[] rescheduleInfo = parser.parseRescheduleInfo();
+                int taskNumber = Integer.parseInt(rescheduleInfo[0]);
+                String rescheduleDetails = rescheduleInfo[1];
+                Task task = taskList.getTask(taskNumber);
+                storage.deleteTaskFromFile(taskNumber);
+                return (task.reschedule(rescheduleDetails, storage));
             }
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
