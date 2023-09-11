@@ -22,6 +22,9 @@ public class Valerie {
         this.storage = new Storage(filepath);
         this.taskList = taskList;
         this.storage.loadTasks(taskList); // Load tasks to list
+
+        // Add an assert statement to check if taskList is not null
+        assert taskList != null : "TaskList cannot be null";
     }
 
     /**
@@ -32,13 +35,12 @@ public class Valerie {
         ArrayList<String> response = new ArrayList<>();
 
         File dataDirectory = new File("./data");
+
         if (!dataDirectory.exists()) {
             if (dataDirectory.mkdir()) {
                 response.add("Data directory created successfully");
-                System.out.println("        Data directory created successfully.");
             } else {
                 response.add("Failed to create data directory.");
-                System.out.println("        Failed to create data directory.");
             }
         }
 

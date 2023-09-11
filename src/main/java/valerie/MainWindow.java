@@ -46,18 +46,23 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        // Add user response to dialog box
         String input = userInput.getText();
         ArrayList<String> responses = valerie.getResponse(input);
-
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage)
         );
 
+        // Add valerie response to dialog box
+        StringBuilder sb = new StringBuilder();
         for (String response : responses) {
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getValerieDialog(response, valerieImage) // Duke's response
-            );
+            sb.append(response);
+            sb.append("\n");
         }
+        String str = sb.toString();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getValerieDialog(str, valerieImage) // Duke's response
+        );
 
         userInput.clear();
     }

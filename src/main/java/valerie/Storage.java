@@ -33,6 +33,9 @@ public class Storage {
             // Create a File object representing the data file
             File file = new File(filepath);
 
+            // Assert that the file exists
+            assert file.exists() : "Data file does not exist";
+
             // Create the file if it doesn't exist and print a message
             if (file.createNewFile()) {
                 System.out.println("        New File Created");
@@ -71,6 +74,9 @@ public class Storage {
         try {
             // Create a File object representing the data file
             File file = new File(filepath);
+
+            // Assert that the file exists
+            assert file.exists() : "Data file does not exist";
 
             // Create a FileWriter to write tasks to the file
             FileWriter writer = new FileWriter(file);

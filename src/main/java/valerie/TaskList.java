@@ -25,6 +25,7 @@ public class TaskList {
      * @param task The task to be added to the list.
      */
     public ArrayList<String> addTask(Task task) {
+        assert task != null : "Task cannot be null"; // Check if task is not null
         userList.add(task);
         return Ui.showAddedTask(task, this);
     }
@@ -35,6 +36,7 @@ public class TaskList {
      * @param task The task to be marked as done.
      */
     public ArrayList<String> markTask(Task task) {
+        assert task != null : "Task cannot be null"; // Check if task is not null
         task.markAsDone();
         return Ui.showMarkedTask(task);
     }
@@ -45,6 +47,7 @@ public class TaskList {
      * @param task The task to be marked as not done.
      */
     public ArrayList<String> unmarkTask(Task task) {
+        assert task != null : "Task cannot be null"; // Check if task is not null
         task.markAsUndone();
         return Ui.showUnmarkedTask(task);
     }
@@ -55,6 +58,7 @@ public class TaskList {
      * @param task The task to be deleted from the list.
      */
     public ArrayList<String> deleteTask(Task task) {
+        assert task != null : "Task cannot be null"; // Check if task is not null
         userList.remove(task);
         return Ui.showDeletedTask(task, this);
     }
