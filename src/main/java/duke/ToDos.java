@@ -56,12 +56,21 @@ public class ToDos extends Task {
     }
 
     /**
+     * Checks the type of task, which is event
+     * @return  the type of task as a string
+     */
+    @Override
+    public String getTaskType() {
+        return "T";
+    }
+    /**
      * Converts a To-Do task into a string that can be saved
      * @return  a string that can be saved
      */
     @Override
     public String convertToSaveFormat() {
-        return "T" + Storage.FILESEPERATORCHARACTER + this.isDone() + Storage.FILESEPERATORCHARACTER + this.taskName;
+        return "T" + Storage.FILESEPERATORCHARACTER + this.isDone() + Storage.FILESEPERATORCHARACTER + this.taskName
+                + Storage.FILESEPERATORCHARACTER + this.saveTagFormat();
     }
 
     @Override

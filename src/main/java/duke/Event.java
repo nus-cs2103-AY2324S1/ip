@@ -99,6 +99,15 @@ public class Event extends Task {
     }
 
     /**
+     * Checks the type of task, which is event
+     * @return  the type of task as a string
+     */
+    @Override
+    public String getTaskType() {
+        return "E";
+    }
+
+    /**
      * Converts an Event task into a string that can be saved
      * @return  a string that can be saved
      */
@@ -106,7 +115,7 @@ public class Event extends Task {
     public String convertToSaveFormat() {
         return "E" + Storage.FILESEPERATORCHARACTER + this.isDone() + Storage.FILESEPERATORCHARACTER + this.taskName
                 + Storage.FILESEPERATORCHARACTER + this.end.toString() + Storage.FILESEPERATORCHARACTER
-                + this.start.toString();
+                + this.start.toString() + Storage.FILESEPERATORCHARACTER + this.saveTagFormat();
     }
 
     @Override
