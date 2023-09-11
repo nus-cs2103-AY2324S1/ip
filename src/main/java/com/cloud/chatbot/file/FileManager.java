@@ -17,8 +17,10 @@ public final class FileManager {
      * Initialises the FileManager.
      */
     public FileManager() {
-        // Create directories & storage file as needed
-        //TODO
+        // Create directories as needed
+        File file = getFile();
+        File folder = file.getParentFile();
+        folder.mkdirs();
     }
 
     private File getFile() {
