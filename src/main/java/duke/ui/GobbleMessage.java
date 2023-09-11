@@ -62,8 +62,8 @@ public class GobbleMessage extends HBox {
     /**
      * Returns a user styled dialog.
      *
-     * @param text text to be displayed.
-     * @return a user styled dialog.
+     * @param text Text to be displayed.
+     * @return GobbleMessage user styled dialog.
      */
     public static GobbleMessage getUserDialog(String text) {
         GobbleMessage message = new GobbleMessage(text, UserType.USER);
@@ -75,11 +75,10 @@ public class GobbleMessage extends HBox {
     /**
      * Returns a duke styled dialog.
      *
-     * @param text    text to be displayed.
-     * @param command command to be displayed.
-     * @return a duke styled dialog.
+     * @param text text to be displayed.
+     * @return GobbleMessage system styled dialog.
      */
-    public static GobbleMessage getGobbleDialog(String text, String command) {
+    public static GobbleMessage getGobbleDialog(String text) {
         GobbleMessage db = new GobbleMessage(text, UserType.SYSTEM);
         return db;
     }

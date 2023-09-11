@@ -11,18 +11,18 @@ public class ExitCommand extends Command {
     /**
      * Displays the bye message.
      *
-     * @param taskList list of tasks.
-     * @param storage  storage.
+     * @param taskList Task list of tasks.
+     * @param storage  Storage.
      */
     @Override
     public GobbleMessage execute(TaskList taskList, Storage storage) {
-        return GobbleMessage.getGobbleDialog("Bye. Hope to see you again soon!", "Exit");
+        return GobbleMessage.getGobbleDialog("Bye. Hope to see you again soon!");
     }
 
     /**
      * Returns true as this is an exit command.
      *
-     * @return true as this is an exit command.
+     * @return True as this is an exit command.
      */
     @Override
     public boolean isExit() {

@@ -31,7 +31,7 @@ public class Duke {
     /**
      * Returns a list of tasks.
      *
-     * @return a list of tasks.
+     * @return list of tasks.
      */
     public TaskList getTasks() {
         return tasks;
@@ -40,7 +40,7 @@ public class Duke {
     /**
      * Returns the storage.
      *
-     * @return the storage.
+     * @return storage.
      */
     public Storage getStorage() {
         return storage;

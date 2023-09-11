@@ -14,7 +14,7 @@ public class TodoCommand extends Command {
     /**
      * Constructor for AddCommand.
      *
-     * @param task to be added.
+     * @param task Task to be added.
      */
     public TodoCommand(Task task) {
         this.task = task;
@@ -23,8 +23,9 @@ public class TodoCommand extends Command {
     /**
      * Adds a task to the list.
      *
-     * @param taskList list of tasks.
-     * @param storage  storage.
+     * @param taskList TaskList list of tasks.
+     * @param storage  Storage.
+     * @return GobbleMessage object containing the message to be displayed.
      */
     @Override
     public GobbleMessage execute(TaskList taskList, Storage storage) {
@@ -32,6 +33,6 @@ public class TodoCommand extends Command {
         storage.saveListToDisk(taskList.getTasks());
 
         return GobbleMessage.getGobbleDialog("Got it. I've added this task:\n" + task + "\nNow you have "
-                + taskList.getSize() + " tasks in the list.", "Add");
+                + taskList.getSize() + " tasks in the list.");
     }
 }

@@ -11,7 +11,7 @@ public class Task {
     /**
      * Constructor for Task.
      *
-     * @param description of the task.
+     * @param description Description of the task.
      */
     public Task(String description) {
         this.description = description;
@@ -35,7 +35,7 @@ public class Task {
     /**
      * Return the status of the task by a tick or X symbol.
      *
-     * @return tick or X symbols.
+     * @return String representation of tick or X symbols.
      */
     public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718"); // return tick or X symbols
@@ -44,7 +44,7 @@ public class Task {
     /**
      * Get the description of the task.
      *
-     * @return description of the task.
+     * @return String representation description of the task.
      */
     public String getDescription() {
         return this.description;
@@ -53,12 +53,17 @@ public class Task {
     /**
      * Get the file descriptor of the task for parsing when reloaded.
      *
-     * @return file descriptor of the task.
+     * @return String representation of the file descriptor of the task.
      */
     public String getFileDescriptor() {
         return String.format("%s | %s ", this.isDone, this.getDescription());
     }
 
+    /**
+     * Get the string representation of the task.
+     *
+     * @return String representation of the task.
+     */
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();

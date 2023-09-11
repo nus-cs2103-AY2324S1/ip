@@ -15,7 +15,7 @@ public class DeleteCommand extends Command {
     /**
      * Constructor for DeleteCommand.
      *
-     * @param index of the task to be deleted.
+     * @param index Index of the task to be deleted.
      */
     public DeleteCommand(int index) {
         this.index = index;
@@ -24,8 +24,8 @@ public class DeleteCommand extends Command {
     /**
      * Deletes a task and displays the task deleted.
      *
-     * @param taskList list of tasks
-     * @param storage  storage
+     * @param taskList TaskList containing list of tasks.
+     * @param storage  Storage.
      * @return GobbleMessage object containing the message to be displayed.
      */
     @Override
@@ -34,7 +34,7 @@ public class DeleteCommand extends Command {
         taskList.deleteTask(index);
         storage.saveListToDisk(taskList.getTasks());
         return GobbleMessage.getGobbleDialog("Noted. I've removed this task:\n" + task + "\nNow you have "
-                + taskList.getSize() + " tasks in the list.", "Delete");
+                + taskList.getSize() + " tasks in the list.");
     }
 
 }
