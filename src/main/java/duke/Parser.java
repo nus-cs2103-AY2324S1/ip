@@ -22,11 +22,14 @@ public class Parser {
      * Parses the user input and performs the corresponding actions.
      *
      * @param taskList The list of tasks.
-     * @param i        The current index of tasks in the list.
+     * @param i The current index of tasks in the list.
      * @throws DukeException If an error occurs during parsing.
      */
     public static String parse(ArrayList<Task> taskList,
-                               int i, Storage storage, String userInput) throws DukeException {
+                             int i, Storage storage, String userInput) throws DukeException {
+        assert i >= 0 : "Task index should be non-negative.";
+        String finalText = "";
+
         String[] binaryArr = userInput.split(" ", 2);
         if (binaryArr.length == 1) {
             binaryArr = new String[]{binaryArr[0], null};

@@ -24,22 +24,18 @@ public class Main extends Application {
     public void start(Stage stage) {
         try {
             File directory = new File(String.valueOf(storage.path.getParent())); // Get the parent directory
+            assert directory != null : "Directory should not be null.";
             if (!directory.exists()) {
-                if (directory.mkdirs()) {
-                    Ui.print("Directory created: " + directory.getAbsolutePath());
-                } else {
-                    Ui.print("Failed to create directory: " + directory.getAbsolutePath());
-                }
+                boolean directoryCreated = directory.mkdirs();
+                assert directoryCreated : "Failed to create directory: " + directory.getAbsolutePath();
+                Ui.print("Directory created: " + directory.getAbsolutePath());
             }
 
             if (!storage.getFileExists()) {
                 try {
                     boolean fileCreated = storage.f.createNewFile();
-                    if (fileCreated) {
-                        Ui.print("File created: " + storage.path);
-                    } else {
-                        Ui.print("Failed to create file.");
-                    }
+                    assert fileCreated : "Failed to create file.";
+                    Ui.print("File created: " + storage.path);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -7,7 +7,6 @@ import java.util.ArrayList;
  */
 public class Duke {
     protected static Storage storage = new Storage();
-    protected static Ui ui = new Ui();
     protected static ArrayList<Task> taskList = new TaskList();
     protected static int index = 0;
 

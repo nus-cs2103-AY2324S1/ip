@@ -27,6 +27,7 @@ public class TaskList extends ArrayList<Task> {
      */
     @Override
     public boolean add(Task task) {
+        assert task != null : "Task should not be null before adding.";
         tasks.add(task);
         return false;
     }
