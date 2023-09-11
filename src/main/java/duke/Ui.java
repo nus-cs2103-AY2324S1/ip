@@ -1,7 +1,7 @@
 package duke;
 
 /**
- * Represents the user interface of the chatbot
+ * Represents the user interface of the chatbot.
  */
 public class Ui {
 
@@ -11,7 +11,7 @@ public class Ui {
     }
 
     /**
-     * Print all the available commands
+     * Print all the available commands.
      */
     public String printAllCommands() {
         StringBuilder commands = new StringBuilder();

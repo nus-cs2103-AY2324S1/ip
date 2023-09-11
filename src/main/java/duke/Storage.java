@@ -11,16 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a storage for the chatbot
+ * Represents a storage for the chatbot.
  */
 public class Storage {
     private final String path;
     private final DateTimeFormatter outputFormatter;
 
     /**
-     * A constructor for the storage
+     * A constructor for the storage.
      *
-     * @param filePath the path to the file
+     * @param filePath the path to the file.
      */
     public Storage(String filePath) {
         this.path = filePath;
@@ -37,10 +37,10 @@ public class Storage {
     }
 
     /**
-     * Save the tasks to the file
+     * Saves the tasks to the file.
      *
-     * @param tasks the list of tasks
-     * @throws IOException if there is an error writing to the file
+     * @param tasks the list of tasks.
+     * @throws IOException if there is an error writing to the file.
      */
     public void saveTasks(List<Task> tasks) throws IOException {
         FileWriter writer = new FileWriter(this.path);
@@ -51,10 +51,10 @@ public class Storage {
     }
 
     /**
-     * Load the tasks from the file
+     * Loads the tasks from the file.
      *
-     * @return the list of tasks
-     * @throws IOException if there is an error reading from the file
+     * @return the list of tasks.
+     * @throws IOException if there is an error reading from the file.
      */
     public List<Task> load() throws IOException {
         List<Task> tasks = new ArrayList<>();

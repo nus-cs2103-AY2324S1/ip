@@ -6,18 +6,18 @@ package duke;
 public class Todo extends Task {
 
     /**
-     * A constructor for a task of type todo
+     * A constructor for a task of type todo.
      *
-     * @param description the task details
+     * @param description the task details.
      */
     public Todo(String description) {
         super(description);
     }
 
     /**
-     * Return the string representation of the task.
+     * Returns the string representation of the task.
      *
-     * @return the string representation
+     * @return the string representation.
      */
     @Override
     public String toString() {
@@ -25,9 +25,9 @@ public class Todo extends Task {
     }
 
     /**
-     * Return the string representation of the task in file format.
+     * Returns the string representation of the task in file format.
      *
-     * @return the string representation in file format
+     * @return the string representation in file format.
      */
     @Override
     public String toFileFormat() {
@@ -35,9 +35,9 @@ public class Todo extends Task {
     }
 
     /**
-     * Return the task type.
+     * Returns the task type.
      *
-     * @return the task type
+     * @return the task type.
      */
     @Override
     public String getTaskType() {

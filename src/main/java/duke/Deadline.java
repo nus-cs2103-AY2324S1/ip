@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a task of type Deadline
+ * Represents a task of type Deadline.
  */
 public class Deadline extends Task {
 
@@ -12,10 +12,10 @@ public class Deadline extends Task {
     private final DateTimeFormatter formatter;
 
     /**
-     * A constructor for a task of type Deadline
+     * A constructor for a task of type Deadline.
      *
-     * @param description the task details
-     * @param by the deadline for the task
+     * @param description the task details.
+     * @param by the deadline for the task.
      */
     public Deadline(String description, LocalDateTime by) {
         super(description);
@@ -24,9 +24,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Return the string representation of the task.
+     * Returns the string representation of the task.
      *
-     * @return the string representation
+     * @return the string representation.
      */
     @Override
     public String toString() {
@@ -34,9 +34,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Return the string representation of the task in file format.
+     * Returns the string representation of the task in file format.
      *
-     * @return the string representation in file format
+     * @return the string representation in file format.
      */
     @Override
     public String toFileFormat() {
@@ -44,9 +44,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Return the task type.
+     * Returns the task type.
      *
-     * @return the task type
+     * @return the task type.
      */
     @Override
     public String getTaskType() {

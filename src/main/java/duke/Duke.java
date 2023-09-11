@@ -6,7 +6,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 /**
- * A chatbot that provides a to-do list function
+ * A chatbot that provides a to-do list function.
  */
 public class Duke {
     private Storage storage;
@@ -14,7 +14,7 @@ public class Duke {
     private Ui ui;
 
     /**
-     * A constructor for the chatbot
+     * A constructor for the chatbot.
      */
     public Duke(String filePath) {
         ui = new Ui();
@@ -29,8 +29,8 @@ public class Duke {
     /**
      * Returns a reply to the user input.
      *
-     * @param input the user input
-     * @return the reply to the user input
+     * @param input the user input.
+     * @return the reply to the user input.
      */
     public String reply(String input, Stage stage) {
         Parser parser = new Parser(input);
@@ -114,9 +114,9 @@ public class Duke {
     }
 
     /**
-     * The main method of the chatbot
+     * The main method of the chatbot.
      *
-     * @param args the command line arguments
+     * @param args the command line arguments.
      */
     public static void main(String[] args) {
         Application.launch(Main.class, args);
