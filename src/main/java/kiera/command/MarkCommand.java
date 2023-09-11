@@ -32,7 +32,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws KieraException {
-
+        assert tasks != null;
         try {
             int index = Integer.parseInt(this.getDescription());
             Task t = tasks.getTaskByIndex(index);
