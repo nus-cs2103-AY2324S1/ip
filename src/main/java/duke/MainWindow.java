@@ -24,11 +24,10 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
+    private final String DUKE_FILE_PATH = "data/duke.txt";
     private Duke duke;
     private TaskList tasks;
     private Storage storage;
-    private String dukeFilePath = "data/duke.txt";
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -41,8 +40,12 @@ public class MainWindow extends AnchorPane {
     public void setDuke(Duke d) {
         this.duke = d;
     }
-    public void setTasks(TaskList tasks) { this.tasks = tasks; }
-    public void setStorage(Storage storage) { this.storage = storage; }
+    public void setTasks(TaskList tasks) {
+        this.tasks = tasks;
+    }
+    public void setStorage(Storage storage) {
+        this.storage = storage;
+    }
 
     /**
      * Sith
@@ -50,9 +53,9 @@ public class MainWindow extends AnchorPane {
     public void showWelcomeMessage() {
         Label dukeText = new Label();
         try {
-            dukeText.setText(Ui.printFileContents(dukeFilePath));
+            dukeText.setText(Ui.printFileContents(DUKE_FILE_PATH));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         if (dukeText.getText().equals("Hi, I am Zac!\nHere are the tasks in your list:\n")) {
             dukeText.setText("Hi, I am Zac!\nYou do not have any tasks\nHow can I help you today?");
@@ -69,6 +72,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        if (input.equals("bye")) {
+            userInput.setDisable(true);
+            sendButton.setDisable(true);
+            // so that user cannot send any more inputs to application
+        }
         String response = Parser.parse(input, tasks, storage);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(new Label(input), new ImageView(userImage)),

@@ -30,7 +30,7 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().showWelcomeMessage();
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 }

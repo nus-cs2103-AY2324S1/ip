@@ -12,7 +12,7 @@ public class Deadline extends Task {
     private LocalDateTime by;
 
     /**
-     * constructor to initialise a Deadline object
+     * Constructor to initialise a Deadline object
      * @param description the Task description that is obtained from the Task class
      * @param by the deadline time component that is stored as a LocalDateTime
      */
@@ -30,7 +30,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * A toString method to convert the LocalDateTime to a String
+     * A method to convert the LocalDateTime to a String in "MMM d yyyy h:mma" format
      * @param dateTime the stored LocalDateTime
      * @return a String
      */
@@ -60,69 +60,69 @@ public class Deadline extends Task {
      */
     public static LocalDateTime convertToLocalDateTime(String string) throws DukeException {
         if (string.indexOf('/') != -1) {
-            if (string.lastIndexOf('/') + 5 == string.length()) { // "2/12/2019 1800"
+            // inputs of form "Date/Month/Year hhmm", e.g. "20/9/2023 1840"
+            if (string.lastIndexOf('/') + 5 >= string.length()) {
+                // if "hhmm" is not present
                 throw new DukeException("put in a time pls");
             }
-            LocalDateTime dateTime = parseDateTime(string, '/');
+            LocalDateTime dateTime = parseDateTime(string, "/");
             return dateTime;
         } else if (string.indexOf('-') != -1) { //
-            if (string.lastIndexOf('-') + 3 == string.length()) { // "2019-10-15 1800"
+            // inputs of form "Date-Month-Year hhmm", e.g. "20-9-2023 1840"
+            if (string.lastIndexOf('-') + 3 >= string.length()) {
+                // if "hhmm" is not present
                 throw new DukeException("put in a time pls");
             }
-            LocalDateTime dateTime = parseDateTime(string, '-');
+            LocalDateTime dateTime = parseDateTime(string, "-");
             return dateTime;
         } else { // "Mon 1800"
-            // problem 1: it goes backwards in day in certain cases
-            String[] parts = string.split(" ");
-            if (parts.length == 1) {
-                throw new DukeException("put in a time pls");
-            }
-            String dayPart = parts[0];
-            String timePart = parts[1];
-
-            int year = LocalDate.now().getYear();
-            int month = LocalDate.now().getMonth().getValue();
-            int daysToAdd = -LocalDateTime.now().getDayOfWeek().compareTo(getDayOfWeek(dayPart.toUpperCase()));
-            int date = LocalDate.now().getDayOfMonth() + daysToAdd;
-            // all these is so that date can overflow to next month
-
-            int hour = Integer.parseInt(timePart.substring(0, 2));
-            int minute = Integer.parseInt(timePart.substring(2, 4));
-
-            LocalDate temp = LocalDate.of(year, month, 1);
-            // temp LocalDate to obtain the maximum no. of days in that month
-            int maxDaysOfMonth = temp.lengthOfMonth();
-
-            if (date > maxDaysOfMonth) {
-                // Date overflows, adjust LocalDateTime to the next month
-                return LocalDateTime.of(year, month + 1, date - maxDaysOfMonth, hour, minute);
-            } else {
-                return LocalDateTime.of(year, month, date, hour, minute);
-            }
+            // problem 1: it goes backwards in time in certain cases
+            LocalDateTime dateTime = parseDateTime(string, "NIL");
+            return dateTime;
         }
     }
     /**
      * A function that helps convert a string to a LocalDateTime
      *
-     * @param input the by part of the duke.Deadline duke.Task, e.g. "2/12/2019 1800"
+     * @param userInput the by part of the duke.Deadline duke.Task, e.g. "2/12/2019 1800"
      * @param c whether the duke.Deadline is put in a '-' format or '/' format
      * @return a LocalDateTime
      * @throws DukeException if a specific time in 24hr format is not put
      */
-    public static LocalDateTime parseDateTime(String input, char c) throws DukeException {
-        String[] parts = input.split(" ");
+    public static LocalDateTime parseDateTime(String userInput, String c) throws DukeException {
+        String[] parts = userInput.split(" ");
         if (parts.length != 2) {
-            throw new DukeException("put in a time pls");
+            throw new DukeException("Put in a valid time input!");
         }
 
         String datePart = parts[0];
         String timePart = parts[1];
 
         String[] dateComponents;
-        if (c == '/') {
+        if (c.equals("NIL")) {
+            int year = LocalDate.now().getYear();
+            int month = LocalDate.now().getMonth().getValue();
+            int daysToAdd = -LocalDateTime.now().getDayOfWeek().compareTo(getDayOfWeek(datePart.toUpperCase()));
+            // compares today's DAY with the DAY in userInput, and returns the number of days to add
+
+            int hour = Integer.parseInt(timePart.substring(0, 2));
+            int minute = Integer.parseInt(timePart.substring(2, 4));
+
+            LocalDate temp = LocalDate.of(year, month, 1);
+            int maxDaysOfMonth = temp.lengthOfMonth();
+            // represents the maximum no. of days in that month
+
+            int date = LocalDate.now().getDayOfMonth() + daysToAdd;
+            if (date > maxDaysOfMonth) {
+                // Date overflows, adjust LocalDateTime to the next month
+                return LocalDateTime.of(year, month + 1, date - maxDaysOfMonth, hour, minute);
+            } else {
+                return LocalDateTime.of(year, month, date, hour, minute);
+            }
+        } else if (c.equals("/")) {
             dateComponents = datePart.split("/");
         } else {
-            // c == '-'
+            assert c.equals("-") : "something wrong here!";
             dateComponents = datePart.split("-");
         }
 
