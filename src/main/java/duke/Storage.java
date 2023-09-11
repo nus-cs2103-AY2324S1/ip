@@ -18,18 +18,16 @@ import duke.task.ToDo;
 public class Storage {
 
     private String filepath;
-    private TaskList tasks;
+
 
     /**
      * Constructor for storage.
      *
      * @param filepath the filepath of the file that will be used for storage.
-     * @param tasks the TaskList that will be used.
      */
 
-    public Storage(String filepath, TaskList tasks) {
+    public Storage(String filepath) {
         this.filepath = filepath;
-        this.tasks = tasks;
     }
 
 
@@ -56,6 +54,7 @@ public class Storage {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        TaskList tasks = new TaskList();
         Scanner scanner = new Scanner(new File("data/duke.txt"));
         while (scanner.hasNext()) {
             String[] split = scanner.nextLine().split("\\|");

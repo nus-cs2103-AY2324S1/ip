@@ -28,9 +28,10 @@ public class FindCommand extends Command {
         }
 
         if (foundTasks.getSize() > 0) {
+            storage.writeTasksToFile(tasks);
             return ui.printFindTask(foundTasks);
         } else {
-            return "\tNo tasks found containing the keyword: " + keyword;
+            return ui.printNoFoundTask(keyword);
         }
 
     }

@@ -1,57 +1,55 @@
-
 package duke;
 
 import java.io.IOException;
 import java.time.DateTimeException;
-import java.util.Date;
-import java.util.Scanner;
 
 import duke.Command.Command;
 import duke.Exception.DukeException;
 
 
-
 /**
- * Main class of the chatbot.
+ * The Duke program is a chatbot named Beep Boop Bot that
+ * executes commands to create and edit a tasklist.
+ *
+ * @author Inez Kok
  */
 public class Duke {
-    private static Ui ui;
-    private static Storage storage;
+    private Storage storage;
     private TaskList tasks;
-    private Parser parser;
+    private Ui ui;
 
-    public static void main(String[] args) {
-        ui = new Ui();
-        TaskList tasks = new TaskList();
-        Storage storage = new Storage("data/duke.txt", tasks);
-        boolean isRunning = true;
-        Parser parser = new Parser();
-        boolean isExit = false;
-
+    /**
+     * The constructor for a Duke.
+     */
+    public Duke() {
+        this.storage = new Storage("data/duke.txt");
+        this.ui = new Ui();
         try {
-            storage.saveTasks();
-        } catch (Exception e) {
+            tasks = storage.saveTasks();
+        } catch (IOException e) {
+            tasks = new TaskList();
             e.printStackTrace();
-        }
-
-        Scanner scanner = new Scanner(System.in);
-        ui.printWelcomeMessage();
-        while (!isExit) {
-            String input = scanner.nextLine();
-            try {
-                Command command = parser.addToList(input, storage, tasks);
-                command.execute(ui, storage, tasks);
-                isExit = command.isExit();
-            } catch (DukeException e) {
-                ui.printError(e.getMessage());
-            } catch (IOException | DateTimeException | NumberFormatException e) {
-                parser.handleException(e);
-            }
         }
     }
 
-
+    /**
+     * Returns the String representation of the Duke response to a given input.
+     *
+     * @param input The user input given.
+     * @return The String representation of the Duke response.
+     */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            ui.resetOutput();
+            Command c = Parser.addToList(input, storage, tasks);
+            c.execute(ui, storage, tasks);
+            return ui.getOutput();
+        } catch (DukeException e) {
+            return ui.showError(e);
+        } catch (IOException i) {
+            return Parser.handleException(i);
+        } catch (DateTimeException | NumberFormatException e) {
+            return Parser.handleException(e);
+        }
     }
 }

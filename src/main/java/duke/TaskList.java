@@ -72,24 +72,9 @@ public class TaskList {
         this.tasks.get(index).markAsNotDone();
     }
 
-    /**
-     * Prints the TaskList.
-     */
-    public String printTasks() {
-        StringBuilder message = new StringBuilder();
-        try {
-            message.append("\tHere are the tasks in your list:").append("\n");;
-            if (tasks.size() == 0) {
-                throw new DukeException("\t Seems like you have no tasks at the moment :) ");
+//    /**
+//     * Prints the TaskList.
+//     */
 
-            }
-            for (int i = 1; i <= tasks.size(); i++) {
-                message.append("\t" + i + ". " + tasks.get(i - 1).toString());
-            }
-        } catch (DukeException e) {
-            e.printMessage();
-        }
-        return message.toString();
-    }
 
 }

@@ -44,27 +44,27 @@ public class Parser {
             int taskIndex = Integer.parseInt(input.substring(5));
 
             if (taskIndex > tasks.getSize()) {
-                throw new DukeException("\tThis number is out of bounds!");
+                throw new DukeException("This number is out of bounds!");
             }
             if (tasks.getTask(taskIndex - 1).getStatusIcon() == "X") {
-                throw new DukeException("\tThis task has already been marked as done!");
+                throw new DukeException("This task has already been marked as done!");
             }
             return new MarkCommand(taskIndex - 1);
 
         } else if (input.startsWith("unmark")) {
             int taskIndex = Integer.parseInt(input.substring(7));
             if (taskIndex > tasks.getSize()) {
-                throw new DukeException("\tThis number is out of bounds!");
+                throw new DukeException("This number is out of bounds!");
             }
             if (tasks.getTask(taskIndex - 1).getStatusIcon() == " ") {
-                throw new DukeException("\tThis task has already been marked as not done!");
+                throw new DukeException("This task has already been marked as not done!");
             }
             return new UnmarkCommand(taskIndex - 1);
 
         } else if (input.startsWith("delete")) {
             int pos = Integer.parseInt(input.substring(7).trim());
             if (pos > tasks.getSize() || pos == 0) {
-                throw new DukeException("\tThis number is out of bounds! ");
+                throw new DukeException("This number is out of bounds! ");
             }
             Task element = tasks.getTask(pos - 1);
             return new DeleteCommand(element, pos - 1);
@@ -76,7 +76,7 @@ public class Parser {
         } else if (input.equals("bye")) {
             return new ByeCommand();
         } else {
-            throw new DukeException("\tHey bud! Sorry I don't quite know what you mean :-(");
+            throw new DukeException("Hey bud! Sorry I don't quite know what you mean :-(");
         }
     }
 
@@ -93,41 +93,41 @@ public class Parser {
     public static Command addToList(String input, Storage storage, TaskList tasks) throws DukeException {
         if (input.startsWith("todo")) {
             if (input.trim().length() <= 4) {
-                throw new DukeException("\t Sorry! The description of a todo cannot be empty :(");
+                throw new DukeException("Sorry! The description of a todo cannot be empty :(");
             }
             return new ToDoCommand(input.substring(5));
         } else if (input.startsWith("deadline")) {
             if (input.trim().length() <= 8) {
-                throw new DukeException("\t Sorry! The description of a deadline cannot be empty :(");
+                throw new DukeException("Sorry! The description of a deadline cannot be empty :(");
             }
             if (!input.contains("/by")) {
-                throw new DukeException("\t Hey bud! Please include when the deadline is! "
-                        + "\n\t For example you can type: deadline read /by 2023-09-01 1700");
+                throw new DukeException("Hey bud! Please include when the deadline is! "
+                        + "\nFor example you can type: deadline read /by 2023-09-01 1700");
             }
             int index = input.lastIndexOf("/by");
             if (input.substring(9, index).isEmpty()) {
-                throw new DukeException("\t Sorry! The description of a deadline cannot be empty :(");
+                throw new DukeException("Sorry! The description of a deadline cannot be empty :(");
             }
 
             return new DeadlineCommand(input.substring(9, index - 1), input.substring(index + 4));
 
         } else if (input.startsWith("event")) {
             if (input.trim().length() <= 5) {
-                throw new DukeException("\t Sorry! The description of a event cannot be empty :(");
+                throw new DukeException("Sorry! The description of a event cannot be empty :(");
             }
             if (!input.contains("/from")) {
-                throw new DukeException("\t Hey bud! Please include when the event is!"
-                        + "\n\t For example you can type: event hangout /from 2023-09-01 1700 /to 2023-09-01 2000");
+                throw new DukeException("Hey bud! Please include when the event is!"
+                        + "\nFor example you can type: event hangout /from 2023-09-01 1700 /to 2023-09-01 2000");
             }
             int indexFrom = input.lastIndexOf("/from");
             int indexTo = input.lastIndexOf("/to");
 
             if ((input.substring(6, indexFrom).isEmpty())) {
-                throw new DukeException("\t Sorry! The description of an event cannot be empty :(");
+                throw new DukeException("Sorry! The description of an event cannot be empty :(");
             }
             if (!input.contains("/to")) {
-                throw new DukeException("\t Hey bud! Please include when the end date of the event is!"
-                        + "\n\t For example you can type: event hangout /from 2023-09-01 1700 /to 2023-09-01 2000");
+                throw new DukeException("Hey bud! Please include when the end date of the event is!"
+                        + "\nFor example you can type: event hangout /from 2023-09-01 1700 /to 2023-09-01 2000");
             }
             return new EventCommand(input.substring(6, indexFrom - 1),
                     input.substring(indexFrom + 6, indexTo - 1), input.substring(indexTo + 4));
@@ -146,14 +146,14 @@ public class Parser {
         if (e instanceof DukeException) {
             return e.getMessage();
         } else if (e instanceof DateTimeException) {
-           return "\tPlease put a valid date and time in the format YYYY-MM-DD HHMM."
-                    + "\n\tFor example: 2023-08-08 1800";
+            return "Please put a valid date and time in the format YYYY-MM-DD HHMM."
+                    + "\nFor example: 2023-08-08 1800";
         } else if (e instanceof IOException) {
-            return "\tAn error occurred while performing a file operation: " + e.getMessage();
+            return "An error occurred while performing a file operation: " + e.getMessage();
         } else if (e instanceof NumberFormatException ) {
-            return "\tYou can only perform this action on an integer!";
+            return "You can only perform this action on an integer!";
         } else {
-            return "\tAn unexpected error occurred: " + e.getMessage();
+            return "An unexpected error occurred: " + e.getMessage();
         }
     }
 }
