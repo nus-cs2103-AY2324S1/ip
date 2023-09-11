@@ -1,13 +1,9 @@
-import java.io.BufferedReader;
-import java.io.File;
+package dude;
+
+import dude.command.Command;
+
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Dude {
 

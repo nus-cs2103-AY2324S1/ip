@@ -1,5 +1,8 @@
+package dude;
+
 // contains the task list e.g., it has operations to add/delete tasks in the list
-import java.time.LocalDateTime;
+import dude.task.Task;
+
 import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -42,11 +45,11 @@ public class TaskList {
         taskList.add(task);
     }
 
-    public void addTodo(String task) {
-        ToDo newTask = new ToDo(task);
-        this.addTask(newTask);
-
-    }
+//    public void addTodo(String task) {
+//        ToDo newTask = new ToDo(task);
+//        this.addTask(newTask);
+//
+//    }
 //    public void addDeadline(String task, LocalDateTime by) {
 //        Deadline newTask = new Deadline(task, by);
 //        taskList.add(newTask);

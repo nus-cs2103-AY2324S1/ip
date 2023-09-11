@@ -1,3 +1,7 @@
+package dude;
+
+import dude.command.*;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

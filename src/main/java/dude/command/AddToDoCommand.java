@@ -1,3 +1,10 @@
+package dude.command;
+
+import dude.Storage;
+import dude.TaskList;
+import dude.Ui;
+import dude.task.ToDo;
+
 import java.io.IOException;
 
 public class AddToDoCommand extends Command {
