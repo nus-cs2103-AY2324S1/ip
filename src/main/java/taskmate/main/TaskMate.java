@@ -70,6 +70,7 @@ public class TaskMate {
         Command command;
         while (true) {
             userInput = ui.nextLine();
+            userInput = userInput.trim(); // To remove trailing whitespaces from user input
 
             // Parse user input
             try {
