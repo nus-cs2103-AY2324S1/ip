@@ -5,6 +5,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * The Storage class handles saving of input into a
+ * text file so that user tasks are maintained even
+ * after restarting the bot
+ *
+ * @author lshaoqin
+ */
 public class Storage {
     File savefile;
     public Storage(String filepath) {

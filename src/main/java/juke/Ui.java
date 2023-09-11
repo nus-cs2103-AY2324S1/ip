@@ -2,13 +2,17 @@ package juke;
 
 import java.util.ArrayList;
 
+/**
+ * Handles the printing of responses toward user inputs.
+ *
+ * @author lshaoqin
+ */
 public class Ui {
 
     /**
      * Prints the message to welcome the user.
      */
     public static String printStart() {
-        //Introduce itself to the user
         return "Hello! I'm Juke!\n"
         + "What can I do for you?\n";
     }
@@ -25,7 +29,6 @@ public class Ui {
      * Prints bye to the user.
      */
     public String printBye() {
-        //Say goodbye
         return "Bye. Hope to see you again soon!";
     }
 

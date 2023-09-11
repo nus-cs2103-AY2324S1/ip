@@ -10,6 +10,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The Juke class coordinates all operations of the bot
+ * and delegates work to each individual part.
+ *
+ * @author lshaoqin
+ */
 public class Juke {
     private final Storage storage;
     private TaskList tasks;
