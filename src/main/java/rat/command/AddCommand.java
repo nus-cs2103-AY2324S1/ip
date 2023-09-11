@@ -39,9 +39,9 @@ public class AddCommand extends RatCommand {
      * @return The response to be printed to the user.
      */
     private String addToDo(String params) {
-        int TODO_PARAMS_START = 5;
+        int todoParamsStart = 5;
         try {
-            String todoParams = params.substring(TODO_PARAMS_START);
+            String todoParams = params.substring(todoParamsStart);
             return this.ratTaskManager.addToDo(todoParams);
         } catch (StringIndexOutOfBoundsException e) {
             printWithLines("To Do name cannot be empty");
@@ -55,14 +55,14 @@ public class AddCommand extends RatCommand {
      * @return The response to be printed to the user.
      */
     private String addDeadline(String params) {
-        int DEADLINE_PARAMS_START = 9;
-        int NAME_INDEX = 0;
-        int DEADLINE_INDEX = 1;
+        int deadlineParamsStart = 9;
+        int nameIndex = 0;
+        int deadlineIndex = 1;
         try {
-            String deadlineParams = params.substring(DEADLINE_PARAMS_START);
+            String deadlineParams = params.substring(deadlineParamsStart);
             String[] paramsArr = deadlineParams.split(" /by ");
-            String name = paramsArr[NAME_INDEX];
-            String deadline = paramsArr[DEADLINE_INDEX];
+            String name = paramsArr[nameIndex];
+            String deadline = paramsArr[deadlineIndex];
             validateTime(deadline);
             return this.ratTaskManager.addDeadline(deadline, name);
         } catch (StringIndexOutOfBoundsException e) {
@@ -83,9 +83,9 @@ public class AddCommand extends RatCommand {
      * @return The response to be printed to the user.
      */
     private String addEvent(String params) {
-        int EVENT_PARAMS_START = 6;
+        int eventParamsStart = 6;
         try {
-            params = params.substring(EVENT_PARAMS_START);
+            params = params.substring(eventParamsStart);
             String eventName = params.split(" /from ")[0];
             if (eventName.isEmpty()) {
                 printWithLines("Event name cannot be empty");

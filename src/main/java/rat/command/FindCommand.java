@@ -20,8 +20,8 @@ public class FindCommand extends RatCommand {
      */
     public FindCommand(RatTaskManager ratTaskManager, String input) {
         super(ratTaskManager);
-        int KEYWORD_START = 7;
-        this.keyword = input.substring(KEYWORD_START);
+        int keywordStart = 7;
+        this.keyword = input.substring(keywordStart);
     }
 
     @Override

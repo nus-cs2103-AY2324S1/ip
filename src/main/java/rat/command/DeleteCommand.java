@@ -10,14 +10,14 @@ import rat.tasks.RatTaskManager;
 public class DeleteCommand extends RatCommand {
 
     /**
+     * The index of the first character of the parameters in the user input.
+     */
+    private static final int DELETE_PARAMS_START = 7;
+
+    /**
      * The user input passed from RatInput that contains the index of the task to be deleted.
      */
     private String input;
-
-    /**
-     * The index of the first character of the parameters in the user input.
-     */
-    private final int DELETE_PARAMS_START = 7;
 
     /**
      * Constructor for a DeleteCommand object.

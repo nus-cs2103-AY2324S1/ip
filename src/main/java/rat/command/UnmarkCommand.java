@@ -10,14 +10,14 @@ import rat.tasks.RatTaskManager;
 public class UnmarkCommand extends ModifyCommand {
 
     /**
+     * The index of the first character of the parameters in the user input.
+     */
+    private static final int UNMARK_PARAMS_START = 1;
+
+    /**
      * The user input passed from RatInput that contains the index of the task to be marked as not done.
      */
     private String[] inputs;
-
-    /**
-     * The index of the first character of the parameters in the user input.
-     */
-    private final int UNMARK_PARAMS_START = 1;
 
     /**
      * Constructor for a UnmarkCommand object.
