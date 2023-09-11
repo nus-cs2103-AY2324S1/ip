@@ -12,7 +12,7 @@ public class Deadline extends Task {
     /** A string indicating deadline of task in localDate form. */
     protected LocalDate by;
     /** A string indicating deadline of task not in local date format. */
-    protected String altBy;
+    protected String alternateBy;
 
     /**
      * A constructor to initialize the chatter.task.Deadline class.
@@ -25,11 +25,10 @@ public class Deadline extends Task {
 
         try {
             this.by = LocalDate.parse(by);
-            this.altBy = "";
+            this.alternateBy = "";
         } catch (Exception e) {
-            this.altBy = by;
+            this.alternateBy = by;
         }
-
     }
 
     /**
@@ -40,7 +39,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.altBy + convertDateToString(this.by) + ")";
+        return "[D]" + super.toString() + " (by: " + this.alternateBy + convertDateToString(this.by) + ")";
     }
 
     /**
@@ -49,6 +48,7 @@ public class Deadline extends Task {
      * @return The storage string representation of the task.
      */
     public String toStorageString() {
-        return "D, " + this.isDone + ", " + this.description + ", " + this.altBy + convertDateToStorageString(this.by);
+        return "D, " + this.isDone + ", " + this.description + ", " + this.alternateBy
+                + convertDateToStorageString(this.by);
     }
 }

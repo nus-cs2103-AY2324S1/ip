@@ -1,3 +1,2 @@
 T, false, return book
-T, false, die
-T, false, return book
+D, true, help, tmr

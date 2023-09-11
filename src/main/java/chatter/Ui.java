@@ -21,7 +21,7 @@ public class Ui {
      * @return Welcome message for the user.
      */
     public String showWelcome() {
-        return("Hello! I'm chatter.Chatter!\n" + "How can i help you today?\n");
+        return "Hello! I'm chatter.Chatter!\n" + "How can i help you today?\n";
     }
 
     /**

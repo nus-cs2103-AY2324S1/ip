@@ -32,7 +32,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testLoadTasks() throws IOException {
+    public void storageReadFile_randomTasks_listMatch() throws IOException {
         try {
             Storage storage = new Storage("./data/chatter.txt");
             storage.saveFile("T, false, return book\nD, true, help, tmr");
@@ -48,7 +48,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testFileDoesNotExist() throws IOException {
+    public void storageReadFile_newStorageObjectWithTasks_storageFileCreated() throws IOException {
         Path path = Path.of("./data/chatter.txt");
 
         if (Files.exists(path)) {

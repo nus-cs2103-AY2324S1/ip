@@ -44,9 +44,9 @@ public class Chatter {
             }
 
             try {
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
+                Command command = Parser.parse(fullCommand);
+                command.execute(tasks, ui, storage);
+                isExit = command.isExit();
             } catch (ChatterException e) {
                 System.out.println(e.getMessage());
             } catch (Exception e) {
@@ -69,9 +69,9 @@ public class Chatter {
         String response;
         try {
             response = Parser.parse(input).execute(tasks, ui, storage);
-        } catch(ChatterException e) {
+        } catch (ChatterException e) {
             response = e.getMessage();
-        } catch(Exception e) {
+        } catch (Exception e) {
             if (input.startsWith("deadline")) {
                 response = "Please enter a valid description or deadline.";
             } else {

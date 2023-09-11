@@ -30,10 +30,13 @@ public class Parser {
         case("list"):
             return new ListCommand();
         case("mark"):
+            assert (fullCommand.length() > 5);
             return new MarkCommand(true, Character.getNumericValue(fullCommand.charAt(5)));
         case("unmark"):
+            assert (fullCommand.length() > 7);
             return new MarkCommand(false, Character.getNumericValue(fullCommand.charAt(7)));
         case("delete"):
+            assert (fullCommand.length() > 7);
             return new DeleteCommand(Character.getNumericValue(fullCommand.charAt(7)));
         case("todo"):
             if (fullCommand.length() < 6) {
@@ -46,6 +49,7 @@ public class Parser {
                 throw new ChatterException("Please add a '/by' statement with the deadline.");
             }
 
+            assert (deadlineIndex > 0);
             return new AddCommand(new Deadline(fullCommand.substring(9, deadlineIndex - 1),
                     fullCommand.substring(deadlineIndex + 4)));
         case("event"):
@@ -59,12 +63,14 @@ public class Parser {
                 throw new ChatterException("Please add a '/to' statement with the end time / date.");
             }
 
+            assert (startIndex > 0 && endIndex > 0);
             return new AddCommand(new Event(fullCommand.substring(6, startIndex - 1),
                     fullCommand.substring(startIndex + 6, endIndex - 1),
                     fullCommand.substring(endIndex + 4)));
         case("bye"):
             return new ExitCommand();
         case("find"):
+            assert (fullCommand.length() > 5);
             return new FindCommand(fullCommand.substring(5));
         default:
             throw new ChatterException("OOPS!!! I'm sorry, but I don't know what that means :-("
