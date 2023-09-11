@@ -1,15 +1,15 @@
 package com.cloud.chatbot;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import com.cloud.chatbot.annotations.Nullable;
 import com.cloud.chatbot.exceptions.MissingFlagInputException;
 import com.cloud.chatbot.exceptions.MissingInputException;
-import com.cloud.chatbot.todo.Deadline;
-import com.cloud.chatbot.todo.Event;
-import com.cloud.chatbot.todo.Todo;
+import com.cloud.chatbot.item.Deadline;
+import com.cloud.chatbot.item.Event;
+import com.cloud.chatbot.item.Item;
+import com.cloud.chatbot.item.ItemManager;
+import com.cloud.chatbot.item.Task;
 import com.cloud.chatbot.token.CommandManager;
 import com.cloud.chatbot.token.FlagManager;
 import com.cloud.chatbot.token.Token;
@@ -21,72 +21,75 @@ import com.cloud.chatbot.token.Token;
  */
 public final class Cloud {
     private static final Scanner SCANNER = new Scanner(System.in);
-    private static final List<Todo> TODOS = new ArrayList<>();
+    private static final ItemManager ITEM_MANAGER = new ItemManager();
 
     private static void handle(String input) {
-        CommandManager manager = new CommandManager(input);
+        CommandManager commandManager = new CommandManager(input);
         String command;
         try {
-            command = manager.getCommand();
+            command = commandManager.getCommand();
         } catch (MissingInputException e) {
             // Ignore empty inputs
             return;
         }
 
-        switch (CommandType.stringToCommandType(command)) {
+        switch (CommandType.fromString(command)) {
         case ADD: {
-            @Nullable Todo todo = Cloud.createTodo(manager);
-            if (todo == null) {
+            @Nullable Item item = Cloud.createItem(commandManager);
+            if (item == null) {
                 break;
             }
 
-            Cloud.TODOS.add(todo);
-            Cloud.say(todo.toString(Cloud.TODOS.size()));
+            Cloud.ITEM_MANAGER.add(item);
+            Cloud.say(item.toString(Cloud.ITEM_MANAGER.getCount()));
             break;
         }
         case LIST: {
-            if (Cloud.TODOS.size() <= 0) {
-                Cloud.say("Your TODO list is empty.");
+            if (Cloud.ITEM_MANAGER.getCount() <= 0) {
+                Cloud.say("Your item list is empty.");
                 break;
             }
 
-            for (int i = 0; i < Cloud.TODOS.size(); i++) {
-                Todo todo = Cloud.TODOS.get(i);
-                Cloud.say(todo.toString(i + 1));
+            for (int number = 1; number <= Cloud.ITEM_MANAGER.getCount(); number++) {
+                Cloud.say(
+                    Cloud.ITEM_MANAGER.getString(number)
+                );
             }
             break;
         }
         case MARK: {
-            @Nullable Integer number = Cloud.verifyNumber(manager);
+            @Nullable Integer number = Cloud.verifyNumber(commandManager);
             if (number == null) {
                 break;
             }
 
-            Todo todo = Cloud.TODOS.get(number - 1);
-            todo.setComplete(true);
-            Cloud.say(todo.toString(number));
+            Cloud.ITEM_MANAGER.setComplete(number, true);
+            Cloud.say(
+                Cloud.ITEM_MANAGER.getString(number)
+            );
             break;
         }
         case UNMARK: {
-            @Nullable Integer number = Cloud.verifyNumber(manager);
+            @Nullable Integer number = Cloud.verifyNumber(commandManager);
             if (number == null) {
                 break;
             }
 
-            Todo todo = Cloud.TODOS.get(number - 1);
-            todo.setComplete(false);
-            Cloud.say(todo.toString(number));
+            Cloud.ITEM_MANAGER.setComplete(number, false);
+            Cloud.say(
+                Cloud.ITEM_MANAGER.getString(number)
+            );
             break;
         }
         case DELETE: {
-            @Nullable Integer number = Cloud.verifyNumber(manager);
+            @Nullable Integer number = Cloud.verifyNumber(commandManager);
             if (number == null) {
                 break;
             }
 
-            Todo todo = Cloud.TODOS.remove(number - 1);
+            Item item = Cloud.ITEM_MANAGER.remove(number);
             Cloud.say("Yeeted:");
-            Cloud.say(todo.toString(number));
+            Cloud.say(item.toString(number));
             break;
         }
         case EXIT: {
@@ -94,7 +97,6 @@ public final class Cloud {
             System.exit(0);
             break;
         }
-        case UNKNOWN:
         default: {
             Cloud.say(
                 String.format(
@@ -107,12 +109,12 @@ public final class Cloud {
         }
     }
 
-    private static @Nullable Todo createTodo(CommandManager manager) {
+    private static @Nullable Item createItem(CommandManager manager) {
         String description;
         try {
             description = manager.getDetails();
         } catch (MissingInputException e) {
-            Cloud.say("Please enter a description for your TODO.");
+            Cloud.say("Please enter a description for your item.");
             return null;
         }
 
@@ -137,7 +139,7 @@ public final class Cloud {
             return null;
         }
 
-        return new Todo(description);
+        return new Task(description);
     }
 
     private static @Nullable Integer verifyNumber(CommandManager manager) {
@@ -156,10 +158,10 @@ public final class Cloud {
             return null;
         }
 
-        if (!numberToken.isValidNumber(Cloud.TODOS)) {
+        if (!numberToken.isValidNumber(Cloud.ITEM_MANAGER.getCount())) {
             Cloud.say(
                 String.format(
-                    "TODO #%d does not exist.",
+                    "Item #%d does not exist.",
                     numberToken.toInt()
                 )
             );

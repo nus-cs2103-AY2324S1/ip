@@ -4,7 +4,7 @@ Cloud online.
 
 >>> 
 >>> 
->>> Please enter a description for your TODO.
+>>> Please enter a description for your item.
 
 >>>   | T#1: Download  wk  3  files
 
@@ -14,11 +14,11 @@ Cloud online.
 
 >>> Please enter a description for the "by" flag.
 
->>> Please enter a description for your TODO.
+>>> Please enter a description for your item.
 
->>> Please enter a description for your TODO.
+>>> Please enter a description for your item.
 
->>> Please enter a description for your TODO.
+>>> Please enter a description for your item.
 
 >>>   | T#4: I tried to make an event by didn't specify flags.
 
@@ -31,7 +31,7 @@ Cloud online.
 
 >>> "a" is not a valid number.
 
->>> TODO #-7050 does not exist.
+>>> Item #-7050 does not exist.
 
 >>> X | D#2: Watch   L3   recording | BY Friday   2359
 
@@ -43,7 +43,7 @@ Cloud online.
 
 >>>   | E#3: Project meeting | FROM Monday 3pm | TO Monday 4:30pm
 
->>> TODO #5 does not exist.
+>>> Item #5 does not exist.
 
 >>> X | T#4: I tried to make an event by didn't specify flags.
 
@@ -55,7 +55,7 @@ X | D#2: Watch   L3   recording | BY Friday   2359
 X | T#4: I tried to make an event by didn't specify flags.
   | D#5: another | BY ???
 
->>> TODO #0 does not exist.
+>>> Item #0 does not exist.
 
 >>> Yeeted:
   | T#1: Download  wk  3  files

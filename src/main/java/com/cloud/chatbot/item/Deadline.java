@@ -1,16 +1,20 @@
-package com.cloud.chatbot.todo;
+package com.cloud.chatbot.item;
+
+import org.json.JSONObject;
+
+import com.cloud.chatbot.file.Key;
 
 
 
 /**
- * Represents a deadline TODO, which has an ending timestamp.
+ * Represents a deadline work Item, which has an ending timestamp.
  */
-public class Deadline extends Todo {
+public class Deadline extends Item {
     private String timestampEnd;
 
     /**
-     * @param description The TODO description.
-     * @param end The ending timestamp for the TODO.
+     * @param _description The Item description.
+     * @param end The ending timestamp.
      */
     public Deadline(String _description, String end) {
         super(_description);
@@ -29,7 +33,14 @@ public class Deadline extends Todo {
 
     @Override
     public String getTypeString() {
-        return "D";
+        return ItemType.DEADLINE.string;
+    }
+
+    @Override
+    public JSONObject export() {
+        JSONObject json = this.getBasicJson();
+        json.put(Key.END.string, this.getEnd());
+        return json;
     }
 
     public String getEnd() {

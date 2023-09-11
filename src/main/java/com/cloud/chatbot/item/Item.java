@@ -1,19 +1,20 @@
-package com.cloud.chatbot.todo;
+package com.cloud.chatbot.item;
+
+import org.json.JSONObject;
+
+import com.cloud.chatbot.file.Key;
 
 
 
 /**
- * Represents a TODO.
+ * A parent work Item class.
  */
-public class Todo {
+public abstract class Item {
     private boolean isComplete = false;
 
     private String description;
 
-    /**
-     * @param description The TODO description.
-     */
-    public Todo(String _description) {
+    public Item(String _description) {
         this.description = _description;
     }
 
@@ -25,6 +26,14 @@ public class Todo {
             number,
             this.getDescription()
         );
+    }
+
+    protected JSONObject getBasicJson() {
+        JSONObject json = new JSONObject();
+        json.put(Key.TYPE.string, this.getTypeString());
+        json.put(Key.DESCRIPTION.string, this.getDescription());
+        json.put(Key.IS_COMPLETE.string, this.isComplete());
+        return json;
     }
 
     public String toString(int number) {
@@ -40,7 +49,7 @@ public class Todo {
     }
 
     /**
-     * Returns a string representing whether the TODO has been completed.
+     * Returns a string denoting whether the Item has been completed.
      */
     public String getCompletionString() {
         return this.isComplete ? "X" : " ";
@@ -51,9 +60,12 @@ public class Todo {
     }
 
     /**
-     * Returns a string representing the type of this TODO.
+     * Returns a string representing the type of this Item.
      */
-    public String getTypeString() {
-        return "T";
-    }
+    public abstract String getTypeString();
+
+    /*
+     * Returns the JSON representation of this item.
+     */
+    public abstract JSONObject export();
 }

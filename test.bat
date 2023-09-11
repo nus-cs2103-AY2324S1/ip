@@ -7,8 +7,13 @@ del /S /Q .\bin\ > nul
 rmdir /S /Q .\bin\
 mkdir .\bin\
 
+@REM Clear any previous data files, remake data\
+del /S /Q .\data\ > nul
+rmdir /S /Q .\data\
+mkdir .\data\
+
 @REM Compile
-javac .\src\com\cloud\chatbot\*.java -cp .\src\ -Xlint:none -d .\bin\
+javac -cp .\src\main\java\;.\lib\* -Xlint:none -d .\bin\ .\src\main\java\com\cloud\chatbot\*.java
 IF ERRORLEVEL 1 (
     echo:
     echo ^>^>^> javac failed
@@ -19,7 +24,7 @@ IF ERRORLEVEL 1 (
 del .\tests\ACTUAL.txt
 
 @REM Test main class, generate output
-java -classpath .\bin\ com.cloud.chatbot.Cloud < .\tests\input.txt > .\tests\ACTUAL.txt
+java -cp .\bin\;.\lib\* com.cloud.chatbot.Cloud < .\tests\input.txt > .\tests\ACTUAL.txt
 
 @REM Compare output with expected
 FC .\tests\ACTUAL.txt .\tests\EXPECTED.txt

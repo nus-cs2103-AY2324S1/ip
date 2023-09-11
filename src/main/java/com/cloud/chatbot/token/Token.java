@@ -1,9 +1,6 @@
 package com.cloud.chatbot.token;
 
-import java.util.List;
-
 import com.cloud.chatbot.annotations.Nullable;
-import com.cloud.chatbot.todo.Todo;
 
 
 
@@ -11,7 +8,7 @@ import com.cloud.chatbot.todo.Todo;
  * Represents a single word of user input.
  */
 public final class Token {
-    /** The prefix for flags */
+    /** The prefix for flags. */
     public static final String PREFIX_FLAG = "/";
 
     private String token;
@@ -60,16 +57,16 @@ public final class Token {
     }
 
     /**
-     * Whether the token is a valid TODO number.
+     * Whether the token is a valid Item number.
      *
-     * @param todos The list of Todos.
+     * @param count The current number of Items.
      */
-    public boolean isValidNumber(List<Todo> todos) {
+    public boolean isValidNumber(int count) {
         if (!this.isInt()) return false;
 
         int number = this.toInt();
 
-        if (number <= 0 || number > todos.size()) {
+        if (number <= 0 || number > count) {
             return false;
         }
         return true;
