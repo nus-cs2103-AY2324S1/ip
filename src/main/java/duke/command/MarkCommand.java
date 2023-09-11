@@ -47,7 +47,6 @@ public class MarkCommand extends Command {
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
         Command.validateIndex(this.index, taskList.length());
         Task task = taskList.get(index);
-
         // only toggle if mark != completed as if they are the same then there is no
         // effect
         String resp;

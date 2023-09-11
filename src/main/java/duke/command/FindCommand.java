@@ -41,6 +41,7 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeBadInputException {
         String find = this.query.toUpperCase();
+        assert find.isBlank() : "Find query should not be empty";
 
         // filter out relevant
         List<Task> matches = Arrays.stream(taskList.getAllTask())

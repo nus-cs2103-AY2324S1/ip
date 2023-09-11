@@ -51,6 +51,9 @@ public class Duke {
             this.storage = null;
         }
 
+        assert this.storage != null : "There should be an instance of storage,"
+                + " missing instance would mean a fatal error";
+
         // read from storage, throws an error when unable to rewrite to the storage file
         if (this.storage == null) {
             return;
@@ -84,7 +87,6 @@ public class Duke {
      */
     public static void main(String[] args) {
         Application.launch(Main.class, args);
-        // new Duke("data/data.txt").run();
     }
 
     public String getResponse(String input) {
