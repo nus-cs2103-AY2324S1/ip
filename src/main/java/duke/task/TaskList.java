@@ -3,6 +3,8 @@ package duke.task;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import duke.Duke;
 import duke.exception.DukeException;
@@ -281,12 +283,9 @@ public class TaskList {
                 throw new EmptyKeywordException();
             }
             String keyword = command.substring(5);
-            ArrayList<Task> matchList = new ArrayList<>();
-            for (Task t : this.list) {
-                if (t.getDescription().contains(keyword)) {
-                    matchList.add(t);
-                }
-            }
+            List<Task> tempList = getList().stream().filter(t -> t.getDescription().contains(keyword))
+                    .collect(Collectors.toList());
+            ArrayList<Task> matchList = new ArrayList<>(tempList);
             return Duke.getUi().printFindTask(matchList);
         } catch (NoSpaceAfterException | EmptyKeywordException e) {
             return e.getMessage();
