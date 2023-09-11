@@ -13,6 +13,7 @@ public abstract class Command {
     String commandType;
 
     String getType() {
+        assert this.commandType != null;
         return this.commandType;
     }
 
@@ -41,6 +42,7 @@ public abstract class Command {
      * @return String command type.
      */
     public String getCommandType() {
+        assert this.commandType != null;
         return this.commandType;
     }
 

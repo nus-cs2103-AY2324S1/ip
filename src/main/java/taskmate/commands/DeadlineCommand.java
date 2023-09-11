@@ -19,20 +19,6 @@ public class DeadlineCommand extends AddCommand {
 
     /**
      * DeadlineCommand constructor that allows the developer to specify the name of the task, and a date that represents
-     * the date that this task must be completed. This date must be a `LocalDate` instance.
-     *
-     * @param name the name of the deadline task.
-     * @param by the date that the deadline task has to be completed.
-     */
-    DeadlineCommand(String name, LocalDate by) {
-        this.commandType = "Deadline";
-        this.isExit = false;
-        this.name = name;
-        this.by = by;
-    }
-
-    /**
-     * DeadlineCommand constructor that allows the developer to specify the name of the task, and a date that represents
      * the date that this task must be completed. This date must be a String in the form "YYYY-mm-dd" to be parsed to a
      * `LocalDate` object.
      *
@@ -56,6 +42,10 @@ public class DeadlineCommand extends AddCommand {
      * @param storage Storage object that saves undeleted tasks to the disk.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+
+        assert super.name != null;
+        assert this.by != null;
+
         // 1. Create new deadline task
         Task newDeadlineTask = new Deadline(name, by);
         // 2. Add to newTodoTask to tasks

@@ -18,26 +18,9 @@ public class TaskMate {
         list, bye, todo, deadline, event, mark, unmark, delete, help, find
     }
 
-    private Ui ui;
-    private Storage storage;
+    private final Ui ui;
+    private final Storage storage;
     private TaskList tasks;
-    private Parser parser;
-
-    TaskMate(String filePath) {
-        this.ui = new Ui(CHATBOT_NAME);
-        this.storage = new Storage(filePath);
-        this.tasks = new TaskList();
-
-        // Load existing tasks from disk
-        try {
-            String fileContents = storage.readFromFile();
-            this.tasks = new TaskList(fileContents);
-        } catch (IOException e) {
-            ui.printFileNotFoundResponse(storage.getSaveFilePath());
-        } catch (NoDataException e) {
-            ui.printNoDataResponse();
-        }
-    }
 
     TaskMate() {
         this.ui = new Ui(CHATBOT_NAME);
@@ -70,7 +53,6 @@ public class TaskMate {
         Command command;
         while (true) {
             userInput = ui.nextLine();
-            userInput = userInput.trim(); // To remove trailing whitespaces from user input
 
             // Parse user input
             try {

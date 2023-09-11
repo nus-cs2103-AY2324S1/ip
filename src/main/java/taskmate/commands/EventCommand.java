@@ -17,22 +17,6 @@ public class EventCommand extends AddCommand {
     boolean isExit;
     LocalDate from, to;
 
-    /**
-     * EventCommand constructor that allows the developer to specify the name of the task, a date that represents
-     * the date that this task starts, and a date that represents the date that this task ends. These dates must be
-     * `LocalDate` instances.
-     *
-     * @param name the name of the event task.
-     * @param from the date that the event task starts.
-     * @param to the date that the event task ends.
-     */
-    EventCommand(String name, LocalDate from, LocalDate to) {
-        this.commandType = "Event";
-        this.isExit = false;
-        this.name = name;
-        this.from = from;
-        this.to = to;
-    }
 
     /**
      * EventCommand constructor that allows the developer to specify the name of the task, a date that represents
@@ -61,6 +45,11 @@ public class EventCommand extends AddCommand {
      * @param storage Storage object that saves undeleted tasks to the disk.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+
+        assert super.name != null;
+        assert this.from != null;
+        assert this.to != null;
+
         // 1. Create new deadline task
         Task newEventTask = new Event(name, from, to);
 

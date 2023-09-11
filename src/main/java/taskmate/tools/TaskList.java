@@ -75,15 +75,18 @@ public class TaskList {
         if (!isDone) {
             return;
         }
+
+        assert this.tasks.contains(t);
         try {
             this.markAsDone(t);
         } catch (TaskNotFoundException e) {
-            System.out.println(e); // todo: Assert that t can be found within tasks so that can remove try catch
+            // Assertion above guarantees that t can be found within tasks so no TaskNotFoundException will be thrown
         }
     }
 
     public void removeTask(int i) throws TaskNotFoundException {
-        if (i > tasks.size() | i < 0) {
+        boolean indexOutOfBounds = i > tasks.size() | i < 0;
+        if (indexOutOfBounds) {
             throw new TaskNotFoundException();
         }
         Task t = tasks.get(i);
@@ -128,18 +131,19 @@ public class TaskList {
     }
 
     public Task getTask(int i) throws TaskNotFoundException {
-        if (i >= tasks.size() | i < 0) {
+        boolean indexOutOfBounds = i > tasks.size() | i < 0;
+        if (indexOutOfBounds) {
             throw new TaskNotFoundException();
         }
         return tasks.get(i);
     }
 
     public String formatAllTasksForSaving() {
-        String returnString = "";
+        StringBuilder returnString = new StringBuilder();
         for (Task t : getAllTasks()) {
-            returnString += t.formatTaskForSaving();
-            returnString += "\n";
+            returnString.append(t.formatTaskForSaving());
+            returnString.append("\n");
         }
-        return returnString;
+        return returnString.toString();
     }
 }

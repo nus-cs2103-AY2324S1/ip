@@ -20,6 +20,7 @@ public class Deadline extends Task {
      */
     public Deadline(String name, String by) {
         super(name);
+        assert by != null;
         this.by = LocalDate.parse(by);
     }
 
@@ -32,6 +33,7 @@ public class Deadline extends Task {
      */
     public Deadline(String name, LocalDate by) {
         super(name);
+        assert by != null;
         this.by = by;
     }
 
@@ -46,6 +48,7 @@ public class Deadline extends Task {
      */
     public Deadline(String name, String by, boolean isDone) {
         super(name, isDone);
+        assert by != null;
         this.by = LocalDate.parse(by);
     }
 

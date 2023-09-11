@@ -15,6 +15,8 @@ public class Parser {
             EmptyToException, InvalidFromException, EmptyFromException,
             NotAnIntegerException {
 
+        userInput = userInput.trim(); // remove trailing whitespaces
+
         String commandType = getCommandType(userInput);
         // bye
         if (commandType.equals(TaskMate.COMMAND_TYPES.bye.toString())) {
