@@ -35,7 +35,7 @@ public class Ui {
      * @param tasks The list of tasks.
      */
     public void start(TaskList tasks) {
-        System.out.println(line + "\n" + "Hello! I'm James\n" + "What can I do for you?\n" + line);
+        System.out.println(line + "\n" + "Hello! I'm James\n + What can I do for you?\n" + line);
 
         Scanner in = new Scanner(System.in);
 
