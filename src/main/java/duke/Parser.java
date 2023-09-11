@@ -23,20 +23,20 @@ public class Parser {
         String[] words = userInput.split(" ", 2);
 
         switch (words[0].toLowerCase()) {
-            case COMMAND_TODO:
-                return addTodoTask(words[1], taskList);
-            case COMMAND_DEADLINE:
-                return addDeadlineTask(words[1], taskList);
-            case COMMAND_EVENT:
-                return addEventTask(words[1], taskList);
-            case COMMAND_MARK:
-                return parseMarkTask(words[1], taskList);
-            case COMMAND_UNMARK:
-                return parseUnmarkTask(words[1], taskList);
-            case COMMAND_DELETE:
-                return parseDeleteTask(words[1], taskList);
-            default:
-                throw new IllegalArgumentException("Invalid command: " + words[0]);
+        case COMMAND_TODO:
+            return addTodoTask(words[1], taskList);
+        case COMMAND_DEADLINE:
+            return addDeadlineTask(words[1], taskList);
+        case COMMAND_EVENT:
+            return addEventTask(words[1], taskList);
+        case COMMAND_MARK:
+            return parseMarkTask(words[1], taskList);
+        case COMMAND_UNMARK:
+            return parseUnmarkTask(words[1], taskList);
+        case COMMAND_DELETE:
+            return parseDeleteTask(words[1], taskList);
+        default:
+            throw new IllegalArgumentException("Invalid command: " + words[0]);
         }
     }
 
