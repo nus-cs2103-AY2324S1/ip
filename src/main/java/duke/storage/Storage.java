@@ -12,11 +12,6 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
 
-
-
-
-
-
 /**
  * Encapsulates the storage of tasks in duke.txt.
  */

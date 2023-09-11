@@ -13,12 +13,12 @@ import duke.util.TaskList;
  * It provides methods to print various messages to the user.
  */
 public class Ui {
-    private final String LOGO = ",------.,--.              ,--.  \n"
+    private static final String LOGO = ",------.,--.              ,--.  \n"
             + "|  .---\'|  |,-.,--.,--. ,-|  |  \n"
             + "|  `--, |     /|  ||  |' .-. |   \n"
             + "|  `---.|  \\\\  \\\\  ''  '\\\\ `-\'   \n"
             + "`------'`--'`--'`----'  `---' \n";
-    private final String LINE = "-".repeat(60);
+    private static final String LINE = "-".repeat(60);
 
     /**
      * Prints the welcome message to the user.
