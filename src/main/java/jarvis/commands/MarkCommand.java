@@ -38,9 +38,10 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        tasks.changeStatus(index - 1, isMark);
+        tasks.changeStatus(this.index - 1, isMark);
+        assert this.index <= tasks.size();
         storage.writeData(tasks.getAllTasks());
-        return ui.showStatus(index, tasks.getTask(index - 1), isMark);
+        return ui.showStatus(index, tasks.getTask(this.index - 1), isMark);
     }
 
     /**

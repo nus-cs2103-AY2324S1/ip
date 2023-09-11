@@ -41,7 +41,8 @@ public class MainWindow extends AnchorPane {
         this.dialogContainer.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         this.dialogContainer.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         this.dialogBox.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        this.dialogBox.getChildren().add(DialogBox.getDukeDialog("Hi!", this.jarvisImg));
+        this.dialogBox.getChildren().add(DialogBox.getDukeDialog("Greetings, I am Jarvis! How may I assist you"
+                + " today?", this.jarvisImg));
     }
 
     /**
@@ -57,9 +58,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, this.userImg),
                 DialogBox.getDukeDialog(response, this.jarvisImg)
         );
-          if (input.equals("bye")) {
+        if (input.equals("bye")) {
             Platform.exit();
-          }
+        }
     }
 
     /**

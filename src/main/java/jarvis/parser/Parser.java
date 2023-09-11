@@ -78,6 +78,7 @@ public class Parser {
             return new IncorrectCommand("Please enter a number greater than 0!");
         }
 
+        assert !split[0].isBlank();
         return flag ? new MarkCommand(index, split[0]) : new DeleteCommand(index);
     }
 

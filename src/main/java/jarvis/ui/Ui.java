@@ -9,11 +9,6 @@ import jarvis.tasks.Task;
  * @author Shishir
  */
 public class Ui {
-    /** Returns a greeting message. */
-    public String greet() {
-        return "Greetings, I am Jarvis! How may I assist you today?";
-    }
-
     /** Returns a farewell message. */
     public String leave() {
         return "I shall now take my leave. Farewell!";
