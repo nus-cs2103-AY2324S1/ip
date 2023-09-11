@@ -7,6 +7,9 @@ import java.time.format.DateTimeFormatter;
  * Represents task that start at a specific date/time and ends at a specific date/time
  */
 public class Event extends Task {
+    private static final String TASK_ICON = "[E]";
+    private static final DateTimeFormatter SERIALIZE_DT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter OUTPUT_DT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
     protected LocalDateTime from;
     protected LocalDateTime to;
 
@@ -28,14 +31,14 @@ public class Event extends Task {
         return String.format("E | %d | %s | %s | %s",
                 super.isDone ? 1 : 0,
                 super.description,
-                this.from.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")),
-                this.to.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
+                this.from.format(SERIALIZE_DT_FORMATTER),
+                this.to.format(SERIALIZE_DT_FORMATTER));
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString()
-                + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm"))
-                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm")) + ")";
+        return TASK_ICON + super.toString()
+                + " (from: " + this.from.format(OUTPUT_DT_FORMATTER)
+                + " to: " + this.to.format(OUTPUT_DT_FORMATTER) + ")";
     }
 }

@@ -1,15 +1,9 @@
 package carbonbot;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import carbonbot.task.Deadline;
-import carbonbot.task.Event;
 import carbonbot.task.Task;
-import carbonbot.task.Todo;
 
 /**
  * TaskList contains the task list and provides operations to interact with the tasks in the list.
@@ -25,55 +19,11 @@ public class TaskList {
     }
 
     /**
-     * Constructs a list of tasks based on the serialized list of tasks.
+     * Constructs a TaskList with a given a list of tasks.
+     * @param tasks List of tasks
      */
-    public TaskList(List<String> tasks) throws DukeException {
-        this.tasks = new ArrayList<>();
-        for (String str : tasks) {
-            try {
-                Task task;
-
-                // Split the string by its delimiter
-                String[] cols = str.split(" \\| ");
-
-                String taskType = cols[0];
-                switch (taskType) {
-                case "T":
-                    task = new Todo(cols[2]);
-                    break;
-                case "D":
-                    try {
-                        LocalDateTime byDt = parseDateTimeString(cols[3]);
-                        task = new Deadline(cols[2], byDt);
-                    } catch (DateTimeParseException ex) {
-                        throw new DukeException("☹ OOPS!!! The datetime was not in a valid format.");
-                    }
-                    break;
-                case "E":
-                    try {
-                        LocalDateTime fromDt = parseDateTimeString(cols[3]);
-                        LocalDateTime toDt = parseDateTimeString(cols[4]);
-                        task = new Event(cols[2], fromDt, toDt);
-                    } catch (DateTimeParseException ex) {
-                        throw new DukeException("☹ OOPS!!! The datetime was not in a valid format.");
-                    }
-                    break;
-                default:
-                    throw new DukeException("☹ OOPS!!! The save file wasn't in the correct format.");
-                }
-                if (cols[1].equals("1")) {
-                    task.markAsDone();
-                }
-                this.tasks.add(task);
-            } catch (ArrayIndexOutOfBoundsException ex) {
-                throw new DukeException("☹ OOPS!!! The save file wasn't in the correct format.");
-            }
-        }
-    }
-
-    private LocalDateTime parseDateTimeString(String dateTime) throws DateTimeParseException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        return LocalDateTime.parse(dateTime, formatter);
+    public TaskList(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     /**
@@ -112,7 +62,7 @@ public class TaskList {
     }
 
     /**
-     * Serializes the tasks in the list to a String
+     * Serializes the tasks in the list to a String.
      *
      * @return Serialized tasks
      */

@@ -20,13 +20,13 @@ public class FindCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showMessage("Here are the matching tasks in your list:");
+        ui.bufferMessage("Here are the matching tasks in your list:");
 
         // Print tasks that contains the keyword
         for (int i = 1; i <= tasks.size(); i++) {
             Task t = tasks.get(i);
             if (t.getDescription().contains(keyword)) {
-                ui.showMessage(i + "." + t.toString());
+                ui.bufferMessage(i + "." + t.toString());
             }
         }
     }

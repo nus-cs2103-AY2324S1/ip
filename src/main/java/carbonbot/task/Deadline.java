@@ -7,6 +7,9 @@ import java.time.format.DateTimeFormatter;
  * Represents task that need to be done before a specific date/time
  */
 public class Deadline extends Task {
+    private static final String TASK_ICON = "[D]";
+    private static final DateTimeFormatter SERIALIZE_DT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter OUTPUT_DT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
     protected LocalDateTime by;
 
     /**
@@ -25,12 +28,12 @@ public class Deadline extends Task {
         return String.format("D | %d | %s | %s",
                 super.isDone ? 1 : 0,
                 super.description,
-                this.by.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
+                this.by.format(SERIALIZE_DT_FORMATTER));
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString()
-                + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm")) + ")";
+        return TASK_ICON + super.toString()
+                + " (by: " + by.format(OUTPUT_DT_FORMATTER) + ")";
     }
 }

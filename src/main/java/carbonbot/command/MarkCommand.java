@@ -1,11 +1,10 @@
 package carbonbot.command;
 
-import java.io.IOException;
-
-import carbonbot.DukeException;
 import carbonbot.Storage;
 import carbonbot.TaskList;
 import carbonbot.Ui;
+import carbonbot.exception.CarbonException;
+import carbonbot.exception.CarbonInvalidIndexException;
 import carbonbot.task.Task;
 
 /**
@@ -27,32 +26,25 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws CarbonException {
         Task task;
         try {
             task = tasks.get(taskIdx);
         } catch (IndexOutOfBoundsException ioe) {
-            throw new DukeException("Index provided was out-of-bounds. Use the index"
-                    + " number labelled for the task in the command 'list'!");
+            throw new CarbonInvalidIndexException();
         }
 
         assert task != null;
 
         if (isMark) {
-            ui.showMessage("Nice! I've marked this task as done:");
+            ui.bufferMessage("Nice! I've marked this task as done:");
             task.markAsDone();
         } else {
-            ui.showMessage("OK, I've marked this task as not done yet:");
+            ui.bufferMessage("OK, I've marked this task as not done yet:");
             task.markAsUndone();
         }
-        ui.showMessage(task.toString());
+        ui.bufferMessage(task.toString());
 
-        // Save the TaskList to Storage
-        try {
-            storage.write(tasks.serialize());
-        } catch (IOException ex) {
-            throw new DukeException("I/O Error: Failed to write to storage. "
-                    + ex.getMessage());
-        }
+        storage.saveTasks(tasks);
     }
 }

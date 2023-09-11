@@ -1,23 +1,28 @@
 package carbonbot;
 
-import java.io.IOException;
-
 import carbonbot.command.Command;
+import carbonbot.control.MainWindow;
+import carbonbot.exception.CarbonException;
+import carbonbot.exception.CarbonSerializationException;
+import carbonbot.exception.CarbonStorageException;
 
 /**
  * CarbonBot is a simple chatbot that helps to keep track of various things such as tasks.
  */
 
 public class CarbonBot {
+    private static final String DEFAULT_DATA_FILE_PATH = "./data/tasks.txt";
     private final String saveFilePath;
     private final Ui ui;
     private final Storage storage;
     private boolean shouldExit = false;
     private TaskList tasks;
 
-
-    public CarbonBot() {
-        this("./data/tasks.txt");
+    /**
+     * Constructs a CarbonBot object that will read and write its data to the default file path.
+     */
+    public CarbonBot(MainWindow mainWindow) {
+        this(DEFAULT_DATA_FILE_PATH, mainWindow);
     }
 
     /**
@@ -25,51 +30,20 @@ public class CarbonBot {
      *
      * @param filePath Path to save file
      */
-    public CarbonBot(String filePath) {
+    public CarbonBot(String filePath, MainWindow mainWindow) {
         this.saveFilePath = filePath;
-        this.ui = new Ui();
+        this.ui = new Ui(mainWindow);
         this.storage = new Storage(filePath);
 
         try {
-            this.tasks = new TaskList(storage.load());
-        } catch (IOException | DukeException ex) {
+            this.tasks = storage.getTasks();
+        } catch (CarbonStorageException | CarbonSerializationException ex) {
             this.ui.showLoadingError();
             this.tasks = new TaskList();
         }
-    }
 
-    /**
-     * Executes CarbonBot to start running
-     */
-    public void run() {
-        // Assert the necessary components are initialized
-        assert tasks != null;
-        assert ui != null;
-        assert storage != null;
 
         this.ui.showGreetings();
-        boolean isExit = false;
-        while (!isExit) {
-            String input = this.ui.getNextInput();
-
-            // Ignore if the input was empty
-            if (input.isBlank()) {
-                continue;
-            }
-
-            try {
-                ui.printDivider();
-                Command c = Parser.parse(input);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-                continue;
-
-            } catch (DukeException e) {
-                ui.showMessage(e.getMessage());
-            } finally {
-                ui.printDivider();
-            }
-        }
     }
 
     /**
@@ -91,10 +65,8 @@ public class CarbonBot {
             if (c.isExit()) {
                 this.shouldExit = true;
             }
-        } catch (DukeException e) {
-            ui.showMessage(e.getMessage());
-        } finally {
-            //ui.printDivider();
+        } catch (CarbonException e) {
+            ui.bufferMessage(e.getMessage());
         }
 
         return ui.flushBuffer();
