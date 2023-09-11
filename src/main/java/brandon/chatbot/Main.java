@@ -2,6 +2,7 @@ package brandon.chatbot;
 
 import java.io.IOException;
 
+import brandon.chatbot.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
