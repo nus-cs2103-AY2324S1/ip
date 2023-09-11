@@ -19,12 +19,12 @@ import exception.InvalidCommandException;
  * Parses user input.
  */
 public class Parser {
-    public static final Pattern BASIC_COMMAND = Pattern.compile("(?<command>\\S+)(?<arguments>.*)");
-    public static final String DATE_PATTERN = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}";
-    public static final Pattern DEADLINE_FORMAT = Pattern.compile(
+    private static final Pattern BASIC_COMMAND = Pattern.compile("(?<command>\\S+)(?<arguments>.*)");
+    private static final String DATE_PATTERN = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}";
+    private static final Pattern DEADLINE_FORMAT = Pattern.compile(
             "(?<deadline>[^\"]+) /by (" + DATE_PATTERN + ")");
 
-    public static final Pattern EVENT_FORMAT = Pattern.compile(
+    private static final Pattern EVENT_FORMAT = Pattern.compile(
             "(?<deadline>[^\"]+) /from (" + DATE_PATTERN + ")"
                     + " /to (" + DATE_PATTERN + ")");
 
