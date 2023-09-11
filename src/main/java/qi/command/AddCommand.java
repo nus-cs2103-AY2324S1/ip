@@ -62,13 +62,13 @@ public class AddCommand extends Command {
      * @throws QiException If the file storing date cannot be written.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws QiException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws QiException {
         tasks.addTask(this.task);
-        ui.showTaskAdded(this.task, tasks);
         try {
             storage.update(tasks);
         } catch (IOException e) {
             throw new QiException("Cannot write to file!");
         }
+        return ui.showTaskAdded(this.task, tasks);
     }
 }

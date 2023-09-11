@@ -35,30 +35,38 @@ public class Qi {
         }
     }
 
-    /**
-     * Starts the interaction with users once being called.
-     */
-    public void run() {
-        ui.showWelcome();
+//    /**
+//     * Starts the interaction with users once being called.
+//     */
+//    public void run() {
+//        ui.showWelcome();
+//
+//        boolean isExit = false;
+//        while (!isExit) {
+//            try {
+//                String fullCommand = ui.readCommand();
+//                ui.showLine();
+//                Command c = Parser.parse(fullCommand);
+//                c.execute(tasks, ui, storage);
+//                isExit = c.isExit();
+//            } catch (QiException e) {
+//                ui.showError(e.getMessage());
+//            } finally {
+//                ui.showLine();
+//                System.out.println();
+//            }
+//        }
+//    }
 
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (QiException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-                System.out.println();
-            }
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            String message = c.execute(this.tasks, this.ui, this.storage);
+            return "Qi:\n" + message;
+        } catch (QiException e) {
+            return "Qi:\n" + e.getMessage();
         }
     }
-
-    public static void main(String[] args) {
-        new Qi("data/tasks.txt").run();
-    }
 }
+
+

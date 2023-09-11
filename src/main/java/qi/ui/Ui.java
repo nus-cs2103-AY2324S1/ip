@@ -22,12 +22,9 @@ public class Ui {
     /**
      * Prints welcoming message on the screen.
      */
-    public void showWelcome() {
-        showLine();
-        System.out.println("     Hello! I'm Qi");
-        System.out.println("     What can I do for you?");
-        showLine();
-        System.out.println();
+    public String showWelcome() {
+        return "Hello! I'm Qi"
+            + "What can I do for you?";
     }
 
     /**
@@ -45,10 +42,10 @@ public class Ui {
      * @param task Task added to the list.
      * @param list Current TaskList.
      */
-    public void showTaskAdded(Task task, TaskList list) {
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("      " + task);
-        System.out.println("     Now you have " + list.size() + " tasks in the list.");
+    public String showTaskAdded(Task task, TaskList list) {
+        return "Got it. I've added this task:\n"
+            + " " + task + '\n'
+            + "Now you have " + list.size() + " tasks in the list.";
     }
 
     /**
@@ -57,10 +54,10 @@ public class Ui {
      * @param taskId Id of the task removed.
      * @param list Current TaskList.
      */
-    public void showTaskDeleted(int taskId, TaskList list) {
-        System.out.println("     Noted. I've removed this task:");
-        System.out.println("       " + list.deleteTask(taskId));
-        System.out.println("     Now you have " + list.size() + " tasks in the list.");
+    public String showTaskDeleted(int taskId, TaskList list) {
+        return "Noted. I've removed this task:\n"
+            + "  " + list.deleteTask(taskId) + '\n'
+            + "Now you have " + list.size() + " tasks in the list.";
     }
 
     /**
@@ -69,10 +66,10 @@ public class Ui {
      * @param taskId Id of the task marked as done.
      * @param list Current TaskList.
      */
-    public void showTaskMarked(int taskId, TaskList list) {
+    public String showTaskMarked(int taskId, TaskList list) {
         list.mark(taskId, true);
-        System.out.println("     Nice! I've marked this task as done:");
-        System.out.println("       " + list.showTask(taskId));
+        return "Nice! I've marked this task as done:\n"
+            + "  " + list.showTask(taskId);
     }
 
     /**
@@ -81,10 +78,10 @@ public class Ui {
      * @param taskId Id of the task unmarked.
      * @param list Current TaskList.
      */
-    public void showTaskUnmarked(int taskId, TaskList list) {
+    public String showTaskUnmarked(int taskId, TaskList list) {
         list.mark(taskId, false);
-        System.out.println("     OK, I've marked this task as not done yet:");
-        System.out.println("       " + list.showTask(taskId));
+        return "OK, I've marked this task as not done yet:\n"
+            + "  " + list.showTask(taskId);
     }
 
     /**
@@ -92,42 +89,36 @@ public class Ui {
      *
      * @param list Current TaskList.
      */
-    public void showList(TaskList list) {
-        System.out.println("     Here are the tasks in your list:");
-        System.out.print(list);
+    public String showList(TaskList list) {
+        return "Here are the tasks in your list:\n"
+            + list;
     }
 
-    public void showMatching(String matchingTasks) {
-        System.out.println("     Here are the matching tasks in your list:");
-        System.out.print(matchingTasks);
+    public String showMatching(String matchingTasks) {
+        return "Here are the matching tasks in your list:\n"
+            + matchingTasks;
     }
 
-    /**
-     * Prints long separating line on the screen.
-     */
-    public void showLine() {
-        System.out.println("    ____________________________________________________________");
-    }
 
     /**
      * Prints a message that the input is invalid.
      */
-    public void showInvalid() {
-        System.out.println("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+    public String showInvalid() {
+        return "OOPS!!! I'm sorry, but I don't know what that means :<";
     }
 
     /**
      * Prints goodbye message on the screen.
      */
-    public void showGoodbye() {
-        System.out.println("     Bye. Hope to see you again soon!");
+    public String showGoodbye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
      * Prints message that the file cannot be loaded.
      */
-    public void showLoadingError() {
-        System.out.println("Cannot load file!");
+    public String showLoadingError() {
+        return "Cannot load file!";
     }
 
     /**
@@ -135,7 +126,7 @@ public class Ui {
      *
      * @param e Content of the error message.
      */
-    public void showError(String e) {
-        System.out.println("     " + e);
+    public String showError(String e) {
+        return "" + e;
     }
 }
