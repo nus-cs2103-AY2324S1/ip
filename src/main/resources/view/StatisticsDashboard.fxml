@@ -1,38 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
-
-<VBox prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <HBox alignment="CENTER">
-         <children>
-            <Label text="Usage Statistics">
-               <font>
-                  <Font name="System Font" size="24.0" />
-               </font>
-               <padding>
-                  <Insets bottom="15.0" top="15.0" />
-               </padding>
-            </Label>
-         </children>
-      </HBox>
-      <HBox prefHeight="545.0" prefWidth="800.0">
-         <children>
-            <PieChart title="Distribution of Tasks" fx:id="taskDistribution"/>
-            <LineChart>
-              <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
-            </LineChart>
-         </children>
-      </HBox>
-   </children>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<VBox prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+      xmlns:fx="http://javafx.com/fxml/1">
+    <HBox alignment="CENTER">
+        <Label text="Usage Statistics">
+            <font>
+                <Font name="System Font" size="24.0"/>
+            </font>
+            <padding>
+                <Insets bottom="15.0" top="15.0"/>
+            </padding>
+        </Label>
+    </HBox>
+    <HBox prefHeight="545.0" prefWidth="800.0">
+        <PieChart fx:id="taskDistribution" title="Distribution of Tasks"/>
+        <LineChart title="Weekly Task Completion Progress" fx:id="weeklyTaskCompletionProgress">
+            <xAxis>
+                <CategoryAxis side="BOTTOM"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis side="LEFT"/>
+            </yAxis>
+        </LineChart>
+    </HBox>
 </VBox>
