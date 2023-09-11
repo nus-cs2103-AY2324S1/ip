@@ -35,13 +35,7 @@ public class Storage {
          */
         @SuppressWarnings("unchecked")
         ArrayList<Task> loadedTasks = (ArrayList<Task>) inputStream.readObject();
-        if (loadedTasks.isEmpty()) {
-            // actually this part might be unnecessary
-            throw new DukeException("currently there is no task in your Tasks");
-        }
-        ArrayList<Task> tasks = new ArrayList<>();
-        tasks.addAll(loadedTasks);
-        return tasks;
+        return loadedTasks;
     }
     /**
      * Everytime there is a change in tasks, 2 things happen
@@ -70,7 +64,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println("ewq2" + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 }

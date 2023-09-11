@@ -4,10 +4,6 @@ package duke;
  * This class deals with making sense of the user command
  */
 public class Parser {
-    private static boolean isExit = false;
-    public static boolean isExit() {
-        return isExit;
-    }
     /**
      * This function takes in the user input and carries out the next steps accordingly
      *
@@ -20,7 +16,6 @@ public class Parser {
         if (userInput.equals("list")) {
             output = tasks.displayList();
         } else if (userInput.equals("bye")) {
-            isExit = true;
             output = "Thanks for coming!";
         } else if (userInput.contains("mark")) {
             try {
@@ -70,7 +65,6 @@ public class Parser {
         } else if (userInput.contains("find")) {
             output = tasks.displayMatchingList(userInput.substring(5));
         } else {
-            //throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             output = "OOPS!!! I'm sorry, but I don't know what that means :-(";
         }
         storage.updateFile(tasks);

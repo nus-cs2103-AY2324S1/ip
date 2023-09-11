@@ -6,8 +6,8 @@ import java.io.Serializable;
  * can be considered an abstract class. Can be either a Todo, Deadline, or Event class
  */
 public class Task implements Serializable {
-    protected boolean marked;
-    protected String description;
+    private boolean marked;
+    private String description;
 
     /**
      * Constructor to initialise a Task object
@@ -29,7 +29,6 @@ public class Task implements Serializable {
     public String getDescription() {
         return this.description;
     }
-
     public void markAsUnDone() {
         this.marked = false;
     }
@@ -37,7 +36,6 @@ public class Task implements Serializable {
     public String toString() {
         return this.getStatusIconWithBracket() + " " + description;
     }
-
     public String toFileString() {
         return " | " + this.getStatusIcon() + " | " + this.getDescription();
     }

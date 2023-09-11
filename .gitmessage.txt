@@ -1,0 +1,13 @@
+Subject line (try to keep under 50 characters)
+
+{current situation} -- use present tense}
+
+{why it needs to change}
+
+{what is being done about it} -- use imperative mood}
+
+{why it is done that way}
+
+{any other relevant info}
+
+note*: wrap each line at maximum 72 characters

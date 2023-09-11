@@ -1,13 +1,13 @@
 package duke;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * the collection that contains the list of Tasks
+ * The collection that contains the list of Tasks
  */
 public class TaskList implements Serializable {
-    private static String indent = "";
-    private static String megaIndent = "     ";
+    private static final String MEGA_INDENT = "    ";
     private ArrayList<Task> tasks;
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -46,11 +46,11 @@ public class TaskList implements Serializable {
      */
     public String displayList() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(indent + "Here are the tasks in your list:\n");
+        stringBuilder.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             int num = i + 1;
             Task curr = tasks.get(i);
-            stringBuilder.append(indent + num + ". " + curr.toString() + "\n");
+            stringBuilder.append(num + ". " + curr.toString() + "\n");
         }
         return stringBuilder.toString();
     }
@@ -60,22 +60,21 @@ public class TaskList implements Serializable {
      */
     public String displayMatchingList(String userInput) {
         ArrayList<Task> temp = new ArrayList<>();
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
+        for (Task task : tasks) {
             String taskDescription = task.getDescription();
             if (taskDescription.contains(userInput)) {
                 temp.add(task);
             }
         }
         StringBuilder stringBuilder = new StringBuilder();
-        if (temp.size() == 0) {
-            stringBuilder.append(indent + "There are no matching tasks\n");
+        if (temp.isEmpty()) {
+            stringBuilder.append("There are no matching tasks\n");
         } else {
-            stringBuilder.append(indent + "Here are the matching tasks in your list:\n");
+            stringBuilder.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < temp.size(); i++) {
                 int num = i + 1;
                 Task curr = temp.get(i);
-                stringBuilder.append(indent + num + "." + curr.toString() + "\n");
+                stringBuilder.append(num + "." + curr.toString() + "\n");
             }
         }
         return stringBuilder.toString();
@@ -84,140 +83,140 @@ public class TaskList implements Serializable {
      * For an input such as 'todo borrow book', letter is 'T' and string is 'borrow book'
      *
      * @param letter the letter corresponding to the first letter of the duke.Task
-     * @param string the string corresponding to the chunk of text after the word todo, deadline, or event
+     * @param userInput the string corresponding to the chunk of text after the word todo, deadline, or event
      */
-    public String addTask(String letter, String string) throws DukeException {
+    public String addTask(String letter, String userInput) throws DukeException {
         if (letter.equals("T")) {
-            tasks.add(ToDo.newToDo(string));
+            tasks.add(ToDo.newToDo(userInput));
         }
         if (letter.equals("D")) {
-            tasks.add(Deadline.newDeadline(getDescription(string), getBy(string)));
+            tasks.add(Deadline.newDeadline(getDescription(userInput), getBy(userInput)));
         }
         if (letter.equals("E")) {
-            tasks.add(Event.newEvent(getDescription(string), getFrom(string), getTo(string)));
+            tasks.add(Event.newEvent(getDescription(userInput), getFrom(userInput), getTo(userInput)));
         }
 
         int tasksSize = tasks.size();
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(indent + "Got it. I've added this task:\n");
-        stringBuilder.append(megaIndent + tasks.get(tasksSize - 1).toString() + "\n");
-        stringBuilder.append(indent + "Now you have " + tasksSize + " tasks in the list.\n");
-        return stringBuilder.toString();
+        StringBuilder string = new StringBuilder();
+        string.append("Got it. I've added this task:\n");
+        string.append(MEGA_INDENT + tasks.get(tasksSize - 1).toString() + "\n");
+        string.append("Now you have " + tasksSize + " tasks in the list.\n");
+        return string.toString();
     }
     /**
      * This method encapsulates the functionality of marking a task as completed or not
      * For example, the input 'mark 1' will mark the duke.Task at position 0 at the TaskArray as 'marked'
-     * @param string the input string
+     * @param userInput the input string
      * @throws DukeException if input is invalid
      */
-    public String markDescription(String string) throws DukeException {
-        String clean = string.replaceAll("\\D+", ""); //remove non-digits
-        int pos = Integer.parseInt(clean) - 1;
+    public String markDescription(String userInput) throws DukeException {
+        String digits = userInput.replaceAll("\\D+", ""); //remove non-digits
+        int pos = Integer.parseInt(digits) - 1;
         if (pos >= tasks.size()) {
             throw new DukeException("You are trying to access a Task that does not exist!");
         }
         Task curr = tasks.get(pos);
         StringBuilder stringBuilder = new StringBuilder();
-        if (string.contains("unmark")) {
+        if (userInput.contains("unmark")) {
             curr.markAsUnDone();
-            stringBuilder.append(indent + "OK, I've marked this task as not done yet:\n");
-        } else if (string.contains("mark")) {
+            stringBuilder.append("OK, I've marked this task as not done yet:\n");
+        } else if (userInput.contains("mark")) {
             curr.markAsDone();
-            stringBuilder.append(indent + "Nice! I've marked this task as done:\n");
+            stringBuilder.append("Nice! I've marked this task as done:\n");
         }
-        stringBuilder.append(megaIndent + curr.getStatusIconWithBracket() + " " + curr.description + "\n");
+        stringBuilder.append(MEGA_INDENT + curr.getStatusIconWithBracket() + " " + curr.getDescription() + "\n");
         return stringBuilder.toString();
     }
     /**
      * For deadline and event Tasks, obtains the description of the duke.Task (before the first slash)
      * For example, the input 'event project meeting /from Mon 2pm /to 4pm' will return 'project meeting'
      *
-     * @param string of the duke.Task
+     * @param userInput of the duke.Task
      * @return the description of the duke.Task
      */
-    public static String getDescription(String string) {
-        int len = string.length();
+    public static String getDescription(String userInput) {
+        int len = userInput.length();
         int count = 0;
         for (int i = 0; i < len; i++) {
-            if (string.charAt(i) == '/') {
+            if (userInput.charAt(i) == '/') {
                 break;
             }
             count++;
         }
-        return string.substring(0, count);
+        return userInput.substring(0, count);
     }
     /**
      * A method for the duke.Deadline class to obtain the by part of the duke.Task description
      * For example, the input 'deadline return book /by Sunday' will return 'Sunday'
      *
-     * @param string the duke.Task description
+     * @param userInput the duke.Task description
      * @return the deadline
      * @throws DukeException if the input string is formatted wrongly
      */
-    public static String getBy(String string) throws DukeException {
+    public static String getBy(String userInput) throws DukeException {
         String slash = "/";
-        int first = string.indexOf(slash);
-        if (first == -1 || !string.substring(first + 1, first + 3).contains("by")) {
+        int first = userInput.indexOf(slash);
+        if (first == -1 || !userInput.substring(first + 1, first + 3).contains("by")) {
             throw new DukeException("You need to add a by timing!");
         }
-        return string.substring(first + 4); // returns "Sunday"
+        return userInput.substring(first + 4); // returns "Sunday"
     }
 
     /**
      * A method for the duke.Event class to obtain the from part of the duke.Event description
      * For example, the input 'event project meeting /from Mon 2pm /to 4pm' will return 'Mon 2pm'
      *
-     * @param string the duke.Task description
+     * @param userInput the duke.Task description
      * @return the from part of the event
      * @throws DukeException throws duke.DukeException if invalid input
      */
-    public static String getFrom(String string) throws DukeException {
+    public static String getFrom(String userInput) throws DukeException {
         String slash = "/";
-        int firstSlash = string.indexOf(slash);
-        int secondSlash = string.indexOf(slash, firstSlash + 1);
+        int firstSlash = userInput.indexOf(slash);
+        int secondSlash = userInput.indexOf(slash, firstSlash + 1);
 
         if (firstSlash == -1 || secondSlash == -1
-                || !string.substring(firstSlash, firstSlash + 5).equals("/from")) {
+                || !userInput.substring(firstSlash, firstSlash + 5).equals("/from")) {
             throw new DukeException("You need to add a /from and /to for events");
         }
 
-        return string.substring(firstSlash + 6, secondSlash - 1);
+        return userInput.substring(firstSlash + 6, secondSlash - 1);
     }
     /**
      * A method for the duke.Event class to obtain the to part of the duke.Event description
      * For example, the input 'event project meeting /from Mon 2pm /to 4pm' will return '4pm'
      *
-     * @param string the duke.Task description
+     * @param userInput the duke.Task description
      * @return the to part of the event
      * @throws DukeException throws duke.DukeException if invalid input
      */
-    public static String getTo(String string) throws DukeException {
+    public static String getTo(String userInput) throws DukeException {
         String slash = "/";
-        int firstSlash = string.indexOf(slash);
-        int secondSlash = string.indexOf(slash, firstSlash + 1);
+        int firstSlash = userInput.indexOf(slash);
+        int secondSlash = userInput.indexOf(slash, firstSlash + 1);
 
-        if (!string.substring(secondSlash, secondSlash + 3).equals("/to")) {
+        if (!userInput.substring(secondSlash, secondSlash + 3).equals("/to")) {
             throw new DukeException("You need to add a /to for events");
         }
-        return string.substring(secondSlash + 4);
+        return userInput.substring(secondSlash + 4);
     }
     /**
      * This method encapsulates deleting of a task from TaskArray
      * For example, the input 'delete 3' will delete the duke.Task at position 2 of TaskArray
      *
-     * @param string the input string
+     * @param userInput the input string
      */
-    public String deleteTask(String string) throws DukeException {
-        String clean = string.replaceAll("\\D+", ""); //remove non-digits
-        int pos = Integer.parseInt(clean) - 1;
+    public String deleteTask(String userInput) throws DukeException {
+        String digits = userInput.replaceAll("\\D+", ""); //remove non-digits
+        int pos = Integer.parseInt(digits) - 1;
         if (pos >= tasks.size()) {
             throw new DukeException("You are trying to delete a Task that does not exist");
         } else {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(indent + "Noted. I've removed this task:\n");
-            stringBuilder.append(megaIndent + tasks.get(pos).toString() + "\n");
+            stringBuilder.append("Noted. I've removed this task:\n");
+            stringBuilder.append(MEGA_INDENT + tasks.get(pos).toString() + "\n");
             tasks.remove(pos);
-            stringBuilder.append(indent + "Now you have " + tasks.size() + " tasks in the list.\n");
+            stringBuilder.append("Now you have " + tasks.size() + " tasks in the list.\n");
             return stringBuilder.toString();
         }
     }

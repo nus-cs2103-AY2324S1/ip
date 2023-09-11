@@ -4,8 +4,8 @@ package duke;
  * one of the Tasks that user's can add into their list
  */
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    private String from;
+    private String to;
 
     /**
      * constructor to initialise an Event object
