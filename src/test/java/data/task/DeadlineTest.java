@@ -3,9 +3,10 @@ package data.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import duke.data.task.Deadline;
 import org.junit.jupiter.api.Test;
 
-import exception.InvalidInputException;
+import duke.exception.InvalidInputException;
 
 
 public class DeadlineTest {

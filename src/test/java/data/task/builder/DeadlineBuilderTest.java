@@ -3,10 +3,11 @@ package data.task.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import duke.data.task.builder.DeadlineBuilder;
 import org.junit.jupiter.api.Test;
 
-import exception.DukeException;
-import data.task.Task;
+import duke.exception.DukeException;
+import duke.data.task.Task;
 
 public class DeadlineBuilderTest {
     @Test
