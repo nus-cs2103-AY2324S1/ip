@@ -31,8 +31,9 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
+        assert this.dialogContainer != null : "Dialog container should not be null";
         this.scrollPane.vvalueProperty().bind(this.dialogContainer.heightProperty());
-        this.addMessages(GobbleMessage.getGobbleDialog("Hello! I'm Gobble\nWhat can I do for you?", "Gobble"));
+        this.addMessages(GobbleMessage.getGobbleDialog("Hello! I'm Gobble\nWhat can I do for you?"));
     }
 
     /**
@@ -41,6 +42,7 @@ public class MainWindow extends AnchorPane {
      * @param d duke instance
      */
     public void setDuke(Duke d) {
+        assert d != null : "Duke instance should not be null";
         this.duke = d;
     }
 
@@ -50,18 +52,19 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-
         GobbleMessage userMessage = GobbleMessage.getUserDialog(input);
         try {
             Command command = Parser.parse(input);
             GobbleMessage message = command.execute(duke.getTasks(), duke.getStorage());
+            assert message != null : "Message should not be null";
+
             this.addMessages(userMessage, message);
 
             if (input.equals("bye")) {
                 System.exit(0);
             }
         } catch (DukeException e) {
-            GobbleMessage error = GobbleMessage.getGobbleDialog(e.getMessage(), "Error");
+            GobbleMessage error = GobbleMessage.getGobbleDialog(e.getMessage());
             this.addMessages(userMessage, error);
         }
         userInput.clear();
@@ -73,6 +76,9 @@ public class MainWindow extends AnchorPane {
      * @param messages messages to be added.
      */
     private void addMessages(GobbleMessage... messages) {
+        assert messages != null : "Messages should not be null";
+        assert messages.length > 0 : "Messages should not be empty";
+        
         for (GobbleMessage message : messages) {
             dialogContainer.getChildren().add(message);
         }

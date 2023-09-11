@@ -35,6 +35,7 @@ public class Storage {
      * @param taskList list of tasks.
      */
     public void saveListToDisk(ArrayList<Task> taskList) {
+        assert taskList != null : "taskList should not be null";
         createFile(this.filePath);
 
         try {
@@ -102,10 +103,12 @@ public class Storage {
                 task = new ToDoTask(taskDescription);
                 break;
             case "DEADLINE":
+                assert details.length >= 3 : "Deadline should have 3 details";
                 String by = details[2].trim();
                 task = createDeadlineTask(taskDescription, by);
                 break;
             case "EVENT":
+                assert details.length >= 4 : "Event should have 4 details";
                 String from = details[2].trim();
                 String to = details[3].trim();
 

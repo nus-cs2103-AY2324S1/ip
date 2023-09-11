@@ -58,6 +58,7 @@ public class Parser {
         if (userInput.split(" ").length < 2) {
             throw new DukeException("☹ OOPS!!! The keyword cannot be empty.");
         }
+        assert userInput.split(" ").length >= 2 : "Keyword cannot be empty";
         return userInput.split(" ", 2)[1];
     }
 
@@ -66,7 +67,9 @@ public class Parser {
         if (userInput.split(" ").length < 2) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
+        assert userInput.split(" ").length >= 2 : "Description of a todo cannot be empty";
         String description = userInput.split(" ", 2)[1];
+
         if (description.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
@@ -79,13 +82,13 @@ public class Parser {
         }
         String by = userInput.split("/by")[1].trim();
         LocalDate byDate;
-
         try {
             byDate = LocalDate.parse(by);
         } catch (Exception e) {
             throw new DukeException("Please enter a valid date in the format: yyyy-mm-dd");
         }
         String description = userInput.split("/by")[0].trim().split(" ", 2)[1];
+
         if (description.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
         }
@@ -99,6 +102,8 @@ public class Parser {
         }
 
         String date = userInput.split("/from")[1];
+        assert date.split("/to").length >= 2 : "Date of event cannot be empty";
+
         String from = date.split("/to")[0].trim();
         if (from.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The date of 'from' cannot be empty.");
@@ -111,9 +116,7 @@ public class Parser {
 
         LocalDate fromDate;
         LocalDate toDate;
-
         try {
-
             // convert date string in the format of yyyy-mm-dd to LocalDate object
             fromDate = LocalDate.parse(from);
             // convert LocalDate object to MMM dd yyyy format
@@ -134,6 +137,7 @@ public class Parser {
         if (userInput.split(" ").length < 2) {
             throw new DukeException("☹ OOPS!!! The task number cannot be empty.");
         }
+        assert userInput.split(" ").length >= 2 : "Task number cannot be empty";
         return Integer.parseInt(userInput.split(" ")[1]) - 1;
     }
 }
