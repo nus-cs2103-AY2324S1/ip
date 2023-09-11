@@ -23,10 +23,13 @@ public class Parser {
      * @return A command object that corresponds to the parsed input.
      */
     public static Command parse(String userInput) {
+        assert userInput != null : "User input cannot be null";
+
         String[] userInputArray = userInput.split(" ", 2);
         String command = userInputArray[0];
         String commandDetails = userInputArray.length > 1 ? userInputArray[1] : "";
         CommandType commandType = CommandType.getCommandType(command);
+        assert commandType != null : "Command type cannot be null";
 
         switch (commandType) {
         case BYE:
@@ -129,8 +132,11 @@ public class Parser {
                 return new Command.Find(commandDetails);
             }
         case INVALID:
-        default:
             return new Command.InvalidCommand("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        default:
+            assert false : "There is a command type in duke.commands.CommandType that is not explicitly handled here";
+            return new Command.InvalidCommand("There is a command type in duke.commands.CommandType" +
+                    " that is not explicitly handled here.");
         }
     }
 }
