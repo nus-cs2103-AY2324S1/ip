@@ -13,6 +13,7 @@ import corgi.commands.FindTasksOnDateCommand;
 import corgi.commands.InvalidCommandException;
 import corgi.commands.ListTasksCommand;
 import corgi.commands.MarkTaskCommand;
+import corgi.commands.UndoCommand;
 import corgi.tasks.Deadline;
 import corgi.tasks.Event;
 import corgi.tasks.Task;
@@ -47,6 +48,8 @@ public class CommandParser extends Parser<Command> {
         Command command = null;
 
         switch (cmd) {
+        case UNDO:
+            command = newUndoCommand(inputs);
         case BYE:
             command = newExitCommand(inputs);
             break;
@@ -82,6 +85,14 @@ public class CommandParser extends Parser<Command> {
         }
 
         return command;
+    }
+
+    private Command newUndoCommand(String[] inputs) throws InvalidCommandFormatException {
+        if (inputs.length > 1) {
+            throw new InvalidCommandFormatException("No argument is needed!" + "\nFormat: "
+                    + CommandType.UNDO.getCommandFormat());
+        }
+        return new UndoCommand();
     }
 
     private Command newExitCommand(String[] inputs) throws InvalidCommandFormatException {
