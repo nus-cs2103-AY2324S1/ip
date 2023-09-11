@@ -33,8 +33,10 @@ public class Adam {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns the String form of the response from the user input.
+     *
+     * @param input User input
+     * @return String
      */
     public String getResponse(String input) {
         try {
