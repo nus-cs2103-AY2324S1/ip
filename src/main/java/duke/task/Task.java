@@ -20,10 +20,8 @@ public class Task {
      * @param info String that contains details of the task.
      */
     public Task(String info) {
-        //num = index;
         details = info;
         isMarked = false;
-        //taskType = type;
     }
 
     /**

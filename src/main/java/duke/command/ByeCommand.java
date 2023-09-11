@@ -19,7 +19,7 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public boolean isExitYet() {
+    public boolean isExit() {
         return true;
     }
 }

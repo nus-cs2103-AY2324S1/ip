@@ -7,9 +7,6 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 
 /**
  * Main class of Kora Chatbot Program.
@@ -66,7 +63,7 @@ public class Duke {
             if (command == null) {
                 isExit = false;
             } else {
-                isExit = command.isExitYet();
+                isExit = command.isExit();
             }
         }
         ui.closeScanner();

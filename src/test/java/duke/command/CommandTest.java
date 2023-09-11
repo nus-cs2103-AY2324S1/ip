@@ -9,6 +9,6 @@ public class CommandTest {
     @Test
     public void byeCommand_shouldExit() {
         Command command = new ByeCommand();
-        Assertions.assertTrue(command.isExitYet());
+        Assertions.assertTrue(command.isExit());
     }
 }
