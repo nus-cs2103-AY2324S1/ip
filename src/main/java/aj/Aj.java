@@ -48,7 +48,7 @@ public class Aj extends Application {
      * @throws IOException               Arose if there is issue updating database.
      */
 
-    public StringBuilder canAskCommand(String userInput) throws NoSuchCommandException, EmptyDescriptionException,
+    public StringBuilder getBotResponse(String userInput) throws NoSuchCommandException, EmptyDescriptionException,
             IndexOutOfRangeException, IOException, WrongDescriptionException { // return string builder
         StringBuilder outMsg = new StringBuilder();
         String[] cmdAndDesc = this.parser.parseCommand(userInput);
@@ -224,7 +224,6 @@ public class Aj extends Application {
     }
 
     /**
-     * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
      *
      * @param text String containing text to add
@@ -239,7 +238,6 @@ public class Aj extends Application {
     }
 
     /**
-     * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
@@ -254,13 +252,15 @@ public class Aj extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets response from bot to be displayed to user.
+     *
+     * @param userInput User's input into bot.
+     * @return String response to be displayed to user.
      */
-    public String getResponse(String userInput) { // change here
+    public String getResponse(String userInput) {
         String outMsg = "";
         try {
-            outMsg = canAskCommand(userInput).toString();
+            outMsg = getBotResponse(userInput).toString();
         } catch (AjException | IOException e) {
             outMsg = e.getMessage();
         }
