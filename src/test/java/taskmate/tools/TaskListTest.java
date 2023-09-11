@@ -1,12 +1,14 @@
 package taskmate.tools;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
+
 import taskmate.tools.tasks.Deadline;
 import taskmate.tools.tasks.Event;
 import taskmate.tools.tasks.Task;
 import taskmate.tools.tasks.Todo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskListTest {
     @Test
@@ -21,9 +23,9 @@ public class TaskListTest {
         tasks.addTask(eventTask, false);
 
         String tasksFormattedForWritingToDisk = tasks.formatAllTasksForSaving();
-        String actualAnswer = "[T][ ] This is a todo task\n" +
-                "[D][X] This is a COMPLETED deadline task (by: 2023-01-01)\n" +
-                "[E][ ] This is an event task (from: 2024-12-02 to: 1987-01-02)\n";
+        String actualAnswer = "[T][ ] This is a todo task\n"
+                + "[D][X] This is a COMPLETED deadline task (by: 2023-01-01)\n"
+                + "[E][ ] This is an event task (from: 2024-12-02 to: 1987-01-02)\n";
         assertEquals(tasksFormattedForWritingToDisk, actualAnswer);
     }
 
