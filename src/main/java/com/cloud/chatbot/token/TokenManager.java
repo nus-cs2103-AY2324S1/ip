@@ -3,7 +3,7 @@ package com.cloud.chatbot.token;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cloud.chatbot.exceptions.MissingInputException;
+import com.cloud.chatbot.exception.MissingInputException;
 
 
 

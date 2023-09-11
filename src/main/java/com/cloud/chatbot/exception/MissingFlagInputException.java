@@ -1,4 +1,4 @@
-package com.cloud.chatbot.exceptions;
+package com.cloud.chatbot.exception;
 
 import com.cloud.chatbot.token.FlagManager;
 

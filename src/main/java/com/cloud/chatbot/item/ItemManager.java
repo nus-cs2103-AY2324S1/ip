@@ -9,8 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.cloud.chatbot.Ui;
-import com.cloud.chatbot.annotations.Nullable;
-import com.cloud.chatbot.exceptions.IllegalTimestampException;
+import com.cloud.chatbot.annotation.Nullable;
+import com.cloud.chatbot.exception.IllegalTimestampException;
 import com.cloud.chatbot.file.FileStorage;
 import com.cloud.chatbot.file.Key;
 

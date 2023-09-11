@@ -3,8 +3,8 @@ package com.cloud.chatbot.token;
 import java.util.HashMap;
 import java.util.List;
 
-import com.cloud.chatbot.annotations.Nullable;
-import com.cloud.chatbot.exceptions.MissingInputException;
+import com.cloud.chatbot.annotation.Nullable;
+import com.cloud.chatbot.exception.MissingInputException;
 
 
 

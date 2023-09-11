@@ -2,8 +2,8 @@ package com.cloud.chatbot.token;
 
 import java.util.List;
 
-import com.cloud.chatbot.exceptions.MissingFlagInputException;
-import com.cloud.chatbot.exceptions.MissingInputException;
+import com.cloud.chatbot.exception.MissingFlagInputException;
+import com.cloud.chatbot.exception.MissingInputException;
 
 
 

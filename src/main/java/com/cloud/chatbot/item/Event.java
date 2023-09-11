@@ -5,7 +5,7 @@ import java.time.Instant;
 import org.json.JSONObject;
 
 import com.cloud.chatbot.DateConverter;
-import com.cloud.chatbot.exceptions.IllegalTimestampException;
+import com.cloud.chatbot.exception.IllegalTimestampException;
 import com.cloud.chatbot.file.Key;
 
 
