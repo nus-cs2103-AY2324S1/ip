@@ -17,6 +17,8 @@ public class Chatter {
 
     /**
      * A constructor for the chatter.Chatter class
+     *
+     * @param filepath Filepath to get the local data file from.
      */
     public Chatter(String filepath) {
         this.ui = new Ui();
