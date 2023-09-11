@@ -85,12 +85,12 @@ public class Storage {
     }
 
     /**
-     * Stores the given strings in datafile.
+     * Stores the given string in datafile.
      *
-     * @param s An array of strings representing the tasks to stores in data file.
+     * @param s The String representing the tasks to stores in data file.
      * @throws DukeException If error occurred during storing.
      */
-    public void store(String[] s) throws DukeException {
+    public void store(String s) throws DukeException {
         File file = new File(this.filepath);
         file.delete();
         file = new File(this.filepath);
@@ -103,10 +103,9 @@ public class Storage {
         try {
             FileWriter fileWriter = new FileWriter(this.filepath);
             bufferedWriter = new BufferedWriter(fileWriter);
-            for (int i = 0; i < s.length; i++) {
-                bufferedWriter.write(s[i]);
-                bufferedWriter.newLine();
-            }
+
+            bufferedWriter.write(s);
+
 
         } catch (IOException e) {
             throw new DukeException("Error in saving data. Data lost.");
