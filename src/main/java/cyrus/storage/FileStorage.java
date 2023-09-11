@@ -98,6 +98,11 @@ public class FileStorage implements IStorage {
                     throw new IllegalStateException("Invalid task type found in data.json");
                 }
                 task.setDone(parseBoolean(entry.get("status")));
+                if (entry.containsKey("completed_date")) {
+                    LocalDate completedDate = DateUtility.parse(entry.get("completed_date"));
+                    assert completedDate != null : "Invalid completed date format";
+                    task.setCompletedDate(completedDate);
+                }
                 fileTasks.add(task);
             }
             return fileTasks;
