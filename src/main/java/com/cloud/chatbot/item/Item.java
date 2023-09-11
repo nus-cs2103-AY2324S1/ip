@@ -1,5 +1,7 @@
 package com.cloud.chatbot.item;
 
+import org.json.JSONObject;
+
 
 
 /**
@@ -25,6 +27,14 @@ public abstract class Item {
             number,
             this.getDescription()
         );
+    }
+
+    protected JSONObject getBasicJson() {
+        JSONObject json = new JSONObject();
+        json.put("type", this.getTypeString());
+        json.put("description", this.getDescription());
+        json.put("isComplete", this.isComplete());
+        return json;
     }
 
     public String toString(int number) {
@@ -54,4 +64,9 @@ public abstract class Item {
      * Returns a string representing the type of this Item.
      */
     public abstract String getTypeString();
+
+    /*
+     * Returns the JSON representation of this item.
+     */
+    public abstract JSONObject export();
 }

@@ -1,5 +1,7 @@
 package com.cloud.chatbot.item;
 
+import org.json.JSONObject;
+
 
 
 /**
@@ -30,6 +32,13 @@ public class Deadline extends Item {
     @Override
     public String getTypeString() {
         return "D";
+    }
+
+    @Override
+    public JSONObject export() {
+        JSONObject json = this.getBasicJson();
+        json.put("timestampEnd", this.getEnd());
+        return json;
     }
 
     public String getEnd() {

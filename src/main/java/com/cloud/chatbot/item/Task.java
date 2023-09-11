@@ -1,5 +1,7 @@
 package com.cloud.chatbot.item;
 
+import org.json.JSONObject;
+
 
 
 /**
@@ -16,5 +18,10 @@ public class Task extends Item {
     @Override
     public String getTypeString() {
         return "T";
+    }
+
+    @Override
+    public JSONObject export() {
+        return this.getBasicJson();
     }
 }

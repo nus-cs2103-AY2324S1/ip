@@ -1,5 +1,7 @@
 package com.cloud.chatbot.item;
 
+import org.json.JSONObject;
+
 
 
 /**
@@ -32,6 +34,14 @@ public class Event extends Deadline {
     @Override
     public String getTypeString() {
         return "E";
+    }
+
+    @Override
+    public JSONObject export() {
+        JSONObject json = this.getBasicJson();
+        json.put("timestampStart", this.getStart());
+        json.put("timestampEnd", this.getEnd());
+        return json;
     }
 
     public String getStart() {
