@@ -40,8 +40,7 @@ public class Parser {
      * @return Todo Task.
      */
     public Task getTodoTask(String remaining, boolean isMark) {
-        return new Todo(remaining.substring(1),
-                isMark);
+        return new Todo(remaining.substring(1), isMark);
     }
 
     /**
@@ -50,10 +49,10 @@ public class Parser {
      * @param remaining The remaining sub-command from user input.
      * @param isMark    Mark task as complete or not.
      * @return Deadline Task.
+     * @throws WrongDescriptionException If task description is invalid.
      */
-    public Task getDeadlineTask(String remaining, boolean isMark) throws
-            WrongDescriptionException { // takes in command, parse it and return task object
-        // deadline return book /by 2019-10-15
+    public Task getDeadlineTask(String remaining, boolean isMark)
+            throws WrongDescriptionException { // takes in command, parse it and return task object
         String pattern = " (.*) /by (.*)";
 
         Pattern regexPattern = Pattern.compile(pattern);
@@ -63,9 +62,7 @@ public class Parser {
                 String taskName = matcher.group(1);
                 String by = matcher.group(2);
                 LocalDate newDate = LocalDate.parse(by);
-                return new Deadline(taskName,
-                        isMark,
-                        newDate);
+                return new Deadline(taskName, isMark, newDate);
             }
         } catch (Exception e) {
             throw new WrongDescriptionException("ERROR!! Please ensure that your date format is correct");
@@ -79,9 +76,10 @@ public class Parser {
      * @param remaining The remaining sub-command from user input.
      * @param isMark    Mark task as complete or not.
      * @return Event Task.
+     * @throws WrongDescriptionException If task description is invalid.
      */
-    public Task getEventTask(String remaining, boolean isMark) throws
-            WrongDescriptionException { // takes in command, parse it and return task object
+    public Task getEventTask(String remaining, boolean isMark)
+            throws WrongDescriptionException { // takes in command, parse it and return task object
         String pattern = " (.*) /from (.*?) /to (.*)";
 
         Pattern regexPattern = Pattern.compile(pattern);
@@ -91,10 +89,7 @@ public class Parser {
             String taskName = matcher.group(1);
             String startTime = matcher.group(2);
             String endTime = matcher.group(3);
-            return new Event(taskName,
-                    isMark,
-                    startTime,
-                    endTime);
+            return new Event(taskName, isMark, startTime, endTime);
         }
         throw new WrongDescriptionException("ERROR!! Please type 'event' to view correct format!!");
     }
