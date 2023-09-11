@@ -156,7 +156,7 @@ public class Parser {
         }
         texts.add(desc);
         String duration = input.substring(input.indexOf("/for") + 5);
-        Pattern pattern = Pattern.compile("(\\d.)(hours\\b$)");
+        Pattern pattern = Pattern.compile("(\\d.)((?:hours|minutes|hour|minute)\\b$)");
         if (!pattern.matcher(duration).find()) {
             throw new DukeException("Invalid format for duration");
         }
