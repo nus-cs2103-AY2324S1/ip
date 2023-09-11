@@ -1,13 +1,12 @@
 package duke.taskmanagement;
 
-
 public class DukeException {
     protected String typeOfTask;
 
     /**
      * Create new duke exception to handle
      * the exception when running Duke.
-     * @param str indicate the type of task when handling this exception
+     * @param str Indicate the type of task when handling this exception.
      */
     public DukeException(String str){
         this.typeOfTask = str;
@@ -17,7 +16,7 @@ public class DukeException {
      * Return the String that shows the error
      * message, which is when empty description
      * is entered.
-     * @return the intended error message.
+     * @return The intended error message.
      */
     public String toString() {
         return " ☹ OOPS!!! The description of a " + typeOfTask + " cannot be empty.";

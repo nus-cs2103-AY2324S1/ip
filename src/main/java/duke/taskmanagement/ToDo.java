@@ -17,7 +17,6 @@ public class ToDo extends Task {
      * [ ] if not done.
      */
     @Override
-
     public String toString(){
         return "[T]" + super.toString();
     }

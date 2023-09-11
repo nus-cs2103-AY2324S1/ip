@@ -33,7 +33,6 @@ public class Task {
     /**
      * To mark the status of the task as not done.
      */
-
     public void unmark() {
         this.isDone = false;
     }

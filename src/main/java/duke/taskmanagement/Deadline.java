@@ -1,5 +1,7 @@
 package duke.taskmanagement;
+
 import java.time.LocalDate;
+
 public class Deadline extends Task {
     protected String by;
 
@@ -7,6 +9,7 @@ public class Deadline extends Task {
         super(description, isDone);
         this.by = by;
     }
+
     /**
      * Return the status icon of whether the task is done or nor
      * @return A string that represent of status of the task, [X] if done,
