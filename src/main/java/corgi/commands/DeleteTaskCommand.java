@@ -59,4 +59,9 @@ public class DeleteTaskCommand extends Command {
             throw new CommandExecutionException("Invalid index provided!");
         }
     }
+
+    @Override
+    public String toString() {
+        return "Delete task " + this.targetIdx;
+    }
 }

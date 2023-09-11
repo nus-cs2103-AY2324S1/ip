@@ -69,4 +69,10 @@ public class MarkTaskCommand extends Command {
             throw new CommandExecutionException("The task is already in that status!");
         }
     }
+
+    @Override
+    public String toString() {
+        String action = this.status ? "Mark" : "Unmark";
+        return action + " task " + this.index;
+    }
 }

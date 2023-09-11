@@ -56,4 +56,9 @@ public class AddTaskCommand extends Command {
 
         return renderer.showTaskAdded(this.taskType, target.toString(), list.size());
     }
+
+    @Override
+    public String toString() {
+        return "Add task " + this.target;
+    }
 }
