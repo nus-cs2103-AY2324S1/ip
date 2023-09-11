@@ -12,7 +12,6 @@ import duke.tasks.ToDo;
 import duke.ui.Ui;
 import duke.util.TaskList;
 
-
 /**
  * Duke is a personal assistant chatbot that helps a person to keep track of various things.
  */
@@ -39,8 +38,10 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns the response of Duke to the user input.
+     *
+     * @param input The user input.
+     * @return The response of Duke to the user input.
      */
     public String getResponse(String input) {
         try {
@@ -80,31 +81,6 @@ public class Duke {
         Duke ekud = new Duke();
         ekud.run();
     }
-
-    // private void handleCommand(CommandType commandType, String command) throws DukeException {
-    //     switch (commandType) {
-    //     case LIST:
-    //         ui.printList(tasks.getTasks());
-    //         break;
-    //     case MARK:
-    //         markTask(command);
-    //         break;
-    //     case DELETE:
-    //         deleteTask(command);
-    //         break;
-    //     case TODO:
-    //     case DEADLINE:
-    //     case EVENT:
-    //         addTask(command);
-    //         break;
-    //     case FIND:
-    //         handleFind(command);
-    //         break;
-    //     case UNKNOWN:
-    //         ui.printErrorMessage(new DukeException("I'm sorry, but I don't know what that means :-("));
-    //         break;
-    //     }
-    // }
 
     private String handleCommand(CommandType commandType, String command) throws DukeException {
         Task task;
