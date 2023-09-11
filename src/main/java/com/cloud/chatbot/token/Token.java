@@ -62,14 +62,14 @@ public final class Token {
     /**
      * Whether the token is a valid TODO number.
      *
-     * @param todos The list of Todos.
+     * @param count The current number of TODOs.
      */
-    public boolean isValidNumber(List<Todo> todos) {
+    public boolean isValidNumber(int count) {
         if (!this.isInt()) return false;
 
         int number = this.toInt();
 
-        if (number <= 0 || number > todos.size()) {
+        if (number <= 0 || number > count) {
             return false;
         }
         return true;
