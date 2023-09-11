@@ -33,6 +33,7 @@ public class Botty {
         this.storage = new Storage("./storage.txt");
         this.storage.loadTaskList(this.taskList);
     }
+
     public static void main(String[] args) {
         new Botty().run();
     }

@@ -1,6 +1,14 @@
 package main.java.parser;
 
-import main.java.command.*;
+import main.java.command.Command;
+import main.java.command.DeadlineCommand;
+import main.java.command.DeleteCommand;
+import main.java.command.EventCommand;
+import main.java.command.FindCommand;
+import main.java.command.ListCommand;
+import main.java.command.MarkCommand;
+import main.java.command.ToDoCommand;
+import main.java.command.UnmarkCommand;
 import main.java.exception.EmptyChoiceException;
 import main.java.exception.EmptyTodoException;
 import main.java.exception.UnknownCommandException;
@@ -38,7 +46,7 @@ public class Parser {
             if (stringArray.length == 1) {
                 throw new EmptyTodoException("☹ OOPS!!! The description of a todo cannot be empty.\n");
             }
-            return new TodoCommand(stringArray[1]);
+            return new ToDoCommand(stringArray[1]);
         case "deadline":
             String[] splitDeadline = stringArray[1].split(" /by ", 2);
             return new DeadlineCommand(splitDeadline[0], splitDeadline[1]);
