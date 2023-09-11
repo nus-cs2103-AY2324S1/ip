@@ -58,12 +58,11 @@ public class AddCommand extends Command {
             case EVENT:
                 LocalDateTime fromDate = Parser.parseDateTime(additionalInfo1);
                 LocalDateTime toDate = Parser.parseDateTime(additionalInfo2);
-//                if (fromDate == null || toDate == null) {
-//                    return;
-//                }
+
                 newTask = new Event(taskDescription, fromDate, toDate);
                 break;
             default:
+                assert false : "Unsupported task type";
                 return "Unsupported task type.";
             }
 

@@ -30,6 +30,7 @@ public class FindCommand extends Command {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().toLowerCase().matches(".*\\b" + keyword.toLowerCase() + "\\b.*")) {
+                assert task.getDescription() != null : "Task description should not be null.";
                 matchingTasks.add(task);
             }
         }

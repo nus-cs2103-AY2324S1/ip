@@ -35,7 +35,6 @@ public class Storage {
      * @return The list of tasks.
      */
     public ArrayList<Task> loadTasks() {
-        // Load tasks from the file and return them
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
         File folder = file.getParentFile();
@@ -84,14 +83,11 @@ public class Storage {
 
 
     public void saveTasks(ArrayList<Task> tasks, VBox dialogContainer) {
-        // Save tasks to the file
         try (PrintWriter writer = new PrintWriter(filePath)) {
             for (Task task : tasks) {
                 writer.println(task.toFileString());
             }
         } catch (FileNotFoundException e) {
-            // Handle the exception or display an error message in the dialogContainer
-            // Example:
             dialogContainer.getChildren().add(new Label("Error saving tasks: " + e.getMessage()));
         }
         }

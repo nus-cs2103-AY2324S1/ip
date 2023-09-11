@@ -19,14 +19,6 @@ public abstract class Command {
         TODO, DEADLINE, EVENT
     }
 
-//    /**
-//     * Executes the command operation.
-//     *
-//     * @param tasks   The list of tasks.
-//     * @param ui      The user interface.
-//     * @param storage The data storage.
-//     * @param styledDocument JTextPane for displaying messages in the GUI.
-//     */
     public abstract String doCommand(ArrayList<Task> tasks, Ui ui, Storage storage, Scene scene, VBox dialogContainer);
 
     /**

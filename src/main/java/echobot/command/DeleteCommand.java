@@ -29,7 +29,6 @@ public class DeleteCommand extends Command {
         if (taskNum >= 1 && taskNum <= tasks.size()) {
             Task deletedTask = tasks.remove(taskNum - 1);
 
-            // Format the EchoBot's response with a prefix
             responseText = "Noted. I've removed this task:\n";
             responseText += deletedTask.display() + "\n";
             responseText += "Now you have " + tasks.size() + " tasks in the list.\n";

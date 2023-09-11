@@ -26,14 +26,6 @@ public class UnmarkCommand extends Command {
         this.taskNum = taskNum;
     }
 
-    /**
-     * Executes the UnmarkCommand, unmarking a task as not done and updating the task list.
-     *
-     * @param tasks   The list of tasks.
-     * @param ui      The user interface.
-     * @param storage The data storage.
-     * @param styledDocument JTextPane for displaying messages in the GUI.
-     */
     public String doCommand(ArrayList<Task> tasks, Ui ui, Storage storage, Scene scene, VBox dialogContainer) {
         if (taskNum >= 1 && taskNum <= tasks.size()) {
             Task task = tasks.get(taskNum - 1);

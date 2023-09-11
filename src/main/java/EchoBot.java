@@ -38,10 +38,7 @@ public class EchoBot extends Application {
 
 
     public static void main(String[] args) {
-        //...
         launch(args);
-
-
     }
 
 
@@ -59,7 +56,6 @@ public class EchoBot extends Application {
 
 
         //Step 1. Setting up required components
-
         //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
@@ -91,7 +87,6 @@ public class EchoBot extends Application {
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.setPrefWidth(325.0);
@@ -123,6 +118,7 @@ public class EchoBot extends Application {
 
     private void handleUserInput() {
         String input = userInput.getText();
+        assert input != null : "User input should not be null";
         String responseText = "";
 
         if (input.equalsIgnoreCase("bye")) {
@@ -185,7 +181,6 @@ public class EchoBot extends Application {
         // Display user input and Duke's response in the default format
         displayUserAndDukeMessages(input, responseText);
 
-        // Clear the user input field
         userInput.clear();
     }
 

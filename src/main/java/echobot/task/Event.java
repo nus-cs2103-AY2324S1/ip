@@ -41,11 +41,6 @@ public class Event extends Task {
         return to;
     }
 
-//    /**
-//     * Converts the event task into a string and displays it in the given JTextArea.
-//     *
-//     * @param chatArea JTextArea where the message will be displayed.
-//     */
     @Override
     public String display() {
         return "[E] " + super.display() + " (from: " +

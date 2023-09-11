@@ -146,18 +146,10 @@ public class Task {
         return isDone;
     }
 
-//    /**
-//     * Displays the task information.
-//     *
-//     * @param chatArea JTextArea where the message will be displayed.
-//     */
-//    public void display(JTextArea chatArea) {
-//        chatArea.append("[" + getStatusIcon() + "] " + getDescription());
-//    }
     /**
      * Displays the task information.
      *
-     * @return The task details..
+     * @return The task details.
      */
     public String display() {
         return "[" + getStatusIcon() + "] " + getDescription();

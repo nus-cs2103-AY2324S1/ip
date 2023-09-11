@@ -26,14 +26,6 @@ public class MarkCommand extends Command {
         this.taskNum = taskNum;
     }
 
-//    /**
-//     * Executes the MarkCommand, marking a task as done and updating the task list.
-//     *
-//     * @param tasks          The list of tasks.
-//     * @param ui             The user interface.
-//     * @param storage        The data storage.
-//     * @param styledDocument JTextPane for displaying messages in the GUI.
-//     */
     @Override
     public String doCommand(ArrayList<Task> tasks, Ui ui, Storage storage, Scene scene, VBox dialogContainer) {
         if (taskNum >= 1 && taskNum <= tasks.size()) {
@@ -41,7 +33,6 @@ public class MarkCommand extends Command {
 
             task.mark();
 
-            // Format the EchoBot's response with a prefix
             responseText = "Nice! I've marked this task as done:\n";
             responseText += "[" + task.getStatusIcon() + "] " + task.getDescription();
 
@@ -52,6 +43,7 @@ public class MarkCommand extends Command {
                 responseText += " (by: " + ((Deadline) task).getBy() + ")";
             }
 
+            assert storage != null : "Storage should not be null.";
             storage.saveTasks(tasks, dialogContainer); // Save after marking
         }
 

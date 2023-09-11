@@ -29,11 +29,6 @@ public class Deadline extends Task {
         return by;
     }
 
-//    /**
-//     * Converts the deadline task into a string and display it.
-//     *
-//     * @param chatArea JTextArea where the message will be displayed.
-//     */
     @Override
     public String display() {
         return "[D] " + super.display() + " (by: " +

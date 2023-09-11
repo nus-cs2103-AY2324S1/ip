@@ -1,10 +1,6 @@
 package echobot.ui;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.StyledDocument;
-
 
 /**
  * Provides methods related to user interface.
@@ -35,19 +31,5 @@ public class Ui {
     public String showByeMessage() {
         return "Bye. Hope to see you again soon!";
 
-    }
-
-    /**
-     * Displays an error message in the chat pane.
-     *
-     * @param styledDocument The StyledDocument for displaying messages.
-     * @param errorMessage   The error message to display.
-     */
-    public void showErrorMessage(StyledDocument styledDocument, String errorMessage) {
-        try {
-            styledDocument.insertString(styledDocument.getLength(), "Error: " + errorMessage + "\n", null);
-        } catch (BadLocationException e) {
-            logger.log(Level.SEVERE, "Error displaying error message", e);
-        }
     }
 }
