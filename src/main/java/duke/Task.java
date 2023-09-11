@@ -12,7 +12,7 @@ public class Task {
         this.name = name;
     }
 
-    //getters & setters
+    //Getters & Setters
     public String getName() {
         return this.name;
     }
@@ -32,9 +32,8 @@ public class Task {
     public String getCheckbox() {
         if (this.isCompleted) {
             return Task.DONECHECKBOX;
-        } else {
-            return Task.UNDONECHECKBOX;
         }
+        return Task.UNDONECHECKBOX;
     }
     public String newFormat() {
         return "";

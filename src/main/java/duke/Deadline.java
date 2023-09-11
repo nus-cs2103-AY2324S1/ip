@@ -26,7 +26,7 @@ public class Deadline extends Task {
      * @param date Input date of the deadline
      */
     public void verifyDeadline(String date) {
-        //Hardcoded, can be improved later
+        //Formats the pattern of our date
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         try {
@@ -34,7 +34,7 @@ public class Deadline extends Task {
             String formattedDate = dateTime.format(outputFormatter);
             this.deadline = formattedDate;
         } catch (DateTimeParseException e) {
-            //not in expected format
+            //Input not in expected format
             this.deadline = date;
         }
     }

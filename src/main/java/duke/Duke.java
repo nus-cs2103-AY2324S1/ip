@@ -114,8 +114,8 @@ public class Duke extends Application {
         });
     }
     private void handleUserInput() {
-        String userText = new String(userInput.getText());
-        String dukeText = new String(getResponse(userInput.getText()));
+        String userText = userInput.getText();
+        String dukeText = getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, user),
                 DialogBox.getDukeDialog(dukeText, duke));
