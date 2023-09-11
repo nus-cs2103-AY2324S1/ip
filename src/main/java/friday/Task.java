@@ -3,7 +3,7 @@ package friday;
 /**
  * Represents a task in the Friday application.
  */
-public class Task {
+public class Task extends Item {
     protected String name;
     protected boolean isDone;
 
@@ -13,7 +13,7 @@ public class Task {
      * @param name The name or description of the task.
      */
     public Task(String name) {
-        this.name = name;
+        super(name);
         this.isDone = false;
     }
 
@@ -45,14 +45,4 @@ public class Task {
         return "[" + getStatusIcon() + "] " + name;
     }
 
-    /**
-     * Checks if keyword is contained in task description.
-     *
-     * @param keyWord The keyword to check for.
-     * @return whether the keyword is in task.
-     */
-    public boolean containsKeyWord(String keyWord) {
-        String lowerCaseName = this.name.toLowerCase();
-        return lowerCaseName.contains(keyWord.toLowerCase());
-    }
 }
