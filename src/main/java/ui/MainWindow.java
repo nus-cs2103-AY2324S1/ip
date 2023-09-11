@@ -53,6 +53,7 @@ public class MainWindow extends AnchorPane {
             Platform.exit();
         } else {
             String response = botty.getResponse(input);
+            assert response != "" : "empty response";
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
                     DialogBox.getBottyDialog(response, BottyImage)

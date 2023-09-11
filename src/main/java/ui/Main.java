@@ -16,7 +16,6 @@ public class Main extends Application {
 
     private Botty botty = new Botty();
 
-
     @Override
     public void start(Stage stage) {
         try {
