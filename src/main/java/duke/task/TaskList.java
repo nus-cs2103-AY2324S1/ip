@@ -29,6 +29,7 @@ public class TaskList {
      * @param task takes in the task generated and stores into the ArrayList
      */
     public void addTask(Task task) {
+        assert tasklist != null : "ensure tasklist is loaded properly";
         tasklist.add(task);
     }
 
@@ -55,6 +56,7 @@ public class TaskList {
 
     public void deleteTask(int tasknumber) {
         Task wantedtask = this.tasklist.get(tasknumber);
+        assert tasknumber < tasklist.size() : "index to be deleted less than size of ArrayList";
         this.removeTask(tasknumber); //this would also be the line number to delete in the txt file
     }
 

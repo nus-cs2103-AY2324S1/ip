@@ -33,6 +33,7 @@ public class Parser {
      * @throws DukeException throws DukeException dependent on which command is parsed in
      */
     public static Command parse(String command) throws DukeException {
+        assert scan != null : "Scan is initialised properly to get user input";
         try {
             Parser.getCommand(command);
             if (command.equals("bye")) {

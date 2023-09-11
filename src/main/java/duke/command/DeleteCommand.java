@@ -37,6 +37,7 @@ public class DeleteCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
         try {
             Task task = tasks.getTask(taskNum);
+            assert taskNum < tasks.size() : "Index of task to delete must be less than actual size of list";
             tasks.deleteTask(taskNum);
             System.out.println("tasks is" + tasks.totxtformat());
             store.save(tasks);

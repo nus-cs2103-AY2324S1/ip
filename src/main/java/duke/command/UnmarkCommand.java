@@ -35,6 +35,7 @@ public class UnmarkCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
         try {
             Task task = tasks.getTask(taskNum);
+            assert taskNum < tasks.size() : "Size to unmark must be less than actual size of list";
             tasks.unmarkTask(taskNum);
             store.save(tasks);
             return ui.printUnmarkTask(taskNum, task);

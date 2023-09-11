@@ -7,20 +7,12 @@ import duke.helper.Storage;
 import duke.helper.Ui;
 import duke.task.DukeException;
 import duke.task.TaskList;
-import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
 
 
 /**
@@ -46,13 +38,6 @@ public class MeowBot {
         MEOWBOT
 
     }
-
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-
     /**
      * @param file indicates the location of the file where data is stored
      * @throws DukeException when generating the tasks back from the data file
