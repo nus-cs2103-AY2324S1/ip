@@ -21,14 +21,23 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
+        displayList(taskList, ui);
+    }
+
+    private static void displayList(TaskList taskList, Ui ui) {
         String str = "Here are the tasks in your list:\n\t ";
+        str = getListString(taskList, str);
+        ui.sendMessage(str.substring(0, str.length() - 3));
+    }
+
+    private static String getListString(TaskList taskList, String str) {
         int count = 0;
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
             str += count + 1 + "." + task.toString() + "\n\t ";
             count++;
         }
-        ui.sendMessage(str.substring(0, str.length() - 3));
+        return str;
     }
 
     /**

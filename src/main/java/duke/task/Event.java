@@ -43,7 +43,9 @@ public class Event extends Task {
      */
     @Override
     public String writeFileString() {
-        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
-                + " to: " + to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + ")";
+        String toFormat = to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        String fromFormat = from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        return "[E]" + super.toString() + " (from: " + fromFormat
+                + " to: " + toFormat + ")";
     }
 }

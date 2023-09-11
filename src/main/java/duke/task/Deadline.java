@@ -39,7 +39,8 @@ public class Deadline extends Task {
      */
     @Override
     public String writeFileString() {
+        String format = byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         return "[D]" + super.toString() + " (by: "
-                + byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + ")";
+                + format + ")";
     }
 }

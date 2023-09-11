@@ -9,6 +9,7 @@ import duke.storage.Storage;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.TaskList;
+import duke.task.Task;
 import duke.task.Todo;
 import duke.ui.Ui;
 
@@ -44,53 +45,80 @@ public class AddCommand extends Command {
         assert type == 'T' || type == 'D' || type == 'E' : "Invalid task type";
         switch (type) {
         case 'T':
-            String description = fullCommand.substring(5);
-            Todo todo = new Todo(description);
-            taskList.addTask(todo);
-            ui.sendMessage("Got it. I've added this task:\n\t\t"
-                    + todo
-                    + "\n\tNow you have " + taskList.size() + " tasks in the list.");
-            storage.updateFileContents(taskList);
+            AddToDo(taskList, ui, storage);
             break;
         case 'D':
-            String deadlineDescription = fullCommand.substring(9);
-            String descriptionText = deadlineDescription.substring(0, deadlineDescription.indexOf("/by"));
-            String dateTime = deadlineDescription.substring(deadlineDescription.indexOf("/by") + 4).trim();
-            Deadline deadline = null;
-            try {
-                DateTimeFormatter altInputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                LocalDateTime byDateTime = LocalDateTime.parse(dateTime, altInputFormatter);
-                deadline = new Deadline(descriptionText, byDateTime);
-            } catch (DateTimeParseException e) {
-                throw new DukeException("Invalid Date Time: " + e.getMessage());
-            }
-            taskList.addTask(deadline);
-            ui.sendMessage("Got it. I've added this task:\n\t\t"
-                    + deadline
-                    + "\n\tNow you have " + taskList.size() + " tasks in the list.");
-            storage.updateFileContents(taskList);
+            AddDeadLine(taskList, ui, storage);
             break;
         case 'E':
-            String eventDescription = fullCommand.substring(6);
-            int indexFrom = eventDescription.indexOf("/from");
-            int indexTo = eventDescription.indexOf("/to");
-
-            String eventString = eventDescription.substring(0, indexFrom).trim();
-            String startTime = eventDescription.substring(indexFrom + "/from".length(), indexTo).trim();
-            String endTime = eventDescription.substring(indexTo + "/to".length()).trim();
-
-            Event eventTask = new Event(eventString,
-                    LocalDateTime.parse(startTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                    LocalDateTime.parse(endTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
-
-            taskList.addTask(eventTask);
-            ui.sendMessage("Got it. I've added this task:\n\t\t"
-                    + eventTask
-                    + "\n\tNow you have " + taskList.size() + " tasks in the list.");
-            storage.updateFileContents(taskList);
+            AddEvent(taskList, ui, storage);
             break;
         default:
+            throw new DukeException("Invalid type!");
         }
+    }
+
+    private void AddEvent(TaskList taskList, Ui ui, Storage storage) {
+        Event eventTask = getEventTask();
+        taskList.addTask(eventTask);
+        displayAddedTaskMessage(taskList, ui, eventTask);
+        storage.updateFileContents(taskList);
+    }
+
+    private static void displayAddedTaskMessage(TaskList taskList, Ui ui, Task task) {
+        ui.sendMessage("Got it. I've added this task:\n\t\t"
+                + task
+                + "\n\tNow you have " + taskList.size() + " tasks in the list.");
+    }
+
+    private Event getEventTask() {
+        String eventDescription = fullCommand.substring(6);
+        int indexFrom = eventDescription.indexOf("/from");
+        int indexTo = eventDescription.indexOf("/to");
+
+        String eventString = eventDescription.substring(0, indexFrom).trim();
+        String startTime = eventDescription.substring(indexFrom + "/from".length(), indexTo).trim();
+        String endTime = eventDescription.substring(indexTo + "/to".length()).trim();
+
+        Event eventTask = new Event(eventString,
+                LocalDateTime.parse(startTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                LocalDateTime.parse(endTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        return eventTask;
+    }
+
+    private void AddDeadLine(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        Deadline deadline = getDeadlineTask();
+        taskList.addTask(deadline);
+        displayAddedTaskMessage(taskList, ui, deadline);
+        storage.updateFileContents(taskList);
+    }
+
+    private Deadline getDeadlineTask() throws DukeException {
+        String deadlineDescription = fullCommand.substring(9);
+        String descriptionText = deadlineDescription.substring(0, deadlineDescription.indexOf("/by"));
+        String dateTime = deadlineDescription.substring(deadlineDescription.indexOf("/by") + 4).trim();
+        Deadline deadline;
+        try {
+            DateTimeFormatter altInputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime byDateTime = LocalDateTime.parse(dateTime, altInputFormatter);
+            deadline = new Deadline(descriptionText, byDateTime);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid Date Time: " + e.getMessage());
+        }
+        return deadline;
+    }
+
+    private void AddToDo(TaskList taskList, Ui ui, Storage storage) {
+        Todo todo = getTodoTask();
+        taskList.addTask(todo);
+        displayAddedTaskMessage(taskList, ui, todo);
+        storage.updateFileContents(taskList);
+    }
+
+    private Todo getTodoTask() {
+        String description = fullCommand.substring(5);
+        Todo todo = new Todo(description);
+        return todo;
     }
 
     /**

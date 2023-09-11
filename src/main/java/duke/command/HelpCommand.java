@@ -21,6 +21,10 @@ public class HelpCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
+        displayHelpCommand(ui);
+    }
+
+    private static void displayHelpCommand(Ui ui) {
         String str = "Here are the available commands:\n" +
                 "1. todo <task>\n" +
                 "2. deadline <task> /by <date>\n" +
@@ -31,7 +35,6 @@ public class HelpCommand extends Command {
                 "7. find <index>\n" +
                 "8. list\n" +
                 "9. bye";
-
         ui.sendMessage(str);
     }
 
