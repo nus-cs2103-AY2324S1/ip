@@ -12,6 +12,7 @@
     <children>
         <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="320.0"
                    style = "-fx-background-radius: 20.0; -fx-background-color: #000000;
+                   -fx-border-radius:20.0; -fx-border-color:#FFBF00;
                    -fx-text-fill: #FFBF00; -fx-prompt-text-fill:#FFBF00"
                    AnchorPane.bottomAnchor="1.0" promptText="Sort your tasks like a Sorting Hat!" >
                 <font>
@@ -19,7 +20,8 @@
                 </font>
         </TextField>
         <Button fx:id="sendButton" contentDisplay="CENTER" layoutX="324.0" layoutY="558.0"
-                style = "-fx-background-radius: 20; -fx-background-color: #ffbf00" mnemonicParsing="false"
+                style = "-fx-background-radius: 20.0; -fx-background-color: #ffbf00;
+                -fx-border-radius: 20.0" mnemonicParsing="false"
                 onAction="#handleUserInput" prefHeight="38.0" prefWidth="76.0" text="⚡ Send ⚡" textFill="black">
                 <font>
                     <Font name = "Apple Chancery" size = "12.0"/>
