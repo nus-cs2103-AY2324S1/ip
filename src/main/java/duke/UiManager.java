@@ -40,6 +40,7 @@ public class UiManager {
      * @throws DukeException If there is a exception when accessing task list.
      */
     public String getListMessage(TaskList taskList) throws DukeException {
+        assert taskList != null : "TaskList should not be null";
         String result = "Here are the tasks in your list:\n";
         for (int i = 0; i < taskList.size(); i++) {
             result += (i + 1) + "." + taskList.getTask(i).toString() + "\n";
@@ -52,6 +53,7 @@ public class UiManager {
      * @param task Task that going to be marked.
      */
     public String getMarkMessage(Task task) {
+        assert task != null: "Task should not be null";
         return "Nice! I've marked this task as done:\n" +
                 "    " + task.toString();
     }
@@ -61,6 +63,7 @@ public class UiManager {
      * @param task Task that going to be unmarked.
      */
     public String getUnmarkMessage(Task task) {
+        assert task != null: "Task should not be null";
         return "OK, I've marked this task as not done yet:\n" +
                 "    " + task.toString();
     }
@@ -71,6 +74,8 @@ public class UiManager {
      * @param taskList Task list that stored the task.
      */
     public String getAddTaskMessage(Task task, TaskList taskList) {
+        assert task != null: "Task should not be null";
+        assert taskList != null: "Task list should not be null";
         return "Got it, I've added this task:\n    "  +
                 task.toString() + "\n" +
                 "Now you have " + taskList.size() + " tasks in the list.";
@@ -82,6 +87,7 @@ public class UiManager {
      * @param taskList Task list that stored the task.
      */
     public String getDeleteMessage(Task task, TaskList taskList) {
+        assert task != null: "Task should not be null";
         return "Noted. I've removed this task:\n" +
                 "    " + task.toString() + "\n" +
                 "Now you have " + taskList.size() + " tasks in the list.";

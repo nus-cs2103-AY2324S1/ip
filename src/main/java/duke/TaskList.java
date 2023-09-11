@@ -96,6 +96,7 @@ public class TaskList {
                 newTaskList.addTask(task);
             }
         }
+        assert newTaskList != null: "The new task list should not be null";
         return newTaskList;
     }
 }
