@@ -44,18 +44,19 @@ test {
 }
 
 application {
-    mainClass.set("oscar.Oscar")
+    mainClass.set("oscar.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "oscar"
+    archiveBaseName = "Oscar"
     archiveClassifier = null
-    archiveVersion = "1.0.0"
+    archiveVersion = "11-Sept-0900"
     dependsOn("distZip", "distTar")
 }
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
 
 checkstyle {
