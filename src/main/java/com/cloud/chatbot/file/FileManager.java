@@ -7,8 +7,10 @@ import java.nio.file.Paths;
 
 import org.json.JSONObject;
 
+
+
 /**
- * Handles reading from and writing to file storage.
+ * Handles reading from and writing to disk.
  */
 public final class FileManager {
     private static final String RELATIVE_PATH = "./data/items.json";
@@ -27,6 +29,11 @@ public final class FileManager {
         return Paths.get(FileManager.RELATIVE_PATH).toFile();
     }
 
+    /*
+     * Saves the specified JSON object to disk.
+     *
+     * @param json The JSON object to save.
+     */
     public void save(JSONObject json) {
         FileWriter writer;
         try {
