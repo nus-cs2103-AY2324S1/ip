@@ -93,7 +93,7 @@ public class Ui {
      */
     public String delete(int index) {
         return "Okay!! Task \"" + tasks.delete(index) + "\" removed :) "
-                + "You still have " + (tasks.size() - 1) + " tasks in the list\n";
+                + "You still have " + (tasks.size()) + " tasks in the list\n";
     }
 
     /**
