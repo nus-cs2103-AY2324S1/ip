@@ -116,7 +116,10 @@ public class Parser {
         default:
             try {
                 Task task = parseTask(input);
-                tasks.addTask(task);
+                boolean isAdded = tasks.addTask(task);
+                if (!isAdded) {
+                    throw new JamesException(sadFace + " OOPS!!! The task is already in the list.");
+                }
                 output += "Got it. I've added this task:\n" + task + "\n" + line + "\n"
                         + "Now you have " + tasks.size() + " tasks in the list.";
             } catch (JamesException e) {

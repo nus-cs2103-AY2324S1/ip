@@ -63,9 +63,17 @@ public class TaskList {
      * Adds a task to the list
      *
      * @param task the task to be added
+     * @return true if the task is added successfully, false otherwise
      */
-    public void addTask(Task task) {
+    public boolean addTask(Task task) {
+        // check for duplicates
+        for (Task item : this.items) {
+            if (item.toString().equals(task.toString())) {
+                return false;
+            }
+        }
         this.items.add(task);
+        return true;
     }
 
     /**
