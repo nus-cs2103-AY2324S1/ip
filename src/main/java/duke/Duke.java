@@ -9,7 +9,6 @@ import java.io.IOException;
 public class Duke {
     private TaskList tasks;
     private Storage storage;
-    final static String LINE = "────────────────────────────────────────────────────";
 
     public Duke(String filepath) {
         this.storage = new Storage(filepath);
@@ -22,17 +21,13 @@ public class Duke {
     }
 
     /**
-     * Contains the logic flow of the Duke program.
+     * Save all updated data to the data file at the end of Duke.
      */
-    public void run() {
+    public void saveToFile() {
         try {
-            try {
-                storage.writeTasksToFile(tasks.getTasks());
-            } catch (IOException e) {
-                throw new DukeException("Cannot write tasks into file!");
-            }
-        } catch (DukeException e) {
-            System.out.println(e.getMessage() + "\n" + LINE);
+            this.storage.writeTasksToFile(this.tasks.getTasks());
+        } catch (IOException e) {
+            throw new DukeException("Cannot write tasks into file!");
         }
     }
 
