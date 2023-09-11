@@ -17,10 +17,6 @@ public class Task {
         return this.name;
     }
 
-    public boolean getCompleted() {
-        return this.isCompleted;
-    }
-
     public void setCompleted() {
         this.isCompleted = true;
     }

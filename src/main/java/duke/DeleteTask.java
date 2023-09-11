@@ -20,8 +20,11 @@ public class DeleteTask extends Command {
         if (indexToDelete >= tasks.size()) {
             throw new InvalidInputException("OOPS!!! Too few tasks");
         }
+        int listSizeBef = tasks.size();
         Task tsk = tasks.get(this.indexToDelete);
         tasks.remove(this.indexToDelete);
+        int listSizeAft = tasks.size();
+        assert listSizeBef == listSizeAft + 1 : "Task not deleted properly";
         try {
             storage.saveTasks(tasks);
         } catch (InvalidInputException e) {
