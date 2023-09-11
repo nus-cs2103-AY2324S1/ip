@@ -59,6 +59,7 @@ public class MainWindow extends AnchorPane {
      * @param input The input message that triggers this exit handler.
      */
     private void handleExit(String input) {
+        assert input.startsWith("bye") : input;
         // print an exit message, waits 500ms, then exits the program.
         CompletableFuture.completedFuture(dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
@@ -69,7 +70,7 @@ public class MainWindow extends AnchorPane {
             } catch (InterruptedException e) {
                 Platform.exit();
             }
-        }).thenRunAsync(() -> Platform.exit());
+        }).thenRunAsync(Platform::exit);
     }
 
     /**
