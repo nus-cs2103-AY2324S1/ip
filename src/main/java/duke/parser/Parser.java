@@ -1,6 +1,17 @@
 package duke.parser;
 
-import duke.command.*;
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.command.DeadlineCommand;
+import duke.command.DeleteCommand;
+import duke.command.EventCommand;
+import duke.command.FindCommand;
+import duke.command.InvalidCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.ToDoCommand;
+import duke.command.UnmarkCommand;
+
 import duke.exception.KoraException;
 
 /**
@@ -22,6 +33,7 @@ public class Parser {
      */
     public static Command parse(String userInput) throws KoraException {
         String line = "------------------------------" + "\n";
+        assert !userInput.equals("") : "Input should not be empty.";
         String[] userInputArray = userInput.split("/");
         Command command;
         try {

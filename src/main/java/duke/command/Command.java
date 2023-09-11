@@ -33,6 +33,7 @@ public abstract class Command {
     /**
      * Executes the command according to the type of command.
      * @param taskList List with tasks.
+     * @param storage Storage where tasks are stored.
      * @throws KoraException From its child class.
      */
     public abstract void execute(TaskList taskList, Storage storage) throws KoraException;

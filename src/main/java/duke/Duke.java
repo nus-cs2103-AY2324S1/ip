@@ -7,9 +7,6 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 
 /**
  * Main class of Kora Chatbot Program.
