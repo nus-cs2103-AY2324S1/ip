@@ -7,6 +7,11 @@ public abstract class Task {
     private String name;
     private boolean isMarked = false;
 
+    /**
+     * Instantiates the Task
+     *
+     * @param name the name of the task
+     */
     public Task(String name) {
         this.name = name;
     }

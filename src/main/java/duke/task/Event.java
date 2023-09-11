@@ -1,4 +1,5 @@
 package duke.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -32,6 +33,7 @@ public class Event extends Task {
      * @throws InvalidEventException when the event command message is invalid
      */
     public static Event create(String message) throws InvalidEventException {
+        assert message.split(" ")[0].equalsIgnoreCase("create") : "First word of message must be create";
         try {
             String name = message.substring(6, message.indexOf("/from "));
             int fromIndex = message.indexOf("/from ");
