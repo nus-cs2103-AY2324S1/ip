@@ -44,6 +44,8 @@ public class TodoCommand extends Command {
 
     /**
      * Returns the string representation of todo command.
+     * @param task String representation of Task.
+     * @param size Size of the taskList.
      * @return String representation of todo command.
      */
     public String cmdToString(String task, int size) {

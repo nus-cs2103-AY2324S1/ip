@@ -47,6 +47,8 @@ public class EventCommand extends Command {
 
     /**
      * Returns the string representation of event command.
+     * @param task String representation of Task.
+     * @param size Size of the taskList.
      * @return String representation of event command.
      */
     public String cmdToString(String task, int size) {

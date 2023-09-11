@@ -1,6 +1,5 @@
 package ui;
 
-import commands.Command;
 import duke.Duke;
 import duke.DukeException;
 import javafx.fxml.FXML;
@@ -10,7 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import parser.Parser;
+
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -42,10 +41,6 @@ public class MainWindow extends AnchorPane {
         duke = d;
     }
 
-    public String getResponse(String input) {
-        return input;
-    }
-
     @FXML
     public String getUserInput() {
         return userInput.getText();
@@ -58,25 +53,27 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         try {
-            String command = userInput.getText();
-            Command c = new Parser().getCommand(command);
-            String result = c.execute(duke.getTaskList(), duke.getDataFile());
-            String input = userInput.getText();
-            String response = getResponse(result);
-            dialogContainer.getChildren().addAll(
-                    new DialogBox(input, userImage, 0),
-                    new DialogBox(response, dukeImage, 1)
-            );
-            userInput.clear();
+            runUserInput();
         } catch (DukeException e) {
-            System.out.println(e.getMessage());
-            dialogContainer.getChildren().addAll(
-                    new DialogBox(userInput.getText(), userImage, 0),
-                    new DialogBox(e.getMessage(), dukeImage, 1)
-            );
-            userInput.clear();
+            errMessageResponse(e);
         }
     }
 
+    private void runUserInput() {
+        String input = getUserInput();
+        String response = duke.response(input);
+        dialogContainer.getChildren().addAll(
+                new DialogBox(input, userImage, 0),
+                new DialogBox(response, dukeImage, 1)
+        );
+        userInput.clear();
+    }
 
+    private void errMessageResponse(DukeException e) {
+        dialogContainer.getChildren().addAll(
+                new DialogBox(userInput.getText(), userImage, 0),
+                new DialogBox(e.getMessage(), dukeImage, 1)
+        );
+        userInput.clear();
+    }
 }

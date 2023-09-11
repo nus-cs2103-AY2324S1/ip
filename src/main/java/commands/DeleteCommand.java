@@ -44,6 +44,8 @@ public class DeleteCommand extends Command {
 
     /**
      * Returns the string representation of delete command.
+     * @param task String representation of Task.
+     * @param size Size of the taskList.
      * @return String representation of delete command.
      */
     public String cmdToString(String task, int size) {
