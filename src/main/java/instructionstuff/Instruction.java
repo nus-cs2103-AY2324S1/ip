@@ -169,7 +169,7 @@ public abstract class Instruction {
         public void execute(Storage storage, TaskList taskList, MainWindow mainWindow) throws DukeException {
             String task = taskList.deleteTask(this.index);
             String s = "Noted. I've removed this task from the list\n " + task;
-            s = s + "Now you have " + taskList.getSize() + " tasks in the list.";
+            s = s + "\nNow you have " + taskList.getSize() + " tasks in the list.";
             mainWindow.setMessage(s);
         }
     }

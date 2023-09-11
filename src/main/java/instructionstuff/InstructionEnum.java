@@ -6,13 +6,13 @@ package instructionstuff;
 public enum InstructionEnum {
     BYE("bye"),
     LIST("list"),
-    MARK("mark"),
-    UNMARK("unmark"),
-    DELETE("delete"),
+    MARK("mark", "check"),
+    UNMARK("unmark", "uncheck"),
+    DELETE("delete", "remove"),
     TODO("todo", "T"),
     DEADLINE("deadline", "D"),
     EVENT("event", "E"),
-    FIND("find");
+    FIND("find", "search");
 
     /**
      * An array storing possible string values of the instruction.
