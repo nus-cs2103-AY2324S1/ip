@@ -66,6 +66,12 @@ public class TaskList {
     public void deleteTask(int index) {
         this.tasks.remove(index);
     }
+    /**
+     * Sorts the tasks in the list.
+     */
+    public void sortTasks() {
+        this.tasks.sort(new TaskComparator());
+    }
 
     /**
      * Marks a task as done.

@@ -8,7 +8,6 @@ import grumpygordon.parser.Parser;
 import grumpygordon.storage.Storage;
 import grumpygordon.tasks.TaskList;
 import javafx.application.Application;
-import javafx.stage.Stage;
 
 /**
  * GrumpyGordon Chatbot

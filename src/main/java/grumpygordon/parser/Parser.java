@@ -12,6 +12,7 @@ import grumpygordon.commands.EventCommand;
 import grumpygordon.commands.FindCommand;
 import grumpygordon.commands.ListCommand;
 import grumpygordon.commands.MarkCommand;
+import grumpygordon.commands.SortCommand;
 import grumpygordon.commands.TodoCommand;
 import grumpygordon.commands.UnmarkCommand;
 import grumpygordon.exceptions.GrumpyGordonDateTimeFormatException;
@@ -37,10 +38,6 @@ public class Parser {
      * Separator for user input.
      */
     private static final String SPACE_REGEX = " ";
-    /**
-     * Regex for todo command.
-     */
-    private static final String TODO_REGEX = "todo\\s.*";
     /**
      * Regex for mark command.
      */
@@ -193,6 +190,8 @@ public class Parser {
             return new ByeCommand();
         case "list":
             return new ListCommand();
+        case "sort":
+            return new SortCommand();
         case "mark":
             if (parts.length == 1) {
                 throw new GrumpyGordonInvalidCommandException("Command syntax for mark is incorrect.\n");
