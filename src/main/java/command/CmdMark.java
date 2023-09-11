@@ -32,6 +32,7 @@ public class CmdMark extends Command {
     @Override
     public String execute(TaskList taskList) {
         taskList.markDone(index);
+        assert taskList.getTask(index).isDone() : "Task is not marked";
         Storage.writeToFile(taskList);
         return StringUtility.joinLines(Message.MARK_DONE, taskList.getTask(index).toString());
     }

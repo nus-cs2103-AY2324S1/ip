@@ -31,10 +31,12 @@ public abstract class TextFileHandler {
 
         if (!directory.exists()) {
             directory.mkdirs();
+            assert directory.exists() : "Directory not created";
         }
 
         if (!file.exists()) {
             file.createNewFile();
+            assert file.exists() : "File not created";
         }
     }
 
