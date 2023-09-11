@@ -97,6 +97,20 @@ public class Ui {
         return header + printList;
     }
 
+    public String help() {
+        String header = "Hello! I am glad to help you! \n";
+        String listHelp = "To get overview of your list --> type: list \n";
+        String todoHelp = "If you want to add a todo task --> type: todo TASKNAME \n";
+        String deadlineHelp = "If you want to add a deadline task --> type: deadline TASKNAME /by yyyy-mm-dd \n";
+        String eventHelp = "If you want to add an evenmt task --> type: event TASKNAME /from Mon 2pm /to 4pm \n";
+        String markHelp = "To mark or unmark a task --> type: mark 2 or unmark 3 \n";
+        String deleteHelp = "To delete a task --> type: delete 5 \n";
+        String findHelp = "To find a task --> type: find KEYWORD \n";
+        String closing = "Hope that helps!";
+        return header + "\n" + listHelp + "\n" + todoHelp + deadlineHelp + eventHelp
+                + "\n" + markHelp + deleteHelp + findHelp + "\n" + closing;
+    }
+
     /**
      * To close the scanner.
      */

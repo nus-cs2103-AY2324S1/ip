@@ -80,6 +80,8 @@ public class Parser {
                 String[] parts = cmd.split(" ");
                 String keyword = parts[1];
                 return ui.printFilterList(list.find(keyword));
+            } else if(cmd.contains("help")) {
+                return ui.help();
             } else {
                 DukeException exp = new DukeException("");
                 return exp.nothing();
