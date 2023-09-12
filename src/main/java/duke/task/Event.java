@@ -1,5 +1,6 @@
 package duke.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import duke.parser.TimeParser;
@@ -55,5 +56,16 @@ public class Event extends Task {
         return String.format("E%s%s%s%d%s%s to %s", DISCRIMINATOR, name, DISCRIMINATOR,
                 Boolean.compare(status, false), DISCRIMINATOR, TimeParser.toSaveString(startDate),
                 TimeParser.toSaveString(endDate));
+    }
+
+    @Override
+    public String getReminder(LocalDate currDate, int days) {
+        if (this.endDate.getYear() != currDate.getYear()) {
+            return null;
+        }
+        if (currDate.getDayOfYear() + days - this.endDate.getDayOfYear() >= 0) {
+            return this.toString();
+        }
+        return null;
     }
 }

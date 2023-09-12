@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.time.LocalDate;
+
 /**
  * Represents a Todo Task.
  * @author Toh Li Yuan (A0255811H)
@@ -37,5 +39,10 @@ public class Todo extends Task {
     @Override
     public String toSave() {
         return String.format("T%s%s%s%d", DISCRIMINATOR, name, DISCRIMINATOR, Boolean.compare(this.status, false));
+    }
+
+    @Override
+    public String getReminder(LocalDate currDate, int days) {
+        return null;
     }
 }

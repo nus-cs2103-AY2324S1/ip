@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.time.LocalDate;
+
 /**
  * The abstract class for Task.
  * @author Toh Li Yuan (A0255811H)
@@ -41,4 +43,6 @@ public abstract class Task {
     }
 
     public abstract String toSave();
+
+    public abstract String getReminder(LocalDate currDate, int days);
 }

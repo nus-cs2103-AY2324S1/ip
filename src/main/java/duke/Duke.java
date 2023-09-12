@@ -5,6 +5,8 @@ import duke.commands.Command;
 import duke.parser.CommandParser;
 import duke.records.ChatRecord;
 
+import java.time.LocalDate;
+
 /**
  * @author Toh Li Yuan (A0255811H)
  */
@@ -14,6 +16,10 @@ public class Duke {
 
     private CommandParser cp;
     private ChatRecord chatRecord;
+
+    private static final String INIT_PHRASE = "KnowledgeYuan, at your service!\nWhat can I do for you today?";
+    private static final String REMINDER_PHRASE
+            = "The following tasks are urgent! Please remove them from the list after completing!";
 
 //    public static void main(String[] args) {
 //        ChatView chatView = new ChatView();
@@ -41,7 +47,11 @@ public class Duke {
         cp = new CommandParser();
         chatRecord = new ChatRecord();
         chatRecord.loadData();
-        return "KnowledgeYuan, at your service!\nWhat can I do for you today?";
+        String reminders = chatRecord.getReminder(LocalDate.now(), 1);
+        if (reminders.length() >= 1) {
+            return INIT_PHRASE + "\n" + REMINDER_PHRASE + "\n" + reminders;
+        }
+        return INIT_PHRASE;
     }
 
     /**

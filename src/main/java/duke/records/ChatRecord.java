@@ -1,5 +1,6 @@
 package duke.records;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -44,7 +45,7 @@ public class ChatRecord {
      * @return the removed task.
      */
     public Task deleteTask(int n) throws InvalidTaskException {
-        if (n >= chatRecords.size()) {
+        if (n > chatRecords.size()) {
             throw new InvalidTaskException("Task not found! Please specify a task available in the task list!");
         }
         return chatRecords.remove(n - 1);
@@ -106,5 +107,20 @@ public class ChatRecord {
     public Task setUnmark(int n) {
         Task task = chatRecords.get(n - 1).unmark();
         return task;
+    }
+
+    public String getReminder(LocalDate date, int days) {
+        StringBuilder ret = new StringBuilder();
+        int n = 0;
+        for (Task task : chatRecords) {
+            n++;
+            String temp = task.getReminder(date, days);
+            if (temp == null) {
+                continue;
+            }
+            ret.append(String.format("%d. %s\n", n, temp));
+        }
+
+        return ret.toString().stripTrailing();
     }
 }

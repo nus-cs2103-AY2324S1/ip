@@ -12,6 +12,7 @@ import duke.commands.FindCommand;
 import duke.commands.InvalidCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
+import duke.commands.RemindCommand;
 import duke.commands.TodoCommand;
 import duke.commands.UnmarkCommand;
 
@@ -81,6 +82,16 @@ public class CommandParser {
             } else {
                 return new InvalidCommand("Bad deadline argument!");
             }
+        case RemindCommand.COMMAND_PHRASE:
+            if (args.trim().length() > 0) {
+                try {
+                    int days = Integer.parseInt(args.trim());
+                    return new RemindCommand(days);
+                } catch (NumberFormatException e) {
+                    return new InvalidCommand("Please type in a valid number for your argument!");
+                }
+            }
+            return new RemindCommand(7);
         default:
             return new InvalidCommand("Command not found");
         }
