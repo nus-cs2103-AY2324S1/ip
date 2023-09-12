@@ -19,6 +19,7 @@ public class DeleteCommand extends Command {
      */
     public DeleteCommand(int taskNum) {
         super(false);
+        assert taskNum > 0 : "Task number should be greater than 0";
         this.taskNum = taskNum;
     }
 

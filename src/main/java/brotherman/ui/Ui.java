@@ -126,7 +126,7 @@ public class Ui {
         return output;
     }
 
-    public void showError(String errorMessage) {
-        System.out.println(errorMessage);
+    public String showError(String errorMessage) {
+        return errorMessage;
     }
 }
