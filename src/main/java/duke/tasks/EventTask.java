@@ -26,6 +26,20 @@ public class EventTask extends Task {
         this.toDateTime = toDateTime;
     }
 
+    /**
+     * Constructor for an Event Task
+     *
+     * @param id The saved task ID
+     * @param itemName The name of the task
+     * @param fromDateTime The time the event starts
+     * @param toDateTime The time the event ends
+     */
+    public EventTask(int id, String itemName, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
+        super(id, itemName);
+        this.fromDateTime = fromDateTime;
+        this.toDateTime = toDateTime;
+    }
+
 
     @Override
     public String getTaskType() {

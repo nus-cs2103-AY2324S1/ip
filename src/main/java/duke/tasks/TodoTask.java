@@ -16,6 +16,16 @@ public class TodoTask extends Task {
         super(itemName);
     }
 
+    /**
+     * Constructor for a Todo task
+     *
+     * @param itemName The name of the Todo
+     * @param id the saved item id
+     */
+    public TodoTask(int id, String itemName) {
+        super(id, itemName);
+    }
+
     @Override
     public String getTaskType() {
         return "T";

@@ -70,6 +70,8 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getDukeDialog((response), crop(dukeImage, true))
             );
             userInput.clear();
+
+            duke.save();
         } catch (DukeException e) {
             String response = e.getMessage();
 

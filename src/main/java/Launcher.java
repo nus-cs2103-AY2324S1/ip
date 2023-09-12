@@ -1,7 +1,8 @@
+import java.util.Arrays;
+
 import duke.Main;
 import javafx.application.Application;
 
-import java.util.Arrays;
 
 /**
  * A launcher class to workaround classpath issues.
