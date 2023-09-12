@@ -36,14 +36,15 @@ public class CreateEventCommand extends CommandAbstract {
 
     private void findException() {
         String[] delimitedBySlash = this.input.split("/");
-        try {
+
+        try { // Checks if user included information about the event task
             String information = delimitedBySlash[0].split(" ")[1];
         } catch (IndexOutOfBoundsException indexExcept) {
             System.out.println("ChadGPT: Please include information about the task you would like to add.");
             return;
         }
 
-        try {
+        try { // Checks if users have included the start and end dates after /from and /to respectively
             String startDate = delimitedBySlash[1].substring(5, delimitedBySlash[1].length() - 1);
             String endDate = delimitedBySlash[2].substring(3);
         } catch (StringIndexOutOfBoundsException stringExcept) {
@@ -55,7 +56,7 @@ public class CreateEventCommand extends CommandAbstract {
             return;
         }
 
-        try {
+        try { // Checks if user has input all dates and time in the correct format
             String dates = this.input.split(" /from ")[1];
             String[] startDateArr = dates.split(" /to ")[0].split(" ");
             String startDate = startDateArr[0];

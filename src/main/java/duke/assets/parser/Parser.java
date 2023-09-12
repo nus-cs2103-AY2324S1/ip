@@ -40,6 +40,8 @@ public class Parser {
                 return new CreateDeadlineCommand(input, false);
             case "event":
                 return new CreateEventCommand(input, false);
+            default:
+                // fall-through
         }
         throw new InvalidCommandException("ChadGPT: Please input a valid command.\n");
     }
@@ -80,6 +82,8 @@ public class Parser {
                     return new CreateEventCommand("event " + delimited[2]
                             + " /from " + dateAndTimeDelimited[0] + " /to "
                             + dateAndTimeDelimited[1], isDone);
+                default:
+                    // fall through
             }
         }
         throw new CorruptDataException(input);
