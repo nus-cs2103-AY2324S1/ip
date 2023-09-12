@@ -3,19 +3,20 @@ package duke;
 import duke.exception.InvalidInputException;
 import duke.task.Task;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 /**
  * A list to store the tasks.
  */
 public class TaskList {
     /** A list to store the tasks. */
-    private ArrayList<Task> tasks;
+    private PriorityQueue<Task> tasks;
 
     /**
      * Constructs a new TaskList that have an empty list.
      */
     public TaskList() {
-        this.tasks = new ArrayList<>();
+        this.tasks = new PriorityQueue<>(new TaskComparator());
     }
 
     /**
@@ -24,7 +25,7 @@ public class TaskList {
      * @param strings List containing the tasks.
      */
     public TaskList(ArrayList<String> strings) {
-        this.tasks = new ArrayList<>();
+        this.tasks = new PriorityQueue<>(new TaskComparator());
         Parser parser = new Parser(this);
         assert strings != null : "No lines in file";
         for (String s : strings) {
@@ -51,15 +52,6 @@ public class TaskList {
     }
 
     /**
-     * Returns the task at the specific position.
-     *
-     * @param i Index of the task to return.
-     */
-    public Task get(int i) {
-        return this.tasks.get(i);
-    }
-
-    /**
      * Adds the task into the list.
      *
      * @param t Task to add.
@@ -69,12 +61,34 @@ public class TaskList {
     }
 
     /**
+     * Pops the head of the queue.
+     */
+    public Task poll() {
+        return tasks.poll();
+    }
+
+    /**
+     * Returns the ith task in the tasklist.
+     */
+    public Task get(int i) {
+        ArrayList<Task> tempTasks = new ArrayList<>();
+        Task t = tasks.poll();
+        for (int j = 0; j < i; j++) {
+            tempTasks.add(t);
+            t = tasks.poll();
+        }
+        tempTasks.add(t);
+        tasks.addAll(tempTasks);
+        return t;
+    }
+
+    /**
      * Removes the task at the specific position.
      *
-     * @param i Index of the task to remove.
+     * @param t The task to remove.
      */
-    public void remove(int i) {
-        this.tasks.remove(i);
+    public void remove(Task t) {
+        this.tasks.remove(t);
     }
 
     /**

@@ -5,6 +5,7 @@ import duke.exception.LackDescriptionException;
 import duke.exception.LackInformationException;
 import duke.exception.InvalidInputException;
 import duke.exception.InvalidMarkingException;
+import duke.exception.InvalidRankingException;
 
 import duke.task.Deadline;
 import duke.task.Event;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 /**
  * An object that deals with making sense of user commands.
@@ -84,6 +86,8 @@ public class Parser {
             return delete(otherWords);
         case "find":
             return findTask(otherWords);
+        case "rank":
+            return rankTask(otherWords);
         default:
             throw new InvalidInputException("OOPS! I do not know what " + firstWord
                     + " means. Please try again :)");
@@ -127,7 +131,8 @@ public class Parser {
     }
 
     private Task getTodoFromFile(String[] line, boolean isDone) {
-        Task t = new Todo(line[2]);
+        int rank = Integer.parseInt(line[3]);
+        Task t = new Todo(line[2], rank);
         if (isDone) {
             t.markDone();
         }
@@ -135,14 +140,17 @@ public class Parser {
     }
 
     private Task getDeadlineFromFile(String[] line, boolean isDone) {
+        int rank;
         Task t;
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
 
-        if (line.length == 4) {
-            t = new Deadline(line[2], LocalDate.parse(line[3]));
+        if (line.length == 5) {
+            rank = Integer.parseInt(line[4]);
+            t = new Deadline(line[2], LocalDate.parse(line[3]), rank);
         } else {
+            rank = Integer.parseInt(line[5]);
             t = new Deadline(line[2], LocalDate.parse(line[3]),
-                    LocalTime.parse(line[4], timeFormat));
+                    LocalTime.parse(line[4], timeFormat), rank);
         }
 
         if (isDone) {
@@ -152,20 +160,25 @@ public class Parser {
     }
 
     private Task getEventFromFile(String[] line, boolean isDone) {
+        int rank;
         Task t;
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
 
-        if (line.length == 7) {
+        if (line.length == 8) {
+            rank = Integer.parseInt(line[7]);
             t = new Event(line[2], LocalDate.parse(line[3]), LocalTime.parse(line[4], timeFormat),
-                    LocalDate.parse(line[5]), LocalTime.parse(line[6]));
-        } else if (line.length == 5) {
-            t = new Event(line[2], LocalDate.parse(line[3]), LocalDate.parse(line[4]));
+                    LocalDate.parse(line[5]), LocalTime.parse(line[6]), rank);
+        } else if (line.length == 6) {
+            rank = Integer.parseInt(line[5]);
+            t = new Event(line[2], LocalDate.parse(line[3]), LocalDate.parse(line[4]), rank);
         } else if (line[5].length() > 5) {
+            rank = Integer.parseInt(line[6]);
             t = new Event(line[2], LocalDate.parse(line[3]), LocalTime.parse(line[4], timeFormat),
-                    LocalDate.parse(line[5]));
+                    LocalDate.parse(line[5]), rank);
         } else {
+            rank = Integer.parseInt(line[6]);
             t = new Event(line[2], LocalDate.parse(line[3]), LocalDate.parse(line[4]),
-                    LocalTime.parse(line[5], timeFormat));
+                    LocalTime.parse(line[5], timeFormat), rank);
         }
 
         if (isDone) {
@@ -184,9 +197,16 @@ public class Parser {
             return ui.sendMessage("list is empty :(");
         }
         String res = "";
-        for (int i = 0; i < tasks.size(); i++) {
-            res = String.join("",res + "\n",
-                    ui.sendMessage(i + 1 + " " + tasks.get(i).convertToString()));
+        int counter = 1;
+        ArrayList<Task> tempTasks = new ArrayList<>();
+        while (!tasks.isEmpty()) {
+            Task t = tasks.poll();
+            res = String.join("",res + "\n", ui.sendMessage(counter + " " + t.convertToString()));
+            tempTasks.add(t);
+            counter += 1;
+        }
+        for (Task temp : tempTasks) {
+            tasks.add(temp);
         }
         return res;
     }
@@ -202,7 +222,7 @@ public class Parser {
         if (!hasToDoDescription(details)) {
             throw new LackDescriptionException("todo");
         }
-        Todo t = new Todo(details);
+        Todo t = new Todo(details, 0);
         tasks.add(t);
         return confirmAddedTask(details);
     }
@@ -269,9 +289,9 @@ public class Parser {
         Deadline d;
 
         if (time == null) {
-            d = new Deadline(description, date);
+            d = new Deadline(description, date, 0);
         } else {
-            d = new Deadline(description, date, time);
+            d = new Deadline(description, date, time, 0);
         }
         return d;
     }
@@ -353,13 +373,13 @@ public class Parser {
         Event e;
 
         if (startTime == null && endTime == null) {
-            e = new Event(description, startDate, endDate);
+            e = new Event(description, startDate, endDate, 0);
         } else if (startTime == null) {
-            e = new Event(description, startDate, endDate, endTime);
+            e = new Event(description, startDate, endDate, endTime, 0);
         } else if (endTime == null) {
-            e = new Event(description, startDate, startTime, endDate);
+            e = new Event(description, startDate, startTime, endDate, 0);
         } else {
-            e = new Event(description, startDate, startTime, endDate, endTime);
+            e = new Event(description, startDate, startTime, endDate, endTime, 0);
         }
         return e;
     }
@@ -463,7 +483,7 @@ public class Parser {
         }
 
         Task t = tasks.get(j - 1);
-        tasks.remove(j - 1);
+        tasks.remove(t);
 
         String res = String.join("", "I've removed this task:\n", t.convertToString());
         res = String.join("", res + "\n", "Now you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task")
@@ -502,5 +522,41 @@ public class Parser {
             return String.join("", res + "\n",
                     ui.sendMessage("You have " + (counter-1) + " matching tasks in your list"));
         }
+    }
+
+    /**
+     * Updates the priority of the task.
+     */
+    private String rankTask(String details) {
+        if (details == null || details.trim().isEmpty()) {
+            throw new InvalidRankingException("Missing target task");
+        }
+
+        String[] strings = details.split(" /level ");
+        int idxTask;
+        try {
+            this.ui.sendMessage(strings[0]);
+            idxTask = Integer.parseInt(strings[0]);
+        } catch (NumberFormatException e) {
+            throw new InvalidRankingException("Please provide a valid index for task");
+        }
+
+        if (idxTask - 1 > tasks.size() - 1 || idxTask - 1 < 0) {
+            throw new InvalidRankingException("There is no corresponding task in the list");
+        }
+
+        int rank;
+        try {
+            rank = Integer.parseInt(strings[1]);
+        } catch (RuntimeException e) {
+            throw new InvalidRankingException("Please provide a valid index for ranking");
+        }
+
+        Task t = tasks.get(idxTask - 1);
+        t.setPriority(rank);
+        tasks.remove(t);
+        tasks.add(t);
+
+        return this.ui.sendMessage("Priority of task has been updated successfully");
     }
 }

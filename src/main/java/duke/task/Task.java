@@ -6,15 +6,17 @@ package duke.task;
 public class Task {
     private boolean isDone;
     private String description;
+    private int rank;
 
     /**
      * Creates a task instance.
      *
      * @param description Description of the task.
      */
-    public Task(String description) {
+    public Task(String description, int rank) {
         this.isDone = false;
         this.description = description;
+        this.rank = rank;
     }
 
     /**
@@ -60,5 +62,19 @@ public class Task {
         } else {
             return " 0 / " + this.description;
         }
+    }
+
+    /**
+     * Updates the priority level of the task.
+     */
+    public void setPriority(int i) {
+        this.rank = i;
+    }
+
+    /**
+     * Returns the priority level of the task.
+     */
+    public int getPriority() {
+        return this.rank;
     }
 }

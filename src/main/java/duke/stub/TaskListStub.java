@@ -4,13 +4,14 @@ import duke.TaskList;
 import duke.task.Task;
 
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 /**
  * A stub for the TaskList class.
  */
 public class TaskListStub extends TaskList {
     /** A list to store the tasks. */
-    private ArrayList<Task> tasks;
+    private PriorityQueue<Task> tasks;
 
     /**
      * Constructs a new TaskListStub.
@@ -20,12 +21,12 @@ public class TaskListStub extends TaskList {
      */
     public TaskListStub(boolean b, boolean unmarked) {
         if (b) {
-            this.tasks = new ArrayList<>();
+            this.tasks = new PriorityQueue<>();
         } else {
-            this.tasks = new ArrayList<>();
-            Task t1 = new Task("task1");
-            Task t2 = new Task("task2");
-            Task t3 = new Task("task3");
+            this.tasks = new PriorityQueue<>();
+            Task t1 = new Task("task1", 0);
+            Task t2 = new Task("task2", 0);
+            Task t3 = new Task("task3", 0);
             if (!unmarked) {
                 t1.markDone();
                 t2.markDone();
@@ -49,7 +50,15 @@ public class TaskListStub extends TaskList {
 
     @Override
     public Task get(int i) {
-        return tasks.get(i);
+        ArrayList<Task> tempTasks = new ArrayList<>();
+        Task t = tasks.poll();
+        for (int j = 0; j < i; j++) {
+            tempTasks.add(t);
+            t = tasks.poll();
+        }
+        tempTasks.add(t);
+        tasks.addAll(tempTasks);
+        return t;
     }
 
     @Override
@@ -58,8 +67,8 @@ public class TaskListStub extends TaskList {
     }
 
     @Override
-    public void remove(int i) {
-        tasks.remove(i);
+    public void remove(Task t) {
+        tasks.remove(t);
     }
 
     @Override

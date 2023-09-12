@@ -17,8 +17,8 @@ public class Deadline extends Task {
      * @param description Description of the task.
      * @param date duke.task.Deadline date of the task.
      */
-    public Deadline(String description, LocalDate date) {
-        super(description);
+    public Deadline(String description, LocalDate date, int rank) {
+        super(description, rank);
         this.endDate = date;
         this.endTime = null;
     }
@@ -30,8 +30,8 @@ public class Deadline extends Task {
      * @param date duke.task.Deadline date of the task.
      * @param time duke.task.Deadline time of the task.
      */
-    public Deadline(String description, LocalDate date, LocalTime time) {
-        super(description);
+    public Deadline(String description, LocalDate date, LocalTime time, int rank) {
+        super(description, rank);
         this.endDate = date;
         this.endTime = time;
     }

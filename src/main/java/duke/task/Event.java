@@ -20,31 +20,31 @@ public class Event extends Task {
      * @param start Starting time of the task.
      * @param end Ending time of the task.
      */
-    public Event(String description, LocalDate start, LocalDate end) {
-        super(description);
+    public Event(String description, LocalDate start, LocalDate end, int rank) {
+        super(description, rank);
         this.startDate = start;
         this.endDate = end;
         this.startTime = null;
         this.endTime = null;
     }
 
-    public Event(String description, LocalDate start, LocalTime startTime, LocalDate end) {
-        super(description);
+    public Event(String description, LocalDate start, LocalTime startTime, LocalDate end, int rank) {
+        super(description, rank);
         this.startDate = start;
         this.endDate = end;
         this.startTime = startTime;
         this.endTime = null;
     }
 
-    public Event(String description, LocalDate start, LocalDate end, LocalTime endTime) {
-        super(description);
+    public Event(String description, LocalDate start, LocalDate end, LocalTime endTime, int rank) {
+        super(description, rank);
         this.startDate = start;
         this.endDate = end;
         this.startTime = null;
         this.endTime = endTime;
     }
-    public Event(String description, LocalDate start, LocalTime startTime, LocalDate end, LocalTime endTime) {
-        super(description);
+    public Event(String description, LocalDate start, LocalTime startTime, LocalDate end, LocalTime endTime, int rank) {
+        super(description, rank);
         this.startDate = start;
         this.endDate = end;
         this.startTime = startTime;
