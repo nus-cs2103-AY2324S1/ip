@@ -7,7 +7,11 @@ import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import simon.task.Deadline;
 import simon.task.Event;
@@ -59,54 +63,60 @@ public class Storage {
             }
         }
 
-        try {
-            Scanner scanner = new Scanner(file);
+        try (Scanner scanner = new Scanner(file)) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-            while (scanner.hasNextLine()) {
-                String data = scanner.nextLine();
-                String[] parts = data.split(" \\| ");
-                switch (parts[0]) {
-                case "T":
-                    ToDo todo = new ToDo(parts[2]);
-                    if (parts[1].equals("1")) {
-                        todo.markAsDone();
-                    }
-                    loadedTasks.add(todo);
-                    break;
-                case "D":
-                    LocalDateTime endDateTime = LocalDateTime.parse(parts[3], formatter);
-                    Deadline deadline = new Deadline(parts[2], endDateTime.format(formatter));
-                    if (parts[1].equals("1")) {
-                        deadline.markAsDone();
-                    }
-                    loadedTasks.add(deadline);
-                    break;
-                case "E":
-                    String startDateTimeStr = parts[3];
-                    String endDateTimeStr = parts[4];
-                    LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeStr, formatter);
-                    LocalDateTime endDateTime2 = LocalDateTime.parse(endDateTimeStr, formatter);
-                    Event event = new Event(parts[2], startDateTime.format(formatter),
-                            endDateTime2.format(formatter));
-                    if (parts[1].equals("1")) {
-                        event.markAsDone();
-                    }
-                    loadedTasks.add(event);
-                    break;
-                default:
-                    // Handle unknown task types or throw an error
-                    break;
-                }
-            }
-            scanner.close();
+
+            List<Task> tasks = Stream.generate(() -> scanner.hasNext() ? scanner.nextLine() : null)
+                    .takeWhile(Objects::nonNull)
+                    .map(line -> {
+                        String[] parts = line.split(" \\| ");
+                        switch (parts[0]) {
+                            case "T":
+                                ToDo todo = new ToDo(parts[2]);
+                                if ("1".equals(parts[1])) {
+                                    todo.markAsDone();
+                                }
+                                return todo;
+                            case "D":
+                                LocalDateTime endDateTime = LocalDateTime.parse(parts[3], formatter);
+                                Deadline deadline = null;
+                                try {
+                                    deadline = new Deadline(parts[2], endDateTime.format(formatter));
+                                } catch (SimonException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                if ("1".equals(parts[1])) {
+                                    deadline.markAsDone();
+                                }
+                                return deadline;
+                            case "E":
+                                LocalDateTime startDateTime = LocalDateTime.parse(parts[3], formatter);
+                                LocalDateTime endDate = LocalDateTime.parse(parts[4], formatter);
+                                Event event = null;
+                                try {
+                                    event = new Event(parts[2], startDateTime.format(formatter), endDate.format(formatter));
+                                } catch (SimonException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                if ("1".equals(parts[1])) {
+                                    event.markAsDone();
+                                }
+                                return event;
+                            default:
+                                return null;
+                        }
+                    })
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
+            loadedTasks.addAll(tasks);
         } catch (FileNotFoundException e) {
             System.out.println("Data file not found. Starting with an empty task list.");
-        } catch (SimonException e) {
-            throw new RuntimeException(e);
         }
+
 
         return loadedTasks;
     }
+
 
     /**
      * Saves the provided list of tasks to the specified file.
