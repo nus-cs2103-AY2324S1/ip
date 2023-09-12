@@ -38,12 +38,12 @@ public class TaskList {
     public String deleteTask(int index) {
         if (index < 0 || index >= tasks.size()) {
             return "Please enter a valid number.";
-        } else {
-            Task task = tasks.get(index);
-            tasks.remove(index);
-            return "Noted. I've removed this task:\n" + task.getDescription()
-                    + "\nNow you have " + tasks.size() + " tasks in the list.";
         }
+
+        Task task = tasks.get(index);
+        tasks.remove(index);
+        return "Noted. I've removed this task:\n" + task.getDescription()
+                + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
     /**
@@ -54,11 +54,11 @@ public class TaskList {
     public String markTaskAsDone(int index) {
         if (index < 0 || index >= tasks.size()) {
             return "Please enter a valid number.";
-        } else {
-            Task task = tasks.get(index);
-            task.markAsDone();
-            return "Nice! I've marked this task as done:\n" + task.getDescription();
         }
+
+        Task task = tasks.get(index);
+        task.markAsDone();
+        return "Nice! I've marked this task as done:\n" + task.getDescription();
     }
 
     /**
@@ -69,11 +69,11 @@ public class TaskList {
     public String unmarkTask(int index) {
         if (index < 0 || index >= tasks.size()) {
             return "Please enter a valid number.";
-        } else {
-            Task task = tasks.get(index);
-            task.unmark();
-            return "OK, I've marked this task as not done yet:\n" + task.getDescription();
         }
+
+        Task task = tasks.get(index);
+        task.unmark();
+        return "OK, I've marked this task as not done yet:\n" + task.getDescription();
     }
 
     /**
@@ -104,16 +104,17 @@ public class TaskList {
                 foundTasks.add(task);
             }
         }
+
         if (foundTasks.size() == 0) {
             return "No matching tasks found.";
-        } else {
-            String s = "Here are the matching tasks in your list:";
-            for (int i = 0; i < foundTasks.size(); i++) {
-                Task task = foundTasks.get(i);
-                s = s + (i + 1) + ". " + task.getDescription();
-            }
-            return s;
         }
+
+        String s = "Here are the matching tasks in your list:";
+        for (int i = 0; i < foundTasks.size(); i++) {
+            Task task = foundTasks.get(i);
+            s = s + (i + 1) + ". " + task.getDescription();
+        }
+        return s;
     }
 
     /**
