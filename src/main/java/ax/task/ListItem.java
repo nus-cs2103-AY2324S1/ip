@@ -20,6 +20,7 @@ public class ListItem {
     public ListItem(String text) {
         this.text = text;
         this.done = false; // defaults to not done yet
+        assert this.text.length() > 0 : this.done == false;
     }
 
     /**
