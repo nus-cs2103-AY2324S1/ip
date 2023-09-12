@@ -22,6 +22,7 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String description, String byDate, boolean isDone) throws DukeException {
         super(description, isDone);
+        assert description != null : "Description cannot be null.";
         try {
             setDeadlineByDate(byDate);
         } catch (DateTimeException e) {

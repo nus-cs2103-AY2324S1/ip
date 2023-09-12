@@ -24,6 +24,7 @@ public class EventTask extends Task {
      */
     public EventTask(String description, String from, String to, boolean isDone) throws DukeException {
         super(description, isDone);
+        assert description != null : "Description cannot be null.";
         try {
             setEventFromDate(from);
             setEventToDate(to);
