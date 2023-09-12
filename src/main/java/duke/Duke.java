@@ -13,9 +13,6 @@ import duke.storage.Storage;
  */
 public class Duke {
 
-    /** The name of the chatbot */
-    private static final String BOT_NAME = "SoCrates";
-
     /** The file path where the data of the chatbot is stored */
     private static final String FILE_PATH = "data/tasks.txt";
 

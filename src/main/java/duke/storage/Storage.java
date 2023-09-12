@@ -9,8 +9,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import duke.data.exception.DukeException;
 import duke.data.exception.StorageLoadException;
+import duke.data.exception.StorageSaveException;
 import duke.data.task.Deadline;
 import duke.data.task.Event;
 import duke.data.task.Task;
@@ -23,7 +23,7 @@ import duke.data.task.Todo;
 public class Storage {
 
     /** The file path where the task data is stored */
-    private String filePath;
+    private final String filePath;
 
     /** Initializes the data file with the given path */
     public Storage(String filePath) {
@@ -34,7 +34,7 @@ public class Storage {
      * Loads the data from the file and returns it as a list.
      *
      * @return The list of tasks.
-     * @throws DukeException If there was an issue running the file.
+     * @throws StorageLoadException If there was an issue running the file.
      */
     public List<Task> load() throws StorageLoadException {
         try {
@@ -92,9 +92,9 @@ public class Storage {
      * Saves the list of tasks to the file.
      *
      * @param tasks The list of tasks to be saved to the file.
-     * @throws DukeException If there was an issue saving the file.
+     * @throws StorageSaveException If there was an issue saving the file.
      */
-    public void save(TaskList tasks) throws DukeException {
+    public void save(TaskList tasks) throws StorageSaveException {
         try {
             File file = new File(filePath);
             file.getParentFile().mkdir();
@@ -104,7 +104,7 @@ public class Storage {
             fileWriter.close();
 
         } catch (IOException e) {
-            throw new DukeException("There was an IOException while saving the tasks.");
+            throw new StorageSaveException("There was an IOException while saving the tasks.");
         }
     }
 }

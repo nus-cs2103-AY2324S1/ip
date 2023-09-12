@@ -144,7 +144,7 @@ public class Parser {
     private static Command prepareMark(String arguments, boolean isMarked) throws DukeException {
         final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
-            throw new InvalidTaskIndexException();
+            throw new InvalidTaskIndexException("The task must be specified.");
         }
 
         if (isMarked) {
@@ -163,7 +163,7 @@ public class Parser {
     private static Command prepareDelete(String arguments) throws DukeException {
         final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
-            throw new InvalidTaskIndexException();
+            throw new InvalidTaskIndexException("The task must be specified.");
         }
 
         return new DeleteCommand(matcher.group("taskIndex"));
