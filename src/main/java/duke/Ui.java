@@ -71,4 +71,13 @@ public class Ui {
                 + task.toString() + "\nIn total you have "
                 + size + " things to do.\n";
     }
+
+    /**
+     * Notifies the user that the task being added already exists.
+     *
+     * @return String informing the user that the task already exists.
+     */
+    public static String informDuplicate() {
+        return "Aiyo this task already added la, can wake up your idea anot.";
+    }
 }

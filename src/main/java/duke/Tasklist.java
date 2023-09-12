@@ -107,4 +107,20 @@ public class Tasklist {
         }
         return filteredTasks;
     }
+
+    /**
+     * Checks if a given task is already present in the tasklist.
+     *
+     * @param task The task to be checked.
+     * @return true if the task is already present in the tasklist, false otherwise.
+     */
+    public boolean isDuplicate(Task task) {
+        for (int i = 0; i < tasks.size(); i++) {
+            Task currTask = tasks.get(i);
+            if (task.equals(currTask)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
