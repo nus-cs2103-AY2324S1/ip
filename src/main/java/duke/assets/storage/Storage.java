@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import java.util.Scanner;
 
 import duke.assets.parser.Parser;
@@ -35,9 +34,9 @@ public class Storage {
             PrintWriter pw = new PrintWriter(fw);
             pw.print(tasklist.saveToFileFormat());
             pw.close();
-        } catch (IOException IOExcept) {
+        } catch (IOException e) {
             System.out.println("ChadGPT: Unfortunately there was an unexpected error when reading your data file.");
-            IOExcept.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -57,12 +56,12 @@ public class Storage {
                 dataParser.passDataCommand(nextLine, tasklist);
             }
             return true;
-        } catch (IOException IOExcept) {
+        } catch (IOException e) {
             System.out.println("ChadGPT: Unfortunately there was an unexpected error when reading your data file.");
-            IOExcept.printStackTrace();
+            e.printStackTrace();
         } catch (CorruptDataException corruptDataExcept) {
-            System.out.println("ChadGPT: Data is corrupt at: \"" + corruptDataExcept.getCorruptLine() +
-                    "\". Please fix and press enter to proceed, or type the command \"exit\" to quit program");
+            System.out.println("ChadGPT: Data is corrupt at: \"" + corruptDataExcept.getCorruptLine()
+                    + "\". Please fix and press enter to proceed, or type the command \"exit\" to quit program");
             tasklist.clearList();
         }
         return false;

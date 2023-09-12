@@ -11,8 +11,8 @@ public abstract class CommandAbstract {
     /**
      * A horizontal line used for formatting output
      */
-    public static String HORIZONTAL = "------------------------------------------------------------" +
-            "---------------------------";
+    protected static final String HORIZONTAL = "------------------------------------------------------------"
+            + "---------------------------";
 
     /**
      * A regular expression for validating dates in the format yyyy/MM/dd or yyyy-MM-dd

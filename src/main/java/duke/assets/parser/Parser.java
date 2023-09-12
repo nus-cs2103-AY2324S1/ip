@@ -1,29 +1,31 @@
 package duke.assets.parser;
 
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import duke.assets.commands.ByeCommand;
 import duke.assets.commands.CommandAbstract;
 import duke.assets.commands.CreateDeadlineCommand;
 import duke.assets.commands.CreateEventCommand;
 import duke.assets.commands.CreateTodoCommand;
+import duke.assets.commands.DeleteCommand;
 import duke.assets.commands.FindCommand;
 import duke.assets.commands.ListCommand;
 import duke.assets.commands.MarkCommand;
 import duke.assets.commands.UnmarkCommand;
-import duke.assets.commands.DeleteCommand;
 import duke.assets.storage.TaskList;
-
 import duke.dukeexceptions.CorruptDataException;
 import duke.dukeexceptions.InvalidCommandException;
 
+/**
+ * Parser class for parsing commands by user and data
+ */
 public class Parser {
     private static final String GENERAL_DATA_REGEX_STRING = "^[TDE] \\| [01] \\| .+";
-    private static final String DEADLINE_REGEX_STRING = "^D \\| [01] \\| .+ \\| \\d{4}-\\d{2}-\\d{2}" +
-            "($| [0-2][0-9][0-5][0-9]$)";
-    private static final String EVENT_REGEX_STRING = "^E \\| [01] \\| .+ \\| \\d{4}-\\d{2}-\\d{2}" +
-            "( [0-2][0-9][0-5][0-9] | )- \\d{4}-\\d{2}-\\d{2}($| [0-2][0-9][0-5][0-9]$)";
+    private static final String DEADLINE_REGEX_STRING = "^D \\| [01] \\| .+ \\| \\d{4}-\\d{2}-\\d{2}"
+            + "($| [0-2][0-9][0-5][0-9]$)";
+    private static final String EVENT_REGEX_STRING = "^E \\| [01] \\| .+ \\| \\d{4}-\\d{2}-\\d{2}"
+            + "( [0-2][0-9][0-5][0-9] | )- \\d{4}-\\d{2}-\\d{2}($| [0-2][0-9][0-5][0-9]$)";
 
     /**
      * Creates a user command object from the given input command string
@@ -40,26 +42,26 @@ public class Parser {
         }
 
         switch (input.split(" ")[0].toLowerCase()) {
-            case "bye":
-                return new ByeCommand(input);
-            case "list":
-                return new ListCommand(input);
-            case "mark":
-                return new MarkCommand(input);
-            case "unmark":
-                return new UnmarkCommand(input);
-            case "delete":
-                return new DeleteCommand(input);
-            case "todo":
-                return new CreateTodoCommand(input, false);
-            case "deadline":
-                return new CreateDeadlineCommand(input, false);
-            case "event":
-                return new CreateEventCommand(input, false);
-            case "find":
-                return new FindCommand(input);
-            default:
-                // fall-through
+        case "bye":
+            return new ByeCommand(input);
+        case "list":
+            return new ListCommand(input);
+        case "mark":
+            return new MarkCommand(input);
+        case "unmark":
+            return new UnmarkCommand(input);
+        case "delete":
+            return new DeleteCommand(input);
+        case "todo":
+            return new CreateTodoCommand(input, false);
+        case "deadline":
+            return new CreateDeadlineCommand(input, false);
+        case "event":
+            return new CreateEventCommand(input, false);
+        case "find":
+            return new FindCommand(input);
+        default:
+            // fall-through
         }
         throw new InvalidCommandException("ChadGPT: Please input a valid command.\n");
     }
@@ -97,24 +99,24 @@ public class Parser {
             boolean isDone = delimited[1].equals("1");
             dataMatcher.reset();
             switch(delimited[0]) {
-                case "T":
-                    return new CreateTodoCommand("todo " + delimited[2], isDone);
-                case "D":
-                    if (!dataMatcher.usePattern(deadlineRegex).find()) {
-                        throw new CorruptDataException(input);
-                    }
-                    return new CreateDeadlineCommand("deadline " + delimited[2]
-                            + " /by " + delimited[3], isDone);
-                case "E":
-                    if (!dataMatcher.usePattern(eventRegex).find()) {
-                        throw new CorruptDataException(input);
-                    }
-                    String[] dateAndTimeDelimited = delimited[3].split(" - ");
-                    return new CreateEventCommand("event " + delimited[2]
-                            + " /from " + dateAndTimeDelimited[0] + " /to "
-                            + dateAndTimeDelimited[1], isDone);
-                default:
-                    // fall through
+            case "T":
+                return new CreateTodoCommand("todo " + delimited[2], isDone);
+            case "D":
+                if (!dataMatcher.usePattern(deadlineRegex).find()) {
+                    throw new CorruptDataException(input);
+                }
+                return new CreateDeadlineCommand("deadline " + delimited[2]
+                        + " /by " + delimited[3], isDone);
+            case "E":
+                if (!dataMatcher.usePattern(eventRegex).find()) {
+                    throw new CorruptDataException(input);
+                }
+                String[] dateAndTimeDelimited = delimited[3].split(" - ");
+                return new CreateEventCommand("event " + delimited[2]
+                        + " /from " + dateAndTimeDelimited[0] + " /to "
+                        + dateAndTimeDelimited[1], isDone);
+            default:
+                // fall through
             }
         }
         throw new CorruptDataException(input);

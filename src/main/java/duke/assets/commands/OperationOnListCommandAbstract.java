@@ -1,7 +1,7 @@
 package duke.assets.commands;
 
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import duke.assets.storage.TaskList;
 
@@ -33,8 +33,8 @@ public abstract class OperationOnListCommandAbstract extends CommandAbstract {
             inputMatcher.reset();
             Pattern inputStartRegex = Pattern.compile("^(mark|unmark|delete)\\s", Pattern.CASE_INSENSITIVE);
             if (inputMatcher.usePattern(inputStartRegex).find()) {
-                System.out.println("Ensure that you have included the index value of the task you would like to" +
-                        "alter");
+                System.out.println("Ensure that you have included the index value of the task you would like to"
+                        + "alter");
             }
             return false;
         }
