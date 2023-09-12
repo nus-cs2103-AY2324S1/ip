@@ -30,6 +30,7 @@ public class Parser {
      * @throws DukeException If the input command is invalid or contains errors.
      */
     public static Command parse(String strCommand) throws DukeException {
+        assert strCommand != null : "Command should not be null";
         int firstSpaceIndex = strCommand.indexOf(" ");
         Command command = null;
         String commandType = firstSpaceIndex != -1

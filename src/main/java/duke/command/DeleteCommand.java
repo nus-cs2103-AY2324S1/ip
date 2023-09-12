@@ -31,7 +31,7 @@ public class DeleteCommand extends Command {
         } catch (NumberFormatException e) {
             throw new DukeException("OOPS!!! The task number cannot be parsed.");
         }
-        if (taskNumber > tasks.size()) {
+        if (taskNumber > tasks.size() || taskNumber <= 0) {
             throw new DukeException("OOPS!!! The task number is out of range.");
         }
         Task deletedTask = tasks.get(taskNumber - 1);
