@@ -52,11 +52,11 @@ public class Parser {
         } else if (input.startsWith("find")) {
 
             if (input.length() == 4) {
-                return "☹ OOPS!!! Please enter a search term";
+                return CustomErrorHandling.emptySearchTerm();
             } else {
                 String searchString = input.substring(4).trim();
                 if (searchString.equals("")) {
-                    return "☹ OOPS!!! Please enter a search term";
+                    return CustomErrorHandling.emptySearchTerm();
                 } else {
                     return taskList.getSearchList(input.substring(5));
                 }
@@ -72,7 +72,7 @@ public class Parser {
 
                 String des = input.substring(4).trim();
                 if (des.equals("")) {
-                    return "☹ OOPS!!! The description of a todo cannot be empty.";
+                    return CustomErrorHandling.emptyTodoDescription();
                 } else {
                     curr = new Todo(des);
                 }
@@ -86,9 +86,9 @@ public class Parser {
                 }
                 i += 4;
                 if (description.toString().equals("")) {
-                    return "☹ OOPS!!! The description of a deadline cannot be empty.";
+                    return CustomErrorHandling.emptyDeadlineDescription();
                 } else if (i >= input.length() || input.substring(i).equals("")) {
-                    return "☹ OOPS!!! The deadline of a deadline cannot be empty.";
+                    return CustomErrorHandling.emptyDeadlineDuedate();
                 } else {
                     LocalDateTime endDateTime = LocalDateTime.parse(input.substring(i), Ballsorter.inputFormatter);
                     curr = new Deadline(description.toString(), endDateTime);
@@ -109,11 +109,11 @@ public class Parser {
                 }
                 i += 4;
                 if (description.toString().equals("")) {
-                    return "☹ OOPS!!! The description of an event cannot be empty.";
+                    return CustomErrorHandling.emptyEventDescription();
                 } else if (start.toString().equals("")) {
-                    return "☹ OOPS!!! The start time of an event cannot be empty.";
+                    return CustomErrorHandling.emptyEventStartDate();
                 } else if (i >= input.length() || input.substring(i).equals("")) {
-                    return "☹ OOPS!!! The end time of an event cannot be empty.";
+                    return CustomErrorHandling.emptyEventEndDate();
                 } else {
                     LocalDateTime startDateTime = LocalDateTime.parse(start.toString(), Ballsorter.inputFormatter);
                     LocalDateTime endDateTime = LocalDateTime.parse(input.substring(i), Ballsorter.inputFormatter);
@@ -121,13 +121,10 @@ public class Parser {
                 }
 
             } else {
-                return "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
+                return CustomErrorHandling.commandNotFound();
             }
 
             return taskList.addTask(curr);
-//            if (curr != null) {
-//                taskList.addTask(curr);
-//            }
         }
     }
 }
