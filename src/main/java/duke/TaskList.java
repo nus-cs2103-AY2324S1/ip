@@ -3,6 +3,7 @@ package duke;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Stream;
 
 import duke.task.Task;
 
@@ -99,6 +100,10 @@ public class TaskList implements Iterable<Task> {
      */
     public int getListSize() {
         return this.tasks.size();
+    }
+
+    public Stream<Task> stream() {
+        return tasks.stream();
     }
 
     /**
