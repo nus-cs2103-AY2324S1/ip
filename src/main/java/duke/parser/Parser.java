@@ -26,12 +26,12 @@ import duke.task.ToDo;
  * Provides static methods to parse user queries and data file.
  */
 public class Parser {
-    private static String emptyDeadlineDate = "Please specify deadline date using /by\n"
+    private static final String emptyDeadlineDate = "Please specify deadline date using /by\n"
         + "e.g. deadline report /by 2023-12-31";
-    private static String emptyEventDate = "Please specify event start and end dates using /from and /to\n"
+    private static final String emptyEventDate = "Please specify event start and end dates using /from and /to\n"
         + "e.g. event holiday /from 2023-06-01 /to 2023-06-30";
-    private static String invalidDate = "Please provide date with the following format: YYYY-MM-DD";
-    private static String invalidEndDate = "Your end date is before start date";
+    private static final String invalidDate = "Please provide date with the following format: YYYY-MM-DD";
+    private static final String invalidEndDate = "Your end date is before start date";
 
     /**
      * Converts a String date from YYYY-MM-DD to d MMM yyyy format.

@@ -10,7 +10,7 @@ import duke.DukeException;
  * Represents an event inherits from a Task.
  */
 public class Event extends Task {
-    private static String invalidDate = "Please provide dates with the following format: YYYY-MM-DD";
+    private static final String invalidDate = "Please provide dates with the following format: YYYY-MM-DD";
     private LocalDate from;
     private LocalDate to;
 

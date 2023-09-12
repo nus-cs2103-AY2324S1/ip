@@ -10,7 +10,7 @@ import duke.DukeException;
  * Represents a deadline inherits from a Task.
  */
 public class Deadline extends Task {
-    private static String invalidDate = "Please provide date with the following format: YYYY-MM-DD";
+    private static final String invalidDate = "Please provide date with the following format: YYYY-MM-DD";
     private LocalDate deadline;
 
     /**
