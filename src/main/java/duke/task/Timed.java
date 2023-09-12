@@ -39,7 +39,7 @@ public class Timed extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[I]%s (duration: %.1f)", super.toString(), this.duration);
+        return String.format("[I]%s (duration: %.1f hours)", super.toString(), this.duration);
     }
 
     /**
