@@ -138,4 +138,8 @@ public class Ui {
     public String matchingTasks() {
         return "Here are the matching tasks in your list:";
     }
+
+    public String tag(Task task) {
+        return "Noted. I've tagged this task:\n\t" + task.toString();
+    }
 }

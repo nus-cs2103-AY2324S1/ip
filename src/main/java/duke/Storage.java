@@ -60,35 +60,35 @@ public class Storage {
             try {
                 while ((line = reader.readLine()) != null) {
                     if (line.startsWith("T")) {
-                        String[] inputs = line.split(" \\| ", 3);
+                        String[] inputs = line.split(" \\| ", 4);
                         boolean isDone = inputs[1].equals("1");
-                        ToDo todo = new ToDo(inputs[2], isDone);
+                        ToDo todo = new ToDo(inputs[2], isDone, inputs[3]);
                         dukeList.add(todo);
                     }
                     if (line.startsWith("D")) {
-                        String[] inputs = line.split(" \\| ", 4);
+                        String[] inputs = line.split(" \\| ", 5);
                         boolean isDone = inputs[1].equals("1");
                         LocalDate b;
                         try {
-                            b = DateParserService.parseDate(inputs[3]);
+                            b = DateParserService.parseDate(inputs[4]);
                         } catch (DateTimeParseException e) {
                             throw new DukeException("Invalid date format");
                         }
-                        Deadline deadline = new Deadline(inputs[2], isDone, b);
+                        Deadline deadline = new Deadline(inputs[2], isDone, inputs[3], b);
                         dukeList.add(deadline);
                     }
                     if (line.startsWith("E")) {
-                        String[] inputs = line.split(" \\| ", 5);
+                        String[] inputs = line.split(" \\| ", 6);
                         boolean isDone = inputs[1].equals("1");
                         LocalDate f;
                         LocalDate t;
                         try {
-                            f = DateParserService.parseDate(inputs[3]);
-                            t = DateParserService.parseDate(inputs[4]);
+                            f = DateParserService.parseDate(inputs[4]);
+                            t = DateParserService.parseDate(inputs[5]);
                         } catch (DateTimeParseException e) {
                             throw new DukeException("Invalid date format");
                         }
-                        Event event = new Event(inputs[2], isDone, f, t);
+                        Event event = new Event(inputs[2], isDone, inputs[3], f, t);
                         dukeList.add(event);
                     }
                 }
