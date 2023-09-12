@@ -49,10 +49,12 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
+        assert !text.isBlank() : "Dialog is empty";
         return new DialogBox(text, img);
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
+        assert !text.isBlank() : "Dialog is empty";
         var db = new DialogBox(text, img);
         db.flip();
         return db;

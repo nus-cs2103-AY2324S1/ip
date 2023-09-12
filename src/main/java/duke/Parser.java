@@ -66,11 +66,13 @@ public class Parser {
             throw new DukeException("More information is required to unmark a task");
         } else {
             String[] unparsedTaskIndex = fullCommand.split(" ");
+            assert !unparsedTaskIndex[1].isBlank() : "Index is empty";
             int taskIndex = Integer.parseInt(unparsedTaskIndex[1]) - 1;
             if (taskIndex >= (taskList.size()) || taskIndex < 0) {
                 throw new DukeException("There are only " + taskList.size() + " tasks");
             } else {
                 return new UnmarkCommand(taskIndex);
+
             }
         }
     }
@@ -80,11 +82,13 @@ public class Parser {
             throw new DukeException("More information is required to mark a task");
         } else {
             String[] unparsedTaskIndex = fullCommand.split(" ");
+            assert !unparsedTaskIndex[1].isBlank() : "Index is empty";
             int taskIndex = Integer.parseInt(unparsedTaskIndex[1]) - 1;
             if (taskIndex >= (taskList.size()) || taskIndex < 0) {
                 throw new DukeException("There are only " + taskList.size() + " tasks");
             } else {
                 return new MarkCommand(taskIndex);
+
             }
         }
     }
@@ -94,6 +98,7 @@ public class Parser {
             throw new DukeException("More information is required to delete a task");
         } else {
             String[] unparsedTaskIndex = fullCommand.split(" ");
+            assert !unparsedTaskIndex[1].isBlank() : "Index is empty";
             int taskIndex = Integer.parseInt(unparsedTaskIndex[1]) - 1;
             if (taskIndex >= (taskList.size()) || taskIndex < 0) {
                 throw new DukeException("There are only " + taskList.size() + " tasks");
@@ -109,6 +114,7 @@ public class Parser {
             throw new DukeException("The description of a todo cannot be empty");
         } else {
             String[] splitCommands = fullCommand.split(" ");
+            assert !splitCommands[1].isBlank() : "Description is empty";
             Task task = new ToDo(splitCommands[1]);
             return new AddCommand(task);
         }
@@ -123,6 +129,8 @@ public class Parser {
         } else {
             String[] splitCommands = fullCommand.split(" /by ");
             String[] taskName = splitCommands[0].split(" ");
+            assert !taskName[1].isBlank() : "Description is empty";
+            assert !splitCommands[1].isBlank() : "'by' is empty";
             Task task = new Deadline(taskName[1], Parser.parseDateTime(splitCommands[1]));
             return new AddCommand(task);
         }
@@ -140,6 +148,9 @@ public class Parser {
             String[] splitCommands = fullCommand.split(" /from ");
             String[] taskName = splitCommands[0].split(" ");
             String[] fromTo = splitCommands[1].split(" /to ");
+            assert !taskName[1].isBlank() : "Description is empty";
+            assert !fromTo[0].isBlank() : "'from' is empty";
+            assert !fromTo[1].isBlank() : "'to' is empty";
             Task task = new Event(taskName[1], Parser.parseDateTime(fromTo[0]),
                     Parser.parseDateTime(fromTo[1]));
             return new AddCommand(task);
