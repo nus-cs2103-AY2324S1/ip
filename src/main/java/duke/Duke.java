@@ -52,6 +52,7 @@ public class Duke extends Application {
         storage = new Storage("./data/duke.txt");
         try {
             tasks = new TaskList(storage.load());
+            assert tasks != null : "tasks should be initialized"; // tasks should not be null
         } catch (DukeException e) {
             ui.showLoadingError();
             tasks = new TaskList(new ArrayList<>());
@@ -171,7 +172,9 @@ public class Duke extends Application {
      */
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
+        assert userText != null : "userText should be initialized"; // userText should not be null
         Label dukeText = new Label(getResponse(userInput.getText()));
+        assert dukeText != null : "dukeText should be initialized"; // dukeText should not be null
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke))
