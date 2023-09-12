@@ -19,6 +19,9 @@ import javafx.stage.Stage;
 public class Ui {
     private static final double GUI_WIDTH = 800.0;
     private static final double GUI_HEIGHT = 600.0;
+    private static final double SCROLL_BAR_WIDTH = 15.0;
+    private static final double INPUT_FIELD_HEIGHT = 65.0;
+    private static final double SEND_BUTTON_WIDTH = 75.0;
     private final InputParser parser = new InputParser();
 
     private final Application application;
@@ -73,7 +76,7 @@ public class Ui {
         primaryStage = stage;
         //Init text pane
         scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(GUI_WIDTH - 15.0, GUI_HEIGHT - 65.0);
+        scrollPane.setPrefSize(GUI_WIDTH - SCROLL_BAR_WIDTH, GUI_HEIGHT - INPUT_FIELD_HEIGHT);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setVvalue(1.0);
@@ -85,7 +88,7 @@ public class Ui {
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
         //Init text input
         userInput = new TextField();
-        userInput.setPrefWidth(GUI_WIDTH - 75.0);
+        userInput.setPrefWidth(GUI_WIDTH - SEND_BUTTON_WIDTH);
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
         //Init send button
@@ -102,10 +105,11 @@ public class Ui {
         Scene scene = new Scene(mainLayout);
         //Update node dimensions if window is resized
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-        stage.heightProperty().addListener((observable) -> scrollPane.setPrefHeight(stage.getHeight() - 65.0));
+        stage.heightProperty().addListener((observable) ->
+                scrollPane.setPrefHeight(stage.getHeight() - INPUT_FIELD_HEIGHT));
         stage.widthProperty().addListener((observable) -> {
-            scrollPane.setPrefWidth(stage.getWidth() - 15.0);
-            userInput.setPrefWidth(stage.getWidth() - 75.0);
+            scrollPane.setPrefWidth(stage.getWidth() - SCROLL_BAR_WIDTH);
+            userInput.setPrefWidth(stage.getWidth() - SEND_BUTTON_WIDTH);
         });
         stage.setScene(scene);
         stage.show();
