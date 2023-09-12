@@ -1,7 +1,5 @@
 package duke.task;
 
-import duke.exception.InvalidDescriptionException;
-
 import java.util.ArrayList;
 
 /**
