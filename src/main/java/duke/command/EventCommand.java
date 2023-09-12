@@ -100,7 +100,7 @@ public class EventCommand extends NonemptyArgumentCommand implements Command {
         assert from != null;
         assert to != null;
 
-        taskList.add(new Event(userArgs[0].trim(), from, to));
+        taskList.addTask(new Event(userArgs[0].trim(), from, to));
         
         if (ui != null) {
             ui.sendMessage("Got it. I've added this task:\n  "
