@@ -1,15 +1,10 @@
 package duke;
 
-import duke.assets.parser.Parser;
-import duke.dukeexceptions.CorruptDataException;
-import duke.assets.storage.TaskList;
-import duke.assets.storage.Storage;
-
-import java.io.File;
 import java.io.IOException;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+
 import java.util.Scanner;
+
+import duke.assets.storage.Storage;
 
 public class Duke {
     static final String logo = "\n   _____ _    _          _____   _____ _____ _______ \n" +

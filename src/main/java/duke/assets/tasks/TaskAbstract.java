@@ -62,4 +62,8 @@ public abstract class TaskAbstract {
     public String toString() {
         return this.description;
     }
+
+    public boolean hasToken(String token) {
+        return this.description.contains(token);
+    }
 }

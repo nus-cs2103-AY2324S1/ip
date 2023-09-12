@@ -1,13 +1,22 @@
 package duke.assets.parser;
 
-import duke.assets.commands.*;
-import duke.assets.storage.TaskList;
-import duke.dukeexceptions.CorruptDataException;
-import duke.dukeexceptions.InvalidCommandException;
-
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+import duke.assets.commands.ByeCommand;
+import duke.assets.commands.CommandAbstract;
+import duke.assets.commands.CreateDeadlineCommand;
+import duke.assets.commands.CreateEventCommand;
+import duke.assets.commands.CreateTodoCommand;
+import duke.assets.commands.FindCommand;
+import duke.assets.commands.ListCommand;
+import duke.assets.commands.MarkCommand;
+import duke.assets.commands.UnmarkCommand;
+import duke.assets.commands.DeleteCommand;
+import duke.assets.storage.TaskList;
+
+import duke.dukeexceptions.CorruptDataException;
+import duke.dukeexceptions.InvalidCommandException;
 
 public class Parser {
     private static final String GENERAL_DATA_REGEX_STRING = "^[TDE] \\| [01] \\| .+";
@@ -40,6 +49,8 @@ public class Parser {
                 return new CreateDeadlineCommand(input, false);
             case "event":
                 return new CreateEventCommand(input, false);
+            case "find":
+                return new FindCommand(input);
         }
         throw new InvalidCommandException("ChadGPT: Please input a valid command.\n");
     }

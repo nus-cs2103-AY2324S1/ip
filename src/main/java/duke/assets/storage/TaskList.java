@@ -1,13 +1,14 @@
 package duke.assets.storage;
 
-import duke.assets.tasks.TaskAbstract;
-import duke.dukeexceptions.StateCannotBeAlteredException;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+
+import java.util.ArrayList;
+
+import duke.assets.tasks.TaskAbstract;
+import duke.dukeexceptions.StateCannotBeAlteredException;
 
 public class TaskList {
     private static final String HORIZONTAL = "------------------------------------------------------------" +
@@ -107,5 +108,30 @@ public class TaskList {
     public void clearList() {
         this.taskList.clear();
         this.numberOfTasks = 0;
+    }
+
+    public void find(String token) {
+        boolean hasMatch = false;
+
+        // Check if there is at least 1 task with description matching to token
+        for (TaskAbstract t : this.taskList) {
+            if (t.hasToken(token)) {
+                System.out.println("ChadGPT: Found them!");
+                hasMatch = true;
+                break;
+            }
+        }
+
+        if (hasMatch) {
+            int counter = 0;
+            for (TaskAbstract t : this.taskList) {
+                if (t.hasToken(token)) {
+                    System.out.print("    " + ++counter + ". ");
+                    t.printStatus();
+                }
+            }
+        } else {
+            System.out.println("ChadGPT: No matches unfortunately :(");
+        }
     }
 }

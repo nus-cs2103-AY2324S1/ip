@@ -1,10 +1,11 @@
 package duke.assets.commands;
 
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 import duke.assets.tasks.TaskAbstract;
 import duke.assets.storage.TaskList;
 import duke.assets.tasks.Todo;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 public class CreateTodoCommand extends CommandAbstract {
     private final boolean isDone;

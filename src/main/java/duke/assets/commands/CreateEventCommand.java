@@ -2,13 +2,13 @@ package duke.assets.commands;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 import duke.assets.tasks.TaskAbstract;
 import duke.assets.storage.TaskList;
 import duke.assets.tasks.Event;
-import org.w3c.dom.html.HTMLObjectElement;
 
 public class CreateEventCommand extends CommandAbstract {
     private static final String INPUT_EVENT_REGEX_STRING = String.format("^event .+ /from %s( | %s )/to %s($| %s$)",
