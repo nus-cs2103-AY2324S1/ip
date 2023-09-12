@@ -25,6 +25,7 @@ public class AddToDoCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         ToDo todo = new ToDo(description);
+        assert (todo != null) : "todo not created";
         taskList.add(todo);
         ui.addToListSuccess(todo, taskList.size());
         storage.saveList(taskList.getAllTasks());

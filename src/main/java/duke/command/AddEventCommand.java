@@ -56,6 +56,7 @@ public class AddEventCommand extends Command {
             event = new Event(description, start, end);
         } else {
             event = new Event(description, startTime, endTime);
+            assert (event != null) : "event not created";
         }
         taskList.add(event);
         ui.addToListSuccess(event, taskList.size());

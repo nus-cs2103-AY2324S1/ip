@@ -48,6 +48,7 @@ public class AddDeadlineCommand extends Command {
             deadline = new Deadline(description, deadlineString);
         } else {
             deadline = new Deadline(description, deadlineDate);
+            assert (deadline != null) : "deadline invalid!";
         }
         taskList.add(deadline);
         ui.addToListSuccess(deadline, taskList.size());
