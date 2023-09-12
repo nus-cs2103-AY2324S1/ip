@@ -9,21 +9,49 @@ import java.time.LocalTime;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+/**
+ * Represents a command to create a new deadline task
+ */
 public class CreateDeadlineCommand extends CommandAbstract {
+
+    /**
+     * A regular expression for validating the input command string
+     */
     private static final String INPUT_DEADLINE_REGEX_STRING = String.format("^deadline .+ /by %s($| %s$)",
             VALID_DATE_REGEX_STRING, VALID_TIME_REGEX_STRING);
+
+    /**
+     * A flag indicating whether the new task is already completed
+     */
     private final boolean isDone;
 
+    /**
+     * Constructs a new CreateDeadlineCommand object with the given input command string and completion flag
+     *
+     * @param input the input command string
+     * @param isDone a flag indicating whether the new task is already completed
+     */
     public CreateDeadlineCommand(String input, boolean isDone) {
         super(input);
         this.isDone = isDone;
     }
 
+    /**
+     * Determines whether the input command is valid for the specified task list
+     *
+     * @param tasklist the task list to validate against
+     * @return true if the input command is valid, false otherwise
+     */
     @Override
     protected boolean isValid(TaskList tasklist) {
         return this.isValid();
     }
 
+    /**
+     * Determines whether the input command is valid
+     *
+     * @return true if the input command is valid, false otherwise
+     */
     private boolean isValid() {
         Pattern inputRegex = Pattern.compile(INPUT_DEADLINE_REGEX_STRING, Pattern.CASE_INSENSITIVE);
         Matcher inputMatcher = inputRegex.matcher(this.input);
@@ -34,6 +62,9 @@ public class CreateDeadlineCommand extends CommandAbstract {
         return true;
     }
 
+    /**
+     * Handles exceptions that occur when validating the input command
+     */
     private void findException() {
         String[] delimitedBySlash = this.input.split("/");
         try {   //Checks if user input included description about the task
@@ -71,6 +102,11 @@ public class CreateDeadlineCommand extends CommandAbstract {
         }
     }
 
+    /**
+     * Completes the operation specified by the input command on the specified task list
+     *
+     * @param tasklist the task list to operate on
+     */
     @Override
     protected void completeOperation(TaskList tasklist) {
         String information = this.input.split(" /by ")[0].split("^(?i)(deadline)\\s")[1];
@@ -82,6 +118,9 @@ public class CreateDeadlineCommand extends CommandAbstract {
         tasklist.addTask(newTask);
     }
 
+    /**
+     * Prints the appropriate dialogue from the chatbot to the terminal
+     */
     @Override
     public void printChatbotLine() {
         System.out.print("ChadGPT: Gotcha, I have added the task to the list.\n" + HORIZONTAL);

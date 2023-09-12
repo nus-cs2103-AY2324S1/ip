@@ -8,22 +8,50 @@ import java.util.regex.Matcher;
 import duke.assets.tasks.TaskAbstract;
 import duke.assets.storage.TaskList;
 import duke.assets.tasks.Event;
-import org.w3c.dom.html.HTMLObjectElement;
 
+/**
+ * Represents a command to create a new event task
+ */
 public class CreateEventCommand extends CommandAbstract {
+
+    /**
+     * A regular expression for validating the input command string
+     */
     private static final String INPUT_EVENT_REGEX_STRING = String.format("^event .+ /from %s( | %s )/to %s($| %s$)",
             VALID_DATE_REGEX_STRING, VALID_TIME_REGEX_STRING, VALID_DATE_REGEX_STRING, VALID_TIME_REGEX_STRING);
+
+    /**
+     * A flag indicating whether the new task is already completed
+     */
     private final boolean isDone;
+
+    /**
+     * Constructs a new CreateEventCommand object with the given input command string and completion flag
+     *
+     * @param input the input command string
+     * @param isDone a flag indicating whether the new task is already completed
+     */
     public CreateEventCommand(String input, boolean isDone) {
         super(input);
         this.isDone = isDone;
     }
 
+    /**
+     * Determines whether the input command is valid for the specified task list
+     *
+     * @param tasklist the task list to validate against
+     * @return true if the input command is valid, false otherwise
+     */
     @Override
     protected boolean isValid(TaskList tasklist) {
         return this.isValid();
     }
 
+    /**
+     * Determines whether the input command is valid
+     *
+     * @return true if the input command is valid, false otherwise
+     */
     private boolean isValid() {
         Pattern commandRegex = Pattern.compile(INPUT_EVENT_REGEX_STRING, Pattern.CASE_INSENSITIVE);
         Matcher inputMatcher = commandRegex.matcher(this.input);
@@ -34,6 +62,9 @@ public class CreateEventCommand extends CommandAbstract {
         return true;
     }
 
+    /**
+     * Handles exceptions that occur when validating the input command
+     */
     private void findException() {
         String[] delimitedBySlash = this.input.split("/");
         try {
@@ -88,6 +119,11 @@ public class CreateEventCommand extends CommandAbstract {
         }
     }
 
+    /**
+     * Completes the operation specified by the input command on the specified task list
+     *
+     * @param tasklist the task list to operate on
+     */
     @Override
     protected void completeOperation(TaskList tasklist) {
         String information = this.input.split(" /from ")[0].split("^(?i)(event)\\s")[1];
@@ -101,6 +137,9 @@ public class CreateEventCommand extends CommandAbstract {
         tasklist.addTask(newTask);
     }
 
+    /**
+     * Prints the appropriate dialogue from the chatbot to the terminal
+     */
     @Override
     public void printChatbotLine() {
         String information = this.input.split(" /from ")[0].split("^(?i)(event)\\s")[1];

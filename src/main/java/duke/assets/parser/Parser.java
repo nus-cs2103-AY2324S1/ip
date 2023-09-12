@@ -8,7 +8,9 @@ import duke.dukeexceptions.InvalidCommandException;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-
+/**
+ * Represents a parser that processes user commands and data commands
+ */
 public class Parser {
     private static final String GENERAL_DATA_REGEX_STRING = "^[TDE] \\| [01] \\| .+";
     private static final String DEADLINE_REGEX_STRING = "^D \\| [01] \\| .+ \\| \\d{4}-\\d{2}-\\d{2}" +
@@ -16,6 +18,13 @@ public class Parser {
     private static final String EVENT_REGEX_STRING = "^E \\| [01] \\| .+ \\| \\d{4}-\\d{2}-\\d{2}" +
             "( [0-2][0-9][0-5][0-9] | )- \\d{4}-\\d{2}-\\d{2}($| [0-2][0-9][0-5][0-9]$)";
 
+    /**
+     * Creates a user command object from the given input command string
+     *
+     * @param input the input command string
+     * @return the user command object
+     * @throws InvalidCommandException if the input command is invalid
+     */
     private CommandAbstract createUserCommand(String input) throws InvalidCommandException {
         try {
             String command = input.split(" ")[0];
@@ -44,6 +53,12 @@ public class Parser {
         throw new InvalidCommandException("ChadGPT: Please input a valid command.\n");
     }
 
+    /**
+     * Processes the user command and executes it on the specified task list
+     *
+     * @param input the input command string
+     * @param tasklist the task list to operate on
+     */
     public void passUserCommand(String input, TaskList tasklist) {
         try {
             CommandAbstract command = createUserCommand(input);
@@ -54,6 +69,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates a command object from saved memory to restore state of task list to the most recently memorised state
+     *
+     * @param input the input data string extracted from memory
+     * @return the command object
+     * @throws CorruptDataException if the input data is corrupt
+     */
     private CommandAbstract createDataCommand(String input) throws CorruptDataException {
         Pattern dataRegex = Pattern.compile(GENERAL_DATA_REGEX_STRING);
         Pattern deadlineRegex = Pattern.compile(DEADLINE_REGEX_STRING);
@@ -85,6 +107,14 @@ public class Parser {
         throw new CorruptDataException(input);
     }
 
+    /**
+     * Processes the input from saved memory and executes it on the specified task list to restore most recently
+     * memorised state
+     *
+     * @param input the input data string extracted from memory
+     * @param tasklist the task list to operate on
+     * @throws CorruptDataException if the input data is corrupt
+     */
     public void passDataCommand(String input, TaskList tasklist) throws CorruptDataException {
         try {
             CommandAbstract command = createDataCommand(input);
