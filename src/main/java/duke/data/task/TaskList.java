@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import duke.data.exception.DukeException;
+import duke.data.exception.InvalidTaskIndexException;
 
 /**
- * Represents a collection of tasks within the chatbot applicaiton.
+ * Represents a collection of tasks within the chatbot application.
  */
 public class TaskList {
 
@@ -34,11 +34,11 @@ public class TaskList {
      *
      * @param taskNumber The index of the task in the list, starting from 1.
      * @return The task specified.
-     * @throws DukeException If no such task exists.
+     * @throws InvalidTaskIndexException If no such task exists.
      */
-    public Task remove(int taskNumber) throws DukeException {
+    public Task remove(int taskNumber) throws InvalidTaskIndexException {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
-            throw new DukeException("No such task exists.");
+            throw new InvalidTaskIndexException("No such task exists.");
         }
 
         return tasks.remove(taskNumber - 1);
@@ -49,11 +49,11 @@ public class TaskList {
      *
      * @param taskNumber The index of the task in the list, starting from 1.
      * @return The task specified.
-     * @throws DukeException If no such task exists.
+     * @throws InvalidTaskIndexException If no such task exists.
      */
-    public Task mark(int taskNumber) throws DukeException {
+    public Task mark(int taskNumber) throws InvalidTaskIndexException {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
-            throw new DukeException("No such task exists.");
+            throw new InvalidTaskIndexException("No such task exists.");
         }
 
         Task task = tasks.get(taskNumber - 1);
@@ -66,11 +66,11 @@ public class TaskList {
      *
      * @param taskNumber The index of the task in the list, starting from 1.
      * @return The task specified.
-     * @throws DukeException If no such task exists.
+     * @throws InvalidTaskIndexException If no such task exists.
      */
-    public Task unmark(int taskNumber) throws DukeException {
+    public Task unmark(int taskNumber) throws InvalidTaskIndexException {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
-            throw new DukeException("No such task exists.");
+            throw new InvalidTaskIndexException("No such task exists.");
         }
 
         Task task = tasks.get(taskNumber - 1);

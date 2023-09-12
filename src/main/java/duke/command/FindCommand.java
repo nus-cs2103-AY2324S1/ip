@@ -11,7 +11,7 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
     private static final String COMMAND_RESPONSE = "Here are the matching tasks in your list:\n";
 
-    private String keyword;
+    private final String keyword;
 
     /**
      * Returns an instance of {@code FindCommand} with the given keyword.
