@@ -79,12 +79,15 @@ public class Ui {
      * @return String representation of the user's list of task/s.
      */
     public String showList(TaskList taskList) {
+        assert taskList != null : "taskList should not be null";
         StringBuilder list = new StringBuilder();
         list.append("Here are the tasks in your list:\n");
 
         for (int i = 1; i <= taskList.getSize(); i++) {
             // Adding toString() to use the overridden one in duke.task.Task, etc.
-            list.append(i).append(". ").append(taskList.getTask(i - 1).toString())
+            list.append(i)
+                    .append(". ")
+                    .append(taskList.getTask(i - 1).toString())
                     .append("\n");;
         }
 
@@ -98,12 +101,15 @@ public class Ui {
      * @return String representation of the list of matching task from the user's task list.
      */
     public String showMatchingList(TaskList matchingTaskList) {
+        assert matchingTaskList != null : "taskList should not be null";
         StringBuilder matchingList = new StringBuilder();
         matchingList.append("Here are the matching tasks in your list:\n");
 
         for (int i = 1; i <= matchingTaskList.getSize(); i++) {
             // Adding toString() to use the overridden one in duke.task.Task, etc.
-            matchingList.append(i).append(". ").append(matchingTaskList.getTask(i - 1).toString())
+            matchingList.append(i)
+                    .append(". ")
+                    .append(matchingTaskList.getTask(i - 1).toString())
                     .append("\n");
         }
 
@@ -111,3 +117,5 @@ public class Ui {
     }
 
 }
+
+
