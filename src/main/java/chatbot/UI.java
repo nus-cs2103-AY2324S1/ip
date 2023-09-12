@@ -10,12 +10,14 @@ public class UI {
     private static final String MESSAGE_WELCOME = "Hello! I'm Afro\n" + "What can I do for you?\n";
     private static final String MESSAGE_UNMARK = "OK, I've marked this task as not done yet:";
     private static final String MESSAGE_MARK = "OK, I've marked this task as done:";
-    private static final String MESSAGE_ADD = "Got it. I've added this task:";
-    private static final String MESSAGE_DELETE = "Noted. I have removed this task.";
+    private static final String MESSAGE_ADD_TASK = "Got it. I've added this task:";
+    private static final String MESSAGE_DELETE_TASK = "Noted. I have removed this task.";
+    private static final String MESSAGE_ADD_EXPENSE = "Got it. I've added this expense";
     private static final String MESSAGE_INVALID = "OOPS!!! I'm sorry, but I don't know what that means :-(";
 
     /** Storage to load and write files. */
     private Storage storage;
+
 
     /**
      * Constructor for UI. Initialises the storage.
@@ -73,8 +75,20 @@ public class UI {
         // System.out.println(MESSAGE_ADD);
         // System.out.println(task);
         // System.out.println("Now you have " + size + " tasks in the list.");
-        String toBePrinted = MESSAGE_ADD + "\n" + task + "\n"
+        String toBePrinted = MESSAGE_ADD_TASK + "\n" + task + "\n"
                                 + "Now you have " + size + " tasks in the list.";
+        return toBePrinted;
+    }
+
+    /**
+     * Prints the add message, the String representation of the expense
+     * and the size of the list.
+     * @param expense The task to be printed
+     * @param size The size of the modified list.
+     */
+    public String addExpense(Expense expense, int size) {
+        String toBePrinted = MESSAGE_ADD_EXPENSE + "\n" + expense + "\n"
+                + "Now you have " + size + " expenses in the report.";
         return toBePrinted;
     }
 
@@ -88,7 +102,7 @@ public class UI {
         // System.out.println(MESSAGE_DELETE);
         // System.out.println(task);
         // System.out.println("Now you have " + size + " tasks in the list.");
-        String toBePrinted = MESSAGE_DELETE + "\n" + task + "\n"
+        String toBePrinted = MESSAGE_DELETE_TASK + "\n" + task + "\n"
                 + "Now you have " + size + " tasks in the list.";
         return toBePrinted;
     }
@@ -107,6 +121,15 @@ public class UI {
         return toBePrinted;
     }
 
+    public String printExpenseReport(List<Expense> expenses) {
+        String toBePrinted = "";
+        for (Expense expense : expenses) {
+            int index = expenses.indexOf(expense) + 1;
+            toBePrinted += index + ":" + expense + "\n";
+        }
+        return toBePrinted;
+    }
+
     /**
      * Prints the error message for incomplete commands.
      *  @param str The string to be printed.
@@ -114,6 +137,10 @@ public class UI {
     public String printIncompleteCommand(String str) {
         // System.out.println(str);
         return str;
+    }
+
+    public String printUpdatedExpense(Expense expense) {
+        return String.format("I have updated the expense\n%s", expense);
     }
 
     /**
