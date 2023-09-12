@@ -13,7 +13,7 @@ public class Deadlines extends Task {
      * constructor for class Deadline.
      *
      * @param description string for deadline's description
-     * @param date LocalDateTime for date of deadline
+     * @param date        LocalDateTime for date of deadline
      */
     public Deadlines(String description, LocalDateTime date) {
         super(description);
@@ -36,15 +36,5 @@ public class Deadlines extends Task {
         String dateStr = date.format(formatter);
         String done = isDone ? "1" : "0";
         return String.format("D | %s | %s | %s", done, description, dateStr);
-    }
-
-
-    /**
-     * Get detail of the date.
-     *
-     * @return LocalDateTime of the date
-     */
-    public LocalDateTime getDateTime() {
-        return date;
     }
 }

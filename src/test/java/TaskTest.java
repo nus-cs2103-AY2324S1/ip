@@ -5,7 +5,7 @@ import chatbot.task.Task;
     class TaskTest {
 
         @Test
-        void testMarkAsDone() {
+        void taskMarker_inputTask_taskMarkedAsDone() {
             Task task = new Task("Read a book");
             assertEquals(" " ,  task.getStatusIcon());
 
