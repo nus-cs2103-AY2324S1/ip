@@ -2,6 +2,7 @@ package com.mimi.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Representation of the Deadline Task.
@@ -66,5 +67,21 @@ public class Deadline extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
         return String.format("%s (by: %s)", this.taskName(), this.deadlineTime.format(formatter));
+    }
+
+    @Override
+    public boolean isUrgent() {
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        long daysBetween = ChronoUnit.DAYS.between(currentTime, this.deadlineTime);
+
+        return daysBetween < 7 && !isOverdue();
+    }
+
+    @Override
+    public boolean isOverdue() {
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        return this.deadlineTime.isBefore(currentTime);
     }
 }

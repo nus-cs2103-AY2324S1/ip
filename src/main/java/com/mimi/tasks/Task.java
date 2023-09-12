@@ -81,4 +81,20 @@ public class Task {
     public String writeFormat() {
         return this.taskName();
     }
+
+    /**
+     * Checks if the task is urgent by seeing if it is due in less than a week.
+     * @return a boolean value indicating if the task is due/happening in less than a week.
+     */
+    public boolean isUrgent() {
+        return false;
+    }
+
+    /**
+     * Checks if the given task is already overdue.
+     * @return A boolean value indicating if the task is already overdue.
+     */
+    public boolean isOverdue() {
+        return false;
+    }
 }

@@ -75,6 +75,7 @@ public class ReadWriteData {
 
             }
             fileReader.close();
+
         } catch (FileNotFoundException e) {
             ui.unableToLoadFromMemory();
         }

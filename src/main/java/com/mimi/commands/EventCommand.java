@@ -44,7 +44,8 @@ public class EventCommand extends Command {
      */
     @Override
     public void execute() {
-        if (!this.isCompleteCommand || this.startTime == LocalDateTime.MIN || this.endTime == LocalDateTime.MIN) {
+        if (!this.isCompleteCommand || this.startTime == LocalDateTime.MIN
+                || this.endTime == LocalDateTime.MIN || this.isOverdue()) {
             return;
         }
 
@@ -63,6 +64,14 @@ public class EventCommand extends Command {
             ui.incompleteEventCommand();
         } else if (this.startTime == LocalDateTime.MIN || this.endTime == LocalDateTime.MIN) {
             ui.wrongTimeFormat();
+        } else if (this.isOverdue()) {
+            ui.displayOverdue();
         }
+    }
+
+    private boolean isOverdue() {
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        return this.startTime.isBefore(currentTime);
     }
 }

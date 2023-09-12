@@ -13,6 +13,7 @@ import com.mimi.commands.FindCommand;
 import com.mimi.commands.InvalidCommand;
 import com.mimi.commands.ListCommand;
 import com.mimi.commands.MarkCommand;
+import com.mimi.commands.RemindCommand;
 import com.mimi.commands.TodoCommand;
 import com.mimi.commands.UnmarkCommand;
 
@@ -29,7 +30,7 @@ public class Parser {
 
 
     private enum ValidCommands {
-        bye, list, mark, unmark, delete, todo, deadline, event, find
+        bye, list, mark, unmark, delete, todo, deadline, event, find, remind
     }
 
     /**
@@ -96,6 +97,9 @@ public class Parser {
 
             case "find":
                 return findCommand();
+
+            case "remind":
+                return new RemindCommand(this.storage);
 
             default:
                 return new InvalidCommand();

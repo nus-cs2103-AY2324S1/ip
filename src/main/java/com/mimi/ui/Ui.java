@@ -333,4 +333,14 @@ public class Ui {
         return textToAdd;
     }
 
+    /**
+     * Displays an error message if the user tries to add a task that is overdue.
+     */
+    public void displayOverdue() {
+        showResponse("Sorry, you cannot input a task that is already overdue!");
+    }
+
+    public void showAllTasksNonUrgent(String overdueTasks) {
+        showResponse("Meow! You have no tasks due/happening soon!\n" + overdueTasks);
+    }
 }
