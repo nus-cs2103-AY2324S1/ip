@@ -52,8 +52,8 @@ public class TaskList {
      *
      * @param task Task that going to be added into task list.
      */
-    public void addTask(Task task) {
-
+    public void addTask(Task task) throws DukeException {
+        detectDuplicate(task);
         tasks.add(task);
     }
 
@@ -103,13 +103,21 @@ public class TaskList {
      * @return The task list contains all the tasks which contains the keywords.
      */
     public TaskList findTasks(String keyword) {
-        TaskList newTaskList = new TaskList();
+        ArrayList<Task> newTaskList = new ArrayList<>();
         for (Task task: tasks) {
             if (task.isContains(keyword)) {
-                newTaskList.addTask(task);
+                newTaskList.add(task);
             }
         }
         assert newTaskList != null: "The new task list should not be null";
-        return newTaskList;
+        return new TaskList(newTaskList);
+    }
+
+    public void detectDuplicate(Task newTask) throws DukeException{
+        for (Task t: tasks) {
+            if (t.equals(newTask)) {
+                throw new DukeException("This task already inside task list!");
+            }
+        }
     }
 }

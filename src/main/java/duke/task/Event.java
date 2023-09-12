@@ -35,4 +35,25 @@ public class Event extends Task{
     public String saveString() {
         return super.saveString() + "/" + startDate.toString() + "/" + endDate.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj instanceof Event) {
+            Event temp = (Event) obj;
+            if (!temp.description.equals(this.description)) {
+                return false;
+            } else if (!temp.startDate.equals(this.startDate)) {
+                return false;
+            } else if (!temp.endDate.equals(this.endDate)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
 }

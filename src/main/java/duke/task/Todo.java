@@ -15,4 +15,20 @@ public class Todo extends Task{
         return "[T]" + super.toString();
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj instanceof Todo) {
+            Todo temp = (Todo) obj;
+            if (temp.description.equals(this.description)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
 }

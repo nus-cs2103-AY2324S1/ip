@@ -28,4 +28,22 @@ public class Deadline extends Task{
     public String saveString() {
          return super.saveString() + "/" + byDate.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj instanceof Deadline) {
+            Deadline temp = (Deadline) obj;
+            if (!temp.byDate.equals(this.byDate)) {
+                return false;
+            } else if (!temp.description.equals(this.description)){
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
 }
