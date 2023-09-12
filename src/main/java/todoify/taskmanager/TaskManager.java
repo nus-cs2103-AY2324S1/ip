@@ -135,7 +135,6 @@ public class TaskManager {
      * @throws IOException if there were any issues retrieving the data.
      */
     public void loadFromStorage() throws IOException, JsonSyntaxException {
-        Gson gson = new Gson();
         try {
             String data = this.storageHandler.loadFrom(this.storageLocation);
             JsonArray array = JsonParser.parseString(data).getAsJsonArray();
