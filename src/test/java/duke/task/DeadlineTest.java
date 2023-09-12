@@ -51,7 +51,7 @@ public class DeadlineTest {
         LocalDateTime dateTime = LocalDateTime.of(2023, 8, 30, 14, 30);
         Deadline deadline = new Deadline("Finish project", dateTime);
 
-        String expected = "[D][ ] Finish project (by: 30 Aug 2023 2:30pm)";
+        String expected = "[D][ ] Finish project (at: 30 Aug 2023 2:30pm)";
         assertEquals(expected, deadline.toString());
     }
 
@@ -61,7 +61,7 @@ public class DeadlineTest {
         Deadline deadline = new Deadline("Finish project", dateTime);
 
         deadline.markAsDone();
-        String expected = "[D][X] Finish project (by: 30 Aug 2023 2:30pm)";
+        String expected = "[D][X] Finish project (at: 30 Aug 2023 2:30pm)";
         assertEquals(expected, deadline.toString());
     }
 

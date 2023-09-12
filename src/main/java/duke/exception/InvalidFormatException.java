@@ -11,6 +11,6 @@ public class InvalidFormatException extends DukeException {
      * @param formatDescription A description of the expected format of the command.
      */
     public InvalidFormatException(String formatDescription) {
-        super(" ☹ OOPS!!! The format of the command is invalid. \n\t " + formatDescription);
+        super(" ☹ OOPS!!! The format of the command is invalid. \n" + formatDescription);
     }
 }
