@@ -3,7 +3,7 @@ package duke;
 // fixing DukeException based on my understanding of exceptions 27/8/23
 import java.util.Scanner;
 
-import duke.exceptions.DukeException;
+import duke.commands.Command;
 import duke.tasks.TaskList;
 
 /**
@@ -54,32 +54,26 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         String string = sc.nextLine();
         assert string != null : "string should not be null";
-        String commandType = "";
-        String parserOutput = "";
+        boolean isExit = false;
 
         // looping in the program
-        while (true) {
+        while (!isExit) {
             // end the program
             try {
-                parserOutput = Parser.isExitOrContinue(string, tasks, helper, storage);
-            } catch (DukeException e) {
+                helper.printLine();
+                Command command = Parser.parse(string);
+
+                isExit = command.isExit();
+            } catch (Throwable e) {
                 System.out.println(e.getMessage());
             } finally {
-                if (parserOutput.equals("")) {
-                    commandType = "bye";
-                }
-                if (commandType.equals("bye")) {
-                    break;
-                }
                 helper.printLine();
                 string = sc.nextLine();
             }
         }
         // end the program
         sc.close();
-        if (commandType.equals("bye")) {
-            helper.bye();
-        }
+        helper.bye();
     }
 
     public String getResponse(String input) {
@@ -89,11 +83,9 @@ public class Duke {
             this.tasks = new TaskList();
         } else {
             try {
-                output = Parser.isExitOrContinue(input, tasks, helper, storage);
-                if (output.equals("")) {
-                    return "Bye. Hope to see you again soon!";
-                }
-            } catch (DukeException e) {
+                Command command = Parser.parse(input);
+                output = command.execute(tasks, helper, storage);
+            } catch (Throwable e) {
                 return e.getMessage();
             }
         }
