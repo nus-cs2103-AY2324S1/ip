@@ -47,6 +47,7 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     String getResponse() {
+        assert this.ui != null : "ui should have been initialised but it is not";
         return this.ui.respond();
     }
 }

@@ -24,6 +24,7 @@ public class TaskList {
      * @param task The task to add in.
      */
     public void addTask(Task task) {
+        assert this.tasks != null : "tasks should have been initialised and should not be null";
         this.tasks.add(task);
     }
 
@@ -37,6 +38,7 @@ public class TaskList {
      * @return The removed task.
      */
     public Task deleteTask(int taskNum) {
+        assert this.tasks != null : "tasks should have been initialised and should not be null";
         return this.tasks.remove(taskNum);
     }
 
@@ -50,6 +52,7 @@ public class TaskList {
      * @return The marked task.
      */
     public Task doTask(int taskNum) {
+        assert this.tasks != null : "tasks should have been initialised and should not be null";
         Task task = this.tasks.get(taskNum);
         task.doTask();
         return task;
@@ -62,6 +65,7 @@ public class TaskList {
      * @return The unmarked task.
      */
     public Task undoTask(int taskNum) {
+        assert this.tasks != null : "tasks should have been initialised and should not be null";
         Task task = this.tasks.get(taskNum);
         task.undoTask();
         return task;
@@ -73,6 +77,7 @@ public class TaskList {
      * @return the number items in the list
      */
     public int getSize() {
+        assert this.tasks != null : "tasks should have been initialised and should not be null";
         return this.tasks.size();
     }
 
@@ -82,6 +87,7 @@ public class TaskList {
      * @return Formatted tasks Strings.
      */
     public String saveToStorage() {
+        assert this.tasks != null : "tasks should have been initialised and should not be null";
         StringBuilder content = new StringBuilder();
         for (Task task : this.tasks) {
             content.append(task.toSaveFormat());
@@ -92,6 +98,7 @@ public class TaskList {
 
     @Override
     public String toString() {
+        assert this.tasks != null : "tasks should have been initialised and should not be null";
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < this.tasks.size(); i++) {
             sb.append("    " + (i + 1) + ". " + this.tasks.get(i));
@@ -115,6 +122,7 @@ public class TaskList {
      * @return String of all tasks on the date.
      */
     public String findTasksOnDate(LocalDate date) {
+        assert this.tasks != null : "tasks should have been initialised and should not be null";
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < this.tasks.size(); i++) {
             if (this.tasks.get(i).isOnDate(date)) {
@@ -132,6 +140,7 @@ public class TaskList {
      * @return A string containing lines of tasks.
      */
     public String find(String description) {
+        assert this.tasks != null : "tasks should have been initialised and should not be null";
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < this.tasks.size(); i++) {
             if (this.tasks.get(i).containsDescription(description)) {

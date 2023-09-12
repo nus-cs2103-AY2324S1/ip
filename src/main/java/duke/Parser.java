@@ -79,6 +79,7 @@ public class Parser {
         if (isDone) {
             task.doTask();
         }
+        assert task != null : "task should not be empty after parsing";
         return task;
     }
 }
