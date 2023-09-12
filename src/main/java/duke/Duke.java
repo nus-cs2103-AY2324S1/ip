@@ -1,5 +1,6 @@
 package duke;
 
+import duke.alias.AliasMap;
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.parser.Parser;
@@ -15,31 +16,41 @@ import duke.ui.Ui;
  */
 public class Duke {
 
-    private static final String DEFAULT_FILE_PATH = "src/data/duke.txt";
+    private static final String DEFAULT_DATA_FOLDER_PATH = "src/data";
 
     private final Storage storage;
     private TaskList items;
+    private AliasMap aliases;
     private final Ui ui;
+
+    private final Parser parser;
 
 
     /**
      * Constructs a Duke instance.
      *
-     * @param filePath The file path where tasks are stored.
+     * @param folderPath The file path where tasks are stored.
      */
-    public Duke(String filePath) {
+    public Duke(String folderPath) {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(folderPath);
         try {
-            items = new TaskList(storage.load());
+            items = new TaskList(storage.loadData());
         } catch (DukeException c) {
             ui.showLoadingError();
             items = new TaskList();
         }
+        try {
+            aliases = new AliasMap(storage.loadAlias());
+        } catch (DukeException c) {
+            ui.showLoadingError();
+            aliases = new AliasMap();
+        }
+        parser = new Parser(aliases);
     }
 
     public Duke() {
-        this(DEFAULT_FILE_PATH);
+        this(DEFAULT_DATA_FOLDER_PATH);
     }
 
     /**
@@ -54,7 +65,7 @@ public class Duke {
         while (isRunning) {
             try {
                 String fullCommand = ui.getInput();
-                Command c = Parser.parse(fullCommand);
+                Command c = parser.parse(fullCommand);
                 c.execute(items, ui, storage);
                 isRunning = !c.willExitNext();
             } catch (DukeException e) {
@@ -65,7 +76,7 @@ public class Duke {
 
     public String getResponse(String input) {
         try {
-            Command c = Parser.parse(input);
+            Command c = parser.parse(input);
             return c.execute(items, ui, storage);
         } catch (DukeException e) {
             return e.getMessage();

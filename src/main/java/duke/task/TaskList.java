@@ -2,12 +2,13 @@ package duke.task;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Represents a list of tasks and provides methods to manipulate tasks within
  * the list.
  */
-public class TaskList {
+public class TaskList implements Iterable<Task> {
     private final ArrayList<Task> items;
 
     /**
@@ -27,11 +28,10 @@ public class TaskList {
     }
 
     /**
-     * Retrieves the list of tasks.
-     *
-     * @return The list of tasks.
+     * Returns the TaskList as an ArrayList.
+     * @return an ArrayList of tasks.
      */
-    public ArrayList<Task> getItems() {
+    public ArrayList<Task> getArrayList() {
         return items;
     }
 
@@ -127,4 +127,17 @@ public class TaskList {
         items.add(new Event(name, from, to, false));
         return items.get(items.size() - 1);
     }
+
+
+    /**
+     * Returns an iterator over elements of type {@code T}.
+     *
+     * @return an Iterator.
+     */
+    @Override
+    public Iterator<Task> iterator() {
+        return items.iterator();
+    }
+
+
 }

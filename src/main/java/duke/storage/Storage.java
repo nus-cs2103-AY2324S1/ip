@@ -7,11 +7,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import duke.alias.AliasMap;
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
+import duke.task.TaskList;
 import duke.task.ToDo;
 
 
@@ -21,15 +25,17 @@ import duke.task.ToDo;
  */
 public class Storage {
 
-    private final String filePath;
+    private final String dataFilePath;
+    private final String aliasFilePath;
 
     /**
      * Constructs a `Storage` object with the specified file path.
      *
-     * @param filePath The path to the data file used for storage.
+     * @param folderPath The path to the data file used for storage.
      */
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage(String folderPath) {
+        this.dataFilePath = folderPath + "/data.txt";
+        this.aliasFilePath = folderPath + "/alias.txt";
     }
 
     /**
@@ -40,10 +46,10 @@ public class Storage {
      *         the data file.
      * @throws DukeException If an error occurs while reading from the data file.
      */
-    public ArrayList<Task> load() throws DukeException {
+    public ArrayList<Task> loadData() throws DukeException {
         ArrayList<Task> items = new ArrayList<>();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            BufferedReader reader = new BufferedReader(new FileReader(dataFilePath));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] lineArr = line.split("\\|");
@@ -76,15 +82,41 @@ public class Storage {
     }
 
     /**
+     * Loads aliases from the alias file and returns them as an `HashMap` of
+     * Strings to Strings.
+     *
+     * @return A `HashMap` of Strings to Strings representing the aliases loaded from
+     *         the alias file.
+     * @throws DukeException If an error occurs while reading from the alias file.
+     */
+    public HashMap<String, String> loadAlias() throws DukeException {
+        HashMap<String, String> aliasMap = new HashMap<>();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(aliasFilePath));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] lineArr = line.split("=");
+                String alias = lineArr[0];
+                String fullCommand = lineArr[1];
+                aliasMap.put(alias, fullCommand);
+            }
+            reader.close();
+        } catch (IOException e) {
+            throw new DukeException("An error occurred while reading from the alias file.");
+        }
+        return aliasMap;
+    }
+
+    /**
      * Writes tasks to the data file.
      *
      * @param items An `ArrayList` of `Task` objects representing the tasks to be
      *              saved.
      * @throws DukeException If an error occurs while writing to the data file.
      */
-    public void writeData(ArrayList<Task> items) throws DukeException {
+    public void writeData(TaskList items) throws DukeException {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(dataFilePath));
             for (Task t : items) {
                 writer.write(t.toDataString());
                 writer.newLine();
@@ -92,6 +124,29 @@ public class Storage {
             writer.close();
         } catch (IOException e) {
             throw new DukeException("An error occurred while writing to the data file.");
+        }
+    }
+
+    /**
+     * Writes aliases to the alias file.
+     *
+     * @param aliasMap A `HashMap` of Strings to Strings representing the aliases to be
+     *              saved.
+     * @throws DukeException If an error occurs while writing to the alias file.
+     */
+    public void writeAlias(AliasMap aliasMap) throws DukeException {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(aliasFilePath));
+
+            for (Map.Entry<String, String> entry : aliasMap) {
+                String alias = entry.getKey();
+                String command = entry.getValue();
+                writer.write(alias + "=" + command);
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            throw new DukeException("An error occurred while writing to the alias file.");
         }
     }
 }
