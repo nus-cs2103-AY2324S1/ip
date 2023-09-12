@@ -150,4 +150,17 @@ public class Deadline extends Task {
             return deadlineString;
         }
     }
+
+    @Override
+    public boolean isDuplicate(Task task) {
+        if (!(task instanceof Deadline)) {
+            return false;
+        }
+        Deadline deadline = (Deadline) task;
+        if (deadline.description.equals(this.description) && deadline.deadlineDateTime.equals(this.deadlineDateTime)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

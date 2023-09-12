@@ -131,9 +131,13 @@ public class TaskList {
      */
     public String todo(String task) {
         ToDo toDo = new ToDo(task);
-        tasks.add(toDo);
-        return "The Mind has added a new task \n" + toDo + "\nThere are now " +
-                tasks.size() + " tasks left to complete";
+        if (!hasDuplicate(toDo)) {
+            tasks.add(toDo);
+            return "The Mind has added a new task \n" + toDo + "\nThere are now " +
+                    tasks.size() + " tasks left to complete";
+        } else {
+            return "The Mind sees a duplicate entry";
+        }
     }
 
     /**
@@ -144,9 +148,13 @@ public class TaskList {
      */
     public String deadline(String task, String deadlineString) {
         Deadline deadline = new Deadline(task, deadlineString);
-        tasks.add(deadline);
-        return "The Mind has added a new task \n" + deadline +
-                "\nThere are now " + tasks.size() + " tasks left to complete";
+        if (!hasDuplicate(deadline)) {
+            tasks.add(deadline);
+            return "The Mind has added a new task \n" + deadline +
+                    "\nThere are now " + tasks.size() + " tasks left to complete";
+        } else {
+            return "The Mind sees a duplicate entry";
+        }
     }
 
 
@@ -159,9 +167,13 @@ public class TaskList {
      */
     public String event(String description, String start, String end) {
         Event event = new Event(description, start, end);
-        tasks.add(event);
-        return "The Mind has added a new task \n" + event +
-                "\nThere are now " + tasks.size() + " tasks left to complete";
+        if (!hasDuplicate(event)) {
+            tasks.add(event);
+            return "The Mind has added a new task \n" + event +
+                    "\nThere are now " + tasks.size() + " tasks left to complete";
+        } else {
+            return "The Mind sees a duplicate entry";
+        }
     }
 
     /**
@@ -254,4 +266,19 @@ public class TaskList {
         }
         return contains.list();
     }
+
+    /**
+     * Check for duplicate in tasklist and get confirmation to add
+     *
+     *
+     */
+    public boolean hasDuplicate(Task newTask) {
+        for (Task task : tasks) {
+            if (task.isDuplicate(newTask)) {
+                return true;
+            }
+        }
+        return false;
+    };
+
 }

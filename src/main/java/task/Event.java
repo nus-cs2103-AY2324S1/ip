@@ -29,4 +29,17 @@ public class Event extends Task {
         sb.append(" (from: " + from + " to: " + to + ")");
         return sb.toString();
     }
+
+    @Override
+    public boolean isDuplicate(Task task) {
+        if (!(task instanceof Event)) {
+            return false;
+        }
+        Event event = (Event) task;
+        if (event.description.equals(this.description) && event.from.equals(this.from) && event.to.equals(this.to)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
