@@ -14,17 +14,12 @@ public class ListCommand implements Command {
         }
         for (int i = 0; i < list.size(); i++) {
 
-            if (list.get(i) == null) {
+            boolean isNull = list.get(i) == null;
+
+            if (isNull) {
                 break;
-            } else {
-                if (i == list.size() - 1) {
-                    ui.buildMessage(String.format("%d. [%s] [%s] %s", i + 1, list.get(i).getTag(),
+            } ui.buildMessage(String.format("%d. [%s] [%s] %s \n", i + 1, list.get(i).getTag(),
                             list.get(i).getStatusIcon(), list.get(i)));
-                } else {
-                    ui.buildMessage(String.format("%d. [%s] [%s] %s \n", i + 1, list.get(i).getTag(),
-                            list.get(i).getStatusIcon(), list.get(i)));
-                }
-            }
         } return ui.sendMessage();
 
     }

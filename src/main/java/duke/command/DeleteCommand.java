@@ -24,8 +24,10 @@ public class DeleteCommand implements Command{
             ui.buildMessage("Alright Sir, I have removed this task from the list for you.\n");
             ui.buildMessage(String.format("\t [%s] [%s] %s \n", list.get(numToDelete).getTag(),
                     list.get(numToDelete).getStatusIcon(), list.get(numToDelete).toString()));
+
             list.remove(numToDelete);
             ui.buildMessage(String.format("Now you have %d tasks left. \n", list.size()));
+
             return ui.sendMessage();
         } catch (NumberFormatException e) {
             throw new DukeException("I apologise, sir. But you have to key in a task number.");

@@ -36,7 +36,6 @@ public class FindCommand implements Command {
                     }
                 }
             }
-
             if (hasSearch == false) {
                 throw new DukeException("I apologise sir." +
                         "But " + search + " cannot be found in your list.");

@@ -24,14 +24,18 @@ public class EventCommand implements Command {
                 LocalDateTime start = LocalDateTime.parse(startText);
                 LocalDateTime end = LocalDateTime.parse(endText);
                 Event event = new Event(description.trim(), start, end);
+
                 list.add(event);
+
                 ui.buildMessage("Noted Sir. I've added this task to your list: \n");
                 ui.buildMessage(String.format("\t [%s] [%s] %s \n", event.getTag(),
                         event.getStatusIcon(),
                         event.toString()));
                 ui.buildMessage(String.format("As of now, you have %d tasks on the agenda. \n",
                         list.size()));
+
                 storage.appendToFile(text + "\n");
+
                 return ui.sendMessage();
 
             }  catch (DateTimeParseException e) {

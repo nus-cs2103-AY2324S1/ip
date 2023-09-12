@@ -15,3 +15,11 @@ todo dance
 todo cry 3
 delete 3
 delete 2
+deadline dance /by 2001-12-12T09:00:00
+deadline dance /by 2001-12-12T09:00:00
+deadline dance /by 2001-12-12T09:00:00
+todo dance
+delete 3
+delete 4
+mark 2
+todo 3

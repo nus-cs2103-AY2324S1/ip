@@ -31,6 +31,7 @@ public class DeadlineCommand implements Command {
                         list.size()));
 
                 storage.appendToFile(text + "\n");
+
                 return ui.sendMessage();
 
             } catch (DateTimeParseException e) {
