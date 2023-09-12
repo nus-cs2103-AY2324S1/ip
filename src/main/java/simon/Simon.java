@@ -13,10 +13,9 @@ import javafx.stage.Stage;
 import simon.command.Parser;
 import simon.task.Task;
 
-
 /**
- * The main class for the {@code Simon} application.
- * It handles the primary loop of the application and interacts with the user.
+ * Represents the main class for the {@code Simon} application.
+ * The class manages the UI and processes user inputs, interacting with the task list and storage.
  */
 public class Simon extends Application {
 
@@ -36,6 +35,9 @@ public class Simon extends Application {
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes a new instance of the {@code Simon} application with the default file path.
+     */
     public Simon() {
         this("data/simon.txt"); // use default filePath
     }
@@ -57,6 +59,11 @@ public class Simon extends Application {
         }
     }
 
+    /**
+     * Processes the given input command and performs the necessary actions.
+     *
+     * @param inData The input command string from the user.
+     */
     public void run2(String inData) {
         assert inData != null && !inData.trim().isEmpty() : "Input data should not be null or empty";
         ui.showWelcome();
@@ -107,6 +114,11 @@ public class Simon extends Application {
         }
     }
 
+    /**
+     * Starts the JavaFX application. This method sets up the main window and its components.
+     *
+     * @param stage The primary stage for this application.
+     */
     @Override
     public void start(Stage stage) {
         //Step 1. Setting up required components
@@ -172,6 +184,9 @@ public class Simon extends Application {
         // more code to be added here later
     }
 
+    /**
+     * Handles the user's input when a command is entered or the send button is clicked.
+     */
     private void handleUserInput() {
         String userText = userInput.getText();
         assert userText != null && !userText.trim().isEmpty() : "User text should not be empty";
@@ -184,8 +199,10 @@ public class Simon extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generates a response for the provided user input.
+     *
+     * @param input The user's input string.
+     * @return The response string from the Simon application.
      */
     String getResponse(String input) {
         Ui.clearOutput();
@@ -197,6 +214,11 @@ public class Simon extends Application {
         return output;
     }
 
+    /**
+     * Logs messages for debugging purposes.
+     *
+     * @param messages An array of messages to be logged.
+     */
     public void logMessages(String... messages) {
         for (String msg : messages) {
             System.out.println("[DEBUG]: " + msg);
