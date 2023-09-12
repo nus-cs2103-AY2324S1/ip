@@ -13,9 +13,19 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
+/**
+ * Storage handles reading and writing tasks to a file for persistence.
+ * It interacts with the DukeList class to save and load tasks.
+ */
 public class Storage {
+    /** The file where tasks are stored. */
     private File file;
 
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param filePath The file path to read and store tasks.
+     */
     public Storage(String filePath) {
         try {
             String[] splited = filePath.split("/");
@@ -34,6 +44,12 @@ public class Storage {
 
     }
 
+    /**
+     * Reads tasks from the file and returns them as an ArrayList of Task objects.
+     *
+     * @return An ArrayList containing tasks read from the file.
+     * @throws DukeException If an error occurs while reading the file.
+     */
     public ArrayList<Task> getData() throws DukeException {
         try {
             ArrayList<Task> oldTasks = new ArrayList<>();
@@ -85,6 +101,11 @@ public class Storage {
         return null;
     }
 
+    /**
+     * Saves tasks to the file.
+     *
+     * @param tasks The ArrayList of Task objects to be saved to the file.
+     */
     public void saveData(ArrayList<Task> tasks) {
         try {
             FileWriter writer = new FileWriter(this.file);
@@ -100,6 +121,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a string to a LocalDateTime object using a specified date and time format.
+     *
+     * @param data The string containing date and time information to be parsed.
+     * @return A LocalDateTime object representing the parsed date and time.
+     */
     public LocalDateTime formatData(String data) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d 'of' MMMM uuuu, h:mma", Locale.ENGLISH);
         LocalDateTime localDateTime = LocalDateTime.parse(data, formatter);

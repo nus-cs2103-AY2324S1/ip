@@ -5,15 +5,31 @@ import duke.task.DukeList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+/**
+ * Parser is responsible for parsing user input and executing corresponding actions.
+ * It handles user commands and interacts with the DukeList, Storage, and Ui components.
+ */
 public class Parser {
+    /** Scanner for reading user input. */
     Scanner scanner;
+    /** Flag to control the main loop, indicating whether to continue processing commands. */
     boolean notBye;
 
+    /**
+     * Constructs a Parser instance with a Scanner for user input and initializes the "notBye" flag.
+     */
     public Parser() {
         scanner = new Scanner(System.in);
         notBye = true;
     }
 
+    /**
+     * Parses user input, processes commands, and interacts with DukeList, Storage, and Ui components.
+     *
+     * @param storage  The storage component for reading and writing tasks to a file.
+     * @param dukelist The DukeList that stores and manages tasks.
+     * @param ui       The user interface for interacting with Duke.
+     */
     public void parse(Storage storage, DukeList dukelist, Ui ui) {
         while (notBye) {
 
@@ -92,6 +108,12 @@ public class Parser {
         }
         }
 
+    /**
+     * Converts a string to a LocalDateTime object using a specified date and time format.
+     *
+     * @param data The string containing date and time information to be parsed.
+     * @return A LocalDateTime object representing the parsed date and time.
+     */
         public LocalDateTime formatData(String data) {
             String trimmed = data.trim();
             DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
