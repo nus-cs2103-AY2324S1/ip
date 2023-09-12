@@ -99,6 +99,7 @@ public class Storage {
 
     /**
      * Updates a task in the storage file.
+     * When updatedFile is null, this method also deletes a task in the storage file.
      *
      * @param index The index of the task to update.
      * @param updatedFile The updated task in intended String format.
@@ -132,36 +133,5 @@ public class Storage {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Deletes a task in the storage file.
-     *
-     * @param index The index of the task to delete.
-     * @param updatedFile The updated task in intended String format.
-     */
-    public void delete(int index) {
-        try {
-            Scanner sc = new Scanner(this.file);
-            ArrayList<String> updatedTaskList = new ArrayList<>();
-            int indx = 0;
-
-            while (sc.hasNextLine()) {
-                String currTask = sc.nextLine();
-
-                if (indx != index) {
-                    updatedTaskList.add(currTask);
-                }
-
-                indx++;
-            }
-
-            sc.close();
-
-            FileWriter filewriter = new FileWriter(this.file);
-            filewriter.write(String.join("\n", updatedTaskList));
-            filewriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }   
+   
 }
