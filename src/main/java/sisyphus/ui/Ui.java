@@ -9,8 +9,11 @@ import sisyphus.task.TaskList;
  */
 public class Ui {
 
+    /** Name of the chatbot */
     private static final String NAME = "Sisyphus";
+    /** Horizontal Line string */
     private static final String HORIZONTAL_LINE = "_________________________________";
+    /** ASCII art that represents sisyphus */
     private static final String LOGO = "\n"
             + "      ,-'\"\"\"`-.\n"
             + "    ,'         `.\n"
