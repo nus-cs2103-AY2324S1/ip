@@ -43,6 +43,7 @@ public class Duke extends Application {
         UNMARK,
         BYE,
         FIND,
+        ARCHIVE,
         UNKNOWN
     }
 
@@ -51,20 +52,6 @@ public class Duke extends Application {
         DEADLINE,
         EVENT,
         UNKNOWN
-    }
-    
-
-    public Duke(String filePath) {
-        assert filePath != null : "File path cannot be null";
-        ui = new Ui();
-        storage = new Storage(filePath);  
-        try {
-            tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
-        }
-        tm = new TaskManager(tasks);
     }
 
     public Duke() {
@@ -77,46 +64,6 @@ public class Duke extends Application {
             tasks = new TaskList();
         }
         tm = new TaskManager(tasks);
-    }
-
-    public void run() {
-        boolean isRunning = true;
-        while (isRunning) {
-            String userCommand = ui.readUserCommand();
-            Parser p = new Parser();
-            CommandType commandType = p.getCommandType(userCommand);
-            assert commandType != CommandType.UNKNOWN : "Parsed command should always be known";
-            switch (commandType) {
-                case LIST:
-                    ui.showTasks(tasks);
-                    break;
-                case BYE:
-                    ui.showGoodbye();
-                    storage.updateData(tasks);
-                    isRunning = false;
-                    break;
-                case DELETE:
-                    ui.showMessage(tm.handleDelete(userCommand));
-                    break;
-                case MARK:
-                    ui.showMessage(tm.handleMark(userCommand));
-                    break;
-                case UNMARK:
-                    ui.showMessage(tm.handleUnmark(userCommand));
-                    break;
-                case EVENT:
-                case DEADLINE:
-                    case TODO:
-                    ui.showMessage(tm.addTask(userCommand));
-                    break;
-                case FIND:
-                    ui.showMessage(tm.findTasks(userCommand));
-                    break;
-                case UNKNOWN:
-                    ui.showError("unknown command.");
-                    break;    
-            }
-        }
     }
 
     @Override
@@ -221,12 +168,42 @@ private void handleUserInput() {
  * Replace this stub with your completed method.
  */
 public String getResponse(String input) {
-    return "Duke heard: " + input;
-}
-
-
-
-    public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+    String response = "";
+    Parser p = new Parser();
+    CommandType commandType = p.getCommandType(input);
+    assert commandType != CommandType.UNKNOWN : "Parsed command should always be known";
+    switch (commandType) {
+        case LIST:
+            response += tasks.toString();
+            break;
+        case BYE:
+            response = "Goodbye. See you again";
+            storage.updateData(tasks);
+            break;
+        case DELETE:
+            response += (tm.handleDelete(input));
+            break;
+        case MARK:
+            response += (tm.handleMark(input));
+            break;
+        case UNMARK:
+            response += (tm.handleUnmark(input));
+            break;
+        case EVENT:
+        case DEADLINE:
+        case TODO:
+            response += (tm.addTask(input));
+            break;
+        case FIND:
+            response += (tm.findTasks(input));
+            break;
+        case ARCHIVE:
+            break;
+        case UNKNOWN:
+            response += ("unknown command.");
+            break;    
+        
     }
+    return "Duke heard: " + input + "\n" + response;
+}
 }
