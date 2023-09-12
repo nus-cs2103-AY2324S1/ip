@@ -32,7 +32,11 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        String response = "Hello, I'm Botty, How can I assist you?";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getBottyDialog(response, BottyImage)
+        );
     }
 
     public void setBotty(Botty b) {

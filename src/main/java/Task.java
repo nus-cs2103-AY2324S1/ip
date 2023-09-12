@@ -56,6 +56,16 @@ public abstract class Task {
     public void markDone() {
         this.isDone = true;
     }
+
+    abstract public Task copy();
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public boolean getIsDone() {
+        return this.isDone;
+    }
     @Override
     public String toString() {
         String tmp = "[" + this.getStatusIcon() + "]" + " " + this.description;

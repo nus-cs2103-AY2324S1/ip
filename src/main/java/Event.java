@@ -47,4 +47,9 @@ public class Event extends Task {
                 + this.from + " | " + this.to + "\n";
         return tmp;
     }
+
+    @Override
+    public Task copy() {
+        return new Event(this.getDescription(), this.from, this.to, this.getIsDone());
+    }
 }

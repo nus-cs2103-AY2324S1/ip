@@ -1,21 +1,21 @@
 package main.java.tasklist;
 
 import main.java.Task;
-import main.java.storage.Storage;
-
 import java.util.ArrayList;
 
 /**
  * The TaskList class represents a collection of tasks and provides methods for managing tasks.
  */
-public class TaskList {
+public class TaskList implements Cloneable {
     private ArrayList<Task> taskList;
+    private ArrayList<Task> previousTaskList;
 
     /**
      * Constructs a new `TaskList` instance with an empty list of tasks.
      */
     public TaskList() {
         this.taskList = new ArrayList<Task>();
+        this.previousTaskList = null;
     }
 
     /**
@@ -24,9 +24,15 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
+        this.previousTaskList = this.copyTaskList();
         this.taskList.add(task);
     }
 
+    public void revertPreviousTaskList() {
+        if (this.previousTaskList != null) {
+            this.taskList = this.previousTaskList;
+        }
+    }
     /**
      * Returns the number of tasks in the task list.
      *
@@ -42,6 +48,11 @@ public class TaskList {
      * @param i The index of the task to retrieve.
      * @return The task at the specified index.
      */
+    public Task getTaskToEdit(int i) {
+        this.previousTaskList = this.copyTaskList();
+        return this.taskList.get(i);
+    }
+
     public Task getTask(int i) {
         return this.taskList.get(i);
     }
@@ -52,7 +63,17 @@ public class TaskList {
      * @param task The task to be removed.
      */
     public void removeTask(Task task) {
+        this.previousTaskList = this.copyTaskList();
         this.taskList.remove(task);
     }
 
+    public ArrayList<Task> copyTaskList() {
+        ArrayList<Task> tmp = new ArrayList<Task>();
+        int size = this.taskList.size();
+        for (int i = 0; i < size; i++) {
+            Task t = this.taskList.get(i).copy();
+            tmp.add(t);
+        }
+        return tmp;
+    }
 }

@@ -1,5 +1,3 @@
-T | 0 | hello
 T | 0 | go home
-T | 0 | help
-T | 0 | go home
-T | 0 | cry
+T | 0 | try
+T | 0 | 1
