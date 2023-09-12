@@ -11,6 +11,7 @@ import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
 import duke.command.FindCommand;
+import duke.command.HelpCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
@@ -79,6 +80,8 @@ public class Parser {
             return prepareDelete(arguments);
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
         default:
             throw new InvalidCommandException();
         }
