@@ -48,16 +48,18 @@ test {
 }
 
 application {
-    mainClass.set("brotherman.Brotherman")
+    mainClass.set("brotherman.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "brotherman"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
+
 run{
     standardInput = System.in
+    enableAssertions = true
 }
 

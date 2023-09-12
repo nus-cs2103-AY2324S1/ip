@@ -7,6 +7,7 @@ import brotherman.storage.Storage;
 import brotherman.tasks.TaskList;
 import brotherman.ui.Ui;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -59,27 +60,6 @@ public class Brotherman extends Application {
         this.taskList = storage.readFromFile();
     }
 
-    /**
-     * Runs the Brotherman chatbot
-     */
-    //public void run() {
-    //    ui.showWelcomeMessage();
-    //    boolean isExit = false;
-    //    while (!isExit) {
-    //        try {
-    //            String fullCommand = ui.readCommand();
-    //            ui.showLine();
-    //            Command command = Parser.parse(fullCommand);
-    //            command.execute(taskList, ui, storage);
-    //            isExit = command.isExit();
-    //        } catch (BrothermanException e) {
-    //            ui.showError(e.getMessage());
-    //        } finally {
-    //            ui.showLine();
-    //        }
-    //    }
-    //}
-
     @Override
     public void start(Stage stage) {
         //Step 1. Setting up required components
@@ -106,10 +86,9 @@ public class Brotherman extends Application {
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
-        stage.setOnCloseRequest(
-                (event) -> {
-                    closeProgram();
-                }
+        stage.setOnCloseRequest((event) -> {
+            closeProgram();
+        }
         );
 
         mainLayout.setPrefSize(400.0, 600.0);
@@ -193,24 +172,16 @@ public class Brotherman extends Application {
     }
 
     private String getResponse(String input) throws BrothermanException {
-        String response = input;
-        Command command = Parser.parse(input);
-        String output = command.execute(taskList, ui, storage);
-        boolean isExit = command.isExit();
-        if (isExit) {
-            closeProgram();
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(taskList, ui, storage);
+        } catch (BrothermanException e) {
+            return ui.showError(e.getMessage());
         }
-
-        return output;
     }
 
     private void closeProgram() {
         storage.saveToFile(taskList.list());
-        System.exit(0);
+        Platform.exit();
     }
-
-    //    public static void main(String[] args) {
-    //        new Brotherman("./data/brotherman.txt").run();
-    //        Application.launch(Brotherman.class, args);
-    //    }
 }

@@ -40,7 +40,6 @@ public class Parser {
 
         if (userCommand.equals("list")) {
             return new ListCommand();
-
         } else if (userCommand.split(" ")[0].equals("find")) {
             String keyword = userCommand.split(" ")[1];
             return new FindCommand(keyword);
@@ -203,13 +202,17 @@ public class Parser {
         try {
             return LocalDateTime.parse(dateTimeStr, formatter);
         } catch (DateTimeParseException e) {
-            try {
-                LocalDate date = LocalDate.parse(dateTimeStr, formatter);
-                return date.atStartOfDay();
-            } catch (DateTimeParseException ex) {
-                System.out.println("Error parsing datetime: " + ex.getMessage());
-                return null;
-            }
+            return tryParseDate(dateTimeStr, formatter);
+        }
+    }
+
+    private static LocalDateTime tryParseDate(String dateStr, DateTimeFormatter formatter) {
+        try {
+            LocalDate date = LocalDate.parse(dateStr, formatter);
+            return date.atStartOfDay();
+        } catch (DateTimeParseException ex) {
+            System.out.println("Error parsing date: " + ex.getMessage());
+            return null;
         }
     }
 }
