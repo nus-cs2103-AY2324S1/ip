@@ -54,5 +54,6 @@ public class MainWindow extends AnchorPane {
         if (response.equals("Bye. Hope to see you again soon!")) {
             Platform.exit();
         }
+
     }
 }

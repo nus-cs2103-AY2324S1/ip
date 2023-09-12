@@ -1,11 +1,14 @@
 package duke;
 
-import java.io.IOException;
-
-import duke.exceptions.EmptyDetailsOfTaskError;
+import duke.commands.AddTaskCommand;
+import duke.commands.ByeCommand;
+import duke.commands.Command;
+import duke.commands.DeleteCommand;
+import duke.commands.FindCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkCommand;
+import duke.commands.UnmarkCommand;
 import duke.exceptions.WrongMarkException;
-import duke.tasks.TaskList;
-import duke.tasks.Task;
 import duke.exceptions.UnknownCommandException;
 
 /**
@@ -31,99 +34,37 @@ public class Parser {
      * @throws UnknownCommandException if asked commands that the bot do not
      *                                 understand
      */
-    public static String isExitOrContinue(String command,
-            TaskList tasks,
-            UI helper,
-            Storage storage)
-            throws WrongMarkException,
-            UnknownCommandException {
-        assert command != null : "command should not be null";
-        assert tasks != null : "taskList should not be null";
-        assert helper != null : "helper should not be null";
-        assert storage != null : "storage should not be null";
-        String output = "";
+    public static Command parse(String command) throws WrongMarkException, UnknownCommandException {
+        int taskNumber = 0;
+        Command commandGiven = null;
         String[] splittedCommand = command.split(" ");
         String commandType = splittedCommand[0];
         switch (commandType) {
-            case "bye":
-                try {
-                    storage.save(tasks);
-                } catch (IOException e) {
-                    output = "OOPS!!! There is no file to save.";
-                    System.out.println("OOPS!!! There is no file to save.");
-                }
-                break;
-            case "find":
-                String keyword = splittedCommand[1];
-                output = helper.findTask(keyword, tasks);
-                break;
-            case "list":
-                helper.printLine();
-                output = tasks.printList();
-                break;
-            case "mark":
-                try {
-                    int taskNumber = Integer.parseInt(splittedCommand[1]);
-                    assert taskNumber > 0 : "taskNumber should be more than 0";
-                    Task task = tasks.get(taskNumber - 1);
-                    if (!task.isItDone()) {
-                        task.setAsDone();
-                        output = helper.markTask(task);
-                    } else if (task.isItDone()) {
-                        helper.printLine();
-                        throw new WrongMarkException("This task is already done.");
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    helper.printLine();
-                    output = "OOPS!!! Must choose something to mark.";
-                    System.out.println("OOPS!!! Must choose something to unmark.");
-                } catch (NullPointerException e) {
-                    helper.printLine();
-                    output = "OOPS!!! You chose air.";
-                    System.out.println("OOPS!!! You chose air.");
-                }
-                break;
-            case "unmark":
-                try {
-                    int taskNumber = Integer.parseInt(splittedCommand[1]);
-                    Task task = tasks.get(taskNumber - 1);
-                    if (task.isItDone()) {
-                        task.setAsUndone();
-                        output = helper.unMarkTask(task);
-                    } else {
-                        helper.printLine();
-                        throw new WrongMarkException("This task is not done yet.");
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    helper.printLine();
-                    output = "OOPS!!! Must choose something to unmark.";
-                    System.out.println("OOPS!!! Must choose something to unmark.");
-                } catch (NullPointerException e) {
-                    helper.printLine();
-                    output = "OOPS!!! You chose air.";
-                    System.out.println("OOPS!!! You chose air.");
-                }
-                break;
-            case "delete":
-                String[] splittedInput = command.split(" ");
-                int taskNumber = Integer.parseInt(splittedInput[1]);
-                output = helper.deleteTask(tasks, taskNumber);
-                break;
-            default:
-                try {
-                    Task currentTask = Task.createTask(command);
-                    tasks.add(currentTask);
-                    output = helper.addTask(currentTask, tasks);
-                } catch (EmptyDetailsOfTaskError e) {
-                    helper.printLine();
-                    output = e.getMessage();
-                    System.out.println(e.getMessage());
-                } catch (UnknownCommandException e) {
-                    helper.printLine();
-                    output = e.getMessage();
-                    System.out.println(e.getMessage());
-                }
+        case "bye":
+            commandGiven = new ByeCommand();
+            break;
+        case "find":
+            String keyword = splittedCommand[1];
+            commandGiven = new FindCommand(keyword);
+            break;
+        case "list":
+            commandGiven = new ListCommand();
+            break;
+        case "mark":
+            taskNumber = Integer.parseInt(splittedCommand[1]);
+            commandGiven = new MarkCommand(taskNumber);
+            break;
+        case "unmark":
+            taskNumber = Integer.parseInt(splittedCommand[1]);
+            commandGiven = new UnmarkCommand(taskNumber);
+            break;
+        case "delete":
+            taskNumber = Integer.parseInt(splittedCommand[1]);
+            commandGiven = new DeleteCommand(taskNumber);
+            break;
+        default:
+            commandGiven = new AddTaskCommand(command);
         }
-        return output;
+        return commandGiven;
     }
 }
