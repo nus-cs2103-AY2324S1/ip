@@ -47,7 +47,5 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
-        // After adding a new dialogue line to dialogContainer (VBox):
-//        scrollPane.setVvalue(1.0); // Scroll to the bottom
     }
 }

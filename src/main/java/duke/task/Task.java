@@ -15,6 +15,9 @@ public class Task {
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
     public static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("HH:mm, dd MMMM yyyy");
+    public static final int BEGIN_INDEX_TODO = 5;
+    public static final int BEGIN_INDEX_DEADLINE = 9;
+    public static final int BEGIN_INDEX_EVENT = 6;
     protected String description;
     protected boolean isDone;
 
@@ -41,11 +44,11 @@ public class Task {
     public static Task taskCon(String userInput) throws InvalidCommandException, InvalidTaskCreationException,
             DateTimeParseException {
         if (userInput.startsWith("todo")) {
-            return ToDo.toDoCon(userInput.substring(5));
+            return ToDo.toDoCon(userInput.substring(BEGIN_INDEX_TODO));
         } else if (userInput.startsWith("deadline")) {
 
             String[] splitInput = userInput.split("/by");
-            String taskDescription = splitInput[0].substring(9).trim();
+            String taskDescription = splitInput[0].substring(BEGIN_INDEX_DEADLINE).trim();
             String deadline = splitInput[1].trim();
 
             return Deadline.deadlineCon(taskDescription, deadline);
@@ -53,7 +56,8 @@ public class Task {
         } else if (userInput.startsWith("event")) {
 
             String[] splitInput = userInput.split("/from");
-            String taskDescription = splitInput[0].substring(6).trim();
+            String taskDescription = splitInput[0].substring(BEGIN_INDEX_EVENT).trim();
+
             String[] eventDetails = splitInput[1].split("/to");
             String eventStartTime = eventDetails[0].trim();
             String eventEndTime = eventDetails[1].trim();

@@ -37,67 +37,15 @@ public class Storage {
         while ((line = reader.readLine()) != null) {
             switch (line.charAt(0)) {
                 case 'T':
-                    String[] splitStringList = line.split("\\|");
-                    if (splitStringList.length != 3) {
-                        throw new InvalidFileFormatException("Invalid format for Todo task in the file.");
-                    }
-                    String fabricatedUserInput = "todo " + splitStringList[2];
-
-                    Task t;
-                    try {
-                        t = Task.taskCon(fabricatedUserInput);
-                    } catch (InvalidCommandException | InvalidTaskCreationException e) {
-                        throw new InvalidFileFormatException("Invalid format for Todo task in the file.");
-                    }
-
-                    if (splitStringList[1].equals("1")) {
-                        t.markAsDone();
-                    }
-                    taskList.add(t);
+                    loadTodoTask(line, taskList);
                     break;
 
                 case 'D':
-                    splitStringList = line.split("\\|");
-                    if (splitStringList.length != 4) {
-                        throw new InvalidFileFormatException("Invalid format for Deadline task in the"
-                                + " file.");
-                    }
-                    fabricatedUserInput = "deadline " + splitStringList[2] + "/by " + splitStringList[3];
-
-                    Task d;
-                    try {
-                        d = Task.taskCon(fabricatedUserInput);
-                    } catch (InvalidCommandException | InvalidTaskCreationException e) {
-                        throw new InvalidFileFormatException("Invalid format for Deadline task in the"
-                                + " file.");
-                    }
-
-                    if (splitStringList[1].equals("1")) {
-                        d.markAsDone();
-                    }
-                    taskList.add(d);
+                    loadDeadlineTask(line, taskList);
                     break;
 
                 case 'E':
-                    splitStringList = line.split("\\|");
-                    if (splitStringList.length != 5) {
-                        throw new InvalidFileFormatException("Invalid format for Event task in the file.");
-                    }
-
-                    fabricatedUserInput = "event " + splitStringList[2] + "/from " + splitStringList[3] + "/to "
-                            + splitStringList[4];
-
-                    Task ev;
-                    try {
-                        ev = Task.taskCon(fabricatedUserInput);
-                    } catch (InvalidCommandException | InvalidTaskCreationException e) {
-                        throw new InvalidFileFormatException("Invalid format for Event task in the file.");
-                    }
-
-                    if (splitStringList[1].equals("1")) {
-                        ev.markAsDone();
-                    }
-                    taskList.add(ev);
+                    loadEventTask(line, taskList);
                     break;
 
                 default:
@@ -106,6 +54,70 @@ public class Storage {
             }
         }
         return taskList;
+    }
+
+    private static void loadEventTask(String line, ArrayList<Task> taskList) throws InvalidFileFormatException {
+        String[] splitStringList = line.split("\\|");
+        if (splitStringList.length != 5) {
+            throw new InvalidFileFormatException("Invalid format for Event task in the file.");
+        }
+
+        String fabricatedUserInput = "event " + splitStringList[2] + "/from " + splitStringList[3] + "/to "
+                + splitStringList[4];
+
+        Task ev;
+        try {
+            ev = Task.taskCon(fabricatedUserInput);
+        } catch (InvalidCommandException | InvalidTaskCreationException e) {
+            throw new InvalidFileFormatException("Invalid format for Event task in the file.");
+        }
+
+        if (splitStringList[1].equals("1")) {
+            ev.markAsDone();
+        }
+        taskList.add(ev);
+    }
+
+    private static void loadDeadlineTask(String line, ArrayList<Task> taskList) throws InvalidFileFormatException {
+        String[] splitStringList = line.split("\\|");
+        if (splitStringList.length != 4) {
+            throw new InvalidFileFormatException("Invalid format for Deadline task in the"
+                    + " file.");
+        }
+        String fabricatedUserInput = "deadline " + splitStringList[2] + "/by " + splitStringList[3];
+
+        Task d;
+        try {
+            d = Task.taskCon(fabricatedUserInput);
+        } catch (InvalidCommandException | InvalidTaskCreationException e) {
+            throw new InvalidFileFormatException("Invalid format for Deadline task in the"
+                    + " file.");
+        }
+
+        if (splitStringList[1].equals("1")) {
+            d.markAsDone();
+        }
+        taskList.add(d);
+    }
+
+    private static void loadTodoTask(String line, ArrayList<Task> taskList) throws InvalidFileFormatException {
+        String[] splitStringList = line.split("\\|");
+        if (splitStringList.length != 3) {
+            throw new InvalidFileFormatException("Invalid format for Todo task in the file.");
+        }
+        String fabricatedUserInput = "todo " + splitStringList[2];
+
+        Task t;
+        try {
+            t = Task.taskCon(fabricatedUserInput);
+        } catch (InvalidCommandException | InvalidTaskCreationException e) {
+            throw new InvalidFileFormatException("Invalid format for Todo task in the file.");
+        }
+
+        if (splitStringList[1].equals("1")) {
+            t.markAsDone();
+        }
+        taskList.add(t);
     }
     //CHECKSTYLE.ON: Indentation
 

@@ -1,71 +1,9 @@
 package duke;
 
 import javafx.geometry.Insets;
-//import javafx.scene.shape.Circle;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
-//
-//import java.awt.*;
-//
-//public class DialogBox extends HBox {
-//
-//    private Label text;
-//    private ImageView displayPicture;
-//
-//    public DialogBox(Label l, ImageView iv, Color bgColor) {
-//        text = l;
-//        displayPicture = iv;
-//
-//        //Size of image and dialog properties
-//        displayPicture.setFitWidth(100.0);
-//        displayPicture.setFitHeight(100.0);
-//        text.setWrapText(true);
-//
-//        //Circle Clip for displayPicture
-//        Circle clipCircle = new Circle(50);
-//        displayPicture.setClip(clipCircle);
-//        clipCircle.setCenterX(displayPicture.getFitWidth() / 2);
-//        clipCircle.setCenterY(displayPicture.getFitHeight() / 2);
-//
-//        // Padding and Setting for DialogBox
-//        this.setAlignment(Pos.TOP_RIGHT);
-//        this.setPadding(new Insets(10)); //Padding around DialogBox
-//        this.getChildren().addAll(text, displayPicture);
-//
-//        // Add margins to the text and displayPicture elements
-//        HBox.setMargin(text, new Insets(5, 10, 5, 10)); // Adjust the values as needed
-////        HBox.setMargin(displayPicture, new Insets(5, 10, 5, 10)); // Adjust the values as needed
-//
-//        //Sets background for circle+text
-////        this.setBackground(new Background(new BackgroundFill(bgColor, null, null)));
-//
-//        //Background for text-part only
-//        this.text.setBackground(new Background(new BackgroundFill(bgColor, null, null)));
-//    }
-//
-//    /**
-//     * Flips the dialog box such that the ImageView is on the left and text on the right.
-//     */
-//    private void flip() {
-//        this.setAlignment(Pos.TOP_LEFT);
-//        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-//        FXCollections.reverse(tmp);
-//        this.getChildren().setAll(tmp);
-//    }
-//
-//    public static DialogBox getUserDialog(Label l, ImageView iv) {
-//        return new DialogBox(l, iv, Color.CYAN);
-//    }
-//
-//    public static DialogBox getDukeDialog(Label l, ImageView iv) {
-//        var db = new DialogBox(l, iv, Color.YELLOW);
-//        db.flip();
-//        return db;
-//    }
-//}
-
-import java.awt.*;
 import java.io.IOException;
 import java.util.Collections;
 
