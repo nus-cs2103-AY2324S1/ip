@@ -16,7 +16,7 @@ public class ToDo extends SingleTask {
         this.isDone = true;
         assert this.isDone;
         return "Ok boy i mark for you already \n" +
-                "[" +this.getStatusIcon() +"] " + this.description;
+                "[" + this.getStatusIcon() + "] " + this.description;
     }
 
     /**
@@ -34,7 +34,7 @@ public class ToDo extends SingleTask {
         this.isDone = false;
         assert !this.isDone;
         return "Ok boy I unmark for you already \n" +
-                "[" +this.getStatusIcon() +"] " + this.description;
+                "[" + this.getStatusIcon() +"] " + this.description;
     }
 
     /**
@@ -44,7 +44,7 @@ public class ToDo extends SingleTask {
     @Override
     public String toString() {
         return "OK DONE ALR added your todo ah:\n" +
-                "[T]" + "[" +this.getStatusIcon() +"] " + this.description;
+                "[T]" + "[" + this.getStatusIcon() + "] " + this.description;
 
     }
 
@@ -54,7 +54,7 @@ public class ToDo extends SingleTask {
      */
     @Override
     public String listString() {
-        return ". [T]" + "[" +this.getStatusIcon() +"] " + this.description +"\n";
+        return ". [T]" + "[" + this.getStatusIcon() +"] " + this.description +"\n";
     }
 
     /**
@@ -64,7 +64,7 @@ public class ToDo extends SingleTask {
     @Override
     public String remove() {
         return "OK DONE ALR removed your todo ah:\n" +
-                "[T]" + "[" +this.getStatusIcon() +"] " + this.description;
+                "[T]" + "[" + this.getStatusIcon() + "] " + this.description;
     }
 
     /**
