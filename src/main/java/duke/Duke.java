@@ -32,6 +32,9 @@ public class Duke {
         try {
             // Attempt to load tasks from the specified file path.
             this.tasks = new TaskList(storage.load());
+
+            assert this.tasks.getSize() != 0 : "taskList initialized from file cannot be empty";
+            
         } catch (IOException | InvalidFileFormatException e) {
             // Handle exceptions related to file loading.
             System.out.println(e.getMessage());
@@ -108,6 +111,9 @@ public class Duke {
             try {
                 int taskNo = parser.parseMark(userInput, this.tasks);
                 Task x = this.tasks.getTask(taskNo - 1);
+
+                assert x != null : "retrieved task x cannot be null";
+
                 x.markAsDone();
                 botOutput += x;
             } catch (ParserException p) {
@@ -120,6 +126,9 @@ public class Duke {
             try {
                 int taskNo = parser.parseUnmark(userInput, this.tasks);
                 Task x = this.tasks.getTask(taskNo - 1);
+
+                assert x != null : "retrieved task x cannot be null";
+
                 x.markAsUndone();
                 botOutput += x;
             } catch (ParserException p) {
@@ -132,6 +141,9 @@ public class Duke {
             try {
                 int taskNo = parser.parseDelete(userInput, this.tasks);
                 Task x = this.tasks.deleteTask(taskNo - 1);
+
+                assert x != null : "retrieved task x cannot be null";
+
                 botOutput += x;
             } catch (ParserException p) {
                 // Handle parsing exceptions.
@@ -152,6 +164,9 @@ public class Duke {
             try {
                 // Attempt to create a new task based on the user input.
                 Task t = Task.taskCon(userInput);
+
+                assert t != null : "created task t cannot be null";
+
                 this.tasks.addTask(t);
                     botOutput = botOutput + "added: " + t + "\n    Now you have " + this.tasks.getSize() + " tasks in the list.";
             } catch (InvalidCommandException e) {
@@ -165,6 +180,9 @@ public class Duke {
                 botOutput = "Please specify deadlines and dates in the following format, " + Task.DATE_TIME_FORMAT;
             }
         }
+
+        assert botOutput.isEmpty() == false : "botOutput message cannot be empty";
+
         // Return the generated bot response to run() method.
         return botOutput;
     }
@@ -177,7 +195,7 @@ public class Duke {
     public static void main(String[] args) {
         // Specify the file path for data storage.
         String filePath = "./data/duke.txt";
-
+//        assert false: "falseee";
         // Create an instance of Duke and run the bot.
         Duke dukeInstance = new Duke(filePath);
         dukeInstance.runBot();
