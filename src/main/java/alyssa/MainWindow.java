@@ -6,6 +6,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -52,9 +54,12 @@ public class MainWindow extends AnchorPane {
         }
         String input = userInput.getText();
         String response = alyssa.getResponse(input);
+        DialogBox userBox = DialogBox.getUserDialog(input, userImage);
+        DialogBox alyssaBox = DialogBox.getAlyssaDialog(response, alyssaImage);
+        HBox.setHgrow(alyssaBox, Priority.ALWAYS);
+        alyssaBox.setFillHeight(false);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getAlyssaDialog(response, alyssaImage)
+                userBox, alyssaBox
         );
         userInput.clear();
         if (input.equals("bye")) {

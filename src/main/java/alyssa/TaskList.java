@@ -29,7 +29,7 @@ public class TaskList {
         int counter = 1;
         String response = "Here are the tasks in your list:\n";
         for (Task task : taskList) {
-            assert counter >= 1: "Counter value in listTasks should be >= 1";
+            assert counter >= 1 : "Counter value in listTasks should be >= 1";
             response += counter + "." + task.toString() + "\n";
             counter++;
         }
@@ -47,7 +47,7 @@ public class TaskList {
         if (index < 1 || index > taskList.size()) {
             throw new AlyssaArgumentException("Invalid task number");
         }
-        assert index >= 1: "Invalid markTask index";
+        assert index >= 1 : "Invalid markTask index";
         Task task = taskList.get(index - 1);
         task.markAsDone();
         String output = "Nice! I've marked this task as done:\n";
@@ -65,7 +65,7 @@ public class TaskList {
         if (index < 1 || index > taskList.size()) {
             throw new AlyssaArgumentException("Invalid task number");
         }
-        assert index >= 1: "Invalid unmarkTask index";
+        assert index >= 1 : "Invalid unmarkTask index";
         Task task = taskList.get(index - 1);
         task.markAsUndone();
         String output = "OK, I've marked this task as not done yet:";
@@ -81,7 +81,7 @@ public class TaskList {
         if (desc.isEmpty()) {
             throw new AlyssaArgumentException("Please specify a description for the todo.");
         }
-        assert desc.length() > 0: "Todo description was empty and exception was not thrown";
+        assert desc.length() > 0 : "Todo description was empty and exception was not thrown";
         Task newTodo = new Todo(desc);
         taskList.add(newTodo);
         String output = "Got it. I've added this task:\n";
@@ -101,7 +101,7 @@ public class TaskList {
         if (parsed.length < 2) {
             throw new AlyssaArgumentException("Incorrect deadline syntax. Syntax: deadline desc /by date");
         }
-        assert parsed.length >= 2: "Invalid parsed args does not throw exception in addDeadline";
+        assert parsed.length >= 2 : "Invalid parsed args does not throw exception in addDeadline";
         String desc = parsed[0];
         String by = parsed[1];
         Task newDeadline;
@@ -128,7 +128,7 @@ public class TaskList {
         if (parsed.length < 3) {
             throw new AlyssaArgumentException("Incorrect event syntax. Syntax: event desc /from date /to date");
         }
-        assert parsed.length >= 2: "Invalid parsed args does not throw exception in addEvent";
+        assert parsed.length >= 2 : "Invalid parsed args does not throw exception in addEvent";
         String desc = parsed[0];
         String from = parsed[1];
         String to = parsed[2];
@@ -151,7 +151,7 @@ public class TaskList {
         if (index < 1 || index > taskList.size()) {
             throw new AlyssaArgumentException("Invalid task number");
         }
-        assert index <= taskList.size(): "An invalid task was allowed to be deleted";
+        assert index <= taskList.size() : "An invalid task was allowed to be deleted";
         Task toDelete = taskList.get(index - 1);
         String output = "Noted. I've removed this task:\n";
         output += toDelete.toString() + "\n";
