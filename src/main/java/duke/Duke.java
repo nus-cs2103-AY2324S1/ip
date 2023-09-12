@@ -104,7 +104,8 @@ public class Duke extends Application {
      */
     public void handle(String input) {
         try {
-            Executable command = parser.parse(input);
+            Executable command = parser.parseToExecutable(input);
+            assert (command != null); // Parser should throw an exception if this occurs.
             boolean isShuttingDown = (command.execute(list, ui));
             if (isShuttingDown) {
                 closeDuke();

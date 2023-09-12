@@ -35,13 +35,21 @@ public class Event extends Task {
     }
 
     /**
-     * Formats the event, for example parsing the start and end times into a more readable format.
-     * @return a string representation of the event.
+     * Creates a readable string interpretation of the Event.
+     * @return a readable Event in String form.
      */
+    @Override
     public String toString() {
         return ("[E]" + super.toString() + " (from: " + timeStart.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
                 + " to: " + timeEnd.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")");
     }
+
+    /**
+     * Produces a saveable format of the Event.
+     * (We use dividers to minimize the confusion caused by spaces in names.)
+     * @return a String format of Event with minimal ambiguity in format.
+     */
+    @Override
     public String fileFormat() {
         return "EV" + DIVIDER + super.fileFormat() + DIVIDER + timeStart + DIVIDER + timeEnd;
     }

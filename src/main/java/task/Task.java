@@ -27,17 +27,23 @@ public class Task {
         this.isComplete = isComplete;
     }
 
+    /**
+     * A setter to mark a task as done.
+     */
     public void markDone() {
         this.isComplete = true;
     }
 
+    /**
+     * A setter to mark a task as not done.
+     */
     public void markUndone() {
         this.isComplete = false;
     }
 
     /**
-     * Formats the task for user reading.
-     * @return a user-friendly task representation as a String.
+     * Creates a readable string interpretation of the Task.
+     * @return a readable Task in String form.
      */
     public String toString() {
         if (isComplete) {

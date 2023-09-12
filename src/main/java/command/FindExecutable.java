@@ -3,7 +3,6 @@ import java.util.ArrayList;
 
 import duke.TaskList;
 import duke.UserInterface;
-import dukeexception.FailureInExecuteException;
 import task.Task;
 
 /**
@@ -12,13 +11,24 @@ import task.Task;
 public class FindExecutable implements Executable {
     private String keyword;
 
+    /**
+     * Sets the keyword to search for.
+     * @param keyword the string passed for searching.
+     */
     public void setSearch(String keyword) {
         assert (!keyword.isBlank()); // Parser should pass a valid keyword only.
         this.keyword = keyword;
     }
 
+    /**
+     * for the FindExecutable, this searches the list for the relevant tasks that include the keyword,
+     * if any. Thereafter, it will produce any results obtained to the ui.
+     * @param list the list to be searched.
+     * @param ui the interface to print out the output.
+     * @return False, since this is a non-terminating operation.
+     */
     @Override
-    public boolean execute(TaskList list, UserInterface ui) throws FailureInExecuteException {
+    public boolean execute(TaskList list, UserInterface ui) {
         ArrayList<Task> res = list.findTasksMatching(keyword);
         if (res.isEmpty()) {
             ui.output("Could not find task");

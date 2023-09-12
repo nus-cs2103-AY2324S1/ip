@@ -79,11 +79,19 @@ public class TaskList {
         taskList.clear();
         writeToDisk();
     }
-    public boolean setMark(int targetIndex, boolean isToBeMarked) throws IOException {
+
+    /**
+     * sets the done status of the indicated task.
+     * @param targetIndex the index to have its mark set.
+     * @param isToBeMarkedAs the status that the mark is to be changed to.
+     * @return a boolean representing if the marking was successful.
+     * @throws IOException if we cannot save the marking to the disk.
+     */
+    public boolean setMark(int targetIndex, boolean isToBeMarkedAs) throws IOException {
         if (targetIndex > taskList.size() || targetIndex < 0) {
             return false;
         }
-        if (isToBeMarked) {
+        if (isToBeMarkedAs) {
             taskList.get(targetIndex).markDone();
         } else {
             taskList.get(targetIndex).markUndone();
@@ -91,6 +99,13 @@ public class TaskList {
         writeToDisk();
         return true;
     }
+
+    /**
+     * Converts an ArrayList containing strings representing tasks to an arraylist that contains Task objects.
+     * @param stringArrayList the target of conversion.
+     * @return the converted version of stringArrayList.
+     * @throws CorruptedFileException if any of the strings cannot be converted to a task object.
+     */
     private ArrayList<Task> stringListToTaskList(ArrayList<String> stringArrayList) throws CorruptedFileException {
         ArrayList<Task> res = new ArrayList<>();
         for (String s : stringArrayList) {
@@ -127,6 +142,11 @@ public class TaskList {
         return res;
     }
 
+    /**
+     * Converts an Arraylist containing Tasks to an ArrayList that holds the string representation of those tasks.
+     * @param taskArrayList the ArrayList to be converted.
+     * @return the converted ArrayList.
+     */
     private ArrayList<String> taskListToStringList(ArrayList<Task> taskArrayList) {
         ArrayList<String> res = new ArrayList<>();
         for (Task s : taskArrayList) {

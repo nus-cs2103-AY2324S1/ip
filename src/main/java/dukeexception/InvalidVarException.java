@@ -1,7 +1,7 @@
 package dukeexception;
 
 /**
- * An extension of DukeException, that represents a command with bad arguments.
+ * An extension of DukeException, that represents a recognized command with bad arguments.
  */
 public class InvalidVarException extends DukeException {
     public InvalidVarException() {

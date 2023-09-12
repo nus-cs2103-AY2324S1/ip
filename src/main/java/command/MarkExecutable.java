@@ -17,8 +17,12 @@ public class MarkExecutable implements Executable {
         this.isToBeMarked = isToBeMarked;
     }
 
-    public void setMark(int targetIndex) {
-        assert targetIndex > 0;
+    /**
+     * Sets the index in the list that we plan to set the mark of.
+     * @param targetIndex the index in the list that is to be marked.
+     */
+    public void setMarkTarget(int targetIndex) {
+        assert targetIndex > 0; // negative indexes are never valid and should not have been passed!
         this.targetIndex = targetIndex;
     }
 
