@@ -27,6 +27,7 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description);
+        assert !super.isDone : "Task should be marked as undone initially.";
         this.from = super.parseStringToTime(from);
         this.to = super.parseStringToTime(to);
     }

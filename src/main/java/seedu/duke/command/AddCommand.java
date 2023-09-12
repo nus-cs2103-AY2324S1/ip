@@ -39,6 +39,7 @@ public class AddCommand extends EditCommand {
     }
 
     public void generateResponse(String[] response, Task task, TaskList taskList) {
+        assert task != null : AddCommand.ADD_TASK_FAILED_MESSAGE;
         if (task == null) {
             response[0] = AddCommand.ADD_TASK_FAILED_MESSAGE;
             return;

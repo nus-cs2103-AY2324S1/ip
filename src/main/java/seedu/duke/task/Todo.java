@@ -18,6 +18,7 @@ public class Todo extends Task {
      */
     public Todo(String description) {
         super(description);
+        assert !super.isDone : "Task should be marked as undone initially.";
     }
 
     /**

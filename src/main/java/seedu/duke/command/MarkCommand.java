@@ -15,6 +15,7 @@ public class MarkCommand extends EditCommand {
     @Override
     public void execute(TaskList taskList, Ui ui, String[] response) throws Exception {
         int markIndex = ui.mark(input);
+        assert markIndex >= 0 : "Mark index should be non-negative.";
         if (taskList.isOutOfRange(markIndex)) {
             throw new DukeException("☹ OOPS!!! Please specify a valid task number to be marked.");
         }

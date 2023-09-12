@@ -15,6 +15,7 @@ public class DeleteCommand extends EditCommand {
     @Override
     public void execute(TaskList taskList, Ui ui, String[] response) throws Exception {
         int deleteIndex = ui.delete(input);
+        assert deleteIndex >= 0 : "Delete index should be non-negative.";
         if (taskList.isOutOfRange(deleteIndex)) {
             throw new DukeException("☹ OOPS!!! Please specify a valid task number to be deleted.");
         }
