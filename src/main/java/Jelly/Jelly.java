@@ -1,15 +1,19 @@
-package Jelly.main;
+package Jelly;
 
 import java.util.Scanner;
 
 import Jelly.commands.Command;
 import Jelly.exceptions.JellyException;
+import Jelly.main.Parser;
+import Jelly.main.Storage;
+import Jelly.main.TaskList;
+import Jelly.main.Ui;
 
 /**
  * The main class which is responsible in running the Jelly chatbot.
  */
 public class Jelly {
-    private static final String FILE_PATH = "./taskData/jelly.txt";
+    private static String FILE_PATH = "./taskData/jelly.txt";
     private final Scanner scanner = new Scanner(System.in);
 
     private TaskList taskList;
@@ -22,7 +26,7 @@ public class Jelly {
      * @param filePath The file path used when saving or starting up the bot. Contains a list of tasks(if any).
      * @throws JellyException If there are any errors while starting up Jelly.
      */
-    private Jelly(String filePath) {
+    public Jelly(String filePath) {
         this.storage = new Storage(filePath);
         this.ui = new Ui();
 
@@ -32,6 +36,9 @@ public class Jelly {
             this.taskList = new TaskList();
             System.out.println(e.getMessage());
         }
+    }
+    public Jelly() {
+        this(FILE_PATH);
     }
 
     /**
@@ -44,18 +51,16 @@ public class Jelly {
         Jelly jelly = new Jelly(FILE_PATH);
         jelly.run();
     }
-
     /**
      * Runs the commands given to the Jelly Chat bot.
      */
     private void run() {
 
-        ui.startUpMessage();
         boolean isRunning = true;
 
         while (isRunning) {
+            String command = ui.commandMe();
             try {
-                String command = ui.commandMe();
                 Command c = Parser.parse(command);
                 c.execute(taskList, ui, storage);
                 isRunning = c.isRunning();
@@ -63,5 +68,15 @@ public class Jelly {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    public String getResponse(String input) {
+        String response;
+        try {
+            response = Parser.parse(input).execute(taskList, ui, storage);
+        } catch (JellyException e) {
+            return e.getMessage();
+        }
+        return response;
     }
 }

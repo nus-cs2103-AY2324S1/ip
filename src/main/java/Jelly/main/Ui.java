@@ -21,9 +21,9 @@ public class Ui {
     /**
      * Prints out a welcome message when the Chat Bot is booted up.
      */
-    public void startUpMessage() {
-        System.out.println("Hello! I'm Jelly");
-        System.out.println("What can I do for you?");
+    public String startUpMessage() {
+        return ("Hello! I'm Jelly\n"
+                + "What can I do for you?");
     }
 
     /**
@@ -40,8 +40,8 @@ public class Ui {
      *
      * @param message The error message.
      */
-    public void displayErrorMessage(String message) {
-        System.out.println(message);
+    public String displayErrorMessage(String message) {
+        return (message);
     }
 
     /**
@@ -49,10 +49,12 @@ public class Ui {
      *
      * @param storage The tasklist that is in the storage.
      */
-    public void printList(ArrayList<Task> storage) {
+    public String printList(ArrayList<Task> storage) {
+        String listOfTasks = "Here are the tasks in your list:\n";
         for (int i = 0; i < storage.size(); i++) {
-            System.out.println((i + 1) + "." + storage.get(i).toString());
+            listOfTasks = listOfTasks.concat((i + 1) + "." + storage.get(i).toString() + "\n");
         }
+        return listOfTasks;
     }
 
     /**
@@ -61,9 +63,9 @@ public class Ui {
      * @param addedTask The task that was added.
      * @param noOfTasks The total number of tasks in the list after adding.
      */
-    public void addedTaskMessage(Task addedTask, int noOfTasks) {
-        System.out.println("Ok! I've added this task: \n" + addedTask.toString());
-        System.out.println("Now you have " + noOfTasks + " tasks in the list.");
+    public String addedTaskMessage(Task addedTask, int noOfTasks) {
+        return ("Ok! I've added this task: \n" + addedTask.toString() + "\n"
+                + "Now you have " + noOfTasks + " tasks in the list.");
     }
 
     /**
@@ -72,15 +74,15 @@ public class Ui {
      * @param deletedTask The task that was deleted.
      * @param noOfTasks The total number of tasks in the list after deletion.
      */
-    public void deleteMessage(Task deletedTask, int noOfTasks) {
-        System.out.println("Okay, I've removed this task: \n" + deletedTask);
-        System.out.println("Now you have " + noOfTasks + " in the list.");
+    public String deleteMessage(Task deletedTask, int noOfTasks) {
+        return ("Okay, I've removed this task: \n" + deletedTask + "\n"
+                + "Now you have " + noOfTasks + " in the list.");
     }
 
     /**
      * Displays a final message to the user before the Chat Bot shuts down.
      */
-    public void byeMessage() {
-        System.out.println("Bye mate! Have a nice day :]");
+    public String byeMessage() {
+        return ("Bye mate! Have a nice day :]");
     }
 }

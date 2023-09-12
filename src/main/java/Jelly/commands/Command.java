@@ -8,5 +8,5 @@ public abstract class Command {
     public boolean isRunning() {
         return true;
     }
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage);
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage);
 }
