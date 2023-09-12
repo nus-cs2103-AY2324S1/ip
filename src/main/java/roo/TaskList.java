@@ -2,6 +2,7 @@ package roo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 import roo.task.Task;
 
@@ -68,13 +69,10 @@ public class TaskList {
      * @param date The date for which tasks are to be listed.
      */
     public String listDateEvents(LocalDate date) {
-        StringBuilder str = new StringBuilder();
-        for (Task dt : data) {
-            if (dt.getDate() != null && dt.getDate().getDayOfMonth() == date.getDayOfMonth()) {
-                str.append("- ").append(dt.toString()).append("\n");
-            }
-        }
-        return str.toString();
+        return data.stream()
+                .filter(dt -> dt.getDate() != null && dt.getDate().getDayOfMonth() == date.getDayOfMonth())
+                .map(dt -> "- " + dt.toString() + "\n")
+                .reduce("", (x, y) -> x + y);
     }
 
     /**
@@ -91,7 +89,7 @@ public class TaskList {
                 count++;
             }
         }
-        return str.toString();
+        return !str.toString().isEmpty() ? str.toString() : "Cannot find what u want..." ;
     }
 
     /**
@@ -136,16 +134,13 @@ public class TaskList {
      * Lists all tasks in the task list.
      */
     public String list() {
-        if (data.isEmpty()) {
-            return "Congrats!!! Nothing to do now!!!\n";
-        } else {
-            StringBuilder str = new StringBuilder();
-            for (int i = 0; i < data.size(); i++) {
-                Task dt = data.get(i);
-                str.append((i + 1)).append(". ").append(dt.toString()).append("\n");
-            }
-            return str.toString();
-        }
+        return data.isEmpty()
+                ? "Congrats!!! Nothing to do now!!!\n"
+                : Stream.iterate(1, x -> x <= data.size(), x -> x + 1)
+                        .map(x -> x + ". " + data.get(x - 1).toString() + "\n")
+                        .reduce("", (x, y) -> x + y);
+
+
     }
 
 }
