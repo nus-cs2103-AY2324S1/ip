@@ -97,12 +97,19 @@ public class Parser {
      */
     private static boolean isDate(String input) {
         String[] splitInput = input.split("-");
-        if (splitInput.length != 3 || isNotNumeric(splitInput[0]) || isNotNumeric(splitInput[1])) {
+        if (splitInput.length != 3) {
+            return false;
+        } else if (isNotNumeric(splitInput[0])) {
+            return false;
+        } else if (isNotNumeric(splitInput[1])) {
             return false;
         }
-
         String[] yearAndTime = splitInput[2].split(" ");
-        if (yearAndTime.length != 2 || isNotNumeric(yearAndTime[0]) || isNotNumeric(yearAndTime[1])) {
+        if (yearAndTime.length != 2) {
+            return false;
+        } else if (isNotNumeric(yearAndTime[0])) { 
+            return false;
+        } else if (isNotNumeric(yearAndTime[1])) {
             return false;
         }
 
