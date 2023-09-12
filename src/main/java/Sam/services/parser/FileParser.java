@@ -60,6 +60,7 @@ public class FileParser {
             }
             return event;
         default:
+            assert false: "Invalid Task Type saved in Hard disk.";
             return null;
         }
     }

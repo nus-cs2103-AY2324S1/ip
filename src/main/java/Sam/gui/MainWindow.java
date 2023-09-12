@@ -52,13 +52,15 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         CommandResult result = null;
-        String response = sam.getResponse(input);
+        String response = null;
         try {
             result = sam.getResult(input);
             response = result.getFeedback();
         } catch (Exception e) {
             response = e.getMessage();
         } finally {
+            assert response != null : "No response message returned from Sam";
+
             userInput.clear();
             if (result == null) {
                 dialogContainer.getChildren().add(

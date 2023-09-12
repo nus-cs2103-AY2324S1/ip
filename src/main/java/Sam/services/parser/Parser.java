@@ -77,7 +77,6 @@ public class Parser {
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 
-
         case HelpCommand.COMMAND_WORD: // Fallthrough
         default:
             return new HelpCommand();
