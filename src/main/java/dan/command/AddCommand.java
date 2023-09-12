@@ -7,9 +7,10 @@ public class AddCommand extends Command {
     public static final String type = "add";
     private String text;
     private int id;
+    private Task newTask;
 
     /** Constructor */
-    public AddCommand(String text, int i) {
+    public AddCommand(String text, int id) {
         super();
         this.text = text;
         this.id = id;
@@ -22,7 +23,6 @@ public class AddCommand extends Command {
         for (int i = 0; i < texts.length; i++) {
             texts[i] = texts[i].trim();
         }
-        Task newTask = null;
         String description;
         switch (id) {
             case 1:
@@ -48,5 +48,10 @@ public class AddCommand extends Command {
     @Override
     public String getType() {
         return type;
+    }
+
+    @Override
+    public String toString() {
+        return newTask.toString();
     }
 }
