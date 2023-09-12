@@ -15,7 +15,7 @@ public class Todo extends Task {
      * @throws RooException If the task description is empty or consists only of spaces.
      */
     public Todo(String task) throws RooException {
-        super(task);
+        super(task, false);
     }
 
     /**

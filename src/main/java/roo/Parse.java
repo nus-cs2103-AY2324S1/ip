@@ -1,6 +1,18 @@
 package roo;
 
-import roo.commands.*;
+import roo.commands.Clear;
+import roo.commands.Command;
+import roo.commands.DeadlineCommand;
+import roo.commands.Delete;
+import roo.commands.End;
+import roo.commands.EventCommand;
+import roo.commands.Find;
+import roo.commands.List;
+import roo.commands.ListDate;
+import roo.commands.Mark;
+import roo.commands.TodoCommand;
+import roo.commands.Unknown;
+import roo.commands.Unmark;
 import roo.task.Deadline;
 import roo.task.Event;
 import roo.task.Task;
@@ -16,30 +28,54 @@ public class Parse {
      * @return A Task object parsed from the input string, or null if parsing fails.
      */
     public static Task makeTask(String str) {
+        if (str.startsWith("[T]")) {
+            return Parse.createTodo(str);
+        } else if (str.startsWith("[D]")) {
+            return Parse.createDeadline(str);
+        } else if (str.startsWith("[E]")) {
+            return Parse.createEvent(str);
+        } else {
+            return null;
+        }
+    }
+
+    private static Todo createTodo(String str) {
         try {
-            if (str.startsWith("[T]")) {
-                if (str.contains("[x]")) {
-                    return new Todo(str.substring(8), true);
-                } else if (str.contains("[ ]")) {
-                    return new Todo(str.substring(8), false);
-                }
-            } else if (str.startsWith("[D]")) {
-                int sub = str.indexOf("by: ");
-                if (str.contains("[x]")) {
-                    return new Deadline(str.substring(8, sub - 1), str.substring(sub + 4), true);
-                } else if (str.contains("[ ]")) {
-                    return new Deadline(str.substring(8, sub - 1), str.substring(sub + 4), false);
-                }
-            } else if (str.startsWith("[E]")) {
-                int sub1 = str.indexOf("from: ");
-                int sub2 = str.indexOf("to: ");
-                if (str.contains("[x]")) {
-                    return new Event(str.substring(8, sub1 - 1), str.substring(sub1 + 6, sub2 - 1),
-                            str.substring(sub2 + 4), true);
-                } else if (str.contains("[ ]")) {
-                    return new Event(str.substring(8, sub1 - 1), str.substring(sub1 + 6, sub2 - 1),
-                            str.substring(sub2 + 4), false);
-                }
+            if (str.contains("[x]")) {
+                return new Todo(str.substring(8), true);
+            } else if (str.contains("[ ]")) {
+                return new Todo(str.substring(8), false);
+            }
+        } catch (RooException e) {
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
+
+    private static Deadline createDeadline(String str) {
+        try {
+            int sub = str.indexOf("by: ");
+            if (str.contains("[x]")) {
+                return new Deadline(str.substring(8, sub - 1), str.substring(sub + 4), true);
+            } else if (str.contains("[ ]")) {
+                return new Deadline(str.substring(8, sub - 1), str.substring(sub + 4), false);
+            }
+        } catch (RooException e) {
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
+
+    private static Event createEvent(String str) {
+        try {
+            int sub1 = str.indexOf("from: ");
+            int sub2 = str.indexOf("to: ");
+            if (str.contains("[x]")) {
+                return new Event(str.substring(8, sub1 - 1), str.substring(sub1 + 6, sub2 - 1),
+                        str.substring(sub2 + 4), true);
+            } else if (str.contains("[ ]")) {
+                return new Event(str.substring(8, sub1 - 1), str.substring(sub1 + 6, sub2 - 1),
+                        str.substring(sub2 + 4), false);
             }
         } catch (RooException e) {
             System.err.println(e.getMessage());

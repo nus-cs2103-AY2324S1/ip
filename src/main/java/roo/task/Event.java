@@ -21,33 +21,8 @@ public class Event extends Task {
      * @throws RooException If the dates are empty or consist only of spaces.
      */
     public Event(String task, String start, String end) throws RooException {
-        super(task);
-        if (start.isEmpty() || start.equals(" ")) {
-            throw new RooException("Missing time!!!\n");
-        } else if (end.isEmpty() || end.equals(" ")) {
-            throw new RooException("Missing time!!!\n");
-        }
-        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
-        try {
-            this.start = LocalDateTime.parse(start, formatter1);
-        } catch (DateTimeParseException err1) {
-            try {
-                this.start = LocalDateTime.parse(start, formatter2);
-            } catch (DateTimeParseException err2) {
-                System.err.println("Please use this format for your start time: dd-MM-yyyy HH:mm\n");
-            }
-        }
-
-        try {
-            this.end = LocalDateTime.parse(end, formatter1);
-        } catch (DateTimeParseException err1) {
-            try {
-                this.end = LocalDateTime.parse(end, formatter2);
-            } catch (DateTimeParseException err2) {
-                System.err.println("Please use this format for your end time: dd-MM-yyyy HH:mm\n");
-            }
-        }
+        super(task, false);
+        this.check(task, start, end);
     }
 
 
@@ -61,6 +36,17 @@ public class Event extends Task {
      */
     public Event(String task, String start, String end, boolean isFinish) throws RooException {
         super(task, isFinish);
+        this.check(task, start, end);
+    }
+
+    /**
+     * Checks the conditions of creating a Event with given event details and date.
+     * @param task The description of the event.
+     * @param start Start date and time of the event with dd-MM-yyyy HH:mm format.
+     * @param end End date and time of the event with dd-MM-yyyy HH:mm format.
+     * @throws RooException If the dates are empty or consist only of spaces.
+     */
+    private void check(String task, String start, String end) throws RooException {
         if (start.isEmpty() || start.equals(" ")) {
             throw new RooException("Missing time !!!\n");
         } else if (end.isEmpty() || end.equals(" ")) {
