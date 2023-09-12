@@ -1,1 +1,2 @@
 T | 0 | borrow
+D | 0 | gogogo | 2023-01-01
