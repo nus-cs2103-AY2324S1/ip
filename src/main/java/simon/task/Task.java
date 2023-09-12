@@ -6,14 +6,6 @@ package simon.task;
  */
 public class Task {
 
-    public String getTaskName() {
-        return taskName;
-    }
-
-    public boolean getIsDone() {
-        return isDone;
-    }
-
     /** The name or description of the task. */
     private final String taskName;
 
@@ -28,6 +20,14 @@ public class Task {
     public Task(String taskName) {
         this.taskName = taskName;
         this.isDone = false;
+    }
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+    public boolean getIsDone() {
+        return isDone;
     }
 
     /**
