@@ -21,16 +21,17 @@ public class Ui {
             "`----'      `---`               `----'             '---'            ---`-'                `----'    \n" +
             "                                                                                                    \n";
 
-    public static String[] exitMessage = {"May you seek the truth.",
+    public static String[] exitMessages = {"May you seek the truth.",
             "May the truth prevail.", "May you yet again thirst for wisdom.", "May your quest for wisdom be unwavering.",
             "May your pursuit of knowledge illuminate your path."};
 
     /**
      * Exit message
+     *
      * @return String of bye message
      */
     public static String bye() {
-        return exitMessage[new Random().nextInt(exitMessage.length)];
+        return exitMessages[new Random().nextInt(exitMessages.length)];
     }
 
     /**
@@ -46,7 +47,7 @@ public class Ui {
     /**
      * Print horizontal line breaks
      */
-    public static void line() {
+    public static void displayLine() {
         System.out.println("___________________________________________________________________________________________________________\n");
     }
 }

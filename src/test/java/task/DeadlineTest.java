@@ -27,16 +27,16 @@ public class DeadlineTest {
 
     @Test
     public void testOverdue(){
-        assertEquals(true, new Deadline("Read book", "2020/Oct/10").overdue());
+        assertEquals(true, new Deadline("Read book", "2020/Oct/10").isOverdue());
     }
 
     @Test
     public void testNotOverdue(){
-        assertEquals(false, new Deadline("Read book", "2024/Oct/10").overdue());
+        assertEquals(false, new Deadline("Read book", "2024/Oct/10").isOverdue());
     }
 
     @Test
     public void testDueBy(){
-        assertEquals(true, new Deadline("Read book", "2024/Oct/10").dueBy(Deadline.convertDate("2024/Oct/11")));
+        assertEquals(true, new Deadline("Read book", "2024/Oct/10").isDueBy(Deadline.convertDate("2024/Oct/11")));
     }
 }

@@ -108,7 +108,7 @@ public class EpochMind extends Application {
     }
 
     public static void main(String[] args) {
-        Ui.line();
+        Ui.displayLine();
         Ui.greeting();
         Scanner sc = new Scanner(System.in);
         TaskList tasks = new TaskList();
@@ -117,10 +117,10 @@ public class EpochMind extends Application {
 
 
         while (sc.hasNextLine()) {
-            Ui.line();
+            Ui.displayLine();
             String command = sc.nextLine();
             parser.execute(command);
-            Ui.line();
+            Ui.displayLine();
             storage.save(tasks);
         }
     }
