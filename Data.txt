@@ -1,4 +1,1 @@
-[T][ ] hello
-[T][ ] task
-[E][ ] fair (from: 2pm to 4pm)
-[D][ ] homework (by: 2pm)
+[E][ ] fair (from: Dec 12 2022 to Dec 13 2022)
