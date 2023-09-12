@@ -10,7 +10,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import simon.command.Parser;
 import simon.task.Task;
 
@@ -38,7 +37,7 @@ public class Simon extends Application {
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     public Simon() {
-        this("data/simon.txt");  // use default filePath
+        this("data/simon.txt"); // use default filePath
     }
 
     /**
