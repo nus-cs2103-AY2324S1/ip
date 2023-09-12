@@ -8,8 +8,8 @@ import duke.commands.CommandType;
 import duke.exception.DukeException;
 import duke.tasks.DeadlineTask;
 import duke.tasks.EventTask;
-import duke.tasks.ToDoTask;
 import duke.tasks.Task.Priority;
+import duke.tasks.ToDoTask;
 import duke.ui.Ui;
 
 /**
@@ -62,7 +62,8 @@ public class Parser {
             }
         case PRIORITY:
             if (commandDetails.equals("")) {
-                return new Command.InvalidCommand("OOPS!!! Please enter a task number and a new priority to change the priority.");
+                return new Command.InvalidCommand("OOPS!!! Please enter a task number and a new priority"
+                        + " to change the priority.");
             }
 
             String[] priorityInfo = commandDetails.split(" ", 2);
@@ -192,11 +193,19 @@ public class Parser {
             return new Command.InvalidCommand("OOPS!!! I'm sorry, but I don't know what that means :-(");
         default:
             assert false : "There is a command type in duke.commands.CommandType that is not explicitly handled here";
-            return new Command.InvalidCommand("There is a command type in duke.commands.CommandType" +
-                    " that is not explicitly handled here.");
+            return new Command.InvalidCommand("There is a command type in duke.commands.CommandType"
+                    + " that is not explicitly handled here.");
         }
     }
 
+    /**
+     * Parses the priority from the command details.
+     * If no priority is provided, the default priority is low.
+     *
+     * @param input
+     * @return The priority of the task.
+     * @throws DukeException
+     */
     private static Priority parsePriorityFromCommandDetails(String input) throws DukeException {
         if (!input.contains("/p")) {
             return Priority.LOW; // Default to low if /p is not provided

@@ -28,6 +28,7 @@ public class TaskList {
      * Adds a task to the task list and prints a confirmation message.
      *
      * @param task The task to be added.
+     * @return The confirmation message.
      */
     public String addTask(Task task) {
         tasks.add(task);
@@ -43,6 +44,7 @@ public class TaskList {
      * Deletes a task from the task list and prints a confirmation message.
      *
      * @param index The index of the task to be deleted.
+     * @return The confirmation message.
      */
     public String deleteTask(int index) {
         if (index < 0 || index >= tasks.size()) {
@@ -60,6 +62,7 @@ public class TaskList {
      * Marks a task as done and prints a confirmation message.
      *
      * @param index The index of the task to be marked as done.
+     * @return The confirmation message.
      */
     public String markTaskAsDone(int index) {
         if (index < 0 || index >= tasks.size()) {
@@ -76,6 +79,7 @@ public class TaskList {
      * Marks a task as not done and prints a confirmation message.
      *
      * @param index The index of the task to be marked as not done.
+     * @return The confirmation message.
      */
     public String unmarkTask(int index) {
         if (index < 0 || index >= tasks.size()) {
@@ -88,6 +92,13 @@ public class TaskList {
         return "OK, I've marked this task as not done yet:\n" + task.getDescription();
     }
 
+    /**
+     * Sets the priority of a task and prints a confirmation message.
+     *
+     * @param index
+     * @param priority
+     * @return The confirmation message.
+     */
     public String setPriority(int index, Priority priority) {
         if (index < 0 || index >= tasks.size()) {
             return "Please enter a valid number.";
@@ -100,6 +111,8 @@ public class TaskList {
 
     /**
      * Prints all the tasks in the task list.
+     *
+     * @return The list of tasks.
      */
     public String list() {
         if (tasks.size() == 0) {
@@ -118,6 +131,7 @@ public class TaskList {
      * Finds tasks that contain a given keyword and prints them.
      *
      * @param keyword The keyword to be searched for.
+     * @return The list of tasks that contain the keyword.
      */
     public String findTasks(String keyword) {
         ArrayList<Task> foundTasks = new ArrayList<>();

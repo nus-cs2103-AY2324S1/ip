@@ -72,7 +72,7 @@ public abstract class Task {
      *
      * @param priority The priority of the task.
      */
-    public void setPriority (Priority priority) {
+    public void setPriority(Priority priority) {
         this.priority = priority;
     }
 
