@@ -21,10 +21,13 @@ public class Storage {
     /**
      * Constructor for storage.
      *
-     * @param filepath path to the data storage file.
+     * @param filePath path to the data storage file.
      */
-    public Storage(String filepath) {
-        this.filePath = filepath;
+    public Storage(String filePath) {
+        assert filePath != null : "filePath should not be null";
+        assert !filePath.isEmpty() : "filePath should not be empty";
+
+        this.filePath = filePath;
         try {
             File file = new File(this.filePath);
 

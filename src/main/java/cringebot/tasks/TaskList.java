@@ -12,7 +12,7 @@ import cringebot.ui.Ui;
  */
 public class TaskList implements Serializable {
 
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructor for TaskList.
@@ -37,6 +37,8 @@ public class TaskList implements Serializable {
      * @throws CringeBotException Lets the user know if task cannot be removed.
      */
     public String deleteItem(String input) throws CringeBotException {
+
+        assert input != null : "input should not be null";
         int index = this.getIndex(input) - 1;
 
         if (this.checkOutOfBounds(index)) {
@@ -55,6 +57,8 @@ public class TaskList implements Serializable {
      * @throws CringeBotException Lets the user know if the task cannot be added.
      */
     public String addItem(Parser.TaskType task, String input) throws CringeBotException {
+
+        assert input != null : "input should not be null";
         String[] splitSentence = input.split(" /");
         String taskName = getRestOfSentence(splitSentence[0]).strip();
         Task newTask;
@@ -107,6 +111,8 @@ public class TaskList implements Serializable {
      * @param input input from the user.
      */
     public String findItems(String input) {
+        assert input != null : "input should not be null";
+
         String keyword = input.split(" ")[1].strip();
         StringBuilder tasksFound = new StringBuilder("Here are the matching tasks in your list:");
 
@@ -126,6 +132,8 @@ public class TaskList implements Serializable {
      * @throws CringeBotException Lets the user know if the task cannot be modified.
      */
     public String modifyStatus(Parser.ModifyStatus status, String input) throws CringeBotException {
+
+        assert input != null : "input should not be null";
         int index = getIndex(input) - 1;
         this.checkOutOfBounds(index);
 
@@ -176,6 +184,8 @@ public class TaskList implements Serializable {
      * @return Index given by the user.
      */
     public int getIndex(String input) {
+        assert input != null : "input should not be null";
+
         String[] parts = input.split(" ");
 
         if (parts.length >= 2) {
@@ -216,6 +226,8 @@ public class TaskList implements Serializable {
      * @return rest of the sentence.
      */
     public static String getRestOfSentence(String input) {
+        assert input != null : "input should not be null";
+
         String[] parts = input.split(" ");
         StringBuilder result = new StringBuilder();
 

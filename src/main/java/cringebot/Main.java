@@ -32,7 +32,7 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().setCringeBot(cringeBot);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("OOPS!!! Stage failed to start. :(( ");
         }
     }
 }
