@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for CringeBot using FXML.
  */
 public class Main extends Application {
 
@@ -21,8 +21,6 @@ public class Main extends Application {
      *
      * @param stage the primary stage for this application, onto which
      * the application scene can be set.
-     * Applications may create other stages, if needed, but they will not be
-     * primary stages.
      */
     @Override
     public void start(Stage stage) {
@@ -31,7 +29,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(cringeBot);
+            fxmlLoader.<MainWindow>getController().setCringeBot(cringeBot);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

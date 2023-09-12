@@ -1,19 +1,19 @@
 package cringebot;
 
 import cringebot.dataFile.Storage;
-import cringebot.exceptions.DukeException;
+import cringebot.exceptions.CringeBotException;
 import cringebot.parser.Parser;
 import cringebot.tasks.TaskList;
 
 /**
- * Class for the CringeBot chat bot.
+ * Class for the CringeBot chatbot.
  */
 public class CringeBot {
     private final Storage storage;
     private TaskList tasks;
 
     /**
-     * Constructor for Duke.
+     * Constructor for CringeBot.
      *
      * @param filePath file path to the storage.
      */
@@ -21,7 +21,7 @@ public class CringeBot {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
+        } catch (CringeBotException e) {
             tasks = new TaskList();
         }
     }

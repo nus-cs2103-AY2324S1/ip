@@ -1,6 +1,6 @@
 package cringebot.dataFile;
 
-import cringebot.exceptions.DukeException;
+import cringebot.exceptions.CringeBotException;
 import cringebot.tasks.Task;
 import cringebot.tasks.TaskList;
 
@@ -41,9 +41,9 @@ public class Storage {
      * Loads the taskList stored in the file.
      *
      * @return ArrayList representing the taskList.
-     * @throws DukeException Duke exception to let the user know what went wrong.
+     * @throws CringeBotException Duke exception to let the user know what went wrong.
      */
-    public ArrayList<Task> load() throws DukeException {
+    public ArrayList<Task> load() throws CringeBotException {
         // Loading the serialised object
         try {
             FileInputStream fileIn = new FileInputStream(this.filePath);
@@ -53,7 +53,7 @@ public class Storage {
             ArrayList<Task> loadedList = (ArrayList<Task>) objectIn.readObject();
             return loadedList;
         } catch (IOException | ClassNotFoundException e) {
-            throw new DukeException(":(( OOPS!!! An error occurred while reading data.");
+            throw new CringeBotException(":(( OOPS!!! An error occurred while reading data.");
         }
     }
 
@@ -61,16 +61,16 @@ public class Storage {
      * Writes the current list of task into the storage file.
      *
      * @param tasks list of task to be written.
-     * @throws DukeException Lets the user know what went wrong.
+     * @throws CringeBotException Lets the user know what went wrong.
      */
-    public void write(TaskList tasks) throws DukeException {
+    public void write(TaskList tasks) throws CringeBotException {
         try {
             FileOutputStream fileOut = new FileOutputStream(this.filePath);
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
 
             objectOut.writeObject(tasks.getTasks());
         } catch (IOException e) {
-            throw new DukeException(":(( OOPS!!! Something went wrong when saving data");
+            throw new CringeBotException(":(( OOPS!!! Something went wrong when saving data");
         }
     }
 }

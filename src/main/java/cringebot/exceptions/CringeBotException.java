@@ -3,13 +3,13 @@ package cringebot.exceptions;
 /**
  * Class to handle exceptions thrown by Duke.
  */
-public class DukeException extends Exception {
+public class CringeBotException extends Exception {
     /**
      * Throws an exception for the Duke program.
      *
      * @param message information about the exception.
      */
-    public DukeException(String message) {
+    public CringeBotException(String message) {
         super(message);
     }
 }

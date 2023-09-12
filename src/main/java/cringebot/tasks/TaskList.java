@@ -1,6 +1,6 @@
 package cringebot.tasks;
 
-import cringebot.exceptions.DukeException;
+import cringebot.exceptions.CringeBotException;
 import cringebot.parser.Parser;
 import cringebot.ui.Ui;
 
@@ -34,12 +34,12 @@ public class TaskList implements Serializable {
      * Removes an item from the list of tasks.
      *
      * @param input input from the user.
-     * @throws DukeException Lets the user know if task cannot be removed.
+     * @throws CringeBotException Lets the user know if task cannot be removed.
      */
-    public String deleteItem(String input) throws DukeException {
+    public String deleteItem(String input) throws CringeBotException {
         int index = this.getIndex(input) - 1;
         if (this.checkOutOfBounds(index)) {
-            throw new DukeException(":(( OOPS!!! I'm sorry, but the index you have inputted is out of bounds :-(");
+            throw new CringeBotException(":(( OOPS!!! I'm sorry, but the index you have inputted is out of bounds :-(");
         } else {
             Task deletedTask = this.tasks.remove(index);
             return Ui.deleteItem(this.tasks.size(), deletedTask);
@@ -51,9 +51,9 @@ public class TaskList implements Serializable {
      *
      * @param task type of task.
      * @param input input from the user.
-     * @throws DukeException Lets the user know if the task cannot be added.
+     * @throws CringeBotException Lets the user know if the task cannot be added.
      */
-    public String addItem(Parser.taskType task, String input) throws DukeException {
+    public String addItem(Parser.taskType task, String input) throws CringeBotException {
         String[] splitSentence = input.split(" /");
         String taskName = getRestOfSentence(splitSentence[0]).strip();
         Task newTask;
@@ -62,7 +62,7 @@ public class TaskList implements Serializable {
             case DEADLINE:
                 checkEmpty(taskName, "deadline");
                 if (splitSentence.length < 2 || !splitSentence[1].contains("by")) {
-                    throw new DukeException(":((  OOPS!!! Please indicate a deadline with the /by keyword");
+                    throw new CringeBotException(":((  OOPS!!! Please indicate a deadline with the /by keyword");
                 }
                 String date = splitSentence[1].replaceAll("by", "").strip();
                 newTask = new Deadline(taskName, date);
@@ -70,7 +70,7 @@ public class TaskList implements Serializable {
             case EVENT:
                 checkEmpty(taskName, "event");
                 if (splitSentence.length < 3 || (!splitSentence[1].contains("from") && !splitSentence[2].contains("to"))) {
-                    throw new DukeException(":((  OOPS!!! Please indicate a duration for the event with the /from and /to keywords");
+                    throw new CringeBotException(":((  OOPS!!! Please indicate a duration for the event with the /from and /to keywords");
                 }
                 String fromDatetime = splitSentence[1].replaceAll("from", "from:");
                 String toDatetime = splitSentence[2].replaceAll("to", "to:");
@@ -82,7 +82,7 @@ public class TaskList implements Serializable {
                 newTask = new Todo(taskName);
                 break;
             default:
-                throw new DukeException(":((  OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new CringeBotException(":((  OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
 
         this.tasks.add(newTask);
@@ -115,9 +115,9 @@ public class TaskList implements Serializable {
      *
      * @param status To mark of un mark the task.
      * @param input input from the user.
-     * @throws DukeException Lets the user know if the task cannot be modified.
+     * @throws CringeBotException Lets the user know if the task cannot be modified.
      */
-    public String modifyStatus(Parser.modifyStatus status, String input) throws DukeException {
+    public String modifyStatus(Parser.modifyStatus status, String input) throws CringeBotException {
         int index = getIndex(input) - 1;
         this.checkOutOfBounds(index);
         switch(status) {
@@ -130,7 +130,7 @@ public class TaskList implements Serializable {
                 String unmarkStatement = "OK, I've marked this task as not done yet:";
                 return String.format("%s\n%s", unmarkStatement, this.tasks.get(index));
             default:
-                throw new DukeException(":((  OOPS!!! I'm sorry, but an error occurred when modifying your task :-(");
+                throw new CringeBotException(":((  OOPS!!! I'm sorry, but an error occurred when modifying your task :-(");
         }
     }
 
@@ -192,11 +192,11 @@ public class TaskList implements Serializable {
      *
      * @param input input from the user.
      * @param taskName content for the task.
-     * @throws DukeException Lets the user know if the description is invalid.
+     * @throws CringeBotException Lets the user know if the description is invalid.
      */
-    public static void checkEmpty(String input, String taskName) throws DukeException {
+    public static void checkEmpty(String input, String taskName) throws CringeBotException {
         if (input.isEmpty()) {
-            throw new DukeException(String.format(":((  OOPS!!! The description of a %s cannot be empty.", taskName));
+            throw new CringeBotException(String.format(":((  OOPS!!! The description of a %s cannot be empty.", taskName));
         }
     }
 

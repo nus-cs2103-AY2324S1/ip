@@ -1,6 +1,6 @@
 package cringebot.parser;
 
-import cringebot.exceptions.DukeException;
+import cringebot.exceptions.CringeBotException;
 import cringebot.dataFile.Storage;
 import cringebot.ui.Ui;
 import cringebot.tasks.TaskList;
@@ -65,9 +65,9 @@ public class Parser {
             case "find":
                 return tasks.findItems(nextLine);
             default:
-                throw new DukeException(":(( OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new CringeBotException(":(( OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-        } catch (DukeException e) {
+        } catch (CringeBotException e) {
             return e.getMessage();
         }
     }
