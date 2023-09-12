@@ -26,19 +26,16 @@ public class Parser {
         } else if (userInput.startsWith("event")) {
             String description = userInput.substring(5);
             String response = taskList.addTask(TaskList.TaskType.EVENT, description, "unmarked");
-//            storage.saveTasksToFile();
             return response;
         } else if (userInput.startsWith("deadline")) {
             String description = userInput.substring(8);
             String response = taskList.addTask(TaskList.TaskType.DEADLINE, description, "unmarked");
-//            storage.saveTasksToFile();
             return response;
         } else if (userInput.startsWith("mark")) {
             String[] parts = userInput.split(" ");
             if (parts.length == 2) {
                 int taskIndex = Integer.parseInt(parts[1]) - 1;
                 String response = taskList.toggleMark(TaskList.MarkStatus.MARK, taskIndex);
-//                storage.saveTasksToFile();
                 return response;
             } else {
                 throw new DukeException("Invalid command");
@@ -48,7 +45,6 @@ public class Parser {
             if (parts.length == 2) {
                 int taskIndex = Integer.parseInt(parts[1]) - 1;
                 String response = taskList.toggleMark(TaskList.MarkStatus.UNMARK, taskIndex);
-//                storage.saveTasksToFile();
                 return response;
             } else {
                 throw new DukeException("Invalid command");
@@ -58,10 +54,7 @@ public class Parser {
             if (parts.length == 2) {
                 int taskIndex = Integer.parseInt(parts[1]) - 1;
                 return taskList.deleteTask(taskIndex);
-            } else {
-                System.out.println("Please specify the task number to delete.");
             }
-//            storage.saveTasksToFile();
         } else if (userInput.startsWith("due")) {
             String date = userInput.substring(4).trim();
             return taskList.printTasksByDate(date);

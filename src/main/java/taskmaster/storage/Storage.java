@@ -31,43 +31,54 @@ public class Storage {
 
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                System.out.println(line);
                 char type = line.charAt(1);
                 char mark = line.charAt(4);
 
                 if (type == 'T') {
-                    String description = line.substring(6).trim();
-                    if (mark == 'X') {
-                        TaskList.list.add(new Todo(description, "marked" ));
-                    } else {
-                        TaskList.list.add(new Todo(description, "unmarked"));
-                    }
+                    loadTodo(line, mark);
                 } else if (type == 'D') {
-                    int byIndex = line.indexOf("(by: ");
-                    String description = line.substring(7, byIndex).trim(); // 7 is the length of "[D][ ] "
-                    String dueDate = line.substring(byIndex + 5, line.length() - 1).trim();
-
-                    if (mark == 'X') {
-                        TaskList.list.add(new Deadline(description, dueDate, "marked"));
-                    } else {
-                        TaskList.list.add(new Deadline(description, dueDate, "unmarked"));
-                    }
+                    loadDeadline(line, mark);
                 } else if (type == 'E') {
-                    String[] parts = line.split("\\(from: | to ");
-                    String description = parts[0].trim().substring(7);
-                    String startTime = parts[1].trim();
-                    String endTime = parts[2].replace(")", "").trim();
-
-                    if (mark == 'X') {
-                        TaskList.list.add(new Event(description, startTime, endTime, "marked"));
-                    } else {
-                        TaskList.list.add(new Event(description, startTime, endTime, "unmarked"));
-                    }
+                   loadEvent(line, mark);
                 }
             }
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("Data file not found: " + e.getMessage());
+        }
+    }
+
+    private static void loadTodo(String line, char mark) {
+        String description = line.substring(6).trim();
+        if (mark == 'X') {
+            TaskList.list.add(new Todo(description, "marked" ));
+        } else {
+            TaskList.list.add(new Todo(description, "unmarked"));
+        }
+    }
+
+    private static void loadDeadline(String line, char mark) {
+        int byIndex = line.indexOf("(by: ");
+        String description = line.substring(7, byIndex).trim(); // 7 is the length of "[D][ ] "
+        String dueDate = line.substring(byIndex + 5, line.length() - 1).trim();
+
+        if (mark == 'X') {
+            TaskList.list.add(new Deadline(description, dueDate, "marked"));
+        } else {
+            TaskList.list.add(new Deadline(description, dueDate, "unmarked"));
+        }
+    }
+
+    private static void loadEvent(String line, char mark) {
+        String[] parts = line.split("\\(from: | to ");
+        String description = parts[0].trim().substring(7);
+        String startTime = parts[1].trim();
+        String endTime = parts[2].replace(")", "").trim();
+
+        if (mark == 'X') {
+            TaskList.list.add(new Event(description, startTime, endTime, "marked"));
+        } else {
+            TaskList.list.add(new Event(description, startTime, endTime, "unmarked"));
         }
     }
 
