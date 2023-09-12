@@ -1,14 +1,12 @@
 package duke.command;
 
+import java.util.ArrayList;
+
+import duke.exception.DukeException;
 import duke.main.Storage;
 import duke.main.TaskList;
 import duke.main.Ui;
 import duke.task.Task;
-
-import java.util.ArrayList;
-
-import duke.exception.DukeException;
-
 /**
  * Represents a command to find all tasks containing a keyword.
  */

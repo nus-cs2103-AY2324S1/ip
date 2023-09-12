@@ -1,11 +1,10 @@
 package duke.command;
 
+import duke.exception.DukeException;
 import duke.main.Storage;
 import duke.main.TaskList;
 import duke.main.Ui;
 import duke.task.Deadline;
-
-import duke.exception.DukeException;
 
 /**
  * Represents a command to add a deadline task to the task list.
@@ -29,7 +28,7 @@ public class DeadlineCommand extends Command {
      * Executes the DeadlineCommand by adding a new Deadline task to the task list,
      * displaying a completion message, and saving the tasks to storage.
      *
-     * @param taskList The list of tasks to operate on.
+     * @param tasks The list of tasks to operate on.
      * @param ui       The user interface for displaying messages.
      * @param storage  The storage for saving tasks to a file.
      * @throws DukeException If there's an error during command execution.

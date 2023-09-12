@@ -2,14 +2,14 @@ package duke.main;
 
 import duke.command.Command;
 import duke.command.DeadlineCommand;
-import duke.command.EventCommand;
-import duke.command.ToDoCommand;
 import duke.command.DeleteCommand;
-import duke.command.MarkCommand;
-import duke.command.UnmarkCommand;
+import duke.command.EventCommand;
 import duke.command.ExitCommand;
-import duke.command.ListCommand;
 import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.ToDoCommand;
+import duke.command.UnmarkCommand;
 import duke.exception.DukeException;
 
 /**
@@ -25,7 +25,7 @@ public class Parser {
      * @throws DukeException If the user input is invalid.
      */
     static Command parse(String userInput) throws DukeException {
-        if (userInput.equals("bye") || userInput.equals("exit")){
+        if (userInput.equals("bye") || userInput.equals("exit")) {
             return new ExitCommand();
         } else if (userInput.equals("list")) {
             return new ListCommand();
@@ -36,9 +36,9 @@ public class Parser {
             int taskIndex = validateMarkAndDelete(userInput.substring(7));
             return new UnmarkCommand(taskIndex);
         } else if (userInput.startsWith("todo")) {
-            String todoDescription = userInput.replace("todo ", "");
-            validateToDo(todoDescription);
-            return new ToDoCommand(todoDescription);
+            //String todoDescription = userInput.replace("todo ", "");
+            String toDoDescription = validateToDo(userInput);
+            return new ToDoCommand(toDoDescription);
         } else if (userInput.startsWith("deadline")) {
             String[] info = validateDeadline(userInput);
             return new DeadlineCommand(info[0], info[1]);
@@ -104,10 +104,13 @@ public class Parser {
      * @param todo The toDo description to be validated.
      * @throws DukeException If the toDo description is empty.
      */
-    private static void validateToDo(String todo) throws DukeException {
-        if (todo.isEmpty()) {
+    private static String validateToDo(String todo) throws DukeException {
+        String todoDescription = todo.replace("todo", "");
+        System.out.println("here:" + todoDescription);
+        if (todoDescription.isEmpty() || todoDescription.equals(" ")) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
+        return todoDescription;
     }
 
     /**
@@ -141,7 +144,7 @@ public class Parser {
         String[] info = input.replace("event ", "").split(" /from ");
 
         if (info.length != 2) {
-            throw new DukeException("☹ OOPS!!! Please provide a valid event format: event <description> /from <start time> /to <end time>");
+            throw new DukeException("☹ OOPS!!! \nPlease provide a valid event format: \n\tevent <description> /from <start time> /to <end time>");
         }
 
         String description = info[0];

@@ -1,10 +1,9 @@
 package duke.command;
 
+import duke.exception.DukeException;
 import duke.main.Storage;
 import duke.main.TaskList;
 import duke.main.Ui;
-
-import duke.exception.DukeException;
 import duke.task.ToDo;
 
 /**
@@ -26,7 +25,7 @@ public class ToDoCommand extends Command {
      * Executes the ToDoCommand by adding a new "To-Do" task to the task list,
      * displaying a completion message, and saving the tasks to storage.
      *
-     * @param taskList The list of tasks to operate on.
+     * @param tasks The list of tasks to operate on.
      * @param ui       The user interface for displaying messages.
      * @param storage  The storage for saving tasks to a file.
      * @throws DukeException If there's an error during command execution.

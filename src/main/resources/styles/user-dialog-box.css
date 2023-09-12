@@ -1,0 +1,9 @@
+.user-dialog-box {
+
+}
+
+.user-dialog-box .label {
+    -fx-text-overrun: ellipsis; /* By default, it's set to "ellipsis" */
+    -fx-wrap-text: true;
+    -fx-padding: 10px; /* Adjust the padding as needed */
+}

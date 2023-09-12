@@ -25,7 +25,7 @@ public class MarkCommand extends Command {
      * Executes the MarkCommand by marking a task as done, displaying a completion message,
      * and saving the updated task list to storage.
      *
-     * @param taskList The list of tasks to operate on.
+     * @param tasks The list of tasks to operate on.
      * @param ui       The user interface for displaying messages.
      * @param storage  The storage for saving tasks to a file.
      * @throws DukeException If the provided task index is invalid.
