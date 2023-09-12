@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
+import java.util.Arrays;
 
 public class Parser {
     public static String parse(String text, UI ui, TaskList list, Storage storage) throws DukeException {
         ui.clearStringBuilder();
+
         if (text.length() > 3 && text.substring(0, 4).equals("list")) {
 
             if (list.size() == 0) {
@@ -16,7 +17,7 @@ public class Parser {
             }
 
             for (int i = 0; i < list.size(); i++) {
-
+                assert list.size() > 0;
                 if (list.get(i) == null) {
                     break;
                 } else {
@@ -34,6 +35,7 @@ public class Parser {
             try {
                 String[] splitText = text.split(" ");
                 int numToUnmark = Integer.parseInt(splitText[1]) - 1;
+                assert splitText.length == 2;
                 if (numToUnmark > list.size() - 1) {
                     throw new DukeException("I apologise, sir. This task does not exist");
                 }
@@ -57,6 +59,7 @@ public class Parser {
             try {
                 String[] splitText = text.split(" ");
                 int numToMark = Integer.parseInt(splitText[1]) - 1;
+                assert splitText.length == 2;
                 if (numToMark > list.size() - 1) {
                     throw new DukeException("I apologise, sir. This task does not exist");
                 }
@@ -71,6 +74,7 @@ public class Parser {
                 ui.buildMessage(String.format("\t [%s] [%s] %s", list.get(numToMark).tag,
                         list.get(numToMark).getStatusIcon(), list.get(numToMark)));
                 return ui.sendMessage();
+
             } catch (NumberFormatException e) {
                 throw new DukeException("I apologise, sir. But you have to key in a task number.");
             } catch (IOException e) {
@@ -119,6 +123,7 @@ public class Parser {
             } else {
 
                 String deadlineText = splitText[1].substring(3);
+                assert splitText.length == 2;
                 try {
                     LocalDateTime deadline = LocalDateTime.parse(deadlineText);
                     Deadline dl = new Deadline(description.trim(), deadline);
@@ -134,7 +139,7 @@ public class Parser {
                     return ui.sendMessage();
 
                 } catch (DateTimeParseException e) {
-                    throw new DukeException("Invalid Date Format: should be YYYY-MM-DDTTime. " +
+                    throw new DukeException("Invalid Date Format: should be YYYY-MM-DDTHH:MM:SS. " +
                             "Example: 2023-12-12T06:30:00");
                 } catch (IOException e) {
                         ui.buildMessage("Something went wrong: " + e.getMessage() + "\n");
@@ -152,6 +157,7 @@ public class Parser {
                 } else {
                     String startText = splitText[1].trim().substring(5);
                     String endText = splitText[2].trim().substring(3);
+                    assert splitText.length == 3;
 
                     try {
                         LocalDateTime start = LocalDateTime.parse(startText);
@@ -168,7 +174,7 @@ public class Parser {
                         return ui.sendMessage();
 
                     }  catch (DateTimeParseException e) {
-                        throw new DukeException("Invalid Date Format: should be YYYY-MM-DDTTime. " +
+                        throw new DukeException("Invalid Date Format: should be YYYY-MM-DDTHH:MM:SS. " +
                                 "Example: 2023-12-12T06:30:00");
                     } catch (IOException e) {
                         ui.buildMessage("Something went wrong: " + e.getMessage() + "\n");
@@ -184,6 +190,7 @@ public class Parser {
                 if (numToDelete > list.size() - 1) {
                     throw new DukeException("I apologise, sir. This task does not exist");
                 }
+                assert splitText.length == 2;
 
                 storage.appendToFile(text + "\n");
 
