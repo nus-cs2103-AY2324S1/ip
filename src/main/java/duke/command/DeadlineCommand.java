@@ -12,7 +12,7 @@ import duke.task.Task;
 /**
  * Represents the Deadline command
  */
-public class DeadlineCommand extends Command{
+public class DeadlineCommand extends Command {
 
     /**
      * Stores the description of the task
