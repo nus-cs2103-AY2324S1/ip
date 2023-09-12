@@ -155,6 +155,7 @@ public class Parser {
             taskList.addTask(todo);
             return "Got it! I've added the Todo: " + todo;
         } else if (cmd.equals(Command.deadline)) {
+            assert info != null;
             String[] splitInfo = info.split(" /by ", 2);
             if (splitInfo.length == 2) {
                 Deadline deadline = new Deadline(splitInfo[0], splitInfo[1]);
@@ -165,6 +166,7 @@ public class Parser {
                 return "Deadline description and /by cannot be empty!";
             }
         } else if (cmd.equals(Command.event)) {
+            assert info != null;
             return parseAndAndEvent(info);
         }
         return "Unknown task type!";  // Should never happen
