@@ -1,28 +1,14 @@
 package alyssa;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 import alyssa.Exceptions.AlyssaArgumentException;
 
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.application.Application;
-import javafx.scene.control.Label;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.scene.layout.Region;
 /**
  * This class represents the main program.
  */
 public class Alyssa {
-    public static final String LINE = "____________________________________________________________";
     private static final String FILEPATH = "./data/alyssa.txt";
     private static final String DIRPATH = "./data";
     private Storage storage;

@@ -10,7 +10,6 @@ import alyssa.Exceptions.AlyssaArgumentException;
  * This class supports Alyssa by encapsulating the current tasks.
  */
 public class TaskList {
-    private static final String line = "____________________________________________________________";
     private List<Task> taskList;
 
     /**
