@@ -51,13 +51,13 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img, "-fx-background-color: #fcfbdc; " +
-                "-fx-background-radius: 5;");
+        return new DialogBox(text, img, "-fx-background-color: #fcfbdc; "
+                + "-fx-background-radius: 5;");
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img, "-fx-background-color: #dceefc; " +
-                "-fx-background-radius: 5;");
+        var db = new DialogBox(text, img, "-fx-background-color: #dceefc; "
+                + "-fx-background-radius: 5;");
         db.flip();
         return db;
     }

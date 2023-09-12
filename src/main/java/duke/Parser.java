@@ -28,45 +28,55 @@ public class Parser {
      * @param taskList The user's list of tasks.
      * @param storage Storage of the user's task list.
      * @return String output depending on the input command.
+     * @throws Exception If an error occurs during command processing.
      */
     public String processCommand(String command, TaskList taskList, Storage storage) throws Exception {
-        storage.createFile();
-
-        if (command.equals("start")) {
+        switch (command) {
+        case "start":
+            storage.createFile();
             return ui.startMessage();
-        }
-
-        if (command.equals("list")) {
+        case "list":
             return ui.showList(taskList);
-        } else if (command.startsWith("mark ")) {
-            return printMark(command, taskList);
-        } else if (command.startsWith("unmark ")) {
-            return printUnmark(command, taskList);
-        } else if (command.startsWith("todo ")) {
-            return addToDo(command, taskList);
-        } else if (command.startsWith("deadline ")) {
-            return addDeadline(command, taskList);
-        } else if (command.startsWith("event ")) {
-            return addEvent(command, taskList);
-        } else if (command.startsWith("delete ")) {
-            return deleteTask(command, taskList);
-        } else if (command.startsWith("find ")) {
-            return ui.showMatchingList(findMatchingTaskList(command, taskList));
-        } else {
-            if (command.equals("bye")) {
-                storage.save(taskList.getAllTasks());
-                return ui.endMessage();
-            } else if (command.startsWith("todo")) {
-                throw new InvalidDescriptionException("todo");
-            } else if (command.startsWith("deadline")) {
-                throw new InvalidDescriptionException("deadline");
-            } else if (command.startsWith("event")) {
-                throw new InvalidDescriptionException("event");
-            } else if (command.startsWith("find")) {
-                throw new InvalidDescriptionException("find");
+        case "bye":
+            storage.save(taskList.getAllTasks());
+            return ui.endMessage();
+        default:
+            if (command.startsWith("mark ")) {
+                return printMark(command, taskList);
+            } else if (command.startsWith("unmark ")) {
+                return printUnmark(command, taskList);
+            } else if (command.startsWith("todo ")) {
+                return addToDo(command, taskList);
+            } else if (command.startsWith("deadline ")) {
+                return addDeadline(command, taskList);
+            } else if (command.startsWith("event ")) {
+                return addEvent(command, taskList);
+            } else if (command.startsWith("delete ")) {
+                return deleteTask(command, taskList);
+            } else if (command.startsWith("find ")) {
+                return ui.showMatchingList(findMatchingTaskList(command, taskList));
             } else {
+                checkInvalidDescription(command);
                 throw new InvalidCommandException();
             }
+        }
+    }
+
+    /**
+     * Checks the description of a command and throws an exception if it is invalid.
+     *
+     * @param command The user command.
+     * @throws Exception If the description is invalid.
+     */
+    private void checkInvalidDescription(String command) throws Exception {
+        if (command.startsWith("todo")) {
+            throw new InvalidDescriptionException("todo");
+        } else if (command.startsWith("deadline")) {
+            throw new InvalidDescriptionException("deadline");
+        } else if (command.startsWith("event")) {
+            throw new InvalidDescriptionException("event");
+        } else if (command.startsWith("find")) {
+            throw new InvalidDescriptionException("find");
         }
     }
 
