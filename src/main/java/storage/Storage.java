@@ -78,7 +78,7 @@ public class Storage {
         if (!this.openFile()) {
             return "An error occured where the file cannot be read";
         }
-
+        assert taskList != null : "TaskList loading in data cannot be a null object.";
         try {
             File dataFile = new File(fileLocation);
             Scanner reader = new Scanner(dataFile);
