@@ -17,6 +17,9 @@ public class DialogBox extends HBox {
         text = l;
         displayPicture = iv;
 
+        assert text != null : "text cannot be empty";
+        assert displayPicture != null : "image cannot be empty";
+
         text.setWrapText(true);
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
@@ -35,11 +38,11 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
-    public static DialogBox getUserDialog(Label l, ImageView iv) {
+    public static DialogBox setUserDialog(Label l, ImageView iv) {
         return new DialogBox(l, iv);
     }
 
-    public static DialogBox getDukeDialog(Label l, ImageView iv) {
+    public static DialogBox setDukeDialog(Label l, ImageView iv) {
         var db = new DialogBox(l, iv);
         db.flip();
         return db;

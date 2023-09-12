@@ -21,6 +21,7 @@ public class Parser {
      * @return Task type of the command
      */
     public static TaskType determineTaskType(String userInput) {
+        assert userInput != null : "userInput cannot be null";
         if (userInput.startsWith("todo")) return TaskType.TODO;
         if (userInput.startsWith("deadline")) return TaskType.DEADLINE;
         if (userInput.startsWith("event")) return TaskType.EVENT;
