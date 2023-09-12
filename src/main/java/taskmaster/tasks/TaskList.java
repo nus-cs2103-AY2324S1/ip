@@ -71,6 +71,10 @@ public class TaskList {
      * @throws DukeException If the provided index is out of range.
      */
     public String toggleMark(MarkStatus mark, int taskIndex) throws DukeException {
+        //Assert valid task index and mark status
+        assert taskIndex >= 0 || taskIndex < list.size() : "Invalid task index";
+        assert mark == MarkStatus.MARK || mark == MarkStatus.UNMARK : "Invalid mark status";
+
         StringBuilder stringBuilder = new StringBuilder();
         if (!validIndex(taskIndex)) {
             throw new DukeException("Invalid task number");
@@ -94,6 +98,9 @@ public class TaskList {
      * @throws DukeException If the provided index is out of range.
      */
     public String deleteTask(int taskIndex) throws DukeException {
+        //Assert valid task index and mark status
+        assert taskIndex >= 0 || taskIndex < list.size() : "Invalid task index";
+
         StringBuilder stringBuilder = new StringBuilder();
         if (!validIndex(taskIndex)) {
             throw new DukeException("Specified task does not exist");
@@ -114,8 +121,11 @@ public class TaskList {
      * @throws DukeException If command given is not a valid command.
      */
     public String addTask(TaskType taskType, String description, String marked) throws DukeException {
-        StringBuilder stringBuilder = new StringBuilder();
+        //Assert valid task type
+        assert taskType == TaskType.TODO || taskType == TaskType.EVENT || taskType == TaskType.DEADLINE: "Invalid task type";
+        assert description != null: "Invalid description";
 
+        StringBuilder stringBuilder = new StringBuilder();
         if (taskType == TaskType.TODO) {
             if (description.isEmpty()) {
                 throw new DukeException("The description of a todo cannot be empty.");

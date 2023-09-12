@@ -39,9 +39,7 @@ application {
 }
 
 shadowJar {
-
     archiveFileName = 'taskmaster.jar'
-
 }
 
 run{
