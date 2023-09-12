@@ -166,6 +166,7 @@ public class TaskList {
 
     /**
      * Adds any task
+     *
      * @param task The task to add
      */
     public void add(Task task) {
@@ -174,6 +175,7 @@ public class TaskList {
 
     /**
      * Size of task list
+     *
      * @return Number of tasks in the list
      */
     public int size() {
@@ -188,7 +190,7 @@ public class TaskList {
         for (Task task : tasks) {
             if (task.isDeadline()) {
                 Deadline deadline = (Deadline) task;
-                if (deadline.overdue()) {
+                if (deadline.isOverdue()) {
                     overdue.add(deadline);
                 }
             }
@@ -202,6 +204,7 @@ public class TaskList {
 
     /**
      * Returns a string representation of all the tasks that are due by the specified date
+     *
      * @param command The input by user with the command of dueby and second argument of the date
      * @return String
      */
@@ -215,7 +218,7 @@ public class TaskList {
                 for (Task task : tasks) {
                     if (task.isDeadline()) {
                         Deadline deadline = (Deadline) task;
-                        if (deadline.dueBy(localDateTime)) {
+                        if (deadline.isDueBy(localDateTime)) {
                             dueBy.add(deadline);
                         }
                     }
@@ -235,6 +238,7 @@ public class TaskList {
 
     /**
      * Find all tasks that contains the string searchBy
+     *
      * @param searchBy The string to searchBy
      * @return String representation of all the tasks that contains the string
      */

@@ -9,6 +9,7 @@ public class Event extends Task {
 
     /**
      * Constructor for Event task class
+     *
      * @param description Description of task
      * @param from Start time
      * @param to End time

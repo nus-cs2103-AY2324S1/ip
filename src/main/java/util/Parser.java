@@ -67,44 +67,44 @@ public class Parser {
      */
     public String execute(String command) {
         switch (getCommandWord(command)) {
-            case "bye":
-                return Ui.bye();
-            case "list":
-                return tasks.list();
-            case "mark":
-                return tasks.mark(getIndex(command));
-            case "unmark":
-                return tasks.unmark(getIndex(command));
-            case "todo":
-                return toDoParser(command);
-            case "deadline":
-                return deadlineParser(command);
-            case "event":
-                return eventParser(command);
-            case "delete":
-                return tasks.delete(getIndex(command));
-            case "overdue":
-                return tasks.overdue();
-            case "dueby":
-                return tasks.dueBy(command);
-            case "save":
-                return storage.save(tasks, removeCommandWord(command));
-            case "find":
-                return tasks.find(removeCommandWord(command));
+        case "bye":
+            return Ui.bye();
+        case "list":
+            return tasks.list();
+        case "mark":
+            return tasks.mark(getIndex(command));
+        case "unmark":
+            return tasks.unmark(getIndex(command));
+        case "todo":
+            return parseTodo(command);
+        case "deadline":
+            return parseDeadline(command);
+        case "event":
+            return parseEvent(command);
+        case "delete":
+            return tasks.delete(getIndex(command));
+        case "overdue":
+            return tasks.overdue();
+        case "dueby":
+            return tasks.dueBy(command);
+        case "save":
+            return storage.save(tasks, removeCommandWord(command));
+        case "find":
+            return tasks.find(removeCommandWord(command));
 
 
-            default:
-                EpochMindException e = new EpochMindException("There is no such command in the Arcana of Knowledge");
-                return e.toString();
+        default:
+            EpochMindException e = new EpochMindException("There is no such command in the Arcana of Knowledge");
+            return e.toString();
         }
     }
 
     /**
-     * Parse command for todo creation
+     * Parses command for todo creation
      *
      * @param command User Input
      */
-    public String toDoParser(String command) {
+    public String parseTodo(String command) {
         assert Parser.getCommandWord(command) == "todo" : "Wrong command word to create todo";
         String restOfCommand = Parser.removeCommandWord(command);
         if (restOfCommand.equals("")) {
@@ -116,11 +116,11 @@ public class Parser {
     }
 
     /**
-     * Parse command for deadline creation
+     * Parses command for deadline creation
      *
      * @param command User Input
      */
-    public String deadlineParser(String command) {
+    public String parseDeadline(String command) {
         assert Parser.getCommandWord(command) == "deadline" : "Wrong command word to create deadline";
         String restOfCommand = Parser.removeCommandWord(command);
         int endIndex = restOfCommand.indexOf("/by ");
@@ -141,11 +141,11 @@ public class Parser {
     }
 
     /**
-     * Add an event task
+     * Adds an event task
      *
      * @param command String obtained from scanner
      */
-    public String eventParser(String command) {
+    public String parseEvent(String command) {
         assert Parser.getCommandWord(command) == "event" : "Wrong command word to create event";
         String restOfCommand = Parser.removeCommandWord(command);
         int fromIndex = restOfCommand.indexOf("/from");

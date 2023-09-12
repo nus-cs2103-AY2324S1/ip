@@ -17,6 +17,7 @@ public class Deadline extends Task {
 
     /**
      * Constructor for deadline
+     *
      * @param description Task description
      * @param deadlineString String representation of the date of deadline
      */
@@ -98,9 +99,11 @@ public class Deadline extends Task {
     }
 
     /**
+     * Returns a boolean of whether the deadline is overdue
+     *
      * @return A boolean on whether deadline is overdue or not
      */
-    public boolean overdue() {
+    public boolean isOverdue() {
         if (isDateTime) {
             if (deadlineDateTime.isAfter(LocalDateTime.now())) {
                 return false;
@@ -114,10 +117,11 @@ public class Deadline extends Task {
 
     /**
      * Returns a boolean of whether the deadline is due by the specified date
+     *
      * @param localDateTime Date and Time of the deadline
      * @return boolean
      */
-    public boolean dueBy(LocalDateTime localDateTime) {
+    public boolean isDueBy(LocalDateTime localDateTime) {
         if (isDateTime) {
             try {
                 if (deadlineDateTime.isAfter(localDateTime)) {
@@ -136,6 +140,7 @@ public class Deadline extends Task {
 
     /**
      * Display a Date Time object in a nicer string format
+     *
      * @return String
      */
     public String displayTime() {
