@@ -1,3 +1,4 @@
+package duke;
 public class Parser {
     public static Command parseCommand(String userInput) {
         String[] inputParts = userInput.split(" ", 2); // Split input into two parts: command and arguments
