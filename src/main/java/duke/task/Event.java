@@ -32,4 +32,18 @@ public class Event extends Task {
         String duration = "(from: " + this.fromDate + " to: " + this.toDate + ")";
         return "[E]" + status + " " + this.description + " " + duration;
     }
+
+    /**
+     * Returns a string representation of the Event object in the data file format.
+     *
+     * @return String representation of the Deadline object in the data file format.
+     */
+    @Override
+    public String toDataFormatString() {
+        String outputString = "E | ";
+        outputString += (super.isDone ? "1" : "0") + " | ";
+        outputString += super.description + " | ";
+        outputString += this.fromDate + " | " + this.toDate;
+        return outputString;
+    }
 }
