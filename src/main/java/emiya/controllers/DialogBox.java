@@ -49,7 +49,6 @@ public class DialogBox extends HBox {
 
         dialog.setMinSize(275, Label.USE_PREF_SIZE);
         dialog.setAlignment(Pos.TOP_RIGHT);
-        // dialog.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
         dialog.setText(text);
         dialog.setPadding(new Insets(0, 5, 0, 5));
         displayPicture.setImage(img);
@@ -62,7 +61,10 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
+    }
+
+    private void setAlignmentEmiya() {
+        dialog.setAlignment(Pos.TOP_LEFT);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
@@ -72,6 +74,7 @@ public class DialogBox extends HBox {
     public static DialogBox getEmiyaDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.setAlignmentEmiya();
         return db;
     }
 }

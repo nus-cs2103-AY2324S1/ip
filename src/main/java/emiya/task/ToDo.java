@@ -18,13 +18,13 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String typeOfString() {
+    public String printTypeOfTask() {
         return "T ";
     }
 
     @Override
     public String printTaskDetailsString() {
-        return super.taskDescription;
+        return super.taskDescription + " | " + " " + " | " + " ";
     }
 
 }

@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import emiya.datehandler.DateHandler;
 import emiya.emiyaexception.InvalidDateException;
-import emiya.emiyaexception.WrongDateFormatException;
+import emiya.emiyaexception.WrongDateTimeFormatException;
 
 /**
  * A class representing the Event tasks that the user can create.
@@ -17,7 +17,7 @@ public class Event extends Task {
     private LocalDateTime localDateTimeEnd = null;
 
     public Event(boolean isCompleted, String nameOfTask, String start, String end)
-            throws WrongDateFormatException, InvalidDateException {
+            throws WrongDateTimeFormatException, InvalidDateException {
         super(isCompleted, nameOfTask);
         this.start = start;
         this.end = end;
@@ -37,7 +37,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String typeOfString() {
+    public String printTypeOfTask() {
         return "E ";
     }
 

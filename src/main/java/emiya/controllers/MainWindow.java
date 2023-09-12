@@ -1,6 +1,7 @@
 package emiya.controllers;
 
 import emiya.Emiya;
+import emiya.Keyword;
 import emiya.commands.DeadlineCommand;
 import emiya.commands.DeleteCommand;
 import emiya.commands.EventCommand;
@@ -60,47 +61,42 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = "";
+        String response;
 
         try {
-            Integer[] position = new Integer[] {null};
-            String[] parsedInput = emiya.getParser().parseToRemoveUnknownCommands(position, input);
-            String typeOfTask = parsedInput[0];
-            String taskDetails = "";
-            if (parsedInput.length > 1) {
-                taskDetails = parsedInput[1];
-            }
+            String[] parsedInput = emiya.getParser().parseToRemoveUnknownCommands(input);
+            String taskDetails = parsedInput[1];
+            Keyword typeOfTask = Keyword.getCommand(parsedInput[0]);
 
             switch (typeOfTask) {
-            case "list":
+            case LIST:
                 response = emiya.getTaskList().list();
                 break;
-            case "mark":
-                response = MarkCommand.mark(position[0], emiya.getTaskList(), emiya.getStorage(),
+            case MARK:
+                response = MarkCommand.mark(taskDetails, emiya.getTaskList(), emiya.getStorage(),
                         emiya.getUi(), emiya.getFileName(), emiya.getDirName());
                 break;
-            case "unmark":
-                response = UnmarkCommand.unmark(position[0], emiya.getTaskList(), emiya.getStorage(),
+            case UNMARK:
+                response = UnmarkCommand.unmark(taskDetails, emiya.getTaskList(), emiya.getStorage(),
                         emiya.getUi(), emiya.getFileName(), emiya.getDirName());
                 break;
-            case "delete":
-                response = DeleteCommand.delete(position[0], emiya.getTaskList(), emiya.getStorage(),
+            case DELETE:
+                response = DeleteCommand.delete(taskDetails, emiya.getTaskList(), emiya.getStorage(),
                         emiya.getUi(), emiya.getFileName(), emiya.getDirName());
                 break;
-            case "todo":
-                // need to be able to go through the rest of the string and add it inside
+            case TODO:
                 response = TodoCommand.createTodo(taskDetails, emiya.getTaskList(), emiya.getStorage(),
                         emiya.getUi(), emiya.getFileName(), emiya.getDirName());
                 break;
-            case "deadline": // go through taskDetails and find /by
+            case DEADLINE:
                 response = DeadlineCommand.createDeadline(taskDetails, emiya.getParser(), emiya.getTaskList(),
                         emiya.getStorage(), emiya.getUi(), emiya.getFileName(), emiya.getDirName());;
                 break;
-            case "event": // need to go through taskDetails and find /from and /to
+            case EVENT:
                 response = EventCommand.createEvent(taskDetails, emiya.getParser(), emiya.getTaskList(),
                         emiya.getStorage(), emiya.getUi(), emiya.getFileName(), emiya.getDirName());
                 break;
-            case "find":
+            case FIND:
                 response = FindCommand.find(taskDetails, emiya.getTaskList());
                 break;
             default:

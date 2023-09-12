@@ -2,6 +2,8 @@ package emiya.commands;
 
 import emiya.emiyaexception.EmptyUnmarkException;
 import emiya.emiyaexception.OutOfListBoundsException;
+import emiya.emiyaexception.UnknownCommandException;
+import emiya.logic.Logic;
 import emiya.storage.Storage;
 import emiya.task.TaskList;
 import emiya.ui.Ui;
@@ -14,7 +16,7 @@ public class UnmarkCommand {
     /**
      * Marks the task within the task list at the specified position as not completed.
      *
-     * @param pos The position at which the task should be deleted.
+     * @param posString The position at which the task should be deleted.
      * @param taskList The TaskList instance associated with the task bot.
      * @param storage The Storage instance associated with the task bot.
      * @param ui The Ui instance associated with the task bot.
@@ -26,18 +28,25 @@ public class UnmarkCommand {
      * @throws OutOfListBoundsException An exception that is thrown when the user tries to access a task that
      *     does not exist.
      */
-    public static String unmark(Integer pos, TaskList taskList, Storage storage, Ui ui, String fileName, String dirName)
-            throws EmptyUnmarkException, OutOfListBoundsException {
-        if (pos != null) {
-            if (pos <= 0 || pos > taskList.size()) {
-                throw new OutOfListBoundsException();
-            }
-            taskList.get(pos - 1).setUnmarked();
-            storage.writeToFileFromTaskList(taskList, fileName, dirName);
-            return ui.unmarkedMessage(pos, taskList);
-        } else {
+    public static String unmark(String posString, TaskList taskList, Storage storage, Ui ui, String fileName, String dirName)
+            throws EmptyUnmarkException, OutOfListBoundsException, UnknownCommandException {
+
+        if (posString.equals("")) {
             throw new EmptyUnmarkException();
         }
+
+        if (!Logic.isNumeric(posString)) {
+            throw new UnknownCommandException();
+        }
+
+        int pos = Integer.parseInt(posString);
+
+        if (pos <= 0 || pos > taskList.size()) {
+            throw new OutOfListBoundsException();
+        }
+        taskList.get(pos - 1).setUnmarked();
+        storage.writeToFileFromTaskList(taskList, fileName, dirName);
+        return ui.unmarkedMessage(pos, taskList);
 
     }
 }

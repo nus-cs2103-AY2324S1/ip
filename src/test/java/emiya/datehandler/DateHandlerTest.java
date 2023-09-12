@@ -1,7 +1,7 @@
 package emiya.datehandler;
 
 import emiya.emiyaexception.InvalidDateException;
-import emiya.emiyaexception.WrongDateFormatException;
+import emiya.emiyaexception.WrongDateTimeFormatException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -17,7 +17,7 @@ public class DateHandlerTest {
         String input = "2023-09-01 1200";
         try {
             testObj = determineDateTime(input);
-        } catch (WrongDateFormatException | InvalidDateException e ) {
+        } catch (WrongDateTimeFormatException | InvalidDateException e ) {
             throw new RuntimeException(e);
         }
         assertEquals(LocalDateTime.of(2023, 9,1,12,0), testObj);
@@ -28,8 +28,8 @@ public class DateHandlerTest {
         String input = "2023/09/01 1200";
         try {
             LocalDateTime result = determineDateTime(input);
-            fail("Expected WrongDateFormatException to be thrown");
-        } catch (WrongDateFormatException e) {
+            fail("Expected WrongDateTimeFormatException to be thrown");
+        } catch (WrongDateTimeFormatException e) {
             // Test passes
         } catch (InvalidDateException e) {
             fail("Unexpected InvalidDateException thrown");
@@ -41,8 +41,8 @@ public class DateHandlerTest {
         String input = "2023-09-01 2.00pm";
         try {
             LocalDateTime result = determineDateTime(input);
-            fail("Expected WrongDateFormatException to be thrown");
-        } catch (WrongDateFormatException e) {
+            fail("Expected WrongDateTimeFormatException to be thrown");
+        } catch (WrongDateTimeFormatException e) {
             // Test passes
         } catch (InvalidDateException e) {
             fail("Unexpected InvalidDateException thrown");
@@ -55,8 +55,8 @@ public class DateHandlerTest {
         try {
             LocalDateTime result = determineDateTime(input);
             fail("Expected InvalidDateException to be thrown");
-        } catch (WrongDateFormatException e) {
-            fail("Unexpected WrongDateFormatException thrown");
+        } catch (WrongDateTimeFormatException e) {
+            fail("Unexpected WrongDateTimeFormatException thrown");
         } catch (InvalidDateException e) {
             // Test passes
         }

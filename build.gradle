@@ -29,7 +29,7 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 }
 
-mainClassName = 'emiya.Emiya'
+mainClassName = 'emiya.Launcher'
 
 test {
     useJUnitPlatform()
@@ -45,8 +45,12 @@ test {
     }
 }
 
+run {
+    enableAssertions = true
+}
+
 application {
-    mainClass.set("emiya.Emiya")
+    mainClass.set("emiya.Launcher")
 }
 
 shadowJar {

@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 
 import emiya.emiyaexception.CreateDirectoryFailException;
 import emiya.emiyaexception.InvalidDateException;
-import emiya.emiyaexception.WrongDateFormatException;
+import emiya.emiyaexception.WrongDateTimeFormatException;
 import emiya.task.Deadline;
 import emiya.task.Event;
 import emiya.task.Task;
@@ -29,7 +29,7 @@ public class Storage {
      * @param dirName The name of the directory that contains the file to be accessed.
      * @return A String containing the contents of the file indicated by fileName.
      */
-    public String fileContents(String fileName, String dirName) {
+    public String getFileContents(String fileName, String dirName) {
         String path = Paths.get("").toAbsolutePath().toString();
         String pathToDataDir = Paths.get(path, dirName).toString();
         Path pathToDataDoc = Paths.get(pathToDataDir, fileName);
@@ -49,7 +49,7 @@ public class Storage {
      * @param dirName The name of the directory to be created if it does not already exist.
      * @throws CreateDirectoryFailException When the directory cannot be created.
      */
-    public void createDirectory(String dirName) throws CreateDirectoryFailException {
+    public boolean createDirectory(String dirName) throws CreateDirectoryFailException {
         String path = Paths.get("").toAbsolutePath().toString();
         String pathToDataDir = Paths.get(path, dirName).toString();
         File dataDir = new File(pathToDataDir);
@@ -59,7 +59,10 @@ public class Storage {
             if (!result) {
                 throw new CreateDirectoryFailException();
             }
+            return true;
         }
+
+        return false;
     }
 
     /**
@@ -68,7 +71,7 @@ public class Storage {
      * @param fileName The name of the file that is created if it does not already exist.
      * @param dirName The name of the directory in which the file should be created in.
      */
-    public void createFileInDirectory(String fileName, String dirName) {
+    public boolean createFileInDirectory(String fileName, String dirName) {
         String path = Paths.get("").toAbsolutePath().toString();
         String pathToDataDir = Paths.get(path, dirName).toString();
         Path pathToDataDoc = Paths.get(pathToDataDir, fileName);
@@ -80,10 +83,13 @@ public class Storage {
             String testData = "";
             try {
                 Files.write(pathToDataDoc, testData.getBytes());
+                return true;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
+        return false;
     }
 
 
@@ -103,7 +109,7 @@ public class Storage {
 
         StringBuilder str = new StringBuilder();
         for (Task task : taskList.getTaskArrayList()) {
-            str.append(task.typeOfString());
+            str.append(task.printTypeOfTask());
             str.append("| ");
             str.append(task.printStatusString());
             str.append("| ");
@@ -125,32 +131,29 @@ public class Storage {
      * @param taskList A TaskList instance in which the Tasks should be populated into.
      * @param fileContent A String that contains all the Tasks that should be written into the
      *                    TaskList instance.
-     * @throws WrongDateFormatException When the format of the date received from the fileContent
+     * @throws WrongDateTimeFormatException When the format of the date received from the fileContent
      *     is of the wrong format.
      * @throws InvalidDateException When the date received from the fileContent
      *     is invalid.
      */
-    public void fillListWithFileContent(TaskList taskList, String fileContent)
-            throws WrongDateFormatException, InvalidDateException {
+    public boolean fillListWithFileContent(TaskList taskList, String fileContent)
+            throws WrongDateTimeFormatException, InvalidDateException {
         String[] tasksStrArr = fileContent.split("\n");
+
+        boolean isTaskAddedToList = false;
 
         for (String tasksStr : tasksStrArr) {
             if (tasksStr.isEmpty()) {
                 continue;
             }
+            
             String[] tasksStrParts = tasksStr.split(" \\| ");
             String taskType = tasksStrParts[0];
             int isCompletedInt = Integer.parseInt(tasksStrParts[1]);
             boolean isCompletedBool = (isCompletedInt == 1);
             String taskDetails = tasksStrParts[2];
-            String firstDate = "";
-            String secondDate = "";
-            if (tasksStrParts.length >= 4) {
-                firstDate = tasksStrParts[3];
-            }
-            if (tasksStrParts.length == 5) {
-                secondDate = tasksStrParts[4];
-            }
+            String firstDate = tasksStrParts[3];
+            String secondDate = tasksStrParts[4];
 
             if (taskType.equals("T")) {
                 taskList.add(new ToDo(isCompletedBool, taskDetails));
@@ -159,6 +162,10 @@ public class Storage {
             } else {
                 taskList.add(new Event(isCompletedBool, taskDetails, firstDate, secondDate));
             }
+            
+            isTaskAddedToList = true;
         }
+
+        return isTaskAddedToList;
     }
 }
