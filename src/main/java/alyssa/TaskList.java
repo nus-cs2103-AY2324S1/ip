@@ -5,7 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import alyssa.Exceptions.AlyssaArgumentException;
+import alyssa.exceptions.AlyssaArgumentException;
 /**
  * This class supports Alyssa by encapsulating the current tasks.
  */
@@ -93,7 +93,8 @@ public class TaskList {
     /**
      * Adds a given deadline.
      * @param rest Details of the deadline, provided as a String.
-     * @throws AlyssaArgumentException AlyssaArgumentException is thrown if the String given is not of the correct format.
+     * @throws AlyssaArgumentException AlyssaArgumentException is
+     *     thrown if the String given is not of the correct format.
      */
     protected String addDeadline(String rest) throws AlyssaArgumentException {
         String[] parsed = rest.split(" /by ");
@@ -119,7 +120,8 @@ public class TaskList {
     /**
      * Adds an event to the TaskList.
      * @param rest Details of the event, in the form of a String.
-     * @throws AlyssaArgumentException AlyssaArgumentException is thrown if the String given is not of the correct format.
+     * @throws AlyssaArgumentException AlyssaArgumentException is thrown
+     *      if the String given is not of the correct format.
      */
     protected String addEvent(String rest) throws AlyssaArgumentException {
         String[] parsed = rest.split(" /from | /to ");
@@ -159,7 +161,7 @@ public class TaskList {
     }
 
     /**
-     * Returns the encapsulated task list as a List<Task>.
+     * Returns the encapsulated task list as a List of Tasks.
      */
     public List<Task> getTaskList() {
         return this.taskList;

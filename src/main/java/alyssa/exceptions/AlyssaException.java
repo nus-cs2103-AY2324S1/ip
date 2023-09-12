@@ -1,4 +1,4 @@
-package alyssa.Exceptions;
+package alyssa.exceptions;
 
 /**
  * A generic exception. All custom exceptions extend from this.

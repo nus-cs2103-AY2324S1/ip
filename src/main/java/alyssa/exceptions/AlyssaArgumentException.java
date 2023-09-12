@@ -1,4 +1,4 @@
-package alyssa.Exceptions;
+package alyssa.exceptions;
 
 /**
  * This class represents the exception which is thrown when a correct command is given with

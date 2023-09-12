@@ -3,8 +3,9 @@ package alyssa;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import alyssa.Exceptions.AlyssaArgumentException;
 import org.junit.jupiter.api.Test;
+
+import alyssa.exceptions.AlyssaArgumentException;
 
 /**
  * Here we test if the markTask function in TaskList is working as expected.
