@@ -61,6 +61,16 @@ public class TaskList extends ArrayList<Task> implements Serializable {
     }
 
 
+    /**
+     * Adds a tag to the task at the provided index
+     * @param index the index of the task
+     * @param tag the tag to add
+     * @return the task that was tagged
+     */
+    public Task addTag(int index, String tag) {
+        this.get(index).addTag(tag);
+        return this.get(index);
+    }
 
 
 

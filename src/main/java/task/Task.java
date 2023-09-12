@@ -1,6 +1,7 @@
 package task;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Class encapsulating a single task to be done (by the user) in kniaz.Kniaz
@@ -17,6 +18,11 @@ public abstract class Task implements Serializable {
      * Name of this task
      */
     private String taskName = "";
+
+    /**
+     * Tag of this task
+     */
+    private List<String> tags;
 
     /**
      * The (protected) constructor for this task, mostly for inheritance by subclasses
@@ -67,5 +73,20 @@ public abstract class Task implements Serializable {
         return this.taskName;
     }
 
+    /**
+     * Gets tag(s) of this class
+     * @return the tag(s) of this class
+     */
+    public List<String> getTags() {
+        return this.tags;
+    }
 
+    /**
+     * Adds a tag to this task
+     * @param tag the tag of this class
+     * @return whether the adding succeeded
+     */
+    public boolean addTag(String tag) {
+        return this.tags.add(tag);
+    }
 }
