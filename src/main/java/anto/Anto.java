@@ -18,7 +18,8 @@ public class Anto {
      * Creates an Anto chatbot with default filePath.
      */
     public Anto() {
-        String filePath = "data/anto.txt";
+        String filePath = System.getProperty("user.dir") + "/data/anto.txt";
+
         ui = new Ui();
         storage = new Storage(ui, filePath);
         try {

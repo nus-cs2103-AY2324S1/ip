@@ -49,6 +49,7 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getAntoDialog(this.anto.getUi().greet(), dukeImage)
         );
+
         if (a.hasNoTasks()) {
             dialogContainer.getChildren().addAll(
                     DialogBox.getAntoDialog(this.anto.getUi().printNoSavedFile(), dukeImage)
