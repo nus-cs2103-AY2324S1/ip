@@ -61,7 +61,7 @@ public class Duke {
             try {
                 helper.printLine();
                 Command command = Parser.parse(string);
-                String commandOutput = command.execute(tasks, helper, storage);
+
                 isExit = command.isExit();
             } catch (Throwable e) {
                 System.out.println(e.getMessage());
@@ -83,9 +83,6 @@ public class Duke {
             try {
                 Command command = Parser.parse(input);
                 output = command.execute(tasks, helper, storage);
-                if (output.contains("Bye")) {
-                    return "Bye. Hope to see you again soon!";
-                }
             } catch (Throwable e) {
                 return e.getMessage();
             }

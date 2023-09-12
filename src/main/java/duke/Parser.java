@@ -40,31 +40,30 @@ public class Parser {
         String[] splittedCommand = command.split(" ");
         String commandType = splittedCommand[0];
         switch (commandType) {
-            case "bye":
-                commandGiven = new ByeCommand();
-                break;
-            case "find":
-                String keyword = splittedCommand[1];
-                commandGiven = new FindCommand(keyword);
-                break;
-            case "list":
-                commandGiven = new ListCommand();
-                break;
-            case "mark":
-                taskNumber = Integer.parseInt(splittedCommand[1]);
-                commandGiven = new MarkCommand(taskNumber);
-                break;
-            case "unmark":
-                taskNumber = Integer.parseInt(splittedCommand[1]);
-                commandGiven = new UnmarkCommand(taskNumber);
-                break;
-            case "delete":
-                String[] splittedInput = command.split(" ");
-                taskNumber = Integer.parseInt(splittedInput[1]);
-                commandGiven = new DeleteCommand(taskNumber);
-                break;
-            default:
-                commandGiven = new AddTaskCommand(command);
+        case "bye":
+            commandGiven = new ByeCommand();
+            break;
+        case "find":
+            String keyword = splittedCommand[1];
+            commandGiven = new FindCommand(keyword);
+            break;
+        case "list":
+            commandGiven = new ListCommand();
+            break;
+        case "mark":
+            taskNumber = Integer.parseInt(splittedCommand[1]);
+            commandGiven = new MarkCommand(taskNumber);
+            break;
+        case "unmark":
+            taskNumber = Integer.parseInt(splittedCommand[1]);
+            commandGiven = new UnmarkCommand(taskNumber);
+            break;
+        case "delete":
+            taskNumber = Integer.parseInt(splittedCommand[1]);
+            commandGiven = new DeleteCommand(taskNumber);
+            break;
+        default:
+            commandGiven = new AddTaskCommand(command);
         }
         return commandGiven;
     }

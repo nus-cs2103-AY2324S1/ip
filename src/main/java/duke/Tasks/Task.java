@@ -71,23 +71,29 @@ public class Task {
     public static Task createTask(String description) throws EmptyDetailsOfTaskError, UnknownCommandException {
         String[] splittedDescription = description.split(" ");
         String commandName = splittedDescription[0];
-        if (description.startsWith("todo") && splittedDescription.length != 1) {
-            String task = description.replace("todo ", "");
-            Task currentTask = new Todo(task);
-            return currentTask;
-        } else if (description.startsWith("deadline") && splittedDescription.length != 1) {
-            String task = description.replace("deadline ", "");
-            String[] splittedTask = task.split(" /by ");
+
+        boolean isTodo = commandName.equals("todo");
+        boolean isDeadline = commandName.equals("deadline");
+        boolean isEvent = commandName.equals("event");
+        boolean isTask = isTodo || isDeadline || isEvent;
+        boolean isInvalidTask = isTask && splittedDescription.length == 1;
+        boolean isValidTodo = isTodo && splittedDescription.length != 1;
+        boolean notEmptyDeadline = isDeadline && splittedDescription.length != 1;
+        boolean notEmptyEvent = isEvent && splittedDescription.length != 1;
+
+        if (isValidTodo) {
+            String taskDescription = splittedDescription[1];
+            return new Todo(taskDescription);
+        } else if (notEmptyDeadline) {
+            String[] splittedTask = splittedDescription[1].split(" /by ");
             if (splittedTask.length == 1) {
                 throw new EmptyDetailsOfTaskError("The end of a deadline cannot be empty.");
             }
             String taskName = splittedTask[0];
             String end = splittedTask[1];
-            Task currentTask = new Deadlines(taskName, end);
-            return currentTask;
-        } else if (description.startsWith("event") && splittedDescription.length != 1) {
-            String task = description.replace("event ", "");
-            String[] splitStart = task.split(" /from ");
+            return new Deadlines(taskName, end);
+        } else if (notEmptyEvent) {
+            String[] splitStart = splittedDescription[1].split(" /from ");
             if (splitStart.length == 1) {
                 throw new EmptyDetailsOfTaskError("The start of a event cannot be empty.");
             }
@@ -98,12 +104,8 @@ public class Task {
             String taskName = splitStart[0];
             String start = splitEnd[0];
             String end = splitEnd[1];
-            Task currentTask = new Events(taskName, start, end);
-            return currentTask;
-        } else if (splittedDescription.length == 1 &&
-                (commandName.equals("todo") ||
-                        commandName.equals("deadline") ||
-                        commandName.equals("event"))) {
+            return new Events(taskName, start, end);
+        } else if (isInvalidTask) {
             throw new EmptyDetailsOfTaskError("The description of a " + commandName + " cannot be empty.");
         } else {
             throw new UnknownCommandException("I'm sorry, but I don't know what that means :-C");
