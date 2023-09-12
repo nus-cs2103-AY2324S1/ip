@@ -21,7 +21,10 @@ public class AddDeadlineCommand extends Command {
      * @param taskName
      * @param dueDate
      */
-    public AddDeadlineCommand(String taskName, String dueDate) {
+    public AddDeadlineCommand(String taskName, String dueDate) throws DukeException {
+        if (taskName.equals("")) {
+            throw new DukeException("☹ OOPS!!! Incorrect description of a deadline.");
+        }
         this.taskName = taskName;
         this.dueDate = dueDate;
     }
@@ -32,7 +35,7 @@ public class AddDeadlineCommand extends Command {
             Deadline deadline = new Deadline(taskName, dueDate, false);
             taskList.addTask(deadline);
             storage.rewriteToFile(taskList.getList());
-            return ui.successfulAddTaskMsg(deadline.displayableForm(), taskList.getIndex());
+            return ui.successfulAddTaskMsg(deadline.userDisplayString(), taskList.getIndex());
         } catch (IOException e) {
             throw new DukeException("Something went wrong: " + e.getMessage());
         }

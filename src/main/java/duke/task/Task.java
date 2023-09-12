@@ -4,32 +4,32 @@ package duke.task;
  * The Task class.
  */
 public class Task {
-    protected boolean done;
+    protected boolean isDone;
     protected String name;
 
     /**
      * Constructor for the duke.task.Task class.
      *
      * @param name The name of the task.
-     * @param done Whether the task is marked done or not.
+     * @param isDone Whether the task is marked done or not.
      */
-    public Task(String name, boolean done) {
+    public Task(String name, boolean isDone) {
         this.name = name;
-        this.done = done;
+        this.isDone = isDone;
     }
 
     /**
      * Sets the task as done.
      */
     public void setDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Sets the task as not done.
      */
     public void setNotDone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -39,14 +39,14 @@ public class Task {
      */
     @Override
     public String toString() {
-        if (this.done) {
+        if (this.isDone) {
             return "[X] " + this.name;
         } else {
             return "[ ] " + this.name;
         }
     }
 
-    public String displayableForm() {
+    public String userDisplayString() {
         return null;
     }
 

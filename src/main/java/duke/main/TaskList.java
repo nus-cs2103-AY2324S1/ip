@@ -78,7 +78,7 @@ public class TaskList {
      *
      * @param number The index of the task to be removed.
      */
-    public void delete(int number) throws DukeException {
+    public void deleteTask(int number) throws DukeException {
         try {
             this.index = this.taskList.size();
             assert number < this.index;
@@ -113,7 +113,7 @@ public class TaskList {
         String result = "";
         result += "Here are the tasks in your list:\n";
         for (int i = 0; i < this.getSize(); i++) {
-            result += ((i + 1) + ". " + this.taskList.get(i).displayableForm() + "\n");
+            result += ((i + 1) + ". " + this.taskList.get(i).userDisplayString() + "\n");
         }
         return result;
     }

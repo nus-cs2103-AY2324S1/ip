@@ -15,7 +15,7 @@ public class DeadlineTest {
     @Test
     public void showAltForm_stringRep_success() {
         Deadline deadline = new Deadline("something", "1111-11-11", false);
-        assertEquals("[D][ ] something By: Nov 11 1111", deadline.displayableForm());
+        assertEquals("[D][ ] something By: Nov 11 1111", deadline.userDisplayString());
     }
 
     @Test

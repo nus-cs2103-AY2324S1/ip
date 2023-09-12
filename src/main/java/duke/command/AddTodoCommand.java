@@ -29,7 +29,7 @@ public class AddTodoCommand extends Command {
             Todo todo = new Todo(taskName, false);
             taskList.addTask(todo);
             storage.rewriteToFile(taskList.getList());
-            return ui.successfulAddTaskMsg(todo.displayableForm(), taskList.getIndex());
+            return ui.successfulAddTaskMsg(todo.userDisplayString(), taskList.getIndex());
         } catch (IOException e) {
             throw new DukeException("Something went wrong: " + e.getMessage());
         }

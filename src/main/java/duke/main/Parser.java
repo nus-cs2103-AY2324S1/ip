@@ -96,18 +96,14 @@ public class Parser {
         String command = strSegments[0];
 
         if (command.equals("deadline")) {
-            String string = input.trim().substring(8).trim();
-            if (string.contains(" /by ")) {
+            try {
+                String string = input.trim().substring(8).trim();
                 String[] segments = string.split("/by");
                 String eventName = segments[0].trim();
-                try {
-                    String dateString = segments[1].trim();
-                    LocalDate.parse(dateString);
-                    return new AddDeadlineCommand(eventName, dateString);
-                } catch (DateTimeParseException e) {
-                    throw new DukeException("Something is wrong with the date provided.");
-                }
-            } else {
+                String dateString = segments[1].trim();
+                LocalDate.parse(dateString);
+                return new AddDeadlineCommand(eventName, dateString);
+            } catch (Exception e) {
                 throw new DukeException("☹ OOPS!!! Incorrect description of a deadline.");
             }
         } else {
@@ -127,28 +123,17 @@ public class Parser {
         String command = strSegments[0];
 
         if (command.equals("event")) {
-            String string = input.substring(5).trim();
-            if (string.contains(" /from ")) {
-                String[] segments = string.split("/from");
+            try {
+                String str = input.substring(5).trim();
+                String[] segments = str.split(" /from ");
                 String eventName = segments[0].trim();
-                if (segments[1].contains(" /to ")) {
-                    String[] segments2 = segments[1].split(" /to ");
-                    String startDate = segments2[0].trim();
-                    String endDate = segments2[1].trim();
-                    if (startDate.equals("")) {
-                        throw new DukeException("☹ OOPS!!! Incorrect description of an event.");
-                    }
-                    try {
-                        LocalDate.parse(startDate);
-                        LocalDate.parse(endDate);
-                        return new AddEventCommand(eventName, startDate, endDate);
-                    } catch (DateTimeParseException e) {
-                        throw new DukeException("Something is wrong with the date provided.");
-                    }
-                } else {
-                    throw new DukeException("☹ OOPS!!! Incorrect description of an event.");
-                }
-            } else {
+                String[] segments2 = segments[1].split(" /to ");
+                String startDate = segments2[0].trim();
+                String endDate = segments2[1].trim();
+                LocalDate.parse(startDate);
+                LocalDate.parse(endDate);
+                return new AddEventCommand(eventName, startDate, endDate);
+            } catch (Exception e) {
                 throw new DukeException("☹ OOPS!!! Incorrect description of an event.");
             }
         } else {

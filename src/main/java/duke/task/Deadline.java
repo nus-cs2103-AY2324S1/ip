@@ -13,16 +13,16 @@ public class Deadline extends Task {
      *
      * @param name The name of the todo task.
      * @param deadline The deadline of the task.
-     * @param done Whether the task is marked done or not.
+     * @param isDone Whether the task is marked done or not.
      */
-    public Deadline(String name, String deadline, boolean done) {
-        super(name, done);
+    public Deadline(String name, String deadline, boolean isDone) {
+        super(name, isDone);
         this.deadline = LocalDate.parse(deadline);
     }
 
     @Override
     public String toString() {
-        if (this.done) {
+        if (this.isDone) {
             return "[D][X] " + this.name + " By: " + this.deadline;
         } else {
             return "[D][ ] " + this.name + " By: " + this.deadline;
@@ -34,8 +34,8 @@ public class Deadline extends Task {
      *
      * @return The string representation of the deadline for display to the user.
      */
-    public String displayableForm() {
-        if (this.done) {
+    public String userDisplayString() {
+        if (this.isDone) {
             return "[D][X] " + this.name + " By: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         } else {
             return "[D][ ] " + this.name + " By: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));

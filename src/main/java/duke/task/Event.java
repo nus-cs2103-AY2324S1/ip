@@ -16,17 +16,17 @@ public class Event extends Task {
      * @param name Name of the event task.
      * @param startDate Start date of the event.
      * @param endDate End date of the event.
-     * @param done Whether the task is marked done or not.
+     * @param isDone Whether the task is marked done or not.
      */
-    public Event(String name, String startDate, String endDate, boolean done) {
-        super(name, done);
+    public Event(String name, String startDate, String endDate, boolean isDone) {
+        super(name, isDone);
         this.startDate = LocalDate.parse(startDate);
         this.endDate = LocalDate.parse(endDate);
     }
 
     @Override
     public String toString() {
-        if (this.done) {
+        if (this.isDone) {
             return "[E][X] " + this.name + " From: " + this.startDate + " To: " + this.endDate;
         } else {
             return "[E][ ] " + this.name + " From: " + this.startDate + " To: " + this.endDate;
@@ -37,10 +37,10 @@ public class Event extends Task {
      *
      * @return The string representation of the event for display to the user.
      */
-    public String displayableForm() {
+    public String userDisplayString() {
         String newStartDate = this.startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         String newEndDate = this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        if (this.done) {
+        if (this.isDone) {
             return "[E][X] " + this.name + " From: " + newStartDate + " To: " + newEndDate;
         } else {
             return "[E][ ] " + this.name + " From: " + newStartDate + " To: " + newEndDate;
