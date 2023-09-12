@@ -1,4 +1,4 @@
-package duke;
+package duke.tasks;
 
 import duke.parser.DukeParseException;
 import duke.parser.Parser;

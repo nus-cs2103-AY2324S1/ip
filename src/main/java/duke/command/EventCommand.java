@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.Event;
+import duke.tasks.Event;
 import duke.ui.TextUi;
 
 /**

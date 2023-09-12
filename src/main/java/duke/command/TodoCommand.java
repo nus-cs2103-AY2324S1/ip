@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.Todo;
+import duke.tasks.Todo;
 import duke.ui.TextUi;
 
 /**
