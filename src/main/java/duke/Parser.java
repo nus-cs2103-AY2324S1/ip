@@ -75,6 +75,7 @@ public class Parser {
                         break;
                     }
                     tasks.addTask(addedTask);
+                    assert addedTask != null: "Task added should not be null";
                     return Ui.informTaskAdded(addedTask, tasks.getSize());
                 } else if (splitStr[0].equals("find") && splitStr.length > 1 && !splitStr[1].equals("")) {
                     String subString = s.substring(5);
