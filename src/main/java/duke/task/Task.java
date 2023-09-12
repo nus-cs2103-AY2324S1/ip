@@ -43,6 +43,15 @@ public class Task {
     }
 
     /**
+     * Checks if task is Done or not
+     *
+     * @return True if is done and False otherwise
+     */
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    /**
      * Returns a string representation of the task, including its status icon.
      *
      * @return A string representation of the status of the task.

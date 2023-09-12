@@ -1,4 +1,4 @@
-package duke.gui.controllers;
+package duke.gui;
 
 import duke.Duke;
 import javafx.application.Application;
@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Duke duke = new Duke("./src/main/java/duke/duke.txt");
 
     @Override
     public void start(Stage stage) {

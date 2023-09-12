@@ -4,9 +4,12 @@ import duke.command.DukeException;
 import duke.command.Parser;
 import duke.task.Task;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The Storage class is responsible for loading and saving tasks to/from a file.
@@ -59,7 +62,7 @@ public class Storage {
      * @param tasks The list of tasks to be saved.
      * @throws DukeException If there is an error saving tasks to the file.
      */
-    public void saveTasksToFile(List<Task> tasks) throws DukeException {
+    public void saveTasksToFile(ArrayList<Task> tasks) throws DukeException {
         try {
             FileWriter writer = new FileWriter(filePath);
             for (Task task : tasks) {

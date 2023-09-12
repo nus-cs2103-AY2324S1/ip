@@ -25,6 +25,16 @@ public class Parser {
     }
 
     /**
+     * Checks if the given command represents the "hi" command.
+     *
+     * @param command The user command to check.
+     * @return True if the command is "hi," false otherwise.
+     */
+    public static boolean isHi(String command) {
+        return command.equalsIgnoreCase("hi");
+    }
+
+    /**
      * Checks if the given command represents the "list" command.
      *
      * @param command The user command to check.

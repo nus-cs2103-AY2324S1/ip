@@ -3,7 +3,6 @@ package duke;
 import duke.task.Task;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The Ui class provides user interface functionality for interacting with the Duke application.
@@ -12,61 +11,90 @@ import java.util.List;
 public class Ui {
 
     /**
-     * Displays a welcome message to the user.
+     * A constant line separator.
      */
+    private static final String LINE = "____________________________________________________________";
 
-    String line = "____________________________________________________________";
-
-
-    public void showWelcomeMessage() {
-        System.out.println(line);
-        System.out.println(" Hello! I'm Axela");
-        System.out.println(" What can I do for you?");
-        System.out.println(line);
+    /**
+     * Displays a welcome message to the user.
+     *
+     * @return The welcome message as a string.
+     */
+    public String showWelcomeMessage() {
+        StringBuilder message = new StringBuilder();
+        message.append(" Hello! I'm Axela\n");
+        message.append(" What can I do for you?\n");
+        return message.toString();
     }
 
     /**
      * Displays a goodbye message to the user.
+     *
+     * @return The goodbye message as a string.
      */
-    public void showGoodbyeMessage() {
-        System.out.println(line);
-        System.out.println(" Bye. Hope to see you again soon!");
-        System.out.println(line);
+    public String showGoodbyeMessage() {
+        StringBuilder message = new StringBuilder();
+        message.append(" Bye. Hope to see you again soon!\n");
+        return message.toString();
+    }
+
+    /**
+     * Displays a goodbye message to the user.
+     *
+     * @return The goodbye message as a string.
+     */
+    public String showHiMessage() {
+        StringBuilder message = new StringBuilder();
+        message.append(" Hi! How can i help you this fine day?\n");
+        return message.toString();
+    }
+
+    /**
+     * Displays a message to the user if they try to mark a done task.
+     *
+     * @return The goodbye message as a string.
+     */
+    public String showMarkMarkedTaskMessage() {
+        StringBuilder message = new StringBuilder();
+        message.append(" 😄 ").append(" This task is already marked as done! Good job, but it's done!\n");
+        return message.toString();
+    }
+
+    /**
+     * Displays a goodbye message to the user.
+     *
+     * @return The goodbye message as a string.
+     */
+    public String showUnmarkUnmarkedTaskMessage() {
+        StringBuilder message = new StringBuilder();
+        message.append(" 😄 ").append(" This task is already marked as not done! It's not going anywhere!\n");
+        return message.toString();
     }
 
     /**
      * Displays an error message when tasks cannot be loaded from a file.
+     *
+     * @return The error message as a string.
      */
-    public void showLoadingError() {
-        System.out.println(line);
-        System.out.println("Error loading tasks from file.");
-        System.out.println(line);
+    public String showLoadingError() {
+        StringBuilder message = new StringBuilder();
+        message.append("Error loading tasks from file.\n");
+        return message.toString();
     }
 
     /**
      * Displays a list of tasks to the user.
      *
      * @param taskList The list of tasks to display.
+     * @return The list of tasks as a string.
      */
-    public void showTaskList(ArrayList<Task> taskList) {
-        System.out.println(line);
-
-        System.out.println(" Here are the tasks in your list:");
+    public String showTaskList(ArrayList<Task> taskList) {
+        StringBuilder message = new StringBuilder();
+        message.append(" Here are the tasks in your list:\n");
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(" " + (i + 1) + "." + taskList.get(i));
+            message.append(" ").append(i + 1).append(".").append(taskList.get(i)).append("\n");
         }
-        System.out.println(line);
-    }
-
-    public void showMatchingTasks(ArrayList<Task> matchingTasks) {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Here are the matching tasks in your list:");
-
-        for (int i = 0; i < matchingTasks.size(); i++) {
-            System.out.println(" " + (i + 1) + "." + matchingTasks.get(i));
-        }
-
-        System.out.println("____________________________________________________________");
+        return message.toString();
     }
 
     /**
@@ -74,37 +102,40 @@ public class Ui {
      *
      * @param task       The task that has been added.
      * @param totalTasks The total number of tasks after adding.
+     * @return The message as a string.
      */
-    public void showTaskAdded(Task task, int totalTasks) {
-        System.out.println(line);
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + totalTasks + " tasks in the list.");
-        System.out.println(line);
+    public String showTaskAdded(Task task, int totalTasks) {
+        StringBuilder message = new StringBuilder();
+        message.append(" Got it. I've added this task:\n");
+        message.append("   ").append(task).append("\n");
+        message.append(" Now you have ").append(totalTasks).append(" tasks in the list.\n");
+        return message.toString();
     }
 
     /**
      * Displays a message indicating that a task has been marked as done.
      *
      * @param task The task that has been marked as done.
+     * @return The message as a string.
      */
-    public void showTaskMarkedAsDone(Task task) {
-        System.out.println(line);
-        System.out.println(" Nice! I've marked this task as done:");
-        System.out.println("   " + task);
-        System.out.println(line);
+    public String showTaskMarkedAsDone(Task task) {
+        StringBuilder message = new StringBuilder();
+        message.append(" Nice! I've marked this task as done:\n");
+        message.append("   ").append(task).append("\n");
+        return message.toString();
     }
 
     /**
      * Displays a message indicating that a task has been marked as not done.
      *
      * @param task The task that has been marked as not done.
+     * @return The message as a string.
      */
-    public void showTaskMarkedAsNotDone(Task task) {
-        System.out.println(line);
-        System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.println("   " + task);
-        System.out.println(line);
+    public String showTaskMarkedAsNotDone(Task task) {
+        StringBuilder message = new StringBuilder();
+        message.append(" OK, I've marked this task as not done yet:\n");
+        message.append("   ").append(task).append("\n");
+        return message.toString();
     }
 
     /**
@@ -112,23 +143,40 @@ public class Ui {
      *
      * @param task       The task that has been deleted.
      * @param totalTasks The total number of tasks after deletion.
+     * @return The message as a string.
      */
-    public void showTaskDeleted(Task task, int totalTasks) {
-        System.out.println(line);
-        System.out.println(" Noted. I've removed this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + totalTasks + " tasks in the list.");
-        System.out.println(line);
+    public String showTaskDeleted(Task task, int totalTasks) {
+        StringBuilder message = new StringBuilder();
+        message.append(" Noted. I've removed this task:\n");
+        message.append("   ").append(task).append("\n");
+        message.append(" Now you have ").append(totalTasks).append(" tasks in the list.\n");
+        return message.toString();
+    }
+
+    /**
+     * Displays a message indicating that a task has been deleted.
+     *
+     * @param matchingTasks The list of matching tasks to display.
+     * @return The matching tasks as a string.
+     */
+    public String showMatchingTasks(ArrayList<Task> matchingTasks) {
+        StringBuilder message = new StringBuilder();
+        message.append(" Here are the matching tasks in your list:\n");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            message.append(" ").append(i + 1).append(".").append(matchingTasks.get(i)).append("\n");
+        }
+        return message.toString();
     }
 
     /**
      * Displays an error message to the user.
      *
      * @param message The error message to display.
+     * @return The error message as a string.
      */
-    public void showError(String message) {
-        System.out.println(line);
-        System.out.println(" " + message);
-        System.out.println(line);
+    public String showError(String message) {
+        StringBuilder errorMessage = new StringBuilder();
+        errorMessage.append(" ").append(message).append("\n");
+        return errorMessage.toString();
     }
 }
