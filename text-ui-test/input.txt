@@ -1,0 +1,19 @@
+list
+todo todo1 
+todo do cs2103
+todo
+list
+deadline return book /by Sunday
+deadline return book /by 2023-08-29
+event project meeting /from Mon 2pm /to 4pm
+deadline
+mark 2
+mark 4
+mark 0
+unmark 100
+unmark 2
+delete -1
+delete 10
+delete 3
+list
+bye
