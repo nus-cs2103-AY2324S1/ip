@@ -29,7 +29,7 @@ public class EventCommand extends Command {
      */
     public String execute(TaskList tl) {
         try {
-            tl.add(new Event(this.rest));
+            tl.add(new Event(rest));
             DataHandler.writeToDatabase(tl);
             return generateMessage(tl);
         } catch (Exception PukeException) {

@@ -22,14 +22,16 @@ public class Task {
      * Marks a task as done
      */
     public void mark() {
-        this.done = true;
+        assert (!done);
+        done = true;
     }
 
     /**
      * Marks a task as undone
      */
     public void unmark() {
-        this.done = false;
+        assert (done);
+        done = false;
     }
 
     public String getDescription() {
@@ -45,10 +47,10 @@ public class Task {
      */
     public String write() {
         int checked = 0;
-        if (this.done) {
+        if (done) {
             checked = 1;
         }
-        return String.format("%s/%d/%s", this.tag, checked , this.description);
+        return String.format("%s/%d/%s", tag, checked , description);
     }
 
     /**
