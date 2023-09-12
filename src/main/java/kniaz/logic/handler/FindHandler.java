@@ -51,8 +51,6 @@ public class FindHandler implements CommandHandler {
 
                 if (task.getTaskName().contains(key)) {
                     out.add(task);
-                } else if (task.containsTag(key)) {
-                    out.add(task);
                 }
                 // This nesting's not TOO bad
             }
