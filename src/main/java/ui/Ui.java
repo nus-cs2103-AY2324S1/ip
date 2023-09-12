@@ -153,7 +153,7 @@ public class Ui {
     }
     /**
      * Add snooze response to responses.
-     * @param task
+     * @param task The task to snooze.
      */
     public void showsnoozeTask(Task task) {
         responses.add("Noted. I've snoozed this task:");

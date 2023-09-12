@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 
 import exceptions.DukeException;
 import io.Storage;
-import tasks.Task;
 import tasks.DeadlineTask;
+import tasks.Task;
 import tasks.TaskList;
 import ui.Ui;
 
@@ -34,7 +34,7 @@ public class SnoozeCommand extends Command {
             String[] commandArray = getFullCommand().split(" ");
             int taskNumber = Integer.parseInt(commandArray[1]);
             // snooze 1 /by 2/12/2019 1800
-            String[] commandArrayBy = getFullCommand().split(" /by " );
+            String[] commandArrayBy = getFullCommand().split(" /by ");
             String dataString = commandArrayBy[1];
             System.out.println(dataString);
             LocalDateTime byDateTime;
