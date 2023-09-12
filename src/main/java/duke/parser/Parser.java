@@ -30,6 +30,7 @@ public class Parser {
 	 * @throws InvalidActionException if the action phrase is not recognised
 	 */
 	public static Command doActionCommand(String actionPhrase) throws InvalidActionException {
+		assert actionPhrase.length() <= 4 : "Either bye or list only";
 		switch (actionPhrase) {
 			case "bye":
 				return new ByeCommand();
@@ -48,11 +49,15 @@ public class Parser {
 	 */
 
 	public static int getValidIndex(String accessKey) throws NumberFormatException {
-		int pos = Integer.parseInt(accessKey);
-		if (pos < 0) {
+		try {
+			int pos = Integer.parseInt(accessKey);
+			if (pos < 0) {
+				throw new NumberFormatException("Cannot access negative position");
+			}
+			return pos;
+		} catch (NumberFormatException e) {
 			throw new NumberFormatException("Cannot access negative position");
 		}
-		return pos;
 	}
 
 	/**
@@ -62,10 +67,13 @@ public class Parser {
 	 * @throws PositionException if task number provided is not valid
 	 * @throws DukeException for unknown AccessCommands
 	 */
-	public static Command doAccessCommand(String accessPhrase) throws PositionException, DukeException {
+	public static Command doAccessCommand(String accessPhrase) throws PositionException, DukeException, NumberFormatException {
 		String[] words = accessPhrase.split(" ");
 		String commandWord = words[0];
+		assert commandWord.length() <= 6 : "not valid command";
+
 		String accessKey = words[1];
+		Parser.getValidIndex(accessKey);
 		boolean isFind = commandWord.equals("find");
 		boolean isMark = commandWord.equals("mark") || commandWord.equals("unmark");
 		boolean isDelete = commandWord.equals("delete");
@@ -114,6 +122,7 @@ public class Parser {
 	 */
 	public static Command doTaskCommand(String taskPhrase) throws DukeException, TimeFormatException {
 		String command = taskPhrase.split(" ")[0];
+		assert(command.length() <= 8) : "not a valid task command";
 		switch (command) {
 			case "todo":
 				return getToDo(taskPhrase);
@@ -234,9 +243,10 @@ public class Parser {
 	public static Command parse(String fullCommand) throws DukeException {
 		String[] item = fullCommand.split(" ");
 		String commandWord = item[0];
+		assert commandWord.length() <= 6 : "unknown command";
 		try {
 			return item.length == 1 ? doActionCommand(fullCommand) : item.length == 2 && !commandWord.equals("todo") ? doAccessCommand(fullCommand) : doTaskCommand(fullCommand);
-		} catch (DukeException | PositionException | InvalidActionException | TimeFormatException d) {
+		} catch (DukeException | PositionException | InvalidActionException | TimeFormatException | NumberFormatException d) {
 			throw new DukeException(d.getMessage());
 		}
 	}

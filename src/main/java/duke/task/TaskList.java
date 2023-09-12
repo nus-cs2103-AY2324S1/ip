@@ -52,6 +52,7 @@ public class TaskList {
 	 * @throws DukeException If unable to mark task at specified idx.
 	 */
 	public void toMark(Boolean toMark, int pos, Ui ui) throws DukeException {
+		assert(pos >= 0) : "can not mark or unmark negative position";
 		if (pos > taskList.size()) {
 			throw new DukeException("Trying to mark or unmark something beyond the list");
 		}

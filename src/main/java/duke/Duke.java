@@ -80,7 +80,7 @@ public class Duke {
                 Command c = Parser.parse(input);
                 br.append(c.execute(tasks, ui, storage));
                 return br.toString();
-        } catch (DukeException | TimeFormatException e) {
+        } catch (DukeException e) {
             return e.getMessage();
         } finally {
             br.append(ui.getLine());
