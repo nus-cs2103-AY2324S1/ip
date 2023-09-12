@@ -13,9 +13,11 @@ import kniaz.logic.handler.InvalidHandler;
 import kniaz.logic.handler.ListHandler;
 import kniaz.logic.handler.MarkHandler;
 import kniaz.logic.handler.QuitHandler;
+import kniaz.logic.handler.TagHandler;
 import kniaz.logic.handler.ToDoHandler;
 import kniaz.logic.handler.UnmarkHandler;
 import ui.inputparser.InstructionType;
+
 
 
 /**
@@ -24,24 +26,26 @@ import ui.inputparser.InstructionType;
  */
 public abstract class CommandFactory {
     private static final EnumMap<InstructionType, CommandHandler> INSTRUCT_TO_HANDLER =
-            new EnumMap<>(Map.of(
-                    InstructionType.TODO, new ToDoHandler(),
-                    InstructionType.DEADLINE, new DeadlineHandler(),
-                    InstructionType.EVENT, new EventHandler(),
-                    InstructionType.MARK, new MarkHandler(),
-                    InstructionType.UNMARK, new UnmarkHandler(),
-                    InstructionType.LIST, new ListHandler(),
-                    InstructionType.QUIT, new QuitHandler(),
-                    InstructionType.DELETE, new DeleteHandler(),
-                    InstructionType.FIND, new FindHandler(),
-                    InstructionType.INVALID, new InvalidHandler()
+            new EnumMap<>(Map.ofEntries(
+                    Map.entry(InstructionType.TODO, new ToDoHandler()),
+                    Map.entry(InstructionType.DEADLINE, new DeadlineHandler()),
+                    Map.entry(InstructionType.EVENT, new EventHandler()),
+                    Map.entry(InstructionType.MARK, new MarkHandler()),
+                    Map.entry(InstructionType.UNMARK, new UnmarkHandler()),
+                    Map.entry(InstructionType.LIST, new ListHandler()),
+                    Map.entry(InstructionType.QUIT, new QuitHandler()),
+                    Map.entry(InstructionType.DELETE, new DeleteHandler()),
+                    Map.entry(InstructionType.FIND, new FindHandler()),
+                    Map.entry(InstructionType.TAG, new TagHandler()),
+                    Map.entry(InstructionType.INVALID, new InvalidHandler())
             ));
 
     static {
         // This ensures that at compile time all instruction types have an explicit, valid handler
         for (InstructionType i : InstructionType.values()) {
-            assert(INSTRUCT_TO_HANDLER.containsKey(i))
-                    : "There was a command " + i.alias + "with no associated handler!";
+
+            assert INSTRUCT_TO_HANDLER.containsKey(i)
+                    : "There was a command " + i.alias + " with no associated handler!";
         }
     }
 
