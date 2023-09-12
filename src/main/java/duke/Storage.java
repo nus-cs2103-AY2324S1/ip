@@ -78,7 +78,6 @@ public class Storage {
      * @param taskList The list of tasks to be saved.
      */
     public void writeToDB(TaskList taskList) {
-        assert taskList != null : "Task list cannot be null";
         StringBuilder content = new StringBuilder();
         for (Task task : taskList.getList()) {
             content.append(task.getDbString()).append("\n");
