@@ -1,8 +1,12 @@
 package duke.ui;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
+import duke.commands.EventCommand;
+import duke.tasks.Events;
 import duke.tasks.Task;
+import duke.utilities.EventList;
 import duke.utilities.TaskList;
 
 /**

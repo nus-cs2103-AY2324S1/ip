@@ -3,6 +3,7 @@ package duke.utilities;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import duke.tasks.Events;
 import duke.tasks.Task;
 
 /**
@@ -70,7 +71,7 @@ public class TaskList implements Serializable {
      * A getter function that returns the taskList itself.
      * @return The taskList.
      */
-    public ArrayList getTaskList() {
+    public ArrayList<Task> getTaskList() {
         return this.taskList;
     }
 

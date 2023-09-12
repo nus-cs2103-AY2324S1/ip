@@ -1,5 +1,10 @@
 package duke.tasks;
 
+import duke.exception.DukeException;
+import duke.main.Duke;
+import duke.utilities.EventList;
+import duke.utilities.TaskList;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -7,7 +12,6 @@ import java.time.format.DateTimeFormatter;
  * Represents an event task.
  */
 public class Events extends duke.tasks.Task {
-    // additional start and end time fields for events
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
