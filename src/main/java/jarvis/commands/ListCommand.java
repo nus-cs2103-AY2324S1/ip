@@ -2,8 +2,8 @@ package jarvis.commands;
 
 import java.util.ArrayList;
 
-import jarvis.Storage;
-import jarvis.Ui;
+import jarvis.storage.Storage;
+import jarvis.gui.Ui;
 import jarvis.tasks.Task;
 import jarvis.tasks.TaskList;
 

@@ -2,9 +2,9 @@ package jarvis.commands;
 
 import java.time.LocalDateTime;
 
-import jarvis.Parser;
-import jarvis.Storage;
-import jarvis.Ui;
+import jarvis.parser.Parser;
+import jarvis.storage.Storage;
+import jarvis.gui.Ui;
 import jarvis.exceptions.InvalidDateTimeFormatException;
 import jarvis.exceptions.InvalidIndexException;
 import jarvis.exceptions.InvalidTaskFormatException;

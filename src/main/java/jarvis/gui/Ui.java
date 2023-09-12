@@ -1,4 +1,4 @@
-package jarvis;
+package jarvis.gui;
 
 import java.util.ArrayList;
 
@@ -17,17 +17,16 @@ public class Ui {
     "\t    ██  █████  ██████  ██    ██ ██ ███████ \n" +
     "\t    ██ ██   ██ ██   ██ ██    ██ ██ ██      \n" +
     "\t    ██ ███████ ██████  ██    ██ ██ ███████ \n" +
-    "\t██  ██ ██   ██ ██   ██  ██  ██  ██      ██\n" +
+    "\t██  ██ ██   ██ ██   ██  ██  ██  ██      ██ \n" +
     "\t█████  ██   ██ ██   ██   ████   ██ ███████ \n";
 
 
     public static final String DATE_TIME_FORMAT = "MMM dd yyyy HHmm";
 
-    public void printIntro() {
-        breakLine();
-        System.out.println("    Hi Master! I'm your personal assistant: JARVIS! \n" +
-                "\n" + LOGO + "\n" + "    How can I serve you today? \n");
-        breakLine();
+    public String printIntro() {
+        String introMessage = "    Hi Master! I'm your personal assistant: JARVIS! \n"
+                +  "\n" + LOGO + "\n" + "    How can I serve you today? \n";
+        return introMessage;
     }
 
     public void printResponse(String response) {
@@ -67,7 +66,7 @@ public class Ui {
         breakLine();
     }
 
-    public static void breakLine() {
-        System.out.println("    ____________________________________________________________\n");
+    public static String breakLine() {
+        return "    ____________________________________________________________\n";
     }
 }

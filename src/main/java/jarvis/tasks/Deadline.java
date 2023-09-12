@@ -3,7 +3,7 @@ package jarvis.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import jarvis.Ui;
+import jarvis.gui.Ui;
 
 /**
  * Represents the "Deadline" task in Jarvis app.
