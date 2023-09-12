@@ -3,7 +3,6 @@ package command;
 import java.util.ArrayList;
 
 import duke.Storage;
-import duke.Ui;
 import task.Task;
 import task.TaskList;
 
@@ -25,11 +24,10 @@ public class FindCommand extends Command {
      * given keyword
      *
      * @param tasks TaskList which contains an ArrayList of tasks
-     * @param ui Text Ui that the user interacts with
      * @param storage File path where the tasks are stored
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         ArrayList<Task> filteredTasks = tasks.filterTasks(this.keyword);
         TaskList filteredList = new TaskList(filteredTasks);
         if (filteredTasks.isEmpty()) {

@@ -2,7 +2,6 @@ package command;
 
 import duke.DukeException;
 import duke.Storage;
-import duke.Ui;
 import task.Task;
 import task.TaskList;
 
@@ -25,12 +24,11 @@ public class MarkCommand extends Command {
      * in the specified Storage file
      *
      * @param tasks TaskList which contains an ArrayList of tasks
-     * @param ui Text Ui that the user interacts with
      * @param storage File path where the tasks are stored
      * @throws DukeException if an invalid index is given
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
         if (this.index >= 0 && this.index < tasks.getSize()) {
             Task task = tasks.getTask(this.index);
             tasks.markTask(task);

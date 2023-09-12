@@ -8,6 +8,7 @@ import command.DeadlineCommand;
 import command.DeleteCommand;
 import command.EventCommand;
 import command.FindCommand;
+import command.HelpCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.TodoCommand;
@@ -30,27 +31,29 @@ public class Parser {
     public static Command parse(String input) throws DukeException {
         if (input.equals("list")) {
             return new ListCommand();
-        } else {
-            String[] details = input.split(" ", 2);
-            String commandName = details[0];
-            switch (commandName) {
-            case MarkCommand.COMMAND_WORD:
-                return prepareMark(details);
-            case UnmarkCommand.COMMAND_WORD:
-                return prepareUnmark(details);
-            case DeleteCommand.COMMAND_WORD:
-                return prepareDelete(details);
-            case TodoCommand.COMMAND_WORD:
-                return prepareTodo(details);
-            case DeadlineCommand.COMMAND_WORD:
-                return prepareDeadline(details);
-            case EventCommand.COMMAND_WORD:
-                return prepareEvent(details);
-            case FindCommand.COMMAND_WORD:
-                return prepareFind(details);
-            default:
-                throw new DukeException("Sorry! I do not recognise this command");
-            }
+        }
+        if (input.equals("help")) {
+            return new HelpCommand();
+        }
+        String[] details = input.split(" ", 2);
+        String commandName = details[0];
+        switch (commandName) {
+        case MarkCommand.COMMAND_WORD:
+            return prepareMark(details);
+        case UnmarkCommand.COMMAND_WORD:
+            return prepareUnmark(details);
+        case DeleteCommand.COMMAND_WORD:
+            return prepareDelete(details);
+        case TodoCommand.COMMAND_WORD:
+            return prepareTodo(details);
+        case DeadlineCommand.COMMAND_WORD:
+            return prepareDeadline(details);
+        case EventCommand.COMMAND_WORD:
+            return prepareEvent(details);
+        case FindCommand.COMMAND_WORD:
+            return prepareFind(details);
+        default:
+            throw new DukeException("Sorry! I do not recognise this command");
         }
     }
 

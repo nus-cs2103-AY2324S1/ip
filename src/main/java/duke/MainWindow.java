@@ -34,7 +34,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("Hello! I'm Handsome!\nWhat can I do for you?", dukeImage));
+                DialogBox.getDukeDialog(Ui.welcomeMessage(), dukeImage));
     }
 
     public void setDuke(Duke d) {
@@ -49,6 +49,8 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         if (input.equals("bye")) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getDukeDialog(Ui.goodbyeMessage(), dukeImage));
             Platform.exit();
         } else {
             String response = duke.getResponse(input);

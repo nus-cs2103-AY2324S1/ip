@@ -1,7 +1,6 @@
 package command;
 
 import duke.Storage;
-import duke.Ui;
 import task.TaskList;
 import task.Todo;
 
@@ -24,11 +23,10 @@ public class TodoCommand extends Command {
      * Storage file
      *
      * @param tasks TaskList which contains an ArrayList of tasks
-     * @param ui Text Ui that the user interacts with
      * @param storage File path where the tasks are stored
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         Todo todo = new Todo(this.description);
         int originalSize = tasks.getSize();
         tasks.addTask(todo);
