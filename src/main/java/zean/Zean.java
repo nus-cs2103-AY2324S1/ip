@@ -92,6 +92,7 @@ public class Zean {
         } catch (DukeException e) {
             output = e.getMessage();
         }
+        assert !output.isBlank();
         return output;
     }
 

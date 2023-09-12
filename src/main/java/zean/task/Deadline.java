@@ -38,6 +38,7 @@ public class Deadline extends Task {
      */
     public Deadline(String bool, String description, String by) {
         super(description.strip());
+        assert description != null;
         this.by = LocalDate.parse(by.strip());
         if (Integer.parseInt(bool) == 1) {
             this.isDone = true;

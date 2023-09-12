@@ -46,6 +46,7 @@ public class TaskList {
      * @return The output to be printed on the console.
      */
     public String add(String description) {
+        assert description != null;
         Todo task = new Todo(description);
         this.tasks.add(task);
         this.count++;
@@ -61,6 +62,7 @@ public class TaskList {
      * @return The output to be printed on the console.
      */
     public String add(String description, String by) {
+        assert description != null;
         Deadline task = new Deadline(description, by);
         this.tasks.add(task);
         this.count++;
@@ -77,6 +79,7 @@ public class TaskList {
      * @return The output to be printed on the console.
      */
     public String add(String description, String from, String to) {
+        assert description != null;
         Event task = new Event(description, from, to);
         this.tasks.add(task);
         this.count++;
@@ -170,6 +173,7 @@ public class TaskList {
      * @return The output to be printed on the console.
      */
     public String find(String description) {
+        assert description != null;
         ArrayList<Task> subList = new ArrayList<>();
         this.tasks.forEach((task) -> {
             if (task.getDescription().toLowerCase().contains(description.trim().toLowerCase())) {

@@ -45,6 +45,7 @@ public class Event extends Task {
      */
     public Event(String bool, String description, String from, String to) {
         super(description.strip());
+        assert description != null;
         this.from = LocalDate.parse(from.strip());
         this.to = LocalDate.parse(to.strip());
         if (Integer.parseInt(bool) == 1) {
