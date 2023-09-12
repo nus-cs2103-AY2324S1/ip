@@ -6,7 +6,6 @@ import command.DeadlineCommand;
 import command.DeleteCommand;
 import command.EventCommand;
 import command.FindCommand;
-import command.GreetCommand;
 import command.InvalidCommand;
 import command.ListCommand;
 import command.MarkCommand;
@@ -44,8 +43,6 @@ public class Parser {
         String command = fullCommand.split(" ")[0];
         Keyword k = Keyword.valueOf(command.toUpperCase());
         switch (k) {
-        case HELLO:
-            return new GreetCommand(taskList, ui, storage);
         case MARK:
             return new MarkCommand(taskList, ui, storage);
         case UNMARK:
