@@ -16,12 +16,14 @@ public class DeleteWorker extends TaskWorker {
      */
     @Override
     public String work(String[] inputParts, ArrayList<Task> taskList) {
+        assert inputParts != null;
         try {
             int index = Integer.parseInt(inputParts[1]) - 1;
             if (index > taskList.size()) {
                 throw new IrisException("☹ OOPS!!! Unable to delete non-existent task");
             }
             Task removedTask = taskList.remove(index);
+            assert removedTask != null;
             return "Noted. I've removed this task:\n" + removedTask
                     + "\nNow you have " + taskList.size()
                     + " tasks in the list.";
