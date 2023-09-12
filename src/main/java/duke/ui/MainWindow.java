@@ -46,6 +46,8 @@ public class MainWindow extends AnchorPane {
 
     public void setDuke(Duke d) {
         this.duke = d;
+        String welcomeMsg = this.duke.init();
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(welcomeMsg, dukeImage));
     }
 
     @FXML
@@ -67,11 +69,7 @@ public class MainWindow extends AnchorPane {
     }
 
     private void exitApp() {
-        Executor delayed = CompletableFuture.delayedExecutor(1, TimeUnit.SECONDS);
-        CompletableFuture.supplyAsync(() -> "test", delayed).thenRun(() -> {
-            Platform.exit();
-            System.exit(0);
-        });
+        Platform.exit();
     }
 
 }

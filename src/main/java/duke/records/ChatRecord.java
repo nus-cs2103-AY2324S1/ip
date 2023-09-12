@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import duke.parser.TaskParser;
 import duke.storage.SaveData;
+import duke.task.InvalidTaskException;
 import duke.task.Task;
 
 /**
@@ -42,7 +43,10 @@ public class ChatRecord {
      * @param n the task number of the task in the records.
      * @return the removed task.
      */
-    public Task deleteTask(int n) {
+    public Task deleteTask(int n) throws InvalidTaskException {
+        if (n >= chatRecords.size()) {
+            throw new InvalidTaskException("Task not found! Please specify a task available in the task list!");
+        }
         return chatRecords.remove(n - 1);
     }
 
@@ -84,6 +88,7 @@ public class ChatRecord {
      * @return the string representation for the save file.
      */
     public String toSave() {
+        assert chatRecords != null;
         Task[] temp = new Task[chatRecords.size()];
         temp = chatRecords.toArray(temp);
         return TaskParser.generateSaveString(temp);

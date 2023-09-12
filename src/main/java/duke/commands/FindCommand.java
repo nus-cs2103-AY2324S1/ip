@@ -10,8 +10,8 @@ import duke.records.ChatRecord;
  */
 public class FindCommand extends Command {
     public static final String COMMAND_PHRASE = "find";
-    public static final String COMMAND_DESC = "These are the tasks with the matching keyword:";
-    public static final String NO_RESULT = "You have no tasks in the list with the matching keyword!";
+    private static final String COMMAND_DESC = "These are the tasks with the matching keyword:";
+    private static final String NO_RESULT = "You have no tasks in the list with the matching keyword!";
     private String findWord;
     private ChatRecord records;
     public FindCommand(String findWord) {
