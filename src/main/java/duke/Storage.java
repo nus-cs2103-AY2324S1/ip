@@ -42,6 +42,7 @@ public class Storage {
      */
     public ArrayList<Task> getTasks() {
         createFile();
+        assert this.hardDiskFile != null: "Storage file should exist";
 
         ArrayList<Task> tasks = new ArrayList<>();
 
