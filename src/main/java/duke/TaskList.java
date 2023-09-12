@@ -24,6 +24,7 @@ public class TaskList {
      */
     public TaskList(File startFile) {
         this.startFile = startFile;
+        assert this.startFile.exists();
         this.list = new ArrayList<Task>();
         Scanner scan = new Scanner(System.in);
         try {

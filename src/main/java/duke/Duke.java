@@ -1,5 +1,6 @@
 package duke;
 
+import java.io.File;
 import java.util.Scanner;
 
 /**
@@ -22,6 +23,8 @@ public class Duke {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(storage.load());
+        File checkFile = new File(filePath);
+        assert checkFile.exists();
     }
 
     /**
