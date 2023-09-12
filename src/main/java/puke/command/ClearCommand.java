@@ -22,7 +22,7 @@ public class ClearCommand extends Command {
      * @return The message for clearing all tasks.
      */
     public String execute(TaskList tl) {
-        if (!super.isValid) {
+        if (!isValid) {
             return ERROR_MESSAGE;
         } else {
             try {

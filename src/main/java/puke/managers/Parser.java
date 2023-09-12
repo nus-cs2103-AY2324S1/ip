@@ -27,6 +27,8 @@ public class Parser {
      */
     public static Command parse(String command, String line) throws PukeException {
         try {
+            assert (command != null);
+            assert (!command.isEmpty());
             if (command.equals("bye")) {
                 return new ExitCommand(line);
             } else if (command.equals("list")) {

@@ -27,7 +27,8 @@ public class Puke {
         try {
             tasks = new TaskList(DataHandler.loadDatabase());
         } catch (PukeException e) {
-            new File("ListData.txt").createNewFile();
+            boolean created = new File("ListData.txt").createNewFile();
+            assert created;
             tasks = new TaskList();
         }
     }
