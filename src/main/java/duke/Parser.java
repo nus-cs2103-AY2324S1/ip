@@ -9,8 +9,6 @@ import task.Event;
 import task.Task;
 import task.ToDo;
 
-
-
 /**
  * Class that handles userInput and return appropriate action.
  *
@@ -37,6 +35,9 @@ public class Parser {
             break;
         case "list":
             result = ui.outputList(tasks);
+            break;
+        case "help":
+            result = ui.helpGenerator();
             break;
         default:
             if (input.startsWith("mark ")) {

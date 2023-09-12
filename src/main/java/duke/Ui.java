@@ -145,4 +145,20 @@ public class Ui {
         String result = DIVIDER + "\n" + message + "\n" + DIVIDER;
         return result;
     }
+
+    public String helpGenerator() {
+        StringBuilder output = new StringBuilder();
+        output.append("Here are the list of actions and format: \n");
+        output.append("todo TASK \n");
+        output.append("deadline TASK /by DATE \n");
+        output.append("event TASK /from DATE /to DATE \n");
+        output.append("mark NUMBER \n");
+        output.append("unmark NUMBER \n");
+        output.append("find TASK \n");
+        output.append("delete NUMBER \n");
+        output.append("TASK: description of user's task \n");
+        output.append("DATE: date in dd/MM/yyyy HHmm \n");
+        output.append("NUMBER: index number of task");
+        return addMessageFormat(output.toString());
+    }
 }
