@@ -32,32 +32,7 @@ public class Puke {
             tasks = new TaskList();
         }
     }
-
-    /*
-     * Runs the program
-     *
-    public void run() {
-        ui.startup();
-        boolean isExit = false;
-        while (!isExit) {
-            String command = ui.command();
-            String input = ui.input();
-            ui.line();
-            Command next;
-            try {
-                next = Parser.parse(command, input);
-            } catch (PukeException e) {
-                next = new ErrorCommand();
-            }
-            next.execute(tasks);
-            isExit = next.isExit();
-        }
-    }
-
-    public static void main(String[] args) throws IOException {
-        new Puke().run();
-    }
-*/
+    
     public String getResponse(String input) {
         Command next;
         String[] inputComponents = input.split(" ", 2);
