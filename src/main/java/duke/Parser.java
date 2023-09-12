@@ -36,7 +36,8 @@ public class Parser {
      * @param repeat the user input.
      * @throws DukeException if the user input is invalid.
      */
-    public String parse(String repeat) throws DukeException {
+    public String parse(String... inputs) throws DukeException {
+        String repeat = inputs[0];
         Pattern markPattern = Pattern.compile("(mark|unmark|delete) (\\d+)");
         Matcher markMatcher = markPattern.matcher(repeat);
         Pattern taskPattern = Pattern.compile("(todo|deadline|event) (.+)");
