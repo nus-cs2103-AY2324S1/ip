@@ -34,37 +34,13 @@ public class Parser {
         Command output;
         switch (command) {
         case "todo":
-            if (inputs.length == 1) {
-                throw new EmptyDescriptionException("Todo");
-            }
-            Todo newTodo = new Todo(inputs[1]);
-            output = new AddCommand(newTodo);
+            output = createAddTodoCommand(inputs);
             break;
         case "deadline":
-            if (inputs.length == 1) {
-                throw new EmptyDescriptionException("Deadline");
-            }
-            String[] infos = inputs[1].split(" /by ", 2);
-            if (infos.length == 1) {
-                throw new EmptyDescriptionException("Deadline");
-            }
-            Deadline newDdl = new Deadline(infos[0], LocalDate.parse(infos[1]));
-            output = new AddCommand(newDdl);
+            output = createAddDeadlineCommand(inputs);
             break;
         case "event":
-            if (inputs.length == 1) {
-                throw new EmptyDescriptionException("Event");
-            }
-            String[] infosEvent = inputs[1].split(" /from ", 2);
-            if (infosEvent.length == 1) {
-                throw new EmptyDescriptionException("Event");
-            }
-            String[] durations = infosEvent[1].split(" /to ", 2);
-            if (durations.length == 1) {
-                throw new EmptyDescriptionException("Event");
-            }
-            Event newEvent = new Event(infosEvent[0], LocalDate.parse(durations[0]), LocalDate.parse(durations[1]));
-            output = new AddCommand(newEvent);
+            output = createAddEventCommand(inputs);
             break;
         case "bye":
             output = new ExitCommand();
@@ -76,36 +52,22 @@ public class Parser {
             output = new ClearCommand();
             break;
         case "mark":
-            if (inputs.length == 1) {
-                throw new EmptyDescriptionException("mark");
-            }
-            int indexMark = Integer.parseInt(inputs[1]);
-            output = new MarkCommand(indexMark, true);
+            output = createMarkEventCommand(inputs, true);
             break;
         case "unmark":
-            if (inputs.length == 1) {
-                throw new EmptyDescriptionException("unmark");
-            }
-            int indexUnmark = Integer.parseInt(inputs[1]);
-            output = new MarkCommand(indexUnmark, false);
+            output = createMarkEventCommand(inputs, false);
             break;
         case "delete":
-            if (inputs.length == 1) {
-                throw new EmptyDescriptionException("delete");
-            }
+            checkEmptyDescription(inputs, "Delete");
             int indexDelete = Integer.parseInt(inputs[1]);
             output = new DeleteCommand(indexDelete);
             break;
         case "date":
-            if (inputs.length == 1) {
-                throw new EmptyDescriptionException("date search");
-            }
+            checkEmptyDescription(inputs, "Date Search");
             output = new DateSearchCommand(LocalDate.parse(inputs[1]));
             break;
         case "find":
-            if (inputs.length == 1) {
-                throw new EmptyDescriptionException("keyword search");
-            }
+            checkEmptyDescription(inputs, "Search Task");
             output = new SearchCommand(inputs[1]);
             break;
         default:
@@ -113,4 +75,49 @@ public class Parser {
         }
         return output;
     }
+
+    private static void checkEmptyDescription(String[] inputs, String commandType)
+            throws EmptyDescriptionException{
+        if (inputs.length == 1) {
+            throw new EmptyDescriptionException(commandType);
+        }
+    }
+
+    private static AddCommand createAddTodoCommand(String[] inputs) throws EmptyDescriptionException{
+        checkEmptyDescription(inputs, "Todo");
+        Todo newTodo = new Todo(inputs[1]);
+        return new AddCommand(newTodo);
+    }
+
+    private static AddCommand createAddDeadlineCommand(String[] inputs)
+            throws EmptyDescriptionException{
+        checkEmptyDescription(inputs, "Deadline");
+        String[] infos = inputs[1].split(" /by ", 2);
+        checkEmptyDescription(infos, "Deadline");
+        final LocalDate dueDate = LocalDate.parse(infos[1]);
+        Deadline newDdl = new Deadline(infos[0], dueDate);
+        return new AddCommand(newDdl);
+    }
+
+    private static AddCommand createAddEventCommand(String[] inputs)
+            throws EmptyDescriptionException{
+        checkEmptyDescription(inputs, "Event");
+        String[] infosEvent = inputs[1].split(" /from ", 2);
+        checkEmptyDescription(infosEvent, "Event");
+        String[] durations = infosEvent[1].split(" /to ", 2);
+        checkEmptyDescription(durations, "Event");
+        final LocalDate fromDate = LocalDate.parse(durations[0]);
+        final LocalDate toDate = LocalDate.parse(durations[1]);
+        Event newEvent = new Event(infosEvent[0], fromDate, toDate);
+        return new AddCommand(newEvent);
+    }
+
+    private static MarkCommand createMarkEventCommand(String[] inputs, Boolean willMark)
+            throws EmptyDescriptionException{
+        checkEmptyDescription(inputs, willMark ? "mark" : "unmark");
+        int indexMark = Integer.parseInt(inputs[1]);
+        return new MarkCommand(indexMark, willMark);
+    }
 }
+
+

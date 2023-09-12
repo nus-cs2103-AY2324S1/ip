@@ -1,6 +1,7 @@
 package rua.command;
 
 import rua.common.Storage;
+import rua.common.StringLogger;
 import rua.common.Ui;
 import rua.task.TaskList;
 
@@ -36,11 +37,8 @@ public class MarkCommand implements Command {
      */
     @Override
     public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
-        if (marked) {
-            ui.showMessage(MESSAGE_MARK);
-        } else {
-            ui.showMessage(MESSAGE_UNMARK);
-        }
+        String message = marked ? MESSAGE_MARK : MESSAGE_UNMARK;
+        ui.showMessage(message);
         TaskList newTasks = marked ? tasks.mark(index) : tasks.unmark(index);
         ui.showMessage("    " + tasks.getTasks().get(index - 1));
         return newTasks;

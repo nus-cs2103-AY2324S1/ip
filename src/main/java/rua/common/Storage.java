@@ -122,21 +122,21 @@ public class Storage {
             fw.close();
         } catch (FileNotFoundException exp) {
             Scanner sc = new Scanner(System.in);
-            System.out.println("Target file not found. Do you want to create it now? Please type yes or no\n");
+            StringLogger.append("Target file not found. Do you want to create it now? Please type yes or no\n");
             String create = sc.nextLine();
             while (!create.equals("yes") && !create.equals("no")) {
-                System.out.println("Incorrect input. Please type yes or no\n");
+                StringLogger.append("Incorrect input. Please type yes or no\n");
             }
             if (create.equals("yes")) {
                 int index = filePath.lastIndexOf("/");
                 String saveDir = filePath.substring(0, index);
                 File fileCreator = new File(saveDir);
                 fileCreator.mkdir();
-                System.out.println("File successfully created. Progress saved.\n");
+                StringLogger.append("File successfully created. Progress saved.\n");
                 try {
                     save(tasks);
                 } catch (IOException ioExp) {
-                    System.out.println("Some error occurs and progress is not saved.\n");
+                    StringLogger.append("Some error occurs and progress is not saved.\n");
                 }
             }
         }
