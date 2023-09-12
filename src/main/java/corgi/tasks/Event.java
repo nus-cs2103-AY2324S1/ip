@@ -7,9 +7,9 @@ import corgi.parsers.TaskParser;
 /**
  * Event task, a type of task that start at a specific date/time and ends at a specific date/time.
  */
-public class Event extends Task {
-    private LocalDate from;
-    private LocalDate to;
+public final class Event extends Task {
+    private final LocalDate from;
+    private final LocalDate to;
 
     /**
      * Initializes a new event with the given description and duration.
@@ -24,6 +24,7 @@ public class Event extends Task {
         this.to = to;
     }
 
+    
     /**
      * Initializes a new event task with the given status, description, start date, and end date.
      *
@@ -37,7 +38,23 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
     }
+    
+    @Override
+    public Event markAsDone() throws TaskStatusException{
+        if (status) {
+            throw new TaskStatusException("The task is already marked as done.");
+        }
+        return new Event(true, desc, from, to);
+    }
 
+    @Override
+    public Event markAsNotDone() throws TaskStatusException{
+        if (!status) {
+            throw new TaskStatusException("The task is already marked as not done.");
+        }
+        return new Event(false, desc, from, to);
+    }
+    
     /**
      * Checks if the event task is happening on the specified target date.
      *

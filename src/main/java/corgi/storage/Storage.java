@@ -17,9 +17,9 @@ import corgi.parsers.ParsingException;
  *
  * @param <T> The type of object being stored and loaded.
  */
-public class Storage<T extends Storable<T>> {
-    private Parser<T> parser;
-    private String filePath;
+public final class Storage<T extends Storable<T>> {
+    private final Parser<T> parser;
+    private final String filePath;
 
     /**
      * Constructs a Storage instance with the given parser and file path.

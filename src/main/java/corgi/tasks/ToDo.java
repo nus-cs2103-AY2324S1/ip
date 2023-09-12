@@ -4,7 +4,7 @@ import corgi.parsers.TaskParser;
 /**
  * Todo task, a type of task without any date/time attached to it.
  */
-public class ToDo extends Task {
+public final class ToDo extends Task {
     /**
      * Initializes a new todo task with the given description. The task's initial status is set to not done.
      *
@@ -22,6 +22,22 @@ public class ToDo extends Task {
      */
     public ToDo(boolean status, String desc) {
         super(status, desc);
+    }
+
+    @Override
+    public ToDo markAsDone() throws TaskStatusException{
+        if (status) {
+            throw new TaskStatusException("The task is already marked as done.");
+        }
+        return new ToDo(true, desc);
+    }
+
+    @Override
+    public ToDo markAsNotDone() throws TaskStatusException{
+        if (!status) {
+            throw new TaskStatusException("The task is already marked as not done.");
+        }
+        return new ToDo(false, desc);
     }
 
     /**

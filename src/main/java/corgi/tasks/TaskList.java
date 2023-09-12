@@ -13,7 +13,7 @@ import corgi.storage.StorableList;
  * This class implements the StorableList interface to provide methods for tasks storing.
  */
 public class TaskList implements StorableList<Task> {
-    private List<Task> tasks;
+    private final List<Task> tasks;
 
     /**
      * Constructs an empty TaskList.
@@ -28,51 +28,61 @@ public class TaskList implements StorableList<Task> {
      * @param tasks The list of tasks to initialize the TaskList.
      */
     public TaskList(List<Task> tasks) {
-        this.tasks = new ArrayList<>(tasks);
+        this.tasks = tasks;
     }
 
     /**
-     * Adds a task to the TaskList.
+     * Adds a new task to the TaskList and returns a new immutable TaskList with the added task.
      *
-     * @param t The task to be added.
+     * @param t The task to add to the TaskList.
+     * @return A new TaskList containing all previous tasks and the added task.
      */
-    public void add(Task t) {
-        this.tasks.add(t);
+    public TaskList add(Task t) {
+        List<Task> newList = new ArrayList<>(this.tasks);
+        newList.add(t);
+        return new TaskList(newList);
     }
 
     /**
-     * Removes a task at the specified index from the TaskList.
+     * Removes a task at the specified index from the TaskList and returns a new immutable TaskList
+     * without the removed task.
      *
      * @param index The index of the task to be removed.
      * @throws TaskListIndexOutOfBoundsException If the index is invalid.
+     * @return A new TaskList with the specified task removed.
      */
-    public void remove(int index) throws TaskListIndexOutOfBoundsException {
+    public TaskList remove(int index) throws TaskListIndexOutOfBoundsException {
         if (!isValidIndex(index)) {
             throw new TaskListIndexOutOfBoundsException(index);
         }
-        this.tasks.remove(index);
+        List<Task> newList = new ArrayList<>(this.tasks);
+        newList.remove(index);
+        return new TaskList(newList);
     }
 
     /**
-     * Marks a task's status as done or not done.
+     * Marks a task's status as done or not done and returns a new immutable TaskList with the updated task.
      *
      * @param index  The index of the task to be marked.
      * @param status The new status of the task.
      * @throws TaskListIndexOutOfBoundsException If the index is invalid.
-     * @throws TaskStatusException If task was already marked as the given status.
+     * @throws TaskStatusException If the task was already marked with the given status.
+     * @return A new TaskList with the specified task's status updated.
      */
-    public void mark(int index, boolean status) throws TaskListIndexOutOfBoundsException, TaskStatusException {
+    public TaskList mark(int index, boolean status) throws TaskListIndexOutOfBoundsException, TaskStatusException {
         if (!isValidIndex(index)) {
             throw new TaskListIndexOutOfBoundsException(index);
         }
 
-        Task task = this.tasks.get(index);
+        List<Task> updatedTasks = new ArrayList<>(this.tasks);
 
-        if (status) {
-            task.markAsDone();
-        } else {
-            task.markAsNotDone();
-        }
+        Task targetTask = updatedTasks.get(index);
+
+        Task modifiedTask = (status) ? targetTask.markAsDone() : targetTask.markAsNotDone();
+
+        updatedTasks.set(index, modifiedTask);
+
+        return new TaskList(updatedTasks);
     }
 
     /**
