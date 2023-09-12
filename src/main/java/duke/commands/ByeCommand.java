@@ -3,7 +3,7 @@ package duke.commands;
 import java.io.IOException;
 
 import duke.Storage;
-import duke.UI;
+import duke.Ui;
 import duke.tasks.TaskList;
 
 public class ByeCommand extends Command {
@@ -21,7 +21,7 @@ public class ByeCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String execute(TaskList tasks, UI ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         String output = "";
         this.isExit = true;
         try {

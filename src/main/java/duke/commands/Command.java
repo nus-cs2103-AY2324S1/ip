@@ -1,7 +1,7 @@
 package duke.commands;
 
 import duke.Storage;
-import duke.UI;
+import duke.Ui;
 import duke.tasks.TaskList;
 
 /**
@@ -36,5 +36,5 @@ public abstract class Command {
      * @return a String that is the output of the command
      * @throws Throwable
      */
-    public abstract String execute(TaskList tasks, UI ui, Storage storage) throws Throwable;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws Throwable;
 }

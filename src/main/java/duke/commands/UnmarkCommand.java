@@ -1,7 +1,7 @@
 package duke.commands;
 
 import duke.Storage;
-import duke.UI;
+import duke.Ui;
 import duke.exceptions.WrongMarkException;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
@@ -23,7 +23,7 @@ public class UnmarkCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String execute(TaskList tasks, UI ui, Storage storage) throws WrongMarkException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws WrongMarkException {
         String output = "";
         Task task = tasks.get(taskNumber - 1);
         try {

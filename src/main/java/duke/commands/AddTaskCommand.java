@@ -1,7 +1,7 @@
 package duke.commands;
 
 import duke.Storage;
-import duke.UI;
+import duke.Ui;
 import duke.exceptions.EmptyDetailsOfTaskError;
 import duke.exceptions.UnknownCommandException;
 import duke.tasks.Task;
@@ -24,7 +24,7 @@ public class AddTaskCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String execute(TaskList tasks, UI ui, Storage storage)
+    public String execute(TaskList tasks, Ui ui, Storage storage)
             throws EmptyDetailsOfTaskError, UnknownCommandException {
         String output = "";
         try {
