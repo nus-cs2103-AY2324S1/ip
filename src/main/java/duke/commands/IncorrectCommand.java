@@ -5,6 +5,9 @@ import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents an incorrect command
+ */
 public class IncorrectCommand extends Command {
     /**
      * The message to be displayed
@@ -26,7 +29,7 @@ public class IncorrectCommand extends Command {
      * @param tasks   the task list
      * @param ui      the ui
      * @param storage the storage
-     * @return
+     * @return the message
      * @throws DukeException if there is an error
      */
     @Override

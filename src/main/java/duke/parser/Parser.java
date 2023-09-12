@@ -1,11 +1,22 @@
 package duke.parser;
 
-import duke.commands.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import duke.commands.AddCommand;
+import duke.commands.Command;
+import duke.commands.DeleteCommand;
+import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
+import duke.commands.HelpCommand;
+import duke.commands.IncorrectCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkCommand;
+
+/**
+ * Represents a parser
+ */
 public class Parser {
     /**
      * Parses the query and returns the corresponding command
@@ -21,45 +32,45 @@ public class Parser {
         String keyword = split[0];
 
         switch (keyword) {
-            case "help":
-                command = validateHelp(split);
-                break;
-            case "bye":
-                command = validateExit(split);
-                break;
-            case "list":
-                command = validateList(split);
-                break;
-            case "todo":
-            case "deadline":
-            case "event":
-                command = validateTask(split);
-                break;
-            case "mark":
-            case "unmark":
-                command = validateMark(split);
-                break;
-            case "delete":
-                command = validateDelete(split);
-                break;
-            case "find":
-                command = validateFind(split);
-                break;
-            default:
-                command = new IncorrectCommand("OOPS!!! Please try again!\n"
-                        + "If you need help with commands, please type 'help'!");
+        case "help":
+            command = validateHelp(split);
+            break;
+        case "bye":
+            command = validateExit(split);
+            break;
+        case "list":
+            command = validateList(split);
+            break;
+        case "todo":
+        case "deadline":
+        case "event":
+            command = validateTask(split);
+            break;
+        case "mark":
+        case "unmark":
+            command = validateMark(split);
+            break;
+        case "delete":
+            command = validateDelete(split);
+            break;
+        case "find":
+            command = validateFind(split);
+            break;
+        default:
+            command = new IncorrectCommand("OOPS!!! Please try again!\n"
+                    + "If you need help with commands, please type 'help'!");
         }
         return command;
     }
 
     private static Command validateFind(String[] split) {
         if (split.length == 1) {
-            return new IncorrectCommand("OOPS! You are missing a keyword\n" +
-                    "Please enter a valid find query - find book");
+            return new IncorrectCommand("OOPS! You are missing a keyword\n"
+                    + "Please enter a valid find query - find book");
         }
         if (split.length > 2) {
-            return new IncorrectCommand("OOPS! You have too many keywords\n" +
-                    "Please enter a valid find query - find book");
+            return new IncorrectCommand("OOPS! You have too many keywords\n"
+                    + "Please enter a valid find query - find book");
         }
         return new FindCommand(split[1]);
     }
@@ -72,25 +83,25 @@ public class Parser {
      */
     private static Command validateMark(String[] split) {
         if (split.length == 1) {
-            return new IncorrectCommand("OOPS! You are missing a number\n" +
-                    "Please enter a valid mark query - mark 1");
+            return new IncorrectCommand("OOPS! You are missing a number\n"
+                    + "Please enter a valid mark query - mark 1");
         }
 
         if (split.length > 2) {
-            return new IncorrectCommand("OOPS! You have entered too many numbers\n" +
-                    "Please enter a valid mark query - mark 1");
+            return new IncorrectCommand("OOPS! You have entered too many numbers\n"
+                    + "Please enter a valid mark query - mark 1");
         }
 
         if (!isNumeric(split[1])) {
-            return new IncorrectCommand("OOPS! You have entered a non-numeric item!\n" +
-                    "Please enter a valid mark query - mark 1");
+            return new IncorrectCommand("OOPS! You have entered a non-numeric item!\n"
+                    + "Please enter a valid mark query - mark 1");
         }
 
         int index = Integer.parseInt(split[1]);
         // Check if index is greater than 0.
         if (index <= 0) {
-            return new IncorrectCommand("OOPS! You have entered a non-numeric item!\n" +
-                    "Please enter a number greater than 0 - mark 1");
+            return new IncorrectCommand("OOPS! You have entered a non-numeric item!\n"
+                    + "Please enter a number greater than 0 - mark 1");
         }
         return new MarkCommand(index, split[0]);
     }
@@ -104,16 +115,16 @@ public class Parser {
     public static Command validateDelete(String[] split) {
 
         if (split.length == 1) {
-            return new IncorrectCommand("OOPS! You are missing a number\n" +
-                    "Please enter a valid delete query - delete 1");
+            return new IncorrectCommand("OOPS! You are missing a number\n"
+                    + "Please enter a valid delete query - delete 1");
         }
         if (split.length > 2) {
-            return new IncorrectCommand("OOPS! You have too many numbers\n" +
-                    "Please enter a valid delete query - delete 1");
+            return new IncorrectCommand("OOPS! You have too many numbers\n"
+                    + "Please enter a valid delete query - delete 1");
         }
         if (!isNumeric(split[1])) {
-            return new IncorrectCommand("OOPS! You entered a non-numeric item!\n" +
-                    "Please enter a valid delete query - delete 1");
+            return new IncorrectCommand("OOPS! You entered a non-numeric item!\n"
+                    + "Please enter a valid delete query - delete 1");
         }
 
         int index = Integer.parseInt(split[1]);
@@ -134,7 +145,8 @@ public class Parser {
      */
     public static Command validateTask(String[] split) {
         if (split.length == 1) {
-            return new IncorrectCommand("OOPS! The description of a " + split[0] + " cannot be empty.");
+            return new IncorrectCommand("OOPS! The description of a " + split[0]
+                    + " cannot be empty.");
         }
 
         if (split[0].equals("deadline")) {
@@ -143,8 +155,8 @@ public class Parser {
             }
 
             if (split[1].split("\\s+/by\\s+").length == 1) {
-                return new IncorrectCommand("OOPS! You added a /by but did not include a deadline!.\n" +
-                        "Please enter a valid deadline - deadline return book /by dd/MM/yy HHmm");
+                return new IncorrectCommand("OOPS! You added a /by but did not include a deadline!.\n"
+                        + "Please enter a valid deadline - deadline return book /by dd/MM/yy HHmm");
             }
 
             String[] parts = split[1].split("\\s*/by\\s+");
@@ -161,20 +173,20 @@ public class Parser {
             }
         } else if (split[0].equals("event")) {
             if (!split[1].contains("/from") || !split[1].contains("/to")) {
-                return new IncorrectCommand("OOPS! Your query is missing the prefixes /from or /to\n" +
-                        "Please enter a valid event - event read book /from dd/MM/yy HHmm /to dd/MM/yy HHmm");
+                return new IncorrectCommand("OOPS! Your query is missing the prefixes /from or /to\n"
+                        + "Please enter a valid event - event read book /from dd/MM/yy HHmm /to dd/MM/yy HHmm");
             }
 
             int fromIndex = split[1].indexOf("/from");
             int toIndex = split[1].indexOf("/to");
 
             if (fromIndex > toIndex) {
-                return new IncorrectCommand("OOPS! The /from prefix should come before the /to prefix.\n" +
-                        "Please enter a valid event - event read book /from dd/MM/yy HHmm /to dd/MM/yy HHmm");
+                return new IncorrectCommand("OOPS! The /from prefix should come before the /to prefix.\n"
+                        + "Please enter a valid event - event read book /from dd/MM/yy HHmm /to dd/MM/yy HHmm");
             }
             if (split[1].split("\\s+/from\\s+").length == 1 || split[1].split("\\s+/to\\s+").length == 1) {
-                return new IncorrectCommand("OOPS! You added a /from or /to but did not include a time!.\n" +
-                        "Please enter a valid event - event read book /from dd/MM/yy HHmm /to dd/MM/yy HHmm");
+                return new IncorrectCommand("OOPS! You added a /from or /to but did not include a time!.\n"
+                        + "Please enter a valid event - event read book /from dd/MM/yy HHmm /to dd/MM/yy HHmm");
             }
             String[] parts = split[1].split("\\s*/from\\s+|\\s*/to\\s+");
             String taskName = parts[0];
@@ -183,13 +195,13 @@ public class Parser {
             }
             String from = parts[1];
             if (from.isEmpty()) {
-                return new IncorrectCommand("OOPS! You added a /from but did not include a time!.\n" +
-                        "Please enter a valid event - event read book /from dd/MM/yy HHmm /to dd/MM/yy HHmm");
+                return new IncorrectCommand("OOPS! You added a /from but did not include a time!.\n"
+                        + "Please enter a valid event - event read book /from dd/MM/yy HHmm /to dd/MM/yy HHmm");
             }
             String to = parts[2];
             if (to.isEmpty()) {
-                return new IncorrectCommand("OOPS! You added a /to but did not include a time!.\n" +
-                        "Please enter a valid event - event read book /from dd/MM/yy HHmm /to dd/MM/yy HHmm");
+                return new IncorrectCommand("OOPS! You added a /to but did not include a time!.\n"
+                        + "Please enter a valid event - event read book /from dd/MM/yy HHmm /to dd/MM/yy HHmm");
             }
 
             try {

@@ -9,6 +9,9 @@ import duke.ui.Main;
 import duke.ui.Ui;
 import javafx.application.Application;
 
+/**
+ * Represents a chat bot
+ */
 public class Duke {
     /**
      * The task list

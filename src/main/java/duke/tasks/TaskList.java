@@ -1,9 +1,12 @@
 package duke.tasks;
 
-import duke.exceptions.DukeException;
-
 import java.util.ArrayList;
 
+import duke.exceptions.DukeException;
+
+/**
+ * Represents a list of tasks
+ */
 public class TaskList {
     /**
      * The list of tasks
@@ -62,7 +65,7 @@ public class TaskList {
      * @throws DukeException Exception thrown upon invalid index.
      */
     public void changeStatus(int index, boolean isMark) throws DukeException {
-        if (index >= this.length()) {
+        if (index >= this.getLength()) {
             throw new DukeException("I'm unable to perform the mark/unmark operation due to an invalid index!");
         }
         if (this.list.get(index).isCompleted() == isMark) {
@@ -86,7 +89,7 @@ public class TaskList {
      *
      * @return the size of the list
      */
-    public int length() {
+    public int getLength() {
         return this.list.size();
     }
 

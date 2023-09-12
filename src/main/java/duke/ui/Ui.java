@@ -1,9 +1,12 @@
 package duke.ui;
 
-import duke.tasks.Task;
-
 import java.util.Scanner;
 
+import duke.tasks.Task;
+
+/**
+ * Represents a ui
+ */
 public class Ui {
     /**
      * The scanner to read user input
@@ -47,7 +50,8 @@ public class Ui {
      * @param task the task added
      */
     public String showAdd(int size, Task task) {
-        return "Got it. I've added this task:" + "\n" + task.toString() + "\n" + "Now you have " + size + " tasks in the list.";
+        return "Got it. I've added this task:" + "\n" + task.toString() + "\n"
+                + "Now you have " + size + " tasks in the list.";
     }
 
     /**

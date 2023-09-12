@@ -5,6 +5,9 @@ import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents a command
+ */
 public abstract class Command {
     /**
      * Executes the command
@@ -12,7 +15,7 @@ public abstract class Command {
      * @param tasks   the task list
      * @param ui      the ui
      * @param storage the storage
-     * @return
+     * @return the message
      * @throws DukeException if there is an error
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;

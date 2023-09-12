@@ -4,6 +4,9 @@ import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents a command to list all tasks
+ */
 public class ListCommand extends Command {
     /**
      * Executes the command
@@ -11,11 +14,11 @@ public class ListCommand extends Command {
      * @param tasks   the task list
      * @param ui      the ui
      * @param storage the storage
-     * @return
+     * @return the message
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return ui.showList(tasks.length()) + "\n" + tasks.showList();
+        return ui.showList(tasks.getLength()) + "\n" + tasks.showList();
     }
 
     /**

@@ -1,12 +1,19 @@
 package duke.commands;
 
-import duke.exceptions.DukeException;
-import duke.storage.Storage;
-import duke.tasks.*;
-import duke.ui.Ui;
-
 import java.time.LocalDateTime;
 
+import duke.exceptions.DukeException;
+import duke.storage.Storage;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.tasks.Todo;
+import duke.ui.Ui;
+
+/**
+ * Represents a command to add a task
+ */
 public class AddCommand extends Command {
     /**
      * The description of the task
@@ -73,21 +80,21 @@ public class AddCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task task;
         switch (this.type) {
-            case "todo":
-                task = new Todo(this.description);
-                break;
-            case "deadline":
-                task = new Deadline(this.description, this.to);
-                break;
-            case "event":
-                task = new Event(this.description, this.from, this.to);
-                break;
-            default:
-                throw new DukeException("Invalid task type!");
+        case "todo":
+            task = new Todo(this.description);
+            break;
+        case "deadline":
+            task = new Deadline(this.description, this.to);
+            break;
+        case "event":
+            task = new Event(this.description, this.from, this.to);
+            break;
+        default:
+            throw new DukeException("Invalid task type!");
         }
         tasks.add(task);
         storage.writeData(tasks.getAllTasks());
-        return ui.showAdd(tasks.length(), task);
+        return ui.showAdd(tasks.getLength(), task);
     }
 
     /**
@@ -99,6 +106,4 @@ public class AddCommand extends Command {
     public boolean isExit() {
         return false;
     }
-
-
 }

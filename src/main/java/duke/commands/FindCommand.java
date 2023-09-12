@@ -4,6 +4,9 @@ import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents a command to find a task
+ */
 public class FindCommand extends Command {
     private final String keyword;
 
@@ -19,8 +22,8 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         TaskList filteredTasks = tasks.filter(keyword);
-        return ui.showFilteredList(filteredTasks.length()) + "\n" +
-                filteredTasks.showList();
+        return ui.showFilteredList(filteredTasks.getLength()) + "\n"
+                + filteredTasks.showList();
     }
 
     /**

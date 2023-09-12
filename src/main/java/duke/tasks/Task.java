@@ -1,5 +1,8 @@
 package duke.tasks;
 
+/**
+ * Represents a task
+ */
 public abstract class Task {
     /**
      * The description of the task

@@ -25,6 +25,9 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
     private Duke duke;
 
+    /**
+     * Initializes the main window
+     */
     @FXML
     public void initialize() {
         dialogContainer.getChildren().add(
