@@ -1,9 +1,14 @@
 package cringebot.tasks;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Class to create a Todo.
  */
 class Todo extends Task {
+
+    private LocalDate date;
 
     /**
      * Constructor for the Todo class.
@@ -12,6 +17,16 @@ class Todo extends Task {
      */
     public Todo(String name) {
         super(name);
+    }
+
+    /**
+     * Constructor for the Todo class.
+     *
+     * @param name name of the todo.
+     */
+    public Todo(String name, LocalDate date) {
+        super(name);
+        this.date = date;
     }
 
     /**
@@ -30,6 +45,14 @@ class Todo extends Task {
         } else {
             checkBox = "[ ]";
         }
-        return String.format("%s%s %s", taskType, checkBox, super.getName());
+        return this.date == null
+                ? String.format("%s%s %s", taskType, checkBox, super.getName())
+                : String.format(
+                        "%s%s %s created on: %s",
+                        taskType,
+                        checkBox,
+                        super.getName(),
+                        date.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                );
     }
 }

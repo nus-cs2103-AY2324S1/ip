@@ -1,7 +1,11 @@
 package cringebot.tasks;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import cringebot.exceptions.CringeBotException;
 import cringebot.parser.Parser;
@@ -103,6 +107,68 @@ public class TaskList implements Serializable {
                 newTask,
                 this.tasks.size()
         );
+    }
+
+    /**
+     * Adds multiple items to the list of tasks.
+     *
+     * @param task type of task.
+     * @param input input from the user.
+     * @return String representation of the task.
+     * @throws CringeBotException Lets the user know if the task cannot be added.
+     */
+    public String addRecurringItems(Parser.TaskType task, String input) throws CringeBotException {
+        assert input != null : "input should not be null";
+        assert Objects.requireNonNull(task) == Parser.TaskType.DEADLINE : "task should be deadline";
+
+        ArrayList<Task> newTask = new ArrayList<>();
+        String[] splitSentence = input.split(" /");
+        String taskName = getRestOfSentence(splitSentence[0]).strip();
+        checkEmpty(taskName, "deadline");
+
+        if (splitSentence.length < 2 || !splitSentence[1].contains("by")) {
+            throw new CringeBotException("OOPS!!! Please indicate a deadline with the /by keyword. :(( ");
+        }
+
+        String date = splitSentence[1].replaceAll("by", "").strip();
+        String endDate = splitSentence[2].replaceAll("recurring", "").strip();
+        LocalDate targetDate;
+        LocalDate endLocalDate;
+        try {
+            endLocalDate = LocalDate.parse(endDate);
+            targetDate = LocalDate.parse(date);
+        } catch (DateTimeParseException e) {
+            throw new CringeBotException("OOPS!!! Please a date with the format yyyy-mm-dd. :((");
+        }
+        ArrayList<LocalDate> weeklyDates = findWeeklyDates(targetDate, endLocalDate);
+        for (LocalDate localDate : weeklyDates) {
+            newTask.add(new Deadline(taskName, localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+        }
+
+        StringBuilder returnString = new StringBuilder("Got it. I've added these task:\n");
+        for (Task task1 : newTask) {
+            this.tasks.add(task1);
+            returnString.append(String.format("%s\n", task1));
+        }
+        return returnString.append(String.format("Now you have %d tasks in the list.", this.tasks.size())).toString();
+    }
+
+    /**
+     * Takes in a input date end date and finds all possible dates between input date and the end date.
+     *
+     * @param targetDate input date.
+     * @param endDate end date.
+     * @return list of dates between the input date and end date.
+     */
+    public static ArrayList<LocalDate> findWeeklyDates(LocalDate targetDate, LocalDate endDate) {
+        ArrayList<LocalDate> weeklyDates = new ArrayList<>();
+        LocalDate currentDate = targetDate;
+
+        while (!currentDate.isAfter(endDate)) {
+            weeklyDates.add(currentDate);
+            currentDate = currentDate.plusWeeks(1);
+        }
+        return weeklyDates;
     }
 
     /**
