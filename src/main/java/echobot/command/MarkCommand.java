@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 /**
  * Represents a command to mark a task as done.
  */
-public class MarkCommand extends Command {
+public class MarkCommand extends Command<Task> {
     private int taskNum;
     private String responseText;
 

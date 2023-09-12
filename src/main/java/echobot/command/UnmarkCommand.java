@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 /**
  * Represents a command to unmark a task as not done.
  */
-public class UnmarkCommand extends Command {
+public class UnmarkCommand extends Command<Task> {
     private int taskNum;
     private String responseText;
 

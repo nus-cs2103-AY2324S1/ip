@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 /**
  * Represents a command to find specific task based on the keyword
  */
-public class FindCommand extends Command {
+public class FindCommand extends Command<Task> {
     private final String keyword;
     private String responseText;
 

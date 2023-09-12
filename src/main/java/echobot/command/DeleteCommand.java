@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 /**
  * Represents a command to delete a task from the list.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends Command<Task> {
     private int taskNum;
     private String responseText;
 

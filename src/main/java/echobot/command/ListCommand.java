@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Represents a command to list all tasks.
  */
-public class ListCommand extends Command {
+public class ListCommand extends Command<Task> {
     @Override
     public String doCommand(ArrayList<Task> tasks, Ui ui, Storage storage, Scene scene, VBox dialogContainer) {
         StringBuilder responseText = new StringBuilder();

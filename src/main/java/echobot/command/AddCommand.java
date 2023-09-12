@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 /**
  * Represents a command to add a new task.
  */
-public class AddCommand extends Command {
+public class AddCommand extends Command<Task> {
     private final Command.TaskType taskType;
     private final String taskDescription;
     private final String additionalInfo1;

@@ -3,7 +3,6 @@ package echobot.command;
 import java.util.ArrayList;
 
 import echobot.storage.Storage;
-import echobot.task.Task;
 import echobot.ui.Ui;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
@@ -11,7 +10,7 @@ import javafx.scene.layout.VBox;
 /**
  * Provides a base structure for command implementations.
  */
-public abstract class Command {
+public abstract class Command <T> {
     /**
      * Enumeration representing different types of tasks.
      */
@@ -19,7 +18,7 @@ public abstract class Command {
         TODO, DEADLINE, EVENT
     }
 
-    public abstract String doCommand(ArrayList<Task> tasks, Ui ui, Storage storage, Scene scene, VBox dialogContainer);
+    public abstract String doCommand(ArrayList<T> type, Ui ui, Storage storage, Scene scene, VBox dialogContainer);
 
     /**
      * Extracts the task number from the user input.
@@ -40,7 +39,8 @@ public abstract class Command {
      * @param command   The command keyword.
      * @return The extracted task description.
      */
-    public static String extractTaskDesc(String userInput, String command) {
+    public static String extractDesc(String userInput, String command) {
         return userInput.substring(command.length()).trim();
     }
+
 }

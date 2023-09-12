@@ -13,20 +13,23 @@ import javafx.scene.control.Label;
 
 
 import echobot.task.Task;
+import echobot.note.Note;
 
 /**
  * Handles loading and saving tasks.
  */
 public class Storage {
-    private String filePath;
+    private String tasksFilePath;
+    private String notesFilePath;
 
     /**
      * Constructs a Storage instance with the specified file path.
      *
-     * @param filePath The path to the file where tasks are stored.
+     * @param tasksFilePath The path to the file where tasks are stored.
      */
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage(String tasksFilePath, String notesFilePath) {
+        this.tasksFilePath = tasksFilePath;
+        this.notesFilePath = notesFilePath;
     }
 
     /**
@@ -36,7 +39,7 @@ public class Storage {
      */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
-        File file = new File(filePath);
+        File file = new File(tasksFilePath);
         File folder = file.getParentFile();
 
         // Create the parent folder if it doesn't exist
@@ -81,15 +84,72 @@ public class Storage {
         return tasks;
     }
 
+    public ArrayList<Note> loadNotes() {
+        ArrayList<Note> notes = new ArrayList<>();
+        File file = new File(notesFilePath);
+        File folder = file.getParentFile();
+
+        // Create the parent folder if it doesn't exist
+        if (!folder.exists() && !folder.mkdirs()) {
+            return notes; // Return an empty list
+        }
+
+        try {
+            if (!file.exists() && !file.createNewFile()) {
+                return notes; // Return an empty list
+            }
+
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String formattedTask = scanner.nextLine();
+
+                if (formattedTask.isEmpty()) {
+                    continue; // Skip empty lines
+                }
+
+                try {
+                    Note note = Note.fromFileString(formattedTask);
+                    notes.add(note);
+                } catch (NumberFormatException e) {
+                    // Handle corrupted data - logging the issue
+                    Logger logger = Logger.getLogger(Storage.class.getName());
+                    logger.log(Level.SEVERE, "Corrupted data: " + formattedTask, e);
+                } catch (IllegalArgumentException e) {
+                    Logger logger = Logger.getLogger(Storage.class.getName());
+                    logger.log(Level.SEVERE, "Invalid data: " + formattedTask);
+                }
+            }
+            scanner.close();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(Storage.class.getName());
+            logger.log(Level.SEVERE, "An error occurred while handling file operations: ", e);
+        } catch (Exception e) {
+            Logger logger = Logger.getLogger(Storage.class.getName());
+            logger.log(Level.SEVERE, "An error occurred while loading tasks: ", e);
+        }
+
+        return notes;
+    }
 
     public void saveTasks(ArrayList<Task> tasks, VBox dialogContainer) {
-        try (PrintWriter writer = new PrintWriter(filePath)) {
+        try (PrintWriter writer = new PrintWriter(tasksFilePath)) {
             for (Task task : tasks) {
                 writer.println(task.toFileString());
             }
         } catch (FileNotFoundException e) {
             dialogContainer.getChildren().add(new Label("Error saving tasks: " + e.getMessage()));
         }
+    }
+
+    public void saveNotes(ArrayList<Note> notes, VBox dialogContainer) {
+        // Save notes to notesFilePath
+        try (PrintWriter writer = new PrintWriter(notesFilePath)) {
+            for (Note note : notes) {
+                writer.println(note.toFileString());
+            }
+        } catch (FileNotFoundException e) {
+            dialogContainer.getChildren().add(new Label("Error saving tasks: " + e.getMessage()));
         }
     }
+}
 
