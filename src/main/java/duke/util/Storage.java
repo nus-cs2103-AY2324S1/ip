@@ -76,6 +76,8 @@ public class Storage {
      * @param taskList The given TaskList to be saved locally.
      */
     public void save(TaskList taskList) {
+        assert taskList != null : "TaskList cannot be null";
+
         String newData = Parser.parseTaskListToData(taskList);
 
         try {
