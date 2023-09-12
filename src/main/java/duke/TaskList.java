@@ -22,6 +22,7 @@ public class TaskList {
 
     public void add(Task newTask) {
         tasks.add(newTask);
+        assert !(tasks.isEmpty());
     }
 
     public Task get(int i) {
