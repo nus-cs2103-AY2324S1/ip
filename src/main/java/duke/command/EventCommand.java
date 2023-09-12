@@ -38,39 +38,28 @@ public class EventCommand extends Command {
     public String execute(TaskList tasks , Ui ui, Storage storage)
             throws InvalidArgumentException, InvalidDateException {
         String[] words = this.fullCommand.split(" ", 2);
-        if (words.length < 2) {
-            throw new InvalidArgumentException("event");
-        } else {
-            String[] splitCommand = words[1].split("/", 2);
-            if (splitCommand.length < 2) {
-                throw new InvalidArgumentException("event");
-            }
-            String c = splitCommand[0];
-            String[] splitDeadline = splitCommand[1].split("/", 2);
-            if (splitDeadline.length < 2) {
-                throw new InvalidArgumentException("event");
-            } else {
-                if (splitDeadline[0].split(" ", 2).length < 2
-                        || splitDeadline[1].split(" ", 2).length < 2) {
-                    throw new InvalidArgumentException("event");
-                } else {
-                    try {
-                        LocalDateTime from = LocalDateTime.parse(splitDeadline[0].split(" ", 2)[1]
-                                .strip(), Storage.DATE_TIME_INPUT_FORMATTER);
-                        LocalDateTime to = LocalDateTime.parse(splitDeadline[1].split(" ", 2)[1]
-                                .strip(), Storage.DATE_TIME_INPUT_FORMATTER);
-                        Event t = new Event(c, from, to);
-                        String s = tasks.addTask(t);
-                        return s;
-                    } catch (DateTimeParseException e) {
-                        throw new InvalidDateException();
-                    }
-                }
-            }
+        super.validateArguments(words, "event");
+
+        String[] splitCommand = words[1].split("/", 2);
+        super.validateArguments(splitCommand, "event");
+
+        String eventDescription = splitCommand[0];
+        String[] splitDeadline = splitCommand[1].split("/", 2);
+        super.validateArguments(splitDeadline, "event");
+
+        super.validateArguments(splitDeadline[0].split(" ", 2), "event");
+        super.validateArguments(splitDeadline[1].split(" ", 2), "event");
+
+        try {
+            LocalDateTime from = LocalDateTime.parse(splitDeadline[0].split(" ", 2)[1]
+                    .strip(), Storage.DATE_TIME_INPUT_FORMATTER);
+            LocalDateTime to = LocalDateTime.parse(splitDeadline[1].split(" ", 2)[1]
+                    .strip(), Storage.DATE_TIME_INPUT_FORMATTER);
+            Event t = new Event(eventDescription, from, to);
+
+            return tasks.addTask(t);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException();
         }
-    }
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

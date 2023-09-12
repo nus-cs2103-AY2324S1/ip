@@ -32,8 +32,4 @@ public class ListCommand extends Command {
         sb.append(tasks.printTasks());
         return sb.toString();
     }
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

@@ -36,15 +36,11 @@ public class UnmarkCommand extends Command {
             Task t = tasks.getTasks().get(Integer.parseInt(words[1]) - 1);
             t.markUndone();
             StringBuilder sb = new StringBuilder();
-            sb.append("OK, I've marked this task as not done yet:" + "\n");
-            sb.append(t + "\n");
+            sb.append("OK, I've marked this task as not done yet: \n");
+            sb.append(t).append("\n");
             return sb.toString();
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidArgumentException("☹ OOPS!!! I'm sorry, please enter a valid index to mark");
         }
-    }
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

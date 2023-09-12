@@ -32,16 +32,11 @@ public class TodoCommand extends Command {
     @Override
     public String execute(TaskList tasks , Ui ui, Storage storage) throws InvalidArgumentException {
         String[] words = this.fullCommand.split(" ", 2);
-        if (words.length < 2) {
-            throw new InvalidArgumentException("todo");
-        } else {
-            Todo t = new Todo(words[1]);
-            String s = tasks.addTask(t);
-            return s;
-        }
-    }
-    @Override
-    public boolean isExit() {
-        return false;
+        super.validateArguments(words, "todo");
+
+        Todo t = new Todo(words[1]);
+
+        return tasks.addTask(t);
     }
 }
+

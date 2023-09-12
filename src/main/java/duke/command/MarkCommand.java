@@ -36,15 +36,11 @@ public class MarkCommand extends Command {
             Task t = tasks.getTasks().get(Integer.parseInt(words[1]) - 1);
             t.markDone();
             StringBuilder sb = new StringBuilder();
-            sb.append("Nice! I've marked this task as done:" + "\n");
-            sb.append(t + "\n");
+            sb.append("Nice! I've marked this task as done: \n");
+            sb.append(t).append("\n");
             return sb.toString();
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidArgumentException("☹ OOPS!!! I'm sorry, please enter a valid index to mark");
         }
-    }
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }
