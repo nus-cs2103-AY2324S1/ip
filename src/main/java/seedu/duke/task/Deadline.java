@@ -1,7 +1,5 @@
 package seedu.duke.task;
 
-import seedu.duke.task.Task;
-
 import java.time.LocalDateTime;
 
 /**

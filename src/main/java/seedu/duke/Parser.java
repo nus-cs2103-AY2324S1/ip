@@ -196,8 +196,8 @@ public class Parser {
             throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
         }
         if (!input.contains("/from") || !input.contains("/to")) {
-            throw new DukeException("☹ OOPS!!! The format of an event should be " +
-                    "'event YOUR_EVENT /from START_TIME /to END_TIME'.");
+            throw new DukeException("☹ OOPS!!! The format of an event should be "
+                    + "'event YOUR_EVENT /from START_TIME /to END_TIME'.");
         }
 
         try {
@@ -233,8 +233,8 @@ public class Parser {
             throw new DukeException("☹ OOPS!!! Please specify a task to find.");
         }
         if (input.charAt(4) != ' ') {
-            throw new DukeException("☹ OOPS!!! I'm sorry, " +
-                    "but I don't know what that means :-(");
+            throw new DukeException("☹ OOPS!!! I'm sorry, "
+                    + "but I don't know what that means :-(");
         }
         if (input.length() == 5) {
             throw new DukeException("☹ OOPS!!! Please specify a task to find.");
