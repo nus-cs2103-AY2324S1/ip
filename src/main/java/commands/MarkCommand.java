@@ -38,8 +38,8 @@ public class MarkCommand implements Command {
             ui.showError("Invalid index. Please enter again.");
             return "Invalid index. Please enter again.";
         } else {
-            String res = tasks.mark(pos); // Mark the task as done in the task list
-            Storage.refresh(tasks); // Update storage with the modified task list
+            String res = tasks.mark(pos);
+            Storage.refresh(tasks);
             return res;
         }
     }

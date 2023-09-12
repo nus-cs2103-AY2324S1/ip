@@ -40,8 +40,8 @@ public class UnmarkCommand implements Command {
             ui.showError("Invalid index. Please enter again.");
             return "Invalid index. Please enter again.";
         } else {
-            res = tasks.unmark(pos); // Unmark the task in the task list
-            Storage.refresh(tasks); // Update storage with the modified task list
+            res = tasks.unmark(pos);
+            Storage.refresh(tasks);
         }
         return res;
     }
