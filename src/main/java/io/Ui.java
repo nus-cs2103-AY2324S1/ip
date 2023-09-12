@@ -101,7 +101,7 @@ public class Ui {
             Event eventTask = (Event) task;
 
             answer =
-                "[" + Event.taskType + "]" + "[" + task.getDoneIcon() + "] " + task.getDescription()
+                "[" + Event.TASK_TYPE + "]" + "[" + task.getDoneIcon() + "] " + task.getDescription()
                     + "("
                     + eventTask.getStartDate() + " to " + eventTask.getEndDate() + ")";
         }
