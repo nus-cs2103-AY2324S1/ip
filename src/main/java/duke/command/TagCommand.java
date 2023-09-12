@@ -1,14 +1,16 @@
 package duke.command;
 
+import java.io.IOException;
+
 import duke.DukeList;
 import duke.Storage;
 import duke.Ui;
 import duke.exceptions.DukeException;
 import duke.task.Task;
-import duke.task.ToDo;
 
-import java.io.IOException;
-
+/**
+ * The TagCommand class represents a command to tag a task.
+ */
 public class TagCommand extends Command {
 
     /**

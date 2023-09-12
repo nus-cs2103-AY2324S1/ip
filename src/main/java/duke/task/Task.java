@@ -79,7 +79,9 @@ public abstract class Task {
     /**
      * Sets a new tag.
      */
-    public void setTag(String tag) { this.tag = tag; }
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
 
     /**
      * Returns a string representation of the task.
@@ -89,7 +91,7 @@ public abstract class Task {
     @Override
     public String toString() {
         String str = "[" + getStatusIcon() + "] " + this.description;
-        return this.tag.equals("") ? str : str + " #" + this.tag;
+        return this.tag.isEmpty() ? str : str + " #" + this.tag;
     }
 
     /**
