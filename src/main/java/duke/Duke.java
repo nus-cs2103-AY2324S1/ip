@@ -1,7 +1,6 @@
 package duke;
 
 import java.io.IOException;
-
 import java.util.Scanner;
 
 import duke.assets.storage.Storage;
@@ -10,16 +9,16 @@ import duke.assets.storage.Storage;
  * The main class for the ChadGPT chatbot application.
  */
 public class Duke {
-    static final String LOGO = "\n   _____ _    _          _____   _____ _____ _______ \n" +
-            "  / ____| |  | |   /\\   |  __ \\ / ____|  __ \\__   __|\n" +
-            " | |    | |__| |  /  \\  | |  | | |  __| |__) | | |   \n" +
-            " | |    |  __  | / /\\ \\ | |  | | | |_ |  ___/  | |   \n" +
-            " | |____| |  | |/ ____ \\| |__| | |__| | |      | |   \n" +
-            "  \\_____|_|  |_/_/    \\_\\_____/ \\_____|_|      |_|   \n";
-    static final String HORIZONTAL = "----------------------------------------------------------" +
-            "-----------------------------";
+    static final String LOGO = "\n   _____ _    _          _____   _____ _____ _______ \n"
+            + "  / ____| |  | |   /\\   |  __ \\ / ____|  __ \\__   __|\n"
+            + " | |    | |__| |  /  \\  | |  | | |  __| |__) | | |   \n"
+            + " | |    |  __  | / /\\ \\ | |  | | | |_ |  ___/  | |   \n"
+            + " | |____| |  | |/ ____ \\| |__| | |__| | |      | |   \n"
+            + "  \\_____|_|  |_/_/    \\_\\_____/ \\_____|_|      |_|   \n";
+    static final String HORIZONTAL = "----------------------------------------------------------"
+            + "-----------------------------";
 
-    static final Storage storage = new Storage();
+    private static final Storage storage = new Storage();
 
     /**
      * The main method for the Duke chatbot application.

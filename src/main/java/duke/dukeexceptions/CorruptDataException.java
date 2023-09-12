@@ -1,11 +1,9 @@
 package duke.dukeexceptions;
 
-import java.lang.Exception;
-
 /**
  * An exception thrown when data is corrupt
  */
-public class CorruptDataException extends Exception{
+public class CorruptDataException extends Exception {
     private final String corruptLine;
 
     /**

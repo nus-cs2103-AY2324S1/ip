@@ -2,6 +2,9 @@ package duke.assets.tasks;
 
 import duke.dukeexceptions.StateCannotBeAlteredException;
 
+/**
+ * Abstract class that represents a task
+ */
 public abstract class TaskAbstract {
     protected String description;
     protected boolean isDone;
@@ -48,9 +51,13 @@ public abstract class TaskAbstract {
     }
 
     /**
-     * Print status of the task
+     * Checks if the task description contains the given token
+     * @param token token to be checked against
+     * @return true if task description contains token, false otherwise
      */
-    public abstract void printStatus();
+    public boolean hasToken(String token) {
+        return this.description.contains(token);
+    }
 
     /**
      * Helper function to check if task is complete
@@ -62,6 +69,11 @@ public abstract class TaskAbstract {
     }
 
     /**
+     * Print status of the task
+     */
+    public abstract void printStatus();
+
+    /**
      * Formats the task into a string that is ready for saving into memory
      * @return formatted string that is ready for saving into memory
      */
@@ -70,9 +82,5 @@ public abstract class TaskAbstract {
     @Override
     public String toString() {
         return this.description;
-    }
-
-    public boolean hasToken(String token) {
-        return this.description.contains(token);
     }
 }

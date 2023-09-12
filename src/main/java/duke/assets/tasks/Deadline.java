@@ -1,10 +1,9 @@
 package duke.assets.tasks;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.time.LocalTime;
-import java.time.LocalDate;
-
 import java.util.Optional;
 
 /**
@@ -12,7 +11,7 @@ import java.util.Optional;
  */
 public class Deadline extends TaskAbstract {
     protected LocalDate date;
-    protected Optional<LocalTime> time;
+    protected Optional<LocalTime> timeOptional;
 
     /**
      * Constructs a new deadline task
@@ -29,10 +28,10 @@ public class Deadline extends TaskAbstract {
         String day = endDate.substring(8, 10);
         this.date = LocalDate.parse(String.format("%s-%s-%s", year, month, day));
         if (delimited.length > 1) {
-            this.time = Optional.<LocalTime>of(LocalTime.parse(delimited[1].substring(0, 2) + ":" + delimited[1]
+            this.timeOptional = Optional.<LocalTime>of(LocalTime.parse(delimited[1].substring(0, 2) + ":" + delimited[1]
                     .substring(2)));
         } else {
-            this.time = Optional.<LocalTime>empty();
+            this.timeOptional = Optional.<LocalTime>empty();
         }
     }
 
@@ -42,8 +41,8 @@ public class Deadline extends TaskAbstract {
      * @return date and time string formatted for printing to terminal
      */
     private String getDateTimeForPrinting() {
-        return this.date.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + (this.time.isEmpty() ? "" :
-                " " + this.time.get().truncatedTo(ChronoUnit.MINUTES));
+        return this.date.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + (this.timeOptional.map(
+                localTime -> " " + localTime.truncatedTo(ChronoUnit.MINUTES)).orElse(""));
     }
 
     /**
@@ -52,7 +51,7 @@ public class Deadline extends TaskAbstract {
      * @return date and time string formatted for saving to memory
      */
     private String getDateTimeForSaving() {
-        return this.date + (this.time.map(localTime -> " " + localTime.truncatedTo(
+        return this.date + (this.timeOptional.map(localTime -> " " + localTime.truncatedTo(
                 ChronoUnit.MINUTES).toString().replace(":", "")).orElse(""));
     }
 
@@ -62,7 +61,8 @@ public class Deadline extends TaskAbstract {
      * @return string format of deadline task for saving to memory
      */
     public String saveToTextFormat() {
-        return String.format("D | %s | %s | %s", this.isDone ? "1" : "0", this.description, this.getDateTimeForSaving());
+        return String.format("D | %s | %s | %s", this.isDone ? "1" : "0",
+                this.description, this.getDateTimeForSaving());
     }
 
     /**
@@ -70,6 +70,7 @@ public class Deadline extends TaskAbstract {
      */
     @Override
     public void printStatus() {
-        System.out.printf("[D][%s] %s (by: %s)\n", this.isDone ? "X" : " ", this.description, this.getDateTimeForPrinting());
+        System.out.printf("[D][%s] %s (by: %s)\n", this.isDone ? "X" : " ",
+                this.description, this.getDateTimeForPrinting());
     }
 }

@@ -1,10 +1,9 @@
 package duke.assets.storage;
 
-import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
-
 import java.util.ArrayList;
 
 import duke.assets.tasks.TaskAbstract;
@@ -14,15 +13,15 @@ import duke.dukeexceptions.StateCannotBeAlteredException;
  * Represents a list of tasks
  */
 public class TaskList {
-    private static final String HORIZONTAL = "------------------------------------------------------------" +
-            "---------------------------";
-    private ArrayList<TaskAbstract> taskList;
+    private static final String HORIZONTAL = "------------------------------------------------------------"
+            + "---------------------------";
+    private final ArrayList<TaskAbstract> taskList;
     private int numberOfTasks;
 
     /**
      * Constructs an empty task list
      */
-    public TaskList () {
+    public TaskList() {
         this.taskList = new ArrayList<TaskAbstract>();
         this.numberOfTasks = 0;
     }
@@ -93,7 +92,7 @@ public class TaskList {
             } else {
                 System.out.println("ChadGPT: Ensure the index is of in the range 1 - " + this.numberOfTasks);
             }
-        } else{
+        } else {
             System.out.println("ChadGPT: Deleted!");
             this.taskList.remove(index);
             this.numberOfTasks--;
@@ -112,7 +111,7 @@ public class TaskList {
                 pw.println(t.saveToTextFormat());
             }
             pw.close();
-        } catch (IOException IOExcept) {
+        } catch (IOException e) {
             System.out.println("ChadGPT: Please check if your I/O is working as intended.");
         }
     }
@@ -150,6 +149,10 @@ public class TaskList {
         this.numberOfTasks = 0;
     }
 
+    /**
+     * Find and prints the tasks that contain the given token in their task descriptions
+     * @param token token to be found in task description
+     */
     public void find(String token) {
         boolean hasMatch = false;
 

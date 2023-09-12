@@ -2,13 +2,12 @@ package duke.assets.commands;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import duke.assets.tasks.TaskAbstract;
 import duke.assets.storage.TaskList;
 import duke.assets.tasks.Event;
+import duke.assets.tasks.TaskAbstract;
 
 /**
  * Represents a command to create a new event task
@@ -83,8 +82,8 @@ public class CreateEventCommand extends CommandAbstract {
             System.out.println("ChadGPT: Please ensure that you have included the start and end dates.");
             return;
         } catch (IndexOutOfBoundsException indexExcept) {
-            System.out.println("ChadGPT: Please verify you have included the start date after /from and " +
-                    "end date after /to commands");
+            System.out.println("ChadGPT: Please verify you have included the start date after /from and "
+                    + "end date after /to commands");
             return;
         }
 
@@ -99,8 +98,8 @@ public class CreateEventCommand extends CommandAbstract {
                     startDateMonth, startDateDay));
             if (startDateArr.length > 1) {
                 Integer.parseInt(startDateArr[1]);
-                LocalTime startTimeObj = LocalTime.parse(startDateArr[1].substring(0, 2) + ":" +
-                        startDateArr[1].substring(2));
+                LocalTime startTimeObj = LocalTime.parse(startDateArr[1].substring(0, 2) + ":"
+                        + startDateArr[1].substring(2));
             }
             String[] endDateArr = dates.split(" /to ")[1].split(" ");
             String endDate = endDateArr[0];
@@ -111,13 +110,14 @@ public class CreateEventCommand extends CommandAbstract {
                     endDateMonth, endDateDay));
             if (endDateArr.length > 1) {
                 Integer.parseInt(endDateArr[1]);
-                LocalTime endDateTime = LocalTime.parse(endDateArr[1].substring(0, 2) + ":" +
-                        endDateArr[1].substring(2));
+                LocalTime endDateTime = LocalTime.parse(endDateArr[1].substring(0, 2) + ":"
+                        + endDateArr[1].substring(2));
             }
         } catch (NumberFormatException numberExcept) {
             System.out.println("ChadGPT: Please ensure the time of your deadline is in numerical format.");
         } catch (IndexOutOfBoundsException | IllegalArgumentException indexExcept) {
-            System.out.println("ChadGPT: Ensure that deadline date follows the following format: yyyy-mm-dd or yyyy/mm/dd.");
+            System.out.println("ChadGPT: Ensure that deadline date follows the following format: "
+                    + "yyyy-mm-dd or yyyy/mm/dd.");
         }
     }
 
@@ -145,7 +145,7 @@ public class CreateEventCommand extends CommandAbstract {
     @Override
     public void printChatbotLine() {
         String information = this.input.split(" /from ")[0].split("^(?i)(event)\\s")[1];
-        System.out.print("ChadGPT: No problem! I have added the event:\"" + information + "\" to the list.\n" +
-                HORIZONTAL);
+        System.out.print("ChadGPT: No problem! I have added the event:\"" + information + "\" to the list.\n"
+                + HORIZONTAL);
     }
 }

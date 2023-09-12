@@ -1,5 +1,8 @@
 package duke.assets.commands;
 
+/**
+ * Enum containing all valid user input commands
+ */
 public enum ValidCommands {
     bye,
     list,
