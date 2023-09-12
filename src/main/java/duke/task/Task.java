@@ -80,6 +80,14 @@ public abstract class Task {
     }
 
     /**
+     * Update this task name.
+     * @param newName The new name of this task.
+     */
+    public void updateName(String newName) {
+        this.name = newName;
+    }
+
+    /**
      * String representation of this task, to be printed in UI.
      * @return The string representation to be printed in UI.
      */

@@ -20,7 +20,9 @@ public class DateTimeManager {
 
     /**
      * Transforms a String input of datetime to a LocalDateTime instance.
-     * The string must be in the format "dd/mm/yyyy hh:mm"
+     * The string must be in the format "dd/mm/yyyy hh:mm".
+     * Date part may be replaced by "today", "tmr" or "tomorrow".
+     * Time part may have indicator "am" or "pm".
      * @param input The input string.
      * @return The LocalDateTime object that corresponds to the input string.
      * @throws DateParseException If the input string is in a wrong format.

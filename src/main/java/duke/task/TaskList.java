@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import duke.storage.Storage;
@@ -16,6 +17,40 @@ public class TaskList {
     public static class TaskIndexOutOfRange extends Exception {
         private TaskIndexOutOfRange() {
             super();
+        }
+    }
+
+    /**
+     * Thrown if a method is trying to update the wrong type of task.
+     */
+    public static class WrongTaskTypeException extends Exception {
+        private final Task.Type expected;
+        private final int index;
+
+        private WrongTaskTypeException(Task.Type expected, int index) {
+            super();
+            this.expected = expected;
+            this.index = index;
+        }
+
+        private static String typeToString(Task.Type type) {
+            switch (type) {
+            case TODO:
+                return "a todo task";
+            case DEADLINE:
+                return "a deadline";
+            case EVENT:
+                return "an event";
+            default:
+                assert false: "Task type must be indicated when calling this method!";
+                return "a task";
+            }
+        }
+
+        @Override
+        public String getMessage() {
+            return "task at index " + (this.index + 1)
+                    + " is not " + typeToString(this.expected);
         }
     }
 
@@ -145,6 +180,94 @@ public class TaskList {
      */
     public int size() {
         return this.taskList.size();
+    }
+
+    /**
+     * Updates the name of the task of the given index with the new name.
+     * @param index The index of the task in the list.
+     * @param newName The new name.
+     * @return The task that has been updated.
+     */
+    public Task updateName(int index, String newName) throws TaskIndexOutOfRange {
+        try {
+            Task task = this.taskList.get(index);
+            task.updateName(newName);
+            return task;
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskIndexOutOfRange();
+        }
+    }
+
+    /**
+     * Update the deadline at the specified index.
+     * @param index The index of the deadline in the task list.
+     * @param newDeadlineTime The new deadline.
+     * @return The task that has been updated.
+     * @throws TaskIndexOutOfRange If the index given is invalid.
+     * @throws WrongTaskTypeException If the task with the given index is not a deadline.
+     */
+    public Task updateDeadline(int index, LocalDateTime newDeadlineTime)
+            throws TaskIndexOutOfRange, WrongTaskTypeException {
+        try {
+            Task task = this.taskList.get(index);
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                deadline.updateDeadlineTime(newDeadlineTime);
+                return task;
+            } else {
+                throw new WrongTaskTypeException(Task.Type.DEADLINE, index);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskIndexOutOfRange();
+        }
+    }
+
+    /**
+     * Update the start time of an event.
+     * @param index The index of the event in this task list.
+     * @param newStartTime The new start time of the event.
+     * @return The task that has been updated.
+     * @throws TaskIndexOutOfRange If the index given is invalid
+     * @throws WrongTaskTypeException If the task with the given index is not of type event.
+     */
+    public Task updateStartTime(int index, LocalDateTime newStartTime)
+            throws TaskIndexOutOfRange, WrongTaskTypeException {
+        try {
+            Task task = this.taskList.get(index);
+            if (task instanceof Event) {
+                Event event = (Event) task;
+                event.updateStartTime(newStartTime);
+                return task;
+            } else {
+                throw new WrongTaskTypeException(Task.Type.EVENT, index);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskIndexOutOfRange();
+        }
+    }
+
+    /**
+     * Update the end time of the task with the given index.
+     * @param index The index of the event in this task list.
+     * @param newEndTime The new end time of the event.
+     * @return The task that has been updated.
+     * @throws TaskIndexOutOfRange If the index given is invalid.
+     * @throws WrongTaskTypeException If the task at the given index is not an event.
+     */
+    public Task updateEndTime(int index, LocalDateTime newEndTime)
+            throws TaskIndexOutOfRange, WrongTaskTypeException {
+        try {
+            Task task = this.taskList.get(index);
+            if (task instanceof Event) {
+                Event event = (Event) task;
+                event.updateEndTime(newEndTime);
+                return task;
+            } else {
+                throw new WrongTaskTypeException(Task.Type.EVENT, index);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskIndexOutOfRange();
+        }
     }
 
     /**

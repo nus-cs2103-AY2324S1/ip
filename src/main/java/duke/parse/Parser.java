@@ -14,6 +14,10 @@ import duke.parse.command.FindCommand;
 import duke.parse.command.ListCommand;
 import duke.parse.command.MarkCommand;
 import duke.parse.command.SaveCommand;
+import duke.parse.command.update.UpdateDeadlineCommand;
+import duke.parse.command.update.UpdateEndTimeCommand;
+import duke.parse.command.update.UpdateNameCommand;
+import duke.parse.command.update.UpdateStartTimeCommand;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -35,16 +39,17 @@ public class Parser {
     /**
      * Parses a given input.
      * Available commands:
-     * - bye/exit: to exit the programme
-     * - list: to list out the current task list
-     * - list {date}: to list out all events happening on that date or deadlines before/on that date
-     * - list {todo/deadline/event}: list out all todo items / deadline items / event items
-     * - list -d: list out all tasks not done
-     * - mark {number}: to mark the task with the corresponding index in the list as done
-     * - unmark {number}: to mark the task with the corresponding index in the list as not done
-     * - todo {taskname}: to add a new task as a to-do item (no deadline or time)
-     * - event {taskname} /from {starttime} /to {endtime}: to add a new task as an event (with start time and end time)
-     * - deadline {taskname} /by {time}: to add a new task as a deadline (with deadline time)
+     * - bye/exit: to exit the programme.
+     * - list: to list out the current task list.
+     * - list {date}: to list out all events happening on that date or deadlines before/on that date.
+     * - list {todo/deadline/event}: list out all todo items / deadline items / event items.
+     * - list -d: list out all tasks not done.
+     * - mark {number}: to mark the task with the corresponding index in the list as done.
+     * - unmark {number}: to mark the task with the corresponding index in the list as not done.
+     * - todo {taskname}: to add a new task as a to-do item (no deadline or time).
+     * - event {taskname} /from {starttime} /to {endtime}: to add a new task as an event (with start time and end time).
+     * - deadline {taskname} /by {time}: to add a new task as a deadline (with deadline time).
+     * - update {property} {taskindex} {newvalue}: update the property of the task of taskindex with the newvalue.
      * Note that for list, a combination of options can be used, by separating them by space characters.
      * @param input The input from the user.
      * @return The command to be executed on the bot.
@@ -113,6 +118,10 @@ public class Parser {
         case "find":
             String query = commandArgs[1];
             return new FindCommand(query);
+
+        // update a task
+        case "update":
+            return Parser.parseUpdate(commandArgs[1]);
 
         // anything else
         default:
@@ -231,6 +240,46 @@ public class Parser {
             return new AddCommand(new Deadline(separateByBy[0], dateTime));
         } catch (DateTimeManager.DateParseException | DateTimeException e) {
             throw new ParseError("invalid datetime");
+        }
+    }
+
+    private static Command parseUpdate(String updateInput) throws ParseError {
+        String[] splitBySpace = updateInput.split(" ", 3);
+        if (splitBySpace.length != 3) {
+            throw new ParseError("not enough arguments for an update command");
+        }
+
+        if (splitBySpace[1].matches("0+") || !splitBySpace[1].matches("\\d+")) {
+            throw new ParseError("you need to provide a positive integer!");
+        }
+        int index = Integer.parseInt(splitBySpace[1]) - 1;
+
+        switch (splitBySpace[0]) {
+        case "name":
+            return new UpdateNameCommand(index, splitBySpace[2]);
+        case "deadline":
+            try {
+                LocalDateTime newDeadlineTime = DateTimeManager.inputToDate(splitBySpace[2]);
+                return new UpdateDeadlineCommand(index, newDeadlineTime);
+            } catch (DateTimeManager.DateParseException e) {
+                throw new ParseError("datetime of new deadline cannot be parsed properly");
+            }
+        case "starttime":
+            try {
+                LocalDateTime newStartTime = DateTimeManager.inputToDate(splitBySpace[2]);
+                return new UpdateStartTimeCommand(index, newStartTime);
+            } catch (DateTimeManager.DateParseException e) {
+                throw new ParseError("datetime of new start time cannot be parsed properly");
+            }
+        case "endtime":
+            try {
+                LocalDateTime newEndTime = DateTimeManager.inputToDate(splitBySpace[2]);
+                return new UpdateEndTimeCommand(index, newEndTime);
+            } catch (DateTimeManager.DateParseException e) {
+                throw new ParseError("datetime of new end time cannot be parsed properly");
+            }
+        default:
+            throw new ParseError("unrecognised " + splitBySpace[0]);
         }
     }
 }
