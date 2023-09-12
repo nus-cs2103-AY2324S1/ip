@@ -14,6 +14,7 @@ public class ListCommand implements Command {
      *
      * @param tasks The TaskList containing tasks to be displayed.
      * @param storage The Storage for tasks (not used in this command).
+     * @return A string indicating all tasks have been displayed.
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {

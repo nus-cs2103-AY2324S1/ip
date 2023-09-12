@@ -13,7 +13,8 @@ public class Sally {
     /**
      * Constructs a Sally object.
      * Initializes the user interface, storage, and task list.
-     * Load tasks from the specified file path if available..
+     *
+     * @param stage The stage to display the user interface.
      */
     public Sally(Stage stage) {
         this.stage = stage;
@@ -30,6 +31,9 @@ public class Sally {
      * Starts the main program loop.
      * Shows a welcome message to the user.
      * Reads and processes user commands until the user types "bye".
+     *
+     * @param input The user input.
+     * @return A string indicating the program has exited.
      */
     public String execute(String input) {
         try {

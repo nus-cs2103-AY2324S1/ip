@@ -28,6 +28,7 @@ public class MarkCommand implements Command {
      *
      * @param tasks   The TaskList containing tasks.
      * @param storage The Storage for tasks.
+     * @return A string indicating the task has been marked.
      * @throws SallyException If the specified task index is invalid.
      */
     @Override

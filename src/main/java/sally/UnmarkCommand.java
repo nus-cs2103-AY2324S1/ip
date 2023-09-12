@@ -27,6 +27,7 @@ public class UnmarkCommand implements Command {
      *
      * @param tasks The TaskList containing tasks.
      * @param storage The Storage for tasks.
+     * @return A string indicating the task has been unmarked.
      * @throws SallyException If the task index is invalid or an error occurs during execution.
      */
     @Override

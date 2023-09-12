@@ -27,6 +27,7 @@ public class AddEventCommand implements Command {
      *
      * @param tasks The TaskList containing tasks.
      * @param storage The Storage for tasks.
+     * @return A string indicating the event task has been added.
      * @throws SallyException If there's an issue while executing the command.
      */
     @Override

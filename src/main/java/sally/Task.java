@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Task {
     protected String task;
-    protected boolean toBeDone;
+    protected boolean isNotDone;
 
     /**
      * Constructs a Task object with the given task description and sets it as not done by default.
@@ -17,21 +17,21 @@ public class Task {
      */
     public Task(String task) {
         this.task = task;
-        this.toBeDone = true;
+        this.isNotDone = true;
     }
 
     /**
      * Marks the task as done.
      */
     public void mark() {
-        toBeDone = false;
+        isNotDone = false;
     }
 
     /**
      * Unmarks the task as done, setting its completion status to not done.
      */
     public void unmark() {
-        toBeDone = true;
+        isNotDone = true;
     }
 
     /**
@@ -40,7 +40,7 @@ public class Task {
      * @return The status icon as a string.
      */
     public String getStatusIcon() {
-        return (toBeDone ? "[ ]" : "[X]");
+        return (isNotDone ? "[ ]" : "[X]");
     }
 
     /**

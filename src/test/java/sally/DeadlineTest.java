@@ -32,7 +32,7 @@ public class DeadlineTest {
         assertNotNull(deadline);
         assertEquals("Complete assignment", deadline.task);
         assertEquals(dateTime, deadline.by);
-        assertTrue(deadline.toBeDone);
+        assertTrue(deadline.isNotDone);
     }
 
 }
