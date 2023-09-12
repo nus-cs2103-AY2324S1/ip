@@ -71,4 +71,20 @@ public class TaskList {
         }
         return commonTaskList;
     }
+
+    /**
+     * Checks if the new Task to be added is already in TaskList.
+     * @param newTask a Task object to be added.
+     * @return true if Task is already added, else false.
+     */
+    public boolean hasDuplicate(Task newTask) {
+        boolean isEqual = false;
+        for (Task task : this.taskList) {
+            if (newTask.equals(task)) {
+                isEqual = true;
+                break;
+            }
+        }
+        return isEqual;
+    }
 }

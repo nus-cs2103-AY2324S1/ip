@@ -108,4 +108,11 @@ public class Ui {
         return "Please enter the start/end time in the format of <DD/MM/YY HH:MM>!";
     }
 
+    /**
+     * Returns a String that informs users about duplicate task.
+     * @return a String message that signals to user that the task has been added.
+     */
+    public String printTaskDuplicateMessage() {
+        return "This task has already been added to your task list.";
+    }
 }

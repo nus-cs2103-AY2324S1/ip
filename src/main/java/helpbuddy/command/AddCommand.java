@@ -29,9 +29,14 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        taskList.addTask(this.task);
-        return ui.printAddTaskMessage(this.task, taskList);
+        if (taskList.hasDuplicate(task)) {
+            return ui.printTaskDuplicateMessage();
+        } else {
+            taskList.addTask(this.task);
+            return ui.printAddTaskMessage(this.task, taskList);
+        }
     }
+
 
     /**
      * Compares the object to the specified object. The result is true if and only if argument is not null and
