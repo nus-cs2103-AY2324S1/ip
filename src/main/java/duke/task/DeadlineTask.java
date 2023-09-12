@@ -6,10 +6,13 @@ import java.time.format.DateTimeFormatter;
 
 import duke.DukeException;
 
+
+
 /**
  * Represents a task with a deadline, which extends the base `Task` class.
  */
 public class DeadlineTask extends Task {
+    protected Type type = Type.DEADLINE;
     protected LocalDate byDate;
 
     /**
@@ -52,6 +55,16 @@ public class DeadlineTask extends Task {
 
     public String toSave() {
         return "[D]" + super.toString() + " (by: " + this.byDate + ")";
+    }
+
+    @Override
+    public Type getType() {
+        return type;
+    }
+
+    @Override
+    public LocalDate getCompareDate() {
+        return byDate;
     }
 
     /**

@@ -37,14 +37,7 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        // Add padding between DialogBoxes
-        setPadding(new Insets(10, 10, 10, 10));
 
-        // Clip ImageView into a circle using a Rectangle with rounded corners
-        Rectangle clip = new Rectangle(100, 100);
-        clip.setArcWidth(100);
-        clip.setArcHeight(100);
-        displayPicture.setClip(clip);
 
         dialog.setText(text);
         displayPicture.setImage(img);

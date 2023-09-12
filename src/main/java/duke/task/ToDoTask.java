@@ -1,8 +1,12 @@
 package duke.task;
+
+import java.time.LocalDate;
+
 /**
  * Represents a task without a specific deadline or event date.
  */
 public class ToDoTask extends Task {
+    protected Type type = Type.TODO;
 
     /**
      * Constructs a ToDoTask with the given description and completion status.
@@ -13,6 +17,16 @@ public class ToDoTask extends Task {
     public ToDoTask(String description, boolean isDone) {
         super(description, isDone);
         assert description != null : "Description cannot be null.";
+    }
+
+    @Override
+    public Type getType() {
+        return type;
+    }
+
+    @Override
+    public LocalDate getCompareDate() {
+        return null;
     }
 
     public String toSave() {

@@ -54,6 +54,8 @@ public class Parser {
                 return tasks.unmarkTask(unmarkNo, ui);
             case "find":
                 return tasks.findTasks(parseFindCommand(parts), ui);
+            case "sort":
+                return tasks.sortTasks(ui);
             default:
                 return ui.showInvalidCommand();
             }

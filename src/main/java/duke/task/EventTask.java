@@ -10,6 +10,7 @@ import duke.DukeException;
  * Represents an event task, which extends the base `Task` class.
  */
 public class EventTask extends Task {
+    protected Type type = Type.EVENT;
     protected LocalDate fromDate;
     protected LocalDate toDate;
 
@@ -55,6 +56,19 @@ public class EventTask extends Task {
 
     public String toSave() {
         return "[E]" + super.toString() + " (from: " + this.fromDate + " to: " + this.toDate + ")";
+    }
+
+    @Override
+    public Type getType() {
+        return type;
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public LocalDate getCompareDate() {
+        return fromDate;
     }
 
     /**

@@ -11,6 +11,12 @@ import duke.DukeException;
  */
 public abstract class Task {
 
+    protected enum Type {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
+
     protected String description;
     protected boolean isDone;
 
@@ -65,6 +71,10 @@ public abstract class Task {
     public String getDescription() {
         return this.description;
     }
+
+    public abstract Type getType();
+
+    public abstract LocalDate getCompareDate();
 
     /**
      * Returns a string representation of the `Task` for display.

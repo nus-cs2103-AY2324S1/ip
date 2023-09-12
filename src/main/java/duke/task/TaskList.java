@@ -1,6 +1,9 @@
 package duke.task;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import duke.DukeException;
 import duke.Ui;
@@ -161,5 +164,63 @@ public class TaskList {
             return ui.showNoTaskFound();
         }
         return tasks.get(pos).unmarkTask();
+    }
+
+    /**
+     * Sorts the tasks within this TaskList and returns a formatted response.
+     *
+     * This method categorizes tasks into three types: ToDo, Deadline, and Event,
+     * sorts each category separately, and then combines them into a single sorted list.
+     * The sorting order for ToDo tasks is based on their descriptions, while Deadline
+     * and Event tasks are sorted based on their respective date or time.
+     *
+     * @param ui The user interface for displaying messages.
+     * @return A formatted response showing the sorted list of tasks.
+     */
+    public String sortTasks(Ui ui) {
+        if (this.getTotalTasks() == 0) {
+            return "There is nothing to sort!";
+        } else {
+            String response = "Here is the sorted list! \n";
+            List<Task> todoTasks = new ArrayList<>();
+            List<Task> deadlineTasks = new ArrayList<>();
+            List<Task> eventTasks = new ArrayList<>();
+
+            // Categorize tasks into different lists based on their types
+            for (Task task : tasks) {
+                if (task.getType() == Task.Type.TODO) {
+                    todoTasks.add(task);
+                } else if (task.getType() == Task.Type.DEADLINE) {
+                    deadlineTasks.add(task);
+                } else if (task.getType() == Task.Type.EVENT) {
+                    eventTasks.add(task);
+                }
+            }
+
+            // Sort tasks within each category
+            Collections.sort(todoTasks, Comparator.comparing(Task::getDescription));
+            Collections.sort(deadlineTasks, Comparator.comparing(Task::getCompareDate));
+            Collections.sort(eventTasks, Comparator.comparing(Task::getCompareDate));
+
+            int counter = 0;
+
+            // Update the original tasks list with the sorted tasks
+            for (Task task : todoTasks) {
+                tasks.set(counter, task);
+                response += counter++ + ". " + task + "\n";
+            }
+
+            for (Task task : deadlineTasks) {
+                tasks.set(counter, task);
+                response += counter++ + ". " + task + "\n";
+            }
+
+            for (Task task : eventTasks) {
+                tasks.set(counter, task);
+                response += counter++ + ". " + task + "\n";
+            }
+
+            return response;
+        }
     }
 }
