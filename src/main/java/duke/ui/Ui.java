@@ -26,16 +26,17 @@ public class Ui {
      * Displays the list of all available commands.
      */
     public String all() {
-        String res = "New user? Here are my command list:\n";
-        res += "1. list\n";
-        res += "2. deadline\n";
-        res += "3. event\n";
-        res += "4. todo\n";
-        res += "5. mark\n";
-        res += "6. unmark\n";
-        res += "7. find\n";
-        res += "8. date\n";
-        res += "9. bye\n";
+        String res = "New user? Here are my command list and their alias:\n";
+        res += "1. list / l\n";
+        res += "2. deadline / d\n";
+        res += "3. event / e\n";
+        res += "4. todo / t\n";
+        res += "5. mark / m\n";
+        res += "6. unmark / u\n";
+        res += "7. find / f\n";
+        res += "8. date / a\n";
+        res += "9. delete / del\n";
+        res += "10. bye / b\n";
         return res;
     }
 

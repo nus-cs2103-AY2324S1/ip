@@ -229,18 +229,26 @@ public class Parser {
         case "":
             return new AllCommand();
 
+        case "10":
+        case "b":
         case "bye":
             return new ByeCommand();
 
+        case "8":
+        case "a":
         case "date":
             if (queryList.size() < 2) {
                 throw new DukeException("Please specify date with the following format: YYYY-MM-DD");
             }
             return new DateCommand(queryList.get(1));
 
+        case "2":
+        case "d":
         case "deadline":
             return new AddCommand(parseUserDeadline(queryList));
 
+        case "9":
+        case "del":
         case "delete":
             try {
                 int index = Integer.parseInt(queryList.get(1)) - 1;
@@ -249,16 +257,24 @@ public class Parser {
                 throw new DukeException(e);
             }
 
+        case "3":
+        case "e":
         case "event":
             return new AddCommand(parseUserEvent(queryList));
 
+        case "7":
+        case "f":
         case "find":
             String keyword = Parser.parseUserFind(queryList);
             return new FindCommand(keyword);
 
+        case "1":
+        case "l":
         case "list":
             return new ListCommand();
 
+        case "5":
+        case "m":
         case "mark":
             try {
                 int index = Integer.parseInt(queryList.get(1)) - 1;
@@ -269,9 +285,13 @@ public class Parser {
                 throw new DukeException("Seems like it's not a number.");
             }
 
+        case "4":
+        case "t":
         case "todo":
             return new AddCommand(parseUserToDo(queryList));
 
+        case "6":
+        case "u":
         case "unmark":
             try {
                 int index = Integer.parseInt(queryList.get(1)) - 1;
