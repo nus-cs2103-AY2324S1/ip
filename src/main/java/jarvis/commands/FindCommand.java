@@ -20,6 +20,7 @@ public class FindCommand extends Command {
      * @param find Keyword to find.
      */
     public FindCommand(String find) {
+        assert !find.isBlank() : "Search parameter is blank!";
         this.find = find;
     }
 
@@ -33,14 +34,4 @@ public class FindCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         return ui.showFind(this.find) + "\n" + tasks.filterByName(this.find);
     }
-
-    /**
-     * Returns the exit status of the command.
-     * @return Exit status of the command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
 }

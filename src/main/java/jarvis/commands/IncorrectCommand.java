@@ -21,6 +21,7 @@ public class IncorrectCommand extends Command {
      * @param message Description of the incorrect operation.
      */
     public IncorrectCommand(String message) {
+        assert !message.isBlank() : "Exception message is blank!";
         this.message = message;
     }
 
@@ -35,14 +36,4 @@ public class IncorrectCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         throw new DukeException(this.message);
     }
-
-    /**
-     * Returns the exit status of the command.
-     * @return Exit status of the command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
 }

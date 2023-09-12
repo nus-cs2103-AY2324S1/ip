@@ -22,13 +22,4 @@ public class ExitCommand extends Command {
         return ui.leave();
     }
 
-    /**
-     * Returns the exit status of the command.
-     * @return Exit status of the command.
-     */
-    @Override
-    public boolean isExit() {
-        return true;
-    }
-
 }

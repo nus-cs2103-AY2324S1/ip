@@ -19,6 +19,7 @@ public abstract class Task {
      * @param action Description of the task.
      */
     public Task(String action) {
+        assert !action.isBlank() : "Description of task is empty!";
         this.description = action;
         this.completed = false;
     }
@@ -29,6 +30,7 @@ public abstract class Task {
      * @param status Status of completion of the task.
      */
     public Task(String action, boolean status) {
+        assert !action.isBlank() : "Description of task is empty!";
         this.description = action;
         this.completed = status;
     }

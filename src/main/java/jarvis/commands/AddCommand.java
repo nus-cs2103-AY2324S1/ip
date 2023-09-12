@@ -35,6 +35,7 @@ public class AddCommand extends Command {
      * @param description Description of the task.
      */
     public AddCommand(String description) {
+        assert !description.isBlank() : "Task description is blank!";
         this.description = description;
         this.type = "todo";
     }
@@ -44,6 +45,7 @@ public class AddCommand extends Command {
      * @param description Description of the task.
      */
     public AddCommand(String description, LocalDateTime till) {
+        assert !description.isBlank() : "Task description is blank!";
         this.description = description;
         this.till = till;
         this.type = "deadline";
@@ -56,6 +58,7 @@ public class AddCommand extends Command {
      * @param till End date of the task.
      */
     public AddCommand(String description, LocalDateTime from, LocalDateTime till) {
+        assert !description.isBlank() : "Task description is blank!";
         this.description = description;
         this.till = till;
         this.from = from;
@@ -88,15 +91,6 @@ public class AddCommand extends Command {
         tasks.add(task);
         storage.writeData(tasks.getAllTasks());
         return ui.showAdd(tasks.size(), task);
-    }
-
-    /**
-     * Returns the exit status of the command.
-     * @return Exit status of the command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
     }
 
 }

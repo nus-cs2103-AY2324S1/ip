@@ -22,13 +22,4 @@ public class ListCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         return ui.showList(tasks.size()) + "\n" + tasks.toString();
     }
-
-    /**
-     * Returns the exit status of the command.
-     * @return Exit status of the command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

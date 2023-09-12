@@ -19,10 +19,4 @@ public abstract class Command {
      * @throws DukeException Throws DukeException on invalid input.
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
-
-    /**
-     * Returns the exit status of the command.
-     * @return Exit status of the command.
-     */
-    public abstract boolean isExit();
 }
