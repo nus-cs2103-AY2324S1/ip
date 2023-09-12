@@ -77,6 +77,7 @@ public class Duke {
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
         this.storage.saveTasksToFile(this.tasks.getTasks());
+        assert message != null: "message should not be empty.";
 
         return message;
     }
