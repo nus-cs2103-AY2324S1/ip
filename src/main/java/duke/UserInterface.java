@@ -74,7 +74,6 @@ public class UserInterface {
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
         //Step 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> input());
-
         userInput.setOnAction((event) -> input());
         return scene;
     }

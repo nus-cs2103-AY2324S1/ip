@@ -10,13 +10,9 @@ import task.Task;
  * AddTaskCommand represents a command that adds a task to the list.
  */
 public class AddTaskCommand implements Executable {
-    private Task task;
+    private final Task task;
 
-    /**
-     * Sets the task to be added upon execution.
-     * @param task the task to be added.
-     */
-    public void setTask(Task task) {
+    public AddTaskCommand(Task task) {
         this.task = task;
     }
 
