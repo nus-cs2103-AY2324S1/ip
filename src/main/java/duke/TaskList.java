@@ -19,18 +19,40 @@ public class TaskList {
     }
 
     /**
+     * Checks if the task to be added is a duplicate of a task already in the current list.
+     * @param task task to be added.
+     * @return true if there is a duplicate in the current list,
+     * false if there is no duplicate in the current list.
+     */
+    public static boolean isDuplicate(Task task) {
+        String description = task.getDescription();
+        List<Task> duplicate = toDo.stream()
+                .filter(existingTask -> existingTask.getDescription().equals(description))
+                .collect(Collectors.toList());
+
+        Boolean isDuplicatePresent = !duplicate.isEmpty();
+
+        return isDuplicatePresent;
+    }
+
+    /**
      * Adds a new task to the task list from user input.
      * @param task the task to add into task list.
      * @param type type of task added.
      */
     public static String add(Task task, String type) {
-        toDo.add(task);
-        Storage.save();
+        String msg;
+        if (isDuplicate(task)) {
+            msg = "There is already a task matching that description! (⋟﹏⋞)";
+        } else {
+            toDo.add(task);
+            Storage.save();
 
-        String description = task.getDescription();
-        String successMsg = Ui.successfulAdd(type, description, toDo.size());
+            String description = task.getDescription();
+            msg = Ui.successfulAdd(type, description, toDo.size());
+        }
 
-        return successMsg;
+        return msg;
     }
 
     /**
