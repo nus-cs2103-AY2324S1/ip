@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Sith
+     * Displays welcome message
      */
     public void showWelcomeMessage() {
         Label dukeText = new Label();
@@ -57,14 +57,18 @@ public class MainWindow extends AnchorPane {
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
-        if (dukeText.getText().equals("Hi, I am Zac!\nHere are the tasks in your list:\n")) {
-            dukeText.setText("Hi, I am Zac!\nYou do not have any tasks\nHow can I help you today?");
+        if (onlyContainsIntroMessage(dukeText.getText())) {
+            dukeText.setText("Hi, I am Zac!\nYou do not have any tasks\nHow can I help you today?\n"
+                    + "Type 'help' to see the list of things you can do\n");
         }
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(dukeText, new ImageView(dukeImage))
         );
     }
-
+    private static boolean onlyContainsIntroMessage(String text) {
+        String[] lines = text.split("\n");
+        return lines.length == 3;
+    }
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing. Used in MainWindow.fxml file.

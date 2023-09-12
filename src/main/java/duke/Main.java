@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
-    protected static String tempFilePath = "data/temp.txt";
+    private static String tempFilePath = "data/temp.txt";
     private Duke duke = new Duke(tempFilePath);
     private TaskList tasks = duke.getTasks();
     private Storage storage = duke.getStorage();

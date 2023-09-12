@@ -36,10 +36,12 @@ task cleanDataContents(type: Delete) {
         // Define the paths to the files
         def dukeFile = file('data/duke.txt')
         def tempFile = file('data/temp.txt')
+        def undoFile = file('data/undo.txt')
 
         // Create empty files to clean the contents
         dukeFile.text = ''
         tempFile.text = ''
+        undoFile.text = ''
     }
 }
 

@@ -1,5 +1,8 @@
 package duke;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -46,7 +49,6 @@ public class TaskList implements Serializable {
      */
     public String displayList() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             int num = i + 1;
             Task curr = tasks.get(i);
@@ -55,7 +57,7 @@ public class TaskList implements Serializable {
         return stringBuilder.toString();
     }
     /**
-     * Displays the list of Tasks that description matches the user input
+     * Handles the 'find' command, displays the list of Tasks whose description matches the user input
      * @param userInput the String that the user inputs to find similar Tasks
      */
     public String displayMatchingList(String userInput) {
@@ -80,10 +82,10 @@ public class TaskList implements Serializable {
         return stringBuilder.toString();
     }
     /**
-     * For an input such as 'todo borrow book', letter is 'T' and string is 'borrow book'
+     * Adds a Task to TaskList
      *
-     * @param letter the letter corresponding to the first letter of the duke.Task
-     * @param userInput the string corresponding to the chunk of text after the word todo, deadline, or event
+     * @param letter The letter corresponding to the first letter of the Task
+     * @param userInput The string corresponding to the chunk of text after the word todo, deadline, or event
      */
     public String addTask(String letter, String userInput) throws DukeException {
         if (letter.equals("T")) {
@@ -104,10 +106,10 @@ public class TaskList implements Serializable {
         return string.toString();
     }
     /**
-     * This method encapsulates the functionality of marking a task as completed or not
-     * For example, the input 'mark 1' will mark the duke.Task at position 0 at the TaskArray as 'marked'
-     * @param userInput the input string
-     * @throws DukeException if input is invalid
+     * Marks a task as either completed or uncompleted
+     * For example, the input 'mark 1' will mark the Task at position 0 at the TaskArray as 'marked'
+     * @param userInput User input
+     * @throws DukeException If input is invalid
      */
     public String markDescription(String userInput) throws DukeException {
         String digits = userInput.replaceAll("\\D+", ""); //remove non-digits
@@ -128,11 +130,11 @@ public class TaskList implements Serializable {
         return stringBuilder.toString();
     }
     /**
-     * For deadline and event Tasks, obtains the description of the duke.Task (before the first slash)
+     * For Deadline and Event Tasks, obtains the Task description (before the first slash)
      * For example, the input 'event project meeting /from Mon 2pm /to 4pm' will return 'project meeting'
      *
-     * @param userInput of the duke.Task
-     * @return the description of the duke.Task
+     * @param userInput User input
+     * @return The Task description
      */
     public static String getDescription(String userInput) {
         int len = userInput.length();
@@ -146,12 +148,12 @@ public class TaskList implements Serializable {
         return userInput.substring(0, count);
     }
     /**
-     * A method for the duke.Deadline class to obtain the by part of the duke.Task description
+     * Obtains the 'by' time component of a Deadline Task
      * For example, the input 'deadline return book /by Sunday' will return 'Sunday'
      *
-     * @param userInput the duke.Task description
-     * @return the deadline
-     * @throws DukeException if the input string is formatted wrongly
+     * @param userInput The Task description, including the time component
+     * @return The time component
+     * @throws DukeException If user input is invalid
      */
     public static String getBy(String userInput) throws DukeException {
         String slash = "/";
@@ -163,12 +165,12 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * A method for the duke.Event class to obtain the from part of the duke.Event description
+     * Obtains the 'from' time component of an Event Task
      * For example, the input 'event project meeting /from Mon 2pm /to 4pm' will return 'Mon 2pm'
      *
-     * @param userInput the duke.Task description
-     * @return the from part of the event
-     * @throws DukeException throws duke.DukeException if invalid input
+     * @param userInput The Task description, including the time component
+     * @return The 'from' time component
+     * @throws DukeException If user input is invalid
      */
     public static String getFrom(String userInput) throws DukeException {
         String slash = "/";
@@ -183,12 +185,12 @@ public class TaskList implements Serializable {
         return userInput.substring(firstSlash + 6, secondSlash - 1);
     }
     /**
-     * A method for the duke.Event class to obtain the to part of the duke.Event description
+     * Obtains the 'to' part of an Event Task
      * For example, the input 'event project meeting /from Mon 2pm /to 4pm' will return '4pm'
      *
-     * @param userInput the duke.Task description
-     * @return the to part of the event
-     * @throws DukeException throws duke.DukeException if invalid input
+     * @param userInput The Task description, including the time component
+     * @return The 'to' part of the event
+     * @throws DukeException If user input is invalid
      */
     public static String getTo(String userInput) throws DukeException {
         String slash = "/";
@@ -201,10 +203,10 @@ public class TaskList implements Serializable {
         return userInput.substring(secondSlash + 4);
     }
     /**
-     * This method encapsulates deleting of a task from TaskArray
+     * Deletes a Task from TaskList
      * For example, the input 'delete 3' will delete the duke.Task at position 2 of TaskArray
      *
-     * @param userInput the input string
+     * @param userInput The user input
      */
     public String deleteTask(String userInput) throws DukeException {
         String digits = userInput.replaceAll("\\D+", ""); //remove non-digits
@@ -220,5 +222,28 @@ public class TaskList implements Serializable {
             return stringBuilder.toString();
         }
     }
-
+    /**
+     * Displays user guide
+     * @return The user guide
+     */
+    public String displayUserGuide() {
+        return Ui.showUserGuide();
+    }
+    /**
+     * Undo the most recent user command
+     * @throws IOException If undo.txt is an empty file
+     */
+    public void undo(Storage storage) throws IOException, ClassNotFoundException {
+        try {
+            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("data/undo.txt"));
+            @SuppressWarnings("unchecked")
+            ArrayList<Task> loadedTasks = (ArrayList<Task>) inputStream.readObject();
+            tasks.clear();
+            tasks.addAll(loadedTasks);
+            storage.copyUndoToTemp();
+        } catch (IOException e) {
+            tasks.clear();
+            System.err.println("something happened to undo " + e.getMessage());
+        }
+    }
 }
