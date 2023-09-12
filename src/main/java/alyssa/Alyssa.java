@@ -127,6 +127,7 @@ public class Alyssa {
         command = Command.assignCommand(commandString);
         String rest = parsedInput.length > 1 ? parsedInput[1] : "";
         String output = run(command, rest);
+        assert output.length() > 0: "Program output cannot be empty";
         try {
             storage.saveTasks(taskList);
         } catch (IOException e) {
