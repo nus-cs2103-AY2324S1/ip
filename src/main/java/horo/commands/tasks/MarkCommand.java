@@ -1,14 +1,16 @@
-package horo.commands;
+package horo.commands.tasks;
 
 import horo.HoroException;
 import horo.Storage;
 import horo.Ui;
-import horo.data.TaskList;
+import horo.commands.Command;
+import horo.data.tasks.TaskList;
 
 public class MarkCommand extends Command {
+
+  public static final String DISPLAY_FORMAT = "mark <number>";
   private static final String NAME = "mark";
   private static final String REGEX = "^mark ([0-9]+)";
-  private static final String DISPLAY_FORMAT = "mark <number>";
 
   private Integer index;
 
@@ -17,7 +19,8 @@ public class MarkCommand extends Command {
     index = Integer.parseInt(validateAndParse(input).group(1)) - 1;
   }
 
-  public void execute(TaskList taskList, Ui ui, Storage storage) throws HoroException {
+  public void execute(Ui ui, Storage storage) throws HoroException {
+    TaskList taskList = storage.getTaskList();
     taskList.markTaskDone(index);
     storage.updateTaskData(taskList);
 

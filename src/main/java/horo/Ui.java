@@ -1,5 +1,16 @@
 package horo;
 
+import horo.commands.ExitCommand;
+import horo.commands.expenses.AddExpenseCommand;
+import horo.commands.expenses.DeleteExpenseCommand;
+import horo.commands.expenses.ListExpenseCommand;
+import horo.commands.tasks.AddDeadlineCommand;
+import horo.commands.tasks.AddEventCommand;
+import horo.commands.tasks.AddTodoCommand;
+import horo.commands.tasks.DeleteTaskCommand;
+import horo.commands.tasks.ListTaskCommand;
+import horo.commands.tasks.MarkCommand;
+import horo.commands.tasks.UnmarkCommand;
 import horo.components.DialogBox;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
@@ -47,15 +58,21 @@ public class Ui {
     String introduction = ""
         + "Hello! I'm Horo\n"
         + "What can I do for you?\n"
-        + "Usage: \n"
-        + " todo <description>\n"
-        + " deadline <description> /by <time>\n"
-        + " event <description> /from <time> /to <time>\n"
-        + " list\n"
-        + " mark <number>\n"
-        + " unmark <number>\n"
-        + " delete <number>\n"
-        + " bye\n";
+        + "Commands: \n"
+        + " ---Tasks---\n"
+        + ListTaskCommand.DISPLAY_FORMAT + "\n"
+        + AddTodoCommand.DISPLAY_FORMAT + "\n"
+        + AddDeadlineCommand.DISPLAY_FORMAT + "\n"
+        + AddEventCommand.DISPLAY_FORMAT + "\n"
+        + MarkCommand.DISPLAY_FORMAT + "\n"
+        + UnmarkCommand.DISPLAY_FORMAT + "\n"
+        + DeleteTaskCommand.DISPLAY_FORMAT + "\n"
+        + " ---Expenses---\n"
+        + ListExpenseCommand.DISPLAY_FORMAT + "\n"
+        + AddExpenseCommand.DISPLAY_FORMAT + "\n"
+        + DeleteExpenseCommand.DISPLAY_FORMAT + "\n"
+        + " ---Others---\n"
+        + ExitCommand.DISPLAY_FORMAT + "\n";
 
     return logo + introduction;
   }

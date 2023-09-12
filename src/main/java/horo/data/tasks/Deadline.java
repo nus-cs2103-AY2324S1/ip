@@ -1,4 +1,4 @@
-package horo.data;
+package horo.data.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,7 +20,6 @@ public class Deadline extends Task {
     try {
       this.deadline = LocalDateTime.parse(deadline, DATE_TIME_FORMAT);
     } catch (DateTimeParseException e) {
-      e.printStackTrace();
       throw new HoroException("Wrong Date Time Format");
     }
   }

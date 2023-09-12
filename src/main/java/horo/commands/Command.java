@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 import horo.HoroException;
 import horo.Storage;
 import horo.Ui;
-import horo.data.TaskList;
 
 public abstract class Command {
 
@@ -24,11 +23,10 @@ public abstract class Command {
   /**
    * Executes the command.
    *
-   * @param tasks   The TaskList to be worked on.
    * @param storage The Storage to be worked on.
    * @throws HoroException Error.
    */
-  public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws HoroException;
+  public abstract void execute(Ui ui, Storage storage) throws HoroException;
 
   public MatchResult validateAndParse(String input) throws HoroException {
     Pattern pattern = Pattern.compile(regex);

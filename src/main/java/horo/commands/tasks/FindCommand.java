@@ -1,4 +1,4 @@
-package horo.commands;
+package horo.commands.tasks;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,13 +7,15 @@ import java.util.regex.MatchResult;
 import horo.HoroException;
 import horo.Storage;
 import horo.Ui;
-import horo.data.Task;
-import horo.data.TaskList;
+import horo.commands.Command;
+import horo.data.tasks.Task;
+import horo.data.tasks.TaskList;
 
 public class FindCommand extends Command {
+
+  public static final String DISPLAY_FORMAT = "find <query>";
   private static final String NAME = "find";
   private static final String REGEX = "^find ([\\w ]+)";
-  private static final String DISPLAY_FORMAT = "find <query>";
 
   private String query;
 
@@ -23,7 +25,8 @@ public class FindCommand extends Command {
     query = m.group(1);
   }
 
-  public void execute(TaskList taskList, Ui ui, Storage storage) throws HoroException {
+  public void execute(Ui ui, Storage storage) throws HoroException {
+    TaskList taskList = storage.getTaskList();
     ArrayList<Task> matchedTasks = taskList.findTasks(Arrays.asList(query.split(" ")));
 
     if (matchedTasks.isEmpty()) {
