@@ -22,6 +22,12 @@ public class CustomErrorHandling {
     public static String emptyEventEndDate() {
         return "☹ OOPS!!! The end time of an event cannot be empty.";
     }
+    public static String invalidEventDates() {
+        return "☹ OOPS!!! The end time of an event cannot be before the start";
+    }
+    public static String duplicatedTask() {
+        return "☹ OOPS!!! This task has already been added";
+    }
     public static String commandNotFound() {
         return "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
     }
