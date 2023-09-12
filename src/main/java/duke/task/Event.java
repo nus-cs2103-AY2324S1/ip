@@ -6,20 +6,20 @@ import java.time.LocalDateTime;
  * Represents an event to be used by the Duke chat-bot.
  */
 public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime to;
+    protected LocalDateTime fromTime;
+    protected LocalDateTime toTime;
 
     /**
      * Creates an Event object.
      *
      * @param description The description of the event.
-     * @param from        The start time of the event.
-     * @param to          The end time of the event.
+     * @param fromTime    The start time of the event.
+     * @param toTime      The end time of the event.
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to) {
+    public Event(String description, LocalDateTime fromTime, LocalDateTime toTime) {
         super(description, false);
-        this.from = from;
-        this.to = to;
+        this.fromTime = fromTime;
+        this.toTime = toTime;
     }
 
     /**
@@ -27,13 +27,13 @@ public class Event extends Task {
      *
      * @param description The description of the event.
      * @param isDone      Whether the event is done.
-     * @param from        The start time of the event.
-     * @param to          The end time of the event.
+     * @param fromTime    The start time of the event.
+     * @param toTime      The end time of the event.
      */
-    public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {
+    public Event(String description, boolean isDone, LocalDateTime fromTime, LocalDateTime toTime) {
         super(description, isDone);
-        this.from = from;
-        this.to = to;
+        this.fromTime = fromTime;
+        this.toTime = toTime;
     }
 
     /**
@@ -44,7 +44,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s | to: %s)", super.toString(),
-                this.from.format(DATE_TIME_FORMAT), this.to.format(DATE_TIME_FORMAT));
+                this.fromTime.format(DATE_TIME_FORMAT), this.toTime.format(DATE_TIME_FORMAT));
     }
 
     /**
@@ -54,6 +54,6 @@ public class Event extends Task {
      */
     @Override
     public String encodeTask() {
-        return String.format("E;%s;%s;%s;%s", this.isDone ? "X" : " ", this.description, this.from, this.to);
+        return String.format("E;%s;%s;%s;%s", this.isDone ? "X" : " ", this.description, this.fromTime, this.toTime);
     }
 }
