@@ -66,7 +66,8 @@ public class Parser {
         case DEADLINE:
             String[] deadlineParts = inData.split("deadline ");
             if (deadlineParts.length <= 1 || !inData.contains(" /by ")) {
-                throw new SimonException("☹ OOPS!!! The format for deadline is incorrect. Expected format: 'deadline [task description] /by [dd/mm/yyyy HHmm]'. Time(HHmm) is optional.");
+                throw new SimonException("☹ OOPS!!! The format for deadline is incorrect. Expected format: "
+                        + "'deadline [task description] /by [dd/mm/yyyy HHmm]'. Time(HHmm) is optional.");
             }
             String nameDeadline = deadlineParts.length > 1 ? deadlineParts[1].split(" /by ")[0] : "";
             if (nameDeadline.trim().isEmpty()) {
@@ -83,7 +84,8 @@ public class Parser {
             String[] eventParts = inData.split("event ");
             if (eventParts.length <= 1 || !inData.contains("/from ") || !inData.contains("/to ")) {
                 throw new SimonException("☹ OOPS!!! The format for event is incorrect. Expected format: "
-                        + "'event [event description] /from [dd/mm/yyyy HHmm] /to [dd/mm/yyyy HHmm]'. The time(HHmm) is optional.");
+                        + "'event [event description] /from [dd/mm/yyyy HHmm] /to [dd/mm/yyyy HHmm]'. "
+                        + "The time(HHmm) is optional.");
             }
 
             String[] fromToParts = eventParts[1].split(" /from ");
