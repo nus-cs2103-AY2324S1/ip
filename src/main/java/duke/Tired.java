@@ -1,10 +1,12 @@
 package duke;
-import javafx.application.Platform;
 
 enum TaskType {
     TODO, DEADLINE, EVENT
 }
 
+/**
+ * The Tired class is the main class for the Tired chatbot.
+ */
 public class Tired {
     private Storage storage;
     private TaskList tasks;
@@ -32,7 +34,6 @@ public class Tired {
      */
     String getResponse(String input) {
         if (input.trim().equals("bye")) {
-//            Platform.exit();
             return ui.showGoodbyeMessage();
         }
         try {

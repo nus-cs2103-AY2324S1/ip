@@ -154,24 +154,25 @@ public class Parser {
         String end = parts[4].trim();
         Task task = null;
 
-        try {
-            switch (taskType) {
-            case "T":
-                task = new ToDo(taskDescription);
-                break;
-            case "D":
-                task = new Deadline(taskDescription, end);
-                break;
-            case "E":
-                task = new Event(taskDescription, start, end);
-                break;
-            }
-            if (taskStatus.equals("0") && task != null) {
-                task.isDone = false;
-            }
-        } catch (DukeException e) {
 
+        switch (taskType) {
+        case "T":
+            task = new ToDo(taskDescription);
+            break;
+        case "D":
+            task = new Deadline(taskDescription, end);
+            break;
+        case "E":
+            task = new Event(taskDescription, start, end);
+            break;
+        default:
+            break;
         }
+
+        if (taskStatus.equals("0") && task != null) {
+            task.isDone = false;
+        }
+
         return task;
     }
 
@@ -206,8 +207,8 @@ public class Parser {
         case DEADLINE:
             if (parts.length != 2 || parts[1].length() < 2) {
                 // prevent java.lang.StringIndexOutOfBoundsException
-                throw new DukeException("Invalid input for a task with deadline. " +
-                        "Please input 'deadline <task name> /by <end>'");
+                throw new DukeException("Invalid input for a task with deadline. "
+                        + "Please input 'deadline <task name> /by <end>'");
             }
             String date = parts[1].substring(2).trim();
             newTask = new Deadline(taskDetails, date);
@@ -215,8 +216,8 @@ public class Parser {
         case EVENT:
             if (parts.length != 3 || parts[1].length() < 5 || parts[2].length() < 3) {
                 // prevent java.lang.StringIndexOutOfBoundsException
-                throw new DukeException("Invalid input for an event. " +
-                        "Please input 'event <event name> /from <start> /to <end>'");
+                throw new DukeException("Invalid input for an event. "
+                        + "Please input 'event <event name> /from <start> /to <end>'");
             }
             String start = parts[1].substring(5).trim();
             String end = parts[2].substring(3).trim();
