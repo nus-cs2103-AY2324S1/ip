@@ -1,6 +1,11 @@
 package duke;
 
-import duke.command.Command;
+import duke.command.*;
+import duke.exception.EmptyDescriptionException;
+import duke.exception.InvalidIndexException;
+import duke.exception.NoSuchCommandException;
+import duke.exception.UnmatchedArgumentException;
+
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
@@ -31,16 +36,69 @@ public class Parser {
      * @param fullCommand The input of the user, including command and details.
      * @return A `Command` object with the command and details.
      */
-    public static Command parse(String fullCommand) {
+    public static Command parse(String fullCommand, int taskSize) throws NoSuchCommandException, InvalidIndexException,
+            UnmatchedArgumentException, EmptyDescriptionException {
 
-        //0: command 1: detail
         String[] splitted = fullCommand.split(" ", 2);
-        Command c;
-
-        if (splitted.length > 1) {
-            return new Command(splitted[0], splitted[1]);
-        } else {
-            return new Command(splitted[0], "");
+        if (splitted[0].equals("list")) {
+            return new ListCommand();
+        } else if (splitted[0].equals("bye")) {
+            return new ExitCommand();
         }
+        if (splitted.length < 2) {
+            throw new EmptyDescriptionException("Command");
+        }
+        Command result;
+        String command = splitted[0];
+        String detail = splitted[1];
+
+        if (command.equals("mark")) {
+
+            if (detail.equals("")) {
+                throw new InvalidIndexException();
+            }
+            int index = Integer.parseInt(detail);
+            if (index > 0 && index <= taskSize) {
+                result = new MarkCommand(index);
+            } else {
+                throw new InvalidIndexException();
+            }
+        } else if (command.equals("delete")) {
+
+            if (detail.equals("")) {
+                throw new InvalidIndexException();
+            }
+            int index = Integer.parseInt(detail);
+            if (index > 0 && index <= taskSize) {
+                result = new DeleteCommand(index);
+            } else {
+                throw new InvalidIndexException();
+            }
+        } else if (command.equals("unmark")) {
+
+            if (detail.equals("")) {
+                throw new InvalidIndexException();
+            }
+            int index = Integer.parseInt(detail);
+            if (index > 0 && index <= taskSize) {
+                result = new UnmarkCommand(index);
+            } else {
+                throw new InvalidIndexException();
+            }
+        } else if (command.equals("todo")) {
+            result = new TodoCommand(detail);
+        } else if (command.equals("deadline")) {
+            result = new DeadlineCommand(detail);
+        } else if (command.equals("event")) {
+            result = new EventCommand(detail);
+        } else if (command.equals("due")) {
+            result = new CheckDuedateCommand(detail);
+        } else if (command.equals("find")) {
+            result = new FindCommand(detail);
+
+        } else {
+            throw new NoSuchCommandException();
+        }
+        return result;
     }
 }
