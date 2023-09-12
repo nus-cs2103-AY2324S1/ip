@@ -1,8 +1,8 @@
 package crusader.task;
 
-import crusader.DateUtils;
-
 import java.util.Date;
+
+import crusader.DateUtils;
 
 /**
  * An event task, with a duration of time the event occurs.
@@ -18,6 +18,13 @@ public class Event extends Task {
      */
     private final Date to;
 
+    /**
+     * Constructs a new event.
+     *
+     * @param name  Name of the event.
+     * @param from  When the event starts.
+     * @param to    When the event ends.
+     */
     public Event(String name, Date from, Date to) {
         super(name);
         this.from = from;

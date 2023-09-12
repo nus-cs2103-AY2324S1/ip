@@ -57,29 +57,29 @@ public class Crusader {
         }
         this.taskList = taskList;
     }
-
     /**
-     * Activates the bot.
+     * Constructs a Crusader bot instance.
      */
-    public void run() {
-        this.ui.showLogo();
-        this.ui.greet();
-        boolean hasEnded = false;
-        while (!hasEnded) {
-            try {
-                String command = this.ui.promptInput();
-                Command c = Parser.parse(command);
-                c.execute(ui, taskList);
-                hasEnded = c.isExit();
-            } catch (CrusaderException e) {
-                this.ui.say(e.getMessage());
-            }
+    public Crusader() {
+        TaskList taskList;
+        this.ui = new Ui(LOGO);
+        this.storage = new Storage(SAVE_FILE);
+        try {
+            taskList = new TaskList(storage.loadTasks());
+        } catch (CrusaderMissingSaveFileException e) {
+            taskList = new TaskList();
+        } catch (CrusaderException e) {
+            taskList = new TaskList();
         }
-        this.ui.farewell();
-        this.storage.saveTasks(taskList.getTasks());
+        this.taskList = taskList;
     }
 
-    public static void main(String[] args) {
-        new Crusader(SAVE_FILE, LOGO).run();
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(ui, taskList, storage);
+        } catch (CrusaderException e) {
+            return e.getMessage();
+        }
     }
 }

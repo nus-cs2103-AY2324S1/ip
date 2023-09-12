@@ -1,8 +1,9 @@
 package crusader.command;
 
-import crusader.task.Task;
+import crusader.Storage;
 import crusader.TaskList;
 import crusader.Ui;
+import crusader.task.Task;
 
 /**
  * Command used to add a task of any type to the bot.
@@ -15,11 +16,12 @@ public class AddTaskCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, TaskList taskList) {
+    public String execute(Ui ui, TaskList taskList, Storage storage) {
         taskList.addTask(this.task);
-        ui.say(String.format(
+        storage.saveTasks(taskList.getTasks());
+        return String.format(
                 "Adding the task:\n%s\nNow there are %d tasks in the list.",
                 this.task.toString(),
-                taskList.getSize()));
+                taskList.getSize());
     }
 }

@@ -1,8 +1,8 @@
 package crusader.task;
 
-import crusader.DateUtils;
-
 import java.util.Date;
+
+import crusader.DateUtils;
 
 /**
  * A deadline task, with a time the task is due by
@@ -13,6 +13,12 @@ public class Deadline extends Task {
      */
     private final Date by;
 
+    /**
+     * Constructs a new Deadline.
+     *
+     * @param name  Name of the deadline.
+     * @param by    When the deadline is due.
+     */
     public Deadline(String name, Date by) {
         super(name);
         this.by = by;

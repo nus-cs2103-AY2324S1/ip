@@ -1,5 +1,6 @@
 package crusader.command;
 
+import crusader.Storage;
 import crusader.TaskList;
 import crusader.Ui;
 
@@ -12,8 +13,9 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, TaskList taskList) {
-        // do nothing
+    public String execute(Ui ui, TaskList taskList, Storage storage) {
+        storage.saveTasks(taskList.getTasks());
+        return "Bye!";
     }
 
     @Override

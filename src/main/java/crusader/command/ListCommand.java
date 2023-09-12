@@ -1,5 +1,6 @@
 package crusader.command;
 
+import crusader.Storage;
 import crusader.TaskList;
 import crusader.Ui;
 
@@ -12,9 +13,9 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, TaskList taskList) {
-        ui.say(String.format(
+    public String execute(Ui ui, TaskList taskList, Storage storage) {
+        return String.format(
                 "Here are your tasks:\n%s",
-                taskList.toString()));
+                taskList.toString());
     }
 }
