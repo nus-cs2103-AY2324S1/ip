@@ -38,6 +38,7 @@ public class AddCommand extends Command {
      * @param description
      */
     public AddCommand(String description) {
+        assert !description.isBlank() : "Task description cannot be empty";
         this.description = description;
         this.type = "todo";
     }
@@ -49,6 +50,8 @@ public class AddCommand extends Command {
      * @param to          the end time of the task
      */
     public AddCommand(String description, LocalDateTime to) {
+        assert !description.isBlank() : "Task description cannot be empty";
+        assert !(to == null) : "Task end time cannot be empty";
         this.description = description;
         this.to = to;
         this.type = "deadline";
@@ -62,6 +65,9 @@ public class AddCommand extends Command {
      * @param to          the end time of the task
      */
     public AddCommand(String description, LocalDateTime from, LocalDateTime to) {
+        assert !description.isBlank() : "Task description cannot be empty";
+        assert !(from == null) : "Task start time cannot be empty";
+        assert !(to == null) : "Task end time cannot be empty";
         this.description = description;
         this.to = to;
         this.from = from;

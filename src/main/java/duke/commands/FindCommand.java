@@ -11,6 +11,7 @@ public class FindCommand extends Command {
     private final String keyword;
 
     public FindCommand(String keyword) {
+        assert !keyword.isBlank() : "Keyword cannot be empty";
         this.keyword = keyword;
     }
 
