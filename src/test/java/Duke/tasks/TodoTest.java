@@ -13,7 +13,7 @@ public class TodoTest {
      * @throws DukeException if there is an error during creation.
      */
     @Test
-    public void testTodoCreation() throws DukeException {
+    public void createToDo_WithValidInputs_ReturnsCorrectMarkStatus() throws DukeException {
         ToDos todo = new ToDos("Sample Task");
 
         assertEquals("Sample Task", todo.getDescription());
@@ -25,7 +25,7 @@ public class TodoTest {
      * Ensures that exception is thrown if empty description in creation of Todos.
      */
     @Test
-    public void testToDoCreationWithInvalidInput() {
+    public void createToDo_WithEmptyDescription_ThrowsException() {
         assertThrows(DukeException.class, () -> {
             new ToDos("");
         });

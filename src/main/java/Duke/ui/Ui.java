@@ -67,13 +67,7 @@ public class Ui {
         System.out.println("Error loading tasks.");
     }
 
-    public void showUpdateNumTasks() {
-
-    }
-
     public void showAddTask(Task currTask) {
         System.out.println("Got it I have added this task:" + "\n" + currTask + "\n" + horizontal_line);
     }
-
-    // ... Add more methods for other interactions like showing added tasks, etc.
 }
