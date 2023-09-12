@@ -92,7 +92,7 @@ public class Ui {
             Deadline deadTask = (Deadline) task;
 
             answer =
-                "[" + Deadline.taskType + "]" + "[" + task.getDoneIcon() + "] "
+                "[" + Deadline.TASK_TYPE + "]" + "[" + task.getDoneIcon() + "] "
                     + task.getDescription()
                     + "("
                     + deadTask.getDeadDate() + ")";
