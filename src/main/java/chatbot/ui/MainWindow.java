@@ -39,7 +39,7 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private void startChat() {
-        String response = "Hello I am Bobby Wasabi, what can I do for you?";
+        String response = chatBot.showIntro();
         dialogContainer.getChildren().addAll(
                 DialogBox.getChatBotDialog(response, botImage)
         );

@@ -33,6 +33,15 @@ public class ChatBot {
     }
 
     /**
+     * Returns the introduction of the chat bot.
+     * 
+     * @return String of the introduction
+     */
+    public String showIntro() {
+        return ui.intro();
+    }
+
+    /**
      * Responds to user input.
      * 
      * @param input User input

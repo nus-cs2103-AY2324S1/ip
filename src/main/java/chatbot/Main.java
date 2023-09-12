@@ -11,12 +11,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for ChatBot using FXML.
  */
 public class Main extends Application {
 
     private ChatBot chatBot = new ChatBot();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start(Stage stage) {
         try {
