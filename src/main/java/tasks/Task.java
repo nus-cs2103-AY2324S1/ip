@@ -12,7 +12,7 @@ public class Task {
     /**
      * Initialises a Task object with a task description.
      *
-     * @param description
+     * @param description The task description.
      */
     public Task(String description) {
         this.description = description;

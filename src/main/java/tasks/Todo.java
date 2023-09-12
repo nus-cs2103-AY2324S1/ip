@@ -6,7 +6,6 @@ package tasks;
  * @author Gallen Ong
  */
 public class Todo extends Task {
-
     /**
      * Initialises a Todo task with a description.
      *
