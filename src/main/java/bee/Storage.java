@@ -125,7 +125,7 @@ public class Storage {
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNextLine()) {
                 String taskData = fileScanner.nextLine();
-                assert taskData != null : "Task data string cannot be null."; // Assumption: Task data should not be null
+                assert taskData != null : "Task data string cannot be null.";
                 parseTask(taskData);
                 // Parse taskData and add tasks to the list
                 // Example: T | 1 | read book
