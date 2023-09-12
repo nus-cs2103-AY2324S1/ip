@@ -1,5 +1,8 @@
 package robert.parser;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
 import robert.command.AddCommand;
@@ -10,9 +13,6 @@ import robert.command.FilterCommand;
 import robert.command.ListCommand;
 import robert.command.MarkCommand;
 import robert.command.UnmarkCommand;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
     @Test

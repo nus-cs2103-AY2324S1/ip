@@ -1,12 +1,12 @@
 package robert.task;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
     private final ArrayList<Task> sampleTaskArrayList = new ArrayList<>(
