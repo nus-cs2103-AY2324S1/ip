@@ -24,23 +24,29 @@ public class Parser {
         String details = parts.length == 1 ? "" : parts[1];
         switch (action) {
         case "bye":
+        case "b":
             return new ExitCommand();
         case "list":
+        case "l":
             return new ListCommand();
         case "mark":
+        case "m":
             if (details.isEmpty()) {
                 throw new DukeException("The task number is missing!");
             }
             assert Integer.parseInt(details) >= 0 : "Task number should be a non-negative integer";
             return new MarkCommand(Integer.parseInt(details));
         case "find":
+        case "f":
             return new FindCommand(details);
         case "todo":
+        case "t":
             if (details.isEmpty()) {
                 throw new DukeException("So what exactly do you want to do?");
             }
             return new AddCommand(details);
         case "deadline":
+        case "d":
             if (details.isEmpty()) {
                 throw new DukeException("So what exactly is the task?");
             }
@@ -52,6 +58,7 @@ public class Parser {
                 throw new DukeException("OOPS! The time format should be DD/MM/YYYY HHmm");
             }
         case "event":
+        case "e":
             if (details.isEmpty()) {
                 throw new DukeException("So what exactly is the task?");
             }
@@ -65,16 +72,18 @@ public class Parser {
                 throw new DukeException("OOPS! The time format should be DD/MM/YYYY HHmm");
             }
         case "delete":
+        case "del":
             if (details.isEmpty()) {
                 throw new DukeException("The task number is missing!");
             }
             assert Integer.parseInt(details) >= 0 : "Task number should be a non-negative integer";
             return new DeleteCommand(Integer.parseInt(details));
         case "help":
+        case "h":
             return new HelpCommand();
         default:
             throw new DukeException("I have no idea what that means...\n"
-                    + "Try entering 'help' to see what I can do");
+                    + "Try entering 'help' to see what I can do!");
         }
     }
 
