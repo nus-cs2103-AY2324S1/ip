@@ -31,24 +31,26 @@ public class Parser {
         switch (commandType) {
         case "bye":
         case "list":
-            return new Command(commandType);
+            return Command.of(commandType);
 
         case "mark":
         case "delete":
         case "unmark":
-            return new Command(commandType, getTaskIndex(userInput)); // taskIndex is -1 if invalid
+            return Command.ofTaskIndex(commandType, getTaskIndex(userInput));
 
         case "todo":
         case "find":
-            return new Command(commandType, getDescription(userInput));
+            return Command.ofDescription(commandType, getDescription(userInput));
+
         case "deadline":
-            return new Command(commandType, getDeadlineDescription(userInput), getDeadlineDate(userInput));
+            return Command.ofDeadline(commandType, getDeadlineDescription(userInput), getDeadlineDate(userInput));
+
         case "event":
             LocalDate[] eventDates = getEventDates(userInput);
             LocalDate eventFromDate = eventDates[0];
             LocalDate eventToDate = eventDates[1];
 
-            return new Command(commandType, getEventDescription(userInput), eventFromDate, eventToDate);
+            return Command.ofEvent(commandType, getEventDescription(userInput), eventFromDate, eventToDate);
 
         default:
             throw new DukeException("I'm sorry, but I don't know what that means :-(");

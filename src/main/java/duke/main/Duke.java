@@ -43,11 +43,11 @@ public class Duke {
      */
     public String handleCommand(Command command) throws DukeException {
         String commandType = command.getCommandType();
-        String description = command.getDescription();
-        int taskIndex = command.getTaskIndex();
-        LocalDate deadlineDate = command.getDeadlineDate();
-        LocalDate eventFromDate = command.getEventFromDate();
-        LocalDate eventToDate = command.getEventToDate();
+        String description = command.getDescription().orElse(null);
+        int taskIndex = command.getTaskIndex().orElse(0);
+        LocalDate deadlineDate = command.getDeadlineDate().orElse(null);
+        LocalDate eventFromDate = command.getEventFromDate().orElse(null);
+        LocalDate eventToDate = command.getEventToDate().orElse(null);
 
         switch (commandType) {
         case "mark":
