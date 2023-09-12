@@ -18,7 +18,7 @@ public class Ui {
      * Prints corresponding error message according to the exception.
      * @param e the exception.
      */
-    public void handleException(DukeException e) {
+    public String handleException(DukeException e) {
         String message = e.getMessage();
         String warning;
         switch (message) {
@@ -42,6 +42,7 @@ public class Ui {
             break;
         }
         System.out.println(warning);
+        return warning;
     }
 
     /**

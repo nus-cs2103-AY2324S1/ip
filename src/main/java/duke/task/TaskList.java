@@ -50,7 +50,7 @@ public class TaskList {
                 throw new DukeException("deadline error");
             }
             break;
-        default:
+        case EVENT:
             Pattern pattern = Pattern.compile("(.+) /from (.+) /to (.+)");
             Matcher matcher = pattern.matcher(description);
             if (matcher.matches() && !matcher.group(1).isEmpty() && !matcher.group(2).isEmpty()
@@ -63,7 +63,7 @@ public class TaskList {
         }
         int size = this.tasks.size();
         String taskInTotal = size > 1 ? " tasks in total." : " task in total.";
-        return "duke.task.Task added:\n" + this.tasks.get(size - 1) + "\nNow you have "
+        return "Task added:\n" + this.tasks.get(size - 1) + "\nNow you have "
                 + size + taskInTotal + "\n\"Be here now.\"";
     }
 

@@ -7,41 +7,72 @@ import java.io.IOException;
 /**
  * Represents an intelligent chat robot that helps a person to keep track of various things with encouraging quotes.
  */
-public class Duke {
-    private Ui ui;
+public class Duke{
+    private Parser parser;
     private Storage storage;
     private TaskList tasks;
 
-    /**
-     * Initializes the chat robot, loads past data from the specified file path.
-     *
-     * @param filePath the file path to load past data from.
-     */
-    public Duke(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
+    public Duke() {
+        storage = new Storage("data/duke.txt");
         try {
             tasks = new TaskList(storage.loadFile());
         } catch (FileNotFoundException e) {
-            ui.showLoadingError();
+            //TODO: create a new file when saving
             tasks = new TaskList();
         }
+        parser = new Parser(tasks);
     }
 
-    /**
-     * Runs the chat robot to start the interaction. Save data to file after user exits.
-     */
-    public void run() {
-        ui.run(new Parser(tasks));
+    public String getResponse(String input) {
         try {
-            storage.save(tasks);
-        } catch (IOException e) {
-            ui.showSavingError();
+            String output= parser.parse(input);
+            if (!parser.isRunning()) {
+                try {
+                    storage.save(tasks);
+                } catch (IOException e) {
+                    return showSavingError();
+                }
+                return "8888";
+                //TODO: exit
+            }
+            return output;
+        } catch (DukeException e) {
+            return handleException(e);
         }
     }
 
-    public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
+//    public void showLoadingError() {
+//        System.out.println("Generating new chat session...");
+//    }
+
+    private String showSavingError() {
+        return "⚠ Oops! Something wrong when closing:(";
+    }
+
+    private String handleException(DukeException e) {
+        String message = e.getMessage();
+        String warning;
+        switch (message) {
+        case "todo error":
+            warning = "⚠ Oops! Need description for the todo:(";
+            break;
+        case "deadline error":
+            warning = "⚠ Oops! Need description and formatted by date for the deadline:(";
+            break;
+        case "event error":
+            warning = "⚠ Oops! Need description, from and to date for the event:(";
+            break;
+        case "task not found":
+            warning = "⚠ Oops! Cannot find task:(";
+            break;
+        case "undefined":
+            warning = "⚠ Sorry! I am not able to understand you. Try another language:D";
+            break;
+        default:
+            warning = "⚠ Oops! Something went wrong:(";
+            break;
+        }
+        return warning;
     }
 
 }
