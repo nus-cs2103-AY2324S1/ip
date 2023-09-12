@@ -58,28 +58,10 @@ public class Parser {
      * @return The CommandType enum representing the parsed user input.
      */
     public CommandType parseCommand(String input) {
-        if (input.equals("bye")) {
-            return CommandType.BYE;
-        } else if (input.equals("mark")) {
-            return CommandType.MARK;
-        } else if (input.equals("unmark")) {
-            return CommandType.UNMARK;
-        } else if (input.equals("todo")) {
-            return CommandType.TODO;
-        } else if (input.equals("deadline")) {
-            return CommandType.DEADLINE;
-        } else if (input.equals("event")) {
-            return CommandType.EVENT;
-        } else if (input.equals("delete")) {
-            return CommandType.DELETE;
-        } else if (input.equals("list")) {
-            return CommandType.LIST;
-        } else if (input.equals("")) {
+        try {
+            return CommandType.valueOf(input.toUpperCase());
+        } catch (IllegalArgumentException e) {
             return CommandType.EMPTY;
-        } else if (input.equals("find")) {
-            return CommandType.FIND;
-        } else {
-            return CommandType.UNKNOWN;
         }
     }
 
@@ -111,19 +93,6 @@ public class Parser {
         CommandType command = parseCommand(commandUser);
 
         switch (command) {
-        case EMPTY:
-            assert command != CommandType.EMPTY : "Command is not EMPTY";
-            return ui.showEmptyMessage();
-
-        case UNKNOWN:
-            assert command != CommandType.UNKNOWN : "Command is not UNKNOWN";
-            return ui.showUnknownMessage();
-
-        case BYE:
-            assert command != CommandType.BYE : "Command is not BYE";
-            fileStorage.saveTasks(fullList);
-            return ui.showByeMessage();
-
         case LIST:
             assert command != CommandType.LIST : "Command is not LIST";
             if (userInputParts.length > 1) {
@@ -187,7 +156,7 @@ public class Parser {
 
             Event event = new Event(descr, from, to);
 
-            if (event.isStartDateBefore(from, to)) {
+            if (event.isStartBeforeEnd(from, to)) {
                 return fullList.addToList(event);
             } else {
                 return ui.showInvalidDate();
@@ -212,6 +181,19 @@ public class Parser {
             } else {
                 return ui.showFind(list);
             }
+
+        case BYE:
+            assert command != CommandType.BYE : "Command is not BYE";
+            fileStorage.saveTasks(fullList);
+            return ui.showByeMessage();
+
+        case EMPTY:
+            assert command != CommandType.EMPTY : "Command is not EMPTY";
+            return ui.showEmptyMessage();
+
+        case UNKNOWN:
+            assert command != CommandType.UNKNOWN : "Command is not UNKNOWN";
+            return ui.showUnknownMessage();
 
         default:
             return ui.showInvalidMessage();

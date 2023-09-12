@@ -58,27 +58,4 @@ public class Duke {
         return ui.showWelcome();
     }
 
-    //    /**
-    //     * Initialises the application, displays a welcome message and
-    //     * enters a loop to process user inputs until the use enters "bye".
-    //     */
-    //    public void run() {
-    //        ui.showWelcome();
-    //        boolean isBye = false;
-    //        while (!isBye) {
-    //            String input = scanner.nextLine();
-    //            isBye = parser.isBye(input);
-    //            parser.createTaskAction(input);
-    //        }
-    //        scanner.close();
-    //    }
-
-    //    /**
-    //     * Entry point of the Duke application.
-    //     *
-    //     * @param args Command-line arguments. Not used in this context.
-    //     */
-    //    public static void main(String[] args) {
-    //        new Duke().run();
-    //    }
 }
