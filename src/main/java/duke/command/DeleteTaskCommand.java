@@ -27,9 +27,9 @@ public class DeleteTaskCommand extends Command {
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {
             Task task = taskList.getTask(index);
-            taskList.delete(index);
+            taskList.deleteTask(index);
             storage.rewriteToFile(taskList.getList());
-            return ui.successfulTaskDeletionMsg(task.displayableForm(), taskList.getSize());
+            return ui.successfulTaskDeletionMsg(task.userDisplayString(), taskList.getSize());
         } catch (IOException e) {
             throw new DukeException("Something went wrong: " + e.getMessage());
         }

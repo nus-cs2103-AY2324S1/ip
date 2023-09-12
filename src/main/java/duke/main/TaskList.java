@@ -41,6 +41,7 @@ public class TaskList {
      * @param task The task to be added into the task list.
      */
     public void addTask(Task task) throws DukeException {
+        assert task != null;
         this.taskList.add(task);
         this.index++;
     }
@@ -77,9 +78,10 @@ public class TaskList {
      *
      * @param number The index of the task to be removed.
      */
-    public void delete(int number) throws DukeException {
+    public void deleteTask(int number) throws DukeException {
         try {
             this.index = this.taskList.size();
+            assert number < this.index;
             this.taskList.remove(number - 1);
             this.index--;
 
@@ -107,11 +109,11 @@ public class TaskList {
     /**
      * Prints the tasks in the list.
      */
-    public String printTaskList() {
+    public String produceTaskList() {
         String result = "";
         result += "Here are the tasks in your list:\n";
         for (int i = 0; i < this.getSize(); i++) {
-            result += ((i + 1) + ". " + this.taskList.get(i).displayableForm() + "\n");
+            result += ((i + 1) + ". " + this.taskList.get(i).userDisplayString() + "\n");
         }
         return result;
     }

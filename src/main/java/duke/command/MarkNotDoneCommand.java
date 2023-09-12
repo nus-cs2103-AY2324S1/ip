@@ -29,7 +29,7 @@ public class MarkNotDoneCommand extends Command {
             taskList.markNotDone(index);
             Task task = taskList.getTask(index);
             storage.rewriteToFile(taskList.getList());
-            return ui.successfulMarkNotDoneMsg(task.displayableForm());
+            return ui.successfulMarkNotDoneMsg(task.userDisplayString());
         } catch (IOException e) {
             throw new DukeException("Something went wrong: " + e.getMessage());
         }

@@ -1,7 +1,5 @@
 package duke.command;
 
-import java.io.IOException;
-
 import duke.main.DukeException;
 import duke.main.Storage;
 import duke.main.TaskList;
@@ -23,7 +21,10 @@ public class AddEventCommand extends Command {
      * @param startDate
      * @param endDate
      */
-    public AddEventCommand(String taskName, String startDate, String endDate) {
+    public AddEventCommand(String taskName, String startDate, String endDate) throws DukeException {
+        if (taskName.equals("")) {
+            throw new DukeException("☹ OOPS!!! Incorrect description of a deadline.");
+        }
         this.taskName = taskName;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -35,8 +36,8 @@ public class AddEventCommand extends Command {
             Event event = new Event(taskName, startDate, endDate, false);
             taskList.addTask(event);
             storage.rewriteToFile(taskList.getList());
-            return ui.successfulAddTaskMsg(event.displayableForm(), taskList.getIndex());
-        } catch (IOException e) {
+            return ui.successfulAddTaskMsg(event.userDisplayString(), taskList.getIndex());
+        } catch (Exception e) {
             throw new DukeException("Something went wrong: " + e.getMessage());
         }
     }
