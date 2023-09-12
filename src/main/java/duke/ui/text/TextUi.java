@@ -247,6 +247,16 @@ public class TextUi implements Ui {
     }
 
     /**
+     * Notifies the user that a task has been modified.
+     * @param task The task modified.
+     */
+    @Override
+    public void notifyModified(Task task) {
+        System.out.println("Alright, the following task has been updated:");
+        System.out.println(task);
+    }
+
+    /**
      * Displays custom data.
      */
     @Override

@@ -303,6 +303,15 @@ public class MainWindow extends VBox implements Ui {
     }
 
     /**
+     * Notifies the user that a task has been modified.
+     * @param task The task modified.
+     */
+    @Override
+    public void notifyModified(Task task) {
+        this.displayData("Alright, the following task has been updated:\n" + task);
+    }
+
+    /**
      * Displays custom data.
      */
     @Override

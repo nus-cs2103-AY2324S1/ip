@@ -1,6 +1,7 @@
 package duke;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import duke.parse.Parser;
@@ -9,6 +10,7 @@ import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
+import duke.ui.text.TextUi;
 import duke.ui.graphic.DukeApplication;
 import duke.ui.graphic.MainWindow;
 import javafx.application.Application;
@@ -68,21 +70,24 @@ public class Duke {
     /**
      * Main programme to allow user to input and respond accordingly.
      * Available commands:
-     * - bye/exit: to exit the programme
-     * - list: to list out the current task list
-     * - list {date}: to list out all events happening on that date or deadlines before/on that date
-     * - list {todo/deadline/event}: list out all todo items / deadline items / event items
-     * - list -d: list out all tasks not done
-     * - mark {number}: to mark the task with the corresponding index in the list as done
-     * - unmark {number}: to mark the task with the corresponding index in the list as not done
-     * - todo {taskname}: to add a new task as a to-do item (no deadline or time)
-     * - event {taskname} /from {starttime} /to {endtime}: to add a new task as an event (with start time and end time)
-     * - deadline {taskname} /by {time}: to add a new task as a deadline (with deadline time)
+     * - bye/exit: to exit the programme.
+     * - list: to list out the current task list.
+     * - list {date}: to list out all events happening on that date or deadlines before/on that date.
+     * - list {todo/deadline/event}: list out all todo items / deadline items / event items.
+     * - list -d: list out all tasks not done.
+     * - mark {number}: to mark the task with the corresponding index in the list as done.
+     * - unmark {number}: to mark the task with the corresponding index in the list as not done.
+     * - todo {taskname}: to add a new task as a to-do item (no deadline or time).
+     * - event {taskname} /from {starttime} /to {endtime}: to add a new task as an event (with start time and end time).
+     * - deadline {taskname} /by {time}: to add a new task as a deadline (with deadline time).
+     * - update {property} {taskindex} {newvalue}: update the property of the task of taskindex with newvalue.
      * Note that for list, a combination of options can be used, by separating them by space characters.
      * If there is an error in the input from user, notify the user.
-     * Datetime format: "{date} {time}"
-     * Date format: either "today", "tmr", "tomorrow", or DD/MM/YYYY
-     * Time format: either "{HH:MM}", "{HH}am", "{HH}pm", "{HH:MM}am" or "{HH:MM}pm"
+     * Datetime format: "{date} {time}".
+     * Date format: either "today", "tmr", "tomorrow", or DD/MM/YYYY.
+     * Time format: either "{HH:MM}", "{HH}am", "{HH}pm", "{HH:MM}am" or "{HH:MM}pm".
+     * Possible properties of a task to update: name (any kind), deadline (only for deadlines),
+     * starttime (only for events), endtime (only for events).
      */
     private void interact() {
         try {
@@ -233,8 +238,70 @@ public class Duke {
         this.userInterface.notifyFind(input, this.taskList.results(input, this.userInterface));
     }
 
+    /**
+     * Updates the name of the task with the given index.
+     * @param index The index of the task in the task list.
+     * @param newName The new name of the task.
+     */
+    public void updateName(int index, String newName) {
+        try {
+            Task task = this.taskList.updateName(index, newName);
+            this.userInterface.notifyModified(task);
+        } catch (TaskList.TaskIndexOutOfRange e) {
+            this.userInterface.notifyError("invalid task index");
+        }
+    }
+
+    /**
+     * Update the deadline of the task of the given index with the new deadline.
+     * @param index The index of the task to be updated.
+     * @param newDeadlineTime The new deadline of the task.
+     */
+    public void updateDeadline (int index, LocalDateTime newDeadlineTime) {
+        try {
+            Task task = this.taskList.updateDeadline(index, newDeadlineTime);
+            this.userInterface.notifyModified(task);
+        } catch (TaskList.TaskIndexOutOfRange e) {
+            this.userInterface.notifyError("invalid task index");
+        } catch (TaskList.WrongTaskTypeException e) {
+            this.userInterface.notifyError(e.getMessage());
+        }
+    }
+
+    /**
+     * Update the start time of the event with the given index.
+     * @param index The index of the task.
+     * @param newStartTime The new start time of the task.
+     */
+    public void updateStartTime(int index, LocalDateTime newStartTime) {
+        try {
+            Task task = this.taskList.updateStartTime(index, newStartTime);
+            this.userInterface.notifyModified(task);
+        } catch (TaskList.TaskIndexOutOfRange e) {
+            this.userInterface.notifyError("invalid task index");
+        } catch (TaskList.WrongTaskTypeException e) {
+            this.userInterface.notifyError(e.getMessage());
+        }
+    }
+
+    public void updateEndTime(int index, LocalDateTime newEndTime) {
+        try {
+            Task task = this.taskList.updateEndTime(index, newEndTime);
+            this.userInterface.notifyModified(task);
+        } catch (TaskList.TaskIndexOutOfRange e) {
+            this.userInterface.notifyError("invalid task index");
+        } catch (TaskList.WrongTaskTypeException e) {
+            this.userInterface.notifyError(e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
-        // new Duke(true, new TextUi("Quack, ", "!"));
-        Application.launch(DukeApplication.class, args);
+        if (args.length > 0 && args[0].equals("text")) {
+            // run text UI if "text" is provided as one of the system arguments
+            new Duke(true, new TextUi("Quack, ", "!"));
+        } else {
+            // run GUI by default
+            Application.launch(DukeApplication.class, args);
+        }
     }
 }

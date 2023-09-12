@@ -98,17 +98,23 @@ public interface Ui {
     void notifyDataSaved();
 
     /**
-     * Show task count.
+     * Shows task count.
      * @param count the number of task in the list.
      */
     void showTaskCount(int count);
 
     /**
-     * Notify the user of the search results.
+     * Notifies the user of the search results.
      * @param input the search parameter.
      * @param output the search result.
      */
     void notifyFind(String input, String output);
+
+    /**
+     * Notifies the user that a task has been modified.
+     * @param task The task modified.
+     */
+    void notifyModified(Task task);
 
     /**
      * Display custom data.

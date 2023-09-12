@@ -59,6 +59,22 @@ public class Event extends Task {
     }
 
     /**
+     * Update the start time of this event.
+     * @param newStartTime The new start time of this event.
+     */
+    public void updateStartTime(LocalDateTime newStartTime) {
+        this.start = newStartTime;
+    }
+
+    /**
+     * Update the end time of this event.
+     * @param newEndTime The new end time of this event.
+     */
+    public void updateEndTime(LocalDateTime newEndTime) {
+        this.end = newEndTime;
+    }
+
+    /**
      * Checks whether this event is the same as another task.
      * It is the same if it is the same event, with same content, start and end time.
      * @param another The object to compare with.

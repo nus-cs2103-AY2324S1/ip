@@ -10,7 +10,7 @@ import duke.parse.DateTimeManager;
  * A deadline contains an end time.
  */
 public class Deadline extends Task {
-    private final LocalDateTime deadlineTime;
+    private LocalDateTime deadlineTime;
 
     /**
      * Instantiates a deadline with the given content and the end time
@@ -39,6 +39,14 @@ public class Deadline extends Task {
     @Override
     public boolean containsDate(LocalDate date) {
         return this.deadlineTime.toLocalDate().isBefore(date) || this.deadlineTime.toLocalDate().equals(date);
+    }
+
+    /**
+     * Updates the deadline of this task.
+     * @param newDeadlineTime The new deadline.
+     */
+    public void updateDeadlineTime(LocalDateTime newDeadlineTime) {
+        this.deadlineTime = newDeadlineTime;
     }
 
     /**
