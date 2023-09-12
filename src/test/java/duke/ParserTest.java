@@ -1,9 +1,11 @@
 package duke;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
 
 public class ParserTest {
 
@@ -19,9 +21,9 @@ public class ParserTest {
     public void parseCommand_addToDo_expectedBehaviour() throws DukeException {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
-        assertEquals("Got it. I've added this task:\n" +
-                "[T][ ] Task Description\n" +
-                "Now you have 1 task(s) in the list.",
+        assertEquals("Got it. I've added this task:\n"
+                        + "[T][ ] Task Description\n"
+                        + "Now you have 1 task(s) in the list.",
                 Parser.parseCommand("todo Task Description", tasks, ui));
     }
 
@@ -29,9 +31,9 @@ public class ParserTest {
     public void parseCommand_addEvent_expectedBehaviour() throws DukeException {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
-        assertEquals("Got it. I've added this task:\n" +
-                        "[E][ ] Event Description (from: Aug 23 2023 1800 to: Aug 24 2023 1900)\n" +
-                        "Now you have 1 task(s) in the list.",
+        assertEquals("Got it. I've added this task:\n"
+                        + "[E][ ] Event Description (from: Aug 23 2023 1800 to: Aug 24 2023 1900)\n"
+                        + "Now you have 1 task(s) in the list.",
                 Parser.parseCommand(
                         "event Event Description /from 2023-08-23 1800 /to 2023-08-24 1900", tasks, ui));
     }
@@ -40,9 +42,9 @@ public class ParserTest {
     public void parseCommand_addDeadline_expectedBehaviour() throws DukeException {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
-        assertEquals("Got it. I've added this task:\n" +
-                        "[D][ ] Deadline Description (by: Aug 23 2023 1900)\n" +
-                        "Now you have 1 task(s) in the list.",
+        assertEquals("Got it. I've added this task:\n"
+                        + "[D][ ] Deadline Description (by: Aug 23 2023 1900)\n"
+                        + "Now you have 1 task(s) in the list.",
                 Parser.parseCommand("deadline Deadline Description /by 2023-08-23 1900", tasks, ui));
     }
 

@@ -6,12 +6,12 @@ package duke;
  */
 public class ToDo extends Task {
 
-     /**
-     * Constructs a ToDo object with the specified description.
-     *
-     * @param description The description of the to-do task.
-     * @throws DukeException If the description is empty or blank.
-     */
+    /**
+    * Constructs a ToDo object with the specified description.
+    *
+    * @param description The description of the to-do task.
+    * @throws DukeException If the description is empty or blank.
+    */
     public ToDo(String description) throws DukeException {
         super(description, TaskType.TODO);
 
