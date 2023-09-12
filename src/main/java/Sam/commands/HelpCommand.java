@@ -23,6 +23,7 @@ public class HelpCommand extends Command {
                                                         + "\n\n" + DeleteTaskCommand.MESSAGE_USAGE
                                                         + "\n\n" + MarkTaskCommand.MESSAGE_USAGE
                                                         + "\n\n" + UnmarkTaskCommand.MESSAGE_USAGE
+                                                        + "\n\n" + AddTagCommand.MESSAGE_USAGE
                                                         + "\n\n" + ListCommand.MESSAGE_USAGE
                                                         + "\n\n" + HelpCommand.MESSAGE_USAGE
                                                         + "\n\n" + ExitCommand.MESSAGE_USAGE;
