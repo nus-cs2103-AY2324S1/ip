@@ -34,6 +34,8 @@ public class AddTodoCommand extends Commands {
     @Override
     public String run(AllyList allyList, Ui ui, Storage storage) throws AllyException {
         try {
+            assert ui != null;
+            assert storage != null;
             Todo todo = new Todo(description);
             allyList.addElements(todo);
             storage.appendToFile(todo);

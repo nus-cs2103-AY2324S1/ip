@@ -32,6 +32,9 @@ public class MarkCommand extends Commands {
     @Override
     public String run(AllyList allyList, Ui ui, Storage storage) {
         try {
+            assert allyList != null;
+            assert ui != null;
+            assert storage != null;
             Task task = allyList.getTask(index);
             storage.appendToFile(task);
             return ui.showMarked(task);

@@ -36,6 +36,8 @@ public class AddDeadlineCommand extends Commands {
     @Override
     public String run(AllyList allyList, Ui ui, Storage storage) throws AllyException {
         try {
+            assert ui != null;
+            assert storage != null;
             Deadline ddline = new Deadline(description, by);
             allyList.addElements(ddline);
             storage.appendToFile(ddline);
