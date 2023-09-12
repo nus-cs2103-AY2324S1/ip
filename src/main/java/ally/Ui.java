@@ -49,9 +49,6 @@ public class Ui {
      * @return
      */
     public String bye() throws AllyException {
-//        System.out.println(LINE);
-//        System.out.println(BYE);
-//        System.out.println(LINE);
         return "bye";
     }
 
