@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 import dook.DookException;
+import dook.command.CommandInfo;
 import dook.task.Deadline;
 import dook.task.Event;
 import dook.task.Task;
@@ -21,9 +23,12 @@ public class Storage {
     private static final String FILESAVE_ERROR_MSG = "File cannot be saved.";
     private static final String FILESAVE_SUCCESS_MSG = "Task list saved!";
 
-    private final Path path;
-    public Storage(Path filePath) {
-        this.path = filePath;
+    private final Path taskListPath;
+    private final Path aliasesListPath;
+    private final HashMap<String, CommandInfo> aliases = new HashMap<>();
+    public Storage(Path taskListPath, Path aliasesListPath) {
+        this.taskListPath = taskListPath;
+        this.aliasesListPath = aliasesListPath;
     }
 
     /**
@@ -33,11 +38,11 @@ public class Storage {
      * @return A list of saved tasks.
      * @throws DookException Exception thrown by Dook.
      */
-    public ArrayList<Task> load() throws DookException {
+    public ArrayList<Task> loadTasksFromFile() throws DookException {
         ArrayList<Task> result = new ArrayList<>();
-        verifyFileExists();
+        verifyFileExists(taskListPath);
         try {
-            BufferedReader reader = Files.newBufferedReader(path);
+            BufferedReader reader = Files.newBufferedReader(taskListPath);
             while (reader.ready()) {
                 String line = reader.readLine();
                 result.add(getTaskFromString(line));
@@ -48,7 +53,37 @@ public class Storage {
         return result;
     }
 
-    private void verifyFileExists() {
+    public void loadAliasesFromFile(Parser parser) throws DookException {
+        verifyFileExists(aliasesListPath);
+        try {
+            BufferedReader reader = Files.newBufferedReader(aliasesListPath);
+            while (reader.ready()) {
+                String line = reader.readLine();
+                parser.addMapping(line);
+            }
+        } catch (IOException e) {
+            throw new DookException(FILEREAD_ERROR_MSG);
+        }
+    }
+
+    public String saveAliases(Parser parser) throws DookException {
+        String toSave = parser.getAliasesAsSaveableString();
+        try {
+            writeAliasesToFile(toSave);
+        } catch (IOException e) {
+            throw new DookException(FILESAVE_ERROR_MSG);
+        }
+        return "New aliases saved!";
+    }
+
+    private void writeAliasesToFile(String textToAdd) throws IOException {
+        byte[] strToBytes = textToAdd.getBytes();
+        Files.write(this.aliasesListPath, strToBytes);
+    }
+
+
+
+    private void verifyFileExists(Path path) {
         if (Files.exists(path)) {
             return;
         }
@@ -66,21 +101,20 @@ public class Storage {
      * @return The confirmation message to be displayed to the user.
      * @throws DookException Exception thrown by Dook.
      */
-    public String save(TaskList taskList) throws DookException {
+    public String saveTaskList(TaskList taskList) throws DookException {
         String toSave = taskList.accumulateTasks((task, str) ->
                 str + (task.getSaveableString() + "\n"), "");
         try {
-            writeToFile(toSave);
+            writeTaskListToFile(toSave);
         } catch (IOException e) {
             throw new DookException(FILESAVE_ERROR_MSG);
         }
         return FILESAVE_SUCCESS_MSG;
-
     }
 
-    private void writeToFile(String textToAdd) throws IOException {
+    private void writeTaskListToFile(String textToAdd) throws IOException {
         byte[] strToBytes = textToAdd.getBytes();
-        Files.write(this.path, strToBytes);
+        Files.write(this.taskListPath, strToBytes);
     }
 
     /**
