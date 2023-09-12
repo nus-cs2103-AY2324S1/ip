@@ -22,4 +22,17 @@ public class ToDo extends Task {
         sb.append(description);
         return sb.toString();
     }
+
+    @Override
+    public boolean isDuplicate(Task task) {
+        if (!(task instanceof ToDo)) {
+            return false;
+        }
+        ToDo toDo = (ToDo) task;
+        if (toDo.description.equals(this.description)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

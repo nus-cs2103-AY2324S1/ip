@@ -50,5 +50,9 @@ public class Task {
     public boolean contains(String searchBy) {
         return description.contains(searchBy);
     }
+
+    public boolean isDuplicate(Task task) {
+        return true;
+    }
 }
 
