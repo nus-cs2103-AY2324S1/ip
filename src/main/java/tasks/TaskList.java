@@ -1,11 +1,11 @@
 package tasks;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import tasks.Task;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -13,10 +13,18 @@ import tasks.Task;
  */
 public class TaskList {
 
+    private ArrayList<Task> tasks;
+
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
+
+    /**
+     * A function which returns a list of tasks which matches the given description
+     * @param description The description of the task to search for
+     * @return A list of tasks which loosely matches the description
+     */
     @JsonIgnore
     public List<Task> findTasks(String description) {
         List<Task> output;
@@ -54,6 +62,5 @@ public class TaskList {
     }
 
 
-    private ArrayList<Task> tasks;
 
 }
