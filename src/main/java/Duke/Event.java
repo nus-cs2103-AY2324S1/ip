@@ -25,6 +25,7 @@ public class Event extends SingleTask {
      */
     public String mark() {
         this.isDone = true;
+        assert this.isDone;
         return "Ok boy i mark for you already \n" +
                 "[" +this.getStatusIcon() +"] " + this.description;
 
@@ -43,6 +44,7 @@ public class Event extends SingleTask {
      */
     public String unmark() {
         this.isDone = false;
+        assert !this.isDone;
         return "Ok boy I unmark for you already \n" +
                 "[" +this.getStatusIcon() +"] " + this.description;
     }

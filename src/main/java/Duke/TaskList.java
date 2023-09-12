@@ -34,9 +34,11 @@ public class TaskList {
         if (TaskNumber - 1 >=  this.taskList.size()) {
             throw new DukeException("Boy ah cannot delete a task you dont have eh.");
         }
+        int initialSize = this.taskList.size();
         SingleTask task = this.taskList.get(TaskNumber - 1);
         String s = task.remove();
         this.taskList.remove(TaskNumber - 1);
+        assert this.taskList.size() == initialSize - 1 : "Task should be removed from the list";
         return s;
     }
 
@@ -89,7 +91,9 @@ public class TaskList {
      */
     public String createToDo(String content) {
         SingleTask taskT = new ToDo(content);
-        this.taskList.add(taskT);
+        int initialSize = this.taskList.size();
+        taskList.add(taskT);
+        assert this.taskList.size() == initialSize + 1 : "Task ToDo should be added to the list";
         String msg = "";
         msg += taskT.toString();
         msg += String.format("\nGot %d task in list boy", taskList.size());
@@ -103,7 +107,9 @@ public class TaskList {
      */
     public String createDeadline(String description, String deadline) {
         SingleTask taskD = new Deadline(description, deadline);
+        int initialSize = this.taskList.size();
         taskList.add(taskD);
+        assert this.taskList.size() == initialSize + 1 : "Task Deadline should be added to the list";
         String msg = "";
         msg += taskD.toString();
         msg += String.format("\nGot %d task in list boy", taskList.size());
@@ -118,7 +124,9 @@ public class TaskList {
      */
     public String createEvent(String description, String from, String to) {
         SingleTask taskE = new Event(description, from, to);
+        int initialSize = this.taskList.size();
         taskList.add(taskE);
+        assert this.taskList.size() == initialSize + 1 : "Task Event should be added to the list";
         String msg = "";
         msg += taskE.toString();
         msg += String.format("\nGot %d task in list boy", taskList.size());
