@@ -31,6 +31,7 @@ public class Parser {
     private final Pattern RESCHEDULE_DEADLINE_PATTERN = Pattern.compile("reschedule (\\d+) /by (.*?)");
     private final Pattern FIND_PATTERN = Pattern.compile("find (.*?)");
     public Parser(String line) {
+        assert line != null && !line.isEmpty() : "Line should not be null or empty!";
         this.line = line;
     }
 
