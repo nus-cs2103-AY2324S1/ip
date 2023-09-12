@@ -9,7 +9,7 @@ public class Ui {
     private static final String line = "    __________________________________________________________";
 
     /**
-     * Prints the starting messages of the chatbot.
+     * Returns the starting messages of the chatbot.
      */
     public static String start() {
         StringBuilder sb = new StringBuilder();
@@ -24,6 +24,7 @@ public class Ui {
      * Returns the input received.
      *
      * @param scan The scanner opened to scan the input.
+     * @return Human text input.
      */
     public static String getInput(Scanner scan) {
         String input = scan.nextLine();
@@ -31,9 +32,10 @@ public class Ui {
     }
 
     /**
-     * Prints the list of tasks to the user.
+     * Returns the list of tasks to the user.
      *
      * @param tasks The list of tasks as a string.
+     * @return List of tasks.
      */
     public static String listOfTasks(String tasks) {
         StringBuilder sb = new StringBuilder();
@@ -45,10 +47,11 @@ public class Ui {
     }
 
     /**
-     * Prints the added task to the user.
+     * Returns the added task to the user.
      *
      * @param taskStr The new task as a string.
      * @param size The number of tasks.
+     * @return Added task as a string.
      */
     public static String addTask(String taskStr, int size) {
         StringBuilder sb = new StringBuilder();
@@ -61,9 +64,10 @@ public class Ui {
     }
 
     /**
-     * Prints the mistake the user made for the task description.
+     * Returns the mistake the user made for the task description.
      *
      * @param type The type of task.
+     * @return Empty description warning message.
      */
     public static String emptyDesc(String type) {
         StringBuilder sb = new StringBuilder();
@@ -74,9 +78,10 @@ public class Ui {
     }
 
     /**
-     * Prints the mistake the user made for the deadline or duration.
+     * Returns the mistake the user made for the deadline or duration.
      *
      * @param type The type of task.
+     * @return Unclear deadline or duration warning message.
      */
     public static String unclear(String type) {
         StringBuilder sb = new StringBuilder();
@@ -87,7 +92,9 @@ public class Ui {
     }
 
     /**
-     * Prints the mistake the user made for the date and time format.
+     * Returns the mistake the user made for the date and time format.
+     *
+     * @return Warning message for wrong date and time format.
      */
     public static String wrongDateTimeFormat() {
         StringBuilder sb = new StringBuilder();
@@ -98,9 +105,10 @@ public class Ui {
     }
 
     /**
-     * Prints the task being marked.
+     * Returns the task being marked.
      *
      * @param task The task being marked.
+     * @return Task being marked as a string.
      */
     public static String mark(Task task) {
         StringBuilder sb = new StringBuilder();
@@ -112,9 +120,10 @@ public class Ui {
     }
 
     /**
-     * Prints the task being unmarked.
+     * Returns the task being unmarked.
      *
      * @param task The task being unmarked.
+     * @return Task being unmarked as a string.
      */
     public static String unmark(Task task) {
         StringBuilder sb = new StringBuilder();
@@ -126,10 +135,11 @@ public class Ui {
     }
 
     /**
-     * Prints the deleted task to the user.
+     * Returns the deleted task to the user.
      *
      * @param task The deleted task.
      * @param size The number of tasks left.
+     * @return Task being deleted as a string.
      */
     public static String delete(Task task, int size) {
         StringBuilder sb = new StringBuilder();
@@ -142,7 +152,9 @@ public class Ui {
     }
 
     /**
-     * Prints the mistake the user made for the task number not existing.
+     * Returns the mistake the user made for the task number not existing.
+     *
+     * @return Warning message for an invalid task number.
      */
     public static String invalidTask() {
         StringBuilder sb = new StringBuilder();
@@ -153,7 +165,9 @@ public class Ui {
     }
 
     /**
-     * Prints the mistake the user made for the command not existing.
+     * Returns the mistake the user made for the command not existing.
+     *
+     * @return Warning message for an invalid command.
      */
     public static String invalidText() {
         StringBuilder sb = new StringBuilder();
@@ -164,7 +178,9 @@ public class Ui {
     }
 
     /**
-     * Prints a goodbye statement before the program ends.
+     * Returns a goodbye statement.
+     *
+     * @return Goodbye statement as a string.
      */
     public static String bye() {
         StringBuilder sb = new StringBuilder();
@@ -175,9 +191,10 @@ public class Ui {
     }
 
     /**
-     * Prints list of tasks that matches the search input.
+     * Returns list of tasks that matches the search input.
      *
      * @param selectedTasks List of tasks.
+     * @return List of tasks that match the search input.
      */
     public static String searchTasks(String selectedTasks) {
         StringBuilder sb = new StringBuilder();

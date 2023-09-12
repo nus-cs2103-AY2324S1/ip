@@ -11,6 +11,7 @@ public class ListCommand {
      * @param input Input typed by user.
      * @param tasks List of tasks.
      * @param storage Stores the file and handles file methods.
+     * @return Bot response when asked to show the list of tasks.
      */
     public static String execute(String input, TaskList tasks, Storage storage) {
         return Ui.listOfTasks(tasks.showList());

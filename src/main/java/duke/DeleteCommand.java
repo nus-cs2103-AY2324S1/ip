@@ -11,11 +11,13 @@ public class DeleteCommand {
      * @param input Input typed by user.
      * @param tasks List of tasks.
      * @param storage Stores the file and handles file methods.
+     * @return Bot response when deleting a task.
      */
     public static String execute(String input, TaskList tasks, Storage storage) {
         try {
             int number = Integer.parseInt(input.substring(7));
-            if (number > tasks.size() || number <= 0) {
+            boolean isInvalidTask = number > tasks.size() || number <= 0;
+            if (isInvalidTask) {
                 throw new InvalidTaskException();
             }
             Task task = tasks.delete(number - 1);

@@ -11,6 +11,7 @@ public class Parser {
      * @param input Input typed by user.
      * @param tasks List of tasks.
      * @param storage Stores the file and handles file methods.
+     * @return Bot response.
      */
     public static String parseInput(String input, TaskList tasks, Storage storage) {
         try {
