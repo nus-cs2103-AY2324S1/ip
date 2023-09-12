@@ -20,7 +20,7 @@ public class Max  {
 
     /**
      * Initialises Storage, TaskList and Ui.
-     * Loads storage from given file location.
+     * Loads storage from specified file location.
      *
      * @param filePath file location of stored task list
      */
