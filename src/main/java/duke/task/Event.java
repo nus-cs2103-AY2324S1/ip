@@ -28,9 +28,12 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
+        String taskType = "[E]";
         String status = "[" + (this.isDone ? "X" : " ") + "]";
+        String description = " " + super.description + " ";
         String duration = "(from: " + this.fromDate + " to: " + this.toDate + ")";
-        return "[E]" + status + " " + this.description + " " + duration;
+
+        return taskType + status + description + duration;
     }
 
     /**
@@ -40,10 +43,11 @@ public class Event extends Task {
      */
     @Override
     public String toDataFormatString() {
-        String outputString = "E | ";
-        outputString += (super.isDone ? "1" : "0") + " | ";
-        outputString += super.description + " | ";
-        outputString += this.fromDate + " | " + this.toDate;
-        return outputString;
+        String taskType = "E | ";
+        String status = (super.isDone ? "1" : "0") + " | ";
+        String description = super.description + " | ";
+        String dates = this.fromDate.toString() + " | " + this.toDate.toString();
+
+        return taskType + status + description + dates;
     }
 }
