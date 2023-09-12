@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import ruiz.task.Deadlines;
-import ruiz.task.Events;
+import ruiz.task.Deadline;
+import ruiz.task.Event;
 import ruiz.task.Task;
-import ruiz.task.ToDos;
+import ruiz.task.ToDo;
 
 /**
  * Class manages all things that due with the storing of tasks on the hard disk.
@@ -60,7 +60,7 @@ public class Storage {
             String description = input[2];
             switch (category) {
             case "T":
-                ToDos todo = new ToDos(description);
+                ToDo todo = new ToDo(description);
                 taskList.add(todo);
                 if (!marked.equals("0")) {
                     todo.mark();
@@ -68,7 +68,7 @@ public class Storage {
                 break;
             case "D":
                 String by = input[3];
-                Deadlines deadline = new Deadlines(description, by);
+                Deadline deadline = new Deadline(description, by);
                 taskList.add(deadline);
                 if (!marked.equals("0")) {
                     deadline.mark();
@@ -77,7 +77,7 @@ public class Storage {
             case "E":
                 String from = input[3];
                 String to = input[4];
-                Events event = new Events(description, from, to);
+                Event event = new Event(description, from, to);
                 taskList.add(event);
                 if (!marked.equals("0")) {
                     event.mark();

@@ -7,16 +7,16 @@ import java.time.format.DateTimeParseException;
 /**
  * Represents a Task that has a deadline.
  */
-public class Deadlines extends Task {
+public class Deadline extends Task {
     protected LocalDateTime by;
 
     /**
-     * A constructor for the public class Deadlines.
+     * A constructor for the public class Deadline.
      *
      * @param description contains the description of the deadline.
      * @param by          contains the time which the deadline must be completed by.
      */
-    public Deadlines(String description, String by) throws DateTimeParseException {
+    public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.by = LocalDateTime.parse(by, formatter);

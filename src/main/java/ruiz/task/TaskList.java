@@ -58,6 +58,7 @@ public class TaskList {
         int taskIndex = this.parser.getTaskNumber(input);
         if (taskIndex >= 0 && this.taskList.size() > taskIndex) {
             Task task = this.taskList.get(taskIndex);
+            assert task != null : "task should not be null";
             task.mark();
             return ui.markTask(task);
         } else {
@@ -75,6 +76,7 @@ public class TaskList {
         int taskIndex = this.parser.getTaskNumber(input);
         if (taskIndex >= 0 && this.taskList.size() > taskIndex) {
             Task task = this.taskList.get(taskIndex);
+            assert task != null : "task should not be null";
             task.unmark();
             return ui.unmarkTask(task);
         } else {
@@ -92,6 +94,7 @@ public class TaskList {
         int taskIndex = this.parser.getTaskNumber(input);
         if (taskIndex >= 0 && this.taskList.size() > taskIndex) {
             Task task = this.taskList.get(taskIndex);
+            assert task != null : "task should not be null";
             this.taskList.remove(taskIndex);
             return ui.deletedTask(task, this.getTaskListSize());
         } else {
@@ -107,7 +110,8 @@ public class TaskList {
      */
     public String addTodo(String input) throws BotException {
         String content = parser.getTodoDescription(input);
-        Task temp = new ToDos(content);
+        assert content != null : "toDo should not be null";
+        Task temp = new ToDo(content);
         this.taskList.add(temp);
         return ui.addedNewTaskMsg(temp, this.getTaskListSize());
     }
@@ -121,8 +125,9 @@ public class TaskList {
      */
     public String addDeadline(String input) throws BotException, IOException {
         String description = parser.getDeadlineDescription(input);
+        assert description != null : "description should not be null";
         String by = parser.getBy(input);
-        Task temp = new Deadlines(description, by);
+        Task temp = new Deadline(description, by);
         this.taskList.add(temp);
         return ui.addedNewTaskMsg(temp, this.getTaskListSize());
     }
@@ -138,7 +143,7 @@ public class TaskList {
         String description = parser.getEventDescription(input);
         String beginning = parser.getEventBeginning(input);
         String to = parser.getEventTo(input);
-        Task temp = new Events(description, beginning, to);
+        Task temp = new Event(description, beginning, to);
         this.taskList.add(temp);
         return ui.addedNewTaskMsg(temp, this.getTaskListSize());
     }

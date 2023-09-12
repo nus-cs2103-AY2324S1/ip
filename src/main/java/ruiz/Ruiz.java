@@ -99,6 +99,7 @@ public class Ruiz {
             } catch (DateTimeParseException e) {
                 message = ui.wrongFormat();
             }
+            assert !message.isEmpty() : "message should not be empty";
             return message;
         }
     }
