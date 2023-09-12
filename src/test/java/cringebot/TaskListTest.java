@@ -1,13 +1,15 @@
 package cringebot;
 
-import cringebot.exceptions.DukeException;
-import cringebot.parser.Parser;
-import cringebot.tasks.Task;
-import cringebot.tasks.TaskList;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
+import cringebot.exceptions.CringeBotException;
+import cringebot.parser.Parser;
+import cringebot.tasks.Task;
+import cringebot.tasks.TaskList;
 
 public class TaskListTest {
     @Test
@@ -26,8 +28,8 @@ public class TaskListTest {
     public void addTaskTest1() {
         TaskList tasks = new TaskList(new ArrayList<Task>());
         try {
-            tasks.addItem(Parser.taskType.TODO, "todo return books");
-        } catch (DukeException e) {
+            tasks.addItem(Parser.TaskType.TODO, "todo return books");
+        } catch (CringeBotException e) {
             System.out.println("something went wrong");
         }
         assertEquals(1, tasks.size());
@@ -38,8 +40,8 @@ public class TaskListTest {
     public void removeTaskTest1() {
         TaskList tasks = new TaskList(new ArrayList<Task>());
         try {
-            tasks.addItem(Parser.taskType.TODO, "todo return books");
-        } catch (DukeException e) {
+            tasks.addItem(Parser.TaskType.TODO, "todo return books");
+        } catch (CringeBotException e) {
             System.out.println("something went wrong");
         }
         assertEquals(1, tasks.size());
@@ -47,7 +49,7 @@ public class TaskListTest {
 
         try {
             tasks.deleteItem("delete 1");
-        } catch (DukeException e) {
+        } catch (CringeBotException e) {
             System.out.println("something went wrong");
         }
         assertEquals(0, tasks.size());
