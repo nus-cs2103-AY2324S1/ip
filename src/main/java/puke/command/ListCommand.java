@@ -6,6 +6,11 @@ import puke.managers.TaskList;
  * A Command class that when executed, prints the string representation of the task list.
  */
 public class ListCommand extends Command {
+    private static final String LIST_MESSAGE = "Here is the collection of items, previously designated to be known "
+            + "as Tasks, that you have inputted over a previous unspecified period of time "
+            + "that may or may not require urgent attention, but will nevertheless necessitate "
+            + "some level of action within an either "
+            + "indicated or non indicated time period.\n\n";
 
     public ListCommand(String rest) {
         super(false, rest.isEmpty());
@@ -26,11 +31,7 @@ public class ListCommand extends Command {
         }
     }
     private String generateMessage(TaskList tl) {
-        return "Here is the collection of items, previously designated to be known as Tasks, "
-                + "that you have inputted over a previous unspecified period of time "
-                + "that may or may not require urgent attention, but will nevertheless necessitate "
-                + "some level of action within an either "
-                + "indicated or non indicated time period.\n\n"
+        return LIST_MESSAGE
                 + tl.printOut();
     }
     /**

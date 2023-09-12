@@ -7,6 +7,9 @@ import puke.managers.TaskList;
  * A Command class that when executed, clears the task list.
  */
 public class ClearCommand extends Command {
+    private static final String CLEAR_MESSAGE = "Well I certainly hope you had meant to do that because I am not "
+            + "going too ask for your confirmation. As per the aforementioned instructions, I shall now purge all of "
+            + "the tasks that you have previously recorded and designated as requiring attention.";
     public ClearCommand(String rest) {
         super(false, rest.isEmpty());
     }
@@ -25,14 +28,10 @@ public class ClearCommand extends Command {
             try {
                 tl.clear();
                 DataHandler.clearAll();
-                return "Well I certainly hope you had meant to do that because I am not going too ask for your "
-                        + "confirmation. As per the aforementioned instructions, I shall now purge all of the tasks "
-                        + "that you have previously recorded and designated as requiring attention.";
+                return CLEAR_MESSAGE;
             } catch (Exception e) {
                 tl.clear();
-                return "Well I certainly hope you had meant to do that because I am not going too ask for your "
-                        + "confirmation. As per the aforementioned instructions, I shall now purge all of the tasks "
-                        + "that you have previously recorded and designated as requiring attention.";
+                return CLEAR_MESSAGE;
             }
         }
     }
