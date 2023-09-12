@@ -38,10 +38,6 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    //    public void addToList(Task task) {
-    //        this.fullList.add(task);
-    //        ui.showAddMessage(task, this.fullList.size());
-    //    };
     public String addToList(Task task) {
         this.fullList.add(task);
         return ui.showAddMessage(task, this.fullList.size());
@@ -52,20 +48,13 @@ public class TaskList {
      *
      * @param index The index of the task to be deleted.
      */
-    //    public void deleteFromList(int index) {
-    //        if (index >= 0 && index < fullList.size()) {
-    //            Task item = fullList.get(index);
-    //            this.fullList.remove(item);
-    //            ui.showDeleteMessage(item, this.fullList.size());
-    //        } else {
-    //            ui.showNoItemMessage();
-    //        }
-    //    }
     public String deleteFromList(int index) {
         if (index >= 0 && index < fullList.size()) {
+            int currSize = this.fullList.size();
             Task item = fullList.get(index);
             this.fullList.remove(item);
-            return ui.showDeleteMessage(item, this.fullList.size());
+            assert this.fullList.size() == currSize - 1 : "Delete from list failed";
+            return ui.showDeleteMessage(item, currSize - 1);
         } else {
             return ui.showNoItemMessage();
         }
@@ -76,15 +65,6 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as done.
      */
-    //    public void markItem(int index) {
-    //        if (index >= 0 && index < fullList.size()) {
-    //            Task curr = fullList.get(index);
-    //            curr.markDone();
-    //            ui.showMarkMessage(curr);
-    //        } else {
-    //            ui.showNoItemMessage();
-    //        }
-    //    }
     public String markItem(int index) {
         if (index >= 0 && index < fullList.size()) {
             Task curr = fullList.get(index);
@@ -100,15 +80,6 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as not done.
      */
-    //    public void unMarkItem(int index) {
-    //        if (index >= 0 && index < fullList.size()) {
-    //            Task curr = fullList.get(index);
-    //            curr.markNotDone();
-    //            ui.showUnmarkMessage(curr);
-    //        } else {
-    //            ui.showNoItemMessage();
-    //        }
-    //    }
     public String unMarkItem(int index) {
         if (index >= 0 && index < fullList.size()) {
             Task curr = fullList.get(index);

@@ -33,6 +33,7 @@ public class Task {
      */
     public void markDone() {
         this.isDone = true;
+        assert this.isDone == true : "Error in mark done";
     }
 
     /**
@@ -40,6 +41,7 @@ public class Task {
      */
     public void markNotDone() {
         this.isDone = false;
+        assert this.isDone == false : "Error in mark not done";
     }
 
     /**

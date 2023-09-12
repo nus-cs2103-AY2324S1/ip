@@ -99,30 +99,12 @@ public class Parser {
     }
 
     /**
-     * Checks if the input is BYE.
-     *
-     * @param input The user command.
-     * @return True if the user command is bye. False if user input is not bye.
-     */
-    public boolean isBye(String input) {
-        String[] userInputParts = input.split(" ", 2);
-        String commandUser = userInputParts[0];
-        CommandType command = parseCommand(commandUser);
-
-        switch (command) {
-        case BYE:
-            return true;
-        default:
-            return false;
-        }
-    }
-
-    /**
      * Processes user input to create and execute task-related actions.
      *
      * @param input The user input to be processed.
      * @return {@code true} if the application should continue running. {@code false} if it should exit.
      */
+
     public String createTaskAction(String input) {
         String[] userInputParts = input.split(" ", 2);
         String commandUser = userInputParts[0];
@@ -130,22 +112,27 @@ public class Parser {
 
         switch (command) {
         case EMPTY:
+            assert command != CommandType.EMPTY : "Command is not EMPTY";
             return ui.showEmptyMessage();
 
         case UNKNOWN:
+            assert command != CommandType.UNKNOWN : "Command is not UNKNOWN";
             return ui.showUnknownMessage();
 
         case BYE:
+            assert command != CommandType.BYE : "Command is not BYE";
             fileStorage.saveTasks(fullList);
             return ui.showByeMessage();
 
         case LIST:
+            assert command != CommandType.LIST : "Command is not LIST";
             if (userInputParts.length > 1) {
                 return ui.showInvalidMessage();
             }
             return ui.showList(fullList);
 
         case MARK:
+            assert command != CommandType.MARK : "Command is not MARK";
             String[] splitIndexMark = input.split(" ");
             if (splitIndexMark.length <= 1 || splitIndexMark.length > 2) {
                 return ui.showInvalidMessage();
@@ -154,6 +141,7 @@ public class Parser {
             return fullList.markItem(index);
 
         case UNMARK:
+            assert command != CommandType.UNMARK : "Command is not UNMARK";
             String[] splitIndexUnMark = input.split(" ");
             if (splitIndexUnMark.length <= 1 || splitIndexUnMark.length > 2) {
                 return ui.showInvalidMessage();
@@ -162,6 +150,7 @@ public class Parser {
             return fullList.unMarkItem(indexUnmark);
 
         case TODO:
+            assert command != CommandType.TODO : "Command is not TODO";
             if (userInputParts.length <= 1) {
                 return ui.showInvalidMessage();
             }
@@ -169,6 +158,7 @@ public class Parser {
             return fullList.addToList(toDo);
 
         case DEADLINE:
+            assert command != CommandType.DEADLINE : "Command is not DEADLINE";
             String[] details = userInputParts[1].split("/by");
             String description = details[0].trim();
 
@@ -181,6 +171,7 @@ public class Parser {
             return fullList.addToList(deadline);
 
         case EVENT:
+            assert command != CommandType.EVENT : "Command is not EVENT";
             String[] det = userInputParts[1].split("/from");
             if (det.length <= 1) {
                 return ui.showInvalidMessage();
@@ -203,6 +194,7 @@ public class Parser {
             }
 
         case DELETE:
+            assert command != CommandType.DELETE : "Command is not DELETE";
             String[] split = input.split(" ");
             if (split.length <= 1 || split.length > 2) {
                 return ui.showInvalidMessage();
@@ -211,6 +203,7 @@ public class Parser {
             return fullList.deleteFromList(ind);
 
         case FIND:
+            assert command != CommandType.FIND : "Command is not FIND";
             String[] inputParts = input.split(" ", 2);
             String keyword = inputParts[1].trim();
             TaskList list = fullList.findTask(keyword);

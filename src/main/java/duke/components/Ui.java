@@ -94,11 +94,9 @@ public class Ui {
      * Displays a goodbye message.
      */
     public String showByeMessage() {
-        return (
-                showLine() + '\n'
-                        + "Bye. Hope to see you again soon!" + '\n'
-                                + showLine()
-            );
+        return showLine() + '\n'
+                + "Bye. Hope to see you again soon!" + '\n'
+                        + showLine();
     }
 
     /**
@@ -107,9 +105,8 @@ public class Ui {
      * @param fullList The list to be displayed.
      */
     public String showList(TaskList fullList) {
-        return ("Here are the tasks in your list:" + '\n'
-                + fullList.toString()
-            );
+        return "Here are the tasks in your list:" + '\n'
+                + fullList.toString();
     }
 
     /**
@@ -120,12 +117,10 @@ public class Ui {
      */
 
     public String showAddMessage(Task task, int size) {
-        return (showLine() + '\n'
-                + "Got it. I've added this task:" + '\n'
-                + task.toString() + '\n'
-                + "Now you have " + size + " tasks in the list." + '\n'
-                + showLine()
-            );
+        return showLine() + '\n'
+                + "Got it. I've added this task:" + '\n' + task.toString() + '\n'
+                        + "Now you have " + size + " tasks in the list." + '\n'
+                                + showLine();
     };
 
     /**
@@ -136,13 +131,10 @@ public class Ui {
      */
 
     public String showDeleteMessage(Task task, int size) {
-        return (
-                showLine() + '\n'
-                        + "Noted. I've removed this task:\n"
-                        + task.toString() + "\n"
+        return showLine() + '\n' + "Noted. I've removed this task:\n"
+                + task.toString() + "\n"
                         + "Now you have " + size + " tasks in the list." + '\n'
-                        + showLine()
-            );
+                                + showLine();
     }
 
     /**
@@ -153,8 +145,8 @@ public class Ui {
     public String showMarkMessage(Task task) {
         return showLine() + '\n'
                 + "Nice! I've marked this task as done:" + '\n'
-                + task.toString() + '\n'
-                + showLine();
+                        + task.toString() + '\n'
+                                + showLine();
     }
 
     /**
@@ -165,8 +157,8 @@ public class Ui {
     public String showUnmarkMessage(Task task) {
         return showLine() + '\n'
                 + "Ok, I've marked this task as not done yet:"
-                + task.toString()
-                + showLine();
+                        + task.toString()
+                                + showLine();
     }
 
     /**
@@ -175,7 +167,7 @@ public class Ui {
     public String showInvalidDate() {
         return showLine() + '\n'
                 + "Invalid date format. Start date is after end date" + '\n'
-                + showLine();
+                        + showLine();
     }
 
     /**
