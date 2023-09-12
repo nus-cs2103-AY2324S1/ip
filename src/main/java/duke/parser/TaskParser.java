@@ -19,7 +19,7 @@ public class TaskParser {
      * @param tasks the array of Task to be stored.
      * @return the formatted string to be stored.
      */
-    public static String formatSave(Task[] tasks) {
+    public static String generateSaveString(Task[] tasks) {
         StringBuilder ret = new StringBuilder();
         for (Task task : tasks) {
             ret.append(task.toSave());

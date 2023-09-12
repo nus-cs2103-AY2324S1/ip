@@ -53,4 +53,4 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
-mainClassName = 'Duke'
+mainClassName = 'Launcher'

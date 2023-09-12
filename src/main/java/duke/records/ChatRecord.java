@@ -86,7 +86,7 @@ public class ChatRecord {
     public String toSave() {
         Task[] temp = new Task[chatRecords.size()];
         temp = chatRecords.toArray(temp);
-        return TaskParser.formatSave(temp);
+        return TaskParser.generateSaveString(temp);
     }
 
     public int getCount() {

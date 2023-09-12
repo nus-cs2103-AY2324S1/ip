@@ -1,6 +1,7 @@
 package duke.storage;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -59,6 +60,8 @@ public class SaveData {
                 }
             }
             sc.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("No save file found! Starting base instance");
         } catch (Exception e) {
             System.out.println("IO Error! " + e.getMessage());
         }
