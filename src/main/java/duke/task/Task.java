@@ -70,4 +70,15 @@ public class Task {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        Task newTask = (Task) o;
+        return o.toString().equals(o.toString());
+    }
 }

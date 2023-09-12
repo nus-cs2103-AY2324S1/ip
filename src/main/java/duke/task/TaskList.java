@@ -26,6 +26,21 @@ public class TaskList {
     }
 
     /**
+     * Verify that the task list has no duplicates
+     * @param task the task input that wishes to be added to task list
+     * @return if a duplicated task is inside the array list currently
+     */
+
+    public boolean verifyNoDuplicates(Task task) {
+        for (Task t: tasklist) {
+            if (t.equals(task)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * @param task takes in the task generated and stores into the ArrayList
      */
     public void addTask(Task task) {
