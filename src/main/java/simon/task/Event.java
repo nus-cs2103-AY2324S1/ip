@@ -13,17 +13,17 @@ import simon.SimonException;
  */
 public class Event extends Task {
 
-    /** The start date and time of this event. */
-    public LocalDateTime startDateTime;
-
-    /** The end date and time of this event. */
-    public LocalDateTime endDateTime;
-
     /** Formatter to parse date and time input provided by the user. */
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy[ HHmm]");
 
     /** Formatter to format date and time for output display. */
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+
+    /** The start date and time of this event. */
+    public LocalDateTime startDateTime;
+
+    /** The end date and time of this event. */
+    public LocalDateTime endDateTime;
 
     /**
      * Constructs a new Event task with the given name, start date, and end date.
