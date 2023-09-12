@@ -19,14 +19,15 @@ public class Ui {
     /**
      * Prints greeting message.
      */
-    public void showGreeting() {
-        System.out.println("     Hello from");
-        System.out.println("       /\\/\\   __ ___  __");
-        System.out.println("      /    \\ / _` \\ \\/ /");
-        System.out.println("     / /\\/\\ \\ (_| |>  <");
-        System.out.println("     \\/    \\/\\__,_/_/\\_\\");
-        System.out.println("     How may I assist you?");
-        System.out.println(line);
+    public String showGreeting() {
+//        System.out.println("     Hello from");
+//        System.out.println("       /\\/\\   __ ___  __");
+//        System.out.println("      /    \\ / _` \\ \\/ /");
+//        System.out.println("     / /\\/\\ \\ (_| |>  <");
+//        System.out.println("     \\/    \\/\\__,_/_/\\_\\");
+//        System.out.println("     How may I assist you?");
+//        System.out.println(line);
+        return "Helloooo I am Max your favorite chatbot";
     }
 
     /**
