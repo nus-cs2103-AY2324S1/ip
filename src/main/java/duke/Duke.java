@@ -1,5 +1,7 @@
 package duke;
 
+import javafx.application.Platform;
+
 import java.util.ArrayList;
 
 /**
@@ -34,6 +36,7 @@ public class Duke {
             while (!isExit) {
                 try {
                     String command = ui.readCommand();
+                    assert command != null;
                     if (parser.parse(command, ui, tasks, storage).equals("Goodbye. Hope to be of service again soon!"))
                     {
                         break;
@@ -49,6 +52,7 @@ public class Duke {
     public String getResponse(String input) {
         try {
             String response = parser.parse(input, ui, tasks, storage);
+            assert response != null;
             return response;
         } catch (DukeException e) {
             return e.getMessage();
