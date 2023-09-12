@@ -42,10 +42,10 @@ public class Duke extends Application {
 
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+
     /**
      * Constructs a Duke object.
      *
-     * @param filePath The path to the file where tasks are saved and loaded from.
      */
     public Duke() {
         ui = new Ui();
@@ -58,25 +58,13 @@ public class Duke extends Application {
             tasks = new TaskList(new ArrayList<>());
         }
     }
-//    public static void main(String[] args) {
-//        new Duke("./data/duke.txt").run();
-//    }
 
-    public void run() {
-        boolean isExit = false;
-        ui.showWelcome();
-        Parser parser = new Parser();
-        while(!isExit) {
-            try {
-                String input = ui.readCommand();
-                parser.parseAndExecute(input, tasks, ui, storage);
-                isExit = parser.isExit();
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            }
-        }
-    }
-
+    /**
+     * Initializes the primary stage of the Duke application's GUI.
+     * Sets up the layout, user input handling, and display properties.
+     *
+     * @param stage The primary stage for this application.
+     */
     @Override
     public void start(Stage stage) {
 
@@ -152,10 +140,10 @@ public class Duke extends Application {
 
 
     /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
+     * Creates a label with the specified text.
+     *
+     * @param text The text to be displayed in the label.
+     * @return A label with the specified text with word wrapping enabled.
      */
     private Label getDialogLabel(String text) {
         // You will need to import `javafx.scene.control.Label`.
@@ -166,9 +154,8 @@ public class Duke extends Application {
     }
 
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input from the GUI.
+     * Processes the input command and displays the corresponding output in the dialog container.
      */
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
@@ -183,8 +170,10 @@ public class Duke extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generates a response based on the user's input.
+     *
+     * @param input The user's input command.
+     * @return A string response based on the processed command.
      */
     private String getResponse(String input) {
         if (isExit) {
@@ -200,8 +189,6 @@ public class Duke extends Application {
             return e.getMessage();
         }
     }
-
-
 
 }
 
