@@ -69,6 +69,7 @@ public class Duke {
     public void run() {
         dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(Ui.printWelcomeMessage(), dukeImage));
         dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(loadTasks(), dukeImage));
+
         Scanner scanner = new Scanner(System.in);
         String userInput;
 

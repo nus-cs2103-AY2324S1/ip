@@ -10,6 +10,7 @@ import tasks.ToDo;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * The TaskList class manages the list of tasks in the Duke application.
@@ -155,6 +156,10 @@ public class TaskList {
 
         String taskName = descriptionAndBy[0];
         LocalDateTime by = Storage.saveAsDate(descriptionAndBy[1]);
+      
+        // Users should not be able to create deadlines that are already over
+        assert by.isAfter(LocalDateTime.now()): "Deadline should not have passed already.";
+      
         Task newDeadline = new Deadline(taskName, by);
         taskArray.add(newDeadline);
 
@@ -207,6 +212,8 @@ public class TaskList {
         String[] eventParts = {taskName, start, end};
         LocalDateTime startDateTime = Storage.saveAsDate(eventParts[1]);
         LocalDateTime endDateTime = Storage.saveAsDate(eventParts[2]);
+      
+        assert endDateTime.isAfter(startDateTime) : "End date should be after start date.";
 
         Event newEvent = new Event(taskName, startDateTime, endDateTime);
         taskArray.add(newEvent);
@@ -294,6 +301,24 @@ public class TaskList {
             num++;
         }
         return foundTasksString;
+    }
+
+    public static ArrayList<Task> sortedTasksByDate() {
+        ArrayList<Task> sortedTaskArray = new ArrayList<>();
+        sortedTaskArray.addAll(taskArray);
+        Collections.sort(sortedTaskArray, new TaskDateComparator());
+        return sortedTaskArray;
+    }
+
+    public static String listSortedTasks() {
+        ArrayList<Task> sortedTaskArray = sortedTasksByDate();
+        String inputArrayString = "";
+        int num = 1;
+        for (Task task : sortedTaskArray) {
+            inputArrayString += num + ". " + task.statusAndTask() + "\n";
+            num++;
+        }
+        return inputArrayString;
     }
 
     public Task getTask(int i) {
