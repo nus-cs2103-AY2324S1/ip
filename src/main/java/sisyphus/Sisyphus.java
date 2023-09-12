@@ -132,8 +132,8 @@ public class Sisyphus extends Application {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(sisyphus))
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getDukeDialog(dukeText, new ImageView(sisyphus))
         );
         userInput.clear();
     }
@@ -145,6 +145,8 @@ public class Sisyphus extends Application {
     private String getResponse(String input) {
         return "Duke heard: " + input;
     }
+
+
 
 
 }
