@@ -28,6 +28,13 @@ import dook.task.Todo;
  * Command objects.
  */
 public class Parser {
+    private static final String MARK_GUIDE_MSG = "Usage: unmark/mark [task number]";
+    private static final String TODO_GUIDE_MSG = "Usage: todo [name]";
+    private static final String DEADLINE_GUIDE_MSG = "Usage: deadline [name] /by [time].";
+    private static final String EVENT_GUIDE_MSG = "Usage: event [name] /from [start] /to [end].";
+    private static final String DELETE_GUIDE_MSG = "Usage: delete [task number]";
+    private static final String DATE_FORMAT_ERROR_MSG = "Improper Date Format";
+    private static final String FIND_GUIDE_MSG = "Usage: find [query]";
     private static CommandInfo parseKeyword(String keyword) {
         try {
             return CommandInfo.valueOf(keyword);
@@ -85,7 +92,7 @@ public class Parser {
         try {
             index = Integer.parseInt(body.split(" ", 2)[0].trim());
         } catch (NumberFormatException e) {
-            throw new DookException(String.format("Usage: %s [task number]", value ? "mark" : "unmark"));
+            throw new DookException(MARK_GUIDE_MSG);
         }
         return value
                 ? new MarkCommand(index)
@@ -93,50 +100,50 @@ public class Parser {
     }
     private Command handleToDo(String body) throws DookException {
         if (body.isBlank()) {
-            throw new DookException("Usage: todo [name]");
+            throw new DookException(TODO_GUIDE_MSG);
         }
         Task task = new Todo(body.trim(), false);
         return new AddTaskCommand(task);
     }
     private Command handleDeadline(String body) throws DookException {
         if (body.isBlank()) {
-            throw new DookException("Usage: deadline [name] /by [time].");
+            throw new DookException(DEADLINE_GUIDE_MSG);
         }
 
         String[] tmp = body.split("/by", 2);
         if (tmp.length <= 1) {
-            throw new DookException("Usage: deadline [name] /by [time].");
+            throw new DookException(DEADLINE_GUIDE_MSG);
         }
 
         String desc = tmp[0].trim();
         String by = tmp[1].trim();
         if (desc.isBlank() || by.isBlank()) {
             throw new DookException("Some information is missing!\n"
-                    + "Usage: deadline [name] /by [time].");
+                    + DEADLINE_GUIDE_MSG);
         }
         Task task = new Deadline(desc, by, false);
         return new AddTaskCommand(task);
     }
     private Command handleEvent(String body) throws DookException {
         if (body.isBlank()) {
-            throw new DookException("Usage: event [name] /from [start] /to [end].");
+            throw new DookException(EVENT_GUIDE_MSG);
         }
         String[] tmp1 = body.split("/from", 2);
         if (tmp1.length <= 1) {
-            throw new DookException("Usage: event [name] /from [start] /to [end].");
+            throw new DookException(EVENT_GUIDE_MSG);
         }
 
         String desc = tmp1[0].trim();
 
         String[] tmp2 = tmp1[1].split("/to", 2);
         if (tmp2.length <= 1) {
-            throw new DookException("Usage: event [name] /from [start] /to [end].");
+            throw new DookException(EVENT_GUIDE_MSG);
         }
         String from = tmp2[0].trim();
         String to = tmp2[1].trim();
         if (desc.isBlank() || from.isBlank() || to.isBlank()) {
             throw new DookException("Some information is missing!\n"
-                    + "Usage: event [name] /from [start] /to [end].");
+                    + EVENT_GUIDE_MSG);
         }
 
         Task task = new Event(desc, from, to, false);
@@ -147,16 +154,17 @@ public class Parser {
         try {
             index = Integer.parseInt(body.split(" ", 2)[0]);
         } catch (NumberFormatException e) {
-            throw new DookException("Usage: delete [task number]");
+            throw new DookException(DELETE_GUIDE_MSG);
         }
         return new DeleteTaskCommand(index);
     }
     private Command handleBefore(String body) throws DookException {
         LocalDate localDate;
         try {
-            localDate = TimeProcessor.getLocalDateFromString(body.split(" ", 2)[0].trim());
+            String dateString = body.split(" ", 2)[0].trim();
+            localDate = TimeProcessor.getLocalDateFromString(dateString);
         } catch (DateTimeParseException e) {
-            throw new DookException("Improper date format.");
+            throw new DookException(DATE_FORMAT_ERROR_MSG);
         }
         return new BeforeCommand(localDate);
     }
@@ -164,9 +172,10 @@ public class Parser {
     private Command handleAfter(String body) throws DookException {
         LocalDate localDate;
         try {
-            localDate = TimeProcessor.getLocalDateFromString(body.split(" ", 2)[0].trim());
+            String dateString = body.split(" ", 2)[0].trim();
+            localDate = TimeProcessor.getLocalDateFromString(dateString);
         } catch (DateTimeParseException e) {
-            throw new DookException("Improper date format.");
+            throw new DookException(DATE_FORMAT_ERROR_MSG);
         }
         return new AfterCommand(localDate);
     }
@@ -174,16 +183,17 @@ public class Parser {
     private Command handleDuring(String body) throws DookException {
         LocalDate localDate;
         try {
-            localDate = TimeProcessor.getLocalDateFromString(body.split(" ", 2)[0].trim());
+            String dateString = body.split(" ", 2)[0].trim();
+            localDate = TimeProcessor.getLocalDateFromString(dateString);
         } catch (DateTimeParseException e) {
-            throw new DookException("Improper date format.");
+            throw new DookException(DATE_FORMAT_ERROR_MSG);
         }
         return new DuringCommand(localDate);
     }
 
     private Command handleFind(String body) throws DookException {
         if (body.isBlank()) {
-            throw new DookException("Usage: find [query]");
+            throw new DookException(FIND_GUIDE_MSG);
         }
         String keyword = body.split(" ")[0].trim();
         return new FindCommand(keyword);

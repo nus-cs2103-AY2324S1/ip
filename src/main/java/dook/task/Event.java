@@ -44,8 +44,9 @@ public class Event extends Task implements TimedTask {
     @Override
     public boolean isDuring(LocalDate dateTime) {
         try {
-            return (fromDateTime.isEqual(dateTime) || fromDateTime.isBefore(dateTime))
-                   && (toDateTime.isEqual(dateTime) || toDateTime.isAfter(dateTime));
+            boolean isDateAfterStart = fromDateTime.isEqual(dateTime) || fromDateTime.isBefore(dateTime);
+            boolean isDateBeforeEnd = toDateTime.isEqual(dateTime) || toDateTime.isAfter(dateTime);
+            return isDateBeforeEnd && isDateAfterStart;
         } catch (NullPointerException e) {
             return false;
         }
