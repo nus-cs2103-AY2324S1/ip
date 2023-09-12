@@ -1,6 +1,7 @@
 package duke.task;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import duke.dates.Dates;
 
 /**
  * The Task class contains a name and its status (if it is done or not done), and the functions to set it as
@@ -66,9 +67,7 @@ public class Task {
     }
 
     public static String printDate(LocalDateTime dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm");
-        String formattedDate = dateTime.format(formatter);
-        return formattedDate;
+        return dateTime.format(Dates.DATE_PRINTING_FORMATTER);
     }
 
 

@@ -6,7 +6,7 @@ import duke.task.ItemList;
 import duke.ui.UI;
 
 public class UIResponse {
-    private Storage storage;
+    private final Storage storage;
 
     public UIResponse(Storage storage) {
         this.storage = storage;
@@ -22,7 +22,7 @@ public class UIResponse {
 
             switch (given) {
                 case BYE:
-                    return "SHUTDOWN";
+                    return Greeting.bye();
                 case LIST:
                     return items.showitems();
                 case MARK:
