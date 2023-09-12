@@ -21,8 +21,8 @@ public class DateManager {
      * @return A dateTime object with the specified date and time.
      */
     public static LocalDateTime parseDateString(String dateString, String timeString) {
-        LocalDate date = null;
-        LocalTime time = null;
+        LocalDate date;
+        LocalTime time;
         LocalDateTime dateTime =  null;
 
         try {
@@ -43,8 +43,8 @@ public class DateManager {
      * @return A dateTime object with the specified date and time.
      */
     public static LocalDateTime parseStorageDateString(String dateString, String timeString) {
-        LocalDate date = null;
-        LocalTime time = null;
+        LocalDate date;
+        LocalTime time;
         LocalDateTime dateTime =  null;
 
         try {
