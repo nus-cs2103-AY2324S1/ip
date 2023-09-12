@@ -31,7 +31,7 @@ public class ExitCommand extends Command {
      * @throws DukeException If there is an error writing to file.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         StringBuilder sb = new StringBuilder();
         sb.append("Bye. Hope to see you again soon!");
         try {

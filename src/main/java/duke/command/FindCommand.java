@@ -21,16 +21,6 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Checks if the command is an exit command.
-     *
-     * @return false since FindCommand is not an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    /**
      * Executes the find command, searching for tasks that match a given keyword.
      *
      * @param tasks   The task list to search for matching tasks.
@@ -41,10 +31,8 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList tasks , Ui ui, Storage storage) {
         String[] words = this.fullCommand.split(" ", 2);
-        if (words.length < 2) {
-            throw new InvalidArgumentException("find");
-        }
-        String s = tasks.findMatching(words[1]);
-        return s;
+        super.validateArguments(words, "find");
+
+        return tasks.findMatching(words[1]);
     }
 }

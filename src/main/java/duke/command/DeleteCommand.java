@@ -31,15 +31,11 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks , Ui ui, Storage storage) throws InvalidArgumentException {
         String[] words = this.fullCommand.split(" ", 2);
+
         try {
-            String s = tasks.deleteTask(Integer.parseInt(words[1]) - 1);
-            return s;
+            return tasks.deleteTask(Integer.parseInt(words[1]) - 1);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidArgumentException("☹ OOPS!!! I'm sorry, please enter a valid index to mark");
         }
-    }
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

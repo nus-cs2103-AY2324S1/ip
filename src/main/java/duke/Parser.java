@@ -23,7 +23,7 @@ public class Parser {
      * @param fullCommand The String command that is inputeby the user.
      * @return Command object corresponding to the string command.
      */
-    public static Command parse(String fullCommand) {
+    public static Command parse(String fullCommand) throws InvalidTaskException {
         //read first word in command
         String[] words = fullCommand.split(" ", 2);
         switch (words[0]) {
