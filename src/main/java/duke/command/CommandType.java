@@ -16,4 +16,5 @@ public enum CommandType {
     TODAY,
     TODO,
     UNMARK,
+    UPDATE,
 }

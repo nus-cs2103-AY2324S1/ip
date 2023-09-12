@@ -18,8 +18,10 @@ import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.TodayCommand;
 import duke.command.UnmarkCommand;
+import duke.command.UpdateCommand;
 import duke.exception.DukeException;
 import duke.exception.InvalidFormatException;
+import duke.exception.InvalidTaskIndexException;
 import duke.exception.UnknownCommandException;
 
 /**
@@ -76,6 +78,8 @@ public class Parser {
             return new TodayCommand();
         case HELP:
             return new HelpCommand();
+        case UPDATE:
+            return parseUpdateCommand(parseArgument(splitString));
         default:
             throw new UnknownCommandException();
         }
@@ -142,6 +146,66 @@ public class Parser {
         } catch (DateTimeParseException e) {
             throw new InvalidFormatException("Invalid date and time format. Please use the format: d/M/yyyy HHmm.");
         }
+    }
 
+    /**
+     * Parses the argument to create an UpdateCommand.
+     *
+     * @param argument The argument portion of the user input.
+     * @return The UpdateCommand based on the argument.
+     * @throws InvalidFormatException If there is an issue with the argument format.
+     */
+    private static UpdateCommand parseUpdateCommand(String argument) throws InvalidFormatException {
+        try {
+            String[] updateParts = argument.split(",");
+            System.out.println(updateParts.length);
+
+            if (updateParts.length < 2) {
+                throw new InvalidFormatException(
+                        "Please use the format: update <task_index>, [<new_description>], [<new_date_time>]");
+            }
+
+            int taskIndex = Integer.parseInt(updateParts[0].trim()) - 1;
+
+            String newDescription = null;
+            String newDateTime = null;
+
+            if (updateParts.length > 2) {
+                newDescription = updateParts[1].trim();
+                newDateTime = updateParts[2].trim();
+            }
+
+            if (updateParts.length == 2) {
+                String potentialDateTime = updateParts[1].trim();
+                if (isValidDateTimeFormat(potentialDateTime)) {
+                    newDateTime = potentialDateTime;
+                } else {
+                    newDescription = potentialDateTime;
+                }
+            }
+            LocalDateTime updatedDateTime = null;
+            if (newDateTime != null) {
+                updatedDateTime = LocalDateTime.parse(newDateTime, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+                System.out.println(updatedDateTime);
+            }
+            return new UpdateCommand(taskIndex, newDescription, updatedDateTime);
+        } catch (DateTimeParseException e) {
+            throw new InvalidFormatException("Invalid date and time format. Please use the format: d/M/yyyy HHmm.");
+        }
+    }
+
+    /**
+     * Checks if the given input is in a valid date-time format.
+     *
+     * @param input The input string to check.
+     * @return True if the input is in a valid date-time format, false otherwise.
+     */
+    private static boolean isValidDateTimeFormat(String input) {
+        try {
+            LocalDateTime.parse(input, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 }

@@ -203,6 +203,15 @@ public class Ui {
     }
 
     /**
+     *
+     *
+     * @return
+     */
+    public String showTaskUpdated(Task taskToUpdate) {
+        return "Task updated: " + taskToUpdate.toString();
+    }
+
+    /**
      * Shows user an error message for Duke exceptions.
      *
      * @param e The Duke exception to display.

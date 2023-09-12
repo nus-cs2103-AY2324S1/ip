@@ -41,6 +41,24 @@ public abstract class Task {
     }
 
     /**
+     * Sets the task's description to the new description.
+     *
+     * @param newDescription The new description of the task.
+     */
+    public void setDescription(String newDescription) {
+        this.description = newDescription;
+    }
+
+    /**
+     * Sets the task's date-time to the new date-time.
+     *
+     * @param newDateTime The new date-time of the task.
+     */
+    public void setDateTime(LocalDateTime newDateTime) {
+        this.dateTime = newDateTime;
+    }
+
+    /**
      * Checks if the task is marked as done.
      *
      * @return True if task is marked as done; false otherwise.
@@ -72,8 +90,10 @@ public abstract class Task {
     public String toString() {
         String formattedDescription = getStatusIcon() + " " + this.description;
         if (dateTime != null) {
-            String formattedDateTime = dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
-            return formattedDescription + " (at: " + formattedDateTime + ")";
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mma"); // Print in 12-hour time format
+            String timeString = this.dateTime.format(timeFormatter).toLowerCase();
+            return formattedDescription + " (at: " + this.dateTime.format(dateFormatter) + " " + timeString + ")";
         } else {
             return formattedDescription;
         }

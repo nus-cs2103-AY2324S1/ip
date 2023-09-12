@@ -9,8 +9,6 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    protected LocalDateTime dateTime;
-
     /**
      * Constructs a Deadline task.
      *
@@ -19,7 +17,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime dateTime) {
         super(description);
-        this.dateTime = dateTime;
+        this.setDateTime(dateTime);
     }
 
     public LocalDateTime getDateTime() {
@@ -39,11 +37,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mma"); // Print in 12-hour time format
-        String timeString = this.dateTime.format(timeFormatter).toLowerCase();
-
-        return "[D]" + super.toString()
-            + " (by: " + this.dateTime.format(dateFormatter) + " " + timeString + ")";
+        return "[D]" + super.toString();
     }
 }

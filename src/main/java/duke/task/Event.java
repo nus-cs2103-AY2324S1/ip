@@ -9,9 +9,6 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
 
-
-    protected LocalDateTime dateTime;
-
     /**
      * Constructs an Event task.
      *
@@ -20,7 +17,7 @@ public class Event extends Task {
      */
     public Event(String description, LocalDateTime dateTime) {
         super(description);
-        this.dateTime = dateTime;
+        this.setDateTime(dateTime);
     }
 
     public LocalDateTime getDateTime() {
@@ -40,11 +37,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mma"); // Print in 12-hour time format
-        String timeString = this.dateTime.format(timeFormatter).toLowerCase();
-
-        return "[E]" + super.toString()
-            + " (at: " + this.dateTime.format(dateFormatter) + " " + timeString + ")";
+        return "[E]" + super.toString();
     }
 }
