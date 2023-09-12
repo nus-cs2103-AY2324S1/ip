@@ -26,8 +26,10 @@ public class TaskList {
     public static String add(Task task, String type) {
         toDo.add(task);
         Storage.save();
+
         String description = task.getDescription();
         String successMsg = Ui.successfulAdd(type, description, toDo.size());
+
         return successMsg;
     }
 
@@ -49,9 +51,12 @@ public class TaskList {
             Task toDelete = toDo.get(target - 1);
             String description = toDelete.getDescription();
             assert description != null : "description should not be empty";
+
             toDo.remove(target - 1);
             Storage.save();
+
             String successMsg = Ui.successfulDelete(description, toDo.size());
+
             return successMsg;
         } else {
             throw new DukeException("You do not have that many tasks! err! err! (⋟﹏⋞)");
@@ -67,10 +72,13 @@ public class TaskList {
         if (taskNo <= toDo.size()) {
             Task target = toDo.get(taskNo - 1);
             target.mark();
+
             String description = target.getDescription();
             assert description != null : "description should not be empty";
             String successMsg = Ui.markMsg(description);
+
             Storage.save();
+
             return successMsg;
         } else {
             throw new DukeException("You do not have that many tasks! (⋟﹏⋞)");
@@ -86,10 +94,13 @@ public class TaskList {
         if (taskNo <= toDo.size()) {
             Task target = toDo.get(taskNo - 1);
             target.unmark();
+
             String description = target.getDescription();
             assert description != null : "description should not be empty";
             String successMsg = Ui.unmarkMsg(description);
+
             Storage.save();
+
             return successMsg;
         } else {
             throw new DukeException("You do not have that many tasks! (⋟﹏⋞)");
