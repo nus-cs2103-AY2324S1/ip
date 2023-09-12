@@ -44,6 +44,7 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getAntoDialog(this.anto.getUi().greet(), dukeImage)
         );
+
         if (a.hasNoTasks()) {
             dialogContainer.getChildren().addAll(
                     DialogBox.getAntoDialog(this.anto.getUi().printNoSavedFile(), dukeImage)
@@ -65,6 +66,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = anto.getResponse(input);
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getAntoDialog(response, dukeImage)

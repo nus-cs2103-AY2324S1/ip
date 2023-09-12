@@ -1,6 +1,7 @@
 package anto;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -29,7 +30,6 @@ public class Storage {
         this.relativePath = filePath;
         this.absolutePath = Paths.get(relativePath).toAbsolutePath();
         this.antoFile = absolutePath.toFile();
-
     }
 
     /**
@@ -40,43 +40,52 @@ public class Storage {
      */
     public ArrayList<Task> loadSave() throws AntoException {
         try {
-            ArrayList<Task> taskList = new ArrayList<>();
-
             // If file doesn't exist
+            ArrayList<Task> taskList;
             if (!antoFile.exists()) {
                 antoFile.createNewFile();
+                taskList = new ArrayList<>();
                 this.ui.printNoSavedFile();
             } else {
-                Scanner sc = new Scanner(antoFile);
-                while (sc.hasNextLine()) {
-                    String currLine = sc.nextLine();
-                    String[] currLineArr = currLine.split(Pattern.quote(" | "));
-                    if (currLineArr[0].equals("T")) {
-                        Task newTask = new Todo(currLineArr[2]);
-                        if (currLineArr[1].equals("1")) {
-                            newTask.markAsDone();
-                        }
-                        taskList.add(newTask);
-                    } else if (currLineArr[0].equals("D")) {
-                        Task newTask = new Deadline(currLineArr[2], currLineArr[3]);
-                        if (currLineArr[1].equals("1")) {
-                            newTask.markAsDone();
-                        }
-                        taskList.add(newTask);
-                    } else if (currLineArr[0].equals("E")) {
-                        Task newTask = new Event(currLineArr[2], currLineArr[3], currLineArr[4]);
-                        if (currLineArr[1].equals("1")) {
-                            newTask.markAsDone();
-                        }
-                        taskList.add(newTask);
-                    }
-                }
+                taskList = this.loadFileIntoArrayList();
                 this.ui.printSavedFileFound(taskList);
             }
             return taskList;
         } catch (java.io.IOException e) {
             throw new AntoException("OOPS!!! IOException");
         }
+    }
+
+    private ArrayList<Task> loadFileIntoArrayList() throws FileNotFoundException, AntoException {
+        assert antoFile != null;
+        ArrayList<Task> taskList = new ArrayList<>();
+        Scanner sc = new Scanner(antoFile);
+
+        while (sc.hasNextLine()) {
+            String currLine = sc.nextLine();
+            String[] currLineArr = currLine.split(Pattern.quote(" | "));
+
+            Task newTask;
+            switch (currLineArr[0]) {
+            case "T":
+                newTask = new Todo(currLineArr[2]);
+                break;
+            case "D":
+                newTask = new Deadline(currLineArr[2], currLineArr[3]);
+                break;
+            case "E":
+                newTask = new Event(currLineArr[2], currLineArr[3], currLineArr[4]);
+                break;
+            default:
+                throw new AntoException("OOPS!!! File text is in wrong format");
+            }
+
+            if (currLineArr[1].equals("1")) {
+                newTask.markAsDone();
+            }
+            taskList.add(newTask);
+        }
+        return taskList;
     }
 
     /**

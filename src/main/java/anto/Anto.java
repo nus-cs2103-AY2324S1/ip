@@ -51,6 +51,7 @@ public class Anto {
      * @return String with response from Chatbot.
      */
     public String getResponse(String input) {
+        assert this.parser != null;
         return this.parser.readInput(input);
     }
 
@@ -60,6 +61,7 @@ public class Anto {
      * @return Whether task list has no tasks.
      */
     public Boolean hasNoTasks() {
+        assert  this.tasks != null;
         return this.tasks.hasNoTasks();
     }
 
