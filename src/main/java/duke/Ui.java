@@ -201,8 +201,4 @@ public class Ui {
         sb.append(displayHorizontalLine());
         return sb.toString();
     }
-
-    public String displayDukeException(DukeException e) {
-        return String.format("%s\n", e);
-    }
 }
