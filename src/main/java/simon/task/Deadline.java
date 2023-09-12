@@ -3,6 +3,7 @@ package simon.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import simon.SimonException;
 
 
@@ -15,10 +16,10 @@ public class Deadline extends Task {
     public final LocalDateTime endDateTime;
 
     /** Formatter to parse date and time input provided by the user. */
-    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy[ HHmm]");
+    private final static DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy[ HHmm]");
 
     /** Formatter to format date and time for output display. */
-    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+    private final static DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
 
     /**
      * Constructs a new Deadline task.
