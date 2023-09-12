@@ -1,7 +1,6 @@
-package duke.javaFx;
+package duke.javafx;
 
 import duke.Duke;
-
 import duke.Ui;
 import javafx.application.Platform;
 import javafx.fxml.FXML;

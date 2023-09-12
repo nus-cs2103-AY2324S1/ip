@@ -8,8 +8,8 @@ import duke.exceptions.DukeException;
  */
 public class Duke {
     final Storage storage;
-    private DukeList tasks;
     final Ui ui;
+    private DukeList tasks;
 
     /**
      * Constructs a Duke object with the specified file path for data storage.

@@ -1,4 +1,4 @@
-package duke.javaFx;
+package duke.javafx;
 
 import java.io.IOException;
 import java.util.Collections;
