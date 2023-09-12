@@ -6,6 +6,7 @@ import duke.DukeException;
 import duke.Ui;
 
 
+
 /**
  * Represents a list of tasks and provides operations to manage them.
  */
@@ -130,5 +131,35 @@ public class TaskList {
             }
             return response;
         }
+    }
+
+    /**
+     * Marks a task at the specified position as done and returns a message.
+     *
+     * @param pos The position of the task to be marked as done.
+     * @param ui The UI instance for displaying messages.
+     * @return A message indicating the task has been marked as done.
+     *         Returns an error message if the specified position is out of range.
+     */
+    public String markTask(int pos, Ui ui) {
+        if (pos < 0 || pos >= this.getTotalTasks()) {
+            return ui.showNoTaskFound();
+        }
+        return tasks.get(pos).markTask();
+    }
+
+    /**
+     * Unmarks a task at the specified position and returns a message.
+     *
+     * @param pos The position of the task to be unmarked.
+     * @param ui The UI instance for displaying messages.
+     * @return A message indicating the task has been unmarked.
+     *         Returns an error message if the specified position is out of range.
+     */
+    public String unmarkTask(int pos, Ui ui) {
+        if (pos < 0 || pos >= this.getTotalTasks()) {
+            return ui.showNoTaskFound();
+        }
+        return tasks.get(pos).unmarkTask();
     }
 }

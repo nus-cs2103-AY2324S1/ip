@@ -1,5 +1,11 @@
 package duke.task;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import duke.DukeException;
+
 /**
  * Represents a task that can be added to a task list.
  */
@@ -7,6 +13,13 @@ public abstract class Task {
 
     protected String description;
     protected boolean isDone;
+
+    /**
+     * Converts the task to a string for saving to the data file.
+     *
+     * @return A string representation of the task for saving.
+     */
+    public abstract String toSave();
 
     /**
      * Constructs a `Task` object with a description and completion status.
@@ -63,10 +76,21 @@ public abstract class Task {
         return "[" + this.getStatus() + "] " + description;
     }
 
+
+
     /**
-     * Converts the task to a string for saving to the data file.
+     * Parses a date string and returns a LocalDate object.
      *
-     * @return A string representation of the task for saving.
+     * @param date The date string in the format "yyyy-MM-dd" to be parsed.
+     * @return A LocalDate object representing the parsed date.
+     * @throws DukeException If the date string is invalid or cannot be parsed.
      */
-    public abstract String toSave();
+    public LocalDate setDate(String date) throws DukeException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            return LocalDate.parse(date, formatter);
+        } catch (DateTimeException e) {
+            throw new DukeException("Invalid date format or date does not exist!");
+        }
+    }
 }
