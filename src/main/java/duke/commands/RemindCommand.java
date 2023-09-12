@@ -1,14 +1,24 @@
 package duke.commands;
 
-import duke.records.ChatRecord;
-
 import java.time.LocalDate;
 
+import duke.records.ChatRecord;
+
+/**
+ * The command to list all urgent tasks within a time period.
+ * @author Toh Li Yuan (A0255811H)
+ */
 public class RemindCommand extends Command {
 
     public static final String COMMAND_PHRASE = "remind";
     private LocalDate currDate;
     private int days;
+
+    /**
+     * Creates a command to display reminder to the user.
+     *
+     * @param days The number of days to seek for urgent tasks.
+     */
     public RemindCommand(int days) {
         this.currDate = LocalDate.now();
         this.days = days;
@@ -19,6 +29,11 @@ public class RemindCommand extends Command {
         this.chatRecord = records;
     }
 
+    /**
+     * Executes the created Remind Command.
+     *
+     * @return The reminder list to be displayed to the user.
+     */
     @Override
     public String execute() {
         String reminders = this.chatRecord.getReminder(currDate, days);

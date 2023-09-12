@@ -1,42 +1,22 @@
 package duke;
 
+import java.time.LocalDate;
+
 import duke.commands.ByeCommand;
 import duke.commands.Command;
 import duke.parser.CommandParser;
 import duke.records.ChatRecord;
 
-import java.time.LocalDate;
-
 /**
  * @author Toh Li Yuan (A0255811H)
  */
 public class Duke {
-
+    private static final String INIT_PHRASE = "KnowledgeYuan, at your service!\nWhat can I do for you today?";
+    private static final String REMINDER_PHRASE =
+            "The following tasks are urgent! Please remove them from the list after completing!";
     private boolean isEnd = false;
-
     private CommandParser cp;
     private ChatRecord chatRecord;
-
-    private static final String INIT_PHRASE = "KnowledgeYuan, at your service!\nWhat can I do for you today?";
-    private static final String REMINDER_PHRASE
-            = "The following tasks are urgent! Please remove them from the list after completing!";
-
-//    public static void main(String[] args) {
-//        ChatView chatView = new ChatView();
-//        Scanner sc = new Scanner(System.in);
-//        CommandParser cp = new CommandParser();
-//        ChatRecord chatRecord = new ChatRecord();
-//        chatView.displayBasic(chatRecord.loadData());
-//        chatView.startMessage();
-//        Command cmd;
-//        do {
-//            String command = sc.nextLine();
-//            cmd = cp.parseCommand(command);
-//            cmd.init(chatRecord);
-//            String out = cmd.execute();
-//            chatView.displayOutput(out);
-//        } while (!ByeCommand.isBye(cmd));
-//    }
 
     /**
      * Initialises the Duke program.
