@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.Objects;
+
 public class Duke {
     private Storage storage;
     private TaskList tasks;
@@ -10,6 +12,7 @@ public class Duke {
      * @throws DukeException    The exception to be thrown.
      */
     public Duke(String filePath) throws DukeException {
+        assert !filePath.isEmpty() : "filePath must be a defined String";
         ui = new Ui();
         storage = new Storage(filePath);
         try {

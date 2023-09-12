@@ -3,6 +3,7 @@ package duke;
 public class Ui {
 
     public String echo(String promptText, TaskList tasks) throws DukeException {
+        assert tasks != null : "taskList must be initialized properly";
         Parser parser = new Parser(tasks);
         if (promptText.equals("bye")) {
             return exit();
