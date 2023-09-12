@@ -26,7 +26,7 @@ public class Event extends Task {
      * @param startDateTimeStr Start date (and time) of the event
      * @param endDateTimeStr End date (and time) of the event
      */
-    public Event(String description, String startDateTimeStr,String endDateTimeStr) {
+    public Event(String description, String startDateTimeStr, String endDateTimeStr) {
         super(description);
         this.startDate = parseDate(startDateTimeStr);
         this.endDate = parseDate(endDateTimeStr);
@@ -93,8 +93,8 @@ public class Event extends Task {
         for (DateTimeFormatter formatter : formatters) {
             try {
                 return LocalDate.parse(date, formatter);
-            } catch (DateTimeParseException ignore){
-
+            } catch (DateTimeParseException ignore) {
+                //returns null if it fails
             }
         }
 
@@ -113,16 +113,19 @@ public class Event extends Task {
         List<DateTimeFormatter> formatters = new ArrayList<>();
         //List of accepted data formats
         formatters.add(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-        formatters.add(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")); //format from reading file
+        formatters.add(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")); //format from reading file
         formatters.add(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        formatters.add(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         formatters.add(DateTimeFormatter.ofPattern("MM/dd/yyyy HHmm"));
+        formatters.add(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm"));
         formatters.add(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+        formatters.add(DateTimeFormatter.ofPattern("d/M/yyyy HH:mm"));
 
         for (DateTimeFormatter formatter : formatters) {
             try {
                 return LocalDateTime.parse(date, formatter);
             } catch (DateTimeParseException ignore) {
-
+                //returns null if it fails
             }
         }
         return null;

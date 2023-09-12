@@ -86,7 +86,7 @@ public class Parser {
      * @return True if the String can be converted to an integer, false otherwise.
      */
     private static boolean isNumeric(String str) {
-        if (str == null || str == "") {
+        if (str == null || str.equals("")) {
             return false;
         }
         try {
@@ -100,16 +100,18 @@ public class Parser {
     /**
      * Validates a toDo description to ensure it is not empty.
      *
-     * @param todo The toDo description to be validated.
+     * @param input The toDo description to be validated.
      * @throws DukeException If the toDo description is empty.
      */
-    private static String validateToDo(String todo) throws DukeException {
-        String todoDescription = todo.replace("todo", "");
-        System.out.println("here:" + todoDescription);
-        if (todoDescription.isEmpty() || todoDescription.equals(" ")) {
+    private static String validateToDo(String input) throws DukeException {
+        int commandLength = "todo".length(); //get length of string to remove
+        String description = input.trim().substring(commandLength).trim();
+
+        if (description.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
-        return todoDescription;
+
+        return description;
     }
 
     /**
@@ -120,16 +122,21 @@ public class Parser {
      * @throws DukeException If the input format is invalid.
      */
     private static String[] validateDeadline(String input) throws DukeException {
-        String[] splitInput = input.replace("deadline", "").split(" /by ");
+        // Split the input string into words
+        String[] splitInput = input.split(" /by ");
 
-        for (int i = 0; i < splitInput.length; i++) {
-            splitInput[i] = splitInput[i].trim(); //remove whitespace
+        if (splitInput.length != 2) {
+            throw new DukeException(
+                    "☹ OOPS!!! Invalid deadline format. Please use: deadline <description> /by <date and time>");
+        }
+        int commandLength = "deadline ".length(); //get length of string to remove
+        String description = splitInput[0].substring(commandLength).trim();
+        String dateTime = splitInput[1].trim();
+        if (dateTime.isEmpty() || description.isEmpty()) {
+            throw new DukeException("☹ OOPS!!! Deadline description or date and time cannot be empty.");
         }
 
-        if (splitInput.length != 2 || splitInput[0].isBlank() || splitInput[1].isBlank()) {
-            throw new DukeException("☹ OOPS!!! Please remember to put a task description and deadline.");
-        }
-        return splitInput;
+        return new String[] { description, dateTime };
     }
 
     /**
@@ -140,31 +147,28 @@ public class Parser {
      * @throws DukeException If the input format is invalid.
      */
     private static String[] validateEvent(String input) throws DukeException {
-        String[] info = input.replace("event ", "").split(" /from ");
+        String[] splitInput = input.split(" /from | /to ");
 
-        if (info.length != 2) {
-            throw new DukeException("☹ OOPS!!! \nPlease provide a valid event format: "
-                    + "\n\tevent <description> /from <start time> /to <end time>");
+        if (splitInput.length != 3) {
+            throw new DukeException(
+                "Invalid event format. Please use: event [description] /from [start date/time] /to [end date/time]");
         }
 
-        String description = info[0];
+        int commandLength = "event ".length(); //get length of string to remove
+        String description = splitInput[0].substring(commandLength).trim();
+        String startDateAndTime = splitInput[1].trim();
+        String endDateAndTime = splitInput[2].trim();
 
-        String[] timeInfo = info[1].split(" /to ");
-        if (timeInfo.length != 2) {
-            throw new DukeException("☹ OOPS!!! Please provide both start and end times for the event.");
+        if (description.isEmpty() || startDateAndTime.isEmpty() || endDateAndTime.isEmpty()) {
+            throw new DukeException("Description and date/time cannot be empty.");
         }
 
-        String startDateTime = timeInfo[0];
-        String endDateTime = timeInfo[1];
+        String[] eventInfo = new String[3];
+        eventInfo[0] = description;
+        eventInfo[1] = startDateAndTime;
+        eventInfo[2] = endDateAndTime;
 
-        if (description.isEmpty()) {
-            throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
-        } else if (startDateTime.isBlank()) {
-            throw new DukeException("☹ OOPS!!! The start time of this event cannot be empty.");
-        } else if (endDateTime.isBlank()) {
-            throw new DukeException("☹ OOPS!!! The end time of this event cannot be empty.");
-        }
+        return eventInfo;
 
-        return new String[]{description, startDateTime, endDateTime};
     }
 }

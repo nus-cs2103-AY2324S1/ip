@@ -5,7 +5,7 @@ import duke.main.TaskList;
 import duke.main.Ui;
 
 /**
- * Represents a command to exit the chat bot.
+ * Represents a command to exit the chatBot.
  */
 public class ExitCommand extends Command {
 
