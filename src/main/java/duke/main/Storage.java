@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import duke.main.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -42,8 +41,12 @@ public class Storage {
             ArrayList<Task> tempList = new ArrayList<>(100);
             while (s.hasNext()) {
                 String currentLine = s.nextLine();
+                assert currentLine.length() >= 10;
                 String eventType = currentLine.substring(4, 5);
+                assert eventType.equals("T") || eventType.equals("D") || eventType.equals("E");
+                assert currentLine.charAt(7) == 'X' || currentLine.charAt(7) == ' ';
                 boolean eventDone = currentLine.charAt(7) == 'X';
+
                 if (eventType.equals("T")) {
                     String eventName = currentLine.substring(10);
                     Todo todo = new Todo(eventName, eventDone);
@@ -52,6 +55,7 @@ public class Storage {
                     String[] strSegments = currentLine.substring(10).split(" By: ");
                     String eventName = strSegments[0].trim();
                     String date = strSegments[1];
+
                     Deadline deadline = new Deadline(eventName, date, eventDone);
                     tempList.add(deadline);
                 } else {

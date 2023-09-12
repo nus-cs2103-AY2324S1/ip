@@ -92,8 +92,8 @@ public class Ui {
      *
      * @param taskList The task list being printed.
      */
-    public String printTaskList(TaskList taskList) {
-        return taskList.printTaskList();
+    public String produceTaskList(TaskList taskList) {
+        return taskList.produceTaskList();
     }
 
     /**
