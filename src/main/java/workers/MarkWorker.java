@@ -16,6 +16,7 @@ public class MarkWorker extends TaskWorker {
      */
     @Override
     public String work(String[] inputParts, ArrayList<Task> taskList, boolean markAsDone) {
+        assert  inputParts != null;
         int index = Integer.parseInt(inputParts[1]) - 1;
         Task task = taskList.get(index);
         if (markAsDone) {

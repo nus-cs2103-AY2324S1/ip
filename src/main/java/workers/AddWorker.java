@@ -19,6 +19,7 @@ public class AddWorker extends TaskWorker {
      */
     @Override
     public String work(String[] inputParts, ArrayList<Task> taskList) {
+        assert inputParts != null;
         try {
             Task newTask;
             if (inputParts.length < 2) {

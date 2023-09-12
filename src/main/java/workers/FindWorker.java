@@ -15,6 +15,7 @@ public class FindWorker extends TaskWorker {
      */
     @Override
     public String work(String[] inputParts, ArrayList<Task> taskList) {
+        assert inputParts != null;
         int count = 1;
         String keyword = inputParts[1].toLowerCase();
         String output = "Here are the matching tasks in your list:\n";
