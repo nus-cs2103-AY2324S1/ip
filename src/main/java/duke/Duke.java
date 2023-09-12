@@ -57,6 +57,7 @@ public class Duke {
         }
         cmd.init(chatRecord);
         String out = cmd.execute();
+        assert out != null;
         return out;
     }
 

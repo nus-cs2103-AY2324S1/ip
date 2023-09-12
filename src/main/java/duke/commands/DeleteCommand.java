@@ -2,6 +2,7 @@ package duke.commands;
 
 import duke.records.ChatRecord;
 import duke.storage.SaveData;
+import duke.task.InvalidTaskException;
 import duke.task.Task;
 
 /**
@@ -28,9 +29,14 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute() {
-        Task task = this.chatRecord.deleteTask(toDelete);
-        SaveData.saveData(this.chatRecord.toSave());
-        return COMMAND_DESC + " " + task.toString();
+        assert toDelete < this.chatRecord.getCount();
+        try {
+            Task task = this.chatRecord.deleteTask(toDelete);
+            SaveData.saveData(this.chatRecord.toSave());
+            return COMMAND_DESC + " " + task.toString();
+        } catch (InvalidTaskException e) {
+            return e.getMessage();
+        }
     }
 
     @Override
