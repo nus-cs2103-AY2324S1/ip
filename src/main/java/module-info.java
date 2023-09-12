@@ -1,10 +1,10 @@
-module com.nyanbot {
+module nyanbot {
     requires javafx.fxml;
     requires javafx.controls;
     requires javafx.graphics;
 
-    opens com.nyanbot.DukeGuiControllers to javafx.fxml;
-    opens com.nyanbot.DukeGuiElements to javafx.fxml;
+    opens com.nyanbot.dukeguicontrollers to javafx.fxml;
+    opens com.nyanbot.dukeguielements to javafx.fxml;
 
-    exports com.nyanbot.DukeGuiControllers;
+    exports com.nyanbot.dukeguicontrollers;
 }

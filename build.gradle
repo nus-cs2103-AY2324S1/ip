@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'checkstyle'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.13'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
@@ -13,10 +12,6 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
-}
-
-checkstyle {
-    toolVersion = '10.2'
 }
 
 javafx {
@@ -39,8 +34,8 @@ test {
 }
 
 application {
-    // TODO: MAKE THIS POINT TO THE CORRECT PACKAGE
-    mainClass.set("com.nyanbot.DukeGuiControllers.DukeLauncher")
+    mainModule = 'com.nyanbot.dukeguicontrollers'
+    mainClass = 'com.nyanbot.dukeguicontrollers.DukeLauncher'
 }
 
 shadowJar {
