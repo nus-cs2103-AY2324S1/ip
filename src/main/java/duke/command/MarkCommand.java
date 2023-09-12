@@ -1,5 +1,5 @@
 package duke.command;
-import duke.DukeException;
+import duke.exception.DukeException;
 import duke.task.TaskList;
 import duke.ui.Ui;
 import duke.storage.Storage;
@@ -9,11 +9,11 @@ import duke.storage.Storage;
  * pos is position of task in taskList starting from 1
  */
 public class MarkCommand extends Command {
-	private final boolean toMark;
-	private final int pos;
-	public MarkCommand(boolean toMark, int pos) {
-		this.toMark = toMark;
-		this.pos = pos;
+	private final boolean isMark;
+	private final int positionToMark;
+	public MarkCommand(boolean isMark, int positionToMark) {
+		this.isMark = isMark;
+		this.positionToMark = positionToMark - 1;
 	}
 
 	/**
@@ -26,10 +26,10 @@ public class MarkCommand extends Command {
 	@Override
 	public String execute(TaskList taskList, Ui ui, Storage storage) {
 		try {
-			taskList.toMark(toMark, pos, ui);
+			taskList.toMark(isMark, positionToMark, ui);
 			storage.updateMarkInFile();
-			System.out.println(ui.showMark(taskList.getTask(pos - 1)));
-			return ui.showMark(taskList.getTask(pos - 1));
+//			System.out.println(ui.showMark(taskList.getTask(positionToMark)));
+			return ui.showMark(taskList.getTask(positionToMark));
 		} catch (DukeException e) {
 			return e.getMessage();
 		}

@@ -1,17 +1,16 @@
 package duke.command;
-import java.io.IOException;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 import duke.storage.Storage;
 
 /**
- * Commmand to delete a task from the tasklist
+ * Command to delete a task from the taskList
  */
 public class DeleteCommand extends Command {
-	private final int pos;
-	public DeleteCommand(int pos) {
-		this.pos = pos;
+	private final int positionToDelete;
+	public DeleteCommand(int positionToDelete) {
+		this.positionToDelete = positionToDelete - 1;
 	}
 	/**
 	 * Executes the delete command which deletes a task from taskList.
@@ -25,9 +24,9 @@ public class DeleteCommand extends Command {
 	@Override
 	public String execute(TaskList taskList, Ui ui, Storage storage) {
 		String remaining = taskList.getRemaining();
-		Task task = taskList.getTask(pos);
+		Task task = taskList.getTask(positionToDelete);
 		try {
-			storage.deleteFromFile(pos);
+			storage.deleteFromFile(positionToDelete);
 			System.out.println(ui.showDelete(task, remaining));
 			return ui.showDelete(task, remaining);
 		} catch (IndexOutOfBoundsException e) {

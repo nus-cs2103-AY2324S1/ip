@@ -6,7 +6,7 @@ import duke.ui.Ui;
 import duke.storage.Storage;
 
 /**
- * Represents a Command to which adds a tasks when executed.
+ * Represent a Command to which adds a tasks when executed.
  */
 public class AddCommand extends Command {
 	private final Task task;
@@ -15,7 +15,7 @@ public class AddCommand extends Command {
 	}
 
 	/**
-	 * Executes the add command which add the task into taskList.
+	 * Execute the add command which add the task into taskList.
 	 * Ui displays adding to user.
 	 * Output of task is stored in Storage which writes to a text file.
 	 * @param taskList list of tasks to execute.
@@ -26,9 +26,7 @@ public class AddCommand extends Command {
 	public String execute(TaskList taskList, Ui ui, Storage storage) {
 		try {
 			storage.addToFile(task);
-			System.out.println(
-					ui.showAddTask(task, taskList.getSize())
-			);
+			System.out.println(ui.showAddTask(task, taskList.getSize()));
 			return ui.showAddTask(task, taskList.getSize());
 		} catch (IOException e) {
 			return "Fail to write to file\n";

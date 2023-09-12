@@ -1,17 +1,14 @@
 package duke;
+import duke.exception.DukeException;
+import duke.exception.TimeFormatException;
 import duke.task.TaskList;
 import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.command.Command;
 import duke.parser.Parser;
 
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-
 import java.io.IOException;
+import java.sql.Time;
 
 /**
  * Represent the ChatBot.
@@ -83,11 +80,11 @@ public class Duke {
                 Command c = Parser.parse(input);
                 br.append(c.execute(tasks, ui, storage));
                 return br.toString();
-        } catch (DukeException e) {
+        } catch (DukeException | TimeFormatException e) {
             return e.getMessage();
         } finally {
             br.append(ui.getLine());
-            return br.toString();
+//            return br.toString();
         }
 	}
 

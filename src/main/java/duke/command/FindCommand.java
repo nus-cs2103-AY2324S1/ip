@@ -8,7 +8,7 @@ import duke.ui.Ui;
  * Finds Task in taskList according to keyword.
  */
 public class FindCommand extends Command {
-	private String keyWord;
+	private final String keyWord;
 
 	public FindCommand(String keyWord) {
 		this.keyWord = keyWord;
@@ -21,7 +21,7 @@ public class FindCommand extends Command {
 	 */
 	@Override
 	public String execute(TaskList taskList, Ui ui, Storage storage) {
-		StringBuilder br = taskList.findTask(this.keyWord);
+		StringBuilder br = taskList.findTaskToString(this.keyWord);
 		System.out.println(ui.showFindTask(br));
 		return ui.showFindTask(br);
 	}

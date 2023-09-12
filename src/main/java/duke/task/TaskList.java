@@ -1,6 +1,5 @@
 package duke.task;
-import duke.DukeException;
-import duke.task.Task;
+import duke.exception.DukeException;
 import duke.ui.Ui;
 
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class TaskList {
 	 * shows all tasks in the list
 	 * @param ui outputs task list to user
 	 */
-	public String list(Ui ui) {
+	public String listAsString(Ui ui) {
 		StringBuilder br = new StringBuilder();
 		for (int i = 0; i < taskList.size(); i++) {
 			br.append(i + 1).append(". ");
@@ -57,7 +56,7 @@ public class TaskList {
 			throw new DukeException("Trying to mark or unmark something beyond the list");
 		}
 
-		Task task = taskList.get(pos - 1);
+		Task task = taskList.get(pos);
 		if (toMark) {
 			task.markAsDone();
 		} else {
@@ -92,7 +91,7 @@ public class TaskList {
 	 * @return String representation of task which we output to user later on
 	 */
 
-	public StringBuilder findTask(String keyWord) {
+	public StringBuilder findTaskToString(String keyWord) {
 		int count = 1;
 		StringBuilder br = new StringBuilder();
 		for (Task t: taskList) {
