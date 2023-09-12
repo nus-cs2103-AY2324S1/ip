@@ -1,4 +1,3 @@
-T | 0 | abc
 T | 0 | efg
 T | 0 | hij
 T | 0 | jasd
