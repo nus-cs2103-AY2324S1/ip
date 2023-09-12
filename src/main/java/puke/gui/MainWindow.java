@@ -32,6 +32,8 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
+        assert (userImage != null);
+        assert (pukeImage != null);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(DialogBox.startup(pukeImage));
     }
