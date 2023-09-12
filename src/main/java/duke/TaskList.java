@@ -45,6 +45,7 @@ public class TaskList {
     public String addTask(String userInput) throws DukeException {
         Task newTask = createNewTask(userInput);
         this.tasks.add(newTask);
+        assert !this.tasks.isEmpty(): "TasksList should not be empty";
         return ("Got it. I've added this task:\n " + newTask
                 + "\nNow you have " + this.tasks.size() + " tasks in the list.");
 
@@ -73,11 +74,11 @@ public class TaskList {
             }
             newTask = new Deadline(a[0], getDate(a[1]));
         } else {
+            assert arr[0].equals("event"): "The userInput should start with event";
             String[] a = arr[1].split(" /from ");
             if (a.length != 2 || a[1].isEmpty()) {
                 throw new EmptyDateException(arr[0]);
             }
-
             String[] fromto = a[1].split("/to ");
             if (fromto.length != 2 || fromto[1].isEmpty()) {
                 throw new NoEndDateException();
@@ -164,6 +165,7 @@ public class TaskList {
         if (taskIndex >= 0 && taskIndex < this.tasks.size()) {
             Task task = this.tasks.get(taskIndex);
             task.markAsDone();
+            assert task.getStatusIcon().equals("X") : "Task should return a Marked Indicator";
             return ("Nice! I've marked this task as done:\n " + task);
         } else {
             throw new InvalidRangeException("Invalid task index. You have "
@@ -183,6 +185,7 @@ public class TaskList {
         if (taskIndex >= 0 && taskIndex < this.tasks.size()) {
             Task task = this.tasks.get(taskIndex);
             task.markAsUndone();
+            assert task.getStatusIcon().equals(" ") : "Task should return a empty String";
             return ("OK, I've marked this task as not done yet:\n " + task);
         } else {
             throw new InvalidRangeException("Invalid task index. You have "
