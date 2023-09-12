@@ -39,6 +39,7 @@ public class Storage {
     }
     private static ItemList loadAll() throws FileNotFoundException {
         File file = new File(Duke.LISTPATH);
+        assert file.isFile() : "The provided path does not point to a valid file: " + Duke.LISTPATH;
         ArrayList<Task> items = new ArrayList<Task>();
         int len = 0;
         Scanner s = new Scanner(file);

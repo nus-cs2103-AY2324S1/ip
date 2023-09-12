@@ -1,7 +1,4 @@
-D | 0 | test | 02 December 2019 18:00
-D | 0 | de | 02 December 2019 18:00
-T | 0 | cwc
-T | 0 | de
-T | 0 | de2
 T | 0 | hello
 T | 0 | testing
+T | 0 | some task
+D | 0 | new event | today

@@ -20,6 +20,7 @@ public class Parser {
 
     private String line;
     public Parser(String line) {
+        assert line != null && !line.isEmpty() : "Line should not be null or empty!";
         this.line = line;
     }
 
