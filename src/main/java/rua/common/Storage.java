@@ -39,20 +39,23 @@ public class Storage {
         String[] features = str.split(" \\| ");
         Task output;
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM dd yyyy");
+        final boolean isMarked = features[1].equals("1");
+        final String taskDescription = features[2];
         switch (features[0]) {
         case "T":
-            output = new Todo(features[2], features[1].equals("1"));
+            output = new Todo(taskDescription, isMarked);
             break;
         case "D":
-            output = new Deadline(features[2], LocalDate.parse(features[3], dateFormat),
-                    features[1].equals("1"));
+            final LocalDate dueDate = LocalDate.parse(features[3], dateFormat);
+            output = new Deadline(taskDescription, dueDate, isMarked);
             break;
         case "E":
-            output = new Event(features[2], LocalDate.parse(features[3], dateFormat),
-                    LocalDate.parse(features[4], dateFormat), features[1].equals("1"));
+            final LocalDate startingDate = LocalDate.parse(features[3], dateFormat);
+            final LocalDate endingDate = LocalDate.parse(features[4], dateFormat);
+            output = new Event(taskDescription, startingDate,
+                    endingDate, isMarked);
             break;
         default:
-            output = null;
             throw new InvalidTypeException(features[0]);
         }
         return output;
@@ -78,7 +81,6 @@ public class Storage {
             output += " | " + ((Event) task).getFrom() + " | " + ((Event) task).getTo();
             break;
         default:
-            output = null;
             throw new InvalidTypeException(task.getType());
         }
         return output;
@@ -120,21 +122,21 @@ public class Storage {
             fw.close();
         } catch (FileNotFoundException exp) {
             Scanner sc = new Scanner(System.in);
-            System.out.println("Target file not found. Do you want to create it now? Please type yes or no\n");
+            StringLogger.append("Target file not found. Do you want to create it now? Please type yes or no\n");
             String create = sc.nextLine();
             while (!create.equals("yes") && !create.equals("no")) {
-                System.out.println("Incorrect input. Please type yes or no\n");
+                StringLogger.append("Incorrect input. Please type yes or no\n");
             }
             if (create.equals("yes")) {
                 int index = filePath.lastIndexOf("/");
                 String saveDir = filePath.substring(0, index);
                 File fileCreator = new File(saveDir);
                 fileCreator.mkdir();
-                System.out.println("File successfully created. Progress saved.\n");
+                StringLogger.append("File successfully created. Progress saved.\n");
                 try {
                     save(tasks);
                 } catch (IOException ioExp) {
-                    System.out.println("Some error occurs and progress is not saved.\n");
+                    StringLogger.append("Some error occurs and progress is not saved.\n");
                 }
             }
         }

@@ -111,7 +111,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
+        final String dueDateString = due.format(DateTimeFormatter.ofPattern("MM dd yyyy"));
         return "[D]" + super.toString() + " (by: "
-                + due.format(DateTimeFormatter.ofPattern("MM dd yyyy")) + ")";
+                + dueDateString + ")";
     }
 }

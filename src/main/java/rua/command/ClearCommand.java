@@ -25,7 +25,8 @@ public class ClearCommand implements Command {
      */
     @Override
     public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
-        ui.showMessage("Task list cleared.\n");
+        final String clearTaskMessage = "Task list cleared.\n";
+        ui.showMessage(clearTaskMessage);
         tasks = new TaskList();
         storage.save(tasks);
         return tasks;

@@ -1,12 +1,16 @@
 package rua.command;
 
 import rua.common.Storage;
+import rua.common.StringLogger;
 import rua.common.Ui;
 import rua.task.TaskList;
 
 public class MarkCommand implements Command {
     private final Boolean marked;
     private final int index;
+
+    private static final String MESSAGE_MARK = "Nice! I've marked this task as done:\n";
+    private static final String MESSAGE_UNMARK = "OK, I've marked this task as not done yet:\n";
 
     public MarkCommand(int index, Boolean marked) {
         this.index = index;
@@ -33,11 +37,8 @@ public class MarkCommand implements Command {
      */
     @Override
     public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
-        if (marked) {
-            ui.showMessage("Nice! I've marked this task as done:\n");
-        } else {
-            ui.showMessage("OK, I've marked this task as not done yet:\n");
-        }
+        String message = marked ? MESSAGE_MARK : MESSAGE_UNMARK;
+        ui.showMessage(message);
         TaskList newTasks = marked ? tasks.mark(index) : tasks.unmark(index);
         ui.showMessage("    " + tasks.getTasks().get(index - 1));
         return newTasks;

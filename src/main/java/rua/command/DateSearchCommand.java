@@ -34,7 +34,8 @@ public class DateSearchCommand implements Command {
      */
     @Override
     public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
-        ui.showMessage(" These are events happening on that day\n");
+        final String openingMessage = " These are events happening on that day\n";
+        ui.showMessage(openingMessage);
         String result = tasks.searchByDate(date);
         ui.showMessage(result);
         return tasks;

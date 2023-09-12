@@ -1,43 +1,36 @@
 package rua.common;
 
 import java.io.InputStream;
-import java.io.PrintStream;
 import java.util.Scanner;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 
 public class Ui {
     private final Scanner in;
-    private final PrintStream out;
+
+    private static final String DIVIDING_LINE = "____________________________________________________________";
 
     public Ui() {
-        this(System.in, System.out);
+        this(System.in);
     }
 
-    public Ui(InputStream in, PrintStream out) {
+    public Ui(InputStream in) {
         this.in = new Scanner(in);
-        this.out = out;
     }
 
     public void showLine() {
-        StringLogger.append("____________________________________________________________");
+        StringLogger.append(DIVIDING_LINE);
     }
 
     public void showWelcome() {
-        StringLogger.append("____________________________________________________________\n"
-                + " Hello! I'm Rua, your ChatBot\n"
-                + " What can I do for you?\n"
-                + "____________________________________________________________");
+        final String welcomeMessage = " Hello! I'm Rua, your ChatBot\n"
+                + " What can I do for you?\n";
+        StringLogger.append(DIVIDING_LINE + "\n" + welcomeMessage
+                + DIVIDING_LINE);
     }
 
     public void showGoodbye() {
-        StringLogger.append(" Bye. Hope to see you again soon!\n");
+        final String goodbyeMessage = " Bye. Hope to see you again soon!\n";
+        StringLogger.append(goodbyeMessage);
     }
 
     public void showMessage(String str) {
@@ -45,11 +38,13 @@ public class Ui {
     }
 
     public void showError(String errorMessage) {
-        StringLogger.append("You get an error: " + errorMessage + "\n");
+        final String errorOpeningMessage = "You get an error: ";
+        StringLogger.append(errorOpeningMessage + errorMessage + "\n");
     }
 
     public void showLoadingError() {
-        showError("Given tasklist cannot be loaded. Now creating a new tasklist instead.");
+        final String loadingErrorMessage = "Given tasklist cannot be loaded. Now creating a new tasklist instead.";
+        showError(loadingErrorMessage);
     }
 
     public String readCommand() {
