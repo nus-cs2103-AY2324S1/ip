@@ -40,45 +40,45 @@ public class Parser {
             WrongMarkException,
             InvalidInputException {
         commandGiven = commandGiven.trim();
-        String[] splittedCommands = commandGiven.split(" ");
+        String[] splittedCommands = commandGiven.split(" ", 2);
         String commandType = splittedCommands[0];
-        String command = "";
+        String command;
+
         switch (commandType) {
         case "list":
-            ui.separatorLines();
             command = tasks.printTasks();
             break;
         case "mark":
             try {
                 Task task = tasks.get(Integer.parseInt(splittedCommands[1]) - 1);
+
                 if (Objects.equals(task.getStatusIcon(), "X")) {
                     command = ui.showAlreadyDone();
                 } else {
-                    ui.separatorLines();
                     command = task.setAsDone(task);
                 }
+
                 storage.save(tasks);
             } catch (IndexOutOfBoundsException | NullPointerException e) {
                 command = ui.showInvalidIndex();
             } catch (IOException e) {
-                command = String.valueOf(e);
                 throw new RuntimeException(e);
             }
             break;
         case "unmark":
             try {
                 Task task = tasks.get(Integer.parseInt(splittedCommands[1]) - 1);
+
                 if (Objects.equals(task.getStatusIcon(), " ")) {
                     command = ui.showAlreadyUndone();
                 } else {
-                    ui.separatorLines();
                     command = task.setAsUndone(task);
                 }
+
                 storage.save(tasks);
             } catch (IndexOutOfBoundsException | NullPointerException e) {
                 command = ui.showInvalidIndex();
             } catch (IOException e) {
-                command = String.valueOf(e);
                 throw new RuntimeException(e);
             }
             break;
@@ -92,12 +92,10 @@ public class Parser {
             }
             break;
         case "find":
-            ui.separatorLines();
             try {
                 String keyword = splittedCommands[1];
                 command = tasks.findTasks(keyword);
             } catch (IndexOutOfBoundsException | NullPointerException e) {
-                command = "find what eh! ";
                 throw new IncompleteInputException("find what eh! ");
             }
             break;
@@ -116,17 +114,14 @@ public class Parser {
                 command = ui.addTaskMessage(task);
                 storage.save(tasks);
             } catch (InvalidInputException e) {
-                ui.separatorLines();
-                command = "I dont understand! " + e;
                 throw new InvalidInputException("I dont understand! " + e);
             } catch (IncompleteInputException e) {
-                ui.separatorLines();
-                command = "Incomplete input eh! " + e;
                 throw new IncompleteInputException("Incomplete input eh! " + e);
             } catch (IOException e) {
                 command = ui.showSaveError();
             }
         }
+
         return command.trim();
     }
 }
