@@ -3,6 +3,7 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * Represents a task with a specific deadline.
@@ -47,5 +48,40 @@ public class Deadline extends Task{
     public String toString() {
         String formattedDeadline = this.deadline.format(DateTimeFormatter.ofPattern("d MMM uuuu h:mm a"));
         return "[D]" + super.toString() + " (by: " + formattedDeadline + ")";
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this Deadline instance.
+     *
+     * This method overrides the default equals implementation from the Object class.
+     * Two Deadline instances are considered equal if they meet the following criteria:
+     * 1. They reference the same object (i.e., identical references).
+     * 2. The other object is an instance of the Deadline class.
+     * 3. The 'isCompleted' status, 'description', and 'deadline' fields of both
+     *    Deadline instances are equal.
+     *
+     * @param o The object to compare for equality with this Deadline instance.
+     * @return true if the two Deadline instances are equal based on the specified criteria,
+     *         false otherwise.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof Deadline)) {
+            return false;
+        }
+
+        Deadline otherDeadline = (Deadline) o;
+
+        return this.isCompleted == otherDeadline.isCompleted && this.description.equals(otherDeadline.description)
+                && this.deadline.equals(otherDeadline.deadline);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isCompleted, description, deadline);
     }
 }

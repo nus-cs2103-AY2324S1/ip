@@ -1,6 +1,7 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * Tasks are stored in a List<Task> and can be interacted with using the provided methods.
  */
 public class TaskList {
-    private final List<Task> tasks;
+    private List<Task> tasks;
     private final Ui ui;
 
     /**
@@ -105,6 +106,27 @@ public class TaskList {
             }
         }
         return ret;
+    }
+
+    /**
+     * Removes duplicate tasks from the current TaskList and returns a new TaskList
+     * containing the removed duplicate tasks to show the user.
+     *
+     * @return A new TaskList containing the duplicate tasks that were removed from
+     *         the current TaskList. If there are no duplicates, an empty TaskList
+     *         is returned.
+     */
+    public TaskList removeDuplicates() {
+        HashSet<Task> taskSet = new HashSet<>();
+        TaskList duplicates = new TaskList(ui);
+        for (Task task : tasks) {
+            boolean added = taskSet.add(task);
+            if (!added) {
+                duplicates.addTask(task);
+            }
+        }
+        tasks = new ArrayList<>(taskSet);
+        return duplicates;
     }
 
     /**
