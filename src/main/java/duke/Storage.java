@@ -130,10 +130,12 @@ public class Storage {
             if (!directory.exists()) {
                 directory.mkdir();
             }
+            assert directory.exists() : "The file directory should already exist";
             File taskFile = new File(filePath);
             if (taskFile.createNewFile()) {
                 // creates new file
             } else {
+                assert taskFile.exists() : "The file should already exist";
                 tasks = readTasks(taskFile);
             }
         } catch (IOException e) {
