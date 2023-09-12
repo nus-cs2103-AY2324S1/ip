@@ -31,7 +31,8 @@ public class UnMarkCommand extends Command {
      */
     @Override
     public String execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
-        String[] inputs = this.command.split(" ");
+        String[] inputs = this.command.split(" ", 2);
+        assert inputs.length == 2;
         int key;
         try {
             key = Integer.parseInt(inputs[1]);

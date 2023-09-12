@@ -38,6 +38,7 @@ public class AddDeadlineCommand extends Command {
         Deadline deadline;
         try {
             String[] by = inputs[1].split("/by", 2);
+            assert by.length == 2;
             LocalDate b = DateParserService.parseDate(by[1]);
             deadline = new Deadline(by[0], b);
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {

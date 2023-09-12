@@ -29,6 +29,10 @@ public class DateParserService {
         DateTimeFormatter dateTimeFormatter = dateTimeFormatterBuilder.toFormatter();
 
         // Parse the date string using the defined formatter and return the resulting LocalDate object
-        return LocalDate.parse(date, dateTimeFormatter);
+        LocalDate parsedDate = LocalDate.parse(date, dateTimeFormatter);
+
+        assert parsedDate != null : "Failed to parse the Date";
+
+        return parsedDate;
     }
 }
