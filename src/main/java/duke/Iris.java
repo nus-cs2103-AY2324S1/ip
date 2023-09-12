@@ -19,7 +19,7 @@ public class Iris {
 
     public String getResponse(String text) {
         String output = parser.parse(text, taskList);
-        assert !output.equals("");
+        assert !output.isEmpty();
         storage.updateTasksToFile(taskList);
         return output;
     }
