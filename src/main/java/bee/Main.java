@@ -23,6 +23,9 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+
+            assert fxmlLoader != null : "FXMLLoader failed to load MainWindow.fxml";
+
             fxmlLoader.<MainWindow>getController().setBee(bee);
             stage.show();
         } catch (IOException e) {

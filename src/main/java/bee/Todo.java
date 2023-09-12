@@ -13,6 +13,7 @@ public class Todo extends Task {
      */
     public Todo(String description) {
         super(description);
+        assert description != null : "Description cannot be null."; // Assumption: Description should not be null
     }
 
     /**
@@ -23,6 +24,7 @@ public class Todo extends Task {
      */
     public Todo(String description, Boolean isDone) {
         super(description, isDone);
+        assert description != null : "Description cannot be null."; // Assumption: Description should not be null
     }
 
     /**

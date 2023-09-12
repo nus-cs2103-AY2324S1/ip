@@ -17,6 +17,9 @@ public class Event extends Task {
      */
     public Event(String description, String startDate, String endDate) {
         super(description);
+        assert description != null : "Description cannot be null."; // Assumption: Description should not be null
+        assert startDate != null : "StartDate cannot be null."; // Assumption: StartDate should not be null
+        assert endDate != null : "EndDate cannot be null."; // Assumption: EndDate should not be null
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -31,6 +34,9 @@ public class Event extends Task {
      */
     public Event(String description, String startDate, String endDate, Boolean isDone) {
         super(description, isDone);
+        assert description != null : "Description cannot be null."; // Assumption: Description should not be null
+        assert startDate != null : "StartDate cannot be null."; // Assumption: StartDate should not be null
+        assert endDate != null : "EndDate cannot be null."; // Assumption: EndDate should not be null
         this.startDate = startDate;
         this.endDate = endDate;
     }

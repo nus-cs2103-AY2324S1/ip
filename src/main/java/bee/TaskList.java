@@ -26,6 +26,7 @@ public class TaskList {
      * @param tasks The initial list of tasks to populate the TaskList.
      */
     public TaskList(ArrayList<Task> tasks, Storage storage) {
+        assert tasks != null : "Tasks list should not be null."; // Assumption: Tasks list should not be null
         this.tasks = tasks;
         this.storage = storage;
     }
@@ -45,6 +46,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void quietlyAddTask(Task task) {
+        assert task != null : "Task object cannot be null."; // Assumption: Task object should not be null
         this.tasks.add(task);
     }
 
@@ -54,6 +56,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public String addTask(Task task) {
+        assert task != null : "Task object cannot be null."; // Assumption: Task object should not be null
         this.tasks.add(task);
         storage.saveTasksToFile();
         return Ui.addTask(task, this.tasks.size());
@@ -82,6 +85,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Invalid task index."; // Assumption: Index should be within valid range
         return tasks.get(index);
     }
 

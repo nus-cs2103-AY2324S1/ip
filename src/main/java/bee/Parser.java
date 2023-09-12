@@ -20,6 +20,11 @@ public class Parser {
      * @return True if the chatbot should continue running, false if it should exit.
      */
     public static String parseUserCommand(String userInput, TaskList tasks, Storage storage, Ui ui) {
+        assert userInput != null : "User input cannot be null."; // Assumption: User input should not be null
+        assert tasks != null : "TaskList object cannot be null."; // Assumption: TaskList should not be null
+        assert storage != null : "Storage object cannot be null."; // Assumption: Storage should not be null
+        assert ui != null : "Ui object cannot be null."; // Assumption: Ui should not be null
+
         String[] splitInput = userInput.split(" ");
         String command = splitInput[0].toLowerCase();
         try {
