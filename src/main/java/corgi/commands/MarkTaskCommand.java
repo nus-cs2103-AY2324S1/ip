@@ -2,8 +2,7 @@ package corgi.commands;
 
 import java.util.Stack;
 
-import corgi.storage.Storage;
-import corgi.tasks.Task;
+import corgi.State;
 import corgi.tasks.TaskList;
 import corgi.tasks.TaskListIndexOutOfBoundsException;
 import corgi.tasks.TaskStatusException;
@@ -40,29 +39,29 @@ public class MarkTaskCommand extends Command {
 
     /**
      * Executes the command by marking the task at the specified index with the new status,
-     * saving the updated list to storage, and return a message indicating the task's status change.
+     * saving the updated list to storage.
      *
-     * @param list The task list to be updated.
-     * @param renderer The text renderer to return formatted message.
-     * @param storage The storage for saving and loading tasks (if applicable).
+     * @param currState The current state of the application.
+     * @param history The history stack to store the states.
+     * @return A pair containing the new state and a string message indicating the result of the command execution.
      * @throws CommandExecutionException If an error occurs during command execution.
      */
     @Override
-    public String execute(
-            TaskList list, TextRenderer renderer, Storage<Task> storage, Stack<Pair<Command, TaskList>> history)
+    public Pair<State, String> execute(State currState, Stack<Pair<State, Command>> history)
             throws CommandExecutionException {
         try {
-            list.mark(this.index, this.status);
-            storage.save(list);
+            history.push(new Pair<>(currState, this));
 
-            Pair<Command, TaskList> currState = new Pair<>(this, list);
-            history.push(currState);
+            State newState = currState.markTask(this.index, this.status);
 
-            if (status) {
-                return renderer.showTaskDone(list.getTaskInfo(this.index));
-            } else {
-                return renderer.showTaskUndone(list.getTaskInfo(this.index));
-            }
+            TextRenderer renderer = newState.getTextRenderer();
+            TaskList list = newState.getTaskList();
+
+            String returnMsg = (status)
+                    ? renderer.showTaskDone(list.getTaskInfo(this.index))
+                    : renderer.showTaskUndone(list.getTaskInfo(this.index));
+            
+            return new Pair<>(newState, returnMsg);
         } catch (TaskListIndexOutOfBoundsException e) {
             throw new CommandExecutionException("Invalid index provided!");
         } catch (TaskStatusException e) {
@@ -73,6 +72,6 @@ public class MarkTaskCommand extends Command {
     @Override
     public String toString() {
         String action = this.status ? "Mark" : "Unmark";
-        return action + " task " + this.index;
+        return action + " task " + (this.index + 1);
     }
 }

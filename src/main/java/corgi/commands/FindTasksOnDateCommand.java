@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Stack;
 import java.util.function.Predicate;
 
-import corgi.storage.Storage;
+import corgi.State;
 import corgi.tasks.Deadline;
 import corgi.tasks.Event;
 import corgi.tasks.Task;
@@ -53,23 +53,23 @@ public class FindTasksOnDateCommand extends Command {
      * Executes the command by filtering the task list based on the given predicate to find tasks on the specified date.
      * It then returns the filtered tasks to the user or a message indicating that no tasks were found on the date.
      *
-     * @param list The task list to filter.
-     * @param renderer The text renderer to return formatted message.
-     * @param storage The storage for saving and loading tasks (not used in this command).
+     * @param currState The current state of the application.
      * @param history The history stack to store the states.
-     * @return A string message indicating the result of the command execution.
+     * @return A pair containing the new state and a string message indicating the result of the command execution.
      */
     @Override
-    public String execute(
-            TaskList list, TextRenderer renderer, Storage<Task> storage, Stack<Pair<Command, TaskList>> history) {
-        TaskList tasksOnDate = list.filter(predicate);
+    public Pair<State, String> execute(State currState, Stack<Pair<State, Command>> history) {
+        TaskList currList = currState.getTaskList();
+        TextRenderer currTextRenderer = currState.getTextRenderer();
+
+        TaskList tasksOnDate = currList.filter(predicate);
 
         String outputDate = this.target.format(Task.DATE_OUTPUT_FORMATTER);
 
-        if (tasksOnDate.isEmpty()) {
-            return renderer.showNoTaskOnDate(outputDate);
-        } else {
-            return renderer.showTasksOnDate(outputDate, tasksOnDate.toString());
-        }
+         String returnMsg = tasksOnDate.isEmpty()
+                ? currTextRenderer.showNoTaskOnDate(outputDate)
+                : currTextRenderer.showTasksOnDate(outputDate, tasksOnDate.toString());
+        
+        return new Pair<>(currState, returnMsg);
     }
 }

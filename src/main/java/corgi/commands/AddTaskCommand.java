@@ -2,7 +2,7 @@ package corgi.commands;
 
 import java.util.Stack;
 
-import corgi.storage.Storage;
+import corgi.State;
 import corgi.tasks.Task;
 import corgi.tasks.TaskList;
 import corgi.ui.TextRenderer;
@@ -28,7 +28,7 @@ public class AddTaskCommand extends Command {
      * Initializes a new AddTaskCommand instance with the specified task and command type.
      *
      * @param target The task to be added.
-     * @param type The type of command (CommandType.TODO, CommandType.DEADLINE, or CommandType.EVENT).
+     * @param type The type of command.
      */
     public AddTaskCommand(Task target) {
         super(false);
@@ -37,24 +37,24 @@ public class AddTaskCommand extends Command {
 
     /**
      * Executes the command by adding the specified task to the task list, saving the updated list to storage,
-     * store the stack to the history stack and return formatted message indicating that the task has been added.
+     * and storing the state to the history stack.
      *
-     * @param list The task list to which the task should be added.
-     * @param renderer The text renderer to return formatted message.
-     * @param storage The storage for saving and loading tasks (if applicable).
+     * @param currState The current state of the application.
      * @param history The history stack to store the states.
-     * @return A string message indicating the result of the command execution.
+     * @return A pair containing the new state and a string message indicating the result of the command execution.
      */
     @Override
-    public String execute(
-            TaskList list, TextRenderer renderer, Storage<Task> storage, Stack<Pair<Command, TaskList>> history) {
-        list.add(this.target);
-        storage.save(list);
+    public Pair<State, String> execute(State currState, Stack<Pair<State, Command>> history) {
+        history.push(new Pair<>(currState, this));
 
-        Pair<Command, TaskList> currState = new Pair<>(this, list);
-        history.push(currState);
+        State newState = currState.addTask(this.target);
 
-        return renderer.showTaskAdded(this.taskType, target.toString(), list.size());
+        TextRenderer renderer = newState.getTextRenderer();
+        TaskList list = newState.getTaskList();
+
+        String returnMsg = renderer.showTaskAdded(this.taskType, target.toString(), list.size());
+
+        return new Pair<>(newState, returnMsg);
     }
 
     @Override

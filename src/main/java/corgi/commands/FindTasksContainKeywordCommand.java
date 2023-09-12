@@ -3,7 +3,7 @@ package corgi.commands;
 import java.util.Stack;
 import java.util.function.Predicate;
 
-import corgi.storage.Storage;
+import corgi.State;
 import corgi.tasks.Task;
 import corgi.tasks.TaskList;
 import corgi.ui.TextRenderer;
@@ -42,21 +42,21 @@ public class FindTasksContainKeywordCommand extends Command {
      * It then return the filtered tasks to the user or a message indicating
      * that no matching tasks were found.
      *
-     * @param list The task list to filter.
-     * @param renderer The text renderer to return formatted message.
-     * @param storage The storage for saving and loading tasks (not used in this command).
+     * @param currState The current state of the application.
      * @param history The history stack to store the states.
-     * @return A string message indicating the result of the command execution.
+     * @return A pair containing the new state and a string message indicating the result of the command execution.
      */
     @Override
-    public String execute(
-            TaskList list, TextRenderer renderer, Storage<Task> storage, Stack<Pair<Command, TaskList>> history) {
-        TaskList tasksContainKeyword = list.filter(predicate);
+    public Pair<State, String> execute(State currState, Stack<Pair<State, Command>> history) {
+        TaskList currList = currState.getTaskList();
+        TextRenderer currTextRenderer = currState.getTextRenderer();
 
-        if (tasksContainKeyword.isEmpty()) {
-            return renderer.showKeywordNotFound(this.target);
-        } else {
-            return renderer.showTasksWithKeyword(this.target, tasksContainKeyword.toString());
-        }
+        TaskList tasksContainKeyword = currList.filter(predicate);
+
+        String returnMsg = tasksContainKeyword.isEmpty()
+                ? currTextRenderer.showKeywordNotFound(this.target)
+                : currTextRenderer.showTasksWithKeyword(this.target, tasksContainKeyword.toString());
+
+        return new Pair<>(currState, returnMsg);
     }
 }
