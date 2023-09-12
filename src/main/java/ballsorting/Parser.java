@@ -34,6 +34,20 @@ public class Parser {
             output.append(taskList.getStringList());
             return output.toString();
 
+        } else if (input.equals("help")) {
+
+            StringBuilder output = new StringBuilder();
+            output.append("Here are the list of possible commands:\n");
+            output.append("1. todo {description}\n");
+            output.append("2. deadline {description} /by{yyyy-MM-dd HH:mm}\n");
+            output.append("3. event {description} /from{yyyy-MM-dd HH:mm} /to{yyyy-MM-dd HH:mm}\n");
+            output.append("4. mark {task number} - mark as done\n");
+            output.append("5. unmark {task number} - mark as not done\n");
+            output.append("6. delete {task number} - delete a task\n");
+            output.append("7. find {key word} - search for a task\n");
+            output.append("8. bye - quits the chatbot\n");
+            return output.toString();
+
         } else if (input.startsWith("mark")) {
 
             int target = Integer.parseInt(input.substring(5)) - 1;
@@ -74,40 +88,42 @@ public class Parser {
                 if (des.equals("")) {
                     return "☹ OOPS!!! The description of a todo cannot be empty.";
                 } else {
+                    assert !des.equals("");
                     curr = new Todo(des);
                 }
 
             } else if (input.startsWith("deadline")) {
 
-                int i = 9;
+                int i = "deadline ".length();
                 while (i < input.length() && input.charAt(i) != '/') {
                     description.append(input.charAt(i));
                     i++;
                 }
-                i += 4;
+                i += "/by ".length();
                 if (description.toString().equals("")) {
                     return "☹ OOPS!!! The description of a deadline cannot be empty.";
                 } else if (i >= input.length() || input.substring(i).equals("")) {
                     return "☹ OOPS!!! The deadline of a deadline cannot be empty.";
                 } else {
                     LocalDateTime endDateTime = LocalDateTime.parse(input.substring(i), Ballsorter.inputFormatter);
+                    assert !description.toString().equals("");
                     curr = new Deadline(description.toString(), endDateTime);
                 }
 
 
             } else if (input.startsWith("event")) {
 
-                int i = 6;
+                int i = "event ".length();
                 while (i < input.length() && input.charAt(i) != '/') {
                     description.append(input.charAt(i));
                     i++;
                 }
-                i += 6;
+                i += "/from ".length(); //6
                 while (i < input.length() && input.charAt(i) != '/') {
                     start.append(input.charAt(i));
                     i++;
                 }
-                i += 4;
+                i += "/to ".length(); //4
                 if (description.toString().equals("")) {
                     return "☹ OOPS!!! The description of an event cannot be empty.";
                 } else if (start.toString().equals("")) {
@@ -117,6 +133,10 @@ public class Parser {
                 } else {
                     LocalDateTime startDateTime = LocalDateTime.parse(start.toString(), Ballsorter.inputFormatter);
                     LocalDateTime endDateTime = LocalDateTime.parse(input.substring(i), Ballsorter.inputFormatter);
+                    if (endDateTime.isBefore(startDateTime)) {
+                        return "☹ OOPS!!! The end time of an event cannot be before the start";
+                    }
+                    assert !description.toString().equals("");
                     curr = new Event(description.toString(), startDateTime, endDateTime);
                 }
 
@@ -124,10 +144,8 @@ public class Parser {
                 return "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
             }
 
+            assert curr != null;
             return taskList.addTask(curr);
-//            if (curr != null) {
-//                taskList.addTask(curr);
-//            }
         }
     }
 }

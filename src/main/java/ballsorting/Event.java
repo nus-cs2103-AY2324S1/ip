@@ -17,6 +17,7 @@ public class Event extends Task {
      */
     public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
+        assert start.isBefore(end);
         this.start = start;
         this.end = end;
     }
