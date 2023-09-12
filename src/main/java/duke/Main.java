@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
-
+    /** An instance of the chatbot **/
     private Duke bot = new Duke("./duke.txt");
 
     @Override

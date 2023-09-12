@@ -45,6 +45,9 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
     }
 
+    /**
+     * Flips the chatbot to the right side.
+     */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
@@ -52,10 +55,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_RIGHT);
     }
 
+    /**
+     * Returns an instance of DialogBox containing the user's text and image.
+     *
+     * @param text The user's input typed in.
+     * @param img The user's profile image.
+     * @return Instance of DialogBox for the user.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns an instance of DialogBox containing the user's text and image.
+     *
+     * @param response The response of the chatbot.
+     * @param img The profile image of the bot.
+     * @return Instance of DialogBox for the user.
+     */
     public static DialogBox getBotDialog(String response, Image img) {
         var db = new DialogBox(response, img);
         db.flip();

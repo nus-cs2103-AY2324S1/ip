@@ -43,8 +43,10 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Produces the response of the chatbot based on what the user types.
+     *
+     * @param input The user's message.
+     * @return The chatbot response.
      */
     public String getResponse(String input) {
         Ui.start();
@@ -53,12 +55,5 @@ public class Duke {
         } else {
             return Parser.parseInput(input, this.tasks, this.storage);
         }
-        /*
-        while (!input.equals("bye")) {
-            Parser.parseInput(input, this.tasks, this.storage);
-            input = Ui.getInput(scan);
-        }
-        Ui.bye();
-         */
     }
 }
