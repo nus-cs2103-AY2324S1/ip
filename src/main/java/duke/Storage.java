@@ -72,14 +72,16 @@ public class Storage {
             arr[i] = arr[i].trim();
         }
 
+        String taskType = arr[0];
 
-        if (arr[0].equals("T")) {
+
+        if (taskType.equals("T")) {
             if (arr.length < 3 || arr[2].isEmpty()) {
                 throw new EmptyTaskException("todo");
             }
 
             newTask = new ToDo(arr[2]);
-        } else if (arr[0].equals("D")) {
+        } else if (taskType.equals("D")) {
             if (arr.length < 3 || arr[2].isEmpty()) {
                 throw new EmptyTaskException("deadline");
             }

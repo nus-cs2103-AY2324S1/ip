@@ -48,8 +48,9 @@ public class Ui {
      * @return The output as a String.
      */
     public String showLoadingError() {
-        System.out.println("File not found");
-        return "File not found";
+        String fileError = "File not found";
+        System.out.println(fileError);
+        return fileError;
     }
 
     /**
@@ -59,8 +60,9 @@ public class Ui {
      * @return The output as a String.
      */
     public String showList(TaskList tasks) {
-        System.out.println(tasks.toString());
-        return tasks.toString();
+        String listString = tasks.toString();
+        System.out.println(listString);
+        return listString;
     }
 
     /**
@@ -70,7 +72,8 @@ public class Ui {
      */
     public String showBye() {
         this.scanner.close();
-        System.out.println("Bye. Hope to see you again soon!");
-        return "Bye. Hope to see you again soon!";
+        String byeMsg = "Bye. Hope to see you again soon!";
+        System.out.println(byeMsg);
+        return byeMsg;
     }
 }

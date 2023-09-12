@@ -63,27 +63,26 @@ public class TaskList {
 
         if (arr.length != 2 || arr[1].isEmpty()) {
             throw new EmptyTaskException(arr[0]);
-        } else {
-            if (arr[0].equals("todo")) {
-                newTask = new ToDo(arr[1]);
-            } else if (arr[0].equals("deadline")) {
-                String[] a = arr[1].split(" /by ");
-                if (a.length != 2 || a[1].isEmpty()) {
-                    throw new EmptyDateException(arr[0]);
-                }
-                newTask = new Deadline(a[0], getDate(a[1]));
-            } else {
-                String[] a = arr[1].split(" /from ");
-                if (a.length != 2 || a[1].isEmpty()) {
-                    throw new EmptyDateException(arr[0]);
-                }
-
-                String[] fromto = a[1].split("/to ");
-                if (fromto.length != 2 || fromto[1].isEmpty()) {
-                    throw new NoEndDateException();
-                }
-                newTask = new Event(a[0], getDate(fromto[0]), getTime(fromto[1]));
+        }
+        if (arr[0].equals("todo")) {
+            newTask = new ToDo(arr[1]);
+        } else if (arr[0].equals("deadline")) {
+            String[] a = arr[1].split(" /by ");
+            if (a.length != 2 || a[1].isEmpty()) {
+                throw new EmptyDateException(arr[0]);
             }
+            newTask = new Deadline(a[0], getDate(a[1]));
+        } else {
+            String[] a = arr[1].split(" /from ");
+            if (a.length != 2 || a[1].isEmpty()) {
+                throw new EmptyDateException(arr[0]);
+            }
+
+            String[] fromto = a[1].split("/to ");
+            if (fromto.length != 2 || fromto[1].isEmpty()) {
+                throw new NoEndDateException();
+            }
+            newTask = new Event(a[0], getDate(fromto[0]), getTime(fromto[1]));
         }
 
         return newTask;

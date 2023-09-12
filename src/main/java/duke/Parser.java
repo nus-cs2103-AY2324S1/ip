@@ -3,7 +3,6 @@ package duke;
 import duke.exception.DukeException;
 import duke.exception.InvalidInputException;
 
-
 /**
  * The duke.Parser class is responsible for interpreting user commands and converting them into actions or tasks.
  */
@@ -79,6 +78,17 @@ public class Parser {
     }
 
     /**
+     * Checks if the user's input is "delete", "unmark" or "mark" command.
+     *
+     * @param words the user's input in a String array
+     * @return True if the input is "delete", "unmark" or "mark" command.
+     */
+    private static boolean isTaskCommand(String[] words) {
+        return words.length == 2 && (isMarkCommand(words[0])
+                || isUnmarkCommand(words[0]) || isDeleteCommand(words[0]));
+    }
+
+    /**
      * Parses the user's input and performs the corresponding operations.
      *
      * @param userInput The user's input.
@@ -88,28 +98,19 @@ public class Parser {
      * @throws DukeException If there's an issue with the user input or task operations.
      */
     public static boolean parseCommand(String userInput, TaskList tasks, Ui ui) throws DukeException {
-        String[] words = userInput.split(" ");
-        if (words.length == 2) {
-            if (isMarkCommand(words[0])) {
-                int taskIndex = Integer.parseInt(words[1]) - 1;
-                String output = tasks.markTaskAsDone(taskIndex);
-                ui.showMessage(output);
-                return true;
+        String[] wordsCli = userInput.split(" ");
+        if (isTaskCommand(wordsCli)) {
+            int taskIndex = Integer.parseInt(wordsCli[1]) - 1;
+            String output;
+            if (isMarkCommand(wordsCli[0])) {
+                output = tasks.markTaskAsDone(taskIndex);
+            } else if (isUnmarkCommand(wordsCli[0])) {
+                output = tasks.unmarkTaskAsDone(taskIndex);
+            } else {
+                output = tasks.deleteTask(taskIndex);
             }
-
-            if (isUnmarkCommand(words[0])) {
-                int taskIndex = Integer.parseInt(words[1]) - 1;
-                String output = tasks.unmarkTaskAsDone(taskIndex);
-                ui.showMessage(output);
-                return true;
-            }
-
-            if (isDeleteCommand(words[0])) {
-                int taskIndex = Integer.parseInt(words[1]) - 1;
-                String output = tasks.deleteTask(taskIndex);
-                ui.showMessage(output);
-                return true;
-            }
+            ui.showMessage(output);
+            return true;
         }
 
         if (isListCommand(userInput)) {
@@ -141,20 +142,14 @@ public class Parser {
      * @throws DukeException If there's an issue with the user input or task operations.
      */
     public static String parseInput(String userInput, TaskList tasks, Ui ui) throws DukeException {
-        String[] words = userInput.split(" ");
-        if (words.length == 2) {
-            if (isMarkCommand(words[0])) {
-                int taskIndex = Integer.parseInt(words[1]) - 1;
+        String[] wordsGui = userInput.split(" ");
+        if (isTaskCommand(wordsGui)) {
+            int taskIndex = Integer.parseInt(wordsGui[1]) - 1;
+            if (isMarkCommand(wordsGui[0])) {
                 return tasks.markTaskAsDone(taskIndex);
-            }
-
-            if (isUnmarkCommand(words[0])) {
-                int taskIndex = Integer.parseInt(words[1]) - 1;
+            } else if (isUnmarkCommand(wordsGui[0])) {
                 return tasks.unmarkTaskAsDone(taskIndex);
-            }
-
-            if (isDeleteCommand(words[0])) {
-                int taskIndex = Integer.parseInt(words[1]) - 1;
+            } else {
                 return tasks.deleteTask(taskIndex);
             }
         }
