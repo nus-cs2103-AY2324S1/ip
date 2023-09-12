@@ -5,6 +5,8 @@ package duke;
  */
 public abstract class Task {
 
+    private static String CMD_NOT_KNOWN = "Command not known";
+
     /** Task description. */
     protected String description;
     /** Task is done. */
@@ -20,6 +22,7 @@ public abstract class Task {
      * @throws DukeException If a task cannot be created from the given information.
      */
     public static Task create(Commands command, String rawLine) throws DukeException {
+        assert (!command.equals(Commands.unknown)) : CMD_NOT_KNOWN;
         switch (command) {
         case todo:
             return ToDo.create(rawLine);

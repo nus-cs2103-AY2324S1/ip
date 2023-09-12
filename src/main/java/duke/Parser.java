@@ -48,8 +48,6 @@ public class Parser {
             return task;
         } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
             throw new DukeException("Corrupted file. Delete all text in the duke.txt to use it again.");
-        } catch (RuntimeException e) {
-            throw new DukeException("Corrupted file. Delete all text in the duke.txt to use it again.");
         }
     }
 
