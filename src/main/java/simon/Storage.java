@@ -71,39 +71,39 @@ public class Storage {
                     .map(line -> {
                         String[] parts = line.split(" \\| ");
                         switch (parts[0]) {
-                            case "T":
-                                ToDo todo = new ToDo(parts[2]);
-                                if ("1".equals(parts[1])) {
-                                    todo.markAsDone();
-                                }
-                                return todo;
-                            case "D":
-                                LocalDateTime endDateTime = LocalDateTime.parse(parts[3], formatter);
-                                Deadline deadline = null;
-                                try {
-                                    deadline = new Deadline(parts[2], endDateTime.format(formatter));
-                                } catch (SimonException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                if ("1".equals(parts[1])) {
-                                    deadline.markAsDone();
-                                }
-                                return deadline;
-                            case "E":
-                                LocalDateTime startDateTime = LocalDateTime.parse(parts[3], formatter);
-                                LocalDateTime endDate = LocalDateTime.parse(parts[4], formatter);
-                                Event event = null;
-                                try {
-                                    event = new Event(parts[2], startDateTime.format(formatter), endDate.format(formatter));
-                                } catch (SimonException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                if ("1".equals(parts[1])) {
-                                    event.markAsDone();
-                                }
-                                return event;
-                            default:
-                                return null;
+                        case "T":
+                            ToDo todo = new ToDo(parts[2]);
+                            if ("1".equals(parts[1])) {
+                                todo.markAsDone();
+                            }
+                            return todo;
+                        case "D":
+                            LocalDateTime endDateTime = LocalDateTime.parse(parts[3], formatter);
+                            Deadline deadline = null;
+                            try {
+                                deadline = new Deadline(parts[2], endDateTime.format(formatter));
+                            } catch (SimonException e) {
+                                throw new RuntimeException(e);
+                            }
+                            if ("1".equals(parts[1])) {
+                                deadline.markAsDone();
+                            }
+                            return deadline;
+                        case "E":
+                            LocalDateTime startDateTime = LocalDateTime.parse(parts[3], formatter);
+                            LocalDateTime endDate = LocalDateTime.parse(parts[4], formatter);
+                            Event event = null;
+                            try {
+                                event = new Event(parts[2], startDateTime.format(formatter), endDate.format(formatter));
+                            } catch (SimonException e) {
+                                throw new RuntimeException(e);
+                            }
+                            if ("1".equals(parts[1])) {
+                                event.markAsDone();
+                            }
+                            return event;
+                        default:
+                            return null;
                         }
                     })
                     .filter(Objects::nonNull)
