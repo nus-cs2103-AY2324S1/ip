@@ -7,13 +7,13 @@ import tasket.parser.Parser;
 import tasket.storage.Storage;
 import tasket.ui.Ui;
 
-public class Tasket {
+public class Duke {
     private final Ui ui;
     private final Storage storage;
     private TaskList taskList;
 
 
-    public Tasket(String filePath) {
+    public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -40,6 +40,6 @@ public class Tasket {
     }
 
     public static void main(String[] args) {
-        new Tasket("data/tasks.txt").run();
+        new Duke("data/tasks.txt").run();
     }
 }
