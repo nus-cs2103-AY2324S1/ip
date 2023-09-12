@@ -27,7 +27,8 @@ public class Parser {
             ui.printBye();
             break;
         case "list":
-            tasks.printList();
+//            tasks.printList();
+            ui.printList(tasks);
             break;
         case "todo":
             Task todo = new Todo (fullCommand.substring(5));
