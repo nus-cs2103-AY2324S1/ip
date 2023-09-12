@@ -25,14 +25,6 @@ public class Event extends Task {
     /** The end date and time of this event. */
     private final LocalDateTime endDateTime;
 
-    public LocalDateTime getStartDateTime() {
-        return startDateTime;
-    }
-
-    public LocalDateTime getEndDateTime() {
-        return endDateTime;
-    }
-
     /**
      * Constructs a new Event task with the given name, start date, and end date.
      *
@@ -63,6 +55,14 @@ public class Event extends Task {
         } catch (DateTimeParseException e) {
             throw new SimonException("The date and time format is incorrect. Expected format: d/M/yyyy [HHmm].");
         }
+    }
+
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
+    }
+
+    public LocalDateTime getEndDateTime() {
+        return endDateTime;
     }
 
     /**
