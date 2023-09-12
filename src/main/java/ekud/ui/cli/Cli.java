@@ -140,6 +140,11 @@ public final class Cli extends Ui {
     }
 
     @Override
+    public void showTasksCleaned() {
+        out.println("Your tasks have been cleaned of any duplicates.");
+    }
+
+    @Override
     public void showError(EkudException error) {
         err.println("☹ OOPS!!! " + error.getMessage());
     }

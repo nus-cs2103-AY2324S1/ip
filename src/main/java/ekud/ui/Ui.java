@@ -78,6 +78,11 @@ public abstract class Ui {
     public abstract void showFoundTasks(List<Task> foundTasks);
 
     /**
+     * Inform the user that their task list has been cleaned.
+     */
+    public abstract void showTasksCleaned();
+
+    /**
      * Display an error that occured to the user.
      * 
      * @param error The error that occured.

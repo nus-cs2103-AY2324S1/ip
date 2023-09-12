@@ -5,6 +5,7 @@ import ekud.command.Command;
 import java.util.List;
 
 import ekud.command.ByeCommand;
+import ekud.command.CleanCommand;
 import ekud.command.CreateDeadlineCommand;
 import ekud.command.CreateEventCommand;
 import ekud.command.CreateTodoCommand;
@@ -42,6 +43,12 @@ public final class Handler {
             return false;
         } else if (command instanceof ListCommand) {
             ui.showTaskList(state.getTaskList());
+            return true;
+        } else if (command instanceof CleanCommand) {
+            state.getTaskList().deduplicate();
+            TaskList taskList = state.getTaskList();
+            ui.showTasksCleaned();
+            ui.showTaskCount(taskList);
             return true;
         } else if (command instanceof CreateTodoCommand) {
             CreateTodoCommand createTodoCommand = (CreateTodoCommand) command;
