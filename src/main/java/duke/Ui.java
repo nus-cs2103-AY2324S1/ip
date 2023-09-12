@@ -1,11 +1,30 @@
 package duke;
 
+import place.*;
+
 public class Ui {
 
     public String echo(String promptText, TaskList tasks) throws DukeException {
         assert tasks != null : "taskList must be initialized properly";
         Parser parser = new Parser(tasks);
-        if (promptText.equals("bye")) {
+        if (promptText.startsWith("place")) {
+            String[] locationString = promptText.split("/", 3);
+            String name = locationString[0].substring(5);
+            String type = locationString[1].substring(5);
+            String desc = locationString[2].substring(5);
+            if (type.startsWith("food")) {
+                FoodPlace newFoodPlace = new FoodPlace(name, desc);
+                return newFoodPlace.addPlace();
+            } else if (type.startsWith("shopping")) {
+                ShoppingPlace newShoppingPlace = new ShoppingPlace(name, desc);
+                return newShoppingPlace.addPlace();
+            } else {
+                StudyPlace newStudyPlace = new StudyPlace(name, desc);
+                return newStudyPlace.addPlace();
+            }
+        } else if (promptText.startsWith("listplaces")) {
+            return Place.list();
+        } else if (promptText.equals("bye")) {
             return exit();
         }
         else if (promptText.equals("list")) {
