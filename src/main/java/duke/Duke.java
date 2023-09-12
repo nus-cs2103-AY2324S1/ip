@@ -16,8 +16,13 @@ public class Duke {
      * Constructor for duke.Duke class with no parameters
      */
     public Duke() {
+        storage = new Storage("C:/repos/ip/src/main/java/data/duke.txt");
         ui = new Ui();
-        tasks = new TaskList();
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            tasks = new TaskList();
+        }
     }
 
     /**
@@ -45,6 +50,7 @@ public class Duke {
         while (isDone) {
             String userInput = ui.readCommand();
             try {
+                assert !tasks.equals(null): "TasksList should be initialised";
                 isDone = Parser.parseCommand(userInput, this.tasks, this.ui);
             } catch (DukeException e) {
                 ui.showMessage(e.getMessage());
@@ -60,6 +66,7 @@ public class Duke {
      */
     public String runInput(String userInput) {
         try {
+            assert !tasks.equals(null): "Tasks should not be null";
             return Parser.parseInput(userInput, this.tasks, this.ui);
         } catch (DukeException e) {
             return e.getMessage();
