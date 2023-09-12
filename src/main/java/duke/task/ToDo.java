@@ -15,8 +15,11 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
+        String taskType = "[T]";
         String status = "[" + (super.isDone ? "X" : " ") + "]";
-        return "[T]" + status + " " + super.description;
+        String description = " " + super.description;
+
+        return taskType + status + description;
     }
 
     /**
@@ -26,9 +29,10 @@ public class ToDo extends Task {
      */
     @Override
     public String toDataFormatString() {
-        String outputString = "T | ";
-        outputString += (super.isDone ? "1" : "0") + " | ";
-        outputString += super.description;
-        return outputString;
+        String taskType = "T | ";
+        String status = (super.isDone ? "1" : "0") + " | ";
+        String description = super.description;
+
+        return taskType + status + description;
     }
 }
