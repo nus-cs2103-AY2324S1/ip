@@ -14,9 +14,8 @@ import tasks.Todo;
  */
 public class TaskList {
     private Storage storage;
-    private ArrayList<Task> list;
+    private final ArrayList<Task> list;
     private int taskCount;
-    private static final String LINE = "____________________________________________________________";
 
     /**
      * Initialises a TaskList objects that loads tasks from a given Storage object.
@@ -46,7 +45,7 @@ public class TaskList {
         } else {
             StringBuilder message = new StringBuilder("Here are the tasks in your list:\n");
             for (int i = 0; i < taskCount; i++) {
-                message.append((i + 1) + ". " + list.get(i).toString() + "\n");
+                message.append(i + 1).append(". ").append(list.get(i).toString()).append("\n");
             }
             return message.toString();
         }
@@ -172,7 +171,7 @@ public class TaskList {
         } else {
             StringBuilder message = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < matchList.size(); i++) {
-                message.append((i + 1) + ". " + matchList.get(i).toString() + "\n");
+                message.append(i + 1).append(". ").append(matchList.get(i).toString()).append("\n");
             }
             return message.toString();
         }

@@ -59,7 +59,7 @@ public class Storage {
      */
     public ArrayList<Task> load() {
         ArrayList<Task> list = new ArrayList<>();
-        Scanner fScanner = null;
+        Scanner fScanner;
         try {
             fScanner = new Scanner(this.fList);
         } catch (FileNotFoundException e) {
