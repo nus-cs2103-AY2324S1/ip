@@ -144,6 +144,11 @@ public class Ballsorter extends Application {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
+        Label startUp = new Label("Welcome to Ballsorter! Enter help for the list of possible commands :)");
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(startUp, new ImageView(duke))
+        );
+
         //Step 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
@@ -158,24 +163,11 @@ public class Ballsorter extends Application {
     }
 
     /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
-    private Label getDialogLabel(String text) {
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
-    }
-
-    /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
     protected String getResponse(String input) {
-        return "Duke heard: " + input;
+        return "You typed: " + input;
     }
 
 
