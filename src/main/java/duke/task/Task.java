@@ -15,6 +15,8 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+
+        assert this.description != null : "Description of Task cannot be null";
     }
 
     /**
