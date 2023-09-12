@@ -19,9 +19,21 @@ public class Ui {
         return "Bye. Hope to see you again soon! Subsequent messages entered will cause the program to close.";
     }
     /**
-     * Returns an error message.
+     * Returns a help message, informing users of commands and syntax.
      */
-    protected String invalidTaskResponse() {
-        return "OOPS!!! I'm sorry, but I don't know what that means :-(";
+    protected String printHelpMessage() {
+        String output = "Commands:\n";
+        output += "Add todo: todo {description}\n";
+        output += "Add deadline: deadline {description} /by {YYYY-MM-DD}\n";
+        output += "Add event: event {description} /from {date/time} /to {date/time}\n";
+        output += "List tasks: list\n";
+        output += "Mark task as done: mark {task number}\n";
+        output += "Unmark task: mark {task number}\n";
+        output += "Delete task: delete {task number}\n";
+        output += "Find task: find {keyword}\n";
+        output += "Marking: mark {task number}\n";
+        output += "Close program: bye\n";
+        output += "Help Page: help\n";
+        return output;
     }
 }

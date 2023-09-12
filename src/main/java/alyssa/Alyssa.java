@@ -87,8 +87,8 @@ public class Alyssa {
     private String handleFind(String rest) {
         return taskList.printRelevantTasks(rest);
     }
-    private String handleInvalidResponse() {
-        return ui.invalidTaskResponse();
+    private String handleHelp() {
+        return ui.printHelpMessage();
     }
     private String run(Command command, String rest) {
         switch (command) {
@@ -110,8 +110,10 @@ public class Alyssa {
             return handleDelete(rest);
         case FIND:
             return handleFind(rest);
+        case HELP:
+            //fallthrough
         default:
-            return handleInvalidResponse();
+            return handleHelp();
         }
     }
 
@@ -125,9 +127,10 @@ public class Alyssa {
         String commandString = parsedInput[0];
         Command command;
         command = Command.assignCommand(commandString);
+        command = Command.assignCommand(commandString);
         String rest = parsedInput.length > 1 ? parsedInput[1] : "";
         String output = run(command, rest);
-        assert output.length() > 0: "Program output cannot be empty";
+        assert output.length() > 0 : "Program output cannot be empty";
         try {
             storage.saveTasks(taskList);
         } catch (IOException e) {
