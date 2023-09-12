@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Ui {
 
-    private final static String LINE = "____________________________________________________________";
+    private final static String LINE = "";
 
     /**
      * Prints a horizontal line

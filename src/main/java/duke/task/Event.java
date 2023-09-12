@@ -23,6 +23,9 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description);
+        assert description != null : "Description cannot be null";
+        assert from != null : "Start Time cannot be null";
+        assert to != null : "End Time cannot be null";
 
         if (from.contains(",")) {
             String [] splitFrom = from.split(",");
@@ -57,6 +60,11 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to, String status) {
         super(description);
+        assert description != null : "Description cannot be null";
+        assert from != null : "Start Time cannot be null";
+        assert to != null : "End Time cannot be null";
+        assert status != null : "Status cannot be null";
+
 
         if (from.contains(",")) {
             String [] splitFrom = from.split(", ");

@@ -45,6 +45,7 @@ public class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
+        assert description != null : "Description cannot be null";
         this.description = description;
         this.isDone = false;
     }
@@ -91,12 +92,15 @@ public class Task {
      * @return The converted LocalDate object
      */
     public LocalDate convertStringToDate(String date) {
-            for (DateTimeFormatter formatter : DATE_FORMATTERS) {
-                try {
-                    return LocalDate.parse(date, formatter);
-                } catch (Exception ignored) {
-                }
+        assert date != null : "Date cannot be null";
+
+        for (DateTimeFormatter formatter : DATE_FORMATTERS) {
+            try {
+                return LocalDate.parse(date, formatter);
+            } catch (Exception ignored) {
             }
+        }
+
         System.out.println("Unrecognised date format: " + date +
                 "\nPlease key in date in format D/MM/YYYY");
         return null;
@@ -109,12 +113,15 @@ public class Task {
      * @return The converted DayOfWeek object.
      */
     public DayOfWeek convertStringToDay(String day) {
+        assert day != null : "Day cannot be null";
+
         for (DateTimeFormatter formatter : DAY_FORMATTERS) {
             try {
                 return DayOfWeek.from(formatter.parse(day));
             } catch (Exception ignored) {
             }
         }
+
         System.out.println("Unrecognised day format: " + day +
                 "\nPlease key in day in format Mon OR Monday " +
                 "\nThe task has been stored without a dueday, remove task and key in correct format to make changes \n");
@@ -128,6 +135,8 @@ public class Task {
      * @return The converted LocalTime object.
      */
     public LocalTime convertStringToTime(String time) {
+        assert time != null : "Time cannot be null";
+
         for (DateTimeFormatter formatter : TIME_FORMATTERS) {
             try {
                 return LocalTime.parse(time, formatter);

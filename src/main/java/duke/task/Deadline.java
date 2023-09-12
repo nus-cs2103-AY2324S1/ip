@@ -24,6 +24,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
+        assert description != null : "Description cannot be null";
+        assert by != null : "Deadline cannot be null";
 
         if (by.contains(",")) {
             String [] splitBy = by.split(",");
@@ -46,6 +48,9 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by, String status) {
         super(description);
+        assert description != null : "Description cannot be null";
+        assert by != null : "Deadline cannot be null";
+        assert status != null : "Status cannot be null";
 
         if (by.contains(",")) {
             String [] splitBy = by.split(", ");
