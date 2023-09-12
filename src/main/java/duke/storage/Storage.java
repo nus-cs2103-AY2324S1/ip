@@ -39,6 +39,11 @@ public class Storage {
         } catch (DukeException e) {
             throw e;
         }
+
+        // Assert that directory & file exists at the specified path after running the accessOrCreateFile() method.
+        File file = new File(filePath);
+        File directory = file.getParentFile();
+        assert file.exists() && directory.exists();
     }
 
     /**
@@ -108,12 +113,15 @@ public class Storage {
 
         while ((line = reader.readLine()) != null) {
             String[] parts = line.split(" \\| ");
+
+            // Assert that every non-empty line in the file has at least 3 parts separated by '|' character.
+            assert parts.length >= 3 : "A non-empty line should have at least 3 '|' characters";
+
             String taskType = parts[0];
             boolean isDone = parts[1].equals("X");
             String taskDescription = parts[2];
 
             Task task;
-
             if (taskType.equals("T")) {
                 task = new ToDoTask(taskDescription);
             } else if (taskType.equals("D")) {
@@ -144,8 +152,15 @@ public class Storage {
      * @throws IOException If an error occurs while writing to the file.
      */
     public void saveTasksToFile(TaskList taskList) throws IOException {
+        // Assert taskList is not null.
+        assert taskList != null : "TaskList cannot be null";
+
         FileWriter fileWriter = new FileWriter(filePath);
         ArrayList<Task> tasks = taskList.getTasks();
+
+        // Assert tasks list is not null.
+        assert tasks != null : "Tasks list cannot be null";
+
         for (Task task : tasks) {
             fileWriter.write(task.toFileString() + "\n");
         }
