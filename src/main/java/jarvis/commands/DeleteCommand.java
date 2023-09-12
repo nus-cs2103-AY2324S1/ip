@@ -22,6 +22,7 @@ public class DeleteCommand extends Command {
      * @param index Index of the respective task.
      */
     public DeleteCommand(int index) {
+        assert index > 0 : "Invalid index!";
         this.index = index;
     }
 
@@ -39,14 +40,5 @@ public class DeleteCommand extends Command {
         tasks.delete(this.index - 1);
         storage.writeData(tasks.getAllTasks());
         return ui.showDelete(this.index, task);
-    }
-
-    /**
-     * Returns the exit status of the command.
-     * @return Exit status of the command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

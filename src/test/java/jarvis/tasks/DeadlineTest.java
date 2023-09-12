@@ -14,7 +14,7 @@ public class DeadlineTest {
         LocalDateTime by = LocalDateTime.parse("21/08/02 1900", formatter);
         Task task = new Deadline("Finish HW", by, false);
         task.completeTask(true);
-        assertEquals("[Deadline] [X] Finish HW"
+        assertEquals("[D] [X] Finish HW"
                 + " (by: Aug 21 2002 07:00 PM)", task.toString());
     }
 

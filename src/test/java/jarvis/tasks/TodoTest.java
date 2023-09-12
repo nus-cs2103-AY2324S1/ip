@@ -9,7 +9,7 @@ public class TodoTest {
     public void toString_correctOutput() {
         Task task = new Todo("Play Basketball", false);
         task.completeTask(true);
-        assertEquals("[Todo] [X] Play Basketball", task.toString());
+        assertEquals("[T] [X] Play Basketball", task.toString());
     }
 
     @Test

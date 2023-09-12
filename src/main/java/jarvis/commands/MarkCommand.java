@@ -25,6 +25,7 @@ public class MarkCommand extends Command {
      * @param type Type of task to be marked.
      */
     public MarkCommand(int index, String type) {
+        assert index > 0 : "Invalid Index!";
         this.index = index;
         this.isMark = type.equals("mark");
     }
@@ -42,14 +43,5 @@ public class MarkCommand extends Command {
         assert this.index <= tasks.size();
         storage.writeData(tasks.getAllTasks());
         return ui.showStatus(index, tasks.getTask(this.index - 1), isMark);
-    }
-
-    /**
-     * Returns the exit status of the command.
-     * @return Exit status of the command.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }
