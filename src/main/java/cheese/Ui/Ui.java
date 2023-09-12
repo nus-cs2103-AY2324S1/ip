@@ -39,6 +39,27 @@ public class Ui {
   }
 
   /**
+   * Return welcome message as string
+   * @return String of welcome message
+   */
+  public String welcomeMessage() {
+
+    String firstLine = "\tHello! I'm Cheese\n";
+    String secondLine = "\tWhat can I do for you?\n";
+    String thirdLine = "\tCommands:"+ 
+      "\n\ttodo <task>,"+
+      "\n\tdeadline <task> /by dd-MM-yyyy,"+
+      "\n\tevent <task> /from <day> /to <day>,"+
+      "\n\tlist,"+
+      "\n\tdelete <task number>,"+
+      "\n\tmark <task number>,"+
+      "\n\tfind <keyword>,"+
+      "\n\tbye";
+
+    return firstLine + secondLine + thirdLine;
+  }
+
+  /**
    * show Bye message
    *
    */
