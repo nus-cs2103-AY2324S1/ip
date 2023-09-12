@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,8 +22,8 @@ public class UiTest {
     public void testShowWelcome() {
         Ui ui = new Ui();
         ui.showWelcome();
-        String expected = "__________________________________________________________________________" +
-                "    ___    _   ___   ________  __      ____      __________  ____  _   __\n"
+        String expected = "__________________________________________________________________________"
+                + "    ___    _   ___   ________  __      ____      __________  ____  _   __\n"
                 + "   /   |  / | / / | / / __ \\ \\/ /     / __ \\    /_  __/ __ \\/ __ \\/ | / /\n"
                 + "  / /| | /  |/ /  |/ / / / /\\  /_____/ / / /_____/ / / /_/ / / / /  |/ / \n"
                 + " / ___ |/ /|  / /|  / /_/ / / /_____/ /_/ /_____/ / / _, _/ /_/ / /|  /  \n"
