@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("helpbuddy.Main")
+    mainClass.set("helpbuddy.Launcher")
 }
 
 shadowJar {
@@ -55,6 +55,7 @@ shadowJar {
     archiveClassifier = null
     archiveFileName = 'helpbuddy.jar'
     dependsOn("distZip", "distTar")
+    enableAssertions = true
 }
 
 run{

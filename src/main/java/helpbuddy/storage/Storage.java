@@ -27,6 +27,7 @@ public class Storage {
      * @param filePath the filePath with data stored.
      */
     public Storage(String filePath) {
+        assert !this.filePath.trim().isEmpty() : "File path cannot be empty";
         this.filePath = filePath;
     }
 
@@ -78,6 +79,7 @@ public class Storage {
                     LocalDateTime.parse(fromToFields[1], formatter));
             break;
         default:
+            assert false : "Unknown task in storage file";
             throw new IOException("Error occurred when reading data from storage file.\n " +
                     "Delete file and relaunch HelpBuddy again.");
         }
@@ -94,6 +96,7 @@ public class Storage {
      * @throws IOException if unable to create new file.
      */
     private void createDatabase() throws IOException {
+        assert !this.filePath.trim().isEmpty() : "File path cannot be empty";
         File data = new File(this.filePath);
         File dataDir = new File(data.getParent());
         dataDir.mkdir();
@@ -106,6 +109,7 @@ public class Storage {
      * @throws IOException if unable to write to file.
      */
     public void saveData(TaskList taskList) throws IOException {
+        assert !this.filePath.trim().isEmpty() : "File path cannot be empty";
         FileWriter fw = new FileWriter(this.filePath);
         for (int i = 0; i < taskList.getSize(); i++) {
             fw.write(taskList.getTask(i).stringifyTask());
