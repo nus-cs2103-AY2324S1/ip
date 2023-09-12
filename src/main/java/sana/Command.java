@@ -6,17 +6,17 @@ package sana;
  */
 public abstract class Command {
 
-    private String cmd;
+    private String command;
     private String arguments;
 
     /**
      * Constructs a Command object.
      *
-     * @param cmd       The command type (e.g., "todo", "deadline", "event").
+     * @param command      The command type (e.g., "todo", "deadline", "event").
      * @param arguments The arguments associated with the command.
      */
-    public Command(String cmd, String arguments) {
-        this.cmd = cmd;
+    public Command(String command, String arguments) {
+        this.command = command;
         this.arguments = arguments;
     }
 
@@ -51,8 +51,8 @@ public abstract class Command {
      *
      * @return The cmd word associated with the command.
      */
-    public String getCmd() {
-        return cmd;
+    public String getCommand() {
+        return command;
     }
 
     /**
@@ -72,7 +72,7 @@ public abstract class Command {
                 return false;
             }
 
-            return this.cmd.equals(c.cmd) && this.arguments.equals(c.arguments);
+            return this.command.equals(c.command) && this.arguments.equals(c.arguments);
         }
         return false;
     }

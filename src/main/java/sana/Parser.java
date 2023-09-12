@@ -12,31 +12,36 @@ public class Parser {
      * @return returns a command according to the command type.
      */
     public static Command parse(String fullCommand) {
-        String[] strArr = fullCommand.split(" ", 2);
-        String cmdWord;
+        String[] splitCommandAndArguments = fullCommand.split(" ", 2);
+        String commandWord;
         String arguments = "";
-        if (strArr.length == 2) {
-            arguments = strArr[1];
-        }
-        cmdWord = strArr[0];
 
-        switch (cmdWord) {
-        case "todo": case "event": case "deadline":
-            return new AddCommand(cmdWord, arguments);
+        if (splitCommandAndArguments.length == 2) {
+            arguments = splitCommandAndArguments[1];
+        }
+        commandWord = splitCommandAndArguments[0];
+
+        switch (commandWord) {
+        case "todo":
+            return new AddTodoCommand(commandWord, arguments);
+        case "event":
+            return new AddEventCommand(commandWord, arguments);
+        case "deadline":
+            return new AddDeadlineCommand(commandWord, arguments);
         case "list":
-            return new ListCommand(cmdWord, arguments);
+            return new ListCommand(commandWord, arguments);
         case "delete":
-            return new DeleteCommand(cmdWord, arguments);
+            return new DeleteCommand(commandWord, arguments);
         case "bye":
-            return new ExitCommand(cmdWord, arguments);
+            return new ExitCommand(commandWord, arguments);
         case "mark":
-            return new MarkCommand(cmdWord, arguments);
+            return new MarkCommand(commandWord, arguments);
         case "unmark":
-            return new UnmarkCommand(cmdWord, arguments);
+            return new UnmarkCommand(commandWord, arguments);
         case "find":
-            return new FindCommand(cmdWord, arguments);
+            return new FindCommand(commandWord, arguments);
         default:
-            return new HelpCommand(cmdWord, arguments);
+            return new HelpCommand(commandWord, arguments);
         }
     }
 }

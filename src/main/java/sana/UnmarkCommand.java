@@ -8,11 +8,11 @@ public class UnmarkCommand extends Command {
     /**
      * Constructs an unmarkCommand object.
      *
-     * @param cmd       The command type (e.g., "todo", "deadline", "event", "mark").
+     * @param command       The command type (e.g., "todo", "deadline", "event", "mark").
      * @param arguments The arguments associated with the command.
      */
-    public UnmarkCommand(String cmd, String arguments) {
-        super(cmd, arguments);
+    public UnmarkCommand(String command, String arguments) {
+        super(command, arguments);
     }
 
     /**
