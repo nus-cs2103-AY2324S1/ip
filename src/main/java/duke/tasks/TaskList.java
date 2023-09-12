@@ -12,7 +12,6 @@ import duke.exceptions.NotFoundException;
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<>();
 
-
     /**
      * The constructor for a basic TaskList.
      *
@@ -29,7 +28,6 @@ public class TaskList {
      */
     public void addToList(Task task) {
         list.add(task);
-
     }
 
     /**
@@ -63,15 +61,14 @@ public class TaskList {
      * @return the task that was modified
      */
     public Task markAsDone(int id) throws NotFoundException {
-
         for (Task t : this.list) {
             if (t.getId() == id) {
                 t.setDone();
                 return t;
             }
         }
-        throw new NotFoundException();
 
+        throw new NotFoundException();
     }
 
     /**
@@ -81,14 +78,13 @@ public class TaskList {
      * @return the task that was modified
      */
     public Task markAsUnDone(int id) throws NotFoundException {
-
-
         for (Task t : this.list) {
             if (t.getId() == id) {
                 t.setUnDone();
                 return t;
             }
         }
+
         throw new NotFoundException();
     }
 
@@ -123,7 +119,6 @@ public class TaskList {
             stringBuilder.append("\n");
         }
 
-
         return stringBuilder.toString();
     }
 
@@ -134,10 +129,8 @@ public class TaskList {
      * @return tasks whose name contains the search string.
      */
     public ArrayList<Task> findTasksByName(String searchString) {
-
         return this.list.stream()
                 .filter(a -> a.getName().contains(searchString)).collect(Collectors.toCollection(ArrayList::new));
-
     }
 
     @Override
@@ -146,13 +139,8 @@ public class TaskList {
 
         for (int i = 0; i < list.size(); i++) {
             Task task = list.get(i);
-
-
             resultMsg.append(task);
-
             resultMsg.append("\n");
-
-
         }
 
         return resultMsg.toString();

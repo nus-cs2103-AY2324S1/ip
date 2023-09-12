@@ -18,7 +18,6 @@ public abstract class Task {
         this.itemName = itemName;
         this.id = taskCount;
         taskCount++;
-
     }
 
     @Override

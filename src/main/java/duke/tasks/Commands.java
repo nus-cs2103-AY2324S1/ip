@@ -12,7 +12,6 @@ public enum Commands {
     TODO,
     DEADLINE,
     EVENT,
-
     FIND;
 
     /**
@@ -22,7 +21,6 @@ public enum Commands {
      * @return true if is an enum
      */
     public static boolean contains(String test) {
-
         for (Commands c : Commands.values()) {
             if (c.name().equals(test)) {
                 return true;

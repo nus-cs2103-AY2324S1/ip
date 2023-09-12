@@ -30,12 +30,10 @@ public class Ui {
         this.storage = storage;
     }
 
-
     /**
      * Begins interaction with the user
      */
     public void beginLogging() {
-
         printDivider();
         String entranceMsg = "Hello! I'm Elon Musk.\n"
                 + "What can I do for you?";
@@ -46,7 +44,6 @@ public class Ui {
 
         Scanner keyboard = new Scanner(System.in);
 
-        loop:
         while (true) {
             try {
                 inputString = keyboard.nextLine();
@@ -85,10 +82,10 @@ public class Ui {
     /**
      * Gets the text that a user should see, either in GUI or in command line.
      *
-     * @param command
-     * @param modifiedTasks
-     * @param taskList
-     * @return
+     * @param command The user's command
+     * @param modifiedTasks The list of tasks that were modified by the user
+     * @param taskList The total list of tasks
+     * @return a response message to be displayed
      */
     public static String getResponseMessage(Commands command, ArrayList<Task> modifiedTasks, TaskList taskList)
             throws UnknownCommandException {
@@ -129,14 +126,10 @@ public class Ui {
         }
         case BYE: {
             result = "Bye! Hope to see you again soon.";
-
-
             break;
         }
         default: {
             throw new UnknownCommandException();
-
-
         }
         }
 
