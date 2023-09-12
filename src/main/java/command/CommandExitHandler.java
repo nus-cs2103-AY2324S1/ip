@@ -1,11 +1,11 @@
 package command;
 import main.Main;
+import main.Ui;
 
 public class CommandExitHandler implements ICommandHandler{
 
     @Override
     public void execute(String command, String[] parameters) {
-        Main.getInstance().getUi().say("Bye. Hope to see you again soon!");
-        Main.getInstance().exit();
+        Ui.getInstance().byeAndExit();
     }
 }

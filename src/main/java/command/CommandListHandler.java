@@ -1,13 +1,14 @@
 package command;
 import main.Main;
+import main.Ui;
 
 public class CommandListHandler implements ICommandHandler{
 
     @Override
     public void execute(String command, String[] parameters) {
-        int count = Main.getInstance().getTaskList().getCount();
-        Main.getInstance().getUi().say("Here are the tasks in your list:",true,count == 0);
-        Main.getInstance().getTaskList().iterate((index, task) -> Main.getInstance().getUi().say(index + 1 + "." + task.toString(), false, index == count - 1));
+        StringBuilder reply = new StringBuilder("Here are the tasks in your list:");
+        Main.getInstance().getTaskList().iterate((index, task) -> reply.append(index + 1 + "." + task.toString() + "\n"));
+        Ui.getInstance().say(reply.toString());
     }
 
 
