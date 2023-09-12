@@ -17,6 +17,8 @@ public class TaskList {
     public TaskList() {
         tasks = new ArrayList<Task>();
         taskCount = 0;
+        // Assertion: After initialization, task count should be 0
+        assert taskCount == 0 : "Initial task count is not zero!";
     }
 
 
@@ -67,6 +69,7 @@ public class TaskList {
      * @return The count of tasks in the task list.
      */
     public int getTaskCount() {
+        assert taskCount == tasks.size() : "Task count does not match tasks list size!";
         return this.taskCount;
     }
 
@@ -78,6 +81,7 @@ public class TaskList {
     public void addTask(Task task) {
         this.tasks.add(task);
         this.taskCount++;
+        assert taskCount == tasks.size() : "Task count does not match tasks list size after adding a task!";
     }
 
     /**
@@ -88,6 +92,7 @@ public class TaskList {
     public void deleteTask(int taskListIndex) {
         this.tasks.remove(taskListIndex);
         this.taskCount--;
+        assert taskCount == tasks.size() : "Task count does not match tasks list size after deleting a task!";
     }
 
     /**
@@ -136,6 +141,7 @@ public class TaskList {
      */
     @Override
     public String toString() {
+        assert taskCount == tasks.size() : "Task count does not match tasks list size!";
         if (taskCount == 0) {
             return "Horray!! No tasks in the task list!";
         } else {
@@ -152,6 +158,7 @@ public class TaskList {
     }
 
     public boolean isEmpty() {
+        assert (taskCount == 0 && tasks.isEmpty()) || taskCount == tasks.size() : "Mismatch between taskCount and tasks list size!";
         return (taskCount == 0);
     }
 }
