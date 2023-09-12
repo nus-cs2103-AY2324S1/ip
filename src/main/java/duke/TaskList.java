@@ -10,6 +10,8 @@ import duke.task.Task;
  * The `TaskList` class manages a list of tasks in the Duke application.
  */
 public class TaskList {
+    public static final int DAYS_IN_A_WEEK = 7;
+    public static final int DAYS_IN_A_MONTH = 30;
     private ArrayList<Task> taskArrayList;
 
     /**
@@ -93,8 +95,8 @@ public class TaskList {
             LocalDateTime currentDate = LocalDateTime.now();
             long daysDifference = ChronoUnit.DAYS.between(currentDate, taskDueDate);
             // Check if the task's due date is within one week of the current date (7 days)
-            if (daysDifference >= 0 && daysDifference <= 7) {
-                listWeek.addTask(t);
+            if (daysDifference >= 0 && daysDifference <= DAYS_IN_A_WEEK) {
+                listWeek.addTask(   t);
             }
         }
         return listWeek;
@@ -112,7 +114,7 @@ public class TaskList {
             LocalDateTime currentDate = LocalDateTime.now();
             long daysDifference = ChronoUnit.DAYS.between(currentDate, taskDueDate);
             // Check if the task's due date is within one week of the current date (7 days)
-            if (daysDifference >= 0 && daysDifference <= 30) {
+            if (daysDifference >= 0 && daysDifference <= DAYS_IN_A_MONTH) {
                 listMonth.addTask(t);
             }
         }
@@ -129,14 +131,17 @@ public class TaskList {
         TaskList listSearches = new TaskList();
         for (Task t: this.taskArrayList) {
             String taskDescription = t.getDescription();
-
-            for (String queryString : queryStrings) {
-                if (taskDescription.contains(queryString)) {
-                    listSearches.addTask(t);
-                    break; //Break the inner loop if a match is found with any one keyword.
-                }
-            }
+            searchMatchesInTask(listSearches, t, taskDescription, queryStrings);
         }
         return listSearches;
+    }
+
+    private static void searchMatchesInTask(TaskList listSearches, Task t, String taskDescription, String[] queryStrings) {
+        for (String queryString : queryStrings) {
+            if (taskDescription.contains(queryString)) {
+                listSearches.addTask(t);
+                break; //Break the loop if a match is found with any one keyword.
+            }
+        }
     }
 }
