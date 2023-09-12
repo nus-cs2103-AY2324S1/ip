@@ -33,6 +33,7 @@ public class FindCommand extends Command {
     @Override
     public String execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
         String[] inputs = this.command.split(" ", 2);
+        assert inputs.length == 2;
         ArrayList<Task> arrayList = new ArrayList<>(100);
         boolean found = false;
         for (int i = 0; i < tasks.getSize(); i++) {

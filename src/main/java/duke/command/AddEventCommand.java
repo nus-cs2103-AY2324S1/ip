@@ -40,7 +40,9 @@ public class AddEventCommand extends Command {
         LocalDate t;
         try {
             String[] from = inputs[1].split("/from", 2);
+            assert from.length == 2;
             String[] to = from[1].split("/to", 2);
+            assert to.length == 2;
             f = DateParserService.parseDate(to[0]);
             t = DateParserService.parseDate(to[1]);
             event = new Event(from[0], f, t);

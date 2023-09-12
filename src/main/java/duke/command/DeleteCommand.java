@@ -41,6 +41,7 @@ public class DeleteCommand extends Command {
         if (key > tasks.getSize() || key < 1) {
             throw new DukeException("Key exceeds size of list");
         }
+        assert key > 0 && key <= tasks.getSize();
         Task task = tasks.get(key - 1);
         tasks.delete(key - 1);
         try {
