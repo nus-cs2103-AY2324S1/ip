@@ -23,23 +23,27 @@ public class AddWorker extends TaskWorker {
         try {
             Task newTask;
             if (inputParts.length < 2) {
-                throw new IrisException("☹ OOPS!!! The description of a command cannot be empty.");
+                throw new IrisException("☹ OOPS!!! The content of a command cannot be empty.");
             }
 
-            String description = inputParts[1];
+            String content = inputParts[1];
             if (inputParts[0].equals("todo")) {
-                newTask = new Todo(description);
+                newTask = new Todo(content);
             } else if (inputParts[0].equals("deadline")) {
-                String[] commandParts = description.split("/by ", 2);
-                newTask = new Deadline(commandParts[0], commandParts[1]);
+                String[] contentParts = content.split(" /by ", 2);
+                String description = contentParts[0];
+                String dateOfDeadline = contentParts[1];
+                newTask = new Deadline(description, dateOfDeadline);
             } else if (inputParts[0].equals("event")) {
-                String[] commandParts = description.split("/from ", 2);
-                String[] eventParts = commandParts[1].split("/to ");
-                newTask = new Event(commandParts[0], eventParts[0], eventParts[1]);
+                String[] contentParts = content.split(" /from ", 2);
+                String[] dateParts = contentParts[1].split(" /to ");
+                String description = contentParts[0];
+                String dateOfFrom = dateParts[0];
+                String dateOfTo = dateParts[1];
+                newTask = new Event(description, dateOfFrom, dateOfTo);
             } else {
                 throw new IrisException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-
             taskList.add(newTask);
             return "Got it. I've added this task:\n" + newTask
                     + "\nNow you have " + taskList.size()

@@ -29,15 +29,15 @@ public class Event extends Task {
      * @return the dates and/or time of the event.
      */
     public String getFromTo() {
-        return from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                + " to "
-                + to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return from.toString()
+                + " | "
+                + to.toString();
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from:"
-                + from.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "to:"
+        return "[E]" + super.toString() + " " + "(from:" + " "
+                + from.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " to: "
                 + to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
