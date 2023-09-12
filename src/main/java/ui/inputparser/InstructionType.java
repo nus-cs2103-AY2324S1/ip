@@ -33,11 +33,12 @@ public enum InstructionType {
         this.numUnnamedArgs = numUnnamedArgs;
         this.numNamedArgs = namedArgs;
         this.argNames = argNames;
-        if (this.numNamedArgs != argNames.length) {
-            throw new ExceptionInInitializerError(String.format(
-                    "InstructionType should have %s named args specified, "
-                            + "but only has %s!", namedArgs, argNames.length));
-        }
+
+
+        assert this.numNamedArgs == argNames.length
+                : String.format(
+                        "InstructionType should have %s named args specified, but only has %s!",
+                namedArgs, argNames.length);
     }
 
     /**

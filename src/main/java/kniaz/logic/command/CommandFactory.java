@@ -37,6 +37,14 @@ public abstract class CommandFactory {
                     InstructionType.INVALID, new InvalidHandler()
             ));
 
+    static {
+        // This ensures that at compile time all instruction types have an explicit, valid handler
+        for (InstructionType i : InstructionType.values()) {
+            assert(INSTRUCT_TO_HANDLER.containsKey(i))
+                    : "There was a command " + i.alias + "with no associated handler!";
+        }
+    }
+
     /**
      * Makes a new KniazCommand from the provided instruction and arguments
      * @param instruction the instruction type the command is to have
@@ -47,8 +55,10 @@ public abstract class CommandFactory {
     public static KniazCommand makeCommand(InstructionType instruction,
                                            List<String> unnamedArgs,
                                            Map<? extends String, ? extends String> namedArgs) {
-        CommandHandler handler = INSTRUCT_TO_HANDLER.getOrDefault(instruction, new InvalidHandler());
+        assert INSTRUCT_TO_HANDLER.containsKey(instruction)
+                : "Tried to find a handler for a command that has unknown mapping!";
 
+        CommandHandler handler = INSTRUCT_TO_HANDLER.get(instruction);
         return new KniazCommand(instruction, handler, unnamedArgs, namedArgs);
 
         // Guaranteed at this point command is valid

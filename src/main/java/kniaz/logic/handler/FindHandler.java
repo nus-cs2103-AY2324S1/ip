@@ -55,6 +55,8 @@ public class FindHandler implements CommandHandler {
                 // This nesting's not TOO bad
             }
         }
+        assert out instanceof TaskList;
+        // unlikely to occur but in case
 
         return out;
 
