@@ -5,8 +5,8 @@ package bruno.task;
  */
 public class ToDo extends Task {
 
-    public ToDo(String description) {
-        super(TaskType.TODO, description);
+    public ToDo(String description, String note) {
+        super(TaskType.TODO, description, note);
     }
 
     /**
