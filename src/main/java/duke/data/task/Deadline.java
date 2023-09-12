@@ -10,7 +10,7 @@ public class Deadline extends Task {
     private static final DateTimeFormatter PARSE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter PRINT_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy");
 
-    private LocalDate by;
+    private final LocalDate by;
 
     /**
      * Returns an instance of {@code Deadline} with the given description, and

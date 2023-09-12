@@ -17,8 +17,8 @@ public class Duke {
     private static final String FILE_PATH = "data/tasks.txt";
 
 
-    private Storage storage;
-    private TaskList tasks;
+    private final Storage storage;
+    private final TaskList tasks;
 
 
     /**

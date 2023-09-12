@@ -17,22 +17,18 @@ import duke.data.exception.DukeException;
 public class ParserTest {
     @Test
     public void parse_emptyCommandWord_throwsDukeException() {
-        Parser parser = new Parser();
-        assertThrows(DukeException.class, () -> parser.parse(""));
+        assertThrows(DukeException.class, () -> Parser.parse(""));
     }
 
     @Test
     public void parse_invalidCommandWord_throwsDukeException() {
-        Parser parser = new Parser();
-        assertThrows(DukeException.class, () -> parser.parse("abc"));
+        assertThrows(DukeException.class, () -> Parser.parse("abc"));
     }
 
     @Test
     public void parse_byeCommandWord_returnsExitCommand() {
-        Parser parser = new Parser();
-
         try {
-            assertEquals(parser.parse("bye").getClass(), ExitCommand.class);
+            assertEquals(Parser.parse("bye").getClass(), ExitCommand.class);
         } catch (DukeException e) {
             fail(e.getMessage());
         }
@@ -40,10 +36,8 @@ public class ParserTest {
 
     @Test
     public void parse_emptyTodoDescription_throwsDukeException() {
-        Parser parser = new Parser();
-
         try {
-            parser.parse("todo");
+            Parser.parse("todo");
         } catch (DukeException e) {
             return;
         }
@@ -52,10 +46,9 @@ public class ParserTest {
 
     @Test
     public void parse_validTodo_returnsAddTodoCommand() {
-        Parser parser = new Parser();
         Command command;
         try {
-            command = parser.parse("todo desc abc");
+            command = Parser.parse("todo desc abc");
         } catch (DukeException e) {
             fail(e.getMessage());
             return;
@@ -66,10 +59,8 @@ public class ParserTest {
 
     @Test
     public void parse_emptyDeadlineDescription_throwsDukeException() {
-        Parser parser = new Parser();
-
         try {
-            parser.parse("deadline");
+            Parser.parse("deadline");
         } catch (DukeException e) {
             return;
         }
@@ -78,10 +69,8 @@ public class ParserTest {
 
     @Test
     public void parse_emptyDeadlineBy_throwsDukeException() {
-        Parser parser = new Parser();
-
         try {
-            parser.parse("deadline desc");
+            Parser.parse("deadline desc");
         } catch (DukeException e) {
             return;
         }
@@ -90,10 +79,8 @@ public class ParserTest {
 
     @Test
     public void parse_invalidDeadlineBy_throwsDukeException() {
-        Parser parser = new Parser();
-
         try {
-            parser.parse("deadline desc /by invalid");
+            Parser.parse("deadline desc /by invalid");
         } catch (DukeException e) {
             return;
         }
@@ -102,10 +89,9 @@ public class ParserTest {
 
     @Test
     public void parse_validDeadline_returnsAddDeadlineCommand() {
-        Parser parser = new Parser();
         Command command;
         try {
-            command = parser.parse("deadline desc /by 2023-01-01");
+            command = Parser.parse("deadline desc /by 2023-01-01");
         } catch (DukeException e) {
             fail(e.getMessage());
             return;
@@ -116,10 +102,8 @@ public class ParserTest {
 
     @Test
     public void parse_emptyEventDescription_throwsDukeException() {
-        Parser parser = new Parser();
-
         try {
-            parser.parse("event");
+            Parser.parse("event");
         } catch (DukeException e) {
             return;
         }
@@ -129,10 +113,8 @@ public class ParserTest {
 
     @Test
     public void parse_invalidEventFrom_throwsDukeException() {
-        Parser parser = new Parser();
-
         try {
-            parser.parse("deadline desc /from invalid /to 2023-01-01");
+            Parser.parse("deadline desc /from invalid /to 2023-01-01");
         } catch (DukeException e) {
             return;
         }
@@ -141,10 +123,8 @@ public class ParserTest {
 
     @Test
     public void parse_invalidEventTo_throwsDukeException() {
-        Parser parser = new Parser();
-
         try {
-            parser.parse("deadline desc /from 2023-01-01 /to invalid");
+            Parser.parse("deadline desc /from 2023-01-01 /to invalid");
         } catch (DukeException e) {
             return;
         }
@@ -153,10 +133,9 @@ public class ParserTest {
 
     @Test
     public void parse_validEvent_returnsAddEventCommand() {
-        Parser parser = new Parser();
         Command command;
         try {
-            command = parser.parse("event desc /from 2023-01-01 /to 2024-01-01");
+            command = Parser.parse("event desc /from 2023-01-01 /to 2024-01-01");
         } catch (DukeException e) {
             fail(e.getMessage());
             return;

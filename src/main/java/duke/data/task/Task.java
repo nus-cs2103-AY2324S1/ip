@@ -22,7 +22,7 @@ public abstract class Task {
 
     /** Returns a string representation of whether the task is done. */
     public String getStatusIcon() {
-        return (isDone ? "\u2718" : " "); //return tick or X symbols
+        return (isDone ? "✘" : " "); //return tick or X symbols
     }
 
     /** Sets the task as done. */
