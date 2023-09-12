@@ -40,6 +40,9 @@ public class Parser {
         String firstWord = nextLine.split(" ")[0];
         String statement;
 
+        // Check if a substring is in a string
+        boolean isRecurring = nextLine.contains("/recurring");
+
         try {
             switch(firstWord) {
             case "bye":
@@ -60,14 +63,22 @@ public class Parser {
                 storage.writeToFile(tasks);
                 return statement;
             case "event":
+                if (isRecurring) {
+                    throw new CringeBotException("Oops! I can't do recurring events :((");
+                }
                 statement = tasks.addItem(TaskType.EVENT, nextLine);
                 storage.writeToFile(tasks);
                 return statement;
             case "deadline":
-                statement = tasks.addItem(TaskType.DEADLINE, nextLine);
+                statement = isRecurring
+                        ? tasks.addRecurringItems(TaskType.DEADLINE, nextLine)
+                        : tasks.addItem(TaskType.DEADLINE, nextLine);
                 storage.writeToFile(tasks);
                 return statement;
             case "todo":
+                if (isRecurring) {
+                    throw new CringeBotException("Oops! I can't do recurring todos :((");
+                }
                 statement = tasks.addItem(TaskType.TODO, nextLine);
                 storage.writeToFile(tasks);
                 return statement;
