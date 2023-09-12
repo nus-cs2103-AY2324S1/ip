@@ -145,15 +145,14 @@ public class TaskManager {
 
             // Prepare a new set of classes, from most specific to least specific.
             // This ordering is required to match the provided JSON to a class that's as specific as possible.
-            @SuppressWarnings("unchecked") Class<Task>[] availClasses =
-                    new Class[] { Event.class, Deadline.class, Todo.class };
+            List<Class<? extends Task>> availClasses = List.of(Event.class, Deadline.class, Todo.class);
 
             // Iterate through the items in the JSON array.
             for (JsonElement item : array) {
                 Task task = null;
 
                 // Iterate through possible classes and attempt to get them.
-                for (Class<Task> cls : availClasses) {
+                for (Class<? extends Task> cls : availClasses) {
                     try {
                         task = Task.fromJsonRepresentation(item, cls);
                     } catch (JsonSyntaxException | IllegalArgumentException e) {
