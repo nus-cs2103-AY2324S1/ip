@@ -1,12 +1,12 @@
 package echobot.command;
 
+import java.util.ArrayList;
+
 import echobot.note.Note;
 import echobot.storage.Storage;
 import echobot.ui.Ui;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
-
-import java.util.ArrayList;
 
 public class AddNoteCommand extends Command<Note> {
     private String title;

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
 import echobot.task.Task;
 import echobot.ui.Ui;
 
@@ -16,6 +17,12 @@ public class Parser {
     private Ui ui;
     private ArrayList<Task> tasks;
 
+    /**
+     * Creates a new Parser instance.
+     *
+     * @param ui    The user interface component.
+     * @param tasks The list of tasks to be parsed and processed.
+     */
     public Parser(Ui ui, ArrayList<Task> tasks) {
         this.ui = ui;
         this.tasks = tasks;

@@ -1,24 +1,33 @@
-import echobot.command.*;
+import java.util.ArrayList;
+
+import echobot.command.AddCommand;
+import echobot.command.AddNoteCommand;
+import echobot.command.Command;
+import echobot.command.DeleteCommand;
+import echobot.command.FindCommand;
+import echobot.command.ListCommand;
+import echobot.command.ListNoteCommand;
+import echobot.command.MarkCommand;
+import echobot.command.UnmarkCommand;
 import echobot.note.Note;
+import echobot.storage.Storage;
 import echobot.task.Task;
+import echobot.ui.Ui;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.scene.layout.Region;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import echobot.ui.Ui;
-import java.util.ArrayList;
-import echobot.storage.Storage;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
@@ -36,7 +45,6 @@ public class EchoBot extends Application {
     private Storage storage;
     private ArrayList<Task> tasks = new ArrayList<>();
     private ArrayList<Note> notes = new ArrayList<>();
-
 
 
     public static void main(String[] args) {

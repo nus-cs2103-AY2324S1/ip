@@ -6,12 +6,21 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-
+/**
+ * Represents a dialog box containing a label and an image view, used for displaying
+ * text messages and images in a chat interface.
+ */
 public class DialogBox extends HBox {
 
     private Label text;
     private ImageView displayPicture;
 
+    /**
+     * Creates a new DialogBox instance with the given label and image view.
+     *
+     * @param l  The label containing text to be displayed in the dialog box.
+     * @param iv The image view containing an image to be displayed in the dialog box.
+     */
     public DialogBox(Label l, ImageView iv) {
         text = l;
         displayPicture = iv;

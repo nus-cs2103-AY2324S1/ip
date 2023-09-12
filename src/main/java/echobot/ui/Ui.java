@@ -11,11 +11,11 @@ public class Ui {
      * Displays the EchoBot logo.
      */
     public String showLogo() {
-        return  " ,d88b.d88b,\n" +
-                "88888888888\n" +
-                " `Y8888888Y'\n" +
-                "    `Y888Y'  \n" +
-                "        `Y'    \n";
+        return  " ,d88b.d88b,\n"
+                + "88888888888\n"
+                + " `Y8888888Y'\n"
+                + "    `Y888Y'  \n"
+                + "        `Y'    \n";
     }
 
 

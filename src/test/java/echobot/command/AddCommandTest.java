@@ -20,7 +20,7 @@ public class AddCommandTest {
     public void testAddTodoTask() {
         ArrayList<Task> tasks = new ArrayList<>();
         Ui ui = new Ui();
-        Storage storage = new Storage("./data/dummy.txt");
+        Storage storage = new Storage("./data/dummy.txt", null);
 
         // Create a StyledDocument for testing
         StyledDocument styledDocument = new DefaultStyledDocument();
@@ -43,7 +43,7 @@ public class AddCommandTest {
     public void testAddDeadlineTask() {
         ArrayList<Task> tasks = new ArrayList<>();
         Ui ui = new Ui();
-        Storage storage = new Storage("./data/dummy.txt");
+        Storage storage = new Storage("./data/dummy.txt", null);
 
         // Create a StyledDocument for testing
         StyledDocument styledDocument = new DefaultStyledDocument();

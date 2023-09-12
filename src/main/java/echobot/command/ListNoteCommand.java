@@ -1,12 +1,13 @@
 package echobot.command;
 
+import java.util.ArrayList;
+
 import echobot.note.Note;
-import echobot.ui.Ui;
 import echobot.storage.Storage;
+import echobot.ui.Ui;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
 public class ListNoteCommand extends Command<Note> {
     @Override
     public String doCommand(ArrayList<Note> notes, Ui ui, Storage storage, Scene scene, VBox dialogContainer) {

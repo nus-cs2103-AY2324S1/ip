@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.layout.VBox;
-import javafx.scene.control.Label;
 
-
-import echobot.task.Task;
 import echobot.note.Note;
+import echobot.task.Task;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+
 
 /**
  * Handles loading and saving tasks.
