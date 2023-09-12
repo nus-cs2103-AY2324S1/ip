@@ -17,7 +17,7 @@ public class Parser {
      * @throws DukeException    Exception to be thrown when the input cannot be read.
      */
     public String createTask(String promptText) throws DukeException {
-        String returnString = "";
+        String returnString;
         if (promptText.startsWith("todo")) {
             try {
                 Task todo = new Todo(promptText.substring(5));

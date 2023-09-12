@@ -12,6 +12,7 @@ public class TaskList {
         return taskList.size();
     }
     public String add(Task task, boolean flag) {
+        assert taskList != null : "taskList must be initialized properly";
         taskList.add(task);
         if (flag) {
             System.out.println("Got it. I've added this task:\n" + task.toString());
@@ -35,10 +36,13 @@ public class TaskList {
     }
 
     public Task get(int i) {
+        assert i < taskList.size() : "index to retrieve needs to less than size of list";
+        assert i >= 0 : "index to retrieve needs to exist";
         return taskList.get(i);
     }
 
     public String delete(Task task) throws DukeException {
+        assert task != null : "task must exist";
         System.out.println("Noted. I've removed this task:\n" + task.toString());
         String removedTask = task.toString();
         taskList.remove(task);
