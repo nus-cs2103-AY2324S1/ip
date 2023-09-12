@@ -1,6 +1,7 @@
 package ax.commands;
 
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -79,25 +80,11 @@ public class Parser {
                     throw new MissingFormatArgumentException("no arg");
                 }
             } else if (input.startsWith("todo")) {
-                if (inputs.length > 1) {
-                    TaskList.getListItems().add(new Todos(inputs[1]));
-                } else {
-                    throw new MissingFormatArgumentException("no arg");
-                }
+                createTodo(inputs);
             } else if (input.startsWith("deadline")) {
-                if (inputs.length > 1 && dates.length > 1) {
-                    TaskList.getListItems().add((new Deadlines(inputs[1].split("/")[0], dates[1])));
-                } else {
-                    throw new MissingFormatArgumentException("no arg");
-                }
+                createDeadline(inputs, dates);
             } else if (input.startsWith("event")) {
-                if (inputs.length > 1 && dates.length > 2) {
-                    TaskList.getListItems().add((
-                            new Events(inputs[1].split("/")[0], dates[1], dates[2]))
-                    );
-                } else {
-                    throw new MissingFormatArgumentException("no arg");
-                }
+                createEvent(inputs, dates);
             } else if (input.startsWith("delete")) {
                 if (inputs.length > 1) {
                     TaskList.getListItems().remove(Integer.parseInt(inputs[1]) - 1);
@@ -149,68 +136,22 @@ public class Parser {
             String[] dates = input.split("/(by|from|to) ");
             if (input.equals("bye")) { // check if it is bye, then return true, so it will exit the loop
                 // delete existing file
-                Path saveFile = Paths.get("data/save.txt");
-                System.out.println(saveFile.toAbsolutePath());
-                if (saveFile.toFile().exists()) {
-                    Files.delete(saveFile);
-                }
-                boolean success = saveFile.toFile().createNewFile();
-                // write new file
-                FileWriter fileWriter = new FileWriter(saveFile.toFile());
-                PrintWriter printWriter = new PrintWriter(fileWriter);
-                for (ListItem listItem : TaskList.getListItems()) {
-                    System.out.println(listItem);
-                    printWriter.println(listItem);
-                }
-                printWriter.close();
-
-                return "save file read";
+                return writeSaveFile();
             } else if (input.equals("list")) {
                 // call the list function
                 return Ui.listTheListString();
             } else if (input.startsWith("mark")) {
-                if (inputs.length > 1) {
-                    ListItem task = TaskList.getListItems().get(Integer.parseInt(inputs[1]) - 1);
-                    task.setDone(true);
-                    return "Marked" + task.toString();
-                } else {
-                    throw new MissingFormatArgumentException("no arg");
-                }
+                return markItem(inputs);
             } else if (input.startsWith("unmark")) {
-                if (inputs.length > 1) {
-                    ListItem task = TaskList.getListItems().get(Integer.parseInt(inputs[1]) - 1);
-                    task.setDone(false);
-                    return "Unmarked" + task.toString();
-                } else {
-                    throw new MissingFormatArgumentException("no arg");
-                }
+                return unmarkItem(inputs);
             } else if (input.startsWith("todo")) {
-                if (inputs.length > 1) {
-                    TaskList.getListItems().add(new Todos(inputs[1]));
-                } else {
-                    throw new MissingFormatArgumentException("no arg");
-                }
+                createTodo(inputs);
             } else if (input.startsWith("deadline")) {
-                if (inputs.length > 1 && dates.length > 1) {
-                    TaskList.getListItems().add((new Deadlines(inputs[1].split("/")[0], dates[1])));
-                } else {
-                    throw new MissingFormatArgumentException("no arg");
-                }
+                createDeadline(inputs, dates);
             } else if (input.startsWith("event")) {
-                if (inputs.length > 1 && dates.length > 2) {
-                    TaskList.getListItems().add((
-                            new Events(inputs[1].split("/")[0], dates[1], dates[2]))
-                    );
-                } else {
-                    throw new MissingFormatArgumentException("no arg");
-                }
+                createEvent(inputs, dates);
             } else if (input.startsWith("delete")) {
-                if (inputs.length > 1) {
-                    TaskList.getListItems().remove(Integer.parseInt(inputs[1]) - 1);
-                    return "Successfully deleted";
-                } else {
-                    throw new MissingFormatArgumentException("no arg");
-                }
+                return deleteItem(inputs);
             } else if (input.startsWith("find")) {
                 return Ui.listTheListString(inputs[1]);
             } else {
@@ -235,5 +176,78 @@ public class Parser {
                     + "error = " + e;
         }
         return "SUCCESS";
+    }
+
+    private static String deleteItem(String[] inputs) {
+        if (inputs.length > 1) {
+            TaskList.getListItems().remove(Integer.parseInt(inputs[1]) - 1);
+            return "Successfully deleted";
+        } else {
+            throw new MissingFormatArgumentException("no arg");
+        }
+    }
+
+    private static void createEvent(String[] inputs, String[] dates) {
+        if (inputs.length > 1 && dates.length > 2) {
+            TaskList.getListItems().add((
+                    new Events(inputs[1].split("/")[0], dates[1], dates[2]))
+            );
+        } else {
+            throw new MissingFormatArgumentException("no arg");
+        }
+    }
+
+    private static void createDeadline(String[] inputs, String[] dates) {
+        if (inputs.length > 1 && dates.length > 1) {
+            TaskList.getListItems().add((new Deadlines(inputs[1].split("/")[0], dates[1])));
+        } else {
+            throw new MissingFormatArgumentException("no arg");
+        }
+    }
+
+    private static void createTodo(String[] inputs) {
+        if (inputs.length > 1) {
+            TaskList.getListItems().add(new Todos(inputs[1]));
+        } else {
+            throw new MissingFormatArgumentException("no arg");
+        }
+    }
+
+    private static String unmarkItem(String[] inputs) {
+        if (inputs.length > 1) {
+            ListItem task = TaskList.getListItems().get(Integer.parseInt(inputs[1]) - 1);
+            task.setDone(false);
+            return "Unmarked" + task;
+        } else {
+            throw new MissingFormatArgumentException("no arg");
+        }
+    }
+
+    private static String markItem(String[] inputs) {
+        if (inputs.length > 1) {
+            ListItem task = TaskList.getListItems().get(Integer.parseInt(inputs[1]) - 1);
+            task.setDone(true);
+            return "Marked" + task;
+        } else {
+            throw new MissingFormatArgumentException("no arg");
+        }
+    }
+
+    private static String writeSaveFile() throws IOException {
+        Path saveFile = Paths.get("data/save.txt");
+        System.out.println(saveFile.toAbsolutePath());
+        if (saveFile.toFile().exists()) {
+            Files.delete(saveFile);
+        }
+        // write new file
+        FileWriter fileWriter = new FileWriter(saveFile.toFile());
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+        for (ListItem listItem : TaskList.getListItems()) {
+            System.out.println(listItem);
+            printWriter.println(listItem);
+        }
+        printWriter.close();
+
+        return "save file written";
     }
 }
