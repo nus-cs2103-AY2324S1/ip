@@ -12,6 +12,7 @@ import java.util.List;
 public class TaskList {
     private List<Task> taskList;
     private int taskCount;
+    private List<String> tempStoredList = new ArrayList<>();;
 
     /**
      * Constructs an empty TaskList.
@@ -55,10 +56,18 @@ public class TaskList {
         return taskList.get(task_number - 1);
     }
 
+    public String getTempStoredTask(){
+        if(tempStoredList.isEmpty()) {
+            return "";
+        } else {
+            return tempStoredList.get(0);
+        }
+    }
+
     /**
      * Removes a task from the TaskList based on its index.
      *
-     * @param task_number The index of the task to be removed.
+     * @param taskNumber The index of the task to be removed.
      */
     public void removeTask(int taskNumber) {
         boolean isValidTaskNumber = taskNumber >= 0;
@@ -85,4 +94,20 @@ public class TaskList {
         return matchingTasks;
     }
 
+    /**
+     * Stores task that are suspected to be repeated in a List</String>.
+     *
+     * @param taskFullDescription The full description including dueBy, from and to of task.
+     */
+    public void tempStoreTask(String taskFullDescription) {
+        tempStoredList.clear();
+        tempStoredList.add(taskFullDescription);
+    }
+
+    /**
+     * Clears all stored strings in the temporary task list
+     */
+    public void clearTempStoreTask(){
+        tempStoredList.clear();
+    }
 }

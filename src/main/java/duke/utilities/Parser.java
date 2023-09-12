@@ -56,6 +56,13 @@ public class Parser {
             } else if(input.startsWith("find ")) {
                 String keyword = input.substring(5);
                 command.findTasks(keyword);
+            } else if(input.startsWith("proceed")) {
+                String taskToAdd = tasks.getTempStoredTask();
+                if(taskToAdd != "") {
+                    analyseAddTaskInput(taskToAdd);
+                } else {
+                    throw new MYBotExceptions.UnknownCommandException();
+                }
             } else if (input.isEmpty()) {
                 throw new MYBotExceptions.UnknownCommandException();
             } else if (!input.startsWith("todo ") && !input.startsWith("deadline ") && !input.startsWith("event ")) {

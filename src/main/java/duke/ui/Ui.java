@@ -111,4 +111,24 @@ public class Ui {
             System.out.println((i + 1) + "." + matchingTasks.get(i));
         }
     }
+
+    /**
+     * Prints the command that tells users there are no tasks with the keyword they put
+     */
+    public void printNoMatchingTasks() {
+        System.out.println("Sorry! There are no matching tasks in your tasks list");
+    }
+
+    /**
+     * Prints the list of tasks that has the same description as users' input
+     *
+     * @param matchingTasks The List of repeated tasks found.
+     */
+    public void printRepeatedTasks(List<Task> matchingTasks) {
+        System.out.println("There are similar tasks in your task list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + "." + matchingTasks.get(i));
+        }
+        System.out.println("type 'proceed' if you still wish to add this task");
+    }
 }

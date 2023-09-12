@@ -41,7 +41,7 @@ public class Duke {
             new File("src/main/MYBOT.txt");
             tasks = new TaskList();
         }
-        command = new Commands(ui,storage,tasks);
+        command = new Commands(ui, storage, tasks);
         parser = new Parser(ui, storage, tasks, command);
     }
 

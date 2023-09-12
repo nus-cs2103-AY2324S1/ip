@@ -5,6 +5,7 @@ import duke.ui.Ui;
 import duke.utilities.MYBotExceptions;
 import duke.utilities.Storage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,8 +45,22 @@ public class Commands {
     public void addTodoTask(String input) {
         assert input != null : "Input cannot be null";
 
-        Task task = new Todo(input);
-        generalAddTasks(task);
+        boolean isExistingTask = taskList.findMatchingTasks(input).isEmpty();
+        boolean isSupposedtoProceed = input.startsWith("!");
+
+        if(!isExistingTask) {
+            List<Task> repeatedTasks = taskList.findMatchingTasks(input);
+            ui.printRepeatedTasks(repeatedTasks);
+            taskList.tempStoreTask("todo "+ "!" + input);
+        } else if (isSupposedtoProceed){
+            input = input.substring(1);
+            Task task = new Todo(input);
+            generalAddTasks(task);
+        } else {
+            Task task = new Todo(input);
+            generalAddTasks(task);
+        }
+
     }
 
     /**
@@ -58,8 +73,21 @@ public class Commands {
         assert input != null : "Input cannot be null";
         assert dueBy != null : "Deadline cannot be null";
 
-        Task task = new Deadline(input, dueBy);
-        generalAddTasks(task);
+        boolean isExistingTask = taskList.findMatchingTasks(input).isEmpty();
+        boolean isSupposedtoProceed = input.startsWith("!");
+
+        if(!isExistingTask) {
+            List<Task> repeatedTasks = taskList.findMatchingTasks(input);
+            ui.printRepeatedTasks(repeatedTasks);
+            taskList.tempStoreTask("deadline "+ "!" + input + " /by" + dueBy);
+        } else if (isSupposedtoProceed){
+            input = input.substring(1);
+            Task task = new Deadline(input, dueBy);
+            generalAddTasks(task);
+        } else {
+            Task task = new Deadline(input, dueBy);
+            generalAddTasks(task);
+        }
     }
 
     /**
@@ -74,8 +102,22 @@ public class Commands {
         assert from != null : "Start time cannot be null";
         assert to != null : "End time cannot be null";
 
-        Task task = new Event(input, from, to);
-        generalAddTasks(task);
+        boolean isExistingTask = taskList.findMatchingTasks(input).isEmpty();
+        boolean isSupposedtoProceed = input.startsWith("!");
+
+        if(!isExistingTask) {
+            List<Task> repeatedTasks = taskList.findMatchingTasks(input);
+            ui.printRepeatedTasks(repeatedTasks);
+            taskList.tempStoreTask("event "+ "!" + input +
+                    " /from" + from + " /to" + to);
+        } else if (isSupposedtoProceed){
+            input = input.substring(1);
+            Task task = new Event(input, from, to);
+            generalAddTasks(task);
+        } else {
+            Task task = new Event(input, from, to);
+            generalAddTasks(task);
+        }
     }
 
     /**
@@ -191,6 +233,10 @@ public class Commands {
         assert keyword != null : "Keyword cannot be null";
 
         List<Task> matchingTasks = taskList.findMatchingTasks(keyword);
-        ui.printMatchingTasks(matchingTasks);
+        if(matchingTasks.isEmpty()) {
+            ui.printNoMatchingTasks();
+        } else {
+            ui.printMatchingTasks(matchingTasks);
+        }
     }
 }
