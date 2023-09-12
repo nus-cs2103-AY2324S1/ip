@@ -37,7 +37,8 @@ public class DeleteTaskCommand extends Command {
             return new IncorrectCommand(e.getMessage()).execute(tasks, ui, storage);
         } catch (IOException e) {
             ui.showError(Message.FAILED_TO_SAVE + e.getMessage());
-            return new IncorrectCommand(Message.FAILED_TO_SAVE + e.getMessage()).execute(tasks, ui, storage);
+            return new IncorrectCommand(Message.FAILED_TO_SAVE
+                    + e.getMessage()).execute(tasks, ui, storage);
         }
     }
 }

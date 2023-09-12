@@ -41,7 +41,8 @@ public class AddEventCommand extends Command {
             storage.saveTasksToFile(tasks);
             return new CommandResult(Message.ADD_TASKS, "\t" + event, tasks.getTaskCountSummary());
         } catch (IOException e) {
-            return new IncorrectCommand(Message.FAILED_TO_SAVE + e.getMessage()).execute(tasks, ui, storage);
+            return new IncorrectCommand(Message.FAILED_TO_SAVE
+                    + e.getMessage()).execute(tasks, ui, storage);
         }
     }
 
