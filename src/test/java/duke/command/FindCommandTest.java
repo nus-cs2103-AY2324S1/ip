@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 
 import duke.StorageStub;
-import duke.TaskList;
+import duke.util.TaskList;
 import duke.UiStub;
 import duke.exception.DukeException;
 import duke.task.Deadline;

@@ -1,6 +1,6 @@
 package duke.exception;
 
-import duke.Ui;
+import duke.util.Ui;
 
 /**
  * Represents an exception thrown when the user enters an invalid
@@ -15,7 +15,7 @@ public class ManipulateException extends DukeException {
      * @param keyword The keyword that the user entered.
      */
     public ManipulateException(String message, String keyword) {
-        super(Ui.connectTwoLine(message, String.format(
+        super(Ui.connectLines(message, String.format(
                 "Enter in the form: \"%s [task_number]\" or \"%s all\"", keyword, keyword)));
     }
 }

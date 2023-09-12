@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import duke.Keyword;
+import duke.util.Keyword;
 import duke.StorageStub;
-import duke.TaskList;
+import duke.util.TaskList;
 import duke.UiStub;
 import duke.exception.DukeException;
 import duke.task.Todo;

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import duke.util.Time;
 import org.junit.jupiter.api.Test;
 
 import duke.exception.DukeException;

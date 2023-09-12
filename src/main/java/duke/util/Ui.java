@@ -1,4 +1,4 @@
-package duke;
+package duke.util;
 
 import java.util.Scanner;
 
@@ -30,8 +30,7 @@ public class Ui {
      * Shows the welcome message to the user.
      */
     public String showWelcome() {
-        return String.format("%s\nHello! I'm %s\nWhat can I do for you?",
-                NAME_ART, NAME);
+        return String.format("Hello! I'm %s\nWhat can I do for you?", NAME);
     }
 
     /**
@@ -163,11 +162,14 @@ public class Ui {
      * Connects two Strings, such that it is uniform with formatting
      * of the output display messages (e.g., indentations).
      *
-     * @param lineOne the first string. To be placed at the front.
-     * @param lineTwo the second string. To be placed at the back.
+     * @param lines strings to be connected in order.
      * @return the connected string.
      */
-    public static String connectTwoLine(String lineOne, String lineTwo) {
-        return String.format("%s\n%s", lineOne, lineTwo);
+    public static String connectLines(String... lines) {
+        StringBuilder strBuilder = new StringBuilder();
+        for (String line : lines) {
+            strBuilder.append(String.format("%s\n", line));
+        }
+        return strBuilder.substring(0, strBuilder.length() - 1);
     }
 }

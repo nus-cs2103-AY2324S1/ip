@@ -9,9 +9,9 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import duke.Keyword;
-import duke.Storage;
-import duke.Time;
+import duke.util.Keyword;
+import duke.util.Storage;
+import duke.util.Time;
 import duke.exception.DukeException;
 
 

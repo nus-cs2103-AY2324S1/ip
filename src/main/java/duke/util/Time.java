@@ -1,4 +1,4 @@
-package duke;
+package duke.util;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -38,7 +38,7 @@ public class Time {
         try {
             return LocalDateTime.parse(time, DATE_TIME_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new DukeException(Ui.connectTwoLine("OOPS!!! The date and time format is invalid.",
+            throw new DukeException(Ui.connectLines("OOPS!!! The date and time format is invalid.",
                     String.format("Please use the format: \"%s %s\"", DATE_FORMAT, TIME_FORMAT)));
         }
     }
@@ -55,7 +55,7 @@ public class Time {
         try {
             return LocalDate.parse(time, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new DukeException(Ui.connectTwoLine("OOPS!!! The date format is invalid.",
+            throw new DukeException(Ui.connectLines("OOPS!!! The date format is invalid.",
                     String.format("Please use the format: \"%s\"", DATE_FORMAT)));
         }
     }

@@ -1,4 +1,4 @@
-package duke;
+package duke.gui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,6 +31,7 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        displayPicture.setClip(new javafx.scene.shape.Circle(50, 50, 50));
     }
 
     /**
@@ -44,7 +45,8 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        return db;
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {

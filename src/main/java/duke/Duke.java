@@ -2,6 +2,10 @@ package duke;
 
 import duke.command.Command;
 import duke.exception.DukeException;
+import duke.util.Parser;
+import duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.Ui;
 
 /**
  * Represents a chatbot that helps users to keep track of their tasks.
@@ -38,8 +42,10 @@ public class Duke {
         try {
             Command c = Parser.parse(input);
             String response = c.execute(taskList, ui, storage);
+            if (c.isExit()) {
+                System.exit(0);
+            }
             return response;
-            //isExit = c.isExit();
         } catch (DukeException e) {
             return ui.showError(e.getMessage());
         }

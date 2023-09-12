@@ -1,10 +1,10 @@
 package duke.command;
 
-import duke.Keyword;
-import duke.Storage;
-import duke.TaskList;
-import duke.Time;
-import duke.Ui;
+import duke.util.Keyword;
+import duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.Time;
+import duke.util.Ui;
 import duke.exception.DeadlineException;
 import duke.exception.DukeException;
 import duke.exception.EventException;
