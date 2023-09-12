@@ -20,6 +20,7 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
+        assert this.tasks != null; // This ensures that the TaskList instance is instantiated properly.
     }
 
     /**

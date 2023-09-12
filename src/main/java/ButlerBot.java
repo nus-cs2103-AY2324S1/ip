@@ -45,6 +45,9 @@ public class ButlerBot {
         this.ui = new Ui();
         this.storage = new Storage("data/tasks.txt");
         this.tasks = new TaskList(storage.loadTasks());
+        assert ui != null; // This ensures that the Ui instance is instantiated properly.
+        assert storage != null; // This ensures that the Storage instance is instantiated properly.
+        assert tasks != null; // This ensures that the TaskList instance is instantiated properly.
     }
 
     /**
