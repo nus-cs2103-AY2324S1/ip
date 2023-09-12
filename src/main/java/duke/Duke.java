@@ -17,16 +17,6 @@ public class Duke {
 
     /**
      * Constructor for Duke class.
-     * @param filePath The given file path to the data file.
-     */
-    public Duke(String filePath) {
-        this.ui = new Ui();
-        this.storage = new Storage(filePath);
-        this.taskList = new TaskList(storage.load());
-    }
-
-    /**
-     * Constructor for Duke class.
      */
     public Duke() {
         this.ui = new Ui();
