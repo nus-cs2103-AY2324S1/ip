@@ -27,11 +27,7 @@ public class TaskList {
     }
 
     /**
-<<<<<<< HEAD
-     * Returns the current size of the TaskList.
-=======
      * Returns the current size of the taskList.
->>>>>>> branch-Level-9
      */
     public int size() {
         return this.taskList.size();

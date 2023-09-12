@@ -28,10 +28,7 @@ public class Parser {
 
         try {
             nextInput = input.substring(4);
-
-            if (nextInput.isBlank()) {
-                throw new InvalidCommandException();
-            }
+            checkInputIsNotEmpty(nextInput);
         } catch (StringIndexOutOfBoundsException e) {
             throw new InvalidCommandException();
         }
@@ -40,12 +37,10 @@ public class Parser {
             try {
                 String description = nextInput.substring(5);
 
-                if (description.isBlank()) {
-                    throw new InvalidTodoException();
-                } else {
-                    arr.add(0, "todo");
-                    arr.add(1, description);
-                }
+                checkInputIsNotEmpty(description);
+
+                arr.add(0, "todo");
+                arr.add(1, description);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new InvalidTodoException();
             }
@@ -55,13 +50,11 @@ public class Parser {
                 String description = nextInput.substring(9, by - 1);
                 String deadline = nextInput.substring(by + 4);
 
-                if (description.isBlank() || deadline.isBlank()) {
-                    throw new InvalidDeadlineException();
-                } else {
-                    arr.add(0,"deadline");
-                    arr.add(1, description);
-                    arr.add(2, deadline);
-                }
+                checkInputIsNotEmpty(description, deadline);
+
+                arr.add(0,"deadline");
+                arr.add(1, description);
+                arr.add(2, deadline);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new InvalidDeadlineException();
             }
@@ -73,14 +66,12 @@ public class Parser {
                 String start = nextInput.substring(from + 6, to - 1);
                 String end = nextInput.substring(to + 4);
 
-                if (description.isBlank() || start.isBlank() || end.isBlank()) {
-                    throw new InvalidEventException();
-                } else {
-                    arr.add(0, "event");
-                    arr.add(1, description);
-                    arr.add(2, start);
-                    arr.add(3, end);
-                }
+                checkInputIsNotEmpty(description, start, end);
+
+                arr.add(0, "event");
+                arr.add(1, description);
+                arr.add(2, start);
+                arr.add(3, end);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new InvalidEventException();
             }
@@ -103,11 +94,8 @@ public class Parser {
         int taskIndex;
         try {
             String nextInput = input.substring(5);
-            if (nextInput.isBlank()) {
-                throw new InvalidCommandException();
-            } else {
-                taskIndex = Integer.parseInt(nextInput);
-            }
+            checkInputIsNotEmpty(nextInput);
+            taskIndex = Integer.parseInt(nextInput);
         } catch (StringIndexOutOfBoundsException e) {
             throw new InvalidCommandException();
         }
@@ -127,11 +115,8 @@ public class Parser {
         int taskIndex;
         try {
             String nextInput = input.substring(7);
-            if (nextInput.isBlank()) {
-                throw new InvalidCommandException();
-            } else {
-                taskIndex = Integer.parseInt(nextInput);
-            }
+            checkInputIsNotEmpty(nextInput);
+            taskIndex = Integer.parseInt(nextInput);
         } catch (StringIndexOutOfBoundsException e) {
             throw new InvalidCommandException();
         }
@@ -149,9 +134,7 @@ public class Parser {
         String keyword;
         try {
             keyword = input.substring(5);
-            if (keyword.isBlank()) {
-                throw new InvalidCommandException();
-            }
+            checkInputIsNotEmpty(keyword);
         } catch (StringIndexOutOfBoundsException e) {
             throw new InvalidCommandException();
         }
@@ -171,14 +154,25 @@ public class Parser {
         int taskIndex;
         try {
             String nextInput = input.substring(7);
-            if (nextInput.isBlank()) {
-                throw new InvalidCommandException();
-            } else {
-                taskIndex = Integer.parseInt(nextInput);
-            }
+            checkInputIsNotEmpty(nextInput);
+            taskIndex = Integer.parseInt(nextInput);
         } catch (StringIndexOutOfBoundsException e) {
             throw new InvalidCommandException();
         }
         return taskIndex;
+    }
+
+    /**
+     * Checks that given String inputs are not blank. Throws InvalidCommandException if they are.
+     *
+     * @param inputs The String inputs to check.
+     * @throws InvalidCommandException If any of the inputs are blank.
+     */
+    private void checkInputIsNotEmpty(String... inputs) throws InvalidCommandException {
+        for (String input : inputs) {
+            if (input.isBlank()) {
+                throw new InvalidCommandException();
+            }
+        }
     }
 }

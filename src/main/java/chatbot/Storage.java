@@ -1,5 +1,6 @@
 package chatbot;
 
+import chatbot.exception.InvalidCommandException;
 import chatbot.exception.InvalidFileFormatException;
 import chatbot.task.Deadline;
 import chatbot.task.Event;
@@ -32,22 +33,18 @@ public class Storage {
                 if (task.startsWith("[T]")) {
                     String description = task.substring(7);
 
-                    if (description.isBlank()) {
-                        throw new InvalidFileFormatException();
-                    } else {
-                        taskList.add(new Todo(description));
-                    }
+                    checkFileInputIsNotBlank(description);
+
+                    taskList.add(new Todo(description));
                 } else if (task.startsWith("[D]")) {
                     int by = task.indexOf("(by: ");
                     String description = task.substring(7, by - 1);
                     LocalDate deadline = LocalDate.parse(task.substring(by + 5, task.length() - 1),
                             DateTimeFormatter.ofPattern("MMM d yyyy"));
 
-                    if (description.isBlank()) {
-                        throw new InvalidFileFormatException();
-                    } else {
-                        taskList.add(new Deadline(description, deadline));
-                    }
+                    checkFileInputIsNotBlank(description);
+
+                    taskList.add(new Deadline(description, deadline));
                 } else if (task.startsWith("[E]")) {
                     int from = task.indexOf("(from: ");
                     int to = task.indexOf("to: ");
@@ -57,12 +54,10 @@ public class Storage {
                     LocalDate end = LocalDate.parse(task.substring(to + 4, task.length() - 1),
                             DateTimeFormatter.ofPattern("MMM d yyyy"));
 
-                    if (description.isBlank()) {
-                        throw new InvalidFileFormatException();
-                    } else {
-                        taskList.add(new Event(description, start, end));
-                    }
-                } else {
+                    checkFileInputIsNotBlank(description);
+
+                    taskList.add(new Event(description, start, end));
+                 } else {
                     throw new InvalidFileFormatException();
                 }
             }
@@ -83,4 +78,18 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Checks that given String inputs from the loaded file are not blank.
+     * Throws InvalidFileFormatException if they are.
+     *
+     * @param inputs The String inputs to check.
+     * @throws InvalidFileFormatException If any of the inputs are blank.
+     */
+    private void checkFileInputIsNotBlank(String... inputs) throws InvalidFileFormatException {
+        for (String input : inputs) {
+            if (input.isBlank()) {
+                throw new InvalidFileFormatException();
+            }
+        }
+    }
 }
