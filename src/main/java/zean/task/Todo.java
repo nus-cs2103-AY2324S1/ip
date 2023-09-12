@@ -1,5 +1,7 @@
 package zean.task;
 
+import zean.exception.ZeanException;
+
 /**
  * The class that represents a todo task.
  *
@@ -10,20 +12,11 @@ public class Todo extends Task {
     /**
      * Constructor for the todo task.
      *
-     * @param description The description of the todo task.
-     */
-    public Todo(String description) {
-        super(description.strip());
-    }
-
-    /**
-     * Constructor for the todo task.
-     *
      * @param bool The completion status of the todo task.
      * @param description The description of the todo task.
      */
     public Todo(String bool, String description) {
-        super(description.strip());
+        super(bool, description.strip());
         if (Integer.parseInt(bool) == 1) {
             this.isDone = true;
         }

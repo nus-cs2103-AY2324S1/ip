@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import zean.exception.DukeException;
+import zean.exception.ZeanException;
 import zean.task.Task;
 
 /**
@@ -17,9 +17,11 @@ import zean.task.Task;
  */
 public class Storage {
 
-    private File f;
+    private File file;
 
     private String filePath;
+
+    private String createFileMsg = "";
 
     /**
      * Empty constructor for storage.
@@ -44,15 +46,21 @@ public class Storage {
         File dir = new File("./data");
         if (!dir.exists()) {
             if (!dir.mkdir()) {
-                throw new DukeException("OOPS! The file cannot be created.");
+                throw new ZeanException("OOPS! The file cannot be created.");
             }
         }
-        File f = new File(this.filePath);
-        this.f = f;
-        if (!f.exists()) {
-            f.createNewFile();
-            System.out.println("A new folder and file to store your tasks has been created.");
+        File file = new File(this.filePath);
+        this.file = file;
+        if (!file.exists()) {
+            file.createNewFile();
+
+            // To be displayed on the GUI to inform users
+            this.createFileMsg = "A new folder and file to store your tasks has been created.";
         }
+    }
+
+    public String getCreateFileMsg() {
+        return this.createFileMsg;
     }
 
     /**
@@ -64,12 +72,12 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner sc = null;
         try {
-            sc = new Scanner(this.f);
+            sc = new Scanner(this.file);
             while (sc.hasNext()) {
                 Parser.parseToTask(tasks, sc.nextLine());
             }
         } catch (FileNotFoundException e) {
-            throw new DukeException("OOPS! The file cannot be created.");
+            throw new ZeanException("OOPS! The file cannot be created.");
         } finally {
             if (sc != null) {
                 sc.close();
@@ -89,7 +97,7 @@ public class Storage {
             fw.write(task.toStringForFile() + System.lineSeparator());
             fw.close();
         } catch (IOException e) {
-            throw new DukeException("OOPS! The file is not available!");
+            throw new ZeanException("OOPS! The file is not available!");
         }
     }
 
@@ -106,7 +114,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            throw new DukeException("OOPS! The file is not available!");
+            throw new ZeanException("OOPS! The file is not available!");
         }
     }
 }
