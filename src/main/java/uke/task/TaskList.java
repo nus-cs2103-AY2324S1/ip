@@ -1,6 +1,9 @@
 package uke.task;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Represents the task list.
@@ -79,5 +82,37 @@ public class TaskList {
         }
 
         return list;
+    }
+
+    public TaskList getTaskListWithDate(LocalDate date) {
+        TaskList list = new TaskList();
+        int len = this.getLength();
+
+        for (int i = 0; i < len; i++) {
+            Task t = this.getTask(i);
+            LocalDateTime taskDateTime = t.getDateTime();
+
+            LocalDate taskDate = taskDateTime.toLocalDate();
+
+            if (date.equals(taskDate)) {
+                list.addTask(t);
+            }
+        }
+
+        return list;
+    }
+
+    public void sortByTime() {
+
+        int len = this.getLength();
+
+        for (int i = 0; i < len; i++) {
+            Task t = this.getTask(i);
+            LocalDateTime dateTime = t.getDateTime();
+
+            this.storedTasks.sort(new Comparator<Task>() {
+                public int compare(Task t1, Task t2) { return t1.getDateTime().compareTo(t2.getDateTime()); }
+            });
+        }
     }
 }

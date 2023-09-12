@@ -1,5 +1,7 @@
 package uke.task;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a todo task.
  */
@@ -22,6 +24,11 @@ public class Todo extends Task {
     @Override
     public String convertToSavedString() {
         return String.format("[T] %s//", super.convertToSavedString());
+    }
+
+    @Override
+    public LocalDateTime getDateTime() {
+        return LocalDateTime.MIN;
     }
 
     /**

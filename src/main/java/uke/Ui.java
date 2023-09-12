@@ -3,6 +3,9 @@ package uke;
 import uke.task.Task;
 import uke.task.TaskList;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 /**
@@ -99,5 +102,24 @@ public class Ui {
      */
     public String printAdd(Task t, TaskList tl) {
         return String.format("The following task has been successfully added:\n%s\n%s", t, printNumberOfTasks(tl)) ;
+    }
+
+    public String printSchedule(LocalDate date, TaskList tasks) {
+        int len = tasks.getLength();
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+        String displayedDate = date.format(dateTimeFormatter);
+
+        if (len == 0) {
+            return String.format("Your schedule for %s is currently empty!", displayedDate);
+        }
+
+        String schedule = String.format("Here's your schedule for %s :\n", displayedDate);
+
+        for (int i = 0; i < len; i++) {
+            schedule += tasks.getTask(i) + "\n";
+        }
+
+        return schedule;
     }
 }

@@ -43,6 +43,11 @@ public class Deadline extends Task {
         return String.format("[D] %s//%s//", super.convertToSavedString(), formatDateTime(this.dueDate));
     }
 
+    @Override
+    public LocalDateTime getDateTime() {
+        return this.dueDate;
+    }
+
     /**
      * Converts the Deadline object to its string representation.
      *
@@ -50,6 +55,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D] %s (by: %s)", super.toString(), formatDateTime(this.dueDate));
+        return String.format("[D] %s (by %s)", super.toString(), formatDateTime(this.dueDate));
     }
 }

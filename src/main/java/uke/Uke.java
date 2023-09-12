@@ -14,6 +14,7 @@ import uke.task.Todo;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -77,6 +78,9 @@ public class Uke {
                 case "FIND":
                     info = Parser.parseInfo(input);
                     return handleFind(info);
+                case "VIEW":
+                    info = Parser.parseInfo(input);
+                    return handleView(info);
                 default:
                     throw new UkeInvalidCommandException(command);
             }
@@ -252,4 +256,19 @@ public class Uke {
         TaskList list = tasks.getTaskListWithKeyword(info);
         return ui.printList(list, false);
     }
+
+    public String handleView(String info) throws UkeException {
+        try {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate viewingDate = LocalDate.parse(info, dateTimeFormatter);
+
+            TaskList matchingTasks = tasks.getTaskListWithDate(viewingDate);
+            matchingTasks.sortByTime();
+
+            return ui.printSchedule(viewingDate, matchingTasks);
+        } catch (DateTimeParseException e) {
+            throw new UkeInvalidDateTimeException();
+        }
+    }
+
 }
