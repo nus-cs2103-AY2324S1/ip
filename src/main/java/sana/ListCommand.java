@@ -27,6 +27,7 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws SanaException {
+        assert tasks != null;
         if (tasks.toString().isBlank()) {
             throw new SanaException("Your list is empty! Add tasks first to display list");
         }

@@ -26,11 +26,16 @@ public class DeleteCommand extends Command {
     public String execute(TaskList tasks, Storage storage) throws SanaException {
         String arguments = getArguments();
 
+        assert !arguments.isEmpty();
+
         if (arguments.isBlank()) {
             throw new SanaException("Error! Need to specify which task to delete");
         }
 
         Task deletedTask = tasks.delete(Integer.parseInt(arguments));
+
+        assert deletedTask instanceof Task;
+
         tasks.update(storage);
 
         return ("Noted. I've removed this task:\n" + deletedTask.toString() + "\n"
