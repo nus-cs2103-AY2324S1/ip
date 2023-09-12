@@ -18,6 +18,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime localDateTime) {
         super(description);
+        assert description != null : "Description cannot be null."; // Assumption: Description should not be null
+        assert localDateTime != null : "LocalDateTime cannot be null."; // Assumption: LocalDateTime should not be null
         this.localDateTime = localDateTime;
     }
 
@@ -30,6 +32,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime localDateTime, Boolean isDone) {
         super(description, isDone);
+        assert description != null : "Description cannot be null."; // Assumption: Description should not be null
+        assert localDateTime != null : "LocalDateTime cannot be null."; // Assumption: LocalDateTime should not be null
         this.localDateTime = localDateTime;
     }
 

@@ -23,6 +23,7 @@ public class Storage {
      * @param filePath The path to the data file for storing tasks.
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path cannot be null."; // Assumption: File path should not be null
         this.filePath = filePath;
     }
 
@@ -33,6 +34,8 @@ public class Storage {
      * @throws BeeException If there's an issue with parsing the task data.
      */
     private void parseTask(String taskData) throws BeeException {
+        assert taskData != null : "Task data string cannot be null."; // Assumption: Task data should not be null
+
         String[] taskDataSplit = taskData.split("]");
         String taskType = taskDataSplit[0].substring(1);
         Boolean isDone = taskDataSplit[1].substring(1).equals("X");
@@ -89,9 +92,11 @@ public class Storage {
     public void saveTasksToFile() {
         try {
             File file = new File(this.filePath);
+            assert file != null : "File object cannot be null."; // Assumption: File should not be null
             FileWriter writer = new FileWriter(file);
 
             for (Task task : tasks.getTasks()) {
+                assert task != null : "Task object cannot be null."; // Assumption: Task should not be null
                 writer.write(task.toString() + System.lineSeparator());
             }
             writer.close();
@@ -109,15 +114,18 @@ public class Storage {
     public ArrayList<Task> loadTasksFromFile() throws BeeException {
         try {
             File file = new File(filePath);
+            assert file != null : "File object cannot be null."; // Assumption: File should not be null
             if (!file.exists()) {
                 // If file doesn't exist, create an empty one
-                file.createNewFile();
+                boolean created = file.createNewFile();
+                assert created : "Failed to create a new file."; // Assumption: File creation should succeed
                 return this.tasks.getTasks();
             }
 
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNextLine()) {
                 String taskData = fileScanner.nextLine();
+                assert taskData != null : "Task data string cannot be null."; // Assumption: Task data should not be null
                 parseTask(taskData);
                 // Parse taskData and add tasks to the list
                 // Example: T | 1 | read book
