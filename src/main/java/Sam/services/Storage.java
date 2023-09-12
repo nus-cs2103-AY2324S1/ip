@@ -32,6 +32,7 @@ public class Storage {
             directory.mkdirs();
         }
 
+        assert file.getParentFile().exists() : "Directory cannot be found";
         return file;
     }
 
@@ -48,6 +49,7 @@ public class Storage {
             fileWriter.write(task.toFileString() + "\n");
         }
         fileWriter.close();
+        assert file.exists() : "Hard disk file is not created";
     }
 
     /**
