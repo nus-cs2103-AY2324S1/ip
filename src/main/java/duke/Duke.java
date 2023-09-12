@@ -30,7 +30,8 @@ public class Duke {
             dirPath += "/";
         }
 
-        System.out.println(dirPath);
+        assert dirPath != null : "Directory path should not be empty";
+
         storage = new Storage(dirPath, dirAndFilePathArr[dirAndFilePathArr.length - 1]);
         try {
             taskList = new TaskList(storage.retrieveTasks());
