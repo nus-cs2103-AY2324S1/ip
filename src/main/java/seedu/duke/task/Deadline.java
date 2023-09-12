@@ -22,6 +22,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
+        assert !super.isDone : "Task should be marked as undone initially.";
         this.by = super.parseStringToTime(by);
     }
 
