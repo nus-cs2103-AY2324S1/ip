@@ -10,15 +10,15 @@ import duke.ui.Ui;
  * Determines the task index to be unmarked.
  */
 public class UnmarkCommand implements Command {
-    private final String details;
+    private final String taskDetail;
 
     /**
      * Constructs a UnmarkCommand with the specified details.
      *
-     * @param details The details of the task index to be marked.
+     * @param detail The details of the task index to be marked.
      */
-    public UnmarkCommand(String details) {
-        this.details = details;
+    public UnmarkCommand(String detail) {
+        this.taskDetail = detail;
     }
 
     /**
@@ -32,7 +32,7 @@ public class UnmarkCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        int unmarkIndex = Integer.parseInt(details) - 1;
+        int unmarkIndex = Integer.parseInt(this.taskDetail) - 1;
         if (unmarkIndex > tasks.size() || unmarkIndex < 0) {
             throw new DukeException("OOPS!! Task does not exist");
         }

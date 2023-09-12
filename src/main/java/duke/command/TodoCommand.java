@@ -11,15 +11,15 @@ import duke.ui.Ui;
  * Adds a new Todo task to the task list.
  */
 public class TodoCommand implements Command {
-    private final String details;
+    private final String taskDetail;
 
     /**
      * Constructs a TodoCommand with the specified details.
      *
-     * @param details The details of the todo task.
+     * @param detail The details of the todo task.
      */
-    public TodoCommand(String details) {
-        this.details = details;
+    public TodoCommand(String detail) {
+        this.taskDetail = detail;
     }
 
     /**
@@ -33,10 +33,10 @@ public class TodoCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (details.equals("")) {
+        if (this.taskDetail.equals("")) {
             throw new DukeException("OOPS!!! The description of a todo cannot be empty.\n");
         } else {
-            Task curr = new Todo(details);
+            Task curr = new Todo(this.taskDetail);
             tasks.add(curr);
             ui.sendMessage("Got it. I've added this task:\n" + "\t" + curr + "\n"
                     + "Now you have " + tasks.size() + " tasks in the list.");
@@ -51,7 +51,7 @@ public class TodoCommand implements Command {
      */
     @Override
     public void loadTask(TaskList tasks) {
-        Task curr = new Todo(details);
+        Task curr = new Todo(this.taskDetail);
         tasks.add(curr);
     }
 }

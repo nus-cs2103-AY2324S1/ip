@@ -10,15 +10,15 @@ import duke.ui.Ui;
  * Determines the task index to be marked.
  */
 public class MarkCommand implements Command {
-    private final String details;
+    private final String taskDetail;
 
     /**
      * Constructs a MarkCommand with the specified details.
      *
-     * @param details The details of the task index to be marked.
+     * @param detail The details of the task index to be marked.
      */
-    public MarkCommand(String details) {
-        this.details = details;
+    public MarkCommand(String detail) {
+        this.taskDetail = detail;
     }
 
     /**
@@ -32,7 +32,7 @@ public class MarkCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        int markIndex = Integer.parseInt(details) - 1;
+        int markIndex = Integer.parseInt(this.taskDetail) - 1;
         if (markIndex > tasks.size() || markIndex < 0) {
             throw new DukeException("OOPS!! Task does not exist");
         } else {

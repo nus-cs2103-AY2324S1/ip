@@ -11,15 +11,15 @@ import duke.ui.Ui;
  * Adds a new Deadline task to the task list.
  */
 public class DeadlineCommand implements Command {
-    private final String details;
+    private final String taskDetail;
 
     /**
      * Constructs a DeadlineCommand with the specified details.
      *
-     * @param details The details of the deadline task.
+     * @param detail The details of the deadline task.
      */
-    public DeadlineCommand(String details) {
-        this.details = details;
+    public DeadlineCommand(String detail) {
+        this.taskDetail = detail;
     }
 
     /**
@@ -33,10 +33,10 @@ public class DeadlineCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (details.equals("")) {
+        if (taskDetail.equals("")) {
             throw new DukeException("OOPS!!! The description of a deadline cannot be empty.\n");
         } else {
-            String[] partDeadline = details.split("/by");
+            String[] partDeadline = taskDetail.split("/by");
             Task curr = new Deadline(partDeadline[0], partDeadline[1].trim());
             tasks.add(curr);
             ui.sendMessage("Got it. I've added this task:\n" + "\t" + curr + "\n"
@@ -52,7 +52,7 @@ public class DeadlineCommand implements Command {
      */
     @Override
     public void loadTask(TaskList tasks) {
-        String[] partDeadline = details.split("/by");
+        String[] partDeadline = taskDetail.split("/by");
         Task curr = new Deadline(partDeadline[0], partDeadline[1].trim());
         tasks.add(curr);
     }

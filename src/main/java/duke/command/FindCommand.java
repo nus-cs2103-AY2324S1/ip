@@ -8,15 +8,15 @@ import duke.ui.Ui;
  * Searches through the task list and displays tasks matching the keyword.
  */
 public class FindCommand implements Command {
-    private final String details;
+    private final String taskDetail;
 
     /**
      * Constructs a FindCommand with the specified keyword details.
      *
-     * @param details The keyword to search for in the task names.
+     * @param detail The keyword to search for in the task names.
      */
-    public FindCommand(String details) {
-        this.details = details;
+    public FindCommand(String detail) {
+        this.taskDetail = detail;
     }
 
     /**
@@ -31,7 +31,7 @@ public class FindCommand implements Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         StringBuilder output = new StringBuilder("Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).getName().contains(details)) {
+            if (tasks.get(i).getName().contains(this.taskDetail)) {
                 output.append("\n").append(i + 1).append(".").append(tasks.get(i).toString());
             }
         }
