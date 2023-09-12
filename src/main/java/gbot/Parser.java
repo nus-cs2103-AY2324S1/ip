@@ -24,13 +24,13 @@ public class Parser {
     public static String parse(String message, TaskList tasks) throws GBotException {
         if (message.isBlank()) {
             return "Please enter a command.";
-        } else if (message.equals("list")) {
+        } else if (message.strip().equals("list")) {
             return tasks.listTasks();
         }
 
         String prefix = message.split(" ")[0];
         String str = message.substring(prefix.toString().length() + 1);
-        String result = "";
+        String result;
 
         switch (prefix) {
         case "mark":
@@ -86,6 +86,7 @@ public class Parser {
                 return "Please enter a keyword.";
             }
             result = tasks.find(str);
+            break;
         default:
             throw new GBotException();
         }

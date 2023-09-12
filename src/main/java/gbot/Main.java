@@ -6,13 +6,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import gbot.MainWindow;
 
 /**
  * A GUI for GBot using FXML.
  */
 public class Main extends Application {
-    private GBot gbot = new GBot("./data/tasks.txt");
+    private final GBot gbot = new GBot("./data/tasks.txt");
 
     @Override
     public void start(Stage stage) {
