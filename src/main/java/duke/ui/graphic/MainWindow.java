@@ -246,14 +246,14 @@ public class MainWindow extends VBox implements Ui {
                         + typeString
                         + (isExcludingDone ? " not done" : "")
                         + (date != null
-                        ? (type == Task.Type.DEADLINE
-                        ? " before "
-                        : type == Task.Type.EVENT
-                        ? " happening on "
-                        : " for "
-                ) + DateTimeManager.dateToDisplay(date)
-                        : ""
-                ) + ":\n" + taskList.getTasks(isExcludingDone, date, type)
+                            ? (type == Task.Type.DEADLINE
+                                ? " before "
+                                : type == Task.Type.EVENT
+                                ? " happening on "
+                                : " for "
+                            ) + DateTimeManager.dateToDisplay(date)
+                            : ""
+                        ) + ":\n" + taskList.getTasks(isExcludingDone, date, type)
         );
     }
 
