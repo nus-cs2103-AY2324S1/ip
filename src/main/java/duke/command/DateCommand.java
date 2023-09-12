@@ -23,6 +23,6 @@ public class DateCommand extends Command {
                 tasksToday.add(task);
             }
         }
-        return ui.find(tasksToday, date);
+        return ui.date(tasksToday, date);
     }
 }

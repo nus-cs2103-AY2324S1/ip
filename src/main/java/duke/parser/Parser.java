@@ -8,6 +8,7 @@ import java.util.List;
 
 import duke.DukeException;
 import duke.command.AddCommand;
+import duke.command.AllCommand;
 import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.DateCommand;
@@ -225,6 +226,9 @@ public class Parser {
         assert queryList.size() > 0 : "Invalid query list of 0 length.";
         switch (queryList.get(0)) {
 
+        case "":
+            return new AllCommand();
+
         case "bye":
             return new ByeCommand();
 
@@ -259,8 +263,10 @@ public class Parser {
             try {
                 int index = Integer.parseInt(queryList.get(1)) - 1;
                 return new MarkCommand(index);
-            } catch (NumberFormatException e) {
+            } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("Please specify the index of which task you would like to mark.");
+            } catch (NumberFormatException e) {
+                throw new DukeException("Seems like it's not a number.");
             }
 
         case "todo":
@@ -270,8 +276,10 @@ public class Parser {
             try {
                 int index = Integer.parseInt(queryList.get(1)) - 1;
                 return new UnmarkCommand(index);
-            } catch (NumberFormatException e) {
+            } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("Please specify the index of which task you would like to unmark.");
+            } catch (NumberFormatException e) {
+                throw new DukeException("Seems like it's not a number.");
             }
 
         default:
