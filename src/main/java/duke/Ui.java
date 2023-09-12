@@ -1,18 +1,11 @@
 package duke;
 
-import java.util.Scanner;
-
 import duke.task.Task;
 
 /**
  * Represents the user interface of the application.
  */
 public class Ui {
-
-    /**
-     * The horizontal line to be printed.
-     */
-    private final String horizontalLine = "__________________________________________________________________________";
 
     /**
      * Prints the welcome message.
@@ -23,6 +16,7 @@ public class Ui {
                 + "  / /| | /  |/ /  |/ / / / /\\  /_____/ / / /_____/ / / /_/ / / / /  |/ / \n"
                 + " / ___ |/ /|  / /|  / /_/ / / /_____/ /_/ /_____/ / / _, _/ /_/ / /|  /  \n"
                 + "/_/  |_/_/ |_/_/ |_/\\____/ /_/      \\____/     /_/ /_/ |_|\\____/_/ |_/   \n";
+        String horizontalLine = "__________________________________________________________________________";
         return horizontalLine + logo + "Hello! I'm ANNOY-O-TRON!\nWhat can I do for you?\n"
                 + horizontalLine;
     }
@@ -32,13 +26,6 @@ public class Ui {
      */
     public String showBye() {
         return "Bye. Hope to see you again soon!";
-    }
-
-    /**
-     * Prints a horizontal line for UI separation.
-     */
-    public String showLine() {
-        return horizontalLine;
     }
 
     /**
@@ -130,16 +117,6 @@ public class Ui {
      */
     public String showNumberOfTasks(TaskList taskList) {
         return "Now you have " + taskList.getListSize() + " tasks in the list.";
-    }
-
-    /**
-     * Reads a command from the user.
-     *
-     * @return The command entered by the user.
-     */
-    public String readCommand() {
-        Scanner myObj = new Scanner(System.in);
-        return myObj.nextLine();
     }
 
     public String showInvalidCommand() {
