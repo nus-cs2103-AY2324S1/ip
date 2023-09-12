@@ -2,6 +2,7 @@ package duke.task;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 import duke.exception.DukeNoTaskFoundException;
@@ -25,6 +26,7 @@ public class TaskList {
      * @param taskList An ArrayList of tasks to initialise the TaskList.
      */
     public TaskList(ArrayList<Task> taskList) {
+        Collections.sort(taskList);
         this.taskList = taskList;
     }
 
@@ -36,7 +38,8 @@ public class TaskList {
      */
     public Task addTodo(String description) {
         Task todo = new Todo(description);
-        this.taskList.add(todo);
+        taskList.add(todo);
+        Collections.sort(taskList);
         return todo;
     }
 
@@ -49,7 +52,8 @@ public class TaskList {
      */
     public Task addDeadline(String description, LocalDate by) {
         Task deadline = new Deadline(description, by);
-        this.taskList.add(deadline);
+        taskList.add(deadline);
+        Collections.sort(taskList);
         return deadline;
     }
 
@@ -63,7 +67,8 @@ public class TaskList {
      */
     public Task addEvent(String description, LocalDate from, LocalDate to) {
         Task event = new Event(description, from, to);
-        this.taskList.add(event);
+        taskList.add(event);
+        Collections.sort(taskList);
         return event;
     }
 
@@ -76,7 +81,7 @@ public class TaskList {
      */
     public Task markAsDone(int index) throws DukeNoTaskFoundException {
         try {
-            Task task = this.taskList.get(index - 1);
+            Task task = taskList.get(index - 1);
             task.markAsDone();
             return task;
         } catch (IndexOutOfBoundsException e) {
@@ -110,9 +115,10 @@ public class TaskList {
      */
     public Task delete(int index) throws DukeNoTaskFoundException {
         try {
-            Task task = this.taskList.get(index - 1);
-            this.taskList.remove(index - 1);
+            Task task = taskList.get(index - 1);
+            taskList.remove(index - 1);
             assert !taskList.contains(task) : "The task should be removed from taskList";
+            Collections.sort(taskList);
             return task;
         } catch (IndexOutOfBoundsException e) {
             throw new DukeNoTaskFoundException();
@@ -126,7 +132,7 @@ public class TaskList {
      * @return An ArrayList of tasks that match the search criteria.
      */
     public ArrayList<Task> find(String target) {
-        return this.taskList.stream()
+        return taskList.stream()
                 .filter(task -> task.getDescription().contains(target))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
