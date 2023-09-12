@@ -68,7 +68,8 @@ public class TaskList extends ArrayList<Task> implements Serializable {
      * @return the task that was tagged
      */
     public Task addTag(int index, String tag) {
-        this.get(index).addTag(tag);
+        boolean addSucceeded = this.get(index).addTag(tag);
+        assert addSucceeded : String.format("Tried to add tag %s at %s, but failed!", tag, index);
         return this.get(index);
     }
 

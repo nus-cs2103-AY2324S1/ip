@@ -49,6 +49,6 @@ public class TagHandler implements CommandHandler {
             throw new TaskListBoundsException(session.getTaskList().size(), index, null);
         }
         String tag = unnamedArgs.get(1);
-        return session.getTaskList().addTag(index, tag).toPrintString();
+        return sessionTaskList.addTag(index, tag).toPrintString();
     }
 }

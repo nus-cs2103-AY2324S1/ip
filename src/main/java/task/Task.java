@@ -1,6 +1,7 @@
 package task;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ public abstract class Task implements Serializable {
     /**
      * Tag of this task
      */
-    private List<String> tags;
+    private List<String> tags = new ArrayList<>();
 
     /**
      * The (protected) constructor for this task, mostly for inheritance by subclasses
@@ -61,8 +62,8 @@ public abstract class Task implements Serializable {
         } else if (!this.isDone) {
             statusIcon = " ";
         }
-        return String.format("[%s] %s", statusIcon, this.taskName);
-        // return in format [statusIcon] taskname
+        return String.format("[%s] %s #%s", statusIcon, this.taskName, this.tags);
+        // return in format [statusIcon] taskname #tags
     }
 
     /**
