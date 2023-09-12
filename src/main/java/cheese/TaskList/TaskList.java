@@ -21,6 +21,7 @@ public class TaskList {
    */
   public void addTask(Task task) {
     cheeseList.add(task);
+    assert cheeseList.size() > 0 : "TaskList should not be empty";
   }
 
   /**
@@ -37,7 +38,10 @@ public class TaskList {
    * @return Task .
    */
   public Task getTask(int index) {
+    assert index >= 0 : "Index should be positive";
+    assert index < cheeseList.size() : "Index should be less than size of list";
     return cheeseList.get(index);
+    
   }
 
 
