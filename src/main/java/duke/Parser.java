@@ -5,6 +5,8 @@ package duke;
  */
 public class Parser {
     private String userCommand;
+    private static final Integer COMMAND = 0;
+    private static final Integer TASKINFP = 1;
 
     /**
      * Constructs new <code>Parser</code> object.
@@ -21,9 +23,12 @@ public class Parser {
     public String parseAndRespond() throws DukeException {
         String[] splitted = userCommand.split(" ", 2);
         assert splitted != null : "there should be a command";
+        String command = splitted[0];
+
         String response = "Huhhhhhhh??? (o_O) ? "
                 + "Please use one of the command words: todo, event, deadline, list, mark, unmark, delete, bye";
-        switch (splitted[0]) {
+
+        switch (command) {
         case "list":
             response = Ui.listTasks();
             assert response != null : "response should be given";

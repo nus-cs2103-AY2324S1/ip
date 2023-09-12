@@ -14,8 +14,7 @@ public class Duke {
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/batblob2.png"));
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets response from Duke chatbot based on user input.
      */
     String getResponse(String input) {
         try {
@@ -23,7 +22,6 @@ public class Duke {
         } catch (DukeException e) {
             return "Sorry, I don't understand that o(TヘTo)";
         }
-
     }
 
     /**
@@ -38,15 +36,19 @@ public class Duke {
         storage = new Storage("duke.txt");
         assert storage != null : "No storage created";
         toDo = new TaskList();
+
         storage.load();
+
         String respondMsg = "Parsing command...";
         Parser parseCommand = new Parser(userInput);
+
         try {
             respondMsg = parseCommand.parseAndRespond();
             assert respondMsg != "Parsing command..." : "command not parsed";
         } catch (DukeException e) {
             respondMsg = e.getMessage();
         }
+
         return respondMsg;
     }
 }
