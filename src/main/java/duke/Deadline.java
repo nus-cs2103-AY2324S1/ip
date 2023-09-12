@@ -6,15 +6,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * one of the Tasks that user's can add into their list
+ * One of the Tasks that users can add to their list
  */
 public class Deadline extends Task {
     private LocalDateTime by;
 
     /**
      * Constructor to initialise a Deadline object
-     * @param description the Task description that is obtained from the Task class
-     * @param by the deadline time component that is stored as a LocalDateTime
+     * @param description The Task description
+     * @param by The time component that is stored as a LocalDateTime
      */
     private Deadline(String description, LocalDateTime by) {
         super(description);
@@ -30,9 +30,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * A method to convert the LocalDateTime to a String in "MMM d yyyy h:mma" format
-     * @param dateTime the stored LocalDateTime
-     * @return a String
+     * Converts a LocalDateTime to a String in "MMM d yyyy h:mma" format
+     * @param dateTime The LocalDateTime input
+     * @return The formatted string
      */
     public static String localDatetoString(LocalDateTime dateTime) {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mma");
@@ -41,22 +41,22 @@ public class Deadline extends Task {
     }
 
     /**
-     * A constructor that takes in a String time component and returns a Deadline with LocalDateTime field
+     * Public constructor that takes in a String time component and calls the private constructor
      * @param description String description
-     * @param timeComponent Time component of the Deadline in a form of a String
+     * @param timeComponent Time component of the Deadline in a form of a string
      * @return Deadline object
-     * @throws DukeException if invalid input for timeComponent
+     * @throws DukeException If invalid input for time component
      */
     public static Deadline newDeadline(String description, String timeComponent) throws DukeException {
         return new Deadline(description, convertToLocalDateTime(timeComponent));
     }
     /**
-     * A function that takes in the by part of a duke.Deadline duke.Task, and converts it to a LocalDateTime
+     * Converts 'by' part of Deadline Task to a LocalDateTime
      * For example, the input 'Sunday 1700' will return the corresponding LocalDateTime
      *
-     * @param string the by part of the duke.Deadline duke.Task
-     * @return the LocalDateTime corresponding to the duke.Deadline
-     * @throws DukeException if a specific time in 24hr format is not put
+     * @param string The 'by' part of the Deadline Task
+     * @return The LocalDateTime object
+     * @throws DukeException If time component is of invalid format
      */
     public static LocalDateTime convertToLocalDateTime(String string) throws DukeException {
         if (string.indexOf('/') != -1) {
@@ -76,18 +76,18 @@ public class Deadline extends Task {
             LocalDateTime dateTime = parseDateTime(string, "-");
             return dateTime;
         } else { // "Mon 1800"
-            // problem 1: it goes backwards in time in certain cases
+            // problem: it goes backwards in time in certain cases
             LocalDateTime dateTime = parseDateTime(string, "NIL");
             return dateTime;
         }
     }
     /**
-     * A function that helps convert a string to a LocalDateTime
+     * Converts a string to a LocalDateTime
      *
-     * @param userInput the by part of the duke.Deadline duke.Task, e.g. "2/12/2019 1800"
-     * @param c whether the duke.Deadline is put in a '-' format or '/' format
-     * @return a LocalDateTime
-     * @throws DukeException if a specific time in 24hr format is not put
+     * @param userInput The 'by' part of a Deadline Task, e.g. "2/12/2019 1800"
+     * @param c Whether the Deadline is put in a '-' format or '/' or neither format
+     * @return LocalDateTime object
+     * @throws DukeException If time component is of invalid format
      */
     public static LocalDateTime parseDateTime(String userInput, String c) throws DukeException {
         String[] parts = userInput.split(" ");
@@ -97,6 +97,9 @@ public class Deadline extends Task {
 
         String datePart = parts[0];
         String timePart = parts[1];
+        if (timePart.contains("am") || timePart.contains("pm")) {
+            throw new DukeException("time must be of 24hr format! eg. 1700");
+        }
 
         String[] dateComponents;
         if (c.equals("NIL")) {
@@ -104,6 +107,7 @@ public class Deadline extends Task {
             int month = LocalDate.now().getMonth().getValue();
             int daysToAdd = -LocalDateTime.now().getDayOfWeek().compareTo(getDayOfWeek(datePart.toUpperCase()));
             // compares today's DAY with the DAY in userInput, and returns the number of days to add
+            int date = LocalDate.now().getDayOfMonth() + daysToAdd;
 
             int hour = Integer.parseInt(timePart.substring(0, 2));
             int minute = Integer.parseInt(timePart.substring(2, 4));
@@ -111,8 +115,6 @@ public class Deadline extends Task {
             LocalDate temp = LocalDate.of(year, month, 1);
             int maxDaysOfMonth = temp.lengthOfMonth();
             // represents the maximum no. of days in that month
-
-            int date = LocalDate.now().getDayOfMonth() + daysToAdd;
             if (date > maxDaysOfMonth) {
                 // Date overflows, adjust LocalDateTime to the next month
                 return LocalDateTime.of(year, month + 1, date - maxDaysOfMonth, hour, minute);
@@ -140,11 +142,10 @@ public class Deadline extends Task {
     }
 
     /**
-     * A function that takes in a user input that is the day of the week and returns the
-     * corresponding DayOfWeek
+     * Takes in a user input and returns the corresponding DayOfWeek
      *
-     * @param string the user input that is a day of the week, e.g. "sun", "Tuesday", "Mon"
-     * @return the DayOfWeek as an enum
+     * @param string The user input that is a day of the week, e.g. "sun", "Tuesday", "Mon"
+     * @return The DayOfWeek object
      */
     public static DayOfWeek getDayOfWeek(String string) throws DukeException {
         DayOfWeek result;

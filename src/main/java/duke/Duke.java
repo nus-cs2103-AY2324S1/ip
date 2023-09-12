@@ -32,7 +32,7 @@ public class Duke extends Application implements Serializable {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeException | IOException | ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             createTxtFile();
             tasks = new TaskList();
         }

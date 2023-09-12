@@ -1,17 +1,17 @@
 package duke;
 
 /**
- * one of the Tasks that user's can add into their list
+ * One of the Tasks that user's can add into their list
  */
 public class Event extends Task {
     private String from;
     private String to;
 
     /**
-     * constructor to initialise an Event object
-     * @param description the Task description that is obtained from the Task class
-     * @param from the from part of the Event time component
-     * @param to the by part of the Event time component
+     * Constructor to initialise an Event object
+     * @param description The Task description
+     * @param from The 'from' time component
+     * @param to The 'by' time component
      */
     private Event(String description, String from, String to) {
         super(description);
