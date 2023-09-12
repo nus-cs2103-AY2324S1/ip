@@ -30,6 +30,7 @@ public abstract class Command {
                 }
                 String description = input.substring(5);
                 return description;
+
             } else if (task.equalsIgnoreCase("deadline")) {
                 int endIndex = input.indexOf("/by");
                 if (input.length() < 9 || endIndex == -1) {
@@ -37,6 +38,7 @@ public abstract class Command {
                 }
                 String description = input.substring(9, endIndex);
                 return description;
+
             } else if (task.equalsIgnoreCase("event")) {
                 int endIndex = input.indexOf("/from");
                 if (input.length() < 6 || endIndex == -1) {
@@ -44,6 +46,7 @@ public abstract class Command {
                 }
                 String description = input.substring(6, endIndex);
                 return description;
+
             } else {
                 throw new DukeException("You are missing the task. This is unacceptable.");
             }
@@ -96,7 +99,6 @@ public abstract class Command {
     public static String getEndDate(String task, String input) throws DukeException {
         String startWord = task.equalsIgnoreCase("deadline") ? "/by" : "/to";
         int startIndex = input.indexOf(startWord) + startWord.length() + 1;
-
         if (startIndex > input.length()) {
             throw new DukeException("You are missing the end date. This is unacceptable.");
         }

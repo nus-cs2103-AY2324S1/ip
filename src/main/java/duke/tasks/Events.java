@@ -25,7 +25,6 @@ public class Events extends duke.tasks.Task {
         LocalDateTime endDateParsed = LocalDateTime.parse(endDate.trim(), formatter);
         this.startDate = startDateParsed;
         this.endDate = endDateParsed;
-
     }
 
     /**
