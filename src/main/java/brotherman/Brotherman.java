@@ -60,27 +60,6 @@ public class Brotherman extends Application {
         this.taskList = storage.readFromFile();
     }
 
-    /**
-     * Runs the Brotherman chatbot
-     */
-    //public void run() {
-    //    ui.showWelcomeMessage();
-    //    boolean isExit = false;
-    //    while (!isExit) {
-    //        try {
-    //            String fullCommand = ui.readCommand();
-    //            ui.showLine();
-    //            Command command = Parser.parse(fullCommand);
-    //            command.execute(taskList, ui, storage);
-    //            isExit = command.isExit();
-    //        } catch (BrothermanException e) {
-    //            ui.showError(e.getMessage());
-    //        } finally {
-    //            ui.showLine();
-    //        }
-    //    }
-    //}
-
     @Override
     public void start(Stage stage) {
         //Step 1. Setting up required components
