@@ -1,6 +1,8 @@
-package duke.ui;
+package cringebot.ui;
 
-import duke.Duke;
+import java.util.Objects;
+
+import cringebot.CringeBot;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,8 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
-import java.util.Objects;
 
 /**
  * Main window for the chat interface
@@ -24,11 +24,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private CringeBot cringeBot;
 
     private final Image userImage = new Image(
             Objects.requireNonNull(this.getClass().getResourceAsStream("/images/ChadUser.jpeg")));
-    private final Image dukeImage = new Image(
+    private final Image cringeBotImage = new Image(
             Objects.requireNonNull(this.getClass().getResourceAsStream("/images/CringeBot.jpeg")));
 
     /**
@@ -38,30 +38,30 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(Ui.greetUser(), dukeImage)
+                DialogBox.getCringeBotDialog(Ui.greetUser(), cringeBotImage)
         );
     }
 
     /**
-     * Sets the chat bot to be used throughout
+     * Sets the chatbot to be used throughout
      *
-     * @param d chat bot to be used
+     * @param d chatbot to be used
      */
-    public void setDuke(Duke d) {
-        this.duke = d;
+    public void setCringeBot(CringeBot d) {
+        this.cringeBot = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing CringeBot reply and then
+     * appends them to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = cringeBot.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getCringeBotDialog(response, cringeBotImage)
         );
         userInput.clear();
     }

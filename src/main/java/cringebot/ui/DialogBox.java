@@ -1,4 +1,4 @@
-package duke.ui;
+package cringebot.ui;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -70,7 +70,7 @@ public class DialogBox extends HBox {
      * @param img Image of CringeBot
      * @return DialogBox wrapping the text and image
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getCringeBotDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

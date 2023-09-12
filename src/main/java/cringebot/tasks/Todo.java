@@ -1,4 +1,4 @@
-package duke.tasks;
+package cringebot.tasks;
 
 /**
  * Class to create a Todo.
@@ -24,6 +24,7 @@ class Todo extends Task {
         String checkBox;
         char taskType1 = 'T';
         String taskType = String.format("[%c]", taskType1);
+
         if (super.isMarked()) {
             checkBox = "[X]";
         } else {
