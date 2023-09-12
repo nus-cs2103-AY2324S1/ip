@@ -1,5 +1,6 @@
 package duke;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -49,6 +50,23 @@ public class Event extends Task {
         String to = text.split("to:")[1].split("\\)")[0].strip();
         Event updatedEvent = new Event(desc, from, to);
         tasks.add(updatedEvent);
+    }
+
+    public void update(String userOutput) {
+        String[] splitDes = userOutput.split("/desc");
+        if (splitDes.length > 1) {
+            this.description = splitDes[1].split("\"")[1];
+        }
+        String[] splitFrom = userOutput.split("/from");
+        if (splitFrom.length > 1) {
+            this.from = splitFrom[1].split(" ")[1].strip();
+        }
+        String[] splitTo = userOutput.split("/to");
+        if (splitTo.length > 1) {
+            this.to = splitTo[1].split(" ")[1].strip();
+        }
+        System.out.println("Got it. Task is successfully updated:");
+        System.out.println(this);
     }
 
     @Override

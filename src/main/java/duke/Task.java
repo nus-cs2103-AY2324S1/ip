@@ -21,6 +21,8 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public abstract void update(String splitOutput);
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;

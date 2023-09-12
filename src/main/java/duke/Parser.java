@@ -32,6 +32,8 @@ public class Parser {
                 inputList.unmark(splitOutput);
             } else if (userOutput.equals("bye")) {
                 return true;
+            } else if (splitOutput[0].equals("update")) {
+                inputList.update(userOutput);
             } else {
                 throw new InvalidInputException();
             }

@@ -55,6 +55,19 @@ public class Deadline extends Task {
         tasks.add(updatedDeadline);
     }
 
+    public void update(String userOutput) {
+        String[] splitDes = userOutput.split("/desc");
+        if (splitDes.length > 1) {
+            this.description = splitDes[1].split("\"")[1];
+        }
+        String[] splitBy = userOutput.split("/by");
+        if (splitBy.length > 1) {
+            this.by = LocalDate.parse(splitBy[1].split(" ")[1].strip());
+        }
+        System.out.println("Got it. Task is successfully updated:");
+        System.out.println(this);
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";

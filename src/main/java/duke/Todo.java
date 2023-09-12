@@ -1,5 +1,6 @@
 package duke;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -43,6 +44,15 @@ public class Todo extends Task {
 
         Todo updatedTodo = new Todo(text);
         tasks.add(updatedTodo);
+    }
+
+    public void update(String userOutput) {
+        String[] splitDes = userOutput.split("/desc");
+        if (splitDes.length > 1) {
+            this.description = splitDes[1].split("\"")[1];
+        }
+        System.out.println("Got it. Task is successfully updated:");
+        System.out.println(this);
     }
 
     @Override

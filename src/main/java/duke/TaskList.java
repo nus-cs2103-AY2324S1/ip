@@ -102,4 +102,9 @@ public class TaskList {
             System.out.println(i + 1 + ". " + filteredList.get(i).toString());
         }
     }
+
+    public void update(String userOutput) {
+        Task selectedTask = tasks.get(Integer.parseInt(userOutput.split(" ")[1]) - 1);
+        selectedTask.update(userOutput);
+    }
 }
