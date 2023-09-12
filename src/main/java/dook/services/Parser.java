@@ -2,22 +2,10 @@ package dook.services;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
 
 import dook.DookException;
-import dook.command.AddTaskCommand;
-import dook.command.AfterCommand;
-import dook.command.BeforeCommand;
-import dook.command.ByeCommand;
-import dook.command.Command;
-import dook.command.CommandInfo;
-import dook.command.DeleteTaskCommand;
-import dook.command.DuringCommand;
-import dook.command.FindCommand;
-import dook.command.InvalidCommand;
-import dook.command.ListCommand;
-import dook.command.MarkCommand;
-import dook.command.SaveCommand;
-import dook.command.UnmarkCommand;
+import dook.command.*;
 import dook.task.Deadline;
 import dook.task.Event;
 import dook.task.Task;
@@ -35,12 +23,41 @@ public class Parser {
     private static final String DELETE_GUIDE_MSG = "Usage: delete [task number]";
     private static final String DATE_FORMAT_ERROR_MSG = "Improper Date Format";
     private static final String FIND_GUIDE_MSG = "Usage: find [query]";
-    private static CommandInfo parseKeyword(String keyword) {
-        try {
-            return CommandInfo.valueOf(keyword);
-        } catch (IllegalArgumentException e) {
-            return CommandInfo.invalid;
+    private static final String ALIAS_GUIDE_MSG = "Usage: alias [keyword] [command name]";
+
+    private HashMap<String, CommandInfo> aliasMap = new HashMap<>();
+
+    public void addMapping(String string) {
+        String[] str = string.split("//");
+        String alias = str[0].trim();
+        CommandInfo cmd = CommandInfo.valueOf(str[1].trim());
+        aliasMap.put(alias, cmd);
+    }
+
+    public void addMapping(String str, CommandInfo cmd) {
+        aliasMap.put(str, cmd);
+    }
+
+    public void initialise() {
+        for (CommandInfo c : CommandInfo.values()) {
+            aliasMap.put(c.getName(), c);
         }
+    }
+
+    public String getAliasesAsSaveableString() {
+        final StringBuilder result = new StringBuilder();
+        aliasMap.forEach((str, cmd) -> {
+            result.append(str + "//" + cmd.getName() + "\n");
+        });
+        return result.toString();
+    }
+
+    private CommandInfo parseKeyword(String keyword) {
+        CommandInfo result = aliasMap.get(keyword);
+        if (result != null) {
+            return result;
+        }
+        return CommandInfo.invalid;
     }
 
     /**
@@ -83,6 +100,8 @@ public class Parser {
             return handleDuring(body);
         case find:
             return handleFind(body);
+        case alias:
+            return handleAlias(body);
         default:
             return new InvalidCommand();
         }
@@ -197,5 +216,19 @@ public class Parser {
         }
         String keyword = body.split(" ")[0].trim();
         return new FindCommand(keyword);
+    }
+
+    private Command handleAlias(String body) throws DookException {
+        if (body.isBlank()) {
+            throw new DookException(ALIAS_GUIDE_MSG);
+        }
+        String alias = body.split(" ")[0].trim();
+        CommandInfo cmd;
+        try {
+            cmd = CommandInfo.valueOf(body.split(" ")[1].trim());
+        } catch (IllegalArgumentException e) {
+            throw new DookException(ALIAS_GUIDE_MSG);
+        }
+        return new AddAliasCommand(alias, cmd);
     }
 }

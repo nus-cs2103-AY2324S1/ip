@@ -13,7 +13,9 @@ import dook.services.TaskList;
  *  Class containing the main execution function.
  */
 public class Dook {
-    public static final Path PROPER_PATH = Paths.get("dook.txt");
+    public static final Path TASKLIST_PATH = Paths.get("dook.txt");
+
+    public static final Path ALIASES_PATH = Paths.get("commandAliases.txt");
     private final Storage storage;
     private final Parser parser;
     private TaskList taskList = new TaskList(null);
@@ -24,7 +26,7 @@ public class Dook {
      * Assigns the proper file path to Storage.
      */
     public Dook() {
-        this.storage = new Storage(PROPER_PATH);
+        this.storage = new Storage(TASKLIST_PATH, ALIASES_PATH);
         this.parser = new Parser();
     }
 
@@ -37,8 +39,15 @@ public class Dook {
      * @return The saved task list, or an error message otherwise.
      */
     public String initialise() {
+        parser.initialise();
         try {
-            taskList = new TaskList(storage.load());
+            storage.loadAliasesFromFile(parser);
+        } catch (DookException d) {
+            return "Failed to read saved aliases";
+        }
+
+        try {
+            taskList = new TaskList(storage.loadTasksFromFile());
             return taskList.toString();
         } catch (DookException d) {
             taskList = new TaskList(new ArrayList<>());
@@ -52,7 +61,7 @@ public class Dook {
             if (c.getIsExit()) {
                 this.isExit = true;
             }
-            return c.execute(storage, taskList);
+            return c.execute(storage, taskList, parser);
         } catch (DookException e) {
             return e.getMessage();
         }
