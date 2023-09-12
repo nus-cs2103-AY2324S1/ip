@@ -32,7 +32,7 @@ public class Peko extends Application implements EventHandler<ActionEvent> {
 
     public static void main(String[] args) {
         //Application.launch(GUIController.class, args);
-        new Peko().run();
+        //new Peko().run();
 
     }
     public void run() {
@@ -132,10 +132,10 @@ public class Peko extends Application implements EventHandler<ActionEvent> {
     }
     private void handleUserInput() {
         String text = userInput.getText();
-        Label userText = new Label(text);
         userInputHandler.newInput(text);
-        userInputHandler.processInput();
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        Label userText = new Label(text);
+        System.out.println("Processing");
+        Label dukeText = new Label(userInputHandler.getResponse());
         DialogBox userDB = DialogBox.getUserDialog(userText, new ImageView(user));
         DialogBox pekoDB = DialogBox.getPekoDialog(dukeText, new ImageView(peko));
         dialogContainer.getChildren().addAll(

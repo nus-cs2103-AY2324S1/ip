@@ -40,6 +40,7 @@ public class UserInputHandler {
     }
 
     public boolean processInput() {
+        //System.out.println("Processing");
         TaskHandler taskHandler = new TaskHandler(command, description);
         return taskHandler.run();
     }

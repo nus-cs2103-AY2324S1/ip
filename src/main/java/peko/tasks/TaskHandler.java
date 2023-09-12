@@ -149,6 +149,7 @@ public class TaskHandler {
     }
 
     public boolean run() {
+        System.out.println("running");
         try {
 
             switch (command) {
