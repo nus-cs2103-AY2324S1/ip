@@ -26,7 +26,6 @@ public class Storage {
             if (!this.file.exists()) {
                 this.file.createNewFile();
             }
-            assert this.file.exists();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
