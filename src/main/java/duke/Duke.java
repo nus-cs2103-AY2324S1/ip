@@ -8,7 +8,6 @@ import duke.task.TaskList;
  * Duke allows users to manage their tasks through a command-line interface.
  */
 public class Duke {
-
     private Storage storage;
     private TaskList tasks;
     private Response response;
@@ -26,6 +25,9 @@ public class Duke {
         } catch (DukeException e) {
             response.printException(e.getMessage());
         }
+        assert response != null : "Response should not be null";
+        assert storage != null : "Storage should not be null";
+        assert tasks != null : "Tasks should not be null";
     }
 
     /**
