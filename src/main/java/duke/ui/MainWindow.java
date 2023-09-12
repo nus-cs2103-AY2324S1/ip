@@ -30,6 +30,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/ronaldo.jpeg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/joseBot.jpeg"));
 
+    /**
+     * Initialize when the main window is generated.
+     */
     @FXML
     public void initialize() {
         dialogContainer.getChildren().add(

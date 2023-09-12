@@ -3,10 +3,10 @@ package duke.commands;
 import java.io.IOException;
 
 import duke.exception.DukeException;
+import duke.tasks.ToDos;
+import duke.ui.Ui;
 import duke.utilities.Storage;
 import duke.utilities.TaskList;
-import duke.ui.Ui;
-import duke.tasks.ToDos;
 
 /**
  * A command to create a ToDo task.

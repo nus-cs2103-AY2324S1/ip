@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 import duke.exception.DukeException;
+import duke.tasks.Events;
+import duke.ui.Ui;
 import duke.utilities.Storage;
 import duke.utilities.TaskList;
-import duke.ui.Ui;
-import duke.tasks.Events;
 
 /**
  * A command to called to initialize an event.

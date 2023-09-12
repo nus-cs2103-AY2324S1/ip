@@ -3,9 +3,9 @@ package duke.commands;
 import java.io.IOException;
 
 import duke.exception.DukeException;
+import duke.ui.Ui;
 import duke.utilities.Storage;
 import duke.utilities.TaskList;
-import duke.ui.Ui;
 
 /**
  * A command to mark a task in the tasklist as done.

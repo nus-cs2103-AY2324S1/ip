@@ -1,5 +1,7 @@
 package duke.ui;
 
+import java.io.IOException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,8 +13,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-import java.io.IOException;
-
+/**
+ * This represents a dialog box consisting of an image representing the user and
+ * text from the user.
+ */
 public class DialogBox extends HBox {
 
     @FXML
@@ -20,6 +24,11 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Instantiate the dialog box object to store the image and text written by user.
+     * @param input Input from user.
+     * @param img Picture of user.ß
+     */
     public DialogBox(String input, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBoxExtra.fxml"));
@@ -29,8 +38,8 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        dialog.setStyle("-fx-background-color: #c2dadf;" +
-                "-fx-padding: 10px; -fx-background-radius: 20px;");
+        dialog.setStyle("-fx-background-color: #c2dadf;"
+                + "-fx-padding: 10px; -fx-background-radius: 20px;");
         dialog.setText(input);
         displayPicture.setImage(img);
     }

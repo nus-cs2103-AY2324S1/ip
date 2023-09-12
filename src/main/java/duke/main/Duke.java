@@ -1,14 +1,13 @@
 package duke.main;
 
 import java.io.IOException;
-import java.util.Scanner;
 
-import duke.utilities.TaskList;
-import duke.ui.Ui;
 import duke.commands.Command;
 import duke.exception.DukeException;
+import duke.ui.Ui;
 import duke.utilities.Parser;
 import duke.utilities.Storage;
+import duke.utilities.TaskList;
 
 /**
  * Main ChatBot class.

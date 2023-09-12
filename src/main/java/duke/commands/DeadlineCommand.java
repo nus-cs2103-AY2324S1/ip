@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 import duke.exception.DukeException;
+import duke.tasks.Deadlines;
+import duke.ui.Ui;
 import duke.utilities.Storage;
 import duke.utilities.TaskList;
-import duke.ui.Ui;
-import duke.tasks.Deadlines;
 
 /**
  * A command to create a deadline task.

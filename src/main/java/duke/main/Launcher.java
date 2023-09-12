@@ -1,12 +1,12 @@
 package duke.main;
 
-import java.io.IOException;
 import javafx.application.Application;
 
-import duke.exception.DukeException;
-
+/**
+ * A launcher class to start the program
+ */
 public class Launcher {
-    public static void main(String[] args) throws DukeException, IOException {
+    public static void main(String[] args) {
         Application.launch(Main.class, args);
     }
 }
