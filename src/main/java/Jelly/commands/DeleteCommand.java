@@ -3,6 +3,7 @@ package Jelly.commands;
 import Jelly.main.Storage;
 import Jelly.main.TaskList;
 import Jelly.main.Ui;
+import Jelly.task.Task;
 
 public class DeleteCommand extends Command {
 
@@ -13,14 +14,15 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         if (index <= 0 || index > 100 || index > taskList.size()) {
-            System.out.println("Invalid input");
+            return ("Invalid input");
         } else if (taskList.get(index - 1) != null) {
-            ui.deleteMessage(taskList.get(index - 1), taskList.size() - 1);
+            Task t = taskList.get(index - 1);
             taskList.delete(index - 1);
+            return ui.deleteMessage(t, taskList.size());
         } else {
-            System.out.println("Invalid input");
+            return ("Invalid input");
         }
     }
 }

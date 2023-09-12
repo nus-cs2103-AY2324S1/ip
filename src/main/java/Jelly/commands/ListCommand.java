@@ -7,7 +7,7 @@ import Jelly.main.Ui;
 public class ListCommand extends Command {
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.printList(taskList.getTasks());
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.printList(taskList.getTasks());
     }
 }

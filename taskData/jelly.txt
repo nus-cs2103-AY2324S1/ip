@@ -1,3 +1,4 @@
 T | 1 | Do that
 D | 0 | Do this thing | 18/12/2020 1900
 T | 0 | This thing 
+D | 0 | do this thing  | 
