@@ -31,8 +31,16 @@ public class KniazOutputFlavourer {
                     InstructionType.FIND,
                     "I have searched the records. Here are the results :",
                     InstructionType.INVALID,
-                    "I do not recognise this command.[THIS SHOULD NORMALLY NOT BE SEEN]"
+                    "I do not recognise this command."
             ));
+
+    static {
+        // This ensures that at compile time all instruction types have an explicit, valid handler
+        for (InstructionType i : InstructionType.values()) {
+            assert(INSTRUCT_TO_FLAVOURSTRING.containsKey(i))
+                    : "There was a command " + i.alias + "with no associated flavour string!";
+        }
+    }
 
     /**
      * Constructor for the class
@@ -47,8 +55,7 @@ public class KniazOutputFlavourer {
      * @return the flavour string
      */
     public String getFlavourFor(InstructionType instr) {
-        return INSTRUCT_TO_FLAVOURSTRING.getOrDefault(instr,
-                "I do not recognise this command.[THIS SHOULD NOT NORMALLY BE SEEN]");
+        return INSTRUCT_TO_FLAVOURSTRING.get(instr);
     }
 
 }
