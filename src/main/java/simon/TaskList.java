@@ -1,6 +1,7 @@
 package simon;
 
 import java.util.ArrayList;
+
 import simon.task.Task;
 
 
