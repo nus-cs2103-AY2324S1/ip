@@ -156,8 +156,8 @@ public class Ui {
      */
     public String showUnmarkMessage(Task task) {
         return showLine() + '\n'
-                + "Ok, I've marked this task as not done yet:"
-                        + task.toString()
+                + "Ok, I've marked this task as not done yet:\n"
+                        + task.toString() + '\n'
                                 + showLine();
     }
 
