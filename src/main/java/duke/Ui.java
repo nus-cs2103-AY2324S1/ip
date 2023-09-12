@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.stream.Collectors;
+
 import duke.task.Task;
 
 /**
@@ -86,13 +88,10 @@ public class Ui {
      * @param tasks The list of tasks to display.
      */
     public String showTaskList(TaskList tasks) {
-        StringBuilder message = new StringBuilder("Here are the tasks in your list:\n");
-        int index = 1;
-        for (Task task : tasks) {
-            message.append(index).append(".").append(task).append("\n");
-            index++;
-        }
-        return message.toString();
+        String message = tasks.stream()
+                .map(Task::toString)
+                .collect(Collectors.joining("\n"));
+        return "Here are the tasks in your list:\n" + message;
     }
 
     /**
@@ -101,13 +100,10 @@ public class Ui {
      * @param tasks The list of tasks found by the keyword.
      */
     public String showFoundTasks(TaskList tasks) {
-        StringBuilder message = new StringBuilder("Here are the matching tasks in your list:\n");
-        int index = 1;
-        for (Task task : tasks) {
-            message.append(index).append(".").append(task).append("\n");
-            index++;
-        }
-        return message.toString();
+        String message = tasks.stream()
+                .map(Task::toString)
+                .collect(Collectors.joining("\n"));
+        return "Here are the matching tasks in your list:\n" + message;
     }
 
     /**
