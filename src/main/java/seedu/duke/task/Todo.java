@@ -11,7 +11,6 @@ import seedu.duke.task.Task;
  * @since 2023-08-29
  */
 public class Todo extends Task {
-
     /**
      * The main constructor of the Todo task.
      *
