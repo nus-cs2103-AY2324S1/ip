@@ -1,7 +1,6 @@
 package duke.task;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.Optional;
 
 import duke.exception.DukeException;
@@ -29,25 +28,13 @@ public class Event extends Task {
     public Event(String description, boolean isMarked, String from, String to) {
         super(description, isMarked, 'E');
 
-        if (from.isEmpty()) {
-            throw new DukeException("The from of a event cannot be empty.");
-        }
-        try {
-            this.from = DatetimeHelper.parse(from);
-        } catch (DateTimeParseException e) {
-            throw new InvalidDatetimeFormatException("from", "event");
-        }
+        this.from = DatetimeHelper.parseField(from, "from", "event");
+        this.to = DatetimeHelper.parseField(to, "to", "event");
+        validateFields();
+    }
 
-        if (to.isEmpty()) {
-            throw new DukeException("The to of a event cannot be empty.");
-        }
-        try {
-            this.to = DatetimeHelper.parse(to);
-        } catch (DateTimeParseException e) {
-            throw new InvalidDatetimeFormatException("to", "event");
-        }
-
-        if (this.from.isAfter(this.to)) {
+    private void validateFields() {
+        if (from.isAfter(to)) {
             throw new DukeException("The from of an event must be before its to");
         }
     }
