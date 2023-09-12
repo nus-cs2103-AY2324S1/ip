@@ -64,7 +64,9 @@ public class Parser {
      * @throws IndexOutOfBoundsException If the index is not within bounds.
      */
     public int getIndex() throws IndexOutOfBoundsException {
-        int index = Integer.parseInt(inputTokens[1]);
+        String input = inputTokens[1];
+        assert input.matches("-?\\d+") : "Non-numeric string entered!";
+        int index = Integer.parseInt(input);
         index--;
         return index;
     }

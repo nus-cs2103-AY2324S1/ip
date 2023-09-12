@@ -1,6 +1,6 @@
 package io;
-
 import java.util.ArrayList;
+
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -21,6 +21,7 @@ public class Ui {
 
     /**
      * Adds input string to the print array.
+     *
      * @param input the String to add to the print array
      */
     public void addPrintStatement(String input) {
@@ -29,6 +30,7 @@ public class Ui {
 
     /**
      * Returns everything in the print array as a single string. Also resets the print array
+     *
      * @return A string representing the output from duke.
      */
     public String getPrintStatement() {
