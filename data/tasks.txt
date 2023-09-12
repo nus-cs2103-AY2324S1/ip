@@ -1,6 +1,4 @@
-false deadline return book /by 2019/05/12 1800
-false event party /from 14/12/2023 2000 /to 2100
-true deadline homework /by 14/01/2025 2000
-false event meetup /from 31/12/2024 1500 /to 2000
-false event workout /from 31/10/2023 0800 /to 2000
-false deadline sell fan /by 2019/12/03 1200
+false event Jamboree /from 22/09/2023 1845 /to  
+false event Dental review /from 04/12/2023 1400 /to 1430
+false event ENT consult /from 09/10/2023 0945 /to 1015
+false deadline CS2100 Assignment 1 /by 18/09/2023 1315

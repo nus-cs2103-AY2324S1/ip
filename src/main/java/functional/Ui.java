@@ -1,7 +1,6 @@
 package functional;
 
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 
 /**
@@ -14,6 +13,7 @@ public class Ui {
 
     /**
      * Constructs an Ui instance with a reference to the String input
+     *
      * @param input The string supplied by the user
      */
     public Ui(String input) {
@@ -27,11 +27,11 @@ public class Ui {
     /**
      * Displays a welcome message
      */
-    public void showWelcome() {
-        System.out.println("____________________________________________________________\n" +
+    public static String showWelcome() {
+        return "____________________________________________________________\n" +
                 " Hello! I'm Husky\n" +
                 " What can I do for you?\n" +
-                "____________________________________________________________");
+                "____________________________________________________________";
     }
 
     /**
@@ -39,16 +39,16 @@ public class Ui {
      *
      * @return The user's input command as a string.
      */
-    public String readCommand() throws DukeException {
-        Scanner io = new Scanner(System.in);
+    public String readCommand(String input) throws DukeException {
         try {
-            String s = io.nextLine();
-            this.currentLine = s.split(" ");
-            this.input = s;
-            return s;
-        } catch (NoSuchElementException e) {
-            throw new DukeException();
+            this.currentLine = input.split(" ");
+            this.input = input;
+            return input;
+        } catch (
+                NoSuchElementException e) {
+            throw new DukeException("");
         }
+
     }
 
     /**
@@ -60,6 +60,7 @@ public class Ui {
 
     /**
      * Obtain the index-th word separated by space
+     *
      * @param index
      * @return the desired word in the command as a string
      */
@@ -86,14 +87,14 @@ public class Ui {
      *
      * @param msg error message to be shown
      */
-    public void showError(String msg) {
-        System.out.println(msg);
+    public String showError(String msg) {
+        return msg;
     }
 
     /**
      * prints a message indicating that no file was previously saved
      */
-    public void showLoadingError() {
-        System.out.println("No preexisting file\n" + "creating new file");
+    public String showLoadingError() {
+        return "No preexisting file\n" + "creating new file";
     }
 }

@@ -21,16 +21,17 @@ public class Command {
      * whether it is loading from memory
      *
      * @param tasks  The task list.
-     * @param ui The user interface.
-     * @param marked  task marked or unmarked
-     * @param load whether the task is being loaded from memory
+     * @param ui     The user interface.
+     * @param marked task marked or unmarked
+     * @param load   whether the task is being loaded from memory
      */
-    public void execute(TaskList<Task> tasks, Ui ui, boolean marked, boolean load) throws DukeException {
+    public String execute(TaskList<Task> tasks, Ui ui, boolean marked, boolean load) throws DukeException {
+        return "";
     }
 
 
     /**
-     * indicate to Duke class whether it is time to end the program
+     * indicate to duke.Husky class whether it is time to end the program
      *
      * @return boolean of whether to end the program
      */

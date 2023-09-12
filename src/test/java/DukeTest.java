@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.Test;
 import tasks.Deadline;
 
-// package Duke;
+// package duke.Duke;
 
 public class DukeTest {
 

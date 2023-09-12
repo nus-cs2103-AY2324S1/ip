@@ -12,8 +12,9 @@ public class Deadline extends Task {
 
     /**
      * Constructs a new Deadline task with the user command and 'mark' status
-     * @param content  input given by the user
-     * @param status marked or unmarked
+     *
+     * @param content input given by the user
+     * @param status  marked or unmarked
      */
     public Deadline(String content, boolean status) {
         super(content, status);
@@ -48,7 +49,6 @@ public class Deadline extends Task {
     }
 
     /**
-     *
      * @param listSize
      * @return a string that contains the message printed when a task is added to TaskList
      */
