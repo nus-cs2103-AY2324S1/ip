@@ -1,9 +1,10 @@
 package corgi.commands;
 
-import corgi.storage.Storage;
-import corgi.tasks.Task;
-import corgi.tasks.TaskList;
+import java.util.Stack;
+
+import corgi.State;
 import corgi.ui.TextRenderer;
+import javafx.util.Pair;
 
 /**
  * Represents a command to exit the application.
@@ -19,14 +20,18 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Executes the command by return an exit message to the user, indicating that the application is terminating.
+     * Executes the command by return an exit message, indicating that the application is terminating.
      *
-     * @param list The task list (not used in this command).
-     * @param renderer The text renderer to return formatted message.
-     * @param storage The storage for saving and loading tasks (not used in this command).
+     * @param currState The current state of the application.
+     * @param history The history stack to store the states.
+     * @return A pair containing the new state and a string message indicating the result of the command execution.
      */
     @Override
-    public String execute(TaskList list, TextRenderer renderer, Storage<Task> storage) {
-        return renderer.showExitMsg();
+    public Pair<State, String> execute(State currState, Stack<Pair<State, Command>> history) {
+        TextRenderer renderer = currState.getTextRenderer();
+
+        String returnMsg = renderer.showExitMsg();
+
+        return new Pair<>(currState, returnMsg);
     }
 }

@@ -7,8 +7,8 @@ import corgi.parsers.TaskParser;
 /**
  * Deadline task, a type of task that need to be done before a specific date/time.
  */
-public class Deadline extends Task {
-    private LocalDate by;
+public final class Deadline extends Task {
+    private final LocalDate by;
 
     /**
      * Initializes a new deadline task with the given description and deadline.
@@ -31,6 +31,22 @@ public class Deadline extends Task {
     public Deadline(boolean status, String desc, LocalDate by) {
         super(status, desc);
         this.by = by;
+    }
+
+    @Override
+    public Deadline markAsDone() throws TaskStatusException {
+        if (status) {
+            throw new TaskStatusException("The task is already marked as done.");
+        }
+        return new Deadline(true, desc, by);
+    }
+
+    @Override
+    public Deadline markAsNotDone() throws TaskStatusException {
+        if (!status) {
+            throw new TaskStatusException("The task is already marked as not done.");
+        }
+        return new Deadline(false, desc, by);
     }
 
     /**

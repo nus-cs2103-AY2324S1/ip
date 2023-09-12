@@ -7,7 +7,7 @@ import corgi.commands.CommandType;
 /**
  * The TextRenderer class is responsible to return message after each command.
  */
-public class TextRenderer {
+public final class TextRenderer {
     private static final String LOGO = "  ____ ___  ____   ____ ___\n"
             + " / ___/ _ \\|  _ \\ / ___|_ _|\n"
             + "| |  | | | | |_) | |  _ | |\n"
@@ -201,5 +201,9 @@ public class TextRenderer {
      */
     public String showTaskList(String taskList) {
         return taskList;
+    }
+
+    public String showUndoSucceed(String commandDesc) {
+        return returnMessage("Undo successful: " + commandDesc);
     }
 }

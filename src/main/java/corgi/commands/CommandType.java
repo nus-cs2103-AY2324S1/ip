@@ -13,7 +13,8 @@ public enum CommandType {
     LIST("list"),
     DELETE("delete [task no.]"),
     DATE("date [yyyy-mm-dd]"),
-    FIND("find [keyword]");
+    FIND("find [keyword]"),
+    UNDO("undo");
 
     private final String commandFormat;
 
@@ -55,6 +56,8 @@ public enum CommandType {
             return DATE;
         case "find":
             return FIND;
+        case "undo":
+            return UNDO;
         default:
             throw new InvalidCommandException();
         }
