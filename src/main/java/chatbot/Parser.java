@@ -12,14 +12,16 @@ public class Parser {
     private TaskList taskHandler;
     /** Storage to load and write files. */
     private Storage storage;
+    private ExpenseReport expenseReport;
 
     /**
      * Constructor for Parser. Initialises the UI, taskHandler, storage.
      */
-    public Parser(UI ui, TaskList taskHandler, Storage storage) {
+    public Parser(UI ui, TaskList taskHandler, Storage storage, ExpenseReport expenseReport) {
         this.ui = ui;
         this.taskHandler = taskHandler;
         this.storage = storage;
+        this.expenseReport = expenseReport;
     }
 
     // Purely for testing purposes.
@@ -37,6 +39,9 @@ public class Parser {
         } else if (input.equals("list")) {
             storage.write(taskHandler.getTaskList());
             return ui.printStorageList(taskHandler.getTaskList());
+
+        } else if (input.equals("report")) {
+            return ui.printExpenseReport(expenseReport.getExpenseReport());
 
         } else if (input.startsWith("unmark")) {
             try {
@@ -81,6 +86,22 @@ public class Parser {
 
             return ui.deleteTask(task, size);
 
+        } else if (input.startsWith("editExpense")) {
+            try {
+                validateInput(input, 11);
+            } catch (UserInputException e) {
+                return ui.printIncompleteCommand(e.getMessage());
+            }
+
+            String[] splitInput = input.split(" ", 3);
+            int index = Integer.parseInt(splitInput[1]) - 1;
+            String updatedCost = splitInput[2];
+
+            expenseReport.getExpense(index).updateCosts(updatedCost);
+            Expense expense = expenseReport.getExpense(index);
+
+            return ui.printUpdatedExpense(expense);
+
         } else if (input.startsWith("find")) {
             try {
                 validateInput(input, 5);
@@ -94,9 +115,8 @@ public class Parser {
             return ui.printStorageList(filteredList);
 
         } else {
-
             if (!(input.startsWith("todo") || input.startsWith("event") 
-                    || input.startsWith("deadline"))) {
+                    || input.startsWith("deadline") || input.startsWith("expense"))) {
                 return ui.invalidInput();
             } else if (input.startsWith("todo")) {
                 try {
@@ -150,6 +170,22 @@ public class Parser {
                 int index = taskHandler.getSize();
 
                 return ui.addTask(event, index);
+            } else if (input.startsWith("expense")) {
+                try {
+                    validateInput(input, 8);
+                } catch (UserInputException e) {
+                    return ui.printIncompleteCommand(e.getMessage());
+
+                }
+
+                String[] splitInput = input.split("/");
+                String[] getDescription = splitInput[0].split(" ", 2);
+
+                Expense expense = new Expense(getDescription[1], splitInput[1]);
+                expenseReport.addExpense(expense);
+                int index = expenseReport.getSize();
+
+                return ui.addExpense(expense, index);
             }
         }
         assert false : "execution should never reach here";

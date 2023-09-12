@@ -42,20 +42,20 @@ public class DukeTest {
         try {
             parser.validateInput("deadline", 7);
         } catch (UserInputException e) {
-            assertEquals("OOPS!!! The description of a deadline cannot be empty.", 
-                            e.getMessage());
+            assertEquals("OOPS!!! The description of a deadline cannot be empty.",
+                    e.getMessage());
         }
         try {
             parser.validateInput("event", 6);
         } catch (UserInputException e) {
-            assertEquals("OOPS!!! The description of a event cannot be empty.", 
-                            e.getMessage());
+            assertEquals("OOPS!!! The description of a event cannot be empty.",
+                    e.getMessage());
         }
         try {
             parser.validateInput("todo", 5);
         } catch (UserInputException e) {
-            assertEquals("OOPS!!! The description of a todo cannot be empty.", 
-                            e.getMessage());
+            assertEquals("OOPS!!! The description of a todo cannot be empty.",
+                    e.getMessage());
         }
     }
 }

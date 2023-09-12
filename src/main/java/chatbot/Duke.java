@@ -26,6 +26,7 @@ public class Duke extends Application {
     /** taskHandler to store the list of Tasks and do operations. */
     private TaskList taskHandler;
     /** Interprets user input. */
+    private ExpenseReport expenseReport;
     private Parser parser;
 
     private ScrollPane scrollPane;
@@ -47,7 +48,8 @@ public class Duke extends Application {
         this.storage = new Storage("./data/duke.txt");
         this.ui = new UI(storage);
         this.taskHandler = new TaskList();
-        this.parser = new Parser(ui, taskHandler, storage);
+        this.expenseReport = new ExpenseReport();
+        this.parser = new Parser(ui, taskHandler, storage, expenseReport);
         this.isFirstResponse = true;
     }
 
