@@ -40,6 +40,11 @@ public class Parser {
         case "bye":
             storage.save(taskList.getAllTasks());
             return ui.endMessage();
+        case "help":
+            return ui.helpMessage();
+        case "status":
+            return ui.showCompletedList(taskList.getCompletedTaskList(),
+                    taskList.getPercentageCompleted());
         default:
             if (command.startsWith("mark ")) {
                 return printMark(command, taskList);
