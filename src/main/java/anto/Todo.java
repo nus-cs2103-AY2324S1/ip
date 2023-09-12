@@ -18,6 +18,7 @@ public class Todo extends Task {
      * @return Task in storage format.
      */
     public String getStoreFormat() {
+        assert this.description != null;
         return String.format("\nT | %s | %s", this.isDone ? "1" : "0", this.description);
     }
 
@@ -28,6 +29,7 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
+        assert this.getStatusIcon() != null;
         return String.format("[T] [%s] %s",
                 this.getStatusIcon(),
                 super.toString());

@@ -29,7 +29,6 @@ public class Storage {
         this.relativePath = filePath;
         this.absolutePath = Paths.get(relativePath).toAbsolutePath();
         this.antoFile = absolutePath.toFile();
-
     }
 
     /**
@@ -42,6 +41,8 @@ public class Storage {
         try {
             ArrayList<Task> taskList = new ArrayList<>();
 
+            assert this.ui != null;
+            assert this.antoFile != null;
             // If file doesn't exist
             if (!antoFile.exists()) {
                 antoFile.createNewFile();

@@ -41,6 +41,11 @@ public class MainWindow extends AnchorPane {
      */
     public void setAnto(Anto a) {
         anto = a;
+        assert anto.getUi() != null;
+        assert anto.getTaskList() != null;
+        assert anto.getTaskList().getTaskArrayList() != null;
+        assert dukeImage != null;
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getAntoDialog(this.anto.getUi().greet(), dukeImage)
         );
@@ -63,14 +68,21 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert userInput != null;
         String input = userInput.getText();
+
+        assert anto != null;
         String response = anto.getResponse(input);
+
+        assert userImage != null;
+        assert dukeImage != null;
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getAntoDialog(response, dukeImage)
         );
         userInput.clear();
 
+        assert this.anto.getUi() != null;
         if (response.equals(this.anto.getUi().sayBye())) {
             System.exit(0);
         }
