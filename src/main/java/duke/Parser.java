@@ -1,13 +1,7 @@
 package duke;
 
-import duke.command.AddCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.ExitCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.UnmarkCommand;
+import duke.command.*;
+import duke.task.UpdateType;
 
 /**
  * Represents a parser to process commands entered into the chatbot and returns the corresponding Command.
@@ -121,6 +115,90 @@ public class Parser {
     }
 
     /**
+     * Parses the message to be processed into an UpdateCommand that updates one parameter/feature of the task.
+     *
+     * @param message The full message to be parsed.
+     * @return The UpdateCommand parsed from the given message if there are no errors.
+     * @throws DukeException If there is an invalid input message causing an error in parsing the UpdateCommand.
+     */
+    private static UpdateCommand parseUpdateCommand(String message) throws DukeException {
+        assert message.startsWith("update") : message;
+        if (message.length() <= 7) {
+            throw new DukeException("You need to specify which task and what to update.");
+        }
+
+        String[] updateDetails = message.substring(7).split(" ");
+
+        if (updateDetails.length < 3) {
+            throw new DukeException("You need to specify which task and what to update.");
+        }
+
+        int updateIndex;
+
+        try {
+            updateIndex = Integer.parseInt(updateDetails[0]);
+        } catch (NumberFormatException e) {
+            throw new DukeException("The index of the task to update is not a valid integer.");
+        }
+
+        UpdateType updateType;
+        String updateTypeStr = updateDetails[1];
+        StringBuilder updateContent = new StringBuilder();
+
+        for (int i = 2; i < updateDetails.length; i++) {
+            updateContent.append(updateDetails[i]);
+            if (i < updateDetails.length - 1) {
+                updateContent.append(" ");
+            }
+        }
+
+        switch (updateTypeStr.toLowerCase()) {
+        case "message":
+            // fallthrough
+        case "msg":
+            // fallthrough
+        case "description":
+            updateType = UpdateType.DESCRIPTION;
+            break;
+        case "date1":
+            // fallthrough
+        case "from":
+            // fallthrough
+        case "/from":
+            // fallthrough
+        case "deadline":
+            // fallthrough
+        case "/deadline":
+            updateType = UpdateType.DATE1;
+            break;
+        case "date2":
+            // fallthrough
+        case "to":
+            // fallthrough
+        case "/to":
+            updateType = UpdateType.DATE2;
+            break;
+        default:
+            throw new DukeException("Update type is invalid!");
+            // no break needed as exception is thrown
+        }
+
+        return new UpdateCommand(updateIndex, updateType, updateContent.toString());
+    }
+
+    private static CloneCommand parseCloneCommand(String message) throws DukeException {
+        assert message.startsWith("clone") : message;
+        if (message.length() <= 6) {
+            throw new DukeException("You need to specify the index of the task to clone.");
+        }
+        try {
+            return new CloneCommand(Integer.parseInt(message.substring(6)));
+        } catch (NumberFormatException e) {
+            throw new DukeException("The index of the task to clone is not a valid integer.");
+        }
+    }
+
+    /**
      * Parses the message to be processed into an AddCommand that adds an event, then returns that AddCommand.
      *
      * @param message The full message to be parsed.
@@ -174,8 +252,14 @@ public class Parser {
         case "deadline":
             return parseDeadlineCommand(message);
             // return statement, no break needed
+        case "update":
+            return parseUpdateCommand(message);
+            // return statement, no break needed
         case "event":
             return parseEventCommand(message);
+            // return statement, no break needed
+        case "clone":
+            return parseCloneCommand(message);
             // return statement, no break needed
         default:
             throw new DukeException("I'm sorry, but I don't know what that means :-(");

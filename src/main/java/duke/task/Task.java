@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.DukeException;
+
 /**
  * Represents a task, containing a message and whether it is completed or not.
  */
@@ -53,6 +55,14 @@ public abstract class Task {
     }
 
     /**
+     * Updates the given Task with new parameters.
+     * @param type The UpdateType to update the task with.
+     * @param newValue The new value to update the task with.
+     * @throws DukeException If the task is unable to be updated with the new values.
+     */
+    public abstract void update(UpdateType type, String newValue) throws DukeException;
+
+    /**
      * Checks whether the Task message contains a substring.
      *
      * @param substring The substring to search for within the Task message
@@ -64,4 +74,10 @@ public abstract class Task {
 
     public abstract String toSaveFormatString();
     public abstract String toString();
+
+    /**
+     * Clones the internal representation of the task, then returns the new task with the information.
+     * @return The cloned task.
+     */
+    public abstract Task clone();
 }
