@@ -34,6 +34,7 @@ public class AddCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Response response, Storage storage) throws DukeException {
+        assert this.taskType == "T" || this.taskType == "D" || this.taskType == "E" : "taskType should be T/E/D";
         switch (this.taskType) {
         case "T":
             Task newTodo = new Todo(commandDetails.get(0));
