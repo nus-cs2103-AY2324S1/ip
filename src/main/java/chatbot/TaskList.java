@@ -102,12 +102,9 @@ public class TaskList {
      */
     public String findTasks(String name) {
         ArrayList<Task> matchedTasks = new ArrayList<>();
-        taskList.forEach(new Consumer<Task>() {
-            @Override
-            public void accept(Task t) {
-                if (t.getName().contains(name)) {
-                    matchedTasks.add(t);
-                }
+        taskList.forEach(t -> {
+            if (t.getName().contains(name)) {
+                matchedTasks.add(t);
             }
         });
         if (matchedTasks.isEmpty()) {
