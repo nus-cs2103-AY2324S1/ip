@@ -17,7 +17,7 @@ public class Commands {
      * The Enum Class encapsulates all the available commands.
      */
     public enum CommandType {
-        MARK, UNMARK, LIST, EVENT, DEADLINE, TODO, BYE, DELETE, FIND
+        MARK, UNMARK, LIST, EVENT, DEADLINE, TODO, BYE, DELETE, FIND, RESCHEDULE
 
     }
 
@@ -68,6 +68,9 @@ public class Commands {
                     break;
                 case FIND:
                     parser.parseFind(items);
+                    break;
+                case RESCHEDULE:
+                    parser.parseReschedule(items);
                     break;
                 default:
                     throw new DukeException();

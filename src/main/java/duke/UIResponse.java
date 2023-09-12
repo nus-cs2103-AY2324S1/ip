@@ -39,6 +39,8 @@ public class UIResponse {
                     return parser.parseEvent(items);
                 case FIND:
                     return parser.parseFind(items);
+                case RESCHEDULE:
+                    return parser.parseReschedule(items);
                 default:
                     throw new DukeException();
 

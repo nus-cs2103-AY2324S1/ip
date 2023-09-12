@@ -247,6 +247,37 @@ public class ItemList {
         }
     }
 
+    public String checkType(String number) {
+        int index = Integer.valueOf(number) - 1;
+        if (index > this.len || index < 0) {
+            return "OUT_OF_RANGE";
+        }
+        Task toCheck = this.items.get(index);
+        if (toCheck instanceof Deadline) {
+            return "DEADLINE";
+        } else if (toCheck instanceof Event) {
+            return "EVENT";
+        } else if (toCheck instanceof ToDo) {
+            return "TODO";
+        } else {
+            return "NONE";
+        }
+    }
+
+    public String setItems(Task task, String index) {
+        this.items.set(Integer.valueOf(index) - 1, task);
+        try {
+            this.saveAll();
+            return UI.printMessage("Task " + index + " rescheduled!");
+        } catch(IOException e) {
+            return UI.printMessage("Change cannot be saved");
+        }
+
+    }
+
+    public Task getTask(String index) {
+        return this.items.get(Integer.valueOf(index) - 1);
+    }
 
 
 

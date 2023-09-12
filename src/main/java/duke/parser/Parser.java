@@ -3,9 +3,11 @@ package duke.parser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import duke.dates.Dates;
 import duke.task.ItemList;
+import duke.task.deadline.Deadline;
 import duke.task.deadline.DeadlineException;
+import duke.task.event.Event;
 import duke.task.event.EventException;
 import duke.task.todo.ToDoException;
 import duke.ui.UI;
@@ -25,6 +27,8 @@ public class Parser {
     private final Pattern DEADLINE_PATTERN = Pattern.compile("deadline (.*?) /by (.*)");
     private final Pattern TODO_PATTERN = Pattern.compile("todo (.*)");
     private final Pattern EVENT_PATTERN = Pattern.compile("event (.*?) /from (.*?) /to (.*)");
+    private final Pattern RESCHEDULE_EVENT_PATTERN = Pattern.compile("reschedule (\\d+) /from (.*?) /to (.*)");
+    private final Pattern RESCHEDULE_DEADLINE_PATTERN = Pattern.compile("reschedule (\\d+) /by (.*?)");
     private final Pattern FIND_PATTERN = Pattern.compile("find (.*?)");
     public Parser(String line) {
         this.line = line;
@@ -135,6 +139,48 @@ public class Parser {
             return items.find(task);
         } else {
             return UI.printMessage("Invalid find input");
+        }
+    }
+
+    public String parseReschedule(ItemList items) {
+        Matcher eventMatcher = RESCHEDULE_EVENT_PATTERN.matcher(this.line);
+        Matcher deadlineMatcher = RESCHEDULE_DEADLINE_PATTERN.matcher(this.line);
+        if (eventMatcher.matches()) {
+            String number = eventMatcher.group(1);
+            String checkOutcome = items.checkType(number);
+            if (!checkOutcome.equals("EVENT")) {
+                return UI.printMessage("This is not a event task!");
+            }
+
+            String from = eventMatcher.group(2);
+            String to = eventMatcher.group(3);
+            Event newEvent = (Event) items.getTask(number);
+            if (Dates.checkDateinput(from) && Dates.checkDateinput(to)) {
+                return items.setItems(newEvent.reschedule(Dates.convertToDateTime(from), Dates.convertToDateTime(to)), number);
+            } else {
+                return items.setItems(newEvent.reschedule(from,to), number);
+            }
+
+        }
+        if (deadlineMatcher.matches()) {
+            String number = deadlineMatcher.group(1);
+            String checkOutcome = items.checkType(number);
+
+            if (!checkOutcome.equals("DEADLINE")) {
+                return UI.printMessage("This is not a deadline task!");
+            }
+
+
+
+            String by = deadlineMatcher.group(2);
+            Deadline newDeadline = (Deadline) items.getTask(number);
+            if (Dates.checkDateinput(by)) {
+                return items.setItems(newDeadline.reschedule(Dates.convertToDateTime(by)), number);
+            } else {
+                return items.setItems(newDeadline.reschedule(by), number);
+            }
+        } else {
+            return UI.printMessage("Invalid Reschedule input");
         }
     }
 
