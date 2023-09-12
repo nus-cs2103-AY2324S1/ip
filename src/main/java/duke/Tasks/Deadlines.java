@@ -14,6 +14,7 @@ public class Deadlines extends Task {
 
     /**
      * Constructor of deadLine
+     * 
      * @param description is the name of the deadline
      * @param originalEnd is the end date of the deadline
      */
@@ -29,6 +30,7 @@ public class Deadlines extends Task {
 
     /**
      * String of the deadLine object
+     * 
      * @return a string
      */
     @Override

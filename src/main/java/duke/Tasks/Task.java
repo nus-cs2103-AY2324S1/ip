@@ -70,6 +70,7 @@ public class Task {
      *                                 recognised by the user
      */
     public static Task createTask(String description) throws EmptyDetailsOfTaskError, UnknownCommandException {
+        assert description != null : "description should not be null";
         String[] splittedDescription = description.split(" ");
         String commandName = splittedDescription[0];
         if (description.startsWith(Commands.todo.name()) && splittedDescription.length != 1) {
@@ -119,6 +120,7 @@ public class Task {
      * @return a Task to be added into the taskList
      */
     public static Task createTaskFromSavedData(String data) {
+        assert data != null : "data should not be null";
         String taskType = data.substring(2, 3);
         String taskStatus = data.substring(6, 7);
         String taskDescription = data.substring(10);
