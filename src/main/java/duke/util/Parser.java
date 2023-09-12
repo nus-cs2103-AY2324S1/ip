@@ -66,6 +66,7 @@ public class Parser {
      */
     public static Deadline parseLoadDeadline(String input) {
         int byIndex = input.indexOf('|', 7);
+        assert byIndex != -1: "Unable to find byDate for given Deadline";
 
         String description = input.substring(8, byIndex - 1);
         String by = input.substring(byIndex + 2);
@@ -89,6 +90,8 @@ public class Parser {
     public static Event parseLoadEvent(String input) {
         int fromIndex = input.indexOf('|', 7);
         int toIndex = input.indexOf('|', fromIndex + 1);
+        assert fromIndex != -1: "Unable to find fromDate for given Event";
+        assert toIndex != -1: "Unable to find toDate for given Event";
 
         String description = input.substring(8, fromIndex - 1);
         String from = input.substring(fromIndex + 2, toIndex - 1);

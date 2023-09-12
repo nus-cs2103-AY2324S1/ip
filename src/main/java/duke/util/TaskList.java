@@ -23,6 +23,8 @@ public class TaskList {
      * @param list The initial list of Task to be stored in the TaskList.
      */
     public TaskList(ArrayList<Task> list) {
+        assert list != null : "ArrayList cannot be null";
+
         this.list = list;
     }
 
@@ -46,6 +48,8 @@ public class TaskList {
      * @param task The given Task to be added into the TaskList
      */
     public void add(Task task) {
+        assert task != null : "Task cannot be null";
+
         this.list.add(task);
     }
 
@@ -109,6 +113,8 @@ public class TaskList {
      * @return TaskList with Task of matching descriptions.
      */
     public TaskList find(String string) {
+        assert string != null : "String cannot be null";
+
         ArrayList<Task> filteredList = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             Task task = list.get(i);

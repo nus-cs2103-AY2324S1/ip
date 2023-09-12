@@ -93,6 +93,8 @@ public class Ui {
      * @param e The Exception thrown from the execution of a method.
      */
     public void addErrorMessage(Exception e) {
+        assert e != null : "Exception cannot be null";
+
         this.message += "Oops! we encountered an error\n" + e.getMessage() + "\n";
     }
 
@@ -116,6 +118,8 @@ public class Ui {
      * @param task The given Task to be added into the message of the UI.
      */
     public void addTaskMessage(Task task) {
+        assert task != null : "Task cannot be null";
+
         this.message += task.toString() + "\n";
     }
 
@@ -125,6 +129,8 @@ public class Ui {
      * @param taskList The given TaskList.
      */
     public void addTaskListSizeMessage(TaskList taskList) {
+        assert taskList != null : "TaskList cannot be null";
+
         this.message += "Now you have " + taskList.size() + " tasks in the list." + "\n";
     }
 }
