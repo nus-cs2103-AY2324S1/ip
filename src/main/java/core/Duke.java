@@ -23,7 +23,7 @@ public class Duke extends Application {
     private TaskList tasks;
     private Ui ui;
     private TaskManager tm;
-
+    private final String FILE_PATH = "data/tasks.txt";
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -55,6 +55,7 @@ public class Duke extends Application {
     
 
     public Duke(String filePath) {
+        assert filePath != null : "File path cannot be null";
         ui = new Ui();
         storage = new Storage(filePath);  
         try {
@@ -67,7 +68,15 @@ public class Duke extends Application {
     }
 
     public Duke() {
-
+        ui = new Ui();
+        storage = new Storage(FILE_PATH);  
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+        tm = new TaskManager(tasks);
     }
 
     public void run() {
@@ -76,6 +85,7 @@ public class Duke extends Application {
             String userCommand = ui.readUserCommand();
             Parser p = new Parser();
             CommandType commandType = p.getCommandType(userCommand);
+            assert commandType != CommandType.UNKNOWN : "Parsed command should always be known";
             switch (commandType) {
                 case LIST:
                     ui.showTasks(tasks);
@@ -197,6 +207,7 @@ private Label getDialogLabel(String text) {
 }
 
 private void handleUserInput() {
+    assert userInput != null : "UserInput field should be initialized";
     String userText = userInput.getText();
     String dukeText = getResponse(userInput.getText());
  
