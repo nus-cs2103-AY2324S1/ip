@@ -8,6 +8,9 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 
+/**
+ * Main class for Chatbot.
+ */
 public class Main extends Application {
 
     private Chatbot chatbot = new Chatbot();
@@ -28,6 +31,10 @@ public class Main extends Application {
         stage.show();
     }
 
+    /**
+     * Entry for the main class
+     * @param args String
+     */
     public static void main(String[] args) {
         launch(args);
     }

@@ -9,6 +9,9 @@ import javafx.scene.layout.VBox;
 
 import java.io.InputStream;
 
+/**
+ * Controller class for Chatbot class
+ */
 public class ChatbotController {
     @FXML
     private TextArea displayArea;
@@ -25,6 +28,9 @@ public class ChatbotController {
     private Image botImage;
     private Chatbot chatbot;
 
+    /**
+     * Initialize the controller
+     */
     public void initialize() {
         botImage = loadImage("/DaDuke.png");
         userImage = loadImage("/DaUser.png");
@@ -40,6 +46,9 @@ public class ChatbotController {
     }
 
 
+    /**
+     * Set up the Chatbot of the Chatbot controller.
+     */
     public void setChatbot(Chatbot chatbot) {
         this.chatbot = chatbot;
     }
@@ -52,10 +61,6 @@ public class ChatbotController {
             throw new RuntimeException("Image not found: " + path);
         }
         return new Image(imageStream);
-    }
-
-    public void showError(String message) {
-        displayArea.appendText("Error: " + message + "\n");
     }
 
     @FXML
