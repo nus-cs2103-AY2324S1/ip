@@ -87,6 +87,7 @@ public class TaskList {
         Task removed = taskArray.get(deleteTask);
         taskArray.remove(deleteTask);
         numTask--;
+        assert taskArray.size() == numTask : "Task is not deleted successfully.";
         return "     Noted. I've removed this task:\n"
                 + "     " + removed.printDesc() + "\n"
                 + "     Now you have " + numTask + " tasks in the list.";
@@ -118,6 +119,7 @@ public class TaskList {
         taskArray.add(new Todo(taskDetails[1]));
         message = taskArray.get(numTask).printMessage(numTask);
         numTask++;
+        assert taskArray.size() == numTask : "Task is not added successfully.";
         return message;
     }
     /**
@@ -139,6 +141,7 @@ public class TaskList {
         taskArray.add(new Deadline(deadlineDetails[0], deadlineDetails[1]));
         message = taskArray.get(numTask).printMessage(numTask);
         numTask++;
+        assert taskArray.size() == numTask : "Task is not added successfully.";
         return message;
     }
     /**
@@ -161,6 +164,7 @@ public class TaskList {
                 eventDetails[2].substring(3)));
         message = taskArray.get(numTask).printMessage(numTask);
         numTask++;
+        assert taskArray.size() == numTask : "Task is not added successfully.";
         return message;
     }
     protected ArrayList<Task> getTaskArray() {
