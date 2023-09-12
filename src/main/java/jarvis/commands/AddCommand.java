@@ -43,6 +43,7 @@ public class AddCommand extends Command {
     /**
      * Constructs the AddCommand Object.
      * @param description Description of the task.
+     * @param till Deadline of the task.
      */
     public AddCommand(String description, LocalDateTime till) {
         assert !description.isBlank() : "Task description is blank!";
