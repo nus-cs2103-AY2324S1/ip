@@ -13,6 +13,8 @@ public class TaskList {
     protected static Storage storage;
     protected static int numTask;
     protected static Parser parser;
+    private static final String INVALID_TASK_NUMBER_MESSAGE = "      I think you keyed in the wrong task number..";
+    private static final String EMPTY_DESCRIPTION_MESSAGE = "     OOPS!!! The description of todo cannot be empty :(";
     /**
      * Constructor method for the duke.TaskList class.
      * @param loadTask The list of tasks to be used.
@@ -41,7 +43,7 @@ public class TaskList {
         int taskId = Integer.parseInt(i.substring(7)) - 1;
         String message;
         if (taskId < 0 || taskId >= numTask) {
-            throw new DukeArgumentException("      I think you keyed in the wrong task number..");
+            throw new DukeArgumentException(INVALID_TASK_NUMBER_MESSAGE);
         }
         message = taskArray.get(taskId).markAsUndone();
         // update the duke.txt
@@ -62,7 +64,7 @@ public class TaskList {
         int taskId = Integer.parseInt(i.substring(5)) - 1;
         String message;
         if (taskId < 0 || taskId >= numTask) {
-            throw new DukeArgumentException("      I think you keyed in the wrong task number..");
+            throw new DukeArgumentException(INVALID_TASK_NUMBER_MESSAGE);
         }
         message = taskArray.get(taskId).markAsDone();
         // update the duke.txt
@@ -82,7 +84,7 @@ public class TaskList {
     public static String deleteTask(String i) throws DukeArgumentException {
         int deleteTask = Integer.parseInt(i.substring(7)) - 1;
         if (deleteTask < 0 || deleteTask >= numTask) {
-            throw new DukeArgumentException("      I think you keyed in the wrong task number..");
+            throw new DukeArgumentException(INVALID_TASK_NUMBER_MESSAGE);
         }
         Task removed = taskArray.get(deleteTask);
         taskArray.remove(deleteTask);
@@ -113,7 +115,7 @@ public class TaskList {
         String[] taskDetails = parser.commandSplit(i);
         String message;
         if (taskDetails.length != 2) {
-            throw new DukeArgumentException("     OOPS!!! The description of todo cannot be empty :(");
+            throw new DukeArgumentException(EMPTY_DESCRIPTION_MESSAGE);
         }
         taskArray.add(new Todo(taskDetails[1]));
         message = taskArray.get(numTask).printMessage(numTask);
@@ -130,7 +132,7 @@ public class TaskList {
         String[] taskDetails = parser.commandSplit(i);
         String message;
         if (taskDetails.length != 2) {
-            throw new DukeArgumentException("     OOPS!!! The description of deadline cannot be empty :(");
+            throw new DukeArgumentException(EMPTY_DESCRIPTION_MESSAGE);
         }
         String[] deadlineDetails = parser.deadlineDetails(taskDetails[1]);
         if (deadlineDetails.length != 2) {
@@ -151,7 +153,7 @@ public class TaskList {
         String[] taskDetails = parser.commandSplit(i);
         String message;
         if (taskDetails.length != 2) {
-            throw new DukeArgumentException("     OOPS!!! The description of event cannot be empty :(");
+            throw new DukeArgumentException(EMPTY_DESCRIPTION_MESSAGE);
         }
         String[] eventDetails = parser.eventDetails(taskDetails[1]);
         if (eventDetails.length != 3) {
