@@ -53,7 +53,9 @@ public class DialogBox extends HBox {
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.getStyleClass().add("user-dialog");
-        ((VBox) db.getChildren().get(0)).setAlignment(Pos.CENTER_RIGHT);
+        (
+                (VBox) db.getChildren().get(0)
+        ).setAlignment(Pos.CENTER_RIGHT);
         return db;
     }
 
@@ -61,7 +63,9 @@ public class DialogBox extends HBox {
         var db = new DialogBox(text, img);
         db.flip();
         db.getStyleClass().add("duke-dialog");
-        ((VBox) db.getChildren().get(1)).setAlignment(Pos.CENTER_LEFT);
+        (
+                (VBox) db.getChildren().get(1)
+        ).setAlignment(Pos.CENTER_LEFT);
         return db;
     }
 
