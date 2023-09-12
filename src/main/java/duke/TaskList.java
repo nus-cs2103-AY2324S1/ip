@@ -1,5 +1,6 @@
 package duke;
 
+import duke.exception.InvalidInputException;
 import duke.task.Task;
 import java.util.ArrayList;
 
@@ -27,7 +28,11 @@ public class TaskList {
         Parser parser = new Parser(this);
         assert strings != null : "No lines in file";
         for (String s : strings) {
-            parser.parseFromFile(s);
+            try {
+                parser.parseFromFile(s);
+            } catch (InvalidInputException e) {
+                continue;     // ignore
+            }
         }
     }
 
