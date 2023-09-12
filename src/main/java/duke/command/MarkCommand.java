@@ -25,6 +25,7 @@ public class MarkCommand extends Command {
         if (TASK_NUMBER > taskList.getNumberOfTasks()) {
             throw new DukeException("OOPS!!! Task " + TASK_NUMBER + " does not exist.");
         }
+
         String message = ui.showTaskMarkedAsDone(taskList.getTask(TASK_NUMBER));
         storage.save(taskList.getList(), ui);
         return message;
