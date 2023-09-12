@@ -21,6 +21,9 @@ public class Event extends Task {
         super(description);
         this.start = start;
         this.end = end;
+
+        assert start != null : "start of Event Task should not be null";
+        assert end != null : "end of Event Task should not be null";
     }
 
     /**
