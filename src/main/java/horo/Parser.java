@@ -6,11 +6,12 @@ import java.util.regex.Pattern;
 import horo.commands.Command;
 import horo.commands.ExitCommand;
 import horo.commands.expenses.AddExpenseCommand;
+import horo.commands.expenses.DeleteExpenseCommand;
 import horo.commands.expenses.ListExpenseCommand;
 import horo.commands.tasks.AddDeadlineCommand;
 import horo.commands.tasks.AddEventCommand;
 import horo.commands.tasks.AddTodoCommand;
-import horo.commands.tasks.DeleteCommand;
+import horo.commands.tasks.DeleteTaskCommand;
 import horo.commands.tasks.FindCommand;
 import horo.commands.tasks.ListTaskCommand;
 import horo.commands.tasks.MarkCommand;
@@ -30,7 +31,7 @@ public abstract class Parser {
    * Pattern to check availiable commands
    */
   private static final Pattern commandPattern = Pattern
-      .compile("^(deadline|todo|event|bye|mark|unmark|list task|delete|find|expense|list expense)");
+      .compile("^(deadline|todo|event|bye|mark|unmark|list task|delete task|find|expense|list expense|delete expense)");
 
   /**
    * Returns a task by parsing string from data file
@@ -118,7 +119,7 @@ public abstract class Parser {
         c = new UnmarkCommand(input);
         break;
       case "delete":
-        c = new DeleteCommand(input);
+        c = new DeleteTaskCommand(input);
         break;
       case "todo":
         c = new AddTodoCommand(input);
@@ -137,6 +138,9 @@ public abstract class Parser {
         break;
       case "list expense":
         c = new ListExpenseCommand(input);
+        break;
+      case "delete expense":
+        c = new DeleteExpenseCommand(input);
         break;
       default:
         throw new HoroException("Invalid Command");
