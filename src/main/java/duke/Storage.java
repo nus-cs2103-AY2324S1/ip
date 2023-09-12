@@ -17,6 +17,7 @@ import java.util.Scanner;
  * Handles data storage and retrieval.
  */
 public class Storage {
+    /** The file where tasks are stored. */
     private File file;
 
     /**

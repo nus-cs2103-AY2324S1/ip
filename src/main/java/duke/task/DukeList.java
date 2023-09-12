@@ -12,6 +12,8 @@ import java.util.ArrayList;
  * Provides methods to add, delete, and manipulate tasks within the list.
  */
 public class DukeList {
+
+    /** The list of tasks stored in this DukeList. */
     ArrayList<Task> arr;
 
     /**
@@ -109,20 +111,10 @@ public class DukeList {
         return newTask;
     }
 
-    /**
-     * Prints the list of tasks stored in the DukeList.
-     */
-    public void printList() {
-        System.out.println("Here are the tasks in your list:");
-        int arrSize = arr.size();
-        for (int i = 0; i < arrSize; i++) {
-            int num = i + 1;
-            Task chosenTask = arr.get(i);
-            System.out.println(num + ". " + chosenTask.toString());
-        }
-    }
+
 
     /**
+<<<<<<< HEAD
      * Marks a task as done by its index.
      *
      * @param number The index of the task to be marked as done.
@@ -135,6 +127,7 @@ public class DukeList {
     }
 
     /**
+<<<<<<< HEAD
      * Marks a task as not done by its index.
      *
      * @param number The index of the task to be marked as not done.

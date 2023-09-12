@@ -3,6 +3,7 @@ package duke.task;
 import java.time.LocalDateTime;
 
 /**
+<<<<<<< HEAD
  * Represents an event task with a start and end time.
  * Inherits properties and methods from the Task class.
  */

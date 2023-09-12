@@ -3,24 +3,23 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Represents a task with a description and completion status.
+
+ /** Represents a generic task.
+ * A task has a description and can be marked as done or undone.
+ * This class serves as the base class for different types of tasks (e.g., Todo, Deadline, Event).
  */
 public class Task {
-    /**
-     * The description of the task.
-     */
+
+    /** The description of the task. */
     public String description;
 
-    /**
-     * The completion status of the task.
-     */
+    /** A flag indicating whether the task is marked as done (true) or undone (false). */
     protected boolean isDone;
 
     /**
-     * Constructs a Task object with the given description and sets completion status to false.
+     * Creates a new Task with the given description.
      *
-     * @param description The description of the task.
+     * @param description A description of the task.
      */
     public Task(String description) {
         this.description = description;
@@ -33,7 +32,7 @@ public class Task {
      * @return An "X" if the task is done, or a space if the task is not done.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     /**
@@ -70,7 +69,6 @@ public class Task {
 
     /**
      * Converts a LocalDateTime object to a formatted string.
-     *
      * @param data The LocalDateTime object to be converted.
      * @return A formatted string representing the date and time.
      */

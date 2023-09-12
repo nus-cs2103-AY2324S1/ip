@@ -8,6 +8,7 @@ import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 
+
 /**
  * Handles the parsing of user input and executes corresponding actions.
  */
@@ -43,6 +44,4 @@ public class Parser {
                 throw new DukeException("I don't understand what you are saying!");
         }
     }
-
-
 }

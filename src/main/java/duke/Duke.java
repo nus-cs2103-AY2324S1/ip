@@ -4,17 +4,27 @@ import duke.command.Command;
 import duke.task.DukeList;
 
 /**
+<<<<<<< HEAD
  * Represents the main class for the Duke application.
  * Initializes and coordinates various components of the application.
  */
 public class Duke {
+
+    /** The DukeList that stores and manages tasks. */
     private DukeList dukelist;
+
+    /** The user interface for interacting with Duke. */
     private Ui ui;
+
+    /** The storage component for reading and writing tasks to a file. */
     private Storage storage;
+
+    /** The file path where tasks are stored. */
     private static final String FILE_PATH = "data/duke.txt";
     private Parser parser;
 
     /**
+<<<<<<< HEAD
      * Constructs a Duke object with the specified file path.
      *
      * @param filePath The path to the data file for storage.
@@ -30,6 +40,7 @@ public class Duke {
             System.out.println("error");
         }
     }
+
     /**
      * Gets a response from Duke based on user input.
      *
@@ -45,6 +56,6 @@ public class Duke {
             System.out.println(e.getMessage());
         }
         return responseStr;
-    }
 
+    }
 }
