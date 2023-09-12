@@ -188,7 +188,7 @@ public class TaskList {
             //Duplicate checking
             DuplicateDeadlineChecker deadlineChecker = new DuplicateDeadlineChecker();
             if (deadlineChecker.isDuplicateDeadline(details, by)) {
-                stringBuilder.append("Duplicate deadline task detected");
+                stringBuilder.append("Duplicate deadline task detected").append("\n");
                 return stringBuilder.toString();
             }
 
@@ -197,23 +197,6 @@ public class TaskList {
             stringBuilder.append("Got it. I've added this to-do task:").append("\n");
             stringBuilder.append("  ").append(list.get(list.size() - 1)).append("\n");
             stringBuilder.append("Now you have ").append(list.size()).append(" tasks in the list.").append("\n");
-
-//            boolean wrongInput = false;
-//            String[] parts = description.split("/by");
-//            if (parts.length == 2) {
-//                String details = parts[0].trim();
-//                String by = parts[1].trim();
-//                list.add(new Deadline(details, by, marked));
-//            } else {
-//                wrongInput = true;
-//            }
-//            if (wrongInput) {
-//                throw new DukeException("Please input a valid task");
-//            } else {
-//                stringBuilder.append("Got it. I've added this to-do task:").append("\n");
-//                stringBuilder.append("  ").append(list.get(list.size() -1)).append("\n");
-//                stringBuilder.append("Now you have ").append(list.size()).append(" tasks in the list.").append("\n");
-//            }
         }
         return stringBuilder.toString();
     }

@@ -7,11 +7,11 @@ public class Deadline extends Task {
     /**
      * Date that the deadline must be done by
      */
-    LocalDate date;
+    LocalDate date = null;
     /**
      * String representation that the deadline must be done by
      */
-    String deadline;
+    String deadline = null;
 
     /**
      * Constructor for the Deadline class.

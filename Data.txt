@@ -1,3 +1,1 @@
-[T][ ] check
-[D][ ] from (by: 2pm)
-[E][ ] from (from: 2pm to 1)
+[E][ ] fair (from: Dec 12 2022 to Dec 13 2022)

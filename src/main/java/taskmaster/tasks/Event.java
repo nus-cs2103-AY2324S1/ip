@@ -7,19 +7,19 @@ public class Event extends Task {
     /**
      * Starting time of event in string type.
      */
-    String startTime;
+    String startTime = null;
     /**
      * End time of event in string type.
      */
-    String endTime;
+    String endTime = null;
     /**
      * Start date of event.
      */
-    LocalDate startDate;
+    LocalDate startDate = null;
     /**
      * End date of event.
      */
-    LocalDate endDate;
+    LocalDate endDate = null;
 
     /**
      * Constructor for the Event class.
