@@ -14,7 +14,7 @@ mkdir .\data\
 
 @REM Compile
 javac -cp .\src\main\java\;.\lib\* -Xlint:none -d .\bin\ .\src\main\java\com\cloud\chatbot\*.java
-IF ERRORLEVEL 1 (
+if errorlevel 1 (
     echo:
     echo ^>^>^> javac failed
     exit /B 1
