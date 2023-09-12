@@ -11,13 +11,7 @@ import duke.command.MarkCommand;
 import duke.command.PrintListCommand;
 import duke.command.UnknownCommand;
 import duke.command.UnmarkCommand;
-import duke.task.Deadline;
-import duke.task.DeadlineException;
-import duke.task.Event;
-import duke.task.EventException;
-import duke.task.TaskException;
-import duke.task.ToDo;
-import duke.task.ToDoException;
+import duke.task.*;
 
 /**
  * Converts a given String into Tasks and Commands.
@@ -150,7 +144,7 @@ public class Parser {
     }
 
     /**
-     * Returns a Event object based on the user given input.
+     * Returns an Event object based on the user given input.
      *
      * @param input The user given input.
      * @return Event object that corresponds to the user given input.
@@ -268,41 +262,12 @@ public class Parser {
      * @return The String of the given TaskList in the data file format.
      */
     public static String parseTaskListToData(TaskList taskList) {
-        String input = taskList.toString();
         String newData = "";
 
         for (int i = 0; i < taskList.size(); i++) {
-            int startIndex = input.indexOf((i + 1) + ".");
-            int endIndex = input.indexOf("\n", startIndex);
+            Task task = taskList.get(i);
 
-            String subInput = input.substring(startIndex + 2, endIndex);
-            String taskType = String.valueOf(subInput.charAt(1));
-            String status = subInput.charAt(4) == 'X' ? "1" : "0";
-
-            newData += taskType + " | " + status + " | ";
-            if (taskType.equals("D")) {
-                int byIndex = subInput.indexOf("(by:");
-                int subEndIndex = subInput.indexOf(")");
-
-                String description = subInput.substring(7, byIndex - 1);
-                String by = subInput.substring(byIndex + 5, subEndIndex);
-
-                newData += description + " | " + by;
-            } else if (taskType.equals("E")) {
-                int fromIndex = subInput.indexOf("(from:");
-                int toIndex = subInput.indexOf("to:", fromIndex);
-                int subEndIndex = subInput.indexOf(")");
-
-                String description = subInput.substring(7, fromIndex - 1);
-                String from = subInput.substring(fromIndex + 7, toIndex - 1);
-                String to = subInput.substring(toIndex + 4, subEndIndex);
-
-                newData += description + " | " + from + " | " + to;
-            } else if (taskType.equals("T")) {
-                String description = subInput.substring(7);
-
-                newData += description;
-            }
+            newData += task.toDataFormatString();
             newData += System.lineSeparator();
         }
         return newData;
