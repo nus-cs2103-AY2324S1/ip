@@ -36,104 +36,136 @@ public class Parser {
             return new ListCommand();
 
         } else if (fullCommand.contains("unmark")) {
-            if (fullCommand.substring(6).isBlank()) {
-                throw new DukeException("More information is required to unmark a task");
-            } else {
-                String[] unparsedTaskIndex = fullCommand.split(" ");
-                assert !unparsedTaskIndex[1].isBlank() : "Index is empty";
-                int taskIndex = Integer.parseInt(unparsedTaskIndex[1]) - 1;
-                if (taskIndex >= (taskList.size()) || taskIndex < 0) {
-                    throw new DukeException("There are only " + taskList.size() + " tasks");
-                } else {
-                    return new UnmarkCommand(taskIndex);
-                }
-            }
+            return handleUnmark(fullCommand, taskList);
 
         } else if (fullCommand.contains("mark")) {
-            if (fullCommand.substring(4).isBlank()) {
-                throw new DukeException("More information is required to mark a task");
-            } else {
-                String[] unparsedTaskIndex = fullCommand.split(" ");
-                assert !unparsedTaskIndex[1].isBlank() : "Index is empty";
-                int taskIndex = Integer.parseInt(unparsedTaskIndex[1]) - 1;
-                if (taskIndex >= (taskList.size()) || taskIndex < 0) {
-                    throw new DukeException("There are only " + taskList.size() + " tasks");
-                } else {
-                    return new MarkCommand(taskIndex);
-                }
-            }
+            return handleMark(fullCommand, taskList);
 
         } else if (fullCommand.contains("delete")) {
-            if (fullCommand.substring(6).isBlank()) {
-                throw new DukeException("More information is required to delete a task");
-            } else {
-                String[] unparsedTaskIndex = fullCommand.split(" ");
-                assert !unparsedTaskIndex[1].isBlank() : "Index is empty";
-                int taskIndex = Integer.parseInt(unparsedTaskIndex[1]) - 1;
-                if (taskIndex >= (taskList.size()) || taskIndex < 0) {
-                    throw new DukeException("There are only " + taskList.size() + " tasks");
-                } else {
-                    return new DeleteCommand(taskIndex);
-                }
-            }
+            return handleDelete(fullCommand, taskList);
 
         } else if (fullCommand.contains("todo")) {
-            String taskInfo = fullCommand.substring(4);
-            if (taskInfo.isBlank()) {
-                throw new DukeException("The description of a todo cannot be empty");
-            } else {
-                String[] splitCommands = fullCommand.split(" ");
-                assert !splitCommands[1].isBlank() : "Description is empty";
-                Task task = new ToDo(splitCommands[1]);
-                return new AddCommand(task);
-            }
+            return handleTodo(fullCommand, taskList);
 
         } else if (fullCommand.contains("deadline")) {
-            String taskInfo = fullCommand.substring(8);
-            if (taskInfo.isBlank() || !fullCommand.contains("/by")
-                    || !fullCommand.contains("deadline ")
-                    || fullCommand.substring(fullCommand.indexOf("/by") + 3).isBlank()) {
-                throw new DukeException("The description of deadline needs more information");
-            } else {
-                String[] splitCommands = fullCommand.split(" /by ");
-                String[] taskName = splitCommands[0].split(" ");
-                assert !taskName[1].isBlank() : "Description is empty";
-                assert !splitCommands[0].isBlank() : "'by' is empty";
-                Task task = new Deadline(taskName[1], Parser.parseDateTime(splitCommands[1]));
-                return new AddCommand(task);
-            }
+            return handleDeadline(fullCommand, taskList);
 
         } else if (fullCommand.contains("event")) {
-            String taskInfo = fullCommand.substring(5);
-            if (taskInfo.isBlank() || !fullCommand.contains("/from")
-                    || !fullCommand.contains("/to") || !fullCommand.contains("event ")
-                    || fullCommand.substring(fullCommand.indexOf("/from") + 5).isBlank()
-                    || fullCommand.substring(fullCommand.indexOf("/to") + 3).isBlank()) {
-                throw new DukeException("The description of event needs more information");
-            } else {
-                String[] splitCommands = fullCommand.split(" /from ");
-                String[] taskName = splitCommands[0].split(" ");
-                String[] fromTo = splitCommands[1].split(" /to ");
-                assert !taskName[1].isBlank() : "Description is empty";
-                assert !fromTo[0].isBlank() : "'from' is empty";
-                assert !fromTo[1].isBlank() : "'to' is empty";
-                Task task = new Event(taskName[1], Parser.parseDateTime(fromTo[0]),
-                        Parser.parseDateTime(fromTo[1]));
-                return new AddCommand(task);
-            }
+            return handleEvent(fullCommand, taskList);
 
         } else if (fullCommand.contains("find")) {
-            String taskInfo = fullCommand.substring(4);
-            if (taskInfo.isBlank()) {
-                throw new DukeException("More information is required to find tasks");
-            } else {
-                return new FindCommand(fullCommand.substring(5));
-            }
+            return handleFind(fullCommand, taskList);
 
         } else {
             throw new DukeException("Un-fur-tunately I don't know what you mean :-(");
         }
     }
+
+    private static Command handleUnmark(String fullCommand, ArrayList<Task> taskList) throws DukeException {
+        if (fullCommand.substring(6).isBlank()) {
+            throw new DukeException("More information is required to unmark a task");
+        } else {
+            String[] unparsedTaskIndex = fullCommand.split(" ");
+            assert !unparsedTaskIndex[1].isBlank() : "Index is empty";
+            int taskIndex = Integer.parseInt(unparsedTaskIndex[1]) - 1;
+            if (taskIndex >= (taskList.size()) || taskIndex < 0) {
+                throw new DukeException("There are only " + taskList.size() + " tasks");
+            } else {
+                return new UnmarkCommand(taskIndex);
+
+            }
+        }
+    }
+
+    private static Command handleMark(String fullCommand, ArrayList<Task> taskList) throws DukeException {
+        if (fullCommand.substring(4).isBlank()) {
+            throw new DukeException("More information is required to mark a task");
+        } else {
+            String[] unparsedTaskIndex = fullCommand.split(" ");
+            assert !unparsedTaskIndex[1].isBlank() : "Index is empty";
+            int taskIndex = Integer.parseInt(unparsedTaskIndex[1]) - 1;
+            if (taskIndex >= (taskList.size()) || taskIndex < 0) {
+                throw new DukeException("There are only " + taskList.size() + " tasks");
+            } else {
+                return new MarkCommand(taskIndex);
+
+            }
+        }
+    }
+
+    private static Command handleDelete(String fullCommand, ArrayList<Task> taskList) throws DukeException {
+        if (fullCommand.substring(6).isBlank()) {
+            throw new DukeException("More information is required to delete a task");
+        } else {
+            String[] unparsedTaskIndex = fullCommand.split(" ");
+            assert !unparsedTaskIndex[1].isBlank() : "Index is empty";
+            int taskIndex = Integer.parseInt(unparsedTaskIndex[1]) - 1;
+            if (taskIndex >= (taskList.size()) || taskIndex < 0) {
+                throw new DukeException("There are only " + taskList.size() + " tasks");
+            } else {
+                return new DeleteCommand(taskIndex);
+            }
+        }
+    }
+
+    private static Command handleTodo(String fullCommand, ArrayList<Task> taskList) throws DukeException {
+        String taskInfo = fullCommand.substring(4);
+        if (taskInfo.isBlank()) {
+            throw new DukeException("The description of a todo cannot be empty");
+        } else {
+            String[] splitCommands = fullCommand.split(" ");
+            assert !splitCommands[1].isBlank() : "Description is empty";
+            Task task = new ToDo(splitCommands[1]);
+            return new AddCommand(task);
+        }
+    }
+
+    private static Command handleDeadline(String fullCommand, ArrayList<Task> taskList) throws DukeException {
+        String taskInfo = fullCommand.substring(8);
+        if (taskInfo.isBlank() || !fullCommand.contains("/by")
+                || !fullCommand.contains("deadline ")
+                || fullCommand.substring(fullCommand.indexOf("/by") + 3).isBlank()) {
+            throw new DukeException("The description of deadline needs more information");
+        } else {
+            String[] splitCommands = fullCommand.split(" /by ");
+            String[] taskName = splitCommands[0].split(" ");
+            assert !taskName[1].isBlank() : "Description is empty";
+            assert !splitCommands[1].isBlank() : "'by' is empty";
+            Task task = new Deadline(taskName[1], Parser.parseDateTime(splitCommands[1]));
+            return new AddCommand(task);
+        }
+    }
+
+    private static Command handleEvent(String fullCommand, ArrayList<Task> taskList) throws DukeException {
+        String taskInfo = fullCommand.substring(5);
+        if (taskInfo.isBlank() || !fullCommand.contains("/from")
+                || !fullCommand.contains("/to")
+                || !fullCommand.contains("event ")
+                || fullCommand.substring(fullCommand.indexOf("/from") + 5).isBlank()
+                || fullCommand.substring(fullCommand.indexOf("/to") + 3).isBlank()) {
+            throw new DukeException("The description of event needs more information");
+        } else {
+            String[] splitCommands = fullCommand.split(" /from ");
+            String[] taskName = splitCommands[0].split(" ");
+            String[] fromTo = splitCommands[1].split(" /to ");
+            assert !taskName[1].isBlank() : "Description is empty";
+            assert !fromTo[0].isBlank() : "'from' is empty";
+            assert !fromTo[1].isBlank() : "'to' is empty";
+            Task task = new Event(taskName[1], Parser.parseDateTime(fromTo[0]),
+                    Parser.parseDateTime(fromTo[1]));
+            return new AddCommand(task);
+        }
+    }
+
+    private static Command handleFind(String fullCommand, ArrayList<Task> taskList) throws DukeException {
+        String taskInfo = fullCommand.substring(4);
+        if (taskInfo.isBlank()) {
+            throw new DukeException("More information is required to find tasks");
+        } else {
+            return new FindCommand(fullCommand.substring(5));
+        }
+    }
+
 
     /**
      * Parses string input of date into LocalDateTime.

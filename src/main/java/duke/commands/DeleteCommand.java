@@ -33,7 +33,8 @@ public class DeleteCommand extends Command {
     public String execute(TaskList tasks, Ui ui, DataStorage store) throws DukeException {
         Task displayTask = tasks.getTask(this.taskIndex);
         tasks.delete(this.taskIndex);
-        return ui.showDelete(displayTask, (tasks.getLength() - 1));
+        store.saveTasks(tasks);
+        return ui.showDelete(displayTask, tasks.getLength());
     }
 
 }

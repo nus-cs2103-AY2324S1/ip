@@ -34,6 +34,7 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, DataStorage store) throws DukeException {
         ArrayList<Task> filteredTasks = tasks.find(this.keyword);
+        store.saveTasks(tasks);
         return ui.showFindCommandList(filteredTasks, this.keyword);
     }
 
