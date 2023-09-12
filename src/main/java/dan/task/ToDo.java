@@ -1,3 +1,7 @@
+package dan.task;
+
+import dan.task.Task;
+
 public class ToDo extends Task {
 
     // Methods

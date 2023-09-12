@@ -1,3 +1,7 @@
+package dan.task;
+
+import dan.DanException;
+
 public class Task {
     // fields
     protected String description;
@@ -9,12 +13,11 @@ public class Task {
     }
 
     public boolean mark(int id) {
-        if (id == 0) {                  /* to mark unmarked task */
+        if (id == 1) {                  /* to mark unmarked task */
             if (isDone == false) {
                 isDone = true;
-                return true;
             } else {                        /* if the task is already marked */
-                return false;
+                throw new DanException("");
             }
         } else {                        /* to unmark marked task */
             if (isDone == true) {
