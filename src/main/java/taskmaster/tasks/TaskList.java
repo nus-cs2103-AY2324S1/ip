@@ -72,18 +72,18 @@ public class TaskList {
      */
     public String toggleMark(MarkStatus mark, int taskIndex) throws DukeException {
         StringBuilder stringBuilder = new StringBuilder();
-        if (taskIndex >= 0 && taskIndex < TaskList.list.size()) {
-            if (mark == MarkStatus.UNMARK) {
-                list.get(taskIndex).markAsNotDone();
-                stringBuilder.append("OK, I have marked this as undone:").append("\n");
-                stringBuilder.append("  ").append(list.get(taskIndex)).append("\n");
-            } else if (mark == MarkStatus.MARK) {
-                list.get(taskIndex).markAsDone();
-                stringBuilder.append("Good job! I have marked this task as completed:").append("\n");
-                stringBuilder.append("  ").append(list.get(taskIndex)).append("\n");
-            }
-        } else {
+        if (!validIndex(taskIndex)) {
             throw new DukeException("Invalid task number");
+        }
+
+        if (mark == MarkStatus.UNMARK) {
+            list.get(taskIndex).markAsNotDone();
+            stringBuilder.append("OK, I have marked this as undone:").append("\n");
+            stringBuilder.append("  ").append(list.get(taskIndex)).append("\n");
+        } else if (mark == MarkStatus.MARK) {
+            list.get(taskIndex).markAsDone();
+            stringBuilder.append("Good job! I have marked this task as completed:").append("\n");
+            stringBuilder.append("  ").append(list.get(taskIndex)).append("\n");
         }
         return stringBuilder.toString();
     }
@@ -95,14 +95,14 @@ public class TaskList {
      */
     public String deleteTask(int taskIndex) throws DukeException {
         StringBuilder stringBuilder = new StringBuilder();
-        if (taskIndex >= 0 && taskIndex < TaskList.list.size()) {
-            Task removedTask = list.remove(taskIndex);
-            stringBuilder.append("Noted. I've removed this task:").append("\n");
-            stringBuilder.append("  ").append(removedTask).append("\n");
-            stringBuilder.append("Now you have ").append(list.size()).append(" tasks in the list.").append("\n");
-        } else {
+        if (!validIndex(taskIndex)) {
             throw new DukeException("Specified task does not exist");
         }
+
+        Task removedTask = list.remove(taskIndex);
+        stringBuilder.append("Noted. I've removed this task:").append("\n");
+        stringBuilder.append("  ").append(removedTask).append("\n");
+        stringBuilder.append("Now you have ").append(list.size()).append(" tasks in the list.").append("\n");
         return stringBuilder.toString();
     }
     /**
@@ -183,8 +183,8 @@ public class TaskList {
             stringBuilder.append("Please input a valid date format: yyyy-MM-dd!");
             return stringBuilder.toString();
         }
-        stringBuilder.append("Tasks occurring on ").append(dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))).append(":").append("\n");
 
+        stringBuilder.append("Tasks occurring on ").append(dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))).append(":").append("\n");
         int count = 1;
 
         for (Task task : list) {
@@ -193,27 +193,30 @@ public class TaskList {
                 Deadline deadline = (Deadline) task;
                 String deadlineString = deadline.getStringDate();
                 LocalDate deadlineDate = deadline.getLocalDate();
-                if ((deadlineDate != null && deadlineDate.equals(dueDate)) || (deadlineString != null && deadlineString.equals(dueDateString))) {
-                    stringBuilder.append(count).append(": ").append(task).append("\n");
-                }
+                appendTaskIfMatch(stringBuilder, deadlineString,deadlineDate, dueDateString, dueDate, count, task);
             } else if (task instanceof Event) {
                 Event event = (Event) task;
                 String startString = event.getStartString();
                 LocalDate startDate = event.getStartDate();
-                if  ((startDate != null && startDate.equals(dueDate)) || (startString != null && startString.equals(dueDateString))) {
-                    stringBuilder.append(count).append(": ").append(task).append("\n");
-                }
+                appendTaskIfMatch(stringBuilder, startString, startDate, dueDateString, dueDate, count, task);
             }
             count++;
         }
         return stringBuilder.toString();
     }
 
+    private static void appendTaskIfMatch(StringBuilder sb, String taskStringDate, LocalDate taskDate, String dueStringDate, LocalDate dueDate, int count, Task task) {
+        if ((taskDate != null && taskDate.equals(dueDate)) || (taskStringDate != null && taskStringDate.equals(dueStringDate))) {
+            sb.append(count).append(": ").append(task).append("\n");
+        }
+    }
+
     /**
      * String representation of task list.
      * @return String representation of task list.
      */
-    @Override public String toString() {
+    @Override
+    public String toString() {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             result.append(String.format("%d. %s\n", i + 1, list.get(i)));
@@ -242,5 +245,9 @@ public class TaskList {
             stringBuilder.append("No task found matching keyword.");
         }
         return stringBuilder.toString();
+    }
+
+    private static boolean validIndex(int index) {
+        return index >= 0 && index < TaskList.list.size();
     }
 }
