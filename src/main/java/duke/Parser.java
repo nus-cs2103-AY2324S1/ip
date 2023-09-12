@@ -69,7 +69,7 @@ public class Parser {
             || executable instanceof ListExecutable
             || executable instanceof ClearExecutable) {
             if (!input.equals(execIdentifier)) {
-                throw new InvalidVarException("This command has no variables!");
+                throw new InvalidVarException("This command is not supposed to have variables!");
             }
         }
         if (executable instanceof AddTaskExecutable) {
@@ -168,10 +168,6 @@ public class Parser {
                 (FindExecutable) executable).setSearch(keyword);
         } else if (executable == null) {
             throw new InvalidCommandException("Unrecognized command");
-        } else {
-            assert false;
-            // We should never reach this step; if so, means the parser is not handling a recognized
-            // command type.
         }
         return executable;
     }

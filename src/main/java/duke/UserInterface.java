@@ -95,6 +95,7 @@ public class UserInterface {
      */
     public void input() {
         String input = userInput.getText();
+        assert (input != null); // We should never have a null string, at most an empty string,
         Label inputLabel = new Label(input);
         dialogContainer.getChildren().add(DialogBox.getUserDialog(inputLabel, new ImageView(userImg)));
         duke.handle(input);
@@ -106,6 +107,7 @@ public class UserInterface {
      * @param output the string to be printed.
      */
     public void output(String output) {
+        assert (output != null); // We should never have a null string, at most an empty string,
         Label dukeLabel = new Label(output);
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(dukeLabel, new ImageView(dukeImg)));
     }
