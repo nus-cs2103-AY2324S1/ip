@@ -49,6 +49,11 @@ public class Event extends Task {
                 formatDateTime(this.start), formatDateTime(this.end));
     }
 
+    @Override
+    public LocalDateTime getDateTime() {
+        return this.start;
+    }
+
     /**
      * Converts the Event object to its string representation.
      *
@@ -56,7 +61,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E] %s (from: %s to: %s)", super.toString(), formatDateTime(this.start),
+        return String.format("[E] %s (from %s to %s)", super.toString(), formatDateTime(this.start),
                 formatDateTime(this.end));
     }
 }

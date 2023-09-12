@@ -1,9 +1,11 @@
 package uke.task;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a task.
  */
-public class Task {
+public abstract class Task {
 
     protected String description;
     protected boolean isDone;
@@ -58,6 +60,8 @@ public class Task {
     public String convertToSavedString() {
         return String.format("//%s//%s", this.getStatusIcon(), this.description);
     }
+
+    public abstract LocalDateTime getDateTime();
 
     /**
      * Converts the Task object to its string representation.
