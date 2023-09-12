@@ -3,6 +3,7 @@ package duke.command;
 import duke.exception.DukeException;
 import duke.io.FileIO;
 import duke.io.Printer;
+import duke.task.Task;
 import duke.task.TaskList;
 
 /** Represents a find command. Finds tasks based on the input search string. */
@@ -34,6 +35,6 @@ public class FindCommand extends Command {
             throw new DukeException("The argument of find cannot be empty");
         }
 
-        out.print(taskList.filter(search));
+        out.print(taskList.stream().filter(Task.filterByStringInDescription(search)));
     }
 }

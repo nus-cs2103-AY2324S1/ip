@@ -2,12 +2,13 @@ package duke.command;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.Optional;
+import java.util.stream.Stream;
 
 import duke.exception.InvalidDatetimeFormatException;
 import duke.helper.DatetimeHelper;
 import duke.io.FileIO;
 import duke.io.Printer;
+import duke.task.Task;
 import duke.task.TaskList;
 
 /** Represents a list command. Has an optional /before argument to return tasks before a date. */
@@ -35,15 +36,17 @@ public class ListCommand extends Command {
      */
     @Override
     public void action() {
-        Optional<LocalDateTime> beforeTime = Optional.empty();
+        Stream<Task> tasks = taskList.stream();
+
         if (!before.equals("")) {
             try {
-                beforeTime = Optional.of(DatetimeHelper.parse(before));
+                LocalDateTime beforeTime = DatetimeHelper.parse(before);
+                tasks = tasks.filter(Task.filterByBeforeDatetime(beforeTime));
             } catch (DateTimeParseException e) {
                 throw new InvalidDatetimeFormatException("before", "list");
             }
         }
 
-        out.print(taskList.filter(beforeTime));
+        out.print(tasks);
     }
 }

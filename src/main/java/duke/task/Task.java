@@ -2,7 +2,7 @@ package duke.task;
 
 import java.time.LocalDateTime;
 import java.util.Map;
-import java.util.Optional;
+import java.util.function.Predicate;
 
 import duke.command.Command;
 import duke.exception.DukeException;
@@ -92,23 +92,41 @@ public abstract class Task {
             this.getClass().getSimpleName().toLowerCase(), description, isMarked ? " /mark" : "");
     }
 
-    /**
-     * Returns if the Task should be filtered
-     *
-     * @param before the datetime the Task should be before
-     * @return if the Task should be filtered.
-     */
-    public boolean filter(Optional<LocalDateTime> before) {
-        return before.isEmpty();
+    protected boolean before(LocalDateTime before) {
+        return false;
+    }
+
+    protected boolean findInDescription(String find) {
+        return description.contains(find);
     }
 
     /**
-     * Returns if find is in task description
+     * Returns a Predicate to filter tasks by if s is in description
      *
-     * @param find The string to search in description.
-     * @return if the Task should be filtered
+     * @param s the string to search
+     * @return a predicate to help search if s is in task description
      */
-    public boolean filter(String find) {
-        return description.contains(find);
+    public static Predicate<Task> filterByStringInDescription(String s) {
+        return new Predicate<>() {
+            @Override
+            public boolean test(Task t) {
+                return t.findInDescription(s);
+            }
+        };
+    }
+
+    /**
+     * Returns a predicate to filter tasks by if task is before datetime
+     *
+     * @param datetime the datetime to filter tasks by
+     * @return a Predicate to help with filtering
+     */
+    public static Predicate<Task> filterByBeforeDatetime(LocalDateTime datetime) {
+        return new Predicate<>() {
+            @Override
+            public boolean test(Task t) {
+                return t.before(datetime);
+            }
+        };
     }
 }
