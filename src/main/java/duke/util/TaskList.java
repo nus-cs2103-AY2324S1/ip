@@ -37,7 +37,7 @@ public class TaskList {
             switch (fields[0].trim()) {
             case "T":
                 if (fields[2].isEmpty()) {
-                    throw new NoTaskException("Error! Cannot add an empty todo!");
+                    throw new NoTaskException();
                 }
                 tempT = new ToDo(fields[2].trim());
                 if (fields[1].equals("1")) {
@@ -70,30 +70,30 @@ public class TaskList {
      * Marks a task within the tasklist as complete.
      * @param taskNumber task number to be marked
      * @param ui instance of user interface
+     * @return string containing user response
      * @throws InvalidTaskNumberException Error when given task number exceeds the number of tasks in the list
      */
-    public void markTask(int taskNumber, Ui ui) throws InvalidTaskNumberException {
+    public String markTask(int taskNumber, Ui ui) throws InvalidTaskNumberException {
         if (taskNumber > tasks.size()) {
-            throw new InvalidTaskNumberException("Error! Task Number given is outside range of current list size of "
-                    + tasks.size());
+            throw new InvalidTaskNumberException(tasks.size());
         }
         tasks.get(taskNumber - 1).markAsDone();
-        ui.showMarked(tasks.get(taskNumber - 1));
+        return ui.showMarked(tasks.get(taskNumber - 1));
     }
 
     /**
      * Unmarks a task with the given task number in the tasklist.
      * @param taskNumber task number to be unmarked
      * @param ui instance of user interface
+     * @return string containing user response
      * @throws InvalidTaskNumberException exception when the task number given is outside the count of tasklist
      */
-    public void unmarkTask(int taskNumber, Ui ui) throws InvalidTaskNumberException {
+    public String unmarkTask(int taskNumber, Ui ui) throws InvalidTaskNumberException {
         if (taskNumber > tasks.size()) {
-            throw new InvalidTaskNumberException("Error! Task Number given is outside range of current list size of "
-                    + tasks.size());
+            throw new InvalidTaskNumberException(tasks.size());
         } else {
             tasks.get(taskNumber - 1).unmarkAsDone();
-            ui.showUnmarked(tasks.get(taskNumber - 1));
+            return ui.showUnmarked(tasks.get(taskNumber - 1));
         }
     }
 
@@ -101,25 +101,26 @@ public class TaskList {
      * Adds given task to the tasklist.
      * @param task Task to be added to the list
      * @param ui instance of user interface
+     * @return string containing user response
      */
-    public void addTask(Task task, Ui ui) {
+    public String addTask(Task task, Ui ui) {
         tasks.add(task);
-        ui.showTaskAdded(task, tasks.size());
+        return ui.showTaskAdded(task, tasks.size());
     }
 
     /**
      * Deletes a task from the tasklist.
      * @param taskNumber Task number of task to be deleted
      * @param ui instance of user interface
+     * @return string containing user response
      * @throws InvalidTaskNumberException Exception when given task number is outside range of tasks in the list
      */
-    public void deleteTask(int taskNumber, Ui ui) throws InvalidTaskNumberException {
+    public String deleteTask(int taskNumber, Ui ui) throws InvalidTaskNumberException {
         if (taskNumber > tasks.size()) {
-            throw new InvalidTaskNumberException("Error! Task Number given is outside range of current list size of "
-                    + tasks.size());
+            throw new InvalidTaskNumberException(tasks.size());
         } else {
             Task temp = tasks.remove(taskNumber - 1);
-            ui.showComplete("Noted. I've removed this task:"
+            return ui.showComplete("Noted. I've removed this task:"
                     + temp
                     + "Now you have " + this.tasks.size() + " task(s) in the list");
         }
@@ -145,6 +146,10 @@ public class TaskList {
         ArrayList<String> listOfStrings = new ArrayList<>();
         for (Task task : tasks) {
             listOfStrings.add(task.toString());
+        }
+
+        if (listOfStrings.isEmpty()) {
+            listOfStrings.add("OH NO! The list is empty!!");
         }
         return listOfStrings;
     }

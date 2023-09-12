@@ -14,7 +14,7 @@ public class ToDo extends Task {
 
     /**
      * Returns a formatted string of the status of the task.
-     * @return String containing completion status, type and description of task
+     * @return string containing completion status, type and description of task
      */
     @Override
     public String toString() {
@@ -23,7 +23,7 @@ public class ToDo extends Task {
 
     /**
      * Returns a string formatted in the way it is to be saved.
-     * @return Formatted string to be written into file
+     * @return formatted string to be written into file
      */
     @Override
     public String toSaveFormat() {

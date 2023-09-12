@@ -1,7 +1,6 @@
 package duke.util;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import duke.task.Task;
 
@@ -9,107 +8,80 @@ import duke.task.Task;
  * UI class that handles interaction with the user.
  */
 public class Ui {
-    private static final String LINE = "---------------------"; //Line to be drawn on the screen
-
-    /**
-     * Scans the next input given by the user.
-     * @return String containing the instructions by user
-     */
-    public String read() {
-        Scanner sc = new Scanner(System.in);
-        return sc.nextLine();
-    }
-
-    /**
-     * Prints line onto the console
-     */
-    public void showLine() {
-        System.out.println(LINE);
-    }
-
     /**
      * Prints complete message when action is carried out.
      * @param message complete message to be displayed
      */
-    public void showComplete(String message) {
-        System.out.println(message);
+    public String showComplete(String message) {
+        return message;
     }
 
     /**
-     * Prints error message when exception is thrown.
-     * @param errorMessage message of the exception
-     */
-    public void showError(String errorMessage) {
-        System.out.println(errorMessage);
-    }
-
-    /**
-     * Prints message when task has been marked.
+     * Returns response message when task has been marked.
      * @param task task that was marked
+     * @return mark message
      */
-    public void showMarked(Task task) {
-        System.out.println("Nice! I've Marked this task as done:");
-        System.out.println(task);
+    public String showMarked(Task task) {
+        return "Nice! I've Marked this task as done:" + "\n" + task;
     }
 
     /**
-     * Prints message when task has been unmarked.
+     * Returns response message when task has been unmarked.
      * @param task task that was unmarked
+     * @return unmark message
      */
-    public void showUnmarked(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task);
+    public String showUnmarked(Task task) {
+        return "OK, I've marked this task as not done yet:" + "\n" + task;
     }
 
     /**
-     * Prints an error when fail to load file data onto the screen.
+     * Returns an error when fail to load file data onto the screen.
+     * @return error message to be displayed
      */
-    public void showLoadingError() {
-        System.out.println("Error loading data! There is no file found with the given filepath!");
+    public String showLoadingError() {
+        return "Error loading data! There is no file found with the given filepath!";
     }
 
     /**
-     * Prints the welcome message
+     * Static method to display welcome method.
+     * @return welcome message to be displayed
      */
-    public void showWelcome() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-
-        System.out.println("Hello from\n" + logo);
-        System.out.println(" Hello! I'm B055man\n"
-                + " What can I do for you today?");
+    public static String showWelcome() {
+        return "Hello! I'm B055man\n" + " What can I do for you today?";
     }
 
     /**
-     * Prints the result after a task has been added.
+     * Returns the response after a task has been added.
      * @param task task that was added
      * @param count current number of tasks in the tasklist
+     * @return string containing response message
      */
-    public void showTaskAdded(Task task, int count) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task.toString());
-        System.out.println("Now you have " + (count) + " tasks in the list.");
+    public String showTaskAdded(Task task, int count) {
+        return "Got it. I've added this task:" + "\n" + "  " + task.toString() + "\n + "
+                + "Now you have " + (count) + " tasks in the list.";
     }
 
     /**
-     * Prints the list of tasks onto the ui.
-     * @param tasks Arraylist of string of formatted tasks to be displayed.
+     * Returns the list of tasks to be displayed on the ui.
+     * @param tasks Arraylist of string of formatted tasks to be displayed
      */
-    public void showTasks(ArrayList<String> tasks) {
+    public String showTasks(ArrayList<String> tasks) {
         int count = 1;
+        String s = " ";
         for (String task : tasks) {
-            System.out.println(count + ". " + task);
+            s += count + ". " + task + "\n";
             count++;
         }
+        System.out.println(s);
+        return s;
+
     }
 
     /**
-     * Displays goodbye message.
+     * Returns goodbye message to be displayed.
+     * @return message to be displayed
      */
-    public void showGoodbye() {
-        System.out.println("Bye. Hope to See you again soon!");
+    public String showGoodbye() {
+        return "Bye. Hope to See you again soon!";
     }
 }

@@ -5,9 +5,8 @@ package duke.exception;
 public class NoTaskException extends DukeException {
     /**
      * Constructor of a NoTaskException.
-     * @param errorMessage message to be displayed when error is encountered
      */
-    public NoTaskException(String errorMessage) {
-        super(errorMessage);
+    public NoTaskException() {
+        super("Error! Cannot add an empty todo!");
     }
 }

@@ -9,6 +9,6 @@ public class InvalidArgumentException extends DukeException {
      * @param errorMessage message describing the error
      */
     public InvalidArgumentException(String errorMessage) {
-        super(errorMessage);
+        super("Please enter " + errorMessage + " without any extra arguments or use a different keyword");
     }
 }
