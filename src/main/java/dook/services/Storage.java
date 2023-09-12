@@ -16,6 +16,9 @@ import dook.task.Todo;
  * Responsible for loading saved task list from/writing updated task list to plaintext file.
  */
 public class Storage {
+    private static final String FILEREAD_ERROR_MSG = "Failed to read from file!";
+    private static final String FILESAVE_ERROR_MSG = "File cannot be saved.";
+    private static final String FILESAVE_SUCCESS_MSG = "Task list saved!";
 
     private final Path path;
     public Storage(Path filePath) {
@@ -39,7 +42,7 @@ public class Storage {
                 result.add(getTaskFromString(line));
             }
         } catch (IOException e) {
-            throw new DookException("File can't be read. This session can't be saved.");
+            throw new DookException(FILEREAD_ERROR_MSG);
         }
         return result;
     }
@@ -68,9 +71,9 @@ public class Storage {
         try {
             writeToFile(toSave);
         } catch (IOException e) {
-            throw new DookException("File cannot be saved.");
+            throw new DookException(FILESAVE_ERROR_MSG);
         }
-        return "Task list saved!";
+        return FILESAVE_SUCCESS_MSG;
 
     }
 
@@ -97,7 +100,7 @@ public class Storage {
         case "E":
             return new Event(params[2].trim(), params[3].trim(), params[4].trim(), isDone);
         default:
-            throw new DookException("Failed to read from file correctly.");
+            throw new DookException(FILEREAD_ERROR_MSG);
         }
     }
 

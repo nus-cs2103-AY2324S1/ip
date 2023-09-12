@@ -64,7 +64,10 @@ public class DialogBox extends HBox {
     public static DialogBox getUserDialog(String l, Image iv) {
         var db = new DialogBox(l, iv);
         db.dialog.setTextAlignment(TextAlignment.RIGHT);
-        db.setBackground(new Background(new BackgroundFill(Color.web("#ccccd7"), null, new Insets(5))));
+        Insets inset = new Insets(5);
+        BackgroundFill backgroundFill =
+                new BackgroundFill(Color.web("#ccccd7"), null, inset);
+        db.setBackground(new Background(backgroundFill));
         return db;
     }
 
@@ -77,7 +80,10 @@ public class DialogBox extends HBox {
     public static DialogBox getDukeDialog(String l, Image iv) {
         var db = new DialogBox(l, iv);
         db.flip();
-        db.setBackground(new Background(new BackgroundFill(Color.web("#a4a6ad"), null, new Insets(5))));
+        Insets inset = new Insets(5);
+        BackgroundFill backgroundFill =
+                new BackgroundFill(Color.web("#a4a6ad"), null, inset);
+        db.setBackground(new Background(backgroundFill));
 
         return db;
     }
