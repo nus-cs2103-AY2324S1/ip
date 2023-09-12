@@ -20,8 +20,10 @@ public class ParserTest {
     @Test
     public void correctDateDeadLine() throws DukeException {
         TaskList tasks = new TaskList();
-        Parser.parse("deadline dance /by 2001-12-12T09:00:00", new UI("Alfred"), tasks ,
-                new Storage("src/main/java/duke/data/duke.txt"));
+        UI ui = new UI("Alfred");
+        String text = "deadline dance /by 2001-12-12T09:00:00";
+        Storage storage = new Storage("src/main/java/duke/data/duke.txt");
+        Parser.parse(text, ui, tasks , storage).execute(text, ui, tasks, storage);
 
         assertEquals("dance (by: DECEMBER 12 2001, 09:00)", tasks.get(tasks.size() - 1).toString());
 

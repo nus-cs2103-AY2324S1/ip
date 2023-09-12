@@ -51,8 +51,10 @@ public class Duke {
         }
     public String getResponse(String input) {
         try {
-            String response = parser.parse(input, ui, tasks, storage);
+
+            String response = parser.parse(input, ui, tasks, storage).execute(input, ui, tasks, storage);
             assert response != null;
+
             return response;
         } catch (DukeException e) {
             return e.getMessage();

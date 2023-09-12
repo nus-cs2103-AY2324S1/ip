@@ -55,4 +55,8 @@ public class Task {
     public String toString() {
         return description;
     }
+
+    public Tag getTag() {
+        return this.tag;
+    }
 }
