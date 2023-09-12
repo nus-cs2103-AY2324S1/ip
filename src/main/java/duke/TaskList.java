@@ -10,6 +10,7 @@ import tasks.ToDo;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * The TaskList class manages the list of tasks in the Duke application.
@@ -229,6 +230,24 @@ public class TaskList {
             num++;
         }
         return foundTasksString;
+    }
+
+    public static ArrayList<Task> sortedTasksByDate() {
+        ArrayList<Task> sortedTaskArray = new ArrayList<>();
+        sortedTaskArray.addAll(taskArray);
+        Collections.sort(sortedTaskArray, new TaskDateComparator());
+        return sortedTaskArray;
+    }
+
+    public static String listSortedTasks() {
+        ArrayList<Task> sortedTaskArray = sortedTasksByDate();
+        String inputArrayString = "";
+        int num = 1;
+        for (Task task : sortedTaskArray) {
+            inputArrayString += num + ". " + task.statusAndTask() + "\n";
+            num++;
+        }
+        return inputArrayString;
     }
 
     public Task getTask(int i) {
