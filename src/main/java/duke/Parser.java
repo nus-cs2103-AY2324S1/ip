@@ -33,39 +33,34 @@ public class Parser {
         case "list":
             worker = new ListWorker();
             output = worker.work(taskList);
-            assert !output.equals("");
+            assert !output.isEmpty();
             return output;
         case "mark":
             worker = new MarkWorker();
             output = worker.work(inputParts, taskList, true);
-            assert !output.equals("");
+            assert !output.isEmpty();
             return output;
         case "unmark":
             worker = new MarkWorker();
             output = worker.work(inputParts, taskList, false);
-            assert !output.equals("");
+            assert !output.isEmpty();
             return output;
         case "delete":
             worker = new DeleteWorker();
             output = worker.work(inputParts, taskList);
-            assert !output.equals("");
+            assert !output.isEmpty();
             return output;
         case "find":
             worker = new FindWorker();
             output = worker.work(inputParts, taskList);
-            assert !output.equals("");
-            return output;
-        case "todo":
-            worker = new AddWorker();
-            output = worker.work(inputParts, taskList);
-            assert !output.equals("");
+            assert !output.isEmpty();
             return output;
         case "bye":
             return "Bye. Hope to see you again soon!\n";
         default:
             worker = new AddWorker();
             output = worker.work(inputParts, taskList);
-            assert !output.equals("");
+            assert !output.isEmpty();
             return output;
         }
     }

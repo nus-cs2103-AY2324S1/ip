@@ -27,21 +27,27 @@ public class AddWorker extends TaskWorker {
             }
 
             String content = inputParts[1];
-            if (inputParts[0].equals("todo")) {
+            switch (inputParts[0]) {
+            case "todo":
                 newTask = new Todo(content);
-            } else if (inputParts[0].equals("deadline")) {
+                break;
+            case "deadline": {
                 String[] contentParts = content.split(" /by ", 2);
                 String description = contentParts[0];
                 String dateOfDeadline = contentParts[1];
                 newTask = new Deadline(description, dateOfDeadline);
-            } else if (inputParts[0].equals("event")) {
+                break;
+            }
+            case "event": {
                 String[] contentParts = content.split(" /from ", 2);
                 String[] dateParts = contentParts[1].split(" /to ");
                 String description = contentParts[0];
                 String dateOfFrom = dateParts[0];
                 String dateOfTo = dateParts[1];
                 newTask = new Event(description, dateOfFrom, dateOfTo);
-            } else {
+                break;
+            }
+            default:
                 throw new IrisException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
             taskList.add(newTask);
