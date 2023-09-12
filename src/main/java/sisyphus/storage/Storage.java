@@ -1,4 +1,4 @@
-package sisyphus;
+package sisyphus.storage;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
