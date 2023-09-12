@@ -1,6 +1,6 @@
 package duke;
+
 import duke.command.Command;
-import javafx.application.Platform;
 
 
 public class Duke {
@@ -14,6 +14,7 @@ public class Duke {
 
     /**
      * Constructor of Duke class.
+     *
      * @param filePath File path of the save file.
      */
     public Duke(String filePath) {
@@ -22,36 +23,17 @@ public class Duke {
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
-//            ui.showErrorMessage(e.getMessage());
             tasks = new TaskList();
         }
     }
 
+
     /**
-     * Runs the programme.
+     * Gets the response according to the input.
+     *
+     * @param input String input by user.
+     * @return Output string according to the input string.
      */
-//    public void run() {
-//        ui.showWelcomeMessage();
-//        boolean isExit = false;
-//        while (!isExit) {
-//            try {
-//                String fullCommand = ui.readCommand();
-//                ui.showLine(); // show the divider line ("_______")
-//                Command c = Parser.parseCommand(fullCommand);
-//                c.execute(tasks, ui, storage);
-//                isExit = c.isExit();
-//            } catch (DukeException e) {
-//                ui.showErrorMessage(e.getMessage());
-//            } finally {
-//                ui.showLine();
-//            }
-//        }
-//    }
-
-//    public static void main(String[] args) {
-//        new Duke("data/tasks.txt").run();
-//    }
-
     public String getResponse(String input) {
         try {
             Command c = Parser.parseCommand(input.trim());

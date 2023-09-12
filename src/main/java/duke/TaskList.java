@@ -17,6 +17,7 @@ public class TaskList {
 
     /**
      * Alternative constructor.
+     *
      * @param tasks Array list that already store tasks inside.
      */
     public TaskList(ArrayList<Task> tasks) {
@@ -25,6 +26,7 @@ public class TaskList {
 
     /**
      * Returns the number of the tasks inside array list.
+     *
      * @return The number of the tasks inside array list.
      */
     public int size() {
@@ -33,6 +35,7 @@ public class TaskList {
 
     /**
      * Returns the task at the index i.
+     *
      * @param i Index of the task list that going to be access.
      * @return The task at the index i.
      * @throws DukeException If the index i out of the bound.
@@ -46,6 +49,7 @@ public class TaskList {
 
     /**
      * Adds task into the task list.
+     *
      * @param task Task that going to be added into task list.
      */
     public void addTask(Task task) {
@@ -55,6 +59,7 @@ public class TaskList {
 
     /**
      * Marks the task as done.
+     *
      * @param i Index of the task that going to be mark as done.
      * @throws DukeException If index i out of the bounds.
      */
@@ -67,6 +72,7 @@ public class TaskList {
 
     /**
      * Unmarks the task as not done.
+     *
      * @param i Index of the task that going to be unmark as not done.
      * @throws DukeException If index in out of the bounds.
      */
@@ -79,6 +85,7 @@ public class TaskList {
 
     /**
      * Deletes the task at index i.
+     *
      * @param i Index of the task that going to be deleted.
      * @throws DukeException If index out the bounds.
      */
@@ -89,6 +96,12 @@ public class TaskList {
         tasks.remove(i);
     }
 
+    /**
+     * Finds all the tasks which contain the keyword.
+     *
+     * @param keyword The keyword to be found.
+     * @return The task list contains all the tasks which contains the keywords.
+     */
     public TaskList findTasks(String keyword) {
         TaskList newTaskList = new TaskList();
         for (Task task: tasks) {
