@@ -1,5 +1,8 @@
 package taskmaster.tasks;
 
+import taskmaster.duplicatecheckers.DuplicateDeadlineChecker;
+import taskmaster.duplicatecheckers.DuplicateEventChecker;
+import taskmaster.duplicatecheckers.DuplicateTodoChecker;
 import taskmaster.ui.Ui;
 import taskmaster.exceptions.DukeException;
 import java.util.ArrayList;
@@ -130,51 +133,87 @@ public class TaskList {
             if (description.isEmpty()) {
                 throw new DukeException("The description of a todo cannot be empty.");
             }
+
+            //Duplicate checking
+            DuplicateTodoChecker todoChecker = new DuplicateTodoChecker();
+            if (todoChecker.isDuplicateTodo(description)) {
+                stringBuilder.append("Duplicate todo task detected!").append("\n");
+                return stringBuilder.toString();
+            }
+            //No duplicate, add todo to list
             Todo todo = new Todo(description, marked);
             list.add(todo);
             stringBuilder.append("Got it. I've added this to-do task:").append("\n");
             stringBuilder.append("  ").append(todo).append("\n");
             stringBuilder.append("Now you have ").append(list.size()).append(" tasks in the list.").append("\n");
         } else if (taskType == TaskType.EVENT) {
-            boolean wrongInput = false;
             String[] parts = description.split("/from");
-            if (parts.length == 2) {
-                String details = parts[0].trim();
-                String[] timeParts = parts[1].split("/to");
-                if (timeParts.length == 2) {
-                    String from = timeParts[0].trim();
-                    String end = timeParts[1].trim();
-                    list.add(new Event(details, from, end, marked));
-                } else {
-                    wrongInput = true;
-                }
-            } else {
-                wrongInput = true;
-            }
-            if (wrongInput) {
+            if (parts.length != 2) {
                 throw new DukeException("Please input a valid task");
-            } else {
-                stringBuilder.append("Got it. I've added this to-do task:").append("\n");
-                stringBuilder.append("  ").append(list.get(list.size() -1)).append("\n");
-                stringBuilder.append("Now you have ").append(list.size()).append(" tasks in the list.").append("\n");
             }
+
+            //Valid description and time checking
+            String details = parts[0].trim();
+            String[] timeParts = parts[1].split("/to");
+            String start = timeParts[0].trim();
+            String end = timeParts[1].trim();
+            if (timeParts.length != 2 || details.isEmpty() || start.isEmpty() || end.isEmpty()) {
+                throw new DukeException("Please input a valid task");
+            }
+
+            //Duplicate checking
+            DuplicateEventChecker eventChecker = new DuplicateEventChecker();
+            if (eventChecker.isDuplicateEvent(details, start)) {
+                stringBuilder.append("Duplicate event task detected!").append("\n");
+                return stringBuilder.toString();
+            }
+            //No duplicate, add event to list
+            list.add(new Event(details, start, end, marked));
+            stringBuilder.append("Got it. I've added this to-do task:").append("\n");
+            stringBuilder.append("  ").append(list.get(list.size() - 1)).append("\n");
+            stringBuilder.append("Now you have ").append(list.size()).append(" tasks in the list.").append("\n");
         } else if (taskType == TaskType.DEADLINE) {
-            boolean wrongInput = false;
             String[] parts = description.split("/by");
-            if (parts.length == 2) {
-                String details = parts[0].trim();
-                String by = parts[1].trim();
-                list.add(new Deadline(details, by, marked));
-            } else {
-                wrongInput = true;
-            }
-            if (wrongInput) {
+            if (parts.length != 2) {
                 throw new DukeException("Please input a valid task");
-            } else {
-                stringBuilder.append("Got it. I've added this to-do task:").append("\n");
-                stringBuilder.append("  ").append(list.get(list.size() -1)).append("\n");
-                stringBuilder.append("Now you have ").append(list.size()).append(" tasks in the list.").append("\n");
             }
+
+            //Valid description and time checking
+            String details = parts[0].trim();
+            String by = parts[1].trim();
+            if (details.isEmpty() || by.isEmpty()) {
+                throw new DukeException("Please input a valid task");
+            }
+
+            //Duplicate checking
+            DuplicateDeadlineChecker deadlineChecker = new DuplicateDeadlineChecker();
+            if (deadlineChecker.isDuplicateDeadline(details, by)) {
+                stringBuilder.append("Duplicate deadline task detected");
+                return stringBuilder.toString();
+            }
+
+            //No duplicates, add deadline to list
+            list.add(new Deadline(details, by, marked));
+            stringBuilder.append("Got it. I've added this to-do task:").append("\n");
+            stringBuilder.append("  ").append(list.get(list.size() - 1)).append("\n");
+            stringBuilder.append("Now you have ").append(list.size()).append(" tasks in the list.").append("\n");
+
+//            boolean wrongInput = false;
+//            String[] parts = description.split("/by");
+//            if (parts.length == 2) {
+//                String details = parts[0].trim();
+//                String by = parts[1].trim();
+//                list.add(new Deadline(details, by, marked));
+//            } else {
+//                wrongInput = true;
+//            }
+//            if (wrongInput) {
+//                throw new DukeException("Please input a valid task");
+//            } else {
+//                stringBuilder.append("Got it. I've added this to-do task:").append("\n");
+//                stringBuilder.append("  ").append(list.get(list.size() -1)).append("\n");
+//                stringBuilder.append("Now you have ").append(list.size()).append(" tasks in the list.").append("\n");
+//            }
         }
         return stringBuilder.toString();
     }
