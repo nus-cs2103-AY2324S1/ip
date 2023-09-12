@@ -7,10 +7,17 @@ public class Executor {
             String[] arr = input.split(DELIM);
             String type = arr[0];
 
+            assert tasks != null: "TaskList should be initialized prior to calling this method.";
+
             if (type.equals("bye")) {
+
+                assert ui != null: "UI should have been initialized.";
                 ui.end();
+
+                assert storage != null: "Storage should have been initialized.";
                 storage.saveDataFile(tasks);
                 storage.saveTextFile(tasks);
+
                 return "Goodbye!";
             } else if (type.equals("list")) {
                 return tasks.listOut();
