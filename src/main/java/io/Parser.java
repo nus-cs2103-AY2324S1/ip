@@ -15,6 +15,11 @@ import tasks.Event;
  */
 public class Parser {
 
+
+    private Scanner scanner;
+    private String inputString;
+    private String[] inputTokens;
+
     /**
      * Creates a Parser object, which handles text based user inputs and outputs
      */
@@ -173,10 +178,6 @@ public class Parser {
         return inputTokens.length == 0;
     }
 
-
-    private String[] inputTokens;
-    private String inputString;
-    private Scanner scanner;
 
 
 }
