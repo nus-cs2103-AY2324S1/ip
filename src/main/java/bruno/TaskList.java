@@ -44,7 +44,12 @@ public class TaskList {
         if (task.split(" ").length == 1) {
             throw new BrunoEmptyException(task.split(" ")[0]);
         }
-        tasks.add(new ToDo(task.substring(task.indexOf(" ") + 1)));
+        if (task.contains("/n")) {
+            String note = task.split("/n")[1];
+            tasks.add(new ToDo(task.substring(task.indexOf(" ") + 1, task.indexOf('/')), note));
+        } else {
+            tasks.add(new ToDo(task.substring(task.indexOf(" ") + 1), ""));
+        }
         String taskInfo = "Woof. I have added this task:\n" + tasks.get(tasks.size() - 1).getString();
         storage.writeToFile(this);
         return taskInfo;
@@ -63,8 +68,14 @@ public class TaskList {
         if (!task.substring(task.indexOf("deadline") + 1).contains("/by")) {
             throw new BrunoMissingDeadlineException();
         }
-        tasks.add(new Deadline(task.substring(task.indexOf(' ') + 1, task.indexOf('/') - 1),
-                task.substring(task.lastIndexOf('/') + 4)));
+        if (task.contains("/n")) {
+            String note = task.substring(task.indexOf("/n") + 3);
+            tasks.add(new Deadline(task.substring(task.indexOf(' ') + 1, task.indexOf("/by") - 1),
+                    task.substring(task.indexOf("/by") + 4, task.indexOf("/n") - 1), note));
+        } else {
+            tasks.add(new Deadline(task.substring(task.indexOf(' ') + 1, task.indexOf('/') - 1),
+                    task.substring(task.lastIndexOf('/') + 4), ""));
+        }
         storage.writeToFile(this);
         String taskInfo = "Woof. I have added this task:\n" + tasks.get(tasks.size() - 1).getString();
         return taskInfo;
@@ -84,9 +95,16 @@ public class TaskList {
                 task.indexOf("event") + 1).contains("/to")) {
             throw new BrunoMissingEventException();
         }
-        tasks.add(new Event(task.substring(task.indexOf(' ') + 1, task.indexOf('/') - 1),
-                task.substring(task.indexOf("from") + 5, task.lastIndexOf('/') - 1),
-                task.substring(task.indexOf("to") + 3)));
+        if (task.contains("/n")) {
+            String note = task.substring(task.indexOf("/n") + 3);
+            tasks.add(new Event(task.substring(task.indexOf(' ') + 1, task.indexOf("/from") - 1),
+                    task.substring(task.indexOf("from") + 5, task.lastIndexOf("/to") - 1),
+                    task.substring(task.indexOf("to") + 3, task.indexOf("/n") - 1), note));
+        } else {
+            tasks.add(new Event(task.substring(task.indexOf(' ') + 1, task.indexOf("/from") - 1),
+                    task.substring(task.indexOf("from") + 5, task.lastIndexOf("/to") - 1),
+                    task.substring(task.indexOf("to") + 3), ""));
+        }
         storage.writeToFile(this);
         String taskInfo = "Woof. I have added this task:\n" + tasks.get(tasks.size() - 1).getString();
         return taskInfo;
@@ -185,9 +203,9 @@ public class TaskList {
      * Displays the tasks of tasks.
      */
     public String displayList() {
-        String taskInfo = "Here are the tasks in your tasks:\n";
+        String taskInfo = "Here are the tasks in your tasks:\n\n";
         for (int i = 0; i < tasks.size(); i++) {
-            taskInfo += (i + 1) + ". " + tasks.get(i).getString() + ((i != tasks.size() - 1) ? "\n" : "");
+            taskInfo += (i + 1) + ". " + tasks.get(i).getString() + ((i != tasks.size() - 1) ? "\n\n" : "");
         }
         return taskInfo;
     }
@@ -243,6 +261,29 @@ public class TaskList {
             taskInfo = "Here are the tasks matching your search:\n" + taskInfo;
         }
         return taskInfo;
+    }
+
+    /**
+     * Adds a note to an existing task from the list of tasks.
+     * @param task User input for the note to be added.
+     */
+    public String addNote(String task) throws BrunoException {
+        String noteVal = task.split(" ")[1];
+        try {
+            int a = Integer.parseInt(noteVal);
+        } catch (NumberFormatException e) {
+            throw new BrunoIntegerMismatchException("note");
+        }
+        if (Integer.parseInt(noteVal) > tasks.size()) {
+            throw new BrunoIndexOutOfBoundsException("note");
+        }
+        if (Integer.parseInt(noteVal) < 0) {
+            throw new BrunoNegativeArgException("note");
+        }
+        String note = task.substring(task.indexOf(noteVal) + noteVal.length() + 1);
+        tasks.get(Integer.parseInt(noteVal) - 1).setNote(note);
+        storage.writeToFile(this);
+        return "I have added note to the task:\n" + tasks.get(Integer.parseInt(noteVal) - 1).getString();
     }
 
     public void setList(List<Task> list) {

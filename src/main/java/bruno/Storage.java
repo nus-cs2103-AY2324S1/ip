@@ -70,13 +70,25 @@ public class Storage {
                 List<Task> list = taskList.getList();
                 switch (task[0]) {
                 case "T":
-                    list.add(new bruno.task.ToDo(task[2]));
+                    if (task.length == 3) {
+                        list.add(new bruno.task.ToDo(task[2], ""));
+                    } else {
+                        list.add(new bruno.task.ToDo(task[2], task[3]));
+                    }
                     break;
                 case "D":
-                    list.add(new bruno.task.Deadline(task[2], task[3]));
+                    if (task.length == 4) {
+                        list.add(new bruno.task.Deadline(task[2], task[3], ""));
+                    } else {
+                        list.add(new bruno.task.Deadline(task[2], task[4], task[3]));
+                    }
                     break;
                 case "E":
-                    list.add(new bruno.task.Event(task[2], task[3], task[4]));
+                    if (task.length == 5) {
+                        list.add(new bruno.task.Event(task[2], task[3], task[4], ""));
+                    } else {
+                        list.add(new bruno.task.Event(task[2], task[4], task[5], task[3]));
+                    }
                     break;
                 default:
                     throw new bruno.exceptions.BrunoIncorrectFormatException();

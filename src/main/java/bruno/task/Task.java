@@ -11,6 +11,7 @@ import java.util.Locale;
 public class Task {
     protected TaskType taskType;
     protected String description;
+    protected String note;
     private boolean isDone;
 
     /**
@@ -19,10 +20,11 @@ public class Task {
      * @param type        The task type.
      * @param description Description of the task.
      */
-    public Task(TaskType type, String description) {
+    public Task(TaskType type, String description, String note) {
         this.taskType = type;
         this.description = description;
         this.isDone = false;
+        this.note = note;
     }
 
     /**
@@ -30,7 +32,7 @@ public class Task {
      * @return The string representation of the task.
      */
     public String getString() {
-        return "[" + (isDone ? "X" : " ") + "] " + description;
+        return "[" + (isDone ? "X" : " ") + "] " + description + (!note.isBlank() ? " (" + note + ")" : "");
     }
 
     /**
@@ -38,7 +40,7 @@ public class Task {
      * @return The string representation of the task, for the file.
      */
     public String getFileString() {
-        return (isDone ? "✅" : "⭕️") + "|" + description;
+        return (isDone ? "✅" : "⭕️") + "|" + description + "|" + note;
     }
 
     /**
@@ -85,5 +87,9 @@ public class Task {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public void setNote(String s) {
+        this.note = s;
     }
 }
