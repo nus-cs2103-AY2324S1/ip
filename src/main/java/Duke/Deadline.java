@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * It extends the SingleTask class and provides additional methods specific to deadline tasks.
  */
 public class Deadline extends SingleTask {
-    String formattedTime;
+    String FormattedTime;
     LocalDateTime DueBy;
     String unformattedTime;
 
@@ -30,7 +30,7 @@ public class Deadline extends SingleTask {
         this.DueBy = dateTime;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         String formattedDateTime = dateTime.format(formatter);
-        this.formattedTime = formattedDateTime;
+        this.FormattedTime = formattedDateTime;
 
     }
 
@@ -41,7 +41,7 @@ public class Deadline extends SingleTask {
         this.isDone = true;
         assert this.isDone;
         return "Ok boy i mark for you already \n" +
-                "[" +this.getStatusIcon() +"] " + this.description;
+                "[" +this.getStatusIcon() + "] " + this.description;
 
     }
 
@@ -61,7 +61,7 @@ public class Deadline extends SingleTask {
         this.isDone = false;
         assert !this.isDone;
         return "Ok boy I unmark for you already \n" +
-                "[" +this.getStatusIcon() +"] " + this.description;
+                "[" +this.getStatusIcon() + "] " + this.description;
     }
 
     /**
@@ -71,7 +71,7 @@ public class Deadline extends SingleTask {
     @Override
     public String toString() {
         return "OK DONE ALR added your Deadline ah:\n" +
-                "[D][" + getStatusIcon() + "] " + this.description +"(by: "+ this.formattedTime + ")";
+                "[D][" + getStatusIcon() + "] " + this.description +"(by: "+ this.FormattedTime + ")";
     }
     /**
      * Returns a string representation of the task for displaying in a list.
@@ -79,7 +79,7 @@ public class Deadline extends SingleTask {
      */
     @Override
     public String listString() {
-        return ". [D][" + getStatusIcon() + "] " + this.description +"(by: "+ this.formattedTime + ")\n";
+        return ". [D][" + getStatusIcon() + "] " + this.description +"(by: "+ this.FormattedTime + ")\n";
     }
 
     /**
@@ -89,7 +89,7 @@ public class Deadline extends SingleTask {
     @Override
     public String remove() {
         return "OK DONE ALR removed your Deadline ah:\n" +
-                "[D][" + getStatusIcon() + "] " + this.description +"(by: "+ this.formattedTime + ")";
+                "[D][" + getStatusIcon() + "] " + this.description +"(by: "+ this.FormattedTime + ")";
     }
 
     /**
