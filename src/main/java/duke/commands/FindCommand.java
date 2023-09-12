@@ -21,7 +21,7 @@ public class FindCommand extends Command {
         try {
             String output = "Here are the matching tasks in your list:\n";
             for (int i = 0; i < taskList.size(); i++) {
-                if (taskList.getTask(i).getTaskName().matches("(.*)" + this.prefix + "(.*)")) {
+                if (taskList.getTask(i).getTaskName().contains(this.prefix)) {
                     output += (count + 1) + "." + taskList.getTask(i) + "\n";
                     count++;
                 }
