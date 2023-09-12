@@ -38,7 +38,7 @@ public class Storage {
             if (input.charAt(0) == 'T') {
                 curr = new Todo(input.substring(4));
             } else if (input.charAt(0) == 'D') {
-                int i = 4;
+                int i = "D | ".length(); //4
                 while (input.charAt(i) != '|') {
                     desc.append(input.charAt(i));
                     i++;
@@ -47,7 +47,8 @@ public class Storage {
                 LocalDateTime endDateTime = LocalDateTime.parse(input.substring(i), Ballsorter.inputFormatter);
                 curr = new Deadline(desc.toString(), endDateTime);
             } else {
-                int i = 4;
+                assert input.charAt(0) == 'E';
+                int i = "E | ".length(); //4
                 while (input.charAt(i) != '|') {
                     desc.append(input.charAt(i));
                     i++;
@@ -60,11 +61,13 @@ public class Storage {
                 i++;
                 LocalDateTime startDateTime = LocalDateTime.parse(start.toString(), Ballsorter.inputFormatter);
                 LocalDateTime endDateTime = LocalDateTime.parse(input.substring(i), Ballsorter.inputFormatter);
+                assert startDateTime.isBefore(endDateTime);
                 curr = new Event(desc.toString(), startDateTime, endDateTime);
             }
             if (stat == 1) {
                 curr.markDone();
             }
+            assert curr != null;
             taskList.addTask(curr);
         }
     }
