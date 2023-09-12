@@ -24,9 +24,7 @@ public class TestEvent {
     public void event_testWrongDatetimeFormat() {
         assertThrows(
                 DukeInvalidDateException.class,
-                ()->{
-                    new Event("Test event", "sadad", "2023-12-19 23:59");
-                }
+                ()-> new Event("Test event", "sadad", "2023-12-19 23:59")
         );
     }
 }

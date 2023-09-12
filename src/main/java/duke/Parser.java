@@ -21,9 +21,6 @@ public class Parser {
     private enum Command {
         invalid, bye, list, mark, unmark, delete, find, todo, deadline, event;
 
-        /*
-
-         */
         /**
          * Returns an EnumSet of Command containing task-related command types.
          * This is useful for determining whether a given command involves adding tasks.

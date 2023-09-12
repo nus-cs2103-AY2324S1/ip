@@ -46,9 +46,7 @@ public class TestTaskList {
         assertTrue(taskList.getTasks().contains(todo));
 
         assertThrows(IndexOutOfBoundsException.class,
-                () -> {
-                    taskList.deleteTask(1);
-                });
+                () -> taskList.deleteTask(1));
         assertTrue(taskList.getTasks().contains(todo));
     }
     @Test
