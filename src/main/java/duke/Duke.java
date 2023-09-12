@@ -1,5 +1,6 @@
 package duke;
-import java.util.Scanner;
+
+import duke.parser.Parser;
 
 /** Duke is a chat bot that allows users to add, delete, mark, view tasks. */
 public class Duke {
@@ -23,11 +24,17 @@ public class Duke {
         this.parser = new Parser(this.list, filePath);
     }
 
+    /**
+     * Gives back a reply to an input from user.
+     *
+     * @param input The command given by user.
+     * @return Reply to respond to user.
+     */
     public String respond(String input) {
         try {
-            return parser.parse(input);
+            return parser.parse(input).execute();
         } catch (Exception error) {
-            return error.getMessage();
+            return this.ui.showError(error.getMessage());
         }
     }
 }
