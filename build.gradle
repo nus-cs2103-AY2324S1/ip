@@ -43,9 +43,10 @@ application {
     mainClass.set("duke.Launcher")
 }
 
+mainClassName = "duke.Launcher"
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "Launcher"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

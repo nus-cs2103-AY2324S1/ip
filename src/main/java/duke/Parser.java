@@ -79,6 +79,7 @@ public class Parser {
      * @throws DukeException If an error occurs during parsing.
      */
     public static Task parseLoad(String taskType, String taskDetails, boolean isDone) throws DukeException {
+        assert taskType != null : "Task type cannot be null.";
         if (taskType.equalsIgnoreCase("[T")) {
             taskDetails = taskDetails.trim();
             return new ToDoTask(taskDetails, isDone);
@@ -183,6 +184,9 @@ public class Parser {
         String[] details = taskDetails.split("by:", 2);
         String description = details[0];
         description = description.trim();
+        if (description.equals("")) {
+            throw new DukeException("The description of a deadline cannot be empty.");
+        }
         String by = details[1];
         by = by.replace(" ", "");
         return new DeadlineTask(description, by, isDone);
@@ -203,6 +207,9 @@ public class Parser {
         String[] innerDetails = details[1].split(" to:", 2);
         String description = details[0];
         description = description.trim();
+        if (description.equals("")) {
+            throw new DukeException("The description of a event cannot be empty.");
+        }
         String from = innerDetails[0];
         from = from.replace(" ", "");
         String to = innerDetails[1];

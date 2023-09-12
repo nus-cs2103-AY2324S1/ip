@@ -36,6 +36,8 @@ public class TaskList {
      * @return A confirmation message as a string.
      */
     public String addTask(Task task, Ui ui) {
+        // Assert that task is not null
+        assert task != null : "Task should not be null";
         tasks.add(task);
         return ui.showTaskAddedMessage(task, tasks.size());
     }
