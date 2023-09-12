@@ -1,5 +1,8 @@
 package peko;
-
+/**
+ * The `Output` class provides static methods to handle console output and display messages,
+ * including an introduction message and an exit message for the Peko chat application.
+ */
 public class Output {
 
 
@@ -9,7 +12,9 @@ public class Output {
             + "Usada Pekora-peko! almondo almondo!";
     private static final String exitText = "Otsupeko! Bye bye!";
 
-
+    /**
+     * Displays the introduction message, including a Peko-themed logo and a greeting.
+     */
     public static void intro() {
         String pekoLogo = " _____      _\n"
                 + "|     |___ | | ______\n"
@@ -22,6 +27,9 @@ public class Output {
         System.out.println(introText);
         System.out.println(lineBreak);
     }
+    /**
+     * Displays the exit message when the Peko chat application is exiting.
+     */
     public static void exit() {
         System.out.println(exitText);
     }
