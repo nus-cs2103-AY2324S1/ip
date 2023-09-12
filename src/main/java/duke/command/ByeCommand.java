@@ -21,6 +21,7 @@ public class ByeCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null && storage != null;
         ui.sendMessage("Bye. Happy to be able to serve you!!!\nShutting down...");
         closeChatbot();
     }

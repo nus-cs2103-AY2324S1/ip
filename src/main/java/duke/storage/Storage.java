@@ -37,6 +37,7 @@ public class Storage {
      * @throws DukeException If there is an issue saving the data.
      */
     public void editData(TaskList taskList) throws DukeException {
+        assert taskList != null;
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false));
             for (Task t : taskList) {
