@@ -1,5 +1,6 @@
 package com.mimi.main;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import com.mimi.tasks.Task;
@@ -161,5 +162,46 @@ public class Storage {
         ui.showResponse(result);
     }
 
+    /**
+     * Sends a reminder by listing out the tasks that are happening in less than a week.
+     */
+    public void remind() {
+        String result = "Here's a reminder that these tasks are due/happening " +
+                "in less than a week:\n";
 
+        int counter = 1;
+
+        for (Task task: this.previousCommands) {
+            if (task.isUrgent()) {
+                result += ui.listTask(counter, task);
+                counter++;
+            }
+        }
+
+        if (counter == 1) {
+            ui.showAllTasksNonUrgent(this.checkOverdue());
+            return;
+        }
+
+        ui.showResponse(result + this.checkOverdue());
+    }
+
+    private String checkOverdue() {
+        String result = "\nMeow! It also seems these tasks are overdue:\n";
+
+        int counter = 1;
+
+        for (Task task: this.previousCommands) {
+            if (task.isOverdue()) {
+                result += ui.listTask(counter, task);
+                counter++;
+            }
+        }
+
+        if (counter == 1) {
+            return "";
+        }
+
+        return result;
+    }
 }

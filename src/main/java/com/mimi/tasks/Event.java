@@ -2,6 +2,7 @@ package com.mimi.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Representation of the Event task.
@@ -89,6 +90,22 @@ public class Event extends Task {
                 this.taskName(),
                 this.startTime.format(formatter),
                 this.endTime.format(formatter));
+    }
+
+    @Override
+    public boolean isUrgent() {
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        long daysBetween = ChronoUnit.DAYS.between(currentTime, this.startTime);
+
+        return daysBetween < 7 && !isOverdue();
+    }
+
+    @Override
+    public boolean isOverdue() {
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        return this.startTime.isBefore(currentTime);
     }
 
 }

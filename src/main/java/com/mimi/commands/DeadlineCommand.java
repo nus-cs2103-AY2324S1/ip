@@ -42,7 +42,8 @@ public class DeadlineCommand extends Command {
     @Override
     public void execute() {
         //first check if the command is complete and if the time format is correct.
-        if (!this.isCompleteCommand || this.deadlineTime == LocalDateTime.MIN) {
+        if (!this.isCompleteCommand || this.deadlineTime == LocalDateTime.MIN
+            || this.isOverdue()) {
             return;
         }
 
@@ -61,7 +62,15 @@ public class DeadlineCommand extends Command {
             ui.incompleteDeadlineCommand();
         } else if (this.deadlineTime == LocalDateTime.MIN) {
             ui.wrongTimeFormat();
+        } else if (this.isOverdue()) {
+            ui.displayOverdue();
         }
+    }
+
+    private boolean isOverdue() {
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        return this.deadlineTime.isBefore(currentTime);
     }
 
 }

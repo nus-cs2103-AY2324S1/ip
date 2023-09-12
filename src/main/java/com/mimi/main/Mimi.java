@@ -33,6 +33,9 @@ public class Mimi extends Application implements DataCallback {
         this.readWriteData.initialise();
 
         this.ui.initialise();
+
+        this.storage.remind();
+
     }
 
 
