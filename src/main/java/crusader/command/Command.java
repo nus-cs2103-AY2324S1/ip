@@ -1,5 +1,6 @@
 package crusader.command;
 
+import crusader.Storage;
 import crusader.TaskList;
 import crusader.Ui;
 import crusader.exception.CrusaderException;
@@ -22,7 +23,7 @@ public abstract class Command {
      * @param taskList Task list to update or access as required
      * @throws CrusaderException On malformed user input
      */
-    public abstract String execute(Ui ui, TaskList taskList) throws CrusaderException;
+    public abstract String execute(Ui ui, TaskList taskList, Storage storage) throws CrusaderException;
 
     /**
      * Checks whether the command is used to terminate the bot.

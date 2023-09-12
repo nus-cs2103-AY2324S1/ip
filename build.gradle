@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("crusader.Crusader")
+    mainClass.set("crusader.Launcher")
 }
 
 shadowJar {

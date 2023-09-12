@@ -1,5 +1,6 @@
 package crusader;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -48,5 +49,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getCrusaderDialog(response, crusaderImage)
         );
         userInput.clear();
+        // check if this is a bye command
+        if (input.trim().equals("bye")) {
+            Platform.exit();
+        }
     }
 }

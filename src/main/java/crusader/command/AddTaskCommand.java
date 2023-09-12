@@ -1,5 +1,6 @@
 package crusader.command;
 
+import crusader.Storage;
 import crusader.TaskList;
 import crusader.Ui;
 import crusader.task.Task;
@@ -15,8 +16,9 @@ public class AddTaskCommand extends Command {
     }
 
     @Override
-    public String execute(Ui ui, TaskList taskList) {
+    public String execute(Ui ui, TaskList taskList, Storage storage) {
         taskList.addTask(this.task);
+        storage.saveTasks(taskList.getTasks());
         return String.format(
                 "Adding the task:\n%s\nNow there are %d tasks in the list.",
                 this.task.toString(),

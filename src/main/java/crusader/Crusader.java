@@ -4,8 +4,6 @@ import crusader.command.Command;
 import crusader.exception.CrusaderException;
 import crusader.exception.CrusaderMissingSaveFileException;
 
-import java.security.PublicKey;
-
 /**
  * The main instance of the bot.
  */
@@ -75,21 +73,11 @@ public class Crusader {
         }
         this.taskList = taskList;
     }
-    /**
-     * Activates the bot.
-     */
-    public void run() {
-        this.ui.showLogo();
-        this.ui.greet();
-        boolean hasEnded = false;
-        this.ui.farewell();
-        this.storage.saveTasks(taskList.getTasks());
-    }
 
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            return c.execute(ui, taskList);
+            return c.execute(ui, taskList, storage);
         } catch (CrusaderException e) {
             return e.getMessage();
         }
