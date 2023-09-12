@@ -2,8 +2,8 @@ package grumpygordon;
 
 import java.io.IOException;
 
+import grumpygordon.controllers.MainWindow;
 import grumpygordon.exceptions.GrumpyGordonException;
-import grumpygordon.ui.controllers.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

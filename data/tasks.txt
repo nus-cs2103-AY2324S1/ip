@@ -1,8 +1,9 @@
-T | 0 | eat
-T | 1 | sleep
-T | 0 | eat
-T | 0 | eat
-T | 0 | eat
-T | 0 | eat
-T | 0 | eat again
-T | 0 | eat
+T | 0 | a
+T | 0 | b
+T | 0 | m
+T | 0 | r
+T | 0 | x
+T | 0 | aa
+T | 0 | aaa
+T | 0 | Aaa
+T | 0 | aAa

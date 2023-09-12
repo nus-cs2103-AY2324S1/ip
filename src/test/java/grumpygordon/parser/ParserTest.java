@@ -35,7 +35,7 @@ public class ParserTest {
             assertEquals(LocalDateTime.of(2021, 9, 1, 19, 32), Parser.parseDateTime("2021-09-01 19-32"));
             fail();
         } catch (Exception e) {
-            assertEquals("Invalid datetime.\n", e.getMessage());
+            assertEquals("Invalid datetime format.\n", e.getMessage());
         }
 
         try {
