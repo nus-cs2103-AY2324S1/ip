@@ -6,17 +6,17 @@ import java.time.LocalDateTime;
  * Represents a deadline to be used by the Duke chat-bot.
  */
 public class Deadline extends Task {
-    protected LocalDateTime by;
+    protected LocalDateTime byTime;
 
     /**
      * Creates a Deadline object.
      *
      * @param description The description of the deadline.
-     * @param by          The deadline of the deadline.
+     * @param byTime      The deadline of the deadline.
      */
-    public Deadline(String description, LocalDateTime by) {
+    public Deadline(String description, LocalDateTime byTime) {
         super(description, false);
-        this.by = by;
+        this.byTime = byTime;
     }
 
     /**
@@ -24,11 +24,11 @@ public class Deadline extends Task {
      *
      * @param description The description of the deadline.
      * @param isDone      Whether the deadline is done.
-     * @param by          The deadline of the deadline.
+     * @param byTime      The deadline of the deadline.
      */
-    public Deadline(String description, boolean isDone, LocalDateTime by) {
+    public Deadline(String description, boolean isDone, LocalDateTime byTime) {
         super(description, isDone);
-        this.by = by;
+        this.byTime = byTime;
     }
 
     /**
@@ -38,7 +38,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), this.by.format(DATE_TIME_FORMAT));
+        return String.format("[D]%s (by: %s)", super.toString(), this.byTime.format(DATE_TIME_FORMAT));
     }
 
     /**
@@ -48,6 +48,6 @@ public class Deadline extends Task {
      */
     @Override
     public String encodeTask() {
-        return String.format("D;%s;%s;%s", this.isDone ? "X" : " ", this.description, this.by);
+        return String.format("D;%s;%s;%s", this.isDone ? "X" : " ", this.description, this.byTime);
     }
 }

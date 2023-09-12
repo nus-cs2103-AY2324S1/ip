@@ -18,13 +18,13 @@ public class ListCommand extends Command {
     public String execute(TaskList tasks, Storage storage) {
         if (tasks.getSize() == 0) {
             return "There are no tasks in your list!";
-        } else {
-            StringBuilder tasksString = new StringBuilder();
-            for (int i = 0; i < tasks.getSize(); i++) {
-                tasksString.append(String.format("  %d. %s\n", i + 1, tasks.getTask(i).toString()));
-            }
-            return String.format("Here are the tasks in your list:\n%s", tasksString);
         }
+
+        StringBuilder tasksString = new StringBuilder();
+        for (int i = 0; i < tasks.getSize(); i++) {
+            tasksString.append(String.format("  %d. %s\n", i + 1, tasks.getTask(i).toString()));
+        }
+        return String.format("Here are the tasks in your list:\n%s", tasksString);
     }
 
     /**
