@@ -67,9 +67,9 @@ public class Parser {
      */
     public static Task parseFile(String s) throws DukeException {
         String[] q = s.trim().split(",>");
-        List<String> list = Arrays.asList(q);
+        List<String> queryList = Arrays.asList(q);
         try {
-            assert list.size() > 0 : "Not a valid data.";
+            assert queryList.size() > 0 : "Not a valid data.";
             switch (q[0]) {
             case "deadline":
                 return new Deadline(q[1], q[2].equals("X"), LocalDate.parse(q[3]));
