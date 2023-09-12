@@ -17,6 +17,7 @@ import duke.exception.DukeIllegalArgumentsException;
 import duke.exception.DukeUnknownCommandException;
 import duke.task.Deadline;
 import duke.task.Event;
+import duke.task.Timed;
 import duke.task.Todo;
 
 /**
@@ -52,6 +53,36 @@ public class Parser {
             assert splitInput.length == 2 : "The description of a todo cannot be empty";
 
             return new AddCommand(new Todo(splitInput[1].trim()));
+        case "timed":
+            if (splitInput.length == 1) {
+                throw new DukeIllegalArgumentsException("The description of a timed task cannot be empty\n");
+            }
+
+            assert splitInput.length == 2 : "The description of a timed task cannot be empty";
+
+            String[] splitInputDuration = fullCommand.split("/duration", 2);
+            String[] splitTimedDescription = splitInputDuration[0].split(" ", 2);
+            if (splitTimedDescription.length == 1 || splitTimedDescription[1].equals("")) {
+                throw new DukeIllegalArgumentsException("The description of a timed task cannot be empty\n");
+            }
+
+            assert splitTimedDescription.length == 2 : "The description of a timed task cannot be empty";
+
+            if (splitInputDuration.length == 1 || splitInputDuration[1].equals("")) {
+                throw new DukeIllegalArgumentsException(
+                        "The duration of the timed task must be specified! (after /duration)\n");
+            }
+
+            assert splitInputDuration.length == 2
+                    : "The duration of the timed task must be specified! (after /duration)";
+
+            try {
+                return new AddCommand(new Timed(splitTimedDescription[1].trim(),
+                        Float.parseFloat(splitInputDuration[1].trim())));
+            } catch (NumberFormatException e) {
+                throw new DukeIllegalArgumentsException(
+                        "The duration provided must be a number (no characters other than \".\")\n");
+            }
         case "deadline":
             if (splitInput.length == 1) {
                 throw new DukeIllegalArgumentsException("The description of an deadline cannot be empty\n");
