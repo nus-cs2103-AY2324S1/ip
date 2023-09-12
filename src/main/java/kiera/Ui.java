@@ -1,6 +1,7 @@
 package kiera;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
@@ -15,7 +16,6 @@ public class Ui {
     private VBox dialogBox;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/xbot.png"));
     private Image kiera = new Image(this.getClass().getResourceAsStream("/images/orange.png"));
-
     /**
      * Constructor for Ui.
      * @param dialogBox Box displaying user input or bot response.
@@ -186,8 +186,44 @@ public class Ui {
      *
      * @param content Content to be displayed.
      */
-    public void showMarkedList(String notify, String content) {
+    public void showMarkedList(boolean mark, String content) {
+        String notify;
+        if (mark) {
+            notify = "yay, you're one task down!";
+        } else {
+            notify = "ok, this task has been marked undone.";
+        }
         String output = notify + "\n" + "here's what you have to do now:\n" + content;
+        dialogBox.getChildren().addAll(DialogBox.getKieraDialog(
+                output,
+                kiera));
+    }
+
+    /**
+     * Displays a sorted list of tasks to the user.
+     *
+     * @param t Type of task to be sorted as specified by user.
+     * @param sortType Comparable that tasks are sorted by.
+     * @param content Content to be displayed.
+     */
+    public void showSortedList(TaskType t, String sortType, String content) {
+        String notify;
+        switch (t) {
+        case DEADLINE:
+            notify = "here's the list of deadlines sorted by date:\n";
+            break;
+        case EVENT:
+            if (sortType.equals("date")) {
+                notify = "here's the list of events sorted by date:\n";
+            } else {
+                assert sortType.equals("time");
+                notify = "here's the list of events sorted by time:\n";
+            }
+            break;
+        default:
+            notify = "";
+        }
+        String output = notify + content;
         dialogBox.getChildren().addAll(DialogBox.getKieraDialog(
                 output,
                 kiera));

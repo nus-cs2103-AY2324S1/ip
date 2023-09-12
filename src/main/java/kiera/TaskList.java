@@ -78,13 +78,11 @@ public class TaskList {
         switch (t) {
         case DEADLINE:
             return this.tasks.stream()
-                    .filter(task -> task.getDeadline() != null)
                     .filter(task -> task instanceof Deadline)
                     .filter(task -> task.getDeadline().equals(d))
                     .collect(Collectors.toCollection(ArrayList::new));
         case EVENT:
             return this.tasks.stream()
-                    .filter(task -> task.getStartDate() != null)
                     .filter(task -> task instanceof Event)
                     .filter(task -> task.getStartDate().equals(d))
                     .collect(Collectors.toCollection(ArrayList::new));

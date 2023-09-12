@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import kiera.exception.KieraException;
+import kiera.tasktype.TaskType;
 
 /**
  * Task to be created. Contains a description, deadline, start date, start time and end time.
@@ -59,7 +60,6 @@ public class Task {
     public void setDeadline(String input) {
         this.deadline = LocalDate.parse(input);
     }
-
     public LocalDate getDeadline() {
         return this.deadline;
     }
