@@ -45,6 +45,7 @@ application {
 
 shadowJar {
     archiveBaseName = "duke"
+    archiveFileName = 'nyan.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
