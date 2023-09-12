@@ -60,6 +60,10 @@ public class Duke {
         input.close();
     }
 
+    /**
+     * Inititates the task list from file data and prints hello.
+     * @return
+     */
     public String init() {
         try {
             tasks = storage.read();
@@ -69,6 +73,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Processes user input and executes the appropriate command.
+     * @param input user input
+     * @return Duke's respond
+     * @throws DukeException if invalid input
+     */
     public String process(String input) throws DukeException {
         Command command = Parser.parse(input);
         isTerminated = command.isExit();
