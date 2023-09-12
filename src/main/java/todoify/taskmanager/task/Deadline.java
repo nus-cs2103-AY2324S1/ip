@@ -39,11 +39,15 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
+        String formattedDeadline = this.deadline == null
+                ? null
+                : EpochConverter.getUserReadableDateTimeStringFromEpoch(this.getDeadline());
+
         return String.format(
                 "<D> %s %s (by: %s)",
                 this.getCompletedIndicatorString(),
                 this.getTitle(),
-                this.deadline == null ? null : EpochConverter.getUserReadableDateTimeStringFromEpoch(this.getDeadline())
+                formattedDeadline
         );
     }
 }

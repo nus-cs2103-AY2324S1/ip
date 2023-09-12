@@ -14,7 +14,15 @@ import java.nio.file.Path;
  */
 public class InternalStorage {
 
-    private static InternalStorage sharedInstance = null;
+    /**
+     * A cache of the default instance. This prevents unnecessary reinitialization of the default instance if and
+     * when it is used in multiple places throughout the program.
+     */
+    private static InternalStorage defaultInstance = null;
+
+    /**
+     * The {@link java.nio.file.Path} instance to be used as the base directory for data storage.
+     */
     private final Path baseNioPath;
 
     /**
@@ -32,10 +40,10 @@ public class InternalStorage {
      * @return The shared default instance of the internal storage manager.
      */
     public static InternalStorage getDefault() {
-        if (sharedInstance == null) {
-            sharedInstance = new InternalStorage(null);
+        if (defaultInstance == null) {
+            defaultInstance = new InternalStorage(null);
         }
-        return sharedInstance;
+        return defaultInstance;
     }
 
     /**
@@ -48,7 +56,7 @@ public class InternalStorage {
     public void saveTo(InternalPath internalPath, String data) throws IOException {
 
         // Auto-create directory if necessary.
-        Path nioPath = internalPath.excludingLastComponent().toJavaNioFilePath(this.baseNioPath);
+        Path nioPath = internalPath.getByExcludingLastComponent().toJavaNioFilePath(this.baseNioPath);
         Files.createDirectories(nioPath);
 
         // Write to the file.

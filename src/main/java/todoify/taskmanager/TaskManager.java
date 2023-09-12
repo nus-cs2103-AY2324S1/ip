@@ -37,7 +37,7 @@ public class TaskManager {
      * Constructs a task manager, managing a list of items representing "tasks", with a custom storage location and
      * storage handler.
      *
-     * @param storageLocation The storage location.
+     * @param storageLocation The storage location for tasks.
      * @param storageHandler  The handler for processing storage operations.
      */
     public TaskManager(InternalPath storageLocation, InternalStorage storageHandler) {
@@ -50,7 +50,7 @@ public class TaskManager {
      * Constructs a task manager, managing a list of items representing "tasks", with a custom storage location and
      * default storage handler.
      *
-     * @param storageLocation Path
+     * @param storageLocation The storage location for tasks.
      */
     public TaskManager(InternalPath storageLocation) {
         this(storageLocation, null);
