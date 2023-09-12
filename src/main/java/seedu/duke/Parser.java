@@ -12,7 +12,7 @@ public class Parser {
     private TaskList tasks;
     private Ui ui;
 
-    private enum TaskType {LIST, TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, FIND};
+    private enum TaskType {LIST, TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, FIND, POSTPONE, BYE};
 
     /**
      * Creates a Parser instance.
@@ -25,6 +25,7 @@ public class Parser {
         this.storage = storage;
         this.tasks = tasks;
         this.ui = ui;
+
     }
 
     /**
@@ -33,37 +34,37 @@ public class Parser {
      * @param cmd The command inputted by the user.
      */
     public String parse(String cmd) {
-        while (!cmd.equals("bye")) {
-            try {
-                System.out.println(TaskType.valueOf(getTaskType(cmd)));
-                TaskType taskType = TaskType.valueOf(getTaskType(cmd));
+        try {
+            TaskType taskType = TaskType.valueOf(getTaskType(cmd));
 
-                if (taskType == TaskType.LIST) {
-                    return getListItems();
-                } else if (taskType == TaskType.TODO) {
-                    return parseToDoCommand(cmd);
-                } else if (taskType == TaskType.DEADLINE) {
-                    return parseDeadlineCommand(cmd);
-                } else if (taskType == TaskType.EVENT) {
-                    return parseEventCommand(cmd);
-                } else if (taskType == TaskType.DELETE) {
-                    return parseDeleteCommand(cmd);
-                } else if (taskType == TaskType.MARK) {
-                    return parseMarkCommand(cmd);
-                } else if (taskType == TaskType.UNMARK) {
-                    return parseUnmarkCommand(cmd);
-                } else if (taskType == TaskType.FIND) {
-                    return parseFindCommand(cmd);
-                } else {  // If the inputted command is not valid, throw TaskTypeException
-                    throw new TaskTypeException();
-                }
-            } catch (DukeException e) {
-                return e.getMessage();
-            } catch (AssertionError e) {
-                return "Assertion failed: " + e.getMessage();
+            if (taskType == TaskType.LIST) {
+                return getListItems();
+            } else if (taskType == TaskType.TODO) {
+                return parseToDoCommand(cmd);
+            } else if (taskType == TaskType.DEADLINE) {
+                return parseDeadlineCommand(cmd);
+            } else if (taskType == TaskType.EVENT) {
+                return parseEventCommand(cmd);
+            } else if (taskType == TaskType.DELETE) {
+                return parseDeleteCommand(cmd);
+            } else if (taskType == TaskType.MARK) {
+                return parseMarkCommand(cmd);
+            } else if (taskType == TaskType.UNMARK) {
+                return parseUnmarkCommand(cmd);
+            } else if (taskType == TaskType.FIND) {
+                return parseFindCommand(cmd);
+            } else if (taskType == TaskType.POSTPONE) {
+                return parsePostponeCommand(cmd);
+            } else if (taskType == TaskType.BYE) {
+                return exit();
+            } else {  // If the inputted command is not valid, throw TaskTypeException
+                throw new TaskTypeException();
             }
+        } catch (DukeException e) {
+            return e.getMessage();
+        } catch (AssertionError e) {
+            return "Assertion failed: " + e.getMessage();
         }
-        return exit();
     }
 
     /**
@@ -208,7 +209,7 @@ public class Parser {
             throw new InvalidTaskNumberException(taskNumber);
         }
 
-        Task task = tasks.markOrDeleteTask(taskNumber - 1, "delete");
+        Task task = tasks.updateTasks(taskNumber - 1, "DELETE");
         return ui.printDeleteTaskMessage(task, new TaskList(storage.load()));
     }
 
@@ -243,7 +244,7 @@ public class Parser {
             throw new InvalidTaskNumberException(taskNumber);
         }
 
-        Task task = tasks.markOrDeleteTask(taskNumber - 1, "mark");
+        Task task = tasks.updateTasks(taskNumber - 1, "MARK");
         return ui.printMarkedTaskMessage(task);
     }
 
@@ -278,7 +279,7 @@ public class Parser {
             throw new InvalidTaskNumberException(taskNumber);
         }
 
-        Task task = tasks.markOrDeleteTask(taskNumber - 1, "unmark");
+        Task task = tasks.updateTasks(taskNumber - 1, "UNMARK");
         return ui.printUnmarkedTaskMessage(task);
     }
 
@@ -306,6 +307,44 @@ public class Parser {
      */
     private String exit() {
         return ui.printExit();
+    }
+
+    /**
+     * Executes the code corresponding to a postpone command.
+     *
+     * @param cmd The user input.
+     * @return A string containing the postpone task message.
+     * @throws InvalidDescriptionException When there is only one word in the user input.
+     * @throws InvalidIntegerException When the argument specified is not an integer.
+     * @throws InvalidTaskNumberException When the integer specified is not a task number.
+     * @throws InvalidDataFormatException When the format duke.txt file is incorrect.
+     * @throws NoDeadlineException When no new deadline is specified.
+     */
+    private String parsePostponeCommand(String cmd) throws InvalidDescriptionException,
+                                                            InvalidIntegerException,
+                                                            InvalidTaskNumberException,
+                                                            InvalidDataFormatException,
+                                                            NoDeadlineException {
+        if (descriptionIsEmpty(cmd)) {
+            throw new InvalidDescriptionException("postpone");
+        }
+
+        int taskNumber = -1;
+        String integer = cmd.split(" ", 3)[1];
+
+        try {
+            taskNumber = Integer.parseInt(integer);
+        } catch (Exception e) {
+            throw new InvalidIntegerException();
+        }
+
+        if (!isValidTaskNumber(taskNumber)) {
+            throw new InvalidTaskNumberException(taskNumber);
+        }
+
+        Task task = tasks.postponeTask(cmd,(taskNumber - 1));
+        return ui.printPostponeMessage(task);
+
     }
 
     /**
@@ -419,7 +458,6 @@ public class Parser {
 
             return LocalDateTime.of(year, month, day, hour, min);
         } catch (InvalidDurationException e) {
-            System.out.println(e.getMessage());
             return null;
         }
     }

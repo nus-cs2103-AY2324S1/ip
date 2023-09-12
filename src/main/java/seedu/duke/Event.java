@@ -58,4 +58,15 @@ public class Event extends Task {
         return "(from: " + startMonthInWords + " " + startDayOfMonth + " " + startYear + ", " + formattedStartTime + " " +
                 "to: " + endMonthInWords + " " + endDayOfMonth + " " + endYear + ", " + formattedEndTime + ")";
     }
+
+    /**
+     * Changes the duration of the Event.
+     *
+     * @param start The new start date and time.
+     * @param end The new end date and time.
+     */
+    public void changeDuration(LocalDateTime start, LocalDateTime end) {
+        this.start = start;
+        this.end = end;
+    }
 }
