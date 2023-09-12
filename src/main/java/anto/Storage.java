@@ -40,6 +40,9 @@ public class Storage {
      */
     public ArrayList<Task> loadSave() throws AntoException {
         try {
+            assert this.ui != null;
+            assert this.antoFile != null;
+
             // If file doesn't exist
             ArrayList<Task> taskList;
             if (!antoFile.exists()) {

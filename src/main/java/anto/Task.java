@@ -53,6 +53,7 @@ public class Task {
      * @return String with task description.
      */
     public String toString() {
+        assert this.description != null;
         return this.description;
     }
 }

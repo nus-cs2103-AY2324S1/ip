@@ -44,6 +44,10 @@ public class Event extends Task {
      * @return Task in storage format.
      */
     public String getStoreFormat() {
+        assert this.description != null;
+        assert this.from != null;
+        assert this.to != null;
+
         return String.format("\nE | %s | %s | %s | %s",
                 this.isDone ? "1" : "0",
                 this.description,
@@ -58,6 +62,10 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
+        assert this.getStatusIcon() != null;
+        assert this.from != null;
+        assert this.to != null;
+
         return String.format("[E] [%s] %s (from: %s to: %s)",
                 this.getStatusIcon(),
                 super.toString(),

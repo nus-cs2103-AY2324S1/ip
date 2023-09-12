@@ -1,5 +1,7 @@
 package anto;
 
+import java.util.ArrayList;
+
 /**
  * Anto class represents a command line chatbot named Anto.
  *
@@ -16,7 +18,8 @@ public class Anto {
      * Creates an Anto chatbot with default filePath.
      */
     public Anto() {
-        String filePath = "data/anto.txt";
+        String filePath = System.getProperty("user.dir") + "/data/anto.txt";
+
         ui = new Ui();
         storage = new Storage(ui, filePath);
         try {
@@ -24,6 +27,8 @@ public class Anto {
             ui.setTaskList(tasks);
         } catch (AntoException e) {
             ui.printError(e);
+            tasks = new TaskList(new ArrayList<>(), storage);
+            ui.setTaskList(tasks);
         }
         parser = new Parser(ui, tasks);
     }
@@ -61,7 +66,7 @@ public class Anto {
      * @return Whether task list has no tasks.
      */
     public Boolean hasNoTasks() {
-        assert  this.tasks != null;
+        assert this.tasks != null;
         return this.tasks.hasNoTasks();
     }
 

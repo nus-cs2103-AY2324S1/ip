@@ -27,7 +27,10 @@ public class TaskList {
      * @throws AntoException Throws anto exception if there is an IO Exception
      */
     public void addToList(Task newTask) throws AntoException {
+        assert this.taskList != null;
         this.taskList.add(newTask);
+
+        assert this.storage != null;
         this.storage.addTaskToStorage(newTask);
     }
 
@@ -46,6 +49,7 @@ public class TaskList {
      * @return Current number of tasks.
      */
     public int getLength() {
+        assert this.taskList != null;
         return this.taskList.size();
     }
 
@@ -56,7 +60,10 @@ public class TaskList {
      * @throws AntoException Throws AntoException if there is an IO Exception.
      */
     public void markTaskAsDone(int index) throws AntoException {
+        assert this.storage != null;
         this.storage.markTaskAsDone(index);
+
+        assert this.taskList != null;
         this.taskList.get(index).markAsDone();
     }
 
@@ -67,7 +74,10 @@ public class TaskList {
      * @throws AntoException Throws AntoException if there is an IO Exception.
      */
     public void unmarkTask(int index) throws AntoException {
+        assert this.storage != null;
         this.storage.unmarkTask(index);
+
+        assert this.taskList != null;
         this.taskList.get(index).unmark();
     }
 
@@ -79,7 +89,10 @@ public class TaskList {
      * @throws AntoException Throws AntoException if there is an IO Exception.
      */
     public Task deleteTask(int index) throws AntoException {
+        assert this.storage != null;
         this.storage.deleteTask(index);
+
+        assert this.taskList != null;
         return this.taskList.remove(index);
     }
 
@@ -92,6 +105,7 @@ public class TaskList {
     public ArrayList<Task> findTask(String keyword) {
         ArrayList<Task> foundTasks = new ArrayList<>();
 
+        assert this.taskList != null;
         for (Task curr : this.taskList) {
             if (curr.description.contains(keyword)) {
                 foundTasks.add(curr);
@@ -107,6 +121,7 @@ public class TaskList {
      * @return Whether task list has no tasks.
      */
     public Boolean hasNoTasks() {
+        assert this.taskList != null;
         return taskList.size() == 0;
     }
 }

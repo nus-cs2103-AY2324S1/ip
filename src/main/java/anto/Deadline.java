@@ -37,6 +37,9 @@ public class Deadline extends Task {
      * @return Task in storage format.
      */
     public String getStoreFormat() {
+        assert this.description != null;
+        assert this.by != null;
+
         return String.format("\nD | %s | %s | %s",
                 this.isDone ? "1" : "0",
                 this.description,
@@ -50,6 +53,9 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
+        assert this.getStatusIcon() != null;
+        assert this.by != null;
+
         return String.format("[D] [%s] %s (by: %s)",
                 this.getStatusIcon(),
                 super.toString(),
