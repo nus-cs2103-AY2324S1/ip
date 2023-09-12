@@ -9,6 +9,7 @@ import brotherman.commands.Command;
 import brotherman.commands.DeleteCommand;
 import brotherman.commands.ExitCommand;
 import brotherman.commands.FindCommand;
+import brotherman.commands.HelpCommand;
 import brotherman.commands.ListCommand;
 import brotherman.commands.MarkDoneCommand;
 import brotherman.commands.UnmarkCommand;
@@ -75,6 +76,8 @@ public class Parser {
             String endTime = parts[2];
 
             return new AddCommand(parseEvent(desc, startTime, endTime));
+        } else if (userCommand.equals("help")) {
+            return new HelpCommand();
         } else {
             throw new BrothermanException("brotherman wtf does that even mean!");
         }

@@ -16,11 +16,7 @@ public class Ui {
      * Scanner to read user input
      */
     private Scanner sc;
-
-
     private final String line = "___________________________________________________________\n";
-
-
     /**
      * Constructor for Ui
      */
@@ -47,40 +43,25 @@ public class Ui {
     public String showGoodbyMessage() {
 
         return "Bye, see you again Brotherman!\n";
-        //System.out.println("Bye, see you again Brotherman!\n");
     }
 
     /**
      * Shows a line to the user
      */
     public String showLine() {
-        //System.out.println(line);
         return line;
     }
-
-    /**
-     * Read command
-     */
-    public String readCommand() {
-        String userCommand = sc.nextLine();
-        return userCommand;
-    }
-
     /**
      * Shows the error message to the user
      */
     public String readWrongValue() {
         return "Brotherman the value you put in wrong.  Try again.";
-        //System.out.println("Brotherman the value you put in wrong.  Try again.");
     }
 
     /**
      * Shows the task added to the user
      */
     public String showTaskAdded(TaskList taskList) {
-        //System.out.println("The task has been added Brotherman \n");
-        //System.out.println(taskList.list().get(taskList.size() - 1).toString());
-        //System.out.println("Brotherman you have " + taskList.size() + " tasks in the list!");
         String taskAdded = "The task has been added Brotherman \n"
                 + taskList.list().get(taskList.size() - 1).toString()
                 + "\nBrotherman you have "
@@ -95,11 +76,9 @@ public class Ui {
      */
     public String showTaskList(TaskList taskList) {
         String taskListString = "Hey Brotherman, these are the tasks on your list!\n";
-        //System.out.println("Hey Brotherman, these are the tasks on your list!");
         ArrayList<Task> list = taskList.list();
         int start = 1;
         for (Task listItems : list) {
-            //System.out.println(start + ". " + listItems.toString());
             taskListString += String.format("%d. %s\n", start, listItems.toString());
             start++;
         }
@@ -125,8 +104,24 @@ public class Ui {
         }
         return output;
     }
-
+    /**
+     * Shows the error message to the user
+     * @param errorMessage Error message to be shown
+     */
     public void showError(String errorMessage) {
         System.out.println(errorMessage);
+    }
+    /**
+     * Shows the help message to the user
+     */
+    public String showHelp() {
+        String message = "Hey brotherman!  These are some commands that Brotherman suppoerts! \n"
+                + "1. todo (DESCRIPTION)\n"
+                + "2. deadline (DESCRIPTION) /by DATE\n"
+                + "3. event (DESCRIPTION) /from DATE /to DATE\n"
+                + "4. mark (POSITION)\n"
+                + "5. unmark (POSITION)\n"
+                + "6. delete (POSITION)\n";
+        return message;
     }
 }
