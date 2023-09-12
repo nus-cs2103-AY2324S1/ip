@@ -2,51 +2,68 @@ package duke;
 
 import duke.command.Command;
 import duke.parser.Parser;
+import duke.storage.DukeStorageException;
 import duke.storage.Storage;
-import duke.ui.TextUi;
+import javafx.application.Platform;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * The main class for the Duke chatbot.
  */
 public class Duke {
-    public static void main(String[] args) {
-        TaskList tasks;
-        TextUi ui = new TextUi();
-        Storage storage = new Storage();
-        Parser parser = new Parser();
+    private final Storage storage;
+    private final Parser parser;
+    private TaskList tasks;
 
-        ui.showWelcomeMessage();
+    /**
+     * The constructor for the Duke application.
+     * Sets up the relevant components required.
+     */
+    public Duke() {
+        storage = new Storage();
+        parser = new Parser();
+    }
 
+    /**
+     * Loads the tasks from storage.
+     *
+     * @return the number of tasks loaded from storage
+     * @throws DukeStorageException if an error occurs when loading tasks from storage
+     */
+    public int loadTasks() throws DukeStorageException {
         try {
             tasks = storage.load();
-            if (tasks.size() == 0) {
-                ui.showMessage(String.format("No stored tasks found from %s", Storage.DEFAULT_STORAGE_PATH),
-                        "Starting from an empty task list.");
-                tasks = new TaskList();
-            } else {
-                ui.showMessage(String.format("Tasks loaded from %s", Storage.DEFAULT_STORAGE_PATH));
-            }
+            return tasks.size();
         } catch (IOException e) {
-            ui.showMessage(String.format("Error loading tasks from %s", Storage.DEFAULT_STORAGE_PATH),
-                    "Starting from an empty task list.");
             tasks = new TaskList();
+            throw new DukeStorageException("Error reading from " + Storage.DEFAULT_STORAGE_PATH);
+        }
+    }
+
+    /**
+     * Returns Duke's response given the user input.
+     *
+     * @param input the input from the user
+     * @return the response from Duke
+     */
+    public String[] getResponse(String input) {
+        Command command = parser.parseCommand(input);
+        command.setData(tasks);
+        String[] response = command.execute();
+
+        if (command.isBye()) {
+            Platform.exit();
         }
 
-        Command command;
-        do {
-            String input = ui.getUserCommand();
-            command = parser.parseCommand(input);
-            command.setData(tasks);
-            String[] response = command.execute();
-            ui.showMessage(response);
-
-            try {
-                storage.save(tasks);
-            } catch (IOException e) {
-                ui.showMessage("Error saving tasks");
-            }
-        } while (!command.isBye());
+        try {
+            storage.save(tasks);
+            return response;
+        } catch (IOException e) {
+            String[] newResponse = Arrays.copyOf(response, response.length + 1);
+            newResponse[newResponse.length - 1] = "Error saving tasks";
+            return newResponse;
+        }
     }
 }

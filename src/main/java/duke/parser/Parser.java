@@ -1,8 +1,5 @@
 package duke.parser;
 
-import duke.Deadline;
-import duke.Event;
-import duke.Todo;
 import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.DeadlineCommand;
@@ -14,6 +11,9 @@ import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.TodoCommand;
 import duke.command.UnmarkCommand;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Todo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

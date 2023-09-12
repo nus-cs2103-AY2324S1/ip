@@ -1,5 +1,7 @@
 package duke;
 
+import duke.tasks.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -32,7 +34,7 @@ public class TaskList {
         encodedTaskList.forEach(encodedTask -> {
             Task task = Task.decode(encodedTask);
             if (!Objects.isNull(task)) {
-                tasks.add(Task.decode(encodedTask));
+                tasks.add(task);
             }
         });
         return new TaskList(tasks);

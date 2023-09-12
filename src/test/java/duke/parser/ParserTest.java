@@ -1,11 +1,11 @@
 package duke.parser;
 
-import duke.Event;
 import duke.command.Command;
 import duke.command.DeadlineCommand;
 import duke.command.InvalidCommand;
 import duke.command.ListCommand;
 import duke.command.TodoCommand;
+import duke.tasks.Event;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

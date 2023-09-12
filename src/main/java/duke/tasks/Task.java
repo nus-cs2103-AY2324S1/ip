@@ -1,4 +1,4 @@
-package duke;
+package duke.tasks;
 
 import duke.parser.DukeParseException;
 import duke.parser.Parser;
@@ -18,6 +18,7 @@ public abstract class Task {
     public static Task decode(String encodedTask) {
         Pattern pattern = Pattern.compile("^(?<type>.)\\|(?<mark>.)\\|(?<taskString>.+)$");
         Matcher matcher = pattern.matcher(encodedTask);
+        matcher.matches();
         String type = matcher.group("type");
         String mark = matcher.group("mark");
         String input = matcher.group("taskString");
