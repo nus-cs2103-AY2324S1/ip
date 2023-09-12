@@ -38,6 +38,7 @@ public class Duke extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
+    private boolean isExit = false;
 
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -183,7 +184,18 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        return "MAX heard: " + input;
+        if (isExit) {
+            return "Bye. Hope to see you again soon!";
+        }
+        try {
+            ui.clearMessage();
+            Parser parser = new Parser();
+            parser.parseAndExecute(input, tasks, ui, storage);
+            this.isExit = parser.isExit();
+            return ui.getMessage();
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
     }
 
 
