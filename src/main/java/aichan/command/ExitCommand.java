@@ -20,8 +20,8 @@ public class ExitCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        // no interaction with tasks
-        return "Ta-da! It's time to go~ Keep smiling till we reunite!";
+        String farewell = "Ta-da! It's time to go~ Keep smiling till we reunite!";
+        return farewell;
     }
 
     @Override

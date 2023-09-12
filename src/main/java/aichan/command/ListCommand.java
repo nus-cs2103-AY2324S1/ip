@@ -22,8 +22,8 @@ public class ListCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         String response = "Here are the tasks in your list:\n";
         int size = tasks.getSize();
-        for (int i = 1; i <= size; i++) {
-            response = response + i + "." + tasks.getTask(i).toString() + "\n";
+        for (int taskId = 1; taskId <= size; taskId++) {
+            response = response + taskId + "." + tasks.getTask(taskId).toString() + "\n";
         }
         return response;
     }
