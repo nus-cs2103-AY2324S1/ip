@@ -41,10 +41,6 @@ public class Storage {
             fileInputStream.close();
             return tasks;
         } catch (IOException | ClassNotFoundException e) {
-            try {
-                Files.delete(path);
-            } catch (IOException ignored) {
-            }
             throw new StorageException(String.format("Something went wrong loading existing tasks from %s", path));
         }
     }
@@ -54,7 +50,7 @@ public class Storage {
      *
      * @param tasks A list of tasks to be saved to the cache.
      */
-    public void save(TaskList tasks) {
+    public void save(TaskList tasks) throws StorageException {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(path.toString());
             ObjectOutputStream objOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -63,7 +59,8 @@ public class Storage {
 
             objOutputStream.close();
             fileOutputStream.close();
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            throw new StorageException(String.format("Something went wrong saving tasks to %s", path));
         }
     }
 }
