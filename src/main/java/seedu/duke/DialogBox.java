@@ -27,8 +27,8 @@ public class DialogBox extends HBox {
 
     @FXML
     private StackPane dialog;
-//    private Text dialog;
-//    private Label dialog;
+    // private Text dialog;
+    // private Label dialog;
     @FXML
     private ImageView displayPicture;
 
@@ -91,46 +91,90 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    //    /**
+    //     * Sets up this dialog box with various settings.
+    //     *
+    //     * @param text A String representation of message.
+    //     */
+    //    public void setDialog(String text) {
+    //        Font TEXT_FONT = Font.font("Andale Mono", 15.0);
+    //        int SCROLL_PANE_MAX_WIDTH = 600;
+    //        int TEXT_BUBBLE_PADDING_X = 30;
+    //        int TEXT_BUBBLE_PADDING_Y = 20;
+    //        int TEXT_BUBBLE_ARC_WIDTH = 30;
+    //        int TEXT_BUBBLE_ARC_HEIGHT = 30;
+    //        Color TEXT_BUBBLE_COlOR = Color.rgb(255, 255, 255);
+    //
+    //
+    //        Text message = new Text(text);
+    //
+    //        message.setFont(TEXT_FONT);
+    //
+    //        double messageWidth = message.getLayoutBounds().getWidth();
+    //
+    //        double bubbleWidth = messageWidth + TEXT_BUBBLE_PADDING_X > SCROLL_PANE_MAX_WIDTH
+    //                ? SCROLL_PANE_MAX_WIDTH
+    //                : messageWidth + TEXT_BUBBLE_PADDING_X;
+    //
+    //        message.setWrappingWidth(bubbleWidth - TEXT_BUBBLE_PADDING_X);
+    //
+    //        double messageHeight = message.getLayoutBounds().getHeight();
+    //
+    //        double bubbleHeight = messageHeight + TEXT_BUBBLE_PADDING_Y;
+    //
+    //        TextBubble textBubble = new TextBubble();
+    //        textBubble.setWidth(bubbleWidth);
+    //        textBubble.setHeight(bubbleHeight);
+    //
+    //        textBubble.setArcWidth(TEXT_BUBBLE_ARC_WIDTH);
+    //
+    //        textBubble.setArcHeight(TEXT_BUBBLE_ARC_HEIGHT);
+    //
+    //        textBubble.setFill(TEXT_BUBBLE_COlOR);
+    //
+    //        dialog.getChildren().addAll(textBubble, message);
+    //    }
+
     /**
      * Sets up this dialog box with various settings.
      *
      * @param text A String representation of message.
      */
     public void setDialog(String text) {
-        Font TEXT_FONT = Font.font("Andale Mono", 15.0);
-        int SCROLL_PANE_MAX_WIDTH = 600;
-        int TEXT_BUBBLE_PADDING_X = 30;
-        int TEXT_BUBBLE_PADDING_Y = 20;
-        int TEXT_BUBBLE_ARC_WIDTH = 30;
-        int TEXT_BUBBLE_ARC_HEIGHT = 30;
-        Color TEXT_BUBBLE_COlOR = Color.rgb(255, 255, 255);
+        Font textFont = Font.font("Andale Mono", 15.0);
+        int scrollPaneMaxWidth = 600;
+        int textBubblePaddingX = 30;
+        int textBubblePaddingY = 20;
+        int textBubbleArcWidth = 30;
+        int textBubbleArcHeight = 30;
+        Color textBubbleColor = Color.rgb(255, 255, 255);
 
 
         Text message = new Text(text);
 
-        message.setFont(TEXT_FONT);
+        message.setFont(textFont);
 
         double messageWidth = message.getLayoutBounds().getWidth();
 
-        double bubbleWidth = messageWidth + TEXT_BUBBLE_PADDING_X > SCROLL_PANE_MAX_WIDTH
-                ? SCROLL_PANE_MAX_WIDTH
-                : messageWidth + TEXT_BUBBLE_PADDING_X;
+        double bubbleWidth = messageWidth + textBubblePaddingX > scrollPaneMaxWidth
+                ? scrollPaneMaxWidth
+                : messageWidth + textBubblePaddingX;
 
-        message.setWrappingWidth(bubbleWidth - TEXT_BUBBLE_PADDING_X);
+        message.setWrappingWidth(bubbleWidth - textBubblePaddingX);
 
         double messageHeight = message.getLayoutBounds().getHeight();
 
-        double bubbleHeight = messageHeight + TEXT_BUBBLE_PADDING_Y;
+        double bubbleHeight = messageHeight + textBubblePaddingY;
 
         TextBubble textBubble = new TextBubble();
         textBubble.setWidth(bubbleWidth);
         textBubble.setHeight(bubbleHeight);
 
-        textBubble.setArcWidth(TEXT_BUBBLE_ARC_WIDTH);
+        textBubble.setArcWidth(textBubbleArcWidth);
 
-        textBubble.setArcHeight(TEXT_BUBBLE_ARC_HEIGHT);
+        textBubble.setArcHeight(textBubbleArcHeight);
 
-        textBubble.setFill(TEXT_BUBBLE_COlOR);
+        textBubble.setFill(textBubbleColor);
 
         dialog.getChildren().addAll(textBubble, message);
     }
@@ -141,15 +185,34 @@ public class DialogBox extends HBox {
      * @param img Image of this dialog box.
      */
     public void setImage(Image img) {
-        int IMAGE_POSITION_X = 50;
-        int IMAGE_POSITION_Y = 55;
-        int IMAGE_CIRCLE_RADIUS = 40;
+        int imgPosX = 50;
+        int imgPosY = 55;
+        int imgCircleR = 40;
 
         displayPicture.setImage(img);
 
         displayPicture.setClip(new Circle(
-                IMAGE_POSITION_X,
-                IMAGE_POSITION_Y,
-                IMAGE_CIRCLE_RADIUS));
+                imgPosX,
+                imgPosY,
+                imgCircleR));
     }
+
+    //    /**
+    //     * Sets the image of this dialog box.
+    //     *
+    //     * @param img Image of this dialog box.
+    //     */
+    //    public void setImage(Image img) {
+    //        int IMAGE_POSITION_X = 50;
+    //        int IMAGE_POSITION_Y = 55;
+    //        int IMAGE_CIRCLE_RADIUS = 40;
+    //
+    //        displayPicture.setImage(img);
+    //
+    //        displayPicture.setClip(new Circle(
+    //                IMAGE_POSITION_X,
+    //                IMAGE_POSITION_Y,
+    //                IMAGE_CIRCLE_RADIUS));
+    //    }
+
 }
