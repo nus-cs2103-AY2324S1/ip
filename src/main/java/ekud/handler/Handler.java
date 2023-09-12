@@ -82,7 +82,7 @@ public final class Handler {
             if (task == null) {
                 throw new ArgumentException("Invalid task identifier.");
             }
-            task.mark();
+            task.markAsDone();
             ui.showTaskMarked(task);
             return true;
         } else if (command instanceof UnmarkCommand) {
@@ -92,7 +92,7 @@ public final class Handler {
             if (task == null) {
                 throw new ArgumentException("Invalid task identifier.");
             }
-            task.unmark();
+            task.markAsNotDone();
             ui.showTaskUnmarked(task);
             return true;
         } else if (command instanceof DeleteCommand) {
