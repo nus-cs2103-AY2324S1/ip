@@ -4,12 +4,13 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Class to handle the tasklist operations
  */
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private ArrayList<Task> tasks = new ArrayList<>();
     public TaskList(String tasksFromFile) throws DukeException, IOException {
         convertTasksToList(tasksFromFile);
     }
@@ -183,7 +184,6 @@ public class TaskList {
             //index is not valid integer
             try {
                 int index = Integer.parseInt(sec);
-              
                 //index entered is more than totalTodos or negative index
                 checkIfIndexIsValid(index);
 
@@ -516,11 +516,13 @@ public class TaskList {
         }
 
         int resultCounter = 1;
-        String keyword = " " + parts[1] + " ";
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).toString().contains(keyword)) {
-                results += resultCounter + "." + tasks.get(i).toString() + "\n";
-                resultCounter++;
+        String keyword = parts[1];
+        boolean[] addedTaskToResults = new boolean[tasks.size()];
+
+        for (int startIndex = 0; startIndex < keyword.length(); startIndex++) {
+            for (int endIndex = startIndex + 1; endIndex < keyword.length(); endIndex++) {
+                String keywordToSearch = keyword.substring(startIndex, endIndex + 1);
+                results += searchForKeyword(keywordToSearch, addedTaskToResults, resultCounter);
             }
         }
 
@@ -529,6 +531,18 @@ public class TaskList {
         }
         assert !results.isEmpty() : "No results found.";
         return results;
+    }
+
+    public String searchForKeyword(String keywordToSearch, boolean[] addedTaskToResults, int resultCounter) {
+        String res = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).toString().contains(keywordToSearch) && !addedTaskToResults[i]) {
+                res = resultCounter + "." + tasks.get(i).toString() + "\n";
+                resultCounter++;
+                addedTaskToResults[i] = true;
+            }
+        }
+        return res;
     }
 
     public ArrayList<Task> getTasks() {
