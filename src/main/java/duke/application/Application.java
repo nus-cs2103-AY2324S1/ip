@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import duke.command.Command;
 import duke.exception.DukeException;
+import duke.exception.DuplicateTaskException;
 import duke.message.Message;
 import duke.storage.Storage;
 import duke.task.Task;
@@ -39,7 +40,7 @@ public class Application extends javafx.application.Application {
      *
      * @param task The task to be added.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws DuplicateTaskException {
         taskList.addTask(task);
     }
 
@@ -111,7 +112,11 @@ public class Application extends javafx.application.Application {
         TaskList matchingTasks = new TaskList();
         for (int i = 0; i < getTaskCount(); i++) {
             if (taskList.getTask(i).containsString(content)) {
-                matchingTasks.addTask(taskList.getTask(i));
+                try {
+                    matchingTasks.addTask(taskList.getTask(i));
+                } catch (DuplicateTaskException dte) {
+                    //No duplicate tasks can be found in taskList
+                }
             }
         }
         return matchingTasks;

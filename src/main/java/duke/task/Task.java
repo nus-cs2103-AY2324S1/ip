@@ -88,6 +88,14 @@ public abstract class Task {
     public void setUncompleted() {
         completed = false;
     }
+    public String getName() {
+        return name;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Task && ((Task) obj).name.equals(name);
+    }
+
     @Override
     public String toString() {
 
