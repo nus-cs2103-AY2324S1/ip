@@ -155,4 +155,27 @@ public class Storage {
         return sb.toString();
     }
 
+    public void archiveAllTasks(TaskList tasks) {
+        File archiveFile = new File("data/archive.txt");
+
+        try {
+            FileWriter fw = new FileWriter(archiveFile, true);
+            for (Task task : tasks.getTasks()) {
+                fw.write(taskToFileString(task) + System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Error archiving tasks " + e.getMessage());
+        }
+    }
+
+    public void clearFile() {
+        try {
+            FileWriter fw = new FileWriter("./data", false);
+            fw.write("");
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Error clearing main tasks for archive action " + e.getMessage());
+        }
+    }
 }

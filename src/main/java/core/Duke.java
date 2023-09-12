@@ -192,12 +192,14 @@ public String getResponse(String input) {
         case EVENT:
         case DEADLINE:
         case TODO:
-            response += (tm.addTask(input));
+            response += tm.addTask(input);
             break;
         case FIND:
-            response += (tm.findTasks(input));
+            response += tm.findTasks(input);
             break;
         case ARCHIVE:
+            response += tm.clearTasks();
+            storage.clearFile();
             break;
         case UNKNOWN:
             response += ("unknown command.");

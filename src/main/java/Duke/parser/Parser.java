@@ -29,6 +29,8 @@ public class Parser {
             return Duke.CommandType.EVENT;
         } else if (userCommand.startsWith("find")) {
             return CommandType.FIND;
+        } else if (userCommand.startsWith("archive")) {
+            return CommandType.ARCHIVE;
         } else {
             return Duke.CommandType.UNKNOWN;
         }

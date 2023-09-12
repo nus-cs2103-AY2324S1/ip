@@ -32,4 +32,21 @@ public class TaskList {
     public List<Task> getTasks() {
         return taskList;
     }
+
+    public void clear() {
+        taskList.clear();
+    }
+
+    public String toString() {
+        String str = "There are " + taskList.size() + " task[s] in your list" + "\n";
+        for (int i= 0; i < taskList.size(); i++) {
+            str += "Here are the tasks in your list:" + "\n";
+            for (int j = 0; j < taskList.size(); j++) {
+                Task task = taskList.get(i);
+                str += (j + 1) + ". " + task + "\n";
+            }
+            str += "______________________________\n";
+        }
+        return str;
+    }
 }

@@ -141,4 +141,9 @@ public class TaskManager {
         }
         return msg.toString();
     }
+
+    public String clearTasks() {
+        tasks.clear();
+        return "Successfully archived tasks";
+    }
 }
