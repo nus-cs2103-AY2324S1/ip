@@ -25,7 +25,7 @@ public class Storage {
     public String handleReadAllTasksFromFile() throws FileNotFoundException {
 
         try {
-            File obj = new File(filePath);
+            new File(filePath);
         } catch (Exception e) {
             System.out.println("Please create a folder at the specified folder : src/data/duke.txt");
         }

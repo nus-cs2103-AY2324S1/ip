@@ -12,7 +12,7 @@ public class TaskListTest {
     public void markTask_withNegativeIndex() {
         try {
             TaskList taskList = new TaskList();
-            taskList.handleTodoTask("todo borrow", "user");
+            taskList.handleTodoTask("todo borrow");
         } catch (DukeException | IOException e) {
             assertEquals("Enter mark command with positive index lesser than 2", e.getMessage());
         }
