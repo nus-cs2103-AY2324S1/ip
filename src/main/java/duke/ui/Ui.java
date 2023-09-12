@@ -19,15 +19,15 @@ public class Ui {
 
     public static String showHelpList() {
         return "Here are the commands I understand:\n"
-                + "1. list\n"
+                + "1. list \n"
                 + "2. todo {task}\n"
                 + "3. deadline {task} /by {DD/MM/YYYY HHmm}\n"
-                + "4. event {task} /from {DD/MM/YYYY HHmm} /to {DD/MM/YYYY HHmm}\n"
+                + "4. event {task} /from {DD/MM/YYYY HHmm} \n     /to {DD/MM/YYYY HHmm} \n"
                 + "5. mark {task number}\n"
                 + "6. delete {task number}\n"
                 + "7. find {keywords}\n"
                 + "8. bye\n"
-                + "9. help";
+                + "9. help\n";
     }
 
     /**
