@@ -56,7 +56,7 @@ public class Parser {
             assert !output.isEmpty();
             return output;
         case "bye":
-            return "Bye. Hope to see you again soon!\n";
+            System.exit(0);
         default:
             worker = new AddWorker();
             output = worker.work(inputParts, taskList);
