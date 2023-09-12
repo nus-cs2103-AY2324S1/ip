@@ -15,10 +15,12 @@ public class DeadlineCommand {
      * @param input Input typed by user.
      * @param tasks List of tasks.
      * @param storage Stores the file and handles file methods.
+     * @return Bot response when creating a deadline task.
      */
     public static String execute(String input, TaskList tasks, Storage storage) {
         try {
-            if (input.length() <= 9 || input.substring(9).isBlank()) {
+            boolean isEmptyDescription = input.length() <= 9 || input.substring(9).isBlank();
+            if (isEmptyDescription) {
                 throw new EmptyDescriptionException();
             }
             String[] details = input.substring(9).split(" /by ");

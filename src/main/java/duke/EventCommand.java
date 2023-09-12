@@ -15,14 +15,17 @@ public class EventCommand {
      * @param input Input typed by user.
      * @param tasks List of tasks.
      * @param storage Stores the file and handles file methods.
+     * @return Bot response when creating an event task.
      */
     public static String execute(String input, TaskList tasks, Storage storage) {
         try {
-            if (input.length() <= 6 || input.substring(6).isBlank()) {
+            boolean isEmptyDescription = input.length() <= 6 || input.substring(6).isBlank();
+            if (isEmptyDescription) {
                 throw new EmptyDescriptionException();
             }
             String[] details = input.substring(6).split(" /from | /to ");
-            if (details.length != 3 || !input.contains(" /from ") || !input.contains(" /to ")) {
+            boolean isUnclearDuration = details.length != 3 || !input.contains(" /from ") || !input.contains(" /to ");
+            if (isUnclearDuration) {
                 throw new DurationUnclearException();
             }
             DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
