@@ -19,12 +19,4 @@ public class Ui {
     public String exit() {
         return exitMessage;
     }
-    /**
-     * Displays an error message related to loading.
-     *
-     * @param e The exception containing the error message.
-     */
-    public String showLoadingError(Exception e) {
-        return e.getMessage();
-    }
 }

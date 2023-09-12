@@ -1,12 +1,12 @@
 package duke;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Main to class to handle duke operations
  */
 public class Duke {
-
     private Storage storage;
     private TaskList tasks;
     private Parser parser;
@@ -14,13 +14,13 @@ public class Duke {
     /**
      * Constructor
      */
-
     public Duke() {
         storage = new Storage();
         parser = new Parser();
         ui = new Ui();
         try {
-            tasks = new TaskList(storage.handleReadAllTasksFromFile());
+            String tasksFromStorage = storage.handleReadAllTasksFromFile();
+            tasks = new TaskList(tasksFromStorage);
         } catch (DukeException | IOException e) {
             tasks = new TaskList();
         }
@@ -37,7 +37,8 @@ public class Duke {
         try {
             String[] commandType = parser.handleUserInput(input);
             String str = handleCommand(commandType[0], commandType[1]);
-            storage.handleChangesInFile(tasks.getTasks());
+            ArrayList<Task>currentTasks = tasks.getTasks();
+            storage.handleChangesInFile(currentTasks);
             return str;
         } catch (Exception e) {
             return e.getMessage();
@@ -65,7 +66,7 @@ public class Duke {
         case "list":
             return tasks.getAllToDo();
         case "todo":
-            return tasks.handleTodoTask(input, "user");
+            return tasks.handleTodoTask(input);
         case "deadline":
             return tasks.handleDeadlineTask(input, "user");
         case "event":
