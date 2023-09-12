@@ -77,4 +77,14 @@ public class Message {
         }
         return res;
     }
+
+    /**
+     * Returns a string indicating the task has been prioritised.
+     *
+     * @param task The task that has been prioritised.
+     * @return A string indicating the task has been prioritised.
+     */
+    public String prioritiseMessage(Task task) {
+        return "Ok, I've prioritised this task:" + "\n" + task;
+    }
 }

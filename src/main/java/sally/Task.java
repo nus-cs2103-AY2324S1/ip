@@ -10,14 +10,74 @@ public class Task {
     protected String task;
     protected boolean isNotDone;
 
+    public enum Priority {
+        TBD,
+        HIGH,
+        MEDIUM,
+        LOW
+    }
+
+    private Priority priority;
+
     /**
      * Constructs a Task object with the given task description and sets it as not done by default.
+     *
+     * @param task The description of the task.
+     * @param priority The priority of the task.
+     */
+    public Task(String task, String priority) {
+        this.task = task;
+        this.isNotDone = true;
+        if (priority.equals("low")) {
+            this.priority = Priority.LOW;
+        } else if (priority.equals("medium")) {
+            this.priority = Priority.MEDIUM;
+        } else if (priority.equals("high")) {
+            this.priority = Priority.HIGH;
+        } else {
+            this.priority = Priority.TBD;
+        }
+    }
+
+    /**
+     * Constructs a Task object with the given task description and sets the priority as TBD by default.
      *
      * @param task The description of the task.
      */
     public Task(String task) {
         this.task = task;
         this.isNotDone = true;
+        this.priority = Priority.TBD;
+    }
+
+    /**
+     * Sets the priority of the task.
+     *
+     * @param priorityString The priority to set.
+     * @throws SallyException If the priority is not low, medium, or high.
+     */
+    public void setPriority(String priorityString) throws SallyException {
+
+        if (!priorityString.equals("low") && !priorityString.equals("medium") && !priorityString.equals("high")) {
+            throw new SallyException("Priority must be low, medium, or high.");
+        }
+
+        if (priorityString.equals("low")) {
+            this.priority = Priority.LOW;
+        } else if (priorityString.equals("medium")) {
+            this.priority = Priority.MEDIUM;
+        } else {
+            this.priority = Priority.HIGH;
+        }
+    }
+
+    /**
+     * Gets the priority of the task.
+     *
+     * @return The priority of the task.
+     */
+    public Priority getPriority() {
+        return priority;
     }
 
     /**
@@ -98,24 +158,27 @@ public class Task {
             isDone = true;
         }
 
-        String taskDescription = toGetStatusIcon[1];
+        String splitThree = toGetStatusIcon[1];
+        String[] toGetTaskDescription = splitThree.split("\\) ");
+        String taskDescription = toGetTaskDescription[1]; // soc (by:sun)
+        String toGetPriority = toGetTaskDescription[0]; // (TBD
+        String priority = toGetPriority.substring(1).toLowerCase(); // TBD
 
         Task newTask;
 
         if (taskType.equals("T")) {
-            newTask = new Todo(taskDescription);
+            newTask = new Todo(taskDescription, priority);
         } else if (taskType.equals("E")) {
             String[] toGetFromTo = taskDescription.split(" \\(from: | to: |\\)");
             String task = toGetFromTo[0];
             LocalDateTime from = convertToDateTime(toGetFromTo[1]);
             LocalDateTime to = convertToDateTime(toGetFromTo[2]);
-            newTask = new Event(task, from, to);
-
+            newTask = new Event(task, from, to, priority);
         } else if (taskType.equals("D")) {
             String[] toGetBy = taskDescription.split(" \\(by: |\\)");
             String task = toGetBy[0];
             LocalDateTime by = convertToDateTime(toGetBy[1]);
-            newTask = new Deadline(task, by);
+            newTask = new Deadline(task, by, priority);
 
         } else {
             newTask = new Task(taskDescription);
@@ -135,6 +198,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        return getStatusIcon() + " " + task;
+        return getStatusIcon() + " (" + this.getPriority() + ") " + task;
     }
 }
