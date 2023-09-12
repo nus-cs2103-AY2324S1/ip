@@ -96,10 +96,10 @@ public class Parser {
                     deadlineName = str.trim();
                 }
             }
-            if (deadlineName.equals("")) {
+            if (deadlineName.isEmpty()) {
                 throw new DukeException("OOPS!! Please include the name of the deadline.");
             }
-            if (deadlineBy.equals("")) {
+            if (deadlineBy.isEmpty()) {
                 throw new DukeException("OOPS!! Please include when the deadline is by.");
             }
             try {
@@ -126,13 +126,13 @@ public class Parser {
                     eventName = str.trim();
                 }
             }
-            if (eventName.equals("")) {
+            if (eventName.isEmpty()) {
                 throw new DukeException("OOPS!! Please include the name of the event.");
             }
-            if (eventFrom.equals("")) {
+            if (eventFrom.isEmpty()) {
                 throw new DukeException("OOPS!! Please include when the event is from.");
             }
-            if (eventTo.equals("")) {
+            if (eventTo.isEmpty()) {
                 throw new DukeException("OOPS!! Please include when the event is till.");
             }
             try {

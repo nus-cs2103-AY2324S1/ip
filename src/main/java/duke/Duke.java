@@ -10,7 +10,6 @@ import duke.ui.Ui;
 /**
  * Duke is a simple task management application that allows users to keep track
  * of tasks, including to-dos, deadlines, and events.
- *
  * Duke uses a command-based approach, where users enter text commands to
  * perform various operations on the task list.
  */
@@ -18,9 +17,9 @@ public class Duke {
 
     private static final String DEFAULT_FILE_PATH = "src/data/duke.txt";
 
-    private Storage storage;
+    private final Storage storage;
     private TaskList items;
-    private Ui ui;
+    private final Ui ui;
 
 
     /**
@@ -45,7 +44,6 @@ public class Duke {
 
     /**
      * Runs the Duke application.
-     *
      * This method initializes the user interface, loads tasks from storage,
      * and enters a loop to process user commands.
      */

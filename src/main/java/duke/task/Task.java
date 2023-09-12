@@ -5,7 +5,7 @@ package duke.task;
  */
 public class Task {
     private boolean done;
-    private String name;
+    private final String name;
 
     /**
      * Constructs a new task with the specified name and sets its completion status

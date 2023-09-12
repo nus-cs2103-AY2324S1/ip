@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * the list.
  */
 public class TaskList {
-    private ArrayList<Task> items;
+    private final ArrayList<Task> items;
 
     /**
      * Constructs an empty task list.
