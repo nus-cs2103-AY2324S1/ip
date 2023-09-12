@@ -6,12 +6,22 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an event task with a start and end date/time
+ */
 public class Event extends TaskAbstract {
     protected LocalDate startDate;
     protected LocalDate endDate;
     protected Optional<LocalTime> startTime;
     protected Optional<LocalTime> endTime;
 
+    /**
+     * Constructs an event task with the given description, start date/time, and end date/time
+     *
+     * @param description the description of the event task
+     * @param start       the start date/time of the event task in the format "yyyy-MM-dd HHmm"
+     * @param end         the end date/time of the event task in the format "yyyy-MM-dd HHmm"
+     */
     public Event(String description, String start, String end) {
         super(description);
         String[] startDateArr = start.split(" ");
@@ -42,32 +52,59 @@ public class Event extends TaskAbstract {
         }
     }
 
+    /**
+     * Returns the start date/time of the event task for printing to terminal
+     *
+     * @return the start date/time of the event task for printing to terminal
+     */
     private String getStartDateTimeForPrinting() {
         return this.startDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + (this.startTime.map(localTime ->
                 " " + localTime.truncatedTo(ChronoUnit.MINUTES)).orElse(""));
     }
 
+    /**
+     * Returns the end date/time of the event task for printing to terminal
+     *
+     * @return the end date/time of the event task for printing to terminal
+     */
     private String getEndDateTimeForPrinting() {
         return this.endDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + (this.endTime.map(localTime ->
                 " " + localTime.truncatedTo(ChronoUnit.MINUTES)).orElse(""));
     }
 
+    /**
+     * Returns the start date/time of the event task for saving to file
+     *
+     * @return the start date/time of the event task for saving to file
+     */
     private String getStartDateTimeForSaving() {
         return this.startDate + (this.startTime.map(localTime -> " " + localTime.truncatedTo(
                 ChronoUnit.MINUTES).toString().replace(":", "")).orElse(""));
     }
 
-
+    /**
+     * Returns the end date/time of the event task for saving to file
+     *
+     * @return the end date/time of the event task for saving to file
+     */
     private String getEndDateTimeForSaving() {
         return this.endDate + (this.endTime.map(localTime -> " " + localTime.truncatedTo(
                 ChronoUnit.MINUTES).toString().replace(":", "")).orElse(""));
     }
 
+    /**
+     * Returns the event task in text format for saving to file
+     *
+     * @return the event task in text format for saving to file
+     */
     public String saveToTextFormat() {
         return String.format("E | %s | %s | %s - %s", this.isDone ? "1" : "0", this.description, this.
                 getStartDateTimeForSaving(), this.getEndDateTimeForSaving());
     }
 
+    /**
+     * Prints the status of the event task
+     */
     @Override
     public void printStatus() {
         System.out.printf("[E][%s] %s (from: %s to: %s)\n", this.isDone ? "X" : " ", this.description, this.

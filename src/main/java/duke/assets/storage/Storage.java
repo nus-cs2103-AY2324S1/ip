@@ -9,14 +9,24 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+/**
+ * Represents a storage class that handles reading and writing data to a file
+ */
 public class Storage {
     private TaskList tasklist;
     private Parser parser;
+
+    /**
+     * Constructs a Storage object with a new TaskList and Parser
+     */
     public Storage() {
         this.tasklist = new TaskList();
         this.parser = new Parser();
     }
 
+    /**
+     * Writes the current task list to a file
+     */
     public void writeToFile() {
         try {
             File myFile = new File("./src/main/java/duke/data/duke.txt");
@@ -24,13 +34,17 @@ public class Storage {
             PrintWriter pw = new PrintWriter(fw);
             pw.print(tasklist.saveToFileFormat());
             pw.close();
-            System.out.println("ChadGPT: Bye! See you again!");
         } catch (IOException IOExcept) {
             System.out.println("ChadGPT: Unfortunately there was an unexpected error when reading your data file.");
             IOExcept.printStackTrace();
         }
     }
 
+    /**
+     * Reads data from a file and adds it to the task list
+     *
+     * @return true if the file was read successfully, false otherwise
+     */
     public boolean readFromFile() {
         try {
             File myFile = new File("./src/main/java/duke/data/duke.txt");
@@ -53,6 +67,11 @@ public class Storage {
         return false;
     }
 
+    /**
+     * Passes a user command to the parser to be executed
+     *
+     * @param nextLine the user command to be executed
+     */
     public void passUserCommand(String nextLine) {
         this.parser.passUserCommand(nextLine, tasklist);
     }

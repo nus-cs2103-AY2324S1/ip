@@ -17,7 +17,8 @@ public abstract class TaskAbstract {
     }
 
     /**
-     * Completes the task
+     * Marks the task as complete
+     * @throws StateCannotBeAlteredException if task is already complete
      */
     public void completeTask() throws StateCannotBeAlteredException {
         if (this.isDone) {
@@ -27,12 +28,9 @@ public abstract class TaskAbstract {
         }
     }
 
-    public void completeNewTask() {
-        this.isDone = true;
-    }
-
     /**
-     * Undo a task which was marked as complete
+     * Mark the task as incomplete
+     * @throws StateCannotBeAlteredException if task is already incomplete
      */
     public void undo() throws StateCannotBeAlteredException {
         if (!this.isDone) {
@@ -43,6 +41,13 @@ public abstract class TaskAbstract {
     }
 
     /**
+     * Marks a newly created task as complete
+     */
+    public void completeNewTask() {
+        this.isDone = true;
+    }
+
+    /**
      * Print status of the task
      */
     public abstract void printStatus();
@@ -50,12 +55,16 @@ public abstract class TaskAbstract {
     /**
      * Helper function to check if task is complete
      *
-     * @return - true if task is complete, false otherwise
+     * @return true if task is complete, false otherwise
      */
     public boolean isComplete() {
         return isDone;
     }
 
+    /**
+     * Formats the task into a string that is ready for saving into memory
+     * @return formatted string that is ready for saving into memory
+     */
     public abstract String saveToTextFormat();
 
     @Override

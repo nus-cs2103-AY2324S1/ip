@@ -11,6 +11,9 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+/**
+ * The main class for the ChadGPT chatbot application.
+ */
 public class Duke {
     static final String logo = "\n   _____ _    _          _____   _____ _____ _______ \n" +
             "  / ____| |  | |   /\\   |  __ \\ / ____|  __ \\__   __|\n" +
@@ -22,6 +25,12 @@ public class Duke {
             "-----------";
     static final Storage storage = new Storage();
 
+    /**
+     * The main method for the Duke chatbot application.
+     *
+     * @param args the command-line arguments
+     * @throws IOException if there is an error reading or writing to the storage file
+     */
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
         System.out.println(horizontal + logo + horizontal);
@@ -45,6 +54,7 @@ public class Duke {
             System.out.print(horizontal + "\nUser: ");
         }
         sc.close();
-        storage.writeToFile();
+
+        storage.passUserCommand("bye");
     }
 }

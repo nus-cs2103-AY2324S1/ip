@@ -9,22 +9,38 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
+/**
+ * Represents a list of tasks
+ */
 public class TaskList {
     private static final String HORIZONTAL = "------------------------------------------------------------" +
             "---------------------------";
     private ArrayList<TaskAbstract> taskList;
     private int numberOfTasks;
 
+    /**
+     * Constructs an empty task list
+     */
     public TaskList () {
         this.taskList = new ArrayList<TaskAbstract>();
         this.numberOfTasks = 0;
     }
 
+    /**
+     * Adds a task to the task list
+     *
+     * @param newTask the task to be added
+     */
     public void addTask(TaskAbstract newTask) {
         this.taskList.add(newTask);
         this.numberOfTasks++;
     }
 
+    /**
+     * Marks a task at the specified index as complete
+     *
+     * @param index the index of the task to be marked
+     */
     public void markTaskAt(int index) {
         if (index < 0 || index >= this.numberOfTasks) {
             if (this.numberOfTasks == 0) {
@@ -42,6 +58,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task at the specified index as incomplete
+     *
+     * @param index the index of the task to be unmarked
+     */
     public void unmarkTaskAt(int index) {
         if (index < 0 || index >= this.numberOfTasks) {
             if (this.numberOfTasks == 0) {
@@ -59,6 +80,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task at the specified index from the task list
+     *
+     * @param index the index of the task to be deleted
+     */
     public void deleteTaskAt(int index) {
         if (index < 0 || index >= this.numberOfTasks) {
             if (this.numberOfTasks == 0) {
@@ -73,6 +99,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Writes the task list to a file
+     */
     public void writeToFile() {
         try {
             File myFile = new File("./duke.txt");
@@ -87,6 +116,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns the task list in text format for saving to file
+     *
+     * @return the task list in text format for saving to file
+     */
     public String saveToFileFormat() {
         String returnString = "";
         for (TaskAbstract t : taskList) {
@@ -96,6 +130,9 @@ public class TaskList {
         return returnString;
     }
 
+    /**
+     * Prints the status of all tasks in the task list
+     */
     public void listTasks() {
         int counter = 0;
         for (TaskAbstract t : this.taskList) {
@@ -104,6 +141,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Clears all tasks from the task list
+     */
     public void clearList() {
         this.taskList.clear();
         this.numberOfTasks = 0;
