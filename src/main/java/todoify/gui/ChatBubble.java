@@ -58,6 +58,14 @@ public class ChatBubble extends HBox {
      */
     public void refreshUI() {
 
+        assert this.chatbot != null;
+        assert this.message != null;
+
+        assert this.messageLabel != null;
+        assert this.timestampLabel != null;
+        assert this.senderImageView != null;
+        assert this.titleLabel != null;
+
         Image image = null;
         String title = "?";
         switch (this.message.getSenderType()) {

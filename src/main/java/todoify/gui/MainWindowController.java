@@ -43,6 +43,9 @@ public class MainWindowController extends Application {
      */
     @FXML
     private void initialize() {
+        assert this.messageHistoryVerticalBox != null;
+        assert this.messageHistoryScrollPane != null;
+
         this.messageHistoryVerticalBox.heightProperty()
                 .addListener(observable -> this.messageHistoryScrollPane.setVvalue(1D));
     }
@@ -70,6 +73,9 @@ public class MainWindowController extends Application {
      */
     @FXML
     private void handleUserInput() {
+        assert this.chatbot != null;
+        assert this.userMessageTextField != null;
+
         String input = this.userMessageTextField.getText().trim();
         if (!input.isBlank()) {
             this.chatbot.sendMessageFromUser(input);
@@ -95,6 +101,9 @@ public class MainWindowController extends Application {
      * @param message The message to draw.
      */
     private void appendMessage(ChatMessage message) {
+        assert this.messageHistoryVerticalBox != null;
+        assert this.messageHistoryScrollPane != null;
+
         this.messageHistoryVerticalBox.getChildren().add(new ChatBubble(this.chatbot, message));
 
         this.messageHistoryScrollPane.layout();
@@ -109,6 +118,8 @@ public class MainWindowController extends Application {
      * chatbot into the GUI.
      */
     private void reloadMessageHistory() {
+        assert this.messageHistoryVerticalBox != null;
+
         this.messageHistoryVerticalBox.getChildren().clear();
 
         if (this.chatbot == null) {
@@ -125,6 +136,10 @@ public class MainWindowController extends Application {
      * is closed.
      */
     private void refreshUiState() {
+        assert this.userMessageTextField != null;
+        assert this.sendMessageButton != null;
+        assert this.chatbot != null;
+
         this.userMessageTextField.setDisable(this.chatbot.isConversationClosed());
         this.sendMessageButton.setDisable(this.chatbot.isConversationClosed());
     }

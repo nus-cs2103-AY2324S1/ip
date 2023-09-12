@@ -45,6 +45,7 @@ public final class EpochConverter {
         }
 
         // Otherwise, give up.
+        assert cachedException != null;
         throw cachedException;
     }
 
