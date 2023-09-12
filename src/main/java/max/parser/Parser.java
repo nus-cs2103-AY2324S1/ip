@@ -57,21 +57,21 @@ public class Parser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
-                case MarkCommand.COMMAND_WORD:
-                    return handleMark(fullCommand);
-                case UnmarkCommand.COMMAND_WORD:
-                    return handleUnmark(fullCommand);
-                case DeleteCommand.COMMAND_WORD:
-                    return handleDelete(fullCommand);
-                case FindCommand.COMMAND_WORD:
-                    return handleFind(fullCommand);
+        case MarkCommand.COMMAND_WORD:
+            return handleMark(fullCommand);
+        case UnmarkCommand.COMMAND_WORD:
+            return handleUnmark(fullCommand);
+        case DeleteCommand.COMMAND_WORD:
+            return handleDelete(fullCommand);
+        case FindCommand.COMMAND_WORD:
+            return handleFind(fullCommand);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
-                default:
-                    throw new MaxException("Invalid command sir.");
-            }
+        default:
+            throw new MaxException("Invalid command sir.");
+        }
     }
 
     /**
