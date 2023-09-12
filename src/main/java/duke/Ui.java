@@ -25,8 +25,8 @@ public class Ui {
      *
      * @param errorMsg Message to be printed.
      */
-    public void showError(String errorMsg) {
-        System.out.println(errorMsg);
+    public String showError(String errorMsg) {
+        return errorMsg;
     }
 
     /**
@@ -37,8 +37,11 @@ public class Ui {
      */
     public String showTaskAdded(Task task, int listSize) {
         StringBuilder reply = new StringBuilder("Got it. I've added this task:\n");
-        reply.append(task.toString() + "\n");
-        reply.append("Now you have " + listSize + " tasks in the list.");
+        reply.append(task.toString());
+        reply.append("\n");
+        reply.append("Now you have ");
+        reply.append(listSize);
+        reply.append(" tasks in the list.");
         return reply.toString();
     }
 
@@ -50,8 +53,11 @@ public class Ui {
      */
     public String showTaskDeleted(Task task, int listSize) {
         StringBuilder reply = new StringBuilder("Noted. I've removed this task:\n");
-        reply.append(task.toString() + "\n");
-        reply.append("Now you have " + listSize + " tasks in the list.");
+        reply.append(task.toString());
+        reply.append("\n");
+        reply.append("Now you have ");
+        reply.append(listSize);
+        reply.append(" tasks in the list.");
         return reply.toString();
     }
 
