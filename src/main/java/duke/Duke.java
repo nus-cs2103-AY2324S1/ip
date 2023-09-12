@@ -59,7 +59,7 @@ public class Duke {
             }
 
             return String.join("\n", result.getResponse());
-        } catch (CommandException e) {
+        } catch (CommandException | StorageException e) {
             return e.getMessage();
         }
     }
