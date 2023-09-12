@@ -3,9 +3,8 @@ package duke;
 // fixing DukeException based on my understanding of exceptions 27/8/23
 import java.util.Scanner;
 
-import duke.exceptions.DukeException;
+import duke.commands.Command;
 import duke.tasks.TaskList;
-
 
 /**
  * The main file that the application runs
@@ -54,32 +53,26 @@ public class Duke {
         // setting up
         Scanner sc = new Scanner(System.in);
         String string = sc.nextLine();
-        String commandType = "";
-        String parserOutput = "";
+        boolean isExit = false;
 
         // looping in the program
-        while (true) {
+        while (!isExit) {
             // end the program
             try {
-                parserOutput = Parser.isExitOrContinue(string, tasks, helper, storage);
-            } catch (DukeException e) {
+                helper.printLine();
+                Command command = Parser.parse(string);
+                String commandOutput = command.execute(tasks, helper, storage);
+                isExit = command.isExit();
+            } catch (Throwable e) {
                 System.out.println(e.getMessage());
             } finally {
-                if (parserOutput.equals("")) {
-                    commandType = "bye";
-                }
-                if (commandType.equals("bye")) {
-                    break;
-                }
                 helper.printLine();
                 string = sc.nextLine();
             }
         }
         // end the program
         sc.close();
-        if (commandType.equals("bye")) {
-            helper.bye();
-        }
+        helper.bye();
     }
 
     public String getResponse(String input) {
@@ -88,11 +81,12 @@ public class Duke {
             this.tasks = new TaskList();
         } else {
             try {
-                output = Parser.isExitOrContinue(input, tasks, helper, storage);
-                if (output.equals("")) {
+                Command command = Parser.parse(input);
+                output = command.execute(tasks, helper, storage);
+                if (output.contains("Bye")) {
                     return "Bye. Hope to see you again soon!";
                 }
-            } catch (DukeException e) {
+            } catch (Throwable e) {
                 return e.getMessage();
             }
         }
