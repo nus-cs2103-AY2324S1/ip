@@ -21,10 +21,11 @@ import chatbot.tasks.ToDoTask;
  * Class that interact with user's local storage.
  */
 public class Storage {
-    private static final int MIN_TASK_STRING_LENGTH = 6;
+    private static final int MIN_TASK_STRING_LENGTH = 11;
     private static final int LOCAL_STORAGE_TASK_TYPE_INDEX = 1;
     private static final int LOCAL_STORAGE_TASK_IS_DONE_INDEX = 4;
-    private static final int LOCAL_STORAGE_TASK_NAME_BEGIN_INDEX = 7;
+    private static final int LOCAL_STORAGE_TASK_PRIORITY_INDEX = 8;
+    private static final int LOCAL_STORAGE_TASK_NAME_INDEX = 11;
     private String localDirectoryPath;
     private String localFilePath;
 
@@ -69,12 +70,26 @@ public class Storage {
             throw new InvalidTaskStringException();
         }
     }
+    
+    private static Task.Priority parseTaskPriority(String taskString) throws InvalidTaskStringException {
+        switch (taskString.charAt(LOCAL_STORAGE_TASK_PRIORITY_INDEX)) {
+        case 'H':
+            return Task.Priority.HIGH;
+        case 'M':
+            return Task.Priority.MEDIUM;
+        case 'L':
+            return Task.Priority.LOW;
+        default:
+            throw new InvalidTaskStringException();
+        }
+    }
 
     private static Task parseTodoTaskString(String taskString) throws InvalidTaskStringException {
         try {
             boolean isDone = parseTaskIsDone(taskString);
-            String taskName = taskString.substring(LOCAL_STORAGE_TASK_NAME_BEGIN_INDEX);
-            return new ToDoTask(taskName, isDone);
+            Task.Priority priority = parseTaskPriority(taskString);
+            String taskName = taskString.substring(LOCAL_STORAGE_TASK_NAME_INDEX);
+            return new ToDoTask(taskName, isDone, priority);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskStringException();
         }
@@ -83,14 +98,17 @@ public class Storage {
     private static Task parseDeadlineTaskString(String taskString) throws InvalidTaskStringException {
         try {
             boolean isDone = parseTaskIsDone(taskString);
+            Task.Priority priority = parseTaskPriority(taskString);
+
             int idOfBy = taskString.indexOf("(by:");
             if (idOfBy == -1) {
                 throw new InvalidTaskStringException();
             }
-            String taskName = taskString.substring(LOCAL_STORAGE_TASK_NAME_BEGIN_INDEX, idOfBy - 1);
+            String taskName = taskString.substring(LOCAL_STORAGE_TASK_NAME_INDEX, idOfBy);
             String deadlineWholeString = taskString.substring(idOfBy);
             String deadline = deadlineWholeString.substring(5, deadlineWholeString.length() - 1);
-            return new DeadlineTask(taskName, isDone, deadline);
+
+            return new DeadlineTask(taskName, isDone, priority, deadline);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskStringException();
         }
@@ -99,17 +117,19 @@ public class Storage {
     private static Task parseEventTaskString(String taskString) throws InvalidTaskStringException {
         try {
             boolean isDone = parseTaskIsDone(taskString);
+            Task.Priority priority = parseTaskPriority(taskString);
+
             int idOfFrom = taskString.indexOf("(from:");
             int idOfTo = taskString.indexOf("to:");
             if (idOfFrom == -1 || idOfTo == -1 || idOfFrom > idOfTo) {
                 throw new InvalidTaskStringException();
             }
-            String taskName = taskString.substring(LOCAL_STORAGE_TASK_NAME_BEGIN_INDEX, idOfFrom - 1);
+            String taskName = taskString.substring(LOCAL_STORAGE_TASK_NAME_INDEX, idOfFrom);
             String fromWholeString = taskString.substring(idOfFrom, idOfTo);
             String toWholeString = taskString.substring(idOfTo);
             String from = fromWholeString.substring(7, fromWholeString.length() - 1);
             String to = toWholeString.substring(4, toWholeString.length() - 1);
-            return new EventTask(taskName, isDone, from, to);
+            return new EventTask(taskName, isDone, priority, from, to);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskStringException();
         }

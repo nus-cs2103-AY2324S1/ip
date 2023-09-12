@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import chatbot.exceptions.InvalidTaskIndexException;
+import chatbot.exceptions.InvalidTaskStringException;
 import chatbot.tasks.Task;
 
 /**
@@ -64,6 +65,15 @@ public class TaskList {
         }
         Task task = taskList.get(index - 1);
         taskList.remove(task);
+        return task.toString();
+    }
+
+    public String setTaskPriority(int index, Task.Priority p) throws InvalidTaskIndexException {
+        if (index < 1 || index > taskList.size()) {
+            throw new InvalidTaskIndexException();
+        }
+        Task task = taskList.get(index - 1);
+        task.setPriority(p);
         return task.toString();
     }
 

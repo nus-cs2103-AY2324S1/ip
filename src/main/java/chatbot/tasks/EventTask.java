@@ -12,6 +12,18 @@ public class EventTask extends Task {
     private String fromAsString;
     private String toAsString;
 
+    public EventTask(String name, String from, String to) {
+        super(name);
+        initFrom(from);
+        initTo(to);
+    }
+
+    public EventTask(String name, boolean isDone, Priority priority, String from, String to) {
+        super(name, isDone, priority);
+        initFrom(from);
+        initTo(to);
+    }
+
     private void initFrom(String from) {
         if (from.matches("\\d{4}-\\d{2}-\\d{2}")) {
             try {
@@ -36,18 +48,6 @@ public class EventTask extends Task {
         }
     }
 
-    public EventTask(String name, String from, String to) {
-        super(name);
-        initFrom(from);
-        initTo(to);
-    }
-
-    public EventTask(String name, boolean isDone, String from, String to) {
-        super(name, isDone);
-        initFrom(from);
-        initTo(to);
-    }
-
     private String parseLocalDate(LocalDate date) {
         try {
             return date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
@@ -58,9 +58,10 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return String.format("[%s][%s] %s (from: %s to: %s)",
+        return String.format("[%s][%s] (%s) %s (from: %s to: %s)",
                 this.type,
                 this.checkIsDone() ? "X" : " ",
+                this.getPriority(),
                 this.getName(),
                 this.from != null
                         ? parseLocalDate(this.from)

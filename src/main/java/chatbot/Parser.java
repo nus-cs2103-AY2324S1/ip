@@ -1,11 +1,14 @@
 package chatbot;
 
+import javafx.util.Pair;
+
 import chatbot.exceptions.DeadlineMissingFieldException;
 import chatbot.exceptions.DeleteMissingFieldException;
 import chatbot.exceptions.EventMissingFieldException;
 import chatbot.exceptions.FindMissingFieldException;
 import chatbot.exceptions.InvalidTaskIndexException;
 import chatbot.exceptions.MarkMissingFieldException;
+import chatbot.exceptions.PriorityMissingFieldException;
 import chatbot.exceptions.TodoMissingFieldException;
 import chatbot.tasks.DeadlineTask;
 import chatbot.tasks.EventTask;
@@ -19,6 +22,7 @@ public class Parser {
     private static final int FIND_COMMAND_NAME_BEGIN_INDEX = 5;
     private static final int MARK_COMMAND_WORD_COUNT = 2;
     private static final int DELETE_COMMAND_WORD_COUNT = 2;
+    private static final int PRIORITY_COMMAND_WORD_COUNT = 3;
     private static final int TODO_COMMAND_NAME_BEGIN_INDEX = 5;
     private static final int DEADLINE_COMMAND_NAME_BEGIN_INDEX = 9;
     private static final int DEADLINE_BY_FLAG_CHARACTER_COUNT = 4;
@@ -80,6 +84,20 @@ public class Parser {
         }
         try {
             return Integer.parseInt(commandWords[1]);
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskIndexException();
+        }
+    }
+
+    public static Pair<Integer, String> parsePriorityCommand(String[] commandWords)
+            throws PriorityMissingFieldException, InvalidTaskIndexException {
+        assert (commandWords[0].equals("priority"));
+        if (commandWords.length != PRIORITY_COMMAND_WORD_COUNT) {
+            throw new PriorityMissingFieldException();
+        }
+        try {
+            int index = Integer.parseInt(commandWords[1]);
+            return new Pair<>(index, commandWords[2]);
         } catch (NumberFormatException e) {
             throw new InvalidTaskIndexException();
         }
