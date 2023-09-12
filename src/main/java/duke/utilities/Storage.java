@@ -29,6 +29,7 @@ public class Storage {
             ObjectInputStream output = new ObjectInputStream(file);
             assert file != null;
             assert output != null;
+
             TaskList taskList = (TaskList) output.readObject();
             output.close();
             return taskList;
