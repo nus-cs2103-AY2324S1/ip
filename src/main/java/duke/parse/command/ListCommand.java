@@ -3,6 +3,7 @@ package duke.parse.command;
 import java.time.LocalDate;
 
 import duke.Duke;
+import duke.task.Task;
 
 /**
  * Represents a list command.
@@ -12,28 +13,17 @@ import duke.Duke;
 public class ListCommand implements Command {
     private boolean isExcludingDone;
     private LocalDate date;
-    private Type type;
-
-    /**
-     * Denotes the type of task to be listed.
-     * If there is no filter on type of task, the type indicated should be DEFAULT.
-     */
-    public enum Type {
-        TODO,
-        DEADLINE,
-        EVENT,
-        DEFAULT,
-    }
+    private Task.Type type;
 
     /**
      * Instantiates a list task with the given filter
-     * @param isExcludingDone whether to exclude tasks already done
-     * @param date the date to filter in deadlines before / events happening on,
-     *             null if not filtering by date
-     * @param type the type of task to include,
-     *             DEFAULT if not filtering by task type
+     * @param isExcludingDone Whether to exclude tasks already done.
+     * @param date The date to filter in deadlines before / events happening on,
+     *             null if not filtering by date.
+     * @param type The type of task to include,
+     *             DEFAULT if not filtering by task type.
      */
-    public ListCommand(boolean isExcludingDone, LocalDate date, Type type) {
+    public ListCommand(boolean isExcludingDone, LocalDate date, Task.Type type) {
         this.isExcludingDone = isExcludingDone;
         this.date = date;
         this.type = type;
@@ -41,8 +31,8 @@ public class ListCommand implements Command {
 
     /**
      * Commands the bot to list out the task with the given filters.
-     * @param bot the bot to execute the command
-     * @return true, as this allows the user to continue with the programme
+     * @param bot The bot to execute the command.
+     * @return true, as this allows the user to continue with the programme.
      */
     @Override
     public boolean execute(Duke bot) {
@@ -66,17 +56,18 @@ public class ListCommand implements Command {
     /**
      * Checks whether this list command is the same as another, for testing purposes.
      * True if both are list commands, and the filters are the same.
-     * @param another the object to compare with
-     * @return whether this list command is the same as another
+     * @param another The object to compare with.
+     * @return Whether this list command is the same as another.
      */
     @Override
     public boolean equals(Object another) {
         if (another instanceof ListCommand) {
             ListCommand anotherList = (ListCommand) another;
-            return this.isExcludingDone == anotherList.isExcludingDone
-                    && ((this.date == null && anotherList.date == null)
-                        || this.date.equals(anotherList.date))
-                    && this.type.equals(anotherList.type);
+            boolean isSameExcludingDone = this.isExcludingDone == anotherList.isExcludingDone;
+            boolean isSameDate = ((this.date == null && anotherList.date == null)
+                    || this.date.equals(anotherList.date));
+            boolean isSameType = this.type.equals(anotherList.type);
+            return isSameExcludingDone && isSameDate && isSameType;
         }
         return false;
     }

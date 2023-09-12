@@ -13,8 +13,8 @@ public class SaveCommand implements Command {
 
     /**
      * Command the bot to save its current data to disk.
-     * @param bot the bot to execute the command
-     * @return true, as it allows user to continue with the programme
+     * @param bot The bot to execute the command.
+     * @return true, as it allows user to continue with the programme.
      */
     @Override
     public boolean execute(Duke bot) {
@@ -25,8 +25,8 @@ public class SaveCommand implements Command {
     /**
      * Checks whether this save command is the same as another, for testing purposes.
      * It is the same as long as the other is also a save command.
-     * @param another the object to compare with
-     * @return whether this save command is the same as another
+     * @param another The object to compare with.
+     * @return Whether this save command is the same as another.
      */
     @Override
     public boolean equals(Object another) {

@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * Serves as entry point for the GUI programme, to be invoked by Application::launch
+ * Serves as entry point for the GUI programme, to be invoked by Application::launch.
  */
 public class DukeApplication extends Application {
     @Override

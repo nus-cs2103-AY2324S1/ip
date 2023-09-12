@@ -38,8 +38,8 @@ public class MainWindow extends VBox implements Ui {
 
     /**
      * Initialises the UI.
-     * @param name the name of the bot to be displayed to user.
-     * @param args system arguments
+     * @param name The name of the bot to be displayed to user.
+     * @param args System arguments.
      */
     @Override
     public void initialise(String name, String[] args) {
@@ -74,10 +74,19 @@ public class MainWindow extends VBox implements Ui {
                 + "What can I do for you?");
     }
 
+    /**
+     * Set the reference to the bot controlling this UI.
+     * @param duke The bot to control this UI.
+     */
     public void setDuke(Duke duke) {
         this.duke = duke;
     }
 
+    /**
+     * Set the prepending and appending string of all error messages to this UI.
+     * @param errorPrepend The prepending string for all error messages.
+     * @param errorAppend The appending string for all error messages.
+     */
     public void setErrorPrependAndAppend(String errorPrepend, String errorAppend) {
         this.errorPrepend = errorPrepend;
         this.errorAppend = errorAppend;
@@ -134,7 +143,7 @@ public class MainWindow extends VBox implements Ui {
 
     /**
      * Notifies the user that data is corrupted and allow user to take action.
-     * @return whether the user has decided to exit the programme.
+     * @return Whether the user has decided to exit the programme.
      */
     @Override
     public boolean handleFileCorrupted() {
@@ -156,7 +165,7 @@ public class MainWindow extends VBox implements Ui {
 
     /**
      * Takes input from the user.
-     * @return the input from the user
+     * @return The input from the user.
      */
     @Override
     public String takeInput(String prompt) {
@@ -164,7 +173,7 @@ public class MainWindow extends VBox implements Ui {
     }
 
     /**
-     * Exit the programme
+     * Exits the programme.
      */
     @Override
     public void exit() {
@@ -181,7 +190,7 @@ public class MainWindow extends VBox implements Ui {
 
     /**
      * Notifies user that a task has been marked done.
-     * @param task the task to notify
+     * @param task The task to notify.
      */
     @Override
     public void notifyMarkDone(Task task) {
@@ -190,7 +199,7 @@ public class MainWindow extends VBox implements Ui {
 
     /**
      * Notifies user that a task has been marked as not done.
-     * @param task the task to notify
+     * @param task The task to notify.
      */
     @Override
     public void notifyMarkNotDone(Task task) {
@@ -199,7 +208,7 @@ public class MainWindow extends VBox implements Ui {
 
     /**
      * Notifies that a task has been removed.
-     * @param task the task removed
+     * @param task The task removed.
      */
     @Override
     public void notifyRemoved(Task task) {
@@ -209,14 +218,14 @@ public class MainWindow extends VBox implements Ui {
     /**
      * Notifies that a list of task is going to be displayed.
      * Displays the task list.
-     * @param type type of task (todo/deadline/event/default)
-     * @param isExcludingDone whether to exclude tasks already done
-     * @param date the date before which to display deadlines before or events happening on,
-     *             null if not to filter by date
-     * @param taskList the task list to display
+     * @param type Type of task (todo/deadline/event/default).
+     * @param isExcludingDone Whether to exclude tasks already done.
+     * @param date The date before which to display deadlines before or events happening on,
+     *             null if not to filter by date.
+     * @param taskList The task list to display.
      */
     @Override
-    public void notifyList(Ui.Type type, boolean isExcludingDone, LocalDate date, TaskList taskList) {
+    public void notifyList(Task.Type type, boolean isExcludingDone, LocalDate date, TaskList taskList) {
         String typeString;
         switch (type) {
         case TODO:
@@ -237,20 +246,20 @@ public class MainWindow extends VBox implements Ui {
                         + typeString
                         + (isExcludingDone ? " not done" : "")
                         + (date != null
-                        ? (type == Type.DEADLINE
+                        ? (type == Task.Type.DEADLINE
                         ? " before "
-                        : type == Type.EVENT
+                        : type == Task.Type.EVENT
                         ? " happening on "
                         : " for "
                 ) + DateTimeManager.dateToDisplay(date)
                         : ""
-                ) + ":\n" + taskList.getTasks(isExcludingDone, date)
+                ) + ":\n" + taskList.getTasks(isExcludingDone, date, type)
         );
     }
 
     /**
      * Notifies that a task has been added.
-     * @param task the task added
+     * @param task The task added.
      */
     public void notifyAdded(Task task) {
         this.displayData("Got it, I've added this task to the list:\n" + task);
@@ -273,8 +282,8 @@ public class MainWindow extends VBox implements Ui {
     }
 
     /**
-     * Show task count.
-     * @param count the number of task in the list
+     * Shows task count.
+     * @param count The number of task in the list.
      */
     @Override
     public void showTaskCount(int count) {
@@ -283,7 +292,7 @@ public class MainWindow extends VBox implements Ui {
 
     /**
      * Notify the user of the search results.
-     * @param input the search parameter
+     * @param input The search parameter.
      */
     @Override
     public void notifyFind(String input, String output) {
@@ -294,7 +303,7 @@ public class MainWindow extends VBox implements Ui {
     }
 
     /**
-     * Display custom data
+     * Displays custom data.
      */
     @Override
     public void displayData(String data) {

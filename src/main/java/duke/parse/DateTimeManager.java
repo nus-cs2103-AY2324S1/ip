@@ -21,9 +21,9 @@ public class DateTimeManager {
     /**
      * Transforms a String input of datetime to a LocalDateTime instance.
      * The string must be in the format "dd/mm/yyyy hh:mm"
-     * @param input the input string
-     * @return the LocalDateTime object that corresponds to the input string
-     * @throws DateParseException if the input string is in a wrong format
+     * @param input The input string.
+     * @return The LocalDateTime object that corresponds to the input string.
+     * @throws DateParseException If the input string is in a wrong format.
      */
     public static LocalDateTime inputToDate(String input) throws DateParseException {
         String[] splitBySpace = input.split(" ");
@@ -39,9 +39,9 @@ public class DateTimeManager {
 
     /**
      * Parses the string and return a LocalDate instance.
-     * @param input the raw string
-     * @return the LocalDate instance that corresponds to the input
-     * @throws DateParseException when the input string cannot be parsed properly
+     * @param input The raw string.
+     * @return The LocalDate instance that corresponds to the input.
+     * @throws DateParseException When the input string cannot be parsed properly.
      */
     public static LocalDate parseDate(String input) throws DateParseException {
         String[] dateData = input.split("/");
@@ -77,21 +77,15 @@ public class DateTimeManager {
 
     /**
      * Reads the given input indicating a time and return a LocalTime instance.
-     * @param input the raw input string
-     * @return the LocalTime instance that corresponds to the string
-     * @throws DateParseException when the string cannot be parsed properly to interpret a time
+     * @param input The raw input string.
+     * @return The LocalTime instance that corresponds to the string.
+     * @throws DateParseException When the string cannot be parsed properly to interpret a time.
      */
     public static LocalTime parseTime(String input) throws DateParseException {
         String possibleAmPm = input.substring(input.length() - 2);
-        boolean isPm = false;
-        boolean isAm = false;
-        if (possibleAmPm.equals("am") || possibleAmPm.equals("pm")) {
-            if (possibleAmPm.equals("pm")) {
-                isPm = true;
-            }
-            if (possibleAmPm.equals("am")) {
-                isAm = true;
-            }
+        boolean isPm = possibleAmPm.equals("pm");
+        boolean isAm = possibleAmPm.equals("am");
+        if (isAm || isPm) {
             input = input.substring(0, input.length() - 2);
         }
         String[] timeData = input.split(":");
@@ -126,8 +120,8 @@ public class DateTimeManager {
 
     /**
      * Converts the given datetime to string for storage
-     * @param dateTime the instance of LocalDateTime to convert
-     * @return the string containing the data of the datetime
+     * @param dateTime The instance of LocalDateTime to convert.
+     * @return The string containing the data of the datetime.
      */
     public static String dateToStringData(LocalDateTime dateTime) {
         return DateTimeManager.dateToStringData(dateTime.toLocalDate()) + " "
@@ -136,8 +130,8 @@ public class DateTimeManager {
 
     /**
      * Converts the given date to string data for storage.
-     * @param date the instance of LocalDate to convert
-     * @return the string containing data of the date
+     * @param date The instance of LocalDate to convert.
+     * @return The string containing data of the date.
      */
     public static String dateToStringData(LocalDate date) {
         return date.getDayOfMonth() + "/"
@@ -147,8 +141,8 @@ public class DateTimeManager {
 
     /**
      * Converts the given time to string data for storage.
-     * @param time the instance of LocalTime to convert
-     * @return the string containing the data of the time
+     * @param time The instance of LocalTime to convert.
+     * @return The string containing the data of the time.
      */
     public static String timeDataFrom(LocalTime time) {
         return time.getHour() + ":" + time.getMinute();
@@ -156,8 +150,8 @@ public class DateTimeManager {
 
     /**
      * Converts a datetime to readable form, for display in UI.
-     * @param dateTime the instance of LocalDateTime to display
-     * @return the string representing the datetime to be displayed
+     * @param dateTime The instance of LocalDateTime to display.
+     * @return The string representing the datetime to be displayed.
      */
     public static String dateToDisplay(LocalDateTime dateTime) {
         return DateTimeManager.dateToDisplay(dateTime.toLocalDate()) + " "
@@ -166,8 +160,8 @@ public class DateTimeManager {
 
     /**
      * Converts the date given to readable form, for display in UI.
-     * @param date the instance of LocalDate to display
-     * @return the string representing the date to be displayed
+     * @param date The instance of LocalDate to display.
+     * @return The string representing the date to be displayed.
      */
     public static String dateToDisplay(LocalDate date) {
         if (date.equals(LocalDate.now())) {
@@ -181,8 +175,8 @@ public class DateTimeManager {
 
     /**
      * Converts the time to readable form, for display in UI.
-     * @param time the instance of LocalTime to convert
-     * @return the string representing the time to be displayed
+     * @param time The instance of LocalTime to convert.
+     * @return The string representing the time to be displayed.
      */
     public static String timeDisplayFrom(LocalTime time) {
         if (time.getHour() < 12) {

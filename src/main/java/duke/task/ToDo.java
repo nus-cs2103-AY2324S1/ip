@@ -7,7 +7,7 @@ package duke.task;
 public class ToDo extends Task {
     /**
      * Instantiates the to-do task with the given content.
-     * @param name the content of the task
+     * @param name The content of the task.
      */
     public ToDo(String name) {
         super(name);
@@ -15,16 +15,16 @@ public class ToDo extends Task {
 
     /**
      * Data representation of this to-do task, to be stored in disk.
-     * @return the string representation of this task in disk
+     * @return The string representation of this task in disk.
      */
     @Override
-    public String data() {
-        return "T " + super.data();
+    public String getData() {
+        return "T " + super.getData();
     }
 
     /**
      * String representation of this to-do task to be printed in UI.
-     * @return the string representation of this task to be printed in UI
+     * @return The string representation of this task to be printed in UI.
      */
     @Override
     public String toString() {
@@ -33,8 +33,8 @@ public class ToDo extends Task {
 
     /**
      * Checks whether this to-do task is the same as another task, for testing purposes.
-     * @param another the object to compare with
-     * @return whether this to-do task is the same as the given other task
+     * @param another The object to compare with.
+     * @return Whether this to-do task is the same as the given other task.
      */
     @Override
     public boolean equals(Object another) {

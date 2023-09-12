@@ -10,59 +10,59 @@ import duke.parse.DateTimeManager;
  * A deadline contains an end time.
  */
 public class Deadline extends Task {
-    private LocalDateTime deadline;
+    private final LocalDateTime deadlineTime;
 
     /**
      * Instantiates a deadline with the given content and the end time
-     * @param name the content of the task
-     * @param deadline the end time of the deadline
+     * @param name The content of the task.
+     * @param deadline The end time of the deadline.
      */
     public Deadline(String name, LocalDateTime deadline) {
         super(name);
-        this.deadline = deadline;
+        this.deadlineTime = deadline;
     }
 
     /**
      * Data representation of the task, to be stored in the disk
-     * @return data representation of the task to be stored in the disk
+     * @return Data representation of the task to be stored in the disk.
      */
     @Override
-    public String data() {
-        return "D " + super.data() + " /by " + DateTimeManager.dateToStringData(this.deadline);
+    public String getData() {
+        return "D " + super.getData() + " /by " + DateTimeManager.dateToStringData(this.deadlineTime);
     }
 
     /**
      * Checks whether this deadline ends before or on the given date.
-     * @param date the datetime to check against
-     * @return whether this deadline ends before or on the given date
+     * @param date The datetime to check against.
+     * @return Whether this deadline ends before or on the given date.
      */
     @Override
     public boolean containsDate(LocalDate date) {
-        return this.deadline.toLocalDate().isBefore(date) || this.deadline.toLocalDate().equals(date);
+        return this.deadlineTime.toLocalDate().isBefore(date) || this.deadlineTime.toLocalDate().equals(date);
     }
 
     /**
      * String representation of the task, to be displayed in UI.
-     * @return the string representation of the task to be displayed in UI
+     * @return The string representation of the task to be displayed in UI.
      */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: "
-                + DateTimeManager.dateToDisplay(this.deadline) + ")";
+                + DateTimeManager.dateToDisplay(this.deadlineTime) + ")";
     }
 
     /**
      * Checks whether this deadline is the same as another task, for testing purposes.
      * It is the same if content is the same, and end time is the same.
-     * @param another the object to compare with
-     * @return whether this deadline is the same as another task
+     * @param another The object to compare with.
+     * @return Whether this deadline is the same as another task.
      */
     @Override
     public boolean equals(Object another) {
         if (another instanceof Deadline) {
             Deadline anotherDeadline = (Deadline) another;
             return super.equals(anotherDeadline)
-                    && this.deadline.equals(anotherDeadline.deadline);
+                    && this.deadlineTime.equals(anotherDeadline.deadlineTime);
         }
         return false;
     }

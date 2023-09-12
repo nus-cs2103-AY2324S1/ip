@@ -9,8 +9,9 @@ import duke.Duke;
 public interface Command {
     /**
      * Executes the command.
-     * @return whether the execution allows the program to continue,
-     *     true if it can, false means the program must exit
+     * @param bot The bot to execute this command on.
+     * @return Whether the execution allows the program to continue,
+     *     true if it can, false means the program must exit.
      */
     boolean execute(Duke bot);
 }

@@ -11,7 +11,6 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 import duke.ui.graphic.DukeApplication;
 import duke.ui.graphic.MainWindow;
-import duke.ui.text.TextUi;
 import javafx.application.Application;
 
 /**
@@ -27,7 +26,7 @@ public class Duke {
     private Ui userInterface;
 
     /**
-     * Instantiate the bot, and starts the interaction immediately.
+     * Instantiates the bot, and starts the interaction immediately.
      */
     public Duke(boolean isCli, Ui userInterface) {
         this.userInterface = userInterface;
@@ -42,8 +41,8 @@ public class Duke {
     }
 
     /**
-     * Invoked at the start before interaction.
      * Reads data from file and save to the list of task.
+     * Invoked at the start before interaction.
      * If file is corrupted, the exception thrown from Storage instance is thrown.
      * If there is IO error, handle the exception gracefully,
      * and continue with an empty task list.
@@ -112,43 +111,43 @@ public class Duke {
     /**
      * Shows the list of task to the user, with the options included.
      * This does not filter task type (todo/deadline/event)
-     * @param isExcludingDone whether to exclude tasks already done
-     * @param date date to display the deadlines before and events happening on,
-     *             null if to not exclude any task by date
+     * @param isExcludingDone Whether to exclude tasks already done.
+     * @param date Date to display the deadlines before and events happening on,
+     *             null if to not exclude any task by date.
      */
     public void showList(boolean isExcludingDone, LocalDate date) {
-        this.userInterface.notifyList(Ui.Type.DEFAULT, isExcludingDone, date, this.taskList);
+        this.userInterface.notifyList(Task.Type.DEFAULT, isExcludingDone, date, this.taskList);
     }
 
     /**
      * Shows all to-do tasks with the given filters.
-     * @param isExcludingDone whether to exclude tasks already done
+     * @param isExcludingDone Whether to exclude tasks already done.
      */
     public void showTodos(boolean isExcludingDone) {
-        this.userInterface.notifyList(Ui.Type.TODO, isExcludingDone, null, this.taskList);
+        this.userInterface.notifyList(Task.Type.TODO, isExcludingDone, null, this.taskList);
     }
 
     /**
      * Shows all deadlines with the given filters.
-     * @param isExcludingDone whether to exclude tasks already done
-     * @param date the date to display deadlines before
+     * @param isExcludingDone Whether to exclude tasks already done.
+     * @param date The date to display deadlines before.
      */
     public void showDeadlines(boolean isExcludingDone, LocalDate date) {
-        this.userInterface.notifyList(Ui.Type.DEADLINE, isExcludingDone, date, this.taskList);
+        this.userInterface.notifyList(Task.Type.DEADLINE, isExcludingDone, date, this.taskList);
     }
 
     /**
      * Shows all events with the given filters.
-     * @param isExcludingDone whether to exclude tasks already done
-     * @param date the date to display events happening on
+     * @param isExcludingDone Whether to exclude tasks already done.
+     * @param date The date to display events happening on.
      */
     public void showEvents(boolean isExcludingDone, LocalDate date) {
-        this.userInterface.notifyList(TextUi.Type.EVENT, isExcludingDone, date, this.taskList);
+        this.userInterface.notifyList(Task.Type.EVENT, isExcludingDone, date, this.taskList);
     }
 
     /**
-     * Adds a task to
-     * @param task
+     * Adds a task to the current task list.
+     * @param task The task to be added to the list.
      */
     public void addTaskToList(Task task) {
         this.taskList.add(task);
@@ -160,7 +159,7 @@ public class Duke {
     /**
      * Mark a task with corresponding index as done.
      * Handles the case where task index is out of range.
-     * @param index the index of task to remove
+     * @param index The index of task to remove.
      */
     public void markTaskAsDone(int index) {
         try {
@@ -175,7 +174,7 @@ public class Duke {
     /**
      * Mark a task with corresponding index as not done.
      * Handles the case where task index is out of range.
-     * @param index the index of task to remove
+     * @param index The index of task to remove.
      */
     public void markTaskAsNotDone(int index) {
         try {
@@ -188,9 +187,9 @@ public class Duke {
     }
 
     /**
-     * Delete the task with the given index.
+     * Deletes the task with the given index.
      * Handles the case where the task index is out of range.
-     * @param index the index of the task
+     * @param index The index of the task.
      */
     public void deleteTask(int index) {
         try {
@@ -202,7 +201,7 @@ public class Duke {
     }
 
     /**
-     * Save data to hard disk, with the current task list.
+     * Saves data to hard disk, with the current task list.
      */
     public void saveData() {
         this.userInterface.notifyDataSaving();
@@ -215,8 +214,8 @@ public class Duke {
     }
 
     /**
-     * Echo command back to the user.
-     * @param input the input from the user
+     * Echoes command back to the user.
+     * @param input The input from the user.
      */
     public void echo(String input) {
         if (input.equals("quack")) {
@@ -228,7 +227,7 @@ public class Duke {
 
     /**
      * Finds a task based on the command from the user.
-     * @param input the input from the user
+     * @param input The input from the user.
      */
     public void find(String input) {
         this.userInterface.notifyFind(input, this.taskList.results(input, this.userInterface));

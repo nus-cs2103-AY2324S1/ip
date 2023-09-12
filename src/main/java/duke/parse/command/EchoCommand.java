@@ -10,7 +10,7 @@ public class EchoCommand implements Command {
 
     /**
      * Instantiates the echo command with the given input from the user.
-     * @param command the input from the user
+     * @param command The input from the user.
      */
     public EchoCommand(String command) {
         this.command = command;
@@ -18,8 +18,8 @@ public class EchoCommand implements Command {
 
     /**
      * Commands the bot to echo the input back to the user.
-     * @param bot the bot to execute the command
-     * @return true, as it allows the user to continue the programme
+     * @param bot The bot to execute the command.
+     * @return true, as it allows the user to continue the programme.
      */
     @Override
     public boolean execute(Duke bot) {
@@ -30,8 +30,8 @@ public class EchoCommand implements Command {
     /**
      * Checks whether this echo command is the same as another command, for testing purposes.
      * They are the same if the input from user is the same.
-     * @param another
-     * @return
+     * @param another The other object to compare with.
+     * @return Whether the other object is the same command as this command.
      */
     @Override
     public boolean equals(Object another) {

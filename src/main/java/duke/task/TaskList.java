@@ -31,7 +31,7 @@ public class TaskList {
 
     /**
      * Instantiates the task list with the given task.
-     * @param taskList the task list to start with
+     * @param taskList The task list to start with.
      */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
@@ -39,17 +39,17 @@ public class TaskList {
 
     /**
      * Adds a task to the end of the list.
-     * @param task the task to add
+     * @param task The task to add.
      */
     public void add(Task task) {
         this.taskList.add(task);
     }
 
     /**
-     * Marks a task with the given index as done
-     * @param index the task index to mark done
-     * @return the task that has been marked done
-     * @throws TaskIndexOutOfRange if the task index given is out of range
+     * Marks a task with the given index as done.
+     * @param index The task index to mark done.
+     * @return The task that has been marked done.
+     * @throws TaskIndexOutOfRange If the task index given is out of range.
      */
     public Task markTaskAsDone(int index) throws TaskIndexOutOfRange {
         try {
@@ -63,9 +63,9 @@ public class TaskList {
 
     /**
      * Marks a task with the given index as not done.
-     * @param index the task index to mark as not done
-     * @return the task that has been marked not done
-     * @throws TaskIndexOutOfRange if the task index given is out of range
+     * @param index The task index to mark as not done.
+     * @return The task that has been marked not done.
+     * @throws TaskIndexOutOfRange If the task index given is out of range.
      */
     public Task markTaskAsNotDone(int index) throws TaskIndexOutOfRange {
         try {
@@ -79,9 +79,9 @@ public class TaskList {
 
     /**
      * Deletes a task with the given index.
-     * @param index the task index to delete
-     * @return the task that has been deleted
-     * @throws TaskIndexOutOfRange if the task index given is out of range
+     * @param index The task index to delete.
+     * @return The task that has been deleted.
+     * @throws TaskIndexOutOfRange If the task index given is out of range.
      */
     public Task deleteTask(int index) throws TaskIndexOutOfRange {
         try {
@@ -95,10 +95,10 @@ public class TaskList {
 
     /**
      * Displays the list of task with the given filters.
-     * @param taskList the task list to display
-     * @param isExcludingDone whether to exclude tasks already done
-     * @param date the date to include deadlines before and events happening on,
-     *             null if to not filter by date
+     * @param taskList The task list to display.
+     * @param isExcludingDone Whether to exclude tasks already done.
+     * @param date The date to include deadlines before and events happening on,
+     *             null if to not filter by date.
      */
     private static String getTasks(ArrayList<Task> taskList, boolean isExcludingDone, LocalDate date) {
         if (isExcludingDone) {
@@ -116,19 +116,32 @@ public class TaskList {
 
     /**
      * Displays tasks with the given filters.
-     * Assume that there is no filtering by task type (todo/deadline/event)
-     * @param isExcludingDone whether to exclude tasks already done
-     * @param date the date to filter in deadlines before and events happening on
-     * @return the string representation of the filtered list of tasks
+     * Assume that there is no filtering by task type (todo/deadline/event).
+     * @param isExcludingDone Whether to exclude tasks already done.
+     * @param date The date to filter in deadlines before and events happening on.
+     * @return The string representation of the filtered list of tasks.
      */
-    public String getTasks(boolean isExcludingDone, LocalDate date) {
+    public String getTasks(boolean isExcludingDone, LocalDate date, Task.Type type) {
         ArrayList<Task> taskList = (ArrayList<Task>) this.taskList.clone();
+        switch (type) {
+        case TODO:
+            taskList.removeIf(task -> !(task instanceof ToDo));
+            break;
+        case DEADLINE:
+            taskList.removeIf(task -> !(task instanceof Deadline));
+            break;
+        case EVENT:
+            taskList.removeIf(task -> !(task instanceof Event));
+            break;
+        default:
+            break;
+        }
         return TaskList.getTasks(taskList, isExcludingDone, date);
     }
 
     /**
      * Returns the number of tasks in this task list.
-     * @return number of tasks in this task list
+     * @return Number of tasks in this task list.
      */
     public int size() {
         return this.taskList.size();
@@ -137,20 +150,20 @@ public class TaskList {
     /**
      * Save data to a given storage,
      * by first converting this list of task to storage-readable form.
-     * @param storage the storage to save data to
-     * @throws Storage.FileIoException if there is an IO error
+     * @param storage The storage to save data to.
+     * @throws Storage.FileIoException If there is an IO error.
      */
     public void saveData(Storage storage) throws Storage.FileIoException {
         StringBuilder data = new StringBuilder();
         for (Task task: this.taskList) {
-            data.append(task.data()).append("\n");
+            data.append(task.getData()).append("\n");
         }
         storage.saveData(data.toString());
     }
 
     /**
      * Display the tasks that match the given input.
-     * @param input the search parameter
+     * @param input The search parameter.
      */
     public String results(String input, Ui userInterface) {
         ArrayList<Task> list = (ArrayList<Task>) this.taskList.clone();

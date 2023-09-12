@@ -12,8 +12,19 @@ public abstract class Task {
     private boolean isDone = false;
 
     /**
+     * All possible types.
+     * Default value is used if the variable does not need a specification of task type.
+     */
+    public enum Type {
+        TODO,
+        DEADLINE,
+        EVENT,
+        DEFAULT,
+    }
+
+    /**
      * Instantiates the task with the given name.
-     * @param name content of the task
+     * @param name Content of the task.
      */
     public Task(String name) {
         this.name = name;
@@ -35,7 +46,7 @@ public abstract class Task {
 
     /**
      * Checks whether the task has been done.
-     * @return whether the task has been done
+     * @return Whether the task has been done.
      */
     public boolean isDone() {
         return this.isDone;
@@ -43,17 +54,17 @@ public abstract class Task {
 
     /**
      * Converts the current task to a string that can be stored in the disk.
-     * @return the string to be stored in disk
+     * @return The string to be stored in disk.
      */
-    public String data() {
+    public String getData() {
         return (this.isDone ? "1 " : "0 ") + this.name;
     }
 
     /**
      * Checks whether this task "contains" the date.
      * Definition of "contains" to be decided by child classes.
-     * @param dateTime the datetime to check against
-     * @return whether this task contains the date
+     * @param dateTime The datetime to check against.
+     * @return Whether this task contains the date.
      */
     public boolean containsDate(LocalDate dateTime) {
         return false;
@@ -61,8 +72,8 @@ public abstract class Task {
 
     /**
      * Checks if this task content contains the input.
-     * @param string the input to check against
-     * @return whether this task content contains the input
+     * @param string The input to check against.
+     * @return Whether this task content contains the input.
      */
     public boolean containsString(String string) {
         return this.name.contains(string);
@@ -70,7 +81,7 @@ public abstract class Task {
 
     /**
      * String representation of this task, to be printed in UI.
-     * @return the string representation to be printed in UI
+     * @return The string representation to be printed in UI.
      */
     @Override
     public String toString() {
@@ -79,8 +90,8 @@ public abstract class Task {
 
     /**
      * Checks whether this task is the same as another task, for testing purposes.
-     * @param another the object to compare with
-     * @return whether this task is the same as the given task
+     * @param another The object to compare with.
+     * @return Whether this task is the same as the given task.
      */
     @Override
     public boolean equals(Object another) {
