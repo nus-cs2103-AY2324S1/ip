@@ -23,6 +23,7 @@ public class DeadlineCommand extends Command {
      * @param by   The deadline date and time.
      */
     public DeadlineCommand(String name, LocalDateTime by) {
+        assert(name != null && by != null);
         this.name = name;
         this.by = by;
     }

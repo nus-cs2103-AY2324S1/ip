@@ -19,6 +19,7 @@ public class ToDoCommand extends Command {
      * @param name The name of the to-do task.
      */
     public ToDoCommand(String name) {
+        assert(name != null && name.isEmpty());
         this.name = name;
     }
 
