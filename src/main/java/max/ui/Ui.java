@@ -129,4 +129,20 @@ public class Ui {
     public String showError(String msg) {
         return msg;
     }
+
+    /**
+     * Prints help message such as command syntax.
+     *
+     */
+    public String showHelp() {
+        return "Here are some commands you can try:\n"
+                + "  list -- show full task list\n"
+                + "  mark <int> -- mark task as completed\n"
+                + "  unmark <int> -- mark task as not done yet\n"
+                + "  find xx xx -- filter specific task descriptions\n"
+                + "  todo <item> -- create new todo\n"
+                + "  deadline <item> /by <yyyy-mm-dd> -- create new deadline task\n"
+                + "  event <item> /from <yyyy-mm-dd> /to <yyyy-mm-dd> -- create new event task\n"
+                + "  help -- bruh need say more?";
+    }
 }

@@ -50,16 +50,12 @@ public class Parser {
         switch (com) {
         case AddCommand.COMMAND_WORD_DEADLINE:
             return handleDeadline(fullCommand);
-
         case AddCommand.COMMAND_WORD_EVENT:
             return handleEvent(fullCommand);
-
         case AddCommand.COMMAND_WORD_TODO:
             return handleTodo(fullCommand);
-
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
-
         case MarkCommand.COMMAND_WORD:
             return handleMark(fullCommand);
         case UnmarkCommand.COMMAND_WORD:
@@ -68,10 +64,10 @@ public class Parser {
             return handleDelete(fullCommand);
         case FindCommand.COMMAND_WORD:
             return handleFind(fullCommand);
-
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
-
+            case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
         default:
             throw new MaxException("Invalid command sir.");
         }
