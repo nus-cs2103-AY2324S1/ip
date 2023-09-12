@@ -63,7 +63,7 @@ public class TaskList {
         }
         int size = this.tasks.size();
         String taskInTotal = size > 1 ? " tasks in total." : " task in total.";
-        return "duke.task.Task added:\n" + this.tasks.get(size - 1) + "\nNow you have "
+        return "Task added:\n" + this.tasks.get(size - 1) + "\nNow you have "
                 + size + taskInTotal + "\n\"Be here now.\"";
     }
 

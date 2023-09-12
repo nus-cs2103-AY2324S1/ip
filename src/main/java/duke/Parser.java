@@ -43,7 +43,7 @@ public class Parser {
         Matcher taskMatcher = taskPattern.matcher(repeat);
         Pattern findPattern = Pattern.compile("find (.+)");
         Matcher findMatcher = findPattern.matcher(repeat);
-        if (repeat.contains("bye") || repeat.contains("88")) {
+        if (repeat.equals("bye") || repeat.equals("88")) {
             this.isRunning = false;
             return "";
         } else if (findMatcher.find()) {
