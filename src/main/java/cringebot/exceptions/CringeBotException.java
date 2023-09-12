@@ -1,7 +1,7 @@
 package cringebot.exceptions;
 
 /**
- * Class to handle exceptions thrown by Duke.
+ * Class to handle exceptions thrown by CringeBot.
  */
 public class CringeBotException extends Exception {
     /**

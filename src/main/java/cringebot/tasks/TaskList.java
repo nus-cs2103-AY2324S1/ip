@@ -5,6 +5,7 @@ import cringebot.parser.Parser;
 import cringebot.ui.Ui;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 
 /**
@@ -38,8 +39,9 @@ public class TaskList implements Serializable {
      */
     public String deleteItem(String input) throws CringeBotException {
         int index = this.getIndex(input) - 1;
+
         if (this.checkOutOfBounds(index)) {
-            throw new CringeBotException(":(( OOPS!!! I'm sorry, but the index you have inputted is out of bounds :-(");
+            throw new CringeBotException("OOPS!!! I'm sorry, but the index you have inputted is out of bounds. :(( ");
         } else {
             Task deletedTask = this.tasks.remove(index);
             return Ui.deleteItem(this.tasks.size(), deletedTask);
@@ -59,39 +61,45 @@ public class TaskList implements Serializable {
         Task newTask;
 
         switch(task) {
-            case DEADLINE:
-                checkEmpty(taskName, "deadline");
-                if (splitSentence.length < 2 || !splitSentence[1].contains("by")) {
-                    throw new CringeBotException(":((  OOPS!!! Please indicate a deadline with the /by keyword");
-                }
-                String date = splitSentence[1].replaceAll("by", "").strip();
-                newTask = new Deadline(taskName, date);
-                break;
-            case EVENT:
-                checkEmpty(taskName, "event");
-                if (splitSentence.length < 3 || (!splitSentence[1].contains("from") && !splitSentence[2].contains("to"))) {
-                    throw new CringeBotException(":((  OOPS!!! Please indicate a duration for the event with the /from and /to keywords");
-                }
-                String fromDatetime = splitSentence[1].replaceAll("from", "from:");
-                String toDatetime = splitSentence[2].replaceAll("to", "to:");
-                taskName = String.format("%s (%s %s)", taskName, fromDatetime, toDatetime);
-                newTask = new Event(taskName);
-                break;
-            case TODO:
-                checkEmpty(taskName, "todo");
-                newTask = new Todo(taskName);
-                break;
-            default:
-                throw new CringeBotException(":((  OOPS!!! I'm sorry, but I don't know what that means :-(");
+        case DEADLINE:
+            checkEmpty(taskName, "deadline");
+
+            if (splitSentence.length < 2 || !splitSentence[1].contains("by")) {
+                throw new CringeBotException("OOPS!!! Please indicate a deadline with the /by keyword. :(( ");
+            }
+
+            String date = splitSentence[1].replaceAll("by", "").strip();
+            newTask = new Deadline(taskName, date);
+            break;
+        case EVENT:
+            checkEmpty(taskName, "event");
+
+            if (splitSentence.length < 3 || (!splitSentence[1].contains("from") && !splitSentence[2].contains("to"))) {
+                throw new CringeBotException(
+                        "OOPS!!! Please indicate a duration for the event with the /from and /to keywords. :(("
+                );
+            }
+
+            String fromDatetime = splitSentence[1].replaceAll("from", "from:");
+            String toDatetime = splitSentence[2].replaceAll("to", "to:");
+            taskName = String.format("%s (%s %s)", taskName, fromDatetime, toDatetime);
+            newTask = new Event(taskName);
+            break;
+        case TODO:
+            checkEmpty(taskName, "todo");
+            newTask = new Todo(taskName);
+            break;
+        default:
+            throw new CringeBotException("OOPS!!! I'm sorry, but I don't know what that means. :((");
         }
 
         this.tasks.add(newTask);
 
-        return "Got it. I've added this task:\n"
-                + newTask
-                + "\nNow you have "
-                + this.tasks.size()
-                + " tasks in the list.";
+        return String.format(
+                "Got it. I've added this task:\n%s\nNow you have %d tasks in the list.",
+                newTask,
+                this.tasks.size()
+        );
     }
 
     /**
@@ -102,6 +110,7 @@ public class TaskList implements Serializable {
     public String findItems(String input) {
         String keyword = input.split(" ")[1].strip();
         StringBuilder tasksFound = new StringBuilder("Here are the matching tasks in your list:");
+
         for (int i = 0; i < this.tasks.size(); i++) {
             if (this.tasks.get(i).toString().contains(keyword)) {
                 tasksFound.append(String.format("\n%d.%s", i + 1, this.tasks.get(i)));
@@ -120,17 +129,16 @@ public class TaskList implements Serializable {
     public String modifyStatus(Parser.modifyStatus status, String input) throws CringeBotException {
         int index = getIndex(input) - 1;
         this.checkOutOfBounds(index);
+
         switch(status) {
-            case MARK:
-                this.tasks.get(index).markTask();
-                String markStatement = "Nice! I've marked this task as done:";
-                return String.format("%s\n%s", markStatement, this.tasks.get(index));
-            case UNMARK:
-                this.tasks.get(index).unMarkTask();
-                String unmarkStatement = "OK, I've marked this task as not done yet:";
-                return String.format("%s\n%s", unmarkStatement, this.tasks.get(index));
-            default:
-                throw new CringeBotException(":((  OOPS!!! I'm sorry, but an error occurred when modifying your task :-(");
+        case MARK:
+            this.tasks.get(index).markTask();
+            return String.format("Nice! I've marked this task as done:\n%s", this.tasks.get(index));
+        case UNMARK:
+            this.tasks.get(index).unMarkTask();
+            return String.format("OK, I've marked this task as not done yet:\n%s", this.tasks.get(index));
+        default:
+            throw new CringeBotException("OOPS!!! I'm sorry, but an error occurred when modifying your task. :((");
         }
     }
 
@@ -196,7 +204,9 @@ public class TaskList implements Serializable {
      */
     public static void checkEmpty(String input, String taskName) throws CringeBotException {
         if (input.isEmpty()) {
-            throw new CringeBotException(String.format(":((  OOPS!!! The description of a %s cannot be empty.", taskName));
+            throw new CringeBotException(
+                    String.format("OOPS!!! The description of a %s cannot be empty. :((", taskName)
+            );
         }
     }
 

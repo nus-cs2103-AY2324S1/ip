@@ -7,33 +7,34 @@ import cringebot.tasks.TaskList;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
 
 import java.util.ArrayList;
 
 /**
- * Class to handle storage events.
+ * Class to handle storage events to the indicated FILEPATH.
  */
 public class Storage {
-    private final String filePath;
+    private final String FILEPATH;  // Path to the data storage file.
 
     /**
      * Constructor for storage.
      *
-     * @param filePath path to the data storage file.
+     * @param filepath path to the data storage file.
      */
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage(String filepath) {
+        this.FILEPATH = filepath;
         try {
-            File file = new File(this.filePath);
+            File file = new File(this.FILEPATH);
+
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             }
         } catch (IOException e) {
-            System.out.println(":(( OOPS!!! An error occurred while creating the file.");
+            System.out.println("OOPS!!! An error occurred while creating the file. :((");
         }
     }
 
@@ -43,17 +44,17 @@ public class Storage {
      * @return ArrayList representing the taskList.
      * @throws CringeBotException Duke exception to let the user know what went wrong.
      */
-    public ArrayList<Task> load() throws CringeBotException {
+    public ArrayList<Task> loadFromFile() throws CringeBotException {
         // Loading the serialised object
         try {
-            FileInputStream fileIn = new FileInputStream(this.filePath);
+            FileInputStream fileIn = new FileInputStream(this.FILEPATH);
             ObjectInputStream objectIn = new ObjectInputStream(fileIn);
 
             @SuppressWarnings("unchecked")
             ArrayList<Task> loadedList = (ArrayList<Task>) objectIn.readObject();
             return loadedList;
         } catch (IOException | ClassNotFoundException e) {
-            throw new CringeBotException(":(( OOPS!!! An error occurred while reading data.");
+            throw new CringeBotException("OOPS!!! An error occurred while reading data. :(( ");
         }
     }
 
@@ -63,14 +64,14 @@ public class Storage {
      * @param tasks list of task to be written.
      * @throws CringeBotException Lets the user know what went wrong.
      */
-    public void write(TaskList tasks) throws CringeBotException {
+    public void writeToFile(TaskList tasks) throws CringeBotException {
         try {
-            FileOutputStream fileOut = new FileOutputStream(this.filePath);
+            FileOutputStream fileOut = new FileOutputStream(this.FILEPATH);
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
 
             objectOut.writeObject(tasks.getTasks());
         } catch (IOException e) {
-            throw new CringeBotException(":(( OOPS!!! Something went wrong when saving data");
+            throw new CringeBotException("OOPS!!! Something went wrong when saving data. :(( ");
         }
     }
 }

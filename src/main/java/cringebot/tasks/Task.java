@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class Task implements Serializable {
     private String name;
-    private boolean marked;
+    private boolean isMarked;
 
     /**
      * Returns the name of the task.
@@ -16,30 +16,30 @@ public class Task implements Serializable {
      */
     public Task(String name) {
         this.name = name;
-        this.marked = false;
+        this.isMarked = false;
     }
 
     /**
      * Indicates the task as marked.
      */
     public void markTask() {
-        this.marked = true;
+        this.isMarked = true;
     }
 
     /**
      * Indicates the task as un-marked.
      */
     public void unMarkTask() {
-        this.marked = false;
+        this.isMarked = false;
     }
 
     /**
      * Returns the boolean result of whether the task is marked.
      *
-     * @return true if marked and false otherwise.
+     * @return whether the task is marked or not.
      */
     public boolean isMarked() {
-        return this.marked;
+        return this.isMarked;
     }
 
     /**

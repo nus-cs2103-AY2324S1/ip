@@ -19,6 +19,7 @@ public class Deadline extends Task {
      */
     public Deadline(String name, String date) {
         super(name);
+
         try {
             this.date = LocalDate.parse(date.strip());
             this.hasDate = true;
@@ -38,6 +39,7 @@ public class Deadline extends Task {
         String checkBox = super.isMarked() ? "[X]" : "[ ]";
         char taskType1 = 'D';
         String taskType = String.format("[%c]", taskType1);
+
         if (hasDate) {
             return String.format(
                     "%s%s %s (by: %s)",

@@ -20,7 +20,7 @@ public class CringeBot {
     public CringeBot(String filePath) {
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(storage.loadFromFile());
         } catch (CringeBotException e) {
             tasks = new TaskList();
         }

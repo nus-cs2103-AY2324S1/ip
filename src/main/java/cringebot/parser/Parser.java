@@ -31,6 +31,7 @@ public class Parser {
     public static String parseCommands(String nextLine, TaskList tasks, Storage storage) {
         String firstWord = nextLine.split(" ")[0];
         String statement;
+
         try {
             switch(firstWord) {
             case "bye":
@@ -40,32 +41,32 @@ public class Parser {
                 return Ui.printItems(tasks);
             case "unmark":
                 statement = tasks.modifyStatus(modifyStatus.UNMARK, nextLine);
-                storage.write(tasks);
+                storage.writeToFile(tasks);
                 return statement;
             case "mark":
                 statement = tasks.modifyStatus(modifyStatus.MARK, nextLine);
-                storage.write(tasks);
+                storage.writeToFile(tasks);
                 return statement;
             case "delete":
                 statement = tasks.deleteItem(nextLine);
-                storage.write(tasks);
+                storage.writeToFile(tasks);
                 return statement;
             case "event":
                 statement = tasks.addItem(taskType.EVENT, nextLine);
-                storage.write(tasks);
+                storage.writeToFile(tasks);
                 return statement;
             case "deadline":
                 statement = tasks.addItem(taskType.DEADLINE, nextLine);
-                storage.write(tasks);
+                storage.writeToFile(tasks);
                 return statement;
             case "todo":
                 statement = tasks.addItem(taskType.TODO, nextLine);
-                storage.write(tasks);
+                storage.writeToFile(tasks);
                 return statement;
             case "find":
                 return tasks.findItems(nextLine);
             default:
-                throw new CringeBotException(":(( OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new CringeBotException("OOPS!!! I'm sorry, but I don't know what that means. :(( ");
             }
         } catch (CringeBotException e) {
             return e.getMessage();
