@@ -68,9 +68,8 @@ public class AllyList {
     /**
      * Function to delete a task from the list or array.
      *
-     * @param index
-     * @return
-     * @throws AllyException
+     * @param index int
+     * @throws AllyException Exception
      */
     public void deleteElement(int index) throws AllyException {
         arr.remove(index);

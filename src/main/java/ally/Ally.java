@@ -9,10 +9,10 @@ import ally.tasks.AllyList;
  */
 public class Ally {
 
+    private static final String DATAPATH = "./data/saved.txt";
     private final Storage storage;
     private AllyList tasks;
     private final Ui ui;
-    private static final String DATAPATH = "./data/saved.txt";
 
     /**
      * Constructor for Ally.
@@ -36,25 +36,25 @@ public class Ally {
         this(DATAPATH);
     }
 
-//    /**
-//     * Runs the main code of the chatbot.
-//     */
-//    public void run() {
-//        ui.start();
-//        boolean isExit = false;
-//        while (!isExit) {
-//            try {
-//                String fullCommand = ui.readCommand();
-//                Ui.showLine(); // show the divider line ("_______")
-//                Commands c = Parer.parse(fullCommand);
-//                isExit = c.isExit();
-//            } catch (AllyException e) {
-//                ui.showError(e.getMessage());
-//            } finally {
-//                Ui.showLine();
-//            }
-//        }
-//    }
+    //    /**
+    //     * Runs the main code of the chatbot.
+    //     */
+    //    public void run() {
+    //        ui.start();
+    //        boolean isExit = false;
+    //        while (!isExit) {
+    //            try {
+    //                String fullCommand = ui.readCommand();
+    //                Ui.showLine(); // show the divider line ("_______")
+    //                Commands c = Parer.parse(fullCommand);
+    //                isExit = c.isExit();
+    //            } catch (AllyException e) {
+    //                ui.showError(e.getMessage());
+    //            } finally {
+    //                Ui.showLine();
+    //            }
+    //        }
+    //    }
 
     public static void main(String[] args) throws AllyException {
         new Ally(DATAPATH);

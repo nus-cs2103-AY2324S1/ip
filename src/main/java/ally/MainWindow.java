@@ -1,9 +1,9 @@
 package ally;
 
-import ally.commands.Commands;
 import ally.exceptions.AllyException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -12,8 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.application.Platform;
-import ally.Ui;
 import javafx.util.Duration;
 
 /**
@@ -34,6 +32,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initialize MainWindow. Prints the greeting message.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -54,16 +55,16 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() throws AllyException {
-//        String input = userInput.getText();
-//        String response = ally.getResponse(input);
-//        dialogContainer.getChildren().addAll(
-//                DialogBox.getUserDialog(input, userImage),
-//                DialogBox.getDukeDialog(response, dukeImage)
-//        );
-//        userInput.clear();
-//        if (input.equals("bye")) {
-//            Platform.exit();
-//        }
+        //        String input = userInput.getText();
+        //        String response = ally.getResponse(input);
+        //        dialogContainer.getChildren().addAll(
+        //                DialogBox.getUserDialog(input, userImage),
+        //                DialogBox.getDukeDialog(response, dukeImage)
+        //        );
+        //        userInput.clear();
+        //        if (input.equals("bye")) {
+        //            Platform.exit();
+        //        }
         String input = userInput.getText();
         if (input.equalsIgnoreCase("bye")) {
             // Append a "bye" message to the conversation
