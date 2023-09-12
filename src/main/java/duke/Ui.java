@@ -2,14 +2,9 @@ package duke;
 
 public class Ui {
     /**
-     * Greets the user.
-     */
-    public static String greet(Tasklist tasks) {
-        return "I'm Jermbot. What you want?\n\nHere's your leftover tasks:\n" + listTasks(tasks);
-    }
-
-    /**
      * Says goodbye to the user.
+     *
+     * @return Goodbye string.
      */
     public static String goodbye() {
         return "Good riddance.\n";
