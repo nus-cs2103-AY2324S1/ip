@@ -25,19 +25,20 @@ public class UnmarkCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Response response, Storage storage) throws DukeException {
-        int taskNumber = 0;
         try {
-            taskNumber = Integer.parseInt(commandDetails.get(0));
+            int taskNumber = Integer.parseInt(commandDetails.get(0));
+
+            if (taskNumber <= 0 || taskNumber > tasks.size()) {
+                throw new DukeException("OOPS!!! The task number is out of range.");
+            }
+
+            Task unmarkedTask = tasks.get(taskNumber - 1);
+            unmarkedTask.markAsNotDone();
+            storage.writeListToFile(tasks);
+            return response.printTaskUnmarked(unmarkedTask);
         } catch (NumberFormatException e) {
             throw new DukeException("OOPS!!! The task number cannot be parsed.");
         }
-        if (taskNumber > tasks.size()) {
-            throw new DukeException("OOPS!!! The task number is out of range.");
-        }
-        Task unmarkedTask = tasks.get(taskNumber - 1);
-        unmarkedTask.markAsNotDone();
-        storage.writeListToFile(tasks);
-        return response.printTaskMarked(unmarkedTask);
     }
 
     /**

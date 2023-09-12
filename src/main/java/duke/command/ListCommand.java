@@ -6,7 +6,6 @@ import duke.Response;
 import duke.Storage;
 import duke.task.TaskList;
 
-
 /**
  * The ListCommand class represents a command to list all tasks.
  * It is a subclass of the Command class.

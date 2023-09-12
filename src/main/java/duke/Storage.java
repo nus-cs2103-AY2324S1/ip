@@ -21,7 +21,7 @@ public class Storage {
      *
      * @param filePath The file path where task data will be stored.
      */
-    public Storage(String filePath) {
+    public Storage(String filePath) throws DukeException {
         this.filePath = filePath;
         this.file = new File(filePath);
         makeDataDir();
@@ -43,14 +43,12 @@ public class Storage {
      *
      * @return True if the file was created successfully, false otherwise.
      */
-    private boolean createFile() {
+    private boolean createFile() throws DukeException {
         try {
             return file.createNewFile();
         } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            throw new DukeException("OOPS! An error occured.");
         }
-        return false;
     }
 
     /**
@@ -68,7 +66,7 @@ public class Storage {
                 tasks.add(Parser.dataToTask(line));
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found. Your Chatbot will start from clean slate.");
+            throw new DukeException("File not found. Your Chatbot will start from clean slate.");
         }
         return tasks;
     }
@@ -78,7 +76,7 @@ public class Storage {
      *
      * @param tasks The TaskList to write to the file.
      */
-    public void writeListToFile(TaskList tasks) {
+    public void writeListToFile(TaskList tasks) throws DukeException {
         try {
             FileWriter fw = new FileWriter(file);
             for (int i = 0; i < tasks.size(); i++) {
@@ -87,7 +85,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            throw new DukeException("An error occurred while writing to the file.");
         }
     }
 

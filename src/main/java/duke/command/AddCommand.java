@@ -12,8 +12,6 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
 
-
-
 /**
  * The AddCommand class represents a command to add a task.
  * It is a subclass of the Command class.
@@ -34,36 +32,30 @@ public class AddCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Response response, Storage storage) throws DukeException {
+        try {
+            Task newTask = createTask(); // Create a task based on the task type
+            tasks.add(newTask);
+            storage.appendToFile(newTask);
+            return response.printTaskAdded(newTask, tasks.size());
+        } catch (IOException e) {
+            throw new DukeException("OOPS!!! There is something wrong with the description.");
+        }
+    }
+
+    private Task createTask() throws DukeException {
+        String description = commandDetails.get(0);
         switch (this.taskType) {
         case "T":
-            Task newTodo = new Todo(commandDetails.get(0));
-            tasks.add(newTodo);
-            try {
-                storage.appendToFile(newTodo);
-            } catch (IOException e) {
-                throw new DukeException("OOPS!!! There is something wrong with the description.");
-            }
-            return response.printTaskAdded(newTodo, tasks.size());
+            return new Todo(description);
         case "D":
-            Task newDeadline = new Deadline(commandDetails.get(0), commandDetails.get(1));
-            tasks.add(newDeadline);
-            try {
-                storage.appendToFile(newDeadline);
-            } catch (IOException e) {
-                throw new DukeException("OOPS!!! There is something wrong with the description.");
-            }
-            return response.printTaskAdded(newDeadline, tasks.size());
+            String deadline = commandDetails.get(1);
+            return new Deadline(description, deadline);
         case "E":
-            Task newEvent = new Event(commandDetails.get(0), commandDetails.get(1), commandDetails.get(2));
-            tasks.add(newEvent);
-            try {
-                storage.appendToFile(newEvent);
-            } catch (IOException e) {
-                throw new DukeException("OOPS!!! There is something wrong with the description.");
-            }
-            return response.printTaskAdded(newEvent, tasks.size());
+            String eventDate = commandDetails.get(1);
+            String eventTime = commandDetails.get(2);
+            return new Event(description, eventDate, eventTime);
         default:
-            throw new DukeException("OOPS!!! Something went wrong when adding the task.");
+            throw new DukeException("OOPS!!! Invalid task type.");
         }
     }
 

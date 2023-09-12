@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import duke.command.AddCommand;
 import duke.command.ByeCommand;
 import duke.command.Command;
-import duke.command.DeleteComand;
+import duke.command.DeleteCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
@@ -62,8 +62,8 @@ public class Parser {
                         + " event coding /from 2023-01-01 /to 2023-12-31");
             }
             String eventDesc = strCommand.substring(firstSpaceIndex + 1, fromIndex - 1);
-            String from = strCommand.substring(fromIndex + 6, toIndex - 1);
-            String to = strCommand.substring(toIndex + 4);
+            String from = strCommand.substring(fromIndex + "/from ".length(), toIndex - 1);
+            String to = strCommand.substring(toIndex + "/to ".length());
             if (eventDesc.isBlank() || from.isBlank() || to.isBlank()) {
                 throw new DukeException("OOPS!!! The format of the event command is invalid.\n"
                         + "Here is an example of a valid format:"
@@ -82,7 +82,7 @@ public class Parser {
                         + " deadline coding /by 2023-09-04");
             }
             String deadlineDesc = strCommand.substring(firstSpaceIndex + 1, byIndex - 1);
-            String by = strCommand.substring(byIndex + 4);
+            String by = strCommand.substring(byIndex + "/by ".length());
             if (deadlineDesc.isBlank() || by.isBlank()) {
                 throw new DukeException("OOPS!!! The format of the deadline command is invalid.\n"
                         + "Here is an example of a valid format:"
@@ -93,7 +93,7 @@ public class Parser {
             command = new AddCommand(commandDetailList, "D");
             break;
         case "mark":
-            if (firstSpaceIndex == -1 || strCommand.length() < 6) {
+            if (firstSpaceIndex == -1 || strCommand.length() < "mark ".length()) {
                 throw new DukeException("OOPS!!! The task number to mark cannot be empty.");
             }
             String taskToMark = strCommand.substring(firstSpaceIndex + 1);
@@ -104,7 +104,7 @@ public class Parser {
             command = new MarkCommand(commandDetailList);
             break;
         case "unmark":
-            if (firstSpaceIndex == -1 || strCommand.length() < 8) {
+            if (firstSpaceIndex == -1 || strCommand.length() < "unmark ".length()) {
                 throw new DukeException("OOPS!!! The task number to unmark cannot be empty.");
             }
             String taskToUnmark = strCommand.substring(firstSpaceIndex + 1);
@@ -115,7 +115,7 @@ public class Parser {
             command = new UnmarkCommand(commandDetailList);
             break;
         case "delete":
-            if (firstSpaceIndex == -1 || strCommand.length() < 8) {
+            if (firstSpaceIndex == -1 || strCommand.length() < "delete ".length()) {
                 throw new DukeException("OOPS!!! The task number to delete cannot be empty.");
             }
             String taskToDelete = strCommand.substring(firstSpaceIndex + 1);
@@ -123,10 +123,10 @@ public class Parser {
                 throw new DukeException("OOPS!!! The task number to delete cannot be empty.");
             }
             commandDetailList.add(taskToDelete);
-            command = new DeleteComand(commandDetailList);
+            command = new DeleteCommand(commandDetailList);
             break;
         case "find":
-            if (firstSpaceIndex == -1 || strCommand.length() < 8) {
+            if (firstSpaceIndex == -1 || strCommand.length() < "find ".length()) {
                 throw new DukeException("OOPS!!! The find keyword cannot be empty.");
             }
             String keyword = strCommand.substring(firstSpaceIndex + 1);

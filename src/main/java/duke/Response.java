@@ -45,19 +45,20 @@ public class Response {
      * @param taskList The TaskList to be displayed.
      */
     public String printList(TaskList taskList) {
-        String response = "";
+        StringBuilder response = new StringBuilder();
+
         if (taskList.size() == 0) {
-            response += "There are no tasks on your list.\n"
-                    + "Use todo, event or deadline command to add tasks to your list.\n";
-            return response;
+            response.append("There are no tasks on your list.\n")
+                    .append("Use the 'todo', 'event', or 'deadline' command to add tasks to your list.\n");
+        } else {
+            for (int i = 0; i < taskList.size(); i++) {
+                response.append(i + 1)
+                        .append(". ")
+                        .append(taskList.get(i))
+                        .append("\n");
+            }
         }
-        for (int i = 0; i < taskList.size(); i++) {
-            response += Integer.toString(i + 1)
-                    + ". "
-                    + taskList.get(i)
-                    + "\n";
-        }
-        return response;
+        return response.toString();
     }
 
     /**
@@ -129,18 +130,18 @@ public class Response {
      * @param taskList The TaskList to be displayed.
      */
     public String printFind(TaskList taskList) {
-        String response = "";
+        StringBuilder response = new StringBuilder();
         if (taskList.size() == 0) {
-            response += "There are no matching tasks in your list.";
-            return response;
+            response.append("There are no matching tasks in your list.");
+        } else {
+            response.append("Here are the matching tasks in your list:\n");
+            for (int i = 0; i < taskList.size(); i++) {
+                response.append(Integer.toString(i + 1))
+                        .append(". ")
+                        .append(taskList.get(i))
+                        .append("\n");
+            }
         }
-        response += "Here are the matching tasks in your list:";
-        for (int i = 0; i < taskList.size(); i++) {
-            response += (Integer.toString(i + 1)
-                    + ". "
-                    + taskList.get(i)
-                    + "\n");
-        }
-        return response;
+        return response.toString();
     }
 }
