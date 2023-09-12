@@ -16,6 +16,7 @@ public class Roo {
      * @param filePath The path to the file where tasks are stored.
      */
     public Roo(String filePath) {
+        assert filePath != null : "File path cannot be null";
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(storage);
         this.ui = new Ui(tasks);
@@ -35,6 +36,7 @@ public class Roo {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
+        assert input != null : "Input cannot be null";
         return "Roo: \n" + run(input);
     }
 
