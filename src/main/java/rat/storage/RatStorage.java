@@ -58,6 +58,20 @@ public class RatStorage {
     }
 
     /**
+     * Appends the given input to the end of the file.
+     * @param input The input to append to the end of the file.
+     */
+    public void addToFile(String input) {
+        try {
+            FileWriter fw = new FileWriter(ratData, true);
+            fw.write(input);
+            fw.close();
+        } catch (IOException e) {
+            printWithLines("Error adding to file: " + e.getMessage());
+        }
+    }
+
+    /**
      * Reads the file and returns its contents as a String.
      * @return The contents of the file as a String.
      */
