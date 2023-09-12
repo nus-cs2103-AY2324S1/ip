@@ -1,4 +1,4 @@
-package duke.exception;
+package chatty.exception;
 
 /**
  * When the user did not enter the details of the task

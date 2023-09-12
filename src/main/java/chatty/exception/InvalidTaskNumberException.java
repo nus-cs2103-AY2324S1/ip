@@ -1,4 +1,4 @@
-package duke.exception;
+package chatty.exception;
 
 /**
  * if user entered a task number that does not exist

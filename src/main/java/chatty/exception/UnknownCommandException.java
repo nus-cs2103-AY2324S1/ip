@@ -1,4 +1,4 @@
-package duke.exception;
+package chatty.exception;
 
 /**
  * if an input entered by user does not start with one of the command word

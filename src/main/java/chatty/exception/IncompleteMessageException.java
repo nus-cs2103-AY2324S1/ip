@@ -1,4 +1,4 @@
-package duke.exception;
+package chatty.exception;
 
 /**
  * When user only enter the keyword without the task description

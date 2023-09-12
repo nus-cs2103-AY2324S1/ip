@@ -1,4 +1,4 @@
-package duke.exception;
+package chatty.exception;
 
 /**
  * Throw any exception related to the chatbot
