@@ -31,13 +31,15 @@ public class TaskList {
      * Removes the task at a particular index as done
      * @param num Index of the particular task in the task list
      */
-    public void removeTask(int num) {
+    public String removeTask(int num) {
         if (num < 0) {
-            System.out.println("The value cannot be negative. Please try again.");
+            return "The value cannot be negative. Please try again.";
         } else if (num >= inputs.size()) {
-            System.out.println("The input value is wrong. Please try again.");
+            return "The input value is wrong. Please try again.";
         } else {
             inputs.remove(num);
+            return "The task has been deleted. \n"
+                    + inputs.get(num).toString();
         }
     }
 
@@ -45,15 +47,17 @@ public class TaskList {
      * Marks the task at a particular index as done
      * @param num Index of the particular task in the task list
      */
-    public void markTask(int num) {
+    public String markTask(int num) {
         if (num < 0) {
-            System.out.println("The value cannot be negative. Please try again.");
+            return "The value cannot be negative. Please try again.";
         } else if (num >= inputs.size()) {
-            System.out.println("The input value is wrong. Please try again.");
+            return "The input value is wrong. Please try again.";
         } else {
             inputs.get(num).markAsDone();
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println("  " + inputs.get(num));
+            String output = "Nice! I've marked this task as done:"
+                    + "  " + inputs.get(num);
+
+            return output;
         }
     }
 
@@ -61,15 +65,17 @@ public class TaskList {
      * Unmarks the task at a particular index as done
      * @param num Index of the particular task in the task list
      */
-    public void unMarkTask(int num) {
+    public String unMarkTask(int num) {
         if (num < 0) {
-            System.out.println("The value cannot be negative. Please try again.");
+            return "The value cannot be negative. Please try again.";
         } else if (num >= inputs.size()) {
-            System.out.println("The input value is wrong. Please try again.");
+            return "The input value is wrong. Please try again.";
         } else {
             inputs.get(num).markAsUndone();
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("  " + inputs.get(num));
+            String output = "OK, I've marked this task as not done yet:"
+                    + "  " + inputs.get(num);
+
+            return output;
         }
     }
 

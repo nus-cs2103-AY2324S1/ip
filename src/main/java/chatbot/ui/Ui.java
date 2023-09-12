@@ -22,16 +22,24 @@ public class Ui {
     /**
      * Prints welcome message
      */
-    public void showWelcome() {
-        System.out.println("Hello! I'm ChatBot.\n"
-                + "What can I do for you?\n");
+    public String showWelcome() {
+        return "Hello! I'm ChatBot.\n"
+                + "What can I do for you?\n";
+    }
+
+    public String showInvalid(){
+        return "Invalid Command. Please Try Again!";
+    }
+
+    public String showErrorMessage(String message){
+        return "You have keyed in the wrong value. Please try again.";
     }
 
     /**
      * Prints goodbye message
      */
-    public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String showGoodbye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -46,21 +54,24 @@ public class Ui {
      * Prints out the tasks in the task list.
      * @param
      */
-    public void showList(TaskList taskList) {
-        System.out.println("Here are the tasks in your list:");
+    public String showList(TaskList taskList) {
+        String result = "Here are the tasks in your list:\n";
         for (int i = 0; i < taskList.len(); i++) {
-            System.out.println((i + 1) + ". " + taskList.retrieveList().get(i));
+            result += (i + 1) + ". " + taskList.retrieveList().get(i) + "\n";
         }
+
+        return result;
     }
 
     /**
      * Prints out the newly added task in the task list
      * @param taskList TaskList containing the list of tasks
      */
-    public void showAddedTask(TaskList taskList) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(taskList.retrieveList().get(taskList.len() - 1).toString());
-        System.out.println("Now you have " + taskList.len() + " tasks in the list");
+    public String showAddedTask(TaskList taskList) {
+        String task = "Got it. I've added this task: \n"
+                + taskList.retrieveList().get(taskList.len() - 1).toString()
+                + "\n Now you have " + taskList.len() + " tasks in the list";
+        return task;
     }
 
     /**
@@ -68,11 +79,13 @@ public class Ui {
      * @param taskList TaskList containing the list of tasks
      * @param num Index of the task to be removed
      */
-    public void showRemovedTask(TaskList taskList, int num) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(taskList.retrieveList().get(num).toString());
+    public String showRemovedTask(TaskList taskList, int num) {
         int total = taskList.len() - 1;
-        System.out.println("Now you have " + total + " tasks in the list");
+        String output = "Noted. I've removed this task:"
+                + taskList.retrieveList().get(num).toString()
+                + "\n Now you have " + total + " tasks in the list";
+
+        return output;
     }
 
     /**
@@ -80,16 +93,18 @@ public class Ui {
      * @param taskList TaskList containing the list of tasks
      * @param input Keyword that the user inputs
      */
-    public void showFindResults(TaskList taskList , String input) {
+    public String showFindResults(TaskList taskList , String input) {
         ArrayList<Task> list = taskList.getFilteredTasks(input);
+        String result = "Here are the matching tasks in your list:";
 
         if (list.size() == 0) {
-            System.out.println("There are no tasks with that keyword.");
+            return "There are no tasks with that keyword.";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
             for (int i = 1; i <= list.size(); i++) {
-                System.out.println(i + list.get(i - 1).toString());
+                result += i + list.get(i - 1).toString() + "\n";
             }
+
+            return result;
         }
     }
 

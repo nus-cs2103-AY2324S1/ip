@@ -1,15 +1,6 @@
 package chatbot.parser;
 
-import chatbot.commands.Command;
-import chatbot.commands.EventCommand;
-import chatbot.commands.ExitCommand;
-import chatbot.commands.TodoCommand;
-import chatbot.commands.DeadlineCommand;
-import chatbot.commands.ListCommand;
-import chatbot.commands.DeleteCommand;
-import chatbot.commands.MarkCommand;
-import chatbot.commands.UnmarkCommand;
-import chatbot.commands.FindCommand;
+import chatbot.commands.*;
 import chatbot.exceptions.DukeException;
 
 /**
@@ -77,8 +68,7 @@ public class Parser {
         } else if (command.split(" ")[0].equals("find")) {
             return new FindCommand(command.split(" ")[1]);
         } else {
-            System.out.println("Invalid Command. Please Try Again!");
+            return new InvalidCommand();
         }
-        return new ListCommand();
     }
 }

@@ -37,7 +37,7 @@ public class UnmarkCommand extends Command {
      * @param storage Storage instance that represents the storage of the file
      */
     @Override
-    public void execute(TaskList tasksList, Ui ui, Storage storage) {
-        tasksList.unMarkTask(num);
+    public String execute(TaskList tasksList, Ui ui, Storage storage) {
+        return tasksList.unMarkTask(num);
     }
 }

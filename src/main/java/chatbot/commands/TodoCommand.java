@@ -40,9 +40,9 @@ public class TodoCommand extends Command {
      * @param storage Storage instance that represents the storage of the file
      */
     @Override
-    public void execute(TaskList tasksList, Ui ui, Storage storage) {
+    public String execute(TaskList tasksList, Ui ui, Storage storage) {
         Task todo = new Todo(description);
         tasksList.addTask(todo);
-        ui.showAddedTask(tasksList);
+        return ui.showAddedTask(tasksList);
     }
 }

@@ -20,5 +20,5 @@ public abstract class Command {
      * @param ui A UI instance that displays a message to indicate to the user the task has been added
      * @param storage Storage instance that represents the storage of the file
      */
-    public abstract void execute(TaskList tasksList, Ui ui, Storage storage);
+    public abstract String execute(TaskList tasksList, Ui ui, Storage storage);
 }

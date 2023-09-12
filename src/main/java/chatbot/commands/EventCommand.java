@@ -53,9 +53,9 @@ public class EventCommand extends Command {
      * @param storage Storage instance that represents the storage of the file
      */
     @Override
-    public void execute(TaskList tasksList, Ui ui, Storage storage) {
+    public String execute(TaskList tasksList, Ui ui, Storage storage) {
         Task event = new Event(description, from, to);
         tasksList.addTask(event);
-        ui.showAddedTask(tasksList);
+        return ui.showAddedTask(tasksList);
     }
 }

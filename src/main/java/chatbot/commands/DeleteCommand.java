@@ -37,8 +37,8 @@ public class DeleteCommand extends Command {
      * @param storage   Storage instance that represents the storage of the file
      */
     @Override
-    public void execute(TaskList tasksList, Ui ui, Storage storage) {
+    public String execute(TaskList tasksList, Ui ui, Storage storage) {
         ui.showRemovedTask(tasksList, num);
-        tasksList.removeTask(num);
+        return tasksList.removeTask(num);
     }
 }
