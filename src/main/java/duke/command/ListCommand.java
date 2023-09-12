@@ -1,13 +1,14 @@
 package duke.command;
 
 import duke.DukeException;
+import duke.Storage;
 import duke.TaskList;
 import duke.UI;
 
 public class ListCommand implements Command {
 
     @Override
-    public String execute(String text, UI ui, TaskList list) throws DukeException {
+    public String execute(String text, UI ui, TaskList list, Storage storage) throws DukeException {
         if (list.size() == 0) {
             throw new DukeException("I apologise, sir. But you have no tasks on your list.");
         }

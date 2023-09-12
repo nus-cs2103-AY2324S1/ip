@@ -9,3 +9,9 @@ mark 2
 unmark 1
 unmark 2
 delete 1
+mark 1
+unmark 1
+todo dance
+todo cry 3
+delete 3
+delete 2

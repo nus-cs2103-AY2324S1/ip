@@ -7,23 +7,26 @@ import duke.UI;
 
 import java.io.IOException;
 
-public class UnmarkCommand implements Command {
+public class MarkCommand implements Command {
 
     @Override
     public String execute(String text, UI ui, TaskList list, Storage storage) throws DukeException {
         try {
             String[] splitText = text.split(" ");
-            int numToUnmark = Integer.parseInt(splitText[1]) - 1;
-            if (numToUnmark > list.size() - 1) {
+            int numToMark = Integer.parseInt(splitText[1]) - 1;
+            if (numToMark > list.size() - 1) {
                 throw new DukeException("I apologise, sir. This task does not exist");
             }
-            list.get(numToUnmark).markAsIncomplete();
+
+            list.get(numToMark).markAsComplete();
+
 
             storage.appendToFile(text + "\n");
 
-            ui.buildMessage("Alright! I'll uncheck this task for you: \n");
-            ui.buildMessage(String.format("\t [%s] [%s] %s", list.get(numToUnmark).getTag(),
-                    list.get(numToUnmark).getStatusIcon(), list.get(numToUnmark)));
+
+            ui.buildMessage("Alright! I'll check this task as complete for you: \n");
+            ui.buildMessage(String.format("\t [%s] [%s] %s", list.get(numToMark).getTag(),
+                    list.get(numToMark).getStatusIcon(), list.get(numToMark)));
             return ui.sendMessage();
         } catch (NumberFormatException e) {
             throw new DukeException("I apologise, sir. But you have to key in a task number.");
