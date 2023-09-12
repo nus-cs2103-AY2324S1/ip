@@ -129,6 +129,10 @@ public class TaskList {
         String[] deadlineParts = {parts[0].trim(), parts[1].trim()};
         String taskName = deadlineParts[0];
         LocalDateTime by = Storage.saveAsDate(deadlineParts[1]);
+
+        // Users should not be able to create deadlines that are already over
+        assert by.isAfter(LocalDateTime.now()): "Deadline should not have passed already.";
+
         taskArray.add(new Deadline(taskName, by));
         System.out.println("Got it. I've added this task:");
         System.out.println(taskArray.get(taskArray.size() - 1).statusAndTask());
@@ -157,6 +161,10 @@ public class TaskList {
         String[] eventParts = {taskName, start, end};
         LocalDateTime startDateTime = Storage.saveAsDate(eventParts[1]);
         LocalDateTime endDateTime = Storage.saveAsDate(eventParts[2]);
+
+        // An event cannot end before it starts
+        assert endDateTime.isAfter(startDateTime) : "End date should be after start date.";
+
         taskArray.add(new Event(taskName, startDateTime, endDateTime));
         System.out.println("Got it. I've added this task:");
         System.out.println(taskArray.get(taskArray.size() - 1).statusAndTask());
