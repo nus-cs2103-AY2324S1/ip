@@ -21,8 +21,9 @@ import chatbot.tasks.ToDoTask;
  * Class that interact with user's local storage.
  */
 public class Storage {
-    private final String localDirectoryPath;
-    private final String localFilePath;
+    private static final int MIN_TASK_STRING_LENGTH = 6;
+    private String localDirectoryPath;
+    private String localFilePath;
 
     /**
      * Constructor that instantiates a Storage object with the paths.
@@ -35,7 +36,7 @@ public class Storage {
     }
 
     private static Task parseTaskString(String taskString) throws InvalidTaskStringException {
-        if (taskString.isEmpty()) {
+        if (taskString.length() < MIN_TASK_STRING_LENGTH) {
             throw new InvalidTaskStringException();
         }
         String firstWord = taskString.split(" ")[0];
@@ -101,7 +102,7 @@ public class Storage {
             boolean isDone = parseTaskIsDone(taskString);
             int idOfFrom = taskString.indexOf("(from:");
             int idOfTo = taskString.indexOf("to:");
-            if (idOfFrom == -1 || idOfTo == -1) {
+            if (idOfFrom == -1 || idOfTo == -1 || idOfFrom > idOfTo) {
                 throw new InvalidTaskStringException();
             }
             String taskName = taskString.substring(7, idOfFrom - 1);
@@ -150,6 +151,7 @@ public class Storage {
      * @throws LocalFileException when the file cannot be written due to permission issue
      */
     public void writeToDataFile(String data) throws LocalFileException {
+        assert (data.length() >= MIN_TASK_STRING_LENGTH);
         try {
             FileWriter fw = new FileWriter(localFilePath);
             fw.write(data);

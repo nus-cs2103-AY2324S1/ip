@@ -49,7 +49,13 @@ public class ChatBot {
     }
 
     public String handleCommand(String command) throws ChatBotException {
+        assert (!command.isEmpty());
+
         String[] words = command.split(" ");
+        if (words.length == 0) {
+            throw new IllegalCommandException();
+        }
+
         String firstWord = words[0];
         switch (firstWord) {
         case "bye":
@@ -62,7 +68,7 @@ public class ChatBot {
             return this.tasks.findTasks(name);
         case "mark":
         case "unmark":
-            boolean isDone = words[0].equals("mark");
+            boolean isDone = firstWord.equals("mark");
             String taskString = this.tasks.markAs(isDone, Parser.parseMarkCommand(words));
             this.writeTaskList();
             return String.format("%s\n%s",
@@ -79,9 +85,9 @@ public class ChatBot {
         case "todo":
         case "deadline":
         case "event":
-            Task task = words[0].equals("todo")
+            Task task = firstWord.equals("todo")
                     ? Parser.parseTodoTaskCommand(command)
-                    : words[0].equals("deadline")
+                    : firstWord.equals("deadline")
                     ? Parser.parseDeadlineTaskCommand(command)
                     : Parser.parseEventTaskCommand(command);
             this.tasks.addTask(task);
