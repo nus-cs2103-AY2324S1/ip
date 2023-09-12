@@ -15,10 +15,10 @@ import javafx.scene.layout.HBox;
  * Represent a message that can be displayed in the GUI.
  */
 public class Message extends HBox {
-    private static final Image USER_IMAGE = new Image(
-            Message.class.getClassLoader().getResourceAsStream("/images/User.png"));
-    private static final Image BOT_IMAGE = new Image(
-            Message.class.getClassLoader().getResourceAsStream("/images/Bot.png"));
+    private static final Image USER_IMAGE =
+            new Image("https://se-education.org/guides/tutorials/images/javafx/DaUser.png");
+    private static final Image BOT_IMAGE =
+            new Image("https://se-education.org/guides/tutorials/images/javafx/DaDuke.png");
     private final String content;
 
     private final Label label;
