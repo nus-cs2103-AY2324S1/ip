@@ -29,6 +29,7 @@ public class Storage {
         try {
             String[] splited = filePath.split("/");
             File dir = new File(splited[0]);
+
             if (!dir.exists()) {
                 dir.mkdir();
             }
@@ -53,43 +54,19 @@ public class Storage {
         try {
             ArrayList<Task> oldTasks = new ArrayList<>();
             Scanner fileScanner = new Scanner(this.file);
+
             while (fileScanner.hasNext()) {
                 String line = fileScanner.nextLine();
                 String[] splited = line.split(" ", 6);
-                if (splited[2].equals("[T]")) {
-                    Task todo = new Todo(splited[5]);
-                    oldTasks.add(todo);
-                    if (splited[0].equals("1")) {
-                        todo.markDone();
-                    } else {
-                        todo.markUndone();
-                    }
-                }
-                if (splited[2].equals("[D]")) {
-                    String[] desc = splited[5].split("\\(by:", 2);
-                    String time = desc[1].split("\\)", 2)[0];
-                    LocalDateTime by = formatData(time);
-                    Task deadline = new Deadline(desc[0], by);
-                    oldTasks.add(deadline);
-                    if (splited[0].equals("1")) {
-                        deadline.markDone();
-                    } else {
-                        deadline.markUndone();
-                    }
-                }
-                if (splited[2].equals("[E]")) {
-                    String[] description = splited[5].split("\\(from:");
-                    String start = description[1].split("to:", 2)[0];
-                    String end = description[1].split("to:", 2)[1];
-                    LocalDateTime from = formatData(start);
-                    LocalDateTime to = formatData(end);
-                    Task event = new Event(description[0], from, to);
-                    oldTasks.add(event);
-                    if (splited[0].equals("1")) {
-                        event.markDone();
-                    } else {
-                        event.markUndone();
-                    }
+                String taskType = splited[2];
+                switch (taskType) {
+                    case "[T]" :
+                        readTodo(splited[5], splited[0], oldTasks);
+                    case "[D]" :
+                        readDeadline(splited[5], splited[0], oldTasks);
+                    case "[E]" :
+                        readEvent(splited[5], splited[0], oldTasks);
+
                 }
             }
             return oldTasks;
@@ -98,6 +75,44 @@ public class Storage {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    public void readTodo(String description, String status, ArrayList<Task> oldTasks) {
+        Task todo = new Todo(description);
+        oldTasks.add(todo);
+        if (status.equals("1")) {
+            todo.markDone();
+        } else {
+            todo.markUndone();
+        }
+    }
+
+    public void readDeadline(String description, String status, ArrayList<Task> oldTasks) {
+        String[] desc = description.split("\\(by:", 2);
+        String time = desc[1].split("\\)", 2)[0];
+        LocalDateTime by = formatData(time);
+        Task deadline = new Deadline(desc[0], by);
+        oldTasks.add(deadline);
+        if (status.equals("1")) {
+            deadline.markDone();
+        } else {
+            deadline.markUndone();
+        }
+    }
+
+    public void readEvent(String description, String status, ArrayList<Task> oldTasks) {
+        String[] desc = description.split("\\(from:");
+        String start = desc[1].split("to:", 2)[0];
+        String end = desc[1].split("to:", 2)[1];
+        LocalDateTime from = formatData(start);
+        LocalDateTime to = formatData(end);
+        Task event = new Event(desc[0], from, to);
+        oldTasks.add(event);
+        if (status.equals("1")) {
+            event.markDone();
+        } else {
+            event.markUndone();
+        }
     }
 
     /**
