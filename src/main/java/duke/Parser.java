@@ -12,7 +12,7 @@ public class Parser {
 
     /**
      * Parses the input string into command which can be executed.
-     * 
+     *
      * @param input String read by ui and to be parsed.
      * @return The corresponding command.
      * @throws DukeException If the input string has a wrong format.
@@ -35,13 +35,13 @@ public class Parser {
             return parseEventCommand(inputArr);
 
         case "mark":
-            return parseMarkCommand(input, inputArr);
+            return parseMarkCommand(inputArr);
 
         case "unmark":
-            return parseUnmarkCommand(input, inputArr);
+            return parseUnmarkCommand(inputArr);
 
         case "delete":
-            return parseDeleteCommand(input, inputArr);
+            return parseDeleteCommand(inputArr);
 
         case "find":
             return parseFindCommand(inputArr);
@@ -57,6 +57,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input with string array format to the corresponding find command.
+     *
+     * @param inputArr Input string array.
+     * @return The corresponding find command.
+     * @throws DukeException If the input string has a wrong format.
+     */
     private static FindCommand parseFindCommand(String[] inputArr) throws DukeException {
         if (inputArr.length == 1) {
             throw new DukeException("OOPS!!! The description of a find cannot be empty.");
@@ -67,28 +74,43 @@ public class Parser {
         return new FindCommand(inputArr[1]);
     }
 
-    private static DeleteCommand parseDeleteCommand(String input, String[] inputArr) throws DukeException {
+    /**
+     * Parses the input with string array format to the corresponding delete command.
+     *
+     * @param inputArr Input string array.
+     * @return The corresponding delete command.
+     * @throws DukeException If the input string has a wrong format.
+     */
+    private static DeleteCommand parseDeleteCommand(String[] inputArr) throws DukeException {
         if (inputArr.length == 1) {
             throw new DukeException("OOPS!!! The description of a delete cannot be empty.");
         }
-        if (input.split(" ").length > 2) {
+        if (inputArr[1].split(" ").length > 1) {
             throw new DukeException("Invalid delete command ?_? " +
                     "this command should follow by only ONE INTEGER");
         }
-        int k;
+        int index;
         try {
-            k = Integer.parseInt(inputArr[1]);
+            index = Integer.parseInt(inputArr[1]);
         } catch (NumberFormatException e) {
             throw new DukeException("Please type in INTEGER after this command ^v^");
         }
-        return new DeleteCommand(k - 1);
+        return new DeleteCommand(index - 1);
     }
 
-    private static UnmarkCommand parseUnmarkCommand(String input, String[] inputArr) throws DukeException {
+
+    /**
+     * Parses the input with string array format to the corresponding unmark command.
+     *
+     * @param inputArr Input string array.
+     * @return The corresponding unmark command.
+     * @throws DukeException If the input string has a wrong format.
+     */
+    private static UnmarkCommand parseUnmarkCommand(String[] inputArr) throws DukeException {
         if (inputArr.length == 1) {
             throw new DukeException("OOPS!!! The description of a unmark cannot be empty.");
         }
-        if (input.split(" ").length > 2) {
+        if (inputArr[1].split(" ").length > 1) {
             throw new DukeException("Invalid unmark command ?_? " +
                     "this command should follow by only ONE INTEGER");
         }
@@ -102,11 +124,18 @@ public class Parser {
         return new UnmarkCommand(index - 1);
     }
 
-    private static MarkCommand parseMarkCommand(String input, String[] inputArr) throws DukeException {
+    /**
+     * Parses the input with string array format to the corresponding mark command.
+     *
+     * @param inputArr Input string array.
+     * @return The corresponding mark command.
+     * @throws DukeException If the input string has a wrong format.
+     */
+    private static MarkCommand parseMarkCommand(String[] inputArr) throws DukeException {
         if (inputArr.length == 1) {
             throw new DukeException("OOPS!!! The description of a mark cannot be empty.");
         }
-        if (input.split(" ").length > 2) {
+        if (inputArr[0].split(" ").length > 1) {
             throw new DukeException("Invalid mark command ?_? " +
                     "this command should follow by only ONE INTEGER");
         }
@@ -120,6 +149,13 @@ public class Parser {
         return new MarkCommand(index - 1);
     }
 
+    /**
+     * Parses the input with string array format to the corresponding event command.
+     *
+     * @param inputArr Input string array.
+     * @return The corresponding event command.
+     * @throws DukeException If the input string has a wrong format.
+     */
     private static EventCommand parseEventCommand(String[] inputArr) throws DukeException {
         if (inputArr.length == 1) {
             throw new DukeException("OOPS!!! The description of a event cannot be empty.");
@@ -149,6 +185,13 @@ public class Parser {
         return new EventCommand(description, startDate, endDate);
     }
 
+    /**
+     * Parses the input with string array format to the corresponding deadline command.
+     *
+     * @param inputArr Input string array.
+     * @return The corresponding deadline command.
+     * @throws DukeException If the input string has a wrong format.
+     */
     private static DeadlineCommand parseDeadlineCommand(String[] inputArr) throws DukeException {
         if (inputArr.length == 1) {
             throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
@@ -169,6 +212,13 @@ public class Parser {
         return new DeadlineCommand(description, byDate);
     }
 
+    /**
+     * Parses the input with string array format to the corresponding todo command.
+     *
+     * @param inputArr Input string array.
+     * @return The corresponding todo command.
+     * @throws DukeException If the input string has a wrong format.
+     */
     private static TodoCommand parseTodoCommand(String[] inputArr) throws DukeException {
         if (inputArr.length == 1) {
             throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
@@ -177,6 +227,13 @@ public class Parser {
         return new TodoCommand(des);
     }
 
+    /**
+     * Parses the input with string array format to the corresponding list command.
+     *
+     * @param inputArr Input string array.
+     * @return The corresponding list command.
+     * @throws DukeException If the input string has a wrong format.
+     */
     private static ListCommand parseListCommand(String[] inputArr) throws DukeException {
         if (inputArr.length > 1) {
             throw new DukeException("Invalid list command");
