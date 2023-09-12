@@ -33,7 +33,7 @@ public class Gui {
         this.chatBot = chatBot;
         addChatBotDialog(this.chatBot.greet());
         String initTaskListResponse = this.chatBot.initTaskList();
-        if (initTaskListResponse != "ok") {
+        if (initTaskListResponse != ChatBot.INIT_TASKLIST_SUCCESS_STRING) {
             addChatBotDialog(initTaskListResponse);
         };
     }

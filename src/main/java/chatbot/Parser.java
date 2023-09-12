@@ -16,6 +16,16 @@ import chatbot.tasks.ToDoTask;
  * Class that contains static methods to help parse user commands.
  */
 public class Parser {
+    private static final int FIND_COMMAND_NAME_BEGIN_INDEX = 5;
+    private static final int MARK_COMMAND_WORD_COUNT = 2;
+    private static final int DELETE_COMMAND_WORD_COUNT = 2;
+    private static final int TODO_COMMAND_NAME_BEGIN_INDEX = 5;
+    private static final int DEADLINE_COMMAND_NAME_BEGIN_INDEX = 9;
+    private static final int DEADLINE_BY_FLAG_CHARACTER_COUNT = 4;
+    private static final int EVENT_COMMAND_NAME_BEGIN_INDEX = 6;
+    private static final int EVENT_FROM_FLAG_CHARACTER_COUNT = 6;
+    private static final int EVENT_TO_FLAG_CHARACTER_COUNT = 4;
+
     /**
      * Parse "find" command from the user.
      * @param command String which is the user's command
@@ -25,7 +35,7 @@ public class Parser {
     public static String parseFindCommand(String command) throws FindMissingFieldException {
         assert (command.substring(0, 4).equals("find"));
         try {
-            String name = command.substring(5);
+            String name = command.substring(FIND_COMMAND_NAME_BEGIN_INDEX);
             if (name.isEmpty()) {
                 throw new FindMissingFieldException();
             }
@@ -45,7 +55,7 @@ public class Parser {
     public static int parseMarkCommand(String[] commandWords)
             throws MarkMissingFieldException, InvalidTaskIndexException {
         assert (commandWords[0].equals("mark") || commandWords[0].equals("unmark"));
-        if (commandWords.length != 2) {
+        if (commandWords.length != MARK_COMMAND_WORD_COUNT) {
             throw new MarkMissingFieldException();
         }
         try {
@@ -65,7 +75,7 @@ public class Parser {
     public static int parseDeleteCommand(String[] commandWords)
             throws DeleteMissingFieldException, InvalidTaskIndexException {
         assert (commandWords[0].equals("delete"));
-        if (commandWords.length != 2) {
+        if (commandWords.length != DELETE_COMMAND_WORD_COUNT) {
             throw new DeleteMissingFieldException();
         }
         try {
@@ -84,11 +94,11 @@ public class Parser {
     public static Task parseTodoTaskCommand(String command) throws TodoMissingFieldException {
         assert (command.substring(0, 4).equals("todo"));
         try {
-            String name = command.substring(5);
+            String name = command.substring(TODO_COMMAND_NAME_BEGIN_INDEX);
             if (name.isEmpty()) {
                 throw new TodoMissingFieldException();
             }
-            return new ToDoTask(command.substring(5));
+            return new ToDoTask(name);
         } catch (IndexOutOfBoundsException e) {
             throw new TodoMissingFieldException();
         }
@@ -107,8 +117,8 @@ public class Parser {
             throw new DeadlineMissingFieldException();
         }
         try {
-            String name = command.substring(9, idOfBy - 1);
-            String deadline = command.substring(idOfBy + 4);
+            String name = command.substring(DEADLINE_COMMAND_NAME_BEGIN_INDEX, idOfBy - 1);
+            String deadline = command.substring(idOfBy + DEADLINE_BY_FLAG_CHARACTER_COUNT);
             if (name.isEmpty() || deadline.isEmpty()) {
                 throw new DeadlineMissingFieldException();
             }
@@ -132,9 +142,9 @@ public class Parser {
             throw new EventMissingFieldException();
         }
         try {
-            String name = command.substring(6, idOfFrom - 1);
-            String from = command.substring(idOfFrom + 6, idOfTo - 1);
-            String to = command.substring(idOfTo + 4);
+            String name = command.substring(EVENT_COMMAND_NAME_BEGIN_INDEX, idOfFrom - 1);
+            String from = command.substring(idOfFrom + EVENT_FROM_FLAG_CHARACTER_COUNT, idOfTo - 1);
+            String to = command.substring(idOfTo + EVENT_TO_FLAG_CHARACTER_COUNT);
             if (name.isEmpty() || from.isEmpty() || to.isEmpty()) {
                 throw new EventMissingFieldException();
             }

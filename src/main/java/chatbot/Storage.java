@@ -22,6 +22,9 @@ import chatbot.tasks.ToDoTask;
  */
 public class Storage {
     private static final int MIN_TASK_STRING_LENGTH = 6;
+    private static final int LOCAL_STORAGE_TASK_TYPE_INDEX = 1;
+    private static final int LOCAL_STORAGE_TASK_IS_DONE_INDEX = 4;
+    private static final int LOCAL_STORAGE_TASK_NAME_BEGIN_INDEX = 7;
     private String localDirectoryPath;
     private String localFilePath;
 
@@ -39,26 +42,22 @@ public class Storage {
         if (taskString.length() < MIN_TASK_STRING_LENGTH) {
             throw new InvalidTaskStringException();
         }
-        String firstWord = taskString.split(" ")[0];
-        try {
-            switch (firstWord.charAt(1)) {
-            case 'T':
-                return parseTodoTaskString(taskString);
-            case 'D':
-                return parseDeadlineTaskString(taskString);
-            case 'E':
-                return parseEventTaskString(taskString);
-            default:
-                throw new InvalidTaskStringException();
-            }
-        } catch (IndexOutOfBoundsException e) {
+
+        switch (taskString.charAt(LOCAL_STORAGE_TASK_TYPE_INDEX)) {
+        case 'T':
+            return parseTodoTaskString(taskString);
+        case 'D':
+            return parseDeadlineTaskString(taskString);
+        case 'E':
+            return parseEventTaskString(taskString);
+        default:
             throw new InvalidTaskStringException();
         }
     }
 
     private static boolean parseTaskIsDone(String taskString) throws InvalidTaskStringException {
         try {
-            switch (taskString.charAt(4)) {
+            switch (taskString.charAt(LOCAL_STORAGE_TASK_IS_DONE_INDEX)) {
             case 'X':
                 return true;
             case ' ':
@@ -74,7 +73,7 @@ public class Storage {
     private static Task parseTodoTaskString(String taskString) throws InvalidTaskStringException {
         try {
             boolean isDone = parseTaskIsDone(taskString);
-            String taskName = taskString.substring(7);
+            String taskName = taskString.substring(LOCAL_STORAGE_TASK_NAME_BEGIN_INDEX);
             return new ToDoTask(taskName, isDone);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskStringException();
@@ -88,7 +87,7 @@ public class Storage {
             if (idOfBy == -1) {
                 throw new InvalidTaskStringException();
             }
-            String taskName = taskString.substring(7, idOfBy - 1);
+            String taskName = taskString.substring(LOCAL_STORAGE_TASK_NAME_BEGIN_INDEX, idOfBy - 1);
             String deadlineWholeString = taskString.substring(idOfBy);
             String deadline = deadlineWholeString.substring(5, deadlineWholeString.length() - 1);
             return new DeadlineTask(taskName, isDone, deadline);
@@ -105,7 +104,7 @@ public class Storage {
             if (idOfFrom == -1 || idOfTo == -1 || idOfFrom > idOfTo) {
                 throw new InvalidTaskStringException();
             }
-            String taskName = taskString.substring(7, idOfFrom - 1);
+            String taskName = taskString.substring(LOCAL_STORAGE_TASK_NAME_BEGIN_INDEX, idOfFrom - 1);
             String fromWholeString = taskString.substring(idOfFrom, idOfTo);
             String toWholeString = taskString.substring(idOfTo);
             String from = fromWholeString.substring(7, fromWholeString.length() - 1);
