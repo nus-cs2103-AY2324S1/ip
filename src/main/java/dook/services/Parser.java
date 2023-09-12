@@ -54,6 +54,7 @@ public class Parser {
     public Command parseFullInput(String input) throws DookException {
         String[] tmp = input.split(" ", 2);
         CommandInfo command = parseKeyword(tmp[0].trim());
+        assert command != null : "command should not be null.";
         String body = tmp.length == 1 ? "" : tmp[1].trim();
         switch (command) {
         case bye:

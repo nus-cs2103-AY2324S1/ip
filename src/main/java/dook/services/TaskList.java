@@ -60,6 +60,7 @@ public class TaskList {
             throw new DookException("That task does not exist on the list.");
         }
         Task curr = taskList.get(index - 1);
+        assert curr != null : "task should not be null";
         if (value) {
             curr.markAsDone();
         } else {
@@ -81,6 +82,7 @@ public class TaskList {
 
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
+            assert task != null : "task should not be null";
             if (f.apply(task)) {
                 result.append(String.format("%d. %s\n", i + 1, task));
             }
