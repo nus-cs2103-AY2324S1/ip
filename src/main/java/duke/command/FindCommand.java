@@ -2,6 +2,9 @@ package duke.command;
 
 import duke.TaskList;
 
+/**
+ * Searches the task list by a keyword.
+ */
 public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
     public static final String MESSAGE_USAGE = "find <keyword>";

@@ -1,20 +1,35 @@
 package duke.tasks;
 
-import duke.parser.DukeParseException;
-import duke.parser.Parser;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import duke.parser.DukeParseException;
+import duke.parser.Parser;
+
+/**
+ * Represents a Task.
+ * This class is abstract because tasks should exist as a Todo, Deadline or Event.
+ */
 public abstract class Task {
     private final String desc;
     private boolean isMarked;
 
+    /**
+     * Creates a Task given its description.
+     *
+     * @param desc the description of the task
+     */
     public Task(String desc) {
         this.desc = desc;
         isMarked = false;
     }
 
+    /**
+     * Decodes a task encoded string into a task.
+     *
+     * @param encodedTask the string representing the encoded task
+     * @return the task retrieved after decoding
+     */
     public static Task decode(String encodedTask) {
         Pattern pattern = Pattern.compile("^(?<type>.)\\|(?<mark>.)\\|(?<taskString>.+)$");
         Matcher matcher = pattern.matcher(encodedTask);
@@ -24,25 +39,25 @@ public abstract class Task {
         String input = matcher.group("taskString");
         Task task;
         switch (type) {
-            case "T":
-                task = Parser.parseTodo(input);
-                break;
-            case "D":
-                try {
-                    task = Parser.parseDeadline(input);
-                } catch (DukeParseException e) {
-                    return null;
-                }
-                break;
-            case "E":
-                try {
-                    task = Parser.parseEvent(input);
-                } catch (DukeParseException e) {
-                    return null;
-                }
-                break;
-            default:
+        case "T":
+            task = Parser.parseTodo(input);
+            break;
+        case "D":
+            try {
+                task = Parser.parseDeadline(input);
+            } catch (DukeParseException e) {
                 return null;
+            }
+            break;
+        case "E":
+            try {
+                task = Parser.parseEvent(input);
+            } catch (DukeParseException e) {
+                return null;
+            }
+            break;
+        default:
+            return null;
         }
         if (mark.equals("1")) {
             task.mark();

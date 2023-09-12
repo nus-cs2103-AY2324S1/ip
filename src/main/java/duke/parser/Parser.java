@@ -1,5 +1,12 @@
 package duke.parser;
 
+import static duke.common.Messages.MESSAGE_INVALID_COMMAND;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.DeadlineCommand;
@@ -14,13 +21,6 @@ import duke.command.UnmarkCommand;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Todo;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static duke.common.Messages.MESSAGE_INVALID_COMMAND;
 
 /**
  * Parses user input into commands.
@@ -96,26 +96,26 @@ public class Parser {
         String args = matcher.group("arguments").trim();
 
         switch (command) {
-            case TodoCommand.COMMAND_WORD:
-                return parseTodoCommand(args);
-            case DeadlineCommand.COMMAND_WORD:
-                return parseDeadlineCommand(args);
-            case EventCommand.COMMAND_WORD:
-                return parseEventCommand(args);
-            case MarkCommand.COMMAND_WORD:
-                return parseMarkCommand(args);
-            case UnmarkCommand.COMMAND_WORD:
-                return parseUnmarkCommand(args);
-            case ListCommand.COMMAND_WORD:
-                return parseListCommand(args);
-            case DeleteCommand.COMMAND_WORD:
-                return parseDeleteCommand(args);
-            case ByeCommand.COMMAND_WORD:
-                return parseByeCommand(args);
-            case FindCommand.COMMAND_WORD:
-                return parseFindCommand(args);
-            default:
-                return new InvalidCommand(MESSAGE_INVALID_COMMAND);
+        case TodoCommand.COMMAND_WORD:
+            return parseTodoCommand(args);
+        case DeadlineCommand.COMMAND_WORD:
+            return parseDeadlineCommand(args);
+        case EventCommand.COMMAND_WORD:
+            return parseEventCommand(args);
+        case MarkCommand.COMMAND_WORD:
+            return parseMarkCommand(args);
+        case UnmarkCommand.COMMAND_WORD:
+            return parseUnmarkCommand(args);
+        case ListCommand.COMMAND_WORD:
+            return parseListCommand(args);
+        case DeleteCommand.COMMAND_WORD:
+            return parseDeleteCommand(args);
+        case ByeCommand.COMMAND_WORD:
+            return parseByeCommand(args);
+        case FindCommand.COMMAND_WORD:
+            return parseFindCommand(args);
+        default:
+            return new InvalidCommand(MESSAGE_INVALID_COMMAND);
         }
     }
 

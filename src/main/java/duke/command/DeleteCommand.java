@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.tasks.Task;
-import duke.ui.TextUi;
 
 /**
  * Deletes a task from the task list.
@@ -29,7 +28,7 @@ public class DeleteCommand extends Command {
             this.tasks.delete(taskNumToDelete);
 
             response[0] = "Noted. I've removed this task:";
-            response[1] = String.format("%s%s", TextUi.INDENT, task);
+            response[1] = task.toString();
             response[2] = String.format("Now you have %d task%s in the list.",
                     this.tasks.size(),
                     this.tasks.size() == 1 ? "" : "s");

@@ -1,12 +1,12 @@
 package duke.storage;
 
-import duke.TaskList;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+
+import duke.TaskList;
 
 /**
  * Handles saving and loading of tasks from and to a data text file.

@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.tasks.Task;
-import duke.ui.TextUi;
 
 /**
  * Marks a task as done.
@@ -28,7 +27,7 @@ public class MarkCommand extends Command {
 
             task.mark();
             response[0] = "Nice! I've marked this task as done:";
-            response[1] = String.format("%s%s", TextUi.INDENT, task);
+            response[1] = task.toString();
             return response;
         } catch (IndexOutOfBoundsException e) {
             return new String[]{"Task number does not exist"};

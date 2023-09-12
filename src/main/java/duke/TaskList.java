@@ -1,12 +1,12 @@
 package duke;
 
-import duke.tasks.Task;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import duke.tasks.Task;
 
 /**
  * Represents the list of tasks.
@@ -18,6 +18,11 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Initialises a TaskList with the given tasks
+     *
+     * @param tasks the tasks to initialise the list
+     */
     public TaskList(Iterable<Task> tasks) {
         this.tasks = new ArrayList<>();
         tasks.forEach(this.tasks::add);

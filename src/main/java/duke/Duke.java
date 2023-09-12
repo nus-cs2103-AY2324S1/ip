@@ -1,13 +1,13 @@
 package duke;
 
+import java.io.IOException;
+import java.util.Arrays;
+
 import duke.command.Command;
 import duke.parser.Parser;
 import duke.storage.DukeStorageException;
 import duke.storage.Storage;
 import javafx.application.Platform;
-
-import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * The main class for the Duke chatbot.

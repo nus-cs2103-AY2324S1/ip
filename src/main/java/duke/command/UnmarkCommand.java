@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.tasks.Task;
-import duke.ui.TextUi;
 
 /**
  * Unmarks a task as undone.
@@ -29,7 +28,7 @@ public class UnmarkCommand extends Command {
             task.unmark();
 
             response[0] = "Ok, I've marked this task as not done yet:";
-            response[1] = String.format("%s%s", TextUi.INDENT, task);
+            response[1] = task.toString();
             return response;
         } catch (IndexOutOfBoundsException e) {
             return new String[]{"Task number does not exist"};
