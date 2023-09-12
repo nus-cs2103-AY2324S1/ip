@@ -18,6 +18,7 @@ public class DeleteCommand extends Command {
      * @param index The index of the task to be deleted.
      */
     public DeleteCommand(int index) {
+        assert index > 0 : "Index must be a positive integer.";
         this.index = index - 1;
     }
 
@@ -32,6 +33,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        assert index > 0 : "Index must be a positive integer.";
         if (index >= 0 && index < tasks.size()) {
             Task removedTask = tasks.get(index);
             tasks.delete(index);
