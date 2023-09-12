@@ -62,6 +62,7 @@ public class Duke {
             try {
                 helper.printLine();
                 Command command = Parser.parse(string);
+                command.execute(tasks, helper, storage);
                 isExit = command.isExit();
             } catch (Throwable e) {
                 System.out.println(e.getMessage());
