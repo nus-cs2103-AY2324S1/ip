@@ -25,6 +25,7 @@ public class MarkCommand extends Command {
      * @param type  the type of mark command
      */
     public MarkCommand(int index, String type) {
+        assert index >= 1 : "Index cannot be less than 1";
         this.index = index;
         this.isDone = type.equals("mark");
     }
