@@ -35,6 +35,8 @@ public class Parser {
                 return new AddEventCommand(parts[1]);
             } else if (commandType.equals("find")) {
                 return new FindCommand(parts[1]);
+            } else if (commandType.equals("prioritise")) {
+                return new PriorityCommand(parts[1]);
             } else {
                 throw new SallyException("Sorry, I do not understand the command :-(");
             }

@@ -24,6 +24,20 @@ public class Event extends Task {
     }
 
     /**
+     * Constructs an Event object with the specified task description, start date/time, end date/time, and priority.
+     *
+     * @param task The description of the event.
+     * @param from The start date/time of the event.
+     * @param to The end date/time of the event.
+     * @param priority The priority of the event.
+     */
+    public Event(String task, LocalDateTime from, LocalDateTime to, String priority) {
+        super(task, priority);
+        this.from = from;
+        this.to = to;
+    }
+
+    /**
      * Converts the Event object to its string representation.
      *
      * @return The string representation of the Event object.

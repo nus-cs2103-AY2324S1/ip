@@ -21,6 +21,18 @@ public class Deadline extends Task {
     }
 
     /**
+     * Constructs a Deadline object with the given task description, deadline, and priority.
+     *
+     * @param task The description of the deadline task.
+     * @param by   The specific deadline date and time.
+     * @param priority The priority of the deadline task.
+     */
+    public Deadline(String task, LocalDateTime by, String priority) {
+        super(task, priority);
+        this.by = by;
+    }
+
+    /**
      * Converts the Deadline object to a formatted string representation.
      *
      * @return A formatted string indicating the deadline task's status, description, and deadline.
