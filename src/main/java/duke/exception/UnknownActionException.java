@@ -5,9 +5,8 @@ package duke.exception;
 public class UnknownActionException extends DukeException {
     /**
      * Constructor for UnknownActionException.
-     * @param errorMessage message to be displayed when error encountered
      */
-    public UnknownActionException(String errorMessage) {
-        super(errorMessage);
+    public UnknownActionException() {
+        super("OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 }

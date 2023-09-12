@@ -27,9 +27,10 @@ public class AddCommand extends Command {
      * @param storage instance of storage to read and write files
      * @throws NoFileException Exception thrown if there is no file found when rewriting
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws NoFileException {
-        taskList.addTask(this.task, ui);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws NoFileException {
+        String s = taskList.addTask(this.task, ui);
         storage.rewriteFile(taskList);
+        return s;
     }
 
     /**

@@ -31,65 +31,55 @@ public class Parser {
         switch (fields[0]) {
         case "list":
             if (fields.length > 1) {
-                throw new InvalidArgumentException("Please enter 'list' without any extra arguments "
-                        + "or use a different "
-                        + "keyword");
+                throw new InvalidArgumentException("'list'");
             } else {
                 return new ListCommand();
             }
         case "find":
             if (fields.length != 2) {
-                throw new InvalidArgumentException("Please enter 'find {keyword}' without any extra arguments "
-                        + "or use a different "
-                        + "keyword");
+                throw new InvalidArgumentException("'find {keyword}'");
             }
             return new FindCommand(fields[1]);
         case "mark":
             if (fields.length != 2) {
-                throw new InvalidArgumentException("Please enter 'mark {task number}' or use a different "
-                        + "keyword");
+                throw new InvalidArgumentException("'mark {task number}'");
             }
             return new MarkCommand(Character.getNumericValue(fields[1].charAt(0)));
         case "unmark":
             if (fields.length != 2) {
-                throw new InvalidArgumentException("Please enter 'mark {task number}' or use a different "
-                        + "keyword");
+                throw new InvalidArgumentException("'mark {task number}'");
             }
             return new UnmarkCommand(Character.getNumericValue(fields[1].charAt(0)));
         case "delete":
             if (fields.length != 2) {
-                throw new InvalidArgumentException("Please enter 'delete {task number}' "
-                        + "or use a different "
-                        + "keyword");
+                throw new InvalidArgumentException("'delete {task number}'");
             }
             return new DeleteCommand(Character.getNumericValue(fields[1].charAt(0)));
         case "todo":
-            String description = userInput.replace("todo", "");
+            String description = userInput.replace("todo", "").trim();
+            if (description.isEmpty()) {
+                throw new DukeException("Cannot enter todo with no description");
+            }
             Task todo = new ToDo(description);
             return new AddCommand(todo);
         case "deadline":
             fields = userInput.replace("deadline", "").split(" /by ");
             if (fields.length != 2) {
-                throw new InvalidArgumentException("Please enter 'deadline {task description} "
-                        + "'/by' {date}' or use a different "
-                        + "keyword");
+                throw new InvalidArgumentException("'deadline {task description} '/by' {date}'");
             }
             Task deadline = new Deadline(fields[0], fields[1]);
             return new AddCommand(deadline);
         case "event":
             fields = userInput.replace("event", "").split(" /from | /to ");
             if (fields.length != 3) {
-                throw new InvalidArgumentException("Please enter 'event {task description} "
-                        + "'/from' {start} '/to' {finish} "
-                        + "or use a different "
-                        + "keyword");
+                throw new InvalidArgumentException("'event {task description} '/from' {start} '/to' {finish}");
             }
             Task event = new Event(fields[0], fields[1], fields[2]);
             return new AddCommand(event);
         case "bye":
             return new ExitCommand();
         default:
-            throw new UnknownActionException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new UnknownActionException();
         }
     }
 }

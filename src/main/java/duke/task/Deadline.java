@@ -19,9 +19,8 @@ public class Deadline extends Task {
     /**
      * Constructs a Deadline with a given description. Completion of the task
      * is false by default.
-     *
-     * @param description The description of the task
-     * @param by The deadline the task must be completed by
+     * @param description the description of the task
+     * @param by the deadline the task must be completed by
      */
     public Deadline(String description, String by) throws InvalidFormatException {
         super(description);
@@ -38,7 +37,7 @@ public class Deadline extends Task {
 
     /**
      * Returns a formatted string of the status of the task.
-     * @return String containing completion status, type, description, and deadline of task
+     * @return string containing completion status, type, description, and deadline of task
      */
     @Override
     public String toString() {
@@ -48,7 +47,7 @@ public class Deadline extends Task {
 
     /**
      * Returns a string formatted in the way it is to be saved.
-     * @return Formatted string to be written into file
+     * @return formatted string to be written into file
      */
     @Override
     public String toSaveFormat() {

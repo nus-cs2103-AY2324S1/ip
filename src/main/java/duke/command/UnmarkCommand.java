@@ -12,7 +12,7 @@ public class UnmarkCommand extends Command {
 
     /**
      * Constructor for an unmark command.
-     * @param taskToMark The position of task in the list to be deleted.
+     * @param taskToMark The position of task in the list to be deleted
      */
     public UnmarkCommand(int taskToMark) {
         super();
@@ -27,9 +27,10 @@ public class UnmarkCommand extends Command {
      * @throws DukeException Exception thrown whilst executing the command
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        taskList.unmarkTask(taskNumber, ui);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        String s = taskList.unmarkTask(taskNumber, ui);
         storage.rewriteFile(taskList);
+        return s;
     }
 
     /**

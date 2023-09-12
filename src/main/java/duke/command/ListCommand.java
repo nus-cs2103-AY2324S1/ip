@@ -21,8 +21,8 @@ public class ListCommand extends Command {
      * @param storage instance of storage to read and write files
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showTasks(taskList.getTaskStrings());
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.showTasks(taskList.getTaskStrings());
     }
 
     /**

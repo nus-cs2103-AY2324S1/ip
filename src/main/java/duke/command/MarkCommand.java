@@ -11,7 +11,7 @@ public class MarkCommand extends Command {
     private final int taskNumber;
     /**
      * Constructs a command containing the tasknumber in list to be deleted.
-     * @param taskNumber The position of task in the list to be deleted.
+     * @param taskNumber The position of task in the list to be deleted.\
      */
     public MarkCommand(int taskNumber) {
         super();
@@ -25,9 +25,10 @@ public class MarkCommand extends Command {
      * @param storage storage componenet of the program
      * @throws DukeException Error if the task number is outside the task list
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        taskList.markTask(taskNumber, ui);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        String s = taskList.markTask(taskNumber, ui);
         storage.rewriteFile(taskList);
+        return s;
     }
 
     /**

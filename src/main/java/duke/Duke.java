@@ -11,19 +11,20 @@ import duke.util.Ui;
 
 /**
  * This program is a chatbot, B055man, used to mark completion of tasks
- * marking the completion of tasks.
+ * marking the completion of tasks. This class contains constructor of duke
+ * and getResponse method containing logic for generating user response.
  */
 public class Duke {
-
     private final Storage storage;
     private TaskList tasklst;
     private final Ui ui;
 
     /**
-     * Duke class that initialises a B055man Chatbot.
-     * @param filePath path location of the file to read previous stores
+     * Default duke constructor.
+     * @param filePath path to read and write files from
      */
     public Duke(String filePath) {
+        System.out.println("test");
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -35,31 +36,21 @@ public class Duke {
     }
 
     /**
-     * Runs the B055man bot.
+     * Generates response based on user input.
+     * @param input user input
+     * @return generated response
      */
-    public void run() {
-        ui.showWelcome();
+    public String getResponse(String input) {
         boolean isExit = false;
         while (!isExit) {
             try {
-                String fullCommand = ui.read();
-                ui.showLine();
-                Command c = Parser.parseUserInput(fullCommand);
-                c.execute(tasklst, ui, storage);
-                isExit = c.isExit();
+                Command c = Parser.parseUserInput(input);
+                System.out.println(ui);
+                return c.execute(tasklst, ui, storage);
             } catch (DukeException | IOException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
+                return e.getMessage();
             }
         }
-    }
-
-    /**
-     * The program reads input given by the user to perform functions to help
-     * add, edit, track and delete tasks inputted.
-     */
-    public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+        return ui.showGoodbye();
     }
 }

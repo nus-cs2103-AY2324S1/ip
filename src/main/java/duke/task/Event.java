@@ -18,7 +18,6 @@ public class Event extends Task {
     /**
      * Constructs a event with a given description. Completion of the task
      * is false by default.
-     *
      * @param description The description of the task
      * @param from The start time of the event
      * @param to The end time of the event
