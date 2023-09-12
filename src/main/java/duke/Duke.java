@@ -1,5 +1,6 @@
 package duke;
 
+
 /**
  * The Duke class helps to manage all messages sent by the user to the chatbot accordingly.
  */
@@ -11,48 +12,21 @@ public class Duke {
 
     /**
      * Instantiates an instance of the Duke bot.
-     * @param path The filepath to the data.s file.
      */
-    public Duke(String path) {
-        this.parser = new Parser(new DukeList(path));
-    }
-
-    /**
-     * The main class for which the chatbot runs.
-     * @param args The inputs given by the user in the command prompt.
-     */
-    public static void main(String[] args) {
-        final String DATA_DIRECTORY = "data";
+    public Duke() {
+        final String dataDirectory = "data";
         String projectRoot = System.getProperty("user.dir");
-        String dataFilePath = projectRoot + "/" + DATA_DIRECTORY + "/tasks.s";
-
-        Duke lati = new Duke(dataFilePath);
-
-        lati.run();
-    }
-
-    /**
-     * Takes inputs and runs the Duke bot.
-     */
-    public void run() {
-        UI.greet();
-        boolean isOpen = true;
-
-        while (isOpen) {
-            String command = UI.scan();
-            this.messageHandler(command);
-            isOpen = !command.equals("bye");
-        }
-
-        this.parser.close();
+        String dataPath = projectRoot + "/" + dataDirectory + "/tasks.s";
+        this.parser = new Parser(new TaskList(dataPath));
     }
 
     /**
      * Parses and manages the user's inputs using the parser.
      * @param message takes in the input string.
+     * @return the message string after parsing and executing the command.
      */
-    public void messageHandler(String message) {
-        this.parser.messageHandler(message);
+    public String messageHandler(String message) {
+        return this.parser.messageHandler(message).execute();
     }
 
 

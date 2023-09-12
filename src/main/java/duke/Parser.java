@@ -9,112 +9,103 @@ import java.util.regex.Pattern;
 public class Parser {
 
     //The DukeList to store all tasks given to the Duke bot.
-    private DukeList list;
+    private TaskList list;
 
     //The timeParser to parse and format all times given.
-    private static DateAndTime timeParser = new DateAndTime();
+    private DateAndTime timeParser = new DateAndTime();
 
 
     /**
      * Instantiates a new Parser class
      * @param list the DukeList that contains all tasks at hand.
      */
-    public Parser(DukeList list) {
+    public Parser(TaskList list) {
         this.list = list;
     }
 
     /**
-     * Helps to parse and manage the user's inputs. "list" shows the current list, "mark / unmark"
-     * helps to mark or unmark the specific task in the list, and todo/deadline/event
-     * adds todo/deadline/event tasks respectively.
+     * Helps to parse and manage the user's inputs.
      *
      * @param tally takes in the input string.
      */
-    public void messageHandler(String tally) {
+    public Command messageHandler(String tally) {
         String comd = tally.split(" ")[0];
+        Command command = null;
 
         switch (comd) {
-            case "list":
-                list.display();
-                break;
-            case "search":
-                Pattern searchCmd = Pattern.compile("search (.+)");
-                Matcher ms = searchCmd.matcher(tally);
-                if (this.groupRun(ms, 1)) {
-                    list.search(ms.group(1));
-                }
-                break;
-            case "todo":
-                Pattern todoCmd = Pattern.compile("todo (.+)");
-                Matcher mt = todoCmd.matcher(tally);
-                if (this.groupRun(mt, 1)) {
-                    list.store(mt.group(1));
+        case "list":
+            command = new TaskLister(this.list);
+            break;
+        case "search":
+            Pattern searchCmd = Pattern.compile("search (.+)");
+            Matcher ms = searchCmd.matcher(tally);
+            command = this.groupRun(ms, 1) ? new TaskSearcher(ms.group(1), list)
+                : new TaskError("search");
+            break;
+        case "todo":
+            Pattern todoCmd = Pattern.compile("todo (.+)");
+            Matcher mt = todoCmd.matcher(tally);
+            command = this.groupRun(mt, 1) ? new ToDoAdder(mt.group(1), list)
+                : new TaskError("todo");
+            break;
+        case "deadline":
+            Pattern deadlineCmd = Pattern.compile("deadline (.+) /by (.+)");
+            Matcher md = deadlineCmd.matcher(tally);
+            if (this.groupRun(md, 2)) {
+                String formattedDeadline = this.timeParse(md.group(2));
+                command = formattedDeadline.equals(md.group(2)) ? new DeadlineAdder(md.group(1), formattedDeadline, list)
+                        : new TaskError("deadline");
+            } else {
+                command = new TaskError("deadline");
+            }
+            break;
+        case "event":
+            Pattern eventCmd = Pattern.compile("event (.+) /from (.+) /to (.+)");
+            Matcher ml = eventCmd.matcher(tally);
+            if (this.groupRun(ml, 3)) {
+                if (this.isValidTime(ml.group(2), ml.group(3))) {
+                    String formattedStart = this.timeParse(ml.group(2));
+                    String formattedEnd = this.timeParse(ml.group(3));
+                    command = new EventAdder(ml.group(1), formattedStart, formattedEnd, list);
                 } else {
-                    UI.inputErrorMessage("todo");
+                    command = new TaskError("event");
                 }
-                break;
-            case "deadline":
-                Pattern deadlineCmd = Pattern.compile("deadline (.+) /by (.+)");
-                Matcher md = deadlineCmd.matcher(tally);
-                if (this.groupRun(md, 2)) {
-                    String formattedDeadline = this.timeParse(md.group(2));
-                    if (formattedDeadline != null) {
-                        list.store(md.group(1), formattedDeadline);
-                    } else {
-                        UI.inputErrorMessage("deadline");
-                    }
-                } else {
-                    UI.inputErrorMessage("deadline");
-                }
-                break;
-            case "event":
-                Pattern eventCmd = Pattern.compile("event (.+) /from (.+) /to (.+)");
-                Matcher ml = eventCmd.matcher(tally);
-                if (this.groupRun(ml, 3)) {
-                    if (this.isValidTime(ml.group(2), ml.group(3))) {
-                        String formattedStart = this.timeParse(ml.group(2));
-                        String formattedEnd = this.timeParse(ml.group(3));
-                        if (formattedStart != null && formattedEnd != null) {
-                            list.store(ml.group(1), formattedStart, formattedEnd);
-                        }
-                    } else {
-                        UI.inputErrorMessage("event");
-                    }
-                } else {
-                    UI.inputErrorMessage("event");
-                }
-                break;
-            case "mark":
-                try {
-                    String indexMark = tally.split(" ")[1];
-                    list.mark(Integer.parseInt(indexMark));
-                } catch (NullPointerException e) {
-                    UI.inputErrorMessage("mark");
-                }
-                break;
-            case "unmark":
-                try {
-                    String indexunmark = tally.split(" ")[1];
-                    list.unmark(Integer.parseInt(indexunmark));
-                } catch (NullPointerException e) {
-                    UI.inputErrorMessage("unmark");
-                }
-                break;
-            case "delete":
-                try {
-                    String indexUnmark = tally.split(" ")[1];
-                    list.delete(Integer.parseInt(indexUnmark));
-                } catch (NullPointerException e) {
-                    UI.inputErrorMessage("delete");
-                }
-                break;
-            case "bye":
-                UI.bye();
-                break;
-            default:
-                UI.inputErrorMessage("other");
+            } else {
+                command = new TaskError("event");
+            }
+            break;
+        case "mark":
+            try {
+                String indexMark = tally.split(" ")[1];
+                command = new TaskMarker(Integer.parseInt(indexMark), list);
+            } catch (NullPointerException e) {
+                command = new TaskError("mark");
+            }
+            break;
+        case "unmark":
+            try {
+                String indexMark = tally.split(" ")[1];
+                command = new TaskUnmarker(Integer.parseInt(indexMark), list);
+            } catch (NullPointerException e) {
+                command = new TaskError("unmark");
+            }
+            break;
+        case "delete":
+            try {
+                String indexMark = tally.split(" ")[1];
+                command = new TaskDeleter(Integer.parseInt(indexMark), list);
+            } catch (NullPointerException e) {
+                command = new TaskError("delete");
+            }
+            break;
+        case "bye":
+            command = new Bye(list);
+            break;
+        default:
+            command = new TaskError("other");
         }
 
+        return command;
     }
 
     /**
@@ -128,27 +119,12 @@ public class Parser {
     }
 
     /**
-     * Saves and shuts down the current date in the DukeList.
-     */
-    public void close() {
-        this.list.save();
-    }
-
-    /**
      * Parses the string date into a proper date format.
      * @param date the date entered by the user.
      * @return The formatted date string.
      */
     public String timeParse(String date) {
-        String[] dateInfo = date.split(" ");
-
-        if (dateInfo.length == 1) {
-            return timeParser.dayParse(dateInfo[0]);
-        } else if (dateInfo.length == 2) {
-            return timeParser.dayParse(dateInfo[0], dateInfo[1]);
-        } else {
-            return null;
-        }
+        return timeParser.dayParse(date, "YYYY-MM-DD HH:MM");
     }
 
     /**
@@ -158,16 +134,6 @@ public class Parser {
      * @return Whether the date range is valid.
      */
     public boolean isValidTime(String start, String end) {
-        String[] startInfo = start.split(" ");
-
-        String[] endInfo = end.split(" ");
-
-        if (startInfo.length == 1 || endInfo.length == 1) {
-            return timeParser.isValidDate(startInfo[0], endInfo[0]);
-        } else if (startInfo.length == 2 && endInfo.length == 2){
-            return timeParser.isValidDate(startInfo[0], startInfo[1], endInfo[0], endInfo[1]);
-        } else {
-            return false;
-        }
+        return timeParser.isValidDate(start, end);
     }
 }

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * This is the class used to load and store data into the data.s file.
  */
-public class DataSaver {
+public class Storage {
     //The path directory of test.s
     private String path;
 
@@ -21,7 +21,7 @@ public class DataSaver {
      * Returns an instance of DataSaver.
      * @param path the directory of test.s.
      */
-    public DataSaver(String path) throws IOException {
+    public Storage(String path) throws IOException {
         this.path = path;
 
         File file = new File(path);
