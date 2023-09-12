@@ -34,6 +34,22 @@ public class Event extends Task {
                 + to.toString();
     }
 
+    /**
+     * This method returns the from date of the event as a String.
+     * @return the String representation of the from date.
+     */
+    public String getFrom() {
+        return from.toString();
+    }
+
+    /**
+     * This method returns the to date of the event as a String.
+     * @return the String representation of the to date.
+     */
+    public String getTo() {
+        return to.toString();
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " " + "(from:" + " "

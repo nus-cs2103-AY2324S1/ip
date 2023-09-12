@@ -3,6 +3,9 @@ package workers;
 import java.util.ArrayList;
 
 import duke.IrisException;
+import duplicate_detectors.DeadlineDuplicateDetector;
+import duplicate_detectors.EventDuplicateDetector;
+import duplicate_detectors.TodoDuplicateDetector;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -29,12 +32,20 @@ public class AddWorker extends TaskWorker {
             String content = inputParts[1];
             switch (inputParts[0]) {
             case "todo":
+                TodoDuplicateDetector todoDuplicateDetector = new TodoDuplicateDetector();
+                if (todoDuplicateDetector.checkDuplicates(content, taskList)) {
+                    return "Error: This todo task already exists.";
+                }
                 newTask = new Todo(content);
                 break;
             case "deadline": {
                 String[] contentParts = content.split(" /by ", 2);
                 String description = contentParts[0];
                 String dateOfDeadline = contentParts[1];
+                DeadlineDuplicateDetector deadlineDuplicateDetector = new DeadlineDuplicateDetector();
+                if (deadlineDuplicateDetector.checkDuplicates(description, dateOfDeadline, taskList)) {
+                    return "Error. This deadline task already exists.";
+                }
                 newTask = new Deadline(description, dateOfDeadline);
                 break;
             }
@@ -44,6 +55,10 @@ public class AddWorker extends TaskWorker {
                 String description = contentParts[0];
                 String dateOfFrom = dateParts[0];
                 String dateOfTo = dateParts[1];
+                EventDuplicateDetector eventDuplicateDetector = new EventDuplicateDetector();
+                if (eventDuplicateDetector.checkDuplicates(description, dateOfFrom, dateOfTo, taskList)) {
+                    return "Error. This event task already exists.";
+                }
                 newTask = new Event(description, dateOfFrom, dateOfTo);
                 break;
             }
