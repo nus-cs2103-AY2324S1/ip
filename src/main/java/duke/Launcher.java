@@ -9,7 +9,5 @@ public class Launcher {
     public static void main(String[] args) {
         UiGUI uiGUI;
         Application.launch(Duke.class, args);
-
-        assert(UiGUI.badDateLoaded() == "Invalid date/time format encountered");
     }
 }
