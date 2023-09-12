@@ -1,12 +1,13 @@
-package horo.data;
+package horo.data.tasks;
 
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 
 import horo.HoroException;
+import horo.data.Data;
 
-public abstract class Task {
+public abstract class Task extends Data {
 
   protected static final DateTimeFormatter DATE_TIME_FORMAT = new DateTimeFormatterBuilder()
       .appendPattern("yyyy/MM/dd[ [HH][:mm]]")
@@ -40,8 +41,6 @@ public abstract class Task {
   public String getDescription() {
     return this.description;
   }
-
-  public abstract String getDataString();
 
   @Override
   public String toString() {

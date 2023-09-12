@@ -1,4 +1,4 @@
-package horo.data;
+package horo.data.tasks;
 
 import horo.HoroException;
 

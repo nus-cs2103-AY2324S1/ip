@@ -13,6 +13,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import horo.HoroException;
+import horo.data.tasks.Deadline;
+import horo.data.tasks.Event;
+import horo.data.tasks.Task;
+import horo.data.tasks.TaskList;
+import horo.data.tasks.Todo;
 
 public class TaskListTest {
   private Task todoTask;
@@ -48,7 +53,7 @@ public class TaskListTest {
   @Test
   public void removeTask_taskExists_removesNormally() throws Exception {
     int numberOfTasksBeforeRemoval = taskList.getTasks().size();
-    taskList.removeTask(0);
+    taskList.remove(0);
 
     assertFalse(taskList.getTasks().contains(todoTask));
 

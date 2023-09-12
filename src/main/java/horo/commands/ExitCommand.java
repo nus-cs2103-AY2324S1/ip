@@ -3,7 +3,6 @@ package horo.commands;
 import horo.HoroException;
 import horo.Storage;
 import horo.Ui;
-import horo.data.TaskList;
 
 public class ExitCommand extends Command {
   private static final String NAME = "bye";
@@ -14,7 +13,7 @@ public class ExitCommand extends Command {
     super(NAME, REGEX, DISPLAY_FORMAT);
   }
 
-  public void execute(TaskList taskList, Ui ui, Storage storage) throws HoroException {
+  public void execute(Ui ui, Storage storage) throws HoroException {
     ui.horoOutput("See U!");
     ui.handleExit();
   }

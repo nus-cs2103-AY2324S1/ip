@@ -26,7 +26,7 @@ public class Horo extends Application {
       fxmlLoader.<MainWindow>getController().setUp(s);
       stage.show();
     } catch (IOException e) {
-      e.printStackTrace();
+      e.printStackTrace(System.out);
     }
   }
 

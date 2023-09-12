@@ -3,20 +3,23 @@ package horo;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import horo.commands.AddDeadlineCommand;
-import horo.commands.AddEventCommand;
-import horo.commands.AddTodoCommand;
 import horo.commands.Command;
-import horo.commands.DeleteCommand;
 import horo.commands.ExitCommand;
-import horo.commands.FindCommand;
-import horo.commands.ListCommand;
-import horo.commands.MarkCommand;
-import horo.commands.UnmarkCommand;
-import horo.data.Deadline;
-import horo.data.Event;
-import horo.data.Task;
-import horo.data.Todo;
+import horo.commands.expenses.AddExpenseCommand;
+import horo.commands.expenses.ListExpenseCommand;
+import horo.commands.tasks.AddDeadlineCommand;
+import horo.commands.tasks.AddEventCommand;
+import horo.commands.tasks.AddTodoCommand;
+import horo.commands.tasks.DeleteCommand;
+import horo.commands.tasks.FindCommand;
+import horo.commands.tasks.ListTaskCommand;
+import horo.commands.tasks.MarkCommand;
+import horo.commands.tasks.UnmarkCommand;
+import horo.data.expenses.Expense;
+import horo.data.tasks.Deadline;
+import horo.data.tasks.Event;
+import horo.data.tasks.Task;
+import horo.data.tasks.Todo;
 
 /**
  * Abstract Parser class that has static methods to parse strings
@@ -27,7 +30,7 @@ public abstract class Parser {
    * Pattern to check availiable commands
    */
   private static final Pattern commandPattern = Pattern
-      .compile("^(deadline|todo|event|bye|mark|unmark|list|delete|find)");
+      .compile("^(deadline|todo|event|bye|mark|unmark|list task|delete|find|expense|list expense)");
 
   /**
    * Returns a task by parsing string from data file
@@ -36,7 +39,7 @@ public abstract class Parser {
    * @return Task
    * @throws HoroException
    */
-  public static Task parseDataString(String s) throws HoroException {
+  public static Task parseTaskDataString(String s) throws HoroException {
     assert s != "";
 
     String[] arguments = s.split(",");
@@ -61,6 +64,29 @@ public abstract class Parser {
   }
 
   /**
+   * Returns a expense by parsing string from data file
+   * 
+   * @param s Input string from data file
+   * @return Expense
+   * @throws HoroException
+   */
+  public static Expense parseExpenseDataString(String s) throws HoroException {
+    assert s != "";
+
+    String[] arguments = s.split(",");
+    Expense e;
+    switch (arguments[0]) {
+      case "E":
+        e = new Expense(Integer.parseInt(arguments[1]), arguments[2]);
+        break;
+      default:
+        throw new HoroException("Bad Command");
+    }
+
+    return e;
+  }
+
+  /**
    * Returns the Command associated with the string the user inputs
    * 
    * @param input Input string from user
@@ -82,8 +108,8 @@ public abstract class Parser {
       case "bye":
         c = new ExitCommand();
         break;
-      case "list":
-        c = new ListCommand(input);
+      case "list task":
+        c = new ListTaskCommand(input);
         break;
       case "mark":
         c = new MarkCommand(input);
@@ -105,6 +131,12 @@ public abstract class Parser {
         break;
       case "find":
         c = new FindCommand(input);
+        break;
+      case "expense":
+        c = new AddExpenseCommand(input);
+        break;
+      case "list expense":
+        c = new ListExpenseCommand(input);
         break;
       default:
         throw new HoroException("Invalid Command");

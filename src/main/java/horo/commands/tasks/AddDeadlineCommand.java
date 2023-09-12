@@ -1,12 +1,13 @@
-package horo.commands;
+package horo.commands.tasks;
 
 import java.util.regex.MatchResult;
 
 import horo.HoroException;
 import horo.Storage;
 import horo.Ui;
-import horo.data.Deadline;
-import horo.data.TaskList;
+import horo.commands.Command;
+import horo.data.tasks.Deadline;
+import horo.data.tasks.TaskList;
 
 /**
  * AddDeadlineCommand
@@ -26,8 +27,9 @@ public class AddDeadlineCommand extends Command {
     by = m.group(2);
   }
 
-  public void execute(TaskList taskList, Ui ui, Storage storage) throws HoroException {
-    taskList.addTask(new Deadline(description, by));
+  public void execute(Ui ui, Storage storage) throws HoroException {
+    TaskList taskList = storage.getTaskList();
+    taskList.add(new Deadline(description, by));
     storage.updateTaskData(taskList);
 
     ui.horoOutput("New Deadline added");

@@ -5,7 +5,6 @@ import horo.Parser;
 import horo.Storage;
 import horo.Ui;
 import horo.commands.Command;
-import horo.data.TaskList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -27,7 +26,6 @@ public class MainWindow extends AnchorPane {
   private Button sendButton;
 
   private Storage storage;
-  private TaskList taskList;
   private Ui ui;
 
   @FXML
@@ -37,7 +35,7 @@ public class MainWindow extends AnchorPane {
 
   public void setUp(Storage storage) {
     this.storage = storage;
-    this.taskList = storage.load();
+    storage.load();
     this.ui = new Ui(dialogContainer);
   }
 
@@ -49,7 +47,7 @@ public class MainWindow extends AnchorPane {
 
     try {
       Command c = Parser.parse(input);
-      c.execute(taskList, ui, storage);
+      c.execute(ui, storage);
     } catch (HoroException e) {
       ui.horoOutput(e.getMessage());
     } catch (Exception e) {

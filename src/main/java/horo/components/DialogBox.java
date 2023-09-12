@@ -26,7 +26,7 @@ public class DialogBox extends HBox {
       fxmlLoader.setRoot(this);
       fxmlLoader.load();
     } catch (IOException e) {
-      e.printStackTrace();
+      e.printStackTrace(System.out);
     }
 
     dialog.setText(text);

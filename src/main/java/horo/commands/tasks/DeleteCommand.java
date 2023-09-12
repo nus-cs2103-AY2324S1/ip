@@ -1,9 +1,10 @@
-package horo.commands;
+package horo.commands.tasks;
 
 import horo.HoroException;
 import horo.Storage;
 import horo.Ui;
-import horo.data.TaskList;
+import horo.commands.Command;
+import horo.data.tasks.TaskList;
 
 public class DeleteCommand extends Command {
   private static final String NAME = "delete";
@@ -17,8 +18,9 @@ public class DeleteCommand extends Command {
     index = Integer.parseInt(validateAndParse(input).group(1)) - 1;
   }
 
-  public void execute(TaskList taskList, Ui ui, Storage storage) throws HoroException {
-    taskList.removeTask(index);
+  public void execute(Ui ui, Storage storage) throws HoroException {
+    TaskList taskList = storage.getTaskList();
+    taskList.remove(index);
     storage.updateTaskData(taskList);
 
     ui.horoOutput("Removed task");
