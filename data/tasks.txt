@@ -3,3 +3,4 @@ D |   | return book | 2023-06-06
 E |   | project meeting | Aug 6th 2pm | 4pm
 T | X | join sports club
 T |   | run
+R |   | lecture quizzes | week

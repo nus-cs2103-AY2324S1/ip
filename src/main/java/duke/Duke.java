@@ -60,6 +60,7 @@ public class Duke {
         case TODO:
         case DEADLINE:
         case EVENT:
+        case RECUR:
             try {
                 return this.tasks.handleTask(nextTask);
             } catch (DukeException e) {
