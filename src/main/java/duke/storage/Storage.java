@@ -47,11 +47,11 @@ public class Storage {
             if (line.charAt(0) == 'T') {
                 String[] para = line.split(" | ");
                 String description = para[4];
-                ToDo newtask = new ToDo(description);
+                ToDo newTask = new ToDo(description);
                 if (!para[2].equals("0")) {
-                    newtask.setDone();
+                    newTask.setDone();
                 }
-                items.add(newtask);
+                items.add(newTask);
                 len++;
                 continue;
             }
@@ -59,17 +59,17 @@ public class Storage {
                 String[] para = line.split(" \\| ", 4);
                 String description = para[2];
                 String by = para[3];
-                Deadline newtask;
+                Deadline newTask;
                 if (Dates.checkDateString(by)) {
-                    newtask = new Deadline(description, Dates.createDateTime(by));
+                    newTask = new Deadline(description, Dates.createDateTime(by));
                 } else {
-                    newtask = new Deadline(description, by);
+                    newTask = new Deadline(description, by);
                 }
 
                 if (!para[1].equals("0")) {
-                    newtask.setDone();
+                    newTask.setDone();
                 }
-                items.add(newtask);
+                items.add(newTask);
                 len++;
                 continue;
             }
@@ -80,18 +80,18 @@ public class Storage {
                 String description = para[2];
                 String block = para[3];
                 String[] fromTo = block.split(" to ", 2);
-                Event newtask;
+                Event newTask;
                 if (Dates.checkDateString(fromTo[0]) && Dates.checkDateString(fromTo[1])) {
-                    newtask = new Event(description, Dates.createDateTime(fromTo[0]),
+                    newTask = new Event(description, Dates.createDateTime(fromTo[0]),
                             Dates.createDateTime(fromTo[1]));
                 } else {
-                    newtask = new Event(description, fromTo[0], fromTo[1]);
+                    newTask = new Event(description, fromTo[0], fromTo[1]);
                 }
 
                 if (!para[1].equals("0")) {
-                    newtask.setDone();
+                    newTask.setDone();
                 }
-                items.add(newtask);
+                items.add(newTask);
                 len++;
 
             }
