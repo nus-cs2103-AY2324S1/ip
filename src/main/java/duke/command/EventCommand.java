@@ -12,15 +12,15 @@ import duke.ui.Ui;
  */
 
 public class EventCommand implements Command {
-    private final String details;
+    private final String taskDetail;
 
     /**
      * Constructs an EventCommand with the specified details.
      *
-     * @param details The details of the event task.
+     * @param detail The details of the event task.
      */
-    public EventCommand(String details) {
-        this.details = details;
+    public EventCommand(String detail) {
+        this.taskDetail = detail;
     }
 
     /**
@@ -34,10 +34,10 @@ public class EventCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (details.equals("")) {
+        if (taskDetail.equals("")) {
             throw new DukeException("OOPS!!! The description of a event cannot be empty.\n");
         } else {
-            String[] partFrom = details.split("/from");
+            String[] partFrom = taskDetail.split("/from");
             String[] partTo = partFrom[1].split("/to");
             Task curr = new Event(partFrom[0], partTo[0].trim(), partTo[1].trim());
             tasks.add(curr);
@@ -54,7 +54,7 @@ public class EventCommand implements Command {
      */
     @Override
     public void loadTask(TaskList tasks) {
-        String[] partFrom = details.split("/from");
+        String[] partFrom = taskDetail.split("/from");
         String[] partTo = partFrom[1].split("/to");
         Task curr = new Event(partFrom[0], partTo[0].trim(), partTo[1].trim());
         tasks.add(curr);

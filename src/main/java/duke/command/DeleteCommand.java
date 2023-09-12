@@ -9,15 +9,15 @@ import duke.ui.Ui;
  * Determines the task index to be deleted.
  */
 public class DeleteCommand implements Command {
-    private final String details;
+    private final String taskDetail;
 
     /**
      * Constructs a DeleteCommand with the specified details.
      *
-     * @param details The details of the task index to be deleted.
+     * @param detail The details of the task index to be deleted.
      */
-    public DeleteCommand(String details) {
-        this.details = details;
+    public DeleteCommand(String detail) {
+        this.taskDetail = detail;
     }
 
     /**
@@ -31,7 +31,7 @@ public class DeleteCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        int deleteIndex = Integer.parseInt(this.details) - 1;
+        int deleteIndex = Integer.parseInt(this.taskDetail) - 1;
         if (deleteIndex > tasks.size() || deleteIndex < 0) {
             throw new DukeException("OOPS!! Task does not exist");
         } else {
