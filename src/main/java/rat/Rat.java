@@ -5,6 +5,7 @@ import static rat.io.RatPrinter.printWelcome;
 import java.util.Scanner;
 
 import rat.io.RatInput;
+import rat.notes.RatNoteManager;
 import rat.storage.RatStorage;
 import rat.tasks.RatTaskManager;
 
@@ -13,7 +14,7 @@ import rat.tasks.RatTaskManager;
  * Rat is a chatbot that helps the user keep track of their tasks.
  *
  * @author Keagan
- * @version Week-4
+ * @version Week-5
  */
 public class Rat {
 
@@ -26,6 +27,11 @@ public class Rat {
      * The RatTaskManager object used to store and process the user's tasks.
      */
     private static RatTaskManager ratTaskManager;
+
+    /**
+     * The RatNoteManager object used to store and process the user's notes.
+     */
+    private static RatNoteManager ratNoteManager;
 
     /**
      * The RatInput Object used to process user input.
@@ -57,8 +63,9 @@ public class Rat {
         printWelcome();
         ratStorage = new RatStorage(filePath);
         ratTaskManager = new RatTaskManager(ratStorage);
+        ratNoteManager = new RatNoteManager(ratStorage);
         sc = new Scanner(System.in);
-        ratInput = new RatInput(sc, ratTaskManager);
+        ratInput = new RatInput(sc, ratTaskManager, ratNoteManager);
     }
 
     /**

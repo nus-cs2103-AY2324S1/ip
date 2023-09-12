@@ -10,7 +10,9 @@ import rat.command.DeleteCommand;
 import rat.command.ExitCommand;
 import rat.command.FindCommand;
 import rat.command.MarkCommand;
+import rat.command.NoteCommand;
 import rat.command.UnmarkCommand;
+import rat.notes.RatNoteManager;
 import rat.tasks.RatTaskManager;
 
 /**
@@ -34,14 +36,21 @@ public class RatInput {
     private RatTaskManager ratTaskManager;
 
     /**
+     * The RatNoteManager object used to store and process the user's notes.
+     * This RatNoteManager should be initialised in main.
+     */
+    private RatNoteManager ratNoteManager;
+
+    /**
      * Constructor for RatInput.
      *
      * @param sc             The Scanner object used to read user input.
      * @param ratTaskManager The RatTaskManager object used to store and process the user's tasks.
      */
-    public RatInput(Scanner sc, RatTaskManager ratTaskManager) {
+    public RatInput(Scanner sc, RatTaskManager ratTaskManager, RatNoteManager ratNoteManager) {
         this.sc = sc;
         this.ratTaskManager = ratTaskManager;
+        this.ratNoteManager = ratNoteManager;
     }
 
     /**
@@ -67,7 +76,7 @@ public class RatInput {
         String command = inputArr[commandStart];
         switch (command) {
         case "bye":
-            return new ExitCommand(this.ratTaskManager).getResponse();
+            return new ExitCommand(this.ratTaskManager, this.ratNoteManager).getResponse();
         case "list":
             return this.ratTaskManager.listItems();
         case "mark":
@@ -84,6 +93,12 @@ public class RatInput {
             return new DeleteCommand(this.ratTaskManager, input).getResponse();
         case "find":
             return new FindCommand(this.ratTaskManager, input).getResponse();
+        case "note":
+            return new NoteCommand(this.ratNoteManager, input).getResponse();
+        case "notes":
+            return this.ratNoteManager.listItems();
+        case "save":
+            return this.ratTaskManager.save() + this.ratNoteManager.save();
         case "help":
             return this.showCommands();
         default:
@@ -110,6 +125,10 @@ public class RatInput {
                 + "delete <index>: delete task at <index>\n"
                 + "delete all: delete all tasks\n"
                 + "find <keyword>: find all tasks with <keyword>\n"
+                + "note /add <body>: add a note with <body>\n"
+                + "note /delete <index>: delete note at <index>\n"
+                + "notes: list all notes\n"
+                + "save: save all tasks and notes\n"
                 + "bye: exit the program\n"
                 + "\nbuilt by @keaganpzh";
         printWithLines(output);

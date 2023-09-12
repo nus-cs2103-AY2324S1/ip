@@ -3,6 +3,7 @@ package rat.command;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import rat.notes.RatNoteManager;
 import rat.tasks.RatTaskManager;
 
 /**
@@ -15,14 +16,43 @@ public abstract class RatCommand {
      * The RatTaskManager object used to store and process the user's tasks.
      * This RatTaskManager should be initialised in main.
      */
-    protected final RatTaskManager ratTaskManager;
+    protected RatTaskManager ratTaskManager;
+
+    /**
+     * The RatNoteManager object used to store and process the user's notes.
+     * This RatNoteManager should be initialised in main.
+     */
+    protected RatNoteManager ratNoteManager;
 
     /**
      * Constructor for a RatCommand object.
+     * This constructor is called when dealing with commands that modify the task list.
      * @param ratTaskManager The RatTaskManager object used to store and process the user's tasks.
      */
     protected RatCommand(RatTaskManager ratTaskManager) {
         this.ratTaskManager = ratTaskManager;
+        this.ratNoteManager = null;
+    }
+
+    /**
+     * Constructor for a RatCommand object.
+     * This constructor is called when dealing with commands that modify the note list.
+     * @param ratNoteManager The RatNoteManager object used to store and process the user's notes.
+     */
+    protected RatCommand(RatNoteManager ratNoteManager) {
+        this.ratNoteManager = ratNoteManager;
+        this.ratTaskManager = null;
+    }
+
+    /**
+     * Constructor for a RatCommand object.
+     * This constructor is called when dealing with commands that modify both the task and note lists.
+     * @param ratTaskManager The RatTaskManager object used to store and process the user's tasks.
+     * @param ratNoteManager The RatNoteManager object used to store and process the user's notes.
+     */
+    protected RatCommand(RatTaskManager ratTaskManager, RatNoteManager ratNoteManager) {
+        this.ratTaskManager = ratTaskManager;
+        this.ratNoteManager = ratNoteManager;
     }
 
     /**
