@@ -1,8 +1,11 @@
 E | 1 | NUS Hackers | 8/09/2023 1900 | 8/09/2023 2100
-T | 0 | read book
-D | 0 | submit CS2106 lab | 10/09/2023 2359
-T | 0 | find my car key
+T | 1 | read book
+D | 1 | submit CS2106 lab | 10/09/2023 2359
+T | 1 | find my car key
 D | 1 | CS2103T quiz | 13/09/2023 2359
 E | 0 | Block Event | 12/09/2023 1800 | 12/09/2023 2300
 T | 0 | buy slippers
 T | 0 | buy laundry pods at Clementi
+T | 0 | read book
+T | 0 | return book
+T | 0 | add
