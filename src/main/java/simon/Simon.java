@@ -54,6 +54,7 @@ public class Simon extends Application {
      * @param filePath Path to the file where tasks will be saved and loaded from.
      */
     public Simon(String filePath) {
+        assert filePath != null && !filePath.trim().isEmpty() : "File path should not be null or empty";
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         try {
@@ -65,6 +66,7 @@ public class Simon extends Application {
     }
 
     public void run2(String inData) {
+        assert inData != null && !inData.trim().isEmpty() : "Input data should not be null or empty";
         ui.showWelcome();
 
         Parser.Command command = Parser.parseCommand(inData.split(" ")[0]);
@@ -180,6 +182,7 @@ public class Simon extends Application {
 
     private void handleUserInput() {
         String userText = userInput.getText();
+        assert userText != null && !userText.trim().isEmpty() : "User text should not be empty";
         String dukeText = getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, user),
@@ -197,7 +200,9 @@ public class Simon extends Application {
         if (input != null) {
             run2(input);
         }
-        return this.ui.getOutput();
+        String output = this.ui.getOutput();
+        assert output != null : "Output from UI should not be null";
+        return output;
     }
 
     public void logMessages(String... messages) {
