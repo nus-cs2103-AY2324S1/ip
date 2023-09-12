@@ -1,6 +1,6 @@
 package duke;
+
 import duke.command.Command;
-import javafx.application.Platform;
 
 
 public class Duke {

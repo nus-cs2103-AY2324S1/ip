@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class UiManager {
 
-    static final String LOGO = "   /\\_/\\  \n" +
-            "  ( o.o ) \n" +
+    static final String LOGO = "    /\\_/\\  \n" +
+            "   ( o.o ) \n" +
             "   > ^ <\n";
     static final String GREETING = "Hello(@.@), I'm NiHao \nWhat can I do for you?";
 
@@ -26,8 +26,8 @@ public class UiManager {
      * @return Welcome message as a string.
      */
 
-    public String getWelcomeMessage() {
-        return LOGO + "/n" + GREETING + "\n";
+    public static String getWelcomeMessage() {
+        return LOGO + "\n" + GREETING + "\n";
     }
 
     /**
