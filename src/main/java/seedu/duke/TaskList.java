@@ -1,10 +1,10 @@
 package seedu.duke;
 
-import seedu.duke.task.Task;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
+
+import seedu.duke.task.Task;
 
 /**
  * Represents a list of tasks input by users.
@@ -137,8 +137,8 @@ public class TaskList {
                                 .filter(str -> str.contains(toFind))
                                     .skip(i - 1)
                                     .limit(1)
-                                    .reduce("",
-                                            (s, acc) -> s + acc + "\n"))
+                                    .reduce("", (s, acc) ->
+                                            s + acc + "\n"))
                     .reduce("", (x, acc) -> x + acc);
 
 //        String response = "Here are the matching tasks in your list:\n";

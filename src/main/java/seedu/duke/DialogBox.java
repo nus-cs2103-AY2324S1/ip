@@ -9,14 +9,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -27,17 +25,6 @@ import javafx.scene.text.Text;
  */
 public class DialogBox extends HBox {
 
-    private final Font TEXT_FONT = Font.font("Andale Mono", 15.0);
-    private final Color TEXT_BUBBLE_COlOR = Color.rgb(255, 255, 255);
-    private final int TEXT_BUBBLE_PADDING_X = 30;
-    private final int TEXT_BUBBLE_PADDING_Y = 20;
-    private final int TEXT_BUBBLE_ARC_WIDTH = 30;
-    private final int TEXT_BUBBLE_ARC_HEIGHT = 30;
-    private final int SCROLL_PANE_MAX_WIDTH = 600;
-    private final int IMAGE_POSITION_X = 50;
-    private final int IMAGE_POSITION_Y = 55;
-    private final int IMAGE_CIRCLE_RADIUS = 40;
-
     @FXML
     private StackPane dialog;
 //    private Text dialog;
@@ -45,6 +32,15 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * The main constructor for the
+     * DialogBox class.
+     *
+     * @param text A String representation of
+     *             message.
+     * @param img Image of both parties in the
+     *            chat.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -69,41 +65,88 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Gets the user dialog.
+     *
+     * @param text User's message.
+     * @param img User's image.
+     * @return A DialogBox object containing
+     *         the user's message and image.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Gets Duke's dialog.
+     *
+     * @param text Duke's message.
+     * @param img Duke's image.
+     * @return A DialogBox object containing
+     *         the Duke's message and image.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
     }
 
+    /**
+     * Sets up this dialog box with various settings.
+     *
+     * @param text A String representation of message.
+     */
     public void setDialog(String text) {
+        Font TEXT_FONT = Font.font("Andale Mono", 15.0);
+        int SCROLL_PANE_MAX_WIDTH = 600;
+        int TEXT_BUBBLE_PADDING_X = 30;
+        int TEXT_BUBBLE_PADDING_Y = 20;
+        int TEXT_BUBBLE_ARC_WIDTH = 30;
+        int TEXT_BUBBLE_ARC_HEIGHT = 30;
+        Color TEXT_BUBBLE_COlOR = Color.rgb(255, 255, 255);
+
+
         Text message = new Text(text);
+
         message.setFont(TEXT_FONT);
 
         double messageWidth = message.getLayoutBounds().getWidth();
+
         double bubbleWidth = messageWidth + TEXT_BUBBLE_PADDING_X > SCROLL_PANE_MAX_WIDTH
                 ? SCROLL_PANE_MAX_WIDTH
                 : messageWidth + TEXT_BUBBLE_PADDING_X;
+
         message.setWrappingWidth(bubbleWidth - TEXT_BUBBLE_PADDING_X);
 
         double messageHeight = message.getLayoutBounds().getHeight();
+
         double bubbleHeight = messageHeight + TEXT_BUBBLE_PADDING_Y;
 
         TextBubble textBubble = new TextBubble();
         textBubble.setWidth(bubbleWidth);
         textBubble.setHeight(bubbleHeight);
+
         textBubble.setArcWidth(TEXT_BUBBLE_ARC_WIDTH);
+
         textBubble.setArcHeight(TEXT_BUBBLE_ARC_HEIGHT);
+
         textBubble.setFill(TEXT_BUBBLE_COlOR);
 
         dialog.getChildren().addAll(textBubble, message);
     }
 
+    /**
+     * Sets the image of this dialog box.
+     *
+     * @param img Image of this dialog box.
+     */
     public void setImage(Image img) {
+        int IMAGE_POSITION_X = 50;
+        int IMAGE_POSITION_Y = 55;
+        int IMAGE_CIRCLE_RADIUS = 40;
+
         displayPicture.setImage(img);
+
         displayPicture.setClip(new Circle(
                 IMAGE_POSITION_X,
                 IMAGE_POSITION_Y,
