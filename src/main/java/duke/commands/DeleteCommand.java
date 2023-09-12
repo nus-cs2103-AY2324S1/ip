@@ -1,7 +1,7 @@
 package duke.commands;
 
 import duke.Storage;
-import duke.UI;
+import duke.Ui;
 import duke.tasks.TaskList;
 
 public class DeleteCommand extends Command {
@@ -21,7 +21,7 @@ public class DeleteCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String execute(TaskList tasks, UI ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         String output = "";
         output += ui.deleteTask(tasks, taskNumber);
         return output;

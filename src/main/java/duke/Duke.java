@@ -10,7 +10,7 @@ import duke.tasks.TaskList;
  * The main file that the application runs
  */
 public class Duke {
-    protected UI helper;
+    protected Ui helper;
     protected TaskList tasks;
     protected Storage storage;
 
@@ -23,7 +23,7 @@ public class Duke {
      * @param filePath the path in the application that contains the file
      */
     public Duke(String filePath) {
-        this.helper = new UI("DukeKing");
+        this.helper = new Ui("DukeKing");
         try {
             this.storage = new Storage(filePath);
             this.tasks = new TaskList(storage.load());

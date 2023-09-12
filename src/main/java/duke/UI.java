@@ -7,22 +7,20 @@ import duke.tasks.Task;
  * Describes the various possible interaction the bot has when you command
  * it to do a specific task
  */
-public class UI {
+public class Ui {
     public String name;
 
-    public UI(String name) {
+    public Ui(String name) {
         this.name = name;
     }
 
     /**
      * Describes what the bot say when you start it
      */
-    public String welcome() {
+    public static String welcome() {
         String name = "DukeKing";
         String welcome = "Hello! I'm " + name + "\nWhat can I do for you?";
-        printLine();
         System.out.println(welcome);
-        printLine();
         return welcome;
     }
 
@@ -120,6 +118,25 @@ public class UI {
         printLine();
         String output = "Here are the matching tasks in your list: \n";
         output += tasks.findTaskFromTaskList(keyword);
+        System.out.println(output);
+        return output;
+    }
+
+    public String helpList() {
+        printLine();
+        String output = "Here are the list of commands you can use: \n";
+        output += "1. todo <task name> \n";
+        output += "2. deadline <task name> /by <date> \n";
+        output += "3. event <task name> /at <date> \n";
+        output += "4. list \n";
+        output += "5. mark <task number> \n";
+        output += "6. unmark <task number> \n";
+        output += "7. delete <task number> \n";
+        output += "8. find <keyword> \n";
+        output += "9. bye \n";
+        output += "10. help \n";
+        output += "To have examples for the different commands, please type help <command number>. \n";
+        output += "Thank you for using DukeKing, We aim to improve everyone productivity! \n";
         System.out.println(output);
         return output;
     }

@@ -7,9 +7,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 
 import duke.Duke;
+import duke.Ui;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -32,6 +35,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(Ui.welcome(), dukeImage));
     }
 
     public void setDuke(Duke d) {
@@ -52,8 +57,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage));
         userInput.clear();
         if (response.equals("Bye. Hope to see you again soon!")) {
-            Platform.exit();
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
         }
-
     }
 }
