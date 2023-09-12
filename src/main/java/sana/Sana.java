@@ -25,6 +25,12 @@ public class Sana {
 
     }
 
+    /**
+     * Processes an input string and returns a response based on the parsed command.
+     *
+     * @param input The input string containing the user's command.
+     * @return A response message after executing the parsed command or an error message.
+     */
     String getResponse(String input) {
         assert !input.isBlank();
 
@@ -35,7 +41,6 @@ public class Sana {
         } catch (SanaException e) {
             return e.getMessage();
         }
-
     }
 
 }

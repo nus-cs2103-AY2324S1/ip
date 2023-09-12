@@ -8,11 +8,11 @@ public class ExitCommand extends Command {
     /**
      * Constructs an ExitCommand object.
      *
-     * @param cmd       The command type (e.g., "todo", "deadline", "event").
+     * @param command       The command type (e.g., "todo", "deadline", "event").
      * @param arguments The arguments associated with the command.
      */
-    public ExitCommand(String cmd, String arguments) {
-        super(cmd, arguments);
+    public ExitCommand(String command, String arguments) {
+        super(command, arguments);
     }
 
     /**
@@ -56,7 +56,7 @@ public class ExitCommand extends Command {
                 return false;
             }
 
-            return this.getCmd().equals(c.getCmd());
+            return this.getCommand().equals(c.getCommand());
         }
         return false;
     }

@@ -5,16 +5,21 @@ import java.time.LocalDate;
  * Represents the task inputted by the user.
  */
 public abstract class Task {
-    private String description;
+    private static final int STATUS_INDEX = 4; // index of '1' or '0' which indicates status of task
+    private static final int ARGUMENTS_START_INDEX = 8; // starting index of arguments
+
+    // difference between '|' and the next non-whitespace line
+    private static final int DIVIDER_AND_ARGUMENT_ID_DIFFERENCE = 2;
+    private String arguments;
     private boolean isDone;
 
     /**
      * Creates an instance of task.
      *
-     * @param description of task.
+     * @param arguments of task.
      */
-    public Task(String description, boolean isDone) {
-        this.description = description;
+    public Task(String arguments, boolean isDone) {
+        this.arguments = arguments;
         this.isDone = isDone;
     }
 
@@ -47,7 +52,7 @@ public abstract class Task {
      * @return Task description.
      */
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + this.getStatusIcon() + "] " + this.arguments;
     }
 
     /**
@@ -56,7 +61,7 @@ public abstract class Task {
      * @return formatted task string to be saved in the hard disk.
      */
     public String formatTask() {
-        return " | " + (isDone ? 1 : 0) + " | " + description;
+        return " | " + (isDone ? 1 : 0) + " | " + arguments;
     }
 
     /**
@@ -66,32 +71,73 @@ public abstract class Task {
      * @return task equivalence of the formatted task string.
      */
     public static Task getTask(String formattedTask) {
+
         char type = formattedTask.charAt(0);
-        boolean isDone = (formattedTask.charAt(4) == '1' ? true : false);
-        String description = formattedTask.substring(8);
+        boolean isDone = (formattedTask.charAt(STATUS_INDEX) == '1' ? true : false);
+        String arguments = formattedTask.substring(ARGUMENTS_START_INDEX);
 
         switch (type) {
         case 'T':
-            return new Todo(description, isDone);
+            return getTodo(arguments, isDone);
         case 'D':
-            int lastDescId = description.indexOf("|");
-            LocalDate by = LocalDate.parse(description.substring(lastDescId + 2));
-            description = description.substring(0, lastDescId - 1);
-            return new Deadline(description, by, isDone);
+            return getDeadline(arguments, isDone);
         case 'E':
-            String temp = description;
-            lastDescId = description.indexOf('|');
-            description = description.substring(0, lastDescId - 1);
-            int lastFromId = temp.indexOf('|', lastDescId + 1);
-
-            LocalDate from = LocalDate.parse(temp.substring(lastDescId + 2, lastFromId - 1));
-
-            LocalDate to = LocalDate.parse(temp.substring(lastFromId + 2));
-            return new Event(description, from, to, isDone);
+            return getEvent(arguments, isDone);
         default:
             return null;
         }
     }
+
+    /**
+     * Creates a new Todo task.
+     *
+     * @param arguments The description of the todo task.
+     * @param isDone    The status of the todo task (done or not done).
+     * @return A new Todo task.
+     */
+    private static Task getTodo(String arguments, boolean isDone) {
+        return new Todo(arguments, isDone);
+    }
+
+    /**
+     * Creates a new Deadline task.
+     *
+     * @param arguments                The description and due date of the deadline task.
+     * @param isDone                   The status of the deadline task (done or not done).
+     * @return A new Deadline task.
+     */
+    private static Task getDeadline(String arguments, boolean isDone) {
+        int descriptionEndIndex = arguments.indexOf("|");
+        int dueDateStartIndex = descriptionEndIndex + DIVIDER_AND_ARGUMENT_ID_DIFFERENCE;
+
+        String description = arguments.substring(0, descriptionEndIndex - 1);
+
+        LocalDate dueDate = LocalDate.parse(arguments.substring(dueDateStartIndex));
+
+        return new Deadline(description, dueDate, isDone);
+    }
+
+    /**
+     * Creates a new Event task.
+     *
+     * @param arguments                The description, start date, and end date of the event task.
+     * @param isDone                   The status of the event task (done or not done).
+     * @return A new Event task.
+     */
+    private static Task getEvent(String arguments, boolean isDone) {
+        int descriptionEndIndex = arguments.indexOf('|');
+        int fromDateStartIndex = descriptionEndIndex + DIVIDER_AND_ARGUMENT_ID_DIFFERENCE;
+        int fromDateEndIndex = arguments.indexOf('|', descriptionEndIndex + 1);
+        int toDateStartIndex = fromDateEndIndex + DIVIDER_AND_ARGUMENT_ID_DIFFERENCE;
+
+        String description = arguments.substring(0, descriptionEndIndex - 1);
+
+        LocalDate fromDate = LocalDate.parse(arguments.substring(fromDateStartIndex, fromDateEndIndex - 1));
+        LocalDate toDate = LocalDate.parse(arguments.substring(toDateStartIndex));
+
+        return new Event(description, fromDate, toDate, isDone);
+    }
+
 
     /**
      * Indicates whether some other object is "equal to" this task.

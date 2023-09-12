@@ -8,11 +8,11 @@ public class MarkCommand extends Command {
     /**
      * Constructs an MarkCommand object.
      *
-     * @param cmd       The command type (e.g., "todo", "deadline", "event", "mark").
+     * @param command       The command type (e.g., "todo", "deadline", "event", "mark").
      * @param arguments The arguments associated with the command.
      */
-    public MarkCommand(String cmd, String arguments) {
-        super(cmd, arguments);
+    public MarkCommand(String command, String arguments) {
+        super(command, arguments);
     }
 
     /**

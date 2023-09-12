@@ -65,7 +65,7 @@ public class ListCommand extends Command {
                 return false;
             }
 
-            return this.getCmd().equals(c.getCmd());
+            return this.getCommand().equals(c.getCommand());
         }
         return false;
     }

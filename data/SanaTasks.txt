@@ -1,5 +1,9 @@
 T | 0 | eat
+T | 0 | yay it works!
 T | 0 | eat
-E | 0 | eat | 2020-01-01 | 2020-01-01
-T | 0 | bye
-T | 0 | delete
+T | 0 | eat
+T | 0 | testing
+D | 0 | this | 2023-02-02
+T | 0 | eat
+D | 0 | 2103 | 2020-12-12
+
