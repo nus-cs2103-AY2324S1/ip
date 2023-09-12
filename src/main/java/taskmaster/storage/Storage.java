@@ -27,7 +27,14 @@ public class Storage {
     public void loadTasksFromFile() {
         try {
             File file = new File(filePath);
+
+            //Assert file exists
+            assert file.exists() : "File does not exist";
             Scanner scanner = new Scanner(file);
+
+            if (file.createNewFile()) {
+                System.out.println("File created");
+            }
 
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -68,6 +75,8 @@ public class Storage {
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("Data file not found: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error finding file");
         }
     }
 
