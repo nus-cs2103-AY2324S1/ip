@@ -67,14 +67,15 @@ public class CreateDeadlineCommand extends CommandAbstract {
      */
     private void findException() {
         String[] delimitedBySlash = this.input.split("/");
-        try {   //Checks if user input included description about the task
+
+        try {   // Checks if user input included description about the task
             String information = delimitedBySlash[0].split(" ")[1];
         } catch (IndexOutOfBoundsException indexExcept) {
             System.out.println("ChadGPT: Please include description about the task you would like to add.");
             return;
         }
 
-        try {   //Checks if user input included date details according to format specified
+        try {   // Checks if user input included date details according to format specified
             String endDate = delimitedBySlash[1].substring(3);
         } catch (StringIndexOutOfBoundsException stringExcept) {
             System.out.println("ChadGPT: Please ensure your deadline date is included.");
@@ -84,7 +85,7 @@ public class CreateDeadlineCommand extends CommandAbstract {
             return;
         }
 
-        try {   //Checks if it is possible to parse the user specified date into date time objects.
+        try {   // Checks if it is possible to parse the user specified date into date time objects.
             String[] dates = this.input.split("/by ")[1].split(" ");
             String endDate = dates[0];
             String year = endDate.substring(0, 4);
