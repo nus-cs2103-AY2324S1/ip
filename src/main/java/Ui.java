@@ -120,6 +120,9 @@ public class Ui {
                 itemNumber++;
             }
         }
+        if (itemNumber == 1) {
+            System.out.println("\tHmm.. There doesn't seem to be any matching tasks!");
+        }
     }
 
 

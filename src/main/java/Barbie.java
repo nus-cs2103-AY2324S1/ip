@@ -5,7 +5,6 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import exceptions.BarbieException;
 import exceptions.BarbieNoDeadlineException;
 import exceptions.BarbieNoDescException;
 import exceptions.BarbieNoKeywordException;
@@ -172,9 +171,6 @@ public class Barbie {
                         throw new BarbieNoSuchCommandException();
 
                     }
-
-                } catch (BarbieException e) {
-                    System.out.println("Barbie Error!! " + e.getMessage());
 
                 } catch (DateTimeParseException e) {
                     System.out.println("Hey Barbie,, make sure to give dates in the format YYYY-MM-DD alright! ");

@@ -10,6 +10,6 @@ public class BarbieException extends Exception {
      * @param message to print
      */
     public BarbieException(String message) {
-        super(message);
+        super("\tBarbie Error!!\n\t" + message);
     }
 }
