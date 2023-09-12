@@ -1,15 +1,15 @@
 package duke.task;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import duke.exception.DukeException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TaskListTest {
     private TaskList taskList;
@@ -48,8 +48,8 @@ class TaskListTest {
 
         taskList.deleteTask(0);
 
+        assertThrows(DukeException.class, () -> taskList.getTask(0));
         assertEquals(0, taskList.getTaskCount());
-        assertNull(taskList.getTask(0));
     }
 
     @Test

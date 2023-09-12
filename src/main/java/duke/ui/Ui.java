@@ -22,8 +22,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-
-
 /**
  * Represents the user interface of the application.
  */
