@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -12,6 +13,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
+import javafx.util.Pair;
 import todoify.storage.InternalPath;
 import todoify.storage.InternalStorage;
 import todoify.taskmanager.task.Deadline;
@@ -69,8 +71,21 @@ public class TaskManager {
      *
      * @return The list of tasks.
      */
-    public List<Task> getTasks() {
+    public List<Task> getTaskList() {
         return Collections.unmodifiableList(this.taskList);
+    }
+
+    /**
+     * Obtains the currently stored tasks as a stream of index-task pairs.
+     *
+     * @return The stream of tasks
+     */
+    public Stream<Pair<Integer, Task>> getTaskIndexedStream() {
+        List<Pair<Integer, Task>> indexedList = new ArrayList<>();
+        for (int i = 0; i < this.taskList.size(); i++) {
+            indexedList.add(new Pair<>(i, this.taskList.get(i)));
+        }
+        return indexedList.stream();
     }
 
     /**
