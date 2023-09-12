@@ -50,11 +50,8 @@ public class Duke {
         boolean isExit = false;
 
         try {
-            Command c = Parser.parse(input);
+            Command c = Parser.parse(input, this.tasks.size());
             result = c.execute(tasks, storage);
-            if (c.isExit()) {
-                result = "";
-            }
         } catch (NoSuchCommandException e) {
             result = e.toString();
         } catch (InvalidIndexException e) {

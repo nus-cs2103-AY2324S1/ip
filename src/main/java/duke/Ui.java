@@ -34,7 +34,7 @@ public class Ui {
      * @return A string of dashes that looks like a line.
      */
     public static String showLine() {
-        return "-------------------------------";
+        return "--------------------------------------------";
     }
 
     /**
