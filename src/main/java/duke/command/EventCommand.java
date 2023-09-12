@@ -54,6 +54,7 @@ public class EventCommand implements Command {
      */
     @Override
     public void loadTask(TaskList tasks) {
+        assert tasks != null;
         String[] partFrom = details.split("/from");
         String[] partTo = partFrom[1].split("/to");
         Task curr = new Event(partFrom[0], partTo[0].trim(), partTo[1].trim());

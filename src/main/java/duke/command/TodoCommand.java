@@ -51,6 +51,7 @@ public class TodoCommand implements Command {
      */
     @Override
     public void loadTask(TaskList tasks) {
+        assert tasks != null;
         Task curr = new Todo(details);
         tasks.add(curr);
     }

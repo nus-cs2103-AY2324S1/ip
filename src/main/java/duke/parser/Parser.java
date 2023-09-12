@@ -26,9 +26,11 @@ public class Parser {
      * @throws DukeException If the user input is not recognized.
      */
     public static Command parse(String fullCommand) throws DukeException {
+        assert fullCommand != null;
         String[] parts = fullCommand.split(" ", 2);
         String keyword = parts[0];
         String details = parts.length == 2 ? parts[1] : "";
+        assert parts.length == 2;
 
         switch (keyword) {
         case "bye":
