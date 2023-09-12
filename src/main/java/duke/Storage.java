@@ -65,6 +65,7 @@ public class Storage {
                 String[] fields = loader.nextLine().split(";");
                 String description = fields[2];
                 boolean isDone = fields[1].equals("X");
+
                 switch (fields[0]) {
                 case "T":
                     tasks.add(new Todo(description, isDone));

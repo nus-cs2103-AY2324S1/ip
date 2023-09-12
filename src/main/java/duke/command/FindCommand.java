@@ -29,13 +29,13 @@ public class FindCommand extends Command {
         TaskList matchingTasks = tasks.findTasks(keyword);
         if (matchingTasks.getSize() == 0) {
             return "There are no matching tasks in your list!";
-        } else {
-            StringBuilder tasksString = new StringBuilder();
-            for (int i = 0; i < matchingTasks.getSize(); i++) {
-                tasksString.append(String.format("  %d. %s\n", i + 1, matchingTasks.getTask(i).toString()));
-            }
-            return String.format(" Here are the matching tasks in your list:\n%s", tasksString);
         }
+
+        StringBuilder tasksString = new StringBuilder();
+        for (int i = 0; i < matchingTasks.getSize(); i++) {
+            tasksString.append(String.format("  %d. %s\n", i + 1, matchingTasks.getTask(i).toString()));
+        }
+        return String.format(" Here are the matching tasks in your list:\n%s", tasksString);
     }
 
     /**
