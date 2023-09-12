@@ -1,9 +1,12 @@
 package simon;
 
 import org.junit.jupiter.api.Test;
+
 import simon.task.Task;
 import simon.task.ToDo;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TaskListTest {
 
