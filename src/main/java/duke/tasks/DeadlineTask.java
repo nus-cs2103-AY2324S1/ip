@@ -18,8 +18,8 @@ public class DeadlineTask extends Task {
      * @param name     The name or description of the DeadlineTask.
      * @param deadline The deadline date and time for the task.
      */
-    public DeadlineTask(String name, LocalDateTime deadline) {
-        super(name);
+    public DeadlineTask(String name, LocalDateTime deadline, Priority priority) {
+        super(name, priority);
         this.deadline = deadline;
     }
 
