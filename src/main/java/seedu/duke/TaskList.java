@@ -96,9 +96,6 @@ class TaskList {
         for (int i = 0; i < tasks.size(); i++) {
             Task currentTask = tasks.get(i);
             String description = currentTask.toString();
-            System.out.println(filterWord);
-            System.out.println("-----");
-            System.out.println(description);
             if (description.contains(filterWord)) {
                 filteredTaskList.add(currentTask);
             }
