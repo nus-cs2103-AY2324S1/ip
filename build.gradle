@@ -48,13 +48,15 @@ test {
 }
 
 application {
-    mainClass.set("ButlerBot")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveFileName = "butlerBot-v1.1.jar"
+//    archiveBaseName = "butlerBot"
+//    archiveVersion = "v1.1"
     archiveClassifier = null
-    dependsOn("distZip", "distTar")
+//    dependsOn("distZip", "distTar")
 }
 
 run{
