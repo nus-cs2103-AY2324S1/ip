@@ -23,6 +23,7 @@ public class Parser {
      * @throws FindMissingFieldException when the command does not contain any task name
      */
     public static String parseFindCommand(String command) throws FindMissingFieldException {
+        assert (command.substring(0, 4).equals("find"));
         try {
             String name = command.substring(5);
             if (name.isEmpty()) {
@@ -43,6 +44,7 @@ public class Parser {
      */
     public static int parseMarkCommand(String[] commandWords)
             throws MarkMissingFieldException, InvalidTaskIndexException {
+        assert (commandWords[0].equals("mark") || commandWords[0].equals("unmark"));
         if (commandWords.length != 2) {
             throw new MarkMissingFieldException();
         }
@@ -62,6 +64,7 @@ public class Parser {
      */
     public static int parseDeleteCommand(String[] commandWords)
             throws DeleteMissingFieldException, InvalidTaskIndexException {
+        assert (commandWords[0].equals("delete"));
         if (commandWords.length != 2) {
             throw new DeleteMissingFieldException();
         }
@@ -79,6 +82,7 @@ public class Parser {
      * @throws TodoMissingFieldException when no task name is specified in the command
      */
     public static Task parseTodoTaskCommand(String command) throws TodoMissingFieldException {
+        assert (command.substring(0, 4).equals("todo"));
         try {
             String name = command.substring(5);
             if (name.isEmpty()) {
@@ -97,6 +101,7 @@ public class Parser {
      * @throws DeadlineMissingFieldException when the command does not contain name or deadline
      */
     public static Task parseDeadlineTaskCommand(String command) throws DeadlineMissingFieldException {
+        assert (command.substring(0, 8).equals("deadline"));
         int idOfBy = command.indexOf("/by");
         if (idOfBy == -1) {
             throw new DeadlineMissingFieldException();
@@ -120,6 +125,7 @@ public class Parser {
      * @throws EventMissingFieldException when the command does not contain name, from or to
      */
     public static Task parseEventTaskCommand(String command) throws EventMissingFieldException {
+        assert (command.substring(0, 5).equals("event"));
         int idOfFrom = command.indexOf("/from");
         int idOfTo = command.indexOf("/to");
         if (idOfFrom == -1 || idOfTo == -1) {

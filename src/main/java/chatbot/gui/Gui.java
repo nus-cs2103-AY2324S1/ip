@@ -39,12 +39,14 @@ public class Gui {
     }
 
     private void addUserDialog(String text) {
+        assert (!text.isEmpty());
         this.chatContainer.getChildren().add(
                 DialogBox.getUserDialogBox(text, userImage)
         );
     }
 
     private void addChatBotDialog(String text) {
+        assert (!text.isEmpty());
         this.chatContainer.getChildren().add(
                 DialogBox.getChatBotDialogBox(text, chatBotImage)
         );
@@ -52,12 +54,16 @@ public class Gui {
 
     @FXML
     private void handleUserInput() {
+        if (this.userInput.getText().isEmpty()) {
+            return;
+        }
         addUserDialog(this.userInput.getText());
         addChatBotDialog(getResponse(this.userInput.getText()));
         this.userInput.clear();
     }
 
     private String getResponse(String input) {
+        assert (!input.isEmpty());
         try {
             return chatBot.handleCommand(input);
         } catch (ChatBotException e) {
