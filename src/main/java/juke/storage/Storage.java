@@ -52,7 +52,9 @@ public class Storage extends JukeObject {
                 throw new JukeInitialisationException("Oh no! I am unable to create a directory to store your "
                                                               + "tasks! Please try again later!");
             }
-        } else if (!Files.exists(Storage.FILE_PATH)) {
+        }
+
+        if (!Files.exists(Storage.FILE_PATH)) {
             // if the dir exist but file doesn't, then just create the file
             try {
                 Files.createFile(Storage.FILE_PATH);
