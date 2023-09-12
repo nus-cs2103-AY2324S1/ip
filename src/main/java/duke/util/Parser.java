@@ -11,7 +11,7 @@ public class Parser {
     public String[] parseNewTaskByType(String task) {
         assert (task != null) : "The Task to be parsed by type cannot be null.";
 
-        return task.split("todo |deadline |event ");
+        return task.split("todo |deadline |event |recur ");
     }
 
     /**
@@ -20,7 +20,7 @@ public class Parser {
     public String[] parseNewTaskByDate(String task) {
         assert (task != null) : "The Deadline or Event to be parsed by date cannot be null.";
 
-        return task.split(" /by | /from | /to ");
+        return task.split(" /by | /from | /to | /every ");
     }
 
     /**

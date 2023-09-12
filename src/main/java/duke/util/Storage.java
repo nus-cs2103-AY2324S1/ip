@@ -1,10 +1,7 @@
 package duke.util;
 
 import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import duke.task.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -71,6 +68,13 @@ public class Storage {
                         newEvent.doTask();
                     }
                     break;
+                case "R":
+                    Recurring newRecur = new Recurring(taskDescription, processedTask[3]);
+                    tasks.add(newRecur);
+                    if (taskCompletionStatus.equals("X")) {
+                        newRecur.doTask();
+                    }
+                    break;
                 default:
                     throw new DukeException("tasks.txt may have been corrupted.");
                 }
@@ -115,6 +119,14 @@ public class Storage {
                 currEntry.append(event.getStart());
                 currEntry.append(" | ");
                 currEntry.append(event.getEnd());
+            } else if (currTask instanceof Recurring) {
+                Recurring recur = (Recurring) currTask;
+                currEntry.append("R | ");
+                currEntry.append(recur.getMarkedIcon());
+                currEntry.append(" | ");
+                currEntry.append(recur.getTaskDescription());
+                currEntry.append(" | ");
+                currEntry.append(recur.getRecurrence());
             }
 
             currEntry.append(System.lineSeparator());

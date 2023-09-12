@@ -6,6 +6,7 @@ import duke.util.Parser;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * This class stores tasks.
@@ -62,6 +63,8 @@ public class TaskList {
             nextTaskString = handleDeadline(task);
         } else if (task.startsWith("event")) {
             nextTaskString = handleEvent(task);
+        } else if (task.startsWith("recur")) {
+            nextTaskString = handleRecur(task);
         }
 
         String output = "Got it. I've added this task:\n";
@@ -146,6 +149,35 @@ public class TaskList {
         Event nextEvent = new Event(preprocessedTask[0], preprocessedTask[1], preprocessedTask[2]);
         this.tasks.add(nextEvent);
         return nextEvent.toString();
+    }
+
+    /**
+     * Handles the adding of a Recurring task.
+     */
+    protected String handleRecur(String task) throws DukeException {
+        assert (task != null) : "A valid recur command must be passed in.";
+
+        String[] temp = this.parser.parseNewTaskByType(task);
+
+        System.out.println(Arrays.toString(temp));
+
+        if (temp.length <= 1) {
+            throw new DukeException("You are missing both a valid recurring description and a recurrence. "
+                    + "Please enter a valid recurring description and recurrence.");
+        }
+
+        String[] preprocessedTask = this.parser.parseNewTaskByDate(temp[1]);
+
+        System.out.println(Arrays.toString(preprocessedTask));
+
+        if (preprocessedTask.length <= 1) {
+            throw new DukeException("You are missing either a valid recurring description or recurrence. "
+                    + "Please enter a valid recurring description or recurrence.");
+        }
+
+        Recurring nextRecur = new Recurring(preprocessedTask[0], preprocessedTask[1]);
+        this.tasks.add(nextRecur);
+        return nextRecur.toString();
     }
 
     /**

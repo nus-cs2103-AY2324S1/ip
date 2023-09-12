@@ -19,10 +19,18 @@ public class Event extends Task {
         this.end = end;
     }
 
+    /**
+     * Retrieve the start of the Event.
+     * @return A String representation of the starting date and time of the Event.
+     */
     public String getStart() {
         return this.start;
     }
 
+    /**
+     * Retrieve the end of the Event.
+     * @return A String representation of the ending date and time of the Event.
+     */
     public String getEnd() {
         return this.end;
     }
