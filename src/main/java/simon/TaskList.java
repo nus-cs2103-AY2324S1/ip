@@ -34,6 +34,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
+        assert task != null : "Task to be added cannot be null";
         tasks.add(task);
     }
 
@@ -48,6 +49,9 @@ public class TaskList {
     public Task markTask(String inData, boolean markAsDone) throws SimonException {
         int index = parseIndex(inData);
         validateIndex(index);
+
+        Task task = tasks.get(index);
+        assert task != null : "Task to be marked cannot be null";
 
         if (markAsDone) {
             tasks.get(index).markAsDone();
@@ -69,6 +73,8 @@ public class TaskList {
         validateIndex(index);
 
         Task task = tasks.get(index);
+        assert task != null : "Task to be deleted cannot be null";
+
         tasks.remove(index);
         return task;
     }
@@ -114,7 +120,9 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
-        return this.tasks.get(index);
+        Task task = this.tasks.get(index);
+        assert task != null : "Task retrieved should not be null";
+        return task;
     }
 
     /**
@@ -183,6 +191,8 @@ public class TaskList {
      * @return A TaskList containing the matched tasks.
      */
     private TaskList find(String keyword) {
+        assert keyword != null && !keyword.trim().isEmpty() : "Keyword to search for cannot be null or empty";
+        
         ArrayList<Task> matchedTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.toString().contains(keyword)) {

@@ -26,7 +26,7 @@ public class Ui {
      */
     public void showGoodbye() {
         clearOutput();
-        output.append("Bye. Hope to see you again soon!");
+        System.exit(0);
     }
 
     /**
