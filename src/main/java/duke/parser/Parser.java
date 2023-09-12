@@ -29,6 +29,8 @@ public class Parser {
      * @return lets the program know to stop.
      */
     public static String parseCommands(String nextLine, TaskList tasks, Storage storage) {
+        assert nextLine != null : "nextLine should not be null";
+
         String firstWord = nextLine.split(" ")[0];
         String statement;
         try {

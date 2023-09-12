@@ -37,6 +37,8 @@ public class TaskList implements Serializable {
      * @throws DukeException Lets the user know if task cannot be removed.
      */
     public String deleteItem(String input) throws DukeException {
+        assert input != null : "input should not be null";
+
         int index = this.getIndex(input) - 1;
         if (this.checkOutOfBounds(index)) {
             throw new DukeException(":(( OOPS!!! I'm sorry, but the index you have inputted is out of bounds :-(");
@@ -54,6 +56,8 @@ public class TaskList implements Serializable {
      * @throws DukeException Lets the user know if the task cannot be added.
      */
     public String addItem(Parser.taskType task, String input) throws DukeException {
+        assert input != null : "input should not be null";
+
         String[] splitSentence = input.split(" /");
         String taskName = getRestOfSentence(splitSentence[0]).strip();
         Task newTask;
@@ -100,6 +104,8 @@ public class TaskList implements Serializable {
      * @param input input from the user.
      */
     public String findItems(String input) {
+        assert input != null : "input should not be null";
+
         String keyword = input.split(" ")[1].strip();
         StringBuilder tasksFound = new StringBuilder("Here are the matching tasks in your list:");
         for (int i = 0; i < this.tasks.size(); i++) {
@@ -118,6 +124,8 @@ public class TaskList implements Serializable {
      * @throws DukeException Lets the user know if the task cannot be modified.
      */
     public String modifyStatus(Parser.modifyStatus status, String input) throws DukeException {
+        assert input != null : "input should not be null";
+
         int index = getIndex(input) - 1;
         this.checkOutOfBounds(index);
         switch(status) {
@@ -169,6 +177,8 @@ public class TaskList implements Serializable {
      * @return Index given by the user.
      */
     public int getIndex(String input) {
+        assert input != null : "input should not be null";
+
         String[] parts = input.split(" ");
 
         if (parts.length >= 2) {
@@ -195,7 +205,7 @@ public class TaskList implements Serializable {
      * @throws DukeException Lets the user know if the description is invalid.
      */
     public static void checkEmpty(String input, String taskName) throws DukeException {
-        if (input.equals("")) {
+        if (input.isEmpty()) {
             throw new DukeException(String.format(":((  OOPS!!! The description of a %s cannot be empty.", taskName));
         }
     }
@@ -207,6 +217,8 @@ public class TaskList implements Serializable {
      * @return rest of the sentence.
      */
     public static String getRestOfSentence(String input) {
+        assert input != null : "input should not be null";
+
         String[] parts = input.split(" ");
         StringBuilder result = new StringBuilder();
 
