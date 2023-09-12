@@ -25,6 +25,7 @@ public class EventCommand extends Command {
      * @param to   The end date and time of the event.
      */
     public EventCommand(String name, LocalDateTime from, LocalDateTime to) {
+        assert(name != null && from != null && to != null);
         this.name = name;
         this.from = from;
         this.to = to;
