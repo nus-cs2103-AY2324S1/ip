@@ -16,6 +16,9 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, UiManager uiManager, Storage storage) throws DukeException {
+        assert taskList != null: "Task list should not be null";
+        assert uiManager != null: "UI manager should not be null";
+        assert storage != null: "Storage object should not be null";
         Task temp = taskList.getTask(index);
         taskList.deleteTask(index);
         storage.save(taskList);

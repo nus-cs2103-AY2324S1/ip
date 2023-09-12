@@ -48,6 +48,7 @@ public class UiManager {
      * @throws DukeException When the index out of the bounds.
      */
     public String getListMessage(TaskList taskList) throws DukeException {
+        assert taskList != null : "TaskList should not be null";
         String result = "Here are the tasks in your list:\n";
         for (int i = 0; i < taskList.size(); i++) {
             result += (i + 1) + "." + taskList.getTask(i).toString() + "\n";
@@ -62,6 +63,7 @@ public class UiManager {
      * @return The message in string format when user mark a task.
      */
     public String getMarkMessage(Task task) {
+        assert task != null: "Task should not be null";
         return "Nice! I've marked this task as done:\n" +
                 "    " + task.toString();
     }
@@ -73,6 +75,7 @@ public class UiManager {
      * @return The message in string format when user unmark a task
      */
     public String getUnmarkMessage(Task task) {
+        assert task != null: "Task should not be null";
         return "OK, I've marked this task as not done yet:\n" +
                 "    " + task.toString();
     }
@@ -85,6 +88,8 @@ public class UiManager {
      * @return The message in string format when user add a task into task list.
      */
     public String getAddTaskMessage(Task task, TaskList taskList) {
+        assert task != null: "Task should not be null";
+        assert taskList != null: "Task list should not be null";
         return "Got it, I've added this task:\n    "  +
                 task.toString() + "\n" +
                 "Now you have " + taskList.size() + " tasks in the list.";
@@ -98,6 +103,7 @@ public class UiManager {
      * @return The message in string format when user delete a task.
      */
     public String getDeleteMessage(Task task, TaskList taskList) {
+        assert task != null: "Task should not be null";
         return "Noted. I've removed this task:\n" +
                 "    " + task.toString() + "\n" +
                 "Now you have " + taskList.size() + " tasks in the list.";

@@ -15,6 +15,9 @@ public class ExitCommand extends Command{
 
     @Override
     public String execute(TaskList taskList, UiManager uiManager, Storage storage) throws DukeException {
+        assert taskList != null: "Task list should not be null";
+        assert uiManager != null: "UI manager should not be null";
+        assert storage != null: "Storage object should not be null";
         Platform.exit();
         return null;
     }
