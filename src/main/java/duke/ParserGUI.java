@@ -9,7 +9,6 @@ public class ParserGUI {
     private final TaskList tasks;
     private final UiGUI UiGUI;
     private final Storage storage;
-    private final Scanner myScanner;
 
     /**
      * Creates a Parser
@@ -17,126 +16,114 @@ public class ParserGUI {
      * @param tasks     the TaskList
      * @param UiGUI     the ui object
      * @param storage   the storage object
-     * @param myScanner the created Scanner object
      */
-    ParserGUI(TaskList tasks, UiGUI UiGUI, Storage storage, Scanner myScanner) {
+    ParserGUI(TaskList tasks, UiGUI UiGUI, Storage storage) {
         this.tasks = tasks;
         this.UiGUI = UiGUI;
         this.storage = storage;
-        this.myScanner = myScanner;
     }
 
     /**
      * Parses the input given by the user
      *
-     * @param inValue the initials of the string given by user
+     * @param userInput the full input string provided by the user
      */
-    public String parseInput(String inValue) {
+    public String parseInput(String userInput) {
+        // Split the userInput into words
+        String[] inputParts = userInput.split("\\s+", 2);
+
+        // The first word is the command
+        String command = inputParts[0].toLowerCase().trim();
+
+        // The rest of the input (if any) is the task description or arguments
+        String taskDetails = (inputParts.length > 1) ? inputParts[1].trim() : "";
+
         Task item;
-        switch (inValue) {
+
+        switch (command) {
         case "bye":
             storage.saveTasksToFile(tasks);
-            //System.exit(0);
             return UiGUI.goodbye();
 
         case "list":
             return UiGUI.tasksInList(this.tasks);
-        //break;
 
         case "mark":
-            int number = myScanner.nextInt();
+            int number = Integer.parseInt(taskDetails);
             item = tasks.get(number);
             item.set();
             storage.saveTasksToFile(tasks);
             return UiGUI.taskDone(item);
-        //break;
 
         case "unmark":
-            int numero = myScanner.nextInt();
+            int numero = Integer.parseInt(taskDetails);
             item = tasks.get(numero);
             item.unset();
             storage.saveTasksToFile(tasks);
             return UiGUI.taskUndone(item);
-        //break;
 
         case "delete":
-            int numbero = myScanner.nextInt();
+            int numbero = Integer.parseInt(taskDetails);
             item = tasks.get(numbero);
             tasks.delete(numbero);
             storage.saveTasksToFile(tasks);
             return UiGUI.taskDelete(item, tasks);
-        //break;
 
         case "todo":
-            inValue = myScanner.nextLine();
-            if (inValue.length() != 0) {
-                inValue = inValue.substring(1);
+            if (!taskDetails.isEmpty()) {
+                ToDo t = new ToDo(taskDetails);
+                tasks.add(t);
+                storage.saveTasksToFile(tasks);
+                return UiGUI.taskAdd(t, tasks);
             } else {
-                //throw new duke.DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
                 return UiGUI.showError("todo");
-                //break;
             }
-            ToDo t = new ToDo(inValue);
-            tasks.add(t);
-            storage.saveTasksToFile(tasks);
-            return UiGUI.taskAdd(t, tasks);
-        //break;
-        case "deadline":
-            inValue = myScanner.nextLine();
-            if (inValue.length() != 0) {
-                inValue = inValue.substring(1);
-            } else {
-                return UiGUI.showError("deadline");
-                //break;
-                //throw new duke.DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
 
+        case "deadline":
+            String[] toBeSplit = taskDetails.split(" /by ");
+            if (toBeSplit.length != 2) {
+                return UiGUI.showError("deadline");
             }
-            String[] toBeSplit = inValue.split(" /by ");
+
+            String deadlineDescription = toBeSplit[0];
+            String deadlineDate = toBeSplit[1];
             Deadline d;
-            if (toBeSplit[1].contains(" ")) {
-                //date + time is present
-                d = new Deadline(toBeSplit[0], LocalDateTime.parse(toBeSplit[1], DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm")));
+
+            if (deadlineDate.contains(" ")) {
+                d = new Deadline(deadlineDescription, LocalDateTime.parse(deadlineDate, DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm")));
             } else {
-                d = new Deadline(toBeSplit[0], LocalDate.parse(toBeSplit[1], DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+                d = new Deadline(deadlineDescription, LocalDate.parse(deadlineDate, DateTimeFormatter.ofPattern("yyyy/MM/dd")));
             }
+
             tasks.add(d);
             storage.saveTasksToFile(tasks);
             return UiGUI.taskAdd(d, tasks);
-        //break;
+
         case "event":
-            inValue = myScanner.nextLine();
-            if (inValue.length() != 0) {
-                inValue = inValue.substring(1);
-            } else {
-                return UiGUI.showError("event");
-                //break;
-                //throw new duke.DukeException("☹ OOPS!!! The description of an event cannot be empty.");
-            }
-            String[] to_Split = inValue.split(" /from ");
+            String[] to_Split = taskDetails.split(" /from ");
             String[] second_Split = to_Split[1].split(" /to ");
-            Event e = new Event(to_Split[0], second_Split[0], second_Split[1]);
+            if (second_Split.length != 2) {
+                return UiGUI.showError("event");
+            }
+
+            String eventDescription = to_Split[0];
+            String eventStartDate = second_Split[0];
+            String eventEndDate = second_Split[1];
+
+            Event e = new Event(eventDescription, eventStartDate, eventEndDate);
             tasks.add(e);
             storage.saveTasksToFile(tasks);
             return UiGUI.taskAdd(e, tasks);
-        //break;
+
         case "find":
-            inValue = myScanner.nextLine();
-            if (inValue.length() != 0) {
-                inValue = inValue.substring(1);
+            if (!taskDetails.isEmpty()) {
+                return UiGUI.printMatchingTasks(tasks, taskDetails);
             } else {
                 return UiGUI.showError("find");
-                //break;
-                //throw new duke.DukeException("☹ OOPS!!! The description of an event cannot be empty.");
             }
-            return UiGUI.printMatchingTasks(tasks, inValue);
-        //break;
 
         default:
-
-            inValue += myScanner.nextLine();
             return UiGUI.unrecognisedCommand();
-        //break;
-
         }
     }
 }

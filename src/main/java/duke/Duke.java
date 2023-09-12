@@ -30,21 +30,14 @@ public class Duke extends Application {
     private final Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private final Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
-    public static void main(String[] args) {
-        String saveFileDir = "./data/duke.txt";
-        Ui Ui = new Ui();
-        Storage storage = new Storage(saveFileDir);
-        ArrayList<Task> myList = new ArrayList<Task>(); // Create an ArrayList object
-        TaskList tasks = new TaskList(storage.loadSaveFile());
-        Ui.hello();
-        Scanner myScanner = new Scanner(System.in);
-        Parser parser = new Parser(tasks, Ui, storage, myScanner);
+    String saveFileDir = "./data/duke.txt";
+    UiGUI UiGUI = new UiGUI();
+    Storage storage = new Storage(saveFileDir);
+    ArrayList<Task> myList = new ArrayList<Task>(); // Create an ArrayList object
+    TaskList tasks = new TaskList(storage.loadSaveFile());
+    Scanner myScanner = new Scanner(System.in);
+    ParserGUI parserGUI = new ParserGUI(tasks, UiGUI, storage);
 
-        while (myScanner.hasNext()) {
-            String inValue = myScanner.next();
-            parser.parseInput(inValue);
-        }
-    }
 
     @Override
     public void start(Stage stage) {
@@ -157,7 +150,7 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        return "Duke heard: " + input;
+        return parserGUI.parseInput(input);
     }
 
 

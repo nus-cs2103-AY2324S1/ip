@@ -28,7 +28,7 @@ public class UiGUI {
     }
 
     private String printLines() {
-        return ("____________________________________________________________");
+        return ("");
     }
 
     /**
@@ -82,10 +82,10 @@ public class UiGUI {
      */
     public String tasksInList(TaskList tasks) {
         String Total = this.printLines();
-        Total += "Here are the tasks in your list:";
+        Total += "Here are the tasks in your list:" + "\n";
         int i = 1;
         for (Task t : tasks.getList()) {
-            Total += (i + "." + t.toString());
+            Total += (i + "." + t.toString()) + "\n";
             i++;
         }
         Total += this.printLines();
@@ -130,7 +130,7 @@ public class UiGUI {
      * @param tasks the TaskList
      */
     public String taskDelete(Task item, TaskList tasks) {
-        return this.printLines() + ("Noted. I've removed this task:")
+        return this.printLines() + ("Noted. I've removed this task:") + "\n"
                 + (item.toString()) + ("Now you have "
                 + tasks.getList().size() + " tasks in the list.") + this.printLines();
     }
@@ -146,11 +146,11 @@ public class UiGUI {
 
     public String printMatchingTasks(TaskList tasks, String query) {
         String total = this.printLines();
-        total += ("Here are the matching tasks in your list:");
+        total += ("Here are the matching tasks in your list:") + "\n";
         int i = 1;
         for (Task t : tasks.getList()) {
             if (t.toString().contains(query)) {
-                total += (i + "." + t);
+                total += (i + "." + t) + "\n";
                 i++;
             }
         }
