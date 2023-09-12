@@ -61,7 +61,6 @@ public class DialogBox extends HBox {
         var db = new DialogBox(text, img);
         db.flip();
         db.getStyleClass().add("duke-dialog");
-        ((VBox) db.getChildren().get(1)).setAlignment(Pos.CENTER_LEFT);
         return db;
     }
 }
