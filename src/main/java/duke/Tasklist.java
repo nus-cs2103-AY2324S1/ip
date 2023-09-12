@@ -39,6 +39,7 @@ public class Tasklist {
      * @return The Task at that index in the Tasklist.
      */
     public Task getTask(int i) {
+        assert tasks.size() > i: "Size of list should be at least " + (i + 1);
         return tasks.get(i);
     }
 

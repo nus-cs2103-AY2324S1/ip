@@ -81,6 +81,7 @@ public class Parser {
                     break;
                 }
                 tasks.addTask(addedTask);
+                assert addedTask != null: "Task added should not be null";
                 return Ui.informTaskAdded(addedTask, tasks.getSize());
             }
 
