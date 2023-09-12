@@ -15,7 +15,7 @@ public class Parser {
         return task.split(" /", 3);
     }
     public String[] storageSplit(String task) {
-        return task.split("~", 5);
+        return task.split("~", 6);
     }
     public String[] storageTimeSplit(String time) {
         return time.split(" - ", 2);

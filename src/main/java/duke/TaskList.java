@@ -187,4 +187,35 @@ public class TaskList {
         }
         return message;
     }
+    protected String setReminder(String info) throws DukeArgumentException {
+        int taskId = Integer.parseInt(info.substring(9)) - 1;
+        String message;
+        if (taskId < 0 || taskId >= numTask) {
+            throw new DukeArgumentException(INVALID_TASK_NUMBER_MESSAGE);
+        }
+        message = taskArray.get(taskId).makeReminder();
+        // update the duke.txt
+        try {
+            storage.saveTask(taskArray);
+        } catch (IOException e) {
+            return "      Uhm.. something is not working right..";
+        }
+        return message;
+    }
+    protected static String printReminders() {
+        String message;
+        int counter = 0;
+        message = "     Here are some reminders for you:\n";
+        for (int a = 0; a < numTask; a++) {
+            if (taskArray.get(a).isReminder) {
+                message += "     " + (a + 1) + ". " + taskArray.get(a).printDesc() + "\n";
+                counter++;
+            }
+        }
+        if (counter == 0) {
+            return "     You have no reminders for today.";
+        } else {
+            return message;
+        }
+    }
 }

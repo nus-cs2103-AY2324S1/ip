@@ -6,6 +6,7 @@ package duke;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected boolean isReminder;
 
     /**
      * Constructor method for duke.Task.
@@ -14,6 +15,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.isReminder = false;
     }
     /**
      * Retrieves the task status.
@@ -67,10 +69,16 @@ public class Task {
      * @return Message for the description and status of the task.
      */
     public String getDescription() {
-        if (this.isDone) {
-            return "done~" + this.description;
+        String reminder;
+        if (this.isReminder) {
+            reminder = "reminder";
         } else {
-            return "notDone~" + this.description;
+            reminder = "NA";
+        }
+        if (this.isDone) {
+            return "done~" + reminder + "~" + this.description;
+        } else {
+            return "notDone~" + reminder + "~" + this.description;
         }
     }
     /**
@@ -79,5 +87,12 @@ public class Task {
      */
     public String getDesc() {
         return this.description;
+    }
+    public String makeReminder() {
+        this.isReminder = true;
+        return "     OK, I will remind you of this task the next time I see you!\n";
+    }
+    public void updateReminder() {
+        this.isReminder = true;
     }
 }

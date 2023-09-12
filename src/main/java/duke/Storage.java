@@ -2,6 +2,7 @@ package duke;
 
 import Exceptions.DukeException;
 
+import javax.management.ObjectName;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -57,27 +58,37 @@ public class Storage {
                 String[] taskDetails = parser.storageSplit(task);
                 String taskType = taskDetails[0];
                 String taskStatus = taskDetails[1];
-                String taskDescription = taskDetails[2];
+                String taskReminder = taskDetails[2];
+                String taskDescription = taskDetails[3];
                 switch (taskType) {
                 case "T":
                     Todo addTodo = new Todo(taskDescription);
                     if (Objects.equals(taskStatus, "done")) {
                         addTodo.updateAsDone();
                     }
+                    if (Objects.equals(taskReminder, "reminder")) {
+                        addTodo.updateReminder();
+                    }
                     taskArray.add(addTodo);
                     break;
                 case "D":
-                    Deadline addDeadline = new Deadline(taskDescription, taskDetails[3]);
+                    Deadline addDeadline = new Deadline(taskDescription, taskDetails[4]);
                     if (Objects.equals(taskStatus, "Y")) {
                         addDeadline.markAsDone();
+                    }
+                    if (Objects.equals(taskReminder, "reminder")) {
+                        addDeadline.updateReminder();
                     }
                     taskArray.add(addDeadline);
                     break;
                 case "E":
-                    String[] timeDetails = parser.storageTimeSplit(taskDetails[3]);
+                    String[] timeDetails = parser.storageTimeSplit(taskDetails[4]);
                     Event addEvent = new Event(taskDescription, timeDetails[0], timeDetails[1]);
                     if (Objects.equals(taskStatus, "Y")) {
                         addEvent.markAsDone();
+                    }
+                    if (Objects.equals(taskReminder, "reminder")) {
+                        addEvent.updateReminder();
                     }
                     taskArray.add(addEvent);
                     break;

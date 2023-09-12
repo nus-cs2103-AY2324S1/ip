@@ -29,7 +29,8 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         this.ui = new Ui();
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(DialogBox.getPopoohDialog(ui.greet(), popoohImage));
+        String openingMessage = ui.greet() + TaskList.printReminders();
+        dialogContainer.getChildren().add(DialogBox.getPopoohDialog(openingMessage, popoohImage));
     }
 
     public void setDuke(Duke d) {
