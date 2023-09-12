@@ -1,5 +1,6 @@
 package duke;
 
+import duke.exception.InvalidInputException;
 import duke.task.Task;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
@@ -26,8 +27,13 @@ public class TaskList {
     public TaskList(ArrayList<String> strings) {
         this.tasks = new PriorityQueue<>(new TaskComparator());
         Parser parser = new Parser(this);
+        assert strings != null : "No lines in file";
         for (String s : strings) {
-            parser.parseFromFile(s);
+            try {
+                parser.parseFromFile(s);
+            } catch (InvalidInputException e) {
+                continue;     // ignore
+            }
         }
     }
 
@@ -90,6 +96,7 @@ public class TaskList {
      */
     public ArrayList<String> toStringInFile() {
         ArrayList<String> strings = new ArrayList<>();
+        assert !tasks.isEmpty() : "Nothing to write to file";
         for (Task t : tasks) {
             strings.add(t.convertToStringInFile());
         }
