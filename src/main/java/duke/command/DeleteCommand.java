@@ -34,6 +34,7 @@ public class DeleteCommand extends Command {
         Task deletedTask;
         try {
             deletedTask = dukelist.deleteTask(this.description);
+            assert deletedTask != null : "Task to be deleted cannot be null";
             storage.saveData(dukelist.getList());
         } catch (DukeException e) {
             throw new DukeException(e.getMessage());
