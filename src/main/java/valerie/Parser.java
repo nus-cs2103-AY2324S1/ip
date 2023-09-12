@@ -20,32 +20,36 @@ public class Parser {
         String command = parts[0];
 
         switch (command) {
-            case "list":
-                return handleListCommand(taskList);
+        case "list":
+            return handleListCommand(taskList);
 
-            case "mark":
-                return handleMarkCommand(parts, taskList);
+        case "mark":
+            return handleMarkCommand(parts, taskList);
 
-            case "unmark":
-                return handleUnmarkCommand(parts, taskList);
+        case "unmark":
+            return handleUnmarkCommand(parts, taskList);
 
-            case "todo":
-                return handleTodoCommand(userInput, taskList);
+        case "todo":
+            return handleTodoCommand(userInput, taskList);
 
-            case "deadline":
-                return handleDeadlineCommand(userInput, taskList);
+        case "deadline":
+        return handleDeadlineCommand(userInput, taskList);
 
-            case "event":
-                return handleEventCommand(userInput, taskList);
+        case "event":
+            return handleEventCommand(userInput, taskList);
 
-            case "delete":
-                return handleDeleteCommand(parts, taskList);
+        case "delete":
+            return handleDeleteCommand(parts, taskList);
 
-            case "find":
-                return handleFindCommand(userInput, taskList);
+        case "find":
+            return handleFindCommand(userInput, taskList);
 
-            default:
-                return Ui.showError("I'm sorry, but I don't know what that means");
+        case "help":
+            return handleHelpCommand();
+
+        default:
+            return Ui.showError("I'm sorry, but I don't know what that means!" +
+                    "\nPlease type 'help' to access a list of available commands");
         }
     }
 
@@ -247,5 +251,33 @@ public class Parser {
     private static ArrayList<String> handleFindCommand(String userInput, TaskList taskList) {
         String keyword = userInput.substring(5).trim();
         return taskList.findTasks(keyword);
+    }
+
+    /**
+     * Handles the "help" command, displaying information about available commands.
+     *
+     * @return An ArrayList of strings with information about available commands.
+     */
+    private static ArrayList<String> handleHelpCommand() {
+        ArrayList<String> helpText = new ArrayList<>();
+        helpText.add("Here are the available commands:");
+
+        String[] commands = {
+                "list - Show list of tasks",
+                "mark - Mark a task",
+                "unmark - Unmark a task",
+                "todo [task description] - Create a todos task",
+                "deadline [task description] /by [YYYY-MM-DD] - Create a deadline task due by [YYYY-MM-DD]",
+                "event [task description] /from [start] /to [end] - Create an event task from [start] to [end]",
+                "find - Find a task with matching description",
+                "delete - Delete a task",
+                "bye - Save list of tasks and exit application"
+        };
+
+        for (int i = 0; i < commands.length; i++) {
+            helpText.add((i + 1) + ". " + commands[i]);
+        }
+
+        return helpText;
     }
 }
