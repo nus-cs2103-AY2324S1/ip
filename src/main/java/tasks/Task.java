@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes({
     @JsonSubTypes.Type(value = Todo.class, name = "tasks.Todo"),
     @JsonSubTypes.Type(value = Deadline.class, name = "tasks.Deadline"),
-    @JsonSubTypes.Type(value = Event.class, name = "tasks.Event"),}
+    @JsonSubTypes.Type(value = Event.class, name = "tasks.Event")}
 )
 
 public class Task {
@@ -22,6 +22,11 @@ public class Task {
     private String description;
     private Boolean done;
 
+
+    /**
+     * A class representing a Task
+     * @param desc description of the task
+     */
     public Task(String desc) {
         this.description = desc;
         this.done = false;

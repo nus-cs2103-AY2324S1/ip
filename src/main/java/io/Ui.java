@@ -87,12 +87,12 @@ public class Ui {
 
         if (task instanceof Todo) {
             answer =
-                "[" + Todo.taskType + "]" + "[" + task.getDoneIcon() + "] " + task.getDescription();
+                "[" + Todo.TASK_TYPE + "]" + "[" + task.getDoneIcon() + "] " + task.getDescription();
         } else if (task instanceof Deadline) {
             Deadline deadTask = (Deadline) task;
 
             answer =
-                "[" + Deadline.taskType + "]" + "[" + task.getDoneIcon() + "] "
+                "[" + Deadline.TASK_TYPE + "]" + "[" + task.getDoneIcon() + "] "
                     + task.getDescription()
                     + "("
                     + deadTask.getDeadDate() + ")";
@@ -101,7 +101,7 @@ public class Ui {
             Event eventTask = (Event) task;
 
             answer =
-                "[" + Event.taskType + "]" + "[" + task.getDoneIcon() + "] " + task.getDescription()
+                "[" + Event.TASK_TYPE + "]" + "[" + task.getDoneIcon() + "] " + task.getDescription()
                     + "("
                     + eventTask.getStartDate() + " to " + eventTask.getEndDate() + ")";
         }

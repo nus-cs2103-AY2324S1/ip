@@ -1,20 +1,28 @@
 package io;
 
-import exceptions.ParserException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+
+import exceptions.ParserException;
 import tasks.Deadline;
 import tasks.Event;
-import tasks.Task;
 
 /**
  * The Parser class handles user input from the command line.
  */
 public class Parser {
 
+
+    private Scanner scanner;
+    private String inputString;
+    private String[] inputTokens;
+
+    /**
+     * Creates a Parser object, which handles text based user inputs and outputs
+     */
     public Parser() {
         inputTokens = null;
         inputString = null;
@@ -129,7 +137,9 @@ public class Parser {
             throw new ParserException("The event command cannot be empty!");
         } catch (ArrayIndexOutOfBoundsException ex) {
             throw new ParserException(
-                "Please enter a name, followed by a (/from) command, followed by a date, followed by a (/to) command and a date");
+                "Please enter a name, followed by a (/from) command, "
+                    + "followed by a date, "
+                    + "followed by a (/to) command and a date");
         }
         return result;
     }
@@ -169,9 +179,5 @@ public class Parser {
     }
 
 
-    private String inputString;
-    private String[] inputTokens;
 
-
-    private Scanner scanner;
 }
