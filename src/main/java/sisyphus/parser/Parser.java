@@ -4,11 +4,11 @@ import java.time.LocalDate;
 
 import sisyphus.SisyphusException;
 import sisyphus.storage.Storage;
-import sisyphus.ui.Ui;
 import sisyphus.task.Deadline;
 import sisyphus.task.Event;
 import sisyphus.task.TaskList;
 import sisyphus.task.ToDo;
+import sisyphus.ui.Ui;
 
 /**
  * Parser class that processes the main logic flow to parse different commands.

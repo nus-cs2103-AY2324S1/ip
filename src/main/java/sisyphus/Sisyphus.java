@@ -2,8 +2,8 @@ package sisyphus;
 
 import sisyphus.parser.Parser;
 import sisyphus.storage.Storage;
-import sisyphus.ui.Ui;
 import sisyphus.task.TaskList;
+import sisyphus.ui.Ui;
 
 /**
  * Class for Sisyphus chatbot.
