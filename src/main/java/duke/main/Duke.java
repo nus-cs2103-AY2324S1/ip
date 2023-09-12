@@ -34,6 +34,44 @@ public class Duke {
         this.taskList = new TaskList();
     }
 
+    /**
+     * Handles the command based on the command type
+     *
+     * @param command The command to be handled
+     * @return The feedback string.
+     * @throws DukeException If the command type is not recognized
+     */
+    public String handleCommand(Command command) throws DukeException {
+        String commandType = command.getCommandType();
+        String description = command.getDescription();
+        int taskIndex = command.getTaskIndex();
+        LocalDate deadlineDate = command.getDeadlineDate();
+        LocalDate eventFromDate = command.getEventFromDate();
+        LocalDate eventToDate = command.getEventToDate();
+
+        switch (commandType) {
+        case "mark":
+            return markTaskByBot(taskIndex);
+        case "unmark":
+            return unmarkTaskByBot(taskIndex);
+        case "bye":
+            return "Bye. Hope to see you again soon!";
+        case "list":
+            return this.taskList.toString();
+        case "find":
+            return this.findTasksByKeyword(description);
+        case "todo":
+            return this.addTodo(description);
+        case "deadline":
+            return this.addDeadline(description, deadlineDate);
+        case "event":
+            return this.addEvent(description, eventFromDate, eventToDate);
+        case "delete":
+            return this.deleteTaskByBot(taskIndex);
+        default:
+            throw new DukeException("I'm sorry, but I don't know what that means :-(");
+        }
+    }
 
     /**
      * Marks a task as done and provides user feedback
@@ -196,44 +234,5 @@ public class Duke {
             }
         }
         return matchingTasksString.toString();
-    }
-
-    /**
-     * Handles the command based on the command type
-     *
-     * @param command The command to be handled
-     * @return The feedback string.
-     * @throws DukeException If the command type is not recognized
-     */
-    public String handleCommand(Command command) throws DukeException {
-        String commandType = command.getCommandType();
-        String description = command.getDescription();
-        int taskIndex = command.getTaskIndex();
-        LocalDate deadlineDate = command.getDeadlineDate();
-        LocalDate eventFromDate = command.getEventFromDate();
-        LocalDate eventToDate = command.getEventToDate();
-
-        switch (commandType) {
-        case "mark":
-            return markTaskByBot(taskIndex);
-        case "unmark":
-            return unmarkTaskByBot(taskIndex);
-        case "bye":
-            return "Bye. Hope to see you again soon!";
-        case "list":
-            return this.taskList.toString();
-        case "find":
-            return this.findTasksByKeyword(description);
-        case "todo":
-            return this.addTodo(description);
-        case "deadline":
-            return this.addDeadline(description, deadlineDate);
-        case "event":
-            return this.addEvent(description, eventFromDate, eventToDate);
-        case "delete":
-            return this.deleteTaskByBot(taskIndex);
-        default:
-            throw new DukeException("I'm sorry, but I don't know what that means :-(");
-        }
     }
 }

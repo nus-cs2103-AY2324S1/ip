@@ -215,18 +215,7 @@ public class Parser {
      * @throws EventException If the event dates are empty or invalid.
      */
     private static LocalDate[] getEventDates(String userInput) throws EventException {
-        String[] parts = userInput.split(" ", 2);
-        if (parts.length < 2) {
-            throw new EventException("details: Description or event dates are empty");
-        }
-        String description = parts[1];
-
-        // Check if both /from and /to exist in the description
-        if (!description.contains("/from") || !description.contains("/to")) {
-            throw new EventException("details: Description does not contain /from or /to");
-        }
-
-        String[] desArray = description.split("/from", 2);
+        String[] desArray = getDesArray(userInput);
         String taskDescription = desArray[0].trim();
 
         // Split the timing description further using /to
@@ -245,5 +234,29 @@ public class Parser {
         } catch (DateTimeParseException e) {
             throw new EventException("details: Invalid date format. Please use yyyy-MM-dd");
         }
+    }
+
+    /**
+     * Returns the description from the user input.
+     * example of description: project meeting /from 2020-02-02 /to 2020-02-03
+     *
+     * @param userInput The user input.
+     * @return The description.
+     * @throws EventException If the description is empty or invalid.
+     */
+    private static String[] getDesArray(String userInput) throws EventException {
+        String[] parts = userInput.split(" ", 2);
+        if (parts.length < 2) {
+            throw new EventException("details: Description or event dates are empty");
+        }
+        String description = parts[1];
+
+        // Check if both /from and /to exist in the description
+        if (!description.contains("/from") || !description.contains("/to")) {
+            throw new EventException("details: Description does not contain /from or /to");
+        }
+
+        String[] desArray = description.split("/from", 2);
+        return desArray;
     }
 }
