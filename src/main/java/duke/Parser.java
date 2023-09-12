@@ -166,13 +166,14 @@ public class Parser {
         } else if (isFindCommand(userInput)) {
             String keyword = userInput.replaceFirst("find", "").trim();
             if (keyword.isEmpty()) {
-                throw new InvalidInputException("OOPS!!! I'm sorry, please provide a keyword to search.");
+                throw new InvalidInputException("☹ OOPS!!! I'm sorry, please provide a keyword to search.");
             }
+            assert !keyword.isEmpty() : "Keyword should not be empty";
             return tasks.findTasks(keyword);
         } else if (isValidCommand(userInput)) {
             return tasks.addTask(userInput);
         } else {
-            throw new InvalidInputException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new InvalidInputException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }
