@@ -2,6 +2,7 @@ package duke;
 
 import java.util.ArrayList;
 
+import duke.exception.DuplicateTaskException;
 import duke.task.Task;
 
 
@@ -32,8 +33,12 @@ public class TaskList {
      *
      * @param t The task to add.
      */
-    public String addTask(Task t) {
+    public String addTask(Task t) throws DuplicateTaskException {
         StringBuilder sb = new StringBuilder();
+
+        if (this.taskList.contains(t)) {
+            throw new DuplicateTaskException();
+        }
         this.taskList.add(t);
         sb.append("Got it. I've added this task:\n");
         sb.append(t + "\n");
