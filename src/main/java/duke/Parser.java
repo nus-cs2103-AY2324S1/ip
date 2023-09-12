@@ -2,7 +2,13 @@ package duke;
 
 import java.util.ArrayList;
 
-import duke.exception.*;
+import duke.exception.DukeException;
+import duke.exception.InvalidDeadlineException;
+import duke.exception.InvalidEventException;
+import duke.exception.InvalidFindException;
+import duke.exception.InvalidInputException;
+import duke.exception.InvalidListNumberException;
+import duke.exception.InvalidToDoException;
 import duke.taskclasses.TaskList;
 
 /**
@@ -92,78 +98,78 @@ public class Parser {
 
 
         switch (command) {
-            case BYE:
-                addToOutput(ui.printBye(), output);
-                break;
+        case BYE:
+            addToOutput(ui.printBye(), output);
+            break;
 
-            case DELETE:
-                String content = taskList.deleteTask(number);
-                addToOutput(ui.deleteTask(content), output);
-                addToOutput(ui.printTaskCount(taskList.getTasksCount()), output);
-                break;
+        case DELETE:
+            String content = taskList.deleteTask(number);
+            addToOutput(ui.deleteTask(content), output);
+            addToOutput(ui.printTaskCount(taskList.getTasksCount()), output);
+            break;
 
-            case LIST:
-                addToOutput(ui.returnList(taskList), output);
-                break;
+        case LIST:
+            addToOutput(ui.returnList(taskList), output);
+            break;
 
-            case UNMARK:
-                taskList.markTaskAsNotDone(number);
-                addToOutput(ui.printTaskMarkAsNotDone(taskList.getStatusAndDescription(number)), output);
-                break;
+        case UNMARK:
+            taskList.markTaskAsNotDone(number);
+            addToOutput(ui.printTaskMarkAsNotDone(taskList.getStatusAndDescription(number)), output);
+            break;
 
-            case MARK:
-                taskList.markTaskAsDone(number);
-                addToOutput(ui.printTaskMarkAsDone(taskList.getStatusAndDescription(number)), output);
-                break;
+        case MARK:
+            taskList.markTaskAsDone(number);
+            addToOutput(ui.printTaskMarkAsDone(taskList.getStatusAndDescription(number)), output);
+            break;
 
-            case TODO:
-                String toDoDescription = details[0].trim();
-                assert details.length >= 1 : "Details should have at least one entry for TODO command";
-                if (toDoDescription.length() <= 4) {
-                    throw new InvalidToDoException();
-                }
-                addToOutput(
-                        taskList.addToDoToList(false,
-                                toDoDescription.substring(5).trim()).addedTaskDescription(),
-                        output);
-                break;
+        case TODO:
+            String toDoDescription = details[0].trim();
+            assert details.length >= 1 : "Details should have at least one entry for TODO command";
+            if (toDoDescription.length() <= 4) {
+                throw new InvalidToDoException();
+            }
+            addToOutput(
+                    taskList.addToDoToList(false,
+                            toDoDescription.substring(5).trim()).addedTaskDescription(),
+                    output);
+            break;
 
-            case DEADLINE:
-                if (details[0].trim().length() <= 8 || !fullInput.contains("by")) {
-                    throw new InvalidDeadlineException();
-                }
-                String deadlineDescription = details[0].split("/")[0].substring(9).trim();
-                assert details.length >= 1 : "Details should have at least one entry for DEADLINE command";
-                String byTime = fullInput.split("by")[1].trim();
-                addToOutput(taskList.addDeadlineToList(false, deadlineDescription, byTime).addedTaskDescription(),
-                        output);
-                break;
+        case DEADLINE:
+            if (details[0].trim().length() <= 8 || !fullInput.contains("by")) {
+                throw new InvalidDeadlineException();
+            }
+            String deadlineDescription = details[0].split("/")[0].substring(9).trim();
+            assert details.length >= 1 : "Details should have at least one entry for DEADLINE command";
+            String byTime = fullInput.split("by")[1].trim();
+            addToOutput(taskList.addDeadlineToList(false, deadlineDescription, byTime).addedTaskDescription(),
+                    output);
+            break;
 
-            case EVENT:
-                if (details[0].trim().length() <= 5 || !fullInput.contains("from") || !fullInput.contains("to")) {
-                    throw new InvalidEventException();
-                }
-                String eventDescription = details[0].split("/")[0].substring(6).trim();
-                assert details.length >= 1 : "Details should have at least one entry for EVENT command";
-                String fromTime = fullInput.split("from")[1].split("/to")[0].trim();
-                String toTime = fullInput.split("to")[1].trim();
-                addToOutput(taskList.addEventToList(false, eventDescription, fromTime, toTime).addedTaskDescription(),
-                        output);
-                break;
+        case EVENT:
+            if (details[0].trim().length() <= 5 || !fullInput.contains("from") || !fullInput.contains("to")) {
+                throw new InvalidEventException();
+            }
+            String eventDescription = details[0].split("/")[0].substring(6).trim();
+            assert details.length >= 1 : "Details should have at least one entry for EVENT command";
+            String fromTime = fullInput.split("from")[1].split("/to")[0].trim();
+            String toTime = fullInput.split("to")[1].trim();
+            addToOutput(taskList.addEventToList(false, eventDescription, fromTime, toTime).addedTaskDescription(),
+                    output);
+            break;
 
-            case CLEAR:
-                taskList.clear();
-                break;
+        case CLEAR:
+            taskList.clear();
+            break;
 
-            case FIND:
-                String findDescription = details[0].trim();
-                if (findDescription.length() <= 4) {
-                    throw new InvalidFindException();
-                }
-                addToOutput(ui.printTaskContainingKeyword(taskList, findDescription.substring(5).trim()), output);
-                break;
-            default:
-                throw new InvalidInputException();
+        case FIND:
+            String findDescription = details[0].trim();
+            if (findDescription.length() <= 4) {
+                throw new InvalidFindException();
+            }
+            addToOutput(ui.printTaskContainingKeyword(taskList, findDescription.substring(5).trim()), output);
+            break;
+        default:
+            throw new InvalidInputException();
         }
 
 

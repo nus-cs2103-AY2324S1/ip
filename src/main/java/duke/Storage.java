@@ -25,7 +25,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         assert filePath != null && !filePath.isEmpty() : "File path cannot be null or empty";
-        this.filePath = filePath;
+        this.filePath = "./data/" + filePath + ".txt";
     }
 
     /**
@@ -38,6 +38,7 @@ public class Storage {
         try {
             processFileContents(taskList);
         } catch (FileNotFoundException e) {
+
             System.out.println("The file is not found. Initializing an empty task list.");
         }
         return taskList;
@@ -55,6 +56,12 @@ public class Storage {
             writeContentToFile(content);
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the file.");
+            File f = new File(this.filePath);
+            try {
+                f.createNewFile();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
             e.printStackTrace();
         }
     }
@@ -76,20 +83,20 @@ public class Storage {
             boolean isDone = taskParts[1].trim().equals("1");
 
             switch (taskParts[0].trim()) {
-                case "T":
-                    assert taskParts.length == 3 : "ToDo task data format is incorrect";
-                    taskList.addToDoToList(isDone, taskParts[2].trim());
-                    break;
-                case "D":
-                    assert taskParts.length == 4 : "Deadline task data format is incorrect";
-                    taskList.addDeadlineToList(isDone, taskParts[2].trim(), taskParts[3].trim());
-                    break;
-                case "E":
-                    assert taskParts.length == 5 : "Event task data format is incorrect";
-                    taskList.addEventToList(isDone, taskParts[2].trim(), taskParts[3].trim(), taskParts[4].trim());
-                    break;
-                default:
-                    System.out.println("Unexpected task type encountered: " + line);
+            case "T":
+                assert taskParts.length == 3 : "ToDo task data format is incorrect";
+                taskList.addToDoToList(isDone, taskParts[2].trim());
+                break;
+            case "D":
+                assert taskParts.length == 4 : "Deadline task data format is incorrect";
+                taskList.addDeadlineToList(isDone, taskParts[2].trim(), taskParts[3].trim());
+                break;
+            case "E":
+                assert taskParts.length == 5 : "Event task data format is incorrect";
+                taskList.addEventToList(isDone, taskParts[2].trim(), taskParts[3].trim(), taskParts[4].trim());
+                break;
+            default:
+                System.out.println("Unexpected task type encountered: " + line);
             }
         } catch (InvalidDateTimeException e) {
             System.out.println("Invalid date format encountered in some tasks. Please check.");
