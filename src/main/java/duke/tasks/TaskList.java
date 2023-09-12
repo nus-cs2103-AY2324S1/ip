@@ -2,6 +2,8 @@ package duke.tasks;
 
 import java.util.ArrayList;
 
+import duke.tasks.Task.Priority;
+
 /**
  * Represents a list of tasks in the Duke application.
  */
@@ -84,6 +86,16 @@ public class TaskList {
         task.unmark();
         assert !task.isDone() : "Task was not marked as not done";
         return "OK, I've marked this task as not done yet:\n" + task.getDescription();
+    }
+
+    public String setPriority(int index, Priority priority) {
+        if (index < 0 || index >= tasks.size()) {
+            return "Please enter a valid number.";
+        }
+
+        Task task = tasks.get(index);
+        task.setPriority(priority);
+        return "OK, I've set the priority of this task to " + priority + ":\n" + task.getDescription();
     }
 
     /**

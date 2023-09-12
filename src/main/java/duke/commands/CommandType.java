@@ -9,6 +9,7 @@ public enum CommandType {
     LIST,
     MARK,
     UNMARK,
+    PRIORITY,
     DELETE,
     ADD_TODO,
     ADD_DEADLINE,
@@ -32,6 +33,8 @@ public enum CommandType {
             return CommandType.MARK;
         case "unmark":
             return CommandType.UNMARK;
+        case "priority":
+            return CommandType.PRIORITY;
         case "delete":
             return CommandType.DELETE;
         case "todo":

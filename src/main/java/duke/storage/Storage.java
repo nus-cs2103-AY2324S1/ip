@@ -12,6 +12,7 @@ import duke.exception.DukeException;
 import duke.tasks.DeadlineTask;
 import duke.tasks.EventTask;
 import duke.tasks.Task;
+import duke.tasks.Task.Priority;
 import duke.tasks.TaskList;
 import duke.tasks.ToDoTask;
 import duke.ui.Ui;
@@ -114,23 +115,24 @@ public class Storage {
         while ((line = reader.readLine()) != null) {
             String[] parts = line.split(" \\| ");
 
-            // Assert that every non-empty line in the file has at least 3 parts separated by '|' character.
-            assert parts.length >= 3 : "A non-empty line should have at least 3 '|' characters";
+            // Assert that every non-empty line in the file has at least 4 parts separated by '|' character.
+            assert parts.length >= 4 : "A non-empty line should have at least 4 '|' characters";
 
             String taskType = parts[0];
             boolean isDone = parts[1].equals("X");
             String taskDescription = parts[2];
+            Priority priority = Priority.valueOf(parts[3]);
 
             Task task;
             if (taskType.equals("T")) {
-                task = new ToDoTask(taskDescription);
+                task = new ToDoTask(taskDescription, priority);
             } else if (taskType.equals("D")) {
-                LocalDateTime deadline = LocalDateTime.parse(parts[3], Ui.DATE_FORMAT_OUTPUT);
-                task = new DeadlineTask(taskDescription, deadline);
+                LocalDateTime deadline = LocalDateTime.parse(parts[4], Ui.DATE_FORMAT_OUTPUT);
+                task = new DeadlineTask(taskDescription, deadline, priority);
             } else if (taskType.equals("E")) {
-                LocalDateTime from = LocalDateTime.parse(parts[3], Ui.DATE_FORMAT_OUTPUT);
-                LocalDateTime to = LocalDateTime.parse(parts[4], Ui.DATE_FORMAT_OUTPUT);
-                task = new EventTask(taskDescription, from, to);
+                LocalDateTime from = LocalDateTime.parse(parts[4], Ui.DATE_FORMAT_OUTPUT);
+                LocalDateTime to = LocalDateTime.parse(parts[5], Ui.DATE_FORMAT_OUTPUT);
+                task = new EventTask(taskDescription, from, to, priority);
             } else {
                 throw new IOException("Invalid task type found in file. Data file may be corrupted.");
             }

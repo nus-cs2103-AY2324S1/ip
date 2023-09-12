@@ -11,14 +11,37 @@ public abstract class Task {
     /** The status of the task. */
     private boolean isDone;
 
+    /** The priority of the task. */
+    private Priority priority;
+
     /**
-     * Constructs a Task with a given name and set it to be not done.
+     * Priority levels.
+     */
+    public enum Priority {
+        HIGH(1),
+        MEDIUM(2),
+        LOW(3);
+
+        private final int value;
+
+        Priority(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * Constructs a Task with a given name and priority and set it to be not done.
      *
      * @param name The name of the task.
      */
-    public Task(String name) {
+    public Task(String name, Priority priority) {
         this.name = name;
         this.isDone = false;
+        this.priority = priority;
     }
 
     /**
@@ -45,6 +68,15 @@ public abstract class Task {
     }
 
     /**
+     * Sets the priority of the task.
+     *
+     * @param priority The priority of the task.
+     */
+    public void setPriority (Priority priority) {
+        this.priority = priority;
+    }
+
+    /**
      * Gets the status icon of the task.
      *
      * @return "X" if the task is done, " " otherwise.
@@ -59,7 +91,7 @@ public abstract class Task {
      * @return The formatted description of the task.
      */
     public String getDescription() {
-        return "[" + this.getStatusIcon() + "] " + this.name;
+        return "[" + this.getStatusIcon() + "] " + this.name + " (Priority: " + this.priority + ")";
     }
 
     /**
@@ -68,7 +100,7 @@ public abstract class Task {
      * @return The file-formatted description of the task.
      */
     public String toFileString() {
-        return this.getStatusIcon() + " | " + this.name;
+        return this.getStatusIcon() + " | " + this.name + " | " + this.priority;
     }
 
     /**

@@ -23,8 +23,8 @@ public class EventTask extends Task {
      * @param from The start date and time of the event.
      * @param to   The end date and time of the event.
      */
-    public EventTask(String name, LocalDateTime from, LocalDateTime to) {
-        super(name);
+    public EventTask(String name, LocalDateTime from, LocalDateTime to, Priority priority) {
+        super(name, priority);
         this.from = from;
         this.to = to;
     }

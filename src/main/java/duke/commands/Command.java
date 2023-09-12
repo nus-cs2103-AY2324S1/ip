@@ -4,6 +4,7 @@ import java.io.IOException;
 import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.tasks.Task;
+import duke.tasks.Task.Priority;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
@@ -154,6 +155,27 @@ public abstract class Command {
         @Override
         public CommandType getType() {
             return CommandType.UNMARK;
+        }
+    }
+
+    public static class PriorityCommand extends Command {
+        private int taskNumber;
+        private Priority priority;
+
+        public PriorityCommand(int taskNumber, Priority priority) {
+            this.taskNumber = taskNumber;
+            this.priority = priority;
+        }
+
+        @Override
+        public String execute(TaskList tasks, Storage storage) throws DukeException {
+            int index = taskNumber - 1;
+            return tasks.setPriority(index, priority);
+        }
+
+        @Override
+        public CommandType getType() {
+            return CommandType.PRIORITY;
         }
     }
 
