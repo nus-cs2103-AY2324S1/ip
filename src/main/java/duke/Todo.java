@@ -39,4 +39,25 @@ public class Todo extends Task {
         String isDoneField = this.isDone() ? "1" : "0";
         return "T|" + isDoneField + "|" + nameField;
     }
+
+    /**
+     * Checks if this Todo is equal to another object.
+     *
+     * @param obj The other object being compared to.
+     * @return true if the other object is a Todo with the same string representation, false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof Todo)) {
+            return false;
+        }
+
+        Todo otherTodo = (Todo) obj;
+
+        return this.toString().equals(otherTodo.toString());
+    }
 }

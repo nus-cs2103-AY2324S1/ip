@@ -1,8 +1,11 @@
 package duke;
 
-public class Task {
+public abstract class Task {
     private String name;
     private boolean isDone = false;
+
+    @Override
+    public abstract boolean equals(Object obj);
 
     /**
      * Constructor for Task.

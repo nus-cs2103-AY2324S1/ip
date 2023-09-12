@@ -48,7 +48,7 @@ public class Parser {
                         }
                     }
                 } else if (splitStr[0].equals("todo") || splitStr[0].equals("deadline") || splitStr[0].equals("event")) {
-                    Task addedTask = new Task("");
+                    Task addedTask;
                     switch (splitStr[0]) {
                     case "todo":
                         String[] todoSplit = s.split("todo");
@@ -73,7 +73,14 @@ public class Parser {
                         String[] eSplitStr2 = eSplitStr1.split(" /");
                         addedTask = new Event(eSplitStr2[0], eSplitStr2[1].substring(5), eSplitStr2[2].substring(3));
                         break;
+                    default:
+                        return "";
                     }
+
+                    if (tasks.isDuplicate(addedTask)) {
+                        return Ui.informDuplicate();
+                    }
+
                     tasks.addTask(addedTask);
                     return Ui.informTaskAdded(addedTask, tasks.getSize());
                 } else if (splitStr[0].equals("find") && splitStr.length > 1 && !splitStr[1].equals("")) {

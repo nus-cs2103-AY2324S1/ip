@@ -78,4 +78,25 @@ public class Deadline extends Task {
         String deadlineField = by == null ? DateManager.dateTimeToStringStorage(this.dateTime) : by;
         return "D|" + isDoneField + "|" + nameField + "|" + deadlineField;
     }
+
+    /**
+     * Checks if this Deadline is equal to another object.
+     *
+     * @param obj The other object being compared to.
+     * @return true if the other object is a Deadline with the same string representation, false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof Deadline)) {
+            return false;
+        }
+
+        Deadline otherDeadline = (Deadline) obj;
+
+        return this.toString().equals(otherDeadline.toString());
+    }
 }

@@ -52,4 +52,25 @@ public class Event extends Task {
         String toField = this.to;
         return "E|" + isDoneField + "|" + nameField + "|" + fromField + "|" + toField;
     }
+
+    /**
+     * Checks if this Event is equal to another object.
+     *
+     * @param obj The other object being compared to.
+     * @return true if the other object is a Event with the same string representation, false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof Deadline)) {
+            return false;
+        }
+
+        Event otherEvent = (Event) obj;
+
+        return this.toString().equals(otherEvent.toString());
+    }
 }
