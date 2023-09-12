@@ -1,6 +1,6 @@
 package dan.task;
 
-import dan.DanException;
+import dan.exceptions.DanException;
 
 public class Task {
     // fields
@@ -12,19 +12,18 @@ public class Task {
         return (isDone ? "[V] " : "[ ] "); // mark done task with V
     }
 
-    public boolean mark(int id) {
-        if (id == 1) {                  /* to mark unmarked task */
+    public void mark(int id) throws DanException {
+        if (id == 1) {                  /* to mark task */
             if (isDone == false) {
                 isDone = true;
             } else {                        /* if the task is already marked */
-                throw new DanException("");
+                throw new DanException("Already marked!");
             }
-        } else {                        /* to unmark marked task */
+        } else {                        /* to unmark task */
             if (isDone == true) {
                 isDone = false;
-                return true;
             } else {                        /* if the task is already unmarked */
-                return false;
+                throw new DanException("Already unmarked");
             }
         }
     }
