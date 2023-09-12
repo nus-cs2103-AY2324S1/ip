@@ -12,8 +12,7 @@ import duke.task.Task;
 public class Event extends Task {
     private String from;
     private String to;
-    private LocalDateTime fromDateTime;
-    private LocalDateTime toDateTime;
+
     public Event(String name, String from, String to) {
         super(name);
         this.from = from;
@@ -22,8 +21,6 @@ public class Event extends Task {
 
     public Event(String name, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
         super(name);
-        this.fromDateTime = fromDateTime;
-        this.toDateTime = toDateTime;
         this.from = Task.printDate(fromDateTime);
         this.to = Task.printDate(toDateTime);
     }
@@ -40,5 +37,13 @@ public class Event extends Task {
     @Override
     public String printList() {
         return "E | " + super.printList() + " | " + this.from + " to " + this.to;
+    }
+
+    public Event reschedule(LocalDateTime fromDateTime, LocalDateTime toDateTime) {
+        return new Event(this.showTask(), fromDateTime, toDateTime);
+    }
+
+    public Event reschedule(String from, String to) {
+        return new Event(this.showTask(), from, to);
     }
 }

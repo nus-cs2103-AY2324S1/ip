@@ -8,14 +8,16 @@ import duke.ui.UI;
  *
  */
 public class Greeting {
+    private static final String GREET = "Hello! I'm chatbot\nWhat can I do for you?";
+    private static final String BYE = "Bye. Hope to see you again soon!";
 
     /**
      * This method prints out the line when user start the program
      *
      */
     public static String greet() {
-        UI.printMessage("Hello! I'm chatbot\nWhat can I do for you?");
-        return "Hello! I'm chatbot\nWhat can I do for you?";
+        UI.printMessage(GREET);
+        return GREET;
     }
 
     /**
@@ -23,8 +25,7 @@ public class Greeting {
      *
      */
     public static String bye() {
-        String bye = "Bye. Hope to see you again soon!";
-        UI.printMessage(bye);
-        return bye;
+        UI.printMessage(BYE);
+        return BYE;
     }
 }

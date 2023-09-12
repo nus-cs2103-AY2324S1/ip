@@ -3,9 +3,11 @@ package duke.parser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import duke.dates.Dates;
 import duke.task.ItemList;
+import duke.task.deadline.Deadline;
 import duke.task.deadline.DeadlineException;
+import duke.task.event.Event;
 import duke.task.event.EventException;
 import duke.task.todo.ToDoException;
 import duke.ui.UI;
@@ -18,7 +20,16 @@ import duke.ui.UI;
  */
 public class Parser {
 
-    private String line;
+    private final String line;
+    private final Pattern MARK_PATTERN = Pattern.compile("mark (\\d+).*");
+    private final Pattern UNMARK_PATTERN = Pattern.compile("unmark (\\d+).*");
+    private final Pattern DELETE_PATTERN = Pattern.compile("delete (\\d+).*");
+    private final Pattern DEADLINE_PATTERN = Pattern.compile("deadline (.*?) /by (.*)");
+    private final Pattern TODO_PATTERN = Pattern.compile("todo (.*)");
+    private final Pattern EVENT_PATTERN = Pattern.compile("event (.*?) /from (.*?) /to (.*)");
+    private final Pattern RESCHEDULE_EVENT_PATTERN = Pattern.compile("reschedule (\\d+) /from (.*?) /to (.*)");
+    private final Pattern RESCHEDULE_DEADLINE_PATTERN = Pattern.compile("reschedule (\\d+) /by (.*?)");
+    private final Pattern FIND_PATTERN = Pattern.compile("find (.*?)");
     public Parser(String line) {
         assert line != null && !line.isEmpty() : "Line should not be null or empty!";
         this.line = line;
@@ -38,8 +49,7 @@ public class Parser {
      * Execute mark operation on the item list based on the line String
      */
     public String parseMark(ItemList items) {
-        Pattern markpattern = Pattern.compile("mark (\\d+).*");
-        Matcher matcher = markpattern.matcher(this.line);
+        Matcher matcher = MARK_PATTERN.matcher(this.line);
         if (matcher.matches()) {
             String digitString = matcher.group(1);
             int number = Integer.parseInt(digitString);
@@ -54,8 +64,7 @@ public class Parser {
      * Execute unmark operation on the item list based on the line String
      */
     public String parseUnmark(ItemList items) {
-        Pattern unmarkpattern = Pattern.compile("unmark (\\d+).*");
-        Matcher matcher = unmarkpattern.matcher(this.line);
+        Matcher matcher = UNMARK_PATTERN.matcher(this.line);
         if (matcher.matches()) {
             String digitString = matcher.group(1);
             int number = Integer.parseInt(digitString);
@@ -69,8 +78,7 @@ public class Parser {
      * Execute delete operation on the item list based on the line String
      */
     public String parseDelete(ItemList items) {
-        Pattern deletepattern = Pattern.compile("delete (\\d+).*");
-        Matcher matcher = deletepattern.matcher(this.line);
+        Matcher matcher = DELETE_PATTERN.matcher(this.line);
         if (matcher.matches()) {
             String digitString = matcher.group(1);
             int number = Integer.parseInt(digitString);
@@ -84,8 +92,7 @@ public class Parser {
      * Execute adding Deadline operation on the item list based on the line String
      */
     public String parseDeadline(ItemList items) throws DeadlineException {
-        Pattern deadlinepattern = Pattern.compile("deadline (.*?) /by (.*)");
-        Matcher matcher = deadlinepattern.matcher(this.line);
+        Matcher matcher = DEADLINE_PATTERN.matcher(this.line);
         if (matcher.matches()) {
             String task = matcher.group(1);
             String by = matcher.group(2);
@@ -99,8 +106,8 @@ public class Parser {
      * Execute adding ToDo operation on the item list based on the line String
      */
     public String parseTodo(ItemList items) throws ToDoException {
-        Pattern todopattern = Pattern.compile("todo (.*)");
-        Matcher matcher = todopattern.matcher(line);
+
+        Matcher matcher = TODO_PATTERN.matcher(line);
         if (matcher.matches()) {
             String task = matcher.group(1);
             return items.addTodo(task);
@@ -113,8 +120,8 @@ public class Parser {
      * Execute adding Event operation on the item list based on the line String
      */
     public String parseEvent(ItemList items) throws EventException {
-        Pattern eventpattern = Pattern.compile("event (.*?) /from (.*?) /to (.*)");
-        Matcher matcher = eventpattern.matcher(this.line);
+
+        Matcher matcher = EVENT_PATTERN.matcher(this.line);
         if (matcher.matches()) {
             String task = matcher.group(1);
             String from = matcher.group(2);
@@ -126,13 +133,55 @@ public class Parser {
     }
 
     public String parseFind(ItemList items) {
-        Pattern eventpattern = Pattern.compile("find (.*?)");
-        Matcher matcher = eventpattern.matcher(this.line);
+
+        Matcher matcher = FIND_PATTERN.matcher(this.line);
         if (matcher.matches()) {
             String task = matcher.group(1);
             return items.find(task);
         } else {
             return UI.printMessage("Invalid find input");
+        }
+    }
+
+    public String parseReschedule(ItemList items) {
+        Matcher eventMatcher = RESCHEDULE_EVENT_PATTERN.matcher(this.line);
+        Matcher deadlineMatcher = RESCHEDULE_DEADLINE_PATTERN.matcher(this.line);
+        if (eventMatcher.matches()) {
+            String number = eventMatcher.group(1);
+            String checkOutcome = items.checkType(number);
+            if (!checkOutcome.equals("EVENT")) {
+                return UI.printMessage("This is not a event task!");
+            }
+
+            String from = eventMatcher.group(2);
+            String to = eventMatcher.group(3);
+            Event newEvent = (Event) items.getTask(number);
+            if (Dates.checkDateinput(from) && Dates.checkDateinput(to)) {
+                return items.setItems(newEvent.reschedule(Dates.convertToDateTime(from), Dates.convertToDateTime(to)), number);
+            } else {
+                return items.setItems(newEvent.reschedule(from,to), number);
+            }
+
+        }
+        if (deadlineMatcher.matches()) {
+            String number = deadlineMatcher.group(1);
+            String checkOutcome = items.checkType(number);
+
+            if (!checkOutcome.equals("DEADLINE")) {
+                return UI.printMessage("This is not a deadline task!");
+            }
+
+
+
+            String by = deadlineMatcher.group(2);
+            Deadline newDeadline = (Deadline) items.getTask(number);
+            if (Dates.checkDateinput(by)) {
+                return items.setItems(newDeadline.reschedule(Dates.convertToDateTime(by)), number);
+            } else {
+                return items.setItems(newDeadline.reschedule(by), number);
+            }
+        } else {
+            return UI.printMessage("Invalid Reschedule input");
         }
     }
 

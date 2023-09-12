@@ -11,16 +11,14 @@ public class Deadline extends Task {
 
     private String by;
 
-    private LocalDateTime bydateTime;
     public Deadline(String name, String by) {
         super(name);
         this.by = by;
     }
 
-    public Deadline(String name, LocalDateTime bydateTime) {
+    public Deadline(String name, LocalDateTime byDateTime) {
         super(name);
-        this.bydateTime = bydateTime;
-        this.by = Task.printDate(bydateTime);
+        this.by = Task.printDate(byDateTime);
     }
 
     /**
@@ -37,5 +35,14 @@ public class Deadline extends Task {
     public String printList() {
         return "D | " + super.printList() + " | " + this.by;
     }
+
+    public Deadline reschedule(String by) {
+        return new Deadline(this.showTask(), by);
+    }
+
+    public Deadline reschedule(LocalDateTime byDateTime) {
+        return new Deadline(this.showTask(), byDateTime);
+    }
+
 
 }
