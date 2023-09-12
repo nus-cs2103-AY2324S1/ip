@@ -1,11 +1,11 @@
 package duke;
 
-import exceptions.ParserException;
+import java.util.List;
 
-import javafx.application.Platform;
+import exceptions.ParserException;
 import io.Parser;
 import io.Ui;
-import java.util.List;
+import javafx.application.Platform;
 import storage.Storage;
 import tasks.Task;
 import tasks.TaskList;
@@ -21,6 +21,9 @@ public class Duke {
     private Ui ui;
     private Storage storage;
 
+    /**
+     * Creates a  Duke object, which is the main entrypoint for the chatbot.
+     */
     public Duke() {
         this.taskList = new TaskList();
         this.parser = new Parser();
@@ -30,6 +33,9 @@ public class Duke {
     }
 
 
+    /**
+     * Contains core logic to list all tasks
+     */
     public void listTasks() {
 
         if (taskList.isEmpty()) {
@@ -46,6 +52,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Contains core logic to unmark a task
+     */
     public void unmarkTask() {
         try {
             // set current task as un-done
@@ -57,6 +66,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Contains core logic to mark a task as done.
+     */
     public void markTaskAsDone() {
         try {
             // set current task as done
@@ -68,6 +80,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Contains core logic to add a todo task
+     */
     public void addTodo() {
         try {
             Task curentTask = new Todo(parser.getTaskName());
@@ -78,6 +93,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Contains core logic to add a deadline
+     */
     public void addDeadline() {
 
         try {
@@ -91,6 +109,9 @@ public class Duke {
 
     }
 
+    /**
+     * Contains core logic to add an event
+     */
     public void addEvent() {
         try {
             Task curentTask = parser.parseEvent();
@@ -101,6 +122,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Contains core logic to delete a task
+     */
     public void deleteTask() {
         if (taskList.isEmpty()) {
             ui.addPrintStatement("The list is empty!");
@@ -116,6 +140,10 @@ public class Duke {
         }
     }
 
+
+    /**
+     * Contains core logic to find a task
+     */
     public void findTask() {
         ui.addPrintStatement("finding task!");
         String name = parser.getTaskName();
@@ -130,55 +158,63 @@ public class Duke {
         }
     }
 
+    /**
+     * Displays greetings text
+     */
     public String start() {
         ui.displayGreetings();
         return ui.getPrintStatement();
     }
 
+    /**
+     * Main function decides what to do based on the users input.
+     *
+     * @param input a string that the user has entered
+     */
     public void run(String input) {
 
         parser.update(input);
         // there is no input
         switch (parser.getCommandString()) {
-            case "bye":
-                ui.displayGoodbye();
-                storage.saveTasks();
-                Platform.exit();
-                System.exit(0);
-                break;
-            case "list":
-                listTasks();
-                break;
-            case "mark": {
-                markTaskAsDone();
-                break;
-            }
-            case "unmark": {
-                unmarkTask();
-                break;
-            }
-            case "todo": {
-                addTodo();
-                break;
-            }
-            case "deadline": {
-                addDeadline();
-                break;
-            }
-            case "event": {
-                addEvent();
-                break;
-            }
-            case "delete": {
-                deleteTask();
-                break;
-            }
-            case "find": {
-                findTask();
-                break;
-            }
-            default:
-                ui.addPrintStatement("Please enter a suitable task!");
+        case "bye":
+            ui.displayGoodbye();
+            storage.saveTasks();
+            Platform.exit();
+            System.exit(0);
+            break;
+        case "list":
+            listTasks();
+            break;
+        case "mark": {
+            markTaskAsDone();
+            break;
+        }
+        case "unmark": {
+            unmarkTask();
+            break;
+        }
+        case "todo": {
+            addTodo();
+            break;
+        }
+        case "deadline": {
+            addDeadline();
+            break;
+        }
+        case "event": {
+            addEvent();
+            break;
+        }
+        case "delete": {
+            deleteTask();
+            break;
+        }
+        case "find": {
+            findTask();
+            break;
+        }
+        default:
+            ui.addPrintStatement("Please enter a suitable task!");
         }
 
     }
