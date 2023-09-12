@@ -19,7 +19,7 @@
                 <Font size="14.0" />
             </font>
         </TextField>
-        <Button fx:id="sendButton" layoutX="325.0" layoutY="560.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="36.0" prefWidth="70.0" style="-fx-font-style: San Francisco;" text="Send" textAlignment="CENTER">
+        <Button fx:id="sendButton" layoutX="325.0" layoutY="560.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="36.0" prefWidth="70.0" text="Send" textAlignment="CENTER">
             <font>
                 <Font size="14.0" />
             </font>
