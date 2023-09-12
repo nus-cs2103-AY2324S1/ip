@@ -105,6 +105,7 @@ public class Parser {
      * @param command User Input
      */
     public String parseTodo(String command) {
+        assert Parser.getCommandWord(command) == "todo" : "Wrong command word to create todo";
         String restOfCommand = Parser.removeCommandWord(command);
         if (restOfCommand.equals("")) {
             EpochMindException e = new EpochMindException("Thou hast not specified a task");
@@ -120,6 +121,7 @@ public class Parser {
      * @param command User Input
      */
     public String parseDeadline(String command) {
+        assert Parser.getCommandWord(command) == "deadline" : "Wrong command word to create deadline";
         String restOfCommand = Parser.removeCommandWord(command);
         int endIndex = restOfCommand.indexOf("/by ");
         if (endIndex == -1) {
@@ -144,6 +146,7 @@ public class Parser {
      * @param command String obtained from scanner
      */
     public String parseEvent(String command) {
+        assert Parser.getCommandWord(command) == "event" : "Wrong command word to create event";
         String restOfCommand = Parser.removeCommandWord(command);
         int fromIndex = restOfCommand.indexOf("/from");
         if (fromIndex == -1) {
