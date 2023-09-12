@@ -60,6 +60,39 @@ public class Parser {
                     return new Command.InvalidCommand("OOPS!!! Please enter a valid task number to unmark.");
                 }
             }
+        case PRIORITY:
+            if (commandDetails.equals("")) {
+                return new Command.InvalidCommand("OOPS!!! Please enter a task number and a new priority to change the priority.");
+            }
+
+            String[] priorityInfo = commandDetails.split(" ", 2);
+            if (priorityInfo.length < 2) {
+                return new Command.InvalidCommand("OOPS!!! Please provide both a task number and a new priority.");
+            }
+
+            try {
+                int taskNumber = Integer.parseInt(priorityInfo[0]);
+                String newPriorityValue = priorityInfo[1].trim();
+
+                Priority newPriority;
+                if (newPriorityValue.equalsIgnoreCase("1")
+                        || newPriorityValue.equalsIgnoreCase("high")) {
+                    newPriority = Priority.HIGH;
+                } else if (newPriorityValue.equalsIgnoreCase("2")
+                        || newPriorityValue.equalsIgnoreCase("medium")) {
+                    newPriority = Priority.MEDIUM;
+                } else if (newPriorityValue.equalsIgnoreCase("3")
+                        || newPriorityValue.equalsIgnoreCase("low")) {
+                    newPriority = Priority.LOW;
+                } else {
+                    return new Command.InvalidCommand("OOPS!!! Invalid new priority."
+                            + " Please use '1', '2', '3', 'high', 'medium', or 'low'.");
+                }
+
+                return new Command.PriorityCommand(taskNumber, newPriority);
+            } catch (NumberFormatException e) {
+                return new Command.InvalidCommand("OOPS!!! Please enter a valid task number to change the priority.");
+            }
         case DELETE:
             if (commandDetails.equals("")) {
                 return new Command.InvalidCommand("OOPS!!! Please enter a task number to delete.");
@@ -79,7 +112,7 @@ public class Parser {
             try {
                 String[] taskDetailsArray = commandDetails.split("/p", 2);
                 String taskName = taskDetailsArray[0].trim();
-                Priority priority = parsePriority(commandDetails);
+                Priority priority = parsePriorityFromCommandDetails(commandDetails);
                 return new Command.AddCommand(new ToDoTask(taskName, priority), CommandType.ADD_TODO);
             } catch (DukeException e) {
                 return new Command.InvalidCommand(e.getMessage());
@@ -103,7 +136,7 @@ public class Parser {
                 String taskName = taskDetailsArray[0].trim();
                 String stringDeadline = taskDetailsArray[1].split("/p")[0].trim();
                 LocalDateTime deadline = LocalDateTime.parse(stringDeadline, Ui.DATE_FORMAT_INPUT);
-                Priority priority = parsePriority(commandDetails);
+                Priority priority = parsePriorityFromCommandDetails(commandDetails);
 
                 return new Command.AddCommand(new DeadlineTask(taskName, deadline, priority), CommandType.ADD_DEADLINE);
             } catch (DateTimeParseException e) {
@@ -138,7 +171,7 @@ public class Parser {
                 String stringEndTime = taskDetailsArray2[1].split("/p")[0].trim();
                 LocalDateTime startTime = LocalDateTime.parse(stringStartTime, Ui.DATE_FORMAT_INPUT);
                 LocalDateTime endTime = LocalDateTime.parse(stringEndTime, Ui.DATE_FORMAT_INPUT);
-                Priority priority = parsePriority(commandDetails);
+                Priority priority = parsePriorityFromCommandDetails(commandDetails);
 
                 return new Command.AddCommand(new EventTask(taskName, startTime, endTime, priority),
                         CommandType.ADD_EVENT);
@@ -164,7 +197,7 @@ public class Parser {
         }
     }
 
-    private static Priority parsePriority(String input) throws DukeException {
+    private static Priority parsePriorityFromCommandDetails(String input) throws DukeException {
         if (!input.contains("/p")) {
             return Priority.LOW; // Default to low if /p is not provided
         }

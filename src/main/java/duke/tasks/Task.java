@@ -68,6 +68,15 @@ public abstract class Task {
     }
 
     /**
+     * Sets the priority of the task.
+     *
+     * @param priority The priority of the task.
+     */
+    public void setPriority (Priority priority) {
+        this.priority = priority;
+    }
+
+    /**
      * Gets the status icon of the task.
      *
      * @return "X" if the task is done, " " otherwise.
