@@ -10,32 +10,32 @@ import org.junit.jupiter.api.Test;
 public class InternalPathTest {
 
     @Test
-    public void excludingLastComponent_nonEmptyPath_correctEquivalentPath() {
+    public void getByExcludingLastComponent_nonEmptyPath_correctEquivalentPath() {
         InternalPath path1;
         InternalPath path2;
         path1 = InternalPath.of("aaa", "bbb", "ccc");
         path2 = InternalPath.of("aaa", "bbb");
 
-        assertArrayEquals(new String[] { "aaa", "bbb" }, path1.excludingLastComponent().getComponents());
+        assertArrayEquals(new String[] { "aaa", "bbb" }, path1.getByExcludingLastComponent().getComponents());
         assertArrayEquals(new String[] { "aaa", "bbb" }, path2.getComponents());
 
         path1 = InternalPath.of("123");
 
-        assertArrayEquals(new String[] {}, path1.excludingLastComponent().getComponents());
+        assertArrayEquals(new String[] {}, path1.getByExcludingLastComponent().getComponents());
 
         path2 = InternalPath.of("456", "789", "012");
 
         assertArrayEquals(
                 new String[] { "456" },
-                path2.excludingLastComponent().excludingLastComponent().getComponents()
+                path2.getByExcludingLastComponent().getByExcludingLastComponent().getComponents()
         );
     }
 
     @Test
-    public void excludingLastComponent_emptyPath_exceptionThrown() {
+    public void getByExcludingLastComponent_emptyPath_exceptionThrown() {
         try {
             InternalPath path = InternalPath.of("");
-            path.excludingLastComponent();
+            path.getByExcludingLastComponent();
         } catch (NegativeArraySizeException e) {
             // Success.
         }
