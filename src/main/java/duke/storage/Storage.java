@@ -21,7 +21,7 @@ import duke.task.ToDo;
  */
 public class Storage {
 
-    private String filePath;
+    private final String filePath;
 
     /**
      * Constructs a `Storage` object with the specified file path.
@@ -65,7 +65,7 @@ public class Storage {
                     items.add(new Event(name, LocalDateTime.parse(from), LocalDateTime.parse(to), isDone));
                     break;
                 default:
-                    continue;
+                    throw new DukeException("Unknown task type in datafile.");
                 }
             }
             reader.close();
