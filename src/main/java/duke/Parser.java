@@ -18,6 +18,10 @@ public class Parser {
      * @throws DukeException If there's an error in command execution.
      */
     public void parseAndExecute(String fullCommand, TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        assert fullCommand != null : "fullCommand should not be null"; // fullCommand should not be null
+        assert tasks != null : "tasks should not be null"; // tasks should not be null
+        assert ui != null : "ui should not be null"; // ui should not be null
+        assert storage != null : "storage should not be null"; // storage should not be null
         validateInput(fullCommand);
         String[] tokens = fullCommand.split("\\s+");
         String command = tokens[0];
