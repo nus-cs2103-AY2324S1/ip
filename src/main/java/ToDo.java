@@ -37,4 +37,9 @@ public class ToDo extends Task {
         String tmp = "T " + super.getSaveDescription() + "\n";
         return tmp;
     }
+
+    @Override
+    public Task copy() {
+        return new ToDo(this.getDescription(), this.getIsDone());
+    }
 }

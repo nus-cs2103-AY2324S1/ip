@@ -15,7 +15,7 @@ public class MarkCommand extends Command {
     public String execute(TaskList taskList, Ui ui) {
         StringBuilder str = new StringBuilder();
         str.append("Nice! I've marked this task as done:\n");
-        Task markTask = taskList.getTask(this.markTaskIndex);
+        Task markTask = taskList.getTaskToEdit(this.markTaskIndex);
         markTask.markDone();
         str.append(markTask + "\n");
         return str.toString();

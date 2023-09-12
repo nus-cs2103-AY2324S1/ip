@@ -32,6 +32,11 @@ public class Deadline extends Task {
         this.byDate = LocalDate.parse(by);
     }
 
+    public Deadline(String description, LocalDate by, Boolean bool) {
+        super(description, bool);
+        this.byDate = by;
+    }
+
     // Adapted from https://www.baeldung.com/java-8-date-time-intro
     @Override
     public String toString() {
@@ -48,5 +53,10 @@ public class Deadline extends Task {
     public String getSaveDescription() {
         String tmp = "D " + super.getSaveDescription() + " | " + this.byDate + "\n";
         return tmp;
+    }
+
+    @Override
+    public Task copy() {
+        return new Deadline(this.getDescription(), this.byDate, this.getIsDone());
     }
 }

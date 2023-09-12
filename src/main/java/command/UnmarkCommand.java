@@ -14,7 +14,7 @@ public class UnmarkCommand extends Command {
     public String execute(TaskList taskList, Ui ui) {
         StringBuilder str = new StringBuilder();
         str.append("OK, I've marked this task as not done yet:\n");
-        Task unmarkTask = taskList.getTask(this.unmarkTaskIndex);
+        Task unmarkTask = taskList.getTaskToEdit(this.unmarkTaskIndex);
         unmarkTask.markUndone();
         str.append(unmarkTask + "\n");
         return str.toString();

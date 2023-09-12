@@ -1,14 +1,6 @@
 package main.java.parser;
 
-import main.java.command.Command;
-import main.java.command.DeadlineCommand;
-import main.java.command.DeleteCommand;
-import main.java.command.EventCommand;
-import main.java.command.FindCommand;
-import main.java.command.ListCommand;
-import main.java.command.MarkCommand;
-import main.java.command.ToDoCommand;
-import main.java.command.UnmarkCommand;
+import main.java.command.*;
 import main.java.exception.EmptyChoiceException;
 import main.java.exception.EmptyTodoException;
 import main.java.exception.UnknownCommandException;
@@ -61,6 +53,8 @@ public class Parser {
             return new DeleteCommand(Integer.parseInt(stringArray[1]) - 1);
         case "find":
             return new FindCommand(stringArray[1]);
+        case "undo":
+            return new UndoCommand();
         default:
             throw new UnknownCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n");
         }
