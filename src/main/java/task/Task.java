@@ -90,4 +90,18 @@ public abstract class Task implements Serializable {
     public boolean addTag(String tag) {
         return this.tags.add(tag);
     }
+
+    /**
+     * Searches this task's tag for a string, returning true if in tag.
+     * @param search the string to search for
+     * @return true if at least one of this task's tags contains the string
+     */
+    public boolean containsTag(String search) {
+        for (String tag : tags) {
+            if (tag.contains(search)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

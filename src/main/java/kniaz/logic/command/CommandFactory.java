@@ -43,8 +43,9 @@ public abstract class CommandFactory {
     static {
         // This ensures that at compile time all instruction types have an explicit, valid handler
         for (InstructionType i : InstructionType.values()) {
-            assert(INSTRUCT_TO_HANDLER.containsKey(i))
-                    : "There was a command " + i.alias + "with no associated handler!";
+
+            assert INSTRUCT_TO_HANDLER.containsKey(i)
+                    : "There was a command " + i.alias + " with no associated handler!";
         }
     }
 
