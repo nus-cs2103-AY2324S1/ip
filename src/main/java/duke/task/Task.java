@@ -3,7 +3,7 @@ package duke.task;
 /**
  * Represents a task with status indicating its completeness
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -20,17 +20,6 @@ public class Task {
     }
 
     /**
-     * Returns a string representation of the task.
-     *
-     * @return String representation of the task
-     */
-    @Override
-    public String toString() {
-        String status = "[" + (this.isDone ? "X" : " ") + "]";
-        return status + " " + this.description;
-    }
-
-    /**
      * Updates the task status to 'completed'
      */
     public void markAsDone() {
@@ -43,4 +32,11 @@ public class Task {
     public void markAsNotDone() {
         this.isDone = false;
     }
+
+    /**
+     * Returns a string representation of the Event object in the data file format.
+     *
+     * @return String representation of the Deadline object in the data file format.
+     */
+    public abstract String toDataFormatString();
 }

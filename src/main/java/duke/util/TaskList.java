@@ -37,7 +37,10 @@ public class TaskList {
     public String toString() {
         String output = "";
         for (int i = 0; i < list.size(); i++) {
-            output += (i + 1) + "." + list.get(i).toString() + "\n";
+            String index = (i + 1) + ".";
+            String taskString = list.get(i).toString() + "\n";
+
+            output += index + taskString;
         }
         return output;
     }
@@ -64,6 +67,7 @@ public class TaskList {
         if (index < 0 || index >= list.size()) {
             return null;
         }
+
         return this.list.remove(index);
     }
 
@@ -78,6 +82,7 @@ public class TaskList {
         if (index < 0 || index >= list.size()) {
             return null;
         }
+
         this.list.get(index).markAsDone();
         return this.list.get(index);
     }
@@ -93,6 +98,7 @@ public class TaskList {
         if (index < 0 || index >= list.size()) {
             return null;
         }
+
         this.list.get(index).markAsNotDone();
         return this.list.get(index);
     }
@@ -104,6 +110,16 @@ public class TaskList {
      */
     public int size() {
         return this.list.size();
+    }
+
+    /**
+     * Returns Task at the given index.
+     *
+     * @param index The given index of the Task.
+     * @return Task object at the given index.
+     */
+    public Task get(int index) {
+        return this.list.get(index);
     }
 
     /**

@@ -6,7 +6,7 @@ import duke.util.TaskList;
 import duke.util.Ui;
 
 /**
- * Represents a Add Command to be executed.
+ * Represents an Add Command to be executed.
  */
 public class AddCommand extends Command {
     private Task task;

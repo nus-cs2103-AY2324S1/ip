@@ -15,7 +15,24 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
+        String taskType = "[T]";
         String status = "[" + (super.isDone ? "X" : " ") + "]";
-        return "[T]" + status + " " + super.description;
+        String description = " " + super.description;
+
+        return taskType + status + description;
+    }
+
+    /**
+     * Returns a string representation of the Event object in the data file format.
+     *
+     * @return String representation of the Deadline object in the data file format.
+     */
+    @Override
+    public String toDataFormatString() {
+        String taskType = "T | ";
+        String status = (super.isDone ? "1" : "0") + " | ";
+        String description = super.description;
+
+        return taskType + status + description;
     }
 }

@@ -35,15 +35,10 @@ public class Ui {
     }
 
     /**
-     * Prints the current message in the Ui object and clears the message.
+     * Returns a String of the current message in the Ui object and clears the message.
+     *
+     * @return String with the current message.
      */
-    public void printMessage() {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.print(this.message);
-        System.out.println(HORIZONTAL_LINE);
-        this.message = "";
-    }
-
     public String showMessage() {
         String output = this.message;
         this.message = "";

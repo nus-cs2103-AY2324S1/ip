@@ -31,8 +31,26 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
+        String taskType = "[E]";
         String status = "[" + (this.isDone ? "X" : " ") + "]";
+        String description = " " + super.description + " ";
         String duration = "(from: " + this.fromDate + " to: " + this.toDate + ")";
-        return "[E]" + status + " " + this.description + " " + duration;
+
+        return taskType + status + description + duration;
+    }
+
+    /**
+     * Returns a string representation of the Event object in the data file format.
+     *
+     * @return String representation of the Deadline object in the data file format.
+     */
+    @Override
+    public String toDataFormatString() {
+        String taskType = "E | ";
+        String status = (super.isDone ? "1" : "0") + " | ";
+        String description = super.description + " | ";
+        String dates = this.fromDate.toString() + " | " + this.toDate.toString();
+
+        return taskType + status + description + dates;
     }
 }
