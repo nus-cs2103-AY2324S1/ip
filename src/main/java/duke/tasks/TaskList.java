@@ -17,6 +17,9 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
+
+        // Assert that the initial list of tasks provided is not null.
+        assert tasks != null : "Initial list of tasks cannot be null";
     }
 
     /**
@@ -26,6 +29,10 @@ public class TaskList {
      */
     public String addTask(Task task) {
         tasks.add(task);
+
+        // Assert that the task has been successfully added to the list.
+        assert tasks.contains(task) : "Task failed to be added to list";
+
         return "Got it. I've added this task:\n" + task.getDescription()
                 + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
@@ -41,6 +48,10 @@ public class TaskList {
         } else {
             Task task = tasks.get(index);
             tasks.remove(index);
+
+            // Assert that the task has been successfully deleted from the list.
+            assert !tasks.contains(task) : "Task failed to be removed from list";
+
             return "Noted. I've removed this task:\n" + task.getDescription()
                     + "\nNow you have " + tasks.size() + " tasks in the list.";
         }
@@ -57,6 +68,10 @@ public class TaskList {
         } else {
             Task task = tasks.get(index);
             task.markAsDone();
+
+            // Assert that the task is set as done.
+            assert task.isDone() : "Task was not marked as done";
+
             return "Nice! I've marked this task as done:\n" + task.getDescription();
         }
     }
@@ -71,7 +86,10 @@ public class TaskList {
             return "Please enter a valid number.";
         } else {
             Task task = tasks.get(index);
-            task.unmark();
+
+            // Assert that the task is set as not done.
+            assert !task.isDone() : "Task was not marked as not done";
+
             return "OK, I've marked this task as not done yet:\n" + task.getDescription();
         }
     }
