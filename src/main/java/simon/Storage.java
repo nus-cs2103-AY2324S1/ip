@@ -66,32 +66,36 @@ public class Storage {
                 String data = scanner.nextLine();
                 String[] parts = data.split(" \\| ");
                 switch (parts[0]) {
-                    case "T":
-                        ToDo todo = new ToDo(parts[2]);
-                        if (parts[1].equals("1")) {
-                            todo.markAsDone();
-                        }
-                        loadedTasks.add(todo);
-                        break;
-                    case "D":
-                        LocalDateTime endDateTime = LocalDateTime.parse(parts[3], formatter);
-                        Deadline deadline = new Deadline(parts[2], endDateTime.format(formatter));
-                        if (parts[1].equals("1")) {
-                            deadline.markAsDone();
-                        }
-                        loadedTasks.add(deadline);
-                        break;
-                    case "E":
-                        String startDateTimeStr = parts[3];
-                        String endDateTimeStr = parts[4];
-                        LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeStr, formatter);
-                        LocalDateTime endDateTime2 = LocalDateTime.parse(endDateTimeStr, formatter);
-                        Event event = new Event(parts[2], startDateTime.format(formatter), endDateTime2.format(formatter));
-                        if (parts[1].equals("1")) {
-                            event.markAsDone();
-                        }
-                        loadedTasks.add(event);
-                        break;
+                case "T":
+                    ToDo todo = new ToDo(parts[2]);
+                    if (parts[1].equals("1")) {
+                        todo.markAsDone();
+                    }
+                    loadedTasks.add(todo);
+                    break;
+                case "D":
+                    LocalDateTime endDateTime = LocalDateTime.parse(parts[3], formatter);
+                    Deadline deadline = new Deadline(parts[2], endDateTime.format(formatter));
+                    if (parts[1].equals("1")) {
+                        deadline.markAsDone();
+                    }
+                    loadedTasks.add(deadline);
+                    break;
+                case "E":
+                    String startDateTimeStr = parts[3];
+                    String endDateTimeStr = parts[4];
+                    LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeStr, formatter);
+                    LocalDateTime endDateTime2 = LocalDateTime.parse(endDateTimeStr, formatter);
+                    Event event = new Event(parts[2], startDateTime.format(formatter),
+                            endDateTime2.format(formatter));
+                    if (parts[1].equals("1")) {
+                        event.markAsDone();
+                    }
+                    loadedTasks.add(event);
+                    break;
+                default:
+                    // Handle unknown task types or throw an error
+                    break;
                 }
             }
             scanner.close();
@@ -117,10 +121,13 @@ public class Storage {
                     writer.println("T | " + (task.isDone ? "1" : "0") + " | " + task.taskName);
                 } else if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
-                    writer.println("D | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | " + deadline.endDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
+                    writer.println("D | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | "
+                            + deadline.endDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
                 } else if (task instanceof Event) {
                     Event event = (Event) task;
-                    writer.println("E | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | " + event.startDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")) + " | " + event.endDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
+                    writer.println("E | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | "
+                            + event.startDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")) + " | "
+                            + event.endDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
                 }
             }
             writer.close();
