@@ -9,7 +9,6 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
 
-
 /**
  * Represents a command to update an event.
  */

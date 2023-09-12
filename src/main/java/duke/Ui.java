@@ -194,18 +194,18 @@ public class Ui {
                 + "5. mark <task_index>: Mark a task as done.\n"
                 + "6. unmark <task_index>: Mark a task as not done.\n"
                 + "7. delete <task_index>: Delete a task.\n"
-                + "8. find <keyword>: Find tasks by keyword.\n"
-                + "9. check <date>: List all tasks on the date.\n"
-                + "10. today: List all tasks for today.\n"
-                + "11. help: Show this help message.\n"
-                + "12. bye: Exit the application.";
+                + "8. update <task_index>, [<new_description>], [<new_date_time>]: "
+                    + "Update a task description or date-time (if applicable)."
+                + "9. find <keyword>: Find tasks by keyword.\n"
+                + "10. check <date>: List all tasks on the date.\n"
+                + "11. today: List all tasks for today.\n"
+                + "12. help: Show this help message.\n"
+                + "13. bye: Exit the application.";
         return message;
     }
 
     /**
-     *
-     *
-     * @return
+     * Shows user the task that is updated.
      */
     public String showTaskUpdated(Task taskToUpdate) {
         return "Task updated: " + taskToUpdate.toString();
