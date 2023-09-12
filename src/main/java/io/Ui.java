@@ -87,7 +87,7 @@ public class Ui {
 
         if (task instanceof Todo) {
             answer =
-                "[" + Todo.taskType + "]" + "[" + task.getDoneIcon() + "] " + task.getDescription();
+                "[" + Todo.TASK_TYPE + "]" + "[" + task.getDoneIcon() + "] " + task.getDescription();
         } else if (task instanceof Deadline) {
             Deadline deadTask = (Deadline) task;
 

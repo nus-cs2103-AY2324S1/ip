@@ -1,7 +1,6 @@
 package tasks;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import tasks.Task;
 
 
 /**
@@ -11,7 +10,7 @@ import tasks.Task;
 public class Todo extends Task {
 
 
-    public static final String taskType = "T";
+    public static final String TASK_TYPE = "T";
 
     public Todo() {
         super("");
