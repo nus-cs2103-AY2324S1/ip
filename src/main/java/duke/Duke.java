@@ -28,17 +28,7 @@ public class Duke extends Application {
         }
     }
     public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
-    }
-
-    private void run() {
-//        ui.showWelcome();
-//        String cmd = ui.readCmd();
-//        while (parser.parseCommand(cmd)) {
-//            cmd = ui.readCmd();
-//            storage.saveTasks(tasks);
-//        }
-//        ui.closeScanner();
+        new Duke("data/duke.txt");
     }
 
     /**
