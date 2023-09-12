@@ -47,17 +47,11 @@ public class Parser {
                 EventTask eventTask = parseEvent(parts[1], false);
                 return tasks.addTask(eventTask, ui);
             case "mark":
-                int markTask = parseMarkCommand(parts) - 1;
-                if (markTask < 0 || markTask >= tasks.getTotalTasks()) {
-                    return ui.showNoTaskFound();
-                }
-                return tasks.getTask(markTask).markTask();
+                int markNo = parseMarkCommand(parts) - 1;
+                return tasks.markTask(markNo, ui);
             case "unmark":
-                int unmarkTask = parseUnmarkCommand(parts) - 1;
-                if (unmarkTask < 0 || unmarkTask >= tasks.getTotalTasks()) {
-                    return ui.showNoTaskFound();
-                }
-                return tasks.getTask(unmarkTask).unmarkTask();
+                int unmarkNo = parseUnmarkCommand(parts) - 1;
+                return tasks.unmarkTask(unmarkNo, ui);
             case "find":
                 return tasks.findTasks(parseFindCommand(parts), ui);
             default:
@@ -81,8 +75,7 @@ public class Parser {
     public static Task parseLoad(String taskType, String taskDetails, boolean isDone) throws DukeException {
         assert taskType != null : "Task type cannot be null.";
         if (taskType.equalsIgnoreCase("[T")) {
-            taskDetails = taskDetails.trim();
-            return new ToDoTask(taskDetails, isDone);
+            return new ToDoTask(clearWhitespace(taskDetails), isDone);
         } else if (taskType.equals("[D")) {
             return Parser.parseDeadline(taskDetails, isDone);
         } else if (taskType.equals("[E")) {
@@ -182,13 +175,8 @@ public class Parser {
             throw new DukeException("Remember to include 'by:' after the deadline command!");
         }
         String[] details = taskDetails.split("by:", 2);
-        String description = details[0];
-        description = description.trim();
-        if (description.equals("")) {
-            throw new DukeException("The description of a deadline cannot be empty.");
-        }
-        String by = details[1];
-        by = by.replace(" ", "");
+        String description = trimDescription(details[0]);
+        String by = clearWhitespace(details[1]);
         return new DeadlineTask(description, by, isDone);
     }
     /**
@@ -205,16 +193,36 @@ public class Parser {
         }
         String[] details = taskDetails.split("from:", 2);
         String[] innerDetails = details[1].split(" to:", 2);
-        String description = details[0];
-        description = description.trim();
-        if (description.equals("")) {
-            throw new DukeException("The description of a event cannot be empty.");
-        }
-        String from = innerDetails[0];
-        from = from.replace(" ", "");
-        String to = innerDetails[1];
-        to = to.replace(" ", "");
-
+        String description = trimDescription(details[0]);
+        String from = clearWhitespace(innerDetails[0]);
+        String to = clearWhitespace(innerDetails[1]);
         return new EventTask(description, from, to, isDone);
     }
+
+    /**
+     * Trims leading and trailing whitespace from the given description.
+     *
+     * @param description The description to be trimmed.
+     * @return The trimmed description.
+     * @throws DukeException If the trimmed description becomes empty.
+     */
+    public static String trimDescription(String description) throws DukeException {
+        description = description.trim();
+        if (description.equals("")) {
+            throw new DukeException("The description of a deadline cannot be empty.");
+        }
+        return description;
+    }
+
+    /**
+     * Removes all whitespace from the given description.
+     *
+     * @param description The description from which whitespace will be removed.
+     * @return The description with all whitespace removed.
+     */
+    public static String clearWhitespace(String description) {
+        description = description.replace(" ", "");
+        return description;
+    }
 }
+

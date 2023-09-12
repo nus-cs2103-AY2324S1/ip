@@ -26,37 +26,10 @@ public class EventTask extends Task {
         super(description, isDone);
         assert description != null : "Description cannot be null.";
         try {
-            setEventFromDate(from);
-            setEventToDate(to);
+            fromDate = setDate(from);
+            toDate = setDate(to);
         } catch (DateTimeException e) {
             throw new DukeException("Please input your date in the YYYY-MM-DD format!");
-        }
-    }
-
-    /**
-     * Sets the start date of the event task.
-     *
-     * @param date The start date in the "YYYY-MM-DD" format.
-     */
-    public void setEventFromDate(String date) throws DukeException {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            this.fromDate = LocalDate.parse(date, formatter);
-        } catch (DateTimeException e) {
-            throw new DukeException("There is no such date!");
-        }
-    }
-    /**
-     * Sets the end date of the event task.
-     *
-     * @param date The end date in the "YYYY-MM-DD" format.
-     */
-    public void setEventToDate(String date) throws DukeException {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            this.toDate = LocalDate.parse(date, formatter);
-        } catch (DateTimeException e) {
-            throw new DukeException("There is no such date!");
         }
     }
 
@@ -80,11 +53,6 @@ public class EventTask extends Task {
         return toDate.format(formatter);
     }
 
-    /**
-     * Converts the task to a string for saving to the data file.
-     *
-     * @return A string representation of the task for saving.
-     */
     public String toSave() {
         return "[E]" + super.toString() + " (from: " + this.fromDate + " to: " + this.toDate + ")";
     }

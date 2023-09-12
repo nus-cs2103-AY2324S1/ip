@@ -5,15 +5,6 @@ package duke.task;
 public class ToDoTask extends Task {
 
     /**
-     * Constructs a ToDoTask with the given description and marks it as not done.
-     *
-     * @param description The description of the task.
-     */
-    public ToDoTask(String description) {
-        super(description, false);
-    }
-
-    /**
      * Constructs a ToDoTask with the given description and completion status.
      *
      * @param description The description of the task.
@@ -24,11 +15,6 @@ public class ToDoTask extends Task {
         assert description != null : "Description cannot be null.";
     }
 
-    /**
-     * Converts the ToDoTask to a string format suitable for saving.
-     *
-     * @return A string representation of the ToDoTask for saving to a file.
-     */
     public String toSave() {
         return "[T]" + super.toString();
     }
