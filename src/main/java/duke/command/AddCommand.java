@@ -58,9 +58,7 @@ public class AddCommand extends Command {
                 tasks.addTask(task);
                 store.save(tasks);
                 return ui.printAddTask(tasks.size(), task);
-            } else {
-                return "Duplicated task detected";
-            }
+            } throw new DukeException(" Duplicate task detected!");
 
         } catch (IOException e) {
             throw new DukeException(" unable to locate local file!");
