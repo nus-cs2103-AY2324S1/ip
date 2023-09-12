@@ -1,21 +1,24 @@
-package peko;
+package peko.tasks;
 
-public class Event extends Task{
-    char type = 'E';
-    DateTimeHandler startHandler;
-    DateTimeHandler endHandler;
+import peko.DateTimeHandler;
+import peko.exceptions.InvalidTaskException;
+
+public class Event extends Task {
+    private char type = 'E';
+    private DateTimeHandler startHandler;
+    private DateTimeHandler endHandler;
     public Event(String s) throws InvalidTaskException {
         super(s);
         String[] split = s.split(" /from ");
         if (split.length == 1) {
             System.out.println("There's no start date peko!");
             return;
-        } else if (split.length >= 3){
+        } else if (split.length >= 3) {
             System.out.println("You can't have two start dates peko!");
             return;
         }
 
-        split[0].split(" ",2);
+        split[0].split(" ", 2);
         this.name = split[0];
         split = split[1].split(" /to ");
         if (split.length == 1) {
@@ -36,7 +39,7 @@ public class Event extends Task{
     }
 
     public String toStore() {
-        String state = this.status ? "0" : "1";
-        return "E" + " | " + state + " | " + this.name + " | " + startHandler.toString() + " | " + endHandler.toString();
+        String curr = this.status ? "0" : "1";
+        return "E" + " | " + curr + " | " + this.name + " | " + startHandler.toString() + " | " + endHandler.toString();
     }
 }

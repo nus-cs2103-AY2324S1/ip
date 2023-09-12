@@ -1,8 +1,9 @@
-package peko;
+package peko.tasks;
 
-import java.util.Arrays;
+import peko.DateTimeHandler;
+import peko.exceptions.InvalidTaskException;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     char type =  'D';
     DateTimeHandler dateTimeHandler;
     public Deadline(String s) throws InvalidTaskException {

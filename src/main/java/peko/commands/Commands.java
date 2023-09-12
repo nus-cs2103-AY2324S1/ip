@@ -1,4 +1,4 @@
-package peko;
+package peko.commands;
 
 public enum Commands {
 

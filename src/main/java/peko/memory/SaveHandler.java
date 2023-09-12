@@ -1,7 +1,12 @@
-package peko;
+package peko.memory;
+
+import peko.tasks.Deadline;
+import peko.tasks.Event;
+import peko.tasks.Task;
+import peko.tasks.ToDos;
+import peko.exceptions.InvalidTaskException;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class SaveHandler {
@@ -18,7 +23,7 @@ public class SaveHandler {
      */
     public static void saveTo() {
 
-        System.out.println(file.getAbsolutePath());
+        //System.out.println(file.getAbsolutePath());
         PrintWriter printWriter;
 
         try {
@@ -63,7 +68,7 @@ public class SaveHandler {
      */
     public static Task[] loadFrom() {
 
-        System.out.println(file.getAbsolutePath());
+        //System.out.println(file.getAbsolutePath());
         try {
             int pos = 0;
             Scanner scanner = new Scanner(file.getAbsoluteFile());

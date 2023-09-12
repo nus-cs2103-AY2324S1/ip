@@ -1,4 +1,6 @@
-package peko;
+package peko.tasks;
+
+import peko.exceptions.InvalidTaskException;
 
 public class Task {
     protected String name;

@@ -1,10 +1,10 @@
 package peko;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
+
+import peko.commands.Commands;
+import peko.memory.StorageHandler;
+import peko.tasks.TaskHandler;
+
 import java.util.Scanner;
 
 public class UserInputHandler {
@@ -41,14 +41,19 @@ public class UserInputHandler {
     }
 
 
-    /**
-     * Processes the parsed user input.
-     * This method initializes a TaskHandler with the parsed command and description,
-     * and delegates the processing of the task to the TaskHandler.
-     *
-     * @return True if the user selects a Task that continues the program and false otherwise.
-     */
-    public boolean processInput() {
+    public void newInput(String s) {
+        Parser parser = new Parser(s);
+        command = parser.getResponseValue();
+        description = parser.getDescription();
+
+    }
+
+    public String getResponse() {
+        TaskHandler taskHandler = new TaskHandler(command, description);
+        return taskHandler.getResponse();
+    }
+
+   public boolean processInput() {
         TaskHandler taskHandler = new TaskHandler(command, description);
         return taskHandler.run();
     }
