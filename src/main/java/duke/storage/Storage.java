@@ -53,23 +53,30 @@ public class Storage {
      * @throws DukeException If an error occurs while creating directories or files.
      */
     private void accessOrCreateFile(String filePath) throws DukeException {
-        try {
-            File file = new File(filePath);
-            File directory = file.getParentFile();
+        File file = new File(filePath);
+        File directory = file.getParentFile();
 
-            if (!directory.exists()) {
-                if (directory.mkdirs()) {
-                    System.out.println("Directory created: " + directory.getAbsolutePath());
-                } else {
-                    System.out.println("Failed to create directory.");
-                }
+        createDirectoryIfNotExists(directory);
+        createFileIfNotExists(file);
+    }
+
+    private void createDirectoryIfNotExists(File directory) {
+        if (!directory.exists()) {
+            if (directory.mkdirs()) {
+                System.out.println("Directory created: " + directory.getAbsolutePath());
+            } else {
+                System.out.println("Failed to create directory.");
             }
+        }
+    }
 
+    private void createFileIfNotExists(File file) throws DukeException {
+        try {
             if (!file.exists()) {
                 if (file.createNewFile()) {
                     System.out.println("File created: " + file.getAbsolutePath());
                 } else {
-                    System.out.println("Failed to create file.");
+                    System.out.println("File already exists.");
                 }
             }
         } catch (IOException e) {

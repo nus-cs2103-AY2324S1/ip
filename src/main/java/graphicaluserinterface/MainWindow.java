@@ -9,10 +9,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private static final Image IMAGE_DUKE = new Image(MainWindow.class.getResourceAsStream("/images/DaDuke.png"));
+    private static final Image IMAGE_USER = new Image(MainWindow.class.getResourceAsStream("/images/DaUser.png"));
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -24,9 +28,6 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
     private String response = "";
 
     /**
@@ -35,7 +36,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(Ui.MESSAGE_WELCOME, dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(Ui.MESSAGE_WELCOME, IMAGE_DUKE));
     }
 
     /**
@@ -62,7 +63,7 @@ public class MainWindow extends AnchorPane {
      * @param message The message to be printed.
      */
     public void printMessage(String message) {
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(message, dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(message, IMAGE_DUKE));
     }
 
     /**
@@ -75,8 +76,8 @@ public class MainWindow extends AnchorPane {
         this.duke.run(input);
 
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getUserDialog(input, IMAGE_USER),
+                DialogBox.getDukeDialog(response, IMAGE_DUKE)
         );
         userInput.clear();
 

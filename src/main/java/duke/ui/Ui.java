@@ -3,9 +3,7 @@ package duke.ui;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The Ui class handles user interface interactions and messages for the Duke application.
- * It provides methods for reading user commands, displaying welcome and goodbye messages,
- * and formatting messages with separators.
+ * A class that contains all the constants used by the user interface.
  */
 public class Ui {
     /** The date and time input format used for parsing user input. */
