@@ -8,8 +8,10 @@ import max.tasks.TaskList;
 import max.tasks.*;
 import max.ui.Ui;
 
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 import static java.lang.Integer.parseInt;
 
@@ -42,6 +44,7 @@ public class Parser {
      * @throws MaxException If command is invalid.
      */
     public Command parse(String fullCommand) throws MaxException {
+        assert !fullCommand.equals("") : "Command should not be empty";
         String com = fullCommand.split(" ")[0];
 
         switch (com) {
@@ -87,7 +90,7 @@ public class Parser {
             throw new MaxException("     Watch out -- todo description cannot be empty.");
         }
         String description = fullCommand.substring(5).trim();
-
+        assert !description.equals("") : "Task description should not be empty";
         return new AddCommand(new Todo(description));
     }
     /**
@@ -112,6 +115,8 @@ public class Parser {
         if (item.isEmpty() || from.isEmpty() || to.isEmpty()) {
             throw new MaxException("     Oh no! Event item, 'from' date, or 'to' date cannot be empty.");
         }
+
+        assert !item.equals("") : "Event item should not be empty";
 
         LocalDate fromDate = LocalDate.parse(from);
         LocalDate toDate = LocalDate.parse(to);
@@ -138,6 +143,8 @@ public class Parser {
             throw new MaxException("     Oops... Deadline item or 'by' date cannot be empty.");
         }
 
+        assert !item.equals("") : "Deadline item should not be empty";
+
         LocalDate byDate = LocalDate.parse(by);
 
         return new AddCommand(new Deadline(item, byDate));
@@ -150,6 +157,8 @@ public class Parser {
      */
     public Command handleDelete(String fullCommand) throws MaxException {
         int deleteNumber = parseInt(fullCommand.substring(7));
+
+        assert deleteNumber > 0 : "Delete number should be positive integer";
         return new DeleteCommand(deleteNumber);
     }
     /**
@@ -159,8 +168,13 @@ public class Parser {
      * @return MarkCommand Command
      * @throws MaxException If mark number is invalid.
      */
-    public Command handleMark(String fullCommand) throws MaxException {
+    public Command handleMark(String fullCommand) {
         int markNumber = parseInt(fullCommand.substring(5));
+        if (markNumber <= 0) {
+            throw new IndexOutOfBoundsException("Make sure you enter a valid integer!");
+        }
+        assert markNumber > 0 : "Mark number should be positive integer";
+
         return new MarkCommand(markNumber);
     }
     /**
@@ -170,9 +184,14 @@ public class Parser {
      * @return UnmarkCommand Command
      * @throws MaxException If unmark number is invalid.
      */
-    public Command handleUnmark(String fullCommand) throws MaxException {
-        int markNumber = parseInt(fullCommand.substring(7));
-        return new MarkCommand(markNumber);
+    public Command handleUnmark(String fullCommand) {
+        int unmarkNumber = parseInt(fullCommand.substring(7));
+        if (unmarkNumber <= 0) {
+            throw new IndexOutOfBoundsException("Make sure you enter a valid integer!");
+        }
+        assert unmarkNumber > 0 : "Unmark number should be positive integer";
+
+        return new UnmarkCommand(unmarkNumber);
     }
 
     /**

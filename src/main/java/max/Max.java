@@ -17,6 +17,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.lang.reflect.InvocationTargetException;
 import java.time.format.DateTimeParseException;
 
 import max.commands.Command;
@@ -200,6 +201,8 @@ public class Max  {
         } catch (DateTimeParseException e) {
             return ui.showError("Please use yyyy-mm-dd format!");
 //            return "error";
+        } catch (IndexOutOfBoundsException e) {
+            return ui.showError("Please use proper formats!");
         }
     }
 
