@@ -12,14 +12,14 @@ import simon.SimonException;
  * that has a specific end date and time by which it should be completed.
  */
 public class Deadline extends Task {
-    /** The end date and time for this deadline task. */
-    public final LocalDateTime endDateTime;
-
     /** Formatter to parse date and time input provided by the user. */
-    private final static DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy[ HHmm]");
+    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy[ HHmm]");
 
     /** Formatter to format date and time for output display. */
-    private final static DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+
+    /** The end date and time for this deadline task. */
+    public final LocalDateTime endDateTime;
 
     /**
      * Constructs a new Deadline task.
