@@ -39,7 +39,6 @@ public class DeleteCommand extends Command {
             Task task = tasks.getTask(taskNum);
             assert taskNum < tasks.size() : "Index of task to delete must be less than actual size of list";
             tasks.deleteTask(taskNum);
-            System.out.println("tasks is" + tasks.totxtformat());
             store.save(tasks);
             return ui.printDeleteTask(tasks.size(), task);
         } catch (IOException e) {

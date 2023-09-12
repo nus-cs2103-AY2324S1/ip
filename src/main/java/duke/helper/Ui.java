@@ -30,7 +30,6 @@ public class Ui {
      */
 
     public String readCommand() {
-        // no string processing
         String command = this.scan.nextLine();
         return command;
     }

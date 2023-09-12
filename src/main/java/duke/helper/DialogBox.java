@@ -33,7 +33,6 @@ public class DialogBox extends HBox {
     public DialogBox(Label l, ImageView iv, MeowBot.dialog type) {
         text = l;
         displayPicture = iv;
-
         text.setWrapText(true);
         text.setPadding(new Insets(5, 5, 5, 5));
         displayPicture.setFitWidth(100.0);
@@ -75,8 +74,7 @@ public class DialogBox extends HBox {
         double radius = Math.max(iv.getFitWidth() / 2, iv.getFitHeight() / 2);
         double centerX = iv.getFitWidth() / 2 + 10;
         double centerY = iv.getFitHeight() / 2;
-        Circle dpClip = new Circle(centerX, centerY, radius);
-        return dpClip;
+        return new Circle(centerX, centerY, radius);
     }
 
 }
