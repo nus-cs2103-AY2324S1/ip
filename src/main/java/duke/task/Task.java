@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.exception.DukeException;
+
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -75,6 +77,7 @@ public abstract class Task {
         return this.task.contains(search);
     }
 
+
     /**
      * Writes the task data to a FileWriter.
      *
@@ -82,4 +85,6 @@ public abstract class Task {
      * @throws IOException If there is an issue writing the data.
      */
     public abstract void writeToFile(FileWriter fw) throws IOException;
+
+    public abstract void rescheduleTask(String newDeadline) throws DukeException;
 }

@@ -81,6 +81,15 @@ public class TaskList {
         this.taskList.remove(index - 1);
         return task;
     }
+
+    public Task rescheduleTask(int index, String deadline) throws DukeException {
+        if (index < 1 || index > this.taskList.size()) {
+            throw new DukeException("Index does not exist");
+        }
+        Task task = this.taskList.get(index - 1);
+        task.rescheduleTask(deadline);
+        return task;
+    }
     public void add(Task task) {
         this.taskList.add(task);
     }
