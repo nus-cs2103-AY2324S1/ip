@@ -15,8 +15,8 @@ import java.nio.file.Path;
 public class InternalStorage {
 
     /**
-     * A cache of the default instance. This prevents unnecessary reinitialization of the default instance if and
-     * when it is used in multiple places throughout the program.
+     * A cache of the default instance. This prevents unnecessary reinitialization of the default instance if and when
+     * it is used in multiple places throughout the program.
      */
     private static InternalStorage defaultInstance = null;
 

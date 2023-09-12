@@ -145,8 +145,8 @@ public class TaskManager {
 
             // Prepare a new set of classes, from most specific to least specific.
             // This ordering is required to match the provided JSON to a class that's as specific as possible.
-            @SuppressWarnings("unchecked")
-            Class<Task>[] availClasses = new Class[] { Event.class, Deadline.class, Todo.class };
+            @SuppressWarnings("unchecked") Class<Task>[] availClasses =
+                    new Class[] { Event.class, Deadline.class, Todo.class };
 
             // Iterate through the items in the JSON array.
             for (JsonElement item : array) {

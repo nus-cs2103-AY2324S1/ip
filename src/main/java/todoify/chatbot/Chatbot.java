@@ -273,8 +273,8 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             break;
         default:
             throw new ChatbotIrrelevantOperationException(String.format(
-                    "The command '%s' should not have numeric "
-                            + "data only, but the internal code attempted to assert " + "that it does",
+                    "The command '%s' should not have numeric data only, "
+                            + "but the internal code attempted to assert that it does",
                     chatCommand.getName()
             ));
         }
@@ -356,7 +356,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         default:
             throw new ChatbotIrrelevantOperationException(String.format(
                     "The command '%s' should have included data, "
-                            + "but the internal code attempted to assert that it " + "does not.",
+                            + "but the internal code attempted to assert that it does not.",
                     chatCommand.getName()
             ));
         }
@@ -415,8 +415,8 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             break;
         default:
             throw new ChatbotIrrelevantOperationException(String.format(
-                    "The command '%s' should not have included "
-                            + "data, but the internal code attempted to assert that " + "it does.",
+                    "The command '%s' should not have included data, "
+                            + "but the internal code attempted to assert that it does.",
                     chatCommand.getName()
             ));
 
@@ -439,7 +439,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         case ADD_DEADLINE:
             if (!chatCommand.hasParamWithUsefulValue("by")) {
                 throw new ChatbotInvalidCommandFormatException(String.format(
-                        "The 'deadline' command requires " + "supplying '%sby <deadline>'!",
+                        "The 'deadline' command requires supplying '%sby <deadline>'!",
                         ChatCommand.PARAMETER_PREFIX
                 ));
             }

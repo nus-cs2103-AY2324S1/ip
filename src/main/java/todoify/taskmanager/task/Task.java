@@ -90,7 +90,8 @@ public abstract class Task {
                 // Check if the field is null. If so, it's an error.
                 if (field.get(this) == null) {
                     throw new IllegalArgumentException(String.format(
-                            "Tasks may not have null values, but %s is null.", field.getName()
+                            "Tasks may not have null values, but %s is null.",
+                            field.getName()
                     ));
                 }
 
