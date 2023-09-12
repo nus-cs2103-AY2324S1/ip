@@ -1,3 +1,4 @@
 [T][ ] hello
 [T][ ] task
 [E][ ] fair (from: 2pm to 4pm)
+[D][ ] homework (by: 2pm)

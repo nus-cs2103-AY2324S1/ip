@@ -28,6 +28,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         this.scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog("Hello! I am to taskmaster, what can i do for you today?", TASKMASTER_PROFILE)
+        );
     }
 
     public void setTaskmaster(Taskmaster tm) {
