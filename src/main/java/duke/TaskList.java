@@ -88,6 +88,7 @@ public class TaskList {
 
             res.append(i + 1).append(".")
                     .append(tasks.get(i).toString());
+            //Append new line for all lines except last line
             if (i != tasks.size() - 1) {
                 res.append("\n");
             }
@@ -136,6 +137,7 @@ public class TaskList {
                 }
 
                 res = tasks.get(index - 1).setMarked();
+                assert !res.isEmpty() : "Failed to mark task.";
 
             } catch (NumberFormatException e) {
                 throw new DukeException("Enter a valid positive integer after your markcommand!\n");
@@ -184,6 +186,7 @@ public class TaskList {
                             + (tasks.size() + 1) + "\n");
                 }
                 res = tasks.get(index - 1).setUnmarked();
+                assert !res.isEmpty() : "Failed to unmark task.";
 
             } catch (NumberFormatException e) {
                 throw new DukeException("Enter a valid positive integer after your unmark command!\n");
@@ -225,6 +228,7 @@ public class TaskList {
                 String removedTask = tasks.get(index - 1).toString();
                 tasks.remove(index - 1);
                 res = "Noted. I've removed this task: \n " + "  " + removedTask + "\n" + getTaskLeft();
+                assert !res.isEmpty() : "Failed to delete task.";
             } catch (NumberFormatException e) {
                 throw new DukeException("Enter a valid positive integer after your mark/unmark command!\n");
             }
@@ -257,6 +261,7 @@ public class TaskList {
         tasks.add(new ToDo(task, TaskType.TODO));
 
         String str = tasks.get(tasks.size() - 1).toString();
+        assert !str.isEmpty() : "Failed to add todo task.";
         String res = "Got it. I've added this task :\n" + str + "\n";
         res += getTaskLeft();
 
@@ -329,6 +334,7 @@ public class TaskList {
         tasks.add(new Deadline(task, by, endTime + ":00", TaskType.DEADLINE));
 
         String str = tasks.get(tasks.size() - 1).toString();
+        assert !str.isEmpty() : "Failed to add deadline task.";
         String res = "Got it. I've added this task :\n" + str + "\n";
         res += getTaskLeft();
 
@@ -435,6 +441,7 @@ public class TaskList {
         tasks.add(new Event(task, startDate, endDate, startTime + ":00", endTime + ":00", TaskType.EVENT));
 
         String str = tasks.get(tasks.size() - 1).toString();
+        assert !str.isEmpty() : "Failed to add event task.";
         String res = "Got it. I've added this task :\n" + str + "\n";
         res += getTaskLeft();
 
@@ -472,6 +479,7 @@ public class TaskList {
         if (results.equals("")) {
             return "No results found!";
         }
+        assert !results.isEmpty() : "No results found.";
         return results;
     }
 

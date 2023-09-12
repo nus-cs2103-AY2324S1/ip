@@ -24,12 +24,12 @@ public class Storage {
      */
     public String handleReadAllTasksFromFile() throws FileNotFoundException {
 
+        //Check if file exists
         try {
-            File obj = new File(filePath);
+            new File(filePath);
         } catch (Exception e) {
             System.out.println("Please create a folder at the specified folder : src/data/duke.txt");
         }
-
         String tasks = "";
         try {
             File obj = new File(filePath);
@@ -42,7 +42,6 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println("Please create a folder at the specified folder : src/data/duke.txt");
         }
-
         return tasks;
     }
 
