@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import dook.DookException;
 import dook.task.Deadline;
@@ -88,6 +89,7 @@ public class Storage {
     private Task getTaskFromString(String str) throws DookException {
         String[] params = str.split("//");
         String taskCode = params[0];
+        assert !Objects.equals(taskCode, "") : "taskCode should not be empty";
         boolean isDone = params[1].equals("X");
         switch (taskCode) {
         case "T":
