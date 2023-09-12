@@ -13,9 +13,10 @@ import horo.data.tasks.TaskList;
  * AddEventCommand
  */
 public class AddEventCommand extends Command {
+
+  public static final String DISPLAY_FORMAT = "event <description> /from yyyy/mm/dd HH:mm /to yyyy/mm/dd HH:mm";
   private static final String NAME = "event";
   private static final String REGEX = "^event ([\\w ]+) \\/from (\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2}) \\/to (\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2})";
-  private static final String DISPLAY_FORMAT = "event <description> /from yyyy/mm/dd HH:mm /to yyyy/mm/dd HH:mm";
 
   private String description;
   private String from;

@@ -12,9 +12,10 @@ import horo.data.tasks.Task;
 import horo.data.tasks.TaskList;
 
 public class FindCommand extends Command {
+
+  public static final String DISPLAY_FORMAT = "find <query>";
   private static final String NAME = "find";
   private static final String REGEX = "^find ([\\w ]+)";
-  private static final String DISPLAY_FORMAT = "find <query>";
 
   private String query;
 

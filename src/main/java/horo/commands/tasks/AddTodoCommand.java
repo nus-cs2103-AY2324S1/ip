@@ -10,9 +10,10 @@ import horo.data.tasks.TaskList;
 import horo.data.tasks.Todo;
 
 public class AddTodoCommand extends Command {
+
+  public static final String DISPLAY_FORMAT = "todo <description>";
   private static final String NAME = "todo";
   private static final String REGEX = "^todo ([\\w ]+)";
-  private static final String DISPLAY_FORMAT = "todo <description>";
 
   private String description;
 

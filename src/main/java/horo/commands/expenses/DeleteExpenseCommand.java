@@ -7,9 +7,10 @@ import horo.commands.Command;
 import horo.data.expenses.ExpenseList;
 
 public class DeleteExpenseCommand extends Command {
+
+  public static final String DISPLAY_FORMAT = "delete expense <number>";
   private static final String NAME = "delete expense";
   private static final String REGEX = "^delete expense ([0-9]+)";
-  private static final String DISPLAY_FORMAT = "delete expense <number>";
 
   private Integer index;
 

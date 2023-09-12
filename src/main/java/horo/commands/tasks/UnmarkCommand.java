@@ -7,9 +7,10 @@ import horo.commands.Command;
 import horo.data.tasks.TaskList;
 
 public class UnmarkCommand extends Command {
+
+  public static final String DISPLAY_FORMAT = "unmark <number>";
   private static final String NAME = "unmark";
   private static final String REGEX = "^unmark ([0-9]+)";
-  private static final String DISPLAY_FORMAT = "unmark <number>";
 
   private Integer index;
 

@@ -13,9 +13,10 @@ import horo.data.expenses.ExpenseList;
  * AddExpenseCommand
  */
 public class AddExpenseCommand extends Command {
+
+  public static final String DISPLAY_FORMAT = "expense <amount> <description>";
   private static final String NAME = "expense";
   private static final String REGEX = "^expense ([0-9]+) ([\\w ]+)";
-  private static final String DISPLAY_FORMAT = "expense <amount> <description>";
 
   private String description;
   private String amount;

@@ -10,9 +10,9 @@ import horo.data.tasks.Task;
 
 public class ListTaskCommand extends Command {
 
+  public static final String DISPLAY_FORMAT = "list task";
   private static final String NAME = "list task";
   private static final String REGEX = "^list task";
-  private static final String DISPLAY_FORMAT = "list task";
 
   public ListTaskCommand(String input) throws HoroException {
     super(NAME, REGEX, DISPLAY_FORMAT);

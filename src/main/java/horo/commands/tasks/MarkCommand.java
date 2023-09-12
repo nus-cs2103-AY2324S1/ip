@@ -7,9 +7,10 @@ import horo.commands.Command;
 import horo.data.tasks.TaskList;
 
 public class MarkCommand extends Command {
+
+  public static final String DISPLAY_FORMAT = "mark <number>";
   private static final String NAME = "mark";
   private static final String REGEX = "^mark ([0-9]+)";
-  private static final String DISPLAY_FORMAT = "mark <number>";
 
   private Integer index;
 

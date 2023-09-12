@@ -13,9 +13,10 @@ import horo.data.tasks.TaskList;
  * AddDeadlineCommand
  */
 public class AddDeadlineCommand extends Command {
+
+  public static final String DISPLAY_FORMAT = "deadline <description> /by yyyy/mm/dd HH:mm";
   private static final String NAME = "deadline";
   private static final String REGEX = "^deadline ([\\w ]+) \\/by (\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2})";
-  private static final String DISPLAY_FORMAT = "deadline <description> /by yyyy/mm/dd HH:mm";
 
   private String description;
   private String by;

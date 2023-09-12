@@ -10,9 +10,9 @@ import horo.data.expenses.Expense;
 
 public class ListExpenseCommand extends Command {
 
+  public static final String DISPLAY_FORMAT = "list expense";
   private static final String NAME = "list expense";
   private static final String REGEX = "^list expense";
-  private static final String DISPLAY_FORMAT = "list expense";
 
   public ListExpenseCommand(String input) throws HoroException {
     super(NAME, REGEX, DISPLAY_FORMAT);
