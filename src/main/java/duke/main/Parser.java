@@ -36,7 +36,6 @@ public class Parser {
             int taskIndex = validateMarkAndDelete(userInput.substring(7));
             return new UnmarkCommand(taskIndex);
         } else if (userInput.startsWith("todo")) {
-            //String todoDescription = userInput.replace("todo ", "");
             String toDoDescription = validateToDo(userInput);
             return new ToDoCommand(toDoDescription);
         } else if (userInput.startsWith("deadline")) {
@@ -144,7 +143,8 @@ public class Parser {
         String[] info = input.replace("event ", "").split(" /from ");
 
         if (info.length != 2) {
-            throw new DukeException("☹ OOPS!!! \nPlease provide a valid event format: \n\tevent <description> /from <start time> /to <end time>");
+            throw new DukeException("☹ OOPS!!! \nPlease provide a valid event format: "
+                    + "\n\tevent <description> /from <start time> /to <end time>");
         }
 
         String description = info[0];
