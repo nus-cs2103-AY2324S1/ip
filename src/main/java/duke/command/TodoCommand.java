@@ -53,7 +53,7 @@ public class TodoCommand extends NonemptyArgumentCommand implements Command {
 
         validate(this.arguments);
 
-        taskList.add(new Todo(this.arguments));
+        taskList.addTask(new Todo(this.arguments));
 
         if (ui != null) {
             ui.sendMessage("Got it. I've added this task:\n  "

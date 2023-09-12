@@ -86,7 +86,7 @@ public class DeadlineCommand extends NonemptyArgumentCommand implements Command 
         assert userArgs.length == 2;
         assert date != null;
 
-        taskList.add(new Deadline(userArgs[0], date));
+        taskList.addTask(new Deadline(userArgs[0], date));
 
         if (ui != null) {
             ui.sendMessage("Got it. I've added this task:\n  "

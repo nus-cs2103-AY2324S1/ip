@@ -1,11 +1,4 @@
-0 todo b
-1 todo a
-1 deadline a /by 2023-08-26
 1 deadline c /by 2023-09-03
 1 event task /from 2023-08-26 /to 2023-08-27
-0 todo abc
-0 todo a
-0 todo b
-0 todo a
 0 todo super long task that should take more than the dialogbox
 0 todo a

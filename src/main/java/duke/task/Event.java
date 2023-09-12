@@ -2,6 +2,7 @@ package duke.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * Represents an Event Task.
@@ -62,5 +63,32 @@ public class Event extends Task {
     @Override
     public String getSaveString() {
         return String.format("%d event %s /from %s /to %s", getIsDone() ? 1 : 0, getDescription().trim(), from, to);
+    }
+
+    /**
+     * Check if given object is equal to this object.
+     * They are equal if,
+     * <ul>
+     *     <li>They are the same object</li>
+     *     <li>They have the same description, from and to time</li>
+     * </ul>
+     *
+     * @param obj the object to be compared.
+     * @return true if equal, otherwise false
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj instanceof Event) {
+            Event d = (Event) obj;
+            return Objects.equals(this.getDescription(), d.getDescription())
+                    && this.from == d.from
+                    && this.to == d.to;
+        } else {
+            return false;
+        }
     }
 }

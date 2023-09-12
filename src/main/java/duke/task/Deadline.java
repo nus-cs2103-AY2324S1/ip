@@ -2,6 +2,7 @@ package duke.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * Represents a Deadline Task.
@@ -54,5 +55,30 @@ public class Deadline extends Task {
     @Override
     public String getSaveString() {
         return String.format("%d deadline %s /by %s", getIsDone() ? 1 : 0, getDescription().trim(), by);
+    }
+
+    /**
+     * Check if given object is equal to this object.
+     * They are equal if,
+     * <ul>
+     *     <li>They are the same object</li>
+     *     <li>They have the same description and by time</li>
+     * </ul>
+     *
+     * @param obj the object to be compared.
+     * @return true if equal, otherwise false
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj instanceof Deadline) {
+            Deadline d = (Deadline) obj;
+            return Objects.equals(this.getDescription(), d.getDescription()) && this.by == d.by;
+        } else {
+            return false;
+        }
     }
 }
