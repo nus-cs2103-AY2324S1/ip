@@ -22,7 +22,7 @@ import duke.task.Todo;
 public class Duke {
 
     private final TaskList taskList;
-    private final String filePath = "./src/main/resources/duke.txt";
+    private final String filePath = "duke.txt";
     private final Storage storage = new Storage(filePath);
 
 

@@ -1,5 +1,4 @@
 D | 1 | return book | 2023-01-01
-T | 1 | borrow
 T | 0 | swimming
 D | 0 | return | 2024-01-01
 E | 0 | super nova | 2023-01-01 | 2023-02-02

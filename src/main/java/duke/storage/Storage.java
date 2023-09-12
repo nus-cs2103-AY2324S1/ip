@@ -39,7 +39,7 @@ public class Storage {
                 tasks.add(task);
             }
         } catch (FileNotFoundException e) {
-            throw new DukeException("Data file not found, starting with an empty task list.");
+            System.out.println("Data file not found, starting with an empty task list.");
         }
         return tasks;
     }
