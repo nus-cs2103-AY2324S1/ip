@@ -19,7 +19,6 @@ public class HelpBuddy {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/HelpBuddy.png"));
 
     /**
      * Constructs a new HelpBuddy object containing the specified String filePath to store data.

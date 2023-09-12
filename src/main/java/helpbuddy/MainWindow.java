@@ -34,6 +34,7 @@ public class MainWindow extends AnchorPane {
     }
 
     public void setHelpBuddy(HelpBuddy d) {
+        assert d != null;
         helpBuddy = d;
     }
 
