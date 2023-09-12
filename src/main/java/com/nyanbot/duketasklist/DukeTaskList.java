@@ -1,5 +1,8 @@
 package com.nyanbot.duketasklist;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import com.nyanbot.dukeexceptions.DukeException;
 import com.nyanbot.dukeparsers.DukeParser;
 import com.nyanbot.dukestorage.DukeStorageDatabase;
@@ -9,9 +12,6 @@ import com.nyanbot.duketasks.Task;
 import com.nyanbot.duketasks.Todo;
 import com.nyanbot.dukeuiclasses.DukeErrorUi;
 import com.nyanbot.dukeuiclasses.DukeUi;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Encapsulates a class which supports the manipulation of the task list.
@@ -150,7 +150,9 @@ public class DukeTaskList {
                 sb2.append(tokens[i]);
                 sb2.append(" ");
             }
-            currentTask = new Event(description.toString().trim(), Boolean.parseBoolean(tokens[1]), sb1.toString().trim(), sb2.toString().trim());
+            currentTask = new Event(
+                    description.toString().trim(),
+                    Boolean.parseBoolean(tokens[1]), sb1.toString().trim(), sb2.toString().trim());
             Event t = (Event) currentTask;
             // case where the deadline is not valid
             if (t.getFrom() == null || t.getTo() == null || !t.isValid()) {
@@ -214,7 +216,9 @@ public class DukeTaskList {
                 this.databaseController.saveTaskList();
             }
             return createdTask;
-        } catch (DukeException | IOException ignored) {}
+        } catch (DukeException | IOException ignored) {
+            String s = "";
+        }
         return null;
     }
 
@@ -225,7 +229,7 @@ public class DukeTaskList {
      * @param currentTask the task to be marked as done
      *
      */
-    public void handleMarkTask(Task currentTask){
+    public void handleMarkTask(Task currentTask) {
         currentTask.markDone();
     }
 
@@ -235,7 +239,7 @@ public class DukeTaskList {
      * @author Tan Kerway
      * @param currentTask the task to be marked as done
      */
-    public void handleUnmarkTask(Task currentTask){
+    public void handleUnmarkTask(Task currentTask) {
         currentTask.markUndone();
     }
 
@@ -261,7 +265,9 @@ public class DukeTaskList {
             }
             // delete the task and announce that the task has been deleted
             return this.ui.echoTaskDeleted(deleteTask(numberString), this.tasks.size());
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+            String s = "";
+        }
         return "";
     }
 

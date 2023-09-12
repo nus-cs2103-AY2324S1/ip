@@ -16,7 +16,6 @@ public class DukeInvalidTimeException extends DukeException {
     public DukeInvalidTimeException(String details) {
         super(" Please specify a valid " + details + " date!");
     }
-
     /**
      * Returns the String representation of a DukeExceptions.DukeInvalidTimeException class.
      *

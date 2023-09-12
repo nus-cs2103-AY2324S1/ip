@@ -8,6 +8,11 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * Encapsulates the application window loader.
+ *
+ * @author Tan Kerway
+ */
 public class DukeMain extends Application {
     private Duke duke = new Duke();
 
@@ -15,9 +20,9 @@ public class DukeMain extends Application {
      * Creates the stage for the application to be displayed.
      *
      * @param stage the primary stage for this application, onto which
-     * the application scene can be set.
-     * Applications may create other stages, if needed, but they will not be
-     * primary stages.
+     *              the application scene can be set.
+     *              Applications may create other stages, if needed, but they will not be
+     *              primary stages.
      */
     @Override
     public void start(Stage stage) {

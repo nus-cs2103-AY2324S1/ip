@@ -1,6 +1,9 @@
 package com.nyanbot.dukeguicontrollers;
 
+import java.util.Objects;
+
 import com.nyanbot.dukeguielements.DukeDialogBox;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,8 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-
-import java.util.Objects;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -29,8 +30,10 @@ public class DukeMainWindow extends AnchorPane {
     private Button sendButton;
     private Duke duke;
 
-    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/golfing.png")));
-    private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/nyan.png")));
+    private final Image userImage = new Image(
+            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/golfing.png")));
+    private final Image dukeImage = new Image(
+            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/nyan.png")));
 
 
     @FXML

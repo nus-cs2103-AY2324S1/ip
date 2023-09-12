@@ -8,7 +8,7 @@ import javafx.application.Application;
  * @author Tan Kerway
  */
 public class DukeLauncher {
-        public static void main(String[] args) {
-            Application.launch(DukeMain.class, args);
-        }
+    public static void main(String[] args) {
+        Application.launch(DukeMain.class, args);
+    }
 }

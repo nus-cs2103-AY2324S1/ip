@@ -1,11 +1,11 @@
 package com.nyanbot.dukeguicontrollers;
 
+import java.io.IOException;
+
 import com.nyanbot.dukeparsers.DukeParser;
 import com.nyanbot.dukestorage.DukeStorageDatabase;
 import com.nyanbot.duketasklist.DukeTaskList;
 import com.nyanbot.dukeuiclasses.DukeUi;
-
-import java.io.IOException;
 
 /**
  * This class encapsulates the com.nyanbot.
@@ -49,7 +49,7 @@ public class Duke {
      */
     private void initiateChat() {
         try {
-            this.databaseController.saveTaskList();    // save the user's task to the database
+            this.databaseController.saveTaskList(); // save the user's task to the database
         } catch (IOException e) {
             System.out.println("There was an issue accessing my nyanory :c");
         }

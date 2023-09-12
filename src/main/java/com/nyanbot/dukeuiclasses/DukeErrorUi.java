@@ -1,6 +1,11 @@
 package com.nyanbot.dukeuiclasses;
 
-import com.nyanbot.dukeexceptions.*;
+import com.nyanbot.dukeexceptions.DukeEmptyInputException;
+import com.nyanbot.dukeexceptions.DukeEmptyTaskListException;
+import com.nyanbot.dukeexceptions.DukeException;
+import com.nyanbot.dukeexceptions.DukeInvalidCommandException;
+import com.nyanbot.dukeexceptions.DukeInvalidIndexException;
+import com.nyanbot.dukeexceptions.DukeInvalidTimeException;
 import com.nyanbot.duketasks.InvalidTask;
 import com.nyanbot.duketasks.Task;
 
@@ -66,10 +71,13 @@ public class DukeErrorUi {
      */
     public Task handleDeadlineErrors(String taskString, int taskDescriptionLength, int indexOfBy) throws DukeException {
         // handle errors
-        if (taskDescriptionLength == 8 || (indexOfBy != -1 &&taskString.substring(8, taskString.lastIndexOf("/by") + 1).trim().isEmpty())) {
+        if (taskDescriptionLength == 8
+                || (indexOfBy != -1 && taskString.substring(8, taskString.lastIndexOf("/by") + 1).trim().isEmpty())) {
             return new InvalidTask(handleEmptyCommand("deadline"));
         }
-        if (!taskString.contains("/by") || indexOfBy + 3 == taskString.length() || taskString.substring(indexOfBy + 3).trim().equals("")) {
+        if (!taskString.contains("/by")
+                || indexOfBy + 3 == taskString.length()
+                || taskString.substring(indexOfBy + 3).trim().equals("")) {
             return new InvalidTask(handleNoDate("by"));
         }
         return null;
@@ -83,7 +91,7 @@ public class DukeErrorUi {
      * @param taskDescriptionLength the length of the task that the user typed in
      * @return an invalid task if the command is invalid, null otherwise
      */
-    public Task handleTodoErrors(String taskString, int taskDescriptionLength) throws DukeException{
+    public Task handleTodoErrors(String taskString, int taskDescriptionLength) throws DukeException {
         if (taskDescriptionLength == 4 || taskString.substring(4).trim().equals("")) {
             return new InvalidTask(handleEmptyCommand("todo"));
         }

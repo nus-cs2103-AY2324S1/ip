@@ -1,12 +1,12 @@
 package com.nyanbot.duketasks;
 
-import com.nyanbot.dukeexceptionhandlers.DukeExceptionHandlers;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+
+import com.nyanbot.dukeexceptionhandlers.DukeExceptionHandlers;
 
 /**
  * Encapsulates a DukeTasks.Task class. Contains a description and
@@ -15,60 +15,61 @@ import java.time.format.DateTimeFormatter;
  * @author Tan Kerway
  */
 public class Task {
+    // default date to do date computations
+    protected static final LocalDateTime DEFAULT_DATE = LocalDateTime.of(1970, 1, 1, 0, 0);
+    // predefined list of dates
+    protected static String[] dateFormats = new String[] {
+        "0",
+        // time string with day and time
+        "E HHmm",
+        "E h'.'mma",
+        "E ha",
+        // time string with day only(e.g. tue, wed, etc)
+        "E",
+
+        "1",
+        // time with all required information: year, month, day of month, time
+        "MMM d HH:mm yyyy",
+        "y-MM-dd HHmm",
+        "yyyy-MM-dd HHmm",
+        "yyyy-MM-dd HH'.'mma",
+        "EEE MMM d HH:mm:ss zzz yyyy",
+        "EEE MMM d HH:mm yyyy",
+        "d/M/yy HHmm",
+        "d/M/yyyy HHmm",
+        "d/M/y ha",
+
+        "2",
+        // time with these information: year, month, day of month
+        "y-MM-dd",
+        "d/M/yy",
+        "d/M/yyyy",
+        "d/M/y",
+
+        "3",
+        // time with these information: month, day of month, time
+        "MMM dd HH'.'mma",
+        "dd MMM HH'.'mma",
+        "MMM dd HHmm",
+        "dd MMM HHmm",
+        "d/M HHmm",
+        "MMM dd ha",
+        "dd MMM ha",
+        "d/M ha",
+
+        "4",
+        // time with these information: month and day
+        "MMM dd",
+        "dd MMM",
+        "d/M"
+    };
+
     // tasks the bot has stored so far
     private final String description;
     // flag to indicate whether tha task has been completed
     private boolean isDone;
     // flag to indicate whether the task is valid
     private boolean isValid;
-    // default date to do date computations
-    protected static final LocalDateTime DEFAULT_DATE = LocalDateTime.of(1970, 1, 1, 0, 0);
-    // predefined list of dates
-    protected static String[] DATE_FORMATS = new String[] {
-            "0",
-            // time string with day and time
-            "E HHmm",
-            "E h'.'mma",
-            "E ha",
-            // time string with day only(e.g. tue, wed, etc)
-            "E",
-
-            "1",
-            // time with all required information: year, month, day of month, time
-            "MMM d HH:mm yyyy",
-            "y-MM-dd HHmm",
-            "yyyy-MM-dd HHmm",
-            "yyyy-MM-dd HH'.'mma",
-            "EEE MMM d HH:mm:ss zzz yyyy",
-            "EEE MMM d HH:mm yyyy",
-            "d/M/yy HHmm",
-            "d/M/yyyy HHmm",
-            "d/M/y ha",
-
-            "2",
-            // time with these information: year, month, day of month
-            "y-MM-dd",
-            "d/M/yy",
-            "d/M/yyyy",
-            "d/M/y",
-
-            "3",
-            // time with these information: month, day of month, time
-            "MMM dd HH'.'mma",
-            "dd MMM HH'.'mma",
-            "MMM dd HHmm",
-            "dd MMM HHmm",
-            "d/M HHmm",
-            "MMM dd ha",
-            "dd MMM ha",
-            "d/M ha",
-
-            "4",
-            // time with these information: month and day
-            "MMM dd",
-            "dd MMM",
-            "d/M"
-    };
 
     /**
      * Constructor for the DukeTasks.Task class.
@@ -129,7 +130,7 @@ public class Task {
      */
     protected LocalDateTime parseDate(String time, String error) {
         int currentFormatID = -1;
-        for (String formatString : DATE_FORMATS) {
+        for (String formatString : dateFormats) {
             try {
                 if (isNumeric(formatString)) {
                     currentFormatID = Integer.parseInt(formatString);
@@ -143,7 +144,8 @@ public class Task {
                 if (currentFormatID == 0) { // case where the current format is a day(index 0)
                     // add the year, month, day, and time(default to 2359)
                     temp = addDay(temp);
-                } else if (currentFormatID == 1) { // case where the current format is not missing anything(index 1 to 7)
+                } else if (currentFormatID == 1) {
+                    // case where the current format is not missing anything(index 1 to 7)
                     // keep the final date as is
 
                 } else if (currentFormatID == 2) { // case where the current format is missing time(index 8 to 11)
@@ -167,6 +169,7 @@ public class Task {
                 }
                 return temp;
             } catch (ParseException ignored) {
+                String s = "";
             }
         }
         this.setInvalid();
@@ -185,7 +188,9 @@ public class Task {
         try {
             Integer.parseInt(str);
             return true;
-        } catch (NumberFormatException ignored) {}
+        } catch (NumberFormatException ignored) {
+            String s = "";
+        }
         return false;
     }
 
@@ -238,9 +243,9 @@ public class Task {
     /**
      * Formats the time String.
      *
+     * @author Tan Kerway
      * @param time the given LocalDateTime object to format
      * @return the string form of the LocalDateTime object
-     * @author Tan Kerway
      */
     protected String formatDate(LocalDateTime time) {
         return time.format(DateTimeFormatter.ofPattern("MMM dd yyyy',' H.mma"));

@@ -11,7 +11,6 @@ import com.nyanbot.dukeuiclasses.DukeUi;
  * @author Tan Kerway
  */
 public class DukeParser {
-
     private final DukeUi ui;
     private final DukeTaskList taskListUtility;
 
@@ -21,8 +20,8 @@ public class DukeParser {
      * @author Tan Kerway
      */
     public DukeParser(DukeTaskList taskListUtility) {
-            this.ui = new DukeUi();
-            this.taskListUtility = taskListUtility;
+        this.ui = new DukeUi();
+        this.taskListUtility = taskListUtility;
     }
 
     /**
@@ -33,15 +32,19 @@ public class DukeParser {
      * @param input the input to be processed
      * @return empty String if the command is not "bye", non-empty String otherwise
      */
-     public String processUserCommand(String input) {
+    public String processUserCommand(String input) {
         // case where the chatbot has been first initialised
-        if (input == null) { return ""; }
+        if (input == null) {
+            return "";
+        }
         // case where the input is "list" => enumerate all tasks
         if (input.equals("list")) {
             return this.ui.listAllTasks(this.taskListUtility.getTasks());
         }
         // case where the input is "bye" => terminate early
-        if (input.equals("bye")) { return "bye!"; }
+        if (input.equals("bye")) {
+            return "bye!";
+        }
         // case where the input is the mark command => mark the task as done
         if (input.startsWith("mark")) {
             return this.taskListUtility.handleMark(input);

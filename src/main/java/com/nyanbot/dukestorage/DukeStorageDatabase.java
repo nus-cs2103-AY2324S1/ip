@@ -1,16 +1,16 @@
 package com.nyanbot.dukestorage;
 
-import com.nyanbot.duketasklist.DukeTaskList;
-import com.nyanbot.duketasks.Deadline;
-import com.nyanbot.duketasks.Event;
-import com.nyanbot.duketasks.Task;
-import com.nyanbot.duketasks.Todo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import com.nyanbot.duketasklist.DukeTaskList;
+import com.nyanbot.duketasks.Deadline;
+import com.nyanbot.duketasks.Event;
+import com.nyanbot.duketasks.Task;
+import com.nyanbot.duketasks.Todo;
 
 /**
  * Encapsulates a class which manipulates the database.
@@ -53,7 +53,7 @@ public class DukeStorageDatabase {
         ArrayList<Task> taskList = new ArrayList<>();
         // create the file if it does not exist
         // and if it does not exist, the method will return true
-        if(!database.exists()) {
+        if (!database.exists()) {
             database.createNewFile();
             // since the database is empty, just return an empty arraylist
             return taskList;

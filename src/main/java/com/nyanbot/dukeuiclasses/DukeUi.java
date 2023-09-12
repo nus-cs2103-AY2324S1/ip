@@ -1,8 +1,8 @@
 package com.nyanbot.dukeuiclasses;
 
-import com.nyanbot.duketasks.Task;
-
 import java.util.ArrayList;
+
+import com.nyanbot.duketasks.Task;
 
 /**
  * Encapsulates a class which will print out normal UI operations.
@@ -19,9 +19,9 @@ public class DukeUi {
      * @author Tan Kerway
      */
     public String getGreeting(ArrayList<Task> tasks) {
-        return "Hello! I'm nyancatbot!\nWhat can I do for nyan?\n" +
+        return "Hello! I'm nyancatbot!\nWhat can I do for nyan?\n"
                 // list all the tasks
-                listAllTasks(tasks);
+                + listAllTasks(tasks);
     }
 
     /**
@@ -31,7 +31,9 @@ public class DukeUi {
      * @param tasks the list of tasks to print out.
      */
     public String listAllTasks(ArrayList<Task> tasks) {
-        if (tasks.isEmpty()) { return ""; }
+        if (tasks.isEmpty()) {
+            return "";
+        }
         StringBuilder tasksString = new StringBuilder();
         tasksString.append("Here are the tasks in your list :3\n");
         tasksString.append("================================\n");
@@ -51,9 +53,11 @@ public class DukeUi {
      * @return the String that represents the chatbot's response
      */
     public String echoTaskAdded(Task task, int tasksCount) {
-        if (task == null) { return ""; }
-        return "Got it. I've added this task:\n    " + task +
-                "\nNyan you have " + tasksCount + " tasks in the list.\n";
+        if (task == null) {
+            return "";
+        }
+        return "Got it. I've added this task:\n    "
+                + task + "\nNyan you have " + tasksCount + " tasks in the list.\n";
     }
 
     /**
@@ -65,9 +69,9 @@ public class DukeUi {
      *          has been marked as done
      */
     public String echoTaskMarked(Task currentTask) {
-        return "Nice! I've marked this task as nyan:\n" +
-                "    " +
-                currentTask;
+        return "Nice! I've marked this task as nyan:\n"
+                + "    "
+                + currentTask;
     }
 
     /**
@@ -79,9 +83,9 @@ public class DukeUi {
      * @return the String that represents the chatbot's response
      */
     public String echoTaskDeleted(Task removedTask, int tasksCount) {
-        return "Noted. I've removed this task:" +
-                "    " + removedTask +
-                "Now you have " + tasksCount + " tasks in the list.";
+        return "Noted. I've removed this task:"
+                + "    " + removedTask
+                + "Now you have " + tasksCount + " tasks in the list.";
     }
 
     /**
@@ -92,8 +96,8 @@ public class DukeUi {
      * @return the String that represents the chatbot's response
      */
     public String echoTaskUnmarked(Task currentTask) {
-        return "OK, I've marked this task as not nyan yet:" +
-                "    " + currentTask;
+        return "OK, I've marked this task as not nyan yet:"
+                + "    " + currentTask;
     }
 
     /**
