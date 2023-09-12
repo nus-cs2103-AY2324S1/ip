@@ -55,7 +55,8 @@ public class Ui {
      */
     public void showAddedTask(Task task, int count) {
         clearOutput();
-        output.append("Got it. I've added this task:\n" + " ").append(task).append(String.format("\nNow you have %d %s in the list.",
+        output.append("Got it. I've added this task:\n" + " ").append(task)
+                .append(String.format("\nNow you have %d %s in the list.",
                 count, count > 1 ? "tasks" : "task"));
     }
 
@@ -67,8 +68,9 @@ public class Ui {
      */
     public void showDeletedTask(Task task, int count) {
         clearOutput();
-        output.append("Noted. I've removed this task:\n").append(task).append(String.format("\nNow you have %d %s in the list.",
-                count, count > 1 ? "tasks" : "task"));
+        output.append("Noted. I've removed this task:\n").append(task)
+                        .append(String.format("\nNow you have %d %s in the list.", count, count > 1
+                                ? "tasks" : "task"));
     }
 
     /**

@@ -1,9 +1,13 @@
 package simon;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
+
 import simon.task.Task;
 import simon.task.ToDo;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskListTest {
 
@@ -12,7 +16,7 @@ public class TaskListTest {
         TaskList tasks = new TaskList();
         tasks.addTask(new ToDo("Sample Task"));
         Task markedTask = tasks.markTask("mark 1", true);
-        assertTrue(markedTask.isDone);
+        assertTrue(markedTask.getIsDone());
     }
 
     @Test
@@ -26,7 +30,7 @@ public class TaskListTest {
         TaskList tasks = new TaskList();
         tasks.addTask(new ToDo("Sample Task"));
         Task deletedTask = tasks.deleteTask("delete 1");
-        assertEquals("Sample Task", deletedTask.taskName);
+        assertEquals("Sample Task", deletedTask.getTaskName());
         assertEquals(0, tasks.getTaskCount());
     }
 
@@ -53,11 +57,11 @@ public class TaskListTest {
         tasks.addTask(new ToDo("Task 3"));
 
         Task deletedTask1 = tasks.deleteTask("delete 1");
-        assertEquals("Task 1", deletedTask1.taskName);
+        assertEquals("Task 1", deletedTask1.getTaskName());
         assertEquals(2, tasks.getTaskCount());
 
         Task deletedTask2 = tasks.deleteTask("delete 2");
-        assertEquals("Task 3", deletedTask2.taskName);
+        assertEquals("Task 3", deletedTask2.getTaskName());
         assertEquals(1, tasks.getTaskCount());
     }
 
@@ -106,7 +110,7 @@ public class TaskListTest {
         tasks.addTask(new ToDo("Sample Task"));
 
         Task retrievedTask = tasks.getTask(0);
-        assertEquals("Sample Task", retrievedTask.taskName);
+        assertEquals("Sample Task", retrievedTask.getTaskName());
     }
 
     @Test

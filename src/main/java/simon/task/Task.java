@@ -7,10 +7,10 @@ package simon.task;
 public class Task {
 
     /** The name or description of the task. */
-    public String taskName;
+    private final String taskName;
 
     /** Flag indicating whether the task has been completed. */
-    public boolean isDone;
+    private boolean isDone;
 
     /**
      * Constructs a new Task with the given name or description.
@@ -20,6 +20,14 @@ public class Task {
     public Task(String taskName) {
         this.taskName = taskName;
         this.isDone = false;
+    }
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+    public boolean getIsDone() {
+        return isDone;
     }
 
     /**

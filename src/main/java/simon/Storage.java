@@ -71,39 +71,39 @@ public class Storage {
                     .map(line -> {
                         String[] parts = line.split(" \\| ");
                         switch (parts[0]) {
-                            case "T":
-                                ToDo todo = new ToDo(parts[2]);
-                                if ("1".equals(parts[1])) {
-                                    todo.markAsDone();
-                                }
-                                return todo;
-                            case "D":
-                                LocalDateTime endDateTime = LocalDateTime.parse(parts[3], formatter);
-                                Deadline deadline = null;
-                                try {
-                                    deadline = new Deadline(parts[2], endDateTime.format(formatter));
-                                } catch (SimonException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                if ("1".equals(parts[1])) {
-                                    deadline.markAsDone();
-                                }
-                                return deadline;
-                            case "E":
-                                LocalDateTime startDateTime = LocalDateTime.parse(parts[3], formatter);
-                                LocalDateTime endDate = LocalDateTime.parse(parts[4], formatter);
-                                Event event = null;
-                                try {
-                                    event = new Event(parts[2], startDateTime.format(formatter), endDate.format(formatter));
-                                } catch (SimonException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                if ("1".equals(parts[1])) {
-                                    event.markAsDone();
-                                }
-                                return event;
-                            default:
-                                return null;
+                        case "T":
+                            ToDo todo = new ToDo(parts[2]);
+                            if ("1".equals(parts[1])) {
+                                todo.markAsDone();
+                            }
+                            return todo;
+                        case "D":
+                            LocalDateTime endDateTime = LocalDateTime.parse(parts[3], formatter);
+                            Deadline deadline = null;
+                            try {
+                                deadline = new Deadline(parts[2], endDateTime.format(formatter));
+                            } catch (SimonException e) {
+                                throw new RuntimeException(e);
+                            }
+                            if ("1".equals(parts[1])) {
+                                deadline.markAsDone();
+                            }
+                            return deadline;
+                        case "E":
+                            LocalDateTime startDateTime = LocalDateTime.parse(parts[3], formatter);
+                            LocalDateTime endDate = LocalDateTime.parse(parts[4], formatter);
+                            Event event = null;
+                            try {
+                                event = new Event(parts[2], startDateTime.format(formatter), endDate.format(formatter));
+                            } catch (SimonException e) {
+                                throw new RuntimeException(e);
+                            }
+                            if ("1".equals(parts[1])) {
+                                event.markAsDone();
+                            }
+                            return event;
+                        default:
+                            return null;
                         }
                     })
                     .filter(Objects::nonNull)
@@ -128,16 +128,16 @@ public class Storage {
             PrintWriter writer = new PrintWriter(this.filePath);
             for (Task task : tasks) {
                 if (task instanceof ToDo) {
-                    writer.println("T | " + (task.isDone ? "1" : "0") + " | " + task.taskName);
+                    writer.println("T | " + (task.getIsDone() ? "1" : "0") + " | " + task.getTaskName());
                 } else if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
-                    writer.println("D | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | "
+                    writer.println("D | " + (task.getIsDone() ? "1" : "0") + " | " + task.getTaskName() + " | "
                             + deadline.endDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
                 } else if (task instanceof Event) {
                     Event event = (Event) task;
-                    writer.println("E | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | "
-                            + event.startDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")) + " | "
-                            + event.endDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
+                    writer.println("E | " + (task.getIsDone() ? "1" : "0") + " | " + task.getTaskName() + " | "
+                            + event.getStartDateTime().format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")) + " | "
+                            + event.getEndDateTime().format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
                 }
             }
             writer.close();

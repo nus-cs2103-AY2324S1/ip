@@ -1,8 +1,12 @@
 package simon.task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
+
 import simon.SimonException;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskTest {
 
@@ -10,7 +14,7 @@ public class TaskTest {
     public void markAsDone_taskNotDone_taskMarkedAsDone() {
         Task task = new ToDo("Sample Task");
         task.markAsDone();
-        assertTrue(task.isDone);
+        assertTrue(task.getIsDone());
     }
 
     @Test
@@ -18,7 +22,7 @@ public class TaskTest {
         Task task = new ToDo("Sample Task");
         task.markAsDone();
         task.markAsUndone();
-        assertFalse(task.isDone);
+        assertFalse(task.getIsDone());
     }
 
     @Test
