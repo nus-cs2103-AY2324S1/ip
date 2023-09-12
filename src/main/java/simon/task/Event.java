@@ -20,10 +20,10 @@ public class Event extends Task {
     public LocalDateTime endDateTime;
 
     /** Formatter to parse date and time input provided by the user. */
-    private final static DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy[ HHmm]");
+    static private final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy[ HHmm]");
 
     /** Formatter to format date and time for output display. */
-    private final static DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+    static private final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
 
     /**
      * Constructs a new Event task with the given name, start date, and end date.
@@ -31,7 +31,7 @@ public class Event extends Task {
      * @param taskName The name or description of the task.
      * @param startDate The start date and time string for this event.
      * @param endDate The end date and time string for this event.
-     * @throws SimonException If the provided date and time format is incorrect or if the end time is before the start time.
+     * @throws SimonException If the provided date and time format is incorrect or if end time is before start time.
      */
     public Event(String taskName, String startDate, String endDate) throws SimonException {
         super(taskName);
