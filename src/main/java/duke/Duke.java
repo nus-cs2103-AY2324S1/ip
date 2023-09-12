@@ -9,6 +9,7 @@ import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
+import duke.ui.text.TextUi;
 import duke.ui.graphic.DukeApplication;
 import duke.ui.graphic.MainWindow;
 import javafx.application.Application;
@@ -234,7 +235,12 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        // new Duke(true, new TextUi("Quack, ", "!"));
-        Application.launch(DukeApplication.class, args);
+        if (args.length > 0 && args[0].equals("text")) {
+            // run text UI if "text" is provided as one of the system arguments
+            new Duke(true, new TextUi("Quack, ", "!"));
+        } else {
+            // run GUI by default
+            Application.launch(DukeApplication.class, args);
+        }
     }
 }
