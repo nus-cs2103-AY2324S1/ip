@@ -26,16 +26,10 @@ public class Duke {
     private Image userAvatar = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeAvatar = new Image(this.getClass().getResourceAsStream("/images/elonmusk.jpg"));
 
-
     /**
      * Constructor for our chatbot.
-     *
-     * @param filePath Specifies where the save file to store previous information is to be saved.
      */
     public Duke() {
-
-
-
         try {
             this.listContainer = new TaskList(storage.load());
             ui = new Ui(this.listContainer, storage);
@@ -51,11 +45,9 @@ public class Duke {
         ui.beginLogging();
     }
 
-
     public static void main(String[] args) {
         new Duke().run();
     }
-
 
     /**
      * Get the task list assigned to this Duke.
@@ -63,17 +55,6 @@ public class Duke {
      */
     public TaskList getTaskList() {
         return this.listContainer;
-    }
-
-    public String getResponse(String input) {
-        // TODO
-        try {
-            Parser.parseInput(input, listContainer);
-            return "";
-        } catch (DukeException e) {
-            return e.getMessage();
-        }
-
     }
 }
 

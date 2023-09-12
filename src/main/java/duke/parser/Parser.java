@@ -151,7 +151,6 @@ public class Parser {
                 throw new InvalidFormatException(INVALID_DATE_FORMAT, inputString);
             }
 
-
             break;
         }
         case EVENT: {
@@ -215,7 +214,6 @@ public class Parser {
         }
 
         return modifiedTasks;
-
     }
 
 

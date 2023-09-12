@@ -43,21 +43,15 @@ public class Storage {
      */
     public void saveTasks(TaskList taskList) throws DukeException {
         String serialized = taskList.serialize();
-
         try {
             // create file if not exists
-
-
             // write to file
             FileWriter fileWriter = new FileWriter(filePath);
             fileWriter.write(serialized);
             fileWriter.close();
-
         } catch (IOException e) {
             throw new DukeException("Error saving file! \n" + e.getMessage());
         }
-
-
     }
 
     /**
@@ -75,8 +69,8 @@ public class Storage {
             }
             if (Files.exists(path)) {
                 System.out.println("Save file already exists, loading previous data");
-                // it exists, so let's read it
 
+                // it exists, so let's read it
                 Scanner sc = new Scanner(path);
                 ArrayList<Task> tasks = new ArrayList<>();
                 while (sc.hasNextLine()) {
@@ -85,22 +79,18 @@ public class Storage {
                         continue;
 
                     }
+
                     Task task = parseTask(inputLine);
                     tasks.add(task);
-
-
                 }
 
                 return tasks;
-
             } else {
 
                 File saveFile = new File(String.valueOf(path));
 
                 if (saveFile.createNewFile()) {
                     System.out.println("✅ Created save file!");
-
-
                 } else {
                     System.out.println("⚠\uFE0F Could not create save file!");
                 }
@@ -146,7 +136,6 @@ public class Storage {
                 throw new DukeException(PARSE_ERROR);
             }
             String deadlineStr = split[3];
-
 
             LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineStr);
 
