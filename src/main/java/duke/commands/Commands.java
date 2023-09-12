@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Commands {
     private Ui ui;
-    private TaskList task_List;
+    private TaskList taskList;
     private Storage storage;
 
     /**
@@ -27,7 +27,7 @@ public class Commands {
      */
     public Commands(Ui ui, Storage storage, TaskList task_List) {
         this.ui = ui;
-        this.task_List = task_List;
+        this.taskList = task_List;
         this.storage = storage;
 
         // Assertions for constructor parameters
@@ -52,13 +52,13 @@ public class Commands {
      * Adds a Deadline task to the task list and saves it to storage.
      *
      * @param input The description of the Deadline task.
-     * @param by The deadline of the task.
+     * @param dueBy The deadline of the task.
      */
-    public void addDeadlineTask(String input, String by) {
+    public void addDeadlineTask(String input, String dueBy) {
         assert input != null : "Input cannot be null";
-        assert by != null : "Deadline cannot be null";
+        assert dueBy != null : "Deadline cannot be null";
 
-        Task task = new Deadline(input, by);
+        Task task = new Deadline(input, dueBy);
         generalAddTasks(task);
     }
 
@@ -86,9 +86,9 @@ public class Commands {
     public void generalAddTasks(Task task) {
         assert task != null : "Task cannot be null";
 
-        task_List.addTask(task);
-        storage.saveTasksToFile(task_List);
-        ui.printAddTask(task, task_List.getTask_Count());
+        taskList.addTask(task);
+        storage.saveTasksToFile(taskList);
+        ui.printAddTask(task, taskList.getTask_Count());
     }
 
     /**
@@ -99,7 +99,7 @@ public class Commands {
     public void listTasks(TaskList task_List){
         assert task_List != null : "TaskList cannot be null";
 
-        List<Task> tasks = task_List.getTask_List();
+        List<Task> tasks = task_List.getTaskList();
         int taskCount = task_List.getTask_Count();
         ui.printTaskList(tasks, taskCount);
     }
@@ -107,17 +107,20 @@ public class Commands {
     /**
      * Marks a task as done in the task list and saves it to storage.
      *
-     * @param task_number The index of the task to be marked.
+     * @param taskNumber The index of the task to be marked.
      */
-    public void markTasks(int task_number) {
+    public void markTask(int taskNumber) {
         try {
-            assert task_number > 0 : "Task number must be greater than 0";
-            assert task_List.getTask(task_number) != null : "Task does not exist";
+            assert taskNumber > 0 : "Task number must be greater than 0";
+            assert taskList.getTask(taskNumber) != null : "Task does not exist";
 
-            if (task_number > 0 && task_List.getTask(task_number) != null) {
-                Task taskTobeMarked = task_List.getTask(task_number);
+            boolean isValidTaskNumber = taskNumber > 0;
+            boolean isValidTask = taskList.getTask(taskNumber) != null;
+
+            if (isValidTaskNumber && isValidTask) {
+                Task taskTobeMarked = taskList.getTask(taskNumber);
                 taskTobeMarked.setTaskDone();
-                storage.saveTasksToFile(task_List);
+                storage.saveTasksToFile(taskList);
                 ui.printMarkTask(taskTobeMarked);
             } else {
                 throw new MYBotExceptions.NoSuchTaskException();
@@ -130,17 +133,20 @@ public class Commands {
     /**
      * Unmarks a task as not sone in task list and saves it to storage
      *
-     * @param task_number The index of the task to be marked.
+     * @param taskNumber The index of the task to be marked.
      */
-    public void unmarkTasks(int task_number){
+    public void unmarkTask(int taskNumber){
         try {
-            assert task_number > 0 : "Task number must be greater than 0";
-            assert task_List.getTask(task_number) != null : "Task does not exist";
+            assert taskNumber > 0 : "Task number must be greater than 0";
+            assert taskList.getTask(taskNumber) != null : "Task does not exist";
 
-            if (task_number > 0 && task_List.getTask(task_number) != null) {
-                Task taskTobeMarked = task_List.getTask(task_number);
+            boolean isValidTaskNumber = taskNumber > 0;
+            boolean isValidTask = taskList.getTask(taskNumber) != null;
+
+            if (isValidTaskNumber && isValidTask) {
+                Task taskTobeMarked = taskList.getTask(taskNumber);
                 taskTobeMarked.undoTask();
-                storage.saveTasksToFile(task_List);
+                storage.saveTasksToFile(taskList);
                 ui.printUnmarkTask(taskTobeMarked);
             } else {
                 throw new MYBotExceptions.NoSuchTaskException();
@@ -153,18 +159,21 @@ public class Commands {
     /**
      * Removes a task from the task list and saves the updated list to storage.
      *
-     * @param task_number The index of the task to be removed.
+     * @param taskNumber The index of the task to be removed.
      */
-    public void removeTasks(int task_number) {
+    public void removeTask(int taskNumber) {
 
         try {
-            assert task_number >= 0 && task_number <= task_List.getTask_Count() : "Invalid task number";
+            assert taskNumber >= 0 && taskNumber <= taskList.getTask_Count() : "Invalid task number";
 
-            if (task_number >= 0 && task_number <= task_List.getTask_Count()) {
-                Task taskToBeRemoved = task_List.getTask(task_number);
-                task_List.removeTask(task_number);
-                storage.saveTasksToFile(task_List);
-                ui.printRemoveTasks(taskToBeRemoved, task_List);
+            boolean isValidTaskNumber = taskNumber >= 0;
+            boolean isValidTask = taskNumber <= taskList.getTask_Count();
+
+            if (isValidTaskNumber && isValidTask) {
+                Task taskToBeRemoved = taskList.getTask(taskNumber);
+                taskList.removeTask(taskNumber);
+                storage.saveTasksToFile(taskList);
+                ui.printRemoveTask(taskToBeRemoved, taskList);
             } else {
                 throw new MYBotExceptions.InvalidTaskException();
             }
@@ -181,7 +190,7 @@ public class Commands {
     public void findTasks(String keyword) {
         assert keyword != null : "Keyword cannot be null";
 
-        List<Task> matchingTasks = task_List.findMatchingTasks(keyword);
+        List<Task> matchingTasks = taskList.findMatchingTasks(keyword);
         ui.printMatchingTasks(matchingTasks);
     }
 }

@@ -10,15 +10,15 @@ import java.util.List;
  * It can add, retrieve, remove tasks and keep track of the task count.
  */
 public class TaskList {
-    private List<Task> task_List;
-    private int task_Count;
+    private List<Task> taskList;
+    private int taskCount;
 
     /**
      * Constructs an empty TaskList.
      */
     public TaskList(){
-        task_List = new ArrayList<>();
-        task_Count = 0;
+        taskList = new ArrayList<>();
+        taskCount = 0;
     }
 
     /**
@@ -27,8 +27,8 @@ public class TaskList {
      * @param existingTasks The existing list of tasks that was saved.
      */
     public TaskList(List<Task> existingTasks){
-        task_List = new ArrayList<>(existingTasks);
-        task_Count = task_List.size();
+        taskList = new ArrayList<>(existingTasks);
+        taskCount = taskList.size();
     }
 
     /**
@@ -38,21 +38,21 @@ public class TaskList {
      * @param task The task to be addded.
      */
     public void addTask(Task task){
-        task_List.add(task_Count, task);
-        task_Count++;
+        taskList.add(taskCount, task);
+        taskCount++;
     }
 
 
-    public List<Task> getTask_List(){
-        return task_List;
+    public List<Task> getTaskList(){
+        return taskList;
     }
 
     public int getTask_Count(){
-        return task_List.size();
+        return taskList.size();
     }
 
     public Task getTask(int task_number){
-        return task_List.get(task_number - 1);
+        return taskList.get(task_number - 1);
     }
 
     /**
@@ -60,9 +60,12 @@ public class TaskList {
      *
      * @param task_number The index of the task to be removed.
      */
-    public void removeTask(int task_number) {
-        if (task_number >= 0 && task_number <= task_List.size()) {
-            task_List.remove(task_number - 1);
+    public void removeTask(int taskNumber) {
+        boolean isValidTaskNumber = taskNumber >= 0;
+        boolean isTaskNumberInList = taskNumber <= taskList.size();
+
+        if (isValidTaskNumber && isTaskNumberInList) {
+            taskList.remove(taskNumber - 1);
         }
     }
 
@@ -74,7 +77,7 @@ public class TaskList {
      */
     public List<Task> findMatchingTasks(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
-        for (Task task : task_List) {
+        for (Task task : taskList) {
             if(task.getDescription().contains(keyword)) {
                 matchingTasks.add(task);
             }

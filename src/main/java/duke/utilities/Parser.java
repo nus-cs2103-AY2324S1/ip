@@ -46,13 +46,13 @@ public class Parser {
                 command.listTasks(tasks);
             } else if (input.startsWith("mark ")) {
                 int task_index = Integer.parseInt(input.substring(5));
-                command.markTasks(task_index);
+                command.markTask(task_index);
             } else if (input.startsWith("unmark ")) {
                 int task_index = Integer.parseInt(input.substring(7));
-                command.unmarkTasks(task_index);
+                command.unmarkTask(task_index);
             } else if (input.startsWith("delete ")) {
                 int task_index = Integer.parseInt(input.substring(7));
-                command.removeTasks(task_index);
+                command.removeTask(task_index);
             } else if(input.startsWith("find ")) {
                 String keyword = input.substring(5);
                 command.findTasks(keyword);
@@ -82,9 +82,11 @@ public class Parser {
             if(command == null) {
                 throw new NullPointerException();
             }
-            if (input.startsWith("todo ")) {
 
+
+            if (input.startsWith("todo ")) {
                 String description = input.substring(5);
+                // Checks if there's valid task input after todo
                 if (!description.isBlank()) {
                     command.addTodoTask(description);
                 } else {
@@ -92,7 +94,7 @@ public class Parser {
                 }
 
             } else if (input.startsWith("deadline ")) {
-
+                // Checks if a deadline is entered for a deadline task
                 if(!input.contains(" /by")) {
                     throw new MYBotExceptions.InvalidInputException("deadline", "duedate");
                 }
@@ -100,6 +102,7 @@ public class Parser {
                 String description = input.substring(9, input.indexOf(" /by "));
                 String by = (input.substring(input.indexOf(" /by ") + 4)).substring(1);
 
+                // Check if task description/by input is blank
                 if (description.isBlank()) {
                     throw new MYBotExceptions.EmptyDetailsException("description", "deadline");
                 } else if (by.isBlank()) {
@@ -110,6 +113,7 @@ public class Parser {
 
             } else if ((input.startsWith("event "))) {
 
+                // Checks if there is a start and end time
                 if(!input.contains(" /from")) {
                     throw new MYBotExceptions.InvalidInputException("event", "start time");
                 } else if (!input.contains(" /to")) {
@@ -120,6 +124,7 @@ public class Parser {
                 String from = (input.substring(input.indexOf(" /from ") + 6, input.indexOf(" /to"))).substring(1);
                 String to = (input.substring(input.indexOf(" /to ") + 4)).substring(1);
 
+                // Checks if any of the start, end or description is empty
                 if (description.isBlank()) {
                     throw new MYBotExceptions.EmptyDetailsException("description", "event");
                 } else if (from.isBlank()) {

@@ -22,20 +22,20 @@ public class Deadline extends Task {
      * @param description The description of the Deadline task.
      * @param by The deadline of the Deadline task.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String dueBy) {
         super(description);
         assert description != null : "Description cannot be null";
-        assert by != null : "Deadline cannot be null";
+        assert dueBy != null : "Deadline cannot be null";
 
-        if (by.contains(",")) {
-            String [] splitBy = by.split(",");
+        if (dueBy.contains(",")) {
+            String [] splitBy = dueBy.split(",");
             date = super.convertStringToDate(splitBy[0]);
             day = super.convertStringToDay(splitBy[1]);
             if (splitBy.length == 3) {
                 time = super.convertStringToTime(splitBy[2]);
             }
         } else {
-            date = super.convertStringToDate(by);
+            date = super.convertStringToDate(dueBy);
         }
     }
 
@@ -46,21 +46,21 @@ public class Deadline extends Task {
      * @param by The deadline of the Deadline task.
      * @param status A string indicating the status of the task ("Y" for done, "N" for not done).
      */
-    public Deadline(String description, String by, String status) {
+    public Deadline(String description, String dueBy, String status) {
         super(description);
         assert description != null : "Description cannot be null";
-        assert by != null : "Deadline cannot be null";
+        assert dueBy != null : "Deadline cannot be null";
         assert status != null : "Status cannot be null";
 
-        if (by.contains(",")) {
-            String [] splitBy = by.split(", ");
+        if (dueBy.contains(",")) {
+            String [] splitBy = dueBy.split(", ");
             date = super.convertStringToDate(splitBy[0]);
             day = super.convertStringToDay(splitBy[1]);
             if (splitBy.length == 3) {
                 time = super.convertStringToTime(splitBy[2]);
             }
         } else {
-            date = super.convertStringToDate(by);
+            date = super.convertStringToDate(dueBy);
         }
 
         if(status.contains("Y")){

@@ -31,7 +31,7 @@ public class Storage {
     public void saveTasksToFile(TaskList task_List) {
         clearTasksInFile(filePath);
         try (FileWriter writer = new FileWriter(filePath)) {
-            List<Task> taskList = task_List.getTask_List();
+            List<Task> taskList = task_List.getTaskList();
             for (Task task : taskList) {
                 writer.write(task.toFileString() + "\n");
             }
