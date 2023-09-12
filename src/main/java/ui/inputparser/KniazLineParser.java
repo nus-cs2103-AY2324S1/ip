@@ -109,6 +109,8 @@ public class KniazLineParser {
 
         for (String token : tokens) {
             String[] splitToken = token.split(ANYNUM_WHITESPACE, 2);
+            // 2 is because it's key{WHITESPACE}value.
+            // ensures that if the value has whitespace inside, will not be consumed
             String key = splitToken[0];
             String value = splitToken[1];
             out.put(key, value);
