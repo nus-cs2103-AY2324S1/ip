@@ -12,6 +12,7 @@ import sam.commands.UnmarkTaskCommand;
 import sam.commands.ListCommand;
 import sam.commands.FindCommand;
 import sam.commands.ExitCommand;
+import sam.commands.AddTagCommand;
 import sam.exceptions.DukeException;
 
 import java.util.regex.Pattern;
@@ -50,6 +51,9 @@ public class Parser {
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
+        case AddTagCommand.COMMAND_WORD:
+            return prepareTag(arguments);
+
         case AddEventCommand.COMMAND_WORD:
             return prepareAddEvent(arguments);
 
@@ -80,6 +84,31 @@ public class Parser {
         case HelpCommand.COMMAND_WORD: // Fallthrough
         default:
             return new HelpCommand();
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the add tags to task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareTag(String args) {
+        final Pattern TAG_PATTERN = Pattern.compile("(?<index>\\d+)\\s+(?<description>#\\w+)");
+        final Matcher matcher = TAG_PATTERN.matcher(args.trim());
+
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
+        }
+
+        String index = matcher.group("index").trim();
+        String description = matcher.group("description").trim();
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(index);
+            return new AddTagCommand(targetIndex, description );
+        } catch (DukeException pe) {
+            return new IncorrectCommand(String.format(INVALID_COMMAND_FORMAT + "\n" + pe.getMessage(),
+                    AddTagCommand.MESSAGE_USAGE));
         }
     }
 

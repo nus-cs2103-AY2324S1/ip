@@ -15,6 +15,7 @@ public class Message {
     public static final String LIST_TASKS = "Here are the tasks in your list:";
     public static final String ADD_TASKS = "Got it. I've added this task:";
     public static final String MARK_TASK = "Nice! I've marked this task as done:";
+    public static final String TAG_TASK = "Nice! I've tagged this task:";
     public static final String DELETE_TASK = "Noted. I've removed this task:";
     public static final String UNMARK_TASK = "OK, I've marked this task as not done yet:";
 
