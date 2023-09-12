@@ -39,6 +39,7 @@ public class TaskList implements Iterable<Task> {
      */
     public void add(Task task) {
         this.tasks.add(task);
+        assert tasks.contains(task) : "Task should be in the list";
     }
 
     /**
