@@ -48,21 +48,31 @@ public class Parser {
             if (splitInput.length == 1) {
                 throw new DukeIllegalArgumentsException("The description of a todo cannot be empty\n");
             }
+
+            assert splitInput.length == 2 : "The description of a todo cannot be empty";
+
             return new AddCommand(new Todo(splitInput[1].trim()));
         case "deadline":
             if (splitInput.length == 1) {
                 throw new DukeIllegalArgumentsException("The description of an deadline cannot be empty\n");
             }
 
+            assert splitInput.length == 2 : "The description of an deadline cannot be empty";
+
             String[] splitInputBy = fullCommand.split("/by", 2);
             String[] splitDeadlineDescription = splitInputBy[0].split(" ", 2);
             if (splitDeadlineDescription.length == 1 || splitDeadlineDescription[1].equals("")) {
                 throw new DukeIllegalArgumentsException("The description of an deadline cannot be empty\n");
             }
+
+            assert splitDeadlineDescription.length == 2 : "The description of an deadline cannot be empty";
+
             if (splitInputBy.length == 1 || splitInputBy[1].equals("")) {
                 throw new DukeIllegalArgumentsException(
                         "The deadline date must be specified! (after /by)\n");
             }
+
+            assert splitInputBy.length == 2 : "The deadline date must be specified! (after /by)";
 
             try {
                 return new AddCommand(new Deadline(splitDeadlineDescription[1].trim(),
@@ -76,15 +86,22 @@ public class Parser {
                 throw new DukeIllegalArgumentsException("The description of an event cannot be empty\n");
             }
 
+            assert splitInput.length == 2 : "The description of an event cannot be empty";
+
             String[] splitInputFrom = fullCommand.split("/from", 2);
             String[] splitEventDescription = splitInputFrom[0].split(" ", 2);
             if (splitEventDescription.length == 1 || splitEventDescription[1].equals("")) {
                 throw new DukeIllegalArgumentsException("The description of an event cannot be empty\n");
             }
+
+            assert splitEventDescription.length == 2 : "The description of an event cannot be empty";
+
             if (splitInputFrom.length == 1 || splitInputFrom[1].equals("")) {
                 throw new DukeIllegalArgumentsException(
                         "The start time of the event must be specified! (after /from)\n");
             }
+
+            assert splitInputFrom.length == 2 : "The start time of the event must be specified! (after /from)";
 
             String[] splitInputTo = splitInputFrom[1].split("/to", 2);
 
@@ -92,6 +109,8 @@ public class Parser {
                 throw new DukeIllegalArgumentsException(
                         "The end time of the event must be specified! (after /to)\n");
             }
+
+            assert splitInputTo.length == 2 : "The end time of the event must be specified! (after /to)";
 
             try {
                 return new AddCommand(
@@ -108,6 +127,9 @@ public class Parser {
             if (splitInput.length == 1) {
                 throw new DukeIllegalArgumentsException("The keyword to search for cannot be empty!\n");
             }
+
+            assert splitInput.length == 2 : "The keyword to search for cannot be empty!";
+
             return new FindCommand(splitInput[1].trim());
         default:
             throw new DukeUnknownCommandException();
