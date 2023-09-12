@@ -30,12 +30,24 @@ public class TaskList {
     }
 
     /**
+     * Checks if the given task is a duplicate of an existing task in the list.
+     * @param task The task to be checked.
+     * @return {@code true} if the task is a duplicate, {@code false} otherwise.
+     */
+    public boolean isDuplicate(Task task) {
+        return tasks.contains(task);
+    }
+
+    /**
      * Adds a task to the list.
      *
      * @param task The task to be added.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws SimonException {
         assert task != null : "Task to be added cannot be null";
+        if (isDuplicate(task)) {
+            throw new SimonException("☹ OOPS!!! This task is a duplicate.");
+        }
         tasks.add(task);
     }
 

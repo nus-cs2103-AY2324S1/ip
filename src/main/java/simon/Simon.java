@@ -78,7 +78,7 @@ public class Simon extends Application {
             case TODO:
             case DEADLINE:
             case EVENT:
-                Task newTask = Parser.parseAddTask(inData, command);
+                Task newTask = Parser.parseAddTask(inData, command, tasks);
                 tasks.addTask(newTask);
                 storage.save(tasks.getAllTasks());
                 ui.showAddedTask(newTask, tasks.getTaskCount());

@@ -114,7 +114,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void getTask_invalidIndex_outOfBoundsException() {
+    public void getTask_invalidIndex_outOfBoundsException() throws SimonException {
         TaskList tasks = new TaskList();
         tasks.addTask(new ToDo("Sample Task"));
 

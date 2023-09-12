@@ -1,6 +1,7 @@
 package simon.command;
 
 import simon.SimonException;
+import simon.TaskList;
 import simon.task.Deadline;
 import simon.task.Event;
 import simon.task.Task;
@@ -46,21 +47,32 @@ public class Parser {
      * @return A {@code Task} object representing the task detailed in the user input.
      * @throws SimonException If there is an error in interpreting the user input.
      */
-    public static Task parseAddTask(String userInput, Command commandType) throws SimonException {
+    public static Task parseAddTask(String userInput, Command commandType, TaskList taskList) throws SimonException {
+        Task newTask;
         switch (commandType) {
         case TODO:
-            return parseToDoTask(userInput);
+            newTask = parseToDoTask(userInput);
+            break;
 
         case DEADLINE:
-            return parseDeadlineTask(userInput);
+            newTask = parseDeadlineTask(userInput);
+            break;
 
         case EVENT:
-            return parseEventTask(userInput);
+            newTask = parseEventTask(userInput);
+            break;
 
         default:
             throw new SimonException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+
+        if (taskList.isDuplicate(newTask)) {
+            throw new SimonException("☹ OOPS!!! This task is a duplicate.");
+        }
+
+        return newTask;
     }
+
 
     /**
      * Parses the user input to create a {@code ToDo} task.
