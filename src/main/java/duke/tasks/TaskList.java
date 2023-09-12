@@ -21,6 +21,7 @@ public class TaskList extends ArrayList<Task> {
      */
     public TaskList(Scanner tasks) {
         super();
+
         while (tasks.hasNextLine()) {
             String line = tasks.nextLine();
             Task task = Task.createTaskFromFile(line);
@@ -53,42 +54,46 @@ public class TaskList extends ArrayList<Task> {
      * @return String containing the tasks in the TaskList.
      */
     public String printTasks() {
-        String output = "";
+        StringBuilder output;
+
         if (this.size() == 0) {
-            output = "Either you are a very productive person, or you have nothing to do.";
-            System.out.println("Either you are a very productive person, or you have nothing to do.");
+            output = new StringBuilder("Either you are a very productive person, or you have nothing to do.");
         } else {
-            output = "This is what you've been procrastinating about...";
-            System.out.println("This is what you've been procrastinating about...");
+            output = new StringBuilder("This is what you've been procrastinating about...");
             for (int i = 0; i < this.size(); i++) {
-                output += "\n" + (i + 1) + ". " + this.get(i);
-                System.out.println((i + 1) + ". " + this.get(i));
+                output.append("\n").append(i + 1).append(". ").append(this.get(i));
             }
         }
-        return output;
+
+        return output.toString();
     }
 
     /**
      * Find tasks that contain the keyword.
      *
-     * @param keyword keyword to be searched.
-     *
+     * @param keywords keywords to be searched.
      * @return String containing the tasks that contain the keyword.
      */
-    public String findTasks(String keyword) {
+    public String findTasks(String... keywords) {
         int count = 0;
-        String output = "";
+        StringBuilder output = new StringBuilder();
+
         for (int i = 0; i < this.size(); i++) {
-            if (this.get(i).getDescription().contains(keyword)) {
-                output += "\n" + (i + 1) + ". " + this.get(i);
-                System.out.println((i + 1) + ". " + this.get(i));
-                count++;
+            String description = this.get(i).getDescription();
+
+            for (String keyword : keywords) {
+                if (description.contains(keyword)) {
+                    output.append("\n").append(i + 1).append(". ").append(this.get(i));
+                    count++;
+                    break;
+                }
             }
         }
+
         if (count == 0) {
-            output = "how you find that when you dont have that?";
-            System.out.println("how you find that when you dont have that?");
+            output = new StringBuilder("how you find that when you dont have that?");
         }
-        return output;
+
+        return output.toString();
     }
 }

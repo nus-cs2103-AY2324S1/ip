@@ -1,3 +1,10 @@
 |T| |X| buy pencil
-|D| |X| return book (by: Sunday)
 |T| | | ggg
+|T| | | asljfld;sjfalsjd
+|T| | | pen
+|T| | | buy pencilsss
+|T| | | buy toiletries
+|T| | | shit
+|D| | | return book (by: Sunday)
+|E| | | project meeting (from: Mon 2pm to: 4pm)
+|T| | | sharp pencil
