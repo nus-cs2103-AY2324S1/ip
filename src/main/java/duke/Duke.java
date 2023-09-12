@@ -28,6 +28,7 @@ public class Duke {
     }
 
     public String getResponse(String line) {
+        assert ui != null;
         try {
             CommandType command = Parser.parseCommand(line);
             switch (command) {
