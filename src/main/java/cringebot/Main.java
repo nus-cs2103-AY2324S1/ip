@@ -1,8 +1,8 @@
-package duke;
+package cringebot;
 
 import java.io.IOException;
 
-import duke.ui.MainWindow;
+import cringebot.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private final Duke duke = new Duke("./data/data.ser");
+    private final CringeBot cringeBot = new CringeBot("./data/data.ser");
 
     /**
      * Starts the GUI for CringeBot.
@@ -31,7 +31,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setDuke(cringeBot);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

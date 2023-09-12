@@ -1,9 +1,9 @@
-package duke;
+package cringebot;
 
-import duke.exceptions.DukeException;
-import duke.parser.Parser;
-import duke.tasks.Task;
-import duke.tasks.TaskList;
+import cringebot.exceptions.DukeException;
+import cringebot.parser.Parser;
+import cringebot.tasks.Task;
+import cringebot.tasks.TaskList;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

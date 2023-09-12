@@ -1,4 +1,4 @@
-package duke.tasks;
+package cringebot.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,7 +20,6 @@ public class Deadline extends Task {
     public Deadline(String name, String date) {
         super(name);
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
             this.date = LocalDate.parse(date.strip());
             this.hasDate = true;
         } catch (DateTimeParseException e) {

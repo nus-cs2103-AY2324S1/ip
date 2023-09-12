@@ -1,9 +1,9 @@
-package duke.parser;
+package cringebot.parser;
 
-import duke.exceptions.DukeException;
-import duke.dataFile.Storage;
-import duke.ui.Ui;
-import duke.tasks.TaskList;
+import cringebot.exceptions.DukeException;
+import cringebot.dataFile.Storage;
+import cringebot.ui.Ui;
+import cringebot.tasks.TaskList;
 
 /**
  * Class for parsing commands made by the user.

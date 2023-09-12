@@ -1,4 +1,4 @@
-package duke.tasks;
+package cringebot.tasks;
 
 /**
  * Class to create an event.

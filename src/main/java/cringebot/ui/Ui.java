@@ -1,13 +1,12 @@
-package duke.ui;
+package cringebot.ui;
 
-import duke.tasks.Task;
-import duke.tasks.TaskList;
+import cringebot.tasks.Task;
+import cringebot.tasks.TaskList;
 
 /**
  * Class that handles the statements said by CringeBot
  */
 public class Ui {
-    private static final String BAR = "____________________________________________________________";
 
     /**
      * Greets the user.

@@ -43,11 +43,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
+    mainClass.set("cringebot.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "cringebot"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

@@ -1,4 +1,4 @@
-package duke.exceptions;
+package cringebot.exceptions;
 
 /**
  * Class to handle exceptions thrown by Duke.

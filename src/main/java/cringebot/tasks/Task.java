@@ -1,4 +1,4 @@
-package duke.tasks;
+package cringebot.tasks;
 
 import java.io.Serializable;
 

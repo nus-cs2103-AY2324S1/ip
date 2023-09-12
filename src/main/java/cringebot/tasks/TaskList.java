@@ -1,8 +1,8 @@
-package duke.tasks;
+package cringebot.tasks;
 
-import duke.exceptions.DukeException;
-import duke.parser.Parser;
-import duke.ui.Ui;
+import cringebot.exceptions.DukeException;
+import cringebot.parser.Parser;
+import cringebot.ui.Ui;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -195,7 +195,7 @@ public class TaskList implements Serializable {
      * @throws DukeException Lets the user know if the description is invalid.
      */
     public static void checkEmpty(String input, String taskName) throws DukeException {
-        if (input.equals("")) {
+        if (input.isEmpty()) {
             throw new DukeException(String.format(":((  OOPS!!! The description of a %s cannot be empty.", taskName));
         }
     }

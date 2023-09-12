@@ -1,6 +1,6 @@
-package duke.ui;
+package cringebot.ui;
 
-import duke.Duke;
+import cringebot.CringeBot;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -24,7 +24,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private CringeBot cringeBot;
 
     private final Image userImage = new Image(
             Objects.requireNonNull(this.getClass().getResourceAsStream("/images/ChadUser.jpeg")));
@@ -43,12 +43,12 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Sets the chat bot to be used throughout
+     * Sets the chatbot to be used throughout
      *
-     * @param d chat bot to be used
+     * @param d chatbot to be used
      */
-    public void setDuke(Duke d) {
-        this.duke = d;
+    public void setDuke(CringeBot d) {
+        this.cringeBot = d;
     }
 
     /**
@@ -58,7 +58,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = cringeBot.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
