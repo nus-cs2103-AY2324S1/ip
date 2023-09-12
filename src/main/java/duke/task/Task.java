@@ -88,6 +88,12 @@ public class Task {
         return this.description;
     }
 
+    public void update(String changes) {
+        this.description = changes;
+    }
+
+    public void updateDate(LocalDateTime date, boolean isFirst) {};
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description; 

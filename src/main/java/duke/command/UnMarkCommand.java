@@ -23,7 +23,7 @@ public class UnMarkCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        if (index < 0 || index >= taskList.size()) {
+        if (index < 0 || index > taskList.size()) {
             throw new DukeException("OOPS! The index to unmark is invalid!");
         }
         taskList.markTask(index);

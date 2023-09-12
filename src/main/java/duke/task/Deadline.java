@@ -51,6 +51,16 @@ public class Deadline extends Task {
     }
 
     @Override
+    public void update(String update) {
+        super.update(update);
+    }
+
+    @Override
+    public void updateDate(LocalDateTime date, boolean isFirst) {
+        this.deadline = date;
+    }
+
+    @Override
     public String getOutputString() {
         return String.format("D | %d | %s | %s", isDone ? 1 : 0, description, this.saveDeadline());
     }

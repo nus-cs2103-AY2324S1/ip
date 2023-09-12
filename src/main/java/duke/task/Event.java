@@ -74,6 +74,15 @@ public class Event extends Task {
     }
 
     @Override
+    public void updateDate(LocalDateTime date, boolean isFirst) {
+        if (isFirst) {
+            this.startTime = date;
+        } else {
+            this.endTime = date;
+        }
+    }
+
+    @Override
     public String getOutputString() {
         return String.format("E | %d | %s | %s", isDone ? 1 : 0, description, 
         this.saveStartTime().concat(" to " + this.saveEndTime()));

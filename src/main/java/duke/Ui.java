@@ -40,6 +40,11 @@ public class Ui {
         System.out.println("Now you have " + size + " tasks in the list.\n");
     }
 
+    public void updateSuccess(Task task) {
+        System.out.println("Noted. I've updated this task:\n");
+        System.out.println("\t" + task + "\n");
+    }
+
     /**
      * Represents the output that outputs the list stored.
      * 

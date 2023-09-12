@@ -14,6 +14,11 @@ public class ToDo extends Task {
     }
 
     @Override
+    public void update(String changes) {
+        super.update(changes);
+    }
+
+    @Override
     public String getOutputString() {
         return String.format("T | %d | %s", isDone ? 1 : 0, description);
     }

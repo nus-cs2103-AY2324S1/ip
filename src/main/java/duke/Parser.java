@@ -7,11 +7,13 @@ import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.MarkCommand;
 import duke.command.UnMarkCommand;
+import duke.command.UpdateCommand;
 import duke.command.ExitCommand;
 import duke.command.ListCommand;
 import duke.command.FindCommand;
 
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -68,6 +70,84 @@ public class Parser {
             String keyword = command.replace("find", "").trim();
             validateFindInput(keyword);
             return new FindCommand(keyword);
+        } else if (isUpdateCommand(command)) {
+            String input = command.replace("update", "").trim();
+            String[] updateDetails = input.split(" ");
+            int index = validateUpdateIndex(updateDetails[0]);
+            String description = "";
+            int counter = 0;
+            ArrayList<String> filteredDetails = new ArrayList<>();
+            filteredDetails.add(updateDetails[0]);
+            for (int i = 1; i < updateDetails.length; i++) {
+                if (!updateDetails[i].startsWith("/by") 
+                || !updateDetails[i].startsWith("/from") 
+                || !updateDetails[i].startsWith("/to")) {
+                    description += updateDetails[i] + " ";
+                    counter++;
+                }
+            }
+            if (description != "") {
+                filteredDetails.add(description.trim());
+                for (int j = 2; j < updateDetails.length; j++) {
+                    if (j + counter < updateDetails.length) {
+                        filteredDetails.add(updateDetails[j + counter]);
+                    }
+                }
+            } else {
+                for (int k = 1; k < updateDetails.length; k++) {
+                    filteredDetails.add(updateDetails[k]);
+                }
+            }
+            if (filteredDetails.size() < 2) {
+                throw new DukeException("OOPS! Please include more details");
+            } else if (filteredDetails.size() == 2) {
+                if (filteredDetails.get(1).startsWith("/by")) {
+                    String date = filteredDetails.get(1).replace("/by", "");
+                    if (isDate(date)) {
+                        LocalDateTime dueDate = parseDate(date);
+                        return new UpdateCommand(index, dueDate, true);
+                    } else {
+                        throw new DukeException("OOPS! Please key in the right format");
+                    }
+                } else if (filteredDetails.get(1).startsWith("/from")) {
+                    LocalDateTime firstDate = parseDate(filteredDetails.get(1).replace("/from",""));
+                    return new UpdateCommand(index, firstDate, true);
+                } else if (filteredDetails.get(1).startsWith("/to")) {
+                    LocalDateTime secondDate = parseDate(filteredDetails.get(1).replace("/to",""));
+                    return new UpdateCommand(index, secondDate, false);
+                } else {
+                    return new UpdateCommand(index, filteredDetails.get(1));
+                }
+            } else if (filteredDetails.size() == 3) {
+                if (filteredDetails.get(1).startsWith("/by")) {
+                    throw new DukeException("OOPS! Please ensure you are updating the correct task!");
+                } else if (filteredDetails.get(1).startsWith("/from") && filteredDetails.get(2).startsWith("/to")) {
+                    LocalDateTime firstDate = parseDate(filteredDetails.get(1).replace("/from", ""));
+                    LocalDateTime secondDate = parseDate(filteredDetails.get(2).replace("/to", ""));
+                    return new UpdateCommand(index, firstDate, secondDate);
+                } else {
+                    String details = filteredDetails.get(1);
+                    if (filteredDetails.get(2).startsWith("/from")) {
+                        LocalDateTime firstDate = parseDate(filteredDetails.get(2).replace("/from", ""));
+                        return new UpdateCommand(index, details, firstDate, true);
+                    } else {
+                        LocalDateTime secondDate = parseDate(filteredDetails.get(2).replace("/to", ""));
+                        return new UpdateCommand(index, details, secondDate, false);
+                    }
+                }
+            } else {
+                if (filteredDetails.get(1).startsWith("/by") 
+                || filteredDetails.get(1).startsWith("/from") 
+                || filteredDetails.get(1).startsWith("/to")) {
+                    throw new DukeException("OOPS! Please ensure you are updating the correct task!");
+                } else {
+                    String details = filteredDetails.get(1);
+                    LocalDateTime firstDate = parseDate(filteredDetails.get(2).replace("/from", ""));
+                    LocalDateTime secondDate = parseDate(filteredDetails.get(3).replace("/to", ""));
+                    return new UpdateCommand(index, details, firstDate, secondDate);
+                }
+            }
+
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -125,6 +205,10 @@ public class Parser {
      */
     private static int validateMarkIndex(String markInput) throws DukeException {
         return validateMarkOrDeleteIndex(markInput);
+    }
+
+    private static int validateUpdateIndex(String input) throws DukeException {
+        return validateMarkOrDeleteIndex(input);
     }
 
     /**
@@ -314,5 +398,9 @@ public class Parser {
      */
     private static boolean isFindCommand(String input) {
         return input.startsWith("find");
+    }
+
+    private static boolean isUpdateCommand(String input) {
+        return input.startsWith("update");
     }
 }
