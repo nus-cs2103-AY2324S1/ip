@@ -12,14 +12,14 @@ import duke.task.TaskList;
  * The DeleteCommand class represents a command to delete a task.
  * It is a subclass of the Command class.
  */
-public class DeleteComand extends Command {
+public class DeleteCommand extends Command {
 
     /**
      * Constructs a DeleteCommand object with the provided command details.
      *
      * @param commandDetails The list of command details, which includes the task number to delete.
      */
-    public DeleteComand(ArrayList<String> commandDetails) {
+    public DeleteCommand(ArrayList<String> commandDetails) {
         super(commandDetails);
     }
 
@@ -52,8 +52,8 @@ public class DeleteComand extends Command {
         if (obj == this) {
             return true;
         }
-        if (obj instanceof DeleteComand) {
-            DeleteComand other = (DeleteComand) obj;
+        if (obj instanceof DeleteCommand) {
+            DeleteCommand other = (DeleteCommand) obj;
             if (this.commandDetails == null || other.commandDetails == null) {
                 return false;
             }

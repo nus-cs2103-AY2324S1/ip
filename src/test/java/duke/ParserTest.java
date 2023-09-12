@@ -1,18 +1,19 @@
 package duke;
 
-import duke.command.AddCommand;
-import duke.command.ByeCommand;
-import duke.command.Command;
-import duke.command.DeleteComand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.UnmarkCommand;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+
+import duke.command.AddCommand;
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
 
 public class ParserTest {
 
@@ -53,7 +54,7 @@ public class ParserTest {
     void parse_deleteCommand_success() throws DukeException {
         ArrayList<String> resString = new ArrayList<>();
         resString.add("1");
-        Command resCommand = new DeleteComand(resString);
+        Command resCommand = new DeleteCommand(resString);
         assertEquals(resCommand, Parser.parse("delete 1"));
     }
 
@@ -134,7 +135,7 @@ public class ParserTest {
     void parse_deleteCommandNoTaskNumber_exceptionThrown() throws DukeException {
         try {
             ArrayList<String> resString = new ArrayList<>();
-            Command resCommand = new DeleteComand(resString);
+            Command resCommand = new DeleteCommand(resString);
             assertEquals(resCommand, Parser.parse("delete"));
         } catch (Exception e) {
             assertEquals("☹ OOPS!!! The task number to delete cannot be empty.", e.getMessage());

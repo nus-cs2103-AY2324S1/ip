@@ -22,12 +22,13 @@ public class FindCommand extends Command {
     public String execute(TaskList tasks, Response response, Storage storage) throws DukeException {
         TaskList resultList = new TaskList();
         String keyword = commandDetails.get(0);
-        for (int i = 0; i < tasks.size(); i++) {
-            Task cur = tasks.get(i);
-            if (tasks.get(i).getDescription().indexOf(keyword) != -1) {
-                resultList.add(cur);
+
+        for (Task task : tasks) {
+            if (task.getDescription().indexOf(keyword) != -1) {
+                resultList.add(task);
             }
         }
+
         return response.printFind(resultList);
     }
 }

@@ -7,7 +7,6 @@ import duke.Response;
 import duke.Storage;
 import duke.task.TaskList;
 
-
 /**
  * The Command abstract class represents a generic command.
  */
