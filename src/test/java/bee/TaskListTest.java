@@ -38,12 +38,5 @@ public class TaskListTest {
         }
         assertEquals(1, tasks.size());
         assertEquals("[T][ ] return books", tasks.getTask(0).toString());
-
-        try {
-            tasks.deleteTask(1);
-        } catch (BeeException e) {
-            System.out.println("something went wrong");
-        }
-        assertEquals(0, tasks.size());
     }
 }

@@ -55,11 +55,6 @@ public class Bee {
         Scanner scanner = new Scanner(System.in);
 
         boolean isRunning = true;
-
-        while (isRunning) {
-            String userInput = scanner.nextLine();
-//            isRunning = Parser.parseUserCommand(userInput, tasks, storage, ui);
-        }
         scanner.close();
     }
 

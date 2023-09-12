@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
 import bee.ui.Ui;
 
 /**
@@ -37,7 +38,7 @@ public class TaskList {
      * @return The number of tasks.
      */
     public int size() {
-        return this.tasks.size();
+        return tasks.size();
     }
 
     /**
@@ -47,7 +48,7 @@ public class TaskList {
      */
     public void quietlyAddTask(Task task) {
         assert task != null : "Task object cannot be null."; // Assumption: Task object should not be null
-        this.tasks.add(task);
+        tasks.add(task);
     }
 
     /**
@@ -57,7 +58,7 @@ public class TaskList {
      */
     public String addTask(Task task) {
         assert task != null : "Task object cannot be null."; // Assumption: Task object should not be null
-        this.tasks.add(task);
+        tasks.add(task);
         storage.saveTasksToFile();
         return Ui.addTask(task, this.tasks.size());
     }
@@ -75,7 +76,7 @@ public class TaskList {
      * @return The list of tasks.
      */
     public ArrayList<Task> getTasks() {
-        return tasks;
+        return new ArrayList<>(tasks);
     }
 
     /**
@@ -85,7 +86,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
-        assert index >= 0 && index < tasks.size() : "Invalid task index."; // Assumption: Index should be within valid range
+        assert index >= 0 && index < tasks.size() : "Invalid task index.";
         return tasks.get(index);
     }
 
@@ -161,7 +162,8 @@ public class TaskList {
             try {
                 String editedInput = userInput.substring(9);
                 if (editedInput.isEmpty()) {
-                    return Ui.returnErrorString(new BeeException("OOPS!! The description of a deadline cannot be empty."));
+                    return Ui.returnErrorString(
+                            new BeeException("OOPS!! The description of a deadline cannot be empty."));
                 }
                 String[] splitEditedInput = editedInput.split(" /by ");
                 String deadlineDescription = splitEditedInput[0];
@@ -173,9 +175,9 @@ public class TaskList {
                 Deadline deadlineTask = new Deadline(deadlineDescription, deadlineDate);
                 return this.addTask(deadlineTask);
             } catch (DateTimeParseException e) {
-                return Ui.returnErrorString(new BeeException("OOPS!! Invalid deadline date format. Please use yyyy-MM-dd HHmm"));
-            }
-            catch (StringIndexOutOfBoundsException e) {
+                return Ui.returnErrorString(
+                        new BeeException("OOPS!! Invalid deadline date format. Please use yyyy-MM-dd HHmm"));
+            } catch (StringIndexOutOfBoundsException e) {
                 return Ui.returnErrorString(new BeeException("OOPS!! The description of a deadline cannot be empty."));
             } catch (ArrayIndexOutOfBoundsException e) {
                 return Ui.returnErrorString(new BeeException("OOPS!! The date of the deadline cannot be empty."));
@@ -184,7 +186,8 @@ public class TaskList {
             try {
                 String editedInput = userInput.substring(6);
                 if (editedInput.isEmpty()) {
-                    return Ui.returnErrorString(new BeeException("OOPS!! The description of an event cannot be empty."));
+                    return Ui.returnErrorString(
+                            new BeeException("OOPS!! The description of an event cannot be empty."));
                 }
                 String[] splitEditedInput = editedInput.split(" /from ");
                 String[] splitEditedInput2 = splitEditedInput[1].split(" /to ");
