@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 
 import duke.Storage;
 import duke.Ui;
-import duke.tasks.TaskList;
+import duke.task.TaskList;
 
 public class HelpCommand extends Command {
 

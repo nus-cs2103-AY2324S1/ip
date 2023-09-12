@@ -6,8 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import duke.tasks.TaskList;
-import duke.tasks.Task;
+import duke.task.Task;
+import duke.task.TaskList;
 
 /**
  * Implements a storage class to allow the bot to be able to save tasks

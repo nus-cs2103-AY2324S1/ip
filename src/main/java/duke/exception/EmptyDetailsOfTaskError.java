@@ -1,4 +1,4 @@
-package duke.exceptions;
+package duke.exception;
 
 /**
  * Subclass of dukeException

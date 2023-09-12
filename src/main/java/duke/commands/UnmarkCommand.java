@@ -2,9 +2,9 @@ package duke.commands;
 
 import duke.Storage;
 import duke.Ui;
-import duke.exceptions.WrongMarkException;
-import duke.tasks.Task;
-import duke.tasks.TaskList;
+import duke.exception.WrongMarkException;
+import duke.task.Task;
+import duke.task.TaskList;
 
 public class UnmarkCommand extends Command {
     private int taskNumber;

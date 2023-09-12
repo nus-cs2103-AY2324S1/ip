@@ -1,4 +1,4 @@
-package duke.tasks;
+package duke.task;
 
 /**
  * Todo is a subclass of a Task
@@ -11,6 +11,7 @@ public class Todo extends Task {
 
     /**
      * toString method to return the todo object in a string
+     * 
      * @return string for todo
      */
     @Override

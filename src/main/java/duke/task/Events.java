@@ -1,4 +1,4 @@
-package duke.tasks;
+package duke.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -16,9 +16,10 @@ public class Events extends Task {
 
     /**
      * Constructor of the event class
-     * @param description is the description of the event
+     * 
+     * @param description   is the description of the event
      * @param originalStart is the start date of the event
-     * @param originalEnd is the end date of the event
+     * @param originalEnd   is the end date of the event
      */
     public Events(String description, String originalStart, String originalEnd) {
         super(description);
@@ -38,6 +39,7 @@ public class Events extends Task {
 
     /**
      * string of the event object
+     * 
      * @return a string
      */
     @Override

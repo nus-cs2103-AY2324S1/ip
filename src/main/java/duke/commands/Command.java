@@ -2,7 +2,7 @@ package duke.commands;
 
 import duke.Storage;
 import duke.Ui;
-import duke.tasks.TaskList;
+import duke.task.TaskList;
 
 /**
  * List of all possible commands, used the idea of enums to list

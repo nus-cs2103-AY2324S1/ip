@@ -1,12 +1,14 @@
-package duke.exceptions;
+package duke.exception;
 
 /**
- * Exceptions of Duke object, errors which duke is likely to encounter and what is done
+ * Exceptions of Duke object, errors which duke is likely to encounter and what
+ * is done
  * to catch and deal with the errors
  */
 public class DukeException extends Throwable {
     /**
      * Constructor of the duke class
+     * 
      * @param message is the message that the bot returns when encountering the
      *                error
      */
@@ -17,6 +19,7 @@ public class DukeException extends Throwable {
 
     /**
      * Message given by the bot when encountering them
+     * 
      * @return a string containing the messgae
      */
     @Override

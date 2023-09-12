@@ -4,7 +4,7 @@ package duke;
 import java.util.Scanner;
 
 import duke.commands.Command;
-import duke.tasks.TaskList;
+import duke.task.TaskList;
 
 /**
  * The main file that the application runs

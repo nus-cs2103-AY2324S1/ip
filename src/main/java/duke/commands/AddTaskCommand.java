@@ -2,10 +2,10 @@ package duke.commands;
 
 import duke.Storage;
 import duke.Ui;
-import duke.exceptions.EmptyDetailsOfTaskError;
-import duke.exceptions.UnknownCommandException;
-import duke.tasks.Task;
-import duke.tasks.TaskList;
+import duke.exception.EmptyDetailsOfTaskError;
+import duke.exception.UnknownCommandException;
+import duke.task.Task;
+import duke.task.TaskList;
 
 public class AddTaskCommand extends Command {
     private String command;

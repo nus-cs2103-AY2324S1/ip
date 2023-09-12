@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import duke.Storage;
 import duke.Ui;
-import duke.tasks.TaskList;
+import duke.task.TaskList;
 
 public class ByeCommand extends Command {
 

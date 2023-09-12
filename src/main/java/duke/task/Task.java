@@ -1,11 +1,11 @@
-package duke.tasks;
+package duke.task;
 
 import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 import duke.FormatterDate;
-import duke.exceptions.EmptyDetailsOfTaskError;
-import duke.exceptions.UnknownCommandException;
+import duke.exception.EmptyDetailsOfTaskError;
+import duke.exception.UnknownCommandException;
 
 /**
  * SuperClass of task to be implemented such as todo, deadLine and event

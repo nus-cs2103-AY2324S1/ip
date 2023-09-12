@@ -1,4 +1,4 @@
-package duke.tasks;
+package duke.task;
 
 import java.util.ArrayList;
 import java.util.Scanner;
