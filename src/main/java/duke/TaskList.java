@@ -41,13 +41,18 @@ public class TaskList {
      * @param type type of task added.
      */
     public static String add(Task task, String type) {
-        toDo.add(task);
-        Storage.save();
+        String msg;
+        if (isDuplicate(task)) {
+            msg = "There is already a task matching that description! (⋟﹏⋞)";
+        } else {
+            toDo.add(task);
+            Storage.save();
 
-        String description = task.getDescription();
-        String successMsg = Ui.successfulAdd(type, description, toDo.size());
+            String description = task.getDescription();
+            msg = Ui.successfulAdd(type, description, toDo.size());
+        }
 
-        return successMsg;
+        return msg;
     }
 
     /**
