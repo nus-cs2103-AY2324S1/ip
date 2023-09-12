@@ -3,7 +3,6 @@ package ui;
 import java.util.Scanner;
 
 import task.Task;
-
 import tasklist.TaskList;
 
 /**
@@ -11,12 +10,12 @@ import tasklist.TaskList;
  * managing user inputs and displaying outputs.
  */
 public class Ui {
+    /** For spacing purposes */
+    private static final String SPACE = "------------------------------------";
 
     /** Scanner for user input */
     private Scanner scanner;
 
-    /** For spacing purposes */
-    private static final String SPACE = "------------------------------------";
 
     /** Name of bot */
     private String name = "Adam's Bot";

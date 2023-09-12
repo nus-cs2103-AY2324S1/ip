@@ -1,11 +1,8 @@
 package command;
 
 import storage.Storage;
-
 import task.Task;
-
 import tasklist.TaskList;
-
 import ui.Ui;
 
 /**
@@ -41,9 +38,9 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-            Task task = tasks.get(this.taskNumber);
-            tasks.delete(this.taskNumber);
-            ui.showDeleteText(task, tasks.size());
+        Task task = tasks.get(this.taskNumber);
+        tasks.delete(this.taskNumber);
+        ui.showDeleteText(task, tasks.size());
     }
 
     /**

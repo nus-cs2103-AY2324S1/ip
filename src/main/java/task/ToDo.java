@@ -4,7 +4,7 @@ package task;
  * Represents a "ToDo" task, extending the abstract Task class.
  * A "ToDo" task is a simple task with only a description and no time or date associated with it.
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
 
     /**
      * Constructs a ToDo instance with a specified task name,
@@ -13,7 +13,7 @@ public class ToDo extends Task{
      * @param taskName The name or description of the ToDo task.
      */
     public ToDo(String taskName) {
-        super(taskName,TaskType.TODO);
+        super(taskName, TaskType.TODO);
     }
 
     /**

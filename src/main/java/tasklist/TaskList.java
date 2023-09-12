@@ -31,7 +31,7 @@ public class TaskList {
      *
      * @param task The Task object being added to the taskList.
      */
-    public void add(Task task){
+    public void add(Task task) {
         this.taskList.add(task);
     }
 

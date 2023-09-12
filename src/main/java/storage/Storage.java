@@ -1,22 +1,20 @@
 package storage;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.ToDo;
-import tasklist.TaskList;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.util.ArrayList;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
+import tasklist.TaskList;
 
 /**
  * Responsible for reading from and writing to the
@@ -52,7 +50,7 @@ public class Storage {
             }
         }
 
-        if(!Files.exists(this.path)) {
+        if (!Files.exists(this.path)) {
             try {
                 Files.createFile(this.path);
                 System.out.println("file created");

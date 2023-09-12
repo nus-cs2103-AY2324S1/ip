@@ -29,7 +29,8 @@ public class FindCommand extends Command {
      *
      * @param tasks The list of task on which the command will operate on.
      * @param ui The UI which is used during the command execution to show find text.
-     * @param storage The storage where tasks are stored and retrieved from, currently not utilized in this method but can be extended to use in the future.
+     * @param storage The storage where tasks are stored and retrieved from, currently not
+     *                utilized in this method but can be extended to use in the future.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

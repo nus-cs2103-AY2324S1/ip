@@ -1,19 +1,22 @@
 package storage;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import task.Task;
-import task.ToDo;
-import tasklist.TaskList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import task.Task;
+import task.ToDo;
+import tasklist.TaskList;
 
 class StorageTest {
     private Storage storage;
@@ -43,16 +46,16 @@ class StorageTest {
         assertTrue(Files.exists(this.path));
     }
 
-   @Test
+    @Test
     public void testSaveTasksToFile() {
         TaskList tasks = new TaskList();
         Task taskOne = new ToDo("eat");
         tasks.add(taskOne);
         this.storage.saveTasksToFile(tasks);
         StringBuilder actualOutput = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new FileReader(this.path.toFile()))){
+        try (BufferedReader reader = new BufferedReader(new FileReader(this.path.toFile()))) {
             String line;
-            while((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 actualOutput.append(line).append("\n");
             }
 
@@ -61,7 +64,7 @@ class StorageTest {
         }
 
         String expectedOutput = "[T][ ] eat\n";
-        assertEquals(expectedOutput,actualOutput.toString());
+        assertEquals(expectedOutput, actualOutput.toString());
     }
 
     @Test

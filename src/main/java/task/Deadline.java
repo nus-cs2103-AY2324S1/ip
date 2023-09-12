@@ -42,7 +42,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-            return "[D]"+ super.toString() + " (by: " + dueDate + ")";
+        return "[D]" + super.toString() + " (by: " + dueDate + ")";
     }
 
     /**
@@ -67,7 +67,7 @@ public class Deadline extends Task {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatString);
                 LocalDateTime dateTime = LocalDateTime.parse(dateInput, formatter);
                 dueDate = dateTime.format(formatter);
-                break;  // Stop at the first successful parse
+                break; // Stop at the first successful parse
             } catch (DateTimeParseException e) {
                 // Ignore the exception and try the next format
             }

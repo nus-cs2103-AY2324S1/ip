@@ -1,14 +1,10 @@
+import java.io.IOException;
+
 import command.Command;
-
 import parser.Parser;
-
 import storage.Storage;
-
 import tasklist.TaskList;
-
 import ui.Ui;
-
-import java.io.*;
 
 /**
  * The Duke class represents a chatbot that manages tasks.

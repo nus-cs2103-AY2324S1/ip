@@ -30,7 +30,7 @@ public class Event extends Task {
      * @param startDate The start date for the Event task.
      * @param dueDate The due date for the Event task represented as a String.
      */
-    public Event(String taskName, String startDate,String dueDate) {
+    public Event(String taskName, String startDate, String dueDate) {
         super(taskName, TaskType.EVENT);
         this.startDate = startDate;
         this.dueDate = dueDate;
@@ -72,7 +72,7 @@ public class Event extends Task {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatString);
                 LocalDateTime startDate = LocalDateTime.parse(startDateInput, formatter);
                 startDateString = startDate.format(formatter);
-                break;  // Stop at the first successful parse
+                break; // Stop at the first successful parse
             } catch (DateTimeParseException e) {
                 // Ignore the exception and try the next format
             }
@@ -84,7 +84,7 @@ public class Event extends Task {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatString);
                 LocalDateTime dueDate = LocalDateTime.parse(dueDateInput, formatter);
                 dueDateString = dueDate.format(formatter);
-                break;  // Stop at the first successful parse
+                break; // Stop at the first successful parse
             } catch (DateTimeParseException e) {
                 // Ignore the exception and try the next format
             }
