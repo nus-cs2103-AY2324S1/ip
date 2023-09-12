@@ -23,6 +23,18 @@ public class DeadlineTask extends Task {
 
     }
 
+    /**
+     * Constructor for a Deadline Task.
+     *
+     * @param itemName         The name of the task
+     * @param deadlineDateTime The deadline
+     */
+    public DeadlineTask(int id, String itemName, LocalDateTime deadlineDateTime) {
+        super(id, itemName);
+        this.deadlineDateTime = deadlineDateTime;
+
+    }
+
     @Override
     public String getTaskType() {
         return "D";

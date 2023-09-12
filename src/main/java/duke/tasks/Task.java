@@ -13,6 +13,18 @@ public abstract class Task {
      * Generic constructor for a Task
      *
      * @param itemName The name of the task
+     * @param id the saved id
+     */
+    public Task(int id, String itemName) {
+        this.itemName = itemName;
+        this.id = id;
+        taskCount = Math.max(taskCount + 1, this.id) + 1;
+    }
+
+    /**
+     * Generic constructor for a Task
+     *
+     * @param itemName The name of the task
      */
     public Task(String itemName) {
         this.itemName = itemName;
@@ -95,7 +107,7 @@ public abstract class Task {
      * Encodes the task into a formatted string to be stored in a database
      */
     public String encodeTask() {
-        return this.getTaskType() + " | " + (this.isDone ? "1" : "0") + " | " + this.itemName;
+        return this.id + " | " + this.getTaskType() + " | " + (this.isDone ? "1" : "0") + " | " + this.itemName;
     }
 
     /**

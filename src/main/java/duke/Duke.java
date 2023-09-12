@@ -5,7 +5,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import duke.exceptions.DukeException;
-import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
@@ -50,7 +49,19 @@ public class Duke {
     }
 
     /**
+     * Saves the task list to disk.
+     */
+    public void save() {
+        try {
+            this.storage.saveTasks(this.listContainer);
+        } catch (DukeException e) {
+            System.out.println(e.getErrorMessage());
+        }
+    }
+
+    /**
      * Get the task list assigned to this Duke.
+     *
      * @return
      */
     public TaskList getTaskList() {

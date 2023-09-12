@@ -113,46 +113,50 @@ public class Storage {
     public static Task parseTask(String inputLine) throws DukeException {
         String[] split = inputLine.split(" \\| ");
 
-        if (split.length < 2) {
+        if (split.length < 3) {
             throw new DukeException(PARSE_ERROR);
         }
-        String taskType = split[0];
-        String isDoneStr = split[1];
-        String taskDescription = split[2];
+        String taskType = split[1];
+        String isDoneStr = split[2];
+        String taskDescription = split[3];
+
+        // id is the last item in the list;
+        int id = Integer.parseInt((split[0]));
         Boolean isDone = false;
         if (Objects.equals(isDoneStr, "1") || Objects.equals(isDoneStr, "0")) {
             isDone = isDoneStr.equals("1");
         }
 
+
         Task task;
         switch (taskType) {
         case "T": {
-            task = new TodoTask(taskDescription);
+            task = new TodoTask(id, taskDescription);
             break;
         }
         case "D": {
             // get the deadline, which is 4th element
-            if (split.length < 3) {
+            if (split.length < 4) {
                 throw new DukeException(PARSE_ERROR);
             }
-            String deadlineStr = split[3];
+            String deadlineStr = split[4];
 
             LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineStr);
 
-            task = new DeadlineTask(taskDescription, deadlineDateTime);
+            task = new DeadlineTask(id, taskDescription, deadlineDateTime);
             break;
         }
         case "E": {
             // get the start date, which is 4th element
             // get the end date, which is 5th element
-            if (split.length < 5) {
+            if (split.length < 6) {
                 throw new DukeException(PARSE_ERROR);
             }
-            String from = split[3];
+            String from = split[4];
             LocalDateTime dateTimeStart = LocalDateTime.parse(from);
-            String to = split[4];
+            String to = split[5];
             LocalDateTime dateTimeEnd = LocalDateTime.parse(to);
-            task = new EventTask(taskDescription, dateTimeStart, dateTimeEnd);
+            task = new EventTask(id, taskDescription, dateTimeStart, dateTimeEnd);
             break;
         }
         default:
