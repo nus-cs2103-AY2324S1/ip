@@ -56,7 +56,7 @@ public class Ui {
      */
     public String showMarkMarkedTaskMessage() {
         StringBuilder message = new StringBuilder();
-        message.append(" 😄 ").append(" This task is already marked as done! Good job, but it's done!\n");
+        message.append(" This task is already marked as done! Good job, but it's done!\n");
         return message.toString();
     }
 
@@ -67,7 +67,7 @@ public class Ui {
      */
     public String showUnmarkUnmarkedTaskMessage() {
         StringBuilder message = new StringBuilder();
-        message.append(" 😄 ").append(" This task is already marked as not done! It's not going anywhere!\n");
+        message.append(" This task is already marked as not done! It's not going anywhere!\n");
         return message.toString();
     }
 
