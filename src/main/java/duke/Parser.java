@@ -6,11 +6,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
+import java.util.Arrays;
 
 public class Parser {
     public static Command parse(String text, UI ui, TaskList list, Storage storage) throws DukeException {
         ui.clearStringBuilder();
+
         if (text.startsWith("list")) {
             return new ListCommand();
 
