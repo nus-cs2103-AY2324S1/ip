@@ -1,17 +1,19 @@
 package simon;
 
-import simon.command.Parser;
-import simon.task.Task;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
+
+import simon.command.Parser;
+import simon.task.Task;
+
 
 /**
  * The main class for the {@code Simon} application.
@@ -27,15 +29,6 @@ public class Simon extends Application {
 
     /** UI handler for displaying messages and prompts to the user. */
     private final Ui ui;
-
-    /** Horizontal line for UI formatting. */
-    protected static final String SPACE = "____________________________________________________________";
-
-    /** Horizontal line with newline prefix for UI formatting. */
-    protected static final String NSPACE = "\n____________________________________________________________";
-
-    /** Horizontal line with newline suffix for UI formatting. */
-    protected static final String SPACEN = "____________________________________________________________\n";
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -73,42 +66,42 @@ public class Simon extends Application {
 
         try {
             switch (command) {
-                case LIST:
-                    ui.listTasks(tasks);
-                    break;
-                case TODO:
-                case DEADLINE:
-                case EVENT:
-                    Task newTask = Parser.parseAddTask(inData, command);
-                    tasks.addTask(newTask);
-                    storage.save(tasks.getAllTasks());
-                    ui.showAddedTask(newTask, tasks.getTaskCount());
-                    break;
-                case UNMARK:
-                    Task unmarkedTask = tasks.markTask(inData, false);
-                    storage.save(tasks.getAllTasks());
-                    ui.showMarkedTask(false, unmarkedTask);
-                    break;
-                case MARK:
-                    Task markedTask = tasks.markTask(inData, true);
-                    storage.save(tasks.getAllTasks());
-                    ui.showMarkedTask(true, markedTask);
-                    break;
-                case DELETE:
-                    Task deletedTask = tasks.deleteTask(inData);
-                    storage.save(tasks.getAllTasks());
-                    ui.showDeletedTask(deletedTask, tasks.getTaskCount());
-                    break;
-                case FIND:
-                    TaskList matchedTasks = tasks.findTasks(inData);
-                    ui.showMatchingTasks(matchedTasks);
-                    break;
-                case BYE:
-                    ui.showGoodbye();
-                    return;
-                case UNKNOWN:
-                default:
-                    ui.showUnknownCommand();
+            case LIST:
+                ui.listTasks(tasks);
+                break;
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+                Task newTask = Parser.parseAddTask(inData, command);
+                tasks.addTask(newTask);
+                storage.save(tasks.getAllTasks());
+                ui.showAddedTask(newTask, tasks.getTaskCount());
+                break;
+            case UNMARK:
+                Task unmarkedTask = tasks.markTask(inData, false);
+                storage.save(tasks.getAllTasks());
+                ui.showMarkedTask(false, unmarkedTask);
+                break;
+            case MARK:
+                Task markedTask = tasks.markTask(inData, true);
+                storage.save(tasks.getAllTasks());
+                ui.showMarkedTask(true, markedTask);
+                break;
+            case DELETE:
+                Task deletedTask = tasks.deleteTask(inData);
+                storage.save(tasks.getAllTasks());
+                ui.showDeletedTask(deletedTask, tasks.getTaskCount());
+                break;
+            case FIND:
+                TaskList matchedTasks = tasks.findTasks(inData);
+                ui.showMatchingTasks(matchedTasks);
+                break;
+            case BYE:
+                ui.showGoodbye();
+                return;
+            case UNKNOWN:
+            default:
+                ui.showUnknownCommand();
             }
         } catch (SimonException se) {
             ui.showError(se.getMessage());
