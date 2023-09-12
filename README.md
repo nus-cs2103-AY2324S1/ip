@@ -14,10 +14,49 @@ All you need to do is,
 4. Let it manage your task for you :blush:
 It is also *Emphasize* Free
 
-Features
+## User Guide
+> Words in `UPPER_CASE` are the parameters to be supplied by the user. For example, if users type in `task TASK`, the `TASK` is a parameter which can be used as the name of the task user wants to fill it in 
+
+### Adding a task : `task`
+Adds a task to remind users what to do
+
+
+Format : `task TASK` 
+| Examples | 
+| --- |
+| `task Study CS2103T` | 
+| `task Revise CS2103T with John Doe` | 
+
+### Adding an event : `event`
+Adds an event to remind users of a one-time activity
+
+
+Format : `event NAME /from DAY TIME /to DAY TIME` where `TIME` is in this format `[NUMBER][am/pm]` 
+| Examples | 
+| --- |
+| `event Supernova /from Mon 2pm /to Tue 2pm` | 
+| `event CS2103T /from Mon 2pm /to Sun 2pm` | 
+
+
+### Adding an event : `deadline`
+Adds a deadline to remind users to do something before the due date
+
+
+Format : `deadline NAME /by DD/MM/YYYY` 
+| Examples | 
+| --- |
+| `deadline return book /by 02/12/2019` | 
+| `deadline CS2103T IP /by 13/09/2023` | 
+
+
+___
+
+
+## Features
 - [ ]  Managing tasks
 - [ ] Managing deadlines (coming soon)
 - [ ]  Reminders (coming soon)
+___
 
 If you Java programmer, you can use it to practice Java too. Here's the `main` method:
 ```
