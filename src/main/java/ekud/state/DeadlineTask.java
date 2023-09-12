@@ -38,4 +38,21 @@ public final class DeadlineTask extends Task {
     public String toString() {
         return "[D] " + super.toString() + " (by: " + by + ")";
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() + by.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!super.equals(other)) {
+            return false;
+        }
+        if (!(other instanceof DeadlineTask)) {
+            return false;
+        }
+        DeadlineTask otherTask = (DeadlineTask) other;
+        return by.equals(otherTask.by);
+    }
 }

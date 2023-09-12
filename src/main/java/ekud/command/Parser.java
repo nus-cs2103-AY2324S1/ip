@@ -38,6 +38,9 @@ public final class Parser {
         case "list": {
             return new ListCommand();
         }
+        case "clean": {
+            return new CleanCommand();
+        }
         case "todo": {
             if (argument.isEmpty()) {
                 throw new ParseException(line, "The description of a todo cannot be empty.");

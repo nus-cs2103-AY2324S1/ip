@@ -2,7 +2,6 @@ package ekud.state;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -10,7 +9,7 @@ import java.util.stream.Collectors;
  * on the list of tasks.
  */
 public final class TaskList {
-    private final ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     /**
      * Creates an empty list of tasks.
@@ -88,5 +87,9 @@ public final class TaskList {
                 .stream()
                 .filter(task -> task.getTitle().contains(query))
                 .collect(Collectors.toList());
+    }
+
+    public void deduplicate() {
+        tasks = new ArrayList<>(asList().stream().distinct().collect(Collectors.toList()));
     }
 }

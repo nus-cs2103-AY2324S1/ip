@@ -174,6 +174,11 @@ public class Gui extends Ui {
     }
 
     @Override
+    public void showTasksCleaned() {
+        addBotMessage("Your tasks have been cleaned of any duplicates.");
+    }
+
+    @Override
     public void showError(EkudException error) {
         addBotMessage("☹ OOPS!!! " + error.getMessage());
     }

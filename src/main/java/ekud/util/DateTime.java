@@ -115,4 +115,38 @@ public final class DateTime {
             return DISPLAY_DATE_TIME_FORMATTER.format(dateTime);
         }
     }
+
+    @Override
+    public int hashCode() {
+        if (date != null) {
+            return date.hashCode();
+        } else if (time != null) {
+            return time.hashCode();
+        } else {
+            return dateTime.hashCode();
+        }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (super.equals(other)) {
+            return true;
+        }
+        if (other == null) {
+            return false;
+        }
+        if (!(other instanceof DateTime)) {
+            return false;
+        }
+        DateTime otherDateTime = (DateTime) other;
+        if (date != null && otherDateTime.date != null) {
+            return date.equals(otherDateTime.date);
+        } else if (time != null && otherDateTime.time != null) {
+            return time.equals(otherDateTime.time);
+        } else if (dateTime != null && otherDateTime.dateTime != null) {
+            return dateTime.equals(otherDateTime.dateTime);
+        } else {
+            return false;
+        }
+    }
 }
