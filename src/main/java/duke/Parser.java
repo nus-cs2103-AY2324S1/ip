@@ -20,11 +20,13 @@ public class Parser {
      */
     public String parseAndRespond() throws DukeException {
         String[] splitted = userCommand.split(" ", 2);
+        assert splitted != null : "there should be a command";
         String response = "Huhhhhhhh??? (o_O) ? "
                 + "Please use one of the command words: todo, event, deadline, list, mark, unmark, delete, bye";
         switch (splitted[0]) {
         case "list":
             response = Ui.listTasks();
+            assert response != null : "response should be given";
             break;
         case "mark":
             if (splitted.length <= 1) {
@@ -32,6 +34,7 @@ public class Parser {
             } else {
                 int taskNo = Integer.parseInt(splitted[1]);
                 response = TaskList.mark(taskNo);
+                assert response != null : "response should be given";
             }
             break;
         case "unmark":
@@ -40,6 +43,7 @@ public class Parser {
             } else {
                 int taskNo = Integer.parseInt(splitted[1]);
                 response = TaskList.unmark(taskNo);
+                assert response != null : "response should be given";
             }
             break;
         case "find":
@@ -48,6 +52,7 @@ public class Parser {
             } else {
                 String searchTerm = splitted[1];
                 response = TaskList.searchFor(searchTerm);
+                assert response != null : "response should be given";
             }
             break;
         case "todo":
@@ -57,6 +62,7 @@ public class Parser {
                 String todoTask = splitted[1];
                 Todo newTodo = new Todo(todoTask);
                 response = TaskList.add(newTodo, "todo");
+                assert response != null : "response should be given";
             }
             break;
         case "deadline":
@@ -69,9 +75,11 @@ public class Parser {
                 } else {
                     String deadDescription = deadTask[0];
                     String deadTime = deadTask[1];
+                    assert deadTime != null : "there should be a deadline";
                     deadTime = deadTime.trim();
                     Deadline deadlineTask = new Deadline(deadDescription, deadTime);
                     response = TaskList.add(deadlineTask, "deadline");
+                    assert response != null : "response should be given";
                 }
             }
             break;
@@ -92,6 +100,7 @@ public class Parser {
                         String eventEnd = startEnd[1];
                         Event newEvent = new Event(eventDescription, eventStart, eventEnd);
                         response = TaskList.add(newEvent, "event");
+                        assert response != null : "response should be given";
                     }
                 }
             }
@@ -102,6 +111,7 @@ public class Parser {
             } else {
                 int target = Integer.parseInt(splitted[1]);
                 response = TaskList.delete(target);
+                assert response != null : "response should be given";
             }
             break;
         case "bye":
