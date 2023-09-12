@@ -54,6 +54,10 @@ public class Task {
         this.isDone = true;
     }
 
+    public String snooze() {
+        return "";
+    }
+
     /*
      * Marks the task as not done.
      */

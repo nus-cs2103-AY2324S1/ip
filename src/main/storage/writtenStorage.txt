@@ -1,6 +1,2 @@
-[T][X] eat
-[T][ ] eat potato
-[D][X] run and eat  DATETIME Oct 10 2019 6PM
-[T][X] potato
-[T][ ] makan
+[T][ ] eat
 [T][ ] run

@@ -17,6 +17,12 @@ public class Deadline extends Task {
         this.dueDate = dueDate;
     }
 
+    @Override
+    public String snooze() {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy ha");
+        this.dueDate = this.dueDate.plusDays(1);
+        return "I have snoozed your deadline! It is now due by " + this.dueDate.format(format) + "\n";
+    }
 
     /*
      * Returns the string version of the deadline.

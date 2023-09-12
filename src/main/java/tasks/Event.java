@@ -41,4 +41,12 @@ public class Event extends Task {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy ha");
         return "[E]" + super.toString() + " DATETIME " + this.start.format(format) + " DATETIME_SPLIT " + this.end.format(format);
     }
+
+    @Override
+    public String snooze() {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy ha");
+        this.end = this.end.plusDays(1);
+        return "I have snoozed your event's end date! Your event is now from: " + this.start.format(format) + " to: " +
+                this.end.format(format) + "\n";
+    }
 }

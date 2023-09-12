@@ -25,6 +25,8 @@ public class Parser {
             return "delete";
         } else if (userInput.startsWith("find")) {
             return "find";
+        } else if (userInput.startsWith("snooze")) {
+            return "snooze";
         } else {
             return "null";
         }

@@ -30,4 +30,9 @@ public class Todo extends Task {
     public String toStringWithDateTime() {
         return this.toString();
     }
+
+    @Override
+    public String snooze() {
+        return "This is a Todo task! You dont need to snooze it!";
+    }
 }

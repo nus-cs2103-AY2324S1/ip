@@ -15,7 +15,7 @@ public class Ui {
     }
 
     public static String print(String printString) {
-        return printString;
+        return printString + "\n";
     }
 
     public static String printLine() {

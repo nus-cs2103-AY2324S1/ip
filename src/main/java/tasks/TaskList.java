@@ -64,6 +64,21 @@ public class TaskList {
 
     }
 
+    public String snoozeTask(String userInput) {
+        String str = "";
+        String[] arrInput = userInput.split(" ");
+        try {
+            Task currentTask = tasks.get(Integer.valueOf(arrInput[1]) - 1);
+            str += Ui.printLine();
+            str += currentTask.snooze();
+            str += Ui.printLine();
+        } catch (IndexOutOfBoundsException err){
+            throw new exceptions.DukeException("This Task index does not exist!", err);
+        }
+        return str;
+
+    }
+
     public String createDeadline(String userInput) {
         String str = "";
         String newInput = userInput.substring(9);

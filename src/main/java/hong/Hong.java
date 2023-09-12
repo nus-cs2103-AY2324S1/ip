@@ -46,6 +46,10 @@ public class Hong{
         case "find":
             str += taskList.findTask(userInput);
             break;
+        case "snooze":
+            str += taskList.snoozeTask(userInput);
+            taskList.storeTasks();
+            break;
         default:
             str += Ui.printLine();
             str += Ui.print("I do not recognise that command!");
