@@ -105,6 +105,9 @@ public class CommandParser {
         case "list" -> {
             return new ListCommand();
         }
+        case "help" -> {
+            return new HelpCommand();
+        }
         default -> {
             return new HelpCommand();
         }
