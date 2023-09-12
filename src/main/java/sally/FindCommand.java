@@ -22,6 +22,7 @@ public class FindCommand implements Command {
      *
      * @param tasks   The list of tasks to search through.
      * @param storage The storage to save tasks after unmarking.
+     * @return A string indicating the matching tasks have been displayed.
      * @throws SallyException If there is an error while executing the command.
      */
     @Override

@@ -27,6 +27,7 @@ public class DeleteCommand implements Command {
      *
      * @param tasks The TaskList containing tasks.
      * @param storage The Storage for tasks.
+     * @return A string indicating the task has been deleted.
      * @throws SallyException If the specified task index is invalid or there's an issue
      *                        while deleting the task.
      */

@@ -13,7 +13,6 @@ public class Parser {
      * @throws SallyException If the input command is invalid.
      */
     public static Command parse(String input) throws SallyException {
-        // if no space then exception handling
         if (input.startsWith("list")) {
             return new ListCommand();
         } else if (!input.contains(" ")) {

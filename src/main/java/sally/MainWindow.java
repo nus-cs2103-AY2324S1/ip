@@ -29,6 +29,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
     private Image sallyImage = new Image(this.getClass().getResourceAsStream("/images/DaSally.png"));
 
+    /**
+     * Initializes the first message sent by Sally to welcome the user
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -38,6 +41,11 @@ public class MainWindow extends AnchorPane {
         );
     }
 
+    /**
+     * Sets the Sally object for the MainWindow
+     *
+     * @param s Sets the Sally object
+     */
     public void setSally(Sally s) {
         sally = s;
     }
@@ -57,6 +65,12 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Gets the response from Sally
+     *
+     * @param input User input
+     * @return A string response from Sally
+     */
     private String getResponse(String input) {
         return sally.execute(input);
     }
