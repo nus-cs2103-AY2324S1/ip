@@ -101,4 +101,31 @@ public class Event extends Task {
         String endTime = (this.endTime != null) ? " " + this.endTime.format(DateTimeFormatter.ofPattern("HH:mm")) + ")" : ")";
         return output + startDate + startTime + endDate + endTime;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+        final Event other = (Event) obj;
+        if (!other.getDescription().equals(getDescription())) {
+            return false;
+        }
+        if (!other.startTime.equals(startTime)) {
+            return false;
+        }
+        if (!other.endTime.equals(endTime)) {
+            return false;
+        }
+        if (!other.startDate.equals(startDate)) {
+            return false;
+        }
+        if (!other.endDate.equals(endDate)) {
+            return false;
+        }
+        return true;
+    }
 }

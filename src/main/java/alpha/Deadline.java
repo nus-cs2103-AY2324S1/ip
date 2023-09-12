@@ -59,4 +59,25 @@ public class Deadline extends Task {
         }
         return "[D]" + super.toString() + " (by: " + dateBy.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+        final Deadline other = (Deadline) obj;
+        if (!other.getDescription().equals(getDescription())) {
+            return false;
+        }
+        if (!other.timeBy.equals(timeBy)) {
+            return false;
+        }
+        if (!other.dateBy.equals(dateBy)) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -98,8 +98,11 @@ public class Parser {
             return new InvalidCommand(taskList, fileHandler, ui, "");
         } catch (DateTimeParseException e6) {
             return new InvalidCommand(taskList, fileHandler, ui,
-                    e6.getMessage() +"The date is in an invalid format! " +
+                    e6.getMessage() + "The date is in an invalid format! " +
                             "Enter the date in the format YYYY-MM-DD");
+        } catch (DuplicateException e7) {
+            return new InvalidCommand(taskList, fileHandler, ui, "There's already a duplicate in the " +
+                    "task list");
         }
     }
 
@@ -119,7 +122,7 @@ public class Parser {
      * @throws MissingInfoException   If length of splitInput < 3
      * @throws InvalidFormatException If /from and /to are not found within the input.
      */
-    public Command addEvent(String input) throws MissingInfoException, InvalidFormatException {
+    public Command addEvent(String input) throws MissingInfoException, InvalidFormatException, DuplicateException {
         String[] splitInput = input.split(" ");
 
         if (splitInput.length < 3) {
@@ -132,7 +135,11 @@ public class Parser {
                 Event event = Event.makeEvent(splitEvent[0].substring(6),
                         splitEvent[1].substring(5),
                         splitEvent[2].substring(3));
-                return new AddCommand(taskList, fileHandler, ui, event);
+                if (check_Duplicates(event)) {
+                    throw new DuplicateException("Duplicate!");
+                } else {
+                    return new AddCommand(taskList, fileHandler, ui, event);
+                }
             } else {
                 throw new InvalidFormatException("Invalid Format!", TaskException.TaskType.EVENT);
             }
@@ -145,7 +152,7 @@ public class Parser {
      * @return a Command that adds a ToDo.
      * @throws MissingInfoException If length of splitInput == 1
      */
-    public Command addToDo(String input) throws MissingInfoException {
+    public Command addToDo(String input) throws MissingInfoException, DuplicateException {
         String[] splitInput = input.split(" ");
         assert splitInput.length >= 1 : "Input should have at least 1 part";
 
@@ -153,7 +160,11 @@ public class Parser {
             throw new MissingInfoException("Missing Information!", TaskException.TaskType.TODO);
         } else {
             ToDo todo = ToDo.createToDo(input.substring(5));
-            return new AddCommand(taskList, fileHandler, ui, todo);
+            if (!check_Duplicates(todo)) {
+                return new AddCommand(taskList, fileHandler, ui, todo);
+            } else {
+                throw new DuplicateException("Duplicate!");
+            }
         }
     }
 
@@ -163,7 +174,8 @@ public class Parser {
      * @return a Command that adds a ToDo.
      * @throws MissingInfoException If length of splitInput == 1
      */
-    public Command addDeadline(String input) throws MissingInfoException, InvalidFormatException, DateTimeParseException {
+    public Command addDeadline(String input) throws MissingInfoException, InvalidFormatException,
+            DateTimeParseException, DuplicateException {
         String[] splitInput = input.split(" ");
         assert splitInput.length >= 1 : "Input should have at least 1 part";
 
@@ -176,7 +188,11 @@ public class Parser {
             assert splitDeadline.length == 2 : "Input should be split into exactly 2 parts by '/by'";
             Deadline deadline = Deadline.makeDeadline(splitDeadline[0].substring(9),
                     splitDeadline[1]);
-            return new AddCommand(taskList, fileHandler, ui, deadline);
+            if (check_Duplicates(deadline)) {
+                throw new DuplicateException("Duplicate!");
+            } else {
+                return new AddCommand(taskList, fileHandler, ui, deadline);
+            }
         }
     }
 
@@ -244,5 +260,15 @@ public class Parser {
             splitInput[0] = "";
             return new FindCommand(taskList, fileHandler, ui, String.join(" ", splitInput));
         }
+    }
+
+    public boolean check_Duplicates(Task task) {
+        boolean is_Duplicate = false;
+        for (int i = 0; i < taskList.size(); i++) {
+            if (task.equals(taskList.getTask(i))) {
+                is_Duplicate = true;
+            }
+        }
+        return is_Duplicate;
     }
 }
