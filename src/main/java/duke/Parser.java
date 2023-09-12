@@ -83,6 +83,18 @@ public class Parser {
             } else if (userInput.startsWith("delete")) {
                 response = taskList.deleteTask(userInput);
                 taskList.updateTaskFile();
+            } else if (userInput.equals("sort")){
+                taskList.sortedTasksByDate();
+                String listSortedTasks = taskList.listSortedTasks();
+                if (listSortedTasks != "") {
+                    System.out.println("Here are the tasks in your list:");
+                    System.out.println(listSortedTasks);
+                    return "Here are the tasks in your list:\n" + listSortedTasks;
+                } else {
+                    System.out.println("There are no tasks in your list at the moment. Add some!");
+                    return "There are no tasks in your list at the moment. Add some!";
+                }
+
             } else if (userInput.equals("i love u")) {
                 response = "i love u too <3";
             } else {
