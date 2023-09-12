@@ -8,6 +8,7 @@ abstract public class Task {
     protected String description;
     protected Boolean isCompleted = false;
     public Task(String description) {
+        assert description != null;
         this.description = description;
     }
 

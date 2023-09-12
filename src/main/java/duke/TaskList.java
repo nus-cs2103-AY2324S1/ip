@@ -18,6 +18,7 @@ public class TaskList {
      * @param ui The Ui object used to display messages to the user.
      */
     public TaskList(List<Task> savedTasks, Ui ui) {
+        assert savedTasks != null;
         this.tasks = savedTasks;
         this.ui = ui;
     }
