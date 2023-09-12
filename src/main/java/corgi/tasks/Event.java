@@ -24,7 +24,7 @@ public final class Event extends Task {
         this.to = to;
     }
 
-    
+
     /**
      * Initializes a new event task with the given status, description, start date, and end date.
      *
@@ -38,9 +38,9 @@ public final class Event extends Task {
         this.from = from;
         this.to = to;
     }
-    
+
     @Override
-    public Event markAsDone() throws TaskStatusException{
+    public Event markAsDone() throws TaskStatusException {
         if (status) {
             throw new TaskStatusException("The task is already marked as done.");
         }
@@ -48,13 +48,13 @@ public final class Event extends Task {
     }
 
     @Override
-    public Event markAsNotDone() throws TaskStatusException{
+    public Event markAsNotDone() throws TaskStatusException {
         if (!status) {
             throw new TaskStatusException("The task is already marked as not done.");
         }
         return new Event(false, desc, from, to);
     }
-    
+
     /**
      * Checks if the event task is happening on the specified target date.
      *

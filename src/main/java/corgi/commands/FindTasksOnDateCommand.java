@@ -66,10 +66,10 @@ public class FindTasksOnDateCommand extends Command {
 
         String outputDate = this.target.format(Task.DATE_OUTPUT_FORMATTER);
 
-         String returnMsg = tasksOnDate.isEmpty()
+        String returnMsg = tasksOnDate.isEmpty()
                 ? currTextRenderer.showNoTaskOnDate(outputDate)
                 : currTextRenderer.showTasksOnDate(outputDate, tasksOnDate.toString());
-        
+
         return new Pair<>(currState, returnMsg);
     }
 }

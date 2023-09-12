@@ -60,7 +60,7 @@ public class MarkTaskCommand extends Command {
             String returnMsg = (status)
                     ? renderer.showTaskDone(list.getTaskInfo(this.index))
                     : renderer.showTaskUndone(list.getTaskInfo(this.index));
-            
+
             return new Pair<>(newState, returnMsg);
         } catch (TaskListIndexOutOfBoundsException e) {
             throw new CommandExecutionException("Invalid index provided!");

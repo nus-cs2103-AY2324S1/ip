@@ -26,7 +26,7 @@ public class Corgi {
     private Stack<Pair<State, Command>> history;
 
     /**
-     * Constructs new Corgi chatbot with an empty task list, 
+     * Constructs new Corgi chatbot with an empty task list,
      * a text renderer, a storage and a history stack.
      */
     public Corgi() {

@@ -48,8 +48,8 @@ public class TaskList implements StorableList<Task> {
      * without the removed task.
      *
      * @param index The index of the task to be removed.
-     * @throws TaskListIndexOutOfBoundsException If the index is invalid.
      * @return A new TaskList with the specified task removed.
+     * @throws TaskListIndexOutOfBoundsException If the index is invalid.
      */
     public TaskList remove(int index) throws TaskListIndexOutOfBoundsException {
         if (!isValidIndex(index)) {
@@ -65,9 +65,9 @@ public class TaskList implements StorableList<Task> {
      *
      * @param index  The index of the task to be marked.
      * @param status The new status of the task.
+     * @return A new TaskList with the specified task's status updated.
      * @throws TaskListIndexOutOfBoundsException If the index is invalid.
      * @throws TaskStatusException If the task was already marked with the given status.
-     * @return A new TaskList with the specified task's status updated.
      */
     public TaskList mark(int index, boolean status) throws TaskListIndexOutOfBoundsException, TaskStatusException {
         if (!isValidIndex(index)) {

@@ -17,7 +17,7 @@ public final class State {
 
     /**
      * Construct new state object with given task list, storage and text renderer.
-     * 
+     *
      * @param tasks The given task list.
      * @param storage The given storage.
      * @param renderer The given text renderer.
@@ -31,7 +31,7 @@ public final class State {
 
     /**
      * Getter for task list.
-     * 
+     *
      * @return The task list.
      */
     public TaskList getTaskList() {
@@ -40,7 +40,7 @@ public final class State {
 
     /**
      * Getter for storage.
-     * 
+     *
      * @return The storage.
      */
     public Storage<Task> getStorage() {
@@ -49,7 +49,7 @@ public final class State {
 
     /**
      * Getter for text renderer.
-     * 
+     *
      * @return The text renderer.
      */
     public TextRenderer getTextRenderer() {
@@ -58,7 +58,7 @@ public final class State {
 
     /**
      * Add target task to the task list.
-     * 
+     *
      * @param task The target task.
      * @return New state with the updated task list.
      */
@@ -72,7 +72,7 @@ public final class State {
 
     /**
      * Remove task at the target index in the task list.
-     * 
+     *
      * @param index The target index.
      * @return New state with the updated task list.
      * @throws TaskListIndexOutOfBoundsException
@@ -87,14 +87,14 @@ public final class State {
 
     /**
      * Mark task at the target index to a given status.
-     * 
+     *
      * @param index The target index.
      * @param status The expected status.
      * @return New state with the updated task list.
      * @throws TaskListIndexOutOfBoundsException
      * @throws TaskStatusException
      */
-    public State markTask(int index, boolean status) 
+    public State markTask(int index, boolean status)
             throws TaskListIndexOutOfBoundsException, TaskStatusException {
         TaskList newTaskList = this.tasks.mark(index, status);
 

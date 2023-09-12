@@ -34,7 +34,7 @@ public final class Deadline extends Task {
     }
 
     @Override
-    public Deadline markAsDone() throws TaskStatusException{
+    public Deadline markAsDone() throws TaskStatusException {
         if (status) {
             throw new TaskStatusException("The task is already marked as done.");
         }
@@ -42,7 +42,7 @@ public final class Deadline extends Task {
     }
 
     @Override
-    public Deadline markAsNotDone() throws TaskStatusException{
+    public Deadline markAsNotDone() throws TaskStatusException {
         if (!status) {
             throw new TaskStatusException("The task is already marked as not done.");
         }

@@ -25,7 +25,7 @@ public final class ToDo extends Task {
     }
 
     @Override
-    public ToDo markAsDone() throws TaskStatusException{
+    public ToDo markAsDone() throws TaskStatusException {
         if (status) {
             throw new TaskStatusException("The task is already marked as done.");
         }
@@ -33,7 +33,7 @@ public final class ToDo extends Task {
     }
 
     @Override
-    public ToDo markAsNotDone() throws TaskStatusException{
+    public ToDo markAsNotDone() throws TaskStatusException {
         if (!status) {
             throw new TaskStatusException("The task is already marked as not done.");
         }

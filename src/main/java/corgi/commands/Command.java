@@ -26,7 +26,7 @@ public abstract class Command {
 
     /**
      * Executes the command, performing its intended action on the provided task list,
-     * text renderer, and storage. Returns new state and string message 
+     * text renderer, and storage. Returns new state and string message
      *
      * @param currState The current state of the application.
      * @param history The history stack to store the states.
