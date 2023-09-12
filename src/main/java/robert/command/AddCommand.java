@@ -73,8 +73,8 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList tasks, Storage storage) throws RobertException {
         if (tasks.isInTaskList(this.task.getDescription())) {
-            return "Hmm... You already have this task in your list.\n" +
-                    "Check your list of tasks by using the 'list' command.";
+            return "Hmm... You already have this task in your list.\n"
+                    + "Check your list of tasks by using the 'list' command.";
         }
 
         tasks.addTask(this.task);
