@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
  * A task that has a deadline.
  */
 public class Deadline extends Task {
-    private final LocalDate endDate;
-    private final LocalTime endTime;
+    private LocalDate endDate;
+    private LocalTime endTime;
 
     /**
      * Creates a deadline task instance.
@@ -43,9 +43,14 @@ public class Deadline extends Task {
      */
     @Override
     public String convertToString() {
-        return "[D] " + super.convertToString() + " (by: "
-                + this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                + this.convertEndTimeToString() + ")";
+        return "[D] " + super.convertToString() + " (by:"
+                + convertEndDateToString() + convertEndTimeToString() + ")";
+    }
+
+    private String convertEndDateToString() {
+        return (this.endDate != null)
+                ? " " + this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                : "";
     }
 
     private String convertEndTimeToString() {
@@ -61,8 +66,12 @@ public class Deadline extends Task {
      */
     @Override
     public String convertToStringInFile() {
-        return "[D] /" + super.convertToStringInFile() + " / " + this.endDate
+        return "[D] /" + super.convertToStringInFile() + " / " + this.convertEndDateToStringInFile()
                 + this.convertEndTimeToStringInFile();
+    }
+
+    private String convertEndDateToStringInFile() {
+        return this.endDate.toString();
     }
 
     private String convertEndTimeToStringInFile() {
