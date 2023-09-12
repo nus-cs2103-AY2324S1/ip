@@ -13,8 +13,16 @@ public class FindCommand extends Command {
 
     private String keyword;
 
+    /**
+     * Returns an instance of {@code FindCommand} with the given keyword.
+     *
+     * @param keyword The specified keyword to filter the list of tasks by.
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
+        assert !keyword.trim().isEmpty() : "The keyword should be non-empty";
+        boolean containsWhitespace = keyword.matches(".*\\s.*");
+        assert !containsWhitespace : "The keyword should be a single word";
     }
 
     @Override

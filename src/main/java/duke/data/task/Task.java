@@ -18,6 +18,7 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        assert !description.trim().isEmpty() : "Task description should be nonempty.";
     }
 
     /** Returns a string representation of whether the task is done. */
