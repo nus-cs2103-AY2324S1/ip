@@ -26,6 +26,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+        assert filePath != null && !filePath.isEmpty() : "File path cannot be null or empty";
     }
 
     /**
@@ -46,13 +47,15 @@ public class Storage {
 
                     switch (taskParts[0].trim()) {
                     case "T":
+                        assert taskParts.length == 3 : "ToDo task data format is incorrect";
                         taskList.addToDoToList(isDone, taskParts[2].trim());
                         break;
                     case "D":
+                        assert taskParts.length == 4 : "Deadline task data format is incorrect";
                         taskList.addDeadlineToList(isDone, taskParts[2].trim(), taskParts[3].trim());
                         break;
                     case "E":
-
+                        assert taskParts.length == 5 : "Event task data format is incorrect";
                         taskList.addEventToList(isDone, taskParts[2].trim(), taskParts[3].trim(), taskParts[4].trim());
                         break;
                     default:

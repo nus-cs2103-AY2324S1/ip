@@ -40,11 +40,13 @@ public class Parser {
         Command command;
         try {
             command = getCommand(parts[0]);
+            assert command != null : "Parsed command should not be null";
             executeCommand(output, command, ui, taskList, parts, details, input);
 
             if (command == Command.BYE) {
                 storage.writeToDB(taskList);
             }
+            assert output != null : "Output list should not be null";
             return output;
         } catch (DukeException e) {
             ArrayList<String> error = new ArrayList<>();
@@ -124,6 +126,7 @@ public class Parser {
 
         case TODO:
             String toDoDescription = details[0].trim();
+            assert details.length >= 1 : "Details should have at least one entry for TODO command";
             if (toDoDescription.length() <= 4) {
                 throw new InvalidToDoException();
             }
@@ -138,6 +141,7 @@ public class Parser {
                 throw new InvalidDeadlineException();
             }
             String deadlineDescription = details[0].split("/")[0].substring(9).trim();
+            assert details.length >= 1 : "Details should have at least one entry for DEADLINE command";
             String byTime = fullInput.split("by")[1].trim();
             addToOutput(taskList.addDeadlineToList(false, deadlineDescription, byTime).addedTaskDescription(),
                     output);
@@ -148,6 +152,7 @@ public class Parser {
                 throw new InvalidEventException();
             }
             String eventDescription = details[0].split("/")[0].substring(6).trim();
+            assert details.length >= 1 : "Details should have at least one entry for EVENT command";
             String fromTime = fullInput.split("from")[1].split("/to")[0].trim();
             String toTime = fullInput.split("to")[1].trim();
             addToOutput(taskList.addEventToList(false, eventDescription, fromTime, toTime).addedTaskDescription(),
