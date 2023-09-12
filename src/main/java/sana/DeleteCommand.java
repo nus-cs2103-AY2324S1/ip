@@ -8,11 +8,11 @@ public class DeleteCommand extends Command {
     /**
      * Constructs an DeleteCommand object.
      *
-     * @param cmd       The command type (e.g., "todo", "deadline", "event").
+     * @param command       The command type (e.g., "todo", "deadline", "event").
      * @param arguments The arguments associated with the command.
      */
-    public DeleteCommand(String cmd, String arguments) {
-        super(cmd, arguments);
+    public DeleteCommand(String command, String arguments) {
+        super(command, arguments);
     }
 
     /**
@@ -41,7 +41,6 @@ public class DeleteCommand extends Command {
         return ("Noted. I've removed this task:\n" + deletedTask.toString() + "\n"
                 + "Now you have " + tasks.size() + (tasks.size() <= 1 ? " task" : " tasks")
                 + " in the list");
-
     }
 
     /**
