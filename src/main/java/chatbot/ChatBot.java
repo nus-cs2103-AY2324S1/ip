@@ -1,5 +1,7 @@
 package chatbot;
 
+import javafx.util.Pair;
+
 import chatbot.exceptions.ChatBotException;
 import chatbot.exceptions.DeadlineMissingFieldException;
 import chatbot.exceptions.DeleteMissingFieldException;
@@ -10,6 +12,7 @@ import chatbot.exceptions.IllegalCommandException;
 import chatbot.exceptions.InvalidTaskIndexException;
 import chatbot.exceptions.LocalFileException;
 import chatbot.exceptions.MarkMissingFieldException;
+import chatbot.exceptions.PriorityMissingFieldException;
 import chatbot.exceptions.TodoMissingFieldException;
 import chatbot.tasks.Task;
 
@@ -99,6 +102,8 @@ public class ChatBot {
             return this.handleMarkCommand(words);
         case "delete":
             return this.handleDeleteCommand(words);
+        case "priority":
+            return this.handlePriorityCommand(words);
         case "todo":
         case "deadline":
         case "event":
@@ -140,6 +145,31 @@ public class ChatBot {
                         + "Now you have %d tasks in the list.",
                 taskString,
                 this.tasks.getSize());
+    }
+
+    private String handlePriorityCommand(String[] words)
+            throws PriorityMissingFieldException, InvalidTaskIndexException, LocalFileException {
+        Pair<Integer, String> info = Parser.parsePriorityCommand(words);
+        int index = info.getKey();
+        String priority = info.getValue();
+        String taskString = "";
+
+        switch (priority) {
+        case "H":
+            taskString = tasks.setTaskPriority(index, Task.Priority.HIGH);
+            break;
+        case "M":
+            taskString = tasks.setTaskPriority(index, Task.Priority.MEDIUM);
+            break;
+        case "L":
+            taskString = tasks.setTaskPriority(index, Task.Priority.LOW);
+            break;
+        default:
+            throw new PriorityMissingFieldException();
+        }
+
+        this.writeTaskList();
+        return String.format("Got it. I've set the priority of this task:\n%s", taskString);
     }
 
     private String handleScheduleCommand(String command, String[] words) throws TodoMissingFieldException,

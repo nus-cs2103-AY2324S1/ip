@@ -6,14 +6,15 @@ public class ToDoTask extends Task {
         super(name);
     }
 
-    public ToDoTask(String name, boolean isDone) {
-        super(name, isDone);
+    public ToDoTask(String name, boolean isDone, Priority priority) {
+        super(name, isDone, priority);
     }
     @Override
     public String toString() {
-        return String.format("[%s][%s] %s",
+        return String.format("[%s][%s] (%s) %s",
                 this.type,
                 this.checkIsDone() ? "X" : " ",
+                this.getPriority(),
                 this.getName());
     }
 }
