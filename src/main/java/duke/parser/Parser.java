@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import duke.alias.AliasMap;
 import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.DeadlineCommand;
@@ -21,7 +22,51 @@ import duke.exception.DukeException;
  */
 public class Parser {
 
+    /**
+     * The date and time format used for parsing date-time inputs.
+     */
     public static final DateTimeFormatter DATETIME_INPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+
+    private AliasMap aliasMap;
+    private boolean hasAliasMap;
+
+    /**
+     * Constructs a Parser object with an alias map.
+     *
+     * @param aliasMap The alias map to use for command parsing.
+     */
+    public Parser(AliasMap aliasMap) {
+        this();
+        if (aliasMap != null) {
+            this.aliasMap = aliasMap;
+            this.hasAliasMap = true;
+        }
+    }
+
+    /**
+     * Constructs a Parser object without an alias map.
+     */
+    public Parser() {
+        this.aliasMap = null;
+        this.hasAliasMap = false;
+    }
+
+    /**
+     * Parses an alias if available, otherwise returns the original input.
+     *
+     * @param input The input to parse as an alias.
+     * @return The parsed alias or the original input if no alias is found.
+     */
+    protected String parseAlias(String input) {
+        if (!hasAliasMap) {
+            return input;
+        }
+        String parsedFull = this.aliasMap.getFullCommand(input);
+        if (parsedFull == null) {
+            return input;
+        }
+        return parsedFull;
+    }
 
     /**
      * Parses a user input command and returns the corresponding `Command` object.
@@ -30,10 +75,12 @@ public class Parser {
      * @return A `Command` object representing the parsed command.
      * @throws DukeException If the command cannot be parsed or contains invalid arguments.
      */
-    public static Command parse(String command) throws DukeException {
+    public Command parse(String command) throws DukeException {
         String[] commandArr = command.split(" ", 2);
-        String keyword = commandArr[0];
+        String keywordInput = commandArr[0];
         String description;
+
+        String keyword = parseAlias(keywordInput);
         switch (keyword) {
         case "bye":
             return new ByeCommand();

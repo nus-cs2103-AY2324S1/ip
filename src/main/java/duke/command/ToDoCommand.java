@@ -29,7 +29,7 @@ public class ToDoCommand extends Command {
     @Override
     public String execute(TaskList items, Ui ui, Storage storage) throws DukeException {
         Task item = items.addToDo(name);
-        storage.writeData(items.getItems());
+        storage.writeData(items);
         return ui.addItem(item.toString(), items.getCount());
     }
 }
