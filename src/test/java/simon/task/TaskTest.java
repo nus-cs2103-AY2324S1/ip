@@ -10,7 +10,7 @@ public class TaskTest {
     public void markAsDone_taskNotDone_taskMarkedAsDone() {
         Task task = new ToDo("Sample Task");
         task.markAsDone();
-        assertTrue(task.isDone);
+        assertTrue(task.getIsDone());
     }
 
     @Test
@@ -18,7 +18,7 @@ public class TaskTest {
         Task task = new ToDo("Sample Task");
         task.markAsDone();
         task.markAsUndone();
-        assertFalse(task.isDone);
+        assertFalse(task.getIsDone());
     }
 
     @Test

@@ -49,7 +49,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return " [D]" + (super.isDone ? "[X] " : "[ ] ") + super.toString()
+        return " [D]" + (super.getIsDone() ? "[X] " : "[ ] ") + super.toString()
                 + " (by: " + endDateTime.format(OUTPUT_FORMATTER) + ")";
     }
 }

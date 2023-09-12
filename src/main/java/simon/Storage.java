@@ -128,16 +128,16 @@ public class Storage {
             PrintWriter writer = new PrintWriter(this.filePath);
             for (Task task : tasks) {
                 if (task instanceof ToDo) {
-                    writer.println("T | " + (task.isDone ? "1" : "0") + " | " + task.taskName);
+                    writer.println("T | " + (task.getIsDone() ? "1" : "0") + " | " + task.getTaskName());
                 } else if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
-                    writer.println("D | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | "
+                    writer.println("D | " + (task.getIsDone() ? "1" : "0") + " | " + task.getTaskName() + " | "
                             + deadline.endDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
                 } else if (task instanceof Event) {
                     Event event = (Event) task;
-                    writer.println("E | " + (task.isDone ? "1" : "0") + " | " + task.taskName + " | "
-                            + event.startDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")) + " | "
-                            + event.endDateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
+                    writer.println("E | " + (task.getIsDone() ? "1" : "0") + " | " + task.getTaskName() + " | "
+                            + event.getStartDateTime().format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")) + " | "
+                            + event.getEndDateTime().format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
                 }
             }
             writer.close();

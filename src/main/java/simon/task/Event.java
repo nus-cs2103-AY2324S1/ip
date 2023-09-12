@@ -20,10 +20,18 @@ public class Event extends Task {
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
 
     /** The start date and time of this event. */
-    public LocalDateTime startDateTime;
+    private final LocalDateTime startDateTime;
 
     /** The end date and time of this event. */
-    public LocalDateTime endDateTime;
+    private final LocalDateTime endDateTime;
+
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
+    }
+
+    public LocalDateTime getEndDateTime() {
+        return endDateTime;
+    }
 
     /**
      * Constructs a new Event task with the given name, start date, and end date.
@@ -64,7 +72,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return " [E]" + (super.isDone ? "[X] " : "[ ] ") + super.toString()
+        return " [E]" + (super.getIsDone() ? "[X] " : "[ ] ") + super.toString()
                 + " (from: " + startDateTime.format(OUTPUT_FORMATTER)
                 + " to: " + endDateTime.format(OUTPUT_FORMATTER) + ")";
     }

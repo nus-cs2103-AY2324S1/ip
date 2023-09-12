@@ -13,7 +13,7 @@ public class ParserTest {
     public void parseAddTask_validToDoInput_todoAdded() throws SimonException {
         String input = "todo Sample Task";
         Task task = Parser.parseAddTask(input, Parser.Command.TODO);
-        assertEquals("Sample Task", task.taskName);
+        assertEquals("Sample Task", task.getTaskName());
     }
 
     @Test
@@ -27,14 +27,14 @@ public class ParserTest {
     public void parseAddTask_validDeadlineInput_deadlineAdded() throws SimonException {
         String input = "deadline Sample Task /by 01/01/2023 1800";
         Task task = Parser.parseAddTask(input, Parser.Command.DEADLINE);
-        assertEquals("Sample Task", task.taskName);
+        assertEquals("Sample Task", task.getTaskName());
     }
 
     @Test
     public void parseAddTask_validEventInput_eventAdded() throws SimonException {
         String input = "event Sample Event /from 01/01/2023 1800 /to 02/01/2023 1800";
         Task task = Parser.parseAddTask(input, Parser.Command.EVENT);
-        assertEquals("Sample Event", task.taskName);
+        assertEquals("Sample Event", task.getTaskName());
     }
 
     @Test
