@@ -3,6 +3,7 @@ package duke.parser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import duke.dates.Dates;
 import duke.task.ItemList;
 import duke.task.deadline.Deadline;
@@ -19,17 +20,17 @@ import duke.ui.UI;
  * Parser class is responsible for parsing a single String command line into operation on item list.
  */
 public class Parser {
+    private static final Pattern MARK_PATTERN = Pattern.compile("mark (\\d+).*");
+    private static final Pattern UNMARK_PATTERN = Pattern.compile("unmark (\\d+).*");
+    private static final Pattern DELETE_PATTERN = Pattern.compile("delete (\\d+).*");
+    private static final Pattern DEADLINE_PATTERN = Pattern.compile("deadline (.*?) /by (.*)");
+    private static final Pattern TODO_PATTERN = Pattern.compile("todo (.*)");
+    private static final Pattern EVENT_PATTERN = Pattern.compile("event (.*?) /from (.*?) /to (.*)");
+    private static final Pattern RESCHEDULE_EVENT_PATTERN = Pattern.compile("reschedule (\\d+) /from (.*?) /to (.*)");
+    private static final Pattern RESCHEDULE_DEADLINE_PATTERN = Pattern.compile("reschedule (\\d+) /by (.*?)");
+    private static final Pattern FIND_PATTERN = Pattern.compile("find (.*?)");
 
     private final String line;
-    private final Pattern MARK_PATTERN = Pattern.compile("mark (\\d+).*");
-    private final Pattern UNMARK_PATTERN = Pattern.compile("unmark (\\d+).*");
-    private final Pattern DELETE_PATTERN = Pattern.compile("delete (\\d+).*");
-    private final Pattern DEADLINE_PATTERN = Pattern.compile("deadline (.*?) /by (.*)");
-    private final Pattern TODO_PATTERN = Pattern.compile("todo (.*)");
-    private final Pattern EVENT_PATTERN = Pattern.compile("event (.*?) /from (.*?) /to (.*)");
-    private final Pattern RESCHEDULE_EVENT_PATTERN = Pattern.compile("reschedule (\\d+) /from (.*?) /to (.*)");
-    private final Pattern RESCHEDULE_DEADLINE_PATTERN = Pattern.compile("reschedule (\\d+) /by (.*?)");
-    private final Pattern FIND_PATTERN = Pattern.compile("find (.*?)");
     public Parser(String line) {
         this.line = line;
     }
@@ -156,9 +157,10 @@ public class Parser {
             String to = eventMatcher.group(3);
             Event newEvent = (Event) items.getTask(number);
             if (Dates.checkDateinput(from) && Dates.checkDateinput(to)) {
-                return items.setItems(newEvent.reschedule(Dates.convertToDateTime(from), Dates.convertToDateTime(to)), number);
+                return items.setItems(newEvent.reschedule(Dates.convertToDateTime(from),
+                        Dates.convertToDateTime(to)), number);
             } else {
-                return items.setItems(newEvent.reschedule(from,to), number);
+                return items.setItems(newEvent.reschedule(from, to), number);
             }
 
         }
