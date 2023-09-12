@@ -115,6 +115,9 @@ public class Duke extends Application {
         userInput.setOnAction((event) -> {
             handleUserInput();
         });
+
+        Label dukeText = new Label(UiGUI.hello());
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(dukeText, new ImageView(duke)));
     }
 
 
