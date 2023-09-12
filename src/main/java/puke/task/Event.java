@@ -63,12 +63,6 @@ public class Event extends Task {
      * @return a String representation.
      */
     public String toString() {
-        return super.toString()
-                + " (from: "
-                + this.from
-                + " "
-                + "to: "
-                + this.to
-                + ")";
+        return String.format("%s (from: %s to: %s)", super.toString(), this.from, this.to);
     }
 }

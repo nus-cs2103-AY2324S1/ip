@@ -6,6 +6,9 @@ import puke.managers.TaskList;
  * A Command class that when executed, prints the exit message.
  */
 public class ExitCommand extends Command {
+    private static final String EXIT_MESSAGE = "It appears that the user has decided to close the program as indicated "
+            + "by the command of which this is the function being issued and therefore, "
+            + "I shall bid thee farewell and wish thee great fortune in your future endeavors.";
 
     public ExitCommand(String rest) {
         super(rest.isEmpty(), rest.isEmpty());
@@ -22,9 +25,7 @@ public class ExitCommand extends Command {
         if (!super.isValid) {
             return ERROR_MESSAGE;
         } else {
-            return "It appears that the user has decided to close the program as indicated by the command of "
-                    + "which this is the function being issued and therefore, "
-                    + "I shall bid thee farewell and wish thee great fortune in your future endeavors.";
+            return EXIT_MESSAGE;
         }
     }
 

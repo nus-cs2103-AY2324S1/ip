@@ -7,6 +7,9 @@ import puke.managers.TaskList;
  * A Command class that when executed, marks a task as undone.
  */
 public class UnmarkCommand extends Command {
+    private static final String UNMARK_MESSAGE = "Very well. I have acknowledged your request to unmark the task of "
+            + "specified index as having been completed and will now proceed to set said task of specified index to be "
+            + "considered as having not yet been completed.";
     private int index;
 
     /**
@@ -33,10 +36,7 @@ public class UnmarkCommand extends Command {
         try {
             tl.unmark(this.index);
             DataHandler.writeToDatabase(tl);
-            return "Very well. I have acknowledged your request to unmark the task of "
-                    + "specified index as having been completed and "
-                    + "will now proceed to set said task of specified index to be considered as "
-                    + "having not yet been completed.";
+            return UNMARK_MESSAGE;
         } catch (Exception e) {
             return ERROR_MESSAGE;
         }
