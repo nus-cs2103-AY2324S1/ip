@@ -1,7 +1,6 @@
 package command;
 
 import duke.Storage;
-import duke.Ui;
 import task.TaskList;
 
 /**
@@ -13,11 +12,10 @@ public class ListCommand extends Command {
      * Prints the current TaskList
      *
      * @param tasks TaskList which contains an ArrayList of tasks
-     * @param ui Text Ui that the user interacts with
      * @param storage File path where the tasks are stored
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         assert tasks.getSize() >= 0 : "Size of task list should be more than or equal to 0";
         return tasks.getSize() == 0
                 ? "You have no tasks\n"

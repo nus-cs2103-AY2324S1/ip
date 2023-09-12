@@ -3,7 +3,6 @@ package command;
 import java.time.LocalDateTime;
 
 import duke.Storage;
-import duke.Ui;
 import task.Deadline;
 import task.TaskList;
 
@@ -36,11 +35,10 @@ public class DeadlineCommand extends Command {
      * the specified Storage file
      *
      * @param tasks TaskList which contains an ArrayList of tasks
-     * @param ui Text Ui that the user interacts with
      * @param storage File path where the tasks are stored
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         Deadline deadline = new Deadline(this.description, this.by);
         int originalSize = tasks.getSize();
         tasks.addTask(deadline);

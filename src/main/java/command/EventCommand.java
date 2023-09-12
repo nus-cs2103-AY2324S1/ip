@@ -3,7 +3,6 @@ package command;
 import java.time.LocalDateTime;
 
 import duke.Storage;
-import duke.Ui;
 import task.Event;
 import task.TaskList;
 
@@ -41,11 +40,10 @@ public class EventCommand extends Command {
      * the specified Storage file
      *
      * @param tasks TaskList which contains an ArrayList of tasks
-     * @param ui Text Ui that the user interacts with
      * @param storage File path where the tasks are stored
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         Event event = new Event(this.description, this.from, this.to);
         int originalSize = tasks.getSize();
         tasks.addTask(event);
