@@ -21,39 +21,53 @@ public class Parser {
      * @return The corresponding {@link CommandType} based on the user input.
      */
     public static CommandType parseCommand(String input) {
-        if (input.equalsIgnoreCase("bye")) {
+        String command = input.split(" ")[0].toLowerCase();
+
+        switch (command) {
+        case "bye":
             return CommandType.BYE;
-        }
-        if (input.equalsIgnoreCase("list")) {
+        case "list":
             return CommandType.LIST;
-        }
-        if (input.startsWith("todo")) {
+        case "todo":
             return CommandType.TODO;
-        }
-        if (input.startsWith("deadline")) {
+        case "deadline":
             return CommandType.DEADLINE;
-        }
-        if (input.startsWith("event")) {
+        case "event":
             return CommandType.EVENT;
-        }
-        if (input.startsWith("mark")) {
+        case "mark":
             return CommandType.MARK;
-        }
-        if (input.startsWith("unmark")) {
+        case "unmark":
             return CommandType.UNMARK;
-        }
-        if (input.startsWith("delete")) {
+        case "delete":
             return CommandType.DELETE;
-        }
-        if (input.startsWith("tasks on")) {
-            return CommandType.TASKS_ON_DATE;
-        }
-        if (input.startsWith("find")) {
+        case "tasks":
+            if (input.startsWith("tasks on")) {
+                return CommandType.TASKS_ON_DATE;
+            } else {
+                return CommandType.UNKNOWN;
+            }
+        case "find":
             return CommandType.FIND;
+        default:
+            return CommandType.UNKNOWN;
         }
-        return CommandType.UNKNOWN;
     }
 
+
+    /**
+     * Parse user's input and return the argument for that input.
+     *
+     * @param input user input from System.in
+     * @return argument fields of the input
+     * @throws DukeException if the command requires argument(s) and it is missing
+     */
+    public static String parseArgs(String input) throws DukeException {
+        try {
+            return input.split(" ", 2)[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("You are missing arguments!");
+        }
+    }
     /**
      * Converts a date string from the user input into a {@link LocalDate} object.
      *
@@ -83,10 +97,13 @@ public class Parser {
      * @param date  The date to verify.
      * @return {@code true} if the date is within the event's date range, otherwise {@code false}.
      */
-    public static boolean isWithinEventDate(Event event, LocalDate date) {
+    public static boolean checkWithinEventDate(Event event, LocalDate date) {
         LocalDate startDate = event.getFrom().toLocalDate();
         LocalDate endDate = event.getTo().toLocalDate();
-        return (date.isEqual(startDate) || date.isEqual(endDate) || (
-                date.isAfter(startDate) && date.isBefore(endDate)));
+        boolean isStartDate = date.isEqual(startDate);
+        boolean isEndDate = date.isEqual(endDate);
+        boolean isAfterStartDate = date.isAfter(startDate);
+        boolean isBeforeEndDate = date.isAfter(endDate);
+        return isStartDate || isEndDate || (isAfterStartDate && isBeforeEndDate);
     }
 }

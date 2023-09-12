@@ -89,61 +89,115 @@ public class Duke {
             case LIST:
                 return this.ui.displayList(taskList.getTasks());
             case TODO:
-                ToDo todo = new ToDo(input.substring(5));
-                this.taskList.add(todo);
-                this.storage.saveTasks(taskList.getTasks());
-                return this.ui.displayTaskAdded(todo, taskList.getSize());
+                return this.addToDo(Parser.parseArgs(input));
             case DEADLINE:
-                String[] parts = input.substring(9).split(" /by ");
-                if (parts.length < 2) {
-                    throw new DukeException("duke.task.Deadline format is incorrect.");
-                }
-                Deadline deadline = new Deadline(parts[0], parts[1]);
-                this.taskList.add(deadline);
-                this.storage.saveTasks(taskList.getTasks());
-                return this.ui.displayTaskAdded(deadline, taskList.getSize());
+                return this.addDeadline(Parser.parseArgs(input));
             case EVENT:
-                String[] eventParts = input.substring(6).split(" /from ");
-                String[] timeParts = eventParts[1].split(" /to ");
-                if (timeParts.length < 2) {
-                    throw new DukeException("duke.task.Event format is incorrect.");
-                }
-                Event event = new Event(eventParts[0], timeParts[0], timeParts[1]);
-                this.taskList.add(event);
-                this.storage.saveTasks(taskList.getTasks());
-                return this.ui.displayTaskAdded(event, taskList.getSize());
+                return this.addEvent(Parser.parseArgs(input));
             case MARK:
-                int taskNumberMark = Integer.parseInt(input.split(" ")[1]);
-                this.taskList.get(taskNumberMark - 1).markAsDone();
-                this.storage.saveTasks(taskList.getTasks());
-                return this.ui.displayMarkedAsDone(taskList.get(taskNumberMark - 1));
+                return this.markAsDone(Parser.parseArgs(input));
             case UNMARK:
-                int taskNumberUnmark = Integer.parseInt(input.split(" ")[1]);
-                this.taskList.get(taskNumberUnmark - 1).unmark();
-                this.storage.saveTasks(taskList.getTasks());
-                return this.ui.displayMarkedAsNotDone(taskList.get(taskNumberUnmark - 1));
+                return this.unmarkAsDone(Parser.parseArgs(input));
             case DELETE:
-                int taskNumberDelete = Integer.parseInt(input.split(" ")[1]);
-                Task removedTask = taskList.remove(taskNumberDelete - 1);
-                this.storage.saveTasks(taskList.getTasks());
-                return this.ui.displayTaskDeleted(removedTask, taskList.getSize());
+                return this.delete(Parser.parseArgs(input));
             case TASKS_ON_DATE:
-                LocalDate givenDate = Parser.getLocalDate(input);
-                List<Task> tasksOnGivenDate = taskList.getTasks().stream()
-                        .filter(task -> (task instanceof Deadline && ((Deadline) task).getBy()
-                                .toLocalDate().isEqual(givenDate)) || (task
-                                instanceof Event && Parser.isWithinEventDate((Event) task, givenDate)))
-                        .collect(Collectors.toList());
-                return this.ui.displayTasksOnDate(tasksOnGivenDate, givenDate);
+                return this.searchTasksOn(Parser.getLocalDate(input));
             case FIND:
-                String keyword = input.substring(5);
-                TaskList resultList = taskList.findTasks(keyword);
+                TaskList resultList = taskList.findTasks(Parser.parseArgs(input));
                 return this.ui.displayFindResults(resultList.getTasks());
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (DukeException e) {
             return this.ui.displayException(e);
+        }
+    }
+
+    private String addToDo(String args) throws DukeException {
+        try {
+            ToDo todo = new ToDo(args);
+            this.taskList.add(todo);
+            this.storage.saveTasks(taskList.getTasks());
+            return this.ui.displayTaskAdded(todo, taskList.getSize());
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("You are missing arguments!");
+        }
+    }
+
+    private String addDeadline(String args) throws DukeException {
+        try {
+            String[] parts = args.split(" /by ");
+            if (parts.length < 2) {
+                throw new DukeException("duke.task.Deadline format is incorrect.");
+            }
+            Deadline deadline = new Deadline(parts[0], parts[1]);
+            this.taskList.add(deadline);
+            this.storage.saveTasks(taskList.getTasks());
+            return this.ui.displayTaskAdded(deadline, taskList.getSize());
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("You are missing arguments!");
+        }
+    }
+
+    private String addEvent(String args) throws DukeException {
+        try {
+            String[] eventParts = args.split(" /from ");
+            String[] timeParts = eventParts[1].split(" /to ");
+            if (timeParts.length < 2) {
+                throw new DukeException("duke.task.Event format is incorrect.");
+            }
+            Event event = new Event(eventParts[0], timeParts[0], timeParts[1]);
+            this.taskList.add(event);
+            this.storage.saveTasks(taskList.getTasks());
+            return this.ui.displayTaskAdded(event, taskList.getSize());
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("You are missing arguments!");
+        }
+    }
+
+    private String markAsDone(String args) throws DukeException {
+        try {
+            int taskNumberMark = Integer.parseInt(args);
+            this.taskList.get(taskNumberMark - 1).markAsDone();
+            this.storage.saveTasks(taskList.getTasks());
+            return this.ui.displayMarkedAsDone(taskList.get(taskNumberMark - 1));
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("The task number you provided is invalid.");
+        }
+    }
+
+    private String unmarkAsDone(String args) throws DukeException {
+        try {
+            int taskNumberUnmark = Integer.parseInt(args);
+            this.taskList.get(taskNumberUnmark - 1).unmark();
+            this.storage.saveTasks(taskList.getTasks());
+            return this.ui.displayMarkedAsNotDone(taskList.get(taskNumberUnmark - 1));
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("The task number you provided is invalid.");
+        }
+    }
+
+    private String delete(String args) throws DukeException {
+        try {
+            int taskNumberDelete = Integer.parseInt(args);
+            Task removedTask = taskList.remove(taskNumberDelete - 1);
+            this.storage.saveTasks(taskList.getTasks());
+            return this.ui.displayTaskDeleted(removedTask, taskList.getSize());
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("The task number you provided is invalid.");
+        }
+    }
+
+    private String searchTasksOn(LocalDate givenDate) throws DukeException {
+        try {
+            List<Task> tasksOnGivenDate = taskList.getTasks().stream()
+                    .filter(task -> (task instanceof Deadline && ((Deadline) task).getBy()
+                            .toLocalDate().isEqual(givenDate)) || (task
+                            instanceof Event && Parser.checkWithinEventDate((Event) task, givenDate)))
+                    .collect(Collectors.toList());
+            return this.ui.displayTasksOnDate(tasksOnGivenDate, givenDate);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("You are missing arguments!");
         }
     }
 
