@@ -177,7 +177,7 @@ public class TaskManager {
     public List<Task> findTaskByKeyboard(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks.getAllTasks()) {
-            if (task.getDescription().contains(keyword)) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 matchingTasks.add(task);
             }
         }
