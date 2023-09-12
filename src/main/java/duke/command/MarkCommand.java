@@ -35,7 +35,7 @@ public class MarkCommand extends Command {
         if (index >= 0 && index < tasks.size()) {
             Task markTask = tasks.get(index);
             tasks.markDone(index);
-            ui.printMessage("Nice! I've marked this task as done:\n\t",markTask);
+            ui.printMessage("Nice! I've marked this task as done:\n\t", markTask);
             storage.saveTasksToFile(tasks);
         } else {
             throw new DukeException("☹ OOPS!!! Please provide a valid task index to mark.");

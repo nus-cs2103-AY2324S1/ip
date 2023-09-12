@@ -80,8 +80,8 @@ public class Deadline extends Task {
         for (DateTimeFormatter formatter : formatters) {
             try {
                 return LocalDate.parse(date, formatter);
-            } catch (DateTimeParseException ignore){
-
+            } catch (DateTimeParseException ignore) {
+                return null;
             }
         }
 
@@ -112,7 +112,7 @@ public class Deadline extends Task {
             try {
                 return LocalDateTime.parse(date, formatter);
             } catch (DateTimeParseException ignore) {
-
+                return null;
             }
         }
         return null;

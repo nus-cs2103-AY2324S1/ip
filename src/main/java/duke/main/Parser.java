@@ -25,32 +25,34 @@ public class Parser {
      * @throws DukeException If the user input is invalid.
      */
     static Command parse(String userInput) throws DukeException {
-        if (userInput.equals("bye") || userInput.equals("exit")) {
+        switch (userInput) {
+        case "bye":
+        case "exit":
             return new ExitCommand();
-        } else if (userInput.equals("list")) {
+        case "list":
             return new ListCommand();
-        } else if (userInput.startsWith("mark")) {
-            int taskIndex = validateMarkAndDelete(userInput.substring(5));
-            return new MarkCommand(taskIndex);
-        } else if (userInput.startsWith("unmark")) {
-            int taskIndex = validateMarkAndDelete(userInput.substring(7));
-            return new UnmarkCommand(taskIndex);
-        } else if (userInput.startsWith("todo")) {
+        case "mark":
+            int markTaskIndex = validateMarkAndDelete(userInput.substring(5));
+            return new MarkCommand(markTaskIndex);
+        case "unmark":
+            int unmarkTaskIndex = validateMarkAndDelete(userInput.substring(7));
+            return new UnmarkCommand(unmarkTaskIndex);
+        case "todo":
             String toDoDescription = validateToDo(userInput);
             return new ToDoCommand(toDoDescription);
-        } else if (userInput.startsWith("deadline")) {
-            String[] info = validateDeadline(userInput);
-            return new DeadlineCommand(info[0], info[1]);
-        } else if (userInput.startsWith("event")) {
-            String[] info = validateEvent(userInput);
-            return new EventCommand(info[0], info[1], info[2]);
-        } else if (userInput.startsWith("delete")) {
-            int taskIndex = validateMarkAndDelete(userInput.substring(7));
-            return new DeleteCommand(taskIndex);
-        } else if (userInput.startsWith("find")) {
+        case "deadline":
+            String[] deadlineInfo = validateDeadline(userInput);
+            return new DeadlineCommand(deadlineInfo[0], deadlineInfo[1]);
+        case "event":
+            String[] eventInfo = validateEvent(userInput);
+            return new EventCommand(eventInfo[0], eventInfo[1], eventInfo[2]);
+        case "delete":
+            int deleteTaskIndex = validateMarkAndDelete(userInput.substring(7));
+            return new DeleteCommand(deleteTaskIndex);
+        case "find":
             String keyword = validateFind(userInput);
             return new FindCommand(keyword);
-        } else {
+        default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
@@ -86,7 +88,7 @@ public class Parser {
      * @return True if the String can be converted to an integer, false otherwise.
      */
     private static boolean isNumeric(String str) {
-        if (str == null || str == "") {
+        if (str == null || str.equals("")) {
             return false;
         }
         try {

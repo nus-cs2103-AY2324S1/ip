@@ -20,7 +20,7 @@ public class EventCommand extends Command {
      * @param startDateTimeStr The start date and time of the event as a string.
      * @param endDateTimeStr   The end date and time of the event as a string.
      */
-    public EventCommand(String description, String startDateTimeStr,String endDateTimeStr) {
+    public EventCommand(String description, String startDateTimeStr, String endDateTimeStr) {
         this.description = description;
         this.startDateTimeStr = startDateTimeStr;
         this.endDateTimeStr = endDateTimeStr;

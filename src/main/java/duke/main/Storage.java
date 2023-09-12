@@ -45,7 +45,7 @@ public class Storage {
             while (scanner.hasNextLine()) {
                 String data = scanner.nextLine();
                 String[] taskData = data.split(" \\| ");
-                Task task = new Task("");
+                Task task;
 
                 //taskData[0] = task type
                 //taskData[1] = Done status
@@ -53,15 +53,20 @@ public class Storage {
 
                 boolean isDone = taskData[1].equals("1");
 
-                if (taskData[0].equals("T")) {
+                switch (taskData[0]) {
+                case "T":
                     task = new ToDo(taskData[2]);
-                } else if (taskData[0].equals("D")) {
+                    break;
+                case "D":
                     task = new Deadline(taskData[2], taskData[3]);
-                } else if (taskData[0].equals("E")) {
+                    break;
+                case "E":
                     String[] eventData = taskData[3].split(" to ");
                     task = new Event(taskData[2], eventData[0], eventData[1]);
-                } else {
+                    break;
+                default:
                     System.out.println("error: unknown task type found in file.");
+                    continue; // Skip to the next line
                 }
 
                 // Set done status

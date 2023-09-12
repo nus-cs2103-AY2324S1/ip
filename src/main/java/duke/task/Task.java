@@ -61,6 +61,11 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Formats the string representation of the Task object to write to the file.
+     *
+     * @return String representation of the Task object to be written to the file.
+     */
     public String toFileString() {
         String type = "T"; // Default type for base Task
         return type + " | " + (isDone ? "1" : "0") + " | " + description;

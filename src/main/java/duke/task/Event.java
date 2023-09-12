@@ -26,7 +26,7 @@ public class Event extends Task {
      * @param startDateTimeStr Start date (and time) of the event
      * @param endDateTimeStr End date (and time) of the event
      */
-    public Event(String description, String startDateTimeStr,String endDateTimeStr) {
+    public Event(String description, String startDateTimeStr, String endDateTimeStr) {
         super(description);
         this.startDate = parseDate(startDateTimeStr);
         this.endDate = parseDate(endDateTimeStr);
@@ -93,8 +93,8 @@ public class Event extends Task {
         for (DateTimeFormatter formatter : formatters) {
             try {
                 return LocalDate.parse(date, formatter);
-            } catch (DateTimeParseException ignore){
-
+            } catch (DateTimeParseException ignore) {
+                return null;
             }
         }
 
@@ -122,7 +122,7 @@ public class Event extends Task {
             try {
                 return LocalDateTime.parse(date, formatter);
             } catch (DateTimeParseException ignore) {
-
+                return null;
             }
         }
         return null;
