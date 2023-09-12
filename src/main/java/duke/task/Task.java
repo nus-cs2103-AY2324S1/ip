@@ -13,6 +13,7 @@ public class Task {
      * @param d Description of the task.
      */
     public Task(String d) {
+        assert d != null: "Description cannot be empty";
         description = d;
         isDone = false;
     }

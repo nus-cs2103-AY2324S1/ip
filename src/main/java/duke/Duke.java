@@ -50,6 +50,7 @@ public class Duke {
      */
     public String getResponse(String input) {
         try {
+            assert input != null: "Input cannot be null";
             Command c = Parser.parse(input);
             return c.execute(tasks, UI, STORAGE);
         } catch (DukeException e) {
