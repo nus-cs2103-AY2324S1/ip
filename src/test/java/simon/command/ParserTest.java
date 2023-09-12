@@ -9,7 +9,6 @@ import simon.SimonException;
 import simon.task.Task;
 
 public class ParserTest {
-
     @Test
     public void parseAddTask_validToDoInput_todoAdded() throws SimonException {
         String input = "todo Sample Task";
