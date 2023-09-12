@@ -1,6 +1,7 @@
 package duke;
 
 import java.io.IOException;
+import java.net.URL;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,7 +15,9 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            URL resource = Main.class.getResource("/view/MainWindow.fxml");
+            assert resource != null : "MainWindow.fxml is missing!";
+            FXMLLoader fxmlLoader = new FXMLLoader(resource);
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
