@@ -27,7 +27,6 @@ public class Parser {
             ui.printBye();
             break;
         case "list":
-//            tasks.printList();
             ui.printList(tasks);
             break;
         case "todo":
