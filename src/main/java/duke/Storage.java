@@ -139,7 +139,6 @@ public class Storage {
             setStatus(task, isDone);
             return task;
         } else {
-            // Handle unrecognized task type
             throw new ParseTaskFromStringException(line);
         }
     }
