@@ -2,8 +2,7 @@ package alyssa;
 
 import java.io.IOException;
 
-import alyssa.Exceptions.AlyssaArgumentException;
-
+import alyssa.exceptions.AlyssaArgumentException;
 import javafx.fxml.FXML;
 /**
  * This class represents the main program.
@@ -16,7 +15,7 @@ public class Alyssa {
     private Ui ui;
     private Parser parser;
 
-    /*
+    /**
      * Constructor method for Alyssa.
      */
     public Alyssa() {
@@ -25,65 +24,94 @@ public class Alyssa {
         this.storage = new Storage(FILEPATH, DIRPATH);
         this.taskList = new TaskList(storage.loadTasks());
     }
-
+    private String handleGoodbye() {
+        return ui.goodbye();
+    }
+    private String handleListing() {
+        return taskList.listTasks();
+    }
+    private String handleMarkTask(String rest) {
+        try {
+            String output = taskList.markTask(rest);
+            return output;
+        } catch (NumberFormatException e) {
+            return e.getMessage();
+        } catch (AlyssaArgumentException e) {
+            return e.getMessage();
+        }
+    }
+    private String handleUnmarkTask(String rest) {
+        try {
+            String output = taskList.unmarkTask(rest);
+            return output;
+        } catch (NumberFormatException e) {
+            return e.getMessage();
+        } catch (AlyssaArgumentException e) {
+            return e.getMessage();
+        }
+    }
+    private String handleTodo(String rest) {
+        try {
+            String output = taskList.addTodo(rest);
+            return output;
+        } catch (AlyssaArgumentException e) {
+            return e.getMessage();
+        }
+    }
+    private String handleDeadline(String rest) {
+        try {
+            String output = taskList.addDeadline(rest);
+            return output;
+        } catch (AlyssaArgumentException e) {
+            return e.getMessage();
+        }
+    }
+    private String handleEvent(String rest) {
+        try {
+            String output = taskList.addEvent(rest);
+            return output;
+        } catch (AlyssaArgumentException e) {
+            return e.getMessage();
+        }
+    }
+    private String handleDelete(String rest) {
+        try {
+            String output = taskList.deleteTask(rest);
+            return output;
+        } catch (AlyssaArgumentException e) {
+            return e.getMessage();
+        } catch (NumberFormatException e) {
+            return e.getMessage();
+        }
+    }
+    private String handleFind(String rest) {
+        return taskList.printRelevantTasks(rest);
+    }
+    private String handleInvalidResponse() {
+        return ui.invalidTaskResponse();
+    }
     private String run(Command command, String rest) {
         switch (command) {
         case BYE:
-            return ui.goodbye();
+            return handleGoodbye();
         case LIST:
-            return taskList.listTasks();
+            return handleListing();
         case MARK:
-            try {
-                String output = taskList.markTask(rest);
-                return output;
-            } catch (NumberFormatException e) {
-                return e.getMessage();
-            } catch (AlyssaArgumentException e) {
-                return e.getMessage();
-            }
+            return handleMarkTask(rest);
         case UNMARK:
-            try {
-                String output = taskList.unmarkTask(rest);
-                return output;
-            } catch (NumberFormatException e) {
-                return e.getMessage();
-            } catch (AlyssaArgumentException e) {
-                return e.getMessage();
-            }
+            return handleUnmarkTask(rest);
         case TODO:
-            try {
-                String output = taskList.addTodo(rest);
-                return output;
-            } catch (AlyssaArgumentException e) {
-                return e.getMessage();
-            }
+            return handleTodo(rest);
         case DEADLINE:
-            try {
-                String output = taskList.addDeadline(rest);
-                return output;
-            } catch (AlyssaArgumentException e) {
-                return e.getMessage();
-            }
+            return handleDeadline(rest);
         case EVENT:
-            try {
-                String output = taskList.addEvent(rest);
-                return output;
-            } catch (AlyssaArgumentException e) {
-                return e.getMessage();
-            }
+            return handleEvent(rest);
         case DELETE:
-            try {
-                String output = taskList.deleteTask(rest);
-                return output;
-            } catch (AlyssaArgumentException e) {
-                return e.getMessage();
-            } catch (NumberFormatException e) {
-                return e.getMessage();
-            }
+            return handleDelete(rest);
         case FIND:
-            return taskList.printRelevantTasks(rest);
+            return handleFind(rest);
         default:
-            return ui.invalidTaskResponse();
+            return handleInvalidResponse();
         }
     }
 
