@@ -1,6 +1,6 @@
 package duke.task;
 
-import duke.Storage;
+import duke.util.Storage;
 
 /**
  * Represents a todo task. A <code>Todo</code> object corresponds to

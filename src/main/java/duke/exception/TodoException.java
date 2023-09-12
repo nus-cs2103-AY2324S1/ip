@@ -1,6 +1,6 @@
 package duke.exception;
 
-import duke.Ui;
+import duke.util.Ui;
 
 /**
  * Represents an exception thrown when the user enters an invalid todo command.
@@ -13,7 +13,7 @@ public class TodoException extends DukeException {
      * @param message The message to be printed when the exception is caught.
      */
     public TodoException(String message) {
-        super(Ui.connectTwoLine(message,
+        super(Ui.connectLines(message,
                 "Enter in the form: \"todo [task_description]\""));
     }
 }

@@ -1,4 +1,4 @@
-package duke;
+package duke.util;
 
 import duke.command.AddCommand;
 import duke.command.Command;
@@ -109,7 +109,7 @@ public class Parser {
             }
             // fall through
         case LIST:
-            String errMessage = Ui.connectTwoLine(
+            String errMessage = Ui.connectLines(
                     String.format("OOPS!!! The command for %s is invalid.", key.getKeyword()),
                     String.format("Enter in the form: \"%s\"", key.getKeyword()));
             throw new DukeException(errMessage);

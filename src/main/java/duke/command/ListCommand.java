@@ -1,8 +1,8 @@
 package duke.command;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.Ui;
 import duke.exception.DukeException;
 
 /**
@@ -25,10 +25,11 @@ public class ListCommand extends Command {
      * @param taskList task list to be listed
      * @param ui       the user interface to print messages to the user
      * @param storage  the storage
+     * @return
      * @throws DukeException if there is nothing in the list
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        taskList.listTask(ui);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        return taskList.listTask(ui);
     }
 }

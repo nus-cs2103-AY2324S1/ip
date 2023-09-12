@@ -1,4 +1,4 @@
-package duke;
+package duke.util;
 
 /**
  * Represents the keywords that the chatbot can understand.

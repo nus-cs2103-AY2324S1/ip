@@ -2,8 +2,8 @@ package duke.task;
 
 import java.time.LocalDate;
 
-import duke.Keyword;
-import duke.Storage;
+import duke.util.Keyword;
+import duke.util.Storage;
 
 /**
  * Represents a task. A <code>Task</code> object corresponds to a task

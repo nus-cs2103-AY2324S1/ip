@@ -3,9 +3,9 @@ package duke.task;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import duke.Keyword;
-import duke.Storage;
-import duke.Time;
+import duke.util.Keyword;
+import duke.util.Storage;
+import duke.util.Time;
 
 /**
  * Represents an event task with a start and end date/time. A <code>Event</code> object
