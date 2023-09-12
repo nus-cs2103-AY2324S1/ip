@@ -172,16 +172,17 @@ public class Parser {
             Matcher matcherFrom = patternFrom.matcher(inputArgs);
 
             String from = "";
+
             if (matcherFrom.find()) {
                 // yes, formatted correctly
                 from = matcherFrom.group(2);
+                assert !from.isEmpty() : " Empty from! From should not be empty!";
             } else {
                 throw new InvalidFormatException(FROM_EMPTY, inputString);
             }
 
             // parse the 'from'
             LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter);
-
 
             // get the to...
             String to = inputArgs.split("/to ")[1];
