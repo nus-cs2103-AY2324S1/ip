@@ -26,9 +26,12 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
+        String taskType = "[D]";
         String status = "[" + (super.isDone ? "X" : " ") + "]";
+        String description = " " + super.description + " ";
         String deadline = "(by: " + this.byDate + ")";
-        return "[D]" + status + " " + super.description + " " + deadline;
+
+        return taskType + status + description + deadline;
     }
 
     /**
@@ -38,10 +41,11 @@ public class Deadline extends Task {
      */
     @Override
     public String toDataFormatString() {
-        String outputString = "D | ";
-        outputString += (super.isDone ? "1" : "0") + " | ";
-        outputString += super.description + " | ";
-        outputString += this.byDate;
-        return outputString;
+        String taskType = "D | ";
+        String status = (super.isDone ? "1" : "0") + " | ";
+        String description = super.description + " | ";
+        String dates = this.byDate.toString();
+
+        return taskType + status + description + dates;
     }
 }
