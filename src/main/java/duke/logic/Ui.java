@@ -1,11 +1,11 @@
-package duke;
+package duke.logic;
 
 import java.util.Scanner;
 
 /**
  * Class to handle with user inputs.
  */
-class Ui {
+public class Ui {
     Scanner sc;
 
     /**

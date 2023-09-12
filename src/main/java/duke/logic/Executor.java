@@ -1,4 +1,9 @@
-package duke;
+package duke.logic;
+
+import duke.exceptions.EmptyDescription;
+import duke.exceptions.WrongInput;
+
+import duke.tasks.TaskList;
 
 public class Executor {
     private String DELIM = " ";

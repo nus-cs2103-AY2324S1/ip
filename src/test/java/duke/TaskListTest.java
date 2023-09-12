@@ -1,6 +1,9 @@
 package duke;
 
+import duke.tasks.TaskList;
 import org.junit.jupiter.api.Test;
+
+import duke.exceptions.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TaskListTest {

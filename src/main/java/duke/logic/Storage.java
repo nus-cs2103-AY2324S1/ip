@@ -1,4 +1,9 @@
-package duke;
+package duke.logic;
+
+import duke.exceptions.DukeException;
+
+import duke.tasks.Task;
+import duke.tasks.TaskList;
 
 import java.io.FileWriter;
 import java.io.BufferedWriter;
@@ -13,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Class to handle data writing and reading of task list to user hard disk.
  */
-class Storage {
+public class Storage {
     private String textFile;
     private String dataFile;
 

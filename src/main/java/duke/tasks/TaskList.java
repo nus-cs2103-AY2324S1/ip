@@ -1,4 +1,6 @@
-package duke;
+package duke.tasks;
+
+import duke.exceptions.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Class to handle individual task and task list manipulation.
  */
-class TaskList {
+public class TaskList {
     private ArrayList<Task> taskArr;
     public TaskList(ArrayList<Task> taskArr) {
         this.taskArr = taskArr;
@@ -147,16 +149,17 @@ class TaskList {
         // can safely ignore the first element as we have already
         // checked for the task type in main logic
         for (int i = 1; i < arr.length; i++) {
+
             if (arr[i].equals("/by")) {
                 break;
             } else if (arr[i].equals("/from")) {
                 break;
+            }
+
+            if (result == null) {
+                result = arr[i];
             } else {
-                if (result == null) {
-                    result = arr[i];
-                } else {
-                    result += " " + arr[i];
-                }
+                result += " " + arr[i];
             }
         }
 

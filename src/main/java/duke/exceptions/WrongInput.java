@@ -1,15 +1,15 @@
-package duke;
+package duke.exceptions;
 
 /**
  * Exception when an illegal argument is found.
  */
-class WrongInput extends DukeException {
+public class WrongInput extends DukeException {
     /**
      * Constructor for the WrongInput class.
      */
     public WrongInput() {
         super("-------------------------------\n"
-                +  "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n"
+                +  "OOPS!!! I'm sorry, but I don't know what that means :-(\n"
                 +  "-------------------------------\n");
     }
 }

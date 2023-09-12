@@ -1,11 +1,11 @@
-package duke;
+package duke.tasks;
 
 import java.io.Serializable;
 
 /**
  * Class representing a task to be completed.
  */
-class Task implements Serializable {
+public class Task implements Serializable {
     protected String description;
     protected boolean isDone;
 

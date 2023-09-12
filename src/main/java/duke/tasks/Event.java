@@ -1,4 +1,4 @@
-package duke;
+package duke.tasks;
 
 /**
  * Special type of task that has a description, 'from' date and 'to' date.

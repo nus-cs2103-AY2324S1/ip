@@ -1,9 +1,9 @@
-package duke;
+package duke.tasks;
 
 /**
  * Special kind of task that only has a description
  */
-class Todo extends Task {
+public class Todo extends Task {
     protected String type = "T";
 
     /**
