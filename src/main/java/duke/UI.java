@@ -76,8 +76,10 @@ public class UI {
      * @param taskNumber Take in the task to be deleted from the taskList
      */
     public String deleteTask(TaskList tasks, int taskNumber) {
+        assert taskNumber > 0 : "taskNumber should be more than 0";
         String deletingTask = "Noted. I've removed this task:";
         int taskInArray = tasks.size() - 1;
+        assert taskNumber <= taskInArray : "task should be in the list";
         Task removedTask = tasks.deleteTask(taskNumber);
         String numberOfTask = "Now you have " + taskInArray + " tasks in the list.";
         String output = String.format("%s\n  %s\n%s", deletingTask, removedTask, numberOfTask);
@@ -93,6 +95,8 @@ public class UI {
      * @param list Takes in the TaskList that the task is added to
      */
     public String addTask(Task task, TaskList tasks) {
+        assert task != null : "task should not be null";
+        assert tasks != null : "taskList should not be null";
         String addingTask = "Got it. I've added this task:";
         String numberOfTask = "Now you have " + tasks.size() + " tasks in the list.";
         String output = String.format("%s\n  %s\n%s", addingTask, task, numberOfTask);
@@ -111,6 +115,8 @@ public class UI {
     }
 
     public String findTask(String keyword, TaskList tasks) {
+        assert keyword != null : "keyword should not be null";
+        assert tasks != null : "taskList should not be null";
         printLine();
         String output = "Here are the matching tasks in your list: \n";
         output += tasks.findTaskFromTaskList(keyword);

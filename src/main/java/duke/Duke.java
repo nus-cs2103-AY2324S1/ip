@@ -53,6 +53,7 @@ public class Duke {
         // setting up
         Scanner sc = new Scanner(System.in);
         String string = sc.nextLine();
+        assert string != null : "string should not be null";
         boolean isExit = false;
 
         // looping in the program
@@ -77,6 +78,7 @@ public class Duke {
 
     public String getResponse(String input) {
         String output = "";
+        assert input != null : "input should not be null";
         if (tasks == null) {
             this.tasks = new TaskList();
         } else {
