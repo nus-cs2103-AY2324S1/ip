@@ -1,12 +1,7 @@
 package duke;
 
-import duke.command.AddCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.ExitCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
+import duke.command.*;
+import duke.ui.Ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -75,8 +70,11 @@ public class Parser {
             }
             assert Integer.parseInt(details) >= 0 : "Task number should be a non-negative integer";
             return new DeleteCommand(Integer.parseInt(details));
+        case "help":
+            return new HelpCommand();
         default:
-            throw new DukeException("I have no idea what that means...");
+            throw new DukeException("I have no idea what that means...\n"
+                    + "Try entering 'help' to see what I can do");
         }
     }
 
