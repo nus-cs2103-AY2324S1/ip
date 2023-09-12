@@ -22,9 +22,8 @@ public class Parser {
      * @throws GBotException If user input is invalid.
      */
     public static String parse(String message, TaskList tasks) throws GBotException {
-        if (message.isBlank()) {
-            return "Please enter a command.";
-        } else if (message.strip().equals("list")) {
+        assert !message.isBlank() : "Please enter a valid command.";
+        if (message.strip().equals("list")) {
             return tasks.listTasks();
         }
 
