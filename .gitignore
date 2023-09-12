@@ -16,4 +16,7 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
+# Data file
+src/data/duke.txt
+
 *.class
