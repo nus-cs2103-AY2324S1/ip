@@ -13,6 +13,7 @@ public class Storage {
     private String filepath;
 
     public Storage(String filepath) {
+        assert filepath != null;
         this.filepath = filepath;
     }
 
@@ -26,6 +27,8 @@ public class Storage {
         try {
             FileInputStream file = new FileInputStream(filepath);
             ObjectInputStream output = new ObjectInputStream(file);
+            assert file != null;
+            assert output != null;
             TaskList taskList = (TaskList) output.readObject();
             output.close();
             return taskList;
