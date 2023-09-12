@@ -7,6 +7,8 @@ import max.ui.Ui;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * Represents find command.
@@ -34,14 +36,16 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> currList =  tasks.getList();
-        ArrayList<Task> filterList = new ArrayList<>();
-        for (Task task : currList) {
-            for (String item : items) {
-                if (task.getItem().contains(item)) {
-                    filterList.add(task);
-                }
-            }
-        }
+        ArrayList<Task> filterList = (ArrayList<Task>) currList.stream().filter((task) -> Arrays.stream(items).anyMatch(item -> task.getItem().contains(item))).collect(Collectors.toList());
+
+//        new ArrayList<>();
+//        for (Task task : currList) {
+//            for (String item : items) {
+//                if (task.getItem().contains(item)) {
+//                    filterList.add(task);
+//                }
+//            }
+//        }
         return ui.showList(filterList);
     }
 
