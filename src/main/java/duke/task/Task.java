@@ -18,17 +18,6 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string representation of the task.
-     *
-     * @return String representation of the task
-     */
-    @Override
-    public String toString() {
-        String status = "[" + (this.isDone ? "X" : " ") + "]";
-        return status + " " + this.description;
-    }
-
-    /**
      * Updates the task status to 'completed'
      */
     public void markAsDone() {
