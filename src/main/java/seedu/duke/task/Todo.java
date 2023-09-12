@@ -1,7 +1,5 @@
 package seedu.duke.task;
 
-import seedu.duke.task.Task;
-
 /**
  * Represents a Todo task.
  * This class is inherited from the Task class.
