@@ -6,21 +6,35 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <Label fx:id="dialog" text="Label" wrapText="true">
-         <font>
-            <Font name="SF Pro Rounded Regular" size="11.0" />
-         </font>
+<fx:root alignment="TOP_RIGHT" minHeight="-Infinity" prefWidth="423.0" spacing="5.0" type="HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <javafx.scene.layout.HBox alignment="CENTER_RIGHT" depthTest="ENABLE" maxHeight="340.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" opacity="0.8" style="-fx-background-radius: 1em; -fx-background-color: lightgray;">
+          <children>
+              <Label fx:id="dialog" text="Label" wrapText="true">
+               <font>
+                  <Font name="SF Pro Text Regular" size="11.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
+            </Label>
+          </children>
+          <padding>
+              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+          </padding>
+         <HBox.margin>
+            <Insets bottom="7.0" top="7.0" />
+         </HBox.margin>
+      </javafx.scene.layout.HBox>
+        <ImageView fx:id="displayPicture" fitHeight="46.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
          <HBox.margin>
             <Insets />
-         </HBox.margin>
-         <padding>
-            <Insets right="10.0" />
-         </padding></Label>
-        <ImageView fx:id="displayPicture" fitHeight="32.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" />
-    </children>
-    <padding>
-        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
-    </padding>
+         </HBox.margin></ImageView>
+   </children>
+   <padding>
+      <Insets left="5.0" right="15.0" />
+   </padding>
 </fx:root>
