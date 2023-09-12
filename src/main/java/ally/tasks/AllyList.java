@@ -60,7 +60,7 @@ public class AllyList {
     public String printNewList(Task task) {
         String str1 = "Got it. I've added this task:\n";
         String str2 = "\t" + task.toString();
-        String str3 = "Now you have " + arr.size() + " tasks in the list.";
+        String str3 = "\n" + "Now you have " + arr.size() + " tasks in the list.";
         return str1 + str2 + str3;
     }
 

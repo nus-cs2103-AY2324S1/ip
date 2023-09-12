@@ -26,6 +26,7 @@ public class Parser {
      * @throws AllyException Error Message
      */
     public static Commands parse(String ipt) throws AllyException {
+        assert ipt != null;
         String[] split = ipt.split(" ", 2);
         if (split[0].equals("bye")) {
             return new ExitCommand();

@@ -20,6 +20,8 @@ public class ListCommand extends Commands {
      */
     @Override
     public String run(AllyList allyList, Ui ui, Storage storage) throws AllyException {
+        assert ui != null;
+        assert storage != null;
         return ui.showList(allyList);
     }
 

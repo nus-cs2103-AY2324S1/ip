@@ -41,6 +41,8 @@ public class AddEventCommand extends Commands {
     @Override
     public String run(AllyList allyList, Ui ui, Storage storage) throws AllyException {
         try {
+            assert ui != null;
+            assert storage != null;
             Event event = new Event(description, from, to);
             allyList.addElements(event);
             storage.appendToFile(event);

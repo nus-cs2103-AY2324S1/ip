@@ -20,6 +20,8 @@ public class ExitCommand extends Commands {
     @Override
     public String run(AllyList allyList, Ui ui, Storage storage) {
         try {
+            assert ui != null;
+            assert storage != null;
             return ui.bye();
         } catch (AllyException e) {
             return e.getMessage();

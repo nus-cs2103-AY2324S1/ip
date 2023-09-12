@@ -28,6 +28,7 @@ public class Storage {
      * @throws AllyException
      */
     public Storage(String filePath) throws AllyException {
+        assert filePath != null;
         this.filePath = filePath;
         try {
             load();
@@ -91,6 +92,7 @@ public class Storage {
      */
     public void appendToFile(Task task) throws AllyException {
         try {
+            assert task != null;
             FileWriter fw = new FileWriter(filePath, true);
             fw.write(task.formatFile());
             fw.close();

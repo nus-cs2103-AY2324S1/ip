@@ -65,6 +65,7 @@ public class Ui {
         System.out.println("Here are the tasks in your list:\n");
         for (int i = 0, len = allyList.getSize(); i < len; i++) {
             stringBuilder.append(i + 1).append(". ").append(allyList.getTask(i).toString());
+            stringBuilder.append("\n");
         }
         return stringBuilder.toString();
     }
@@ -77,9 +78,10 @@ public class Ui {
      * @return
      */
     public String showDelete(Task task, int total) {
+        assert task != null;
         String str1 = "Noted. I've removed this task:";
-        String str2 = "\t" + task;
-        String str3 = "Now you have " + total + " tasks in the list.";
+        String str2 = "\n" + "\t" + task;
+        String str3 = "\n" + "Now you have " + total + " tasks in the list.";
         return str1 + str2 + str3;
     }
 
@@ -90,8 +92,9 @@ public class Ui {
      */
     public String showMarked(Task task) {
         task.setMarkDone();
+        assert task != null;
         String str1 = "\n Nice! I've marked this task as done:";
-        String str2 = "\t" + task;
+        String str2 = "\n" + "\t" + task;
         return str1 + str2;
     }
 
@@ -102,9 +105,10 @@ public class Ui {
      * @return
      */
     public String showNotMarked(Task task) {
+        assert task != null;
         task.setMarkNotDone();
         String str1 = "\nOK, I've marked this task as not done yet:";
-        String str2 = "\t" + task;
+        String str2 = "\n" + "\t" + task;
         return str1 + str2;
     }
 
@@ -133,10 +137,12 @@ public class Ui {
      * @return
      */
     public String showMatchingTask(ArrayList<Task> tasks) {
+        assert tasks != null;
         StringBuilder stringBuilder = new StringBuilder();
         System.out.println("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            stringBuilder.append("/n").append(i + 1).append(". ").append(tasks.get(i));
+            stringBuilder.append(i + 1).append(". ").append(tasks.get(i));
+            stringBuilder.append("\n");
         }
         return stringBuilder.toString();
     }

@@ -33,6 +33,9 @@ public class DeleteCommand extends Commands {
     @Override
     public String run(AllyList allyList, Ui ui, Storage storage) {
         try {
+            assert allyList != null;
+            assert ui != null;
+            assert storage != null;
             Task deletedTask = allyList.getTask(index);
             allyList.deleteElement(index);
             return ui.showDelete(deletedTask, allyList.getSize());
