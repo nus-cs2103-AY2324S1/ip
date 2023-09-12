@@ -12,7 +12,6 @@ import seedu.duke.Ui;
  *  @since 2023-09-12
  */
 public class ErrorCommand extends Command {
-
     /**
      * {@inheritDoc}
      *
