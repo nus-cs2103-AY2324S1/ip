@@ -54,10 +54,6 @@ public class Task {
     public String getStatus() {
         return (isDone ? "X" : " "); // mark done task with X
     }
-
-    public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
-    }
   
    public String getStatusFromFile(){
         return (isDone ? "Y" : "N");
@@ -124,7 +120,8 @@ public class Task {
 
         System.out.println("Unrecognised day format: " + day +
                 "\nPlease key in day in format Mon OR Monday " +
-                "\nThe task has been stored without a dueday, remove task and key in correct format to make changes \n");
+                "\nThe task has been stored without a dueday, " +
+                "remove task and key in correct format to make changes \n");
         return null;
     }
 
@@ -145,7 +142,8 @@ public class Task {
         }
         System.out.println("Unrecognised time format: " + time +
                 "\nPlease key in time in format Hr.MinAM/PM " +
-                "\nThe task has been stored without a due time, remove task and key in correct format to make changes \n");
+                "\nThe task has been stored without a due time, " +
+                "remove task and key in correct format to make changes \n");
         return null;
     }
 

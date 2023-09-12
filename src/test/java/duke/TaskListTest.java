@@ -35,7 +35,7 @@ class TaskListTest {
         tasks.add(task1);
         tasks.add(task2);
         tasks.add(task3);
-        assertEquals(tasks, taskList.getTask_List());
+        assertEquals(tasks, taskList.getTaskList());
 
     }
 
