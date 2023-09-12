@@ -19,6 +19,9 @@ public class Event extends Task {
         super(description);
         this.fromDate = fromDate;
         this.toDate = toDate;
+
+        assert this.fromDate != null : "fromDate of the Event cannot be null";
+        assert this.toDate != null : "toDate of the Event cannot be null";
     }
 
     /**
