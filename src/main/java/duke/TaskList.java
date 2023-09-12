@@ -48,6 +48,7 @@ public class TaskList {
         if (target <= toDo.size()) {
             Task toDelete = toDo.get(target - 1);
             String description = toDelete.getDescription();
+            assert description != null : "description should not be empty";
             toDo.remove(target - 1);
             Storage.save();
             String successMsg = Ui.successfulDelete(description, toDo.size());
@@ -67,6 +68,7 @@ public class TaskList {
             Task target = toDo.get(taskNo - 1);
             target.mark();
             String description = target.getDescription();
+            assert description != null : "description should not be empty";
             String successMsg = Ui.markMsg(description);
             Storage.save();
             return successMsg;
@@ -85,6 +87,7 @@ public class TaskList {
             Task target = toDo.get(taskNo - 1);
             target.unmark();
             String description = target.getDescription();
+            assert description != null : "description should not be empty";
             String successMsg = Ui.unmarkMsg(description);
             Storage.save();
             return successMsg;
@@ -101,6 +104,7 @@ public class TaskList {
         for (int i = 0; i < toDo.size(); i++) {
             Task currTask = toDo.get(i);
             String description = currTask.getDescription();
+            assert description != null : "description should not be empty";
             tasks += (i + 1) + ". " + description + "\n\n";
         }
         return tasks;
@@ -119,6 +123,7 @@ public class TaskList {
         for (int i = 0; i < result.size(); i++) {
             Task currTask = result.get(i);
             String description = currTask.getDescription();
+            assert description != null : "description should not be empty";
             searchResult += (i + 1) + "." + description + "\n\n";
         }
         return searchResult + "_____________________________________";

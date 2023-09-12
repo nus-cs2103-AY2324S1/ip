@@ -35,6 +35,7 @@ public class Task {
      * @return String representation of the task to be displayed.
      */
     public String getDescription() {
+        assert this.description != null : "description should not be empty";
         return this.isDone ? "[X] " + this.description : "[  ] " + this.description;
     }
 
@@ -44,6 +45,7 @@ public class Task {
      */
     public String getSavedString() {
         String status = this.isDone ? "1" : "0";
+        assert this.description != null : "description should not be empty";
         return "| " + status + " | " + this.description;
     }
 
@@ -53,6 +55,7 @@ public class Task {
      * @return returns true if the term is in the task description and false if the term is not in the task description
      */
     public boolean checkTerm(String term) {
+        assert this.description != null : "description should not be empty";
         return this.description.toLowerCase().contains(term.toLowerCase());
     }
 }

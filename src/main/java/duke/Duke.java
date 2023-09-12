@@ -36,12 +36,14 @@ public class Duke {
     public String dukeReply(String userInput) throws DukeException {
         ui = new Ui();
         storage = new Storage("duke.txt");
+        assert storage != null : "No storage created";
         toDo = new TaskList();
         storage.load();
-        String respondMsg = "Got it!";
+        String respondMsg = "Parsing command...";
         Parser parseCommand = new Parser(userInput);
         try {
             respondMsg = parseCommand.parseAndRespond();
+            assert respondMsg != "Parsing command..." : "command not parsed";
         } catch (DukeException e) {
             respondMsg = e.getMessage();
         }
