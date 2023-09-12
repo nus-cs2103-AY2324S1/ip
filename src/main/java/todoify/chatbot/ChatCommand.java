@@ -74,67 +74,15 @@ public class ChatCommand {
      * @return The resulting command.
      */
     public static ChatCommand parse(String instruction) {
-        String[] parts = instruction.trim().split("[ \t\n]");
+        String[] words = extractWordsFromInstruction(instruction);
 
-        // 1. The first space delimited component is our name
-        String name = parts[0].trim();
+        int dataEndIndex = computeDataEndIndex(words);
 
-        // 2. Let's build our data component.
-        StringBuilder data = new StringBuilder();
+        var name = extractCommandNameString(words);
+        var data = extractCommandDataComponentString(words, dataEndIndex);
+        var params = extractCommandParametersMap(words, dataEndIndex);
 
-        // Search up till next part with starting "/".
-        // That's our data. We mark the index onwards where
-        // the components are no longer data (so it is excluded).
-        int dataEndIndex = name.startsWith(PARAMETER_PREFIX) ? 0 : 1;
-        while (dataEndIndex < parts.length) {
-            String part = parts[dataEndIndex];
-            if (part.startsWith(PARAMETER_PREFIX)) {
-                break;
-            }
-            dataEndIndex++;
-        }
-
-        // Merge the data components into a string.
-        for (int i = 1; i < dataEndIndex; i++) {
-            if (i > 1) {
-                data.append(' ');
-            }
-            data.append(parts[i]);
-        }
-
-        // 3. Now, we have our parameters. Let's do some fancy processing.
-        Map<String, String> params = new HashMap<>();
-
-        // We scan through each word to iteratively add the key-value pairs.
-        String currParamKey = "";
-        StringBuilder currParamValue = new StringBuilder();
-        for (int i = dataEndIndex; i < parts.length; i++) {
-            String part = parts[i].trim();
-            if (part.startsWith(PARAMETER_PREFIX)) {
-                // New key value pair.
-                // Check if old key exists, then add it if it does.
-                if (!currParamKey.isEmpty()) {
-                    params.put(currParamKey, currParamValue.toString().trim());
-                }
-                // Set the new key value pair.
-                currParamKey = part;
-                currParamValue = new StringBuilder();
-            } else {
-                currParamValue.append(parts[i]);
-                currParamValue.append(' ');
-            }
-        }
-        if (!currParamKey.isEmpty()) {
-            params.put(currParamKey, currParamValue.toString().trim());
-        }
-
-        // 4. Do a cleanup if there is no name (the name part is actually a parameter keyword).
-        if (name.startsWith(PARAMETER_PREFIX)) {
-            name = "";
-        }
-
-        // 5. Now we are done! Construct and return the result.
-        return new ChatCommand(name, data.toString(), params);
+        return new ChatCommand(name, data, params);
     }
 
     /**
@@ -149,9 +97,120 @@ public class ChatCommand {
      * @return The command name retrieved as a non-null string.
      */
     public static String parseCommandName(String instruction) {
-        String[] parts = instruction.split(" ", 2);
-        return parts[0];
+        String[] words = extractWordsFromInstruction(instruction);
+        return extractCommandNameString(words);
     }
+
+
+    /**
+     * Internal method to extract individual words separated by whitespace from an instruction.
+     *
+     * @param instruction The original string instruction to extract words from.
+     * @return The array of words.
+     */
+    private static String[] extractWordsFromInstruction(String instruction) {
+        String[] parts = instruction.trim().split("[ \t\r\n]");
+        return parts;
+    }
+
+    /**
+     * Internal method to compute the first index of which is no longer the data component.
+     *
+     * @param words A reference to the original partitioned words.
+     * @return The first index in the words array of which is no longer part of the data.
+     */
+    private static int computeDataEndIndex(String[] words) {
+        int dataEndIndex = 0;
+        while (dataEndIndex < words.length) {
+            String part = words[dataEndIndex];
+            if (part.startsWith(PARAMETER_PREFIX)) {
+                break;
+            }
+            dataEndIndex++;
+        }
+        return dataEndIndex;
+    }
+
+    /**
+     * Internal method to extract the command name string.
+     *
+     * @param words A reference to the original partitioned words.
+     * @return A string representing the command name.
+     */
+    private static String extractCommandNameString(String[] words) {
+        if (words.length == 0 || words[0].startsWith(PARAMETER_PREFIX)) {
+            return "";
+        }
+        return words[0];
+    }
+
+    /**
+     * Internal method to extract the data string from the word parts, given the index to end the search once reached.
+     *
+     * @param words A reference to the original partitioned words.
+     * @param dataEndIndex The index that marks the end of the data component, exclusive.
+     * @return A string representing the full data component.
+     */
+    private static String extractCommandDataComponentString(String[] words, int dataEndIndex) {
+        StringBuilder data = new StringBuilder();
+
+        // Merge the data components into a string.
+        for (int i = 1; i < dataEndIndex; i++) {
+            if (i > 1) {
+                data.append(' ');
+            }
+            data.append(words[i]);
+        }
+        return data.toString();
+    }
+
+    /**
+     * Internal method to extract a map of the parameters from the word parts of an instruction, given the starting
+     * index to search from.
+     *
+     * @param words A reference to the original partitioned words.
+     * @param parameterStartIndex The index to start the search from, inclusive.
+     * @return A map reflecting the newly extracted parameters as key-value pairs.
+     */
+    private static Map<String, String> extractCommandParametersMap(String[] words, int parameterStartIndex) {
+        Map<String, String> params = new HashMap<>();
+
+        String currParamKey = "";
+        StringBuilder currParamValue = new StringBuilder();
+
+        // Scan through each word within the parameter index range.
+        for (int i = parameterStartIndex; i < words.length; i++) {
+
+            String part = words[i].trim();
+            if (part.startsWith(PARAMETER_PREFIX)) {
+                // We reached a new key value pair.
+                // If it was tracking an old key, we should add the old key-value pair in before setting the new one.
+                if (!currParamKey.isEmpty()) {
+                    params.put(currParamKey, currParamValue.toString().trim());
+                }
+
+                // Now that we are done, track the new key value pair.
+                currParamKey = part;
+                currParamValue = new StringBuilder();
+
+            } else {
+                currParamValue.append(words[i]);
+                currParamValue.append(' ');
+            }
+
+        }
+
+        // There's an ending case that we might have missed out on, since it only adds upon new key detection.
+        // Check if there's anything left out and add the pair if so.
+        if (!currParamKey.isEmpty()) {
+            params.put(currParamKey, currParamValue.toString().trim());
+        }
+
+        // We're done!
+        return params;
+    }
+
+
 
     /**
      * Obtains the name of the given command.
