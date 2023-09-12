@@ -3,7 +3,7 @@ package exceptions;
 /**
  * Parent class for all Barbie-related Exceptions.
  */
-public class BarbieException extends Exception{
+public class BarbieException extends Exception {
 
     /**
      * Constructor for a BarbieException for child classes to implement.

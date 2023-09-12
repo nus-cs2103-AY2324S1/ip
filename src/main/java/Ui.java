@@ -1,6 +1,6 @@
-import types.Task;
-
 import java.util.ArrayList;
+
+import types.Task;
 
 /**
  * Takes care of any of the UI related messages that will be displayed.
@@ -92,9 +92,10 @@ public class Ui {
      * @param list list of tasks
      * @param indexNumber size of list (for optimised performance)
      */
-    protected static void listTasks(ArrayList<Task> list,int indexNumber) {
+    protected static void listTasks(ArrayList<Task> list, int indexNumber) {
         if (indexNumber == 0) {
-            System.out.println("Hmm.. your list looks empty. To add items, use the 'todo', 'deadline' or 'party' commands!");
+            System.out.println("Hmm.. your list looks empty. To add items, use the 'todo', "
+                    + "'deadline' or 'party' commands!");
         }
         // "list" command
         for (int i = 0; i < indexNumber; i++) {
@@ -105,7 +106,8 @@ public class Ui {
 
     protected static void findTasks(ArrayList<Task> list, int indexNumber, String keyword) {
         if (indexNumber == 0) {
-            System.out.println("Hmm.. your list looks empty. To add items, use the 'todo', 'deadline' or 'party' commands!");
+            System.out.println("Hmm.. your list looks empty. To add items, use the 'todo', "
+                    + "'deadline' or 'party' commands!");
         }
 
         System.out.println("\tThese are your tasks with the keyword: " + keyword);

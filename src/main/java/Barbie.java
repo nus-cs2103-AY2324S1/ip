@@ -1,14 +1,23 @@
-import types.Deadlines;
-import types.Party;
-import types.Task;
-import types.Todo;
-import exceptions.*;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import exceptions.BarbieException;
+import exceptions.BarbieNoDeadlineException;
+import exceptions.BarbieNoDescException;
+import exceptions.BarbieNoKeywordException;
+import exceptions.BarbieNoSuchCommandException;
+import exceptions.BarbieNoTimingException;
+import exceptions.BarbieTaskNumberException;
+import types.Deadlines;
+import types.Party;
+import types.Task;
+import types.Todo;
+
+
 
 /**
  * Implements the main Barbie chatbot logic.
@@ -42,7 +51,7 @@ public class Barbie {
         // Intro
         Ui.intro(Utils.getDateList(LocalDate.now(), list));
 
-            loop:
+        loop:
             while (true) {
                 try {
 
@@ -93,6 +102,9 @@ public class Barbie {
                             // Output
                             Ui.del();
                             break;
+
+                        default:
+                            break;
                         }
                         break;
 
@@ -121,12 +133,13 @@ public class Barbie {
                             if (parts2.length < 3) {
                                 throw new BarbieNoTimingException();
                             }
+                            desc = parts2[0];
+                            LocalDate from = LocalDate.parse(parts2[1]);
+                            LocalDate to = LocalDate.parse(parts2[2]);
+                            list.add(indexNumber, new Party(desc, from, to));
+                            Storage.addToList(path, desc, from, to);
 
-                            Ui.taskAdded(list.get(indexNumber));
-                            indexNumber ++;
                             break;
-
-
 
                         default:
                             list.add(indexNumber, new Todo(desc));
@@ -135,11 +148,11 @@ public class Barbie {
                         }
 
                         Ui.taskAdded(list.get(indexNumber));
-                        indexNumber ++;
+                        indexNumber++;
                         break;
 
                     case FIND:
-                        if (parts.length <2) {
+                        if (parts.length < 2) {
                             throw new BarbieNoKeywordException();
                         }
                         String keyword = parts[1];
@@ -156,13 +169,7 @@ public class Barbie {
                         break loop; // break out of the while loop, not switch statement
 
                     default:
-                        // Editing variables
-                        list.add(indexNumber, new Task(input)); // Create a new Task
-                        indexNumber += 1; //Incrementing item counter
-                        // Output
-                        System.out.println("\t Okey Dokey! I've added this task into your list:\n"
-                                + "\t[ ] " + input);
-                        break;
+                        throw new BarbieNoSuchCommandException();
 
                     }
 
@@ -180,9 +187,7 @@ public class Barbie {
                 System.out.println("[you]:");
 
             }
-
-            // Exit
-            Ui.exit();
+        Ui.exit();
 
     }
 

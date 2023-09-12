@@ -1,5 +1,4 @@
-import org.junit.jupiter.api.Test;
-import types.Task;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,8 +7,13 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
+import types.Task;
+
+/**
+ * Tests the Storage class.
+ */
 public class TestStorage {
 
     /**
@@ -30,7 +34,8 @@ public class TestStorage {
     }
 
     /**
-     * Tests if the Storage::getLastList is able to return a task of description "do" for an incorrect input of do, work.
+     * Tests if the Storage::getLastList is able to return a task of description "do" for an incorrect
+     * input of do, work.
      */
     @Test
     public void testGetListWithCommas() {

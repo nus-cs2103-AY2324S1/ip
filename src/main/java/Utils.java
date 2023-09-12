@@ -1,9 +1,10 @@
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 import types.Deadlines;
 import types.Party;
 import types.Task;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 /**
  * Abstracts any helper functions that will be used in the main function.
@@ -23,11 +24,17 @@ public class Utils {
         try {
             lastList.forEach(x -> {
                 if (x instanceof Deadlines) {
+
                     Deadlines y = (Deadlines) x;
-                    if (y.isToday(date)) { thisDatesList.add(y); }
+                    if (y.isToday(date)) {
+                        thisDatesList.add(y);
+                    }
                 } else if (x instanceof Party) {
+
                     Party y = (Party) x;
-                    if (y.isToday(date)) { thisDatesList.add(y); }
+                    if (y.isToday(date)) {
+                        thisDatesList.add(y);
+                    }
                 }
             });
 

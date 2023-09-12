@@ -1,8 +1,3 @@
-import types.Deadlines;
-import types.Party;
-import types.Task;
-import types.Todo;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,6 +8,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+
+import types.Deadlines;
+import types.Party;
+import types.Task;
+import types.Todo;
+
+
 
 /**
  * This class deals with all file reading and writing.
@@ -114,9 +116,12 @@ public class Storage {
                     } else if (Objects.equals(taskType, "P")) {
                         task = new Party(desc, LocalDate.parse(taskParts[3]), LocalDate.parse(taskParts[4]));
                     } else {
+
                         task = new Task(desc);
                     }
-                    if (Integer.parseInt( taskStatus) == 1) { task.mark(); }
+                    if (Integer.parseInt(taskStatus) == 1) {
+                        task.mark();
+                    }
                     finalList.add(task);
                     System.out.println(finalList);
                 });

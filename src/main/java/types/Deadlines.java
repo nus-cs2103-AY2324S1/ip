@@ -6,7 +6,7 @@ import java.util.Objects;
 /**
  * Represents the subset of Tasks that have to be done by a certain deadline.
  */
-public class Deadlines extends Task{
+public class Deadlines extends Task {
     private final LocalDate by;
 
     /**
