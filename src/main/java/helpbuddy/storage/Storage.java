@@ -27,7 +27,7 @@ public class Storage {
      * @param filePath the filePath with data stored.
      */
     public Storage(String filePath) {
-        assert !this.filePath.trim().isEmpty() : "File path cannot be empty";
+        assert !filePath.trim().isEmpty() : "File path cannot be empty";
         this.filePath = filePath;
     }
 
@@ -80,8 +80,8 @@ public class Storage {
             break;
         default:
             assert false : "Unknown task in storage file";
-            throw new IOException("Error occurred when reading data from storage file.\n " +
-                    "Delete file and relaunch HelpBuddy again.");
+            throw new IOException("Error occurred when reading data from storage file.\n "
+                    + "Delete file and relaunch HelpBuddy again.");
         }
 
         if (Integer.parseInt(fields[1]) == 1) {
