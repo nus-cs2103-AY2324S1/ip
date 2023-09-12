@@ -50,4 +50,21 @@ public final class EventTask extends Task {
     public String toString() {
         return "[E] " + super.toString() + " (from: " + from + " to: " + to + ")";
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() + from.hashCode() + to.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!super.equals(other)) {
+            return false;
+        }
+        if (!(other instanceof EventTask)) {
+            return false;
+        }
+        EventTask otherTask = (EventTask) other;
+        return from.equals(otherTask.from) && to.equals(otherTask.to);
+    }
 }

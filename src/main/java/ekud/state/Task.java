@@ -1,5 +1,7 @@
 package ekud.state;
 
+import ekud.util.DateTime;
+
 /**
  * Represents a task to be completed.
  */
@@ -53,5 +55,31 @@ public abstract class Task {
     public String toString() {
         String mark = isDone ? "X" : " ";
         return "[" + mark + "] " + title;
+    }
+
+    /**
+     * Returns the hash code of this task to be used in a set.
+     * The hash code ignores whether the task is done, because when looking for
+     * duplicate tasks we don't care if either task has been done or not done.
+     * 
+     * @return The hash code.
+     */
+    @Override
+    public int hashCode() {
+        return title.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null) {
+            return false;
+        }
+        if (!(other instanceof Task)) {
+            return false;
+        }
+        return title.equals(((Task) other).title);
     }
 }
