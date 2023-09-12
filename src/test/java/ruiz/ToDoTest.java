@@ -8,7 +8,7 @@ import ruiz.task.ToDos;
 
 public class ToDosTest {
     @Test
-    public void saveToString_success() {
+    public void testMarkedSaveToString_success() {
         ToDos test = new ToDos("eat");
         assertEquals("T | 0 | eat", test.saveTaskString());
         test.mark();
@@ -16,7 +16,7 @@ public class ToDosTest {
     }
 
     @Test
-    public void toString_success() {
+    public void testMarkTodo_success() {
         ToDos test = new ToDos("read book");
         assertEquals("[T][ ] read book", test.toString());
         test.mark();

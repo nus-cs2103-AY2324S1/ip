@@ -1,4 +1,4 @@
-package ruiz;
+package ruiz.ui;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,9 @@ import ruiz.task.Task;
  */
 public class Ui {
     /**
-     * This method prints the greeting message of the bot.
+     * This method returns the greeting message of the bot.
+     *
+     * @return greeting message of the bot.
      */
     public String greet() {
         String greet = " Hello! I'm Ruiz\n"
@@ -18,7 +20,9 @@ public class Ui {
     }
 
     /**
-     * This method prints the goodbye message of the bot.
+     * This method returns the goodbye message of the bot.
+     *
+     * @return goodbye message of the bot.
      */
     public String printBye() {
         String bye = "Bye! Comeback soon!\n";
@@ -26,7 +30,9 @@ public class Ui {
     }
 
     /**
-     * This method prints out the list of tasks currently
+     * This method returns the list of tasks currently
+     *
+     * @return list of tasks currently.
      */
     public String getTasks(ArrayList<Task> tasks) {
         String message = "";
@@ -37,14 +43,18 @@ public class Ui {
     }
 
     /**
-     * This method prints out the message when the bot is unable to save the task
+     * This method returns a message when the task is unable to be saved.
+     *
+     * @return message when the task is unable to be saved.
      */
     public String unableToSaveTask() {
         return "Unable to save task";
     }
 
     /**
-     * This method prints out the message when the input is in the wrong format.
+     * This method returns the message when the input is in the wrong format.
+     *
+     * @return message when the input is in the wrong format.
      */
     public String wrongFormat() {
         return "Please input your date and time in the correct format: yyyy-MM-dd HHmm";
@@ -60,19 +70,11 @@ public class Ui {
     }
 
     /**
-     * This method prints a message that it is unable to read the input file.
-     */
-    public void unableToLoadFile() {
-        System.out.println("____________________________________________________________\n"
-                + "There is no pre-existing list\n"
-                + "____________________________________________________________");
-    }
-
-    /**
      * Prints an acknowledgement message that a new task has been added.
      *
      * @param task         task that is added.
      * @param taskListSize size of the task list after this task is added.
+     * @return acknowledgement message.
      */
     public String addedNewTaskMsg(Task task, int taskListSize) {
         String message = "Got it. I've added this task:\n"
@@ -86,6 +88,7 @@ public class Ui {
      *
      * @param task         task that is deleted.
      * @param taskListSize size of the task list after the task is deleted.
+     * @return acknowledgement message that the task has been deleted.
      */
     public String deletedTask(Task task, int taskListSize) {
         String message = "Noted. I've removed this task:\n"
@@ -99,6 +102,7 @@ public class Ui {
      * Prints an acknowledgement message that the task has been unmarked.
      *
      * @param task task that is marked.
+     * @return acknowledgement message that the task has been unmarked.
      */
     public String unmarkTask(Task task) {
         String message = "OK, I've marked this task as not done yet\n"
@@ -111,6 +115,7 @@ public class Ui {
      * Prints an acknowledgement message that the task has been marked.
      *
      * @param task
+     * @return acknowledgement message that the task has been marked.
      */
     public String markTask(Task task) {
         String message = "Nice! I've marked this task as done\n"

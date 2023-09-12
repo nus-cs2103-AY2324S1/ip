@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import ruiz.Parser;
-import ruiz.Ui;
+import ruiz.ui.Ui;
 import ruiz.exception.BotException;
 
 /**
@@ -55,15 +55,7 @@ public class TaskList {
      * @throws BotException if the input is not a valid one.
      */
     public String markTask(String input) throws BotException {
-        if (input.split(" ").length < 2) {
-            throw new BotException("OOPS!!! The index of a task cannot be empty.");
-        }
-        try {
-            int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-        } catch (NumberFormatException e) {
-            throw new BotException("OOPS!!! The index of a task has to be an integer.");
-        }
-        int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+        int taskIndex = this.parser.getTaskNumber(input);
         if (taskIndex >= 0 && this.taskList.size() > taskIndex) {
             Task task = this.taskList.get(taskIndex);
             task.mark();
@@ -80,15 +72,7 @@ public class TaskList {
      * @throws BotException if the input is not a valid one.
      */
     public String unmarkTask(String input) throws BotException {
-        if (input.split(" ").length < 2) {
-            throw new BotException("OOPS!!! The index of a task cannot be empty.");
-        }
-        try {
-            int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-        } catch (NumberFormatException e) {
-            throw new BotException("OOPS!!! The index of a task has to be an integer.");
-        }
-        int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+        int taskIndex = this.parser.getTaskNumber(input);
         if (taskIndex >= 0 && this.taskList.size() > taskIndex) {
             Task task = this.taskList.get(taskIndex);
             task.unmark();
@@ -105,15 +89,7 @@ public class TaskList {
      * @throws BotException if the input of the user is not a valid one.
      */
     public String deleteTask(String input) throws BotException {
-        if (input.split(" ").length < 2) {
-            throw new BotException("OOPS!!! The index of a task cannot be empty.");
-        }
-        try {
-            int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-        } catch (NumberFormatException e) {
-            throw new BotException("OOPS!!! The index of a task has to be an integer.");
-        }
-        int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+        int taskIndex = this.parser.getTaskNumber(input);
         if (taskIndex >= 0 && this.taskList.size() > taskIndex) {
             Task task = this.taskList.get(taskIndex);
             this.taskList.remove(taskIndex);
@@ -160,9 +136,9 @@ public class TaskList {
      */
     public String addEvent(String input) throws BotException, IOException {
         String description = parser.getEventDescription(input);
-        String from = parser.getFrom(input);
-        String to = parser.getTo(input);
-        Task temp = new Events(description, from, to);
+        String beginning = parser.getEventBeginning(input);
+        String to = parser.getEventTo(input);
+        Task temp = new Events(description, beginning, to);
         this.taskList.add(temp);
         return ui.addedNewTaskMsg(temp, this.getTaskListSize());
     }

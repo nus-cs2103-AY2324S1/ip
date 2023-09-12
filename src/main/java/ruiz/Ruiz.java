@@ -3,23 +3,18 @@ package ruiz;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
-import javafx.application.Application;
-import javafx.fxml.FXML;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.geometry.Insets;
 
+import javafx.util.Duration;
+import ruiz.ui.Ui;
 import ruiz.command.Command;
 import ruiz.exception.BotException;
 import ruiz.task.TaskList;
@@ -51,7 +46,6 @@ public class Ruiz {
         try {
             tasks = new TaskList(storage.loadTasks());
         } catch (FileNotFoundException e) {
-            ui.unableToLoadFile();
             tasks = new TaskList();
         }
     }
@@ -66,8 +60,10 @@ public class Ruiz {
                 Command command = parser.getCommand(input);
                 switch (command) {
                 case BYE:
-                    message = ui.printBye();
-                    break;
+                    PauseTransition delay = new PauseTransition(Duration.seconds(1));
+                    delay.setOnFinished( event -> Platform.exit() );
+                    delay.play();
+                    return ui.printBye();
                 case LIST:
                     message = ui.getTasks(this.tasks.getTaskList());
                     break;
@@ -92,13 +88,12 @@ public class Ruiz {
                 case FIND:
                     message = this.tasks.findTasksWithKeyword(input);
                     break;
-                case UNKNOWN:
-                    throw new BotException(ui.botErrorMsg());
                 default:
+                    throw new BotException(ui.botErrorMsg());
                 }
                 this.storage.saveTasks(this.tasks.getTaskList());
             } catch (BotException e) {
-                System.out.println(e);
+                message = e.getMessage();
             } catch (IOException e) {
                 message = ui.unableToSaveTask();
             } catch (DateTimeParseException e) {
