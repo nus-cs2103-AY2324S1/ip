@@ -70,21 +70,6 @@ public class Ui {
                 .append(hLine).toString();
     }
 
-    /**
-     * Greet user message.
-     *
-     * @param tasks to check if this is the first instance that user
-     *              has used chatbot.
-     */
-    public void greet(TaskList tasks) {
-        if (tasks.getNumberOfTask() != 0) {
-            System.out.println(botReply(greet
-                    + "Welcome back! "
-                    + tasks.list()));
-        } else {
-            System.out.println(botReply(greet));
-        }
-    }
 
     /**
      * Displays exit message to user.

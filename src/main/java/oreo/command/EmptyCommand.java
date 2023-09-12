@@ -5,7 +5,7 @@ import oreo.ui.Ui;
 
 public class EmptyCommand extends Command {
     @Override
-    public void execute(Ui ui, TaskList tasks) {
-        ui.say("uhhh what???");
+    public String execute(TaskList tasks) {
+        return "uhhh what???";
     }
 }

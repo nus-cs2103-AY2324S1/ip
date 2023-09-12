@@ -14,11 +14,11 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, TaskList tasks) {
+    public String execute(TaskList tasks) {
         try {
-            ui.say(tasks.findTasksWith(tokeniser));
+            return tasks.findTasksWith(tokeniser);
         } catch (IllegalCommandException e) {
-            ui.say(e.getMessage());
+            return e.getMessage();
         }
     }
 }
