@@ -28,6 +28,9 @@ public class AddCommand extends Command {
     public String execute(TaskList tasks, Storage storage) throws SanaException {
         String cmd = getCmd();
         String arguments = getArguments();
+
+        assert !cmd.isBlank();
+
         switch (cmd) {
         case "todo":
             if (arguments.isBlank()) {
@@ -60,6 +63,10 @@ public class AddCommand extends Command {
             String desc = arguments.substring(0, lastDescId - 1);
             String by = arguments.substring(lastDescId + 4);
 
+            assert !desc.isBlank();
+            assert !by.isBlank();
+
+
             try {
                 LocalDate byDate = LocalDate.parse(by);
                 Task newDeadline = new Deadline(desc, byDate, false);
@@ -88,6 +95,8 @@ public class AddCommand extends Command {
             }
             desc = arguments.substring(0, lastDescId - 1);
 
+            assert !desc.isBlank();
+
             int lastFromId = arguments.indexOf('/', lastDescId + 1);
             if (lastFromId == -1 || arguments.length() < lastFromId + 4
                     || arguments.substring(lastFromId + 4).isBlank()) {
@@ -96,6 +105,10 @@ public class AddCommand extends Command {
             }
             String from = arguments.substring(lastDescId + 6, lastFromId - 1);
             String to = arguments.substring(lastFromId + 4);
+
+            assert !from.isBlank();
+            assert !to.isBlank();
+
             Task newEvent = null;
 
             try {

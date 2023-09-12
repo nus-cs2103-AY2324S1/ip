@@ -25,6 +25,7 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
+        assert tasks != null;
         ArrayList<Task> matchingTasks = new ArrayList<>();
         String matchedTasks = "";
         for (int i = 0; i < tasks.size(); i++) {
