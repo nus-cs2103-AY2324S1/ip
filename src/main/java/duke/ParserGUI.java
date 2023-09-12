@@ -15,7 +15,7 @@ public class ParserGUI {
      * Creates a Parser
      *
      * @param tasks     the TaskList
-     * @param UiGUI        the ui object
+     * @param UiGUI     the ui object
      * @param storage   the storage object
      * @param myScanner the created Scanner object
      */
@@ -41,7 +41,7 @@ public class ParserGUI {
 
         case "list":
             return UiGUI.tasksInList(this.tasks);
-            //break;
+        //break;
 
         case "mark":
             int number = myScanner.nextInt();
@@ -49,7 +49,7 @@ public class ParserGUI {
             item.set();
             storage.saveTasksToFile(tasks);
             return UiGUI.taskDone(item);
-            //break;
+        //break;
 
         case "unmark":
             int numero = myScanner.nextInt();
@@ -57,7 +57,7 @@ public class ParserGUI {
             item.unset();
             storage.saveTasksToFile(tasks);
             return UiGUI.taskUndone(item);
-            //break;
+        //break;
 
         case "delete":
             int numbero = myScanner.nextInt();
@@ -65,7 +65,7 @@ public class ParserGUI {
             tasks.delete(numbero);
             storage.saveTasksToFile(tasks);
             return UiGUI.taskDelete(item, tasks);
-            //break;
+        //break;
 
         case "todo":
             inValue = myScanner.nextLine();
@@ -80,7 +80,7 @@ public class ParserGUI {
             tasks.add(t);
             storage.saveTasksToFile(tasks);
             return UiGUI.taskAdd(t, tasks);
-            //break;
+        //break;
         case "deadline":
             inValue = myScanner.nextLine();
             if (inValue.length() != 0) {
@@ -102,7 +102,7 @@ public class ParserGUI {
             tasks.add(d);
             storage.saveTasksToFile(tasks);
             return UiGUI.taskAdd(d, tasks);
-            //break;
+        //break;
         case "event":
             inValue = myScanner.nextLine();
             if (inValue.length() != 0) {
@@ -118,7 +118,7 @@ public class ParserGUI {
             tasks.add(e);
             storage.saveTasksToFile(tasks);
             return UiGUI.taskAdd(e, tasks);
-            //break;
+        //break;
         case "find":
             inValue = myScanner.nextLine();
             if (inValue.length() != 0) {
@@ -129,13 +129,13 @@ public class ParserGUI {
                 //throw new duke.DukeException("☹ OOPS!!! The description of an event cannot be empty.");
             }
             return UiGUI.printMatchingTasks(tasks, inValue);
-            //break;
+        //break;
 
         default:
 
             inValue += myScanner.nextLine();
             return UiGUI.unrecognisedCommand();
-            //break;
+        //break;
 
         }
     }

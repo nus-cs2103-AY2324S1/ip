@@ -15,7 +15,7 @@ public class UiGUI {
      * Prints the error
      */
     public static String Error() {
-        return("An error occurred");
+        return ("An error occurred");
     }
 
     /**
@@ -24,11 +24,11 @@ public class UiGUI {
      * @param e the Exception that was thrown
      */
     public static String Error(Exception e) {
-        return("An error occurred" + e.getMessage());
+        return ("An error occurred" + e.getMessage());
     }
 
     private String printLines() {
-        return("____________________________________________________________");
+        return ("____________________________________________________________");
     }
 
     /**
@@ -72,7 +72,7 @@ public class UiGUI {
      * says Goodbye to the user
      */
     public String goodbye() {
-        return("Bye. Hope to see you again soon!");
+        return ("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -85,7 +85,7 @@ public class UiGUI {
         Total += "Here are the tasks in your list:";
         int i = 1;
         for (Task t : tasks.getList()) {
-            Total += (String.valueOf(i) + "." + t.toString());
+            Total += (i + "." + t.toString());
             i++;
         }
         Total += this.printLines();
@@ -109,7 +109,7 @@ public class UiGUI {
      */
     public String taskUndone(Task item) {
         return this.printLines() + ("OK, I've marked this task as not done yet:")
-                + (item.toString())  + this.printLines();
+                + (item.toString()) + this.printLines();
     }
 
     /**
@@ -119,7 +119,7 @@ public class UiGUI {
      * @param tasks the TaskList containing the tasks
      */
     public String taskAdd(Task item, TaskList tasks) {
-        return this.printLines() +  ("Got it. I've added this task:") + (item.toString())
+        return this.printLines() + ("Got it. I've added this task:") + (item.toString())
                 + ("Now you have " + tasks.getList().size() + " tasks in the list.") + this.printLines();
     }
 
@@ -132,7 +132,7 @@ public class UiGUI {
     public String taskDelete(Task item, TaskList tasks) {
         return this.printLines() + ("Noted. I've removed this task:")
                 + (item.toString()) + ("Now you have "
-                + tasks.getList().size() + " tasks in the list.")  + this.printLines();
+                + tasks.getList().size() + " tasks in the list.") + this.printLines();
     }
 
     /**
@@ -146,7 +146,7 @@ public class UiGUI {
 
     public String printMatchingTasks(TaskList tasks, String query) {
         String total = this.printLines();
-       total += ("Here are the matching tasks in your list:");
+        total += ("Here are the matching tasks in your list:");
         int i = 1;
         for (Task t : tasks.getList()) {
             if (t.toString().contains(query)) {
