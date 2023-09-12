@@ -6,7 +6,6 @@ import command.DeadlineCommand;
 import command.DeleteCommand;
 import command.EventCommand;
 import command.FindCommand;
-import command.GreetCommand;
 import command.InvalidCommand;
 import command.ListCommand;
 import command.MarkCommand;
@@ -37,15 +36,15 @@ public class Parser {
      * Returns a specific Command when the corresponding command keywords are
      * detected in the user input.
      *
-     * @param fullCommand The full input the user typed into the chatbot.
+     * @param input The full input the user typed into the chatbot.
      * @return A specific Command that corresponds to the command keyword the user inputs.
      */
-    public static Command parse(String fullCommand) {
-        String command = fullCommand.split(" ")[0];
-        Keyword k = Keyword.valueOf(command.toUpperCase());
-        switch (k) {
-        case HELLO:
-            return new GreetCommand(taskList, ui, storage);
+    public static Command parse(String input) {
+        assert input != null : "There should be an input";
+        String command = input.split(" ")[0];
+        Keyword keyword = Keyword.valueOf(command.toUpperCase());
+        assert keyword != null : "There should be a command";
+        switch (keyword) {
         case MARK:
             return new MarkCommand(taskList, ui, storage);
         case UNMARK:
