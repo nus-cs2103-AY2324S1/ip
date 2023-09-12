@@ -26,7 +26,9 @@ public class TaskList {
     String del(Storage storage, int taskIndex) {
         String temp = tasks.get(taskIndex).toString();
         tasks.remove(taskIndex);
-        storage.delete(taskIndex);
+        
+        // short of defining a separate storage.delete method (with very similar code), the best way is to updateTask to null
+        storage.updateTask(taskIndex, null);
         return HORLINE + "Noted. I've removed this task:\n  " + temp + "\n" + "Now you have " + tasks.size() + " tasks in the list.\n" + HORLINE;
     }
 
@@ -84,16 +86,17 @@ public class TaskList {
      * @param storage       Storage object that handles the writing to the file.
      * @param requestType   Type of request (mark/unmark).
      * @param taskIndex     Index of the task to be toggled.
+     * @return String that confirms that the task has been marked/unmarked.
      */
-    void toggle(Storage storage, String requestType, int taskIndex) {
+    String toggle(Storage storage, String requestType, int taskIndex) {
         if (taskIndex > tasks.size()) {
-            System.out.println("Invalid item selected. Please try again.");
+            return "Invalid item selected. Please try again.";
         } else {
             Task task = tasks.get(taskIndex);
             if (requestType.equals("mark") && task.getStatusIcon().equals("[X] ")) {
-                System.out.println(HORLINE + "Task is currently marked. Did you mean to unmark the task?\n" + HORLINE);
+                return HORLINE + "Task is currently marked. Did you mean to unmark the task?\n" + HORLINE;
             } else if (requestType.equals("unmark") && task.getStatusIcon().equals("[ ] ")) {
-                System.out.println(HORLINE + "Task is currently unmarked. Did you mean to mark the task?\n" + HORLINE);
+                return HORLINE + "Task is currently unmarked. Did you mean to mark the task?\n" + HORLINE;
             } else {
                 task.toggle();
                 String updatedTaskString = "";
@@ -108,11 +111,11 @@ public class TaskList {
                 }
                 storage.updateTask(taskIndex, updatedTaskString);
                 if (task.getStatusIcon().equals("[X] ")) {
-                    System.out.println(HORLINE + "Nice! I've marked this task as done:");
-                    System.out.println("  [X] " + task.getDescription() + "\n" + HORLINE);
+                    return HORLINE + "Nice! I've marked this task as done:\n"
+                         + "  [X] " + task.getDescription() + "\n" + HORLINE;
                 } else {
-                    System.out.println(HORLINE + "OK, I've marked this task as not done yet:");
-                    System.out.println("  [ ] " + task.getDescription() + "\n" + HORLINE);
+                    return HORLINE + "OK, I've marked this task as not done yet:\n"
+                         + "  [ ] " + task.getDescription() + "\n" + HORLINE;
                 }
             }
         }
