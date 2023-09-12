@@ -1,5 +1,7 @@
 package cyrus.tasks;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -44,14 +46,32 @@ public class TaskList {
     }
 
     /**
-     * Updates {@code Task} at {@code index} to given {@code status}.
+     * Marks given task at {@code index} as done, updating the completed date to be the latest time if not previously
+     * already completed.
      *
-     * @param index  index position of task to update
-     * @param status status to update to
+     * @param index index of task to mark as completed.
      */
-    public void setTaskStatus(int index, boolean status) {
-        this.tasks.get(index).setDone(status);
-        this.saveTasks();
+    public void markTask(int index) {
+        var task = tasks.get(index);
+        if (task.getIsDone()) {
+            // If already done, do nothing
+            return;
+        }
+        task.setDone(true);
+        task.setCompletedDate(LocalDate.now());
+        saveTasks();
+    }
+
+    /**
+     * Unmarks given task at {@code index} as not done, updating the completed date to be null.
+     *
+     * @param index index of task to mark as incompleted.
+     */
+    public void unmarkTask(int index) {
+        var task = tasks.get(index);
+        task.setDone(false);
+        task.setCompletedDate(null);
+        saveTasks();
     }
 
     /**
@@ -84,6 +104,44 @@ public class TaskList {
      */
     public Task getTask(int index) {
         return this.tasks.get(index);
+    }
+
+    /**
+     * Generates the task distribution across the three types of tasks.
+     *
+     * @return {@code HashMap} of task name to count.
+     */
+    public HashMap<String, Long> getTaskDistribution() {
+        HashMap<String, Long> distribution = new HashMap<>();
+        long todoCount = tasks.stream().filter(task -> task instanceof ToDo).count();
+        long deadlineCount = tasks.stream().filter(task -> task instanceof Deadline).count();
+        long eventCount = tasks.stream().filter(task -> task instanceof Event).count();
+        distribution.put("To-Do", todoCount);
+        distribution.put("Deadline", deadlineCount);
+        distribution.put("Event", eventCount);
+        return distribution;
+    }
+
+
+    /**
+     * Generates the latest week's task distribution.
+     *
+     * @return {@code HashMap} of date to count.
+     */
+    public HashMap<LocalDate, Long> getLatestWeekTaskDistribution() {
+        HashMap<LocalDate, Long> distribution = new HashMap<>();
+        LocalDate earliestDate = LocalDate.now().minusDays(7);
+        List<Task> filteredTasks = tasks.stream()
+                .filter(task ->
+                        task.getCompletedDate() != null
+                                && (task.getCompletedDate().isEqual(earliestDate)
+                                || task.getCompletedDate().isAfter(earliestDate)))
+                .collect(Collectors.toList());
+        for (var task : filteredTasks) {
+            long value = distribution.getOrDefault(task.getCompletedDate(), 0L);
+            distribution.put(task.getCompletedDate(), value + 1);
+        }
+        return distribution;
     }
 
     @Override

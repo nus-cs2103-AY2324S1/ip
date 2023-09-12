@@ -16,6 +16,7 @@ import cyrus.commands.ListTasksCommand;
 import cyrus.commands.MarkTaskCommand;
 import cyrus.commands.UnknownCommand;
 import cyrus.commands.UnmarkTaskCommand;
+import cyrus.commands.ViewStatisticsCommand;
 import cyrus.tasks.TaskList;
 
 /**
@@ -56,6 +57,8 @@ public class Parser {
             return new MarkTaskCommand(taskList, parseInfo);
         case UNMARK_TASK:
             return new UnmarkTaskCommand(taskList, parseInfo);
+        case VIEW_STATISTICS:
+            return new ViewStatisticsCommand(taskList, parseInfo);
         default:
             return new UnknownCommand(taskList, parseInfo);
         }

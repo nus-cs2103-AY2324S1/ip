@@ -25,7 +25,7 @@ public class UnmarkTaskCommand extends Command {
 
         try {
             int i = Integer.parseInt(this.parseInfo.getArgument());
-            this.taskList.setTaskStatus(i - 1, false);
+            this.taskList.unmarkTask(i - 1);
             return new String[]{
                 "OK, I've marked this task as not done yet:",
                 this.taskList.getTask(i - 1).toString()

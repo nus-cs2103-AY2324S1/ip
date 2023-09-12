@@ -43,6 +43,9 @@ public class DateUtility {
      * @return date formatted in {@code dd/MM/yyyy}
      */
     public static String toInputFormat(LocalDate ld) {
+        if (ld == null) {
+            return null;
+        }
         return ld.format(INPUT_FORMATTER);
     }
 }

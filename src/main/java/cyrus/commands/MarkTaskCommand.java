@@ -25,7 +25,7 @@ public class MarkTaskCommand extends Command {
 
         try {
             int i = Integer.parseInt(this.parseInfo.getArgument());
-            this.taskList.setTaskStatus(i - 1, true);
+            this.taskList.markTask(i - 1);
             return new String[]{
                 "Nice! I've marked this task as done:",
                 this.taskList.getTask(i - 1).toString()
