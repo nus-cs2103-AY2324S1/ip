@@ -22,8 +22,8 @@ public class Storage {
      * @param filepath Path to the file.
      */
     public Storage(String filepath) {
-        this.taskFile = new File(filepath);
         try {
+            taskFile = new File(filepath);
             taskFile.createNewFile();
         } catch (IOException e) {
             throw new DukeFileNotFoundException();

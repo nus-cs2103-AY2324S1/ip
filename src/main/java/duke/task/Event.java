@@ -58,6 +58,9 @@ public class Event extends Task {
      */
     @Override
     public String convertToString() {
+        assert this.startDate != null : "Start date should not be empty";
+        assert this.endDate != null : "End date should not be empty";
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
         return "[E] " + super.convertToString() + " (from:" + convertDateToString(this.startDate)
                 + convertTimeToString(this.startTime) + " to:"
                 + convertDateToString(this.endDate) + convertTimeToString(this.endTime)+ ")";
@@ -82,6 +85,8 @@ public class Event extends Task {
      */
     @Override
     public String convertToStringInFile() {
+        assert this.startDate != null : "Start date should not be empty";
+        assert this.endDate != null : "End date should not be empty";
         return "[E] /" + super.convertToStringInFile() + " / " + convertDateToStringInFile(this.startDate)
                 + convertTimeToStringInFile(this.startTime) + " / " + convertDateToStringInFile(this.endDate)
                 + convertTimeToStringInFile(this.endTime);

@@ -26,6 +26,7 @@ public class TaskList {
     public TaskList(ArrayList<String> strings) {
         this.tasks = new ArrayList<>();
         Parser parser = new Parser(this);
+        assert strings != null : "No lines in file";
         for (String s : strings) {
             try {
                 parser.parseFromFile(s);
@@ -81,6 +82,7 @@ public class TaskList {
      */
     public ArrayList<String> toStringInFile() {
         ArrayList<String> strings = new ArrayList<>();
+        assert !tasks.isEmpty() : "Nothing to write to file";
         for (Task t : tasks) {
             strings.add(t.convertToStringInFile());
         }
