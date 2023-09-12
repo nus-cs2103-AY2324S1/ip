@@ -18,6 +18,7 @@ public class Storage {
      * @param filePath The path to the file for storing tasks.
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path cannot be null";
         this.filePath = filePath;
     }
 
@@ -28,6 +29,7 @@ public class Storage {
      * @throws SallyException If there's an issue while saving the tasks.
      */
     public void saveTasksToFile(TaskList tasks) throws SallyException {
+        assert tasks != null : "TaskList cannot be null";
         try {
             File file = new File(this.filePath);
             File directory = file.getParentFile();
