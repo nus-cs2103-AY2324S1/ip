@@ -29,6 +29,11 @@ public class Commands {
         this.ui = ui;
         this.task_List = task_List;
         this.storage = storage;
+
+        // Assertions for constructor parameters
+        assert ui != null : "UI cannot be null";
+        assert storage != null : "Storage cannot be null";
+        assert task_List != null : "TaskList cannot be null";
     }
 
     /**
@@ -37,6 +42,8 @@ public class Commands {
      * @param input The description of the Todo task.
      */
     public void addTodoTask(String input) {
+        assert input != null : "Input cannot be null";
+
         Task task = new Todo(input);
         generalAddTasks(task);
     }
@@ -48,6 +55,9 @@ public class Commands {
      * @param by The deadline of the task.
      */
     public void addDeadlineTask(String input, String by) {
+        assert input != null : "Input cannot be null";
+        assert by != null : "Deadline cannot be null";
+
         Task task = new Deadline(input, by);
         generalAddTasks(task);
     }
@@ -60,6 +70,10 @@ public class Commands {
      * @param to The end time of the Event task.
      */
     public void addEventTask(String input, String from, String to) {
+        assert input != null : "Input cannot be null";
+        assert from != null : "Start time cannot be null";
+        assert to != null : "End time cannot be null";
+
         Task task = new Event(input, from, to);
         generalAddTasks(task);
     }
@@ -70,6 +84,8 @@ public class Commands {
      * @param task The task to be added.
      */
     public void generalAddTasks(Task task) {
+        assert task != null : "Task cannot be null";
+
         task_List.addTask(task);
         storage.saveTasksToFile(task_List);
         ui.printAddTask(task, task_List.getTask_Count());
@@ -81,6 +97,8 @@ public class Commands {
      * @param task_List The task list containing tasks to be listed.
      */
     public void listTasks(TaskList task_List){
+        assert task_List != null : "TaskList cannot be null";
+
         List<Task> tasks = task_List.getTask_List();
         int taskCount = task_List.getTask_Count();
         ui.printTaskList(tasks, taskCount);
@@ -93,6 +111,9 @@ public class Commands {
      */
     public void markTasks(int task_number) {
         try {
+            assert task_number > 0 : "Task number must be greater than 0";
+            assert task_List.getTask(task_number) != null : "Task does not exist";
+
             if (task_number > 0 && task_List.getTask(task_number) != null) {
                 Task taskTobeMarked = task_List.getTask(task_number);
                 taskTobeMarked.setTaskDone();
@@ -113,6 +134,9 @@ public class Commands {
      */
     public void unmarkTasks(int task_number){
         try {
+            assert task_number > 0 : "Task number must be greater than 0";
+            assert task_List.getTask(task_number) != null : "Task does not exist";
+
             if (task_number > 0 && task_List.getTask(task_number) != null) {
                 Task taskTobeMarked = task_List.getTask(task_number);
                 taskTobeMarked.undoTask();
@@ -134,6 +158,8 @@ public class Commands {
     public void removeTasks(int task_number) {
 
         try {
+            assert task_number >= 0 && task_number <= task_List.getTask_Count() : "Invalid task number";
+
             if (task_number >= 0 && task_number <= task_List.getTask_Count()) {
                 Task taskToBeRemoved = task_List.getTask(task_number);
                 task_List.removeTask(task_number);
@@ -153,6 +179,8 @@ public class Commands {
      * @param keyword The keyword to search for in tasks.
      */
     public void findTasks(String keyword) {
+        assert keyword != null : "Keyword cannot be null";
+
         List<Task> matchingTasks = task_List.findMatchingTasks(keyword);
         ui.printMatchingTasks(matchingTasks);
     }

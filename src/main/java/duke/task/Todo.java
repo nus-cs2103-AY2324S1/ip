@@ -13,6 +13,7 @@ public class Todo extends Task {
      */
     public Todo(String description) {
         super(description);
+        assert description != null : "Description cannot be null";
     }
 
     /**
@@ -23,6 +24,9 @@ public class Todo extends Task {
      */
     public Todo(String description, String status) {
         super(description);
+        assert description != null : "Description cannot be null";
+        assert status != null : "Status cannot be null";
+
         if(status.contains("Y")){
             super.taskStatusFromFile(true);
         } else {
