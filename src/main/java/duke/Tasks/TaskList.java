@@ -37,6 +37,7 @@ public class TaskList extends ArrayList<Task> {
      * @param task is the task to be added
      */
     public void addTask(Task task) {
+        assert task != null : "task should not be null";
         this.add(task);
     }
 
@@ -48,6 +49,7 @@ public class TaskList extends ArrayList<Task> {
      * @return the task to be deleted
      */
     public Task deleteTask(int taskNumber) {
+        assert taskNumber > 0 : "taskNumber should be more than 0";
         return this.remove(taskNumber - 1);
     }
 
@@ -65,6 +67,7 @@ public class TaskList extends ArrayList<Task> {
     }
 
     public String findTaskFromTaskList(String keyword) {
+        assert keyword != null : "keyword should not be null";
         int count = 1;
         String output = "";
         for (Task task : this) {

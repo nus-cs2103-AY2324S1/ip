@@ -44,6 +44,7 @@ public class Storage {
     // solution for save adapted from asdfghjkxd
     // Storage.java write method
     public void save(TaskList tasks) throws IOException {
+        assert tasks != null : "taskList should not be null";
         FileWriter fw = new FileWriter(filePath);
         for (Task task : tasks) {
             fw.write(task.toString() + "\n");
