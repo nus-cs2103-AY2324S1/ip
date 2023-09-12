@@ -15,6 +15,7 @@ public class UnmarkCommand extends EditCommand {
     @Override
     public void execute(TaskList taskList, Ui ui, String[] response) throws Exception {
         int unmarkIndex = ui.unmark(input);
+        assert unmarkIndex >= 0 : "Unmark index should be non-negative.";
         if (taskList.isOutOfRange(unmarkIndex)) {
             throw new DukeException("☹ OOPS!!! Please specify a valid task number to be unmarked.");
         }
