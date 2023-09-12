@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private boolean programStopped = false;
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -27,6 +28,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/hiro2.jpeg"));
     private Image alyssaImage = new Image(this.getClass().getResourceAsStream("/images/zerotwo.png"));
 
+    /**
+     * Initialises the UI.
+     */
     @FXML
     public void initialize() {
         this.ui = new Ui();
@@ -38,7 +42,6 @@ public class MainWindow extends AnchorPane {
         alyssa = aly;
     }
 
-    boolean programStopped = false;
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.

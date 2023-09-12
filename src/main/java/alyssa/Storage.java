@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import alyssa.Exceptions.AlyssaArgumentException;
-import alyssa.Exceptions.AlyssaException;
+import alyssa.exceptions.AlyssaArgumentException;
+import alyssa.exceptions.AlyssaException;
 /**
  * This class deals with loading tasks from ./data/alyssa.txt and saving tasks in one file.
  */
