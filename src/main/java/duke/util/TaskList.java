@@ -103,6 +103,16 @@ public class TaskList {
     }
 
     /**
+     * Returns Task at the given index.
+     *
+     * @param index The given index of the Task.
+     * @return Task object at the given index.
+     */
+    public Task get(int index) {
+        return this.list.get(index);
+    }
+
+    /**
      * Returns a list of Task with matching description as the given string.
      *
      * @param string The given String to be searched on the TaskList.
