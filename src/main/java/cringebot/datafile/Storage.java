@@ -1,23 +1,22 @@
-package cringebot.dataFile;
-
-import cringebot.exceptions.CringeBotException;
-import cringebot.tasks.Task;
-import cringebot.tasks.TaskList;
+package cringebot.datafile;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
-
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+
+import cringebot.exceptions.CringeBotException;
+import cringebot.tasks.Task;
+import cringebot.tasks.TaskList;
 
 /**
  * Class to handle storage events to the indicated FILEPATH.
  */
 public class Storage {
-    private final String FILEPATH;  // Path to the data storage file.
+    private final String filePath; // Path to the data storage file.
 
     /**
      * Constructor for storage.
@@ -25,9 +24,9 @@ public class Storage {
      * @param filepath path to the data storage file.
      */
     public Storage(String filepath) {
-        this.FILEPATH = filepath;
+        this.filePath = filepath;
         try {
-            File file = new File(this.FILEPATH);
+            File file = new File(this.filePath);
 
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
@@ -47,7 +46,7 @@ public class Storage {
     public ArrayList<Task> loadFromFile() throws CringeBotException {
         // Loading the serialised object
         try {
-            FileInputStream fileIn = new FileInputStream(this.FILEPATH);
+            FileInputStream fileIn = new FileInputStream(this.filePath);
             ObjectInputStream objectIn = new ObjectInputStream(fileIn);
 
             @SuppressWarnings("unchecked")
@@ -66,7 +65,7 @@ public class Storage {
      */
     public void writeToFile(TaskList tasks) throws CringeBotException {
         try {
-            FileOutputStream fileOut = new FileOutputStream(this.FILEPATH);
+            FileOutputStream fileOut = new FileOutputStream(this.filePath);
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
 
             objectOut.writeObject(tasks.getTasks());

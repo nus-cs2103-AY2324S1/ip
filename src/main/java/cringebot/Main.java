@@ -3,14 +3,10 @@ package cringebot;
 import java.io.IOException;
 
 import cringebot.ui.MainWindow;
-
 import javafx.application.Application;
-
 import javafx.fxml.FXMLLoader;
-
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-
 import javafx.stage.Stage;
 
 /**
@@ -23,8 +19,7 @@ public class Main extends Application {
     /**
      * Starts the GUI for CringeBot.
      *
-     * @param stage the primary stage for this application, onto which
-     * the application scene can be set.
+     * @param stage the primary stage for this application, onto which the application scene can be set.
      */
     @Override
     public void start(Stage stage) {

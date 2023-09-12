@@ -1,6 +1,6 @@
 package cringebot;
 
-import cringebot.dataFile.Storage;
+import cringebot.datafile.Storage;
 import cringebot.exceptions.CringeBotException;
 import cringebot.parser.Parser;
 import cringebot.tasks.TaskList;

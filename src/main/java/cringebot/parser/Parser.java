@@ -1,20 +1,26 @@
 package cringebot.parser;
 
+import cringebot.datafile.Storage;
 import cringebot.exceptions.CringeBotException;
-import cringebot.dataFile.Storage;
-import cringebot.ui.Ui;
 import cringebot.tasks.TaskList;
+import cringebot.ui.Ui;
 
 /**
  * Class for parsing commands made by the user.
  */
 public class Parser {
-    public enum modifyStatus {
+    /**
+     * Enum for marking and unmarking tasks.
+     */
+    public enum ModifyStatus {
         MARK,
         UNMARK
     }
 
-    public enum taskType {
+    /**
+     * Enum for the type of task.
+     */
+    public enum TaskType {
         EVENT,
         DEADLINE,
         TODO
@@ -40,11 +46,11 @@ public class Parser {
             case "list":
                 return Ui.printItems(tasks);
             case "unmark":
-                statement = tasks.modifyStatus(modifyStatus.UNMARK, nextLine);
+                statement = tasks.modifyStatus(ModifyStatus.UNMARK, nextLine);
                 storage.writeToFile(tasks);
                 return statement;
             case "mark":
-                statement = tasks.modifyStatus(modifyStatus.MARK, nextLine);
+                statement = tasks.modifyStatus(ModifyStatus.MARK, nextLine);
                 storage.writeToFile(tasks);
                 return statement;
             case "delete":
@@ -52,15 +58,15 @@ public class Parser {
                 storage.writeToFile(tasks);
                 return statement;
             case "event":
-                statement = tasks.addItem(taskType.EVENT, nextLine);
+                statement = tasks.addItem(TaskType.EVENT, nextLine);
                 storage.writeToFile(tasks);
                 return statement;
             case "deadline":
-                statement = tasks.addItem(taskType.DEADLINE, nextLine);
+                statement = tasks.addItem(TaskType.DEADLINE, nextLine);
                 storage.writeToFile(tasks);
                 return statement;
             case "todo":
-                statement = tasks.addItem(taskType.TODO, nextLine);
+                statement = tasks.addItem(TaskType.TODO, nextLine);
                 storage.writeToFile(tasks);
                 return statement;
             case "find":

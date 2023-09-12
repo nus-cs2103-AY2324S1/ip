@@ -1,19 +1,18 @@
 package cringebot.tasks;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 import cringebot.exceptions.CringeBotException;
 import cringebot.parser.Parser;
 import cringebot.ui.Ui;
-
-import java.io.Serializable;
-
-import java.util.ArrayList;
 
 /**
  * Temporary storage for the user's tasks.
  */
 public class TaskList implements Serializable {
 
-    public ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructor for TaskList.
@@ -55,7 +54,7 @@ public class TaskList implements Serializable {
      * @param input input from the user.
      * @throws CringeBotException Lets the user know if the task cannot be added.
      */
-    public String addItem(Parser.taskType task, String input) throws CringeBotException {
+    public String addItem(Parser.TaskType task, String input) throws CringeBotException {
         String[] splitSentence = input.split(" /");
         String taskName = getRestOfSentence(splitSentence[0]).strip();
         Task newTask;
@@ -126,7 +125,7 @@ public class TaskList implements Serializable {
      * @param input input from the user.
      * @throws CringeBotException Lets the user know if the task cannot be modified.
      */
-    public String modifyStatus(Parser.modifyStatus status, String input) throws CringeBotException {
+    public String modifyStatus(Parser.ModifyStatus status, String input) throws CringeBotException {
         int index = getIndex(input) - 1;
         this.checkOutOfBounds(index);
 
@@ -149,7 +148,7 @@ public class TaskList implements Serializable {
      * @return task that has been found.
      */
     public Task getTaskWithIndex(int index) {
-        return tasks.get(index);
+        return this.tasks.get(index);
     }
 
     /**
@@ -158,7 +157,7 @@ public class TaskList implements Serializable {
      * @return size of the task.
      */
     public int size() {
-        return tasks.size();
+        return this.tasks.size();
     }
 
     /**
