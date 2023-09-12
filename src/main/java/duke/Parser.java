@@ -63,7 +63,10 @@ public class Parser {
         case "bye":
             return "Bye. Hope to see you again soon!\n";
         default:
-            return "Error. Please enter a correct command.";
+            worker = new AddWorker();
+            output = worker.work(inputParts, taskList);
+            assert !output.equals("");
+            return output;
         }
     }
 
