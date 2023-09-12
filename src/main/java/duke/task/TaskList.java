@@ -54,6 +54,7 @@ public class TaskList {
     public Task markTaskAsDone(int index) throws TaskIndexOutOfRange {
         try {
             this.taskList.get(index).markAsDone();
+            assert this.taskList.get(index).isDone(): "Task must be marked done";
             return this.taskList.get(index);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfRange();
@@ -69,6 +70,7 @@ public class TaskList {
     public Task markTaskAsNotDone(int index) throws TaskIndexOutOfRange {
         try {
             this.taskList.get(index).markAsNotDone();
+            assert !this.taskList.get(index).isDone(): "Task must be marked not done";
             return this.taskList.get(index);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfRange();
@@ -154,5 +156,14 @@ public class TaskList {
         ArrayList<Task> list = (ArrayList<Task>) this.taskList.clone();
         list.removeIf(task -> !task.containsString(input));
         return TaskList.getTasks(list, false, null);
+    }
+
+    /**
+     * Determines whether the given task is in this task list.
+     * @param task The task to check
+     * @return Whether the task is in this task list
+     */
+    public boolean contains(Task task) {
+        return this.taskList.contains(task);
     }
 }
