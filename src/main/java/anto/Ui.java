@@ -48,7 +48,8 @@ public class Ui {
      * @return String with current list of tasks.
      */
     public String printList() {
-        ArrayList<Task> storage = taskList.getTaskArrayList();
+        assert this.taskList != null;
+        ArrayList<Task> taskArrayList = taskList.getTaskArrayList();
         int length = taskList.getLength();
 
         ArrayList<String> stringOutputArr = new ArrayList<>();
@@ -56,7 +57,7 @@ public class Ui {
 
         for (int i = 0; i < length; i++) {
             stringOutputArr.add(String.format("%d. %s",
-                    i + 1, storage.get(i)));
+                    i + 1, taskArrayList.get(i)));
         }
 
         return String.join("\n", stringOutputArr);
@@ -69,11 +70,12 @@ public class Ui {
      * @return String with information of task marked as done.
      */
     public String printMarkAsDone(int index) {
-        ArrayList<Task> storage = taskList.getTaskArrayList();
+        assert this.taskList != null;
+        ArrayList<Task> taskArrayList = taskList.getTaskArrayList();
 
         return String.format("Nice! I've marked this task as done:\n"
                         + "%s",
-                storage.get(index));
+                taskArrayList.get(index));
     }
 
     /**
@@ -83,11 +85,12 @@ public class Ui {
      * @return String with message for task unmarked.
      */
     public String printUnmark(int index) {
-        ArrayList<Task> storage = taskList.getTaskArrayList();
+        assert this.taskList != null;
+        ArrayList<Task> taskArrayList = taskList.getTaskArrayList();
 
         return String.format("Okay, I've marked this task as not done yet:\n"
                         + "%s",
-                storage.get(index));
+                taskArrayList.get(index));
     }
 
     /**
@@ -97,6 +100,8 @@ public class Ui {
      * @return String with message of task added.
      */
     public String printAdded(Task task) {
+        assert this.taskList != null;
+
         return String.format("Got it. I've added this task:\n"
                         + "%s\n"
                         + "Now you have %d tasks in the list.",
@@ -121,6 +126,8 @@ public class Ui {
      * @return String with message of task deleted.
      */
     public String printDelete(Task task) {
+        assert this.taskList != null;
+
         return String.format("Noted. I've removed this task:\n"
                         + "%s\n"
                         + "Now you have %d tasks in the list.",
