@@ -60,7 +60,6 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     String getResponse(String input) {
-        String response = parser.parseCommand(input);
-        return response;
+        return parser.parseCommand(input);
     }
 }

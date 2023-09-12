@@ -18,14 +18,6 @@ public class Ui {
     }
 
     /**
-     * Closes the scanner used for reading user input.
-     * Only to be used when shutting down Duke.
-     */
-    public void closeScanner() {
-        scanner.close();
-    }
-
-    /**
      * Displays a line separator in the console.
      */
     public static void showLine() {
@@ -35,11 +27,8 @@ public class Ui {
     /**
      * Displays a welcome message to the user.
      */
-    public void showWelcome() {
-        showLine();
-        System.out.println("Hello! I'm YJ's Chatbot");
-        System.out.println("What can I do for you?");
-        showLine();
+    public String showWelcome() {
+        return "Hello! I'm YJ's Chat bot\nWhat can I do for you?";
     }
 
     /**
@@ -173,11 +162,6 @@ public class Ui {
             System.out.println(taskList);
         }
         showLine();
-    }
-
-    public String readCmd() {
-        // Read user input
-        return scanner.nextLine();
     }
 
 }
