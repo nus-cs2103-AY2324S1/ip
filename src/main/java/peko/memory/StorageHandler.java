@@ -6,6 +6,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * The StorageHandler class is responsible for managing the storage and retrieval of tasks.
+ * It interacts with the `SaveHandler` class to load and save tasks from/to a text file. This class
+ * also provides methods for adding, marking, unmarking, searching, and deleting tasks.
+ */
 public class StorageHandler {
     private static Task[] todoList;
     private static int size;
@@ -19,6 +24,12 @@ public class StorageHandler {
         todoList = SaveHandler.loadFrom();
         size = SaveHandler.size();
     }
+
+    /**
+     * Reads the array of tasks and formats them as a string.
+     *
+     * @return A formatted string containing the tasks in the list.
+     */
     public static String readArray() {
         int i = 0;
         String out = "--------------LIST-PEKO------------------\n";
@@ -31,6 +42,13 @@ public class StorageHandler {
         }
         return out;
     }
+
+    /**
+     * Adds a task to the array of tasks.
+     *
+     * @param t The task to be added.
+     * @return A message indicating the task was added successfully.
+     */
     public static String addToArray(Task t) {
         todoList[size] = t;
         String out = "Added: \n   " + todoList[size].toString() + "\npeko!";
@@ -41,6 +59,12 @@ public class StorageHandler {
         return out;
     }
 
+    /**
+     * Marks a task as done in the array of tasks.
+     *
+     * @param i The index of the task to be marked as done (1-based).
+     * @return A message indicating the task was marked as done successfully.
+     */
     public static String setMarkArray(int i) {
         String out;
         try {
@@ -54,6 +78,13 @@ public class StorageHandler {
         }
         return out;
     }
+
+    /**
+     * Unmarks a task as done in the array of tasks.
+     *
+     * @param i The index of the task to be unmarked as done (1-based).
+     * @return A message indicating the task was unmarked as done successfully.
+     */
     public static String setUnmarkArray(int i) {
         String out = "";
         try {
@@ -69,7 +100,12 @@ public class StorageHandler {
 
     }
 
-
+    /**
+     * Searches for tasks in the array of tasks that match a search query.
+     *
+     * @param searchQuery The search query used to match tasks.
+     * @return An array of tasks that match the search query.
+     */
     public static Task[] search(String searchQuery) {
         Task[] temp = todoList;
         Task[] tempOutput = new Task[100];
@@ -105,6 +141,12 @@ public class StorageHandler {
         SaveHandler.saveTo();
     }
 
+    /**
+     * Reads and returns a text file containing copypasta text.
+     *
+     * @return The copypasta text read from the file.
+     * @throws FileNotFoundException If the file is not found.
+     */
     public static String degen() throws FileNotFoundException {
         File text = new File("src/main/Copypasta.txt");
         Scanner sc = new Scanner(text);

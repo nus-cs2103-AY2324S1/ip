@@ -14,7 +14,6 @@ public class SaveHandler {
     private static Task[] tasks = new Task[100];
     private static File file = new File("src/main/List.txt");
 
-    //System.out.println("Gomen peko, something broke...");
     /**
      * Saves tasks to a text file.
      * This method clears the existing file content, then iterates through the task list,
