@@ -32,6 +32,7 @@ public class TaskList {
      * @param index the index of the task to be retrieved.
      */
     public Task getTask(int index) {
+        assert index >= 0 : "Index should be non-negative";
         return this.tasks.get(index);
     }
 
@@ -41,7 +42,9 @@ public class TaskList {
      * @param index the index of the task to be removed.
      */
     public void remove(int index) {
+        assert index >= 0 : "Index should be non-negative";
         this.tasks.remove(index);
+
     }
 
     /**
