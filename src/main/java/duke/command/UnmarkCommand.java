@@ -41,6 +41,8 @@ public class UnmarkCommand extends Command {
             return ui.printUnmarkTask(task);
         } catch (IOException e) {
             throw new DukeException(" unable to locate local file!");
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException(" Cannot unmark this task!");
         }
 
     }

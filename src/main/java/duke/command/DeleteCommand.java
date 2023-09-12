@@ -43,6 +43,8 @@ public class DeleteCommand extends Command {
             return ui.printDeleteTask(tasks.size(), task);
         } catch (IOException e) {
             throw new DukeException(" umable to locate local file!");
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException(" Cannot mark this task!");
         }
     }
 }
