@@ -151,6 +151,7 @@ public class Duke {
      */
     public void addTaskToList(Task task) {
         this.taskList.add(task);
+        assert this.taskList.contains(task);
         this.userInterface.notifyAdded(task);
         this.userInterface.showTaskCount(this.taskList.size());
     }
@@ -163,6 +164,7 @@ public class Duke {
     public void markTaskAsDone(int index) {
         try {
             Task task = this.taskList.markTaskAsDone(index);
+            assert task.isDone(): "Task given must be marked done";
             this.userInterface.notifyMarkDone(task);
         } catch (TaskList.TaskIndexOutOfRange e) {
             this.userInterface.notifyError("invalid task index");
@@ -177,6 +179,7 @@ public class Duke {
     public void markTaskAsNotDone(int index) {
         try {
             Task task = this.taskList.markTaskAsNotDone(index);
+            assert !task.isDone(): "Task given must be marked not done";
             this.userInterface.notifyMarkNotDone(task);
         } catch (TaskList.TaskIndexOutOfRange e) {
             this.userInterface.notifyError("invalid task index");
