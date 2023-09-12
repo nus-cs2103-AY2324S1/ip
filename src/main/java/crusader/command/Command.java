@@ -22,7 +22,7 @@ public abstract class Command {
      * @param taskList Task list to update or access as required
      * @throws CrusaderException On malformed user input
      */
-    public abstract void execute(Ui ui, TaskList taskList) throws CrusaderException;
+    public abstract String execute(Ui ui, TaskList taskList) throws CrusaderException;
 
     /**
      * Checks whether the command is used to terminate the bot.

@@ -4,6 +4,8 @@ import crusader.command.Command;
 import crusader.exception.CrusaderException;
 import crusader.exception.CrusaderMissingSaveFileException;
 
+import java.security.PublicKey;
+
 /**
  * The main instance of the bot.
  */
@@ -57,7 +59,22 @@ public class Crusader {
         }
         this.taskList = taskList;
     }
-
+    /**
+     * Constructs a Crusader bot instance.
+     */
+    public Crusader() {
+        TaskList taskList;
+        this.ui = new Ui(LOGO);
+        this.storage = new Storage(SAVE_FILE);
+        try {
+            taskList = new TaskList(storage.loadTasks());
+        } catch (CrusaderMissingSaveFileException e) {
+            taskList = new TaskList();
+        } catch (CrusaderException e) {
+            taskList = new TaskList();
+        }
+        this.taskList = taskList;
+    }
     /**
      * Activates the bot.
      */
@@ -65,21 +82,16 @@ public class Crusader {
         this.ui.showLogo();
         this.ui.greet();
         boolean hasEnded = false;
-        while (!hasEnded) {
-            try {
-                String command = this.ui.promptInput();
-                Command c = Parser.parse(command);
-                c.execute(ui, taskList);
-                hasEnded = c.isExit();
-            } catch (CrusaderException e) {
-                this.ui.say(e.getMessage());
-            }
-        }
         this.ui.farewell();
         this.storage.saveTasks(taskList.getTasks());
     }
 
-    public static void main(String[] args) {
-        new Crusader(SAVE_FILE, LOGO).run();
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(ui, taskList);
+        } catch (CrusaderException e) {
+            return e.getMessage();
+        }
     }
 }

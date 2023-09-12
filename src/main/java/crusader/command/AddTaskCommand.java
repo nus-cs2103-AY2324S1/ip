@@ -15,11 +15,11 @@ public class AddTaskCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, TaskList taskList) {
+    public String execute(Ui ui, TaskList taskList) {
         taskList.addTask(this.task);
-        ui.say(String.format(
+        return String.format(
                 "Adding the task:\n%s\nNow there are %d tasks in the list.",
                 this.task.toString(),
-                taskList.getSize()));
+                taskList.getSize());
     }
 }

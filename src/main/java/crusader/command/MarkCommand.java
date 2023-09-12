@@ -24,11 +24,11 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, TaskList taskList) throws CrusaderException {
+    public String execute(Ui ui, TaskList taskList) throws CrusaderException {
         Task changedTask = this.isMark ? taskList.markTask(index) : taskList.unmarkTask(index);
-        ui.say(String.format(
+        return String.format(
                 "%s:\n%s\n",
                 this.isMark ? "I have marked the following task as done" : "I have unmarked this task",
-                changedTask.toString()));
+                changedTask.toString());
     }
 }

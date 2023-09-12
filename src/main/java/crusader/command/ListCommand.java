@@ -12,9 +12,9 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, TaskList taskList) {
-        ui.say(String.format(
+    public String execute(Ui ui, TaskList taskList) {
+        return String.format(
                 "Here are your tasks:\n%s",
-                taskList.toString()));
+                taskList.toString());
     }
 }

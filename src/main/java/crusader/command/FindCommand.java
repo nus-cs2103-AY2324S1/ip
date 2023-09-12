@@ -21,9 +21,9 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, TaskList taskList) throws CrusaderException {
-        ui.say(String.format(
+    public String execute(Ui ui, TaskList taskList) throws CrusaderException {
+        return String.format(
                 "Here are the matching tasks in the list:\n%s",
-                taskList.filter(query).toString()));
+                taskList.filter(query).toString());
     }
 }
