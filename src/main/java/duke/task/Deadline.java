@@ -30,4 +30,18 @@ public class Deadline extends Task {
         String deadline = "(by: " + this.byDate + ")";
         return "[D]" + status + " " + super.description + " " + deadline;
     }
+
+    /**
+     * Returns a string representation of the Deadline object in the data file format.
+     *
+     * @return String representation of the Deadline object in the data file format.
+     */
+    @Override
+    public String toDataFormatString() {
+        String outputString = "D | ";
+        outputString += (super.isDone ? "1" : "0") + " | ";
+        outputString += super.description + " | ";
+        outputString += this.byDate;
+        return outputString;
+    }
 }
