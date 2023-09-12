@@ -67,7 +67,9 @@ public class Parser {
      */
     public static Task parseFile(String s) throws DukeException {
         String[] q = s.trim().split(",>");
+        List<String> list = Arrays.asList(q);
         try {
+            assert list.size() > 0 : "Not a valid data.";
             switch (q[0]) {
             case "deadline":
                 return new Deadline(q[1], q[2].equals("X"), LocalDate.parse(q[3]));
@@ -90,6 +92,7 @@ public class Parser {
      * @throws DukeException if no deadline description, invalid format, or invalid date
      */
     private static Deadline parseUserDeadline(List<String> queryList) throws DukeException {
+        assert queryList.size() > 0 : "Invalid query list of 0 length.";
         if (queryList.size() < 2) {
             throw new DukeException("The description of a deadline cannot be empty.");
         }
@@ -127,6 +130,7 @@ public class Parser {
      * @throws DukeException if no event description, invalid format, or invalid date
      */
     private static Event parseUserEvent(List<String> queryList) throws DukeException {
+        assert queryList.size() > 0 : "Invalid query list of 0 length.";
         if (queryList.size() < 2) {
             throw new DukeException("The description of a event cannot be empty.");
         }
@@ -179,6 +183,7 @@ public class Parser {
      * @throws DukeException if no todo description
      */
     public static ToDo parseUserToDo(List<String> queryList) throws DukeException {
+        assert queryList.size() > 0 : "Invalid query list of 0 length.";
         if (queryList.size() < 2) {
             throw new DukeException("The description of a todo cannot be empty.");
         }
@@ -197,6 +202,7 @@ public class Parser {
      * @throws DukeException if no keywoard given
      */
     public static String parseUserFind(List<String> queryList) throws DukeException {
+        assert queryList.size() > 0 : "Invalid query list of 0 length.";
         if (queryList.size() < 2) {
             throw new DukeException("What are you trying to find?");
         }
@@ -216,6 +222,7 @@ public class Parser {
      */
     public static Command parse(String input) throws DukeException {
         List<String> queryList = convertToList(input);
+        assert queryList.size() > 0 : "Invalid query list of 0 length.";
         switch (queryList.get(0)) {
 
         case "bye":
