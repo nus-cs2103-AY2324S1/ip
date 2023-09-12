@@ -65,6 +65,7 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
+        assert list != null : "Task list should not be null";
         return list;
     }
 
