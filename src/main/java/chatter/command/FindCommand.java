@@ -29,6 +29,7 @@ public class FindCommand extends Command {
      * @param tasks chatter.TaskList class storing an ArrayList of chatter.task.Task objects.
      * @param ui chatter.Ui class to handle user interactions.
      * @param storage chatter.Storage class to read and store tasks by the user.
+     * @return String of tasks that have the specific keyword.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {

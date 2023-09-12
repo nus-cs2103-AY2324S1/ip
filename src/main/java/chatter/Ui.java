@@ -143,4 +143,25 @@ public class Ui {
         }
         return output;
     }
+
+    /**
+     * Returns all the commands that can be used by the user.
+     *
+     * @return String of commands that can be used by the user.
+     */
+    public String showCommands() {
+        return "Available commands:\n"
+                + "todo <task>            " + "\tCreate a todo task\n"
+                + "deadline <task>        " + "\tCreate a deadline event\n"
+                + "\t/by <deadline>\n"
+                + "event <task>           " + "\tCreate an event\n"
+                + "\t/from <date/time>\n"
+                + "\t/to <date/time>\n"
+                + "list                     " + "\tList all your events\n"
+                + "done <index>       " + "\tMark done for task at index\n"
+                + "delete <index>    " + "\tDelete task at index\n"
+                + "find <keyword>    " + "\tFind tasks with keyword\n"
+                + "help                   " + "\tShow all available commands\n"
+                + "bye                    " + "\tQuit bot";
+    }
 }

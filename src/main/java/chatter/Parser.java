@@ -5,6 +5,7 @@ import chatter.command.Command;
 import chatter.command.DeleteCommand;
 import chatter.command.ExitCommand;
 import chatter.command.FindCommand;
+import chatter.command.HelpCommand;
 import chatter.command.ListCommand;
 import chatter.command.MarkCommand;
 import chatter.task.Deadline;
@@ -72,6 +73,8 @@ public class Parser {
         case("find"):
             assert (fullCommand.length() > 5);
             return new FindCommand(fullCommand.substring(5));
+        case("help"):
+            return new HelpCommand();
         default:
             throw new ChatterException("OOPS!!! I'm sorry, but I don't know what that means :-("
                     + "\nPlease enter a valid command!");
