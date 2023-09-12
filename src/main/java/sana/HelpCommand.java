@@ -11,11 +11,11 @@ public class HelpCommand extends Command {
     /**
      * Constructs a HelpCommand object.
      *
-     * @param cmd       The command type (e.g., "todo", "deadline", "event").
+     * @param command       The command type (e.g., "todo", "deadline", "event").
      * @param arguments The arguments associated with the command.
      */
-    public HelpCommand(String cmd, String arguments) {
-        super(cmd, arguments);
+    public HelpCommand(String command, String arguments) {
+        super(command, arguments);
     }
 
     /**
@@ -27,7 +27,7 @@ public class HelpCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
-        return (getCmd() + " is not a valid command!");
+        return (getCommand() + " is not a valid command!");
     }
 
     /**

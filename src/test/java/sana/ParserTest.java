@@ -9,21 +9,21 @@ public class ParserTest {
     @Test
     public void parse_todoCommand_addCommandReturned() {
         Command actual = Parser.parse("todo read book");
-        Command expected = new AddCommand("todo", "read book");
+        Command expected = new AddTodoCommand("todo", "read book");
         assertEquals(expected, actual);
     }
 
     @Test
     public void parse_eventCommand_addCommandReturned() {
         Command actual = Parser.parse("event return book /from 2023-12-30 /to 2023-12-31");
-        Command expected = new AddCommand("event", "return book /from 2023-12-30 /to 2023-12-31");
+        Command expected = new AddEventCommand("event", "return book /from 2023-12-30 /to 2023-12-31");
         assertEquals(expected, actual);
     }
 
     @Test
     public void parse_deadlineCommand_addCommandReturned() {
         Command actual = Parser.parse("deadline buy book /from 2023-12-30");
-        Command expected = new AddCommand("deadline", "buy book /from 2023-12-30");
+        Command expected = new AddDeadlineCommand("deadline", "buy book /from 2023-12-30");
         assertEquals(expected, actual);
     }
 
