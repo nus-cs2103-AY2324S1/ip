@@ -12,6 +12,11 @@ public class Dates {
     static final Pattern DATEPATTERN = Pattern.compile("^(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[0-2])"
             + "/(\\d{4}) (\\d{4}$)");
 
+    static final Pattern DATE_CHECKING_PATTERN  = Pattern.compile("\\d{1,2} (January|February|March|April|May|June|July|August|"
+            + "September|October|November|December) \\d{4} \\d{2}:\\d{2}");
+    public static final DateTimeFormatter DATE_PRINTING_FORMATTER = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm");
+    static final DateTimeFormatter INPUT_TO_DATE_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    static final DateTimeFormatter DATALIST_TO_DATE_FORMATTER = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm");
 
     public static boolean checkDateinput(String date) {
         Matcher matcher = Dates.DATEPATTERN.matcher(date);
@@ -24,9 +29,8 @@ public class Dates {
      * @return LocalDateTime class based on the date String
      */
     public static LocalDateTime convertToDateTime(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
-        return dateTime;
+
+        return LocalDateTime.parse(date, INPUT_TO_DATE_FORMATTER);
     }
     /**
      * Check of the date String from the list matches the pattern
@@ -34,10 +38,7 @@ public class Dates {
      * @return True if the date String matches the pattern
      */
     public static boolean checkDateString(String date) {
-        String pattern = "\\d{1,2} (January|February|March|April|May|June|July|August|"
-                + "September|October|November|December) \\d{4} \\d{2}:\\d{2}";
-        Pattern compiledPattern = Pattern.compile(pattern);
-        Matcher matcher = compiledPattern.matcher(date);
+        Matcher matcher = DATE_CHECKING_PATTERN.matcher(date);
         return matcher.matches();
     }
 
@@ -47,9 +48,8 @@ public class Dates {
      * @return LocalDateTime class based on the date String
      */
     public static LocalDateTime createDateTime(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm");
-        LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
-        return dateTime;
+
+        return LocalDateTime.parse(date, DATALIST_TO_DATE_FORMATTER);
     }
 
 
