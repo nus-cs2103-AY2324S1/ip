@@ -55,9 +55,9 @@ shadowJar {
     archiveClassifier = null
     archiveFileName = 'helpbuddy.jar'
     dependsOn("distZip", "distTar")
-    enableAssertions = true
 }
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }

@@ -9,7 +9,6 @@ import helpbuddy.storage.Storage;
 import helpbuddy.task.TaskList;
 import helpbuddy.ui.Parser;
 import helpbuddy.ui.Ui;
-import javafx.scene.image.Image;
 
 /**
  * A HelpBuddy class creates a HelpBuddy object to run the HelpBuddy chatbot.

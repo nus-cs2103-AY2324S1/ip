@@ -21,6 +21,100 @@ import helpbuddy.task.ToDo;
  * A Parser class interprets the user input and produces a corresponding Command.
  */
 public class Parser {
+
+    /**
+     * Returns an AddCommand for ToDo task.
+     * @param userInput A String array containing user's input to HelpBuddy.
+     * @return an AddCommand for ToDo task.
+     * @throws HelpBuddyException if user input for ToDo task is invalid.
+     */
+    private static Command addToDoCommand(String[] userInput) throws HelpBuddyException {
+        if (userInput.length == 1) {
+            return new AddCommand(new ToDo(""));
+        }
+        String taskDescription = userInput[1];
+        return new AddCommand(new ToDo(taskDescription));
+    }
+
+    /**
+     * Returns an AddCommand for Deadline task.
+     * @param userInput A String array containing user's input to HelpBuddy.
+     * @return an AddCommand for Deadline task.
+     * @throws HelpBuddyException if user input for Deadline task is invalid.
+     */
+    private static Command addDeadlineCommand(String[] userInput) throws HelpBuddyException {
+        if (userInput.length == 1) {
+            return new AddCommand(new Deadline("", null));
+        }
+        String[] taskDetails = userInput[1].split("/by", 2);
+        String taskName = taskDetails[0].trim();
+        if (taskDetails.length == 1) {
+            return new AddCommand(new Deadline(taskName, null));
+        }
+        String deadlineTime = taskDetails[1].trim();
+        if (deadlineTime.isBlank()) {
+            return new AddCommand(new Deadline(taskName, null));
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+        return new AddCommand(new Deadline(taskName, LocalDateTime.parse(deadlineTime, formatter)));
+    }
+
+    /**
+     * Returns an AddCommand for Event task.
+     * @param userInput A String array containing user's input to HelpBuddy.
+     * @return an AddCommand for Event task.
+     * @throws HelpBuddyException if user input for Event task is invalid.
+     */
+    private static Command addEventCommand(String[] userInput) throws HelpBuddyException {
+        if (userInput.length == 1) {
+            return new AddCommand(new Event("", null, null));
+        }
+        String[] taskDetails = userInput[1].split("/from", 2);
+        String taskName = taskDetails[0].trim();
+        if (taskDetails.length == 1) {
+            return new AddCommand(new Event(taskName, null, null));
+        }
+        String[] taskDateDetails = taskDetails[1].split("/to", 2);
+        String startTime = taskDateDetails[0].trim();
+        if (startTime.isBlank()) {
+            return new AddCommand(new Event(taskName, null, null));
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+        if (taskDateDetails.length == 1) {
+            return new AddCommand(new Event(taskName,
+                    LocalDateTime.parse(startTime, formatter),
+                    null
+            ));
+        }
+        String endTime = taskDateDetails[1].trim();
+        if (startTime.isBlank()) {
+            return new AddCommand(new Event(
+                    taskName,
+                    LocalDateTime.parse(startTime, formatter),
+                    null
+            ));
+        }
+        return new AddCommand(new Event(
+                taskName,
+                LocalDateTime.parse(startTime, formatter),
+                LocalDateTime.parse(endTime, formatter)
+        ));
+    }
+
+    /**
+     * Returns a FindCommand.
+     * @param userInput A String array containing user's input to HelpBuddy.
+     * @return a FindCommand.
+     * @throws HelpBuddyException if user did not input anything to find.
+     */
+    private static Command findTaskCommand(String[] userInput) throws HelpBuddyException {
+        if (userInput.length == 1) {
+            return new FindCommand("");
+        }
+        String taskPrefix = userInput[1].trim();
+        return new FindCommand(taskPrefix);
+    }
+
     /**
      * Interprets the userCommand and produces a corresponding Command.
      * @param userCommand the String that user keys into HelpBuddy.
@@ -32,76 +126,29 @@ public class Parser {
     public static Command parseCommand(String userCommand) throws HelpBuddyException, DateTimeParseException {
         String[] userInput = userCommand.split(" ", 2);
         String command = userInput[0];
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
 
         switch (command) {
         case ("list"):
             return new ListCommand();
         case ("mark"):
-            return new MarkCommand(Integer.parseInt(userInput[1]));
+            int taskIndex = Integer.parseInt(userInput[1]);
+            return new MarkCommand(taskIndex);
         case ("unmark"):
-            return new UnmarkCommand(Integer.parseInt(userInput[1]));
+            int taskNumber = Integer.parseInt(userInput[1]);
+            return new UnmarkCommand(taskNumber);
         case ("todo"):
-            if (userInput.length == 1) {
-                return new AddCommand(new ToDo(""));
-            }
-            return new AddCommand(new ToDo(userInput[1]));
+            return addToDoCommand(userInput);
         case ("deadline"): {
-            if (userInput.length == 1) {
-                return new AddCommand(new Deadline("", null));
-            }
-            String[] taskDetails = userInput[1].split("/by", 2);
-            String taskName = taskDetails[0].trim();
-            if (taskDetails.length == 1) {
-                return new AddCommand(new Deadline(taskName, null));
-            }
-            String deadlineTime = taskDetails[1].trim();
-            if (deadlineTime.isBlank()) {
-                return new AddCommand(new Deadline(taskName, null));
-            }
-            return new AddCommand(new Deadline(taskName, LocalDateTime.parse(deadlineTime, formatter)));
+            return addDeadlineCommand(userInput);
         }
         case ("event"): {
-            if (userInput.length == 1) {
-                return new AddCommand(new Event("", null, null));
-            }
-            String[] taskDetails = userInput[1].split("/from", 2);
-            String taskName = taskDetails[0].trim();
-            if (taskDetails.length == 1) {
-                return new AddCommand(new Event(taskName, null, null));
-            }
-            String[] taskDateDetails = taskDetails[1].split("/to", 2);
-            String startTime = taskDateDetails[0].trim();
-            if (startTime.isBlank()) {
-                return new AddCommand(new Event(taskName, null, null));
-            }
-            if (taskDateDetails.length == 1) {
-                return new AddCommand(new Event(taskName,
-                        LocalDateTime.parse(startTime, formatter),
-                        null
-                ));
-            }
-            String endTime = taskDateDetails[1].trim();
-            if (startTime.isBlank()) {
-                return new AddCommand(new Event(
-                        taskName,
-                        LocalDateTime.parse(startTime, formatter),
-                        null
-                ));
-            }
-            return new AddCommand(new Event(
-                    taskName,
-                    LocalDateTime.parse(startTime, formatter),
-                    LocalDateTime.parse(endTime, formatter)
-            ));
+            return addEventCommand(userInput);
         }
         case("find"):
-            if (userInput.length == 1) {
-                return new FindCommand("");
-            }
-            return new FindCommand(userInput[1].trim());
+            return findTaskCommand(userInput);
         case ("delete"):
-            return new DeleteCommand(Integer.parseInt(userInput[1]));
+            int taskRank = Integer.parseInt(userInput[1]);
+            return new DeleteCommand(taskRank);
         case ("bye"):
             return new ExitCommand();
         default:

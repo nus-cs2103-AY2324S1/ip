@@ -25,6 +25,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private Image helpBuddyImage = new Image(this.getClass().getResourceAsStream("/images/HelpBuddy.png"));
 
+    /**
+     * Initializes MainWindow.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -55,6 +58,7 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Creates a dialog box containing HelpBuddy's reply when an error is encountered.
+     * @param  error A String representation of error message.
      */
     @FXML
     protected void printErrorMessage(String error) {
