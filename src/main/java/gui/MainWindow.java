@@ -31,8 +31,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setIris(Iris irisInstance) {
-        iris = irisInstance;
+    public void setIris(Iris d) {
+        iris = d;
     }
 
     /**
