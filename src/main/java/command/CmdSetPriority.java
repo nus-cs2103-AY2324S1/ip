@@ -7,7 +7,7 @@ import task.TaskList;
 import utility.StringUtility;
 
 /**
- * Represents a command to mark a task as done in the task list.
+ * Represents a command to set the priority of a task in a task list.
  *
  * @author Ho Khee Wei
  */
@@ -16,9 +16,10 @@ public class CmdSetPriority extends Command {
     private int priority;
 
     /**
-     * Constructs a CmdMark object with the index of the task to be marked as done.
+     * Constructs a CmdSetPriority object to set the priority of a task.
      *
-     * @param index The index of the task to be marked as done.
+     * @param index    The index of the task to set priority
+     * @param priority The new priority to set.
      */
     public CmdSetPriority(int index, int priority) {
         this.index = index;
@@ -26,10 +27,9 @@ public class CmdSetPriority extends Command {
     }
 
     /**
-     * Executes the command to mark a task as done, displays the marked task,
-     * and updates the storage.
+     * Executes the command to set the priority of a task in a task list.
      *
-     * @param taskList The task list in which the task should be marked as done.
+     * @param taskList The task list in which the task is in.
      * @return response to the user.
      * @throws InvalidIndexException if the index is out of range of the task list.
      */
