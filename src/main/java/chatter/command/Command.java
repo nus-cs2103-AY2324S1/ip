@@ -45,6 +45,7 @@ public abstract class Command {
      * @param tasks chatter.TaskList class storing an ArrayList of chatter.task.Task objects.
      * @param ui chatter.Ui class to handle user interactions.
      * @param storage chatter.Storage class to read and store tasks by the user.
+     * @return String to show user that the command has been executed.
      * @throws ChatterException Any error that occurs due to the command.
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws ChatterException;
