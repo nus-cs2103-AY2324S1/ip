@@ -43,8 +43,8 @@ public class Ui {
     public String successfulAddTaskMsg(String taskString, int index) {
         String result = "";
         result += "Got it. I've added this task:\n";
-        result += taskString;
-        result += "Now you have " + index + " tasks in the list.";
+        result += taskString + "\n";
+        result += "Now you have " + index + " tasks in the list.\n";
         return result;
     }
 
@@ -54,9 +54,7 @@ public class Ui {
      * @param taskString The string representation of the task.
      */
     public String successfulMarkDoneMsg(String taskString) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(taskString);
-        return "Nice! I've marked this task as done:\n" + taskString;
+        return "Nice! I've marked this task as done:\n" + taskString + "\n";
     }
 
     /**
@@ -65,9 +63,7 @@ public class Ui {
      * @param taskString The string representation of the task.
      */
     public String successfulMarkNotDoneMsg(String taskString) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(taskString);
-        return "OK, I've marked this task as not done yet:\n" + taskString;
+        return "OK, I've marked this task as not done yet:\n" + taskString + "\n";
     }
 
     /**
@@ -77,13 +73,10 @@ public class Ui {
      * @param index The number of tasks in the list.
      */
     public String successfulTaskDeletionMsg(String taskString, int index) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(taskString);
-        System.out.println("Now you have " + index + " tasks in the list.");
         String result = "";
-        result += "Noted. I've removed this task:";
-        result += taskString;
-        result += "Now you have " + index + " tasks in the list.";
+        result += "Noted. I've removed this task:\n";
+        result += taskString + "\n";
+        result += "Now you have " + index + " tasks in the list.\n";
         return result;
     }
 
@@ -107,9 +100,9 @@ public class Ui {
         try {
             String result = "";
             ArrayList<Task> list = taskList.findTasks(keyword);
-            result += "Here are the matching tasks in your list:";
+            result += "Here are the matching tasks in your list:\n";
             for (int i = 0; i < list.size(); i++) {
-                result += ((i + 1) + ". " + list.get(i).displayableForm());
+                result += ((i + 1) + ". " + list.get(i).userDisplayString()) + "\n";
             }
             return result;
         } catch (DukeException e) {
