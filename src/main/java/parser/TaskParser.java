@@ -80,7 +80,6 @@ public class TaskParser {
         if (taskDescription.isEmpty()) {
             throw new InvalidTaskFormatException("The description of a todo cannot be empty.");
         }
-
         return new ToDo(taskDescription);
     }
 

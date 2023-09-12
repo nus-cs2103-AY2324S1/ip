@@ -18,6 +18,6 @@ public class ListCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return tasks.print(); // Display the list of tasks through the user interface
+        return tasks.print();
     }
 }
