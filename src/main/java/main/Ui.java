@@ -83,7 +83,9 @@ public class Ui extends Application {
     /**
      * Hide the main window, pops a message box to say goodbye to the user and finally exit the whole program.
      */
-    public void byeAndExit(){
+    public void byeAndExit()
+    {
+        assert(Main.getInstance() != null);
         this.window.hide();
         ButtonType okBtn = new ButtonType("Bye");
         Alert closeConfirmation = new Alert(Alert.AlertType.NONE,"", okBtn);

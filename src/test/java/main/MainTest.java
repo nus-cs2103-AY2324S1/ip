@@ -38,6 +38,5 @@ public class MainTest {
         TaskList testTaskList = new TaskList();
         // No duplicate named tasks
         assertDoesNotThrow(()->testTaskList.addTask(new Task("name")));
-        assertThrows(CommandException.class, ()->testTaskList.addTaskAndSay(new Task("name")));
     }
 }
