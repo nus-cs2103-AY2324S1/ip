@@ -13,8 +13,8 @@ public class EmptyCommand implements Command {
 
     /**
      * Does nothing
-     * @param bot the bot to execute the command
-     * @return true, as the user can continue with the programme afterwards
+     * @param bot The bot to execute the command.
+     * @return true, as the user can continue with the programme afterwards.
      */
     @Override
     public boolean execute(Duke bot) {
@@ -24,8 +24,8 @@ public class EmptyCommand implements Command {
     /**
      * Checks if this empty command is the same as another.
      * They are the same as long as both are empty commands.
-     * @param another the object to compare with
-     * @return true, as this allows the user to continue with the programme
+     * @param another The object to compare with.
+     * @return Whether the object is the same as this command.
      */
     @Override
     public boolean equals(Object another) {

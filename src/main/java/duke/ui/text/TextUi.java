@@ -21,8 +21,8 @@ public class TextUi implements Ui {
 
     /**
      * Instantiates a UI, with a string to prepend and a string to append every error message.
-     * @param errorPrepend the string to prepend every error message
-     * @param errorAppend the string to append every error message
+     * @param errorPrepend The string to prepend every error message
+     * @param errorAppend The string to append every error message
      */
     public TextUi(String errorPrepend, String errorAppend) {
         this.errorPrepend = errorPrepend;
@@ -32,7 +32,7 @@ public class TextUi implements Ui {
     /**
      * Invoked at the start of the interaction, to greet the user,
      * after data has been loaded / error has been handled.
-     * @param name the name of the bot
+     * @param name The name of the bot
      */
     @Override
     public void initialise(String name, String[] args) {
@@ -60,7 +60,7 @@ public class TextUi implements Ui {
     }
 
     /**
-     * Invoked when there is an IO error upon loading
+     * Invoked when there is an IO error upon loading.
      */
     @Override
     public void notifyLoadingIoError() {
@@ -71,7 +71,7 @@ public class TextUi implements Ui {
     /**
      * Notifies that file is corrupted and cannot be loaded,
      * and ask the user on the course of action to take.
-     * @return whether the user has decided to exit the program.
+     * @return Whether the user has decided to exit the program.
      */
     @Override
     public boolean handleFileCorrupted() {
@@ -95,8 +95,8 @@ public class TextUi implements Ui {
     }
 
     /**
-     * Takes input from the user
-     * @return the input from the user
+     * Takes input from the user.
+     * @return The input from the user.
      */
     @Override
     public String takeInput(String prompt) {
@@ -126,8 +126,8 @@ public class TextUi implements Ui {
     }
 
     /**
-     * Notifies user that a task has been marked done
-     * @param task the task to notify
+     * Notifies user that a task has been marked done.
+     * @param task The task to notify.
      */
     @Override
     public void notifyMarkDone(Task task) {
@@ -136,8 +136,8 @@ public class TextUi implements Ui {
     }
 
     /**
-     * Notifies user that a task has been marked not done
-     * @param task the task to notify
+     * Notifies user that a task has been marked not done.
+     * @param task The task to notify.
      */
     @Override
     public void notifyMarkNotDone(Task task) {
@@ -146,8 +146,8 @@ public class TextUi implements Ui {
     }
 
     /**
-     * Notifies user that a task has been removed
-     * @param task the task removed
+     * Notifies user that a task has been removed.
+     * @param task The task removed.
      */
     @Override
     public void notifyRemoved(Task task) {
@@ -158,14 +158,14 @@ public class TextUi implements Ui {
     /**
      * Notifies that a list of task is going to be displayed.
      * Does not display the tasks itself.
-     * @param type type of task (todo/deadline/event/default)
-     * @param isExcludingDone whether to exclude tasks already done
-     * @param date the date before which to display deadlines before or events happening on,
-     *             null if not to filter by date
-     * @param taskList the task list to display
+     * @param type Type of task (todo/deadline/event/default).
+     * @param isExcludingDone Whether to exclude tasks already done.
+     * @param date The date before which to display deadlines before or events happening on,
+     *             null if not to filter by date.
+     * @param taskList The task list to display.
      */
     @Override
-    public void notifyList(Type type, boolean isExcludingDone, LocalDate date, TaskList taskList) {
+    public void notifyList(Task.Type type, boolean isExcludingDone, LocalDate date, TaskList taskList) {
         String typeString;
         switch (type) {
         case TODO:
@@ -186,21 +186,21 @@ public class TextUi implements Ui {
                 + typeString
                 + (isExcludingDone ? " not done" : "")
                 + (date != null
-                        ? (type == Type.DEADLINE
+                        ? (type == Task.Type.DEADLINE
                             ? " before "
-                            : type == Type.EVENT
+                            : type == Task.Type.EVENT
                             ? " happening on "
                             : " for "
                         ) + DateTimeManager.dateToDisplay(date)
                         : ""
                 ) + ":"
         );
-        System.out.println(taskList.getTasks(isExcludingDone, date));
+        System.out.println(taskList.getTasks(isExcludingDone, date, type));
     }
 
     /**
      * Notifies the user that a task has been added.
-     * @param task the task added
+     * @param task The task added.
      */
     @Override
     public void notifyAdded(Task task) {
@@ -225,8 +225,8 @@ public class TextUi implements Ui {
     }
 
     /**
-     * Show task count.
-     * @param count the number of task in the list
+     * Shows task count.
+     * @param count The number of task in the list.
      */
     @Override
     public void showTaskCount(int count) {
@@ -234,9 +234,9 @@ public class TextUi implements Ui {
     }
 
     /**
-     * Notify the user of the search result.
-     * @param input the search parameter
-     * @param output the search result
+     * Notifies the user of the search result.
+     * @param input The search parameter.
+     * @param output The search result.
      */
     @Override
     public void notifyFind(String input, String output) {
@@ -247,7 +247,7 @@ public class TextUi implements Ui {
     }
 
     /**
-     * Display custom data
+     * Displays custom data.
      */
     @Override
     public void displayData(String data) {

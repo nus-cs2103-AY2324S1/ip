@@ -19,6 +19,7 @@ import duke.parse.command.MarkCommand;
 import duke.parse.command.SaveCommand;
 import duke.task.Deadline;
 import duke.task.Event;
+import duke.task.Task;
 import duke.task.ToDo;
 
 public class ParserTest {
@@ -49,31 +50,31 @@ public class ParserTest {
     public void listTest() {
         try {
             assertEquals(
-                    new ListCommand(false, null, ListCommand.Type.DEFAULT),
+                    new ListCommand(false, null, Task.Type.DEFAULT),
                     Parser.parse("list")
             );
             assertEquals(
-                    new ListCommand(false, LocalDate.now(), ListCommand.Type.DEFAULT),
+                    new ListCommand(false, LocalDate.now(), Task.Type.DEFAULT),
                     Parser.parse("list today")
             );
             assertEquals(
-                    new ListCommand(true, null, ListCommand.Type.DEFAULT),
+                    new ListCommand(true, null, Task.Type.DEFAULT),
                     Parser.parse("list -d")
             );
             assertEquals(
-                    new ListCommand(false, null, ListCommand.Type.TODO),
+                    new ListCommand(false, null, Task.Type.TODO),
                     Parser.parse("list todo")
             );
             assertEquals(
-                    new ListCommand(true, null, ListCommand.Type.TODO),
+                    new ListCommand(true, null, Task.Type.TODO),
                     Parser.parse("list todo -d")
             );
             assertEquals(
-                    new ListCommand(true, LocalDate.now().plusDays(1), ListCommand.Type.DEADLINE),
+                    new ListCommand(true, LocalDate.now().plusDays(1), Task.Type.DEADLINE),
                     Parser.parse("list deadline tmr -d")
             );
             assertEquals(
-                    new ListCommand(false, LocalDate.of(2023, 9, 5), ListCommand.Type.EVENT),
+                    new ListCommand(false, LocalDate.of(2023, 9, 5), Task.Type.EVENT),
                     Parser.parse("list event 5/9/2023")
             );
             assertThrows(

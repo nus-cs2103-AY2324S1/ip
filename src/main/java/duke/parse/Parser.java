@@ -16,6 +16,7 @@ import duke.parse.command.MarkCommand;
 import duke.parse.command.SaveCommand;
 import duke.task.Deadline;
 import duke.task.Event;
+import duke.task.Task;
 import duke.task.ToDo;
 
 /**
@@ -32,7 +33,7 @@ public class Parser {
     }
 
     /**
-     * Parse a given input.
+     * Parses a given input.
      * Available commands:
      * - bye/exit: to exit the programme
      * - list: to list out the current task list
@@ -45,9 +46,9 @@ public class Parser {
      * - event {taskname} /from {starttime} /to {endtime}: to add a new task as an event (with start time and end time)
      * - deadline {taskname} /by {time}: to add a new task as a deadline (with deadline time)
      * Note that for list, a combination of options can be used, by separating them by space characters.
-     * @param input the input from the user
-     * @return the command to be executed on the bot
-     * @throws ParseError when the input cannot be properly interpreted
+     * @param input The input from the user.
+     * @return The command to be executed on the bot.
+     * @throws ParseError When the input cannot be properly interpreted.
      */
     public static Command parse(String input) throws ParseError {
         String[] commandArgs = input.split(" ", 2);
@@ -63,38 +64,9 @@ public class Parser {
         // show list
         case "list":
             if (commandArgs.length != 1) {
-                String[] args = commandArgs[1].split(" ");
-                boolean isExcludingDone = false;
-                LocalDate date = null;
-                for (String arg: args) {
-                    switch (arg) {
-                    case "todo":
-                    case "deadline":
-                    case "event":
-                        break;
-                    case "-d":
-                        isExcludingDone = true;
-                        break;
-                    default:
-                        try {
-                            date = DateTimeManager.parseDate(arg);
-                        } catch (DateTimeManager.DateParseException | DateTimeException e) {
-                            throw new ParseError("unrecognised \"" + arg + "\"");
-                        }
-                    }
-                }
-                switch (args[0]) {
-                case "todo":
-                    return new ListCommand(isExcludingDone, date, ListCommand.Type.TODO);
-                case "deadline":
-                    return new ListCommand(isExcludingDone, date, ListCommand.Type.DEADLINE);
-                case "event":
-                    return new ListCommand(isExcludingDone, date, ListCommand.Type.EVENT);
-                default:
-                    return new ListCommand(isExcludingDone, date, ListCommand.Type.DEFAULT);
-                }
+                return Parser.parseListCommand(commandArgs[1]);
             } else {
-                return new ListCommand(false, null, ListCommand.Type.DEFAULT);
+                return new ListCommand(false, null, Task.Type.DEFAULT);
             }
 
         // mark as done
@@ -112,79 +84,21 @@ public class Parser {
             if (commandArgs.length != 2) {
                 throw new ParseError("no to-do task provided");
             }
-            if (commandArgs[1].equals("")) {
-                throw new ParseError("empty to-do task");
-            }
-            return new AddCommand(new ToDo(commandArgs[1]));
+            return Parser.parseTodo(commandArgs[1]);
 
         // add event
         case "event":
-            // number of arguments
             if (commandArgs.length != 2) {
                 throw new ParseError("no event provided");
             }
-
-            // /from keyword
-            String[] separateByFrom = commandArgs[1].split(" /from ", 2);
-            // no empty event
-            if (separateByFrom[0].equals("")) {
-                throw new ParseError("empty event");
-            }
-            // /from keyword must exist
-            if (separateByFrom.length != 2) {
-                throw new ParseError("keyword '/from' not found");
-            }
-
-            // /to keyword
-            String[] separateByTo = separateByFrom[1].split(" /to ", 2);
-            // no empty start time
-            if (separateByTo[0].equals("")) {
-                throw new ParseError("empty start time");
-            }
-            // /to keyword must exist
-            if (separateByTo.length != 2) {
-                throw new ParseError("keyword '/to' not found");
-            }
-            // no empty end time
-            if (separateByTo[1].equals("")) {
-                throw new ParseError("empty end time");
-            }
-
-            try {
-                LocalDateTime startTime = DateTimeManager.inputToDate(separateByTo[0]);
-                LocalDateTime endTime = DateTimeManager.inputToDate(separateByTo[1]);
-                return new AddCommand(new Event(separateByFrom[0], startTime, endTime));
-            } catch (DateTimeManager.DateParseException | DateTimeException e) {
-                throw new ParseError("invalid datetime");
-            }
+            return Parser.parseEventInput(commandArgs[1]);
 
         // add deadline
         case "deadline":
-            // number of arguments
             if (commandArgs.length != 2) {
                 throw new ParseError("no deadline found");
             }
-
-            String[] separateByBy = commandArgs[1].split(" /by ", 2);
-            // /by keyword must exist
-            if (separateByBy.length != 2) {
-                throw new ParseError("keyword '/by' not found");
-            }
-            // no empty deadline
-            if (separateByBy[0].equals("")) {
-                throw new ParseError("empty deadline task");
-            }
-            // no empty end time
-            if (separateByBy[1].equals("")) {
-                throw new ParseError("empty deadline time");
-            }
-
-            try {
-                LocalDateTime dateTime = DateTimeManager.inputToDate(separateByBy[1]);
-                return new AddCommand(new Deadline(separateByBy[0], dateTime));
-            } catch (DateTimeManager.DateParseException | DateTimeException e) {
-                throw new ParseError("invalid datetime");
-            }
+            return Parser.parseDeadline(commandArgs[1]);
 
         // delete task
         case "delete":
@@ -219,5 +133,104 @@ public class Parser {
         }
 
         return Integer.parseInt(indexString) - 1;
+    }
+
+    private static Command parseListCommand(String listCommandString) throws ParseError {
+        String[] args = listCommandString.split(" ");
+        boolean isExcludingDone = false;
+        LocalDate date = null;
+        for (String arg: args) {
+            switch (arg) {
+            case "todo":
+            case "deadline":
+            case "event":
+                break;
+            case "-d":
+                isExcludingDone = true;
+                break;
+            default:
+                try {
+                    date = DateTimeManager.parseDate(arg);
+                } catch (DateTimeManager.DateParseException | DateTimeException e) {
+                    throw new ParseError("unrecognised \"" + arg + "\"");
+                }
+            }
+        }
+        switch (args[0]) {
+        case "todo":
+            return new ListCommand(isExcludingDone, date, Task.Type.TODO);
+        case "deadline":
+            return new ListCommand(isExcludingDone, date, Task.Type.DEADLINE);
+        case "event":
+            return new ListCommand(isExcludingDone, date, Task.Type.EVENT);
+        default:
+            return new ListCommand(isExcludingDone, date, Task.Type.DEFAULT);
+        }
+    }
+
+    private static Command parseEventInput(String eventInput) throws ParseError {
+        // /from keyword
+        String[] separateByFrom = eventInput.split(" /from ", 2);
+        // no empty event
+        if (separateByFrom[0].equals("")) {
+            throw new ParseError("empty event");
+        }
+        // /from keyword must exist
+        if (separateByFrom.length != 2) {
+            throw new ParseError("keyword '/from' not found");
+        }
+
+        // /to keyword
+        String[] separateByTo = separateByFrom[1].split(" /to ", 2);
+        // no empty start time
+        if (separateByTo[0].equals("")) {
+            throw new ParseError("empty start time");
+        }
+        // /to keyword must exist
+        if (separateByTo.length != 2) {
+            throw new ParseError("keyword '/to' not found");
+        }
+        // no empty end time
+        if (separateByTo[1].equals("")) {
+            throw new ParseError("empty end time");
+        }
+
+        try {
+            LocalDateTime startTime = DateTimeManager.inputToDate(separateByTo[0]);
+            LocalDateTime endTime = DateTimeManager.inputToDate(separateByTo[1]);
+            return new AddCommand(new Event(separateByFrom[0], startTime, endTime));
+        } catch (DateTimeManager.DateParseException | DateTimeException e) {
+            throw new ParseError("invalid datetime");
+        }
+    }
+
+    private static Command parseTodo(String todoInput) throws ParseError {
+        if (todoInput.equals("")) {
+            throw new ParseError("empty to-do task");
+        }
+        return new AddCommand(new ToDo(todoInput));
+    }
+
+    private static Command parseDeadline(String deadlineInput) throws ParseError {
+        String[] separateByBy = deadlineInput.split(" /by ", 2);
+        // /by keyword must exist
+        if (separateByBy.length != 2) {
+            throw new ParseError("keyword '/by' not found");
+        }
+        // no empty deadline
+        if (separateByBy[0].equals("")) {
+            throw new ParseError("empty deadline task");
+        }
+        // no empty end time
+        if (separateByBy[1].equals("")) {
+            throw new ParseError("empty deadline time");
+        }
+
+        try {
+            LocalDateTime dateTime = DateTimeManager.inputToDate(separateByBy[1]);
+            return new AddCommand(new Deadline(separateByBy[0], dateTime));
+        } catch (DateTimeManager.DateParseException | DateTimeException e) {
+            throw new ParseError("invalid datetime");
+        }
     }
 }

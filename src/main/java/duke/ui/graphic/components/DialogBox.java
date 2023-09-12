@@ -48,9 +48,9 @@ public class DialogBox extends HBox {
 
     /**
      * Instantiate a new dialog box for user.
-     * @param l the message from user
-     * @param iv user's representative image
-     * @return a new instance of DialogBox for user
+     * @param l The message from user.
+     * @param iv User's representative image.
+     * @return A new instance of DialogBox for user.
      */
     public static DialogBox getUserDialog(String l, Image iv) {
         return new DialogBox(l, iv, true);
@@ -58,9 +58,9 @@ public class DialogBox extends HBox {
 
     /**
      * Instantiate a new dialog box for bot.
-     * @param l the message from bot
-     * @param iv bot's representative image
-     * @return a new instance of DialogBox for bot
+     * @param l The message from bot.
+     * @param iv Bot's representative image.
+     * @return A new instance of DialogBox for bot.
      */
     public static DialogBox getDukeDialog(String l, Image iv) {
         return new DialogBox(l, iv, false);

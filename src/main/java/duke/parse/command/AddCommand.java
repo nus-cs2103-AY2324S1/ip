@@ -11,7 +11,7 @@ public class AddCommand implements Command {
 
     /**
      * Instantiates a command to add the given task
-     * @param task the task to add
+     * @param task The task to add.
      */
     public AddCommand(Task task) {
         this.task = task;
@@ -19,8 +19,8 @@ public class AddCommand implements Command {
 
     /**
      * Commands the bot to add the task to its list.
-     * @param bot the bot to add the task
-     * @return true, as it allows the user to continue the programme
+     * @param bot The bot to add the task.
+     * @return true, as it allows the user to continue the programme.
      */
     @Override
     public boolean execute(Duke bot) {
@@ -31,8 +31,8 @@ public class AddCommand implements Command {
     /**
      * Checks whether this command is the same as another, for testing purposes.
      * It is equal if the tasks to be added are the same.
-     * @param another the object to compare against
-     * @return whether this command is the same as another
+     * @param another The object to compare against.
+     * @return Whether this command is the same as another.
      */
     @Override
     public boolean equals(Object another) {

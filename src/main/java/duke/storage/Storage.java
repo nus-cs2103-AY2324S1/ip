@@ -41,7 +41,7 @@ public class Storage {
 
     /**
      * Instantiates a storage that monitors a file with the given file name.
-     * @param fileName the file name to monitor
+     * @param fileName The file name to monitor.
      */
     public Storage(String fileName) {
         this.fileName = fileName;
@@ -49,9 +49,9 @@ public class Storage {
 
     /**
      * Reads data from disk and return a list of task recorded.
-     * @return the list of task in order
-     * @throws FileCorruptedException when file is corrupted
-     * @throws FileIoException when there is an IO error
+     * @return The list of task in order.
+     * @throws FileCorruptedException When file is corrupted.
+     * @throws FileIoException When there is an IO error.
      */
     public ArrayList<Task> readFromDisk() throws FileCorruptedException, FileIoException {
         File f = new File(this.fileName);
@@ -69,36 +69,13 @@ public class Storage {
                 Task task;
                 switch (line[0]) {
                 case "T":
-                    task = new ToDo(line[2]);
+                    task = this.dataToTodo(line[2]);
                     break;
                 case "D":
-                    String[] split = line[2].split(" /by ", 2);
-                    if (split.length != 2) {
-                        throw new FileCorruptedException();
-                    }
-                    try {
-                        LocalDateTime dateTime = DateTimeManager.inputToDate(split[1]);
-                        task = new Deadline(split[0], dateTime);
-                    } catch (DateTimeManager.DateParseException | DateTimeException e) {
-                        throw new FileCorruptedException();
-                    }
+                    task = this.dataToDeadline(line[2]);
                     break;
                 case "E":
-                    String[] separateByFrom = line[2].split(" /from ", 2);
-                    if (separateByFrom.length != 2) {
-                        throw new FileCorruptedException();
-                    }
-                    String[] separateByTo = separateByFrom[1].split(" /to ", 2);
-                    if (separateByTo.length != 2) {
-                        throw new FileCorruptedException();
-                    }
-                    try {
-                        LocalDateTime startTime = DateTimeManager.inputToDate(separateByTo[0]);
-                        LocalDateTime endTime = DateTimeManager.inputToDate(separateByTo[1]);
-                        task = new Event(separateByFrom[0], startTime, endTime);
-                    } catch (DateTimeManager.DateParseException | DateTimeException e) {
-                        throw new FileCorruptedException();
-                    }
+                    task = this.dataToEvent(line[2]);
                     break;
                 default:
                     throw new FileCorruptedException();
@@ -126,8 +103,8 @@ public class Storage {
 
     /**
      * Save data to disk
-     * @param data the data to save
-     * @throws FileIoException when there is an IO error
+     * @param data The data to save.
+     * @throws FileIoException When there is an IO error.
      */
     public void saveData(String data) throws FileIoException {
         try {
@@ -136,6 +113,41 @@ public class Storage {
             writer.close();
         } catch (IOException e) {
             throw new FileIoException();
+        }
+    }
+
+    private ToDo dataToTodo(String data) {
+        return new ToDo(data);
+    }
+
+    private Deadline dataToDeadline(String data) throws FileCorruptedException {
+        String[] split = data.split(" /by ", 2);
+        if (split.length != 2) {
+            throw new FileCorruptedException();
+        }
+        try {
+            LocalDateTime dateTime = DateTimeManager.inputToDate(split[1]);
+            return new Deadline(split[0], dateTime);
+        } catch (DateTimeManager.DateParseException | DateTimeException e) {
+            throw new FileCorruptedException();
+        }
+    }
+
+    private Event dataToEvent(String data) throws FileCorruptedException {
+        String[] separateByFrom = data.split(" /from ", 2);
+        if (separateByFrom.length != 2) {
+            throw new FileCorruptedException();
+        }
+        String[] separateByTo = separateByFrom[1].split(" /to ", 2);
+        if (separateByTo.length != 2) {
+            throw new FileCorruptedException();
+        }
+        try {
+            LocalDateTime startTime = DateTimeManager.inputToDate(separateByTo[0]);
+            LocalDateTime endTime = DateTimeManager.inputToDate(separateByTo[1]);
+            return new Event(separateByFrom[0], startTime, endTime);
+        } catch (DateTimeManager.DateParseException | DateTimeException e) {
+            throw new FileCorruptedException();
         }
     }
 }

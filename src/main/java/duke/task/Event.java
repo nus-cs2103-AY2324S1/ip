@@ -15,9 +15,9 @@ public class Event extends Task {
 
     /**
      * Instantiates an event with the given content, start time and end time.
-     * @param name the content of the event
-     * @param start the start time of the event
-     * @param end the end time of the event
+     * @param name The content of the event.
+     * @param start The start time of the event.
+     * @param end The end time of the event.
      */
     public Event(String name, LocalDateTime start, LocalDateTime end) {
         super(name);
@@ -27,19 +27,19 @@ public class Event extends Task {
 
     /**
      * Data representation of the event, to be stored in the disk.
-     * @return data representation of the event to be stored in disk
+     * @return Data representation of the event to be stored in disk.
      */
     @Override
-    public String data() {
-        return "E " + super.data()
+    public String getData() {
+        return "E " + super.getData()
                 + " /from " + DateTimeManager.dateToStringData(this.start)
                 + " /to " + DateTimeManager.dateToStringData(this.end);
     }
 
     /**
      * Checks whether this event is happening on the given date.
-     * @param date the datetime to check against
-     * @return whether the event is happening on the given date
+     * @param date The datetime to check against.
+     * @return Whether the event is happening on the given date.
      */
     @Override
     public boolean containsDate(LocalDate date) {
@@ -49,7 +49,7 @@ public class Event extends Task {
 
     /**
      * String representation of this event, to be printed in UI.
-     * @return string representation of this event to be printed in UI
+     * @return String representation of this event to be printed in UI.
      */
     @Override
     public String toString() {
@@ -61,8 +61,8 @@ public class Event extends Task {
     /**
      * Checks whether this event is the same as another task.
      * It is the same if it is the same event, with same content, start and end time.
-     * @param another the object to compare with
-     * @return whether this event is the same as another task
+     * @param another The object to compare with.
+     * @return Whether this event is the same as another task.
      */
     @Override
     public boolean equals(Object another) {

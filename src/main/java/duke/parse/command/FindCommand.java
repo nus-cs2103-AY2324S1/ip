@@ -11,7 +11,7 @@ public class FindCommand implements Command {
 
     /**
      * Instantiates a find command with the given query.
-     * @param query the search parameter
+     * @param query The search parameter.
      */
     public FindCommand(String query) {
         this.query = query;
@@ -19,8 +19,8 @@ public class FindCommand implements Command {
 
     /**
      * Commands the bot to find the tasks matching the query.
-     * @param bot the bot to execute the command
-     * @return true, as it allows the user to continue the programme
+     * @param bot The bot to execute the command.
+     * @return true, as it allows the user to continue the programme.
      */
     @Override
     public boolean execute(Duke bot) {

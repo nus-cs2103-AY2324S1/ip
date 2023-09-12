@@ -71,29 +71,19 @@ public interface Ui {
     void notifyRemoved(Task task);
 
     /**
-     * Denotes the type of task to be indicated.
-     */
-    enum Type {
-        TODO,
-        DEADLINE,
-        EVENT,
-        DEFAULT
-    }
-
-    /**
      * Notifies that a list of task is going to be displayed.
      * Does not display the tasks itself.
-     * @param type type of task (todo/deadline/event/default)
-     * @param isExcludingDone whether to exclude tasks already done
+     * @param type type of task (todo/deadline/event/default).
+     * @param isExcludingDone whether to exclude tasks already done.
      * @param date the date before which to display deadlines before or events happening on,
-     *             null if not to filter by date
-     * @param taskList the task list to display
+     *             null if not to filter by date.
+     * @param taskList the task list to display.
      */
-    void notifyList(Type type, boolean isExcludingDone, LocalDate date, TaskList taskList);
+    void notifyList(Task.Type type, boolean isExcludingDone, LocalDate date, TaskList taskList);
 
     /**
      * Notifies that a task has been added.
-     * @param task the task added
+     * @param task the task added.
      */
     void notifyAdded(Task task);
 
@@ -109,19 +99,19 @@ public interface Ui {
 
     /**
      * Show task count.
-     * @param count the number of task in the list
+     * @param count the number of task in the list.
      */
     void showTaskCount(int count);
 
     /**
      * Notify the user of the search results.
-     * @param input the search parameter
-     * @param output the search result
+     * @param input the search parameter.
+     * @param output the search result.
      */
     void notifyFind(String input, String output);
 
     /**
-     * Display custom data
+     * Display custom data.
      */
     void displayData(String data);
 }
