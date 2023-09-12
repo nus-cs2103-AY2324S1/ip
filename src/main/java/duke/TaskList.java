@@ -84,6 +84,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds matching task in the task list.
+     *
+     * @param splitOutput User command.
+     */
     public void find(String[] splitOutput) {
         TaskList filteredList = new TaskList();
         for (int i = 0; i < tasks.size(); i++) {
