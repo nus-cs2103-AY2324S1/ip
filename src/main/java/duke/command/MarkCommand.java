@@ -39,6 +39,7 @@ public class MarkCommand extends Command {
         Task taskToChange;
         try {
             taskToChange = dukelist.setTaskStatus(this.description, this.toMark);
+            assert taskToChange != null : "Task to be marked cannot be null hehe";
             storage.saveData(dukelist.getList());
         } catch (DukeException e) {
             throw new DukeException(e.getMessage());

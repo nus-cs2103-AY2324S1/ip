@@ -38,8 +38,11 @@ public class AddCommand extends Command {
     public String execute(DukeList dukeList, Storage storage) throws DukeException {
         Task taskToAdd;
         try {
+            assert taskType != null : "Task type cannot be null";
+            assert description != null : "Description of task cannot be null";
             taskToAdd = dukeList.addTask(this.taskType, this.description);
             storage.saveData(dukeList.getList());
+            assert taskToAdd != null : "Task to be added cannot be null";
         } catch (DukeException e) {
             throw new DukeException(e.getMessage());
         }
