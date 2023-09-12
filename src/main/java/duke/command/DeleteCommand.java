@@ -28,6 +28,7 @@ public class DeleteCommand extends Command {
             throw new DukeException("OOPS! The index to delete is invalid!");
         }
         Task deletedTask = taskList.get(index);
+        assert (deletedTask != null) : "task not found";
         taskList.delete(index);
         ui.deleteFromListSuccess(deletedTask, taskList.size());
         storage.saveList(taskList.getAllTasks());
