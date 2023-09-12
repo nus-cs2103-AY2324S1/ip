@@ -11,6 +11,7 @@ import commands.LoadCommand;
 import commands.MarkCommand;
 import commands.SaveCommand;
 import commands.ScheduleCommand;
+import commands.SnoozeCommand;
 import commands.UnmarkCommand;
 
 /**
@@ -64,6 +65,9 @@ public class Parser {
             break;
         case "find":
             command = new FindCommand(fullCommand);
+            break;
+        case "snooze":
+            command = new SnoozeCommand(fullCommand);
             break;
         default:
             command = new InvalidCommand();

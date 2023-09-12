@@ -152,6 +152,14 @@ public class Ui {
         responses.add(output);
     }
     /**
+     * Add snooze response to responses.
+     * @param task The task to snooze.
+     */
+    public void showsnoozeTask(Task task) {
+        responses.add("Noted. I've snoozed this task:");
+        responses.add(task.toString());
+    }
+    /**
      * Combines the stored responses and prestring into a string for output, then
      * clears the stored responses.
      * @param preStrings The prestring to be added to the output.
