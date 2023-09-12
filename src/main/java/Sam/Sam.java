@@ -12,8 +12,8 @@ public class Sam {
     private final String FILE_PATH = "./data/duke.txt";
     private TaskList taskList;
     private Storage storage;
-    private Ui ui ;
-    private Parser parser ;
+    private Ui ui;
+    private Parser parser;
 
     public Sam() {
         this.parser = new Parser();
