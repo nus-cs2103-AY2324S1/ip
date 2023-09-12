@@ -111,7 +111,6 @@ public class Duke extends Application {
 
     @Override
     public void start(Stage stage) {
-        //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -142,7 +141,6 @@ public class Duke extends Application {
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.setPrefWidth(325.0);
@@ -189,7 +187,6 @@ public class Duke extends Application {
  * @return a label with the specified text that has word wrap enabled.
  */
 private Label getDialogLabel(String text) {
-    // You will need to import `javafx.scene.control.Label`.
     Label textToAdd = new Label(text);
     textToAdd.setWrapText(true);
 
