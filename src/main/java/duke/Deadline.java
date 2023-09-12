@@ -80,6 +80,15 @@ public class Deadline extends Task{
                 && this.deadline.equals(otherDeadline.deadline);
     }
 
+    /**
+     * Returns a hash code value for the Deadline object.
+     *
+     * This method generates a hash code based on the 'isCompleted' status, 'description',
+     * and 'deadline' of the Deadline object. It combines these properties to create
+     * a unique hash code.
+     *
+     * @return The hash code value for the Deadline object.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(isCompleted, description, deadline);

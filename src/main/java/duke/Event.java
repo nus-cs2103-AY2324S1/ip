@@ -90,6 +90,15 @@ public class Event extends Task{
                 && this.deadline.equals(otherEvent.deadline) && this.start.equals(otherEvent.start);
     }
 
+    /**
+     * Returns a hash code value for the Event object.
+     *
+     * This method generates a hash code based on the 'isCompleted' status, 'description',
+     * 'start', and 'deadline' of the Event object. It combines these properties to create
+     * a unique hash code.
+     *
+     * @return The hash code value for the Event object.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(isCompleted, description, start, deadline);
