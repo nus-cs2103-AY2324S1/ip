@@ -51,12 +51,31 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         // Get response based on Duke
         String response = duke.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
-        );
+        appendDialog(input, response);
         userInput.clear();
 
+        exitIfBye(input);
+    }
+
+    /**
+     * Creates a DialogBox for the user and Duke and appends them to the dialogContainer.
+     *
+     * @param userText The input from the user.
+     * @param dukeResponse The response from Duke
+     */
+    private void appendDialog(String userText, String dukeResponse) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getDukeDialog(dukeResponse, dukeImage)
+        );
+    }
+
+    /**
+     * Executes the exit animation if the user input is "bye".
+     *
+     * @param input The user input
+     */
+    private void exitIfBye(String input) {
         // Check if the user input is "bye"
         if (input.equalsIgnoreCase("bye")) {
             // Create a PauseTransition to delay the exit

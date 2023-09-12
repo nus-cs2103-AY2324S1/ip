@@ -46,4 +46,13 @@ public class Deadline extends Task {
 
         return "(by: " + monthInWords + " " + dayOfMonth + " " + year + ", " + formattedTime + ")";
     }
+
+    /**
+     * Changes the deadline of the Deadline.
+     *
+     * @param dateTime The new deadline.
+     */
+    public void changeDeadline(LocalDateTime dateTime) {
+        this.dateAndTime = dateTime;
+    }
 }

@@ -37,17 +37,6 @@ public class Ui {
     }
 
     /**
-     * Prints the introduction message at the start of the program.
-     */
-//    public String printIntro() {
-//        String intro = " Hello! I'm Dookie\n" +
-//                " What can I do for you?";
-//
-//        System.out.println(intro);
-//        return intro;
-//    }
-
-    /**
      * Prints the message for when a new task is added.
      *
      * @param task The newly added task.
@@ -130,6 +119,20 @@ public class Ui {
             message += "     " + (i+1) + "." + task.getTaskType() + task.getStatusIcon() + " " + task.name +
                     " " + task.getTimeInfo() + "\n";
         }
+
+        System.out.println(message);
+        return message;
+    }
+
+    /**
+     * Prints the message when a task is postponed.
+     *
+     * @param task The postponed task.
+     * @return A string representing hte postpone task message.
+     */
+    public String printPostponeMessage(Task task) {
+        String message = " OK. I've changed the deadline of this task:\n" +
+                "   " + task.getStatusIcon() + " " + task.name + task.getTimeInfo();
 
         System.out.println(message);
         return message;
