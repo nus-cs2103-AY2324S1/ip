@@ -46,6 +46,7 @@ public class EventCommand extends Command {
         try {
             Events newTask = new Events(getDescription(task, input), getStartDate(input), getEndDate(task, input));
             taskList.addTask(newTask);
+            assert taskList.contains(newTask);
             storage.save(taskList);
             return ui.printAddTask(taskList, newTask);
         } catch (IOException e) {

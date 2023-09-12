@@ -39,13 +39,14 @@ public class TodoCommand extends Command {
      */
     @Override
     public String execute() throws DukeException {
-        ToDos task = new ToDos(input);
-        taskList.addTask(task);
+        ToDos newTask = new ToDos(input);
+        taskList.addTask(newTask);
+        assert taskList.contains(newTask);
         try {
             storage.save(taskList);
         } catch (IOException e) {
             ui.printError(e.getMessage());
         }
-        return ui.printAddTask(taskList, task);
+        return ui.printAddTask(taskList, newTask);
     }
 }

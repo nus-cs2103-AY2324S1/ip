@@ -45,6 +45,7 @@ public class DeadlineCommand extends Command {
         try {
             Deadlines newTask = new Deadlines(getDescription(task, input), getEndDate(task, input));
             taskList.addTask(newTask);
+            assert taskList.contains(newTask);
             storage.save(taskList);
             return ui.printAddTask(taskList, newTask);
         } catch (IOException e) {
