@@ -13,6 +13,7 @@ import duke.exception.DukeStorageException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
+import duke.task.Timed;
 import duke.task.Todo;
 
 /**
@@ -76,6 +77,9 @@ public class Storage {
                 case "E":
                     tasks.add(new Event(description, isDone, LocalDateTime.parse(fields[3]),
                             LocalDateTime.parse(fields[4])));
+                    break;
+                case "I":
+                    tasks.add(new Timed(description, isDone, Float.parseFloat(fields[3])));
                     break;
                 default:
                     // Do nothing if the task is not recognised

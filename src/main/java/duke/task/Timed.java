@@ -27,7 +27,7 @@ public class Timed extends Task {
      * @param duration    The duration of the task in hours.
      * @param isDone      Whether the task is done.
      */
-    public Timed(String description, float duration, boolean isDone) {
+    public Timed(String description, boolean isDone, float duration) {
         super(description, isDone);
         this.duration = duration;
     }
