@@ -8,7 +8,8 @@ import puke.managers.PukeException;
  * A Task class that has a start and end time attached to it.
  */
 public class Event extends Task {
-    private static final String tag = "[E]";
+    private static final int CONSTRUCT_SIZE = 3;
+    private static final String EVENT_LABEL = "[E]";
     private final LocalDateTime from;
     private final LocalDateTime to;
 
@@ -19,12 +20,27 @@ public class Event extends Task {
      * @throws PukeException If an incorrect format is used.
      */
     public Event(String[] all) throws PukeException {
-        super(tag, all[0]);
+        super(EVENT_LABEL, all[0]);
         try {
-            this.from = LocalDateTime.parse(all[1].split("from ")[1]);
-            this.to = LocalDateTime.parse(all[2].split("to ")[1]);
+            from = LocalDateTime.parse(all[1].split("from ")[1]);
+            to = LocalDateTime.parse(all[2].split("to ")[1]);
         } catch (Exception DateTimeParseException) {
-            System.out.println(all[1].split("from ")[1]);
+            throw new PukeException();
+        }
+    }
+
+    /**
+     * Creates a task with a start and end time but with preset tags
+     * @param all All Strings from the remainder of the input line after the command string.
+     * @param tags All tags that the task has
+     * @throws PukeException If an incorrect format is used.
+     */
+    public Event(String[] all, String[] tags) throws PukeException {
+        super(EVENT_LABEL, all[0], tags);
+        try {
+            from = LocalDateTime.parse(all[1].split("from ")[1]);
+            to = LocalDateTime.parse(all[2].split("to ")[1]);
+        } catch (Exception DateTimeParseException) {
             throw new PukeException();
         }
     }
@@ -38,12 +54,12 @@ public class Event extends Task {
      * @return The Event task.
      * @throws PukeException If an incorrect format is detected e.g. the file is corrupted.
      */
-    public static Event construct(String desc, String from, String to) throws PukeException {
-        String[] container = new String[3];
+    public static Event construct(String desc, String from, String to, String[] tags) throws PukeException {
+        String[] container = new String[CONSTRUCT_SIZE];
         container[0] = desc;
         container[1] = "from " + from;
         container[2] = "to " + to;
-        return new Event(container);
+        return new Event(container, tags);
     }
 
     /**
@@ -53,8 +69,7 @@ public class Event extends Task {
      */
     @Override
     public String write() {
-        return super.write() + "/" + this.from + "/"
-                + this.to;
+        return String.format("%s/%s/%s%s", super.write(), from, to, super.writeTags());
     }
 
     /**
@@ -63,6 +78,6 @@ public class Event extends Task {
      * @return a String representation.
      */
     public String toString() {
-        return String.format("%s (from: %s to: %s)", super.toString(), this.from, this.to);
+        return String.format("%s (from: %s to: %s) %s", super.toString(), from, to, super.printTags());
     }
 }

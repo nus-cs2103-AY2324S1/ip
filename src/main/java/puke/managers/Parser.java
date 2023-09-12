@@ -1,5 +1,6 @@
 package puke.managers;
 
+import puke.command.AddTagCommand;
 import puke.command.ClearCommand;
 import puke.command.Command;
 import puke.command.DeadlineCommand;
@@ -49,6 +50,8 @@ public class Parser {
                 return new ClearCommand(line);
             } else if (command.equals("find")) {
                 return new FindCommand(line);
+            } else if (command.equals("addTag")) {
+                return new AddTagCommand(line);
             } else {
                 return new ErrorCommand();
             }

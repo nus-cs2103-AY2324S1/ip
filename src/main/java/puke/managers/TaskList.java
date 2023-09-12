@@ -115,4 +115,16 @@ public class TaskList {
     public void clear() {
         this.list.clear();
     }
+    /**
+     * Adds a new tag to a task in the tasklist
+     * @param index the index of the task
+     * @param tag the tag to be added
+     */
+    public void addTag(int index, String tag) throws PukeException {
+        try {
+            list.get(index - 1).addTag(tag);
+        } catch (Exception e) {
+            throw new PukeException();
+        }
+    }
 }

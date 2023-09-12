@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import puke.task.Deadline;
@@ -25,21 +26,21 @@ public class DataHandler {
      * @throws PukeException If an invalid task is detected.
      */
     public static Task translate(String input) throws PukeException {
-        String[] split = input.split("/");
+        String[] splitInput = input.split("/");
         Task output;
-        if (split[0].equals("[T]")) {
-            output = new ToDo(split[2]);
-        } else if (split[0].equals("[D]")) {
-            output = Deadline.construct(split[2], split[3]);
-        } else if (split[0].equals("[E]")) {
-            output = Event.construct(split[2], split[3], split[4]);
+        if (splitInput[0].equals("[T]")) {
+            output = translateToDo(splitInput);
+        } else if (splitInput[0].equals("[D]")) {
+            output = translateDeadline(splitInput);
+        } else if (splitInput[0].equals("[E]")) {
+            output = translateEvent(splitInput);
         } else {
             throw new PukeException();
         }
 
-        if (split[1].equals("0")) {
+        if (splitInput[1].equals("0")) {
             output.unmark();
-        } else if (split[1].equals("1")) {
+        } else if (splitInput[1].equals("1")) {
             output.mark();
         } else {
             throw new PukeException();
@@ -47,7 +48,30 @@ public class DataHandler {
 
         return output;
     }
-
+    private static Task translateToDo(String[] splitInput) throws PukeException {
+        if (splitInput.length > 3) {
+            return ToDo.construct(splitInput[2],
+                    Arrays.copyOfRange(splitInput, 3, splitInput.length));
+        } else {
+            return ToDo.construct(splitInput[2], new String[0]);
+        }
+    }
+    private static Task translateDeadline(String[] splitInput) throws PukeException {
+        if (splitInput.length > 4) {
+            return Deadline.construct(splitInput[2], splitInput[3],
+                    Arrays.copyOfRange(splitInput, 4, splitInput.length));
+        } else {
+            return Deadline.construct(splitInput[2], splitInput[3], new String[0]);
+        }
+    }
+    private static Task translateEvent(String[] splitInput) throws PukeException {
+        if (splitInput.length > 5) {
+            return Event.construct(splitInput[2], splitInput[3], splitInput[4],
+                    Arrays.copyOfRange(splitInput, 5, splitInput.length));
+        } else {
+            return Event.construct(splitInput[2], splitInput[3], splitInput[4], new String[0]);
+        }
+    }
     /**
      * Updates the ListData.txt file with the latest list of tasks.
      *

@@ -32,7 +32,6 @@ public class Puke {
             tasks = new TaskList();
         }
     }
-    
     public String getResponse(String input) {
         Command next;
         String[] inputComponents = input.split(" ", 2);

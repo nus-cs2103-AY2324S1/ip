@@ -8,7 +8,8 @@ import puke.managers.PukeException;
  * A Task class that has a deadline attached to it.
  */
 public class Deadline extends Task {
-    private static final String tag = "[D]";
+    private static final String DEADLINE_LABEL = "[D]";
+    private static final int CONSTRUCT_SIZE = 2;
     private final LocalDateTime date;
 
     /**
@@ -18,9 +19,24 @@ public class Deadline extends Task {
      * @throws PukeException If an incorrect format is used.
      */
     public Deadline(String[] all) throws PukeException {
-        super(tag, all[0]);
+        super(DEADLINE_LABEL, all[0]);
         try {
-            this.date = LocalDateTime.parse(all[1].split("by ")[1]);
+            date = LocalDateTime.parse(all[1].split("by ")[1]);
+        } catch (Exception DateTimeParseException) {
+            throw new PukeException();
+        }
+    }
+
+    /**
+     * Creates a Task with a set deadline but with preset tags
+     * @param all All strings from the remainder of the input after being split
+     * @param tags All tags that the task has
+     * @throws PukeException If an incorrect format is used.
+     */
+    public Deadline(String[] all, String[] tags) throws PukeException {
+        super(DEADLINE_LABEL, all[0], tags);
+        try {
+            date = LocalDateTime.parse(all[1].split("by ")[1]);
         } catch (Exception DateTimeParseException) {
             throw new PukeException();
         }
@@ -34,11 +50,11 @@ public class Deadline extends Task {
      * @return The Deadline task.
      * @throws PukeException If an incorrect format is detected e.g. the file is corrupted.
      */
-    public static Deadline construct(String desc, String date) throws PukeException {
-        String[] container = new String[2];
+    public static Deadline construct(String desc, String date, String[] tags) throws PukeException {
+        String[] container = new String[CONSTRUCT_SIZE];
         container[0] = desc;
         container[1] = "by " + date;
-        return new Deadline(container);
+        return new Deadline(container, tags);
     }
 
     /**
@@ -48,7 +64,7 @@ public class Deadline extends Task {
      */
     @Override
     public String write() {
-        return super.write() + "/" + this.date;
+        return String.format("%s/%s%s", super.write(), date, super.writeTags());
     }
 
     /**
@@ -57,6 +73,6 @@ public class Deadline extends Task {
      * @return a String representation
      */
     public String toString() {
-        return super.toString() + " (by: " + this.date + ")";
+        return String.format("%s (by: %s) %s", super.toString(), date, super.printTags());
     }
 }
