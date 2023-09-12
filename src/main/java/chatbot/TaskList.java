@@ -1,7 +1,7 @@
 package chatbot;
 
 import java.util.ArrayList;
-import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import chatbot.exceptions.InvalidTaskIndexException;
 import chatbot.tasks.Task;
@@ -72,12 +72,9 @@ public class TaskList {
      * @return String representation of all tasks in the list
      */
     public String taskListToStrings() {
-        StringBuilder sb = new StringBuilder();
-        for (Task task: taskList) {
-            sb.append(task.toString());
-            sb.append("\n");
-        }
-        return sb.toString();
+        return taskList.stream()
+                       .map(task -> String.format("%s\n", task.toString()))
+                       .collect(Collectors.joining());
     }
 
     /**
@@ -101,12 +98,10 @@ public class TaskList {
      * @return indexed String representation of tasks whose names contain the provided name
      */
     public String findTasks(String name) {
-        ArrayList<Task> matchedTasks = new ArrayList<>();
-        taskList.forEach(t -> {
-            if (t.getName().contains(name)) {
-                matchedTasks.add(t);
-            }
-        });
+        ArrayList<Task> matchedTasks = (ArrayList<Task>)
+                                            taskList.stream()
+                                                    .filter(t -> t.getName().contains(name))
+                                                    .collect(Collectors.toList());
         if (matchedTasks.isEmpty()) {
             return "No task in the list matches the query.";
         } else {
