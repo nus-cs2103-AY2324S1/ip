@@ -1,13 +1,12 @@
-package duke.ui;
+package cringebot.ui;
 
-import duke.tasks.Task;
-import duke.tasks.TaskList;
+import cringebot.tasks.Task;
+import cringebot.tasks.TaskList;
 
 /**
  * Class that handles the statements said by CringeBot
  */
 public class Ui {
-    private static final String BAR = "____________________________________________________________";
 
     /**
      * Greets the user.
@@ -15,8 +14,7 @@ public class Ui {
      * @return the greeting.
      */
     public static String greetUser() {
-        return "Hello! I'm CringeBot\n"
-                + "What can I do for you?";
+        return "Hello! I'm CringeBot\nWhat can I do for you?";
     }
 
     /**
@@ -36,6 +34,7 @@ public class Ui {
      */
     public static String printItems(TaskList tasks) {
         StringBuilder sayWord = new StringBuilder("Here are the tasks in your list:");
+
         for (int i = 0; i < tasks.size(); i++) {
             sayWord.append(String.format("\n%d.%s", i + 1, tasks.getTaskWithIndex(i)));
         }
@@ -50,10 +49,10 @@ public class Ui {
      * @return item that was deleted
      */
     public static String deleteItem(int taskSize, Task deletedTask) {
-        return "Noted. I've removed this task:\n"
-                + deletedTask
-                + "\nNow you have "
-                + taskSize
-                + " tasks in the list.";
+        return String.format(
+                "Noted. I've removed this task:\n%s\nNow you have %d tasks in the list.",
+                deletedTask,
+                taskSize
+        );
     }
 }

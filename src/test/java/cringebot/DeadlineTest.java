@@ -1,9 +1,9 @@
-package duke;
+package cringebot;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import duke.tasks.Deadline;
+import cringebot.tasks.Deadline;
 
 public class DeadlineTest {
     @Test

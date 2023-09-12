@@ -1,4 +1,4 @@
-package duke;
+package cringebot;
 
 import javafx.application.Application;
 

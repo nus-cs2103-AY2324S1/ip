@@ -1,20 +1,26 @@
-package duke.parser;
+package cringebot.parser;
 
-import duke.exceptions.DukeException;
-import duke.dataFile.Storage;
-import duke.ui.Ui;
-import duke.tasks.TaskList;
+import cringebot.datafile.Storage;
+import cringebot.exceptions.CringeBotException;
+import cringebot.tasks.TaskList;
+import cringebot.ui.Ui;
 
 /**
  * Class for parsing commands made by the user.
  */
 public class Parser {
-    public enum modifyStatus {
+    /**
+     * Enum for marking and unmarking tasks.
+     */
+    public enum ModifyStatus {
         MARK,
         UNMARK
     }
 
-    public enum taskType {
+    /**
+     * Enum for the type of task.
+     */
+    public enum TaskType {
         EVENT,
         DEADLINE,
         TODO
@@ -31,6 +37,7 @@ public class Parser {
     public static String parseCommands(String nextLine, TaskList tasks, Storage storage) {
         String firstWord = nextLine.split(" ")[0];
         String statement;
+
         try {
             switch(firstWord) {
             case "bye":
@@ -39,35 +46,35 @@ public class Parser {
             case "list":
                 return Ui.printItems(tasks);
             case "unmark":
-                statement = tasks.modifyStatus(modifyStatus.UNMARK, nextLine);
-                storage.write(tasks);
+                statement = tasks.modifyStatus(ModifyStatus.UNMARK, nextLine);
+                storage.writeToFile(tasks);
                 return statement;
             case "mark":
-                statement = tasks.modifyStatus(modifyStatus.MARK, nextLine);
-                storage.write(tasks);
+                statement = tasks.modifyStatus(ModifyStatus.MARK, nextLine);
+                storage.writeToFile(tasks);
                 return statement;
             case "delete":
                 statement = tasks.deleteItem(nextLine);
-                storage.write(tasks);
+                storage.writeToFile(tasks);
                 return statement;
             case "event":
-                statement = tasks.addItem(taskType.EVENT, nextLine);
-                storage.write(tasks);
+                statement = tasks.addItem(TaskType.EVENT, nextLine);
+                storage.writeToFile(tasks);
                 return statement;
             case "deadline":
-                statement = tasks.addItem(taskType.DEADLINE, nextLine);
-                storage.write(tasks);
+                statement = tasks.addItem(TaskType.DEADLINE, nextLine);
+                storage.writeToFile(tasks);
                 return statement;
             case "todo":
-                statement = tasks.addItem(taskType.TODO, nextLine);
-                storage.write(tasks);
+                statement = tasks.addItem(TaskType.TODO, nextLine);
+                storage.writeToFile(tasks);
                 return statement;
             case "find":
                 return tasks.findItems(nextLine);
             default:
-                throw new DukeException(":(( OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new CringeBotException("OOPS!!! I'm sorry, but I don't know what that means. :(( ");
             }
-        } catch (DukeException e) {
+        } catch (CringeBotException e) {
             return e.getMessage();
         }
     }
