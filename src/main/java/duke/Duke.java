@@ -4,12 +4,12 @@ import duke.command.Command;
 import duke.exceptions.DukeException;
 
 /**
- * Duke is a simple task management application that allows users to add, delete and list tasks.
+ * Duke is a simple task management application that allows users to add, delete, and list tasks.
  */
 public class Duke {
-    private Storage storage;
+    final Storage storage;
     private DukeList tasks;
-    private Ui ui;
+    final Ui ui;
 
     /**
      * Constructs a Duke object with the specified file path for data storage.
@@ -28,33 +28,17 @@ public class Duke {
     }
 
     /**
-     * Runs the main loop of the Duke application.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
-        }
-        ui.showBye();
-    }
-
-    /**
-     * The main entry point for the Duke application.
+     * Get the response to a user input.
      *
-     * @param args Command-line arguments (not used).
+     * @param input The user input.
+     * @return A response to the user input.
      */
-    public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
     }
 }

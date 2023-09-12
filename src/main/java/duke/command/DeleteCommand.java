@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
      * @throws DukeException If there is an error during execution.
      */
     @Override
-    public void execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
         String[] inputs = this.command.split(" ");
         int key;
         try {
@@ -48,6 +48,6 @@ public class DeleteCommand extends Command {
         } catch (IOException e) {
             throw new DukeException("Failure to write to file");
         }
-        ui.delete(task, tasks.getSize());
+        return ui.delete(task, tasks.getSize());
     }
 }

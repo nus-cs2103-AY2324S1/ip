@@ -25,7 +25,7 @@ public class DisplayCommand extends Command {
      * @param storage The Storage object (not used in this command).
      */
     @Override
-    public void execute(DukeList tasks, Ui ui, Storage storage) {
-        ui.printList(tasks);
+    public String execute(DukeList tasks, Ui ui, Storage storage) {
+        return ui.printList(tasks);
     }
 }

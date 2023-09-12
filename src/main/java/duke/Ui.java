@@ -11,18 +11,21 @@ public class Ui {
 
     /**
      * Displays an error message for loading the storage file.
+     *
+     * @return The error message for loading the storage file.
      */
-    public void showLoadingError() {
-        System.out.println("Error loading storage file");
+    public String showLoadingError() {
+        return "Error loading storage file";
     }
 
     /**
      * Displays the welcome message when the program starts.
+     *
+     * @return The welcome message.
      */
-    public void showWelcome() {
-        String logo = "Hello! I am Bob\n"
+    public String showWelcome() {
+        return "Hello! I am Bob\n"
                 + "What can I do for you?\n";
-        System.out.println(logo);
     }
 
     /**
@@ -37,62 +40,70 @@ public class Ui {
 
     /**
      * Displays a horizontal line as a separator.
+     *
+     * @return The horizontal line separator.
      */
-    public void showLine() {
-        System.out.println("_______________________________");
+    public String showLine() {
+        return "_______________________________";
     }
 
     /**
      * Displays an error message.
      *
      * @param message The error message to be displayed.
+     * @return The formatted error message.
      */
-    public void showError(String message) {
-        System.out.println("Error: " + message);
+    public String showError(String message) {
+        return "Error: " + message;
     }
 
     /**
      * Displays a goodbye message when the program ends.
+     *
+     * @return The goodbye message.
      */
-    public void showBye() {
-        String bye = "Bye! Hope to see you again soon!\n";
-        System.out.println(bye);
+    public String showBye() {
+        return "Bye! Hope to see you again soon!\n";
     }
 
     /**
      * Displays a given string message.
      *
      * @param str The string message to be displayed.
+     * @return The formatted string message.
      */
-    public void display(String str) {
-        System.out.println(str);
+    public String display(String str) {
+        return str;
     }
 
     /**
      * Prints the string representation of a DukeList.
      *
      * @param list The DukeList to be printed.
+     * @return The string representation of the DukeList.
      */
-    public void printList(DukeList list) {
-        System.out.println(list.toString());
+    public String printList(DukeList list) {
+        return list.toString();
     }
 
     /**
      * Displays a message indicating a task has been marked as done.
      *
      * @param task The task that was marked as done.
+     * @return The message indicating the task has been marked as done.
      */
-    public void markDone(Task task) {
-        System.out.println("Nice! I've marked this task as done:\n" + "\t" + task.toString());
+    public String markDone(Task task) {
+        return "Nice! I've marked this task as done:\n" + "\t" + task.toString();
     }
 
     /**
      * Displays a message indicating a task has been unmarked (not done).
      *
      * @param task The task that was unmarked.
+     * @return The message indicating the task has been unmarked.
      */
-    public void unmark(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:\n" + "\t" + task.toString());
+    public String unmark(Task task) {
+        return "OK, I've marked this task as not done yet:\n" + "\t" + task.toString();
     }
 
     /**
@@ -100,10 +111,11 @@ public class Ui {
      *
      * @param task The task that was added.
      * @param size The updated size of the task list.
+     * @return The message indicating the task has been added.
      */
-    public void addToList(Task task, int size) {
-        System.out.println("Got it. I've added this task:\n\t" + task.toString()
-                + "\nNow you have " + size + " tasks in the list.");
+    public String addToList(Task task, int size) {
+        return "Got it. I've added this task:\n\t" + task.toString()
+                + "\nNow you have " + size + " tasks in the list.";
     }
 
     /**
@@ -111,17 +123,19 @@ public class Ui {
      *
      * @param task The task that was deleted.
      * @param size The updated size of the task list.
+     * @return The message indicating the task has been deleted.
      */
-    public void delete(Task task, int size) {
-        System.out.println("Noted. I've removed this task:\n\t"
-                + task.toString() + "\n Now you have " + size + " tasks in the list.");
+    public String delete(Task task, int size) {
+        return "Noted. I've removed this task:\n\t"
+                + task.toString() + "\n Now you have " + size + " tasks in the list.";
     }
 
     /**
      * Displays a message indicating that the list of matching tasks is about to be shown.
+     *
+     * @return The message indicating the list of matching tasks is about to be shown.
      */
-    public void matchingTasks() {
-        System.out.println("Here are the matching tasks in your list:");
+    public String matchingTasks() {
+        return "Here are the matching tasks in your list:";
     }
-
 }

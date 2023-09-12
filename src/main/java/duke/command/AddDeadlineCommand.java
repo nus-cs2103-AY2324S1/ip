@@ -33,7 +33,7 @@ public class AddDeadlineCommand extends Command {
      * @throws DukeException If there is an error during execution.
      */
     @Override
-    public void execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
         String[] inputs = this.command.split(" ", 2);
         Deadline deadline;
         try {
@@ -52,6 +52,6 @@ public class AddDeadlineCommand extends Command {
         } catch (IOException e) {
             throw new DukeException("Error writing to file");
         }
-        ui.addToList(deadline, tasks.getSize());
+        return ui.addToList(deadline, tasks.getSize());
     }
 }

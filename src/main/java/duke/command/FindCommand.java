@@ -31,7 +31,7 @@ public class FindCommand extends Command {
      * @throws DukeException If there is an error during execution or if no matching tasks are found.
      */
     @Override
-    public void execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
         String[] inputs = this.command.split(" ", 2);
         ArrayList<Task> arrayList = new ArrayList<>(100);
         boolean found = false;
@@ -44,8 +44,7 @@ public class FindCommand extends Command {
         }
         if (found) {
             DukeList dukeList = new DukeList(arrayList);
-            ui.matchingTasks();
-            ui.printList(dukeList);
+            return ui.matchingTasks() + "\n" + ui.printList(dukeList);
         } else {
             throw new DukeException("Item not found :(");
         }

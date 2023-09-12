@@ -30,7 +30,7 @@ public class UnMarkCommand extends Command {
      * @throws DukeException If there is an error during execution.
      */
     @Override
-    public void execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
         String[] inputs = this.command.split(" ");
         int key;
         try {
@@ -48,6 +48,6 @@ public class UnMarkCommand extends Command {
         } catch (IOException e) {
             throw new DukeException("Failed to write to file");
         }
-        ui.unmark(task);
+        return ui.unmark(task);
     }
 }

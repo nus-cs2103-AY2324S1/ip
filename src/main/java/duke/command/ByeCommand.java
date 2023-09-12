@@ -25,7 +25,7 @@ public class ByeCommand extends Command {
      * @param storage The Storage object (not used in this command).
      */
     @Override
-    public void execute(DukeList tasks, Ui ui, Storage storage) {
-        this.exit = true;
+    public String execute(DukeList tasks, Ui ui, Storage storage) {
+        return ui.showBye();
     }
 }

@@ -33,7 +33,7 @@ public class AddEventCommand extends Command {
      * @throws DukeException If there is an error during execution.
      */
     @Override
-    public void execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
         String[] inputs = this.command.split(" ", 2);
         Event event;
         LocalDate f;
@@ -59,6 +59,6 @@ public class AddEventCommand extends Command {
         } catch (IOException e) {
             throw new DukeException("Error writing to file");
         }
-        ui.addToList(event, tasks.getSize());
+        return ui.addToList(event, tasks.getSize());
     }
 }

@@ -15,11 +15,6 @@ public abstract class Command {
     protected final String command;
 
     /**
-     * Indicates whether the command should trigger an exit from the application.
-     */
-    protected boolean exit = false;
-
-    /**
      * Constructs a new Command object with the specified command.
      *
      * @param command The input command string.
@@ -36,14 +31,5 @@ public abstract class Command {
      * @param storage The Storage object for file storage.
      * @throws DukeException If there is an error during execution.
      */
-    public abstract void execute(DukeList tasks, Ui ui, Storage storage) throws DukeException;
-
-    /**
-     * Checks if the command is an exit command.
-     *
-     * @return True if the command is an exit command, false otherwise.
-     */
-    public boolean isExit() {
-        return this.exit;
-    }
+    public abstract String execute(DukeList tasks, Ui ui, Storage storage) throws DukeException;
 }

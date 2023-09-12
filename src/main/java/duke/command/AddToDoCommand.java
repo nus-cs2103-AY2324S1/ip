@@ -30,7 +30,7 @@ public class AddToDoCommand extends Command {
      * @throws DukeException If there is an error during execution.
      */
     @Override
-    public void execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(DukeList tasks, Ui ui, Storage storage) throws DukeException {
         String[] inputs = this.command.split(" ", 2);
         ToDo todo;
         try {
@@ -44,6 +44,6 @@ public class AddToDoCommand extends Command {
         } catch (IOException e) {
             throw new DukeException("Error writing to file");
         }
-        ui.addToList(todo, tasks.getSize());
+        return ui.addToList(todo, tasks.getSize());
     }
 }
