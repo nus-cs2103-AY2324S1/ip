@@ -56,6 +56,7 @@ public class Storage {
         try {
             // Write tasks into hard disk
             FileWriter fileWriter = new FileWriter(FILE_PATH);
+
             for (Task task : tasks) {
                 fileWriter.write(task.toFileFormat());
             }

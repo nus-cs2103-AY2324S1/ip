@@ -33,7 +33,6 @@ public class Parser {
      */
     public static Command parse(String userInput) throws DukeException {
         String[] splitCommand = userInput.trim().split(" ", 2);
-
         switch (splitCommand[0]) {
         case "list":
             return new ListCommand();
@@ -109,10 +108,6 @@ public class Parser {
         }
 
         String[] taskParts = stringCommand.split(" /by ");
-        if (taskParts.length != 2) {
-            throw new DukeException(errorMessage);
-        }
-
         String[] dateAndTime = taskParts[1].split(" ");
         try {
             LocalDate date = parseDate(dateAndTime[0]);
@@ -131,6 +126,7 @@ public class Parser {
      * @return A LocalDate object of the deadline task.
      */
     public static LocalDate parseDate(String date) {
+        assert date != null : "Parsed date cannot be null";
         return LocalDate.parse(date, DateTimeFormatter.ofPattern("d/MM/yyyy"));
     }
 
@@ -141,6 +137,7 @@ public class Parser {
      * @return A LocalTime object of the deadline task.
      */
     public static LocalTime parseTime(String time) {
+        assert time != null : "Parsed time cannot be null";
         return LocalTime.parse(time, DateTimeFormatter.ofPattern("HHmm"));
     }
 }
