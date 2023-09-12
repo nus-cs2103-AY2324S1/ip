@@ -53,9 +53,7 @@ public class DialogBox extends HBox {
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.getStyleClass().add("user-dialog");
-        (
-                (VBox) db.getChildren().get(0)
-        ).setAlignment(Pos.CENTER_RIGHT);
+        ((VBox) db.getChildren().get(0)).setAlignment(Pos.CENTER_RIGHT);
         return db;
     }
 
