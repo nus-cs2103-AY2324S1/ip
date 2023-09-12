@@ -54,9 +54,13 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
         try {
-            tasks.addTask(task);
-            store.save(tasks);
-            return ui.printAddTask(tasks.size(), task);
+            if (tasks.verifyNoDuplicates(task)) {
+                tasks.addTask(task);
+                store.save(tasks);
+                return ui.printAddTask(tasks.size(), task);
+            } else {
+                return "Duplicated task detected";
+            }
 
         } catch (IOException e) {
             throw new DukeException(" unable to locate local file!");
