@@ -1,10 +1,15 @@
 package simon;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
+
 import simon.task.Task;
 import simon.task.ToDo;
-import java.util.ArrayList;
-import static org.junit.jupiter.api.Assertions.*;
+
 
 public class StorageTest {
 
