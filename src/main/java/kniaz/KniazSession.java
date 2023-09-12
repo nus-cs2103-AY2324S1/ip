@@ -131,11 +131,15 @@ public class KniazSession {
         } catch (IOException e) {
             System.err.println(e.toString());
         }
-        UiCommand.UiInstructType uiInstructType = (this.isRunning ? UiCommand.UiInstructType.PRINT
-               : UiCommand.UiInstructType.QUIT);
+
+        if (!this.isRunning) {
+            return new UiCommand(UiCommand.UiInstructType.QUIT, printString);
+        } else {
+            return new UiCommand(UiCommand.UiInstructType.PRINT, printString);
+        }
+
         // If KniazCommand above was to quit, this.isRunning will be set to false
-        //TODO : figure out a nicer way to do this.
-        return new UiCommand(uiInstructType, printString);
+
 
 
     }
