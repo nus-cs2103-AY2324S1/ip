@@ -9,7 +9,7 @@ import sisyphus.task.TaskList;
  */
 public class Ui {
 
-    private static final String NAME = "sisyphus.Sisyphus";
+    private static final String NAME = "Sisyphus";
     private static final String HORIZONTAL_LINE = "_________________________________";
     private static final String LOGO = "\n"
             + "      ,-'\"\"\"`-.\n"
