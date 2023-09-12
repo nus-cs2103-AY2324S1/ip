@@ -19,6 +19,7 @@ public abstract class Task {
      * @param description the description of the task
      */
     public Task(String description) {
+        assert !description.isBlank() : "Task description cannot be empty";
         this.description = description;
         this.isDone = false;
     }
@@ -30,6 +31,7 @@ public abstract class Task {
      * @param status      the status of the task
      */
     public Task(String description, String status) {
+        assert !description.isBlank() : "Task description cannot be empty";
         this.description = description;
         this.isDone = status.equals("1");
     }

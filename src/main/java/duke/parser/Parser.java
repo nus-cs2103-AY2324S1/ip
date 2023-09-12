@@ -148,7 +148,10 @@ public class Parser {
             return new IncorrectCommand("OOPS! The description of a " + split[0]
                     + " cannot be empty.");
         }
-
+        if (split[1].isBlank()) {
+            return new IncorrectCommand("OOPS! The description of a " + split[0]
+                    + " cannot be empty.");
+        }
         if (split[0].equals("deadline")) {
             if (!split[1].contains("/by")) {
                 return new IncorrectCommand("OOPS! Please enter a valid deadline - deadline return book /by 2pm");
