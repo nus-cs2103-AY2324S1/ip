@@ -7,6 +7,12 @@ public abstract class Task {
     private final String title;
     private boolean isDone;
 
+    /**
+     * Creates a new task with the given title and completion status.
+     * 
+     * @param title  The title of the task.
+     * @param isDone Whether the task is completed.
+     */
     protected Task(String title, boolean isDone) {
         this.title = title;
         this.isDone = isDone;
