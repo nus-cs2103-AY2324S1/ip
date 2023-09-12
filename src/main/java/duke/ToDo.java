@@ -35,7 +35,7 @@ public class ToDo extends Task {
      * @return A string representation of the task in file format.
      */
     @Override
-    public String fileString() {
+    public String toFileString() {
         return String.format(
                 "todo %d %s",
                 super.isDone ? 1 : 0,

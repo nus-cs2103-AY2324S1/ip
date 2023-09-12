@@ -67,7 +67,7 @@ public abstract class Task {
      *
      * @return A string representation of the task in file format.
      */
-    public abstract String fileString();
+    public abstract String toFileString();
 
     /**
      * Checks if the description contains the substring
