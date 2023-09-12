@@ -121,6 +121,20 @@ public class ParserGUI {
             } else {
                 return UiGUI.showError("find");
             }
+        case "remind":
+            int numberOfDays;
+            try {
+                numberOfDays = Integer.parseInt(taskDetails);
+                if (numberOfDays < 0) {
+                    return UiGUI.showError("remind");
+                }
+            } catch (NumberFormatException x) {
+                return UiGUI.showError("remind");
+            }
+
+            return UiGUI.remind(tasks, numberOfDays);
+
+
 
         default:
             return UiGUI.unrecognisedCommand();

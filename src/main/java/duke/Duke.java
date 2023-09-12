@@ -118,6 +118,9 @@ public class Duke extends Application {
 
         Label dukeText = new Label(UiGUI.hello());
         dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(dukeText, new ImageView(duke)));
+        //Automatically remind for the next 3 days
+        dukeText = new Label(UiGUI.remind(tasks, 3));
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(dukeText, new ImageView(duke)));
     }
 
 

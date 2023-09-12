@@ -1,5 +1,7 @@
 package duke;
 
+import java.time.LocalDate;
+
 public class UiGUI {
     public UiGUI() {
     }
@@ -156,6 +158,39 @@ public class UiGUI {
         }
         total += this.printLines();
         return total;
+    }
+
+    public String remind (TaskList tasks, int numberOfDays){
+        // Get the current date
+        LocalDate currentDate = LocalDate.now();
+
+        // Calculate the deadline threshold date
+        LocalDate thresholdDate = currentDate.plusDays(numberOfDays);
+
+        // Create a StringBuilder to store the reminders
+        String reminders = "";
+        reminders += ("Here are the deadlines in the next ")
+                +(numberOfDays)
+                +(" days:\n");
+
+        int i = 1;
+        for (Task task : tasks.getList()) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                if (!deadline.isDone()) {
+                    LocalDate taskDate = deadline.getDate();
+                    if (taskDate != null && taskDate.isBefore(thresholdDate)) {
+                        reminders+= (i) + (". ") + (task) + ("\n");
+                        i++;
+                    }
+                }
+            }
+        }
+
+        if (i == 1) {
+            return "No upcoming deadlines in the next " + numberOfDays + " days.";
+        }
+        return reminders;
     }
 
 }

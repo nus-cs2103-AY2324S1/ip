@@ -28,6 +28,8 @@ public class Task {
         return this.isDone ? 1 : 0;
     }
 
+    public boolean isDone(){ return this.isDone; }
+
 
     public String toString() {
         return "[" + this.getStatusIcon() + "]" + " " + this.get();

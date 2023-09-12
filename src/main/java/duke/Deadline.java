@@ -86,4 +86,14 @@ public class Deadline extends Task {
         String divider = " | ";
         return "D" + divider + super.toSaveString() + divider + this.dateAsSavedString() + divider + this.modeOfTime;
     }
+    public LocalDate getDate(){
+        if (this.modeOfTime == 1){
+            return date;
+        } else if (this.modeOfTime == 2) {
+            return dateTime.toLocalDate();
+        }
+        else{
+            return date;
+        }
+    }
 }
