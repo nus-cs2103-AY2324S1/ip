@@ -11,16 +11,18 @@ import utility.StringUtility;
  *
  * @author Ho Khee Wei
  */
-public class CmdMark extends Command {
+public class CmdSetPriority extends Command {
     private int index;
+    private int priority;
 
     /**
      * Constructs a CmdMark object with the index of the task to be marked as done.
      *
      * @param index The index of the task to be marked as done.
      */
-    public CmdMark(int index) {
+    public CmdSetPriority(int index, int priority) {
         this.index = index;
+        this.priority = priority;
     }
 
     /**
@@ -38,10 +40,11 @@ public class CmdMark extends Command {
             throw new InvalidIndexException();
         }
 
-        taskList.markDone(index);
-        assert taskList.getTask(index).isDone() : "Task is not marked";
+        taskList.setPriority(index, priority);
+        assert taskList.getTask(index).getPriority() == priority : "Priority does not match";
         Storage.writeToFile(taskList);
-        return StringUtility.joinLines(Message.MARK_DONE, taskList.getTask(index).toString());
+        String message = String.format(Message.SET_PRIORITY, priority);
+        return StringUtility.joinLines(message, taskList.getTask(index).toString());
     }
 
 }

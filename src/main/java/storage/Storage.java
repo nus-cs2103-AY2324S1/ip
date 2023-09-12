@@ -39,18 +39,19 @@ public abstract class Storage {
             String[] lines = TextFileHandler.readLines(TASK_FILE_PATH);
             for (String line : lines) {
                 String[] task = line.split(TASK_FILE_SEPARATOR);
-                String taskType = task[2];
+                String taskType = task[3];
+                String priority = task[2];
                 String status = task[1];
                 String description = task[0];
 
                 if (taskType.equals("T")) {
                     res.addTask(new Todo(description));
                 } else if (taskType.equals("D")) {
-                    String time = task[3];
+                    String time = task[4];
                     res.addTask(new Deadline(description, DateTimeParser.parse(time)));
                 } else if (taskType.equals("E")) {
-                    String from = task[3];
-                    String to = task[4];
+                    String from = task[4];
+                    String to = task[5];
                     res.addTask(new Event(description, DateTimeParser.parse(from),
                             DateTimeParser.parse(to)));
                 }
@@ -58,6 +59,10 @@ public abstract class Storage {
                 if (status.equals("1")) {
                     res.markDone(res.size() - 1);
                 }
+
+                int prio = Integer.parseInt(priority);
+                res.setPriority(res.size() - 1, prio);
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -84,6 +89,8 @@ public abstract class Storage {
             } else {
                 output += TASK_FILE_SEPARATOR + "0";
             }
+
+            output += TASK_FILE_SEPARATOR + task.getPriority();
 
             if (task instanceof Todo) {
                 output += TASK_FILE_SEPARATOR + "T";

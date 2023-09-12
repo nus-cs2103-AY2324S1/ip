@@ -8,6 +8,7 @@ package task;
 public abstract class Task {
     private String description;
     private boolean isDone;
+    private int priority;
 
     /**
      * Constructs a Task with the specified description.
@@ -17,6 +18,7 @@ public abstract class Task {
     protected Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.priority = 0;
     }
 
     /**
@@ -25,7 +27,7 @@ public abstract class Task {
      * @return "X" if the task is done, " " if the task is not done.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return (isDone ? "X" : "  ");
     }
 
     /**
@@ -57,16 +59,34 @@ public abstract class Task {
      * @return The description of the task.
      */
     public String getDescription() {
-        return this.description;
+        return description;
+    }
+
+    /**
+     * Retrieves the priority of the task.
+     *
+     * @return The priority of the task.
+     */
+    public int getPriority() {
+        return priority;
+    }
+
+    /**
+     * Sets the priority of the task.
+     * 
+     * @param priority The new priority.
+     */
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     /**
      * Returns a string representation of the task.
      *
-     * @return A string in the format: "[Status] Description"
+     * @return A string in the format: "[Status][Priority] Description"
      */
     @Override
     public String toString() {
-        return String.format("[%s] %s", getStatusIcon(), this.description);
+        return String.format("[%s][%d] %s", getStatusIcon(), priority, description);
     }
 }

@@ -30,6 +30,10 @@ public abstract class DateTimeParser {
         String time = null;
         String dateFormat = null;
 
+        if (input == null) {
+            return null;
+        }
+
         if (input.split(" ").length == 2) {
             date = input.split(" ")[0];
             time = input.split(" ")[1];

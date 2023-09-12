@@ -1,6 +1,7 @@
 package command;
 
 import common.Message;
+import exceptions.InvalidIndexException;
 import storage.Storage;
 import task.Task;
 import task.TaskList;
@@ -30,9 +31,15 @@ public class CmdDelete extends Command {
      *
      * @param taskList The task list from which the task should be deleted.
      * @return response to the user.
+     * @throws InvalidIndexException if the index is out of range of the task list.
      */
     @Override
-    public String execute(TaskList taskList) {
+    public String execute(TaskList taskList) throws InvalidIndexException {
+
+        if (this.index < 0 || this.index > taskList.size() - 1) {
+            throw new InvalidIndexException();
+        }
+
         Task deleted = taskList.deleteTask(index);
         Storage.writeToFile(taskList);
 

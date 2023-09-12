@@ -87,6 +87,16 @@ public class TaskList {
     }
 
     /**
+     * Sets a task at the specified index to a specified priority.
+     *
+     * @param index    The index of the task to set.
+     * @param priority The new priority.
+     */
+    public void setPriority(int index, int priority) {
+        list.get(index).setPriority(priority);
+    }
+
+    /**
      * Searches for tasks with description containing the keyword.
      *
      * @param keyword The keyword to search.

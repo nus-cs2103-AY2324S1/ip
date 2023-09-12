@@ -1,5 +1,6 @@
 package command;
 
+import exceptions.ThorndikeException;
 import task.TaskList;
 
 /**
@@ -16,7 +17,8 @@ public abstract class Command {
      *
      * @param taskList The task list to operate on.
      * @return response to the user.
+     * @throws ThorndikeException if there an error occurs during execution.
      */
-    public abstract String execute(TaskList taskList);
+    public abstract String execute(TaskList taskList) throws ThorndikeException;
 
 }

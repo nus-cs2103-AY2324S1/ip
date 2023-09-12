@@ -9,6 +9,7 @@ public abstract class Message {
 
     public static final String MARK_NOT_DONE = "Meow! I've marked this task as not done yet:";
     public static final String MARK_DONE = "Meow! I've marked this task as done:";
+    public static final String SET_PRIORITY = "Meow! I've changed the priority to %d";
     public static final String LIST_TASK = "Here are the tasks in your list:";
     public static final String FIND_TASK = "Here are the matching tasks in your list:";
     public static final String DELETE_TASK = "Meow. I've removed this task:";

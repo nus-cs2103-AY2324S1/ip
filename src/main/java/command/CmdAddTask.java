@@ -1,6 +1,7 @@
 package command;
 
 import common.Message;
+import storage.Storage;
 import task.Task;
 import task.TaskList;
 import utility.StringUtility;
@@ -31,6 +32,7 @@ public class CmdAddTask extends Command {
     @Override
     public String execute(TaskList taskList) {
         taskList.addTask(task);
+        Storage.writeToFile(taskList);
 
         return StringUtility.joinLines(Message.DELETE_TASK,
                 task.toString(),

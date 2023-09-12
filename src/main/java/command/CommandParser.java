@@ -6,6 +6,7 @@ import java.util.Map;
 
 import exceptions.InvalidDateTimeFormat;
 import exceptions.InvalidIndexException;
+import exceptions.InvalidPriorityException;
 import exceptions.MissingDescriptionException;
 import exceptions.ThorndikeException;
 import task.Deadline;
@@ -44,8 +45,6 @@ public abstract class CommandParser {
                 arguments.put("command", command);
                 arguments.put("description", value);
                 arguments.put(option, value);
-            } else {
-
             }
         }
 
@@ -74,7 +73,13 @@ public abstract class CommandParser {
                 throw new MissingDescriptionException("todo");
             }
 
-            return new CmdAddTask(new Todo(description));
+            Todo res = new Todo(description);
+            if (arguments.containsKey("priority")) {
+                int priority = parsePriority(arguments.get("priority"));
+                res.setPriority(priority);
+            }
+
+            return new CmdAddTask(res);
         }
 
         if (command.equals("deadline")) {
@@ -87,7 +92,13 @@ public abstract class CommandParser {
                 throw new InvalidDateTimeFormat();
             }
 
-            return new CmdAddTask(new Deadline(description, by));
+            Deadline res = new Deadline(description, by);
+            if (arguments.containsKey("priority")) {
+                int priority = parsePriority(arguments.get("priority"));
+                res.setPriority(priority);
+            }
+
+            return new CmdAddTask(res);
         }
 
         if (command.equals("event")) {
@@ -97,15 +108,29 @@ public abstract class CommandParser {
 
             LocalDateTime from = DateTimeParser.parse(arguments.get("from"));
             LocalDateTime to = DateTimeParser.parse(arguments.get("to"));
+
             if (from == null || to == null) {
                 throw new InvalidDateTimeFormat();
             }
 
-            return new CmdAddTask(new Event(description, from, to));
+            Event res = new Event(description, from, to);
+            if (arguments.containsKey("priority")) {
+                int priority = parsePriority(arguments.get("priority"));
+                res.setPriority(priority);
+            }
+
+            return new CmdAddTask(res);
         }
 
         if (command.equals("find")) {
             return new CmdFind(description);
+        }
+
+        if (command.equals("priority")) {
+            int index = parseIndex(description);
+            int priority = parsePriority(arguments.get("set"));
+
+            return new CmdSetPriority(index, priority);
         }
 
         return null;
@@ -128,5 +153,29 @@ public abstract class CommandParser {
         }
 
         return idx - 1;
+    }
+
+    /**
+     * Parses priority as string, checks if it's valid and returns it as an
+     * integer.
+     *
+     * @param priority The string representing the priority to be parsed.
+     * @return The parsed priority.
+     * @throws ThorndikeException If the priority cannot be parsed or is invalid.
+     */
+    private static int parsePriority(String priority) throws ThorndikeException {
+        int res = 0;
+
+        try {
+            res = Integer.parseInt(priority);
+        } catch (Exception e) {
+            throw new InvalidPriorityException();
+        }
+
+        if (res < 0 || res > 5) {
+            throw new InvalidPriorityException();
+        }
+
+        return res;
     }
 }
