@@ -5,7 +5,7 @@ package duke.task;
  * @author Toh Li Yuan (A0255811H)
  */
 public abstract class Task {
-    protected static final String DISCRIMINATOR = " || ";
+    public static final String DISCRIMINATOR = " || ";
     protected String name;
     protected boolean status;
     protected TaskTypes type;

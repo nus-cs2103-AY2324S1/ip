@@ -35,7 +35,7 @@ public class TaskParser {
      * @return an Optional class containing the parsed Task.
      */
     public static Optional<Task> parseSave(String saveLine) {
-        String[] splitArray = saveLine.split(" \\|\\| ");
+        String[] splitArray = saveLine.split(Task.DISCRIMINATOR.replaceAll("\\|", "\\\\|"));
         Optional<Task> ret = Optional.empty();
         switch (splitArray[0]) {
         case "T": {
