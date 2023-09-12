@@ -136,4 +136,12 @@ public class TaskList {
             return output.toString();
         }
     }
+    public boolean isDuplicate(String desc) {
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).description.equals(desc)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

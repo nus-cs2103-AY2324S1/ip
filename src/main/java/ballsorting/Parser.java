@@ -84,12 +84,12 @@ public class Parser {
 
             if (input.startsWith("todo")) {
 
-                String des = input.substring(4).trim();
-                if (des.equals("")) {
+                description.append(input.substring(4).trim());
+                if (description.toString().equals("")) {
                     return CustomErrorHandling.emptyTodoDescription();
                 } else {
-                    assert !des.equals("");
-                    curr = new Todo(des);
+                    assert !description.toString().equals("");
+                    curr = new Todo(description.toString());
                 }
 
             } else if (input.startsWith("deadline")) {
@@ -134,7 +134,7 @@ public class Parser {
                     LocalDateTime startDateTime = LocalDateTime.parse(start.toString(), Ballsorter.inputFormatter);
                     LocalDateTime endDateTime = LocalDateTime.parse(input.substring(i), Ballsorter.inputFormatter);
                     if (endDateTime.isBefore(startDateTime)) {
-                        return "☹ OOPS!!! The end time of an event cannot be before the start";
+                        return CustomErrorHandling.invalidEventDates();
                     }
                     assert !description.toString().equals("");
                     curr = new Event(description.toString(), startDateTime, endDateTime);
@@ -145,6 +145,10 @@ public class Parser {
             }
 
             assert curr != null;
+            assert !description.toString().equals("");
+            if (taskList.isDuplicate(description.toString())) {
+                return CustomErrorHandling.duplicatedTask();
+            }
             return taskList.addTask(curr);
         }
     }
