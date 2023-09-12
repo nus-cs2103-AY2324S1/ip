@@ -10,14 +10,14 @@ import duke.ui.Ui;
  * when they provide an invalid user input as the command.
  */
 public class InvalidCommand extends Command {
-    private final DukeException ERROR;
+    private final DukeException error;
 
     public InvalidCommand(DukeException error) {
-        ERROR = error;
+        this.error = error;
     }
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        return ui.showErrorMessage(ERROR.getMessage());
+        return ui.showErrorMessage(error.getMessage());
     }
 }

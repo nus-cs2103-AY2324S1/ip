@@ -142,7 +142,7 @@ public class ParserTest {
             Command command = Parser.parse("mark");
             assertTrue(command instanceof MarkCommand);
         } catch (DukeException e) {
-            assertEquals("OOPS!!! The format of marking a task done is \"mark TASK_NUMBER\".\n"
+            assertEquals("OOPS!!! The format of this command is \"mark TASK_NUMBER\". "
                     + "Task number must exist in the task list.", e.getMessage());
         }
     }
@@ -163,7 +163,7 @@ public class ParserTest {
             Command command = Parser.parse("unmark");
             assertTrue(command instanceof UnmarkCommand);
         } catch (DukeException e) {
-            assertEquals("OOPS!!! The format of marking a task done is \"unmark TASK_NUMBER\".\n"
+            assertEquals("OOPS!!! The format of this command is \"unmark TASK_NUMBER\". "
                     + "Task number must exist in the task list.", e.getMessage());
         }
     }
@@ -184,7 +184,7 @@ public class ParserTest {
             Command command = Parser.parse("delete 1");
             assertTrue(command instanceof DeleteCommand);
         } catch (DukeException e) {
-            assertEquals("OOPS!!! The format of marking a task done is \"delete TASK_NUMBER\".\n"
+            assertEquals("OOPS!!! The format of this command is \"delete TASK_NUMBER\". "
                     + "Task number must exist in the task list.", e.getMessage());
         }
     }

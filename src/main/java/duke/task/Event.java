@@ -18,8 +18,8 @@ public class Event extends Task {
     public Event(String description, String from, String to) {
         super(description);
 
-        assert from != null: "From cannot be null";
-        assert to != null: "To cannot be null";
+        assert from != null : "From cannot be null";
+        assert to != null : "To cannot be null";
 
         this.from = from.trim();
         this.to = to.trim();

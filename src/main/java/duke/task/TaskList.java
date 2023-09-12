@@ -7,14 +7,14 @@ import java.util.ArrayList;
  * performed on the tasks in the list.
  */
 public class TaskList {
-    private final ArrayList<Task> TASKS;
+    private final ArrayList<Task> tasks;
 
     public TaskList() {
-        TASKS = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     public TaskList(ArrayList<Task> tasks) {
-        TASKS = tasks;
+        this.tasks = tasks;
     }
 
     /**
@@ -23,7 +23,7 @@ public class TaskList {
      * @param task Task to be added into task list.
      */
     public void add(Task task) {
-        TASKS.add(task);
+        tasks.add(task);
     }
 
     /**
@@ -32,7 +32,7 @@ public class TaskList {
      * @param taskNumber Task Number corresponding to the task list to be removed.
      */
     public void remove(int taskNumber) {
-        TASKS.remove(taskNumber - 1);
+        tasks.remove(taskNumber - 1);
     }
 
     /**
@@ -41,14 +41,14 @@ public class TaskList {
      * @return number of tasks.
      */
     public int getNumberOfTasks() {
-        return TASKS.size();
+        return tasks.size();
     }
 
     public Task getTask(int taskNumber) {
-        return TASKS.get(taskNumber - 1);
+        return tasks.get(taskNumber - 1);
     }
 
     public ArrayList<Task> getList() {
-        return TASKS;
+        return tasks;
     }
 }

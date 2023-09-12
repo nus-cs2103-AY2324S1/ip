@@ -12,9 +12,9 @@ import duke.ui.Ui;
  * to keep track of various tasks.
  */
 public class Duke {
-    private final Storage STORAGE;
+    private final Storage storage;
     private TaskList tasks;
-    private final Ui UI;
+    private final Ui ui;
 
     /**
      * Constructs a Duke object.
@@ -22,12 +22,12 @@ public class Duke {
      * @param filePath The filepath for loading and saving the file.
      */
     public Duke(String filePath) {
-        UI = new Ui();
-        STORAGE = new Storage(filePath);
+        ui = new Ui();
+        storage = new Storage(filePath);
         try {
-            tasks = new TaskList(STORAGE.load());
+            tasks = new TaskList(storage.load());
         } catch (DukeException e) {
-            UI.showErrorMessage(e.getMessage());
+            ui.showErrorMessage(e.getMessage());
             tasks = new TaskList();
         }
     }
@@ -38,7 +38,7 @@ public class Duke {
      * @return A welcome message to greet the user.
      */
     public String getGreetings() {
-        return UI.showWelcomeMessage();
+        return ui.showWelcomeMessage();
     }
 
     /**
@@ -50,11 +50,11 @@ public class Duke {
      */
     public String getResponse(String input) {
         try {
-            assert input != null: "Input cannot be null";
+            assert input != null : "Input cannot be null";
             Command c = Parser.parse(input);
-            return c.execute(tasks, UI, STORAGE);
+            return c.execute(tasks, ui, storage);
         } catch (DukeException e) {
-            return UI.showErrorMessage(e.getMessage());
+            return ui.showErrorMessage(e.getMessage());
         }
     }
 }

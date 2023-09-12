@@ -23,7 +23,7 @@ import duke.ui.Ui;
  * loading tasks from the file.
  */
 public class Storage {
-    private final String FILE_PATH;
+    private final String filePath;
 
     /**
      * Constructs a Storage object.
@@ -31,7 +31,7 @@ public class Storage {
      * @param filePath The filepath of the file containing the tasks.
      */
     public Storage(String filePath) {
-        FILE_PATH = filePath;
+        this.filePath = filePath;
     }
 
     /**
@@ -41,7 +41,7 @@ public class Storage {
      * @param ui The user interface of the Duke application.
      */
     public void save(ArrayList<Task> tasks, Ui ui) {
-        File f = new File(FILE_PATH);
+        File f = new File(filePath);
 
         if (!f.exists()) {
             try {
@@ -55,7 +55,7 @@ public class Storage {
 
         try {
             // Write tasks into hard disk
-            FileWriter fileWriter = new FileWriter(FILE_PATH);
+            FileWriter fileWriter = new FileWriter(filePath);
 
             for (Task task : tasks) {
                 fileWriter.write(task.toFileFormat());
@@ -74,13 +74,13 @@ public class Storage {
      */
     public ArrayList<Task> load() throws DukeException {
         try {
-            File file = new File(FILE_PATH);
+            File file = new File(filePath);
             Scanner scanner = new Scanner(file);
             ArrayList<Task> tasks = parseTasksFromFile(scanner);
             scanner.close();
             return tasks;
         } catch (DukeException | FileNotFoundException e) {
-            throw new DukeException("File not found: " + FILE_PATH);
+            throw new DukeException("File not found: " + filePath);
         }
     }
 
