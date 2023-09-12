@@ -24,6 +24,11 @@ public class Ui {
         return "Goodbye! Hope to see you again soon!";
     }
 
+    /**
+     * Returns a help message with commands and instructions
+     *
+     * @return help message with commands and instructions
+     */
     public static String helpMessage() {
         return "Here are the list of commands:\n"
                 + "All dates/times should be in the format dd/mm/yyyy hhmm, eg: 01/01/2024 2359\n\n"
