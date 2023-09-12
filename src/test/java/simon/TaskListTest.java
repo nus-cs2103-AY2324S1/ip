@@ -138,13 +138,13 @@ public class TaskListTest {
         ToDo sampleTask1 = new ToDo("Sample Task 1");
         ToDo sampleTask2 = new ToDo("Sample Task 2");
 
-        assertFalse(tasks.isDuplicate(sampleTask1));  // Check before adding the first task
+        assertFalse(tasks.isDuplicate(sampleTask1)); // Check before adding the first task
         tasks.addTask(sampleTask1);
-        assertTrue(tasks.isDuplicate(sampleTask1));  // Check after adding the first task
+        assertTrue(tasks.isDuplicate(sampleTask1)); // Check after adding the first task
 
-        assertFalse(tasks.isDuplicate(sampleTask2));  // Check before adding the second task
+        assertFalse(tasks.isDuplicate(sampleTask2)); // Check before adding the second task
         tasks.addTask(sampleTask2);
-        assertTrue(tasks.isDuplicate(sampleTask2));  // Check after adding the second task
+        assertTrue(tasks.isDuplicate(sampleTask2)); // Check after adding the second task
 
         assertEquals(2, tasks.getTaskCount());
     }
