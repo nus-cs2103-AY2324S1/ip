@@ -1,5 +1,10 @@
 package duke;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Scanner;
+
 import duke.tasks.TaskList;
 import duke.tasks.Task;
 
@@ -19,7 +24,8 @@ public class Ui {
      */
     public static String welcome() {
         String name = "DukeKing";
-        String welcome = "Hello! I'm " + name + "\nWhat can I do for you?";
+        String welcome = "Hello! I'm " + name + "\nWhat can I do for you?\n";
+        welcome += "For new users, type help to see the list of commands you can use.";
         System.out.println(welcome);
         return welcome;
     }
@@ -122,22 +128,72 @@ public class Ui {
         return output;
     }
 
-    public String helpList() {
+    public String helpList() throws FileNotFoundException {
         printLine();
-        String output = "Here are the list of commands you can use: \n";
-        output += "1. todo <task name> \n";
-        output += "2. deadline <task name> /by <date> \n";
-        output += "3. event <task name> /at <date> \n";
-        output += "4. list \n";
-        output += "5. mark <task number> \n";
-        output += "6. unmark <task number> \n";
-        output += "7. delete <task number> \n";
-        output += "8. find <keyword> \n";
-        output += "9. bye \n";
-        output += "10. help \n";
-        output += "To have examples for the different commands, please type help <command number>. \n";
-        output += "Thank you for using DukeKing, We aim to improve everyone productivity! \n";
-        System.out.println(output);
+        String output = "";
+        File file = new File("./HelpList.txt");
+        Scanner sc = new Scanner(new FileReader(file));
+        while (sc.hasNextLine()) {
+            String line = sc.nextLine();
+            System.out.println(line);
+            output += line + "\n";
+        }
+        return output;
+    }
+
+    public String detailedHelp(int helpNumber) {
+        String output = "";
+        String correctExample = "";
+        switch (helpNumber) {
+        case 1:
+            output += "todo <task name> : add a todo task to the list\n";
+            correctExample += "Example: todo read book\n";
+            output += correctExample;
+            break;
+        case 2:
+            output += "deadline <task name> /by <end time> : add a deadline task to the list\n";
+            correctExample += "Example: deadline return book /by 2pm\n";
+            output += correctExample;
+            break;
+        case 3:
+            output += "event <task name> /from <start time> /to <end time> : add an event task to the list\n";
+            correctExample += "Example: event project meeting /from 2pm /to 4pm\n";
+            output += correctExample;
+            break;
+        case 4:
+            output += "list : list out all the tasks in the list\n";
+            correctExample += "Example: list\n";
+            output += correctExample;
+            break;
+        case 5:
+            output += "mark <task number> : mark the task as done\n";
+            correctExample += "Example: mark 1\n";
+            output += correctExample;
+            break;
+        case 6:
+            output += "unmark <task number> : unmark the task as done\n";
+            correctExample += "Example: unmark 1\n";
+            output += correctExample;
+            break;
+        case 7:
+            output += "delete <task number> : delete the task from the list\n";
+            correctExample += "Example: delete 1\n";
+            output += correctExample;
+            break;
+        case 8:
+            output += "find <keyword> : find the task with the keyword\n";
+            correctExample += "Example: find book\n";
+            output += correctExample;
+            break;
+        case 9:
+            output += "bye : end the program\n";
+            correctExample += "Correct: bye\n";
+            output += correctExample;
+            break;
+        default:
+            output += "Please enter a valid number from 1 to 9";
+            break;
+        }
         return output;
     }
 }

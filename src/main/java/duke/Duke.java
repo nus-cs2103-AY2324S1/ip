@@ -49,7 +49,7 @@ public class Duke {
      * "bye" command is given by the user to end the program
      */
     public void run() {
-        helper.welcome();
+        Ui.welcome();
         // setting up
         Scanner sc = new Scanner(System.in);
         String string = sc.nextLine();

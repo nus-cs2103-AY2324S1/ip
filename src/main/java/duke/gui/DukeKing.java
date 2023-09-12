@@ -25,6 +25,7 @@ public class DukeKing extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
+            stage.setTitle("DukeKing");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
