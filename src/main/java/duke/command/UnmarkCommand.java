@@ -8,15 +8,13 @@ import duke.storage.Storage;
 /**
  * Represents a command to mark the specified task as not done yet.
  */
-public class UnmarkCommand extends Command {
+public class UnmarkCommand extends ModifyTaskCommand {
 
     public static final String COMMAND_WORD = "unmark";
     private static final String COMMAND_RESPONSE = "Nice! I've marked this task as not done yet:\n\t";
 
-    private int taskIndex;
-
     public UnmarkCommand(String taskIndex) {
-        this.taskIndex = Integer.parseInt(taskIndex);
+        super(taskIndex);
     }
 
     @Override
