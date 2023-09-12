@@ -12,7 +12,7 @@ public class UnmarkCommand extends Command {
     private final int TASK_NUMBER;
 
     /**
-     * Construcst an UnmarkCommand object.
+     * Construct an UnmarkCommand object.
      *
      * @param taskNumber The task number corresponding to the task, to be marked undone.
      */
@@ -25,6 +25,7 @@ public class UnmarkCommand extends Command {
         if (TASK_NUMBER > taskList.getNumberOfTasks()) {
             throw new DukeException("OOPS!!! Task " + TASK_NUMBER + " does not exist.");
         }
+
         String message = ui.showTaskMarkedAsUndone(taskList.getTask(TASK_NUMBER));
         storage.save(taskList.getList(), ui);
         return message;

@@ -68,6 +68,7 @@ public class Parser {
             }
 
             int taskNumber = Integer.parseInt(splitCommand[1]);
+
             switch (splitCommand[0]) {
             case "mark":
                 return new MarkCommand(taskNumber);

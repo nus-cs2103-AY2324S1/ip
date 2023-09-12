@@ -25,6 +25,7 @@ public class DeleteCommand extends Command {
         if (TASK_NUMBER > taskList.getNumberOfTasks()) {
             throw new DukeException("OOPS!!! Task " + TASK_NUMBER + " does not exist.");
         }
+
         String message = ui.showDeletedTask(taskList.getTask(TASK_NUMBER), taskList.getNumberOfTasks() - 1);
         taskList.remove(TASK_NUMBER);
         storage.save(taskList.getList(), ui);

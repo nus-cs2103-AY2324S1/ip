@@ -5,8 +5,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-import duke.parser.Parser;
-
 /**
  * The Deadline class represents a task with a description,
  * completion status, and a deadline date and time.
@@ -30,19 +28,6 @@ public class Deadline extends Task {
 
         this.date = date;
         this.time = time;
-    }
-
-    /**
-     * Constructs the Deadline object.
-     *
-     * @param description Description of the task.
-     * @param date String representation of the date of deadline task.
-     * @param time String representation of the time of deadline task.
-     */
-    public Deadline(String description, String date, String time) {
-        super(description);
-        this.date = Parser.parseDate(date);
-        this.time = Parser.parseTime(time);
     }
 
     /**

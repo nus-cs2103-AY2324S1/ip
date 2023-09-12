@@ -54,12 +54,11 @@ public class Ui {
         if (tasks.isEmpty()) {
             // Case where there are no tasks to be displayed
             message.append("No tasks added. \n");
-        } else {
-            message.append("Here are the task(s) in your list:\n");
+        }
 
-            for (Task task : tasks) {
-                message.append(tasks.indexOf(task) + 1).append(". ").append(task).append("\n");
-            }
+        message.append("Here are the task(s) in your list:\n");
+        for (Task task : tasks) {
+            message.append(tasks.indexOf(task) + 1).append(". ").append(task).append("\n");
         }
 
         return message.toString();
@@ -121,13 +120,13 @@ public class Ui {
         if (tasks.isEmpty()) {
             // Case where there are no matching tasks to be displayed
             message.append("No matching tasks in the list. \n");
-        } else {
-            message.append("Here are the matching task(s) in your list:\n");
-
-            for (Task task : tasks) {
-                message.append(tasks.indexOf(task) + 1).append(". ").append(task.toString()).append("\n");
-            }
         }
+
+        message.append("Here are the matching task(s) in your list:\n");
+        for (Task task : tasks) {
+            message.append(tasks.indexOf(task) + 1).append(". ").append(task.toString()).append("\n");
+        }
+
         return message.toString();
     }
 }

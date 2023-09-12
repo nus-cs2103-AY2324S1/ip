@@ -73,53 +73,61 @@ public class Storage {
      * @throws DukeException If the task type in the file is invalid, or file is not found.
      */
     public ArrayList<Task> load() throws DukeException {
-        ArrayList<Task> tasks = new ArrayList<>();
-
         try {
             File file = new File(FILE_PATH);
             Scanner scanner = new Scanner(file);
-
-            while (scanner.hasNextLine()) {
-                String fullTaskCommand = scanner.nextLine();
-                String[] taskParts = fullTaskCommand.split("\\|");
-                String taskType = taskParts[0].trim();
-                int taskStatus = Integer.parseInt(taskParts[1].trim());
-
-                switch (taskType) {
-                case "T":
-                    Task todo = new ToDo(taskParts[2].trim());
-                    tasks.add(todo);
-                    todo.markStatusFromFile(taskStatus);
-                    break;
-                case "D":
-                    String datePart = taskParts[3].trim();
-                    String timePart = taskParts[4].trim();
-                    LocalDate date = LocalDate.parse(datePart, DateTimeFormatter.ofPattern("d MMM yyyy", Locale.US));
-                    String formattedDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-
-                    LocalTime time = LocalTime.parse(timePart, DateTimeFormatter.ofPattern("h.mma", Locale.US));
-                    String formattedTime = time.format(DateTimeFormatter.ofPattern("HHmm"));
-
-                    Task deadline = new Deadline(taskParts[2].trim(), formattedDate, formattedTime);
-                    tasks.add(deadline);
-                    deadline.markStatusFromFile(taskStatus);
-                    break;
-                case "E":
-                    Task event = new Event(taskParts[2].trim(),
-                            taskParts[3].trim().replace("from", ""),
-                            taskParts[4].trim().replace("to", ""));
-                    tasks.add(event);
-                    event.markStatusFromFile(taskStatus);
-                    break;
-                default:
-                    throw new DukeException("Invalid task type in file: " + taskType);
-                }
-            }
+            ArrayList<Task> tasks = parseTasksFromFile(scanner);
             scanner.close();
+            return tasks;
         } catch (DukeException | FileNotFoundException e) {
             throw new DukeException("File not found: " + FILE_PATH);
         }
+    }
 
+    /**
+     * Parses tasks from a file using a provided Scanner and returns an ArrayList of tasks.
+     *
+     * @param scanner The Scanner object used to read task information from the file.
+     * @return An ArrayList of tasks parsed from the file.
+     * @throws DukeException If there are issues parsing the tasks or if the task type is invalid.
+     */
+    public ArrayList<Task> parseTasksFromFile(Scanner scanner) throws DukeException {
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        while (scanner.hasNextLine()) {
+            String fullTaskCommand = scanner.nextLine();
+            String[] taskParts = fullTaskCommand.split("\\|");
+            String taskType = taskParts[0].trim();
+            int taskStatus = Integer.parseInt(taskParts[1].trim());
+
+            switch (taskType) {
+            case "T":
+                Task todo = new ToDo(taskParts[2].trim());
+                tasks.add(todo);
+                todo.markStatusFromFile(taskStatus);
+                break;
+            case "D":
+                String datePart = taskParts[3].trim();
+                String timePart = taskParts[4].trim();
+
+                LocalDate date = LocalDate.parse(datePart, DateTimeFormatter.ofPattern("d MMM yyyy", Locale.US));
+                LocalTime time = LocalTime.parse(timePart, DateTimeFormatter.ofPattern("h.mma", Locale.US));
+
+                Task deadline = new Deadline(taskParts[2].trim(), date, time);
+                tasks.add(deadline);
+                deadline.markStatusFromFile(taskStatus);
+                break;
+            case "E":
+                Task event = new Event(taskParts[2].trim(),
+                        taskParts[3].trim().replace("from", ""),
+                        taskParts[4].trim().replace("to", ""));
+                tasks.add(event);
+                event.markStatusFromFile(taskStatus);
+                break;
+            default:
+                throw new DukeException("Invalid task type in file: " + taskType);
+            }
+        }
         return tasks;
     }
 }
