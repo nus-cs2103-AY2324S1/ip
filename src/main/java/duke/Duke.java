@@ -1,9 +1,10 @@
 package duke;
 
-import duke.assets.storage.Storage;
-
 import java.io.IOException;
+
 import java.util.Scanner;
+
+import duke.assets.storage.Storage;
 
 /**
  * The main class for the ChadGPT chatbot application.

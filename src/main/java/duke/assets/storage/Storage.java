@@ -1,13 +1,14 @@
 package duke.assets.storage;
 
-import duke.assets.parser.Parser;
-import duke.dukeexceptions.CorruptDataException;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import java.util.Scanner;
+
+import duke.assets.parser.Parser;
+import duke.dukeexceptions.CorruptDataException;
 
 /**
  * Represents a storage class that handles reading and writing data to a file

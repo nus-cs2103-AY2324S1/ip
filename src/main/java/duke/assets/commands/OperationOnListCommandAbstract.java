@@ -1,8 +1,9 @@
 package duke.assets.commands;
 
-import duke.assets.storage.TaskList;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+
+import duke.assets.storage.TaskList;
 
 /**
  * An abstract command class that is parent of all possible commands that operates on the task list for the chatbot

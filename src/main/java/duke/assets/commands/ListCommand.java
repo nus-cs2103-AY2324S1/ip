@@ -1,8 +1,9 @@
 package duke.assets.commands;
 
-import duke.assets.storage.TaskList;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+
+import duke.assets.storage.TaskList;
 
 /**
  * Represents a command to list all tasks in the task list
