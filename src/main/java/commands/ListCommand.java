@@ -20,17 +20,19 @@ public class ListCommand extends Command {
      * Executes the list command, which displays all the tasks in the task list.
      *
      * @param tasks  The task list to retrieve tasks from.
-     * @param ui The user interface to display the list of tasks.
+     * @param ui     The user interface to display the list of tasks.
      * @param marked always false - intended for use by AddCommand
-     * @param load always false - intended for use by AddCommand
+     * @param load   always false - intended for use by AddCommand
      */
-    public void execute(TaskList<Task> tasks, Ui ui, boolean marked, boolean load) {
-        System.out.println(ui.showLine() + "\n" +
-                "Here are the tasks in your :");
+    public String execute(TaskList<Task> tasks, Ui ui, boolean marked, boolean load) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(ui.showLine() + "\n" +
+                "Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            Task job = (Task) tasks.get(i);
-            System.out.println(String.format("%d. %s", i + 1, job.toString()));
+            Task job = tasks.get(i);
+            sb.append(String.format("%d. %s", i + 1, job.toString()) + "\n");
         }
-        System.out.println(ui.showLine());
+        sb.append(ui.showLine());
+        return sb.toString();
     }
 }

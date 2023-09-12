@@ -21,21 +21,21 @@ public class UnmarkCommand extends Command {
      * Marks the specified task as not done.
      *
      * @param tasks  The task list containing the tasks.
-     * @param ui The user interface to display the result.
+     * @param ui     The user interface to display the result.
      * @param marked always false - intended for use by AddCommand
-     * @param load always false - intended for use by AddCommand
+     * @param load   always false - intended for use by AddCommand
      */
 
-    public void execute(TaskList<Task> tasks, Ui ui, boolean marked, boolean load) throws DukeException {
+    public String execute(TaskList<Task> tasks, Ui ui, boolean marked, boolean load) throws DukeException {
         int index = Integer.parseInt(ui.get(1)) - 1;
         if (index >= tasks.size()) {
-            throw new DukeException();
+            throw new DukeException("index out of bounds");
         }
-        Task job = (Task) tasks.get(index);
+        Task job = tasks.get(index);
         job = job.unmark();
         tasks.set(index, job);
-        System.out.println(ui.showLine() + "\n" +
+        return ui.showLine() + "\n" +
                 "OK, I've marked this task as not done yet:\n" + job.toString() + "\n"
-                + ui.showLine());
+                + ui.showLine();
     }
 }

@@ -18,6 +18,7 @@ public class Storage {
 
     /**
      * Constructs a Storage object with the specified filePath
+     *
      * @param filePath
      */
     public Storage(String filePath) {
@@ -26,6 +27,7 @@ public class Storage {
 
     /**
      * Load the task stored in the local drive
+     *
      * @return TaskList retrieved from the drive
      * @throws functional.DukeException
      */
@@ -42,14 +44,15 @@ public class Storage {
                 c.execute(tl, ui, Boolean.parseBoolean(input[0]), true);
             }
         } catch (FileNotFoundException e) {
-            throw new DukeException();
+            throw new DukeException("");
         }
-        System.out.println("Opening Saved File");
+        // System.out.println("Opening Saved File");
         return tl;
     }
 
     /**
      * Saves the current TaskList to the drive
+     *
      * @param tl TaskList to be saved
      */
     public void save(TaskList<Task> tl) {
@@ -57,7 +60,7 @@ public class Storage {
         if (!f.exists()) {
             f.getParentFile().mkdirs();
         }
-        System.out.println("Saving file");
+        // System.out.println("Saving file");
         try {
             FileWriter fw = new FileWriter(filePath);
             for (Task task : tl) {
@@ -67,7 +70,7 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
-        System.out.println("File successfully Saved");
+        // System.out.println("File successfully Saved");
     }
 
 }
