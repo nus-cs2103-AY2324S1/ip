@@ -57,22 +57,52 @@ public class TaskList {
      * @throws EmptyTaskException If the user input is missing task details.
      * @throws OutOfRangeException If the task index is out of the array range.
      * @throws IOException If an I/O error occurs while updating the task file.
+     * @return A string containing a message and the details of the marked task.
      */
     public static String markTask(String userInput) throws EmptyTaskException, OutOfRangeException, IOException {
-        if (userInput.equals("mark")) {
-            throw new EmptyTaskException("mark");
-        }
-        String[] parts = userInput.split("\\s+");
-        int taskIndex = Integer.parseInt(parts[1]) - 1;
-        if (taskIndex >= taskArray.size() || taskIndex < 0 || taskArray.get(taskIndex) == null) {
-            throw new OutOfRangeException("Mark");
-        }
-        Task currentTask = taskArray.get(taskIndex);
+        Task currentTask = markOrUnmark(userInput, "mark");
         currentTask.markDone();
+        printMarkTask(currentTask);
+        return "Nice! I've marked this task as done:\n" + currentTask.statusAndTask();
+    }
+
+    /**
+     * Returns the task to be marked or unmarked as done based on user input.
+     *
+     * @param userInput The user input specifying the task to be marked.
+     * @param command The command specifying to mark or unmark task.
+     * @throws EmptyTaskException If the user input is missing task details.
+     * @throws OutOfRangeException If the task index is uot of the array range.
+     * @return The Task to be marked or unmarked.
+     */
+    public static Task markOrUnmark(String userInput, String command) throws EmptyTaskException, OutOfRangeException {
+        if (userInput.equals(command)) {
+            throw new EmptyTaskException(command);
+        }
+        int taskIndex = getTaskIndexFromMark(userInput);
+        if (isInvalidIndex(taskIndex)) {
+            throw new OutOfRangeException(command);
+        }
+        return taskArray.get(taskIndex);
+    }
+
+    /**
+     * Extracts the task index from the mark or unmark userInput.
+     *
+     * @param userInput The user input specifying the task to be marked or unmarked.
+     * @return The index of the task to be marked or unmarked.
+     */
+    public static int getTaskIndexFromMark(String userInput) {
+        String[] markAndTaskNum = userInput.split("\\s+");
+        markAndTaskNum = trimStringElements(markAndTaskNum);
+        int taskNum = Integer.parseInt(markAndTaskNum[1]);
+        int taskIndex = taskNum - 1;
+        return taskIndex;
+    }
+    
+    public static void printMarkTask(Task currentTask) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(currentTask.statusAndTask());
-        return "Nice! I've marked this task as done:\n" + currentTask.statusAndTask();
-
     }
 
     /**
@@ -83,19 +113,15 @@ public class TaskList {
      * @throws OutOfRangeException If the task index is out of the array range.
      */
     public static String unmarkTask(String userInput) throws EmptyTaskException, OutOfRangeException {
-        if (userInput.equals("unmark")) {
-            throw new EmptyTaskException("unmark");
-        }
-        String[] parts = userInput.split("\\s+");
-        int taskIndex = Integer.parseInt(parts[1]) - 1;
-        if (taskIndex >= taskArray.size() || taskIndex < 0 || taskArray.get(taskIndex) == null) {
-            throw new OutOfRangeException("Unmark");
-        }
-        Task currentTask = taskArray.get(taskIndex);
+        Task currentTask = markOrUnmark(userInput, "unmark");
         currentTask.unmarkDone();
+        printUnmarkTask(currentTask);
+        return "OK, I've marked this task as not done yet:\n" + currentTask.statusAndTask();
+    }
+
+    public static void printUnmarkTask(Task currentTask) {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(currentTask.statusAndTask());
-        return "OK, I've marked this task as not done yet:\n" + currentTask.statusAndTask();
     }
 
     /**
@@ -105,13 +131,11 @@ public class TaskList {
      */
     public static String makeToDo(String userInput) {
         String taskName = userInput.substring("todo".length()).trim();
-        taskArray.add(new ToDo(taskName));
-        System.out.println("Got it. I've added this task:");
-        System.out.println(taskArray.get(taskArray.size() - 1).statusAndTask());
-        System.out.println("Now you have " + taskArray.size() + " task(s) in the list.");
-        return "Got it. I've added this task:\n" +
-                taskArray.get(taskArray.size() - 1).statusAndTask() + "\n" +
-                "Now you have " + taskArray.size() + " task(s) in the list.";
+        ToDo newToDo = new ToDo(taskName);
+        taskArray.add(newToDo);
+
+        printMakeTask(newToDo);
+        return makeTaskString(newToDo);
     }
 
     /**
@@ -122,23 +146,43 @@ public class TaskList {
      */
     public static String makeDeadline(String userInput) throws EmptyDateException {
         String description = userInput.substring("deadline".length()).trim();
-        String[] parts = description.split("/by");
-        if (parts.length == 1) {
+        String[] descriptionAndBy = description.split("/by");
+        descriptionAndBy = trimStringElements(descriptionAndBy);
+
+        boolean hasEmptyDate = descriptionAndBy.length == 1;
+        if (hasEmptyDate) {
             throw new EmptyDateException("deadline");
         }
-        String[] deadlineParts = {parts[0].trim(), parts[1].trim()};
-        String taskName = deadlineParts[0];
-        LocalDateTime by = Storage.saveAsDate(deadlineParts[1]);
 
+        String taskName = descriptionAndBy[0];
+        LocalDateTime by = Storage.saveAsDate(descriptionAndBy[1]);
+      
         // Users should not be able to create deadlines that are already over
         assert by.isAfter(LocalDateTime.now()): "Deadline should not have passed already.";
+      
+        Task newDeadline = new Deadline(taskName, by);
+        taskArray.add(newDeadline);
 
-        taskArray.add(new Deadline(taskName, by));
+        printMakeTask(newDeadline);
+        return makeTaskString(newDeadline);
+    }
+
+    public static String[] trimStringElements(String[] elements) {
+        for (String element : elements) {
+            element.trim();
+        }
+        return elements;
+    }
+
+    public static void printMakeTask(Task newTask) {
         System.out.println("Got it. I've added this task:");
-        System.out.println(taskArray.get(taskArray.size() - 1).statusAndTask());
+        System.out.println(newTask.statusAndTask());
         System.out.println("Now you have " + taskArray.size() + " task(s) in the list.");
+    }
+
+    public static String makeTaskString(Task newTask) {
         return "Got it. I've added this task:\n" +
-                taskArray.get(taskArray.size() - 1).statusAndTask() + "\n" +
+                newTask.statusAndTask() + "\n" +
                 "Now you have " + taskArray.size() + " task(s) in the list.";
     }
 
@@ -150,28 +194,32 @@ public class TaskList {
      */
     public static String makeEvent(String userInput) throws EmptyDateException {
         String description = userInput.substring("event".length()).trim();
-        String[] partsA = description.split("/from");
-        String taskName = partsA[0].trim();
-        String[] partsB = partsA[1].split("/to");
-        if (partsB.length == 1 || partsB[0].trim().isEmpty() || partsB[1].trim().isEmpty()) {
+        String[] descriptionAndFromTo = trimStringElements(description.split("/from"));
+        String taskName = descriptionAndFromTo[0];
+
+        String[] fromAndTo = trimStringElements(descriptionAndFromTo[1].split("/to"));
+        String start = fromAndTo[0];
+        String end = fromAndTo[1];
+
+        boolean hasEmptyStart = start.isEmpty();
+        boolean hasEmptyEnd = end.isEmpty();
+        boolean hasEmptyDateField = hasEmptyStart || hasEmptyEnd;
+
+        if (hasEmptyDateField) {
             throw new EmptyDateException("event");
         }
-        String start = partsB[0].trim();
-        String end = partsB[1].trim();
+
         String[] eventParts = {taskName, start, end};
         LocalDateTime startDateTime = Storage.saveAsDate(eventParts[1]);
         LocalDateTime endDateTime = Storage.saveAsDate(eventParts[2]);
-
-        // An event cannot end before it starts
+      
         assert endDateTime.isAfter(startDateTime) : "End date should be after start date.";
 
-        taskArray.add(new Event(taskName, startDateTime, endDateTime));
-        System.out.println("Got it. I've added this task:");
-        System.out.println(taskArray.get(taskArray.size() - 1).statusAndTask());
-        System.out.println("Now you have " + taskArray.size() + " task(s) in the list.");
-        return "Got it. I've added this task:\n" +
-                taskArray.get(taskArray.size() - 1).statusAndTask() + "\n" +
-                "Now you have " + taskArray.size() + " task(s) in the list.";
+        Event newEvent = new Event(taskName, startDateTime, endDateTime);
+        taskArray.add(newEvent);
+
+        printMakeTask(newEvent);
+        return makeTaskString(newEvent);
     }
 
     /**
@@ -187,17 +235,32 @@ public class TaskList {
         }
         String[] parts = userInput.split("\\s+");
         int taskIndex = Integer.parseInt(parts[1]) - 1;
-        if (taskIndex >= taskArray.size() || taskIndex < 0 || taskArray.get(taskIndex) == null) {
+
+        if (isInvalidIndex(taskIndex)) {
             throw new OutOfRangeException("Delete");
         }
+
         Task currentTask = taskArray.get(taskIndex);
         taskArray.remove(currentTask);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(currentTask.statusAndTask());
-        System.out.println("Now you have " + taskArray.size() + " task(s) in the list.");
+        printDeleteTask(currentTask);
         return "Noted. I've removed this task:\n" +
                 currentTask.statusAndTask() + "\n" +
                 "Now you have " + taskArray.size() + " task(s) in the list.";
+    }
+
+    public static boolean isInvalidIndex(int taskIndex) {
+        boolean isMoreThanLengthLimit = taskIndex >= taskArray.size();
+        boolean isLessThanLengthLimit = taskIndex < 0;
+        boolean isEmptyIndex = taskArray.get(taskIndex) == null;
+        boolean isInvalidIndex = isMoreThanLengthLimit || isLessThanLengthLimit || isEmptyIndex;
+
+        return isInvalidIndex;
+    }
+
+    public static void printDeleteTask(Task currentTask) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(currentTask.statusAndTask());
+        System.out.println("Now you have " + taskArray.size() + " task(s) in the list.");
     }
 
     /**
