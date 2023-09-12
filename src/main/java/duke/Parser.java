@@ -19,7 +19,7 @@ public class Parser {
      * Represents different types of commands that the user can input.
      */
     private enum Command {
-        invalid, bye, list, mark, unmark, delete, find, todo, deadline, event;
+        invalid, bye, list, mark, unmark, delete, find, todo, deadline, event, duplicates;
 
         /**
          * Returns an EnumSet of Command containing task-related command types.
@@ -47,7 +47,10 @@ public class Parser {
                 cmd = c;
             }
         }
-        if (cmd.equals(Command.bye)) {
+        if (cmd.equals(Command.duplicates)) {
+            TaskList duplicates = taskList.removeDuplicates();
+            return "The following duplicate tasks were removed:\n" + duplicates;
+        } else if (cmd.equals(Command.bye)) {
             ui.showByeMessage();
             return "Bye! Hope to see you soon!";
         } else if (cmd.equals(Command.list)) {

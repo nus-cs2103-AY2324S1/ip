@@ -3,6 +3,7 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 /**
  * Represents an event task with a description, start time, and deadline. It inherits from the Task class.
@@ -57,5 +58,49 @@ public class Event extends Task{
         String formattedDeadline = this.deadline.format(toStringFormatter);
         String formattedStart = this.start.format(toStringFormatter);
         return "[E]" + super.toString() + " (from: " + formattedStart + " to: " + formattedDeadline + ")";
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this Event instance.
+     *
+     * This method overrides the default equals implementation from the Object class.
+     * Two Event instances are considered equal if they meet the following criteria:
+     * 1. They reference the same object (i.e., identical references).
+     * 2. The other object is an instance of the Even class.
+     * 3. The 'isCompleted' status, 'description', 'start' and 'deadline' fields of both
+     *    Event instances are equal.
+     *
+     * @param o The object to compare for equality with this Event instance.
+     * @return true if the two Event instances are equal based on the specified criteria,
+     *         false otherwise.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof Event)) {
+            return false;
+        }
+
+        Event otherEvent = (Event) o;
+
+        return this.isCompleted == otherEvent.isCompleted && this.description.equals(otherEvent.description)
+                && this.deadline.equals(otherEvent.deadline) && this.start.equals(otherEvent.start);
+    }
+
+    /**
+     * Returns a hash code value for the Event object.
+     *
+     * This method generates a hash code based on the 'isCompleted' status, 'description',
+     * 'start', and 'deadline' of the Event object. It combines these properties to create
+     * a unique hash code.
+     *
+     * @return The hash code value for the Event object.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(isCompleted, description, start, deadline);
     }
 }
