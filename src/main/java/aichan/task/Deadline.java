@@ -23,6 +23,7 @@ public class Deadline extends Task {
     public Deadline(String[] strs) throws AiChanException {
         // first is taskName, second element is dueDate
         super(strs[0]);
+        assert strs.length >= 2;
         // assume that strs[1] follow the format 25/12/2019 1800
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         try {
