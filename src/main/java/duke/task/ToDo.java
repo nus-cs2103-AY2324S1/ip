@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.exception.DukeException;
+
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -43,5 +45,10 @@ public class ToDo extends Task {
     public void writeToFile(FileWriter fw) throws IOException {
         String storedRow = "T|" + (this.isDone ? "1|" : "0|") + this.getTask();
         fw.write(storedRow);
+    }
+
+    @Override
+    public void rescheduleTask(String newDeadline) throws DukeException {
+        throw new DukeException("Chosen task has no time restriction");
     }
 }

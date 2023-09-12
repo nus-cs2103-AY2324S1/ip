@@ -54,4 +54,9 @@ public class Event extends Task {
         fw.write(storedRow);
     }
 
+    @Override
+    public void rescheduleTask(String newDeadline) {
+        this.to = newDeadline;
+    }
+
 }

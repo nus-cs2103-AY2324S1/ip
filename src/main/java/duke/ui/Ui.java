@@ -141,7 +141,7 @@ public class Ui {
      * @return Message containing the details on the deletion of the task
      */
     public String showDeleteMessage(Task task, TaskList taskList) {
-        return "Noted. I've removed this duke.task:\n"
+        return "Noted. I've removed this task:\n"
                 + "\t" + task + "\n"
                 + "Now you have " + taskList.size() + " tasks in the list";
     }
@@ -158,6 +158,11 @@ public class Ui {
             }
             return listString.toString();
         }
+    }
+
+    public String showRescheduleMessage(Task task) {
+        return "Noted. I've rescheduled the deadline for this task as shown:\n"
+                + "\t" + task;
     }
 
     /**

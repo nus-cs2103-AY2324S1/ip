@@ -44,4 +44,10 @@ public class Deadline extends Task {
         String storedRow = "D|" + (this.isDone ? "1|" : "0|") + this.getTask() + "|" + this.due;
         fw.write(storedRow);
     }
+
+    @Override
+    public void rescheduleTask(String newDeadline) {
+        this.due = newDeadline;
+    }
+
 }

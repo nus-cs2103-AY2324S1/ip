@@ -9,6 +9,7 @@ import duke.command.UnmarkCommand;
 import duke.command.DeleteCommand;
 import duke.command.ListCommand;
 import duke.command.ExitCommand;
+import duke.command.RescheduleCommand;
 import duke.command.WrongCommand;
 import duke.command.FindCommand;
 import duke.exception.DukeException;
@@ -47,12 +48,29 @@ public class Parser {
             return createDeleteCommand(input);
         case FindCommand.COMMAND_WORD:
             return createFindCommand(input);
+        case RescheduleCommand.COMMAND_WORD:
+            return createRescheduleCommand(input);
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         default:
             return new WrongCommand();
+        }
+    }
+
+    private static RescheduleCommand createRescheduleCommand(String input) throws DukeException {
+        String[] rescheduleData = input.split(" ", 3);
+        if (rescheduleData.length < 3) {
+            throw new DukeException("Provide the command as such:\nreschedule [index] [deadline]");
+        }
+        try {
+            String newDeadline = LocalDate.parse(rescheduleData[2]).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            return new RescheduleCommand(Integer.valueOf(rescheduleData[1]), newDeadline);
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please specify the index of the task (Numbers only)");
+        } catch (DateTimeException e) {
+            throw new DukeException("Please represent time in a proper time format of yyyy-mm-dd");
         }
     }
 
