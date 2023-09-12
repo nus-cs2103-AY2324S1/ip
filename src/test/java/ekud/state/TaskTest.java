@@ -10,7 +10,7 @@ public final class TaskTest {
         Task task = new Task("Test task", false) {
         };
         assertEquals(task.isDone(), false);
-        task.mark();
+        task.markAsDone();
         assertEquals(task.isDone(), true);
     }
 
@@ -19,7 +19,7 @@ public final class TaskTest {
         Task task = new Task("Test task", true) {
         };
         assertEquals(task.isDone(), true);
-        task.mark();
+        task.markAsDone();
         assertEquals(task.isDone(), true);
     }
 
@@ -28,7 +28,7 @@ public final class TaskTest {
         Task task = new Task("Test task", false) {
         };
         assertEquals(task.isDone(), false);
-        task.unmark();
+        task.markAsNotDone();
         assertEquals(task.isDone(), false);
     }
 
@@ -37,7 +37,7 @@ public final class TaskTest {
         Task task = new Task("Test task", true) {
         };
         assertEquals(task.isDone(), true);
-        task.unmark();
+        task.markAsNotDone();
         assertEquals(task.isDone(), false);
     }
 }
