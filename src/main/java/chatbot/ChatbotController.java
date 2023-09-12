@@ -29,12 +29,13 @@ public class ChatbotController {
         botImage = loadImage("/DaDuke.png");
         userImage = loadImage("/DaUser.png");
 
+        assert botImage != null : "Bot image cannot be empty.";
+        assert userImage != null : "User image cannot be empty.";
+        assert dialogContainer != null : "dialogContainer should be initialised.";
+
         Label greetLabel = new Label("Hi, I am Duke. What can I do for you?");
-        DialogBox greetingDialog = DialogBox.getDukeDialog(greetLabel, new ImageView(botImage));
+        DialogBox greetingDialog = DialogBox.setDukeDialog(greetLabel, new ImageView(botImage));
         dialogContainer.getChildren().add(greetingDialog);
-
-        // Removed the sendButton.setOnAction
-
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
@@ -43,20 +44,6 @@ public class ChatbotController {
         this.chatbot = chatbot;
     }
 
-    public void displayUserText(String text) {
-        Label userText = new Label(text);
-        dialogContainer.getChildren().add(DialogBox.getUserDialog(userText, new ImageView(userImage)));
-    }
-
-    public void displayBotText(String text) {
-        Label botText = new Label(text);
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(botText, new ImageView(botImage)));
-    }
-
-    private void handleUserInput(String userInput) {
-        displayArea.appendText("User: " + userInput + "\n");
-        inputField.clear();
-    }
 
     private Image loadImage(String path) {
         InputStream imageStream = this.getClass().getResourceAsStream(path);
@@ -77,14 +64,14 @@ public class ChatbotController {
 
         if (!userInput.isEmpty()) {
             // Display user input
-            dialogContainer.getChildren().add(DialogBox.getUserDialog(new Label(userInput),new ImageView(userImage)));
+            dialogContainer.getChildren().add(DialogBox.setUserDialog(new Label(userInput),new ImageView(userImage)));
 
             // Check if chatbot is not null before getting a response
             if (chatbot != null) {
                 String botResponse = chatbot.processUserInput(userInput);
-                dialogContainer.getChildren().add(DialogBox.getDukeDialog(new Label(botResponse),new ImageView(botImage)));
+                dialogContainer.getChildren().add(DialogBox.setDukeDialog(new Label(botResponse),new ImageView(botImage)));
             } else {
-                dialogContainer.getChildren().add(DialogBox.getDukeDialog(new Label(userInput),new ImageView(botImage)));
+                dialogContainer.getChildren().add(DialogBox.setDukeDialog(new Label(userInput),new ImageView(botImage)));
             }
 
             inputField.clear();

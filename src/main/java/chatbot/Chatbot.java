@@ -2,26 +2,23 @@ package chatbot;
 
 import chatbot.command.Command;
 import chatbot.task.TaskManager;
-import javafx.scene.image.Image;
 
-import java.io.InputStream;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Chatbot {
     private TaskManager taskManager;
-    private Image userImage;
-    private Image botImage;
-
     public Chatbot() {
         this.taskManager = new TaskManager();
-        userImage = loadImage("/DaDuke.png");
-        botImage = loadImage("/DaUser.png");
+        assert taskManager != null : "Task Manager must be initialise";
     }
 
     public String processUserInput(String input) {
+        assert input != null : "Input cannot be empty";
         try {
             Command command = Parser.parseCommand(input);
+            assert command != null : "command cannot be empty";
             String botResponse = command.execute(taskManager);
             if (command.isExit()) {
                 Timer timer = new Timer();
@@ -40,14 +37,5 @@ public class Chatbot {
         } catch (Exception e) {
             return "An unexpected error occurred.";
         }
-    }
-
-    private Image loadImage(String path) {
-        InputStream imageStream = this.getClass().getResourceAsStream(path);
-        if (imageStream == null) {
-            System.err.println("Failed to load image from path: " + path);
-            throw new RuntimeException("Image not found: " + path);
-        }
-        return new Image(imageStream);
     }
 }
