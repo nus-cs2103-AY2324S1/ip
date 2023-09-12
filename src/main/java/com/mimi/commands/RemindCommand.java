@@ -1,7 +1,7 @@
 package com.mimi.commands;
 
-import com.mimi.ui.Ui;
 import com.mimi.main.Storage;
+import com.mimi.ui.Ui;
 
 /**
  * Representation of the Remind Command.

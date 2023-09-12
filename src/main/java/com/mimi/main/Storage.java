@@ -1,6 +1,5 @@
 package com.mimi.main;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import com.mimi.tasks.Task;
@@ -30,7 +29,7 @@ public class Storage {
     public void add(Task task) {
         this.previousCommands.add(task);
 
-        assert this.previousCommands.contains(task): "Task failed to be added!";
+        assert this.previousCommands.contains(task) : "Task failed to be added!";
 
         ui.addTaskMessage(task, previousCommands.size());
     }
@@ -44,7 +43,7 @@ public class Storage {
 
         this.previousCommands.add(task);
 
-        assert this.previousCommands.contains(task): "Task failed to be added!";
+        assert this.previousCommands.contains(task) : "Task failed to be added!";
     }
 
     /**
@@ -83,7 +82,7 @@ public class Storage {
         task.toggleDone();
         ui.markTask(task);
 
-        assert task.getStatusIcon().equals("X"): "Not marked properly!";
+        assert task.getStatusIcon().equals("X") : "Not marked properly!";
     }
 
     /**
@@ -166,8 +165,8 @@ public class Storage {
      * Sends a reminder by listing out the tasks that are happening in less than a week.
      */
     public void remind() {
-        String result = "Here's a reminder that these tasks are due/happening " +
-                "in less than a week:\n";
+        String result = "Here's a reminder that these tasks are due/happening "
+                + "in less than a week:\n";
 
         int counter = 1;
 
