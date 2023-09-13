@@ -44,6 +44,7 @@ public class Storage {
         try {
             FileWriter fw = new FileWriter(filePath);
             BufferedWriter bw = new BufferedWriter(fw);
+            assert bw != null;
 
             for (Task task: taskManager.getList()) {
                 bw.append(task.toString());
