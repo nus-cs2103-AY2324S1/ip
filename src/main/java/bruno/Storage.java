@@ -30,12 +30,15 @@ public class Storage {
      * @param fileName The name of the file that is loaded, or the tasks are written to.
      */
     public Storage(String dirPath, String fileName) {
+        assert !dirPath.isEmpty() : "Directory path is not specified";
         this.dirPath = dirPath;
+        assert !fileName.isEmpty() : "File name is not specified";
         this.fileName = fileName;
         File directory = new File(this.dirPath);
         if (!directory.exists()) {
             directory.mkdir();
         }
+        assert directory.exists() : "Directory could not be created";
         taskList = new TaskList(this, ui);
     }
 
@@ -66,6 +69,7 @@ public class Storage {
             if (!file.exists()) {
                 file.createNewFile();
             }
+            assert file.exists() : "File could not be created";
             Scanner sc = new Scanner(file);
             while (sc.hasNextLine()) {
                 String s = sc.nextLine();

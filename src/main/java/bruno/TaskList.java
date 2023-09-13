@@ -53,6 +53,7 @@ public class TaskList {
             description = task.substring(task.indexOf(" ") + 1);
         }
         Task todo = new ToDo(description, note);
+        assert tasks != null;
         tasks.add(todo);
         storage.writeToFile(this);
         return ui.displayAddMessage(this);
@@ -72,7 +73,6 @@ public class TaskList {
             throw new BrunoMissingDeadlineException();
         }
         String description = task.substring(task.indexOf(' ') + 1, task.indexOf("/by") - 1);
-        ;
         String by = "";
         String note = "";
         if (task.contains("/n")) {
@@ -82,6 +82,7 @@ public class TaskList {
             by = task.substring(task.lastIndexOf('/') + 4);
         }
         Task deadline = new Deadline(description, by, note);
+        assert tasks != null;
         tasks.add(deadline);
         storage.writeToFile(this);
         return ui.displayAddMessage(this);
@@ -112,6 +113,7 @@ public class TaskList {
             to = task.substring(task.indexOf("to") + 3);
         }
         Task event = new Event(description, from, to, note);
+        assert tasks != null;
         tasks.add(event);
         return ui.displayAddMessage(this);
     }
@@ -127,6 +129,7 @@ public class TaskList {
         checkArgs(parsedTask[1], parsedTask[0], tasks.size());
         int markVal = Integer.parseInt(parsedTask[1]);
         tasks.get(markVal - 1).markAsDone();
+        assert tasks.get(markVal - 1).checkDone() : "Task could not be marked";
         storage.writeToFile(this);
         return ui.displayMarkMessage(this, markVal);
     }
@@ -142,6 +145,7 @@ public class TaskList {
         checkArgs(parsedTask[1], parsedTask[0], tasks.size());
         int unmarkVal = Integer.parseInt(parsedTask[1]);
         tasks.get(unmarkVal - 1).unMark();
+        assert !tasks.get(unmarkVal - 1).checkDone() : "Task could not be unmarked";
         storage.writeToFile(this);
         return ui.displayUnmarkMessage(this, unmarkVal);
     }
@@ -157,7 +161,9 @@ public class TaskList {
         checkArgs(parsedTask[1], parsedTask[0], tasks.size());
         int deleteVal = Integer.parseInt(parsedTask[1]);
         String taskString = tasks.get(deleteVal - 1).getString();
+        int k = tasks.size();
         tasks.remove(deleteVal - 1);
+        assert tasks.size() == (k - 1) : "Task could not be deleted";
         storage.writeToFile(this);
         return ui.displayDeleteMessage(taskString);
     }
@@ -166,6 +172,7 @@ public class TaskList {
      * Displays the number of tasks in the tasks.
      */
     public String displayListSum() {
+        assert !tasks.isEmpty();
         return "Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " " + "in your "
                 + "list.";
     }
@@ -214,6 +221,7 @@ public class TaskList {
      * @param task The user input for the task.
      */
     public String findTasks(String task) {
+        assert task != "" : "Search keyword must not be empty";
         String taskInfo = "";
         String keyWord = task.split(" ")[1];
         int counter = 0;
@@ -257,6 +265,7 @@ public class TaskList {
     }
 
     public void setList(List<Task> list) {
+        assert list != null : "List should not be null";
         this.tasks = list;
     }
 

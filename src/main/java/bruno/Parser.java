@@ -12,7 +12,12 @@ public class Parser {
 
     private TaskList taskList;
 
+    /**
+     * Creates instances of the Parser class
+     * @param taskList
+     */
     public Parser(TaskList taskList) {
+        assert taskList != null : "Tasklist has not been initialised";
         this.taskList = taskList;
     }
 
