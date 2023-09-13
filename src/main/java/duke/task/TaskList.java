@@ -24,7 +24,8 @@ public class TaskList {
      * @return the task with the certain index
      */
     public Task getTask(int index) {
-        assert index >= 0 && index < getSize() : "The index must be be not less than 0 but less than the number of tasks";
+        assert index >= 0 && index < getSize()
+                : "The index must not be be less than 0 but less than the number of tasks";
         return tasks.get(index);
     }
 
@@ -43,7 +44,8 @@ public class TaskList {
      * @param index the index of the removed task
      */
     public void removeTask(int index) {
-        assert index >= 0 && index < getSize() : "The index must be be not less than 0 but less than the number of tasks";
+        assert index >= 0 && index < getSize()
+                : "The index must not be be less than 0 but less than the number of tasks";
         tasks.remove(index);
     }
 
@@ -53,7 +55,8 @@ public class TaskList {
      * @param index the index of the marked task
      */
     public void markTask(int index) {
-        assert index >= 0 && index < getSize() : "The index must be be not less than 0 but less than the number of tasks";
+        assert index >= 0 && index < getSize()
+                : "The index must not be be less than 0 but less than the number of tasks";
         tasks.get(index).mark();
     }
 
@@ -63,7 +66,8 @@ public class TaskList {
      * @param index the index of the unmarked task
      */
     public void unmarkTask(int index) {
-        assert index >= 0 && index < getSize() : "The index must be be not less than 0 but less than the number of tasks";
+        assert index >= 0 && index < getSize()
+                : "The index must not be be less than 0 but less than the number of tasks";
         tasks.get(index).unmark();
     }
 
