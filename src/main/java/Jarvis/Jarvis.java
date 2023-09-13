@@ -29,6 +29,8 @@ public class Jarvis {
         Path pathToSaveFile = Paths.get(home, "Desktop", "CS2103T", "IP", "data", fileName);
         boolean isFileExists = Files.exists(pathToSaveFile);
 
+        assert !pathToSaveFile.toString().isEmpty() : "pathToSaveFile in Jarvis() does not contain a file path";
+
         storage = new Storage(pathToSaveFile.toString());
         tasks = new TaskList(storage.load());
         parser = new Parser();

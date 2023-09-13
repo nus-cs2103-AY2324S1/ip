@@ -10,6 +10,9 @@ public class Storage {
     private File dataFile;
 
     public Storage(String filePath) {
+
+        assert !filePath.isEmpty() : "filepath in Storage() is an empty string";
+
         this.dataFile = new File(filePath);
         try {
             this.dataFile.createNewFile();

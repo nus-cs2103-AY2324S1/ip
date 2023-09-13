@@ -45,6 +45,9 @@ public class Parser {
      */
     // checks if command is valid and throws Jarvis.IncorrectJarvisCommandException
     private static String isValidCommand(String inputCommand) {
+
+        assert !inputCommand.isEmpty() : "inputCommand parameter in isValidCommand() is an empty string";
+
         // check if command is one of the valid keywords
         boolean isValidCommand = false;
         String validInputCommand = "";
@@ -79,6 +82,10 @@ public class Parser {
      */
     // identifies which command has wrong formatting and prints feedback to user
     public static String isWrongFormat(String inputCommand, String validInputCommand) {
+
+        assert !inputCommand.isEmpty() : "inputCommand parameter in isWrongFormat() is an empty string";
+        assert !validInputCommand.isEmpty() : "validInputCommand parameter in isWrongFormat() is an empty string";
+
         // since command is valid, check if formatting of the command is correct
         boolean markMatch = inputCommand.matches("mark \\d+");
         boolean uncheckMatch = inputCommand.matches("unmark \\d+");
@@ -198,14 +205,13 @@ public class Parser {
 
             }
             tasks.appendTask(newTask);
-            return Ui.getTaskMessage(tasks, newTask);
+            return Ui.getTaskMessage(tasks);
 
         } else if (deleteMatcher.matches()) { // if delete is entered
             int taskNum = Integer.parseInt(deleteMatcher.group(2));
             if (tasks.isValidTaskNumber(taskNum)) {
-                Task deletedTask = tasks.getTask(taskNum - 1);
                 tasks.deleteTask(taskNum - 1);
-                return Ui.getDeleteMessage(tasks, deletedTask);
+                return Ui.getDeleteMessage(tasks);
             }
 
         } else if (findMatcher.matches()) { // if find is entered

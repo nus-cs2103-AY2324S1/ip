@@ -41,6 +41,9 @@ public class Ui {
     }
 
     public static String getWrongFormatMessage(String command, Exception e) {
+
+        assert command.matches("(?i:mark|uncheck|todo|deadline|event)"): "Command is not valid";
+
         if (command.equals("mark")) {
             return e.getMessage() + "\n" +
                     "    The following is the correct format:" + "\n"
@@ -64,11 +67,11 @@ public class Ui {
         }
     }
 
-    public static String getTaskMessage(TaskList tasks, Task currentTask) {
+    public static String getTaskMessage(TaskList tasks) {
         return taskInforming + "\n" + "You have now " + tasks.countTask() + " tasks in the list Sir.";
     }
 
-    public static String getDeleteMessage(TaskList tasks, Task currentTask) {
+    public static String getDeleteMessage(TaskList tasks) {
         return deleteInforming + "\n" + "You have now " + tasks.countTask() + " tasks in the list Sir.";
     }
 

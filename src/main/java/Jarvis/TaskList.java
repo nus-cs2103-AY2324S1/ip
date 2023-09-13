@@ -19,6 +19,9 @@ public class TaskList {
      * @param tasks The string that holds the saved data.
      */
     public TaskList(String tasks) { // tasks is a string
+
+        assert !tasks.isEmpty() : "task parameter in TaskList() is an empty string";
+
         String[] stringTasks = tasks.split("\n");
         Pattern todoPattern = Pattern.compile(
                 "\\[T\\]\\[(X|\\s)\\] (.+)"); // [T][-] xxxx
