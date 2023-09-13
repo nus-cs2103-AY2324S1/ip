@@ -130,7 +130,13 @@ public class Sisyphus extends Application {
 
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        Label dukeText;
+        try {
+            dukeText = new Label(getResponse(userInput.getText()));
+        } catch (SisyphusException e) {
+            dukeText = new Label(e.getMessage());
+        }
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(sisyphus))
@@ -142,8 +148,8 @@ public class Sisyphus extends Application {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
-        return "Duke heard: " + input;
+    private String getResponse(String input) throws SisyphusException {
+        return parser.runCommand(input, tasks, storage, ui);
     }
 
 

@@ -12,7 +12,7 @@ public class Ui {
     /** Name of the chatbot */
     private static final String NAME = "Sisyphus";
     /** Horizontal Line string */
-    private static final String HORIZONTAL_LINE = "_________________________________";
+    private static final String HORIZONTAL_LINE = "_________________________________ \n";
     /** ASCII art that represents sisyphus */
     private static final String LOGO = "\n"
             + "      ,-'\"\"\"`-.\n"
@@ -59,6 +59,8 @@ public class Ui {
      * Greets user with name.
      */
     public static void greet() {
+        String output;
+        output = HORIZONTAL_LINE;
         System.out.println(LOGO);
         System.out.println("Hello, I'm " + NAME + ".");
         System.out.println("What can I do for you? Do you want to roll a boulder?");
@@ -80,27 +82,31 @@ public class Ui {
      *
      * @param taskList
      */
-    public static void printTasks(TaskList taskList) {
-        printHorizontalLine();
+    public static String printTasks(TaskList taskList) {
+        String output;
+        output = HORIZONTAL_LINE;
         for (int i = 0; i < taskList.getSize(); i++) {
-            System.out.println(i + 1 + ". " + taskList.getTask(i));
+            output += i + 1 + ". " + taskList.getTask(i) + '\n';
         }
-        printHorizontalLine();
+        output += HORIZONTAL_LINE + '\n';
+        return output;
     }
 
     /**
      * Print tasks with the matching keyword.
      *
-     * @param taskList
+     * @param matchingTaskList
      * @param keyword
      */
-    public static void printMatchingTasks(TaskList taskList, String keyword) {
-        printHorizontalLine();
-        System.out.println("Below is the list of tasks with keyword - \"" + keyword + "\" :");
-        for (int i = 0; i < taskList.getSize(); i++) {
-            System.out.println(i + 1 + ". " + taskList.getTask(i));
+    public static String printMatchingTasks(TaskList matchingTaskList, String keyword) {
+        String output;
+        output = HORIZONTAL_LINE;
+        output += "Below is the list of tasks with keyword - \"" + keyword + "\" :";
+        for (int i = 0; i < matchingTaskList.getSize(); i++) {
+            output += i + 1 + ". " + matchingTaskList.getTask(i) + '\n';
         }
-        printHorizontalLine();
+        output += HORIZONTAL_LINE + '\n';
+        return output;
     }
 
 
@@ -110,10 +116,12 @@ public class Ui {
      * @param taskList
      * @param index
      */
-    public static void printMarkTask(TaskList taskList, int index) {
-        printHorizontalLine();
-        System.out.println("The following item has been marked as done.");
-        System.out.println(taskList.getTask(index));
+    public static String printMarkTask(TaskList taskList, int index) {
+        String output;
+        output = HORIZONTAL_LINE;
+        output += "The following item has been marked as done. \n";
+        output += taskList.getTask(index);
+        return output;
     }
 
 
@@ -123,10 +131,12 @@ public class Ui {
      * @param taskList
      * @param index
      */
-    public static void printUnmarkTask(TaskList taskList, int index) {
-        printHorizontalLine();
-        System.out.println("The following item has been unmarked and is now uncompleted.");
-        System.out.println(taskList.getTask(index));
+    public static String printUnmarkTask(TaskList taskList, int index) {
+        String output;
+        output = HORIZONTAL_LINE;
+        output += "The following item has been unmarked and is now uncompleted. \n";
+        output += taskList.getTask(index);
+        return output;
     }
 
     /**
@@ -135,23 +145,28 @@ public class Ui {
      * @param taskList
      * @param index
      */
-    public static void printDeleteTask(TaskList taskList, int index) {
-        printHorizontalLine();
-        System.out.println("The following item has been deleted from the list.");
-        System.out.println(taskList.getTask(index));
+    public static String printDeleteTask(TaskList taskList, int index) {
+        String output;
+        output = HORIZONTAL_LINE;
+        output += "The following item has been deleted from the list. \n";
+        output += taskList.getTask(index);
+        return output;
     }
 
     /**
      * Prints the most recently added ToDo and a corresponding message.
      *
      * @param taskList
+     * @return output string
      */
-    public static void printAddTodo(TaskList taskList) {
-        printHorizontalLine();
-        System.out.println("The following ToDo has been added.");
-        System.out.println(taskList.getLastTask());
-        System.out.println("You now have " + taskList.getSize() + " items in the list.");
-        printHorizontalLine();
+    public static String printAddTodo(TaskList taskList) {
+        String output;
+        output = HORIZONTAL_LINE;
+        output += "The following ToDo has been added. \n";
+        output += taskList.getLastTask() ;
+        output += "You now have " + taskList.getSize() + " items in the list.";
+        output += HORIZONTAL_LINE;
+        return output;
     }
 
 
@@ -160,12 +175,14 @@ public class Ui {
      *
      * @param taskList
      */
-    public static void printAddDeadline(TaskList taskList) {
-        printHorizontalLine();
-        System.out.println("The following deadline has been added.");
-        System.out.println(taskList.getLastTask());
-        System.out.println("You now have " + taskList.getSize() + " items in the list.");
-        printHorizontalLine();
+    public static String printAddDeadline(TaskList taskList) {
+        String output;
+        output = HORIZONTAL_LINE;
+        output += "The following deadline has been added. \n";
+        output += taskList.getLastTask() ;
+        output += "You now have " + taskList.getSize() + " items in the list.";
+        output += HORIZONTAL_LINE;
+        return output;
     }
 
     /**
@@ -173,12 +190,14 @@ public class Ui {
      *
      * @param taskList
      */
-    public static void printAddEvent(TaskList taskList) {
-        printHorizontalLine();
-        System.out.println("The following event has been added.");
-        System.out.println(taskList.getLastTask());
-        System.out.println("You now have " + taskList.getSize() + " items in the list.");
-        printHorizontalLine();
+    public static String printAddEvent(TaskList taskList) {
+        String output;
+        output = HORIZONTAL_LINE;
+        output += "The following event has been added. \n";
+        output += taskList.getLastTask() ;
+        output += "You now have " + taskList.getSize() + " items in the list.";
+        output += HORIZONTAL_LINE;
+        return output;
     }
 
 }
