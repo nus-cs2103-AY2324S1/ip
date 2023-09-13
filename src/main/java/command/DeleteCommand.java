@@ -22,6 +22,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(TaskList taskList, Ui ui, Storage storage) {
         super(taskList, ui, storage);
     }
+
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         String input = ui.getInput();
