@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents an event with a given start and end date.
@@ -34,7 +35,8 @@ public class Event extends Task {
         String taskType = "[E]";
         String status = "[" + (this.isDone ? "X" : " ") + "]";
         String description = " " + super.description + " ";
-        String duration = "(from: " + this.fromDate + " to: " + this.toDate + ")";
+        String duration = "(from: " + this.fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: " + this.toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
 
         return taskType + status + description + duration;
     }
