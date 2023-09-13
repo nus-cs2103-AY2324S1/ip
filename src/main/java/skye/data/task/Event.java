@@ -13,7 +13,7 @@ public class Event extends Task {
     protected LocalDateTime to;
 
     /**
-     * Initialises an event object.
+     * Initializes an event object.
      *
      * @param description A short description of the event
      * @param from Start date and time

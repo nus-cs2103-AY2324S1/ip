@@ -6,7 +6,7 @@ package skye.data.task;
 public class ToDo extends Task {
 
     /**
-     * Initialises an ToDo object
+     * Initializes an ToDo object
      *
      * @param description A short description of the ToDo task
      */

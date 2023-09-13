@@ -32,6 +32,15 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
 
+            // Access command-line arguments
+            Parameters params = getParameters();
+
+            // Check if the argument --save is provided
+            if (params.getNamed().containsKey("save")) {
+                String savePath = params.getNamed().get("save");
+                skye = new Skye(savePath);
+            }
+
             // Pass the context of the Skye chatbot to MainWindow's controller.
             fxmlLoader.<MainWindow>getController().setSkye(skye);
 
@@ -40,6 +49,7 @@ public class Main extends Application {
 
             // Set the title of the application.
             stage.setTitle("Skye");
+
         } catch (IOException e) {
             e.printStackTrace();
         }

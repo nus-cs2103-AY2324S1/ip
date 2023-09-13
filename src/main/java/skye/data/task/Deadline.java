@@ -12,7 +12,7 @@ public class Deadline extends Task {
     protected LocalDateTime by;
 
     /**
-     * Initialises an deadline object.
+     * Initializes a deadline object.
      *
      * @param description A short description of the deadline task
      * @param by the deadline date and time
