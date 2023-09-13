@@ -43,6 +43,8 @@ public class Parser {
             return taskList.unmark(Integer.parseInt(args));
         case "delete":
             return taskList.deleteTask(Integer.parseInt(args));
+        case "tag":
+            return taskList.tagTask(args);
         case "todo":
         case "deadline":
         case "event":

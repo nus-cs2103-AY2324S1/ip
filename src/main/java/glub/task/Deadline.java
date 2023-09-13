@@ -26,6 +26,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + String.format("(by: %s)", super.getDisplayDateTime(deadline));
+        return "[D]" + super.toString()
+                + String.format("(by: %s) %s", super.getDisplayDateTime(deadline), super.getTag());
     }
 }

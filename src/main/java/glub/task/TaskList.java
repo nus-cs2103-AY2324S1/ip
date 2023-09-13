@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import glub.Glub;
 import glub.GlubException;
 import glub.Storage;
 import glub.Ui;
@@ -186,6 +187,29 @@ public class TaskList {
         task.setUndone();
         storage.saveTasks(this.taskList);
         return Ui.printUnmarkMsg(task);
+    }
+
+    /**
+     * Tags a task in the task list.
+     * @param taskNum Index of task to be tagged.
+     * @param tag Tag string.
+     * @return Tag UI message.
+     * @throws GlubException If index supplied is invalid.
+     */
+    public String tagTask(String args) throws GlubException {
+        Task task;
+        int taskNum = -1;
+        try {
+            String[] argComponents = args.split("", 2);
+            taskNum = Integer.parseInt(argComponents[0]);
+            String tag = argComponents[1];
+            task = taskList.get(taskNum - 1);
+            task.setTag(tag);
+            storage.saveTasks(this.taskList);
+            return Ui.printTagMsg(task, tag);
+        } catch (IndexOutOfBoundsException ex) {
+            throw new GlubException(String.format("OOPS!! Task %d does not exist!\n", taskNum));
+        }
     }
 
     /**

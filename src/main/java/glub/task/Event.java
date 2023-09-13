@@ -31,6 +31,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + String.format("(from: %s to: %s)", super.getDisplayDateTime(start), super.getDisplayDateTime(end));
+                + String.format("(from: %s to: %s) %s",
+                super.getDisplayDateTime(start), super.getDisplayDateTime(end), super.getTag());
     }
 }

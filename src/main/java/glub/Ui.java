@@ -70,6 +70,10 @@ public class Ui {
         return "Ok, I've marked this task as not done yet:\n" + String.format("\t%s", task);
     }
 
+    public static String printTagMsg(Task task, String tag) {
+        return String.format("Ok, I've tagged this task #%s:\n\t%s", tag, task);
+    }
+
     /**
      * Prints tasks that match to the search string.
      * @param taskList List of tasks to be searched.
