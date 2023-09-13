@@ -1,9 +1,12 @@
 package duke;
 
+import java.time.format.DateTimeParseException;
+
 import duke.components.Parser;
 import duke.components.Storage;
 import duke.components.TaskList;
 import duke.components.Ui;
+import duke.exceptions.DukeException;
 
 /**
  * Main class to run BUTTER.
@@ -24,10 +27,22 @@ public class Duke {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList(storage.loadTasks(), storage, ui);
-        parser = new Parser(storage, tasks, ui);
+        parser = new Parser(tasks, ui);
     }
 
+    /**
+     * Returns the string response from chatbot to user.
+     *
+     * @param input user input.
+     * @return the response to the user's command.
+     */
     public String getResponse(String input) {
-        return parser.parseInput(input);
+        try {
+            return parser.parseInput(input);
+        } catch (DukeException e) {
+            return e.getMessage();
+        } catch (DateTimeParseException e) {
+            return this.ui.showInvalidDateFormat();
+        }
     }
 }

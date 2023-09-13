@@ -9,6 +9,8 @@ public class Ui {
 
     /**
      * Prints goodbye words to the user.
+     *
+     * @return a string of goodbyes.
      */
     public String bye() {
         String bye = "໒(⊙ᴗ⊙)७ Signing off, see you later!";
@@ -17,27 +19,22 @@ public class Ui {
 
     /**
      * Prints the number of tasks the user has in their list.
-     * Called to update the user when the number of tasks in the list changes.
      *
      * @param size the size of the list.
      */
     public String showNumberOfTasks(int size) {
-        return size == 1
+        return size == 0
+                ? "(o´ω`o)ﾉ You have no upcoming tasks!"
+                : size == 1
                 ? "Now you have " + size + " task in the list!"
                 : "Now you have " + size + " tasks in the list!";
     }
 
     /**
-     * Prints when there are 0 tasks in the list, and list is the command.
-     */
-    public String showNoTasks() {
-        return "(o´ω`o)ﾉ You have no upcoming tasks!";
-    }
-
-    /**
-     * Prints when there are at least 1 task in the list, and list is the command.
+     * Prints when list is the command, and there is at least one task in the list.
      *
      * @param tasks tasks to be printed.
+     * @return a list of tasks in the user's list.
      */
     public String showTasks(String tasks) {
         String header = "(⇀‸↼‶)⊃━☆ﾟ.*･｡ﾟHere are your tasks for the day:\n";
@@ -48,7 +45,8 @@ public class Ui {
      * Prints when the user adds a tasks successfully.
      *
      * @param task     task that was added.
-     * @param listSize task list size.
+     * @param listSize the new list size.
+     * @return an update that task was added successfully.
      */
     public String showTaskAdded(Task task, int listSize) {
         String header = "(｀･ω･´)ﾉ New task added:\n" + task + "\n";
@@ -59,11 +57,12 @@ public class Ui {
     /**
      * Prints when the user deletes a task successfully.
      *
-     * @param toRemove task to remove.
-     * @param listSize task list size.
+     * @param removed  task that was removed
+     * @param listSize the new list size.
+     * @return an update that task was deleted successfully.
      */
-    public String showDeleteTask(Task toRemove, int listSize) {
-        String header = "ଘ(੭ˊᵕˋ)੭ Ok! I've removed this task:\n" + toRemove + "\n";
+    public String showDeleteTask(Task removed, int listSize) {
+        String header = "ଘ(੭ˊᵕˋ)੭ Ok! I've removed this task:\n" + removed + "\n";
         String numberOfTasksLeft = this.showNumberOfTasks(listSize);
         return header + numberOfTasksLeft;
     }
@@ -73,8 +72,9 @@ public class Ui {
      * If task is not marked, success message is printed out. Else,
      * unsuccessful message printed.
      *
-     * @param isMarked true if the task is already marked.
+     * @param isMarked true if the task was already marked.
      * @param task     task to be marked.
+     * @return either a success or failure message.
      */
     public String showMarkTask(boolean isMarked, Task task) {
         if (!isMarked) {
@@ -89,8 +89,9 @@ public class Ui {
      * If task is marked, success message is printed out. Else,
      * an unsuccessful message is printed.
      *
-     * @param isMarked true if the task is already marked.
+     * @param isMarked true if the task was already marked.
      * @param task     task to be unmarked.
+     * @return either a success or failure message.
      */
     public String showUnMarkTask(boolean isMarked, Task task) {
         if (isMarked) {

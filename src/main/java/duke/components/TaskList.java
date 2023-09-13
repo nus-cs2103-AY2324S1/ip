@@ -16,9 +16,9 @@ public class TaskList {
     /**
      * Class constructor for TaskList.
      *
-     * @param list list to be initialised.
+     * @param list    list to be initialised.
      * @param storage storage to be used.
-     * @param ui ui to be used.
+     * @param ui      ui to be used.
      */
     public TaskList(ArrayList<Task> list, Storage storage, Ui ui) {
         this.list = list;
@@ -31,27 +31,27 @@ public class TaskList {
      *
      * @param taskId id to be checked.
      * @return true if the taskID is valid.
-     * @throws InvalidTaskIdException if taskID is out of range.
      */
-    public boolean isValidTaskId(int taskId) throws InvalidTaskIdException {
+    public boolean isValidTaskId(int taskId) {
         if (taskId > this.list.size() - 1 || taskId < 0) {
-            throw new InvalidTaskIdException();
+            return false;
         }
         return true;
     }
 
     /**
-     * Appends all the tasks into a string, and passes it to ui object for printing.
-     * If no tasks, calls ui.showNoTasks().
+     * Appends all the current tasks into a string, and passes it to ui object for printing.
+     *
+     * @return the tasks the user currently has.
      */
     public String listTasks() {
-        if (list.size() == 0) {
-            return ui.showNoTasks();
+        if (this.list.size() == 0) {
+            return ui.showNumberOfTasks(0);
         } else {
             String result = "";
-            for (int i = 0; i < list.size(); i++) {
+            for (int i = 0; i < this.list.size(); i++) {
                 int index = i + 1;
-                Task task = list.get(i);
+                Task task = this.list.get(i);
                 result += index + ". " + task.toString() + "\n";
             }
             return ui.showTasks(result);
@@ -75,39 +75,46 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the list. Calls storage.updateFile() to update the data file.
+     * Adds a task to the list, and updates storage.
      *
      * @param task id of task to be added.
      */
     public String addTask(Task task) {
         this.list.add(task);
         this.storage.updateFile(this.list);
-        return ui.showTaskAdded(task, this.getListSize());
+        return ui.showTaskAdded(task, this.list.size());
     }
 
     /**
      * Deletes a task from the list if the input taskID is valid.
-     * Calls storage.updateFile() to update the data file.
+     * Updates storage.
      *
      * @param taskId if of task to delete.
-     * @throws InvalidTaskIdException if taskID is invalid.
+     * @throws InvalidTaskIdException if taskId is invalid.
      */
     public String deleteTask(int taskId) throws InvalidTaskIdException {
-        if (isValidTaskId(taskId)) {
-            Task toRemove = list.get(taskId);
-            list.remove(taskId);
-            this.storage.updateFile(this.list);
-            return ui.showDeleteTask(toRemove, this.getListSize());
+        if (!isValidTaskId(taskId)) {
+            throw new InvalidTaskIdException();
         }
-        return "";
+
+        Task toRemove = this.list.get(taskId);
+        this.list.remove(taskId);
+        this.storage.updateFile(this.list);
+        return ui.showDeleteTask(toRemove, this.list.size());
     }
 
     /**
      * Marks a task as completed, and updates storage.
      *
-     * @param taskId id of task to mark.
+     * @param taskId id of task to be marked.
+     * @return a success or failure message.
+     * @throws InvalidTaskIdException if taskId is invalid.
      */
-    public String markTask(int taskId) {
+    public String markTask(int taskId) throws InvalidTaskIdException {
+        if (!isValidTaskId(taskId)) {
+            throw new InvalidTaskIdException();
+        }
+
         Task task = this.list.get(taskId);
         if (task.canMark()) {
             this.storage.updateFile(this.list);
@@ -120,9 +127,15 @@ public class TaskList {
     /**
      * Marks a task as uncompleted, and updates storage.
      *
-     * @param taskId id of task to unmark.
+     * @param taskId id of task to be unmarked.
+     * @return a success or failure message.
+     * @throws InvalidTaskIdException if taskId is invalid.
      */
-    public String unMarkTask(int taskId) {
+    public String unMarkTask(int taskId) throws InvalidTaskIdException {
+        if (!isValidTaskId(taskId)) {
+            throw new InvalidTaskIdException();
+        }
+
         Task task = this.list.get(taskId);
         if (task.canUnMark()) {
             this.storage.updateFile(this.list);
@@ -136,11 +149,11 @@ public class TaskList {
      * Returns a list of tasks that contains the keyword.
      *
      * @param keyword specified keyword to be searched for.
-     * @return list of tasks.
+     * @return list of tasks that contain keyword.
      */
     public ArrayList<Task> findMatches(String keyword) {
         ArrayList<Task> matches = new ArrayList<>();
-        for (Task task : list) {
+        for (Task task : this.list) {
             String desc = task.getTask();
             assert !desc.isEmpty() : "Description cannot be empty";
             if (desc.contains(keyword)) {
@@ -148,14 +161,5 @@ public class TaskList {
             }
         }
         return matches;
-    }
-
-    /**
-     * Returns the size of the list.
-     *
-     * @return size of list.
-     */
-    public int getListSize() {
-        return this.list.size();
     }
 }
