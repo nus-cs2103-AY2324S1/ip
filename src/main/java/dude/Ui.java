@@ -8,25 +8,29 @@ import java.util.Scanner;
  * Represents the UI of Dude and deals with interactions with the user.
  */
 public class Ui {
-    Scanner sc;
+    private Scanner sc;
     public Ui() {
         this.sc = new Scanner(System.in);
     }
     public String readCommand() {
         return this.sc.nextLine();
     }
+
     public void showWelcome() {
         String greeting = "Hello, I'm Dude!\n" +
                 "What can I do for you?";
         System.out.println(greeting);
     }
+
     public void showFarewell() {
         String greeting = "Bye. Hope to see you again soon!";
         System.out.println(greeting);
     }
+
     public void showLine() {
         System.out.println("__________________________________________________");
     }
+
     public void showTaskList(TaskList taskList) {
         int nTasks = taskList.getSize();
         if (nTasks == 0) {
@@ -38,30 +42,36 @@ public class Ui {
             }
         }
     }
+
     public void showMarkedTask(Task task) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.printf(task.toString());
         System.out.println();
         // task is already done?
     }
+
     public void showUnmarkedTask(Task task) {
         System.out.println("Nice! I've marked this task as as not done yet:");
         System.out.printf(task.toString());
         System.out.println();
         // task is already undone?
     }
+
     public void showDeletedTask(Task task, int nTasks) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(task.toString());
         System.out.printf("Now you have %d tasks in the list.\n", nTasks);
     }
+
     public void showAddedTask(Task task, int nTasks) {
         System.out.printf("Got it. I've added this task:\n%s\n", task.toString());
         System.out.printf("Now you have %d tasks in the list. \n", nTasks);
     }
+
     public void showUnknownCommand() {
         System.out.println(" OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
+
     public void showError(String message) {
     }
 

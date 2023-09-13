@@ -6,7 +6,7 @@ package dude.task;
  */
 public class Task {
     private String description;
-    private boolean done;
+    private boolean isDone;
 
     /**
      * Constructs a new Task object with the specified description.
@@ -15,11 +15,11 @@ public class Task {
      */
     Task(String description) {
         this.description = description;
-        this.done = false;
+        this.isDone = false;
     }
 
     public boolean isDone() {
-        return this.done;
+        return this.isDone;
     }
 
     public String getDescription() {
@@ -27,7 +27,7 @@ public class Task {
     }
 
     public void setDone(boolean done) {
-        this.done = done;
+        this.isDone = done;
     }
 
     public String getType() {
@@ -37,7 +37,11 @@ public class Task {
     public String saveTask () {
         return this.description;
     }
-
+  
+    public boolean containKeywords(String keywords){
+        return this.description.contains(keywords);
+    }
+  
     /**
      * Returns a formatted string representation of the task.
      *

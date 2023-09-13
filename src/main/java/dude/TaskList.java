@@ -1,6 +1,5 @@
 package dude;
 
-// contains the task list e.g., it has operations to add/delete tasks in the list
 import dude.task.Task;
 
 import java.util.ArrayList;
@@ -74,4 +73,14 @@ public class TaskList {
         return removedTask;
     }
 
+    public TaskList findTasks(String taskKeywords) {
+        TaskList searchResults = new TaskList();
+        for (int i = 0; i < this.getSize(); i++) {
+            Task task = this.getTask(i);
+            if (task.containKeywords(taskKeywords)) {
+                searchResults.addTask(task);
+            }
+        }
+        return searchResults;
+    }
 }

@@ -12,6 +12,7 @@ import java.io.IOException;
  */
 public class AddToDoCommand extends Command {
     private String taskDescription;
+
     public AddToDoCommand(String taskDescription) {
         this.taskDescription = taskDescription;
     }

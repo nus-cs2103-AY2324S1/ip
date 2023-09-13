@@ -23,6 +23,7 @@ public class ToDo extends Task {
     @Override
     public String saveTask() {
         String data = "T | ";
+
         if (this.isDone()) {
             data += "1 | ";
         } else {
