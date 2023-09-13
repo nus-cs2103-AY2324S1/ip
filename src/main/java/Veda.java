@@ -35,12 +35,17 @@ public class Veda {
 
         int method = Parser.parse(input); //Get which commands to perform based on user's input
 
-        String response = performTask(method, input);
-
-        return response;
+        return output(method, input.toLowerCase());
     }
 
-    private String performTask(int method, String input) {
+    /**
+     * Returns a message from performing the tasks based on method and input.
+     *
+     * @param method is an integer indicating what actions to perform.
+     * @param input is the user input
+     * @return
+     */
+    private String output(int method, String input) {
         final String errorInputResponse = ui.getUnrecognisedInputMessage();
 
         switch (method) {
@@ -103,7 +108,7 @@ public class Veda {
         } catch (IncorrectInputException e) {
             return e.getMessage();
         } catch (IndexOutOfBoundsException e) {
-            return "Invalid index! Please ensure you correctly key in your target index.";
+            return "Invalid index! Your target index is within range.";
         } catch (IOException e) {
             return "Unable to update file.";
         }

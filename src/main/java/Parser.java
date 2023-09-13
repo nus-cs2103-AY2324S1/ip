@@ -14,6 +14,9 @@ import tasks.ToDo;
  */
 public class Parser {
 
+    final static String EMPTY_STRING = "";
+    final static String WHITE_SPACE = " ";
+
     /**
      * Returns an int value denoting which action to be performed.
      *
@@ -21,9 +24,29 @@ public class Parser {
      * @return non-negative int if args is valid input, else -1.
      */
     public static int parse(String args) {
+        String[] splitArgs = args.toLowerCase().split(WHITE_SPACE);
+
+        if (splitArgs.length < 2) {
+            return getCodeSingleWordCommand(splitArgs[0]);
+        }
+
         String argType = args.toLowerCase().split(" ")[0];
 
-        return getCode(argType);
+        return getCodeMultiWordCommand(argType);
+    }
+
+    private static int getCodeSingleWordCommand(String arg) {
+        final int errorCode = -1;
+
+        if (arg.equals("bye")) {
+            //User wishes to exit the program
+            return 0;
+        } else if (arg.equals("list")) {
+            //User wishes to see his listed missions
+            return 1;
+        } else {
+            return errorCode;
+        }
     }
 
     /**
@@ -32,16 +55,10 @@ public class Parser {
      * @param argType is the first word of the command input.
      * @return an int that determines Veda should perform.
      */
-    private static int getCode(String argType) {
+    private static int getCodeMultiWordCommand(String argType) {
         final int errorCode = -1;
 
-        if (argType.equals("bye")) {
-            //User wishes to exit the program
-            return 0;
-        } else if (argType.equals("list")) {
-            //User wishes to see his listed missions
-            return 1;
-        } else if (argType.equals("mark")) {
+        if (argType.equals("mark")) {
             //User wishes to mark task as done
             return 2;
         } else if (argType.equals("unmark")) {
@@ -92,66 +109,80 @@ public class Parser {
     /**
      * Returns a new task based on the command line argument args.
      *
-     * @param args
+     * @param args is a lowercase String containing the user input.
      * @return a Task from the given args.
      * @throws NoDescriptionException
      */
     public static Task getTask(String args) throws NoDescriptionException {
-        String type = args.split(" ")[0].toLowerCase();
-        Task newTask = null;
-        String description = "";
-        String[] descriptions = null; //For multiple arguments
+        final String type = args.split(" ")[0];
+        Task newTask;
 
         switch (type) {
         case "todo":
-            description = args.replaceFirst("todo ", "");
-
-            if (description.toLowerCase() == type) {
-                throw new NoDescriptionException("");
-            }
-
-            newTask = new ToDo(description);
+            newTask = assignToDoTask(args);
             break;
 
         case "deadline":
-            //Expected CL input: deadline <Description> /by <Due date in dd/MM/yyyy HHmm>
-            //TODO add error handling for no "/by" keyword
-            if (description.toLowerCase() == type) {
-                throw new NoDescriptionException(
-                        "Please input the right order: deadline <Description> /by <due date>");
-            }
-
-            description = args.replaceFirst("deadline ", "");
-            descriptions = description.split(" /by ");
-
-            if (descriptions.length < 2) {
-                throw new IncorrectInputException(
-                        "Please input the right order: deadline <Description> /by <due date>");
-            }
-
-            newTask = new Deadline(descriptions[0], descriptions[1]);
+            newTask = assignDeadlineTask(args);
             break;
 
         case "event":
-            //Expected CL input: event <Description> /from <start> /to <end>
-            if (description.toLowerCase() == type) {
-                throw new NoDescriptionException("");
-            }
-
-            description = args.replaceFirst("event ", ""); //Remove type
-
-            descriptions = description.split(" /from "); //Split remaining args into description + (from and to)
-            String from = descriptions[1].split(" /to ")[0]; //Split (from and to) into from and to
-            String to = descriptions[1].split(" /to ")[1];
-
-            newTask = new Event(descriptions[0], from, to);
+            newTask = assignEventTask(args);
             break;
 
         default:
-            break;
+            throw new NoDescriptionException("Wrong input");
         }
 
         return newTask;
+    }
+
+    private static ToDo assignToDoTask(String args) throws NoDescriptionException {
+        final String type = "todo";
+        final String[] splitArgs = args.split(WHITE_SPACE);
+
+        if (splitArgs.length < 2) {
+            throw new NoDescriptionException("");
+        }
+
+        final String description = args.replaceFirst(type + WHITE_SPACE, EMPTY_STRING);
+
+        return new ToDo(description);
+    }
+
+    private static Deadline assignDeadlineTask(String args) {
+        //Expected CL input: deadline <Description> /by <Due date in dd/MM/yyyy HHmm>
+        final String type = "deadline";
+        final String separator = " /by ";
+
+        if (args.replace(WHITE_SPACE, EMPTY_STRING).equals(type)) {
+            throw new IncorrectInputException(
+                    "Please input the right order: deadline <Description> /by <due date>");
+        }
+
+        String detail = args.replaceFirst(type + WHITE_SPACE, EMPTY_STRING);
+        String[] splitDetails = detail.split(separator);
+
+        return new Deadline(splitDetails[0], splitDetails[1]);
+    }
+
+    private static Event assignEventTask(String args) {
+        final String type = "event";
+        final String separatorFrom = " /from ";
+        final String separatorTo = " /to ";
+
+        if (args.replace(WHITE_SPACE, EMPTY_STRING).equals(type)) {
+            throw new NoDescriptionException("");
+        }
+
+        final String detail = args.replaceFirst(type + WHITE_SPACE, EMPTY_STRING); //Remove type
+        String[] splitDetails = detail.split(separatorFrom);  //Split remaining args into description + (from and to)
+
+        String description = splitDetails[0];
+        String from = splitDetails[1].split(separatorTo)[0]; //Split (from and to) into from and to
+        String to = splitDetails[1].split(separatorTo)[1];
+
+        return new Event(description, from, to);
     }
 
     public static String getKeyword(String arg) {
