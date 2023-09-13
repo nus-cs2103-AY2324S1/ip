@@ -24,7 +24,7 @@ public class Duke {
     Parser parser;
 
     /**
-     * Constructor for duke.Duke.
+     * Constructor for duke.Duke, with good code quality.
      */
     public Duke() {
         this.ui = new Ui();
