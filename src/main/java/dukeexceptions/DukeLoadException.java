@@ -1,4 +1,4 @@
-package dukeExceptions;
+package dukeexceptions;
 
 /**
  * This Exception class is for when duke met a corrupted file while loading.

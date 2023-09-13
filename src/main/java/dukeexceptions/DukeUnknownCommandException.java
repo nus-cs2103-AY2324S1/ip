@@ -1,4 +1,4 @@
-package dukeExceptions;
+package dukeexceptions;
 
 /**
  * This Exception class is for when the parser is not able to parse the string.

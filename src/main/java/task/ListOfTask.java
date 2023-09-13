@@ -2,9 +2,12 @@ package task;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.EmptyStackException;
+import java.util.Stack;
 
-import dukeExceptions.DukeException;
-import dukeExceptions.DukeSaveException;
+import command.Commands;
+import dukeexceptions.DukeException;
+import dukeexceptions.DukeSaveException;
 import storage.Storage;
 
 /**
@@ -12,6 +15,8 @@ import storage.Storage;
  */
 public class ListOfTask {
     private ArrayList<Task> listOfTask = new ArrayList<>();
+    private Stack<Commands> logOfCommands = new Stack<>();
+    private Stack<Task> listOfDeletedTask = new Stack<>();
 
     /**
      * The size of the task list.
@@ -31,6 +36,20 @@ public class ListOfTask {
             return "added: " + task;
         }
         return null;
+    }
+
+    /**
+     * Undo the previous delete command.
+     *
+     * @param index The index of the task that is to be added back.
+     * @return Returns a string showing that the task has been added back.
+     * @throws DukeSaveException If Duke is unable to save the task list.
+     */
+    public String undoDeleteTask(int index) throws DukeSaveException {
+        Task task = listOfDeletedTask.pop();
+        listOfTask.add(index - 1, task);
+        Storage.save(listOfTask);
+        return "added at index " + index + ": " + task;
     }
 
     /**
@@ -79,13 +98,16 @@ public class ListOfTask {
      * @return Returns the list of tasks if there are tasks, and a message if there are no tasks.
      */
     public String listTasks() {
-        String[] list = new String[1]; // Initialized arrays to use as pointers
+        // Initialized arrays to use as pointers
+        String[] list = new String[1];
         int[] i = new int[1];
         i[0] = 1;
         assert(list[0] == null);
 
-        listOfTask.forEach(x -> {  // For each item in the array list, I am accessing the arrays above to update
-            if (list[0] == null) { // my list string and my iterator.
+        listOfTask.forEach(x -> {
+            // For each item in the array list, I am accessing the arrays above to update
+            // my list string and my iterator.
+            if (list[0] == null) {
                 list[0] = i[0] + "." + x + "\n";
             } else {
                 list[0] += i[0] + "." + x + "\n";
@@ -108,15 +130,18 @@ public class ListOfTask {
      * @return Returns a string of a list of tasks found and a message if nothing is found.
      */
     public String find(String str) {
-        String[] list = new String[1];  // Initialized arrays to use as pointers
+        // Initialized arrays to use as pointers
+        String[] list = new String[1];
         int[] foundCounter = new int[1];
         int[] listIndex = new int[1];
         listIndex[0] = 1;
         assert(foundCounter[0] == 0);
 
-        listOfTask.forEach(task -> {                        // For each item in the array list,
-            if (task.getTaskDescription().contains(str)) {  // I am accessing the arrays above to
-                if (list[0] == null) {                      // update my find string, my iterator and foundCounter.
+        listOfTask.forEach(task -> {
+            // For each item in the array list, I am accessing the arrays above to update
+            // my list string, my iterator, and my found counter.
+            if (task.getTaskDescription().contains(str)) {
+                if (list[0] == null) {
                     list[0] = listIndex[0] + "." + task + "\n";
                 } else {
                     list[0] += listIndex[0] + "." + task + "\n";
@@ -171,11 +196,35 @@ public class ListOfTask {
     public String delete(int index) throws DukeException {
         try {
             Task removed = listOfTask.remove(index - 1);
+            listOfDeletedTask.add(removed);
             Storage.save(listOfTask);
             return removed + " has been deleted";
 
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Please select from index 1 to " + listOfTask.size());
+        }
+    }
+
+
+    /**
+     * Adds a command into the log of commands stack.
+     *
+     * @param command The command to be added to the log of commands stack.
+     */
+    public void addCommand(Commands command) {
+        logOfCommands.add(command);
+    }
+
+    /**
+     * Returns the command at the top of the log of commands stack.
+     *
+     * @return Returns the task at the top of the log of commands stack.
+     */
+    public Commands getPreviousCommand() throws DukeException {
+        try {
+            return logOfCommands.pop();
+        } catch (EmptyStackException e) {
+            throw new DukeException("There is no previous command");
         }
     }
 }

@@ -7,9 +7,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import command.Commands;
-import dukeExceptions.DukeException;
-import dukeExceptions.DukeLoadException;
-import dukeExceptions.DukeSaveException;
+import dukeexceptions.DukeException;
+import dukeexceptions.DukeSaveException;
 import parser.Parser;
 import task.ListOfTask;
 import task.Task;
@@ -31,7 +30,8 @@ public class Storage {
             writeData.createNewFile();
             FileWriter writer = new FileWriter(writeData);
 
-            boolean isThereException[] = new boolean[1];  // Created a boolean to watch the consumer
+            // Created a boolean to watch the consumer
+            boolean[] isThereException = new boolean[1];
             isThereException[0] = false;
             listOfTask.forEach(x-> {
                 try {
@@ -40,7 +40,8 @@ public class Storage {
                         writer.write("mark " + (listOfTask.indexOf(x) + 1) + "\n");
                     }
                 } catch (IOException e) {
-                    isThereException[0] = true;  // If the consumer has an error it becomes true
+                    // If the consumer has an error it becomes true
+                    isThereException[0] = true;
                 }
             });
             if (isThereException[0]) {
@@ -83,20 +84,24 @@ public class Storage {
             saveData.createNewFile();
             Scanner readData = new Scanner(saveData);
 
-            for (int i = 0; i < startLine - 1; i++) {  // Continue from startLine
+            // Continue from startLine
+            for (int i = 0; i < startLine - 1; i++) {
                 if (readData.hasNextLine()) {
                     readData.nextLine();
                 }
             }
 
-            while (readData.hasNextLine()) {  // Begin loading
+            // Begin loading
+            while (readData.hasNextLine()) {
                 String command = readData.nextLine();
                 error = command;
-                if (command.equals("\n")) {  // If next line is empty, it is the end of file
+                // If next line is empty, it is the end of file
+                if (command.equals("\n")) {
                     break;
                 }
 
-                Parser cmd = new Parser(command);  // Loads each line in the save file into the taskList
+                // Loads each line in the save file into the taskList
+                Parser cmd = new Parser(command);
                 Commands action = cmd.parse();
                 action.execute(taskList, false);
 
@@ -106,8 +111,9 @@ public class Storage {
 
         } catch (DukeException e) {
             startLine++;
-            return load(taskList, startLine, errorCarryForward // Carries the error to be shown at the end
-                    + "line " + startLine + " corrupted: " + error + "\n");  // of the load
+            // Carries the error to be shown at the end of the load
+            return load(taskList, startLine, errorCarryForward
+                    + "line " + startLine + " corrupted: " + error + "\n");
 
         } catch (IOException f) {
             return "You do not have access to create a save file";

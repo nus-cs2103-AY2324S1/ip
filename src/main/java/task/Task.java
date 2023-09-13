@@ -2,6 +2,8 @@ package task;
 
 import java.time.LocalDateTime;
 
+import dukeexceptions.DukeException;
+
 /**
  * This is an abstract class that contain the factory methods and all the methods that a task will have.
  */
@@ -31,14 +33,20 @@ public abstract class Task {
     /**
      * Mark the task as done.
      */
-    public void setDone() {
+    public void setDone() throws DukeException {
+        if (isDone) {
+            throw new DukeException("Task is already done");
+        }
         this.isDone = true;
     }
 
     /**
      * Mark the task as undone.
      */
-    public void setNotDone() {
+    public void setNotDone() throws DukeException {
+        if (!isDone) {
+            throw new DukeException("Task is still not done");
+        }
         this.isDone = false;
     }
 

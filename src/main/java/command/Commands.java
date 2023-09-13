@@ -2,7 +2,7 @@ package command;
 
 import java.time.LocalDateTime;
 
-import dukeExceptions.DukeException;
+import dukeexceptions.DukeException;
 import task.ListOfTask;
 import ui.Ui;
 
@@ -16,7 +16,7 @@ public class Commands {
      * List of both primary and secondary commands.
      */
     public enum CommandEnum { BYE, LIST, TODO, DEADLINE, EVENT, MARK,
-            UNMARK, DELETE, BY, FROM, TO, FIND, UNKNOWN }
+            UNMARK, DELETE, BY, FROM, TO, FIND, UNDO, UNKNOWN }
 
     private CommandEnum primaryCommand;
     private String taskDescription;
@@ -132,33 +132,83 @@ public class Commands {
      * @throws DukeException The exception thrown when encountering any problems in executing.
      */
     public String execute(ListOfTask taskList, boolean print) throws DukeException {
+        String response = "";
         switch (this.primaryCommand) {
 
         case BYE:
-            return Ui.exit();
+            response = Ui.exit();
+            break;
 
         case LIST:
-            return taskList.listTasks();
+            response = taskList.listTasks();
+            break;
 
         case FIND:
-            return taskList.find(this.taskDescription);
+            response = taskList.find(this.taskDescription);
+            break;
 
         case TODO:
-            return taskList.addToDo(this.taskDescription, print);
+            response = taskList.addToDo(this.taskDescription, print);
+
+            break;
 
         case MARK:
-            return taskList.markOrUnmark(this.index, true, print);
+            response = taskList.markOrUnmark(this.index, true, print);
+            break;
 
         case UNMARK:
-            return taskList.markOrUnmark(this.index, false, print);
+            response = taskList.markOrUnmark(this.index, false, print);
+            break;
 
         case DELETE:
-            return taskList.delete(this.index);
+            response = taskList.delete(this.index);
+            break;
+
+        case UNDO:
+            response = taskList.getPreviousCommand().undo(taskList);
+            break;
 
         default:
             // No tasks to do which is impossible as the Commands that are not here will not get through Parser.
             return null;
         }
+
+        // Adding the user's command input into the previous command stack
+        if (print) {
+            switch (primaryCommand) {
+            case TODO: case DEADLINE: case EVENT: case MARK: case UNMARK: case DELETE:
+                taskList.addCommand(this);
+                break;
+
+            default:
+
+            }
+        }
+
+        return response;
+    }
+
+    private String undo(ListOfTask taskList) throws DukeException {
+        switch (this.primaryCommand) {
+
+        case TODO: case DEADLINE: case EVENT:
+            int index = taskList.size();
+            return taskList.delete(index);
+
+        case MARK:
+            return taskList.markOrUnmark(this.index, false, true);
+
+        case UNMARK:
+            return taskList.markOrUnmark(this.index, true, true);
+
+        case DELETE:
+            return taskList.undoDeleteTask(this.index);
+
+        default:
+
+        }
+
+        return null;
     }
 
     /**
@@ -189,14 +239,18 @@ public class Commands {
          */
         @Override
         public String execute(ListOfTask taskList, boolean print) throws DukeException {
+            String response = "";
             switch (super.primaryCommand) {
 
             case DEADLINE:
-                return taskList.addDeadline(super.taskDescription, this.secondaryCommand.dateTime, print);
+                response = taskList.addDeadline(super.taskDescription, this.secondaryCommand.dateTime, print);
+                taskList.addCommand(this);
+                break;
 
             default:
                 return null;
             }
+            return response;
         }
     }
 
@@ -215,15 +269,19 @@ public class Commands {
          */
         @Override
         public String execute(ListOfTask taskList, boolean print) throws DukeException {
+            String response = "";
             switch (super.primaryCommand) {
 
             case EVENT:
-                return taskList.addEvent(super.taskDescription, this.phaseTwo.dateTime,
+                response = taskList.addEvent(super.taskDescription, this.phaseTwo.dateTime,
                         this.phaseThree.dateTime, print);
+                taskList.addCommand(this);
+                break;
 
             default:
                 return null;
             }
+            return response;
         }
     }
 }

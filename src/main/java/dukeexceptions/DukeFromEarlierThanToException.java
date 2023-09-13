@@ -1,4 +1,4 @@
-package dukeExceptions;
+package dukeexceptions;
 
 /**
  * This Exception class is for when the 'from' time is after the 'to' time for Event tasks.
