@@ -37,6 +37,7 @@ public class Task {
      */
     public static Task createTaskType(String[] splitTask) throws DukeException {
         String type = splitTask[0];
+
         String description = "";
 
         if (!(type.equals("deadline") || type.equals("todo") || type.equals("event"))) {
@@ -52,7 +53,6 @@ public class Task {
         try {
             if (type.equals("deadline")) {
                 String[] splitDesc = description.split(" /by ", 2);
-                System.out.println(splitDesc[1]);
                 return new Deadline(splitDesc[0], splitDesc[1]);
             } else if (type.equals("todo")) {
                 return new Todo(description);

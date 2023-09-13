@@ -43,7 +43,7 @@ public class MarkCommand extends Command {
             throw new DukeInvalidMarkException(splitTask[0]);
         }
 
-        if (index > 0 && index <= taskList.size() && taskList.get(index - 1) != null) {
+        if (index > 0 && index <= taskList.size()) {
             taskList.get(index - 1).mark();
             result = ui.printMark(taskList.get(index - 1));
         } else {

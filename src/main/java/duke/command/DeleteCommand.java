@@ -43,7 +43,7 @@ public class DeleteCommand extends Command {
             throw new DukeInvalidDeleteException(splitTask[0]);
         }
 
-        if (index > 0 && index <= taskList.size() && taskList.get(index - 1) != null) {
+        if (index > 0 && index <= taskList.size()) {
             result = ui.printDeleteTask(taskList.get(index - 1), taskList.size() - 1);
             taskList.remove(index - 1);
         } else {

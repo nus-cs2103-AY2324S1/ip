@@ -8,7 +8,7 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * Class Duke for the chatbot
+ * Class Duke for the chatBot
  *
  * @author marioalvaro
  */
