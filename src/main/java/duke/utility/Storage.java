@@ -31,15 +31,15 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    private static boolean isValidTaskType(String taskType) {
-        return taskType.equals("T") || taskType.equals("D") || taskType.equals("E");
+    private static boolean isInvalidTaskType(String taskType) {
+        return !taskType.equals("T") && !taskType.equals("D") && !taskType.equals("E");
     }
 
-    private static boolean isValidDoneFlag(String doneFlag) {
+    private static boolean isInvalidDoneFlag(String doneFlag) {
         return doneFlag.equals("0") || doneFlag.equals("1");
     }
 
-    private static boolean isValidTaskFormat(String taskType, int taskFormatLength) {
+    private static boolean isInvalidTaskFormat(String taskType, int taskFormatLength) {
         return (taskType.equals("T") && taskFormatLength == 3) || (taskType.equals("D") && taskFormatLength == 4)
                 || (taskType.equals("E") && taskFormatLength == 5);
     }
@@ -66,10 +66,10 @@ public class Storage {
             }
             reader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("An error has occured during file creation. Plese check duke.txt in the data folder");
+            System.out.println("An error has occurred during file creation. Please check duke.txt in the data folder");
             System.exit(1);
         } catch (IOException e) {
-            System.out.println("An error has occured during file loading. Plese check duke.txt in the data folder");
+            System.out.println("An error has occurred during file loading. Please check duke.txt in the data folder");
             System.exit(1);
         } catch (DukeException e) {
             System.out.println(e.getMessage());
@@ -126,15 +126,15 @@ public class Storage {
         String taskType = dataArr[0];
         String doneFlag = dataArr[1];
 
-        if (!isValidTaskType(taskType)) {
+        if (isInvalidTaskType(taskType)) {
             throw new DukeException("Invalid task type");
         }
 
-        if (!isValidDoneFlag(doneFlag)) {
+        if (isInvalidDoneFlag(doneFlag)) {
             throw new DukeException("Invalid done flag");
         }
 
-        if (!isValidTaskFormat(taskType, dataLength)) {
+        if (isInvalidTaskFormat(taskType, dataLength)) {
             throw new DukeException("Invalid task format");
         }
 
