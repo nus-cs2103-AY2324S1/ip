@@ -50,8 +50,11 @@ public class Storage {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String[] task = s.nextLine().split("\\|");
-                String taskType = task[0].trim();
                 boolean isDone = task[1].trim().equals("1");
+                String taskType = task[0].trim();
+
+                assert taskType.equals("T") || taskType.equals("D")
+                        || taskType.equals("E") : "Invalid task type when loading from file";
 
                 if (taskType.equals("T")) {
                     taskList.add(new Task(task[2].trim(), isDone));

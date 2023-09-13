@@ -35,6 +35,7 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JoException {
         Arrays.sort(taskIndices);
+        // Delete in descending order of indices
         for (int i = this.taskIndices.length - 1; i >= 0; i--) {
             int index = taskIndices[i];
             if (index < 0 || index >= tasks.getSize()) {
