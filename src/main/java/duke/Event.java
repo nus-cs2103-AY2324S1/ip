@@ -28,6 +28,8 @@ public class Event extends Task {
         super(name);
         this.from = from;
         this.to = to;
+        assert this.from != null: "from of Event should not be null";
+        assert this.to != null: "to of Event should not be null";
     }
 
     /**

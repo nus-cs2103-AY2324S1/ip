@@ -46,12 +46,19 @@ public class Duke {
             ui.getLoadingErrorMessage();
             this.tasks = new TaskList();
         }
+        assert this.storage != null: "storage of Duke should not be null";
+        assert this.ui != null: "ui of Duke should not be null";
+        assert this.tasks != null: "taskList of Duke should not be null";
     }
 
     String getResponse(String input) {
         try {
             Command command = Parser.parseUserInput(input);
+            assert command != null: "Command returned from parsing user input should not be null";
+
             String response = command.execute(tasks, ui, storage);
+            assert response != null: "Response returned from executing command should not be null";
+
             if (command.isExit()) {
                 javafx.application.Platform.exit();
             }

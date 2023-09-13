@@ -22,6 +22,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+        assert this.filePath != null: "filePath of Storage should not be null";
     }
 
     /**
@@ -32,6 +33,7 @@ public class Storage {
      *      but cannot be created, or cannot be opened for any other reason
      */
     public void saveData(ArrayList<String> data) throws StorageException {
+        assert data != null: "data to be saved to file should not be null";
         try {
             String[] splitFilePath = filePath.split("/");
             String directories = String.join("/", Arrays.copyOfRange(splitFilePath, 0,
