@@ -25,24 +25,24 @@ public class Parser {
     public static String parse(String message, Ui ui, TaskList tasks, Storage storage) {
         try {
             String messageType = message.split(" ")[0];
-            if (messageType.equals("list")) {
+            if (messageType.equalsIgnoreCase("list")) {
                 return Command.list(message, ui, tasks, storage);
-            } else if (messageType.equals("mark")) {
+            } else if (messageType.equalsIgnoreCase("mark")) {
                 return Command.mark(message, ui, tasks, storage);
-            } else if (messageType.equals("unmark")) {
+            } else if (messageType.equalsIgnoreCase("unmark")) {
                 return Command.unmark(message, ui, tasks, storage);
-            } else if (messageType.equals("todo")) {
+            } else if (messageType.equalsIgnoreCase("todo")) {
                 return Command.addToDo(message, ui, tasks, storage);
-            } else if (messageType.equals("deadline")) {
+            } else if (messageType.equalsIgnoreCase("deadline")) {
                 return Command.addDeadline(message, ui, tasks, storage);
-            } else if (messageType.equals("event")) {
+            } else if (messageType.equalsIgnoreCase("event")) {
                 return Command.addEvent(message, ui, tasks, storage);
-            } else if (messageType.equals("delete")) {
+            } else if (messageType.equalsIgnoreCase("delete")) {
                 return Command.delete(message, ui, tasks, storage);
-            } else if (messageType.equals("find")) {
+            } else if (messageType.equalsIgnoreCase("find")) {
                 return Command.find(message, ui, tasks, storage);
-            } else if (message.equals("bye")) {
-                return ui.printEnd();
+            } else if (messageType.equalsIgnoreCase("bye")) {
+                return Command.bye(message, ui, tasks, storage);
             } else {
                 throw new InvalidCommandException();
             }

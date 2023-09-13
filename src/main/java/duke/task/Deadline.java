@@ -1,4 +1,5 @@
 package duke.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -29,6 +30,7 @@ public class Deadline extends Task {
      * @throws InvalidDeadlineException when the deadline command message is invalid
      */
     public static Deadline create(String message) throws InvalidDeadlineException {
+        assert message.split(" ")[0].equalsIgnoreCase("deadline") : "First word of message must be deadline";
         try {
             String name = message.substring(9, message.indexOf("/by "));
             String deadlineString = message.substring(message.indexOf("/by ") + 4);

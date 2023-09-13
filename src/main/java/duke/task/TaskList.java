@@ -8,6 +8,11 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * Instantiates the TaskList
+     *
+     * @param tasks the list of the tasks
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
@@ -19,6 +24,7 @@ public class TaskList {
      * @return the task with the certain index
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < getSize() : "The index must be be not less than 0 but less than the number of tasks";
         return tasks.get(index);
     }
 
@@ -37,6 +43,7 @@ public class TaskList {
      * @param index the index of the removed task
      */
     public void removeTask(int index) {
+        assert index >= 0 && index < getSize() : "The index must be be not less than 0 but less than the number of tasks";
         tasks.remove(index);
     }
 
@@ -46,6 +53,7 @@ public class TaskList {
      * @param index the index of the marked task
      */
     public void markTask(int index) {
+        assert index >= 0 && index < getSize() : "The index must be be not less than 0 but less than the number of tasks";
         tasks.get(index).mark();
     }
 
@@ -55,6 +63,7 @@ public class TaskList {
      * @param index the index of the unmarked task
      */
     public void unmarkTask(int index) {
+        assert index >= 0 && index < getSize() : "The index must be be not less than 0 but less than the number of tasks";
         tasks.get(index).unmark();
     }
 
@@ -66,6 +75,7 @@ public class TaskList {
     public int getSize() {
         return tasks.size();
     }
+
     /**
      * Gets the string representation to store the TaskList
      *

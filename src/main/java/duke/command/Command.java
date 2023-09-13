@@ -28,6 +28,7 @@ public class Command {
      * @throws InvalidCommandException when the list command is invalid
      */
     public static String list(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
+        assert message.split(" ")[0].equalsIgnoreCase("list") : "First word of message must be list";
         if (message.equals("list")) {
             return ui.printTasks(tasks);
         } else {
@@ -46,15 +47,15 @@ public class Command {
      * @throws InvalidCommandException when the mark command is invalid
      */
     public static String mark(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
+        assert message.split(" ")[0].equalsIgnoreCase("mark") : "First word of message must be mark";
         try {
             String[] messageWords = message.split(" ");
             int numOfWords = messageWords.length;
             if (numOfWords == 2) {
                 int index = Integer.parseInt(messageWords[1]) - 1;
-                Task markTask = tasks.getTask(index);
-                markTask.mark();
+                tasks.markTask(index);
                 storage.updateTask(tasks);
-                return ui.printMarkTask(markTask);
+                return ui.printMarkTask(tasks.getTask(index));
             } else {
                 throw new InvalidCommandException();
             }
@@ -76,16 +77,15 @@ public class Command {
      * @throws InvalidCommandException when the unmark command is invalid
      */
     public static String unmark(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
+        assert message.split(" ")[0].equalsIgnoreCase("unmark") : "First word of message must be unmark";
         try {
-
             String[] messageWords = message.split(" ");
             int numOfWords = messageWords.length;
             if (numOfWords == 2) {
                 int index = Integer.parseInt(messageWords[1]) - 1;
-                Task unmarkTask = tasks.getTask(index);
-                unmarkTask.unmark();
+                tasks.unmarkTask(index);
                 storage.updateTask(tasks);
-                return ui.printUnmarkTask(unmarkTask);
+                return ui.printUnmarkTask(tasks.getTask(index));
             } else {
                 throw new InvalidCommandException();
             }
@@ -107,6 +107,7 @@ public class Command {
      * @throws InvalidToDoException when the todo command is invalid
      */
     public static String addToDo(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidToDoException {
+        assert message.split(" ")[0].equalsIgnoreCase("todo") : "First word of message must be todo";
         Task newTask = ToDo.create(message);
         tasks.addTask(newTask);
         storage.addTask(newTask);
@@ -125,6 +126,7 @@ public class Command {
      */
     public static String addDeadline(String message, Ui ui, TaskList tasks, Storage storage)
             throws InvalidDeadlineException {
+        assert message.split(" ")[0].equalsIgnoreCase("deadline") : "First word of message must be deadline";
         Task newTask = Deadline.create(message);
         tasks.addTask(newTask);
         storage.addTask(newTask);
@@ -142,6 +144,7 @@ public class Command {
      * @throws InvalidEventException when the event command is invalid
      */
     public static String addEvent(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidEventException {
+        assert message.split(" ")[0].equalsIgnoreCase("event") : "First word of message must be event";
         Task newTask = Event.create(message);
         tasks.addTask(newTask);
         storage.addTask(newTask);
@@ -159,6 +162,7 @@ public class Command {
      * @throws InvalidCommandException when the delete command is invalid
      */
     public static String delete(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
+        assert message.split(" ")[0].equalsIgnoreCase("delete") : "First word of message must be delete";
         try {
             String[] messageWords = message.split(" ");
             int numOfWords = messageWords.length;
@@ -189,6 +193,7 @@ public class Command {
      * @throws InvalidCommandException if the command is invalid
      */
     public static String find(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
+        assert message.split(" ")[0].equalsIgnoreCase("find") : "First word of message must be find";
         try {
             String[] messageWords = message.split(" ");
             int numOfWords = messageWords.length;
@@ -201,6 +206,25 @@ public class Command {
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommandException();
         } catch (NumberFormatException e) {
+            throw new InvalidCommandException();
+        }
+    }
+
+    /**
+     * Responds to bye message
+     *
+     * @param message the message
+     * @param ui the ui
+     * @param tasks the list of tasks
+     * @param storage the storage
+     * @return the goodbye string
+     * @throws InvalidCommandException if the command is invalid
+     */
+    public static String bye(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
+        assert message.split(" ")[0].equalsIgnoreCase("find") : "First word of message must be find";
+        if (message.equalsIgnoreCase("bye")) {
+            return ui.printEnd();
+        } else {
             throw new InvalidCommandException();
         }
     }

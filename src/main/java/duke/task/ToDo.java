@@ -1,4 +1,5 @@
 package duke.task;
+
 import duke.exception.InvalidToDoException;
 
 /**
@@ -18,6 +19,7 @@ public class ToDo extends Task {
      * @throws InvalidToDoException when the todo command message is invalid
      */
     public static ToDo create(String message) throws InvalidToDoException {
+        assert message.split(" ")[0].equalsIgnoreCase("todo") : "First word of message must be todo";
         try {
             return new ToDo(message.substring(5));
         } catch (IndexOutOfBoundsException e) {

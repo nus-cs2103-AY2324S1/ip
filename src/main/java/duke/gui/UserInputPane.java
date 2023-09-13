@@ -57,6 +57,9 @@ public class UserInputPane extends Pane {
         });
     }
 
+    /**
+     * Handles the user input
+     */
     private void handleUserInput() {
         String userText = userInput.getText();
         mainPanel.addDialog(userText);
