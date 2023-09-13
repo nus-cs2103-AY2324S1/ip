@@ -1,5 +1,7 @@
 package seedu.duke;
 
+import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLOutput;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -35,37 +37,41 @@ public class Parser {
      */
     public String parse(String cmd) {
         try {
+            // Try to convert the task type to an enum. If does not match, throw
+            // InvocationTargetException.
             TaskType taskType = TaskType.valueOf(getTaskType(cmd));
 
             switch (taskType) {
-            case LIST:
-                return getListItems();
-            case TODO:
-                return parseToDoCommand(cmd);
-            case DEADLINE:
-                return parseDeadlineCommand(cmd);
-            case EVENT:
-                return parseEventCommand(cmd);
-            case DELETE:
-                return parseDeleteCommand(cmd);
-            case MARK:
-                return parseMarkCommand(cmd);
-            case UNMARK:
-                return parseUnmarkCommand(cmd);
-            case FIND:
-                return parseFindCommand(cmd);
-            case POSTPONE:
-                return parsePostponeCommand(cmd);
-            case BYE:
-                return exit();
-            default:
-                throw new TaskTypeException();
+                case LIST:
+                    return getListItems();
+                case TODO:
+                    return parseToDoCommand(cmd);
+                case DEADLINE:
+                    return parseDeadlineCommand(cmd);
+                case EVENT:
+                    return parseEventCommand(cmd);
+                case DELETE:
+                    return parseDeleteCommand(cmd);
+                case MARK:
+                    return parseMarkCommand(cmd);
+                case UNMARK:
+                    return parseUnmarkCommand(cmd);
+                case FIND:
+                    return parseFindCommand(cmd);
+                case POSTPONE:
+                    return parsePostponeCommand(cmd);
+                case BYE:
+                    return exit();
             }
         } catch (DukeException e) {
             return e.getMessage();
         } catch (AssertionError e) {
             return "Assertion failed: " + e.getMessage();
+        } catch (Exception e) { // This catch block catches InvocationTargetException from the
+                                // TaskType.valueOf() method
+            return new TaskTypeException().getMessage();
         }
+        return null;
     }
 
     /**

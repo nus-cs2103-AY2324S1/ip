@@ -11,6 +11,10 @@ public class Ui {
      */
     public Ui() {}
 
+    public String showLoadingError() {
+        return "There was an error reading your duke.txt file";
+    }
+
     /**
      * Returns a string containing the tasks in the taskList given.
      *
