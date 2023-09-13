@@ -9,9 +9,7 @@ import java.time.LocalDateTime;
  * @author Tan Kerway
  */
 public class Event extends Task {
-    // from date for the event class
     private final LocalDateTime from;
-    // to date for the event class
     private final LocalDateTime to;
 
 
@@ -25,9 +23,7 @@ public class Event extends Task {
     public Event(String description, String period) {
         super(description);
         int indexTo = period.lastIndexOf("/to");
-        // get the String that represents the start time
         this.from = super.parseDate(period.substring(6, indexTo - 1), "from");
-        // get the String that represents the end time
         this.to = super.parseDate(period.substring(indexTo + 4), "to");
     }
 

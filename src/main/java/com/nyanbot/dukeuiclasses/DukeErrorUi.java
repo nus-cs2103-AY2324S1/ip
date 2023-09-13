@@ -70,7 +70,6 @@ public class DukeErrorUi {
      * @return an InvalidTask if the task is invalid, null otherwise
      */
     public Task handleDeadlineErrors(String taskString, int taskDescriptionLength, int indexOfBy) throws DukeException {
-        // handle errors
         if (taskDescriptionLength == 8
                 || (indexOfBy != -1 && taskString.substring(8, taskString.lastIndexOf("/by") + 1).trim().isEmpty())) {
             return new InvalidTask(handleEmptyCommand("deadline"));
@@ -80,6 +79,7 @@ public class DukeErrorUi {
                 || taskString.substring(indexOfBy + 3).trim().equals("")) {
             return new InvalidTask(handleNoDate("by"));
         }
+        // at this point, there are no errors. to indicate that there are no errors, we return null
         return null;
     }
 

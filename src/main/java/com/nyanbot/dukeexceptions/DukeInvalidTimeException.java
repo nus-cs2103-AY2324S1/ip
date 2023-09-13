@@ -6,6 +6,8 @@ package com.nyanbot.dukeexceptions;
  * @author Tan Kerway
  */
 public class DukeInvalidTimeException extends DukeException {
+    private static final String INVALID_TIME_PREFIX_STRING = " Please specify a valid ";
+    private static final String INVALID_TIME_SUFFIX_STRING = " date!";
 
     /**
      * Constructor for the exception class.
@@ -14,7 +16,7 @@ public class DukeInvalidTimeException extends DukeException {
      * @param details additional details to add to the error message
      */
     public DukeInvalidTimeException(String details) {
-        super(" Please specify a valid " + details + " date!");
+        super(INVALID_TIME_PREFIX_STRING + details + INVALID_TIME_SUFFIX_STRING);
     }
     /**
      * Returns the String representation of a DukeExceptions.DukeInvalidTimeException class.

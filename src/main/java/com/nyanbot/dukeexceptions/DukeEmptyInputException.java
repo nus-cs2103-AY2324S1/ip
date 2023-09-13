@@ -7,6 +7,8 @@ package com.nyanbot.dukeexceptions;
  * @author Tan Kerway
  */
 public class DukeEmptyInputException extends DukeException {
+    private static final String EMPTY_INPUT_PREFIX_STRING = " The description of a ";
+    private static final String EMPTY_INPUT_SUFFIX_STRING = " cannot be empty.";
 
     /**
      * Constructor for the exception class.
@@ -15,7 +17,7 @@ public class DukeEmptyInputException extends DukeException {
      * @param command the command that the user typed in
      */
     public DukeEmptyInputException(String command) {
-        super(" The description of a " + command + " cannot be empty.");
+        super(EMPTY_INPUT_PREFIX_STRING + command + EMPTY_INPUT_SUFFIX_STRING);
     }
 
     /**

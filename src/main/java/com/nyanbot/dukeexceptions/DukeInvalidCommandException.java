@@ -7,14 +7,14 @@ package com.nyanbot.dukeexceptions;
  * @author Tan Kerway
  */
 public class DukeInvalidCommandException extends DukeException {
-
+    private static final String INVALID_COMMAND_STRING = " I'm sorry, but I don't know what that means :3";
     /**
      * Constructor for the exception class.
      *
      * @author Tan Kerway
      */
     public DukeInvalidCommandException() {
-        super(" I'm sorry, but I don't know what that means :3");
+        super(INVALID_COMMAND_STRING);
     }
 
     /**

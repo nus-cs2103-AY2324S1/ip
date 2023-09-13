@@ -87,10 +87,8 @@ public class DukeTaskList {
      */
     public Task getTask(String[] tokens) throws IOException {
         int n = tokens.length;
-        // get the task
         Task currentTask;
         StringBuilder description = new StringBuilder();
-        // case where todo
         switch (tokens[0]) {
         case "t":
             for (int i = 2; i < n; i++) {
@@ -121,7 +119,6 @@ public class DukeTaskList {
                 }
             }
             currentTask = new Deadline(description.toString().trim(), Boolean.parseBoolean(tokens[1]), sb.toString());
-            // case where the deadline is not valid
             if (((Deadline) currentTask).getBy() == null) {
                 return null;
             }
@@ -154,7 +151,6 @@ public class DukeTaskList {
                     description.toString().trim(),
                     Boolean.parseBoolean(tokens[1]), sb1.toString().trim(), sb2.toString().trim());
             Event t = (Event) currentTask;
-            // case where the deadline is not valid
             if (t.getFrom() == null || t.getTo() == null || !t.isValid()) {
                 return null;
             }
@@ -179,24 +175,19 @@ public class DukeTaskList {
         String description;
         Task createdTask;
         try {
-            // get the length of the task
             int taskDescriptionLength = task.length();
-            // handle the 3 different types of class
+            // handle each command type and handle their respective errors
             if (task.startsWith("todo")) {
-                // handle errors, capture the error message in an InvalidClass instance
                 createdTask = this.errorUI.handleTodoErrors(task, taskDescriptionLength);
                 if (createdTask == null) {
                     description = task.substring(5);
                     createdTask = new Todo(description);
                 }
             } else if (task.startsWith("deadline")) {
-                // cache the start index of the "/by" substring
                 int indexOfBy = task.indexOf("/by");
                 createdTask = this.errorUI.handleDeadlineErrors(task, taskDescriptionLength, indexOfBy);
                 if (createdTask == null) {
-                    // get the task description
                     description = task.substring(9, indexOfBy - 1);
-                    // get the deadline
                     String by = task.substring(indexOfBy + 4);
                     createdTask = new Deadline(description, by);
                 }
@@ -205,9 +196,7 @@ public class DukeTaskList {
                 int toStart = task.lastIndexOf("/to");
                 createdTask = this.errorUI.handleEverythingElseError(task, fromStart, toStart, taskDescriptionLength);
                 if (createdTask == null) {
-                    // get the task description
                     description = task.substring(6, fromStart - 1);
-                    // get the string that holds the start and the end
                     String period = task.substring(fromStart);
                     createdTask = new Event(description, period);
                 }
@@ -284,15 +273,13 @@ public class DukeTaskList {
     // todo: make this return string
     public String handleUnmark(String input) {
         assert this.errorUI != null;
-        // gc: no items to delete
+        // gc: we cannot unmark a task that definitely does not exist in an empty list
         if (this.tasks.isEmpty()) {
             return this.errorUI.handleEmptyTasksList();
         }
-        // get the string containing the index
         Integer numberString = this.parser.parseString(input.substring(7));
-        // gc: string not parsable
+        // null is returned by the parseString method if the input is not parsable
         if (numberString == null) {
-            // handle the error
             return this.errorUI.handleInvalidIndex();
         }
         Task currentTask = this.tasks.get(Integer.parseInt(input.substring(7, 8)) - 1);
@@ -309,15 +296,13 @@ public class DukeTaskList {
      */
     public String handleMark(String input) {
         assert this.errorUI != null;
-        // gc: no items to delete
+        // gc: we cannot mark a task that definitely does not exist in an empty list
         if (this.tasks.isEmpty()) {
             return this.errorUI.handleEmptyTasksList();
         }
-        // get the string containing the index
         Integer numberString = this.parser.parseString(input.substring(5));
-        // gc: string not parsable
+        // null is returned by the parseString method if the input is not parsable
         if (numberString == null) {
-            // handle the error
             return this.errorUI.handleInvalidIndex();
         }
         Task currentTask = this.tasks.get(numberString - 1);
@@ -341,11 +326,8 @@ public class DukeTaskList {
         if (this.tasks.isEmpty()) {
             return this.errorUI.handleEmptyTasksList();
         }
-        // get the substring that is the search query
         String query = input.substring(4).trim();
-        // get the list of tasks that contain the query String
         ArrayList<Task> matchingTasks = getMatchingTasks(query);
-        // print the matching tasks
         return printMatchingTasks(matchingTasks);
     }
 
@@ -377,17 +359,15 @@ public class DukeTaskList {
      *         are a non-zero number of matches
      */
     private String printMatchingTasks(ArrayList<Task> matchingTasks) {
-        // gc: task list is empty
         if (matchingTasks.isEmpty()) {
             return "No nyatching tasks found!";
-        } else {
-            StringBuilder response = new StringBuilder();
-            response.append("Here are the nyatching tasks in your list:\n");
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                response.append((i + 1)).append(".").append(matchingTasks.get(i)).append("\n");
-            }
-            return response.toString();
         }
+        StringBuilder response = new StringBuilder();
+        response.append("Here are the nyatching tasks in your list:\n");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            response.append((i + 1)).append(".").append(matchingTasks.get(i)).append("\n");
+        }
+        return response.toString();
     }
 
     /**
@@ -400,11 +380,8 @@ public class DukeTaskList {
     private Task deleteTask(int index) throws IOException {
         assert index >= 0;
         assert index <= this.tasks.size();
-        // remove the task
         Task deletedTask = this.tasks.remove(index - 1);
-        // update the list
         this.databaseController.saveTaskList();
-        // return the deleted task
         return deletedTask;
     }
 }
