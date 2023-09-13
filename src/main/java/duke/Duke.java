@@ -149,30 +149,21 @@ public class Duke extends Application {
     }
 
     private void readFromData() {
-        Scanner sc = new Scanner(System.in);
-        boolean successful = false;
-        while (!successful) {
-            try {
-                successful = storage.readFromFile();
-            } catch (IOException e) {
-                dukeMessage("Unfortunately there was an unexpected error when reading your data file."
-                            + "Program will exit in 5 seconds");
-                exitChatbot(5);
-            } catch (CorruptDataException e) {
-                dukeMessage("Data is corrupt at: \"" + e.getCorruptLine() + "\". Please fix and press "
-                        + "enter to proceed, or type the command \"exit\" to quit program");
-
-                sendButton.setOnMouseClicked((event) -> {
-                    handleCorruptDataUserInput();
-                });
-
-                userInput.setOnAction((event) -> {
-                    handleCorruptDataUserInput();
-                });
-            } catch (Exception e) {
-                dukeMessage("Unkown exception. Window will close in 5 seconds.");
-                exitChatbot(5);
-            }
+        try {
+            storage.readFromFile();
+        } catch (IOException e) {
+            dukeMessage("Unfortunately there was an unexpected error when reading your data file."
+                    + "Please check your I/O devices and restart the program");
+            sendButton.setDisable(false);
+            userInput.setDisable(false);
+        } catch (CorruptDataException e) {
+            dukeMessage("Data is corrupt at: \"" + e.getCorruptLine() + "\". Please fix and restart the chatbot.");
+            sendButton.setDisable(false);
+            userInput.setDisable(false);
+        } catch (Exception e) {
+            dukeMessage("Unkown exception. Please restart the program.");
+            sendButton.setDisable(false);
+            userInput.setDisable(false);
         }
     }
 
