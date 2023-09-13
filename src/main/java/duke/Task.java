@@ -9,25 +9,25 @@ import java.time.LocalDate;
 public abstract class Task {
 
     protected final String task;
-    protected boolean done;
+    protected boolean isDone;
 
     protected Task(String task) {
         this.task = task;
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
-     * Marks the task as done.
+     * Marks the task as isDone.
      */
     public void doTask() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
-     * Marks the task as not done.
+     * Marks the task as not isDone.
      */
     public void undoTask() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -38,15 +38,14 @@ public abstract class Task {
      */
     public abstract boolean isOnDate(LocalDate date);
 
-    // returns "done | task description", can be added with task type for subtypes
-
     /**
      * Converts the task to the correct format to save to storage/file.
+     * Format: "isDone | task description", can be added with task type for subtypes.
      *
      * @return task string in correct format.
      */
     public String toSaveFormat() {
-        return (this.done ? 1 : 0) + " | " + this.task;
+        return (this.isDone ? 1 : 0) + " | " + this.task;
     }
 
     public boolean containsDescription(String description) {
@@ -55,7 +54,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        String mark = done ? "X" : " ";
+        String mark = isDone ? "X" : " ";
         return String.format("[%s] %s", mark, this.task);
     }
 
@@ -70,6 +69,6 @@ public abstract class Task {
         }
 
         Task o = (Task) other;
-        return this.done == o.done && this.task.equals(o.task);
+        return this.isDone == o.isDone && this.task.equals(o.task);
     }
 }

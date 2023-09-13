@@ -16,9 +16,9 @@ public class Event extends Task {
     /**
      * Creates an Event object.
      *
-     * @param task Task description.
+     * @param task     Task description.
      * @param fromTime Start time of task.
-     * @param toTime End time of task.
+     * @param toTime   End time of task.
      * @throws DateTimeParseException If any of the time cannot be parsed to LocalDate.
      */
     public Event(String task, String fromTime, String toTime) throws DateTimeParseException {
@@ -35,8 +35,9 @@ public class Event extends Task {
      */
     @Override
     public boolean isOnDate(LocalDate date) {
-        return (date.isAfter(this.fromTime) || date.isEqual(this.fromTime))
-                && (date.isBefore(this.toTime) || date.isEqual(this.toTime));
+        boolean isAfterFromTime = date.isAfter(this.fromTime) || date.isEqual(this.fromTime);
+        boolean isBeforeToTime = date.isBefore(this.toTime) || date.isEqual(this.toTime);
+        return isAfterFromTime && isBeforeToTime;
     }
 
     @Override

@@ -62,7 +62,7 @@ public class Command {
      * @throws DukeException If command is invalid.
      */
     public boolean execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        Task task = null;
+        Task task;
         switch (this.action) {
         case INVALID:
             throw new DukeException("Command given is invalid! You must start with a "
@@ -207,24 +207,24 @@ public class Command {
         }
 
         Command o = (Command) other;
-        boolean result = true;
+        boolean isEqual = true;
         if (this.date1 == null) {
-            result &= (o.date1 == null);
+            isEqual &= (o.date1 == null);
         } else {
-            result &= (this.date1.equals(o.date1));
+            isEqual &= (this.date1.equals(o.date1));
         }
         if (this.date2 == null) {
-            result &= (o.date2 == null);
+            isEqual &= (o.date2 == null);
         } else {
-            result &= (this.date2.equals(o.date2));
+            isEqual &= (this.date2.equals(o.date2));
         }
         if (this.description == null) {
-            result &= (o.description == null);
+            isEqual &= (o.description == null);
         } else {
-            result &= (this.description.equals(o.description));
+            isEqual &= (this.description.equals(o.description));
         }
-        result &= (this.action == o.action);
+        isEqual &= (this.action == o.action);
 
-        return result;
+        return isEqual;
     }
 }

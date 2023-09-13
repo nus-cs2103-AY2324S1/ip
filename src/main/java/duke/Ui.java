@@ -31,7 +31,7 @@ public class Ui {
      * @param msg The message to display.
      */
     public void display(String msg) {
-        this.response += this.response = msg + "\n";
+        this.response += msg + "\n";
     }
 
     /**
@@ -39,8 +39,8 @@ public class Ui {
      * Clears out the existing response once this method is called.
      */
     public String respond() {
-        String res = this.response;
+        String response = this.response;
         this.response = "";
-        return res;
+        return response;
     }
 }
