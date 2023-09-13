@@ -34,6 +34,7 @@ public class Deadline extends Task {
      * @return The deadline of this task as seconds since Unix epoch (1970-01-01 00:00:00 UTC).
      */
     public long getDeadline() {
+        assert this.deadline != null;
         return this.deadline;
     }
 

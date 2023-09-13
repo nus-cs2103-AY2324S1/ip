@@ -1,6 +1,7 @@
 package todoify.taskmanager.task;
 
 import java.lang.reflect.Field;
+import java.util.Objects;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -38,7 +39,7 @@ public abstract class Task {
      * @param title The title for the task.
      */
     public Task(String title) {
-        this.title = title;
+        this.title = Objects.requireNonNull(title);
     }
 
     /**
@@ -47,6 +48,7 @@ public abstract class Task {
      * @return The title of the task as a string.
      */
     public String getTitle() {
+        assert this.title != null;
         return this.title;
     }
 
