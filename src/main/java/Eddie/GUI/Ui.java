@@ -1,5 +1,7 @@
 package Eddie.GUI;
 
+import Eddie.Tasks.Task;
+
 /**
  * Class which handles the user interface.
  */
@@ -61,6 +63,11 @@ public class Ui {
      */
     public static String clear(){
         return "List Cleared!";
+    }
+
+    public static String tag(Task t, String tag) {
+        return "The following task has been tagged: \n"
+                + t.toString();
     }
 
     public static String mark(int s) {

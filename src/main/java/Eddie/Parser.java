@@ -77,7 +77,7 @@ public class Parser {
                     return AddCommand.execute(taskToAdd);
                 case "event":
                     restOfString = sc.nextLine();
-                    if (restOfString.length() == 0) {
+                    if (restOfString.length() == 0) { 
                         throw new EmptyDescriptionException();
                     }
 
@@ -103,6 +103,12 @@ public class Parser {
                 case "find":
                     restOfString = sc.next();
                     return FindCommand.execute(restOfString);
+                case "tag":
+                    taskNum = sc.nextInt();
+                    task = TaskList.get(taskNum - 1);
+                    String tag = sc.next();
+
+                    return TagCommand.execute(task, tag);
                 default:
                     throw new NoSuchCommandException();
             }
