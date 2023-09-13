@@ -109,7 +109,7 @@ public class Parser {
     }
 
     /**
-     * Checks if the input is a "unmark" command.
+     * Checks if the input is an "unmark" command.
      *
      * @param input The user input.
      * @return True if the input is a "mark" command, false otherwise.
@@ -175,6 +175,8 @@ public class Parser {
      */
     public static String parseCommand(String input, TaskList tasks, Ui ui) throws DukeException {
 
+        assert ui != null;
+      
         if (isListCommand(input)) {
             return showTaskList(tasks, ui);
         } else if (isFindCommand(input)) {
@@ -211,8 +213,11 @@ public class Parser {
         String taskDescription = parts[2].trim();
         String start = parts[3].trim();
         String end = parts[4].trim();
-        Task task;
 
+        assert taskStatus.equals("0") || taskStatus.equals("1");
+
+        Task task;
+      
         switch (taskType) {
         case "T":
             task = new ToDo(taskDescription);
@@ -241,6 +246,9 @@ public class Parser {
      * @throws DukeException If there is an error in parsing the input or creating the task.
      */
     public static Task parseStringToTask(String input) throws DukeException {
+
+        assert input != null;
+
         String[] parts = input.split("/");
         String taskDetails = parts[0].trim();
         TaskType taskType = determineTaskType(taskDetails);

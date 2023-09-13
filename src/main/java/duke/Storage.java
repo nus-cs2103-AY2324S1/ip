@@ -19,6 +19,7 @@ public class Storage {
      * @param fileName The name of the data file.
      */
     public Storage(String fileName) {
+        assert fileName != null : "File name cannot be null";
         createFile(fileName);
         this.dataPath = Path.of(".", "data", fileName);
     }
@@ -56,9 +57,8 @@ public class Storage {
             List<String> fileLines = Files.readAllLines(dataPath);
             for (String line : fileLines) {
                 Task task = Parser.convertToTask(line);
-                if (task != null) {
-                    tasks.add(task);
-                }
+                assert task != null;
+                tasks.add(task);
             }
         } catch (IOException | DukeException e) {
             throw new DukeException(e.getMessage());
@@ -78,7 +78,6 @@ public class Storage {
             }
 
             List<String> lines = new ArrayList<>();
-
             for (Task task : updatedTasks.tasks) {
                 lines.add(task.taskToFileString());
             }

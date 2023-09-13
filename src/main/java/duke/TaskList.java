@@ -44,6 +44,7 @@ public class TaskList {
      * @return A confirmation message for removing the task.
      */
     public String removeTask(int index, Ui ui) {
+        assert index < tasks.size();
         Task removedTask = tasks.get(index);
         tasks.remove(index);
         return ui.showDeletedTask(removedTask, tasks.size());
@@ -57,6 +58,7 @@ public class TaskList {
      * @return A confirmation message for marking the task as done.
      */
     public String markTask(int index, Ui ui) {
+        assert index < tasks.size();
         Task markedTask = tasks.get(index);
         markedTask.markAsDone();
         return ui.showDone(markedTask);
@@ -70,6 +72,7 @@ public class TaskList {
      * @return A confirmation message for marking the task as not done.
      */
     public String unmarkTask(int index, Ui ui) {
+        assert index < tasks.size();
         Task unmarkedTask = tasks.get(index);
         unmarkedTask.markAsUndone();
         return ui.showUndone(unmarkedTask);

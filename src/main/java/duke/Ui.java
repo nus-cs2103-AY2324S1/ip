@@ -100,6 +100,7 @@ public class Ui {
             for (int i = 0; i < matchingTasks.size(); i++) {
                 stringBuilder.append(i + 1).append(". ").append(matchingTasks.get(i)).append("\n");
             }
+
             return stringBuilder.toString();
         }
     }

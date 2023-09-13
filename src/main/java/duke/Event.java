@@ -23,9 +23,15 @@ public class Event extends Task {
     public Event(String description, String start, String end) throws DukeException {
         super(description, TaskType.EVENT);
 
+        assert description != null : "The description of an event cannot be empty!";
+        assert start != null : "Start time cannot be empty!";
+        assert end != null : "End time cannot be empty!";
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.start = LocalDateTime.parse(start, formatter);
         this.end = LocalDateTime.parse(end, formatter);
+
+        assert this.start.isBefore(this.end);
 
         if (description.trim().isEmpty()) {
             throw new DukeException("The description of an event cannot be empty.");
