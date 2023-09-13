@@ -19,9 +19,9 @@ public class Parser {
         if (command.equals("list")) {
             return new ListCommand();
         } else if (command.startsWith("mark")) {
-            return new MarkCommand(parseUserMarkCommand(command));
+            return new MarkCommand(parseUserIndex(command));
         } else if (command.startsWith("unmark")) {
-            return new UnmarkCommand(parseUserUnmarkCommand(command));
+            return new UnmarkCommand(parseUserIndex(command));
         } else if (command.startsWith("todo")) {
             return new AddCommand(parseUserTodo(command));
         } else if (command.startsWith("deadline")) {
@@ -29,7 +29,7 @@ public class Parser {
         } else if (command.startsWith("event")) {
             return new AddCommand(parseUserEvent(command));
         } else if (command.startsWith("delete")) {
-            return new DeleteCommand(parseUserDelete(command));
+            return new DeleteCommand(parseUserIndex(command));
         } else if (command.equals("bye")) {
             return new ExitCommand();
         } else if (command.startsWith("find")) {
@@ -38,16 +38,9 @@ public class Parser {
         return new InvalidCommand();
     }
 
-    private static int parseUserMarkCommand(String command) {
+    private static int parseUserIndex(String command) {
         int index = command.length() - 1;
-        char c = command.charAt(index);
-        return c - 48 - 1;
-    }
-
-    private static int parseUserUnmarkCommand(String command) {
-        int index = command.length() - 1;
-        char c = command.charAt(index);
-        return c - 48 - 1;
+        return command.charAt(index) - 48 - 1;
     }
 
     private static Todo parseUserTodo(String command) {
@@ -59,8 +52,8 @@ public class Parser {
             System.out.println(e.getMessage());
         }
         Todo instance;
-        String desc = command.substring(5);
-        instance = new Todo(desc);
+        String description = command.substring(5);
+        instance = new Todo(description);
         return instance;
     }
 
@@ -73,21 +66,15 @@ public class Parser {
     }
 
     private static Event parseUserEvent(String command) {
-        int index1 = command.indexOf(47);
-        String description = command.substring(6, index1);
-        String duration = command.substring(index1 + 6);
-        int index2 = duration.indexOf(47);
-        String from = duration.substring(0, index2 - 1);
-        String to = duration.substring(index2 + 4);
-        LocalDate d1 = LocalDate.parse(from);
-        LocalDate d2 = LocalDate.parse(to);
-        return new Event(description, d1, d2);
-    }
-
-    private static int parseUserDelete(String command) {
-        int index = command.length() - 1;
-        char c = command.charAt(index);
-        return c - 48 - 1;
+        int endOfDescription = command.indexOf(47);
+        String description = command.substring(6, endOfDescription);
+        String duration = command.substring(endOfDescription + 6);
+        int startOfEndTime = duration.indexOf(47);
+        String from = duration.substring(0, startOfEndTime - 1);
+        String to = duration.substring(startOfEndTime + 4);
+        LocalDate startDate = LocalDate.parse(from);
+        LocalDate endDate = LocalDate.parse(to);
+        return new Event(description, startDate, endDate);
     }
 
     public static Todo parseFileTodo(String command) {
@@ -107,13 +94,13 @@ public class Parser {
 
     public static Deadline parseFileDeadline(String command) {
         String description = command.substring(3);
-        int endDesc = description.indexOf("(by: ");
-        String name = description.substring(4, endDesc);
+        int endDescription = description.indexOf("(by: ");
+        String name = description.substring(4, endDescription);
         int length = description.length();
-        String time = description.substring(endDesc + 5, length - 1);
+        String time = description.substring(endDescription + 5, length - 1);
         assert time.equals("") : "time should not be empty";
-        LocalDate d1 = LocalDate.parse(time);
-        Deadline task = new Deadline(name, d1);
+        LocalDate date = LocalDate.parse(time);
+        Deadline task = new Deadline(name, date);
         if (description.startsWith("[X]")) {
             task.setStatus(true);
             assert task.getStatusIcon().equals("X") : "task should be marked";
@@ -126,16 +113,16 @@ public class Parser {
 
     public static Event parseFileEvent(String command) {
         String description = command.substring(3);
-        int endDesc = description.indexOf("(from: ");
-        String name = description.substring(4, endDesc);
+        int endDescription = description.indexOf("(from: ");
+        String name = description.substring(4, endDescription);
         int endFrom = description.indexOf("to: ");
-        String from = description.substring(endDesc + 7, endFrom - 1);
+        String from = description.substring(endDescription + 7, endFrom - 1);
         assert from.equals("") : "from value should not be empty";
         String to = description.substring(endFrom + 4, description.length() - 1);
         assert to.equals("") : "to value should not be empty";
-        LocalDate d1 = LocalDate.parse(from);
-        LocalDate d2 = LocalDate.parse(to);
-        Event task = new Event(name, d1, d2);
+        LocalDate startDate = LocalDate.parse(from);
+        LocalDate endDate = LocalDate.parse(to);
+        Event task = new Event(name, startDate, endDate);
         if (description.startsWith("[X]")) {
             task.setStatus(true);
             assert task.getStatusIcon().equals("X") : "task should be marked";
