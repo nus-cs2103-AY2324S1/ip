@@ -1,16 +1,18 @@
 package catbot;
 
+import java.util.function.Consumer;
+
 import catbot.internal.CommandPattern;
 import catbot.internal.CommandPatternGenerator;
 import catbot.internal.NamedParameterMap;
-
-import java.util.function.Consumer;
 
 /**
  * Class containing {@link CommandPattern CommandPatterns} and {@link CommandPatternGenerator CommandPatternGenerators}
  * used by the CatBot Assistant.
  */
 public abstract class CatBotCommandPatterns {
+
+    //region Fields
 
     /**
      * A consumer that throws an error when called.
@@ -23,6 +25,10 @@ public abstract class CatBotCommandPatterns {
             assert false; //SHOULD NOT BE CALLED
         }
     };
+    private static final IntegerPatternGenerator integerPatternGenerator = new IntegerPatternGenerator();
+    private static final SlashArgumentPatternGenerator slashPatternGenerator = new SlashArgumentPatternGenerator();
+
+    //endregion
 
     //region Integer Pattern
 
@@ -33,7 +39,6 @@ public abstract class CatBotCommandPatterns {
     public static CommandPatternGenerator<Integer> getIntegerPatternGenerator() {
         return integerPatternGenerator;
     }
-    private static final IntegerPatternGenerator integerPatternGenerator = new IntegerPatternGenerator();
     private static class IntegerPatternGenerator implements CommandPatternGenerator<Integer> {
 
         @Override
@@ -53,7 +58,6 @@ public abstract class CatBotCommandPatterns {
     //endregion
 
     //region Slash Arguments Pattern
-    private static final SlashArgumentPatternGenerator slashPatternGenerator = new SlashArgumentPatternGenerator();
 
     /**
      * Gets a singleton instance of {@link SlashArgumentPatternGenerator}.
@@ -78,6 +82,7 @@ public abstract class CatBotCommandPatterns {
             };
         }
     }
+
     //endregion
 
     //region String Pattern
@@ -99,5 +104,6 @@ public abstract class CatBotCommandPatterns {
             };
         }
     }
+
     //endregion
 }

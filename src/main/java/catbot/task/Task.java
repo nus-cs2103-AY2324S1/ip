@@ -1,8 +1,5 @@
 package catbot.task;
 
-import catbot.internal.NamedParameterMap;
-import catbot.io.ErrorIndicatorIo;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Year;
@@ -10,6 +7,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+
+import catbot.internal.NamedParameterMap;
+import catbot.io.ErrorIndicatorIo;
 
 public abstract class Task implements Serializable {
 
@@ -47,7 +47,7 @@ public abstract class Task implements Serializable {
 
     @Override
     public String toString() {
-        return "[" + (isDone()? "X":" ") + "] " + getDescription();
+        return "[" + (isDone() ? "X" : " ") + "] " + getDescription();
     }
 
     //endregion
@@ -93,26 +93,36 @@ public abstract class Task implements Serializable {
         }
     }
 
-    private static Optional<InvalidArgumentStruct> invalidStateIfTaskParametersMissingOrBlank(NamedParameterMap namedParameterMap, String... arguments) {
-
+    private static Optional<InvalidArgumentStruct> invalidStateIfTaskParametersMissingOrBlank(
+            NamedParameterMap namedParameterMap, String... arguments
+    ) {
         // parameters cannot be missing
-        Optional<NamedParameterMap> optionalNamedParameterMap = Task.mapIfArgumentsMissing(namedParameterMap, arguments);
+        Optional<NamedParameterMap> optionalNamedParameterMap =
+                Task.mapIfArgumentsMissing(namedParameterMap, arguments);
         if (optionalNamedParameterMap.isPresent()) {
-            return Optional.of(new InvalidArgumentStruct(ErrorIndicatorIo.InvalidArgumentState.PARAMETER_MISSING, optionalNamedParameterMap.get()));
+            return Optional.of(new InvalidArgumentStruct(
+                    ErrorIndicatorIo.InvalidArgumentState.PARAMETER_MISSING,
+                    optionalNamedParameterMap.get())
+            );
         }
 
         // description cannot be empty
         optionalNamedParameterMap = Task.mapIfDescriptionEmpty(namedParameterMap);
         //noinspection OptionalIsPresent for readability, to distinguish default return value
         if (optionalNamedParameterMap.isPresent()) {
-            return Optional.of(new InvalidArgumentStruct(ErrorIndicatorIo.InvalidArgumentState.PARAMETER_EMPTY, optionalNamedParameterMap.get()));
+            return Optional.of(new InvalidArgumentStruct(
+                    ErrorIndicatorIo.InvalidArgumentState.PARAMETER_EMPTY,
+                    optionalNamedParameterMap.get())
+            );
         }
 
         // if all ok
         return Optional.empty();
     }
 
-    private static Optional<LocalDate> parseOptionalDateElseMap(NamedParameterMap map, NamedParameterMap elseMap, String arg) {
+    private static Optional<LocalDate> parseOptionalDateElseMap(
+            NamedParameterMap map, NamedParameterMap elseMap, String arg
+    ) {
         String val = map.get(arg);
         try {
             return Optional.of(LocalDate.parse(val));
@@ -128,7 +138,7 @@ public abstract class Task implements Serializable {
 
     public static class Todo extends Task {
         private Todo(String desc) {
-             setDescription(desc);
+            setDescription(desc);
         }
 
         public static Optional<Task> createIfValidElse(
@@ -258,8 +268,8 @@ public abstract class Task implements Serializable {
 
         @Override
         public String toString() {
-            return super.toString() + " [from: " + Task.formatDate(this.eventStart) + " | to: " +
-                    Task.formatDate(this.eventEnd) + "]";
+            return super.toString() + " [from: " + Task.formatDate(this.eventStart) + " | to: "
+                    + Task.formatDate(this.eventEnd) + "]";
         }
     }
 
@@ -267,8 +277,10 @@ public abstract class Task implements Serializable {
 
     public static String formatDate(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern(
-                date.getYear() == Year.now().getValue()?
-                "MMM d": "MMM d yyyy")
+                date.getYear() == Year.now().getValue()
+                        ? "MMM d"
+                        : "MMM d yyyy"
+                )
         );
     }
 

@@ -1,5 +1,11 @@
 package catbot;
 
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+
 import catbot.internal.CommandMap;
 import catbot.internal.CommandPattern;
 import catbot.internal.NamedParameterMap;
@@ -9,16 +15,13 @@ import catbot.io.UserIo;
 import catbot.task.Task;
 import catbot.task.TaskList;
 
-import java.util.Objects;
-import java.util.Optional;
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
-import java.util.function.Consumer;
-
+/**
+ * Main runnable class for the CatBot assistant.
+ */
 public class CatBot {
 
+    private static final UserIo io = new CatbotConsoleIO();
     private static final CommandMap commands = new CommandMap();
-    static final UserIo io = new CatbotConsoleIO();
     private static final TaskList taskList = new TaskList("Tasks.txt");
     static {
         addSupportedCommandsToCommandMap();
@@ -37,18 +40,18 @@ public class CatBot {
                 .addCommand("list", args -> io.displayTaskList(taskList));
 
         // User modifying existing tasks (through IntegerPattern, and Index)
-        BiConsumer<String, Consumer<Integer>> runIfValidIndexElseIndicateError =
-                (args, lambda) -> integerPattern.ifParsableElseDefault(args,
+        BiConsumer<String, Consumer<Integer>> runIfValidIndexElseIndicateError = (args, lambda) ->
+                integerPattern.ifParsableElseDefault(args,
                         integer -> taskList.ifValidIndexElse(integer,
                                 lambda,
                                 invalidIndex -> io.indicateInvalidIndex(invalidIndex, taskList.getIndexBounds())
                         ));
 
-                //noinspection SpellCheckingInspection
+        //noinspection SpellCheckingInspection
         commands.addCommand("mark",
                         string -> runIfValidIndexElseIndicateError.accept(string,
                                 validIndex -> {
-                                    taskList.markTask(validIndex-1);
+                                    taskList.markTask(validIndex - 1);
                                     io.displayTaskModified(taskList, validIndex);
                                 }
                         )
@@ -56,16 +59,16 @@ public class CatBot {
                 .addCommand("unmark",
                         string -> runIfValidIndexElseIndicateError.accept(string,
                                 validIndex -> {
-                                    taskList.unmarkTask(validIndex-1);
+                                    taskList.unmarkTask(validIndex - 1);
                                     io.displayTaskModified(taskList, validIndex);
                                 }
                         )
                 )
                 .addCommand("delete",
                         string -> runIfValidIndexElseIndicateError.accept(string,
-                                validIndex -> io.displayTaskDeleted(taskList.removeTask(validIndex-1))
+                                validIndex -> io.displayTaskDeleted(taskList.removeTask(validIndex - 1))
                         )
-                );
+            );
 
         // User creating new tasks (with SlashPattern)
 
@@ -90,8 +93,7 @@ public class CatBot {
                 )
                 .addCommand("deadline",
                         args -> createTaskIfValidElseWarn.accept(args, Task.Deadline::createIfValidElse)
-                )
-        ;
+            );
 
         // User filtering for tasks
 

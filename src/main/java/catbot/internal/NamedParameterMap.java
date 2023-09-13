@@ -44,8 +44,12 @@ public class NamedParameterMap {
     @Override
     public boolean equals(Object o) {
         // full credit to IntelliJ, which is smarter than I am
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         NamedParameterMap that = (NamedParameterMap) o;
         return Objects.equals(parameters, that.parameters);
     }
