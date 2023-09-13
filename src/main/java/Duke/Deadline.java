@@ -17,6 +17,8 @@ public class Deadline extends Task{
      */
     public Deadline (String val, String by){
         super(val);
+        assert !val.isEmpty() && !by.isEmpty();
+        assert by.matches("\\w{3} \\d{2} \\d{4}");
         this.by=LocalDate.parse(by,DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
     public String toString(){

@@ -33,6 +33,7 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
+        assert !input.isEmpty();
         parser.parse(input, tasks, storage, ui);
         if (parser.isExit()) {
             ui.showExit();
@@ -41,7 +42,6 @@ public class Duke {
     }
 
     public boolean hasEnded() {
-
         return parser.isExit();
     }
 
