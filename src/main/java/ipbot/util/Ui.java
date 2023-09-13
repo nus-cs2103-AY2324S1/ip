@@ -66,53 +66,53 @@ public class Ui {
     }
 
     /**
-     * Prints a task in list format.
+     * Returns a task as a String in list format.
      *
      * @param task The task to be printed.
      * @param number The number to be given to the task in the list.
      */
-    public void printTaskListFormat(Task task, int number) {
-        System.out.printf("%d. %s\n", number, task.toString());
+    public static String taskListFormatString(Task task, int number) {
+        return String.format("%d. %s\n", number, task.toString());
     }
 
     /**
-     * Prints a notification that a task has been added.
+     * Returns a notification that a task has been added.
      *
      * @param task The task that was added.
      * @param taskTypeStr The type of task that was added.
      */
-    public void printAddedItem(Task task, String taskTypeStr) {
-        System.out.println("Added " + taskTypeStr + " item: " + task.toString());
+    public static String addedItemString(Task task, String taskTypeStr) {
+        return "Added " + taskTypeStr + " item: " + task.toString();
     }
 
     /**
-     * Prints a notification that a task has been deleted.
+     * Returns a notification that a task has been deleted.
      *
      * @param task The task that was deleted.
      */
-    public void printDeletedItem(Task task) {
-        System.out.println("Deleted item: " + task.toString());
+    public static String deletedItemString(Task task) {
+        return "Deleted item: " + task.toString();
     }
 
     /**
-     * Prints a notification that a task has been marked or unmarked.
+     * Returns a notification that a task has been marked or unmarked.
      *
      * @param task The task that was marked or unmarked.
      * @param markAsDone Whether we are marking or unmarking the task.
      */
-    public void printMarkTask(Task task, boolean markAsDone) {
+    public static String markTaskString(Task task, boolean markAsDone) {
         String done = markAsDone ? "done" : "undone";
-        System.out.println("Marking task as " + done + ": " + task.toString());
+        return "Marking task as " + done + ": " + task.toString();
     }
 
     /**
-     * Prints a notification that we are marking or unmarking a task that has already been marked or unmarked.
+     * Returns a notification that we are marking or unmarking a task that has already been marked or unmarked.
      *
      * @param task The task that was marked or unmarked.
      * @param markAsDone Whether we are marking or unmarking the task.
      */
-    public void printAlreadyMarkedTask(Task task, boolean markAsDone) {
+    public static String alreadyMarkedTaskString(Task task, boolean markAsDone) {
         String done = markAsDone ? "done" : "undone";
-        System.out.println("Task was already marked as " + done + ": " + task.toString());
+        return "Task was already marked as " + done + ": " + task.toString();
     }
 }
